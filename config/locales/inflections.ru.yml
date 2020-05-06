@@ -109,12 +109,12 @@ ru:
           few: аниме
           many: аниме
           other: аниме
-        dative:
+        genitive:
           one: аниме
           few: аниме
           many: аниме
           other: аниме
-        genitive:
+        dative:
           one: аниме
           few: аниме
           many: аниме
@@ -130,15 +130,15 @@ ru:
           few: манги
           many: манг
           other: манга
+        genitive:
+          one: мангу
+          few: манги
+          many: манги
+          other: манги
         dative:
           one: манге
           few: мангам
           many: мангам
-          other: манги
-        genitive:
-          one: манги
-          few: манги
-          many: манги
           other: манги
         accusative:
           one: мангу
