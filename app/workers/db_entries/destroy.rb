@@ -12,11 +12,13 @@ class DbEntries::Destroy
   )
 
   def perform type, id, user_id
-    NamedLogger.destroy.info "#{type}##{id} User##{user_id}"
+    RedisMutex.with_lock("DbEntries::Destroy-#{type}-#{id}", block: 0) do
+      NamedLogger.destroy.info "#{type}##{id} User##{user_id}"
 
-    klass = Type[type].constantize
+      klass = Type[type].constantize
 
-    klass.find(id).destroy!
+      klass.find(id).destroy!
+    end
   rescue ActiveRecord::RecordNotFound
   end
 end
