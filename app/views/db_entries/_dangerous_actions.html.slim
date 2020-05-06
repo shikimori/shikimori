@@ -6,7 +6,15 @@
           .fc-2
             - if can?(:merge, resource)
               .f-column
-                | merge
+                .subheadline.red = t '.merge_into_other'
             - if can?(:destroy, resource)
               .f-column
-                | destroy
+                .subheadline.red = t '.deletion'
+                .b-warning
+                  p.warning Это действие необратимо! Нажимать только один раз!
+                  p.warning После нажатия кнопки в очередь задач сайта будет добавлена задача,
+                    удаляющая #{i18n_i resource.object.class.name.downcase, 1, :genitive}.
+                  p.warning Удаление может занять от 2 до 30 минут в зависимости
+                    от популярности на сайте #{resource.object.class == Manga ? 'этой' : 'этого'}
+                    #{i18n_i resource.object.class.name.downcase, 1, :accusative}.
+                .b-button = t '.send_for_removal'
