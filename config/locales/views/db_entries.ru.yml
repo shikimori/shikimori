@@ -46,3 +46,6 @@ ru:
       syncing: Запущена синхронизация
     dangerous_actions:
       dangerous_actions: Опасные действия
+      merge_into_other: Слить с другим
+      deletion: Удалить
+      send_for_removal: Отправить на удаление

@@ -46,3 +46,6 @@ en:
       syncing: Syncing
     dangerous_actions:
       dangerous_actions: Dangerous actions
+      merge_into_other: Merge into other
+      deletion: Deletion
+      send_for_removal: Send for removal
