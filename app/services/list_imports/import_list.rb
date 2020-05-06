@@ -14,7 +14,7 @@ class ListImports::ImportList
   }
 
   method_object :list_import, :list
-  instance_cache :mismatched_list_entries, :matched_list_entries, :user_rates
+  instance_cache :mismatched_list_entries, :matched_list_entries, :current_user_rates
 
   def call
     @list_import.output = DEFAULT_OUTPUT
@@ -63,7 +63,7 @@ private
   end
 
   def replace_duplicate list_entry
-    user_rate = user_rates.find { |v| v.target_id == list_entry.target_id }
+    user_rate = current_user_rates.find { |v| v.target_id == list_entry.target_id }
     old_list_entry = ListImports::ListEntry.build user_rate
 
     list_entry.export(user_rate)
@@ -88,7 +88,7 @@ private
 
   def mismatched_list_entries
     @list.select do |list_entry|
-      user_rates.none? do |user_rate|
+      current_user_rates.none? do |user_rate|
         user_rate.target_id == list_entry.target_id
       end
     end
@@ -98,7 +98,7 @@ private
     @list - mismatched_list_entries
   end
 
-  def user_rates
+  def current_user_rates
     if @list_import.anime?
       @list_import.user.anime_rates.includes(:anime).to_a
     else
