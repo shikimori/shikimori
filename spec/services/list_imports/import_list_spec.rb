@@ -49,6 +49,24 @@ describe ListImports::ImportList do
       )
       expect(list_import).to_not be_changed
     end
+
+    context 'two repeated target_id entries' do
+      let(:list) { [list_entry, list_entry_2] }
+      let(:list_entry_2) { ListImports::ListEntry.new list_entry.attributes }
+
+      it 'ignores duplicates' do
+        expect(user.anime_rates).to have(1).item
+        expect(user.manga_rates).to be_empty
+
+        expect(list_import.output).to eq(
+          ListImports::ImportList::ADDED => JSON.parse([list[0]].to_json),
+          ListImports::ImportList::UPDATED => [],
+          ListImports::ImportList::NOT_IMPORTED => [],
+          ListImports::ImportList::NOT_CHANGED => []
+        )
+        expect(list_import).to_not be_changed
+      end
+    end
   end
 
   context 'existing entry' do

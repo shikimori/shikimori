@@ -40,6 +40,7 @@ private
 
     mismatched_list_entries.each do |list_entry|
       user_rate = build_user_rate(list_entry)
+      next if user_rates.any? { |v| v.target_id == list_entry.target_id } # filter duplicates
 
       if user_rate&.valid?
         user_rates << user_rate
