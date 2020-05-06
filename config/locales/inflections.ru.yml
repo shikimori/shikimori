@@ -141,7 +141,7 @@ ru:
           many: мангам
           other: манги
         accusative:
-          one: мангу
+          one: манги
           few: манги
           many: манги
           other: манги
@@ -176,12 +176,20 @@ ru:
           one: персонажа
           few: персонажей
           many: персонажей
+        accusative:
+          one: персонажа
+          few: персонажей
+          many: персонажей
       person:
         subjective:
           one: человек
           few: человека
           many: людей
           other: люди
+        genitive:
+          one: человека
+          few: человек
+          many: человек
         genitive:
           one: человека
           few: человек
