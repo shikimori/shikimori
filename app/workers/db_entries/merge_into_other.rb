@@ -15,5 +15,6 @@ class DbEntries::MergeIntoOther
     klass = Type[type].constantize
 
     DbEntry::MergeIntoOther.call(entry: klass.find(from_id), other: klass.find(to_id))
+  rescue ActiveRecord::RecordNotFound
   end
 end

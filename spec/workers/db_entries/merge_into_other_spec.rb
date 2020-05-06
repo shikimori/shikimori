@@ -13,11 +13,18 @@ describe DbEntries::MergeIntoOther do
   let(:user_id) { user.id }
 
   it do
+    is_expected.to_not be_nil
+
     expect(DbEntry::MergeIntoOther)
       .to have_received(:call)
       .with(entry: anime_1, other: anime_2)
 
     expect { anime_1.reload }.to raise_error ActiveRecord::RecordNotFound
     expect(anime_2.reload).to be_persisted
+  end
+
+  context 'non existing id' do
+    let(:from_id) { 987654321 }
+    it { is_expected.to be_nil }
   end
 end

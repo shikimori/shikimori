@@ -15,5 +15,6 @@ class DbEntries::Destroy
     klass = Type[type].constantize
 
     klass.find(id).destroy!
+  rescue ActiveRecord::RecordNotFound
   end
 end
