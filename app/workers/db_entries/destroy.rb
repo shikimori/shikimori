@@ -5,6 +5,8 @@ class DbEntries::Destroy
     .enum(Anime.name, Manga.name, Character.name, Person.name)
 
   sidekiq_options(
+    unique: :until_executed,
+    unique_args: ->(args) { args[0..2].join('-') },
     queue: :high_priority,
     retry: false
   )
