@@ -166,6 +166,26 @@ ru:
           few: ранобэ
           many: ранобэ
           other: ранобэ
+      character:
+        subjective:
+          one: персонаж
+          few: персонажа
+          many: персонажей
+          other: персонажи
+        genitive:
+          one: персонажа
+          few: персонажей
+          many: персонажей
+      person:
+        subjective:
+          one: человек
+          few: человека
+          many: людей
+          other: люди
+        genitive:
+          one: человека
+          few: человек
+          many: человек
       screenshot:
         subjective:
           one: кадр
@@ -273,12 +293,6 @@ ru:
           few: логотипа
           many: логотипов
           other: логотипы
-      character:
-        subjective:
-          one: персонаж
-          few: персонажа
-          many: персонажей
-          other: персонажи
       admin:
         subjective:
           one: админ
@@ -360,16 +374,6 @@ ru:
           one: голос
           few: голоса
           many: голосов
-      person:
-        subjective:
-          one: человек
-          few: человека
-          many: людей
-          other: люди
-        genitive:
-          one: человека
-          few: человек
-          many: человек
       forum:
         subjective:
           one: форум
