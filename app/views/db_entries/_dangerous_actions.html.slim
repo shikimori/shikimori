@@ -7,11 +7,25 @@
             - if can?(:merge, resource)
               .f-column
                 .subheadline.red = t '.merge_into_other'
+                .b-warning
+                  p.warning
+                    b
+                      ' Это действие необратимо!
+                    | Нажимать только один раз!
+                  p.warning После нажатия кнопки в очередь задач сайта будет добавлена задача,
+                    сливающая #{i18n_i resource.object.class.name.downcase, 1, :genitive}.
+                  p.warning Слияние может занять от 2 до 30 минут в зависимости
+                    от популярности на сайте #{resource.object.class == Manga ? 'этой' : 'этого'}
+                    #{i18n_i resource.object.class.name.downcase, 1, :accusative}.
+                .b-button = t '.send_for_merging'
             - if can?(:destroy, resource)
               .f-column
                 .subheadline.red = t '.deletion'
                 .b-warning
-                  p.warning Это действие необратимо! Нажимать только один раз!
+                  p.warning
+                    b
+                      ' Это действие необратимо!
+                    | Нажимать только один раз!
                   p.warning После нажатия кнопки в очередь задач сайта будет добавлена задача,
                     удаляющая #{i18n_i resource.object.class.name.downcase, 1, :genitive}.
                   p.warning Удаление может занять от 2 до 30 минут в зависимости

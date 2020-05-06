@@ -48,4 +48,5 @@ ru:
       dangerous_actions: Опасные действия
       merge_into_other: Слить с другим
       deletion: Удалить
+      send_for_merging: Отправить на слияние
       send_for_removal: Отправить на удаление

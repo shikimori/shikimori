@@ -48,4 +48,5 @@ en:
       dangerous_actions: Dangerous actions
       merge_into_other: Merge into other
       deletion: Deletion
+      send_for_merging: Send for merging
       send_for_removal: Send for removal
