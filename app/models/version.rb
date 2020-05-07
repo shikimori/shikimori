@@ -3,12 +3,7 @@ class Version < ApplicationRecord
 
   antispam(
     per_day: 35,
-    disable_if: -> {
-      user.version_texts_moderator? ||
-        user.version_moderator? ||
-        user.version_fansub_moderator? ||
-        user.trusted_version_changer?
-    },
+    disable_if: -> { user.staff? },
     user_id_key: :user_id
   )
 
