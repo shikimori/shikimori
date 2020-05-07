@@ -100,7 +100,8 @@ class DbEntriesController < ShikimoriController
   def merge
     authorize! :merge, resource_klass
 
-    DbEntries::MergeIntoOther.perform_async(
+    DbEntries::MergeIntoOther.perform_in(
+      3.hours,
       @resource.object.class.name,
       @resource.id,
       params[:target_id].to_i,
@@ -116,7 +117,8 @@ class DbEntriesController < ShikimoriController
   def destroy
     authorize! :destroy, resource_klass
 
-    DbEntries::Destroy.perform_async(
+    DbEntries::Destroy.perform_in(
+      3.hours,
       @resource.object.class.name,
       @resource.id,
       current_user.id
