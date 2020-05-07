@@ -21502,7 +21502,6 @@
         franchise: selector_spread_wixoss
         not_anime_ids:
         - 27613
-        - 31280
         - 36083
       :threshold: 100%
       :generator:
@@ -21538,9 +21537,11 @@
         franchise: selector_spread_wixoss
         not_anime_ids:
         - 27613
-        - 31280
         - 36083
       :threshold: 0.01
+      :generator:
+        not_ignored_ids:
+        - 31280
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :selector_spread_wixoss
@@ -28156,7 +28157,7 @@
   attributes:
     :neko_id: :jigoku_sensei_nube
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/28551/1036129.jpg
+    :image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
     :border_color: 
     :title_ru: Адский учитель Нубэ
     :text_ru: 
@@ -28172,7 +28173,7 @@
   default_values: *2
   neko_id: :jigoku_sensei_nube
   level: 1
-  image: https://dere.shikimori.org/system/user_images/original/28551/1036129.jpg
+  image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
   border_color: 
   title_ru: Адский учитель Нубэ
   text_ru: 
@@ -28180,6 +28181,35 @@
   text_en: 
   topic_id: 247360
   rule: *550
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :jigoku_sensei_nube
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+    :border_color: 
+    :title_ru: Адский учитель Нубэ
+    :text_ru: 
+    :title_en: Jigoku Sensei Nube
+    :text_en: 
+    :topic_id: 247360
+    :rule: &551
+      :algo: duration
+      :filters:
+        franchise: jigoku_sensei_nube
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :jigoku_sensei_nube
+  level: 0
+  image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+  border_color: 
+  title_ru: Адский учитель Нубэ
+  text_ru: 
+  title_en: Jigoku Sensei Nube
+  text_en: 
+  topic_id: 247360
+  rule: *551
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28192,7 +28222,7 @@
     :title_en: Female friendship
     :text_en: Just innocent flirtations, that's all.
     :topic_id: 227432
-    :rule: &551
+    :rule: &552
       :algo: count
       :threshold: 20%
       :filters:
@@ -28222,7 +28252,7 @@
   title_en: Female friendship
   text_en: Just innocent flirtations, that's all.
   topic_id: 227432
-  rule: *551
+  rule: *552
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28235,7 +28265,7 @@
     :title_en: First feelings
     :text_en: Maybe this is wrong. But who cares?
     :topic_id: 0
-    :rule: &552
+    :rule: &553
       :algo: count
       :threshold: 35%
       :filters:
@@ -28265,7 +28295,7 @@
   title_en: First feelings
   text_en: Maybe this is wrong. But who cares?
   topic_id: 0
-  rule: *552
+  rule: *553
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28278,7 +28308,7 @@
     :title_en: I kissed a girl...
     :text_en: "...and I liked it!"
     :topic_id: 0
-    :rule: &553
+    :rule: &554
       :algo: count
       :threshold: 50%
       :filters:
@@ -28308,7 +28338,7 @@
   title_en: I kissed a girl...
   text_en: "...and I liked it!"
   topic_id: 0
-  rule: *553
+  rule: *554
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28321,7 +28351,7 @@
     :title_en: Happy family life
     :text_en: Lilies are blooming in your house.
     :topic_id: 0
-    :rule: &554
+    :rule: &555
       :algo: count
       :threshold: 70%
       :filters:
@@ -28351,7 +28381,7 @@
   title_en: Happy family life
   text_en: Lilies are blooming in your house.
   topic_id: 0
-  rule: *554
+  rule: *555
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28365,7 +28395,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 222047
-    :rule: &555
+    :rule: &556
       :algo: count
       :threshold: 40
       :filters:
@@ -28383,7 +28413,7 @@
   title_en: 
   text_en: 
   topic_id: 222047
-  rule: *555
+  rule: *556
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28396,7 +28426,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &556
+    :rule: &557
       :algo: count
       :threshold: 60
       :filters:
@@ -28413,7 +28443,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *556
+  rule: *557
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28426,7 +28456,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &557
+    :rule: &558
       :algo: count
       :threshold: 90
       :filters:
@@ -28443,7 +28473,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *557
+  rule: *558
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28457,7 +28487,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &558
+    :rule: &559
       :algo: count
       :threshold: 150
       :filters:
@@ -28474,7 +28504,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *558
+  rule: *559
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28488,7 +28518,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 222065
-    :rule: &559
+    :rule: &560
       :algo: count
       :threshold: 25
       :filters:
@@ -28505,7 +28535,7 @@
   title_en: 
   text_en: 
   topic_id: 222065
-  rule: *559
+  rule: *560
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28518,7 +28548,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &560
+    :rule: &561
       :algo: count
       :threshold: 40
       :filters:
@@ -28535,7 +28565,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *560
+  rule: *561
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28548,7 +28578,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &561
+    :rule: &562
       :algo: count
       :threshold: 60
       :filters:
@@ -28565,7 +28595,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *561
+  rule: *562
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28579,7 +28609,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &562
+    :rule: &563
       :algo: count
       :threshold: 100
       :filters:
@@ -28597,7 +28627,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *562
+  rule: *563
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28610,7 +28640,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 245150
-    :rule: &563
+    :rule: &564
       :algo: count
       :threshold: 40
       :filters:
@@ -28630,7 +28660,7 @@
   title_en: 
   text_en: 
   topic_id: 245150
-  rule: *563
+  rule: *564
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28643,7 +28673,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 227417
-    :rule: &564
+    :rule: &565
       :algo: count
       :threshold: 25
       :filters:
@@ -28661,7 +28691,7 @@
   title_en: 
   text_en: 
   topic_id: 227417
-  rule: *564
+  rule: *565
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28675,7 +28705,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &565
+    :rule: &566
       :algo: count
       :threshold: 40
       :filters:
@@ -28694,7 +28724,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *565
+  rule: *566
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28707,7 +28737,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &566
+    :rule: &567
       :algo: count
       :threshold: 60
       :filters:
@@ -28725,7 +28755,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *566
+  rule: *567
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28738,7 +28768,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &567
+    :rule: &568
       :algo: count
       :threshold: 100
       :filters:
@@ -28756,7 +28786,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *567
+  rule: *568
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28769,7 +28799,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 222061
-    :rule: &568
+    :rule: &569
       :algo: count
       :threshold: 20
       :filters:
@@ -28786,7 +28816,7 @@
   title_en: 
   text_en: 
   topic_id: 222061
-  rule: *568
+  rule: *569
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28800,7 +28830,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &569
+    :rule: &570
       :algo: count
       :threshold: 40
       :filters:
@@ -28817,7 +28847,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *569
+  rule: *570
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28831,7 +28861,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &570
+    :rule: &571
       :algo: count
       :threshold: 60
       :filters:
@@ -28849,7 +28879,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *570
+  rule: *571
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28863,7 +28893,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &571
+    :rule: &572
       :algo: count
       :threshold: 100
       :filters:
@@ -28880,7 +28910,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *571
+  rule: *572
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28895,7 +28925,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 248176
-    :rule: &572
+    :rule: &573
       :algo: count
       :threshold: 10
       :filters:
@@ -28939,7 +28969,7 @@
   title_en: 
   text_en: 
   topic_id: 248176
-  rule: *572
+  rule: *573
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28952,7 +28982,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 222035
-    :rule: &573
+    :rule: &574
       :algo: count
       :threshold: 70
       :filters:
@@ -28969,7 +28999,7 @@
   title_en: 
   text_en: 
   topic_id: 222035
-  rule: *573
+  rule: *574
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28982,7 +29012,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &574
+    :rule: &575
       :algo: count
       :threshold: 150
       :filters:
@@ -28999,7 +29029,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *574
+  rule: *575
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29013,7 +29043,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &575
+    :rule: &576
       :algo: count
       :threshold: 250
       :filters:
@@ -29031,7 +29061,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *575
+  rule: *576
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29044,7 +29074,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &576
+    :rule: &577
       :algo: count
       :threshold: 400
       :filters:
@@ -29061,7 +29091,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *576
+  rule: *577
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29075,7 +29105,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 222059
-    :rule: &577
+    :rule: &578
       :algo: count
       :threshold: 40
       :filters:
@@ -29093,7 +29123,7 @@
   title_en: 
   text_en: 
   topic_id: 222059
-  rule: *577
+  rule: *578
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29107,7 +29137,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &578
+    :rule: &579
       :algo: count
       :threshold: 80
       :filters:
@@ -29125,7 +29155,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *578
+  rule: *579
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29139,7 +29169,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &579
+    :rule: &580
       :algo: count
       :threshold: 120
       :filters:
@@ -29157,7 +29187,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *579
+  rule: *580
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29170,7 +29200,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &580
+    :rule: &581
       :algo: count
       :threshold: 220
       :filters:
@@ -29187,7 +29217,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *580
+  rule: *581
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29200,7 +29230,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 227429
-    :rule: &581
+    :rule: &582
       :algo: count
       :threshold: 25
       :filters:
@@ -29217,7 +29247,7 @@
   title_en: 
   text_en: 
   topic_id: 227429
-  rule: *581
+  rule: *582
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29230,7 +29260,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &582
+    :rule: &583
       :algo: count
       :threshold: 40
       :filters:
@@ -29247,7 +29277,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *582
+  rule: *583
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29260,7 +29290,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &583
+    :rule: &584
       :algo: count
       :threshold: 60
       :filters:
@@ -29277,7 +29307,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *583
+  rule: *584
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29290,7 +29320,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &584
+    :rule: &585
       :algo: count
       :threshold: 100
       :filters:
@@ -29307,7 +29337,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *584
+  rule: *585
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29320,7 +29350,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 227421
-    :rule: &585
+    :rule: &586
       :algo: count
       :threshold: 15%
       :filters:
@@ -29700,7 +29730,7 @@
   title_en: 
   text_en: 
   topic_id: 227421
-  rule: *585
+  rule: *586
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29713,7 +29743,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &586
+    :rule: &587
       :algo: count
       :threshold: 20%
       :filters:
@@ -30093,7 +30123,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *586
+  rule: *587
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30108,7 +30138,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &587
+    :rule: &588
       :algo: count
       :threshold: 28%
       :filters:
@@ -30490,7 +30520,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *587
+  rule: *588
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30503,7 +30533,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 227425
-    :rule: &588
+    :rule: &589
       :algo: count
       :threshold: 50
       :filters:
@@ -30622,7 +30652,7 @@
   title_en: 
   text_en: 
   topic_id: 227425
-  rule: *588
+  rule: *589
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30635,7 +30665,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 222041
-    :rule: &589
+    :rule: &590
       :algo: count
       :threshold: 50
       :filters:
@@ -30652,7 +30682,7 @@
   title_en: 
   text_en: 
   topic_id: 222041
-  rule: *589
+  rule: *590
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30665,7 +30695,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &590
+    :rule: &591
       :algo: count
       :threshold: 100
       :filters:
@@ -30682,7 +30712,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *590
+  rule: *591
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30695,7 +30725,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &591
+    :rule: &592
       :algo: count
       :threshold: 150
       :filters:
@@ -30712,7 +30742,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *591
+  rule: *592
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30725,7 +30755,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &592
+    :rule: &593
       :algo: count
       :threshold: 250
       :filters:
@@ -30742,7 +30772,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *592
+  rule: *593
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30755,7 +30785,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 245151
-    :rule: &593
+    :rule: &594
       :algo: count
       :threshold: 65
       :filters:
@@ -30771,7 +30801,7 @@
   title_en: 
   text_en: 
   topic_id: 245151
-  rule: *593
+  rule: *594
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30784,7 +30814,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &594
+    :rule: &595
       :algo: count
       :threshold: 150
       :filters:
@@ -30800,7 +30830,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *594
+  rule: *595
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30813,7 +30843,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &595
+    :rule: &596
       :algo: count
       :threshold: 250
       :filters:
@@ -30829,7 +30859,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *595
+  rule: *596
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30842,7 +30872,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &596
+    :rule: &597
       :algo: count
       :threshold: 400
       :filters:
@@ -30858,7 +30888,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *596
+  rule: *597
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30871,7 +30901,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 227418
-    :rule: &597
+    :rule: &598
       :algo: count
       :threshold: 20%
       :filters:
@@ -30889,7 +30919,7 @@
   title_en: 
   text_en: 
   topic_id: 227418
-  rule: *597
+  rule: *598
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30903,7 +30933,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &598
+    :rule: &599
       :algo: count
       :threshold: 30%
       :filters:
@@ -30922,7 +30952,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *598
+  rule: *599
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30935,7 +30965,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &599
+    :rule: &600
       :algo: count
       :threshold: 45%
       :filters:
@@ -30953,7 +30983,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *599
+  rule: *600
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30966,7 +30996,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &600
+    :rule: &601
       :algo: count
       :threshold: 60%
       :filters:
@@ -30984,7 +31014,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *600
+  rule: *601
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -30997,7 +31027,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 227428
-    :rule: &601
+    :rule: &602
       :algo: count
       :threshold: 25
       :filters:
@@ -31014,7 +31044,7 @@
   title_en: 
   text_en: 
   topic_id: 227428
-  rule: *601
+  rule: *602
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -31028,7 +31058,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &602
+    :rule: &603
       :algo: count
       :threshold: 40
       :filters:
@@ -31046,7 +31076,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *602
+  rule: *603
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -31059,7 +31089,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &603
+    :rule: &604
       :algo: count
       :threshold: 60
       :filters:
@@ -31076,7 +31106,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *603
+  rule: *604
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -31090,7 +31120,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &604
+    :rule: &605
       :algo: count
       :threshold: 100
       :filters:
@@ -31108,7 +31138,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *604
+  rule: *605
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -31121,7 +31151,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 227430
-    :rule: &605
+    :rule: &606
       :algo: count
       :threshold: 10%
       :filters:
@@ -32160,7 +32190,7 @@
   title_en: 
   text_en: 
   topic_id: 227430
-  rule: *605
+  rule: *606
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -32173,7 +32203,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &606
+    :rule: &607
       :algo: count
       :threshold: 15%
       :filters:
@@ -33212,7 +33242,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *606
+  rule: *607
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -33225,7 +33255,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &607
+    :rule: &608
       :algo: count
       :threshold: 25%
       :filters:
@@ -34264,7 +34294,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *607
+  rule: *608
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34277,7 +34307,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 222645
-    :rule: &608
+    :rule: &609
       :algo: count
       :threshold: 15
       :filters:
@@ -34294,7 +34324,7 @@
   title_en: 
   text_en: 
   topic_id: 222645
-  rule: *608
+  rule: *609
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34308,7 +34338,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &609
+    :rule: &610
       :algo: count
       :threshold: 25
       :filters:
@@ -34325,7 +34355,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *609
+  rule: *610
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34339,7 +34369,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &610
+    :rule: &611
       :algo: count
       :threshold: 40
       :filters:
@@ -34357,7 +34387,7 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *610
+  rule: *611
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34370,7 +34400,7 @@
     :title_en: 
     :text_en: 
     :topic_id: 0
-    :rule: &611
+    :rule: &612
       :algo: count
       :threshold: 60
       :filters:
@@ -34387,5 +34417,5 @@
   title_en: 
   text_en: 
   topic_id: 0
-  rule: *611
+  rule: *612
   mandatory_attributes: *4
