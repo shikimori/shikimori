@@ -126,9 +126,62 @@ shared_examples :db_entry_controller do |entry_name|
       before { make_request }
 
       it do
-        expect(MalParsers::FetchEntry).to(
-          have_received(:perform_async).with entry.mal_id, entry.class.base_class.name.downcase
-        )
+        expect(MalParsers::FetchEntry)
+          .to have_received(:perform_async)
+          .with entry.mal_id, entry.class.base_class.name.downcase
+        expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
+      end
+    end
+  end
+
+  describe '#merge' do
+    let(:make_request) { delete :merge, params: { id: entry.id, target_id: entry_2.id } }
+    let(:entry_2) { build_stubbed entry.class.name.downcase.to_sym }
+
+    before { allow(DbEntries::MergeIntoOther).to receive :perform_async }
+
+    describe 'not super moderator' do
+      include_context :authenticated, :version_moderator
+      it do
+        expect { make_request }.to raise_error CanCan::AccessDenied
+        expect(DbEntries::MergeIntoOther).to_not have_received :perform_async
+      end
+    end
+
+    describe 'super moderator' do
+      include_context :authenticated, :super_moderator
+      before { make_request }
+
+      it do
+        expect(DbEntries::MergeIntoOther)
+          .to have_received(:perform_async)
+          .with entry.class.name, entry.id, entry_2.id, user.id
+        expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
+      end
+    end
+  end
+
+  describe '#destroy' do
+    let(:make_request) { delete :destroy, params: { id: entry.id } }
+
+    before { allow(DbEntries::Destroy).to receive :perform_async }
+
+    describe 'not super moderator' do
+      include_context :authenticated, :version_moderator
+      it do
+        expect { make_request }.to raise_error CanCan::AccessDenied
+        expect(DbEntries::Destroy).to_not have_received :perform_async
+      end
+    end
+
+    describe 'super moderator' do
+      include_context :authenticated, :super_moderator
+      before { make_request }
+
+      it do
+        expect(DbEntries::Destroy)
+          .to have_received(:perform_async)
+          .with entry.class.name, entry.id, user.id
         expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
       end
     end

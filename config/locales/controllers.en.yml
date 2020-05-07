@@ -306,6 +306,8 @@ en:
       ranobe:
         list: Light Novel
     sync_scheduled: Sync scheduled
+    merge_scheduled: Merging scheduled
+    destroy_scheduled: Deletion scheduled
 
   mangas_controller:
     <<: *animes_controller

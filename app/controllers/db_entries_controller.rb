@@ -97,6 +97,37 @@ class DbEntriesController < ShikimoriController
     )
   end
 
+  def merge
+    authorize! :merge, resource_klass
+
+    DbEntries::MergeIntoOther.perform_async(
+      @resource.object.class.name,
+      @resource.id,
+      params[:target_id].to_i,
+      current_user.id
+    )
+
+    redirect_back(
+      fallback_location: @resource.edit_url,
+      notice: i18n_t('merge_scheduled')
+    )
+  end
+
+  def destroy
+    authorize! :destroy, resource_klass
+
+    DbEntries::Destroy.perform_async(
+      @resource.object.class.name,
+      @resource.id,
+      current_user.id
+    )
+
+    redirect_back(
+      fallback_location: @resource.edit_url,
+      notice: i18n_t('destroy_scheduled')
+    )
+  end
+
 private
 
   def og_db_entry_meta

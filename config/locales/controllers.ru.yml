@@ -306,6 +306,8 @@ ru:
       ranobe:
         list: Ранобэ
     sync_scheduled: Синхронизация запущена
+    merge_scheduled: Слияние запущено
+    destroy_scheduled: Удаление запущено
 
   mangas_controller:
     <<: *animes_controller
