@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class Person < DbEntry
-  include TopicsConcern
+  include ClubsConcern
   include CollectionsConcern
-  include VersionsConcern
   include ContestsConcern
   include FavouritesConcern
+  include TopicsConcern
+  include VersionsConcern
 
   DESYNCABLE = %w[name japanese website birthday image]
 

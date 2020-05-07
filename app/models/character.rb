@@ -3,10 +3,10 @@
 class Character < DbEntry
   include ClubsConcern
   include CollectionsConcern
-  include VersionsConcern
-  include TopicsConcern
   include ContestsConcern
   include FavouritesConcern
+  include TopicsConcern
+  include VersionsConcern
 
   DESYNCABLE = %w[name japanese description_en image]
 

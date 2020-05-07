@@ -63,6 +63,8 @@ private
   end
 
   def merge_user_rates
+    return unless @entry.respond_to? :rates
+
     @entry.rates.each do |user_rate|
       user_rate.update! target: @other
 
@@ -111,6 +113,8 @@ private
   end
 
   def merge_reviews
+    return unless @entry.respond_to? :reviews
+
     @entry.reviews.each { |v| v.update target: @other }
   end
 
@@ -127,10 +131,14 @@ private
   end
 
   def merge_cosplay_gallery_links
+    return unless @entry.respond_to? :cosplay_gallery_links
+
     @entry.cosplay_gallery_links.each { |v| v.update linked: @other }
   end
 
   def merge_recommendation_ignores
+    return unless @entry.respond_to? :recommendation_ignores
+
     @entry.recommendation_ignores.each { |v| v.update target: @other }
   end
 
@@ -150,6 +158,8 @@ private
   end
 
   def merge_external_links
+    return unless @entry.respond_to? :external_links
+
     @entry.external_links.each { |v| v.update entry: @other }
   end
 end

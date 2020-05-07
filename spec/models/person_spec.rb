@@ -14,6 +14,7 @@ describe Person do
   it_behaves_like :topics_concern, :person
   it_behaves_like :collections_concern
   it_behaves_like :versions_concern
+  it_behaves_like :clubs_concern, :person
   it_behaves_like :contests_concern
   it_behaves_like :favourites_concern
 end
