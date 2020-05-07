@@ -143,14 +143,14 @@
     - if contest.created? || contest.proposing?
       .block
         - if contest.anime?
-          input.member-suggest.subheadline-input.downgrade_landscape [
+          input.member-suggest.subheadline-input.downgrade_landscape[
             type='text'
             placeholder=t('anime_title')
             data-variant_name='contest[member_ids][]'
             data-autocomplete=autocomplete_animes_url
           ]
         - else
-          input.member-suggest.subheadline-input.downgrade_landscape [
+          input.member-suggest.subheadline-input.downgrade_landscape[
             type='text'
             placeholder=t('character_name')
             data-variant_name='contest[member_ids][]'

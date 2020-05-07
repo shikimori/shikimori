@@ -171,7 +171,6 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     @authors[field] ||= versions_scope.authors(field)
   end
 
-
   def contest_winners
     object.contest_winners
       .where('position <= 16')
@@ -200,6 +199,10 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def sync_url
+    h.send "sync_#{klass_lower}_url"
+  end
+
+  def merge_url
     h.send "sync_#{klass_lower}_url"
   end
 

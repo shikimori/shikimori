@@ -6,19 +6,31 @@
           .fc-2
             - if can?(:merge, resource)
               .f-column
-                .subheadline.red = t '.merge_into_other'
-                .b-warning
-                  p.warning
-                    b
-                      ' Это действие необратимо!
-                    | Нажимать только один раз!
-                  p.warning После нажатия кнопки в очередь задач сайта будет добавлена задача,
-                    сливающая #{i18n_i resource.object.class.name.downcase, 1, :genitive} с
-                    #{resource.object.class == Manga ? 'другой' : 'другим'}.
-                  p.warning Слияние может занять от 2 до 30 минут в зависимости
-                    от популярности #{resource.object.class == Manga ? 'этой' : 'этого'}
-                    #{i18n_i resource.object.class.name.downcase, 1, :accusative} на сайте.
-                .b-button = t '.send_for_merging'
+                = form_tag resource.merge_url, method: :delete do |f|
+                  .subheadline.red = t '.merge_into_other'
+                  .b-warning
+                    p.warning
+                      b
+                        ' Это действие необратимо!
+                      | Нажимать только один раз!
+                    p.warning После нажатия кнопки в очередь задач сайта будет добавлена задача,
+                      сливающая #{i18n_i resource.object.class.name.downcase, 1, :genitive} с
+                      #{resource.object.class == Manga ? 'другой' : 'другим'}.
+                    p.warning Слияние может занять от 2 до 30 минут в зависимости
+                      от популярности #{resource.object.class == Manga ? 'этой' : 'этого'}
+                      #{i18n_i resource.object.class.name.downcase, 1, :accusative} на сайте.
+                  .b-input.merge_target_id[
+                    data-type=resource.object.class.name
+                  ]
+                    input type='hidden' name='merge_target_id'
+                    label С чем сливать
+                    input[
+                      type='text'
+                      placeholder=t("#{resource.object.class.name.downcase}_title")
+                      data-autocomplete=(resource.ranobe? ? autocomplete_ranobe_index_url : send(:"autocomplete_#{resource.object.class.name.downcase.pluralize}_url"))
+                    ]
+
+                  input.b-button type='submit' value=t('.send_for_merging')
             - if can?(:destroy, resource)
               .f-column
                 .subheadline.red = t '.deletion'
@@ -32,4 +44,8 @@
                   p.warning Удаление может занять от 2 до 30 минут в зависимости
                     от популярности #{resource.object.class == Manga ? 'этой' : 'этого'}
                     #{i18n_i resource.object.class.name.downcase, 1, :accusative} на сайте.
-                .b-button = t '.send_for_removal'
+                a.b-button[
+                  href=resource.url
+                  data-method='delete'
+                  data-confirm=t('actions.confirm')
+                ]= t '.send_for_removal'
