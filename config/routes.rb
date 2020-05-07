@@ -861,8 +861,11 @@ Rails.application.routes.draw do
   get 'sitemap' => 'sitemap#index'
   get 'robots.txt' => 'robots#shikimori'
 
-  authenticate :user, lambda { |u| u.admin? } do
+  authenticate :user, lambda { |u| u.admin? || u.super_moderator? } do
     mount Sidekiq::Web, at: 'sidekiq'
+  end
+
+  authenticate :user, lambda { |u| u.admin? } do
     mount PgHero::Engine, at: 'pghero'
   end
 
