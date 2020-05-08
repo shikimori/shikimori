@@ -155,7 +155,13 @@ shared_examples :db_entry_controller do |entry_name|
       it do
         expect(DbEntries::MergeIntoOther)
           .to have_received(:perform_in)
-          .with 3.hours, entry.class.name, entry.id, entry_2.id, user.id
+          .with(
+            described_class::DANGEROUS_ACTION_DELAY_INTERVAL,
+            entry.class.name,
+            entry.id,
+            entry_2.id,
+            user.id
+          )
         expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
       end
     end
@@ -181,7 +187,12 @@ shared_examples :db_entry_controller do |entry_name|
       it do
         expect(DbEntries::Destroy)
           .to have_received(:perform_in)
-          .with 3.hours, entry.class.name, entry.id, user.id
+          .with(
+            described_class::DANGEROUS_ACTION_DELAY_INTERVAL,
+            entry.class.name,
+            entry.id,
+            user.id
+          )
         expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
       end
     end

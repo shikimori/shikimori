@@ -7,6 +7,7 @@ class DbEntriesController < ShikimoriController
   before_action :og_db_entry_meta, if: :resource_id
 
   COLLETIONS_PER_PAGE = 4
+  DANGEROUS_ACTION_DELAY_INTERVAL = 30.minutes
 
   def tooltip
     og noindex: true
@@ -101,7 +102,7 @@ class DbEntriesController < ShikimoriController
     authorize! :merge, resource_klass
 
     DbEntries::MergeIntoOther.perform_in(
-      3.hours,
+      DANGEROUS_ACTION_DELAY_INTERVAL,
       @resource.object.class.name,
       @resource.id,
       params[:target_id].to_i,
@@ -118,7 +119,7 @@ class DbEntriesController < ShikimoriController
     authorize! :destroy, resource_klass
 
     DbEntries::Destroy.perform_in(
-      3.hours,
+      DANGEROUS_ACTION_DELAY_INTERVAL,
       @resource.object.class.name,
       @resource.id,
       current_user.id
