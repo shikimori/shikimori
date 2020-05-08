@@ -96,7 +96,7 @@
 
         - if contest_match.finished?
           .votes-percents
-            .left-part title="#{contest_match.left_votes} #{i18n_i 'vote', contest_match.left_votes} #{t '.for'} «#{contest_match.left.name}»"
+            .left-part title="#{contest_match.left_votes} #{i18n_i 'vote', contest_match.left_votes} #{t '.for'} «#{contest_match.left&.name || t('deleted')}»"
               span #{contest_match.left_percent}% (#{contest_match.left_votes})
               .right-part[
                 style="width: #{[[contest_match.right_votes.to_f / ([contest_match.left_votes + contest_match.right_votes, 1].max) * 100 - 0.75, 4].max, 95].min}%"
