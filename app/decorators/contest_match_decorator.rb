@@ -29,20 +29,6 @@ class ContestMatchDecorator < BaseDecorator
     end
   end
 
-  # def status_with_voted
-    # if started?
-      # voted? ? :voted : :pending
-    # elsif finished?
-      # :finished
-    # else
-      # :created
-    # end
-  # end
-
-  # def voted_for_class
-    # !finished? && voted_for.present? ? "voted-#{voted_for}" : nil
-  # end
-
   def status member_id
     if draw?
       :draw
@@ -58,6 +44,8 @@ class ContestMatchDecorator < BaseDecorator
   end
 
   def defeated_by entry, round
+    return [] unless entry
+
     @defeated ||= {}
     @defeated["#{entry.id}-#{round.id}"] ||= contest
       .defeated_by(entry, round)

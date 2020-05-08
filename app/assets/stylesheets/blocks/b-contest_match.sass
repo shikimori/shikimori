@@ -74,6 +74,20 @@
           flex-shrink: 0
           flex-grow: 1
 
+        &.placeholder
+          &:before
+            background: #afb2b6
+            content: ''
+            display: block
+            padding-top: 141.875%
+
+          &:after
+            background: lighten(#afb2b6, 22%)
+            content: ''
+            display: block
+            height: 16px
+            margin-top: 10px
+
   .match-member
     transition: opacity 0.3s ease
 
