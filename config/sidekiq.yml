@@ -25,6 +25,7 @@ production:
   - [imports, 4]
   - [achievements, 6]
   - [chewy, 10]
+  - [dangerous_actions, 8]
 
 :limits:
   cpu_intensive: 2
@@ -38,3 +39,4 @@ production:
   imports: 2
   achievement: 50
   episode_notifications: 1
+  dangerous_actions: 1

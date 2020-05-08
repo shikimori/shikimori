@@ -7,7 +7,7 @@ class DbEntries::Destroy
   sidekiq_options(
     unique: :until_executed,
     unique_args: ->(args) { args[0..2].join('-') },
-    queue: :high_priority,
+    queue: :dangerous_actions,
     retry: false
   )
 
