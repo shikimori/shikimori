@@ -1,8 +1,16 @@
 describe DbEntry::MergeIntoOther do
   let(:type) { %i[anime manga].sample }
 
-  let(:entry_1) { create type, :with_topics, russian: 'zxc' }
-  let(:entry_2) { create type, russian: '' }
+  let(:entry_1) do
+    create type, :with_topics,
+      russian: 'zxc',
+      synonyms: %w[synonym_1 synonym_3]
+  end
+  let(:entry_2) do
+    create type,
+      russian: '',
+      synonyms: %w[synonym_2]
+  end
   let(:entry_3) { create type }
 
   let!(:user_rate_1_1) { create :user_rate, target: entry_1, user: user_1 }
@@ -59,6 +67,7 @@ describe DbEntry::MergeIntoOther do
 
   it do
     expect(entry_2.russian).to eq entry_1.russian
+    expect(entry_2.synonyms).to eq %w[synonym_1 synonym_2 synonym_3]
 
     expect { entry_1.reload }.to raise_error ActiveRecord::RecordNotFound
 

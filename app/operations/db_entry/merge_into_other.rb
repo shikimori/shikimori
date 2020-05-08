@@ -17,7 +17,7 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
     external_links
   ]
 
-  FIELDS = %i[
+  ASSIGN_FIELDS = %i[
     description_en
     description_ru
     english
@@ -35,19 +35,23 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
     score
     source
     stuio_ids
-    synonyms
-
-    coub_tags
-    fansubbers
-    fandubbers
 
     birthday
     website
   ]
 
+  MERGE_FIELDS = %i[
+    synonyms
+    coub_tags
+    fansubbers
+    fandubbers
+  ]
+
   def call
     @other.class.transaction do
+      assign_fields
       merge_fields
+      @other.save! if @other.changed?
 
       RELATIONS.each do |relation|
         send :"merge_#{relation}"
@@ -59,15 +63,21 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
 
 private
 
-  def merge_fields
-    FIELDS.each do |field|
+  def assign_fields
+    ASSIGN_FIELDS.each do |field|
       next unless @entry.respond_to?(field) && @other.respond_to?(field)
       next unless @other.send(field).blank? && @entry.send(field).present?
 
       @other.assign_attributes field => @entry.send(field)
     end
+  end
 
-    @other.save! if @other.changed?
+  def merge_fields
+    MERGE_FIELDS.each do |field|
+      next unless @entry.respond_to?(field) && @other.respond_to?(field)
+
+      @other.assign_attributes field => (@other.send(field) + @entry.send(field)).sort.uniq
+    end
   end
 
   def merge_user_rates
