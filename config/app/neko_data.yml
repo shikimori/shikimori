@@ -21263,6 +21263,140 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :utawarerumono
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/utawarerumono.jpg"
+    :border_color: 
+    :title_ru: Прославленный
+    :text_ru: 
+    :title_en: Utawarerumono
+    :text_en: 
+    :topic_id: 247360
+    :rule: &334
+      :algo: duration
+      :filters:
+        franchise: utawarerumono
+        not_anime_ids:
+        - 6226
+        - 6743
+      :threshold: 93.3%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :utawarerumono
+  level: 1
+  image: "/assets/achievements/anime/franchise/utawarerumono.jpg"
+  border_color: 
+  title_ru: Прославленный
+  text_ru: 
+  title_en: Utawarerumono
+  text_en: 
+  topic_id: 247360
+  rule: *334
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :utawarerumono
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/utawarerumono.jpg"
+    :border_color: 
+    :title_ru: Прославленный
+    :text_ru: 
+    :title_en: Utawarerumono
+    :text_en: 
+    :topic_id: 247360
+    :rule: &335
+      :algo: duration
+      :filters:
+        franchise: utawarerumono
+        not_anime_ids:
+        - 6226
+        - 6743
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :utawarerumono
+  level: 0
+  image: "/assets/achievements/anime/franchise/utawarerumono.jpg"
+  border_color: 
+  title_ru: Прославленный
+  text_ru: 
+  title_en: Utawarerumono
+  text_en: 
+  topic_id: 247360
+  rule: *335
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :selector_spread_wixoss
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/selector_spread_wixoss.jpg"
+    :border_color: 
+    :title_ru: WIXOSS
+    :text_ru: 
+    :title_en: WIXOSS
+    :text_en: 
+    :topic_id: 247360
+    :rule: &336
+      :algo: duration
+      :filters:
+        franchise: selector_spread_wixoss
+        not_anime_ids:
+        - 27613
+        - 36083
+      :threshold: 100%
+      :generator:
+        not_ignored_ids:
+        - 31280
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :selector_spread_wixoss
+  level: 1
+  image: "/assets/achievements/anime/franchise/selector_spread_wixoss.jpg"
+  border_color: 
+  title_ru: WIXOSS
+  text_ru: 
+  title_en: WIXOSS
+  text_en: 
+  topic_id: 247360
+  rule: *336
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :selector_spread_wixoss
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/selector_spread_wixoss.jpg"
+    :border_color: 
+    :title_ru: WIXOSS
+    :text_ru: 
+    :title_en: WIXOSS
+    :text_en: 
+    :topic_id: 247360
+    :rule: &337
+      :algo: duration
+      :filters:
+        franchise: selector_spread_wixoss
+        not_anime_ids:
+        - 27613
+        - 36083
+      :threshold: 0.01
+      :generator:
+        not_ignored_ids:
+        - 31280
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :selector_spread_wixoss
+  level: 0
+  image: "/assets/achievements/anime/franchise/selector_spread_wixoss.jpg"
+  border_color: 
+  title_ru: WIXOSS
+  text_ru: 
+  title_en: WIXOSS
+  text_en: 
+  topic_id: 247360
+  rule: *337
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :detective_conan
     :level: 1
     :image: "/assets/achievements/anime/franchise/detective_conan.jpg"
@@ -21272,7 +21406,7 @@
     :title_en: Detective Conan
     :text_en: 
     :topic_id: 247360
-    :rule: &334
+    :rule: &338
       :algo: duration
       :filters:
         franchise: detective_conan
@@ -21308,7 +21442,7 @@
   title_en: Detective Conan
   text_en: 
   topic_id: 247360
-  rule: *334
+  rule: *338
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21321,7 +21455,7 @@
     :title_en: Detective Conan
     :text_en: 
     :topic_id: 247360
-    :rule: &335
+    :rule: &339
       :algo: duration
       :filters:
         franchise: detective_conan
@@ -21357,71 +21491,7 @@
   title_en: Detective Conan
   text_en: 
   topic_id: 247360
-  rule: *335
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :utawarerumono
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/utawarerumono.jpg"
-    :border_color: 
-    :title_ru: Прославленный
-    :text_ru: 
-    :title_en: Utawarerumono
-    :text_en: 
-    :topic_id: 247360
-    :rule: &336
-      :algo: duration
-      :filters:
-        franchise: utawarerumono
-        not_anime_ids:
-        - 6226
-        - 6743
-      :threshold: 93.3%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :utawarerumono
-  level: 1
-  image: "/assets/achievements/anime/franchise/utawarerumono.jpg"
-  border_color: 
-  title_ru: Прославленный
-  text_ru: 
-  title_en: Utawarerumono
-  text_en: 
-  topic_id: 247360
-  rule: *336
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :utawarerumono
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/utawarerumono.jpg"
-    :border_color: 
-    :title_ru: Прославленный
-    :text_ru: 
-    :title_en: Utawarerumono
-    :text_en: 
-    :topic_id: 247360
-    :rule: &337
-      :algo: duration
-      :filters:
-        franchise: utawarerumono
-        not_anime_ids:
-        - 6226
-        - 6743
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :utawarerumono
-  level: 0
-  image: "/assets/achievements/anime/franchise/utawarerumono.jpg"
-  border_color: 
-  title_ru: Прославленный
-  text_ru: 
-  title_en: Utawarerumono
-  text_en: 
-  topic_id: 247360
-  rule: *337
+  rule: *339
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21434,7 +21504,7 @@
     :title_en: Hetalia
     :text_en: 
     :topic_id: 247360
-    :rule: &338
+    :rule: &340
       :algo: duration
       :filters:
         franchise: hetalia
@@ -21452,7 +21522,7 @@
   title_en: Hetalia
   text_en: 
   topic_id: 247360
-  rule: *338
+  rule: *340
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21465,7 +21535,7 @@
     :title_en: Hetalia
     :text_en: 
     :topic_id: 247360
-    :rule: &339
+    :rule: &341
       :algo: duration
       :filters:
         franchise: hetalia
@@ -21481,76 +21551,6 @@
   title_ru: Хеталия
   text_ru: 
   title_en: Hetalia
-  text_en: 
-  topic_id: 247360
-  rule: *339
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :selector_spread_wixoss
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/selector_spread_wixoss.jpg"
-    :border_color: 
-    :title_ru: WIXOSS
-    :text_ru: 
-    :title_en: WIXOSS
-    :text_en: 
-    :topic_id: 247360
-    :rule: &340
-      :algo: duration
-      :filters:
-        franchise: selector_spread_wixoss
-        not_anime_ids:
-        - 27613
-        - 36083
-      :threshold: 100%
-      :generator:
-        not_ignored_ids:
-        - 31280
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :selector_spread_wixoss
-  level: 1
-  image: "/assets/achievements/anime/franchise/selector_spread_wixoss.jpg"
-  border_color: 
-  title_ru: WIXOSS
-  text_ru: 
-  title_en: WIXOSS
-  text_en: 
-  topic_id: 247360
-  rule: *340
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :selector_spread_wixoss
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/selector_spread_wixoss.jpg"
-    :border_color: 
-    :title_ru: WIXOSS
-    :text_ru: 
-    :title_en: WIXOSS
-    :text_en: 
-    :topic_id: 247360
-    :rule: &341
-      :algo: duration
-      :filters:
-        franchise: selector_spread_wixoss
-        not_anime_ids:
-        - 27613
-        - 36083
-      :threshold: 0.01
-      :generator:
-        not_ignored_ids:
-        - 31280
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :selector_spread_wixoss
-  level: 0
-  image: "/assets/achievements/anime/franchise/selector_spread_wixoss.jpg"
-  border_color: 
-  title_ru: WIXOSS
-  text_ru: 
-  title_en: WIXOSS
   text_en: 
   topic_id: 247360
   rule: *341
@@ -21817,6 +21817,68 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :tiger_bunny
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/tiger_bunny.jpg"
+    :border_color: 
+    :title_ru: Тигр и кролик
+    :text_ru: 
+    :title_en: Tiger & Bunny
+    :text_en: 
+    :topic_id: 247360
+    :rule: &350
+      :algo: duration
+      :filters:
+        franchise: tiger_bunny
+        not_anime_ids:
+        - 30178
+      :threshold: 92.3%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :tiger_bunny
+  level: 1
+  image: "/assets/achievements/anime/franchise/tiger_bunny.jpg"
+  border_color: 
+  title_ru: Тигр и кролик
+  text_ru: 
+  title_en: Tiger & Bunny
+  text_en: 
+  topic_id: 247360
+  rule: *350
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :tiger_bunny
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/tiger_bunny.jpg"
+    :border_color: 
+    :title_ru: Тигр и кролик
+    :text_ru: 
+    :title_en: Tiger & Bunny
+    :text_en: 
+    :topic_id: 247360
+    :rule: &351
+      :algo: duration
+      :filters:
+        franchise: tiger_bunny
+        not_anime_ids:
+        - 30178
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :tiger_bunny
+  level: 0
+  image: "/assets/achievements/anime/franchise/tiger_bunny.jpg"
+  border_color: 
+  title_ru: Тигр и кролик
+  text_ru: 
+  title_en: Tiger & Bunny
+  text_en: 
+  topic_id: 247360
+  rule: *351
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :yowamushi_pedal
     :level: 1
     :image: "/assets/achievements/anime/franchise/yowamushi_pedal.jpg"
@@ -21826,7 +21888,7 @@
     :title_en: Yowamushi Pedal
     :text_en: 
     :topic_id: 247360
-    :rule: &350
+    :rule: &352
       :algo: duration
       :filters:
         franchise: yowamushi_pedal
@@ -21846,7 +21908,7 @@
   title_en: Yowamushi Pedal
   text_en: 
   topic_id: 247360
-  rule: *350
+  rule: *352
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21859,7 +21921,7 @@
     :title_en: Yowamushi Pedal
     :text_en: 
     :topic_id: 247360
-    :rule: &351
+    :rule: &353
       :algo: duration
       :filters:
         franchise: yowamushi_pedal
@@ -21877,68 +21939,6 @@
   title_ru: Трусливый велосипедист
   text_ru: 
   title_en: Yowamushi Pedal
-  text_en: 
-  topic_id: 247360
-  rule: *351
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :tiger_bunny
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/tiger_bunny.jpg"
-    :border_color: 
-    :title_ru: Тигр и кролик
-    :text_ru: 
-    :title_en: Tiger & Bunny
-    :text_en: 
-    :topic_id: 247360
-    :rule: &352
-      :algo: duration
-      :filters:
-        franchise: tiger_bunny
-        not_anime_ids:
-        - 30178
-      :threshold: 92.3%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :tiger_bunny
-  level: 1
-  image: "/assets/achievements/anime/franchise/tiger_bunny.jpg"
-  border_color: 
-  title_ru: Тигр и кролик
-  text_ru: 
-  title_en: Tiger & Bunny
-  text_en: 
-  topic_id: 247360
-  rule: *352
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :tiger_bunny
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/tiger_bunny.jpg"
-    :border_color: 
-    :title_ru: Тигр и кролик
-    :text_ru: 
-    :title_en: Tiger & Bunny
-    :text_en: 
-    :topic_id: 247360
-    :rule: &353
-      :algo: duration
-      :filters:
-        franchise: tiger_bunny
-        not_anime_ids:
-        - 30178
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :tiger_bunny
-  level: 0
-  image: "/assets/achievements/anime/franchise/tiger_bunny.jpg"
-  border_color: 
-  title_ru: Тигр и кролик
-  text_ru: 
-  title_en: Tiger & Bunny
   text_en: 
   topic_id: 247360
   rule: *353
@@ -27923,6 +27923,64 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :jigoku_sensei_nube
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+    :border_color: 
+    :title_ru: Адский учитель Нубэ
+    :text_ru: 
+    :title_en: Jigoku Sensei Nube
+    :text_en: 
+    :topic_id: 247360
+    :rule: &542
+      :algo: duration
+      :filters:
+        franchise: jigoku_sensei_nube
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :jigoku_sensei_nube
+  level: 1
+  image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+  border_color: 
+  title_ru: Адский учитель Нубэ
+  text_ru: 
+  title_en: Jigoku Sensei Nube
+  text_en: 
+  topic_id: 247360
+  rule: *542
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :jigoku_sensei_nube
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+    :border_color: 
+    :title_ru: Адский учитель Нубэ
+    :text_ru: 
+    :title_en: Jigoku Sensei Nube
+    :text_en: 
+    :topic_id: 247360
+    :rule: &543
+      :algo: duration
+      :filters:
+        franchise: jigoku_sensei_nube
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :jigoku_sensei_nube
+  level: 0
+  image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+  border_color: 
+  title_ru: Адский учитель Нубэ
+  text_ru: 
+  title_en: Jigoku Sensei Nube
+  text_en: 
+  topic_id: 247360
+  rule: *543
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :saber_marionette_j
     :level: 1
     :image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
@@ -27932,7 +27990,7 @@
     :title_en: Saber Marionette J
     :text_en: 
     :topic_id: 247360
-    :rule: &542
+    :rule: &544
       :algo: duration
       :filters:
         franchise: saber_marionette_j
@@ -27948,7 +28006,7 @@
   title_en: Saber Marionette J
   text_en: 
   topic_id: 247360
-  rule: *542
+  rule: *544
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -27961,7 +28019,7 @@
     :title_en: Saber Marionette J
     :text_en: 
     :topic_id: 247360
-    :rule: &543
+    :rule: &545
       :algo: duration
       :filters:
         franchise: saber_marionette_j
@@ -27977,7 +28035,7 @@
   title_en: Saber Marionette J
   text_en: 
   topic_id: 247360
-  rule: *543
+  rule: *545
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -27990,7 +28048,7 @@
     :title_en: Di Gi Charat
     :text_en: 
     :topic_id: 247360
-    :rule: &544
+    :rule: &546
       :algo: duration
       :filters:
         franchise: di_gi_charat
@@ -28006,7 +28064,7 @@
   title_en: Di Gi Charat
   text_en: 
   topic_id: 247360
-  rule: *544
+  rule: *546
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28019,7 +28077,7 @@
     :title_en: Di Gi Charat
     :text_en: 
     :topic_id: 247360
-    :rule: &545
+    :rule: &547
       :algo: duration
       :filters:
         franchise: di_gi_charat
@@ -28035,7 +28093,7 @@
   title_en: Di Gi Charat
   text_en: 
   topic_id: 247360
-  rule: *545
+  rule: *547
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28048,7 +28106,7 @@
     :title_en: Galaxy Angel
     :text_en: 
     :topic_id: 247360
-    :rule: &546
+    :rule: &548
       :algo: duration
       :filters:
         franchise: galaxy_angel
@@ -28064,7 +28122,7 @@
   title_en: Galaxy Angel
   text_en: 
   topic_id: 247360
-  rule: *546
+  rule: *548
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28077,7 +28135,7 @@
     :title_en: Galaxy Angel
     :text_en: 
     :topic_id: 247360
-    :rule: &547
+    :rule: &549
       :algo: duration
       :filters:
         franchise: galaxy_angel
@@ -28093,120 +28151,62 @@
   title_en: Galaxy Angel
   text_en: 
   topic_id: 247360
-  rule: *547
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :haou_daikei_ryuu_knight
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
-    :border_color: 
-    :title_ru: Властелин властелинов Рыцарь Рю
-    :text_ru: 
-    :title_en: Haou Daikei Ryuu Knight
-    :text_en: 
-    :topic_id: 247360
-    :rule: &548
-      :algo: duration
-      :filters:
-        franchise: haou_daikei_ryuu_knight
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :haou_daikei_ryuu_knight
-  level: 1
-  image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
-  border_color: 
-  title_ru: Властелин властелинов Рыцарь Рю
-  text_ru: 
-  title_en: Haou Daikei Ryuu Knight
-  text_en: 
-  topic_id: 247360
-  rule: *548
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :haou_daikei_ryuu_knight
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
-    :border_color: 
-    :title_ru: Властелин властелинов Рыцарь Рю
-    :text_ru: 
-    :title_en: Haou Daikei Ryuu Knight
-    :text_en: 
-    :topic_id: 247360
-    :rule: &549
-      :algo: duration
-      :filters:
-        franchise: haou_daikei_ryuu_knight
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :haou_daikei_ryuu_knight
-  level: 0
-  image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
-  border_color: 
-  title_ru: Властелин властелинов Рыцарь Рю
-  text_ru: 
-  title_en: Haou Daikei Ryuu Knight
-  text_en: 
-  topic_id: 247360
   rule: *549
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :jigoku_sensei_nube
+    :neko_id: :haou_daikei_ryuu_knight
     :level: 1
-    :image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+    :image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
     :border_color: 
-    :title_ru: Адский учитель Нубэ
+    :title_ru: Властелин властелинов Рыцарь Рю
     :text_ru: 
-    :title_en: Jigoku Sensei Nube
+    :title_en: Haou Daikei Ryuu Knight
     :text_en: 
     :topic_id: 247360
     :rule: &550
       :algo: duration
       :filters:
-        franchise: jigoku_sensei_nube
+        franchise: haou_daikei_ryuu_knight
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
-  neko_id: :jigoku_sensei_nube
+  neko_id: :haou_daikei_ryuu_knight
   level: 1
-  image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+  image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
   border_color: 
-  title_ru: Адский учитель Нубэ
+  title_ru: Властелин властелинов Рыцарь Рю
   text_ru: 
-  title_en: Jigoku Sensei Nube
+  title_en: Haou Daikei Ryuu Knight
   text_en: 
   topic_id: 247360
   rule: *550
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :jigoku_sensei_nube
+    :neko_id: :haou_daikei_ryuu_knight
     :level: 0
-    :image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+    :image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
     :border_color: 
-    :title_ru: Адский учитель Нубэ
+    :title_ru: Властелин властелинов Рыцарь Рю
     :text_ru: 
-    :title_en: Jigoku Sensei Nube
+    :title_en: Haou Daikei Ryuu Knight
     :text_en: 
     :topic_id: 247360
     :rule: &551
       :algo: duration
       :filters:
-        franchise: jigoku_sensei_nube
+        franchise: haou_daikei_ryuu_knight
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
-  neko_id: :jigoku_sensei_nube
+  neko_id: :haou_daikei_ryuu_knight
   level: 0
-  image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+  image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
   border_color: 
-  title_ru: Адский учитель Нубэ
+  title_ru: Властелин властелинов Рыцарь Рю
   text_ru: 
-  title_en: Jigoku Sensei Nube
+  title_en: Haou Daikei Ryuu Knight
   text_en: 
   topic_id: 247360
   rule: *551
