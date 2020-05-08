@@ -145,6 +145,8 @@ private
   def merge_contest_links
     @entry.contest_links.each { |v| v.update linked: @other }
     @entry.contest_winners.each { |v| v.update item: @other }
+    ContestMatch.where(left: @entry).each { |v| v.update! left: @other }
+    ContestMatch.where(right: @entry).each { |v| v.update! right: @other }
   end
 
   def merge_anime_links
