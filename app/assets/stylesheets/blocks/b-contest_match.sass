@@ -1,9 +1,7 @@
 @import globals
-@import mixins/clearfix
 @import mixins/block
 @import mixins/float_column
 @import mixins/link
-@import mixins/clear_left
 @import mixins/responsive
 @import mixins/shikimori
 
@@ -11,7 +9,8 @@
   position: relative
   min-height: 300px
 
-  .prev-match, .next-match
+  .prev-match,
+  .next-match
     +link_color(#acb1b4)
     cursor: pointer
 
@@ -52,33 +51,30 @@
 
     .match-members
       +block_m
-      +clearfix
       margin-bottom: 15px
 
-      .match-member, .vs
-        +gte_ipad
-          width: 33.333%
-          float: left
-        +iphone_landscape
-          width: 33.333%
-          float: left
+      +gte_iphone-landscape
+        display: flex
 
-        & > .b-catalog_entry
-          width: 100%
-          +gte_ipad
-            max-width: 160px
+      .vs
+        margin-left: auto
+        margin-right: auto
 
-      .vs + .match-member
-        & > .b-catalog_entry
-          float: right
+        +gte_iphone-landscape
+          max-width: 160px
 
-    center
-      .match-members .match-member,
-      .match-losers .losers
-        float: none
+      .match-member
+        max-width: 160px
+
+        +iphone-portrait
+          margin-left: auto
+          margin-right: auto
+
+        +gte_iphone-landscape
+          flex-shrink: 0
+          flex-grow: 1
 
   .match-member
-    +clear_left
     transition: opacity 0.3s ease
 
     &.voted, &.hovered, &.winner
@@ -93,9 +89,11 @@
     +gte_ipad
       font-size: 64px
       margin-top: 12%
+
     +iphone_landscape
       font-size: 46px
       margin-top: 11%
+
     +iphone_portrait
       font-size: 66px
       margin-bottom: 25px
@@ -104,7 +102,7 @@
     &.empty
       margin-top: 125px
       font-size: 13px
-      width: 100%
+      // width: 100%
 
     .label
       color: $gray-4
@@ -126,20 +124,18 @@
 
   .match-losers
     +block
-    +clearfix
     padding-top: $block-offset / 2
+    display: flex
 
     +iphone_portrait
       display: none
 
     .losers
       +column(2)
-
-      +gte_ipad
-        max-width: 160px
+      max-width: 160px
 
       &:last-child
-        float: right
+        margin-left: auto
 
       .b-catalog_entry
         margin-bottom: 5px !important
