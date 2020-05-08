@@ -28,18 +28,18 @@
                   title=match.round.title
                   href=round_match_contest_url(contest, round: match.round, match_id: match.id)
                 ]
-                  span class=(entry.id == match.winner_id ? 'winner' : 'loser')
+                  span class=((entry.id == match.winner_id ? 'winner' : 'loser') if entry)
                     span.group
                       span = match.round.title true
                       span.letter = match.group
 
                 - if match.left_id && match.right_id
-                  - entry = match.left_id == entry.id ? match.right : match.left
-                  - if entry
+                  - other_entry = match.left_id == entry.id ? match.right : match.left
+                  - if other_entry
                     a.bubbled[
-                      href=url_for(entry)
-                      title=entry.name
-                    ] = localization_span entry
+                      href=url_for(other_entry)
+                      title=other_entry.name
+                    ] = localization_span other_entry
                   - else
                     p = t 'deleted'
 
