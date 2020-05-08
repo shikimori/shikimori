@@ -12,7 +12,11 @@ class DbEntries::MergeIntoOther
   )
 
   def perform type, from_id, to_id, user_id
-    RedisMutex.with_lock("DbEntries::MergeIntoOther-#{type}-#{from_id}-#{to_id}", block: 0) do
+    RedisMutex.with_lock(
+      "DbEntries::MergeIntoOther-#{type}-#{from_id}-#{to_id}",
+      block: 0,
+      expire: 2.hours
+    ) do
       NamedLogger.merge_into_other.info "#{type}##{from_id} -> #{type}#{to_id} User##{user_id}"
 
       klass = Type[type].constantize

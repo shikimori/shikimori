@@ -12,7 +12,7 @@ class DbEntries::Destroy
   )
 
   def perform type, id, user_id
-    RedisMutex.with_lock("DbEntries::Destroy-#{type}-#{id}", block: 0) do
+    RedisMutex.with_lock("DbEntries::Destroy-#{type}-#{id}", block: 0, expire: 2.hours) do
       NamedLogger.destroy.info "#{type}##{id} User##{user_id}"
 
       klass = Type[type].constantize
