@@ -68,7 +68,6 @@ class ModerationsController < ShikimoriController # rubocop:disable ClassLength
         end
         .select { |v| v['class'].match?(/MalParsers/) }
         .sort_by { |v| v['enqueued_at'] }
-
     end
   end
 
