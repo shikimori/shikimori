@@ -26,6 +26,7 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
     license_name_ru
     licensor
     name
+    japanese
     popularity
     publisher_ids
     ranked
@@ -35,6 +36,13 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
     source
     stuio_ids
     synonyms
+
+    coub_tags
+    fansubbers
+    fandubbers
+
+    birthday
+    website
   ]
 
   def call
