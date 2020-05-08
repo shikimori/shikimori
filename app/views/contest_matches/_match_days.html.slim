@@ -17,20 +17,26 @@
         .c-column[
           class=match.status(match.left_id)
         ]
-          - if match.left
+          - if match.created? && !match.left
+            | &hellip;
+          - else
             - if match.finished?
               span.matches-num = "#{match.left_percent}% "
-            a.bubbled href=url_for(match.left) data-perdelay="150"
-              = localization_span match.left
-          - else
-            | &hellip;
+            - if match.left
+              a.bubbled href=url_for(match.left) data-perdelay='150'
+                = localization_span match.left
+            - else
+              = t 'deleted'
 
         - if match.right_type || !match.left_type
           .c-column class=match.status(match.right_id)
-            - if match.right
+            - if match.created? && !match.right
+              | &hellip;
+            - else
               - if match.finished?
                 span.matches-num = "#{match.right_percent}% "
-              a.bubbled href=url_for(match.right) data-predelay="150"
-                = localization_span match.right
-            - else
-              | &hellip;
+              - if match.right
+                a.bubbled href=url_for(match.right) data-perdelay='150'
+                  = localization_span match.right
+              - else
+                = t 'deleted'
