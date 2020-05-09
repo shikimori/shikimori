@@ -57,7 +57,7 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
         send :"merge_#{relation}"
       end
 
-      @entry.class.find(@entry.id).destroy!
+      DbEntry::Destroy.call @entry.class.find(@entry.id)
     end
   end
 
