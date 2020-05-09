@@ -113,6 +113,7 @@ class User < ApplicationRecord
   has_many :club_admin_roles, -> { where role: :admin },
     class_name: ClubRole.name
   has_many :clubs, through: :club_roles
+  has_many :club_images, dependent: :destroy
 
   has_many :collections, dependent: :destroy
   has_many :articles, dependent: :destroy
