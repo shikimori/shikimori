@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_09_125449) do
+ActiveRecord::Schema.define(version: 2020_05_10_171727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -802,6 +802,7 @@ ActiveRecord::Schema.define(version: 2020_05_09_125449) do
     t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text "desynced", default: [], null: false, array: true
   end
 
   create_table "recommendation_ignores", id: :serial, force: :cascade do |t|
@@ -903,6 +904,7 @@ ActiveRecord::Schema.define(version: 2020_05_09_125449) do
     t.boolean "is_visible", null: false
     t.boolean "is_publisher", default: false, null: false
     t.boolean "is_verified", default: false, null: false
+    t.text "desynced", default: [], null: false, array: true
   end
 
   create_table "styles", id: :serial, force: :cascade do |t|

@@ -12,6 +12,7 @@ FactoryBot.define do
     type { Manga.name }
     imageboard_tag { nil }
     licensor { '' }
+    desynced { [] }
 
     factory :ranobe, class: 'Ranobe' do
       sequence(:name) { |n| "ranobe_#{n}" }

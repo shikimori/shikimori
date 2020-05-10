@@ -4,6 +4,7 @@ FactoryBot.define do
     sequence(:russian) { |n| "персонаж_#{n}" }
     description_ru { '' }
     description_en { '' }
+    desynced { [] }
 
     after :build do |model|
       stub_method model, :touch_related

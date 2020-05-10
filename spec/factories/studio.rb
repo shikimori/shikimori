@@ -4,5 +4,6 @@ FactoryBot.define do
     is_visible { false }
     is_publisher { false }
     is_verified { false }
+    desynced { [] }
   end
 end
