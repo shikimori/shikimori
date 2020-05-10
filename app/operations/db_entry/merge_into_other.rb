@@ -161,8 +161,8 @@ private
   end
 
   def merge_contest_links # rubocop:disable AbcSize
-    @entry.contest_links.each { |v| v.update linked: @other }
-    @entry.contest_winners.each { |v| v.update item: @other }
+    @entry.contest_links.each { |v| v.update! linked: @other }
+    @entry.contest_winners.each { |v| v.update! item: @other }
 
     ContestMatch
       .where(left: @entry)
