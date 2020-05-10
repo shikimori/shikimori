@@ -16,7 +16,11 @@ private
   end
 
   def find_or_create_publisher data
-    PublishersRepository.instance.find data[:id]
+    publisher = PublishersRepository.instance.find data[:id]
+    if publisher.name != data[:name]
+      publisher.update! name: data[:name]
+    end
+    publisher
   rescue ActiveRecord::RecordNotFound
     Publisher.create! id: data[:id], name: data[:name]
   end

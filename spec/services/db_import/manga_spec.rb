@@ -101,7 +101,8 @@ describe DbImport::Manga do
     end
 
     context 'present publisher' do
-      let!(:publisher) { create :publisher, id: publishers.first[:id] }
+      let!(:publisher) { create :publisher, id: publishers.first[:id], name: publisher_name }
+      let(:publisher_name) { publishers.first[:name] }
 
       describe 'imported' do
         let!(:manga) { create :manga, id: 987_654_321, description_en: 'old' }
@@ -113,6 +114,18 @@ describe DbImport::Manga do
             id: publisher.id,
             name: publisher.name
           )
+        end
+
+        describe 'updates name' do
+          let(:publisher_name) { 'zxc' }
+
+          it do
+            expect(entry.publishers).to have(1).item
+            expect(entry.publishers.first).to have_attributes(
+              id: publisher.id,
+              name: publishers.first[:name]
+            )
+          end
         end
       end
 

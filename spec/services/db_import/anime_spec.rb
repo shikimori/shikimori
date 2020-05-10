@@ -141,7 +141,7 @@ describe DbImport::Anime do
           )
         end
 
-        describe 'updates studio name' do
+        describe 'updates name' do
           let(:studio_name) { 'zxc' }
 
           it do
