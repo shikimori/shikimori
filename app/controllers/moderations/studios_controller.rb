@@ -6,7 +6,7 @@ private
   def update_params
     params
       .require(:studio)
-      .permit(:name, :image, :is_publisher, :is_verified)
+      .permit(:name, :image, :is_publisher, :is_verified, desynced: [])
       .tap do |allowed_params|
         if allowed_params[:is_publisher].present?
           allowed_params[:is_publisher] = allowed_params[:is_publisher] != '0'

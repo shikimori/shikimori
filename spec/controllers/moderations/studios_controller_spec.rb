@@ -16,7 +16,7 @@ describe Moderations::StudiosController do
   end
 
   describe '#update' do
-    let(:params) { { name: 'new description' } }
+    let(:params) { { name: 'new description', desynced: %w[name] } }
     subject { patch :update, params: { id: studio.id, studio: params } }
 
     it do

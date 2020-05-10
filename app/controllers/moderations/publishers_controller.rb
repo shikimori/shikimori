@@ -6,6 +6,6 @@ private
   def update_params
     params
       .require(:publisher)
-      .permit(:name)
+      .permit(:name, desynced: [])
   end
 end

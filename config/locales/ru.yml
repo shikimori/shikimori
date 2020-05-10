@@ -59,7 +59,7 @@ ru:
         fandubbers: Озвучка
         options: Настройки
         imported_at: Синхронизировано
-        desynced: Не синхронизируются
+        desynced: &desynced Не синхронизируются
         licensor: Лицензировано
         is_censored: 18+ контент
         source: Источник
@@ -129,9 +129,11 @@ ru:
         is_visible: Студия
         is_publisher: Издатель
         is_verified: Проверено
+        desynced: *desynced
       publisher:
         id: ID
         name: Название
+        desynced: *desynced
       user:
         avatar: Аватар
         birth_on: Дата рождения

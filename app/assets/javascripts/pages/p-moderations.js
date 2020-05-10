@@ -6,6 +6,8 @@ import CollectionSearch from 'views/search/collection';
 import { DatePicker } from 'views/application/date_picker';
 import axios from 'helpers/axios';
 
+import { initArrayFieldApp } from './p-db_entries/edit_field';
+
 function datePicker() {
   if (!$('.date-filter').exists()) { return; }
 
@@ -111,4 +113,8 @@ pageLoad('users_index', () => {
   if ($('.b-collection_search').length) {
     new CollectionSearch('.b-collection_search');
   }
+});
+
+pageLoad('studios_edit', 'publishers_edit', () => {
+  initArrayFieldApp();
 });

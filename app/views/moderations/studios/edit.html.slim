@@ -34,6 +34,8 @@ header.head
       = f.input :is_verified,
         input_html: { disabled: cannot?(:update, @resource) }
 
+    .m5: b = Publisher.human_attribute_name :desynced
+    = render 'db_entries/fields/desynced_field', resource: @resource
     = f.button :magic_submit
     = link_to t('actions.cancel'), moderations_studios_url, class: 'cancel'
 

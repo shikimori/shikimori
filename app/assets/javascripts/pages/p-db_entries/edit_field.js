@@ -200,7 +200,7 @@ async function initExternalLinksApp() {
   });
 }
 
-async function initArrayFieldApp() {
+export async function initArrayFieldApp() {
   const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
   const { default: ArrayField } = await import('vue/components/array_field');
   const storeSchema = await import('vue/stores/collection');
