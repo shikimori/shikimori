@@ -7,6 +7,9 @@ class Publisher < ApplicationRecord
     # 397 => 12,
     # 129 => 83
   }
+  DESYNCABLE = %w[
+    name
+  ]
 
   has_and_belongs_to_many :mangas
 

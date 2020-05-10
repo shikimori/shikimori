@@ -9,6 +9,11 @@ class Studio < ApplicationRecord
     141 => 18,
     94 => 73
   }
+  DESYNCABLE = %w[
+    name
+  ]
+  STUDIO_NAME_FILTER =
+    /°|^studios? | studios?$| productions?$| entertainment?$| animation?$|^animation? /i
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
@@ -17,8 +22,6 @@ class Studio < ApplicationRecord
   has_attached_file :image,
     url: '/system/studios/:style/:id.:extension',
     path: ':rails_root/public/system/studios/:style/:id.:extension'
-
-  STUDIO_NAME_FILTER = /°|^studios? | studios?$| productions?$| entertainment?$| animation?$|^animation? /i
 
   def self.filtered_name name
     # name.downcase.gsub(STUDIO_NAME_FILTER, '')
@@ -31,7 +34,7 @@ class Studio < ApplicationRecord
 
   # возвращет настоящую струдию, если это была склеенная студия
   def real
-    MERGED.keys.include?(id) ? self.class.find(MERGED[id]) : self
+    MERGED.key?(id) ? self.class.find(MERGED[id]) : self
   end
 
   # возвращет все id, связанные с текущим
@@ -41,7 +44,7 @@ class Studio < ApplicationRecord
 
   # возвращает все аниме студии с учетом склеенных студий
   def all_animes
-    animes unless MERGED.values.include?(id)
+    animes unless MERGED.value?(id)
     ids = []
     ApplicationRecord.connection
         .execute(format('SELECT * FROM animes_studios where studio_id in (%s)', (MERGED.select { |_k, v| v == id }.map { |k, _v| k } + [id]).join(','))).each do |v|
