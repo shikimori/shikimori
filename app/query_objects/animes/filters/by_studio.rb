@@ -1,7 +1,7 @@
 class Animes::Filters::ByStudio < Animes::Filters::FilterBase
   dry_type Types::Integer.constructor ->(value) {
     fixed_value = value.to_i
-    Studio::Merged[fixed_value] || fixed_value
+    Studio::MERGED[fixed_value] || fixed_value
   }
   field :studio
 

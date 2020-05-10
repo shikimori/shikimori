@@ -1,5 +1,5 @@
 class Studio < ApplicationRecord
-  Merged = {
+  MERGED = {
     83 => 48,
     88 => 48,
     292 => 48,
@@ -31,20 +31,20 @@ class Studio < ApplicationRecord
 
   # возвращет настоящую струдию, если это была склеенная студия
   def real
-    Merged.keys.include?(id) ? self.class.find(Merged[id]) : self
+    MERGED.keys.include?(id) ? self.class.find(MERGED[id]) : self
   end
 
   # возвращет все id, связанные с текущим
   def self.related(id)
-    Merged.map { |k, v| k == id ? v : (v == id ? k : nil) }.compact << id
+    MERGED.map { |k, v| k == id ? v : (v == id ? k : nil) }.compact << id
   end
 
   # возвращает все аниме студии с учетом склеенных студий
   def all_animes
-    animes unless Merged.values.include?(id)
+    animes unless MERGED.values.include?(id)
     ids = []
     ApplicationRecord.connection
-        .execute(format('SELECT * FROM animes_studios where studio_id in (%s)', (Merged.select { |_k, v| v == id }.map { |k, _v| k } + [id]).join(','))).each do |v|
+        .execute(format('SELECT * FROM animes_studios where studio_id in (%s)', (MERGED.select { |_k, v| v == id }.map { |k, _v| k } + [id]).join(','))).each do |v|
       ids << v[0]
     end
     Anime.where(id: ids)

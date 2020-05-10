@@ -1,6 +1,5 @@
 class Publisher < ApplicationRecord
-  has_and_belongs_to_many :mangas
-  Merged = {
+  MERGED = {
     48 => 8,
     206 => 81,
     108 => 72,
@@ -8,6 +7,8 @@ class Publisher < ApplicationRecord
     397 => 12,
     129 => 83
   }
+
+  has_and_belongs_to_many :mangas
 
   def to_param
     format('%<id>d-%<slug>s', id: id, slug: name.gsub(/[^\w]+/, '-').gsub(/^-|-$/, ''))
@@ -19,13 +20,13 @@ class Publisher < ApplicationRecord
 
   # возвращет все id, связанные с текущим
   def self.related id, recursive = false
-    related = Merged.map { |k, v| k == id ? v : (v == id ? k : nil) }.compact
+    related = MERGED.map { |k, v| k == id ? v : (v == id ? k : nil) }.compact
     related = related.map { |v| self.related(v, true) }.flatten.uniq unless recursive
     related << id
   end
 
   # возвращет настоящего издателя, если это был склеенный издатель
   def real
-    Merged.key?(id) ? self.class.find(Merged[id]) : self
+    MERGED.key?(id) ? self.class.find(MERGED[id]) : self
   end
 end

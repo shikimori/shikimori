@@ -1,7 +1,7 @@
 class Animes::Filters::ByPublisher < Animes::Filters::FilterBase
   dry_type Types::Integer.constructor ->(value) {
     fixed_value = value.to_i
-    Publisher::Merged[fixed_value] || fixed_value
+    Publisher::MERGED[fixed_value] || fixed_value
   }
   field :publisher
 

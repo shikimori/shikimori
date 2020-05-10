@@ -49,7 +49,7 @@ class Genre < ApplicationRecord
     'Psychological'
   ]
 
-  Merged = {}
+  MERGED = {}
 
   def main?
     MAIN_GENRES.include?(english)
