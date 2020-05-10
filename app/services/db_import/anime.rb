@@ -30,11 +30,15 @@ private
   end
 
   def assign_studios studios
-    entry.studio_ids = studios.map { |v| find_or_create_studio(v).id }
+    entry.studio_ids = studios.map { |v| sync_studio(v).id }
   end
 
-  def find_or_create_studio data
-    StudiosRepository.instance.find data[:id]
+  def sync_studio data
+    studio = StudiosRepository.instance.find data[:id]
+    if studio.name != data[:name]
+      studio.update! name: data[:name]
+    end
+    studio
   rescue ActiveRecord::RecordNotFound
     Studio.create!(
       id: data[:id],

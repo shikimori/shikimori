@@ -126,7 +126,8 @@ describe DbImport::Anime do
     end
 
     context 'present studio' do
-      let!(:studio) { create :studio, id: studios.first[:id] }
+      let!(:studio) { create :studio, id: studios.first[:id], name: studio_name }
+      let(:studio_name) { studios.first[:name] }
 
       describe 'imported' do
         let!(:anime) { create :anime, id: 987_654_321, description_en: 'old' }
@@ -136,8 +137,20 @@ describe DbImport::Anime do
           expect(entry.studios).to have(1).item
           expect(entry.studios.first).to have_attributes(
             id: studio.id,
-            name: studio.name,
+            name: studio.name
           )
+        end
+
+        describe 'updates studio name' do
+          let(:studio_name) { 'zxc' }
+
+          it do
+            expect(entry.studios).to have(1).item
+            expect(entry.studios.first).to have_attributes(
+              id: studio.id,
+              name: studios.first[:name]
+            )
+          end
         end
       end
 
