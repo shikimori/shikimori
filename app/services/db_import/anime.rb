@@ -35,9 +35,11 @@ private
 
   def sync_studio data
     studio = StudiosRepository.instance.find data[:id]
-    if studio.name != data[:name]
+
+    if studio.name != data[:name] && !studio.desynced.include?('name')
       studio.update! name: data[:name]
     end
+
     studio
   rescue ActiveRecord::RecordNotFound
     Studio.create!(

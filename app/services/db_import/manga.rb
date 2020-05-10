@@ -17,9 +17,11 @@ private
 
   def find_or_create_publisher data
     publisher = PublishersRepository.instance.find data[:id]
-    if publisher.name != data[:name]
+
+    if publisher.name != data[:name] && !publisher.desynced.include?('name')
       publisher.update! name: data[:name]
     end
+
     publisher
   rescue ActiveRecord::RecordNotFound
     Publisher.create! id: data[:id], name: data[:name]

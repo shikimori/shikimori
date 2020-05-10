@@ -101,8 +101,14 @@ describe DbImport::Manga do
     end
 
     context 'present publisher' do
-      let!(:publisher) { create :publisher, id: publishers.first[:id], name: publisher_name }
+      let!(:publisher) do
+        create :publisher,
+          id: publishers.first[:id],
+          name: publisher_name,
+          desynced: desynced
+      end
       let(:publisher_name) { publishers.first[:name] }
+      let(:desynced) { [] }
 
       describe 'imported' do
         let!(:manga) { create :manga, id: 987_654_321, description_en: 'old' }
@@ -125,6 +131,17 @@ describe DbImport::Manga do
               id: publisher.id,
               name: publishers.first[:name]
             )
+          end
+
+          context 'desynced name ignored' do
+            let(:desynced) { %w[name] }
+            it do
+              expect(entry.publishers).to have(1).item
+              expect(entry.publishers.first).to have_attributes(
+                id: publisher.id,
+                name: publisher.name
+              )
+            end
           end
         end
       end
