@@ -121,7 +121,9 @@ describe ListImports::ImportList do
 
         it do
           expect(user.anime_rates).to have(1).item
-          expect(user.anime_rates.first).to have_attributes user_rate.attributes
+          expect(user.anime_rates.first).to have_attributes(
+            user_rate.attributes.except(:created_at, :updated_at)
+          )
           expect(user.manga_rates).to be_empty
 
           expect(list_import.output).to eq(
