@@ -160,11 +160,19 @@ private
     @entry.recommendation_ignores.each { |v| v.update target: @other }
   end
 
-  def merge_contest_links
+  def merge_contest_links # rubocop:disable AbcSize
     @entry.contest_links.each { |v| v.update linked: @other }
     @entry.contest_winners.each { |v| v.update item: @other }
-    ContestMatch.where(left: @entry).each { |v| v.update! left: @other }
-    ContestMatch.where(right: @entry).each { |v| v.update! right: @other }
+
+    ContestMatch
+      .where(left: @entry)
+      .or(ContestMatch.where(right: @entry))
+      .each do |contest_match|
+        contest_match.left_id = @other.id if contest_match.left_id == @entry.id
+        contest_match.right_id = @other.id if contest_match.right_id == @entry.id
+        contest_match.winner_id = @other.id if contest_match.winner_id == @entry.id
+        contest_match.save!
+      end
   end
 
   def merge_anime_links

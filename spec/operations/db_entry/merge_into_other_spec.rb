@@ -49,7 +49,9 @@ describe DbEntry::MergeIntoOther do
   let!(:contest_link) { create :contest_link, linked: entry_1, contest: contest }
   let!(:contest_winner) { create :contest_winner, item: entry_1, contest: contest }
   let!(:contest_match_1) { create :contest_match, left: entry_1, right: entry_3 }
-  let!(:contest_match_2) { create :contest_match, left: entry_3, right: entry_1 }
+  let!(:contest_match_2) do
+    create :contest_match, left: entry_3, right: entry_1, winner_id: entry_1.id
+  end
 
   let!(:anime_link) do
     create :anime_link, anime: entry_1, identifier: 'zxc' if type == :anime
@@ -96,6 +98,7 @@ describe DbEntry::MergeIntoOther do
     expect(contest_winner.reload.item).to eq entry_2
     expect(contest_match_1.reload.left).to eq entry_2
     expect(contest_match_2.reload.right).to eq entry_2
+    expect(contest_match_2.winner_id).to eq entry_2.id
 
     if entry_1.respond_to? :anime_links
       expect(anime_link.reload.anime).to eq entry_2
