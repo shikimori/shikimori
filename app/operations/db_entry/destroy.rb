@@ -20,8 +20,8 @@ private
   def related_user_ids
     (
       user_rates.distinct.pluck(:user_id) +
-      user_rate_logs.distinct.pluck(:user_id) +
-      user_history.distinct.pluck(:user_id)
+        user_rate_logs.distinct.pluck(:user_id) +
+        user_history.distinct.pluck(:user_id)
     ).uniq
   end
 
