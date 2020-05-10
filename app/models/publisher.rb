@@ -1,11 +1,11 @@
 class Publisher < ApplicationRecord
   MERGED = {
-    48 => 8,
-    206 => 81,
-    108 => 72,
-    229 => 12,
-    397 => 12,
-    129 => 83
+    # 48 => 8,
+    # 206 => 81,
+    # 108 => 72,
+    # 229 => 12,
+    # 397 => 12,
+    # 129 => 83
   }
 
   has_and_belongs_to_many :mangas
