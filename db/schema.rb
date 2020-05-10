@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_28_172514) do
+ActiveRecord::Schema.define(version: 2020_05_09_125449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2020_04_28_172514) do
     t.datetime "updated_at"
     t.string "state", limit: 255
     t.integer "approver_id"
-    t.string "reason"
+    t.text "reason"
     t.index ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, where: "((state)::text = 'pending'::text)"
   end
 
@@ -1131,7 +1131,7 @@ ActiveRecord::Schema.define(version: 2020_04_28_172514) do
     t.datetime "created_at"
     t.jsonb "item_diff"
     t.integer "moderator_id"
-    t.string "reason"
+    t.text "reason"
     t.string "type"
     t.datetime "updated_at"
     t.integer "associated_id"
