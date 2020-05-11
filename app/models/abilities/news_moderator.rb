@@ -3,6 +3,6 @@ class Abilities::NewsModerator
   prepend Draper::CanCanCan
 
   def initialize _user
-    can :moderate, Topic
+    can :manage, Topics::NewsTopic
   end
 end

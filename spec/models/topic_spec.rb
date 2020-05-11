@@ -231,6 +231,32 @@ describe Topic do
       end
     end
 
+    context 'news_moderator' do
+      let(:user) { build_stubbed :user, :news_moderator }
+      let(:topic) { build_stubbed :topic }
+
+      context 'common topic' do
+        it { is_expected.to_not be_able_to :edit, topic }
+        it { is_expected.to_not be_able_to :manage, topic }
+        it { is_expected.not_to be_able_to :moderate, topic }
+      end
+
+      context 'generated topic' do
+        let(:topic) { build_stubbed :club_topic }
+        it { is_expected.to_not be_able_to :manage, topic }
+      end
+
+      context 'generated review topic' do
+        let(:topic) { build_stubbed :review_topic }
+        it { is_expected.to_not be_able_to :manage, topic }
+      end
+
+      context 'news topic' do
+        let(:topic) { build_stubbed :news_topic }
+        it { is_expected.to be_able_to :manage, topic }
+      end
+    end
+
     context 'forum_moderator' do
       let(:user) { build_stubbed :user, :forum_moderator }
       let(:topic) do
