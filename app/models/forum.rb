@@ -18,6 +18,7 @@ class Forum < ApplicationRecord
   COSPLAY_ID = 15
   NEWS_ID = 20
   ARTICLES_ID = 21
+  PREMODERATION_ID = 22
 
   UPDATES_FORUM = FakeForum.new 'updates', 'Обновления аниме', 'Anime updates'
   MY_CLUBS_FORUM = FakeForum.new 'my_clubs', 'Мои клубы', 'My clubs'

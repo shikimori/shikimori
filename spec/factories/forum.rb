@@ -58,6 +58,12 @@ FactoryBot.define do
       name_ru { 'Рецензии' }
     end
 
+    trait :premoderation do
+      id { Forum::PREMODERATION_ID }
+      permalink { 'premoderation' }
+      name_ru { 'Премодерация' }
+    end
+
     factory :animanga_forum, traits: [:animanga]
     factory :clubs_forum, traits: [:club]
     factory :collections_forum, traits: [:collection]
