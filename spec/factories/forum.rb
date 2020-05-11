@@ -48,7 +48,7 @@ FactoryBot.define do
     end
 
     trait :offtopic do
-      id { (Random.rand * 100_000).to_i }
+      id { Forum::OFFTOPIC_ID }
       permalink { 'offtopic' }
     end
 

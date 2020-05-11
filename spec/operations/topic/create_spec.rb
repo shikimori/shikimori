@@ -54,7 +54,6 @@ describe Topic::Create do
     end
 
     describe 'premoderation' do
-      let!(:premoderation_forum) { create :premoderation_forum }
       let(:type) { Topics::NewsTopic.name }
 
       it do

@@ -17,6 +17,7 @@ class FactoryBotSeeds
     collections_forum
     articles_forum
     offtopic_forum
+    premoderation_forum
 
     offtopic_topic
     site_rules_topic
