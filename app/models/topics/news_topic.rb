@@ -31,7 +31,7 @@ class Topics::NewsTopic < Topic
   end
 
   def accept
-    update forum_id: Forum::NEWS_ID # , created_at: Time.zone.now
+    update forum_id: Forum::NEWS_ID, created_at: Time.zone.now
   end
 
   def reject
