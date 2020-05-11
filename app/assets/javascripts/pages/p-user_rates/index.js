@@ -196,7 +196,7 @@ function applyListHandlers($root) {
     if ($anotherTrEdit.exists()) {
       $anotherTrEdit.remove();
     } else {
-      animatedExpand($form[0], true, true);
+      animatedExpand($form[0]);
     }
 
     // отмена редактирования
