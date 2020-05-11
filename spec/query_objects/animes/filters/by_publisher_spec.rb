@@ -4,25 +4,26 @@ describe Animes::Filters::ByPublisher do
   let(:scope) { Manga.order :id }
 
   let(:kakao) { create :publisher, id: 206 }
-  let(:kakao_clone) { create :publisher, id: 81 }
+  # let(:kakao_clone) { create :publisher, id: 81 }
   let(:naver) { create :publisher }
 
   let!(:manga_1) { create :manga, publisher_ids: [kakao.id, naver.id] }
   let!(:manga_2) { create :manga, publisher_ids: [kakao.id] }
-  let!(:manga_3) { create :manga, publisher_ids: [kakao_clone.id] }
+  # let!(:manga_3) { create :manga, publisher_ids: [kakao_clone.id] }
   let!(:manga_4) { create :manga }
   let!(:manga_5) { create :manga, publisher_ids: [naver.id] }
 
   context 'positive' do
     context 'kakao' do
       let(:terms) { kakao.to_param }
-      it { is_expected.to eq [manga_1, manga_2, manga_3] }
+      it { is_expected.to eq [manga_1, manga_2] }
+      # it { is_expected.to eq [manga_1, manga_2, manga_3] }
     end
 
-    context 'kakao_clone' do
-      let(:terms) { kakao_clone.to_param }
-      it { is_expected.to eq [manga_1, manga_2, manga_3] }
-    end
+    # context 'kakao_clone' do
+    #   let(:terms) { kakao_clone.to_param }
+    #   it { is_expected.to eq [manga_1, manga_2, manga_3] }
+    # end
 
     context 'naver' do
       let(:terms) { naver.to_param }
@@ -43,7 +44,8 @@ describe Animes::Filters::ByPublisher do
 
     context '!naver' do
       let(:terms) { "!#{naver.to_param}" }
-      it { is_expected.to eq [manga_2, manga_3, manga_4] }
+      it { is_expected.to eq [manga_2, manga_4] }
+      # it { is_expected.to eq [manga_2, manga_3, manga_4] }
     end
 
     context '!kakao,!naver' do
@@ -55,7 +57,8 @@ describe Animes::Filters::ByPublisher do
   context 'both' do
     context 'kakao,!naver' do
       let(:terms) { "#{kakao.to_param},!#{naver.to_param}" }
-      it { is_expected.to eq [manga_2, manga_3] }
+      it { is_expected.to eq [manga_2] }
+      # it { is_expected.to eq [manga_2, manga_3] }
     end
 
     context '!kakao,naver' do
