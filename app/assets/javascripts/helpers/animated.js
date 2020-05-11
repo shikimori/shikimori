@@ -54,6 +54,8 @@ export function animatedCollapse(element, isIgnorePaddings, isIgnoreMargins) {
       element.classList.add('hidden');
     });
   });
+
+  return delay(ANIMATED_DELAY);
 }
 export function animatedExpand(element, isIgnorePaddings, isIgnoreMargins) {
   if (element.classList.contains('hidden')) {
@@ -107,5 +109,7 @@ export function animatedExpand(element, isIgnorePaddings, isIgnoreMargins) {
 
       element.classList.remove('animated-expand');
     });
+
+    return delay(ANIMATED_DELAY);
   });
 }

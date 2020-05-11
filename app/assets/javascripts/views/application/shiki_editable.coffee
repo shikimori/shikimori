@@ -2,7 +2,7 @@ import delay from 'delay'
 
 import getSelectionText from 'helpers/get_selection_text'
 import axios from 'helpers/axios'
-import { ANIMATED_DELAY, animatedCollapse } from 'helpers/animated'
+import { animatedCollapse } from 'helpers/animated'
 
 import ShikiView from 'views/application/shiki_view'
 
@@ -34,8 +34,7 @@ export default class ShikiEditable extends ShikiView
     # confirm deletion
     $('.item-delete-confirm', @$inner).on 'ajax:loading', (e, data, status, xhr) =>
       $.hideCursorMessage()
-      animatedCollapse @root
-      delay(ANIMATED_DELAY).then => @$root.remove()
+      animatedCollapse(@root).then => @$root.remove()
 
     # cancel deletion
     $('.item-delete-cancel', @$inner).on 'click', =>
