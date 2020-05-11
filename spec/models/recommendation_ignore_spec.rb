@@ -4,6 +4,10 @@ describe RecommendationIgnore do
     it { is_expected.to belong_to :target }
   end
 
+  describe 'validations' do
+    it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:target_id, :target_type) }
+  end
+
   context 'class_methods' do
     let(:anime1) { create :anime, kind: :special }
     let(:anime_2) { create :anime }
