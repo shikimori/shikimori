@@ -5,7 +5,7 @@ import ShikiEditor from 'views/application/shiki_editor'
 import ShikiGallery from 'views/application/shiki_gallery'
 
 import axios from 'helpers/axios'
-import { animatedCollapse, animatedExpand } from 'helpers/animations'
+import { animatedCollapse, animatedExpand } from 'helpers/animated'
 
 # TODO: move code related to comments to separate class
 export default class Topic extends ShikiEditable

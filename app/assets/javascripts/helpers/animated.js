@@ -1,6 +1,6 @@
 import delay from 'delay';
 
-export const ANIMATION_DELAY = 350;
+export const ANIMATED_DELAY = 350;
 
 export function animatedCollapse(element, isIgnorePaddings, isIgnoreMargins) {
   // get the height of the element's inner content, regardless of its actual size
@@ -36,7 +36,7 @@ export function animatedCollapse(element, isIgnorePaddings, isIgnoreMargins) {
         element.style.paddingBottom = '0px';
       }
 
-      await delay(ANIMATION_DELAY);
+      await delay(ANIMATED_DELAY);
 
       element.style.height = '';
 
@@ -91,7 +91,7 @@ export function animatedExpand(element, isIgnorePaddings, isIgnoreMargins) {
     requestAnimationFrame(async () => {
       element.style.height = sectionHeight + 'px';
 
-      await delay(ANIMATION_DELAY);
+      await delay(ANIMATED_DELAY);
 
       element.style.height = '';
 

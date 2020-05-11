@@ -1,4 +1,4 @@
-import { animatedExpand } from 'helpers/animations'
+import { animatedExpand } from 'helpers/animated'
 
 $.fn.extend
   # options:

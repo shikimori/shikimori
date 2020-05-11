@@ -7,7 +7,7 @@ import { initArrayFieldApp } from './p-db_entries/edit_field';
 
 import CollectionSearch from 'views/search/collection';
 import { DatePicker } from 'views/application/date_picker';
-import { ANIMATION_DELAY, animatedCollapse } from 'helpers/animations';
+import { ANIMATED_DELAY, animatedCollapse } from 'helpers/animated';
 
 function datePicker() {
   if (!$('.date-filter').exists()) { return; }
@@ -69,7 +69,7 @@ pageLoad('.moderations-index', () => {
     .on('ajax:success', '.b-log_entry .link.destroy', async ({ currentTarget }) => {
       const $root = $(currentTarget).closest('.b-log_entry');
       animatedCollapse($root[0]);
-      await delay(ANIMATION_DELAY);
+      await delay(ANIMATED_DELAY);
       $root.remove();
     })
     .on('ajax:complete', '.b-log_entry .link.destroy', async ({ currentTarget }) => {
