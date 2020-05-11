@@ -22,6 +22,12 @@ class ModerationPolicy
     Collection.pending.published.where(locale: @locale).size
   end
 
+  def news_count
+    return 0 unless !@moderation_filter || @user&.news_moderator?
+
+    Topics::NewsTopic.pending.where(locale: @locale).size
+  end
+
   def articles_count
     return 0 unless !@moderation_filter || @user&.article_moderator?
 

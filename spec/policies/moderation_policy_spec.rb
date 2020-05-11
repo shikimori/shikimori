@@ -74,6 +74,42 @@ describe ModerationPolicy do
     end
   end
 
+  describe '#news_count' do
+    before do
+      allow(Topics::NewsTopic)
+        .to receive_message_chain(:pending, :where, :size)
+        .and_return(news_count)
+    end
+    let(:news_count) { 1 }
+    let(:user) { build :user, :news_moderator }
+
+    it { expect(policy.news_count).to eq 1 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.news_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.news_count).to eq 0 }
+    end
+
+    context 'no moderation filter' do
+      let(:moderation_filter) { false }
+
+      context 'not moderator' do
+        let(:user) { build :user, :user }
+        it { expect(policy.news_count).to eq 1 }
+      end
+
+      context 'no user' do
+        let(:user) { nil }
+        it { expect(policy.news_count).to eq 1 }
+      end
+    end
+  end
+
   describe '#articles_count' do
     before do
       allow(Article)
