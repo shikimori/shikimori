@@ -192,11 +192,11 @@ function applyListHandlers($root) {
       .insertAfter(currentTarget);
 
     const $form = $trEdit.find('form');
+    animatedExpand($form[0]);
 
     if ($anotherTrEdit.exists()) {
-      $anotherTrEdit.remove();
-    } else {
-      animatedExpand($form[0]);
+      animatedCollapse($anotherTrEdit.find('form')[0])
+        .then(() => $anotherTrEdit.remove());
     }
 
     // отмена редактирования
