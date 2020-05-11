@@ -48,7 +48,7 @@ describe Topics::NewsTopic do
     end
 
     describe '#accept' do
-      include_context :timecop
+      # include_context :timecop
       subject! { topic.accept }
 
       let(:topic) { create :news_topic, forum_id: Forum::PREMODERATION_ID }
@@ -56,11 +56,12 @@ describe Topics::NewsTopic do
       it do
         expect(topic).to_not be_changed
         expect(topic.forum_id).to eq Forum::NEWS_ID
-        expect(topic.created_at).to be_within(0.1).of Time.zone.now
+        # expect(topic.created_at).to be_within(0.1).of Time.zone.now
       end
     end
 
     describe '#reject' do
+      # include_context :timecop
       subject! { topic.reject }
 
       let(:topic) { create :news_topic, forum_id: Forum::PREMODERATION_ID }
@@ -68,11 +69,11 @@ describe Topics::NewsTopic do
       it do
         expect(topic).to_not be_changed
         expect(topic.forum_id).to eq Forum::OFFTOPIC_ID
-        expect(topic.created_at).to be_within(0.1).of Time.zone.now
+        # expect(topic.created_at).to be_within(0.1).of Time.zone.now
       end
     end
 
-    describe '#can_accept?, #can_reject?' do
+    describe '#moderation_state, #can_accept?, #can_reject?' do
       let(:topic) { build :news_topic, forum_id: forum_id }
 
       context 'Forum::PREMODERATION_ID' do
@@ -80,6 +81,7 @@ describe Topics::NewsTopic do
         it do
           expect(topic).to be_can_accept
           expect(topic).to be_can_reject
+          expect(topic.moderation_state).to eq 'pending'
         end
       end
 
@@ -88,6 +90,7 @@ describe Topics::NewsTopic do
         it do
           expect(topic).to_not be_can_accept
           expect(topic).to be_can_reject
+          expect(topic.moderation_state).to eq 'accepted'
         end
       end
 
@@ -96,6 +99,7 @@ describe Topics::NewsTopic do
         it do
           expect(topic).to be_can_accept
           expect(topic).to_not be_can_reject
+          expect(topic.moderation_state).to eq 'rejected'
         end
       end
     end
