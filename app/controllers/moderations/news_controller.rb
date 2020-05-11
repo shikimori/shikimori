@@ -29,17 +29,17 @@ class Moderations::NewsController < ModerationsController
 private
 
   def processed_scope
-    Topics::NewsTopic
-      .where.not(forum_id: Forum::PREMODERATION_ID)
-      .where(locale: locale_from_host)
-      .includes(:user)
-      .order(created_at: :desc)
+    scope.where.not(forum_id: Forum::PREMODERATION_ID)
   end
 
   def pending_scope
+    scope.where(forum_id: Forum::PREMODERATION_ID)
+  end
+
+  def scope
     Topics::NewsTopic
-      .where(forum_id: Forum::PREMODERATION_ID)
       .where(locale: locale_from_host)
+      .where.not(generated: true)
       .includes(:user)
       .order(created_at: :desc)
   end
