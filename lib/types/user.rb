@@ -14,6 +14,7 @@ module Types
       not_trusted_version_changer
       review_moderator
       collection_moderator
+      news_moderator
       article_moderator
       cosplay_moderator
       contest_moderator
