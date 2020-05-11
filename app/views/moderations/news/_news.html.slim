@@ -2,8 +2,9 @@
   id=news.id
 ]
   span
-    a[
+    a.bubbled[
       href=UrlGenerator.instance.topic_url(news)
+      data-tooltip_url=topic_tooltip_url(news)
     ]
       span.id-label #
       = news.id
