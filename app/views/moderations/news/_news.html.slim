@@ -34,3 +34,13 @@
             href=reject_moderations_news_path(news)
             data-method='post'
           ] = t '.move_to_offtopic'
+        - if news.moderation_state != 'accepted'
+          a.link.destroy[
+            title=t('actions.delete')
+            data-text=t('actions.delete')
+            data-action=topic_url(news)
+            data-confirm=t('actions.confirm_delete')
+            data-type='json'
+            data-remote='true'
+            data-method='DELETE'
+          ] = t('actions.delete').downcase

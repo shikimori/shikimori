@@ -1,12 +1,13 @@
 import URI from 'urijs';
 import Turbolinks from 'turbolinks';
 import cookies from 'js-cookie';
+import delay from 'delay';
+
+import { initArrayFieldApp } from './p-db_entries/edit_field';
 
 import CollectionSearch from 'views/search/collection';
 import { DatePicker } from 'views/application/date_picker';
-import axios from 'helpers/axios';
-
-import { initArrayFieldApp } from './p-db_entries/edit_field';
+import { ANIMATION_DELAY, animatedCollapse } from 'helpers/animations';
 
 function datePicker() {
   if (!$('.date-filter').exists()) { return; }
@@ -49,21 +50,34 @@ pageLoad('versions_show', 'user_rate_logs_show', () => {
   $('.collapsed.spoiler', '.b-log_entry, .b-user_rate_log').click();
 });
 
-pageLoad(
-  'bans_index',
-  'abuse_requests_index',
-  'versions_index',
-  'review_index',
-  () => {
-    $('.b-brief').checkHeight({ max_height: 150 });
+pageLoad('.moderations-index', () => {
+  $('.b-brief').checkHeight({ max_height: 150 });
 
-    $('.expand-all').on('click', function () {
-      $(this).parent().next().next()
-        .find('.collapsed.spoiler:visible')
-        .click();
-      $(this).remove();
-    });
+  $('.expand-all').on('click', function () {
+    $(this).parent().next().next()
+      .find('.collapsed.spoiler:visible')
+      .click();
+    $(this).remove();
   });
+
+  $('.l-page')
+    .on('ajax:before', '.b-log_entry .link.destroy', async ({ currentTarget }) => {
+      $(currentTarget)
+        .closest('.b-log_entry')
+        .addClass('b-ajax');
+    })
+    .on('ajax:success', '.b-log_entry .link.destroy', async ({ currentTarget }) => {
+      const $root = $(currentTarget).closest('.b-log_entry');
+      animatedCollapse($root[0]);
+      await delay(ANIMATION_DELAY);
+      $root.remove();
+    })
+    .on('ajax:complete', '.b-log_entry .link.destroy', async ({ currentTarget }) => {
+      $(currentTarget)
+        .closest('.b-log_entry')
+        .removeClass('b-ajax');
+    });
+});
 
 pageLoad('roles_show', () => {
   new CollectionSearch('.b-collection_search');
