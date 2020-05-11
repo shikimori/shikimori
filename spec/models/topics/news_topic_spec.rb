@@ -6,7 +6,7 @@ describe Topics::NewsTopic do
   describe 'instance methods' do
     describe '#title' do
       let(:topic) { build :news_topic, generated: generated, action: action, title: '123', value: '1' }
-      let(:action) { }
+      let(:action) {}
       subject { topic.title }
 
       context 'generated' do
@@ -44,6 +44,28 @@ describe Topics::NewsTopic do
       context 'not generated' do
         let(:topic) { build :news_topic, generated: false }
         it { expect(topic.full_title).to eq topic.title }
+      end
+    end
+
+    describe '#accept' do
+      subject! { topic.accept }
+
+      let(:topic) { create :news_topic, forum_id: Forum::PREMODERATION_ID }
+
+      it do
+        expect(topic).to_not be_changed
+        expect(topic.forum_id).to eq Forum::NEWS_ID
+      end
+    end
+
+    describe '#reject', :focus do
+      subject! { topic.reject }
+
+      let(:topic) { create :news_topic, forum_id: Forum::PREMODERATION_ID }
+
+      it do
+        expect(topic).to_not be_changed
+        expect(topic.forum_id).to eq Forum::OFFTOPIC_ID
       end
     end
   end

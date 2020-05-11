@@ -29,4 +29,12 @@ class Topics::NewsTopic < Topic
       )
     ).gsub(/<.*?>/, '')
   end
+
+  def accept
+    update forum_id: Forum::NEWS_ID
+  end
+
+  def reject
+    update forum_id: Forum::OFFTOPIC_ID
+  end
 end
