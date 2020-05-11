@@ -11,6 +11,7 @@ module.exports = {
     replace({ commit }, value) { commit('REPLACE', value); },
     add({ commit }, value) { commit('ADD', value); },
     remove({ commit }, data) { commit('REMOVE', data); },
+    cleanup({ commit }) { commit('CLEANUP'); }
   },
 
   mutations: {
@@ -24,6 +25,13 @@ module.exports = {
 
     REMOVE(state, item) {
       state.collection.splice(state.collection.indexOf(item), 1);
+    },
+
+    CLEANUP(state) {
+      state.collection.forEach(item => {
+        item.value = item.value.trim();
+      });
+      state.collection = state.collection.filter(v => v.value);
     }
   },
 

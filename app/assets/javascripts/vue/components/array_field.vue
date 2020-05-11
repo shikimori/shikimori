@@ -119,6 +119,9 @@ export default {
           this.collection[($(e.currentTarget).data('collection_index'))].value = value;
         });
     },
+    cleanup() {
+      this.$store.dispatch('cleanup');
+    }
   }
 };
 </script>
