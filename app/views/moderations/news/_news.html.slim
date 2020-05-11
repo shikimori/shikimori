@@ -1,0 +1,38 @@
+.b-log_entry.mobile-multiline[
+  id=news.id
+]
+  span
+    a[
+      href=UrlGenerator.instance.topic_url(news)
+    ]
+      span.id-label #
+      = news.id
+
+  span.date
+    = news.created_at.strftime '%d.%m.%Y'
+
+  span.author
+    = render 'users/user_16', user: news.user
+
+  span
+    = news.title
+
+  / span
+    = render 'reviews/votes', review: news
+
+  / span.state.inline class=news.moderation_state
+    = news.human_moderation_state_name
+
+  - if can? :moderate, news
+    - if news.can_accept? || news.can_reject? || news.can_cancel?
+      .moderation.inline
+        - if news.can_accept?
+          a.link.accept[
+            href=accept_moderations_news_path(news)
+            data-method='post'
+          ] = t '.accept'
+        - if news.can_reject?
+          a.link.reject[
+            href=reject_moderations_news_path(news)
+            data-method='post'
+          ] = t '.move_to_offtopic'

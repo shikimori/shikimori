@@ -149,6 +149,13 @@ en:
         accept: accept
         move_to_offtopic: move to offtopic
 
+    news:
+      index:
+        notice: This is the history of news moderation
+      news:
+        accept: accept
+        move_to_offtopic: move to offtopic
+
     articles:
       index:
         notice: This is the history of article moderation

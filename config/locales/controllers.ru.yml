@@ -215,6 +215,10 @@ ru:
     <<: *moderations_controller
     page_title: Модерация коллекций
 
+  moderations/news_controller:
+    <<: *moderations_controller
+    page_title: Модерация новостей
+
   moderations/articles_controller:
     <<: *moderations_controller
     page_title: Модерация статей

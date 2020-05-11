@@ -215,6 +215,10 @@ en:
     <<: *moderations_controller
     page_title: Collections moderation
 
+  moderations/news_controller:
+    <<: *moderations_controller
+    page_title: News moderation
+
   moderations/articles_controller:
     <<: *moderations_controller
     page_title: Articles moderation

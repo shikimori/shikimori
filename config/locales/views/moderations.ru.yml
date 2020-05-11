@@ -149,6 +149,13 @@ ru:
         accept: принять
         move_to_offtopic: переместить в оффтопик
 
+    news:
+      index:
+        notice: История модерации новостей
+      news:
+        accept: принять
+        move_to_offtopic: переместить в оффтопик
+
     articles:
       index:
         notice: История модерации статей
