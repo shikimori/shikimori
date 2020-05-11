@@ -8,6 +8,6 @@ class AddPremoderationForum < ActiveRecord::Migration[5.2]
   end
 
   def down
-    Forum.find_by(id: 21)&.destroy
+    Forum.find_by(id: 22)&.destroy
   end
 end
