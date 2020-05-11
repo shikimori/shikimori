@@ -24,7 +24,7 @@
         .b-input
           input(
             type='text'
-            v-model='entry.name'
+            v-model='entry.value'
             :name="`${resourceType.toLowerCase()}[${field}][]`"
             :placeholder="I18n.t('frontend.' + field + '.name')"
             @keydown.enter='submit'
@@ -71,15 +71,16 @@ export default {
       }
     }
   },
-  mounted() {
-    this.$nextTick(() => { this.autocomplete(); });
+  async mounted() {
+    await this.$nextTick();
+    this.autocomplete();
   },
   methods: {
     ...mapActions([
       'remove'
     ]),
     async add() {
-      this.$store.dispatch('add', { name: '' });
+      this.$store.dispatch('add', { value: '' });
       await this.focusLast();
       this.autocomplete();
     },
@@ -95,7 +96,7 @@ export default {
       }
     },
     removeEmpty(entry) {
-      if (Object.isEmpty(entry.name) &&
+      if (Object.isEmpty(entry.value) &&
           this.$store.state.collection.length > 1
       ) {
         this.remove(entry);
@@ -115,9 +116,9 @@ export default {
         .data('autocomplete-enabled', true)
         .completable()
         .on('autocomplete:success', (e, { value }) => {
-          this.collection[($(e.currentTarget).data('collection_index'))].name = value;
+          this.collection[($(e.currentTarget).data('collection_index'))].value = value;
         });
-    }
+    },
   }
 };
 </script>

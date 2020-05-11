@@ -1,5 +1,5 @@
-let uniq_id = 987654321;
-const new_id = () => uniq_id += 1;
+let uniqId = 987654321;
+const newId = () => uniqId += 1;
 
 // store for simple collection of items
 module.exports = {
@@ -8,18 +8,18 @@ module.exports = {
   },
 
   actions: {
-    replace(context, value) { context.commit('REPLACE', value); },
-    add(context, value) { context.commit('ADD', value); },
-    remove(context, data) { context.commit('REMOVE', data); }
+    replace({ commit }, value) { commit('REPLACE', value); },
+    add({ commit }, value) { commit('ADD', value); },
+    remove({ commit }, data) { commit('REMOVE', data); },
   },
 
   mutations: {
-    REPLACE(state, new_collection) {
-      state.collection = new_collection;
+    REPLACE(state, newCollection) {
+      state.collection = newCollection;
     },
 
-    ADD(state, item_data) {
-      state.collection.push(Object.add(item_data, { key: new_id() }));
+    ADD(state, itemData) {
+      state.collection.push(Object.add(itemData, { key: newId() }));
     },
 
     REMOVE(state, item) {
@@ -31,7 +31,7 @@ module.exports = {
     collection(store) { return store.collection; },
     isEmpty(store) {
       return store.collection.every(item =>
-        Object.isEmpty(item.url) && Object.isEmpty(item.name) && Object.isEmpty(item.name)
+        Object.isEmpty(item.url) && Object.isEmpty(item.value) && Object.isEmpty(item.name)
       );
     }
   },

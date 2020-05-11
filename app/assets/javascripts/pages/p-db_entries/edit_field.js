@@ -209,12 +209,10 @@ export async function initArrayFieldApp() {
   const values = $app.data('values');
 
   const store = new Vuex.Store(storeSchema);
-  store.state.collection = values.map((synonym, index) =>
-    ({
-      key: index,
-      name: synonym
-    })
-  );
+  store.state.collection = values.map((value, index) => ({
+    key: index,
+    value
+  }));
 
   new Vue({
     el: '#vue_app',
