@@ -4,7 +4,7 @@ import Turbolinks from 'turbolinks';
 import { COMMON_TOOLTIP_OPTIONS } from 'helpers/tooltip_options';
 import { isMobile } from 'helpers/mobile_detect';
 import axios from 'helpers/axios';
-import { animatedExpand } from 'helpers/animated';
+import { animatedCollapse, animatedExpand } from 'helpers/animated';
 
 import ShikiModal from 'views/application/shiki_modal';
 import CatalogFilters from 'views/animes/catalog_filters';
@@ -173,7 +173,7 @@ function applyListHandlers($root) {
   $('.l-content').on('postloader:success', processNextPage);
 
   // открытие блока с редактирование записи по клику на строку с аниме
-  $('tr.editable', $root).on('click', (e) => {
+  $('tr.editable', $root).on('click', e => {
     const $editForm = $(e.currentTarget).next();
     if (!$editForm.is('.edit-form')) { return; }
 
@@ -200,8 +200,8 @@ function applyListHandlers($root) {
     }
 
     // отмена редактирования
-    $('.cancel', $trEdit).on('click', () => {
-      $form.hide();
+    $('.cancel', $trEdit).on('click', async () => {
+      await animatedCollapse($form[0]);
       $trEdit.remove();
     });
 
