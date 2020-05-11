@@ -48,6 +48,7 @@ describe Topics::NewsTopic do
     end
 
     describe '#accept' do
+      include_context :timecop
       subject! { topic.accept }
 
       let(:topic) { create :news_topic, forum_id: Forum::PREMODERATION_ID }
@@ -55,10 +56,11 @@ describe Topics::NewsTopic do
       it do
         expect(topic).to_not be_changed
         expect(topic.forum_id).to eq Forum::NEWS_ID
+        expect(topic.created_at).to be_within(0.1).of Time.zone.now
       end
     end
 
-    describe '#reject', :focus do
+    describe '#reject' do
       subject! { topic.reject }
 
       let(:topic) { create :news_topic, forum_id: Forum::PREMODERATION_ID }
@@ -66,6 +68,35 @@ describe Topics::NewsTopic do
       it do
         expect(topic).to_not be_changed
         expect(topic.forum_id).to eq Forum::OFFTOPIC_ID
+        expect(topic.created_at).to be_within(0.1).of Time.zone.now
+      end
+    end
+
+    describe '#can_accept?, #can_reject?' do
+      let(:topic) { build :news_topic, forum_id: forum_id }
+
+      context 'Forum::PREMODERATION_ID' do
+        let(:forum_id) { Forum::PREMODERATION_ID }
+        it do
+          expect(topic).to be_can_accept
+          expect(topic).to be_can_reject
+        end
+      end
+
+      context 'Forum::NEWS_ID' do
+        let(:forum_id) { Forum::NEWS_ID }
+        it do
+          expect(topic).to_not be_can_accept
+          expect(topic).to be_can_reject
+        end
+      end
+
+      context 'Forum::OFFTOPIC_ID' do
+        let(:forum_id) { Forum::OFFTOPIC_ID }
+        it do
+          expect(topic).to be_can_accept
+          expect(topic).to_not be_can_reject
+        end
       end
     end
   end

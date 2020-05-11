@@ -31,10 +31,18 @@ class Topics::NewsTopic < Topic
   end
 
   def accept
-    update forum_id: Forum::NEWS_ID
+    update forum_id: Forum::NEWS_ID, created_at: Time.zone.now
   end
 
   def reject
-    update forum_id: Forum::OFFTOPIC_ID
+    update forum_id: Forum::OFFTOPIC_ID, created_at: Time.zone.now
+  end
+
+  def can_accept?
+    forum_id != Forum::NEWS_ID
+  end
+
+  def can_reject?
+    forum_id != Forum::OFFTOPIC_ID
   end
 end
