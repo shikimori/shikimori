@@ -18,12 +18,12 @@ class Moderations::NewsController < ModerationsController
 
   def accept
     @resource.accept if @resource.can_accept?
-    redirect_back fallback_location: moderations_news_url
+    redirect_back fallback_location: moderations_news_index_url
   end
 
   def reject
     @resource.reject if @resource.can_reject?
-    redirect_back fallback_location: moderations_news_url
+    redirect_back fallback_location: moderations_news_index_url
   end
 
 private

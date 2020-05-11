@@ -1,7 +1,7 @@
 describe Moderations::NewsController do
   let!(:news_topic) { create :news_topic, forum_id: Forum::PREMODERATION_ID }
 
-  describe '#index', :focus do
+  describe '#index' do
     include_context :authenticated
     subject! { get :index }
 
@@ -15,7 +15,7 @@ describe Moderations::NewsController do
 
     it do
       expect(resource.forum_id).to eq Forum::NEWS_ID
-      expect(response).to redirect_to moderations_news_url
+      expect(response).to redirect_to moderations_news_index_url
     end
   end
 
@@ -25,7 +25,7 @@ describe Moderations::NewsController do
 
     it do
       expect(resource.forum_id).to eq Forum::OFFTOPIC_ID
-      expect(response).to redirect_to moderations_news_url
+      expect(response).to redirect_to moderations_news_index_url
     end
   end
 end

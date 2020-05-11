@@ -45,4 +45,14 @@ class Topics::NewsTopic < Topic
   def can_reject?
     forum_id != Forum::OFFTOPIC_ID
   end
+
+  def moderation_state
+    if can_accept? && can_reject?
+      'pending'
+    elsif can_accept?
+      'rejected'
+    elsif can_reject?
+      'accepted'
+    end
+  end
 end

@@ -360,6 +360,8 @@ ru:
         <<: *review_states
       article:
         <<: *review_states
+      topics/news_topic:
+        <<: *review_states
       poll:
         states:
           pending: Создаётся

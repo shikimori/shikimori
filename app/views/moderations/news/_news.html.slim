@@ -17,11 +17,8 @@
   span
     = news.title
 
-  / span
-    = render 'reviews/votes', review: news
-
-  / span.state.inline class=news.moderation_state
-    = news.human_moderation_state_name
+  span.state.inline class=news.moderation_state
+    = t "activerecord.state_machines.topics/news_topic.states.#{news.moderation_state}"
 
   - if can? :moderate, news
     - if news.can_accept? || news.can_reject? || news.can_cancel?
