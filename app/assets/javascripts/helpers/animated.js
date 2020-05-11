@@ -1,3 +1,4 @@
+// https://css-tricks.com/using-css-transitions-auto-dimensions/
 import delay from 'delay';
 
 export const ANIMATED_DELAY = 350;

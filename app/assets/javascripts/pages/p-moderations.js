@@ -1,7 +1,6 @@
 import URI from 'urijs';
 import Turbolinks from 'turbolinks';
 import cookies from 'js-cookie';
-import delay from 'delay';
 
 import { initArrayFieldApp } from './p-db_entries/edit_field';
 
