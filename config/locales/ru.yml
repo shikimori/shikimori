@@ -358,6 +358,8 @@ ru:
           unpublish: Отменить публикацию
       collection:
         <<: *review_states
+      article:
+        <<: *review_states
       poll:
         states:
           pending: Создаётся

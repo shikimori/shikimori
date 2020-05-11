@@ -356,6 +356,8 @@ en:
           unpublish: Unpublish
       collection:
         <<: *review_states
+      article:
+        <<: *review_states
       poll:
         states:
           pending: Pending
