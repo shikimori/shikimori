@@ -227,6 +227,13 @@ export async function initArrayFieldApp() {
       }
     })
   });
+
+  $('form').one('submit', async e => {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    await store.dispatch('cleanup');
+    e.currentTarget.submit();
+  });
 }
 
 async function initTagsApp($tags) {
