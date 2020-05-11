@@ -13,7 +13,7 @@
   .c-all_genres
     .m5: b = t '.all_genres'
     .cc-3
-      - Genre.where(kind: @resource.object.class.name.downcase).sort_by { |v| localized_name v }.each do |genre|
+      - Genre.where(kind: @resource.object.class.base_class.name.downcase).sort_by { |v| localized_name v }.each do |genre|
         .c-column.genre[
           id=genre.id
           class=(:included if @resource.genres.include? genre)
