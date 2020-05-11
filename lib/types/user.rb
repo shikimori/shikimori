@@ -18,7 +18,6 @@ module Types
       article_moderator
       cosplay_moderator
       contest_moderator
-      news_moderator
       statistics_moderator
 
       video_super_moderator

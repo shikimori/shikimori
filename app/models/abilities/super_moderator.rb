@@ -20,6 +20,8 @@ class Abilities::SuperModerator
     can %i[
       manage_forum_moderator_role
       manage_review_moderator_role
+      manage_news_moderator_role
+      manage_article_moderator_role
       manage_collection_moderator_role
       manage_version_names_moderator_role
       manage_version_texts_moderator_role
