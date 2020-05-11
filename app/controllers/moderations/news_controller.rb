@@ -1,5 +1,5 @@
 class Moderations::NewsController < ModerationsController
-  load_resource class: Topics::NewsTopic.name
+  load_resource class: Topics::NewsTopic.name, except: %i[index]
 
   PENDING_PER_PAGE = 15
   PROCESSED_PER_PAGE = 25
@@ -18,8 +18,8 @@ class Moderations::NewsController < ModerationsController
 
   def accept
     authorize! :moderate, @resource
-
     @resource.accept if @resource.can_accept?
+
     redirect_back fallback_location: moderations_news_index_url
   end
 
@@ -41,7 +41,7 @@ private
   end
 
   def scope
-    @collection
+    Topics::NewsTopic
       .where(locale: locale_from_host)
       .where.not(generated: true)
       .includes(:user)
