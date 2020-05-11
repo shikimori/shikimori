@@ -1,5 +1,6 @@
 class Moderations::GenresController < ModerationsController
   include SortingConcern
+  include FixArrayParamsConcern
 
   skip_before_action :authenticate_user!, only: %i[tooltip]
   load_and_authorize_resource

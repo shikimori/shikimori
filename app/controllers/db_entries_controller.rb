@@ -1,4 +1,6 @@
 class DbEntriesController < ShikimoriController
+  include FixArrayParamsConcern
+
   before_action :authenticate_user!, only: %i[edit edit_field update]
 
   # it must be always before :fetch_resource

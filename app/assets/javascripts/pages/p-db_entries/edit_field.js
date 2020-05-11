@@ -214,7 +214,7 @@ export async function initArrayFieldApp() {
     value
   }));
 
-  new Vue({
+  const app = new Vue({
     el: '#vue_app',
     store,
     render: h => h(ArrayField, {
@@ -231,7 +231,10 @@ export async function initArrayFieldApp() {
   $('form').one('submit', async e => {
     e.preventDefault();
     e.stopImmediatePropagation();
+
     await store.dispatch('cleanup');
+    await app.$nextTick();
+
     e.currentTarget.submit();
   });
 }
