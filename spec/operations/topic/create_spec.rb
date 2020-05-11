@@ -52,6 +52,19 @@ describe Topic::Create do
           .with 10.seconds, topic.id
       end
     end
+
+    describe 'premoderation' do
+      let!(:premoderation_forum) { create :premoderation_forum }
+      let(:type) { Topics::NewsTopic.name }
+
+      it do
+        is_expected.to be_persisted
+        is_expected.to have_attributes(
+          **params.merge(locale: locale.to_s),
+          forum_id: Forum::PREMODERATION_ID
+        )
+      end
+    end
   end
 
   context 'invalid params' do

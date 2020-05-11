@@ -64,14 +64,15 @@ FactoryBot.define do
       name_ru { 'Премодерация' }
     end
 
-    factory :animanga_forum, traits: [:animanga]
-    factory :clubs_forum, traits: [:club]
-    factory :collections_forum, traits: [:collection]
-    factory :articles_forum, traits: [:articles]
-    factory :contests_forum, traits: [:contest]
-    factory :cosplay_forum, traits: [:cosplay]
-    factory :news_forum, traits: [:news]
-    factory :offtopic_forum, traits: [:offtopic]
-    factory :reviews_forum, traits: [:reviews]
+    factory :animanga_forum, traits: %i[animanga]
+    factory :clubs_forum, traits: %i[club]
+    factory :collections_forum, traits: %i[collection]
+    factory :articles_forum, traits: %i[articles]
+    factory :contests_forum, traits: %i[contest]
+    factory :cosplay_forum, traits: %i[cosplay]
+    factory :news_forum, traits: %i[news]
+    factory :offtopic_forum, traits: %i[offtopic]
+    factory :reviews_forum, traits: %i[reviews]
+    factory :premoderation_forum, traits: %i[premoderation]
   end
 end
