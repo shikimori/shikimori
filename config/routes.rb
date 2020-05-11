@@ -165,7 +165,6 @@ Rails.application.routes.draw do
     end
     resources :reviews, only: [] do
       get '(/page/:page)' => :index, as: '', on: :collection
-
       member do
         post :accept
         post :reject
@@ -174,7 +173,6 @@ Rails.application.routes.draw do
     end
     resources :collections, only: [] do
       get '(/page/:page)' => :index, as: '', on: :collection
-
       member do
         post :accept
         post :reject
@@ -183,11 +181,17 @@ Rails.application.routes.draw do
     end
     resources :articles, only: [] do
       get '(/page/:page)' => :index, as: '', on: :collection
-
       member do
         post :accept
         post :reject
         post :cancel
+      end
+    end
+    resources :news, only: [] do
+      get '(/page/:page)' => :index, as: '', on: :collection
+      member do
+        post :accept
+        post :reject
       end
     end
 

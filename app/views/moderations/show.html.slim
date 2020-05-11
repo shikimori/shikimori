@@ -62,6 +62,16 @@ header.head
               - if @moderation_policy.collections_count.positive?
                 span.size = @moderation_policy.collections_count
 
+        - if current_user&.news_moderator? || current_user&.admin?
+          li
+            a.b-link[
+              href=moderations_news_index_url
+              title=t('.news_journal')
+            ]
+              = t '.news_journal'
+              - if @moderation_policy.news_count.positive?
+                span.size = @moderation_policy.news_count
+
         - if current_user&.article_moderator? || current_user&.admin?
           li
             a.b-link[
