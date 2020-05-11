@@ -3,6 +3,8 @@ class Topics::NewsTopic < Topic
     in: Types::Topic::NewsTopic::Action.values,
     predicates: true
 
+  scope :pending, -> { where forum_id: Forum::PREMODERATION_ID }
+
   def title
     return super unless generated?
 
