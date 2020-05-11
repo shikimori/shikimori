@@ -65,6 +65,8 @@ en:
         source: Source
       manga: &manga_attributes
         <<: *anime_attributes
+
+
         volumes: Volumes
         chapters: Chapters
 
