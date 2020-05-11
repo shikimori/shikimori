@@ -1,5 +1,13 @@
 ru:
   moderations:
+    defaults: &defaults
+      accept: принять
+      expand_all: раскрыть всё
+      history: История
+      instruction: Инструкция
+      queue: Очередь
+      queue_empty: Очередь пуста
+
     show:
       content: Контент
       header_notice: Журналы модерации и информация о контенте сайта
@@ -31,23 +39,20 @@ ru:
 
     abuse_requests:
       index:
-        expand_all: :moderations.bans.index.expand_all
+        <<: *defaults
         notice: >-
           Список пометок комментариев сайта пользователями
 
-        instruction: Инструкция
         instructions:
           - Личные разговоры в топиках аниме - оффтоп.
           - Комментарии от тех, у кого проблемы с русским языком - оффтоп.
           - С негативных отзывов, если они культурно написаны,
             'отзыв' снимать не надо.
         to_your_discretion: Остальное на ваше усмотрение.
-        queue: Очередь
         bans_plus_warnings: баны + предупреждения
-        history: История
 
       abuse_request:
-        accept: принять
+        <<: *defaults
         actions: действия
         ban: забанить
         for_reason: по причине
@@ -64,9 +69,8 @@ ru:
 
     bans:
       index:
-        expand_all: раскрыть всё
+        <<: *defaults
         notice: История предупреждений и банов на сайте
-        instruction: Инструкция
 
 
 
@@ -93,11 +97,8 @@ ru:
 
 
 
-        queue: Очередь
-        queue_empty: Очередь пуста
         declined: Отклонено
         offtopic_plus_summaries: оффтопик + отзывы
-        history: История
 
       ban:
         ban: бан
@@ -108,8 +109,8 @@ ru:
 
     reviews:
       index:
+        <<: *defaults
         notice: История модерации рецензий
-        instruction: Инструкция
         instructions:
           - Рецензия должна в целом соответствовать
             <a href="//shikimori.one/animes/1-Cowboy-Bebop/reviews/new">
@@ -118,12 +119,9 @@ ru:
             без возможности восстановления.
           - Отклоняйте рецензии, содержащие троллинг,
             "быдлоязык", написанные с целью вызывать срач.
-        queue: Очередь
         more_summaries_pending: >-
           Это ещё не всё.
           Прочие рецензии будут доступны после принятия отображённых выше.
-        queue_empty: Очередь пуста
-        history: История
 
       review:
         accept: принять
@@ -131,19 +129,16 @@ ru:
 
     collections:
       index:
+        <<: *defaults
         notice: История модерации коллекций
-        instruction: Инструкция
         instructions:
           - Отклонённые коллекции превращаются в топик оффтопика
             без возможности восстановления.
           - Отклоняйте коллекции, содержащие троллинг,
             написанные с целью вызывать срач.
-        queue: Очередь
         more_summaries_pending: >-
           Это ещё не всё.
           Прочие коллекции будут доступны после принятия отображённых выше.
-        queue_empty: Очередь пуста
-        history: История
 
       collection:
         accept: принять
@@ -151,6 +146,7 @@ ru:
 
     news:
       index:
+        <<: *defaults
         notice: История модерации новостей
       news:
         accept: принять
@@ -158,19 +154,16 @@ ru:
 
     articles:
       index:
+        <<: *defaults
         notice: История модерации статей
-        instruction: Инструкция
         instructions:
           - Отклонённые статьи превращаются в топик оффтопика
             без возможности восстановления.
           - Отклоняйте статьи, содержащие троллинг,
             написанные с целью вызывать срач.
-        queue: Очередь
         more_summaries_pending: >-
           Это ещё не всё.
           Прочие статьи будут доступны после принятия отображённых выше.
-        queue_empty: Очередь пуста
-        history: История
 
       article:
         accept: принять
@@ -178,9 +171,8 @@ ru:
 
     versions:
       index:
-        expand_all: :moderations.bans.index.expand_all
+        <<: *defaults
         notice: Список правок контента сайта пользователями
-        instruction: Инструкция
         instructions:
           - 'Для аниме описания должны быть уникальны, то есть не взяты
             с других сайтов. Проверяется это просто:
@@ -224,11 +216,9 @@ ru:
           в редакторе у вас появится новый пункт "Применить" слева
           от кнопки сохранения. Эта кнопка мгновенно применяет внесённые
           вами изменения, не занося вас в список авторов.
-        queue: Очередь
         more_content_changes_pending: >-
           Это ещё не всё.
           Остальные правки будут доступны после принятия отображённых выше.
-        queue_empty: Очередь пуста
         history: История правок
 
     users:

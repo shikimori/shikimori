@@ -1,5 +1,13 @@
 en:
   moderations:
+    defaults: &defaults
+      accept: accept
+      expand_all: expand all
+      history: History
+      instruction: Instructions
+      queue: Queue
+      queue_empty: Queue is empty
+
     show:
       content: Site content
       header_notice: Moderation journals
@@ -31,23 +39,20 @@ en:
 
     abuse_requests:
       index:
-        expand_all: :moderations.bans.index.expand_all
+        <<: *defaults
         notice: >-
           This is the history of tagging comments
           with comment markers by site users
-        instruction: Instructions
         instructions:
           - Personal conversations in anime topics are offtopic.
           - Comments written in (very) poor English are offtopic.
           - Don't remove 'summary' marker from negative summaries
             if they are well-written and not offensive.
         to_your_discretion: The rest is left to your discretion.
-        queue: Queue
         bans_plus_warnings: bans + warnings
-        history: History
 
       abuse_request:
-        accept: accept
+        <<: *defaults
         actions: actions
         ban: ban
         for_reason: for reason
@@ -64,9 +69,8 @@ en:
 
     bans:
       index:
-        expand_all: expand all
+        <<: *defaults
         notice: This is the history of bans and warnings
-        instruction: Instructions
         instructions:
           - User profiles and clubs are not moderated.
           - Don't discuss moderation related issues and the fact of you being
@@ -93,11 +97,8 @@ en:
             old comment</span> marker.'
           - Deliberate flaming or trolling is strictly
             prohibited - members starting either one must be banned.
-        queue: Queue
-        queue_empty: Queue is empty
         declined: Declined
         offtopic_plus_summaries: offtopic + summaries
-        history: History
 
       ban:
         ban: ban
@@ -108,8 +109,8 @@ en:
 
     reviews:
       index:
+        <<: *defaults
         notice: This is the history of reviews moderation
-        instruction: Instructions
         instructions:
           - In general review should follow the guidelines outlined
             <a href="//shikimori.one/animes/1-Cowboy-Bebop/reviews/new">
@@ -118,12 +119,9 @@ en:
             and cannot be restored.
           - Reject reviews containing either implicit or explicit trolling,
             abusive language or which are meant to cause flaming.
-        queue: Queue
         more_summaries_pending: >-
           That's not all yet. Other reviews will be available for
           moderation after processing the ones above.
-        queue_empty: Queue is empty
-        history: History
 
       review:
         accept: accept
@@ -131,19 +129,16 @@ en:
 
     collections:
       index:
+        <<: *defaults
         notice: This is the history of collection moderation
-        instruction: Instructions
         instructions:
           - Rejected collection are converted to 'Off-Topic' forum topics
             and cannot be restored.
           - Reject collection containing either implicit or explicit trolling,
             abusive language or which are meant to cause flaming.
-        queue: Queue
         more_summaries_pending: >-
           That's not all yet. Other collections will be available for
           moderation after processing the ones above.
-        queue_empty: Queue is empty
-        history: History
 
       collection:
         accept: accept
@@ -151,6 +146,7 @@ en:
 
     news:
       index:
+        <<: *defaults
         notice: This is the history of news moderation
       news:
         accept: accept
@@ -158,19 +154,16 @@ en:
 
     articles:
       index:
+        <<: *defaults
         notice: This is the history of article moderation
-        instruction: Instructions
         instructions:
           - Rejected article are converted to 'Off-Topic' forum topics
             and cannot be restored.
           - Reject article containing either implicit or explicit trolling,
             abusive language or which are meant to cause flaming.
-        queue: Queue
         more_summaries_pending: >-
           That's not all yet. Other articles will be available for
           moderation after processing the ones above.
-        queue_empty: Queue is empty
-        history: History
 
       article:
         accept: accept
@@ -178,9 +171,8 @@ en:
 
     versions:
       index:
-        expand_all: :moderations.bans.index.expand_all
+        <<: *defaults
         notice: This is the history of content changes authored by members.
-        instruction: Instructions
         instructions:
           - 'Anime descriptions must be original that is not "copypasted"
             from other sites. It can be easily checked: just search for
@@ -224,11 +216,9 @@ en:
           "Apply" button (it's located to the left of "Save" button)
           to apply changes without adding yourself to the list of authors.
 
-        queue: Queue
         more_content_changes_pending: >-
           That's not all yet. Other content changes will be available for
           moderation after processing the ones above.
-        queue_empty: Queue is empty
         history: History of content changes
 
     users:
