@@ -17,11 +17,15 @@ class Moderations::NewsController < ModerationsController
   end
 
   def accept
+    authorize! :moderate, @resource
+
     @resource.accept if @resource.can_accept?
     redirect_back fallback_location: moderations_news_index_url
   end
 
   def reject
+    authorize! :moderate, @resource
+
     @resource.reject if @resource.can_reject?
     redirect_back fallback_location: moderations_news_index_url
   end
@@ -37,7 +41,7 @@ private
   end
 
   def scope
-    Topics::NewsTopic
+    @collection
       .where(locale: locale_from_host)
       .where.not(generated: true)
       .includes(:user)

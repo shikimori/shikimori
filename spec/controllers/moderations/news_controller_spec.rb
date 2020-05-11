@@ -9,23 +9,40 @@ describe Moderations::NewsController do
   end
 
   describe '#accept' do
-    include_context :authenticated, :news_moderator
-    subject! { post :accept, params: { id: news_topic.id } }
-    let(:news_topic) { create :news_topic }
+    let(:make_request) { post :accept, params: { id: news_topic.id } }
 
-    it do
-      expect(resource.forum_id).to eq Forum::NEWS_ID
-      expect(response).to redirect_to moderations_news_index_url
+    context 'has access' do
+      include_context :authenticated, :news_moderator
+      subject! { make_request }
+
+      it do
+        expect(resource.forum_id).to eq Forum::NEWS_ID
+        expect(response).to redirect_to moderations_news_index_url
+      end
+    end
+
+    context 'no access' do
+      include_context :authenticated, :forum_moderator
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
 
   describe '#reject' do
-    include_context :authenticated, :news_moderator
-    subject! { post :reject, params: { id: news_topic.id } }
+    let(:make_request) { post :reject, params: { id: news_topic.id } }
 
-    it do
-      expect(resource.forum_id).to eq Forum::OFFTOPIC_ID
-      expect(response).to redirect_to moderations_news_index_url
+    context 'has access' do
+      include_context :authenticated, :news_moderator
+      subject! { make_request }
+
+      it do
+        expect(resource.forum_id).to eq Forum::OFFTOPIC_ID
+        expect(response).to redirect_to moderations_news_index_url
+      end
+    end
+
+    context 'no access' do
+      include_context :authenticated, :forum_moderator
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
 end
