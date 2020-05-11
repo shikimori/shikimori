@@ -42,45 +42,41 @@ header.head
             - if @moderation_policy.abuses_pending_count.positive?
               span.size = @moderation_policy.abuses_pending_count
 
-        - if current_user&.review_moderator? || current_user&.admin?
-          li
-            a.b-link[
-              href=moderations_reviews_url
-              title=t('.reviews_journal')
-            ]
-              = t '.reviews_journal'
-              - if @moderation_policy.reviews_count.positive?
-                span.size = @moderation_policy.reviews_count
+        li
+          a.b-link[
+            href=moderations_reviews_url
+            title=t('.reviews_journal')
+          ]
+            = t '.reviews_journal'
+            - if @moderation_policy.reviews_count.positive?
+              span.size = @moderation_policy.reviews_count
 
-        - if current_user&.collection_moderator? || current_user&.admin?
-          li
-            a.b-link[
-              href=moderations_collections_url
-              title=t('.collections_journal')
-            ]
-              = t '.collections_journal'
-              - if @moderation_policy.collections_count.positive?
-                span.size = @moderation_policy.collections_count
+        li
+          a.b-link[
+            href=moderations_collections_url
+            title=t('.collections_journal')
+          ]
+            = t '.collections_journal'
+            - if @moderation_policy.collections_count.positive?
+              span.size = @moderation_policy.collections_count
 
-        - if current_user&.news_moderator? || current_user&.admin?
-          li
-            a.b-link[
-              href=moderations_news_index_url
-              title=t('.news_journal')
-            ]
-              = t '.news_journal'
-              - if @moderation_policy.news_count.positive?
-                span.size = @moderation_policy.news_count
+        li
+          a.b-link[
+            href=moderations_news_index_url
+            title=t('.news_journal')
+          ]
+            = t '.news_journal'
+            - if @moderation_policy.news_count.positive?
+              span.size = @moderation_policy.news_count
 
-        - if current_user&.article_moderator? || current_user&.admin?
-          li
-            a.b-link[
-              href=moderations_articles_url
-              title=t('.articles_journal')
-            ]
-              = t '.articles_journal'
-              - if @moderation_policy.articles_count.positive?
-                span.size = @moderation_policy.articles_count
+        li
+          a.b-link[
+            href=moderations_articles_url
+            title=t('.articles_journal')
+          ]
+            = t '.articles_journal'
+            - if @moderation_policy.articles_count.positive?
+              span.size = @moderation_policy.articles_count
 
     .f-column
       .subheadline = t '.content'
