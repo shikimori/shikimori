@@ -16,6 +16,8 @@ class ProxyParser
   # парсинг проксей из внешних источников
   def fetch
     parsed_proxies = parse_proxies
+    raise "only #{parsed_proxies.size} were found" if parsed_proxies.size < 2000
+
     print format("found %<size>i proxies\n", size: parsed_proxies.size)
 
     proxies = (Proxy.all.map { |v| { ip: v.ip, port: v.port } } + parsed_proxies)
@@ -72,7 +74,7 @@ private
   def test proxies, ip
     verified_proxies = []
 
-    print "testing #{proxies.size} proxies"
+    print "testing #{proxies.size} proxies\n"
 
     proxies.parallel(threads: 750, timeout: 15) do |proxy|
       verified_proxies << proxy if anonymouse?(proxy, ip)
