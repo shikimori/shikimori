@@ -1,3 +1,5 @@
+import { animatedExpand } from 'helpers/animations'
+
 $.fn.extend
   # options:
   #   max_height - высота блока, при превышении которой будет свёртка
@@ -37,9 +39,7 @@ $.fn.extend
           .on 'click', (e) ->
             return if expand_html? && !expand_html
 
-            height = $root.height()
-            $root
-              .removeClass('shortened')
-              .animatedExpand(height)
+            $root.removeClass 'shortened'
+            animatedExpand $root[0]
 
             $(e.currentTarget).remove()

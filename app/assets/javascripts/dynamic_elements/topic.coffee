@@ -5,6 +5,7 @@ import ShikiEditor from 'views/application/shiki_editor'
 import ShikiGallery from 'views/application/shiki_gallery'
 
 import axios from 'helpers/axios'
+import { animatedCollapse, animatedExpand } from 'helpers/animations'
 
 # TODO: move code related to comments to separate class
 export default class Topic extends ShikiEditable
@@ -161,7 +162,8 @@ export default class Topic extends ShikiEditable
     @on 'click', '.comments-loader', (e) =>
       unless @$comments_loader.data('dynamic') == 'clickloaded'
         @$comments_loader.addClass('hidden')
-        @$('.comments-loaded').animatedExpand()
+        @$('.comments-loaded').each (_index, node) ->
+          animatedExpand node
         @$comments_hider.show()
 
     # hide loaded comments
@@ -169,18 +171,21 @@ export default class Topic extends ShikiEditable
       @$comments_collapser.addClass('hidden')
       @$comments_loader.addClass('hidden')
       @$comments_expander.show()
-      @$('.comments-loaded').animatedCollapse()
+      @$('.comments-loaded').each (_index, node) ->
+        animatedCollapse node
 
     # скрытие комментариев
     @$comments_hider.on 'click', =>
       @$comments_hider.hide()
-      @$('.comments-loaded').animatedCollapse()
+      @$('.comments-loaded').each (_index, node) ->
+        animatedCollapse node
       @$comments_expander.show()
 
     # разворачивание комментариев
     @$comments_expander.on 'click', (e) =>
       @$comments_expander.hide()
-      @$('.comments-loaded').animatedExpand()
+      @$('.comments-loaded').each (_index, node) ->
+        animatedExpand node
 
       if @$comments_loader
         @$comments_loader.removeClass('hidden')
@@ -337,7 +342,8 @@ export default class Topic extends ShikiEditable
     $new_comments
       .process(data.JS_EXPORTS)
       .insertAfter(@$comments_loader)
-      .animatedExpand()
+
+    animatedExpand $new_comments[0]
 
     @_update_comments_loader(data)
 

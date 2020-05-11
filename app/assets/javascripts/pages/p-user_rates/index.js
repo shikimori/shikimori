@@ -4,6 +4,7 @@ import Turbolinks from 'turbolinks';
 import { COMMON_TOOLTIP_OPTIONS } from 'helpers/tooltip_options';
 import { isMobile } from 'helpers/mobile_detect';
 import axios from 'helpers/axios';
+import { animatedExpand } from 'helpers/animations';
 
 import ShikiModal from 'views/application/shiki_modal';
 import CatalogFilters from 'views/animes/catalog_filters';
@@ -195,7 +196,7 @@ function applyListHandlers($root) {
     if ($anotherTrEdit.exists()) {
       $anotherTrEdit.remove();
     } else {
-      $form.animatedExpand();
+      animatedExpand($form[0], true, true);
     }
 
     // отмена редактирования
