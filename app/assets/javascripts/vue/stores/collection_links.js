@@ -1,5 +1,4 @@
-let uniqId = 987654321;
-const newId = () => uniqId += 1;
+import newId from 'helpers/new_id';
 
 const hasDuplicate = (links, link) =>
   links.some(v =>
@@ -8,7 +7,7 @@ const hasDuplicate = (links, link) =>
       (v.group === link.group)
   );
 
-const no_links_to_fill = (links, group) =>
+const noLinksToFill = (links, group) =>
   links.none(v => (v.group === group) && !v.linked_id);
 
 module.exports = {
@@ -24,7 +23,7 @@ module.exports = {
         context.commit('REMOVE_LINK', link);
       }
 
-      if (no_links_to_fill(context.state.collection.links, link.group)) {
+      if (noLinksToFill(context.state.collection.links, link.group)) {
         context.commit('ADD_LINK', { group: link.group });
       }
     },

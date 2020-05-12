@@ -1,5 +1,4 @@
-let uniqId = 987654321;
-const newId = () => uniqId += 1;
+import newId from 'helpers/new_id';
 
 // store for simple collection of items
 module.exports = {
