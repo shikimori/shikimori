@@ -20426,7 +20426,7 @@
         - 33221
         - 35949
         - 36436
-      :threshold: 89%
+      :threshold: 88.7%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -26804,7 +26804,7 @@
         franchise: mazinkaiser
         not_anime_ids:
         - 18365
-      :threshold: 90.7%
+      :threshold: 93.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :mazinkaiser
