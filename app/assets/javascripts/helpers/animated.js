@@ -1,9 +1,18 @@
 // https://css-tricks.com/using-css-transitions-auto-dimensions/
 import delay from 'delay';
 
-export const ANIMATED_DELAY = 350;
+const ANIMATED_DELAY = 350;
+
+let uniqId = 0;
+const newId = () => uniqId += 1;
+const animations = {};
 
 export function animatedCollapse(element) {
+  if (animations[element]) { cleanup(element); }
+
+  const animationId = newId();
+  animations[element] = animationId;
+
   // get the height of the element's inner content, regardless of its actual size
   const sectionHeight = element.scrollHeight;
 
@@ -16,6 +25,8 @@ export function animatedCollapse(element) {
   // explicitly set the element's height to its current pixel height, so we
   // aren't transitioning out of 'auto'
   requestAnimationFrame(() => {
+    if (animations[element] !== animationId) { return; }
+
     // may need to break animation if another animation has started
     // if (element.classList.contains('animated-collapse')) { return; }
 
@@ -25,6 +36,8 @@ export function animatedCollapse(element) {
     // on the next frame (as soon as the previous style change has taken effect),
     // have the element transition to height: 0
     requestAnimationFrame(async () => {
+      if (animations[element] !== animationId) { return; }
+
       element.style.height = '0px';
       element.style.paddingTop = '0px';
       element.style.paddingBottom = '0px';
@@ -33,25 +46,25 @@ export function animatedCollapse(element) {
 
       await delay(ANIMATED_DELAY);
 
-      element.style.height = '';
-      element.style.paddingTop = '';
-      element.style.paddingBottom = '';
-      element.style.marginTop = '';
-      element.style.marginBottom = '';
-
-      element.classList.remove('animated-collapse');
+      if (animations[element] !== animationId) { return; }
+      cleanup(element);
       element.classList.add('hidden');
     });
   });
 
   return delay(ANIMATED_DELAY);
 }
+
 export function animatedExpand(element) {
+  if (animations[element]) { cleanup(element); }
+
+  const animationId = newId();
+  animations[element] = animationId;
+
   if (element.classList.contains('hidden')) {
     element.classList.remove('hidden');
   }
 
-  // get the height of the element's inner content, regardless of its actual size
   const sectionHeight = element.scrollHeight;
   const { paddingTop, paddingBottom, marginTop, marginBottom } =
     getComputedStyle(element);
@@ -64,6 +77,8 @@ export function animatedExpand(element) {
   // explicitly set the element's height to its current pixel height, so we
   // aren't transitioning out of 'auto'
   requestAnimationFrame(() => {
+    if (animations[element] !== animationId) { return; }
+
     if (!element.style.height) { element.style.height = '0px'; }
     if (!element.style.paddingTop) { element.style.paddingTop = '0px'; }
     if (!element.style.paddingBottom) { element.style.paddingBottom = '0px'; }
@@ -73,11 +88,15 @@ export function animatedExpand(element) {
     element.style.transition = elementTransition;
 
     requestAnimationFrame(() => {
+      if (animations[element] !== animationId) { return; }
+
       element.classList.add('animated-expand');
 
       // on the next frame (as soon as the previous style change has taken effect),
       // have the element transition to height: 0
       requestAnimationFrame(async () => {
+        if (animations[element] !== animationId) { return; }
+
         element.style.height = `${sectionHeight}px`;
         element.style.paddingTop = paddingTop;
         element.style.paddingBottom = paddingBottom;
@@ -85,17 +104,28 @@ export function animatedExpand(element) {
         element.style.marginBottom = marginBottom;
 
         await delay(ANIMATED_DELAY);
+        if (animations[element] !== animationId) { return; }
 
-        element.style.height = '';
-        element.style.paddingTop = '';
-        element.style.paddingBottom = '';
-        element.style.marginTop = '';
-        element.style.marginBottom = '';
-
-        element.classList.remove('animated-expand');
+        cleanup(element);
       });
     });
-
-    return delay(ANIMATED_DELAY);
   });
+
+  return delay(ANIMATED_DELAY);
+}
+
+function cleanup(element) {
+  element.style.height = '';
+  element.style.paddingTop = '';
+  element.style.paddingBottom = '';
+  element.style.marginTop = '';
+  element.style.marginBottom = '';
+
+  if (element.classList.contains('animated-collapse')) {
+    element.classList.remove('animated-collapse');
+  } else {
+    element.classList.remove('animated-expand');
+  }
+
+  delete animations[element];
 }
