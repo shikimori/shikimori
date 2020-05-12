@@ -17,8 +17,6 @@ export function animatedCollapse(element) {
   const sectionHeight = element.scrollHeight;
 
   // temporarily disable all css transitions
-  const elementTransition = element.style.transition;
-  element.style.transition = '';
   element.classList.add('animated-collapse');
 
   // on the next frame (as soon as the previous style change has taken effect),
@@ -31,7 +29,6 @@ export function animatedCollapse(element) {
     // if (element.classList.contains('animated-collapse')) { return; }
 
     element.style.height = sectionHeight + 'px';
-    element.style.transition = elementTransition;
 
     // on the next frame (as soon as the previous style change has taken effect),
     // have the element transition to height: 0
@@ -69,10 +66,6 @@ export function animatedExpand(element) {
   const { paddingTop, paddingBottom, marginTop, marginBottom } =
     getComputedStyle(element);
 
-  // temporarily disable all css transitions
-  const elementTransition = element.style.transition;
-  element.style.transition = '';
-
   // on the next frame (as soon as the previous style change has taken effect),
   // explicitly set the element's height to its current pixel height, so we
   // aren't transitioning out of 'auto'
@@ -84,8 +77,6 @@ export function animatedExpand(element) {
     if (!element.style.paddingBottom) { element.style.paddingBottom = '0px'; }
     if (!element.style.marginTop) { element.style.marginTop = '0px'; }
     if (!element.style.marginBottom) { element.style.marginBottom = '0px'; }
-
-    element.style.transition = elementTransition;
 
     requestAnimationFrame(() => {
       if (animations[element] !== animationId) { return; }
@@ -115,6 +106,8 @@ export function animatedExpand(element) {
 }
 
 function cleanup(element) {
+  console.log(element.style.height);
+
   element.style.height = '';
   element.style.paddingTop = '';
   element.style.paddingBottom = '';
