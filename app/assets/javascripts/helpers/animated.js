@@ -1,13 +1,13 @@
 // animation method inspired on https://css-tricks.com/using-css-transitions-auto-dimensions/
 import delay from 'delay';
 
-const ANIMATED_DELAY = 1000;
+const ANIMATION_DURATION = 350;
 
 let uniqId = 0;
 const newId = () => uniqId += 1;
 const animations = {};
 
-function buildAnimation(element) {
+function prepareAnimation(element) {
   const isInTransition = !!animations[element];
 
   if (element.classList.contains('hidden')) {
@@ -16,6 +16,7 @@ function buildAnimation(element) {
 
   if (isInTransition) {
     cleanup(element);
+    animations[element] = { ...animations[element] };
   } else {
     const {
       paddingTop,
@@ -42,7 +43,8 @@ function buildAnimation(element) {
 }
 
 export function animatedCollapse(element) {
-  const animation = buildAnimation(element);
+  const animation = prepareAnimation(element);
+  console.log('animatedCollapse');
 
   element.classList.add('animated-collapse');
 
@@ -53,11 +55,12 @@ export function animatedCollapse(element) {
     requestAnimationFrame(() => transitionToCollapse(element, animation));
   }
 
-  return delay(ANIMATED_DELAY);
+  return delay(ANIMATION_DURATION);
 }
 
 async function transitionToCollapse(element, animation) {
   if (animations[element]?.id !== animation.id) { return; }
+  console.log('transitionToCollapse');
 
   element.style.height = '0px';
   element.style.paddingTop = '0px';
@@ -65,8 +68,9 @@ async function transitionToCollapse(element, animation) {
   element.style.marginTop = '0px';
   element.style.marginBottom = '0px';
 
-  await delay(ANIMATED_DELAY);
+  await delay(ANIMATION_DURATION);
   if (animations[element]?.id !== animation.id) { return; }
+  console.log('transitionToCollapse ANIMATION_DURATION');
 
   element.classList.add('hidden');
   cleanup(element);
@@ -74,7 +78,8 @@ async function transitionToCollapse(element, animation) {
 }
 
 export function animatedExpand(element) {
-  const animation = buildAnimation(element);
+  const animation = prepareAnimation(element);
+  console.log('animatedExpand');
 
   if (!element.style.height) { element.style.height = '0px'; }
   if (!element.style.paddingTop) { element.style.paddingTop = '0px'; }
@@ -82,22 +87,25 @@ export function animatedExpand(element) {
   if (!element.style.marginTop) { element.style.marginTop = '0px'; }
   if (!element.style.marginBottom) { element.style.marginBottom = '0px'; }
 
-  requestAnimationFrame(() => {
-    if (animations[element]?.id !== animation.id) { return; }
+  if (animation.isInTransition) {
     element.classList.add('animated-expand');
+    transitionToExpand(element, animation);
+  } else {
+    requestAnimationFrame(() => {
+      if (animations[element]?.id !== animation.id) { return; }
+      console.log('animatedExpand requestAnimationFrame');
+      element.classList.add('animated-expand');
 
-    if (animation.isInTransition) {
-      transitionToExpand(element, animation);
-    } else {
       requestAnimationFrame(() => transitionToExpand(element, animation));
-    }
-  });
+    });
+  }
 
-  return delay(ANIMATED_DELAY);
+  return delay(ANIMATION_DURATION);
 }
 
 async function transitionToExpand(element, animation) {
   if (animations[element]?.id !== animation.id) { return; }
+  console.log('transitionToExpand');
 
   element.style.height = animation.scrollHeight;
   element.style.paddingTop = animation.paddingTop;
@@ -105,8 +113,9 @@ async function transitionToExpand(element, animation) {
   element.style.marginTop = animation.marginTop;
   element.style.marginBottom = animation.marginBottom;
 
-  await delay(ANIMATED_DELAY);
+  await delay(ANIMATION_DURATION);
   if (animations[element]?.id !== animation.id) { return; }
+  console.log('transitionToExpand ANIMATION_DURATION');
 
   cleanup(element);
   delete animations[element];
