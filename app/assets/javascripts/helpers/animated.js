@@ -1,14 +1,17 @@
 // animation method inspired on https://css-tricks.com/using-css-transitions-auto-dimensions/
 import delay from 'delay';
+import newId from 'helpers/new_id';
 
 const ANIMATION_DURATION = 350;
 
-let uniqId = 0;
-const newId = () => uniqId += 1;
 const animations = {};
 
 function prepareAnimation(element) {
-  const isInTransition = !!animations[element];
+  if (!element._SHIKI_ID) {
+    element._SHIKI_ID = newId();
+  }
+
+  const isInTransition = !!animations[element._SHIKI_ID];
 
   if (element.classList.contains('hidden')) {
     element.classList.remove('hidden');
@@ -16,7 +19,7 @@ function prepareAnimation(element) {
 
   if (isInTransition) {
     cleanup(element);
-    animations[element] = { ...animations[element] };
+    animations[element._SHIKI_ID] = { ...animations[element._SHIKI_ID] };
   } else {
     const {
       paddingTop,
@@ -25,7 +28,7 @@ function prepareAnimation(element) {
       marginBottom
     } = getComputedStyle(element);
 
-    animations[element] = {
+    animations[element._SHIKI_ID] = {
       paddingTop,
       paddingBottom,
       marginTop,
@@ -34,17 +37,14 @@ function prepareAnimation(element) {
     };
   }
 
-  animations[element].id = newId();
-  animations[element].isInTransition = isInTransition;
+  animations[element._SHIKI_ID].id = newId();
+  animations[element._SHIKI_ID].isInTransition = isInTransition;
 
-  console.log(animations[element]);
-
-  return animations[element];
+  return animations[element._SHIKI_ID];
 }
 
 export function animatedCollapse(element) {
   const animation = prepareAnimation(element);
-  console.log('animatedCollapse');
 
   element.classList.add('animated-collapse');
 
@@ -59,8 +59,7 @@ export function animatedCollapse(element) {
 }
 
 async function transitionToCollapse(element, animation) {
-  if (animations[element]?.id !== animation.id) { return; }
-  console.log('transitionToCollapse');
+  if (animations[element._SHIKI_ID]?.id !== animation.id) { return; }
 
   element.style.height = '0px';
   element.style.paddingTop = '0px';
@@ -69,17 +68,15 @@ async function transitionToCollapse(element, animation) {
   element.style.marginBottom = '0px';
 
   await delay(ANIMATION_DURATION);
-  if (animations[element]?.id !== animation.id) { return; }
-  console.log('transitionToCollapse ANIMATION_DURATION');
+  if (animations[element._SHIKI_ID]?.id !== animation.id) { return; }
 
   element.classList.add('hidden');
   cleanup(element);
-  delete animations[element];
+  delete animations[element._SHIKI_ID];
 }
 
 export function animatedExpand(element) {
   const animation = prepareAnimation(element);
-  console.log('animatedExpand');
 
   if (!element.style.height) { element.style.height = '0px'; }
   if (!element.style.paddingTop) { element.style.paddingTop = '0px'; }
@@ -92,10 +89,8 @@ export function animatedExpand(element) {
     transitionToExpand(element, animation);
   } else {
     requestAnimationFrame(() => {
-      if (animations[element]?.id !== animation.id) { return; }
-      console.log('animatedExpand requestAnimationFrame');
+      if (animations[element._SHIKI_ID]?.id !== animation.id) { return; }
       element.classList.add('animated-expand');
-
       requestAnimationFrame(() => transitionToExpand(element, animation));
     });
   }
@@ -104,8 +99,7 @@ export function animatedExpand(element) {
 }
 
 async function transitionToExpand(element, animation) {
-  if (animations[element]?.id !== animation.id) { return; }
-  console.log('transitionToExpand');
+  if (animations[element._SHIKI_ID]?.id !== animation.id) { return; }
 
   element.style.height = animation.scrollHeight;
   element.style.paddingTop = animation.paddingTop;
@@ -114,11 +108,10 @@ async function transitionToExpand(element, animation) {
   element.style.marginBottom = animation.marginBottom;
 
   await delay(ANIMATION_DURATION);
-  if (animations[element]?.id !== animation.id) { return; }
-  console.log('transitionToExpand ANIMATION_DURATION');
+  if (animations[element._SHIKI_ID]?.id !== animation.id) { return; }
 
   cleanup(element);
-  delete animations[element];
+  delete animations[element._SHIKI_ID];
 }
 
 function cleanup(element) {
