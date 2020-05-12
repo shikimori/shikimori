@@ -1,4 +1,4 @@
-// based on https://css-tricks.com/using-css-transitions-auto-dimensions/
+// animation method inspired on https://css-tricks.com/using-css-transitions-auto-dimensions/
 import delay from 'delay';
 
 const ANIMATED_DELAY = 1000;
@@ -84,31 +84,33 @@ export function animatedExpand(element) {
 
   requestAnimationFrame(() => {
     if (animations[element]?.id !== animation.id) { return; }
-
     element.classList.add('animated-expand');
 
-    requestAnimationFrame(async () => {
-      if (animations[element]?.id !== animation.id) { return; }
-
-      element.style.height = animation.scrollHeight;
-      element.style.paddingTop = animation.paddingTop;
-      element.style.paddingBottom = animation.paddingBottom;
-      element.style.marginTop = animation.marginTop;
-      element.style.marginBottom = animation.marginBottom;
-
-      await delay(ANIMATED_DELAY);
-      if (animations[element]?.id !== animation.id) { return; }
-
-      cleanup(element);
-      delete animations[element];
-    });
+    if (animation.isInTransition) {
+      transitionToExpand(element, animation);
+    } else {
+      requestAnimationFrame(() => transitionToExpand(element, animation));
+    }
   });
 
   return delay(ANIMATED_DELAY);
 }
 
-// async function transitionExpand(element, id) {
-// }
+async function transitionToExpand(element, animation) {
+  if (animations[element]?.id !== animation.id) { return; }
+
+  element.style.height = animation.scrollHeight;
+  element.style.paddingTop = animation.paddingTop;
+  element.style.paddingBottom = animation.paddingBottom;
+  element.style.marginTop = animation.marginTop;
+  element.style.marginBottom = animation.marginBottom;
+
+  await delay(ANIMATED_DELAY);
+  if (animations[element]?.id !== animation.id) { return; }
+
+  cleanup(element);
+  delete animations[element];
+}
 
 function cleanup(element) {
   element.style.height = '';
