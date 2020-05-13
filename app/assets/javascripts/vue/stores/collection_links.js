@@ -1,4 +1,5 @@
-import newId from 'helpers/new_id';
+let uniqId = 987654321;
+const newId = () => uniqId += 1;
 
 const hasDuplicate = (links, link) =>
   links.some(v =>
