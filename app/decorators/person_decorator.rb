@@ -133,7 +133,6 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def character_works
-    # группировка по персонажам и аниме
     @characters = []
     backindex = {}
 
@@ -155,12 +154,15 @@ class PersonDecorator < DbEntryDecorator
           end
         end
       else
+        top_franchise = char.animes.sort_by { |anime| sort_criteria anime }.last.franchise
+        franchise_animes = char.animes.select { |anime| anime.franchise == top_franchise }
+
         entry = {
           characters: [char.decorate],
-          animes: char.animes.each_with_object({}) { |v, memo| memo[v.id] = v.decorate }
+          animes: franchise_animes.each_with_object({}) { |v, memo| memo[v.id] = v.decorate }
         }
-        char.animes.each do |anime|
-          backindex[anime.id] = entry unless backindex.include?(anime.id)
+        franchise_animes.each do |anime|
+          backindex[anime.id] ||= entry
         end
         # ap entry[:animes]
         @characters << entry

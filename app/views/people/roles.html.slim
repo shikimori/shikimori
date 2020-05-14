@@ -9,6 +9,6 @@
       href=roles_person_url(@resource, order_by: 'date')
     ] = t 'by.aired_on'
 
-  = cache [@resource, params[:action], !!params[:order_by]] do
+  = cache [@resource, params[:action], !!params[:order_by], :v2] do
     .subheadline = og.headline
     = render partial: 'role', collection: @resource.character_works
