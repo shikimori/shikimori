@@ -1,6 +1,6 @@
 if defined? Bugsnag
   Bugsnag.configure do |config|
-    config.api_key = 'd7a552b587fa9a23cfb37fb630f3a0e0'
+    config.api_key = '412f34fae4a28b72074b65e0fe4ae988'
 
     Shikimori::IGNORED_EXCEPTIONS
       .map { |v| v.constantize rescue NameError }
