@@ -1,6 +1,6 @@
 # TODO: move methods into Profiles::View and other Profiles::*View classes
 class UserProfileDecorator < UserDecorator
-  instance_cache :all_compatibility, :friends, :ignored?,
+  instance_cache :all_compatibility, :friends,
     :nickname_changes, :favorites,
     :main_comments_view, :preview_comments_view, :ignored_topics,
     :random_clubs
