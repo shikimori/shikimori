@@ -29,6 +29,7 @@ ru:
   dialogs_controller:
     <<: *profiles_controller
     conversation_removed: Диалог удалён
+    title: Диалог с %{user}
   messages_controller:
     <<: *profiles_controller
     site_news: Новости сайта

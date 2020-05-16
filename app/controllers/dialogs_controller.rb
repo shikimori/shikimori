@@ -27,7 +27,7 @@ class DialogsController < ProfilesController
 
     @collection = @collection.map(&:decorate)
 
-    og page_title: "Диалог с #{@dialog.target_user.nickname}"
+    og page_title: i18n_t(:title, user: @dialog.target_user.nickname)
   end
 
   def destroy

@@ -29,6 +29,7 @@ en:
   dialogs_controller:
     <<: *profiles_controller
     conversation_removed: Conversation removed
+    title: Conversation with %{user}
   messages_controller:
     <<: *profiles_controller
     site_news: Site news
