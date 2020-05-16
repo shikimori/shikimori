@@ -35,12 +35,13 @@
             = t '.is_ignored_by_user',
               user: @dialog.target_user.nickname,
               gender: @dialog.target_user.sex
-        - elsif @dialog.user.ignores.where(target_id: @dialog.target_user.id).exists?
-          .subheadline.red
-            = t '.is_ignored_by_you',
-              user: @dialog.target_user.nickname,
-              gender: @dialog.user.sex
         - else
-          .subheadline = t '.your_message'
-        = render 'comments/form',
-          comment: @dialog.new_message(@replied_message)
+          - if @dialog.user.ignores.where(target_id: @dialog.target_user.id).exists?
+            .subheadline.red
+              = t '.is_ignored_by_you',
+                user: @dialog.target_user.nickname,
+                gender: @dialog.user.sex
+          - else
+            .subheadline = t '.your_message'
+          = render 'comments/form',
+            comment: @dialog.new_message(@replied_message)

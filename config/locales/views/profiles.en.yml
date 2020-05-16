@@ -95,7 +95,7 @@ en:
       admin_message_postscriptum: >-
         Don't expect me to reply to your question quickly -
         it might take a long time.
-      is_ignored_by_user: "%{user} has ignored you. Your messages won't be read"
+      is_ignored_by_user: "%{user} has ignored you"
       is_ignored_by_you: You ignore %{user}. Messages from the user are hidden
       your_message: Your message
       rss_title: '%{nickname} history'
