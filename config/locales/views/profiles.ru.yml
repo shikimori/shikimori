@@ -56,7 +56,7 @@ ru:
       confirm_mark_as_read: Пометить все сообщения этого раздела прочитанными?
       confirm_remove_all: Пометить все сообщения этого раздела?
       conversation_with_user: Диалог с %{user}
-      before_you_message_me: Перед тем, как мне написать
+      before_you_message_me: Перед тем как мне написать
       admin_message: >-
         <li>Обращайся на "ты".</li>
         <li>
