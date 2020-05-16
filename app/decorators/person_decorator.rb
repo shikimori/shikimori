@@ -154,7 +154,7 @@ class PersonDecorator < DbEntryDecorator
           end
         end
       else
-        top_franchise = char.animes.sort_by { |anime| sort_criteria anime }.last.franchise
+        top_franchise = char.animes.sort_by { |anime| sort_criteria anime }.last&.franchise
         franchise_animes = char.animes.select { |anime| anime.franchise == top_franchise }
 
         entry = {
