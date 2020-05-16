@@ -25,7 +25,6 @@ class Abilities::User
       review_abilities if @user.week_registered?
       collection_abilities if @user.week_registered?
       article_abilities if @user.week_registered?
-      other_abilities
       club_abilities
       club_image_abilities if @user.week_registered?
       oauth_applications_abilities if @user.day_registered?
@@ -280,10 +279,6 @@ class Abilities::User
     # can :destroy, Style do |style|
       # can?(:update, style) && @user.style_id != style.id
     # end
-  end
-
-  def other_abilities
-    can :manage, Device, user_id: @user.id
   end
 
   def list_import_abilities

@@ -284,9 +284,6 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :devices, only: %i[create update index destroy] do
-        get :test, on: :member
-      end
       resources :characters, only: %i[show] do
         get :search, on: :collection
       end

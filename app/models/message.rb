@@ -23,7 +23,6 @@ class Message < ApplicationRecord
   before_create :check_spam_abuse,
     if: -> { kind == MessageType::PRIVATE && !from.bot? }
   after_create :send_email
-  after_create :send_push_notifications
 
   def new? params
     %w[
@@ -77,13 +76,5 @@ private
     return unless kind == MessageType::PRIVATE
 
     EmailNotifier.instance.private_message self
-  end
-
-  def send_push_notifications
-    return unless to.active?
-
-    to.devices.each do |device|
-      PushNotification.perform_async id, device.id
-    end
   end
 end

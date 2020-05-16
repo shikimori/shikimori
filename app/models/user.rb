@@ -53,7 +53,6 @@ class User < ApplicationRecord
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
   accepts_nested_attributes_for :preferences
 
-  has_many :devices, dependent: :destroy
   has_many :oauth_applications,
     -> { order id: :desc },
     as: :owner,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_12_153544) do
+ActiveRecord::Schema.define(version: 2020_05_16_191008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -480,15 +480,6 @@ ActiveRecord::Schema.define(version: 2020_05_12_153544) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "ambiguous"
-  end
-
-  create_table "devices", id: :serial, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "token", limit: 255, null: false
-    t.integer "platform", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "name", limit: 255
   end
 
   create_table "episode_notifications", id: :serial, force: :cascade do |t|

@@ -2,7 +2,6 @@ describe User do
   describe 'relations' do
     it { is_expected.to have_one(:preferences).dependent(:destroy) }
 
-    it { is_expected.to have_many :devices }
     it { is_expected.to have_many :oauth_applications }
     it { is_expected.to have_many :access_grants }
     it { is_expected.to have_many :access_tokens }

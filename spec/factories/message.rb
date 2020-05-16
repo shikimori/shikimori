@@ -7,7 +7,6 @@ FactoryBot.define do
 
     after :build do |model|
       stub_method model, :antispam_checks
-      stub_method model, :send_push_notifications
       stub_method model, :check_spam_abuse
     end
 
@@ -32,9 +31,6 @@ FactoryBot.define do
 
     trait :with_antispam do
       after(:build) { |model| unstub_method model, :antispam_checks }
-    end
-    trait :with_push_notifications do
-      after(:build) { |model| unstub_method model, :send_push_notifications }
     end
     trait :with_check_spam_abuse do
       after(:build) { |model| unstub_method model, :check_spam_abuse }

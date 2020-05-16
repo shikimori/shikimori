@@ -53,44 +53,6 @@ describe Message do
           end
         end
       end
-
-      describe '#send_push_notifications' do
-        let(:message) { build :message, :with_push_notifications, to: user }
-        let(:user) { build :user, devices: devices }
-
-        before do
-          allow(PushNotification).to receive :perform_async
-          allow(user).to receive(:active?).and_return is_active
-        end
-        let(:is_active) { true }
-
-        subject! { message.save! }
-
-        context 'no devices' do
-          let(:devices) { [] }
-          it { expect(PushNotification).to_not have_received :perform_async }
-        end
-
-        context 'with devices' do
-          let(:devices) { [device_1, device_2] }
-          let(:device_1) { build :device }
-          let(:device_2) { build :device }
-
-          context 'active user' do
-            it do
-              expect(PushNotification).to have_received(:perform_async)
-                .with(message.id, device_1.id).ordered
-              expect(PushNotification).to have_received(:perform_async)
-                .with(message.id, device_2.id).ordered
-            end
-          end
-
-          context 'inactive user' do
-            let(:is_active) { false }
-            it { expect(PushNotification).to_not have_received :perform_async }
-          end
-        end
-      end
     end
   end
 
