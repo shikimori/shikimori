@@ -8,8 +8,9 @@ class Api::V1::PeopleController < Api::V1Controller
       serializer: PersonProfileSerializer
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
-  api :GET, '/people/search'
+  api :GET, '/people/search', 'Search people'
+  param :search, String, required: false
+  param :kind, %w[seyu mangaka producer], required: false
   def search
     @collection = Autocomplete::Person.call(
       scope: Person.all,

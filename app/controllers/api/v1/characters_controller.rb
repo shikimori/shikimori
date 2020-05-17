@@ -9,8 +9,8 @@ class Api::V1::CharactersController < Api::V1Controller
       scope: view_context
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
-  api :GET, '/characters/search'
+  api :GET, '/characters/search', 'Search characters'
+  param :search, String, required: false
   def search
     @collection = Autocomplete::Character.call(
       scope: Character.all,
