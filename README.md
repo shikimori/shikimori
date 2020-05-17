@@ -229,3 +229,8 @@ psql -d postgres
 \connect shikimori_production;
 GRANT EXECUTE ON FUNCTION pg_stat_statements_reset() TO shikimori_production;
 ```
+
+### Generate apipie documentation
+```sh
+APIPIE_RECORD=all rspec spec/controllers/api/*
+```
