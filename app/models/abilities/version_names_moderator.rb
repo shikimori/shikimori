@@ -13,10 +13,6 @@ class Abilities::VersionNamesModerator
   MANAGED_MODELS = Abilities::VersionTextsModerator::MANAGED_MODELS
 
   def initialize _user
-    can :increment_episode, Anime
-    can :rollback_episode, Anime
-    can :upload_episode, Anime
-
     can :sync, [Anime, Manga, Person, Character] do |entry|
       entry.mal_id.present?
     end
