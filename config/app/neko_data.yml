@@ -20220,7 +20220,8 @@
         franchise: yuru_yuri
         not_anime_ids:
         - 12665
-      :threshold: 93.1%
+        - 40369
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :yuru_yuri
@@ -20251,6 +20252,7 @@
         franchise: yuru_yuri
         not_anime_ids:
         - 12665
+        - 40369
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -21155,6 +21157,7 @@
         - 10351
         - 28531
         - 37789
+        - 40779
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -21189,6 +21192,7 @@
         - 10351
         - 28531
         - 37789
+        - 40779
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -23008,7 +23012,8 @@
         franchise: dog_days
         not_anime_ids:
         - 29413
-      :threshold: 95.6%
+        - 35063
+      :threshold: 96.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :dog_days
@@ -23039,6 +23044,7 @@
         franchise: dog_days
         not_anime_ids:
         - 29413
+        - 35063
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -27510,6 +27516,7 @@
         franchise: to_heart
         not_anime_ids:
         - 1624
+        - 3977
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -27541,6 +27548,7 @@
         franchise: to_heart
         not_anime_ids:
         - 1624
+        - 3977
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
