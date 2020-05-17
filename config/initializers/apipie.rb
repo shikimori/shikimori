@@ -55,7 +55,7 @@ Apipie.configure do |config|
 
     [Node.js API implementation](https://github.com/Capster/node-shikimori) by Capster.
 
-    [C# API implementation](https://github.com/MrModest/ShikiApiLib) by MrModest.
+    [C# API implementation](https://github.com/JustRoxy/ShikimoriSharp) by JustRoxy.
     <br><br>
 
     ### Feedback
