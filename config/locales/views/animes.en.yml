@@ -57,7 +57,7 @@ en:
         type: Type
         name: Name
       new_torrent: New torrent
-      confirm_episode_date: 'Please provide the release date of the episode in the format DD.MM.YYYY HH:MM (in moscow time zone GMT+3)'
+      confirm_episode_date: 'Please provide the release date of the episode in the format DD.MM.YYYY HH:MM (in your local time zone)'
       confirm_rollback: This action is irreversible. It will remove the topic about the episode and episode notifications from all users. Are you sure?
       parse_page: Parse page
       parse: Parse
