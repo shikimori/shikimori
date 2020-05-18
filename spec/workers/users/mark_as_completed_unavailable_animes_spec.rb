@@ -23,11 +23,15 @@ describe Users::MarkAsCompletedUnavailableAnimes do
   let!(:user_rate_5_5) do
     create :user_rate, user: user_5, status: :completed, target: anime_5
   end
+  let!(:user_rate_5_6) do
+    create :user_rate, user: user_5, status: :completed, target: anime_6
+  end
   let(:anime_1) { create :anime, status: :anons }
   let(:anime_2) { create :anime, status: :anons }
   let(:anime_3) { create :anime, status: :ongoing }
   let(:anime_4) { create :anime, status: :ongoing }
   let(:anime_5) { create :anime, id: worker.send(:unvailable_anime_ids).max }
+  let(:anime_6) { create :anime, id: worker.send(:unvailable_anime_ids).sort[-2] }
 
   let!(:user_4) { create :user, roles: %i[completed_announced_animes] }
   let(:user_5) { create :user }

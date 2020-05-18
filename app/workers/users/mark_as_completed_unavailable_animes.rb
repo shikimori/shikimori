@@ -2,7 +2,9 @@ class Users::MarkAsCompletedUnavailableAnimes
   include Sidekiq::Worker
 
   CONFIG_PATH = Rails.root.join('config/app/unavailable_animes.yml')
+
   COMPLETED_ANNOUNCES_LIMIT = 2
+  COMPLETED_UNAVAILABLES_LIMIT = 2
 
   def perform
     User.transaction do
@@ -47,6 +49,8 @@ private
     UserRate
       .where(target_id: unvailable_anime_ids)
       .where(target_type: 'Anime', status: 'completed')
+      .group(:user_id)
+      .having("count(*) >= #{COMPLETED_UNAVAILABLES_LIMIT}")
       .select(:user_id)
   end
 
