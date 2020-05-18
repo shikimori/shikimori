@@ -63,7 +63,6 @@ class BbCodes::Text
   def call
     text = (@text || '').fix_encoding.strip
     text = remove_spam text
-    text = BbCodes::UserMention.call text
 
     text = String.new ERB::Util.h(text)
     text = bb_codes text
@@ -87,7 +86,7 @@ class BbCodes::Text
 
 private
 
-  def parse text # rubocop:disable MethodLength
+  def parse text # rubocop:disable all
     text_hash = XXhash.xxh32 text, 0
 
     text = text.gsub(/\r\n|\r/, "\n")
@@ -98,6 +97,7 @@ private
 
     # must be in the beginning to avaid collisions
     # when other bbcodes coud produce text that can be accidentally treated as db_entry mention
+    text = BbCodes::UserMention.call text
     text = BbCodes::DbEntryMention.call text
 
     HASH_TAGS.each do |tag_klass|
