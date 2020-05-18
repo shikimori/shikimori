@@ -1,7 +1,7 @@
 class Animes::BannedRelations
   include Singleton
 
-  CONFIG_PATH = "#{Rails.root}/config/app/banned_franchise_coupling.yml"
+  CONFIG_PATH = Rails.root.join('config/app/banned_franchise_coupling.yml')
 
   def anime id
     animes[id] || []
@@ -54,6 +54,6 @@ private
   end
 
   def banned_couplings_data
-    YAML.load_file CONFIG_PATH
+    @banned_couplings_data ||= YAML.load_file CONFIG_PATH
   end
 end
