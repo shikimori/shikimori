@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_16_191008) do
+ActiveRecord::Schema.define(version: 2020_05_18_094007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -592,7 +592,7 @@ ActiveRecord::Schema.define(version: 2020_05_16_191008) do
     t.string "rating", limit: 255
     t.date "aired_on"
     t.date "released_on"
-    t.date "imported_at"
+    t.datetime "imported_at"
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
