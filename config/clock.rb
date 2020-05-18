@@ -91,7 +91,7 @@ module Clockwork
     DbEntries::CleanupMalBanned.perform_async
     Votable::CleanupCheatBotVotes.perform_async
     Users::CleanupDoorkeeperTokens.perform_async
-    Users::MarkAsCompletedAnnouncedAnimes.perform_async
+    Users::MarkAsCompletedUnavailableAnimes.perform_async
 
     ListImports::Cleanup.perform_async
 

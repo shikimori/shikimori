@@ -1,4 +1,4 @@
-describe Users::MarkAsCompletedAnnouncedAnimes do
+describe Users::MarkAsCompletedUnavailableAnimes do
   let!(:user_4) { create :user, roles: %i[completed_announced_animes] }
 
   let!(:user_rate_1_1) do

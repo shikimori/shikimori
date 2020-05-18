@@ -1,4 +1,4 @@
-class Users::MarkAsCompletedAnnouncedAnimes
+class Users::MarkAsCompletedUnavailableAnimes
   include Sidekiq::Worker
 
   COMPLETED_ANNOUNCES_LIMIT = 2
