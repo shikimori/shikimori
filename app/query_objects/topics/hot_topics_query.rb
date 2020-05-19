@@ -15,7 +15,6 @@ class Topics::HotTopicsQuery
   SQL
 
   INTERVAL = Rails.env.development? ? 1.month : 1.day
-  LIMIT = 8
 
   method_object %i[locale limit]
 
