@@ -47,7 +47,8 @@ export default class GlobalSearch extends View {
         if (this.currentItem !== currentTarget) {
           this._selectItem(currentTarget, false);
         }
-      });
+      })
+      .on('scroll', this._applyShade);
   }
 
   get hasIndex() {
@@ -232,9 +233,11 @@ export default class GlobalSearch extends View {
 
   @bind
   _applyShade() {
+    const node = this.$content[0];
+
     this.$outerContent.toggleClass(
       'is-overflowed',
-      this.$content[0].clientHeight !== this.$content[0].scrollHeight
+      node.scrollTop + node.clientHeight !== node.scrollHeight
     );
   }
 
