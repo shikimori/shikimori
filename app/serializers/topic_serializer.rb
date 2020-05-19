@@ -36,7 +36,9 @@ class TopicSerializer < ActiveModel::Serializer
   end
 
   def last_comment_viewed
-    object.topic.comments.last.try(:viewed?)
+    # it is very important to order comments by `created_at: :desc`,
+    # otherwise query won't be executed by index
+    object.topic.comments.order(created_at: :desc).first.try(:viewed?)
   end
 
   def viewed
