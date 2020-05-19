@@ -8,8 +8,10 @@ class Comments::ExtractQuoted
     \[/#{MENTION.source}\]
   }mx
 
-  def call text
-    results = text.to_s.scan(REGEXP).map { |(tag, data)| extract tag, data }
+  method_object :text
+
+  def call
+    results = @text.to_s.scan(REGEXP).map { |(tag, data)| extract tag, data }
 
     OpenStruct.new(
       comments: results.map(&:first).compact.uniq,

@@ -63,18 +63,14 @@ private
   end
 
   def old_quoted
-    @old_quoted ||= extract_quoted_service.call(
+    @old_quoted ||= Comments::ExtractQuoted.call(
       (BbCodes::UserMention.call(@old_body) if @old_body)
     )
   end
 
   def new_quoted
-    @new_quoted ||= extract_quoted_service.call(
+    @new_quoted ||= Comments::ExtractQuoted.call(
       (BbCodes::UserMention.call(@new_body) if @new_body)
     )
-  end
-
-  def extract_quoted_service
-    @extract_quoted_service ||= Comments::ExtractQuoted.new
   end
 end
