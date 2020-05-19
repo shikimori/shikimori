@@ -31,6 +31,10 @@ class Api::V1::TopicsController < Api::V1Controller
     if params[:linked_id] && params[:linked_type]
       linked = params[:linked_type].constantize.find_by(id: params[:linked_id])
       topics_scope = topics_scope.by_linked linked
+    elsif params[:linked_id]
+      topics_scope = topics_scope.where linked_id: params[:linked_id]
+    elsif params[:linked_type]
+      topics_scope = topics_scope.where linked_type: params[:linked_type]
     end
 
     @collection = topics_scope
