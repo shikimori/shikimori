@@ -224,7 +224,7 @@ export default class GlobalSearch extends View {
       if ($item.is(':first-child')) {
         node.scrollTo(0, 0);
       } else {
-        node.scrollTo(0, itemTop - 10);
+        node.scrollTo(0, itemTop - 15);
       }
     } else if (itemTop + itemHeight > scrollTop + clientHeight - 25) {
       node.scrollTo(0, itemTop + itemHeight - clientHeight + 25);
