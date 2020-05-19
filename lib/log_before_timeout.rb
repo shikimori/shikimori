@@ -11,7 +11,7 @@ class LogBeforeTimeout
     @app.call env
 
   ensure
-    thread[:done] = true
+    thread[:done] = true if thread
   end
 
 private
