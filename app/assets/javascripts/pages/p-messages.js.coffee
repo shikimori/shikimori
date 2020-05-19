@@ -3,7 +3,6 @@ pageLoad 'messages_index', ->
   $('.l-page').on 'postloader:success', process
 
 process = ->
-  console.log 'process'
   $('.item-request-confirm, .item-request-reject').on 'ajax:success', ->
     read_message $(@).closest('.b-message')
 
