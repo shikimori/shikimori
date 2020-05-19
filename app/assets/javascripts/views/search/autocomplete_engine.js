@@ -21,10 +21,13 @@ export default class AutocompleteEngine extends IndexEngine {
 
   set phrase(value) {
     this._phrase = value;
+    this._buildSearchPromise();
 
     if (!Object.isEmpty(this.phrase)) {
       this._showAjax();
       this.debouncedSearch(this.phrase);
+    } else {
+      this._resolveSearchPromise();
     }
   }
 

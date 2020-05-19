@@ -1,5 +1,6 @@
 import URI from 'urijs';
 import { debounce } from 'throttle-debounce';
+import pDefer from 'p-defer';
 
 import ajaxCacher from 'services/ajax_cacher';
 import flash from 'services/flash';
@@ -8,6 +9,7 @@ import JST from 'helpers/jst';
 
 export default class IndexEngine {
   constructor() {
+    this.searchPromise = undefined;
     this.isAutocomplete = false;
     this.debouncedSearch = debounce(250, v => this._search(v));
   }
@@ -18,6 +20,7 @@ export default class IndexEngine {
 
   search(phrase) {
     this.phrase = phrase;
+    return this.searchPromise;
   }
 
   get $content() {
@@ -30,6 +33,7 @@ export default class IndexEngine {
 
   set phrase(value) {
     this._phrase = value;
+    this._buildSearchPromise();
 
     if (this.phrase !== undefined) {
       this._showAjax();
@@ -39,6 +43,8 @@ export default class IndexEngine {
       } else {
         this.debouncedSearch(this.phrase);
       }
+    } else {
+      this._resolveSearchPromise();
     }
   }
 
@@ -48,6 +54,7 @@ export default class IndexEngine {
     if (status !== 200) {
       flash.error(I18n.t('frontend.lib.paginated_catalog.please_try_again_later'));
       this._hideAjax();
+      this._resolveSearchPromise();
       return;
     }
 
@@ -56,6 +63,7 @@ export default class IndexEngine {
       this._processResponse(data);
     }
     this._hideAjax();
+    this._resolveSearchPromise();
   }
 
   _processResponse(response) {
@@ -91,10 +99,6 @@ export default class IndexEngine {
     window.history.replaceState({ turbolinks: true, url }, '', url);
   }
 
-  _showAjax() {
-    this.$content.addClass('b-ajax');
-  }
-
   _url(url, phrase) {
     const uri = URI(url).removeQuery('search');
 
@@ -104,7 +108,22 @@ export default class IndexEngine {
     return uri;
   }
 
+  _showAjax() {
+    this.$content.addClass('b-ajax');
+  }
+
   _hideAjax() {
     this.$content.removeClass('b-ajax');
+  }
+
+  _buildSearchPromise() {
+    this.searchPromise = pDefer();
+  }
+
+  _resolveSearchPromise() {
+    if (this.searchPromise) {
+      this.searchPromise.resolve();
+      this.searchPromise = undefined;
+    }
   }
 }

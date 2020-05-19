@@ -19,6 +19,8 @@ export default class GlobalSearch extends View {
 
   initialize() {
     this.$input = this.$('.field input');
+    this.$outerContent = this.$root.find('.search-results');
+    this.$content = this.$outerContent.find('.inner');
 
     this._phrase = this.inputSearchPhrase;
     this.currentMode = this.hasIndex ? 'index' : this.$root.data('default-mode') || 'anime';
@@ -73,10 +75,6 @@ export default class GlobalSearch extends View {
     }
   }
 
-  get $content() {
-    return this.$root.find('.search-results');
-  }
-
   get $activeItem() {
     return this.$content.find(ITEM_SELECTOR).filter('.active');
   }
@@ -105,10 +103,17 @@ export default class GlobalSearch extends View {
     if (priorPhrase === undefined) { return; }
 
     if (this.phrase) { // it is undefined in constructor
-      this.searchEngine.search(trimmedValue);
+      const defferred = this.searchEngine.search(trimmedValue);
+
+      if (defferred) {
+        defferred.promise.then(this._applyShade);
+      } else {
+        this._applyShade();
+      }
     } else {
       this.searchEngine.cancel();
       this._renderModes();
+      this._applyShade();
     }
 
     this._toggleGlobalSearch();
@@ -223,6 +228,14 @@ export default class GlobalSearch extends View {
     } else if (nodeTop + nodeHeight > windowTop + windowHeight) {
       window.scrollTo(0, windowTop + (nodeTop + nodeHeight) - (windowTop + windowHeight) + 10);
     }
+  }
+
+  @bind
+  _applyShade() {
+    this.$outerContent.toggleClass(
+      'is-overflowed',
+      this.$content[0].clientHeight !== this.$content[0].scrollHeight
+    );
   }
 
   @bind
