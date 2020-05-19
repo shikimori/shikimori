@@ -213,21 +213,21 @@ export default class GlobalSearch extends View {
     }
   }
 
-  _scrollToItem($node) {
-    const nodeTop = $node.offset().top;
-    const nodeHeight = $node.outerHeight();
+  _scrollToItem($item) {
+    const node = this.$content[0];
+    const { scrollTop, clientHeight } = node;
 
-    const windowTop = window.scrollY || document.documentElement.scrollTop;
-    const windowHeight = $(window).height();
+    const itemTop = $item.position().top + scrollTop;
+    const itemHeight = $item.outerHeight();
 
-    if (nodeTop < windowTop) {
-      if ($node.is(':first-child')) {
-        window.scrollTo(0, 0);
+    if (itemTop < scrollTop) {
+      if ($item.is(':first-child')) {
+        node.scrollTo(0, 0);
       } else {
-        window.scrollTo(0, nodeTop - 10);
+        node.scrollTo(0, itemTop - 10);
       }
-    } else if (nodeTop + nodeHeight > windowTop + windowHeight) {
-      window.scrollTo(0, windowTop + (nodeTop + nodeHeight) - (windowTop + windowHeight) + 10);
+    } else if (itemTop + itemHeight > scrollTop + clientHeight - 25) {
+      node.scrollTo(0, itemTop + itemHeight - clientHeight + 25);
     }
   }
 
