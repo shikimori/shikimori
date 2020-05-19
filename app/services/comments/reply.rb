@@ -1,4 +1,3 @@
-# добавление убирание ответа на комментарий
 class Comments::Reply
   pattr_initialize :comment
 
@@ -9,12 +8,13 @@ class Comments::Reply
   def append_reply replied_comment
     current_tag, ids, brs = extract_replies
 
-    new_body = if current_tag.present?
-      new_ids = (ids + [replied_comment.id]).sort.uniq
-      comment.body.sub current_tag, "#{brs}[replies=#{new_ids.join ','}]"
-    else
-      comment.body + "\n\n[replies=#{replied_comment.id}]"
-    end
+    new_body =
+      if current_tag.present?
+        new_ids = (ids + [replied_comment.id]).sort.uniq
+        comment.body.sub current_tag, "#{brs}[replies=#{new_ids.join ','}]"
+      else
+        comment.body + "\n\n[replies=#{replied_comment.id}]"
+      end
 
     update_comment new_body
   end
@@ -25,11 +25,12 @@ class Comments::Reply
 
     new_ids = ids - [replied_comment.id]
 
-    new_body = if new_ids.any?
-      comment.body.sub current_tag, "#{brs}[replies=#{new_ids.join ','}]"
-    else
-      (comment.body.sub current_tag, "").strip
-    end
+    new_body =
+      if new_ids.any?
+        comment.body.sub current_tag, "#{brs}[replies=#{new_ids.join ','}]"
+      else
+        (comment.body.sub current_tag, '').strip
+      end
 
     update_comment new_body
   end
