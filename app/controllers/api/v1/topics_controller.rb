@@ -18,7 +18,27 @@ class Api::V1::TopicsController < Api::V1Controller
   param :linked_type, Topic::LINKED_TYPES.to_s.scan(/[A-Z]\w+/),
     required: false,
     desc: 'Used together with `linked_id`'
-  def index # rubocop:disable AbcSize, MethodLength
+  # %w[Topic] + ObjectSpace.each_object(Class).select { |klass| klass <= Topic }.flat_map(&:descendants).map(&:name).uniq.sort
+  param :type, %w[
+    Topic
+    Topics::ClubUserTopic
+    Topics::EntryTopic
+    Topics::EntryTopics::AnimeTopic
+    Topics::EntryTopics::ArticleTopic
+    Topics::EntryTopics::CharacterTopic
+    Topics::EntryTopics::ClubPageTopic
+    Topics::EntryTopics::ClubTopic
+    Topics::EntryTopics::CollectionTopic
+    Topics::EntryTopics::ContestTopic
+    Topics::EntryTopics::CosplayGalleryTopic
+    Topics::EntryTopics::MangaTopic
+    Topics::EntryTopics::PersonTopic
+    Topics::EntryTopics::RanobeTopic
+    Topics::EntryTopics::ReviewTopic
+    Topics::NewsTopic
+    Topics::NewsTopics::ContestStatusTopic
+  ], required: false
+  def index # rubocop:disable all
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
     topics_scope = Topics::Query.fetch(locale_from_host)
@@ -31,11 +51,12 @@ class Api::V1::TopicsController < Api::V1Controller
     if params[:linked_id] && params[:linked_type]
       linked = params[:linked_type].constantize.find_by(id: params[:linked_id])
       topics_scope = topics_scope.by_linked linked
-    elsif params[:linked_id]
-      topics_scope = topics_scope.where linked_id: params[:linked_id]
-    elsif params[:linked_type]
-      topics_scope = topics_scope.where linked_type: params[:linked_type]
+    else
+      topics_scope = topics_scope.where linked_id: params[:linked_id] if params[:linked_id]
+      topics_scope = topics_scope.where linked_type: params[:linked_type] if params[:linked_type]
     end
+
+    topics_scope = topics_scope.where type: params[:type] if params[:type]
 
     @collection = topics_scope
       .includes(:forum, :user)
