@@ -23,7 +23,7 @@ export default class CollectionSearch extends View {
   }
 
   get $collection() {
-    return this.$('.search-results .inner');
+    return this.$('.search-results');
   }
 
   get inputSearchPhrase() {
