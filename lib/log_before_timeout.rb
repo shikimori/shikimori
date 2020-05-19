@@ -1,6 +1,7 @@
 # TODO: remove after timeout test finish (27-10-2015)
 class LogBeforeTimeout
-  UNICORN_TIMEOUT = 55
+  UNICORN_TIMEOUT = 30
+  # UNICORN_TIMEOUT = 55
 
   def initialize app
     @app = app
