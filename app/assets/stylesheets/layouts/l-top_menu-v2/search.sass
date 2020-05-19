@@ -102,9 +102,11 @@ $input-height: 29px
   .search-results
     background-color: #fff
     display: none
-    top: $top_menu-height - 8px
+    max-height: calc(100vh - #{$top_menu-height + 14px})
     min-height: 42px
+    overflow-y: scroll
     position: absolute
+    top: $top_menu-height - 8px
     width: 100%
     z-index: 1001
 
