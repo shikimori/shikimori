@@ -111,34 +111,37 @@ $input-height: 29px
     &.b-ajax:after
       display: none
 
-    &:before,
-    &:after
-      content: ''
-      height: 50px
-      left: 0
-      opacity: 0
-      pointer-events: none
-      position: absolute
-      transition: opacity 0.35s
-      width: 100%
-      z-index: 2
+    +gte_laptop
+      &:before,
+      &:after
+        content: ''
+        height: 50px
+        left: 0
+        opacity: 0
+        pointer-events: none
+        position: absolute
+        transition: opacity 0.35s
+        width: 100%
+        z-index: 2
 
-    &:before
-      background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)
-      top: 0
+      &:before
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)
+        top: 0
 
-    &:after
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)
-      bottom: 0
+      &:after
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)
+        bottom: 0
 
-    &.is-overflowed-above:before,
-    &.is-overflowed-below:after
-      opacity: 1
+      &.is-overflowed-above:before,
+      &.is-overflowed-below:after
+        opacity: 1
 
     .inner
-      max-height: calc(100vh - #{$top_menu-height + 14px})
-      overflow-y: scroll
       position: relative
+
+      +gte_laptop
+        max-height: calc(100vh - #{$top_menu-height + 14px})
+        overflow-y: scroll
 
     .nothing_found:before
       background: $red-check
