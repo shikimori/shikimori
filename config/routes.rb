@@ -297,7 +297,10 @@ Rails.application.routes.draw do
 
       resources :forums, only: %i[index]
       resources :topics, only: %i[index show create update destroy] do
-        get :updates, on: :collection
+        collection do
+          get :updates
+          get :hot
+        end
       end
       resources :comments, only: %i[show index create update destroy]
 

@@ -76,6 +76,18 @@ class Api::V1::TopicsController < Api::V1Controller
     respond_with map_updates(updates_scope)
   end
 
+  api :GET, '/topics/hot', 'Hot topics'
+  param :limit, :pagination, required: false, desc: '10 maximum'
+  def hot
+    @limit = [[params[:limit].to_i, 1].max, 10].min
+
+    @collection = Topics::HotTopicsQuery
+      .call(limit: @limit, locale: locale_from_host)
+      .map { |topic| Topics::TopicViewFactory.new(true, true).build topic }
+
+    respond_with @collection, each_serializer: TopicSerializer
+  end
+
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/topics/:id', 'Show a topic'
   def show

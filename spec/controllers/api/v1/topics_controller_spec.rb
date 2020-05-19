@@ -56,6 +56,25 @@ describe Api::V1::TopicsController do
     end
   end
 
+  describe '#hot', :show_in_doc do
+    let(:anime) { create :anime }
+    let!(:topic) do
+      create :topic,
+        forum: animanga_forum,
+        generated: true,
+        linked: anime,
+        action: 'episode',
+        value: '5'
+    end
+    before { allow(Topics::HotTopicsQuery).to receive(:call).and_return [topic] }
+    subject! { get :hot, format: :json }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
+
   describe '#create' do
     include_context :authenticated, :user, :week_registered
     subject! { post :create, params: { topic: params }, format: :json }
