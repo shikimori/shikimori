@@ -61,7 +61,7 @@ class Api::V1::MangasController < Api::V1Controller
     </p>
   DOC
   param :page, :pagination, required: false
-  param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
+  param :limit, :number, required: false, desc: "#{LIMIT} maximum"
   param :order, ORDERS, required: false, desc: ORDERS_DESC
   param :type, :undef, required: false, desc: 'Deprecated'
   param :kind, :undef,
@@ -196,7 +196,7 @@ class Api::V1::MangasController < Api::V1Controller
 
   api :GET, '/mangas/:id/topics'
   param :page, :pagination, required: false
-  param :limit, :pagination, required: false, desc: "#{Api::V1::TopicsController::LIMIT} maximum"
+  param :limit, :number, required: false, desc: "#{Api::V1::TopicsController::LIMIT} maximum"
   def topics
     @limit = [[params[:limit].to_i, 1].max, Api::V1::TopicsController::LIMIT].min
 

@@ -95,7 +95,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     </p>
   DOC
   param :page, :pagination, required: false
-  param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
+  param :limit, :number, required: false, desc: "#{LIMIT} maximum"
   param :order, ORDERS, required: false, desc: ORDERS_DESC
   param :type, :undef, required: false, desc: 'Deprecated'
   param :kind, :undef,
@@ -244,7 +244,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
 
   api :GET, '/animes/:id/topics'
   param :page, :pagination, required: false
-  param :limit, :pagination, required: false, desc: "#{Api::V1::TopicsController::LIMIT} maximum"
+  param :limit, :number, required: false, desc: "#{Api::V1::TopicsController::LIMIT} maximum"
   param :kind, Types::Topic::NewsTopic::Action.values.map(&:to_s), required: false
   param :episode, :number, required: false
   def topics # rubocop:disable AbcSize

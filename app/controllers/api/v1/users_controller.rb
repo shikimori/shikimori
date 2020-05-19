@@ -20,7 +20,7 @@ class Api::V1::UsersController < Api::V1Controller
 
   api :GET, '/users', 'List users'
   param :page, :pagination, required: false
-  param :limit, :pagination, required: false, desc: "#{USERS_LIMIT} maximum"
+  param :limit, :number, required: false, desc: "#{USERS_LIMIT} maximum"
   def index
     @limit = [[params[:limit].to_i, 1].max, USERS_LIMIT].min
 
@@ -65,7 +65,7 @@ class Api::V1::UsersController < Api::V1Controller
 
   api :GET, '/users/:id/anime_rates', "Show user's anime list"
   param :page, :pagination, required: false
-  param :limit, :pagination,
+  param :limit, :number,
     required: false,
     desc: "#{USER_RATES_LIMIT} maximum"
   param :censored, %w[true false],
@@ -91,7 +91,7 @@ class Api::V1::UsersController < Api::V1Controller
 
   api :GET, '/users/:id/manga_rates', "Show user's manga list"
   param :page, :pagination, required: false
-  param :limit, :pagination,
+  param :limit, :number,
     required: false,
     desc: "#{USER_RATES_LIMIT} maximum"
   param :censored, %w[true false],
@@ -133,7 +133,7 @@ class Api::V1::UsersController < Api::V1Controller
   api :GET, '/users/:id/messages', "Show current user's messages"
   description 'Requires `messages` oauth scope'
   param :page, :pagination, required: false
-  param :limit, :pagination, required: false, desc: "#{MESSAGES_LIMIT} maximum"
+  param :limit, :number, required: false, desc: "#{MESSAGES_LIMIT} maximum"
   param :type, %w[inbox private sent news notifications], required: true
   def messages
     @limit = [[params[:limit].to_i, 1].max, MESSAGES_LIMIT].min
@@ -159,7 +159,7 @@ class Api::V1::UsersController < Api::V1Controller
 
   api :GET, '/users/:id/history', 'Show user history'
   param :page, :pagination, required: false
-  param :limit, :pagination, required: false, desc: "#{HISTORY_LIMIT} maximum"
+  param :limit, :number, required: false, desc: "#{HISTORY_LIMIT} maximum"
   param :target_id, :number, required: false
   param :target_type, %w[Anime Manga], required: false
   def history

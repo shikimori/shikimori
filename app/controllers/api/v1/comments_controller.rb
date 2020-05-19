@@ -25,7 +25,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
     DOC
   param :is_summary, :boolean, required: false
   param :page, :pagination, required: false
-  param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
+  param :limit, :number, required: false, desc: "#{LIMIT} maximum"
   param :desc, %w[1 0], required: false
   def index # rubocop:disable AbcSize
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min

@@ -35,7 +35,7 @@ class Api::V1::RanobeController < Api::V1::MangasController
     </p>
   DOC
   param :page, :pagination, required: false
-  param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
+  param :limit, :number, required: false, desc: "#{LIMIT} maximum"
   param :order, ORDERS, required: false, desc: ORDERS_DESC
   param :status, :undef,
     required: false,
@@ -152,7 +152,7 @@ class Api::V1::RanobeController < Api::V1::MangasController
 
   api :GET, '/ranobe/:id/topics'
   param :page, :pagination, required: false
-  param :limit, :pagination, required: false, desc: "#{Api::V1::TopicsController::LIMIT} maximum"
+  param :limit, :number, required: false, desc: "#{Api::V1::TopicsController::LIMIT} maximum"
   def topics
     @limit = [[params[:limit].to_i, 1].max, Api::V1::TopicsController::LIMIT].min
 

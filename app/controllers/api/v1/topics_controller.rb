@@ -12,7 +12,7 @@ class Api::V1::TopicsController < Api::V1Controller
 
   api :GET, '/topics', 'List topics'
   param :page, :pagination, required: false
-  param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
+  param :limit, :number, required: false, desc: "#{LIMIT} maximum"
   param :forum, %w[all] + Forum::VARIANTS, required: false
   param :linked_id, :number, required: false, desc: 'Used together with `linked_type`'
   param :linked_type, Topic::LINKED_TYPES.to_s.scan(/[A-Z]\w+/),
@@ -69,7 +69,7 @@ class Api::V1::TopicsController < Api::V1Controller
 
   api :GET, '/topics/updates', 'NewsTopics about database updates'
   param :page, :pagination, required: false
-  param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
+  param :limit, :number, required: false, desc: "#{LIMIT} maximum"
   def updates
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
@@ -77,7 +77,7 @@ class Api::V1::TopicsController < Api::V1Controller
   end
 
   api :GET, '/topics/hot', 'Hot topics'
-  param :limit, :pagination, required: false, desc: '10 maximum'
+  param :limit, :number, required: false, desc: '10 maximum'
   def hot
     @limit = [[params[:limit].to_i, 1].max, 10].min
 

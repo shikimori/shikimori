@@ -35,7 +35,7 @@ class Api::V2::UserRatesController < Api::V2Controller
   param :page, :pagination,
     required: false,
     desc: 'This field is ignored when user_id is set'
-  param :limit, :pagination,
+  param :limit, :number,
     required: false,
     desc: "#{MAX_LIMIT} maximum. This field is ignored when user_id is set"
   def index
