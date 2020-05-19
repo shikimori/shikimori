@@ -111,18 +111,26 @@ $input-height: 29px
     &.b-ajax:after
       display: none
 
-    &.is-overflowed
-      &:before
-        content: ''
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)
-        border-radius: 0px 0px 6px 6px
-        bottom: 0
-        height: 50px
-        left: 0
-        pointer-events: none
-        position: absolute
-        width: 100%
-        z-index: 2
+    &:before,
+    &:after
+      height: 50px
+      left: 0
+      pointer-events: none
+      position: absolute
+      width: 100%
+      z-index: 2
+
+    &:before
+      background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)
+      top: 0
+
+    &:after
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)
+      bottom: 0
+
+    &.is-overflowed-above:before,
+    &.is-overflowed-below:after
+      content: ''
 
     .inner
       max-height: calc(100vh - #{$top_menu-height + 14px})

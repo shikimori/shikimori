@@ -235,8 +235,9 @@ export default class GlobalSearch extends View {
   _applyShade() {
     const node = this.$content[0];
 
+    this.$outerContent.toggleClass('is-overflowed-above', node.scrollTop !== 0);
     this.$outerContent.toggleClass(
-      'is-overflowed',
+      'is-overflowed-below',
       node.scrollTop + node.clientHeight !== node.scrollHeight
     );
   }
