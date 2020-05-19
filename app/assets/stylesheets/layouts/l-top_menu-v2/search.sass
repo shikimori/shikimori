@@ -113,10 +113,13 @@ $input-height: 29px
 
     &:before,
     &:after
+      content: ''
       height: 50px
       left: 0
+      opacity: 0
       pointer-events: none
       position: absolute
+      transition: opacity 0.35s
       width: 100%
       z-index: 2
 
@@ -130,7 +133,7 @@ $input-height: 29px
 
     &.is-overflowed-above:before,
     &.is-overflowed-below:after
-      content: ''
+      opacity: 1
 
     .inner
       max-height: calc(100vh - #{$top_menu-height + 14px})
