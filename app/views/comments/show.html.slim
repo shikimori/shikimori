@@ -7,7 +7,7 @@
 - else
   .b-topic.to-process[
     data-dynamic='topic'
-    data-faye='false'
+    data-faye=["comment-#{@view.comment.id}"].to_json
   ]
     .subheadline
       == t '.user_comment',

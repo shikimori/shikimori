@@ -143,6 +143,7 @@ private
       TOPIC_FAYE_CHANNEL
 
     mixed_channels = channels +
+      ["/comment-#{comment.id}"] +
       subscribed_channels(topic) + linked_channels(topic) +
       ["/#{topic_type}-#{topic.id}"]
 
