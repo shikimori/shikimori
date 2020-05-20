@@ -2,7 +2,9 @@ require 'sidekiq/web'
 
 
 Rails.application.routes.draw do
-  user_id = /(?: [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x
+  # do not remove atomic grouping
+  # w/o it shikimori has huge performance issue with suck nicknames "…...........☭............."
+  user_id = /(?> [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x
 
   use_doorkeeper do
     skip_controllers(
