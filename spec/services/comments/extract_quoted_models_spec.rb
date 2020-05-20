@@ -1,4 +1,4 @@
-describe Comments::ExtractQuoted do
+describe Comments::ExtractQuotedModels do
   subject { described_class.call text }
 
   describe 'no text' do

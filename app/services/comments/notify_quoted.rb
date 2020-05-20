@@ -63,13 +63,13 @@ private
   end
 
   def old_quoted
-    @old_quoted ||= Comments::ExtractQuoted.call(
+    @old_quoted ||= Comments::ExtractQuotedModels.call(
       (BbCodes::UserMention.call(@old_body) if @old_body)
     )
   end
 
   def new_quoted
-    @new_quoted ||= Comments::ExtractQuoted.call(
+    @new_quoted ||= Comments::ExtractQuotedModels.call(
       (BbCodes::UserMention.call(@new_body) if @new_body)
     )
   end

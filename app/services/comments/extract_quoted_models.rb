@@ -1,4 +1,4 @@
-class Comments::ExtractQuoted
+class Comments::ExtractQuotedModels
   MENTION = /(quote|comment|topic|mention)/
   REGEXP = %r{
     \[#{MENTION.source}=([^\]]+)\]
