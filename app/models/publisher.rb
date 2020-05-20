@@ -17,10 +17,6 @@ class Publisher < ApplicationRecord
     format('%<id>d-%<slug>s', id: id, slug: name.gsub(/[^\w]+/, '-').gsub(/^-|-$/, ''))
   end
 
-  def name
-    self[:name].gsub(/^Weekly |^Monthly | ?\(.*\)/i, '').sub(//, '').strip
-  end
-
   # возвращет все id, связанные с текущим
   def self.related id, recursive = false
     related = MERGED.map { |k, v| k == id ? v : (v == id ? k : nil) }.compact
