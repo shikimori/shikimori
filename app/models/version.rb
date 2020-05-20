@@ -2,7 +2,7 @@ class Version < ApplicationRecord
   include AntispamConcern
 
   antispam(
-    per_day: 35,
+    per_day: 20, # 35
     disable_if: -> { user.staff? },
     user_id_key: :user_id
   )
