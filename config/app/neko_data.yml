@@ -32123,6 +32123,9 @@
         - 38297
         - 39388
         - 40483
+        - 37999
+        - 40591
+        - 10020
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -33175,6 +33178,9 @@
         - 38297
         - 39388
         - 40483
+        - 37999
+        - 40591
+        - 10020
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -34227,6 +34233,9 @@
         - 38297
         - 39388
         - 40483
+        - 37999
+        - 40591
+        - 10020
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
