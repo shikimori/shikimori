@@ -14,40 +14,31 @@ header.head.misc
 ]
   = simple_form_for @resource do |f|
     .subheadline.m5 = t :settings
-    .cc-2.block
-      .c-column
-        .block
-          = f.input :user_id, as: :hidden
-          = f.input :name
-          = f.input :kind,
-            include_blank: false,
-            disabled: @resource.persisted?
-
-          - if @resource.persisted?
-            = f.input :state,
-              include_blank: false,
-              disabled: @resource.published?,
-              hint: t(".hint.#{@resource.state}").html_safe
-          - else
-            = f.input :text, as: :hidden
-            .buttons
-              a.cancel href=collections_url = t 'actions.cancel'
-              = f.button :magic_submit
+    .block
+      = f.input :user_id, as: :hidden
+      = f.input :name
+      = f.input :kind,
+        include_blank: false,
+        disabled: @resource.persisted?
 
       - if @resource.persisted?
-        .c-column
-          .b-shiki_editor.unprocessed
-            .field-name = Collection.human_attribute_name :text
-            = render 'comments/shiki_editor',
-              text: @resource.text,
-              field_name: 'collection[text]'
+        = f.input :state,
+          include_blank: false,
+          disabled: @resource.published?,
+          hint: t(".hint.#{@resource.state}").html_safe
 
-    - if @resource.persisted?
-      .block
-        .buttons
-          a.cancel href=collections_url = t 'actions.cancel'
-          = f.button :magic_submit
+      .b-shiki_editor.unprocessed
+        .field-name = Collection.human_attribute_name :text
+        = render 'comments/shiki_editor',
+          text: @resource.text,
+          field_name: 'collection[text]'
 
+    .block2
+      .buttons
+        a.cancel href=collections_url = t 'actions.cancel'
+        = f.button :magic_submit
+
+      - if @resource.persisted?
         a.remove[
           href=collection_url(@resource)
           title=t('actions.delete')
@@ -55,6 +46,7 @@ header.head.misc
           data-confirm=t('actions.confirm')
         ] = t 'actions.delete'
 
+    - if @resource.persisted?
       #vue_collection_links
         .subheadline = @resource.kind_text
         .b-nothing_here = t 'loading'
