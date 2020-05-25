@@ -1,5 +1,5 @@
 class DbEntriesController < ShikimoriController
-  include FixArrayParamsConcern
+  include FixParamsConcern
 
   before_action :authenticate_user!, only: %i[edit edit_field update]
 
