@@ -43,6 +43,10 @@ class VersionDecorator < BaseDecorator
     end
   end
 
+  def field_diff field
+    HTMLDiff.diff old_value(field).to_s, new_value(field).to_s
+  end
+
   def cache_key
     [
       object,
