@@ -23,6 +23,7 @@
     "d3": "3.5.17",
     "decko": "^1.2.0",
     "delay": "4.3.0",
+    "diff-match-patch": "^1.0.5",
     "faye": "^1.2.4",
     "get-js": "0.0.5",
     "highcharts": "6.2.0",

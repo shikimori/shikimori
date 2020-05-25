@@ -18,10 +18,6 @@ class VersionDecorator < BaseDecorator
     end
   end
 
-  def field_diff field
-    HTMLDiff.diff old_value(field).to_s, new_value(field).to_s
-  end
-
   def new_value field
     field_value field, item_diff[field.to_s][1]
   end

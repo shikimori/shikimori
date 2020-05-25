@@ -84,11 +84,18 @@
         padding-right: 5px
 
       .diff
-        del.diffmod, del.diffdel
-          color: $red
+        del,
+        ins
+          padding: 0 2px
+          text-decoration: none
 
-        ins.diffmod, ins.diffins
-          color: $green
+        del
+          background: #fedddf !important
+          color: #fc575e
+
+        ins
+          background: #eaf2c2 !important
+          color: #406619
 
       .changes .change
         margin-bottom: 3px

@@ -1,6 +1,7 @@
 import URI from 'urijs';
 import Turbolinks from 'turbolinks';
 import cookies from 'js-cookie';
+import delay from 'delay';
 
 import { initArrayFieldApp } from './p-db_entries/edit_field';
 
@@ -45,7 +46,8 @@ pageLoad('moderations_show', () => {
 
 pageLoad('versions_index', 'users_index', datePicker);
 
-pageLoad('versions_show', 'user_rate_logs_show', () => {
+pageLoad('versions_show', 'user_rate_logs_show', async () => {
+  await delay(); // need log entries to be processed first
   $('.collapsed.spoiler', '.b-log_entry, .b-user_rate_log').click();
 });
 

@@ -24,6 +24,8 @@ export default class LogEntry extends ShikiView {
       .on('ajax:before', this._shade)
       .on('ajax:complete', this._unshade)
       .on('ajax:success', this._showForm);
+
+    this.$root.children('.spoiler.collapse').one('click', this._processDiffs);
   }
 
   @bind
@@ -86,6 +88,30 @@ export default class LogEntry extends ShikiView {
       return;
     }
 
-    $(e.target).attr({ href: `${href}?reason=${encodeURIComponent(reason)}` });
+    $(e.target).attr('href', `${href}?reason=${encodeURIComponent(reason)}`);
+  }
+
+  @bind
+  async _processDiffs() {
+    const $diff = this.$('.field-changes .diff');
+
+    if ($diff.length) {
+      const { default: DiffMatchPatch } =
+        await import(/* webpackChunkName: "diff-match-patch" */ 'diff-match-patch');
+
+      const $diffValue = this.$('.field-changes .diff .value');
+      const oldValue = $diffValue.data('old_value');
+      const newValue = $diffValue.data('new_value');
+
+      const dmp = new DiffMatchPatch();
+      dmp.Diff_EditCost = 4;
+
+      const diff = dmp.diff_main(oldValue, newValue);
+      dmp.diff_cleanupEfficiency(diff);
+
+      $diffValue.html(
+        dmp.diff_prettyHtml(diff).replace(/&para;/g, '')
+      );
+    }
   }
 }

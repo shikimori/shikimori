@@ -15,4 +15,7 @@
   - if version.old_value(field).present? && version.new_value(field).present?
     .diff
       .label Diff:
-      = sanitize version.field_diff(field)
+      .value[
+        data-old_value=version.old_value(field)
+        data-new_value=version.new_value(field)
+      ]
