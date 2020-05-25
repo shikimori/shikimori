@@ -6,11 +6,11 @@
   .changes
     .change
       .label #{t '.before'}:
-      = version.old_value(field)
+      == h(version.old_value(field)).gsub("\n", "<br>")
 
     .change
       .label #{t '.after'}:
-      = version.new_value(field)
+      == h(version.new_value(field)).gsub("\n", "<br>")
 
   - if version.old_value(field).present? && version.new_value(field).present?
     .diff
