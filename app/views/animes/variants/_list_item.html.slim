@@ -23,7 +23,7 @@
           .key #{Anime.human_attribute_name :kind}:
         .value
           - if entry.kind.present?
-            .b-tag.linkeable data-href=entry.collection_url(type: entry.kind)
+            .b-tag.linkeable data-href=entry.collection_url(kind: entry.kind)
               = entry.kind_text
           - if entry.year.present?
             .b-tag.linkeable data-href=entry.collection_url(season: entry.year)

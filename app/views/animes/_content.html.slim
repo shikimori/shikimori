@@ -33,7 +33,7 @@
       - if anime.kind.present? || anime.year.present? || (anime.anime? && anime.rating.present? && !anime.rating_none?) || anime.status
         = info_line Anime.human_attribute_name(:kind) do
           - if anime.kind.present?
-            .b-tag.linkeable data-href=anime.collection_url(type: anime.kind)
+            .b-tag.linkeable data-href=anime.collection_url(kind: anime.kind)
               = anime.kind_text
           - if anime.year.present?
             .b-tag.linkeable data-href=anime.collection_url(season: anime.year)
