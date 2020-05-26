@@ -104,10 +104,11 @@ export default class LogEntry extends ShikiView {
       const newValue = $diffValue.data('new_value');
 
       const dmp = new DiffMatchPatch();
-      dmp.Diff_EditCost = 4;
-
       const diff = dmp.diff_main(oldValue, newValue);
-      dmp.diff_cleanupEfficiency(diff);
+
+      // dmp.Diff_EditCost = 4;
+      // dmp.diff_cleanupEfficiency(diff);
+      dmp.diff_cleanupSemantic(diff);
 
       $diffValue.html(
         dmp.diff_prettyHtml(diff).replace(/&para;/g, '')
