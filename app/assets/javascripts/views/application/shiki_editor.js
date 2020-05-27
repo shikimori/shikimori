@@ -3,6 +3,7 @@ import autosize from 'autosize';
 import { bind } from 'decko';
 
 import axios from 'helpers/axios';
+import preventEvent from 'helpers/prevent_event';
 import ShikiView from 'views/application/shiki_view';
 
 import { isMobile } from 'helpers/mobile_detect';
@@ -28,48 +29,7 @@ export default class ShikiEditor extends ShikiView {
 
     // по первому фокусу на редактор включаем autosize
     this.$textarea.one('focus', () => delay().then(() => autosize(this.$textarea[0])));
-
-    this.$textarea.on('keypress keydown', e => {
-      if (e.keyCode === 27) { // esc
-        this.$textarea.blur();
-        return false;
-      } if (e.metaKey || e.ctrlKey) {
-        // сохранение по ctrl+enter
-        if ((e.keyCode === 10) || (e.keyCode === 13)) {
-          this.$form.submit();
-          return false;
-
-        // [b] tag
-        // else if e.keyCode == 98 || e.keyCode == 66
-        } if (e.keyCode === 66) { // b
-          this.$('.editor-bold').click();
-          return false;
-
-        // [i] tag
-        // else if e.keyCode == 105 || e.keyCode == 73
-        } if (e.keyCode === 73) { // i
-          this.$('.editor-italic').click();
-          return false;
-
-        // [u] tag
-        // else if e.keyCode == 117 || e.keyCode == 85
-        } if (e.keyCode === 85) { // u
-          this.$('.editor-underline').click();
-          return false;
-
-        // spoiler tag
-        // else if e.keyCode == 115 || e.keyCode == 83
-        } if (e.keyCode === 83) { // s
-          this.$('.editor-spoiler').click();
-          return false;
-
-        // code tag
-        } if (e.keyCode === 79) { // o
-          this.$textarea.insertAtCaret('[code]', '[/code]');
-          return false;
-        }
-      }
-    });
+    this.$textarea.on('keypress keydown', this._onKeyPress);
 
     this.$form
       .on('ajax:before', () => {
@@ -183,7 +143,7 @@ export default class ShikiEditor extends ShikiView {
     });
 
     // общий обработчик для всех радио кнопок, закрывающий блок со ссылками
-    this.$('.links input[type=radio]').on('tag:build', (e, data) => (
+    this.$('.links input[type=radio]').on('tag:build', (_e, _data) => (
       this.$('.editor-link').trigger('click')
     ));
 
@@ -196,9 +156,10 @@ export default class ShikiEditor extends ShikiView {
     // сабмит картинки в текстовом поле
     this.$('.images input[type=text]').on('keypress', (e, isForceSubmit) => {
       if ((e.keyCode === 10) || (e.keyCode === 13) || isForceSubmit) {
+        preventEvent(e);
+
         this.$textarea.insertAtCaret('', `[img]${$(e.target).val()}[/img]`);
         this.$('.editor-image').trigger('click');
-        return false;
       }
     });
 
@@ -211,6 +172,8 @@ export default class ShikiEditor extends ShikiView {
     // сабмит цитаты в текстовом поле
     this.$('.quotes input[type=text]').on('keypress', e => {
       if ((e.keyCode === 10) || (e.keyCode === 13)) {
+        preventEvent(e);
+
         this.$textarea.insertAtCaret(
           '[quote' +
             ((!this.value || this.value.isBlank() ? '' : `=${this.value}`)) +
@@ -218,7 +181,6 @@ export default class ShikiEditor extends ShikiView {
           '[/quote]'
         );
         this.$('.editor-quote').trigger('click');
-        return false;
       }
     });
 
@@ -379,6 +341,35 @@ export default class ShikiEditor extends ShikiView {
         this.$('.editor-smiley').trigger('click');
       });
     });
+  }
+
+  @bind
+  _onKeyPress(e) {
+    if (e.keyCode === 27) { // esc
+      preventEvent(e);
+      this.$textarea.blur();
+    }
+    if (!e.metaKey || e.ctrlKey) { return; }
+
+    if ((e.keyCode === 10) || (e.keyCode === 13)) { // ctrl+enter - save
+      preventEvent(e);
+      this.$form.submit();
+    } if (e.keyCode === 66) { // b - [b] tag
+      preventEvent(e);
+      this.$('.editor-bold').click();
+    } if (e.keyCode === 73) { // i - [i] tag
+      preventEvent(e);
+      this.$('.editor-italic').click();
+    } if (e.keyCode === 85) { // u - [u] tag
+      preventEvent(e);
+      this.$('.editor-underline').click();
+    } if (e.keyCode === 83) { //  - spoiler tag
+      preventEvent(e);
+      this.$('.editor-spoiler').click();
+    } if (e.keyCode === 79) { // o - code tag
+      preventEvent(e);
+      this.$textarea.insertAtCaret('[code]', '[/code]');
+    }
   }
 
   _markOfftopic(isOfftopic) {
