@@ -62,7 +62,7 @@ export default class Comment extends ShikiEditable
       .on 'ajax:complete', @_unshade
       .on 'ajax:success', (e, html, status, xhr) =>
         $editor = $(html)
-        new ShikiEditor($editor).edit_comment(@$root)
+        new ShikiEditor($editor).editComment(@$root)
 
     # moderation
     @$('.main-controls .item-moderation').on 'click', =>
