@@ -15,10 +15,10 @@ export default class ShikiEditor extends ShikiView {
     this.$form = this.$('form');
 
     if (this.$form.exists()) {
-      this.is_inner_form = true;
+      this.isInnerForm = true;
     } else {
       this.$form = $root.closest('form');
-      this.is_inner_form = false;
+      this.isInnerForm = false;
     }
 
     this.$textarea = this.$('textarea');
@@ -105,19 +105,21 @@ export default class ShikiEditor extends ShikiView {
     ));
 
     // смайлики и ссылка
-    ['smiley', 'link', 'image', 'quote', 'upload'].forEach(key => this.$(`.editor-${key}`).on('click', e => {
-      const $button = $(e.target);
-      const $block = this.$(`.${key}s`);
+    ['smiley', 'link', 'image', 'quote', 'upload'].forEach(key => (
+      this.$(`.editor-${key}`).on('click', e => {
+        const $button = $(e.target);
+        const $block = this.$(`.${key}s`);
 
-      if ($button.hasClass('selected')) {
-        $block.addClass('hidden');
-      } else {
-        $block.removeClass('hidden');
-        $block.trigger('click:open');
-      }
+        if ($button.hasClass('selected')) {
+          $block.addClass('hidden');
+        } else {
+          $block.removeClass('hidden');
+          $block.trigger('click:open');
+        }
 
-      return $button.toggleClass('selected');
-    }));
+        $button.toggleClass('selected');
+      })
+    ));
 
     // кнопка сабмита OK
     this.$('.b-button.ok').on('click', e => {
@@ -134,7 +136,7 @@ export default class ShikiEditor extends ShikiView {
     this.$('.links').on('click:open', () => {
       $('.links input[type=text]', $root).val('');
 
-      return $(this.$('[name="link_type"]:checked')[0] || this.$('[name="link_type"]')[0])
+      $(this.$('[name="link_type"]:checked')[0] || this.$('[name="link_type"]')[0])
         .prop('checked', true)
         .trigger('change');
     });
@@ -181,7 +183,9 @@ export default class ShikiEditor extends ShikiView {
     });
 
     // общий обработчик для всех радио кнопок, закрывающий блок со ссылками
-    this.$('.links input[type=radio]').on('tag:build', (e, data) => this.$('.editor-link').trigger('click'));
+    this.$('.links input[type=radio]').on('tag:build', (e, data) => (
+      this.$('.editor-link').trigger('click')
+    ));
 
     // открытие блока картинки
     this.$('.images').on('click:open', () =>
@@ -228,7 +232,7 @@ export default class ShikiEditor extends ShikiView {
             (!text || text.isBlank() ? '' : `=${text}`) + ']',
           '[/quote]'
         );
-        return this.$('.editor-quote').trigger('click');
+        this.$('.editor-quote').trigger('click');
       });
 
     // построение бб-кода для url
@@ -250,49 +254,24 @@ export default class ShikiEditor extends ShikiView {
       `[${data.type}=${data.id}]`, `[/${data.type}]`, data.text
     ));
 
-    // открытие блока со смайлами
-    this.$('.smileys').on('click:open', e => {
-      const $block = $(e.target);
-      // при показе можем подгрузить контент с сервера
-      if ($block.data('href')) {
-        return $block.load($block.data('href'), () => {
-          $block.data({ href: null });
-          // клик на картинку смайлика
-          return this.$('.smileys img').on('click', e => {
-            const bbCode = $(e.target).attr('alt');
-            this.$textarea.insertAtCaret('', bbCode);
-            return this.$('.editor-smiley').trigger('click');
-          });
-        });
-      }
-    });
+    this.$('.smileys').one('click:open', this._loadSmileys);
 
-          // после прогрузки всех смайлов зададим высоту, чтобы плавно открывалось
-          // @$('.smileys img').imagesLoaded ->
-            // block_height = $block.css('height')
+    this.$('.b-offtopic_marker').on('click', this._onMarkOfftopic);
+    this.$('.b-summary_marker').on('click', this._onMarkReview);
 
-    // нажатие на метку оффтопика
-    this.$('.b-offtopic_marker').on('click', () => this._markOfftopic(this.$('.b-offtopic_marker').hasClass('off')));
-
-    // нажатие на метку отзыва
-    this.$('.b-summary_marker').on('click', () => this._markReview(this.$('.b-summary_marker').hasClass('off')));
-
-    // назад к редактированию при предпросмотре
     this.$('footer .unpreview').on('click', this._hidePreview);
-
-    // предпросмотр
     this.$('footer .preview').on('click', () => {
       // подстановка данных о текущем элементе, если они есть
       const data = {};
-      const itemData = this.is_inner_form ?
-        this.$form.serializeHash()[this._type()] :
-        this.$root.triggerWithReturn('preview:params') || {
-          body: this.$textarea.val()
-        };
-      data[this._type()] = itemData;
+      const itemData = this.isInnerForm ?
+        this.$form.serializeHash()[this.type] : (
+          this.$root.triggerWithReturn('preview:params') ||
+            { body: this.$textarea.val() }
+        );
+      data[this.type] = itemData;
 
       this._shade();
-      return axios
+      axios
         .post(
           $('footer .preview', this.$root).data('preview_url'),
           data
@@ -302,17 +281,9 @@ export default class ShikiEditor extends ShikiView {
         .then(this._unshade);
     });
 
-    // отзыв и оффтопик
-    // @$('.item-offtopic, .item-summary').click (e, data) =>
-      // $button = $(e.target)
-      // kind = if $button.hasClass('item-offtopic') then 'offtopic' else 'summary'
-      // $button.toggleClass('selected')
-      // new_value = if $button.hasClass('selected') then '1' else '0'
-      // @$("#comment_#{kind}").val(new_value)
-
     // редактирование
     // сохранение при редактировании коммента
-    this.$('.item-apply').on('click', (e, data) => this.$form.submit());
+    this.$('.item-apply').on('click', (_e, _data) => this.$form.submit());
 
     // фокус на редакторе
     if (this.$textarea.val().length > 0) {
@@ -320,42 +291,54 @@ export default class ShikiEditor extends ShikiView {
       // работать с Range (внутри setCursorPosition) для невидимых элементов
       delay().then(() => {
         this.$textarea.focus();
-        return this.$textarea.setCursorPosition(this.$textarea.val().length);
+        this.$textarea.setCursorPosition(this.$textarea.val().length);
       });
     }
 
     // ajax загрузка файлов
     const fileTextPlaceholder = `[${I18n.t('frontend.shiki_editor.file')} #@]`;
-    return this.$textarea.shikiFile({
-      progress: $root.find('.b-upload_progress'),
-      input: $('.editor-file input', $root),
-      maxfiles: 6 }).on('upload:started', (e, fileNum) => {
-      const fileText = fileTextPlaceholder.replace('@', fileNum);
-      this.$textarea.insertAtCaret('', fileText);
-      return this.$textarea.focus();
-    }).on('upload:success', (e, data, fileNum) => {
-      const fileText = fileTextPlaceholder.replace('@', fileNum);
-      if (this.$textarea.val().indexOf(fileText) === -1) {
-        this.$textarea.insertAtCaret('', `[image=${data.id}]`);
-      } else {
-        const text = data.id ? `[image=${data.id}]` : '';
-        this.$textarea.val(this.$textarea.val().replace(fileText, text));
-      }
-      return this.$textarea.focus();
-    }).on('upload:failed', (e, response, fileNum) => {
-      const fileText = fileTextPlaceholder.replace('@', fileNum);
+    this.$textarea
+      .shikiFile({
+        progress: $root.find('.b-upload_progress'),
+        input: $('.editor-file input', $root),
+        maxfiles: 6
+      })
+      .on('upload:started', (e, fileNum) => {
+        const fileText = fileTextPlaceholder.replace('@', fileNum);
 
-      if (this.$textarea.val().indexOf(fileText) !== -1) {
-        this.$textarea.val(this.$textarea.val().replace(fileText, ''));
-      }
+        this.$textarea.insertAtCaret('', fileText);
+        this.$textarea.focus();
+      })
+      .on('upload:success', (e, data, fileNum) => {
+        const fileText = fileTextPlaceholder.replace('@', fileNum);
 
-      return this.$textarea.focus();
-    });
+        if (this.$textarea.val().indexOf(fileText) === -1) {
+          this.$textarea.insertAtCaret('', `[image=${data.id}]`);
+        } else {
+          const text = data.id ? `[image=${data.id}]` : '';
+          this.$textarea.val(this.$textarea.val().replace(fileText, text));
+        }
+
+        this.$textarea.focus();
+      })
+      .on('upload:failed', (e, response, fileNum) => {
+        const fileText = fileTextPlaceholder.replace('@', fileNum);
+
+        if (this.$textarea.val().indexOf(fileText) !== -1) {
+          this.$textarea.val(this.$textarea.val().replace(fileText, ''));
+        }
+
+        this.$textarea.focus();
+      });
+  }
+
+  get type() {
+    return this.$textarea.data('item_type');
   }
 
   _showPreview(previewHtml) {
     this.$root.addClass('previewed');
-    return $('.body .preview', this.$root)
+    $('.body .preview', this.$root)
       .html(previewHtml)
       .process()
       .shikiEditor();
@@ -364,30 +347,62 @@ export default class ShikiEditor extends ShikiView {
   @bind
   _hidePreview() {
     this.$root.removeClass('previewed');
-    if (!this.$('.editor-controls').is(':appeared')) { return $.scrollTo(this.$root); }
+
+    if (!this.$('.editor-controls').is(':appeared')) {
+      $.scrollTo(this.$root);
+    }
+  }
+
+  @bind
+  _onMarkOfftopic() {
+    this._markOfftopic(
+      this.$('.b-offtopic_marker').hasClass('off')
+    );
+  }
+
+  @bind
+  _onMarkReview() {
+    this._markReview(
+      this.$('.b-summary_marker').hasClass('off')
+    );
+  }
+
+  @bind
+  _loadSmileys() {
+    const $smileys = this.$('.smileys');
+
+    $smileys.load($smileys.data('href'), () => {
+      this.$('.smileys img').on('click', ({ currentTarget }) => {
+        const bbCode = $(currentTarget).attr('alt');
+
+        this.$textarea.insertAtCaret('', bbCode);
+        this.$('.editor-smiley').trigger('click');
+      });
+    });
   }
 
   _markOfftopic(isOfftopic) {
     this.$('input[name="comment[isOfftopic]"]').val(isOfftopic ? 'true' : 'false');
-    return this.$('.b-offtopic_marker').toggleClass('off', !isOfftopic);
+    this.$('.b-offtopic_marker').toggleClass('off', !isOfftopic);
   }
 
   _markReview(isReview) {
     this.$('input[name="comment[is_summary]"]').val(isReview ? 'true' : 'false');
-    return this.$('.b-summary_marker').toggleClass('off', !isReview);
+    this.$('.b-summary_marker').toggleClass('off', !isReview);
   }
 
   // очистка редактора
   cleanup() {
     this._markOfftopic(false);
     this._markReview(false);
-    return this.$textarea
+
+    this.$textarea
       .val('')
       .trigger('update');
   }
 
   // ответ на комментарий
-  replyComment(text, isOfftopic) {
+  async replyComment(text, isOfftopic) {
     if (isOfftopic) { this._markOfftopic(true); }
 
     this.$textarea
@@ -396,11 +411,10 @@ export default class ShikiEditor extends ShikiView {
       .trigger('update') // для elastic плагина
       .setCursorPosition(this.$textarea.val().length);
 
-    return setTimeout(() => {
-      if ((isMobile()) && !this.$textarea.is(':appeared')) {
-        return $.scrollTo(this.$form, null, () => this.$textarea.focus());
-      }
-    });
+    await delay();
+    if ((isMobile()) && !this.$textarea.is(':appeared')) {
+      $.scrollTo(this.$form, null, () => this.$textarea.focus());
+    }
   }
 
   // переход в режим редактирования комментария
@@ -411,14 +425,12 @@ export default class ShikiEditor extends ShikiView {
     // отмена редактирования
     this.$('.cancel').on('click', () => {
       this.$root.remove();
-      return $comment.append($initialContent);
+      $comment.append($initialContent);
     });
 
     // замена комментария после успешного сохранения
-    return this.on('ajax:success', (e, response) => $comment.view()._replace(response.html, response.JS_EXPORTS));
-  }
-
-  _type() {
-    return this.$textarea.data('item_type');
+    this.on('ajax:success', (e, response) => (
+      $comment.view()._replace(response.html, response.JS_EXPORTS)
+    ));
   }
 }
