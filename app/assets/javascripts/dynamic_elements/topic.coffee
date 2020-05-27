@@ -150,7 +150,7 @@ export default class Topic extends ShikiEditable
       # @editor is empty for unauthorized user
       if @editor
         @_show_editor()
-        @editor.reply_comment text, is_offtopic
+        @editor.replyComment text, is_offtopic
 
     # клик скрытию редактора
     @$('.b-shiki_editor').on 'click', '.hide', @_hide_editor
