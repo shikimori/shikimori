@@ -80,6 +80,10 @@
                 - if club_topic.comments.first
                   span.misc title=truncate(club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' ')
                     == truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
+                - elsif club_topic.is_a? Topics::ClubUserTopic
+                  span.misc = t '.new_club_topic'
+                - elsif club_topic.is_a? Topics::EntryTopics::ClubPageTopic
+                  span.misc = t '.new_club_page'
                 - else
                   span.misc = t '.new_club'
 

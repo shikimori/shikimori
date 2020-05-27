@@ -63,6 +63,8 @@ ru:
     menu:
       hide: '&mdash; спрятать'
       new_club: Создан новый клуб
+      new_club_topic: Создан новый топик
+      new_club_page: Создана новая страница
       reviews: Рецензии
       show_more: '+ показать ещё'
       sticky_topics: Прикреплённое

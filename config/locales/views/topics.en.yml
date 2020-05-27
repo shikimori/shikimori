@@ -62,7 +62,9 @@ en:
       refresh: Refresh page
     menu:
       hide: '&mdash; hide'
-      new_club: New club
+      new_club: Created new club
+      new_club_topic: Created new topic
+      new_club_page: Created new page
       reviews: Reviews
       show_more: '+ show more'
       sticky_topics: Sticky Topics
