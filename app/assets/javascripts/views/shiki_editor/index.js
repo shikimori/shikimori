@@ -452,6 +452,19 @@ export default class ShikiEditor extends ShikiView {
         }
       }
     });
+
+    this.$textarea.on('keypress keydown paste', async () => {
+      await delay();
+
+      view.updateState(
+        EditorState.create({
+          schema,
+          plugins,
+          doc: shikiMarkdownParser.parse(this.text)
+        })
+      );
+    });
+
     return view;
     // view.focus();
     // const domSerializer = DOMSerializer.fromSchema(schema);
