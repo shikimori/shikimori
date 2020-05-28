@@ -4,34 +4,40 @@ export class Tokenizer {
   constructor(text) {
     this.text = text;
     this.charIndex = -1;
-    this.char = null;
     this.tokens = [];
   }
 
   parse() {
     while (this.charIndex < this.text.length - 1) {
       this.charIndex += 1;
-      this.addTokens(this.parseLine(this.charIndex));
+      this.parseLine(this.charIndex);
     }
 
     return this.tokens.flatten();
   }
 
   parseLine(startIndex) {
-    while (this.charIndex < this.text.length) {
+    while (this.charIndex <= this.text.length) {
       const char = this.text[this.charIndex];
 
-      if (char === '\n') {
-        return this.paragraph(this.line(startIndex, this.charIndex));
+      if (char === '\n' || char === undefined) {
+        this.paragraph(this.line(startIndex, this.charIndex));
+        break;
       }
+
+      const nextChar = this.text[this.charIndex + 1];
+      if (char === '>' && nextChar === ' ') {
+        this.parseBlockQuote(this.charIndex);
+        break;
+      }
+
       this.charIndex += 1;
     }
-
-    return this.paragraph(this.line(startIndex, this.text.length));
-
-    // if (char === '>' && text[i + 1] === ' ') {
-    // }
   }
+
+  parseBlockQuote(startIndex) {
+  }
+
 
   // parseLine(text) {
   //   if (text[0] === '>' && text[1] === ' ') {
@@ -57,7 +63,9 @@ export class Tokenizer {
     const textToken = new Token('text', '', text, 0);
     const innerToken = new Token('inline', '', text, 0, [textToken]);
 
-    return this.wrap('paragraph', 'p', [innerToken]);
+    this.addTokens(
+      this.wrap('paragraph', 'p', [innerToken])
+    );
   }
 
   wrap(type, tag, tokens) {
