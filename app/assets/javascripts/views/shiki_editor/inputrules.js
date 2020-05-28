@@ -13,6 +13,7 @@ import { schema } from './schema';
 
 export default inputRules({
   rules: [
-    wrappingInputRule(/^\s*>\s$/, schema.nodes.blockquote)
+    wrappingInputRule(/^\s*>\s$/, schema.nodes.blockquote),
+    wrappingInputRule(/^\s*([-+*])\s$/, schema.nodes.bullet_list)
   ]
 });
