@@ -4,7 +4,7 @@
 import markdownit from 'markdown-it';
 import { Mark } from 'prosemirror-model';
 
-import Tokenizer from './tokenizer';
+import { Tokenizer } from './tokenizer';
 import { schema } from '../schema';
 
 function maybeMerge(a, b) {

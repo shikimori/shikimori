@@ -3,91 +3,119 @@ import { expect } from 'chai';
 
 sugar.extend();
 
-import Tokenizer from 'views/shiki_editor/markdown/tokenizer';
+import { Tokenizer } from 'views/shiki_editor/markdown/tokenizer';
 
 describe('Tokenizer', () => {
   it('<empty>', () => {
-    expect(Tokenizer.parse(' ')).to.eql([]);
+    expect(Tokenizer.parse('')).to.eql([]);
   });
 
   describe('parahraphs', () => {
-    it('zzz', () => {
-      expect(Tokenizer.parse('zzz')).to.eql([{
-        children: null,
+    it('z', () => {
+      expect(Tokenizer.parse('z')).to.eql([{
         content: '',
         nesting: 1,
         tag: 'p',
-        type: 'paragraph_open'
+        type: 'paragraph_open',
+        children: null
       }, {
-        children: [{
-          children: null,
-          content: 'zzz',
-          nesting: 0,
-          tag: '',
-          type: 'text'
-        }],
-        content: 'zzz',
+        content: 'z',
         nesting: 0,
         tag: '',
-        type: 'inline'
+        type: 'inline',
+        children: [{
+          content: 'z',
+          nesting: 0,
+          tag: '',
+          type: 'text',
+          children: null
+        }]
       }, {
-        children: null,
         content: '',
         nesting: -1,
         tag: 'p',
-        type: 'paragraph_close'
+        type: 'paragraph_close',
+        children: null
+      }]);
+    });
+
+    it('zzz', () => {
+      expect(Tokenizer.parse('zzz')).to.eql([{
+        content: '',
+        nesting: 1,
+        tag: 'p',
+        type: 'paragraph_open',
+        children: null
+      }, {
+        content: 'zzz',
+        nesting: 0,
+        tag: '',
+        type: 'inline',
+        children: [{
+          content: 'zzz',
+          nesting: 0,
+          tag: '',
+          type: 'text',
+          children: null
+        }]
+      }, {
+        content: '',
+        nesting: -1,
+        tag: 'p',
+        type: 'paragraph_close',
+        children: null
       }]);
     });
 
     it('zzz\\nxxx', () => {
       expect(Tokenizer.parse('zzz\nxxx')).to.eql([{
-        children: null,
         content: '',
         nesting: 1,
         tag: 'p',
-        type: 'paragraph_open'
+        type: 'paragraph_open',
+        children: null
       }, {
-        children: [{
-          children: null,
-          content: 'zzz',
-          nesting: 0,
-          tag: '',
-          type: 'text'
-        }],
         content: 'zzz',
         nesting: 0,
         tag: '',
-        type: 'inline'
+        type: 'inline',
+        children: [{
+          content: 'zzz',
+          nesting: 0,
+          tag: '',
+          type: 'text',
+          children: null
+        }]
       }, {
-        children: null,
         content: '',
         nesting: -1,
         tag: 'p',
-        type: 'paragraph_close'
+        type: 'paragraph_close',
+        children: null
       }, {
-        children: null,
         content: '',
         nesting: 1,
         tag: 'p',
-        type: 'paragraph_open'
+        type: 'paragraph_open',
+        children: null
       }, {
-        children: [{
-          children: null,
-          content: 'xxx',
-          nesting: 0,
-          tag: '',
-          type: 'text'
-        }],
         content: 'xxx',
         nesting: 0,
         tag: '',
-        type: 'inline'
+        type: 'inline',
+        children: [{
+          content: 'xxx',
+          nesting: 0,
+          tag: '',
+          type: 'text',
+          children: null
+        }]
       }, {
-        children: null,
         content: '',
         nesting: -1,
         tag: 'p',
-        type: 'paragraph_close'
+        type: 'paragraph_close',
+        children: null
       }]);
     });
   });
@@ -95,58 +123,62 @@ describe('Tokenizer', () => {
   describe('blockquote', () => {
     it('> a', () => {
       expect(Tokenizer.parse('> a')).to.eql([{
-        children: null,
         content: '',
         nesting: 1,
         tag: 'blockquote',
-        type: 'blockquote_open'
+        type: 'blockquote_open',
+        children: null
       }, {
-        children: null,
         content: '',
         nesting: 1,
         tag: 'p',
-        type: 'paragraph_open'
+        type: 'paragraph_open',
+        children: null
       }, {
-        children: [{
-          children: null,
-          content: 'a',
-          nesting: 0,
-          tag: '',
-          type: 'text'
-        }],
         content: 'a',
         nesting: 0,
         tag: '',
-        type: 'inline'
+        type: 'inline',
+        children: [{
+          content: 'a',
+          nesting: 0,
+          tag: '',
+          type: 'text',
+          children: null
+        }]
       }, {
-        children: null,
         content: '',
         nesting: -1,
         tag: 'p',
-        type: 'paragraph_close'
+        type: 'paragraph_close',
+        children: null
       }, {
-        children: null,
         content: '',
         nesting: -1,
         tag: 'blockquote',
-        type: 'blockquote_close'
+        type: 'blockquote_close',
+        children: null
       }]);
     });
 
     // it('> a\\n> a', () => {
     //   expect(Tokenizer.parse('> a\n> a')).to.eql([{
-    //     children: null,
     //     content: '',
     //     nesting: 1,
     //     tag: 'blockquote',
-    //     type: 'blockquote_open'
-    //   }, {
+    //     type: 'blockquote_open',
     //     children: null,
+    //   }, {
     //     content: '',
     //     nesting: 1,
     //     tag: 'p',
-    //     type: 'paragraph_open'
+    //     type: 'paragraph_open',
+    //     children: null,
     //   }, {
+    //     content: 'a',
+    //     nesting: 0,
+    //     tag: '',
+    //     type: 'inline',
     //     children: [{
     //       children: null,
     //       content: 'a',
@@ -154,46 +186,42 @@ describe('Tokenizer', () => {
     //       tag: '',
     //       type: 'text'
     //     }],
-    //     content: 'a',
-    //     nesting: 0,
-    //     tag: '',
-    //     type: 'inline'
     //   }, {
-    //     children: null,
     //     content: '',
     //     nesting: -1,
     //     tag: 'p',
-    //     type: 'paragraph_close'
-    //   }, {
+    //     type: 'paragraph_close',
     //     children: null,
+    //   }, {
     //     content: '',
     //     nesting: 1,
     //     tag: 'p',
-    //     type: 'paragraph_open'
+    //     type: 'paragraph_open',
+    //     children: null,
     //   }, {
-    //     children: [{
-    //       children: null,
-    //       content: 'a',
-    //       nesting: 0,
-    //       tag: '',
-    //       type: 'text'
-    //     }],
     //     content: 'a',
     //     nesting: 0,
     //     tag: '',
-    //     type: 'inline'
+    //     type: 'inline',
+    //     children: [{
+    //       content: 'a',
+    //       nesting: 0,
+    //       tag: '',
+    //       type: 'text',
+    //       children: null,
+    //     }],
     //   }, {
-    //     children: null,
     //     content: '',
     //     nesting: -1,
     //     tag: 'p',
     //     type: 'paragraph_close'
-    //   }, {
     //     children: null,
+    //   }, {
     //     content: '',
     //     nesting: -1,
     //     tag: 'blockquote',
-    //     type: 'blockquote_close'
+    //     type: 'blockquote_close',
+    //     children: null,
     //   }]);
     // });
   });
