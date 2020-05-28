@@ -1,9 +1,15 @@
-import { icons, MenuItem, wrapItem, liftItem } from 'prosemirror-menu';
+import {
+  icons,
+  MenuItem,
+  wrapItem,
+  liftItem,
+  undoItem,
+  redoItem
+} from 'prosemirror-menu';
 // import { TextSelection } from 'prosemirror-state';
 import { toggleMark } from 'prosemirror-commands';
 import { wrapInList } from 'prosemirror-schema-list';
 import { schema } from './schema';
-
 
 function cmdItem(cmd, options) {
   const passedOptions = {
@@ -76,6 +82,8 @@ export const menu = {
         active: markActive(schema.marks.em),
         run: toggleMark(schema.marks.em)
       })
+    ], [
+      undoItem, redoItem
     ], [
       wrapListItem(schema.nodes.bullet_list, {
         title: 'Wrap in bullet list',
