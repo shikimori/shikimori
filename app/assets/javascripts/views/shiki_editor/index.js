@@ -437,13 +437,16 @@ export default class ShikiEditor extends ShikiView {
     const view = new EditorView(node, {
       state: EditorState.create({ schema, plugins }),
       // doc: DOMParser.fromSchema(mySchema).parse(this.$textarea[0]),
-      // dispatchTransaction: transaction => {
-      //   const { state, transactions } = view.state.applyTransaction(transaction);
-      //   view.updateState(state);
-      //   if (transactions.some(tr => tr.docChanged)) {
-      //     exportHTML();
-      //   }
-      // }
+      dispatchTransaction: transaction => {
+        const { state, transactions } = view.state.applyTransaction(transaction);
+        view.updateState(state);
+
+        if (transactions.some(tr => tr.docChanged)) {
+          this.$textarea.val(
+            defaultMarkdownSerializer.serialize(state.doc)
+          );
+        }
+      }
     });
     return view;
     // view.focus();
@@ -476,6 +479,7 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { plugins } from './plugins';
 import { schema } from './schema';
+import { defaultMarkdownSerializer } from './markdown/to_markdown';
 
 // import { EditorState } from 'prosemirror-state';
 // import { EditorView } from 'prosemirror-view';

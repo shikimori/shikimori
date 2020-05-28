@@ -7,7 +7,7 @@ class BaseDecorator < Draper::Decorator
     target.send :prepend, ActiveCacher.instance
   end
 
-  # without this method active_model_serialzies 0.10.4
+  # without this method active_model_serializes 0.10.4
   # does not serialize decorated objects
   def serializer_class
     if object.respond_to? :serializer_class
