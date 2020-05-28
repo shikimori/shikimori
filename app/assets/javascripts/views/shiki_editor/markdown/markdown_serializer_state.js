@@ -29,7 +29,7 @@ export class MarkdownSerializerState {
         let delimMin = this.delim;
         const trim = /\s+$/.exec(delimMin);
         if (trim) delimMin = delimMin.slice(0, delimMin.length - trim[0].length);
-        for (let i = 1; i < size; i += 1) this.out += delimMin + '\n';
+        for (let i = 1; i < size; i++) this.out += delimMin + '\n';
       }
       this.closed = false;
     }
@@ -80,7 +80,7 @@ export class MarkdownSerializerState {
   // it will be escaped.
   text(text, escape) {
     const lines = text.split('\n');
-    for (let i = 0; i < lines.length; i += 1) {
+    for (let i = 0; i < lines.length; i++) {
       const startOfLine = this.atBlank() || this.closed;
       this.write();
       this.out += escape !== false ? this.esc(lines[i], startOfLine) : lines[i];
@@ -147,10 +147,10 @@ export class MarkdownSerializerState {
       // in Markdown may be opened and closed in different order, so
       // that order of the marks for the token matches the order in
       // active.
-      outer: for (let i = 0; i < len; i += 1) {
+      outer: for (let i = 0; i < len; i++) {
         const mark = marks[i];
         if (!this.marks[mark.type.name].mixable) break;
-        for (let j = 0; j < active.length; j += 1) {
+        for (let j = 0; j < active.length; j++) {
           const other = active[j];
           if (!this.marks[other.type.name].mixable) break;
           if (mark.eq(other)) {
@@ -174,7 +174,7 @@ export class MarkdownSerializerState {
 
       // Find the prefix of the mark set that didn't change
       let keep = 0;
-      while (keep < Math.min(active.length, len) && marks[keep].eq(active[keep])) keep += 1;
+      while (keep < Math.min(active.length, len) && marks[keep].eq(active[keep])) keep++;
 
       // Close the marks that need to be closed
       while (keep < active.length) this.text(this.markString(active.pop(), false, parent, index), false);
@@ -252,7 +252,7 @@ export class MarkdownSerializerState {
   // Repeat the given string `n` times.
   // repeat(str, n) {
   //   let out = '';
-  //   for (let i = 0; i < n; i += 1) out += str;
+  //   for (let i = 0; i < n; i++) out += str;
   //   return out;
   // }
 
