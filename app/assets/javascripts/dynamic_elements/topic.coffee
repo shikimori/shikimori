@@ -25,7 +25,7 @@ export default class Topic extends ShikiEditable
   _type: -> 'topic'
   _type_label: -> I18n.t("#{I18N_KEY}.type_label")
 
-  # similar to hash from JsExports::TopicsExport#serialzie
+  # similar to hash from JsExports::TopicsExport#serialize
   _default_model: ->
     can_destroy: false
     can_edit: false

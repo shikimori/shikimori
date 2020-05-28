@@ -11,7 +11,7 @@ export default class Comment extends ShikiEditable
   _type: -> 'comment'
   _type_label: -> I18n.t("#{I18N_KEY}.type_label")
 
-  # similar to hash from JsExports::CommentsExport#serialzie
+  # similar to hash from JsExports::CommentsExport#serialize
   _default_model: ->
     can_destroy: false
     can_edit: false

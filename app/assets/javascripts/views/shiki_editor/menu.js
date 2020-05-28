@@ -1,5 +1,5 @@
 import { icons, MenuItem } from 'prosemirror-menu';
-import { TextSelection } from 'prosemirror-state';
+// import { TextSelection } from 'prosemirror-state';
 import { toggleMark } from 'prosemirror-commands';
 import { schema } from './schema';
 
@@ -11,33 +11,33 @@ const markActive = markType => state => {
   return state.doc.rangeHasMark(from, to, markType);
 };
 
-const canInsert = nodeType => state => {
-  const { $from } = state.selection;
-  for (let d = $from.depth; d >= 0; d--) {
-    const index = $from.index(d);
-    if ($from.node(d).canReplaceWith(index, index, nodeType)) {
-      return true;
-    }
-  }
-  return false;
-};
+// const canInsert = nodeType => state => {
+//   const { $from } = state.selection;
+//   for (let d = $from.depth; d >= 0; d--) {
+//     const index = $from.index(d);
+//     if ($from.node(d).canReplaceWith(index, index, nodeType)) {
+//       return true;
+//     }
+//   }
+//   return false;
+// };
 
-const insertBlockAfter = (node, state, dispatch) => {
-  const { tr } = state;
-  const pos = tr.selection.$anchor.after();
+// const insertBlockAfter = (node, state, dispatch) => {
+//   const { tr } = state;
+//   const pos = tr.selection.$anchor.after();
 
-  tr.insert(pos, node);
-  const selection = TextSelection.near(tr.doc.resolve(pos));
+//   tr.insert(pos, node);
+//   const selection = TextSelection.near(tr.doc.resolve(pos));
 
-  tr.setSelection(selection);
-  if (dispatch) {
-    dispatch(tr);
-  }
-};
+//   tr.setSelection(selection);
+//   if (dispatch) {
+//     dispatch(tr);
+//   }
+// };
 
-const insertBlock = nodeType => (state, dispatch) => {
-  insertBlockAfter(nodeType.createAndFill(), state, dispatch);
-};
+// const insertBlock = nodeType => (state, dispatch) => {
+//   insertBlockAfter(nodeType.createAndFill(), state, dispatch);
+// };
 
 export const menu = {
   floating: true,
@@ -57,13 +57,14 @@ export const menu = {
         active: markActive(schema.marks.em),
         run: toggleMark(schema.marks.em)
       })
-    ], [
-      new MenuItem({
-        title: 'Insert Paragraph',
-        label: '¶',
-        enable: canInsert(schema.nodes.paragraph),
-        run: insertBlock(schema.nodes.paragraph)
-      })
     ]
+    // [
+    //   new MenuItem({
+    //     title: 'Insert Paragraph',
+    //     label: '¶',
+    //     enable: canInsert(schema.nodes.paragraph),
+    //     run: insertBlock(schema.nodes.paragraph)
+    //   })
+    // ]
   ]
 };
