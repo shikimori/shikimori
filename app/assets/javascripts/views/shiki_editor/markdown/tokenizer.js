@@ -1,13 +1,30 @@
 import { Token } from './token';
 
-function parse(text) {
-  const fixedText = text.trim();
-  if (!fixedText) { return []; }
+function parse(rawText) {
+  const text = rawText.trim();
+  if (!text) { return []; }
 
-  return fixedText
-    .lines()
-    .map(line => parseLine(line.trim()))
-    .flatten();
+  const tokens = [];
+  // const stack = [];
+
+  let lineStart = 0;
+
+  for (let i = 0; i <= text.length; i++) {
+    const char = text[i];
+
+    if (char === '\n' || char === undefined) {
+      const line = text.slice(lineStart, i);
+
+      tokens.push(paragraph(line));
+      lineStart = i + 1;
+      continue;
+    }
+
+    // if (char === '>' && text[i + 1] === ' ') {
+    // }
+  }
+
+  return tokens.flatten();
 }
 
 function parseLine(text) {
@@ -33,4 +50,9 @@ function wrap(type, tag, tokens) {
   ];
 }
 
-export default { parse };
+export default {
+  parse,
+  parseLine,
+  paragraph,
+  wrap
+};
