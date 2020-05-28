@@ -65,8 +65,15 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
     state.renderContent(node);
   },
   paragraph(state, node) {
-    state.renderInline(node);
-    state.closeBlock(node);
+    if (node.content.content.length) {
+      state.renderInline(node);
+      state.closeBlock(node);
+    } else {
+      if (!state.atBlank) {
+        state.closeBlock(node);
+      }
+      state.write('\n');
+    }
   },
   text(state, node) {
     state.text(node.text);

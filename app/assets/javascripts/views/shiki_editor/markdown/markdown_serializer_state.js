@@ -23,7 +23,7 @@ export class MarkdownSerializerState {
 
   flushClose(size) {
     if (this.closed) {
-      if (!this.atBlank()) this.out += '\n';
+      // if (!this.atBlank()) this.out += '\n';
       if (size == null) size = 2;
       if (size > 1) {
         let delimMin = this.delim;
@@ -208,11 +208,14 @@ export class MarkdownSerializerState {
   // `firstDelim` is a function going from an item index to a
   // delimiter for the first line of the item.
   renderList(node, delim, firstDelim) {
-    if (this.closed && this.closed.type == node.type) this.flushClose(3);
+    if (this.closed && this.closed.type === node.type) this.flushClose(3);
     else if (this.inTightList) this.flushClose(1);
 
-    const isTight = typeof node.attrs.tight !== 'undefined' ? node.attrs.tight : this.options.tightLists;
+    const isTight = typeof node.attrs.tight !== 'undefined' ?
+      node.attrs.tight :
+      this.options.tightLists;
     const prevTight = this.inTightList;
+
     this.inTightList = isTight;
     node.forEach((child, _, i) => {
       if (i && isTight) this.flushClose(1);
