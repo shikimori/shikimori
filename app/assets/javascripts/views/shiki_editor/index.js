@@ -446,6 +446,11 @@ export default class ShikiEditor extends ShikiView {
         view.updateState(state);
 
         if (transactions.some(tr => tr.docChanged)) {
+
+          //
+          defaultMarkdownParser.parse(defaultMarkdownSerializer.serialize(state.doc));
+          //
+
           this.$textarea.val(
             defaultMarkdownSerializer.serialize(state.doc)
           );
