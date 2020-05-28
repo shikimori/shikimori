@@ -2,8 +2,10 @@
 // https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/from_markdown.js
 
 import markdownit from 'markdown-it';
-import { schema } from '../schema';
 import { Mark } from 'prosemirror-model';
+
+import { Tokenizer } from './tokenizer';
+import { schema } from '../schema';
 
 function maybeMerge(a, b) {
   if (a.isText && b.isText && Mark.sameSet(a.marks, b.marks)) return a.withText(a.text + b.text);
@@ -212,7 +214,10 @@ export class MarkdownParser {
   parse(text) {
     const state = new MarkdownParseState(this.schema, this.tokenHandlers); let
       doc;
+
     console.log(this.tokenizer.parse(text, {}));
+    console.log(Tokenizer.parse(text));
+
     state.parseTokens(this.tokenizer.parse(text, {}));
     do { doc = state.closeNode(); } while (state.stack.length);
     return doc;
@@ -222,7 +227,12 @@ export class MarkdownParser {
 // :: MarkdownParser
 // A parser parsing unextended [CommonMark](http://commonmark.org/),
 // without inline HTML, and producing a document in the basic schema.
-export const defaultMarkdownParser = new MarkdownParser(schema, markdownit('commonmark', { html: false }), {
+const markdownTokenizer = markdownit('commonmark', { html: false });
+
+window.markdownTokenizer = markdownTokenizer;
+window.Tokenizer = Tokenizer;
+
+export const defaultMarkdownParser = new MarkdownParser(schema, markdownTokenizer, {
   // ordered_list: { block: 'ordered_list', getAttrs: tok => ({ order: +tok.attrGet('start') || 1 }) },
   // heading: { block: 'heading', getAttrs: tok => ({ level: +tok.tag.slice(1) }) },
   // code_block: { block: 'code_block' },

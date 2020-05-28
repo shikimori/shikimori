@@ -24,6 +24,8 @@ globals:
   p: true
   pageLoad: true
   pageUnload: true
+  describe: true
+  it: true
 
 parserOptions:
   ecmaVersion: 2018
