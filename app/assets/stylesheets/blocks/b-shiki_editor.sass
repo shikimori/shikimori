@@ -118,13 +118,20 @@
       label
         display: none
 
+      .prose-mirror
+        +textarea
+        max-width: 100% !important
+        outline: none
+
       textarea
         +textarea
         position: relative
 
-  &.size-xl .body .editor textarea
-    max-height: 556px
-    min-height: 259px
+  &.size-xl .body .editor
+    textarea,
+    .prose-mirror
+      max-height: 556px
+      min-height: 259px
 
   .ajax-loading
     height: 100%

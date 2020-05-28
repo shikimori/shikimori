@@ -1,7 +1,7 @@
 import delay from 'delay'
 
 import ShikiEditable from 'views/application/shiki_editable'
-import ShikiEditor from 'views/application/shiki_editor'
+import ShikiEditor from 'views/shiki_editor/index'
 import ShikiGallery from 'views/application/shiki_gallery'
 
 import axios from 'helpers/axios'

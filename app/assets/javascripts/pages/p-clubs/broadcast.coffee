@@ -1,5 +1,5 @@
 import Turbolinks from 'turbolinks'
-import ShikiEditor from 'views/application/shiki_editor'
+import ShikiEditor from 'views/shiki_editor/index'
 
 pageLoad '.clubs-broadcast', ->
   new ShikiEditor('.b-shiki_editor')
