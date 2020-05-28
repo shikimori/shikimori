@@ -431,66 +431,55 @@ export default class ShikiEditor extends ShikiView {
   }
 
   _buildEditor() {
-    // let Inline = Quill.import('blots/inline');
-    //
-    // class BoldBlot extends Inline { }
-    // BoldBlot.blotName = 'bold';
-    // BoldBlot.tagName = 'strong';
-    //
-    // class ItalicBlot extends Inline { }
-    // ItalicBlot.blotName = 'italic';
-    // ItalicBlot.tagName = 'em';
-    //
-    // Quill.register(BoldBlot);
-    // Quill.register(ItalicBlot);
+    const node = this.root.querySelector('.prosemirror-container');
+    // const output = document.querySelector('#output');
 
+    const view = new EditorView(node, {
+      state: EditorState.create({ schema, plugins }),
+      // doc: DOMParser.fromSchema(mySchema).parse(this.$textarea[0]),
+      // dispatchTransaction: transaction => {
+      //   const { state, transactions } = view.state.applyTransaction(transaction);
+      //   view.updateState(state);
+      //   if (transactions.some(tr => tr.docChanged)) {
+      //     exportHTML();
+      //   }
+      // }
+    });
+    return view;
+    // view.focus();
+    // const domSerializer = DOMSerializer.fromSchema(schema);
+    // const xmlSerializer = new XMLSerializer();
+    // const exportHTML = () => {
+    //   const fragment = domSerializer.serializeFragment(view.state.doc.content);
+    //   output.textContent = xmlSerializer.serializeToString(fragment);
+    // };
+    // exportHTML();
 
-    // const quill = new Quill(this.$('.quill')[0], {
-      // modules: {
-      //   toolbar: [
-      //     [{ header: [1, 2, false] }],
-      //     ['bold', 'italic', 'underline'],
-      //     ['image', 'code-block']
-      //   ]
-      // },
-      // placeholder: 'Compose an epic...',
-      // theme: 'snow' // or 'bubble'
+    // const mySchema = new Schema({
+    //   nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
+    //   marks: schema.spec.marks
     // });
-
-    // quill.setContents(markdownToQuill(this.text));
-    // quill.on('text-change', () => (
-    //   this.$textarea.val(quillToMarkdown(quill.getContents()))
-    // ));
-
-    // window.quill = quill;
-    // return quill;
-
-
-    // Mix the nodes from prosemirror-schema-list into the basic schema to
-    // create a schema with list support.
-    const mySchema = new Schema({
-      nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
-      marks: schema.spec.marks
-    });
-
-    const editor = new EditorView(this.$('.prosemirror')[0], {
-      state: EditorState.create({
-        doc: DOMParser.fromSchema(mySchema).parse(this.$textarea[0]),
-        plugins: exampleSetup({ schema: mySchema })
-      })
-    });
-    window.view = editor;
-    return editor;
+    //
+    // const editor = new EditorView(this.$('.prosemirror')[0], {
+    //   state: EditorState.create({
+    //     doc: DOMParser.fromSchema(mySchema).parse(this.$textarea[0]),
+    //     plugins: exampleSetup({ schema: mySchema })
+    //   })
+    // });
+    // window.view = editor;
+    // return editor;
   }
 }
 
+// import { DOMSerializer } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { Schema, DOMParser } from 'prosemirror-model';
-import { schema } from 'prosemirror-schema-basic';
-import { addListNodes } from 'prosemirror-schema-list';
-import { exampleSetup } from 'prosemirror-example-setup';
+import { plugins } from './plugins';
+import { schema } from './schema';
 
-// import Quill from 'quill';
-// import quillToMarkdown from 'services/quill/quill_to_markdown';
-// import markdownToQuill from 'services/quill/markdown_to_quill';
+// import { EditorState } from 'prosemirror-state';
+// import { EditorView } from 'prosemirror-view';
+// import { Schema, DOMParser } from 'prosemirror-model';
+// import { schema } from 'prosemirror-schema-basic';
+// import { addListNodes } from 'prosemirror-schema-list';
+// import { exampleSetup } from 'prosemirror-example-setup';
