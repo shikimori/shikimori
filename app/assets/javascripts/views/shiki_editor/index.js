@@ -483,7 +483,7 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { shikiMarkdownParser } from './markdown/from_markdown';
 import { shikiMarkdownSerializer } from './markdown/to_markdown';
-import Tokenizer from './markdown/tokenizer';
+import { Tokenizer } from './markdown/tokenizer';
 import { plugins } from './plugins';
 import { schema } from './schema';
 
