@@ -438,7 +438,7 @@ export default class ShikiEditor extends ShikiView {
       state: EditorState.create({
         schema,
         plugins,
-        doc: shikimoriMarkdownParser.parse(this.text)
+        doc: shikiMarkdownParser.parse(this.text)
       }),
       // doc: DOMParser.fromSchema(mySchema).parse(this.$textarea[0]),
       dispatchTransaction: transaction => {
@@ -446,7 +446,7 @@ export default class ShikiEditor extends ShikiView {
         view.updateState(state);
 
         if (transactions.some(tr => tr.docChanged)) {
-          const markdown = defaultMarkdownSerializer.serialize(state.doc);
+          const markdown = shikiMarkdownSerializer.serialize(state.doc);
           console.log(Tokenizer.parse(markdown));
           this.$textarea.val(markdown);
         }
@@ -481,8 +481,8 @@ export default class ShikiEditor extends ShikiView {
 // import { DOMSerializer } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { shikimoriMarkdownParser } from './markdown/from_markdown';
-import { defaultMarkdownSerializer } from './markdown/to_markdown';
+import { shikiMarkdownParser } from './markdown/from_markdown';
+import { shikiMarkdownSerializer } from './markdown/to_markdown';
 import Tokenizer from './markdown/tokenizer';
 import { plugins } from './plugins';
 import { schema } from './schema';
