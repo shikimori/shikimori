@@ -24,7 +24,9 @@ const nodes = {
     group: 'block',
     attrs: { tight: { default: false } },
     parseDOM: [{ tag: 'ul', getAttrs: dom => ({ tight: dom.hasAttribute('data-tight') }) }],
-    toDOM(node) { return ['ul', { 'data-tight': node.attrs.tight ? 'true' : null, class: 'b-list' }, 0]; }
+    toDOM(node) {
+      return ['ul', { 'data-tight': node.attrs.tight ? 'true' : null, class: 'b-list' }, 0];
+    }
   },
   list_item: {
     content: 'paragraph block*',

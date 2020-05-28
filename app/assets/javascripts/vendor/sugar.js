@@ -2621,7 +2621,35 @@
   defineInstance(sugarString, {
 
     // Enhancment to String#includes to allow a regex.
-    'includes': fixArgumentLength(callIncludesWithRegexSupport)
+    'includes': fixArgumentLength(callIncludesWithRegexSupport),
+
+    /***
+     * @method lines([eachLineFn])
+     * @returns Array
+     * @short Runs [eachLineFn] against each line in the string, and returns an array.
+     *
+     * @callback eachLineFn
+     *
+     *   line  The current line.
+     *   i     The current index.
+     *   arr   An array of all lines.
+     *
+     * @example
+     *
+     *   lineText.lines() -> array of lines
+     *   lineText.lines(function(l) {
+     *     // Called once per line
+     *   });
+     *
+     * @param {eachLineFn} [eachLineFn]
+     * @callbackParam {string} line
+     * @callbackParam {number} i
+     * @callbackParam {Array<string>} arr
+     *
+     ***/
+    'lines': function(str, eachLineFn) {
+      return stringEach(trim(str), /^.*$/gm, eachLineFn);
+    }
 
   }, [ENHANCEMENTS_FLAG, STRING_ENHANCEMENTS_FLAG]);
 

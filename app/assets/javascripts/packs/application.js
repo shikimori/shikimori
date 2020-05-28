@@ -6,6 +6,9 @@ require('regenerator-runtime/runtime');
 window.$ = require('jquery'); // eslint-disable-line import/newline-after-import
 window.jQuery = window.$;
 
+import sugar from 'vendor/sugar'; // eslint-disable-line import/newline-after-import
+sugar.extend();
+
 require('application');
 require('turbolinks_load');
 require('turbolinks_before_cache');
