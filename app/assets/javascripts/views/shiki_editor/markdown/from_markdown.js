@@ -231,8 +231,7 @@ const markdownTokenizer = markdownit('commonmark', { html: false });
 window.markdownTokenizer = markdownTokenizer;
 window.Tokenizer = Tokenizer;
 
-// export const defaultMarkdownParser = new MarkdownParser(schema, markdownTokenizer, {
-export const defaultMarkdownParser = new MarkdownParser(schema, Tokenizer, {
+const tokens = {
   // ordered_list: { block: 'ordered_list', getAttrs: tok => ({ order: +tok.attrGet('start') || 1 }) },
   // heading: { block: 'heading', getAttrs: tok => ({ level: +tok.tag.slice(1) }) },
   // code_block: { block: 'code_block' },
@@ -259,4 +258,7 @@ export const defaultMarkdownParser = new MarkdownParser(schema, Tokenizer, {
   //     title: tok.attrGet('title') || null
   //   }) },
   // code_inline: { mark: 'code' }
-});
+};
+
+export const markitMarkdownParser = new MarkdownParser(schema, Tokenizer, tokens);
+export const shikimoriMarkdownParser = new MarkdownParser(schema, Tokenizer, tokens);

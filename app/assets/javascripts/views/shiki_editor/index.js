@@ -438,7 +438,7 @@ export default class ShikiEditor extends ShikiView {
       state: EditorState.create({
         schema,
         plugins,
-        doc: defaultMarkdownParser.parse(this.text)
+        doc: shikimoriMarkdownParser.parse(this.text)
       }),
       // doc: DOMParser.fromSchema(mySchema).parse(this.$textarea[0]),
       dispatchTransaction: transaction => {
@@ -481,7 +481,7 @@ export default class ShikiEditor extends ShikiView {
 // import { DOMSerializer } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { defaultMarkdownParser } from './markdown/from_markdown';
+import { shikimoriMarkdownParser } from './markdown/from_markdown';
 import { defaultMarkdownSerializer } from './markdown/to_markdown';
 import Tokenizer from './markdown/tokenizer';
 import { plugins } from './plugins';
