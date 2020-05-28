@@ -54,7 +54,7 @@ export class MarkdownSerializer {
 
 // :: MarkdownSerializer
 // A serializer for the [basic schema](#schema).
-export const defaultMarkdownSerializer = new MarkdownSerializer({
+export const shikiMarkdownSerializer = new MarkdownSerializer({
   blockquote(state, node) {
     state.wrapBlock('> ', null, node, () => state.renderContent(node));
   },
