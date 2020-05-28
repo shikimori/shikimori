@@ -587,6 +587,7 @@ Rails.application.routes.draw do
       animes
       border
       colors
+      editor
       franchises
       iframe
       iframe_inner
