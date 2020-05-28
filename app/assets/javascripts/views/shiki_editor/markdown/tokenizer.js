@@ -27,7 +27,7 @@ export class Tokenizer {
 
       const nextChar = this.text[this.charIndex + 1];
       if (char === '>' && nextChar === ' ') {
-        this.parseBlockQuote(this.charIndex);
+        this.parseBlockQuote();
         break;
       }
 
@@ -35,17 +35,14 @@ export class Tokenizer {
     }
   }
 
-  parseBlockQuote(startIndex) {
+  parseBlockQuote() {
+    this.tagOpen('blockquote', 'blockquote');
+
+    this.charIndex += 2;
+    this.parseLine(this.charIndex);
+
+    this.tagClose('blockquote', 'blockquote');
   }
-
-
-  // parseLine(text) {
-  //   if (text[0] === '>' && text[1] === ' ') {
-  //     return this.wrap('blockquote', 'blockquote', this.paragraph(text.slice(2)));
-  //   }
-
-  //   return this.paragraph(text);
-  // }
 
   line(startIndex, endIndex) {
     return this.text.slice(startIndex, endIndex);
@@ -63,17 +60,25 @@ export class Tokenizer {
     const textToken = new Token('text', '', text, 0);
     const innerToken = new Token('inline', '', text, 0, [textToken]);
 
-    this.addTokens(
-      this.wrap('paragraph', 'p', [innerToken])
+    this.wrap('paragraph', 'p', innerToken);
+  }
+
+  wrap(type, tag, token) {
+    this.tagOpen('paragraph', 'p');
+    this.addToken(token);
+    this.tagClose('paragraph', 'p');
+  }
+
+  tagOpen(type, tag) {
+    this.tokens.push(
+      new Token(`${type}_open`, tag, '', 1)
     );
   }
 
-  wrap(type, tag, tokens) {
-    return [
-      new Token(`${type}_open`, tag, '', 1),
-      ...tokens,
+  tagClose(type, tag) {
+    this.tokens.push(
       new Token(`${type}_close`, tag, '', -1)
-    ];
+    );
   }
 }
 
