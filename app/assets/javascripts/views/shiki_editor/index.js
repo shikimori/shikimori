@@ -23,6 +23,7 @@ export default class ShikiEditor extends ShikiView {
     }
 
     this.$textarea = this.$('textarea');
+    this.editor = this._buildEditor();
 
     // при вызове фокуса на shiki-editor передача сообщения в редактор
     this.on('focus', () => this.$textarea.trigger('focus'));
@@ -33,7 +34,7 @@ export default class ShikiEditor extends ShikiView {
 
     this.$form
       .on('ajax:before', () => {
-        if (this.$textarea.val().replace(/\n| |\r|\t/g, '')) {
+        if (this.text.replace(/\n| |\r|\t/g, '')) {
           return this._shade();
         }
         flash.error(I18n.t('frontend.shiki_editor.text_cant_be_blank'));
@@ -228,7 +229,7 @@ export default class ShikiEditor extends ShikiView {
       const itemData = this.isInnerForm ?
         this.$form.serializeHash()[this.type] : (
           this.$root.triggerWithReturn('preview:params') ||
-            { body: this.$textarea.val() }
+            { body: this.text }
         );
       data[this.type] = itemData;
 
@@ -248,12 +249,12 @@ export default class ShikiEditor extends ShikiView {
     this.$('.item-apply').on('click', (_e, _data) => this.$form.submit());
 
     // фокус на редакторе
-    if (this.$textarea.val().length > 0) {
+    if (this.text.length > 0) {
       // delay надо, т.к. IE не может делать focus и
       // работать с Range (внутри setCursorPosition) для невидимых элементов
       delay().then(() => {
         this.$textarea.focus();
-        this.$textarea.setCursorPosition(this.$textarea.val().length);
+        this.$textarea.setCursorPosition(this.text.length);
       });
     }
 
@@ -274,11 +275,11 @@ export default class ShikiEditor extends ShikiView {
       .on('upload:success', (e, data, fileNum) => {
         const fileText = fileTextPlaceholder.replace('@', fileNum);
 
-        if (this.$textarea.val().indexOf(fileText) === -1) {
+        if (this.text.indexOf(fileText) === -1) {
           this.$textarea.insertAtCaret('', `[image=${data.id}]`);
         } else {
           const text = data.id ? `[image=${data.id}]` : '';
-          this.$textarea.val(this.$textarea.val().replace(fileText, text));
+          this.$textarea.val(this.text.replace(fileText, text));
         }
 
         this.$textarea.focus();
@@ -286,8 +287,8 @@ export default class ShikiEditor extends ShikiView {
       .on('upload:failed', (e, response, fileNum) => {
         const fileText = fileTextPlaceholder.replace('@', fileNum);
 
-        if (this.$textarea.val().indexOf(fileText) !== -1) {
-          this.$textarea.val(this.$textarea.val().replace(fileText, ''));
+        if (this.text.indexOf(fileText) !== -1) {
+          this.$textarea.val(this.text.replace(fileText, ''));
         }
 
         this.$textarea.focus();
@@ -296,6 +297,10 @@ export default class ShikiEditor extends ShikiView {
 
   get type() {
     return this.$textarea.data('item_type');
+  }
+
+  get text() {
+    return this.$textarea.val();
   }
 
   _showPreview(previewHtml) {
@@ -397,10 +402,10 @@ export default class ShikiEditor extends ShikiView {
     if (isOfftopic) { this._markOfftopic(true); }
 
     this.$textarea
-      .val(`${this.$textarea.val()}\n${text}`.replace(/^\n+/, ''))
+      .val(`${this.text}\n${text}`.replace(/^\n+/, ''))
       .focus()
       .trigger('update') // для elastic плагина
-      .setCursorPosition(this.$textarea.val().length);
+      .setCursorPosition(this.text.length);
 
     await delay();
     if ((isMobile()) && !this.$textarea.is(':appeared')) {
@@ -424,4 +429,68 @@ export default class ShikiEditor extends ShikiView {
       $comment.view()._replace(response.html, response.JS_EXPORTS)
     ));
   }
+
+  _buildEditor() {
+    // let Inline = Quill.import('blots/inline');
+    //
+    // class BoldBlot extends Inline { }
+    // BoldBlot.blotName = 'bold';
+    // BoldBlot.tagName = 'strong';
+    //
+    // class ItalicBlot extends Inline { }
+    // ItalicBlot.blotName = 'italic';
+    // ItalicBlot.tagName = 'em';
+    //
+    // Quill.register(BoldBlot);
+    // Quill.register(ItalicBlot);
+
+
+    // const quill = new Quill(this.$('.quill')[0], {
+      // modules: {
+      //   toolbar: [
+      //     [{ header: [1, 2, false] }],
+      //     ['bold', 'italic', 'underline'],
+      //     ['image', 'code-block']
+      //   ]
+      // },
+      // placeholder: 'Compose an epic...',
+      // theme: 'snow' // or 'bubble'
+    // });
+
+    // quill.setContents(markdownToQuill(this.text));
+    // quill.on('text-change', () => (
+    //   this.$textarea.val(quillToMarkdown(quill.getContents()))
+    // ));
+
+    // window.quill = quill;
+    // return quill;
+
+
+    // Mix the nodes from prosemirror-schema-list into the basic schema to
+    // create a schema with list support.
+    const mySchema = new Schema({
+      nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
+      marks: schema.spec.marks
+    });
+
+    const editor = new EditorView(this.$('.prosemirror')[0], {
+      state: EditorState.create({
+        doc: DOMParser.fromSchema(mySchema).parse(this.$textarea[0]),
+        plugins: exampleSetup({ schema: mySchema })
+      })
+    });
+    window.view = editor;
+    return editor;
+  }
 }
+
+import { EditorState } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
+import { Schema, DOMParser } from 'prosemirror-model';
+import { schema } from 'prosemirror-schema-basic';
+import { addListNodes } from 'prosemirror-schema-list';
+import { exampleSetup } from 'prosemirror-example-setup';
+
+// import Quill from 'quill';
+// import quillToMarkdown from 'services/quill/quill_to_markdown';
+// import markdownToQuill from 'services/quill/markdown_to_quill';

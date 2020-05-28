@@ -1,4 +1,4 @@
-import ShikiEditor from 'views/application/shiki_editor';
+import ShikiEditor from 'views/shiki_editor/index';
 
 $.fn.extend({
   shikiEditor() {

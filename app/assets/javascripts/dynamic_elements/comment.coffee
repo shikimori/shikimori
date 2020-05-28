@@ -2,7 +2,7 @@ import delay from 'delay'
 
 import flash from 'services/flash'
 
-import ShikiEditor from 'views/application/shiki_editor'
+import ShikiEditor from 'views/shiki_editor/index'
 import ShikiEditable from 'views/application/shiki_editable'
 import BanForm from 'views/comments/ban_form'
 
