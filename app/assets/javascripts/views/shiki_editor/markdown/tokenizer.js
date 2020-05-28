@@ -1,32 +1,36 @@
 import { Token } from './token';
 
-export class Tokenizer {
-  constructor(text) {
-    this.text = text.trim();
-  }
+function parse(text) {
+  const fixedText = text.trim();
+  if (!fixedText) { return []; }
 
-  parse() {
-    if (!this.text) { return []; }
-
-    return this.text.lines().map(line => this.parseLine(line)).flatten();
-  }
-
-  parseLine(text) {
-    return this.wrap('paragraph', 'p', text);
-  }
-
-  wrap(type, tag, text) {
-    const textToken = new Token('text', '', text, 0);
-    const innerToken = new Token('inline', '', text, 0, [textToken]);
-
-    return [
-      new Token(`${type}_open`, tag, '', 1),
-      innerToken,
-      new Token(`${type}_close`, tag, '', -1)
-    ];
-  }
+  return fixedText
+    .lines()
+    .map(line => parseLine(line.trim()))
+    .flatten();
 }
 
-Tokenizer.parse = function (text) {
-  return new Tokenizer(text).parse();
-};
+function parseLine(text) {
+  if (text[0] === '>' && text[1] === ' ') {
+    return wrap('blockquote', 'blockquote', paragraph(text.slice(2)));
+  }
+
+  return paragraph(text);
+}
+
+function paragraph(text) {
+  const textToken = new Token('text', '', text, 0);
+  const innerToken = new Token('inline', '', text, 0, [textToken]);
+
+  return wrap('paragraph', 'p', [innerToken]);
+}
+
+function wrap(type, tag, tokens) {
+  return [
+    new Token(`${type}_open`, tag, '', 1),
+    ...tokens,
+    new Token(`${type}_close`, tag, '', -1)
+  ];
+}
+
+export default { parse };

@@ -4,7 +4,7 @@
 import markdownit from 'markdown-it';
 import { Mark } from 'prosemirror-model';
 
-import { Tokenizer } from './tokenizer';
+import Tokenizer from './tokenizer';
 import { schema } from '../schema';
 
 function maybeMerge(a, b) {
@@ -215,10 +215,9 @@ export class MarkdownParser {
     const state = new MarkdownParseState(this.schema, this.tokenHandlers); let
       doc;
 
-    console.log(this.tokenizer.parse(text, {}));
-    console.log(Tokenizer.parse(text));
+    // state.parseTokens(this.tokenizer.parse(text, {}));
+    state.parseTokens(Tokenizer.parse(text));
 
-    state.parseTokens(this.tokenizer.parse(text, {}));
     do { doc = state.closeNode(); } while (state.stack.length);
     return doc;
   }
@@ -232,7 +231,8 @@ const markdownTokenizer = markdownit('commonmark', { html: false });
 window.markdownTokenizer = markdownTokenizer;
 window.Tokenizer = Tokenizer;
 
-export const defaultMarkdownParser = new MarkdownParser(schema, markdownTokenizer, {
+// export const defaultMarkdownParser = new MarkdownParser(schema, markdownTokenizer, {
+export const defaultMarkdownParser = new MarkdownParser(schema, Tokenizer, {
   // ordered_list: { block: 'ordered_list', getAttrs: tok => ({ order: +tok.attrGet('start') || 1 }) },
   // heading: { block: 'heading', getAttrs: tok => ({ level: +tok.tag.slice(1) }) },
   // code_block: { block: 'code_block' },

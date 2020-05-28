@@ -446,14 +446,9 @@ export default class ShikiEditor extends ShikiView {
         view.updateState(state);
 
         if (transactions.some(tr => tr.docChanged)) {
-
-          //
-          defaultMarkdownParser.parse(defaultMarkdownSerializer.serialize(state.doc));
-          //
-
-          this.$textarea.val(
-            defaultMarkdownSerializer.serialize(state.doc)
-          );
+          const markdown = defaultMarkdownSerializer.serialize(state.doc);
+          console.log(Tokenizer.parse(markdown));
+          this.$textarea.val(markdown);
         }
       }
     });
@@ -488,6 +483,7 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { defaultMarkdownParser } from './markdown/from_markdown';
 import { defaultMarkdownSerializer } from './markdown/to_markdown';
+import Tokenizer from './markdown/tokenizer';
 import { plugins } from './plugins';
 import { schema } from './schema';
 
