@@ -45,3 +45,7 @@ pageLoad('tests_reset_styles_cache', () => {
       .href();
   });
 });
+
+pageLoad('tests_editor', () => {
+  $('.b-shiki_editor').shikiEditor();
+});

@@ -37,6 +37,7 @@
     "js-cookie": "^2.2.0",
     "js-storage": "^1.0.1",
     "magnific-popup": "^1.1.0",
+    "markdown-it": "^11.0.0",
     "memoize-decorator": "^1.0.2",
     "mobile-detect": "1.4.3",
     "moment": "^2.18.1",

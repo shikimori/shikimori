@@ -55,6 +55,15 @@ export class MarkdownSerializer {
 // :: MarkdownSerializer
 // A serializer for the [basic schema](#schema).
 export const defaultMarkdownSerializer = new MarkdownSerializer({
+  blockquote(state, node) {
+    state.wrapBlock('> ', null, node, () => state.renderContent(node));
+  },
+  bullet_list(state, node) {
+    state.renderList(node, '  ', () => (node.attrs.bullet || '*') + ' ');
+  },
+  list_item(state, node) {
+    state.renderContent(node);
+  },
   paragraph(state, node) {
     state.renderInline(node);
     state.closeBlock(node);

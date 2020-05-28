@@ -34,7 +34,7 @@ class Comments::View < ViewObjectBase
       user: h.current_user,
       commentable_id: comment.commentable_id,
       commentable_type: comment.commentable_type,
-      body: true ?
+      body: is_reply ?
         "[comment=#{comment.id}]#{comment.user.nickname}[/comment], " :
         ''
     )

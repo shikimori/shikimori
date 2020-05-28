@@ -1,7 +1,26 @@
-import { icons, MenuItem } from 'prosemirror-menu';
+import { icons, MenuItem, wrapItem, liftItem } from 'prosemirror-menu';
 // import { TextSelection } from 'prosemirror-state';
 import { toggleMark } from 'prosemirror-commands';
+import { wrapInList } from 'prosemirror-schema-list';
 import { schema } from './schema';
+
+
+function cmdItem(cmd, options) {
+  const passedOptions = {
+    label: options.title,
+    run: cmd
+  };
+  for (const prop in options) passedOptions[prop] = options[prop]; // eslint-disable-line
+  if ((!options.enable || options.enable === true) && !options.select) {
+    passedOptions[options.enable ? 'enable' : 'select'] = state => cmd(state);
+  }
+
+  return new MenuItem(passedOptions);
+}
+
+function wrapListItem(nodeType, options) {
+  return cmdItem(wrapInList(nodeType, options.attrs), options);
+}
 
 const markActive = markType => state => {
   const { from, $from, to, empty } = state.selection;
@@ -57,14 +76,25 @@ export const menu = {
         active: markActive(schema.marks.em),
         run: toggleMark(schema.marks.em)
       })
+    ], [
+      wrapListItem(schema.nodes.bullet_list, {
+        title: 'Wrap in bullet list',
+        icon: icons.bulletList
+      }),
+      wrapItem(schema.nodes.blockquote, {
+        title: 'Wrap in block quote',
+        icon: icons.blockquote
+      }),
+      liftItem
     ]
     // [
-    //   new MenuItem({
-    //     title: 'Insert Paragraph',
-    //     label: '¶',
-    //     enable: canInsert(schema.nodes.paragraph),
-    //     run: insertBlock(schema.nodes.paragraph)
-    //   })
+      // new MenuItem({
+      //   title: 'Wrap in block quote',
+      //   icon: icons.blockquote,
+      //   enable: () => true,
+      //   active: markActive(schema.marks.em),
+      //   run: toggleMark(schema.marks.em)
+      // })
     // ]
   ]
 };

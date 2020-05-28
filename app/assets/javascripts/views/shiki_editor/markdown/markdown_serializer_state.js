@@ -40,14 +40,14 @@ export class MarkdownSerializerState {
   // line in `firstDelim`. `node` should be the node that is closed at
   // the end of the block, and `f` is a function that renders the
   // content of the block.
-  // wrapBlock(delim, firstDelim, node, f) {
-  //   const old = this.delim;
-  //   this.write(firstDelim || delim);
-  //   this.delim += delim;
-  //   f();
-  //   this.delim = old;
-  //   this.closeBlock(node);
-  // }
+  wrapBlock(delim, firstDelim, node, f) {
+    const old = this.delim;
+    this.write(firstDelim || delim);
+    this.delim += delim;
+    f();
+    this.delim = old;
+    this.closeBlock(node);
+  }
 
   atBlank() {
     return /(^|\n)$/.test(this.out);
@@ -207,19 +207,19 @@ export class MarkdownSerializerState {
   // indentation added to all lines except the first in an item,
   // `firstDelim` is a function going from an item index to a
   // delimiter for the first line of the item.
-  // renderList(node, delim, firstDelim) {
-  //   if (this.closed && this.closed.type == node.type) this.flushClose(3);
-  //   else if (this.inTightList) this.flushClose(1);
-  //
-  //   const isTight = typeof node.attrs.tight !== 'undefined' ? node.attrs.tight : this.options.tightLists;
-  //   const prevTight = this.inTightList;
-  //   this.inTightList = isTight;
-  //   node.forEach((child, _, i) => {
-  //     if (i && isTight) this.flushClose(1);
-  //     this.wrapBlock(delim, firstDelim(i), node, () => this.render(child, node, i));
-  //   });
-  //   this.inTightList = prevTight;
-  // }
+  renderList(node, delim, firstDelim) {
+    if (this.closed && this.closed.type == node.type) this.flushClose(3);
+    else if (this.inTightList) this.flushClose(1);
+
+    const isTight = typeof node.attrs.tight !== 'undefined' ? node.attrs.tight : this.options.tightLists;
+    const prevTight = this.inTightList;
+    this.inTightList = isTight;
+    node.forEach((child, _, i) => {
+      if (i && isTight) this.flushClose(1);
+      this.wrapBlock(delim, firstDelim(i), node, () => this.render(child, node, i));
+    });
+    this.inTightList = prevTight;
+  }
 
   // :: (string, ?bool) → string
   // Escape the given string so that it can safely appear in Markdown

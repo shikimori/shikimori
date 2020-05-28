@@ -2,8 +2,7 @@ import { Schema } from 'prosemirror-model';
 
 const nodes = {
   doc: {
-    content: 'paragraph+',
-    toDOM: () => ['article', 0]
+    content: 'block+'
   },
   text: {
     group: 'inline'
@@ -12,7 +11,26 @@ const nodes = {
     content: 'inline*',
     group: 'block',
     parseDOM: [{ tag: 'p' }],
-    toDOM: () => ['p', 0]
+    toDOM() { return ['p', 0]; }
+  },
+  blockquote: {
+    content: 'block+',
+    group: 'block',
+    parseDOM: [{ tag: 'blockquote' }],
+    toDOM() { return ['blockquote', 0]; }
+  },
+  bullet_list: {
+    content: 'list_item+',
+    group: 'block',
+    attrs: { tight: { default: false } },
+    parseDOM: [{ tag: 'ul', getAttrs: dom => ({ tight: dom.hasAttribute('data-tight') }) }],
+    toDOM(node) { return ['ul', { 'data-tight': node.attrs.tight ? 'true' : null, class: 'b-list' }, 0]; }
+  },
+  list_item: {
+    content: 'paragraph block*',
+    defining: true,
+    parseDOM: [{ tag: 'li' }],
+    toDOM() { return ['li', 0]; }
   }
 };
 
