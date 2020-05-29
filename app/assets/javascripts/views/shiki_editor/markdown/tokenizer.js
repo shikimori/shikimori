@@ -38,7 +38,7 @@ export class Tokenizer {
     this.bbcode = this.char1 === '[' ? this.extractBbCode() : null;
   }
 
-  parseLine(sequence) {
+  parseLine(nestedSequence) {
     const startIndex = this.index;
 
     outer: while (this.index <= this.text.length) { // eslint-disable-line no-restricted-syntax
@@ -54,7 +54,7 @@ export class Tokenizer {
       if (isStart) {
         switch (seq2) {
           case '> ':
-            this.processBlockQuote(sequence, seq2);
+            this.processBlockQuote(nestedSequence, seq2);
             break outer;
 
           case '- ':
@@ -118,12 +118,12 @@ export class Tokenizer {
     this.inlineTokens = [];
   }
 
-  processBlockQuote(globalSequence, currentSequence) {
-    const newSequence = globalSequence + currentSequence;
+  processBlockQuote(nestedSequence, tagSequence) {
+    const newSequence = nestedSequence + tagSequence;
     this.push(this.tagOpen('blockquote'));
 
     do {
-      this.next(currentSequence.length);
+      this.next(tagSequence.length);
       this.parseLine(newSequence);
 
       if (this.char1 === '\n') {
