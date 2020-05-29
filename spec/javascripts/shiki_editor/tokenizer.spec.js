@@ -292,6 +292,50 @@ describe('Tokenizer', () => {
         children: null
       }]);
     });
+
+    it('> > a', () => {
+      expect(Tokenizer.parse('> > a')).to.eql([{
+        content: '',
+        tag: 'blockquote',
+        type: 'blockquote_open',
+        children: null
+      }, {
+        content: '',
+        tag: 'blockquote',
+        type: 'blockquote_open',
+        children: null
+      }, {
+        content: '',
+        tag: 'p',
+        type: 'paragraph_open',
+        children: null
+      }, {
+        content: 'a',
+        tag: '',
+        type: 'inline',
+        children: [{
+          content: 'a',
+          tag: '',
+          type: 'text',
+          children: null
+        }]
+      }, {
+        content: '',
+        tag: 'p',
+        type: 'paragraph_close',
+        children: null
+      }, {
+        content: '',
+        tag: 'blockquote',
+        type: 'blockquote_close',
+        children: null
+      }, {
+        content: '',
+        tag: 'blockquote',
+        type: 'blockquote_close',
+        children: null
+      }]);
+    });
   });
 
   describe('bullet_list', () => {
