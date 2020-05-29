@@ -152,16 +152,16 @@ describe('Tokenizer', () => {
       }]);
     });
 
-    it('> a\\n> a\\n> a', () => {
-      expect(Tokenizer.parse('> a\n> a\n> a')).to.eql([{
+    it('> a\\n> b\\n> c', () => {
+      expect(Tokenizer.parse('> a\n> b\n> c')).to.eql([{
         content: '',
         tag: 'blockquote',
         type: 'blockquote_open',
         children: null
       },
       ...text('a'),
-      ...text('a'),
-      ...text('a'),
+      ...text('b'),
+      ...text('c'),
       {
         content: '',
         tag: 'blockquote',
@@ -196,8 +196,8 @@ describe('Tokenizer', () => {
       }]);
     });
 
-    it('> > a\\n> a', () => {
-      expect(Tokenizer.parse('> > a\n> a')).to.eql([{
+    it('> > a\\n> b', () => {
+      expect(Tokenizer.parse('> > a\n> b')).to.eql([{
         content: '',
         tag: 'blockquote',
         type: 'blockquote_open',
@@ -215,7 +215,7 @@ describe('Tokenizer', () => {
         type: 'blockquote_close',
         children: null
       },
-      ...text('a'),
+      ...text('b'),
       {
         content: '',
         tag: 'blockquote',
@@ -239,6 +239,44 @@ describe('Tokenizer', () => {
         children: null
       },
       ...text('a'),
+      {
+        content: '',
+        tag: 'li',
+        type: 'list_item_close',
+        children: null
+      }, {
+        content: '',
+        tag: 'ul',
+        type: 'bullet_list_close',
+        children: null
+      }]);
+    });
+
+    it('- a\\n- b', () => {
+      expect(Tokenizer.parse('- a\n- b')).to.eql([{
+        content: '',
+        tag: 'ul',
+        type: 'bullet_list_open',
+        children: null
+      }, {
+        content: '',
+        tag: 'li',
+        type: 'list_item_open',
+        children: null
+      },
+      ...text('a'),
+      {
+        content: '',
+        tag: 'li',
+        type: 'list_item_close',
+        children: null
+      }, {
+        content: '',
+        tag: 'li',
+        type: 'list_item_open',
+        children: null
+      },
+      ...text('b'),
       {
         content: '',
         tag: 'li',
