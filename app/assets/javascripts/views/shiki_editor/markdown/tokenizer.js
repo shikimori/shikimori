@@ -11,15 +11,15 @@ export class Tokenizer {
   constructor(text) {
     this.text = text;
 
-    this.index = -1;
-
     this.tokens = [];
     this.inlineTokens = [];
   }
 
   parse() {
-    while (this.index < this.text.length - 1) {
-      this.next(1);
+    this.index = -1;
+    this.next();
+
+    while (this.index < this.text.length) {
       this.parseLine('');
     }
 
@@ -48,7 +48,8 @@ export class Tokenizer {
 
       if (isEnd) {
         this.processParagraph(startIndex);
-        break;
+        this.next();
+        return;
       }
 
       if (isStart) {
@@ -126,8 +127,6 @@ export class Tokenizer {
     do {
       this.next(tagSequence.length);
       this.parseLine(newSequence);
-
-      if (this.char1 === '\n') { this.next(); }
     } while (this.isContinued(newSequence));
 
     this.push(this.tagClose('blockquote'));
@@ -144,8 +143,6 @@ export class Tokenizer {
       this.push(this.tagOpen('list_item'));
       this.parseLine();
       this.push(this.tagClose('list_item'));
-
-      if (this.char1 === '\n') { this.next(); }
     } while (this.isContinued(newSequence));
 
     this.push(this.tagClose('bullet_list'));
