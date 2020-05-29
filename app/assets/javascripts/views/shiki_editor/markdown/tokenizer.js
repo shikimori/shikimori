@@ -4,6 +4,7 @@ export class Tokenizer {
   constructor(text) {
     this.text = text;
     this.charIndex = -1;
+
     this.tokens = [];
   }
 
@@ -20,14 +21,21 @@ export class Tokenizer {
     while (this.charIndex <= this.text.length) {
       const char = this.text[this.charIndex];
 
-      if (char === '\n' || char === undefined) {
-        this.paragraph(this.line(startIndex, this.charIndex));
-        break;
-      }
+      const isStart = startIndex === this.charIndex;
+      const isEnd = char === '\n' || char === undefined;
 
       const nextChar = this.text[this.charIndex + 1];
-      if (char === '>' && nextChar === ' ') {
-        this.parseBlockQuote();
+      const nextNextChar = this.text[this.charIndex + 2];
+
+      if (isStart) {
+        if (char === '>' && nextChar === ' ') {
+          this.parseBlockQuote();
+          break;
+        }
+      }
+
+      if (isEnd) {
+        this.paragraph(this.text.slice(startIndex, this.charIndex));
         break;
       }
 
@@ -36,7 +44,7 @@ export class Tokenizer {
   }
 
   parseBlockQuote() {
-    this.tagOpen('blockquote', 'blockquote');
+    this.push(this.tagOpen('blockquote', 'blockquote'));
 
     this.charIndex += 2;
     this.parseLine(this.charIndex);
@@ -48,44 +56,38 @@ export class Tokenizer {
       this.parseLine(this.charIndex);
     }
 
-    this.tagClose('blockquote', 'blockquote');
-  }
-
-  line(startIndex, endIndex) {
-    return this.text.slice(startIndex, endIndex);
-  }
-
-  addTokens(tokens) {
-    this.tokens = this.tokens.concat(tokens);
-  }
-
-  addToken(token) {
-    this.tokens.push(token);
+    this.push(this.tagClose('blockquote', 'blockquote'));
   }
 
   paragraph(text) {
-    const textToken = new Token('text', '', text, 0);
-    const innerToken = new Token('inline', '', text, 0, [textToken]);
+    const inlineTokens = this.parseInline(text);
+    const innerToken = new Token('inline', '', text, 0, inlineTokens);
 
     this.wrap('paragraph', 'p', innerToken);
   }
 
+  parseInline(text) {
+    return [
+      new Token('text', '', text, 0)
+    ];
+  }
+
   wrap(type, tag, token) {
-    this.tagOpen('paragraph', 'p');
-    this.addToken(token);
-    this.tagClose('paragraph', 'p');
+    this.push(this.tagOpen('paragraph', 'p'));
+    this.push(token);
+    this.push(this.tagClose('paragraph', 'p'));
   }
 
   tagOpen(type, tag) {
-    this.tokens.push(
-      new Token(`${type}_open`, tag, '', 1)
-    );
+    return new Token(`${type}_open`, tag, '', 1);
   }
 
   tagClose(type, tag) {
-    this.tokens.push(
-      new Token(`${type}_close`, tag, '', -1)
-    );
+    return new Token(`${type}_close`, tag, '', -1);
+  }
+
+  push(token) {
+    this.tokens.push(token);
   }
 }
 
