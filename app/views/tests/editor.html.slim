@@ -1,7 +1,13 @@
 .block
   .headline editor
-  .b-shiki_editor.unprocessed.size-xl
-    = render 'comments/shiki_editor',
-      text: "ab\ncd",
-      field_name: 'zzzz'
-      / text: "test [i]tes[b]test[/b]tes[/i]zxczxc\n- abc\n- test\n- nope\ntest\n\n> z[b]x[/b]c\n> vbn\n> nope\n\ntest\ntest2\n> nope\n> > nope\n> nope",
+  .fc-2
+    .f-column
+      .b-shiki_editor.unprocessed.size-xl
+        = render 'comments/shiki_editor',
+          text: "- > test",
+          field_name: 'zzzz'
+    .f-column
+      .b-shiki_editor.unprocessed.size-xl
+        = render 'comments/shiki_editor',
+          text: "test [i]tes[b]test[/b]tes[/i]zxczxc\n- abc\n- test\n- nope\ntest\n\n> z[b]x[/b]c\n> vbn\n> nope\n\ntest\ntest2\n> nope\n> > nope\n> nope",
+          field_name: 'zzzz'

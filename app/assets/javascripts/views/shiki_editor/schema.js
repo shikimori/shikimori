@@ -23,7 +23,10 @@ const nodes = {
     content: 'list_item+',
     group: 'block',
     attrs: { tight: { default: false } },
-    parseDOM: [{ tag: 'ul', getAttrs: dom => ({ tight: dom.hasAttribute('data-tight') }) }],
+    parseDOM: [{
+      tag: 'ul',
+      getAttrs: dom => ({ tight: dom.hasAttribute('data-tight') })
+    }],
     toDOM(node) {
       return [
         'ul',
@@ -33,7 +36,8 @@ const nodes = {
     }
   },
   list_item: {
-    content: 'paragraph block*',
+    // content: 'paragraph block*',
+    content: 'block*',
     defining: true,
     parseDOM: [{ tag: 'li' }],
     toDOM() { return ['li', 0]; }
