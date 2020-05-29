@@ -196,49 +196,33 @@ describe('Tokenizer', () => {
       }]);
     });
 
-    // it('> > a\\n> a', () => {
-    //   expect(Tokenizer.parse('> > a\n> a')).to.eql([{
-    //     content: '',
-    //     tag: 'blockquote',
-    //     type: 'blockquote_open',
-    //     children: null
-    //   }, {
-    //     content: '',
-    //     tag: 'blockquote',
-    //     type: 'blockquote_open',
-    //     children: null
-    //   }, {
-    //     content: '',
-    //     tag: 'p',
-    //     type: 'paragraph_open',
-    //     children: null
-    //   }, {
-    //     content: 'a',
-    //     tag: '',
-    //     type: 'inline',
-    //     children: [{
-    //       content: 'a',
-    //       tag: '',
-    //       type: 'text',
-    //       children: null
-    //     }]
-    //   }, {
-    //     content: '',
-    //     tag: 'p',
-    //     type: 'paragraph_close',
-    //     children: null
-    //   }, {
-    //     content: '',
-    //     tag: 'blockquote',
-    //     type: 'blockquote_close',
-    //     children: null
-    //   }, {
-    //     content: '',
-    //     tag: 'blockquote',
-    //     type: 'blockquote_close',
-    //     children: null
-    //   }]);
-    // });
+    it('> > a\\n> a', () => {
+      expect(Tokenizer.parse('> > a\n> a')).to.eql([{
+        content: '',
+        tag: 'blockquote',
+        type: 'blockquote_open',
+        children: null
+      }, {
+        content: '',
+        tag: 'blockquote',
+        type: 'blockquote_open',
+        children: null
+      },
+      ...text('a'),
+      {
+        content: '',
+        tag: 'blockquote',
+        type: 'blockquote_close',
+        children: null
+      },
+      ...text('a'),
+      {
+        content: '',
+        tag: 'blockquote',
+        type: 'blockquote_close',
+        children: null
+      }]);
+    });
   });
 
   describe('bullet_list', () => {
