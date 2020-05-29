@@ -289,5 +289,41 @@ describe('Tokenizer', () => {
         children: null
       }]);
     });
+
+    it('- > test', () => {
+      expect(Tokenizer.parse('- > test')).to.eql([{
+        content: '',
+        tag: 'ul',
+        type: 'bullet_list_open',
+        children: null
+      }, {
+        content: '',
+        tag: 'li',
+        type: 'list_item_open',
+        children: null
+      }, {
+        content: '',
+        tag: 'blockquote',
+        type: 'blockquote_open',
+        children: null
+      },
+      ...text('test'),
+      {
+        content: '',
+        tag: 'blockquote',
+        type: 'blockquote_close',
+        children: null
+      }, {
+        content: '',
+        tag: 'li',
+        type: 'list_item_close',
+        children: null
+      }, {
+        content: '',
+        tag: 'ul',
+        type: 'bullet_list_close',
+        children: null
+      }]);
+    });
   });
 });
