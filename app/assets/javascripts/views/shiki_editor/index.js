@@ -447,7 +447,7 @@ export default class ShikiEditor extends ShikiView {
 
         if (transactions.some(tr => tr.docChanged)) {
           const markdown = shikiMarkdownSerializer.serialize(state.doc);
-          console.log(Tokenizer.parse(markdown));
+          // console.log(Tokenizer.parse(markdown));
           this.$textarea.val(markdown);
         }
       }

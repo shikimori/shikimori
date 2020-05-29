@@ -52,6 +52,7 @@ export class MarkdownSerializer {
   }
 }
 
+
 // :: MarkdownSerializer
 // A serializer for the [basic schema](#schema).
 export const shikiMarkdownSerializer = new MarkdownSerializer({
