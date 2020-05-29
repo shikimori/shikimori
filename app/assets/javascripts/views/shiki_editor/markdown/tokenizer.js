@@ -60,7 +60,7 @@ export class Tokenizer {
           case '- ':
           case '+ ':
           case '* ':
-            this.processBulletList();
+            this.processBulletList(nestedSequence, seq2);
             break outer;
 
           default:
@@ -120,33 +120,33 @@ export class Tokenizer {
 
   processBlockQuote(nestedSequence, tagSequence) {
     const newSequence = nestedSequence + tagSequence;
+
     this.push(this.tagOpen('blockquote'));
 
     do {
       this.next(tagSequence.length);
       this.parseLine(newSequence);
 
-      if (this.char1 === '\n') {
-        this.next();
-      }
+      if (this.char1 === '\n') { this.next(); }
     } while (this.isContinued(newSequence));
 
     this.push(this.tagClose('blockquote'));
   }
 
-  processBulletList() {
+  processBulletList(nestedSequence, tagSequence) {
+    const newSequence = nestedSequence + tagSequence;
+
     this.push(this.tagOpen('bullet_list'));
 
-    this.next(2);
+    do {
+      this.next(tagSequence.length);
 
-    this.push(this.tagOpen('list_item'));
-    this.parseLine();
-    this.push(this.tagClose('list_item'));
+      this.push(this.tagOpen('list_item'));
+      this.parseLine();
+      this.push(this.tagClose('list_item'));
 
-    // if ((this.char2 === '-' || this.char2 === '+' || this.char2 === '*') && this.char3 === ' ') {
-    //   this.next(3);
-    //   this.parseLine();
-    // }
+      if (this.char1 === '\n') { this.next(); }
+    } while (this.isContinued(newSequence));
 
     this.push(this.tagClose('bullet_list'));
   }
