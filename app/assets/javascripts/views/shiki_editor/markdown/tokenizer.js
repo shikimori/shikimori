@@ -20,7 +20,7 @@ export class Tokenizer {
   parse() {
     while (this.index < this.text.length - 1) {
       this.next(1);
-      this.parseLine();
+      this.parseLine('');
     }
 
     return this.tokens.flatten();
@@ -38,7 +38,7 @@ export class Tokenizer {
     this.bbcode = this.char1 === '[' ? this.extractBbCode() : null;
   }
 
-  parseLine() {
+  parseLine(sequence) {
     const startIndex = this.index;
 
     outer: while (this.index <= this.text.length) { // eslint-disable-line no-restricted-syntax
@@ -54,7 +54,7 @@ export class Tokenizer {
       if (isStart) {
         switch (seq2) {
           case '> ':
-            this.processBlockQuote(seq2);
+            this.processBlockQuote(sequence, seq2);
             break outer;
 
           case '- ':
@@ -96,15 +96,16 @@ export class Tokenizer {
         return;
 
       default:
-        if (inlineTokens.last()?.type !== 'text') {
-          inlineTokens.push(new Token('text', '', ''));
-        }
-        const token = inlineTokens.last();
-
-        token.content += char1;
-        this.next();
         break;
     }
+
+    if (inlineTokens.last()?.type !== 'text') {
+      inlineTokens.push(new Token('text', '', ''));
+    }
+    const token = inlineTokens.last();
+
+    token.content += char1;
+    this.next();
   }
 
   processParagraph(startIndex) {
@@ -117,14 +118,18 @@ export class Tokenizer {
     this.inlineTokens = [];
   }
 
-  processBlockQuote(sequence) {
+  processBlockQuote(globalSequence, currentSequence) {
+    const newSequence = globalSequence + currentSequence;
     this.push(this.tagOpen('blockquote'));
 
     do {
-      this.next(sequence.length);
-      this.parseLine();
-      this.next();
-    } while (this.isContinued(sequence));
+      this.next(currentSequence.length);
+      this.parseLine(newSequence);
+
+      if (this.char1 === '\n') {
+        this.next();
+      }
+    } while (this.isContinued(newSequence));
 
     this.push(this.tagClose('blockquote'));
   }
