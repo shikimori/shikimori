@@ -234,3 +234,14 @@ GRANT EXECUTE ON FUNCTION pg_stat_statements_reset() TO shikimori_production;
 ```sh
 APIPIE_RECORD=all rspec spec/controllers/api/*
 ```
+
+### Fix ElasticSearch readonly mode
+https://www.elastic.co/guide/en/elasticsearch/reference/6.8/disk-allocator.html
+```sh
+curl -XPUT -H "Content-Type: application/json" http://192.168.0.2:9200/_cluster/settings \
+  -d '{ "transient": {
+    "cluster.routing.allocation.disk.watermark.low": "20gb",
+    "cluster.routing.allocation.disk.watermark.high": "15gb",
+    "cluster.routing.allocation.disk.watermark.flood_stage": "10gb"
+  } }'
+```
