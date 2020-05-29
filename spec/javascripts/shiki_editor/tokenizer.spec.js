@@ -14,25 +14,21 @@ describe('Tokenizer', () => {
     it('z', () => {
       expect(Tokenizer.parse('z')).to.eql([{
         content: '',
-        nesting: 1,
         tag: 'p',
         type: 'paragraph_open',
         children: null
       }, {
         content: 'z',
-        nesting: 0,
         tag: '',
         type: 'inline',
         children: [{
           content: 'z',
-          nesting: 0,
           tag: '',
           type: 'text',
           children: null
         }]
       }, {
         content: '',
-        nesting: -1,
         tag: 'p',
         type: 'paragraph_close',
         children: null
@@ -42,25 +38,21 @@ describe('Tokenizer', () => {
     it('zzz', () => {
       expect(Tokenizer.parse('zzz')).to.eql([{
         content: '',
-        nesting: 1,
         tag: 'p',
         type: 'paragraph_open',
         children: null
       }, {
         content: 'zzz',
-        nesting: 0,
         tag: '',
         type: 'inline',
         children: [{
           content: 'zzz',
-          nesting: 0,
           tag: '',
           type: 'text',
           children: null
         }]
       }, {
         content: '',
-        nesting: -1,
         tag: 'p',
         type: 'paragraph_close',
         children: null
@@ -70,49 +62,41 @@ describe('Tokenizer', () => {
     it('zzz\\nxxx', () => {
       expect(Tokenizer.parse('zzz\nxxx')).to.eql([{
         content: '',
-        nesting: 1,
         tag: 'p',
         type: 'paragraph_open',
         children: null
       }, {
         content: 'zzz',
-        nesting: 0,
         tag: '',
         type: 'inline',
         children: [{
           content: 'zzz',
-          nesting: 0,
           tag: '',
           type: 'text',
           children: null
         }]
       }, {
         content: '',
-        nesting: -1,
         tag: 'p',
         type: 'paragraph_close',
         children: null
       }, {
         content: '',
-        nesting: 1,
         tag: 'p',
         type: 'paragraph_open',
         children: null
       }, {
         content: 'xxx',
-        nesting: 0,
         tag: '',
         type: 'inline',
         children: [{
           content: 'xxx',
-          nesting: 0,
           tag: '',
           type: 'text',
           children: null
         }]
       }, {
         content: '',
-        nesting: -1,
         tag: 'p',
         type: 'paragraph_close',
         children: null
@@ -120,83 +104,71 @@ describe('Tokenizer', () => {
     });
   });
 
-  // describe('strong', () => {
-  //   it('[b]zxc[/b]', () => {
-  //     expect(Tokenizer.parse('[b]zxc[/b]')).to.eql([{
-  //       content: '',
-  //       nesting: 1,
-  //       tag: 'p',
-  //       type: 'paragraph_open',
-  //       children: null
-  //     }, {
-  //       content: 'z',
-  //       nesting: 0,
-  //       tag: '',
-  //       type: 'inline',
-  //       children: [{
-  //         content: '',
-  //         nesting: 0,
-  //         tag: 'strong',
-  //         type: 'strong_open',
-  //         children: null
-  //       }, {
-  //         content: 'zxc',
-  //         nesting: 0,
-  //         tag: '',
-  //         type: 'text',
-  //         children: null
-  //       }, {
-  //         content: '',
-  //         nesting: 0,
-  //         tag: 'strong',
-  //         type: 'strong_close',
-  //         children: null
-  //       }]
-  //     }, {
-  //       content: '',
-  //       nesting: -1,
-  //       tag: 'p',
-  //       type: 'paragraph_close',
-  //       children: null
-  //     }]);
-  //   });
-  // });
+  describe('strong', () => {
+    it('[b]zxc[/b]', () => {
+      expect(Tokenizer.parse('[b]zxc[/b]')).to.eql([{
+        content: '',
+        tag: 'p',
+        type: 'paragraph_open',
+        children: null
+      }, {
+        content: '[b]zxc[/b]',
+        tag: '',
+        type: 'inline',
+        children: [{
+          content: '',
+          tag: 'strong',
+          type: 'strong_open',
+          children: null
+        }, {
+          content: 'zxc',
+          tag: '',
+          type: 'text',
+          children: null
+        }, {
+          content: '',
+          tag: 'strong',
+          type: 'strong_close',
+          children: null
+        }]
+      }, {
+        content: '',
+        tag: 'p',
+        type: 'paragraph_close',
+        children: null
+      }]);
+    });
+  });
 
   describe('blockquote', () => {
     it('> a', () => {
       expect(Tokenizer.parse('> a')).to.eql([{
         content: '',
-        nesting: 1,
         tag: 'blockquote',
         type: 'blockquote_open',
         children: null
       }, {
         content: '',
-        nesting: 1,
         tag: 'p',
         type: 'paragraph_open',
         children: null
       }, {
         content: 'a',
-        nesting: 0,
         tag: '',
         type: 'inline',
         children: [{
           content: 'a',
-          nesting: 0,
           tag: '',
           type: 'text',
           children: null
         }]
       }, {
         content: '',
-        nesting: -1,
         tag: 'p',
         type: 'paragraph_close',
         children: null
       }, {
         content: '',
-        nesting: -1,
         tag: 'blockquote',
         type: 'blockquote_close',
         children: null
@@ -206,61 +178,51 @@ describe('Tokenizer', () => {
     it('> a\\n> a', () => {
       expect(Tokenizer.parse('> a\n> a')).to.eql([{
         content: '',
-        nesting: 1,
         tag: 'blockquote',
         type: 'blockquote_open',
         children: null
       }, {
         content: '',
-        nesting: 1,
         tag: 'p',
         type: 'paragraph_open',
         children: null
       }, {
         content: 'a',
-        nesting: 0,
         tag: '',
         type: 'inline',
         children: [{
           children: null,
           content: 'a',
-          nesting: 0,
           tag: '',
           type: 'text'
         }]
       }, {
         content: '',
-        nesting: -1,
         tag: 'p',
         type: 'paragraph_close',
         children: null
       }, {
         content: '',
-        nesting: 1,
         tag: 'p',
         type: 'paragraph_open',
         children: null
       }, {
         content: 'a',
-        nesting: 0,
         tag: '',
         type: 'inline',
         children: [{
           content: 'a',
-          nesting: 0,
           tag: '',
           type: 'text',
           children: null
         }]
       }, {
         content: '',
-        nesting: -1,
         tag: 'p',
         type: 'paragraph_close',
         children: null
       }, {
         content: '',
-        nesting: -1,
         tag: 'blockquote',
         type: 'blockquote_close',
         children: null
