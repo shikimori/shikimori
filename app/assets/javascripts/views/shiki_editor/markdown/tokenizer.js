@@ -1,6 +1,10 @@
 import { Token } from './token';
 
 export class Tokenizer {
+  SPECIAL_TAGS = {
+    paragraph: 'p'
+  }
+
   constructor(text) {
     this.text = text;
 
@@ -27,6 +31,7 @@ export class Tokenizer {
     this.char1 = this.text[this.charIndex];
     this.char2 = this.text[this.charIndex + 1];
     this.char3 = this.text[this.charIndex + 2];
+    this.char4 = this.text[this.charIndex + 3];
   }
 
   parseLine(startIndex) {
@@ -48,27 +53,54 @@ export class Tokenizer {
   }
 
   processInline() {
-    if (!this.inlineTokens.length) {
-      this.inlineTokens.push(new Token('text', '', '', 0));
-    }
-    const token = this.inlineTokens.last();
+    const { char1, char2, char3, char4, inlineTokens } = this;
 
-    token.content += this.char1;
+    if (char1 === '[' && char3 === ']') {
+      if (char2 === 'b') {
+        inlineTokens.push(this.tagOpen('strong'));
+        this.next(3);
+        return;
+      }
+      if (char2 === 'i') {
+        inlineTokens.push(this.tagOpen('em'));
+        this.next(3);
+        return;
+      }
+    }
+    if (char1 === '[' && char2 === '/' && char4 === ']') {
+      if (char3 === 'b') {
+        inlineTokens.push(this.tagClose('strong'));
+        this.next(4);
+        return;
+      }
+      if (char3 === 'i') {
+        inlineTokens.push(this.tagClose('em'));
+        this.next(4);
+        return;
+      }
+    }
+
+    if (inlineTokens.last()?.type !== 'text') {
+      inlineTokens.push(new Token('text', '', ''));
+    }
+    const token = inlineTokens.last();
+
+    token.content += char1;
     this.next(1);
   }
 
   processParagraph(startIndex) {
     const text = this.text.slice(startIndex, this.charIndex);
 
-    this.push(this.tagOpen('paragraph', 'p'));
-    this.push(new Token('inline', '', text, 0, this.inlineTokens));
-    this.push(this.tagClose('paragraph', 'p'));
+    this.push(this.tagOpen('paragraph'));
+    this.push(new Token('inline', '', text, this.inlineTokens));
+    this.push(this.tagClose('paragraph'));
 
     this.inlineTokens = [];
   }
 
   processBlockQuote() {
-    this.push(this.tagOpen('blockquote', 'blockquote'));
+    this.push(this.tagOpen('blockquote'));
 
     this.next(2);
     this.parseLine(this.charIndex);
@@ -78,15 +110,23 @@ export class Tokenizer {
       this.parseLine(this.charIndex);
     }
 
-    this.push(this.tagClose('blockquote', 'blockquote'));
+    this.push(this.tagClose('blockquote'));
   }
 
-  tagOpen(type, tag) {
-    return new Token(`${type}_open`, tag, '', 1);
+  tagOpen(type) {
+    return new Token(
+      `${type}_open`,
+      this.SPECIAL_TAGS[type] || type,
+      ''
+    );
   }
 
-  tagClose(type, tag) {
-    return new Token(`${type}_close`, tag, '', -1);
+  tagClose(type) {
+    return new Token(
+      `${type}_close`,
+      this.SPECIAL_TAGS[type] || type,
+      ''
+    );
   }
 
   push(token) {

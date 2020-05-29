@@ -10,7 +10,8 @@
  * Create new token and fill passed properties.
  * */
 export class Token {
-  constructor(type, tag, content, nesting, children = null) {
+  // constructor(type, tag, content, nesting, children = null) {
+  constructor(type, tag, content, children = null) {
     /**
     * Token#type -> String
     *
@@ -48,7 +49,7 @@ export class Token {
     * -  `0` means the tag is self-closing
     * - `-1` means the tag is closing
     * */
-    this.nesting = nesting;
+    // this.nesting = nesting;
 
     /**
     * Token#level -> Number
