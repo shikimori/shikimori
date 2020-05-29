@@ -41,6 +41,13 @@ export class Tokenizer {
     this.charIndex += 2;
     this.parseLine(this.charIndex);
 
+    const nextChar = this.text[this.charIndex + 1];
+    const nextNextChar = this.text[this.charIndex + 2];
+    if (nextChar === '>' && nextNextChar === ' ') {
+      this.charIndex += 3;
+      this.parseLine(this.charIndex);
+    }
+
     this.tagClose('blockquote', 'blockquote');
   }
 
