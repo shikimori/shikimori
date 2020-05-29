@@ -2,95 +2,113 @@ import { Token } from './token';
 
 export class Tokenizer {
   SPECIAL_TAGS = {
-    paragraph: 'p'
+    paragraph: 'p',
+    bullet_list: 'ul',
+    list_item: 'li'
   }
+  MAX_BBCODE_SIZE = 10;
 
   constructor(text) {
     this.text = text;
 
-    this.charIndex = -1;
-    this.char1 = null;
-    this.char2 = null;
-    this.char3 = null;
+    this.index = -1;
 
     this.tokens = [];
     this.inlineTokens = [];
   }
 
   parse() {
-    while (this.charIndex < this.text.length - 1) {
+    while (this.index < this.text.length - 1) {
       this.next(1);
-      this.parseLine(this.charIndex);
+      this.parseLine();
     }
 
     return this.tokens.flatten();
   }
 
   next(steps) {
-    this.charIndex += steps;
-    this.char1 = this.text[this.charIndex];
-    this.char2 = this.text[this.charIndex + 1];
-    this.char3 = this.text[this.charIndex + 2];
-    this.char4 = this.text[this.charIndex + 3];
+    this.index += steps;
+    this.char1 = this.text[this.index];
+    this.char2 = this.text[this.index + 1];
+    this.char3 = this.text[this.index + 2];
+    this.char4 = this.text[this.index + 3];
+
+    this.seq2 = this.char1 + this.char2;
+
+    this.bbcode = this.char1 === '[' ? this.extractBbCode() : null;
   }
 
-  parseLine(startIndex) {
-    while (this.charIndex <= this.text.length) {
-      const { char1, char2 } = this;
-      const isStart = startIndex === this.charIndex;
+  parseLine() {
+    const startIndex = this.index;
+
+    outer: while (this.index <= this.text.length) { // eslint-disable-line no-restricted-syntax
+      const { char1, seq2 } = this;
+      const isStart = startIndex === this.index;
       const isEnd = char1 === '\n' || char1 === undefined;
 
       if (isEnd) {
         this.processParagraph(startIndex);
         break;
-      } else if (isStart && char1 === '>' && char2 === ' ') {
-        this.processBlockQuote();
-        break;
-      } else {
-        this.processInline();
       }
+
+      if (isStart) {
+        switch (seq2) {
+          case '> ':
+            this.processBlockQuote();
+            break outer;
+
+          case '- ':
+          case '+ ':
+          case '* ':
+            this.processBulletList();
+            break outer;
+
+          default:
+        }
+      }
+
+      this.processInline();
     }
   }
 
   processInline() {
-    const { char1, char2, char3, char4, inlineTokens } = this;
+    const { char1, inlineTokens } = this;
 
-    if (char1 === '[' && char3 === ']') {
-      if (char2 === 'b') {
+    switch (this.bbcode) {
+      case '[b]':
         inlineTokens.push(this.tagOpen('strong'));
-        this.next(3);
+        this.next(this.bbcode.length);
         return;
-      }
-      if (char2 === 'i') {
+
+      case '[i]':
         inlineTokens.push(this.tagOpen('em'));
         this.next(3);
         return;
-      }
-    }
-    if (char1 === '[' && char2 === '/' && char4 === ']') {
-      if (char3 === 'b') {
+
+      case '[/b]':
         inlineTokens.push(this.tagClose('strong'));
         this.next(4);
         return;
-      }
-      if (char3 === 'i') {
+
+      case '[/i]':
         inlineTokens.push(this.tagClose('em'));
         this.next(4);
         return;
-      }
-    }
 
-    if (inlineTokens.last()?.type !== 'text') {
-      inlineTokens.push(new Token('text', '', ''));
-    }
-    const token = inlineTokens.last();
+      default:
+        if (inlineTokens.last()?.type !== 'text') {
+          inlineTokens.push(new Token('text', '', ''));
+        }
+        const token = inlineTokens.last();
 
-    token.content += char1;
-    this.next(1);
+        token.content += char1;
+        this.next(1);
+        break;
+    }
   }
 
   processParagraph(startIndex) {
-    const text = this.text.slice(startIndex, this.charIndex);
+    const text = this.text.slice(startIndex, this.index);
 
     this.push(this.tagOpen('paragraph'));
     this.push(new Token('inline', '', text, this.inlineTokens));
@@ -103,14 +121,31 @@ export class Tokenizer {
     this.push(this.tagOpen('blockquote'));
 
     this.next(2);
-    this.parseLine(this.charIndex);
+    this.parseLine();
 
     if (this.char2 === '>' && this.char3 === ' ') {
       this.next(3);
-      this.parseLine(this.charIndex);
+      this.parseLine();
     }
 
     this.push(this.tagClose('blockquote'));
+  }
+
+  processBulletList() {
+    this.push(this.tagOpen('bullet_list'));
+
+    this.next(2);
+
+    this.push(this.tagOpen('list_item'));
+    this.parseLine();
+    this.push(this.tagClose('list_item'));
+
+    // if ((this.char2 === '-' || this.char2 === '+' || this.char2 === '*') && this.char3 === ' ') {
+    //   this.next(3);
+    //   this.parseLine();
+    // }
+
+    this.push(this.tagClose('bullet_list'));
   }
 
   tagOpen(type) {
@@ -131,6 +166,15 @@ export class Tokenizer {
 
   push(token) {
     this.tokens.push(token);
+  }
+
+  extractBbCode() {
+    for (let i = this.index + 1; i < this.index + this.MAX_BBCODE_SIZE; i++) {
+      if (this.text[i] === ']') {
+        return this.text.slice(this.index, i + 1);
+      }
+    }
+    return null;
   }
 }
 

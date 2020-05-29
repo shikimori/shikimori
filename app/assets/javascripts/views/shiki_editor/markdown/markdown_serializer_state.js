@@ -1,4 +1,4 @@
-/* eslint no-param-reassign: 0, no-labels: 0, no-restricted-syntax: 0, no-continue: 0 */
+/* eslint no-param-reassign: 0, no-restricted-syntax: 0 */
 
 // ::- This is an object used to track state and expose
 // methods related to markdown serialization. Instances are passed to
