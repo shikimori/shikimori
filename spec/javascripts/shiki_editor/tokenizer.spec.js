@@ -5,6 +5,30 @@ sugar.extend();
 
 import { Tokenizer } from 'views/shiki_editor/markdown/tokenizer';
 
+function text(content) {
+  return [{
+    content: '',
+    tag: 'p',
+    type: 'paragraph_open',
+    children: null
+  }, {
+    content,
+    tag: '',
+    type: 'inline',
+    children: [{
+      content,
+      tag: '',
+      type: 'text',
+      children: null
+    }]
+  }, {
+    content: '',
+    tag: 'p',
+    type: 'paragraph_close',
+    children: null
+  }];
+}
+
 describe('Tokenizer', () => {
   it('<empty>', () => {
     expect(Tokenizer.parse('')).to.eql([]);
@@ -12,95 +36,22 @@ describe('Tokenizer', () => {
 
   describe('parahraphs', () => {
     it('z', () => {
-      expect(Tokenizer.parse('z')).to.eql([{
-        content: '',
-        tag: 'p',
-        type: 'paragraph_open',
-        children: null
-      }, {
-        content: 'z',
-        tag: '',
-        type: 'inline',
-        children: [{
-          content: 'z',
-          tag: '',
-          type: 'text',
-          children: null
-        }]
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_close',
-        children: null
-      }]);
+      expect(Tokenizer.parse('z')).to.eql([
+        ...text('z')
+      ]);
     });
 
     it('zzz', () => {
-      expect(Tokenizer.parse('zzz')).to.eql([{
-        content: '',
-        tag: 'p',
-        type: 'paragraph_open',
-        children: null
-      }, {
-        content: 'zzz',
-        tag: '',
-        type: 'inline',
-        children: [{
-          content: 'zzz',
-          tag: '',
-          type: 'text',
-          children: null
-        }]
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_close',
-        children: null
-      }]);
+      expect(Tokenizer.parse('zzz')).to.eql([
+        ...text('zzz')
+      ]);
     });
 
     it('zzz\\nxxx', () => {
-      expect(Tokenizer.parse('zzz\nxxx')).to.eql([{
-        content: '',
-        tag: 'p',
-        type: 'paragraph_open',
-        children: null
-      }, {
-        content: 'zzz',
-        tag: '',
-        type: 'inline',
-        children: [{
-          content: 'zzz',
-          tag: '',
-          type: 'text',
-          children: null
-        }]
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_close',
-        children: null
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_open',
-        children: null
-      }, {
-        content: 'xxx',
-        tag: '',
-        type: 'inline',
-        children: [{
-          content: 'xxx',
-          tag: '',
-          type: 'text',
-          children: null
-        }]
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_close',
-        children: null
-      }]);
+      expect(Tokenizer.parse('zzz\nxxx')).to.eql([
+        ...text('zzz'),
+        ...text('xxx')
+      ]);
     });
   });
 
@@ -191,27 +142,9 @@ describe('Tokenizer', () => {
         tag: 'blockquote',
         type: 'blockquote_open',
         children: null
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_open',
-        children: null
-      }, {
-        content: 'a',
-        tag: '',
-        type: 'inline',
-        children: [{
-          content: 'a',
-          tag: '',
-          type: 'text',
-          children: null
-        }]
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_close',
-        children: null
-      }, {
+      },
+      ...text('a'),
+      {
         content: '',
         tag: 'blockquote',
         type: 'blockquote_close',
@@ -225,67 +158,11 @@ describe('Tokenizer', () => {
         tag: 'blockquote',
         type: 'blockquote_open',
         children: null
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_open',
-        children: null
-      }, {
-        content: 'a',
-        tag: '',
-        type: 'inline',
-        children: [{
-          children: null,
-          content: 'a',
-          tag: '',
-          type: 'text'
-        }]
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_close',
-        children: null
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_open',
-        children: null
-      }, {
-        content: 'a',
-        tag: '',
-        type: 'inline',
-        children: [{
-          content: 'a',
-          tag: '',
-          type: 'text',
-          children: null
-        }]
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_close',
-        children: null
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_open',
-        children: null
-      }, {
-        content: 'a',
-        tag: '',
-        type: 'inline',
-        children: [{
-          content: 'a',
-          tag: '',
-          type: 'text',
-          children: null
-        }]
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_close',
-        children: null
-      }, {
+      },
+      ...text('a'),
+      ...text('a'),
+      ...text('a'),
+      {
         content: '',
         tag: 'blockquote',
         type: 'blockquote_close',
@@ -304,27 +181,9 @@ describe('Tokenizer', () => {
         tag: 'blockquote',
         type: 'blockquote_open',
         children: null
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_open',
-        children: null
-      }, {
-        content: 'a',
-        tag: '',
-        type: 'inline',
-        children: [{
-          content: 'a',
-          tag: '',
-          type: 'text',
-          children: null
-        }]
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_close',
-        children: null
-      }, {
+      },
+      ...text('a'),
+      {
         content: '',
         tag: 'blockquote',
         type: 'blockquote_close',
@@ -336,6 +195,50 @@ describe('Tokenizer', () => {
         children: null
       }]);
     });
+
+    // it('> > a\\n> a', () => {
+    //   expect(Tokenizer.parse('> > a\n> a')).to.eql([{
+    //     content: '',
+    //     tag: 'blockquote',
+    //     type: 'blockquote_open',
+    //     children: null
+    //   }, {
+    //     content: '',
+    //     tag: 'blockquote',
+    //     type: 'blockquote_open',
+    //     children: null
+    //   }, {
+    //     content: '',
+    //     tag: 'p',
+    //     type: 'paragraph_open',
+    //     children: null
+    //   }, {
+    //     content: 'a',
+    //     tag: '',
+    //     type: 'inline',
+    //     children: [{
+    //       content: 'a',
+    //       tag: '',
+    //       type: 'text',
+    //       children: null
+    //     }]
+    //   }, {
+    //     content: '',
+    //     tag: 'p',
+    //     type: 'paragraph_close',
+    //     children: null
+    //   }, {
+    //     content: '',
+    //     tag: 'blockquote',
+    //     type: 'blockquote_close',
+    //     children: null
+    //   }, {
+    //     content: '',
+    //     tag: 'blockquote',
+    //     type: 'blockquote_close',
+    //     children: null
+    //   }]);
+    // });
   });
 
   describe('bullet_list', () => {
@@ -350,27 +253,9 @@ describe('Tokenizer', () => {
         tag: 'li',
         type: 'list_item_open',
         children: null
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_open',
-        children: null
-      }, {
-        content: 'a',
-        tag: '',
-        type: 'inline',
-        children: [{
-          content: 'a',
-          tag: '',
-          type: 'text',
-          children: null
-        }]
-      }, {
-        content: '',
-        tag: 'p',
-        type: 'paragraph_close',
-        children: null
-      }, {
+      },
+      ...text('a'),
+      {
         content: '',
         tag: 'li',
         type: 'list_item_close',
