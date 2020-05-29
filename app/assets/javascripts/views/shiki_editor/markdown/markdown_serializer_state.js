@@ -26,10 +26,15 @@ export class MarkdownSerializerState {
       // if (!this.atBlank()) this.out += '\n';
       if (size == null) size = 2;
       if (size > 1) {
-        let delimMin = this.delim;
-        const trim = /\s+$/.exec(delimMin);
-        if (trim) delimMin = delimMin.slice(0, delimMin.length - trim[0].length);
-        for (let i = 1; i < size; i++) this.out += delimMin + '\n';
+        this.out += '\n';
+        // let delimMin = this.delim;
+        // const trim = /\s+$/.exec(delimMin);
+        // if (trim) {
+        //   delimMin = delimMin.slice(0, delimMin.length - trim[0].length);
+        // }
+        // for (let i = 1; i < size; i++) {
+        //   this.out += delimMin + '\n';
+        // }
       }
       this.closed = false;
     }
@@ -41,11 +46,11 @@ export class MarkdownSerializerState {
   // the end of the block, and `f` is a function that renders the
   // content of the block.
   wrapBlock(delim, firstDelim, node, f) {
-    const old = this.delim;
+    const oldDelim = this.delim;
     this.write(firstDelim || delim);
     this.delim += delim;
     f();
-    this.delim = old;
+    this.delim = oldDelim;
     this.closeBlock(node);
   }
 
@@ -65,8 +70,13 @@ export class MarkdownSerializerState {
   // (unescaped) to the output.
   write(content) {
     this.flushClose();
-    if (this.delim && this.atBlank()) this.out += this.delim;
-    if (content) this.out += content;
+
+    if (this.delim && this.atBlank()) {
+      this.out += this.delim;
+    }
+    if (content) {
+      this.out += content;
+    }
   }
 
   // :: (Node)
