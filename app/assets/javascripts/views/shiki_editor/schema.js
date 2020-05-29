@@ -17,7 +17,7 @@ const nodes = {
     content: 'block+',
     group: 'block',
     parseDOM: [{ tag: 'blockquote' }],
-    toDOM() { return ['blockquote', 0]; }
+    toDOM() { return ['blockquote', { class: 'b-quote-v2' }, 0]; }
   },
   bullet_list: {
     content: 'list_item+',
@@ -25,7 +25,11 @@ const nodes = {
     attrs: { tight: { default: false } },
     parseDOM: [{ tag: 'ul', getAttrs: dom => ({ tight: dom.hasAttribute('data-tight') }) }],
     toDOM(node) {
-      return ['ul', { 'data-tight': node.attrs.tight ? 'true' : null, class: 'b-list' }, 0];
+      return [
+        'ul',
+        { 'data-tight': node.attrs.tight ? 'true' : null, class: 'b-list' },
+        0
+      ];
     }
   },
   list_item: {
