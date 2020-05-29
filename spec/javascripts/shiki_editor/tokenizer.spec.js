@@ -219,8 +219,8 @@ describe('Tokenizer', () => {
       }]);
     });
 
-    it('> a\\n> a', () => {
-      expect(Tokenizer.parse('> a\n> a')).to.eql([{
+    it('> a\\n> a\\n> a', () => {
+      expect(Tokenizer.parse('> a\n> a\n> a')).to.eql([{
         content: '',
         tag: 'blockquote',
         type: 'blockquote_open',
@@ -239,6 +239,26 @@ describe('Tokenizer', () => {
           content: 'a',
           tag: '',
           type: 'text'
+        }]
+      }, {
+        content: '',
+        tag: 'p',
+        type: 'paragraph_close',
+        children: null
+      }, {
+        content: '',
+        tag: 'p',
+        type: 'paragraph_open',
+        children: null
+      }, {
+        content: 'a',
+        tag: '',
+        type: 'inline',
+        children: [{
+          content: 'a',
+          tag: '',
+          type: 'text',
+          children: null
         }]
       }, {
         content: '',

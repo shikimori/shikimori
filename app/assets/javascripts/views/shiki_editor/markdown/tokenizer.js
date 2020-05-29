@@ -26,7 +26,7 @@ export class Tokenizer {
     return this.tokens.flatten();
   }
 
-  next(steps) {
+  next(steps = 1) {
     this.index += steps;
     this.char1 = this.text[this.index];
     this.char2 = this.text[this.index + 1];
@@ -54,7 +54,7 @@ export class Tokenizer {
       if (isStart) {
         switch (seq2) {
           case '> ':
-            this.processBlockQuote();
+            this.processBlockQuote(seq2);
             break outer;
 
           case '- ':
@@ -102,7 +102,7 @@ export class Tokenizer {
         const token = inlineTokens.last();
 
         token.content += char1;
-        this.next(1);
+        this.next();
         break;
     }
   }
@@ -117,16 +117,14 @@ export class Tokenizer {
     this.inlineTokens = [];
   }
 
-  processBlockQuote() {
+  processBlockQuote(sequence) {
     this.push(this.tagOpen('blockquote'));
 
-    this.next(2);
-    this.parseLine();
-
-    if (this.char2 === '>' && this.char3 === ' ') {
-      this.next(3);
+    do {
+      this.next(sequence.length);
       this.parseLine();
-    }
+      this.next();
+    } while (this.isContinued(sequence));
 
     this.push(this.tagClose('blockquote'));
   }
@@ -166,6 +164,10 @@ export class Tokenizer {
 
   push(token) {
     this.tokens.push(token);
+  }
+
+  isContinued(sequence) {
+    return this.text.slice(this.index, this.index + sequence.length) === sequence;
   }
 
   extractBbCode() {
