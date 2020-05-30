@@ -69,14 +69,14 @@ export const menu = {
   content: [
     [
       new MenuItem({
-        title: 'Toggle Strong',
+        title: () => I18n.t('frontend.shiki_editor.bold'),
         icon: icons.strong,
         enable: () => true,
         active: markActive(schema.marks.strong),
         run: toggleMark(schema.marks.strong)
       }),
       new MenuItem({
-        title: 'Toggle Emphasis',
+        title: () => I18n.t('frontend.shiki_editor.italic'),
         icon: icons.em,
         enable: () => true,
         active: markActive(schema.marks.em),

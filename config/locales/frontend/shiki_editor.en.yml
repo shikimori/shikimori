@@ -5,3 +5,7 @@ en:
       text_cant_be_blank: Text can't be blank
       spoiler: spoiler
       file: file
+      bold: Bold
+      italic: Italic
+      underline: Underlined
+      striked: Deleted

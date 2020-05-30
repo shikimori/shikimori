@@ -5,3 +5,7 @@ ru:
       text_cant_be_blank: Текст не может быть пустым
       spoiler: спойлер
       file: файл
+      bold: Жирный
+      italic: Курсив
+      underline: Подчёркнутый
+      striked: Зачёркнутый
