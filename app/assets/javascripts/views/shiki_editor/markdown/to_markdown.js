@@ -60,7 +60,7 @@ export const shikiMarkdownSerializer = new MarkdownSerializer({
     state.wrapBlock('> ', null, node, () => state.renderContent(node));
   },
   bullet_list(state, node) {
-    state.renderList(node, '  ', () => (node.attrs.bullet || '*') + ' ');
+    state.renderList(node, '  ', () => (node.attrs.bullet || '-') + ' ');
   },
   list_item(state, node) {
     state.renderContent(node);
