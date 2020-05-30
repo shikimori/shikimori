@@ -378,5 +378,31 @@ describe('Tokenizer', () => {
         children: null
       }]);
     });
+
+    it('[*]a', () => {
+      expect(Tokenizer.parse('[*]a')).to.eql([{
+        content: '',
+        tag: 'ul',
+        type: 'bullet_list_open',
+        children: null
+      }, {
+        content: '',
+        tag: 'li',
+        type: 'list_item_open',
+        children: null
+      },
+      ...text('a'),
+      {
+        content: '',
+        tag: 'li',
+        type: 'list_item_close',
+        children: null
+      }, {
+        content: '',
+        tag: 'ul',
+        type: 'bullet_list_close',
+        children: null
+      }]);
+    });
   });
 });

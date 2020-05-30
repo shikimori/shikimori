@@ -64,7 +64,12 @@ export class Tokenizer {
 
         switch (this.bbcode) {
           case '[*]':
-            this.processBulletList(nestedSequence, this.bbcode);
+            this.processBulletList(
+              nestedSequence,
+              this.text[this.index + this.bbcode.length] === ' ' ?
+                this.bbcode + ' ' :
+                this.bbcode
+            );
             break outer;
         }
       }
@@ -140,13 +145,26 @@ export class Tokenizer {
 
     do {
       this.next(tagSequence.length);
-
       this.push(this.tagOpen('list_item'));
-      this.parseLine();
+      this.processBulletListLines(nestedSequence, '  ');
       this.push(this.tagClose('list_item'));
     } while (this.isContinued(newSequence));
 
     this.push(this.tagClose('bullet_list'));
+  }
+
+  processBulletListLines(nestedSequence, tagSequence) {
+    const newSequence = nestedSequence + tagSequence;
+    let line = 0;
+
+    do {
+      if (line > 0) {
+        this.next(newSequence.length);
+      }
+
+      this.parseLine();
+      line += 1;
+    } while (this.isContinued(newSequence));
   }
 
   tagOpen(type) {
