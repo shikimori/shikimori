@@ -9,5 +9,5 @@ en:
       italic: Italic
       underline: Underlined
       striked: Deleted
-      undo: Undo
-      redo: Redo
+      undo: Undo last change
+      redo: Redo last change
