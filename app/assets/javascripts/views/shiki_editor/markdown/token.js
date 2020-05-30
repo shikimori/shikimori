@@ -11,7 +11,7 @@
  * */
 export class Token {
   // constructor(type, tag, content, nesting, children = null) {
-  constructor(type, tag, content, children = null) {
+  constructor(type, content, children = null) {
     /**
     * Token#type -> String
     *
@@ -24,7 +24,7 @@ export class Token {
     *
     * html tag name, e.g. "p"
     * */
-    this.tag = tag;
+    // this.tag = tag;
 
     /**
     * Token#attrs -> Array

@@ -128,7 +128,7 @@ export class Tokenizer {
     }
 
     if (inlineTokens.last()?.type !== 'text') {
-      inlineTokens.push(new Token('text', '', ''));
+      inlineTokens.push(new Token('text', ''));
     }
     const token = inlineTokens.last();
 
@@ -140,7 +140,7 @@ export class Tokenizer {
     const text = this.text.slice(startIndex, this.index);
 
     this.push(this.tagOpen('paragraph'));
-    this.push(new Token('inline', '', text, this.inlineTokens));
+    this.push(new Token('inline', text, this.inlineTokens));
     this.push(this.tagClose('paragraph'));
 
     this.inlineTokens = [];
@@ -189,19 +189,11 @@ export class Tokenizer {
   }
 
   tagOpen(type) {
-    return new Token(
-      `${type}_open`,
-      this.SPECIAL_TAGS[type] || type,
-      ''
-    );
+    return new Token(`${type}_open`, '');
   }
 
   tagClose(type) {
-    return new Token(
-      `${type}_close`,
-      this.SPECIAL_TAGS[type] || type,
-      ''
-    );
+    return new Token(`${type}_close`, '');
   }
 
   push(token) {
