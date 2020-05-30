@@ -162,7 +162,7 @@ export class Tokenizer {
         this.next(newSequence.length);
       }
 
-      this.parseLine();
+      this.parseLine(newSequence);
       line += 1;
     } while (this.isContinued(newSequence));
   }
