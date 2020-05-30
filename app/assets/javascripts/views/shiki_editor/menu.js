@@ -64,6 +64,8 @@ const markActive = markType => state => {
 // const insertBlock = nodeType => (state, dispatch) => {
 //   insertBlockAfter(nodeType.createAndFill(), state, dispatch);
 // };
+undoItem.spec.title = () => I18n.t('frontend.shiki_editor.undo');
+redoItem.spec.title = () => I18n.t('frontend.shiki_editor.redo');
 
 export const menu = {
   floating: true,
@@ -96,9 +98,10 @@ export const menu = {
         enable: () => true,
         active: markActive(schema.marks.deleted),
         run: toggleMark(schema.marks.deleted)
-      }),
+      })
     ], [
-      undoItem, redoItem
+      undoItem,
+      redoItem
     ], [
       wrapListItem(schema.nodes.bullet_list, {
         title: 'Wrap in bullet list',
