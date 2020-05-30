@@ -81,5 +81,6 @@ export const shikiMarkdownSerializer = new MarkdownSerializer({
   }
 }, {
   em: { open: '[i]', close: '[/i]', mixable: true, expelEnclosingWhitespace: true },
-  strong: { open: '[b]', close: '[/b]', mixable: true, expelEnclosingWhitespace: true }
+  strong: { open: '[b]', close: '[/b]', mixable: true, expelEnclosingWhitespace: true },
+  deleted: { open: '[s]', close: '[/s]', mixable: true, expelEnclosingWhitespace: true }
 });

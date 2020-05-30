@@ -6,6 +6,7 @@ import {
   undoItem,
   redoItem
 } from 'prosemirror-menu';
+import shikiIcons from './icons';
 // import { TextSelection } from 'prosemirror-state';
 import { toggleMark } from 'prosemirror-commands';
 import { wrapInList } from 'prosemirror-schema-list';
@@ -81,6 +82,13 @@ export const menu = {
         enable: () => true,
         active: markActive(schema.marks.em),
         run: toggleMark(schema.marks.em)
+      }),
+      new MenuItem({
+        title: () => I18n.t('frontend.shiki_editor.striked'),
+        icon: shikiIcons.deleted,
+        enable: () => true,
+        active: markActive(schema.marks.deleted),
+        run: toggleMark(schema.marks.deleted)
       })
     ], [
       undoItem, redoItem

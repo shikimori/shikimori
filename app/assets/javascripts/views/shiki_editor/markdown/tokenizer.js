@@ -87,18 +87,28 @@ export class Tokenizer {
         this.next(this.bbcode.length);
         return;
 
-      case '[i]':
-        inlineTokens.push(this.tagOpen('em'));
-        this.next(3);
-        return;
-
       case '[/b]':
         inlineTokens.push(this.tagClose('strong'));
         this.next(4);
         return;
 
+      case '[i]':
+        inlineTokens.push(this.tagOpen('em'));
+        this.next(3);
+        return;
+
       case '[/i]':
         inlineTokens.push(this.tagClose('em'));
+        this.next(4);
+        return;
+
+      case '[s]':
+        inlineTokens.push(this.tagOpen('del'));
+        this.next(3);
+        return;
+
+      case '[/s]':
+        inlineTokens.push(this.tagClose('del'));
         this.next(4);
         return;
 

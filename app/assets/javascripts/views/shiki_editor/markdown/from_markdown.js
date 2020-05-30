@@ -252,6 +252,7 @@ const tokens = {
 
   em: { mark: 'em' },
   strong: { mark: 'strong' },
+  del: { mark: 'deleted' },
   // link: { mark: 'link',
   //   getAttrs: tok => ({
   //     href: tok.attrGet('href'),

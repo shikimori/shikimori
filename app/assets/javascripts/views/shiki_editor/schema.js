@@ -56,6 +56,12 @@ const marks = {
       { tag: 'strong' }
     ],
     toDOM: () => ['strong', 0]
+  },
+  deleted: {
+    parseDOM: [
+      { tag: 'del' }
+    ],
+    toDOM: () => ['del', 0]
   }
 };
 
