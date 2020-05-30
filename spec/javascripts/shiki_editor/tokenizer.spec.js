@@ -171,6 +171,42 @@ describe('Tokenizer', () => {
     });
   });
 
+  describe('deleted', () => {
+    it('[s]zxc[/s]', () => {
+      expect(Tokenizer.parse('[s]zxc[/s]')).to.eql([{
+        content: '',
+        tag: 'p',
+        type: 'paragraph_open',
+        children: null
+      }, {
+        content: '[s]zxc[/s]',
+        tag: '',
+        type: 'inline',
+        children: [{
+          content: '',
+          tag: 'del',
+          type: 'del_open',
+          children: null
+        }, {
+          content: 'zxc',
+          tag: '',
+          type: 'text',
+          children: null
+        }, {
+          content: '',
+          tag: 'del',
+          type: 'del_close',
+          children: null
+        }]
+      }, {
+        content: '',
+        tag: 'p',
+        type: 'paragraph_close',
+        children: null
+      }]);
+    });
+  });
+
   describe('blockquote', () => {
     it('> a', () => {
       expect(Tokenizer.parse('> a')).to.eql([{
