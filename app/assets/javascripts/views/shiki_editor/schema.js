@@ -62,6 +62,12 @@ const marks = {
       { tag: 'del' }
     ],
     toDOM: () => ['del', 0]
+  },
+  underline: {
+    parseDOM: [
+      { tag: 'span' }
+    ],
+    toDOM: () => ['span', { style: 'text-decoration: underline;' }, 0]
   }
 };
 

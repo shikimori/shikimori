@@ -4,7 +4,8 @@ export class Tokenizer {
   SPECIAL_TAGS = {
     paragraph: 'p',
     bullet_list: 'ul',
-    list_item: 'li'
+    list_item: 'li',
+    underline: 'span'
   }
   MAX_BBCODE_SIZE = 10;
 
@@ -99,6 +100,16 @@ export class Tokenizer {
 
       case '[/i]':
         inlineTokens.push(this.tagClose('em'));
+        this.next(4);
+        return;
+
+      case '[u]':
+        inlineTokens.push(this.tagOpen('underline'));
+        this.next(3);
+        return;
+
+      case '[/u]':
+        inlineTokens.push(this.tagClose('underline'));
         this.next(4);
         return;
 

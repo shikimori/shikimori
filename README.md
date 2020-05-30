@@ -100,8 +100,8 @@ CharactersIndex.reset!
 ClubsIndex.reset!
 CollectionsIndex.reset!
 ArticlesIndex.reset!
-UsersIndex.reset!
 TopicsIndex.reset!
+UsersIndex.reset!
 ```
 
 

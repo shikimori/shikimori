@@ -84,12 +84,19 @@ export const menu = {
         run: toggleMark(schema.marks.em)
       }),
       new MenuItem({
+        title: () => I18n.t('frontend.shiki_editor.underline'),
+        icon: shikiIcons.underline,
+        enable: () => true,
+        active: markActive(schema.marks.underline),
+        run: toggleMark(schema.marks.underline)
+      }),
+      new MenuItem({
         title: () => I18n.t('frontend.shiki_editor.striked'),
         icon: shikiIcons.deleted,
         enable: () => true,
         active: markActive(schema.marks.deleted),
         run: toggleMark(schema.marks.deleted)
-      })
+      }),
     ], [
       undoItem, redoItem
     ], [
