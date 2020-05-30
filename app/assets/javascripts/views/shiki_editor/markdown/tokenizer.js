@@ -29,11 +29,8 @@ export class Tokenizer {
   next(steps = 1) {
     this.index += steps;
     this.char1 = this.text[this.index];
-    this.char2 = this.text[this.index + 1];
-    this.char3 = this.text[this.index + 2];
-    this.char4 = this.text[this.index + 3];
 
-    this.seq2 = this.char1 + this.char2;
+    this.seq2 = this.char1 + this.text[this.index + 1];
 
     this.bbcode = this.char1 === '[' ? this.extractBbCode() : null;
   }
@@ -63,8 +60,12 @@ export class Tokenizer {
           case '* ':
             this.processBulletList(nestedSequence, seq2);
             break outer;
+        }
 
-          default:
+        switch (this.bbcode) {
+          case '[*]':
+            this.processBulletList(nestedSequence, this.bbcode);
+            break outer;
         }
       }
 

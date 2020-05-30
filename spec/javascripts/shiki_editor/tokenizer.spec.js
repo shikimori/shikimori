@@ -290,6 +290,33 @@ describe('Tokenizer', () => {
       }]);
     });
 
+    it('- test\\nn  zxc', () => {
+      expect(Tokenizer.parse('- test\n  zxc')).to.eql([{
+        content: '',
+        tag: 'ul',
+        type: 'bullet_list_open',
+        children: null
+      }, {
+        content: '',
+        tag: 'li',
+        type: 'list_item_open',
+        children: null
+      },
+      ...text('test'),
+      ...text('zxc'),
+      {
+        content: '',
+        tag: 'li',
+        type: 'list_item_close',
+        children: null
+      }, {
+        content: '',
+        tag: 'ul',
+        type: 'bullet_list_close',
+        children: null
+      }]);
+    });
+
     it('- > test', () => {
       expect(Tokenizer.parse('- > test')).to.eql([{
         content: '',
@@ -314,6 +341,32 @@ describe('Tokenizer', () => {
         type: 'blockquote_close',
         children: null
       }, {
+        content: '',
+        tag: 'li',
+        type: 'list_item_close',
+        children: null
+      }, {
+        content: '',
+        tag: 'ul',
+        type: 'bullet_list_close',
+        children: null
+      }]);
+    });
+
+    it('[*] a', () => {
+      expect(Tokenizer.parse('[*] a')).to.eql([{
+        content: '',
+        tag: 'ul',
+        type: 'bullet_list_open',
+        children: null
+      }, {
+        content: '',
+        tag: 'li',
+        type: 'list_item_open',
+        children: null
+      },
+      ...text('a'),
+      {
         content: '',
         tag: 'li',
         type: 'list_item_close',
