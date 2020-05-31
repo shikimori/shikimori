@@ -33,6 +33,7 @@ export class Tokenizer {
 
     this.seq2 = this.char1 + this.text[this.index + 1];
     this.seq3 = this.seq2 + this.text[this.index + 2];
+    this.seq4 = this.seq3 + this.text[this.index + 3];
 
     this.bbcode = this.char1 === '[' ? this.extractBbCode() : null;
   }
@@ -41,7 +42,7 @@ export class Tokenizer {
     const startIndex = this.index;
 
     outer: while (this.index <= this.text.length) { // eslint-disable-line no-restricted-syntax
-      const { char1, seq2 } = this;
+      const { char1, seq2, seq3 } = this;
       const isStart = startIndex === this.index;
       const isEnd = char1 === '\n' || char1 === undefined;
 
@@ -196,6 +197,36 @@ export class Tokenizer {
   }
 
   processCode(sequence) {
+    this.next(sequence.length);
+    const language = this.extractLanguage();
+    const startIndex = this.index;
+
+    while (this.index <= this.text.length) {
+      if (this.seq4 === '\n```') {
+        this.next(5);
+        break;
+      }
+      this.next();
+    }
+
+    this.push(
+      new Token('code_block', this.text.slice(startIndex, this.index - 5))
+    );
+  }
+
+  extractLanguage() {
+    const startIndex = this.index;
+
+    while (this.index <= this.text.length) {
+      const isEnd = this.char1 === '\n' || this.char1 === undefined;
+      this.next();
+
+      if (isEnd) {
+        return this.text.slice(startIndex, this.index - 1);
+      }
+    }
+
+    return null;
   }
 
   tagOpen(type) {

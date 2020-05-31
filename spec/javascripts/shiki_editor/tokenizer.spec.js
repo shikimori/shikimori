@@ -416,5 +416,17 @@ describe('Tokenizer', () => {
         children: null
       }]);
     });
+
+    it('qwe\\n```\\nzxc\\nvbn\\n```\\nrty', () => {
+      expect(Tokenizer.parse('qwe\n```\nzxc\nvbn\n```\nrty')).to.eql([
+        ...text('qwe'),
+        {
+          content: 'zxc\nvbn',
+          type: 'code_block',
+          children: null
+        },
+        ...text('rty')
+      ]);
+    });
   });
 });
