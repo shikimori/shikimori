@@ -3,7 +3,6 @@ import { Schema } from 'prosemirror-model';
 const pDOM = ['p', 0];
 const blockquoteDOM = ['blockquote', { class: 'b-quote-v2' }, 0];
 const liDOM = ['li', 0];
-const preDOM = ['pre', ['code', 0]];
 
 const nodes = {
   doc: {
@@ -52,12 +51,27 @@ const nodes = {
   // `<code>` element inside of it.
   code_block: {
     content: 'text*',
-    marks: '',
     group: 'block',
     code: true,
     defining: true,
-    parseDOM: [{ tag: 'pre', preserveWhitespace: 'full' }],
-    toDOM() { return preDOM; }
+    marks: '',
+    attrs: { params: { default: '' } },
+    parseDOM: [{
+      tag: 'pre',
+      preserveWhitespace: 'full',
+      getAttrs: node => (
+        {
+          params: node.getAttribute('data-params') || ''
+        }
+      )
+    }],
+    toDOM(node) {
+      return [
+        'pre',
+        node.attrs.params ? { 'data-params': node.attrs.params } : {},
+        ['code', { class: 'b-code' }, 0]
+      ];
+    }
   }
 };
 
@@ -137,19 +151,6 @@ export const schema = new Schema({ nodes, marks });
 //                  {tag: "h5", attrs: {level: 5}},
 //                  {tag: "h6", attrs: {level: 6}}],
 //       toDOM(node) { return ["h" + node.attrs.level, 0] }
-//     },
-//
-//     code_block: {
-//       content: "text*",
-//       group: "block",
-//       code: true,
-//       defining: true,
-//       marks: "",
-//       attrs: {params: {default: ""}},
-//       parseDOM: [{tag: "pre", preserveWhitespace: "full", getAttrs: node => (
-//         {params: node.getAttribute("data-params") || ""}
-//       )}],
-//       toDOM(node) { return ["pre", node.attrs.params ? {"data-params": node.attrs.params} : {}, ["code", 0]] }
 //     },
 //
 //     ordered_list: {

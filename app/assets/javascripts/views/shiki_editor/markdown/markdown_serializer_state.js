@@ -60,9 +60,9 @@ export class MarkdownSerializerState {
 
   // :: ()
   // Ensure the current content ends with a newline.
-  // ensureNewLine() {
-  //   if (!this.atBlank()) this.out += '\n';
-  // }
+  ensureNewLine() {
+    if (!this.atBlank()) this.out += '\n';
+  }
 
   // :: (?string)
   // Prepare the state for writing output (closing closed paragraphs,

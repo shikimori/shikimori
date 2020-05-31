@@ -59,6 +59,13 @@ export const shikiMarkdownSerializer = new MarkdownSerializer({
   blockquote(state, node) {
     state.wrapBlock('> ', null, node, () => state.renderContent(node));
   },
+  code_block(state, node) {
+    state.write('```' + (node.attrs.params || '') + '\n');
+    state.text(node.textContent, false);
+    state.ensureNewLine();
+    state.write('```');
+    state.closeBlock(node);
+  },
   bullet_list(state, node) {
     state.renderList(node, '  ', () => (node.attrs.bullet || '-') + ' ');
   },
