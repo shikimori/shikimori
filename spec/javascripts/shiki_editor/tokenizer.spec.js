@@ -428,5 +428,13 @@ describe('Tokenizer', () => {
         ...text('rty')
       ]);
     });
+
+    it('```\\nzxc', () => {
+      expect(Tokenizer.parse('```\nzxc')).to.eql([{
+        content: 'zxc',
+        type: 'code_block',
+        children: null
+      }]);
+    });
   });
 });

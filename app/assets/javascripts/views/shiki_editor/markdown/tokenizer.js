@@ -200,17 +200,19 @@ export class Tokenizer {
     this.next(sequence.length);
     const language = this.extractLanguage();
     const startIndex = this.index;
+    let isEnded = false;
 
     while (this.index <= this.text.length) {
       if (this.seq4 === '\n```') {
         this.next(5);
+        isEnded = true;
         break;
       }
       this.next();
     }
 
     this.push(
-      new Token('code_block', this.text.slice(startIndex, this.index - 5))
+      new Token('code_block', this.text.slice(startIndex, isEnded ? this.index - 5 : this.index))
     );
   }
 
