@@ -407,4 +407,14 @@ describe('Tokenizer', () => {
       }]);
     });
   });
+
+  describe('code_block', () => {
+    it('```\\nzxc\\nvbn\\n```', () => {
+      expect(Tokenizer.parse('```\nzxc\nvbn\n```')).to.eql([{
+        content: 'zxc\nvbn',
+        type: 'code_block',
+        children: null
+      }]);
+    });
+  });
 });

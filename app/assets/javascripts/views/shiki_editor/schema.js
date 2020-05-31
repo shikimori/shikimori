@@ -1,5 +1,10 @@
 import { Schema } from 'prosemirror-model';
 
+const pDOM = ['p', 0];
+const blockquoteDOM = ['blockquote', { class: 'b-quote-v2' }, 0];
+const liDOM = ['li', 0];
+const preDOM = ['pre', ['code', 0]];
+
 const nodes = {
   doc: {
     content: 'block+'
@@ -11,13 +16,13 @@ const nodes = {
     content: 'inline*',
     group: 'block',
     parseDOM: [{ tag: 'p' }],
-    toDOM() { return ['p', 0]; }
+    toDOM() { return pDOM; }
   },
   blockquote: {
     content: 'block+',
     group: 'block',
     parseDOM: [{ tag: 'blockquote' }],
-    toDOM() { return ['blockquote', { class: 'b-quote-v2' }, 0]; }
+    toDOM() { return blockquoteDOM; }
   },
   bullet_list: {
     content: 'list_item+',
@@ -40,9 +45,27 @@ const nodes = {
     content: 'block*',
     defining: true,
     parseDOM: [{ tag: 'li' }],
-    toDOM() { return ['li', 0]; }
+    toDOM() { return liDOM; }
+  },
+  // :: NodeSpec A code listing. Disallows marks or non-text inline
+  // nodes by default. Represented as a `<pre>` element with a
+  // `<code>` element inside of it.
+  code_block: {
+    content: 'text*',
+    marks: '',
+    group: 'block',
+    code: true,
+    defining: true,
+    parseDOM: [{ tag: 'pre', preserveWhitespace: 'full' }],
+    toDOM() { return preDOM; }
   }
 };
+
+    // "<pre class='to-process' data-dynamic='code_highlight'>"\
+    //   "<code class='b-code' data-language='#{language}'>" +
+    //     text +
+    //   '</code>'\
+    // '</pre>'
 
 const marks = {
   em: {

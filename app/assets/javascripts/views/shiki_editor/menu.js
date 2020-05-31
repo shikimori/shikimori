@@ -113,14 +113,5 @@ export const menu = {
       }),
       liftItem
     ]
-    // [
-      // new MenuItem({
-      //   title: 'Wrap in block quote',
-      //   icon: icons.blockquote,
-      //   enable: () => true,
-      //   active: markActive(schema.marks.em),
-      //   run: toggleMark(schema.marks.em)
-      // })
-    // ]
   ]
 };

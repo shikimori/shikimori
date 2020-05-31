@@ -234,7 +234,6 @@ window.Tokenizer = Tokenizer;
 const tokens = {
   // ordered_list: { block: 'ordered_list', getAttrs: tok => ({ order: +tok.attrGet('start') || 1 }) },
   // heading: { block: 'heading', getAttrs: tok => ({ level: +tok.tag.slice(1) }) },
-  // code_block: { block: 'code_block' },
   // fence: { block: 'code_block', getAttrs: tok => ({ params: tok.info || '' }) },
   // hr: { node: 'horizontal_rule' },
   // image: { node: 'image',
@@ -249,6 +248,7 @@ const tokens = {
   blockquote: { block: 'blockquote' },
   list_item: { block: 'list_item' },
   bullet_list: { block: 'bullet_list' },
+  code_block: { block: 'code_block' },
 
   em: { mark: 'em' },
   strong: { mark: 'strong' },
