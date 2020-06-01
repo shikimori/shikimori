@@ -89,7 +89,7 @@
     "webpack-dev-server": "^3.7.2"
   },
   "optionalDependencies": {
-    "fsevents": "*"
+    "fsevents": "1.2.4"
   },
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --config config/webpack/development.js",

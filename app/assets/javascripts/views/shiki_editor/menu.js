@@ -4,7 +4,8 @@ import {
   wrapItem,
   liftItem,
   undoItem,
-  redoItem
+  redoItem,
+  blockTypeItem
 } from 'prosemirror-menu';
 import shikiIcons from './icons';
 // import { TextSelection } from 'prosemirror-state';
@@ -110,6 +111,14 @@ export const menu = {
       wrapItem(schema.nodes.blockquote, {
         title: 'Wrap in block quote',
         icon: icons.blockquote
+      }),
+      wrapItem(schema.nodes.code_block, {
+        title: 'Wrap in code',
+        icon: icons.code
+      }),
+      blockTypeItem(schema.nodes.code_block, {
+        title: 'Wrap in code',
+        icon: icons.code
       }),
       liftItem
     ]

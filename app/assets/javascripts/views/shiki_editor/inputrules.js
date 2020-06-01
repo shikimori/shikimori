@@ -3,7 +3,7 @@
 import {
   inputRules,
   wrappingInputRule
-  // textblockTypeInputRule,
+  // textblockTypeInputRule
   // smartQuotes,
   // emDash,
   // ellipsis
@@ -15,5 +15,6 @@ export default inputRules({
   rules: [
     wrappingInputRule(/^\s*>\s$/, schema.nodes.blockquote),
     wrappingInputRule(/^\s*([-+*])\s$/, schema.nodes.bullet_list)
+    // textblockTypeInputRule(/^```\w*\n/, schema.nodes.code_block)
   ]
 });

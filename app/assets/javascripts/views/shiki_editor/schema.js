@@ -60,9 +60,7 @@ const nodes = {
       tag: 'pre',
       preserveWhitespace: 'full',
       getAttrs: node => (
-        {
-          params: node.getAttribute('data-params') || ''
-        }
+        { params: node.getAttribute('data-params') || '' }
       )
     }],
     toDOM(node) {
