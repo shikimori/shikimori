@@ -9559,45 +9559,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :kenji_nakamura
-    :level: 1
-    :image: "/assets/achievements/anime/author/kenji_nakamura.jpg"
-    :border_color: "#C1A97E"
-    :title_ru: Кэндзи Накамура
-    :text_ru: 
-    :title_en: Kenji Nakamura
-    :text_en: 
-    :topic_id: 276032
-    :rule: &104
-      :algo: count
-      :threshold: 87%
-      :filters:
-        anime_ids:
-        - 21039
-        - 23703
-        - 18229
-        - 12883
-        - 10163
-        - 6774
-        - 2246
-        - 586
-      :generator:
-        person_id: 7217
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :kenji_nakamura
-  level: 1
-  image: "/assets/achievements/anime/author/kenji_nakamura.jpg"
-  border_color: "#C1A97E"
-  title_ru: Кэндзи Накамура
-  text_ru: 
-  title_en: Kenji Nakamura
-  text_en: 
-  topic_id: 276032
-  rule: *104
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :shinji_aramaki
     :level: 1
     :image: "/assets/achievements/anime/author/shinji_aramaki.jpg"
@@ -9607,7 +9568,7 @@
     :title_en: Shinji Aramaki
     :text_en: 
     :topic_id: 276032
-    :rule: &105
+    :rule: &104
       :algo: count
       :threshold: 68%
       :filters:
@@ -9649,6 +9610,45 @@
   title_ru: Синдзи Арамаки
   text_ru: 
   title_en: Shinji Aramaki
+  text_en: 
+  topic_id: 276032
+  rule: *104
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :kenji_nakamura
+    :level: 1
+    :image: "/assets/achievements/anime/author/kenji_nakamura.jpg"
+    :border_color: "#C1A97E"
+    :title_ru: Кэндзи Накамура
+    :text_ru: 
+    :title_en: Kenji Nakamura
+    :text_en: 
+    :topic_id: 276032
+    :rule: &105
+      :algo: count
+      :threshold: 87%
+      :filters:
+        anime_ids:
+        - 21039
+        - 23703
+        - 18229
+        - 12883
+        - 10163
+        - 6774
+        - 2246
+        - 586
+      :generator:
+        person_id: 7217
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :kenji_nakamura
+  level: 1
+  image: "/assets/achievements/anime/author/kenji_nakamura.jpg"
+  border_color: "#C1A97E"
+  title_ru: Кэндзи Накамура
+  text_ru: 
+  title_en: Kenji Nakamura
   text_en: 
   topic_id: 276032
   rule: *105
