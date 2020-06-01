@@ -349,7 +349,7 @@ export default class ShikiEditor extends ShikiView {
       preventEvent(e);
       this.$textarea.blur();
     }
-    if (!e.metaKey || e.ctrlKey) { return; }
+    if (!e.metaKey || !e.ctrlKey) { return; }
 
     if ((e.keyCode === 10) || (e.keyCode === 13)) { // ctrl+enter - save
       preventEvent(e);
