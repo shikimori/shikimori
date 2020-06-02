@@ -100,6 +100,7 @@ export const menu = {
         active: markActive(schema.marks.deleted),
         run: toggleMark(schema.marks.deleted)
       })
+      // icons.code
     ], [
       undoItem,
       redoItem
@@ -112,13 +113,13 @@ export const menu = {
         title: 'Wrap in block quote',
         icon: icons.blockquote
       }),
-      wrapItem(schema.nodes.code_block, {
-        title: 'Wrap in code',
-        icon: icons.code
-      }),
+      // wrapItem(schema.nodes.code_block, {
+      //   title: 'Wrap in code',
+      //   icon: shikiIcons.code_block
+      // }),
       blockTypeItem(schema.nodes.code_block, {
         title: 'Wrap in code',
-        icon: icons.code
+        icon: shikiIcons.code_block
       }),
       liftItem
     ]
