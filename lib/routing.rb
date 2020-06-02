@@ -2,10 +2,13 @@ module Routing
   extend ActiveSupport::Concern
   include Rails.application.routes.url_helpers
 
-  SHIKIMORI_DOMAIN = /
+  NON_CAMO_DOMAINS = /
     \A
-    (?: (?:#{Shikimori::STATIC_SUBDOMAINS.join '|'})\. )?
-    shikimori \. (?: org|one|dev|local|test )
+    (?:
+      (?: (?:#{Shikimori::STATIC_SUBDOMAINS.join '|'})\. )?
+      shikimori \. (?: org|one|dev|local|test ) |
+      static\d?.wallpapers-anime.com
+    )
     \Z
   /mix
   # FORCE_CAMO_DOMAIN = /imgur.com/i
@@ -138,7 +141,7 @@ private
     end
 
     url = Url.new(image_url)
-    return url.without_protocol.to_s if url.domain.to_s.match? SHIKIMORI_DOMAIN
+    return url.without_protocol.to_s if url.domain.to_s.match? NON_CAMO_DOMAINS
 
     fixed_url = image_url.starts_with?('//') ? url.with_protocol.to_s : image_url
 
