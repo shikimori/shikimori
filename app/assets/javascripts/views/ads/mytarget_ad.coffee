@@ -1,11 +1,10 @@
-getjs = require('get-js')
-require 'views/ads/view'
+import getjs from 'get-js'
+import AdView from './ad_view'
 
 state = null
 pending_ads = []
 
-using 'Ads'
-class Ads.Mytarget extends Ads.View
+export class MytargetAd extends AdView
   STATE = {
     LOADED: 'loaded'
     LOADING: 'loading'

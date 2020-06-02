@@ -9,8 +9,7 @@ remove_ad = (ad_class) ->
 
 ad_state = null
 
-using 'Ads'
-class Ads.View extends View
+export class AdView extends View
   AD_STATE = {
     LOADED: 'loaded'
   }

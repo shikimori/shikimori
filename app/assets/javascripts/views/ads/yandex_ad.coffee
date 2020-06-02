@@ -1,10 +1,9 @@
-require 'views/ads/view'
+import AdView from './ad_view'
 
 state = null
 pending_ads = []
 
-using 'Ads'
-class Ads.Yandex extends Ads.View
+class YandexAd extends AdView
   STATE = {
     LOADED: 'loaded'
     LOADING: 'loading'
