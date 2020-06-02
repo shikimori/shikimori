@@ -1,7 +1,7 @@
 /* global Ya */
 
 import { bind } from 'decko';
-import AdView from './ad_view';
+import { AdView } from './ad_view';
 
 let state = null;
 let pendingAds = [];
