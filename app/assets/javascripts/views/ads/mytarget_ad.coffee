@@ -4,12 +4,12 @@ import AdView from './ad_view'
 state = null
 pending_ads = []
 
-export class MytargetAd extends AdView
-  STATE = {
-    LOADED: 'loaded'
-    LOADING: 'loading'
-  }
+STATE = {
+  LOADED: 'loaded'
+  LOADING: 'loading'
+}
 
+export class MytargetAd extends AdView
   initialize: (@html, @css_class) ->
     if state == STATE.LOADED
       @_render()
