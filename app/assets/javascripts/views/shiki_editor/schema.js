@@ -67,14 +67,14 @@ const nodes = {
       return [
         'pre',
         node.attrs.params ? { 'data-params': node.attrs.params } : {},
-        ['code', { class: 'b-code' }, 0]
+        ['code', { class: 'b-code-v2' }, 0]
       ];
     }
   }
 };
 
     // "<pre class='to-process' data-dynamic='code_highlight'>"\
-    //   "<code class='b-code' data-language='#{language}'>" +
+    //   "<code class='b-code-v2' data-language='#{language}'>" +
     //     text +
     //   '</code>'\
     // '</pre>'

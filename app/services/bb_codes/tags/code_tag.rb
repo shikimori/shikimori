@@ -59,15 +59,12 @@ class BbCodes::Tags::CodeTag
 private
 
   def code_highlight text, language
-    "<pre class='to-process' data-dynamic='code_highlight'>"\
-      "<code class='b-code' data-language='#{language}'>" +
-        text +
-      '</code>'\
-    '</pre>'
+    "<pre class='b-code-v2 to-process' data-dynamic='code_highlight' "\
+      "data-language='#{language}'><code>#{text}</code></pre>"
   end
 
   def code_inline text
-    "<code>#{text}</code>"
+    "<code class='inline'>#{text}</code>"
   end
 
   def code_block? text, content_around

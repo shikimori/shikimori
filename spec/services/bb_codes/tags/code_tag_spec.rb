@@ -10,7 +10,7 @@ describe BbCodes::Tags::CodeTag do
 
       context 'inline' do
         let(:content) { '[b]test[/b]' }
-        it { is_expected.to eq "<code>#{content}</code>" }
+        it { is_expected.to eq "<code class='inline'>#{content}</code>" }
       end
 
       context 'block' do
@@ -18,13 +18,10 @@ describe BbCodes::Tags::CodeTag do
           let(:content) { ' [b]test[/b]' }
 
           it do
-            is_expected.to eq(
-              "<pre class='to-process' data-dynamic='code_highlight'>"\
-                "<code class='b-code' data-language=''>" +
-                  content.strip +
-                '</code>'\
-              '</pre>'
-            )
+            is_expected.to eq <<-HTML.squish
+              <pre class='b-code-v2 to-process' data-dynamic='code_highlight'
+                data-language=''><code>#{content.strip}</code></pre>
+            HTML
           end
         end
 
@@ -33,8 +30,8 @@ describe BbCodes::Tags::CodeTag do
 
           it do
             is_expected.to eq(
-              "<pre class='to-process' data-dynamic='code_highlight'>"\
-                "<code class='b-code' data-language=''>" +
+              "<pre class='b-code-v2 to-process' data-dynamic='code_highlight' "\
+                "data-language=''><code>" +
                   content +
                 '</code>'\
               '</pre>'
@@ -48,8 +45,8 @@ describe BbCodes::Tags::CodeTag do
 
           it do
             is_expected.to eq(
-              "<pre class='to-process' data-dynamic='code_highlight'>"\
-                "<code class='b-code' data-language=''>" +
+              "<pre class='b-code-v2 to-process' data-dynamic='code_highlight' "\
+                "data-language=''><code>" +
                   content +
                 '</code>'\
               '</pre>'
@@ -65,8 +62,8 @@ describe BbCodes::Tags::CodeTag do
 
       it do
         is_expected.to eq(
-          "<pre class='to-process' data-dynamic='code_highlight'>"\
-            "<code class='b-code' data-language='ruby'>" +
+          "<pre class='b-code-v2 to-process' data-dynamic='code_highlight' "\
+            "data-language='ruby'><code>" +
               content +
             '</code>'\
           '</pre>'

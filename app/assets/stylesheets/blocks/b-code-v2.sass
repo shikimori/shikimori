@@ -1,5 +1,5 @@
 // http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/agate.min.css
-.b-code
+.b-code-v2
   background: #263238
   color: #fff
   display: block
@@ -16,6 +16,24 @@
     position: absolute
     right: .5rem
     top: .5rem
+
+code
+  font-family: Monaco, Menlo, Consolas, Courier New, monospace
+  font-variant-ligatures: none
+  line-height: 1.5
+  tab-size: 2
+  white-space: pre
+  white-space: pre-wrap
+  word-break: normal
+  word-wrap: break-word
+
+  &.inline
+    background-color: #f9f2f4
+    color: #c7254e
+    padding: 2px 3px 1px
+    // border: 1px solid rgba(29, 28, 29, 0.13)
+    // background-color: rgba(29, 28, 29, 0.04)
+    // color: #e01e5a
 
 .hljs
   display: block
