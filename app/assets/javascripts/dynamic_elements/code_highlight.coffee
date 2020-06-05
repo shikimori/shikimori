@@ -11,7 +11,7 @@ export default class CodeHighlight extends View
 
   highlight: ->
     node = @root.childNodes[0]
-    language = node.attributes['data-language']?.value
+    language = @root.attributes['data-language']?.value
 
     return if node.classList.contains NO_HIGHLIGHT
     return unless language
