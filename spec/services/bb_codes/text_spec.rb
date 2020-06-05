@@ -342,7 +342,7 @@ describe BbCodes::Text do
       let(:text) { '[code] [b]test[/b] [/code]' }
       it do
         is_expected.to include '[b]test[/b]'
-        is_expected.to include '<pre class="to-process" data-dynamic="code_highlight">'
+        is_expected.to include '<pre class="b-code-v2 to-process" data-dynamic="code_highlight"'
       end
     end
 
