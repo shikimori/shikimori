@@ -64,7 +64,7 @@ private
   end
 
   def code_inline text
-    "<code class='inline'>#{text}</code>"
+    "<code class='b-code-v2-inline'>#{text}</code>"
   end
 
   def code_block? text, content_around
