@@ -92,14 +92,13 @@ export default class LogEntry extends ShikiView {
   }
 
   @bind
-  async _processDiffs() {
-    const $diff = this.$('.field-changes .diff');
-
-    if ($diff.length) {
+  _processDiffs() {
+    this.$('.field-changes .diff').each(async (_index, node) => {
+      const $diff = $(node);
       const { default: DiffMatchPatch } =
         await import(/* webpackChunkName: "diff-match-patch" */ 'diff-match-patch');
 
-      const $diffValue = this.$('.field-changes .diff .value');
+      const $diffValue = $diff.find('.value');
       const oldValue = $diffValue.data('old_value');
       const newValue = $diffValue.data('new_value');
 
@@ -116,6 +115,6 @@ export default class LogEntry extends ShikiView {
       $diffValue.html(
         dmp.diff_prettyHtml(diff).replace(/&para;/g, '')
       );
-    }
+    });
   }
 }
