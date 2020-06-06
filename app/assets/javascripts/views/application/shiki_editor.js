@@ -373,7 +373,7 @@ export default class ShikiEditor extends ShikiView {
   }
 
   _markOfftopic(isOfftopic) {
-    this.$('input[name="comment[isOfftopic]"]').val(isOfftopic ? 'true' : 'false');
+    this.$('input[name="comment[is_offtopic]"]').val(isOfftopic ? 'true' : 'false');
     this.$('.b-offtopic_marker').toggleClass('off', !isOfftopic);
   }
 
