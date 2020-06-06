@@ -1,33 +1,38 @@
-p.warning Перед внесением изменений обязательно ознакомьтесь с <a href="http://#{Shikimori::DOMAIN}/clubs/2-Perevody">правилами</a>.
+- is_overload = Rails.cache.fetch(:texts_versions_count, expires_in: 1.hour) { ModerationPolicy.new(nil, nil, nil).texts_versions_count > 100 }
 
-= simple_form_for resource.object do |f|
-  .b-shiki_editor.unprocessed.block[
-    data-target_id=resource.id
-    data-target_type=resource.object.class.name
-  ]
-    = f.input :description_ru, as: :hidden
+- if current_user&.staff? || !is_overload
+  p.warning Перед внесением изменений обязательно ознакомьтесь с <a href="http://#{Shikimori::DOMAIN}/clubs/2-Perevody">правилами</a>.
 
-    / description_ru_text is a virtual field -
+  = simple_form_for resource.object do |f|
+    .b-shiki_editor.unprocessed.block[
+      data-target_id=resource.id
+      data-target_type=resource.object.class.name
+    ]
+      = f.input :description_ru, as: :hidden
+
+      / description_ru_text is a virtual field -
+      / it will be filtered out by permitted params
+      = render 'comments/shiki_editor',
+        text: resource.description_ru.text,
+        field_name: "#{resource.object.class.name.downcase}[description_ru_text]"
+
+      = render 'blocks/source',
+        authors: resource.authors(:description_ru),
+        source: resource.description_ru.source,
+        field: 'description'
+
+    / description_ru_source is a virtual field -
     / it will be filtered out by permitted params
-    = render 'comments/shiki_editor',
-      text: resource.description_ru.text,
-      field_name: "#{resource.object.class.name.downcase}[description_ru_text]"
+    / NOTE: it's possible to use non-model input as long as
+    /       you supply value manually
+    = f.input :description_ru_source,
+      label: Anime.human_attribute_name(:description_ru_source),
+      input_html: { value: resource.description_ru.source }
 
-    = render 'blocks/source',
-      authors: resource.authors(:description_ru),
-      source: resource.description_ru.source,
-      field: 'description'
+    = render 'versions/reason'
 
-  / description_ru_source is a virtual field -
-  / it will be filtered out by permitted params
-  / NOTE: it's possible to use non-model input as long as
-  /       you supply value manually
-  = f.input :description_ru_source,
-    label: Anime.human_attribute_name(:description_ru_source),
-    input_html: { value: resource.description_ru.source }
-
-  = render 'versions/reason'
-
-  .buttons
-    a.cancel href=resource.edit_url = t 'actions.cancel'
-    = f.button :magic_submit
+    .buttons
+      a.cancel href=resource.edit_url = t 'actions.cancel'
+      = f.button :magic_submit
+- else
+  p.warning Редактирование текстов временно отключено из-за перегрузки модерации.
