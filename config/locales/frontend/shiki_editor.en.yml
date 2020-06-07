@@ -5,9 +5,9 @@ en:
       text_cant_be_blank: Text can't be blank
       spoiler: spoiler
       file: file
-      bold: Bold
-      italic: Italic
+      strong: Bold
+      em: Italic
       underline: Underlined
-      striked: Deleted
+      deleted: Deleted
       undo: Undo last change
       redo: Redo last change
