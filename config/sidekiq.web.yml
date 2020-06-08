@@ -15,7 +15,7 @@ production:
   - [imports, 4]
   - [low_priority, 1]
   - [mailers, 5]
-  - [mal_parsers, 3]
+  # - [mal_parsers, 3]
   - [anime365_parsers, 3]
   - [slow_parsers, 5]
   - [webm_thumbnails, 5]
@@ -25,7 +25,7 @@ production:
   achievement: 10
   cpu_intensive: 2
   imports: 2
-  mal_parsers: 50
+  # mal_parsers: 50
   anime365_parsers: 3
   slow_parsers: 2
   webm_thumbnails: 1
