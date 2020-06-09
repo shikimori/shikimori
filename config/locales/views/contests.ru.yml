@@ -70,8 +70,8 @@ ru:
     proposing:
       anime_title: Название аниме
       character_name: Имя персонажа
-      your_candidates_more: Ваши кандидаты (ещё %{proposals_left})
-      your_candidates: Ваши кандидаты
+      your_candidates_more: Твои кандидаты (ещё %{proposals_left})
+      your_candidates: Твои кандидаты
       no_candidates: нет кандидатов
 
     public_suggestions:
