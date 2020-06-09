@@ -29,6 +29,7 @@ class Proxy < ApplicationRecord
   @@use_proxy = true
 
   class << self
+    # https://proxy6.net/user/proxy
     def prepaid_proxy
       @prepaid_proxy ||=
         if Rails.application.secrets.proxy[:url]
