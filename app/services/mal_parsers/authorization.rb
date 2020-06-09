@@ -34,7 +34,7 @@ class MalParsers::Authorization
 private
 
   def authorize
-    connection = Faraday.new('https://myanimelist.net') do |builder|
+    connection = Faraday.new('https://myanimelist.net', connection_options) do |builder|
       builder.use :cookie_jar
       builder.adapter Faraday.default_adapter
     end
@@ -72,5 +72,20 @@ private
 
   def valid? cookies
     cookies.size == 2
+  end
+
+  # https://proxy6.net/user/proxy
+  def connection_options
+    if Rails.application.secrets.proxy[:url]
+      {
+        proxy: {
+          uri: Rails.application.secrets.proxy[:url],
+          user: Rails.application.secrets.proxy[:login],
+          password: Rails.application.secrets.proxy[:password]
+        }
+      }
+    else
+      {}
+    end
   end
 end
