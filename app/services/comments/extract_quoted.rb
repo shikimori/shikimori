@@ -41,8 +41,8 @@ private
       }
     else
       {
-        comment_id: meta[0],
-        user_id: meta[1],
+        comment_id: meta[0].to_i,
+        user_id: meta[1].to_i,
         nickname: meta[2],
       }
     end
