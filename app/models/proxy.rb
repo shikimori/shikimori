@@ -10,8 +10,7 @@ class Proxy < ApplicationRecord
     end \s of \s file \s reached |
     404 \s Not \s Found
   /mix
-  USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) '\
-    'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'
+  USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
 
   cattr_accessor :use_proxy, :use_cache, :show_log
 
