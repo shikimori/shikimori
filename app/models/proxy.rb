@@ -30,6 +30,21 @@ class Proxy < ApplicationRecord
   @@use_proxy = true
 
   class << self
+    def paid_proxy
+      @paid_proxy ||=
+        if Rails.application.secrets.proxy[:url]
+          {
+            proxy_http_basic_authentication: [
+              Rails.application.secrets.proxy[:url],
+              Rails.application.secrets.proxy[:login],
+              Rails.application.secrets.proxy[:password]
+            ]
+          }
+        else
+          {}
+        end
+    end
+
     # загрузка проксей из базы
     def preload
       queue = Queue.new

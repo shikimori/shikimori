@@ -9,21 +9,20 @@ module MalParsers::ParseAuthorized
     end
   end
 
-  # rubocop:disable MethodLength
   def make_request url
-    headers = {
-      'Cookie' => MalParsers::Authorization.instance.cookie.join
-    }
-
-    begin
-      open(url, headers).read
-    rescue OpenURI::HTTPError => e
-      if e.message =~ /404 Not Found/
-        raise InvalidIdError, url
-      else
-        raise
-      end
+    OpenURI.open_uri(url, headers).read
+  rescue OpenURI::HTTPError => e
+    if /404 Not Found/.match?(e.message)
+      raise InvalidIdError, url
+    else
+      raise
     end
   end
-  # rubocop:enable MethodLength
+
+  def headers
+    {
+      'Cookie' => MalParsers::Authorization.instance.cookie.join,
+      **Proxy.paid_proxy
+    }
+  end
 end
