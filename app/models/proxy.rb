@@ -14,14 +14,13 @@ class Proxy < ApplicationRecord
 
   cattr_accessor :use_proxy, :use_cache, :show_log
 
-
   # список проксей
   @@proxies = nil
   # изначальное число проксей
   @@proxies_initial_size = 0
 
   # использовать ли кеш
-  @@use_cache = false #Rails.env == 'test'
+  @@use_cache = false # Rails.env == 'test'
 
   # показывать ли логи
   @@show_log = false
@@ -66,28 +65,29 @@ class Proxy < ApplicationRecord
 
     # выполнение запроса через прокси или из кеша
     def process url, options, method
-      if @@use_cache && File.exists?(cache_path(url, options)) && (1.month.ago < File.ctime(cache_path(url, options)))
+      if @@use_cache && File.exist?(cache_path(url, options)) && (1.month.ago < File.ctime(cache_path(url, options)))
         NamedLogger.proxy.info "CACHE #{url} (#{cache_path(url, options)})"
-        return File.open(cache_path(url, options), "r") { |h| h.read }
+        return File.open(cache_path(url, options), 'r', &:read)
       end
 
       # получаем контент
-      content = if options[:no_proxy] || @@use_cache || !@@use_proxy
-        if method == :get
-          no_proxy_get url, options
+      content =
+        if options[:no_proxy] || @@use_cache || !@@use_proxy
+          if method == :get
+            no_proxy_get url, options
+          else
+            no_proxy_post url, options
+          end
         else
-          no_proxy_post url, options
+          do_request url, options.merge(method: method)
         end
-      else
-        do_request url, options.merge(method: method)
-      end
 
       # фиксим кодировки
       content = content.fix_encoding(options[:encoding]) if content && url !~ /\.(jpg|gif|png|jpeg)/i
 
       # кешируем
-      if content && content.present? && (options[:test] || @@use_cache)
-        File.open(cache_path(url, options), "w") { |h| h.write(content) }
+      if content&.present? && (options[:test] || @@use_cache)
+        File.open(cache_path(url, options), 'w') { |h| h.write(content) }
       end
 
       content
@@ -96,7 +96,7 @@ class Proxy < ApplicationRecord
     # выполнение запроса
     def do_request url, options
       preload if (options[:proxy].nil? && @@proxies.nil?) || (@@proxies && @@proxies.size < @@proxies_initial_size / 7)
-      raise NoProxies.new(url) if options[:proxy].nil? && @@proxies.empty?
+      raise NoProxies, url if options[:proxy].nil? && @@proxies.empty?
 
       content = nil
       proxy = options[:proxy] # прокси может быть передана в параметрах, тогда использоваться будет лишь она
@@ -107,74 +107,75 @@ class Proxy < ApplicationRecord
       attempts = 0 # число попыток
       freeze_count = 50 # число переборов проксей
 
-      until content || attempts == max_attempts || freeze_count <= 0 do
+      until content || attempts == max_attempts || freeze_count <= 0
         freeze_count -= 1
 
         begin
           proxy ||= @@proxies.pop(true) # кидает "ThreadError: queue empty" при пустой очереди
-          log "#{options[:method].to_s.upcase} #{url}#{ options[:data] ? " "+options[:data].map { |k,v| "#{k}=#{v}" }.join('&') : ''} via #{proxy.to_s}", options
+          log "#{options[:method].to_s.upcase} #{url}#{options[:data] ? ' ' + options[:data].map { |k, v| "#{k}=#{v}" }.join('&') : ''} via #{proxy}", options
 
-          Timeout::timeout(options[:timeout]) do
+          Timeout.timeout(options[:timeout]) do
             content = if options[:method] == :get
-              #Net::HTTP::Proxy(proxy.ip, proxy.port).get(uri) # Net::HTTP не следует редиректам, в топку его
-              get_open_uri(url, proxy: proxy.to_s(true)).read
-            else
-              Net::HTTP::Proxy(proxy.ip, proxy.port).post_form(URI.parse(url), options[:data]).body
+              # Net::HTTP::Proxy(proxy.ip, proxy.port).get(uri) # Net::HTTP не следует редиректам, в топку его
+                        get_open_uri(url, proxy: proxy.to_s(true)).read
+                      else
+                        Net::HTTP::Proxy(proxy.ip, proxy.port).post_form(URI.parse(url), options[:data]).body
             end
           end
-          raise "#{proxy.to_s} banned" if content.nil?
+          raise "#{proxy} banned" if content.nil?
 
           # фикс кодировок перед проверкой текста
           content = content.fix_encoding(options[:encoding]) if content && url !~ /\.(jpg|gif|png|jpeg)/i
-          raise "#{proxy.to_s} banned" if content.blank?
+          raise "#{proxy} banned" if content.blank?
 
           # проверка валидности jpg
           if options[:validate_jpg]
             tmpfile = Tempfile.new 'jpg'
-            File.open(tmpfile.path, 'wb') {|f| f.write content }
+            File.open(tmpfile.path, 'wb') { |f| f.write content }
             tmpfile.instance_variable_set :@original_filename, url.split('/').last
-            def tmpfile.original_filename; @original_filename; end
+            def tmpfile.original_filename
+              @original_filename
+            end
 
             unless ImageChecker.valid? tmpfile.path
               content = nil
               # тут можно бы обнулять tmpfile, но если мы 8 раз не смогли загрузить файл, то наверное его и правда нет, падать не будем
-              log "bad image", options
+              log 'bad image', options
             end
           end
 
           # проверка на наличие запрошенного текста
           if options[:required_text]
-            requires = if options[:required_text].kind_of?(Array)
-              options[:required_text]
-            else
-              [options[:required_text]]
-            end
+            requires =
+              if options[:required_text].is_a?(Array)
+                options[:required_text]
+              else
+                [options[:required_text]]
+              end
 
             stripped_content = content.gsub(/[ \n\r]+/, '').downcase
-            raise "#{proxy.to_s} banned" unless requires.all? { |text| stripped_content.include?(text.gsub(/[ \n\r]+/, '').downcase) }
+            raise "#{proxy} banned" unless requires.all? { |text| stripped_content.include?(text.gsub(/[ \n\r]+/, '').downcase) }
           end
 
           # проверка на забаненны тексты
-          if options[:ban_texts]
-            options[:ban_texts].each do |text|
-              raise "#{proxy.to_s} banned" if text.class == Regexp ? content.match(text) : content.include?(text)
-            end
+          options[:ban_texts]&.each do |text|
+            raise "#{proxy} banned" if text.class == Regexp ? content.match(text) : content.include?(text)
           end
 
           # и надо не забыть вернуть проксю назад
           @@proxies.push(proxy) unless options[:proxy]
 
           attempts += 1
-
         rescue StandardError => e
-          raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
-          if e.message =~ /404 Not Found/
+          raise if defined?(VCR) && e.is_a?(VCR::Errors::UnhandledHTTPRequestError)
+
+          if /404 Not Found/.match?(e.message)
             @@proxies.push(proxy) unless options[:proxy]
             raise
           end
 
-          if e.message =~ SAFE_ERRORS
-            log "#{e.message}", options
+          if SAFE_ERRORS.match?(e.message)
+            log e.message.to_s, options
           else
             log "#{e.message}\n#{e.backtrace.join("\n")}", options
           end
@@ -201,18 +202,17 @@ class Proxy < ApplicationRecord
       NamedLogger.proxy.info "GET #{url}"
 
       resp = get_open_uri URI.encode(url)
-      file = if resp.meta["content-encoding"] == "gzip"
-        Zlib::GzipReader.new(StringIO.new(resp.read))
-      else
-        resp
+      file = if resp.meta['content-encoding'] == 'gzip'
+               Zlib::GzipReader.new(StringIO.new(resp.read))
+             else
+               resp
       end
 
       options[:return_file] ? file : file.read
-
     rescue StandardError => e
-      raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
+      raise if defined?(VCR) && e.is_a?(VCR::Errors::UnhandledHTTPRequestError)
 
-      if e.message =~ SAFE_ERRORS
+      if SAFE_ERRORS.match?(e.message)
         log "#{e.class.name} #{e.message}", options
       else
         log "#{e.class.name} #{e.message}\n#{e.backtrace.join("\n")}", options
@@ -227,12 +227,12 @@ class Proxy < ApplicationRecord
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       path = uri.path
-      #cookie = resp.response['set-cookie']
+      # cookie = resp.response['set-cookie']
 
       # POST request -> getting data
-      data = options[:data].map { |k,v| "#{k}=#{v}" }.join('&')
+      data = options[:data].map { |k, v| "#{k}=#{v}" }.join('&')
       headers = {
-        #'Cookie' => cookie,
+        # 'Cookie' => cookie,
         'Referer' => url,
         'Content-Type' => 'application/x-www-form-urlencoded'
       }
@@ -241,8 +241,9 @@ class Proxy < ApplicationRecord
       resp = http.post(path, data, headers)
       resp.body
     rescue StandardError => e
-      raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
-      if e.message =~ SAFE_ERRORS
+      raise if defined?(VCR) && e.is_a?(VCR::Errors::UnhandledHTTPRequestError)
+
+      if SAFE_ERRORS.match?(e.message)
         log "#{e.class.name} #{e.message}", options
       else
         log "#{e.class.name} #{e.message}\n#{e.backtrace.join("\n")}", options
@@ -254,8 +255,8 @@ class Proxy < ApplicationRecord
 
     # адрес страницы в кеше
     def cache_path url, options
-      Dir.mkdir('tmp/cache/pages') unless Rails.env.test? || File.exists?('tmp/cache/pages')
-      (Rails.env == 'test' ? 'spec/pages/%s' : 'tmp/cache/pages/%s') % Digest::MD5.hexdigest(options[:data] ? "#{url}_data:#{options[:data].map { |k,v| "#{k}=#{v}" }.join('&')}" : url)
+      Dir.mkdir('tmp/cache/pages') unless Rails.env.test? || File.exist?('tmp/cache/pages')
+      (Rails.env == 'test' ? 'spec/pages/%s' : 'tmp/cache/pages/%s') % Digest::MD5.hexdigest(options[:data] ? "#{url}_data:#{options[:data].map { |k, v| "#{k}=#{v}" }.join('&')}" : url)
     end
 
     # логирование
@@ -272,10 +273,10 @@ class Proxy < ApplicationRecord
     end
 
     def get_open_uri url, params = {}
-      if url =~ /\.(jpe?g|png)$/
+      if /\.(jpe?g|png)$/.match?(url)
         open_image url, open_params(url, params)
       else
-        OpenURI.open_uro url, open_params(url, params)
+        OpenURI.open_uri url, open_params(url, params)
       end
     end
 
@@ -291,14 +292,14 @@ class Proxy < ApplicationRecord
     def user_agent _url
       USER_AGENT
 
-      #if url =~ /myanimelist.net/
+      # if url =~ /myanimelist.net/
       #  'api-malupdater-989B0AD8068FA18E49825724D2B8E68B'
-      #else
+      # else
       #  'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
-      #end
+      # end
     end
 
-    #def cookie url
+    # def cookie url
     #  if url =~ %r{myanimelist.net/(?:anime|manga)/\d+/?\w*$}
     #    %w(
     #      MALHLOGSESSID=94988ef1f0cc270c6541e35258eb08f9;
@@ -308,7 +309,7 @@ class Proxy < ApplicationRecord
     #  else
     #    ''
     #  end
-    #end
+    # end
   end
 
   def to_s with_http = false
