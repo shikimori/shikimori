@@ -202,11 +202,12 @@ class Proxy < ApplicationRecord
       NamedLogger.proxy.info "GET #{url}"
 
       resp = get_open_uri URI.encode(url)
-      file = if resp.meta['content-encoding'] == 'gzip'
-               Zlib::GzipReader.new(StringIO.new(resp.read))
-             else
-               resp
-      end
+      file =
+        if resp.meta['content-encoding'] == 'gzip'
+          Zlib::GzipReader.new(StringIO.new(resp.read))
+        else
+          resp
+        end
 
       options[:return_file] ? file : file.read
     rescue StandardError => e
