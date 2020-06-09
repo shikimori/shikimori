@@ -22,7 +22,7 @@ module MalParsers::ParseAuthorized
   def headers
     {
       'Cookie' => MalParsers::Authorization.instance.cookie.join,
-      **Proxy.paid_proxy
+      **Proxy.prepaid_proxy
     }
   end
 end

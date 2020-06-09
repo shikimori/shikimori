@@ -30,8 +30,8 @@ class Proxy < ApplicationRecord
   @@use_proxy = true
 
   class << self
-    def paid_proxy
-      @paid_proxy ||=
+    def prepaid_proxy
+      @prepaid_proxy ||=
         if Rails.application.secrets.proxy[:url]
           {
             proxy_http_basic_authentication: [
@@ -275,15 +275,16 @@ class Proxy < ApplicationRecord
       if url =~ /\.(jpe?g|png)$/
         open_image url, open_params(url, params)
       else
-        open url, open_params(url, params)
+        OpenURI.open_uro url, open_params(url, params)
       end
     end
 
     def open_params url, params
       params.merge(
         'User-Agent' => user_agent(url),
-        #'Cookie' => cookie(url),
-        allow_redirections: :all
+        # 'Cookie' => cookie(url),
+        allow_redirections: :all,
+        **Proxy.prepaid_proxy
       )
     end
 
