@@ -11,3 +11,5 @@ en:
       deleted: Deleted
       undo: Undo last change
       redo: Redo last change
+      prompt:
+        image_url: Enter image URL
