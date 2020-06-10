@@ -31,10 +31,12 @@ class Comment < ApplicationRecord
   boolean_attributes :summary, :offtopic
 
   # validations
-  validates :user, :commentable, presence: true
+  validates :user, :body, :commentable, presence: true
   validates :commentable_type,
     inclusion: { in: Types::Comment::CommentableType.values }
-  validates :body, presence: true, length: { minimum: 2, maximum: 10_000 }
+  validates :body,
+    length: { minimum: 2, maximum: 10_000 },
+    if: -> { will_save_change_to_body? }
 
   # scopes
   scope :summaries, -> { where is_summary: true }
