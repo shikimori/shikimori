@@ -11,7 +11,6 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
     :collections_views,
     :history
 
-  CACHE_VERSION = :v11
   NEWS_FIRST_PAGE_LIMIT = 6
   NEWS_OTHER_PAGES_LIMIT = 15
 
@@ -26,7 +25,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   CURRENT_SEASON_SQL = DashboardView::CURRENT_SEASON_SQL
   PRIOR_SEASON_SQL = DashboardView::PRIOR_SEASON_SQL
 
-  CACHE_VERSION = :v2
+  CACHE_VERSION = :v11
 
   def ongoings
     all_ongoings.shuffle.take(ONGOINGS_TAKE).sort_by(&:ranked)
