@@ -38,10 +38,16 @@ ru:
       manga: Рецензия на мангу &laquo;%{target_name}&raquo;
       ranobe: Рецензия на ранобэ &laquo;%{target_name}&raquo;
 
-  topics/comments_view: &comments
+  comments/view: &comments
     show_comments: Показать %{comment_count} %{comment_word}
     hide_comments: Скрыть %{comment_count} %{comment_word}
     load_comments: Загрузить ещё %{comment_count} %{of_total_comments} %{comment_word}
+
+  topics/comments_view:
+    <<: *comments
+
+  topics/proxy_comments:
+    <<: *comments
 
   topics/generated_news_view:
     titles:
@@ -50,9 +56,6 @@ ru:
       anons: Анонсировано аниме
       ongoing: Начало показа
       episode: Вышел %{value} эпизод
-
-  topics/proxy_comments:
-    <<: *comments
 
   titles/collection_title:
     status:

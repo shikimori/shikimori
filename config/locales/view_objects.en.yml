@@ -38,10 +38,16 @@ en:
       manga: Manga &laquo;%{target_name}&raquo; review
       ranobe: Ranobe &laquo;%{target_name}&raquo; review
 
-  topics/comments_view: &comments
+  comments/view: &comments
     show_comments: Display %{comment_count} %{comment_word}
     hide_comments: Hide %{comment_count} %{comment_word}
     load_comments: Load next %{comment_count} %{of_total_comments} %{comment_word}
+
+  topics/comments_view:
+    <<: *comments
+
+  topics/proxy_comments:
+    <<: *comments
 
   topics/generated_news_view:
     titles:
@@ -50,9 +56,6 @@ en:
       anons: Anime announced
       ongoing: Anime airing
       episode: Aired episode %{value}
-
-  topics/proxy_comments:
-    <<: *comments
 
   titles/collection_title:
     status:

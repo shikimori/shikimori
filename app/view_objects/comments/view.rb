@@ -1,8 +1,8 @@
-class Comments::View < ViewObjectBase
+class Comments::View < Topics::FoldedCommentsView
   vattr_initialize :comment, :is_reply
 
   delegate :bans, :abuse_requests, :user, to: :comment
-  instance_cache :decorated_comment, :replies, :reply_ids
+  instance_cache :decorated_comment, :comments, :reply_ids
 
   def ignored_user?
     h.user_signed_in? && h.current_user.ignores?(user)
@@ -12,21 +12,19 @@ class Comments::View < ViewObjectBase
     SolitaryCommentDecorator.new comment
   end
 
-  def replies
+  def comments_scope
     Comment
       .where(id: reply_ids)
       .includes(:user, :commentable)
-      .decorate
-      .sort_by { |v| reply_ids.index v.id }
+      .order(created_at: :desc)
   end
 
-  # Topics::CommentsView compatibility
-  def folded?
-    false
-  end
-
-  def comments
-    replies
+  def fetch_url
+    h.replies_comments_url(
+      comment_id: @comment.id,
+      skip: 'SKIP',
+      limit: fold_limit
+    )
   end
 
   def new_comment
@@ -40,8 +38,14 @@ class Comments::View < ViewObjectBase
     )
   end
 
-  def cached_comments?
-    true
+  def cache_key
+    [
+      @comment
+    ]
+  end
+
+  def comments_count
+    reply_ids.size
   end
 
 private

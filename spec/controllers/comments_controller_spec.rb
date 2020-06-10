@@ -88,6 +88,23 @@ describe CommentsController do
     end
   end
 
+  describe '#replies' do
+    subject do
+      get :replies,
+        params: {
+          comment_id: comment_id,
+          skip: 1,
+          limit: 10
+        }
+    end
+    let(:comment_id) { comment.id }
+
+    describe do
+      before { subject }
+      it { expect(response).to have_http_status :success }
+    end
+  end
+
   describe '#chosen' do
     describe 'one' do
       subject! { get :chosen, params: { ids: comment.id.to_s } }

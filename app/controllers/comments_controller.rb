@@ -43,8 +43,8 @@ class CommentsController < ShikimoriController
 
   # все комментарии сущности до определённого коммента
   def fetch
-    comment = Comment.find(params[:comment_id])
-    topic = params[:topic_type].constantize.find(params[:topic_id])
+    comment = Comment.find params[:comment_id]
+    topic = params[:topic_type].constantize.find params[:topic_id]
 
     raise CanCan::AccessDenied unless comment.commentable == topic
 
@@ -60,6 +60,24 @@ class CommentsController < ShikimoriController
     query.where! is_summary: true if params[:is_summary]
 
     @collection = query
+      .decorate
+      .reverse
+
+    render :collection, formats: :json
+  end
+
+  def replies
+    replieable = Comment.find params[:comment_id]
+
+    from = params[:skip].to_i
+    to = [params[:limit].to_i, 100].min
+
+    @collection = Comment
+      .where(id: Comments::Reply.new(replieable).reply_ids)
+      .includes(:user, :commentable)
+      .order(created_at: :desc)
+      .offset(from)
+      .limit(to)
       .decorate
       .reverse
 
