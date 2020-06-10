@@ -2,10 +2,7 @@ module Kernel
   def open_image url, options = {}
     io = OpenURI.open_uri(
       URI.encode(url),
-      {
-        **options,
-        **Proxy.paid_proxy
-      }
+      { **Proxy.prepaid_proxy }.merge(options)
     )
     def io.original_filename
       base_uri.path.split('/').last
