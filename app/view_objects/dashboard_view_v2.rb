@@ -25,7 +25,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   CURRENT_SEASON_SQL = DashboardView::CURRENT_SEASON_SQL
   PRIOR_SEASON_SQL = DashboardView::PRIOR_SEASON_SQL
 
-  CACHE_VERSION = :v11
+  CACHE_VERSION = DashboardView::CACHE_VERSION
 
   def ongoings
     all_ongoings.shuffle.take(ONGOINGS_TAKE).sort_by(&:ranked)
