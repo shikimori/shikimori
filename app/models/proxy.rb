@@ -116,12 +116,13 @@ class Proxy < ApplicationRecord
           log "#{options[:method].to_s.upcase} #{url}#{options[:data] ? ' ' + options[:data].map { |k, v| "#{k}=#{v}" }.join('&') : ''} via #{proxy}", options
 
           Timeout.timeout(options[:timeout]) do
-            content = if options[:method] == :get
+            content =
+              if options[:method] == :get
               # Net::HTTP::Proxy(proxy.ip, proxy.port).get(uri) # Net::HTTP не следует редиректам, в топку его
-                        get_open_uri(url, proxy: proxy.to_s(true)).read
-                      else
-                        Net::HTTP::Proxy(proxy.ip, proxy.port).post_form(URI.parse(url), options[:data]).body
-            end
+                get_open_uri(url, proxy: proxy.to_s(true)).read
+              else
+                Net::HTTP::Proxy(proxy.ip, proxy.port).post_form(URI.parse(url), options[:data]).body
+              end
           end
           raise "#{proxy} banned" if content.nil?
 
@@ -283,35 +284,23 @@ class Proxy < ApplicationRecord
     end
 
     def open_params url, params
-      params.merge(
-        'User-Agent' => user_agent(url),
-        # 'Cookie' => cookie(url),
-        allow_redirections: :all,
-        **Proxy.prepaid_proxy
-      )
+      if params[:proxy]
+        params.merge(
+          'User-Agent' => user_agent(url),
+          allow_redirections: :all
+        )
+      else
+        params.merge(
+          'User-Agent' => user_agent(url),
+          allow_redirections: :all,
+          **Proxy.prepaid_proxy
+        )
+      end
     end
 
     def user_agent _url
       USER_AGENT
-
-      # if url =~ /myanimelist.net/
-      #  'api-malupdater-989B0AD8068FA18E49825724D2B8E68B'
-      # else
-      #  'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
-      # end
     end
-
-    # def cookie url
-    #  if url =~ %r{myanimelist.net/(?:anime|manga)/\d+/?\w*$}
-    #    %w(
-    #      MALHLOGSESSID=94988ef1f0cc270c6541e35258eb08f9;
-    #      MALSESSIONID=9tp6dm89d1up518icv73hjelm0;
-    #      is_logged_in=1;
-    #    ).join
-    #  else
-    #    ''
-    #  end
-    # end
   end
 
   def to_s with_http = false
