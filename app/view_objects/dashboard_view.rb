@@ -32,6 +32,8 @@ class DashboardView < ViewObjectBase
     40_368
   ]
 
+  CACHE_VERSION = :v2
+
   instance_cache :ongoings, :favourites, :reviews, :contests, :forums,
     :new_ongoings, :old_ongoings, :cache_keys
 
@@ -132,11 +134,11 @@ class DashboardView < ViewObjectBase
       Topics::Query.new(Topic).by_forum(Forum::UPDATES_FORUM, nil, nil).first
 
     {
-      ongoings: [:ongoings, rand(5), :v1],
-      reviews: Review.order(id: :desc).first,
-      reviews_index: rand(REVIEWS_FETCH), # to randomize reviews output
-      news: [:news, news_key],
-      updates: [:updates, updates_key]
+      ongoings: [:ongoings, rand(5), CACHE_VERSION],
+      reviews: [Review.order(id: :desc).first, CACHE_VERSION],
+      reviews_index: [rand(REVIEWS_FETCH), CACHE_VERSION], # to randomize reviews output
+      news: [:news, news_key, CACHE_VERSION],
+      updates: [:updates, updates_key, CACHE_VERSION]
     }
   end
 

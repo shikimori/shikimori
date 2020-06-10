@@ -26,6 +26,8 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   CURRENT_SEASON_SQL = DashboardView::CURRENT_SEASON_SQL
   PRIOR_SEASON_SQL = DashboardView::PRIOR_SEASON_SQL
 
+  CACHE_VERSION = :v2
+
   def ongoings
     all_ongoings.shuffle.take(ONGOINGS_TAKE).sort_by(&:ranked)
   end
@@ -114,14 +116,14 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
 
   def cache_keys
     {
-      admin: admin_area?,
-      ongoings: [:ongoings, rand(5), :v1],
-      collections: collections_scope.cache_key,
-      articles: articles_scope.cache_key,
-      reviews: reviews_scope.cache_key,
-      contests: contests_scope.cache_key,
-      news: [news_scope.cache_key, page],
-      db_updates: [db_updates_scope.cache_key, page],
+      admin: [admin_area?, CACHE_VERSION],
+      ongoings: [:ongoings, rand(5), CACHE_VERSION],
+      collections: [collections_scope.cache_key, CACHE_VERSION],
+      articles: [articles_scope.cache_key, CACHE_VERSION],
+      reviews: [reviews_scope.cache_key, CACHE_VERSION],
+      contests: [contests_scope.cache_key, CACHE_VERSION],
+      news: [news_scope.cache_key, page, CACHE_VERSION],
+      db_updates: [db_updates_scope.cache_key, page, CACHE_VERSION],
       version: [Date.today, :"variant-#{rand(5)}", CACHE_VERSION]
     }
   end
