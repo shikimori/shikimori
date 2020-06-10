@@ -1,26 +1,32 @@
 class BbCodes::Tags::CommentTag
   include Singleton
 
-  REGEXP = %r{
+  BBCODE_REGEXP = %r{
     \[comment=(?<comment_id>\d+) (?<quote>\ quote)?\]
       (?<text> .*? )
     \[/comment\]
   }mix
 
+  COMMENT_ID_REGEXP = /\[comment=(\d+)/
+
   def format text
-    text.gsub(REGEXP) do
+    comments = fetch_comments text
+
+    text.gsub(BBCODE_REGEXP) do
       comment_to_html(
         $LAST_MATCH_INFO[:comment_id],
         $LAST_MATCH_INFO[:text],
-        $LAST_MATCH_INFO[:quote].present?
+        $LAST_MATCH_INFO[:quote].present?,
+        comments
       )
     end
   end
 
 private
 
-  def comment_to_html comment_id, text, is_quoted
-    user = Comment.find_by(id: comment_id)&.user if is_quoted || text.blank?
+  def comment_to_html comment_id, text, is_quoted, comments
+    comment = comments[comment_id.to_i]
+    user = comment&.user if is_quoted || text.blank?
     author_name = extract_author user, text, comment_id
     css_classes = [
       'bubbled',
@@ -62,5 +68,14 @@ private
     else
       user&.nickname || comment_id
     end
+  end
+
+  def fetch_comments text
+    comment_ids = text.scan(COMMENT_ID_REGEXP).map { |v| v[0].to_i }
+
+    Comment
+      .where(id: comment_ids)
+      .includes(:user)
+      .each_with_object({}) { |comment, memo| memo[comment.id] = comment }
   end
 end

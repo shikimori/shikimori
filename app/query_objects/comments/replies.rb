@@ -28,6 +28,6 @@ private
         commentable_id: @comment.commentable_id
       )
       .order(:id)
-      .limit(10000)
+      .limit(10_000)
   end
 end
