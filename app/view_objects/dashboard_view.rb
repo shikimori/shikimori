@@ -32,7 +32,7 @@ class DashboardView < ViewObjectBase
     40_368
   ]
 
-  CACHE_VERSION = :v2
+  CACHE_VERSION = :v3
 
   instance_cache :ongoings, :favourites, :reviews, :contests, :forums,
     :new_ongoings, :old_ongoings, :cache_keys
