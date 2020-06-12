@@ -224,7 +224,7 @@ describe BbCodes::Text do
 
     describe '[u]' do
       let(:text) { '[u]test[/u]' }
-      it { is_expected.to eq '<span style="text-decoration: underline;">test</span>' }
+      it { is_expected.to eq '<u>test</u>' }
     end
 
     describe '[s]' do
