@@ -13,3 +13,4 @@ en:
       redo: Redo last change
       prompt:
         image_url: Enter image URL
+        link_url: Enter link URL

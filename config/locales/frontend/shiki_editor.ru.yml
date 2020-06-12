@@ -13,3 +13,5 @@ ru:
       redo: Повторить последнее изменение
       prompt:
         image_url: Укажи URL картинки
+        link_url: Укажи URL ссылки
+
