@@ -100,12 +100,20 @@ describe BbCodes::Text do
     describe '[url]' do
       context 'example 1' do
         let(:text) { 'http://www.small-games.info' }
-        it { is_expected.to eq '<a class="b-link" href="http://www.small-games.info">www.small-games.info</a>' }
+        it do
+          is_expected.to eq(
+            '<a class="b-link" href="http://www.small-games.info" rel="noopener noreferrer nofollow">www.small-games.info</a>'
+          )
+        end
       end
 
       context 'example 2' do
         let(:text) { '[url=http://www.small-games.info]www.small-games.info[/url]' }
-        it { is_expected.to eq '<a class="b-link" href="http://www.small-games.info">www.small-games.info</a>' }
+        it do
+          is_expected.to eq(
+            '<a class="b-link" href="http://www.small-games.info" rel="noopener noreferrer nofollow">www.small-games.info</a>'
+          )
+        end
       end
     end
 
@@ -259,7 +267,11 @@ describe BbCodes::Text do
 
     describe '[url]' do
       let(:text) { '[url]http://test.com[/url]' }
-      it { is_expected.to eq '<a class="b-link" href="http://test.com">test.com</a>' }
+      it do
+        is_expected.to eq(
+          '<a class="b-link" href="http://test.com" rel="noopener noreferrer nofollow">test.com</a>'
+        )
+      end
     end
 
     describe '[list]' do
@@ -329,12 +341,20 @@ describe BbCodes::Text do
 
       context 'link inside with space' do
         let(:text) { '[quote] http://test.ru/ [/quote]\ntest' }
-        it { is_expected.to eq '<div class="b-quote"> <a class="b-link" href="http://test.ru/">test.ru/</a> </div>\ntest' }
+        it do
+          is_expected.to eq(
+            '<div class="b-quote"> <a class="b-link" href="http://test.ru/" rel="noopener noreferrer nofollow">test.ru/</a> </div>\ntest'
+          )
+        end
       end
 
       context 'link inside w/o space' do
         let(:text) { '[quote] http://test.ru/[/quote]\ntest' }
-        it { is_expected.to eq '<div class="b-quote"> <a class="b-link" href="http://test.ru/">test.ru/</a></div>\ntest' }
+        it do
+          is_expected.to eq(
+            '<div class="b-quote"> <a class="b-link" href="http://test.ru/" rel="noopener noreferrer nofollow">test.ru/</a></div>\ntest'
+          )
+        end
       end
     end
 
@@ -348,7 +368,11 @@ describe BbCodes::Text do
 
     describe 'russian link' do
       let(:text) { 'http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/' }
-      it { is_expected.to eq '<a class="b-link" href="http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/">www.hentasis.com</a>' }
+      it do
+        is_expected.to eq(
+          '<a class="b-link" href="http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/" rel="noopener noreferrer nofollow">www.hentasis.com</a>'
+        )
+      end
     end
 
     describe 'obsolete tags' do
