@@ -42,10 +42,20 @@ body[data-locale=en]
     &:before
       +shikimori('"')
       color: #333
-      font-size: 12px
       margin-right: 5px
       position: relative
-      top: 2px
+
+      +lte_ipad
+        font-size: 14px
+        top: 0px
+
+      +gte_laptop
+        font-size: 12px
+        top: 2px
+
+    .b-user16 img
+      +lte_ipad
+        margin-top: 5px
 
   .b-quote
     background: $quote_even
