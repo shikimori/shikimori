@@ -47,6 +47,7 @@ module Types
         twitter
         novel_tl
         ruranobe
+        ranobelib
         remanga
         novelupdates
         mangaupdates
