@@ -8134,6 +8134,73 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :hayao_miyazaki
+    :level: 1
+    :image: "/assets/achievements/anime/author/hayao_miyazaki.jpg"
+    :border_color: "#C48D5E"
+    :title_ru: Хаяо Миядзаки
+    :text_ru: 
+    :title_en: Hayao Miyazaki
+    :text_en: 
+    :topic_id: 276032
+    :rule: &81
+      :algo: count
+      :threshold: 55%
+      :filters:
+        anime_ids:
+        - 1044
+        - 2279
+        - 2811
+        - 3842
+        - 3843
+        - 2553
+        - 15347
+        - 1430
+        - 302
+        - 15021
+        - 1412
+        - 199
+        - 164
+        - 2616
+        - 2897
+        - 416
+        - 512
+        - 523
+        - 513
+        - 1972
+        - 572
+        - 16662
+        - 9798
+        - 2890
+        - 4306
+        - 24975
+        - 431
+        - 2488
+        - 10029
+        - 7711
+        - 585
+        - 2611
+        - 597
+        - 1030
+        - 1029
+        - 1047
+      :generator:
+        person_id: 1870
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :hayao_miyazaki
+  level: 1
+  image: "/assets/achievements/anime/author/hayao_miyazaki.jpg"
+  border_color: "#C48D5E"
+  title_ru: Хаяо Миядзаки
+  text_ru: 
+  title_en: Hayao Miyazaki
+  text_en: 
+  topic_id: 276032
+  rule: *81
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :akiyuki_shinbou
     :level: 1
     :image: "/assets/achievements/anime/author/akiyuki_shinbou.png"
@@ -8143,7 +8210,7 @@
     :title_en: Akiyuki Shinbou
     :text_en: 
     :topic_id: 276032
-    :rule: &81
+    :rule: &82
       :algo: count
       :threshold: 57%
       :filters:
@@ -8242,73 +8309,6 @@
   title_ru: Акиюки Симбо
   text_ru: 
   title_en: Akiyuki Shinbou
-  text_en: 
-  topic_id: 276032
-  rule: *81
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :hayao_miyazaki
-    :level: 1
-    :image: "/assets/achievements/anime/author/hayao_miyazaki.jpg"
-    :border_color: "#C48D5E"
-    :title_ru: Хаяо Миядзаки
-    :text_ru: 
-    :title_en: Hayao Miyazaki
-    :text_en: 
-    :topic_id: 276032
-    :rule: &82
-      :algo: count
-      :threshold: 55%
-      :filters:
-        anime_ids:
-        - 1044
-        - 2279
-        - 2811
-        - 3842
-        - 3843
-        - 2553
-        - 15347
-        - 1430
-        - 302
-        - 15021
-        - 1412
-        - 199
-        - 164
-        - 2616
-        - 2897
-        - 416
-        - 512
-        - 523
-        - 513
-        - 1972
-        - 572
-        - 16662
-        - 9798
-        - 2890
-        - 4306
-        - 24975
-        - 431
-        - 2488
-        - 10029
-        - 7711
-        - 585
-        - 2611
-        - 597
-        - 1030
-        - 1029
-        - 1047
-      :generator:
-        person_id: 1870
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :hayao_miyazaki
-  level: 1
-  image: "/assets/achievements/anime/author/hayao_miyazaki.jpg"
-  border_color: "#C48D5E"
-  title_ru: Хаяо Миядзаки
-  text_ru: 
-  title_en: Hayao Miyazaki
   text_en: 
   topic_id: 276032
   rule: *82
@@ -8848,61 +8848,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :morio_asaka
-    :level: 1
-    :image: "/assets/achievements/anime/author/morio_asaka.jpg"
-    :border_color: "#AE050D"
-    :title_ru: Морио Асака
-    :text_ru: 
-    :title_en: Morio Asaka
-    :text_en: 
-    :topic_id: 276032
-    :rule: &92
-      :algo: count
-      :threshold: 66%
-      :filters:
-        anime_ids:
-        - 5678
-        - 1078
-        - 28297
-        - 37379
-        - 14397
-        - 10800
-        - 7193
-        - 7972
-        - 877
-        - 408
-        - 134
-        - 596
-        - 59
-        - 652
-        - 383
-        - 33354
-        - 35320
-        - 372
-        - 371
-        - 232
-        - 2009
-        - 2274
-        - 2017
-        - 2093
-      :generator:
-        person_id: 5921
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :morio_asaka
-  level: 1
-  image: "/assets/achievements/anime/author/morio_asaka.jpg"
-  border_color: "#AE050D"
-  title_ru: Морио Асака
-  text_ru: 
-  title_en: Morio Asaka
-  text_en: 
-  topic_id: 276032
-  rule: *92
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :shoji_kawamori
     :level: 1
     :image: "/assets/achievements/anime/author/shoji_kawamori.jpg"
@@ -8912,7 +8857,7 @@
     :title_en: Shoji Kawamori
     :text_en: 
     :topic_id: 276032
-    :rule: &93
+    :rule: &92
       :algo: count
       :threshold: 60%
       :filters:
@@ -8959,6 +8904,61 @@
   title_ru: Сёдзи Кавамори
   text_ru: 
   title_en: Shoji Kawamori
+  text_en: 
+  topic_id: 276032
+  rule: *92
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :morio_asaka
+    :level: 1
+    :image: "/assets/achievements/anime/author/morio_asaka.jpg"
+    :border_color: "#AE050D"
+    :title_ru: Морио Асака
+    :text_ru: 
+    :title_en: Morio Asaka
+    :text_en: 
+    :topic_id: 276032
+    :rule: &93
+      :algo: count
+      :threshold: 66%
+      :filters:
+        anime_ids:
+        - 5678
+        - 1078
+        - 28297
+        - 37379
+        - 14397
+        - 10800
+        - 7193
+        - 7972
+        - 877
+        - 408
+        - 134
+        - 596
+        - 59
+        - 652
+        - 383
+        - 33354
+        - 35320
+        - 372
+        - 371
+        - 232
+        - 2009
+        - 2274
+        - 2017
+        - 2093
+      :generator:
+        person_id: 5921
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :morio_asaka
+  level: 1
+  image: "/assets/achievements/anime/author/morio_asaka.jpg"
+  border_color: "#AE050D"
+  title_ru: Морио Асака
+  text_ru: 
+  title_en: Morio Asaka
   text_en: 
   topic_id: 276032
   rule: *93
@@ -9730,71 +9730,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :kouichi_mashimo
-    :level: 1
-    :image: "/assets/achievements/anime/author/kouichi_mashimo.jpg"
-    :border_color: "#72633F"
-    :title_ru: Коити Масимо
-    :text_ru: 
-    :title_en: Kouichi Mashimo
-    :text_en: 
-    :topic_id: 276032
-    :rule: &107
-      :algo: count
-      :threshold: 58%
-      :filters:
-        anime_ids:
-        - 424
-        - 298
-        - 9996
-        - 6867
-        - 5682
-        - 4151
-        - 2030
-        - 2928
-        - 873
-        - 2620
-        - 2619
-        - 969
-        - 177
-        - 336
-        - 252
-        - 454
-        - 1487
-        - 56
-        - 1143
-        - 299
-        - 48
-        - 272
-        - 4191
-        - 1704
-        - 808
-        - 495
-        - 1168
-        - 569
-        - 1777
-        - 2543
-        - 1151
-        - 6055
-        - 1796
-        - 5053
-      :generator:
-        person_id: 5094
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :kouichi_mashimo
-  level: 1
-  image: "/assets/achievements/anime/author/kouichi_mashimo.jpg"
-  border_color: "#72633F"
-  title_ru: Коити Масимо
-  text_ru: 
-  title_en: Kouichi Mashimo
-  text_en: 
-  topic_id: 276032
-  rule: *107
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :go_nagai
     :level: 1
     :image: "/assets/achievements/anime/author/go_nagai.jpg"
@@ -9804,7 +9739,7 @@
     :title_en: Go Nagai
     :text_en: 
     :topic_id: 276032
-    :rule: &108
+    :rule: &107
       :algo: count
       :threshold: 36%
       :filters:
@@ -9881,6 +9816,71 @@
   title_ru: Го Нагай
   text_ru: 
   title_en: Go Nagai
+  text_en: 
+  topic_id: 276032
+  rule: *107
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :kouichi_mashimo
+    :level: 1
+    :image: "/assets/achievements/anime/author/kouichi_mashimo.jpg"
+    :border_color: "#72633F"
+    :title_ru: Коити Масимо
+    :text_ru: 
+    :title_en: Kouichi Mashimo
+    :text_en: 
+    :topic_id: 276032
+    :rule: &108
+      :algo: count
+      :threshold: 58%
+      :filters:
+        anime_ids:
+        - 424
+        - 298
+        - 9996
+        - 6867
+        - 5682
+        - 4151
+        - 2030
+        - 2928
+        - 873
+        - 2620
+        - 2619
+        - 969
+        - 177
+        - 336
+        - 252
+        - 454
+        - 1487
+        - 56
+        - 1143
+        - 299
+        - 48
+        - 272
+        - 4191
+        - 1704
+        - 808
+        - 495
+        - 1168
+        - 569
+        - 1777
+        - 2543
+        - 1151
+        - 6055
+        - 1796
+        - 5053
+      :generator:
+        person_id: 5094
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :kouichi_mashimo
+  level: 1
+  image: "/assets/achievements/anime/author/kouichi_mashimo.jpg"
+  border_color: "#72633F"
+  title_ru: Коити Масимо
+  text_ru: 
+  title_en: Kouichi Mashimo
   text_en: 
   topic_id: 276032
   rule: *108
