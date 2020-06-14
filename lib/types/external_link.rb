@@ -40,6 +40,7 @@ module Types
         mangafox
         mangachan
         mangahub
+        mangalib
       ],
       ranobe: COMMON_KINDS + %i[twitter novel_tl ruranobe novelupdates mangaupdates]
     }
