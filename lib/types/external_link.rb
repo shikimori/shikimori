@@ -36,13 +36,21 @@ module Types
       ] + WATCH_ONLINE_KINDS + %i[twitter],
       manga: COMMON_KINDS + %i[
         readmanga
+        mangalib
+        remanga
         mangaupdates
         mangafox
         mangachan
         mangahub
-        mangalib
       ],
-      ranobe: COMMON_KINDS + %i[twitter novel_tl ruranobe novelupdates mangaupdates]
+      ranobe: COMMON_KINDS + %i[
+        twitter
+        novel_tl
+        ruranobe
+        remanga
+        novelupdates
+        mangaupdates
+      ]
     }
 
     INVISIBLE_KINDS = %i[myanimelist smotret_anime mangachan]
