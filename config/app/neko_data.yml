@@ -16918,7 +16918,7 @@
         - 22013
         - 31617
         - 38600
-      :threshold: 90.8%
+      :threshold: 91.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ghost_in_the_shell
@@ -20880,7 +20880,7 @@
       :algo: duration
       :filters:
         franchise: uta_no_prince_sama
-      :threshold: 92.3%
+      :threshold: 95%
       :generator:
         ignore_latest_ids:
         - 35645
@@ -24485,7 +24485,7 @@
         - 21595
         - 32346
         - 33997
-      :threshold: 88.4%
+      :threshold: 88.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :yu_gi_oh
@@ -24922,7 +24922,6 @@
         franchise: teekyuu
         not_anime_ids:
         - 31669
-        - 36054
       :threshold: 89.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -24954,7 +24953,6 @@
         franchise: teekyuu
         not_anime_ids:
         - 31669
-        - 36054
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -25292,7 +25290,7 @@
       :algo: duration
       :filters:
         franchise: pripara
-      :threshold: 94.9%
+      :threshold: 94.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pripara
@@ -25538,7 +25536,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 97.1%
+      :threshold: 97%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
