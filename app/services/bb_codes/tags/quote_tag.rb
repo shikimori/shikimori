@@ -49,8 +49,7 @@ class BbCodes::Tags::QuoteTag
       comment_quote(*
         text,
         0,
-        text
-      ))))))
+        text))))))
   end
 
 private
@@ -62,7 +61,7 @@ private
       '<div class="b-quote"><div class="quoteable">'\
         "[comment=#{$LAST_MATCH_INFO[:comment_id]} quote]"\
         "#{$LAST_MATCH_INFO[:nickname]}[/comment]"\
-        '</div>'
+        '</div><div class="quote-content">'
     end
 
     [result, replacements, original_text]
@@ -74,7 +73,7 @@ private
       '<div class="b-quote"><div class="quoteable">'\
         "[message=#{$LAST_MATCH_INFO[:message_id]} quote]"\
         "#{$LAST_MATCH_INFO[:nickname]}[/message]"\
-        '</div>'
+        '</div><div class="quote-content">'
     end
 
     [result, replacements, original_text]
@@ -86,7 +85,7 @@ private
       '<div class="b-quote"><div class="quoteable">'\
         "[topic=#{$LAST_MATCH_INFO[:topic_id]} quote]"\
         "#{$LAST_MATCH_INFO[:nickname]}[/topic]"\
-        '</div>'
+        '</div><div class="quote-content">'
     end
 
     [result, replacements, original_text]
@@ -97,7 +96,7 @@ private
       replacements += 1
       '<div class="b-quote"><div class="quoteable">'\
         "[user]#{$LAST_MATCH_INFO[:nickname]}[/user]"\
-        '</div>'
+        '</div><div class="quote-content">'
     end
 
     [result, replacements, original_text]
@@ -106,7 +105,7 @@ private
   def simple_quote_1 text, replacements, original_text
     result = text.gsub SIMPLE_QUOTE_1_START_REGEXP do
       replacements += 1
-      '<div class="b-quote">'
+      '<div class="b-quote"><div class="quote-content">'
     end
 
     [result, replacements, original_text]
@@ -115,7 +114,7 @@ private
   def quote_end text, replacements, original_text
     result = text.gsub QUOTE_END_REGEXP do
       replacements -= 1
-      '</div>'
+      '</div></div>'
     end
 
     if replacements.zero?
