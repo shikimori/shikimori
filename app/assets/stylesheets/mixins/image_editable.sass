@@ -12,16 +12,17 @@
   .controls,
   .move-controls
     display: none
+    justify-content: flex-start
     z-index: 1
 
   &.mobile-editing .controls,
   &.mobile-editing .move-controls,
-    display: block
+    display: flex
 
   +gte_laptop
     &:hover .controls,
     &:hover .move-controls
-      display: block
+      display: flex
 
   &.mobile-editing
     .mobile-edit
@@ -33,7 +34,7 @@
       opacity: 0.3 !important
 
     .controls
-      display: block
+      display: flex
 
       .edit,
       .delete
@@ -70,7 +71,7 @@
     color: white
     cursor: pointer
     display: inline-block
-    margin: 0 !important
+    margin: 0 0 0 1px !important
     padding: 0
     transition: background 0.25s ease
     z-index: 999
@@ -82,13 +83,19 @@
       background-color: $link-2
 
   .edit
-    +icon('\e842', 12px)
+    +icon('\e842')
 
   .delete
-    +icon('✕', 12px)
+    +icon('✕')
+
+  .expand
+    +icon('\e83d')
+
+  .collapse
+    +icon('\e834')
 
   .drag-handle
-    +icon('m', 11px)
+    +icon('m')
     vertical-align: top
 
     +lte_ipad
@@ -101,18 +108,18 @@
     opacity: 0.3
 
   .confirm
-    +icon('✓', 12px)
+    +icon('✓')
     display: none
 
   .cancel
-    +icon('✕', 12px)
+    +icon('✕')
     display: none
 
     &:hover
       color: #fff
 
   .move-left
-    +icon('\e83e', 12px)
+    +icon('\e83e')
     left: 0
     margin-top: -10px !important
     position: absolute
@@ -122,7 +129,7 @@
       display: none
 
   .move-right
-    +icon('\e83f', 12px)
+    +icon('\e83f')
     margin-top: -10px !important
     position: absolute
     right: 0
@@ -132,7 +139,7 @@
       display: none
 
   .mobile-edit
-    +icon('\e842', 12px)
+    +icon('\e842')
     position: absolute
     right: 0
     top: 0
