@@ -49,12 +49,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "7034e4d22866af82bef811f52fb1ba46",
-      "css": "code",
-      "code": 59403,
-      "src": "fontawesome"
-    },
-    {
       "uid": "dcedf50ab1ede3283d7a6c70e2fe32f3",
       "css": "chat",
       "code": 102,
@@ -741,6 +735,20 @@
       "css": "sort",
       "code": 61660,
       "src": "fontawesome"
+    },
+    {
+      "uid": "ad0fca76a0ab78ccfa26dce786e0f993",
+      "css": "quote",
+      "code": 59403,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M0 500V785.7H285.7V500H142.9C142.9 500 142.9 357.1 285.7 357.1V214.3C285.7 214.3 0 214.3 0 500ZM714.3 357.1V214.3C714.3 214.3 428.6 214.3 428.6 500V785.7H714.3V500H571.4C571.4 500 571.4 357.1 714.3 357.1Z",
+        "width": 714
+      },
+      "search": [
+        "quote"
+      ]
     },
     {
       "uid": "180ceba44a3c8a0e0215fcc4ae5169f4",
