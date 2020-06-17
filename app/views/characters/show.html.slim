@@ -38,7 +38,7 @@
 
       .c-about
         .cc
-          - if @resource.russian.present? || @resource.japanese.present? || @resource.altname.present?
+          - if @resource.russian.present? || @resource.japanese.present? || @resource.altname.present? || @resource.imageboard_tag.present? || @resource.cosplay? || @resource.contest_winners.any?
             .c-info-left
               .subheadline = t '.names'
               .b-entry-info
