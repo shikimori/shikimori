@@ -5,7 +5,7 @@ header.head
   = render 'application/breadcrumbs'
 
 .subheadline = t '.roles'
-ul.b-list.block
+ul.b-list.is-wide.block
   - User.roles.values.each do |role|
     li
       - if RolesPolicy.accessible? role

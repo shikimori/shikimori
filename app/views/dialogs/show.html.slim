@@ -21,7 +21,7 @@
       - if @dialog.target_user.admin?
         .admin-message
           .subheadline.red = t '.before_you_message_me'
-          ul.b-list
+          ul.b-list.is-wide
             == t '.admin_message'
             / - if ru_host? && I18n.russian?
               li

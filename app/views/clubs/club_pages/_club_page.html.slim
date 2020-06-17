@@ -27,7 +27,7 @@ li
     ] = t '.delete'
 
   - if children.any?
-    ul.b-list
+    ul.b-list.is-wide
       - children.each do |page|
         = render 'clubs/club_pages/club_page',
           club: club,

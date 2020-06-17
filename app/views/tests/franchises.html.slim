@@ -58,7 +58,7 @@
       .b-options-floated
         = @matched_collection.size
       .subheadline Matched
-      ul.b-list
+      ul.b-list.is-wide
         - @matched_collection.each do |franchise, infos|
           li
             a href=animes_collection_url(franchise: franchise)
@@ -74,7 +74,7 @@
                     title=info[:tooltip]
                   ] = info[:text]
 
-      / ul.b-list
+      / ul.b-list.is-wide
         - @matched_collection.each do |franchise, infos|
           li = franchise
 
@@ -82,7 +82,7 @@
       .b-options-floated
         = @not_matched_collection.size
       .subheadline Not Matched
-      ul.b-list
+      ul.b-list.is-wide
         - @not_matched_collection.each do |franchise, infos|
           li
             a href=animes_collection_url(franchise: franchise)

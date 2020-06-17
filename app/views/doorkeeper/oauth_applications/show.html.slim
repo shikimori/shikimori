@@ -35,7 +35,7 @@ header.head.misc
           p.m5 = t '.have_access'
           .m5
             b = t 'doorkeeper.authorizations.new.is_able_to'
-          ul.b-list.m10
+          ul.b-list.is-wide.m10
             - @access_grant.scopes.each do |scope|
               li = t "doorkeeper.scopes.#{scope}"
 
@@ -55,6 +55,6 @@ header.head.misc
       - unless @access_grant
         .m5
           b = t 'doorkeeper.authorizations.new.able_to'
-        ul.b-list
+        ul.b-list.is-wide
           - @resource.scopes.each do |scope|
             li = t "doorkeeper.scopes.#{scope}"

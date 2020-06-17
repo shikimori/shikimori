@@ -3,7 +3,7 @@
     .subheadline = og.headline
     .fc-2
       .f-column
-        ul.b-list
+        ul.b-list.is-wide
           li
             .field = @resource.class.human_attribute_name(:name)
             .value
@@ -193,7 +193,7 @@
                 ] = t 'actions.edit'
 
       .f-column
-        ul.b-list
+        ul.b-list.is-wide
           li
             .field = @resource.class.human_attribute_name(:image)
             .value
@@ -295,7 +295,7 @@
                     data-dynamic='week_registered'
                   ] = t 'actions.edit'
 
-    ul.b-list
+    ul.b-list.is-wide
       li
         .field = @resource.class.human_attribute_name(:is_censored)
         .value

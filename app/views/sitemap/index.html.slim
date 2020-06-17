@@ -6,38 +6,38 @@ header.head
 .cc-2
   .c-column
     .subheadline.m5 Общее
-    ul.block.b-list
+    ul.block.b-list.is-wide
       - @forums.each do |title, url|
         li
           a.b-link href=url title=title = title
 
     h2.subheadline.m5 Аниме
-    ul.block.b-list
+    ul.block.b-list.is-wide
       - @anime_forums.each do |title, url|
         li
           a.b-link href=url title=title = title
 
 
     h2.subheadline.m5 Манга
-    ul.block.b-list
+    ul.block.b-list.is-wide
       - @manga_forums.each do |title, url|
         li
           a.b-link href=url title=title = title
 
     h2.subheadline.m5 Ранобэ
-    ul.block.b-list
+    ul.block.b-list.is-wide
       - @ranobe_forums.each do |title, url|
         li
           a.b-link href=url title=title = title
 
   .c-column
     .subheadline.m5 Жанры аниме
-    ul.block.b-list
+    ul.block.b-list.is-wide
       - @anime_genres.each do |title, url|
         li
           a.b-link href=url title=title = title
 
-    ul.block.b-list
+    ul.block.b-list.is-wide
       - @anime_misc_genres.each do |title, url|
         li
           a.b-link href=url title=title = title

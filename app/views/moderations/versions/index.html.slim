@@ -12,7 +12,7 @@ header.head
           collection: @view.moderators,
           locals: { content_by: :named_avatar }
 
-      ul.b-list
+      ul.b-list.is-wide
         - t('.instructions').each do |instruction|
           li: p == instruction
 

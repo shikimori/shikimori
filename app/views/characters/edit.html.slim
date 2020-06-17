@@ -3,7 +3,7 @@
     .subheadline = og.headline
     .fc-2
       .f-column
-        ul.b-list
+        ul.b-list.is-wide
           li
             .field = Character.human_attribute_name :name
             .value
@@ -35,7 +35,7 @@
               ] = t 'actions.edit'
 
       .f-column
-        ul.b-list
+        ul.b-list.is-wide
           li
             .field = @resource.class.human_attribute_name :image
             .value

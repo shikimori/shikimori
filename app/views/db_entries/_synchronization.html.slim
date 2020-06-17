@@ -2,7 +2,7 @@
   .subheadline = t '.synchronization'
   .fc-2
     .f-column
-      ul.b-list
+      ul.b-list.is-wide
         li
           .field = resource.class.human_attribute_name(:imported_at)
           .value
@@ -40,7 +40,7 @@
 
     - if can? :restricted_update, Version
       .f-column
-        ul.b-list
+        ul.b-list.is-wide
           - if resource.mal_id
             li
               = render ExternalLink.new(entry: resource, kind: :myanimelist, source: :myanimelist, url: resource.mal_url)
