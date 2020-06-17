@@ -38,13 +38,16 @@
 
       .c-about
         .cc
-          - if @resource.credentials?
+          - if @resource.russian.present? || @resource.japanese.present? || @resource.altname.present?
             .c-info-left
               .subheadline = t '.names'
               .b-entry-info
-                = info_line t('in_russian'), @resource.russian
-                = info_line t('in_japanese'), @resource.japanese
-                = info_line t('.other'), @resource.altname
+                - if @resource.russian.present?
+                  = info_line t('in_russian'), @resource.russian
+                - if @resource.japanese.present?
+                  = info_line t('in_japanese'), @resource.japanese
+                - if @resource.altname.present?
+                  = info_line t('.other'), @resource.altname
 
                 - if @resource.imageboard_tag.present? || @resource.cosplay?
                   .additional-links
