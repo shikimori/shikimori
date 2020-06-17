@@ -30,10 +30,6 @@ class PersonDecorator < DbEntryDecorator
     (linked_type in ('#{Manga.name}', '#{Ranobe.name}') and linked_id in (?))
   SQL
 
-  def credentials?
-    japanese.present? || object.name.present?
-  end
-
   def url
     h.person_url object
   end
