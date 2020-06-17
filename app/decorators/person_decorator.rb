@@ -310,7 +310,7 @@ private
   def website_host
     return if object.website.blank?
 
-    URI.parse(website_url).host
+    Url.new(website_url).domain.to_s
   rescue URI::Error
   end
 
