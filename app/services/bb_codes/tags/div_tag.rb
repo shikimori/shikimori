@@ -55,7 +55,7 @@ private
       '<div' +
         class_html($LAST_MATCH_INFO[:css_class]) +
         data_html($LAST_MATCH_INFO[:data_attributes]) +
-        '>'
+        ' data-div>'
     end
 
     [result, replacements, original_text]
