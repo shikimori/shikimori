@@ -13,6 +13,10 @@ class Abilities::SuperModerator
     can %i[merge destroy], Character
     can %i[merge destroy], Person
 
+    can :manage, Club
+    can :manage, ClubPage
+    can :manage, ClubImage
+
     genres_studios_publishers_abilities
   end
 
