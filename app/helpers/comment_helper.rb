@@ -93,7 +93,7 @@ module CommentHelper
     text = spoiler_to_html text, nesting + 1
 
     text.gsub(/
-      \[spoiler (?:= (?<label> [^\[\]\n\r]*? ) )? \]
+      \[spoiler (?:= (?<label> [^\[\]\n\r]+? ) )? \]
         \n?
         (?<content>
           (?:
