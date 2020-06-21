@@ -69,15 +69,15 @@ data-width=\"#{user_image_2.width}\" data-height=\"#{user_image_2.height}\" />\
         )
       end
 
-      context 'css_class' do
+      context 'css_class', :focus do
         let(:text) { "[image=#{user_image.id} class=abc]" }
         let(:user_image) { create :user_image, width: 249, height: 249 }
 
         it do
           is_expected.to eq(
             <<-HTML.squish.strip
-              <span class="b-image no-zoom"><img
-                src="#{user_image.image.url :original, false}" class="check-width abc"
+              <span class="b-image no-zoom abc"><img
+                src="#{user_image.image.url :original, false}" class="check-width"
               /></span>
             HTML
           )
@@ -147,8 +147,8 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
       let(:text) { "[image=#{user_image.id} w=400 h=500 c=test]" }
       it do
         is_expected.to eq(
-          "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :preview, false}\" class=\"test\" width=\"400\" height=\"500\" \
+          "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed test\">\
+<img src=\"#{user_image.image.url :preview, false}\" width=\"400\" height=\"500\" \
 data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
 <span class=\"marker\">400x500</span></a>"
         )

@@ -71,16 +71,10 @@ private
 
   def small_image_html user_image:, sizes_html:, marker_html:, css_class:
     original_url = ImageUrlGenerator.instance.url user_image, :original
-    css_class = [
-      ('check-width' unless sizes_html.present?),
-      (css_class if css_class.present?)
-    ].compact.join(' ')
 
     <<-HTML.squish.strip
-      <span class="b-image no-zoom"><img
-        src="#{original_url}"
-        #{"class=\"#{css_class}\"" if css_class.present?}
-        #{sizes_html}
+      <span class="b-image no-zoom#{" #{css_class}" if css_class.present?}"><img
+        src="#{original_url}" #{sizes_html}#{' class="check-width"' unless sizes_html.present?}
       />#{marker_html}</span>
     HTML
   end
@@ -96,10 +90,8 @@ private
       <a
         href="#{original_url}"
         rel="#{text_hash}"
-        class="b-image unprocessed"><img
-        src="#{preview_url}"
-        #{"class=\"#{css_class}\"" if css_class}
-        #{sizes_html}
+        class="b-image unprocessed#{" #{css_class}" if css_class.present?}"><img
+        src="#{preview_url}" #{sizes_html}
         data-width="#{user_image.width}"
         data-height="#{user_image.height}"
       />#{marker_html}</a>
