@@ -7,7 +7,7 @@
         data-text=t('.join_club')
       ] = t '.join_club'
 
-  - else
+  - if club.member?(current_user) || can?(:manage, Club)
     .b-subposter-actions
       - unless club.logo.exists?
         .subheadline.m5 = i18n_i 'action', :other
