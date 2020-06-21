@@ -55,6 +55,7 @@ class Comment < ApplicationRecord
   after_save :notify_quoted, if: -> { saved_change_to_body? }
 
   before_destroy :decrement_comments
+  before_destroy :destroy_images
   after_destroy :destruction_callbacks
   after_destroy :touch_commentable
   after_destroy :remove_notifies
@@ -83,6 +84,11 @@ class Comment < ApplicationRecord
     if commentable && commentable.attributes['comments_count']
       commentable.class.decrement_counter(:comments_count, commentable.id)
     end
+  end
+
+  def destroy_images
+    image_ids = body.scan(/\[(?:image|poster)=(?<id>\d+)/).flatten.map(&:to_i).uniq
+    UserImage.where(user_id: user_id, id: image_ids).destroy_all
   end
 
   # TODO: get rid of this method

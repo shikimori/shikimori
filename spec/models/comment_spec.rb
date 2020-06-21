@@ -117,6 +117,21 @@ describe Comment do
       it { expect(comment).to receive :decrement_comments }
     end
 
+    describe '#destroy_images' do
+      let(:user_image_1) { create :user_image, user_id: user.id }
+      let(:user_image_2) { create :user_image, user_id: user_2.id }
+      let(:comment) do
+        create :comment,
+          user_id: user.id,
+          body: "[poster=#{user_image_1.id}][poster=#{user_image_2.id}]"
+      end
+      subject! { comment.destroy! }
+      it do
+        expect { user_image_1.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(user_image_2.reload).to be_persisted
+      end
+    end
+
     describe '#destruction_callbacks' do
       let(:comment) { create :comment }
       after { comment.destroy }
