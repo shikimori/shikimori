@@ -31,6 +31,7 @@ class RobotsController < ShikimoriController
       Disallow: /*undefined
       Disallow: /api/*
       Disallow: /*.html
+      Disallow: /clubs/3*
       Host: https://shikimori.one
       Sitemap: https://shikimori.one/sitemap.xml
 
@@ -72,6 +73,7 @@ class RobotsController < ShikimoriController
       Disallow: /*undefined
       Disallow: /api/*
       Disallow: /*.html
+      Disallow: /clubs/3*
       Host: https://shikimori.one
       Sitemap: https://shikimori.one/sitemap.xml
 
