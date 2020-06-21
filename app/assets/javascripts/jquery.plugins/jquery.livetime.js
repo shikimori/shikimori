@@ -11,8 +11,7 @@ const I18N_DATE_FORMATS = {
 };
 
 let initialized = false;
-// refreshInterval = 60000
-const refreshInterval = 600;
+const refreshInterval = 60000;
 
 $.fn.extend({
   livetime() {
