@@ -4,7 +4,6 @@ en:
     actions: Actions
     add: Add
     apply: Apply
-    apply: Apply
     cancel: Cancel
     confirm: This action is irreversible. Are you sure?
     confirm_delete: Confirm deletion

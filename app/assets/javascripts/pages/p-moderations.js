@@ -80,7 +80,7 @@ pageLoad('.moderations-index', () => {
 
   ['user_id', 'moderator_id'].forEach(type => {
     $(`.${type}-suggest`)
-      .completable()
+      .completable({ minChars: 1 })
       .on('autocomplete:success', (_e, { id, name, url }) => {
         const $input = $(`#version_${type}`);
         const $suggest = $(`.${type}-suggest`);

@@ -8,6 +8,7 @@ ru:
       queue: Очередь
       queue_empty: Очередь пуста
       filters: Фильтры
+      apply_filters: Применить фильтры
 
     show:
       content: Контент

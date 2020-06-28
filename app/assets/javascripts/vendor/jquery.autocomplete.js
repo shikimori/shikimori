@@ -237,7 +237,7 @@ $.Autocompleter = function(input, options) {
       return;
     }
 
-    var currentValue = encodeURIComponent($input.val());
+    var currentValue = encodeURIComponent($input.val().trim());
 
     if ( !skipPrevCheck && currentValue == previousValue )
       return;
@@ -343,6 +343,8 @@ $.Autocompleter = function(input, options) {
   function request(term, success, failure) {
     if (!options.matchCase)
       term = term.toLowerCase();
+
+    term = term.trim();
     var data = cache.load(term);
     // recieve the cached data
     if (data && data.length) {
