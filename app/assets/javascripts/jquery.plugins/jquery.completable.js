@@ -9,19 +9,48 @@ function paramToName(param) {
     .join(' ');
 }
 
+const defaultOptions = {
+  // autoFill: true,
+  cacheLength: 10,
+  delay: 10,
+  max: 30,
+
+  matchContains: 1,
+  matchSubset: 1,
+  minChars: 2,
+  dataType: 'JSON',
+
+  $anchor: null,
+  selectFirst: false
+};
+
 $.fn.extend({
-  completable($anchor) {
+  completable(options = { }) {
     return this.each(function () {
       const $element = $(this);
 
       return $element
+        .autocomplete('data-autocomplete', {
+          ...defaultOptions,
+          formatItem(entry) {
+            return entry.label;
+          },
+          parse(data) {
+            $element.trigger('parse');
+            return data.reverse();
+          },
+          ...options
+        })
         .on('result', function (e, entry) {
           if (entry) {
             entry.id = entry.data;
 
             entry.name = entry.value;
             $element.trigger('autocomplete:success', [entry]);
-          } if (this.value) {
+            return;
+          }
+
+          if (this.value) {
             const matches = this.value.match(DB_ENTRY_URL_REGEXP);
             if (matches) {
               $element.trigger('autocomplete:success', [{
@@ -33,30 +62,7 @@ $.fn.extend({
             }
             $element.trigger('autocomplete:text', [this.value]);
           }
-        })
-
-        .autocomplete('data-autocomplete', {
-          // autoFill: true,
-          cacheLength: 10,
-          delay: 10,
-          max: 30,
-          formatItem(entry) {
-            return entry.label;
-          },
-
-          matchContains: 1,
-          matchSubset: 1,
-          minChars: 2,
-          dataType: 'JSON',
-          parse(data) {
-            $element.trigger('parse');
-            return data.reverse();
-          },
-
-          $anchor,
-          selectFirst: false
-        }
-        );
+        });
     });
   },
 
