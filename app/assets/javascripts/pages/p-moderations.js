@@ -78,8 +78,27 @@ pageLoad('.moderations-index', () => {
         .removeClass('b-ajax');
     });
 
-  $('.user_id-suggest').completable();
-  $('.moderator_id-suggest').completable();
+  ['user_id', 'moderator_id'].forEach(type => {
+    $(`.${type}-suggest`)
+      .completable()
+      .on('autocomplete:success', (_e, { id, name, url }) => {
+        const $input = $(`#version_${type}`);
+        const $suggest = $(`.${type}-suggest`);
+        const $placeholder = $suggest.parent().find('.placeholder');
+
+        $input.val(id);
+        $suggest.addClass('hidden');
+
+        $placeholder.removeClass('hidden');
+        $placeholder.find('.nickname').html(`<a href="${url}">${name}</a>`);
+        $placeholder.find('.b-js-action.remove').one('click', () => {
+          $input.val(id);
+
+          $placeholder.addClass('hidden');
+          $suggest.removeClass('hidden').val('');
+        });
+      });
+  });
 });
 
 pageLoad('roles_show', () => {

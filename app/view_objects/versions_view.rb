@@ -15,8 +15,14 @@ class VersionsView < ViewObjectBase
   def moderators_scope nickname
     return User.none if nickname.blank?
 
+    scope = processed_scope
+      .where.not(state: %i[auto_accepted deleted])
+      .distinct
+      .select(:moderator_id)
+      .except(:order)
+
     User
-      .where(id: processed_scope.distinct.select(:moderator_id).except(:order))
+      .where(id: scope)
       .where('nickname ilike ?', "#{nickname}%")
   end
 

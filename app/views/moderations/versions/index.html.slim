@@ -42,13 +42,18 @@ header.head
           autocompelte='off'
           data-autocomplete=autocomplete_user_moderations_versions_url(type: params[:type])
         ]
+        .placeholder.hidden
+          span.nickname
+          .b-js-action.remove = t('actions.delete').downcase
     .b-input
       label
         div = Version.human_attribute_name :moderator_id
         input.moderator_id-suggest[
           data-autocomplete=autocomplete_moderator_moderations_versions_url(type: params[:type])
         ]
-      / data-autocomplete: autocomplete_club_club_roles_url(@resource)
+        .placeholder.hidden
+          span.nickname
+          .b-js-action.remove = t('actions.delete').downcase
 
 - if @view.pending.any?
   .block
