@@ -3,6 +3,19 @@ class VersionsView < ViewObjectBase
 
   PER_PAGE = 25
 
+  def searched_user
+    return unless h.params.dig(:version, :user_id).present?
+    return unless h.current_user.staff?
+
+    @searched_user ||= User.find_by id: h.params[:version][:moderator_id]
+  end
+
+  def searched_moderator
+    return unless h.params.dig(:version, :moderator_id).present?
+
+    @searched_moderator ||= User.find_by id: h.params[:version][:moderator_id]
+  end
+
   def processed_scope
     Moderation::ProcessedVersionsQuery
       .fetch(type_param, h.params[:created_on])

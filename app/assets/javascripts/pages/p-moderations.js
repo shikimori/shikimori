@@ -79,25 +79,25 @@ pageLoad('.moderations-index', () => {
     });
 
   ['user_id', 'moderator_id'].forEach(type => {
-    $(`.${type}-suggest`)
+    const $input = $(`#version_${type}`);
+    const $suggest = $(`.${type}-suggest`);
+    const $placeholder = $suggest.parent().find('.placeholder');
+
+    $suggest
       .completable({ minChars: 1 })
       .on('autocomplete:success', (_e, { id, name, url }) => {
-        const $input = $(`#version_${type}`);
-        const $suggest = $(`.${type}-suggest`);
-        const $placeholder = $suggest.parent().find('.placeholder');
-
         $input.val(id);
         $suggest.addClass('hidden');
 
         $placeholder.removeClass('hidden');
         $placeholder.find('.nickname').html(`<a href="${url}">${name}</a>`);
-        $placeholder.find('.b-js-action.remove').one('click', () => {
-          $input.val(id);
-
-          $placeholder.addClass('hidden');
-          $suggest.removeClass('hidden').val('');
-        });
       });
+
+    $placeholder.find('.b-js-action.remove').on('click', () => {
+      $input.val('');
+      $placeholder.addClass('hidden');
+      $suggest.removeClass('hidden').val('');
+    });
   });
 });
 
