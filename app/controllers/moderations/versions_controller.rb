@@ -2,6 +2,8 @@ class Moderations::VersionsController < ModerationsController
   load_and_authorize_resource except: [:index]
   before_action :set_view, only: %i[index autocomplete_user autocomplete_moderator]
 
+  AUTOCOMPLETE_LIMIT = 10
+
   def index
     og page_title: i18n_t("content_changes.#{@view.type_param}")
   end
@@ -69,22 +71,21 @@ class Moderations::VersionsController < ModerationsController
   end
 
   def autocomplete_user
-    @collection = []
+    @collection = @view
+      .authors_scope(params[:search])
+      .order(:nickname)
+      .take(AUTOCOMPLETE_LIMIT)
+      .to_a
+
     render 'autocomplete', formats: :json
   end
 
   def autocomplete_moderator
-    @collection =
-      if params[:search].blank?
-        []
-      else
-        User
-          .where(id: @view.processed_scope.distinct.select(:moderator_id).except(:order))
-          .where('nickname ilike ?', "#{params[:search]}%")
-          .order(:nickname)
-          .take(10)
-          .to_a
-      end
+    @collection = @view
+      .moderators_scope(params[:search])
+      .order(:nickname)
+      .take(AUTOCOMPLETE_LIMIT)
+      .to_a
 
     render 'autocomplete', formats: :json
   end

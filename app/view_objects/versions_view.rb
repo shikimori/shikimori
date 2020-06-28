@@ -4,8 +4,29 @@ class VersionsView < ViewObjectBase
   PER_PAGE = 25
 
   def processed_scope
-    @processed_scope ||= Moderation::ProcessedVersionsQuery
+    Moderation::ProcessedVersionsQuery
       .fetch(type_param, h.params[:created_on])
+  end
+
+  def pending_scope
+    Moderation::VersionsItemTypeQuery.fetch(type_param)
+  end
+
+  def moderators_scope nickname
+    return User.none if nickname.blank?
+
+    User
+      .where(id: processed_scope.distinct.select(:moderator_id).except(:order))
+      .where('nickname ilike ?', "#{nickname}%")
+  end
+
+  def authors_scope nickname
+    return User.none if nickname.blank?
+
+    User
+      .where(id: processed_scope.distinct.select(:user_id).except(:order))
+      .or(User.where(id: pending_scope.distinct.pluck(:user_id)))
+      .where('nickname ilike ?', "#{nickname}%")
   end
 
   def processed
@@ -15,7 +36,7 @@ class VersionsView < ViewObjectBase
   end
 
   def pending
-    Moderation::VersionsItemTypeQuery.fetch(type_param)
+    pending_scope
       .includes(:user, :moderator)
       .where(state: :pending)
       .order(:created_at)

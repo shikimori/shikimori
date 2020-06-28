@@ -188,6 +188,26 @@ describe Moderations::VersionsController do
     end
   end
 
+  describe '#autocomplete_user' do
+    let(:user) { create :user }
+    let(:user_2) { create :user }
+    let!(:verison_2) { create :version, :accepted, user: user_2 }
+
+    subject! do
+      get :autocomplete_user,
+        params: {
+          search: 'user_'
+        },
+        xhr: true
+    end
+
+    it do
+      expect(collection).to eq [user, user_2]
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
+
   describe '#autocomplete_moderator' do
     subject! do
       get :autocomplete_moderator,
