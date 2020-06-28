@@ -1,9 +1,9 @@
 class Moderations::VersionsController < ModerationsController
   load_and_authorize_resource except: [:index]
+  before_action :set_view, only: %i[index autocomplete_user autocomplete_moderator]
 
   def index
-    @versions = VersionsView.new
-    og page_title: i18n_t("content_changes.#{@versions.type_param}")
+    og page_title: i18n_t("content_changes.#{@view.type_param}")
   end
 
   def show
@@ -74,11 +74,34 @@ class Moderations::VersionsController < ModerationsController
   end
 
   def autocomplete_moderator
-    @collection = []
+    @collection =
+      if params[:search].blank?
+        []
+      else
+        User
+          .where(id: @view.processed_scope.distinct.select(:moderator_id).except(:order))
+          .where('nickname ilike ?', "#{params[:search]}%")
+          .order(:nickname)
+          .take(10)
+          .to_a
+      end
+
     render 'autocomplete', formats: :json
   end
 
 private
+
+  def create_params
+    params
+      .require(:version)
+      .permit(:type, :item_id, :item_type, :user_id, :reason)
+      .to_h
+      .merge(item_diff: build_item_diff, state: 'pending')
+  end
+
+  def set_view
+    @view = VersionsView.new
+  end
 
   def transition action, success_message
     @resource.send(
@@ -88,14 +111,6 @@ private
     ) rescue StateMachine::InvalidTransition
 
     render json: { notice: i18n_t(success_message) }
-  end
-
-  def create_params
-    params
-      .require(:version)
-      .permit(:type, :item_id, :item_type, :user_id, :reason)
-      .to_h
-      .merge(item_diff: build_item_diff, state: 'pending')
   end
 
   def build_item_diff

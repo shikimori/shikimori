@@ -2,16 +2,18 @@ describe Moderations::VersionsController do
   include_context :back_redirect
   include_context :authenticated, :version_names_moderator
 
-  let(:version) do
+  let!(:version) do
     create :version,
       item: anime,
       item_diff: { russian: ['a', 'bbb'] },
       state: state,
-      user: author
+      user: author,
+      moderator: moderator
   end
   let(:author) { user }
   let(:state) { 'pending' }
   let(:anime) { create :anime }
+  let(:moderator) { nil }
 
   describe '#index' do
     describe 'html' do
@@ -186,14 +188,16 @@ describe Moderations::VersionsController do
     end
   end
 
-  describe '#autocomplete_user' do
+  describe '#autocomplete_moderator' do
     subject! do
-      get :autocomplete_user,
+      get :autocomplete_moderator,
         params: {
-          search: author.nickname
+          search: moderator.nickname
         },
         xhr: true
     end
+    let(:state) { 'accepted' }
+    let(:moderator) { user }
 
     it do
       expect(collection).to eq [author]

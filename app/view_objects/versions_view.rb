@@ -3,9 +3,13 @@ class VersionsView < ViewObjectBase
 
   PER_PAGE = 25
 
-  def processed
-    Moderation::ProcessedVersionsQuery
+  def processed_scope
+    @processed_scope ||= Moderation::ProcessedVersionsQuery
       .fetch(type_param, h.params[:created_on])
+  end
+
+  def processed
+    processed_scope
       .paginate(page, PER_PAGE)
       .transform(&:decorate)
   end

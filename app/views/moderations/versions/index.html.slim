@@ -9,7 +9,7 @@ header.head
     .b-brief
       .moderators
         = render partial: 'users/user',
-          collection: @versions.moderators,
+          collection: @view.moderators,
           locals: { content_by: :named_avatar }
 
       ul.b-list
@@ -50,18 +50,18 @@ header.head
         ]
       / data-autocomplete: autocomplete_club_club_roles_url(@resource)
 
-- if @versions.pending.any?
+- if @view.pending.any?
   .block
     .b-options-floated
       a.expand-all.b-js-link = t '.expand_all'
     .subheadline.m5 = t '.queue'
     .block
-      - if @versions.pending.any?
-        = render partial: 'versions/version', collection: @versions.pending
+      - if @view.pending.any?
+        = render partial: 'versions/version', collection: @view.pending
 
-        - if @versions.pending.next_page?
+        - if @view.pending.next_page?
           = render 'blocks/postloader',
-            next_url: @versions.next_page_url(true),
+            next_url: @view.next_page_url(true),
             ignore_appear: true
 
       - else
@@ -76,7 +76,7 @@ header.head
   ]
   .subheadline.m5 = t '.history'
   .block
-    = render partial: 'versions/version', collection: @versions.processed
-    - if @versions.processed.next_page?
+    = render partial: 'versions/version', collection: @view.processed
+    - if @view.processed.next_page?
       = render 'blocks/postloader',
-        next_url: @versions.next_page_url(false)
+        next_url: @view.next_page_url(false)

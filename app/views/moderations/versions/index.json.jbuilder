@@ -1,4 +1,4 @@
-collection = params[:is_pending] == '1' ? @versions.pending : @versions.processed
+collection = params[:is_pending] == '1' ? @view.pending : @view.processed
 
 json.content render(
   partial: 'versions/version',
@@ -10,6 +10,6 @@ if collection.next_page?
   json.postloader render(
     'blocks/postloader',
     filter: 'b-log_entry',
-    next_url: @versions.next_page_url(params[:is_pending] == '1')
+    next_url: @view.next_page_url(params[:is_pending] == '1')
   )
 end
