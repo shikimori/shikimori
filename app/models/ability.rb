@@ -117,6 +117,6 @@ class Ability
     can :read, Ban
     can :read, AbuseRequest
     can :read, UserRateLog
-    can :read, Version
+    can %i[read autocomplete_user autocomplete_moderator], Version
   end
 end
