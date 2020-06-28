@@ -306,6 +306,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def hentai
+    raise AgeRestricted if censored_forbidden?
     authorize! :manage, Version
 
     scope = Anime
