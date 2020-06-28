@@ -3,16 +3,16 @@ class VersionsView < ViewObjectBase
 
   PER_PAGE = 25
 
-  def searched_user
+  def filtered_user
     return unless h.params[:user_id].present?
 
-    @searched_user ||= User.find_by id: h.params[:moderator_id]
+    @filtered_user ||= User.find_by id: h.params[:moderator_id]
   end
 
-  def searched_moderator
+  def filtered_moderator
     return unless h.params[:moderator_id].present?
 
-    @searched_moderator ||= User.find_by id: h.params[:moderator_id]
+    @filtered_moderator ||= User.find_by id: h.params[:moderator_id]
   end
 
   def processed_scope
@@ -50,8 +50,8 @@ class VersionsView < ViewObjectBase
   def processed
     scope = processed_scope
 
-    scope.where! user_id: searched_user.id if searched_user
-    scope.where! moderator_id: searched_moderator.id if searched_moderator
+    scope.where! user_id: filtered_user.id if filtered_user
+    scope.where! moderator_id: filtered_moderator.id if filtered_moderator
 
     scope
       .paginate(page, PER_PAGE)
@@ -61,8 +61,8 @@ class VersionsView < ViewObjectBase
   def pending
     scope = pending_scope
 
-    scope.where! user_id: searched_user.id if searched_user
-    scope.where! moderator_id: searched_moderator.id if searched_moderator
+    scope.where! user_id: filtered_user.id if filtered_user
+    scope.where! moderator_id: filtered_moderator.id if filtered_moderator
 
     scope
       .includes(:user, :moderator)
