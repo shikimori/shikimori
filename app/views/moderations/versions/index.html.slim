@@ -30,46 +30,45 @@ header.head
 
       p.m5 = t '.instructions_notice'
 
-- if current_user.staff?
-  .block
-    .subheadline = t '.filters'
-    form.b-form[
-      action=current_url
-      method='get'
-    ]
-      = hidden_field_tag :authenticity_token, form_authenticity_token
-      input#version_user_id type='hidden' name='user_id'
-      input#version_moderator_id type='hidden' name='moderator_id'
-      .block
-        .fc-3
-          .f-column
-            .b-input
-              label
-                div = Version.human_attribute_name :user_id
-                input.user_id-suggest[
-                  class=(:hidden if @view.searched_user)
-                  autocompelte='off'
-                  data-autocomplete=autocomplete_user_moderations_versions_url(type: params[:type])
-                ]
-                .placeholder[
-                  class=(:hidden unless @view.searched_user)
-                ]
-                  span.nickname = @view.searched_user&.nickname
-                  .b-js-action.remove = t('actions.delete').downcase
-          .f-column
-            .b-input
-              label
-                div = Version.human_attribute_name :moderator_id
-                input.moderator_id-suggest[
-                  class=(:hidden if @view.searched_moderator)
-                  data-autocomplete=autocomplete_moderator_moderations_versions_url(type: params[:type])
-                ]
-                .placeholder[
-                  class=(:hidden unless @view.searched_moderator)
-                ]
-                  span.nickname = @view.searched_moderator&.nickname
-                  .b-js-action.remove = t('actions.delete').downcase
-      input type='submit' value=t('actions.apply')
+.block
+  .subheadline = t '.filters'
+  form.b-form[
+    action=current_url
+    method='get'
+  ]
+    = hidden_field_tag :authenticity_token, form_authenticity_token
+    input#version_user_id type='hidden' name='user_id'
+    input#version_moderator_id type='hidden' name='moderator_id'
+    .block
+      .fc-3
+        .f-column
+          .b-input
+            label
+              div = Version.human_attribute_name :user_id
+              input.user_id-suggest[
+                class=(:hidden if @view.searched_user)
+                autocompelte='off'
+                data-autocomplete=autocomplete_user_moderations_versions_url(type: params[:type])
+              ]
+              .placeholder[
+                class=(:hidden unless @view.searched_user)
+              ]
+                span.nickname = @view.searched_user&.nickname
+                .b-js-action.remove = t('actions.delete').downcase
+        .f-column
+          .b-input
+            label
+              div = Version.human_attribute_name :moderator_id
+              input.moderator_id-suggest[
+                class=(:hidden if @view.searched_moderator)
+                data-autocomplete=autocomplete_moderator_moderations_versions_url(type: params[:type])
+              ]
+              .placeholder[
+                class=(:hidden unless @view.searched_moderator)
+              ]
+                span.nickname = @view.searched_moderator&.nickname
+                .b-js-action.remove = t('actions.delete').downcase
+    input type='submit' value=t('actions.apply')
 
 - if @view.pending.any?
   .block
