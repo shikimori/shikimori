@@ -32,9 +32,13 @@ header.head
 
 .block
   .subheadline = t '.filters'
-  = simple_form_for Version.new, url: current_url, method: :get do |f|
-    = f.input :user_id, as: :hidden
-    = f.input :moderator_id, as: :hidden
+  form.b-form[
+    action=current_url
+    method='get'
+  ]
+    = hidden_field_tag :authenticity_token, form_authenticity_token
+    input#version_user_id type='hidden' name='user_id'
+    input#version_moderator_id type='hidden' name='moderator_id'
     .block
       .fc-3
         - if current_user.staff?
@@ -65,7 +69,7 @@ header.head
               ]
                 span.nickname = @view.searched_moderator&.nickname
                 .b-js-action.remove = t('actions.delete').downcase
-    = f.submit t('actions.apply')
+    input type='submit' value=t('actions.apply')
 
 - if @view.pending.any?
   .block

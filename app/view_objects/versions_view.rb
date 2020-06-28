@@ -4,16 +4,16 @@ class VersionsView < ViewObjectBase
   PER_PAGE = 25
 
   def searched_user
-    return unless h.params.dig(:version, :user_id).present?
+    return unless h.params[:user_id].present?
     return unless h.current_user.staff?
 
-    @searched_user ||= User.find_by id: h.params[:version][:moderator_id]
+    @searched_user ||= User.find_by id: h.params[:moderator_id]
   end
 
   def searched_moderator
-    return unless h.params.dig(:version, :moderator_id).present?
+    return unless h.params[:moderator_id].present?
 
-    @searched_moderator ||= User.find_by id: h.params[:version][:moderator_id]
+    @searched_moderator ||= User.find_by id: h.params[:moderator_id]
   end
 
   def processed_scope
@@ -49,13 +49,23 @@ class VersionsView < ViewObjectBase
   end
 
   def processed
-    processed_scope
+    scope = processed_scope
+
+    scope.where! user_id: searched_user.id if searched_user
+    scope.where! moderator_id: searched_moderator.id if searched_moderator
+
+    scope
       .paginate(page, PER_PAGE)
       .transform(&:decorate)
   end
 
   def pending
-    pending_scope
+    scope = pending_scope
+
+    scope.where! user_id: searched_user.id if searched_user
+    scope.where! moderator_id: searched_moderator.id if searched_moderator
+
+    scope
       .includes(:user, :moderator)
       .where(state: :pending)
       .order(:created_at)
@@ -64,7 +74,7 @@ class VersionsView < ViewObjectBase
   end
 
   def next_page_url is_pending
-    h.moderations_versions_url(
+    h.current_url(
       page: page + 1,
       type: h.params[:type],
       created_on: h.params[:created_on],
