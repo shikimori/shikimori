@@ -26,7 +26,7 @@
               a.bubbled href=url_for(match.left) data-perdelay='150'
                 = localization_span match.left
             - else
-              = t 'deleted'
+              = t 'is_deleted'
 
         - if match.right_type || !match.left_type
           .c-column class=match.status(match.right_id)
@@ -39,4 +39,4 @@
                 a.bubbled href=url_for(match.right) data-perdelay='150'
                   = localization_span match.right
               - else
-                = t 'deleted'
+                = t 'is_deleted'

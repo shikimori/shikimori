@@ -159,4 +159,4 @@ en:
   form_errors: Errors
   'yes': Yes
   'no': No
-  deleted: Deleted
+  is_deleted: Deleted
