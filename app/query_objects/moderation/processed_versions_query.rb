@@ -2,7 +2,7 @@ class Moderation::ProcessedVersionsQuery
   def self.fetch type, created_on
     scope = Moderation::VersionsItemTypeQuery.fetch(type)
       .includes(:user, :moderator)
-      .where('state != ?', :pending)
+      .where.not(state: :pending)
       .order(updated_at: :desc)
 
     if created_on
