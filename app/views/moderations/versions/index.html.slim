@@ -37,8 +37,21 @@ header.head
       action=current_url
       method='get'
     ]
-      input#version_user_id type='hidden' name='user_id'
-      input#version_moderator_id type='hidden' name='moderator_id'
+      input#version_user_id[
+        type='hidden'
+        name='user_id'
+        value=params[:user_id]
+      ]
+      input#version_moderator_id[
+        type='hidden'
+        name='moderator_id'
+        value=params[:moderator_id]
+      ]
+      input#version_item_type[
+        type='hidden'
+        name='item_type'
+        value=params[:item_type]
+      ]
       .block
         .fc-3
           .f-column
@@ -72,14 +85,15 @@ header.head
             .b-input
               label
                 div = t '.field'
-                select name='field'
+                select#version_field name='field'
                   option value='' = t '.not_selected'
                   - @view.filterable_fields.each do |klass, fields|
                     optgroup label=klass.model_name.human
                       - fields.each do |field|
                         option[
                           value=field
-                          selected=(params[:field] === field)
+                          selected=(params[:field] === field && params[:item_type] == klass.name)
+                          data-item_type=klass.name
                         ]
                           = klass.human_attribute_name field
                           - if klass.human_attribute_name(field) != field

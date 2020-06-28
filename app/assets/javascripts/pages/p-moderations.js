@@ -99,6 +99,11 @@ pageLoad('.moderations-index', () => {
       $suggest.removeClass('hidden').val('');
     });
   });
+
+  $('#version_field').on('change', ({ currentTarget }) => {
+    const itemType = currentTarget.selectedOptions[0].getAttribute('data-item_type');
+    $('#version_item_type').val(itemType);
+  });
 });
 
 pageLoad('roles_show', () => {

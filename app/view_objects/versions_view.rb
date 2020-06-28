@@ -37,11 +37,7 @@ class VersionsView < ViewObjectBase
 
   def processed
     scope = processed_scope
-
-    scope.where! user_id: filtered_user.id if filtered_user
-    scope.where! moderator_id: filtered_moderator.id if filtered_moderator
-    scope.where! '(item_diff->>:field) is not null', field: filtered_field if filtered_field
-
+    scope = apply_filtering scope
     scope
       .paginate(page, PER_PAGE)
       .transform(&:decorate)
@@ -49,11 +45,7 @@ class VersionsView < ViewObjectBase
 
   def pending
     scope = pending_scope
-
-    scope.where! user_id: filtered_user.id if filtered_user
-    scope.where! moderator_id: filtered_moderator.id if filtered_moderator
-    scope.where! '(item_diff->>:field) is not null', field: filtered_field if filtered_field
-
+    scope = apply_filtering scope
     scope
       .includes(:user, :moderator)
       .where(state: :pending)
@@ -97,6 +89,12 @@ class VersionsView < ViewObjectBase
     @filtered_moderator ||= User.find_by id: h.params[:moderator_id]
   end
 
+  def filtered_item_type
+    return unless h.can?(:filter, Version) && h.params[:item_type].present?
+
+    h.params[:item_type]
+  end
+
   def filtered_field
     return unless h.can?(:filter, Version) && h.params[:field].present?
 
@@ -118,5 +116,15 @@ class VersionsView < ViewObjectBase
         end
       end
     end
+  end
+
+private
+
+  def apply_filtering scope
+    scope = scope.where user_id: filtered_user.id if filtered_user
+    scope = scope.where moderator_id: filtered_moderator.id if filtered_moderator
+    scope = scope.where item_type: filtered_item_type if filtered_item_type
+    scope = scope.where '(item_diff->>:field) is not null', field: filtered_field if filtered_field
+    scope
   end
 end
