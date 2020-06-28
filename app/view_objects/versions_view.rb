@@ -104,15 +104,19 @@ class VersionsView < ViewObjectBase
   end
 
   def filterable_fields
-    [Anime, Manga, Character, Person].each_with_object({}) do |klass, memo|
-      sorting_order = I18n.t("activerecord.attributes.#{klass.name.downcase}").keys.map(&:to_s)
-      fields = Version
-        .where(item_type: klass.name)
-        .distinct
-        .pluck(Arel.sql('jsonb_object_keys(item_diff)'))
-        .sort_by { |field| sorting_order.index(field) || 9999 }
+    @filterable_fields ||= begin
+      Rails.cache.fetch(:filterable_fields) do
+        [Anime, Manga, Character, Person].each_with_object({}) do |klass, memo|
+          sorting_order = I18n.t("activerecord.attributes.#{klass.name.downcase}").keys.map(&:to_s)
+          fields = Version
+            .where(item_type: klass.name)
+            .distinct
+            .pluck(Arel.sql('jsonb_object_keys(item_diff)'))
+            .sort_by { |field| sorting_order.index(field) || 9999 }
 
-      memo[klass] = fields - ['source']
+          memo[klass] = fields - ['source']
+        end
+      end
     end
   end
 end
