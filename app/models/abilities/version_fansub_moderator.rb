@@ -18,5 +18,7 @@ class Abilities::VersionFansubModerator
         version.item_diff &&
         (version.item_diff.keys - MANAGED_FIELDS).none?
     end
+
+    can %i[filter autocomplete_user autocomplete_moderator], Version
   end
 end

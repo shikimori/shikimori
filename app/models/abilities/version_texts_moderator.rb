@@ -25,5 +25,7 @@ class Abilities::VersionTextsModerator
         (version.item_diff.keys & MANAGED_FIELDS).any? &&
         MANAGED_MODELS.include?(version.item_type)
     end
+
+    can %i[filter autocomplete_user autocomplete_moderator], Version
   end
 end

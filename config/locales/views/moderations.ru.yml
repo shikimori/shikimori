@@ -8,6 +8,8 @@ ru:
       queue: Очередь
       queue_empty: Очередь пуста
       filters: Фильтры
+      field: Поле
+      not_selected: Не выбрано
 
     show:
       content: Контент

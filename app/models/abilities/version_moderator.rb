@@ -22,5 +22,7 @@ class Abilities::VersionModerator
           !MANAGED_MODELS.include?(version.item_type)
         )
     end
+
+    can %i[filter autocomplete_user autocomplete_moderator], Version
   end
 end

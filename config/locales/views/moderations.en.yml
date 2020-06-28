@@ -8,6 +8,8 @@ en:
       queue: Queue
       queue_empty: Queue is empty
       filters: Filters
+      field: Field
+      not_selected: Not selected
 
     show:
       content: Site content

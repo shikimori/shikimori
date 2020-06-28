@@ -30,45 +30,61 @@ header.head
 
       p.m5 = t '.instructions_notice'
 
-.block
-  .subheadline = t '.filters'
-  form.b-form[
-    action=current_url
-    method='get'
-  ]
-    = hidden_field_tag :authenticity_token, form_authenticity_token
-    input#version_user_id type='hidden' name='user_id'
-    input#version_moderator_id type='hidden' name='moderator_id'
-    .block
-      .fc-3
-        .f-column
-          .b-input
-            label
-              div = Version.human_attribute_name :user_id
-              input.user_id-suggest[
-                class=(:hidden if @view.filtered_user)
-                autocompelte='off'
-                data-autocomplete=autocomplete_user_moderations_versions_url(type: params[:type])
-              ]
-              .placeholder[
-                class=(:hidden unless @view.filtered_user)
-              ]
-                span.nickname = @view.filtered_user&.nickname
-                .b-js-action.remove = t('actions.delete').downcase
-        .f-column
-          .b-input
-            label
-              div = Version.human_attribute_name :moderator_id
-              input.moderator_id-suggest[
-                class=(:hidden if @view.filtered_moderator)
-                data-autocomplete=autocomplete_moderator_moderations_versions_url(type: params[:type])
-              ]
-              .placeholder[
-                class=(:hidden unless @view.filtered_moderator)
-              ]
-                span.nickname = @view.filtered_moderator&.nickname
-                .b-js-action.remove = t('actions.delete').downcase
-    input type='submit' value=t('actions.apply')
+- if can? :filter, Version
+  .block
+    .subheadline = t '.filters'
+    form.b-form[
+      action=current_url
+      method='get'
+    ]
+      input#version_user_id type='hidden' name='user_id'
+      input#version_moderator_id type='hidden' name='moderator_id'
+      .block
+        .fc-3
+          .f-column
+            .b-input
+              label
+                div = Version.human_attribute_name :user_id
+                input.user_id-suggest[
+                  class=(:hidden if @view.filtered_user)
+                  autocompelte='off'
+                  data-autocomplete=autocomplete_user_moderations_versions_url(type: params[:type])
+                ]
+                .placeholder[
+                  class=(:hidden unless @view.filtered_user)
+                ]
+                  span.nickname = @view.filtered_user&.nickname
+                  .b-js-action.remove = t('actions.delete').downcase
+          .f-column
+            .b-input
+              label
+                div = Version.human_attribute_name :moderator_id
+                input.moderator_id-suggest[
+                  class=(:hidden if @view.filtered_moderator)
+                  data-autocomplete=autocomplete_moderator_moderations_versions_url(type: params[:type])
+                ]
+                .placeholder[
+                  class=(:hidden unless @view.filtered_moderator)
+                ]
+                  span.nickname = @view.filtered_moderator&.nickname
+                  .b-js-action.remove = t('actions.delete').downcase
+          .f-column
+            .b-input
+              label
+                div = t '.field'
+                select name='field'
+                  option value='' = t '.not_selected'
+                  - @view.filterable_fields.each do |klass, fields|
+                    optgroup label=klass.model_name.human
+                      - fields.each do |field|
+                        option[
+                          value=field
+                          selected=(params[:field] === field)
+                        ]
+                          = klass.human_attribute_name field
+                          - if klass.human_attribute_name(field) != field
+                            |  (#{field})
+      input type='submit' value=t('actions.apply')
 
 - if @view.pending.any?
   .block
