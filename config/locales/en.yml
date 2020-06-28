@@ -284,6 +284,8 @@ en:
         is_closed: Closed
         broadcast: Broadcast
       version:
+        user_id: Author
+        moderator_id: Moderator
         reason: Change reason
         changes: Changes list
       anime_video_report:

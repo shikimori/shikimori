@@ -142,10 +142,13 @@ Rails.application.routes.draw do
     end
 
     resources :versions, only: %i[show create destroy] do
-      get '(/:type)(/page/:page)' => :index,
-        as: '',
-        on: :collection,
-        type: /names|texts|content|fansub/
+      collection do
+        constraints type: /names|texts|content|fansub/ do
+          get '(/:type)(/page/:page)' => :index, as: ''
+          get '(/:type)/autocomplete_user' => :autocomplete_user, as: :autocomplete_user
+          get '(/:type)/autocomplete_moderator' => :autocomplete_moderator, as: :autocomplete_moderator
+        end
+      end
       member do
         get :tooltip
         post :accept

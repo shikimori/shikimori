@@ -185,4 +185,20 @@ describe Moderations::VersionsController do
       end
     end
   end
+
+  describe '#autocomplete_user' do
+    subject! do
+      get :autocomplete_user,
+        params: {
+          search: author.nickname
+        },
+        xhr: true
+    end
+
+    it do
+      expect(collection).to eq [author]
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
 end

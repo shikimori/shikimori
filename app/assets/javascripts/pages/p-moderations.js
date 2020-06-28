@@ -77,6 +77,9 @@ pageLoad('.moderations-index', () => {
         .closest('.b-log_entry')
         .removeClass('b-ajax');
     });
+
+  $('.user_id-suggest').completable();
+  $('.moderator_id-suggest').completable();
 });
 
 pageLoad('roles_show', () => {

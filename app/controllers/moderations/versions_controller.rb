@@ -68,6 +68,16 @@ class Moderations::VersionsController < ModerationsController
     transition :to_deleted, 'changes_deleted'
   end
 
+  def autocomplete_user
+    @collection = []
+    render 'autocomplete', formats: :json
+  end
+
+  def autocomplete_moderator
+    @collection = []
+    render 'autocomplete', formats: :json
+  end
+
 private
 
   def transition action, success_message

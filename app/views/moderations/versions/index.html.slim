@@ -30,6 +30,26 @@ header.head
 
       p.m5 = t '.instructions_notice'
 
+.block
+  .subheadline = t '.filters'
+  = simple_form_for Version.new, url: current_url do |f|
+    = f.input :user_id, as: :hidden
+    = f.input :moderator_id, as: :hidden
+    .b-input
+      label
+        div = Version.human_attribute_name :user_id
+        input.user_id-suggest[
+          autocompelte='off'
+          data-autocomplete=autocomplete_user_moderations_versions_url(type: params[:type])
+        ]
+    .b-input
+      label
+        div = Version.human_attribute_name :moderator_id
+        input.moderator_id-suggest[
+          data-autocomplete=autocomplete_moderator_moderations_versions_url(type: params[:type])
+        ]
+      / data-autocomplete: autocomplete_club_club_roles_url(@resource)
+
 - if @versions.pending.any?
   .block
     .b-options-floated

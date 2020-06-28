@@ -284,6 +284,8 @@ ru:
         is_closed: Закрыт
         broadcast: Массовая рассылка
       version:
+        user_id: Автор
+        moderator_id: Модератор
         reason: Причина правки
         item_diff: Список изменений
       anime_video_report:
