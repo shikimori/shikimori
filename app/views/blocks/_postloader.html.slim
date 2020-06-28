@@ -4,6 +4,7 @@
   data-remote=next_url
   data-filter=(filter if defined?(filter))
   data-appear-top-offset='900'
+  data-pages_limit=(local_assigns[:pages_limit])
   data-ignore-appear=(local_assigns[:ignore_appear] ? 'true' : false)
 ]
   - if defined?(prev_url) && prev_url.present?
