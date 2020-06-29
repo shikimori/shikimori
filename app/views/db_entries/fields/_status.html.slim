@@ -1,15 +1,18 @@
-.cc-2
-  .c-column
-    = simple_form_for resource.object do |f|
-      = f.input :status,
-        include_blank: false
+= simple_form_for resource.object do |f|
+  = f.input :status,
+    include_blank: false
 
-      .b-warning
-        p.warning Если хочешь, чтобы правка была принята модератором, в причине
-          правки обязательно распиши причину изменения со ссылкой на первоисточник.
+  - if resource.object.anime?
+    .cc-2
+      .c-column
+        .b-warning
+          p.warning Если хочешь, чтобы правка была принята модератором, в причине
+            правки обязательно распиши причину изменения со ссылкой на первоисточник.
 
-      = render 'versions/reason'
+        = render 'versions/reason'
+  - else
+    = render 'versions/note_from_club_page', club_page_id: 2106
 
-      .buttons
-        a.cancel href=resource.edit_url = t 'actions.cancel'
-        = f.button :magic_submit
+  .buttons
+    a.cancel href=resource.edit_url = t 'actions.cancel'
+    = f.button :magic_submit

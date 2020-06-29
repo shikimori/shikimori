@@ -1,17 +1,16 @@
-.cc-2
-  .c-column
-    = simple_form_for resource.object do |f|
-      = f.input :volumes
+= simple_form_for resource.object do |f|
+  = f.input :volumes
 
-      .b-warning
-        p.warning Если хочешь, чтобы правка была принята модератором, в причине
-          правки обязательно укажи ссылку на источник, из которого взята
-          информация о числе томов.
-        p.warning Русскоязычные сайты "онлайн чтения"
-          источником быть не могут!
+  = render 'versions/note_from_club_page', club_page_id: 2106
+  / .b-warning
+  /   p.warning Если хочешь, чтобы правка была принята модератором, в причине
+  /     правки обязательно укажи ссылку на источник, из которого взята
+  /     информация о числе томов.
+  /   p.warning Русскоязычные сайты "онлайн чтения"
+  /     источником быть не могут!
 
-      = render 'versions/reason'
+  = render 'versions/reason'
 
-      .buttons
-        a.cancel href=resource.edit_url = t 'actions.cancel'
-        = f.button :magic_submit
+  .buttons
+    a.cancel href=resource.edit_url = t 'actions.cancel'
+    = f.button :magic_submit
