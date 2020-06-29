@@ -1,17 +1,19 @@
-= simple_form_for resource.object do |f|
-  = f.input :chapters
+.cc-2.block
+  .c-column
+    = simple_form_for resource.object do |f|
+      = f.input :chapters
 
-  = render 'versions/note_from_club_page', club_page_id: 2106
+      / .b-warning
+        p.warning Если хотите, чтобы правка была принята модератором, в причине
+          правки обязательно укажите ссылку на источник, из которого вы взяли
+          информацию о числе глав.
+        p.warning Русскоязычные сайты "онлайн чтения"
+          источником быть не могут!
 
-  / .b-warning
-    p.warning Если хотите, чтобы правка была принята модератором, в причине
-      правки обязательно укажите ссылку на источник, из которого вы взяли
-      информацию о числе глав.
-    p.warning Русскоязычные сайты "онлайн чтения"
-      источником быть не могут!
+      = render 'versions/reason'
 
-  = render 'versions/reason'
+      .buttons
+        a.cancel href=resource.edit_url = t 'actions.cancel'
+        = f.button :magic_submit
 
-  .buttons
-    a.cancel href=resource.edit_url = t 'actions.cancel'
-    = f.button :magic_submit
+= render 'versions/note_from_club_page', club_page_id: 2106

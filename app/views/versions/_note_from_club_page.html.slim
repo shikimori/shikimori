@@ -1,6 +1,4 @@
 - club_page = ClubPage.find_by id: local_assigns[:club_page_id]
 - if club_page
   .block
-    = BbCodes::Text.call club_page.text
-  .block
-    = BbCodes::Text.call "[p][right]#{t 'source'}: [club_page=#{club_page.id}]#{club_page.name}[/club_page][/right][/p]"
+    = BbCodes::Text.call club_page.text + "[p][right]#{t 'source'}: [club_page=#{club_page.id}]#{club_page.name}[/club_page][/right][/p]"
