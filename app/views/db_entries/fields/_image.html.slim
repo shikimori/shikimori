@@ -9,10 +9,12 @@
 
       = f.input :image
 
+      // use resource.object! becase in person decorator these methods are redefined
+      - unless resource.object.anime? || resource.object.manga? || resource.object.ranobe?
+        p: b #{t '.image_size', size: '225x350'}
       .b-warning
         div
           span.warning = t '.warning'
-          |  #{t '.image_size', size: '225x350'}
         / p.hint TODO: пришлите, пожалуйста, @morr в личку текст, который сюда вставить.<br>
           Когда и в каких случаях менять картинки?<br>
           Не нужно менять постеры анонсам, для них на MAL поставят картинку.<br>
