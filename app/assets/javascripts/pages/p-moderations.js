@@ -79,6 +79,8 @@ pageLoad('.moderations-index', () => {
     });
 
   const $form = $('form#versions_form').removeClass('b-ajax');
+  if (!$form.length) { return; }
+
   ['user_id', 'moderator_id'].forEach(type => {
     const $input = $(`#version_${type}`);
     const $suggest = $(`.${type}-suggest`);
