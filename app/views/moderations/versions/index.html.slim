@@ -33,7 +33,7 @@ header.head
 - if can? :filter, Version
   .block
     .subheadline = t '.filters'
-    form.b-form[
+    form.b-form#versions_form[
       action=current_url
       method='get'
     ]
@@ -98,7 +98,6 @@ header.head
                           = klass.human_attribute_name field
                           - if klass.human_attribute_name(field) != field
                             |  (#{field})
-      input type='submit' value=t('actions.apply')
 
 - if @view.pending.any?
   .block

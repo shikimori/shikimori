@@ -78,6 +78,7 @@ pageLoad('.moderations-index', () => {
         .removeClass('b-ajax');
     });
 
+  const $form = $('form#versions_form').removeClass('b-ajax');
   ['user_id', 'moderator_id'].forEach(type => {
     const $input = $(`#version_${type}`);
     const $suggest = $(`.${type}-suggest`);
@@ -91,18 +92,24 @@ pageLoad('.moderations-index', () => {
 
         $placeholder.removeClass('hidden');
         $placeholder.find('.nickname').html(`<a href="${url}">${name}</a>`);
+
+        $form.addClass('b-ajax').submit();
       });
 
     $placeholder.find('.b-js-action.remove').on('click', () => {
       $input.val('');
       $placeholder.addClass('hidden');
       $suggest.removeClass('hidden').val('');
+
+      $form.addClass('b-ajax').submit();
     });
   });
 
   $('#version_field').on('change', ({ currentTarget }) => {
     const itemType = currentTarget.selectedOptions[0].getAttribute('data-item_type');
     $('#version_item_type').val(itemType);
+
+    $form.addClass('b-ajax').submit();
   });
 });
 
