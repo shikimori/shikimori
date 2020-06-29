@@ -103,10 +103,13 @@ class VersionsView < ViewObjectBase
 
   def filterable_fields
     @filterable_fields ||= begin
-      Rails.cache.fetch(:filterable_fields) do
+      Rails.cache.fetch([:filterable_fields, type_param], expires_in: 1.day) do
         [Anime, Manga, Character, Person].each_with_object({}) do |klass, memo|
           sorting_order = I18n.t("activerecord.attributes.#{klass.name.downcase}").keys.map(&:to_s)
-          fields = Version
+
+          fields = Moderation::ProcessedVersionsQuery
+            .fetch(type_param, nil)
+            .except(:order)
             .where(item_type: klass.name)
             .distinct
             .pluck(Arel.sql('jsonb_object_keys(item_diff)'))
