@@ -1,3 +1,5 @@
+= render 'versions/note_from_club_page', club_page_id: 2045
+
 .b-brief.screenshots-uploader data-upload_url=anime_screenshots_url(@resource)
   / p.m5 Перед загрузкой кадров удостоверься, пожалуйста, что загружаемое удовлетворяет требованиям:
   / ul.b-list.m10
@@ -20,8 +22,6 @@
       .cc.m0
       input type="file" multiple="multiple"
       p.thank-you Спасибо! Загруженное будет проверено модератором. О результатах проверки вам придёт уведомление.
-
-  = render 'versions/note_from_club_page', club_page_id: 2045
 
 - if @resource.screenshots.any?# || @resource.versions[:screenshots].any?
   .block.screenshots-positioner

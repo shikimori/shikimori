@@ -1,4 +1,6 @@
 - club_page = ClubPage.find_by id: local_assigns[:club_page_id]
 - if club_page
-  .block
-    = BbCodes::Text.call club_page.text + "[p][right]#{t 'source'}: [club_page=#{club_page.id}]#{club_page.name}[/club_page][/right][/p]"
+  .m8
+    b.text-red Пожалуйста, внимательно прочитай правила перед внесением правок!
+  .m20
+    = BbCodes::Text.call "[spoiler=[div=b-js-action][size=18][b]Правила[/b][/size][/div]][div]" + club_page.text + "[right]Изменить текст можно на странице [club_page=#{club_page.id}]#{club_page.name}[/club_page][/right][/div][/spoiler]"

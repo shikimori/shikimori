@@ -1,3 +1,5 @@
+= render 'versions/note_from_club_page', club_page_id: 2044
+
 - if params[:video_id]
   - video = @resource.videos.find params[:video_id]
 
@@ -32,7 +34,6 @@
           a.cancel href=resource.url = t 'actions.cancel'
           = f.button :magic_submit
 
-  = render 'versions/note_from_club_page', club_page_id: 2044
 
   - if @resource.videos.any?# || @resource.versions[:videos].any?
     .block.videos-deleter

@@ -1,3 +1,5 @@
+= render 'versions/note_from_club_page', club_page_id: 2106
+
 .cc-2.block
   .c-column
     = simple_form_for resource.object do |f|
@@ -15,5 +17,3 @@
       .buttons
         a.cancel href=resource.edit_url = t 'actions.cancel'
         = f.button :magic_submit
-
-= render 'versions/note_from_club_page', club_page_id: 2106
