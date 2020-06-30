@@ -44,11 +44,18 @@ pageLoad('.db_entries-edit_field', () => {
     $('.c-screenshot').shikiImage();
 
     const $screenshotsPositioner = $('.screenshots-positioner');
-    $('form', $screenshotsPositioner).on('submit', () => {
-      const $images = $('.c-screenshot:not(.deleted) img', $screenshotsPositioner);
-      const ids = $images.map(function () { return $(this).data('id'); });
-      $screenshotsPositioner.find('#entry_ids').val($.makeArray(ids).join(','));
-    });
+    if ($screenshotsPositioner.length) {
+      $('form', $screenshotsPositioner).on('submit', () => {
+        const $images = $('.c-screenshot:not(.deleted) img', $screenshotsPositioner);
+        const ids = $images.map(function () { return $(this).data('id'); });
+        $screenshotsPositioner.find('#entry_ids').val($.makeArray(ids).join(','));
+      });
+
+      new Sortable($screenshotsPositioner.find('.cc')[0], {
+        draggable: '.b-image',
+        handle: '.drag-handle'
+      });
+    }
 
     const $screenshotsUploader = $('.screenshots-uploader');
     $screenshotsUploader
@@ -63,11 +70,6 @@ pageLoad('.db_entries-edit_field', () => {
           .appendTo($('.cc', $screenshotsUploader))
           .shikiImage()
       );
-
-    new Sortable($screenshotsPositioner.find('.cc')[0], {
-      draggable: '.b-image',
-      handle: '.drag-handle'
-    });
   }
 
   if ($('.edit-page.videos').exists()) {
