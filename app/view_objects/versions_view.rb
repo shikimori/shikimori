@@ -80,7 +80,7 @@ class VersionsView < ViewObjectBase
   def filtered_user
     return unless h.can?(:filter, Version) && h.params[:user_id].present?
 
-    @filtered_user ||= User.find_by id: h.params[:moderator_id]
+    @filtered_user ||= User.find_by id: h.params[:user_id]
   end
 
   def filtered_moderator
