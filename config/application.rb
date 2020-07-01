@@ -131,6 +131,13 @@ module Shikimori
 
       allow do
         origins '*'
+        resource '/comments/smileys',
+          headers: :any,
+          methods: %i[get options]
+      end
+
+      allow do
+        origins '*'
         resource '/api/*',
           headers: :any,
           methods: %i[get options post put patch]
