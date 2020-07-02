@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_28_175712) do
+ActiveRecord::Schema.define(version: 2020_07_02_170709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -504,7 +504,7 @@ ActiveRecord::Schema.define(version: 2020_06_28_175712) do
     t.datetime "imported_at"
     t.string "source", null: false
     t.string "checksum", null: false
-    t.index ["checksum"], name: "index_external_links_on_checksum", unique: true
+    t.index ["checksum"], name: "index_external_links_on_checksum", unique: true, where: "((url)::text <> 'NONE'::text)"
     t.index ["entry_type", "entry_id"], name: "index_external_links_on_entry_type_and_entry_id"
   end
 

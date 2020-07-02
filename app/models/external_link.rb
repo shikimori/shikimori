@@ -2,7 +2,7 @@ class ExternalLink < ApplicationRecord
   belongs_to :entry, polymorphic: true, touch: true
   validates :entry, :source, :kind, :url, presence: true
 
-  validates :checksum, uniqueness: true
+  validates :checksum, uniqueness: true, if: -> { url != NO_URL }
 
   enumerize :kind,
     in: Types::ExternalLink::Kind.values,
@@ -30,7 +30,7 @@ class ExternalLink < ApplicationRecord
   NO_URL = 'NONE'
 
   def url= value
-    if value.present?
+    if value.present? && value != NO_URL
       super Url.new(value).with_protocol.to_s
     else
       super
