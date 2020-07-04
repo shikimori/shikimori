@@ -59,12 +59,15 @@ private
   end
 
   def find_version author, action
-    Version
+    version = Version
       .where(user: author, item: item, state: %i[pending auto_accepted])
-      .where('(item_diff->>:field) = :action', field: :action, action: action)
+      .where('(item_diff->>:field) is not null', field: :action)
       .where('item_diff ? :field', field: field_key)
       .where('created_at > ?', APPEND_TIMEOUT.ago)
+      .order(created_at: :desc)
       .first
+
+    version if version && version.item_diff['action'] == action.to_s
   end
 
   def build_version author, action

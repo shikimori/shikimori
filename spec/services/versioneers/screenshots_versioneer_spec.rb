@@ -6,6 +6,8 @@ describe Versioneers::ScreenshotsVersioneer do
     let(:image) { Rack::Test::UploadedFile.new 'spec/files/anime.jpg', 'image/jpg' }
 
     let!(:present_version) {}
+    let!(:present_version_2) {}
+
     subject!(:result) { versioneer.upload image, user }
 
     let(:screenshot) { result.first }
@@ -62,6 +64,29 @@ describe Versioneers::ScreenshotsVersioneer do
             'action' => described_class::UPLOAD.to_s,
             described_class::KEY => [123456, screenshot.id]
           )
+        end
+
+        context 'expired timeout' do
+          let(:created_at) { described_class::APPEND_TIMEOUT.ago - 1.minute }
+          it { expect(version).to_not eq present_version }
+        end
+
+        context 'newest version present with another action' do
+          let!(:present_version_2) do
+            create :screenshots_version, {
+              **version_params,
+              item_diff: {
+                'action' => described_class::DELETE.to_s,
+                described_class::KEY => [123456]
+              },
+              created_at: created_at + 1.minute
+            }
+          end
+
+          it do
+            expect(version).to_not eq present_version
+            expect(version).to_not eq present_version_2
+          end
         end
       end
 
