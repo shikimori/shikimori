@@ -27,8 +27,8 @@ module CommentHelper
      ':tea shock:', ':frozen3:'],
     [':angry4:', ':revenge:', ':evil2:', ':twisted:', ':angry:', ':angry3:', ':angry5:', ':angry6:', ':cold:', ':strange4:', ':ball:', ':evil3:'],
     [':8):', ':oh2:', ':ooph:', ':wink:', ':dunno:', ':dont listen:', ':hypno:', ':advise:', ':bored:', ':disappointment:', ':hunf:'], # , ":idea:"
-    [':hot:', ':hot2:', ':hot3:', ':stress:', ':strange3:', ':strange2:', ':strange1:', ':strange:', ':hope:', ':hope3:', ':diplom:'],
-    [':hi:', ':bye:', ':sleep:', ':bow:', ':Warning:', ':Ban:', ':Bath2:', ':Im dead:', ':sick:', ':s1:', ':s3:', ':s2:', ':happy_cry:'],
+    [':hot:', ':hot2:', ':hot3:', ':stress:', ':strange3:', ':strange2:', ':strange1:', ':Bath2:', ':strange:', ':hope:', ':hope3:', ':diplom:'],
+    [':hi:', ':bye:', ':sleep:', ':bow:', ':Warning:', ':Ban:', ':Im dead:', ':sick:', ':s1:', ':s3:', ':s2:', ':happy_cry:'],
     [':ill:',
      ':sad2:',
      ':bullied:', ':bdl2:',
