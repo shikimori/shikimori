@@ -15,12 +15,12 @@
                       | Нажимать только один раз!
 
                     p.warning После нажатия кнопки в очередь задач сайта будет добавлена задача,
-                      сливающая #{i18n_i resource.object.class.name.downcase, 1, :genitive} с
+                      сливающая #{i18n_i resource.object.class.name.downcase, 1, :accusative} с
                       #{resource.object.class == Manga ? 'другой' : 'другим'}.
                     p.warning Слияние начнётся через 30 минут и может занять от 5 минут
                       до пары часов в зависимости
                       от популярности #{resource.object.class == Manga ? 'этой' : 'этого'}
-                      #{i18n_i resource.object.class.name.downcase, 1, :accusative} на сайте.
+                      #{i18n_i resource.object.class.name.downcase, 1, :genitive} на сайте.
                   .b-input.merge_target_id[
                     data-type=resource.object.class.name
                   ]
@@ -40,9 +40,9 @@
                           a href=profile_url('morr') @morr
                       p.warning
                         ' Нужно отключить парсинг #{resource.object.class == Manga ? 'этой' : 'этого'}
-                        ' #{i18n_i resource.object.class.name.downcase, 1, :accusative} с MAL,
+                        ' #{i18n_i resource.object.class.name.downcase, 1, :genitive} с MAL,
                         ' добавив ID #{resource.object.class == Manga ? 'этой' : 'этого'}
-                        ' #{i18n_i resource.object.class.name.downcase, 1, :accusative} в файл
+                        ' #{i18n_i resource.object.class.name.downcase, 1, :genitive} в файл
                         a[
                           href='https://github.com/shikimori/shikimori/blob/master/config/app/banned_mal_ids.yml'
                         ] проекта.
@@ -65,11 +65,11 @@
                     | Нажимать только один раз!
 
                   p.warning После нажатия кнопки в очередь задач сайта будет добавлена задача,
-                    удаляющая #{i18n_i resource.object.class.name.downcase, 1, :genitive}.
+                    удаляющая #{i18n_i resource.object.class.name.downcase, 1, :accusative}.
                   p.warning Удаление начнётся через 30 минут и может занять от 5 минут
                     до пары часов в зависимости
                     от популярности #{resource.object.class == Manga ? 'этой' : 'этого'}
-                    #{i18n_i resource.object.class.name.downcase, 1, :accusative} на сайте.
+                    #{i18n_i resource.object.class.name.downcase, 1, :genitive} на сайте.
 
                 - if @resource.mal_id.present?
                   .b-warning.is-background
@@ -79,9 +79,9 @@
                         a href=profile_url('morr') @morr
                     p.warning
                       ' Нужно отключить парсинг #{resource.object.class == Manga ? 'этой' : 'этого'}
-                      ' #{i18n_i resource.object.class.name.downcase, 1, :accusative} с MAL,
+                      ' #{i18n_i resource.object.class.name.downcase, 1, :genitive} с MAL,
                       ' добавив ID #{resource.object.class == Manga ? 'этой' : 'этого'}
-                      ' #{i18n_i resource.object.class.name.downcase, 1, :accusative} в файл
+                      ' #{i18n_i resource.object.class.name.downcase, 1, :genitive} в файл
                       a[
                         href='https://github.com/shikimori/shikimori/blob/master/config/app/banned_mal_ids.yml'
                       ] проекта.
