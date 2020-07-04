@@ -7,6 +7,7 @@ export default class View
 
   on: ->
     @$node.on.apply(@$node, arguments)
+    @
 
   trigger: ->
     @$node.trigger.apply(@$node, arguments)
