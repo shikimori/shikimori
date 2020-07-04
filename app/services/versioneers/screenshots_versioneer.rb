@@ -8,6 +8,8 @@ class Versioneers::ScreenshotsVersioneer
   REPOSITION = Versions::ScreenshotsVersion::Actions[:reposition]
   DELETE = Versions::ScreenshotsVersion::Actions[:delete]
 
+  APPEND_TIMEOUT = 10.minutes
+
   def upload image, author
     art = build_art image
 
@@ -61,7 +63,7 @@ private
       .where(user: author, item: item, state: %i[pending auto_accepted])
       .where('(item_diff->>:field) = :action', field: :action, action: action)
       .where('item_diff ? :field', field: field_key)
-      .where('created_at > ?', 10.minutes.ago)
+      .where('created_at > ?', APPEND_TIMEOUT.ago)
       .first
   end
 

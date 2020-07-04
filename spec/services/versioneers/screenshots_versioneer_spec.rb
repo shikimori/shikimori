@@ -30,7 +30,13 @@ describe Versioneers::ScreenshotsVersioneer do
     end
 
     context 'with existing version' do
-      let!(:present_version) { create :screenshots_version, version_params }
+      let!(:present_version) do
+        create :screenshots_version, {
+          **version_params,
+          created_at: created_at
+        }
+      end
+      let(:created_at) { described_class::APPEND_TIMEOUT.ago + 1.minute }
 
       context 'matched version' do
         let(:version_params) do
