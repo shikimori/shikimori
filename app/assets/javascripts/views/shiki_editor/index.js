@@ -23,7 +23,7 @@ export default class ShikiEditor extends ShikiView {
     }
 
     this.$textarea = this.$('textarea');
-    this.editor = this._buildEditor();
+    // this.editor = this._buildEditor();
 
     // при вызове фокуса на shiki-editor передача сообщения в редактор
     this.on('focus', () => this.$textarea.trigger('focus'));
@@ -430,75 +430,75 @@ export default class ShikiEditor extends ShikiView {
     ));
   }
 
-  _buildEditor() {
-    const node = this.root.querySelector('.prosemirror-container');
-    // const output = document.querySelector('#output');
-
-    const view = new EditorView(node, {
-      state: EditorState.create({
-        schema,
-        plugins,
-        doc: shikiMarkdownParser.parse(this.text)
-      }),
-      // doc: DOMParser.fromSchema(mySchema).parse(this.$textarea[0]),
-      dispatchTransaction: transaction => {
-        const { state, transactions } = view.state.applyTransaction(transaction);
-        view.updateState(state);
-
-        if (transactions.some(tr => tr.docChanged)) {
-          const markdown = shikiMarkdownSerializer.serialize(state.doc);
-          // console.log(Tokenizer.parse(markdown));
-          this.$textarea.val(markdown);
-        }
-      }
-    });
-
-    this.$textarea.on('keypress keydown paste', async () => {
-      await delay();
-
-      view.updateState(
-        EditorState.create({
-          schema,
-          plugins,
-          doc: shikiMarkdownParser.parse(this.text)
-        })
-      );
-    });
-
-    return view;
-    // view.focus();
-    // const domSerializer = DOMSerializer.fromSchema(schema);
-    // const xmlSerializer = new XMLSerializer();
-    // const exportHTML = () => {
-    //   const fragment = domSerializer.serializeFragment(view.state.doc.content);
-    //   output.textContent = xmlSerializer.serializeToString(fragment);
-    // };
-    // exportHTML();
-
-    // const mySchema = new Schema({
-    //   nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
-    //   marks: schema.spec.marks
-    // });
-    //
-    // const editor = new EditorView(this.$('.prosemirror')[0], {
-    //   state: EditorState.create({
-    //     doc: DOMParser.fromSchema(mySchema).parse(this.$textarea[0]),
-    //     plugins: exampleSetup({ schema: mySchema })
-    //   })
-    // });
-    // window.view = editor;
-    // return editor;
-  }
+  // _buildEditor() {
+  //   const node = this.root.querySelector('.prosemirror-container');
+  //   // const output = document.querySelector('#output');
+  // 
+  //   const view = new EditorView(node, {
+  //     state: EditorState.create({
+  //       schema,
+  //       plugins,
+  //       doc: shikiMarkdownParser.parse(this.text)
+  //     }),
+  //     // doc: DOMParser.fromSchema(mySchema).parse(this.$textarea[0]),
+  //     dispatchTransaction: transaction => {
+  //       const { state, transactions } = view.state.applyTransaction(transaction);
+  //       view.updateState(state);
+  // 
+  //       if (transactions.some(tr => tr.docChanged)) {
+  //         const markdown = shikiMarkdownSerializer.serialize(state.doc);
+  //         // console.log(Tokenizer.parse(markdown));
+  //         this.$textarea.val(markdown);
+  //       }
+  //     }
+  //   });
+  // 
+  //   this.$textarea.on('keypress keydown paste', async () => {
+  //     await delay();
+  // 
+  //     view.updateState(
+  //       EditorState.create({
+  //         schema,
+  //         plugins,
+  //         doc: shikiMarkdownParser.parse(this.text)
+  //       })
+  //     );
+  //   });
+  // 
+  //   return view;
+  //   // view.focus();
+  //   // const domSerializer = DOMSerializer.fromSchema(schema);
+  //   // const xmlSerializer = new XMLSerializer();
+  //   // const exportHTML = () => {
+  //   //   const fragment = domSerializer.serializeFragment(view.state.doc.content);
+  //   //   output.textContent = xmlSerializer.serializeToString(fragment);
+  //   // };
+  //   // exportHTML();
+  // 
+  //   // const mySchema = new Schema({
+  //   //   nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
+  //   //   marks: schema.spec.marks
+  //   // });
+  //   //
+  //   // const editor = new EditorView(this.$('.prosemirror')[0], {
+  //   //   state: EditorState.create({
+  //   //     doc: DOMParser.fromSchema(mySchema).parse(this.$textarea[0]),
+  //   //     plugins: exampleSetup({ schema: mySchema })
+  //   //   })
+  //   // });
+  //   // window.view = editor;
+  //   // return editor;
+  // }
 }
 
 // import { DOMSerializer } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-import { shikiMarkdownParser } from './markdown/from_markdown';
-import { shikiMarkdownSerializer } from './markdown/to_markdown';
-import { Tokenizer } from './markdown/tokenizer';
-import { plugins } from './plugins';
-import { schema } from './schema';
+// import { EditorState } from 'prosemirror-state';
+// import { EditorView } from 'prosemirror-view';
+// import { shikiMarkdownParser } from './markdown/from_markdown';
+// import { shikiMarkdownSerializer } from './markdown/to_markdown';
+// import { Tokenizer } from './markdown/tokenizer';
+// import { plugins } from './plugins';
+// import { schema } from './schema';
 
 // import { EditorState } from 'prosemirror-state';
 // import { EditorView } from 'prosemirror-view';
