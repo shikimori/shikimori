@@ -3,7 +3,6 @@ class ScreenshotsController < ShikimoriController
   before_action :fetch_anime
 
   def create # rubocop:disable all
-    1/0
     @screenshot, @version = versioneer.upload params[:image], current_user
     @version.auto_accept if @version&.persisted? && can?(:auto_accept, @version)
 
