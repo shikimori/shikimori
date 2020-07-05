@@ -11,7 +11,7 @@ const defaults = {
   input: null
 };
 
-let globalLock = false;
+let globalDragLock = false;
 
 $.fn.extend({
   shikiFile(opts) {
@@ -20,7 +20,7 @@ $.fn.extend({
       const $node = $(this);
 
       // плейсхолдер того места, куда будет класться файл
-      let $placeholder = null;
+      let $dropArea = null;
 
       // прогресс-бар
       const $progressContainer = $(options.progress);
@@ -74,7 +74,7 @@ $.fn.extend({
               flash.error(I18n.t(`${I18N_KEY}.browser_not_supported`));
           }
 
-          globalLock = false;
+          globalDragLock = false;
         },
 
         maxfiles: options.maxfiles,
@@ -95,9 +95,9 @@ $.fn.extend({
         },
 
         drop() {
-          if (globalLock) { return false; }
+          if (globalDragLock) { return false; }
 
-          globalLock = true;
+          globalDragLock = true;
           $node.trigger('upload:before');
           $(document.body).trigger('dragleave');
 
@@ -107,7 +107,7 @@ $.fn.extend({
 
         async afterAll() {
           $node.trigger('upload:after');
-          globalLock = false;
+          globalDragLock = false;
 
           $progressContainer.removeClass('active');
           await delay(250);
@@ -124,13 +124,13 @@ $.fn.extend({
           const height = $node.outerHeight();
           const width = $node.outerWidth();
           const text =
-            globalLock ?
+            globalDragLock ?
               I18n.t(`${I18N_KEY}.wait_till_loaded`) :
               I18n.t(`${I18N_KEY}.drop_pictures_here`);
 
-          const cls = globalLock ? 'disallowed' : 'allowed';
+          const cls = globalDragLock ? 'disallowed' : 'allowed';
 
-          $placeholder = $(`<div data-text='${text}' class='b-dropzone-drag_placeholder ${cls}' style='width:${width}px!important;height:${height}px;line-height:${Math.max(height, 75)}px;'></div>`)
+          $dropArea = $(`<div data-text='${text}' class='b-dropzone-drag_placeholder ${cls}' style='width:${width}px!important;height:${height}px;line-height:${Math.max(height, 75)}px;'></div>`)
             .css({ opacity: 0 })
             .on('drop', e => $node.trigger(e))
             .on('dragenter', function () { return $(this).addClass('hovered'); })
@@ -138,17 +138,17 @@ $.fn.extend({
             .insertBefore($node);
 
           await delay();
-          $placeholder.css({ opacity: 0.75 });
+          $dropArea.css({ opacity: 0.75 });
         },
 
         docLeave(_e) {
           if (!$node.data('placeholder_displayed')) { return; }
 
-          $placeholder = $node.parent()
+          $dropArea = $node.parent()
             .find('.b-dropzone-drag_placeholder')
             .css({ opacity: 0 });
 
-          delay(350).then(() => $placeholder.remove());
+          delay(350).then(() => $dropArea.remove());
           $node.data({ placeholder_displayed: false });
         },
 

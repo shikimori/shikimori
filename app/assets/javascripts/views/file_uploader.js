@@ -60,15 +60,15 @@ export class FileUploader extends View {
     ));
   }
 
+  addFiles(files) {
+    Array.from(files).forEach(file => {
+      this.uppy.addFile({ name: file.name, type: file.type, data: file });
+    });
+  }
+
   _bindInput() {
     this.$input.on('change', ({ currentTarget }) => {
-      Array.from(currentTarget.files).forEach(file => (
-        this.uppy.addFile({
-          name: file.name,
-          type: file.type,
-          data: file
-        })
-      ));
+      this.addFiles(currentTarget.files);
     });
   }
 
@@ -231,10 +231,14 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
     flash.error(message);
   }
 
-  // @bind
-  // _dragDrop() {
-  //   debugger;
-  // }
+  @bind
+  _dragDrop(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    this.addFiles(e.dataTransfer.files);
+    this._docLeave();
+  }
   //
   // _dragEnter(e) {
   //   // console.log('_dragEnter')
@@ -274,13 +278,12 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
     e.stopPropagation();
     e.preventDefault();
 
-    this._docLeave(e);
+    this._docLeave();
   }
 
   @bind
   _docEnter(e) {
     if (notFiles(e)) { return; }
-    console.log('docEnter');
 
     e.stopPropagation();
     e.preventDefault();
@@ -293,8 +296,8 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
   @bind
   _docOver(e) {
     if (!this.$dropArea) { return; }
-    console.log('docOer');
 
+    fixChromeDocEvent(e);
     e.stopPropagation();
     e.preventDefault();
 
@@ -305,12 +308,15 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
   @bind
   _docLeave(e) {
     if (!this.$dropArea) { return; }
-    console.log('docLeave');
 
-    e.stopPropagation();
-    e.preventDefault();
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
 
-    this.docLeaveTimer = setTimeout(this._removeDropArea, 200);
+      this.docLeaveTimer = setTimeout(this._removeDropArea, 200);
+    } else {
+      this._removeDropArea();
+    }
   }
 }
 
