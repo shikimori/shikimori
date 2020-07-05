@@ -17,6 +17,8 @@ export class FileUploader extends View {
   docLeaveTimer = null
 
   initialize() {
+    this.$root.removeClass('b-ajax');
+
     this.$input = this.$root.find('input[type=file]');
     this.$progressContainer = this.$root.find('.b-upload_progress');
     this.$progressBar = this.$progressContainer.children();

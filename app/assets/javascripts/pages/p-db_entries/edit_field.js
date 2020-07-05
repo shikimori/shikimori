@@ -1,6 +1,5 @@
 import Sortable from 'sortablejs';
 import ImageboardGallery from 'views/images/imageboard_gallery';
-import { FileUploader } from 'views/file_uploader';
 
 pageLoad('.db_entries-edit_field', () => {
   const $description = $('.edit-page.description_ru, .edit-page.description_en');
@@ -58,31 +57,7 @@ pageLoad('.db_entries-edit_field', () => {
       });
     }
 
-    const $screenshotsUploader = $('.screenshots-uploader');
-    new FileUploader($screenshotsUploader)
-      .on('upload:file:success', (_e, { html }) => (
-        $(html)
-          .appendTo($('.cc', $screenshotsUploader))
-          .shikiImage()
-      ))
-      .on('upload:complete', () => (
-        $screenshotsUploader.find('.thank-you').show()
-      ));
-
-
-    // const $screenshotsUploader = $('.screenshots-uploader');
-    // $screenshotsUploader
-    //   .shikiFile({
-    //     progress: $screenshotsUploader.find('.b-upload_progress'),
-    //     input: $screenshotsUploader.find('input[type=file]'),
-    //     maxfiles: 250
-    //   })
-    //   .on('upload:after', () => )
-    //   .on('upload:success', (e, response) =>
-    //     $(response.html)
-    //       .appendTo($('.cc', $screenshotsUploader))
-    //       .shikiImage()
-    //   );
+    initUploaderApp($('.screenshots-uploader'));
   }
 
   if ($('.edit-page.videos').exists()) {
@@ -274,4 +249,18 @@ async function initTagsApp($tags) {
       }
     })
   });
+}
+
+async function initUploaderApp($node) {
+  const { FileUploader } = await import('views/file_uploader');
+
+  new FileUploader($node)
+    .on('upload:file:success', (_e, { html }) => (
+      $(html)
+        .appendTo($('.cc', $node))
+        .shikiImage()
+    ))
+    .on('upload:complete', () => (
+      $node.find('.thank-you').show()
+    ));
 }
