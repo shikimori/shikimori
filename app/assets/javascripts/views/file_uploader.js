@@ -1,17 +1,19 @@
 import Uppy from '@uppy/core';
 import XHRUpload from '@uppy/xhr-upload';
+import delay from 'delay';
 
 import flash from 'services/flash';
 import View from 'views/application/view';
 import csrf from 'helpers/csrf';
-import UppyRuLocale from 'vendor/uppy_ru_locale';
+import UppyLocaleRu from 'vendor/uppy_locale_ru';
 
 // const I18N_KEY = 'frontend.lib.jquery_shiki_file';
 
 export class FileUploader extends View {
   initialize() {
     this.$input = this.$root.find('input[type=file]');
-    this.$progress = this.$root.find('.b-upload_progress');
+    this.$progressContainer = this.$root.find('.b-upload_progress');
+    this.$progressBar = this.$progressContainer.children();
 
     this.uppy = this._initUppy();
 
@@ -35,7 +37,7 @@ export class FileUploader extends View {
       // id: 'uppy',
       autoProceed: true,
       allowMultipleUploads: true,
-      debug: true,
+      // debug: true,
       restrictions: {
         maxFileSize: 1024 * 1024 * 4,
         maxNumberOfFiles: 150,
@@ -50,7 +52,7 @@ export class FileUploader extends View {
       // onBeforeUpload: _files => {
       //   console.log('onBeforeUpload');
       // },
-      locale: window.LOCALE === 'ru' ? UppyRuLocale : undefined
+      locale: window.LOCALE === 'ru' ? UppyLocaleRu : undefined
       // store: new DefaultStore(),
       // logger: justErrorsLogger
     })
@@ -67,15 +69,41 @@ export class FileUploader extends View {
       .on('upload-success', (_file, response) => {
         this.trigger('upload:file:success', response.body);
       })
-      .on('complete', _result => {
-        this.trigger('upload:complete');
+      .on('upload-progress', (file, progress) => {
+        // file: { id, name, type, ... }
+        // progress: { uploader, bytesUploaded, bytesTotal }
+        console.log(file.id, progress.bytesUploaded, progress.bytesTotal);
       })
-      .on('upload-error', (_file, error, _response) => {
-        flash.error(error.message);
+      .on('reset-progress', () => {
+      })
+      .on('complete', ({ successful }) => {
+        this._hideProgress();
+
+        if (successful.length) {
+          this.trigger('upload:complete');
+        } else {
+          this.trigger('upload:failure');
+        }
+      })
+      .on('upload-error', (file, error, _response) => {
+        let message;
+
+        if (error.message === 'Upload error') {
+          message = this.uppy.i18n('failedToUpload', { file: file.name });
+        } else {
+          message = error.message; // eslint-disable-line
+        }
+
+        flash.error(message);
       })
       .on('restriction-failed', (_file, error) => {
         flash.error(error.message);
-        // flash.error(I18n.t(`${I18N_KEY}.too_large_file`));
       });
+  }
+
+  async _hideProgress() {
+    this.$progressContainer.removeClass('active');
+    await delay(250);
+    this.$progressBar.width('0%');
   }
 }

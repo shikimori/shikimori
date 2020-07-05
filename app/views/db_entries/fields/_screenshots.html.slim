@@ -20,8 +20,8 @@
     ]
       = render 'blocks/upload_progress'
       .cc.m0
-      input type="file" multiple="multiple"
-      p.thank-you Спасибо! Загруженное будет проверено модератором. О результатах проверки вам придёт уведомление.
+      input type='file' multiple='multiple'
+      p.thank-you Спасибо! Загруженное будет проверено модератором.
 
 - if @resource.screenshots.any?# || @resource.versions[:screenshots].any?
   .block.screenshots-positioner
@@ -34,11 +34,11 @@
       = render @resource.screenshots, edition: true
 
     = form_tag reposition_anime_screenshots_url(@resource), method: :post do
-      input#entry_ids name="ids" type="hidden"
+      input#entry_ids name='ids' type='hidden'
 
       .b-form: .buttons
         input[
-          type="submit"
+          type='submit'
           value=t('simple_form.magic_submit.default.submit')
           data-disable-with="#{{t 'simple_form.magic_submit.default.disable_with'}}"
         ]
