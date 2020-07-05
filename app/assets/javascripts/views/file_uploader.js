@@ -7,15 +7,18 @@ import View from 'views/application/view';
 import csrf from 'helpers/csrf';
 import UppyLocaleRu from 'vendor/uppy_locale_ru';
 
-// const I18N_KEY = 'frontend.lib.jquery_shiki_file';
+const I18N_KEY = 'frontend.lib.file_uploader';
 
 export class FileUploader extends View {
+  uploadingFileIDs = []
+
   initialize() {
     this.$input = this.$root.find('input[type=file]');
     this.$progressContainer = this.$root.find('.b-upload_progress');
     this.$progressBar = this.$progressContainer.children();
 
     this.uppy = this._initUppy();
+    window.z = this;
 
     this.$input.on('change', ({ currentTarget }) => {
       Array.from(currentTarget.files).forEach(file => (
@@ -30,6 +33,18 @@ export class FileUploader extends View {
 
   get endpoint() {
     return this.$root.data('upload_url');
+  }
+
+  get uploadBytesTotal() {
+    return this.uploadingFileIDs.sum(id => (
+      this.uppy.store.state.files[id].progress.bytesTotal
+    ));
+  }
+
+  get uploadBytesUploaded() {
+    return this.uploadingFileIDs.sum(id => (
+      this.uppy.store.state.files[id].progress.bytesUploaded
+    ));
   }
 
   _initUppy() {
@@ -61,23 +76,16 @@ export class FileUploader extends View {
         fieldName: 'image',
         headers: csrf().headers
       })
-      // uppy.use(ProgressBar, {
-      //   target: '.UploadForm',
-      //   fixed: false,
-      //   hideAfterFinish: true
-      // })
-      .on('upload-success', (_file, response) => {
-        this.trigger('upload:file:success', response.body);
-      })
-      .on('upload-progress', (file, progress) => {
-        // file: { id, name, type, ... }
-        // progress: { uploader, bytesUploaded, bytesTotal }
-        console.log(file.id, progress.bytesUploaded, progress.bytesTotal);
-      })
+      // https://uppy.io/docs/uppy/#file-added
+      .on('upload', data => this._start(data))
+      .on('upload-success', (_file, response) => (
+        this.trigger('upload:file:success', response.body)
+      ))
+      .on('upload-progress', (file, progress) => this._progress(file, progress))
       .on('reset-progress', () => {
       })
       .on('complete', ({ successful }) => {
-        this._hideProgress();
+        this._complete();
 
         if (successful.length) {
           this.trigger('upload:complete');
@@ -101,9 +109,36 @@ export class FileUploader extends View {
       });
   }
 
-  async _hideProgress() {
+  _start(data) {
+    this.uploadingFileIDs = data.fileIDs;
+
+    this.$progressContainer.addClass('active');
+    this.$progressBar.css('width', '0%');
+  }
+
+  _progress(file, _progress) {
+    if (this.uploadingFile !== file) {
+      this.uploadingFile = file;
+
+      const filename = file.name;
+      const filesize = Math.ceil(file.size / 10) / 100;
+
+      this.$progressBar.html(
+        I18n.t(`${I18N_KEY}.loading_file`, {
+          filename,
+          filesize
+        })
+      );
+    }
+    const percent = (this.uploadBytesUploaded * 100.0 / this.uploadBytesTotal).round(2);
+    this.$progressBar.css('width', `${percent}%`);
+  }
+
+  async _complete() {
+    this.uploadingFileIDs = [];
+
     this.$progressContainer.removeClass('active');
     await delay(250);
-    this.$progressBar.width('0%');
+    this.$progressBar.css('width', '0%');
   }
 }

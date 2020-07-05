@@ -34,6 +34,9 @@ ru:
         drop_pictures_here: Перетаскивай сюда картинки
         file_type_not_allowed: Файл не является изображением
 
+      file_uploader:
+        loading_file: загрузка файла %{filename} (%{filesize} Кб)...
+
       postloader:
         loading: Загрузка...
 

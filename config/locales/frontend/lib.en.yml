@@ -34,6 +34,9 @@ en:
         drop_pictures_here: Drop pictures here
         file_type_not_allowed: The file is not an image
 
+      file_uploader:
+        loading_file: loading file %{filename} (%{filesize} kB)...
+
       postloader:
         loading: Loading...
 
