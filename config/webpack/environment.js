@@ -117,16 +117,29 @@ environment.splitChunks(config => (
             test: /[\\/]node_modules[\\/]/,
             minChunks: 1,
             chunks: 'async',
-            priority: 0,
-            name(module, chunks, _cacheGroupKey) {
+            priority: -1,
+            name(module, chunks, cacheGroupKey) {
               const moduleFileName = module.identifier().split('/').reduceRight(item => item);
               const allChunksNames = chunks.map(item => item.name).join('~');
               // return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
               // return allChunksNames || `${cacheGroupKey}-${moduleFileName}`;
-              return allChunksNames || moduleFileName;
+              // return allChunksNames || moduleFileName;
+              return `${cacheGroupKey}-${allChunksNames || moduleFileName}`;
             }
           },
-          venros_styles: {
+          app_sync: {
+            chunks: 'async',
+            priority: -5,
+            name(module, chunks, cacheGroupKey) {
+              const moduleFileName = module.identifier().split('/').reduceRight(item => item);
+              const allChunksNames = chunks.map(item => item.name).join('~');
+              // return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
+              // return allChunksNames || `${cacheGroupKey}-${moduleFileName}`;
+              // return allChunksNames || moduleFileName;
+              return `${cacheGroupKey}-${allChunksNames || moduleFileName}`;
+            }
+          },
+          vendors_styles: {
             name: 'vendors',
             test: /\.s?(?:c|a)ss$/,
             chunks: 'all',
