@@ -2,6 +2,15 @@ import Sortable from 'sortablejs';
 import ImageboardGallery from 'views/images/imageboard_gallery';
 import { FileUploader } from 'views/file_uploader';
 
+let fileUploader;
+
+pageUnload('.db_entries-edit_field', () => {
+  if (fileUploader) {
+    fileUploader.destroy();
+    fileUploader = null;
+  }
+});
+
 pageLoad('.db_entries-edit_field', () => {
   const $description = $('.edit-page.description_ru, .edit-page.description_en');
 
@@ -59,7 +68,7 @@ pageLoad('.db_entries-edit_field', () => {
     }
 
     const $screenshotsUploader = $('.screenshots-uploader');
-    new FileUploader($screenshotsUploader)
+    fileUploader = new FileUploader($screenshotsUploader)
       .on('upload:file:success', (_e, { html }) => (
         $(html)
           .appendTo($('.cc', $screenshotsUploader))

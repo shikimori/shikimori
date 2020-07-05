@@ -33,6 +33,9 @@ export class FileUploader extends View {
     });
   }
 
+  destroy() {
+  }
+
   get endpoint() {
     return this.$root.data('upload_url');
   }
@@ -70,8 +73,6 @@ export class FileUploader extends View {
       //   console.log('onBeforeUpload');
       // },
       locale: window.LOCALE === 'ru' ? UppyLocaleRu : undefined
-      // store: new DefaultStore(),
-      // logger: justErrorsLogger
     })
       .use(XHRUpload, {
         endpoint: this.endpoint,
