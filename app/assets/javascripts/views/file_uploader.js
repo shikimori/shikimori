@@ -1,3 +1,5 @@
+import { bind } from 'decko';
+
 import Uppy from '@uppy/core';
 import XHRUpload from '@uppy/xhr-upload';
 import delay from 'delay';
@@ -77,46 +79,26 @@ export class FileUploader extends View {
         headers: csrf().headers
       })
       // https://uppy.io/docs/uppy/#file-added
-      .on('upload', data => this._start(data))
-      .on('upload-success', (_file, response) => (
-        this.trigger('upload:file:success', response.body)
-      ))
-      .on('upload-progress', (file, progress) => this._progress(file, progress))
-      .on('reset-progress', () => {
-      })
-      .on('complete', ({ successful }) => {
-        this._complete();
-
-        if (successful.length) {
-          this.trigger('upload:complete');
-        } else {
-          this.trigger('upload:failure');
-        }
-      })
-      .on('upload-error', (file, error, _response) => {
-        let message;
-
-        if (error.message === 'Upload error') {
-          message = this.uppy.i18n('failedToUpload', { file: file.name });
-        } else {
-          message = error.message; // eslint-disable-line
-        }
-
-        flash.error(message);
-      })
+      .on('upload', this._uploadStart)
+      .on('upload-success', this._uploadSuccess)
+      .on('upload-progress', this._uploadProgress)
+      .on('complete', this._uploadComplete)
+      .on('upload-error', this._uploadError)
       .on('restriction-failed', (_file, error) => {
         flash.error(error.message);
       });
   }
 
-  _start(data) {
+  @bind
+  _uploadStart(data) {
     this.uploadingFileIDs = data.fileIDs;
 
     this.$progressContainer.addClass('active');
     this.$progressBar.css('width', '0%');
   }
 
-  _progress(file, _progress) {
+  @bind
+  _uploadProgress(file, _progress) {
     if (this.uploadingFile !== file) {
       this.uploadingFile = file;
 
@@ -134,11 +116,36 @@ export class FileUploader extends View {
     this.$progressBar.css('width', `${percent}%`);
   }
 
-  async _complete() {
+  @bind
+  _uploadSuccess(_file, response) {
+    this.trigger('upload:file:success', response.body);
+  }
+
+  @bind
+  async _uploadComplete({ successful }) {
     this.uploadingFileIDs = [];
+
+    if (successful.length) {
+      this.trigger('upload:complete');
+    } else {
+      this.trigger('upload:failure');
+    }
 
     this.$progressContainer.removeClass('active');
     await delay(250);
     this.$progressBar.css('width', '0%');
+  }
+
+  @bind
+  _uploadError(file, error, _response) {
+    let message;
+
+    if (error.message === 'Upload error') {
+      message = this.uppy.i18n('failedToUpload', { file: file.name });
+    } else {
+      message = error.message; // eslint-disable-line
+    }
+
+    flash.error(message);
   }
 }
