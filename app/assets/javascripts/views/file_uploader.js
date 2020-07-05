@@ -14,6 +14,7 @@ const globalDragLock = false;
 
 export class FileUploader extends View {
   uploadingFileIDs = []
+  docLeaveTimer = null
 
   initialize() {
     this.$input = this.$root.find('input[type=file]');
@@ -36,11 +37,11 @@ export class FileUploader extends View {
     //   .off('dragover', this._dragOver)
     //   .off('dragleave', this._dragLeave);
 
-    $(document)
-      .off('drop', this._docDrop)
-      .off('dragenter', this._docEnter)
-      .off('dragover', this._docOver)
-      .off('dragleave', this._docLeave);
+    // $(document)
+    //   .off('drop', this._docDrop)
+    //   .off('dragenter', this._docEnter)
+    //   .off('dragover', this._docOver)
+    //   .off('dragleave', this._docLeave);
   }
 
   get endpoint() {
@@ -86,10 +87,10 @@ export class FileUploader extends View {
     //   .on('dragleave', this._dragLeave);
     //
     $(document)
-      .on('dragenter', this._docEnter);
-    //   .on('drop', this._docDrop)
-    //   .on('dragover', this._docOver)
-    //   .on('dragleave', this._docLeave);
+      .on('dragenter', this._docEnter)
+      .on('dragleave', this._docLeave)
+      .on('dragover', this._docOver)
+      .on('drop', this._docDrop);
   }
 
   _scheduleUnbind() {
@@ -134,7 +135,7 @@ export class FileUploader extends View {
       });
   }
 
-  async _showDropArea() {
+  async _addDropArea() {
     if (this.$dropArea || !this.$root.is(':visible')) { return; }
 
     const height = this.$root.outerHeight();
@@ -156,6 +157,18 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
 
     await delay();
     this.$dropArea.css({ opacity: 0.75 });
+  }
+
+  @bind
+  async _removeDropArea() {
+    if (!this.$dropArea) { return; }
+    const { $dropArea } = this;
+
+    this.$dropArea = null;
+
+    $dropArea.css({ opacity: 0 });
+    await delay(350);
+    $dropArea.remove();
   }
 
   @bind
@@ -254,53 +267,50 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
   //   e.stopPropagation();
   // }
 
+  @bind
   _docDrop(e) {
-    // console.log('_docDrop')
-    if (notFiles(e)) {
-      return;
-    }
+    if (!this.$dropArea) { return; }
 
+    e.stopPropagation();
     e.preventDefault();
-    opts._docLeave.call(this, e);
-    return false;
+
+    this._docLeave(e);
   }
 
   @bind
   _docEnter(e) {
     if (notFiles(e)) { return; }
+    console.log('docEnter');
+
     e.stopPropagation();
     e.preventDefault();
 
-    this._showDropArea();
+    this._addDropArea();
 
     clearTimeout(this.docLeaveTimer);
   }
 
   @bind
   _docOver(e) {
-    fixChromeDocEvent(e);
-    // console.log('_docOver')
-    let efct;
-    try { efct = e.dataTransfer.effectAllowed; } catch (_error) {}
-    e.dataTransfer.dropEffect = efct === 'move' || efct === 'linkMove' ? 'move' : 'copy';
+    if (!this.$dropArea) { return; }
+    console.log('docOer');
 
-    if (notFiles(e)) {
-      return;
-    }
+    e.stopPropagation();
+    e.preventDefault();
 
     clearTimeout(this.docLeaveTimer);
-    e.preventDefault();
-    opts._docOver.call(this, e);
-    return false;
+    this.docLeaveTimer = null;
   }
 
+  @bind
   _docLeave(e) {
-    // console.log('_docLeave')
-    this.docLeaveTimer = setTimeout((function (_this) {
-      return function () {
-        opts._docLeave.call(_this, e);
-      };
-    }(this)), 200);
+    if (!this.$dropArea) { return; }
+    console.log('docLeave');
+
+    e.stopPropagation();
+    e.preventDefault();
+
+    this.docLeaveTimer = setTimeout(this._removeDropArea, 200);
   }
 }
 
