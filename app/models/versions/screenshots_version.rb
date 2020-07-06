@@ -32,7 +32,7 @@ class Versions::ScreenshotsVersion < Version
     case action
       when Actions[:upload] then delete_screenshots
       when Actions[:reposition] then reposition_screenshots(0)
-      when Actions[:delete] then raise NotImplementedError
+      when Actions[:delete] then upload_screenshots
     end
   end
 
