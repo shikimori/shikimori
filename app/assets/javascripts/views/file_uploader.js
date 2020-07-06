@@ -116,35 +116,47 @@ export class FileUploader extends View {
       });
   }
 
-  async _addDropArea() {
-    if (this.$dropArea || !this.$root.is(':visible')) { return; }
+  _addDropArea() {
+    if (this.dropNode || !this.$root.is(':visible')) { return; }
 
-    const height = this.$root.outerHeight();
-    const width = this.$root.outerWidth();
+    const height = this.root.offsetHeight;
+    const width = this.root.offsetWidth;
     const text = I18n.t(`${I18N_KEY}.drop_pictures_here`);
 
-    this.$dropArea = $(`<div data-text='${text}' class='b-dropzone-drag_placeholder allowed'
-style='width:${width}px!important;height:${height}px;line-height:${Math.max(height, 75)}px;'></div>`)
-      .css({ opacity: 0 })
-      .on('drop', this._dragDrop)
-      .on('dragenter', () => this.$dropArea.addClass('hovered'))
-      .on('dragleave', () => this.$dropArea.removeClass('hovered'))
-      .insertBefore(this.$root);
+    this.dropNode = document.createElement('div');
+    this.dropNode.setAttribute('data-text', text);
+    this.dropNode.setAttribute('class', 'b-dropzone-drag_placeholder allowed');
+    this.dropNode.style = [
+      `width: ${width}px !important`,
+      `height: ${height}px`,
+      `line-height: ${Math.max(height, 75)}px`,
+      'opacity: 0'
+    ].join(';');
+    this.dropNode.addEventListener('dorp', this._dragDrop);
+    this.dropNode.addEventListener('dragenter', () =>
+      this.dropNode.classList.add('hovered')
+    );
+    this.dropNode.addEventListener('dragleave', () =>
+      this.dropNode.classList.remove('hovered')
+    );
 
-    await delay();
-    this.$dropArea.css({ opacity: 0.75 });
+    this.root.parentNode.insertBefore(this.dropNode, this.root);
+
+    requestAnimationFrame(() =>
+      this.dropNode.style.opacity = 0.75
+    );
   }
 
   @bind
   async _removeDropArea() {
-    if (!this.$dropArea) { return; }
-    const { $dropArea } = this;
+    if (!this.dropNode) { return; }
+    const { dropNode } = this;
 
-    this.$dropArea = null;
+    this.dropNode = null;
 
-    $dropArea.css({ opacity: 0 });
+    dropNode.style.opacity = 0;
     await delay(350);
-    $dropArea.remove();
+    dropNode.remove();
   }
 
   @bind
@@ -184,7 +196,7 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
   }
 
   @bind
-  async _uploadComplete({ successful }) {
+  _uploadComplete({ successful }) {
     if (this.filesUploadedCount !== this.uploadIDs.length) { return; }
 
     this.uploadIDs = [];
@@ -196,8 +208,7 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
     }
 
     this.$progressContainer.removeClass('active');
-    await delay(250);
-    this.$progressBar.css('width', '0%');
+    setTimeout(() => this.$progressBar.css('width', '0%'), 250);
   }
 
   @bind
@@ -224,7 +235,7 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
 
   @bind
   _docDrop(e) {
-    if (!this.$dropArea) { return; }
+    if (!this.dropNode) { return; }
 
     e.stopPropagation();
     e.preventDefault();
@@ -246,7 +257,7 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
 
   @bind
   _docOver(e) {
-    if (!this.$dropArea) { return; }
+    if (!this.dropNode) { return; }
 
     fixChromeDocEvent(e);
     e.stopPropagation();
@@ -258,7 +269,7 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
 
   @bind
   _docLeave(e) {
-    if (!this.$dropArea) { return; }
+    if (!this.dropNode) { return; }
 
     if (e) {
       e.stopPropagation();
