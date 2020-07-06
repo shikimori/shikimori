@@ -2,7 +2,6 @@ import { bind } from 'decko';
 
 import Uppy from '@uppy/core';
 import XHRUpload from '@uppy/xhr-upload';
-import delay from 'delay';
 
 import flash from 'services/flash';
 import View from 'views/application/view';
@@ -148,15 +147,14 @@ export class FileUploader extends View {
   }
 
   @bind
-  async _removeDropArea() {
+  _removeDropArea() {
     if (!this.dropNode) { return; }
     const { dropNode } = this;
 
     this.dropNode = null;
 
     dropNode.style.opacity = 0;
-    await delay(350);
-    dropNode.remove();
+    setTimeout(() => dropNode.remove(), 350);
   }
 
   @bind
