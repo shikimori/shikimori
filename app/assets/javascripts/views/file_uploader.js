@@ -23,7 +23,7 @@ export class FileUploader {
 
     this.input = this.node.querySelector('input[type=file]');
     this.progressContainer = this.node.querySelector('.b-upload_progress');
-    this.progressBar = this.progressContainer.children[0];
+    [this.progressBar] = this.progressContainer.children;
 
     this.uppy = this._initUppy();
 
@@ -135,7 +135,7 @@ export class FileUploader {
       `line-height: ${Math.max(height, 75)}px`,
       'opacity: 0'
     ].join(';');
-    this.dropNode.addEventListener('dorp', this._dragDrop);
+    this.dropNode.addEventListener('drop', this._dragDrop);
     this.dropNode.addEventListener('dragenter', () =>
       this.dropNode.classList.add('hovered')
     );
