@@ -32,18 +32,11 @@ export class FileUploader extends View {
 
   @bind
   destroy() {
-    // this.$root
-    //   .off('drop', this._dragDrop)
-    //   .off('dragstart', this._dragStart)
-    //   .off('dragenter', this._dragEnter)
-    //   .off('dragover', this._dragOver)
-    //   .off('dragleave', this._dragLeave);
-
-    // $(document)
-    //   .off('drop', this._docDrop)
-    //   .off('dragenter', this._docEnter)
-    //   .off('dragover', this._docOver)
-    //   .off('dragleave', this._docLeave);
+    $(document)
+      .off('drop', this._docDrop)
+      .off('dragenter', this._docEnter)
+      .off('dragover', this._docOver)
+      .off('dragleave', this._docLeave);
   }
 
   get endpoint() {
@@ -66,7 +59,7 @@ export class FileUploader extends View {
     Array.from(files).forEach(file => {
       try {
         this.uppy.addFile({ name: file.name, type: file.type, data: file });
-      } catch(error) {
+      } catch (error) {
         this.uppy.log(error);
       }
     });
@@ -79,19 +72,6 @@ export class FileUploader extends View {
   }
 
   _bindDragEvents() {
-    // this.$root
-    //   .on('drop', () => console.log('drop'))
-    //   .on('dragstart', () => console.log('dragstart'))
-    //   .on('dragenter', () => console.log('dragenter'))
-    //   .on('dragover', () => console.log('dragover'))
-    //   .on('dragleave', () => console.log('dragleave'));
-    // this.$root
-    //   .on('drop', this._dragDrop)
-    //   .on('dragstart', this._dragStart)
-    //   .on('dragenter', this._dragEnter)
-    //   .on('dragover', this._dragOver)
-    //   .on('dragleave', this._dragLeave);
-    //
     $(document)
       .on('dragenter', this._docEnter)
       .on('dragleave', this._docLeave)
