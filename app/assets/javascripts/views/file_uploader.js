@@ -21,7 +21,7 @@ export class FileUploader {
     this.node = node;
     this.node.classList.remove('b-ajax');
 
-    this.$input = $(this.node.querySelector('input[type=file]'));
+    this.input = this.node.querySelector('input[type=file]');
     this.$progressContainer = $(this.node.querySelector('.b-upload_progress'));
     this.$progressBar = this.$progressContainer.children();
 
@@ -73,7 +73,7 @@ export class FileUploader {
   }
 
   _bindInput() {
-    this.$input.on('change', ({ currentTarget }) => {
+    this.input.addEventListener('change', ({ currentTarget }) => {
       this.addFiles(currentTarget.files);
     });
   }
