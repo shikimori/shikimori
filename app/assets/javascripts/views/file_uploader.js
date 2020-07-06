@@ -220,7 +220,7 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
   @bind
   _dragDrop(e) {
     e.preventDefault();
-    e.stopPropagation();
+    // e.stopPropagation();
 
     this.addFiles(e.dataTransfer.files);
     this._docLeave();
