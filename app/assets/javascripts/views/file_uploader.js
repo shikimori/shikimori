@@ -95,14 +95,6 @@ export class FileUploader extends View {
         minNumberOfFiles: null,
         allowedFileTypes: ['image/jpg', 'image/jpeg', 'image/png']
       },
-      // meta: {},
-      // onBeforeFileAdded: (currentFile, _files) => {
-      //   console.log('onBeforeFileAdded', currentFile);
-      //   return currentFile;
-      // },
-      // onBeforeUpload: _files => {
-      //   console.log('onBeforeUpload');
-      // },
       locale: window.LOCALE === 'ru' ? UppyLocaleRu : undefined
     })
       .use(XHRUpload, {
@@ -225,37 +217,6 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
     this.addFiles(e.dataTransfer.files);
     this._docLeave();
   }
-  //
-  // _dragEnter(e) {
-  //   // console.log('_dragEnter')
-  //   if (notFiles(e)) {
-  //     return;
-  //   }
-  //
-  //   clearTimeout(this.docLeaveTimer);
-  //   e.preventDefault();
-  //   opts._dragEnter.call(this, e);
-  // }
-  //
-  // _dragOver(e) {
-  //   fixChromeDocEvent(e);
-  //
-  //   if (notFiles(e)) {
-  //     return;
-  //   }
-  //
-  //   clearTimeout(this.docLeaveTimer);
-  //   e.preventDefault();
-  //   opts._docOver.call(this, e);
-  //   opts._dragOver.call(this, e);
-  // }
-  //
-  // _dragLeave(e) {
-  //   // console.log('_dragLeave')
-  //   clearTimeout(this.docLeaveTimer);
-  //   opts._dragLeave.call(this, e);
-  //   e.stopPropagation();
-  // }
 
   @bind
   _docDrop(e) {
