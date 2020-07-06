@@ -23,13 +23,17 @@ class Versions::ScreenshotsVersion < Version
   def apply_changes
     case action
       when Actions[:upload] then upload_screenshots
-      when Actions[:reposition] then reposition_screenshots
+      when Actions[:reposition] then reposition_screenshots(1)
       when Actions[:delete] then delete_screenshots
     end
   end
 
   def rollback_changes
-    raise NotImplementedError
+    case action
+      when Actions[:upload] then delete_screenshots
+      when Actions[:reposition] then reposition_screenshots(0)
+      when Actions[:delete] then raise NotImplementedError
+    end
   end
 
   def cleanup
@@ -46,9 +50,9 @@ private
     screenshots.each(&:mark_deleted)
   end
 
-  def reposition_screenshots
+  def reposition_screenshots apply_index
     screenshots.each do |screenshot|
-      index = item_diff[KEY][1].index(screenshot.id)
+      index = item_diff[KEY][apply_index].index(screenshot.id)
       screenshot.update(
         position: index || Versioneers::ScreenshotsVersioneer::DEFAULT_POSITION
       )
