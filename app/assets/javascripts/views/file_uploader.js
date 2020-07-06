@@ -10,10 +10,9 @@ import csrf from 'helpers/csrf';
 import UppyLocaleRu from 'vendor/uppy_locale_ru';
 
 const I18N_KEY = 'frontend.lib.file_uploader';
-const globalDragLock = false;
 
 export class FileUploader extends View {
-  uploadingFileIDs = []
+  uploadIDs = []
   docLeaveTimer = null
 
   initialize() {
@@ -32,25 +31,30 @@ export class FileUploader extends View {
 
   @bind
   destroy() {
-    $(document)
-      .off('drop', this._docDrop)
-      .off('dragenter', this._docEnter)
-      .off('dragover', this._docOver)
-      .off('dragleave', this._docLeave);
+    document.removeEventListener('drop', this._docDrop);
+    document.removeEventListener('dragenter', this._docEnter);
+    document.removeEventListener('dragover', this._docOver);
+    document.removeEventListener('dragleave', this._docLeave);
   }
 
   get endpoint() {
     return this.$root.data('upload_url');
   }
 
-  get uploadBytesTotal() {
-    return this.uploadingFileIDs.sum(id => (
+  get filesUploadedCount() {
+    return this.uploadIDs.sum(id => (
+      this.uppy.store.state.files[id].progress.uploadComplete ? 1 : 0
+    ));
+  }
+
+  get bytesTotal() {
+    return this.uploadIDs.sum(id => (
       this.uppy.store.state.files[id].progress.bytesTotal
     ));
   }
 
-  get uploadBytesUploaded() {
-    return this.uploadingFileIDs.sum(id => (
+  get bytesUploaded() {
+    return this.uploadIDs.sum(id => (
       this.uppy.store.state.files[id].progress.bytesUploaded
     ));
   }
@@ -72,11 +76,10 @@ export class FileUploader extends View {
   }
 
   _bindDragEvents() {
-    $(document)
-      .on('dragenter', this._docEnter)
-      .on('dragleave', this._docLeave)
-      .on('dragover', this._docOver)
-      .on('drop', this._docDrop);
+    document.addEventListener('dragenter', this._docEnter);
+    document.addEventListener('dragleave', this._docLeave);
+    document.addEventListener('dragover', this._docOver);
+    document.addEventListener('drop', this._docDrop);
   }
 
   _scheduleUnbind() {
@@ -118,14 +121,9 @@ export class FileUploader extends View {
 
     const height = this.$root.outerHeight();
     const width = this.$root.outerWidth();
-    const text =
-      globalDragLock ?
-        I18n.t(`${I18N_KEY}.wait_till_loaded`) :
-        I18n.t(`${I18N_KEY}.drop_pictures_here`);
+    const text = I18n.t(`${I18N_KEY}.drop_pictures_here`);
 
-    const cls = globalDragLock ? 'disallowed' : 'allowed';
-
-    this.$dropArea = $(`<div data-text='${text}' class='b-dropzone-drag_placeholder ${cls}'
+    this.$dropArea = $(`<div data-text='${text}' class='b-dropzone-drag_placeholder allowed'
 style='width:${width}px!important;height:${height}px;line-height:${Math.max(height, 75)}px;'></div>`)
       .css({ opacity: 0 })
       .on('drop', this._dragDrop)
@@ -151,7 +149,7 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
 
   @bind
   _uploadStart(data) {
-    this.uploadingFileIDs = data.fileIDs;
+    this.uploadIDs = this.uploadIDs.concat(data.fileIDs);
 
     this.$progressContainer.addClass('active');
     this.$progressBar.css('width', '0%');
@@ -159,20 +157,24 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
 
   @bind
   _uploadProgress(file, _progress) {
-    if (this.uploadingFile !== file) {
-      this.uploadingFile = file;
+    let text;
 
-      const filename = file.name;
-      const filesize = Math.ceil(file.size / 10) / 100;
-
-      this.$progressBar.html(
-        I18n.t(`${I18N_KEY}.loading_file`, {
-          filename,
-          filesize
-        })
-      );
+    if (this.uploadIDs.length === 1) {
+      text = I18n.t(`${I18N_KEY}.uploading_file`, {
+        filename: file.name,
+        filesize: Math.ceil(file.size / 1024)
+      });
+    } else {
+      text = I18n.t(`${I18N_KEY}.uploading_files`, {
+        uploadedCount: this.filesUploadedCount,
+        totalCount: this.uploadIDs.length,
+        kbUploaded: Math.ceil(this.bytesUploaded / 1024),
+        kbTotal: Math.ceil(this.bytesTotal / 1024)
+      });
     }
-    const percent = (this.uploadBytesUploaded * 100.0 / this.uploadBytesTotal).round(2);
+    this.$progressBar.html(text);
+
+    const percent = (this.bytesUploaded * 100.0 / this.bytesTotal).round(2);
     this.$progressBar.css('width', `${percent}%`);
   }
 
@@ -183,7 +185,7 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
 
   @bind
   async _uploadComplete({ successful }) {
-    this.uploadingFileIDs = [];
+    this.uploadIDs = [];
 
     if (successful.length) {
       this.trigger('upload:complete');

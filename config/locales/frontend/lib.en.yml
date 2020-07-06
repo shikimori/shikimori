@@ -35,8 +35,7 @@ en:
         file_type_not_allowed: The file is not an image
 
       file_uploader:
-        loading_file: loading file %{filename} (%{filesize} kB)...
-        wait_till_loaded: Wait till files are loaded
+        uploading_file: loading file %{filename} (%{filesize} kB)...
         drop_pictures_here: Drop pictures here
         file_type_not_allowed: The file is not an image
 

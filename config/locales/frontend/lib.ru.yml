@@ -35,8 +35,8 @@ ru:
         file_type_not_allowed: Файл не является изображением
 
       file_uploader:
-        loading_file: загрузка файла %{filename} (%{filesize} Кб)...
-        wait_till_loaded: Дождись загрузки файлов
+        uploading_file: загрузка файла %{filename} (%{filesize} KB)...
+        uploading_files: загрузка файлов %{uploadedCount} из %{totalCount} (%{kbUploaded} / %{kbTotal} KB)...
         drop_pictures_here: Перетаскивай сюда картинки
         file_type_not_allowed: Файл не является изображением
 
