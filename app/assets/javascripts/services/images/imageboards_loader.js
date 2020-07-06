@@ -35,14 +35,14 @@ export class ImageboardsLoader extends StaticLoader {
 
     this.loaders = LOADERS.map(LoaderKlass => new LoaderKlass(this.tag, this.forbiddenTags));
     this.loaders.forEach(loader => {
-      loader.on(loader.FETCH_EVENT, images => this._loaderFetch(images));
+      loader.on(loader.FETCH_EVENT, (_e, images) => this._loaderFetch(images));
     });
   }
 
   // public methods
   fetch() {
     if (this.cache.length) {
-      this._returnFromCache();
+      this._emitFromCache();
     } else {
       this.awaitingLoad = true;
       this._vacantLoaders().forEach(loader => loader.fetch());
@@ -66,7 +66,7 @@ export class ImageboardsLoader extends StaticLoader {
 
     if (this.awaitingLoad) {
       this.awaitingLoad = false;
-      this._returnFromCache();
+      this._emitFromCache();
     }
   }
 

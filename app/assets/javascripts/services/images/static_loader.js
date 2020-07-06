@@ -9,6 +9,7 @@ export class StaticLoader {
     this.batchSize = batchSize;
     this.cache = cache;
 
+
     this._initialize();
   }
 
@@ -17,7 +18,7 @@ export class StaticLoader {
   }
 
   fetch() {
-    return this._returnFromCache();
+    this._emitFromCache();
   }
 
   isFinished() {
@@ -25,7 +26,7 @@ export class StaticLoader {
   }
 
   // private methods
-  _returnFromCache() {
-    return this.trigger(this.FETCH_EVENT, this.cache.splice(0, this.batchSize));
+  _emitFromCache() {
+    this.trigger(this.FETCH_EVENT, this.cache.splice(0, this.batchSize));
   }
 }

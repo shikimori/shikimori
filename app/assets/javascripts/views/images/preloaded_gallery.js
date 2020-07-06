@@ -33,9 +33,9 @@ export default class PreloadedGallery extends ShikiGallery {
 
     await this._buildLoader();
 
-    this.loader.on(this.loader.FETCH_EVENT, loadedImages => {
-      this._imagesLoad(loadedImages);
-    });
+    this.loader.on(this.loader.FETCH_EVENT, (_e, loadedImages) =>
+      this._imagesLoad(loadedImages)
+    );
 
     this._appearMarker();
     this._fetch();
