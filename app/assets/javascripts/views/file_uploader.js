@@ -22,8 +22,8 @@ export class FileUploader {
     this.node.classList.remove('b-ajax');
 
     this.input = this.node.querySelector('input[type=file]');
-    this.$progressContainer = $(this.node.querySelector('.b-upload_progress'));
-    this.$progressBar = this.$progressContainer.children();
+    this.progressContainer = this.node.querySelector('.b-upload_progress');
+    this.progressBar = this.progressContainer.children[0];
 
     this.uppy = this._initUppy();
 
@@ -165,8 +165,8 @@ export class FileUploader {
   _uploadStart(data) {
     this.uploadIDs = this.uploadIDs.concat(data.fileIDs);
 
-    this.$progressContainer.addClass('active');
-    this.$progressBar.css('width', '0%');
+    this.progressContainer.classList.add('active');
+    this.progressBar.style.width = '0%';
   }
 
   @bind
@@ -186,10 +186,10 @@ export class FileUploader {
         kbTotal: Math.ceil(this.bytesTotal / 1024)
       });
     }
-    this.$progressBar.html(text);
+    this.progressBar.innerText = text;
 
     const percent = (this.bytesUploaded * 100.0 / this.bytesTotal).round(2);
-    this.$progressBar.css('width', `${percent}%`);
+    this.progressBar.style.width = `${percent}%`;
   }
 
   @bind
@@ -209,8 +209,8 @@ export class FileUploader {
       this.trigger('upload:failure');
     }
 
-    this.$progressContainer.removeClass('active');
-    setTimeout(() => this.$progressBar.css('width', '0%'), 250);
+    this.progressContainer.classList.remove('active');
+    setTimeout(() => this.progressBar.style.width = '0%', 250);
   }
 
   @bind
