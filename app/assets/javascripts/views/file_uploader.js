@@ -1,24 +1,28 @@
 import { bind } from 'decko';
+import uEvent from 'uevent';
+import isVisible from 'is-visible';
 
 import Uppy from '@uppy/core';
 import XHRUpload from '@uppy/xhr-upload';
 
 import flash from 'services/flash';
-import View from 'views/application/view';
 import csrf from 'helpers/csrf';
 import UppyLocaleRu from 'vendor/uppy_locale_ru';
 
 const I18N_KEY = 'frontend.lib.file_uploader';
 
-export class FileUploader extends View {
+export class FileUploader {
   uploadIDs = []
   docLeaveTimer = null
 
-  initialize() {
-    this.$root.removeClass('b-ajax');
+  constructor(node) {
+    uEvent.mixin(this);
 
-    this.$input = this.$root.find('input[type=file]');
-    this.$progressContainer = this.$root.find('.b-upload_progress');
+    this.node = node;
+    this.node.classList.remove('b-ajax');
+
+    this.$input = $(this.node.querySelector('input[type=file]'));
+    this.$progressContainer = $(this.node.querySelector('.b-upload_progress'));
     this.$progressBar = this.$progressContainer.children();
 
     this.uppy = this._initUppy();
@@ -37,7 +41,7 @@ export class FileUploader extends View {
   }
 
   get endpoint() {
-    return this.$root.data('upload_url');
+    return this.node.getAttribute('data-upload_url');
   }
 
   get filesUploadedCount() {
@@ -116,10 +120,10 @@ export class FileUploader extends View {
   }
 
   _addDropArea() {
-    if (this.dropNode || !this.$root.is(':visible')) { return; }
+    if (this.dropNode || !isVisible(this.node)) { return; }
 
-    const height = this.root.offsetHeight;
-    const width = this.root.offsetWidth;
+    const height = this.node.offsetHeight;
+    const width = this.node.offsetWidth;
     const text = I18n.t(`${I18N_KEY}.drop_pictures_here`);
 
     this.dropNode = document.createElement('div');
@@ -139,7 +143,7 @@ export class FileUploader extends View {
       this.dropNode.classList.remove('hovered')
     );
 
-    this.root.parentNode.insertBefore(this.dropNode, this.root);
+    this.node.parentNode.insertBefore(this.dropNode, this.node);
 
     requestAnimationFrame(() =>
       this.dropNode.style.opacity = 0.75

@@ -4,10 +4,10 @@ export class StaticLoader {
   FETCH_EVENT = 'loader:fetch';
 
   constructor(batchSize, cache) {
+    uEvent.mixin(this);
+
     this.batchSize = batchSize;
     this.cache = cache;
-
-    uEvent.mixin(this);
 
     this._initialize();
   }

@@ -30,7 +30,7 @@ export async function initWall($form) {
   const $upload = $('.topic-posters .b-dropzone', $form);
   const $wall = $upload.find('.b-shiki_wall');
 
-  new FileUploader($upload)
+  new FileUploader($upload[0])
     .on('upload:file:success', (_e, data) => {
       const $image = $(
         `<a href='${data.url}' rel='new-wall' class='b-image b-link' \

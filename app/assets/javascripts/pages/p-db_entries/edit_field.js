@@ -254,7 +254,7 @@ async function initTagsApp($tags) {
 async function initUploaderApp($node) {
   const { FileUploader } = await import('views/file_uploader');
 
-  new FileUploader($node)
+  new FileUploader($node[0])
     .on('upload:file:success', (_e, { html }) => (
       $(html)
         .appendTo($('.cc', $node))
