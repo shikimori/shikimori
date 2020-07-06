@@ -185,6 +185,8 @@ style='width:${width}px!important;height:${height}px;line-height:${Math.max(heig
 
   @bind
   async _uploadComplete({ successful }) {
+    if (this.filesUploadedCount !== this.uploadIDs.length) { return; }
+
     this.uploadIDs = [];
 
     if (successful.length) {

@@ -35,7 +35,8 @@ en:
         file_type_not_allowed: The file is not an image
 
       file_uploader:
-        uploading_file: loading file %{filename} (%{filesize} kB)...
+        uploading_file: uploading file %{filename} (%{filesize} KB)...
+        uploading_files: uploading files %{uploadedCount} of %{totalCount} (%{kbUploaded} / %{kbTotal} KB)
         drop_pictures_here: Drop pictures here
         file_type_not_allowed: The file is not an image
 
