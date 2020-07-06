@@ -24,16 +24,14 @@ export function initForm(type, $form, $wall, $video) {
   });
 }
 
-export function initWall($form) {
+export async function initWall($form) {
+  const { FileUploader } = await import('views/file_uploader');
+
   const $upload = $('.topic-posters .b-dropzone', $form);
   const $wall = $upload.find('.b-shiki_wall');
 
-  $upload
-    .shikiFile({
-      progress: $upload.find('.b-upload_progress'),
-      input: $upload.find('input[type=file]')
-    })
-    .on('upload:success', (_e, data) => {
+  new FileUploader($upload)
+    .on('upload:file:success', (_e, data) => {
       const $image = $(
         `<a href='${data.url}' rel='new-wall' class='b-image b-link' \
 id='${data.id}'>\
@@ -48,9 +46,10 @@ id='${data.id}'>\
         e.preventDefault();
         removeImage($image, $wall);
       });
-
-      resetWall($wall);
-    });
+    })
+    .on('upload:complete', () => (
+      resetWall($wall)
+    ));
 
   $('.b-image .confirm', $upload).on('click', e => {
     e.preventDefault();
