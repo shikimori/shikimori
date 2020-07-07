@@ -189,7 +189,7 @@ describe Moderations::VersionsController do
   end
 
   describe '#autocomplete_user' do
-    let(:user) { create :user }
+    let(:user) { create :user, :version_names_moderator }
     let(:user_2) { create :user }
     let!(:verison_2) { create :version, :accepted, user: user_2 }
 
