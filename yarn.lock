@@ -4778,11 +4778,6 @@ jquery@3.4.1:
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
   integrity sha512-36+AdBzCL+y6qjw5Tx7HgzeGCzC81MDDgaUP8ld2zhx58HdqXGoBd+tHdrBMiyjGQs0Hxs/MLZTu/eHNJJuWPw==
 
-jquery@>=1.12.0:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
-  integrity sha512-XwIBPqcMn57FxfT+Go5pzySnm4KWkT1Tv7gjrpT1srtf8Weynl6R273VJ5GjkRb51IzMp5nbaPjJXMWeju2MKg==
-
 js-base64@^2.1.8, js-base64@^2.5.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.5.1.tgz#1efa39ef2c5f7980bb1784ade4a8af2de3291121"
@@ -4897,6 +4892,13 @@ jstransformer@1.0.0:
   dependencies:
     is-promise "^2.0.0"
     promise "^7.0.1"
+
+karma-cli@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/karma-cli/-/karma-cli-2.0.0.tgz#481548d28661af4cc68f3d8e09708f17d2cba931"
+  integrity sha512-1Kb28UILg1ZsfqQmeELbPzuEb5C6GZJfVIk0qOr8LNYQuYWmAaqP16WpbpKEjhejDrDYyYOwwJXSZO6u7q5Pvw==
+  dependencies:
+    resolve "^1.3.3"
 
 killable@^1.0.1:
   version "1.0.1"
@@ -7892,6 +7894,13 @@ resolve@^1.12.0, resolve@^1.3.2:
   dependencies:
     path-parse "^1.0.6"
 
+resolve@^1.3.3:
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.17.0.tgz#b25941b54968231cc2d1bb76a79cb7f2c0bf8444"
+  integrity sha512-ic+7JYiV8Vi2yzQGFWOkiZD5Z9z7O2Zhm9XMaTxdJExKasieFCr+yXZ/WmXsckHiKl12ar0y6XiXDx3m4RHn1w==
+  dependencies:
+    path-parse "^1.0.6"
+
 restore-cursor@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/restore-cursor/-/restore-cursor-1.0.1.tgz#34661f46886327fed2991479152252df92daa541"
@@ -8203,16 +8212,16 @@ shebang-regex@^1.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
   integrity sha1-2kL0l0DAtC2yypcoVxyxkMmO/qM=
 
-shiki-utils@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.0.3.tgz#cc786078a9c2268b5b86796d3a9815f5161ace5f"
-  integrity sha512-jOLGGbys16ih7yEpjJR44nuUC9n7jK3ot/IrfPUc4HQm+ElkOmzXxQlJL6LQdXgpLqT8xfA5RLVereak8kMJpg==
+shiki-utils@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.0.5.tgz#485b11728ecd116ae9e78e81530b1e6cc4f8bef2"
+  integrity sha512-UBIDw1/WosTRoa3YvU1ia8rjp0bYaRpCoQfvU3qTbKVVaNMIwqD8K36rh8vzdTzfPbrAbmUw5U1SilU2ih3htg==
   dependencies:
     "@uppy/core" "^1.11.0"
     "@uppy/xhr-upload" "^1.6.0"
     decko "^1.2.0"
     is-visible "^2.2.0"
-    toastr "^2.1.4"
+    toastr WazeDev/toastr#master
     uevent "^2.0.0"
 
 signal-exit@^3.0.0, signal-exit@^3.0.2:
@@ -8850,12 +8859,11 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-toastr@^2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/toastr/-/toastr-2.1.4.tgz#8b43be64fb9d0c414871446f2db8e8ca4e95f181"
-  integrity sha1-i0O+ZPudDEFIcURvLbjoyk6V8YE=
+toastr@WazeDev/toastr#master:
+  version "2.2.0"
+  resolved "https://codeload.github.com/WazeDev/toastr/tar.gz/84258aede54e075ace74eed5e1e7a389ef14ea06"
   dependencies:
-    jquery ">=1.12.0"
+    karma-cli "^2.0.0"
 
 toidentifier@1.0.0:
   version "1.0.0"

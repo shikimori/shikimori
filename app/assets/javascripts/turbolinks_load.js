@@ -4,6 +4,8 @@ import cookies from 'js-cookie';
 import { flash } from 'shiki-utils';
 
 $(document).on('turbolinks:load', () => {
+  window.flash = flash;
+
   document.body.classList.add(
     bowser.name.toLowerCase().replace(/ /g, '_')
   );
