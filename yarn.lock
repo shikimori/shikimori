@@ -4893,13 +4893,6 @@ jstransformer@1.0.0:
     is-promise "^2.0.0"
     promise "^7.0.1"
 
-karma-cli@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/karma-cli/-/karma-cli-2.0.0.tgz#481548d28661af4cc68f3d8e09708f17d2cba931"
-  integrity sha512-1Kb28UILg1ZsfqQmeELbPzuEb5C6GZJfVIk0qOr8LNYQuYWmAaqP16WpbpKEjhejDrDYyYOwwJXSZO6u7q5Pvw==
-  dependencies:
-    resolve "^1.3.3"
-
 killable@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/killable/-/killable-1.0.1.tgz#4c8ce441187a061c7474fb87ca08e2a638194892"
@@ -7894,13 +7887,6 @@ resolve@^1.12.0, resolve@^1.3.2:
   dependencies:
     path-parse "^1.0.6"
 
-resolve@^1.3.3:
-  version "1.17.0"
-  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.17.0.tgz#b25941b54968231cc2d1bb76a79cb7f2c0bf8444"
-  integrity sha512-ic+7JYiV8Vi2yzQGFWOkiZD5Z9z7O2Zhm9XMaTxdJExKasieFCr+yXZ/WmXsckHiKl12ar0y6XiXDx3m4RHn1w==
-  dependencies:
-    path-parse "^1.0.6"
-
 restore-cursor@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/restore-cursor/-/restore-cursor-1.0.1.tgz#34661f46886327fed2991479152252df92daa541"
@@ -8212,16 +8198,16 @@ shebang-regex@^1.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
   integrity sha1-2kL0l0DAtC2yypcoVxyxkMmO/qM=
 
-shiki-utils@0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.0.6.tgz#9ce3fa8b0fcfe2c86a8243be52eb194e997a1df5"
-  integrity sha512-KQjC8oS9lj/i634vRrqzqpo3cwMH/sM7xm2cVO3Fpp6aqyXo53SPAKtO9kcAB5tyIZP6WDY0VPiIaO0FbZczCA==
+shiki-utils@0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.1.2.tgz#ff7289a654ceccaaf732a459a459eb343e15ffa0"
+  integrity sha512-02WvVVZIm1A+vC4c+Og970ydYMj6TBzEAagZwEtca0/9aqvtF5P+1/oAg6sCKGKpNKzVYGtLc1eoutR0yrT0NQ==
   dependencies:
     "@uppy/core" "^1.11.0"
     "@uppy/xhr-upload" "^1.6.0"
     decko "^1.2.0"
     is-visible "^2.2.0"
-    toastr WazeDev/toastr#master
+    toastify-js "^1.8.0"
     uevent "^2.0.0"
 
 signal-exit@^3.0.0, signal-exit@^3.0.2:
@@ -8859,11 +8845,10 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-"toastr@github:WazeDev/toastr#master":
-  version "2.2.0"
-  resolved "https://codeload.github.com/WazeDev/toastr/tar.gz/84258aede54e075ace74eed5e1e7a389ef14ea06"
-  dependencies:
-    karma-cli "^2.0.0"
+toastify-js@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/toastify-js/-/toastify-js-1.8.0.tgz#8021857d45a79c6d9c1536e01367f188b8d8a360"
+  integrity sha512-0Zf1sQ6Cs5RrRRDox00+6XdgS2tOtn01P9zhxDcJIpDS0KbXg/dFE1F0Mo6b/o63oJsxIhleeZv9LeZb31yKSg==
 
 toidentifier@1.0.0:
   version "1.0.0"
