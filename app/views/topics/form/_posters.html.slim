@@ -5,7 +5,6 @@
     data-upload_url=api_user_images_url(linked_type: Topic.name)
     data-hint=t('.drag_here')
   ]
-    = render 'blocks/upload_progress'
     .b-shiki_wall.to-process data-dynamic='wall'
       = render partial: 'club_images/club_image',
         collection: topic.decomposed_body.wall_images,

@@ -34,13 +34,14 @@ export default class ShikiGallery extends View {
     }
   }
 
-  _addUpload(isShikiUploadCustom) {
-    this.$container
-      .shikiFile({
-        progress: this.$container.prev()
-      })
-      .on('upload:success', (e, response) => {
-        if (!isShikiUploadCustom) {
+  async _addUpload(isShikiUploadCustom) {
+    const { FileUploader } = await import('views/file_uploader');
+
+    this.fileUploader = new FileUploader(this.$container[0])
+      .on('upload:file:success', (_e, response) => {
+        if (isShikiUploadCustom) {
+          this.trigger('upload:success', response);
+        } else {
           this._deployImage(response.html, DEPLOY_INTERVAL, 'prepended');
         }
       });

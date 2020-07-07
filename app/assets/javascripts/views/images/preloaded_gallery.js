@@ -1,4 +1,5 @@
 import delay from 'delay';
+import { bind } from 'decko';
 
 import ShikiGallery from 'views/application/shiki_gallery';
 import JST from 'helpers/jst';
@@ -27,7 +28,7 @@ export default class PreloadedGallery extends ShikiGallery {
 
     this.destroyUrl = this.$container.data('destroy_url');
 
-    this.on('upload:success', (_e, image) => this._appendUploaded(image));
+    this.on('upload:success', this._appendUploaded);
 
     this._cleanup();
 
@@ -50,7 +51,8 @@ export default class PreloadedGallery extends ShikiGallery {
     $batch.imagesLoaded(loadedImages => this._deployBatch(loadedImages));
   }
 
-  _appendUploaded(image) {
+  @bind
+  _appendUploaded(_e, image) {
     const $image = $(this._imageToHtml(image));
     $image.imagesLoaded(() => {
       this._deployImage($image, 0 * DEPLOY_INTERVAL, PREPEND_ACTION);

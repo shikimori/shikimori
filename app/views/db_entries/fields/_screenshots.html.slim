@@ -16,14 +16,13 @@
 
   .block
     label.b-dropzone[
-      data-hint="Перетаскивай сюда картинки. Загружать можно до ста файлов за раз (выделяй сразу несколько файлов);"
+      data-hint='Перетаскивай сюда картинки. Загружать можно до ста файлов за раз (выделяй сразу несколько файлов);'
     ]
-      = render 'blocks/upload_progress'
       .cc.m0
       input type='file' multiple='multiple'
       p.thank-you Спасибо! Загруженное будет проверено модератором.
 
-- if @resource.screenshots.any?# || @resource.versions[:screenshots].any?
+- if @resource.screenshots.any? # || @resource.versions[:screenshots].any?
   .block.screenshots-positioner
     .subheadline.m5 Изменение порядка кадров, удаление кадров
     /p По наведению на кадр появится крестик, нажав на который, можно удалить картинку.

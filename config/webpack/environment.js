@@ -72,7 +72,8 @@ const coffee = require('./loaders/coffee');
 environment.loaders.prepend('coffee', coffee);
 
 // other
-environment.loaders.get('babel').exclude = /node_modules\/(?!delay|p-defer|get-js)/;
+environment.loaders.get('babel').exclude =
+  /shiki-file-uploader|node_modules\/(?!delay|p-defer|get-js|shiki-file-uploader)/;
 environment.loaders.get('file').exclude =
   /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
 

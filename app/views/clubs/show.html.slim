@@ -39,7 +39,6 @@
         data-can_upload=can?(:upload, @club).to_s
         data-rel='club_gallery'
       ]
-        = render 'blocks/upload_progress'
         .container[
           data-upload_url=club_club_images_url(@club)
           data-destroy_url=club_club_image_url(@club, 'ID')
