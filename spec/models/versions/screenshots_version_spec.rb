@@ -57,7 +57,7 @@ describe Versions::ScreenshotsVersion do
   end
 
   describe '#apply_changes' do
-    let(:version) { build :screenshots_version, item_diff: item_diff }
+    let(:version) { build :screenshots_version, state: :pending, item_diff: item_diff }
 
     context 'upload' do
       let(:screenshot) { create :screenshot, :uploaded }
@@ -109,8 +109,55 @@ describe Versions::ScreenshotsVersion do
   end
 
   describe '#rollback_changes' do
-    let(:version) { build :screenshots_version }
-    it { expect { version.rollback_changes }.to raise_error NotImplementedError }
+    let(:version) { build :screenshots_version, state: :accepted, item_diff: item_diff }
+
+    context 'upload' do
+      let(:screenshot) { create :screenshot, :accepted }
+      let(:item_diff) do
+        {
+          action: Versions::ScreenshotsVersion::Actions[:upload],
+          screenshots: [screenshot.id]
+        }
+      end
+      subject! { version.rollback_changes }
+
+      it { expect(screenshot.reload.status).to eq Screenshot::DELETED }
+    end
+
+    context 'reposition' do
+      let(:anime) { create :anime }
+      let!(:screenshot_1) { create :screenshot, anime: anime, position: 1 }
+      let!(:screenshot_2) { create :screenshot, anime: anime, position: 0 }
+      let(:item_diff) do
+        {
+          action: Versions::ScreenshotsVersion::Actions[:reposition],
+          screenshots: [
+            [screenshot_1.id, screenshot_2.id],
+            [screenshot_2.id, screenshot_1.id]
+          ]
+        }
+      end
+      subject! { version.rollback_changes }
+
+      it do
+        expect(anime.screenshots).to eq [screenshot_1, screenshot_2]
+        expect(screenshot_1.reload.position).to eq 0
+        expect(screenshot_2.reload.position).to eq 1
+      end
+    end
+
+    context 'delete' do
+      let(:screenshot) { create :screenshot, :deleted }
+      let(:item_diff) do
+        {
+          action: Versions::ScreenshotsVersion::Actions[:delete],
+          screenshots: [screenshot.id]
+        }
+      end
+      subject! { version.rollback_changes }
+
+      it { expect(screenshot.reload.status).to be_nil }
+    end
   end
 
   describe '#cleanup' do
