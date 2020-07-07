@@ -8212,10 +8212,10 @@ shebang-regex@^1.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
   integrity sha1-2kL0l0DAtC2yypcoVxyxkMmO/qM=
 
-shiki-utils@0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.0.5.tgz#485b11728ecd116ae9e78e81530b1e6cc4f8bef2"
-  integrity sha512-UBIDw1/WosTRoa3YvU1ia8rjp0bYaRpCoQfvU3qTbKVVaNMIwqD8K36rh8vzdTzfPbrAbmUw5U1SilU2ih3htg==
+shiki-utils@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.0.6.tgz#9ce3fa8b0fcfe2c86a8243be52eb194e997a1df5"
+  integrity sha512-KQjC8oS9lj/i634vRrqzqpo3cwMH/sM7xm2cVO3Fpp6aqyXo53SPAKtO9kcAB5tyIZP6WDY0VPiIaO0FbZczCA==
   dependencies:
     "@uppy/core" "^1.11.0"
     "@uppy/xhr-upload" "^1.6.0"
@@ -8859,7 +8859,7 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-toastr@WazeDev/toastr#master:
+"toastr@github:WazeDev/toastr#master":
   version "2.2.0"
   resolved "https://codeload.github.com/WazeDev/toastr/tar.gz/84258aede54e075ace74eed5e1e7a389ef14ea06"
   dependencies:

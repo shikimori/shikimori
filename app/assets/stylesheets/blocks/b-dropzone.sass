@@ -2,40 +2,13 @@
 @import mixins/responsive
 @import mixins/css4
 
-$min_height: 89px
-
-.b-dropzone-drag_placeholder
-  background: white
-  border-radius: 1px
-  border: 2px dashed #006eff
-  box-sizing: border-box
-  +css4
-    font-family: var(--font-alt)
-  font-size: 25px
-  min-height: $min_height
-  position: absolute
-  text-align: center
-  transition: opacity 0.5s ease, border-color 0.5s ease, color 0.5s ease
-  z-index: 10
-
-  &.disallowed
-    border-color: rgba(#f00, 0.6)
-    color: $red
-
-  &.hovered.allowed
-    border-color: $green
-    color: $green
-
-  &:before
-    content: attr(data-text)
-
 .b-dropzone
   background-color: #f9f9f9
   border: 2px dashed #ccc
   cursor: pointer
   display: flex
   flex-direction: column
-  min-height: $min_height
+  min-height: 89px
   padding: 6px
   position: relative
 
@@ -75,7 +48,7 @@ $min_height: 89px
     margin-bottom: 0
     margin-top: auto
 
-  .b-upload_progress.active
+  .shiki-file_drop-upload_progress
     margin-bottom: 3px
 
   input
