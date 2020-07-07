@@ -1,6 +1,6 @@
 import { bind } from 'decko';
+import { flash } from 'shiki-utils';
 
-import flash from 'services/flash';
 import View from 'views/application/view';
 import * as AuthorizedAction from './authorized_action';
 

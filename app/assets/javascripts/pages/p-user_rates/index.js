@@ -1,5 +1,6 @@
 import delay from 'delay';
 import Turbolinks from 'turbolinks';
+import { flash } from 'shiki-utils';
 
 import { COMMON_TOOLTIP_OPTIONS } from 'helpers/tooltip_options';
 import { isMobile } from 'helpers/mobile_detect';
@@ -8,7 +9,6 @@ import { animatedCollapse, animatedExpand } from 'helpers/animated';
 
 import ShikiModal from 'views/application/shiki_modal';
 import CatalogFilters from 'views/animes/catalog_filters';
-import flash from 'services/flash';
 
 // TODO: этот гигантский файл нуждается в рефакторинге
 let listCache = [];

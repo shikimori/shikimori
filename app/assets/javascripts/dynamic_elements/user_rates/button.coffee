@@ -1,6 +1,6 @@
 import delay from 'delay'
+import { flash } from 'shiki-utils'
 
-import flash from 'services/flash'
 import UserRatesTracker from 'services/user_rates/tracker'
 import View from 'views/application/view'
 import JST from 'helpers/jst'

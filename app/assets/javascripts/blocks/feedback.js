@@ -1,5 +1,5 @@
 import ShikiModal from 'views/application/shiki_modal';
-import flash from 'services/flash';
+import { flash } from 'shiki-utils';
 
 $(document).on('turbolinks:load', () => {
   const $feedback = $('.b-feedback');

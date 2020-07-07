@@ -1,5 +1,6 @@
 import { bind } from 'decko';
-import flash from 'services/flash';
+import { flash } from 'shiki-utils';
+
 import View from 'views/application/view';
 
 const I18N_KEY = 'frontend.dynamic_elements.not_implemented_yet_action';

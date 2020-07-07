@@ -1,13 +1,13 @@
 import delay from 'delay';
 import autosize from 'autosize';
 import { bind } from 'decko';
+import { flash } from 'shiki-utils';
 
 import axios from 'helpers/axios';
 import preventEvent from 'helpers/prevent_event';
 import ShikiView from 'views/application/shiki_view';
 
 import { isMobile } from 'helpers/mobile_detect';
-import flash from 'services/flash';
 
 // TODO: refactor constructor
 export default class ShikiEditor extends ShikiView {

@@ -1,5 +1,5 @@
-import ShikiFileUploader from 'shiki-file-uploader';
-import flash from 'services/flash';
+import { flash } from 'shiki-utils';
+import ShikiFileUploader from 'shiki-utils/src/file_uploader';
 
 import csrf from 'helpers/csrf';
 

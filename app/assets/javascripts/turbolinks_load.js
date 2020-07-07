@@ -1,7 +1,7 @@
 import Turbolinks from 'turbolinks';
 import bowser from 'bowser';
 import cookies from 'js-cookie';
-import flash from 'services/flash';
+import { flash } from 'shiki-utils';
 
 $(document).on('turbolinks:load', () => {
   document.body.classList.add(

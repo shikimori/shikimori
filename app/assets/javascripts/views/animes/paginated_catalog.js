@@ -1,8 +1,8 @@
 import Turbolinks from 'turbolinks';
+import { flash } from 'shiki-utils';
 
 import UserRatesTracker from 'services/user_rates/tracker';
 import ajaxCacher from 'services/ajax_cacher';
-import flash from 'services/flash';
 
 import DynamicParser from 'dynamic_elements/_parser';
 import CatalogFilters from 'views/animes/catalog_filters';

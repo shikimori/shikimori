@@ -1,6 +1,5 @@
 import delay from 'delay'
-
-import flash from 'services/flash'
+import { flash } from 'shiki-utils'
 
 import ShikiEditor from 'views/application/shiki_editor'
 import ShikiEditable from 'views/application/shiki_editable'

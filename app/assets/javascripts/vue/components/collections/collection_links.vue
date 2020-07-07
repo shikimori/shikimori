@@ -79,7 +79,7 @@ import { mapGetters, mapActions } from 'vuex';
 import draggable from 'vuedraggable';
 import autosize from 'autosize';
 
-import flash from 'services/flash';
+import { flash } from 'shiki-utils';
 import CollectionLink from './collection_link';
 
 function listIndex(node, index) {

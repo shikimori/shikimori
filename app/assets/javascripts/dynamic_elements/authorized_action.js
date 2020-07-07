@@ -1,6 +1,6 @@
 import { bind } from 'decko';
+import { flash } from 'shiki-utils';
 
-import flash from 'services/flash';
 import View from 'views/application/view';
 
 export const I18N_KEY = 'frontend.dynamic_elements.authorized_action';

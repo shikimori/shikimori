@@ -1,9 +1,9 @@
 import URI from 'urijs';
 import { debounce } from 'throttle-debounce';
 import pDefer from 'p-defer';
+import { flash } from 'shiki-utils';
 
 import ajaxCacher from 'services/ajax_cacher';
-import flash from 'services/flash';
 
 import JST from 'helpers/jst';
 
