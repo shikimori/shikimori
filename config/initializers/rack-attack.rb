@@ -15,6 +15,10 @@ Rack::Attack.safelist('neko') do |req|
   req.real_ip == NEKO_IP
 end
 
+Rack::Attack.safelist('screenshots_upload') do |req|
+  request.post? && request.path.ends_with? '/screenshots'
+end
+
 if Rails.env.development?
   Rack::Attack.safelist('localhost') do |req|
     req.real_ip == '127.0.0.1'
