@@ -16,7 +16,7 @@ Rack::Attack.safelist('neko') do |req|
 end
 
 Rack::Attack.safelist('screenshots_upload') do |req|
-  request.post? && request.path.ends_with?('/screenshots')
+  req.post? && req.path.ends_with?('/screenshots')
 end
 
 if Rails.env.development?
