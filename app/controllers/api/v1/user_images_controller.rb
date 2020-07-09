@@ -1,4 +1,7 @@
 class Api::V1::UserImagesController < Api::V1Controller
+  skip_before_action :verify_authenticity_token, if: :test_upload_request?
+  before_action :authenticate_user!, unless: :test_upload_request?
+
   before_action do
     doorkeeper_authorize! :comments if doorkeeper_token.present?
   end
@@ -8,11 +11,7 @@ class Api::V1::UserImagesController < Api::V1Controller
   param :image, :undef, require: true
   param :linked_type, String, require: true
   def create # rubocop:disable all
-    if Rails.env.development? && params[:test]
-      dev_user = User.find params[:test]
-    else
-      authenticate_user!
-    end
+    dev_user = User.find params[:test] if test_upload_request?
 
     @resource = UserImage.new do |image|
       image.user = dev_user || current_user
@@ -37,5 +36,9 @@ private
 
   def uploaded_image
     params[:image]
+  end
+
+  def test_upload_request?
+    Rails.env.development? && params[:test]
   end
 end
