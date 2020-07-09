@@ -1,6 +1,4 @@
 class Api::V1::UserImagesController < Api::V1Controller
-  before_action :authenticate_user!
-
   before_action do
     doorkeeper_authorize! :comments if doorkeeper_token.present?
   end
@@ -10,6 +8,12 @@ class Api::V1::UserImagesController < Api::V1Controller
   param :image, :undef, require: true
   param :linked_type, String, require: true
   def create
+    if Rails.env.development? && params[:test]
+      current_user = User.find params[:test]
+    else
+      authenticate_user!
+    end
+
     @resource = UserImage.new do |image|
       image.user = current_user
       image.image = uploaded_image
