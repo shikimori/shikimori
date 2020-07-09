@@ -136,6 +136,15 @@ module Shikimori
           methods: %i[get options]
       end
 
+      if Rails.env.development?
+        allow do
+          origins '*'
+          resource 'api/user_images',
+            headers: :any,
+            methods: %i[get options post put patch]
+        end
+      end
+
       allow do
         origins '*'
         resource '/api/*',
