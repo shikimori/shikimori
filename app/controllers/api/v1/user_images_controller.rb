@@ -7,15 +7,15 @@ class Api::V1::UserImagesController < Api::V1Controller
   description 'Requires `comments` oauth scope'
   param :image, :undef, require: true
   param :linked_type, String, require: true
-  def create
+  def create # rubocop:disable all
     if Rails.env.development? && params[:test]
-      current_user = User.find params[:test]
+      dev_user = User.find params[:test]
     else
       authenticate_user!
     end
 
     @resource = UserImage.new do |image|
-      image.user = current_user
+      image.user = dev_user || current_user
       image.image = uploaded_image
       image.linked_type = params[:linked_type]
     end
@@ -29,7 +29,7 @@ class Api::V1::UserImagesController < Api::V1Controller
         bbcode: "[image=#{@resource.id}]"
       }
     else
-      render json: @resource.full_errors.messages, status: :unprocessable_entity
+      render json: @resource.errors.full_messages, status: :unprocessable_entity
     end
   end
 
