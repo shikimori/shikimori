@@ -119,28 +119,37 @@ module Shikimori
     config.middleware.use LogBeforeTimeout
 
     config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins do |source, env|
-          ALLOWED_DOMAINS.include?(Url.new(source).domain.to_s) &&
-            Url.new(source).protocol.to_s == PROTOCOL
+      if Rails.env.development?
+        allow do
+          origins '*'
+          resource '*',
+            headers: :any,
+            methods: %i[get options post put patch]
         end
-        resource '*',
-          headers: :any,
-          methods: %i[get options]
-      end
+      else
+        allow do
+          origins do |source, env|
+            ALLOWED_DOMAINS.include?(Url.new(source).domain.to_s) &&
+              Url.new(source).protocol.to_s == PROTOCOL
+          end
+          resource '*',
+            headers: :any,
+            methods: %i[get options]
+        end
 
-      allow do
-        origins '*'
-        resource '/comments/smileys',
-          headers: :any,
-          methods: %i[get options]
-      end
+        allow do
+          origins '*'
+          resource '/comments/smileys',
+            headers: :any,
+            methods: %i[get options]
+        end
 
-      allow do
-        origins '*'
-        resource '/api/*',
-          headers: :any,
-          methods: %i[get options post put patch]
+        allow do
+          origins '*'
+          resource '/api/*',
+            headers: :any,
+            methods: %i[get options post put patch]
+        end
       end
     end
 
