@@ -3,8 +3,9 @@ import ShikiFileUploader from 'shiki-utils/src/file_uploader';
 import csrf from 'helpers/csrf';
 
 export class FileUploader extends ShikiFileUploader {
-  constructor(node) {
+  constructor(node, options = {}) {
     super({
+      ...options,
       node,
       locale: I18n.locale,
       endpoint: node.getAttribute('data-upload_url'),

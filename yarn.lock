@@ -8198,10 +8198,10 @@ shebang-regex@^1.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
   integrity sha1-2kL0l0DAtC2yypcoVxyxkMmO/qM=
 
-shiki-utils@0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.1.4.tgz#dd98604f79b24982716fa61adf059721c4cf483c"
-  integrity sha512-ppZU1aqC7y0uJvEPOS2gc50Y3Tf8pnLaU26k/4oINnAiQkGSxkGE98e/1y1PRZkZwSdC5Bt4QEK5s6wbckE5wQ==
+shiki-utils@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.1.5.tgz#144749aba3fbad0d0c1701ffb086a090ccb277df"
+  integrity sha512-RD51g0QEa4nltPl/hnhXQyxy9u6wpQv4slGslM50XEWqQO4mmALeTApT95oEt3yJ2WLkqn3zDVyQxZ7b6yjNmw==
   dependencies:
     "@uppy/core" "^1.11.0"
     "@uppy/xhr-upload" "^1.6.0"
