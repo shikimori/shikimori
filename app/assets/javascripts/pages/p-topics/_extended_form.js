@@ -31,11 +31,11 @@ export async function initWall($form) {
   const $wall = $upload.find('.b-shiki_wall');
 
   new FileUploader($upload[0])
-    .on('upload:file:success', (_e, data) => {
+    .on('upload:file:success', (_e, { response }) => {
       const $image = $(
-        `<a href='${data.url}' rel='new-wall' class='b-image b-link' \
-id='${data.id}'>\
-<img src='${data.preview}' class=''> \
+        `<a href='${response.url}' rel='new-wall' class='b-image b-link' \
+id='${response.id}'>\
+<img src='${response.preview}' class=''> \
 <div class='mobile-edit'></div><div class='controls'> \
 <div class='delete'></div>\
 <div class='confirm'></div>\

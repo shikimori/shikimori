@@ -255,8 +255,8 @@ async function initUploaderApp($node) {
   const { FileUploader } = await import('views/file_uploader');
 
   new FileUploader($node[0], { isResetAfterUpload: false })
-    .on('upload:file:success', (_e, { html }) => (
-      $(html)
+    .on('upload:file:success', (_e, { response }) => (
+      $(response.html)
         .appendTo($('.cc', $node))
         .shikiImage()
     ))

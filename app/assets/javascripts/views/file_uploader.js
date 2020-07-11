@@ -8,7 +8,7 @@ export class FileUploader extends ShikiFileUploader {
       ...options,
       node,
       locale: I18n.locale,
-      endpoint: node.getAttribute('data-upload_url'),
+      xhrEndpoint: node.getAttribute('data-upload_url'),
       xhrHeaders: () => csrf().headers
     });
 
