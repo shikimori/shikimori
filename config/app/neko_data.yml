@@ -11802,6 +11802,9 @@
         - 37347
         - 38883
         - 38408
+        - 37999
+        - 40591
+        - 39292
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -13022,6 +13025,9 @@
         - 37347
         - 38883
         - 38408
+        - 37999
+        - 40591
+        - 39292
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -14242,6 +14248,9 @@
         - 37347
         - 38883
         - 38408
+        - 37999
+        - 40591
+        - 39292
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
