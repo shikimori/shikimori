@@ -20,7 +20,7 @@ function renderCharts(Highcharts, node, stats, type) {
       type: 'area'
     },
     title: {
-      text: `${type} lists`
+      text: `${type} list size`
     },
     xAxis: {
       categories: Object.keys(stats)
