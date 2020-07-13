@@ -23,22 +23,25 @@ class StatisticsController < ShikimoriController
 
   def lists
     scopes = {
-      # anime: UserRate.where(target_type: 'Anime'),
-      manga_ranobe: UserRate.where(target_type: 'Manga'),
-      manga: UserRate.where(target_type: 'Manga').joins(:manga).where.not(mangas: { kind: Types::Manga::Kind[:novel] }),
+      anime: UserRate.where(target_type: 'Anime'),
+      manga_with_ranobe: UserRate.where(target_type: 'Manga'),
       ranobe: UserRate.where(target_type: 'Manga').joins(:manga).where(mangas: { kind: Types::Manga::Kind[:novel] })
     };
 
     @stats = scopes.each_with_object({}) do |(type, scope), memo|
       memo[type] = calculate_stats type, scope
     end
+
+    @stats[:manga] = @stats[:manga_with_ranobe].dup.each_with_object({}) do |(key, count), memo|
+      memo[key] = count - @stats[:ranobe][key]
+    end
   end
 
 private
 
   def calculate_stats type, scope
-    PgCache.fetch([:lists_stats, type, :v1]) do
-      DbStatistics::ListSizes.call scope
+    PgCache.fetch([:lists_stats, type, :v2]) do
+      ListSizes.call scope
     end
   end
 
