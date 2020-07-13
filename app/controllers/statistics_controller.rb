@@ -1,3 +1,4 @@
+# rubocop:disable all
 class StatisticsController < ShikimoriController
   respond_to :html
   YEARS_AGO = 26.years
@@ -7,8 +8,8 @@ class StatisticsController < ShikimoriController
     og description: i18n_t('page_description')
     og keywords: i18n_t('keywords')
 
-    @kinds = Anime.kind.values#.select {|v| v != 'music' }
-    @rating_kinds = ['tv', 'movie', 'ova']
+    @kinds = Anime.kind.values # .select {|v| v != 'music' }
+    @rating_kinds = %w[tv movie ova]
 
     @total, @by_kind, @by_rating, @by_genre, @by_studio =
       Rails.cache.fetch([:statistics, russian_genres_key, Time.zone.today]) do
@@ -20,7 +21,26 @@ class StatisticsController < ShikimoriController
     @topic_view = Topics::TopicViewFactory.new(false, false).build topic
   end
 
+  def lists
+    scopes = {
+      # anime: UserRate.where(target_type: 'Anime'),
+      manga_ranobe: UserRate.where(target_type: 'Manga'),
+      manga: UserRate.where(target_type: 'Manga').joins(:manga).where.not(mangas: { kind: Types::Manga::Kind[:novel] }),
+      ranobe: UserRate.where(target_type: 'Manga').joins(:manga).where(mangas: { kind: Types::Manga::Kind[:novel] })
+    };
+
+    @stats = scopes.each_with_object({}) do |(type, scope), memo|
+      memo[type] = calculate_stats type, scope
+    end
+  end
+
 private
+
+  def calculate_stats type, scope
+    PgCache.fetch([:lists_stats, type, :v1]) do
+      DbStatistics::ListSizes.call scope
+    end
+  end
 
   # общая статистика
   def total_stats
@@ -37,7 +57,7 @@ private
     }
     by_score = {
       name: i18n_t('score'),
-      data: grouped.map do |kind, group|
+      data: grouped.map do |_kind, group|
         group.group_by do |v|
           if v.score >= 8
             '8+'
@@ -63,7 +83,7 @@ private
 
   # статистика по рейтингу
   def stats_by_rating
-    ratings = Anime.rating.values.select { |v| v != 'none' }
+    ratings = Anime.rating.values.reject { |v| v == 'none' }
 
     @rating_kinds.each_with_object({}) do |kind, memo|
       memo[kind] = stats_data(@animes.select { |v| v.kind == kind && !v.rating_none? }, :rating, ratings)
@@ -95,19 +115,19 @@ private
   # статистика по студиям
   def stats_by_studio
     animes_10 = @tv.select { |v| v.aired_on >= Time.zone.parse("#{Time.zone.now.year}-01-01") - 10.years }
-    #top_studios = normalize(stats_data(animes_10.map { |v| v[:mapped_studios] }.flatten, :studio, @studios), 0.75)[:series].map { |v| v[:name] }
+    # top_studios = normalize(stats_data(animes_10.map { |v| v[:mapped_studios] }.flatten, :studio, @studios), 0.75)[:series].map { |v| v[:name] }
 
     data = stats_data(animes_10.map(&:mapped_studios).flatten, :studio, @studios + [i18n_t('other')])
     other = {
       name: i18n_t('other'),
-      data: [0,0,0,0,0,0,0,0,0,0,0],
+      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       visible: false
     }
     data[:series].select! do |stat|
       if stat[:data].sum > 10
         true
       else
-        stat[:data].each_with_index do |v,k|
+        stat[:data].each_with_index do |v, k|
           other[:data][k] += v
         end
         false
@@ -171,22 +191,23 @@ private
     end
 
     data = animes
-      .group_by {|v| v.respond_to?(grouping) ? v.send(grouping) : v[grouping] }
+      .group_by { |v| v.respond_to?(grouping) ? v.send(grouping) : v[grouping] }
       .each_with_object(groups) do |entry, data|
         next unless data.include? entry[0]
+
         data[entry[0]] = years.each_with_object({}) { |v, memo| memo[v] = 0 }
 
         entry[1].group_by { |v| v[:aired_on].strftime('%Y') }.each do |k, v|
           data[entry[0]][k] = v.size
         end
       end
-      .select { |k, v| v.present? }
+      .select { |_k, v| v.present? }
 
     {
       categories: years,
       series: data.map do |k, v|
         {
-          name: [:kind, :rating].include?(grouping) ? I18n.t("enumerize.anime.#{grouping}.#{k}") : k,
+          name: %i[kind rating].include?(grouping) ? I18n.t("enumerize.anime.#{grouping}.#{k}") : k,
           data: v.values
         }
       end
@@ -198,7 +219,7 @@ private
     new_series = data[:series].map do |entry|
       {
         name: entry[:name],
-        data: entry[:data].each_with_index.map do |number,i|
+        data: entry[:data].each_with_index.map do |number, i|
           number * 100.0 / data[:series].sum { |entry| entry[:data][i] }
         end
       }

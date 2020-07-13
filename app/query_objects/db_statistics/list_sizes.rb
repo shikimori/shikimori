@@ -45,13 +45,17 @@ private
     INTERVALS.each_with_object({}).with_index do |(min_value, memo), index|
       is_last = index == INTERVALS.size - 1
 
-      count =
+      count_scope =
         if is_last
-          scope.having("count(*) >= #{min_value}").count.count
+          scope.having("count(*) >= #{min_value}")
         else
           max_value = (min_value + INTERVALS[index + 1])
-          scope.having("count(*) >= #{min_value} and count(*) < #{max_value}").count.count
+          scope.having("count(*) >= #{min_value} and count(*) < #{max_value}")
         end
+
+      count = ApplicationRecord
+        .connection
+        .execute("SELECT count(*) from (#{count_scope.select('1').to_sql}) as t")[0]['count']
 
       memo[is_last ? "#{min_value}+" : min_value.to_s] = count
     end

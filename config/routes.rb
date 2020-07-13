@@ -547,8 +547,12 @@ Rails.application.routes.draw do
   end
 
   # statistics
-  get 'anime-history' => redirect('/anime-industry')
   get 'anime-industry' => 'statistics#index', as: :anime_statistics
+  resource :statistics, only: [] do
+    collection do
+      get :lists
+    end
+  end
 
   # site pages
   resources :pages, path: '/', only: [] do
