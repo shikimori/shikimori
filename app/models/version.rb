@@ -8,7 +8,7 @@ class Version < ApplicationRecord
     user_id_key: :user_id
   )
   antispam(
-    per_day: 15,
+    per_day: 10,
     disable_if: -> { item_diff['description_ru'].blank? || user.staff? },
     scope: -> { where "(item_diff->>'description_ru') is not null" },
     user_id_key: :user_id
