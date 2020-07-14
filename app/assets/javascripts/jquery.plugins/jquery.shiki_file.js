@@ -175,16 +175,16 @@ $.fn.extend({
       });
 
 
-      $node.pastableTextarea();
-      $node.on('pasteImage', (e, data) => {
-        const file = new File(
-          [data.blob],
-          `pasted_file.${data.blob.type.split('/')[1]}`, {
-            type: data.blob.type,
-            lastModified: Date.now()
-          }
-        );
-        $node.trigger('drop', [[file]]);
-      });
+      // $node.pastableTextarea();
+      // $node.on('pasteImage', (e, data) => {
+      //   const file = new File(
+      //     [data.blob],
+      //     `pasted_file.${data.blob.type.split('/')[1]}`, {
+      //       type: data.blob.type,
+      //       lastModified: Date.now()
+      //     }
+      //   );
+      //   $node.trigger('drop', [[file]]);
+      // });
     });
   } });
