@@ -41,7 +41,7 @@ private
 
   def calculate_stats type, scope
     PgCache.fetch([:lists_stats, type, :v2]) do
-      ListSizes.call scope
+      DbStatistics::ListSizes.call scope
     end
   end
 
