@@ -47,9 +47,9 @@ CREATE EXTENSION pg_stat_statements;
 psql -d shikimori_production
 ```
 ```sql
-shikimori_production=# CREATE EXTENSION unaccent;
-shikimori_production=# CREATE EXTENSION hstore;
-shikimori_production=# CREATE EXTENSION pg_stat_statements;
+CREATE EXTENSION unaccent;
+CREATE EXTENSION hstore;
+CREATE EXTENSION pg_stat_statements;
 ```
 
 ## Local Run
