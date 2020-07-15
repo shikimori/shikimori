@@ -17,12 +17,14 @@ https://agileseason.com/shared/boards/a98d1565b276f3781070f0e74a7ffcf1
 ### DB
 ```sh
 psql -d postgres
-postgres=# create user shikimori_production;
-postgres=# create user shikimori_test;
-postgres=# alter user shikimori_production createdb;
-postgres=# alter user shikimori_test createdb;
-postgres=# alter user shikimori_production with superuser;
-postgres=# alter user shikimori_test with superuser;
+```
+```sql
+create user shikimori_production;
+create user shikimori_test;
+alter user shikimori_production createdb;
+alter user shikimori_test createdb;
+alter user shikimori_production with superuser;
+alter user shikimori_test with superuser;
 ```
 
 ### Create databases
@@ -34,13 +36,17 @@ rails db:create
 ### Extensions
 ```sh
 psql -d shikimori_test
-shikimori_test=# CREATE EXTENSION unaccent;
-shikimori_test=# CREATE EXTENSION hstore;
-shikimori_test=# CREATE EXTENSION pg_stat_statements;
+```
+```sql
+CREATE EXTENSION unaccent;
+CREATE EXTENSION hstore;
+CREATE EXTENSION pg_stat_statements;
 ```
 
 ```sh
 psql -d shikimori_production
+```
+```sql
 shikimori_production=# CREATE EXTENSION unaccent;
 shikimori_production=# CREATE EXTENSION hstore;
 shikimori_production=# CREATE EXTENSION pg_stat_statements;
