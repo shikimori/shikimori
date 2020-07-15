@@ -78,16 +78,13 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-vue": "^5.2.3",
     "fsevents": "1.2.4",
-    "mocha": "^7.2.0",
-    "mocha-webpack": "^2.0.0-beta.0",
     "webpack-dev-server": "^3.7.2"
   },
   "optionalDependencies": {
     "fsevents": "1.2.4"
   },
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --config config/webpack/development.js",
-    "test": "NODE_ENV=test mocha-webpack --webpack-config ./config/webpack/test.js spec/javascripts/**/*.spec.js --recursive"
+    "start": "NODE_ENV=development webpack-dev-server --config config/webpack/development.js"
   },
   "license": "OSL-3.0"
 }
