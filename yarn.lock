@@ -6420,6 +6420,11 @@ pascalcase@^0.1.1:
   resolved "https://registry.yarnpkg.com/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
   integrity sha1-s2PlXoAGym/iF4TS2yK9FdeRfxQ=
 
+paste.js@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/paste.js/-/paste.js-0.0.21.tgz#ac4e354db2801a6dd70cc4949700ea4dd95e34b4"
+  integrity sha1-rE41TbKAGm3XDMSUlwDqTdleNLQ=
+
 path-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/path-browserify/-/path-browserify-0.0.1.tgz#e6c4ddd7ed3aa27c68a20cc4e50e1a4ee83bbc4a"
