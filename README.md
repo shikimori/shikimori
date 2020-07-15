@@ -20,6 +20,7 @@ https://agileseason.com/shared/boards/a98d1565b276f3781070f0e74a7ffcf1
 git clone git@github.com:shikimori/shikimori.git
 git clone git@github.com:shikimori/neko-achievements.git
 cd neko-achievements
+mix local.hex --force
 mix deps.get
 cd ..
 git clone git@github.com:shikimori/camo-server.git
@@ -33,13 +34,13 @@ cd ..
 cd shikimori
 ```
 
-#### Install `yarn`, `tmux` and `overmind` via Homebrew (OSX)
+### Install `yarn`, `tmux` and `overmind` via Homebrew (OSX)
 ```sh
 brew install yarn tmux overmind
 ```
 In linux you have to install them another way.
 
-#### Install dependent gems and npm packages
+### Install dependent gems and npm packages
 ```sh
 yarn install
 bundle install
