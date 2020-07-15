@@ -1,4 +1,4 @@
-import ShikiEditor from 'views/shiki_editor/index';
+import ShikiEditor from 'views/shiki_editor';
 
 pageLoad(
   'oauth_applications_new',

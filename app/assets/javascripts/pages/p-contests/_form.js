@@ -1,4 +1,4 @@
-import ShikiEditor from 'views/shiki_editor/index';
+import ShikiEditor from 'views/shiki_editor';
 
 pageLoad('contests_edit', () => {
   $('.b-shiki_editor').each((_index, node) =>
