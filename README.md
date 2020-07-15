@@ -13,6 +13,38 @@ PostgreSQL >= 10.0, Ruby >= 2.6, NodeJS >= 10.0, Elasticsearch >= 6.0, Memcached
 ## Issues Board (Agile Season)
 https://agileseason.com/shared/boards/a98d1565b276f3781070f0e74a7ffcf1
 
+## Requirements
+
+### Checkout all projects
+```sh
+git clone git@github.com:shikimori/shikimori.git
+git clone git@github.com:shikimori/neko-achievements.git
+cd neko-achievements
+mix deps.get
+cd ..
+git clone git@github.com:shikimori/camo-server.git
+cd camo-server
+yarn
+cd ..
+git clone git@github.com:shikimori/faye-server.git
+cd faye-server
+yarn
+cd ..
+cd shikimori
+```
+
+#### Install `yarn`, `tmux` and `overmind` via Homebrew (OSX)
+```sh
+brew install yarn tmux overmind
+```
+In linux you have to install them another way.
+
+#### Install dependent gems and npm packages
+```sh
+yarn install
+bundle install
+```
+
 ## PostgreSQL
 ### DB
 ```sh
@@ -35,7 +67,7 @@ rails db:create
 
 ### Extensions
 ```sh
-psql -d shikimori_test
+psql -d shikimori_test_
 ```
 ```sql
 CREATE EXTENSION unaccent;
@@ -56,29 +88,6 @@ CREATE EXTENSION pg_stat_statements;
 Everything you need to run is listed in [Procfile](https://github.com/shikimori/shikimori/blob/master/Procfile).
 Shikimori uses [Overmind](https://github.com/DarthSim/overmind) to execute `Procfile`.
 
-### Requirements
-
-#### Checkout all projects
-```sh
-git clone git@github.com:shikimori/shikimori.git
-git clone git@github.com:shikimori/neko-achievements.git
-git clone git@github.com:shikimori/camo-server.git
-git clone git@github.com:shikimori/faye-server.git
-
-cd shikimori
-```
-
-#### Install `yarn`, `tmux` and `overmind` via Homebrew (OSX)
-```sh
-brew install yarn tmux overmind
-```
-In linux you have to install them another way.
-
-#### Install dependent gems and npm packages
-```sh
-yarn install
-bundle install
-```
 
 ### Restore from a backup
 ```sh
