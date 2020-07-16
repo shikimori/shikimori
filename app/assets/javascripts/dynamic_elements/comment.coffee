@@ -1,7 +1,7 @@
 import delay from 'delay'
 import { flash } from 'shiki-utils'
 
-import ShikiEditor from 'views/application/shiki_editor'
+import ShikiEditor from 'views/shiki_editor'
 import ShikiEditable from 'views/application/shiki_editable'
 import BanForm from 'views/comments/ban_form'
 
@@ -11,7 +11,7 @@ export default class Comment extends ShikiEditable
   _type: -> 'comment'
   _type_label: -> I18n.t("#{I18N_KEY}.type_label")
 
-  # similar to hash from JsExports::CommentsExport#serialzie
+  # similar to hash from JsExports::CommentsExport#serialize
   _default_model: ->
     can_destroy: false
     can_edit: false

@@ -20,6 +20,7 @@ header.head
       font-family: var(--font-alt)
     font-size: 30px
     font-weight: normal
+    margin: 0
 
     +iphone
       font-size: 24px
@@ -97,6 +98,7 @@ header.head
   line-height: $line_height
   margin-bottom: 10px
   padding: 4px 10px 2px
+  position: relative
   text-transform: uppercase
   transition: color 0.2s ease
 
@@ -132,8 +134,6 @@ header.head
         color: $link-active
 
   &.linkheadline
-    position: relative
-
     & > a
       // text-decoration: underline
       color: inherit

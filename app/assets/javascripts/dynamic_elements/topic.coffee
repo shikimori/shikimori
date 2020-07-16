@@ -1,7 +1,7 @@
 import delay from 'delay'
 
 import ShikiEditable from 'views/application/shiki_editable'
-import ShikiEditor from 'views/application/shiki_editor'
+import ShikiEditor from 'views/shiki_editor'
 import ShikiGallery from 'views/application/shiki_gallery'
 
 import axios from 'helpers/axios'
@@ -25,7 +25,7 @@ export default class Topic extends ShikiEditable
   _type: -> 'topic'
   _type_label: -> I18n.t("#{I18N_KEY}.type_label")
 
-  # similar to hash from JsExports::TopicsExport#serialzie
+  # similar to hash from JsExports::TopicsExport#serialize
   _default_model: ->
     can_destroy: false
     can_edit: false

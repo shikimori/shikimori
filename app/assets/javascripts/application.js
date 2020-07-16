@@ -3,9 +3,6 @@
 //   .config('ebe5fd3d4c754a9592b7f30f70a9c16f')
 //   .install();
 
-import sugar from 'vendor/sugar'; // eslint-disable-line import/newline-after-import
-sugar.extend();
-
 import Turbolinks from 'turbolinks'; // eslint-disable-line import/newline-after-import
 Turbolinks.start();
 
@@ -44,9 +41,6 @@ window.pageUnload = pageUnload;
 
 const requireJqueryPlugins = require.context('jquery.plugins', true);
 requireJqueryPlugins.keys().forEach(requireJqueryPlugins);
-
-const requireViews = require.context('views', true);
-requireViews.keys().forEach(requireViews);
 
 const requirePages = require.context('pages', true);
 requirePages.keys().forEach(requirePages);

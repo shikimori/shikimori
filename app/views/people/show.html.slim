@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  - cache [@resource, params[:action], :v5] do
+  - cache [@resource, params[:action], :v6] do
     .b-db_entry
       .c-image
         .cc
@@ -72,15 +72,17 @@
 
       .c-about
         .cc
-          - if @resource.credentials?
+          - if @resource.japanese.present? || @resource.name.present? || @resource.birthday || @resource.website.present?
             .c-info-left
               .subheadline = t 'information'
               .b-entry-info
-                - if @resource.credentials?
+                - if @resource.japanese.present?
                   = info_line t('in_english'), @resource.name
+                - if @resource.name.present?
                   = info_line t('in_japanese'), @resource.japanese
-                  - if @resource.birthday
-                    = info_line Person.human_attribute_name(:birthday), @resource.formatted_birthday
+                - if @resource.birthday
+                  = info_line Person.human_attribute_name(:birthday), @resource.formatted_birthday
+                - if @resource.website.present?
                   = info_line Person.human_attribute_name(:website), @resource.website_html
 
           - if @resource.grouped_roles.any?

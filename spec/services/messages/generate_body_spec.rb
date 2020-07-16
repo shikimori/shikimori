@@ -253,7 +253,7 @@ describe Messages::GenerateBody do
               отклонена по причине:
               <div class="b-quote"><div class="quoteable">from
               <span class="text-ru">написал:</span><span class="text-en"
-              data-text="wrote:"></span></div>zxc</div>
+              data-text="wrote:"></span></div><div class="quote-content">zxc</div></div>
             HTML
           )
         end

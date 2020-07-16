@@ -40,9 +40,9 @@ class Topics::CommentsView < Topics::FoldedCommentsView
 
   def cache_key
     [
+      @topic,
       @topic.is_a?(NoTopic) ? @topic.linked : @topic.id,
-      @topic.respond_to?(:commented_at) ?
-        @topic.commented_at : @topic.updated_at,
+      @topic.respond_to?(:commented_at) ? @topic.commented_at : nil,
       comments_limit,
       page,
       only_summaries_shown?,

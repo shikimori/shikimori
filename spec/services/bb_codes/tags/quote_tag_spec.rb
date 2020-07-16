@@ -4,15 +4,17 @@ describe BbCodes::Tags::QuoteTag do
 
   context 'simple quote' do
     let(:text) { '[quote]test[/quote]' }
-    it { is_expected.to eq '<div class="b-quote">test</div>' }
+    it { is_expected.to eq '<div class="b-quote"><div class="quote-content">test</div></div>' }
 
     context 'with text' do
       let(:text) { '[quote=zz]test[/quote]' }
       it do
         is_expected.to eq(
-          '<div class="b-quote">'\
-            '<div class="quoteable">[user]zz[/user]</div>'\
-            'test</div>'
+          <<~HTML.squish
+            <div class="b-quote"><div
+              class="quoteable">[user]zz[/user]</div><div
+              class="quote-content">test</div></div>
+          HTML
         )
       end
     end
@@ -22,9 +24,11 @@ describe BbCodes::Tags::QuoteTag do
     let(:text) { '[quote=t1;2;3]test[/quote]' }
     it do
       is_expected.to eq(
-        '<div class="b-quote">'\
-          '<div class="quoteable">[topic=1 quote]3[/topic]</div>'\
-          'test</div>'
+        <<~HTML.squish
+          <div class="b-quote"><div
+            class="quoteable">[topic=1 quote]3[/topic]</div><div
+            class="quote-content">test</div></div>
+        HTML
       )
     end
   end
@@ -33,9 +37,11 @@ describe BbCodes::Tags::QuoteTag do
     let(:text) { '[quote=m1;2;3]test[/quote]' }
     it do
       is_expected.to eq(
-        '<div class="b-quote">'\
-          '<div class="quoteable">[message=1 quote]3[/message]</div>'\
-          'test</div>'
+        <<~HTML.squish
+          <div class="b-quote"><div
+            class="quoteable">[message=1 quote]3[/message]</div><div
+            class="quote-content">test</div></div>
+        HTML
       )
     end
   end
@@ -44,9 +50,11 @@ describe BbCodes::Tags::QuoteTag do
     let(:text) { '[quote=c1;2;3]test[/quote]' }
     it do
       is_expected.to eq(
-        '<div class="b-quote">'\
-          '<div class="quoteable">[comment=1 quote]3[/comment]</div>'\
-          'test</div>'
+        <<~HTML.squish
+          <div class="b-quote"><div
+            class="quoteable">[comment=1 quote]3[/comment]</div><div
+            class="quote-content">test</div></div>
+        HTML
       )
     end
   end

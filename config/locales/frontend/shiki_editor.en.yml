@@ -5,3 +5,14 @@ en:
       text_cant_be_blank: Text can't be blank
       spoiler: spoiler
       file: file
+      bold: Bold
+      italic: Italic
+      underline: Underlined
+      strike: Deleted
+      undo: Undo last change
+      redo: Redo last change
+      spoiler: Spoiler
+      prompt:
+        image_url: Image URL
+        link_url: Link URL
+        spoiler_label: Spoiler label

@@ -25,21 +25,23 @@ class BbCodes::Tags::UrlTag
     #{BEFORE_URL.source} #{URL.source}
   }mix
 
+  REL = ' rel="noopener noreferrer nofollow"'
+
   def format text
     text.gsub REGEXP do
-      url = match_url $LAST_MATCH_INFO[:url]
+      url, is_shikimori = match_url $LAST_MATCH_INFO[:url]
       text = match_text $LAST_MATCH_INFO[:text], url
       css_class = $LAST_MATCH_INFO[:class]
 
       webm_link?(url) ?
         video_bb_code(url) :
-        link_tag(url, text, css_class)
+        link_tag(url, text, css_class, is_shikimori)
     end
   end
 
 private
 
-  def link_tag url, text, css_class
+  def link_tag url, text, css_class, is_shikimori
     link_text = decode_uri text
     css_classes = ['b-link', css_class].select(&:present?).join(' ')
 
@@ -47,8 +49,8 @@ private
       link_text = url.starts_with?('/') ? url : Url.new(url).domain
     end
 
-    <<~HTML.strip
-      <a class="#{css_classes}" href="#{url}">#{link_text}</a>
+    <<~HTML.squish
+      <a class="#{css_classes}" href="#{url}"#{REL unless is_shikimori}>#{link_text}</a>
     HTML
   end
 
@@ -58,11 +60,11 @@ private
 
   def match_url url
     if url.starts_with?('/')
-      url
+      [url, !url.starts_with?('//')]
     elsif Url.new(url).without_http.to_s =~ %r{(\w+\.)?shikimori\.\w+/(?<path>.+)}
-      "/#{$LAST_MATCH_INFO[:path]}"
+      ["/#{$LAST_MATCH_INFO[:path]}", true]
     else
-      Url.new(url).with_http.to_s
+      [Url.new(url).with_http.to_s, false]
     end
   end
 

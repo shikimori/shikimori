@@ -71,7 +71,7 @@ describe BbCodes::Tags::ImgTag do
 
     context 'with class' do
       let(:text) { "[img class=zxc]#{url}[/img]" }
-      it { is_expected.to include 'class="check-width zxc"></a>' }
+      it { is_expected.to include 'class="b-image unprocessed zxc"' }
     end
 
     context 'inside url' do

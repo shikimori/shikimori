@@ -5,7 +5,9 @@ $variables: (
   --font-main: $font-main,
   --font-alt: $font-alt,
   --font-alt-hadline-letter-spacing: 0.18px,
-  --font-alt-text-letter-spacing: -0.13px
+  --font-alt-text-letter-spacing: -0.13px,
+  --link-hover-color: #dd5202,
+  --link-active-color: #ff0202,
 );
 
 $line_height: 1.65;

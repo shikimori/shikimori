@@ -1,11 +1,25 @@
-@import globals
+@import mixins/responsive
 
 .b-list
-  margin-left: 25px
+  margin-left: 17px
+
+  &.is-wide li
+    margin-bottom: 5px
 
   li
     line-height: $line_height
-    list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAANCAMAAABW4lS6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRFAFKM////QIUK9QAAAAJ0Uk5T/wDltzBKAAAAGklEQVR42mJgBAEGokgGBjBGBxBxsBqAAAMACHwALd5r8ygAAAAASUVORK5CYII=)
-    list-style-position: outside
-    list-style-type: square
-    margin-bottom: 5px
+    list-style: none
+
+    &:before
+      position: absolute
+      content: ''
+      background: url(/assets/blocks/b-list/disc.svg)
+      width: 5px
+      height: 5px
+      margin-left: -12px
+
+      +lte_ipad
+        margin-top: 10px
+
+      +gte_laptop
+        margin-top: 8px

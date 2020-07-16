@@ -10,7 +10,7 @@ header.head
       = render partial: 'users/user',
         collection: @moderators, locals: { content_by: :named_avatar }
 
-    ul.b-list
+    ul.b-list.is-wide
       li: p
         a.b-link href=@site_rules.object.url = @site_rules.title
 

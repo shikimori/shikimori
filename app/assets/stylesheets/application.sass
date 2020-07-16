@@ -151,22 +151,32 @@ p.flash-notice, p.flash-alert
   color: #555
 
 hr
-  // 1
-  //border: 0
-  //height: 1px
-  //background: #333
-  //background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc)
-  //background-image:    -moz-linear-gradient(left, #ccc, #333, #ccc)
-  //background-image:     -ms-linear-gradient(left, #ccc, #333, #ccc)
-  //background-image:      -o-linear-gradient(left, #ccc, #333, #ccc)
-
-  // 2
   border: 0
   height: 1px
-  background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
-  background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
-  background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
-  background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
+  background-image: linear-gradient(90deg, rgba(#000, 0.05), rgba(#000, 0.4), rgba(#000, 0.05))
+
+h2,
+h3,
+h4
+  color: #123
+  +css4
+    font-family: var(--font-alt)
+  font-weight: normal
+
+h2
+  font-size: 25px
+  margin-top: 8px
+  margin-bottom: 12px
+
+h3
+  font-size: 21px
+  margin-top: 6px
+  margin-bottom: 10px
+
+h4
+  font-size: 18px
+  margin-top: 4px
+  margin-bottom: 8px
 
 .smiley
   vertical-align: middle

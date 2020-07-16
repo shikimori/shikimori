@@ -30,10 +30,6 @@ class PersonDecorator < DbEntryDecorator
     (linked_type in ('#{Manga.name}', '#{Ranobe.name}') and linked_id in (?))
   SQL
 
-  def credentials?
-    japanese.present? || object.name.present?
-  end
-
   def url
     h.person_url object
   end
@@ -314,7 +310,7 @@ private
   def website_host
     return if object.website.blank?
 
-    URI.parse(website_url).host
+    Url.new(website_url).domain.to_s
   rescue URI::Error
   end
 

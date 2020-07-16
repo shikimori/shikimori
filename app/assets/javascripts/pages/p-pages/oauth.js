@@ -78,7 +78,7 @@ pageLoad('pages_oauth', () => {
 
 function formatResponse(text) {
   return '<div class=\'to-process\' data-dynamic=\'code_highlight\'>' +
-    '<code class=\'b-code\' data-language=\'json\'>' +
+    '<code class=\'b-code-v2\' data-language=\'json\'>' +
       text +
     '</code>' +
   '</div>';

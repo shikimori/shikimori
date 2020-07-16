@@ -3,8 +3,8 @@ header.head
 
 .block2
   .subheadline.m5 How OAuth works
-  pre
-    code.b-code +-------------------+                                          +---------------+
+  pre.b-code-v2
+    code +-------------------+                                          +---------------+
       |                   |----------- Authorization Grant --------->|               |
       |                   |<---------- Authorization Code -----------|               |
       |                   |                                          |               |
@@ -72,7 +72,7 @@ header.head
   .subheadline.m5 2. Get Authorization Code
   p.m5
     | In your application, redirect the user to shikimori authorization page.
-  code.b-code.m5
+  code.b-code-v2.m5
     | #{oauth_authorization_url client_id: @oauth_application&.uid || 'CLIENT_ID', redirect_uri: @oauth_application&.redirect_uri || 'REDIRECT_URI', scope: (params[:scopes] || []).join(' '), response_type: :code}
   p
     | There the user must authorize your application so you could receive an authorization token.
@@ -111,8 +111,8 @@ header.head
 .block
   a name='step_3'
   .subheadline.m5 3. Get Access Token
-  pre.to-process data-dynamic='code_highlight'
-    code.b-code.m5 data-language='bash' curl -X POST "#{oauth_token_url}" \
+  pre.b-code-v2.m5.to-process data-dynamic='code_highlight' data-language='bash'
+    code curl -X POST "#{oauth_token_url}" \
         -H "User-Agent: #{@oauth_application&.name || 'APPLICATION_NAME'}" \
         -F grant_type="authorization_code" \
         -F client_id="#{@oauth_application&.uid || 'CLIENT_ID'}" \
@@ -173,13 +173,13 @@ header.head
   p.m5 When your Access Token is expired you will get 401 status code with the message
 
   .to-process data-dynamic='code_highlight'
-    code.b-code data-language='json'
+    code.b-code-v2 data-language='json'
       | {"error":"invalid_token","error_description":"The access token is invalid","state":"unauthorized"}
 
 .block
   .subheadline.m5 4. Request Shikimori protected resources with obtained Access Token
-  pre.to-process data-dynamic='code_highlight'
-    code.b-code.m5 data-language='bash' curl -X GET #{whoami_api_users_url} \
+  pre.b-code-v2.m5.to-process data-dynamic='code_highlight' data-language='bash'
+    code curl -X GET #{whoami_api_users_url} \
       -H "User-Agent: #{@oauth_application&.name || 'APPLICATION_NAME'}" \
       -H "Authorization: Bearer #{params[:access_token].present? ? params[:access_token] : 'ACCESS_TOKEN'}"
 
@@ -187,8 +187,8 @@ header.head
   .subheadline.m5 5. Refresh Access Token
 
   p.m5 Use your Refresh Token to obtain new Access Token and Refresh Token.
-  pre.to-process data-dynamic='code_highlight'
-    code.b-code.m5 data-language='bash' curl -X POST "#{oauth_token_url}" \
+  pre.b-code-v2.m5.to-process data-dynamic='code_highlight' data-language='bash'
+    code curl -X POST "#{oauth_token_url}" \
         -H "User-Agent: #{@oauth_application&.name || 'APPLICATION_NAME'}" \
         -F grant_type="refresh_token" \
         -F client_id="#{@oauth_application&.uid || 'CLIENT_ID'}" \

@@ -5,3 +5,14 @@ ru:
       text_cant_be_blank: Текст не может быть пустым
       spoiler: спойлер
       file: файл
+      bold: Жирный
+      italic: Курсив
+      underline: Подчёркнутый
+      deleted: Зачёркнутый
+      undo: Отменить последнее изменение
+      redo: Повторить последнее изменение
+      spoiler: Спойлер
+      prompt:
+        image_url: URL картинки
+        link_url: URL ссылки
+        spoiler_label: Заголовок спойлера

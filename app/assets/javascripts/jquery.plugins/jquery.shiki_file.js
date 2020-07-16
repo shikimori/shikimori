@@ -174,7 +174,6 @@ $.fn.extend({
         }
       });
 
-
       $node.pastableTextarea();
       $node.on('pasteImage', (e, data) => {
         const file = new File(

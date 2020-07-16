@@ -38,7 +38,7 @@ class BbCodes::Tags::ImgTag
 
 private
 
-  def html_for( # rubocop:disable ParameterLists
+  def html_for(
     image_url:,
     link_url:,
     width:,
@@ -49,34 +49,29 @@ private
   )
     fixed_image_url = camo_url image_url
     camo_link_url = camo_url link_url if link_url&.match? %r{shikimori\.(\w+)/.*\.(?:jpg|png)}
-    image_html = html_for_image fixed_image_url, width, height, css_class
+    image_html = html_for_image fixed_image_url, width, height
 
     if is_no_zoom
       <<-HTML.squish.strip
-        <span class="b-image no-zoom">#{image_html}</span>
+        <span class="b-image no-zoom#{" #{css_class}" if css_class.present?}">#{image_html}</span>
       HTML
     else
       <<-HTML.squish.strip
         <a href="#{link_url || image_url}"
           data-href="#{camo_link_url || fixed_image_url}"
           rel="#{text_hash}"
-          class="b-image unprocessed">#{image_html}</a>
+          class="b-image unprocessed#{" #{css_class}" if css_class.present?}">#{image_html}</a>
       HTML
     end
   end
 
-  def html_for_image image_url, width, height, css_class
+  def html_for_image image_url, width, height
     sizes_html = ''
     sizes_html += " width=\"#{width}\"" if width.positive?
     sizes_html += " height=\"#{height.to_i}\"" if height.positive?
 
-    css_class = [
-      'check-width',
-      (css_class if css_class.present?)
-    ].compact.join(' ')
-
     <<-HTML.squish.strip
-      <img src="#{image_url}" #{"class=\"#{css_class}\"" if css_class.present?}#{sizes_html}>
+      <img src="#{image_url}" class="check-width"#{sizes_html}>
     HTML
   end
 

@@ -41,6 +41,9 @@ class TestsController < ShikimoriController
   def colors
   end
 
+  def editor
+  end
+
   def franchises
     @minimum_titles = (params[:minimum_titles] || DEFAULT_MINIMUM_TITLES).to_i
     @minimum_titles = [10, [3, @minimum_titles].max].min

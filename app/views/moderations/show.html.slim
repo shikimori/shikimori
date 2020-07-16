@@ -7,7 +7,7 @@ header.head
     .f-column
       .subheadline = t '.moderation'
 
-      ul.b-list.block
+      ul.b-list.is-wide.block
         li
           a.b-link[
             href=moderations_versions_url
@@ -83,7 +83,7 @@ header.head
 
       - if ru_host?
         .block
-          ul.b-list
+          ul.b-list.is-wide
             li
               a.b-link[
                 href=anime_translations_url
@@ -106,7 +106,7 @@ header.head
               ] = t '.fansub_authors'
 
         .block
-          ul.b-list
+          ul.b-list.is-wide
             li
               - if can? :read, Genre
                 a.b-link[
@@ -146,7 +146,7 @@ header.head
     .f-column
       .subheadline = i18n_io 'user', :few
       .block
-        ul.b-list
+        ul.b-list.is-wide
           li
             a.b-link[
               href=moderations_users_url
@@ -168,7 +168,7 @@ header.head
       - if @clubs.any?
         .subheadline = i18n_io 'club', :few
         .block
-          ul.b-list
+          ul.b-list.is-wide
             - @clubs.each do |club_view|
               li
                 a.b-link[
@@ -252,41 +252,41 @@ header.head
     - if @abuse_requests_stats
       .c-column
         .subheadline Abuse Requests
-        ul.b-list
+        ul.b-list.is-wide
           - @abuse_requests_stats.each do |stat|
             li = "#{stat.approver.nickname}: #{stat.count}"
 
     - if @bans_stats
       .c-column
         .subheadline Bans
-        ul.b-list
+        ul.b-list.is-wide
           - @bans_stats.each do |stat|
             li = "#{stat.moderator.nickname}: #{stat.count}"
 
     - if @content_versions_stats
       .c-column
         .subheadline Content Changes
-        ul.b-list
+        ul.b-list.is-wide
           - @content_versions_stats.each do |stat|
             li = "#{stat.moderator.nickname}: #{stat.count}"
 
     - if @reviews_stats
       .c-column
         .subheadline Reviews
-        ul.b-list
+        ul.b-list.is-wide
           - @reviews_stats.each do |stat|
             li = "#{stat.approver.nickname}: #{stat.count}"
 
     - if @collections_stats
       .c-column
         .subheadline Collections
-        ul.b-list
+        ul.b-list.is-wide
           - @collections_stats.each do |stat|
             li = "#{stat.approver.nickname}: #{stat.count}"
 
     - if @articles_stats
       .c-column
         .subheadline articles
-        ul.b-list
+        ul.b-list.is-wide
           - @articles_stats.each do |stat|
             li = "#{stat.approver.nickname}: #{stat.count}"

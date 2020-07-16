@@ -27,10 +27,11 @@
           = person.job_title
 
     .text itemprop='description'
-      - if @resource.credentials?
+      - if @resource.japanese.present?
         = info_line t('in_japanese'), @resource.japanese
-        - if @resource.birthday
-          = info_line Person.human_attribute_name(:birthday), @resource.formatted_birthday
+      - if @resource.birthday
+        = info_line Person.human_attribute_name(:birthday), @resource.formatted_birthday
+      - if @resource.website.present?
         = info_line Person.human_attribute_name(:website), @resource.website_html
 
     - if person.main_role?(:seyu)
