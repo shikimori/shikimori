@@ -1,13 +1,9 @@
-import Sortable from 'sortablejs';
 import Uri from 'urijs';
-
 import axios from 'helpers/axios';
 
-pageLoad('profiles_favorites', () => {
+pageLoad('profiles_favorites', async () => {
   const $sortable = $('.cc-favourites.sortable');
-  if (!$sortable.length) {
-    return;
-  }
+  if (!$sortable.length) { return; }
 
   const favoriteIds = $sortable.data('favorite_ids');
   const reorderUrlTemplate = $sortable.data('reorder_url');
@@ -17,6 +13,8 @@ pageLoad('profiles_favorites', () => {
     .each((index, node) => (
       $(node).data('reorder_url', reorderUrlTemplate.replace('ID', favoriteIds[index]))
     ));
+
+  const { default: Sortable } = await import('sortablejs');
 
   new Sortable($sortable[0], {
     draggable: '.b-catalog_entry',

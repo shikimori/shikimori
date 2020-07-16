@@ -1,4 +1,3 @@
-import Sortable from 'sortablejs';
 import ImageboardGallery from 'views/images/imageboard_gallery';
 
 pageLoad('.db_entries-edit_field', () => {
@@ -43,20 +42,7 @@ pageLoad('.db_entries-edit_field', () => {
   if ($('.edit-page.screenshots').exists()) {
     $('.c-screenshot').shikiImage();
 
-    const $screenshotsPositioner = $('.screenshots-positioner');
-    if ($screenshotsPositioner.length) {
-      $('form', $screenshotsPositioner).on('submit', () => {
-        const $images = $('.c-screenshot:not(.deleted) img', $screenshotsPositioner);
-        const ids = $images.map(function () { return $(this).data('id'); });
-        $screenshotsPositioner.find('#entry_ids').val($.makeArray(ids).join(','));
-      });
-
-      new Sortable($screenshotsPositioner.find('.cc')[0], {
-        draggable: '.b-image',
-        handle: '.drag-handle'
-      });
-    }
-
+    initSortableApp($('.screenshots-positioner'));
     initUploaderApp($('.screenshots-uploader'));
   }
 
@@ -248,6 +234,23 @@ async function initTagsApp($tags) {
         tagsLimit: 1
       }
     })
+  });
+}
+
+async function initSortableApp($node) {
+  if (!$node.length) { return; }
+
+  $('form', $node).on('submit', () => {
+    const $images = $('.c-screenshot:not(.deleted) img', $node);
+    const ids = $images.map(function () { return $(this).data('id'); });
+    $node.find('#entry_ids').val($.makeArray(ids).join(','));
+  });
+
+  const { default: Sortable } = await import('sortablejs');
+
+  new Sortable($node.find('.cc')[0], {
+    draggable: '.b-image',
+    handle: '.drag-handle'
   });
 }
 
