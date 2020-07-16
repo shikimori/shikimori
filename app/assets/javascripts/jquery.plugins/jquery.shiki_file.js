@@ -130,7 +130,7 @@ $.fn.extend({
 
           const cls = globalDragLock ? 'disallowed' : 'allowed';
 
-          $dropArea = $(`<div data-text='${text}' class='shiki-file_drop-placeholder ${cls}' style='width:${width}px!important;height:${height}px;line-height:${Math.max(height, 75)}px;'></div>`)
+          $dropArea = $(`<div data-text='${text}' class='shiki-file_uploader-drop_placeholder ${cls}' style='width:${width}px!important;height:${height}px;line-height:${Math.max(height, 75)}px;'></div>`)
             .css({ opacity: 0 })
             .on('drop', e => $node.trigger(e))
             .on('dragenter', function () { return $(this).addClass('hovered'); })
@@ -145,7 +145,7 @@ $.fn.extend({
           if (!$node.data('placeholder_displayed')) { return; }
 
           $dropArea = $node.parent()
-            .find('.shiki-file_drop-placeholder')
+            .find('.shiki-file_uploader-drop_placeholder')
             .css({ opacity: 0 });
 
           delay(350).then(() => $dropArea.remove());
