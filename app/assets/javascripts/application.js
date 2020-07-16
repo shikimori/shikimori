@@ -29,7 +29,6 @@ import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/addon/dialog/dialog.css';
 import 'codemirror/addon/display/fullscreen.css';
 import 'codemirror/addon/search/matchesonscrollbar.css';
-import 'shiki-utils/src/stylesheets/index.sass';
 
 import { throttle, debounce } from 'throttle-debounce';
 

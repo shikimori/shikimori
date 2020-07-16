@@ -1,8 +1,8 @@
-import ShikiFileUploader from 'shiki-utils/src/file_uploader';
+import ShikiUploader from 'shiki-uploader';
 
 import csrf from 'helpers/csrf';
 
-export class FileUploader extends ShikiFileUploader {
+export class FileUploader extends ShikiUploader {
   constructor(node, options = {}) {
     super({
       ...options,
