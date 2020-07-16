@@ -13,9 +13,7 @@ export default class DesktopAd extends View {
     const adParams = this.$node.data('ad_params');
     const platform = this.$node.data('platform');
 
-    console.log(provider, cssClass, adParams, platform);
     if (!this._platformMatched(platform)) { return; }
-    console.log('isMatched');
 
     if (provider === 'yandex_direct') {
       new YandexAd(this.$node, html, cssClass, adParams);
