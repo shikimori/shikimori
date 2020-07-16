@@ -472,7 +472,7 @@ GEM
       ast (~> 2.4.1)
     pg (1.2.3)
     pg_query (1.2.0)
-    pghero (2.5.1)
+    pghero (2.6.0)
       activerecord (>= 5)
     protocol (2.0.0)
       ruby_parser (~> 3.0)
