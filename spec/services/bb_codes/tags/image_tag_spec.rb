@@ -69,7 +69,7 @@ data-width=\"#{user_image_2.width}\" data-height=\"#{user_image_2.height}\" />\
         )
       end
 
-      context 'css_class', :focus do
+      context 'css_class' do
         let(:text) { "[image=#{user_image.id} class=abc]" }
         let(:user_image) { create :user_image, width: 249, height: 249 }
 
