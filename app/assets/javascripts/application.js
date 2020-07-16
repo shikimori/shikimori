@@ -19,6 +19,7 @@ import 'nouislider/distribute/nouislider.css';
 import 'jquery-appear-original';
 import 'jquery-mousewheel';
 
+require('paste.js');
 require('imagesloaded');
 
 // used in views/styles/edit.coffee
