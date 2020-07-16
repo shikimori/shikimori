@@ -9,11 +9,13 @@ export default class DesktopAd extends View {
   initialize() {
     const provider = this.$node.data('ad_provider');
     const html = this.$node.data('ad_html');
-    const cssClass = this.$node.data('ad_cssClass');
-    const adParams = this.$node.data('adParams');
+    const cssClass = this.$node.data('ad_css_class');
+    const adParams = this.$node.data('ad_params');
     const platform = this.$node.data('platform');
 
+    console.log(provider, cssClass, adParams, platform);
     if (!this._platformMatched(platform)) { return; }
+    console.log('isMatched');
 
     if (provider === 'yandex_direct') {
       new YandexAd(this.$node, html, cssClass, adParams);
@@ -26,7 +28,7 @@ export default class DesktopAd extends View {
 
   _platformMatched(platform) {
     if (platform === 'desktop') {
-      return isTablet() || isPhone();
+      return isTablet() || !isPhone();
     }
     return mobileDetect.phone() || mobileDetect.tablet();
   }

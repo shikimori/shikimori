@@ -41,7 +41,7 @@ export class MytargetAd extends AdView {
 
   @bind
   _render() {
-    this._replace_node();
+    this._replaceNode();
     (window.MRGtag = window.MRGtag || []).push({});
   }
 }
