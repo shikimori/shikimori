@@ -17,12 +17,6 @@ describe PagesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#copyrighted' do
-    let!(:topic) { create :topic, id: PagesController::COPYRIGHTED_TOPIC_ID }
-    before { get :copyrighted }
-    it { expect(response).to have_http_status :success }
-  end
-
   describe '#news_feed' do
     let!(:news_topic) { create :news_topic }
     before { get :news_feed, format: :rss }
