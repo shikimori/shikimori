@@ -11,7 +11,6 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
   ONGOINGS_TOPIC_ID = 94_879
   ABOUT_TOPIC_ID = 84_739
-  COPYRIGHTED_TOPIC_ID = 247_567
 
   def ongoings
     og page_title: i18n_t('calendar_of_ongoings')
@@ -27,61 +26,6 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
     @statistics = SiteStatistics.new
     @topic_view =
       Topics::TopicViewFactory.new(false, false).find(ABOUT_TOPIC_ID)
-  end
-
-  def copyrighted # rubocop:disable MethodLength, AbcSize
-    og page_title: t('copyrighted_animes')
-    og notice: i18n_t('copyrighted_animes')
-
-    @wakanim = Anime
-      .where(id: Copyright::WAKANIM_COPYRIGHTED)
-      .order(
-        Animes::Filters::OrderBy.arel_sql(term: :released_on, scope: Anime)
-      )
-
-    @istari = Anime
-      .where(id: Copyright::ISTARI_COPYRIGHTED)
-      .order(
-        Animes::Filters::OrderBy.arel_sql(term: :released_on, scope: Anime)
-      )
-
-    @vgtrk = Anime
-      .where(id: Copyright::VGTRK_COPYRIGHTED)
-      .order(
-        Animes::Filters::OrderBy.arel_sql(term: :released_on, scope: Anime)
-      )
-
-    @capella_film = Anime
-      .where(id: Copyright::CAPELLA_FILM_COPYRIGHTED)
-      .order(
-        Animes::Filters::OrderBy.arel_sql(term: :released_on, scope: Anime)
-      )
-
-    @exponenta = Anime
-      .where(id: Copyright::EXPONENTA_COPYRIGHTED)
-      .order(
-        Animes::Filters::OrderBy.arel_sql(term: :released_on, scope: Anime)
-      )
-
-    @pioner = Anime
-      .where(id: Copyright::PIONER_COPYRIGHTED)
-      .order(
-        Animes::Filters::OrderBy.arel_sql(term: :released_on, scope: Anime)
-      )
-
-    @other = Anime
-      .where(
-        id: Copyright::OTHER_COPYRIGHTED -
-          Copyright::WAKANIM_COPYRIGHTED - Copyright::ISTARI_COPYRIGHTED -
-          Copyright::VGTRK_COPYRIGHTED - Copyright::CAPELLA_FILM_COPYRIGHTED -
-          Copyright::EXPONENTA_COPYRIGHTED - Copyright::PIONER_COPYRIGHTED
-      )
-      .order(
-        Animes::Filters::OrderBy.arel_sql(term: :released_on, scope: Anime)
-      )
-
-    @topic_view =
-      Topics::TopicViewFactory.new(false, false).find(COPYRIGHTED_TOPIC_ID)
   end
 
   def for_right_holders

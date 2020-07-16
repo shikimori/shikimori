@@ -79,7 +79,6 @@ Rails.application.routes.draw do
 
   resources :pages, path: '/', only: [] do
     collection do
-      get :copyrighted
       get :privacy
       get :page404
       get :page503
