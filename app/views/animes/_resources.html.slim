@@ -1,5 +1,5 @@
-- if @resource.related.related.any? || @resource.roles.main_people.any?
-  - related_size = @resource.roles.main_people.none? ? 4 : [@resource.roles.main_people.size, 3].max
+- if @resource.related.related.any? || @resource.roles.displayed_people.any?
+  - related_size = @resource.roles.displayed_people.none? ? 4 : [@resource.roles.displayed_people.size, 3].max
 
   .cc-related-authors
     - if @resource.related.related.any?
@@ -36,13 +36,13 @@
               .hide-more
                 | &mdash; #{t '.hide'}
 
-    - if @resource.roles.main_people.any?
+    - if @resource.roles.displayed_people.any?
       .c-column.c-authors.block_m
         .subheadline
           span.linkeable data-href=@resource.staff_url = t '.staff'
         .cc.to-process data-dynamic='cutted_covers' data-ratio_type='person'
           = render partial: 'people/variants/list_item',
-            collection: @resource.roles.main_people,
+            collection: @resource.roles.displayed_people,
             as: :entry
 
 - if @resource.roles.main_characters.any?

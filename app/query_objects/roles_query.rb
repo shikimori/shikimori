@@ -11,6 +11,10 @@ class RolesQuery < BaseDecorator
     entry.person_roles.any?
   end
 
+  def displayed_people
+    main_people.presence || people.take(2)
+  end
+
   def main_people
     entry
       .person_roles.directors
