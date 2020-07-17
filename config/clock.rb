@@ -83,7 +83,9 @@ module Clockwork
     NamedLogger.clockwork.info 'daily.misc finished'
   end
 
-  every 1.day, 'daily.long-staff', at: '01:37' do
+  every 1.day, 'daily.misc.2', at: '04:15' do
+    ImportToshokanTorrents.perform_async false
+
     MalParsers::RefreshEntries.perform_async 'anime', 'latest', 1.week
     # SubtitlesImporter.perform_async :ongoings
     ImagesVerifier.perform_async
@@ -95,13 +97,7 @@ module Clockwork
 
     ListImports::Cleanup.perform_async
 
-    NamedLogger.clockwork.info 'daily.long-stuff finished'
-  end
-
-  every 1.day, 'daily.torrents-check', at: '03:00' do
-    ImportToshokanTorrents.perform_async false
-
-    NamedLogger.clockwork.info 'daily.torrents-check finished'
+    NamedLogger.clockwork.info 'daily.misc.2 finished'
   end
 
   every 1.day, 'daily.contests', at: '03:38' do
@@ -136,7 +132,7 @@ module Clockwork
     NamedLogger.clockwork.info 'weekly.stuff.1 finished'
   end
 
-  every 1.week, 'weekly.stuff.2', at: 'Monday 01:45' do
+  every 1.week, 'weekly.stuff.2', at: 'Monday 02:45' do
     OldMessagesCleaner.perform_async
     OldNewsCleaner.perform_async
     UserImagesCleaner.perform_async
@@ -148,10 +144,6 @@ module Clockwork
     MalParsers::FetchPage.perform_async 'anime', 'updated_at', 0, 100
     MalParsers::FetchPage.perform_async 'manga', 'updated_at', 0, 100
 
-    NamedLogger.clockwork.info 'weekly.stuff.2 finished'
-  end
-
-  every 1.week, 'weekly.stuff.3', at: 'Monday 02:45' do
     Users::MarkForeverBannedAsCheatBots.perform_async
     AnimesVerifier.perform_async
     MangasVerifier.perform_async
