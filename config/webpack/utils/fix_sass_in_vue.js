@@ -1,44 +1,33 @@
 const getStyleRule = require('@rails/webpacker/package/utils/get_style_rule'); // eslint-disable-line
 
-module.exports = environment => {
-  // fix issue with SASS not working in vue
-  environment.loaders.delete('sass');
-  environment.loaders.delete('moduleSass');
+function fixLoader(environment, sass, scss) {
+  const loader = environment.loaders.get(sass);
+  const newLoader = {
+    ...JSON.parse(JSON.stringify(loader)),
+    test: /\.scss$/i
+  };
+  if (loader.exclude) { newLoader.exclude = loader.exclude; }
+  if (loader.include) { newLoader.include = loader.include; }
 
-  environment.loaders.insert(
-    'sass',
-    getStyleRule(/\.sass$/i, false, [
-      { loader: 'sass-loader', options: { sourceMap: true, indentedSyntax: true } }
-    ]),
-    { after: 'css' }
-  );
-  environment.loaders.insert(
-    'scss',
-    getStyleRule(/\.scss$/i, false, [
-      {
-        loader: 'sass-loader',
-        options: { sourceMap: true }
-      }
-    ]),
-    { after: 'sass' }
-  );
-  environment.loaders.insert(
-    'moduleSass',
-    getStyleRule(/\.sass$/i, true, [
-      { loader: 'sass-loader', options: { sourceMap: true, indentedSyntax: true } }
-    ]),
-    { after: 'css' }
-  );
-  environment.loaders.insert(
-    'moduleScss',
-    getStyleRule(/\.scss$/i, true, [
-      {
-        loader: 'sass-loader',
-        options: { sourceMap: true }
-      }
-    ]),
-    { after: 'sass' }
-  );
+  environment.loaders.insert(scss, newLoader, { after: sass });
+
+  loader.test = /\.sass$/i;
+  const { options } = loader.use.find(v => v.loader === 'sass-loader');
+  if (!options.sassOptions) {
+    options.sassOptions = {};
+  }
+  options.sassOptions.indentedSyntax = true;
+}
+
+module.exports = environment => {
+  fixLoader(environment, 'sass', 'scss');
+  fixLoader(environment, 'moduleSass', 'moduleScss');
+
+  /*
+  ** CSS loader fixing issue, See https://github.com/rails/webpacker/issues/2162
+  */
+  // const cssLoader = environment.loaders.get('css');
+  // cssLoader.use = [{ loader: 'vue-style-loader' }, { loader: 'css-loader' }];
 
   environment.loaders
     .filter(item => item.value.use)
@@ -49,8 +38,8 @@ module.exports = environment => {
         if (currentLoader.loader === 'css-loader') {
           // copy localIdentName into modules
           currentLoader.options.modules = {
-            localIdentName: '[local]'
-            // localIdentName: currentLoader.options.localIdentName
+            // localIdentName: '[local]'
+            localIdentName: currentLoader.options.localIdentName
           };
           // delete localIdentName
           delete currentLoader.options.localIdentName;

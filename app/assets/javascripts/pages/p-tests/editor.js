@@ -2,30 +2,30 @@
 // import 'shiki-editor/demo/src/stylesheets/prosemirror.sass';
 import csrf from 'helpers/csrf';
 
-pageLoad('tests_editor', async () => {
-  const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
-  const { default: EditorApp } =
-    await import(/* webpackChunkName: "shiki-editor" */ 'shiki-editor');
-
-  console.log(process.env)
-  const node = document.querySelector('.b-shiki_editor-v2');
-
-  const content = 'zxc';
-
-  new Vue({
-    el: node,
-    components: { EditorApp },
-    render: h => h(EditorApp, {
-      props: {
-        content: DEMO_CONTENT,
-        locale: window.LOCALE,
-        baseUrl: window.location.origin,
-        uploadEndpoint: '/api/user_images?linked_type=Comment',
-        uploadHeaders: csrf
-      }
-    })
-  });
-});
+// pageLoad('tests_editor', async () => {
+//   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
+//   const { default: EditorApp } =
+//     await import(/* webpackChunkName: "shiki-editor" */ 'shiki-editor');
+// 
+//   console.log(process.env)
+//   const node = document.querySelector('.b-shiki_editor-v2');
+// 
+//   const content = 'zxc';
+// 
+//   new Vue({
+//     el: node,
+//     components: { EditorApp },
+//     render: h => h(EditorApp, {
+//       props: {
+//         content: DEMO_CONTENT,
+//         locale: window.LOCALE,
+//         baseUrl: window.location.origin,
+//         uploadEndpoint: '/api/user_images?linked_type=Comment',
+//         uploadHeaders: csrf
+//       }
+//     })
+//   });
+// });
 
 const DEMO_CONTENT = `# Headings
 [hr]
