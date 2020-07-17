@@ -73,7 +73,7 @@ environment.loaders.prepend('coffee', coffee);
 
 // other
 environment.loaders.get('babel').exclude =
-  /shiki-utils|node_modules\/(?!delay|p-defer|get-js|shiki-utils)/;
+  /shiki-utils|node_modules\/(?!delay|p-defer|get-js|shiki-utils|shiki-editor|shiki-upload)/;
 environment.loaders.get('file').exclude =
   /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
 
