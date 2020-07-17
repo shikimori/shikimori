@@ -141,7 +141,7 @@ Style/CaseLikeIf:
 Style/ExponentialNotation:
   Enabled: true
 Style/HashAsLastArrayItem:
-  Enabled: true
+  Enabled: false
 Style/HashLikeCase:
   Enabled: true
 Style/RedundantAssignment:
