@@ -177,7 +177,7 @@ group :development, :test do
 
   gem 'guard', require: false
   gem 'guard-bundler', require: false
-  gem 'guard-i18n-js', require: false, github: 'fauxparse/guard-i18n-js'
+  gem 'guard-i18n-js', require: false, github: 'morr/guard-i18n-js'
   gem 'guard-pow', require: false
   gem 'guard-rspec', require: false
   gem 'guard-rubocop', require: false

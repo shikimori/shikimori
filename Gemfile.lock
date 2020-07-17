@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/fauxparse/guard-i18n-js.git
-  revision: 4c99c24e55eda1b2eb795bb4e8485732a17fbc0e
-  specs:
-    guard-i18n-js (1.0.0)
-      guard (~> 2.1)
-      i18n-js (~> 3.0.0.rc3)
-
-GIT
   remote: https://github.com/flori/amatch.git
   revision: 351285f667573340ed14e976e2b0984daca4b0e4
   specs:
@@ -38,6 +30,14 @@ GIT
   specs:
     factory_girl-seeds (1.1.0)
       factory_bot
+
+GIT
+  remote: https://github.com/morr/guard-i18n-js.git
+  revision: 9e7210e39be4c9c27487fb9b3ba6cda02baee9ae
+  specs:
+    guard-i18n-js (1.0.0)
+      guard (~> 2.1)
+      i18n-js (~> 3.7)
 
 GIT
   remote: https://github.com/morr/i18n-inflector.git
@@ -365,8 +365,8 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
-    i18n-js (3.0.11)
-      i18n (>= 0.6.6, < 2)
+    i18n-js (3.7.1)
+      i18n (>= 0.6.6)
     icalendar (2.6.1)
       ice_cube (~> 0.16)
     ice_cube (0.16.3)

@@ -4290,9 +4290,9 @@ https-browserify@^1.0.0:
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
 
-"i18n-js@http://github.com/fnando/i18n-js/archive/v3.2.2.tar.gz":
-  version "3.2.2"
-  resolved "http://github.com/fnando/i18n-js/archive/v3.2.2.tar.gz#c3c5e7cc9d7a6909c7c41a7d002d042d9a120cc2"
+"i18n-js@http://github.com/fnando/i18n-js/archive/v3.7.1.tar.gz":
+  version "3.7.1"
+  resolved "http://github.com/fnando/i18n-js/archive/v3.7.1.tar.gz#daec72e375a85ff96c37e5985cd64689ebbbc836"
 
 iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4:
   version "0.4.24"
