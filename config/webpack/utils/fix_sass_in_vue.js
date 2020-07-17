@@ -38,8 +38,9 @@ module.exports = environment => {
         if (currentLoader.loader === 'css-loader') {
           // copy localIdentName into modules
           currentLoader.options.modules = {
-            // localIdentName: '[local]'
-            localIdentName: currentLoader.options.localIdentName
+            localIdentName: '[local]'
+            // NOTE: have to use '[local]' otherwise vue styles won't be displayed
+            // localIdentName: currentLoader.options.localIdentName
           };
           // delete localIdentName
           delete currentLoader.options.localIdentName;
