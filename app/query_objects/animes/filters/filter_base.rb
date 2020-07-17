@@ -43,7 +43,7 @@ private
   end
 
   def fail_with_negative!
-    dry_type["!#{negatives[0]}"]
+    raise InvalidParameterError.new field, "!#{negatives[0]}"
   end
 
   def fail_with_scope!
