@@ -83,7 +83,7 @@ module Clockwork
     NamedLogger.clockwork.info 'daily.misc finished'
   end
 
-  every 1.day, 'daily.long-stuff', at: '03:00' do
+  every 1.day, 'daily.long-staff', at: '01:37' do
     MalParsers::RefreshEntries.perform_async 'anime', 'latest', 1.week
     # SubtitlesImporter.perform_async :ongoings
     ImagesVerifier.perform_async
