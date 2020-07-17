@@ -1,5 +1,5 @@
 {
-  "name": "myapp",
+  "name": "shikimori",
   "private": true,
   "dependencies": {
     "@johmun/vue-tags-input": "^2.1.0",
