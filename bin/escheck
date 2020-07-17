@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rm -rf public/packs && rm -rf public/assets && RAILS_ENV=production rails assets:precompile && yarn && yarn run es-check es5 public/packs/js/*.js && rm -rf public/packs && rm -rf public/assets
