@@ -3,9 +3,20 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "5.1.1",
+    "shiki-editor": "^0.6.3",
+    "shiki-uploader": "^0.2.2",
+    "shiki-utils": "^0.2.1",
+    "swiper": "^6.0.4",
+    "throttle-debounce": "^2.2.1",
+    "turbolinks": "^5.2.0",
+    "uevent": "^2.0.0",
+    "urijs": "^1.19.2",
+    "url-parse": "^1.4.7",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.3",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "vuedraggable": "^2.24.0",
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.10.5",
