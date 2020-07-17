@@ -1,30 +1,51 @@
+const webpack = require('webpack');
 const { environment } = require('@rails/webpacker');
-const { VueLoaderPlugin } = require('vue-loader')
-const vue = require('./loaders/vue')
 
-environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin())
-environment.loaders.prepend('vue', vue)
-module.exports = environment;
+// vue
+const { VueLoaderPlugin } = require('vue-loader');
+const vueLoader = require('./loaders/vue');
+
+environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin());
+environment.loaders.prepend('vue', vueLoader);
+
+// coffee
+// https://github.com/rails/webpacker/issues/2162
+const coffeeLoader = require('./loaders/coffee');
+
+environment.loaders.prepend('coffee', coffeeLoader);
+
+// pug
+const pugLoader = require('./loaders/pug');
+
+environment.loaders.append('pug', pugLoader);
+
+
+// other
+environment.loaders.get('babel').exclude =
+  /shiki-utils|node_modules\/(?!delay|p-defer|get-js|shiki-utils|shiki-editor|shiki-upload)/;
+environment.loaders.get('file').exclude =
+  /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
+
+environment.plugins.append(
+  'Provide',
+  new webpack.ProvidePlugin({
+    I18n: 'i18n-js'
+  })
+);
+
+environment.plugins.append(
+  'ContextReplacement',
+  new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ru/)
+);
 
 
 
-
-// const webpack = require('webpack');
-// const { environment } = require('@rails/webpacker');
-// 
-// // vue
-// const { VueLoaderPlugin } = require('vue-loader');
-// const vueLoader = require('./loaders/vue');
-// 
-// environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin());
-// environment.loaders.prepend('vue', vueLoader);
-// 
 // // fix issue with SASS not working in vue
 // const getStyleRule = require('@rails/webpacker/package/utils/get_style_rule');
-// 
+//
 // environment.loaders.delete('sass');
 // environment.loaders.delete('moduleSass');
-// 
+//
 // environment.loaders.insert(
 //   'sass',
 //   getStyleRule(/\.sass$/i, false, [
@@ -59,7 +80,7 @@ module.exports = environment;
 //   ]),
 //   { after: 'sass' }
 // );
-// 
+//
 // environment.loaders.forEach(item => (
 //   item.value.use.forEach(currentLoader => {
 //     // fixes issue with webpacker not compatible with css-loader > 3.0
@@ -75,44 +96,9 @@ module.exports = environment;
 //     }
 //   })
 // ));
-// 
-// // coffee
-// // https://github.com/rails/webpacker/issues/2162
-// const coffee = require('./loaders/coffee');
-// 
-// environment.loaders.prepend('coffee', coffee);
-// 
-// // other
-// environment.loaders.get('babel').exclude =
-//   /shiki-utils|node_modules\/(?!delay|p-defer|get-js|shiki-utils|shiki-editor|shiki-upload)/;
-// environment.loaders.get('file').exclude =
-//   /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
-// 
-// environment.loaders.append('pug', {
-//   test: /\.pug$/,
-//   oneOf: [
-//     {
-//       exclude: /\.vue/,
-//       use: ['pug-loader']
-//     },
-//     {
-//       use: ['pug-plain-loader']
-//     }
-//   ]
-// });
-// 
-// environment.plugins.append(
-//   'Provide',
-//   new webpack.ProvidePlugin({
-//     I18n: 'i18n-js'
-//   })
-// );
-// 
-// environment.plugins.append(
-//   'ContextReplacement',
-//   new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ru/)
-// );
-// 
+//
+//
+//
 // if (process.env.NODE_ENV !== 'test') {
 //   // https://webpack.js.org/migrate/4/#commonschunkplugin
 //   environment.splitChunks(config => (
@@ -170,5 +156,5 @@ module.exports = environment;
 //     })
 //   ));
 // }
-// 
-// module.exports = environment;
+//
+module.exports = environment;

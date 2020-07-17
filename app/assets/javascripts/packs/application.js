@@ -10,5 +10,5 @@ import sugar from 'vendor/sugar'; // eslint-disable-line import/newline-after-im
 sugar.extend();
 
 // require('application');
-// require('turbolinks_load');
-// require('turbolinks_before_cache');
+require('turbolinks_load');
+require('turbolinks_before_cache');
