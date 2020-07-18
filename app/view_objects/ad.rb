@@ -27,7 +27,11 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def provider
-    placeholder? ? 'placeholder' : banner[:provider]
+    banner[:provider]
+  end
+
+  def placeholder?
+    Rails.env.development? && !special?
   end
 
   def platform
@@ -85,10 +89,6 @@ private
 
   def banner
     BANNERS[h.clean_host?][@banner_type]
-  end
-
-  def placeholder?
-    Rails.env.development? && !special?
   end
 
   def yandex_direct?
