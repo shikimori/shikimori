@@ -21,7 +21,7 @@ environment.loaders.append('pug', pugLoader);
 
 // other
 environment.loaders.get('babel').exclude =
-  /shiki-utils|node_modules\/(?!delay|p-defer|get-js|shiki-utils|shiki-editor|shiki-upload)/;
+  /node_modules\/(?!delay|p-defer|get-js|shiki-utils|shiki-editor|shiki-upload|)/;
 environment.loaders.get('file').exclude =
   /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
 
@@ -43,7 +43,8 @@ fixSassInVue(environment);
 if (process.env.NODE_ENV !== 'test') {
   // https://webpack.js.org/migrate/4/#commonschunkplugin
   environment.splitChunks(config => (
-    Object.assign({}, config, {
+    {
+      ...config,
       optimization: {
         splitChunks: {
           cacheGroups: {
@@ -94,7 +95,7 @@ if (process.env.NODE_ENV !== 'test') {
         namedModules: true,
         namedChunks: true
       }
-    })
+    }
   ));
 }
 
