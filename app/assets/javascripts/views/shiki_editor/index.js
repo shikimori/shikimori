@@ -62,7 +62,8 @@ export default class ShikiEditor extends ShikiView {
     this.$('.editor-strike').on('click', () => this.$textarea.insertAtCaret('[s]', '[/s]'));
 
     this.$('.editor-spoiler').on('click', () => this.$textarea.insertAtCaret(
-      `[spoiler=${I18n.t('frontend.shiki_editor.spoiler')}]`, '[/spoiler]'
+      `[spoiler=${I18n.t('frontend.shiki_editor.spoiler').toLowerCase()}]`,
+      '[/spoiler]'
     ));
 
     // смайлики и ссылка
