@@ -4,6 +4,8 @@ class Styles::Download
   CACHE_KEY = 'style_%<url>s'
   EXPIRES_IN = 8.hours
 
+  ALLOWED_EXCEPTIONS = Network::FaradayGet::NET_ERRORS
+
   def call
     "/* #{@url} */\n" + sanitize(cached_download)
   end
@@ -16,7 +18,9 @@ private
 
   def cached_download
     Rails.cache.fetch format(CACHE_KEY, url: @url), expires_in: EXPIRES_IN do
-      download
+      Retryable.retryable tries: 2, on: ALLOWED_EXCEPTIONS, sleep: 1 do
+        download
+      end
     end
   end
 
