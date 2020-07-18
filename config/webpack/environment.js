@@ -41,6 +41,8 @@ const fixSassInVue = require('./utils/fix_sass_in_vue'); // eslint-disable-line
 fixSassInVue(environment);
 
 if (process.env.NODE_ENV !== 'test') {
+  const fixChunkName = name => name.replace(/\?.*/, '')
+
   // https://webpack.js.org/migrate/4/#commonschunkplugin
   environment.splitChunks(config => (
     {
@@ -58,14 +60,14 @@ if (process.env.NODE_ENV !== 'test') {
               test: /[\\/]node_modules[\\/]/,
               minChunks: 1,
               chunks: 'async',
-              priority: -1,
+              priority: -5,
               name(module, chunks, cacheGroupKey) {
                 const moduleFileName = module.identifier().split('/').reduceRight(item => item);
                 const allChunksNames = chunks.map(item => item.name).join('~');
                 // return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
                 // return allChunksNames || `${cacheGroupKey}-${moduleFileName}`;
                 // return allChunksNames || moduleFileName;
-                return `${cacheGroupKey}-${allChunksNames || moduleFileName}`;
+                return fixChunkName(`${cacheGroupKey}-${allChunksNames || moduleFileName}`);
               }
             },
             app_sync: {
@@ -77,7 +79,7 @@ if (process.env.NODE_ENV !== 'test') {
                 // return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
                 // return allChunksNames || `${cacheGroupKey}-${moduleFileName}`;
                 // return allChunksNames || moduleFileName;
-                return `${cacheGroupKey}-${allChunksNames || moduleFileName}`;
+                return fixChunkName(`${cacheGroupKey}-${allChunksNames || moduleFileName}`);
               }
             },
             vendors_styles: {
