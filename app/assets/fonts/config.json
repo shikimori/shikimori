@@ -517,20 +517,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "d56a0cd800b7346409f9c15d1dfce123",
-      "css": "zoom_out_map",
-      "code": 59453,
-      "src": "custom_icons",
-      "selected": true,
-      "svg": {
-        "path": "M875 625V875H625L720.7 779.3 599.6 660.2 660.2 599.6 779.3 720.7ZM375 875H125V625L220.7 720.7 339.8 599.6 400.4 660.2 279.3 779.3ZM125 375V125H375L279.3 220.7 400.4 339.8 339.8 400.4 220.7 279.3ZM625 125H875V375L779.3 279.3 660.2 400.4 599.6 339.8 720.7 220.7Z",
-        "width": 1000
-      },
-      "search": [
-        "zoom_out_map"
-      ]
-    },
-    {
       "uid": "74b2f1d1ee541715b3f389f7cdf63d1c",
       "css": "logout",
       "code": 113,
@@ -741,6 +727,32 @@
       "css": "sort",
       "code": 61660,
       "src": "fontawesome"
+    },
+    {
+      "uid": "4815ddddea76d90e367a9694a93b7e24",
+      "css": "resize-full",
+      "code": 59453,
+      "src": "iconic"
+    },
+    {
+      "uid": "b05c5a209b56e7ea6632a31e4bd0b41d",
+      "css": "resize-small",
+      "code": 59444,
+      "src": "iconic"
+    },
+    {
+      "uid": "d56a0cd800b7346409f9c15d1dfce123",
+      "css": "zoom_out_map",
+      "code": 59453,
+      "src": "custom_icons",
+      "selected": false,
+      "svg": {
+        "path": "M875 625V875H625L720.7 779.3 599.6 660.2 660.2 599.6 779.3 720.7ZM375 875H125V625L220.7 720.7 339.8 599.6 400.4 660.2 279.3 779.3ZM125 375V125H375L279.3 220.7 400.4 339.8 339.8 400.4 220.7 279.3ZM625 125H875V375L779.3 279.3 660.2 400.4 599.6 339.8 720.7 220.7Z",
+        "width": 1000
+      },
+      "search": [
+        "zoom_out_map"
+      ]
     },
     {
       "uid": "180ceba44a3c8a0e0215fcc4ae5169f4",
