@@ -2,7 +2,7 @@ class VideoExtractor::BaseExtractor
   vattr_initialize :url
   attr_implement :parse_data
 
-  ALLOWED_EXCEPTIONS = [Errno::ECONNRESET, Net::ReadTimeout]
+  ALLOWED_EXCEPTIONS = Network::FaradayGet::NET_ERRORS
   PARAMS = /(?:(?:\?|\#|&amp;|&)[\w=+%-]+)*/.source
 
   PROXY_OPTIONS = {}
@@ -52,7 +52,7 @@ class VideoExtractor::BaseExtractor
         player_url: current_player_url
       )
     end
-  rescue *(Network::FaradayGet::NET_ERRORS + [EmptyContentError])
+  rescue *(ALLOWED_EXCEPTIONS + [EmptyContentError])
     nil
   end
 
