@@ -20,7 +20,7 @@ pageLoad('tests_editor', async () => {
         locale: window.LOCALE,
         baseUrl: window.location.origin,
         uploadEndpoint: '/api/user_images?linked_type=Comment',
-        uploadHeaders: csrf
+        uploadHeaders: () => csrf().headers
       }
     })
   });
