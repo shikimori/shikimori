@@ -7,7 +7,8 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
 
   def available?
     return false unless @user.preferences.achievements_in_profile?
-    return false if @user.cheat_bot? && !@is_own_profile
+
+    # return false if @user.cheat_bot? && !@is_own_profile
 
     achievements_view.franchise_achievements_size.positive? ||
       achievements_view.common_achievements.size.positive? ||
