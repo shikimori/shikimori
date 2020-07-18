@@ -1,0 +1,25 @@
+.b-spoiler_inline
+  cursor: pointer
+  padding: 2px 3px 1px
+  transition: background-color .25s ease
+
+  &.is-opened
+    background-color: rgba(#456, 0.2)
+
+  &:not(.is-opened)
+    background-color: #456
+
+    & > span
+      opacity: 0
+      user-select: none
+      pointer-events: none
+
+      span,
+      div,
+      code
+        border-color: #456
+        color: inherit
+        background-color: inherit
+
+  & > span
+    transition: opacity .25s ease
