@@ -14289,6 +14289,7 @@
         - 36702
         - 39477
         - 39478
+        - 42091
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -14328,6 +14329,7 @@
         - 36702
         - 39477
         - 39478
+        - 42091
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -25874,6 +25876,8 @@
       :generator:
         ignore_latest_ids:
         - 38850
+        - 42422
+        - 40587
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pretty_cure
@@ -25909,6 +25913,8 @@
       :generator:
         ignore_latest_ids:
         - 38850
+        - 42422
+        - 40587
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pretty_cure
