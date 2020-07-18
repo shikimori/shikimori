@@ -8370,10 +8370,10 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-shiki-editor@^0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.6.3.tgz#8aa12ea5b3ffb2b5f50287dd68ca87412b1381d1"
-  integrity sha512-5rl3Em7ZCLhRxHDa7mptGaBu57ao8ktArE6iUkloM9nNNtDcecttxR336U96A/kU5DEOzGqb15ELi+CRRnNoSA==
+shiki-editor@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.7.1.tgz#ff06f334cd97193cc9d982931c6220c767c6107f"
+  integrity sha512-eGh234y5bCYkiI2rMIQJj9MUfZgElj3KG/7vODfgm7gwgJH6n9lBw9b6MnV3OExrcG666ptH1Y2uiTz7UBqz9w==
   dependencies:
     "@popperjs/core" "^2.4.4"
     prosemirror-commands "^1.1.4"

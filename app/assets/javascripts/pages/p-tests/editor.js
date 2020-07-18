@@ -6,8 +6,8 @@ pageLoad('tests_editor', async () => {
   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
   const { default: EditorApp } =
     await import(/* webpackChunkName: "shiki-editor" */ 'shiki-editor');
+  const { default: ShikiUploader } = await import('shiki-uploader');
 
-  console.log(process.env);
   const node = document.querySelector('.b-shiki_editor-v2');
 
   new Vue({
@@ -15,6 +15,7 @@ pageLoad('tests_editor', async () => {
     components: { EditorApp },
     render: h => h(EditorApp, {
       props: {
+        shikiUploader: ShikiUploader,
         content: DEMO_CONTENT,
         locale: window.LOCALE,
         baseUrl: window.location.origin,
