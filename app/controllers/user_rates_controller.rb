@@ -8,15 +8,21 @@ class UserRatesController < ProfilesController
   skip_before_action :fetch_resource, :set_breadcrumbs,
     except: %i[index]
 
+  SortOrder = Animes::Filters::OrderBy::Field
+
   def index
     og noindex: true
+    og page_title: t("#{params[:list_type]}_list")
 
     @library = UserLibraryView.new @resource
     @menu = Menus::CollectionMenu.new @library.klass
 
-    @library.any? # just call to init params parsing and potential redirect if params are invalid
-
-    og page_title: t("#{params[:list_type]}_list")
+    # additional check fo sort order an trigger Dry::Types::ConstraintError in case of invalid value
+    SortOrder[@library.sort_order]
+    # just call to init params parsing and potential redirect if params are invalid
+    @library.any?
+  rescue Dry::Types::ConstraintError
+    redirect_to current_url(order: SortOrder[:rate_score])
   end
 
   def edit
