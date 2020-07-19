@@ -41,7 +41,7 @@ const fixSassInVue = require('./utils/fix_sass_in_vue'); // eslint-disable-line
 fixSassInVue(environment);
 
 if (process.env.NODE_ENV !== 'test') {
-  const fixChunkName = name => name.replace(/\?.*/, '')
+  const fixChunkName = name => name.replace(/\?.*/, '');
 
   // https://webpack.js.org/migrate/4/#commonschunkplugin
   environment.splitChunks(config => (
@@ -100,5 +100,12 @@ if (process.env.NODE_ENV !== 'test') {
     }
   ));
 }
+
+environment.plugins.append(
+  'some_definitions',
+  new webpack.DefinePlugin({
+    IS_LOCAL_SHIKI_PACKAGES: process.env.USER === 'morr'
+  })
+);
 
 module.exports = environment;

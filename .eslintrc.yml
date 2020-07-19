@@ -24,6 +24,7 @@ globals:
   p: true
   pageLoad: true
   pageUnload: true
+  IS_LOCAL_SHIKI_PACKAGES: true
 
 parserOptions:
   ecmaVersion: 2018
