@@ -1,5 +1,8 @@
 const webpack = require('webpack');
 const { environment } = require('@rails/webpacker');
+const path = require('path');
+
+const IS_LOCAL_SHIKI_PACKAGES = process.env.USER === 'morr';
 
 // vue
 const { VueLoaderPlugin } = require('vue-loader');
@@ -20,8 +23,13 @@ const pugLoader = require('./loaders/pug');
 environment.loaders.append('pug', pugLoader);
 
 // other
+if (IS_LOCAL_SHIKI_PACKAGES) {
+  environment.loaders.get('babel').include.push(
+    path.resolve('../shiki-packages') // to force babel to transpile dynamic development imports
+  );
+}
 environment.loaders.get('babel').exclude =
-  /shiki-packages|node_modules\/(?!delay|p-defer|get-js|shiki-utils|shiki-editor|shiki-uploader)/;
+  /node_modules\/(?!delay|p-defer|get-js|shiki-utils|shiki-editor|shiki-uploader)/;
 environment.loaders.get('file').exclude =
   /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
 
@@ -104,7 +112,7 @@ if (process.env.NODE_ENV !== 'test') {
 environment.plugins.append(
   'some_definitions',
   new webpack.DefinePlugin({
-    IS_LOCAL_SHIKI_PACKAGES: process.env.USER === 'morr'
+    IS_LOCAL_SHIKI_PACKAGES
   })
 );
 

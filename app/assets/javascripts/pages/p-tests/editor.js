@@ -6,13 +6,22 @@ pageLoad('tests_editor', async () => {
   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
   const { default: EditorApp } =
     await import(/* webpackChunkName: "shiki-editor" */ 'shiki-editor');
-  const { default: ShikiUploader } = await import('shiki-uploader');
+  const { default: ShikiUploader } = await import(
+    IS_LOCAL_SHIKI_PACKAGES ?
+      '../../../../../../shiki-packages/packages/shiki-uploader' :
+      'shiki-uploader'
+  );
 
   const node = document.querySelector('.b-shiki_editor-v2');
 
   new Vue({
     el: node,
     components: { EditorApp },
+    mounted() {
+      if ($('.l-top_menu-v2').css('position') === 'sticky') {
+        this.$children[0].isMenuBarOffset = true;
+      }
+    },
     render: h => h(EditorApp, {
       props: {
         shikiUploader: ShikiUploader,
