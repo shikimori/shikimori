@@ -21,7 +21,7 @@ environment.loaders.append('pug', pugLoader);
 
 // other
 environment.loaders.get('babel').exclude =
-  /node_modules\/(?!delay|p-defer|get-js|shiki-utils|shiki-editor|shiki-upload|)/;
+  /shiki-packages|node_modules\/(?!delay|p-defer|get-js|shiki-utils|shiki-editor|shiki-uploader)/;
 environment.loaders.get('file').exclude =
   /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
 
@@ -63,11 +63,11 @@ if (process.env.NODE_ENV !== 'test') {
               priority: -5,
               name(module, chunks, cacheGroupKey) {
                 const moduleFileName = module.identifier().split('/').reduceRight(item => item);
-                const allChunksNames = chunks.map(item => item.name).join('~');
+                const allChunksNames = chunks.map(item => item.name).filter(v => v).join('~');
                 // return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
                 // return allChunksNames || `${cacheGroupKey}-${moduleFileName}`;
                 // return allChunksNames || moduleFileName;
-                return fixChunkName(`${cacheGroupKey}-${allChunksNames}-${moduleFileName}`);
+                return fixChunkName(`${cacheGroupKey}-${allChunksNames || moduleFileName}`);
               }
             },
             app_sync: {
@@ -75,11 +75,11 @@ if (process.env.NODE_ENV !== 'test') {
               priority: -5,
               name(module, chunks, cacheGroupKey) {
                 const moduleFileName = module.identifier().split('/').reduceRight(item => item);
-                const allChunksNames = chunks.map(item => item.name).join('~');
+                const allChunksNames = chunks.map(item => item.name).filter(v => v).join('~');
                 // return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
                 // return allChunksNames || `${cacheGroupKey}-${moduleFileName}`;
                 // return allChunksNames || moduleFileName;
-                return fixChunkName(`${cacheGroupKey}-${allChunksNames}-${moduleFileName}`);
+                return fixChunkName(`${cacheGroupKey}-${allChunksNames || moduleFileName}`);
               }
             },
             vendors_styles: {
