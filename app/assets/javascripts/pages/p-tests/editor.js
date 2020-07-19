@@ -1,5 +1,3 @@
-// import "shiki-editor/demo/src/stylesheets/application.sass";
-// import 'shiki-editor/demo/src/stylesheets/prosemirror.sass';
 import csrf from 'helpers/csrf';
 
 pageLoad('tests_editor', async () => {
