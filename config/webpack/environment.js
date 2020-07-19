@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const { environment } = require('@rails/webpacker');
-const path = require('path');
 
 const IS_LOCAL_SHIKI_PACKAGES = process.env.USER === 'morr';
 
@@ -22,12 +21,6 @@ const pugLoader = require('./loaders/pug');
 
 environment.loaders.append('pug', pugLoader);
 
-// other
-if (IS_LOCAL_SHIKI_PACKAGES) {
-  environment.loaders.get('babel').include.push(
-    path.resolve('../shiki-packages') // to force babel to transpile dynamic development imports
-  );
-}
 environment.loaders.get('babel').exclude =
   /node_modules\/(?!delay|p-defer|get-js|shiki-utils|shiki-editor|shiki-uploader)/;
 environment.loaders.get('file').exclude =

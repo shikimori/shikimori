@@ -5,4 +5,6 @@ const WebpackBar = require('webpackbar');
 
 environment.plugins.append('progress', new WebpackBar());
 
-module.exports = environment.toWebpackConfig();
+const config = environment.toWebpackConfig();
+config.resolve.symlinks = true;
+module.exports = config;

@@ -5,10 +5,14 @@ import csrf from 'helpers/csrf';
 pageLoad('tests_editor', async () => {
   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
   const { default: EditorApp } =
-    await import(/* webpackChunkName: "shiki-editor" */ 'shiki-editor');
+    await import(/* webpackChunkName: "shiki-editor" */
+      IS_LOCAL_SHIKI_PACKAGES ?
+        'packages/shiki-editor' :
+        'shiki-editor'
+    );
   const { default: ShikiUploader } = await import(
     IS_LOCAL_SHIKI_PACKAGES ?
-      '../../../../../../shiki-packages/packages/shiki-uploader' :
+      'packages/shiki-uploader' :
       'shiki-uploader'
   );
 
@@ -116,5 +120,4 @@ div [div=b-link_button]inside line is not parsed[/div]
 
 [quote]Old style quote support[/quote]
 [quote=zxc]Old style quote with nickname[/quote]
-[quote=c1246;1945;Silentium°]Old style quote with user[/quote]`
-
+[quote=c1246;1945;Silentium°]Old style quote with user[/quote]`;
