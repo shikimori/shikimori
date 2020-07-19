@@ -67,7 +67,7 @@ if (process.env.NODE_ENV !== 'test') {
                 // return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
                 // return allChunksNames || `${cacheGroupKey}-${moduleFileName}`;
                 // return allChunksNames || moduleFileName;
-                return fixChunkName(`${cacheGroupKey}-${allChunksNames || moduleFileName}`);
+                return fixChunkName(`${cacheGroupKey}-${allChunksNames}-${moduleFileName}`);
               }
             },
             app_sync: {
@@ -79,7 +79,7 @@ if (process.env.NODE_ENV !== 'test') {
                 // return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
                 // return allChunksNames || `${cacheGroupKey}-${moduleFileName}`;
                 // return allChunksNames || moduleFileName;
-                return fixChunkName(`${cacheGroupKey}-${allChunksNames || moduleFileName}`);
+                return fixChunkName(`${cacheGroupKey}-${allChunksNames}-${moduleFileName}`);
               }
             },
             vendors_styles: {
