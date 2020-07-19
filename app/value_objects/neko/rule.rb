@@ -26,10 +26,10 @@ class Neko::Rule
   )
 
   EPISODES_GTE_SQL = <<~SQL.squish
-    (status = 'released' and episodes >= :episodes) or (
-      status != 'released' and (
-        (episodes_aired != 0 and episodes_aired >= :episodes) or
-        (episodes_aired = 0 and episodes >= :episodes)
+    (%<table_name>s.status = 'released' and %<table_name>s.episodes >= :episodes) or (
+      %<table_name>s.status != 'released' and (
+        (%<table_name>s.episodes_aired != 0 and %<table_name>s.episodes_aired >= :episodes) or
+        (%<table_name>s.episodes_aired = 0 and %<table_name>s.episodes >= :episodes)
       )
     )
   SQL
@@ -154,7 +154,10 @@ class Neko::Rule
     end
 
     if filters['episodes_gte']
-      scope.where! EPISODES_GTE_SQL, episodes: filters['episodes_gte'].to_i
+      scope.where!(
+        format(EPISODES_GTE_SQL, table_name: scope.table_name),
+        episodes: filters['episodes_gte'].to_i
+      )
     end
 
     if filters['duration_lte']
