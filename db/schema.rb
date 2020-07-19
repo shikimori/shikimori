@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_170955) do
+ActiveRecord::Schema.define(version: 2020_07_19_141942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1055,7 +1055,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_170955) do
     t.string "target_type", limit: 255
     t.integer "volumes", default: 0, null: false
     t.integer "chapters", default: 0, null: false
-    t.string "text", limit: 2048
+    t.string "text", limit: 16384
     t.integer "rewatches", default: 0, null: false
     t.index ["target_id", "target_type"], name: "i_target"
     t.index ["user_id", "target_id", "target_type"], name: "index_user_rates_on_user_id_and_target_id_and_target_type", unique: true

@@ -110,10 +110,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     return @scope if custom_sorting?
 
     fail_with_negative! if negatives.any?
-    if user_rates_sortings? && scope_missing_user_rates?
-      1/0
-      fail_with_scope!
-    end
+    fail_with_scope! if user_rates_sortings? && scope_missing_user_rates?
 
     @scope.order(self.class.arel_sql(terms: positives, scope: @scope))
   end
