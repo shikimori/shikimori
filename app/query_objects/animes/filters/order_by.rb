@@ -99,10 +99,18 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     [Field[:user_2]]
   ]
 
+  USER_RATES_SORTINGS = [
+    [Field[:rate_id]],
+    [Field[:rate_status]],
+    [Field[:rate_updated]],
+    [Field[:rate_score]]
+  ]
+
   def call
     return @scope if custom_sorting?
 
     fail_with_negative! if negatives.any?
+    fail_with_scope! if user_rates_sortings? && scope_missing_user_rates?
 
     @scope.order(self.class.arel_sql(terms: positives, scope: @scope))
   end
@@ -138,5 +146,13 @@ private
 
   def custom_sorting?
     CUSTOM_SORTINGS.include? positives
+  end
+
+  def user_rates_sortings?
+    USER_RATES_SORTINGS.include? positives
+  end
+
+  def scope_missing_user_rates?
+    !@scope.to_sql.match?(/(?:inner|left) join (?:'|"|)user_rates(?:'|"|)/i)
   end
 end

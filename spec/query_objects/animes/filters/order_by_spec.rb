@@ -42,6 +42,21 @@ describe Animes::Filters::OrderBy do
       end
     end
 
+    context 'rate_id' do
+      let!(:user_rate_2) { create :user_rate, target: anime_2, user: user }
+      let!(:user_rate_1) { create :user_rate, target: anime_1, user: user }
+      let(:terms) { 'rate_id' }
+
+      context 'no user_rates joined' do
+        it { expect { subject }.to raise_error InvalidParameterError }
+      end
+
+      context 'has user_rates joined' do
+        let(:scope) { Anime.joins :rates }
+        it { is_expected.to eq [anime_2, anime_1] }
+      end
+    end
+
     context 'invalid parameter' do
       let(:terms) { 'z' }
       it { expect { subject }.to raise_error InvalidParameterError }
