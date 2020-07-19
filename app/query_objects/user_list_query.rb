@@ -17,7 +17,7 @@ private
     # user_rates.merge(AniMangaQuery.new(@klass, @params, @user).fetch.except(:order))
     @user
       .send("#{list_type}_rates")
-      .merge(db_entries.scope)
+      .where(target_id: db_entries.scope.select('id'))
       .includes(list_type.to_sym)
       .references(list_type.to_sym)
       .order(
