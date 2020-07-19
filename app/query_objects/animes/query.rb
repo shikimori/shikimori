@@ -7,7 +7,13 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
 
   SEARCH_IDS_LIMIT = 250
 
-  def self.fetch scope:, params:, user:, is_apply_excludes: true # rubocop:disable all
+  def self.fetch( # rubocop:disable all
+    scope:,
+    params:,
+    user:,
+    is_apply_excludes: true,
+    is_apply_order: true
+  )
     new_scope = new(scope.respond_to?(:to_a) ? scope : scope.all)
       .by_achievement(params[:achievement])
       .by_duration(params[:duration])
@@ -38,8 +44,10 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
 
     if search_term.present?
       new_scope.search(search_term)
-    else
+    elsif is_apply_order
       new_scope.order_by(params[:order])
+    else
+      new_scope
     end
   end
 
