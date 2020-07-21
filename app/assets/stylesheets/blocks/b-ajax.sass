@@ -25,8 +25,7 @@ $image-path: 'blocks/b-ajax'
     content: ''
     height: 30px
     left: 50%
-    margin-left: -15px
-    margin-top: -15px
+    transform: translateX(-50%) translateY(-50%)
     position: absolute
     top: 50%
     width: 30px
@@ -35,6 +34,14 @@ $image-path: 'blocks/b-ajax'
     +retina_media
       background: asset_url('#{$image-path}/ajax@2x.gif') no-repeat
       background-size: 30px 30px
+      background-position: center
+
+  &.vk-like:after
+    background: asset_url('#{$image-path}/ajax-vk.gif') no-repeat
+
+    +retina_media
+      background: asset_url('#{$image-path}/ajax-vk@2x.gif') no-repeat
+      background-size: 32px 8px
       background-position: center
 
 .ajax
