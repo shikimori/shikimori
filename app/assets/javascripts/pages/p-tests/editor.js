@@ -51,6 +51,8 @@ pageLoad('tests_editor', async () => {
 const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
   `[anime=1] test
 [anime=1]test[/anime]
+[image=1124145]
+[poster=1124145]
 ` :
   `# Headings
 [hr]
