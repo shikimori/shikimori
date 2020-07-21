@@ -3,6 +3,8 @@
 import csrf from 'helpers/csrf';
 
 pageLoad('tests_editor', async () => {
+  $('.b-shiki_editor').shikiEditor();
+
   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
   const { default: EditorApp } =
     await import(/* webpackChunkName: "shiki-editor" */
@@ -39,7 +41,9 @@ pageLoad('tests_editor', async () => {
   });
 });
 
-const DEMO_CONTENT = `# Headings
+const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
+  'test' :
+  `# Headings
 [hr]
 # Heading level 1: \`# Heading level 1\`
 ## Heading level 2: \`## Heading level 2\`

@@ -1,3 +1,9 @@
 .block
   .headline editor
   .b-shiki_editor-v2.b-ajax
+
+.block
+  .b-shiki_editor.unprocessed.block.no-preview-avatar
+    = render 'comments/shiki_editor',
+      text: '',
+      field_name: 'zzz'
