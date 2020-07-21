@@ -8385,10 +8385,10 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-shiki-editor@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.7.2.tgz#eec1c042f2935350d8a00576e891a480d2ba2ccc"
-  integrity sha512-1KMDkKBuDiemz5A8c9an3TD/8A8RJ7MOb3q3oRro2Jp+hFP8svLiuzWflY7rkUDpq9Q/N8yE/8LgHT03QJlDBQ==
+shiki-editor@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.7.3.tgz#db721c00d50bb9292a3f44b27fe1c9ae8e4bc44a"
+  integrity sha512-Qau9AeRtAK2xv2ULHGNJwi92+rw5cRS1OSJYjUqmKnFQFooahpQGX/cK3F2wNJZaJ/mJlLrYqzDcHLbf4Y3qzQ==
   dependencies:
     "@popperjs/core" "^2.4.4"
     prosemirror-commands "^1.1.4"
@@ -8407,19 +8407,19 @@ shiki-editor@^0.7.2:
     vue-keypress "^2.1.1"
     withinviewport "^2.1.2"
 
-shiki-uploader@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.7.2.tgz#fd87d5201765241b60e4b6fd2d0aade61c947bd6"
-  integrity sha512-8qgP4Xz3PMYgEPcdMhDj565Sk0HK8Xr6RPuFBRkKDMhLy5GA0Ib1YAI5sOrH+5VPuw9OIjKx/fOqYh7P2jd6gQ==
+shiki-uploader@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.7.3.tgz#27e19574a7f4cf2895de5bef2de105decb700a7d"
+  integrity sha512-zQN8DXQ2nL92kRYJZJr8flaG06/xaSFJvjlOrdVYVHEYYB3Mz01nzDDzz6+RTJXKgSvzObZBLbr+ij1mFgXFCA==
   dependencies:
     "@uppy/core" "^1.11.0"
     "@uppy/xhr-upload" "^1.6.0"
     is-visible "^2.2.0"
 
-shiki-utils@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.7.2.tgz#42b19ff1551e2e3678404844197774cc0edf3ab8"
-  integrity sha512-9f28jnaSgjzf/ERVN42fg7hH9wZiF1gj81NQT51OF81v0F06VDqYW4HA80xkd+15eEAaP62JyPfORXcFLIWMig==
+shiki-utils@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.7.3.tgz#5b84e9e91f05d5813505c1ff580ca6ed489c7c14"
+  integrity sha512-5DQHxo4n7CsN8/rSlyQw7T6rlACCARafhQDjCLTk4UEdRffukwCXwaNVqElZ73Pd4Ns3hLV/9Wldr7f35LDdig==
   dependencies:
     toastify-js "^1.8.0"
 
