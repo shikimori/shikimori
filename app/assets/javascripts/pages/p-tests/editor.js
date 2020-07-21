@@ -27,6 +27,9 @@ pageLoad('tests_editor', async () => {
     baseUrl: window.location.origin
   }, null, Vue);
 
+  const onlyRaw = true;
+  if (onlyRaw) { return; }
+
   new Vue({
     el: node,
     components: { ShikiEditorApp },
