@@ -1,13 +1,18 @@
 .block
   .headline editor
+
+.block
+  .subheadline vue
   .b-shiki_editor-v2.b-ajax
 
 .block
   .fc-2
     .f-column
+      .subheadline raw
+      .raw-editor
+    .f-column
+      .subheadline old
       .b-shiki_editor.unprocessed.no-preview-avatar
         = render 'comments/shiki_editor',
           text: '',
           field_name: 'zzz'
-    .f-column
-      .raw-editor
