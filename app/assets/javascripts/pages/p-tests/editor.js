@@ -6,7 +6,7 @@ pageLoad('tests_editor', async () => {
   $('.b-shiki_editor').shikiEditor();
 
   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
-  const { default: EditorApp } =
+  const { ShikiEditorApp, ShikiEditor } =
     await import(/* webpackChunkName: "shiki-editor" */
       IS_LOCAL_SHIKI_PACKAGES ?
         'packages/shiki-editor' :
@@ -20,15 +20,22 @@ pageLoad('tests_editor', async () => {
 
   const node = document.querySelector('.b-shiki_editor-v2');
 
+  new ShikiEditor({
+    element: document.querySelector('.raw-editor'),
+    extensions: [],
+    content: DEMO_CONTENT,
+    baseUrl: window.location.origin
+  }, null, Vue);
+
   new Vue({
     el: node,
-    components: { EditorApp },
+    components: { ShikiEditorApp },
     mounted() {
       if ($('.l-top_menu-v2').css('position') === 'sticky') {
         this.$children[0].isMenuBarOffset = true;
       }
     },
-    render: h => h(EditorApp, {
+    render: h => h(ShikiEditorApp, {
       props: {
         shikiUploader: ShikiUploader,
         content: DEMO_CONTENT,
@@ -42,7 +49,9 @@ pageLoad('tests_editor', async () => {
 });
 
 const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
-  'test' :
+  `[anime=1] test
+[anime=1]test[/anime]
+` :
   `# Headings
 [hr]
 # Heading level 1: \`# Heading level 1\`

@@ -3,7 +3,11 @@
   .b-shiki_editor-v2.b-ajax
 
 .block
-  .b-shiki_editor.unprocessed.block.no-preview-avatar
-    = render 'comments/shiki_editor',
-      text: '',
-      field_name: 'zzz'
+  .fc-2
+    .f-column
+      .b-shiki_editor.unprocessed.no-preview-avatar
+        = render 'comments/shiki_editor',
+          text: '',
+          field_name: 'zzz'
+    .f-column
+      .raw-editor
