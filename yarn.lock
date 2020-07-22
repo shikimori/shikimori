@@ -1256,6 +1256,11 @@ acorn@^7.1.1, acorn@^7.2.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.3.1.tgz#85010754db53c3fbaf3b9ea3e083aa5c5d147ffd"
   integrity sha512-tLc0wSnatxAQHVHUapaHdz72pi9KUyHjq5KyHjGg9Y8Ifdc79pTh2XvI6I1/chZbnM7QtNKzh66ooDogPZSleA==
 
+add@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/add/-/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
+  integrity sha1-JI8Kn25aUo7yKV2+7DBTITCuIjU=
+
 aggregate-error@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/aggregate-error/-/aggregate-error-3.0.1.tgz#db2fe7246e536f40d9b5442a39e117d7dd6a24e0"
@@ -2882,6 +2887,11 @@ de-indent@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/de-indent/-/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
   integrity sha1-sgOOhG3DO6pXlhKNCAS0VbjB4h0=
+
+debounce-decorator@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/debounce-decorator/-/debounce-decorator-1.0.6.tgz#227fdfb0092fbfecf1c5cb1b33d458ec94efc264"
+  integrity sha512-xlJprzmFMdcaHiA/f/Hyhg/A3wh8dpfHMVmN3IV1KijJRrEgHl3gEE7lHkZOfnPR3fi4A1JiUn07ZYpayx8tXQ==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.9:
   version "2.6.9"
@@ -8385,12 +8395,15 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-shiki-editor@^0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.7.3.tgz#db721c00d50bb9292a3f44b27fe1c9ae8e4bc44a"
-  integrity sha512-Qau9AeRtAK2xv2ULHGNJwi92+rw5cRS1OSJYjUqmKnFQFooahpQGX/cK3F2wNJZaJ/mJlLrYqzDcHLbf4Y3qzQ==
+shiki-editor@^0.7.4:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.7.4.tgz#7d0be73b20986aa5c445f0371d14bd1d10b3a8d5"
+  integrity sha512-Kk/fLBIRxLQSxjtekLf8Rm0YJbmgz+feDIHu0BoTKIyBYxjbcXB4wP0GwOxkuKksM9QvDVcDKVCGCF6AI+gTdg==
   dependencies:
+    "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@popperjs/core" "^2.4.4"
+    add "^2.0.6"
+    debounce-decorator "^1.0.6"
     prosemirror-commands "^1.1.4"
     prosemirror-dropcursor "^1.3.2"
     prosemirror-gapcursor "^1.1.5"
@@ -8406,20 +8419,21 @@ shiki-editor@^0.7.3:
     prosemirror-view "1.15.0"
     vue-keypress "^2.1.1"
     withinviewport "^2.1.2"
+    yarn "^1.22.4"
 
-shiki-uploader@^0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.7.3.tgz#27e19574a7f4cf2895de5bef2de105decb700a7d"
-  integrity sha512-zQN8DXQ2nL92kRYJZJr8flaG06/xaSFJvjlOrdVYVHEYYB3Mz01nzDDzz6+RTJXKgSvzObZBLbr+ij1mFgXFCA==
+shiki-uploader@^0.7.4:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.7.4.tgz#64bcdaaa3a5035d4f993579e12f172da122f5f5f"
+  integrity sha512-wUVm1ZTa0qtyK9ZCr140ith6y2UlNUjt19QK9rUFNC2zOk1z+AipdzLE6rVYY0dMCGJC4a5e/iBoOoRs2bOY8A==
   dependencies:
     "@uppy/core" "^1.11.0"
     "@uppy/xhr-upload" "^1.6.0"
     is-visible "^2.2.0"
 
-shiki-utils@^0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.7.3.tgz#5b84e9e91f05d5813505c1ff580ca6ed489c7c14"
-  integrity sha512-5DQHxo4n7CsN8/rSlyQw7T6rlACCARafhQDjCLTk4UEdRffukwCXwaNVqElZ73Pd4Ns3hLV/9Wldr7f35LDdig==
+shiki-utils@^0.7.4:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.7.4.tgz#5af301b17610331dcf3a054e9bbdb3875f01101a"
+  integrity sha512-VjAowjxSd5AzYVE5zD45A7X757D4aTh0CVXAVtm9l4Cz8qtUsAKacQ18bg2wXr/Meng3ZlNH2CxNwYgxJEKGVw==
   dependencies:
     toastify-js "^1.8.0"
 
@@ -9913,3 +9927,8 @@ yargs@^13.3.2:
     which-module "^2.0.0"
     y18n "^4.0.0"
     yargs-parser "^13.1.2"
+
+yarn@^1.22.4:
+  version "1.22.4"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.4.tgz#01c1197ca5b27f21edc8bc472cd4c8ce0e5a470e"
+  integrity sha512-oYM7hi/lIWm9bCoDMEWgffW8aiNZXCWeZ1/tGy0DWrN6vmzjCXIKu2Y21o8DYVBUtiktwKcNoxyGl/2iKLUNGA==
