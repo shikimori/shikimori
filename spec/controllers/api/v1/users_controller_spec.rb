@@ -103,13 +103,13 @@ describe Api::V1::UsersController, :show_in_doc do
   describe '#anime_rates' do
     let(:user) { create :user }
     let(:anime) { create :anime }
-    let!(:user_rate) { create :user_rate, target: anime, user: user, status: 1 }
+    let!(:user_rate) { create :user_rate, target: anime, user: user, status: 'completed' }
 
     subject! do
       get :anime_rates,
         params: {
           id: user.id,
-          status: 1,
+          status: 'completed',
           limit: 250,
           page: 1
         },
