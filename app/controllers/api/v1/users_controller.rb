@@ -68,6 +68,8 @@ class Api::V1::UsersController < Api::V1Controller
   param :limit, :number,
     required: false,
     desc: "#{USER_RATES_LIMIT} maximum"
+  param :status, Types::UserRate::Status.values.map(&:to_s),
+    required: false
   param :censored, %w[true false],
     required: false,
     desc: 'Set to `true` to discard hentai, yaoi and yuri'
@@ -76,7 +78,7 @@ class Api::V1::UsersController < Api::V1Controller
 
     @rates = Rails.cache.fetch [user, :anime_rates, params[:status], params[:censored]] do
       rates = user.anime_rates.includes(:anime, :user)
-      rates.where! status: params[:status] if params[:status].present?
+      rates.where! status: Types::UserRate::Status[params[:status]] if params[:status].present?
 
       if params[:censored] == 'true'
         rates = rates.joins(:anime).where(animes: { is_censored: false })
