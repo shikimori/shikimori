@@ -56,6 +56,7 @@ const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
 [anime=1]test[/anime]
 [anime=16049]
 [anime=3456789]
+[ranobe=9115]
 [image=1124146]
 [poster=1121416]
 
