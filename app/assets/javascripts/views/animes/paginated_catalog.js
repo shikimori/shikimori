@@ -159,7 +159,7 @@ export default class PaginatedCatalog {
       if (status === 451) {
         Turbolinks.visit(window.location.href);
       } else {
-        flash.error(I18n.t('frontend.lib.paginated_catalog.please_try_again_later'));
+        flash.error(I18n.t('frontend.lib.please_try_again_later'));
       }
       return;
     }

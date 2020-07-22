@@ -1,6 +1,7 @@
 ru:
   frontend:
     lib:
+      please_try_again_later: Ошибка. Попробуй еще раз позже
       rails_ujs_modified:
         # line 118
         nickname: Логин
@@ -13,7 +14,6 @@ ru:
         forbidden: ''
         invalid_login_or_password: Неверный логин или пароль
         you_are_not_authorized: У тебя нет прав для данного действия
-        please_try_again_later: Ошибка, попробуй еще раз позже
 
       comments_notifier:
         number_of_unread_comments: Число непрочитанных комментариев
@@ -27,7 +27,7 @@ ru:
       jquery_shiki_file:
         too_many_files: 'Слишком много файлов: максимум %{count} за раз'
         too_large_file: 'Файл слишком большой: максимум 4 мегабайта'
-        please_try_again_later: Ошибка, попробуй еще раз позже
+        please_try_again_later: Ошибка. Попробуй еще раз позже
         browser_not_supported: Случилась ошибка, или версия браузера устарела
         loading_file: загрузка файла %{filename} (%{filesize} Кб)...
         wait_till_loaded: Дождись загрузки файлов
@@ -42,6 +42,3 @@ ru:
 
       postloader:
         loading: Загрузка...
-
-      paginated_catalog:
-        please_try_again_later: Ошибка, попробуй ещё раз позже

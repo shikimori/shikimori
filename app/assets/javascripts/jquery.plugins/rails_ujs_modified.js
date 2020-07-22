@@ -96,7 +96,7 @@ jQuery($ => {
                 );
               }
             } else if (xhr.status == 500) {
-              flash.error(I18n.t('frontend.lib.rails_ujs_modified.please_try_again_later'));
+              flash.error(I18n.t('frontend.lib.please_try_again_later'));
             } else {
               try {
                 var errors = JSON.parse(xhr.responseText);
@@ -125,7 +125,7 @@ jQuery($ => {
                   flash.error(text);
                 }
               } else {
-                flash.error(I18n.t('frontend.lib.rails_ujs_modified.please_try_again_later'));
+                flash.error(I18n.t('frontend.lib.please_try_again_later'));
               }
             }
             el.trigger('ajax:failure', [xhr, status, error]);

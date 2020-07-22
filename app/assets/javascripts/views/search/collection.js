@@ -97,7 +97,7 @@ export default class CollectionSearch extends View {
     this._hideAjax();
 
     if (status !== 200) {
-      flash.error(I18n.t('frontend.lib.paginated_catalog.please_try_again_later'));
+      flash.error(I18n.t('frontend.lib.please_try_again_later'));
       return;
     }
 

@@ -54,8 +54,10 @@ pageLoad('tests_editor', async () => {
 const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
   `[anime=1] test
 [anime=1]test[/anime]
-[image=1124145]
-[poster=1124145]
+[anime=16049]
+[anime=3456789]
+[image=1124146]
+[poster=1121416]
 
 [img no-zoom 225x317]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]
 ` :

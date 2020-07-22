@@ -1,6 +1,7 @@
 en:
   frontend:
     lib:
+      please_try_again_later: Error. Please try again later
       rails_ujs_modified:
         # line 118
         nickname: Nickname
@@ -13,7 +14,6 @@ en:
         forbidden: ''
         invalid_login_or_password: Invalid login or password
         you_are_not_authorized: You are not authorized to perform this action
-        please_try_again_later: Please try again later
 
       comments_notifier:
         number_of_unread_comments: Number of unread comments
@@ -27,7 +27,7 @@ en:
       jquery_shiki_file:
         too_many_files: 'Too many files: max %{count} files at once'
         too_large_file: 'File is too large: 4 MB max'
-        please_try_again_later: Please try again later
+        please_try_again_later: Error. Please try again later
         browser_not_supported: Error occured or maybe your browser is too old
         loading_file: loading file %{filename} (%{filesize} kB)...
         wait_till_loaded: Wait till files are loaded
@@ -42,6 +42,3 @@ en:
 
       postloader:
         loading: Loading...
-
-      paginated_catalog:
-        please_try_again_later: Please try again later
