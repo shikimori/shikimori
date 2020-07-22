@@ -56,7 +56,7 @@ private
 
   def fixed_value
     @value.to_s.gsub(/\b\d\b/) do |status_id|
-      UserRate.statuses.find { |_name, id| id == status_id.to_i }.first
+      UserRate.statuses.find { |_name, id| id == status_id.to_i }&.first || fail_with(@value)
     end
   end
 
@@ -74,4 +74,7 @@ private
   #     :"#{@scope.base_class.name.downcase}_rates"
   #   end
   # end
+  def fail_with value
+    raise Dry::Types::ConstraintError.new(Types::UserRate::Status.values, value)
+  end
 end
