@@ -56,6 +56,8 @@ const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
 [anime=1]test[/anime]
 [image=1124145]
 [poster=1124145]
+
+[img no-zoom 225x317]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]
 ` :
   `# Headings
 [hr]
