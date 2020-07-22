@@ -416,6 +416,8 @@ Rails.application.routes.draw do
       resources :favorites, only: %i[] do
         post :reorder, on: :member
       end
+
+      resource :shiki_editor, only: %i[show]
     end
   end
   # /api
