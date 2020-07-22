@@ -37,10 +37,11 @@ private
   def serialize_user_image entry
     {
       id: entry.id,
-      original_url: entry.image.url(:original),
-      preview_url: entry.image.url(:preview),
-      width: entry.width,
-      height: entry.height
+      url: ImageUrlGenerator.instance.url(entry, :original)
+      # original_url: entry.image.url(:original),
+      # preview_url: entry.image.url(:preview),
+      # width: entry.width,
+      # height: entry.height
     }
   end
 

@@ -19,36 +19,39 @@ pageLoad('tests_editor', async () => {
   );
 
   const node = document.querySelector('.b-shiki_editor-v2');
+  const isRaw = false;
+  const isVue = true;
 
-  new ShikiEditor({
-    element: document.querySelector('.raw-editor'),
-    extensions: [],
-    content: DEMO_CONTENT,
-    baseUrl: window.location.origin
-  }, null, Vue);
+  if (isRaw) {
+    new ShikiEditor({
+      element: document.querySelector('.raw-editor'),
+      extensions: [],
+      content: DEMO_CONTENT,
+      baseUrl: window.location.origin
+    }, null, Vue);
+  }
 
-  const onlyRaw = true;
-  if (onlyRaw) { return; }
-
-  new Vue({
-    el: node,
-    components: { ShikiEditorApp },
-    mounted() {
-      if ($('.l-top_menu-v2').css('position') === 'sticky') {
-        this.$children[0].isMenuBarOffset = true;
-      }
-    },
-    render: h => h(ShikiEditorApp, {
-      props: {
-        shikiUploader: ShikiUploader,
-        content: DEMO_CONTENT,
-        locale: window.LOCALE,
-        baseUrl: window.location.origin,
-        uploadEndpoint: '/api/user_images?linked_type=Comment',
-        uploadHeaders: () => csrf().headers
-      }
-    })
-  });
+  if (isVue) {
+    new Vue({
+      el: node,
+      components: { ShikiEditorApp },
+      mounted() {
+        if ($('.l-top_menu-v2').css('position') === 'sticky') {
+          this.$children[0].isMenuBarOffset = true;
+        }
+      },
+      render: h => h(ShikiEditorApp, {
+        props: {
+          shikiUploader: ShikiUploader,
+          content: DEMO_CONTENT,
+          locale: window.LOCALE,
+          baseUrl: window.location.origin,
+          uploadEndpoint: '/api/user_images?linked_type=Comment',
+          uploadHeaders: () => csrf().headers
+        }
+      })
+    });
+  }
 });
 
 const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
@@ -62,7 +65,16 @@ const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
 
 [img no-zoom 225x317]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]
 ` :
-  `# Headings
+  ` # Shiki BbCodes
+[anime=1] test
+[anime=1]test[/anime]
+[anime=16049]
+[anime=3456789]
+[ranobe=9115]
+[image=1124146]
+[poster=1121416]
+
+# Headings
 [hr]
 # Heading level 1: \`# Heading level 1\`
 ## Heading level 2: \`## Heading level 2\`

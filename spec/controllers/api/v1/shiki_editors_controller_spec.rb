@@ -46,10 +46,11 @@ describe Api::V1::ShikiEditorsController do
         user_image: [
           {
             'id' => user_image.id,
-            'original_url' => user_image.image.url(:original),
-            'preview_url' => user_image.image.url(:preview),
-            'width' => user_image.width,
-            'height' => user_image.height
+            'url' => ImageUrlGenerator.instance.url(user_image, :original)
+            # 'original_url' => user_image.image.url(:original),
+            # 'preview_url' => user_image.image.url(:preview),
+            # 'width' => user_image.width,
+            # 'height' => user_image.height
           }
         ]
       )
