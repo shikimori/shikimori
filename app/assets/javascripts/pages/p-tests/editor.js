@@ -63,7 +63,7 @@ const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
 
 [img no-zoom 225x317]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]
 ` :
-  ` # Shiki BbCodes
+  `# Shiki BbCodes
 [anime=1] test
 [anime=1]test[/anime]
 [anime=16049]
