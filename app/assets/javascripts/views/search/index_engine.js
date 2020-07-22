@@ -9,7 +9,7 @@ import JST from 'helpers/jst';
 
 export default class IndexEngine {
   constructor() {
-    this.searchPromise = undefined;
+    this.searchDeferred = undefined;
     this.isAutocomplete = false;
     this.debouncedSearch = debounce(250, v => this._search(v));
   }
@@ -20,7 +20,7 @@ export default class IndexEngine {
 
   search(phrase) {
     this.phrase = phrase;
-    return this.searchPromise;
+    return this.searchDeferred.promise;
   }
 
   get $content() {
@@ -117,13 +117,13 @@ export default class IndexEngine {
   }
 
   _buildSearchPromise() {
-    this.searchPromise = pDefer();
+    this.searchDeferred = pDefer();
   }
 
   _resolveSearchPromise() {
-    if (this.searchPromise) {
-      this.searchPromise.resolve();
-      this.searchPromise = undefined;
+    if (this.searchDeferred) {
+      this.searchDeferred.resolve();
+      this.searchDeferred = undefined;
     }
   }
 }

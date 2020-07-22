@@ -104,10 +104,10 @@ export default class GlobalSearch extends View {
     if (priorPhrase === undefined) { return; }
 
     if (this.phrase) { // it is undefined in constructor
-      const defferred = this.searchEngine.search(trimmedValue);
+      const promise = this.searchEngine.search(trimmedValue);
 
-      if (defferred) {
-        defferred.promise.then(this._applyShade);
+      if (promise) {
+        promise.then(this._applyShade);
       } else {
         this._applyShade();
       }
