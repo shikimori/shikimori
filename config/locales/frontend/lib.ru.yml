@@ -12,8 +12,8 @@ ru:
         created_at: ''
         forbidden: ''
         invalid_login_or_password: Неверный логин или пароль
-        you_are_not_authorized: У вас нет прав для данного действия
-        please_try_again_later: Пожалуйста, повторите попытку позже
+        you_are_not_authorized: У тебя нет прав для данного действия
+        please_try_again_later: Ошибка, попробуй еще раз позже
 
       comments_notifier:
         number_of_unread_comments: Число непрочитанных комментариев
