@@ -6,7 +6,6 @@ $.fn.extend
         sel = document.selection.createRange()
         sel.text = prefix + ((if sel.text is '' and filler then filler else sel.text)) + postfix
         @focus()
-
       else if @selectionStart or @selectionStart is '0' or @selectionStart is 0
         startPos = @selectionStart
         endPos = @selectionEnd
@@ -17,7 +16,7 @@ $.fn.extend
         @focus()
         @selectionEnd = @selectionStart = startPos + prefix.length + selectedText.length + postfix.length
         @scrollTop = scrollTop
-
       else
         @value += prefix + postfix
         @focus()
+      $(@).trigger('change')
