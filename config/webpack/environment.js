@@ -105,7 +105,8 @@ if (process.env.NODE_ENV !== 'test') {
 environment.plugins.append(
   'some_definitions',
   new webpack.DefinePlugin({
-    IS_LOCAL_SHIKI_PACKAGES
+    IS_LOCAL_SHIKI_PACKAGES,
+    IS_FAYE_LOGGING: process.env.NODE_ENV === 'production'
   })
 );
 

@@ -24,11 +24,11 @@ export default class FayeLoader
     idle(
       onIdle: =>
         if @client
-          console.log 'faye disconnect on idle'
+          console.log 'faye disconnect on idle' if IS_FAYE_LOGGING
           @_disconnect()
       onActive: =>
         unless @client
-          console.log 'faye connect on active'
+          console.log 'faye connect on active' if IS_FAYE_LOGGING
           @_connect()
           @_apply()
       idle: INACTIVITY_INTERVAL
@@ -77,7 +77,7 @@ export default class FayeLoader
 
     #@client.disable 'eventsource'
     @client.disable('websocket') if cookies.get('faye-disable-websocket')
-    # console.log 'faye connected'
+    # console.log 'faye connected' if IS_FAYE_LOGGING
 
   _disconnect: ->
     @client.disconnect()
@@ -93,7 +93,7 @@ export default class FayeLoader
       @client.unsubscribe channel
       delete @subscriptions[channel]
 
-      console.log "faye unsubscribed #{channel}"
+      console.log "faye unsubscribed #{channel}" if IS_FAYE_LOGGING
 
   # обновление уже существующих каналов
   _update: (channels) ->
@@ -109,7 +109,7 @@ export default class FayeLoader
       .forEach (channel) =>
         subscription = @client.subscribe channel, (data) =>
           # это колбек, в котором мы получили уведомление от faye
-          console.log ['faye:received', channel, data]
+          console.log ['faye:received', channel, data] if IS_FAYE_LOGGING
           # сообщения от самого себя не принимаем
           return if data.publisher_faye_id == @id()
 
@@ -119,4 +119,4 @@ export default class FayeLoader
           node: channels[channel]
           channel: subscription
 
-        console.log "faye subscribed #{channel}"
+        console.log "faye subscribed #{channel}" if IS_FAYE_LOGGING
