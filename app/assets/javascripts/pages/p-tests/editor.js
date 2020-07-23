@@ -17,16 +17,18 @@ pageLoad('tests_editor', async () => {
   );
 
   const node = document.querySelector('.b-shiki_editor-v2');
-  const isRaw = false;
+  const isRaw = true;
   const isVue = true;
 
   if (isRaw) {
-    new ShikiEditor({
+    const editor = new ShikiEditor({
       element: document.querySelector('.raw-editor'),
       extensions: [],
-      content: DEMO_CONTENT,
+      content: RAW_DEMO_CONTENT,
       baseUrl: window.location.origin
     }, null, Vue);
+
+    $('textarea[name=zzz]').html(editor.exportMarkdown())
   }
 
   if (isVue) {
@@ -52,17 +54,17 @@ pageLoad('tests_editor', async () => {
   }
 });
 
-const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
-  `[anime=1] test
+const RAW_DEMO_CONTENT = `
+[anime=1] test
 [anime=1]test[/anime]
 [anime=16049]
 [anime=3456789]
 [ranobe=9115]
 [image=1124146]
-[poster=1121416]
+`.trim();
 
-[img no-zoom 225x317]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]
-` :
+const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
+  RAW_DEMO_CONTENT  :
   `# Shiki BbCodes
 [anime=1] test
 [anime=1]test[/anime]
@@ -70,7 +72,6 @@ const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
 [anime=3456789]
 [ranobe=9115]
 [image=1124146]
-[poster=1121416]
 
 # Headings
 [hr]
