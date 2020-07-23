@@ -1,5 +1,6 @@
 import delay from 'delay';
 import csrf from 'helpers/csrf';
+import autosize from 'autosize';
 
 pageLoad('tests_editor', async () => {
   const $shikiEditor = $('.b-shiki_editor').shikiEditor();
@@ -20,7 +21,7 @@ pageLoad('tests_editor', async () => {
 
   const node = document.querySelector('.b-shiki_editor-v2');
   const isRaw = true || !IS_LOCAL_SHIKI_PACKAGES;
-  const isVue = true || !IS_LOCAL_SHIKI_PACKAGES;
+  const isVue = false || !IS_LOCAL_SHIKI_PACKAGES;
 
   if (isRaw) {
     const editor = new ShikiEditor({
@@ -30,12 +31,16 @@ pageLoad('tests_editor', async () => {
       baseUrl: window.location.origin
     }, null, Vue);
 
-    editor.on('update', () => $textarea.val(editor.exportMarkdown()));
+    editor.on('update', () => {
+      $textarea.val(editor.exportMarkdown())
+      autosize.update($textarea[0]);
+    });
 
     let value = editor.exportMarkdown();
     $textarea.val(value);
+    autosize($textarea);
 
-    $textarea.on('keypress keydown paste', async () => {
+    $textarea.on('keypress keydown paste change', async () => {
       await delay();
       const newValue = $textarea.val();
       if (newValue !== value) {
