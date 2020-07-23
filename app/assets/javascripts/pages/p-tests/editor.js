@@ -19,8 +19,8 @@ pageLoad('tests_editor', async () => {
   );
 
   const node = document.querySelector('.b-shiki_editor-v2');
-  const isRaw = true;
-  const isVue = true;
+  const isRaw = true || !IS_LOCAL_SHIKI_PACKAGES;
+  const isVue = true || !IS_LOCAL_SHIKI_PACKAGES;
 
   if (isRaw) {
     const editor = new ShikiEditor({
