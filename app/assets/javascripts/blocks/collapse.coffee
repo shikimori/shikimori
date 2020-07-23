@@ -1,6 +1,6 @@
 import cookies from 'js-cookie'
 
-$(document).on 'click', '.spoiler.collapse', (e, custom) ->
+$(document).on 'click', '.collapse', (e, custom) ->
   is_hide = $(@).children('.action').html().match(/свернуть|спрятать|collapse|hide/)
   $(@).toggleClass 'triggered', is_hide
 
