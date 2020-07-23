@@ -1,7 +1,9 @@
+import delay from 'delay';
 import csrf from 'helpers/csrf';
 
 pageLoad('tests_editor', async () => {
-  $('.b-shiki_editor').shikiEditor();
+  const $shikiEditor = $('.b-shiki_editor').shikiEditor();
+  const $textarea = $shikiEditor.find('textarea');
 
   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
   const { ShikiEditorApp, ShikiEditor } =
@@ -28,7 +30,19 @@ pageLoad('tests_editor', async () => {
       baseUrl: window.location.origin
     }, null, Vue);
 
-    $('textarea[name=zzz]').html(editor.exportMarkdown())
+    editor.on('update', () => $textarea.val(editor.exportMarkdown()));
+
+    let value = editor.exportMarkdown();
+    $textarea.val(value);
+
+    $textarea.on('keypress keydown paste', async () => {
+      await delay();
+      const newValue = $textarea.val();
+      if (newValue !== value) {
+        editor.setContent(newValue, false);
+        value = newValue;
+      }
+    });
   }
 
   if (isVue) {
