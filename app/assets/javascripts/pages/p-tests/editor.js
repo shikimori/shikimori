@@ -2,7 +2,7 @@ import delay from 'delay';
 import csrf from 'helpers/csrf';
 import autosize from 'autosize';
 
-const IS_RAW = true || !IS_LOCAL_SHIKI_PACKAGES;
+const IS_RAW = false || !IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = true || !IS_LOCAL_SHIKI_PACKAGES;
 
 pageLoad('tests_editor', async () => {
@@ -22,11 +22,12 @@ pageLoad('tests_editor', async () => {
       'shiki-uploader'
   );
 
-  const node = document.querySelector('.b-shiki_editor-v2');
+  const rawNode = document.querySelector('.raw-editor');
+  const vueNode = document.querySelector('.b-shiki_editor-v2');
 
   if (IS_RAW) {
     const editor = new ShikiEditor({
-      element: document.querySelector('.raw-editor'),
+      element: rawNode,
       extensions: [],
       content: RAW_DEMO_CONTENT,
       baseUrl: window.location.origin
@@ -49,11 +50,13 @@ pageLoad('tests_editor', async () => {
         value = newValue;
       }
     });
+  } else {
+    $(rawNode).closest('.block').hide();
   }
 
   if (IS_VUE) {
     new Vue({
-      el: node,
+      el: vueNode,
       components: { ShikiEditorApp },
       mounted() {
         if ($('.l-top_menu-v2').css('position') === 'sticky') {
@@ -71,20 +74,14 @@ pageLoad('tests_editor', async () => {
         }
       })
     });
+  } else {
+    $(vueNode).closest('.block').hide();
   }
 });
 
 // [anime=1]t[b]es[/b]t[/anime]
 const RAW_DEMO_CONTENT = `
-[url=//ya.ru]test[/url]
 [url]//ya.ru[/url]
-[anime=1] test
-[anime=1]test[/anime]
-[anime=16049]
-[anime=3456789]
-[ranobe=9115]
-[image=1124146]
-
 `.trim();
 
 const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
