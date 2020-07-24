@@ -23,34 +23,35 @@ header.head
         li: a.b-link href=ip_tests_url IP
         li: a.b-link href=reset_styles_cache_tests_url Reset Styles Cache
     .f-column
+      h2 h1 test
       p A A Ben
         Warem a ben ben
         Warem ben ben ben
         Warem a wa two ben ben
         Warem a bla a bla ben
         Warem a a ben
-      h2 h2 test
+      h3 h2 test
       p A A Ben
         Warem a ben ben
         Warem ben ben ben
         Warem a wa two ben ben
         Warem a bla a bla ben
         Warem a a ben
-      h3 h3 test
+      h4 h3 test
       p A A Ben
         Warem a ben ben
         Warem ben ben ben
         Warem a wa two ben ben
         Warem a bla a bla ben
         Warem a a ben
-      h4 h4 test
+      h5 h4 test
       p A A Ben
         Warem a ben ben
         Warem ben ben ben
         Warem a wa two ben ben
         Warem a bla a bla ben
         Warem a a ben
-      h5 h5 test
+      h6 h5 test
       p A A Ben
         Warem a ben ben
         Warem ben ben ben
@@ -59,128 +60,128 @@ header.head
         Warem a a ben
 
 .block
-  .subheadline spoiler
-  div == BbCodes::Text.call "[spoiler=спойлер1]aaa[spoiler=спойлер2]bbb[spoiler=спойлер3]ccc[/spoiler]bbb[/spoiler]aaa[/spoiler]"
-  div == BbCodes::Text.call "[spoiler=[b]Темы прошлых опросов[/b]]содержимое[/spoiler]"
-
-.subheadline content_by block
-.subcontent.cc.m0.animes-2
-  = render partial: 'animes/anime', collection: Anime.where(id: [457, 1]).decorate, locals: { cover_notice: :studio, content_by: :block }
-
-.subheadline tooltipped c8
-.subcontent.cc.m0.animes-8
-  = render partial: 'animes/anime', collection: Anime.where(id: [20583, 22199, 20899, 22319, 23283, 22097, 22789, 18689, 23327, 20785, 23421, 24475]).decorate, locals: { cover_notice: :studio, content_by: :tooltip }
-
-.subheadline tooltipped c5
-.subcontent.cc.m0.animes-5
-  = render partial: 'animes/anime', collection: Anime.where(id: [9969, 5114, 12355, 21939, 16498]).decorate, locals: { cover_notice: :studio, content_by: :tooltip }
-
-.block
-  .subheadline.m5 @font-face: shikimori
-  .fonts-test
-    - 71.times do |i|
-      div class="icon-#{i}"
-
-.block
-  .subheadline.m5 График
-  .traffic-test data-stats="#{@traffic.to_json}"
-
-/*.half-chart*/
-  /*.b-options-floated*/
-    /*span Всего:&nbsp;&nbsp;*/
-    /*a.selected*/
-      /*| #{@users_count}&nbsp;&nbsp;*/
-  /*.subheadline.m5 users*/
-  /*.subcontent.users-test data-stats="#{@users.to_json}"*/
-
-/*.half-chart*/
-  /*.b-options-floated*/
-    /*span Всего:&nbsp;&nbsp;*/
-    /*a.selected*/
-      /*| #{@comments_count}&nbsp;&nbsp;*/
-  /*.subheadline.m5 comments*/
-  /*.subcontent.comments-test data-stats="#{@comments.to_json}"*/
-
-.images-test
-  .subheadline.m5 Растягивающаяся галерея
-  .main
-    .shiki-wall.unprocessed
-      a href="/images/static/embed/8bxMha3liII.jpg"
-        img src="/images/static/embed/8bxMha3liII.jpg"
-      a href="/images/static/embed/nrAv4Wyt6iM.jpg"
-        img src="/images/static/embed/nrAv4Wyt6iM.jpg"
-  .main
-    .shiki-wall.unprocessed
-      a href="/images/static/embed/_bhm0PWtYi4.jpg"
-        img src="/images/static/embed/_bhm0PWtYi4.jpg"
-      a href="/images/static/embed/wjOz1uP-OLs.jpg"
-        img src="/images/static/embed/wjOz1uP-OLs.jpg"
-  .main
-    .shiki-wall.unprocessed
-      a href="/images/static/embed/_bhm0PWtYi4.jpg"
-        img src="/images/static/embed/_bhm0PWtYi4.jpg"
-      a href="/images/static/embed/73367604.png"
-        img src="/images/static/embed/73367604.png"
-  .main
-    .shiki-wall.unprocessed
-      a href="/images/static/embed/dnVCwMIwukY.jpg"
-        img src="/images/static/embed/dnVCwMIwukY.jpg"
-      a href="/images/static/embed/LkKWpGsK6IQ.jpg"
-        img src="/images/static/embed/LkKWpGsK6IQ.jpg"
-      a href="/images/static/embed/_bhm0PWtYi4.jpg"
-        img src="/images/static/embed/_bhm0PWtYi4.jpg"
-      a href="/images/static/embed/wIXrZfprFFU.jpg"
-        img src="/images/static/embed/wIXrZfprFFU.jpg"
-  .main
-    .shiki-wall.unprocessed
-      a href="/images/static/embed/ODAcucvZDY8.jpg"
-        img src="/images/static/embed/ODAcucvZDY8.jpg"
-
-  .main
-    .shiki-wall.unprocessed
-      a href="/images/static/embed/1q3c_6mjJ24.jpg"
-        img src="/images/static/embed/1q3c_6mjJ24.jpg"
-  .main
-    .shiki-wall.unprocessed
-      a href="/images/static/embed/KVR8N3M4Dps.jpg"
-        img src="/images/static/embed/KVR8N3M4Dps.jpg"
-      a href="/images/static/embed/48y6FjfFRqk.jpg"
-        img src="/images/static/embed/48y6FjfFRqk.jpg"
-      a href="/images/static/embed/4NJfrrCTa7o.jpg"
-        img src="/images/static/embed/4NJfrrCTa7o.jpg"
-      a href="/images/static/embed/Z27atr-WSCA.jpg"
-        img src="/images/static/embed/Z27atr-WSCA.jpg"
-  .main
-    .shiki-wall.unprocessed
-      a href="/images/static/embed/F3G8LVGAbXw.jpg"
-        img src="/images/static/embed/F3G8LVGAbXw.jpg"
-      a href="/images/static/embed/ZHBE0Kavy-o.jpg"
-        img src="/images/static/embed/ZHBE0Kavy-o.jpg"
-      a href="/images/static/embed/ukGtG8wbBJc.jpg"
-        img src="/images/static/embed/ukGtG8wbBJc.jpg"
-      a href="/images/static/embed/hFT-H0phBKs.jpg"
-        img src="/images/static/embed/hFT-H0phBKs.jpg"
-      a href="/images/static/embed/QGin9ZjfGWg.jpg"
-        img src="/images/static/embed/QGin9ZjfGWg.jpg"
-      a href="/images/static/embed/gPVKwBuneIo.jpg"
-        img src="/images/static/embed/gPVKwBuneIo.jpg"
-      a href="/images/static/embed/sC6BfT6LVj8.jpg"
-        img src="/images/static/embed/sC6BfT6LVj8.jpg"
-  .main
-    .shiki-wall.unprocessed
-      a href="/images/static/embed/8bxMha3liII.jpg"
-        img src="/images/static/embed/8bxMha3liII.jpg"
-      a href="/images/static/embed/nrAv4Wyt6iM.jpg"
-        img src="/images/static/embed/nrAv4Wyt6iM.jpg"
-      a href="/images/static/embed/LfJyA2VOKWA.jpg"
-        img src="/images/static/embed/LfJyA2VOKWA.jpg"
-      a href="/images/static/embed/r6EV2fGZxDM.jpg"
-        img src="/images/static/embed/r6EV2fGZxDM.jpg"
-      a href="/images/static/embed/HCaAsHPCWkg.jpg"
-        img src="/images/static/embed/HCaAsHPCWkg.jpg"
-      a href="/images/static/embed/Qj7Fitg7QBE.jpg"
-        img src="/images/static/embed/Qj7Fitg7QBE.jpg"
-      a href="/images/static/embed/UMgzOEhIOS0.jpg"
-        img src="/images/static/embed/UMgzOEhIOS0.jpg"
-      a href="/images/static/embed/7H8OKNKMO88.jpg"
-        img src="/images/static/embed/7H8OKNKMO88.jpg"
+/   .subheadline spoiler
+/   div == BbCodes::Text.call "[spoiler=спойлер1]aaa[spoiler=спойлер2]bbb[spoiler=спойлер3]ccc[/spoiler]bbb[/spoiler]aaa[/spoiler]"
+/   div == BbCodes::Text.call "[spoiler=[b]Темы прошлых опросов[/b]]содержимое[/spoiler]"
+/ 
+/ .subheadline content_by block
+/ .subcontent.cc.m0.animes-2
+/   = render partial: 'animes/anime', collection: Anime.where(id: [457, 1]).decorate, locals: { cover_notice: :studio, content_by: :block }
+/ 
+/ .subheadline tooltipped c8
+/ .subcontent.cc.m0.animes-8
+/   = render partial: 'animes/anime', collection: Anime.where(id: [20583, 22199, 20899, 22319, 23283, 22097, 22789, 18689, 23327, 20785, 23421, 24475]).decorate, locals: { cover_notice: :studio, content_by: :tooltip }
+/ 
+/ .subheadline tooltipped c5
+/ .subcontent.cc.m0.animes-5
+/   = render partial: 'animes/anime', collection: Anime.where(id: [9969, 5114, 12355, 21939, 16498]).decorate, locals: { cover_notice: :studio, content_by: :tooltip }
+/ 
+/ .block
+/   .subheadline.m5 @font-face: shikimori
+/   .fonts-test
+/     - 71.times do |i|
+/       div class="icon-#{i}"
+/ 
+/ .block
+/   .subheadline.m5 График
+/   .traffic-test data-stats="#{@traffic.to_json}"
+/ 
+/ /*.half-chart*/
+/   /*.b-options-floated*/
+/     /*span Всего:&nbsp;&nbsp;*/
+/     /*a.selected*/
+/       /*| #{@users_count}&nbsp;&nbsp;*/
+/   /*.subheadline.m5 users*/
+/   /*.subcontent.users-test data-stats="#{@users.to_json}"*/
+/ 
+/ /*.half-chart*/
+/   /*.b-options-floated*/
+/     /*span Всего:&nbsp;&nbsp;*/
+/     /*a.selected*/
+/       /*| #{@comments_count}&nbsp;&nbsp;*/
+/   /*.subheadline.m5 comments*/
+/   /*.subcontent.comments-test data-stats="#{@comments.to_json}"*/
+/ 
+/ .images-test
+/   .subheadline.m5 Растягивающаяся галерея
+/   .main
+/     .shiki-wall.unprocessed
+/       a href="/images/static/embed/8bxMha3liII.jpg"
+/         img src="/images/static/embed/8bxMha3liII.jpg"
+/       a href="/images/static/embed/nrAv4Wyt6iM.jpg"
+/         img src="/images/static/embed/nrAv4Wyt6iM.jpg"
+/   .main
+/     .shiki-wall.unprocessed
+/       a href="/images/static/embed/_bhm0PWtYi4.jpg"
+/         img src="/images/static/embed/_bhm0PWtYi4.jpg"
+/       a href="/images/static/embed/wjOz1uP-OLs.jpg"
+/         img src="/images/static/embed/wjOz1uP-OLs.jpg"
+/   .main
+/     .shiki-wall.unprocessed
+/       a href="/images/static/embed/_bhm0PWtYi4.jpg"
+/         img src="/images/static/embed/_bhm0PWtYi4.jpg"
+/       a href="/images/static/embed/73367604.png"
+/         img src="/images/static/embed/73367604.png"
+/   .main
+/     .shiki-wall.unprocessed
+/       a href="/images/static/embed/dnVCwMIwukY.jpg"
+/         img src="/images/static/embed/dnVCwMIwukY.jpg"
+/       a href="/images/static/embed/LkKWpGsK6IQ.jpg"
+/         img src="/images/static/embed/LkKWpGsK6IQ.jpg"
+/       a href="/images/static/embed/_bhm0PWtYi4.jpg"
+/         img src="/images/static/embed/_bhm0PWtYi4.jpg"
+/       a href="/images/static/embed/wIXrZfprFFU.jpg"
+/         img src="/images/static/embed/wIXrZfprFFU.jpg"
+/   .main
+/     .shiki-wall.unprocessed
+/       a href="/images/static/embed/ODAcucvZDY8.jpg"
+/         img src="/images/static/embed/ODAcucvZDY8.jpg"
+/ 
+/   .main
+/     .shiki-wall.unprocessed
+/       a href="/images/static/embed/1q3c_6mjJ24.jpg"
+/         img src="/images/static/embed/1q3c_6mjJ24.jpg"
+/   .main
+/     .shiki-wall.unprocessed
+/       a href="/images/static/embed/KVR8N3M4Dps.jpg"
+/         img src="/images/static/embed/KVR8N3M4Dps.jpg"
+/       a href="/images/static/embed/48y6FjfFRqk.jpg"
+/         img src="/images/static/embed/48y6FjfFRqk.jpg"
+/       a href="/images/static/embed/4NJfrrCTa7o.jpg"
+/         img src="/images/static/embed/4NJfrrCTa7o.jpg"
+/       a href="/images/static/embed/Z27atr-WSCA.jpg"
+/         img src="/images/static/embed/Z27atr-WSCA.jpg"
+/   .main
+/     .shiki-wall.unprocessed
+/       a href="/images/static/embed/F3G8LVGAbXw.jpg"
+/         img src="/images/static/embed/F3G8LVGAbXw.jpg"
+/       a href="/images/static/embed/ZHBE0Kavy-o.jpg"
+/         img src="/images/static/embed/ZHBE0Kavy-o.jpg"
+/       a href="/images/static/embed/ukGtG8wbBJc.jpg"
+/         img src="/images/static/embed/ukGtG8wbBJc.jpg"
+/       a href="/images/static/embed/hFT-H0phBKs.jpg"
+/         img src="/images/static/embed/hFT-H0phBKs.jpg"
+/       a href="/images/static/embed/QGin9ZjfGWg.jpg"
+/         img src="/images/static/embed/QGin9ZjfGWg.jpg"
+/       a href="/images/static/embed/gPVKwBuneIo.jpg"
+/         img src="/images/static/embed/gPVKwBuneIo.jpg"
+/       a href="/images/static/embed/sC6BfT6LVj8.jpg"
+/         img src="/images/static/embed/sC6BfT6LVj8.jpg"
+/   .main
+/     .shiki-wall.unprocessed
+/       a href="/images/static/embed/8bxMha3liII.jpg"
+/         img src="/images/static/embed/8bxMha3liII.jpg"
+/       a href="/images/static/embed/nrAv4Wyt6iM.jpg"
+/         img src="/images/static/embed/nrAv4Wyt6iM.jpg"
+/       a href="/images/static/embed/LfJyA2VOKWA.jpg"
+/         img src="/images/static/embed/LfJyA2VOKWA.jpg"
+/       a href="/images/static/embed/r6EV2fGZxDM.jpg"
+/         img src="/images/static/embed/r6EV2fGZxDM.jpg"
+/       a href="/images/static/embed/HCaAsHPCWkg.jpg"
+/         img src="/images/static/embed/HCaAsHPCWkg.jpg"
+/       a href="/images/static/embed/Qj7Fitg7QBE.jpg"
+/         img src="/images/static/embed/Qj7Fitg7QBE.jpg"
+/       a href="/images/static/embed/UMgzOEhIOS0.jpg"
+/         img src="/images/static/embed/UMgzOEhIOS0.jpg"
+/       a href="/images/static/embed/7H8OKNKMO88.jpg"
+/         img src="/images/static/embed/7H8OKNKMO88.jpg"
