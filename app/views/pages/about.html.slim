@@ -111,8 +111,8 @@ header.head
           = render @statistics.thanks_to, content_by: :avatar
           .clearfix
 
-  / .subheadline.m5 = t '.community'
-  / .block.traffic-chart data-stats=@statistics.traffic.to_json
+  .subheadline.m5 = t '.community'
+  .block.traffic-chart data-stats=@statistics.traffic.to_json
 
   .cc.block
     .c-chart

@@ -19,9 +19,9 @@ class SiteStatistics
 
   CACHE_VERSION = :v2
 
-  # def traffic
-  #   YandexMetrika.call METRIKA_MONTHS
-  # end
+  def traffic
+    YandexMetrika.call METRIKA_MONTHS
+  end
 
   def comments
     by_class Comment, CLASS_MONTHS.month
