@@ -8395,10 +8395,10 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-shiki-editor@^0.7.7:
-  version "0.7.7"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.7.7.tgz#a7a5b83a942b3bf2eb667152ca9c4c256d3b120e"
-  integrity sha512-Pv+2Dg8WNmvuMfvPqNO1YFie+EpjgrmmEtH/kDQM4I3gAQ9nXSWEpHnVkUwUz9wk02DiBixSP0988bAQ5AOrYg==
+shiki-editor@^0.7.10:
+  version "0.7.10"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.7.10.tgz#20988991c4436f4a94da8b081a28ded79c9dd2bb"
+  integrity sha512-miLHHH+guSRElPJEt4Kps4fvAAQBpD/ClfgBCrcd8h3O5DE8xFYxn2PrxJ9uzvT2vMJs8k8kjOB7oBkqfamATA==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@popperjs/core" "^2.4.4"
@@ -8421,19 +8421,19 @@ shiki-editor@^0.7.7:
     withinviewport "^2.1.2"
     yarn "^1.22.4"
 
-shiki-uploader@^0.7.7:
-  version "0.7.7"
-  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.7.7.tgz#16ae357f15c07cc1d498870b96f98c791537b5b5"
-  integrity sha512-htSsKnDiETuTCaoruDtTcwOq9b8I25PzuTKMJiCT0QzJ+eFkLDT8L4cJwYnZZ7kFOwOe4sQUg8DQW2J4pVUH1g==
+shiki-uploader@^0.7.10:
+  version "0.7.10"
+  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.7.10.tgz#0e194379e00ab91687c87edc2bd16a5f69cc71f8"
+  integrity sha512-CzuVSDORvcvgjQzapCHXJQTcNN1IRn0HutFlywQYw4mvrNMalkqMi3zFoRNzMctaEX60n8ypWNdULyi9A8rJag==
   dependencies:
     "@uppy/core" "^1.11.0"
     "@uppy/xhr-upload" "^1.6.0"
     is-visible "^2.2.0"
 
-shiki-utils@^0.7.7:
-  version "0.7.7"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.7.7.tgz#165424d7ddb802ff3ef105e4146ec14a24b67cd3"
-  integrity sha512-iG3Iu6stEDnS8+06vhbGa3gShveLNBmkq++Qr+NhviY4iOoLUOLiVy34Jvrc5JAcYQpgODf1yiKn3P/9r7ymrQ==
+shiki-utils@^0.7.10:
+  version "0.7.10"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.7.10.tgz#31e88b1fa0db38edd45c895b09e688dda0a41622"
+  integrity sha512-lJSR+G04arLC5P6oAVbpmlhEkMIIC9gkcX62CBACP3DGoGLclJfrvTIkBwBODFIcfvqWuhrFI/rGqfHETNLxwQ==
   dependencies:
     toastify-js "^1.8.0"
 

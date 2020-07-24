@@ -2,6 +2,9 @@ import delay from 'delay';
 import csrf from 'helpers/csrf';
 import autosize from 'autosize';
 
+const IS_RAW = true || !IS_LOCAL_SHIKI_PACKAGES;
+const IS_VUE = true || !IS_LOCAL_SHIKI_PACKAGES;
+
 pageLoad('tests_editor', async () => {
   const $shikiEditor = $('.b-shiki_editor').shikiEditor();
   const $textarea = $shikiEditor.find('textarea');
@@ -20,10 +23,8 @@ pageLoad('tests_editor', async () => {
   );
 
   const node = document.querySelector('.b-shiki_editor-v2');
-  const isRaw = true || !IS_LOCAL_SHIKI_PACKAGES;
-  const isVue = false || !IS_LOCAL_SHIKI_PACKAGES;
 
-  if (isRaw) {
+  if (IS_RAW) {
     const editor = new ShikiEditor({
       element: document.querySelector('.raw-editor'),
       extensions: [],
@@ -50,7 +51,7 @@ pageLoad('tests_editor', async () => {
     });
   }
 
-  if (isVue) {
+  if (IS_VUE) {
     new Vue({
       el: node,
       components: { ShikiEditorApp },
@@ -73,13 +74,17 @@ pageLoad('tests_editor', async () => {
   }
 });
 
+// [anime=1]t[b]es[/b]t[/anime]
 const RAW_DEMO_CONTENT = `
+[url=//ya.ru]test[/url]
+[url]//ya.ru[/url]
 [anime=1] test
 [anime=1]test[/anime]
 [anime=16049]
 [anime=3456789]
 [ranobe=9115]
 [image=1124146]
+
 `.trim();
 
 const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
