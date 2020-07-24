@@ -2,8 +2,12 @@ import delay from 'delay';
 import csrf from 'helpers/csrf';
 import autosize from 'autosize';
 
-const IS_RAW = false || !IS_LOCAL_SHIKI_PACKAGES;
+const IS_RAW = false && !IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = true || !IS_LOCAL_SHIKI_PACKAGES;
+
+const TEST_DEMO_CONTENT = `
+[quote]Old style quote support[/quote]
+`.trim();
 
 pageLoad('tests_editor', async () => {
   const $shikiEditor = $('.b-shiki_editor').shikiEditor();
@@ -29,7 +33,7 @@ pageLoad('tests_editor', async () => {
     const editor = new ShikiEditor({
       element: rawNode,
       extensions: [],
-      content: RAW_DEMO_CONTENT,
+      content: TEST_DEMO_CONTENT,
       baseUrl: window.location.origin
     }, null, Vue);
 
@@ -79,13 +83,8 @@ pageLoad('tests_editor', async () => {
   }
 });
 
-// [anime=1]t[b]es[/b]t[/anime]
-const RAW_DEMO_CONTENT = `
-[url]//ya.ru[/url]
-`.trim();
-
 const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES ?
-  RAW_DEMO_CONTENT  :
+  TEST_DEMO_CONTENT  :
   `# Shiki BbCodes
 [anime=1] test
 [anime=1]test[/anime]
