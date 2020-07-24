@@ -171,5 +171,3 @@ private
     end
   end
 end
-
-nicknames = "@4-1-|2 g-e-a-r, @Dragn, @Aniki, @World_Houp, @HN71, @Matsukaze, @Kyasubaru, @Котанавари, @Или нет, @Left behind, @Ази-Дахака, @nemunga , @Дзюбэй Пробли, @๖ۣۜSimon, @Tri Olom, @the Sufferer, @ESH, @赤い葉, @SmokyWerewolf, @tdok57, @Chudy, @Атонубис, @grin3671, @Leviathan, @Caxann".split(', ').map {|v| v.gsub(/^@/, '') }
