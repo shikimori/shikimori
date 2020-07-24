@@ -17,11 +17,11 @@ class SiteStatistics
 
   ACHIEVEMENT_USER_IDS = [3824, 210, 16398, 34807, 29386, 84020, 72620, 50587, 100600, 77362, 7642, 9158] # rubocop:disable all
 
-  CACHE_VERSION = :v2
+  CACHE_VERSION = :v3
 
-  def traffic
-    YandexMetrika.call METRIKA_MONTHS
-  end
+  # def traffic
+  #   YandexMetrika.call METRIKA_MONTHS
+  # end
 
   def comments
     by_class Comment, CLASS_MONTHS.month
