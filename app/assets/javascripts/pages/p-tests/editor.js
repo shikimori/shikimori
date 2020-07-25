@@ -6,6 +6,8 @@ const IS_RAW = false && !IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = true || !IS_LOCAL_SHIKI_PACKAGES;
 
 const TEST_DEMO_CONTENT = `
+https://shikimori.one/clubs/2651-kollektivnyy-razum-po-obsuzhdeniyu-i-prosmotru-anime/edit/description
+
 [b] [color=#c0c0c0]2nd
 [poster]https://dere.shikimori.one/system/users/x160/424824.png?1593365533[/poster]
 Cresiad[/color][/b]
