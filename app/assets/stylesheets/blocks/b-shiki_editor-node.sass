@@ -1,9 +1,13 @@
 @import globals
 
 .b-shiki_editor-node
-  &.b-ajax
-    cursor: pointer
+  cursor: pointer
+
+  // &.b-ajax
 
   &.is-error
     color: $red
-    cursor: pointer
+
+  &:focus
+    outline: 1px solid #8cf
+    border-radius: none
