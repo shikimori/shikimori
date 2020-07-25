@@ -2,18 +2,17 @@ import delay from 'delay';
 import csrf from 'helpers/csrf';
 import autosize from 'autosize';
 
-const IS_RAW = true || !IS_LOCAL_SHIKI_PACKAGES;
-const IS_VUE = false || !IS_LOCAL_SHIKI_PACKAGES;
+const IS_RAW = false || !IS_LOCAL_SHIKI_PACKAGES;
+const IS_VUE = true || !IS_LOCAL_SHIKI_PACKAGES;
 
+// const TEST_DEMO_CONTENT = `
+// [anime=18507]z[b]x[/b]c[/anime]
+// `.trim();
 const TEST_DEMO_CONTENT = `
+[anime=1]
+[anime=22759]qwe[/anime]
 [anime=18507]z[b]x[/b]c[/anime]
 `.trim();
-// const TEST_DEMO_CONTENT = `
-// [anime=1]
-// [anime=22759]qwe[/anime]
-// [anime=18507]z[b]x[/b]c[/anime]
-// [img no-zoom 225x317]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]     [img no-zoom width=200]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]     [img]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img] [img]https://kawai.shikimori.one/system/users/x160/1.png?1591612283[/img]
-// `.trim();
 // const TEST_DEMO_CONTENT = `
 // [anime=18507]
 // z
