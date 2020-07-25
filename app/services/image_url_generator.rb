@@ -35,7 +35,7 @@ private
   def shiki_domain
     if Rails.env.test?
       'test.host'
-    elsif Rails.env.development?
+    elsif Rails.env.development? || ENV['USER'] == 'morr'
       Shikimori::DOMAINS[:production]
     elsif (Draper::ViewContext.current.request.try(:host) || 'test.host') == 'test.host'
       Shikimori::DOMAINS[:production]
