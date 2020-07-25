@@ -65,7 +65,7 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
-  config.cache_store = :mem_cache_store, '192.168.0.3', {
+  config.cache_store = :mem_cache_store, (ENV['USER'] != 'morr' ? '192.168.0.3' : 'localhost'), {
     namespace: 'shikimori_production_v5',
     compress: true,
     value_max_bytes: 1024 * 1024 * 32

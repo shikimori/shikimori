@@ -162,7 +162,9 @@ module Shikimori
 
     config.active_record.cache_versioning = true
 
-    config.redis_host = Rails.env.production? ? '192.168.0.3' : 'localhost'
+    config.redis_host = Rails.env.production? && ENV['USER'] != 'morr' ?
+      '192.168.0.3' :
+      'localhost'
     config.redis_db = 2
 
     # достали эксепшены с ханибаджера
