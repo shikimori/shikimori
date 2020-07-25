@@ -54,8 +54,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    # @decorated_current_user ||= super.try :decorate
-    @decorated_current_user ||= User.find(1).decorate
+    @decorated_current_user ||= super.try :decorate
   end
 
   def sign_out *args
