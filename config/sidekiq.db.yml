@@ -15,7 +15,6 @@ production:
   - [episode_notifications, 5]
   - [push_notifications, 2]
   - [torrents_parsers, 5]
-  - [dangerous_actions, 8]
 
 :limits:
   achievement: 10
@@ -23,4 +22,3 @@ production:
   episode_notifications: 1
   push_notifications: 5
   torrents_parsers: 1
-  dangerous_actions: 1

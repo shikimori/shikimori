@@ -20,6 +20,7 @@ production:
   - [slow_parsers, 5]
   - [webm_thumbnails, 5]
   - [history_jobs, 5]
+  - [dangerous_actions, 8]
 
 :limits:
   achievement: 10
@@ -30,3 +31,4 @@ production:
   slow_parsers: 2
   webm_thumbnails: 1
   history_jobs: 1
+  dangerous_actions: 1
