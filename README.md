@@ -160,79 +160,59 @@ https://chrisbateman.github.io/webpack-visualizer/
 
 ### Move anime data from development to production
 ```ruby
+[14813, 33161, 18753, 23847].each do |anime_id|
+  anime = Anime.find(anime_id);
 
-ids = [
-14813,
-33161,
-18753,
-23847,
-]
-
-anime_id = 39547
-anime = Anime.find(anime_id);
-
-File.open('/tmp/z.json', 'w') do |f|
-  f.write({
-    anime: anime,
-    person_roles: anime.person_roles,
-    user_rates: anime.rates,
-    user_history: anime.user_histories,
-    user_rate_logs: anime.user_rate_logs,
-    topics: anime.all_topics,
-    collection_links: anime.collection_links,
-    versions: anime.versions,
-    club_links: anime.club_links,
-    contest_links: anime.contest_links,
-    contest_winners: anime.contest_winners,
-    favourites: anime.favourites,
-    comments: (anime.all_topics + anime.reviews.flat_map(&:all_topics)).flat_map(&:comments),
-    related: anime.related,
-    similar: anime.similar,
-    cosplay_gallery_links: anime.cosplay_gallery_links,
-    reviews: anime.reviews,
-    screenshots: anime.all_screenshots,
-    videos: anime.videos,
-    recommendation_ignores: anime.recommendation_ignores,
-    anime_calendars: anime.anime_calendars,
-    anime_videos: anime.anime_videos,
-    episode_notifications: anime.episode_notifications,
-    name_matches: anime.name_matches,
-    links: anime.links,
-    external_links: anime.external_links
-  }.to_json);
-end;
+  File.open("/tmp/anime_#{anime_id}.json", 'w') do |f|
+    f.write({
+      anime_id: anime_id,
+      anime: anime,
+      person_roles: anime.person_roles,
+      user_rates: anime.rates,
+      user_history: anime.user_histories,
+      user_rate_logs: anime.user_rate_logs,
+      topics: anime.all_topics,
+      collection_links: anime.collection_links,
+      versions: anime.versions,
+      club_links: anime.club_links,
+      contest_links: anime.contest_links,
+      contest_winners: anime.contest_winners,
+      favourites: anime.favourites,
+      comments: (anime.all_topics + anime.reviews.flat_map(&:all_topics)).flat_map(&:comments),
+      related: anime.related,
+      similar: anime.similar,
+      cosplay_gallery_links: anime.cosplay_gallery_links,
+      reviews: anime.reviews,
+      screenshots: anime.all_screenshots,
+      videos: anime.videos,
+      recommendation_ignores: anime.recommendation_ignores,
+      anime_calendars: anime.anime_calendars,
+      anime_videos: anime.anime_videos,
+      episode_notifications: anime.episode_notifications,
+      name_matches: anime.name_matches,
+      links: anime.links,
+      external_links: anime.external_links
+    }.to_json);
+  end;
+end
 ```
 
 ```sh
-scp /tmp/z.json devops@shiki_web:/tmp/
+scp /tmp/anime_*.json devops@shiki_web:/tmp/
 ```
 
 ```ruby
-anime_id = 39547
-json = JSON.parse(open('/tmp/z.json').read).symbolize_keys;
+json = JSON.parse(open('/tmp/anime_33161.json').read).symbolize_keys;
+anime_id = json['anime_id']
 
-anime = Anime.wo_timestamp { z = Anime.new json[:anime]; v.save validate: false; z }
+anime = Anime.wo_timestamp { z = Anime.find_or_initialize_by(id: json[:anime]['id']); z.assign_attributes json[:anime]; z.save validate: false; z };
+anime.all_topics.destroy_all;
 
-class UserRate < ApplicationRecord
-  def log_created; end
-  def log_deleted; end
-end
-
-ApplicationRecord.transaction do
-  UserRate.where(target: anime).destroy_all;
-  UserRate.wo_timestamp { UserRate.import(json[:user_rates].map {|v| UserRate.new v }); };
-end
-
-ApplicationRecord.transaction do
-  UserRateLog.where(target: anime).destroy_all;
-  UserRateLog.wo_timestamp { UserRate.import(json[:user_rate_logs].map {|v| UserRateLog.new v }); };
-end
-
-ApplicationRecord.transaction do
-  UserHistory.where(target: anime).destroy_all;
-  UserHistory.wo_timestamp { UserHistory.import(json[:user_history].map {|v| UserHistory.new v }); };
-end
-
+mappings = {
+  related: RelatedAnime,
+  similar: SimilarAnime,
+  links: AnimeLink
+}
 %i[
   person_roles
   topics
@@ -242,7 +222,6 @@ end
   contest_links
   contest_winners
   favourites
-  comments
   related
   similar
   cosplay_gallery_links
@@ -256,14 +235,40 @@ end
   name_matches
   links
   external_links
+  comments
 ].each do |kind|
+  puts kind
+  puts '=============================================='
   ApplicationRecord.transaction do
-    klass = kind.clasify.constantize
-    klass.wo_timestamp { klass.import(json[kind].map {|v| klass.new v }); };
+    klass = mappings[kind] || kind.to_s.classify.constantize
+    klass.wo_timestamp { klass.import(json[kind].map {|v| klass.new v }, validate: false, on_duplicate_key_ignore: true); };
   end
-end
+end;
 
-Anime.find(user_id).touch
+class UserRate < ApplicationRecord
+  def log_created; end
+  def log_deleted; end
+end
+ApplicationRecord.transaction do
+  UserRate.where(target: anime).delete_all;
+  UserRate.wo_timestamp { UserRate.import(json[:user_rates].map {|v| UserRate.new v }, validate: false, on_duplicate_key_ignore: true); };
+end;
+
+anime.touch;
+
+# ApplicationRecord.transaction do
+#   UserRateLog.where(target: anime).delete_all;
+#   UserRateLog.wo_timestamp { UserRateLog.import(json[:user_rate_logs].map {|v| UserRateLog.new v }, validate: false); };
+# end;
+
+ApplicationRecord.transaction do
+  UserHistory.where(target: anime).delete_all;
+  UserHistory.wo_timestamp { UserHistory.import(json[:user_history].map {|v| UserHistory.new v }, validate: false, on_duplicate_key_ignore: true); };
+end;
+
+anime.touch;
+User.where(id: UserRate.where(target: anime).select('user_id')).update_all updated_at: Time.zone.now;
+
 ```
 
 ### Move user data from development to production
@@ -276,7 +281,7 @@ File.open('/tmp/z.json', 'w') do |f|
     user_preferences: user.preferences,
     style: user.style,
     user_history: UserHistory.where(user_id: user.id),
-    user_rate_logs: UserRateLog.where(user_id: user.id),
+    # user_rate_logs: UserRateLog.where(user_id: user.id),
     user_rates: UserRate.where(user_id: user.id)
   }.to_json);
 end;
@@ -300,10 +305,10 @@ ApplicationRecord.transaction do
   UserRate.wo_timestamp { UserRate.import(json[:user_rates].map {|v| UserRate.new v }); };
 end
 
-ApplicationRecord.transaction do
-  UserRateLog.where(user_id: user_id).destroy_all;
-  UserRateLog.wo_timestamp { UserRate.import(json[:user_rate_logs].map {|v| UserRateLog.new v }); };
-end
+# ApplicationRecord.transaction do
+#   UserRateLog.where(user_id: user_id).destroy_all;
+#   UserRateLog.wo_timestamp { UserRateLog.import(json[:user_rate_logs].map {|v| UserRateLog.new v }); };
+# end
 
 ApplicationRecord.transaction do
   UserHistory.where(user_id: user_id).destroy_all;
