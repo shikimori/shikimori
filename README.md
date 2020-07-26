@@ -158,7 +158,115 @@ https://chrisbateman.github.io/webpack-visualizer/
 @dependabot ignore this dependency
 ```
 
-### Move data from development to production
+### Move anime data from development to production
+```ruby
+
+ids = [
+14813,
+33161,
+18753,
+23847,
+]
+
+anime_id = 39547
+anime = Anime.find(anime_id);
+
+File.open('/tmp/z.json', 'w') do |f|
+  f.write({
+    anime: anime,
+    person_roles: anime.person_roles,
+    user_rates: anime.rates,
+    user_history: anime.user_histories,
+    user_rate_logs: anime.user_rate_logs,
+    topics: anime.all_topics,
+    collection_links: anime.collection_links,
+    versions: anime.versions,
+    club_links: anime.club_links,
+    contest_links: anime.contest_links,
+    contest_winners: anime.contest_winners,
+    favourites: anime.favourites,
+    comments: (anime.all_topics + anime.reviews.flat_map(&:all_topics)).flat_map(&:comments),
+    related: anime.related,
+    similar: anime.similar,
+    cosplay_gallery_links: anime.cosplay_gallery_links,
+    reviews: anime.reviews,
+    screenshots: anime.all_screenshots,
+    videos: anime.videos,
+    recommendation_ignores: anime.recommendation_ignores,
+    anime_calendars: anime.anime_calendars,
+    anime_videos: anime.anime_videos,
+    episode_notifications: anime.episode_notifications,
+    name_matches: anime.name_matches,
+    links: anime.links,
+    external_links: anime.external_links
+  }.to_json);
+end;
+```
+
+```sh
+scp /tmp/z.json devops@shiki_web:/tmp/
+```
+
+```ruby
+anime_id = 39547
+json = JSON.parse(open('/tmp/z.json').read).symbolize_keys;
+
+anime = Anime.wo_timestamp { z = Anime.new json[:anime]; v.save validate: false; z }
+
+class UserRate < ApplicationRecord
+  def log_created; end
+  def log_deleted; end
+end
+
+ApplicationRecord.transaction do
+  UserRate.where(target: anime).destroy_all;
+  UserRate.wo_timestamp { UserRate.import(json[:user_rates].map {|v| UserRate.new v }); };
+end
+
+ApplicationRecord.transaction do
+  UserRateLog.where(target: anime).destroy_all;
+  UserRateLog.wo_timestamp { UserRate.import(json[:user_rate_logs].map {|v| UserRateLog.new v }); };
+end
+
+ApplicationRecord.transaction do
+  UserHistory.where(target: anime).destroy_all;
+  UserHistory.wo_timestamp { UserHistory.import(json[:user_history].map {|v| UserHistory.new v }); };
+end
+
+%i[
+  person_roles
+  topics
+  collection_links
+  versions
+  club_links
+  contest_links
+  contest_winners
+  favourites
+  comments
+  related
+  similar
+  cosplay_gallery_links
+  reviews
+  screenshots
+  videos
+  recommendation_ignores
+  anime_calendars
+  anime_videos
+  episode_notifications
+  name_matches
+  links
+  external_links
+].each do |kind|
+  ApplicationRecord.transaction do
+    klass = kind.clasify.constantize
+    klass.wo_timestamp { klass.import(json[kind].map {|v| klass.new v }); };
+  end
+end
+
+Anime.find(user_id).touch
+```
+
+### Move user data from development to production
 ```ruby
 user = User.find(547860);
 
@@ -181,6 +289,11 @@ scp /tmp/z.json devops@shiki_web:/tmp/
 ```ruby
 user_id = 547860;
 json = JSON.parse(open('/tmp/z.json').read).symbolize_keys;
+
+class UserRate < ApplicationRecord
+  def log_created; end
+  def log_deleted; end
+end
 
 ApplicationRecord.transaction do
   UserRate.where(user_id: user_id).destroy_all;
