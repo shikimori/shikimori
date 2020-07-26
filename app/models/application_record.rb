@@ -3,6 +3,18 @@ class ApplicationRecord < ActiveRecord::Base
 
   self.abstract_class = true
 
+  # https://github.com/rails/rails/issues/3508#issuecomment-592744109
+  def serializable_hash(options = nil)
+    return super(options) unless has_attribute?(self.class.inheritance_column)
+
+    options = options.try(:dup) || {}
+
+    options[:methods]  = Array(options[:methods]).map(&:to_s)
+    options[:methods] |= Array(self.class.inheritance_column)
+
+    super(options)
+  end
+
   class << self
     # for large batches sql must be ordered by id!!!
     def fetch_raw_data sql, batch_size
