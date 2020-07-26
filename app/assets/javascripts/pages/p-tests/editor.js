@@ -9,6 +9,8 @@ const IS_VUE = true || !IS_LOCAL_SHIKI_PACKAGES;
 // [anime=18507]z[b]x[/b]c[/anime]
 // `.trim();
 const TEST_DEMO_CONTENT = `
+[anime=14356789]
+[anime=1850731212]z[b]x[/b]c[/anime]
 [anime=1]
 [anime=22759]qwe[/anime]
 [anime=18507]z[b]x[/b]c[/anime]
