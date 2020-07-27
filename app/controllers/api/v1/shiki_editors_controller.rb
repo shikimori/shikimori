@@ -46,41 +46,41 @@ private
       .order(:id)
   end
 
-  def serialize_user_image entry
+  def serialize_user_image model
     {
-      id: entry.id,
-      url: ImageUrlGenerator.instance.url(entry, :original)
-      # original_url: entry.image.url(:original),
-      # preview_url: entry.image.url(:preview),
-      # width: entry.width,
-      # height: entry.height
+      id: model.id,
+      url: ImageUrlGenerator.instance.url(model, :original)
+      # original_url: model.image.url(:original),
+      # preview_url: model.image.url(:preview),
+      # width: model.width,
+      # height: model.height
     }
   end
 
-  def serialize_user entry
+  def serialize_user model
     {
-      id: entry.id,
-      nickname: entry.nickname,
-      avatar: ImageUrlGenerator.instance.url(entry, :x32),
-      url: profile_url(entry)
+      id: model.id,
+      nickname: model.nickname,
+      avatar: ImageUrlGenerator.instance.url(model, :x32),
+      url: profile_url(model)
     }
   end
 
-  def serialize_forum_entry entry
+  def serialize_forum_entry model
     {
-      id: entry.id,
-      author: entry.user.nickname,
-      url: entry.is_a?(Comment) ?
-        UrlGenerator.instance.comment_url(entry) :
-        UrlGenerator.instance.topic_url(entru)
+      id: model.id,
+      author: model.user.nickname,
+      url: model.is_a?(Comment) ?
+        UrlGenerator.instance.comment_url(model) :
+        UrlGenerator.instance.topic_url(model)
     }
   end
 
-  def serialize_db_entry entry
+  def serialize_db_entry model
     {
-      id: entry.id,
-      text: UsersHelper.localized_name(entry, current_user),
-      url: UrlGenerator.instance.send(:"#{entry.class.name.downcase}_path", entry)
+      id: model.id,
+      text: UsersHelper.localized_name(model, current_user),
+      url: UrlGenerator.instance.send(:"#{model.class.name.downcase}_path", model)
     }
   end
 end

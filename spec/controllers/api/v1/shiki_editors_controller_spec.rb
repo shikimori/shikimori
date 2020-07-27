@@ -9,7 +9,8 @@ describe Api::V1::ShikiEditorsController do
           person: person.id.to_s,
           user_image: user_image.id.to_s,
           user: user.id.to_s,
-          comment: comment.id.to_s
+          comment: comment.id.to_s,
+          topic: topic.id.to_s
         }
     end
     let(:anime) { create :anime }
@@ -68,7 +69,11 @@ describe Api::V1::ShikiEditorsController do
           'author' => comment.user.nickname,
           'url' => comment_url(comment)
         }],
-        topic: []
+        topic: [{
+          'id' => topic.id,
+          'author' => topic.user.nickname,
+          'url' => UrlGenerator.instance.topic_url(topic)
+        }]
       )
     end
   end
