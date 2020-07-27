@@ -1,15 +1,16 @@
 class Api::V1::ShikiEditorsController < Api::V1Controller
+  SUPPORTED_TYPES = %i[user anime manga character person user_image]
   def show
     results = {}
 
-    %w[user anime manga character person user_image].each do |kind|
+    SUPPORTED_TYPES.each do |kind|
       ids = parse_ids(kind)
 
       results[kind] = fetch(kind, ids).map do |model|
         case kind
-        when 'user_image'
+        when :user_image
           serialize_user_image model
-        when 'user'
+        when :user
           serialize_user model
         else
           serialize_db_entry model
@@ -32,7 +33,7 @@ private
   end
 
   def fetch kind, ids
-    kind.classify.constantize
+    kind.to_s.classify.constantize
       .where(id: ids)
       .order(:id)
   end
