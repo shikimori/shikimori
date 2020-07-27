@@ -7,7 +7,8 @@ describe Api::V1::ShikiEditorsController do
           manga: [manga_1.id, manga_2.id].join(','),
           character: [character.id].join(','),
           person: [person.id].join(','),
-          user_image: [user_image.id].join(',')
+          user_image: [user_image.id].join(','),
+          user: [user.id].join(',')
         }
     end
     let(:anime) { create :anime }
@@ -52,7 +53,13 @@ describe Api::V1::ShikiEditorsController do
             # 'width' => user_image.width,
             # 'height' => user_image.height
           }
-        ]
+        ],
+        user: [{
+          'id' => user.id,
+          'nickname' => user.nickname,
+          'avatar' => ImageUrlGenerator.instance.url(user, :x32),
+          'url' => profile_url(user)
+        }]
       )
     end
   end

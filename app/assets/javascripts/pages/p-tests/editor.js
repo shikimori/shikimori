@@ -2,22 +2,12 @@ import delay from 'delay';
 import csrf from 'helpers/csrf';
 import autosize from 'autosize';
 
-const IS_RAW = false || !IS_LOCAL_SHIKI_PACKAGES;
+const IS_RAW = true || !IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 
-// const TEST_DEMO_CONTENT = `
-// [anime=18507]z[b]x[/b]c[/anime]
-// `.trim();
 const TEST_DEMO_CONTENT = `
-[anime=1]
-z
-[/anime]
+[profile=27867]WhereIsMyMind[/profile]
 `.trim();
-// const TEST_DEMO_CONTENT = `
-// [anime=18507]
-// z
-// [/anime]
-// `.trim();
 
 pageLoad('tests_editor', async () => {
   const $shikiEditor = $('.b-shiki_editor').shikiEditor();

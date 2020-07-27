@@ -2,14 +2,17 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
   def show
     results = {}
 
-    %w[anime manga character person user_image].each do |kind|
+    %w[user anime manga character person user_image].each do |kind|
       ids = parse_ids(kind)
 
       results[kind] = fetch(kind, ids).map do |model|
-        if kind == 'user_image'
+        case kind
+        when 'user_image'
           serialize_user_image model
+        when 'user'
+          serialize_user model
         else
-          serialize_entry model
+          serialize_db_entry model
         end
       end
     end
@@ -45,7 +48,16 @@ private
     }
   end
 
-  def serialize_entry entry
+  def serialize_user entry
+    {
+      id: entry.id,
+      nickname: entry.nickname,
+      avatar: ImageUrlGenerator.instance.url(entry, :x32),
+      url: profile_url(entry)
+    }
+  end
+
+  def serialize_db_entry entry
     {
       id: entry.id,
       text: UsersHelper.localized_name(entry, current_user),
