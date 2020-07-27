@@ -3,7 +3,7 @@ import csrf from 'helpers/csrf';
 import autosize from 'autosize';
 
 const IS_RAW = false || !IS_LOCAL_SHIKI_PACKAGES;
-const IS_VUE = true || !IS_LOCAL_SHIKI_PACKAGES;
+const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 
 // const TEST_DEMO_CONTENT = `
 // [anime=18507]z[b]x[/b]c[/anime]
@@ -11,9 +11,6 @@ const IS_VUE = true || !IS_LOCAL_SHIKI_PACKAGES;
 const TEST_DEMO_CONTENT = `
 [anime=1]
 z
-[/anime]
-[anime=2]
-x
 [/anime]
 `.trim();
 // const TEST_DEMO_CONTENT = `
