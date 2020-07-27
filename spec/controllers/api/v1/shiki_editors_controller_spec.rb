@@ -3,12 +3,13 @@ describe Api::V1::ShikiEditorsController do
     subject! do
       get :show,
         params: {
-          anime: [anime.id].join(','),
+          anime: anime.id.to_s,
           manga: [manga_1.id, manga_2.id].join(','),
-          character: [character.id].join(','),
-          person: [person.id].join(','),
-          user_image: [user_image.id].join(','),
-          user: [user.id].join(',')
+          character: character.id.to_s,
+          person: person.id.to_s,
+          user_image: user_image.id.to_s,
+          user: user.id.to_s,
+          comment: comment.id.to_s
         }
     end
     let(:anime) { create :anime }
@@ -17,6 +18,8 @@ describe Api::V1::ShikiEditorsController do
     let(:character) { create :character }
     let(:person) { create :person }
     let(:user_image) { create :user_image }
+    let(:comment) { create :comment, user: user }
+    let(:topic) { create :topic }
 
     it do
       expect(json).to eq(
@@ -59,7 +62,13 @@ describe Api::V1::ShikiEditorsController do
           'nickname' => user.nickname,
           'avatar' => ImageUrlGenerator.instance.url(user, :x32),
           'url' => profile_url(user)
-        }]
+        }],
+        comment: [{
+          'id' => comment.id,
+          'author' => comment.user.nickname,
+          'url' => comment_url(comment)
+        }],
+        topic: []
       )
     end
   end
