@@ -5,7 +5,7 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
     topic: %i[user linked]
   }
 
-  LIMIT_PER_REQUEST = 2
+  LIMIT_PER_REQUEST = 250
 
   def show # rubocop:disable all
     results = {}

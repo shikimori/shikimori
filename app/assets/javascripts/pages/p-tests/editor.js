@@ -2,7 +2,7 @@ import delay from 'delay';
 import csrf from 'helpers/csrf';
 import autosize from 'autosize';
 
-const IS_RAW = false || !IS_LOCAL_SHIKI_PACKAGES;
+const IS_RAW = true || !IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 
 const TEST_DEMO_CONTENT = `
