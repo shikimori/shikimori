@@ -1,4 +1,6 @@
 describe Api::V1::ShikiEditorsController do
+  include_context :authenticated
+
   describe '#show' do
     before { stub_const "#{described_class.name}::LIMIT_PER_REQUEST", limit_per_request }
 
@@ -14,6 +16,7 @@ describe Api::V1::ShikiEditorsController do
         user_image: user_image.id.to_s,
         user: user.id.to_s,
         comment: comment.id.to_s,
+        message: message.id.to_s,
         topic: topic.id.to_s
       }
     end
@@ -24,6 +27,7 @@ describe Api::V1::ShikiEditorsController do
     let(:person) { create :person }
     let(:user_image) { create :user_image }
     let(:comment) { create :comment, user: user }
+    let(:message) { create :message, from: user }
     let(:topic) { create :topic }
 
     it do
@@ -86,15 +90,35 @@ describe Api::V1::ShikiEditorsController do
             'url' => comment_url(comment)
           }
         },
+        message: {
+          message.id.to_s => {
+            'id' => message.id,
+            'author' => message.from.nickname,
+            'url' => profile_url(message.from)
+          }
+        },
         topic: {
           topic.id.to_s => {
             'id' => topic.id,
             'author' => topic.user.nickname,
             'url' => UrlGenerator.instance.topic_url(topic)
           }
-        },
-        is_paginated: false
+        }
       )
+    end
+
+    context 'permissions' do
+      let(:params) { { message: message.id.to_s } }
+      let(:message) { create :message, from: user_2, to: user_2 }
+      let(:user_2) { create :user, :user }
+
+      it do
+        expect(json).to eq(
+          message: {
+            message.id.to_s => nil
+          }
+        )
+      end
     end
 
     context 'limit_per_request' do
@@ -137,8 +161,7 @@ describe Api::V1::ShikiEditorsController do
               'url' => anime_url(anime)
             },
             '123435546546' => nil
-          },
-          is_paginated: false
+          }
         )
       end
     end

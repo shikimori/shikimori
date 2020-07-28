@@ -1,6 +1,7 @@
 class Api::V1::ShikiEditorsController < Api::V1Controller
-  SUPPORTED_TYPES = %i[anime manga character person user_image user comment topic]
+  SUPPORTED_TYPES = %i[anime manga character person user_image user comment message topic]
   TYPE_INCLUDES = {
+    message: :from,
     comment: :user,
     topic: %i[user linked]
   }
@@ -29,13 +30,15 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
             serialize_user model
           when :topic, :comment
             serialize_forum_entry model
+          when :message
+            serialize_message model
           else
             serialize_db_entry model
           end
       end
     end
 
-    results[:is_paginated] = limit_left <= 0
+    results[:is_paginated] = true if limit_left <= 0
 
     render json: results
   end
@@ -89,6 +92,16 @@ private
       url: model.is_a?(Comment) ?
         UrlGenerator.instance.comment_url(model) :
         UrlGenerator.instance.topic_url(model)
+    }
+  end
+
+  def serialize_message model
+    return unless can? :read, model
+
+    {
+      id: model.id,
+      author: model.from.nickname,
+      url: profile_url(model.from)
     }
   end
 
