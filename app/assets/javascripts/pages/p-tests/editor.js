@@ -6,12 +6,102 @@ const IS_RAW = true || !IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 
 const TEST_DEMO_CONTENT = `
-[anime=1]
-[anime=9876543]
-[character=22052]
-[character=89339]
-[character=118765]
-[character=36828]
+
+[spoiler=[size=20]Топ текущего месяца по мнению участников нашего клуба:tea2:[/size]]
+
+[div=cc-7-g15]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=877][div=image-cutter]
+[poster]https://moe.shikimori.one/system/animes/original/877.jpg[/poster][/div][/anime][div=text]
+4
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=3002][div=image-cutter]
+[poster]https://kawai.shikimori.one/system/animes/original/3002.jpg[/poster][/div][/anime][div=text]
+3
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=1827][div=image-cutter]
+[poster]https://kawai.shikimori.one/system/animes/original/1827.jpg[/poster][/div][/anime][div=text]
+3
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=477][div=image-cutter]
+[poster]https://kawai.shikimori.one/system/animes/original/477.jpg[/poster][/div][/anime][div=text]
+2
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=185][div=image-cutter]
+[poster]https://dere.shikimori.one/system/animes/original/185.jpg[/poster][/div][/anime][div=text]
+2
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=820][div=image-cutter]
+[poster]https://desu.shikimori.one/system/animes/original/820.jpg[/poster][/div][/anime][div=text]
+2
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=6211][div=image-cutter]
+[poster]https://desu.shikimori.one/system/animes/original/6211.jpg[/poster][/div][/anime][div=text]
+2
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=9756][div=image-cutter]
+[poster]https://kawai.shikimori.one/system/animes/original/9756.jpg[/poster][/div][/anime][div=text]
+2
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=30187][div=image-cutter]
+[poster]https://kawai.shikimori.one/system/animes/original/30187.jpg[/poster][/div][/anime][div=text]
+2
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=37447][div=image-cutter]
+[poster]https://desu.shikimori.one/system/animes/original/37447.jpg[/poster][/div][/anime][div=text]
+2
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=34636][div=image-cutter]
+[poster]https://desu.shikimori.one/system/animes/original/34636.jpg[/poster][/div][/anime][div=text]
+1
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=790][div=image-cutter]
+[poster]https://kawai.shikimori.one/system/animes/original/790.jpg[/poster][/div][/anime][div=text]
+1
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=6][div=image-cutter]
+[poster]https://kawai.shikimori.one/system/animes/original/6.jpg[/poster][/div][/anime][div=text]
+1
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=7785][div=image-cutter]
+[poster]https://kawai.shikimori.one/system/animes/original/7785.jpg[/poster][/div][/anime][div=text]
+1
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=918][div=image-cutter]
+[poster]https://desu.shikimori.one/system/animes/original/918.jpg[/poster][/div][/anime][div=text]
+1
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=39198][div=image-cutter]
+[poster]https://kawai.shikimori.one/system/animes/original/39198.jpg[/poster][/div][/anime][div=text]
+1
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=20583][div=image-cutter]
+[poster]https://desu.shikimori.one/system/animes/original/20583.jpg[/poster][/div][/anime][div=text]
+1
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=21843][div=image-cutter]
+[poster]https://kawai.shikimori.one/system/animes/original/21843.jpg[/poster][/div][/anime][div=text]
+1
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=269][div=image-cutter]
+[poster]https://kawai.shikimori.one/system/animes/original/269.jpg[/poster][/div][/anime][div=text]
+1
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=24833][div=image-cutter]
+[poster]https://kawai.shikimori.one/system/animes/original/24833.jpg[/poster][/div][/anime][div=text]
+1
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=603][div=image-cutter]
+[poster]https://desu.shikimori.one/system/animes/original/603.jpg[/poster][/div][/anime][div=text]
+1
+[/div][/div][/div][/div]
+[div=c-column b-catalog_entry][div=cover][div=image-decor][anime=18507][div=image-cutter]
+[poster]https://kawai.shikimori.one/system/animes/original/18507.jpg[/poster][/div][/anime][div=text]
+1
+[/div][/div][/div][/div]
+[/div]
+
+[/spoiler]
+
 `.trim();
 
 // const TEST_DEMO_CONTENT = `
