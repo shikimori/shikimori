@@ -5,7 +5,7 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
     topic: %i[user linked]
   }
 
-  LIMIT_PER_REQUEST = 250
+  LIMIT_PER_REQUEST = 2
 
   def show # rubocop:disable all
     results = {}
@@ -17,17 +17,21 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
       ids = parse_ids(kind, limit_left)
       limit_left -= ids.size
 
-      results[kind] = fetch(kind, ids).map do |model|
+      break if ids.none?
+
+      results[kind] = fetch(kind, ids).transform_values do |model|
+        next unless model
+
         case kind
-        when :user_image
-          serialize_user_image model
-        when :user
-          serialize_user model
-        when :topic, :comment
-          serialize_forum_entry model
-        else
-          serialize_db_entry model
-        end
+          when :user_image
+            serialize_user_image model
+          when :user
+            serialize_user model
+          when :topic, :comment
+            serialize_forum_entry model
+          else
+            serialize_db_entry model
+          end
       end
     end
 
@@ -48,10 +52,14 @@ private
   end
 
   def fetch kind, ids
+    results = ids.sort.each_with_object({}) { |id, memo| memo[id] = nil }
+
     kind.to_s.classify.constantize
       .includes(TYPE_INCLUDES[kind])
       .where(id: ids)
-      .order(:id)
+      .each_with_object(results) do |model, memo|
+        memo[model.id] = model
+      end
   end
 
   def serialize_user_image model
@@ -88,7 +96,7 @@ private
     {
       id: model.id,
       text: UsersHelper.localized_name(model, current_user),
-      url: UrlGenerator.instance.send(:"#{model.class.name.downcase}_path", model)
+      url: UrlGenerator.instance.send(:"#{model.class.name.downcase}_url", model)
     }
   end
 end

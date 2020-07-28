@@ -7,6 +7,7 @@ const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 
 const TEST_DEMO_CONTENT = `
 [anime=1]
+[anime=3456789]
 [character=22052]
 [character=89339]
 [character=118765]

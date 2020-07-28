@@ -28,32 +28,41 @@ describe Api::V1::ShikiEditorsController do
 
     it do
       expect(json).to eq(
-        anime: [{
-          'id' => anime.id,
-          'text' => anime.russian,
-          'url' => anime_url(anime)
-        }],
-        manga: [{
-          'id' => manga_1.id,
-          'text' => manga_1.russian,
-          'url' => manga_url(manga_1)
-        }, {
-          'id' => manga_2.id,
-          'text' => manga_2.russian,
-          'url' => ranobe_url(manga_2)
-        }],
-        character: [{
-          'id' => character.id,
-          'text' => character.russian,
-          'url' => character_url(character)
-        }],
-        person: [{
-          'id' => person.id,
-          'text' => person.russian,
-          'url' => person_url(person)
-        }],
-        user_image: [
-          {
+        anime: {
+          anime.id.to_s => {
+            'id' => anime.id,
+            'text' => anime.russian,
+            'url' => anime_url(anime)
+          }
+        },
+        manga: {
+          manga_1.id.to_s => {
+            'id' => manga_1.id,
+            'text' => manga_1.russian,
+            'url' => manga_url(manga_1)
+          },
+          manga_2.id.to_s => {
+            'id' => manga_2.id,
+            'text' => manga_2.russian,
+            'url' => ranobe_url(manga_2)
+          }
+        },
+        character: {
+          character.id.to_s => {
+            'id' => character.id,
+            'text' => character.russian,
+            'url' => character_url(character)
+          }
+        },
+        person: {
+          person.id.to_s => {
+            'id' => person.id,
+            'text' => person.russian,
+            'url' => person_url(person)
+          }
+        },
+        user_image: {
+          user_image.id.to_s => {
             'id' => user_image.id,
             'url' => ImageUrlGenerator.instance.url(user_image, :original)
             # 'original_url' => user_image.image.url(:original),
@@ -61,70 +70,76 @@ describe Api::V1::ShikiEditorsController do
             # 'width' => user_image.width,
             # 'height' => user_image.height
           }
-        ],
-        user: [{
-          'id' => user.id,
-          'nickname' => user.nickname,
-          'avatar' => ImageUrlGenerator.instance.url(user, :x32),
-          'url' => profile_url(user)
-        }],
-        comment: [{
-          'id' => comment.id,
-          'author' => comment.user.nickname,
-          'url' => comment_url(comment)
-        }],
-        topic: [{
-          'id' => topic.id,
-          'author' => topic.user.nickname,
-          'url' => UrlGenerator.instance.topic_url(topic)
-        }],
+        },
+        user: {
+          user.id.to_s => {
+            'id' => user.id,
+            'nickname' => user.nickname,
+            'avatar' => ImageUrlGenerator.instance.url(user, :x32),
+            'url' => profile_url(user)
+          }
+        },
+        comment: {
+          comment.id.to_s => {
+            'id' => comment.id,
+            'author' => comment.user.nickname,
+            'url' => comment_url(comment)
+          }
+        },
+        topic: {
+          topic.id.to_s => {
+            'id' => topic.id,
+            'author' => topic.user.nickname,
+            'url' => UrlGenerator.instance.topic_url(topic)
+          }
+        },
         is_paginated: false
       )
     end
 
-    describe 'limit_per_request' do
-      context 'limit 3' do
-        let(:limit_per_request) { 3 }
+    context 'limit_per_request' do
+      let(:limit_per_request) { 2 }
 
-        it do
-          expect(json).to eq(
-            anime: [{
+      it do
+        expect(json).to eq(
+          anime: {
+            anime.id.to_s => {
               'id' => anime.id,
               'text' => anime.russian,
               'url' => anime_url(anime)
-            }],
-            manga: [{
+            }
+          },
+          manga: {
+            manga_1.id.to_s => {
               'id' => manga_1.id,
               'text' => manga_1.russian,
               'url' => manga_url(manga_1)
-            }, {
-              'id' => manga_2.id,
-              'text' => manga_2.russian,
-              'url' => ranobe_url(manga_2)
-            }],
-            is_paginated: true
-          )
-        end
+            }
+          },
+          is_paginated: true
+        )
+      end
+    end
+
+    context 'non existing ids' do
+      let(:params) do
+        {
+          anime: [anime.id, 123435546546].join(',')
+        }
       end
 
-      context 'limit 2' do
-        let(:limit_per_request) { 2 }
-
-        it do
-          expect(json).to eq(
-            anime: [{
+      it do
+        expect(json).to eq(
+          anime: {
+            anime.id.to_s => {
               'id' => anime.id,
               'text' => anime.russian,
               'url' => anime_url(anime)
-            }],
-            manga: [{
-              'id' => manga_1.id,
-              'text' => manga_1.russian,
-              'url' => manga_url(manga_1)
-            }],
-            is_paginated: true
-          )
-        end
+            },
+            '123435546546' => nil
+          },
+          is_paginated: false
+        )
       end
     end
   end
