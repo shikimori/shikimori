@@ -6,10 +6,10 @@ const IS_RAW = false || !IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 
 const TEST_DEMO_CONTENT = `
-[profile=27867]WhereIsMyMind[/profile]
 [entry=315431]Tedeika²[/entry]
 [topic=315431]Tedeika²[/entry]
 [comment=6153006]StEttien[/comment]
+[message=1288282788]Клим Кот[/message]
 `.trim();
 
 pageLoad('tests_editor', async () => {
