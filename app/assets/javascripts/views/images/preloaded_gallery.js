@@ -1,5 +1,5 @@
 import delay from 'delay';
-import { bind } from 'decko';
+import bind from 'bind-decorator';
 
 import ShikiGallery from 'views/application/shiki_gallery';
 import JST from 'helpers/jst';

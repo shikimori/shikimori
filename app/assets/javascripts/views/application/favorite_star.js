@@ -1,4 +1,4 @@
-import { bind } from 'decko';
+import bind from 'bind-decorator';
 import View from 'views/application/view';
 
 const ADD_CLASS = 'fav-add';

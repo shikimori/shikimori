@@ -1,4 +1,4 @@
-import { bind } from 'decko';
+import bind from 'bind-decorator';
 import { flash } from 'shiki-utils';
 
 import View from 'views/application/view';

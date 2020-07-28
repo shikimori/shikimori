@@ -1,4 +1,4 @@
-import { bind } from 'decko';
+import bind from 'bind-decorator';
 import getjs from 'get-js';
 
 import { AdView } from './ad_view';

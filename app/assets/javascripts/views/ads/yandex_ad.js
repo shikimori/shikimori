@@ -1,6 +1,6 @@
 /* global Ya */
 
-import { bind } from 'decko';
+import bind from 'bind-decorator';
 import { AdView } from './ad_view';
 
 let state = null;

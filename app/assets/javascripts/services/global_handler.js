@@ -1,5 +1,5 @@
 import { chain } from 'chain-decorator';
-import { bind } from 'decko';
+import bind from 'bind-decorator';
 
 const KEY_CODES = {
   enter: 13,

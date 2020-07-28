@@ -2,16 +2,16 @@ import delay from 'delay';
 import csrf from 'helpers/csrf';
 import autosize from 'autosize';
 
-const IS_RAW = true || !IS_LOCAL_SHIKI_PACKAGES;
+const IS_RAW = false || !IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 
 const TEST_DEMO_CONTENT = `
 [anime=1]
-[anime=3456789]
+[anime=9876543]
 [character=22052]
 [character=89339]
 [character=118765]
-[character=86]
+[character=36828]
 `.trim();
 
 // const TEST_DEMO_CONTENT = `

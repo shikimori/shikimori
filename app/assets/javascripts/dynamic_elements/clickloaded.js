@@ -1,4 +1,4 @@
-import { bind } from 'decko';
+import bind from 'bind-decorator';
 import axios from 'helpers/axios';
 
 import View from 'views/application/view';

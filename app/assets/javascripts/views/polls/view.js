@@ -1,7 +1,7 @@
 import axios from 'helpers/axios';
 import View from 'views/application/view';
 import JST from 'helpers/jst';
-import { bind } from 'decko';
+import bind from 'bind-decorator';
 
 const TEMPLATE = 'polls/poll';
 
