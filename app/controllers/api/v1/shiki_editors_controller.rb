@@ -1,15 +1,21 @@
 class Api::V1::ShikiEditorsController < Api::V1Controller
-  SUPPORTED_TYPES = %i[user anime manga character person user_image comment topic]
+  SUPPORTED_TYPES = %i[anime manga character person user_image user comment topic]
   TYPE_INCLUDES = {
     comment: :user,
     topic: %i[user linked]
   }
 
-  def show # rubocop:disable MethodLength
+  LIMIT_PER_REQUEST = 250
+
+  def show # rubocop:disable all
     results = {}
+    limit_left = LIMIT_PER_REQUEST
 
     SUPPORTED_TYPES.each do |kind|
-      ids = parse_ids(kind)
+      break if limit_left <= 0
+
+      ids = parse_ids(kind, limit_left)
+      limit_left -= ids.size
 
       results[kind] = fetch(kind, ids).map do |model|
         case kind
@@ -30,13 +36,13 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
 
 private
 
-  def parse_ids kind
+  def parse_ids kind, limit
     (params[kind] || '')
       .split(',')
       .uniq
       .map(&:to_i)
       .select { |v| v.present? && v.positive? }
-      .take(100)
+      .take(limit)
   end
 
   def fetch kind, ids

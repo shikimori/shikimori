@@ -1,17 +1,21 @@
 describe Api::V1::ShikiEditorsController do
   describe '#show' do
-    subject! do
-      get :show,
-        params: {
-          anime: anime.id.to_s,
-          manga: [manga_1.id, manga_2.id].join(','),
-          character: character.id.to_s,
-          person: person.id.to_s,
-          user_image: user_image.id.to_s,
-          user: user.id.to_s,
-          comment: comment.id.to_s,
-          topic: topic.id.to_s
-        }
+    before { stub_const "#{described_class.name}::LIMIT_PER_REQUEST", limit_per_request }
+
+    subject! { get :show, params: params }
+
+    let(:limit_per_request) { 100 }
+    let(:params) do
+      {
+        anime: anime.id.to_s,
+        manga: [manga_1.id, manga_2.id].join(','),
+        character: character.id.to_s,
+        person: person.id.to_s,
+        user_image: user_image.id.to_s,
+        user: user.id.to_s,
+        comment: comment.id.to_s,
+        topic: topic.id.to_s
+      }
     end
     let(:anime) { create :anime }
     let(:manga_1) { create :manga }
@@ -75,6 +79,50 @@ describe Api::V1::ShikiEditorsController do
           'url' => UrlGenerator.instance.topic_url(topic)
         }]
       )
+    end
+
+    describe 'limit_per_request' do
+      context 'limit 3' do
+        let(:limit_per_request) { 3 }
+
+        it do
+          expect(json).to eq(
+            anime: [{
+              'id' => anime.id,
+              'text' => anime.russian,
+              'url' => "/animes/#{anime.to_param}"
+            }],
+            manga: [{
+              'id' => manga_1.id,
+              'text' => manga_1.russian,
+              'url' => "/mangas/#{manga_1.to_param}"
+            }, {
+              'id' => manga_2.id,
+              'text' => manga_2.russian,
+              'url' => "/ranobe/#{manga_2.to_param}"
+            }]
+          )
+        end
+      end
+
+      context 'limit 2' do
+        let(:limit_per_request) { 2 }
+
+        it do
+          expect(json).to eq(
+            anime: [{
+              'id' => anime.id,
+              'text' => anime.russian,
+              'url' => "/animes/#{anime.to_param}"
+            }],
+            manga: [{
+              'id' => manga_1.id,
+              'text' => manga_1.russian,
+              'url' => "/mangas/#{manga_1.to_param}"
+            }]
+          )
+        end
+      end
     end
   end
 end
