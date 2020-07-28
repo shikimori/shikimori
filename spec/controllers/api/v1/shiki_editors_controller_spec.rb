@@ -77,7 +77,8 @@ describe Api::V1::ShikiEditorsController do
           'id' => topic.id,
           'author' => topic.user.nickname,
           'url' => UrlGenerator.instance.topic_url(topic)
-        }]
+        }],
+        is_paginated: false
       )
     end
 
@@ -100,7 +101,8 @@ describe Api::V1::ShikiEditorsController do
               'id' => manga_2.id,
               'text' => manga_2.russian,
               'url' => "/ranobe/#{manga_2.to_param}"
-            }]
+            }],
+            is_paginated: true
           )
         end
       end
@@ -119,7 +121,8 @@ describe Api::V1::ShikiEditorsController do
               'id' => manga_1.id,
               'text' => manga_1.russian,
               'url' => "/mangas/#{manga_1.to_param}"
-            }]
+            }],
+            is_paginated: true
           )
         end
       end

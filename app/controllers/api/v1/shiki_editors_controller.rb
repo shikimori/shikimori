@@ -31,6 +31,8 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
       end
     end
 
+    results[:is_paginated] = limit_left <= 0
+
     render json: results
   end
 

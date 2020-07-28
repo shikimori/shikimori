@@ -6,8 +6,16 @@ const IS_RAW = true || !IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 
 const TEST_DEMO_CONTENT = `
-[profile=27867]WhereIsMyMind[/profile]
+[anime=1]
+[character=22052]
+[character=89339]
+[character=118765]
+[character=86]
 `.trim();
+
+// const TEST_DEMO_CONTENT = `
+// [profile=27867]WhereIsMyMind[/profile]
+// `.trim();
 
 pageLoad('tests_editor', async () => {
   const $shikiEditor = $('.b-shiki_editor').shikiEditor();
