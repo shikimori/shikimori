@@ -17,7 +17,7 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
       ids = parse_ids(kind, limit_left)
       limit_left -= ids.size
 
-      break if ids.none?
+      next if ids.none?
 
       results[kind] = fetch(kind, ids).transform_values do |model|
         next unless model
