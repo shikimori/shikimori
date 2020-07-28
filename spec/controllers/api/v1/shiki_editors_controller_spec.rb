@@ -31,26 +31,26 @@ describe Api::V1::ShikiEditorsController do
         anime: [{
           'id' => anime.id,
           'text' => anime.russian,
-          'url' => "/animes/#{anime.to_param}"
+          'url' => anime_url(anime)
         }],
         manga: [{
           'id' => manga_1.id,
           'text' => manga_1.russian,
-          'url' => "/mangas/#{manga_1.to_param}"
+          'url' => manga_url(manga_1)
         }, {
           'id' => manga_2.id,
           'text' => manga_2.russian,
-          'url' => "/ranobe/#{manga_2.to_param}"
+          'url' => ranobe_url(manga_2)
         }],
         character: [{
           'id' => character.id,
           'text' => character.russian,
-          'url' => "/characters/#{character.to_param}"
+          'url' => character_url(character)
         }],
         person: [{
           'id' => person.id,
           'text' => person.russian,
-          'url' => "/people/#{person.to_param}"
+          'url' => person_url(person)
         }],
         user_image: [
           {
@@ -91,16 +91,16 @@ describe Api::V1::ShikiEditorsController do
             anime: [{
               'id' => anime.id,
               'text' => anime.russian,
-              'url' => "/animes/#{anime.to_param}"
+              'url' => anime_url(anime)
             }],
             manga: [{
               'id' => manga_1.id,
               'text' => manga_1.russian,
-              'url' => "/mangas/#{manga_1.to_param}"
+              'url' => manga_url(manga_1)
             }, {
               'id' => manga_2.id,
               'text' => manga_2.russian,
-              'url' => "/ranobe/#{manga_2.to_param}"
+              'url' => ranobe_url(manga_2)
             }],
             is_paginated: true
           )
@@ -115,12 +115,12 @@ describe Api::V1::ShikiEditorsController do
             anime: [{
               'id' => anime.id,
               'text' => anime.russian,
-              'url' => "/animes/#{anime.to_param}"
+              'url' => anime_url(anime)
             }],
             manga: [{
               'id' => manga_1.id,
               'text' => manga_1.russian,
-              'url' => "/mangas/#{manga_1.to_param}"
+              'url' => manga_url(manga_1)
             }],
             is_paginated: true
           )
