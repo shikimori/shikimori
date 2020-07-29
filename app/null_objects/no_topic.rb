@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class NoTopic < NullObject
-  rattr_initialize :linked
+  rattr_initialize %i[id linked]
 
   def comments
     Comment.none

@@ -4,17 +4,18 @@ class TopicsController < ShikimoriController
   before_action :check_post_permission, only: %i[create update destroy]
   load_and_authorize_resource(
     class: Topic,
-    only: %i[new create edit update show destroy]
+    only: %i[new create edit update destroy]
   )
 
+  before_action :fetch_topic, only: %i[show]
   before_action :set_view
   before_action :set_breadcrumbs
-  before_action :set_canonical, only: [:show]
+  before_action :set_canonical, only: %i[show]
 
   UPDATE_PARAMS = %i[body title linked_id linked_type tags]
   CREATE_PARAMS = UPDATE_PARAMS + %i[user_id forum_id type]
 
-  def index
+  def index # rubocop:disable AbcSize
     og noindex: true if params[:search].present?
 
     if params[:linked_id]
@@ -31,12 +32,12 @@ class TopicsController < ShikimoriController
   end
 
   def show
+    # новости аниме без комментариев поисковым системам не скармливаем
+    return render :missing if @resource.is_a? NoTopic
+
     raise AgeRestricted if @resource&.linked.try(:censored?) && censored_forbidden?
 
     ensure_redirect! UrlGenerator.instance.topic_url(@resource)
-
-    # новости аниме без комментариев поисковым системам не скармливаем
-    og noindex: true, nofollow: true if @resource.generated? && @resource.comments_count.zero?
   end
 
   def new
@@ -207,11 +208,21 @@ private
     end
   end
 
+  def fetch_topic
+    @resource = Topic.find_by(id: params[:id]) ||
+      NoTopic.new(id: params[:id].to_i)
+  end
+
   def set_canonical
-    @canonical = @topic_view.canonical_url
+    @canonical = @topic_view&.canonical_url # can be nil when topic is a NoTopic
   end
 
   def faye
     FayeService.new current_user, faye_token
+  end
+
+  def noindex?
+    @resource.is_a?(NoTopic) ||
+      (@resource.generated? && @resource.comments_count.zero?)
   end
 end

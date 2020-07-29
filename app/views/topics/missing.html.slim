@@ -1,0 +1,11 @@
+- if request.xhr?
+  p.b-nothing_here.centered = t '.no_topic'
+
+- else
+  .b-topic.to-process[
+    data-dynamic='topic'
+    data-faye='false'
+  ]
+    .subheadline = t '.user_topic', id: @resource.id
+    .block
+      p.b-nothing_here = t '.no_topic'

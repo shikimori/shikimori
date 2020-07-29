@@ -2,6 +2,9 @@ ru:
   topics:
     show:
       rss_title: Комментарии топика
+    missing:
+      user_topic: 'Топик #%{id}'
+      no_topic: Топик или был удалён, или никогда не существовал на сайте
     header:
       mini: &header_mini
         topic_ignored: в игноре

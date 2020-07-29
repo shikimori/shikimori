@@ -36,7 +36,7 @@ module TopicsConcern
   end
 
   def maybe_topic locale
-    topic(locale) || NoTopic.new(self)
+    topic(locale) || NoTopic.new(linked: self)
   end
 
 private

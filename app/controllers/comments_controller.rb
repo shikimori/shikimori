@@ -1,9 +1,11 @@
 class CommentsController < ShikimoriController
   include CommentHelper
 
-  def show # rubocop:disable AbcSize, MethodLength
-    og noindex: true
+  def show # rubocop:disable AbcSize
+    og noindex: true, nofollow: true
     comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
+
+    return render :missing if comment.is_a? NoComment
 
     if comment.commentable.is_a?(Topic) && comment.commentable.linked.is_a?(Club)
       Clubs::RestrictCensored.call(
@@ -14,17 +16,11 @@ class CommentsController < ShikimoriController
 
     @view = Comments::View.new comment, false
 
-    if comment.is_a? NoComment
-      render :missing
-    else
-      og(
-        image: comment.user.avatar_url(160),
-        page_title: i18n_t('comment_by', nickname: comment.user.nickname),
-        description: comment.body.gsub(%r{\[[/\w_ =-]+\]}, '')
-      )
-
-      render :show
-    end
+    og(
+      image: comment.user.avatar_url(160),
+      page_title: i18n_t('comment_by', nickname: comment.user.nickname),
+      description: comment.body.gsub(%r{\[[/\w_ =-]+\]}, '')
+    )
   end
 
   def tooltip
