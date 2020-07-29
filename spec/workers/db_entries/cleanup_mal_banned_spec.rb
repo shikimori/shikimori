@@ -6,19 +6,19 @@ describe DbEntries::CleanupMalBanned do
   let!(:role_3) { create :person_role, anime_id: 114, person_id: 1009 }
   let!(:role_4) { create :person_role, manga_id: 114, person_id: 1009 }
 
-  let!(:banned_anime) { create :anime, id: 35614 }
+  let!(:banned_anime) { create :anime, id: 111111111 }
   let!(:anime) { create :anime }
 
-  let!(:banned_manga) { create :manga, id: 59267 }
+  let!(:banned_manga) { create :manga, id: 222222222 }
   let!(:manga) { create :manga }
 
-  let!(:banned_ranobe) { create :ranobe, id: 88888888 }
+  let!(:banned_ranobe) { create :ranobe, id: 333333333 }
   let!(:ranobe) { create :ranobe }
 
-  let!(:banned_character) { create :character, id: 7746 }
+  let!(:banned_character) { create :character, id: 444444444 }
   let!(:character) { create :character }
 
-  let!(:banned_person) { create :person, id: 32789 }
+  let!(:banned_person) { create :person, id: 555555555 }
   let!(:person) { create :person }
 
   subject! { described_class.new.perform }
