@@ -210,7 +210,7 @@ describe Messages::GenerateBody do
           <<~HTML.squish
             Приглашение на вступление в клуб
             <a href="#{Shikimori::PROTOCOL}://shikimori.test/clubs/1-test"
-            title="" class="b-link">test</a>.
+            title="test" class="b-link">test</a>.
           HTML
         )
       end
