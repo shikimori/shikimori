@@ -98,9 +98,17 @@ RAILS_ENV=test rails db:schema:load
 rake db:migrate
 ```
 
-### Start all services
+### Start rails server
+```sh
+rails server
+```
+### Start related services
 ```sh
 overmind start
+```
+### Start some of related services
+```sh
+OVERMIND_PROCESSES=camo,faye overmind start
 ```
 
 ## Elasticsearch
