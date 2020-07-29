@@ -1,7 +1,6 @@
 describe BbCodes::Tags::CommentTag do
   subject { described_class.instance.format text }
 
-  let(:comment) { build_stubbed :comment }
   let(:url) { UrlGenerator.instance.comment_url comment }
 
   context 'selfclosed' do
@@ -10,17 +9,28 @@ describe BbCodes::Tags::CommentTag do
 
     it do
       is_expected.to eq(
-        "[url=#{url} bubbled]@#{user.nickname}[/url], test"
+        "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test"
       )
+    end
+
+    context 'non existing comment' do
+      let(:comment) { build_stubbed :comment }
+      let(:text) { "[comment=#{comment.id}], test" }
+      it do
+        is_expected.to eq(
+          "[url=#{url} b-mention]#{described_class::NOT_FOUND}[/url], test"
+        )
+      end
     end
   end
 
   context 'with author' do
+    let(:comment) { create :comment }
     let(:text) { "[comment=#{comment.id}]#{user.nickname}[/comment], test" }
 
     it do
       is_expected.to eq(
-        "[url=#{url} bubbled]@#{user.nickname}[/url], test"
+        "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test"
       )
     end
   end
@@ -31,7 +41,7 @@ describe BbCodes::Tags::CommentTag do
 
     it do
       is_expected.to eq(
-        "[url=#{url} bubbled]@#{user.nickname}[/url], test"
+        "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test"
       )
     end
   end
@@ -44,7 +54,7 @@ describe BbCodes::Tags::CommentTag do
       let(:user) { create :user, :with_avatar }
       it do
         is_expected.to eq(
-          "[url=#{url} bubbled b-user16]<img "\
+          "[url=#{url} bubbled b-mention b-user16]<img "\
             "src=\"#{user.avatar_url 16}\" "\
             "srcset=\"#{user.avatar_url 32} 2x\" "\
             "alt=\"#{ERB::Util.h user.nickname}\" />"\
@@ -56,7 +66,7 @@ describe BbCodes::Tags::CommentTag do
     context 'without avatar' do
       it do
         is_expected.to eq(
-          "[url=#{url} bubbled b-user16]"\
+          "[url=#{url} bubbled b-mention b-user16]"\
             "<span>#{user.nickname}</span>[/url], test"
         )
       end

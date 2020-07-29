@@ -7,7 +7,7 @@ describe BbCodes::Tags::MessageTag do
 
   it do
     is_expected.to eq(
-      "[url=#{url} bubbled]@#{user.nickname}[/url], test"
+      "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test"
     )
   end
 end

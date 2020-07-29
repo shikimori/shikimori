@@ -5,6 +5,8 @@ class BbCodes::Tags::CommentTag
   dsl_attribute :klass, Comment
   dsl_attribute :user_field, :user
 
+  NOT_FOUND = 'DELETED'
+
   def bbcode_regexp
     @regexp ||= %r{
       \[#{name_regexp}=(?<id>\d+) (?<quote>\ quote)?\]
@@ -38,26 +40,31 @@ private
     entry = entries[entry_id.to_i]
     user = entry&.send(self.class::USER_FIELD) if is_quoted || text.blank?
 
-    author_name = extract_author user, text, entry_id
-    css_classes = [
-      'bubbled',
-      ('b-user16' if is_quoted)
-    ].compact.join(' ')
+    author_name = text.presence || user&.nickname || NOT_FOUND
+    url = entry_url entry, entry_id
+    css_classes = css_classes entry, user, is_quoted
+    author_html = author_html is_quoted, user, author_name
 
-    "[url=#{entry_url(entry, entry_id)} #{css_classes}]" +
-      author_html(is_quoted, user, author_name) +
-      '[/url]'
+    "[url=#{url} #{css_classes}]#{author_html}[/url]"
   end
 
   def entry_url entry, entry_id
     UrlGenerator.instance.send :"#{name}_url", entry || entry_id
   end
 
+  def css_classes entry, user, is_quoted
+    [
+      ('bubbled' if entry),
+      'b-mention',
+      ('b-user16' if user && is_quoted)
+    ].compact.join(' ')
+  end
+
   def author_html is_quoted, user, author_name
     if is_quoted
       quoteed_author_html user, author_name
     else
-      "@#{author_name}"
+      author_name
     end
   end
 
@@ -71,10 +78,6 @@ private
         alt="#{author_name}"
       /><span>#{author_name}</span>
     HTML
-  end
-
-  def extract_author user, text, entry_id
-    text.presence || user&.nickname || entry_id
   end
 
   def fetch_entries text
