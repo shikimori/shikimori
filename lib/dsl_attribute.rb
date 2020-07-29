@@ -17,5 +17,9 @@ module DslAttribute
         (self.class.const_defined?(constant_name) ? self.class.const_get(constant_name) : nil) ||
         default_value
     end
+
+    if default_value
+      send attribute_name, default_value
+    end
   end
 end
