@@ -134,7 +134,6 @@ module Clockwork
 
   every 1.week, 'weekly.stuff.2', at: 'Monday 02:45' do
     OldMessagesCleaner.perform_async
-    OldNewsCleaner.perform_async
     UserImagesCleaner.perform_async
     SakuhindbImporter.perform_async with_fail: true
     # SubtitlesImporter.perform_async :latest
@@ -150,7 +149,7 @@ module Clockwork
     CharactersVerifier.perform_async
     PeopleVerifier.perform_async
 
-    NamedLogger.clockwork.info 'weekly.stuff.3 finished'
+    NamedLogger.clockwork.info 'weekly.stuff.2 finished'
   end
 
   # every 1.week, 'weekly.vacuum', at: 'Monday 05:00' do
