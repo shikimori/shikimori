@@ -1,5 +1,5 @@
 describe BbCodes::Tags::UrlTag do
-  subject { BbCodes::Tags::UrlTag.instance.format text }
+  subject { described_class.instance.format text }
 
   let(:rel) { 'rel="noopener noreferrer nofollow"' }
   let(:url) { 'http://site.com/site-url' }

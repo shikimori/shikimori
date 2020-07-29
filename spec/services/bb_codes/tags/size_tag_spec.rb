@@ -1,6 +1,5 @@
 describe BbCodes::Tags::SizeTag do
-  let(:tag) { BbCodes::Tags::SizeTag.instance }
-  subject { tag.format text }
+  subject { described_class.instance.format text }
 
   context 'small size' do
     let(:text) { '[size=13]test[/size]' }

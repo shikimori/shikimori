@@ -1,6 +1,5 @@
 describe BbCodes::Tags::QuoteTag do
-  let(:tag) { BbCodes::Tags::QuoteTag.instance }
-  subject { tag.format text }
+  subject { described_class.instance.format text }
 
   context 'simple quote' do
     let(:text) { '[quote]test[/quote]' }
