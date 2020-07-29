@@ -59,8 +59,8 @@ class BbCodes::Text
   default_url_options[:host] ||=
     if Rails.env.development?
       'shikimori.local'
-    elsif Rails.env.beta?
-      "beta.#{Shikimori::DOMAIN}"
+    # elsif Rails.env.beta?
+    #   "beta.#{Shikimori::DOMAIN}"
     else
       Shikimori::DOMAIN
     end
