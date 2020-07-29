@@ -52,13 +52,24 @@ private
   end
 
   def not_found_to_hmtl entry_id, text
-    "<span class='b-mention b-mention-404'>" +
+    url = entry_id_url entry_id
+    open_tag = url ? "a href='#{url}'" : 'span'
+    close_tag = url ? 'a' : 'span'
+    css_classes = url ?
+      'b-mention b-mention-404 bubbled' :
+      'b-mention b-mention-404'
+
+    "<#{open_tag} class='#{css_classes}'>" +
       (text.present? ? "<span>#{text}</span>" : '') +
-       "<del>ID=#{entry_id}</del></span>"
+       "<del>ID=#{entry_id}</del></#{close_tag}>"
   end
 
   def entry_url entry
     UrlGenerator.instance.send :"#{name}_url", entry
+  end
+
+  def entry_id_url entry_id
+    UrlGenerator.instance.send :"#{name}_url", entry_id
   end
 
   def css_classes entry, user, is_quoted
