@@ -6,9 +6,9 @@ class BbCodes::Tags::CommentTag
   dsl_attribute :user_field, :user
 
   def bbcode_regexp
-    @regexp ||= %r{
+    @bbcode_regexp ||= %r{
       \[#{name_regexp}=(?<id>\d+) (?<quote>\ quote)?\]
-        (?<text> .*? )
+        (?<text> (?: (?!\[#{name_regexp}).)* )
       \[/#{name_regexp}\]
       |
       \[#{name_regexp}=(?<id>\d+)\]

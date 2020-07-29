@@ -25,6 +25,22 @@ describe BbCodes::Tags::CommentTag do
     end
   end
 
+  context 'double match' do
+    let(:comment) { create :comment, user: user }
+    let(:comment_2) { create :comment, user: user_2 }
+    let(:text) do
+      "[comment=#{comment.id}], test [comment=#{comment_2.id}]qwe[/comment]"
+    end
+    let(:url_2) { UrlGenerator.instance.comment_url comment_2 }
+
+    it do
+      is_expected.to eq(
+        "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test " \
+          "[url=#{url_2} bubbled b-mention]qwe[/url]"
+      )
+    end
+  end
+
   context 'with author' do
     let(:text) { "[comment=#{comment.id}]#{user.nickname}[/comment], test" }
     let(:comment) { create :comment }
