@@ -63,11 +63,7 @@ private
   end
 
   def extract_author user, text, comment_id
-    if text.present?
-      text
-    else
-      user&.nickname || comment_id
-    end
+    text.presence || user&.nickname || comment_id
   end
 
   def fetch_comments text
@@ -76,6 +72,6 @@ private
     Comment
       .where(id: comment_ids)
       .includes(:user)
-      .each_with_object({}) { |comment, memo| memo[comment.id] = comment }
+      .index_by(&:id)
   end
 end
