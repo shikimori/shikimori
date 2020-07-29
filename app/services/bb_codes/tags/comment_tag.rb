@@ -61,7 +61,7 @@ private
 
     "<#{open_tag} class='#{css_classes}'>" +
       (text.present? ? "<span>#{text}</span>" : '') +
-       "<del>ID=#{entry_id}</del></#{close_tag}>"
+      "<del>[#{name}=#{entry_id}]</del></#{close_tag}>"
   end
 
   def entry_url entry
