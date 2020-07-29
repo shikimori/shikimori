@@ -10,7 +10,7 @@ module CommentHelper
   ]
   COMPLEX_BB_CODES = %i[
     smileys club club_page collection article contest mention version anime_video
-    user message review posters ban
+    user review posters ban
     spoiler
   ]
 

@@ -7,16 +7,16 @@ class BbCodes::Tags::CommentTag
 
   def bbcode_regexp
     @regexp ||= %r{
-      \[#{name}=(?<id>\d+) (?<quote>\ quote)?\]
+      \[#{name_regexp}=(?<id>\d+) (?<quote>\ quote)?\]
         (?<text> .*? )
-      \[/#{name}\]
+      \[/#{name_regexp}\]
       |
-      \[#{name}=(?<id>\d+)\]
+      \[#{name_regexp}=(?<id>\d+)\]
     }mix
   end
 
   def id_regexp
-    @id_regexp ||= /\[#{name}=(\d+)/
+    @id_regexp ||= /\[#{name_regexp}=(\d+)/
   end
 
   def format text
@@ -88,5 +88,9 @@ private
 
   def name
     klass.base_class.name.downcase
+  end
+
+  def name_regexp
+    name
   end
 end
