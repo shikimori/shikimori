@@ -8,7 +8,7 @@ class BbCodes::Tags::CommentTag
   def bbcode_regexp
     @bbcode_regexp ||= %r{
       \[#{name_regexp}=(?<id>\d+) (?<quote>\ quote)?\]
-        (?<text> (?: (?!\[#{name_regexp}).)* )
+        (?<text> (?: (?!\[#{name_regexp}).)*? )
       \[/#{name_regexp}\]
       |
       \[#{name_regexp}=(?<id>\d+)\]
