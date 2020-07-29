@@ -52,9 +52,9 @@ private
   end
 
   def not_found_to_hmtl entry_id, text
-    "<span class='b-mention'>" +
-      (text.present? ? text + ' ' : '') +
-       "<del>404 ID=#{entry_id}</del></span>"
+    "<span class='b-mention b-mention-404'>" +
+      (text.present? ? "<span>#{text}</span>" : '') +
+       "<del>ID=#{entry_id}</del></span>"
   end
 
   def entry_url entry

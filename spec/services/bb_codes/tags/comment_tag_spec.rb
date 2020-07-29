@@ -18,7 +18,8 @@ describe BbCodes::Tags::CommentTag do
 
       it do
         is_expected.to eq(
-          "<span class='b-mention'><del>404 ID=#{comment.id}</del></span>, test"
+          "<span class='b-mention b-mention-404'><del>ID=#{comment.id}</del>" \
+            '</span>, test'
         )
       end
     end
@@ -39,7 +40,8 @@ describe BbCodes::Tags::CommentTag do
 
       it do
         is_expected.to eq(
-          "<span class='b-mention'>#{user.nickname} <del>404 ID=#{comment.id}</del></span>, test"
+          "<span class='b-mention b-mention-404'><span>#{user.nickname}</span>" \
+            "<del>ID=#{comment.id}</del></span>, test"
         )
       end
     end
@@ -60,7 +62,7 @@ describe BbCodes::Tags::CommentTag do
 
       it do
         is_expected.to eq(
-          "<span class='b-mention'><del>404 ID=#{comment.id}</del></span>, test"
+          "<span class='b-mention b-mention-404'><del>ID=#{comment.id}</del></span>, test"
         )
       end
     end

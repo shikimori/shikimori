@@ -17,7 +17,7 @@ describe BbCodes::Tags::TopicTag do
 
     it do
       is_expected.to eq(
-        "<span class='b-mention'><del>404 ID=#{topic_id}</del></span>, test"
+        "<span class='b-mention b-mention-404'><del>ID=#{topic_id}</del></span>, test"
       )
     end
   end

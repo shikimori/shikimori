@@ -10,6 +10,12 @@ const TEST_DEMO_CONTENT = `
 [topic=314310]
 [comment=6104628]
 [message=1278854609]
+
+
+[topic=99999999999]
+[topic=99999999999]morr[/topic]
+[comment=99999999999]
+[message=99999999999]
 `.trim();
 
 pageLoad('tests_editor', async () => {
