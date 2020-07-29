@@ -5,6 +5,8 @@ class BbCodes::Tags::CommentTag
     \[comment=(?<comment_id>\d+) (?<quote>\ quote)?\]
       (?<text> .*? )
     \[/comment\]
+    |
+    \[comment=(?<comment_id>\d+)\]
   }mix
 
   COMMENT_ID_REGEXP = /\[comment=(\d+)/

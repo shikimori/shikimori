@@ -4,6 +4,38 @@ describe BbCodes::Tags::CommentTag do
   let(:comment) { build_stubbed :comment }
   let(:comment_url) { UrlGenerator.instance.comment_url comment }
 
+  context 'selfclosed' do
+    let(:text) { "[comment=#{comment.id}], test" }
+    let(:comment) { create :comment, user: user }
+
+    it do
+      is_expected.to eq(
+        "[url=#{comment_url} bubbled]@#{user.nickname}[/url], test"
+      )
+    end
+  end
+
+  context 'with author' do
+    let(:text) { "[comment=#{comment.id}]#{user.nickname}[/comment], test" }
+
+    it do
+      is_expected.to eq(
+        "[url=#{comment_url} bubbled]@#{user.nickname}[/url], test"
+      )
+    end
+  end
+
+  context 'without author' do
+    let(:text) { "[comment=#{comment.id}][/comment], test" }
+    let(:comment) { create :comment, user: user }
+
+    it do
+      is_expected.to eq(
+        "[url=#{comment_url} bubbled]@#{user.nickname}[/url], test"
+      )
+    end
+  end
+
   context 'quote' do
     let(:comment) { create :comment, user: user }
     let(:text) { "[comment=#{comment.id} quote]#{user.nickname}[/comment], test" }
@@ -28,27 +60,6 @@ describe BbCodes::Tags::CommentTag do
             "<span>#{user.nickname}</span>[/url], test"
         )
       end
-    end
-  end
-
-  context 'with author' do
-    let(:text) { "[comment=#{comment.id}]#{user.nickname}[/comment], test" }
-
-    it do
-      is_expected.to eq(
-        "[url=#{comment_url} bubbled]@#{user.nickname}[/url], test"
-      )
-    end
-  end
-
-  context 'without author' do
-    let(:text) { "[comment=#{comment.id}][/comment], test" }
-    let(:comment) { create :comment, user: user }
-
-    it do
-      is_expected.to eq(
-        "[url=#{comment_url} bubbled]@#{user.nickname}[/url], test"
-      )
     end
   end
 end
