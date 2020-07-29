@@ -3,23 +3,23 @@ describe PagesController do
     let!(:ongoing) { create :anime, :ongoing }
     let!(:anons) { create :anime, :anons }
     let!(:topic) { create :topic, id: PagesController::ONGOINGS_TOPIC_ID }
-    before { get :ongoings }
+    subject! { get :ongoings }
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#about', :vcr do
     let!(:topic) { create :topic, id: PagesController::ABOUT_TOPIC_ID }
-    include_context :timecop, '2015-11-02'
+    include_context :timecop, '2020-07-07'
 
-    before { get :about }
+    subject! { get :about }
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#news_feed' do
     let!(:news_topic) { create :news_topic }
-    before { get :news_feed, format: :rss }
+    subject! { get :news_feed, format: :rss }
 
     it do
       expect(assigns :collection).to have(1).item
@@ -29,33 +29,33 @@ describe PagesController do
   end
 
   describe '#terms' do
-    before { get :terms }
+    subject! { get :terms }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#privacy' do
-    before { get :privacy }
+    subject! { get :privacy }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#for_right_holders' do
-    before { get :for_right_holders }
+    subject! { get :for_right_holders }
     it { expect(response).to have_http_status :success }
   end
 
   # describe 'pages404' do
-    # before { get :page404 }
+    # subject! { get :page404 }
     # it { is_expected.to respond_with 404 }
   # end
 
   # describe 'pages503' do
-    # before { get :page503 }
+    # subject! { get :page503 }
     # it { is_expected.to respond_with 503 }
   # end
 
   describe 'feedback' do
     let!(:guest) { create :user, :guest }
-    before { get :feedback }
+    subject! { get :feedback }
     it { expect(response).to have_http_status :success }
   end
 
@@ -84,12 +84,12 @@ describe PagesController do
   end
 
   describe 'user_agent' do
-    before { get :user_agent }
+    subject! { get :user_agent }
     it { expect(response).to have_http_status :success }
   end
 
   describe 'tableau' do
-    before { get :tableau }
+    subject! { get :tableau }
 
     it do
       expect(response.content_type).to eq 'application/json'

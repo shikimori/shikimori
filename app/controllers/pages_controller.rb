@@ -60,12 +60,18 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
   def page404
     og page_title: t('page_not_found')
-    render 'pages/page404', layout: false, status: 404, formats: :html
+    render 'pages/page404',
+      layout: false,
+      status: :not_found,
+      formats: :html
   end
 
   def page503
     og page_title: t('error')
-    render 'pages/page503', layout: false, status: 503, formats: :html
+    render 'pages/page503',
+      layout: false,
+      status: :service_unavailable,
+      formats: :html
   end
 
   def feedback
@@ -82,7 +88,9 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def country
-    render plain: GeoipAccess.instance.country_code(params[:ip] || request.remote_ip)
+    render plain: (
+      GeoipAccess.instance.country_code(params[:ip] || request.remote_ip)
+    )
   end
 
   def raise_exception
@@ -160,18 +168,18 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
         .map(&:third)
         .flatten
         .map { |v| JSON.parse v }
-        .sort_by { |v| Time.at v['enqueued_at'] }
+        .sort_by { |v| Time.zone.at v['enqueued_at'] }
 
       @sidkiq_busy = Sidekiq::Workers.new
         .to_a
         .map { |v| v[2]['payload'] }
-        .sort_by { |v| Time.at v['enqueued_at'] }
+        .sort_by { |v| Time.zone.at v['enqueued_at'] }
 
       @sidkiq_retries = sidekiq_page('retry', 'retries', 100)[2]
         .flatten
         .select { |v| v.is_a? String }
         .map { |v| JSON.parse v }
-        .sort_by { |v| Time.at v['enqueued_at'] }
+        .sort_by { |v| Time.zone.at v['enqueued_at'] }
     end
 
     @animes_to_import = Anime
@@ -236,7 +244,6 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
       render json: {
         _csrf_token: session[:_csrf_token],
         x_csrf_token: request.x_csrf_token,
-        # unmasked_x_csrf_token: ((unmask_token(Base64.strict_decode64(request.x_csrf_token)) rescue ArgumentError) if request.x_csrf_token.present?), # rubocop: disable all
         is_valid: request_authenticity_tokens.any? do |token|
           valid_authenticity_token?(session, token)
         end,
@@ -251,6 +258,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
   def hentai
     raise AgeRestricted if censored_forbidden?
+
     authorize! :manage, Version
 
     scope = Anime
