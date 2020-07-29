@@ -23,8 +23,8 @@ class BbCodes::Tags::CommentTag
     entries = fetch_entries text
 
     text.gsub(bbcode_regexp) do
-      entry_id = $LAST_MATCH_INFO[:id]
-      entry = entries[entry_id.to_i]
+      entry_id = $LAST_MATCH_INFO[:id].to_i
+      entry = entries[entry_id]
 
       if entry
         bbcode_to_html(

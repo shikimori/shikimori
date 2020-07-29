@@ -14,10 +14,17 @@ describe BbCodes::Tags::TopicTag do
   context 'non existing topic' do
     let(:text) { "[topic=#{topic_id}], test" }
     let(:topic_id) { 98765 }
+    let(:url) do
+      UrlGenerator.instance.forum_topic_url(
+        id: topic_id,
+        forum: offtopic_forum
+      )
+    end
 
     it do
       is_expected.to eq(
-        "<span class='b-mention b-mention-404'><del>[topic=#{topic_id}]</del></span>, test"
+        "<a href='#{url}' class='b-mention b-mention-404 bubbled'>" \
+          "<del>[topic=#{topic_id}]</del></a>, test"
       )
     end
   end
