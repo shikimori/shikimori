@@ -1,8 +1,5 @@
 describe BbCodes::Tags::BTag do
-  let(:tag) { BbCodes::Tags::BTag.instance }
-
-  describe '#format' do
-    subject { tag.format '[b]test[/b]' }
-    it { should eq '<strong>test</strong>' }
-  end
+  subject { described_class.instance.format text }
+  let(:text) { '[b]test[/b]' }
+  it { is_expected.to eq '<strong>test</strong>' }
 end

@@ -1,5 +1,5 @@
 describe BbCodes::Tags::CleanupNewLines do
-  subject { BbCodes::Tags::CleanupNewLines.call text, tag }
+  subject { described_class.call text, tag }
 
   context 'div + quote' do
     let(:tag) { BbCodes::Tags::CleanupNewLines::TAGS }

@@ -1,8 +1,5 @@
 describe BbCodes::Tags::CenterTag do
-  let(:tag) { BbCodes::Tags::CenterTag.instance }
-
-  describe '#format' do
-    subject { tag.format '[center]test[/center]' }
-    it { should eq '<center>test</center>' }
-  end
+  subject { described_class.instance.format text }
+  let(:text) { '[center]test[/center]' }
+  it { is_expected.to eq '<center>test</center>' }
 end

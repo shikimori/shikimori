@@ -9,13 +9,13 @@ class BbCodes::Tags::AnimeTag
   def regexp
     @regexp ||= %r{
       \[#{name}=(?<id>\d+) #{FALLBACK.source} \]
-        (?! [\ ] )
+        (?! \  )
         (?<name> (?:(?!\[#{name}).)*? )
-      \[\/#{name}\]
+      \[/#{name}\]
       |
       \[#{name} #{FALLBACK.source}\]
         (?<id>\d+)
-      \[\/#{name}\]
+      \[/#{name}\]
       |
       \[#{name}=(?<id>\d+) #{FALLBACK.source}\]
       (?!\d)
@@ -43,6 +43,10 @@ class BbCodes::Tags::AnimeTag
   end
 
 private
+
+  def name
+    klass.name.downcase
+  end
 
   def html_for entry, name
     fixed_name = name || localization_span(entry)
@@ -76,7 +80,7 @@ private
 
     klass
       .where(id: ids)
-      .each_with_object({}) { |v, memo| memo[v.id] = v }
+      .index_by(&:id)
   end
 
   def extract_ids text
@@ -85,9 +89,5 @@ private
       ids.push $LAST_MATCH_INFO[:id].to_i if $LAST_MATCH_INFO[:id]
     end
     ids
-  end
-
-  def name
-    klass.name.downcase
   end
 end

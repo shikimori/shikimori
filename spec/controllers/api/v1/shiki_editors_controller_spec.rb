@@ -111,7 +111,7 @@ describe Api::V1::ShikiEditorsController do
     #   let(:params) { { message: message.id.to_s } }
     #   let(:message) { create :message, from: user_2, to: user_2 }
     #   let(:user_2) { create :user, :user }
-    # 
+    #
     #   it do
     #     expect(json).to eq(
     #       message: {
