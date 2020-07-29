@@ -2,14 +2,14 @@ import delay from 'delay';
 import csrf from 'helpers/csrf';
 import autosize from 'autosize';
 
-const IS_RAW = false || !IS_LOCAL_SHIKI_PACKAGES;
+const IS_RAW = true || !IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 
 const TEST_DEMO_CONTENT = `
-[entry=315431]Tedeika²[/entry]
-[topic=315431]Tedeika²[/entry]
-[comment=6153006]StEttien[/comment]
-[message=1288282788]Клим Кот[/message]
+[entry=314310]
+[topic=314310]
+[comment=6104628]
+[message=1278854609]
 `.trim();
 
 pageLoad('tests_editor', async () => {

@@ -1,5 +1,5 @@
 class Api::V1::ShikiEditorsController < Api::V1Controller
-  SUPPORTED_TYPES = %i[anime manga character person user_image user comment message topic]
+  SUPPORTED_TYPES = %i[anime manga character person user_image comment message topic] # user
   TYPE_INCLUDES = {
     message: :from,
     comment: :user,
@@ -26,8 +26,8 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
         case kind
           when :user_image
             serialize_user_image model
-          when :user
-            serialize_user model
+          # when :user
+          #   serialize_user model
           when :topic, :comment
             serialize_forum_entry model
           when :message
@@ -76,19 +76,19 @@ private
     }
   end
 
-  def serialize_user model
-    {
-      id: model.id,
-      nickname: model.nickname,
-      avatar: ImageUrlGenerator.instance.url(model, :x32),
-      url: profile_url(model)
-    }
-  end
+  # def serialize_user model
+  #   {
+  #     id: model.id,
+  #     nickname: model.nickname,
+  #     avatar: ImageUrlGenerator.instance.url(model, :x32),
+  #     url: profile_url(model)
+  #   }
+  # end
 
   def serialize_forum_entry model
     {
       id: model.id,
-      author: model.user.nickname,
+      text: model.user.nickname,
       url: model.is_a?(Comment) ?
         UrlGenerator.instance.comment_url(model) :
         UrlGenerator.instance.topic_url(model)
@@ -100,7 +100,7 @@ private
 
     {
       id: model.id,
-      author: model.from.nickname,
+      text: model.from.nickname,
       url: profile_url(model.from)
     }
   end

@@ -14,7 +14,7 @@ describe Api::V1::ShikiEditorsController do
         character: character.id.to_s,
         person: person.id.to_s,
         user_image: user_image.id.to_s,
-        user: user.id.to_s,
+        # user: user.id.to_s,
         comment: comment.id.to_s,
         message: message.id.to_s,
         topic: topic.id.to_s
@@ -75,32 +75,32 @@ describe Api::V1::ShikiEditorsController do
             # 'height' => user_image.height
           }
         },
-        user: {
-          user.id.to_s => {
-            'id' => user.id,
-            'nickname' => user.nickname,
-            'avatar' => ImageUrlGenerator.instance.url(user, :x32),
-            'url' => profile_url(user)
-          }
-        },
+        # user: {
+        #   user.id.to_s => {
+        #     'id' => user.id,
+        #     'nickname' => user.nickname,
+        #     'avatar' => ImageUrlGenerator.instance.url(user, :x32),
+        #     'url' => profile_url(user)
+        #   }
+        # },
         comment: {
           comment.id.to_s => {
             'id' => comment.id,
-            'author' => comment.user.nickname,
+            'text' => comment.user.nickname,
             'url' => comment_url(comment)
           }
         },
         message: {
           message.id.to_s => {
             'id' => message.id,
-            'author' => message.from.nickname,
+            'text' => message.from.nickname,
             'url' => profile_url(message.from)
           }
         },
         topic: {
           topic.id.to_s => {
             'id' => topic.id,
-            'author' => topic.user.nickname,
+            'text' => topic.user.nickname,
             'url' => UrlGenerator.instance.topic_url(topic)
           }
         }
