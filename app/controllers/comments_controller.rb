@@ -4,6 +4,7 @@ class CommentsController < ShikimoriController
   def show # rubocop:disable AbcSize
     og noindex: true, nofollow: true
     comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
+    @view = Comments::View.new comment, false
 
     return render :missing if comment.is_a? NoComment
 
@@ -13,8 +14,6 @@ class CommentsController < ShikimoriController
         current_user: current_user
       )
     end
-
-    @view = Comments::View.new comment, false
 
     og(
       image: comment.user.avatar_url(160),
