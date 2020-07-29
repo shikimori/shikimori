@@ -2,13 +2,16 @@
 
 .b-mention
   +link
+  text-decoration: none
 
   &:hover
-    text-decoration: none !important
-
-    span
-      text-decoration: underline
+    text-decoration: underline
 
   s
+    display: none
+
+  &:before
     color: #6d9fc2
+    content: '@'
     text-decoration: none
+    display: inline-block
