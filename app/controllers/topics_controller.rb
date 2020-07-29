@@ -7,7 +7,7 @@ class TopicsController < ShikimoriController
     only: %i[new create edit update destroy]
   )
 
-  before_action :fetch_topic, only: %i[show]
+  before_action :fetch_topic, only: %i[show tooltip]
   before_action :set_view
   before_action :set_breadcrumbs
   before_action :set_canonical, only: %i[show]
@@ -106,6 +106,8 @@ class TopicsController < ShikimoriController
   end
 
   def tooltip
+    return render :missing if @resource.is_a? NoTopic
+
     topic = Topics::TopicViewFactory.new(true, true).find params[:id]
 
     render(
