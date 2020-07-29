@@ -30,6 +30,8 @@ export async function initWall($form) {
   const $upload = $('.topic-posters .b-dropzone', $form);
   const $wall = $upload.find('.b-shiki_wall');
 
+  if (!$upload.length) { return; } // it can be page with terms
+
   new FileUploader($upload[0])
     .on('upload:file:success', (_e, { response }) => {
       const $image = $(
