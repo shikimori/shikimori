@@ -96,7 +96,7 @@ private
   end
 
   def serialize_message model
-    return unless can? :read, model
+    # return unless can? :read, model
 
     {
       id: model.id,
