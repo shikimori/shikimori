@@ -10,4 +10,14 @@ describe BbCodes::Tags::MessageTag do
       "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test"
     )
   end
+
+  context 'non existing message' do
+    let(:message) { build_stubbed :message }
+
+    it do
+      is_expected.to eq(
+        "<span class='b-mention'><del>404 ID=#{message.id}</del></span>, test"
+      )
+    end
+  end
 end

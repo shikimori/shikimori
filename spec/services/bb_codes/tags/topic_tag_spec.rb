@@ -10,4 +10,15 @@ describe BbCodes::Tags::TopicTag do
       "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test"
     )
   end
+
+  context 'non existing topic' do
+    let(:text) { "[topic=#{topic_id}], test" }
+    let(:topic_id) { 98765 }
+
+    it do
+      is_expected.to eq(
+        "<span class='b-mention'><del>404 ID=#{topic_id}</del></span>, test"
+      )
+    end
+  end
 end

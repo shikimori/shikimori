@@ -15,23 +15,33 @@ describe BbCodes::Tags::CommentTag do
 
     context 'non existing comment' do
       let(:comment) { build_stubbed :comment }
-      let(:text) { "[comment=#{comment.id}], test" }
+
       it do
         is_expected.to eq(
-          "[url=#{url} b-mention]#{described_class::NOT_FOUND}[/url], test"
+          "<span class='b-mention'><del>404 ID=#{comment.id}</del></span>, test"
         )
       end
     end
   end
 
   context 'with author' do
-    let(:comment) { create :comment }
     let(:text) { "[comment=#{comment.id}]#{user.nickname}[/comment], test" }
+    let(:comment) { create :comment }
 
     it do
       is_expected.to eq(
         "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test"
       )
+    end
+
+    context 'non existing comment' do
+      let(:comment) { build_stubbed :comment }
+
+      it do
+        is_expected.to eq(
+          "<span class='b-mention'>#{user.nickname} <del>404 ID=#{comment.id}</del></span>, test"
+        )
+      end
     end
   end
 
@@ -44,11 +54,21 @@ describe BbCodes::Tags::CommentTag do
         "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test"
       )
     end
+
+    context 'non existing comment' do
+      let(:comment) { build_stubbed :comment }
+
+      it do
+        is_expected.to eq(
+          "<span class='b-mention'><del>404 ID=#{comment.id}</del></span>, test"
+        )
+      end
+    end
   end
 
   context 'quote' do
-    let(:comment) { create :comment, user: user }
     let(:text) { "[comment=#{comment.id} quote]#{user.nickname}[/comment], test" }
+    let(:comment) { create :comment, user: user }
 
     context 'with avatar' do
       let(:user) { create :user, :with_avatar }

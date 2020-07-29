@@ -5,8 +5,6 @@ class BbCodes::Tags::CommentTag
   dsl_attribute :klass, Comment
   dsl_attribute :user_field, :user
 
-  NOT_FOUND = 'DELETED'
-
   def bbcode_regexp
     @regexp ||= %r{
       \[#{name_regexp}=(?<id>\d+) (?<quote>\ quote)?\]
@@ -25,31 +23,42 @@ class BbCodes::Tags::CommentTag
     entries = fetch_entries text
 
     text.gsub(bbcode_regexp) do
-      bbcode_to_html(
-        $LAST_MATCH_INFO[:id],
-        $LAST_MATCH_INFO[:text],
-        $LAST_MATCH_INFO[:quote].present?,
-        entries
-      )
+      entry_id = $LAST_MATCH_INFO[:id]
+      entry = entries[entry_id.to_i]
+
+      if entry
+        bbcode_to_html(
+          entry,
+          $LAST_MATCH_INFO[:text],
+          $LAST_MATCH_INFO[:quote].present?
+        )
+      else
+        not_found_to_hmtl entry_id, $LAST_MATCH_INFO[:text]
+      end
     end
   end
 
 private
 
-  def bbcode_to_html entry_id, text, is_quoted, entries
-    entry = entries[entry_id.to_i]
+  def bbcode_to_html entry, text, is_quoted
     user = entry&.send(self.class::USER_FIELD) if is_quoted || text.blank?
 
     author_name = text.presence || user&.nickname || NOT_FOUND
-    url = entry_url entry, entry_id
+    url = entry_url entry
     css_classes = css_classes entry, user, is_quoted
     author_html = author_html is_quoted, user, author_name
 
     "[url=#{url} #{css_classes}]#{author_html}[/url]"
   end
 
-  def entry_url entry, entry_id
-    UrlGenerator.instance.send :"#{name}_url", entry || entry_id
+  def not_found_to_hmtl entry_id, text
+    "<span class='b-mention'>" +
+      (text.present? ? text + ' ' : '') +
+       "<del>404 ID=#{entry_id}</del></span>"
+  end
+
+  def entry_url entry
+    UrlGenerator.instance.send :"#{name}_url", entry
   end
 
   def css_classes entry, user, is_quoted
