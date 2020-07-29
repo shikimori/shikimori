@@ -210,7 +210,7 @@ module CommentHelper
               end
 
             if url
-              text.gsub! $1, "<a href=\"#{url}\" title=\"#{entry.respond_to?(:name) ? name : title}\"#{additional}>#{title}</a>"
+              text.gsub! $1, "<a href=\"#{url}\" title=\"#{entry.respond_to?(:name) ? entry.name : title}\"#{additional}>#{title}</a>"
             else
               text.gsub! $1, title
             end
