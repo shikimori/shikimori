@@ -44,10 +44,6 @@ class BbCodes::Tags::AnimeTag
 
 private
 
-  def name
-    klass.name.downcase
-  end
-
   def html_for entry, name
     fixed_name = name || localization_span(entry)
 
@@ -89,5 +85,9 @@ private
       ids.push $LAST_MATCH_INFO[:id].to_i if $LAST_MATCH_INFO[:id]
     end
     ids
+  end
+
+  def name
+    klass.name.downcase
   end
 end

@@ -1,47 +1,54 @@
 class BbCodes::Tags::CommentTag
   include Singleton
+  extend DslAttribute
 
-  BBCODE_REGEXP = %r{
-    \[comment=(?<comment_id>\d+) (?<quote>\ quote)?\]
-      (?<text> .*? )
-    \[/comment\]
-    |
-    \[comment=(?<comment_id>\d+)\]
-  }mix
+  dsl_attribute :klass, Comment
 
-  COMMENT_ID_REGEXP = /\[comment=(\d+)/
+  def bbcode_regexp
+    @regexp ||= %r{
+      \[#{name}=(?<id>\d+) (?<quote>\ quote)?\]
+        (?<text> .*? )
+      \[/#{name}\]
+      |
+      \[#{name}=(?<id>\d+)\]
+    }mix
+  end
+
+  def id_regexp
+    @id_regexp ||= /\[#{name}=(\d+)/
+  end
 
   def format text
-    comments = fetch_comments text
+    entries = fetch_entries text
 
-    text.gsub(BBCODE_REGEXP) do
-      comment_to_html(
-        $LAST_MATCH_INFO[:comment_id],
+    text.gsub(bbcode_regexp) do
+      bbcode_to_html(
+        $LAST_MATCH_INFO[:id],
         $LAST_MATCH_INFO[:text],
         $LAST_MATCH_INFO[:quote].present?,
-        comments
+        entries
       )
     end
   end
 
 private
 
-  def comment_to_html comment_id, text, is_quoted, comments
-    comment = comments[comment_id.to_i]
-    user = comment&.user if is_quoted || text.blank?
-    author_name = extract_author user, text, comment_id
+  def bbcode_to_html entry_id, text, is_quoted, entries
+    entry = entries[entry_id.to_i]
+    user = entry&.user if is_quoted || text.blank?
+    author_name = extract_author user, text, entry_id
     css_classes = [
       'bubbled',
       ('b-user16' if is_quoted)
     ].compact.join(' ')
 
-    "[url=#{comment_url(comment_id)} #{css_classes}]" +
+    "[url=#{entry_url(entry_id)} #{css_classes}]" +
       author_html(is_quoted, user, author_name) +
       '[/url]'
   end
 
-  def comment_url comment_id
-    UrlGenerator.instance.comment_url comment_id
+  def entry_url entry_id
+    UrlGenerator.instance.send :"#{name}_url", entry_id
   end
 
   def author_html is_quoted, user, author_name
@@ -64,16 +71,20 @@ private
     HTML
   end
 
-  def extract_author user, text, comment_id
-    text.presence || user&.nickname || comment_id
+  def extract_author user, text, entry_id
+    text.presence || user&.nickname || entry_id
   end
 
-  def fetch_comments text
-    comment_ids = text.scan(COMMENT_ID_REGEXP).map { |v| v[0].to_i }
+  def fetch_entries text
+    entry_ids = text.scan(id_regexp).map { |v| v[0].to_i }
 
-    Comment
-      .where(id: comment_ids)
+    klass
+      .where(id: entry_ids)
       .includes(:user)
       .index_by(&:id)
+  end
+
+  def name
+    klass.base_class.name.downcase
   end
 end
