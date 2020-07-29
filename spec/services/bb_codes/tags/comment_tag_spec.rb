@@ -2,7 +2,7 @@ describe BbCodes::Tags::CommentTag do
   subject { described_class.instance.format text }
 
   let(:comment) { build_stubbed :comment }
-  let(:comment_url) { UrlGenerator.instance.comment_url comment }
+  let(:url) { UrlGenerator.instance.comment_url comment }
 
   context 'selfclosed' do
     let(:text) { "[comment=#{comment.id}], test" }
@@ -10,7 +10,7 @@ describe BbCodes::Tags::CommentTag do
 
     it do
       is_expected.to eq(
-        "[url=#{comment_url} bubbled]@#{user.nickname}[/url], test"
+        "[url=#{url} bubbled]@#{user.nickname}[/url], test"
       )
     end
   end
@@ -20,7 +20,7 @@ describe BbCodes::Tags::CommentTag do
 
     it do
       is_expected.to eq(
-        "[url=#{comment_url} bubbled]@#{user.nickname}[/url], test"
+        "[url=#{url} bubbled]@#{user.nickname}[/url], test"
       )
     end
   end
@@ -31,7 +31,7 @@ describe BbCodes::Tags::CommentTag do
 
     it do
       is_expected.to eq(
-        "[url=#{comment_url} bubbled]@#{user.nickname}[/url], test"
+        "[url=#{url} bubbled]@#{user.nickname}[/url], test"
       )
     end
   end
@@ -44,7 +44,7 @@ describe BbCodes::Tags::CommentTag do
       let(:user) { create :user, :with_avatar }
       it do
         is_expected.to eq(
-          "[url=#{comment_url} bubbled b-user16]<img "\
+          "[url=#{url} bubbled b-user16]<img "\
             "src=\"#{user.avatar_url 16}\" "\
             "srcset=\"#{user.avatar_url 32} 2x\" "\
             "alt=\"#{ERB::Util.h user.nickname}\" />"\
@@ -56,7 +56,7 @@ describe BbCodes::Tags::CommentTag do
     context 'without avatar' do
       it do
         is_expected.to eq(
-          "[url=#{comment_url} bubbled b-user16]"\
+          "[url=#{url} bubbled b-user16]"\
             "<span>#{user.nickname}</span>[/url], test"
         )
       end

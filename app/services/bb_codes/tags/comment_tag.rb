@@ -3,6 +3,7 @@ class BbCodes::Tags::CommentTag
   extend DslAttribute
 
   dsl_attribute :klass, Comment
+  dsl_attribute :user_field, :user
 
   def bbcode_regexp
     @regexp ||= %r{
@@ -35,20 +36,21 @@ private
 
   def bbcode_to_html entry_id, text, is_quoted, entries
     entry = entries[entry_id.to_i]
-    user = entry&.user if is_quoted || text.blank?
+    user = entry&.send(self.class::USER_FIELD) if is_quoted || text.blank?
+
     author_name = extract_author user, text, entry_id
     css_classes = [
       'bubbled',
       ('b-user16' if is_quoted)
     ].compact.join(' ')
 
-    "[url=#{entry_url(entry_id)} #{css_classes}]" +
+    "[url=#{entry_url(entry, entry_id)} #{css_classes}]" +
       author_html(is_quoted, user, author_name) +
       '[/url]'
   end
 
-  def entry_url entry_id
-    UrlGenerator.instance.send :"#{name}_url", entry_id
+  def entry_url entry, entry_id
+    UrlGenerator.instance.send :"#{name}_url", entry || entry_id
   end
 
   def author_html is_quoted, user, author_name
@@ -80,7 +82,7 @@ private
 
     klass
       .where(id: entry_ids)
-      .includes(:user)
+      .includes(self.class::USER_FIELD)
       .index_by(&:id)
   end
 

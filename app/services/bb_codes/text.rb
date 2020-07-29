@@ -11,9 +11,8 @@ class BbCodes::Text
 
   HASH_TAGS = BbCodes::ToTag.call %i[image img]
 
-  # topic message
   TAGS = BbCodes::ToTag.call %i[
-    quote replies comment
+    quote replies comment topic message
 
     db_entry_url video_url video
     poster wall_image entries

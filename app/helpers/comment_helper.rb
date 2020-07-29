@@ -10,7 +10,7 @@ module CommentHelper
   ]
   COMPLEX_BB_CODES = %i[
     smileys club club_page collection article contest mention version anime_video
-    user message topic review posters ban
+    user message review posters ban
     spoiler
   ]
 
@@ -135,8 +135,6 @@ module CommentHelper
   @@type_matchers = {
     Version => [/(\[version(?:=(\d+))?\]([^\[]*?)\[\/version\])/, :tooltip_moderations_version_url],
     AnimeVideo => [/(\[anime_video(?:=(\d+))?\]([^\[]*?)\[\/anime_video\])/, :tooltip_anime_url],
-    Message => [/(?<match>\[message=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/message\])/, nil],
-    Topic => [/(?<match>\[(?:topic|entry)=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/(?:topic|entry)\])/, nil],
     User => [/(\[(user|profile)(?:=(\d+))?\]([^\[]*?)\[\/(?:user|profile)\])/, nil],
     Review => [/(\[review=(\d+)\]([^\[]*?)\[\/review\])/, nil],
     Club => [/(\[club(?:=(\d+))?\]([^\[]*?)\[\/club\])/, nil],
@@ -149,45 +147,7 @@ module CommentHelper
   @@type_matchers.each do |klass, (matcher, preloader)|
     define_method("#{klass.name.to_underscore}_to_html") do |text|
       while text =~ matcher
-        if klass == Topic || klass == Message
-          tooltip_url =
-            if klass == Message
-              message_url id: $~[:id], format: :html
-            else
-              topic_tooltip_url id: $~[:id], format: :html
-            end
-
-          begin
-            entry = klass.find $~[:id]
-            user = entry.respond_to?(:user) ? entry.user : entry.from
-            name = $~[:text].present? ? $~[:text] : user.nickname
-            quote_url =
-              if klass == Message
-                profile_url user
-              else
-                UrlGenerator.instance.topic_url entry
-              end
-
-            if $~[:quote].present?
-              text.gsub!(
-                $~[:match],
-                <<~HTML.tr("\n", '')
-                <a href="#{quote_url}" title="#{ERB::Util.h user.nickname}" class="bubbled b-user16" data-href="#{tooltip_url}">
-                <img src="#{user.avatar_url 16}" srcset="#{user.avatar_url 32} 2x" alt="#{ERB::Util.h user.nickname}" />
-                <span>#{ERB::Util.h user.nickname}</span>
-                </a>
-                #{wrote_html(user.sex)}
-                HTML
-              )
-            else
-              text.gsub! $~[:match], "<a href=\"#{quote_url}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-mention\" data-href=\"#{tooltip_url}\"><s>@</s><span>#{name}</span></a>"
-            end
-
-          rescue
-            text.gsub! $~[:match], "<span class=\"bubbled b-link\" data-href=\"#{tooltip_url}\">@#{$~[:text]}</span>" if $~
-          end
-
-        elsif klass == Review
+        if klass == Review
           begin
             review = Review.find($2)
             text.gsub!($1, "<a class=\"b-link\" href=\"#{url_for [review.target, review]}\" title=\"Обзор #{review.target.name} от #{review.user.nickname}\">#{$3}</a>")

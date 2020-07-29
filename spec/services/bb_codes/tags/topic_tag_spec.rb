@@ -3,11 +3,11 @@ describe BbCodes::Tags::TopicTag do
 
   let(:text) { "[topic=#{topic.id}], test" }
   let(:topic) { create :topic, user: user, forum: animanga_forum }
-  let(:topic_url) { UrlGenerator.instance.topic_url topic }
+  let(:url) { UrlGenerator.instance.topic_url topic }
 
   it do
     is_expected.to eq(
-      "[url=#{topic_url} bubbled]@#{user.nickname}[/url], test"
+      "[url=#{url} bubbled]@#{user.nickname}[/url], test"
     )
   end
 end
