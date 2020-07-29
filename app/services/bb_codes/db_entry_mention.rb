@@ -6,7 +6,7 @@ class BbCodes::DbEntryMention
     BbCodes::Text::COMPLEX_BB_CODES +
     BbCodes::Text::DB_ENTRY_BB_CODES
 
-  REGEXP = %r{\[(?!\/|#{BB_CODES.map { |v| "#{v}\\b" }.join('|') })(.*?)\]}
+  REGEXP = %r{\[(?!/|#{BB_CODES.map { |v| "#{v}\\b" }.join('|')})(.*?)\]}
 
   def call
     text.gsub REGEXP do |matched|
@@ -35,7 +35,7 @@ private
 
   def find_name name, reversed_name
     find_by(name, reversed_name, :name) ||
-      Person.find_by_name(name) ||
+      Person.find_by(name: name) ||
       (Person.find_by(name: reversed_name) if reversed_name)
   end
 

@@ -5,9 +5,6 @@ module CommentHelper
   include Translation
   # include AniMangaHelper
 
-  SIMPLE_BB_CODES = %i[
-    b s u i url img list right center solid
-  ]
   COMPLEX_BB_CODES = %i[
     smileys club club_page collection article contest mention version anime_video
     user review posters ban

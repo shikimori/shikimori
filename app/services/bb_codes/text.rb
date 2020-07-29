@@ -1,13 +1,17 @@
 class BbCodes::Text
   method_object :text
 
-  # TODO:
+  # TODO: cleanup
   # delete CommentHelper
   # delete BB_CODE_REPLACERS
   # delete include Rails.application.routes.url_helpers
   include CommentHelper
   BB_CODE_REPLACERS = COMPLEX_BB_CODES.map { |v| "#{v}_to_html".to_sym }.reverse
   include Rails.application.routes.url_helpers
+
+  SIMPLE_BB_CODES = %i[
+    b s u i url img list right center solid
+  ]
 
   HASH_TAGS = BbCodes::ToTag.call %i[image img]
 
