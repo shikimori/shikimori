@@ -483,6 +483,7 @@ Rails.application.routes.draw do
       get '/new' => 'topics#new', as: :new_topic
       get '(/p-:page)' => 'topics#index', as: :forum_topics
       get '/:id' => 'topics#show',  as: :forum_topic
+      get '/:id/tooltip' => 'topics#tooltip',  as: :forum_topic_tooltip
     end
   end
 
