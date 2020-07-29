@@ -1,7 +1,5 @@
 describe BbCodes::Tags::ContestRoundStatusTag do
-  let(:tag) { BbCodes::Tags::ContestRoundStatusTag.instance }
-
-  subject { tag.format text }
+  subject { described_class.instance.format text }
 
   let(:text) { "[contest_round_status=#{round.id} #{status}]" }
   let(:round) { create :contest_round }

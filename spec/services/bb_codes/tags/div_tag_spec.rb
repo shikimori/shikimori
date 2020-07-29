@@ -1,6 +1,5 @@
 describe BbCodes::Tags::DivTag do
-  let(:tag) { BbCodes::Tags::DivTag.instance }
-  subject { tag.format text }
+  subject { described_class.instance.format text }
 
   let(:text) { '[div]test[/div]' }
   it { is_expected.to eq '<div data-div>test</div>' }
