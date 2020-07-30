@@ -2,29 +2,32 @@ import delay from 'delay';
 import csrf from 'helpers/csrf';
 import autosize from 'autosize';
 
-const IS_RAW = false || !IS_LOCAL_SHIKI_PACKAGES;
+const IS_RAW = true && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 
 const TEST_DEMO_CONTENT = `
-[div fc-2][div f-column]
-[anime=1] text after [anime=1]Anime name[/anime]
-[manga=1]
-[anime=3456789]missing anime[/anime]
-[ranobe=9115]
-
-[image=1124146]
-[/div][div f-column]
 [entry=314310]
-[topic=314310]
-[comment=6104628]
-[message=1278854609]
-
-[topic=99999999999]
-[topic=99999999999]missing topic[/topic]
-[comment=99999999999]
-[message=99999999999]
-[/div][/div]
 `.trim();
+// const TEST_DEMO_CONTENT = `
+// [div fc-2][div f-column]
+// [anime=1] text after [anime=1]Anime name[/anime]
+// [manga=1]
+// [anime=3456789]missing anime[/anime]
+// [ranobe=9115]
+// 
+// [image=1124146]
+// [/div][div f-column]
+// [entry=314310]
+// [topic=314310]
+// [comment=6104628]
+// [message=1278854609]
+// 
+// [topic=99999999999]
+// [topic=99999999999]missing topic[/topic]
+// [comment=99999999999]
+// [message=99999999999]
+// [/div][/div]
+// `.trim();
 
 pageLoad('tests_editor', async () => {
   const $shikiEditor = $('.b-shiki_editor').shikiEditor();
