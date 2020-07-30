@@ -1747,10 +1747,10 @@ bluebird@^3.4.7:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
 
-blueimp-md5@^2.16.0:
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/blueimp-md5/-/blueimp-md5-2.16.0.tgz#9018bb805e4ee05512e0e8cbdb9305eeecbdc87c"
-  integrity sha512-j4nzWIqEFpLSbdhUApHRGDwfXbV8ALhqOn+FY5L6XBdKPAXU9BpGgFSbDsgqogfqPPR9R2WooseWCsfhfEC6uQ==
+blueimp-md5@^2.17.0:
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/blueimp-md5/-/blueimp-md5-2.17.0.tgz#f4fcac088b115f7b4045f19f5da59e9d01b1bb96"
+  integrity sha512-x5PKJHY5rHQYaADj6NwPUR2QRCUVSggPzrUKkeENpj871o9l9IefJbO2jkT5UvYykeOK9dx0VmkIo6dZ+vThYw==
 
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
   version "4.11.9"
@@ -2273,10 +2273,10 @@ code-point-at@^1.0.0:
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
-codemirror@^5.55.0:
-  version "5.55.0"
-  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.55.0.tgz#23731f641288f202a6858fdc878f3149e0e04363"
-  integrity sha512-TumikSANlwiGkdF/Blnu/rqovZ0Y3Jh8yy9TqrPbSM0xxSucq3RgnpVDQ+mD9q6JERJEIT2FMuF/fBGfkhIR/g==
+codemirror@^5.56.0:
+  version "5.56.0"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.56.0.tgz#675640fcc780105cd22d3faa738b5d7ea6426f61"
+  integrity sha512-MfKVmYgifXjQpLSgpETuih7A7WTTIsxvKfSLGseTY5+qt0E1UD1wblZGM6WLenORo8sgmf+3X+WTe2WF7mufyw==
 
 coffee-loader@^0.9.0:
   version "0.9.0"
@@ -2996,10 +2996,10 @@ del@^4.1.1:
     pify "^4.0.1"
     rimraf "^2.6.3"
 
-delay@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/delay/-/delay-4.3.0.tgz#efeebfb8f545579cb396b3a722443ec96d14c50e"
-  integrity sha512-Lwaf3zVFDMBop1yDuFZ19F9WyGcZcGacsbdlZtWjQmM50tOcMntm1njF/Nb/Vjij3KaSvCF+sEYGKrrjObu2NA==
+delay@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/delay/-/delay-4.4.0.tgz#71abc745f3ce043fe7f450491236541edec4ad0c"
+  integrity sha512-txgOrJu3OdtOfTiEOT2e76dJVfG/1dz2NZ4F0Pyt4UGZJryssMRp5vdM5wQoLwSOBNdrJv3F9PAhp/heqd7vrA==
 
 delayed-stream@~1.0.0:
   version "1.0.0"
@@ -5082,10 +5082,10 @@ js-base64@^2.1.8:
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.5.1.tgz#1efa39ef2c5f7980bb1784ade4a8af2de3291121"
   integrity sha512-M7kLczedRMYX4L8Mdh4MzyAMM9O5osx+4FcOQuTvr3A9F2D9S5JXheN0ewNbrvK2UatkTRhL5ejGmGSjNMiZuw==
 
-js-base64@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.2.3.tgz#697fc9572ce7c688b713e5946e64ef3e690a4be4"
-  integrity sha512-aWSiY/vvoz9SFbtf6fn0a/yipqQNhPtoGIZQBF+SL1s/ngZbSsoL2STTyjj09nlqD5KvH089EOKxz7zIuDX2/g==
+js-base64@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.3.3.tgz#0566cdea2f631ee17e4c770637e30dfc0c70ae72"
+  integrity sha512-bLQW6u9cu9eNKQcgYujmr7314UyLkfggibqAKrVDKbJAW3jMtjj64LKI/fCg6nEprH4Af4n7xuz5aJU4jmXrzA==
 
 js-cookie@^2.2.1:
   version "2.2.1"
