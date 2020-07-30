@@ -1,4 +1,4 @@
-import bind from 'bind-decorator';
+import { bind } from 'shiki-decorators';
 import View from 'views/application/view';
 
 export class PredefinedCheckbox extends View {

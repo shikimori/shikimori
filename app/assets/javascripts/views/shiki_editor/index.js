@@ -1,6 +1,6 @@
 import delay from 'delay';
 import autosize from 'autosize';
-import bind from 'bind-decorator';
+import { bind } from 'shiki-decorators';
 import { flash } from 'shiki-utils';
 
 import axios from 'helpers/axios';

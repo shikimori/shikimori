@@ -1,4 +1,4 @@
-import bind from 'bind-decorator';
+import { bind } from 'shiki-decorators';
 import { flash } from 'shiki-utils';
 
 import View from 'views/application/view';

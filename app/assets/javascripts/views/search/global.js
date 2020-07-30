@@ -1,7 +1,7 @@
 import Turbolinks from 'turbolinks';
 import URI from 'urijs';
 import delay from 'delay';
-import bind from 'bind-decorator';
+import { bind } from 'shiki-decorators';
 
 import View from 'views/application/view';
 

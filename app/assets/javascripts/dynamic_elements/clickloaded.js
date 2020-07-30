@@ -1,4 +1,4 @@
-import bind from 'bind-decorator';
+import { bind } from 'shiki-decorators';
 import axios from 'helpers/axios';
 
 import View from 'views/application/view';

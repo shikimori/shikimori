@@ -1,6 +1,6 @@
 /* global Ya */
 
-import bind from 'bind-decorator';
+import { bind } from 'shiki-decorators';
 import { AdView } from './ad_view';
 
 let state = null;

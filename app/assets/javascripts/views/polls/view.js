@@ -1,7 +1,7 @@
 import axios from 'helpers/axios';
 import View from 'views/application/view';
 import JST from 'helpers/jst';
-import bind from 'bind-decorator';
+import { bind } from 'shiki-decorators';
 
 const TEMPLATE = 'polls/poll';
 

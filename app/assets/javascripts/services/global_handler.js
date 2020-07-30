@@ -1,5 +1,4 @@
-import { chain } from 'chain-decorator';
-import bind from 'bind-decorator';
+import { chain, bind } from 'shiki-decorators';
 
 const KEY_CODES = {
   enter: 13,

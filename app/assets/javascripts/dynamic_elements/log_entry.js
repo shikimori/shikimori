@@ -1,5 +1,5 @@
 import delay from 'delay';
-import bind from 'bind-decorator';
+import { bind } from 'shiki-decorators';
 
 import ShikiView from 'views/application/shiki_view';
 import BanForm from 'views/comments/ban_form';
