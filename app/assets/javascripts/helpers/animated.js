@@ -46,6 +46,7 @@ function prepareAnimation(element) {
 export function animatedCollapse(element) {
   const animation = prepareAnimation(element);
 
+  element.style.willChange = 'height, padding-top, padding-bottom, margin-top, margin-bottom';
   element.classList.add('animated-collapse');
 
   if (animation.isInTransition) {
@@ -120,6 +121,7 @@ function cleanup(element) {
   element.style.paddingBottom = '';
   element.style.marginTop = '';
   element.style.marginBottom = '';
+  element.style.willChange = '';
 
   if (element.classList.contains('animated-collapse')) {
     element.classList.remove('animated-collapse');
