@@ -1,9 +1,9 @@
 describe DbImport::BannedIds do
-  let(:service) { DbImport::BannedIds.instance }
+  let(:service) { described_class.instance }
 
   describe '#banned?' do
     subject { service.banned? id, type }
-    let(:id) { 99_999_999 }
+    let(:id) { 111111111 }
     let(:type) { :anime }
 
     it { is_expected.to eq true }
@@ -14,7 +14,7 @@ describe DbImport::BannedIds do
     end
 
     context 'wrong id' do
-      let(:id) { 9_999_999 }
+      let(:id) { 11111111 }
       it { is_expected.to eq false }
     end
   end
