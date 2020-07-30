@@ -1,7 +1,7 @@
 class CommentsController < ShikimoriController
   include CommentHelper
 
-  def show # rubocop:disable AbcSize
+  def show # rubocop:disable AbcSize, MethodLength
     og noindex: true, nofollow: true
     comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
     @view = Comments::View.new comment, false
@@ -20,6 +20,8 @@ class CommentsController < ShikimoriController
       page_title: i18n_t('comment_by', nickname: comment.user.nickname),
       description: comment.body.gsub(%r{\[[/\w_ =-]+\]}, '')
     )
+
+    render :show # have to manually call render otherwise comment display via ajax is broken
   end
 
   def tooltip
