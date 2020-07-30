@@ -6,11 +6,11 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
     topic: %i[user linked]
   }
 
-  PER_REQUEST = 200
+  LIMIT_PER_REQUEST = 200
 
   def show # rubocop:disable all
     results = {}
-    limit_left = PER_REQUEST
+    limit_left = LIMIT_PER_REQUEST
 
     SUPPORTED_TYPES.each do |kind|
       break if limit_left <= 0
