@@ -6,16 +6,24 @@ const IS_RAW = false || !IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 
 const TEST_DEMO_CONTENT = `
+[div fc-2][div f-column]
+[anime=1] text after [anime=1]Anime name[/anime]
+[manga=1]
+[anime=3456789]missing anime[/anime]
+[ranobe=9115]
+
+[image=1124146]
+[/div][div f-column]
 [entry=314310]
 [topic=314310]
 [comment=6104628]
 [message=1278854609]
 
-
 [topic=99999999999]
-[topic=99999999999]morr[/topic]
+[topic=99999999999]missing topic[/topic]
 [comment=99999999999]
 [message=99999999999]
+[/div][/div]
 `.trim();
 
 pageLoad('tests_editor', async () => {
@@ -95,12 +103,24 @@ pageLoad('tests_editor', async () => {
 const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES && TEST_DEMO_CONTENT ?
   TEST_DEMO_CONTENT  :
   `# Shiki BbCodes
-[anime=1] test
-[anime=1]test[/anime]
-[anime=16049]
-[anime=3456789]
+[div fc-2][div f-column]
+[anime=1] text after [anime=1]Anime name[/anime]
+[manga=1]
+[anime=3456789]missing anime[/anime]
 [ranobe=9115]
+
 [image=1124146]
+[/div][div f-column]
+[entry=314310]
+[topic=314310]
+[comment=6104628]
+[message=1278854609]
+
+[topic=99999999999]
+[topic=99999999999]missing topic[/topic]
+[comment=99999999999]
+[message=99999999999]
+[/div][/div]
 
 # Headings
 [hr]
