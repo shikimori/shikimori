@@ -2,13 +2,15 @@ import delay from 'delay';
 import csrf from 'helpers/csrf';
 import autosize from 'autosize';
 
-const IS_RAW = true && IS_LOCAL_SHIKI_PACKAGES;
+const IS_RAW = false && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
+let TEST_DEMO_CONTENT;
 
-const TEST_DEMO_CONTENT = `
+TEST_DEMO_CONTENT = `
 [entry=314310]
 `.trim();
-// const TEST_DEMO_CONTENT = `
+
+// TEST_DEMO_CONTENT = `
 // [div fc-2][div f-column]
 // [anime=1] text after [anime=1]Anime name[/anime]
 // [manga=1]
@@ -47,13 +49,21 @@ pageLoad('tests_editor', async () => {
   );
 
   const rawNode = document.querySelector('.raw-editor');
+  const rawNode2 = document.querySelector('.raw-editor-2');
   const vueNode = document.querySelector('.b-shiki_editor-v2');
 
   if (IS_RAW) {
     const editor = new ShikiEditor({
       element: rawNode,
       extensions: [],
-      content: TEST_DEMO_CONTENT,
+      content: TEST_DEMO_CONTENT || DEMO_CONTENT,
+      baseUrl: window.location.origin
+    }, null, Vue);
+
+    const editor2 = new ShikiEditor({
+      element: rawNode2,
+      extensions: [],
+      content: TEST_DEMO_CONTENT || DEMO_CONTENT,
       baseUrl: window.location.origin
     }, null, Vue);
 
@@ -75,10 +85,16 @@ pageLoad('tests_editor', async () => {
       }
     });
   } else {
-    $(rawNode).closest('.block').hide();
+    $(rawNode).closest('.fc-2').closest('.block').hide();
   }
 
   if (IS_VUE) {
+    const shikiUploader = new ShikiUploader({
+      locale: window.LOCALE,
+      xhrEndpoint: '/api/user_images?linked_type=Comment',
+      xhrHeaders: () => csrf().headers,
+    });
+
     new Vue({
       el: vueNode,
       components: { ShikiEditorApp },
@@ -89,12 +105,10 @@ pageLoad('tests_editor', async () => {
       },
       render: h => h(ShikiEditorApp, {
         props: {
-          shikiUploader: ShikiUploader,
+          vue: Vue,
+          shikiUploader,
           content: DEMO_CONTENT,
-          locale: window.LOCALE,
           baseUrl: window.location.origin,
-          uploadEndpoint: '/api/user_images?linked_type=Comment',
-          uploadHeaders: () => csrf().headers
         }
       })
     });
@@ -202,7 +216,7 @@ Poster
 \`[div=b-link_button]...[/div]\`
 [/div]
 
-div [div=b-link_button]inside line is not parsed[/div]
+div [div=b-link_button]inline divs are not parsed by editor[/div] div
 
 [quote]Old style quote support[/quote]
 [quote=zxc]Old style quote with nickname[/quote]

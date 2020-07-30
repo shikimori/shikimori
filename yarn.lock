@@ -998,48 +998,48 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
 
-"@uppy/companion-client@^1.5.1":
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-1.5.1.tgz#88a9b55f8c813eac169c6d1c196d7d2d10985f89"
-  integrity sha512-dAt8CnuWmNRJKIoUsRbk4kjpe5tcsPaZfa0mmdd9TPUp5z548Ni895dkBzWhLmV/JSkRViJ7NNxtWXuyxBeEqQ==
+"@uppy/companion-client@^1.5.3":
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-1.5.3.tgz#bae47802494d3d91aa14f2bc88680cabba5edf41"
+  integrity sha512-VN1JssHZiOjleJcoTyubTvGua3R6P9ENkqKlCt9dPKabGn9diNQ4EZebZlAvUD5hz+zBuzvNyAwgC7xbqZlyMw==
   dependencies:
-    "@uppy/utils" "^3.2.0"
+    "@uppy/utils" "^3.2.2"
     namespace-emitter "^2.0.1"
 
 "@uppy/core@^1.11.0":
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.12.0.tgz#4da20e408ea1111e66b2edf7ec9e5f070c025624"
-  integrity sha512-l0r3m5MlfCSyFW+eQWb2i8b2VU7ExP7jWNGhqBFEcdpi8fFEExV2Nup61Ct0c3uone+mVjfuDWpqQf0NH40Zgg==
+  version "1.12.2"
+  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.12.2.tgz#d8eee98fd3059bb0b2053dd3d64ac521eae386f9"
+  integrity sha512-NJ4p1OXnbpzJuWYXQ9/cQ1kiQmATPWBmNoaeUxI3ePURb+sGrcHVrgpd8ktODjL2YHZ0pSl4nc8VmKc8WLuiAw==
   dependencies:
     "@transloadit/prettier-bytes" "0.0.7"
-    "@uppy/store-default" "^1.2.1"
-    "@uppy/utils" "^3.2.0"
+    "@uppy/store-default" "^1.2.3"
+    "@uppy/utils" "^3.2.2"
     cuid "^2.1.1"
     lodash.throttle "^4.1.1"
     mime-match "^1.0.2"
     namespace-emitter "^2.0.1"
     preact "8.2.9"
 
-"@uppy/store-default@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-1.2.1.tgz#4f6f1815292388bc2fd6da2655a3ae1133598d5c"
-  integrity sha512-B7iKa9CMLTPgSu1lHQX+Z82NgxoBrzWfZg9WbZnvoJRHnoiwu8A3EFXPLq0OEslvJndBD4xPgUms0BPt4WbnWw==
+"@uppy/store-default@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-1.2.3.tgz#3274acf97c77f3d7d2c71bd7faefff17e2115527"
+  integrity sha512-9DFq4ccIqfy8mBOO5Mj52X26JsplY3hydSooM+64NKMZ9ccs6LpSm7j8WVbvvNFnSrd7SgP/53vFwo953KCKgg==
 
-"@uppy/utils@^3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-3.2.0.tgz#13e90c886381b31038c8fd2bb901dc1006a35272"
-  integrity sha512-Ta+7mKoq6lW6JIesE4YJIeDRv0AxFKPEMJI4SoIW88/9D1hGTsx+G7SdVICBi9I3ttEDBW+WDjmN2BA/9ZaTjg==
+"@uppy/utils@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-3.2.2.tgz#ea4b3f1473e52a700ceff47449ff804b5619700d"
+  integrity sha512-ze3NrG23MbYR29Oj6ik6iGZIpXxmhZK3VYwevfqJbzTknF/yh8BWLRWNyPoyOflNpsmQbxo/Y2hmqTnUC3wEPg==
   dependencies:
     abortcontroller-polyfill "^1.4.0"
     lodash.throttle "^4.1.1"
 
 "@uppy/xhr-upload@^1.6.0":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-1.6.1.tgz#34b75a3ba4f50e83ecf790832bf7d30931995e3a"
-  integrity sha512-47+Unbp5uX6lQsPrq3ho9vaTFFyEHj7r+ikX40K1Uzl7Vt87EY3gZQdfdaZIfpUTqwsAyUYOKJADmgO/TVqU8A==
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-1.6.3.tgz#0d6a2a33b4706638c3f0a7f1c4aaa19a16e6ded3"
+  integrity sha512-IgR8FiwWOoFgh6IDNS+dDgU1dFVYCq0MJ70wikaOwYLfpziWFx+QJn41vfA7Q0+S4pMrIvnGMkqY4Qc8RLCEDQ==
   dependencies:
-    "@uppy/companion-client" "^1.5.1"
-    "@uppy/utils" "^3.2.0"
+    "@uppy/companion-client" "^1.5.3"
+    "@uppy/utils" "^3.2.2"
     cuid "^2.1.1"
 
 "@vue/component-compiler-utils@^3.1.0":
@@ -1219,9 +1219,9 @@ abbrev@1:
   integrity sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==
 
 abortcontroller-polyfill@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/abortcontroller-polyfill/-/abortcontroller-polyfill-1.4.0.tgz#0d5eb58e522a461774af8086414f68e1dda7a6c4"
-  integrity sha512-3ZFfCRfDzx3GFjO6RAkYx81lPGpUS20ISxux9gLxuKnqafNcFQo59+IoZqpO2WvQlyc287B62HDnDdNYRmlvWA==
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/abortcontroller-polyfill/-/abortcontroller-polyfill-1.5.0.tgz#2c562f530869abbcf88d949a2b60d1d402e87a7c"
+  integrity sha512-O6Xk757Jb4o0LMzMOMdWvxpHWrQzruYBaUruFaIOfAQRnWFxfdXYobw12jrVHGtoXk6WiiyYzc0QWN9aL62HQA==
 
 accepts@~1.3.4, accepts@~1.3.5, accepts@~1.3.7:
   version "1.3.7"
@@ -8390,10 +8390,10 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-shiki-editor@^0.8.12:
-  version "0.8.12"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.8.12.tgz#025d61241ec8bf79f124a56649b4496cfed14355"
-  integrity sha512-2AtihKQGfL7N9zYa6FKePXp5uvFAsIA091MWphX8flHno5KPD72qdrRedbb6xffUGu5+J0Ai4Sl13JAml/o0tQ==
+shiki-editor@^0.8.18:
+  version "0.8.18"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.8.18.tgz#397dd8922316111254cc2395ab1bb4a3104fef7a"
+  integrity sha512-HP5LKz/CxQlK7nkGTBjUco0otmQb3eFWTDEsJ5ZuDoOLUJe3mhOCw91gBjG59b/EFeV6ronX1FaKJXIh++nFIA==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@popperjs/core" "^2.4.4"
@@ -8415,19 +8415,19 @@ shiki-editor@^0.8.12:
     withinviewport "^2.1.2"
     yarn "^1.22.4"
 
-shiki-uploader@^0.8.12:
-  version "0.8.12"
-  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.8.12.tgz#c17053d326ab51fc69911d7504263be3f5316c9e"
-  integrity sha512-NJvuGP5O4AjWzaUP4G/kjejI2n8vXUZS8EzwG5TMVnbb72T+ZvydmtZb6x3fimitgD6y13dN1Ov0orgnDyvPJQ==
+shiki-uploader@^0.8.18:
+  version "0.8.18"
+  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.8.18.tgz#1b913e5d76c9f4f8f8885a38d02773de40fc8a65"
+  integrity sha512-ioTLYXp/AM7Q9zh8s8r213Zv+TrePe+jD7n+R/xev+brciti22w7Qyn1k8GxfaogMIsAJYCNanka7M+2GVwH6w==
   dependencies:
     "@uppy/core" "^1.11.0"
     "@uppy/xhr-upload" "^1.6.0"
     is-visible "^2.2.0"
 
-shiki-utils@^0.8.12:
-  version "0.8.12"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.8.12.tgz#acdd28adce0e113a215744999d0fdbf51a9c48f5"
-  integrity sha512-DcYveKq3IV0GOjRKm0DhWAYRF8Be8JxNLM1YHK94Ek8J4ZPRuXYeUiUFGGPWVJ3IjZrLVGkawbfR3mzAao7goQ==
+shiki-utils@^0.8.18:
+  version "0.8.18"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.8.18.tgz#650160856d34dd13b01259332e1e907d4f417ada"
+  integrity sha512-OwHmOUyJvd91w0FSew3BQxttNqb9bFnmqTW2TfXSGJKZTwXSAfos3RZrtIC1Z9KGqtitTYcij6vbc1FDnGo16g==
   dependencies:
     toastify-js "^1.8.0"
 
