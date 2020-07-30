@@ -53,7 +53,7 @@ describe DbImport::ImportBase do
     end
 
     context 'banned id' do
-      let(:id) { 99_999_999 }
+      let(:id) { 111111111 }
       it { expect { subject }.to_not change Anime, :count }
       it do
         expect(entry).to be_nil
@@ -75,7 +75,7 @@ describe DbImport::ImportBase do
     end
 
     context 'banned id' do
-      let(:id) { 99_999_999 }
+      let(:id) { 111111111 }
       it { expect(entry).to be_nil }
     end
 
