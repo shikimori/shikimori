@@ -6,17 +6,17 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
     topic: %i[user linked]
   }
 
-  LIMIT_PER_REQUEST = 200
+  IDS_LIMIT_PER_REQUEST = 200
 
   def show # rubocop:disable all
     results = {}
-    limit_left = LIMIT_PER_REQUEST
+    ids_left = IDS_LIMIT_PER_REQUEST
 
     SUPPORTED_TYPES.each do |kind|
-      break if limit_left <= 0
+      break if ids_left <= 0
 
-      ids = parse_ids(kind, limit_left)
-      limit_left -= ids.size
+      ids = parse_ids(kind, ids_left)
+      ids_left -= ids.size
 
       next if ids.none?
 
@@ -38,7 +38,7 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
       end
     end
 
-    results[:is_paginated] = true if limit_left <= 0
+    results[:is_paginated] = true if ids_left <= 0
 
     render json: results
   end

@@ -2,11 +2,11 @@ describe Api::V1::ShikiEditorsController do
   # include_context :authenticated
 
   describe '#show' do
-    before { stub_const "#{described_class.name}::LIMIT_PER_REQUEST", limit_per_request }
+    before { stub_const "#{described_class.name}::IDS_LIMIT_PER_REQUEST", ids_limit_per_request }
 
     subject! { get :show, params: params }
 
-    let(:limit_per_request) { 100 }
+    let(:ids_limit_per_request) { 100 }
     let(:params) do
       {
         anime: anime.id.to_s,
@@ -121,8 +121,8 @@ describe Api::V1::ShikiEditorsController do
     #   end
     # end
 
-    context 'limit_per_request' do
-      let(:limit_per_request) { 2 }
+    context 'ids_limit_per_request' do
+      let(:ids_limit_per_request) { 2 }
 
       it do
         expect(json).to eq(
