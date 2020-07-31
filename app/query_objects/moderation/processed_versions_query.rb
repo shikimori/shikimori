@@ -5,7 +5,7 @@ class Moderation::ProcessedVersionsQuery
       .where.not(state: :pending)
       .order(updated_at: :desc)
 
-    if created_on
+    if created_on.present?
       scope = scope.where(
         'created_at between ? and ?',
         Time.zone.parse(created_on).beginning_of_day,
