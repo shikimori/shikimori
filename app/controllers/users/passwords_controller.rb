@@ -1,6 +1,7 @@
 class Users::PasswordsController < Devise::PasswordsController
   include ApplicationHelper
-  prepend_before_action :check_captcha, only: [:create]
+  prepend_before_action :check_captcha, only: %i[create] # rubocop:disable LexicallyScopedActionFilter
+  skip_before_action :require_no_authentication
 
 private
 
