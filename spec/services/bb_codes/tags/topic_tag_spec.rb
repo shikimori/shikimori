@@ -7,7 +7,7 @@ describe BbCodes::Tags::TopicTag do
 
   it do
     is_expected.to eq(
-      "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test"
+      "[url=#{url} bubbled b-mention]<s>@</s>#{user.nickname}[/url], test"
     )
   end
 
@@ -24,7 +24,7 @@ describe BbCodes::Tags::TopicTag do
     it do
       is_expected.to eq(
         "<a href='#{url}' class='b-mention b-mention-404 bubbled'>" \
-          "<del>[topic=#{topic_id}]</del></a>, test"
+          "<s>@</s><del>[topic=#{topic_id}]</del></a>, test"
       )
     end
   end

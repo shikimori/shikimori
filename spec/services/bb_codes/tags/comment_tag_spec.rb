@@ -9,7 +9,7 @@ describe BbCodes::Tags::CommentTag do
 
     it do
       is_expected.to eq(
-        "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test"
+        "[url=#{url} bubbled b-mention]<s>@</s>#{user.nickname}[/url], test"
       )
     end
 
@@ -19,7 +19,7 @@ describe BbCodes::Tags::CommentTag do
       it do
         is_expected.to eq(
           "<a href='#{url}' class='b-mention b-mention-404 bubbled'>"\
-            "<del>[comment=#{comment.id}]</del></a>, test"
+            "<s>@</s><del>[comment=#{comment.id}]</del></a>, test"
         )
       end
     end
@@ -35,8 +35,8 @@ describe BbCodes::Tags::CommentTag do
 
     it do
       is_expected.to eq(
-        "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test " \
-          "[url=#{url_2} bubbled b-mention]qwe[/url]"
+        "[url=#{url} bubbled b-mention]<s>@</s>#{user.nickname}[/url], test " \
+          "[url=#{url_2} bubbled b-mention]<s>@</s>qwe[/url]"
       )
     end
   end
@@ -47,7 +47,7 @@ describe BbCodes::Tags::CommentTag do
 
     it do
       is_expected.to eq(
-        "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test"
+        "[url=#{url} bubbled b-mention]<s>@</s>#{user.nickname}[/url], test"
       )
     end
 
@@ -57,7 +57,7 @@ describe BbCodes::Tags::CommentTag do
       it do
         is_expected.to eq(
           "<a href='#{url}' class='b-mention b-mention-404 bubbled'>"\
-          "<span>#{user.nickname}</span><del>[comment=#{comment.id}]</del></a>, test"
+          "<s>@</s><span>#{user.nickname}</span><del>[comment=#{comment.id}]</del></a>, test"
         )
       end
     end
@@ -69,7 +69,7 @@ describe BbCodes::Tags::CommentTag do
 
     it do
       is_expected.to eq(
-        "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test"
+        "[url=#{url} bubbled b-mention]<s>@</s>#{user.nickname}[/url], test"
       )
     end
 
@@ -79,7 +79,7 @@ describe BbCodes::Tags::CommentTag do
       it do
         is_expected.to eq(
           "<a href='#{url}' class='b-mention b-mention-404 bubbled'>"\
-            "<del>[comment=#{comment.id}]</del></a>, test"
+            "<s>@</s><del>[comment=#{comment.id}]</del></a>, test"
         )
       end
     end

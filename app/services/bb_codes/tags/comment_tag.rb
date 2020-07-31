@@ -40,15 +40,16 @@ class BbCodes::Tags::CommentTag
 
 private
 
-  def bbcode_to_html entry, text, is_quoted
+  def bbcode_to_html entry, text, is_quoted # rubocop:disable all
     user = entry&.send(self.class::USER_FIELD) if is_quoted || text.blank?
 
     author_name = text.presence || user&.nickname || NOT_FOUND
     url = entry_url entry
     css_classes = css_classes entry, user, is_quoted
     author_html = author_html is_quoted, user, author_name
+    mention_html = is_quoted ? '' : '<s>@</s>'
 
-    "[url=#{url} #{css_classes}]#{author_html}[/url]"
+    "[url=#{url} #{css_classes}]#{mention_html}#{author_html}[/url]"
   end
 
   def not_found_to_hmtl entry_id, text
@@ -59,7 +60,7 @@ private
       'b-mention b-mention-404 bubbled' :
       'b-mention b-mention-404'
 
-    "<#{open_tag} class='#{css_classes}'>" +
+    "<#{open_tag} class='#{css_classes}'><s>@</s>" +
       (text.present? ? "<span>#{text}</span>" : '') +
       "<del>[#{name}=#{entry_id}]</del></#{close_tag}>"
   end

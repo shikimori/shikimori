@@ -7,7 +7,7 @@ describe BbCodes::Tags::MessageTag do
 
   it do
     is_expected.to eq(
-      "[url=#{url} bubbled b-mention]#{user.nickname}[/url], test"
+      "[url=#{url} bubbled b-mention]<s>@</s>#{user.nickname}[/url], test"
     )
   end
 
@@ -16,7 +16,8 @@ describe BbCodes::Tags::MessageTag do
 
     it do
       is_expected.to eq(
-        "<span class='b-mention b-mention-404'><del>[message=#{message.id}]</del></span>, test"
+        "<span class='b-mention b-mention-404'><s>@</s>" \
+          "<del>[message=#{message.id}]</del></span>, test"
       )
     end
   end
