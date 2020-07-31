@@ -22656,6 +22656,9 @@
         not_anime_ids:
         - 5196
       :threshold: 93.2%
+      :generator:
+        ignore_latest_ids:
+        - 41674
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aria

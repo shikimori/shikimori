@@ -7,11 +7,27 @@ const IS_RAW_2 = IS_RAW && true && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
-// TEST_DEMO_CONTENT = `
-// [spoiler=spoiler block with label]
-// spoiler \`content\`
-// [/spoiler]
-// `.trim();
+TEST_DEMO_CONTENT = `
+[b]test[/b]
+[i]test[/i]
+[color=red]test[/color]
+[size=24]test[/size]
+
+[b]
+test
+zxc
+[/b]
+
+[i]
+test
+zxc
+[/i]
+
+[url=//ya.ru]
+test
+zxc
+[/url]
+`.trim();
 
 // TEST_DEMO_CONTENT = `
 // [div fc-2][div f-column]
