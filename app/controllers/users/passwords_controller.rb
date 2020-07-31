@@ -14,11 +14,19 @@ class Users::PasswordsController < Devise::PasswordsController
 
   def update
     super do |user|
-      bypass_sign_in user if user.errors.none?
+      bypass_sign_in user if user.errors.none? && user_signed_in?
     end
   end
 
 private
+
+  def after_sending_reset_password_instructions_path_for(resource_name)
+    if user_signed_in?
+      edit_profile_url current_user, section: :account
+    else
+      super
+    end
+  end
 
   def check_captcha
     unless verify_recaptcha
