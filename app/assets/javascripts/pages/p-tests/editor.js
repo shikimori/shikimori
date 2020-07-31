@@ -7,18 +7,18 @@ const IS_RAW_2 = IS_RAW && true && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
-TEST_DEMO_CONTENT = `
-[manga=1]
-[manga=2]
-[manga=3]
-[manga=4]
-[manga=5]
-[manga=6]
-[manga=7]
-[manga=8]
-[manga=9]
-[manga=10]
-`.trim();
+// TEST_DEMO_CONTENT = `
+// [manga=1]
+// [manga=2]
+// [manga=3]
+// [manga=4]
+// [manga=5]
+// [manga=6]
+// [manga=7]
+// [manga=8]
+// [manga=9]
+// [manga=10]
+// `.trim();
 
 // TEST_DEMO_CONTENT = `
 // [div fc-2][div f-column]
