@@ -12,6 +12,11 @@ class Users::PasswordsController < Devise::PasswordsController
     end
   end
 
+  def update
+    super do |user|
+      bypass_sign_in user if user.errors.none?
+    end
+  end
 
 private
 
