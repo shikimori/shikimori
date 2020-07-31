@@ -25,7 +25,7 @@ private
   def missing_fields
     [
       (:email if @resource.user.email.blank? ||
-        @resource.user.email =~ /^generated_/),
+        @resource.user.generated_email?),
       (:password if @resource.user.encrypted_password.blank?)
     ].compact
   end

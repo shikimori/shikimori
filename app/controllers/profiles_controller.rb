@@ -188,7 +188,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     og page_title: t("profiles.page.pages.#{params[:section]}") rescue I18n::MissingTranslation
 
     @section = params[:section]
-    @resource.email = '' if @resource.email =~ /^generated_/ && params[:action] == 'edit'
+    @resource.email = '' if @resource.generated_email? && params[:action] == 'edit'
   end
 
   def update # rubocop:disable AbcSize

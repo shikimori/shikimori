@@ -325,6 +325,20 @@ describe User do
     describe '#faye_channel' do
       it { expect(user.faye_channel).to eq %W[/user-#{user.id}] }
     end
+
+    describe '#generated_email?', :focus do
+      let(:user) { build :user, email: email }
+
+      context 'generated' do
+        let(:email) { "generated_12312@#{Shikimori::DOMAIN}" }
+        it { expect(user).to be_generated_email }
+      end
+
+      context 'not generated' do
+        let(:email) { "qwe123@#{Shikimori::DOMAIN}" }
+        it { expect(user).to_not be_generated_email }
+      end
+    end
   end
 
   describe 'permissions' do
