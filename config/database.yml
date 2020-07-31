@@ -7,6 +7,10 @@ development: &defaults
   host: <%= ENV['PGHOST'] || 'localhost' %>
   pool: 100
   timeout: 5000
+  encoding: utf8
+  collation: ru_RU.UTF-8
+  ctype: ru_RU.UTF-8
+  template: template0
 
 production:
   <<: *defaults
