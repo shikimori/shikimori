@@ -118,7 +118,8 @@ ru:
 
     edit:
       account:
-        change_email_and_password: Изменить email и пароль
+        change_email_and_password: Изменить почту и пароль
+        password_recovery: Сбросить пароль через почту
         connected_accounts: Подключённые сервисы
         not_connected_accounts: Не подключённые сервисы
         granted_oauth_apps: Приложения с доступом к твоему аккаунту

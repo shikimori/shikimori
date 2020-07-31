@@ -119,6 +119,7 @@ en:
     edit:
       account:
         change_email_and_password: Change e-mail and password
+        password_recovery: Password recovery via e-mail
         connected_accounts: Connected accounts
         not_connected_accounts: Not connected accounts
         granted_oauth_apps: Apps that have access to your account

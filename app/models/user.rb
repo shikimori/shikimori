@@ -367,7 +367,7 @@ class User < ApplicationRecord
   end
 
   def generated_email?
-    email.match? /^generated_\w+/
+    email.match?(/^generated_\w+/)
   end
 
   # for async mails for Devise 4

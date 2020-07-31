@@ -3,6 +3,16 @@ class Users::PasswordsController < Devise::PasswordsController
   prepend_before_action :check_captcha, only: %i[create] # rubocop:disable LexicallyScopedActionFilter
   skip_before_action :require_no_authentication
 
+  def new
+    email = params.dig(:user, :email)
+    if email.present?
+      self.resource = resource_class.new email: email
+    else
+      super
+    end
+  end
+
+
 private
 
   def check_captcha
