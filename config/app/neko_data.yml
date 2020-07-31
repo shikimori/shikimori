@@ -20433,6 +20433,9 @@
         - 33221
         - 35949
         - 36436
+        - 42380
+        - 42432
+        - 42439
       :threshold: 88.7%
       :generator:
         ignore_latest_ids:
@@ -20492,6 +20495,9 @@
         - 33221
         - 35949
         - 36436
+        - 42380
+        - 42432
+        - 42439
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -20670,7 +20676,7 @@
         - 35552
         - 36835
         - 37865
-      :threshold: 92.6%
+      :threshold: 92.5%
       :generator:
         ignore_latest_ids:
         - 37966
@@ -21621,7 +21627,7 @@
         - 36760
         - 38788
         - 40348
-      :threshold: 93.6%
+      :threshold: 93.5%
       :generator:
         ignore_latest_ids:
         - 38770
@@ -22690,6 +22696,9 @@
         not_anime_ids:
         - 5196
       :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 41674
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aria
@@ -25722,7 +25731,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 97%
+      :threshold: 96.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
@@ -27705,7 +27714,7 @@
         - 39101
         - 39102
         - 39162
-      :threshold: 80%
+      :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :transformers
