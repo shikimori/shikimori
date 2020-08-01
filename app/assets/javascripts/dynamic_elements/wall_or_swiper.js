@@ -33,7 +33,7 @@ export default class WallOrSwiper extends View {
   }
 
   update() {
-    if (this.isPhone) {
+    if (this.isPhone && !this.$node.data('wall_always')) {
       this._updatePhone();
     } else {
       this._updateDesktop();
