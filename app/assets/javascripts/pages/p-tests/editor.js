@@ -7,12 +7,12 @@ const IS_RAW_2 = IS_RAW && true && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
-TEST_DEMO_CONTENT = `
-123  456  789
-
-[url=//ya.ru]test[/url]
-
-`.trim();
+// TEST_DEMO_CONTENT = `
+// 123  456  789
+// 
+// [url=//ya.ru]test[/url]
+// 
+// `.trim();
 
 // TEST_DEMO_CONTENT = `
 // [div fc-2][div f-column]

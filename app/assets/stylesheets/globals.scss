@@ -1,9 +1,11 @@
 $font-main: Helvetica Neue, Arial, Verdana, sans-serif;
 $font-alt: Open Sans, Helvetica Neue, Arial, Verdana, sans-serif;
+$font-code: Monaco, Menlo, Consolas, Ubuntu Mono, Courier New, monospace;
 
 $variables: (
   --font-main: $font-main,
   --font-alt: $font-alt,
+  --font-code: $font-code,
   --font-alt-hadline-letter-spacing: 0.18px,
   --font-alt-text-letter-spacing: -0.13px,
   --link-hover-color: #dd5202,
