@@ -8,24 +8,24 @@ const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
 TEST_DEMO_CONTENT = `
-[b]test[/b]
-[i]test[/i]
-[color=red]test[/color]
-[size=24]test[/size]
-
 [b]
 test
 zxc
+qwe
 [/b]
 
+[b]
 [i]
 test
 zxc
+qwe
 [/i]
+[/b]
 
 [url=//ya.ru]
 test
 zxc
+qwe
 [/url]
 `.trim();
 
