@@ -1,7 +1,9 @@
+@import globals
+@import mixins/responsive
+
 .b-spoiler_inline
   cursor: pointer
   display: inline-flex
-  flex-direction: column
   padding: 0 3px
   transition: background-color .25s ease
 
@@ -10,6 +12,14 @@
 
   &:not(.is-opened)
     background-color: #456
+
+    +gte_laptop
+      &:hover
+        background-color: $link-3
+
+    &:active
+      background-color: $link-2
+
 
     & > span
       opacity: 0
