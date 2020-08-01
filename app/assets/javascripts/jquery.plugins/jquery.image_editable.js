@@ -3,34 +3,37 @@ import delay from 'delay';
 $.fn.extend({
   imageEditable() {
     return this.each(function () {
-      const $root = $(this);
+      const $node = $(this);
+
+      if ($node.data('imageEditable')) { return; }
+      $node.data('imageEditable', true);
 
       // редактирование в мобильной версии
-      $('.mobile-edit', $root).on('click', () => {
-        $root.toggleClass('mobile-editing');
+      $('.mobile-edit', $node).on('click', () => {
+        $node.toggleClass('mobile-editing');
         return false;
       });
 
       // удаление
-      $('.delete', $root).on('click', () => {
-        $root.addClass('deletable');
+      $('.delete', $node).on('click', () => {
+        $node.addClass('deletable');
         return false;
       });
 
       // отмена удаления
-      $('.cancel', $root).on('click', () => {
-        $root
+      $('.cancel', $node).on('click', () => {
+        $node
           .removeClass('deletable')
           .removeClass('mobile-editing');
         return false;
       });
 
       // подтверждение удаления
-      $('.confirm', $root).on('click', function () {
+      $('.confirm', $node).on('click', function () {
         if ($(this).data('remote')) {
           $(this).callRemote();
         } else {
-          $root
+          $node
             .removeClass('deletable')
             .addClass('deleted');
         }
@@ -38,35 +41,35 @@ $.fn.extend({
       });
 
       // восстановление удалённого
-      // $('.restore', $root).on 'click', ->
-        // $root.removeClass('deleted')
-        // $root.removeClass('mobile-editing')
+      // $('.restore', $node).on 'click', ->
+        // $node.removeClass('deleted')
+        // $node.removeClass('mobile-editing')
         // false
 
       // результат удаления при удалении через аякс-запрос
-      $('.confirm', $root).on('ajax:before', async () => {
-        $root
+      $('.confirm', $node).on('ajax:before', async () => {
+        $node
           .removeClass('deletable')
           .addClass('deleted');
 
-        const packery = $root.closest('.packery').data('packery');
+        const packery = $node.closest('.packery').data('packery');
 
         if (packery) {
-          packery.remove($root[0]);
+          packery.remove($node[0]);
           await delay(250);
           packery.layout();
         }
       });
 
       // перемещение влево
-      $('.move-left', $root).on('click', () => {
-        $root.insertBefore($root.prev());
+      $('.move-left', $node).on('click', () => {
+        $node.insertBefore($node.prev());
         return false;
       });
 
       // перемещение вправо
-      return $('.move-right', $root).on('click', () => {
-        $root.insertAfter($root.next());
+      $('.move-right', $node).on('click', () => {
+        $node.insertAfter($node.next());
         return false;
       });
     });
