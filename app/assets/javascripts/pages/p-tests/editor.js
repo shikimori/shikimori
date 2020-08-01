@@ -8,25 +8,10 @@ const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
 TEST_DEMO_CONTENT = `
-[b]
-test
-zxc
-qwe
-[/b]
+123  456  789
 
-[b]
-[i]
-test
-zxc
-qwe
-[/i]
-[/b]
+[url=//ya.ru]test[/url]
 
-[url=//ya.ru]
-test
-zxc
-qwe
-[/url]
 `.trim();
 
 // TEST_DEMO_CONTENT = `

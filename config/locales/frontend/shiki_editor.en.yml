@@ -16,3 +16,5 @@ en:
         image_url: Image URL
         link_url: Link URL
         spoiler_label: Spoiler label
+      preview: Preview
+      source: Source code

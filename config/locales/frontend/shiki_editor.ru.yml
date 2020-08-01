@@ -16,3 +16,5 @@ ru:
         image_url: URL картинки
         link_url: URL ссылки
         spoiler_label: Заголовок спойлера
+      preview: Предпросмотр
+      source: Исходный код
