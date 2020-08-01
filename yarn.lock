@@ -8392,10 +8392,10 @@ shiki-decorators@^0.8.23:
   dependencies:
     bind-decorator "1.0.11"
 
-shiki-editor@^0.8.23:
-  version "0.8.23"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.8.23.tgz#1ffb6aa677b84de30f8d7d7d25d6cd2e541c8891"
-  integrity sha512-/vvhIkJ8pHeo980xuxNwBfGHZpJl/ZpPJbJ/nOkesvDSCdP2UuiMb8/cybyDQo96JRNGf71wPJk6Li7499G73w==
+shiki-editor@^0.8.25:
+  version "0.8.25"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.8.25.tgz#ab58d79d29fe55b0837cd33a1567470293f8c703"
+  integrity sha512-wlqyfqfgBHOK9HSpOXtXvxBzT6j1YigAvEQYSSABaWkL4dHkN/F8dkCbifcGW2lbuwcuBncYlJR2GO3jv+YO9A==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@popperjs/core" "^2.4.4"
@@ -8417,19 +8417,19 @@ shiki-editor@^0.8.23:
     withinviewport "^2.1.2"
     yarn "^1.22.4"
 
-shiki-uploader@^0.8.23:
-  version "0.8.23"
-  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.8.23.tgz#8461a2466e1cd4792b0d57584731dc2251c53768"
-  integrity sha512-1QlgS7/iv9JhMXDGMWrtnZQanf69JNhavZws8qVRtg94Ig436IWkhCgFNR7eIrCh7Nb0FG7xSQHiFz7TdbpV0A==
+shiki-uploader@^0.8.25:
+  version "0.8.25"
+  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.8.25.tgz#10721156eb6db4f4922b95187ff6f6a386874e96"
+  integrity sha512-EimfW/I1qZRHl2wGGchtKyww7dWzO1wLCzJHRgxRvUqhww+4VZ9r50T+dVJE720DJNwBfsxI6p/jNQbGTPSuaw==
   dependencies:
     "@uppy/core" "^1.11.0"
     "@uppy/xhr-upload" "^1.6.0"
     is-visible "^2.2.0"
 
-shiki-utils@^0.8.23:
-  version "0.8.23"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.8.23.tgz#0e02a989c74226347b6b9ebca793fdbc0ce2a9cf"
-  integrity sha512-zcDrITrZ7B3VYozIMy9yly/VP7fmbjhPT/WrZ6o3h4/6Y+JBZWfrTDoZ1pKzxenxPbk2uQ9VVBeUNk5BPC7ZFw==
+shiki-utils@^0.8.25:
+  version "0.8.25"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.8.25.tgz#20713fcb111a9e8ecda0142e2bb5f17cd0de5d59"
+  integrity sha512-abn9Rgi3C5ZkyRVkOyC/AqmZNHWZZmuwO2z7DM+vMavSlz+RUhj2vBd8AKzR1CStpxdW4Kw5zLjVB9inQJp0Bg==
   dependencies:
     toastify-js "^1.8.0"
 
