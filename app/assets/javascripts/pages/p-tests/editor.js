@@ -7,25 +7,25 @@ const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
-TEST_DEMO_CONTENT = `
-zxc ||zzzzzzzzzzzzzz [anime=1] xxxxxxxx xxxxxxxxxxxxxxxxxxxx [image=1124146] xxxxxxxxxx xxxxxxxx [anime=9999999] rrrrrrrrr rrrrrrrrrrrrrr [image=1124146123] rrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrrrr rrrrrrrrr rrrrrrrrrrrrrrr. ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd [comment=6180109], ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff|| zxc \`fosd fodsfosdfosdfo sdfosdfos dfosdfosdfo sdfosd fodsfodsf osdfo\` test
-||test||
-||test||
-\`test\`
-\`test\`
-||test||
-||zzzzzzzzzzzzzz [anime=9999999]zzzzzzzzzzzzzz[/anime] zzzzzzzzzzzzzz||
-
-||qqq [img]http://shikimori.local/system/user_images/original/1/1124146.jpg[/img] www||
-||qqq  www||
-||qqq [image=1124146] www||
-||qqq  www||
-
-`.trim();
-
 // TEST_DEMO_CONTENT = `
-// [b]asdasd [anime=9999999]qwe[/anime] asdas[/b]
+// zxc ||zzzzzzzzzzzzzz [anime=1] xxxxxxxx xxxxxxxxxxxxxxxxxxxx [image=1124146] xxxxxxxxxx xxxxxxxx [anime=9999999] rrrrrrrrr rrrrrrrrrrrrrr [image=1124146123] rrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrrrr rrrrrrrrr rrrrrrrrrrrrrrr. ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd [comment=6180109], ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff|| zxc \`fosd fodsfosdfosdfo sdfosdfos dfosdfosdfo sdfosd fodsfodsf osdfo\` test
+// ||test||
+// ||test||
+// \`test\`
+// \`test\`
+// ||test||
+// ||zzzzzzzzzzzzzz [anime=9999999]zzzzzzzzzzzzzz[/anime] zzzzzzzzzzzzzz||
+// 
+// ||qqq [img]http://shikimori.local/system/user_images/original/1/1124146.jpg[/img] www||
+// ||qqq  www||
+// ||qqq [image=1124146] www||
+// ||qqq  www||
+// 
 // `.trim();
+
+TEST_DEMO_CONTENT = `
+qqq [image=1124146] www
+`.trim();
 
 // TEST_DEMO_CONTENT = `
 // [b]asdasd [anime=1] asdas[/b]
