@@ -8,7 +8,7 @@ const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
 TEST_DEMO_CONTENT = `
-zxc ||zzzzzzzzzzzzzz [anime=1] xxxxxxxx xxxxxxxxxxxxxxxxxxxx xxxxxxxxxx xxxxxxxx [anime=9999999] rrrrrrrrr rrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrrrr rrrrrrrrr rrrrrrrrrrrrrrr. ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd [comment=6180109], ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff|| zxc \`fosd fodsfosdfosdfo sdfosdfos dfosdfosdfo sdfosd fodsfodsf osdfo\` test
+zxc ||zzzzzzzzzzzzzz [anime=1] xxxxxxxx xxxxxxxxxxxxxxxxxxxx [image=1124146] xxxxxxxxxx xxxxxxxx [anime=9999999] rrrrrrrrr rrrrrrrrrrrrrr [image=1124146123] rrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrrrr rrrrrrrrr rrrrrrrrrrrrrrr. ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd [comment=6180109], ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff|| zxc \`fosd fodsfosdfosdfo sdfosdfos dfosdfosdfo sdfosd fodsfodsf osdfo\` test
 ||test||
 ||test||
 \`test\`
