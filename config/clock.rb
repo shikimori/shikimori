@@ -66,7 +66,6 @@ module Clockwork
     MalParsers::ScheduleExpired.perform_async 'person'
     MalParsers::ScheduleMissingPersonRoles.perform_async 'character'
     MalParsers::ScheduleMissingPersonRoles.perform_async 'person'
-
     NamedLogger.clockwork.info 'daily.imports finished'
   end
 
@@ -89,7 +88,6 @@ module Clockwork
     MalParsers::RefreshEntries.perform_async 'anime', 'latest', 1.week
     # SubtitlesImporter.perform_async :ongoings
     ImagesVerifier.perform_async
-    AnimeOnline::FixAnimeVideoAuthors.perform_async
     DbEntries::CleanupMalBanned.perform_async
     Votable::CleanupCheatBotVotes.perform_async
     Users::CleanupDoorkeeperTokens.perform_async
