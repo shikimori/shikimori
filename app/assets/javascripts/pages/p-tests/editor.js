@@ -24,7 +24,7 @@ let TEST_DEMO_CONTENT;
 // `.trim();
 
 TEST_DEMO_CONTENT = `
-qqq [image=1124146] www
+|| zz [anime=9999999]zz[/anime] zz||
 `.trim();
 
 // TEST_DEMO_CONTENT = `
