@@ -108,7 +108,7 @@ class Comment < ApplicationRecord
 
   # отмена метки отзыва для коротких комментариев
   def cancel_summary
-    self.is_summary = false if summary? && body.size < min_summary_size
+    self.is_summary = false if summary? && body.size < MIN_SUMMARY_SIZE
     true
   end
 
