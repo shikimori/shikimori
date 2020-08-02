@@ -35,8 +35,12 @@ class Comment < ApplicationRecord
   validates :commentable_type,
     inclusion: { in: Types::Comment::CommentableType.values }
   validates :body,
+    length: { minimum: 2, maximum: 60_000 },
+    if: -> { will_save_change_to_body? && summary? }
+
+  validates :body,
     length: { minimum: 2, maximum: 10_000 },
-    if: -> { will_save_change_to_body? }
+    if: -> { will_save_change_to_body? && !summary? }
 
   # scopes
   scope :summaries, -> { where is_summary: true }
@@ -104,7 +108,7 @@ class Comment < ApplicationRecord
 
   # отмена метки отзыва для коротких комментариев
   def cancel_summary
-    self.is_summary = false if summary? && body.size < MIN_SUMMARY_SIZE
+    self.is_summary = false if summary? && body.size < min_summary_size
     true
   end
 
