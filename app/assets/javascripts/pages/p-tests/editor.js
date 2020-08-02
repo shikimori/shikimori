@@ -3,14 +3,23 @@ import csrf from 'helpers/csrf';
 import autosize from 'autosize';
 
 const IS_RAW = false && IS_LOCAL_SHIKI_PACKAGES;
-const IS_RAW_2 = IS_RAW && true && IS_LOCAL_SHIKI_PACKAGES;
+const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
+// TEST_DEMO_CONTENT = `
+// zxc ||zzzzzzzzzzzzzz [anime=1] xxxxxxxx xxxxxxxxxxxxxxxxxxxx xxxxxxxxxx xxxxxxxx [anime=9999999] rrrrrrrrr rrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrrrr rrrrrrrrr rrrrrrrrrrrrrrr. ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd [comment=6180109], ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff|| zxc \`fosd fodsfosdfosdfo sdfosdfos dfosdfosdfo sdfosd fodsfodsf osdfo\` test
+// ||test||
+// ||test||
+// \`test\`
+// \`test\`
+// ||test||
+// ||zzzzzzzzzzzzzz [anime=9999999]zzzzzzzzzzzzzz[/anime] zzzzzzzzzzzzzz||
+// `.trim();
+
 TEST_DEMO_CONTENT = `
-[comment=6178630]Goliard[/comment], то, что
-Киши хотя бы это сказал ||не первый раз, [anime=1] да и пару раз [image=1124146] называл ее любимым своим героем, но не суть важно||, лол. А еще то, что там вообще ближе к "хорошая сестра", а не "красивая". Kirei имеет значение и красивая, но это скорее больше к хорошей. Если хотят подчеркнуть красоту, то сказали бы 美しい или что-то в этом роде.
- 
+||qqq [img]http://shikimori.local/system/user_images/original/1/1124146.jpg[/img] www||
+||qqq  www||
 `.trim();
 
 // TEST_DEMO_CONTENT = `
