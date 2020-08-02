@@ -2,23 +2,22 @@
 @import mixins/responsive
 
 .b-spoiler_inline
-  cursor: pointer
-  display: inline-flex
-  padding: 0 3px
+  padding: 1px 3px
   transition: background-color .25s ease
 
   &.is-opened
-    background-color: rgba(#456, 0.2)
+    background-color: rgba(#456, 0.15)
 
   &:not(.is-opened)
-    background-color: #456
+    background-color: #678
+    cursor: default
 
     +gte_laptop
       &:hover
-        background-color: $link-3
+        background-color: lighten(#456, 3%)
 
     &:active
-      background-color: $link-2
+      background-color: lighten(#678, 8%)
 
 
     & > span
