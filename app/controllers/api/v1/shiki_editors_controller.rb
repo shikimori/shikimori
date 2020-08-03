@@ -7,6 +7,7 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
   }
 
   IDS_LIMIT_PER_REQUEST = 200
+  ID_RANGE = 1..2_147_483_647
 
   def show # rubocop:disable all
     results = {}
@@ -63,7 +64,7 @@ private
 
     kind.to_s.classify.constantize
       .includes(TYPE_INCLUDES[kind])
-      .where(id: ids)
+      .where(id: ids.select { |id| ID_RANGE.cover? id })
       .each_with_object(results) do |model, memo|
         memo[model.id] = model
       end
