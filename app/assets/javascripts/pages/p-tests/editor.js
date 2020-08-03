@@ -23,9 +23,9 @@ let TEST_DEMO_CONTENT;
 // 
 // `.trim();
 
-TEST_DEMO_CONTENT = `
-|| zz [anime=9999999]zz[/anime] zz||
-`.trim();
+// TEST_DEMO_CONTENT = `
+// || zz [anime=9999999]zz[/anime] zz||
+// `.trim();
 
 // TEST_DEMO_CONTENT = `
 // [b]asdasd [anime=1] asdas[/b]
@@ -88,7 +88,8 @@ pageLoad('tests_editor', async () => {
       element: rawNode,
       extensions: [],
       content: TEST_DEMO_CONTENT || DEMO_CONTENT,
-      baseUrl: window.location.origin
+      baseUrl: window.location.origin,
+      previewUrl: rawNode.getAttribute('data-preview_url')
     }, null, Vue);
 
     if (IS_RAW_2) {
@@ -96,7 +97,8 @@ pageLoad('tests_editor', async () => {
         element: rawNode2,
         extensions: [],
         content: TEST_DEMO_CONTENT || DEMO_CONTENT,
-        baseUrl: window.location.origin
+        baseUrl: window.location.origin,
+        previewUrl: rawNode2.getAttribute('data-preview_url')
       }, null, Vue);
     } else {
       $(rawNode2).closest('.block').hide();
@@ -144,6 +146,7 @@ pageLoad('tests_editor', async () => {
           shikiUploader,
           content: DEMO_CONTENT,
           baseUrl: window.location.origin,
+          previewUrl: vueNode.getAttribute('data-preview_url')
         }
       })
     });
