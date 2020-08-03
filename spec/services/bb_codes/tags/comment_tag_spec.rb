@@ -18,7 +18,7 @@ describe BbCodes::Tags::CommentTag do
 
       it do
         is_expected.to eq(
-          "<a href='#{url}' class='b-mention b-mention-404 bubbled'>"\
+          "<a href='#{url}' class='b-mention b-entry-404 bubbled'>"\
             "<s>@</s><del>[comment=#{comment.id}]</del></a>, test"
         )
       end
@@ -56,7 +56,7 @@ describe BbCodes::Tags::CommentTag do
 
       it do
         is_expected.to eq(
-          "<a href='#{url}' class='b-mention b-mention-404 bubbled'>"\
+          "<a href='#{url}' class='b-mention b-entry-404 bubbled'>"\
           "<s>@</s><span>#{user.nickname}</span><del>[comment=#{comment.id}]</del></a>, test"
         )
       end
@@ -78,7 +78,7 @@ describe BbCodes::Tags::CommentTag do
 
       it do
         is_expected.to eq(
-          "<a href='#{url}' class='b-mention b-mention-404 bubbled'>"\
+          "<a href='#{url}' class='b-mention b-entry-404 bubbled'>"\
             "<s>@</s><del>[comment=#{comment.id}]</del></a>, test"
         )
       end

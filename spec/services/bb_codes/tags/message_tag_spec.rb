@@ -16,7 +16,7 @@ describe BbCodes::Tags::MessageTag do
 
     it do
       is_expected.to eq(
-        "<span class='b-mention b-mention-404'><s>@</s>" \
+        "<span class='b-mention b-entry-404'><s>@</s>" \
           "<del>[message=#{message.id}]</del></span>, test"
       )
     end

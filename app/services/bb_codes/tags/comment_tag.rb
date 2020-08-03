@@ -33,7 +33,7 @@ class BbCodes::Tags::CommentTag
           $LAST_MATCH_INFO[:quote].present?
         )
       else
-        not_found_to_hmtl entry_id, $LAST_MATCH_INFO[:text]
+        not_found_to_html entry_id, $LAST_MATCH_INFO[:text]
       end
     end
   end
@@ -52,13 +52,13 @@ private
     "[url=#{url} #{css_classes}]#{mention_html}#{author_html}[/url]"
   end
 
-  def not_found_to_hmtl entry_id, text
+  def not_found_to_html entry_id, text
     url = entry_id_url entry_id
     open_tag = url ? "a href='#{url}'" : 'span'
     close_tag = url ? 'a' : 'span'
     css_classes = url ?
-      'b-mention b-mention-404 bubbled' :
-      'b-mention b-mention-404'
+      'b-mention b-entry-404 bubbled' :
+      'b-mention b-entry-404'
 
     "<#{open_tag} class='#{css_classes}'><s>@</s>" +
       (text.present? ? "<span>#{text}</span>" : '') +

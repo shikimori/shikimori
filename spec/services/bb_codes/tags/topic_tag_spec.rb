@@ -23,7 +23,7 @@ describe BbCodes::Tags::TopicTag do
 
     it do
       is_expected.to eq(
-        "<a href='#{url}' class='b-mention b-mention-404 bubbled'>" \
+        "<a href='#{url}' class='b-mention b-entry-404 bubbled'>" \
           "<s>@</s><del>[topic=#{topic_id}]</del></a>, test"
       )
     end

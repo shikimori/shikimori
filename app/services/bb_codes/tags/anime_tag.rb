@@ -37,7 +37,7 @@ class BbCodes::Tags::AnimeTag
       elsif fallback
         fallback
       else
-        not_found_to_hmtl matched
+        not_found_to_html matched
       end
     end
   end
@@ -53,7 +53,7 @@ private
     HTML
   end
 
-  def not_found_to_hmtl string
+  def not_found_to_html string
     "<span class='b-entry-404'><del>#{string}</del></span>"
   end
 
