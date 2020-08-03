@@ -14,7 +14,7 @@ describe BbCodes::Tags::AnimeTag do
   context 'missing anime' do
     context 'without fallback' do
       let(:text) { '[anime=987654]' }
-      it { is_expected.to eq text }
+      it { is_expected.to eq "<span class='b-entry-404'><del>#{text}</del></span>" }
     end
 
     context 'with fallback' do
@@ -30,7 +30,7 @@ describe BbCodes::Tags::AnimeTag do
 
     context 'bigint' do
       let(:text) { '[anime=111111111111111111111]' }
-      it { is_expected.to eq text }
+      it { is_expected.to eq "<span class='b-entry-404'><del>#{text}</del></span>" }
     end
 
     context 'multiple bb codes' do

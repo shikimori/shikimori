@@ -33,24 +33,28 @@ class BbCodes::Tags::AnimeTag
       entry = db_entries[id]
 
       if entry
-        html_for entry.decorate, (name if name != entry.name)
+        bbcode_to_html entry.decorate, (name if name != entry.name)
       elsif fallback
         fallback
       else
-        matched
+        not_found_to_hmtl matched
       end
     end
   end
 
 private
 
-  def html_for entry, name
+  def bbcode_to_html entry, name
     fixed_name = name || localization_span(entry)
 
     <<~HTML.squish
       <a href="#{entry_url entry}" title="#{entry.name}" class="bubbled b-link"
       data-tooltip_url="#{tooltip_url entry}">#{fixed_name}</a>
     HTML
+  end
+
+  def not_found_to_hmtl string
+    "<span class='b-entry-404'><del>#{string}</del></span>"
   end
 
   def entry_url entry
