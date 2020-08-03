@@ -1,27 +1,33 @@
 import delay from 'delay';
 import csrf from 'helpers/csrf';
 import autosize from 'autosize';
+import axios from 'helpers/axios';
 
 const IS_RAW = false && IS_LOCAL_SHIKI_PACKAGES;
 const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
-// TEST_DEMO_CONTENT = `
-// zxc ||zzzzzzzzzzzzzz [anime=1] xxxxxxxx xxxxxxxxxxxxxxxxxxxx [image=1124146] xxxxxxxxxx xxxxxxxx [anime=9999999] rrrrrrrrr rrrrrrrrrrrrrr [image=1124146123] rrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrrrr rrrrrrrrr rrrrrrrrrrrrrrr. ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd [comment=6180109], ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff|| zxc \`fosd fodsfosdfosdfo sdfosdfos dfosdfosdfo sdfosd fodsfodsf osdfo\` test
-// ||test||
-// ||test||
-// \`test\`
-// \`test\`
-// ||test||
-// ||zzzzzzzzzzzzzz [anime=9999999]zzzzzzzzzzzzzz[/anime] zzzzzzzzzzzzzz||
-// 
-// ||qqq [img]http://shikimori.local/system/user_images/original/1/1124146.jpg[/img] www||
-// ||qqq  www||
-// ||qqq [image=1124146] www||
-// ||qqq  www||
-// 
-// `.trim();
+TEST_DEMO_CONTENT = `
+[div=fc-2][div=f-column]
+[anime=1] text after [anime=1]Anime name[/anime]
+[manga=1]
+[anime=3456789]missing anime[/anime]
+[ranobe=9115]
+
+[image=1124146]
+[/div][div=f-column]
+[entry=314310]
+[topic=314310]
+[comment=6104628]
+[message=1278854609]
+
+[topic=99999999999]
+[topic=99999999999]missing topic[/topic]
+[comment=99999999999]
+[message=99999999999]
+[/div][/div]
+`.trim();
 
 // TEST_DEMO_CONTENT = `
 // || zz [anime=9999999]zz[/anime] zz||
@@ -66,6 +72,9 @@ pageLoad('tests_editor', async () => {
   const $shikiEditor = $('.b-shiki_editor').shikiEditor();
   const $textarea = $shikiEditor.find('textarea');
 
+  const previewUrl = '/api/shiki_editor/preview';
+  const preview = (text) => axios.post(previewUrl, { text });
+
   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
   const { ShikiEditorApp, ShikiEditor } =
     await import(/* webpackChunkName: "shiki-editor" */
@@ -89,7 +98,7 @@ pageLoad('tests_editor', async () => {
       extensions: [],
       content: TEST_DEMO_CONTENT || DEMO_CONTENT,
       baseUrl: window.location.origin,
-      previewUrl: rawNode.getAttribute('data-preview_url')
+      preview
     }, null, Vue);
 
     if (IS_RAW_2) {
@@ -98,7 +107,7 @@ pageLoad('tests_editor', async () => {
         extensions: [],
         content: TEST_DEMO_CONTENT || DEMO_CONTENT,
         baseUrl: window.location.origin,
-        previewUrl: rawNode2.getAttribute('data-preview_url')
+        preview
       }, null, Vue);
     } else {
       $(rawNode2).closest('.block').hide();
@@ -146,7 +155,7 @@ pageLoad('tests_editor', async () => {
           shikiUploader,
           content: DEMO_CONTENT,
           baseUrl: window.location.origin,
-          previewUrl: vueNode.getAttribute('data-preview_url')
+          preview
         }
       })
     });
