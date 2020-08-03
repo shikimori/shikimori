@@ -8,38 +8,34 @@ const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
+TEST_DEMO_CONTENT = `
+Custom DIV
+\`[div=fc-2][div=f-column][/div][div=f-column][/div][/div]\`
+
+[div=fc-2]
+[div=f-column]
+\`[div=f-column]\`
+[/div]
+[div=f-column]
+\`[div=f-column§]\`
+[/div]
+[/div]
+
+[hr]
+
+[right]\`[right]...[/right]\`[/right]
+[center]\`[center]...[/center]\`[/center]
+`.trim();
+
 // TEST_DEMO_CONTENT = `
-// [div=fc-2][div=f-column]
-// [anime=1] text after [anime=1]Anime name[/anime]
+// [anime=9999999]zz[/anime]
+// [anime=1]
 // [manga=1]
 // [anime=3456789]missing anime[/anime]
-// [anime=3456789]
 // [ranobe=9115]
-// 
-// [/div][div=f-column]
-// [entry=314310]
-// [topic=314310]
-// [comment=6104628]
-// [message=1278854609]
-// 
-// [image=1124146]
-// 
 // [topic=99999999999]
 // [topic=99999999999]missing topic[/topic]
-// [comment=99999999999]
-// [message=99999999999]
-// [/div][/div]
 // `.trim();
-
-TEST_DEMO_CONTENT = `
-[anime=9999999]zz[/anime]
-[anime=1]
-[manga=1]
-[anime=3456789]missing anime[/anime]
-[ranobe=9115]
-[topic=99999999999]
-[topic=99999999999]missing topic[/topic]
-`.trim();
 
 // TEST_DEMO_CONTENT = `
 // [b]asdasd [anime=1] asdas[/b]
