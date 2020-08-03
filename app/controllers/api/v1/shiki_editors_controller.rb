@@ -43,6 +43,10 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
     render json: results
   end
 
+  def preview
+    render plain: BbCodes::Text.call(params[:text])
+  end
+
 private
 
   def parse_ids kind, limit

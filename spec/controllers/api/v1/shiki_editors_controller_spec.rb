@@ -31,6 +31,7 @@ describe Api::V1::ShikiEditorsController do
     let(:topic) { create :topic }
 
     it do
+      expect(response).to have_http_status :success
       expect(json).to eq(
         anime: {
           anime.id.to_s => {
@@ -164,6 +165,15 @@ describe Api::V1::ShikiEditorsController do
           }
         )
       end
+    end
+  end
+
+  describe '#preview' do
+    subject! { post :preview, params: { text: text } }
+    let(:text) { '[b]test[/b]' }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.body).to eq '<strong>test</strong>'
     end
   end
 end
