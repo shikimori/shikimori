@@ -5,7 +5,7 @@ $.fn.extend
   #   max_height - высота блока, при превышении которой будет свёртка
   #   without_shade - добавлять ли тень
   #   collapsed_height - высота свёрнутого блока
-  #   expand_html - hmtl для блока "развернуть"
+  #   expand_html - html для блока "развернуть"
   checkHeight: (options = {}) ->
     max_height = options.max_height || 450
     without_shade =
