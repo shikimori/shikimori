@@ -3,7 +3,7 @@ class BbCodes::Tags::MessageTag < BbCodes::Tags::CommentTag
   user_field :from
 
   def entry_url entry
-    UrlGenerator.instance.profile_url entry.from
+    UrlGenerator.instance.message_url entry.id
   end
 
   def entry_id_url _entry_id

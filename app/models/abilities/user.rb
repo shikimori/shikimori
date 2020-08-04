@@ -104,7 +104,10 @@ class Abilities::User
   end
 
   def message_abilities
-    can :mark_read, Message # пометка сообщений прочтёнными
+    can :mark_read, Message do
+      message.to_id == @user.id
+    end
+
     can :read, Message do |message|
       message.from_id == @user.id || message.to_id == @user.id
     end

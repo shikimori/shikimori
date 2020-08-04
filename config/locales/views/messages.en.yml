@@ -5,6 +5,13 @@ en:
         title: Notifications %{nickname} / Shikimori
         description: Notifications for Shikimori user %{nickname}
 
+    show:
+      user_message: 'Message #%{id} from %{from} to %{to}'
+    missing:
+      user_message: 'Message #%{id}'
+      no_message: >-
+        Message is either deleted or never existed on Shikimori,
+        or you don't have enough access rights to read it
     message:
       to_topic: to topic→
       broadcast_by: from

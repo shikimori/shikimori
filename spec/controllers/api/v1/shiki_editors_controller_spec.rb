@@ -95,7 +95,7 @@ describe Api::V1::ShikiEditorsController do
           message.id.to_s => {
             'id' => message.id,
             'text' => message.from.nickname,
-            'url' => profile_url(message.from)
+            'url' => message_url(message)
           }
         },
         topic: {

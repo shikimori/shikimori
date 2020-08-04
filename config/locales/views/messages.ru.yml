@@ -5,6 +5,13 @@ ru:
         title: Уведомления %{nickname} / Шикимори
         description: Уведомления для пользователя %{nickname} на Шикимори
 
+    show:
+      user_message: 'Сообщение #%{id} от %{from} к %{to}'
+    missing:
+      user_message: 'Сообщение #%{id}'
+      no_message: >-
+        Сообщение было либо удалено, либо никогда не существовало,
+        либо у тебя нет прав для его чтения
     message:
       to_topic: к новости→
       broadcast_by: от

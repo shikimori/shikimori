@@ -36,7 +36,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
     else
       render json: {
         errors: @resource.errors.full_messages
-      }, status: 422
+      }, status: :unprocessable_entity
     end
   end
 
@@ -57,7 +57,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
     else
       render json: {
         errors: @resource.errors.full_messages
-      }, status: 422
+      }, status: :unprocessable_entity
     end
   end
 
@@ -146,7 +146,7 @@ private
 
   def check_antispam
     if params[ANTISPAM_TOKEN_NAME] != ANTISPAM_TOKEN_VALUE
-      render json: ['antispam check error'], status: 422
+      render json: ['antispam check error'], status: :unprocessable_entity
     end
   end
 

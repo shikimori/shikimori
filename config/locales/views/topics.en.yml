@@ -4,7 +4,7 @@ en:
       rss_title: Topic comments
     missing:
       user_topic: 'Topic #%{id}'
-      no_topic: Topic is deleted or never existed on Shikimori
+      no_topic: Topic is either deleted or never existed on Shikimori
     header:
       mini: &header_mini
         topic_ignored: ignored

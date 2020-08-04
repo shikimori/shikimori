@@ -326,7 +326,7 @@ describe User do
       it { expect(user.faye_channel).to eq %W[/user-#{user.id}] }
     end
 
-    describe '#generated_email?', :focus do
+    describe '#generated_email?' do
       let(:user) { build :user, email: email }
 
       context 'generated' do

@@ -1,11 +1,19 @@
 class MessagesController < ProfilesController
   load_and_authorize_resource(
-    except: %i[index feed preview read_all delete_all chosen unsubscribe]
+    except: %i[
+      index
+      show
+      tooltip
+      feed
+      preview
+      chosen
+      unsubscribe
+    ]
   )
 
   skip_before_action :fetch_resource, :set_breadcrumbs,
-    except: %i[index read_all delete_all]
-  before_action :authorize_acess, only: %i[index read_all delete_all]
+    except: %i[index]
+  before_action :authorize_acess, only: %i[index]
 
   MESSAGES_PER_PAGE = 15
 
@@ -23,7 +31,16 @@ class MessagesController < ProfilesController
   end
 
   def show
-    @resource = @resource.decorate
+    @resource = Message.find_by(id: params[:id])&.decorate || NoMessage.new(params[:id])
+    authorize! :read, @resource
+
+    render :show
+  rescue CanCan::AccessDenied
+    render template: :missing
+  end
+
+  def tooltip
+    show
   end
 
   def edit

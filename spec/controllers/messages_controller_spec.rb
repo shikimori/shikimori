@@ -13,12 +13,18 @@ describe MessagesController do
 
     context 'has access' do
       subject! { make_request }
-      it { expect(response).to have_http_status :success }
+      it do
+        expect(response).to render_template :show
+        expect(response).to have_http_status :success
+      end
     end
 
     context 'no access' do
       let(:message) { create :message }
-      it { expect { make_request }.to raise_error CanCan::AccessDenied }
+      it do
+        expect(response).to_not render_template :show
+        expect(response).to have_http_status :success
+      end
     end
   end
 

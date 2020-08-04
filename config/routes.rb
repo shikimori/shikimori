@@ -908,6 +908,7 @@ Rails.application.routes.draw do
   # messages edit & rss & email bounce
   # create & preview урлы объявлены выше, глобально
   resources :messages, only: %i[show edit update destroy] do
+    get :tooltip, on: :member
     collection do
       get 'chosen/:ids' => :chosen, as: :chosen
 

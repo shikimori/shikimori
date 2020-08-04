@@ -95,7 +95,7 @@ private
       id: model.id,
       text: model.user.nickname,
       url: model.is_a?(Comment) ?
-        UrlGenerator.instance.comment_url(model) :
+        comment_url(model) :
         UrlGenerator.instance.topic_url(model)
     }
   end
@@ -106,7 +106,7 @@ private
     {
       id: model.id,
       text: model.from.nickname,
-      url: profile_url(model.from)
+      url: message_url(model)
     }
   end
 
@@ -114,7 +114,7 @@ private
     {
       id: model.id,
       text: UsersHelper.localized_name(model, current_user),
-      url: UrlGenerator.instance.send(:"#{model.class.name.downcase}_url", model)
+      url: send(:"#{model.class.name.downcase}_url", model)
     }
   end
 end

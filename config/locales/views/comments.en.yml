@@ -9,7 +9,7 @@ en:
       replies: Replies
     missing:
       user_comment: 'Comment #%{id}'
-      no_comment: Comment is deleted or never existed on Shikimori
+      no_comment: Comment is either deleted or never existed on Shikimori
     shiki_editor:
       back_to_editing: Back to Editing
       bb_codes_guide: BBCode Guide
