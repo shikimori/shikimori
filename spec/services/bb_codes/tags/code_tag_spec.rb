@@ -152,9 +152,16 @@ describe BbCodes::Tags::CodeTag do
   describe '#preprocess, #restore' do
     subject { tag.restore other_tag.format(tag.preprocess) }
 
-    let(:text) { "[code=ruby]#{content}[/code]" }
     let(:content) { '[b]test[/b]' }
 
-    it { is_expected.to eq text }
+    context 'sample' do
+      let(:text) { "[code=ruby]#{content}[/code]" }
+      it { is_expected.to eq text }
+    end
+
+    context 'sample' do
+      let(:text) { "`#{content}`" }
+      it { is_expected.to eq text }
+    end
   end
 end
