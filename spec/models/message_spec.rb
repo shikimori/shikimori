@@ -126,7 +126,6 @@ describe Message do
     context 'user' do
       let(:user) { build_stubbed :user, :user, :day_registered }
 
-      it { is_expected.to be_able_to :mark_read, message }
       it { is_expected.to_not be_able_to :read, message }
       it { is_expected.to_not be_able_to :create, message }
       it { is_expected.to_not be_able_to :edit, message }
@@ -136,6 +135,7 @@ describe Message do
       context 'message owner' do
         let(:user) { from_user }
 
+        it { is_expected.to_not be_able_to :mark_read, message }
         it { is_expected.to be_able_to :read, message }
 
         context 'private message' do
@@ -208,6 +208,7 @@ describe Message do
       context 'message target' do
         let(:user) { to_user }
 
+        it { is_expected.to be_able_to :mark_read, message }
         it { is_expected.to be_able_to :read, message }
         it { is_expected.to_not be_able_to :create, message }
         it { is_expected.to_not be_able_to :edit, message }
