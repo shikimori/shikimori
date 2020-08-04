@@ -15,6 +15,11 @@ describe BbCodes::Tags::CodeTag do
       end
 
       context 'sample' do
+        let(:text) { '[code]zxc[/code]' }
+        it { is_expected.to eq placeholder_1 }
+      end
+
+      context 'sample' do
         let(:text) { 'q[code]zxc[/code]w' }
         it { is_expected.to eq "q#{placeholder_1}w" }
       end
@@ -22,6 +27,16 @@ describe BbCodes::Tags::CodeTag do
       context 'sample' do
         let(:text) { 'q[code]zxc[/code]w[code]qwe[/code]1' }
         it { is_expected.to eq "q#{placeholder_1}w#{placeholder_1}1" }
+      end
+
+      context 'sample' do
+        let(:text) { "```\nzxc\n```" }
+        it { is_expected.to eq placeholder_1 }
+      end
+
+      context 'sample' do
+        let(:text) { "```\nzxc\n```\nq" }
+        it { is_expected.to eq "#{placeholder_1}q" }
       end
     end
 
@@ -66,7 +81,7 @@ describe BbCodes::Tags::CodeTag do
   describe '#preprocess, #postprocess' do
     subject { tag.postprocess other_tag.format(tag.preprocess) }
 
-    context 'code block' do
+    context 'bbcode' do
       context 'without language' do
         let(:text) { "[code]#{content}[/code]" }
 
@@ -134,24 +149,39 @@ describe BbCodes::Tags::CodeTag do
       end
     end
 
-    context 'code inline' do
-      let(:text) { "`#{content}`" }
+    context 'markdown' do
+      context 'code_block' do
+        let(:content) { ' [b]qe[/b] ' }
 
-      context 'one line' do
-        let(:content) { 'qe' }
-        it { is_expected.to eq "<code class='b-code_inline'>#{content}</code>" }
+        context 'sample' do
+          let(:text) { "```\n#{content}\n```" }
+          it do
+            is_expected.to eq <<-HTML.squish
+              <pre class='b-code-v2 to-process' data-dynamic='code_highlight'
+                data-language=''><code>#{content}</code></pre>
+            HTML
+          end
+        end
       end
 
-      context 'multiline' do
-        let(:content) { "q\ne" }
-        it { is_expected.to eq text }
+      context 'code_inline' do
+        let(:text) { "`#{content}`" }
+
+        context 'one line' do
+          let(:content) { ' [b]qe[/b] ' }
+          it { is_expected.to eq "<code class='b-code_inline'>#{content}</code>" }
+        end
+
+        context 'multiline' do
+          let(:content) { "q\ne" }
+          it { is_expected.to eq text }
+        end
       end
     end
   end
 
   describe '#preprocess, #restore' do
     subject { tag.restore other_tag.format(tag.preprocess) }
-
     let(:content) { '[b]test[/b]' }
 
     context 'sample' do

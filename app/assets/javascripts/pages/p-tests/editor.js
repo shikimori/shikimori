@@ -9,23 +9,31 @@ const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
 TEST_DEMO_CONTENT = `
-Custom DIV
-\`[div=fc-2][div=f-column][/div][div=f-column][/div][/div]\`
+qwe
+\`\`\`
+code block
+\`\`\`
+zxc
+`.trim()
 
-[div=fc-2]
-[div=f-column]
-\`[div=f-column]\`
-[/div]
-[div=f-column]
-\`[div=f-column§]\`
-[/div]
-[/div]
-
-[hr]
-
-[right]\`[right]...[/right]\`[/right]
-[center]\`[center]...[/center]\`[/center]
-`.trim();
+// TEST_DEMO_CONTENT = `
+// Custom DIV
+// \`[div=fc-2][div=f-column][/div][div=f-column][/div][/div]\`
+// 
+// [div=fc-2]
+// [div=f-column]
+// \`[div=f-column]\`
+// [/div]
+// [div=f-column]
+// \`[div=f-column§]\`
+// [/div]
+// [/div]
+// 
+// [hr]
+// 
+// [right]\`[right]...[/right]\`[/right]
+// [center]\`[center]...[/center]\`[/center]
+// `.trim();
 
 // TEST_DEMO_CONTENT = `
 // [anime=9999999]zz[/anime]

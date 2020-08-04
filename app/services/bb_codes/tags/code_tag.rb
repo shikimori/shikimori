@@ -4,7 +4,10 @@ class BbCodes::Tags::CodeTag
       (?<before> \ + | \ +[\r\n]+ | [\r\n]* )
       (?<code> .*? )
       (?<after> [\ \r\n]* )
-    \[ /code \]
+    \[ /code \] |
+    ^ ``` (?<language>[\w+#-]+)? \n
+      (?<code_block> .*? ) \n
+    ^ ``` (?:\n|$)
   }mix
 
   MARKDOWN_REGEXP = /(?<mark>`++)(?<code>(?:(?!\k<mark>).)+)\k<mark>/
@@ -43,10 +46,10 @@ private
   def preprocess_bbcode text
     text.gsub BBCODE_REGEXP do |match|
       store(
-        $LAST_MATCH_INFO[:code],
+        $LAST_MATCH_INFO[:code] || $LAST_MATCH_INFO[:code_block],
         $LAST_MATCH_INFO[:language],
-        $LAST_MATCH_INFO[:before],
-        $LAST_MATCH_INFO[:after],
+        $LAST_MATCH_INFO[:code_block] ? 'z' : $LAST_MATCH_INFO[:before],
+        $LAST_MATCH_INFO[:code_block] ? 'z' : $LAST_MATCH_INFO[:after],
         match
       )
       CODE_PLACEHOLDER
