@@ -8,31 +8,46 @@ const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
-TEST_DEMO_CONTENT = `
-qwe
-\`\`\`
-code block
-\`\`\`
-zxc
-`.trim()
+// TEST_DEMO_CONTENT = `
+// qwe
+// \`\`\`
+// code block
+// \`\`\`
+// zxc
+// `.trim()
 
 // TEST_DEMO_CONTENT = `
-// Custom DIV
-// \`[div=fc-2][div=f-column][/div][div=f-column][/div][/div]\`
+// [quote=c6104643;1;c]test[/quote]
+// `.trim();
+
+TEST_DEMO_CONTENT = `
+before
+[quote]QUOTE[/quote]
+after
+
+before
+[div]DIV[/div]
+after
+
+beforeWithN
+
+[quote]QUOTE[/quote]
+
+afterWithN
+
+
+beforeWithN
+
+[div]DIV[/div]
+
+afterWithN
+
+`.trim();
+
+// TEST_DEMO_CONTENT = `
+// test
 // 
-// [div=fc-2]
-// [div=f-column]
-// \`[div=f-column]\`
-// [/div]
-// [div=f-column]
-// \`[div=f-column§]\`
-// [/div]
-// [/div]
-// 
-// [hr]
-// 
-// [right]\`[right]...[/right]\`[/right]
-// [center]\`[center]...[/center]\`[/center]
+// [div]z[/div]
 // `.trim();
 
 // TEST_DEMO_CONTENT = `
