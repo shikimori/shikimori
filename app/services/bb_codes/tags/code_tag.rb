@@ -1,5 +1,5 @@
 class BbCodes::Tags::CodeTag
-  REGEXP = %r{
+  BBCODE_REGEXP = %r{
     \[ code (?:=(?<language>[\w+#-]+))? \]
       (?<before> \ + | \ +[\r\n]+ | [\r\n]* )
       (?<code> .*? )
@@ -7,7 +7,10 @@ class BbCodes::Tags::CodeTag
     \[ /code \]
   }mix
 
+  MARKDOWN_REGEXP = /(?<mark>`++)(?<code>(?:(?!\k<mark>).)+)\k<mark>/
+
   CODE_PLACEHOLDER = '<<-CODE-PLACEHODLER->>'
+  CODE_PLACEHOLDER_2 = '<<-CODE-PLACEHODLER-2->>'
 
   class BrokenTagError < RuntimeError
   end
@@ -18,7 +21,27 @@ class BbCodes::Tags::CodeTag
   end
 
   def preprocess
-    @text.gsub REGEXP do |match|
+    proprocess_markdown(preprocess_bbcode(@text))
+  end
+
+  def postprocess text
+    fixed_text = postprocess_bbcode(postprocess_markdown(text))
+
+    raise BrokenTagError if @cache.any?
+
+    fixed_text
+  end
+
+  def restore text
+    text
+      .gsub(CODE_PLACEHOLDER_2) { @cache.shift.original }
+      .gsub(CODE_PLACEHOLDER) { @cache.shift.original }
+  end
+
+private
+
+  def preprocess_bbcode text
+    text.gsub BBCODE_REGEXP do |match|
       store(
         $LAST_MATCH_INFO[:code],
         $LAST_MATCH_INFO[:language],
@@ -30,8 +53,8 @@ class BbCodes::Tags::CodeTag
     end
   end
 
-  def postprocess text
-    fixed_text = text.gsub CODE_PLACEHOLDER do
+  def postprocess_bbcode text
+    text.gsub CODE_PLACEHOLDER do
       code = @cache.shift
 
       raise BrokenTagError if code.nil?
@@ -44,19 +67,29 @@ class BbCodes::Tags::CodeTag
         code_inline code.text
       end
     end
-
-    raise BrokenTagError if @cache.any?
-
-    fixed_text
   end
 
-  def restore text
-    text.gsub CODE_PLACEHOLDER do
-      @cache.shift.original
+  def proprocess_markdown text
+    text.gsub MARKDOWN_REGEXP do |match|
+      store(
+        $LAST_MATCH_INFO[:code],
+        nil,
+        nil,
+        nil,
+        match
+      )
+      CODE_PLACEHOLDER_2
     end
   end
 
-private
+  def postprocess_markdown text
+    text.gsub CODE_PLACEHOLDER_2 do
+      code = @cache.shift
+      raise BrokenTagError if code.nil?
+
+      code_inline code.text
+    end
+  end
 
   def code_highlight text, language
     "<pre class='b-code-v2 to-process' data-dynamic='code_highlight' "\
@@ -64,7 +97,7 @@ private
   end
 
   def code_inline text
-    "<code class='b-code-v2-inline'>#{text}</code>"
+    "<code class='b-code_inline'>#{text}</code>"
   end
 
   def code_block? text, content_around
