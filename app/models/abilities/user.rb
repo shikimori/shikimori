@@ -104,7 +104,7 @@ class Abilities::User
   end
 
   def message_abilities
-    can :mark_read, Message do
+    can :mark_read, Message do |message|
       message.to_id == @user.id
     end
 

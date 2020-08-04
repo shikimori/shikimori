@@ -31,12 +31,13 @@ class MessagesController < ProfilesController
   end
 
   def show
-    @resource = Message.find_by(id: params[:id])&.decorate || NoMessage.new(params[:id])
+    @resource = Message.find_by(id: params[:id])&.decorate ||
+      NoMessage.new(params[:id])
     authorize! :read, @resource
 
     render :show
   rescue CanCan::AccessDenied
-    render template: :missing
+    render :missing
   end
 
   def tooltip

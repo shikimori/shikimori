@@ -222,7 +222,7 @@ describe Message do
           end
 
           context 'old message' do
-            let(:created_at) { 11.minute.ago }
+            let(:created_at) { 11.minutes.ago }
             it { is_expected.to be_able_to :destroy, message }
           end
         end
