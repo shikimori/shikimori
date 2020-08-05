@@ -16,11 +16,11 @@ class BbCodes::Tags::CleanupNewLines
   CLEANUP_REGEXP = %i[div quote].each_with_object({}) do |tag, memo|
     memo[tag] = {}
 
-    memo[tag][:tag_start_1] = /
-      (?<! #{CLEANUP_MARKER} )
-      \n
-      (?<tag>#{TAG_REGEXP[tag][:start]})
-    /mix
+    # memo[tag][:tag_start_1] = /
+    #   (?<! #{CLEANUP_MARKER} )
+    #   \n
+    #   (?<tag>#{TAG_REGEXP[tag][:start]})
+    # /mix
     memo[tag][:tag_start_2] = /
       (?<tag>#{TAG_REGEXP[tag][:start]})
       \n
@@ -45,10 +45,10 @@ class BbCodes::Tags::CleanupNewLines
   end
 
   def cleanup text, tag
+      # .gsub CLEANUP_REGEXP[tag][:tag_start_1] do
+      #   CLEANUP_MARKER + $LAST_MATCH_INFO[:tag]
+      # end
     text
-      .gsub CLEANUP_REGEXP[tag][:tag_start_1] do
-        CLEANUP_MARKER + $LAST_MATCH_INFO[:tag]
-      end
       .gsub CLEANUP_REGEXP[tag][:tag_start_2] do
         $LAST_MATCH_INFO[:tag] + CLEANUP_MARKER
       end
