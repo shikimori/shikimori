@@ -15,7 +15,7 @@ require_relative '../lib/named_logger'
 require_relative '../lib/log_before_timeout'
 # require_relative '../config/initializers/log_before_timeout'
 
-Dir['app/middleware/*'].each { |file| require_relative "../#{file}" }
+Dir['config/middleware/*'].each { |file| require_relative "../#{file}" }
 
 module Shikimori
   DOMAINS = {
@@ -106,12 +106,12 @@ module Shikimori
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    if defined?(Redirecter) && Rails.env.production? && !LOCAL_RUN
+    if defined?(Redirecter) # not defined for clockwork
       config.middleware.use Redirecter
     end
 
     config.middleware.insert 0, Rack::UTF8Sanitizer
-    if defined?(ProxyTest) && Rails.env.production? && !LOCAL_RUN # not defined for clockwork
+    if defined?(ProxyTest) # not defined for clockwork
       config.middleware.insert 0, ProxyTest
     end
 
