@@ -3,7 +3,7 @@ class BbCodes::Tags::HeadlineTag
 
   HEADLINES_REGEXP = /^(?<level>\#{1,5})\ (?<text>.*) (?:\n|$) /x
 
-  def format text
+  def format text # rubocop:disable MethodLength
     text.gsub(HEADLINES_REGEXP) do |match|
       case $LAST_MATCH_INFO[:level]
       when '#'
