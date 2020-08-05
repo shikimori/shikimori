@@ -15,7 +15,7 @@ require_relative '../lib/named_logger'
 require_relative '../lib/log_before_timeout'
 # require_relative '../config/initializers/log_before_timeout'
 
-Dir['config/middleware/*'].each { |file| require_relative "../#{file}" }
+Dir['config/middleware/*'].each { |file| require_relative "../#{file}" } unless Rails.env.test?
 
 module Shikimori
   DOMAINS = {
