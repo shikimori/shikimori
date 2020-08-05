@@ -5,7 +5,7 @@ class BbCodes::Tags::H3Tag
     \[h3\]
       (.*?)
     \[/h3\]
-    (?: \r\n|\r|\n|<br> )?
+    \n?
   }mix
 
   def format text
