@@ -15,6 +15,12 @@ class BbCodes::Tags::HeadlineTag
       when '###'
         h4_html $LAST_MATCH_INFO[:text]
 
+      when '####'
+        headline_html $LAST_MATCH_INFO[:text]
+
+      when '#####'
+        midheadline_html $LAST_MATCH_INFO[:text]
+
       else
         match
       end
@@ -33,5 +39,13 @@ private
 
   def h4_html text
     "<h4>#{text}</h4>"
+  end
+
+  def headline_html text
+    "<div class='headline'>#{text}</div>"
+  end
+
+  def midheadline_html text
+    "<div class='midheadline'>#{text}</div>"
   end
 end

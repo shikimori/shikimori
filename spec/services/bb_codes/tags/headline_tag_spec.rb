@@ -30,4 +30,14 @@ describe BbCodes::Tags::HeadlineTag do
     let(:text) { '### test' }
     it { is_expected.to eq '<h4>test</h4>' }
   end
+
+  context 'headline' do
+    let(:text) { '#### test' }
+    it { is_expected.to eq "<div class='headline'>test</div>" }
+  end
+
+  context 'midheadline' do
+    let(:text) { '##### test' }
+    it { is_expected.to eq "<div class='midheadline'>test</div>" }
+  end
 end
