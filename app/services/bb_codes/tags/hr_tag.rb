@@ -1,7 +1,7 @@
 class BbCodes::Tags::HrTag
   include Singleton
 
-  REGEXP = /\[hr\]\n?|^(?:---+|___+|\*\*\*+)(?:\n|$)/x
+  REGEXP = /\[hr\]\n?/i
 
   def format text
     text.gsub(REGEXP, '<hr>')
