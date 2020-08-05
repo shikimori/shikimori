@@ -20,29 +20,43 @@ let TEST_DEMO_CONTENT;
 // [quote=c6104643;1;c]test[/quote]
 // `.trim();
 
+// TEST_DEMO_CONTENT = `
+// before
+// [quote]QUOTE[/quote]
+// after
+// 
+// before
+// [div]DIV[/div]
+// after
+// 
+// beforeWithN
+// 
+// [quote]QUOTE[/quote]
+// 
+// afterWithN
+// 
+// 
+// beforeWithN
+// 
+// [div]DIV[/div]
+// 
+// afterWithN
+// 
+// `.trim();
+
+// TEST_DEMO_CONTENT = `
+// qwe
+// \`\`\`
+// code block
+// \`\`\`
+// zxc
+// `.trim()
+
 TEST_DEMO_CONTENT = `
-before
-[quote]QUOTE[/quote]
-after
-
-before
-[div]DIV[/div]
-after
-
-beforeWithN
-
-[quote]QUOTE[/quote]
-
-afterWithN
-
-
-beforeWithN
-
-[div]DIV[/div]
-
-afterWithN
-
-`.trim();
+[quote]Old style quote support[/quote]
+[quote=zxc]Old style quote with nickname[/quote]
+[quote=c1246;1945;Silentium°]Old style quote with user[/quote]`;
+`.trim()
 
 // TEST_DEMO_CONTENT = `
 // test
