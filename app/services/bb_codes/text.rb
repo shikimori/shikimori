@@ -66,7 +66,7 @@ class BbCodes::Text
     end
 
   def call
-    text = (@text || '').fix_encoding.strip
+    text = prepare @text
     text = remove_spam text
 
     text = String.new ERB::Util.h(text)
@@ -91,10 +91,13 @@ class BbCodes::Text
 
 private
 
+  def prepare text
+    (text || '').fix_encoding.strip.gsub(/\r\n|\r/, "\n")
+  end
+
   def parse text # rubocop:disable all
     text_hash = XXhash.xxh32 text, 0
 
-    text = text.gsub(/\r\n|\r/, "\n")
     text = BbCodes::Tags::CleanupNewLines.call(
       text,
       BbCodes::Tags::CleanupNewLines::TAGS
@@ -123,6 +126,10 @@ private
       text = tag_klass.instance.format text
     end
 
-    text.gsub(/\r\n|\r|\n/, '<br>')
+    new_lines_to_br text
+  end
+
+  def new_lines_to_br text
+    text.gsub(/\n/, '<br>')
   end
 end

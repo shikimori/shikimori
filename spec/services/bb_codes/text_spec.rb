@@ -440,4 +440,10 @@ describe BbCodes::Text do
       it { is_expected.to eq "123\n456\n789" }
     end
   end
+
+  describe '#prepare' do
+    let(:text) { " z\r\n\nx " }
+    subject { service.send :prepare, text }
+    it { is_expected.to eq "z\n\nx" }
+  end
 end
