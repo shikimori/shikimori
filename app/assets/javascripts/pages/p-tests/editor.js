@@ -8,85 +8,19 @@ const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
-// TEST_DEMO_CONTENT = `
-// qwe
-// \`\`\`
-// code block
-// \`\`\`
-// zxc
-// `.trim()
-
-// TEST_DEMO_CONTENT = `
-// [quote=c6104643;1;c]test[/quote]
-// `.trim();
-
-// TEST_DEMO_CONTENT = `
-// before
-// [quote]QUOTE[/quote]
-// after
-// 
-// before
-// [div]DIV[/div]
-// after
-// 
-// beforeWithN
-// 
-// [quote]QUOTE[/quote]
-// 
-// afterWithN
-// 
-// 
-// beforeWithN
-// 
-// [div]DIV[/div]
-// 
-// afterWithN
-// 
-// `.trim();
-
-// TEST_DEMO_CONTENT = `
-// qwe
-// \`\`\`
-// code block
-// \`\`\`
-// zxc
-// `.trim()
-
 TEST_DEMO_CONTENT = `
-[quote]Old style quote support[/quote]
-[quote=zxc]Old style quote with nickname[/quote]
-[quote=c1246;1945;Silentium°]Old style quote with user[/quote]`;
+# Heading level 1: \`# Heading level 1\`
+## Heading level 2: \`## Heading level 2\`
+### Heading level 3: \`### Heading level 3\`
+#### Heading level 4: \`#### Heading level 4\`
+##### Heading level 5: \`##### Heading level 5\`
 `.trim()
 
 // TEST_DEMO_CONTENT = `
-// test
-// 
-// [div]z[/div]
-// `.trim();
-
-// TEST_DEMO_CONTENT = `
-// [anime=9999999]zz[/anime]
-// [anime=1]
-// [manga=1]
-// [anime=3456789]missing anime[/anime]
-// [ranobe=9115]
-// [topic=99999999999]
-// [topic=99999999999]missing topic[/topic]
-// `.trim();
-
-// TEST_DEMO_CONTENT = `
-// [b]asdasd [anime=1] asdas[/b]
-// `.trim();
-
-// TEST_DEMO_CONTENT = `
-// [b]asdasd [anime=1]Cowboy[/anime] asdas[/b]
-// `.trim();
-
-// TEST_DEMO_CONTENT = `
-// [b]asdasd [anime=9999999]qwe[/anime] asdas[/b]
-// [b]asdasd [anime=1]qwe[/anime] asdas[/b]
-// `.trim();
-
+// [quote]Old style quote support[/quote]
+// [quote=zxc]Old style quote with nickname[/quote]
+// [quote=c1246;1945;Silentium°]Old style quote with user[/quote]`;
+// `.trim()
 
 // TEST_DEMO_CONTENT = `
 // [div fc-2][div f-column]
