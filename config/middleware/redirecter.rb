@@ -23,6 +23,9 @@ class Redirecter
     elsif request.url.end_with?('.html')
       [301, { 'Location' => fixed_url(request).sub(/.html$/, '') }, []]
 
+    elsif request.path.match?(%r{//+})
+      [301, { 'Location' => request.path.sub(%r{//+}, '/') }, []]
+
     else
       @app.call(env)
     end
