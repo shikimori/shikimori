@@ -102,6 +102,7 @@ guard :pow do
   watch 'config/environment.rb'
   watch %r{^config/environments/.*\.rb$}
   watch %r{^config/initializers/.*\.rb$}
+  watch %r{^config/middleware/.*\.rb$}
 end
 
 guard 'i18n-js' do
