@@ -28,7 +28,7 @@ class BbCodes::Tags::CodeTag
   end
 
   def postprocess text
-    fixed_text = postprocess_bbcode(postprocess_markdown(text))
+    fixed_text = postprocess_markdown(postprocess_bbcode(text))
 
     raise BrokenTagError if @cache.any?
 

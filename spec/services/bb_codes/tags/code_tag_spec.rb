@@ -178,6 +178,28 @@ describe BbCodes::Tags::CodeTag do
         end
       end
     end
+
+    context 'bbcode + markdown' do
+      context 'smaple' do
+        let(:text) { '[code]123[/code] `456`' }
+        it do
+          is_expected.to eq(
+            "<code class='b-code_inline'>123</code> " \
+              "<code class='b-code_inline'>456</code>"
+          )
+        end
+      end
+
+      context 'smaple' do
+        let(:text) { '`123` [code]456[/code]' }
+        it do
+          is_expected.to eq(
+            "<code class='b-code_inline'>123</code> " \
+              "<code class='b-code_inline'>456</code>"
+          )
+        end
+      end
+    end
   end
 
   describe '#preprocess, #restore' do
