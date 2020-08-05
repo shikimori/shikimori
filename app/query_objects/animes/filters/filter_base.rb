@@ -16,6 +16,12 @@ class Animes::Filters::FilterBase
       else
         raise
       end
+    rescue Dry::Types::CoercionError => e
+      if field
+        raise InvalidParameterError.new(field, '', e.message)
+      else
+        raise
+      end
     end
   end
 
