@@ -1,0 +1,33 @@
+describe BbCodes::Tags::HeadlineTag do
+  subject { described_class.instance.format text }
+
+  context 'h2' do
+    let(:text) { '# test' }
+    it { is_expected.to eq '<h2>test</h2>' }
+
+    context 'sample' do
+      let(:text) { "# test\nzxc" }
+      it { is_expected.to eq '<h2>test</h2>zxc' }
+    end
+
+    context 'sample' do
+      let(:text) { "# test\n# zxc" }
+      it { is_expected.to eq '<h2>test</h2><h2>zxc</h2>' }
+    end
+
+    context 'sample' do
+      let(:text) { ' # test' }
+      it { is_expected.to eq text }
+    end
+  end
+
+  context 'h3' do
+    let(:text) { '## test' }
+    it { is_expected.to eq '<h3>test</h3>' }
+  end
+
+  context 'h4' do
+    let(:text) { '### test' }
+    it { is_expected.to eq '<h4>test</h4>' }
+  end
+end

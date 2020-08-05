@@ -25,7 +25,7 @@ class BbCodes::Text
     contest_status contest_round_status
     source broadcast
 
-    div hr br p
+    headline div hr br p
     b i u s
     size center right
     color solid url
