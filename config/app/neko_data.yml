@@ -26391,7 +26391,12 @@
       :algo: duration
       :filters:
         franchise: glass_no_kamen
-      :threshold: 95%
+        not_anime_ids:
+        - 17707
+        - 27621
+        - 34336
+        - 35070
+      :threshold: 97.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :glass_no_kamen
@@ -26420,6 +26425,11 @@
       :algo: duration
       :filters:
         franchise: glass_no_kamen
+        not_anime_ids:
+        - 17707
+        - 27621
+        - 34336
+        - 35070
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -27312,9 +27322,18 @@
       :filters:
         franchise: time_bokan
         not_anime_ids:
+        - 3008
+        - 3915
+        - 4154
+        - 5344
+        - 5475
+        - 6889
+        - 8011
+        - 8553
         - 8921
+        - 29739
         - 39707
-      :threshold: 80%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :time_bokan
@@ -27344,7 +27363,16 @@
       :filters:
         franchise: time_bokan
         not_anime_ids:
+        - 3008
+        - 3915
+        - 4154
+        - 5344
+        - 5475
+        - 6889
+        - 8011
+        - 8553
         - 8921
+        - 29739
         - 39707
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
