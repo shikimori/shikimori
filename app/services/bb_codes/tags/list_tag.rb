@@ -15,6 +15,16 @@ class BbCodes::Tags::ListTag
     (?<brs> \n\n )?
   }mix
 
+  MARKDOWN_LIST_REGEXP = /
+    ^[-+*]\ (?<content> .*+ (?:\n\ \ .*+)*) (?:\n|$)
+  /x
+  MARKDOWN_LISTS_REGEXP = /
+    (?: #{MARKDOWN_LIST_REGEXP.source} )+
+  /x
+
+  UL_START = "<ul class='b-list'>"
+  UL_END = '</ul>'
+
   def format text
     format_markdown_lists(
       format_bb_list_items(
@@ -31,18 +41,26 @@ private
         "<li>#{$LAST_MATCH_INFO[:li]}</li>"
       end
 
-      "<ul class=\"b-list\">#{items}</ul>"
+      "#{UL_START}#{items}#{UL_END}"
     end
   end
 
   def format_bb_list_items text
     text.gsub(BBCODE_LIST_ITEM_REGEXP) do
-      "<ul class=\"b-list\"><li>#{$LAST_MATCH_INFO[:li]}</li></ul>" +
+      "#{UL_START}<li>#{$LAST_MATCH_INFO[:li]}</li>#{UL_END}" +
         ($LAST_MATCH_INFO[:brs] ? "\n" : '')
     end
   end
 
   def format_markdown_lists text
-    text
+    text.gsub MARKDOWN_LISTS_REGEXP do |match|
+      UL_START + format_markdown_items(match) + UL_END
+    end
+  end
+
+  def format_markdown_items text
+    text.gsub(MARKDOWN_LIST_REGEXP) do
+      "<li>#{$LAST_MATCH_INFO[:content]}</li>"
+    end
   end
 end
