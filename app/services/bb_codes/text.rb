@@ -15,6 +15,11 @@ class BbCodes::Text
 
   HASH_TAGS = BbCodes::ToTag.call %i[image img]
 
+  MARKDOWNS = %i[
+    headline
+    list
+  ]
+
   TAGS = BbCodes::ToTag.call %i[
     quote replies comment topic message
 
@@ -25,7 +30,7 @@ class BbCodes::Text
     contest_status contest_round_status
     source broadcast
 
-    headline div hr br p
+    div hr br p
     b i u s
     size center right
     color solid url
@@ -112,8 +117,12 @@ private
       text = tag_klass.instance.format text, text_hash
     end
 
-    TAGS.each do |tag_klass|
-      text = tag_klass.instance.format text
+    MARKDOWNS.each do |markdown_parser|
+      text = markdown_parser.instance.format text
+    end
+
+    TAGS.each do |tag_parser|
+      text = tag_parser.instance.format text
     end
 
     BB_CODE_REPLACERS.each do |processor|

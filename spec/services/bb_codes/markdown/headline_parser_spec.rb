@@ -1,4 +1,4 @@
-describe BbCodes::Tags::HeadlineTag do
+describe BbCodes::Markdown::HeadlineParser do
   subject { described_class.instance.format text }
 
   context 'h2' do

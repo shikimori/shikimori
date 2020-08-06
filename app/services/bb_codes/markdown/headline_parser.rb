@@ -1,4 +1,4 @@
-class BbCodes::Tags::HeadlineTag
+class BbCodes::Markdown::HeadlineParser
   include Singleton
 
   HEADLINES_REGEXP = /^(?<level>\#{1,5})\ (?<text>.*) (?:\n|$) /x
