@@ -9,14 +9,15 @@ const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
 TEST_DEMO_CONTENT = `
-# Heading level 1: \`# Heading level 1\`
+# Heading level 1
 [hr]
-## Heading level 2: \`## Heading level 2\`
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit lorem, eleifend auctor posuere eget, placerat quis augue. Nunc vitae dui nec lectus eleifend elementum. Duis iaculis quam quis mi ullamcorper, eget consequat felis finibus. Phasellus scelerisque lacus egestas, fermentum purus sit amet, mattis neque. Fusce non lorem malesuada, feugiat urna id, molestie diam. Vestibulum a turpis quis nulla pharetra posuere eu ac elit. Sed vitae felis venenatis, tempor magna at, efficitur ipsum.
+## Heading level 2
 [hr]
-### Heading level 3: \`### Heading level 3\`
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit lorem, eleifend auctor posuere eget, placerat quis augue. Nunc vitae dui nec lectus eleifend elementum. Duis iaculis quam quis mi ullamcorper, eget consequat felis finibus. Phasellus scelerisque lacus egestas, fermentum purus sit amet, mattis neque. Fusce non lorem malesuada, feugiat urna id, molestie diam. Vestibulum a turpis quis nulla pharetra posuere eu ac elit. Sed vitae felis venenatis, tempor magna at, efficitur ipsum.
+### Heading level 3
 [hr]
-#### Heading level 4: \`#### Heading level 4\`
-##### Heading level 5: \`##### Heading level 5\`
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit lorem, eleifend auctor posuere eget, placerat quis augue. Nunc vitae dui nec lectus eleifend elementum. Duis iaculis quam quis mi ullamcorper, eget consequat felis finibus. Phasellus scelerisque lacus egestas, fermentum purus sit amet, mattis neque. Fusce non lorem malesuada, feugiat urna id, molestie diam. Vestibulum a turpis quis nulla pharetra posuere eu ac elit. Sed vitae felis venenatis, tempor magna at, efficitur ipsum.
 `.trim()
 
 // TEST_DEMO_CONTENT = `
