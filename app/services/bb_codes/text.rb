@@ -13,14 +13,14 @@ class BbCodes::Text
     b s u i url img list right center solid
   ]
 
-  HASH_TAGS = BbCodes::ToTag.call %i[image img]
+  HASH_TAGS = BbCodes::ToTagParser.call %i[image img]
 
-  MARKDOWNS = %i[
+  MARKDOWNS = BbCodes::ToMarkdownParser.call %i[
     headline
     list
   ]
 
-  TAGS = BbCodes::ToTag.call %i[
+  TAGS = BbCodes::ToTagParser.call %i[
     quote replies comment topic message
 
     db_entry_url video_url video
@@ -40,7 +40,7 @@ class BbCodes::Text
   ] # html5_video must be after url tag
 
   DB_ENTRY_BB_CODES = %i[anime manga ranobe character person]
-  DB_ENTRY_TAGS = BbCodes::ToTag.call DB_ENTRY_BB_CODES
+  DB_ENTRY_TAGS = BbCodes::ToTagParser.call DB_ENTRY_BB_CODES
 
   OBSOLETE_TAGS = %r{\[user_change=\d+\] | \[/user_change\]}mix
 
