@@ -1,0 +1,2 @@
+module BbCodes::Tags
+end
