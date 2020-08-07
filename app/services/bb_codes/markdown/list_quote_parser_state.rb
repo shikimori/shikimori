@@ -20,6 +20,7 @@ class BbCodes::Markdown::ListQuoteParserState
   end
 
   def to_html
+    # ap @text
     parse_line while @index < @text.size
 
     @state.join('')
@@ -64,6 +65,7 @@ private
 
     @state.push UL_OPEN
     @nested_sequence += tag_sequence
+    # puts "processBulletList '#{@nested_sequence}'"
 
     loop do
       move tag_sequence.length
@@ -76,13 +78,15 @@ private
 
     @state.push UL_CLOSE
 
-    @nested_sequence = @nested_sequence[0..(@nested_sequence.size - tag_sequence.size - 1)]
+    @nested_sequence = @nested_sequence.slice(0, @nested_sequence.size - tag_sequence.size)
+    # puts "processBulletList '#{@nested_sequence}'"
   end
 
   def parse_list_lines prior_sequence, tag_sequence
     nested_sequence_backup = @nested_sequence
 
     @nested_sequence = prior_sequence + tag_sequence
+    # puts "processBulletListLines '#{@nested_sequence}'"
     line = 0
 
     loop do
@@ -97,12 +101,14 @@ private
     end
 
     @nested_sequence = nested_sequence_backup
+    # puts "processBulletListLines '#{@nested_sequence}'"
   end
 
   def parse_blockquote tag_sequence
     is_first_line = true
     @state.push BLOCKQUOTE_OPEN
     @nested_sequence += tag_sequence
+    # puts "processBlockQuote '#{@nested_sequence}'"
 
     loop do
       @state.push "\n" unless is_first_line || @state.last.match?(TAG_CLOSE_REGEXP)
@@ -113,7 +119,8 @@ private
     end
 
     @state.push BLOCKQUOTE_CLOSE
-    @nested_sequence = @nested_sequence[0..(@nested_sequence.size - tag_sequence.size - 1)]
+    @nested_sequence = @nested_sequence.slice(0, @nested_sequence.size - tag_sequence.size)
+    # puts "processBlockQuote '#{@nested_sequence}'"
   end
 
   def move steps
@@ -125,11 +132,11 @@ private
   end
 
   def sequence_continued?
-    @text[@index..(@index + @nested_sequence.size - 1)] == @nested_sequence
+    @text.slice(@index, @nested_sequence.size) == @nested_sequence
   end
 
   def skippable_sequence? skip_sequence
     skip_sequence.present? &&
-      @text[@index..(@index + skip_sequence.size - 1)] == skip_sequence
+      @text.slice(@index, skip_sequence.size) == skip_sequence
   end
 end
