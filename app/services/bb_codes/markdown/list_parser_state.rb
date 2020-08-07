@@ -34,6 +34,7 @@ private
       is_end = @text[@index] == "\n" || @text[@index].nil?
 
       if is_end
+        finalize_content start_index, @index - 1
         move 1
         return
       end
@@ -47,9 +48,10 @@ private
         end
       end
 
-      @state.push @text[start_index..@index]
       move 1
     end
+
+    finalize_content start_index, @index
   end
 
   def skippable_sequence? skip_sequence
@@ -64,6 +66,10 @@ private
 
   def move steps
     @index += steps
+  end
+
+  def finalize_content start_index, end_index
+    @state.push @text[start_index..end_index]
   end
 
   def parse_list tag_sequence
