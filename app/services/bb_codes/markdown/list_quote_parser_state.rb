@@ -1,4 +1,4 @@
-class BbCodes::Markdown::ListParserState
+class BbCodes::Markdown::ListQuoteParserState
   ITEM_VARIANTS = ['- ', '+ ', '* ']
 
   UL_OPEN = BbCodes::Tags::ListTag::UL_OPEN
@@ -12,7 +12,7 @@ class BbCodes::Markdown::ListParserState
     @state = []
   end
 
-  def to_html
+  def call
     parse_line while @index < @text.size
 
     @state.join('')
