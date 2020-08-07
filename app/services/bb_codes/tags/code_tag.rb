@@ -15,8 +15,8 @@ class BbCodes::Tags::CodeTag
   CODE_PLACEHOLDER = "<<-CODE-PLACEHODLER->>\n"
   CODE_PLACEHOLDER_2 = "<<-CODE-PLACEHODLER-2->>\n"
 
-  CODE_PLACEHOLDER_REGEXP = /<<-CODE-PLACEHODLER->>(?:\n|<br>)/
-  CODE_PLACEHOLDER_2_REGEXP = /<<-CODE-PLACEHODLER-2->>(?:\n|<br>)/
+  CODE_PLACEHOLDER_REGEXP = /<<-CODE-PLACEHODLER->>(?:<br>|\n|)/
+  CODE_PLACEHOLDER_2_REGEXP = /<<-CODE-PLACEHODLER-2->>(?:<br>|\n|)/
 
   class BrokenTagError < RuntimeError
   end
