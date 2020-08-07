@@ -1,54 +1,54 @@
 class BbCodes::Markdown::ListParserState
+  ITEM_VARIANTS = ['- ', '+ ', '* ']
+
+  UL_OPEN = BbCodes::Tags::ListTag::UL_OPEN
+  UL_CLOSE = BbCodes::Tags::ListTag::UL_CLOSE
+
   def initialize text, index = 0, nested_sequence = ''
     @text = text
     @nested_sequence = nested_sequence
     @index = index
 
     @skippable_sequence = ''
-    @out = "<ul class='b-list'>"
+
+    @state = []
   end
 
   def to_html
     parse_line while @index < @text.size
 
-    @out + '</ul>'
+    @state.join('')
   end
 
 private
 
-  def parse_line skippable_sequence = ''
+  def parse_line skippable_sequence = '' # rubocop:disable all
     if skippable_sequence?(skippable_sequence || @nested_sequence)
-      move((skippable_sequence || @nested_sequence).size)
+      move (skippable_sequence || @nested_sequence).size
     end
 
     start_index = @index
 
     while @index <= @text.size
       is_start = start_index == @index
-      is_end = char1 == "\n" || char1.nil?
-      #
-      # if (is_end) {
-      #   this.finalizeParagraph()
-      #   move()
-      #   return
-      # }
-      #
-      # if (is_start) {
-      #     case '- ':
-      #     case '+ ':
-      #     case '* ':
-      #       processBulletList(this, seq2)
-      #       break outer
-      #
-      #     case '# ':
-      #       processHeading(this, seq2, 1)
-      #       break outer
-      #   }
-      #
-      # }
+      is_end = @text[@index] == "\n" || @text[@index].nil?
 
-      @out += @char1
-      move
+      if is_end
+        move 1
+        return
+      end
+
+      if is_start
+        seq_2 = @text[@index..(@index + 1)]
+
+        if ITEM_VARIANTS.include? seq_2
+          parse_list seq_2
+          return
+        end
+      end
+
+      @state.push @text[start_index..@index]
+      move 1
     end
   end
 
@@ -58,12 +58,48 @@ private
       @text[@index..(@index + skip_sequence.size)] == skip_sequence
   end
 
-  def move steps = 1 # , isSkipNewLine = false
-    @index += steps
-    @char1 = @text[@index]
+  def sequence_continued?
+    @text[@index..(@index + @nested_sequence.size)] == @nested_sequence
+  end
 
-    # if isSkipNewLine && (@char1 == '\n' || @char1.nil?)
-    #   move
-    # end
+  def move steps
+    @index += steps
+  end
+
+  def parse_list tag_sequence
+    prior_sequence = @nested_sequence
+
+    @state.push UL_OPEN
+    @nested_sequence += tag_sequence
+
+    loop do
+      move tag_sequence.length
+      @state.push '<li>'
+      parse_list_lines prior_sequence, '  '
+      @state.push '</li>'
+
+      break unless sequence_continued?
+    end
+
+    @state.push UL_CLOSE
+
+    @nested_sequence = @nested_sequence[0..(@nested_sequence.size - tag_sequence.size)]
+  end
+
+  def parse_list_lines prior_sequence, tag_sequence
+    nested_sequence_backup = @nested_sequence
+
+    @nested_sequence = prior_sequence + tag_sequence
+    line = 0
+
+    loop do
+      move @nested_sequence.length if line.positive?
+
+      parse_line
+      line += 1
+      break unless sequence_continued?
+    end
+
+    @nested_sequence = nested_sequence_backup
   end
 end

@@ -7,8 +7,8 @@ class BbCodes::Markdown::ListParser
     )+
   /x
 
-  UL_START = "<ul class='b-list'>"
-  UL_END = '</ul>'
+  UL_OPEN = "<ul class='b-list'>"
+  UL_CLOSE = '</ul>'
 
   def format text
     text.gsub MARKDOWN_LISTS_REGEXP do |match|

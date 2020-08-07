@@ -1,10 +1,6 @@
 describe BbCodes::Markdown::ListParserState do
   subject { described_class.new(text).to_html }
 
-  it do
-    ap subject
-  end
-
   context 'single line' do
     let(:text) { ['- a', '+ a', '* a'].sample }
     it { is_expected.to eq "<ul class='b-list'><li>a</li></ul>" }
