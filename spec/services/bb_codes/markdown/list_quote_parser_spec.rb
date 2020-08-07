@@ -1,6 +1,6 @@
 describe BbCodes::Markdown::ListQuoteParser do
   subject { described_class.instance.format text }
-  let(:symbol) { %w[- + * >].sample }
+  let(:symbol) { ['-', '+', '*', '>', '&gt;'].sample }
 
   context 'broken samples' do
     let(:text) { ["#{symbol}a", " #{symbol}a", " #{symbol} a"].sample }

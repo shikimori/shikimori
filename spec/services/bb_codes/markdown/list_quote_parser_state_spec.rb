@@ -39,6 +39,11 @@ describe BbCodes::Markdown::ListQuoteParserState do
       it { is_expected.to eq "<blockquote class='b-quote-v2'>qwe</blockquote>" }
     end
 
+    context 'sample' do
+      let(:text) { '&gt; qwe' }
+      it { is_expected.to eq "<blockquote class='b-quote-v2'>qwe</blockquote>" }
+    end
+
     context 'multiline' do
       let(:text) { "> a\n> b\n> c" }
       it do
@@ -65,7 +70,7 @@ describe BbCodes::Markdown::ListQuoteParserState do
         is_expected.to eq(
           "<blockquote class='b-quote-v2'>" \
             "<blockquote class='b-quote-v2'>test</blockquote>" \
-            "\nb</blockquote>"
+            'b</blockquote>'
         )
       end
     end

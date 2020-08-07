@@ -1,12 +1,15 @@
 class BbCodes::Markdown::ListQuoteParserState
   LIST_ITEM_VARIANTS = ['- ', '+ ', '* ']
-  BLOCKQUOTE_VARIANT = '> '
+  BLOCKQUOTE_VARIANT_1 = '> '
+  BLOCKQUOTE_VARIANT_2 = '&gt; '
 
   UL_OPEN = BbCodes::Tags::ListTag::UL_OPEN
   UL_CLOSE = BbCodes::Tags::ListTag::UL_CLOSE
 
   BLOCKQUOTE_OPEN = "<blockquote class='b-quote-v2'>"
   BLOCKQUOTE_CLOSE = '</blockquote>'
+
+  TAG_CLOSE_REGEXP = %r{</\w+>}
 
   def initialize text, index = 0, nested_sequence = ''
     @text = text
@@ -43,9 +46,11 @@ private
 
       if is_start
         seq_2 = @text[@index..(@index + 1)]
-
         return parse_list seq_2 if seq_2.in? LIST_ITEM_VARIANTS
-        return parse_blockquote seq_2 if seq_2 == BLOCKQUOTE_VARIANT
+        return parse_blockquote seq_2 if seq_2 == BLOCKQUOTE_VARIANT_1
+
+        seq_5 = @text[@index..(@index + 4)]
+        return parse_blockquote seq_5 if seq_5 == BLOCKQUOTE_VARIANT_2
       end
 
       move 1
@@ -100,7 +105,7 @@ private
     @nested_sequence += tag_sequence
 
     loop do
-      @state.push "\n" unless is_first_line
+      @state.push "\n" unless is_first_line || @state.last.match?(TAG_CLOSE_REGEXP)
 
       parse_line is_first_line ? tag_sequence : ''
       is_first_line = false

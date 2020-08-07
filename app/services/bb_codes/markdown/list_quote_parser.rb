@@ -3,7 +3,7 @@ class BbCodes::Markdown::ListQuoteParser
 
   MARKDOWN_LIST_OR_QUOTE_REGEXP = /
     (
-      ^[-+*>]\ (?: .*+ (?:\n\ +.*+)*) (?:\n|$)
+      ^([-+*>]|&gt;)\ (?: .*+ (?:\n\ +.*+)*) (?:\n|$)
     )+
   /x
 
