@@ -12,11 +12,8 @@ class BbCodes::Tags::CodeTag
 
   MARKDOWN_REGEXP = /(?<mark>`++)(?<code>(?:(?!\k<mark>).)+)\k<mark>/
 
-  CODE_PLACEHOLDER = "<<-CODE-PLACEHODLER->>\n"
-  CODE_PLACEHOLDER_2 = "<<-CODE-PLACEHODLER-2->>\n"
-
-  CODE_PLACEHOLDER_REGEXP = /<<-CODE-PLACEHODLER->>(?:<br>|\n|)/
-  CODE_PLACEHOLDER_2_REGEXP = /<<-CODE-PLACEHODLER-2->>(?:<br>|\n|)/
+  CODE_PLACEHOLDER = '<<-CODE-PLACEHODLER->>'
+  CODE_PLACEHOLDER_2 = '<<-CODE-2-PLACEHODLER->>'
 
   class BrokenTagError < RuntimeError
   end
@@ -40,8 +37,8 @@ class BbCodes::Tags::CodeTag
 
   def restore text
     text
-      .gsub(CODE_PLACEHOLDER_2_REGEXP) { @cache.shift.original }
-      .gsub(CODE_PLACEHOLDER_REGEXP) { @cache.shift.original }
+      .gsub(CODE_PLACEHOLDER_2) { @cache.shift.original }
+      .gsub(CODE_PLACEHOLDER) { @cache.shift.original }
   end
 
 private
@@ -60,7 +57,7 @@ private
   end
 
   def postprocess_bbcode text
-    text.gsub CODE_PLACEHOLDER_REGEXP do
+    text.gsub CODE_PLACEHOLDER do
       code = @cache.shift
 
       raise BrokenTagError if code.nil?
@@ -89,7 +86,7 @@ private
   end
 
   def postprocess_markdown text
-    text.gsub CODE_PLACEHOLDER_2_REGEXP do
+    text.gsub CODE_PLACEHOLDER_2 do
       code = @cache.shift
       raise BrokenTagError if code.nil?
 
