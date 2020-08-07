@@ -9,8 +9,6 @@ class BbCodes::Markdown::ListParserState
     @nested_sequence = nested_sequence
     @index = index
 
-    @skippable_sequence = ''
-
     @state = []
   end
 
@@ -22,11 +20,7 @@ class BbCodes::Markdown::ListParserState
 
 private
 
-  def parse_line skippable_sequence = '' # rubocop:disable all
-    if skippable_sequence?(skippable_sequence || @nested_sequence)
-      move (skippable_sequence || @nested_sequence).size
-    end
-
+  def parse_line
     start_index = @index
 
     while @index <= @text.size
@@ -54,22 +48,8 @@ private
     finalize_content start_index, @index
   end
 
-  def skippable_sequence? skip_sequence
-    skip_sequence.present? &&
-      @text[@index] == skip_sequence[0] &&
-      @text[@index..(@index + skip_sequence.size)] == skip_sequence
-  end
-
   def sequence_continued?
-    @text[@index..(@index + @nested_sequence.size)] == @nested_sequence
-  end
-
-  def move steps
-    @index += steps
-  end
-
-  def finalize_content start_index, end_index
-    @state.push @text[start_index..end_index]
+    @text[@index..(@index + @nested_sequence.size - 1)] == @nested_sequence
   end
 
   def parse_list tag_sequence
@@ -99,7 +79,10 @@ private
     line = 0
 
     loop do
-      move @nested_sequence.length if line.positive?
+      if line.positive?
+        @state.push "\n"
+        move @nested_sequence.length
+      end
 
       parse_line
       line += 1
@@ -107,5 +90,13 @@ private
     end
 
     @nested_sequence = nested_sequence_backup
+  end
+
+  def move steps
+    @index += steps
+  end
+
+  def finalize_content start_index, end_index
+    @state.push @text[start_index..end_index]
   end
 end
