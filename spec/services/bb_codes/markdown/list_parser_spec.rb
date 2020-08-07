@@ -7,22 +7,13 @@ describe BbCodes::Markdown::ListParser do
   end
 
   context 'single line' do
+    before do
+      allow_any_instance_of(BbCodes::Markdown::ListParserState)
+        .to receive(:to_html)
+        .and_return html
+    end
     let(:text) { ['- a', '+ a', '* a'].sample }
-    it { is_expected.to eq "<ul class='b-list'><li>a</li></ul>" }
-  end
-
-  context 'item content on next line' do
-    let(:text) { "- a\n  b" }
-    it { is_expected.to eq "<ul class='b-list'><li>a\nb</li></ul>" }
-  end
-
-  context 'content after' do
-    let(:text) { "- a\nb" }
-    it { is_expected.to eq "<ul class='b-list'><li>a</li></ul>b" }
-  end
-
-  context 'multiline' do
-    let(:text) { "- a\n- b" }
-    it { is_expected.to eq "<ul class='b-list'><li>a</li><li>b</li></ul>" }
+    let(:html) { 'zxc' }
+    it { is_expected.to eq html }
   end
 end
