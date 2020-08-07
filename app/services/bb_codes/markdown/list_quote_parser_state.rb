@@ -25,8 +25,8 @@ class BbCodes::Markdown::ListQuoteParserState
 private
 
   def parse_line skippable_sequence = '' # rubocop:disable all
-    if skippable_sequence?(skippable_sequence || @nested_sequence)
-      move((skippable_sequence || @nested_sequence).size)
+    if skippable_sequence?(skippable_sequence.presence || @nested_sequence)
+      move((skippable_sequence.presence || @nested_sequence).size)
     end
 
     start_index = @index
@@ -71,7 +71,7 @@ private
 
     @state.push UL_CLOSE
 
-    @nested_sequence = @nested_sequence[0..(@nested_sequence.size - tag_sequence.size)]
+    @nested_sequence = @nested_sequence[0..(@nested_sequence.size - tag_sequence.size - 1)]
   end
 
   def parse_list_lines prior_sequence, tag_sequence
@@ -96,17 +96,19 @@ private
 
   def parse_blockquote tag_sequence
     is_first_line = true
-    @state.push(BLOCKQUOTE_OPEN)
+    @state.push BLOCKQUOTE_OPEN
     @nested_sequence += tag_sequence
 
     loop do
+      @state.push "\n" unless is_first_line
+
       parse_line is_first_line ? tag_sequence : ''
       is_first_line = false
       break unless sequence_continued?
     end
 
-    @state.push(BLOCKQUOTE_CLOSE)
-    @nested_sequence = @nested_sequence[0..(@nested_sequence.size - tag_sequence.size)]
+    @state.push BLOCKQUOTE_CLOSE
+    @nested_sequence = @nested_sequence[0..(@nested_sequence.size - tag_sequence.size - 1)]
   end
 
   def move steps

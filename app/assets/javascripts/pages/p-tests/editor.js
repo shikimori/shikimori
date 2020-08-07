@@ -14,7 +14,9 @@ TEST_DEMO_CONTENT = `
 > test
 - 1
 - > test
+  > 123
 > - test
+>   345
 
 - 3
 - 4
