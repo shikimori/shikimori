@@ -20,7 +20,7 @@ class BbCodes::Markdown::ListParserState
 
 private
 
-  def parse_line
+  def parse_line # rubocop:disable MethodLength
     start_index = @index
 
     while @index <= @text.size
