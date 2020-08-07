@@ -8,53 +8,12 @@ const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
-// TEST_DEMO_CONTENT = `
-// > test
-// > > test
-// > test
-// - 1
-// - > test
-//   > 123
-// > - test
-// >   345
-// 
-// - 3
-// - 4
-//   5
-// `.trim()
-
-// TEST_DEMO_CONTENT = `
-// + > test
-//   > 123
-// `.trim()
-
-
-// TEST_DEMO_CONTENT = `
-// [quote]Old style quote support[/quote]
-// [quote=zxc]Old style quote with nickname[/quote]
-// [quote=c1246;1945;Silentium°]Old style quote with user[/quote]`;
-// `.trim()
-
-// TEST_DEMO_CONTENT = `
-// [div fc-2][div f-column]
-// [anime=1] text after [anime=1]Anime name[/anime]
-// [manga=1]
-// [anime=3456789]missing anime[/anime]
-// [ranobe=9115]
-// 
-// [image=1124146]
-// [/div][div f-column]
-// [entry=314310]
-// [topic=314310]
-// [comment=6104628]
-// [message=1278854609]
-// 
-// [topic=99999999999]
-// [topic=99999999999]missing topic[/topic]
-// [comment=99999999999]
-// [message=99999999999]
-// [/div][/div]
-// `.trim();
+TEST_DEMO_CONTENT = `
+\`\`\`
+z
+\`\`\`
+- x
+`.trim()
 
 pageLoad('tests_editor', async () => {
   const $shikiEditor = $('.b-shiki_editor').shikiEditor();
