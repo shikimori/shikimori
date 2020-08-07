@@ -74,14 +74,38 @@ describe BbCodes::Markdown::ListQuoteParserState do
         )
       end
     end
+  end
 
-    context 'nested list' do
+  context 'list + blockquote' do
+    context 'sample' do
       let(:text) { '+ > test' }
       it do
         is_expected.to eq(
           "<ul class='b-list'><li>" \
             "<blockquote class='b-quote-v2'>test</blockquote>" \
             '</li></ul>'
+        )
+      end
+    end
+
+    context 'sample' do
+      let(:text) { "+ > test\n  > 123" }
+      it do
+        is_expected.to eq(
+          "<ul class='b-list'><li>" \
+            "<blockquote class='b-quote-v2'>test\n123</blockquote>" \
+            '</li></ul>'
+        )
+      end
+    end
+
+    context 'sample' do
+      let(:text) { "> - test\n>   123" }
+      it do
+        is_expected.to eq(
+          "<blockquote class='b-quote-v2'>" \
+            "<ul class='b-list'><li>test\n123</li></ul>" \
+            '</blockquote>'
         )
       end
     end

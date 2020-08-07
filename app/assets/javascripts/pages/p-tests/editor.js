@@ -24,7 +24,8 @@ TEST_DEMO_CONTENT = `
 `.trim()
 
 // TEST_DEMO_CONTENT = `
-//  [*]a[*]b[*]c
+// > - test
+// >   123
 // `.trim()
 
 
