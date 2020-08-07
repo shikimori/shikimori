@@ -8,24 +8,24 @@ const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
-TEST_DEMO_CONTENT = `
-> test
-> > test
-> test
-- 1
-- > test
-  > 123
-> - test
->   345
-
-- 3
-- 4
-  5
-`.trim()
+// TEST_DEMO_CONTENT = `
+// > test
+// > > test
+// > test
+// - 1
+// - > test
+//   > 123
+// > - test
+// >   345
+// 
+// - 3
+// - 4
+//   5
+// `.trim()
 
 // TEST_DEMO_CONTENT = `
-// > - test
-// >   123
+// + > test
+//   > 123
 // `.trim()
 
 
@@ -284,7 +284,7 @@ code block
 \`\`\`css
 css code block
 \`\`\`
-- Bulet List
+- Bullet List
 - def
 > - \`quoted\` list
 - > list \`quoted\`
