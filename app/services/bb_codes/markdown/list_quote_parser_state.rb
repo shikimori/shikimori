@@ -1,8 +1,12 @@
 class BbCodes::Markdown::ListQuoteParserState
-  ITEM_VARIANTS = ['- ', '+ ', '* ']
+  LIST_ITEM_VARIANTS = ['- ', '+ ', '* ']
+  BLOCKQUOTE_VARIANT = '> '
 
   UL_OPEN = BbCodes::Tags::ListTag::UL_OPEN
   UL_CLOSE = BbCodes::Tags::ListTag::UL_CLOSE
+
+  BLOCKQUOTE_OPEN = "<blockquote class='b-quote-v2'>"
+  BLOCKQUOTE_CLOSE = '</blockquote>'
 
   def initialize text, index = 0, nested_sequence = ''
     @text = text
@@ -20,7 +24,11 @@ class BbCodes::Markdown::ListQuoteParserState
 
 private
 
-  def parse_line # rubocop:disable MethodLength
+  def parse_line skippable_sequence = '' # rubocop:disable all
+    if skippable_sequence?(skippable_sequence || @nested_sequence)
+      move((skippable_sequence || @nested_sequence).size)
+    end
+
     start_index = @index
 
     while @index <= @text.size
@@ -36,20 +44,14 @@ private
       if is_start
         seq_2 = @text[@index..(@index + 1)]
 
-        if ITEM_VARIANTS.include? seq_2
-          parse_list seq_2
-          return
-        end
+        return parse_list seq_2 if seq_2.in? LIST_ITEM_VARIANTS
+        return parse_blockquote seq_2 if seq_2 == BLOCKQUOTE_VARIANT
       end
 
       move 1
     end
 
     finalize_content start_index, @index
-  end
-
-  def sequence_continued?
-    @text[@index..(@index + @nested_sequence.size - 1)] == @nested_sequence
   end
 
   def parse_list tag_sequence
@@ -92,11 +94,35 @@ private
     @nested_sequence = nested_sequence_backup
   end
 
+  def parse_blockquote tag_sequence
+    is_first_line = true
+    @state.push(BLOCKQUOTE_OPEN)
+    @nested_sequence += tag_sequence
+
+    loop do
+      parse_line is_first_line ? tag_sequence : ''
+      is_first_line = false
+      break unless sequence_continued?
+    end
+
+    @state.push(BLOCKQUOTE_CLOSE)
+    @nested_sequence = @nested_sequence[0..(@nested_sequence.size - tag_sequence.size)]
+  end
+
   def move steps
     @index += steps
   end
 
   def finalize_content start_index, end_index
     @state.push @text[start_index..end_index]
+  end
+
+  def sequence_continued?
+    @text[@index..(@index + @nested_sequence.size - 1)] == @nested_sequence
+  end
+
+  def skippable_sequence? skip_sequence
+    skip_sequence.present? &&
+      @text[@index..(@index + skip_sequence.size - 1)] == skip_sequence
   end
 end
