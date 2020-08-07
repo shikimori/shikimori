@@ -1,5 +1,5 @@
 describe BbCodes::Markdown::ListQuoteParserState do
-  subject { described_class.new(text).call }
+  subject { described_class.new(text).to_html }
 
   context 'single line' do
     let(:text) { ['- a', '+ a', '* a'].sample }

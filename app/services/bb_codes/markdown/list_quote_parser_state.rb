@@ -12,7 +12,7 @@ class BbCodes::Markdown::ListQuoteParserState
     @state = []
   end
 
-  def call
+  def to_html
     parse_line while @index < @text.size
 
     @state.join('')

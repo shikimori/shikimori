@@ -10,7 +10,7 @@ describe BbCodes::Markdown::ListQuoteParser do
   context 'single line' do
     before do
       allow_any_instance_of(BbCodes::Markdown::ListQuoteParserState)
-        .to receive(:call)
+        .to receive(:to_html)
         .and_return html
     end
     let(:text) { "#{symbol} a" }
