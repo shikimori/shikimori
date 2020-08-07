@@ -42,7 +42,7 @@ private
     text.gsub(PARAGRAPH_FULL_REGEXP) do |line|
       unbalanced_tags = count_tags(line)
 
-      if line.size >= LINE_SIZE && !line.match(/^ *\[\*\]/) &&
+      if line.size >= LINE_SIZE && !line.match(/(?:^|PLACEHODLER->>) *\[\*\]/) &&
           unbalanced_tags.zero?
         "[p]#{line.gsub(PARAGRAPH_MIN_REGEXP, '')}[/p]"
       else

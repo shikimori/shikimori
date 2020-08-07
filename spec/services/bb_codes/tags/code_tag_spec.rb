@@ -2,7 +2,7 @@ describe BbCodes::Tags::CodeTag do
   let(:tag) { described_class.new text }
   let(:other_tag) { BbCodes::Tags::BTag.instance }
 
-  let(:placeholder_1) { described_class::CODE_PLACEHOLDER }
+  let(:placeholder_1) { described_class::CODE_PLACEHOLDER_1 }
   let(:placeholder_2) { described_class::CODE_PLACEHOLDER_2 }
 
   describe '#preprocess' do

@@ -12,7 +12,7 @@ class BbCodes::Tags::CodeTag
 
   MARKDOWN_REGEXP = /(?<mark>`++)(?<code>(?:(?!\k<mark>).)+)\k<mark>/
 
-  CODE_PLACEHOLDER = '<<-CODE-PLACEHODLER->>'
+  CODE_PLACEHOLDER_1 = '<<-CODE-1-PLACEHODLER->>'
   CODE_PLACEHOLDER_2 = '<<-CODE-2-PLACEHODLER->>'
 
   class BrokenTagError < RuntimeError
@@ -38,7 +38,7 @@ class BbCodes::Tags::CodeTag
   def restore text
     text
       .gsub(CODE_PLACEHOLDER_2) { @cache.shift.original }
-      .gsub(CODE_PLACEHOLDER) { @cache.shift.original }
+      .gsub(CODE_PLACEHOLDER_1) { @cache.shift.original }
   end
 
 private
@@ -52,12 +52,12 @@ private
         $LAST_MATCH_INFO[:code_block] ? 'z' : $LAST_MATCH_INFO[:after],
         match
       )
-      CODE_PLACEHOLDER
+      CODE_PLACEHOLDER_1
     end
   end
 
   def postprocess_bbcode text
-    text.gsub CODE_PLACEHOLDER do
+    text.gsub CODE_PLACEHOLDER_1 do
       code = @cache.shift
 
       raise BrokenTagError if code.nil?

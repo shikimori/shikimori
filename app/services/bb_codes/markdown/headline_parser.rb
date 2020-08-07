@@ -1,7 +1,10 @@
 class BbCodes::Markdown::HeadlineParser
   include Singleton
 
-  HEADLINES_REGEXP = /^(?<level>\#{1,5})\ (?<text>.*) (?:\n|$) /x
+  HEADLINES_REGEXP = /
+    (?: ^ | (?<=<<-CODE-\d-PLACEHODLER->>) )
+    (?<level>\#{1,5})\ (?<text>.*) (?:\n|$)
+  /x
 
   def format text # rubocop:disable MethodLength
     text.gsub(HEADLINES_REGEXP) do |match|
