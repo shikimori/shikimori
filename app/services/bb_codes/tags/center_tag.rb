@@ -1,10 +1,13 @@
 class BbCodes::Tags::CenterTag
   include Singleton
 
+  REGEXP = %r{
+    \[center\]
+      (.*?)
+    \[/center\]
+  }mix
+
   def format text
-    text.gsub(
-      %r{\[center\] (.*?) \[/center\]}mix,
-      '<center>\1</center>'
-    )
+    text.gsub REGEXP, '<center>\1</center>'
   end
 end
