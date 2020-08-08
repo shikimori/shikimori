@@ -4,7 +4,7 @@ class BbCodes::Tags::SolidTag
   REGEXP = %r{
     \[solid\]
       (.*?)
-    \[/solid\]
+    \[/solid\] \n?
   }mix
 
   def format text

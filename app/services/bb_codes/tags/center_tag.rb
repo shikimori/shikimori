@@ -4,7 +4,7 @@ class BbCodes::Tags::CenterTag
   REGEXP = %r{
     \[center\]
       (.*?)
-    \[/center\]
+    \[/center\] \n?
   }mix
 
   def format text

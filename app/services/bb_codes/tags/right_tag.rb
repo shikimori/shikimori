@@ -4,7 +4,7 @@ class BbCodes::Tags::RightTag
   REGEXP = %r{
     \[right\]
       (.*?)
-    \[/right\]
+    \[/right\] \n?
   }mix
 
   def format text
