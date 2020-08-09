@@ -6,7 +6,7 @@ describe BbCodes::Markdown::SpoilerInlineParser do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <span class='b-spoiler_inline' to-process'
+          <span class='b-spoiler_inline to-process'
             data-dynamic='spoiler_inline'><span>test</span></span>
         HTML
       )
@@ -18,7 +18,7 @@ describe BbCodes::Markdown::SpoilerInlineParser do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          a <span class='b-spoiler_inline' to-process'
+          a <span class='b-spoiler_inline to-process'
             data-dynamic='spoiler_inline'><span>test</span></span> b
         HTML
       )

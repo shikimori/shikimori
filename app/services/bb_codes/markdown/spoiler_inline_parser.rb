@@ -8,7 +8,7 @@ class BbCodes::Markdown::SpoilerInlineParser
       text = $LAST_MATCH_INFO[:text]
 
       <<~HTML.squish
-        <span class='b-spoiler_inline' to-process'
+        <span class='b-spoiler_inline to-process'
           data-dynamic='spoiler_inline'><span>#{text}</span></span>
       HTML
     end
