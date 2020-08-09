@@ -8,14 +8,9 @@ const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
-// TEST_DEMO_CONTENT = `
-// [hr]
-// 
-// [right]\`[right]...[/right]\`[/right]
-// [center]\`[center]...[/center]\`[/center]
-// 
-// [hr]
-// `.trim()
+TEST_DEMO_CONTENT = `
+Inline s||poiler tex||t  \`||spoiler content||\`
+`.trim()
 
 pageLoad('tests_editor', async () => {
   const $shikiEditor = $('.b-shiki_editor').shikiEditor();

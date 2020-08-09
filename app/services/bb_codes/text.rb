@@ -18,6 +18,7 @@ class BbCodes::Text
   MARKDOWNS = BbCodes::ToMarkdownParser.call %i[
     headline
     list_quote
+    spoiler_inline
   ]
 
   TAGS = BbCodes::ToTagParser.call %i[
