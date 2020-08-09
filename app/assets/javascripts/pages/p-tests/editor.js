@@ -98,13 +98,18 @@ pageLoad('tests_editor', async () => {
           this.$children[0].isMenuBarOffset = true;
         }
       },
-      render: h => h(ShikiEditorApp, {
+      render: createElement => createElement(ShikiEditorApp, {
         props: {
           vue: Vue,
           shikiUploader,
           content: DEMO_CONTENT,
           baseUrl: window.location.origin,
           preview
+        },
+        on: {
+          preview(node) {
+            $(node).process();
+          }
         }
       })
     });
