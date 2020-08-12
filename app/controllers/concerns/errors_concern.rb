@@ -68,15 +68,15 @@ private
 
   def not_found_error _error
     if error_json_response?
-      render json: { message: t('page_not_found'), code: 404 }, status: 404
+      render json: { message: t('page_not_found'), code: 404 }, status: :not_found
     else
-      render 'pages/page404', layout: false, status: 404, formats: :html
+      render 'pages/page404', layout: false, status: :not_found, formats: :html
     end
   end
 
   def age_restricted_error _error
     if error_json_response?
-      render plain: 'age_restricted', status: 451
+      render plain: 'age_restricted', status: :unavailable_for_legal_reasons
     else
       render 'pages/age_restricted', layout: false, formats: :html
     end
@@ -84,9 +84,9 @@ private
 
   def forbidden_error error
     if error_json_response?
-      render json: { message: error.message, code: 403 }, status: 403
+      render json: { message: error.message, code: 403 }, status: :forbidden
     else
-      render plain: error.message, status: 403
+      render plain: error.message, status: :forbidden
     end
   end
 
@@ -101,9 +101,9 @@ private
     )
 
     if %w[rss os json].include?(request.format) || params[:ignore302] == '1'
-      redirect_to @new_url, status: 301
+      redirect_to @new_url, status: :moved_permanently
     else
-      render 'pages/page_moved.html', layout: false, status: 404, formats: :html
+      render 'pages/page_moved.html', layout: false, status: :not_found, formats: :html
     end
   end
 
@@ -119,13 +119,13 @@ private
         message: error.message,
         backtrace: error.backtrace.first.sub(Rails.root.to_s, '')
       },
-      status: 503
+      status: :service_unavailable
     )
   end
 
   def standard_error _error
     og page_title: t('error')
-    render 'pages/page503.html', layout: false, status: 503, formats: :html
+    render 'pages/page503.html', layout: false, status: :service_unavailable, formats: :html
   end
 
   def error_json_response?
