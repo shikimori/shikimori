@@ -97,7 +97,7 @@ private
   def copyrighted_error error
     resource = error.resource
     @new_url = url_for(
-      safe_params.merge(resource_id_key => resource.to_param, ignore302: nil)
+      safe_params.merge(copyrighted_resource_id_key => resource.to_param, ignore302: nil)
     )
 
     if %w[rss os json].include?(request.format) || params[:ignore302] == '1'
@@ -105,6 +105,10 @@ private
     else
       render 'pages/page_moved.html', layout: false, status: 404, formats: :html
     end
+  end
+
+  def copyrighted_resource_id_key
+    resource_id_key
   end
 
   def api_error error

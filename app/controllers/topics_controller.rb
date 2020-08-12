@@ -227,4 +227,8 @@ private
     @resource.is_a?(NoTopic) ||
       (@resource.generated? && @resource.comments_count.zero?)
   end
+
+  def copyrighted_resource_id_key
+    :linked_id
+  end
 end
