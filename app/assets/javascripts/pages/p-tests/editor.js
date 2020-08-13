@@ -17,7 +17,22 @@ pageLoad('tests_editor', async () => {
   const $textarea = $shikiEditor.find('textarea');
 
   const previewUrl = '/api/shiki_editor/preview';
-  const preview = (text) => axios.post(previewUrl, { text });
+  const preview = (text) => {
+    return axios
+      .post(previewUrl, { text })
+      .catch(error => {
+        if (process.env.NODE_ENV === 'development') {
+          let devError = error?.response?.data;
+          if (devError) {
+            devError = devError.split('\n').slice(0, 6).join('<br>');
+          }
+          flash.error(devError || error.message);
+        } else {
+          flash.error(I18n.t('frontend.lib.please_try_again_later'));
+        }
+        return { data: null };
+      });
+  }
 
   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
   const { ShikiEditorApp, ShikiEditor } =
