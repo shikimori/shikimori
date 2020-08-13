@@ -1,4 +1,6 @@
 class Api::V1::ShikiEditorsController < Api::V1Controller
+  skip_before_action :verify_authenticity_token, if: :test_preview_request?
+
   SUPPORTED_TYPES = %i[anime manga character person user_image comment message topic] # user
   TYPE_INCLUDES = {
     message: :from,
@@ -116,5 +118,9 @@ private
       text: UsersHelper.localized_name(model, current_user),
       url: send(:"#{model.class.name.downcase}_url", model)
     }
+  end
+
+  def test_preview_request?
+    Rails.env.development? && params[:test]
   end
 end
