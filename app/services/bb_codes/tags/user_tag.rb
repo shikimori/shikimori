@@ -2,6 +2,7 @@ class BbCodes::Tags::UserTag < BbCodes::Tags::CommentTag
   klass User
   user_field :itself
   includes_scope false
+  is_bubbled false
 
   def entry_url entry
     UrlGenerator.instance.profile_url entry

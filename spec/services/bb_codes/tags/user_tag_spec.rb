@@ -6,7 +6,7 @@ describe BbCodes::Tags::UserTag do
 
   it do
     is_expected.to eq(
-      "[url=#{url} bubbled b-mention]<s>@</s>#{user.nickname}[/url], test"
+      "[url=#{url} b-mention]<s>@</s>#{user.nickname}[/url], test"
     )
   end
 

@@ -5,6 +5,7 @@ class BbCodes::Tags::CommentTag
   dsl_attribute :klass, Comment
   dsl_attribute :user_field, :user
   dsl_attribute :includes_scope, true
+  dsl_attribute :is_bubbled, true
 
   def bbcode_regexp
     @bbcode_regexp ||= %r{
@@ -57,7 +58,7 @@ private
     url = entry_id_url entry_id
     open_tag = url ? "a href='#{url}'" : 'span'
     close_tag = url ? 'a' : 'span'
-    css_classes = url ?
+    css_classes = url && self.class::IS_BUBBLED ?
       'b-mention b-entry-404 bubbled' :
       'b-mention b-entry-404'
 
@@ -76,7 +77,7 @@ private
 
   def css_classes entry, user, is_quoted
     [
-      ('bubbled' if entry),
+      ('bubbled' if entry && self.class::IS_BUBBLED),
       'b-mention',
       ('b-user16' if user && is_quoted)
     ].compact.join(' ')
