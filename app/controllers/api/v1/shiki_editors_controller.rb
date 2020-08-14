@@ -1,7 +1,7 @@
 class Api::V1::ShikiEditorsController < Api::V1Controller
   skip_before_action :verify_authenticity_token, if: :test_preview_request?
 
-  SUPPORTED_TYPES = %i[anime manga character person user_image comment message topic] # user
+  SUPPORTED_TYPES = %i[anime manga character person user_image comment message topic user]
   TYPE_INCLUDES = {
     message: :from,
     comment: :user,
@@ -29,8 +29,8 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
         case kind
           when :user_image
             serialize_user_image model
-          # when :user
-          #   serialize_user model
+          when :user
+            serialize_user model
           when :topic, :comment
             serialize_forum_entry model
           when :message
@@ -83,14 +83,14 @@ private
     }
   end
 
-  # def serialize_user model
-  #   {
-  #     id: model.id,
-  #     nickname: model.nickname,
-  #     avatar: ImageUrlGenerator.instance.url(model, :x32),
-  #     url: profile_url(model)
-  #   }
-  # end
+  def serialize_user model
+    {
+      id: model.id,
+      nickname: model.nickname,
+      avatar: ImageUrlGenerator.instance.url(model, :x32),
+      url: profile_url(model)
+    }
+  end
 
   def serialize_forum_entry model
     {

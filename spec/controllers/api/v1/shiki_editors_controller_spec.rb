@@ -2,7 +2,9 @@ describe Api::V1::ShikiEditorsController do
   # include_context :authenticated
 
   describe '#show' do
-    before { stub_const "#{described_class.name}::IDS_LIMIT_PER_REQUEST", ids_limit_per_request }
+    before do
+      stub_const "#{described_class.name}::IDS_LIMIT_PER_REQUEST", ids_limit_per_request
+    end
 
     subject! { get :show, params: params }
 
@@ -14,7 +16,7 @@ describe Api::V1::ShikiEditorsController do
         character: character.id.to_s,
         person: person.id.to_s,
         user_image: user_image.id.to_s,
-        # user: user.id.to_s,
+        user: user.id.to_s,
         comment: comment.id.to_s,
         message: message.id.to_s,
         topic: topic.id.to_s
@@ -76,14 +78,14 @@ describe Api::V1::ShikiEditorsController do
             # 'height' => user_image.height
           }
         },
-        # user: {
-        #   user.id.to_s => {
-        #     'id' => user.id,
-        #     'nickname' => user.nickname,
-        #     'avatar' => ImageUrlGenerator.instance.url(user, :x32),
-        #     'url' => profile_url(user)
-        #   }
-        # },
+        user: {
+          user.id.to_s => {
+            'id' => user.id,
+            'nickname' => user.nickname,
+            'avatar' => ImageUrlGenerator.instance.url(user, :x32),
+            'url' => profile_url(user)
+          }
+        },
         comment: {
           comment.id.to_s => {
             'id' => comment.id,
