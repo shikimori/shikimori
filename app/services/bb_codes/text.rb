@@ -22,7 +22,8 @@ class BbCodes::Text
   ]
 
   TAGS = BbCodes::ToTagParser.call %i[
-    quote replies comment topic message
+    quote replies
+    user comment topic message
 
     db_entry_url video_url video
     poster wall_image entries

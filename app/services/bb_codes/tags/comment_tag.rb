@@ -4,6 +4,7 @@ class BbCodes::Tags::CommentTag
 
   dsl_attribute :klass, Comment
   dsl_attribute :user_field, :user
+  dsl_attribute :includes_scope, true
 
   def bbcode_regexp
     @bbcode_regexp ||= %r{
@@ -104,10 +105,13 @@ private
   def fetch_entries text
     entry_ids = text.scan(id_regexp).map { |v| v[0].to_i }
 
-    klass
-      .where(id: entry_ids)
-      .includes(self.class::USER_FIELD)
-      .index_by(&:id)
+    scope = klass.where(id: entry_ids)
+
+    if self.class::INCLUDES_SCOPE
+      scope = scope.includes(self.class::USER_FIELD)
+    end
+
+    scope.index_by(&:id)
   end
 
   def name
