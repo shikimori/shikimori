@@ -81,7 +81,7 @@ describe Api::V1::ShikiEditorsController do
         user: {
           user.id.to_s => {
             'id' => user.id,
-            'text' => user.nickname,
+            'nickname' => user.nickname,
             'avatar' => ImageUrlGenerator.instance.url(user, :x32),
             'url' => profile_url(user)
           }
