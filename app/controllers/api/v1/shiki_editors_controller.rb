@@ -86,7 +86,7 @@ private
   def serialize_user model
     {
       id: model.id,
-      nickname: model.nickname,
+      text: model.nickname,
       avatar: ImageUrlGenerator.instance.url(model, :x32),
       url: profile_url(model)
     }
