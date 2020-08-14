@@ -10,6 +10,16 @@ describe BbCodes::Tags::UserTag do
     )
   end
 
+  context 'with text' do
+    let(:text) { "[user=#{user.id}], test[/user]" }
+
+    it do
+      is_expected.to eq(
+        "[url=#{url} b-mention]<s>@</s>#{user.nickname}[/url], test[/user]"
+      )
+    end
+  end
+
   context 'non existing user' do
     let(:user) { build_stubbed :user }
 

@@ -4,6 +4,15 @@ class BbCodes::Tags::UserTag < BbCodes::Tags::CommentTag
   includes_scope false
   is_bubbled false
 
+  def bbcode_regexp
+    @bbcode_regexp ||= /
+      \[#{name_regexp}=(?<id>\d+)\]
+      # empty groups
+      (?<text>)
+      (?<quote>)
+    /mix
+  end
+
   def entry_url entry
     UrlGenerator.instance.profile_url entry
   end
