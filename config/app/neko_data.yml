@@ -271,6 +271,11 @@
         - 35994
         - 37675
         - 58
+        - 36848
+        - 36999
+        - 36633
+        - 37773
+        - 39292
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: &2
     :neko_id:
@@ -576,6 +581,11 @@
         - 35994
         - 37675
         - 58
+        - 36848
+        - 36999
+        - 36633
+        - 37773
+        - 39292
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -861,6 +871,11 @@
         - 35994
         - 37675
         - 58
+        - 36848
+        - 36999
+        - 36633
+        - 37773
+        - 39292
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
