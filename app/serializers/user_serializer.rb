@@ -1,5 +1,10 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :nickname, :avatar, :image, :last_online_at
+  attributes :id,
+    :nickname,
+    :avatar,
+    :image,
+    :last_online_at,
+    :url
 
   def avatar
     with_http object.avatar_url(48)
@@ -19,6 +24,10 @@ class UserSerializer < ActiveModel::Serializer
 
   def last_online_at
     object[:last_online_at]
+  end
+
+  def url
+    view_context.profile_url(object)
   end
 
 private
