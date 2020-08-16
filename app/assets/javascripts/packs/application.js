@@ -9,6 +9,18 @@ window.jQuery = window.$;
 import sugar from 'vendor/sugar'; // eslint-disable-line import/newline-after-import
 sugar.extend();
 
+import WebFont from 'webfontloader';
+
+$(() => (
+  setTimeout(() => (
+    WebFont.load({
+      google: {
+        families: ['Open Sans:400,600,700']
+      }
+    })
+  ), 50)
+));
+
 require('application');
 require('turbolinks_load');
 require('turbolinks_before_cache');

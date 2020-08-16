@@ -44,10 +44,8 @@ link[
 ]
 link rel='yandex-tableau-widget' href='/yandex-tableau-widget-manifest.json'
 
-link[
-  href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap&subset=cyrillic"
-  rel="stylesheet"
-]
+// optimization for WebFont.load
+link rel='preconnect' href='https://fonts.googleapis.com'
 
 - if defined?(@collection) && @collection.respond_to?(:next_page?)
   - if @collection.next_page?

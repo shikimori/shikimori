@@ -54,7 +54,8 @@
     "vue-loader": "^15.9.3",
     "vue-template-compiler": "^2.6.11",
     "vuedraggable": "^2.24.0",
-    "vuex": "^3.5.1"
+    "vuex": "^3.5.1",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.2",
