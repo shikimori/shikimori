@@ -9,7 +9,7 @@ const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
 TEST_DEMO_CONTENT = `
-[user=1]
+z
 `.trim()
 
 pageLoad('tests_editor', async () => {
