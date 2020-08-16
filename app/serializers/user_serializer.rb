@@ -27,7 +27,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def url
-    view_context.profile_url(object)
+    UrlGenerator.instance.profile_url(object)
   end
 
 private
