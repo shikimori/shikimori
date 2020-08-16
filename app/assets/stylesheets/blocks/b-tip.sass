@@ -1,0 +1,57 @@
+=arrow_position($size)
+  $px: -$size / 2
+
+  &[data-popper-placement^='top'] > [data-popper-arrow]
+    bottom: $px
+  &[data-popper-placement^='bottom'] > [data-popper-arrow]
+    top: $px
+  &[data-popper-placement^='left'] > [data-popper-arrow]
+    right: $px
+  &[data-popper-placement^='right'] > [data-popper-arrow]
+    left: $px
+
+.b-tip
+  background-color: #fff
+  color: #123
+  padding: 4px 8px
+  transition: background-color 0.2s
+
+  $size: 8px
+  +arrow_position($size)
+
+  & > [data-popper-arrow]
+    height: $size
+    width: $size
+
+    &:before
+      transition: background-color 0.2s
+      background: #fff
+      content: ''
+      height: 100%
+      transform: rotate(45deg)
+      width: 100%
+      position: absolute
+      z-index: -1
+
+  &--large
+    $size: 12px
+    +arrow_position($size)
+
+    [data-popper-arrow]
+      height: $size
+      width: $size
+
+  &--dark
+    background: #456
+    color: #fff
+
+    & > [data-popper-arrow]:before
+      background: #456
+
+  &--is-loading
+    &.b-tip--dark
+      background: #789
+      color: #fff
+
+      & > [data-popper-arrow]:before
+        background: #789
