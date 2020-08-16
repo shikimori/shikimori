@@ -3,7 +3,7 @@ import csrf from 'helpers/csrf';
 import autosize from 'autosize';
 import axios from 'helpers/axios';
 
-const IS_RAW = true && IS_LOCAL_SHIKI_PACKAGES;
+const IS_RAW = false && IS_LOCAL_SHIKI_PACKAGES;
 const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
@@ -15,24 +15,6 @@ TEST_DEMO_CONTENT = `
 pageLoad('tests_editor', async () => {
   const $shikiEditor = $('.b-shiki_editor').shikiEditor();
   const $textarea = $shikiEditor.find('textarea');
-
-  const previewUrl = '/api/shiki_editor/preview';
-  const preview = (text) => {
-    return axios
-      .post(previewUrl, { text })
-      .catch(error => {
-        if (process.env.NODE_ENV === 'development') {
-          let devError = error?.response?.data;
-          if (devError) {
-            devError = devError.split('\n').slice(0, 6).join('<br>');
-          }
-          flash.error(devError || error.message);
-        } else {
-          flash.error(I18n.t('frontend.lib.please_try_again_later'));
-        }
-        return { data: null };
-      });
-  }
 
   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
   const { ShikiEditorApp, ShikiEditor } =
@@ -46,6 +28,13 @@ pageLoad('tests_editor', async () => {
       'packages/shiki-uploader' :
       'shiki-uploader'
   );
+  const { ShikiRequest } = await import(
+    IS_LOCAL_SHIKI_PACKAGES ?
+      'packages/shiki-utils' :
+      'shiki-utils'
+  );
+
+  const shikiRequest = new ShikiRequest(window.location.origin, axios);
 
   const rawNode = document.querySelector('.raw-editor');
   const rawNode2 = document.querySelector('.raw-editor-2');
@@ -56,8 +45,7 @@ pageLoad('tests_editor', async () => {
       element: rawNode,
       extensions: [],
       content: TEST_DEMO_CONTENT || DEMO_CONTENT,
-      baseUrl: window.location.origin,
-      preview
+      shikiRequest
     }, null, Vue);
 
     if (IS_RAW_2) {
@@ -65,8 +53,7 @@ pageLoad('tests_editor', async () => {
         element: rawNode2,
         extensions: [],
         content: TEST_DEMO_CONTENT || DEMO_CONTENT,
-        baseUrl: window.location.origin,
-        preview
+        shikiRequest
       }, null, Vue);
     } else {
       $(rawNode2).closest('.block').hide();
@@ -112,9 +99,8 @@ pageLoad('tests_editor', async () => {
         props: {
           vue: Vue,
           shikiUploader,
-          content: DEMO_CONTENT,
-          baseUrl: window.location.origin,
-          preview
+          shikiRequest,
+          content: DEMO_CONTENT
         },
         on: {
           preview(node) {

@@ -2,6 +2,8 @@ en:
   frontend:
     lib:
       please_try_again_later: Error. Please try again later
+      loading: Loading...
+      nothing_found: Nothing found
       rails_ujs_modified:
         # line 118
         nickname: Nickname
