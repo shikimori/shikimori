@@ -47,6 +47,19 @@ describe BbCodes::Tags::SpoilerTag do
       end
     end
 
+    context '\n inside' do
+      let(:content) { "qwerty\n" }
+      it do
+        is_expected.to eq(
+          prefix +
+            "<div class='b-spoiler_block to-process' data-dynamic='spoiler_block'>" \
+              "<button>#{label}</button>" \
+              '<div>qwerty</div>' \
+            '</div>' + suffix
+        )
+      end
+    end
+
     context '\n suffix' do
       let(:suffix) { "\n" }
 
