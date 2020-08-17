@@ -1,15 +1,31 @@
 describe BbCodes::Tags::SpoilerTag do
   subject { described_class.instance.format text }
 
-  describe '[spoiler=text]' do
-    let(:text) { '[spoiler=1]test[/spoiler]' }
+  describe 'old style' do
+    let(:text) { 'q [spoiler=1]test[/spoiler] w' }
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <div class='b-spoiler unprocessed'><label>1</label><div class='content'><div
+          q <div class='b-spoiler unprocessed'><label>1</label><div class='content'><div
             class='before'></div><div class='inner'>test</div><div
-            class='after'></div></div></div>
+            class='after'></div></div></div> w
         HTML
+      )
+    end
+  end
+
+  describe 'block' do
+    let(:prefix) { ["\n", ''].sample }
+    let(:text) { "#{prefix}[spoiler=1]test[/spoiler] qwe" }
+
+    it do
+      is_expected.to eq(
+        prefix +
+          <<~HTML.squish
+            <div class='b-spoiler_block to-process'
+              data-dynamic='spoiler_block'><button>1</button><div><p>test</p></div></div>
+              qwe
+          HTML
       )
     end
   end
