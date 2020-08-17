@@ -31,10 +31,6 @@ TEST_DEMO_CONTENT = `
 `.trim()
 
 TEST_DEMO_CONTENT = `
-[spoiler=Спойлер]1\n2\n3[/spoiler]
-`.trim()
-
-TEST_DEMO_CONTENT = `
 [b]Результаты прошлых опросов:[/b]
 [spoiler=[b]01[/b]][b]Результаты опроса #1 - "Любимая аниме-тян":[/b]
 1 место -  [character=7373] и [Asuna Yuuki] (21 голос)
@@ -142,6 +138,10 @@ TEST_DEMO_CONTENT = `
 19. [Shinsekai yori]
 20. [Umineko no Naku Koro ni]
 [/spoiler]
+`.trim()
+
+TEST_DEMO_CONTENT = `
+[img]http://shikimori.local/system/user_images/original/1/1137384.jpg[/img]
 `.trim()
 
 pageLoad('tests_editor', async () => {

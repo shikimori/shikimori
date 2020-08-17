@@ -11,9 +11,11 @@ export default class SpoilerBlock extends View {
   }
 
   @bind
-  async _toggle({ x, y }) {
+  async _toggle(e) {
+    e.preventDefault();
+
     // remove :focus on mouse click (event has x=0,y=0 when pressed space on focused node)
-    if (x || y) { this.button.blur(); }
+    if (e.x || e.y) { this.button.blur(); }
 
     const wasOpened = this.node.classList.contains('is-opened');
 
