@@ -5,7 +5,7 @@ describe BbCodes::Tags::SpoilerTag do
     eqls_label = label.present? ? "=#{label}" : ''
     "#{prefix}[spoiler#{eqls_label}]#{content}[/spoiler]#{suffix}"
   end
-  let(:label) { 'blabla' }
+  let(:label) { 'bl<b>a</b>bla' }
   let(:prefix) { '' }
   let(:suffix) { ['\n', ' ', 'zxc'].sample }
   let(:content) { 'test' }
@@ -31,6 +31,7 @@ describe BbCodes::Tags::SpoilerTag do
 
   describe 'block' do
     let(:prefix) { ["\n", '<div>', '</div>'].sample }
+    let(:label) { 'blabla' }
 
     context 'no \n suffix' do
       let(:suffix) { [' ', 'zxc'].sample }
@@ -58,6 +59,11 @@ describe BbCodes::Tags::SpoilerTag do
             '</div>'
         )
       end
+    end
+
+    context 'label with markup' do
+      let(:label) { 'bl<b>a</b>bla' }
+      it { is_expected.to_not include 'b-spoiler_block' }
     end
   end
 

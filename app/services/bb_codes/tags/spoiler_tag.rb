@@ -18,6 +18,8 @@ class BbCodes::Tags::SpoilerTag
     (?<suffix>\n)?
   }xi
 
+  TAG_REGEXP = %r{</?\w+}
+
   TEXT_CONTENT_REGEXP = /\A[^\n\[\]]++\Z/
   INLINE_LABELS = ['spoiler', 'спойлер', nil]
 
@@ -38,13 +40,19 @@ private
       prefix = $LAST_MATCH_INFO[:prefix]
       suffix = $LAST_MATCH_INFO[:suffix] || ''
 
-      if prefix.nil? && inline?(label, content)
-        inline_spoiler_html(content) + suffix
-      elsif prefix.nil?
-        old_spoiler_html(label, content) + suffix
-      else
-        prefix + block_spoiler_html(label, content)
-      end
+      to_html label, content, prefix, suffix
+    end
+  end
+
+  def to_html label, content, prefix, suffix
+    if prefix.nil? && inline?(label, content)
+      inline_spoiler_html(content) + suffix
+
+    elsif prefix.nil? || label.match?(TAG_REGEXP)
+      old_spoiler_html(label, content) + suffix
+
+    else
+      prefix + block_spoiler_html(label, content)
     end
   end
 
