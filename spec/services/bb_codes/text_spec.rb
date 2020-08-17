@@ -62,12 +62,12 @@ describe BbCodes::Text do
       end
 
       describe 'bad html' do
-        let(:text) { '[quote][spoiler]test[/quote][/spoiler]' }
+        let(:text) { '[quote][spoiler=qwe]test[/quote][/spoiler]' }
         it do
           is_expected.to eq(
             <<-HTML.squish
               <div class="b-quote"><div class="quote-content"><div
-                class="b-spoiler unprocessed"><label>спойлер</label><div
+                class="b-spoiler unprocessed"><label>qwe</label><div
                 class="content"><div class="before"></div><div class="inner">test</div></div></div><div
                 class="after"></div></div></div>
             HTML

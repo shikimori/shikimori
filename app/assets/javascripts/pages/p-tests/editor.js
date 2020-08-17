@@ -31,13 +31,7 @@ TEST_DEMO_CONTENT = `
 `.trim()
 
 TEST_DEMO_CONTENT = `
-123
-[spoiler=1спойлер]qwe[/spoiler]
-
-456
-[spoiler=2спойлер]
-zxc
-[/spoiler]
+[spoiler=Спойлер]1\n2\n3[/spoiler]
 `.trim()
 
 pageLoad('tests_editor', async () => {

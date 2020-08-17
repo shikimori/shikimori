@@ -3,7 +3,7 @@ class BbCodes::Tags::SpoilerTag
 
   LABEL_REGEXP = /(?:=(?<label>[^\[\]\n\r]+?))?/
   REGEXP = %r{
-    (?<outer_before>^|\n|</p>|</div>|#{BbCodes::Tags::DivTag::TAG_START_REGEXP.source})?
+    (?<prefix>^|\n|</p>|</div>|#{BbCodes::Tags::DivTag::TAG_START_REGEXP.source})?
     \[spoiler #{LABEL_REGEXP.source} \]
       \n?
       (?<content>
@@ -13,7 +13,7 @@ class BbCodes::Tags::SpoilerTag
       )
       \n?
     \[/spoiler\]
-    (?<outer_after>\n)?
+    (?<suffix>\n)?
   }xi
 
   TEXT_CONTENT_REGEXP = /\A[^\n\[\]]++\Z/
@@ -33,15 +33,15 @@ private
     text.gsub(REGEXP) do |_match|
       label = $LAST_MATCH_INFO[:label] || I18n.t('markers.spoiler')
       content = $LAST_MATCH_INFO[:content]
-      outer_before = $LAST_MATCH_INFO[:outer_before]
-      outer_after = $LAST_MATCH_INFO[:outer_after] || ''
+      prefix = $LAST_MATCH_INFO[:prefix]
+      suffix = $LAST_MATCH_INFO[:suffix] || ''
 
-      if outer_before.nil? && inline?(label, content)
-        inline_spoiler_html(content) + outer_after
-      elsif outer_before.nil?
-        old_spoiler_html(label, content) + outer_after
+      if prefix.nil? && inline?(label, content)
+        inline_spoiler_html(content) + suffix
+      elsif prefix.nil?
+        old_spoiler_html(label, content) + suffix
       else
-        block_spoiler_html label, content, outer_before
+        prefix + block_spoiler_html(label, content)
       end
     end
   end
@@ -54,21 +54,21 @@ private
   end
 
   def old_spoiler_html label, content
-    <<~HTML.squish
-      <div class='b-spoiler
-        unprocessed'><label>#{label}</label><div
-        class='content'><div class='before'></div><div
-        class='inner'>#{content}</div><div
-        class='after'></div></div></div>
-    HTML
+    "<div class='b-spoiler unprocessed'>" \
+      "<label>#{label}</label>" \
+      "<div class='content'>" \
+        "<div class='before'></div>" \
+        "<div class='inner'>#{content}</div>" \
+        "<div class='after'></div>" \
+      '</div>' \
+    '</div>'
   end
 
-  def block_spoiler_html label, content, outer
-    outer +
-      <<~HTML.squish
-        <div class='b-spoiler_block to-process'
-          data-dynamic='spoiler_block'><button>#{label}</button><div>#{content}</div></div>
-      HTML
+  def block_spoiler_html label, content
+    "<div class='b-spoiler_block to-process' data-dynamic='spoiler_block'>" \
+      "<button>#{label}</button>" \
+      "<div>#{content}</div>" \
+    '</div>'
   end
 
   def inline? label, content
