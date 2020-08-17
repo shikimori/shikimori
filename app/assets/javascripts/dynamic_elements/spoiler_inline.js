@@ -7,7 +7,7 @@ export default class SpoilerInline extends View {
   }
 
   @bind
-  _toggle(currentTarget) {
+  _toggle(_e) {
     this.node.classList.toggle('is-opened');
   }
 }
