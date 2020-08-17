@@ -3,7 +3,7 @@ class BbCodes::Tags::SpoilerTag
 
   LABEL_REGEXP = /(?:=(?<label>[^\[\]\n\r]+?))?/
   REGEXP = %r{
-    (?<outer>^|\n|</p>|</div>|#{BbCodes::Tags::DivTag::TAG_START_REGEXP.source})?
+    (?<outer_before>^|\n|</p>|</div>|#{BbCodes::Tags::DivTag::TAG_START_REGEXP.source})?
     \[spoiler #{LABEL_REGEXP.source} \]
       \n?
       (?<content>
@@ -13,6 +13,7 @@ class BbCodes::Tags::SpoilerTag
       )
       \n?
     \[/spoiler\]
+    (?<outer_after>\n)?
   }xi
 
   TEXT_CONTENT_REGEXP = /\A[^\n\[\]]++\Z/
@@ -32,14 +33,15 @@ private
     text.gsub(REGEXP) do |_match|
       label = $LAST_MATCH_INFO[:label] || I18n.t('markers.spoiler')
       content = $LAST_MATCH_INFO[:content]
-      outer = $LAST_MATCH_INFO[:outer]
+      outer_before = $LAST_MATCH_INFO[:outer_before]
+      outer_after = $LAST_MATCH_INFO[:outer_after] || ''
 
-      if outer.nil? && inline?(label, content)
-        inline_spoiler_html content
-      elsif outer.nil?
-        old_spoiler_html label, content
+      if outer_before.nil? && inline?(label, content)
+        inline_spoiler_html(content) + outer_after
+      elsif outer_before.nil?
+        old_spoiler_html(label, content) + outer_after
       else
-        block_spoiler_html label, content, outer
+        block_spoiler_html label, content, outer_before
       end
     end
   end

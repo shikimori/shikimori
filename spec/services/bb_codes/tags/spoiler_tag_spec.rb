@@ -2,14 +2,16 @@ describe BbCodes::Tags::SpoilerTag do
   subject { described_class.instance.format text }
 
   describe 'old style' do
-    let(:text) { 'q [spoiler=1]test[/spoiler] w' }
+    let(:text) { "q [spoiler=1]test[/spoiler]\n w" }
     it do
       is_expected.to eq(
-        <<~HTML.squish
-          q <div class='b-spoiler unprocessed'><label>1</label><div class='content'><div
-            class='before'></div><div class='inner'>test</div><div
-            class='after'></div></div></div> w
-        HTML
+        ( # rubocop:disable all
+          <<~HTML.squish
+            q <div class='b-spoiler unprocessed'><label>1</label><div class='content'><div
+              class='before'></div><div class='inner'>test</div><div
+              class='after'></div></div></div>
+          HTML
+        ) + "\n w"
       )
     end
   end
