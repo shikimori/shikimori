@@ -14,7 +14,13 @@ describe BbCodes::Tags::PosterTag do
     let(:url) { 'http://site.com/site-url' }
     let(:camo_url) { UrlGenerator.instance.camo_url url }
     let(:text) { "[poster]#{url}[/poster]" }
-    it { is_expected.to eq "<img class=\"b-poster\" src=\"#{camo_url}\" />" }
+    it do
+      is_expected.to eq(
+        "<span class='b-image b-poster no-zoom'>" \
+          "<img src='#{camo_url}' />" \
+        '</span>'
+      )
+    end
   end
 
   context 'shiki image' do
@@ -23,9 +29,11 @@ describe BbCodes::Tags::PosterTag do
 
     it do
       is_expected.to eq(
-        "<img class=\"b-poster\" \
-src=\"#{user_image.image.url :original, false}\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />"
+        "<span class='b-image b-poster no-zoom'>" \
+          "<img src='#{user_image.image.url :original, false}' " \
+            "data-width='#{user_image.width}' " \
+            "data-height='#{user_image.height}' />" \
+        '</span>'
       )
     end
   end

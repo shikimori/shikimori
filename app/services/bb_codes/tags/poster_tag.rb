@@ -38,14 +38,18 @@ private
   def html_for_url image_url
     camo_url = UrlGenerator.instance.camo_url(image_url)
 
-    "<img class=\"b-poster\" src=\"#{camo_url}\" />"
+    "<span class='b-image b-poster no-zoom'>" \
+      "<img src='#{camo_url}' />" \
+    '</span>'
   end
 
   def html_for_image user_image
     url = ImageUrlGenerator.instance.url user_image, :original
 
-    "<img class=\"b-poster\" src=\"#{url}\" "\
-      "data-width=\"#{user_image.width}\" "\
-      "data-height=\"#{user_image.height}\" />"
+    "<span class='b-image b-poster no-zoom'>" \
+      "<img src='#{url}' "\
+        "data-width='#{user_image.width}' "\
+        "data-height='#{user_image.height}' />" \
+    '</span>'
   end
 end
