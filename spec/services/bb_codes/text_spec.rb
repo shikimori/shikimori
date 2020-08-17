@@ -67,9 +67,8 @@ describe BbCodes::Text do
           is_expected.to eq(
             <<-HTML.squish
               <div class="b-quote"><div class="quote-content"><div
-                class="b-spoiler unprocessed"><label>qwe</label><div
-                class="content"><div class="before"></div><div class="inner">test</div></div></div><div
-                class="after"></div></div></div>
+                class="b-spoiler_block to-process"
+                data-dynamic="spoiler_block"><button>qwe</button><div>test</div></div></div></div>
             HTML
           )
         end

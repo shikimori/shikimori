@@ -25,7 +25,6 @@ class BbCodes::Text
     quote replies
     user comment topic message
 
-    spoiler
     db_entry_url video_url video
     poster wall_image entries
     wall poll
@@ -39,8 +38,11 @@ class BbCodes::Text
     color solid url
     list h3
 
+    spoiler
     html5_video
-  ] # html5_video must be after url tag
+  ]
+  # html5_video must be after url tag
+  # spoiler must be after other tags because its label can't contain any other bbcodes
 
   DB_ENTRY_BB_CODES = %i[anime manga ranobe character person]
   DB_ENTRY_TAGS = BbCodes::ToTagParser.call DB_ENTRY_BB_CODES
