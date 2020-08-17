@@ -1,7 +1,10 @@
 describe BbCodes::Tags::SpoilerTag do
   subject { described_class.instance.format text }
 
-  let(:text) { "#{prefix}[spoiler=#{label}]#{content}[/spoiler]#{suffix}" }
+  let(:text) do
+    eqls_label = label.present? ? "=#{label}" : ''
+    "#{prefix}[spoiler#{eqls_label}]#{content}[/spoiler]#{suffix}"
+  end
   let(:label) { 'blabla' }
   let(:prefix) { '' }
   let(:suffix) { ['\n', ' ', 'zxc'].sample }
@@ -57,27 +60,28 @@ describe BbCodes::Tags::SpoilerTag do
       end
     end
   end
-  #
-  # describe 'inline' do
-  #   let(:text) { 'zxc [spoiler=spoiler]test[/spoiler] qwe' }
-  #
-  #   it do
-  #     is_expected.to eq(
-  #       <<~HTML.squish
-  #         zxc <span class='b-spoiler_inline to-process'
-  #           data-dynamic='spoiler_inline'><span>test</span></span> qwe
-  #       HTML
-  #     )
-  #   end
-  # end
-  #
-  # describe '[spoiler]' do
-  #   let(:text) { "[spoiler]te\nst[/spoiler]" }
-  #   it { is_expected.to_not include '[spoiler' }
-  # end
-  #
-  # describe 'nested [spoiler]' do
-  #   let(:text) { '[spoiler=test] [spoiler=1]test[/spoiler][/spoiler]' }
-  #   it { is_expected.to_not include '[spoiler' }
-  # end
+
+  describe 'inline' do
+    let(:label) { described_class::INLINE_LABELS.sample }
+    let(:prefix) { 'qwe ' }
+
+    it do
+      is_expected.to eq(
+        prefix +
+          "<span class='b-spoiler_inline to-process' data-dynamic='spoiler_inline'>" \
+            "<span>#{content}</span>" \
+          '</span>' + suffix
+      )
+    end
+  end
+
+  describe '[spoiler]' do
+    let(:text) { "[spoiler]te\nst[/spoiler]" }
+    it { is_expected.to_not include '[spoiler' }
+  end
+
+  describe 'nested [spoiler]' do
+    let(:text) { '[spoiler=test] [spoiler=1]test[/spoiler][/spoiler]' }
+    it { is_expected.to_not include '[spoiler' }
+  end
 end

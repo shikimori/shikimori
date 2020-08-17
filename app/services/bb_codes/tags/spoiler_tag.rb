@@ -3,7 +3,9 @@ class BbCodes::Tags::SpoilerTag
 
   LABEL_REGEXP = /(?:=(?<label>[^\[\]\n\r]+?))?/
   REGEXP = %r{
-    (?<prefix>^|\n|</p>|</div>|#{BbCodes::Tags::DivTag::TAG_START_REGEXP.source})?
+    (?<prefix>
+      ^ | \n | </p> | <div[^>]*+> | </div>
+    )?
     \[spoiler #{LABEL_REGEXP.source} \]
       \n?
       (?<content>
@@ -47,10 +49,9 @@ private
   end
 
   def inline_spoiler_html content
-    <<~HTML.squish
-      <span class='b-spoiler_inline to-process'
-        data-dynamic='spoiler_inline'><span>#{content}</span></span>
-    HTML
+    "<span class='b-spoiler_inline to-process' data-dynamic='spoiler_inline'>" \
+      "<span>#{content}</span>" \
+    '</span>'
   end
 
   def old_spoiler_html label, content
