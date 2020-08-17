@@ -15,6 +15,7 @@ import Postloaded from './postloaded';
 import ShortDialog from './short_dialog';
 import Swiper from './swiper';
 import Switcher from './switcher';
+import SpoilerBlock from './spoiler_block';
 import SpoilerInline from './spoiler_inline';
 import Tabs from './tabs';
 import TextAnnotated from './text_annotated';
@@ -109,6 +110,10 @@ export default class DynamicParser {
 
   switcher(node) {
     new Switcher(node);
+  }
+
+  spoilerBlock(node) {
+    new SpoilerBlock(node);
   }
 
   spoilerInline(node) {
