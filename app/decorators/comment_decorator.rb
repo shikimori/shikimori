@@ -1,7 +1,7 @@
 class CommentDecorator < BaseDecorator
   instance_cache :html_body
 
-  CACHE_VERSION = :v11
+  CACHE_VERSION = :v12
 
   def html_body
     if persisted?
