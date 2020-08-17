@@ -15,6 +15,9 @@ class BbCodes::Tags::SpoilerTag
     \[/spoiler\]
   }xi
 
+  TEXT_CONTENT_REGEXP = /\A[^\n\[\]]++\Z/
+  INLINE_LABELS = ['spoiler', 'спойлер', nil]
+
   def format text
     spoiler_to_html text, 0
   end
@@ -31,12 +34,21 @@ private
       content = $LAST_MATCH_INFO[:content]
       outer = $LAST_MATCH_INFO[:outer]
 
-      if outer.nil?
+      if outer.nil? && inline?(label, content)
+        inline_spoiler_html content
+      elsif outer.nil?
         old_spoiler_html label, content
       else
         block_spoiler_html label, content, outer
       end
     end
+  end
+
+  def inline_spoiler_html content
+    <<~HTML.squish
+      <span class='b-spoiler_inline to-process'
+        data-dynamic='spoiler_inline'><span>#{content}</span></span>
+    HTML
   end
 
   def old_spoiler_html label, content
@@ -53,7 +65,11 @@ private
     outer +
       <<~HTML.squish
         <div class='b-spoiler_block to-process'
-          data-dynamic='spoiler_block'><button>#{label}</button><div><p>#{content}</p></div></div>
+          data-dynamic='spoiler_block'><button>#{label}</button><div>#{content}</div></div>
       HTML
+  end
+
+  def inline? label, content
+    label.in?(INLINE_LABELS) && content.match?(TEXT_CONTENT_REGEXP)
   end
 end
