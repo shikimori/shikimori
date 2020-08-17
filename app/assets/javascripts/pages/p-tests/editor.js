@@ -9,8 +9,12 @@ const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
 TEST_DEMO_CONTENT = `
-[spoiler=zxc]
-test
+[spoiler=Спойлер]
+[img]https://pp.userapi.com/c836539/v836539728/612a6/2cEM90WYwRw.jpg[/img]
+
+[spoiler=z]
+qwe
+[/spoiler]
 [/spoiler]
 `.trim()
 
