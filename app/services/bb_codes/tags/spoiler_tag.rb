@@ -22,7 +22,7 @@ class BbCodes::Tags::SpoilerTag
 private
 
   def spoiler_to_html text, nesting
-    return text if nesting > 10
+    return text if nesting > 5
 
     text = spoiler_to_html text, nesting + 1
 
