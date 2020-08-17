@@ -8,7 +8,6 @@ module CommentHelper
   COMPLEX_BB_CODES = %i[
     smileys club club_page collection article contest mention version anime_video
     user review posters ban
-    spoiler
   ]
 
   @@smileys_path = '/images/smileys/'
@@ -82,28 +81,6 @@ module CommentHelper
       end
     rescue ActionController::UrlGenerationError
       match
-    end
-  end
-
-  def spoiler_to_html text, nesting = 0
-    return text if nesting > 10
-    text = spoiler_to_html text, nesting + 1
-
-    text.gsub(/
-      \[spoiler (?:= (?<label> [^\[\]\n\r]+? ) )? \]
-        \n?
-        (?<content>
-          (?:
-            (?! \[\/?spoiler\] ) (?>[\s\S])
-          )+
-        )
-        \n?
-      \[\/spoiler\]
-    /xi) do |_match|
-      '<div class="b-spoiler unprocessed">' \
-        "<label>#{$LAST_MATCH_INFO[:label] || I18n.t('markers.spoiler')}</label>" \
-        "<div class='content'><div class='before'></div><div class='inner'>#{$LAST_MATCH_INFO[:content]}</div><div class='after'></div></div>" \
-      '</div>'
     end
   end
 

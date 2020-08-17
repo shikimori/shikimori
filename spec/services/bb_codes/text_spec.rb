@@ -206,16 +206,6 @@ describe BbCodes::Text do
       it { is_expected.to_not include '[spoiler' }
     end
 
-    describe '[spoiler]' do
-      let(:text) { '[spoiler]test[/spoiler]' }
-      it { is_expected.to_not include '[spoiler' }
-    end
-
-    describe 'nested [spoiler]' do
-      let(:text) { '[spoiler=test] [spoiler=1]test[/spoiler][/spoiler]' }
-      it { is_expected.to_not include '[spoiler' }
-    end
-
     describe 'spam domains' do
       let(:text) { ['http://images.webpark.ru', 'http://shikme.ru'].sample }
       it { is_expected.to eq BbCodes::Text::BANNED_TEXT }
