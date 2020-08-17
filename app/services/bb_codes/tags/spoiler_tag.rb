@@ -35,16 +35,19 @@ private
     text = spoiler_to_html text, nesting + 1
 
     text.gsub(REGEXP) do |_match|
+      tag = $LAST_MATCH_INFO[:tag]
       label = $LAST_MATCH_INFO[:label] || I18n.t('markers.spoiler')
       content = $LAST_MATCH_INFO[:content]
       prefix = $LAST_MATCH_INFO[:prefix]
       suffix = $LAST_MATCH_INFO[:suffix] || ''
 
-      to_html label, content, prefix, suffix
+      to_html tag, label, content, prefix, suffix
     end
   end
 
-  def to_html label, content, prefix, suffix
+  def to_html tag, label, content, prefix, suffix
+    return prefix + block_spoiler_html(label, content) if tag == 'spoiler_block'
+
     if prefix.nil? && inline?(label, content)
       inline_spoiler_html(content) + suffix
 

@@ -78,6 +78,11 @@ describe BbCodes::Tags::SpoilerTag do
     context 'label with markup' do
       let(:label) { 'bl<b>a</b>bla' }
       it { is_expected.to_not include 'b-spoiler_block' }
+
+      context 'tag is spoiler_block' do
+        let(:tag) { 'spoiler_block' }
+        it { is_expected.to include 'b-spoiler_block' }
+      end
     end
   end
 
