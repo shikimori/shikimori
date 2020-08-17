@@ -3,7 +3,6 @@ import delay from 'delay';
 import newId from 'helpers/new_id';
 
 const ANIMATION_DURATION = 350;
-
 const animations = {};
 
 function prepareAnimation(element) {
