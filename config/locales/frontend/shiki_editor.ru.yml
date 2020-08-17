@@ -3,7 +3,6 @@ ru:
     shiki_editor:
       not_available: Комментирование будет доступно через сутки после регистрации
       text_cant_be_blank: Текст не может быть пустым
-      spoiler: спойлер
       file: файл
       bold: Жирный
       italic: Курсив
@@ -12,6 +11,16 @@ ru:
       undo: Отменить последнее изменение
       redo: Повторить последнее изменение
       spoiler: Спойлер
+      spoiler_inline: Спойлер
+      code_inline: Код
+      link: Ссылка
+      smiley: Смайлики
+      image: Картинка
+      upload: Загрузка картинки
+      spoiler_block: Блок спойлера
+      code_block: Блок кода
+      bullet_list: Список
+      blockquote: Цитата
       prompt:
         image_url: URL картинки
         link_url: URL ссылки

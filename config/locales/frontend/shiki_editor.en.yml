@@ -3,7 +3,6 @@ en:
     shiki_editor:
       not_available: Commenting will be available one day after registering
       text_cant_be_blank: Text can't be blank
-      spoiler: spoiler
       file: file
       bold: Bold
       italic: Italic
@@ -12,6 +11,17 @@ en:
       undo: Undo last change
       redo: Redo last change
       spoiler: Spoiler
+      spoiler_inline: Spoiler
+      code_inline: Code
+      link: 
+      spoiler_inline: Spoiler
+      smiley: Smileys
+      image: Image
+      upload: Image upload
+      spoiler_block: Spoiler block
+      code_block: Code block
+      bullet_list: List
+      blockquote: Quote
       prompt:
         image_url: Image URL
         link_url: Link URL
