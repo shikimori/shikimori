@@ -3,8 +3,9 @@ describe BbCodes::Tags::SpoilerTag do
 
   let(:text) do
     eqls_label = label.present? ? "=#{label}" : ''
-    "#{prefix}[spoiler#{eqls_label}]#{content}[/spoiler]#{suffix}"
+    "#{prefix}[#{tag}#{eqls_label}]#{content}[/#{tag}]#{suffix}"
   end
+  let(:tag) { 'spoiler' }
   let(:label) { 'bl<b>a</b>bla' }
   let(:prefix) { '' }
   let(:suffix) { ['\n', ' ', 'zxc'].sample }

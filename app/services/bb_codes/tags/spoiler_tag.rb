@@ -6,7 +6,7 @@ class BbCodes::Tags::SpoilerTag
     (?<prefix>
       ^ | \n | </p> | <div[^>]*+> | </div>
     )?
-    \[spoiler #{LABEL_REGEXP.source} \]
+    \[(?<tag>spoiler(?:_block)?) #{LABEL_REGEXP.source} \]
       \n?
       (?<content>
         (?:
@@ -14,7 +14,7 @@ class BbCodes::Tags::SpoilerTag
         )+
       )
       \n?
-    \[/spoiler\]
+    \[/\k<tag>\]
     (?<suffix>\n)?
   }xi
 
