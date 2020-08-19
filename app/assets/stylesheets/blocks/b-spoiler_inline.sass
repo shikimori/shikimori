@@ -2,22 +2,24 @@
 @import mixins/responsive
 
 .b-spoiler_inline
-  padding: 1px 3px
+  padding: 2px 3px
   transition: background-color .25s ease
 
   &.is-opened
-    background-color: #e1e3e5
+    // background-color: rgba(84, 84, 82, 0.1)
+    background-color: rgba(102, 119, 136, 0.2)
 
   &:not(.is-opened)
+    // background-color: #545452
     background-color: #678
-    cursor: default
+    cursor: pointer
 
-    +gte_laptop
-      &:hover
-        background-color: lighten(#456, 3%)
-
-    &:active
-      background-color: lighten(#678, 8%)
+    // +gte_laptop
+    //   &:hover
+    //     background-color: lighten(#456, 3%)
+    // 
+    // &:active
+    //   background-color: lighten(#678, 8%)
 
     & > span
       opacity: 0
