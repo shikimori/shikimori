@@ -45,10 +45,9 @@ private
     end
   end
 
-  def to_html tag, label, content, prefix, suffix
+  def to_html tag, label, content, prefix, suffix # rubocop:disable all
     method_name =
       if tag == 'spoiler_block'
-        suffix = nil
         :block_spoiler_html
       elsif tag == 'spoiler_v1'
         :old_spoiler_html
@@ -57,9 +56,10 @@ private
       elsif prefix.nil? || label.match?(TAG_REGEXP)
         :old_spoiler_html
       else
-        suffix = nil
         :block_spoiler_html
       end
+
+    suffix = '' if method_name == :block_spoiler_html
 
     (prefix || '') + send(method_name, label, content) + (suffix || '')
   end
