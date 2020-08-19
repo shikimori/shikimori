@@ -31,6 +31,17 @@ describe BbCodes::Markdown::ListQuoteParserState do
       let(:text) { "- a\n- b" }
       it { is_expected.to eq "<ul class='b-list'><li>a</li><li>b</li></ul>" }
     end
+
+    context 'moves through inner tags', :focus do
+      let(:text) { "- #{content}\n- c" }
+      let(:content) { "z [spoiler=x]x\nx[/spoiler]" }
+
+      it do
+        is_expected.to eq(
+          "<ul class='b-list'><li>#{content}</li><li>c</li></ul>"
+        )
+      end
+    end
   end
 
   context 'blockquote' do

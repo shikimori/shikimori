@@ -9,6 +9,9 @@ class BbCodes::Markdown::ListQuoteParserState
   BLOCKQUOTE_OPEN = "<blockquote class='b-quote-v2'>"
   BLOCKQUOTE_CLOSE = '</blockquote>'
 
+  MULTILINE_BBCODES = BbCodes::Markdown::ListQuoteParser::MULTILINE_BBCODES
+  MULTILINE_BBCODES_MAX_SIZE = MULTILINE_BBCODES.map(&:size).max
+
   TAG_CLOSE_REGEXP = %r{</\w+>}
 
   def initialize text, index = 0, nested_sequence = ''
@@ -53,6 +56,17 @@ private
 
         seq_5 = @text[@index..(@index + 4)]
         return parse_blockquote seq_5 if seq_5 == BLOCKQUOTE_VARIANT_2
+      end
+
+      if @text[@index] == '['
+        sequence = @text.slice(@index + 1, MULTILINE_BBCODES_MAX_SIZE)
+        tag = MULTILINE_BBCODES.find { |bbcode| sequence.starts_with? bbcode }
+
+        if tag
+          rest_sequence = @text[@index..]
+          tag_end = 
+          binding.pry
+        end
       end
 
       move 1
@@ -140,4 +154,28 @@ private
     skip_sequence.present? &&
       @text.slice(@index, skip_sequence.size) == skip_sequence
   end
+
+# export function extractUntil(
+#   text,
+#   sequence,
+#   startIndex,
+#   maxIndex = startIndex + 1000,
+#   isIgnoreNewLine = false
+# ) {
+#   for (let i = startIndex; i <= (maxIndex || text.length); i++) {
+#     const char = text[i];
+#     const isEnd = isIgnoreNewLine ?
+#       (char === undefined) :
+#       (char === '\n' || char === undefined);
+# 
+#     if (char === sequence[0] && (
+#       sequence.length === 1 || text.slice(i, i + sequence.length) === sequence
+#     )) {
+#       return text.slice(startIndex, i);
+#     }
+#     if (isEnd) { return null; }
+#   }
+#   return null;
+# }
+
 end

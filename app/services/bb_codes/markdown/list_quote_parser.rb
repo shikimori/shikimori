@@ -1,7 +1,8 @@
 class BbCodes::Markdown::ListQuoteParser
   include Singleton
 
-  MULTILINE_BBCODES = ::BbCodes::Text::MULTILINE_BBCODES
+  MULTILINE_BBCODES = %w[spoiler spoiler_block quote div center right list]
+
   MARKDOWN_LIST_OR_QUOTE_REGEXP = %r{
     (?:
       (?: ^ | (?<=<<-CODE-\d-PLACEHODLER->>) )
