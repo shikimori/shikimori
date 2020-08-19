@@ -1,7 +1,7 @@
 class BbCodes::Markdown::SpoilerInlineParser
   include Singleton
 
-  REGEXP = / \|\| (?<text> .* ) \|\| /x
+  REGEXP = / \|\| (?<text> (?: (?!\|\|) .)+ ) \|\| /x
 
   def format text
     text.gsub(REGEXP) do

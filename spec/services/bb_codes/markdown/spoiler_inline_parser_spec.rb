@@ -26,6 +26,20 @@ describe BbCodes::Markdown::SpoilerInlineParser do
   end
 
   context 'sample' do
+    let(:text) { '||a|| ||b||' }
+    it do
+      is_expected.to eq(
+        <<~HTML.squish
+          <span class='b-spoiler_inline to-process'
+            data-dynamic='spoiler_inline'><span>a</span></span>
+          <span class='b-spoiler_inline to-process'
+            data-dynamic='spoiler_inline'><span>b</span></span>
+        HTML
+      )
+    end
+  end
+
+  context 'sample' do
     let(:text) { "a ||te\nst|| b" }
     it { is_expected.to eq text }
   end
