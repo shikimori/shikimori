@@ -1,4 +1,4 @@
-class BbCodes::Markdown::ListQuoteParserState
+class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
   LIST_ITEM_VARIANTS = ['- ', '+ ', '* ']
   BLOCKQUOTE_VARIANT_1 = '> '
   BLOCKQUOTE_VARIANT_2 = '&gt; '
@@ -62,10 +62,13 @@ private
         sequence = @text.slice(@index + 1, MULTILINE_BBCODES_MAX_SIZE)
         tag = MULTILINE_BBCODES.find { |bbcode| sequence.starts_with? bbcode }
 
+        # traverse through nested possibly multiline bbcode
         if tag
-          rest_sequence = @text[@index..]
-          tag_end = 
-          binding.pry
+          rest_text = @text[@index..]
+          tag_end = "[/#{tag}]"
+          tag_end_index = rest_text.index tag_end
+          move tag_end_index + tag_end.length
+          next
         end
       end
 
