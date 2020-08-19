@@ -16,7 +16,7 @@
           a href=@resource.edit_url(section: :password)
             = t '.change_email_and_password'
 
-        - unless @resource.generated_email?
+        - unless @resource.email.blank? || @resource.generated_email?
           .reset-password
             a href=new_user_password_url(user: { email: @resource.email })
               = t '.password_recovery'
