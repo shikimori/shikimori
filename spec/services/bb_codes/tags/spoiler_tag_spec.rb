@@ -11,7 +11,7 @@ describe BbCodes::Tags::SpoilerTag do
   let(:suffix) { ['\n', ' ', 'zxc'].sample }
   let(:content) { 'test' }
 
-  describe 'old style' do
+  context 'old style' do
     let(:prefix) { 'qwe ' }
     let(:content) { ['test', "te\nst"].sample }
 
@@ -27,6 +27,23 @@ describe BbCodes::Tags::SpoilerTag do
             '</div>' \
           '</div>' + suffix
       )
+    end
+
+    context 'strip label' do
+      let(:label) { ' a ' }
+      it do
+        is_expected.to eq(
+          prefix +
+            "<div class='b-spoiler unprocessed'>" \
+              '<label>a</label>' \
+              "<div class='content'>" \
+                "<div class='before'></div>" \
+                "<div class='inner'>#{content}</div>" \
+                "<div class='after'></div>" \
+              '</div>' \
+            '</div>' + suffix
+        )
+      end
     end
 
     context 'spoiler_v1' do
@@ -49,7 +66,7 @@ describe BbCodes::Tags::SpoilerTag do
     end
   end
 
-  describe 'block' do
+  context 'block' do
     let(:prefix) { ["\n", '<div>', '</div>'].sample }
     let(:label) { 'blabla' }
 
@@ -105,7 +122,7 @@ describe BbCodes::Tags::SpoilerTag do
     end
   end
 
-  describe 'inline' do
+  context 'inline' do
     let(:label) { described_class::INLINE_LABELS.sample }
     let(:prefix) { 'qwe ' }
 
@@ -119,12 +136,12 @@ describe BbCodes::Tags::SpoilerTag do
     end
   end
 
-  describe '[spoiler]' do
+  context '[spoiler]' do
     let(:text) { "[spoiler]te\nst[/spoiler]" }
     it { is_expected.to_not include '[spoiler' }
   end
 
-  describe 'nested [spoiler]' do
+  context 'nested [spoiler]' do
     let(:text) { '[spoiler=test] [spoiler=1]test[/spoiler][/spoiler]' }
     it { is_expected.to_not include '[spoiler' }
   end

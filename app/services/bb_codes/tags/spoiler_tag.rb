@@ -36,7 +36,7 @@ private
 
     text.gsub(REGEXP) do |_match|
       tag = $LAST_MATCH_INFO[:tag]
-      label = $LAST_MATCH_INFO[:label] || I18n.t('markers.spoiler')
+      label = $LAST_MATCH_INFO[:label]&.strip || I18n.t('markers.spoiler')
       content = $LAST_MATCH_INFO[:content]
       prefix = $LAST_MATCH_INFO[:prefix]
       suffix = $LAST_MATCH_INFO[:suffix] || ''
