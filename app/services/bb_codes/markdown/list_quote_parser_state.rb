@@ -63,21 +63,26 @@ private
         tag = MULTILINE_BBCODES.find { |bbcode| sequence.starts_with? bbcode }
 
         # traverse through nested possibly multiline bbcode
-        if tag
-          rest_text = @text[@index..]
-          tag_end = "[/#{tag}]"
-          tag_end_index = rest_text.index tag_end
-          if tag_end_index
-            move tag_end_index + tag_end.length
-            next
-          end
-        end
+        next if tag && traverse(tag)
       end
 
       move 1
     end
 
     finalize_content start_index, @index
+  end
+
+  def traverse tag
+    rest_text = @text[@index..]
+    tag_end = "[/#{tag}]"
+    tag_end_index = rest_text.index tag_end
+
+    if tag_end_index
+      move tag_end_index + tag_end.length
+      true
+    else
+      false
+    end
   end
 
   def parse_list tag_sequence

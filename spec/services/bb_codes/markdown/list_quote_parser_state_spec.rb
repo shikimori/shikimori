@@ -41,6 +41,16 @@ describe BbCodes::Markdown::ListQuoteParserState do
           "<ul class='b-list'><li>#{content}</li><li>c</li></ul>"
         )
       end
+
+      context 'not closed bbcode' do
+        let(:content) { "z [spoiler=x]x\nx[/div]" }
+        it do
+          is_expected.to eq(
+            "<ul class='b-list'><li>z [spoiler=x]x</li>" \
+              "</ul>x[/div]<ul class='b-list'><li>c</li></ul>"
+          )
+        end
+      end
     end
   end
 
