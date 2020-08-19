@@ -67,8 +67,10 @@ private
           rest_text = @text[@index..]
           tag_end = "[/#{tag}]"
           tag_end_index = rest_text.index tag_end
-          move tag_end_index + tag_end.length
-          next
+          if tag_end_index
+            move tag_end_index + tag_end.length
+            next
+          end
         end
       end
 
