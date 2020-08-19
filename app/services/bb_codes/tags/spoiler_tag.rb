@@ -47,7 +47,9 @@ private
 
   def to_html tag, label, content, prefix, suffix
     return prefix + block_spoiler_html(label, content) if tag == 'spoiler_block'
-    return prefix + old_spoiler_html(label, content) + suffix if tag == 'spoiler_v1'
+    if tag == 'spoiler_v1'
+      return (prefix || '') + old_spoiler_html(label, content) + suffix
+    end
 
     if prefix.nil? && inline?(label, content)
       inline_spoiler_html(content) + suffix
