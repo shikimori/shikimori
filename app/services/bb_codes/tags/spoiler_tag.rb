@@ -10,7 +10,7 @@ class BbCodes::Tags::SpoilerTag
       \n?
       (?<content>
         (?:
-          (?! \[/?spoiler #{LABEL_REGEXP.source} \] ) (?>[\s\S])
+          (?! \[/?spoiler(?:_block|_v1)? #{LABEL_REGEXP.source} \] ) (?>[\s\S])
         )+
       )
       \n?
@@ -46,23 +46,23 @@ private
   end
 
   def to_html tag, label, content, prefix, suffix
-    return prefix + block_spoiler_html(label, content) if tag == 'spoiler_block'
-    if tag == 'spoiler_v1'
-      return (prefix || '') + old_spoiler_html(label, content) + suffix
-    end
+    method_name =
+      if tag == 'spoiler_block'
+        :block_spoiler_html
+      elsif tag == 'spoiler_v1'
+        :old_spoiler_html
+      elsif prefix.nil? && inline?(label, content)
+        :inline_spoiler_html
+      elsif prefix.nil? || label.match?(TAG_REGEXP)
+        :old_spoiler_html
+      else
+        :block_spoiler_html
+      end
 
-    if prefix.nil? && inline?(label, content)
-      inline_spoiler_html(content) + suffix
-
-    elsif prefix.nil? || label.match?(TAG_REGEXP)
-      old_spoiler_html(label, content) + suffix
-
-    else
-      prefix + block_spoiler_html(label, content)
-    end
+    (prefix || '') + send(method_name, label, content) + (suffix || '')
   end
 
-  def inline_spoiler_html content
+  def inline_spoiler_html _label, content
     "<span class='b-spoiler_inline to-process' data-dynamic='spoiler_inline'>" \
       "<span>#{content}</span>" \
     '</span>'
