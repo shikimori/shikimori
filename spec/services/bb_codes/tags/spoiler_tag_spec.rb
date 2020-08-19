@@ -28,6 +28,25 @@ describe BbCodes::Tags::SpoilerTag do
           '</div>' + suffix
       )
     end
+
+    context 'spoiler_v1' do
+      let(:prefix) { ["\n", '<div>', '</div>'].sample }
+      let(:tag) { 'spoiler_v1' }
+
+      it do
+        is_expected.to eq(
+          prefix +
+            "<div class='b-spoiler unprocessed'>" \
+              "<label>#{label}</label>" \
+              "<div class='content'>" \
+                "<div class='before'></div>" \
+                "<div class='inner'>#{content}</div>" \
+                "<div class='after'></div>" \
+              '</div>' \
+            '</div>' + suffix
+        )
+      end
+    end
   end
 
   describe 'block' do

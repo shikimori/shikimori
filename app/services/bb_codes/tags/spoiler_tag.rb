@@ -6,7 +6,7 @@ class BbCodes::Tags::SpoilerTag
     (?<prefix>
       ^ | \n | </p> | <div[^>]*+> | </div>
     )?
-    \[(?<tag>spoiler(?:_block)?) #{LABEL_REGEXP.source} \]
+    \[(?<tag>spoiler(?:_block|_v1)?) #{LABEL_REGEXP.source} \]
       \n?
       (?<content>
         (?:
@@ -47,6 +47,7 @@ private
 
   def to_html tag, label, content, prefix, suffix
     return prefix + block_spoiler_html(label, content) if tag == 'spoiler_block'
+    return prefix + old_spoiler_html(label, content) + suffix if tag == 'spoiler_v1'
 
     if prefix.nil? && inline?(label, content)
       inline_spoiler_html(content) + suffix
