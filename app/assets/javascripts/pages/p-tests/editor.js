@@ -141,9 +141,9 @@ TEST_DEMO_CONTENT = `
 `.trim()
 
 TEST_DEMO_CONTENT = `
-[spoiler=Спойлер]
-[poster]http://shikimori.local/system/user_images/original/1/1137389.jpg[/poster]
-[/spoiler]
+- z [spoiler=x]x
+x[/spoiler]
+- c
 `.trim()
 
 pageLoad('tests_editor', async () => {

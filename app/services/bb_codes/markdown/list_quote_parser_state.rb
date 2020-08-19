@@ -20,6 +20,7 @@ class BbCodes::Markdown::ListQuoteParserState
   end
 
   def to_html
+    # binding.pry
     # ap @text
     parse_line while @index < @text.size
 
