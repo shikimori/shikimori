@@ -134,6 +134,18 @@ describe BbCodes::Tags::SpoilerTag do
           '</span>' + suffix
       )
     end
+
+    context 'content size' do
+      context 'too large' do
+        let(:content) { 'a' * (described_class::MAX_DEFAULT_SPOILER_INLINE_SIZE + 1) }
+        it { is_expected.to_not include 'b-spoiler_inline' }
+      end
+
+      context 'not too large' do
+        let(:content) { 'a' * described_class::MAX_DEFAULT_SPOILER_INLINE_SIZE }
+        it { is_expected.to include 'b-spoiler_inline' }
+      end
+    end
   end
 
   context '[spoiler]' do

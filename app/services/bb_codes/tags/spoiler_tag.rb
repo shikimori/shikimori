@@ -22,6 +22,7 @@ class BbCodes::Tags::SpoilerTag
 
   TEXT_CONTENT_REGEXP = /\A[^\n\[\]]++\Z/
   INLINE_LABELS = ['spoiler', 'спойлер', nil]
+  MAX_DEFAULT_SPOILER_INLINE_SIZE = 150
 
   def format text
     spoiler_to_html text, 0
@@ -89,6 +90,7 @@ private
   end
 
   def inline? label, content
-    label.in?(INLINE_LABELS) && content.match?(TEXT_CONTENT_REGEXP)
+    label.in?(INLINE_LABELS) && content.match?(TEXT_CONTENT_REGEXP) &&
+      content.size <= MAX_DEFAULT_SPOILER_INLINE_SIZE
   end
 end
