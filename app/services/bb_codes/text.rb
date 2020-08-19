@@ -49,6 +49,8 @@ class BbCodes::Text
 
   OBSOLETE_TAGS = %r{\[user_change=\d+\] | \[/user_change\]}mix
 
+  MULTILINE_BBCODES = %w[spoiler spoiler_block quote div center right list]
+
   BANNED_DOMAINS = %r{
     (?:https?://)?
       (?:

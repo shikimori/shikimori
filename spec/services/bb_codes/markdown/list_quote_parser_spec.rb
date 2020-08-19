@@ -28,8 +28,13 @@ describe BbCodes::Markdown::ListQuoteParser do
     let(:html) { "zxc\n" }
     it { is_expected.to eq "q\n#{html}" }
 
-    context 'moves through inner tags' do
+    context 'traverses through multiline bbcodes' do
       let(:text) { "q\n#{symbol} z [spoiler=x]x\nx[/spoiler]\n#{symbol} c" }
+      it { is_expected.to eq "q\n#{html}" }
+    end
+
+    context 'traverses through multiline bbcodes multiple times' do
+      let(:text) { "q\n#{symbol} z [spoiler=x]x\nx[/spoiler][div]\n[/div]\n#{symbol} c" }
       it { is_expected.to eq "q\n#{html}" }
     end
   end

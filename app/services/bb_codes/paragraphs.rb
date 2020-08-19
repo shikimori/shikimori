@@ -2,6 +2,7 @@ class BbCodes::Paragraphs
   method_object :text
 
   LINE_SIZE = 110
+  MULTILINE_BBCODES = ::BbCodes::Text::MULTILINE_BBCODES
 
   PARAGRAPH_PRE_BR_TAGS = /
     (?: \r\n|\r|\n|<br> )?
@@ -14,7 +15,7 @@ class BbCodes::Paragraphs
   PARAGRAPH_POST_BR_TAGS = /
     (?<tag>
       \[
-        (?:quote|list|spoiler)
+        (?:#{MULTILINE_BBCODES.join('|')})
         (\[.*?\] | [^\]])*
       \]
       (?! \r\n|\r|\n|<br> )

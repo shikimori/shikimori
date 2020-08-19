@@ -1,16 +1,17 @@
 class BbCodes::Markdown::ListQuoteParser
   include Singleton
 
-  MARKDOWN_LIST_OR_QUOTE_REGEXP = /
-    (
+  MULTILINE_BBCODES = ::BbCodes::Text::MULTILINE_BBCODES
+  MARKDOWN_LIST_OR_QUOTE_REGEXP = %r{
+    (?:
       (?: ^ | (?<=<<-CODE-\d-PLACEHODLER->>) )
-      ([-+*>]|&gt;)
+      (?: [-+*>]|&gt; )
       \ (?:
-        (?: . )*+
-        (?:\n \ + .*+ )*
-      ) (?:\n|$)
+        (?: \[(?<tag>#{MULTILINE_BBCODES.join('|')})[\s\S]+\[/\k<tag>\] |. )*+
+        (?: \n \ + .*+ )*
+      ) (?: \n|$ )
     )+
-  /x
+  }x
 
   def format text
     text.gsub MARKDOWN_LIST_OR_QUOTE_REGEXP do |match|
