@@ -48,6 +48,7 @@ private
   def to_html tag, label, content, prefix, suffix
     method_name =
       if tag == 'spoiler_block'
+        suffix = nil
         :block_spoiler_html
       elsif tag == 'spoiler_v1'
         :old_spoiler_html
@@ -56,6 +57,7 @@ private
       elsif prefix.nil? || label.match?(TAG_REGEXP)
         :old_spoiler_html
       else
+        suffix = nil
         :block_spoiler_html
       end
 
