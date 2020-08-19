@@ -37,5 +37,10 @@ describe BbCodes::Markdown::ListQuoteParser do
       let(:text) { "q\n#{symbol} z [spoiler=x]x\nx[/spoiler][div]\n[/div]\n#{symbol} c" }
       it { is_expected.to eq "q\n#{html}" }
     end
+
+    context 'does not traverse through new' do
+      let(:text) { "q\n#{symbol} z\n[spoiler]zxc[/spoiler]" }
+      it { is_expected.to eq "q\n#{html}[spoiler]zxc[/spoiler]" }
+    end
   end
 end
