@@ -190,7 +190,9 @@ describe BbCodes::Text do
       let(:camo_url) { UrlGenerator.instance.camo_url url }
       it do
         expect(camo_url).to include '?url=http%3A%2F%2Fsite.com%2Fimage.jpg'
-        is_expected.to eq "<img class=\"b-poster\" src=\"#{camo_url}\">"
+        is_expected.to eq(
+          "<span class=\"b-image b-poster no-zoom\"><img src=\"#{camo_url}\"></span>"
+        )
       end
     end
 
