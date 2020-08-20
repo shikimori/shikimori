@@ -25,7 +25,7 @@ class ShikiMailer < ActionMailer::Base
     return unless message
     return if message.read?
     return if generated? message.to.email
-    return if mailru? user.emial
+    return if mailru? user.email
 
     subject = i18n_t(
       'private_message_email.subject',
@@ -50,7 +50,7 @@ class ShikiMailer < ActionMailer::Base
 
   def reset_password_instructions user, token, options
     return if generated? user.email
-    return if mailru? user.emial
+    return if mailru? user.email
 
     subject = i18n_t(
       'reset_password_instructions.subject',
