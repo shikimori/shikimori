@@ -44,7 +44,7 @@ class AnimesController < DbEntriesController
   def characters
     if @resource.roles.main_characters.none? &&
         @resource.roles.supporting_characters.none?
-      return redirect_to @resource.url, status: 301
+      return redirect_to @resource.url, status: :moved_permanently
     end
 
     og noindex: true
@@ -52,21 +52,27 @@ class AnimesController < DbEntriesController
   end
 
   def staff
-    return redirect_to @resource.url, status: 301 if @resource.roles.people.none?
+    if @resource.roles.people.none?
+      return redirect_to @resource.url, status: :moved_permanently
+    end
 
     og noindex: true
     og page_title: i18n_t("producers.#{@resource.object.class.name.downcase}")
   end
 
   def files
-    return redirect_to @resource.url, status: 301 unless @resource.files?
+    unless @resource.files?
+      return redirect_to @resource.url, status: :moved_permanently
+    end
 
     og noindex: true
     og page_title: i18n_t('files')
   end
 
   def similar
-    return redirect_to @resource.url, status: 301 if @resource.related.similar.none?
+    if @resource.related.similar.none?
+      return redirect_to @resource.url, status: :moved_permanently
+    end
 
     og noindex: true
     og page_title: i18n_t("similar.#{@resource.object.class.name.downcase}")
@@ -74,7 +80,7 @@ class AnimesController < DbEntriesController
 
   def screenshots
     unless @resource.screenshots_allowed? && @resource.screenshots.any? && user_signed_in?
-      return redirect_to @resource.url, status: 301
+      return redirect_to @resource.url, status: :moved_permanently
     end
 
     og noindex: true
@@ -83,7 +89,7 @@ class AnimesController < DbEntriesController
 
   def videos
     unless @resource.videos.any? && user_signed_in? # && ignore_copyright?
-      return redirect_to @resource.url, status: 301
+      return redirect_to @resource.url, status: :moved_permanently
     end
 
     og noindex: true
@@ -92,7 +98,7 @@ class AnimesController < DbEntriesController
 
   def related
     unless @resource.related.any?
-      return redirect_to @resource.url, status: 301
+      return redirect_to @resource.url, status: :moved_permanently
     end
 
     og noindex: true
@@ -101,7 +107,7 @@ class AnimesController < DbEntriesController
 
   def chronology
     unless @resource.related.chronology?
-      return redirect_to @resource.url, status: 301
+      return redirect_to @resource.url, status: :moved_permanently
     end
 
     og noindex: true
@@ -110,7 +116,7 @@ class AnimesController < DbEntriesController
 
   def franchise
     unless @resource.related.chronology?
-      return redirect_to @resource.url, status: 301
+      return redirect_to @resource.url, status: :moved_permanently
     end
 
     og noindex: true
@@ -121,28 +127,32 @@ class AnimesController < DbEntriesController
   def summaries
     maybe_topic = @resource.maybe_topic(locale_from_host)
     unless Topic::CommentsPolicy.new(maybe_topic).any_summaries?
-      return redirect_to @resource.url, status: 301
+      return redirect_to @resource.url, status: :moved_permanently
     end
 
     og page_title: i18n_t("reviews.#{@resource.object.class.name.downcase}")
   end
 
   def art
-    return redirect_to @resource.url, status: 301 unless @resource.art?
+    unless @resource.art?
+      return redirect_to @resource.url, status: :moved_permanently
+    end
 
     og noindex: true, nofollow: true
     og page_title: t('imageboard_art')
   end
 
   def coub
-    redirect_to @resource.url, status: 301 if @resource.coub_tags.none?
+    if @resource.coub_tags.none?
+      redirect_to @resource.url, status: :moved_permanently
+    end
 
     og noindex: true, nofollow: true
     og page_title: 'Coub'
   end
 
   def images
-    redirect_to @resource.art_url, status: 301
+    redirect_to @resource.art_url, status: :moved_permanently
   end
 
   def cosplay
@@ -152,7 +162,7 @@ class AnimesController < DbEntriesController
       .postload(@page, @limit)
 
     if @collection.none?
-      return redirect_to @resource.url, status: 301
+      return redirect_to @resource.url, status: :moved_permanently
     end
 
     og page_title: t('cosplay')
@@ -160,7 +170,7 @@ class AnimesController < DbEntriesController
 
   def favoured
     if @resource.all_favoured.none?
-      return redirect_to @resource.url, status: 301
+      return redirect_to @resource.url, status: :moved_permanently
     end
 
     og noindex: true
@@ -169,7 +179,7 @@ class AnimesController < DbEntriesController
 
   def clubs
     if @resource.all_clubs.none?
-      return redirect_to @resource.url, status: 301
+      return redirect_to @resource.url, status: :moved_permanently
     end
 
     og noindex: true
@@ -269,8 +279,7 @@ private
     if @resource.aired_on &&
         [Time.zone.now.year + 1,
          Time.zone.now.year,
-         Time.zone.now.year - 1
-        ].include?(@resource.aired_on.year)
+         Time.zone.now.year - 1].include?(@resource.aired_on.year)
 
       season_text = Titles::LocalizedSeasonText.new(
         @resource.object.class,
