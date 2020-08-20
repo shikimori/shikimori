@@ -31,6 +31,11 @@ class CharactersController < PeopleController
 
   def show
     @itemtype = @resource.itemtype
+
+    if censored_forbidden?
+      entries = @resource.animes(7) + @resource.mangas(7) + @resource.ranobe(7)
+      raise AgeRestricted if entries.any?(&:censored?)
+    end
   end
 
   def seyu
