@@ -12,7 +12,7 @@
           alt=resource.name
         ]
 
-  - cache [:stats, resource] do
+  - cache [:stats, resource, :v2] do
     .block
       .subheadline = t '.scores'
       #rates_scores_stats[
