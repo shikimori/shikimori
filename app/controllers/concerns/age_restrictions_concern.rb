@@ -7,7 +7,7 @@ module AgeRestrictionsConcern
   def censored_forbidden?
     @is_censored_forbidden ||= begin
       return false if %w[rss os].include? request.format
-      return false if params[:action] == 'tooltip'
+      return false if params[:action] == 'tooltip' && request.xhr?
 
       cookies[ShikimoriController::COOKIE_AGE_OVER_18] != 'true' ||
         !user_signed_in? ||
