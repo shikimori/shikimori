@@ -123,6 +123,8 @@ private
 
   def replace_abusiveness text, replacement
     text.gsub ABUSE do |match|
+      next match unless valid_match?(match)
+
       mached_text = match.size
         .times
         .inject('') { |v, _memo| v + (replacement || '#') }

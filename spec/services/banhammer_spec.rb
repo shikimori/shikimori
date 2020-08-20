@@ -20,8 +20,15 @@ describe Banhammer do
   end
 
   describe '#censor' do
-    subject { banhammer.censor 'test хуй', 'x' }
+    subject { banhammer.censor text, 'x' }
+
+    let(:text) { 'test хуй' }
     it { is_expected.to eq 'test xxx' }
+
+    context 'does not match ###' do
+      let(:text) { '### test' }
+      it { is_expected.to eq '### test' }
+    end
   end
 
   describe '#ban' do
