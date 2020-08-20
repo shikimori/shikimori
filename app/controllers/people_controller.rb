@@ -43,7 +43,7 @@ class PeopleController < DbEntriesController
   end
 
   def favoured
-    return redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
+    return redirect_to @resource.url, status: :moved_permanently if @resource.all_favoured.none?
 
     og noindex: true
     og page_title: t('in_favorites')
