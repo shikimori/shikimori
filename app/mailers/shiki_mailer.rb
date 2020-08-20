@@ -25,7 +25,7 @@ class ShikiMailer < ActionMailer::Base
     return unless message
     return if message.read?
     return if generated? message.to.email
-    return if mailru? user.email
+    return if mailru? message.to.email
 
     subject = i18n_t(
       'private_message_email.subject',
