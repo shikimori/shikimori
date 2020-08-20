@@ -40,12 +40,14 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
       publishers: model[:publisher]
     ).keywords
 
-    if model[:genre]&.any?(&:censored?) && censored_forbidden?
-      raise AgeRestricted
-    end
-    if params[:rating]&.split(',')&.include?(Anime::ADULT_RATING.to_s) &&
-        censored_forbidden?
-      raise AgeRestricted
+    if censored_forbidden?
+      if model[:genre]&.any?(&:censored?) && censored_forbidden?
+        raise AgeRestricted
+      end
+      if params[:rating]&.split(',')&.include?(Anime::ADULT_RATING.to_s)
+        raise AgeRestricted
+      end
+      raise AgeRestricted if @view.results.collection.any?(&:censored?)
     end
   end
 
