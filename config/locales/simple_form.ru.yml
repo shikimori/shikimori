@@ -51,7 +51,12 @@ ru:
       user:
         nickname: Чувствителен к регистру
         password: Чувствителен к регистру
-        email: Чувствителен к регистру
+        email: >-
+          Чувствителен к регистру<br>
+          <span class="text-red">Письма
+          на</span><span class="b-tag narrow">@mail.ru</span><span class="b-tag narrow">@inbox.ru</span><span class="b-tag narrow">@list.ru</span><span class="b-tag narrow">@bk.ru</span><span class="text-red">
+          временно не доставляются, сервер mail.ru отклоняет их как спам</span>.
+
       user_preferences:
         apply_user_styles: >-
           Другие пользователи сайта могут задавать собственные стили
