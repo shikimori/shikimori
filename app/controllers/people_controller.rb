@@ -35,11 +35,15 @@ class PeopleController < DbEntriesController
   def works
     og noindex: true
     og page_title: i18n_t('participation_in_projects')
+
+    # verify_age_restricted! @resource.works
   end
 
   def roles
     og noindex: true
     og page_title: i18n_t('roles_in_anime')
+
+    verify_age_restricted! @resource.character_works.flat_map { |v| v[:animes] }
   end
 
   def favoured
