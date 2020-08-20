@@ -47,7 +47,7 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
   end
 
   def preview
-    render plain: BbCodes::Text.call(params[:text])
+    render plain: Comment.new(body: params[:text]).decorate.html_body
   end
 
 private

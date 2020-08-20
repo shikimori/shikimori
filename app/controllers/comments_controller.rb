@@ -99,8 +99,10 @@ class CommentsController < ShikimoriController
 
     # это может быть предпросмотр не просто текста, а описания к аниме или манге
     if params[:comment][:target_type] && params[:comment][:target_id]
-      @comment = DescriptionComment.new(@comment,
-        params[:comment][:target_type], params[:comment][:target_id])
+      @comment = DescriptionComment.new(
+        @comment,
+        params[:comment][:target_type], params[:comment][:target_id]
+      )
     end
 
     render @comment
