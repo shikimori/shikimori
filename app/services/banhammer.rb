@@ -34,6 +34,7 @@ class Banhammer # rubocop:disable ClassLength
   }
 
   MONTH_DURATION = 60 * 24 * 7 * 4
+  DEFAULT_REPLACEMENT = '#'
 
   def self.w word
     fixed_word = word.to_s.split(//).map { |v| l v }.join ' '
@@ -75,7 +76,7 @@ class Banhammer # rubocop:disable ClassLength
     abusiveness(text).positive?
   end
 
-  def censor text, replacement
+  def censor text, replacement = DEFAULT_REPLACEMENT
     replace_abusiveness text, replacement
   end
 
@@ -84,7 +85,8 @@ private
   def ban comment
     duration = ban_duration comment
 
-    comment.update_column :body, replace_abusiveness(comment.body, nil)
+    comment.update_column :body, replace_abusiveness(comment.body, nil) # rubocop:disable SkipsModelValidations
+
     Ban.create!(
       user: comment.user,
       comment: comment,
@@ -137,13 +139,12 @@ private
         .gsub(BbCodes::Tags::ImgTag::REGEXP, '')
         .gsub(BbCodes::Tags::PosterTag::REGEXP, '')
         .scan(ABUSE)
-        .select do |group|
+        .count do |group|
           group
             .select(&:present?)
             .select { |match| valid_match? match }
             .any?
         end
-        .size
   end
 
   def valid_match? match

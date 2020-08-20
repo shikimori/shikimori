@@ -32,13 +32,20 @@ describe Banhammer do
 
     it do
       expect(ban).to be_kind_of Ban
-      expect(ban).to have_attributes(user_id: comment.user.id, comment_id: comment.id, moderator_id: user_banhammer.id)
+      expect(ban).to have_attributes(
+        user_id: comment.user.id,
+        comment_id: comment.id,
+        moderator_id: user_banhammer.id
+      )
       expect(ban.duration).to eql BanDuration.new('30m')
-      expect(comment.body).to eq "test [color=#ff4136]###[/color] test [color=#ff4136]###[/color]\n\n[ban=#{ban.id}]"
+      expect(comment.body).to eq(
+        "test [color=#ff4136]###[/color] test [color=#ff4136]###[/color]\n\n[ban=#{ban.id}]"
+      )
     end
   end
 
   describe '#abusive?' do
+    it { expect(banhammer.abusive? '###').to eq false }
     it { expect(banhammer.abusive? 'BL!').to eq false }
     it { expect(banhammer.abusive? 'х*о').to eq false }
     it { expect(banhammer.abusive? 'тест').to eq false }
