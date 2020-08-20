@@ -93,9 +93,14 @@ Shikimori uses [Overmind](https://github.com/DarthSim/overmind) to execute `Proc
 ### Restore from a backup
 ```sh
 rails db:drop && rails db:create
+unzip -d db/ db/dump.sql.zip
 psql -U shikimori_production -d shikimori_production -f db/dump.sql
+rm db/dump.sql
 RAILS_ENV=test rails db:schema:load
-rake db:migrate
+# run three times because there will be error you can avoid with new run
+rails db:migrate
+rails db:migrate
+rails db:migrate
 ```
 
 ### Start rails server
