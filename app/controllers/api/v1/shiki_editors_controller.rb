@@ -47,7 +47,7 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
   end
 
   def preview
-    render plain: Comment.new(body: params[:text]).decorate.html_body
+    render plain: BbCodes::Text.call(Banhammer.instance.censor(params[:text], nil))
   end
 
 private
