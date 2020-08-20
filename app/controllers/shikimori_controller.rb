@@ -30,7 +30,7 @@ class ShikimoriController < ApplicationController
     end
   end
 
-  def censored_forbidden?
+  def censored_forbidden? # rubocop:disable all
     return false if %w[rss os].include? request.format
     return false if params[:action] == 'tooltip'
 
