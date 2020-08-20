@@ -34,8 +34,16 @@ html
 
       - elsif !user_signed_in?
         .devise
+          p = t 'age_restricted.authorize'
           .inner
             = render 'devise/sessions/form', resource: User.new
+          p style='margin-top: 15px'
+            a href=root_url = t 'actions.cancel'
+
+      - else
+        p = t 'age_restricted.underage'
+        p
+          a href=root_url = t 'actions.cancel'
 
       img.image[
         src='/images/static/restricted.jpg'

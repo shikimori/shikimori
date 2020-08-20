@@ -35,3 +35,5 @@ en:
         &nbsp;&nbsp;&nbsp;
         <a href='%{root_url}'>No</a>
       </p>
+    authorize: Log in to confirm your age
+    underage: The profile indicates that you are under 18
