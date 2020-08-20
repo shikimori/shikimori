@@ -34,8 +34,16 @@ class ShikimoriController < ApplicationController
     return false if %w[rss os].include? request.format
     return false if params[:action] == 'tooltip'
 
+    full_years = nil
+    if current_user&.birth_on
+      years = DateTime.now.year - current_user.birth_on.year
+      full_years = Date.parse(DateTime.now.to_s) - years.years + 1.day > current_user.birth_on ?
+        years :
+        years - 1
+    end
+
     cookies[COOKIE_AGE_OVER_18] != 'true' || !user_signed_in? || (
-      current_user&.birth_on && current_user.birth_on < 18.years.ago
+      full_years && full_years < 18
     )
   end
 
