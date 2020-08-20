@@ -5,10 +5,14 @@ module AgeRestrictionsConcern
   # end
 
   def censored_forbidden?
-    return false if %w[rss os].include? request.format
-    return false if params[:action] == 'tooltip'
+    @is_censored_forbidden ||= begin
+      return false if %w[rss os].include? request.format
+      return false if params[:action] == 'tooltip'
 
-    cookies[COOKIE_AGE_OVER_18] != 'true' || !user_signed_in? || age_below_18?
+      cookies[ShikimoriController::COOKIE_AGE_OVER_18] != 'true' ||
+        !user_signed_in? ||
+        age_below_18?
+    end
   end
 
   def age_below_18?
@@ -26,13 +30,15 @@ module AgeRestrictionsConcern
     end
   end
 
-  def verify_age! collection
-    return unless collection
+  def verify_age_restricted! collection # rubocop:disable PerceivedComplexity, CyclomaticComplexity
+    return collection unless collection && censored_forbidden?
 
     if collection.respond_to? :any?
       raise AgeRestricted if collection.any?(&:censored?)
+
     elsif collection.respond_to? :censored?
       raise AgeRestricted if collection.censored?
+
     else
       raise ArgumentError
     end

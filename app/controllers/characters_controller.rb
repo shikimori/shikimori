@@ -32,10 +32,9 @@ class CharactersController < PeopleController
   def show
     @itemtype = @resource.itemtype
 
-    if censored_forbidden?
-      entries = @resource.animes(7) + @resource.mangas(7) + @resource.ranobe(7)
-      raise AgeRestricted if entries.any?(&:censored?)
-    end
+    verify_age_restricted!(
+      @resource.animes(7) + @resource.mangas(7) + @resource.ranobe(7)
+    )
   end
 
   def seyu
@@ -51,9 +50,7 @@ class CharactersController < PeopleController
     if @resource.animes.none?
       redirect_to @resource.url, status: :moved_permanently
     end
-    if censored_forbidden? && @resource.animes.any?(&:censored?)
-      raise AgeRestricted
-    end
+    verify_age_restricted! @resource.animes
 
     og noindex: true
     og page_title: i18n_i('Anime', :other)
@@ -63,9 +60,7 @@ class CharactersController < PeopleController
     if @resource.mangas.none?
       redirect_to @resource.url, status: :moved_permanently
     end
-    if censored_forbidden? && @resource.mangas.any?(&:censored?)
-      raise AgeRestricted
-    end
+    verify_age_restricted! @resource.mangas
 
     og noindex: true
     og page_title: i18n_i('Manga', :other)
@@ -75,9 +70,7 @@ class CharactersController < PeopleController
     if @resource.ranobe.none?
       redirect_to @resource.url, status: :moved_permanently
     end
-    if censored_forbidden? && @resource.ranobe.any?(&:censored?)
-      raise AgeRestricted
-    end
+    verify_age_restricted! @resource.ranobe
 
     og noindex: true
     og page_title: i18n_i('Ranobe', :other)
