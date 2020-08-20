@@ -7,7 +7,7 @@ class ShikimoriController < ApplicationController
   helper_method :censored_forbidden?
 
   rescue_from ForceRedirect do |exception|
-    redirect_to exception.url, status: 301
+    redirect_to exception.url, status: :moved_permanently
   end
 
   def fetch_resource # rubocop:disable AbcSize
@@ -31,11 +31,12 @@ class ShikimoriController < ApplicationController
   end
 
   def censored_forbidden?
-    cookies[COOKIE_AGE_OVER_18] != 'true' &&
-      !%w[rss os].include?(request.format) &&
-      params[:action] != 'tooltip' && !(
-        current_user&.birth_on && current_user.birth_on < 18.years.ago
-      )
+    return false if %w[rss os].include? request.format
+    return false if params[:action] == 'tooltip'
+
+    cookies[COOKIE_AGE_OVER_18] != 'true' || !user_signed_in? || (
+      current_user&.birth_on && current_user.birth_on < 18.years.ago
+    )
   end
 
   def ensure_redirect! expected_url
@@ -59,7 +60,7 @@ class ShikimoriController < ApplicationController
     return if request.method != 'GET'
     return if params[:action] == 'new'
 
-    redirect_to current_url(resource_id_key => @resource.to_param), status: 301
+    redirect_to current_url(resource_id_key => @resource.to_param), status: :moved_permanently
 
     false
   end

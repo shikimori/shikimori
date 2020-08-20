@@ -1,5 +1,5 @@
 .p-age_restricted
-  background-color: #fff
+  background: #fff
   font-family: 'PT Sans', sans-serif
   height: 100%
   margin: 0
@@ -9,16 +9,19 @@
 
   .age-restricted-warning
     color: #fc575e
-    font-size: 42pt
+    font-size: 56px
     font-weight: bold
     letter-spacing: 0.1em
-    margin: 0
+    line-height: 1.29
+    margin: 0 0 35px 0
 
   h1
     color: #2E2F30
-    font-size: 20pt
+    font-size: 26px
     font-weight: normal
-    margin-bottom: 25px
+    line-height: 1.29
+    margin-bottom: 35px
+    margin-top: 0
 
   .dialog
     margin: 40px auto 0
@@ -27,6 +30,7 @@
   p
     color: #777
     margin: 0 0 10px 0
+    font-size: 18px
 
   a
     color: #176093
@@ -49,3 +53,22 @@
   .image
     margin-top: 40px
     max-width: 100%
+
+  .devise
+    display: flex
+    justify-content: center
+
+    .inner
+      text-align: left
+      background: #e9f7fb
+      border: 1px solid rgba(144, 213, 236, 0.45)
+      padding: 15px 10px 18px
+      max-width: 280px
+      width: 100%
+
+      input[type=submit]
+        margin-bottom: 12px
+
+      .cancel
+        display: block
+        margin-left: 0
