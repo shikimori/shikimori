@@ -141,9 +141,13 @@ TEST_DEMO_CONTENT = `
 `.trim()
 
 TEST_DEMO_CONTENT = `
-- z [spoiler=x]x
-x[/spoiler]
-- c
+[spoiler_block=Границы анимированных смайлов в новых спойлерах выглядят убого. :lol: :ololo:]
+z
+[/spoiler_block]
+
+[spoiler_block=Границы анимированных смайлов в новых спойлерах выглядят убого]
+z
+[/spoiler_block]
 `.trim()
 
 pageLoad('tests_editor', async () => {

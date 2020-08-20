@@ -31,7 +31,8 @@
 
   & > button
     +shiki_button
-    padding-right: 28px
+    display: inline-flex
+    align-items: center
 
     &:active
       outline: none
@@ -40,8 +41,7 @@
       +shikimori('\e847')
       font-size: 17px
       font-weight: bold
-      margin: 1px 0 0 8px
-      position: absolute
+      margin-left: 8px
       transition: transform .25s, margin .25s
 
   & > div
