@@ -23,6 +23,14 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   COMMENTS_LIMIT = 20
   VERSIONS_PER_PAGE = 30
 
+  USER_PARAMS = %i[
+    avatar nickname name location website sex birth_on about locale
+  ] + [{
+    ignored_user_ids: [],
+    notification_settings: [],
+    preferences_attributes: %i[id russian_names russian_genres]
+  }]
+
   def show
     og noindex: true if @resource.created_at > 1.year.ago
 
@@ -245,13 +253,9 @@ private
   end
 
   def update_params
-    params.require(:user).permit(
-      :avatar, :nickname, :name, :location, :website,
-      :sex, :birth_on, :about, :locale,
-      ignored_user_ids: [],
-      notification_settings: [],
-      preferences_attributes: %i[id russian_names russian_genres]
-    )
+    params
+      .require(:user)
+      .permit(*USER_PARAMS)
   end
 
   def password_params
