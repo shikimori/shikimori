@@ -1,4 +1,4 @@
-class DropParserQueue < ActiveRecord::Migration
+class DropParserQueue < ActiveRecord::Migration[5.2]
   def change
     drop_table :parser_queues do |t|
       t.string :url, null: false

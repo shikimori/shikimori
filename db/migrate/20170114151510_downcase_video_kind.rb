@@ -1,4 +1,4 @@
-class DowncaseVideoKind < ActiveRecord::Migration
+class DowncaseVideoKind < ActiveRecord::Migration[5.2]
   def up
     Video.where(kind: 'PV').update_all kind: 'pv'
     Video.where(kind: 'OP').update_all kind: 'op'

@@ -1,4 +1,4 @@
-class ApplyMalFixes < ActiveRecord::Migration
+class ApplyMalFixes < ActiveRecord::Migration[5.2]
   def desynced klass, id, field
     entry = klass.find_by id: id
 

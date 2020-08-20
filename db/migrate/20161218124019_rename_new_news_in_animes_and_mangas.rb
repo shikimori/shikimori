@@ -1,4 +1,4 @@
-class RenameNewNewsInAnimesAndMangas < ActiveRecord::Migration
+class RenameNewNewsInAnimesAndMangas < ActiveRecord::Migration[5.2]
   def change
     rename_column :animes, :english_new, :english
     rename_column :animes, :japanese_new, :japanese

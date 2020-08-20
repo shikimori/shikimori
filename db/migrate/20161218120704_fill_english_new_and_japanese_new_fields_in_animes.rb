@@ -1,4 +1,4 @@
-class FillEnglishNewAndJapaneseNewFieldsInAnimes < ActiveRecord::Migration
+class FillEnglishNewAndJapaneseNewFieldsInAnimes < ActiveRecord::Migration[5.2]
   def up
     count = Anime.count
     Anime.all.each_with_index do |entry, index|

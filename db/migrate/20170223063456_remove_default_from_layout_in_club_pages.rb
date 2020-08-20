@@ -1,4 +1,4 @@
-class RemoveDefaultFromLayoutInClubPages < ActiveRecord::Migration
+class RemoveDefaultFromLayoutInClubPages < ActiveRecord::Migration[5.2]
   def up
     change_column_default :club_pages, :layout, default: nil
   end

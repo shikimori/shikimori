@@ -1,4 +1,4 @@
-class CreateStylesForClubs < ActiveRecord::Migration
+class CreateStylesForClubs < ActiveRecord::Migration[5.2]
   def up
     Club.order(:id).each do |club|
       puts club.id

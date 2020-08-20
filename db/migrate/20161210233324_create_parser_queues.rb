@@ -1,4 +1,4 @@
-class CreateParserQueues < ActiveRecord::Migration
+class CreateParserQueues < ActiveRecord::Migration[5.2]
   def change
     create_table :parser_queues do |t|
       t.string :url, null: false

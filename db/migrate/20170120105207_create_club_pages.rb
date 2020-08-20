@@ -1,4 +1,4 @@
-class CreateClubPages < ActiveRecord::Migration
+class CreateClubPages < ActiveRecord::Migration[5.2]
   def change
     create_table :club_pages do |t|
       t.references :club, index: true, null: false

@@ -1,4 +1,4 @@
-class AddUniqStudiosAndPublishersIndeces < ActiveRecord::Migration
+class AddUniqStudiosAndPublishersIndeces < ActiveRecord::Migration[5.2]
   def up
     10.times do
       Anime.connection.execute("

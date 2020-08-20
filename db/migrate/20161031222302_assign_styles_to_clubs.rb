@@ -1,4 +1,4 @@
-class AssignStylesToClubs < ActiveRecord::Migration
+class AssignStylesToClubs < ActiveRecord::Migration[5.2]
   def up
     Club.includes(:styles).find_each do |club|
       puts "processing club #{club.id}"

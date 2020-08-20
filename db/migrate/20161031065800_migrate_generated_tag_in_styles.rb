@@ -1,4 +1,4 @@
-class MigrateGeneratedTagInStyles < ActiveRecord::Migration
+class MigrateGeneratedTagInStyles < ActiveRecord::Migration[5.2]
   def up
     Style.find_each do |style|
       style.update css: fix(style.css)

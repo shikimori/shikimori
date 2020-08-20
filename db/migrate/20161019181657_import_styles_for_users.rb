@@ -1,4 +1,4 @@
-class ImportStylesForUsers < ActiveRecord::Migration
+class ImportStylesForUsers < ActiveRecord::Migration[5.2]
   DEFAULT_BACKGROUND_REGEXP = %r{
     \A
     url\(

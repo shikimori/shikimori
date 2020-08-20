@@ -1,4 +1,4 @@
-class AddTextPatternOpsIndexForPhraseInNameMatches < ActiveRecord::Migration
+class AddTextPatternOpsIndexForPhraseInNameMatches < ActiveRecord::Migration[5.2]
   def up
     ApplicationRecord.connection.execute <<-SQL.strip
       create index target_type_phrase_search_index on name_matches (

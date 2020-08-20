@@ -1,4 +1,4 @@
-class FillEnglishNewAndJapaneseNewFieldsInMangas < ActiveRecord::Migration
+class FillEnglishNewAndJapaneseNewFieldsInMangas < ActiveRecord::Migration[5.2]
   def change
     count = Manga.count
     Manga.all.each_with_index do |entry, index|

@@ -1,4 +1,4 @@
-class FillMalIdToDbEntries < ActiveRecord::Migration
+class FillMalIdToDbEntries < ActiveRecord::Migration[5.2]
   def change
     ApplicationRecord.connection.execute('update animes set mal_id = id')
     ApplicationRecord.connection.execute('update mangas set mal_id = id')

@@ -1,4 +1,4 @@
-class AddSourceBbcodeToDescriptionFields < ActiveRecord::Migration
+class AddSourceBbcodeToDescriptionFields < ActiveRecord::Migration[5.2]
   def change
     update_descriptions Anime
     update_descriptions Manga

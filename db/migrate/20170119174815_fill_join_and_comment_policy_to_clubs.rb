@@ -1,4 +1,4 @@
-class FillJoinAndCommentPolicyToClubs < ActiveRecord::Migration
+class FillJoinAndCommentPolicyToClubs < ActiveRecord::Migration[5.2]
   def up
     Club
       .where(join_policy: 1)

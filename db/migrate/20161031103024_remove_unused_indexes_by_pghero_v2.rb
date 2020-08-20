@@ -1,4 +1,4 @@
-class RemoveUnusedIndexesByPgheroV2 < ActiveRecord::Migration
+class RemoveUnusedIndexesByPgheroV2 < ActiveRecord::Migration[5.2]
   def up
     remove_index :contest_user_votes, name: 'index_contest_user_votes_on_contest_vote_id'
     remove_index :friend_links, name: 'index_friend_links_on_src_id'

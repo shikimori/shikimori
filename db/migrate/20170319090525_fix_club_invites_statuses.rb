@@ -1,4 +1,4 @@
-class FixClubInvitesStatuses < ActiveRecord::Migration
+class FixClubInvitesStatuses < ActiveRecord::Migration[5.2]
   def up
     ClubInvite.where(status: 'Pending').update_all status: 'pending'
     ClubInvite.where(status: %w(Accepted Rejected)).update_all status: 'closed'

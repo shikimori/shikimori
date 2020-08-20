@@ -1,4 +1,4 @@
-class AssignStylesToUsers < ActiveRecord::Migration
+class AssignStylesToUsers < ActiveRecord::Migration[5.2]
   def up
     User.includes(:styles).find_each do |user|
       puts "processing user #{user.id}"
