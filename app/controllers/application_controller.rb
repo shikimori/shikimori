@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   include DomainsConcern
   include LocaleConcern
   include PaginationConcern
+  include StorableLocationConcern
 
   protect_from_forgery with: :exception, prepend: true # https://stackoverflow.com/questions/43356105/actioncontrollerinvalidauthenticitytoken-rails-5-devise-audited-papertra
 
@@ -17,6 +18,7 @@ class ApplicationController < ActionController::Base
     @layout = LayoutView.new
     @top_menu = Menus::TopMenu.new
   end
+
   before_action :fix_googlebot
   before_action :touch_last_online
   before_action :mailer_set_url_options
