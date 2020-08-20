@@ -13,13 +13,12 @@
         ]
 
   - cache [:stats, resource] do
-    - if resource.with_score?
-      .block
-        .subheadline = t '.scores'
-        #rates_scores_stats[
-          data-stats=resource.rates_scores_stats.to_json
-          data-bar='horizontal'
-        ]
+    .block
+      .subheadline = t '.scores'
+      #rates_scores_stats[
+        data-stats=resource.rates_scores_stats.to_json
+        data-bar='horizontal'
+      ]
 
     .block
       .subheadline = t '.in_users_lists'
