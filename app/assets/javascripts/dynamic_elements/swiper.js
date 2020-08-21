@@ -25,7 +25,9 @@ function update() {
 import delay from 'delay';
 
 export default class Swiper extends View {
-  isPlaceholder = false;
+  isPlaceholder = false
+  areaWidth = null
+  areaHeight = null
 
   async initialize(isGlobalUpdate = true) {
     if (!GLOBAL_HANDLER) { setHanler(); }
@@ -46,7 +48,6 @@ export default class Swiper extends View {
 
     await delay(500);
     this.update();
-    window.z = this;
   }
 
   get width() {
