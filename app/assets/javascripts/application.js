@@ -55,7 +55,6 @@ import AchievementsNotifier from 'services/achievements_notifier';
 
 import bindings from 'helpers/bindings';
 
-import 'helpers/using'; // TODO: get rid of this helper
 import 'helpers/p';
 
 import 'i18n/translations';
