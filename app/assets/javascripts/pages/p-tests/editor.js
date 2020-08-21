@@ -141,13 +141,7 @@ TEST_DEMO_CONTENT = `
 `.trim()
 
 TEST_DEMO_CONTENT = `
-[spoiler_block=Границы анимированных смайлов в новых спойлерах выглядят убого. :lol: :ololo:]
-z
-[/spoiler_block]
-
-[spoiler_block=Границы анимированных смайлов в новых спойлерах выглядят убого]
-z
-[/spoiler_block]
+qwe ||test|| asd
 `.trim()
 
 pageLoad('tests_editor', async () => {

@@ -26,6 +26,5 @@ export default class SpoilerBlock extends View {
       this.node.classList.add('is-opened');
       animatedExpand(this.content);
     }
-
   }
 }

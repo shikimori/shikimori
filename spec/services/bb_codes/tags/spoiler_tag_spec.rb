@@ -129,9 +129,9 @@ describe BbCodes::Tags::SpoilerTag do
     it do
       is_expected.to eq(
         prefix +
-          "<span class='b-spoiler_inline to-process' data-dynamic='spoiler_inline'>" \
+          "<button class='b-spoiler_inline to-process' data-dynamic='spoiler_inline'>" \
             "<span>#{content}</span>" \
-          '</span>' + suffix
+          '</button>' + suffix
       )
     end
 

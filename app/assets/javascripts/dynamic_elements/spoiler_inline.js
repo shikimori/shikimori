@@ -7,7 +7,10 @@ export default class SpoilerInline extends View {
   }
 
   @bind
-  _toggle(_e) {
+  async _toggle(e) {
+    // remove :focus on mouse click (event has x=0,y=0 when pressed space on focused node)
+    if (e.x || e.y) { this.node.blur(); }
+
     this.node.classList.toggle('is-opened');
   }
 }

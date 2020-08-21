@@ -66,9 +66,9 @@ private
   end
 
   def inline_spoiler_html _label, content
-    "<span class='b-spoiler_inline to-process' data-dynamic='spoiler_inline'>" \
+    "<button class='b-spoiler_inline to-process' data-dynamic='spoiler_inline'>" \
       "<span>#{content}</span>" \
-    '</span>'
+    '</button>'
   end
 
   def old_spoiler_html label, content
