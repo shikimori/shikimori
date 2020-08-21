@@ -30,10 +30,10 @@ private
 
   def to_html url
     video = Video.new url: url
-    return url unless video.hosting.present?
+    return url if video.hosting.blank?
 
     Slim::Template
-      .new("#{Rails.root}/app/views/videos/_video.html.slim")
+      .new(Rails.root.join('app/views/videos/_video.html.slim'))
       .render(OpenStruct.new(video: video))
   end
 end
