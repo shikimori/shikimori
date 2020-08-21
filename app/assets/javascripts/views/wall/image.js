@@ -7,7 +7,7 @@ export default class WallImage extends View {
     [this.originalWidth, this.originalHeight] = Array.from([this.width, this.height]);
     this.ratio = this.width / this.height;
 
-    return this.reset();
+    this.reset();
   }
 
   reset() {
@@ -22,6 +22,16 @@ export default class WallImage extends View {
     this.left = left;
     this.top = top;
     this.positioned = true;
+  }
+
+  normalize(width, height) {
+    if (this.width > width) {
+      this.scaleWidth(width);
+    }
+
+    if (this.height > height) {
+      this.scaleHeight(height);
+    }
   }
 
   apply() {
@@ -39,16 +49,6 @@ export default class WallImage extends View {
   destroy() {
     this.$node.removeAttr('style');
     this.$image.removeAttr('style');
-  }
-
-  normalize(width, height) {
-    if (this.width > width) {
-      this.scaleWidth(width);
-    }
-
-    if (this.height > height) {
-      this.scaleHeight(height);
-    }
   }
 
   scaleWidth(width) {

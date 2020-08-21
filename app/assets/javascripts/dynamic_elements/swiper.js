@@ -210,10 +210,11 @@ export default class Swiper extends View {
     return new Wall(this.$root, {
       isOneCluster: true,
       maxWidth: 9999,
-      maxHeight,
+      maxHeight: maxHeight || 9999,
       awaitImagesLoaded: false
     });
   }
+
 
   _setPlaceholder(width, height) {
     this.$root

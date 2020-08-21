@@ -1,10 +1,11 @@
 export default class WallCluster {
-  static initClass() {
+  static initClass(maxContainerWidth) {
     this.MARGIN = 4;
   }
 
-  constructor(images) {
+  constructor(images, maxContainerWidth) {
     this.images = images;
+    this.maxContainerWidth = maxContainerWidth;
   }
 
   mason(top, maxWidth, maxHeight) {
@@ -12,7 +13,13 @@ export default class WallCluster {
     this.maxWidth = maxWidth;
     this.maxHeight = maxHeight;
 
-    this.images.forEach(image => image.normalize(this.maxWidth, this.maxHeight));
+    this.images.forEach(image => (
+      image.normalize(
+        // min with maxContainerWidth becase image can't be wider than its container
+        [this.maxWidth, this.maxContainerWidth].min(),
+        this.maxHeight
+      )
+    ));
     this.images.forEach(image => this._put(image));
     this.images.forEach(image => image.apply());
     this.images.forEach(image => image.toShikiImage());

@@ -88,10 +88,10 @@ export default class Wall extends View {
         return memo + image.weight();
       }, 0);
 
-      this.cluster_1 = new WallCluster(imagesCluster1);
-      this.cluster_2 = new WallCluster(imagesCluster2);
+      this.cluster_1 = new WallCluster(imagesCluster1, this.maxContainerWidth);
+      this.cluster_2 = new WallCluster(imagesCluster2, this.maxContainerWidth);
     } else {
-      this.cluster = new WallCluster(this.images);
+      this.cluster = new WallCluster(this.images, this.maxContainerWidth);
     }
   }
 
