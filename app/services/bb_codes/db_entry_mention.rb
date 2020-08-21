@@ -2,11 +2,14 @@
 class BbCodes::DbEntryMention
   method_object :text
 
-  BB_CODES = BbCodes::Text::SIMPLE_BB_CODES +
+  BB_CODES = (
+    BbCodes::Text::SIMPLE_BB_CODES +
     BbCodes::Text::COMPLEX_BB_CODES +
-    BbCodes::Text::DB_ENTRY_BB_CODES
+    BbCodes::Text::DB_ENTRY_BB_CODES +
+    BbCodes::Text::TAGS_LIST
+  ).uniq
 
-  REGEXP = %r{\[(?!/|#{BB_CODES.map { |v| "#{v}\\b" }.join('|')})(.*?)\]}
+  REGEXP = %r{\[(?!/|(?:#{BB_CODES.join '|'})\b)(.*?)\]}
 
   def call
     text.gsub REGEXP do |matched|
