@@ -21,7 +21,7 @@ class BbCodes::Text
     spoiler_inline
   ]
 
-  TAGS = BbCodes::ToTagParser.call %i[
+  TAGS_LIST = %i[
     quote replies
     user comment topic message
 
@@ -41,6 +41,7 @@ class BbCodes::Text
     spoiler
     html5_video
   ]
+  TAGS = BbCodes::ToTagParser.call TAGS_LIST
   # html5_video must be after url tag
   # spoiler must be after other tags because its label can't contain any other bbcodes
 

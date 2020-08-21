@@ -9,7 +9,7 @@ class BbCodes::DbEntryMention
     BbCodes::Text::TAGS_LIST
   ).uniq
 
-  REGEXP = %r{\[(?!/|(?:#{BB_CODES.join '|'})\b)(.*?)\]}
+  REGEXP = %r{\[(?!/|(?:#{BB_CODES.join '|'})\b)([^\]\n]++)\]}
 
   def call
     text.gsub REGEXP do |matched|
