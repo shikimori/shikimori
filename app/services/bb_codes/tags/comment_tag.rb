@@ -105,6 +105,7 @@ private
 
   def fetch_entries text
     entry_ids = text.scan(id_regexp).map { |v| v[0].to_i }
+    return [] if entry_ids.none?
 
     scope = klass.where(id: entry_ids)
 
