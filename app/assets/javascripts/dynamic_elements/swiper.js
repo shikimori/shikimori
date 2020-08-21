@@ -9,7 +9,7 @@ const GLOBAL_SELECTOR = 'b-shiki_swiper';
 const DATA_KEY = 'swiper';
 
 let GLOBAL_HANDLER = false;
-const RATIO = 16.0 / 9;
+const COVER_RATIO = 16.0 / 9;
 
 function setHanler() {
   GLOBAL_HANDLER = true;
@@ -26,8 +26,12 @@ import delay from 'delay';
 
 export default class Swiper extends View {
   isPlaceholder = false
+
   areaWidth = null
   areaHeight = null
+
+  wall = null
+  swiper = null
 
   async initialize(isGlobalUpdate = true) {
     if (!GLOBAL_HANDLER) { setHanler(); }
@@ -52,6 +56,11 @@ export default class Swiper extends View {
 
   get width() {
     return this.$root.width().floor();
+  }
+
+  @memoize
+  get isEagerCropping() {
+    return this.$images.length === 1 && this.isAlignCover;
   }
 
   @memoize
@@ -89,11 +98,6 @@ export default class Swiper extends View {
     return this.$links.find('img');
   }
 
-  @memoize
-  get isEagerCropImage() {
-    return this.$images.length === 1 && this.isAlignCover;
-  }
-
   update(isForced) {
     if (!isForced && !this.isGlobalUpdate) {
       return;
@@ -126,7 +130,7 @@ export default class Swiper extends View {
   _initializeContent() {
     if (this.isPlaceholder) {
       this.root.classList.add('is-placeholder');
-    } else if (this.isEagerCropImage) {
+    } else if (this.isEagerCropping) {
       this._initializeEagerCroppedImage();
     } else {
       this._initializeWallOrSwiper();
@@ -219,7 +223,7 @@ export default class Swiper extends View {
 
   _scaleWall(wall, width) {
     const firstImage = wall.images.first();
-    if (wall.images.length === 1 && firstImage.ratio > RATIO) {
+    if (wall.images.length === 1 && firstImage.ratio > COVER_RATIO) {
       return;
     }
 
@@ -285,14 +289,16 @@ export default class Swiper extends View {
 
     if (this.desiredHeight !== 0) {
       height = this.desiredHeight;
-    } else {
-      height = (width / RATIO).floor();
+    } else if (this.isEagerCropping) {
+      height = (width / COVER_RATIO).floor();
     }
 
     this.areaWidth = width;
-    this.areaHeight = height;
 
-    this.$root.css('max-height', this.areaHeight);
+    if (height) {
+      this.areaHeight = height;
+      this.$root.css('max-height', this.areaHeight);
+    }
   }
 
   async _imagesLoaded() {
