@@ -1,9 +1,11 @@
-import SwiperComponent from 'swiper';
+import delay from 'delay';
 import memoize from 'memoize-decorator';
 
 import View from 'views/application/view';
 import Wall from 'views/wall/view';
 import WallCluster from 'views/wall/cluster';
+
+import SwiperBuilder from 'helpers/swiper';
 
 const GLOBAL_SELECTOR = 'b-shiki_swiper';
 const DATA_KEY = 'swiper';
@@ -21,8 +23,6 @@ function update() {
     $(node).data(DATA_KEY)?.update()
   ));
 }
-
-import delay from 'delay';
 
 export default class Swiper extends View {
   isPlaceholder = false
@@ -248,7 +248,7 @@ export default class Swiper extends View {
       .removeAttr('style')
       .wrapAll('<div class="swiper-wrapper" />');
 
-    this.swiper = new SwiperComponent(this.root, {
+    this.swiper = new SwiperBuilder(this.root, {
       slidesPerView: 'auto',
       spaceBetween: WallCluster.MARGIN,
       a11y: false

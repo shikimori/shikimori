@@ -1,4 +1,4 @@
-import Swiper from 'swiper';
+import Swiper from 'helpers/swiper';
 import { isPhone, isMobile } from 'helpers/mobile_detect';
 
 let swipers = [];
