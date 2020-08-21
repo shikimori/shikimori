@@ -109,7 +109,7 @@ private
 
   def store text, language, before, after, original
     @cache.push OpenStruct.new(
-      text: text,
+      text: text.gsub(/\\`/, '`'),
       language: language,
       content_around: (!before.empty? if before) || (!after.empty? if after),
       original: original

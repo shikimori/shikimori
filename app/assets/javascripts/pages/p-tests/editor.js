@@ -141,7 +141,12 @@ TEST_DEMO_CONTENT = `
 `.trim()
 
 TEST_DEMO_CONTENT = `
-qwe ||test|| asd
+[code]
+\`\`\`
+test
+\`\`\`
+[/code]
+
 `.trim()
 
 pageLoad('tests_editor', async () => {
