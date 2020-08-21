@@ -89,6 +89,11 @@ export default class Swiper extends View {
     return this.$links.find('img');
   }
 
+  @memoize
+  get isEagerCropImage() {
+    return this.$images.length === 1 && this.isAlignCover;
+  }
+
   update(isForced) {
     if (!isForced && !this.isGlobalUpdate) {
       return;
@@ -121,14 +126,14 @@ export default class Swiper extends View {
   _initializeContent() {
     if (this.isPlaceholder) {
       this.root.classList.add('is-placeholder');
-    } else if (this.$images.length === 1) {
-      this._initializeImage();
+    } else if (this.isEagerCropImage) {
+      this._initializeEagerCroppedImage();
     } else {
       this._initializeWallOrSwiper();
     }
   }
 
-  _initializeImage() {
+  _initializeEagerCroppedImage() {
     const image = this.$images[0];
     const imageWidth = image.naturalWidth;
     const imageHeight = !this.isAlignCover && this.isVideoShrinked ?
