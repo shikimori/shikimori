@@ -3,7 +3,8 @@ class BbCodes::Tags::VideoUrlTag
 
   MAXIMUM_VIDEOS = 75
   PREPROCESS_REGEXP = %r{\[url=(?<url>#{VideoExtractor.matcher})\].*?\[/url\]}mi
-  VIDEO_REGEXP = /(?<text>[^"\]=]|^)(?<url>#{VideoExtractor.matcher})/mi
+  # VIDEO_REGEXP = /(?<text>[^"\]=]|^)(?<url>#{VideoExtractor.matcher})/mi
+  VIDEO_REGEXP = /(?<text>)(?<url>#{VideoExtractor.matcher})/mi
 
   def format text
     times = 0

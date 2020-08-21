@@ -123,6 +123,11 @@ describe BbCodes::Tags::VideoUrlTag, :vcr do
       let(:text) { 'https://stormo.xyz/videos/415088/risuem-abstraktnye-cvety-verevkoy-i-cepyu/' }
       it { is_expected.to include '<div class="c-video b-video unprocessed stormo' }
     end
+
+    describe 'around tags' do
+      let(:text) { '[div]https://www.youtube.com/watch?v=J_eyR0tR9gI[/div]' }
+      it { is_expected.to include '[div]<div class="c-video b-video' }
+    end
   end
 
   describe '#preprocess' do
