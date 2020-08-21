@@ -15,7 +15,7 @@ describe BbCodes::Tags::UserTag do
 
     it do
       is_expected.to eq(
-        "[url=#{url} b-mention]<s>@</s>#{user.nickname}[/url], test[/user]"
+        "[url=#{url} b-mention]<s>@</s>, test[/url]"
       )
     end
   end
