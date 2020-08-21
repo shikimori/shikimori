@@ -1,11 +1,3 @@
-const buildGallery = function () {
-  const item = this.items[this.index];
-  if (item.rel && (this.items.length === 1)) {
-    this.items = $(`a[rel='${item.rel}']`).toArray();
-    return this.index = this.items.indexOf(item);
-  }
-};
-
 // ссылки на camo в href содержат оригинальный url картинки,
 // а в data-href проксированный url картинки
 const extractUrl = item => item.src = item.el.data('href') || item.src;
@@ -28,7 +20,21 @@ $.fn.extend({
           },
 
           callbacks: {
-            beforeOpen: buildGallery,
+            async beforeOpen() {
+              const item = this.items[this.index];
+
+              if (item.rel && (this.items.length === 1)) {
+                this.items = $(`a[rel='${item.rel}']`).toArray();
+                this.index = this.items.indexOf(item);
+              }
+
+              const { disablePageScroll } = await import('scroll-lock');
+              disablePageScroll();
+            },
+            async afterClose() {
+              const { enablePageScroll } = await import('scroll-lock');
+              enablePageScroll();
+            },
             elementParse: extractUrl
           },
 

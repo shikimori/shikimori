@@ -40,6 +40,7 @@
     "pug": "^3.0.0",
     "pug-loader": "^2.4.0",
     "pug-plain-loader": "^1.0.0",
+    "scroll-lock": "^2.1.4",
     "shiki-decorators": "^0.10.6",
     "shiki-editor": "^0.10.6",
     "shiki-uploader": "^0.10.6",
