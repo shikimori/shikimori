@@ -141,11 +141,7 @@ TEST_DEMO_CONTENT = `
 `.trim()
 
 TEST_DEMO_CONTENT = `
-[code]
-\`\`\`
-test
-\`\`\`
-[/code]
+\`te\\\`st\`
 
 `.trim()
 

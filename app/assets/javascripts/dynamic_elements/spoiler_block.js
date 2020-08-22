@@ -12,6 +12,7 @@ export default class SpoilerBlock extends View {
 
   @bind
   async _toggle(e) {
+    // prevent form submition
     e.preventDefault();
 
     // remove :focus on mouse click (event has x=0,y=0 when pressed space on focused node)
