@@ -101,16 +101,17 @@ module Routing
     camo_host = Rails.application.secrets[:camo][:host]
       .gsub('%DOMAIN%', is_force_shikimori_one ? shiki_one_domain : shiki_domain)
 
-    Shikimori::PROTOCOL + '://' + camo_host + Rails.application.secrets[:camo][:endpoint_path]
+    "#{Shikimori::PROTOCOL}://#{camo_host}" +
+      Rails.application.secrets[:camo][:endpoint_path]
   end
 
-  def camo_url image_url, force_shikimori_one: false
-    if force_shikimori_one
-      generate_camo_url image_url, true
-    else
-      @camo_urls ||= {}
-      @camo_urls[image_url] ||= generate_camo_url image_url, false
-    end
+  def camo_url image_url, force_shikimori_one: true
+    @camo_urls ||= {}
+    @camo_urls[force_shikimori_one] ||= {}
+    @camo_urls[force_shikimori_one][image_url] = generate_camo_url(
+      image_url,
+      force_shikimori_one
+    )
   end
 
 private
