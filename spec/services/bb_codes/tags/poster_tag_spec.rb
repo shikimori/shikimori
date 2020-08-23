@@ -5,7 +5,7 @@ describe BbCodes::Tags::PosterTag do
     let(:text) { "[poster=#{described_class::DELETED_MARKER}]" }
     it do
       is_expected.to eq(
-        "<img src=\"#{BbCodes::Tags::ImageTag::DELETED_IMAGE_PATH}\" />"
+        "<img src='#{BbCodes::Tags::ImageTag::DELETED_IMAGE_PATH}' loading='lazy' />"
       )
     end
   end
@@ -17,7 +17,7 @@ describe BbCodes::Tags::PosterTag do
     it do
       is_expected.to eq(
         "<span class='b-image b-poster no-zoom'>" \
-          "<img src='#{camo_url}' />" \
+          "<img src='#{camo_url}' loading='lazy' />" \
         '</span>'
       )
     end
@@ -32,7 +32,8 @@ describe BbCodes::Tags::PosterTag do
         "<span class='b-image b-poster no-zoom'>" \
           "<img src='#{user_image.image.url :original, false}' " \
             "data-width='#{user_image.width}' " \
-            "data-height='#{user_image.height}' />" \
+            "data-height='#{user_image.height}' " \
+            "loading='lazy' />"\
         '</span>'
       )
     end

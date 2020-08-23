@@ -14,7 +14,6 @@ class BbCodes::Tags::PosterTag
     \[poster (?:=(?<id>\d+|#{DELETED_MARKER}))\]
   }imx
 
-  # rubocop:disable MethodLength
   def format text
     text.gsub REGEXP do |matched|
       if $LAST_MATCH_INFO[:url]
@@ -31,7 +30,6 @@ class BbCodes::Tags::PosterTag
       end
     end
   end
-  # rubocop:enable MethodLength
 
 private
 
@@ -39,7 +37,7 @@ private
     camo_url = UrlGenerator.instance.camo_url(image_url)
 
     "<span class='b-image b-poster no-zoom'>" \
-      "<img src='#{camo_url}' />" \
+      "<img src='#{camo_url}' loading='lazy' />" \
     '</span>'
   end
 
@@ -49,7 +47,8 @@ private
     "<span class='b-image b-poster no-zoom'>" \
       "<img src='#{url}' "\
         "data-width='#{user_image.width}' "\
-        "data-height='#{user_image.height}' />" \
+        "data-height='#{user_image.height}' "\
+        "loading='lazy' />" \
     '</span>'
   end
 end
