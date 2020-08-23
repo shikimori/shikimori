@@ -45,13 +45,26 @@ describe BbCodes::Tags::ImageTag do
     let(:text) { "[image=#{user_image.id}] [image=#{user_image_2.id}]" }
     it do
       is_expected.to eq(
-        "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :thumbnail, false}\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading='lazy' />\
-<span class=\"marker\">400x500</span></a> <a href=\"#{user_image_2.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image_2.image.url :thumbnail, false}\" \
-data-width=\"#{user_image_2.width}\" data-height=\"#{user_image_2.height}\" loading='lazy' />\
-<span class=\"marker\">1000x1000</span></a>"
+        <<-HTML.squish.strip
+          <a
+            href="#{user_image.image.url :original, false}"
+            rel="#{text_hash}"
+            class="b-image unprocessed"><img
+              src="#{user_image.image.url :thumbnail, false}"
+              data-width="#{user_image.width}"
+              data-height="#{user_image.height}"
+              loading='lazy'
+            /><span class="marker">400x500</span></a>
+          <a
+            href="#{user_image_2.image.url :original, false}"
+            rel="#{text_hash}"
+            class="b-image unprocessed"><img
+              src="#{user_image_2.image.url :thumbnail, false}"
+              data-width="#{user_image_2.width}"
+              data-height="#{user_image_2.height}"
+              loading='lazy'
+            /><span class="marker">1000x1000</span></a>
+        HTML
       )
     end
   end
@@ -102,10 +115,19 @@ data-width=\"#{user_image_2.width}\" data-height=\"#{user_image_2.height}\" load
     let(:text) { "[image=#{user_image.id} 400x500]" }
     it do
       is_expected.to eq(
-        "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :preview, false}\" width=\"400\" height=\"400\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading='lazy' />\
-<span class=\"marker\">400x400</span></a>"
+        <<-HTML.squish.strip
+          <a
+            href="#{user_image.image.url :original, false}"
+            rel="#{text_hash}"
+            class="b-image unprocessed"><img
+              src="#{user_image.image.url :preview, false}"
+              width="400"
+              height="400"
+              data-width="#{user_image.width}"
+              data-height="#{user_image.height}"
+              loading='lazy'
+            /><span class="marker">400x400</span></a>
+        HTML
       )
     end
   end
@@ -114,10 +136,18 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading=
     let(:text) { "[image=#{user_image.id} w=400]" }
     it do
       is_expected.to eq(
-        "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :preview, false}\" width=\"400\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading='lazy' />\
-<span class=\"marker\">400x500</span></a>"
+        <<-HTML.squish.strip
+          <a
+            href="#{user_image.image.url :original, false}"
+            rel="#{text_hash}"
+            class="b-image unprocessed"><img
+              src="#{user_image.image.url :preview, false}"
+              width="400"
+              data-width="#{user_image.width}"
+              data-height="#{user_image.height}"
+              loading='lazy'
+            /><span class="marker">400x500</span></a>
+        HTML
       )
     end
   end
@@ -126,10 +156,17 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading=
     let(:text) { "[image=#{user_image.id} h=400]" }
     it do
       is_expected.to eq(
-        "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :preview, false}\" height=\"400\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading='lazy' />\
-<span class=\"marker\">400x500</span></a>"
+        <<-HTML.squish.strip
+          <a href="#{user_image.image.url :original, false}"
+            rel="#{text_hash}"
+            class="b-image unprocessed"><img
+              src="#{user_image.image.url :preview, false}"
+              height="400"
+              data-width="#{user_image.width}"
+              data-height="#{user_image.height}"
+              loading='lazy'
+            /><span class="marker">400x500</span></a>
+        HTML
       )
     end
   end
@@ -138,10 +175,19 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading=
     let(:text) { "[image=#{user_image.id} w=400 h=500]" }
     it do
       is_expected.to eq(
-        "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :preview, false}\" width=\"400\" height=\"500\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading='lazy' />\
-<span class=\"marker\">400x500</span></a>"
+        <<-HTML.squish.strip
+          <a
+            href="#{user_image.image.url :original, false}"
+            rel="#{text_hash}"
+            class="b-image unprocessed"><img
+              src="#{user_image.image.url :preview, false}"
+              width="400"
+              height="500"
+              data-width="#{user_image.width}"
+              data-height="#{user_image.height}"
+              loading='lazy'
+            /><span class="marker">400x500</span></a>
+        HTML
       )
     end
   end
@@ -150,10 +196,19 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading=
     let(:text) { "[image=#{user_image.id} w=400 h=500 c=test]" }
     it do
       is_expected.to eq(
-        "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed test\">\
-<img src=\"#{user_image.image.url :preview, false}\" width=\"400\" height=\"500\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading='lazy' />\
-<span class=\"marker\">400x500</span></a>"
+        <<-HTML.squish.strip
+          <a
+            href="#{user_image.image.url :original, false}"
+            rel="#{text_hash}"
+            class="b-image unprocessed test"><img
+              src="#{user_image.image.url :preview, false}"
+              width="400"
+              height="500"
+              data-width="#{user_image.width}"
+              data-height="#{user_image.height}"
+              loading='lazy'
+            /><span class="marker">400x500</span></a>
+        HTML
       )
     end
   end

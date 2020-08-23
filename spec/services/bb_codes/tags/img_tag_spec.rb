@@ -10,13 +10,13 @@ describe BbCodes::Tags::ImgTag do
     it do
       is_expected.to eq(
         <<-HTML.squish.strip
-        <a href='#{url}'
-          data-href='#{camo_url}'
-          rel='#{text_hash}'
-          class='b-image unprocessed'><img
-            src='#{camo_url}'
-            class='check-width'
-            loading='lazy'></a>
+          <a href='#{url}'
+            data-href='#{camo_url}'
+            rel='#{text_hash}'
+            class='b-image unprocessed'><img
+              src='#{camo_url}'
+              class='check-width'
+              loading='lazy'></a>
         HTML
       )
     end
@@ -45,16 +45,16 @@ describe BbCodes::Tags::ImgTag do
           <a href='#{url}' data-href='#{camo_url}'
             rel='#{text_hash}'
             class='b-image unprocessed'><img
-            src='#{camo_url}'
-            class='check-width'
-            loading='lazy'></a>
+              src='#{camo_url}'
+              class='check-width'
+              loading='lazy'></a>
             <a
             href='#{url_2}'
             data-href='#{camo_url_2}'
             rel='#{text_hash}' class='b-image unprocessed'><img
-            src='#{camo_url_2}'
-            class='check-width'
-            loading='lazy'></a>
+              src='#{camo_url_2}'
+              class='check-width'
+              loading='lazy'></a>
         HTML
       )
     end
