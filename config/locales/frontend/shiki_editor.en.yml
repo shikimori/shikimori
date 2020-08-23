@@ -17,8 +17,8 @@ en:
       spoiler_inline: Spoiler
       smiley: Smiley
       shiki_link: Shiki link
-      image: Image
-      upload: Image upload
+      image: Image by link
+      upload: Images upload
       spoiler_block: Spoiler block
       code_block: Code block
       bullet_list: List
