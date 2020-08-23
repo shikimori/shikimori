@@ -3,7 +3,7 @@ class BbCodes::Tags::ImageTag
 
   DELETED_MARKER = 'deleted'
   DELETED_IMAGE_PATH = '/assets/globals/missing_main.png'
-  DELETED_IMAGE_HTML = "<img src=\"#{DELETED_IMAGE_PATH}\" />"
+  DELETED_IMAGE_HTML = "<img src='#{DELETED_IMAGE_PATH}' loading='lazy' />"
 
   REGEXP = /
     \[
@@ -73,9 +73,9 @@ private
     original_url = ImageUrlGenerator.instance.url user_image, :original
 
     <<-HTML.squish.strip
-      <span class="b-image no-zoom#{" #{css_class}" if css_class.present?}"><img
-        src="#{original_url}" #{sizes_html}#{' class="check-width"' unless sizes_html.present?}
-      loading='lazy' />#{marker_html}</span>
+      <span class='b-image no-zoom#{" #{css_class}" if css_class.present?}'><img
+        src='#{original_url}' #{sizes_html}#{" class='check-width'" if sizes_html.blank?}
+        loading='lazy' />#{marker_html}</span>
     HTML
   end
 
@@ -88,12 +88,12 @@ private
 
     <<-HTML.squish.strip
       <a
-        href="#{original_url}"
-        rel="#{text_hash}"
-        class="b-image unprocessed#{" #{css_class}" if css_class.present?}"><img
-        src="#{preview_url}" #{sizes_html}
-        data-width="#{user_image.width}"
-        data-height="#{user_image.height}"
+        href='#{original_url}'
+        rel='#{text_hash}'
+        class='b-image unprocessed#{" #{css_class}" if css_class.present?}'><img
+        src='#{preview_url}' #{sizes_html}
+        data-width='#{user_image.width}'
+        data-height='#{user_image.height}'
         loading='lazy'
       />#{marker_html}</a>
     HTML
@@ -107,13 +107,13 @@ private
         (scaled_width / ratio).to_i :
         height
 
-      "width=\"#{scaled_width}\" height=\"#{scaled_height}\""
+      "width='#{scaled_width}' height='#{scaled_height}'"
 
     elsif width.positive?
-      "width=\"#{width}\""
+      "width='#{width}'"
 
     elsif height.positive?
-      "height=\"#{height}\""
+      "height='#{height}'"
     end
   end
 
@@ -125,7 +125,7 @@ private
     return if small_image?(user_image) || is_no_zoom
 
     <<-HTML.squish.strip
-      <span class="marker">#{user_image.width}x#{user_image.height}</span>
+      <span class='marker'>#{user_image.width}x#{user_image.height}</span>
     HTML
   end
 end

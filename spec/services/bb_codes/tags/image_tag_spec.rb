@@ -11,14 +11,14 @@ describe BbCodes::Tags::ImageTag do
     it do
       is_expected.to eq(
         <<-HTML.squish.strip
-            <a href="#{user_image.image.url :original, false}"
-              rel="#{text_hash}"
-              class="b-image unprocessed"><img
-                src="#{user_image.image.url :thumbnail, false}"
-                data-width="#{user_image.width}"
-                data-height="#{user_image.height}"
+            <a href='#{user_image.image.url :original, false}'
+              rel='#{text_hash}'
+              class='b-image unprocessed'><img
+                src='#{user_image.image.url :thumbnail, false}'
+                data-width='#{user_image.width}'
+                data-height='#{user_image.height}'
                 loading='lazy'
-              /><span class="marker">400x500</span></a>
+              /><span class='marker'>400x500</span></a>
         HTML
       )
     end
@@ -30,9 +30,9 @@ describe BbCodes::Tags::ImageTag do
     it do
       is_expected.to eq(
         <<-HTML.squish.strip
-            <span class="b-image no-zoom"><img
-              src="#{user_image.image.url :original, false}"
-              class="check-width"
+            <span class='b-image no-zoom'><img
+              src='#{user_image.image.url :original, false}'
+              class='check-width'
               loading='lazy'
             /></span>
         HTML
@@ -47,23 +47,23 @@ describe BbCodes::Tags::ImageTag do
       is_expected.to eq(
         <<-HTML.squish.strip
           <a
-            href="#{user_image.image.url :original, false}"
-            rel="#{text_hash}"
-            class="b-image unprocessed"><img
-              src="#{user_image.image.url :thumbnail, false}"
-              data-width="#{user_image.width}"
-              data-height="#{user_image.height}"
+            href='#{user_image.image.url :original, false}'
+            rel='#{text_hash}'
+            class='b-image unprocessed'><img
+              src='#{user_image.image.url :thumbnail, false}'
+              data-width='#{user_image.width}'
+              data-height='#{user_image.height}'
               loading='lazy'
-            /><span class="marker">400x500</span></a>
+            /><span class='marker'>400x500</span></a>
           <a
-            href="#{user_image_2.image.url :original, false}"
-            rel="#{text_hash}"
-            class="b-image unprocessed"><img
-              src="#{user_image_2.image.url :thumbnail, false}"
-              data-width="#{user_image_2.width}"
-              data-height="#{user_image_2.height}"
+            href='#{user_image_2.image.url :original, false}'
+            rel='#{text_hash}'
+            class='b-image unprocessed'><img
+              src='#{user_image_2.image.url :thumbnail, false}'
+              data-width='#{user_image_2.width}'
+              data-height='#{user_image_2.height}'
               loading='lazy'
-            /><span class="marker">1000x1000</span></a>
+            /><span class='marker'>1000x1000</span></a>
         HTML
       )
     end
@@ -74,9 +74,9 @@ describe BbCodes::Tags::ImageTag do
     it do
       is_expected.to eq(
         <<-HTML.squish.strip
-            <span class="b-image no-zoom"><img
-              src="#{user_image.image.url :original, false}"
-              class="check-width"
+            <span class='b-image no-zoom'><img
+              src='#{user_image.image.url :original, false}'
+              class='check-width'
               loading='lazy'
             /></span>
         HTML
@@ -90,9 +90,9 @@ describe BbCodes::Tags::ImageTag do
       it do
         is_expected.to eq(
           <<-HTML.squish.strip
-              <span class="b-image no-zoom abc"><img
-                src="#{user_image.image.url :original, false}"
-                class="check-width"
+              <span class='b-image no-zoom abc'><img
+                src='#{user_image.image.url :original, false}'
+                class='check-width'
                 loading='lazy'
               /></span>
           HTML
@@ -105,7 +105,7 @@ describe BbCodes::Tags::ImageTag do
     let(:text) { "[image=#{described_class::DELETED_MARKER}]" }
     it do
       is_expected.to eq(
-        "<img src=\"#{described_class::DELETED_IMAGE_PATH}\" />"
+        "<img src='#{described_class::DELETED_IMAGE_PATH}' loading='lazy' />"
       )
     end
   end
@@ -117,16 +117,16 @@ describe BbCodes::Tags::ImageTag do
       is_expected.to eq(
         <<-HTML.squish.strip
           <a
-            href="#{user_image.image.url :original, false}"
-            rel="#{text_hash}"
-            class="b-image unprocessed"><img
-              src="#{user_image.image.url :preview, false}"
-              width="400"
-              height="400"
-              data-width="#{user_image.width}"
-              data-height="#{user_image.height}"
+            href='#{user_image.image.url :original, false}'
+            rel='#{text_hash}'
+            class='b-image unprocessed'><img
+              src='#{user_image.image.url :preview, false}'
+              width='400'
+              height='400'
+              data-width='#{user_image.width}'
+              data-height='#{user_image.height}'
               loading='lazy'
-            /><span class="marker">400x400</span></a>
+            /><span class='marker'>400x400</span></a>
         HTML
       )
     end
@@ -138,15 +138,15 @@ describe BbCodes::Tags::ImageTag do
       is_expected.to eq(
         <<-HTML.squish.strip
           <a
-            href="#{user_image.image.url :original, false}"
-            rel="#{text_hash}"
-            class="b-image unprocessed"><img
-              src="#{user_image.image.url :preview, false}"
-              width="400"
-              data-width="#{user_image.width}"
-              data-height="#{user_image.height}"
+            href='#{user_image.image.url :original, false}'
+            rel='#{text_hash}'
+            class='b-image unprocessed'><img
+              src='#{user_image.image.url :preview, false}'
+              width='400'
+              data-width='#{user_image.width}'
+              data-height='#{user_image.height}'
               loading='lazy'
-            /><span class="marker">400x500</span></a>
+            /><span class='marker'>400x500</span></a>
         HTML
       )
     end
@@ -157,15 +157,15 @@ describe BbCodes::Tags::ImageTag do
     it do
       is_expected.to eq(
         <<-HTML.squish.strip
-          <a href="#{user_image.image.url :original, false}"
-            rel="#{text_hash}"
-            class="b-image unprocessed"><img
-              src="#{user_image.image.url :preview, false}"
-              height="400"
-              data-width="#{user_image.width}"
-              data-height="#{user_image.height}"
+          <a href='#{user_image.image.url :original, false}'
+            rel='#{text_hash}'
+            class='b-image unprocessed'><img
+              src='#{user_image.image.url :preview, false}'
+              height='400'
+              data-width='#{user_image.width}'
+              data-height='#{user_image.height}'
               loading='lazy'
-            /><span class="marker">400x500</span></a>
+            /><span class='marker'>400x500</span></a>
         HTML
       )
     end
@@ -177,16 +177,16 @@ describe BbCodes::Tags::ImageTag do
       is_expected.to eq(
         <<-HTML.squish.strip
           <a
-            href="#{user_image.image.url :original, false}"
-            rel="#{text_hash}"
-            class="b-image unprocessed"><img
-              src="#{user_image.image.url :preview, false}"
-              width="400"
-              height="500"
-              data-width="#{user_image.width}"
-              data-height="#{user_image.height}"
+            href='#{user_image.image.url :original, false}'
+            rel='#{text_hash}'
+            class='b-image unprocessed'><img
+              src='#{user_image.image.url :preview, false}'
+              width='400'
+              height='500'
+              data-width='#{user_image.width}'
+              data-height='#{user_image.height}'
               loading='lazy'
-            /><span class="marker">400x500</span></a>
+            /><span class='marker'>400x500</span></a>
         HTML
       )
     end
@@ -198,16 +198,16 @@ describe BbCodes::Tags::ImageTag do
       is_expected.to eq(
         <<-HTML.squish.strip
           <a
-            href="#{user_image.image.url :original, false}"
-            rel="#{text_hash}"
-            class="b-image unprocessed test"><img
-              src="#{user_image.image.url :preview, false}"
-              width="400"
-              height="500"
-              data-width="#{user_image.width}"
-              data-height="#{user_image.height}"
+            href='#{user_image.image.url :original, false}'
+            rel='#{text_hash}'
+            class='b-image unprocessed test'><img
+              src='#{user_image.image.url :preview, false}'
+              width='400'
+              height='500'
+              data-width='#{user_image.width}'
+              data-height='#{user_image.height}'
               loading='lazy'
-            /><span class="marker">400x500</span></a>
+            /><span class='marker'>400x500</span></a>
         HTML
       )
     end
