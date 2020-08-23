@@ -14,7 +14,8 @@ ru:
       spoiler_inline: Спойлер
       code_inline: Код
       link: Ссылка
-      smiley: Смайлики
+      smiley: Смайлик
+      shiki_link': Шики ссылка
       image: Картинка
       upload: Загрузка картинки
       spoiler_block: Блок спойлера

@@ -141,7 +141,7 @@ TEST_DEMO_CONTENT = `
 `.trim()
 
 TEST_DEMO_CONTENT = `
-\`te\\\`st\`
+z
 
 `.trim()
 
