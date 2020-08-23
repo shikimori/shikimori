@@ -17,6 +17,7 @@ describe BbCodes::Tags::ImageTag do
                 src="#{user_image.image.url :thumbnail, false}"
                 data-width="#{user_image.width}"
                 data-height="#{user_image.height}"
+                loading='lazy'
               /><span class="marker">400x500</span></a>
         HTML
       )
@@ -32,6 +33,7 @@ describe BbCodes::Tags::ImageTag do
             <span class="b-image no-zoom"><img
               src="#{user_image.image.url :original, false}"
               class="check-width"
+              loading='lazy'
             /></span>
         HTML
       )
@@ -45,10 +47,10 @@ describe BbCodes::Tags::ImageTag do
       is_expected.to eq(
         "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
 <img src=\"#{user_image.image.url :thumbnail, false}\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
+data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading='lazy' />\
 <span class=\"marker\">400x500</span></a> <a href=\"#{user_image_2.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
 <img src=\"#{user_image_2.image.url :thumbnail, false}\" \
-data-width=\"#{user_image_2.width}\" data-height=\"#{user_image_2.height}\" />\
+data-width=\"#{user_image_2.width}\" data-height=\"#{user_image_2.height}\" loading='lazy' />\
 <span class=\"marker\">1000x1000</span></a>"
       )
     end
@@ -60,7 +62,9 @@ data-width=\"#{user_image_2.width}\" data-height=\"#{user_image_2.height}\" />\
       is_expected.to eq(
         <<-HTML.squish.strip
             <span class="b-image no-zoom"><img
-              src="#{user_image.image.url :original, false}" class="check-width"
+              src="#{user_image.image.url :original, false}"
+              class="check-width"
+              loading='lazy'
             /></span>
         HTML
       )
@@ -74,7 +78,9 @@ data-width=\"#{user_image_2.width}\" data-height=\"#{user_image_2.height}\" />\
         is_expected.to eq(
           <<-HTML.squish.strip
               <span class="b-image no-zoom abc"><img
-                src="#{user_image.image.url :original, false}" class="check-width"
+                src="#{user_image.image.url :original, false}"
+                class="check-width"
+                loading='lazy'
               /></span>
           HTML
         )
@@ -98,7 +104,7 @@ data-width=\"#{user_image_2.width}\" data-height=\"#{user_image_2.height}\" />\
       is_expected.to eq(
         "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
 <img src=\"#{user_image.image.url :preview, false}\" width=\"400\" height=\"400\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
+data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading='lazy' />\
 <span class=\"marker\">400x400</span></a>"
       )
     end
@@ -110,7 +116,7 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
       is_expected.to eq(
         "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
 <img src=\"#{user_image.image.url :preview, false}\" width=\"400\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
+data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading='lazy' />\
 <span class=\"marker\">400x500</span></a>"
       )
     end
@@ -122,7 +128,7 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
       is_expected.to eq(
         "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
 <img src=\"#{user_image.image.url :preview, false}\" height=\"400\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
+data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading='lazy' />\
 <span class=\"marker\">400x500</span></a>"
       )
     end
@@ -134,7 +140,7 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
       is_expected.to eq(
         "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
 <img src=\"#{user_image.image.url :preview, false}\" width=\"400\" height=\"500\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
+data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading='lazy' />\
 <span class=\"marker\">400x500</span></a>"
       )
     end
@@ -146,7 +152,7 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
       is_expected.to eq(
         "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed test\">\
 <img src=\"#{user_image.image.url :preview, false}\" width=\"400\" height=\"500\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
+data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" loading='lazy' />\
 <span class=\"marker\">400x500</span></a>"
       )
     end

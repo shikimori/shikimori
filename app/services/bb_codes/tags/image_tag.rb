@@ -75,7 +75,7 @@ private
     <<-HTML.squish.strip
       <span class="b-image no-zoom#{" #{css_class}" if css_class.present?}"><img
         src="#{original_url}" #{sizes_html}#{' class="check-width"' unless sizes_html.present?}
-      />#{marker_html}</span>
+      loading='lazy' />#{marker_html}</span>
     HTML
   end
 
@@ -94,6 +94,7 @@ private
         src="#{preview_url}" #{sizes_html}
         data-width="#{user_image.width}"
         data-height="#{user_image.height}"
+        loading='lazy'
       />#{marker_html}</a>
     HTML
   end
