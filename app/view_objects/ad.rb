@@ -1,121 +1,121 @@
 class Ad < ViewObjectBase # rubocop:disable ClassLength
-  # present advertur blocks
-  # block_1: [92_129, 2_731],
-  # block_2: [92_445, 1_256],
-  # block_3: [92_485, nil]
+# present advertur blocks
+# block_1: [92_129, 2_731],
+# block_2: [92_445, 1_256],
+# block_3: [92_485, nil]
 
-  # CACHE_KEY = Digest::MD5.hexdigest(META_TYPES.to_json)
+# CACHE_KEY = Digest::MD5.hexdigest(META_TYPES.to_json)
 
-  attr_reader :banner_type, :policy
+attr_reader :banner_type, :policy
 
-  def initialize meta
-    meta = Types::Ad::Meta[:menu_240x400] if switch_to_x240? meta
-    meta = Types::Ad::Meta[:menu_300x600] if switch_to_x300? meta
+def initialize meta
+  meta = Types::Ad::Meta[:menu_240x400] if switch_to_x240? meta
+  meta = Types::Ad::Meta[:menu_300x600] if switch_to_x300? meta
 
-    META_TYPES[h.clean_host?][Types::Ad::Meta[meta]].each do |type|
-      switch_banner Types::Ad::Type[type]
-      break if allowed?
-    end
+  META_TYPES[h.clean_host?][Types::Ad::Meta[meta]].each do |type|
+    switch_banner Types::Ad::Type[type]
+    break if allowed?
   end
+end
 
-  def allowed?
-    if h.controller.instance_variable_get controller_key(banner[:placement])
-      false
-    else
-      policy.allowed? && (!@rules || @rules.show?)
-    end
+def allowed?
+  if h.controller.instance_variable_get controller_key(banner[:placement])
+    false
+  else
+    policy.allowed? && (!@rules || @rules.show?)
   end
+end
 
-  def provider
-    banner[:provider]
-  end
+def provider
+  banner[:provider]
+end
 
-  def placeholder?
-    Rails.env.development? && !special?
-  end
+def placeholder?
+  Rails.env.development? && !special?
+end
 
-  def platform
-    banner[:platform]
-  end
+def platform
+  banner[:platform]
+end
 
-  def ad_params
-    return unless yandex_direct?
+def ad_params
+  return unless yandex_direct?
 
-    {
-      blockId: banner[:yandex_id],
-      renderTo: @banner_type,
-      async: true
-    }
-  end
+  {
+    blockId: banner[:yandex_id],
+    renderTo: @banner_type,
+    async: true
+  }
+end
 
-  def css_class
-    "spns_#{@banner_type}"
-  end
+def css_class
+  "spns_#{@banner_type}"
+end
 
-  def to_html
-    finalize
+def to_html
+  finalize
 
-    <<-HTML.gsub(/\n|^\ +/, '')
-      <div class="b-spns-#{@banner_type}">
-        <center>
-          #{ad_html}
-        </center>
-      </div>
-    HTML
-  end
+  <<-HTML.gsub(/\n|^\ +/, '')
+    <div class="b-spns-#{@banner_type}">
+      <center>
+        #{ad_html}
+      </center>
+    </div>
+  HTML
+end
 
 private
 
-  def switch_banner banner_type
-    @banner_type = banner_type
-    @policy = build_policy
-    @rules = build_rules
-  end
+def switch_banner banner_type
+  @banner_type = banner_type
+  @policy = build_policy
+  @rules = build_rules
+end
 
-  def build_policy
-    AdsPolicy.new(
-      user: h.current_user,
-      ad_provider: provider,
-      is_ru_host: h.ru_host?,
-      is_disabled: h.cookies["#{css_class}_disabled"].present?
-    )
-  end
+def build_policy
+  AdsPolicy.new(
+    user: h.current_user,
+    ad_provider: provider,
+    is_ru_host: h.ru_host?,
+    is_disabled: h.cookies["#{css_class}_disabled"].present?
+  )
+end
 
-  def build_rules
-    return unless banner[:rules]
+def build_rules
+  return unless banner[:rules]
 
-    Ads::Rules.new banner[:rules], h.cookies[banner[:rules][:cookie]]
-  end
+  Ads::Rules.new banner[:rules], h.cookies[banner[:rules][:cookie]]
+end
 
-  def banner
-    BANNERS[h.clean_host?][@banner_type]
-  end
+def banner
+  BANNERS[h.clean_host?][@banner_type]
+end
 
-  def yandex_direct?
-    provider == Types::Ad::Provider[:yandex_direct]
-  end
+def yandex_direct?
+  provider == Types::Ad::Provider[:yandex_direct]
+end
 
-  def mytarget?
-    provider == Types::Ad::Provider[:mytarget]
-  end
+def mytarget?
+  provider == Types::Ad::Provider[:mytarget]
+end
 
-  def special?
-    provider == Types::Ad::Provider[:special]
-  end
+def special?
+  provider == Types::Ad::Provider[:special]
+end
 
-  def banner?
-    banner[:images].present?
-  end
+def banner?
+  banner[:images].present?
+end
 
-  def html?
-    banner[:html].present?
-  end
+def html?
+  banner[:html].present?
+end
 
-  def iframe?
-    provider == Types::Ad::Provider[:advertur]
-  end
+def iframe?
+  provider == Types::Ad::Provider[:advertur]
+end
 
-  def ad_html # rubocop:disable all
+def ad_html # rubocop:disable all
     if placeholder?
       width, height =
         if @banner_type =~ /(?<width>\d+)x(?<height>\d+)/
@@ -409,12 +409,12 @@ private
         Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        Types::Ad::Type[:special_x300], # disable after 2020-08-21
+        # Types::Ad::Type[:special_x300], # disable after 2020-08-21
         Types::Ad::Type[:yd_240x600],
         Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        Types::Ad::Type[:special_x300], # disable after 2020-08-21
+        # Types::Ad::Type[:special_x300], # disable after 2020-08-21
         Types::Ad::Type[:yd_300x600],
         Types::Ad::Type[:mt_300x600]
       ],
@@ -430,7 +430,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        Types::Ad::Type[:special_x1170], # disable after 2020-08-21
+        # Types::Ad::Type[:special_x1170], # disable after 2020-08-21
         Types::Ad::Type[:yd_970x250],
         Types::Ad::Type[:mt_970x250]
       ]
@@ -442,13 +442,13 @@ private
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        Types::Ad::Type[:special_x300], # disable after 2020-08-21
+        # Types::Ad::Type[:special_x300], # disable after 2020-08-21
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        Types::Ad::Type[:special_x300], # disable after 2020-08-21
+        # Types::Ad::Type[:special_x300], # disable after 2020-08-21
         # Types::Ad::Type[:mt_300x600],
         # Types::Ad::Type[:yd_300x600],
         # Types::Ad::Type[:advrtr_240x400],
@@ -465,7 +465,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        Types::Ad::Type[:special_x1170] # disable after 2020-08-21
+        # Types::Ad::Type[:special_x1170] # disable after 2020-08-21
       ]
     }
   }
