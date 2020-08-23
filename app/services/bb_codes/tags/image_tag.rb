@@ -101,9 +101,11 @@ private
 
   def sizes_html user_image, width, height
     if width.positive? && height.positive?
-      ratio = 1.0 * user_image.width / user_image.height
+      ratio = (1.0 * user_image.width / user_image.height).round(2)
       scaled_width = [700, width, user_image.width].min
-      scaled_height = 1.0 * width / height != ratio ? (scaled_width / ratio).to_i : height
+      scaled_height = (1.0 * width / height).round(2) != ratio ?
+        (scaled_width / ratio).to_i :
+        height
 
       "width=\"#{scaled_width}\" height=\"#{scaled_height}\""
 
