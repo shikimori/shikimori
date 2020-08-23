@@ -53,25 +53,25 @@ private
 
     if is_no_zoom
       <<-HTML.squish.strip
-        <span class="b-image no-zoom#{" #{css_class}" if css_class.present?}">#{image_html}</span>
+        <span class='b-image no-zoom#{" #{css_class}" if css_class.present?}'>#{image_html}</span>
       HTML
     else
       <<-HTML.squish.strip
-        <a href="#{link_url || image_url}"
-          data-href="#{camo_link_url || fixed_image_url}"
-          rel="#{text_hash}"
-          class="b-image unprocessed#{" #{css_class}" if css_class.present?}">#{image_html}</a>
+        <a href='#{link_url || image_url}'
+          data-href='#{camo_link_url || fixed_image_url}'
+          rel='#{text_hash}'
+          class='b-image unprocessed#{" #{css_class}" if css_class.present?}'>#{image_html}</a>
       HTML
     end
   end
 
   def html_for_image image_url, width, height
     sizes_html = ''
-    sizes_html += " width=\"#{width}\"" if width.positive?
-    sizes_html += " height=\"#{height.to_i}\"" if height.positive?
+    sizes_html += " width='#{width}'" if width.positive?
+    sizes_html += " height='#{height.to_i}'" if height.positive?
 
     <<-HTML.squish.strip
-      <img src="#{image_url}" class="check-width"#{sizes_html}>
+      <img src='#{image_url}' class='check-width'#{sizes_html} loading='lazy'>
     HTML
   end
 
