@@ -1,9 +1,11 @@
 .block
-  .headline editor
+  .headline
+    a href=current_url(i: params[:i].to_i + 1) editor
 
 .block
   .subheadline vue component
-  .b-shiki_editor-v2.b-ajax
+  .b-shiki_editor-v2
+    .b-ajax
 
 .block
   .fc-2

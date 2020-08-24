@@ -211,7 +211,7 @@ pageLoad('tests_editor', async () => {
 
   const rawNode = document.querySelector('.raw-editor');
   const rawNode2 = document.querySelector('.raw-editor-2');
-  const vueNode = document.querySelector('.b-shiki_editor-v2');
+  const vueNode = document.querySelector('.b-shiki_editor-v2 div');
 
   if (IS_RAW) {
     const editor = new ShikiEditor({
@@ -260,7 +260,7 @@ pageLoad('tests_editor', async () => {
       xhrHeaders: () => csrf().headers,
     });
 
-    new Vue({
+    const app = new Vue({
       el: vueNode,
       components: { ShikiEditorApp },
       mounted() {
@@ -282,6 +282,10 @@ pageLoad('tests_editor', async () => {
           }
         }
       })
+    });
+    $(document).one('turbolinks:before-cache', () => {
+      app.$destroy();
+      document.querySelector('.b-shiki_editor-v2').innerHTML = '<div class="b-ajax"></div>';
     });
   } else {
     $(vueNode).closest('.block').hide();
