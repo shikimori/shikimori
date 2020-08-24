@@ -7,13 +7,11 @@ import showModal from 'helpers/show_modal';
 import globalHandler from 'helpers/global_handler';
 import { isMobile } from 'helpers/mobile_detect';
 
-let search;
-
 $(document).on('turbolinks:load', () => {
   const $search = $('.l-top_menu-v2 .global-search');
 
   if ($search.length) {
-    search = new GlobalSearch($search);
+    window.globalSearch = new GlobalSearch($search);
   }
   $search.find('.clear').on('click', hideMobileSearch);
 
@@ -130,9 +128,9 @@ $(document).on('turbolinks:load', () => {
 });
 
 $(document).on('turbolinks:before-cache', () => {
-  if (search) {
-    search.cancel();
-    search = undefined;
+  if (window.globalSearch) {
+    window.globalSearch.cancel();
+    delete window.globalSearch;
   }
 
   $('.l-top_menu-v2').removeClass('is-submenu is-search-mobile');
@@ -144,7 +142,7 @@ function hideMobileSearch() {
   const $activeSearch = $('.l-top_menu-v2.is-search-mobile .search.mobile');
   if ($activeSearch.length) {
     $activeSearch.click();
-    search.cancel();
+    window.globalSearch.cancel();
   }
 }
 
