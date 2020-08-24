@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       get 'tooltip(/:minified)' => :tooltip, as: :tooltip, minified: /minified/
       get 'edit/:field' => :edit_field, as: :edit_field, field: options[:fields]
       post :sync
+      post :refresh_poster
       delete :destroy
       delete :merge
     end

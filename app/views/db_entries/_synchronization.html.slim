@@ -42,12 +42,13 @@
           li
             .field = @resource.class.human_attribute_name(:image)
             .value
-              - if Rails.cache.read([resource.object.class.base_class.name.downcase, :poster, resource.id])
+              - is_refreshing = Rails.cache.read([resource.object.class.base_class.name.downcase, :refresh_poster, resource.id])
+              - if is_refreshing && @resource.image.blank?
                 span
                   b = t '.syncing'
               - else
                 a.b-button.run-poster-updater[
-                  href=resource.sync_url
+                  href=resource.refresh_poster_url
                   data-method='post'
                   data-confirm=t('actions.confirm_sync')
                 ] = t '.refresh'

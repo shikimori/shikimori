@@ -6,7 +6,10 @@
   .changes
     .change
       .label #{t '.before'}:
-      == h(version.old_value(field)).gsub("\n", "<br>")
+      - if field == 'image'
+        code.b-code_inline image
+      - else
+        == h(version.old_value(field)).gsub("\n", "<br>")
 
     .change
       .label #{t '.after'}:

@@ -202,6 +202,10 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     h.send "sync_#{klass_lower}_url"
   end
 
+  def refresh_poster_url
+    h.send "refresh_poster_#{klass_lower}_url"
+  end
+
   def merge_url
     h.send "merge_#{klass_lower}_url"
   end
