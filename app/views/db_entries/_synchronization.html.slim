@@ -27,6 +27,12 @@
               - elsif is_syncing && !did_sync
                 span
                   b = t '.syncing'
+          - if can? :sync, resource
+            .value
+              .hint
+                ' Шикимори кеширует загруженные c MAL страницы аниме и манги на 1 час,
+                ' а страницы персонажей и людей на 8 часов. Повторный запуск синхронизации ничего
+                | не изменит до тех пор, пока не истечёт время жизни кеша.
 
         li
           .field = resource.class.human_attribute_name(:desynced)
