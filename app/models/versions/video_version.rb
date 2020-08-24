@@ -19,6 +19,13 @@ class Versions::VideoVersion < Version
     end
   end
 
+  def reject_changes
+    case action
+      when Actions[:upload] then delete_video
+      when Actions[:delete] then confirm_video
+    end
+  end
+
   def rollback_changes
     case action
       when Actions[:upload] then delete_video

@@ -69,6 +69,12 @@ class Version < ApplicationRecord
     end
 
     before_transition(
+      %i[pending auto_accepted] => %i[rejected deleted]
+    ) do |version, transition|
+      version.update moderator: transition.args.first if transition.args.first
+    end
+
+    before_transition(
       %i[pending auto_accepted] => %i[accepted taken rejected deleted]
     ) do |version, transition|
       version.update moderator: transition.args.first if transition.args.first
@@ -94,6 +100,10 @@ class Version < ApplicationRecord
     item.class.transaction do
       item_diff.each { |(field, changes)| apply_change field, changes }
     end
+  end
+
+  def reject_changes
+    true
   end
 
   def rollback_changes

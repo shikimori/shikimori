@@ -35,6 +35,25 @@ describe Versions::VideoVersion do
     end
   end
 
+  describe '#reject_changes' do
+    let(:version) { build :video_version, item_diff: { action: action, videos: [video.id] } }
+    subject! { version.reject_changes }
+
+    context 'upload' do
+      let(:video) { create :video, :uploaded }
+      let(:action) { Versions::VideoVersion::Actions[:upload] }
+
+      it { expect(video.reload).to be_deleted }
+    end
+
+    context 'delete' do
+      let(:video) { create :video, :deleted }
+      let(:action) { Versions::VideoVersion::Actions[:delete] }
+
+      it { expect(video.reload).to be_confirmed }
+    end
+  end
+
   describe '#rollback_changes' do
     let(:version) do
       build :video_version, :accepted,
