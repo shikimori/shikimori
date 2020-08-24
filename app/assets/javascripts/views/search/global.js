@@ -128,7 +128,6 @@ export default class GlobalSearch extends View {
     this.$input.focus()
   }
 
-  @bind
   cancel() {
     this._deactivate();
   }
@@ -267,9 +266,10 @@ export default class GlobalSearch extends View {
       .toggleClass('is-search-focus', this.isActive)
       .toggleClass('is-search-shade', isShade);
 
-    $('.b-shade').off('click', this.cancel);
+    // do not do bind directly to cancel because "cancel" can be stubbed outside
+    $('.b-shade').off('click', () => this.cancel());
     if (isShade) {
-      $('.b-shade').on('click', this.cancel);
+      $('.b-shade').on('click', () => this.cancel());
     }
   }
 
