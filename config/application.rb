@@ -108,7 +108,7 @@ module Shikimori
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    if defined?(Redirecter) # not defined for clockwork
+    if defined?(Redirecter) && !ENV['NO_REDIRECTER'] # not defined for clockwork
       config.middleware.use Redirecter
     end
 
