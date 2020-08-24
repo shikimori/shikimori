@@ -119,15 +119,25 @@ describe Version do
 
   describe 'instance methods' do
     let(:anime) { create :anime, episodes: 10 }
-    let(:version) { create :version, item: anime, item_diff: { episodes: [1, 2] } }
+    let(:version) { create :version, item: anime, item_diff: item_diff }
+    let(:item_diff) { { episodes: [1, 2] } }
 
     describe '#apply_changes' do
       before { version.apply_changes }
 
       it do
         expect(anime.reload.episodes).to eq 2
-        expect(anime.desynced).to include 'episodes'
+        expect(anime.desynced).to eq %w[episodes]
         expect(version.reload.item_diff['episodes'].first).to eq 10
+      end
+
+      context 'does not add descyned when descyned is among fields' do
+        let(:item_diff) { { desynced: [%w[a], %w[z]], episodes: [1, 2] } }
+
+        it do
+          expect(anime.reload.episodes).to eq 2
+          expect(anime.desynced).to eq %w[z]
+        end
       end
     end
 
@@ -172,7 +182,9 @@ describe Version do
 
       context 'user != moderator' do
         let(:moderator) { create :user }
-        it { expect { version.notify_rejection 'z' } .to change(user.messages, :count).by 1 }
+        it do
+          expect { version.notify_rejection 'z' }.to change(user.messages, :count).by 1
+        end
       end
     end
 

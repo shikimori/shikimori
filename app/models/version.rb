@@ -108,7 +108,9 @@ class Version < ApplicationRecord
 
   def apply_changes
     item.class.transaction do
-      item_diff.each { |(field, changes)| apply_change field, changes }
+      item_diff
+        .sort_by { |(field, _changes)| field == 'desynced' ? 1 : 0 }
+        .each { |(field, changes)| apply_change field, changes }
     end
   end
 
