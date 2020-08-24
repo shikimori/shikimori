@@ -119,11 +119,7 @@ class Version < ApplicationRecord
   end
 
   def rollback_changes
-    attributes = item_diff.each_with_object({}) do |(field, changes), memo|
-      memo[field] = changes.first
-    end
-
-    item.update attributes
+    item.update item_diff.transform_values(&:first)
   end
 
   def current_value field
