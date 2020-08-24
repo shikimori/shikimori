@@ -16,7 +16,7 @@ const ITEM_SELECTOR = `${VARIANT_SELECTOR}, .search-mode`;
 
 export default class GlobalSearch extends View {
   isActive = false
-  isIndexDisabled = false
+  isStubbedSearchMode = false
 
   initialize() {
     this.$input = this.$('.field input');
@@ -49,11 +49,17 @@ export default class GlobalSearch extends View {
           this._selectItem(currentTarget, false);
         }
       })
+      .on('click', VARIANT_SELECTOR, (e) => {
+        if (this.isStubbedSearchMode) {
+          e.preventDefault();
+          this.pick(e.currentTarget);
+        }
+      })
       .on('scroll', this._applyShade);
   }
 
   get hasIndex() {
-    return !!$('.b-search-results').length && !this.isIndexDisabled;
+    return !!$('.b-search-results').length && !this.isStubbedSearchMode;
   }
 
   get currentMode() {
@@ -127,6 +133,10 @@ export default class GlobalSearch extends View {
 
   focus() {
     this.$input.focus()
+  }
+
+  pick(_node) {
+    // does nothing. designed for shiki-editor stubbed search mode
   }
 
   cancel() {
@@ -299,18 +309,25 @@ export default class GlobalSearch extends View {
     if (this.isIndexMode) { return; }
     if (!this.phrase.trim()) { return; }
 
-    let url;
-
-    if (this.$activeItem.length) {
-      url = this.$activeItem.find('.name .b-link').attr('href');
+    if (this.isStubbedSearchMode) {
+      const node = this.$activeItem[0];
+      if (node) {
+        this.pick(node);
+      }
     } else {
-      url =
-        URI(this.$node.data(`search_${this.currentMode}_url`))
-          .removeQuery('search')
-          .addQuery({ search: this.phrase });
-    }
+      let url;
 
-    Turbolinks.visit(url);
+      if (this.$activeItem.length) {
+        url = this.$activeItem.find('.name .b-link').attr('href');
+      } else {
+        url =
+          URI(this.$node.data(`search_${this.currentMode}_url`))
+            .removeQuery('search')
+            .addQuery({ search: this.phrase });
+      }
+
+      Turbolinks.visit(url);
+    }
   }
 
   @bind
