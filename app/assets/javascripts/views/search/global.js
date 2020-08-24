@@ -124,6 +124,11 @@ export default class GlobalSearch extends View {
     return this.$input.val();
   }
 
+  focus() {
+    this.$input.focus()
+  }
+
+  @bind
   cancel() {
     this._deactivate();
   }
@@ -248,7 +253,7 @@ export default class GlobalSearch extends View {
 
     await delay();
     if (!this.$input.is(':focus') && !this.$activeItem.is(':focus')) {
-      this._deactivate();
+      this.cancel();
     }
   }
 
@@ -262,9 +267,9 @@ export default class GlobalSearch extends View {
       .toggleClass('is-search-focus', this.isActive)
       .toggleClass('is-search-shade', isShade);
 
-    $('.b-shade').off('click', this._deactivate);
+    $('.b-shade').off('click', this.cancel);
     if (isShade) {
-      $('.b-shade').on('click', this._deactivate);
+      $('.b-shade').on('click', this.cancel);
     }
   }
 
@@ -357,6 +362,6 @@ export default class GlobalSearch extends View {
 
     if (isInside || !$target.parents('html').length) { return; }
 
-    this._deactivate();
+    this.cancel();
   }
 }
