@@ -215,10 +215,11 @@
           - if ru_host?
             li
               .field = @resource.class.human_attribute_name(:description_ru)
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:description_ru)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
+              .value
+                a.b-js-action.to-process[
+                  href=@resource.edit_field_url(:description_ru)
+                  data-dynamic='week_registered'
+                ] = t 'actions.edit'
 
           li.m15
             .field = @resource.class.human_attribute_name(:description_en)
