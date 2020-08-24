@@ -16,6 +16,7 @@ const ITEM_SELECTOR = `${VARIANT_SELECTOR}, .search-mode`;
 
 export default class GlobalSearch extends View {
   isActive = false
+  isIndexDisabled = false
 
   initialize() {
     this.$input = this.$('.field input');
@@ -52,7 +53,7 @@ export default class GlobalSearch extends View {
   }
 
   get hasIndex() {
-    return !!$('.b-search-results').length;
+    return !!$('.b-search-results').length && !this.isIndexDisabled;
   }
 
   get currentMode() {
