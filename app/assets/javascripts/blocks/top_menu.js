@@ -11,7 +11,10 @@ $(document).on('turbolinks:load', () => {
   const $search = $('.l-top_menu-v2 .global-search');
 
   if ($search.length) {
-    window.globalSearch = new GlobalSearch($search);
+    window.globalSearch = new GlobalSearch(
+      $search,
+      { showMobileSearch, hideMobileSearch }
+    );
   }
   $search.find('.clear').on('click', hideMobileSearch);
 
@@ -118,8 +121,7 @@ $(document).on('turbolinks:load', () => {
   });
 
   $('.l-top_menu-v2 .search.mobile').on('click', ({ currentTarget }) => {
-    $(currentTarget).toggleClass('active');
-    $('.l-top_menu-v2').toggleClass('is-search-mobile');
+    showMobileSearch();
 
     if (currentTarget.classList.contains('active')) {
       $search.find('input').focus();
@@ -138,10 +140,16 @@ $(document).on('turbolinks:before-cache', () => {
   $('.l-top_menu-v2 .active').removeClass('active');
 });
 
+function showMobileSearch() {
+  $('.l-top_menu-v2.is-search-mobile .search.mobile').addClass('active');
+  $('.l-top_menu-v2').addClass('is-search-mobile');
+}
+
 function hideMobileSearch() {
-  const $activeSearch = $('.l-top_menu-v2.is-search-mobile .search.mobile');
-  if ($activeSearch.length) {
-    $activeSearch.click();
+  $('.l-top_menu-v2.is-search-mobile .search.mobile').removeClass('active');
+  $('.l-top_menu-v2').removeClass('is-search-mobile');
+
+  if (window.globalSearch.isActive) {
     window.globalSearch.cancel();
   }
 }

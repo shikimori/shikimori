@@ -8,6 +8,7 @@ import View from 'views/application/view';
 import AutocompleteEngine from './autocomplete_engine';
 import IndexEngine from './index_engine';
 
+import { isMobile } from 'helpers/mobile_detect';
 import globalHandler from 'helpers/global_handler';
 import JST from 'helpers/jst';
 
@@ -18,13 +19,18 @@ export default class GlobalSearch extends View {
   isActive = false
   isStubbedSearchMode = false
 
-  initialize() {
+  initialize({ showMobileSearch, hideMobileSearch }) {
+    this.showMobileSearch = showMobileSearch;
+    this.hideMobileSearch = hideMobileSearch;
+
     this.$input = this.$('.field input');
     this.$outerContent = this.$root.find('.search-results');
     this.$content = this.$outerContent.find('.inner');
 
     this._phrase = this.inputSearchPhrase;
-    this.currentMode = this.hasIndex ? 'index' : this.$root.data('default-mode') || 'anime';
+    this.currentMode = this.hasIndex ?
+      'index' :
+      this.$root.data('default-mode') || 'anime';
 
     globalHandler.on('slash', this._onGlobalSlash);
 
@@ -132,6 +138,9 @@ export default class GlobalSearch extends View {
   }
 
   focus() {
+    if (isMobile()) {
+      this.showMobileSearch();
+    }
     this.$input.focus()
   }
 
@@ -141,6 +150,10 @@ export default class GlobalSearch extends View {
 
   cancel() {
     this._deactivate();
+
+    if (isMobile()) {
+      this.hideMobileSearch();
+    }
   }
 
   // private functions
