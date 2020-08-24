@@ -143,6 +143,46 @@ TEST_DEMO_CONTENT = `
 TEST_DEMO_CONTENT = `
 z
 
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
+z
+
 `.trim()
 
 pageLoad('tests_editor', async () => {
@@ -233,6 +273,7 @@ pageLoad('tests_editor', async () => {
           vue: Vue,
           shikiUploader,
           shikiRequest,
+          globalSearch: window.globalSearch,
           content: DEMO_CONTENT
         },
         on: {
