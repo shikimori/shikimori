@@ -141,7 +141,7 @@ TEST_DEMO_CONTENT = `
 `.trim()
 
 TEST_DEMO_CONTENT = `
-z
+zzzzzzz zzzzzzz zzzzzzz
 
 z
 
@@ -150,10 +150,10 @@ z
 z
 
 z
+ 
+z zzzzzzz zzzzzzz zzzzzzz
 
-z
-
-z
+zzzzzzzz zzzzzzz zzzzzzz zzzzzzz
 
 z
 
