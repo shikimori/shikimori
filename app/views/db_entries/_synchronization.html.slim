@@ -18,7 +18,7 @@
               - did_sync = resource.imported_at && resource.imported_at > 10.minutes.ago
 
               - if need_sync && !is_syncing
-                a.b-js-action[
+                a.b-button.run-mal-parser[
                   href=resource.sync_url
                   data-method='post'
                   data-confirm=t('actions.confirm_sync')
@@ -38,6 +38,20 @@
             - else
               .b-js-action = t 'moderators_only'
 
+        - if can?(:sync, resource) && resource.mal_id
+          li
+            .field = @resource.class.human_attribute_name(:image)
+            .value
+              - if Rails.cache.read([resource.object.class.base_class.name.downcase, :poster, resource.id])
+                span
+                  b = t '.syncing'
+              - else
+                a.b-button.run-poster-updater[
+                  href=resource.sync_url
+                  data-method='post'
+                  data-confirm=t('actions.confirm_sync')
+                ] = t '.refresh'
+
     - if can? :restricted_update, Version
       .f-column
         ul.b-list.is-wide
@@ -48,3 +62,4 @@
           - if resource.respond_to?(:smotret_anime_external_link) && resource.smotret_anime_external_link
             li
               = render resource.smotret_anime_external_link
+

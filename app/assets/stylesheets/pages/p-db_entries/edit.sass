@@ -13,8 +13,8 @@
     .value
       display: inline
 
-      span:not(:empty),
-      a:not(:empty)
+      & > span:not(:empty),
+      & > a:not(:empty)
         margin-left: 5px
 
       &.under_development
@@ -24,9 +24,8 @@
       +ellipsis2
       font-size: 12px
 
-    .b-js-action
-      margin-left: 5px
-      text-transform: lowercase
+    .run-mal-parser
+      margin-left: 12px !important
 
   .dangerous-actions
     .collapsed

@@ -42,8 +42,9 @@ ru:
       changes_history: История правок
     synchronization:
       synchronization: Синхронизация
-      sync: Синхронизировать
+      sync: синхронизировать
       syncing: Запущена синхронизация
+      refresh: обновить
     dangerous_actions:
       dangerous_actions: Опасные действия
       merge_into_other: Слить с другим

@@ -42,8 +42,9 @@ en:
       changes_history: Changes history
     synchronization:
       synchronization: Synchronization
-      sync: Sync
+      sync: sync
       syncing: Syncing
+      refresh: update
     dangerous_actions:
       dangerous_actions: Dangerous actions
       merge_into_other: Merge into other
