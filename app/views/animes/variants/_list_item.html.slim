@@ -1,5 +1,11 @@
 - relation_mode = entry.respond_to?(:relation)
-.b-db_entry-variant-list_item
+
+.b-db_entry-variant-list_item[
+  data-id=entry.id
+  data-text=entry.name
+  data-type=entry.object.class.name.downcase
+  data-url=entry.url
+]
   .image.linkeable.bubbled[
     data-href=entry.url
     title=entry.name

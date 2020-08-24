@@ -1,20 +1,28 @@
-.b-db_entry-variant-list_item
+- url = (entry.respond_to?(:url) ? entry.url : person_url(entry))
+- text = localized_name entry
+
+.b-db_entry-variant-list_item[
+  data-id=entry.id
+  data-text=text
+  data-type='person'
+  data-url=url
+]
   .image.linkeable.bubbled[
-    data-href=(entry.respond_to?(:url) ? entry.url : person_url(entry))
-    title=localized_name(entry)
+    data-href=url
+    title=text
   ]
     img[
       src=cdn_image(entry, :x48)
       srcset="#{cdn_image entry, :x96} 2x"
-      alt=localized_name(entry)
+      alt=text
     ]
 
   .info
     .name
       a.b-link.bubbled[
-        href=(entry.respond_to?(:url) ? entry.url : person_url(entry))
-        title=localized_name(entry)
-      ] = localized_name entry
+        href=url
+        title=text
+      ] = localization_span entry
 
     - if entry.respond_to? :formatted_roles
       - roles = entry.formatted_roles.split(',').map(&:strip)
