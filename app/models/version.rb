@@ -58,6 +58,16 @@ class Version < ApplicationRecord
       version.moderator = version.user
     end
 
+    before_transition pending: :rejected do |version, transition|
+      version.reject_changes || raise(
+        StateMachine::InvalidTransition.new(
+          version,
+          transition.machine,
+          transition.event
+        )
+      )
+    end
+
     before_transition auto_accepted: :rejected do |version, transition|
       version.rollback_changes || raise(
         StateMachine::InvalidTransition.new(

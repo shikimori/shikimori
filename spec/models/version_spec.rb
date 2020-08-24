@@ -33,6 +33,7 @@ describe Version do
 
     before do
       allow(version).to receive(:apply_changes).and_return true
+      allow(version).to receive(:reject_changes).and_return true
       allow(version).to receive(:rollback_changes).and_return true
       allow(version).to receive :notify_acceptance
       allow(version).to receive :notify_rejection
@@ -48,6 +49,7 @@ describe Version do
           expect(version).to be_accepted
           expect(version.moderator).to eq moderator
           expect(version).to have_received :apply_changes
+          expect(version).to_not have_received :reject_changes
           expect(version).to_not have_received :rollback_changes
           expect(version).to have_received :notify_acceptance
           expect(version).to_not have_received :notify_rejection
@@ -65,6 +67,7 @@ describe Version do
           expect(version).to be_taken
           expect(version.moderator).to eq moderator
           expect(version).to have_received :apply_changes
+          expect(version).to_not have_received :reject_changes
           expect(version).to_not have_received :rollback_changes
           expect(version).to have_received :notify_acceptance
           expect(version).to_not have_received :notify_rejection
@@ -81,6 +84,7 @@ describe Version do
         it do
           expect(version).to be_rejected
           expect(version).to_not have_received :apply_changes
+          expect(version).to_not have_received :reject_changes
           expect(version).to have_received :rollback_changes
           expect(version).to_not have_received :notify_acceptance
           expect(version).to have_received :notify_rejection
@@ -94,6 +98,7 @@ describe Version do
           expect(version).to be_rejected
           expect(version.moderator).to eq moderator
           expect(version).to_not have_received :apply_changes
+          expect(version).to have_received :reject_changes
           expect(version).to_not have_received :rollback_changes
           expect(version).to_not have_received :notify_acceptance
           expect(version).to have_received(:notify_rejection).with 'reason'
