@@ -10,7 +10,7 @@ class Messages::MentionSource < ServiceObjectBase
       name: ERB::Util.h(linked_name),
       url: "#{linked_url}#{comment_hash}",
       bubble: link_bubble
-    ).html_safe
+    ).html_safe # rubocop:disable OutputSafety
   end
 
 private
