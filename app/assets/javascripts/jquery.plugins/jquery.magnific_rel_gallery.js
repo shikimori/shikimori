@@ -28,6 +28,8 @@ $.fn.extend({
           closeOnContentClick: true,
           // closeBtnInside: false
 
+          fixedContentPos: true,
+          // fixedBgPos: true,
           gallery: {
             enabled: true,
             navigateByImgClick: true,
