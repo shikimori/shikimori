@@ -8,6 +8,7 @@ export default class SpoilerBlock extends View {
     this.content = this.node.children[1];
 
     this.button.addEventListener('click', this._toggle);
+    this.node.addEventListener('keydown', this._keydown);
   }
 
   @bind
@@ -26,6 +27,18 @@ export default class SpoilerBlock extends View {
     } else {
       this.node.classList.add('is-opened');
       animatedExpand(this.content);
+    }
+  }
+
+  @bind
+  _keydown(e) {
+    switch (e.keyCode) {
+      case 27: // esc
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        this.button.blur();
+        return;
     }
   }
 }
