@@ -74,6 +74,8 @@ private
     end
     .compact
     .reject { |link| link[:kind] == Types::ExternalLink::Kind[:myanimelist] }
+    .reject { |link| link[:url].match?(/\bakira/i) }
+    # for some reason it returns "akira" links for some animes: https://smotretanime.ru/api/series/?myAnimeListId=41372&fields=id,title,links
   end
 
   def create_link anime, attributes
