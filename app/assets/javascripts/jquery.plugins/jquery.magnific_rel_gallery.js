@@ -28,7 +28,7 @@ $.fn.extend({
           closeOnContentClick: true,
           // closeBtnInside: false
 
-          fixedContentPos: false,
+          fixedContentPos: true,
           // fixedBgPos: true,
           gallery: {
             enabled: true,
