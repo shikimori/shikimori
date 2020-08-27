@@ -1,3 +1,4 @@
+// import delay from 'delay';
 // ссылки на camo в href содержат оригинальный url картинки,
 // а в data-href проксированный url картинки
 const extractUrl = item => item.src = item.el.data('href') || item.src;
@@ -27,9 +28,17 @@ $.fn.extend({
                 this.items = $(`a[rel='${item.rel}']`).toArray();
                 this.index = this.items.indexOf(item);
               }
+              $('.mfp-container').on('wheel', e => console.log(e));
 
               const { disablePageScroll } = await import('scroll-lock');
+              // const { disablePageScroll, enablePageScroll } = await import('scroll-lock');
               disablePageScroll();
+              // await delay(50);
+
+              // const { zoomLevel } = await import('zoom-level');
+              // $(window).on('wheel resize', e => {
+              //   console.log(e)
+              // });
             },
             async afterClose() {
               const { enablePageScroll } = await import('scroll-lock');
