@@ -14,7 +14,8 @@ describe BbCodes::Tags::WallTag do
         '[image=fsd',
         '[wall_image=fsd',
         '[poster=fsd',
-        '[/img]'
+        '[/img]',
+        '<img'
       ].sample * count
     end
 
@@ -29,7 +30,11 @@ describe BbCodes::Tags::WallTag do
 
     context 'not allowed' do
       let(:count) { described_class::MAXIMUM_IMAGES + 1 }
-      it { is_expected.to eq text }
+      it do
+        is_expected.to eq(
+          format(BbCodes::Tags::WallTag::RESTRICTION_TEXT, count: count)
+        )
+      end
     end
   end
 end

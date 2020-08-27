@@ -15,6 +15,9 @@ class BbCodes::Tags::CodeTag
   CODE_PLACEHOLDER_1 = '<<-CODE-1-PLACEHODLER->>'
   CODE_PLACEHOLDER_2 = '<<-CODE-2-PLACEHODLER->>'
 
+  CODE_INLINE_OPEN_TAG = "<code class='b-code_inline'>"
+  CODE_INLINE_CLOSE_TAG = '</code>'
+
   class BrokenTagError < RuntimeError
   end
 
@@ -100,7 +103,7 @@ private
   end
 
   def code_inline text
-    "<code class='b-code_inline'>#{text}</code>"
+    "#{CODE_INLINE_OPEN_TAG}#{text}#{CODE_INLINE_CLOSE_TAG}"
   end
 
   def code_block? text, content_around
