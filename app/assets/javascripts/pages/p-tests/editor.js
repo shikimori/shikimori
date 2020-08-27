@@ -151,9 +151,11 @@ z
 
 z
  
-z zzzzzzz zzzzzzz zzzzzzz
+||z zzzzzzz zzzzzzz zzzzzzz||
 
+[spoiler]
 zzzzzzzz zzzzzzz zzzzzzz zzzzzzz
+[/spoiler]
 
 z
 
