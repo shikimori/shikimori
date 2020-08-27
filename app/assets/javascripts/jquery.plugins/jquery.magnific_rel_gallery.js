@@ -1,21 +1,21 @@
-import { isMobile, isWebkit } from 'helpers/mobile_detect';
+// import { isMobile, isWebkit } from 'helpers/mobile_detect';
 
 // ссылки на camo в href содержат оригинальный url картинки,
 // а в data-href проксированный url картинки
 const extractUrl = item => item.src = item.el.data('href') || item.src;
-const GLOBAL_EVENTS = 'gesturestart gesturechange gestureend resize';
+// const GLOBAL_EVENTS = 'gesturestart gesturechange gestureend resize';
+// 
+// async function disableScroll() {
+//   const { disablePageScroll } = await import('scroll-lock');
+//   disablePageScroll();
+// }
 
-async function disableScroll() {
-  const { disablePageScroll } = await import('scroll-lock');
-  disablePageScroll();
-}
-
-async function enableScroll(e) {
-  const { enablePageScroll } = await import('scroll-lock');
-  enablePageScroll();
-
-  $(window).off(GLOBAL_EVENTS, enableScroll);
-}
+// async function enableScroll(e) {
+//   const { enablePageScroll } = await import('scroll-lock');
+//   enablePageScroll();
+// 
+//   $(window).off(GLOBAL_EVENTS, enableScroll);
+// }
 
 $.fn.extend({
   magnificRelGallery() {
@@ -43,15 +43,15 @@ $.fn.extend({
                 this.index = this.items.indexOf(item);
               }
 
-              if (!isMobile || isWebkit) {
-                disableScroll();
-                $(window).one(GLOBAL_EVENTS, enableScroll);
-              }
+              // if (!isMobile || isWebkit) {
+              //   disableScroll();
+              //   $(window).one(GLOBAL_EVENTS, enableScroll);
+              // }
             },
             afterClose() {
-              if (!isMobile || isWebkit) {
-                enableScroll();
-              }
+              // if (!isMobile || isWebkit) {
+              //   enableScroll();
+              // }
             },
             elementParse: extractUrl
           },
