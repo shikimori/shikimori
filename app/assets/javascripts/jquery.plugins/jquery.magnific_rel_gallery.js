@@ -2,6 +2,19 @@
 // ссылки на camo в href содержат оригинальный url картинки,
 // а в data-href проксированный url картинки
 const extractUrl = item => item.src = item.el.data('href') || item.src;
+const EVENTS = 'gestureend resize';
+
+async function disableScroll() {
+  const { disablePageScroll } = await import('scroll-lock');
+  disablePageScroll();
+}
+
+async function enableScroll(e) {
+  const { enablePageScroll } = await import('scroll-lock');
+  enablePageScroll();
+
+  $(window).off(EVENTS, enableScroll);
+}
 
 $.fn.extend({
   magnificRelGallery() {
@@ -21,7 +34,7 @@ $.fn.extend({
           },
 
           callbacks: {
-            async beforeOpen() {
+            beforeOpen() {
               const item = this.items[this.index];
 
               if (item.rel && (this.items.length === 1)) {
@@ -30,20 +43,10 @@ $.fn.extend({
               }
               $('.mfp-container').on('wheel', e => console.log(e));
 
-              const { disablePageScroll } = await import('scroll-lock');
-              // const { disablePageScroll, enablePageScroll } = await import('scroll-lock');
-              disablePageScroll();
-              // await delay(50);
-
-              // const { zoomLevel } = await import('zoom-level');
-              // $(window).on('wheel resize', e => {
-              //   console.log(e)
-              // });
+              disableScroll();
+              $(window).on(EVENTS, enableScroll);
             },
-            async afterClose() {
-              const { enablePageScroll } = await import('scroll-lock');
-              enablePageScroll();
-            },
+            afterClose: enableScroll,
             elementParse: extractUrl
           },
 
