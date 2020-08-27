@@ -16,3 +16,7 @@ export const isMobile = () =>
   document.documentElement.clientWidth < 1024 || (
     !!mobileDetect.mobile() && document.documentElement.clientWidth <= 1023
   );
+
+export const isWebkit = ('webkitURL' in window) ||
+  ('WebkitAppearance' in document.documentElement.style) ||
+  ('webkitRequestAnimationFrame' in window);

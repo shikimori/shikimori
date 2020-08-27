@@ -1,8 +1,9 @@
-// import delay from 'delay';
+import { isMobile, isWebkit } from 'helpers/mobile_detect';
+
 // ссылки на camo в href содержат оригинальный url картинки,
 // а в data-href проксированный url картинки
 const extractUrl = item => item.src = item.el.data('href') || item.src;
-const EVENTS = 'gesturestart gesturechange gestureend resize';
+const GLOBAL_EVENTS = 'gesturestart gesturechange gestureend resize';
 
 async function disableScroll() {
   const { disablePageScroll } = await import('scroll-lock');
@@ -13,7 +14,7 @@ async function enableScroll(e) {
   const { enablePageScroll } = await import('scroll-lock');
   enablePageScroll();
 
-  $(window).off(EVENTS, enableScroll);
+  $(window).off(GLOBAL_EVENTS, enableScroll);
 }
 
 $.fn.extend({
@@ -42,10 +43,16 @@ $.fn.extend({
                 this.index = this.items.indexOf(item);
               }
 
-              disableScroll();
-              $(window).one(EVENTS, enableScroll);
+              if (!isMobile || isWebkit) {
+                disableScroll();
+                $(window).one(GLOBAL_EVENTS, enableScroll);
+              }
             },
-            afterClose: enableScroll,
+            afterClose() {
+              if (!isMobile || isWebkit) {
+                enableScroll();
+              }
+            },
             elementParse: extractUrl
           },
 
