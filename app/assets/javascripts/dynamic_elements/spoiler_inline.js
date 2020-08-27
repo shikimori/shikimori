@@ -32,7 +32,6 @@ export default class SpoilerInline extends View {
 
   @bind
   _keydown(e) {
-    // esc
     switch (e.keyCode) {
       case 27: // esc
         e.preventDefault();
