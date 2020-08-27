@@ -2,7 +2,7 @@
 // ссылки на camo в href содержат оригинальный url картинки,
 // а в data-href проксированный url картинки
 const extractUrl = item => item.src = item.el.data('href') || item.src;
-const EVENTS = 'gestureend resize';
+const EVENTS = 'gesturestart gesturechange gestureend resize';
 
 async function disableScroll() {
   const { disablePageScroll } = await import('scroll-lock');
@@ -41,10 +41,9 @@ $.fn.extend({
                 this.items = $(`a[rel='${item.rel}']`).toArray();
                 this.index = this.items.indexOf(item);
               }
-              $('.mfp-container').on('wheel', e => console.log(e));
 
               disableScroll();
-              $(window).on(EVENTS, enableScroll);
+              $(window).one(EVENTS, enableScroll);
             },
             afterClose: enableScroll,
             elementParse: extractUrl
