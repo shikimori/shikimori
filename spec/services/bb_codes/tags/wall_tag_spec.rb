@@ -27,7 +27,7 @@ describe BbCodes::Tags::WallTag do
       end
     end
 
-    context 'not allowed', :focus do
+    context 'not allowed' do
       let(:count) { described_class::MAXIMUM_IMAGES + 1 }
       it { is_expected.to eq text }
     end
