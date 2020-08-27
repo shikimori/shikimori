@@ -3,13 +3,14 @@ class BbCodes::Markdown::SpoilerInlineParser
 
   REGEXP = / \|\| (?<text> (?: (?!\|\|) .)+ ) \|\| /x
 
+  TAG_OPEN = BbCodes::Tags::SpoilerTag::INLINE_TAG_OPEN
+  TAG_CLOSE = BbCodes::Tags::SpoilerTag::INLINE_TAG_CLOSE
+
   def format text
     text.gsub(REGEXP) do
       text = $LAST_MATCH_INFO[:text]
 
-      "<button class='b-spoiler_inline to-process' data-dynamic='spoiler_inline'>" \
-        "<span>#{text}</span>" \
-      '</button>'
+      "#{TAG_OPEN}<span>#{text}</span>#{TAG_CLOSE}"
     end
   end
 end

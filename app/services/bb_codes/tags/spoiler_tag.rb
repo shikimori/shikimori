@@ -24,6 +24,10 @@ class BbCodes::Tags::SpoilerTag
   INLINE_LABELS = ['spoiler', 'спойлер', nil]
   MAX_DEFAULT_SPOILER_INLINE_SIZE = 100
 
+  INLINE_TAG_OPEN = "<span class='b-spoiler_inline to-process' "\
+    "data-dynamic='spoiler_inline' tabindex='0'>"
+  INLINE_TAG_CLOSE = '</span>'
+
   def format text
     spoiler_to_html text, 0
   end
@@ -66,9 +70,9 @@ private
   end
 
   def inline_spoiler_html _label, content
-    "<button class='b-spoiler_inline to-process' data-dynamic='spoiler_inline'>" \
-      "<span>#{content}</span>" \
-    '</button>'
+    INLINE_TAG_OPEN +
+      "<span>#{content}</span>" +
+    INLINE_TAG_CLOSE
   end
 
   def old_spoiler_html label, content

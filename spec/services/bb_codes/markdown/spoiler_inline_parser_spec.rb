@@ -6,8 +6,7 @@ describe BbCodes::Markdown::SpoilerInlineParser do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <button class='b-spoiler_inline to-process'
-            data-dynamic='spoiler_inline'><span>test</span></button>
+          #{described_class::TAG_OPEN}<span>test</span>#{described_class::TAG_CLOSE}
         HTML
       )
     end
@@ -18,8 +17,9 @@ describe BbCodes::Markdown::SpoilerInlineParser do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          a <button class='b-spoiler_inline to-process'
-            data-dynamic='spoiler_inline'><span>test</span></button> b
+          a
+          #{described_class::TAG_OPEN}<span>test</span>#{described_class::TAG_CLOSE}
+          b
         HTML
       )
     end
@@ -30,10 +30,8 @@ describe BbCodes::Markdown::SpoilerInlineParser do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <button class='b-spoiler_inline to-process'
-            data-dynamic='spoiler_inline'><span>a</span></button>
-          <button class='b-spoiler_inline to-process'
-            data-dynamic='spoiler_inline'><span>b</span></button>
+          #{described_class::TAG_OPEN}<span>a</span>#{described_class::TAG_CLOSE}
+          #{described_class::TAG_OPEN}<span>b</span>#{described_class::TAG_CLOSE}
         HTML
       )
     end
