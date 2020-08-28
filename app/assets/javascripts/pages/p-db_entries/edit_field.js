@@ -53,9 +53,10 @@ pageLoad('.db_entries-edit_field', () => {
     const galleryHtml = $gallery.html();
 
     if ($gallery.data('imageboard_tag')) {
-      import('views/images/imageboard_gallery').then(({ ImageboardGallery }) => (
-        new ImageboardGallery($gallery)
-      ));
+      import(/* webpackChunkName: "imageboard_gallery" */ 'views/images/imageboard_gallery')
+        .then(({ ImageboardGallery }) => (
+          new ImageboardGallery($gallery)
+        ));
     }
 
     $('#anime_imageboard_tag, #manga_imageboard_tag, #character_imageboard_tag')
@@ -65,9 +66,10 @@ pageLoad('.db_entries-edit_field', () => {
         $gallery.data({ imageboard_tag: this.value });
         $gallery.html(galleryHtml);
 
-        import('views/images/imageboard_gallery').then(({ ImageboardGallery }) => (
-          new ImageboardGallery($gallery)
-        ));
+        import(/* webpackChunkName: "imageboard_gallery" */ 'views/images/imageboard_gallery')
+          .then(({ ImageboardGallery }) => (
+            new ImageboardGallery($gallery)
+          ));
       });
   }
 
