@@ -2,7 +2,7 @@ import delay from 'delay'
 
 import ShikiEditable from 'views/application/shiki_editable'
 import ShikiEditor from 'views/shiki_editor'
-import ShikiGallery from 'views/application/shiki_gallery'
+import { ShikiGallery } from 'views/application/shiki_gallery'
 
 import axios from 'helpers/axios'
 import { animatedCollapse, animatedExpand } from 'helpers/animated'

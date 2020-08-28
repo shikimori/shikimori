@@ -1,5 +1,6 @@
-import PreloadedGallery from 'views/images/preloaded_gallery';
+pageLoad('clubs_images', async () => {
+  const { PreloadedGallery } =
+    await import(/* webpackChunkName: "galleries" */ 'views/images/preloaded_gallery');
 
-pageLoad('clubs_images', () => {
   new PreloadedGallery('.b-gallery');
 });

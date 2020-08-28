@@ -1,7 +1,7 @@
 import delay from 'delay';
 import { bind } from 'shiki-decorators';
 
-import ShikiGallery from 'views/application/shiki_gallery';
+import { ShikiGallery } from 'views/application/shiki_gallery';
 import JST from 'helpers/jst';
 
 const TEMPLATE = 'images/image';
@@ -14,7 +14,7 @@ const DEPLOY_INTERVAL = 100;
 const APPEND_ACTION = 'appended';
 const PREPEND_ACTION = 'prepended';
 
-export default class PreloadedGallery extends ShikiGallery {
+export class PreloadedGallery extends ShikiGallery {
   static BATCH_SIZE = 5;
 
   async initialize() {

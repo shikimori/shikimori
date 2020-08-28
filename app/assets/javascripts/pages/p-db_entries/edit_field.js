@@ -53,9 +53,9 @@ pageLoad('.db_entries-edit_field', () => {
     const galleryHtml = $gallery.html();
 
     if ($gallery.data('imageboard_tag')) {
-      import(/* webpackChunkName: "imageboard_gallery" */ 'views/images/imageboard_gallery')
-        .then(({ ImageboardGallery }) => (
-          new ImageboardGallery($gallery)
+      import(/* webpackChunkName: "galleries" */ 'views/images/imageboards_gallery')
+        .then(({ ImageboardsGallery }) => (
+          new ImageboardsGallery($gallery)
         ));
     }
 
@@ -66,9 +66,9 @@ pageLoad('.db_entries-edit_field', () => {
         $gallery.data({ imageboard_tag: this.value });
         $gallery.html(galleryHtml);
 
-        import(/* webpackChunkName: "imageboard_gallery" */ 'views/images/imageboard_gallery')
-          .then(({ ImageboardGallery }) => (
-            new ImageboardGallery($gallery)
+        import(/* webpackChunkName: "galleries" */ 'views/images/imageboards_gallery')
+          .then(({ ImageboardsGallery }) => (
+            new ImageboardsGallery($gallery)
           ));
       });
   }

@@ -5,7 +5,7 @@ import View from 'views/application/view';
 
 const DEPLOY_INTERVAL = 50;
 
-export default class ShikiGallery extends View {
+export class ShikiGallery extends View {
   initialize(customOptions) {
     const options = customOptions || {};
 

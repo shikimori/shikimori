@@ -71,7 +71,7 @@ if (process.env.NODE_ENV !== 'test') {
                 return fixChunkName(`${cacheGroupKey}-${allChunksNames || moduleFileName}`);
               }
             },
-            app_sync: {
+            app: {
               chunks: 'async',
               priority: -5,
               name(module, chunks, cacheGroupKey) {
