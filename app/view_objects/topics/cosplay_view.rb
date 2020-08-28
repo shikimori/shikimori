@@ -6,19 +6,19 @@ class Topics::CosplayView < Topics::UserContentView
   end
 
   def minified?
-    true
-  end
-
-  def render_body
-    h.render 'topics/cosplay/info', cosplay_view: self, gallery: topic.linked
+    preview?
   end
 
   def poster is_2x
     topic.user.avatar_url is_2x ? 80 : 48
   end
 
+  def html_body
+    h.render 'topics/cosplay/info', cosplay_view: self, gallery: topic.linked
+  end
+
   def html_body_truncated
-    render_body
+    html_body
   end
 
   def html_footer

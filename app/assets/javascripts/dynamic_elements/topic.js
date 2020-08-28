@@ -85,7 +85,7 @@ ${I18n.t('frontend.shiki_editor.not_available')} \
       this._checkHeight();
     }
 
-    if (this.is_cosplay && !this.isPreview) {
+    if (this.isCosplay && !this.isPreview) {
       import(/* webpackChunkName: "galleries" */ 'views/application/shiki_gallery')
         .then(({ ShikiGallery }) => (
           new ShikiGallery(this.$('.b-cosplay_gallery .b-gallery'))
@@ -420,8 +420,7 @@ ${I18n.t('frontend.shiki_editor.not_available')} \
   }
 
   // private functions
-  // проверка высоты топика. урезание,
-  // если текст слишком длинный (точно такой же код в shiki_comment)
+  // проверка высоты топика. урезание, если текст слишком длинный (точно такой же код в shiki_comment)
   @bind
   _checkHeight() {
     if (this.isReview) {
