@@ -10,6 +10,11 @@ pageLoad('characters_show', () => {
     const $editor = $('.b-form.new_comment textarea');
     $.scrollTo($editor, () => $editor.focus());
   });
+
+  import(/* webpackChunkName: "dbentry_show" */ 'views/animes/lang_trigger')
+    .then(({ LangTrigger }) => {
+      new LangTrigger('.b-lang_trigger')
+    })
 });
 
 pageLoad('characters_art', () => {
