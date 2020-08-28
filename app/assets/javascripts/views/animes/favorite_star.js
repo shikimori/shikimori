@@ -4,7 +4,7 @@ import View from 'views/application/view';
 const ADD_CLASS = 'fav-add';
 const REMOVE_CLASS = 'fav-remove';
 
-export default class FavoriteStar extends View {
+export class FavoriteStar extends View {
   initialize(isFavoured) {
     this.addText = this.$root.data('add_text');
     this.removeText = this.$root.data('remove_text');

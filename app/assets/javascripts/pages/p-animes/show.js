@@ -1,12 +1,8 @@
-import FavoriteStar from 'views/application/favorite_star';
-
-pageLoad('animes_show', 'mangas_show', 'ranobe_show', () => {
+pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
   $('.b-notice').tipsy({ gravity: 's' });
   $('.c-screenshot').magnificRelGallery();
 
   $('.text').checkHeight({ max_height: 200 });
-
-  new FavoriteStar($('.b-subposter-actions .fav-add'), gon.is_favoured);
 
   const $newReview = $('.new_review');
   if (window.SHIKI_USER.isSignedIn) {
@@ -32,8 +28,11 @@ pageLoad('animes_show', 'mangas_show', 'ranobe_show', () => {
     $.scrollTo($editor, () => $editor.focus());
   });
 
-  import(/* webpackChunkName: "dbentry_show" */ 'views/animes/lang_trigger')
-    .then(({ LangTrigger }) => {
-      new LangTrigger('.b-lang_trigger')
-    })
+  const [{ FavoriteStar }, { LangTrigger }] = await Promise.all([
+    import(/* webpackChunkName: "dbentry_show" */ 'views/animes/favorite_star'),
+    import(/* webpackChunkName: "dbentry_show" */ 'views/animes/lang_trigger')
+  ])
+
+  new LangTrigger('.b-lang_trigger');
+  new FavoriteStar($('.b-subposter-actions .fav-add'), gon.is_favoured);
 });

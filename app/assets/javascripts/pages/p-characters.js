@@ -1,20 +1,20 @@
-import FavoriteStar from 'views/application/favorite_star';
 import ImageboardGallery from 'views/images/imageboard_gallery';
 
-pageLoad('characters_show', () => {
+pageLoad('characters_show', async () => {
   $('.text').checkHeight({ max_height: 200 });
-
-  new FavoriteStar($('.b-subposter-actions .fav-add'), gon.is_favoured);
 
   $('.b-subposter-actions .new_comment').on('click', () => {
     const $editor = $('.b-form.new_comment textarea');
     $.scrollTo($editor, () => $editor.focus());
   });
 
-  import(/* webpackChunkName: "dbentry_show" */ 'views/animes/lang_trigger')
-    .then(({ LangTrigger }) => {
-      new LangTrigger('.b-lang_trigger')
-    })
+  const [{ FavoriteStar }, { LangTrigger }] = await Promise.all([
+    import(/* webpackChunkName: "dbentry_show" */ 'views/animes/favorite_star'),
+    import(/* webpackChunkName: "dbentry_show" */ 'views/animes/lang_trigger')
+  ])
+
+  new LangTrigger('.b-lang_trigger');
+  new FavoriteStar($('.b-subposter-actions .fav-add'), gon.is_favoured);
 });
 
 pageLoad('characters_art', () => {

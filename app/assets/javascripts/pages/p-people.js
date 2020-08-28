@@ -1,7 +1,14 @@
-import FavoriteStar from 'views/application/favorite_star';
-
-pageLoad('people_show', () => {
+pageLoad('people_show', async () => {
   $('.b-entry-info').checkHeight({ max_height: 101, without_shade: true });
+
+  // комментировать
+  $('.b-subposter-actions .new_comment').on('click', () => {
+    const $editor = $('.b-form.new_comment textarea');
+    $.scrollTo($editor, () => $editor.focus());
+  });
+
+  const { FavoriteStar } =
+    await import(/* webpackChunkName: "dbentry_show" */ 'views/animes/favorite_star');
 
   Object.keys(gon.is_favoured).forEach(role => {
     if (gon.person_role[role] || gon.is_favoured[role]) {
@@ -10,11 +17,5 @@ pageLoad('people_show', () => {
       $button.show();
       new FavoriteStar($button, gon.is_favoured[role]);
     }
-  });
-
-  // комментировать
-  $('.b-subposter-actions .new_comment').on('click', () => {
-    const $editor = $('.b-form.new_comment textarea');
-    $.scrollTo($editor, () => $editor.focus());
   });
 });
