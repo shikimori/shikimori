@@ -64,13 +64,13 @@ export default class Topic extends ShikiEditable {
     this.$editorContainer = this.$('.editor-container');
     this.$editor = this.$('.b-shiki_editor');
 
-    if (window.SHIKI_USER.isSignedIn && window.SHIKI_USER.isDayRegistered && this.$editor.length) {
+    if (window.SHIKI_USER.isSignedIn &&
+      window.SHIKI_USER.isDayRegistered && this.$editor.length
+    ) {
       this.editor = new ShikiEditor(this.$editor);
     } else {
       this.$editor.replaceWith(
-        `<div class='b-nothing_here'> \
-${I18n.t('frontend.shiki_editor.not_available')} \
-</div>`
+        `<div class='b-nothing_here'>${I18n.t('frontend.shiki_editor.not_available')}</div>`
       );
     }
 
@@ -98,7 +98,7 @@ ${I18n.t('frontend.shiki_editor.not_available')} \
         '' :
         `[entry=${this.$root.attr('id')}]${this.$root.data('user_nickname')}[/entry], `;
 
-      return this.$root.trigger('comment:reply', [reply]);
+      this.$root.trigger('comment:reply', [reply]);
     });
 
     this.$editor
@@ -115,7 +115,7 @@ ${I18n.t('frontend.shiki_editor.not_available')} \
         $newComment.yellowFade();
 
         this.editor.cleanup();
-        return this._hideEditor();
+        this._hideEditor();
       });
 
     $('.item-ignore', this.$inner)
@@ -337,9 +337,10 @@ ${I18n.t('frontend.shiki_editor.not_available')} \
     }
 
     if ($placeholder.data('ids')?.indexOf(trackableId) === -1) {
+      const ids = $placeholder.data('ids').add(trackableId);
       $placeholder.data({
-        ids: $placeholder.data('ids').add(trackableId),
-        'clickloaded-url': `/${trackableType}s/chosen/${$placeholder.data('ids').join(',')}`
+        ids,
+        'clickloaded-url': `/${trackableType}s/chosen/${ids.join(',')}`
       });
 
       const num = $placeholder.data('ids').length;
@@ -401,7 +402,7 @@ ${I18n.t('frontend.shiki_editor.not_available')} \
       .data('clickloaded-url-template')
       .replace('SKIP', this.$commentsLoader.data('skip'));
 
-    this.$commentsLoader.data({ 'clickloaded-url': newUrl });
+    this.$commentsLoader.data('clickloaded-url', newUrl);
   }
 
   @bind
