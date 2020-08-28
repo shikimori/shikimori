@@ -35,10 +35,10 @@ header.head
 
         - if linked
           - if linked.kind_of?(Anime) || linked.kind_of?(Manga)
-            = render 'animes/menu', resource: linked.decorate
+            = render 'db_entries/menu', resource: linked.decorate
 
           - elsif linked.kind_of? Review
-            = render 'animes/menu', resource: linked.target.decorate
+            = render 'db_entries/menu', resource: linked.target.decorate
 
           - elsif linked.kind_of? Character
             = render 'characters/menu', resource: linked.decorate
