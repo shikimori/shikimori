@@ -122,7 +122,7 @@
         .subheadline.m5 = i18n_i 'Forum'
         /a.link href="{subforum_url resource.topic}" Форум
         ul.b-block_list
-          = render partial: 'db_entries/menu_topic',
+          = render partial: 'animes/menu_topic',
             collection: resource.topic_views,
             as: :topic_view
 
@@ -130,7 +130,7 @@
       .b-menu-links.menu-topics-block.history.m30
         .subheadline.m5 = t 'news'
         .block
-          = render partial: 'db_entries/menu_topic',
+          = render partial: 'animes/menu_topic',
             collection: resource.news_topic_views,
             as: :topic_view,
             locals: { with_tooltip: true }
