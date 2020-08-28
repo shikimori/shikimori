@@ -50,9 +50,9 @@
     "uevent": "^2.0.0",
     "urijs": "^1.19.2",
     "url-parse": "^1.4.7",
-    "vue": "^2.6.11",
+    "vue": "2.6.12",
     "vue-loader": "^15.9.3",
-    "vue-template-compiler": "^2.6.11",
+    "vue-template-compiler": "2.6.12",
     "vuedraggable": "^2.24.0",
     "vuex": "^3.5.1",
     "webfontloader": "^1.6.28"
