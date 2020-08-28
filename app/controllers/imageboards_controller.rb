@@ -1,9 +1,6 @@
 class ImageboardsController < ShikimoriController
-  USER_AGENT_WITH_SSL = {
-    'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) '\
-      'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36',
-    ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
-  }
+  USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 ' \
+    '(KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36'
   EXCEPTIONS = Network::FaradayGet::NET_ERRORS
 
   VALID_URL = %r{https?://(?:yande.re|konachan.com|safebooru.org|danbooru.donmai.us)/}
@@ -16,7 +13,7 @@ class ImageboardsController < ShikimoriController
       raise CanCan::AccessDenied, url unless url.match? VALID_URL
 
       json = PgCache.fetch pg_cache_key, expires_in: EXPIRES_IN do
-        content = OpenURI.open_uri(url, USER_AGENT_WITH_SSL).read
+        content = OpenURI.open_uri(url, open_uri_options).read
 
         if url.match? 'safebooru.org'
           parse_safeboory content
@@ -43,6 +40,24 @@ class ImageboardsController < ShikimoriController
   end
 
 private
+
+  def open_uri_options
+    {
+      'User-Agent' => USER_AGENT,
+      ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
+      proxy_http_basic_authentication: http_proxy
+    }.compact
+  end
+
+  def http_proxy
+    return nil unless Rails.env.development?
+
+    [
+      Rails.application.secrets.proxy[:url],
+      Rails.application.secrets.proxy[:login],
+      Rails.application.secrets.proxy[:password]
+    ]
+  end
 
   def parse_safeboory xml
     Nokogiri::XML(xml).css('posts post').map(&:to_h)
