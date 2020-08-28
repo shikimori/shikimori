@@ -16,7 +16,9 @@ $(() => (
     WebFont.load({
       google: {
         families: ['Open Sans:400,600,700']
-      }
+      },
+      classes: false,
+      events: false
     })
   ), 50)
 ));
