@@ -64,6 +64,9 @@ export default class Topic extends ShikiEditable {
     this.$editorContainer = this.$('.editor-container');
     this.$editor = this.$('.b-shiki_editor');
 
+    // do not move to getter. it is redefined in FullDialog
+    this.$commentsLoader = this.$('.comments-loader');
+
     if (window.SHIKI_USER.isSignedIn &&
       window.SHIKI_USER.isDayRegistered && this.$editor.length
     ) {
@@ -268,9 +271,6 @@ export default class Topic extends ShikiEditable {
 
   @memoize
   get isReview() { return this.$root.hasClass('b-review-topic'); }
-
-  @memoize
-  get $commentsLoader() { return this.$('.comments-loader'); }
 
   @memoize
   get $commentsHider() { return this.$('.comments-hider'); }
