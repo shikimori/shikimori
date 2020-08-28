@@ -5,8 +5,6 @@ import View from 'views/application/view';
 import Wall from 'views/wall/view';
 import WallCluster from 'views/wall/cluster';
 
-import SwiperBuilder from 'helpers/swiper';
-
 const GLOBAL_SELECTOR = 'b-shiki_swiper';
 const DATA_KEY = 'swiper';
 
@@ -215,7 +213,6 @@ export default class Swiper extends View {
     });
   }
 
-
   _setPlaceholder(width, height) {
     this.$root
       .css({ width, height })
@@ -242,13 +239,16 @@ export default class Swiper extends View {
     });
   }
 
-  _buildSwiper() {
+  async _buildSwiper() {
     this.$root.children()
       .addClass('swiper-slide')
       .removeAttr('style')
       .wrapAll('<div class="swiper-wrapper" />');
 
-    this.swiper = new SwiperBuilder(this.root, {
+    const { default: _Swiper } =
+      await import(/* webpackChunkName: "swiper" */ 'vendor/async/swiper');
+
+    this.swiper = new _Swiper(this.root, {
       slidesPerView: 'auto',
       spaceBetween: WallCluster.MARGIN,
       a11y: false

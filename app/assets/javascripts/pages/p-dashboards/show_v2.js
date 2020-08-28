@@ -1,4 +1,3 @@
-import Swiper from 'helpers/swiper';
 import { isPhone, isMobile } from 'helpers/mobile_detect';
 
 let swipers = [];
@@ -16,8 +15,13 @@ pageUnload('dashboards_show', () => {
   $(document).off('resize:debounced orientationchange', reInitSwipers);
 });
 
-function reInitSwipers() {
+async function reInitSwipers() {
   destroySwipers();
+
+  if (!isMobile() && !isPhone()) { return; }
+
+  const { default: Swiper } =
+    await import(/* webpackChunkName: "swiper" */ 'vendor/async/swiper');
 
   if (isMobile()) {
     swipers.push(
