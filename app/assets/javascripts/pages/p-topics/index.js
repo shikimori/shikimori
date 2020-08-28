@@ -1,5 +1,4 @@
 import delay from 'delay';
-import AnimesMenu from 'views/animes/menu';
 
 pageLoad(
   'topics_index',
@@ -8,16 +7,18 @@ pageLoad(
   'topics_edit',
   'topics_create',
   'topics_update',
-  () => {
-    if ($('.b-animes-menu').exists()) {
-      new AnimesMenu('.b-animes-menu');
-    }
-
+  async () => {
     $('.reload').on('click', async ({ currentTarget }) => {
       currentTarget.classList.add('active');
       await delay(750);
       currentTarget.classList.remove('active');
     });
+
+    if ($('.b-animes-menu').exists()) {
+      const { default: AnimesMenu } =
+        await import(/* webpackChunkName: "animes_menu" */ 'views/animes/menu');
+      new AnimesMenu('.b-animes-menu')
+    }
   });
 
 pageLoad('topics_index', () => {
