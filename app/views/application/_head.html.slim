@@ -44,8 +44,11 @@ link[
 ]
 link rel='yandex-tableau-widget' href='/yandex-tableau-widget-manifest.json'
 
+// optimization for counters
+link rel='preconnect' href='https://mc.yandex.ru'
+link rel='preconnect' href='https://www.google-analytics.com'
 // optimization for WebFont.load
-link rel='preconnect' href='https://fonts.googleapis.com'
+link rel='preconnect' href='https://fonts.gstatic.com'
 
 - if defined?(@collection) && @collection.respond_to?(:next_page?)
   - if @collection.next_page?
