@@ -1,6 +1,4 @@
 import delay from 'delay';
-import Packery from 'packery';
-
 import View from 'views/application/view';
 
 const DEPLOY_INTERVAL = 50;
@@ -13,7 +11,9 @@ export class ShikiGallery extends View {
 
     $('.b-image', this.$container).shikiImage();
 
-    this.$container.imagesLoaded(() => {
+    this.$container.imagesLoaded(async () => {
+      const { default: Packery } = await import('packery');
+
       this.packery = new Packery(this.$container[0], {
         columnWidth: '.grid_sizer',
         containerStyle: null,
