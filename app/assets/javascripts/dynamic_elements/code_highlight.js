@@ -1,3 +1,4 @@
+/* global importScripts */
 import View from 'views/application/view';
 
 const NO_HIGHLIGHT = 'nohighlight';
@@ -37,13 +38,15 @@ export default class CodeHighlight extends View {
     this.hljsInitialized = true;
     this.lastId = 0;
 
-    this.worker = this.buildWorker(function (self) {
-      self.importScripts(
+    this.worker = this.buildWorker(function() {
+      importScripts(
         'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.16.2/highlight.min.js'
       );
 
-      this.onmessage = function (event) {
-        const result = self.hljs.highlight(event.data.language, event.data.code, true);
+      this.onmessage = function(event) {
+        const result = self // eslint-disable-line no-restricted-globals
+          .hljs
+          .highlight(event.data.language, event.data.code, true);
 
         postMessage({
           html: result.value,
