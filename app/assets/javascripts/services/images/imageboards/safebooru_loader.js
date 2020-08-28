@@ -3,7 +3,7 @@ import { LoaderBase } from './loader_base';
 export class SafebooruLoader extends LoaderBase {
   _initialize() {
     this.name = 'Safebooru';
-    this.baseUrl = 'http://safebooru.org';
+    this.baseUrl = 'https://safebooru.org';
   }
 
   // private methods

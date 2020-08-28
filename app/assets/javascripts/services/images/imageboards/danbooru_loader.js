@@ -3,7 +3,7 @@ import { LoaderBase } from './loader_base';
 export class DanbooruLoader extends LoaderBase {
   _initialize() {
     this.name = 'Danbooru';
-    this.baseUrl = 'http://danbooru.donmai.us';
+    this.baseUrl = 'https://danbooru.donmai.us';
   }
 
   // private methods
