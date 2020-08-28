@@ -2,17 +2,17 @@ import Topic from './topic';
 
 export default class FullDialog extends Topic {
   // handlers
-  _before_comments_clickload() {}
+  _beforeCommentsClickload() {}
 
   // private functions
-  _update_comments_loader(data) {
+  _updateCommentsLoader(data) {
     if (data.postloader) {
-      const $new_comments_loader = $(data.postloader).process();
-      this.$comments_loader.replaceWith($new_comments_loader);
-      return this.$comments_loader = $new_comments_loader;
+      const $newCommentsLoader = $(data.postloader).process();
+      this.$commentsLoader.replaceWith($newCommentsLoader);
+      this.$commentsLoader = $newCommentsLoader;
     } else {
-      this.$comments_loader.remove();
-      return this.$comments_loader = null;
+      this.$commentsLoader.remove();
+      this.$commentsLoader = null;
     }
   }
 }
