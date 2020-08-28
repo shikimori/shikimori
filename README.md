@@ -392,3 +392,8 @@ curl -XPUT -H "Content-Type: application/json" http://192.168.0.2:9200/_cluster/
     "cluster.routing.allocation.disk.watermark.flood_stage": "10gb"
   } }'
 ```
+
+### Manually refresh i18n-js translations
+```sh
+rails i18n:js:export
+```
