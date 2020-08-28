@@ -172,7 +172,8 @@ describe BbCodes::Text do
               class="b-image unprocessed"><img
                 src="#{user_image.image.url :thumbnail, false}"
                 data-width="#{user_image.width}"
-                data-height="#{user_image.height}"><span class="marker">1000x1000</span></a>
+                data-height="#{user_image.height}"
+                loading="lazy"><span class="marker">1000x1000</span></a>
           HTML
         )
       end
@@ -191,7 +192,7 @@ describe BbCodes::Text do
       it do
         expect(camo_url).to include '?url=http%3A%2F%2Fsite.com%2Fimage.jpg'
         is_expected.to eq(
-          "<span class=\"b-image b-poster no-zoom\"><img src=\"#{camo_url}\"></span>"
+          "<span class=\"b-image b-poster no-zoom\"><img src=\"#{camo_url}\" loading=\"lazy\"></span>"
         )
       end
     end
