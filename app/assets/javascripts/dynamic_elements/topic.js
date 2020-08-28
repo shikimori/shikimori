@@ -122,7 +122,7 @@ export default class Topic extends ShikiEditable {
       });
 
     $('.item-ignore', this.$inner)
-      .on('ajax:before', function () {
+      .on('ajax:before', function() {
         $(this).toggleClass('selected');
       })
       .on('ajax:success', (e, result) => {
@@ -160,7 +160,7 @@ export default class Topic extends ShikiEditable {
       this._actualizeVoting();
     });
 
-    this.$('.footer-vote .vote').on('ajax:complete', function () {
+    this.$('.footer-vote .vote').on('ajax:complete', function() {
       $(this).closest('.footer-vote').removeClass('b-ajax');
     });
 
@@ -331,8 +331,7 @@ export default class Topic extends ShikiEditable {
         .on('clickloaded:success', (e, data) => {
           const $html = $(data.content).process(data.JS_EXPORTS);
           $placeholder.replaceWith($html);
-
-          return $html.process();
+          $html.process();
         });
     }
 
@@ -362,7 +361,7 @@ export default class Topic extends ShikiEditable {
 
   // handlers
   async _appear(e, $appeared, byClick) {
-    const $filteredAppeared = $appeared.not(function () {
+    const $filteredAppeared = $appeared.not(function() {
       return $(this).data('disabled') || !(
         this.classList.contains('b-appear_marker') &&
           this.classList.contains('active')
@@ -374,7 +373,7 @@ export default class Topic extends ShikiEditable {
     const $objects = $filteredAppeared.closest('.shiki-object');
     const $markers = $objects.find('.b-new_marker.active');
     const ids = $objects
-      .map(function () {
+      .map(function() {
         const $object = $(this);
         const itemType = $object.data('appear_type');
         return `${itemType}-${this.id}`;
