@@ -10,7 +10,7 @@
     "axios": "^0.20.0",
     "blueimp-md5": "^2.17.0",
     "bowser": "^2.10.0",
-    "codemirror": "^5.56.0",
+    "codemirror": "^5.57.0",
     "coffee-loader": "^0.9.0",
     "d3": "3.5.17",
     "delay": "^4.4.0",
