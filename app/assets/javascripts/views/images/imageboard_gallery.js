@@ -1,7 +1,7 @@
 import PreloadedGallery from './preloaded_gallery';
 
 // dynamic loader for images from imageboards (danbooru, oreno.imouto, konachan, safebooru)
-export default class ImageboardGallery extends PreloadedGallery {
+export class ImageboardGallery extends PreloadedGallery {
   initialize() {
     super.initialize();
     this.rel = 'imageboards';

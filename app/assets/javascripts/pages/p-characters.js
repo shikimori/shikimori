@@ -1,4 +1,3 @@
-import ImageboardGallery from 'views/images/imageboard_gallery';
 
 pageLoad('characters_show', async () => {
   $('.text').checkHeight({ max_height: 200 });
@@ -17,7 +16,8 @@ pageLoad('characters_show', async () => {
   new FavoriteStar($('.b-subposter-actions .fav-add'), gon.is_favoured);
 });
 
-pageLoad('characters_art', () => {
+pageLoad('characters_art', async () => {
+  const { ImageboardGallery } = await import('views/images/imageboard_gallery');
   new ImageboardGallery('.b-gallery');
 });
 pageLoad('characters_cosplay', () => {
