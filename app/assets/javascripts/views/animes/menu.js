@@ -6,7 +6,7 @@ import axios from 'helpers/axios';
 
 const NO_DATA_I18N_KEY = 'frontend.pages.p_animes.no_data';
 
-export default class AnimesMenu extends View {
+export class AnimesMenu extends View {
   async initialize() {
     this._scoresStatsBar();
     this._statusesStatsBar();
