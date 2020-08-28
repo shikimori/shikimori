@@ -1,5 +1,7 @@
 en:
   frontend:
+    actions:
+      add: Add
     lib:
       please_try_again_later: Error. Please try again later
       loading: Loading...

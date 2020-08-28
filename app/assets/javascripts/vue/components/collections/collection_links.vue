@@ -15,7 +15,7 @@
               .add.b-js-link(
                 v-if='links.length < maxLinks'
                 @click='addLink({group: groupName})'
-              ) {{ I18n.t('actions.add').toLowerCase() }}
+              ) {{ I18n.t('frontend.actions.add').toLowerCase() }}
             input(
               :id="'group_' + groupName"
               :value='groupName'
@@ -48,12 +48,12 @@
           )
             .b-button(
               @click='addNewGroup'
-            ) {{ I18n.t('actions.add') }}
+            ) {{ I18n.t('frontend.actions.add') }}
           .button-container(
             v-if="!Object.isEmpty(groupedLinks[''])"
           )
             div
-              .b-button.disabled {{ I18n.t('actions.add') }}
+              .b-button.disabled {{ I18n.t('frontend.actions.add') }}
             .hint {{ I18n.t('frontend.collections.disabled_add_group_hint') }}
 
     .block.json

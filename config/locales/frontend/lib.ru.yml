@@ -1,5 +1,7 @@
 ru:
   frontend:
+    actions:
+      add: Добавить
     lib:
       please_try_again_later: Ошибка. Попробуй еще раз позже
       loading: Загрузка...
