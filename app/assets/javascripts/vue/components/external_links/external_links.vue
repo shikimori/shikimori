@@ -28,7 +28,7 @@
       )
     .b-button(
       @click='add'
-    ) {{ I18n.t('actions.add') }}
+    ) {{ I18n.t('frontend.actions.add') }}
 </template>
 
 <script>
