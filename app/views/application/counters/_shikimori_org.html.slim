@@ -22,7 +22,7 @@ javascript:
   })(window, 'yandex_metrika_callbacks');
 
   // для совместимости счётчиков с турболинками
-  $(document).on('page:before-change', function() {
+  $(document).on('turbolinks:before-visit', function() {
     window.turbolinks_referer = location.href;
   });
 
