@@ -17076,7 +17076,7 @@
       :algo: duration
       :filters:
         franchise: date_a_live
-      :threshold: 100%
+      :threshold: 95%
       :generator:
         threshold: 95%
         ignore_latest_ids:
@@ -17110,6 +17110,10 @@
       :filters:
         franchise: date_a_live
       :threshold: 0.01
+      :generator:
+        threshold: 95%
+        ignore_latest_ids:
+        - 40416
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :date_a_live
@@ -17466,7 +17470,7 @@
         - 36242
         - 38419
         - 40181
-      :threshold: 93.2%
+      :threshold: 93.6%
       :generator:
         ignore_latest_ids:
         - 38234
@@ -19667,12 +19671,16 @@
       :filters:
         franchise: shakugan_no_shana
         not_anime_ids:
+        - 1066
         - 1815
+        - 3221
+        - 3956
         - 6330
+        - 7375
         - 14957
         - 17551
         - 28603
-      :threshold: 95%
+      :threshold: 99.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :shakugan_no_shana
@@ -19702,8 +19710,12 @@
       :filters:
         franchise: shakugan_no_shana
         not_anime_ids:
+        - 1066
         - 1815
+        - 3221
+        - 3956
         - 6330
+        - 7375
         - 14957
         - 17551
         - 28603
@@ -21646,7 +21658,7 @@
         - 36760
         - 38788
         - 40348
-      :threshold: 93.5%
+      :threshold: 93.6%
       :generator:
         ignore_latest_ids:
         - 38770
@@ -22401,7 +22413,7 @@
         not_anime_ids:
         - 36865
         - 38056
-      :threshold: 94.3%
+      :threshold: 94.2%
       :generator:
         ignore_latest_ids:
         - 38201
@@ -24414,6 +24426,8 @@
       :algo: duration
       :filters:
         franchise: bang_dream
+        not_anime_ids:
+        - 40352
       :threshold: 96.8%
       :generator:
         not_ignored_ids:
@@ -24461,6 +24475,8 @@
       :algo: duration
       :filters:
         franchise: bang_dream
+        not_anime_ids:
+        - 40352
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -24701,7 +24717,7 @@
         - 21595
         - 32346
         - 33997
-      :threshold: 88%
+      :threshold: 87.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :yu_gi_oh
@@ -25626,7 +25642,7 @@
       :algo: duration
       :filters:
         franchise: pripara
-      :threshold: 94.2%
+      :threshold: 94.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pripara
@@ -25905,7 +25921,7 @@
         not_anime_ids:
         - 10736
         - 30103
-      :threshold: 91.5%
+      :threshold: 91.6%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -26046,7 +26062,7 @@
         franchise: digimon
         not_anime_ids:
         - 4712
-      :threshold: 93.4%
+      :threshold: 93.5%
       :generator:
         ignore_latest_ids:
         - 38088
@@ -27763,7 +27779,7 @@
         - 39101
         - 39102
         - 39162
-      :threshold: 90%
+      :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :transformers
