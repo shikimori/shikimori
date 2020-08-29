@@ -1,37 +1,44 @@
 import { sessionStorage } from 'js-storage';
+import { bind } from 'shiki-decorators';
 import View from 'views/application/view';
 
 const VOLUME_KEY = 'video_volume';
 const FULLSCREEN_EVENTS = 'webkitfullscreenchange mozfullscreenchange fullscreenchange';
 
-export default class ShikiHtml5Video extends View {
+export class ShikiHtml5Video extends View {
   initialize() {
-    this.root.volume = sessionStorage.get(VOLUME_KEY) || 1;
+    const storedVolume = sessionStorage.get(VOLUME_KEY);
+    this.node.volume = storedVolume !== undefined ? storedVolume : 1;
 
     // @on 'error', () => @error()
-    this.on('click', () => this.click());
-    this.on('volumechange', () => this.volumeChange());
-    this.on(FULLSCREEN_EVENTS, () => this.switchFullscreen());
+    this.on('click', this.click);
+    this.on('volumechange', this.volumeChange);
+    this.on(FULLSCREEN_EVENTS, this.switchFullscreen);
   }
 
-  click() {
-    if (this.root.paused) {
-      this.root.play();
+  @bind
+  click(e) {
+    e.stopImmediatePropagation();
+    e.preventDefault();
+
+    if (this.node.paused) {
+      this.node.play();
     } else {
-      this.root.pause();
+      this.node.pause();
     }
-    return false;
   }
 
+  @bind
   volumeChange() {
-    sessionStorage.set(VOLUME_KEY, this.root.volume);
+    sessionStorage.set(VOLUME_KEY, this.node.volume);
   }
 
+  @bind
   switchFullscreen() {
-    if (document.fullscreenElement === this.root) {
-      this.root.classList.add('fullscreen');
+    if (document.fullscreenElement === this.node) {
+      this.node.classList.add('fullscreen');
     } else {
-      this.root.classList.remove('fullscreen');
+      this.node.classList.remove('fullscreen');
     }
   }
 }
