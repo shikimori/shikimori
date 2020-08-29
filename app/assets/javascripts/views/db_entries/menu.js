@@ -26,23 +26,27 @@ export class AnimesMenu extends View {
   }
 
   _scoresStatsBar() {
-    this.$('#rates_scores_stats').empty().bar({
-      filter(entry, percent) { return percent >= 2; },
-      no_data($chart) {
-        $chart.html(`<p class='b-nothing_here'>${I18n.t(NO_DATA_I18N_KEY)}</p>`);
-      }
-    });
+    this.$('#rates_scores_stats')
+      .empty()
+      .bar({
+        filter(entry, percent) { return percent >= 2; },
+        noData($chart) {
+          $chart.html(`<p class='b-nothing_here'>${I18n.t(NO_DATA_I18N_KEY)}</p>`);
+        }
+      });
   }
 
   _statusesStatsBar() {
-    this.$('#rates_statuses_stats').empty().bar({
-      title(entry, percent) {
-        return percent > 15 ? entry.value : '';
-      },
-      no_data($chart) {
-        $chart.html(`<p class='b-nothing_here'>${I18n.t(NO_DATA_I18N_KEY)}</p>`);
-      }
-    });
+    this.$('#rates_statuses_stats')
+      .empty()
+      .bar({
+        title(entry, percent) {
+          return percent > 15 ? entry.value : '';
+        },
+        noData($chart) {
+          $chart.html(`<p class='b-nothing_here'>${I18n.t(NO_DATA_I18N_KEY)}</p>`);
+        }
+      });
   }
 
   _history() {

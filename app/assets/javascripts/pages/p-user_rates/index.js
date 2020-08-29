@@ -19,12 +19,14 @@ pageLoad('user_rates_index', () => {
   updateListCache();
 
   // графики
-  $('#scores, #types, #ratings').empty().bar({
-    no_data($chart) {
-      const text = I18n.t('frontend.pages.p_user_rates.insufficient_data');
-      return $chart.html(`<p class='b-nothing_here'>${text}</p>`);
-    }
-  });
+  $('#scores, #types, #ratings')
+    .empty()
+    .bar({
+      noData($chart) {
+        const text = I18n.t('frontend.pages.p_user_rates.insufficient_data');
+        $chart.html(`<p class='b-nothing_here'>${text}</p>`);
+      }
+    });
 
   // фокус по инпуту фильтра по тайтлу
   $('.b-collection_search input').on('focus', () => {
