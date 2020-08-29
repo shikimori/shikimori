@@ -16,41 +16,44 @@ $.fn.extend({
       let scoreInitial = parseInt($scoreValue.text()) || 0;
       let scoreNew = null;
 
-      $hoverableTrigger.on('mousemove', e => {
-        const offset = $(e.target).offset().left;
-        const scoreRaw = ((e.clientX - offset) * 10.0) / $stars.width();
-        scoreNew = scoreRaw > 0.5 ?
-          [Math.floor(scoreRaw) + 1, 10].min() :
-          0;
+      $hoverableTrigger
+        .on('mousemove', e => {
+          const offset = $(e.target).offset().left;
+          const scoreRaw = ((e.clientX - offset) * 10.0) / $stars.width();
+          scoreNew = scoreRaw > 0.5 ? [Math.floor(scoreRaw) + 1, 10].min() : 0;
 
-        $scoreNotice.html(notices[scoreNew] || '&nbsp;');
-        $hover.attr({ class: `${withoutScore($hover)} score-${scoreNew}` });
-        return $scoreValue
-          .html(scoreNew)
-          .attr({ class: `${withoutScore($scoreValue)} score-${scoreNew}` });
-      });
+          $scoreNotice
+            .html(notices[scoreNew] || '&nbsp;');
+          $hover
+            .attr('class', `${withoutScore($hover)} score-${scoreNew}`);
+          $scoreValue
+            .html(scoreNew)
+            .attr('class', `${withoutScore($scoreValue)} score-${scoreNew}`);
+        })
+        .on('mouseover', _e => {
+          $score.addClass('hovered');
+        })
+        .on('mouseout', _e => {
+          $score.removeClass('hovered');
+          $scoreNotice
+            .html(notices[scoreInitial] || '&nbsp;');
+          $hover
+            .attr('class', withoutScore($hover));
+          $score
+            .attr('class', `${withoutScore($score)} score-${scoreInitial}`);
+          $scoreValue
+            .attr('class', `${withoutScore($scoreValue)} score-${scoreInitial}`)
+            .html(scoreInitial);
+        })
+        .on('click', ({ currentTarget }) => {
+          if (isWithInput) {
+            scoreInitial = scoreNew;
+            $(currentTarget).trigger('mouseout');
+            $(currentTarget).closest('form').find(inputSelector).val(scoreNew);
+          }
 
-      $hoverableTrigger.on('mouseover', e => $score.addClass('hovered'));
-
-      $hoverableTrigger.on('mouseout', e => {
-        $score.removeClass('hovered');
-        $scoreNotice.html(notices[scoreInitial] || '&nbsp;');
-        $hover.attr({ class: withoutScore($hover) });
-        $score.attr({ class: `${withoutScore($score)} score-${scoreInitial}` });
-        return $scoreValue
-          .attr({ class: `${withoutScore($scoreValue)} score-${scoreInitial}` })
-          .html(scoreInitial);
-      });
-
-      return $hoverableTrigger.on('click', function(e) {
-        if (isWithInput) {
-          scoreInitial = scoreNew;
-          $(this).trigger('mouseout');
-          $(this).closest('form').find(inputSelector).val(scoreNew);
-        }
-
-        return $(this).trigger('rate:change', scoreNew);
-      });
+          $(currentTarget).trigger('rate:change', scoreNew);
+        });
     });
   }
 });
