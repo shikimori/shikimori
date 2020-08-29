@@ -54,6 +54,10 @@ export class ShikiGallery extends View {
       .prependTo(this.$container);
 
     await delay(delayInterval);
-    this.packery[action]($image[0]);
+
+    // gallery can be alredy destroyed (user navigated to another page)
+    if (this?.packery) {
+      this.packery[action]($image[0]);
+    }
   }
 }
