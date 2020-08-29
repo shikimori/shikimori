@@ -11,20 +11,20 @@ class Animes::FranchiseName
   ]
 
   FIXED_NAMES = {
-    'Initial D First Stage' => 'initial_d',
-    'Tales of the Abyss' => 'tales_of',
-    'ChaoS;HEAd' => 'science_adventure',
-    'Fate/Zero' => 'fate',
-    'Fate/Apocrypha' => 'fate',
-    'The iDOLM@STER' => 'idolmaster',
-    '.hack//Sign' => 'hack',
-    'Ore no Imouto ga Konnani Kawaii Wake ga Nai' => 'ore_no_imouto',
-    'Maria-sama ga Miteru' => 'maria_sama',
-    'Kyoushoku Soukou Guyver' => 'guyver',
-    'Aria The Natural' => 'aria',
-    'Marvel Future Avengers' => 'marvel',
-    'Re:Zero kara Hajimeru Isekai Seikatsu' => 're_zero',
-    'Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka' => 'danmachi'
+    'initial d first stage' => 'initial_d',
+    'tales of the abyss' => 'tales_of',
+    'chaos;head' => 'science_adventure',
+    'fate/zero' => 'fate',
+    'fate/apocrypha' => 'fate',
+    'the idolm@ster' => 'idolmaster',
+    '.hack//sign' => 'hack',
+    'ore no imouto ga konnani kawaii wake ga nai' => 'ore_no_imouto',
+    'maria-sama ga miteru' => 'maria_sama',
+    'kyoushoku soukou guyver' => 'guyver',
+    'aria the natural' => 'aria',
+    'marvel future avengers' => 'marvel',
+    're:zero kara hajimeru isekai seikatsu' => 're_zero',
+    'dungeon ni deai wo motomeru no wa machigatteiru darou ka' => 'danmachi'
   }
 
   def call
@@ -93,7 +93,7 @@ private
 
   def multiply_names name
     [
-      FIXED_NAMES[name],
+      FIXED_NAMES[name.downcase],
       cleanup(name, //),
       cleanup(name, /:.*$/),
       cleanup(name, /!.*$/),
