@@ -26,7 +26,7 @@ class AnimeDecorator < AniMangaDecorator
   end
 
   def screenshots_allowed?
-    !Copyright::SCREENSHOTS.include?(id) && !censored?
+    Copyright::SCREENSHOTS.exclude?(id) && !censored?
   end
 
   def videos limit = nil
@@ -64,7 +64,9 @@ class AnimeDecorator < AniMangaDecorator
 
   # try to take the date from animecalendar if possible
   def aired_on
-    anons? ? (next_episode_at(false) || super) : super
+    return super unless anons?
+
+    (next_episode_at(false) if super && super < Time.zone.now) || super
   end
 
   # for schema.org
