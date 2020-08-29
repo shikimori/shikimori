@@ -17,8 +17,8 @@ export default class ShikiView extends View
   _check_height: =>
     if window.SHIKI_USER.isCommentsAutoCollapsed
       @$inner.checkHeight
-        max_height: @MAX_PREVIEW_HEIGHT
-        collapsed_height: @COLLAPSED_HEIGHT
+        maxHeight: @MAX_PREVIEW_HEIGHT
+        collapsedHeight: @COLLAPSED_HEIGHT
 
   _shade: =>
     @$node.addClass 'b-ajax'

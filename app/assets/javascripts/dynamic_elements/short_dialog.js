@@ -17,8 +17,8 @@ export default class ShortDialog extends Topic {
   // private functions
   _checkHeight() {
     this.$inner.checkHeight({
-      max_height: this.MAX_PREVIEW_HEIGHT,
-      collapsed_height: this.COLLAPSED_HEIGHT
+      maxHeight: this.MAX_PREVIEW_HEIGHT,
+      collapsedHeight: this.COLLAPSED_HEIGHT
     });
   }
 }

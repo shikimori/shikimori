@@ -1,5 +1,5 @@
 pageLoad('people_show', async () => {
-  $('.b-entry-info').checkHeight({ max_height: 101, without_shade: true });
+  $('.b-entry-info').checkHeight({ maxHeight: 101, withoutShade: true });
 
   // комментировать
   $('.b-subposter-actions .new_comment').on('click', () => {

@@ -2,7 +2,7 @@ pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
   $('.b-notice').tipsy({ gravity: 's' });
   $('.c-screenshot').magnificRelGallery();
 
-  $('.text').checkHeight({ max_height: 200 });
+  $('.text').checkHeight({ maxHeight: 200 });
 
   const $newReview = $('.new_review');
   if (window.SHIKI_USER.isSignedIn) {

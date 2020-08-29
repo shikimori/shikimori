@@ -1,6 +1,6 @@
 
 pageLoad('characters_show', async () => {
-  $('.text').checkHeight({ max_height: 200 });
+  $('.text').checkHeight({ maxHeight: 200 });
 
   $('.b-subposter-actions .new_comment').on('click', () => {
     const $editor = $('.b-form.new_comment textarea');

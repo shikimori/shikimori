@@ -52,7 +52,7 @@ pageLoad('versions_show', 'user_rate_logs_show', async () => {
 });
 
 pageLoad('.moderations-index', () => {
-  $('.b-brief').checkHeight({ max_height: 150 });
+  $('.b-brief').checkHeight({ maxHeight: 150 });
 
   $('.expand-all').on('click', function () {
     $(this).parent().next().next()

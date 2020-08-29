@@ -429,15 +429,15 @@ export default class Topic extends ShikiEditable {
 
       if (imageHeight > 0) {
         this.$('.body-truncated-inner').checkHeight({
-          max_height: imageHeight - readMoreHeight,
-          collapsed_height: imageHeight - readMoreHeight,
-          expand_html: ''
+          maxHeight: imageHeight - readMoreHeight,
+          collapsedHeight: imageHeight - readMoreHeight,
+          expandHtml: ''
         });
       }
     } else {
       this.$('.body-inner').checkHeight({
-        max_height: this.MAX_PREVIEW_HEIGHT,
-        collapsed_height: this.COLLAPSED_HEIGHT
+        maxHeight: this.MAX_PREVIEW_HEIGHT,
+        collapsedHeight: this.COLLAPSED_HEIGHT
       });
     }
   }

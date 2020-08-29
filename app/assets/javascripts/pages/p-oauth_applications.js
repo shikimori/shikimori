@@ -16,5 +16,5 @@ pageLoad(
   });
 
 pageLoad('oauth_applications_show', () => {
-  $('.description').checkHeight({ max_height: 200 });
+  $('.description').checkHeight({ maxHeight: 200 });
 });
