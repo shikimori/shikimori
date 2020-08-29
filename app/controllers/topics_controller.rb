@@ -211,8 +211,10 @@ private
   end
 
   def fetch_topic
-    @resource = Topic.find_by(id: params[:id]) ||
-      NoTopic.new(id: params[:id].to_i)
+    topic = Topic.find_by(id: params[:id])
+    raise ActiveRecord::RecordNotFound if request.format.rss?
+
+    @resource = topic || NoTopic.new(id: params[:id].to_i)
   end
 
   def set_canonical
