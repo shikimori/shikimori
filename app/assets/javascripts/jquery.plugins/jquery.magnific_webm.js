@@ -1,5 +1,3 @@
-import { ShikiHtml5Video } from 'views/application/shiki_html5_video';
-
 const NS = 'webm';
 
 const FRAME_HTML = '<div class="mfp-figure mfp-webm-holder mfp-image-holder">' +
@@ -34,7 +32,8 @@ $.magnificPopup.registerModule(NS, {
         // preload: 'none'
       });
 
-      new ShikiHtml5Video($video);
+      import(/* webpackChunkName: "html5player" */ 'views/application/shiki_html5_video')
+        .then(({ ShikiHtml5Video }) => new ShikiHtml5Video($video));
 
       $video.appendTo($videoContainer);
 
