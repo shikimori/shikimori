@@ -1,6 +1,4 @@
-import EditStyles from 'views/styles/edit';
-
-pageLoad('clubs_edit', function() {
+pageLoad('clubs_edit', async () => {
   // description page
   if ($('.edit-page.description').exists()) {
     $('.b-shiki_editor')
@@ -33,6 +31,9 @@ pageLoad('clubs_edit', function() {
 
   // styles page
   if ($('.edit-page.styles').exists()) {
+    const { EditStyles } =
+      await import(/* webpackChunkName: "edit_styles" */ 'views/styles/edit');
+
     new EditStyles('.b-edit_styles');
   }
 });

@@ -1,5 +1,3 @@
-import EditStyles from 'views/styles/edit';
-
 pageLoad('profiles_edit', () => {
   // profile page
   if ($('.edit-page.profile').exists()) {
@@ -21,15 +19,18 @@ pageLoad('profiles_edit', () => {
   }
 });
 
-function pageStyles() {
-  new EditStyles('.b-edit_styles');
-
+async function pageStyles() {
   $('#user_preferences_body_width').on('change', ({ currentTarget }) => {
     $(document.body)
       .removeClass('x1000')
       .removeClass('x1200')
       .addClass(currentTarget.value);
   });
+
+  const { EditStyles } =
+    await import(/* webpackChunkName: "edit_styles" */ 'views/styles/edit');
+
+  new EditStyles('.b-edit_styles');
 }
 
 function pageListAndMisc() {
@@ -53,6 +54,7 @@ function pageListAndMisc() {
     $(currentTarget).closest('.profile-action')
       .find('.controls')
       .show();
+
     $(currentTarget).closest('.profile-action')
       .find('.form')
       .hide();
