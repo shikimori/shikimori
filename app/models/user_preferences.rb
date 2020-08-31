@@ -39,11 +39,6 @@ class UserPreferences < ApplicationRecord
     )
   end
 
-  # TODO: remove it
-  def postload_in_catalog?
-    postload_in_catalog
-  end
-
 private
 
   def set_forums
