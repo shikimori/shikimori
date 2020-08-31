@@ -219,6 +219,7 @@ ru:
         is_show_smileys: Отображать смайлики
         show_social_buttons: Отображать кнопки соц сетей
         volumes_in_manga: Отображать тома у манги
+        is_shiki_editor: Новый WYSIWYG текстовый редактор
       anime_video:
         url: Url
         episode: Эпизод
