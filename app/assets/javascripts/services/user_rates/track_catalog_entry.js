@@ -8,9 +8,10 @@ export default class TrackCatalogEntry {
   }
 
   _$node(userRate, $container) {
-    return $with(this._selector(userRate), $container);
+    return $with(this.constructor.selector(userRate), $container);
   }
-  _selector(userRate) {
+
+  static selector(userRate) {
     return `.c-${userRate.target_type.toLowerCase()}.entry-${userRate.target_id}`;
   }
 }

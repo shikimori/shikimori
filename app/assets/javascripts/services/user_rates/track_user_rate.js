@@ -7,10 +7,10 @@ export default class TrackUserRate {
   }
 
   _$node(userRate, $container) {
-    return $with(this._selector(userRate), $container);
+    return $with(this.constructor.selector(userRate), $container);
   }
 
-  _selector(userRate) {
+  static selector(userRate) {
     return `.b-user_rate.${userRate.target_type.toLowerCase()}-${userRate.target_id}`;
   }
 }
