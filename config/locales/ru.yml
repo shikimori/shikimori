@@ -217,7 +217,7 @@ ru:
         russian_genres: Русские названия жанров
         russian_names: Русские названия аниме и манги
         show_hentai_images: Картинки с имиджборд без цензуры
-        show_smileys: Отображать смайлики
+        is_show_smileys: Отображать смайлики
         show_social_buttons: Отображать кнопки соц сетей
         volumes_in_manga: Отображать тома у манги
       anime_video:

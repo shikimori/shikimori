@@ -11,7 +11,7 @@
     .block
       = f.input :apply_user_styles
       / = f.input :show_social_buttons
-      = f.input :show_smileys
+      = f.input :is_show_smileys
       - if current_user.admin?
         = f.input :is_shiki_editor
 

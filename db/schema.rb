@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_31_175037) do
+ActiveRecord::Schema.define(version: 2020_08_31_175512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1013,7 +1013,7 @@ ActiveRecord::Schema.define(version: 2020_08_31_175037) do
     t.boolean "russian_names", default: true
     t.boolean "about_on_top", default: false
     t.boolean "russian_genres", default: true, null: false
-    t.boolean "show_smileys", default: true
+    t.boolean "is_show_smileys", default: true
     t.boolean "show_social_buttons", default: true
     t.boolean "show_hentai_images", default: false
     t.string "list_privacy", limit: 255, default: "public"

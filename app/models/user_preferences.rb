@@ -47,7 +47,7 @@ class UserPreferences < ApplicationRecord
     russian_names
     russian_genres
     about_on_top
-    show_smileys
+    is_show_smileys
     show_social_buttons
     show_hentai_images
     volumes_in_manga
@@ -66,6 +66,6 @@ private
 
   def set_forums
     self.forums = Forums::List.new(with_forum_size: false).map(&:id) -
-      [Forum.find_by_permalink('clubs').id]
+      [Forum.find_by_permalink('clubs').id] # rubocop:disable DynamicFindBy
   end
 end

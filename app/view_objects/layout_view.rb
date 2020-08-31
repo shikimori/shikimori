@@ -15,7 +15,7 @@ class LayoutView < ViewObjectBase
     (controller_classes(h.controller_name) +
       (db_entries_controller? ? controller_classes('db_entries') : []) +
       (base_controller_name ? controller_classes(base_controller_name) : []) +
-      (show_smileys? ? ['no-smileys'] : []) +
+      (is_show_smileys? ? ['no-smileys'] : []) +
       [h.current_user&.preferences&.body_width || 'x1200']
     ).uniq.join(' ')
   end
@@ -89,8 +89,8 @@ private
       (!h.user_signed_in? || h.current_user&.preferences&.send(option_name))
   end
 
-  def show_smileys?
-    h.user_signed_in? && !h.current_user.preferences.show_smileys?
+  def is_show_smileys? # rubocop:disable PredicateName
+    h.user_signed_in? && !h.current_user.preferences.is_show_smileys?
   end
 
   def db_entries_controller?

@@ -217,7 +217,7 @@ en:
         # russian_genres: Anime Genres in Russian
         # russian_names: Anime and Manga Titles in Russian
         show_hentai_images: Allow Nudity
-        show_smileys: Show Smileys
+        is_show_smileys: Show Smileys
         show_social_buttons: Show Social Media Icons
         volumes_in_manga: Show Manga Volumes
       anime_video:
