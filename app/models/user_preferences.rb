@@ -39,24 +39,6 @@ class UserPreferences < ApplicationRecord
     )
   end
 
-  %i[
-    anime_in_profile
-    manga_in_profile
-    comments_in_profile
-    achievements_in_profile
-    russian_names
-    russian_genres
-    about_on_top
-    is_show_smileys
-    show_social_buttons
-    show_hentai_images
-    volumes_in_manga
-  ].each do |name|
-    define_method :"#{name}?" do
-      send name
-    end
-  end
-
   # TODO: remove it
   def postload_in_catalog?
     postload_in_catalog
