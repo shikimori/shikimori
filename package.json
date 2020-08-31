@@ -5,7 +5,7 @@
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "@babel/plugin-proposal-logical-assignment-operators": "^7.11.0",
     "@johmun/vue-tags-input": "^2.1.0",
-    "@rails/webpacker": "5.1.1",
+    "@rails/webpacker": "5.2.1",
     "autosize": "^4.0.2",
     "axios": "^0.20.0",
     "blueimp-md5": "^2.17.0",
