@@ -4,7 +4,9 @@
 
 .block
   .subheadline vue component
-  .b-shiki_editor-v2.to-process data-dynamic='shiki_editor_v2'
+  = render 'blocks/shiki_editor',
+    text: '',
+    field_name: 'zzz'
 
 .block
   .fc-2

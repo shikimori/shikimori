@@ -19,11 +19,9 @@
     = f.input :about_on_top
   .block
     .subheadline = t '.about_me'
-    - if @resource.preferences.is_shiki_editor?
-      .b-shiki_editor-v2.to-proces data-dynamic='shiki_editor_v2'
-    - else
-      .b-shiki_editor.unprocessed.size-xl
-        = render 'comments/shiki_editor', text: @resource.about || '', field_name: 'user[about]'
+    = render 'blocks/shiki_editor',
+      text: @resource.about,
+      field_name: 'user[about]'
 
   .buttons
     a.cancel href=@resource.url = t 'actions.cancel'
