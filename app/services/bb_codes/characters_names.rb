@@ -10,7 +10,7 @@ class BbCodes::CharactersNames
     \[character=\d+\]
       (?<content>
         [^\[\]]+
-        (
+        (?:
           \s*
           \[character=\d+\] .*? \[/character\]
           \s*
@@ -20,12 +20,16 @@ class BbCodes::CharactersNames
     \[/character\]
   }xi
 
+  URL_REGEXP = BbCodes::Tags::UrlTag::REGEXP
+  URL_PLACEHOLDER = '<<-URL-PLACEHODLER->>'
+
   def call
     characters = extract_characters(@entry)
     people = extract_people(@entry)
 
     # может быть не строка, а SafeBuffer
     text = (@data.class == String ? @data : String.new(@data)).tr(' ', ' ')
+    text, cache = remove_urls text
 
     # данные, по которым будет делаться замена
     matches = extract_transcribed_matches(text, characters, people)
@@ -34,7 +38,7 @@ class BbCodes::CharactersNames
     matches = variate_matches(matches) { |v| russian_variations(v) }
 
     # замена имён на ббкоды
-    replace_names(text, matches)
+    restore_urls(replace_names(text, matches), cache)
   end
 
 private
@@ -58,7 +62,7 @@ private
   # выборка реальных имён с транскрипцией из текста
   def extract_transcribed_matches text, characters, people
     text.gsub(/
-      (?<name> (?: [А-ЯЁA-Z][А-ЯЁа-яё\w\.-]+(\s д[е'])? (?: \s (?=[А-ЯЁA-Z]) )? )+ )
+      (?<name> (?: [А-ЯЁA-Z][А-ЯЁа-яё\w.-]+(\s д[е'])? (?: \s (?=[А-ЯЁA-Z]) )? )+ )
       \s*
       (?: \( | \[ ) (?<japanese> .*? ) (?: \) | \] )
     /x).map do |_v|
@@ -111,7 +115,7 @@ private
   def build_regexp name
     return if name.blank?
 
-    %r{(?<![\[\]\(\)])\b#{name}\b(?! ?[\[\]\(\)]\/?(?:character|person))(\s*(?:\(|\[).*?(?:\)|\]))?}
+    %r{(?<![\[\]()])\b#{name}\b(?! ?[\[\]()]/?(?:character|person))(\s*(?:\(|\[).*?(?:\)|\]))?}
   rescue RegexpError
     nil
   end
@@ -132,6 +136,7 @@ private
           [data] + yield(data[:name]).map do |name|
             regexp = build_regexp(name)
             next unless regexp && counts_map[name] == 1 && !name.pretext?
+
             {
               name: name,
               regex: regexp,
@@ -185,7 +190,24 @@ private
   # различные варианты написания слова с учётом разных падежей
   def russian_variations word
     return [word] if word.size < 3 || word.include?(' ')
+
     cleaned_word = word.sub(RUSSIAN_CLEANER, '')
     [word, cleaned_word] + RUSSIAN_REPLACEMENTS.map { |v| cleaned_word + v }
+  end
+
+  def remove_urls text
+    cache = []
+    fixed_text = text.gsub(URL_REGEXP) do |match|
+      cache << match
+      URL_PLACEHOLDER
+    end
+
+    [fixed_text, cache]
+  end
+
+  def restore_urls text, cache
+    text.gsub(URL_PLACEHOLDER) do
+      cache.shift
+    end
   end
 end

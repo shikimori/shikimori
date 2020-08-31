@@ -10,9 +10,9 @@ describe BbCodes::CharactersNames do
     anime.people << person1
   end
 
-  describe 'Character' do
-    describe 'russian' do
-      it 'works' do
+  context 'Character' do
+    context 'russian' do
+      it do
         expect(described_class.call("test #{character1.russian}", anime)).to eq(
           "test [character=#{character1.id}]#{character1.russian}[/character]"
         )
@@ -31,13 +31,15 @@ describe BbCodes::CharactersNames do
       end
     end
 
-    it 'english' do
-      expect(described_class.call("test Вася [#{character1.name}]", anime)).to eq(
-        "test [character=#{character1.id}]Вася[/character]"
-      )
+    context 'context' do
+      it do
+        expect(described_class.call("test Вася [#{character1.name}]", anime)).to eq(
+          "test [character=#{character1.id}]Вася[/character]"
+        )
+      end
     end
 
-    describe 'japanese' do
+    context 'japanese' do
       it 'works' do
         expect(described_class.call("test Вася [#{character1.japanese}]", anime)).to eq(
           "test [character=#{character1.id}]Вася[/character]"
@@ -152,19 +154,24 @@ describe BbCodes::CharactersNames do
     end
   end
 
-  describe 'Person' do
-    it 'works' do
+  context 'Person' do
+    it do
       expect(described_class.call("test Вася [#{person1.japanese}]", anime)).to eq(
         "test [person=#{person1.id}]Вася[/person]"
       )
     end
   end
 
-  describe 'Person+Character' do
-    it 'works' do
+  context 'Person+Character' do
+    it do
       expect(described_class.call("test Вася [#{person1.japanese}] Мася [#{character1.japanese}]", anime)).to eq(
         "test [person=#{person1.id}]Вася[/person] [character=#{character1.id}]Мася[/character]"
       )
     end
+  end
+
+  describe 'url tag is skipped' do
+    let(:text) { "[test [url=...]abc #{character1.russian} [/url]zx" }
+    it { expect(described_class.call(text, anime)).to eq text }
   end
 end
