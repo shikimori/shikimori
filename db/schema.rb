@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_31_180022) do
+ActiveRecord::Schema.define(version: 2020_08_31_183525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1090,7 +1090,7 @@ ActiveRecord::Schema.define(version: 2020_08_31_180022) do
     t.string "nickname", limit: 255
     t.string "location", limit: 255
     t.datetime "last_online_at"
-    t.text "about"
+    t.text "about", default: "", null: false
     t.string "sex", limit: 255
     t.string "website", limit: 1024
     t.string "avatar_file_name", limit: 255

@@ -13,6 +13,8 @@ FactoryBot.define do
     locale { 'ru' }
     locale_from_host { 'ru' }
 
+    about { '' }
+
     after :build do |model|
       stub_method model, :add_to_index
       stub_method model, :create_history_entry
