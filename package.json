@@ -32,7 +32,7 @@
     "memoize-decorator": "^1.0.2",
     "mobile-detect": "^1.4.4",
     "moment": "^2.27.0",
-    "nouislider": "^14.6.0",
+    "nouislider": "14.6.1",
     "p-defer": "^3.0.0",
     "packery": "^2.1.2",
     "paste.js": "^0.0.21",
