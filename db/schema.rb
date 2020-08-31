@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_31_175512) do
+ActiveRecord::Schema.define(version: 2020_08_31_180022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1008,7 +1008,6 @@ ActiveRecord::Schema.define(version: 2020_08_31_175512) do
     t.boolean "manga_in_profile", default: true
     t.string "default_sort", limit: 255, default: "name", null: false
     t.boolean "comments_in_profile", default: true
-    t.boolean "postload_in_catalog", default: true
     t.date "statistics_start_on"
     t.boolean "russian_names", default: true
     t.boolean "about_on_top", default: false
