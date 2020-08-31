@@ -25,7 +25,7 @@ class BbCodes::Paragraphs
   PARAGRAPH_FULL_REGEXP = /(?<line>.+?)(?:\n|$)/x
   PARAGRAPH_MIN_REGEXP = /\n/
 
-  LIST_OR_PLACEHOLDER_REGEXP = /(?:^|PLACEHODLER->>)( *\[\*\]| [-*+>])/
+  LIST_OR_PLACEHOLDER_REGEXP = /(?:^|PLACEHODLER->>)(?: *\[\*\]|[-*+>])/
 
   def call
     replace_paragraphs paragraph_tags(text)
@@ -45,8 +45,8 @@ private
     text.gsub(PARAGRAPH_FULL_REGEXP) do |line|
       unbalanced_tags = count_tags(line)
 
-      if line.size >= LINE_SIZE && !line.match(LIST_OR_PLACEHOLDER_REGEXP) &&
-          unbalanced_tags.zero?
+      if line.size >= LINE_SIZE && unbalanced_tags.zero? &&
+          !line.match?(LIST_OR_PLACEHOLDER_REGEXP)
         "[p]#{line.gsub(PARAGRAPH_MIN_REGEXP, '')}[/p]"
       else
         line

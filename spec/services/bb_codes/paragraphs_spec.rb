@@ -39,7 +39,7 @@ describe BbCodes::Paragraphs do
 
   context 'markdown list or quote' do
     let(:prefix) { %w[- + * >].sample }
-    let(:text) { " #{prefix} #{long_line}" }
+    let(:text) { "#{prefix} #{long_line}" }
     it { is_expected.to eq text }
   end
 
