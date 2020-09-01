@@ -1,6 +1,4 @@
 pageLoad('.polls', async () => {
-  $('.b-shiki_editor').shikiEditor();
-
   if (!$('#vue_poll_variants').exists()) { return; }
 
   const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ 'vue/instance');

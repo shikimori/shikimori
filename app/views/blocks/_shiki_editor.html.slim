@@ -7,5 +7,5 @@
     ]
     .vue-app.b-ajax
 - else
-  .b-shiki_editor.unprocessed.size-xl
+  .b-shiki_editor.to-process.size-xl data-dynamic='shiki_editor'
     = render 'comments/shiki_editor', text: @resource.about || '', field_name: 'user[about]'

@@ -19,7 +19,7 @@
           label class="text optional control-label" for="contest_description_ru"
             b = Contest.human_attribute_name :description_ru
 
-        .b-shiki_editor.unprocessed.block.no-preview-avatar
+        .b-shiki_editor.to-process.block.no-preview-avatar data-dynamic='shiki_editor'
           = render 'comments/shiki_editor',
             text: f.object.description_ru,
             field_name: 'contest[description_ru]'
@@ -29,7 +29,7 @@
           label class="text optional control-label" for="contest_description_en"
             b = Contest.human_attribute_name :description_en
 
-        .b-shiki_editor.unprocessed.block.no-preview-avatar
+        .b-shiki_editor.to-process.block.no-preview-avatar data-dynamic='shiki_editor'
           = render 'comments/shiki_editor',
             text: f.object.description_en,
             field_name: 'contest[description_en]'

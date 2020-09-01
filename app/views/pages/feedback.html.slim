@@ -2,7 +2,7 @@
   .subheadline.m5 = t '.title'
   .about
     = BbCodes::Text.call t('.text')
-  .b-shiki_editor.unprocessed.block
+  .b-shiki_editor.to-process.block data-dynamic='shiki_editor'
     = simple_form_for @feedback_message,
         url: api_messages_url,
         as: :message,

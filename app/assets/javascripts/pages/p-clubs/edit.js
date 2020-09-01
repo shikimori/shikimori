@@ -2,7 +2,6 @@ pageLoad('clubs_edit', async () => {
   // description page
   if ($('.edit-page.description').exists()) {
     $('.b-shiki_editor')
-      .shikiEditor()
       .on('preview:params', function() {
         return {
           body: $(this).view().$textarea.val(),

@@ -1,5 +1,6 @@
 = simple_form_for resource.object do |f|
-  .b-shiki_editor.unprocessed.block[
+  .b-shiki_editor.to-process.block[
+    data-dynamic='shiki_editor'
     data-target_id=resource.id
     data-target_type=resource.object.class.name
   ]

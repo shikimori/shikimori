@@ -53,7 +53,7 @@
       = f.input :name
 
     .block
-      .b-shiki_editor.unprocessed.size-xl
+      .b-shiki_editor.to-process.size-xl data-dynamic='shiki_editor'
         = render 'comments/shiki_editor',
           text: @resource.text,
           field_name: 'club_page[text]'

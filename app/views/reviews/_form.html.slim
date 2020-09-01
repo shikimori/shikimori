@@ -16,7 +16,7 @@
     .body
       = render 'stars', review: review, in_edit: true, with_music: resource.anime?
 
-  .b-shiki_editor.unprocessed.block.size-xl
+  .b-shiki_editor.to-process.block.size-xl data-dynamic='shiki_editor'
     = render 'comments/shiki_editor',
       text: review.text,
       field_name: 'review[text]'

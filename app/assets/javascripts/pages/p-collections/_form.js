@@ -4,8 +4,6 @@ pageLoad(
   'collections_create',
   'collections_update',
   async () => {
-    $('.b-shiki_editor').shikiEditor();
-
     if (!$('#vue_collection_links').exists()) { return; }
 
     const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
