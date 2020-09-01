@@ -4,7 +4,7 @@
   p.warning Перед внесением изменений обязательно ознакомьтесь с <a href="http://#{Shikimori::DOMAIN}/clubs/2-Perevody">правилами</a>.
 
   = simple_form_for resource.object do |f|
-    .b-shiki_editor.to-process[
+    .b-shiki_editor.to-process.no-preview-avatar.size-xl[
       data-dynamic='shiki_editor'
       data-target_id=resource.id
       data-target_type=resource.object.class.name
