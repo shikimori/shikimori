@@ -308,8 +308,7 @@ export default class ShikiEditor extends ShikiView {
     this.$root.addClass('previewed');
     $('.body .preview', this.$root)
       .html(previewHtml)
-      .process()
-      .shikiEditor();
+      .process();
   }
 
   @bind
