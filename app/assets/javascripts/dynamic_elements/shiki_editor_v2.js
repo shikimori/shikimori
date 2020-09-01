@@ -65,6 +65,7 @@ export default class ShikiEditorV2 extends View {
         }
       })
     });
+    this.vueNode = this.app.$el;
     $(document).one('turbolinks:before-cache', this.destroy);
   }
 
