@@ -89,7 +89,7 @@ header.head.misc
         label class="text optional control-label" for="oauth_application_description_ru"
           b = OauthApplication.human_attribute_name :description_ru
 
-      .b-shiki_editor.to-process.no-preview-avatar.block data-dynamic='shiki_editor'
+      .b-shiki_editor.to-process.no-preview-avatar data-dynamic='shiki_editor'
         = render 'comments/shiki_editor',
           text: f.object.description_ru,
           field_name: 'oauth_application[description_ru]'
@@ -99,7 +99,7 @@ header.head.misc
         label class="text optional control-label" for="oauth_application_description_en"
           b = OauthApplication.human_attribute_name :description_en
 
-      .b-shiki_editor.to-process.block.no-preview-avatar data-dynamic='shiki_editor'
+      .b-shiki_editor.to-process.no-preview-avatar data-dynamic='shiki_editor'
         = render 'comments/shiki_editor',
           text: f.object.description_en,
           field_name: 'oauth_application[description_en]'

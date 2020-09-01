@@ -88,7 +88,7 @@
     - if topic_type_policy.news_topic?
       = render 'topics/form/posters', topic: topic, f: f
 
-    .b-shiki_editor.to-process.block data-dynamic='shiki_editor'
+    .b-shiki_editor.to-process data-dynamic='shiki_editor'
       .field-name = t ".#{topic_type_policy.news_topic? ? :news : :topic}_text"
       = render 'comments/shiki_editor',
         text: topic.decomposed_body.text,

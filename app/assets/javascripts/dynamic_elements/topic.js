@@ -69,7 +69,7 @@ export default class Topic extends ShikiEditable {
     if (window.SHIKI_USER.isSignedIn &&
       window.SHIKI_USER.isDayRegistered && this.$editor.length
     ) {
-      this.editor = this.$editor.view();
+      this.editor = this.$editor.process().view();
     } else {
       this.$editor.replaceWith(
         `<div class='b-nothing_here'>${I18n.t('frontend.shiki_editor.not_available')}</div>`
