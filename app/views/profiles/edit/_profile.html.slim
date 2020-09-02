@@ -21,7 +21,8 @@
     .subheadline = t '.about_me'
     = render 'blocks/shiki_editor',
       text: @resource.about,
-      field_name: 'user[about]'
+      field_name: 'user[about]',
+      size: 'xl'
 
   .buttons
     a.cancel href=@resource.url = t 'actions.cancel'

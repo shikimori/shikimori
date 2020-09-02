@@ -1,5 +1,7 @@
 - if current_user.preferences.is_shiki_editor? || local_assigns[:shiki_editor_v2]
-  .b-shiki_editor-v2.to-process data-dynamic='shiki_editor_v2'
+  .b-shiki_editor-v2.to-process[
+    data-dynamic='shiki_editor_v2'
+  ]
     input[
       type='hidden'
       value=local_assigns[:text]
@@ -7,5 +9,8 @@
     ]
     .vue-app.b-ajax
 - else
-  .b-shiki_editor.to-process.size-xl data-dynamic='shiki_editor'
+  .b-shiki_editor.to-process[
+    class=('size-xl' if local_assigns[:size] == 'xl')
+    data-dynamic='shiki_editor'
+  ]
     = render 'comments/shiki_editor', text: @resource.about || '', field_name: 'user[about]'

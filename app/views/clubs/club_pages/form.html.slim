@@ -53,10 +53,10 @@
       = f.input :name
 
     .block
-      .b-shiki_editor.to-process.size-xl data-dynamic='shiki_editor'
-        = render 'comments/shiki_editor',
-          text: @resource.text,
-          field_name: 'club_page[text]'
+      = render 'blocks/shiki_editor',
+        text: @resource.text,
+        field_name: 'club_page[text]',
+        size: 'xl'
 
     .buttons
       a.cancel href=@back_url = t 'actions.cancel'
