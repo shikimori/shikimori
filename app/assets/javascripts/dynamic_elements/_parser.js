@@ -33,8 +33,7 @@ export default class DynamicParser {
   constructor($nodes) {
     $nodes.each((index, node) => {
       // DynamicParser can be called recursively
-      // look at dynamic_elements/topic
-      // this.editor = this.$editor.process().view();
+      // For example at dynamic_elements/topic `this.editor = this.$editor.process().view();`
       if (!node.classList.contains(DynamicParser.PENDING_CLASS)) { return; }
 
       node.classList.remove(DynamicParser.PENDING_CLASS);
