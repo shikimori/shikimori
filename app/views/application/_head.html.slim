@@ -51,6 +51,15 @@ link rel='preconnect' href='https://www.google-analytics.com'
 link rel='preconnect' href='https://fonts.googleapis.com'
 link rel='preconnect' href='https://fonts.gstatic.com'
 
+link rel='preconnect' href='https://fonts.googleapis.com'
+link rel='preconnect' href='https://fonts.gstatic.com'
+
+- Shikimori::STATIC_SUBDOMAINS.each do |subdomain|
+  link[
+    rel='preconnect'
+    href="#{Shikimori::PROTOCOLS[:production]}://#{subdomain}.#{Shikimori::DOMAINS[:production]}"
+  ]
+
 - if defined?(@collection) && @collection.respond_to?(:next_page?)
   - if @collection.next_page?
     link rel='next' href==current_url(page: @collection.next_page)
