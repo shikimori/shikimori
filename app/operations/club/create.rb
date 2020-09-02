@@ -4,10 +4,12 @@ class Club::Create < ServiceObjectBase
   pattr_initialize :params, :locale
 
   def call
-    club = Club.new @params
-    club.locale = locale
+    Club.transaction do
+      club = Club.new @params
+      club.locale = locale
 
-    club.generate_topics @locale if club.save
-    club
+      club.generate_topics @locale if club.save
+      club
+    end
   end
 end
