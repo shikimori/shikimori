@@ -1,9 +1,4 @@
-import ShikiEditor from 'views/shiki_editor';
-
 pageLoad('contests_edit', () => {
-  $('.b-shiki_editor').each((_index, node) =>
-    new ShikiEditor(node)
-  );
   $('.edit .proposing .hidden').removeClass('hidden');
 
   // удаление элемента из опроса

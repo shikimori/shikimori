@@ -61,7 +61,7 @@ private
     @user.nickname = @omniauth.info.name if @user.nickname.blank? && @omniauth.info.name.present?
     @user.name = @omniauth.info.name if @user.name.blank? && @omniauth.info.name.present?
     @user.email = @omniauth.info.email if @user.email.blank? && @omniauth.info.email.present?
-    @user.about = @omniauth.info.description if @user.about.blank?
+    @user.about = @omniauth.info.description || '' if @user.about.blank?
     @user.website = @omniauth.info.urls.values.select(&:present?).first if @user.website.blank? && @omniauth.info.urls.kind_of?(Hash)
     @user.location = @omniauth.info.location.sub(/,\s*$/, '') if @user.location.blank? && @omniauth.info.location.present? && @omniauth.info.location !~ /^[ ,]$/
 

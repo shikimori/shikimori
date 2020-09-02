@@ -3,7 +3,6 @@ import { bind } from 'shiki-decorators';
 import memoize from 'memoize-decorator';
 
 import ShikiEditable from 'views/application/shiki_editable';
-import ShikiEditor from 'views/shiki_editor';
 
 import axios from 'helpers/axios';
 import { animatedCollapse, animatedExpand } from 'helpers/animated';
@@ -70,7 +69,7 @@ export default class Topic extends ShikiEditable {
     if (window.SHIKI_USER.isSignedIn &&
       window.SHIKI_USER.isDayRegistered && this.$editor.length
     ) {
-      this.editor = new ShikiEditor(this.$editor);
+      this.editor = this.$editor.process().view();
     } else {
       this.$editor.replaceWith(
         `<div class='b-nothing_here'>${I18n.t('frontend.shiki_editor.not_available')}</div>`

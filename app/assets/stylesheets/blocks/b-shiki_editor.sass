@@ -1,4 +1,5 @@
 @import globals
+@import mixins/block
 @import mixins/icons
 @import mixins/link
 @import mixins/placeholder
@@ -6,10 +7,15 @@
 @import mixins/textarea
 
 .b-shiki_editor
+  +block
   transition: opacity 0.5s ease
 
-  &.no-preview-avatar .preview .b-comment header
-    display: none
+  &.no-preview-avatar .preview .b-comment
+    header
+      display: none
+
+    .body
+      margin-left: 0
 
   .field-name
     font-weight: bold
@@ -108,11 +114,16 @@
 
   .body
     .preview
-      background: #fcfcfc
-      border: 1px solid #ddd
+      // background: #fcfcfc
+      // border: 1px solid #ddd
       display: none
-      margin-bottom: 10px
-      padding: 3px 7px 5px
+      // margin-bottom: 10px
+      padding: 4px 8px // textarea paddings + 1px to compensate missing border
+
+      .b-comment
+        border: none
+        margin: 0
+        padding: 0
 
     .editor
       label

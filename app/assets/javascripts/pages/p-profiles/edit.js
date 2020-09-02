@@ -1,9 +1,4 @@
 pageLoad('profiles_edit', () => {
-  // profile page
-  if ($('.edit-page.profile').exists()) {
-    $('.b-shiki_editor').shikiEditor();
-  }
-
   // styles page
   if ($('.edit-page.styles').exists()) {
     pageStyles();

@@ -5,7 +5,7 @@ class BbCodes::Paragraphs
   MULTILINE_BBCODES = BbCodes::Markdown::ListQuoteParser::MULTILINE_BBCODES
 
   PARAGRAPH_PRE_BR_TAGS = /
-    (?: \r\n|\r|\n|<br> )?
+    (?: \n|^ )?
     (?<tag> \[\*\] )
   /mix
   PARAGRAPH_PRE_SPACE_TAGS = /
@@ -18,12 +18,14 @@ class BbCodes::Paragraphs
         (?:#{MULTILINE_BBCODES.join('|')})
         (\[.*?\] | [^\]])*
       \]
-      (?! \r\n|\r|\n|<br> )
+      (?! \n|\$ )
     )
   /mix
 
-  PARAGRAPH_FULL_REGEXP = %r{(?<line>.+?)(?:\n|<br\s?/?>|&lt;br\s?/?&gt;|$)}x
-  PARAGRAPH_MIN_REGEXP = %r{\r\n|\n|<br\s?/?>|&lt;br\s?/?&gt;}
+  PARAGRAPH_FULL_REGEXP = /(?<line>.+?)(?:\n|$)/x
+  PARAGRAPH_MIN_REGEXP = /\n/
+
+  LIST_OR_PLACEHOLDER_REGEXP = /(?:^|PLACEHODLER->>)(?: *\[\*\]|[-*+>])/
 
   def call
     replace_paragraphs paragraph_tags(text)
@@ -43,8 +45,8 @@ private
     text.gsub(PARAGRAPH_FULL_REGEXP) do |line|
       unbalanced_tags = count_tags(line)
 
-      if line.size >= LINE_SIZE && !line.match(/(?:^|PLACEHODLER->>) *\[\*\]/) &&
-          unbalanced_tags.zero?
+      if line.size >= LINE_SIZE && unbalanced_tags.zero? &&
+          !line.match?(LIST_OR_PLACEHOLDER_REGEXP)
         "[p]#{line.gsub(PARAGRAPH_MIN_REGEXP, '')}[/p]"
       else
         line
@@ -53,7 +55,7 @@ private
   end
 
   def count_tags line
-    %i[quote list spoiler center].inject(0) do |memo, tag|
+    MULTILINE_BBCODES.inject(0) do |memo, tag|
       memo + (line.scan("[#{tag}").size - line.scan("[/#{tag}]").size).abs
     end
   end

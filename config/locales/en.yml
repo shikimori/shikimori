@@ -213,13 +213,13 @@ en:
         is_comments_auto_loaded: Load New Comments Automatically
         list_privacy: Can See My Lists
         manga_in_profile: Show Manga List in Profile
-        postload_in_catalog: Autoload Pages in Anime Catalog
         # russian_genres: Anime Genres in Russian
         # russian_names: Anime and Manga Titles in Russian
         show_hentai_images: Allow Nudity
-        show_smileys: Show Smileys
+        is_show_smileys: Show Smileys
         show_social_buttons: Show Social Media Icons
         volumes_in_manga: Show Manga Volumes
+        is_shiki_editor: New WYSIWYG Text Editor
       anime_video:
         url: Video Link
         episode: Episode

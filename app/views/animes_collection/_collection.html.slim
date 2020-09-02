@@ -38,7 +38,6 @@
         locals: { cover_notice: cover_notice },
         cache: ->(entry, _) { CacheHelper.keys entry, cover_notice }
 
-  / - if !user_signed_in? || current_user.preferences.postload_in_catalog
   - if @view.next_page_url
     = render 'blocks/postloader',
       next_url: @view.next_page_url,

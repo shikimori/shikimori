@@ -12,13 +12,13 @@ import { isMobile } from 'helpers/mobile_detect';
 // TODO: refactor constructor
 export default class ShikiEditor extends ShikiView {
   initialize() {
-    const { $root } = this;
+    const { $node } = this;
     this.$form = this.$('form');
 
     if (this.$form.exists()) {
       this.isInnerForm = true;
     } else {
-      this.$form = $root.closest('form');
+      this.$form = $node.closest('form');
       this.isInnerForm = false;
     }
 
@@ -96,7 +96,7 @@ export default class ShikiEditor extends ShikiView {
 
     // открытие блока ссылки
     this.$('.links').on('click:open', () => {
-      $('.links input[type=text]', $root).val('');
+      $('.links input[type=text]', $node).val('');
 
       $(this.$('[name="link_type"]:checked')[0] || this.$('[name="link_type"]')[0])
         .prop('checked', true)
@@ -128,9 +128,9 @@ export default class ShikiEditor extends ShikiView {
       });
 
     // изменение типа ссылки
-    this.$('.links input[type=radio]').on('change', function () {
+    this.$('.links input[type=radio]').on('change', function() {
       const $this = $(this);
-      const $input = $('.links input[type=text]', $root);
+      const $input = $('.links input[type=text]', $node);
       $input.attr({ placeholder: $this.data('placeholder') }); // меняем плейсхолдер
 
       if ($this.data('autocomplete')) {
@@ -229,7 +229,7 @@ export default class ShikiEditor extends ShikiView {
       const data = {};
       const itemData = this.isInnerForm ?
         this.$form.serializeHash()[this.type] : (
-          this.$root.triggerWithReturn('preview:params') ||
+          this.$node.triggerWithReturn('preview:params') ||
             { body: this.text }
         );
       data[this.type] = itemData;
@@ -237,7 +237,7 @@ export default class ShikiEditor extends ShikiView {
       this._shade();
       axios
         .post(
-          $('footer .preview', this.$root).data('preview_url'),
+          $('footer .preview', this.$node).data('preview_url'),
           data
         )
         .then(response => this._showPreview(response.data))
@@ -263,8 +263,8 @@ export default class ShikiEditor extends ShikiView {
     const fileTextPlaceholder = `[${I18n.t('frontend.shiki_editor.file')} #@]`;
     this.$textarea
       .shikiFile({
-        progress: $root.find('.b-upload_progress'),
-        input: $('.editor-file input', $root),
+        progress: $node.find('.b-upload_progress'),
+        input: $('.editor-file input', $node),
         maxfiles: 6
       })
       .on('upload:started', (e, fileNum) => {
@@ -305,19 +305,18 @@ export default class ShikiEditor extends ShikiView {
   }
 
   _showPreview(previewHtml) {
-    this.$root.addClass('previewed');
-    $('.body .preview', this.$root)
+    this.$node.addClass('previewed');
+    $('.body .preview', this.$node)
       .html(previewHtml)
-      .process()
-      .shikiEditor();
+      .process();
   }
 
   @bind
   _hidePreview() {
-    this.$root.removeClass('previewed');
+    this.$node.removeClass('previewed');
 
     if (!this.$('.editor-controls').is(':appeared')) {
-      $.scrollTo(this.$root);
+      $.scrollTo(this.$node);
     }
   }
 
@@ -417,11 +416,11 @@ export default class ShikiEditor extends ShikiView {
   // переход в режим редактирования комментария
   editComment($comment) {
     const $initialContent = $comment.children().detach();
-    $comment.append(this.$root);
+    $comment.append(this.$node);
 
     // отмена редактирования
     this.$('.cancel').on('click', () => {
-      this.$root.remove();
+      this.$node.remove();
       $comment.append($initialContent);
     });
 

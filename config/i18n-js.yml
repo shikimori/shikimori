@@ -27,5 +27,6 @@ translations:
   only: [
     '*.activerecord.attributes.user_rate.*',
     '*.activerecord.attributes.collection_link.*',
+    '*.activerecord.attributes.external_link.url',
     '*.frontend.*'
   ]

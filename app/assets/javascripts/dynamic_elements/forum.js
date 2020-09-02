@@ -20,7 +20,7 @@ export default class Forum extends ShikiView {
 
       if ($topic.exists()) {
         $topic.trigger(e.type, data);
-      } if (e.type === 'faye:comment:created') {
+      } else if (e.type === 'faye:comment:created') {
         this._fayePlaceholder(data.topic_id);
         // уведомление о добавленном элементе через faye
         $(document.body).trigger('faye:added');

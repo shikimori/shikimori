@@ -6,7 +6,6 @@ $(document).on('turbolinks:load', () => {
 
   $('.marker-positioner', $feedback).on('ajax:success', (e, data) => {
     const $form = $(data);
-    $form.find('.b-shiki_editor.unprocessed').shikiEditor();
     const modal = new ShikiModal($form);
 
     $form

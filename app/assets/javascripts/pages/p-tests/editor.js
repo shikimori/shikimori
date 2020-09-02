@@ -1,3 +1,6 @@
+/* global IS_LOCAL_SHIKI_PACKAGES */
+/* eslint max-len:0 */
+
 import delay from 'delay';
 import csrf from 'helpers/csrf';
 import autosize from 'autosize';
@@ -19,16 +22,16 @@ TEST_DEMO_CONTENT = `
 [spoiler=спойлер]Глаз Какаши вылечил Наруто.
 Шикамару спасла Цунаде (Кстати, в отличие от Харуно, у нее не было чакры Наруто)
 Наруто на этот свет, вернул нам Обито (+Минато)
-Обычных рядовых массово тоже спасла Цунаде. 
+Обычных рядовых массово тоже спасла Цунаде.
 [image=1171584][image=1171585][image=1171586][image=1171587][image=1171588][image=1171589]
 Ее звездные моменты, это сплошная показуха. Да, она пыталась, но итог таков, от нее больше вреда чем пользы.[/spoiler]
 
 Момент из фильма, который считается каноном, поскольку Киши был сценаристом:
 [spoiler=спойлер][image=1171643][image=1171644][/spoiler]
- 
+
 
 [replies=6233966]
-`.trim()
+`.trim();
 
 TEST_DEMO_CONTENT = `
 [b]Результаты прошлых опросов:[/b]
@@ -62,7 +65,7 @@ TEST_DEMO_CONTENT = `
 1 место - [Shougo Makishima] (15 голосов)
 2 место - [Izaya Orihara] (12 голосов)
 3 место - [character=96223]Beatrice Ushiromiya[/character] (9 голосов)
-4 место - [Kurumi Tokisaki] (8 голосов) 
+4 место - [Kurumi Tokisaki] (8 голосов)
 5 место - [Accelerator] (7 голосов)
 6 место - [Akihiko Kayaba], [character=2514] и [Sousuke Aizen] (6 голосов)
 7 место - [character=53641], [King Bradley], [Makoto Shishio], [character=18210] и [Tyki Mikk] (5 голосов)
@@ -83,25 +86,25 @@ TEST_DEMO_CONTENT = `
 [b]Результаты опроса #5 - "Лишний персонаж":[/b]
 1 место - [Chiho Sasaki], [Hinata Shintani] и [Nate River] (5 голосов)
 2 место - [Kyouko Sasagawa] и [Haru Miura] (4 голоса)
-3 место - [Suguha Kirigaya], [Ranko Saouji], [Momoe Okonogi], [Haruka Nanami] и [Yukiteru Amano] (3 голоса) 
+3 место - [Suguha Kirigaya], [Ranko Saouji], [Momoe Okonogi], [Haruka Nanami] и [Yukiteru Amano] (3 голоса)
 [/spoiler], [spoiler=[b]06[/b]]
 [b]Результаты опроса #6 - "Лучший опенинг":[/b]
 1. [Mirai Nikki] OP1
 2. [Deadman Wonderland]
 3. [Death Note] OP1
 4. [Shingeki no Kyojin] OP1
-5. [Steins;Gate] 
-6. [Higurashi no Naku Koro ni] 
-7. [Angel Beats!] 
+5. [Steins;Gate]
+6. [Higurashi no Naku Koro ni]
+7. [Angel Beats!]
 8. [Ergo Proxy]
-9. [Samurai Champloo] 
+9. [Samurai Champloo]
 10. [Soul Eater] OP1
 11. [Ao no Exorcist] OP1
 12. [Baccano!]
 13. [Bakemonogatari] OP1
-14. [Cowboy Bebop]	
+14. [Cowboy Bebop]
 15. [Durarara!!] OP1
-16. [Elfen Lied] 
+16. [Elfen Lied]
 17. [Guilty Crown] OP1
 18. [Sayonara Zetsubou Sensei]
 19. [Toradora!] OP2
@@ -128,7 +131,7 @@ TEST_DEMO_CONTENT = `
 9. [Sayonara Zetsubou Sensei]
 10. [K-On!!]
 11. [Cowboy Bebop]
-12. [Devil Survivor 2 The Animation] 
+12. [Devil Survivor 2 The Animation]
 13. [Cuticle Tantei Inaba]
 14. [Gosick]
 15. [Joshiraku]
@@ -138,7 +141,7 @@ TEST_DEMO_CONTENT = `
 19. [Shinsekai yori]
 20. [Umineko no Naku Koro ni]
 [/spoiler]
-`.trim()
+`.trim();
 
 TEST_DEMO_CONTENT = `
 zzzzzzz zzzzzzz zzzzzzz
@@ -150,7 +153,7 @@ z
 z
 
 z
- 
+
 ||z zzzzzzz zzzzzzz zzzzzzz||
 
 [spoiler]
@@ -185,10 +188,10 @@ z
 
 z
 
-`.trim()
+`.trim();
 
 pageLoad('tests_editor', async () => {
-  const $shikiEditor = $('.b-shiki_editor').shikiEditor();
+  const $shikiEditor = $('.b-shiki_editor');
   const $textarea = $shikiEditor.find('textarea');
 
   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
@@ -224,7 +227,7 @@ pageLoad('tests_editor', async () => {
     }, null, Vue);
 
     if (IS_RAW_2) {
-      const editor2 = new ShikiEditor({
+      new ShikiEditor({
         element: rawNode2,
         extensions: [],
         content: TEST_DEMO_CONTENT || DEMO_CONTENT,
@@ -235,7 +238,7 @@ pageLoad('tests_editor', async () => {
     }
 
     editor.on('update', () => {
-      $textarea.val(editor.exportMarkdown())
+      $textarea.val(editor.exportMarkdown());
       autosize.update($textarea[0]);
     });
 
@@ -256,46 +259,15 @@ pageLoad('tests_editor', async () => {
   }
 
   if (IS_VUE) {
-    const shikiUploader = new ShikiUploader({
-      locale: window.LOCALE,
-      xhrEndpoint: '/api/user_images?linked_type=Comment',
-      xhrHeaders: () => csrf().headers,
-    });
-
-    const app = new Vue({
-      el: vueNode,
-      components: { ShikiEditorApp },
-      mounted() {
-        if ($('.l-top_menu-v2').css('position') === 'sticky') {
-          this.$children[0].isMenuBarOffset = true;
-        }
-      },
-      render: createElement => createElement(ShikiEditorApp, {
-        props: {
-          vue: Vue,
-          shikiUploader,
-          shikiRequest,
-          globalSearch: window.globalSearch,
-          content: DEMO_CONTENT
-        },
-        on: {
-          preview(node) {
-            $(node).process();
-          }
-        }
-      })
-    });
-    $(document).one('turbolinks:before-cache', () => {
-      app.$destroy();
-      document.querySelector('.b-shiki_editor-v2').innerHTML = '<div class="b-ajax"></div>';
-    });
+    const view = $('.b-shiki_editor-v2').view();
+    view.editorApp.setContent(TEST_DEMO_CONTENT || DEMO_CONTENT);
   } else {
     $(vueNode).closest('.block').hide();
   }
 });
 
 const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES && TEST_DEMO_CONTENT ?
-  TEST_DEMO_CONTENT  : `
+  TEST_DEMO_CONTENT : `
 
 # Заголовки
 [hr]

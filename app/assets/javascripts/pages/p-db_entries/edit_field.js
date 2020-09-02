@@ -4,7 +4,6 @@ pageLoad('.db_entries-edit_field', () => {
   if ($description.exists()) {
     const $editor = $('.b-shiki_editor');
     $editor
-      .shikiEditor()
       .on('preview:params', function () {
         return {
           body: $(this).view().$textarea.val(),

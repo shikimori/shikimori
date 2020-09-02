@@ -15,6 +15,8 @@ import Postloaded from './postloaded';
 import ShortDialog from './short_dialog';
 import Swiper from './swiper';
 import Switcher from './switcher';
+import ShikiEditor from './shiki_editor';
+import ShikiEditorV2 from './shiki_editor_v2';
 import SpoilerBlock from './spoiler_block';
 import SpoilerInline from './spoiler_inline';
 import Tabs from './tabs';
@@ -30,6 +32,10 @@ export default class DynamicParser {
 
   constructor($nodes) {
     $nodes.each((index, node) => {
+      // DynamicParser can be called recursively
+      // For example at dynamic_elements/topic `this.editor = this.$editor.process().view();`
+      if (!node.classList.contains(DynamicParser.PENDING_CLASS)) { return; }
+
       node.classList.remove(DynamicParser.PENDING_CLASS);
 
       node.attributes['data-dynamic'].value.split(',').forEach(type => {
@@ -102,6 +108,14 @@ export default class DynamicParser {
 
   shortDialog(node) {
     new ShortDialog(node);
+  }
+
+  shikiEditor(node) {
+    new ShikiEditor(node);
+  }
+
+  shikiEditorV2(node) {
+    new ShikiEditorV2(node);
   }
 
   swiper(node) {

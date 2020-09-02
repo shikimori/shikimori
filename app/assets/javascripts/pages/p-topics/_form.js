@@ -37,7 +37,6 @@ pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
     .trigger('change');
   isLinkedInitialized = true;
 
-  $('.b-shiki_editor', $form).shikiEditor();
   $('#topic_forum_id', $form).trigger('change');
 
   $('.topic-linked .remove', $form).on('click', e => {

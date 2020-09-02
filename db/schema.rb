@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_25_155818) do
+ActiveRecord::Schema.define(version: 2020_08_31_183525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1008,12 +1008,11 @@ ActiveRecord::Schema.define(version: 2020_08_25_155818) do
     t.boolean "manga_in_profile", default: true
     t.string "default_sort", limit: 255, default: "name", null: false
     t.boolean "comments_in_profile", default: true
-    t.boolean "postload_in_catalog", default: true
     t.date "statistics_start_on"
     t.boolean "russian_names", default: true
     t.boolean "about_on_top", default: false
     t.boolean "russian_genres", default: true, null: false
-    t.boolean "show_smileys", default: true
+    t.boolean "is_show_smileys", default: true
     t.boolean "show_social_buttons", default: true
     t.boolean "show_hentai_images", default: false
     t.string "list_privacy", limit: 255, default: "public"
@@ -1027,6 +1026,7 @@ ActiveRecord::Schema.define(version: 2020_08_25_155818) do
     t.integer "favorites_in_profile", default: 8, null: false
     t.boolean "achievements_in_profile", default: true, null: false
     t.string "dashboard_type", default: "old", null: false
+    t.boolean "is_shiki_editor", default: false, null: false
     t.index ["user_id"], name: "index_profile_settings_on_user_id"
   end
 
@@ -1090,7 +1090,7 @@ ActiveRecord::Schema.define(version: 2020_08_25_155818) do
     t.string "nickname", limit: 255
     t.string "location", limit: 255
     t.datetime "last_online_at"
-    t.text "about"
+    t.text "about", default: "", null: false
     t.string "sex", limit: 255
     t.string "website", limit: 1024
     t.string "avatar_file_name", limit: 255
