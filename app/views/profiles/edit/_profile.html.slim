@@ -22,7 +22,8 @@
     = render 'blocks/shiki_editor',
       text: @resource.about,
       field_name: 'user[about]',
-      size: 'xl'
+      size: 'xl',
+      no_preview_avatar: true
 
   .buttons
     a.cancel href=@resource.url = t 'actions.cancel'

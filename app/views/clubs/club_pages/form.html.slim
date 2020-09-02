@@ -56,7 +56,8 @@
       = render 'blocks/shiki_editor',
         text: @resource.text,
         field_name: 'club_page[text]',
-        size: 'xl'
+        size: 'xl',
+        no_preview_avatar: true
 
     .buttons
       a.cancel href=@back_url = t 'actions.cancel'

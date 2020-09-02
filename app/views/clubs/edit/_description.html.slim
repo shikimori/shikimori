@@ -2,10 +2,11 @@
   input type='hidden' name='section' value=@section
 
   .block
-    .b-shiki_editor.to-process.no-preview-avatar.size-xl data-dynamic='shiki_editor'
-      = render 'comments/shiki_editor',
-        text: @resource.description.text,
-        field_name: 'club[description]'
+    = render 'blocks/shiki_editor',
+      text: @resource.description.text,
+      field_name: 'club[description]',
+      size: 'xl',
+      no_preview_avatar: true
 
   .buttons
     a.cancel href=club_url(@resource) = t 'actions.cancel'

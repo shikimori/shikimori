@@ -11,6 +11,7 @@
 - else
   .b-shiki_editor.to-process[
     class=('size-xl' if local_assigns[:size] == 'xl')
+    class=('no-preview-avatar' if local_assigns[:no_preview_avatar])
     data-dynamic='shiki_editor'
   ]
     = render 'comments/shiki_editor', text: @resource.about || '', field_name: 'user[about]'
