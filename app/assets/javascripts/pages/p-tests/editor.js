@@ -144,50 +144,7 @@ TEST_DEMO_CONTENT = `
 `.trim();
 
 TEST_DEMO_CONTENT = `
-zzzzzzz zzzzzzz zzzzzzz
-
-z
-
-z
-
-z
-
-z
-
-||z zzzzzzz zzzzzzz zzzzzzz||
-
-[spoiler]
-zzzzzzzz zzzzzzz zzzzzzz zzzzzzz
-[/spoiler]
-
-z
-
-z
-
-z
-
-z
-
-z
-
-z
-
-z
-
-z
-
-z
-
-z
-
-z
-
-z
-
-z
-
-z
-
+[*] [url=https://shikimori.org/clubs/315-achivki-dostizheniya/topics/227419-gar][b]ГАР[/b][/url] ([url=https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml][color=#FF0000]g[/color][color=#AA5500]i[/color][color=#55AA00]t[/color][color=#00FF00]h[/color][color=#00AA55]u[/color][color=#0055AA]b[/color][/url]) | [div=b-anime_status_tag anons]ручной[/div] | [div=b-anime_status_tag news]процент[/div] |
 `.trim();
 
 pageLoad('tests_editor', async () => {
