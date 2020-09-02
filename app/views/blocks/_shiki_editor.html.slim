@@ -14,4 +14,6 @@
     class=('no-preview-avatar' if local_assigns[:no_preview_avatar])
     data-dynamic='shiki_editor'
   ]
-    = render 'comments/shiki_editor', text: @resource.about || '', field_name: 'user[about]'
+    = render 'comments/shiki_editor',
+      text: local_assigns[:text],
+      field_name: local_assigns[:field_name]
