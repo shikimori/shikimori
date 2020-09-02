@@ -1,6 +1,6 @@
 /* global IS_LOCAL_SHIKI_PACKAGES */
 import View from 'views/application/view';
-// import memoize from 'memoize-decorator';
+import memoize from 'memoize-decorator';
 import csrf from 'helpers/csrf';
 import axios from 'helpers/axios';
 import { bind } from 'shiki-decorators';
@@ -34,15 +34,35 @@ export default class ShikiEditorV2 extends View {
         )
     ]);
 
-    const shikiUploader = new ShikiUploader({
+    this.app = this._buildApp(Vue, ShikiEditorApp, ShikiUploader, ShikiRequest);
+    this.vueNode = this.app.$el;
+
+    this._bindForm();
+    this._scheduleDestroy();
+  }
+
+  get editorApp() {
+    return this.app.$children[0];
+  }
+
+  @memoize
+  get $form() {
+    return this.$node.closest('form');
+  }
+
+  _buildShikiUploader(ShikiUploader) {
+    return new ShikiUploader({
       locale: window.LOCALE,
       xhrEndpoint: '/api/user_images?linked_type=Comment',
       xhrHeaders: () => csrf().headers
     });
+  }
 
+  _buildApp(Vue, ShikiEditorApp, ShikiUploader, ShikiRequest) {
+    const shikiUploader = this._buildShikiUploader(ShikiUploader);
     const shikiRequest = new ShikiRequest(window.location.origin, axios);
 
-    this.app = new Vue({
+    return new Vue({
       el: this.vueNode,
       components: { ShikiEditorApp },
       mounted() {
@@ -65,16 +85,25 @@ export default class ShikiEditorV2 extends View {
         }
       })
     });
-    this.vueNode = this.app.$el;
+  }
+
+  _bindForm() {
+    this.$form.on('submit', this.sync);
+  }
+
+  _scheduleDestroy() {
     $(document).one('turbolinks:before-cache', this.destroy);
   }
 
-  get editorApp() {
-    return this.app.$children[0];
+  @bind
+  sync() {
+    this.input.value = this.editorApp.exportContent();
   }
 
   @bind
   destroy() {
+    this.$form.off('submit', this.sync);
+
     this.app?.$destroy();
     this.vueNode.remove();
 

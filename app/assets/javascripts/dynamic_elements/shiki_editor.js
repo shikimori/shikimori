@@ -23,7 +23,6 @@ export default class ShikiEditor extends ShikiView {
     }
 
     this.$textarea = this.$('textarea');
-    // this.editor = this._buildEditor();
 
     // при вызове фокуса на shiki-editor передача сообщения в редактор
     this.on('focus', () => this.$textarea.trigger('focus'));
