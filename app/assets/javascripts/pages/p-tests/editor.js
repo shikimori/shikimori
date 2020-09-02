@@ -2,11 +2,10 @@
 /* eslint max-len:0 */
 
 import delay from 'delay';
-import csrf from 'helpers/csrf';
 import autosize from 'autosize';
 import axios from 'helpers/axios';
 
-const IS_RAW = false && IS_LOCAL_SHIKI_PACKAGES;
+const IS_RAW = true && IS_LOCAL_SHIKI_PACKAGES;
 const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
@@ -145,6 +144,10 @@ TEST_DEMO_CONTENT = `
 
 TEST_DEMO_CONTENT = `
 [*] [url=https://shikimori.org/clubs/315-achivki-dostizheniya/topics/227419-gar][b]ГАР[/b][/url] ([url=https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml][color=#FF0000]g[/color][color=#AA5500]i[/color][color=#55AA00]t[/color][color=#00FF00]h[/color][color=#00AA55]u[/color][color=#0055AA]b[/color][/url]) | [div=b-anime_status_tag anons]ручной[/div] | [div=b-anime_status_tag news]процент[/div] |
+`.trim();
+
+TEST_DEMO_CONTENT = `
+[span=b-anime_status_tag anons]zxc[/span]
 `.trim();
 
 pageLoad('tests_editor', async () => {
