@@ -11,8 +11,6 @@
       = f.input :apply_user_styles
       / = f.input :show_social_buttons
       = f.input :is_show_smileys
-      - if current_user.admin?
-        = f.input :is_shiki_editor
 
     .block
       = f.button :magic_submit
