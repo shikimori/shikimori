@@ -1,9 +1,9 @@
-class BbCodes::Tags::DivTag
+class BbCodes::Tags::SpanTag
   include Singleton
 
   TAG_START_REGEXP = /
     \[
-      div
+      span
       (?: =(?<css_class>(?:[\w_\ \-](?!data-\w))+) )?
       (?<data_attributes>(?:\ data-[\w_\-]+(?:=[\w_\-]+)?)+)?
     \]
@@ -11,60 +11,38 @@ class BbCodes::Tags::DivTag
 
   TAG_END_REGEXP = %r{
     \[
-      /div
+      /span
     \]
   }mix
 
-  FORBIDDEN_CLASSES = %w[
-    l-menu
-    l-page
-    l-footer
-    l-top_menu-v2
-    b-comments-notifier
-    b-achievements_notifier
-    b-fancy_loader
-    b-comments
-    b-feedback
-    b-to-top
-    b-height_shortener
-    b-new_marker
-    b-appear_marker
-    shade
-    expand
-    menu-slide-outer
-    menu-slide-inner
-    menu-toggler
-  ]
-  CLEANUP_CLASSES_REGEXP = /
-    #{FORBIDDEN_CLASSES.join '|'} |
-    \bl-(?<css_class>[\w_\-]+)
-  /mix
+  FORBIDDEN_CLASSES = BbCodes::Tags::DivTag::FORBIDDEN_CLASSES
+  CLEANUP_CLASSES_REGEXP = BbCodes::Tags::DivTag::CLEANUP_CLASSES_REGEXP
 
   def format text
-    return text unless text.include?('[/div]')
+    return text unless text.include?('[/span]')
 
-    div_end(*div_start(text, 0, text))
+    span_end(*span_start(text, 0, text))
   end
 
 private
 
-  def div_start text, replacements, original_text
+  def span_start text, replacements, original_text
     result = text.gsub TAG_START_REGEXP do
       replacements += 1
 
       inner = class_html($LAST_MATCH_INFO[:css_class]) +
         data_html($LAST_MATCH_INFO[:data_attributes])
 
-      "<div#{inner} data-div>"
+      "<span#{inner} data-span>"
     end
 
     [result, replacements, original_text]
   end
 
-  def div_end text, replacements, original_text
+  def span_end text, replacements, original_text
     result = text.gsub TAG_END_REGEXP do
       replacements -= 1
-      '</div>'
+      '</span>'
     end
 
     if replacements.zero?
