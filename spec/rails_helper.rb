@@ -53,6 +53,12 @@ Shoulda::Matchers.configure do |config|
 end
 
 RSpec.configure do |config|
+  # NOTE: enable in rails 6 and recreate test database
+  # https://prathamesh.tech/2020/08/10/creating-unlogged-tables-in-rails/
+  # ActiveSupport.on_load(:active_record) do
+  #   ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.create_unlogged_tables = true
+  # end
+
   config.use_transactional_fixtures = true
 
   config.infer_spec_type_from_file_location!
