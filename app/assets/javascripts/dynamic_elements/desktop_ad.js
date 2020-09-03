@@ -28,6 +28,6 @@ export default class DesktopAd extends View {
     if (platform === 'desktop') {
       return isTablet() || !isPhone();
     }
-    return mobileDetect.phone() || mobileDetect.tablet();
+    return mobileDetect.phone || mobileDetect.tablet;
   }
 }
