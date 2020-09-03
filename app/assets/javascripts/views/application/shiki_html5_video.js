@@ -1,4 +1,4 @@
-import { sessionStorage } from 'js-storage';
+import localStorage from 'local-storage';
 import { bind } from 'shiki-decorators';
 import View from 'views/application/view';
 
@@ -7,8 +7,8 @@ const FULLSCREEN_EVENTS = 'webkitfullscreenchange mozfullscreenchange fullscreen
 
 export class ShikiHtml5Video extends View {
   initialize() {
-    const storedVolume = sessionStorage.get(VOLUME_KEY);
-    this.node.volume = storedVolume !== undefined ? storedVolume : 1;
+    const storedVolume = localStorage(VOLUME_KEY);
+    this.node.volume = storedVolume != null ? storedVolume : 1;
 
     // @on 'error', () => @error()
     this.on('click', this.click);
@@ -30,7 +30,7 @@ export class ShikiHtml5Video extends View {
 
   @bind
   volumeChange() {
-    sessionStorage.set(VOLUME_KEY, this.node.volume);
+    localStorage(VOLUME_KEY, this.node.volume);
   }
 
   @bind
