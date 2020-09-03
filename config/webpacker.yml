@@ -53,7 +53,7 @@ default: &default
 
 development:
   <<: *default
-  compile: true
+  compile: false # disable compilation without dev server
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
@@ -69,12 +69,11 @@ development:
     disable_host_check: true
     use_local_ip: false
     quiet: false
-    pretty: false
+    pretty: true
     headers:
       'Access-Control-Allow-Origin': '*'
     watch_options:
       ignored: '**/node_modules/**'
-
 
 test:
   <<: *default

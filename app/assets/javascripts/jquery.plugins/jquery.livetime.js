@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'helpers/dayjs';
 
 const I18N_TIME_FORMATS = {
   ru: 'D MMMM YYYY, H:mm:ss',
@@ -20,10 +20,10 @@ $.fn.extend({
       initialized = true;
     }
 
-    return this.each(function () {
-      updateTime(this);
+    return this.each((_index, node) => {
+      updateTime(node);
 
-      return $(this).one('mouseover', function () {
+      return $(node).one('mouseover', function() {
         const time = parseTime($(this));
         const format = I18N_TIME_FORMATS[I18n.locale];
 
@@ -36,7 +36,7 @@ $.fn.extend({
 });
 
 function updateTimes() {
-  $('time').each(function () { return updateTime(this); });
+  $('time').each((_index, node) => updateTime(node));
 }
 
 function updateTime(node) {
@@ -45,11 +45,11 @@ function updateTime(node) {
 
   let newValue;
   if (timeinfo.format === '1_day_absolute') {
-    newValue = timeinfo.moment.unix() > moment().subtract(1, 'day').unix() ?
-      timeinfo.moment.fromNow() :
-      timeinfo.moment.format(I18N_DATE_FORMATS[I18n.locale]);
+    newValue = timeinfo.dayjs.unix() > dayjs().subtract(1, 'day').unix() ?
+      timeinfo.dayjs.fromNow() :
+      timeinfo.dayjs.format(I18N_DATE_FORMATS[I18n.locale]);
   } else {
-    newValue = timeinfo.moment.fromNow();
+    newValue = timeinfo.dayjs.fromNow();
   }
 
   if (newValue !== timeinfo.value) {
@@ -59,7 +59,7 @@ function updateTime(node) {
 }
 
 function parseTime($node) {
-  return moment($node.attr('datetime')).subtract(window.MOMENT_DIFF).add(2, 'seconds');
+  return dayjs($node.attr('datetime')).subtract(window.MOMENT_DIFF).add(2, 'seconds');
 }
 
 function getTimeinfo($node) {
@@ -70,9 +70,9 @@ function generateTimeinfo($node) {
   const timeinfo = {};
 
   const nodeTime = parseTime($node);
-  timeinfo.moment =
-    moment().isBefore(nodeTime) && !$node.data('allow-future-time') ?
-      moment() :
+  timeinfo.dayjs =
+    dayjs().isBefore(nodeTime) && !$node.data('allow-future-time') ?
+      dayjs() :
       nodeTime;
 
   timeinfo.value = $node.text();

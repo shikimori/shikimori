@@ -10,7 +10,8 @@ const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
-TEST_DEMO_CONTENT = `
+if (process.env.NODE_ENV === 'development') {
+  TEST_DEMO_CONTENT = `
 Немного Сакуры (малая часть):
 [spoiler=спойлер] [image=1171572][image=1171573][image=1171574][image=1171575][image=1171576][image=1171577][image=1171578]
 [image=1171579][image=1171580][image=1171581][image=1171582][image=1171583][image=1171600][b]([spoiler=спойлер]кстати, этот момент был в популярном ныне посте в твиттере о том, как пьеротт нагнетают ситуацию с Сакурой и что на самом деле с ней "все не так плохо", жаль только, что они все правильно передали, просто создавший тот пост - не читал мангу. В нем говорилось, якобы Сакура ничего про родителей Наруто не говорила, ну да, ну да[/spoiler])[/b]
@@ -32,7 +33,7 @@ TEST_DEMO_CONTENT = `
 [replies=6233966]
 `.trim();
 
-TEST_DEMO_CONTENT = `
+  TEST_DEMO_CONTENT = `
 [b]Результаты прошлых опросов:[/b]
 [spoiler=[b]01[/b]][b]Результаты опроса #1 - "Любимая аниме-тян":[/b]
 1 место -  [character=7373] и [Asuna Yuuki] (21 голос)
@@ -142,13 +143,14 @@ TEST_DEMO_CONTENT = `
 [/spoiler]
 `.trim();
 
-TEST_DEMO_CONTENT = `
+  TEST_DEMO_CONTENT = `
 [*] [url=https://shikimori.org/clubs/315-achivki-dostizheniya/topics/227419-gar][b]ГАР[/b][/url] ([url=https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml][color=#FF0000]g[/color][color=#AA5500]i[/color][color=#55AA00]t[/color][color=#00FF00]h[/color][color=#00AA55]u[/color][color=#0055AA]b[/color][/url]) | [div=b-anime_status_tag anons]ручной[/div] | [div=b-anime_status_tag news]процент[/div] |
 `.trim();
 
-TEST_DEMO_CONTENT = `
+  TEST_DEMO_CONTENT = `
 [span=b-anime_status_tag anons]zxc[/span]
 `.trim();
+}
 
 pageLoad('tests_editor', async () => {
   const $shikiEditor = $('.b-shiki_editor');

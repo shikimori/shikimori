@@ -1,5 +1,5 @@
-import moment from 'moment';
 import View from 'views/application/view';
+import dayjs from 'helpers/dayjs';
 
 const INPUT_FORMAT = 'YYYY-MM-DD';
 
@@ -15,7 +15,7 @@ export class DatePicker extends View {
 
     let inputValue;
     if (value) {
-      inputValue = moment(value).format(INPUT_FORMAT);
+      inputValue = dayjs(value).format(INPUT_FORMAT);
     }
     this.root.value = inputValue;
 
@@ -39,7 +39,7 @@ export class DatePicker extends View {
     // инпута и ставит дату в своём собственном форматировании,
     // а не в INPUT_FORMAT
     if (this.root.value) {
-      initialValue = moment(this.root.value).toDate();
+      initialValue = dayjs(this.root.value).toDate();
     }
     if (initialValue) {
       this.set(initialValue, true);
@@ -54,10 +54,12 @@ export class DatePicker extends View {
   }
 
   _i18n() {
+    const localeData = dayjs().localeData();
+
     return {
-      months: moment.months(),
-      weekdays: moment.weekdays(),
-      weekdaysShort: moment.weekdaysShort()
+      months: localeData.months(),
+      weekdays: localeData.weekdays(),
+      weekdaysShort: localeData.weekdaysShort()
     };
   }
 }

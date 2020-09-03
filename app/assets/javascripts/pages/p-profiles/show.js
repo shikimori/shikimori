@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'helpers/dayjs';
 import { isMobile } from 'helpers/mobile_detect';
 
 pageLoad('profiles_show', () => {
@@ -53,8 +53,8 @@ pageLoad('profiles_show', () => {
         );
 
         const dateFormat = window.LOCALE === 'en' ? 'MMMM D' : 'D MMMM';
-        const fromDate = moment(entry.dates.from).format(dateFormat);
-        const toDate = moment(entry.dates.to).format(dateFormat);
+        const fromDate = dayjs(entry.dates.from).format(dateFormat);
+        const toDate = dayjs(entry.dates.to).format(dateFormat);
 
         if (fromDate === toDate) {
           return I18n.t('frontend.pages.p_profiles.label.short', {
@@ -95,7 +95,7 @@ pageLoad('profiles_show', () => {
           label = date.getFullYear();
           options.index_label = index + 3;
         } else if (options.prior.dates.from.getMonth() !== date.getMonth()) {
-          label = moment(date).format('MMM').capitalize();
+          label = dayjs(date).format('MMM').capitalize();
           options.index_label = index + 3;
         } else if (options.range <= 120) { // and entry.value > 0
           label = date.getDate();

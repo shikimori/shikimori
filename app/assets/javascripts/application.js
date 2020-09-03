@@ -6,7 +6,6 @@
 import Turbolinks from 'turbolinks'; // eslint-disable-line import/newline-after-import
 Turbolinks.start();
 
-import moment from 'moment';
 import delay from 'delay';
 
 const requireVendor = require.context('vendor', false);
@@ -56,8 +55,10 @@ import AchievementsNotifier from 'services/achievements_notifier';
 import bindings from 'helpers/bindings';
 
 import 'helpers/p';
-
 import 'i18n/translations';
+
+import dayjs from 'helpers/dayjs'; // eslint-disable-line import/newline-after-import
+window.dayjs = dayjs;
 
 $(document).one('turbolinks:load', () => {
   if (!window.JS_EXPORTS) { window.JS_EXPORTS = {}; }
@@ -78,9 +79,9 @@ $(document).one('turbolinks:load', () => {
 
   window.I18n = I18n;
   I18n.locale = window.LOCALE;
-  moment.locale(window.LOCALE);
+  dayjs.locale(window.LOCALE);
 
-  window.MOMENT_DIFF = moment($body.data('server_time')).diff(new Date());
+  window.MOMENT_DIFF = dayjs($body.data('server_time')).diff(new Date());
 
   if (window.SHIKI_USER.isSignedIn && !window.SHIKI_FAYE_LOADER) {
     window.SHIKI_COMMENTS_NOTIFIER = new CommentsNotifier();
