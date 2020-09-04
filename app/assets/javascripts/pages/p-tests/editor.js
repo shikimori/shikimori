@@ -148,7 +148,16 @@ if (process.env.NODE_ENV === 'development') {
 `.trim();
 
   TEST_DEMO_CONTENT = `
-[span=b-anime_status_tag anons]zxc[/span]
+@morr только сейчас понял что внутрь названия блокового спойлера можно вставлять картинки, так и задумано?
+[spoiler_block=[img]https://kawai.shikimori.one/system/screenshots/original/02a238a644397fa9f743203ed4beafc5d1d4bc6f.jpg?1423534869[/img]]
+текст
+[/spoiler_block]
+если центрировать сам спойлер, то содержимое спойлера автоматически центрируется
+[center][spoiler_block=спойлер]
+[img]https://kawai.shikimori.one/system/screenshots/original/02a238a644397fa9f743203ed4beafc5d1d4bc6f.jpg?1423534869[/img]
+[/spoiler_block][/center]
+[center]и центрирование кривое[/center]
+[center][img]https://kawai.shikimori.one/system/screenshots/original/02a238a644397fa9f743203ed4beafc5d1d4bc6f.jpg?1423534869[/img][/center]
 `.trim();
 }
 
@@ -221,6 +230,7 @@ pageLoad('tests_editor', async () => {
   }
 
   if (IS_VUE) {
+    await delay(100);
     const view = $('.b-shiki_editor-v2').view();
     view.editorApp.setContent(TEST_DEMO_CONTENT || DEMO_CONTENT);
   } else {
