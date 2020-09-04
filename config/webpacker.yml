@@ -53,7 +53,7 @@ default: &default
 
 development:
   <<: *default
-  compile: false # disable compilation without dev server
+  compile: <%=!!ENV['NO_REDIRECTER'] %> # disable compilation without dev server
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
