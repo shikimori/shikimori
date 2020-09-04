@@ -58,6 +58,9 @@ $(document).on('turbolinks:load', () => {
     };
 
     const show = () => {
+      // do not execute show logic multiple times
+      if ($outerNode.hasClass('active')) { return; }
+
       $outerNode.addClass('active');
       $('.l-top_menu-v2').addClass('is-submenu');
 

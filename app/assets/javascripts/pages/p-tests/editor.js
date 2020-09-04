@@ -148,20 +148,7 @@ if (process.env.NODE_ENV === 'development') {
 `.trim();
 
   TEST_DEMO_CONTENT = `
-[center][img]https://kawai.shikimori.one/system/screenshots/original/02a238a644397fa9f743203ed4beafc5d1d4bc6f.jpg?1423534869[/img][/center]
-[center]и центрирование кривое[/center]
-
-[spoiler_block=спойлер]
-[center]
-[img]https://kawai.shikimori.one/system/screenshots/original/02a238a644397fa9f743203ed4beafc5d1d4bc6f.jpg?1423534869[/img]
-[/center]
-[/spoiler_block]
-
-[center][spoiler_block=спойлер]
-[img]https://kawai.shikimori.one/system/screenshots/original/02a238a644397fa9f743203ed4beafc5d1d4bc6f.jpg?1423534869[/img]
-[/spoiler_block][/center]
-[center]и центрирование кривое[/center]
-[center][img]https://kawai.shikimori.one/system/screenshots/original/02a238a644397fa9f743203ed4beafc5d1d4bc6f.jpg?1423534869[/img][/center]
+  z
 `.trim();
 }
 
@@ -188,7 +175,7 @@ pageLoad('tests_editor', async () => {
   const rawNode2 = document.querySelector('.raw-editor-2');
   const vueNode = document.querySelector('.b-shiki_editor-v2 div');
 
-  if (IS_RAW) {
+  if (true) {
     const editor = new ShikiEditor({
       element: rawNode,
       extensions: [],
@@ -228,7 +215,7 @@ pageLoad('tests_editor', async () => {
     $(rawNode).closest('.fc-2').closest('.block').hide();
   }
 
-  if (IS_VUE) {
+  if (true) {
     await delay(100);
     const view = $('.b-shiki_editor-v2').view();
     view.editorApp.setContent(TEST_DEMO_CONTENT || DEMO_CONTENT);
