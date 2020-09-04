@@ -10,13 +10,13 @@ class BbCodes::Tags::SpoilerTag
       \n?
       (?<content>
         (?:
-          (?! \[/?spoiler(?:_block|_v1)? #{LABEL_REGEXP.source} \] ) (?>[\s\S])
+          (?! \[/?spoiler(?:_block|_v1)? #{LABEL_REGEXP.source} \] ) (?>.)
         )+
       )
       \n?
     \[/\k<tag>\]
     (?<suffix>\n)?
-  }xi
+  }mix
 
   TAG_REGEXP = %r{</?\w+}
 
@@ -29,15 +29,15 @@ class BbCodes::Tags::SpoilerTag
   INLINE_TAG_CLOSE = '</span>'
 
   def format text
-    spoiler_to_html text, 0
+    bbcode_to_html text, 0
   end
 
 private
 
-  def spoiler_to_html text, nesting
+  def bbcode_to_html text, nesting
     return text if nesting > 5
 
-    text = spoiler_to_html text, nesting + 1
+    text = bbcode_to_html text, nesting + 1
 
     text.gsub(REGEXP) do |_match|
       tag = $LAST_MATCH_INFO[:tag]
