@@ -28,18 +28,24 @@ class BbCodes::Tags::SpoilerTag
     "data-dynamic='spoiler_inline' tabindex='0'>"
   INLINE_TAG_CLOSE = '</span>'
 
+  MAX_NESTING = 5
+
   def format text
-    bbcode_to_html text, 0
+    bbcode_to_html(text, 1).first
   end
 
 private
 
   def bbcode_to_html text, nesting
-    return text if nesting > 5
+    return [text, true] if nesting > MAX_NESTING
 
-    text = bbcode_to_html text, nesting + 1
+    text, were_changed = bbcode_to_html text, nesting + 1
+    return [text, were_changed] unless were_changed
 
-    text.gsub(REGEXP) do |_match|
+    is_changed = false
+    text = text.gsub(REGEXP) do |_match|
+      is_changed = true
+
       tag = $LAST_MATCH_INFO[:tag]
       label = $LAST_MATCH_INFO[:label]&.strip || I18n.t('markers.spoiler')
       content = $LAST_MATCH_INFO[:content]
@@ -48,6 +54,8 @@ private
 
       to_html tag, label, content, prefix, suffix
     end
+
+    [text, is_changed]
   end
 
   def to_html tag, label, content, prefix, suffix # rubocop:disable all
