@@ -148,11 +148,15 @@ if (process.env.NODE_ENV === 'development') {
 `.trim();
 
   TEST_DEMO_CONTENT = `
-@morr только сейчас понял что внутрь названия блокового спойлера можно вставлять картинки, так и задумано?
-[spoiler_block=[img]https://kawai.shikimori.one/system/screenshots/original/02a238a644397fa9f743203ed4beafc5d1d4bc6f.jpg?1423534869[/img]]
-текст
+[center][img]https://kawai.shikimori.one/system/screenshots/original/02a238a644397fa9f743203ed4beafc5d1d4bc6f.jpg?1423534869[/img][/center]
+[center]и центрирование кривое[/center]
+
+[spoiler_block=спойлер]
+[center]
+[img]https://kawai.shikimori.one/system/screenshots/original/02a238a644397fa9f743203ed4beafc5d1d4bc6f.jpg?1423534869[/img]
+[/center]
 [/spoiler_block]
-если центрировать сам спойлер, то содержимое спойлера автоматически центрируется
+
 [center][spoiler_block=спойлер]
 [img]https://kawai.shikimori.one/system/screenshots/original/02a238a644397fa9f743203ed4beafc5d1d4bc6f.jpg?1423534869[/img]
 [/spoiler_block][/center]
@@ -166,17 +170,12 @@ pageLoad('tests_editor', async () => {
   const $textarea = $shikiEditor.find('textarea');
 
   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
-  const { ShikiEditorApp, ShikiEditor } =
+  const { ShikiEditor } =
     await import(/* webpackChunkName: "shiki-editor" */
       IS_LOCAL_SHIKI_PACKAGES ?
         'packages/shiki-editor' :
         'shiki-editor'
     );
-  const { default: ShikiUploader } = await import(
-    IS_LOCAL_SHIKI_PACKAGES ?
-      'packages/shiki-uploader' :
-      'shiki-uploader'
-  );
   const { ShikiRequest } = await import(
     IS_LOCAL_SHIKI_PACKAGES ?
       'packages/shiki-utils' :
