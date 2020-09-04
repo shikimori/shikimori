@@ -379,6 +379,10 @@ Poster
 [/div]
 
 div [div=b-link_button]inline divs are not parsed by editor[/div] div
+Instead use \`[span]\` bbcode [span=b-anime_status_tag anons]as inline element[/span]
+\`\`\`
+Instead use \`[span]\` bbcode [span=b-anime_status_tag anons]as inline element[/span]
+\`\`\`
 
 [quote]Old style quote support[/quote]
 [quote=zxc]Old style quote with nickname[/quote]
