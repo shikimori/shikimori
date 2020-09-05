@@ -175,7 +175,7 @@ pageLoad('tests_editor', async () => {
   const rawNode2 = document.querySelector('.raw-editor-2');
   const vueNode = document.querySelector('.b-shiki_editor-v2 div');
 
-  if (true) {
+  if (IS_RAW) {
     const editor = new ShikiEditor({
       element: rawNode,
       extensions: [],
@@ -215,7 +215,7 @@ pageLoad('tests_editor', async () => {
     $(rawNode).closest('.fc-2').closest('.block').hide();
   }
 
-  if (true) {
+  if (IS_VUE) {
     await delay(100);
     const view = $('.b-shiki_editor-v2').view();
     view.editorApp.setContent(TEST_DEMO_CONTENT || DEMO_CONTENT);
