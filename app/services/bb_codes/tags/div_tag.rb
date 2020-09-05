@@ -34,6 +34,8 @@ class BbCodes::Tags::DivTag
     menu-slide-outer
     menu-slide-inner
     menu-toggler
+    turbolinks-progress-bar
+    b-admin_panel
   ]
   CLEANUP_CLASSES_REGEXP = /
     #{FORBIDDEN_CLASSES.join '|'} |
