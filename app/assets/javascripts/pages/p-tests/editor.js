@@ -148,7 +148,12 @@ if (process.env.NODE_ENV === 'development') {
 `.trim();
 
   TEST_DEMO_CONTENT = `
-  z
+\`\`\`
+[anime=477]Ария[/anime]
+\`\`\`
+\`[anime=477]Ария[/anime]\`
+
+z
 `.trim();
 }
 
