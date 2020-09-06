@@ -108,7 +108,7 @@ class ClubDecorator < DbEntryDecorator
     Topics::Query.fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(Forum.find_by_permalink('clubs'), h.current_user, false) # rubocop:disable DynamicFindBy
       .by_linked(object)
-      .where("type != '#{Topics::EntryTopics::ClubTopic.name}'")
+      .where("topics.type != '#{Topics::EntryTopics::ClubTopic.name}'")
   end
 
   def forum_topics_views
