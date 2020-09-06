@@ -155,9 +155,9 @@ asdas
 
 [span=to-process data-dynamic=switcher]Элемент 0[/span]
 
-[span=to-process data-dynamic=switcher data-switcher=sw1]Элемент 1[/span] [span=to-process data-dynamic=switcher data-switcher=sw1]Элемент 2[/span]
-[span=to-process data-dynamic=switcher data-switcher=sw1]Элемент 3[/div]
-[span=to-process data-dynamic=switcher data-switcher=sw1]Элемент 4[/div]
+[span=to-process data-dynamic=switcher b-js-link data-switcher=sw1]Элемент 1[/span] [span=to-process data-dynamic=switcher b-js-link data-switcher=sw1]Элемент 2[/span]
+[div=to-process data-dynamic=switcher b-js-link data-switcher=sw1]Элемент 3[/div]
+[div=to-process data-dynamic=switcher b-js-link data-switcher=sw1]Элемент 4[/div]
 
 [div=to-process data-dynamic=tabs]
 [div=cc-4a block]
