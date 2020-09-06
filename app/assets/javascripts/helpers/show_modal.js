@@ -50,6 +50,12 @@ export default function showModal({
     $modal.trigger('modal:hide');
   }
 
+  function unbindHandlers() {
+    $(document.body).off('click', tryCloseModal);
+    $(document.body).off('focus', '*', tryCloseModal);
+    $(document.body).off('keydown', closeModalOnEsc);
+  }
+
   if ($trigger.constructor === String) {
     $(document).on('mousedown focus', $trigger, toggleModal);
   } else {
@@ -71,11 +77,7 @@ export default function showModal({
         $(document.body).on('focus', '*', tryCloseModal);
         $(document.body).on('keydown', closeModalOnEsc);
 
-        $(document).one('turbolinks:before-cache', () => {
-          $(document.body).off('click', tryCloseModal);
-          $(document.body).off('focus', '*', tryCloseModal);
-          $(document.body).off('keydown', closeModalOnEsc);
-        });
+        $(document).one('turbolinks:before-cache', unbindHandlers);
       });
     })
     .on('modal:hide', () => {
@@ -87,9 +89,7 @@ export default function showModal({
         $modal.hide();
       }
 
-      $(document.body).off('click', tryCloseModal);
-      $(document.body).off('focus', '*', tryCloseModal);
-      $(document.body).off('keydown', closeModalOnEsc);
+      unbindHandlers();
 
       if ($trigger.is(':focus')) {
         $trigger.blur();
@@ -105,6 +105,7 @@ export default function showModal({
     },
     hide() {
       $modal.trigger('modal:hide');
-    }
+    },
+    destroy: unbindHandlers
   };
 }
