@@ -24,6 +24,11 @@ describe BbCodes::Tags::VideoUrlTag, :vcr do
         let(:text) { "https://www.youtube.co/watch?v=#{hash}" }
         it { is_expected.to eq text }
       end
+
+      context 'wrapped in url' do
+        let(:text) { "[url]https://www.youtube.com/watch?v=#{hash}[/url]" }
+        it { is_expected.to eq text }
+      end
     end
 
     context 'vk' do

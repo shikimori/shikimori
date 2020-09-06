@@ -2,21 +2,30 @@ class BbCodes::Tags::VideoUrlTag
   include Singleton
 
   MAXIMUM_VIDEOS = 75
-  PREPROCESS_REGEXP = %r{\[url=(?<url>#{VideoExtractor.matcher})\].*?\[/url\]}mi
-  # VIDEO_REGEXP = /(?<text>[^"\]=]|^)(?<url>#{VideoExtractor.matcher})/mi
-  VIDEO_REGEXP = /(?<text>)(?<url>#{VideoExtractor.matcher})/mi
+  PREPROCESS_REGEXP = %r{
+    \[url=(?<url> #{VideoExtractor.matcher} )\]
+      .*?
+    \[/url\]
+  }mix
+  VIDEO_REGEXP = /
+    # (?<! \[url\] )
+    (?: \[url\] )?
+    (?<url> #{VideoExtractor.matcher} )
+  /mix
 
   def format text
     times = 0
 
-    preprocess(text).gsub VIDEO_REGEXP do
+    preprocess(text).gsub VIDEO_REGEXP do |match|
+      next match if match.starts_with? '[url]'
+
       is_youtube = $LAST_MATCH_INFO[:url].include? 'youtube.com/'
       times += 1 unless is_youtube
 
       if times <= MAXIMUM_VIDEOS || is_youtube
-        $LAST_MATCH_INFO[:text] + to_html($LAST_MATCH_INFO[:url])
+        to_html($LAST_MATCH_INFO[:url])
       else
-        $LAST_MATCH_INFO[:text] + $LAST_MATCH_INFO[:url]
+        $LAST_MATCH_INFO[:url]
       end
     end
   end
