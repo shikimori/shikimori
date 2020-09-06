@@ -104,6 +104,7 @@ rules:
     - after: true
       before: true
   lines-between-class-members: 0
+  default-case: 0
   import/no-extraneous-dependencies: 0
   import/no-unresolved: 2
   import/no-webpack-loader-syntax: 0

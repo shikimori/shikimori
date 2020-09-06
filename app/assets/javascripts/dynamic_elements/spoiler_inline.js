@@ -10,6 +10,11 @@ export default class SpoilerInline extends View {
 
   @bind
   async _toggle(e) {
+    // do not prevent clicks on links inside spoiler
+    if ((e.x || e.y) && e.target.tagName === 'A') {
+      return;
+    }
+
     // prevent form submition
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -24,9 +29,8 @@ export default class SpoilerInline extends View {
   _keypress(e) {
     switch (e.keyCode) {
       case 32: // space
-      case 13: //enter
+      case 13: // enter
         this._toggle(e);
-        return;
     }
   }
 
@@ -38,7 +42,6 @@ export default class SpoilerInline extends View {
         e.stopImmediatePropagation();
 
         this.node.blur();
-        return;
     }
   }
 }
