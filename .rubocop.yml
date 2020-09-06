@@ -25,6 +25,7 @@ AllCops:
     - lib/active_cacher.rb
     - lib/dsl_attribute.rb
   UseCache: false
+  NewCops: enable
 
 Layout/LineLength:
   Max: 100
@@ -113,138 +114,12 @@ Lint/UriEscapeUnescape:
   Enabled: false
 Naming/RescuedExceptionsVariableName:
   Enabled: false
-Lint/RaiseException:
-  Enabled: true
-Lint/StructNewOverride:
-  Enabled: true
-Style/HashEachMethods:
-  Enabled: true
-Style/HashTransformKeys:
-  Enabled: true
-Style/HashTransformValues:
-  Enabled: true
-Layout/EmptyLinesAroundAttributeAccessor:
-  Enabled: true
-Layout/SpaceAroundMethodCallOperator:
-  Enabled: true
-Lint/DeprecatedOpenSSLConstant:
-  Enabled: true
-Lint/DuplicateElsifCondition:
-  Enabled: true
-Lint/MixedRegexpCaptureTypes:
-  Enabled: true
-Style/AccessorGrouping:
-  Enabled: true
-Style/ArrayCoercion:
-  Enabled: true
-Style/BisectedAttrAccessor:
-  Enabled: true
-Style/CaseLikeIf:
-  Enabled: true
-Style/ExponentialNotation:
-  Enabled: true
+Style/OptionalBooleanParameter:
+  Enabled: false
 Style/HashAsLastArrayItem:
   Enabled: false
-Style/HashLikeCase:
-  Enabled: true
-Style/RedundantAssignment:
-  Enabled: true
-Style/RedundantFetchBlock:
-  Enabled: true
-Style/RedundantFileExtensionInRequire:
-  Enabled: true
-Style/RedundantRegexpCharacterClass:
-  Enabled: true
-Style/RedundantRegexpEscape:
-  Enabled: true
-Style/SlicingWithRange:
-  Enabled: true
-Performance/AncestorsInclude:
-  Enabled: true
-Performance/BigDecimalWithNumericArgument:
-  Enabled: true
-Performance/RedundantSortBlock:
-  Enabled: true
-Performance/RedundantStringChars:
-  Enabled: true
-Performance/ReverseFirst:
-  Enabled: true
-Performance/SortReverse:
-  Enabled: true
-Performance/Squeeze:
-  Enabled: true
-Performance/StringInclude:
-  Enabled: true
-Rails/ActiveRecordCallbacksOrder:
-  Enabled: true
-Rails/FindById:
-  Enabled: true
-Rails/Inquiry:
-  Enabled: true
-Rails/MailerName:
-  Enabled: true
-Rails/MatchRoute:
-  Enabled: true
-Rails/NegateInclude:
-  Enabled: true
-Rails/Pluck:
-  Enabled: true
-Rails/PluckId:
-  Enabled: true
-Rails/PluckInWhere:
-  Enabled: true
-Rails/RenderInline:
-  Enabled: true
-Rails/RenderPlainText:
-  Enabled: true
-Rails/ShortI18n:
-  Enabled: true
-Rails/WhereExists:
-  Enabled: true
-Lint/BinaryOperatorWithIdenticalOperands:
-  Enabled: true
-Lint/DuplicateRescueException:
-  Enabled: true
-Lint/EmptyConditionalBody:
-  Enabled: true
-Lint/FloatComparison:
-  Enabled: true
-Lint/MissingSuper:
-  Enabled: true
-Lint/OutOfRangeRegexpRef:
-  Enabled: true
-Lint/SelfAssignment:
-  Enabled: true
-Lint/TopLevelReturnWithArgument:
-  Enabled: true
-Lint/UnreachableLoop:
-  Enabled: true
-Style/ExplicitBlockArgument:
-  Enabled: true
-Style/GlobalStdStream:
-  Enabled: true
-Style/OptionalBooleanParameter:
-  Enabled: true
-Style/SingleArgumentDig:
-  Enabled: true
 Style/StringConcatenation:
-  Enabled: true
-Lint/DuplicateRequire: # (new in 0.90)
-  Enabled: true
-Lint/EmptyFile: # (new in 0.90)
-  Enabled: true
-Lint/TrailingCommaInAttributeDeclaration: # (new in 0.90)
-  Enabled: true
-Lint/UselessMethodDefinition: # (new in 0.90)
-  Enabled: true
-Style/CombinableLoops: # (new in 0.90)
-  Enabled: true
-Style/KeywordParametersOrder: # (new in 0.90)
-  Enabled: true
-Style/RedundantSelfAssignment: # (new in 0.90)
-  Enabled: true
-Style/SoleNestedConditional: # (new in 0.89)
-  Enabled: true
+  Enabled: false
 
 Style/StringLiterals:
   Description: Checks if uses of quotes match the configured preference.
