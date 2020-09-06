@@ -3,6 +3,7 @@ class DashboardsController < ShikimoriController
     @view = current_user&.preferences&.dashboard_type_new? ?
       DashboardViewV2.new :
       DashboardView.new
+    @view.cache_keys.values
     # @view = DashboardViewV2.new if Rails.env.development?
   end
 

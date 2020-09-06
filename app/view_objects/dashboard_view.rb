@@ -92,7 +92,7 @@ class DashboardView < ViewObjectBase
 
   def news_topic_views
     Topics::Query
-      .fetch(h.locale_from_host)
+      .fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
       .limit(NEWS_LIMIT)
       .paginate(page, NEWS_LIMIT)
@@ -101,7 +101,7 @@ class DashboardView < ViewObjectBase
 
   def generated_news_topic_views
     Topics::Query
-      .fetch(h.locale_from_host)
+      .fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
       .limit(15)
       .as_views(true, true)
@@ -172,7 +172,7 @@ private
 
   def all_review_topic_views
     Topics::Query
-      .fetch(h.locale_from_host)
+      .fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
       .limit(REVIEWS_FETCH)
       .as_views(true, true)

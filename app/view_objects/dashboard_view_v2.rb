@@ -203,7 +203,7 @@ private
 
   def reviews_scope
     Topics::Query
-      .fetch(h.locale_from_host)
+      .fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
       .limit(6)
       .transform do |topic|
@@ -217,13 +217,13 @@ private
 
   def news_scope
     Topics::Query
-      .fetch(h.locale_from_host)
+      .fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
   end
 
   def db_updates_scope
     Topics::Query
-      .fetch(h.locale_from_host)
+      .fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
   end
 
