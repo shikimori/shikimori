@@ -4110,7 +4110,7 @@
   attributes:
     :neko_id: :oldfag
     :level: 4
-    :image: "/assets/achievements/anime/oldfag_4.jpg"
+    :image: "/assets/achievements/anime/oldfag_4.gif"
     :border_color: "#a5a5a5"
     :title_ru: Часть минувшей эпохи
     :text_ru: Живая легенда. Носишь шляпу кота Перро и здоровался с Осаму Тедзукой.
@@ -4126,7 +4126,7 @@
   default_values: *2
   neko_id: :oldfag
   level: 4
-  image: "/assets/achievements/anime/oldfag_4.jpg"
+  image: "/assets/achievements/anime/oldfag_4.gif"
   border_color: "#a5a5a5"
   title_ru: Часть минувшей эпохи
   text_ru: Живая легенда. Носишь шляпу кота Перро и здоровался с Осаму Тедзукой.
