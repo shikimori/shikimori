@@ -105,7 +105,7 @@ class ClubDecorator < DbEntryDecorator
   end
 
   def forum_topics_query
-    Topics::Query.fetch(h.locale_from_host)
+    Topics::Query.fetch(h.locale_from_host, censored_forbidden?)
       .by_forum(Forum.find_by_permalink('clubs'), h.current_user, false)
       .by_linked(object)
       .where("type != '#{Topics::EntryTopics::ClubTopic.name}'")

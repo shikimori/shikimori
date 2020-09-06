@@ -1,5 +1,5 @@
 describe Topics::Query do
-  subject(:query) { Topics::Query.fetch locale }
+  subject(:query) { Topics::Query.fetch locale, is_censored_forbidden }
 
   let(:locale) { :ru }
   let(:is_censored_forbidden) { false }

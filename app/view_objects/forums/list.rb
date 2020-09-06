@@ -4,8 +4,8 @@ class Forums::List < ViewObjectBase
 
   pattr_initialize [:with_forum_size]
 
-  def each
-    cached_forums.each { |forum| yield forum }
+  def each &block
+    cached_forums.each(&block)
   end
 
 private
@@ -32,12 +32,12 @@ private
   def static_forums
     [
       decorate(Forum.news, true),
-      decorate(Forum.find_by_permalink('reviews'), true),
-      decorate(Forum.find_by_permalink('contests'), true),
-      decorate(Forum.find_by_permalink('collections'), true),
-      decorate(Forum.find_by_permalink('articles'), true),
+      decorate(Forum.find_by_permalink('reviews'), true), # rubocop:disable DynamicFindBy
+      decorate(Forum.find_by_permalink('contests'), true), # rubocop:disable DynamicFindBy
+      decorate(Forum.find_by_permalink('collections'), true), # rubocop:disable DynamicFindBy
+      decorate(Forum.find_by_permalink('articles'), true), # rubocop:disable DynamicFindBy
       decorate(Forum::MY_CLUBS_FORUM, true),
-      decorate(Forum.find_by_permalink('clubs'), true)
+      decorate(Forum.find_by_permalink('clubs'), true) # rubocop:disable DynamicFindBy
     ]
   end
 
@@ -47,7 +47,7 @@ private
   end
 
   def forum_size forum
-    Topics::Query.fetch(h.locale_from_host)
+    Topics::Query.fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(forum, current_user, censored_forbidden?)
       .where('generated = false or (generated = true and comments_count > 0)')
       .size

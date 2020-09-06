@@ -4,20 +4,25 @@ class Topics::Query < QueryObjectBase
       (linked_id = :club_id and linked_type = '#{Club.name}') or
       (linked_id in (:club_page_ids) and linked_type = '#{ClubPage.name}')
     ) and (
-      type not in (
+      topics.type not in (
         '#{Topics::EntryTopics::ClubTopic.name}',
         '#{Topics::EntryTopics::ClubPageTopic.name}'
       ) or comments_count != 0
     )
   SQL
 
-  def self.fetch locale
+  def self.fetch locale, is_censored_forbidden
     query = new Topic
       .includes(:forum, :user, :linked)
       .order(updated_at: :desc)
       .where(locale: locale)
 
-    query.except_hentai # .except_ignored(user)
+    # .except_ignored(user)
+    if is_censored_forbidden
+      query.except_hentai
+    else
+      query
+    end
   end
 
   def by_forum forum, user, is_censored_forbidden
@@ -65,7 +70,13 @@ class Topics::Query < QueryObjectBase
   def except_hentai
     chain @scope
       .joins("left join animes on animes.id=linked_id and linked_type='Anime'")
-      .where('animes.id is null or animes.is_censored=false')
+      .joins("left join mangas on mangas.id=linked_id and linked_type='Manga'")
+      .where(
+        <<~SQL.squish
+          (animes.id is null or animes.is_censored=false) and
+            (mangas.id is null or mangas.is_censored=false)
+        SQL
+      )
   end
 
   def as_views is_preview, is_mini

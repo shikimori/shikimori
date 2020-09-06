@@ -9,11 +9,11 @@ class Topics::ForumQuery # rubocop:disable ClassLength
   FORUMS_QUERY = 'forum_id in (:user_forums)'
   NEWS_QUERY = <<-SQL.squish
     (
-      type = '#{Topics::NewsTopic.name}' and
+      topics.type = '#{Topics::NewsTopic.name}' and
       forum_id = #{Forum::NEWS_ID} and
       generated = false
     ) or (
-      type in (
+      topics.type in (
         '#{Topics::EntryTopics::CosplayGalleryTopic.name}',
         '#{Topics::NewsTopics::ContestStatusTopic.name}'
       ) and
@@ -40,13 +40,13 @@ class Topics::ForumQuery # rubocop:disable ClassLength
 
   MY_CLUBS_QUERY = <<-SQL.squish
     (
-      type in (
+      topics.type in (
         #{ApplicationRecord.sanitize Topics::EntryTopics::ClubTopic.name},
         #{ApplicationRecord.sanitize Topics::ClubUserTopic.name}
       ) and #{Topic.table_name}.linked_id in (:user_club_ids)
     ) or
     (
-      type =
+      topics.type =
         #{ApplicationRecord.sanitize Topics::EntryTopics::ClubPageTopic.name}
         and #{Topic.table_name}.linked_id in (:user_club_page_ids)
     )
@@ -127,7 +127,7 @@ private
 
   def guest_forums
     @scope.where(
-      'type not in (?) OR type IS NULL', [
+      'topics.type not in (?) OR topics.type IS NULL', [
         Topics::EntryTopics::ClubTopic.name,
         Topics::ClubUserTopic.name,
         Topics::EntryTopics::ClubPageTopic.name
