@@ -153,6 +153,12 @@ test
 asdas
 [/spoiler]
 
+[span=to-process data-dynamic=switcher]Элемент 0[/span]
+
+[span=to-process data-dynamic=switcher data-switcher=sw1]Элемент 1[/span] [span=to-process data-dynamic=switcher data-switcher=sw1]Элемент 2[/span]
+[span=to-process data-dynamic=switcher data-switcher=sw1]Элемент 3[/div]
+[span=to-process data-dynamic=switcher data-switcher=sw1]Элемент 4[/div]
+
 [div=to-process data-dynamic=tabs]
 [div=cc-4a block]
 [div=c-column][div=b-js-link active data-tab-switch]Tab 1[/div][/div]
@@ -171,14 +177,9 @@ asdas
 
 
 [div=to-process data-dynamic=tabs]
-  [div=b-js-link active data-tab-switch]Tab 1[/div]
-  [div=b-js-link data-tab-switch]Tab 2[/div]
-  [div=b-js-link data-tab-switch]Tab 3[/div]
-  [div=b-js-link data-tab-switch]Tab 4[/div]
-  [div data-tab]Content 1[/div]
-  [div=hidden data-tab]Content 2[/div]
-  [div=hidden data-tab]Content 3[/div]
-  [div=hidden data-tab]Content 4[/div]
+[span=b-js-link active data-tab-switch]Tab 1[/span] [span=b-js-link data-tab-switch]Tab 2[/span]
+[div data-tab]Content 1[/div]
+[div=hidden data-tab]Content 2[/div]
 [/div]
 `.trim();
 }
