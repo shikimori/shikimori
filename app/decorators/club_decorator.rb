@@ -1,4 +1,4 @@
-class ClubDecorator < DbEntryDecorator
+class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
   rails_cache :all_animes, :all_mangas, :all_ranobe, :all_characters,
     :all_clubs, :all_images
   instance_cache :description, :animes, :mangas, :characters, :images,
@@ -16,7 +16,7 @@ class ClubDecorator < DbEntryDecorator
       object,
       'topic[type]' => Topics::ClubUserTopic.name,
       'topic[user_id]' => h.current_user.id,
-      'topic[forum_id]' => Forum.find_by_permalink('clubs').id,
+      'topic[forum_id]' => Forum.find_by_permalink('clubs').id, # rubocop:disable DynamicFindBy
       'topic[linked_id]' => object.id,
       'topic[linked_type]' => Club.name
     )
