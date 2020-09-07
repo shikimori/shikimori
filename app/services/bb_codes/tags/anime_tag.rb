@@ -5,19 +5,20 @@ class BbCodes::Tags::AnimeTag
   dsl_attribute :klass, Anime
 
   FALLBACK = /(?:\ fallback=(?<fallback>.*?))?/
+  NAME = /(?:\ [^\n\]\[]+)?/
 
   def regexp
     @regexp ||= %r{
-      \[#{name}=(?<id>\d+) #{FALLBACK.source} \]
+      \[#{name}=(?<id>\d+) #{FALLBACK.source} #{NAME.source}\]
         (?! \  )
         (?<name> (?:(?!\[#{name}).)*? )
       \[/#{name}\]
       |
-      \[#{name} #{FALLBACK.source}\]
+      \[#{name} #{FALLBACK.source} #{NAME.source}\]
         (?<id>\d+)
       \[/#{name}\]
       |
-      \[#{name}=(?<id>\d+) #{FALLBACK.source}\]
+      \[#{name}=(?<id>\d+) #{FALLBACK.source} #{NAME.source}\]
       (?!\d)
     }ix
   end

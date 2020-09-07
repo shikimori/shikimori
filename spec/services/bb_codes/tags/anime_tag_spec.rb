@@ -33,6 +33,23 @@ describe BbCodes::Tags::AnimeTag do
       it { is_expected.to eq "<span class='b-entry-404'><del>#{text}</del></span>" }
     end
 
+    context 'fallback' do
+      let(:fallback) { 'http://ya.ru' }
+      let(:text) { "[anime=#{anime.id} fallback=zxc]" }
+
+      it { is_expected.to eq html }
+
+      context 'name' do
+        let(:text) { "[anime=#{anime.id} fallback=zxc asdasdasd fg]" }
+        it { is_expected.to eq html }
+      end
+    end
+
+    context 'name' do
+      let(:text) { "[anime=#{anime.id} asdasdasd-$#%^&*fg]" }
+      it { is_expected.to eq html }
+    end
+
     context 'multiple bb codes' do
       let(:anime2) { create :anime, id: 98_765_432, name: 'zxcvbn', russian: russian }
       let(:text) { "[anime=#{anime.id}][anime=#{anime2.id}]" }
