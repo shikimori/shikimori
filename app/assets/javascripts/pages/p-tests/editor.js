@@ -155,12 +155,28 @@ asdas
 
 ||[url]https://github.com/shikimori/shiki-packages/blob/master/packages/shiki-editor/src/markdown/tokenizer/state.js[/url]||
 
+### no data-switcher
+[hr]
+
 [span=to-process b-js-link data-dynamic=switcher]Элемент span[/span]
 [div=to-process b-js-link data-dynamic=switcher]Элемент div[/div]
+
+### data-switcher=sw1
+[hr]
 
 [span=to-process data-dynamic=switcher b-js-link data-switcher=sw1]Элемент 1 span[/span] [span=to-process data-dynamic=switcher b-js-link data-switcher=sw1]Элемент 2 span[/span]
 [div=to-process data-dynamic=switcher b-js-link data-switcher=sw1]Элемент 3 div[/div]
 [div=to-process data-dynamic=switcher b-js-link data-switcher=sw1]Элемент 4 div[/div]
+[div=to-process data-dynamic=switcher active b-js-link data-switcher=sw1]Элемент 5 div[/div]
+
+### data-switcher=sw2
+[hr]
+
+[span=to-process data-dynamic=switcher active b-js-link data-switcher=sw2]Элемент 1 span[/span] [span=to-process data-dynamic=switcher b-js-link data-switcher=sw2]Элемент 2 span[/span]
+[div=to-process data-dynamic=switcher b-js-link data-switcher=sw2]Элемент 3 div[/div]
+[div=to-process data-dynamic=switcher b-js-link data-switcher=sw2]Элемент 4 div[/div]
+[div=to-process data-dynamic=switcher b-js-link data-switcher=sw2]Элемент 5 div[/div]
+
 
 [div=to-process data-dynamic=tabs]
 [div=cc-4a block]
