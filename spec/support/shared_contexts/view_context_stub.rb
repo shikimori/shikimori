@@ -19,6 +19,10 @@ shared_context :view_context_stub do
       .to receive(:default_url_options)
       .and_return ApplicationController.default_url_options
 
+    def view_context.domain_migration_note
+      false
+    end
+
     allow(view_context)
       .to receive(:page)
       .and_return(view_context.params[:page] || 1)
