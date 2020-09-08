@@ -2,10 +2,8 @@
 class Moderations::AbuseRequestsController < ModerationsController
   load_and_authorize_resource only: %i[show]
 
-  before_action :authenticate_user!,
-    only: %i[index show take deny offtopic summary spoiler abuse]
-
-  before_action :check_access, only: %i[take deny]
+  before_action :authenticate_user!, only: %i[index show take deny]
+  before_action :check_access, only: %i[take deny cleanup]
 
   LIMIT = 25
 
@@ -27,14 +25,17 @@ class Moderations::AbuseRequestsController < ModerationsController
   end
 
   def take
-    @request = AbuseRequest.find params[:id]
-    @request.take! current_user rescue StateMachine::InvalidTransition
+    @resource.take! current_user rescue StateMachine::InvalidTransition
     render json: {}
   end
 
   def deny
-    @request = AbuseRequest.find params[:id]
-    @request.reject! current_user rescue StateMachine::InvalidTransition
+    @resource.reject! current_user rescue StateMachine::InvalidTransition
+    render json: {}
+  end
+
+  def cleanup
+    @resource.update! reason: nil
     render json: {}
   end
 
@@ -42,6 +43,8 @@ private
 
   def check_access
     raise CanCan::AccessDenied unless can? :manage, AbuseRequest
+
+    @resource = AbuseRequest.find params[:id]
   end
 
   def processed_scope

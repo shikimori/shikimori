@@ -69,6 +69,7 @@ en:
         for: for
         from: from
         warn: warn
+        cleanup: cleanup
 
     bans:
       index:

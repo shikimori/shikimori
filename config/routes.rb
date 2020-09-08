@@ -168,6 +168,7 @@ Rails.application.routes.draw do
       member do
         post :take
         post :deny
+        post :cleanup
       end
     end
     resources :reviews, only: [] do

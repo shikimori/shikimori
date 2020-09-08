@@ -69,6 +69,7 @@ ru:
         for: на
         from: на
         warn: предупредить
+        cleanup: очистить
 
     bans:
       index:
