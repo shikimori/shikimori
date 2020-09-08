@@ -153,6 +153,12 @@ test
 asdas
 [/spoiler]
 
+[anime=9756]
+[anime=1]Bebop[/anime]
+[anime=39587]
+zxc
+[/anime]
+
 ||[url]https://github.com/shikimori/shiki-packages/blob/master/packages/shiki-editor/src/markdown/tokenizer/state.js[/url]||
 
 ### no data-switcher
@@ -200,6 +206,12 @@ asdas
 [div data-tab]Content 1[/div]
 [div=hidden data-tab]Content 2[/div]
 [/div]
+`.trim();
+
+  TEST_DEMO_CONTENT = `
+[anime=39587]
+zxc
+[/anime]
 `.trim();
 }
 
@@ -269,7 +281,7 @@ pageLoad('tests_editor', async () => {
   if (IS_VUE) {
     await delay(100);
     const view = $('.b-shiki_editor-v2').view();
-    view.editorApp.setContent(TEST_DEMO_CONTENT || DEMO_CONTENT);
+    view.editorApp.setContent(TEST_DEMO_CONTENT || DEMO_CONTENT, false);
   } else {
     $(vueNode).closest('.block').hide();
   }
