@@ -1,4 +1,4 @@
-class DashboardView < ViewObjectBase
+class DashboardView < ViewObjectBase # rubocop:disable ClassLength
   ONGOINGS_FETCH = 24
   ONGOINGS_TAKE = 8
 
@@ -11,13 +11,17 @@ class DashboardView < ViewObjectBase
 
   SPECIAL_PAGES = 2
 
-  CURRENT_SEASON_SQL = Animes::Query.new(Anime.all)
-    .by_season(Titles::SeasonTitle.new(Time.zone.now, :season_year, Anime).text)
-    .to_where_sql
+  CURRENT_SEASON_SQL = -> {
+    Animes::Query.new(Anime.all)
+      .by_season(Titles::SeasonTitle.new(Time.zone.now, :season_year, Anime).text)
+      .to_where_sql
+  }
 
-  PRIOR_SEASON_SQL = Animes::Query.new(Anime.all)
-    .by_season(Titles::SeasonTitle.new(3.month.ago, :season_year, Anime).text)
-    .to_where_sql
+  PRIOR_SEASON_SQL = -> {
+    Animes::Query.new(Anime.all)
+      .by_season(Titles::SeasonTitle.new(3.months.ago, :season_year, Anime).text)
+      .to_where_sql
+  }
 
   IGNORE_ONGOING_IDS = [
     31_592,
@@ -157,7 +161,7 @@ private
     Animes::OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
-      .where("(#{CURRENT_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
+      .where("(#{CURRENT_SEASON_SQL.call}) OR (#{PRIOR_SEASON_SQL.call})")
       .where('score > 7.3')
       .decorate
   end
@@ -166,7 +170,7 @@ private
     Animes::OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
-      .where.not("(#{CURRENT_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
+      .where.not("(#{CURRENT_SEASON_SQL.call}) OR (#{PRIOR_SEASON_SQL.call})")
       .where('score > 7.3')
       .decorate
   end
@@ -187,6 +191,6 @@ private
   # end
 
   def reviews_forum
-    Forum.find_by_permalink('reviews')
+    Forum.find_by_permalink('reviews') # rubocop:disable DynamicFindBy
   end
 end

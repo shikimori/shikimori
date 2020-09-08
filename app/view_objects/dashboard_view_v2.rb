@@ -123,7 +123,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
       contests: [contests_scope.cache_key, CACHE_VERSION],
       news: [news_scope.cache_key, page, CACHE_VERSION],
       db_updates: [db_updates_scope.cache_key, page, CACHE_VERSION],
-      version: [Date.today, :"variant-#{rand(5)}", CACHE_VERSION],
+      version: [Time.zone.today, :"variant-#{rand(5)}", CACHE_VERSION],
       migration: h.domain_migration_note
     }
   end
@@ -142,7 +142,7 @@ private
     Animes::OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
-      .where("(#{CURRENT_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
+      .where("(#{CURRENT_SEASON_SQL.call}) OR (#{PRIOR_SEASON_SQL.call})")
       .where('score > 7.3')
       .decorate
   end
@@ -151,7 +151,7 @@ private
     Animes::OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
-      .where.not("(#{CURRENT_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
+      .where.not("(#{CURRENT_SEASON_SQL.call}) OR (#{PRIOR_SEASON_SQL.call})")
       .where('score > 7.3')
       .decorate
   end
@@ -174,7 +174,7 @@ private
 
     n_views = views[0..(take_n - 1)]
 
-    other_views = (views[take_n..-1] || []).shuffle
+    other_views = (views[take_n..] || []).shuffle
       .take(limit - take_n)
       .sort_by { |view| -view.topic.id }
 
@@ -229,10 +229,10 @@ private
   end
 
   def reviews_forum
-    Forum.find_by_permalink('reviews')
+    Forum.find_by_permalink('reviews') # rubocop:disable DynamicFindBy
   end
 
   def collections_forum
-    Forum.find_by_permalink('collections')
+    Forum.find_by_permalink('collections') # rubocop:disable DynamicFindBy
   end
 end
