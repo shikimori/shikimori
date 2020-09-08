@@ -123,7 +123,8 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
       contests: [contests_scope.cache_key, CACHE_VERSION],
       news: [news_scope.cache_key, page, CACHE_VERSION],
       db_updates: [db_updates_scope.cache_key, page, CACHE_VERSION],
-      version: [Date.today, :"variant-#{rand(5)}", CACHE_VERSION]
+      version: [Date.today, :"variant-#{rand(5)}", CACHE_VERSION],
+      migration: h.domain_migration_note
     }
   end
 

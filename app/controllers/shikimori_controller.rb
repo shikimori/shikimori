@@ -5,6 +5,7 @@ class ShikimoriController < ApplicationController
   COOKIE_AGE_OVER_18 = :confirmed_age_over_18
 
   helper_method :censored_forbidden?
+  helper_method :domain_migration_note
 
   rescue_from ForceRedirect do |exception|
     redirect_to exception.url, status: :moved_permanently
@@ -87,5 +88,9 @@ class ShikimoriController < ApplicationController
         gender: current_user.sex
       )
     end
+  end
+
+  def domain_migration_note
+    user_signed_in? && request.host != Shikimori::DOMAINS[:production] && Rails.env.production?
   end
 end

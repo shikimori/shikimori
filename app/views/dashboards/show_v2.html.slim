@@ -104,6 +104,15 @@
                   href=forum_url
                 ] = t 'forum'
 
+    - if domain_migration_note
+      .block2
+        .headline.purple.linkheadline
+          a href="#{Shikimori::PROTOCOLS[:production]}://#{Shikimori::DOMAINS[:production]}" = Shikimori::DOMAINS[:production]
+        p Сайт уже больше года как обзавёлся новым доменом. Некоторый функционал на
+          старом shikimori.org работает некорректно, а часть ссылок сломаны и ведут на новый домен.<br>
+          В недалеком будущем со старого домена shikimori.org сайт будет автоматически редиректить на
+          новый домен shikimori.one.
+
     .block2
       .headline.skyblue.m15 = t '.latest_news'
       .news_wall.latest-news
