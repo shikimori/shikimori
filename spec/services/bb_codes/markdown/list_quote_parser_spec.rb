@@ -16,6 +16,13 @@ describe BbCodes::Markdown::ListQuoteParser do
     let(:text) { "q\n#{symbol} a\nw" }
     let(:html) { "zxc\n" }
     it { is_expected.to eq "q\n#{html}w" }
+
+    context 'tags before' do
+      let(:text) { "#{tag}#{symbol} a\nw" }
+      let(:html) { "zxc\n" }
+      let(:tag) { ['</div>', '</h2>', '</h3>', '</h4>'].sample }
+      it { is_expected.to eq "#{tag}#{html}w" }
+    end
   end
 
   context 'multiline line' do
@@ -26,6 +33,7 @@ describe BbCodes::Markdown::ListQuoteParser do
     end
     let(:text) { "q\n#{symbol} a\n#{symbol} a" }
     let(:html) { "zxc\n" }
+
     it { is_expected.to eq "q\n#{html}" }
 
     context 'traverses through multiline bbcodes' do

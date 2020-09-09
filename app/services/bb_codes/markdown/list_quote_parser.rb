@@ -5,8 +5,8 @@ class BbCodes::Markdown::ListQuoteParser
 
   MARKDOWN_LIST_OR_QUOTE_REGEXP = %r{
     (?:
-      (?: ^ | (?<=<<-CODE-\d-PLACEHODLER->>) )
-      (?: [-+*>]|&gt; )
+      (?: ^ | (?<=<<-CODE-\d-PLACEHODLER->> | </div> | </h\d>) )
+      (?: [-+*>] | &gt; )
       \ (?:
         (?: \[(?<tag>#{MULTILINE_BBCODES.join('|')})[\s\S]+\[/\k<tag>\] |. )*+
         (?: \n \ + .*+ )*
