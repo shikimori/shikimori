@@ -45,10 +45,6 @@ class Topics::ArticleView < Topics::UserContentView
     super(text)
   end
 
-  def read_more_link?
-    preview? || minified?
-  end
-
   def skip_body?
     preview? && html_footer.present?
   end

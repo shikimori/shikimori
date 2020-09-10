@@ -23,6 +23,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :topic_comments_policy, :topic_type_policy
 
   BODY_TRUCATE_SIZE = 500
+  TRUNCATE_OMNISSION = '…'
   CACHE_VERSION = :v10
 
   def url options = {}
@@ -160,20 +161,20 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def html_body_truncated
-    h.truncate_html(
-      cleaned_preview_body,
-      length: self.class::BODY_TRUCATE_SIZE,
-      separator: ' ',
-      word_boundary: /\S[\.\?\!<>]/
-    ).html_safe
+    h
+      .truncate_html(
+        cleaned_preview_body,
+        length: self.class::BODY_TRUCATE_SIZE,
+        separator: ' ',
+        word_boundary: /\S[.?!<>]/,
+        omission: TRUNCATE_OMNISSION
+      )
+      .gsub(/(?:<br>)+((?:<[^>]+>)*)\Z/, '\1') # cleanup edge BRs
+      .html_safe
   end
 
   def need_trucation?
-    minified? && preview? && cleaned_preview_body.size > BODY_TRUCATE_SIZE
-  end
-
-  def read_more_link?
-    need_trucation? && truncated_body?
+    cleaned_preview_body.size > BODY_TRUCATE_SIZE
   end
 
   def html_footer
@@ -246,6 +247,6 @@ private
   end
 
   def truncated_body?
-    html_body_truncated.include? '...'
+    html_body_truncated.ends_with? '…'
   end
 end

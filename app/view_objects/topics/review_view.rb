@@ -52,10 +52,6 @@ class Topics::ReviewView < Topics::UserContentView
     stars_html + super(text)
   end
 
-  def read_more_link?
-    preview? || minified?
-  end
-
   def vote_results?
     review.votes_count.positive?
   end

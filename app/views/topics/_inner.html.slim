@@ -64,7 +64,7 @@
           .body-inner itemprop='articleBody'
             = topic_view.render_body
 
-        - if topic_view.read_more_link?
+        - if topic_view.need_trucation?
           .read_more-link
             a.b-link[
               href=topic_view.urls.poster_url

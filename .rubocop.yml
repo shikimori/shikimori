@@ -120,6 +120,8 @@ Style/HashAsLastArrayItem:
   Enabled: false
 Style/StringConcatenation:
   Enabled: false
+Rails/OutputSafety:
+  Enabled: false
 
 Style/StringLiterals:
   Description: Checks if uses of quotes match the configured preference.
