@@ -27,11 +27,11 @@ header.head.misc
           disabled: @resource.published?,
           hint: t(".hint.#{@resource.state}").html_safe
 
-      .b-shiki_editor.to-process.no-preview-avatar data-dynamic='shiki_editor'
-        .field-name = Collection.human_attribute_name :text
-        = render 'comments/shiki_editor',
-          text: @resource.text,
-          field_name: 'collection[text]'
+      = render 'blocks/shiki_editor',
+        text: @resource.text,
+        field_name: 'collection[text]',
+        size: 'xl',
+        no_preview_avatar: true
 
     .block2
       .buttons
