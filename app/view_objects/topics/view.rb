@@ -152,7 +152,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     true
   end
 
-  def html_body text = @topic.decomposed_body.text
+  def html_body text = body
     return '' if text.blank?
 
     Rails.cache.fetch body_cache_key(text) do
@@ -249,6 +249,10 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
 private
+
+  def body
+    @topic.decomposed_body.text
+  end
 
   def linked_in_avatar?
     @topic.linked && preview? &&
