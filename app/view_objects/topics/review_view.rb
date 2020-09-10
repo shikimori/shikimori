@@ -42,9 +42,8 @@ class Topics::ReviewView < Topics::UserContentView
 
     if preview? || minified?
       text = text
-        .gsub(%r{\[/?center\]}mix, '')
-        .gsub(%r{\[(poster).*?\].*\[/\1\]}, '')
-        .gsub(/\[poster=.*?\]/, '')
+        .gsub(%r{\[/?center\]}, '')
+        .gsub(%r{\[poster.*?\].*?\[/\poster\]|\[poster=.*?\]}, '')
         .strip
         # .gsub(%r{\[spoiler.*?\]\s*\[/spoiler\]}, '')
         # .gsub(%r{\[(img|poster|image).*?\].*\[/\1\]}, '')

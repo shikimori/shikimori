@@ -19,12 +19,12 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     to: :topic_comments_policy
 
   instance_cache :html_body, :html_body_truncated, :html_footer,
-    :cleaned_preview_body, :comments_view, :urls, :action_tag, :topic_ignore,
+    :comments_view, :urls, :action_tag, :topic_ignore,
     :topic_comments_policy, :topic_type_policy
 
   BODY_TRUCATE_SIZE = 500
   TRUNCATE_OMNISSION = '…'
-  CACHE_VERSION = :v11
+  CACHE_VERSION = :v12
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
@@ -155,7 +155,14 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   def html_body text = @topic.decomposed_body.text
     return '' if text.blank?
 
-    Rails.cache.fetch CacheHelper.keys(:body, Digest::MD5.hexdigest(text), CACHE_VERSION) do
+    Rails.cache.fetch body_cache_key(text) do
+      if preview? || minified?
+        text = text
+          .gsub(%r{\[/?center\]}, '')
+          .gsub(%r{\[poster.*?\].*?\[/\poster\]|\[poster=.*?\]}, '')
+          .strip
+      end
+
       BbCodes::Text.call text
     end
   end
@@ -163,7 +170,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   def html_body_truncated
     h
       .truncate_html(
-        cleaned_preview_body,
+        html_body,
         length: self.class::BODY_TRUCATE_SIZE,
         separator: ' ',
         word_boundary: /\S[.?!<>]/,
@@ -174,7 +181,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def need_trucation?
-    cleaned_preview_body.size > BODY_TRUCATE_SIZE
+    html_body.size > BODY_TRUCATE_SIZE
   end
 
   def html_footer
@@ -219,8 +226,17 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       @is_preview,
       @is_mini,
       skip_body?,
-      closed?, # not sure whetner it is necessary
-      :v14
+      closed?, # not sure whether it is necessary
+      CACHE_VERSION
+    )
+  end
+
+  def body_cache_key text
+    CacheHelper.keys(
+      :body,
+      XXhash.xxh32(text),
+      preview? || minified?,
+      CACHE_VERSION
     )
   end
 
@@ -233,13 +249,6 @@ private
   def linked_in_avatar?
     @topic.linked && preview? &&
       !topic_type_policy.forum_topic?
-  end
-
-  def cleaned_preview_body
-    html_body
-      .gsub(%r{<a [^>]* class="b-image.*?</a>}, '')
-      .gsub(%r{<center></center>}, '')
-      .gsub(/\A(<br>)+/, '')
   end
 
   def topic_comments_policy

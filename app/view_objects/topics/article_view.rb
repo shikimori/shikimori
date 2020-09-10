@@ -30,22 +30,21 @@ class Topics::ArticleView < Topics::UserContentView
     h.article_url article
   end
 
-  def html_body
-    text = @topic.decomposed_body.text
-
-    if preview? || minified?
-      text = text
-        .gsub(%r{\[/?center\]}mix, '')
-        .gsub(%r{\[(poster).*?\].*\[/\1\]}, '')
-        .gsub(/\[poster=.*?\]/, '')
-        .strip
-        # .gsub(%r{\[spoiler.*?\]\s*\[/spoiler\]}, '')
-        # .gsub(/\[(poster|image)=.*?\]/, '')
-        # .gsub(%r{\[(img|poster|image).*?\].*\[/\1\]}, '')
-    end
-
-    super(text)
-  end
+  # def html_body
+  #   text = @topic.decomposed_body.text
+  # 
+  #   if preview? || minified?
+  #     text = text
+  #       .gsub(%r{\[/?center\]}, '')
+  #       .gsub(%r{\[poster.*?\].*?\[/\poster\]|\[poster=.*?\]}, '')
+  #       .strip
+  #       # .gsub(%r{\[spoiler.*?\]\s*\[/spoiler\]}, '')
+  #       # .gsub(/\[(poster|image)=.*?\]/, '')
+  #       # .gsub(%r{\[(img|poster|image).*?\].*\[/\1\]}, '')
+  #   end
+  # 
+  #   super(text)
+  # end
 
   def skip_body?
     preview? && html_footer.present?
