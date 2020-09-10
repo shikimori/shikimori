@@ -47,11 +47,7 @@
         data-predelay="600"
       ) {{ link.name }}
       .b-input
-        //label(
-        //  :for="'link_text_' + link.id"
-        //) {{ I18n.t('activerecord.attributes.collection_link.text') }}
         textarea(
-          :id="'link_text_' + link.id"
           :placeholder="I18n.t('activerecord.attributes.collection_link.text')"
           name="collection[links][][text]"
           rows="1"
