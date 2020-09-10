@@ -38,8 +38,8 @@ class Topics::ArticleView < Topics::UserContentView
         .gsub(%r{\[/?center\]}mix, '')
         .gsub(%r{\[(poster).*?\].*\[/\1\]}, '')
         .gsub(/\[poster=.*?\]/, '')
-        .gsub(%r{\[spoiler.*?\]\s*\[/spoiler\]}, '')
         .strip
+        # .gsub(%r{\[spoiler.*?\]\s*\[/spoiler\]}, '')
         # .gsub(/\[(poster|image)=.*?\]/, '')
         # .gsub(%r{\[(img|poster|image).*?\].*\[/\1\]}, '')
     end

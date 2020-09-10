@@ -45,8 +45,8 @@ class Topics::ReviewView < Topics::UserContentView
         .gsub(%r{\[/?center\]}mix, '')
         .gsub(%r{\[(poster).*?\].*\[/\1\]}, '')
         .gsub(/\[poster=.*?\]/, '')
-        .gsub(%r{\[spoiler.*?\]\s*\[/spoiler\]}, '')
         .strip
+        # .gsub(%r{\[spoiler.*?\]\s*\[/spoiler\]}, '')
         # .gsub(%r{\[(img|poster|image).*?\].*\[/\1\]}, '')
         # .gsub(/\[(poster|image)=.*?\]/, '')
     end
