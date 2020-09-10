@@ -159,7 +159,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       if preview? || minified?
         text = text
           .gsub(%r{\[/?center\]}, '')
-          .gsub(%r{\[poster.*?\].*?\[/\poster\]|\[poster=.*?\]}, '')
+          .gsub(%r{\[poster.*?\].*?\[/poster\]|\[poster=.*?\]}, '')
           .strip
       end
 
