@@ -91,6 +91,7 @@ $(document).on('turbolinks:load', () => {
       $trigger: $buttons,
       show,
       hide: async () => {
+        console.log('hide');
         hide();
 
         // need to properly remove focus from menu button when
@@ -123,10 +124,11 @@ $(document).on('turbolinks:load', () => {
     );
   });
 
-  $('.l-top_menu-v2 .search.mobile').on('click', ({ currentTarget }) => {
-    showMobileSearch();
-
-    if (currentTarget.classList.contains('active')) {
+  $('.l-top_menu-v2 .search.mobile').on('click', _e => {
+    if ($('.l-top_menu-v2').hasClass('is-search-mobile')) {
+      hideMobileSearch();
+    } else {
+      showMobileSearch();
       $search.find('input').focus();
     }
   });
