@@ -24,7 +24,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   BODY_TRUCATE_SIZE = 500
   TRUNCATE_OMNISSION = '…'
-  CACHE_VERSION = :v13
+  CACHE_VERSION = :v14
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
@@ -182,6 +182,10 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def need_trucation?
     (preview? || minified?) && html_body.size > BODY_TRUCATE_SIZE
+  end
+
+  def read_more_link?
+    need_trucation? && html_body_truncated != html_body
   end
 
   def html_footer
