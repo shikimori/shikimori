@@ -9,7 +9,7 @@ class Api::V1::UsersController < Api::V1Controller
 
   caches_action :anime_rates, :manga_rates,
     cache_path: proc {
-      "#{user.cache_key_with_version}|#{Digest::MD5.hexdigest params.to_json}"
+      "#{user.cache_key_with_version}|#{XXhash.xxh32 params.to_json}"
     }
 
   USERS_LIMIT = 100

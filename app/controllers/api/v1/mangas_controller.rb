@@ -213,7 +213,7 @@ class Api::V1::MangasController < Api::V1Controller
 private
 
   def cache_key
-    Digest::MD5.hexdigest([
+    XXhash.xxh32([
       request.path,
       params.to_json,
       params[:mylist].present? ? current_user.try(:cache_key) : nil,

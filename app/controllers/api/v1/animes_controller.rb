@@ -295,7 +295,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
 private
 
   def cache_key
-    Digest::MD5.hexdigest([
+    XXhash.xxh32([
       request.path,
       params.to_json,
       params[:mylist].present? ? current_user.try(:cache_key) : nil,
