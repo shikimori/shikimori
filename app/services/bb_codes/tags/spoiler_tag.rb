@@ -6,7 +6,7 @@ class BbCodes::Tags::SpoilerTag
     (?<prefix>
       ^ | \n | <div[^>]*+> | </div> | </ul> | </p> | </center> | </right>
     )?
-    \[(?<tag>spoiler(?:_block|_v1)?) #{LABEL_REGEXP.source} \]
+    \[(?<tag>spoiler(?:_block|_v1)?) #{LABEL_REGEXP.source} (?<fullwidth>\ fullwidth)?\]
       \n?
       (?<content>
         (?:
@@ -50,6 +50,7 @@ private
       label = $LAST_MATCH_INFO[:label]&.strip || I18n.t('markers.spoiler')
       content = $LAST_MATCH_INFO[:content]
       prefix = $LAST_MATCH_INFO[:prefix]
+      is_fullwidth = $LAST_MATCH_INFO[:fullwidth]
       suffix = $LAST_MATCH_INFO[:suffix] || ''
 
       to_html tag, label, content, prefix, suffix
