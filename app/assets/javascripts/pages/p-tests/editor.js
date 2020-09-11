@@ -209,9 +209,11 @@ zxc
 `.trim();
 
   TEST_DEMO_CONTENT = `
-[anime=39587]
-zxc
-[/anime]
+test
+[spoiler]
+asdas
+[/spoiler]
+
 `.trim();
 }
 

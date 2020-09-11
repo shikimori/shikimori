@@ -9,7 +9,6 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
   BLOCKQUOTE_OPEN = "<blockquote class='b-quote-v2'>"
   BLOCKQUOTE_CLOSE = '</blockquote>'
 
-  MULTILINE_BBCODES = BbCodes::Markdown::ListQuoteParser::MULTILINE_BBCODES
   MULTILINE_BBCODES_MAX_SIZE = MULTILINE_BBCODES.map(&:size).max
 
   TAG_CLOSE_REGEXP = %r{</\w+>}

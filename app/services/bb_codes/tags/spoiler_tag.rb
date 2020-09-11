@@ -4,7 +4,7 @@ class BbCodes::Tags::SpoilerTag
   LABEL_REGEXP = /(?:=(?<label>[^\[\]\n\r]+?))?/
   REGEXP = %r{
     (?<prefix>
-      ^ | \n | <div[^>]*+> | </div> | </ul> | </p> | </center> | </right>
+      ^ | \n | #{BLOCK_TAG_EDGE_REGEXP.source}
     )?
     \[(?<tag>spoiler(?:_block|_v1)?) #{LABEL_REGEXP.source} (?<fullwidth>\ fullwidth)?\]
       \n?

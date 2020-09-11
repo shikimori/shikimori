@@ -2,7 +2,6 @@ class BbCodes::Paragraphs
   method_object :text
 
   LINE_SIZE = 110
-  MULTILINE_BBCODES = BbCodes::Markdown::ListQuoteParser::MULTILINE_BBCODES
 
   PARAGRAPH_PRE_BR_TAGS = /
     (?: \n|^ )?

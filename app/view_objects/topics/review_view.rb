@@ -39,7 +39,7 @@ class Topics::ReviewView < Topics::UserContentView
 
   # def html_body
   #   text = review.text
-  # 
+  #
   #   if preview? || minified?
   #     text = text
   #       .gsub(%r{\[/?center\]}, '')
@@ -49,7 +49,7 @@ class Topics::ReviewView < Topics::UserContentView
   #       # .gsub(%r{\[(img|poster|image).*?\].*\[/\1\]}, '')
   #       # .gsub(/\[(poster|image)=.*?\]/, '')
   #   end
-  # 
+  #
   #   stars_html + super(text)
   # end
 

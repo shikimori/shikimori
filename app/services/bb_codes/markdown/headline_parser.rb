@@ -2,7 +2,7 @@ class BbCodes::Markdown::HeadlineParser
   include Singleton
 
   HEADLINES_REGEXP = /
-    (?: ^ | (?<=<<-CODE-\d-PLACEHODLER->>) )
+    (?: ^ | (?<=#{BLOCK_TAG_EDGE_REGEXP.source}) )
     (?<level>\#{1,5})\ (?<text>.*) (?:\n|$)
   /x
 
