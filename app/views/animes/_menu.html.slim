@@ -109,7 +109,7 @@
         .subheadline.m5
           .linkeable data-href=resource.collections_url
             = t 'in_collections'
-            .count = resource.collections_scope.size
+            .count = resource.collections_size
 
         .block
           - resource.menu_collections.each do |collection|

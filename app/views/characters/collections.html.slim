@@ -1,6 +1,6 @@
 = render layout: 'page' do
   = cache [@resource, params[:action], :v2] do
-    .b-options-floated.count = @resource.collections_scope.size
+    .b-options-floated.count = @resource.collections_size
     h2.subheadline = og.headline
     .block
       = render partial: 'topics/topic',

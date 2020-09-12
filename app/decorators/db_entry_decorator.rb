@@ -2,7 +2,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   include VersionedConcern
 
   instance_cache :description_html,
-    :menu_clubs, :all_clubs, :menu_collections,
+    :menu_clubs, :all_clubs, :collections_size, :menu_collections,
     :contest_winners,
     :favoured, :favoured?, :all_favoured, :favoured_size,
     :main_topic_view, :preview_topic_view,
@@ -143,6 +143,13 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
       .shuffle
       .take(MAX_COLLECTIONS)
       .sort_by(&:name)
+  end
+
+  def collections_size
+    collection_links
+      .joins(:collection)
+      .merge(Collection.available)
+      .select('count(distinct(collection_id))')[0].count
   end
 
   def collections_scope
