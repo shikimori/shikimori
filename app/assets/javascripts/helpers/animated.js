@@ -88,6 +88,8 @@ export function animatedExpand(element) {
     element.classList.add('animated-expand');
     transitionToExpand(element, animation);
   } else {
+    element.style.willChange = 'height, padding-top, padding-bottom, margin-top, margin-bottom';
+
     requestAnimationFrame(() => {
       if (animations[element._SHIKI_ID]?.id !== animation.id) { return; }
       element.classList.add('animated-expand');
