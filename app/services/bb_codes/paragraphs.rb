@@ -14,7 +14,7 @@ class BbCodes::Paragraphs
   PARAGRAPH_POST_BR_TAGS = /
     (?<tag>
       \[
-        (?:#{MULTILINE_BBCODES.join('|')})
+        (?:#{BbCodes::MULTILINE_BBCODES.join('|')})
         (\[.*?\] | [^\]])*
       \]
       (?! \n|\$ )
@@ -54,7 +54,7 @@ private
   end
 
   def count_tags line
-    MULTILINE_BBCODES.inject(0) do |memo, tag|
+    BbCodes::MULTILINE_BBCODES.inject(0) do |memo, tag|
       memo + (line.scan("[#{tag}").size - line.scan("[/#{tag}]").size).abs
     end
   end

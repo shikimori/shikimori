@@ -2,27 +2,29 @@ class BbCodes::Markdown::HeadlineParser
   include Singleton
 
   HEADLINES_REGEXP = /
-    (?: ^ | (?<=#{BLOCK_TAG_EDGE_REGEXP.source}) )
+    (?: ^ | (?<prefix> #{BbCodes::BLOCK_TAG_EDGE_PREFIX_REGEXP.source} ) )
     (?<level>\#{1,5})\ (?<text>.*) (?:\n|$)
   /x
 
   def format text # rubocop:disable MethodLength
     text.gsub(HEADLINES_REGEXP) do |match|
+      prefix = $LAST_MATCH_INFO[:prefix] || ''
+
       case $LAST_MATCH_INFO[:level]
       when '#'
-        h2_html $LAST_MATCH_INFO[:text]
+        prefix + h2_html($LAST_MATCH_INFO[:text])
 
       when '##'
-        h3_html $LAST_MATCH_INFO[:text]
+        prefix + h3_html($LAST_MATCH_INFO[:text])
 
       when '###'
-        h4_html $LAST_MATCH_INFO[:text]
+        prefix + h4_html($LAST_MATCH_INFO[:text])
 
       when '####'
-        headline_html $LAST_MATCH_INFO[:text]
+        prefix + headline_html($LAST_MATCH_INFO[:text])
 
       when '#####'
-        midheadline_html $LAST_MATCH_INFO[:text]
+        prefix + midheadline_html($LAST_MATCH_INFO[:text])
 
       else
         match

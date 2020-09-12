@@ -1,9 +1,11 @@
 module BbCodes
   MULTILINE_BBCODES = %w[spoiler spoiler_block quote div center right list]
-  BLOCK_TAG_EDGE_REGEXP = %r{
+  BLOCK_TAG_EDGE_PREFIX_REGEXP = %r{
     (?:
-      </?div[^>]*+> |
-      </?ul> |
+      <div[^>]*+> |
+      </div> |
+      </ul> |
+      <li> |
       </?p> |
       </?center> |
       </?right> |

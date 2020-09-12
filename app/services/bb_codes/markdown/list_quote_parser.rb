@@ -3,10 +3,10 @@ class BbCodes::Markdown::ListQuoteParser
 
   MARKDOWN_LIST_OR_QUOTE_REGEXP = %r{
     (?:
-      (?: ^ | (?<=#{BLOCK_TAG_EDGE_REGEXP.source}) )
+      (?: ^ | (?<prefix> #{BbCodes::BLOCK_TAG_EDGE_PREFIX_REGEXP.source} ) )
       (?: [-+*>] | &gt; )
       \ (?:
-        (?: \[(?<tag>#{MULTILINE_BBCODES.join('|')})[\s\S]+\[/\k<tag>\] |. )*+
+        (?: \[(?<tag>#{BbCodes::MULTILINE_BBCODES.join('|')})[\s\S]+\[/\k<tag>\] |. )*+
         (?: \n \ + .*+ )*
       ) (?: \n|$ )
     )+
@@ -14,7 +14,9 @@ class BbCodes::Markdown::ListQuoteParser
 
   def format text
     text.gsub MARKDOWN_LIST_OR_QUOTE_REGEXP do |match|
-      BbCodes::Markdown::ListQuoteParserState.new(match).to_html
+      prefix = $LAST_MATCH_INFO[:prefix] || ''
+
+      prefix + BbCodes::Markdown::ListQuoteParserState.new(match).to_html
     end
   end
 end

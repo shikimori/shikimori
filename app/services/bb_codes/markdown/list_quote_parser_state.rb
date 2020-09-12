@@ -9,7 +9,7 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
   BLOCKQUOTE_OPEN = "<blockquote class='b-quote-v2'>"
   BLOCKQUOTE_CLOSE = '</blockquote>'
 
-  MULTILINE_BBCODES_MAX_SIZE = MULTILINE_BBCODES.map(&:size).max
+  MULTILINE_BBCODES_MAX_SIZE = BbCodes::MULTILINE_BBCODES.map(&:size).max
 
   TAG_CLOSE_REGEXP = %r{</\w+>}
 
@@ -59,7 +59,7 @@ private
 
       if @text[@index] == '['
         sequence = @text.slice(@index + 1, MULTILINE_BBCODES_MAX_SIZE)
-        tag = MULTILINE_BBCODES.find { |bbcode| sequence.starts_with? bbcode }
+        tag = BbCodes::MULTILINE_BBCODES.find { |bbcode| sequence.starts_with? bbcode }
 
         # traverse through nested possibly multiline bbcode
         next if tag && traverse(tag)
