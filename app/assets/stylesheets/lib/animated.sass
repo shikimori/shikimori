@@ -1,5 +1,6 @@
 .animated-collapse
   overflow: hidden
+  position: relative // w/o it overflow hidden wont work for inner absolutely positioned nodes
   transition: height 0.35s ease-out, margin-bottom 0.35s ease-out, padding-bottom 0.35s ease-out, padding-top 0.15s 0.2s ease-out, margin-top 0.15s 0.2s ease-out !important
   // transition: height 1s ease-out, margin-bottom 1s ease-out, padding-bottom 1s ease-out, padding-top 1s ease-out, margin-top 1s ease-out !important
   height: auto
@@ -7,6 +8,7 @@
 
 .animated-expand
   overflow: hidden
+  position: relative // w/o it overflow hidden wont work for inner absolutely positioned nodes
   transition: height 0.35s ease-in, margin-bottom 0.35s ease-in, padding-bottom 0.35s ease-out, padding-top 0.35s ease-out, margin-top 0.35s ease-out !important
   // transition: height 1s ease-in, margin-bottom 1s ease-in, padding-bottom 1s ease-out, padding-top 1s ease-out, margin-top 1s ease-out !important
   height: auto
