@@ -61,11 +61,12 @@ export function animatedCollapse(element) {
 async function transitionToCollapse(element, animation) {
   if (animations[element._SHIKI_ID]?.id !== animation.id) { return; }
 
-  element.style.height = '0px';
-  element.style.paddingTop = '0px';
-  element.style.paddingBottom = '0px';
-  element.style.marginTop = '0px';
-  element.style.marginBottom = '0px';
+  await delay(0); // need to avoid skipping height animation in chrome
+  element.style.height = '0';
+  element.style.paddingTop = '0';
+  element.style.paddingBottom = '0';
+  element.style.marginTop = '0';
+  element.style.marginBottom = '0';
 
   await delay(ANIMATION_DURATION);
   if (animations[element._SHIKI_ID]?.id !== animation.id) { return; }
@@ -78,11 +79,11 @@ async function transitionToCollapse(element, animation) {
 export function animatedExpand(element) {
   const animation = prepareAnimation(element);
 
-  if (!element.style.height) { element.style.height = '0px'; }
-  if (!element.style.paddingTop) { element.style.paddingTop = '0px'; }
-  if (!element.style.paddingBottom) { element.style.paddingBottom = '0px'; }
-  if (!element.style.marginTop) { element.style.marginTop = '0px'; }
-  if (!element.style.marginBottom) { element.style.marginBottom = '0px'; }
+  if (!element.style.height) { element.style.height = '0'; }
+  if (!element.style.paddingTop) { element.style.paddingTop = '0'; }
+  if (!element.style.paddingBottom) { element.style.paddingBottom = '0'; }
+  if (!element.style.marginTop) { element.style.marginTop = '0'; }
+  if (!element.style.marginBottom) { element.style.marginBottom = '0'; }
 
   if (animation.isInTransition) {
     element.classList.add('animated-expand');
