@@ -4,7 +4,7 @@ class Topics::ReviewView < Topics::UserContentView
   end
 
   def need_trucation?
-    true
+    preview? || minified?
   end
 
   def minified?

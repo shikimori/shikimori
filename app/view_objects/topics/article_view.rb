@@ -8,7 +8,7 @@ class Topics::ArticleView < Topics::UserContentView
   end
 
   def need_trucation?
-    true
+    preview? || minified?
   end
 
   def action_tag
