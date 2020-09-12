@@ -20,9 +20,14 @@ describe BbCodes::Markdown::HeadlineParser do
       it { is_expected.to eq text }
     end
 
-    context 'inside div' do
-      let(:text) { '[div]# test[/div]' }
-      it { is_expected.to eq '<div><h2>test</h2></div>' }
+    context 'inside [div]' do
+      let(:text) { "[div]\n# test\n[/div]" }
+      it { is_expected.to eq "[div]\n<h2>test</h2>[/div]" }
+    end
+
+    context 'inside <div>' do
+      let(:text) { "<div>\n# test\n</div>" }
+      it { is_expected.to eq "<div>\n<h2>test</h2></div>" }
     end
   end
 
