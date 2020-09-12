@@ -22,6 +22,22 @@ class Versions::PosterVersion < Version
     end
   end
 
+  def to_deleted *args
+    was_pending = pending?
+    Version.transaction do
+      super
+      rollback_changes if was_pending
+    end
+  end
+
+  def to_deleted! *args
+    was_pending = pending?
+    Version.transaction do
+      super
+      rollback_changes if was_pending
+    end
+  end
+
   def rollback_changes
     item.update! image: nil if latest_image?
     true
@@ -31,7 +47,7 @@ class Versions::PosterVersion < Version
     item&.image_file_name&.permalinked == item_diff['image'][1]&.permalinked
   end
 
-  def deleteable?
-    false
-  end
+  # def deleteable?
+  #   false
+  # end
 end
