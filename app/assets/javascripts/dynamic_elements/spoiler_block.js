@@ -7,6 +7,7 @@ export default class SpoilerBlock extends View {
     [this.button, this.content] = this.node.children;
 
     this.button.addEventListener('click', this._toggle);
+    this.node.addEventListener('keypress', this._keypress);
     this.node.addEventListener('keydown', this._keydown);
   }
 
@@ -32,6 +33,15 @@ export default class SpoilerBlock extends View {
     } else {
       this.node.classList.add('is-opened');
       animatedExpand(this.content);
+    }
+  }
+
+  @bind
+  _keypress(e) {
+    switch (e.keyCode) {
+      case 32: // space
+      case 13: // enter
+        this._toggle(e);
     }
   }
 

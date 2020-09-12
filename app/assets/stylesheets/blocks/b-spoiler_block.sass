@@ -12,15 +12,15 @@
 
   &.is-opened
     &.is-closing
-      & > button
+      & > span
         &:after
           transform: rotate(0deg)
 
-    & > button
+    & > span
       &:after
         transform: rotate(180deg)
 
-    & > span.edit
+    & > i.edit
       +link_color(#7b8084)
       align-items: center
       cursor: pointer
@@ -33,7 +33,7 @@
       &:before
         +shikimori('\e842')
 
-  & > button
+  & > span
     +shiki_button(#678)
     display: inline-flex
     align-items: center

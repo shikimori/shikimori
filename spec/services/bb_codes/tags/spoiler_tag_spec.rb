@@ -77,7 +77,7 @@ describe BbCodes::Tags::SpoilerTag do
         is_expected.to eq(
           prefix +
             "<div class='b-spoiler_block to-process' data-dynamic='spoiler_block'>" \
-              "<button>#{label}</button>" \
+              "<span tabindex='0'>#{label}</span>" \
               "<div>#{content}</div>" \
             '</div>' + suffix
         )
@@ -90,7 +90,7 @@ describe BbCodes::Tags::SpoilerTag do
         is_expected.to eq(
           prefix +
             "<div class='b-spoiler_block to-process' data-dynamic='spoiler_block'>" \
-              "<button>#{label}</button>" \
+              "<span tabindex='0'>#{label}</span>" \
               '<div>qwerty</div>' \
             '</div>' + suffix
         )
@@ -104,7 +104,7 @@ describe BbCodes::Tags::SpoilerTag do
         is_expected.to eq(
           prefix +
             "<div class='b-spoiler_block to-process' data-dynamic='spoiler_block'>" \
-              "<button>#{label}</button>" \
+              "<span tabindex='0'>#{label}</span>" \
               "<div>#{content}</div>" \
             '</div>'
         )

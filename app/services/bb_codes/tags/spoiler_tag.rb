@@ -97,7 +97,7 @@ private
 
   def block_spoiler_html label, content
     "<div class='b-spoiler_block to-process' data-dynamic='spoiler_block'>" \
-      "<button>#{label}</button>" \
+      "<span tabindex='0'>#{label}</span>" \
       "<div>#{content.rstrip}</div>" \
     '</div>'
   end

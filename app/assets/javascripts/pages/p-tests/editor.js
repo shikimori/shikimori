@@ -209,10 +209,9 @@ zxc
 `.trim();
 
   TEST_DEMO_CONTENT = `
-test
-[spoiler]
-asdas
-[/spoiler]
+[spoiler_block=спойлер[spoiler_block]Нажатие на первый спойлер активирует второй спойлер.[/spoiler_block]]
+Тест первого спойлера отображается ниже этих двух спойлеров.
+[/spoiler_block]
 
 `.trim();
 }

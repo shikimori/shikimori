@@ -68,7 +68,7 @@ describe BbCodes::Text do
             <<-HTML.squish
               <div class="b-quote"><div class="quote-content"><div
                 class="b-spoiler_block to-process"
-                data-dynamic="spoiler_block"><button>qwe</button><div>test</div></div></div></div>
+                data-dynamic="spoiler_block"><span tabindex="0">qwe</span><div>test</div></div></div></div>
             HTML
           )
         end
