@@ -7,7 +7,7 @@ class Collection::Update < ServiceObjectBase
   def call
     Collection.transaction do
       update_collection
-      generate_topic if @model.published? && @model.topics.none?
+      publish if @model.published? && @model.topics.none?
     end
     @model
   end
@@ -22,8 +22,19 @@ private
     end
   end
 
+  def publish
+    generate_topic
+    touch_all_linked
+  end
+
   def generate_topic
     @model.generate_topics @model.locale
+  end
+
+  def touch_all_linked
+    @model.kind.capitalize.constantize
+      .where(id: links.pluck(:linked_id))
+      .update_all updated_at: Time.zone.now
   end
 
   def collection_links

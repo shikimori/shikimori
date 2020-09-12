@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 describe Collection::Update do
-  subject { Collection::Update.call collection, params }
+  include_context :timecop
+  subject { described_class.call collection, params }
 
   let(:collection) { create :collection, user: user }
 
@@ -28,9 +29,9 @@ describe Collection::Update do
     let!(:collection_link_2) do
       create :collection_link, collection: collection, linked: anime_3
     end
-    let(:anime_1) { create :anime }
-    let(:anime_2) { create :anime }
-    let(:anime_3) { create :anime }
+    let(:anime_1) { create :anime, updated_at: 1.day.ago }
+    let(:anime_2) { create :anime, updated_at: 1.day.ago }
+    let(:anime_3) { create :anime, updated_at: 1.day.ago }
 
     before { subject }
 
@@ -54,6 +55,10 @@ describe Collection::Update do
       expect(collection.topics).to be_empty
       expect { collection_link_1.reload }.to raise_error ActiveRecord::RecordNotFound
       expect { collection_link_2.reload }.to raise_error ActiveRecord::RecordNotFound
+
+      expect(anime_1.reload.updated_at).to be_within(0.1).of 1.day.ago
+      expect(anime_2.reload.updated_at).to be_within(0.1).of 1.day.ago
+      expect(anime_3.reload.updated_at).to be_within(0.1).of 1.day.ago
     end
 
     describe 'publish' do
@@ -63,6 +68,10 @@ describe Collection::Update do
         expect(collection.reload).to have_attributes params.except(:links)
         expect(collection.topics).to have(1).item
         expect(collection.topics.first.locale).to eq collection.locale
+
+        expect(anime_1.reload.updated_at).to be_within(0.1).of Time.zone.now
+        expect(anime_2.reload.updated_at).to be_within(0.1).of Time.zone.now
+        expect(anime_3.reload.updated_at).to be_within(0.1).of 1.day.ago
       end
     end
   end
