@@ -15,8 +15,10 @@ class BbCodes::Markdown::ListQuoteParser
   def format text
     text.gsub MARKDOWN_LIST_OR_QUOTE_REGEXP do |match|
       prefix = $LAST_MATCH_INFO[:prefix] || ''
+      content_wo_prefix = match[prefix.size...]
 
-      prefix + BbCodes::Markdown::ListQuoteParserState.new(match).to_html
+      prefix +
+        BbCodes::Markdown::ListQuoteParserState.new(content_wo_prefix).to_html
     end
   end
 end
