@@ -52,6 +52,7 @@ export function animatedCollapse(element) {
     transitionToCollapse(element, animation);
   } else {
     element.style.height = animation.scrollHeight;
+    console.log(element.style.height);
     requestAnimationFrame(() => transitionToCollapse(element, animation));
   }
 

@@ -4,8 +4,7 @@ import { animatedCollapse, animatedExpand } from 'helpers/animated';
 
 export default class SpoilerBlock extends View {
   initialize() {
-    this.button = this.node.children[0];
-    this.content = this.node.children[1];
+    [this.button, this.content] = this.node.children;
 
     this.button.addEventListener('click', this._toggle);
     this.node.addEventListener('keydown', this._keydown);
@@ -22,8 +21,12 @@ export default class SpoilerBlock extends View {
     const wasOpened = this.node.classList.contains('is-opened');
 
     if (wasOpened) {
+      this.node.classList.add('is-closing');
       await animatedCollapse(this.content);
-      requestAnimationFrame(() => this.node.classList.remove('is-opened'));
+      requestAnimationFrame(() => {
+        this.node.classList.remove('is-opened');
+        this.node.classList.remove('is-closing');
+      });
     } else {
       this.node.classList.add('is-opened');
       animatedExpand(this.content);
@@ -38,7 +41,6 @@ export default class SpoilerBlock extends View {
         e.stopImmediatePropagation();
 
         this.button.blur();
-        return;
     }
   }
 }

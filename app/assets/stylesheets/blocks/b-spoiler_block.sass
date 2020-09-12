@@ -11,10 +11,14 @@
       display: none
 
   &.is-opened
+    &.is-closing
+      & > button
+        &:after
+          transform: rotate(0deg)
+
     & > button
       &:after
         transform: rotate(180deg)
-        margin-top: 0px
 
     & > span.edit
       +link_color(#7b8084)
@@ -41,6 +45,7 @@
       +shikimori('\e847')
       font-size: 17px
       font-weight: bold
+      font-style: normal
       margin-left: 8px
       transition: transform .25s, margin .25s
 
