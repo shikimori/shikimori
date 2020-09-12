@@ -4,17 +4,21 @@
 @import mixins/responsive
 
 $comment_border: 1px dashed #ddd
+$comment_offset: 15px
 
 =shiki_comment
   +forum_entry
   border-top: $comment_border
-  margin-bottom: 15px
+  margin-bottom: $comment_offset
 
   &:first-child
     border-top-width: 0
 
   &:last-child
     margin-bottom: 0
+
+  .comments-loaded &:last-child
+    margin-bottom: $comment_offset
 
   aside.moderation-ban
     +frame_form
