@@ -3,12 +3,13 @@ describe BbCodes::Tags::SpoilerTag do
 
   let(:text) do
     eqls_label = label.present? ? "=#{label}" : ''
-    "#{prefix}[#{tag}#{eqls_label}]#{content}[/#{tag}]#{suffix}"
+    "#{prefix}[#{tag}#{eqls_label}#{fullwidth}]#{content}[/#{tag}]#{suffix}"
   end
   let(:tag) { 'spoiler' }
   let(:label) { 'bl<b>a</b>bla' }
   let(:prefix) { '' }
   let(:suffix) { ['\n', ' ', 'zxc'].sample }
+  let(:fullwidth) { '' }
   let(:content) { 'test' }
 
   context 'old style' do
@@ -67,8 +68,31 @@ describe BbCodes::Tags::SpoilerTag do
   end
 
   context 'block' do
-    let(:prefix) { ["\n", '<div>', '</div>'].sample }
+    let(:prefix) { '' }
     let(:label) { 'blabla' }
+    let(:suffix) { '' }
+
+    it do
+      is_expected.to eq(
+        "<div class='b-spoiler_block to-process' data-dynamic='spoiler_block'>" \
+          "<span tabindex='0'>#{label}</span>" \
+          "<div>#{content}</div>" \
+        '</div>'
+      )
+    end
+
+    context 'fullwidth' do
+      let(:fullwidth) { ' fullwidth' }
+
+      it do
+        is_expected.to eq(
+          "<div class='b-spoiler_block to-process is-fullwidth' data-dynamic='spoiler_block'>" \
+            "<span tabindex='0'>#{label}</span>" \
+            "<div>#{content}</div>" \
+          '</div>'
+        )
+      end
+    end
 
     context 'no \n suffix' do
       let(:suffix) { [' ', 'zxc'].sample }

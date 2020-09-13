@@ -50,16 +50,16 @@ private
       label = $LAST_MATCH_INFO[:label]&.strip || I18n.t('markers.spoiler')
       content = $LAST_MATCH_INFO[:content]
       prefix = $LAST_MATCH_INFO[:prefix]
-      is_fullwidth = $LAST_MATCH_INFO[:fullwidth]
+      is_fullwidth = !!($LAST_MATCH_INFO[:fullwidth])
       suffix = $LAST_MATCH_INFO[:suffix] || ''
 
-      to_html tag, label, content, prefix, suffix
+      to_html tag, label, content, prefix, is_fullwidth, suffix
     end
 
     [text, is_changed]
   end
 
-  def to_html tag, label, content, prefix, suffix # rubocop:disable all
+  def to_html tag, label, content, prefix, is_fullwidth, suffix # rubocop:disable all
     method_name =
       if tag == 'spoiler_block'
         :block_spoiler_html
@@ -75,16 +75,16 @@ private
 
     suffix = '' if method_name == :block_spoiler_html
 
-    (prefix || '') + send(method_name, label, content) + (suffix || '')
+    (prefix || '') + send(method_name, label, content, is_fullwidth) + (suffix || '')
   end
 
-  def inline_spoiler_html _label, content
+  def inline_spoiler_html _label, content, _is_fullwidth
     INLINE_TAG_OPEN +
       "<span>#{content}</span>" +
     INLINE_TAG_CLOSE
   end
 
-  def old_spoiler_html label, content
+  def old_spoiler_html label, content, _is_fullwidth
     "<div class='b-spoiler unprocessed'>" \
       "<label>#{label}</label>" \
       "<div class='content'>" \
@@ -95,8 +95,9 @@ private
     '</div>'
   end
 
-  def block_spoiler_html label, content
-    "<div class='b-spoiler_block to-process' data-dynamic='spoiler_block'>" \
+  def block_spoiler_html label, content, is_fullwidth
+    "<div class='b-spoiler_block to-process#{' is-fullwidth' if is_fullwidth}' "\
+      "data-dynamic='spoiler_block'>" \
       "<span tabindex='0'>#{label}</span>" \
       "<div>#{content.rstrip}</div>" \
     '</div>'
