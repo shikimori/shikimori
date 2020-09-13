@@ -122,7 +122,7 @@ class DbEntriesController < ShikimoriController
 
     DbEntries::MergeIntoOther.perform_in(
       DANGEROUS_ACTION_DELAY_INTERVAL,
-      @resource.object.class.name,
+      @resource.object.class.base_class.name,
       @resource.id,
       params[:target_id].to_i,
       current_user.id
@@ -139,7 +139,7 @@ class DbEntriesController < ShikimoriController
 
     DbEntries::Destroy.perform_in(
       DANGEROUS_ACTION_DELAY_INTERVAL,
-      @resource.object.class.name,
+      @resource.object.class.base_class.name,
       @resource.id,
       current_user.id
     )
