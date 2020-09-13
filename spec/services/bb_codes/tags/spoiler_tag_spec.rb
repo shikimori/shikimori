@@ -84,13 +84,27 @@ describe BbCodes::Tags::SpoilerTag do
     context 'fullwidth' do
       let(:fullwidth) { ' fullwidth' }
 
-      it do
-        is_expected.to eq(
-          "<div class='b-spoiler_block to-process is-fullwidth' data-dynamic='spoiler_block'>" \
-            "<span tabindex='0'>#{label}</span>" \
-            "<div>#{content}</div>" \
-          '</div>'
-        )
+      context 'with label' do
+        it do
+          is_expected.to eq(
+            "<div class='b-spoiler_block to-process is-fullwidth' data-dynamic='spoiler_block'>" \
+              "<span tabindex='0'>#{label}</span>" \
+              "<div>#{content}</div>" \
+            '</div>'
+          )
+        end
+      end
+
+      context 'w/o label' do
+        let(:label) { '' }
+        it do
+          is_expected.to eq(
+            "<div class='b-spoiler_block to-process is-fullwidth' data-dynamic='spoiler_block'>" \
+              "<span tabindex='0'>спойлер</span>" \
+              "<div>#{content}</div>" \
+            '</div>'
+          )
+        end
       end
     end
 
