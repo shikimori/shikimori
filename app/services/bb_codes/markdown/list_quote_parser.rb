@@ -2,8 +2,8 @@ class BbCodes::Markdown::ListQuoteParser
   include Singleton
 
   MARKDOWN_LIST_OR_QUOTE_REGEXP = %r{
+    (?: ^ | (?<prefix> #{BbCodes::BLOCK_TAG_EDGE_PREFIX_REGEXP.source} ) )
     (?:
-      (?: ^ | (?<prefix> #{BbCodes::BLOCK_TAG_EDGE_PREFIX_REGEXP.source} ) )
       (?: [-+*>] | &gt; )
       \ (?:
         (?: \[(?<tag>#{BbCodes::MULTILINE_BBCODES.join('|')})[\s\S]+\[/\k<tag>\] |. )*+
@@ -11,6 +11,7 @@ class BbCodes::Markdown::ListQuoteParser
       ) (?: \n|$ )
     )+
   }x
+  PREFIX_REPLACEMENT = /([<\[])(\w)/
 
   MAX_NESTING = 3
 
@@ -45,9 +46,7 @@ private
       content_wo_prefix,
       0,
       '',
-      prefix.present? && prefix[1] != '/' && prefix[1] != '<' ?
-        prefix.gsub('<', '</') :
-        nil
+      prefix.present? ? prefix.gsub(PREFIX_REPLACEMENT, '\1/\2') : nil
     ).to_html
   end
 end
