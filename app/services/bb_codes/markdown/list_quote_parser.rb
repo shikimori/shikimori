@@ -17,8 +17,14 @@ class BbCodes::Markdown::ListQuoteParser
       prefix = $LAST_MATCH_INFO[:prefix] || ''
       content_wo_prefix = match[prefix.size...]
 
-      prefix +
-        BbCodes::Markdown::ListQuoteParserState.new(content_wo_prefix).to_html
+      list_html = BbCodes::Markdown::ListQuoteParserState.new(
+        content_wo_prefix,
+        0,
+        '',
+        (prefix if prefix.present? && prefix[1] != '/' && prefix[1] != '<')
+      ).to_html
+
+      prefix + list_html
     end
   end
 end

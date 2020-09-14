@@ -21,18 +21,46 @@ describe BbCodes::Markdown::ListQuoteParser do
       is_expected.to eq "q\n#{html}w"
       expect(BbCodes::Markdown::ListQuoteParserState)
         .to have_received(:new)
-        .with "#{symbol} a\n"
+        .with "#{symbol} a\n", 0, '', nil
     end
 
     context 'tags before' do
       let(:text) { "#{tag}#{symbol} a\nw" }
       let(:html) { "zxc\n" }
-      let(:tag) { ['</div>', '</h2>', '</h3>', '</h4>'].sample }
-      it do
-        is_expected.to eq "#{tag}#{html}w"
-        expect(BbCodes::Markdown::ListQuoteParserState)
-          .to have_received(:new)
-          .with "#{symbol} a\n"
+
+      context 'opened tag' do
+        let(:tag) do
+          %w[
+            <div>
+            <h2>
+            <h3>
+            <h4>
+          ].sample
+        end
+        it do
+          is_expected.to eq "#{tag}#{html}w"
+          expect(BbCodes::Markdown::ListQuoteParserState)
+            .to have_received(:new)
+            .with "#{symbol} a\n", 0, '', tag
+        end
+      end
+
+      context 'closed tag or placeholder' do
+        let(:tag) do
+          %w[
+            </div>
+            </h2>
+            </h3>
+            </h4>
+            <<-CODE-1-PLACEHODLER->>
+          ].sample
+        end
+        it do
+          is_expected.to eq "#{tag}#{html}w"
+          expect(BbCodes::Markdown::ListQuoteParserState)
+            .to have_received(:new)
+            .with "#{symbol} a\n", 0, '', nil
+        end
       end
     end
   end

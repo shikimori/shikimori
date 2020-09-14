@@ -13,7 +13,7 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
 
   TAG_CLOSE_REGEXP = %r{</\w+>}
 
-  def initialize text, index = 0, nested_sequence = ''
+  def initialize text, index = 0, nested_sequence = '', exit_sequence = nil
     @text = text
     @nested_sequence = nested_sequence
     @index = index
