@@ -127,5 +127,18 @@ describe BbCodes::Markdown::ListQuoteParser do
         )
       end
     end
+
+    context 'commplex case' do
+      let(:text) { "<h2>- 1</h2><h2>- 2</h2>- 3\n<h2>- 4</h2>- 5" }
+      it do
+        is_expected.to eq(
+          "<h2><ul class='b-list'><li>1</li></ul></h2>" \
+            "<h2><ul class='b-list'><li>2</li></ul></h2>" \
+            "<ul class='b-list'><li>3</li></ul>" \
+            "<h2><ul class='b-list'><li>4</li></ul></h2>" \
+            "<ul class='b-list'><li>5</li></ul>"
+        )
+      end
+    end
   end
 end

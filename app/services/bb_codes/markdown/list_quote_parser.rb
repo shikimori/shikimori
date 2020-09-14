@@ -13,7 +13,7 @@ class BbCodes::Markdown::ListQuoteParser
   }x
   PREFIX_REPLACEMENT = /([<\[])(\w)/
 
-  MAX_NESTING = 3
+  MAX_NESTING = 5
 
   def format text
     bbcode_to_html(text, 1).first
@@ -33,7 +33,7 @@ private
       content_wo_prefix = match[prefix.size...]
 
       list_html, rest_html = parse_markdown(content_wo_prefix, prefix)
-      is_rest_html = rest_html.present?
+      is_rest_html ||= rest_html.present?
 
       prefix + list_html + (rest_html || '')
     end
