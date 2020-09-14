@@ -163,28 +163,4 @@ private
     skip_sequence.present? &&
       @text.slice(@index, skip_sequence.size) == skip_sequence
   end
-
-# export function extractUntil(
-#   text,
-#   sequence,
-#   startIndex,
-#   maxIndex = startIndex + 1000,
-#   isIgnoreNewLine = false
-# ) {
-#   for (let i = startIndex; i <= (maxIndex || text.length); i++) {
-#     const char = text[i];
-#     const isEnd = isIgnoreNewLine ?
-#       (char === undefined) :
-#       (char === '\n' || char === undefined);
-# 
-#     if (char === sequence[0] && (
-#       sequence.length === 1 || text.slice(i, i + sequence.length) === sequence
-#     )) {
-#       return text.slice(startIndex, i);
-#     }
-#     if (isEnd) { return null; }
-#   }
-#   return null;
-# }
-
 end
