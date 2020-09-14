@@ -12,21 +12,42 @@ class BbCodes::Markdown::ListQuoteParser
     )+
   }x
 
+  MAX_NESTING = 3
+
   def format text
-    text.gsub MARKDOWN_LIST_OR_QUOTE_REGEXP do |match|
+    bbcode_to_html(text, 1).first
+  end
+
+private
+
+  def bbcode_to_html text, nesting = 1
+    return [text, true] if nesting > MAX_NESTING
+
+    text, were_rest_html = bbcode_to_html text, nesting + 1
+    return [text, were_rest_html] unless were_rest_html
+
+    is_rest_html = false
+    text = text.gsub MARKDOWN_LIST_OR_QUOTE_REGEXP do |match|
       prefix = $LAST_MATCH_INFO[:prefix] || ''
       content_wo_prefix = match[prefix.size...]
 
-      list_html = BbCodes::Markdown::ListQuoteParserState.new(
-        content_wo_prefix,
-        0,
-        '',
-        prefix.present? && prefix[1] != '/' && prefix[1] != '<' ?
-          prefix.gsub('<', '</') :
-          nil
-      ).to_html
+      list_html, rest_html = parse_markdown(content_wo_prefix, prefix)
+      is_rest_html = rest_html.present?
 
-      prefix + list_html
+      prefix + list_html + (rest_html || '')
     end
+
+    [text, is_rest_html]
+  end
+
+  def parse_markdown content_wo_prefix, prefix
+    BbCodes::Markdown::ListQuoteParserState.new(
+      content_wo_prefix,
+      0,
+      '',
+      prefix.present? && prefix[1] != '/' && prefix[1] != '<' ?
+        prefix.gsub('<', '</') :
+        nil
+    ).to_html
   end
 end
