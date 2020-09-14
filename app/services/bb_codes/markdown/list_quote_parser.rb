@@ -21,7 +21,9 @@ class BbCodes::Markdown::ListQuoteParser
         content_wo_prefix,
         0,
         '',
-        (prefix if prefix.present? && prefix[1] != '/' && prefix[1] != '<')
+        prefix.present? && prefix[1] != '/' && prefix[1] != '<' ?
+          prefix.gsub('<', '</') :
+          nil
       ).to_html
 
       prefix + list_html

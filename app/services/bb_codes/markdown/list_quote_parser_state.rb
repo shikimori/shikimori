@@ -16,7 +16,9 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
   def initialize text, index = 0, nested_sequence = '', exit_sequence = nil
     @text = text
     @nested_sequence = nested_sequence
+    @exit_sequence = exit_sequence
     @index = index
+    @is_exit_sequence = false
 
     @state = []
   end
@@ -24,7 +26,7 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
   def to_html
     # binding.pry
     # ap @text
-    parse_line while @index < @text.size
+    parse_line while @index < @text.size && !@is_exit_sequence
 
     @state.join('')
   end
