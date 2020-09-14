@@ -46,7 +46,9 @@ private
       content_wo_prefix,
       0,
       '',
-      prefix.present? ? prefix.gsub(PREFIX_REPLACEMENT, '\1/\2') : nil
+      prefix.present? && prefix.match?(PREFIX_REPLACEMENT) ?
+        prefix.gsub(PREFIX_REPLACEMENT, '\1/\2') :
+        nil
     ).to_html
   end
 end
