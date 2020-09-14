@@ -1,44 +1,54 @@
 describe BbCodes::Markdown::ListQuoteParserState do
-  subject { described_class.new(text).to_html }
+  subject do
+    described_class.new(
+      text,
+      index,
+      nested_sequence,
+      exit_sequence
+    ).to_html
+  end
+  let(:index) { 0 }
+  let(:nested_sequence) { '' }
+  let(:exit_sequence) { nil }
 
   context 'list' do
     context 'single line' do
       let(:text) { ['- a', '+ a', '* a'].sample }
-      it { is_expected.to eq "<ul class='b-list'><li>a</li></ul>" }
+      it { is_expected.to eq ["<ul class='b-list'><li>a</li></ul>", nil] }
     end
 
     context 'sample' do
       let(:text) { '- qwe' }
-      it { is_expected.to eq "<ul class='b-list'><li>qwe</li></ul>" }
+      it { is_expected.to eq ["<ul class='b-list'><li>qwe</li></ul>", nil] }
     end
 
     context 'sample' do
       let(:text) { "- qwe\n" }
-      it { is_expected.to eq "<ul class='b-list'><li>qwe</li></ul>" }
+      it { is_expected.to eq ["<ul class='b-list'><li>qwe</li></ul>", nil] }
     end
 
     context 'item content on next line' do
       let(:text) { "- a\n  b" }
-      it { is_expected.to eq "<ul class='b-list'><li>a\nb</li></ul>" }
+      it { is_expected.to eq ["<ul class='b-list'><li>a\nb</li></ul>", nil] }
     end
 
     context 'content after' do
       let(:text) { "- a\nb" }
-      it { is_expected.to eq "<ul class='b-list'><li>a</li></ul>b" }
+      it { is_expected.to eq ["<ul class='b-list'><li>a</li></ul>b", nil] }
     end
 
     context 'multiline' do
       let(:text) { "- a\n- b" }
-      it { is_expected.to eq "<ul class='b-list'><li>a</li><li>b</li></ul>" }
+      it { is_expected.to eq ["<ul class='b-list'><li>a</li><li>b</li></ul>", nil] }
     end
 
     context 'moves through inner tags' do
       let(:text) { "- #{content}\n- c" }
-      let(:content) { "z [spoiler=x]x\nx[/spoiler]" }
+      let(:content) { ["z [spoiler=x]x\nx[/spoiler]", nil] }
 
       it do
         is_expected.to eq(
-          "<ul class='b-list'><li>#{content}</li><li>c</li></ul>"
+          ["<ul class='b-list'><li>#{content}</li><li>c</li></ul>", nil]
         )
       end
 
@@ -46,8 +56,11 @@ describe BbCodes::Markdown::ListQuoteParserState do
         let(:content) { "z [spoiler=x]x\nx[/div]" }
         it do
           is_expected.to eq(
-            "<ul class='b-list'><li>z [spoiler=x]x</li>" \
-              "</ul>x[/div]<ul class='b-list'><li>c</li></ul>"
+            [
+              "<ul class='b-list'><li>z [spoiler=x]x</li>" \
+                "</ul>x[/div]<ul class='b-list'><li>c</li></ul>",
+              nil
+            ]
           )
         end
       end
@@ -57,19 +70,27 @@ describe BbCodes::Markdown::ListQuoteParserState do
   context 'blockquote' do
     context 'sample' do
       let(:text) { '> qwe' }
-      it { is_expected.to eq "<blockquote class='b-quote-v2'>qwe</blockquote>" }
+      it do
+        is_expected.to eq(
+          ["<blockquote class='b-quote-v2'>qwe</blockquote>", nil]
+        )
+      end
     end
 
     context 'sample' do
       let(:text) { '&gt; qwe' }
-      it { is_expected.to eq "<blockquote class='b-quote-v2'>qwe</blockquote>" }
+      it do
+        is_expected.to eq(
+          ["<blockquote class='b-quote-v2'>qwe</blockquote>", nil]
+        )
+      end
     end
 
     context 'multiline' do
       let(:text) { "> a\n> b\n> c" }
       it do
         is_expected.to eq(
-          "<blockquote class='b-quote-v2'>a\nb\nc</blockquote>"
+          ["<blockquote class='b-quote-v2'>a\nb\nc</blockquote>", nil]
         )
       end
     end
@@ -78,9 +99,12 @@ describe BbCodes::Markdown::ListQuoteParserState do
       let(:text) { '> > test' }
       it do
         is_expected.to eq(
-          "<blockquote class='b-quote-v2'>" \
-            "<blockquote class='b-quote-v2'>test</blockquote>" \
-            '</blockquote>'
+          [
+            "<blockquote class='b-quote-v2'>" \
+              "<blockquote class='b-quote-v2'>test</blockquote>" \
+              '</blockquote>',
+            nil
+          ]
         )
       end
     end
@@ -89,9 +113,12 @@ describe BbCodes::Markdown::ListQuoteParserState do
       let(:text) { "> > test\n> b" }
       it do
         is_expected.to eq(
-          "<blockquote class='b-quote-v2'>" \
-            "<blockquote class='b-quote-v2'>test</blockquote>" \
-            'b</blockquote>'
+          [
+            "<blockquote class='b-quote-v2'>" \
+              "<blockquote class='b-quote-v2'>test</blockquote>" \
+              'b</blockquote>',
+            nil
+          ]
         )
       end
     end
@@ -102,9 +129,12 @@ describe BbCodes::Markdown::ListQuoteParserState do
       let(:text) { '+ > test' }
       it do
         is_expected.to eq(
-          "<ul class='b-list'><li>" \
-            "<blockquote class='b-quote-v2'>test</blockquote>" \
-            '</li></ul>'
+          [
+            "<ul class='b-list'><li>" \
+              "<blockquote class='b-quote-v2'>test</blockquote>" \
+              '</li></ul>',
+            nil
+          ]
         )
       end
     end
@@ -113,9 +143,12 @@ describe BbCodes::Markdown::ListQuoteParserState do
       let(:text) { "+ > test\n  > 123" }
       it do
         is_expected.to eq(
-          "<ul class='b-list'><li>" \
-            "<blockquote class='b-quote-v2'>test\n123</blockquote>" \
-            '</li></ul>'
+          [
+            "<ul class='b-list'><li>" \
+              "<blockquote class='b-quote-v2'>test\n123</blockquote>" \
+              '</li></ul>',
+            nil
+          ]
         )
       end
     end
@@ -124,9 +157,12 @@ describe BbCodes::Markdown::ListQuoteParserState do
       let(:text) { "> - test\n>   123" }
       it do
         is_expected.to eq(
-          "<blockquote class='b-quote-v2'>" \
-            "<ul class='b-list'><li>test\n123</li></ul>" \
-            '</blockquote>'
+          [
+            "<blockquote class='b-quote-v2'>" \
+              "<ul class='b-list'><li>test\n123</li></ul>" \
+              '</blockquote>',
+            nil
+          ]
         )
       end
     end
@@ -136,15 +172,25 @@ describe BbCodes::Markdown::ListQuoteParserState do
 
       it do
         is_expected.to eq(
-          "<ul class='b-list'><li>" \
-            "<blockquote class='b-quote-v2'>" \
-              '123' \
-            '</blockquote></li></ul>' \
-            "<blockquote class='b-quote-v2'>" \
-              "<ul class='b-list'><li>456\n789</li></ul>" \
-            '</blockquote>'
+          [
+            "<ul class='b-list'><li>" \
+              "<blockquote class='b-quote-v2'>" \
+                '123' \
+              '</blockquote></li></ul>' \
+              "<blockquote class='b-quote-v2'>" \
+                "<ul class='b-list'><li>456\n789</li></ul>" \
+              '</blockquote>',
+            nil
+          ]
         )
       end
     end
+  end
+
+  context 'exit sequence' do
+    let(:text) { '- 1</h4>- 2' }
+    let(:exit_sequence) { '</h4>' }
+
+    it { is_expected.to eq ["<ul class='b-list'><li>1</li></ul>", '</h4>- 2'] }
   end
 end

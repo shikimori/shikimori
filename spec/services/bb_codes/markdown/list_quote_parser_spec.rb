@@ -41,7 +41,7 @@ describe BbCodes::Markdown::ListQuoteParser do
           is_expected.to eq "#{tag}#{html}w"
           expect(BbCodes::Markdown::ListQuoteParserState)
             .to have_received(:new)
-            .with "#{symbol} a\n", 0, '', tag
+            .with "#{symbol} a\n", 0, '', tag.gsub('<', '</')
         end
       end
 

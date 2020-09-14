@@ -28,13 +28,18 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
     # ap @text
     parse_line while @index < @text.size && !@is_exit_sequence
 
-    @state.join('')
+    rest_content = @text[@index..] if @index <= @text.size - 1
+
+    [
+      @state.join(''),
+      rest_content
+    ]
   end
 
 private
 
   def parse_line skippable_sequence = '' # rubocop:disable all
-    if skippable_sequence?(skippable_sequence.presence || @nested_sequence)
+    if matched_sequence?(skippable_sequence.presence || @nested_sequence)
       move((skippable_sequence.presence || @nested_sequence).size)
     end
 
@@ -43,10 +48,16 @@ private
     while @index <= @text.size
       is_start = start_index == @index
       is_end = @text[@index] == "\n" || @text[@index].nil?
+      @is_exit_sequence = matched_sequence?(@exit_sequence) if @exit_sequence
 
       if is_end
         finalize_content start_index, @index - 1
         move 1
+        return
+      end
+
+      if @is_exit_sequence
+        finalize_content start_index, @index - 1
         return
       end
 
@@ -161,8 +172,8 @@ private
     @text.slice(@index, @nested_sequence.size) == @nested_sequence
   end
 
-  def skippable_sequence? skip_sequence
-    skip_sequence.present? &&
-      @text.slice(@index, skip_sequence.size) == skip_sequence
+  def matched_sequence? sequence
+    sequence.present? && @text[@index] == sequence[0] &&
+      @text.slice(@index, sequence.size) == sequence
   end
 end
