@@ -83,7 +83,7 @@ describe BbCodes::Tags::SpoilerTag do
     end
 
     context 'fullwidth' do
-      let(:fullwidth) { ' fullwidth' }
+      let(:fullwidth) { ' is-fullwidth' }
 
       context 'with label' do
         it do
@@ -110,7 +110,7 @@ describe BbCodes::Tags::SpoilerTag do
     end
 
     context 'centered' do
-      let(:centered) { ' centered' }
+      let(:centered) { ' is-centered' }
 
       context 'with label' do
         it do
@@ -137,8 +137,8 @@ describe BbCodes::Tags::SpoilerTag do
     end
 
     context 'fullwidth + centered' do
-      let(:fullwidth) { ' fullwidth' }
-      let(:centered) { ' centered' }
+      let(:fullwidth) { ' is-fullwidth' }
+      let(:centered) { ' is-centered' }
 
       it do
         is_expected.to eq(

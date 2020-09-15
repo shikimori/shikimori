@@ -7,7 +7,7 @@ class BbCodes::Tags::SpoilerTag
       ^ | \n | #{BbCodes::BLOCK_TAG_EDGE_PREFIX_REGEXP.source}
     )?
     \[(?<tag>spoiler(?:_block|_v1)?) #{LABEL_REGEXP.source}
-      ((?<fullwidth>\ fullwidth)|(?<centered>\ centered))*
+      ((?<fullwidth>\ is-fullwidth)|(?<centered>\ is-centered))*
     \]
       \n?
       (?<content>
