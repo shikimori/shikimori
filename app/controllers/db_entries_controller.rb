@@ -1,4 +1,4 @@
-class DbEntriesController < ShikimoriController
+class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
   include FixParamsConcern
 
   before_action :authenticate_user!, only: %i[edit edit_field update]
@@ -16,7 +16,9 @@ class DbEntriesController < ShikimoriController
   end
 
   def collections
-    return redirect_to @resource.url, status: 301 if @resource.collections_scope.none?
+    if @resource.collections_scope.none?
+      return redirect_to @resource.url, status: :moved_permanently
+    end
 
     og noindex: true, page_title: t('in_collections')
 

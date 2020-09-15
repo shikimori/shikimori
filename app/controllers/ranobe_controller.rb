@@ -15,7 +15,7 @@ private
 
   def resource_redirect
     if @resource.manga?
-      return redirect_to current_url(controller: 'mangas'), status: 301
+      return redirect_to current_url(controller: 'mangas'), status: :moved_permanently
     end
 
     super

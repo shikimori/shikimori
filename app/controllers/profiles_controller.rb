@@ -228,7 +228,8 @@ private
 
       if nickname_change
         id_key = params[:profile_id] ? :profile_id : :id
-        return redirect_to current_url(id_key => nickname_change.user.to_param), status: 301
+        return redirect_to current_url(id_key => nickname_change.user.to_param),
+          status: :moved_permanently
       else
         raise ActiveRecord::RecordNotFound, nickname
       end

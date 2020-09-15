@@ -28,7 +28,7 @@ private
 
   def resource_redirect
     if @resource.ranobe?
-      return redirect_to current_url(controller: 'ranobe'), status: 301
+      return redirect_to current_url(controller: 'ranobe'), status: :moved_permanently
     end
 
     super
