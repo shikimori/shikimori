@@ -76,12 +76,13 @@ $max_width: 167px
         z-index: 2
 
         &:before
-          position: absolute
+          background: rgba(#fff, 0.25)
           content: ''
-          width: 100%
           height: 100%
-          background: rgba(255,255,255,0.25)
           margin: -2px -5px
+          pointer-events: none
+          position: absolute
+          width: 100%
 
         .b-link
           color: #fff
