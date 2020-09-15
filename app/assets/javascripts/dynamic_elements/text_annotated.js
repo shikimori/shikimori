@@ -15,7 +15,10 @@ export default class TextAnnotated extends View {
       .b-catalog_entry.c-${text.linked_type}#${text.linked_id}
       .image-decor
     `).each((_index, node) =>
-      $(node).append(`<div class='text'>${text.text}</div>`)
+      $(node)
+        .append(`<div class='text'>${text.text}</div>`)
+        .children('.text')
+        .process()
     );
   }
 }
