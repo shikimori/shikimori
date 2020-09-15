@@ -34,6 +34,15 @@
     &.is-opened > span > i.expander:before
       +shikimori('\e834')
 
+    &.is-centered
+      & > span:before
+        content: ''
+        margin-right: auto
+
+  &.is-centered:not(.is-fullwidth)
+    & > span
+      text-align: center
+
   &.is-opened
     &.is-closing
       & > span

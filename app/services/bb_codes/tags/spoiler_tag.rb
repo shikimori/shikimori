@@ -6,7 +6,9 @@ class BbCodes::Tags::SpoilerTag
     (?<prefix>
       ^ | \n | #{BbCodes::BLOCK_TAG_EDGE_PREFIX_REGEXP.source}
     )?
-    \[(?<tag>spoiler(?:_block|_v1)?) #{LABEL_REGEXP.source} (?<fullwidth>\ fullwidth)?\]
+    \[(?<tag>spoiler(?:_block|_v1)?) #{LABEL_REGEXP.source}
+      ((?<fullwidth>\ fullwidth)|(?<centered>\ centered))*
+    \]
       \n?
       (?<content>
         (?:
@@ -36,7 +38,7 @@ class BbCodes::Tags::SpoilerTag
 
 private
 
-  def bbcode_to_html text, nesting
+  def bbcode_to_html text, nesting # rubocop:disable all
     return [text, true] if nesting > MAX_NESTING
 
     text, were_changed = bbcode_to_html text, nesting + 1
@@ -51,15 +53,16 @@ private
       content = $LAST_MATCH_INFO[:content]
       prefix = $LAST_MATCH_INFO[:prefix]
       is_fullwidth = !!($LAST_MATCH_INFO[:fullwidth])
+      is_centered = !!($LAST_MATCH_INFO[:centered])
       suffix = $LAST_MATCH_INFO[:suffix] || ''
 
-      to_html tag, label, content, prefix, is_fullwidth, suffix
+      to_html tag, label, content, prefix, is_fullwidth, is_centered, suffix
     end
 
     [text, is_changed]
   end
 
-  def to_html tag, label, content, prefix, is_fullwidth, suffix # rubocop:disable all
+  def to_html tag, label, content, prefix, is_fullwidth, is_centered, suffix # rubocop:disable all
     method_name =
       if tag == 'spoiler_block'
         :block_spoiler_html
@@ -75,16 +78,18 @@ private
 
     suffix = '' if method_name == :block_spoiler_html
 
-    (prefix || '') + send(method_name, label, content, is_fullwidth) + (suffix || '')
+    (prefix || '') +
+      send(method_name, label, content, is_fullwidth, is_centered) +
+      (suffix || '')
   end
 
-  def inline_spoiler_html _label, content, _is_fullwidth
+  def inline_spoiler_html _label, content, _is_fullwidth, _is_centered
     INLINE_TAG_OPEN +
       "<span>#{content}</span>" +
     INLINE_TAG_CLOSE
   end
 
-  def old_spoiler_html label, content, _is_fullwidth
+  def old_spoiler_html label, content, _is_fullwidth, _is_centered
     "<div class='b-spoiler unprocessed'>" \
       "<label>#{label}</label>" \
       "<div class='content'>" \
@@ -95,8 +100,11 @@ private
     '</div>'
   end
 
-  def block_spoiler_html label, content, is_fullwidth
-    "<div class='b-spoiler_block to-process#{' is-fullwidth' if is_fullwidth}' "\
+  def block_spoiler_html label, content, is_fullwidth, is_centered
+    fullwidth = ' is-fullwidth' if is_fullwidth
+    centered = ' is-centered' if is_centered
+
+    "<div class='b-spoiler_block to-process#{fullwidth}#{centered}' "\
       "data-dynamic='spoiler_block'>" \
       "<span tabindex='0'>#{label}</span>" \
       "<div>#{content.rstrip}</div>" \

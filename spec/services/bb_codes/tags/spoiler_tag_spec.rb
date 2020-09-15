@@ -3,13 +3,14 @@ describe BbCodes::Tags::SpoilerTag do
 
   let(:text) do
     eqls_label = label.present? ? "=#{label}" : ''
-    "#{prefix}[#{tag}#{eqls_label}#{fullwidth}]#{content}[/#{tag}]#{suffix}"
+    "#{prefix}[#{tag}#{eqls_label}#{fullwidth}#{centered}]#{content}[/#{tag}]#{suffix}"
   end
   let(:tag) { 'spoiler' }
   let(:label) { 'bl<b>a</b>bla' }
   let(:prefix) { '' }
   let(:suffix) { ['\n', ' ', 'zxc'].sample }
   let(:fullwidth) { '' }
+  let(:centered) { '' }
   let(:content) { 'test' }
 
   context 'old style' do
@@ -105,6 +106,48 @@ describe BbCodes::Tags::SpoilerTag do
             '</div>'
           )
         end
+      end
+    end
+
+    context 'centered' do
+      let(:centered) { ' centered' }
+
+      context 'with label' do
+        it do
+          is_expected.to eq(
+            "<div class='b-spoiler_block to-process is-centered' data-dynamic='spoiler_block'>" \
+              "<span tabindex='0'>#{label}</span>" \
+              "<div>#{content}</div>" \
+            '</div>'
+          )
+        end
+      end
+
+      context 'w/o label' do
+        let(:label) { '' }
+        it do
+          is_expected.to eq(
+            "<div class='b-spoiler_block to-process is-centered' data-dynamic='spoiler_block'>" \
+              "<span tabindex='0'>спойлер</span>" \
+              "<div>#{content}</div>" \
+            '</div>'
+          )
+        end
+      end
+    end
+
+    context 'fullwidth + centered' do
+      let(:fullwidth) { ' fullwidth' }
+      let(:centered) { ' centered' }
+
+      it do
+        is_expected.to eq(
+          "<div class='b-spoiler_block to-process is-fullwidth is-centered' "\
+            "data-dynamic='spoiler_block'>" \
+            "<span tabindex='0'>#{label}</span>" \
+            "<div>#{content}</div>" \
+          '</div>'
+        )
       end
     end
 
