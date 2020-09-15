@@ -44,7 +44,7 @@
     "shiki-editor": "^0.12.3",
     "shiki-uploader": "^0.12.3",
     "shiki-utils": "^0.12.3",
-    "swiper": "^6.1.2",
+    "swiper": "6.2.0",
     "throttle-debounce": "^2.3.0",
     "turbolinks": "^5.2.0",
     "uevent": "^2.0.0",
