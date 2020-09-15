@@ -82,37 +82,35 @@ export default {
       'links'
     ])
   },
-  mounted() {
-    this.$nextTick(() => {
-      $(this.$el).process();
+  async mounted() {
+    await this.$nextTick();
+    $(this.$el).process();
 
-      if (!this.link.linked_id) {
-        $('input', this.$el)
-          .completable()
-          .focus()
-          .on('autocomplete:success', (e, { id, name, url }) => {
-            this.assign({
-              linked_id: parseInt(id),
-              name,
-              url
-            });
+    if (!this.link.linked_id) {
+      $('input', this.$el)
+        .completable()
+        .focus()
+        .on('autocomplete:success', (e, { id, name, url }) => {
+          this.assign({
+            linked_id: parseInt(id),
+            name,
+            url
           });
-      }
-    });
+        });
+    }
   },
   methods: {
-    assign(changes) {
+    async assign(changes) {
       this.fillLink({ link: this.link, changes });
 
-      this.$nextTick(() => {
-        $(this.$el).process();
+      await this.$nextTick();
+      $(this.$el).process();
 
-        highlight(
-          '.b-collection_item' +
-            `[data-linked_id='${this.link.linked_id}']` +
-            `[data-group='${this.link.group}']`
-        );
-      });
+      highlight(
+        '.b-collection_item' +
+          `[data-linked_id='${this.link.linked_id}']` +
+          `[data-group='${this.link.group}']`
+      );
     },
     add_autosize({ target }) {
       autosize(target);
