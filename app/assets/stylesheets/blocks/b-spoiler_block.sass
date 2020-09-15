@@ -1,6 +1,7 @@
 @import mixins/link
 @import mixins/shiki_button
-@import mixins/shikimori
+@import mixins/font_shiki_editor
+@import mixins/font_shikimori
 
 .b-spoiler_block
   position: relative
@@ -31,17 +32,21 @@
       &:after
         margin-left: auto
 
-    &.is-opened > span > i.expander:before
-      +shikimori('\e834')
+    &.is-opened > span > i.expand:before
+      +font_shikimori('\e834')
 
     &.is-centered
       & > span:before
         content: ''
         margin-right: auto
 
-  &.is-centered:not(.is-fullwidth)
-    & > span
-      text-align: center
+  &.is-centered
+    &:not(.is-fullwidth)
+      & > span
+        text-align: center
+
+    &.is-opened > span > i.center:before
+      +font_shiki_editor('\e803')
 
   &.is-opened
     &.is-closing
@@ -58,7 +63,8 @@
         margin-right: auto
 
       & > i.edit,
-      & > i.expander
+      & > i.expand,
+      & > i.center
         +link_color(#fff)
         // +link_color(#7b8084)
         align-items: center
@@ -81,11 +87,15 @@
 
       & > i.edit
         &:before
-          +shikimori('\e842')
+          +font_shikimori('\e842')
 
-      & > i.expander
+      & > i.expand
         &:before
-          +shikimori('\e83d')
+          +font_shikimori('\e83d')
+
+      & > i.center
+        &:before
+          +font_shiki_editor('\e801')
 
   & > span
     +shiki_button(#678)
@@ -98,7 +108,7 @@
       outline: none
 
     &:after
-      +shikimori('\e847')
+      +font_shikimori('\e847')
       font-size: 17px
       font-weight: bold
       font-style: normal
