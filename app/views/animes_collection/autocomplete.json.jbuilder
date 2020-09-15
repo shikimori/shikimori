@@ -4,6 +4,7 @@ json.array! @collection.reverse do |entry|
   ) || entry.name
 
   json.data entry.id
+  json.url entry.url
   json.value name
   json.label render(
     partial: 'suggest',
