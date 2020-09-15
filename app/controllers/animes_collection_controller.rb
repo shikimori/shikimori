@@ -56,7 +56,7 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
         scope: scope,
         phrase: params[:search] || params[:q]
       )
-      .decorate
+      .map(&:decorate)
   end
 
   def autocomplete_v2

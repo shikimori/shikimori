@@ -4,7 +4,7 @@ describe AnimesCollectionController do
       let!(:entry_1) { create kind.to_sym }
       let!(:entry_2) { create kind.to_sym }
 
-      %w[guest user].each do |user|
+      %w[guest user].each do |user| # rubocop:disable Performance/CollectionLiteralInLoop
         context user do
           include_context :authenticated, :user if user == 'user'
 
