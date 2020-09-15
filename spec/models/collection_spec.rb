@@ -101,6 +101,35 @@ describe Collection do
       it { expect(model.to_param).to eq '1-test' }
     end
 
+    describe '#db_type' do
+      before { subject.kind = kind }
+
+      context 'anime' do
+        let(:kind) { Types::Collection::Kind[:anime] }
+        its(:db_type) { is_expected.to eq 'Anime' }
+      end
+
+      context 'manga' do
+        let(:kind) { Types::Collection::Kind[:manga] }
+        its(:db_type) { is_expected.to eq 'Manga' }
+      end
+
+      context 'ranobe' do
+        let(:kind) { Types::Collection::Kind[:ranobe] }
+        its(:db_type) { is_expected.to eq 'Manga' }
+      end
+
+      context 'character' do
+        let(:kind) { Types::Collection::Kind[:character] }
+        its(:db_type) { is_expected.to eq 'Character' }
+      end
+
+      context 'person' do
+        let(:kind) { Types::Collection::Kind[:person] }
+        its(:db_type) { is_expected.to eq 'Person' }
+      end
+    end
+
     describe '#topic_user' do
       it { expect(model.topic_user).to eq model.user }
     end

@@ -1,5 +1,6 @@
 describe DbEntry::MergeIntoOther do
-  let(:type) { %i[anime manga].sample }
+  # let(:type) { %i[anime manga ranobe].sample }
+  let(:type) { %i[ranobe].sample }
 
   let(:entry_1) do
     create type, :with_topics,

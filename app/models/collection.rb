@@ -13,7 +13,8 @@ class Collection < ApplicationRecord
 
   belongs_to :user
   has_many :links, -> { order :id },
-    class_name: CollectionLink.name,
+    inverse_of: :collection,
+    class_name: 'CollectionLink',
     dependent: :destroy
 
   validates :name, :user, :kind, presence: true
@@ -29,6 +30,14 @@ class Collection < ApplicationRecord
 
   def to_param
     "#{id}-#{name.permalinked}"
+  end
+
+  def db_type
+    if ranobe?
+      Types::Collection::Kind[:manga].to_s.capitalize
+    else
+      kind.capitalize
+    end
   end
 
   # compatibility with DbEntry

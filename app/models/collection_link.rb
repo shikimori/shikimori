@@ -2,10 +2,11 @@ class CollectionLink < ApplicationRecord
   belongs_to :collection, touch: true
   belongs_to :linked, polymorphic: true
 
-  Types::Collection::Kind.values.each do |kind|
+  Types::Collection::Kind.values.each do |kind| # rubocop:disable Style/HashEachMethods
     belongs_to kind,
+      inverse_of: :collection_links,
       foreign_key: :linked_id,
-      class_name: kind.capitalize,
+      class_name: kind.to_s.capitalize, # rubocop:disable Rails/ReflectionClassName
       optional: true
   end
 

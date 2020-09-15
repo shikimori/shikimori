@@ -41,7 +41,7 @@ private
     links.map do |link|
       CollectionLink.new link.merge(
         collection: @model,
-        linked_type: @model.kind.capitalize
+        linked_type: @model.db_type
       )
     end
   end

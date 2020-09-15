@@ -3,7 +3,7 @@ module CollectionsConcern
 
   included do
     has_many :collection_links,
-      ->(entry) { where linked_type: entry.class.name },
+      ->(entry) { where linked_type: entry.class.base_class.name },
       foreign_key: :linked_id,
       dependent: :destroy
 

@@ -44,7 +44,12 @@ describe CollectionsController do
 
   describe '#update' do
     include_context :authenticated, :user, :week_registered
-    let(:collection) { create :collection, :with_topics, user: user }
+    let(:collection) do
+      create :collection, :with_topics,
+        kind: Types::Collection::Kind[type],
+        user: user
+    end
+    let(:type) { %i[anime manga ranobe].sample }
 
     context 'valid params' do
       before do
@@ -60,10 +65,10 @@ describe CollectionsController do
           links: [link]
         }
       end
-      let(:anime) { create :anime }
+      let(:db_entry) { create type }
       let(:link) do
         {
-          linked_id: anime.id,
+          linked_id: db_entry.id,
           group: 'test',
           text: 'zzzz'
         }

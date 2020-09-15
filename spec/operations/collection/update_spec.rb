@@ -4,7 +4,12 @@ describe Collection::Update do
   include_context :timecop
   subject { described_class.call collection, params }
 
-  let(:collection) { create :collection, user: user }
+  let(:collection) do
+    create :collection,
+      kind: Types::Collection::Kind[type],
+      user: user
+  end
+  let(:type) { %i[anime manga ranobe].sample }
 
   context 'valid params' do
     let(:params) do
@@ -12,11 +17,11 @@ describe Collection::Update do
         name: 'test collection',
         state: state,
         links: [{
-          linked_id: anime_1.id,
+          linked_id: db_entry_1.id,
           group: 'zz1',
           text: 'xx1'
         }, {
-          linked_id: anime_2.id,
+          linked_id: db_entry_2.id,
           group: 'zz2',
           text: 'xx2'
         }]
@@ -24,14 +29,14 @@ describe Collection::Update do
     end
     let(:state) { 'unpublished' }
     let!(:collection_link_1) do
-      create :collection_link, collection: collection, linked: anime_1
+      create :collection_link, collection: collection, linked: db_entry_1
     end
     let!(:collection_link_2) do
-      create :collection_link, collection: collection, linked: anime_3
+      create :collection_link, collection: collection, linked: db_entry_3
     end
-    let(:anime_1) { create :anime, updated_at: 1.day.ago }
-    let(:anime_2) { create :anime, updated_at: 1.day.ago }
-    let(:anime_3) { create :anime, updated_at: 1.day.ago }
+    let(:db_entry_1) { create type, updated_at: 1.day.ago }
+    let(:db_entry_2) { create type, updated_at: 1.day.ago }
+    let(:db_entry_3) { create type, updated_at: 1.day.ago }
 
     before { subject }
 
@@ -40,14 +45,12 @@ describe Collection::Update do
       expect(collection.reload).to have_attributes params.except(:links)
       expect(collection.links).to have(2).items
       expect(collection.links.first).to have_attributes(
-        linked_id: anime_1.id,
-        linked_type: Anime.name,
+        linked: db_entry_1,
         group: 'zz1',
         text: 'xx1'
       )
       expect(collection.links.last).to have_attributes(
-        linked_id: anime_2.id,
-        linked_type: Anime.name,
+        linked: db_entry_2,
         group: 'zz2',
         text: 'xx2'
       )
@@ -56,9 +59,9 @@ describe Collection::Update do
       expect { collection_link_1.reload }.to raise_error ActiveRecord::RecordNotFound
       expect { collection_link_2.reload }.to raise_error ActiveRecord::RecordNotFound
 
-      expect(anime_1.reload.updated_at).to be_within(0.1).of 1.day.ago
-      expect(anime_2.reload.updated_at).to be_within(0.1).of 1.day.ago
-      expect(anime_3.reload.updated_at).to be_within(0.1).of 1.day.ago
+      expect(db_entry_1.reload.updated_at).to be_within(0.1).of 1.day.ago
+      expect(db_entry_2.reload.updated_at).to be_within(0.1).of 1.day.ago
+      expect(db_entry_3.reload.updated_at).to be_within(0.1).of 1.day.ago
     end
 
     describe 'publish' do
@@ -69,9 +72,9 @@ describe Collection::Update do
         expect(collection.topics).to have(1).item
         expect(collection.topics.first.locale).to eq collection.locale
 
-        expect(anime_1.reload.updated_at).to be_within(0.1).of Time.zone.now
-        expect(anime_2.reload.updated_at).to be_within(0.1).of Time.zone.now
-        expect(anime_3.reload.updated_at).to be_within(0.1).of 1.day.ago
+        expect(db_entry_1.reload.updated_at).to be_within(0.1).of Time.zone.now
+        expect(db_entry_2.reload.updated_at).to be_within(0.1).of Time.zone.now
+        expect(db_entry_3.reload.updated_at).to be_within(0.1).of 1.day.ago
       end
     end
   end
