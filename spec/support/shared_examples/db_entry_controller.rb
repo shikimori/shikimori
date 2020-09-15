@@ -157,7 +157,7 @@ shared_examples :db_entry_controller do |entry_name|
           .to have_received(:perform_in)
           .with(
             described_class::DANGEROUS_ACTION_DELAY_INTERVAL,
-            entry.class.name,
+            entry.class.base_class.name,
             entry.id,
             entry_2.id,
             user.id
