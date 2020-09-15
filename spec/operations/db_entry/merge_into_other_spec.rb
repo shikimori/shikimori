@@ -1,6 +1,5 @@
 describe DbEntry::MergeIntoOther do
   let(:type) { %i[anime manga ranobe].sample }
-  # let(:type) { %i[ranobe].sample }
 
   let(:entry_1) do
     create type, :with_topics,
@@ -58,9 +57,24 @@ describe DbEntry::MergeIntoOther do
     create :anime_link, anime: entry_1, identifier: 'zxc' if type == :anime
   end
 
-  let!(:favourite_1_1) { create :favourite, linked: entry_1, user: user_1 }
-  let!(:favourite_1_2) { create :favourite, linked: entry_2, user: user_1 }
-  let!(:favourite_2_1) { create :favourite, linked: entry_1, user: user_2 }
+  let!(:favourite_1_1) do
+    create :favourite,
+      linked_id: entry_1.id,
+      linked_type: entry_1.class.name,
+      user: user_1
+  end
+  let!(:favourite_1_2) do
+    create :favourite,
+      linked_id: entry_2.id,
+      linked_type: entry_2.class.name,
+      user: user_1
+  end
+  let!(:favourite_2_1) do
+    create :favourite,
+      linked_id: entry_1.id,
+      linked_type: entry_1.class.name,
+      user: user_2
+  end
 
   let!(:external_link_1_1) { create :external_link, entry: entry_1, url: 'https://a.com/' }
   let!(:external_link_1_2) { create :external_link, entry: entry_1, url: 'http://b.com' }

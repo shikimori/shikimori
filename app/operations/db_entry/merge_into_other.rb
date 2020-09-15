@@ -182,7 +182,9 @@ private
   end
 
   def merge_favourites
-    @entry.favourites.each { |v| v.update linked: @other }
+    @entry.favourites.each do |v|
+      v.update linked_id: @other.id, linked_type: @other.class.name
+    end
   end
 
   def merge_external_links
