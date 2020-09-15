@@ -147,71 +147,11 @@ if (process.env.NODE_ENV === 'development') {
 [*] [url=https://shikimori.org/clubs/315-achivki-dostizheniya/topics/227419-gar][b]ГАР[/b][/url] ([url=https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml][color=#FF0000]g[/color][color=#AA5500]i[/color][color=#55AA00]t[/color][color=#00FF00]h[/color][color=#00AA55]u[/color][color=#0055AA]b[/color][/url]) | [div=b-anime_status_tag anons]ручной[/div] | [div=b-anime_status_tag news]процент[/div] |
 `.trim();
 
-  TEST_DEMO_CONTENT = `zxc
-test
-[spoiler]
+  TEST_DEMO_CONTENT = `
+[spoiler fullwidth]
 asdas
 [/spoiler]
 
-[anime=9756]
-[anime=1]Bebop[/anime]
-[anime=39587]
-zxc
-[/anime]
-
-||[url]https://github.com/shikimori/shiki-packages/blob/master/packages/shiki-editor/src/markdown/tokenizer/state.js[/url]||
-
-### no data-switcher
-[hr]
-
-[span=to-process b-js-link data-dynamic=switcher]Элемент span[/span]
-[div=to-process b-js-link data-dynamic=switcher]Элемент div[/div]
-
-### data-switcher=sw1
-[hr]
-
-[span=to-process data-dynamic=switcher b-js-link data-switcher=sw1]Элемент 1 span[/span] [span=to-process data-dynamic=switcher b-js-link data-switcher=sw1]Элемент 2 span[/span]
-[div=to-process data-dynamic=switcher b-js-link data-switcher=sw1]Элемент 3 div[/div]
-[div=to-process data-dynamic=switcher b-js-link data-switcher=sw1]Элемент 4 div[/div]
-[div=to-process data-dynamic=switcher active b-js-link data-switcher=sw1]Элемент 5 div[/div]
-
-### data-switcher=sw2
-[hr]
-
-[span=to-process data-dynamic=switcher active b-js-link data-switcher=sw2]Элемент 1 span[/span] [span=to-process data-dynamic=switcher b-js-link data-switcher=sw2]Элемент 2 span[/span]
-[div=to-process data-dynamic=switcher b-js-link data-switcher=sw2]Элемент 3 div[/div]
-[div=to-process data-dynamic=switcher b-js-link data-switcher=sw2]Элемент 4 div[/div]
-[div=to-process data-dynamic=switcher b-js-link data-switcher=sw2]Элемент 5 div[/div]
-
-
-[div=to-process data-dynamic=tabs]
-[div=cc-4a block]
-[div=c-column][div=b-js-link active data-tab-switch]Tab 1[/div][/div]
-[div=c-column][div=b-js-link data-tab-switch]Tab 2[/div][/div]
-[div=c-column][div=b-js-link data-tab-switch]Tab 3[/div][/div]
-[div=c-column][div=b-js-link test1 test2 test3 test4 test5 test6 test7 test8 data-tab-switch]Tab 4[/div][/div]
-[/div]
-
-[div=block]
-[div data-tab]Content 1[/div]
-[div=hidden data-tab]Content 2[/div]
-[div=hidden data-tab]Content 3[/div]
-[div=hidden data-tab]Content 4[/div]
-[/div]
-[/div]
-
-
-[div=to-process data-dynamic=tabs]
-[span=b-js-link active data-tab-switch]Tab 1[/span] [span=b-js-link data-tab-switch]Tab 2[/span]
-[div data-tab]Content 1[/div]
-[div=hidden data-tab]Content 2[/div]
-[/div]
-`.trim();
-
-  TEST_DEMO_CONTENT = `
-- 6
- 
-- 1
 `.trim();
 }
 
