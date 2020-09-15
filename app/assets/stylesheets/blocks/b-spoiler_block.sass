@@ -3,6 +3,8 @@
 @import mixins/shikimori
 
 .b-spoiler_block
+  position: relative
+
   & + .b-spoiler_block
     margin-top: 2px
 
@@ -29,6 +31,9 @@
       &:after
         margin-left: auto
 
+    &.is-opened > span > i.expander:before
+      +shikimori('\e834')
+
   &.is-opened
     &.is-closing
       & > span
@@ -39,23 +44,46 @@
       &:after
         transform: rotate(180deg)
 
-    & > i.edit
-      +link_color(#7b8084)
-      align-items: center
-      cursor: pointer
-      display: inline-flex
-      height: 23px
-      justify-content: center
-      margin-left: 6px
-      width: 23px
+      & > .separator
+        margin-left: 11px
+        margin-right: auto
 
-      &:before
-        +shikimori('\e842')
+      & > i.edit,
+      & > i.expander
+        +link_color(#fff)
+        // +link_color(#7b8084)
+        align-items: center
+        // background: rgba(#fcfcfc, 0.75)
+        cursor: pointer
+        display: inline-flex
+        flex-shrink: 0
+        font-style: normal
+        height: 23px
+        justify-content: center
+        margin-right: 5px
+        width: 23px
+
+        +gte_laptop
+          &:hover
+            background: rgba(#fcfcfc, 0.75)
+
+        &:active
+          background: rgba(#fcfcfc, 0.9)
+
+      & > i.edit
+        &:before
+          +shikimori('\e842')
+
+      & > i.expander
+        &:before
+          +shikimori('\e83d')
 
   & > span
     +shiki_button(#678)
     display: inline-flex
     align-items: center
+    min-height: 23px
+    // line-height: 1.45
 
     &:active
       outline: none
