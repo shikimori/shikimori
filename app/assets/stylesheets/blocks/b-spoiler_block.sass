@@ -33,7 +33,7 @@
         margin-left: auto
 
     &.is-opened > span > i.expand:before
-      +font_shikimori('\e834')
+      +font_shiki_editor('\e834')
 
     &.is-centered
       & > span:before
@@ -46,7 +46,7 @@
         text-align: center
 
     &.is-opened > span > i.center:before
-      +font_shiki_editor('\e803')
+      +font_shiki_editor('\e801')
 
   &.is-opened
     &.is-closing
@@ -91,11 +91,11 @@
 
       & > i.expand
         &:before
-          +font_shikimori('\e83d')
+          +font_shiki_editor('\e83d')
 
       & > i.center
         &:before
-          +font_shiki_editor('\e801')
+          +font_shiki_editor('\e803')
 
   & > span
     +shiki_button(#678)
