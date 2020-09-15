@@ -209,11 +209,9 @@ zxc
 `.trim();
 
   TEST_DEMO_CONTENT = `
-# - 1
-# - 2
-- 3
-# - 4
-- 5
+- 6
+ 
+- 1
 `.trim();
 }
 
