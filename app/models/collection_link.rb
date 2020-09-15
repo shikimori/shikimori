@@ -7,6 +7,7 @@ class CollectionLink < ApplicationRecord
       inverse_of: :collection_links,
       foreign_key: :linked_id,
       class_name: kind.to_s.capitalize, # rubocop:disable Rails/ReflectionClassName
+      touch: true,
       optional: true
   end
 
