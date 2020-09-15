@@ -1,6 +1,6 @@
 @import globals
 @import mixins/shiki_check
-@import mixins/shikimori
+@import mixins/font_shikimori
 
 .b-review_votes
   color: $gray-2
@@ -9,7 +9,7 @@
   text-decoration: none
 
   &:before
-    +shikimori('\e819')
+    +font_shikimori('\e819')
     color: #333
     display: inline-block
     font-size: 14px

@@ -2,7 +2,7 @@
 @import mixins/date
 @import mixins/link
 @import mixins/log_entry
-@import mixins/shikimori
+@import mixins/font_shikimori
 
 .b-ban
   +log_entry
@@ -40,7 +40,7 @@
       font-size: 16px
 
     &:before
-      +shikimori('\e815')
+      +font_shikimori('\e815')
 
   .abuser
     +bracket_details

@@ -1,0 +1,15 @@
+=font_shiki_editor($content: '')
+  font-family: shiki-editor
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased
+  /* Support for Safari and Chrome. */
+  // text-rendering: optimizeLegibility
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale
+  /* Support for IE. */
+  font-feature-settings: 'liga'
+  text-transform: none
+  letter-spacing: normal
+
+  @if length($content) != 0
+    content: $content

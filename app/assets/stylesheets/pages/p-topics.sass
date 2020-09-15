@@ -1,7 +1,7 @@
 //=require_directory ./p-topics
 
 @import mixins/link
-@import mixins/shikimori
+@import mixins/font_shikimori
 
 .p-topics
   header h1 a.reload
@@ -14,7 +14,7 @@
       // border-bottom-color: $link-border-hover
 
       &:after
-        +shikimori('\e801')
+        +font_shikimori('\e801')
         color: inherit
         display: inline-block
         font-size: 24px

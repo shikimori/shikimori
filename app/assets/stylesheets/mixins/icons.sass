@@ -2,7 +2,7 @@
 @import mixins/link
 @import mixins/margins
 @import mixins/responsive
-@import mixins/shikimori
+@import mixins/font_shikimori
 
 $icon_desktop_size: 24px
 $icon_mobile_size: 30px
@@ -28,7 +28,7 @@ $icon_mobile_size: 30px
     +icon_style($desktop-font-size, $mobile-font-size)
 
   &:before
-    +shikimori($content)
+    +font_shikimori($content)
 
   +lte_ipad
     white-space: nowrap

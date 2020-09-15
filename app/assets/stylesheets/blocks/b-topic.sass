@@ -4,7 +4,7 @@
 @import mixins/frame_form
 @import mixins/link
 @import mixins/responsive
-@import mixins/shikimori
+@import mixins/font_shikimori
 
 .b-topic
   +block
@@ -103,7 +103,7 @@
           &:before
             font-size: 10px
             position: absolute
-            +shikimori('🔗')
+            +font_shikimori('🔗')
             margin-left: -13px
             margin-top: 1px
 
@@ -120,7 +120,7 @@
       display: inline-block
 
       &:before
-        +shikimori('\e819')
+        +font_shikimori('\e819')
         display: inline-block
         font-size: 14px
         padding-right: 6px
@@ -154,7 +154,7 @@
         transition: opacity 0.2s ease, color 0.2s ease, border-bottom-color 0.2s ease
 
         &:before
-          +shikimori
+          +font_shikimori
           padding-right: 7px
 
         &.yes

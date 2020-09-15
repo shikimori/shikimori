@@ -1,5 +1,5 @@
 @import mixins/link
-@import mixins/shikimori
+@import mixins/font_shikimori
 
 .b-editable_grid
   thead
@@ -33,13 +33,13 @@
             opacity: 1
 
         &.sort-possible:before
-          +shikimori('\f0dc')
+          +font_shikimori('\f0dc')
 
         &.sort-asc:before
-          +shikimori('\f160')
+          +font_shikimori('\f160')
 
         &.sort-desc:before
-          +shikimori('\f161')
+          +font_shikimori('\f161')
 
   tbody
     tr:nth-child(odd) td
@@ -81,4 +81,4 @@
     +link-color(#123)
 
     &:before
-      +shikimori('\e809')
+      +font_shikimori('\e809')

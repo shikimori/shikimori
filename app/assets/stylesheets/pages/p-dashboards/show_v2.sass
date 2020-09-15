@@ -6,7 +6,7 @@
 @import mixins/flex_column
 @import mixins/link
 @import mixins/responsive
-@import mixins/shikimori
+@import mixins/font_shikimori
 
 =tag($color, $background, $border)
   color: $color
@@ -239,7 +239,7 @@
         cursor: pointer
 
         &:before
-          +shikimori('\e84e')
+          +font_shikimori('\e84e')
           font-size: 18px
 
   .headline.orange a

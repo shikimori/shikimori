@@ -2,7 +2,7 @@
 @import mixins/ellipsis2
 @import mixins/flex_column
 @import mixins/responsive
-@import mixins/shikimori
+@import mixins/font_shikimori
 @import mixins/swiper
 
 $height: 87px
@@ -89,7 +89,7 @@ $height: 87px
         border-top-right-radius: 100% 50%
 
       &:after
-        +shikimori('\e83e')
+        +font_shikimori('\e83e')
         margin-right: 10px
 
       &:active:before
@@ -113,7 +113,7 @@ $height: 87px
         border-top-left-radius: 100% 50%
 
       &:after
-        +shikimori('\e83f')
+        +font_shikimori('\e83f')
         margin-left: 10px
 
       &:active:before

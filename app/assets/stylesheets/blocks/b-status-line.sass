@@ -1,6 +1,6 @@
 @import mixins/ellipsis2
 @import mixins/responsive
-@import mixins/shikimori
+@import mixins/font_shikimori
 
 =status_line_block
   border-left: 1px solid #acb1b4
@@ -13,7 +13,7 @@
     padding-left: 0
 
 =status_line_block_icon($symbol)
-  +shikimori($symbol)
+  +font_shikimori($symbol)
   color: #333
   font-size: 14px
   padding-right: 5px
@@ -71,7 +71,7 @@
         margin-right: 15px
 
         &:before
-          +shikimori('\f00a')
+          +font_shikimori('\f00a')
           display: inline-block
           font-size: 14px
           padding-right: 5px

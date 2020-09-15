@@ -3,7 +3,7 @@
 @import mixins/ellipsis2
 @import mixins/float_column
 @import mixins/link
-@import mixins/shikimori
+@import mixins/font_shikimori
 @import mixins/two_line_ellipsis
 
 $max_minified_width: 162px
@@ -178,7 +178,7 @@ $max_width: 167px
         z-index: 1
 
       &::after
-        +shikimori
+        +font_shikimori
         width: $foreground-size
         line-height: $foreground-size
         font-size: 20px
