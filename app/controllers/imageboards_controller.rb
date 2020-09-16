@@ -13,7 +13,9 @@ class ImageboardsController < ShikimoriController
       raise CanCan::AccessDenied, url unless url.match? VALID_URL
 
       json = PgCache.fetch pg_cache_key, expires_in: EXPIRES_IN do
+        NamedLogger.download_imageboard.info "#{url} start"
         content = OpenURI.open_uri(url, open_uri_options).read
+        NamedLogger.download_imageboard.info "#{url} start"
 
         if url.match? 'safebooru.org'
           parse_safeboory content
