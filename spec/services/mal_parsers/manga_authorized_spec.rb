@@ -43,7 +43,7 @@ describe MalParsers::MangaAuthorized do
         popularity: 1228,
         members: 5583,
         favorites: 121,
-        synopsis: "A story about a group of girls and their relationships at an all-girls school.\r\n\r\nShinobu Handa and Momoko Naitou know each other since childhood. Shinobu fell in love with Momoko from the first day they met. Now in High School, Momoko has forgotten about the past, but Shinobu hasn't. Both follow their own ways but Shinobu still hopes for Momoko to remember their promise from long ago. ",
+        synopsis: "A story about a group of girls and their relationships at an all-girls school.<br><br>Shinobu Handa and Momoko Naitou know each other since childhood. Shinobu fell in love with Momoko from the first day they met. Now in High School, Momoko has forgotten about the past, but Shinobu hasn't. Both follow their own ways but Shinobu still hopes for Momoko to remember their promise from long ago. ",
         related: {
           side_story: [
             {
