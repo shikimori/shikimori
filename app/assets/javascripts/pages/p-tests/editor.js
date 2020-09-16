@@ -148,10 +148,11 @@ if (process.env.NODE_ENV === 'development') {
 `.trim();
 
   TEST_DEMO_CONTENT = `
-[spoiler fullwidth]
-asdas
+- a [spoiler=b]
+- c
+- d
 [/spoiler]
-
+- test
 `.trim();
 }
 

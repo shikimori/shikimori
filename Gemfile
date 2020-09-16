@@ -62,7 +62,6 @@ gem 'rack-utf8_sanitizer'
 
 gem 'actionpack-action_caching'
 gem 'attr_extras'
-gem 'nokogiri'
 gem 'paperclip'
 gem 'paperclip-i18n'
 gem 'rs_russian'
@@ -72,6 +71,9 @@ gem 'simple_form'
 gem 'simple_form-magic_submit', github: 'morr/simple_form-magic_submit'
 gem 'state_machine'
 gem 'active_model_serializers'
+
+gem 'nokogiri'
+gem 'nokogumbo'
 
 # gem 'mobylette' # для is_mobile_request в application_controller#show_social?. гем добавляет :mobyle mime type. с ним в ипаде сайт падает сразу после регистрации
 gem 'browser' # для детекта internet explorer в рендере shiki_editor

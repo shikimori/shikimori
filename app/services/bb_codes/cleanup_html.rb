@@ -17,8 +17,14 @@ class BbCodes::CleanupHtml
 private
 
   def cleanup text
-    Nokogiri::HTML::DocumentFragment
-      .parse(fix(text))
+    # Nokogiri::HTML::DocumentFragment
+    #   .parse(fix(text))
+    #   .to_html(save_with: NOKOGIRI_OPTIONS)
+    #   .html_safe
+
+    # NOTE: `Nokogiri.HTML5` used from nokogumbo gem
+    # it fixes html much better in comparison to Nokogiri
+    Nokogiri.HTML5(fix(text))
       .to_html(save_with: NOKOGIRI_OPTIONS)
       .html_safe
 
