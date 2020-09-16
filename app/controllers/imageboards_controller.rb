@@ -15,7 +15,7 @@ class ImageboardsController < ShikimoriController
       json = PgCache.fetch pg_cache_key, expires_in: EXPIRES_IN do
         NamedLogger.download_imageboard.info "#{url} start"
         content = OpenURI.open_uri(url, open_uri_options).read
-        NamedLogger.download_imageboard.info "#{url} start"
+        NamedLogger.download_imageboard.info "#{url} end"
 
         if url.match? 'safebooru.org'
           parse_safeboory content
