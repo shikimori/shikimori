@@ -80,7 +80,10 @@ private
   end
 
   def fetch
-    OpenURI.open_uri(coub_url, read_timeout: 2, 'User-Agent' => 'shikimori.org').read
+    NamedLogger.download_coub.info "#{coub_url} start"
+    result = OpenURI.open_uri(coub_url, read_timeout: 2, 'User-Agent' => 'shikimori.org').read
+    NamedLogger.download_coub.info "#{coub_url} end"
+    result
   rescue OpenURI::HTTPError => e
     if e.message == '404 Not Found'
       NO_DATA_RESPONSE
