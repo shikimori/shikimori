@@ -100,7 +100,12 @@ private
   end
 
   def webanetlabs
-    Nokogiri::HTML(open('https://webanetlabs.net/publ/24').read)
+    Nokogiri::HTML(
+      OpenURI.open_uri(
+        'https://webanetlabs.net/publ/24',
+        ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
+      ).read
+    )
       .css('.uSpoilerText a.link')
       .map { |v| 'https://webanetlabs.net' + v.attr(:href) }
   rescue StandardError => e
