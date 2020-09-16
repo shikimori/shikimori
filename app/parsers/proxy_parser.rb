@@ -1,3 +1,4 @@
+# rubocop:disable all
 require 'thread_pool'
 
 # http://pastebin.com/r2Xz6i0M
@@ -117,10 +118,18 @@ private
   #     .map { |v| 'http://rebro.weebly.com' + v }
   # end
 
-  def proxy_24
-    Nokogiri::HTML(open('http://www.proxyserverlist24.top').read)
-      .css('.post-title.entry-title a')
-      .map { |v| v.attr :href }
+  def proxy_24 url = 'http://www.proxyserverlist24.top', nesting = 0
+    return [] unless url
+
+    html = Nokogiri::HTML(OpenURI.open_uri(url).read)
+
+    links = html.css('.post-title.entry-title a').map { |v| v.attr :href }
+
+    if nesting > 20
+      links
+    else
+      links + proxy_24(html.css('.blog-pager-older-link').first&.attr(:href), nesting + 1)
+    end
   end
 
   def parse_proxies
