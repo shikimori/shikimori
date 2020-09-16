@@ -42,7 +42,9 @@ class VideoExtractor::BaseExtractor
     Retryable.retryable tries: 2, on: ALLOWED_EXCEPTIONS, sleep: 1 do
       return unless valid_url? && opengraph_page?
 
+      NamedLogger.download_video.info "#{url} start"
       current_image_url = image_url
+      NamedLogger.download_video.info "#{url} end"
       current_player_url = player_url
       return unless current_image_url && current_player_url
 
