@@ -25,7 +25,9 @@ private
   end
 
   def download
+    NamedLogger.download_style.info "#{@url} start"
     content = Network::FaradayGet.call(@url)&.body&.force_encoding('utf-8') || ''
+    NamedLogger.download_style.info "#{@url} end"
     content.valid_encoding? ? content : ''
   end
 end
