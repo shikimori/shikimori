@@ -73,7 +73,9 @@ private
   end
 
   def get_avatar url
-    @user.avatar = open url
+    NamedLogger.download_avatar.info "#{url} start"
+    @user.avatar = OpenURI.open_uri(url)
+    NamedLogger.download_avatar.info "#{url} end"
 
   rescue *Network::FaradayGet::NET_ERRORS
     @user.avatar = nil

@@ -2,7 +2,10 @@ class Network::FinalUrl
   method_object :url
 
   def call
-    result = faraday_get url
+    NamedLogger.download_final_url.info "#{@url} start"
+    result = faraday_get @url
+    NamedLogger.download_final_url.info "#{@url} end"
+
     Url.new(result.env[:url].to_s).to_s if result
   end
 
