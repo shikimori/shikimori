@@ -13,6 +13,7 @@ class Users::CheckHacked
     shikme.tru.io
     shikme.z86.ru
     shikme.naru.to
+    shiki.morry.ru
   ]
   NOT_SPAM_DOMAINS = %w[
     shikimori.org
