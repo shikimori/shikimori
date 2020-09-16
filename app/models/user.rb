@@ -408,7 +408,10 @@ private
       size: 160
     )
 
+    NamedLogger.download_avatar.info "#{gravatar_url} start"
     self.avatar = OpenURI.open_uri(gravatar_url)
+    NamedLogger.download_avatar.info "#{gravatar_url} end"
+
   rescue *Network::FaradayGet::NET_ERRORS
     self.avatar = open('app/assets/images/globals/missing_avatar/x160.png')
   end
