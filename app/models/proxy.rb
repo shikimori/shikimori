@@ -287,11 +287,13 @@ class Proxy < ApplicationRecord
       if params[:proxy]
         params.merge(
           'User-Agent' => user_agent(url),
+          ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
           allow_redirections: :all
         )
       else
         params.merge(
           'User-Agent' => user_agent(url),
+          ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
           allow_redirections: :all,
           **Proxy.prepaid_proxy
         )

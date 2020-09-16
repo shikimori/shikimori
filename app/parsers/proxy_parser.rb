@@ -58,11 +58,14 @@ private
   def parse url
     # задержка, чтобы не нас не банили
     sleep 1
-    proxies = OpenURI.open_uri(url).read.gsub(/\d+\.\d+\.\d+\.\d+:\d+/).map do |v|
-      data = v.split(':')
+    proxies = OpenURI.open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
+      .read
+      .gsub(/\d+\.\d+\.\d+\.\d+:\d+/)
+      .map do |v|
+        data = v.split(':')
 
-      { ip: data[0], port: data[1] }
-    end
+        { ip: data[0], port: data[1] }
+      end
     print "#{url} - #{proxies.size} proxies\n"
 
     proxies
