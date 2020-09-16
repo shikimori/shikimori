@@ -80,7 +80,7 @@ private
 
     print "testing #{proxies.size} proxies\n"
 
-    proxies.parallel(threads: 750, timeout: 15) do |proxy|
+    proxies.parallel(threads: 500, timeout: 15) do |proxy|
       verified_proxies << proxy if anonymouse?(proxy, ip)
     end
 
