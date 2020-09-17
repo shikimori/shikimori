@@ -1,5 +1,4 @@
 # rubocop:disable all
-require 'thread_pool'
 
 # http://pastebin.com/r2Xz6i0M
 class ProxyParser
@@ -17,7 +16,7 @@ class ProxyParser
   # парсинг проксей из внешних источников
   def fetch
     parsed_proxies = parse_proxies
-    raise "only #{parsed_proxies.size} were found" if parsed_proxies.size < 2000
+    # raise "only #{parsed_proxies.size} were found" if parsed_proxies.size < 2000
 
     print format("found %<size>i proxies\n", size: parsed_proxies.size)
 
@@ -76,13 +75,28 @@ private
 
   # проверка проксей на работоспособность
   def test proxies, ip
-    verified_proxies = []
+    proxies = proxies
+    verified_proxies = Concurrent::Array.new
 
     print "testing #{proxies.size} proxies\n"
 
-    proxies.parallel(threads: 500, timeout: 15) do |proxy|
-      verified_proxies << proxy if anonymouse?(proxy, ip)
+    pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 20)
+    index = Concurrent::AtomicFixnum.new(0)
+
+    proxies.each do |proxy|
+      pool.post do
+        puts "testing #{index.value}/#{proxies.size} proxy #{proxy}"
+        index.increment
+
+        verified_proxies << proxy if anonymouse?(proxy, ip)
+      end
     end
+
+    loop do
+      sleep 2
+      break if pool.queue_length.zero?
+    end
+    pool.kill
 
     verified_proxies
   end

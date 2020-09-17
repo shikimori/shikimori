@@ -71,6 +71,7 @@ gem 'simple_form'
 gem 'simple_form-magic_submit', github: 'morr/simple_form-magic_submit'
 gem 'state_machine'
 gem 'active_model_serializers'
+gem 'concurrent-ruby-edge'
 
 gem 'nokogiri'
 gem 'nokogumbo'
