@@ -81,12 +81,12 @@ private
     print "testing #{proxies.size} proxies\n"
 
     pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 20)
-    index = Concurrent::AtomicFixnum.new(0)
+    index = Concurrent::AtomicFixnum.new(-1)
 
     proxies.each do |proxy|
       pool.post do
-        puts "testing #{index.value}/#{proxies.size} proxy #{proxy}"
-        index.increment
+        current_index = index.increment
+        puts "testing #{current_index.value}/#{proxies.size} proxy #{proxy}"
 
         verified_proxies << proxy if anonymouse?(proxy, ip)
       end
