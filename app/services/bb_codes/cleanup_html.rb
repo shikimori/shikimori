@@ -25,7 +25,8 @@ private
     # NOTE: `Nokogiri.HTML5` used from nokogumbo gem
     # it fixes html much better in comparison to Nokogiri
     Nokogiri.HTML5(fix(text))
-      .to_html(save_with: NOKOGIRI_OPTIONS)
+      .css('body')
+      .inner_html
       .html_safe
 
   # LoadError: cannot load such file -- enc/trans/single_byte
