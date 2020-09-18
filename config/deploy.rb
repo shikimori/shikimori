@@ -26,7 +26,6 @@ set :linked_dirs, %w[
   public/assets
   public/system
   public/packs
-  public/podcast
   public/.well-known/acme-challenge
 ]
 set :copy_files, %w[node_modules]
