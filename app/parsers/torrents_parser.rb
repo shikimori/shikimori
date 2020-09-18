@@ -168,7 +168,7 @@ class TorrentsParser
     if errors.none?
       result
     else
-      raise MissingEpisodeError, errors
+      raise MissingEpisodeError anime_id, errors
     end
   end
 
