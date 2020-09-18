@@ -4,6 +4,7 @@
 class ProxyParser
   TEST_URL = "https://shikimori.one#{ProxyTest::TEST_PAGE_PATH}"
   WHAT_IS_MY_IP_URL = "https://#{Shikimori::DOMAINS[:production]}#{ProxyTest::WHAT_IS_MY_IP_PATH}"
+  CACHE_VERSION = :v2
 
   # HIDEME_URL = "http://hideme.ru/api/proxylist.php?out=js&code=253879821"
 
@@ -16,11 +17,13 @@ class ProxyParser
   # парсинг проксей из внешних источников
   def fetch
     parsed_proxies = parse_proxies
+    db_proxies = Proxy.all.map { |v| { ip: v.ip, port: v.port } }
     # raise "only #{parsed_proxies.size} were found" if parsed_proxies.size < 2000
 
     print format("found %<size>i proxies\n", size: parsed_proxies.size)
+    print format("fetched %<size>i proxies\n", size: db_proxies.size)
 
-    proxies = (Proxy.all.map { |v| { ip: v.ip, port: v.port } } + parsed_proxies)
+    proxies = (db_proxies + parsed_proxies)
       .uniq
       .map { |proxy_hash| Proxy.new proxy_hash }
     print format("%<size>i after merge with previously parsed\n", size: proxies.size)
@@ -63,7 +66,7 @@ private
       .map do |v|
         data = v.split(':')
 
-        { ip: data[0], port: data[1] }
+        { ip: data[0], port: data[1].to_i }
       end
     print "#{url} - #{proxies.size} proxies\n"
 
@@ -94,6 +97,7 @@ private
 
     loop do
       sleep 2
+      ap pool.queue_length
       break if pool.queue_length.zero?
     end
     pool.kill
@@ -111,7 +115,9 @@ private
 
   # источники проксей
   def sources
-    @sources ||= SOURCES + webanetlabs + proxy_24
+    @sources ||= Rails.cache.fetch([:proxy, :sources, CACHE_VERSION], expires_in: 1.hour) do
+      SOURCES + webanetlabs + proxy_24
+    end
     # + rebro_weebly
     # Nokogiri::HTML(open('http://www.italianhack.org/forum/proxy-list-739/').read).css('h3.threadtitle a').map {|v| v.attr :href }
   end
@@ -155,7 +161,11 @@ private
   end
 
   def parse_proxies
-    sources.map { |url| parse url }.flatten
+    sources
+      .flat_map do |url|
+        Rails.cache.fetch([url, :proxies, CACHE_VERSION]) { parse url }
+      end
+      .uniq
     # source_proxies = sources.map { |url| parse url }.flatten
     # hideme_proxies = JSON.parse(open(HIDEME_URL).read).map do |proxy|
       # { ip: proxy['ip'], port: proxy['port'].to_i }
