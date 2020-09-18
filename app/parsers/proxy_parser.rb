@@ -89,7 +89,7 @@ private
     proxies.each do |proxy|
       pool.post do
         current_index = index.increment
-        puts "testing #{current_index.value}/#{proxies.size} proxy #{proxy}"
+        puts "testing #{current_index}/#{proxies.size} proxy #{proxy}"
 
         verified_proxies << proxy if anonymouse?(proxy, ip)
       end
@@ -97,7 +97,6 @@ private
 
     loop do
       sleep 2
-      ap pool.queue_length
       break if pool.queue_length.zero?
     end
     pool.kill
