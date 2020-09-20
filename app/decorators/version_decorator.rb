@@ -24,7 +24,7 @@ class VersionDecorator < BaseDecorator
 
   def old_value field
     value =
-      if pending? || rejected?
+      if pending?
         object.current_value(field)
       else
         item_diff[field.to_s].first
