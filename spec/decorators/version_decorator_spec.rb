@@ -36,10 +36,10 @@ describe VersionDecorator do
       it { expect(decorator.old_value :name).to eq item.name }
     end
 
-    context 'rejected' do
-      let(:state) { 'rejected' }
-      it { expect(decorator.old_value :name).to eq item.name }
-    end
+    # context 'rejected' do
+    #   let(:state) { 'rejected' }
+    #   it { expect(decorator.old_value :name).to eq item.name }
+    # end
 
     context 'other' do
       let(:state) { 'accepted' }
