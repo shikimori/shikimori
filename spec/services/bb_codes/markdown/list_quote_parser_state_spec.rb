@@ -44,7 +44,12 @@ describe BbCodes::Markdown::ListQuoteParserState do
 
     context 'moves through inner tags' do
       let(:text) { "- #{content}\n- c" }
-      let(:content) { ["z [spoiler=x]x\nx[/spoiler]", nil] }
+      let(:content) do
+        [
+          "z [spoiler=x]x\nx[/spoiler]",
+          "z [spoiler_v1]x\nx[/spoiler_v1]"
+        ].sample
+      end
 
       it do
         is_expected.to eq(

@@ -1,5 +1,5 @@
 module BbCodes
-  MULTILINE_BBCODES = %w[spoiler spoiler_block quote div center right list]
+  MULTILINE_BBCODES = %w[spoiler_block spoiler_v1 spoiler quote div center right list]
   BLOCK_TAG_EDGE_PREFIX_REGEXP = %r{
     (?:
       (?: </?div[^>]*+> | \[/?div[^\]]*+\] ) \n? |
