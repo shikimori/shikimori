@@ -2,7 +2,7 @@ class BbCodes::Tags::CenterTag
   include Singleton
 
   REGEXP = %r{
-    \[center\]
+    \[center\] \n?
       (?<content>
         (?:
           (?! \[/center\] ) (?>.)
@@ -28,7 +28,9 @@ private
     is_changed = false
     text = text.gsub(REGEXP) do |_match|
       is_changed = true
-      "<center>#{$LAST_MATCH_INFO[:content]}</center>"
+      content = $LAST_MATCH_INFO[:content].gsub(/\n\Z/, '')
+
+      "<center>#{content}</center>"
     end
 
     [text, is_changed]

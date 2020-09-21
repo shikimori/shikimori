@@ -1,7 +1,20 @@
 describe BbCodes::Tags::CenterTag do
   subject { described_class.instance.format text }
+
   let(:text) { '[center]test[/center]' }
   it { is_expected.to eq '<center>test</center>' }
+
+  context 'new lines' do
+    let(:text) do
+      [
+        "[center]\ntest[/center]",
+        "[center]test\n[/center]",
+        "[center]test[/center]\n",
+        "[center]\ntest\n[/center]\n"
+      ].sample
+    end
+    it { is_expected.to eq '<center>test</center>' }
+  end
 
   describe 'nesting' do
     before { stub_const "#{described_class.name}::MAX_NESTING", 2 }
