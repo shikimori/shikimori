@@ -69,7 +69,7 @@ export default class UserRateButton extends View
     !!@model.id
 
   _render: ->
-    @html JST[TEMPLATE](@_render_params())
+    @html(JST[TEMPLATE](@_render_params())).process()
 
   _render_params: ->
     submit_url = if @_is_persisted()
