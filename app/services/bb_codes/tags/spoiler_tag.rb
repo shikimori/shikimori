@@ -15,7 +15,6 @@ class BbCodes::Tags::SpoilerTag
           (?! \[/?spoiler(?:_block|_v1)? #{LABEL_REGEXP.source} \] ) (?>.)
         )+
       )
-      \n?
     \[/\k<tag>\]
     (?<suffix>\n)?
   }mix
@@ -50,11 +49,11 @@ private
 
       tag = $LAST_MATCH_INFO[:tag]
       label = $LAST_MATCH_INFO[:label]&.strip || I18n.t('markers.spoiler')
-      content = $LAST_MATCH_INFO[:content]
       prefix = $LAST_MATCH_INFO[:prefix]
       is_fullwidth = !!($LAST_MATCH_INFO[:fullwidth])
       is_centered = !!($LAST_MATCH_INFO[:centered])
       suffix = $LAST_MATCH_INFO[:suffix] || ''
+      content = $LAST_MATCH_INFO[:content].gsub(/\n\Z/, '') # cleanup similar to [center]
 
       to_html tag, label, content, prefix, is_fullwidth, is_centered, suffix
     end
