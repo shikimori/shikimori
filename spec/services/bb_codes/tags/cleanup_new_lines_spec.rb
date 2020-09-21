@@ -1,17 +1,6 @@
 describe BbCodes::Tags::CleanupNewLines do
   subject { described_class.call text, tag }
 
-  context 'div + quote' do
-    let(:tag) { described_class::TAGS }
-    let(:text) { "\n\n[quote]\n\n[div=c-column]\n\ntest\n\n[/div]\n\n[/quote]\n\n" }
-    it { is_expected.to eq "\n\n[quote]\n[div=c-column]\ntest\n[/div]\n[/quote]\n" }
-
-    context 'sample' do
-      let(:text) { "\n\n[div]test[/div]" }
-      it { is_expected.to eq text }
-    end
-  end
-
   context 'div' do
     let(:tag) { :div }
 
@@ -45,5 +34,16 @@ describe BbCodes::Tags::CleanupNewLines do
     let(:tag) { :quote }
     let(:text) { "\n\n[quote]\n\n[quote=cc6104643;1;c]\n\ntest\n\n[/quote]\n\n[/quote]\n\n" }
     it { is_expected.to eq "\n\n[quote]\n[quote=cc6104643;1;c]\ntest\n[/quote]\n[/quote]\n" }
+  end
+
+  context 'div + quote' do
+    let(:tag) { described_class::TAGS }
+    let(:text) { "\n\n[quote]\n\n[div=c-column]\n\ntest\n\n[/div]\n\n[/quote]\n\n" }
+    it { is_expected.to eq "\n\n[quote]\n[div=c-column]\ntest\n[/div]\n[/quote]\n" }
+
+    context 'sample' do
+      let(:text) { "\n\n[div]test[/div]" }
+      it { is_expected.to eq text }
+    end
   end
 end

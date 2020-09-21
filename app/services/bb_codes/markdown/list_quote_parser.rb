@@ -6,7 +6,7 @@ class BbCodes::Markdown::ListQuoteParser
     (?:
       (?: [-+*>] | &gt; )
       \ (?:
-        (?: \[(?<tag>#{BbCodes::MULTILINE_BBCODES.join('|')})[\s\S]+\[/\k<tag>\] |. )*+
+        (?: \[(?<tag>#{BbCodes::MULTILINE_BBCODES.join('|')})[\s\S]+?\[/\k<tag>\] |. )*+
         (?: \n \ + .++ )*
       ) (?: \n|$ )
     )+

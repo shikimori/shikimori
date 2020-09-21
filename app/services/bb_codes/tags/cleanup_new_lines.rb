@@ -1,3 +1,4 @@
+# NOTE: the class is not used anymore. delete it later
 class BbCodes::Tags::CleanupNewLines
   method_object :text, :tags
 

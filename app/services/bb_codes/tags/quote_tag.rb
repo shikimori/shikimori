@@ -7,7 +7,7 @@ class BbCodes::Tags::QuoteTag
       c?(?<comment_id>\d+);
       \d+;
       (?<nickname>[^\]]+)
-    \]
+    \] \n?
   /mix
 
   MESSAGE_QUOTE_START_REGEXP = /
@@ -15,7 +15,7 @@ class BbCodes::Tags::QuoteTag
       m(?<message_id>\d+);
       \d+;
       (?<nickname>[^\]]+)
-    \]
+    \] \n?
   /mix
 
   TOPIC_QUOTE_START_REGEXP = /
@@ -23,19 +23,19 @@ class BbCodes::Tags::QuoteTag
       t(?<topic_id>\d+);
       \d+;
       (?<nickname>[^\]]+)
-    \]
+    \] \n?
   /mix
 
   SIMPLE_QUOTE_1_START_REGEXP = /
-    \[quote\]
+    \[quote\] \n?
   /mix
 
   SIMPLE_QUOTE_2_START_REGEXP = /
-    \[quote=(?<nickname>[^\]]+)\]
+    \[quote=(?<nickname>[^\]]+)\] \n?
   /mix
 
   QUOTE_END_REGEXP = %r{
-    \[/quote\]
+    \n? \[/quote\] \n?
   }mix
 
   def format text

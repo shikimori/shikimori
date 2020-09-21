@@ -141,4 +141,26 @@ describe BbCodes::Markdown::ListQuoteParser do
       end
     end
   end
+
+  context 'multiple lists' do
+    let(:text) { ["- 1\n- 2\n\n- 3\n", "- 1\n- 2\n\n- 3"].sample }
+
+    it do
+      is_expected.to eq(
+        "<ul class='b-list'><li>1</li><li>2</li></ul>\n" \
+          "<ul class='b-list'><li>3</li></ul>"
+      )
+    end
+
+    context 'does not eat excessive \n' do
+      let(:text) { "- [div]z[/div]\n\n- [div]x[/div]" }
+
+      it do
+        is_expected.to eq(
+          "<ul class='b-list'><li>[div]z[/div]</li></ul>\n" \
+            "<ul class='b-list'><li>[div]x[/div]</li></ul>"
+        )
+      end
+    end
+  end
 end

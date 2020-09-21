@@ -5,6 +5,18 @@ describe BbCodes::Tags::QuoteTag do
     let(:text) { '[quote]test[/quote]' }
     it { is_expected.to eq '<div class="b-quote"><div class="quote-content">test</div></div>' }
 
+    context 'new lines' do
+      let(:text) do
+        [
+          "[quote]\ntest[/quote]",
+          "[quote]test\n[/quote]",
+          "[quote]test[/quote]\n",
+          "[quote]\ntest\n[/quote]\n"
+        ].sample
+      end
+      it { is_expected.to eq '<div class="b-quote"><div class="quote-content">test</div></div>' }
+    end
+
     context 'with text' do
       let(:text) { '[quote=zz]test[/quote]' }
       it do

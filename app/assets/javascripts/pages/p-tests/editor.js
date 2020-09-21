@@ -5,7 +5,7 @@ import delay from 'delay';
 import autosize from 'autosize';
 import axios from 'helpers/axios';
 
-const IS_RAW = false && IS_LOCAL_SHIKI_PACKAGES;
+const IS_RAW = true && IS_LOCAL_SHIKI_PACKAGES;
 const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
@@ -148,11 +148,7 @@ if (process.env.NODE_ENV === 'development') {
 `.trim();
 
   TEST_DEMO_CONTENT = `
-- a [spoiler=b]
-- c
-- d
-[/spoiler]
-- test
+[quote]\n\n[quote]\n\ntest\n\n[/quote]\n\n[/quote]\n\n[div]\n\ntest\n\n[/div]
 `.trim();
 }
 

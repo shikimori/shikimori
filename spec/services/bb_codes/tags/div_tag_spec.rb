@@ -4,6 +4,18 @@ describe BbCodes::Tags::DivTag do
   let(:text) { '[div]test[/div]' }
   it { is_expected.to eq '<div data-div>test</div>' }
 
+  context 'new lines' do
+    let(:text) do
+      [
+        "[div]\ntest[/div]",
+        "[div]test\n[/div]",
+        "[div]test[/div]\n",
+        "[div]\ntest\n[/div]\n"
+      ].sample
+    end
+    it { is_expected.to eq '<div data-div>test</div>' }
+  end
+
   context 'class' do
     context 'single' do
       let(:text) { '[div=aaa]test[/div]' }

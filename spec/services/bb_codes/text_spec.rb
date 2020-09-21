@@ -393,11 +393,18 @@ describe BbCodes::Text do
           "[div]\n\ntest\n\n[/div]"
       end
       it do
+        # is_expected.to eq(
+        #   <<~HTML.squish
+        #     <div class="b-quote"><div class="quote-content"><br><div
+        #       class="b-quote"><div
+        #       class="quote-content"><br>test<br></div></div><br></div></div><br><div data-div=""><br>test<br></div>
+        #   HTML
+        # )
         is_expected.to eq(
           <<~HTML.squish
             <div class="b-quote"><div class="quote-content"><br><div
               class="b-quote"><div
-              class="quote-content"><br>test<br></div></div><br></div></div><br><div data-div=""><br>test<br></div>
+              class="quote-content"><br>test<br></div></div></div></div><br><div data-div=""><br>test<br></div>
           HTML
         )
       end

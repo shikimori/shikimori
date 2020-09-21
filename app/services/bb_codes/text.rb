@@ -109,10 +109,10 @@ private
   def parse text # rubocop:disable all
     text_hash = XXhash.xxh32 text, 0
 
-    text = BbCodes::Tags::CleanupNewLines.call(
-      text,
-      BbCodes::Tags::CleanupNewLines::TAGS
-    )
+    # text = BbCodes::Tags::CleanupNewLines.call(
+    #   text,
+    #   BbCodes::Tags::CleanupNewLines::TAGS
+    # )
 
     # must be in the beginning to avaid collisions
     # when other bbcodes coud produce text that can be accidentally treated as db_entry mention
