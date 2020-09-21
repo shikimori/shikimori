@@ -2,9 +2,9 @@ class BbCodes::Tags::RightTag
   include Singleton
 
   REGEXP = %r{
-    \[right\]
+    \[right\] \n?
       (.*?)
-    \[/right\] \n?
+    \n? \[/right\] \n?
   }mix
 
   def format text
