@@ -4,7 +4,8 @@ class BbCodes::Tags::CodeTag
       (?<before> \ + | \ +[\r\n]+ | [\r\n]* )
       (?<code> .*? )
       (?<after> [\ \r\n]* )
-    \[ /code \] |
+    \[ /code \] \n?
+    |
     ^ ``` (?<language>[\w+#-]+)? \n
       (?<code_block> .*? ) \n
     ^ ``` (?:\n|$)

@@ -212,6 +212,11 @@ describe BbCodes::Tags::CodeTag do
     end
 
     context 'sample' do
+      let(:text) { "[code=ruby]#{content}[/code]\n" }
+      it { is_expected.to eq text }
+    end
+
+    context 'sample' do
       let(:text) { "`#{content}`" }
       it { is_expected.to eq text }
     end
