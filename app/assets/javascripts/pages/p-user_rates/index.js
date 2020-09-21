@@ -83,6 +83,7 @@ pageLoad('user_rates_index', () => {
     $form.on('ajax:success', (_e, data) => {
       $poster.children('.text')
         .html(data && data.text_html ? data.text_html : '')
+        .process()
         .toggleClass('hidden', Object.isEmpty(data.text_html));
 
       updateTextInCache(data);
@@ -221,7 +222,9 @@ function applyListHandlers($root) {
       $('.current-value[data-field=volumes]', $tr).html(data.volumes);
       $('.current-value[data-field=episodes]', $tr).html(data.episodes);
 
-      $('.rate-text', $tr).html(data.text_html ? `<div>${data.text_html}</div>` : '');
+      $('.rate-text', $tr)
+        .html(data.text_html ? `<div>${data.text_html}</div>` : '')
+        .process();
 
       if (data.rewatches > 0) {
         const count = data.rewatches;
