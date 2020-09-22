@@ -1,13 +1,15 @@
 describe DbEntry::Destroy do
-  let!(:anime) { create :anime }
-  let!(:user_rate) { create :user_rate, target: anime }
-  let!(:user_rate_log) { create :user_rate_log, target: anime }
-  let!(:user_history) { create :user_history, target: anime }
+  let(:type) { %i[anime manga ranobe].sample }
 
-  subject! { described_class.call anime }
+  let!(:db_entry) { create type }
+  let!(:user_rate) { create :user_rate, target: db_entry }
+  let!(:user_rate_log) { create :user_rate_log, target: db_entry }
+  let!(:user_history) { create :user_history, target: db_entry }
+
+  subject! { described_class.call db_entry }
 
   it do
-    expect { anime.reload }.to raise_error ActiveRecord::RecordNotFound
+    expect { db_entry.reload }.to raise_error ActiveRecord::RecordNotFound
     expect { user_rate.reload }.to raise_error ActiveRecord::RecordNotFound
     expect { user_rate_log.reload }.to raise_error ActiveRecord::RecordNotFound
     expect { user_history.reload }.to raise_error ActiveRecord::RecordNotFound
