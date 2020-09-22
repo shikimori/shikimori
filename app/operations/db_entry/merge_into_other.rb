@@ -83,20 +83,51 @@ private
   def merge_user_rates
     return unless @entry.respond_to? :rates
 
+    other_rates = @other.rates.to_a
+
     @entry.rates.each do |user_rate|
+      user_id = user_rate.user_id
+      if user_rate.completed?
+        other_rate = other_rates.find { |v| v.user_id == user_id }
+        next if other_rate.completed?
+
+        cleanup_user_rate other_rate
+      end
+
       user_rate.update! target: @other
 
-      UserRateLog
-        .where(user_id: user_rate.user_id)
-        .where(target: @entry)
-        .update_all target_id: @other.id, target_type: @other.class.name
-
-      UserHistory
-        .where(user_id: user_rate.user_id)
-        .where(target: @entry)
-        .update_all target_id: @other.id, target_type: @other.class.name
+      update_user_rate_logs user_id
+      update_user_history user_id
     rescue ActiveRecord::RecordInvalid
     end
+  end
+
+  def update_user_rate_logs user_id
+    UserRateLog
+      .where(user_id: user_id)
+      .where(target: @entry)
+      .update_all target_id: @other.id, target_type: @other.class.base_class.name
+  end
+
+  def update_user_history user_id
+    UserHistory
+      .where(user_id: user_id)
+      .where(target: @entry)
+      .update_all target_id: @other.id, target_type: @other.class.base_class.name
+  end
+
+  def cleanup_user_rate user_rate
+    user_rate.destroy!
+
+    UserRateLog
+      .where(user_id: user_rate.user_id)
+      .where(target: @other)
+      .destroy_all
+
+    UserHistory
+      .where(user_id: user_rate.user_id)
+      .where(target: @other)
+      .destroy_all
   end
 
   def merge_topics
