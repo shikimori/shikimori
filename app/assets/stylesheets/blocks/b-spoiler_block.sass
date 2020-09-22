@@ -16,6 +16,8 @@
   &.is-fullwidth
     & > span
       display: flex
+      font-weight: bold
+      min-height: 27px
       white-space: pre-wrap // otherwise spaces around tags will be ignored
       // align-items: center
       // background: #f3f5f7 !important
@@ -23,7 +25,6 @@
       // border-bottom-width: 2px
       // border-left-width: 4px
       // color: #123 !important
-      min-height: 27px
 
       // &:before
       //   content: ''
@@ -89,14 +90,17 @@
       & > i.edit
         &:before
           +font_shikimori('\e842')
+          font-weight: normal
 
       & > i.expand
         &:before
           +font_shiki_editor('\e83d')
+          font-weight: normal
 
       & > i.center
         &:before
           +font_shiki_editor('\e803')
+          font-weight: normal
 
   & > span
     +shiki_button(#678)
