@@ -1,7 +1,7 @@
 class BbCodes::Tags::VideoTag
   include Singleton
   REGEXP = %r{
-    \[ video=(?<id>\d+) \]
+    \[video=(?<id>\d+)\]
       |
     \[video\] (?<url> .*? ) \[/video\]
   }x
