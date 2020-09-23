@@ -1,24 +1,27 @@
 describe Styles::Compile do
   subject { described_class.call css }
+  let(:user_note) { "/* #{described_class::USER_CONTENT} */\n" }
 
   context '#strip_comments' do
-    let(:css) { '/* test */ test' }
+    let(:css) { '/* test */ a { color: red }' }
     it do
       is_expected.to eq(
         imports: [],
-        compiled_css: "#{described_class::MEDIA_QUERY_CSS} { test }"
+        compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} { a { color: red } }"
       )
     end
   end
 
+  let(:image_url) { 'http://s8.hostingkartinok.com/uploads/images/2016/02/87303db8016e56e8a9eeea92f81f5760.jpg' }
+  let(:camo_url) { UrlGenerator.instance.camo_url image_url }
+
   context '#camo_images' do
-    let(:image_url) { 'http://s8.hostingkartinok.com/uploads/images/2016/02/87303db8016e56e8a9eeea92f81f5760.jpg' }
     let(:css) { "body { background: url(#{quote}#{image_url}#{quote})#{suffix} };" }
 
     quotes = [
       '"',
       "'",
-      '`',
+      # '`',
       ''
     ]
     suffixes = [
@@ -42,13 +45,15 @@ describe Styles::Compile do
             it do
               is_expected.to eq(
                 imports: [],
-                compiled_css: <<-CSS.squish
-                  #{described_class::MEDIA_QUERY_CSS} {
-                    body {
-                      background: url(#{quote}#{UrlGenerator.instance.camo_url image_url}#{quote})#{suffix}
-                    };
-                  }
-                CSS
+                compiled_css: user_note + ( # rubocop:disable RedundantParentheses
+                  <<-CSS.squish
+                    #{described_class::MEDIA_QUERY_CSS} {
+                      body {
+                        background: url(#{quote}#{camo_url}#{quote})#{suffix}
+                      }
+                    }
+                  CSS
+                )
               )
             end
           end
@@ -62,7 +67,8 @@ describe Styles::Compile do
     it do
       is_expected.to eq(
         imports: [],
-        compiled_css: "#{described_class::MEDIA_QUERY_CSS} { body { color: red; }; :blablalba; }"
+        compiled_css: user_note +
+          "#{described_class::MEDIA_QUERY_CSS} { body { color: red; } }"
       )
     end
   end
@@ -70,7 +76,7 @@ describe Styles::Compile do
   describe '#media_query' do
     context 'with styles' do
       context 'with media' do
-        let(:css) { '@media only screen and (min-width: 100px) { test }' }
+        let(:css) { user_note + '@media only screen and (min-width: 100px) { a { color: red } }' }
         it do
           is_expected.to eq(
             imports: [],
@@ -80,30 +86,36 @@ describe Styles::Compile do
       end
 
       context 'without media' do
-        let(:css) { 'test' }
+        let(:css) { 'a { color: red }' }
         it do
           is_expected.to eq(
             imports: [],
-            compiled_css: "#{described_class::MEDIA_QUERY_CSS} { test }"
+            compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} { a { color: red } }"
           )
         end
 
         context 'with multiple imports', :vcr do
           let(:css) do
             <<~CSS
-              @import url('https://thiaya.github.io/1//shi.Modern.css');
               @import url('https://thiaya.github.io/1/shi.Modern.css');
-              zxc
+              @import url('https://thiaya.github.io/2/shi.Modern.css');
+              a { color: red; }
             CSS
           end
 
           it do
             is_expected.to eq(
               imports: [
-                'https://thiaya.github.io/1//shi.Modern.css',
-                'https://thiaya.github.io/1/shi.Modern.css'
+                'https://thiaya.github.io/1/shi.Modern.css',
+                'https://thiaya.github.io/2/shi.Modern.css'
               ],
-              compiled_css: "/* https://thiaya.github.io/1//shi.Modern.css */\nz\n\n/* https://thiaya.github.io/1/shi.Modern.css */\nx\n\n#{described_class::MEDIA_QUERY_CSS} { zxc }"
+              compiled_css: "/* https://thiaya.github.io/1/shi.Modern.css */\n" \
+                "a { background: url('#{camo_url}'); }" \
+                "\n\n" \
+                "/* https://thiaya.github.io/2/shi.Modern.css */\n" \
+                'a { color: blue; }' \
+                "\n\n" \
+                "#{user_note}#{described_class::MEDIA_QUERY_CSS} { a { color: red; } }"
             )
           end
         end

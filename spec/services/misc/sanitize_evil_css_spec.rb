@@ -3,13 +3,20 @@ describe Misc::SanitizeEvilCss do
     subject { Misc::SanitizeEvilCss.call css }
 
     context 'evil css' do
-      let(:css) { '&#1234; ' }
-      it { is_expected.to eq '1234;' }
+      context 'sample' do
+        let(:css) { 'a { color: &#1234; }' }
+        it { is_expected.to eq 'a { color: 1234; }' }
+      end
+
+      context 'sample' do
+        let(:css) { '@import url(evil.css);' }
+        it { is_expected.to eq '' }
+      end
     end
 
     context 'no evil css' do
-      let(:css) { 'background: red' }
-      it { is_expected.to eq 'background: red' }
+      let(:css) { 'a { background: red }' }
+      it { is_expected.to eq 'a { background: red }' }
     end
   end
 end

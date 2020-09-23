@@ -14,10 +14,14 @@ class Styles::Compile
     )$
   /mix
 
+  USER_CONTENT = 'User Custom Styles'
+
   def call
-    compiled_css = strip_comments(media_query(sanitize(camo_images(@css))))
-    imports, compiled_css = extract_imports(compiled_css)
-    compiled_css = inline_imports(download_imports(imports), compiled_css)
+    imports, css_wo_imports = extract_imports(@css)
+    styles_map = download_imports(imports)
+    styles_map[USER_CONTENT] = css_wo_imports
+
+    compiled_css = inline_imports styles_map
 
     {
       compiled_css: compiled_css,
@@ -27,18 +31,26 @@ class Styles::Compile
 
 private
 
-  def inline_imports downloaded_imports, compiled_css
-    imports_css = downloaded_imports
+  def inline_imports styles_map
+    styles_map
+      .select { |_k, v| v.present? }
+      .map { |url, css| compile css, url }
       .select(&:present?)
       .join("\n\n")
-
-    "#{imports_css}\n\n#{compiled_css}".strip
   end
 
   def download_imports imports
-    imports.map do |url|
-      Styles::Download.call url
+    imports.each_with_object({}) do |url, memo|
+      memo[url] = Styles::Download.call(url)
     end
+  end
+
+  def compile css, url
+    compiled_css = strip_comments(
+      media_query(sanitize(camo_images(css)), url == USER_CONTENT)
+    ).strip
+
+    "/* #{url} */\n" + compiled_css if compiled_css.present?
   end
 
   def camo_images css
@@ -55,11 +67,14 @@ private
   end
 
   def sanitize css
-    Misc::SanitizeEvilCss.call(css).strip.gsub(/;;+/, ';').strip
+    Misc::SanitizeEvilCss
+      .call(css)
+      .gsub(/;;+/, ';')
+      .strip
   end
 
-  def media_query css
-    if css.blank? || css.gsub(%r{^/\* AUTO=.*}, '').include?('@media')
+  def media_query css, is_user_content
+    if !is_user_content || css.blank? || css.gsub(%r{^/\* AUTO=.*}, '').include?('@media')
       css
     else
       "#{MEDIA_QUERY_CSS} { #{css} }"

@@ -5,10 +5,10 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
     # suspicious javascript-type words
     /(\bdata:\b|eval|cookie|\bwindow\b|\bparent\b|\bthis\b)/i,
     /behaviou?r|expression|moz-binding|@charset/i,
-    /(java|vb)?script|[\<]|\\\w/i,
+    /(java|vb)?script|<|\\\w/i,
     # back slash, html tags,
     # /[\<>]/,
-    /[\<]/,
+    /</,
     # high bytes -- suspect
     # /[\x7f-\xff]/,
     # low bytes -- suspect
@@ -17,10 +17,9 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
   ]
 
   def call
-    EVIL_CSS
-      .inject(css) do |styles, regex|
-        styles.gsub(regex, '')
-      end
-      .strip
+    Sanitize::CSS.stylesheet(
+      (EVIL_CSS.inject(@css) { |styles, regex| styles.gsub(regex, '') }),
+      Sanitize::Config::RELAXED
+    )
   end
 end
