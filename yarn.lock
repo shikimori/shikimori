@@ -8527,17 +8527,17 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-shiki-decorators@^0.13.2:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/shiki-decorators/-/shiki-decorators-0.13.2.tgz#685137824c5bafb6f1bbec15d4fcdcf677fe436d"
-  integrity sha512-QROu7kpuWYZeWnbWMfzVaS2guiTptB7wHeNyY1s5IphWkuvOZY8I7FOATjYWukg5LxEsDooIr7dsMtael2TDWA==
+shiki-decorators@^0.13.3:
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/shiki-decorators/-/shiki-decorators-0.13.3.tgz#18bc3d1f8aea6bacbfd531ebd7942033ad936c5a"
+  integrity sha512-ZDr6XOX1CuWRnSlhlw9IQr+5qAxmheC4+aMMwDBOVpngKhF8h49+aBxlsUzKp96LR8vuEn3J2zkYeiR04Y1mtw==
   dependencies:
     bind-decorator "1.0.11"
 
-shiki-editor@^0.13.2:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.13.2.tgz#cc0e797a53df8d547245b4881a76a8f34efaada3"
-  integrity sha512-XftBO56uX/LIZ2e/Qaam2zd+eW+hrs5x7eWFehRHO3VUQFJ3JummlPZZjRB/0bDxRoxt2/ohj+uNl5HAY+b9sw==
+shiki-editor@^0.13.3:
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.13.3.tgz#26b8b4e0dd0f607f50b8bd0579125b416dba9ea4"
+  integrity sha512-awepAMDt7YMJO6denMIN04/G0E3FsodpERXKanFj00QyII8kFngbq3maFYFR7Tf/FPfeYC0cssvun80UUK3jZQ==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@popperjs/core" "^2.4.4"
@@ -8554,22 +8554,23 @@ shiki-editor@^0.13.2:
     prosemirror-tables "^1.1.0"
     prosemirror-utils "^0.9.6"
     prosemirror-view "1.15.6"
+    vue-dragscroll "^2.1.0"
     vue-keypress "^2.1.1"
     withinviewport "^2.1.2"
 
-shiki-uploader@^0.13.2:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.13.2.tgz#2cabd9ee13179e1c8aec5138509ad9e607335350"
-  integrity sha512-/+2Kh3nvp4RNPv9u8pNF7OpMhM6h4kmDsFVwmaXIF0JUQtbnGleYjt7JkpyIsqsa74glHbjiSi2EHV2orT4aLw==
+shiki-uploader@^0.13.3:
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.13.3.tgz#d867af594dd7620c23dcfe4388db4f72f1d32117"
+  integrity sha512-9aipKoOdTEqqUp7oczWFaLoahOfCKh9WT5z+IVn24B/aHxeQbjj/MPpzhYTnXajA9ocFfcGBd2jQx6Sa90KfMw==
   dependencies:
     "@uppy/core" "^1.11.0"
     "@uppy/xhr-upload" "^1.6.0"
     is-visible "^2.2.0"
 
-shiki-utils@^0.13.2:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.13.2.tgz#45e9557e5538de1fa6306e0957144cc50c6d886d"
-  integrity sha512-ZRHSLCmv6RX+XeiT2uU2PunCNmS+jAFA6Fahw7hoYfztw4AtVJH4ybPXinS6THhqaCo9ACA2pz8mSxtvE9NNyA==
+shiki-utils@^0.13.3:
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.13.3.tgz#25e5c685294197aaa754b72b0633ef55c844ee66"
+  integrity sha512-+xtHNAd+CP4jT7FYY6H/PxHxGTK5Lrnak2ds4I0g4CfV+kuAR9op9f7P2WDbp/NHIu9G3zrZQJLIePqlaCmN3Q==
   dependencies:
     toastify-js "^1.8.0"
 
@@ -9636,6 +9637,11 @@ void-elements@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha1-YU9/v42AHwu18GYfWy9XhXUOTwk=
+
+vue-dragscroll@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/vue-dragscroll/-/vue-dragscroll-2.1.0.tgz#5be18df3ea41b3fab9d0593780194ed08d22418a"
+  integrity sha512-ZNcvOdrnq9w4US2RqZOfp2cCJzEz1p4xZ1w4I+xKSAFlEOrXbryLe/iclspHH57dco5QT3Azd8/KD930WzadiQ==
 
 vue-eslint-parser@^7.0.0:
   version "7.1.0"
