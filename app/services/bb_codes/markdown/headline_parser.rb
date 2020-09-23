@@ -1,10 +1,13 @@
 class BbCodes::Markdown::HeadlineParser
   include Singleton
 
-  HEADLINES_REGEXP = /
+  HEADLINES_REGEXP = %r{
     (?: ^ | (?<prefix> #{BbCodes::BLOCK_TAG_EDGE_PREFIX_REGEXP.source} ) )
-    (?<level>\#{1,5})\ (?<text>.*) (?:\n|$)
-  /x
+    (?<level>\#{1,5})
+    \ (?<text>
+      (?: \[(?<tag>#{BbCodes::MULTILINE_BBCODES.join('|')})[\s\S]+?\[/\k<tag>\] | . )*+
+    ) (?:\n|$)
+  }x
 
   def format text # rubocop:disable MethodLength
     text.gsub(HEADLINES_REGEXP) do |match|
