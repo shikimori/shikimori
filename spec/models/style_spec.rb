@@ -22,15 +22,17 @@ describe Style do
     describe '#compile!' do
       include_context :timecop
       let(:style) { build :style, css: css, created_at: 1.hour.ago, updated_at: 1.hour.ago }
-      let(:css) { '/* test */ test' }
+      let(:css) { '/* test */ a { color: red; }' }
 
       subject { style.compile! }
+      let(:compiled_style) do
+        "/* " + Styles::Compile::USER_CONTENT + " */\n" + Styles::Compile::MEDIA_QUERY_CSS +
+          ' { a { color: red; } }'
+      end
 
       it do
-        is_expected.to eq "#{Styles::Compile::MEDIA_QUERY_CSS} { test }"
-        expect(style.reload.compiled_css).to eq(
-          "#{Styles::Compile::MEDIA_QUERY_CSS} { test }"
-        )
+        is_expected.to eq compiled_style
+        expect(style.reload.compiled_css).to eq compiled_style
         expect(style.updated_at).to be_within(0.1).of Time.zone.now
       end
     end
