@@ -79,8 +79,8 @@ export default class ShikiEditorV2 extends View {
           content: this.input.value
         },
         on: {
-          preview(node) {
-            $(node).process();
+          preview({ node, JS_EXPORTS }) {
+            $(node).process(JS_EXPORTS);
           }
         }
       })
