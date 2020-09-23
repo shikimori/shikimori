@@ -148,20 +148,8 @@ if (process.env.NODE_ENV === 'development') {
 `.trim();
 
   TEST_DEMO_CONTENT = `
-[comment=6349227]Slavva[/comment], [comment=6349228]Slavva[/comment], [comment=6349229]Slavva[/comment], [comment=6349253]Slavva[/comment], всё исправил кроме
-[code]
-- || Текст спойлера
-после пробела. ||
-[/code]
-
-Такое работать не будет и не должно. Это инлайновый спойлер, спойлер на одну строку. Визуальный редактор, который вскоре заменит текущий, такого кода генерировать не будет. Визуальный редактор для данного примера сгенерирует вот такой код
-[code]
-- ||Текст спойлера||
-  ||после пробела||
-[/code]
-
-- ||Текст спойлера||
-  ||после пробела||
+[url=https://www.youtube.com/channel/UCJ10M7ftQN7ylM6NaPiEB6w][image=886188][div=text]ÜberMarginal[/div][/url]
+[url=https://www.youtube.com/watch?v=FUaZL9l7Lqk]www.youtube.com[/url]
 `.trim();
 }
 

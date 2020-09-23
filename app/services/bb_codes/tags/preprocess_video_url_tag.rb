@@ -1,4 +1,4 @@
-class BbCodes::Tags::VideoUrlTag
+class BbCodes::Tags::PreprocessVideoUrlTag
   include Singleton
 
   PREPROCESS_REGEXP = %r{

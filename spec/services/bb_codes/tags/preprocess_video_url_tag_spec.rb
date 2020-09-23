@@ -1,7 +1,5 @@
-describe BbCodes::Tags::VideoUrlTag do
-  let(:tag) { BbCodes::Tags::VideoUrlTag.instance }
-
-  subject { tag.format text }
+describe BbCodes::Tags::PreprocessVideoUrlTag do
+  subject { described_class.instance.format text }
   let(:text) { url }
   let(:url) { 'https://www.youtube.com/watch?v=og2a5lngYeQ' }
 
