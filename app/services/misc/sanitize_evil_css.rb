@@ -16,10 +16,18 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
     /&\#/ # bad charset
   ]
 
+  IMPORTS_REGEXP = /
+    @import \s+ url \( ['"]? (?<url>.*?) ['"]? \);?
+    [\n\r]*
+  /mix
+
   def call
-    Sanitize::CSS.stylesheet(
-      (EVIL_CSS.inject(@css) { |styles, regex| styles.gsub(regex, '') }),
-      Sanitize::Config::RELAXED
-    )
+    EVIL_CSS
+      .inject(@css) { |styles, regex| styles.gsub(regex, '') }
+      .gsub(IMPORTS_REGEXP, '')
+    # Sanitize::CSS.stylesheet(
+    #   (EVIL_CSS.inject(@css) { |styles, regex| styles.gsub(regex, '') }),
+    #   Sanitize::Config::RELAXED
+    # )
   end
 end

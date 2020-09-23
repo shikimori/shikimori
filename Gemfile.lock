@@ -615,10 +615,6 @@ GEM
     ruby-progressbar (1.10.1)
     ruby_parser (3.15.0)
       sexp_processor (~> 4.9)
-    sanitize (5.2.1)
-      crass (~> 1.0.2)
-      nokogiri (>= 1.8.0)
-      nokogumbo (~> 2.0)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -846,7 +842,6 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   ruby-esvidi!
-  sanitize
   sassc-rails
   scout_apm
   shallow_attributes!

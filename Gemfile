@@ -75,7 +75,7 @@ gem 'concurrent-ruby-edge'
 
 gem 'nokogiri'
 gem 'nokogumbo'
-gem 'sanitize'
+# gem 'sanitize'
 
 # gem 'mobylette' # для is_mobile_request в application_controller#show_social?. гем добавляет :mobyle mime type. с ним в ипаде сайт падает сразу после регистрации
 gem 'browser' # для детекта internet explorer в рендере shiki_editor

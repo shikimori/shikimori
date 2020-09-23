@@ -16,7 +16,7 @@ describe Styles::Compile do
   let(:camo_url) { UrlGenerator.instance.camo_url image_url }
 
   context '#camo_images' do
-    let(:css) { "body { background: url(#{quote}#{image_url}#{quote})#{suffix} };" }
+    let(:css) { "body { background: url(#{quote}#{image_url}#{quote})#{suffix} }" }
 
     quotes = [
       '"',
@@ -63,7 +63,7 @@ describe Styles::Compile do
     it do
       is_expected.to eq(
         imports: [],
-        compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} {\na { color: red }\n}"
+        compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} {\na { color: red }; :blablalba;\n}"
       )
     end
   end
