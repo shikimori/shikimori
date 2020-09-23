@@ -8,6 +8,7 @@ class BbCodes::Tags::ListTag
   }mix
 
   BBCODE_LIST_ITEM_REGEXP = %r{
+    (?<! = )
     \[\*\]
     (?<li>
       (?: (?! \[\* | \[/list\] | \n\n). )+
