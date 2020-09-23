@@ -175,7 +175,10 @@ describe Api::V1::ShikiEditorsController do
     let(:text) { '[b]test[/b]' }
     it do
       expect(response).to have_http_status :success
-      expect(response.body).to eq '<strong>test</strong>'
+      expect(json).to eq(
+        html: '<strong>test</strong>',
+        JS_EXPORTS: nil
+      )
     end
   end
 end

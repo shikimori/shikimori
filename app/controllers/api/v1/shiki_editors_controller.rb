@@ -47,9 +47,16 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
   end
 
   def preview
-    render plain: BbCodes::Text.call(
-      Banhammer.instance.censor(params[:text] || '')
+    text = JsExports::Supervisor.instance.sweep(
+      BbCodes::Text.call(
+        Banhammer.instance.censor(params[:text] || '')
+      )
     )
+
+    render json: {
+      html: text,
+      JS_EXPORTS: JsExports::Supervisor.instance.export(current_user)
+    }
   end
 
 private
