@@ -7,7 +7,7 @@ describe Styles::Compile do
     it do
       is_expected.to eq(
         imports: [],
-        compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} { a { color: red } }"
+        compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} {\na { color: red }\n}"
       )
     end
   end
@@ -45,15 +45,11 @@ describe Styles::Compile do
             it do
               is_expected.to eq(
                 imports: [],
-                compiled_css: user_note + ( # rubocop:disable RedundantParentheses
-                  <<-CSS.squish
-                    #{described_class::MEDIA_QUERY_CSS} {
-                      body {
-                        background: url(#{quote}#{camo_url}#{quote})#{suffix}
-                      }
-                    }
-                  CSS
-                )
+                compiled_css: user_note + "#{described_class::MEDIA_QUERY_CSS} {\n" \
+                  'body {' \
+                    " background: url(#{quote}#{camo_url}#{quote})#{suffix} " \
+                  "}\n" \
+                '}'
               )
             end
           end
@@ -63,12 +59,11 @@ describe Styles::Compile do
   end
 
   context '#sanitize' do
-    let(:css) { 'body { color: red; }; javascript:blablalba;;' }
+    let(:css) { 'a { color: red }; javascript:blablalba;;' }
     it do
       is_expected.to eq(
         imports: [],
-        compiled_css: user_note +
-          "#{described_class::MEDIA_QUERY_CSS} { body { color: red; } }"
+        compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} {\na { color: red }\n}"
       )
     end
   end
@@ -90,7 +85,7 @@ describe Styles::Compile do
         it do
           is_expected.to eq(
             imports: [],
-            compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} { a { color: red } }"
+            compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} {\na { color: red }\n}"
           )
         end
 
@@ -115,7 +110,7 @@ describe Styles::Compile do
                 "/* https://thiaya.github.io/2/shi.Modern.css */\n" \
                 'a { color: blue; }' \
                 "\n\n" \
-                "#{user_note}#{described_class::MEDIA_QUERY_CSS} { a { color: red; } }"
+                "#{user_note}#{described_class::MEDIA_QUERY_CSS} {\na { color: red; }\n}"
             )
           end
         end

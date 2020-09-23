@@ -19,9 +19,11 @@ class Styles::Compile
   def call
     imports, css_wo_imports = extract_imports(@css)
     styles_map = download_imports(imports)
-    styles_map[USER_CONTENT] = css_wo_imports
 
-    compiled_css = inline_imports styles_map
+    compiled_css = (
+      inline_imports(styles_map) + "\n\n" +
+        media_query(compile(css_wo_imports), USER_CONTENT)
+    ).strip
 
     {
       compiled_css: compiled_css,
@@ -45,12 +47,26 @@ private
     end
   end
 
-  def compile css, url
-    compiled_css = strip_comments(
-      media_query(sanitize(camo_images(css)), url == USER_CONTENT)
-    ).strip
+  def compile css, url = nil
+    compiled_css = strip_comments(sanitize(camo_images(css))).strip
 
-    "/* #{url} */\n" + compiled_css if compiled_css.present?
+    if compiled_css.present?
+      url ?
+        "/* #{url} */\n" + compiled_css :
+        compiled_css
+    end
+  end
+
+  def media_query css, url
+    return '' if css.blank?
+
+    prefix = "/* #{url} */\n"
+
+    if css.gsub(%r{^/\* AUTO=.*}, '').include?('@media')
+      prefix + css
+    else
+      "#{prefix}#{MEDIA_QUERY_CSS} {\n#{css}\n}"
+    end
   end
 
   def camo_images css
@@ -71,14 +87,6 @@ private
       .call(css)
       .gsub(/;;+/, ';')
       .strip
-  end
-
-  def media_query css, is_user_content
-    if !is_user_content || css.blank? || css.gsub(%r{^/\* AUTO=.*}, '').include?('@media')
-      css
-    else
-      "#{MEDIA_QUERY_CSS} { #{css} }"
-    end
   end
 
   def strip_comments css
