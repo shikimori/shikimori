@@ -1,11 +1,12 @@
 class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
+  # rubocop:disable RedundantRegexpEscape
   URL_REGEX = %r{
     (?:https?:)? // (?:www\.)?
     (?:
       youtube\.com/
       .*? (?: &(?:amp;)? | \? )
       v=(?<key>[\w_-]+)
-      [^\ $#<\[\r\n]*
+      [^\ $#<\[\]\r\n]*
       (?:\#(?:t|at)=(?<time>\d+))?
 
       |
@@ -21,6 +22,7 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
       (?:\?start=(?<time>\w+))?
     )
   }xi
+  # rubocop:enable RedundantRegexpEscape
 
   def image_url
     "//img.youtube.com/vi/#{matches[:key]}/hqdefault.jpg"
