@@ -26,8 +26,8 @@ describe Style do
 
       subject { style.compile! }
       let(:compiled_style) do
-        "/* " + Styles::Compile::USER_CONTENT + " */\n" + Styles::Compile::MEDIA_QUERY_CSS +
-          ' { a { color: red; } }'
+        '/* ' + Styles::Compile::USER_CONTENT + " */\n" + Styles::Compile::MEDIA_QUERY_CSS +
+          " {\na { color: red; }\n}"
       end
 
       it do
