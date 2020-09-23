@@ -41,4 +41,14 @@ describe BbCodes::Markdown::SpoilerInlineParser do
     let(:text) { "a ||te\nst|| b" }
     it { is_expected.to eq text }
   end
+
+  context 'sample' do
+    let(:text) { 'a ||te[spoiler]st|| b' }
+    it { is_expected.to eq text }
+  end
+
+  context 'sample' do
+    let(:text) { 'a ||te[*]st|| b' }
+    it { is_expected.to eq text }
+  end
 end

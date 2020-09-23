@@ -148,8 +148,11 @@ if (process.env.NODE_ENV === 'development') {
 `.trim();
 
   TEST_DEMO_CONTENT = `
-[url=https://www.youtube.com/channel/UCJ10M7ftQN7ylM6NaPiEB6w][image=886188][div=text]ÜberMarginal[/div][/url]
-[url=https://www.youtube.com/watch?v=FUaZL9l7Lqk]www.youtube.com[/url]
+||[poll=1]||
+||[quote=Никнейм.]Текст цитаты.[/quote]||
+||[spoiler_block]Текст спойлера.[/spoiler_block]||
+||[*]Текст спойлера.||
+Текст ниже спойлера.
 `.trim();
 }
 

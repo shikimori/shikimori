@@ -112,6 +112,7 @@ private
 
   def inline? label, content
     label.in?(INLINE_LABELS) && content.match?(TEXT_CONTENT_REGEXP) &&
+      !content.match?(BbCodes::Markdown::SpoilerInlineParser::FORBIDDEN_BBCODES_REGEXP) &&
       content.size <= MAX_DEFAULT_SPOILER_INLINE_SIZE
   end
 end
