@@ -13,10 +13,10 @@ describe BbCodes::Tags::PreprocessVideoUrlTag do
   context 'wrapped in url' do
     let(:text) { "[url]https://www.youtube.com/watch?v=#{hash}[/url]" }
     it { is_expected.to eq text }
-  end
 
-  context 'wrapped in url' do
-    let(:text) { "[url=#{url}]#{url}[/url]" }
-    it { is_expected.to eq text }
+    context '[url=...]' do
+      let(:text) { "[url=#{url}]#{url}[/url]" }
+      it { is_expected.to eq text }
+    end
   end
 end

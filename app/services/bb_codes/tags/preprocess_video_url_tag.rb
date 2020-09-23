@@ -1,21 +1,24 @@
 class BbCodes::Tags::PreprocessVideoUrlTag
   include Singleton
 
-  PREPROCESS_REGEXP = %r{
-    \[url=(?<url> #{VideoExtractor.matcher} )\]
-      .*?
-    \[/url\]
-  }mix
-  VIDEO_REGEXP = /
-    (?: \[url (?:=[^\]]+?)? \] )?
+  VIDEO_REGEXP = %r{
+    (?<! = | =http: | =https: )
+    (?<url_prefix> \[url (?:= (?: [^\]]+? ) )? \] )?
     (?<url> #{VideoExtractor.matcher} )
-  /mix
+    (?<url_suffix> \[/url\] )?
+  }mix
 
   def format text
     text.gsub VIDEO_REGEXP do |match|
-      next match if match.starts_with? '[url'
+      url = $LAST_MATCH_INFO[:url]
+      url_prefix = $LAST_MATCH_INFO[:url_prefix]
+      url_suffix = $LAST_MATCH_INFO[:url_suffix]
 
-      "[video]#{$LAST_MATCH_INFO[:url]}[/video]"
+      if url_prefix.present? && url_suffix.present?
+        match
+      else
+        "[video]#{url}[/video]"
+      end
     end
   end
 end
