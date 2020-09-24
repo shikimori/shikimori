@@ -14,8 +14,8 @@ describe Misc::SanitizeEvilCss do
       end
 
       context 'sample' do
-        let(:css) { '@import' }
-        it { is_expected.to eq '' }
+        let(:css) { '@im@importport url(http://evil.css)' }
+        it { is_expected.to eq 'url(http://evil.css)' }
       end
 
       context 'sample' do
