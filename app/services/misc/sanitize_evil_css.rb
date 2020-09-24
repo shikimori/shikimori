@@ -14,6 +14,7 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
     # low bytes -- suspect
     /[\x00-\x08\x0B\x0C\x0E-\x1F]+/,
     /&\#/, # bad charset
+    %r{/\* .*? \*/\s*[\n\r]*}mix, # comments
     /(?: @*import \s+ url \( ['"]? .*? ['"]? \); | @+import ) ?[\n\r]*/mix # imports
   ]
 
@@ -25,7 +26,7 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
       break if is_done
     end
 
-    fixed_css
+    fixed_css.gsub(/;;+/, ';')
   end
 
 private

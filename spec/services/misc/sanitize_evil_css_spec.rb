@@ -19,6 +19,11 @@ describe Misc::SanitizeEvilCss do
       end
 
       context 'sample' do
+        let(:css) { '@im/**/port url(http://evil.css);' }
+        it { is_expected.to eq '' }
+      end
+
+      context 'sample' do
         let(:css) { '@@@import url();import url();import url(http://evil.css);' }
         it { is_expected.to eq '' }
       end

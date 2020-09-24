@@ -48,7 +48,7 @@ private
   end
 
   def compile css, url = nil
-    compiled_css = strip_comments(sanitize(camo_images(css))).strip
+    compiled_css = sanitize(camo_images(css))
 
     if compiled_css.present?
       url ?
@@ -83,14 +83,7 @@ private
   end
 
   def sanitize css
-    Misc::SanitizeEvilCss
-      .call(css)
-      .gsub(/;;+/, ';')
-      .strip
-  end
-
-  def strip_comments css
-    css.gsub(%r{/\* .*? \*/\s*[\n\r]*}mix, '')
+    Misc::SanitizeEvilCss.call(css)
   end
 
   def extract_imports css
