@@ -27,6 +27,21 @@ describe Misc::SanitizeEvilCss do
         let(:css) { '@@@import url();import url();import url(http://evil.css);' }
         it { is_expected.to eq '' }
       end
+
+      context 'sample' do
+        let(:css) { '\zxc' }
+        it { is_expected.to eq 'xc' }
+      end
+    end
+
+    context 'fix content' do
+      let(:css) { "content: '\\\\_f0e0';" }
+      it { is_expected.to eq "content: '\\f0e0';" }
+
+      context 'sample' do
+        let(:css) { "content: '\\f0e0';" }
+        it { is_expected.to eq "content: '\\f0e0';" }
+      end
     end
 
     context 'no evil css' do
