@@ -58,7 +58,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     og page_title: i18n_t('favorites')
 
     breadcrumb i18n_t('favorites'), favorites_profile_url(@resource)
-    @back_url = favorites_profile_url(@resource)
+    @back_url = favorites_profile_url(@resource) if params[:edit]
 
     @favorites_view = Profiles::FavoritesView.new(@resource)
     redirect_to @resource.url if @favorites_view.collection.none?
