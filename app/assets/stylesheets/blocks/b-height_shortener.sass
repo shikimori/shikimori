@@ -28,7 +28,8 @@ $text_margin: 0px
     transition: none
 
     span
-      border-bottom: 1px dotted $link-border
+      +css4
+        border-bottom: 1px dotted var(--link-border-color)
       display: inline-block
 
     +gte_laptop
