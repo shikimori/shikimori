@@ -177,9 +177,9 @@ private
   def noindex?
     params[:rel] ||
       request.url.include?('order') ||
-      og.description.blank? ||
       @view.collection.empty? ||
       params[:search] ||
       request.url.include?('!')
+      # og.description.blank? ||
   end
 end
