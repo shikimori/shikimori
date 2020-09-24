@@ -56,7 +56,8 @@ header.head
 
       +gte_laptop
         &:hover:after
-          border-bottom: 1px solid $link-border-hover
+          +css4
+            border-bottom: 1px solid var(--link-border-hover-color)
 
   .misc, a.edit
     color: $gray-2

@@ -1,5 +1,7 @@
 @import globals
+@import mixins/css4
 @import mixins/link
+@import mixins/responsive
 
 $shade_height: 15px
 $text_margin: 0px
@@ -29,11 +31,14 @@ $text_margin: 0px
       border-bottom: 1px dotted $link-border
       display: inline-block
 
-    &:hover span
-      border-bottom-color: $link-border-hover
+    +gte_laptop
+      &:hover span
+        +css4
+          border-bottom-color: var(--link-border-hover-color)
 
     &:active span
-      border-bottom-color: $link-border-active
+      +css4
+        border-bottom-color: var(--link-border-active-color)
 
     &:after
       content: '↑'

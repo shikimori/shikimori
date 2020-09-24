@@ -1,3 +1,4 @@
+@import mixins/css4
 @import mixins/block
 
 .p-topics-new
@@ -6,7 +7,8 @@
       .type-name > span
         text-decoration: underline
       .type-preview
-        border-color: $link-border-hover
+        +css4
+          border-color: var(--link-border-hover-color)
 
     .type-name
       display: block

@@ -21,13 +21,15 @@
   +link_color($color)
   cursor: pointer
 
-  &:hover
-    text-decoration: underline
-    border-bottom-color: $link-border-hover
-
   +gte_laptop
-    &:active
-      border-bottom-color: $link-border-active
+    &:hover
+      text-decoration: underline
+      +css4
+        border-bottom-color: var(--link-border-hover-color)
+
+  &:active
+    +css4
+      border-bottom-color: var(--link-border-active-color)
 
 /* голубая ссылка аяксового действия
 //=ajax_link
@@ -55,14 +57,16 @@
   line-height: 1
   user-select: none
 
-  &:hover
-    text-decoration: none !important
-    border-bottom-color: $link-border-hover
-
   +gte_laptop
-    &:active
+    &:hover
+      +css4
+        border-bottom-color: var(--link-border-hover-color)
       text-decoration: none !important
-      border-bottom-color: $link-border-active
+
+  &:active
+    +css4
+      border-bottom-color: var(--link-border-active-color)
+    text-decoration: none !important
 
   &.active
     font-weight: bold
