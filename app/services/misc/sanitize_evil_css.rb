@@ -18,8 +18,8 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
     /(?: @*import \s+ url \( ['"]? .*? ['"]? \); | @+import ) ?[\n\r]*/mix # imports
   ]
 
-  SPECIAL_REGEXP = /((?>content: ['"].*?['"]))|\\\w/
-  FIX_CONTENT_REGEXP = /(content: ['"]\\)\\_(.*?['"])/
+  SPECIAL_REGEXP = /((?>content: ?['"].*?['"]))|\\\w/
+  FIX_CONTENT_REGEXP = /(content: ?['"]\\)\\_(.*?['"])/
 
   def call
     fixed_css = fix_content(@css)

@@ -44,14 +44,19 @@ describe Misc::SanitizeEvilCss do
       end
     end
 
-    context 'no evil css' do
+    context 'sample' do
       let(:css) { 'a { background: red }' }
-      it { is_expected.to eq 'a { background: red }' }
+      it { is_expected.to eq css }
+    end
 
-      context 'sample' do
-        let(:css) { '.description { background: red }' }
-        it { is_expected.to eq '.description { background: red }' }
-      end
+    context 'sample' do
+      let(:css) { '.description { background: red }' }
+      it { is_expected.to eq css }
+    end
+
+    context 'sample' do
+      let(:css) { ".b-rate .stars.background::before{content:'\\e83a\\e83a\\e83a\\e83a\\e83a'}" }
+      it { is_expected.to eq css }
     end
   end
 end
