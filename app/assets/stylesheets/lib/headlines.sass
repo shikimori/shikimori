@@ -54,8 +54,9 @@ header.head
       body[data-locale=en] &:after
         margin: -9px 0 0 7px
 
-      &:hover:after
-        border-bottom: 1px solid $link-border-hover
+      +gte_laptop
+        &:hover:after
+          border-bottom: 1px solid $link-border-hover
 
   .misc, a.edit
     color: $gray-2
@@ -121,17 +122,14 @@ header.head
       position: absolute
       right: 10px
 
-    &:hover
-      //color: $link-hover
+    +gte_laptop
+      &:hover:before
+        +css4
+          color: var(--link-hover-color)
 
-      &:before
-        color: $link-hover
-
-    &:active
-      //color: $link-active
-
-      &:before
-        color: $link-active
+    &:active:before
+      +css4
+        color: var(--link-active-color)
 
   &.linkheadline
     & > a
@@ -141,14 +139,16 @@ header.head
       &:before
         color: inherit
 
-      &:hover,
-      &:hover:before
-        color: $link-hover
-
       +gte_laptop
-        &:active,
-        &:active:before
-          color: $link-active
+        &:hover,
+        &:hover:before
+          +css4
+            color: var(--link-hover-color)
+
+      &:active,
+      &:active:before
+        +css4
+          color: var(--link-active-color)
 
   .misc-links
     +css4
@@ -171,10 +171,12 @@ header.head
       text-transform: none
 
       &.selected
-        color: $link-hover
+        +css4
+          color: var(--link-hover-color)
 
         &:hover
-          color: $link-active
+          +css4
+            color: var(--link-active-color)
 
 h1, h2, h3, h4, h5
   &.headline,

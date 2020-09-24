@@ -1,7 +1,9 @@
 @import globals
 @import mixins/block
+@import mixins/css4
 @import mixins/ellipsis2
 @import mixins/link
+@import mixins/responsive
 
 .b-animes-menu
   #rates_statuses_stats
@@ -45,9 +47,11 @@
     .entry
       display: block
 
-      &:hover .name
-        color: $link-hover
-        text-decoration: underline
+      +gte_laptop
+        &:hover .name
+          +css4
+            color: var(--link-hover-color)
+          text-decoration: underline
 
       .name
         +ellipsis2

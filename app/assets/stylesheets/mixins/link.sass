@@ -1,4 +1,5 @@
 @import globals
+@import mixins/css4
 @import mixins/responsive
 
 /* цвет, становящийся ссылковым по наведению
@@ -6,12 +7,14 @@
   //transition: color 0.2s ease
   color: $color
 
-  &:hover
-    color: $link-hover
-
   +gte_laptop
-    &:active
-      color: $link-active
+    &:hover
+      +css4
+        color: var(--link-hover-color)
+
+  &:active
+    +css4
+      color: var(--link-active-color)
 
 /* голубая ссылка без подчёркивания
 =link($color: $link)

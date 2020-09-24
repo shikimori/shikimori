@@ -1,5 +1,7 @@
+@import mixins/css4
 @import mixins/ellipsis2
 @import mixins/link
+@import mixins/responsive
 
 .b-oauth_application
   display: block
@@ -38,10 +40,12 @@
   .name-logo
     +ellipsis2
 
-    &:hover
-      .name
-        color: $link-hover
-        text-decoration: underline
+    +gte_laptop
+      &:hover
+        .name
+          +css4
+            color: var(--link-hover-color)
+          text-decoration: underline
 
     .name
       +ellipsis2

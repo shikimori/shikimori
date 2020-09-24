@@ -14,11 +14,13 @@
     +gte_laptop
       &:hover
         .title
-          color: $link-hover
+          +css4
+            color: var(--link-hover-color)
 
     &:active
       .title
-        color: $link-active
+        +css4
+          color: var(--link-active-color)
 
   .title
     +ellipsis2

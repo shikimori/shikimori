@@ -1,5 +1,7 @@
 @import globals
+@import mixins/css4
 
 =selected
-  color: $link-hover
+  +css4
+    color: var(--link-hover-color)
   border-bottom-color: $link-border-hover

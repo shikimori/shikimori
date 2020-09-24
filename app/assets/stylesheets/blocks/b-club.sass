@@ -1,6 +1,8 @@
 @import mixins/comma_separated
+@import mixins/css4
 @import mixins/ellipsis2
 @import mixins/link
+@import mixins/responsive
 
 .b-club
   &.avatar
@@ -13,10 +15,12 @@
   .name-logo
     +ellipsis2
 
-    &:hover
-      .name
-        color: $link-hover
-        text-decoration: underline
+    +gte_laptop
+      &:hover
+        .name
+          +css4
+            color: var(--link-hover-color)
+          text-decoration: underline
 
   .logo
     float: left

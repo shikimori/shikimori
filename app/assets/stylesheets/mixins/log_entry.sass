@@ -1,4 +1,5 @@
 @import globals
+@import mixins/css4
 @import mixins/date
 @import mixins/link
 @import mixins/responsive
@@ -31,8 +32,10 @@
   a,.link
     +link
 
-    &:hover .id-label
-      color: $link-hover
+    +gte_laptop
+      &:hover .id-label
+        +css4
+          color: var(--link-hover-color)
 
   .id-label
     padding-right: 1px

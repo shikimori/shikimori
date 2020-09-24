@@ -1,7 +1,8 @@
 @import mixins/block
+@import mixins/css4
 @import mixins/float_column
-@import mixins/responsive
 @import mixins/icons
+@import mixins/responsive
 
 .p-profiles-favorites
   .is-own-profile
@@ -42,10 +43,12 @@
 
       +gte_laptop
         &:hover:before
-          color: $link-hover
+          +css4
+            color: var(--link-hover-color)
 
       &:active:before
-        color: $link-active
+        +css4
+          color: var(--link-active-color)
 
       &:after
         background: transparent

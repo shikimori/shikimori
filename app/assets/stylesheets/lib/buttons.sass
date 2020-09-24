@@ -1,3 +1,4 @@
+@import mixins/css4
 @import mixins/icons
 @import mixins/responsive
 
@@ -48,13 +49,15 @@
     a
       color: #666
 
-      &:hover
-        color: $link-hover
-        text-decoration: none
-
       +gte_laptop
-        &:active
-          color: $link-active
+        &:hover
+          +css4
+            color: var(--link-hover-color)
+          text-decoration: none
+
+      &:active
+        +css4
+          color: var(--link-active-color)
 
     span:last-child,
     span:last-child

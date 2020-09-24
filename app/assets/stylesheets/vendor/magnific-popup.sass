@@ -1,3 +1,5 @@
+@import mixins/responsive
+
 .mfp-container
   &:focus,
   &:active,
@@ -46,6 +48,7 @@
     width: 100%
     z-index: 1
 
-  &:hover
-    .mfp-close
-      opacity: 1
+  +gte_laptop
+    &:hover
+      .mfp-close
+        opacity: 1

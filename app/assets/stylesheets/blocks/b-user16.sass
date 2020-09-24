@@ -1,3 +1,4 @@
+@import mixins/css4
 @import mixins/link
 
 $offset: 20px
@@ -18,11 +19,12 @@ $offset: 20px
       text-decoration: underline
 
     a
-      color: $link-hover
+      +css4
+        color: var(--link-hover-color)
 
-  +gte_laptop
-    &:active a
-      color: $link-active
+  &:active a
+    +css4
+      color: var(--link-active-color)
 
   img
     position: absolute

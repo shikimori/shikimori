@@ -1,10 +1,11 @@
 @import globals
-// @import mixins/css4
+@import mixins/css4
 @import mixins/ellipsis2
 @import mixins/float_column
 @import mixins/link
 @import mixins/font_shikimori
 @import mixins/two_line_ellipsis
+@import mixins/responsive
 
 $max_minified_width: 162px
 $max_width: 167px
@@ -25,9 +26,10 @@ $max_width: 167px
         .content
           +column(2, 0.65)
 
-  &:hover .cover .image-decor > .text
-    display: block
-    max-height: none
+  +gte_laptop
+    &:hover .cover .image-decor > .text
+      display: block
+      max-height: none
 
   .cover
     +link_color(#333333)
@@ -103,9 +105,11 @@ $max_width: 167px
       &.two_lined
         +two_line_ellipsis(13px, $line_height)
 
-    &:hover .title
-      color: $link-hover
-      text-decoration: underline
+    +gte_laptop
+      &:hover .title
+        +css4
+          color: var(--link-hover-color)
+        text-decoration: underline
 
     .misc
       color: #555

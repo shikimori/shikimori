@@ -1,6 +1,7 @@
-@import mixins/responsive
+@import mixins/css4
 @import mixins/float_column
 @import mixins/font_shikimori
+@import mixins/responsive
 // @import mixins/link
 // @import mixins/comma_separated
 
@@ -34,12 +35,16 @@
       .b-forum &
         height: 135px
 
-      &:hover, &:hover .circle
-        border-color: $link-hover
+      +gte_laptop
+        &:hover,
+        &:hover .circle
+          +css4
+            border-color: var(--link-hover-color)
 
-      +gte_ipad
-        &:active, &:active .circle
-          border-color: $link-active
+      &:active,
+      &:active .circle
+        +css4
+          border-color: var(--link-active-color)
 
       .text
         display: table

@@ -60,7 +60,8 @@ $icon_mobile_size: 30px
   +icon_left_margins
 
   &.selected
-    color: $link-hover
+    +css4
+      color: var(--link-hover-color)
     // +link_color($link)
 
   +gte_laptop

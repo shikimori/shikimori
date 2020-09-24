@@ -1,5 +1,7 @@
 @import globals
+@import mixins/css4
 @import mixins/link
+@import mixins/responsive
 
 $border_color: #ffb3b3
 
@@ -31,9 +33,12 @@ $border_color: #ffb3b3
       .inner-prgrph
         cursor: pointer
 
-    &:hover
-      .before, .after
-        color: $link-hover
+    +gte_laptop
+      &:hover
+        .before,
+        .after
+          +css4
+            color: var(--link-hover-color)
 
     .before, .after
       color: $link-4

@@ -1,4 +1,5 @@
 @import mixins/brackets_surrounded
+@import mixins/css4
 @import mixins/dash_separated
 @import mixins/link
 @import mixins/responsive
@@ -16,10 +17,13 @@
     +link_color
 
     &.selected
-      color: $link-hover
+      +css4
+        color: var(--link-hover-color)
 
-      &:hover
-        color: $link-active
+      +gte_laptop
+        &:hover
+          +css4
+            color: var(--link-active-color)
 
 .b-options-floated
   font-size: 11px
@@ -57,10 +61,13 @@
     transition: color 0.2s ease
 
   .selected
-    color: $link-hover
+    +css4
+      color: var(--link-hover-color)
 
-    &:hover
-      color: $link-active
+    +gte_laptop
+      &:hover
+        +css4
+          color: var(--link-active-color)
 
     &.always-active
       +link_color(#123)

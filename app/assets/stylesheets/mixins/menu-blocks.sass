@@ -1,8 +1,10 @@
 @import globals
 @import mixins/clearfix
+@import mixins/css4
 @import mixins/ellipsis2
 @import mixins/link
 @import mixins/font_shikimori
+@import mixins/responsive
 
 // второстепенный текст в меню
 =menu-block-misc-text
@@ -77,18 +79,23 @@
     padding-top: 0
     margin-top: 0
 
-  &:hover .title
-    color: $link-hover
-    text-decoration: underline
+  +gte_laptop
+    &:hover .title
+      +css4
+        color: var(--link-hover-color)
+      text-decoration: underline
 
-    &:after
-      color: $link-hover
+      &:after
+        +css4
+          color: var(--link-hover-color)
 
   &:active .title
-    color: $link-active
+    +css4
+      color: var(--link-active-color)
 
     &:after
-      color: $link-active
+      +css4
+        color: var(--link-active-color)
 
   .title
     +ellipsis2
@@ -106,17 +113,22 @@
       position: absolute
       right: 10px
 
-    &:hover
-      color: $link-hover
+    +gte_laptop
+      &:hover
+        +css4
+          color: var(--link-hover-color)
 
-      &:after
-        color: $link-hover
+        &:after
+          +css4
+            color: var(--link-hover-color)
 
     &:active
-      color: $link-active
+      +css4
+        color: var(--link-active-color)
 
       &:after
-        color: $link-active
+        +css4
+          color: var(--link-active-color)
 
   .notice
     +ellipsis2

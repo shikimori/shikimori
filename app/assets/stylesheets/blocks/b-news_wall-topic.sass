@@ -14,11 +14,12 @@
     +gte_laptop
       &:hover
         .title
-          color: $link-hover
+          +css4
+            color: var(--link-hover-color)
 
     &:active
       .title
-        color: $link-active
+        color: var(--link-active-color)
 
   .poster
     display: flex

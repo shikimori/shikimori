@@ -1,5 +1,7 @@
+@import mixins/css4
 @import mixins/link
 @import mixins/font_shikimori
+@import mixins/responsive
 
 .b-close
   background: #fff
@@ -19,12 +21,15 @@
     +font_shikimori('\e828')
     font-size: 17px
 
-  &:hover
-    background-color: $link-hover
-    color: #fff
-    opacity: 1
+  +gte_laptop
+    &:hover
+      +css4
+        background-color: var(--link-hover-color)
+      color: #fff
+      opacity: 1
 
   &:active
-    background-color: $link-active
+    +css4
+      background-color: var(--link-active-color)
     color: #fff
     opacity: 1

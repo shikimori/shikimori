@@ -1,6 +1,8 @@
 @import globals
+@import mixins/css4
 @import mixins/ellipsis2
 @import mixins/font_shikimori
+@import mixins/responsive
 
 .b-collection_item
   margin-bottom: 15px
@@ -26,7 +28,8 @@
     opacity: 1
 
     .drag-handle
-      color: $link-active !important
+      +css4
+        color: var(--link-active-color) !important
 
   &.single-line
     .delete
@@ -57,11 +60,14 @@
       +font_shikimori
       font-size: 15px
 
-    &:hover
-      color: $link-hover
+    +gte_laptop
+      &:hover
+        +css4
+          color: var(--link-hover-color)
 
     &:active
-      color: $link-active
+      +css4
+        color: var(--link-active-color)
 
   .delete
     color: #123
