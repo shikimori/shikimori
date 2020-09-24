@@ -39,9 +39,10 @@ class Comments::View < Topics::FoldedCommentsView
   end
 
   def cache_key
-    [
-      @comment
-    ]
+    CacheHelper.keys(
+      @comment.cache_key,
+      *comments.map(&:cache_key_with_version)
+    )
   end
 
   def comments_count
