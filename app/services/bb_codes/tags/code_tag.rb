@@ -54,7 +54,7 @@ private
         $LAST_MATCH_INFO[:language],
         $LAST_MATCH_INFO[:code_block] ? 'z' : $LAST_MATCH_INFO[:before],
         $LAST_MATCH_INFO[:code_block] ? 'z' : $LAST_MATCH_INFO[:after],
-        $LAST_MATCH_INFO[:suffix] || '',
+        $LAST_MATCH_INFO[:suffix] == "\n" ? '<br>' : '',
         match
       )
       CODE_PLACEHOLDER_1

@@ -91,7 +91,7 @@ describe BbCodes::Tags::CodeTag do
 
           context 'sample' do
             let(:text) { "[code]#{content}[/code]\ntest" }
-            it { is_expected.to eq "<code class='b-code_inline'>#{content}</code>\ntest" }
+            it { is_expected.to eq "<code class='b-code_inline'>#{content}</code><br>test" }
           end
         end
 
