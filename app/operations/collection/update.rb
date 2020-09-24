@@ -25,6 +25,7 @@ private
   def publish
     generate_topic
     touch_all_linked
+    change_creation_date
   end
 
   def generate_topic
@@ -35,6 +36,10 @@ private
     @model.kind.capitalize.constantize
       .where(id: links.pluck(:linked_id))
       .update_all updated_at: Time.zone.now
+  end
+
+  def change_creation_date
+    @model.update created_at: Time.zone.now
   end
 
   def collection_links

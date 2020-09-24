@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 describe Collection::Update do
-  # include_context :timecop, 'Wed, 16 Sep 2020 16:23:41 MSK +03:00'
+  include_context :timecop, 'Wed, 16 Sep 2020 16:23:41 MSK +03:00'
   subject { described_class.call collection, params }
 
   let(:collection) do
     create :collection,
       kind: Types::Collection::Kind[type],
-      user: user
+      user: user,
+      created_at: 1.day.ago
   end
   let(:type) { %i[anime manga ranobe].sample }
 
@@ -56,6 +57,7 @@ describe Collection::Update do
       )
 
       expect(collection.topics).to be_empty
+      expect(collection.created_at).to be_within(0.1).of 1.day.ago
       expect { collection_link_1.reload }.to raise_error ActiveRecord::RecordNotFound
       expect { collection_link_2.reload }.to raise_error ActiveRecord::RecordNotFound
 
@@ -70,6 +72,7 @@ describe Collection::Update do
       it do
         expect(collection.errors).to be_empty
         expect(collection.reload).to have_attributes params.except(:links)
+        expect(collection.created_at).to be_within(0.1).of Time.zone.now
         expect(collection.topics).to have(1).item
         expect(collection.topics.first.locale).to eq collection.locale
 
