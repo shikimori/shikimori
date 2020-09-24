@@ -14,9 +14,9 @@ header.head
 
   h1, h2
     border-bottom: none
-    color: #123
     display: inline-block
     +css4
+      color: var(--headline-color)
       font-family: var(--font-alt)
     font-size: 30px
     font-weight: normal
@@ -34,7 +34,7 @@ header.head
       width: 40px
 
       &:before
-        color: #123
+        color: var(--headline-color)
         content: '←'
         left: 5px
         position: absolute
@@ -89,10 +89,10 @@ header.head
 .headline
   +ellipsis2
   +css4
-    font-family: var(--font-alt)
     background: var(--headline-background-color)
     border-left: 5px solid var(--headline-border-color)
-  color: #123
+    color: var(--headline-color)
+    font-family: var(--font-alt)
   font-size: 18px
   font-weight: 700
   letter-spacing: 0.13px
@@ -109,19 +109,17 @@ header.head
 
   & > a
     +ellipsis2
-    //transition: color 0.2s ease
     +link
-    //color: #123
     display: block
     text-decoration: none
     padding-right: 20px
 
     &:before
       +font_shikimori('\e81c')
-      //transition: color 0.2s ease
-      color: $gray-2
       position: absolute
       right: 10px
+      +css5
+        color: var(--headline-arrow-color)
 
     +gte_laptop
       &:hover:before
@@ -134,7 +132,6 @@ header.head
 
   &.linkheadline
     & > a
-      // text-decoration: underline
       color: inherit
 
       &:before
