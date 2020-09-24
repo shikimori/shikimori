@@ -7,7 +7,7 @@ class Topics::SubscribedUsersQuery
       status != #{UserRate.statuses[:dropped]}
   SQL
 
-  ACTIVITY_INTERVAL = 4.months
+  ACTIVITY_INTERVAL = 3.months
 
   def call # rubocop:disable all
     if @topic.broadcast?
