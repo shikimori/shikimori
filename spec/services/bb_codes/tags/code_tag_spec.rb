@@ -88,6 +88,11 @@ describe BbCodes::Tags::CodeTag do
         context 'inline' do
           let(:content) { '[b]test[/b]' }
           it { is_expected.to eq "<code class='b-code_inline'>#{content}</code>" }
+
+          context 'sample' do
+            let(:text) { "[code]#{content}[/code]\ntest" }
+            it { is_expected.to eq "<code class='b-code_inline'>#{content}</code>\ntest" }
+          end
         end
 
         context 'block' do

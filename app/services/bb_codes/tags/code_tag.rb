@@ -4,7 +4,7 @@ class BbCodes::Tags::CodeTag
       (?<before> \ + | \ +[\r\n]+ | [\r\n]* )
       (?<code> .*? )
       (?<after> [\ \r\n]* )
-    \[ /code \] \n?
+    \[ /code \] (?<suffix> \n?)
     |
     ^ ``` (?<language>[\w+#-]+)? \n
       (?<code_block> .*? ) \n
@@ -54,6 +54,7 @@ private
         $LAST_MATCH_INFO[:language],
         $LAST_MATCH_INFO[:code_block] ? 'z' : $LAST_MATCH_INFO[:before],
         $LAST_MATCH_INFO[:code_block] ? 'z' : $LAST_MATCH_INFO[:after],
+        $LAST_MATCH_INFO[:suffix] || '',
         match
       )
       CODE_PLACEHOLDER_1
@@ -71,7 +72,7 @@ private
       elsif code_block? code.text, code.content_around
         code_highlight code.text, nil
       else
-        code_inline code.text
+        code_inline(code.text) + code.suffix
       end
     end
   end
@@ -80,6 +81,7 @@ private
     text.gsub MARKDOWN_REGEXP do |match|
       store(
         $LAST_MATCH_INFO[:code],
+        nil,
         nil,
         nil,
         nil,
@@ -111,11 +113,19 @@ private
     text.include?("\n") || text.include?("\r") || content_around
   end
 
-  def store text, language, before, after, original
+  def store( # rubocop:disable ParameterLists
+    text,
+    language,
+    before,
+    after,
+    suffix,
+    original
+  )
     @cache.push OpenStruct.new(
       text: text.gsub(/\\`/, '`'),
       language: language,
       content_around: (!before.empty? if before) || (!after.empty? if after),
+      suffix: suffix,
       original: original
     )
   end
