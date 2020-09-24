@@ -2,6 +2,25 @@ $font-main: Helvetica Neue, Arial, Verdana, sans-serif;
 $font-alt: Open Sans, Helvetica Neue, Arial, Verdana, sans-serif;
 $font-code: Monaco, Menlo, Consolas, Ubuntu Mono, Courier New, monospace;
 
+//$link: #176093;
+$link-2: #155785;
+$link-3: #1d78b7;
+$link-4: #2b8acc;
+
+$gray-1: #acb1b4;
+$gray-2: #9da2a8;
+$gray-3: #7b8084;
+$gray-4: #4e5257;
+
+$anons_tag: #ca4929;
+$ongoing_tag: #1d78b7;
+$released_tag: #419541;
+
+$green-check: #24a232;
+$red-check: #c32017;
+
+$date: #acb1b4;
+
 $variables: (
   --font-main: $font-main,
   --font-alt: $font-alt,
@@ -12,7 +31,10 @@ $variables: (
   --link-hover-color: #dd5202,
   --link-active-color: #ff0202,
   --link-border-hover-color: rgba(#dd5202, 0.3),
-  --link-border-active-color: rgba(#ff0202, 0.3)
+  --link-border-active-color: rgba(#ff0202, 0.3),
+  --headline-background-color: #e8ebef,
+  --headline-border-color: #d8dde4,
+  --headline-arrow-color: $gray-2
 );
 
 $line_height: 1.65;
@@ -34,27 +56,6 @@ $flex-gutter-desktop: 50px;
 $flex-offset-mobile: $block-offset;
 // $flex-offset-desktop: 48px;
 $flex-offset-desktop: $block-offset;
-
-// цвета
-//$link: #176093
-$link-2: #155785;
-$link-3: #1d78b7;
-$link-4: #2b8acc;
-
-$gray-1: #acb1b4;
-$gray-2: #9da2a8;
-$gray-3: #7b8084;
-$gray-4: #4e5257;
-
-$anons_tag: #ca4929;
-$ongoing_tag: #1d78b7;
-$released_tag: #419541;
-
-$green-check: #24a232;
-$red-check: #c32017;
-
-// даты
-$date: #acb1b4;
 
 // adaptive
 /*320px for common smartphones including iPhone at portrait orientation */

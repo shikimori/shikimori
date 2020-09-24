@@ -88,14 +88,13 @@ header.head
 
 .headline
   +ellipsis2
-  background: darken(#ebeef1, 1%)
-  border-left: 5px solid darken(#dbe0e6, 1%)
+  +css4
+    font-family: var(--font-alt)
+    background: var(--headline-background-color)
+    border-left: 5px solid var(--headline-border-color)
   color: #123
   font-size: 18px
   font-weight: 700
-  -webkit-font-smoothing: antialiased
-  +css4
-    font-family: var(--font-alt)
   letter-spacing: 0.13px
   line-height: $line_height
   margin-bottom: 10px
@@ -103,6 +102,7 @@ header.head
   position: relative
   text-transform: uppercase
   transition: color 0.2s ease
+  -webkit-font-smoothing: antialiased
 
   +gte_desktop
     margin-bottom: 10px
