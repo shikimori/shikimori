@@ -17,7 +17,11 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
   ]
 
   IMPORTS_REGEXP = /
-    @import \s+ url \( ['"]? (?<url>.*?) ['"]? \);?
+    (?:
+      @*import \s+ url \( ['"]? .*? ['"]? \);?
+    |
+      @+import
+    )
     [\n\r]*
   /mix
 

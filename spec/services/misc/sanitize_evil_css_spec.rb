@@ -12,6 +12,16 @@ describe Misc::SanitizeEvilCss do
         let(:css) { '@import url(evil.css);' }
         it { is_expected.to eq '' }
       end
+
+      context 'sample' do
+        let(:css) { '@import' }
+        it { is_expected.to eq '' }
+      end
+
+      context 'sample' do
+        let(:css) { '@@@import url();import url();import url(http://evil.css);' }
+        it { is_expected.to eq '' }
+      end
     end
 
     context 'no evil css' do
