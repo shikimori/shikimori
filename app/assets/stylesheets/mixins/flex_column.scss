@@ -93,7 +93,7 @@
     @include laptop {
       @include fcolumn($laptop-columns, $gutter-laptop, $offset-laptop, $selector);
     }
-    @include gt_laptop {
+    @include gte_desktop {
       @include fcolumn($desktop-columns, $gutter-desktop, $offset-desktop, $selector);
     }
   } @else  {
