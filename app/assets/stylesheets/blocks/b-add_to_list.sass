@@ -1,4 +1,5 @@
 @import mixins/ellipsis2
+@import mixins/css4
 @import mixins/hover_underlined
 @import mixins/icons
 @import mixins/responsive
@@ -41,17 +42,21 @@
       line-height: inherit
       width: 25px
 
-    &:hover
-      color: inherit
+    +gte_laptop
+      &:hover
+        color: inherit
 
   &.planned
     .trigger, .option
       background: #daf1ff
       border-color: #bce6ff
-      color: $link
+      +css4
+        color: var(--link-color)
 
-    .trigger-arrow:hover
-      color: $link
+    +gte_laptop
+      .trigger-arrow:hover
+        +css4
+          color: var(--link-color)
 
     .edit
       +menu_icon($icon-planned, $icon-size + 2)
@@ -62,8 +67,9 @@
       border-color: #DBE0E6
       color: $gray-3
 
-    .trigger-arrow:hover
-      color: $gray-3
+    +gte_laptop
+      .trigger-arrow:hover
+        color: $gray-3
 
     .edit
       +menu_icon($icon-on_hold, $icon-size)
@@ -73,10 +79,13 @@
     .trigger, .option
       background: #daf1ff
       border-color: #bce6ff
-      color: $link
+      +css4
+        color: var(--link-color)
 
-    .trigger-arrow:hover
-      color: $link
+    +gte_laptop
+      .trigger-arrow:hover
+        +css4
+          color: var(--link-color)
 
     .edit
       +menu_icon($icon-watching, $icon-size)
@@ -85,10 +94,13 @@
     .trigger, .option
       background: #daf1ff
       border-color: #bce6ff
-      color: $link
+      +css4
+        color: var(--link-color)
 
-    .trigger-arrow:hover
-      color: $link
+    +gte_laptop
+      .trigger-arrow:hover
+        +css4
+          color: var(--link-color)
 
     .edit
       +menu_icon($icon-rewatching, $icon-size - 2)
@@ -99,8 +111,9 @@
       border-color: #E0EFC0
       color: $released_tag
 
-    .trigger-arrow:hover
-      color: $released_tag
+    +gte_laptop
+      .trigger-arrow:hover
+        color: $released_tag
 
     .edit
       +menu_icon($icon-completed, $icon-size)

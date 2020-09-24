@@ -3,9 +3,13 @@
 @import mixins/responsive
 
 /* цвет, становящийся ссылковым по наведению
-=link_color($color: $link)
+=link_color($color: 'null')
   //transition: color 0.2s ease
-  color: $color
+  @if $color == 'null'
+    +css4
+      color: var(--link-color)
+  @else
+    color: $color
 
   +gte_laptop
     &:hover
@@ -17,7 +21,7 @@
       color: var(--link-active-color)
 
 /* голубая ссылка без подчёркивания
-=link($color: $link)
+=link($color: 'null')
   +link_color($color)
   cursor: pointer
 
@@ -31,22 +35,8 @@
     +css4
       border-bottom-color: var(--link-border-active-color)
 
-/* голубая ссылка аяксового действия
-//=ajax_link
-  +link_color
-  border-bottom: 1px dotted $link
-  cursor: pointer
-  transition: color 0.2s ease, border-bottom-color 0.2s ease
-
-  //&:hover
-    border-bottom-color: $link-3
-
-  //&:actibe
-    border-bottom-color: $link-2
-
-
 /* голубая ссылка с подчёркиванием
-=link_underlined($color: $link)
+=link_underlined($color: 'null')
   +link($color)
   text-decoration: underline
 

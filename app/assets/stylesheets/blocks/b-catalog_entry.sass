@@ -192,9 +192,11 @@ $max_width: 167px
   &.planned .image-decor
     &:before
       background: #fff
-      border-color: $link
+      +css4
+        border-color: var(--link-color)
     &:after
-      color: $link
+      +css4
+        color: var(--link-color)
       content: $icon-planned
       font-size: 24px
 
@@ -207,7 +209,8 @@ $max_width: 167px
 
   &.watching .image-decor
     &:before
-      background: $link
+      +css4
+        background: var(--link-color)
     &:after
       color: #fff
       content: $icon-watching
@@ -215,7 +218,8 @@ $max_width: 167px
 
   &.rewatching .image-decor
     &:before
-      background: $link
+      +css4
+        background: var(--link-color)
     &:after
       color: #fff
       content: $icon-rewatching

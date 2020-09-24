@@ -1,3 +1,4 @@
+@import mixins/css4
 @import mixins/dash_separated
 @import mixins/link
 
@@ -20,7 +21,8 @@
         cursor: pointer
 
         &.selected
-          color: $link
+          +css4
+            color: var(--link-color)
           text-decoration: underline
 
   #image_placeholder
