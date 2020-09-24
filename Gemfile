@@ -139,7 +139,7 @@ group :development do
   gem 'letter_opener'
   gem 'mactag'
 
-  gem 'better_errors'
+  gem 'better_errors', '2.7.1' # NOTE: do not update until https://github.com/BetterErrors/better_errors/issues/476 is fixed
   gem 'binding_of_caller'
   # gem 'bullet'
 
