@@ -88,8 +88,9 @@ private
 
   def extract_imports css
     imports = []
+    css_wo_comments = css.gsub(Misc::SanitizeEvilCss::COMMENTS_REGEXP, '')
 
-    fixed_css = css.gsub(IMPORTS_REGEXP) do
+    fixed_css = css_wo_comments.gsub(IMPORTS_REGEXP) do
       imports << $LAST_MATCH_INFO[:url]
       nil
     end

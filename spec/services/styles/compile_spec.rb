@@ -95,6 +95,7 @@ describe Styles::Compile do
               @import url('https://thiaya.github.io/1/shi.Modern.css');
               @import url('https://thiaya.github.io/2/shi.Modern.css');
               a { color: red; }
+              /* @import url('https://thiaya.github.io/2/shi.Modern.css'); */
             CSS
           end
 

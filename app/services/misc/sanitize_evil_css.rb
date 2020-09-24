@@ -1,6 +1,7 @@
 class Misc::SanitizeEvilCss < ServiceObjectBase
   pattr_initialize :css
 
+  COMMENTS_REGEXP = %r{/\* .*? \*/\s*[\n\r]*}mix
   EVIL_CSS = [
     # suspicious javascript-type words
     /(\bdata:\b|eval|cookie|\bwindow\b|\bparent\b|\bthis\b)/i,
@@ -13,7 +14,7 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
     # low bytes -- suspect
     /[\x00-\x08\x0B\x0C\x0E-\x1F]+/,
     /&\#/, # bad charset
-    %r{/\* .*? \*/\s*[\n\r]*}mix, # comments
+    COMMENTS_REGEXP,
     /(?: @*import \s+ url \( ['"]? .*? ['"]? \); | @+import ) ?[\n\r]*/mix # imports
   ]
 
