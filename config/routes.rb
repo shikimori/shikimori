@@ -879,7 +879,6 @@ Rails.application.routes.draw do
     }
 
   resources :studios, only: %i[index]
-  resources :proxies, only: %i[index]
 
   get 'sitemap' => 'sitemap#index'
   get 'robots.txt' => 'robots#shikimori'

@@ -23,6 +23,8 @@ class NameValidator < ActiveModel::EachValidator
     podcast
     polls
     privacy
+    proxy
+    proxies
     ranobe
     redirect
     styles
