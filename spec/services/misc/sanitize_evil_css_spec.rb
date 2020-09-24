@@ -47,6 +47,11 @@ describe Misc::SanitizeEvilCss do
     context 'no evil css' do
       let(:css) { 'a { background: red }' }
       it { is_expected.to eq 'a { background: red }' }
+
+      context 'sample' do
+        let(:css) { '.description { background: red }' }
+        it { is_expected.to eq '.description { background: red }' }
+      end
     end
   end
 end

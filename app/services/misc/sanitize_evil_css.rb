@@ -6,7 +6,7 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
     # suspicious javascript-type words
     /(\bdata:\b|eval|cookie|\bwindow\b|\bparent\b|\bthis\b)/i,
     /behaviou?r|expression|moz-binding|@charset/i,
-    /(java|vb)?script|</i,
+    /(java|vb)?script\b|</i,
     # back slash, html tags,
     # /[\<>]/,
     # high bytes -- suspect
