@@ -14,7 +14,11 @@ class Topics::CosplayView < Topics::UserContentView
   end
 
   def html_body
-    h.render 'topics/cosplay/info', cosplay_view: self, gallery: topic.linked
+    h.render(
+      partial: 'topics/cosplay/info',
+      locals: { cosplay_view: self, gallery: topic.linked },
+      formats: %i[html] # w/o format it will fail on rss format http://shikimori.local/forum/cosplay.rss
+    )
   end
 
   def html_body_truncated
