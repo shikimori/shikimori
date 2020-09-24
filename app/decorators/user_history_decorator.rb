@@ -22,7 +22,7 @@ class UserHistoryDecorator < BaseDecorator
   def target
     if target_type == Anime.name
       anime
-    elsif target_type == Manga.name
+    elsif target_type == Manga.name || target_type == Ranobe.name
       manga
     end
   end
@@ -35,7 +35,7 @@ class UserHistoryDecorator < BaseDecorator
           UserHistoryAction::AP_MANGA_IMPORT,
           UserHistoryAction::ANIME_IMPORT,
           UserHistoryAction::MANGA_IMPORT
-        kind = action =~ /anime/i ? :anime : :manga
+        kind = action.match?(/anime/i) ? :anime : :manga
         records = "#{value} #{i18n_i 'record', value.to_i}"
 
         i18n_t "actions.import.#{kind}", records: records
