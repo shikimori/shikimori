@@ -61,14 +61,15 @@
 
   .edit,
   .delete,
-  .expand,
   .collapse,
   .drag-handle,
   .confirm,
   .cancel,
   .move-left,
   .move-right,
-  .mobile-edit
+  .mobile-edit,
+  .prosemirror-expand,
+  .prosemirror-open
     background: $link-3
     color: white
     cursor: pointer
@@ -90,8 +91,14 @@
   .delete
     +icon('✕')
 
-  .expand
+  .prosemirror-expand
     +icon('\e83d')
+
+    &:before
+      font-family: shiki-editor
+
+  .prosemirror-open
+    +icon('\e80d')
 
     &:before
       font-family: shiki-editor
