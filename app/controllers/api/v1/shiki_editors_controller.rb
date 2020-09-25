@@ -169,7 +169,7 @@ private
 
   def serialize_video model
     {
-      url: model.url,
+      id: model.url,
       hosting: model.hosting,
       poster: model.camo_image_url
     }

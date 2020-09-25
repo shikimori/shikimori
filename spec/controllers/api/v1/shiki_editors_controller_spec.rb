@@ -182,12 +182,12 @@ describe Api::V1::ShikiEditorsController do
         expect(json).to eq(
           video: {
             video_url_1 => {
-              'url' => Video.new(url: video_url_1).url,
+              'id' => Video.new(url: video_url_1).url,
               'hosting' => 'youtube',
               'poster' => '//img.youtube.com/vi/JyTvVtUr_2g/hqdefault.jpg'
             },
             video_url_2 => {
-              'url' => Video.new(url: video_url_2).url,
+              'id' => Video.new(url: video_url_2).url,
               'hosting' => 'youtube',
               'poster' => '//img.youtube.com/vi/0d4rPwIpzNw/hqdefault.jpg'
             }
