@@ -1,7 +1,18 @@
-class Api::V1::ShikiEditorsController < Api::V1Controller
+class Api::V1::ShikiEditorsController < Api::V1Controller # rubocop:disable ClassLength
   skip_before_action :verify_authenticity_token, if: :test_preview_request?
 
-  SUPPORTED_TYPES = %i[anime manga character person user_image comment message topic user]
+  SUPPORTED_TYPES = %i[
+    anime
+    manga
+    character
+    person
+    user_image
+    comment
+    message
+    topic
+    user
+    video
+  ]
   TYPE_INCLUDES = {
     message: :from,
     comment: :user,
@@ -18,7 +29,7 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
     SUPPORTED_TYPES.each do |kind|
       break if ids_left <= 0
 
-      ids = parse_ids(kind, ids_left)
+      ids = parse_values(kind, ids_left)
       ids_left -= ids.size
 
       next if ids.none?
@@ -35,6 +46,8 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
             serialize_forum_entry model
           when :message
             serialize_message model
+          when :video
+            serialize_video model
           else
             serialize_db_entry model
           end
@@ -61,6 +74,23 @@ class Api::V1::ShikiEditorsController < Api::V1Controller
 
 private
 
+  def parse_values kind, limit
+    if kind == :video
+      parse_urls limit
+    else
+      parse_ids kind, limit
+    end
+  end
+
+  def parse_urls limit
+    (params[:video] || '')
+      .split(',')
+      .uniq
+      .map(&:strip)
+      .select(&:present?)
+      .take(limit)
+  end
+
   def parse_ids kind, limit
     (params[kind] || '')
       .split(',')
@@ -71,6 +101,8 @@ private
   end
 
   def fetch kind, ids
+    return fetch_videos ids if kind == :video
+
     results = ids.sort.each_with_object({}) { |id, memo| memo[id] = nil }
 
     kind.to_s.classify.constantize
@@ -79,6 +111,12 @@ private
       .each_with_object(results) do |model, memo|
         memo[model.id] = model
       end
+  end
+
+  def fetch_videos urls
+    urls.each_with_object({}) do |url, memo|
+      memo[url] = Video.new(url: url)
+    end
   end
 
   def serialize_user_image model
@@ -126,6 +164,14 @@ private
       id: model.id,
       text: UsersHelper.localized_name(model, current_user),
       url: send(:"#{model.class.name.downcase}_url", model)
+    }
+  end
+
+  def serialize_video model
+    {
+      url: model.url,
+      hosting: model.hosting,
+      poster: model.camo_image_url
     }
   end
 

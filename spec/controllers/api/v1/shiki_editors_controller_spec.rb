@@ -19,7 +19,8 @@ describe Api::V1::ShikiEditorsController do
         user: user.id.to_s,
         comment: comment.id.to_s,
         message: message.id.to_s,
-        topic: topic.id.to_s
+        topic: topic.id.to_s,
+        video: ''
       }
     end
     let(:anime) { create :anime }
@@ -164,6 +165,32 @@ describe Api::V1::ShikiEditorsController do
               'url' => anime_url(anime)
             },
             '123435546546' => nil
+          }
+        )
+      end
+    end
+
+    context 'video' do
+      let(:params) do
+        {
+          video: "#{video_url_1},#{video_url_2}"
+        }
+      end
+      let(:video_url_1) { 'https://www.youtube.com/watch?v=JyTvVtUr_2g&t=762s' }
+      let(:video_url_2) { 'https://www.youtube.com/watch?v=0d4rPwIpzNw' }
+      it do
+        expect(json).to eq(
+          video: {
+            video_url_1 => {
+              'url' => Video.new(url: video_url_1).url,
+              'hosting' => 'youtube',
+              'poster' => '//img.youtube.com/vi/JyTvVtUr_2g/hqdefault.jpg'
+            },
+            video_url_2 => {
+              'url' => Video.new(url: video_url_2).url,
+              'hosting' => 'youtube',
+              'poster' => '//img.youtube.com/vi/0d4rPwIpzNw/hqdefault.jpg'
+            }
           }
         )
       end
