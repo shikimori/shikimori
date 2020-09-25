@@ -39,11 +39,12 @@
             ]
 
           - else
-            a.talk.b-tooltipped.unprocessed[
-              href=profile_dialog_url(current_user, @resource)
-              title=t('.send_message')
-              data-direction='top'
-            ]
+            - if can? :create, Message.new(from: current_user.object, to: @resource.object, kind: MessageType::PRIVATE)
+              a.talk.b-tooltipped.unprocessed[
+                href=profile_dialog_url(current_user, @resource)
+                title=t('.send_message')
+                data-direction='top'
+              ]
             a.fav-add.friend-action.b-tooltipped.unprocessed[
               href=api_friend_url(@resource.id)
               style=('display: none;' if @resource.is_friended?)

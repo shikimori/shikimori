@@ -123,6 +123,8 @@ class Abilities::User
         (
           @user.day_registered? ||
           message.to_id == User::MORR_ID
+        ) && (
+          !@user.banned? || (@user.banned? && !message.to.staff?)
         )
     end
 

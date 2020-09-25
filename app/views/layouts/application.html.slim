@@ -73,7 +73,7 @@ html
         .slide
         .arrow
 
-    - if shikimori?
+    - if shikimori? && (!user_signed_in? || (user_signed_in? && !current_user.banned?))
       .b-feedback
         .hover-activator
         span.marker-positioner[
