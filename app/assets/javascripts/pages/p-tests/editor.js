@@ -148,17 +148,9 @@ if (process.env.NODE_ENV === 'development') {
 `.trim();
 
   TEST_DEMO_CONTENT = `
-<<<<<<< Updated upstream
-[video]https://www.youtube.com/watch?v=0d4rPwIpzNw[/video]
-||||||| constructed merge base
-||[poll=1]||
-||[quote=Никнейм.]Текст цитаты.[/quote]||
-||[spoiler_block]Текст спойлера.[/spoiler_block]||
-||[*]Текст спойлера.||
-Текст ниже спойлера.
-=======
 z
->>>>>>> Stashed changes
+[video]https://www.youtube.com/watch?v=0d4rPwIpzNw[/video]
+x
 `.trim();
 }
 
