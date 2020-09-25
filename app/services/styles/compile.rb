@@ -13,6 +13,7 @@ class Styles::Compile
       (?:\s*!important)?
     )$
   /mix
+  URL_CLEANUP_REGEXP = %r{/\*|\*/|@import|[@*]|import}
 
   USER_CONTENT = 'User Custom Styles'
 
@@ -60,7 +61,7 @@ private
   def media_query css, url
     return '' if css.blank?
 
-    prefix = "/* #{url} */\n"
+    prefix = "/* #{sanitize_url url} */\n"
 
     if css.gsub(%r{^/\* AUTO=.*}, '').include?('@media')
       prefix + css
@@ -84,6 +85,18 @@ private
 
   def sanitize css
     Misc::SanitizeEvilCss.call(css)
+  end
+
+  def sanitize_url url
+    sanitized_url = Misc::SanitizeEvilCss.call(url)
+
+    loop do
+      prev_value = sanitized_url
+      sanitized_url = sanitized_url.gsub(URL_CLEANUP_REGEXP, '')
+      break if prev_value == sanitized_url
+    end
+
+    sanitized_url
   end
 
   def extract_imports css
