@@ -7,9 +7,10 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
   IMPORTS_REGEXP = /
     (?: @*import \s+ url \( ['"]? .*? ['"]? \); | @+import )\ ?[\n\r]*
   /mix
+
   EVIL_CSS = [
     # suspicious javascript-type words
-    /(\bdata:\b|eval|cookie|\bwindow\b|\bparent\b|\bthis\b)/i,
+    /(eval|cookie|\bwindow\b|\bparent\b|\bthis\b)/i,
     /behaviou?r|expression|moz-binding|@charset/i,
     /(java|vb)?script\b|</i,
     # back slash, html tags,
@@ -25,6 +26,12 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
 
   SPECIAL_REGEXP = /((?>content: ?['"].*?['"]))|\\\w/
   FIX_CONTENT_REGEXP = /(content: ?['"]\\)\\_(.*?['"])/
+  DATA_IMAGE_REGEXP = %r{
+    (?: \b|^ )
+    (?:
+      ((?>data:image/(?:svg\+xml|png|jpeg|jpg|gif);base64,))|data:(?:\b|$)
+    )
+  }ix
 
   def call
     fixed_css = fix_content(@css)
@@ -44,6 +51,7 @@ private
     new_css = EVIL_CSS
       .inject(css) { |styles, regex| styles.gsub(regex, '') }
       .gsub(SPECIAL_REGEXP, '\1')
+      .gsub(DATA_IMAGE_REGEXP, '\1')
       .strip
 
     [new_css, new_css == prior_css]
