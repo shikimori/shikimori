@@ -53,7 +53,7 @@ private
 
     if compiled_css.present?
       url ?
-        "/* #{url} */\n" + compiled_css :
+        "/* #{sanitize_url url} */\n" + compiled_css :
         compiled_css
     end
   end
