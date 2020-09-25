@@ -168,6 +168,8 @@ private
   end
 
   def serialize_video model
+    return nil if model.hosting.blank?
+
     {
       id: model.url,
       hosting: model.hosting,
