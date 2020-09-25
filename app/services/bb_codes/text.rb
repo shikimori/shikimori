@@ -26,7 +26,7 @@ class BbCodes::Text
     user comment topic message
 
     db_entry_url
-    preprocess_video_url video
+    video_url video
     poster wall_image entries
     wall poll
 

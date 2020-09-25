@@ -3,7 +3,7 @@
 #   VideoExtractor::OpenGraphExtractor or VideoExtractor::VkExtractor
 # 2. add embed player url parsing in VideoExtractor::PlayerUrlExtractor
 # 3. add hosting into Video if you want video urls to be parsed on forums
-#   after that add test into BbCodes::Tags::PreprocessVideoUrlTag spec
+#   after that add test into BbCodes::Tags::VideoUrlTag spec
 # 4. add new video hosting into shiki_video.js
 module VideoExtractor
   EXTRACTORS = %i[

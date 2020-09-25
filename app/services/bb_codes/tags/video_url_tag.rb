@@ -1,11 +1,13 @@
-class BbCodes::Tags::PreprocessVideoUrlTag
+class BbCodes::Tags::VideoUrlTag
   include Singleton
 
   VIDEO_REGEXP = %r{
     (?<! = | =http: | =https: )
-    (?<url_prefix> \[url (?:= (?: [^\]]+? ) )? \] )?
+    (?<url_prefix>
+      \[(?<tag>url) (?:= (?: [^\]]+? ) )? \] | \[(?<tag>video)\]
+    )?
     (?<url> #{VideoExtractor.matcher} )
-    (?<url_suffix> \[/url\] )?
+    (?<url_suffix> \[/\k<tag>\] )?
   }mix
 
   def format text
