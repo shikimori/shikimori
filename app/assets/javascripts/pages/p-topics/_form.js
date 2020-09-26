@@ -4,9 +4,10 @@ const LINKED_TYPE_USER_SELECT = '.topic-linked select.type';
 
 pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
   const $form = $('.b-form.edit_topic, .b-form.new_topic, .new-review-form');
+  const $wall = $form.find('.b-shiki_wall');
 
-  const $wall = initWall($form);
   const $video = initVideo('topic', $form, $wall);
+  initWall($form, $wall);
   initTagsApp('topic');
   initForm('topic', $form, $wall, $video);
 

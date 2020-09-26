@@ -24,11 +24,10 @@ export function initForm(type, $form, $wall, $video) {
   });
 }
 
-export async function initWall($form) {
+export async function initWall($form, $wall) {
   const { FileUploader } = await import('views/file_uploader');
 
   const $upload = $('.topic-posters .b-dropzone', $form);
-  const $wall = $upload.find('.b-shiki_wall');
 
   if (!$upload.length) { return; } // it can be page with terms
 
@@ -57,8 +56,6 @@ id='${response.id}'>\
     e.preventDefault();
     removeImage($(e.target).closest('.b-image').remove(), $wall);
   });
-
-  return $wall;
 }
 
 function removeImage($image, $wall) {
