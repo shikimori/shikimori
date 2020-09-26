@@ -8,13 +8,13 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
     https?://(?:www\.)?(
       (?<hosting>coub).com/view/[\wА-я_-]+#{PARAMS} |
       video.(?<hosting>sibnet).ru/(video[\wА-я_-]+|shell.php\?videoid=[\wА-я_-]+)#{PARAMS} |
-      # (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS} |
-      # video.(?<hosting>youmite).ru/embed/[\wА-я_-]+#{PARAMS} |
-      # (?<hosting>viuly).io/video/[\wА-я_.-]+#{PARAMS} |
-      (?<hosting>stormo).(?:xyz|tv)/videos/[\wА-я_-]+/[\wА-я_-]+/ |
-      # (?<hosting>mediafile).online/video/[\wА-я_-]+/[\wА-я_-]+/
+      (?<hosting>stormo).(?:xyz|tv)/videos/[\wА-я_-]+/[\wА-я_-]+/
     )
   }mix
+  # (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS} |
+  # video.(?<hosting>youmite).ru/embed/[\wА-я_-]+#{PARAMS} |
+  # (?<hosting>viuly).io/video/[\wА-я_.-]+#{PARAMS} |
+  # (?<hosting>mediafile).online/video/[\wА-я_-]+/[\wА-я_-]+/
 
   # myvi is banned in RF
   # (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS} |
