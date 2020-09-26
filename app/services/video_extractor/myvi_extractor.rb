@@ -11,4 +11,8 @@ class VideoExtractor::MyviExtractor < VideoExtractor::OpenGraphExtractor
         super.gsub('//myvi.tv', '//myvi.top')
       ).add_www.without_protocol.to_s
   end
+
+  def image_url
+    UrlGenerator.instance.camo_url(super)
+  end
 end
