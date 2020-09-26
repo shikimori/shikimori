@@ -419,7 +419,7 @@ Rails.application.routes.draw do
         post :reorder, on: :member
       end
 
-      resource :shiki_editor, only: %i[show] do
+      resource :shiki_editor, only: %i[show create] do
         get :preview
         post :preview
       end

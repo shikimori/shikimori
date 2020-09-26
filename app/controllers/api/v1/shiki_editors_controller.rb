@@ -59,6 +59,10 @@ class Api::V1::ShikiEditorsController < Api::V1Controller # rubocop:disable Clas
     render json: results
   end
 
+  def create
+    show
+  end
+
   def preview
     text = JsExports::Supervisor.instance.sweep(
       BbCodes::Text.call(
