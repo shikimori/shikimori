@@ -1,18 +1,37 @@
 class Misc::SanitizeEvilCss < ServiceObjectBase
   pattr_initialize :css
 
+  def self.w word
+    word.split(//).map { |symbol| "\\\\?#{symbol}" }.join('')
+  end
+
   COMMENTS_REGEXP = %r{
     /\* .*? \*/ \s* [\n\r]*
   }mix
   IMPORTS_REGEXP = /
-    (?: @*import \s+ url \( ['"]? .*? ['"]? \); | @+import )\ ?[\n\r]*
+    (?: @*import \s+ url \( ['"]? .*? ['"]? \); | #{w '@'}+#{w 'import'} )\ ?[\n\r]*
   /mix
 
+  EVIL_WORDS = /
+    #{w 'eval'} |
+    #{w 'cookie'} |
+    \b#{w 'window'}\b |
+    \b#{w 'parent'}\b |
+    \b#{w 'this'}\b |
+    #{w 'behavior'} |
+    #{w 'behaviour'} |
+    #{w 'expression'} |
+    #{w 'moz-binding'} |
+    #{w '@'}*#{w 'charset'} |
+    #{w 'javascript'}\b |
+    #{w 'vbscript'}\b |
+    #{w 'script'}\b |
+    #{w '<'}
+  /ix
+
   EVIL_CSS = [
+    EVIL_WORDS,
     # suspicious javascript-type words
-    /(eval|cookie|\bwindow\b|\bparent\b|\bthis\b)/i,
-    /behaviou?r|expression|moz-binding|@charset/i,
-    /(java|vb)?script\b|</i,
     # back slash, html tags,
     # /[\<>]/,
     # high bytes -- suspect
@@ -29,7 +48,7 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
   DATA_IMAGE_REGEXP = %r{
     (?: \b|^ )
     (?:
-      ((?>data:image/(?:svg\+xml|png|jpeg|jpg|gif);base64,))|data:(?:\b|$)
+      ((?>data:image/(?:svg\+xml|png|jpeg|jpg|gif);base64,))|#{w 'data:'}(?:\b|$)
     )
   }ix
 
@@ -61,3 +80,6 @@ private
     css.gsub(FIX_CONTENT_REGEXP, '\1\2')
   end
 end
+
+# @_ url(content:'); @\import "https://dl.dropboxusercontent.com/s/sk5j2w5ysaj10u8/shiki_test_import.css";
+# /* AUTO=sticky_menu */ @media screen {}
