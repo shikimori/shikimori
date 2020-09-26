@@ -11,7 +11,7 @@ const hostingPatterns = url => (
     youtube: prepare('youtube.com', url),
     vimeo: prepare('vimeo.com', url),
     youtu_be: prepare('youtu.be', url),
-    rutube_ru: prepare('rutube.ru', url),
+    // rutube_ru: prepare('rutube.ru', url),
     vk_com: prepare('vk.com', url),
     vkontakte_ru: prepare('vkontakte.ru', url),
     coub_com: prepare('coub.com', url),

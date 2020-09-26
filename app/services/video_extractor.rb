@@ -7,9 +7,9 @@
 # 4. add new video hosting into shiki_video.js
 module VideoExtractor
   EXTRACTORS = %i[
-    vk ok youtube coub vimeo open_graph rutube
+    vk ok youtube coub vimeo open_graph
     smotret_anime sovet_romantica myvi
-  ] # dailymotion
+  ] # dailymotion # rutube
 
   class << self
     def fetch url
