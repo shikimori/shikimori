@@ -21,15 +21,15 @@ const hostingPatterns = url => (
     myvi_top: prepare('myvi.top', url),
     sibnet: prepare('sibnet.ru', url),
     yandex_ru: prepare('yandex.ru', url),
-    dailymotion_com: prepare('dailymotion.com', url),
-    streamable_com: prepare('streamable.com', url),
+    // dailymotion_com: prepare('dailymotion.com', url),
+    // streamable_com: prepare('streamable.com', url),
     smotret_anime: prepare('smotretanime.ru', url),
     ok_ru: prepare('ok.ru', url),
-    youmite_ru: prepare('youmite.ru', url),
-    viuly_io: prepare('viuly.io', url),
+    // youmite_ru: prepare('youmite.ru', url),
+    // viuly_io: prepare('viuly.io', url),
     stormo_xyz: prepare('stormo.xyz', url),
     stormo_tv: prepare('stormo.tv', url),
-    mediafile_online: prepare('mediafile.online', url)
+    // mediafile_online: prepare('mediafile.online', url)
   }
 );
 
@@ -79,20 +79,29 @@ $.fn.extend({
         }
       });
 
-      if ($root.hasClass('youtube') || $root.hasClass('vk')) {
-        const $poster = $root.find('img');
+      const $poster = $root.find('img');
 
-        $poster.imagesLoaded(() => {
-          if ($poster[0].naturalWidth === 120 && $poster[0].naturalHeight === 90) {
-            $poster[0].src = '/assets/globals/missing_video.png';
-            $root.addClass('shrinked dynamically-replaced');
-          }
+      $poster.imagesLoaded(() => {
+        if ($root.hasClass('youtube') &&
+          $poster[0].naturalWidth === 120 && $poster[0].naturalHeight === 90
+        ) {
+          $poster[0].src = '/assets/globals/missing_video.png';
+          $root.addClass('shrinked-1_3 dynamically-replaced');
+          return;
+        }
 
-          if ((($poster[0].naturalWidth * 1.0) / $poster[0].naturalHeight).round(1) === 1.3) {
-            $root.addClass('shrinked');
-          }
-        });
-      }
+        const ratio = (($poster[0].naturalWidth * 1.0) / $poster[0].naturalHeight).round(1);
+
+        // http://vk.com/video98023184_165811692
+        if (ratio === 1.3) {
+          $root.addClass('shrinked-1_3');
+        }
+
+        // https://video.sibnet.ru/video305613-SouL_Eater__AMW/
+        if (ratio === 1.5) {
+          $root.addClass('shrinked-1_5');
+        }
+      });
     });
   }
 });
