@@ -94,16 +94,16 @@ describe VideoExtractor::OpenGraphExtractor, :vcr do
     #   its(:player_url) { is_expected.to eq '//viuly.io/embed/video-of-the-company-bizzilion.-start-making-money-on-television--online-broadcasts-with-bizzilion-2138479' }
     # end
 
-    describe 'stormo' do
-      let(:url) { 'https://stormo.xyz/videos/245/stiv-djobs/' }
-      its(:hosting) { is_expected.to eq 'stormo' }
-      its(:image_url) do
-        is_expected.to eq(
-          '//stormo.xyz/contents/videos_screenshots/0/245/preview.mp4.jpg'
-        )
-      end
-      its(:player_url) { is_expected.to eq '//stormo.xyz/embed/245/' }
-    end
+    # describe 'stormo' do
+    #   let(:url) { 'https://stormo.xyz/videos/245/stiv-djobs/' }
+    #   its(:hosting) { is_expected.to eq 'stormo' }
+    #   its(:image_url) do
+    #     is_expected.to eq(
+    #       '//stormo.xyz/contents/videos_screenshots/0/245/preview.mp4.jpg'
+    #     )
+    #   end
+    #   its(:player_url) { is_expected.to eq '//stormo.xyz/embed/245/' }
+    # end
 
     # describe 'mediafile.online' do
     #   let(:url) { 'https://mediafile.online/video/176446/bolshoy-sobachiy-pobeg-treyler-2016/' }

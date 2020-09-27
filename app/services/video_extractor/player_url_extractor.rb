@@ -120,8 +120,8 @@ private
       $LAST_MATCH_INFO[:url]
     # elsif html =~ %r{(?<url>#{HTTP}viuly.io/embed/#{CONTENT})}
     #   $LAST_MATCH_INFO[:url]
-    elsif html =~ %r{(?<url>#{HTTP}stormo.(?:xyz|tv)/embed/#{CONTENT})}
-      $LAST_MATCH_INFO[:url]
+    # elsif html =~ %r{(?<url>#{HTTP}stormo.(?:xyz|tv)/embed/#{CONTENT})}
+    #   $LAST_MATCH_INFO[:url]
     elsif html =~ %r{#{HTTP}(?:zedfilm|gidfilm).ru(?:/embed)?/(?<id>#{CONTENT})}
       "https://gidfilm.ru/embed/#{$LAST_MATCH_INFO[:id]}"
     elsif html =~ %r{(?<url>#{HTTP}wikianime.tv/embed/\?id=#{CONTENT})}

@@ -349,10 +349,10 @@ describe VideoExtractor::PlayerUrlExtractor do
     #   it { is_expected.to eq '//viuly.io/embed/0148--neveroyatnoe-priklyuchenie-dzhodzho-rycari-zvzdnoy-pyli--anidub-150196' }
     # end
 
-    context 'stormo.xyz' do
-      let(:html) { 'https://stormo.xyz/embed/415088/' }
-      it { is_expected.to eq '//stormo.xyz/embed/415088/' }
-    end
+    # context 'stormo.xyz' do
+    #   let(:html) { 'https://stormo.xyz/embed/415088/' }
+    #   it { is_expected.to eq '//stormo.xyz/embed/415088/' }
+    # end
 
     # context 'mediafile.online / iframedream.com' do
     #   let(:html) { 'https://mediafile.online/embed/212866' }
