@@ -9,7 +9,11 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
     /\* .*? \*/ \s* [\n\r]*
   }mix
   IMPORTS_REGEXP = /
-    (?: @*import \s+ url \( ['"]? .*? ['"]? \); | #{w '@'}+#{w 'import'} )\ ?[\n\r]*
+    (?:
+     @*import \s+ url \( ['"]? .*? ['"]? \); |
+     @*import \s+ ['"] .*? ['"] |
+     #{w '@'}+#{w 'import'}
+    )\ ?[\n\r]*
   /mix
 
   EVIL_WORDS = /
@@ -44,7 +48,7 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
   ]
 
   SPECIAL_REGEXP = /((?>content: ?['"].*?['"]))|\\\w/
-  FIX_CONTENT_REGEXP = /(content: ?['"]\\)\\_(.*?['"])/
+  FIX_CONTENT_REGEXP = /(content: ?['"]\\)\\_?(.*?['"])/
   DATA_IMAGE_REGEXP = %r{
     (?: \b|^ )
     (?:
@@ -77,7 +81,8 @@ private
   end
 
   def fix_content css
-    css.gsub(FIX_CONTENT_REGEXP, '\1\2')
+    css
+      .gsub(FIX_CONTENT_REGEXP, '\1\2')
   end
 end
 

@@ -65,9 +65,22 @@ describe Misc::SanitizeEvilCss do
     end
   end
 
+  # this way it is used in some old styles
   context 'fix content' do
-    let(:css) { "content: '\\\\_f0e0';" } # this way it is used in some old styles
-    it { is_expected.to eq "content: '\\f0e0';" }
+    context 'sample' do
+      let(:css) { "content: '\\\\_f0e0';" }
+      it { is_expected.to eq "content: '\\f0e0';" }
+    end
+
+    context 'sample' do
+      let(:css) { "content: '\\\\f0e0';" }
+      it { is_expected.to eq "content: '\\f0e0';" }
+    end
+
+    context 'sample' do
+      let(:css) { "content: '\\\\_f0e0';" }
+      it { is_expected.to eq "content: '\\f0e0';" }
+    end
 
     context 'sample' do
       let(:css) { "content: '\\f0e0';" }

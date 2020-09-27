@@ -4,8 +4,12 @@ class Styles::Compile
   MEDIA_QUERY_CSS = '@media only screen and (min-width: 1024px)'
 
   IMPORTS_REGEXP = /
-    @import \s+ url \( ['"]? (?<url>.*?) ['"]? \);
-    [\n\r]*
+    @import \s+
+    (?:
+      url \( ['"]? (?<url>.*?) ['"]? \) |
+      ['"] (?<url>.*?) ['"]
+    )
+    ; [\n\r]*
   /mix
   SUFFIX_REGEXP = /
     (?<suffix>
