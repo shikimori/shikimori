@@ -11,7 +11,12 @@ export default class SpoilerInline extends View {
   @bind
   async _toggle(e) {
     // do not prevent clicks on links inside spoiler
-    if ((e.x || e.y) && e.target.tagName === 'A') {
+    if ((e.x || e.y) && (
+      e.target.tagName === 'A' ||
+      e.target.parentNode.tagName === 'A' ||
+      e.target.parentNode.parentNode.tagName === 'A' ||
+      e.target.parentNode.parentNode.parentNode.tagName === 'A'
+    )) {
       return;
     }
 
