@@ -2,37 +2,37 @@ class VideoExtractor::PlayerUrlExtractor < ServiceObjectBase
   HTTP = %r{(?:https?:)?//(?:www\.)?}.source
   CONTENT = /[^" ><\n]+/.source
   PARAM = %r{[^" ><&?\n\/]+}.source
-  SMOTRET_ANIME_REGEXP = %r{
-    #{HTTP}smotretanime.ru
-      (?:
-        /catalog/[\w-]+/[\w-]+/[\w-]+?-(?<id>\d+)
-        |
-        /translations/embed/(?<id>\d+)
-      )
-  }mix
-  SOVET_ROMANTICA_REGEXP = %r{
-    #{HTTP}sovetromantica.com
-      (?:
-        /embed/episode_(?<anime_id>\d+)_(?<id>\d+-\w+)
-        |
-        /anime/(?<anime_id>\d+)[\w-]+
-          /episode_(?<id>\d+-\w+)
-      )
-  }mix
+  # SMOTRET_ANIME_REGEXP = %r{
+  #   #{HTTP}smotretanime.ru
+  #     (?:
+  #       /catalog/[\w-]+/[\w-]+/[\w-]+?-(?<id>\d+)
+  #       |
+  #       /translations/embed/(?<id>\d+)
+  #     )
+  # }mix
+  # SOVET_ROMANTICA_REGEXP = %r{
+  #   #{HTTP}sovetromantica.com
+  #     (?:
+  #       /embed/episode_(?<anime_id>\d+)_(?<id>\d+-\w+)
+  #       |
+  #       /anime/(?<anime_id>\d+)[\w-]+
+  #         /episode_(?<id>\d+-\w+)
+  #     )
+  # }mix
 
-  ANIMEDIA_REGEXP = %r{
-    (?<url>
-      #{HTTP}online.animedia.tv
-        /embed
-        (?:/#{PARAM})+
-    )
-  }mix
-  ANIMAUNT_REGEXP = %r{
-    (?<url>
-      #{HTTP}online.animaunt.ru
-        /.*\.mp4
-    )
-  }mix
+  # ANIMEDIA_REGEXP = %r{
+  #   (?<url>
+  #     #{HTTP}online.animedia.tv
+  #       /embed
+  #       (?:/#{PARAM})+
+  #   )
+  # }mix
+  # ANIMAUNT_REGEXP = %r{
+  #   (?<url>
+  #     #{HTTP}online.animaunt.ru
+  #       /.*\.mp4
+  #   )
+  # }mix
 
   pattr_initialize :content
 
@@ -110,45 +110,45 @@ private
       $LAST_MATCH_INFO[:url]
     elsif html =~ /(?<url>#{HTTP}flashx.tv#{CONTENT})/
       $LAST_MATCH_INFO[:url]
-    elsif html =~ %r{(?<url>#{HTTP}video.youmite.ru/embed/#{CONTENT})}
-      $LAST_MATCH_INFO[:url]
+    # elsif html =~ %r{(?<url>#{HTTP}video.youmite.ru/embed/#{CONTENT})}
+    #   $LAST_MATCH_INFO[:url]
     elsif html =~ /(?<url>#{HTTP}vidbull.com#{CONTENT})/
       $LAST_MATCH_INFO[:url]
     elsif html =~ %r{(?<url>#{HTTP}(?:www\.)?mp4upload.com/embed-#{CONTENT}.html)}
       $LAST_MATCH_INFO[:url].gsub('www.mp4upload.com', 'mp4upload.com')
     elsif html =~ /(?<url>#{HTTP}mipix.eu#{CONTENT})/
       $LAST_MATCH_INFO[:url]
-    elsif html =~ %r{(?<url>#{HTTP}viuly.io/embed/#{CONTENT})}
-      $LAST_MATCH_INFO[:url]
+    # elsif html =~ %r{(?<url>#{HTTP}viuly.io/embed/#{CONTENT})}
+    #   $LAST_MATCH_INFO[:url]
     elsif html =~ %r{(?<url>#{HTTP}stormo.(?:xyz|tv)/embed/#{CONTENT})}
       $LAST_MATCH_INFO[:url]
     elsif html =~ %r{#{HTTP}(?:zedfilm|gidfilm).ru(?:/embed)?/(?<id>#{CONTENT})}
       "https://gidfilm.ru/embed/#{$LAST_MATCH_INFO[:id]}"
     elsif html =~ %r{(?<url>#{HTTP}wikianime.tv/embed/\?id=#{CONTENT})}
       $LAST_MATCH_INFO[:url]
-    elsif html =~ %r{#{HTTP}(?:mediafile.online|iframedream.com)/embed/(?<id>#{CONTENT})}
-      "https://mediafile.online/embed/#{$LAST_MATCH_INFO[:id]}"
-    elsif html =~ SMOTRET_ANIME_REGEXP
-      "https://smotretanime.ru/translations/embed/#{$LAST_MATCH_INFO[:id]}"
-    elsif html =~ VideoExtractor::RutubeExtractor::URL_REGEX
-      if $LAST_MATCH_INFO[:hash].size > 10
-        format(
-          VideoExtractor::RutubeExtractor::URL_TEMPLATE,
-          $LAST_MATCH_INFO[:hash]
-        )
-      end
-      # else - result will be given by VideoExtractor::RutubeExtractor
+    # elsif html =~ %r{#{HTTP}(?:mediafile.online|iframedream.com)/embed/(?<id>#{CONTENT})}
+    #   "https://mediafile.online/embed/#{$LAST_MATCH_INFO[:id]}"
+    # elsif html =~ SMOTRET_ANIME_REGEXP
+    #   "https://smotretanime.ru/translations/embed/#{$LAST_MATCH_INFO[:id]}"
+    # elsif html =~ VideoExtractor::RutubeExtractor::URL_REGEX
+    #   if $LAST_MATCH_INFO[:hash].size > 10
+    #     format(
+    #       VideoExtractor::RutubeExtractor::URL_TEMPLATE,
+    #       $LAST_MATCH_INFO[:hash]
+    #     )
+    #   end
+    #   # else - result will be given by VideoExtractor::RutubeExtractor
     # elsif html =~ %r{#{HTTP}play.aniland.org/(?<hash>\w+)}
       # "https://play.aniland.org/#{$LAST_MATCH_INFO[:hash]}?player=8"
-    elsif html =~ SOVET_ROMANTICA_REGEXP
-      'https://sovetromantica.com/embed/episode_'\
-        "#{$LAST_MATCH_INFO[:anime_id]}_#{$LAST_MATCH_INFO[:id]}"
-          .gsub(/-d.*/, '-dubbed')
-          .gsub(/-s.*/, '-subtitles')
-    elsif html =~ ANIMEDIA_REGEXP
-      ($LAST_MATCH_INFO[:url]).to_s.gsub(/-.*/, '')
-    elsif html =~ ANIMAUNT_REGEXP
-      ($LAST_MATCH_INFO[:url]).to_s
+    # elsif html =~ SOVET_ROMANTICA_REGEXP
+    #   'https://sovetromantica.com/embed/episode_'\
+    #     "#{$LAST_MATCH_INFO[:anime_id]}_#{$LAST_MATCH_INFO[:id]}"
+    #       .gsub(/-d.*/, '-dubbed')
+    #       .gsub(/-s.*/, '-subtitles')
+    # elsif html =~ ANIMEDIA_REGEXP
+    #   ($LAST_MATCH_INFO[:url]).to_s.gsub(/-.*/, '')
+    # elsif html =~ ANIMAUNT_REGEXP
+    #   ($LAST_MATCH_INFO[:url]).to_s
     elsif html =~ VideoExtractor::OkExtractor::URL_REGEX
       "https://ok.ru/videoembed/#{$LAST_MATCH_INFO[:key]}"
     else

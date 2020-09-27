@@ -147,47 +147,47 @@ describe VideoExtractor::PlayerUrlExtractor do
       end
     end
 
-    describe 'rutube' do
-      describe do
-        let(:html) { '<iframe width="730" height="480" src="//rutube.ru/video/embed/8c8bbdc632726555649d45c2c6a273c0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>' }
-        it { is_expected.to eq '//rutube.ru/play/embed/8c8bbdc632726555649d45c2c6a273c0' }
-      end
-
-      describe do
-        let(:html) { '<iframe width="720" height="405" src="//rutube.ru/play/embed/8c8bbdc632726555649d45c2c6a273c0?wmode=opaque&amp;autoStart=true" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" id="video_frame"></iframe>' }
-        it { is_expected.to eq '//rutube.ru/play/embed/8c8bbdc632726555649d45c2c6a273c0' }
-      end
-
-      describe do
-        let(:html) { 'http://rutube.ru/tracks/2300012.html?v=8c8bbdc632726555649d45c2c6a273c0' }
-        it { is_expected.to eq '//rutube.ru/play/embed/8c8bbdc632726555649d45c2c6a273c0' }
-      end
-
-      describe do
-        let(:html) { 'http://rutube.ru/player.swf?hash=2ebdd7a1645cf60b0b60542689a54031' }
-        it { is_expected.to eq '//rutube.ru/play/embed/2ebdd7a1645cf60b0b60542689a54031' }
-      end
-
-      describe do
-        let(:html) { 'http://video.rutube.ru/?v=e9c211bd5a5f8bb848eef97ad21b046f' }
-        it { is_expected.to eq '//rutube.ru/play/embed/e9c211bd5a5f8bb848eef97ad21b046f' }
-      end
-
-      describe do
-        let(:html) { '<OBJECT width="730" height="480"><PARAM name="movie" value="http://video.rutube.ru/28c276bcec9a0619affa8e2443551b32"></PARAM><PARAM name="wmode" value="window"></PARAM><PARAM name="allowFullScreen" value="true"></PARAM><EMBED src="http://video.rutube.ru/28c276bcec9a0619affa8e2443551b32" type="application/x-shockwave-flash" wmode="window" width="730" height="480" allowFullScreen="true" ></EMBED></OBJECT>' }
-        it { is_expected.to eq '//rutube.ru/play/embed/28c276bcec9a0619affa8e2443551b32' }
-      end
-
-      describe do
-        let(:html) { 'https://rutube.ru/video/3c6027aa9c4ed58a565675ce80b91412/' }
-        it { is_expected.to eq '//rutube.ru/play/embed/3c6027aa9c4ed58a565675ce80b91412' }
-      end
-
-      describe 'id converted to hash', :vcr do
-        let(:html) { 'http://rutube.ru/play/embed/10259595' }
-        it { is_expected.to eq '//rutube.ru/play/embed/8d2ba036c95314a62ce8a0fed801c81d' }
-      end
-    end
+    # describe 'rutube' do
+    #   describe do
+    #     let(:html) { '<iframe width="730" height="480" src="//rutube.ru/video/embed/8c8bbdc632726555649d45c2c6a273c0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>' }
+    #     it { is_expected.to eq '//rutube.ru/play/embed/8c8bbdc632726555649d45c2c6a273c0' }
+    #   end
+    #
+    #   describe do
+    #     let(:html) { '<iframe width="720" height="405" src="//rutube.ru/play/embed/8c8bbdc632726555649d45c2c6a273c0?wmode=opaque&amp;autoStart=true" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" id="video_frame"></iframe>' }
+    #     it { is_expected.to eq '//rutube.ru/play/embed/8c8bbdc632726555649d45c2c6a273c0' }
+    #   end
+    #
+    #   describe do
+    #     let(:html) { 'http://rutube.ru/tracks/2300012.html?v=8c8bbdc632726555649d45c2c6a273c0' }
+    #     it { is_expected.to eq '//rutube.ru/play/embed/8c8bbdc632726555649d45c2c6a273c0' }
+    #   end
+    #
+    #   describe do
+    #     let(:html) { 'http://rutube.ru/player.swf?hash=2ebdd7a1645cf60b0b60542689a54031' }
+    #     it { is_expected.to eq '//rutube.ru/play/embed/2ebdd7a1645cf60b0b60542689a54031' }
+    #   end
+    #
+    #   describe do
+    #     let(:html) { 'http://video.rutube.ru/?v=e9c211bd5a5f8bb848eef97ad21b046f' }
+    #     it { is_expected.to eq '//rutube.ru/play/embed/e9c211bd5a5f8bb848eef97ad21b046f' }
+    #   end
+    #
+    #   describe do
+    #     let(:html) { '<OBJECT width="730" height="480"><PARAM name="movie" value="http://video.rutube.ru/28c276bcec9a0619affa8e2443551b32"></PARAM><PARAM name="wmode" value="window"></PARAM><PARAM name="allowFullScreen" value="true"></PARAM><EMBED src="http://video.rutube.ru/28c276bcec9a0619affa8e2443551b32" type="application/x-shockwave-flash" wmode="window" width="730" height="480" allowFullScreen="true" ></EMBED></OBJECT>' }
+    #     it { is_expected.to eq '//rutube.ru/play/embed/28c276bcec9a0619affa8e2443551b32' }
+    #   end
+    #
+    #   describe do
+    #     let(:html) { 'https://rutube.ru/video/3c6027aa9c4ed58a565675ce80b91412/' }
+    #     it { is_expected.to eq '//rutube.ru/play/embed/3c6027aa9c4ed58a565675ce80b91412' }
+    #   end
+    #
+    #   describe 'id converted to hash', :vcr do
+    #     let(:html) { 'http://rutube.ru/play/embed/10259595' }
+    #     it { is_expected.to eq '//rutube.ru/play/embed/8d2ba036c95314a62ce8a0fed801c81d' }
+    #   end
+    # end
 
     describe 'sibnet' do
       describe do
@@ -292,42 +292,42 @@ describe VideoExtractor::PlayerUrlExtractor do
       it { is_expected.to eq '//mipix.eu/translations/embed/274265' }
     end
 
-    describe 'smotretanime.ru' do
-      let(:html) { 'http://smotretanime.ru/catalog/anime-kod-gias-vosstavshiy-lelush-2-2522/11-seriya-3784/russkie-subtitry-522965' }
-      it { is_expected.to eq '//smotretanime.ru/translations/embed/522965' }
-    end
-
-    describe 'smotretanime.ru embed' do
-      let(:html) { '<iframe src="https://smotretanime.ru/translations/embed/522965" width="853" height="526" allowfullscreen frameborder="0"></iframe>' }
-      it { is_expected.to eq '//smotretanime.ru/translations/embed/522965' }
-    end
+    # describe 'smotretanime.ru' do
+    #   let(:html) { 'http://smotretanime.ru/catalog/anime-kod-gias-vosstavshiy-lelush-2-2522/11-seriya-3784/russkie-subtitry-522965' }
+    #   it { is_expected.to eq '//smotretanime.ru/translations/embed/522965' }
+    # end
+    #
+    # describe 'smotretanime.ru embed' do
+    #   let(:html) { '<iframe src="https://smotretanime.ru/translations/embed/522965" width="853" height="526" allowfullscreen frameborder="0"></iframe>' }
+    #   it { is_expected.to eq '//smotretanime.ru/translations/embed/522965' }
+    # end
 
     # describe 'play.aniland.org' do
     #   let(:html) { 'http://play.aniland.org/2147401883?player=4' }
     #   it { is_expected.to eq '//play.aniland.org/2147401883?player=8' }
     # end
 
-    describe 'sovet romantica' do
-      describe 'embed url' do
-        let(:html) { 'https://sovetromantica.com/embed/episode_116_12-su' }
-        it { is_expected.to eq '//sovetromantica.com/embed/episode_116_12-subtitles' }
-      end
+    # describe 'sovet romantica' do
+    #   describe 'embed url' do
+    #     let(:html) { 'https://sovetromantica.com/embed/episode_116_12-su' }
+    #     it { is_expected.to eq '//sovetromantica.com/embed/episode_116_12-subtitles' }
+    #   end
+    #
+    #   describe 'full url' do
+    #     let(:html) { 'https://sovetromantica.com/anime/116-watashi-ga-motete-dousunda/episode_12-dub' }
+    #     it { is_expected.to eq '//sovetromantica.com/embed/episode_116_12-dubbed' }
+    #   end
+    # end
 
-      describe 'full url' do
-        let(:html) { 'https://sovetromantica.com/anime/116-watashi-ga-motete-dousunda/episode_12-dub' }
-        it { is_expected.to eq '//sovetromantica.com/embed/episode_116_12-dubbed' }
-      end
-    end
+    # describe 'animedia' do
+    #   let(:html) { 'http://online.animedia.tv/embed/14678/1/8-zc' }
+    #   it { is_expected.to eq '//online.animedia.tv/embed/14678/1/8' }
+    # end
 
-    describe 'animedia' do
-      let(:html) { 'http://online.animedia.tv/embed/14678/1/8-zc' }
-      it { is_expected.to eq '//online.animedia.tv/embed/14678/1/8' }
-    end
-
-    describe 'online.animaunt.ru' do
-      let(:html) { 'http://online.animaunt.ru/Anime%20Online/All%20Anime/%5BAniMaunt.Ru%5D%20JoJo%E2%80%99s%20Bizarre%20Adventure/jojo1.01.mp4' }
-      it { is_expected.to eq '//online.animaunt.ru/Anime%20Online/All%20Anime/%5BAniMaunt.Ru%5D%20JoJo%E2%80%99s%20Bizarre%20Adventure/jojo1.01.mp4' }
-    end
+    # describe 'online.animaunt.ru' do
+    #   let(:html) { 'http://online.animaunt.ru/Anime%20Online/All%20Anime/%5BAniMaunt.Ru%5D%20JoJo%E2%80%99s%20Bizarre%20Adventure/jojo1.01.mp4' }
+    #   it { is_expected.to eq '//online.animaunt.ru/Anime%20Online/All%20Anime/%5BAniMaunt.Ru%5D%20JoJo%E2%80%99s%20Bizarre%20Adventure/jojo1.01.mp4' }
+    # end
 
     describe 'gidfilm.ru' do
       let(:html) { 'http://gidfilm.ru/embed/234689' }
@@ -339,25 +339,25 @@ describe VideoExtractor::PlayerUrlExtractor do
       it { is_expected.to eq '//ok.ru/videoembed/815923404420' }
     end
 
-    describe 'youmite' do
-      let(:html) { 'https://video.youmite.ru/embed/JIzidma8NwTMu8m' }
-      it { is_expected.to eq '//video.youmite.ru/embed/JIzidma8NwTMu8m' }
-    end
+    # describe 'youmite' do
+    #   let(:html) { 'https://video.youmite.ru/embed/JIzidma8NwTMu8m' }
+    #   it { is_expected.to eq '//video.youmite.ru/embed/JIzidma8NwTMu8m' }
+    # end
 
-    describe 'viuly.io' do
-      let(:html) { 'https://viuly.io/embed/0148--neveroyatnoe-priklyuchenie-dzhodzho-rycari-zvzdnoy-pyli--anidub-150196' }
-      it { is_expected.to eq '//viuly.io/embed/0148--neveroyatnoe-priklyuchenie-dzhodzho-rycari-zvzdnoy-pyli--anidub-150196' }
-    end
+    # describe 'viuly.io' do
+    #   let(:html) { 'https://viuly.io/embed/0148--neveroyatnoe-priklyuchenie-dzhodzho-rycari-zvzdnoy-pyli--anidub-150196' }
+    #   it { is_expected.to eq '//viuly.io/embed/0148--neveroyatnoe-priklyuchenie-dzhodzho-rycari-zvzdnoy-pyli--anidub-150196' }
+    # end
 
     context 'stormo.xyz' do
       let(:html) { 'https://stormo.xyz/embed/415088/' }
       it { is_expected.to eq '//stormo.xyz/embed/415088/' }
     end
 
-    context 'mediafile.online / iframedream.com' do
-      let(:html) { 'https://mediafile.online/embed/212866' }
-      it { is_expected.to eq '//mediafile.online/embed/212866' }
-    end
+    # context 'mediafile.online / iframedream.com' do
+    #   let(:html) { 'https://mediafile.online/embed/212866' }
+    #   it { is_expected.to eq '//mediafile.online/embed/212866' }
+    # end
 
     context 'zedfilm.ru' do
       let(:html) { 'http://zedfilm.ru/785805' }
