@@ -17,19 +17,21 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
   /mix
 
   EVIL_WORDS = /
-    #{w 'eval'}\b |
-    #{w 'cookie'}\b |
-    \b#{w 'window'}\b |
-    \b#{w 'parent'}\b |
-    \b#{w 'this'}\b |
-    #{w 'behavior'} |
-    #{w 'behaviour'} |
-    #{w 'expression'} |
+    \b (?:
+      #{w 'eval'} |
+      #{w 'cookie'} |
+      #{w 'window'} |
+      #{w 'parent'} |
+      #{w 'this'} |
+      #{w 'javascript'} |
+      #{w 'vbscript'} |
+      #{w 'script'} |
+      #{w 'behavior'} |
+      #{w 'behaviour'} |
+      #{w 'expression'}
+    ) \b |
     #{w 'moz-binding'} |
     #{w '@'}*#{w 'charset'} |
-    #{w 'javascript'}\b |
-    #{w 'vbscript'}\b |
-    #{w 'script'}\b |
     #{w '<'}
   /ix
 
