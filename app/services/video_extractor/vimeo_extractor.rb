@@ -1,4 +1,8 @@
 class VideoExtractor::VimeoExtractor < VideoExtractor::OpenGraphExtractor
+  OPEN_URI_OPTIONS = VideoExtractor::OpenGraphExtractor::OPEN_URI_OPTIONS.merge(
+    **Proxy.prepaid_proxy
+  )
+
   URL_REGEX = %r{
     https?://(?:www\.)?(
       (?<hosting>vimeo).com/[\wА-я_-]+#{PARAMS}
@@ -24,10 +28,8 @@ class VideoExtractor::VimeoExtractor < VideoExtractor::OpenGraphExtractor
     og_image = doc.css(IMAGE_PROPERTIES.join(',')).first
     og_id = doc.css(ID_PROPERTY).first
 
-    if og_image && og_id
-      if og_id[:content] =~ ID_REGEXP
-        [og_image[:content], $LAST_MATCH_INFO[:id]]
-      end
+    if og_image && og_id && og_id[:content] =~ ID_REGEXP
+      [og_image[:content], $LAST_MATCH_INFO[:id]]
     end
   end
 end
