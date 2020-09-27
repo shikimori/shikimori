@@ -92,7 +92,8 @@ describe Misc::SanitizeEvilCss do
     "url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj')",
     "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUC')",
     'url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAA")',
-    'url("data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAA")'
+    'url("data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAA")',
+    "url('data:application/octet-stream;base64,d09GRgABAAAAADxgAA8AAAAAXMAAAQ')"
   ].each do |sample|
     context sample do
       let(:css) { sample }

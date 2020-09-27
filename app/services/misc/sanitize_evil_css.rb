@@ -41,7 +41,7 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
     # high bytes -- suspect
     # /[\x7f-\xff]/,
     # low bytes -- suspect
-    /[\x00-\x08\x0B\x0C\x0E-\x1F]+/,
+    # /[\x00-\x08\x0B\x0C\x0E-\x1F]+/,
     /&\#/, # bad charset
     COMMENTS_REGEXP,
     IMPORTS_REGEXP
@@ -52,7 +52,13 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
   DATA_IMAGE_REGEXP = %r{
     (?: \b|^ )
     (?:
-      ((?>data:image/(?:svg\+xml|png|jpeg|jpg|gif);base64,))|#{w 'data:'}(?:\b|$)
+      (
+        (?>data:(?:
+          image/(?:svg\+xml|png|jpeg|jpg|gif) |
+          application/octet-stream
+        );base64,)
+      )
+      | #{w 'data:'}(?:\b|$)
     )
   }ix
 

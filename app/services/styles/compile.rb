@@ -3,6 +3,11 @@ class Styles::Compile
 
   MEDIA_QUERY_CSS = '@media only screen and (min-width: 1024px)'
 
+  URL_REGEXP = %r{
+    (?<! [\w+-/] )
+    #{BbCodes::Tags::UrlTag::URL.source}
+  }mix
+
   IMPORTS_REGEXP = /
     @import \s+
     (?:
@@ -75,7 +80,7 @@ private
   end
 
   def camo_images css
-    css.gsub(BbCodes::Tags::UrlTag::URL) do
+    css.gsub(URL_REGEXP) do
       url = $LAST_MATCH_INFO[:url]
 
       if url =~ SUFFIX_REGEXP
