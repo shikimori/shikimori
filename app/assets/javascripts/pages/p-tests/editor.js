@@ -10,7 +10,7 @@ const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
-if (process.env.NODE_ENV === 'development') {
+if (false && process.env.NODE_ENV === 'development') {
   TEST_DEMO_CONTENT = `
 Немного Сакуры (малая часть):
 [spoiler=спойлер] [image=1171572][image=1171573][image=1171574][image=1171575][image=1171576][image=1171577][image=1171578]
@@ -287,6 +287,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit lorem, eleif
 
 
 # Shiki BbCodes
+[hr]
 [div fc-2][div f-column]
 [anime=1] text after [anime=1]Anime name[/anime]
 [manga=1]
@@ -321,7 +322,7 @@ L[url=https://github.com/shikimori/shiki-editor]ink tex[/url]t
 
 # Spoilers
 [hr]
-
+### Block spoiler
 [spoiler=spoiler block with label]
 spoiler \`content\`
 [/spoiler]
@@ -329,11 +330,39 @@ spoiler \`content\`
 spoiler content
 [/spoiler]
 
-[hr]
+### Inline spoiler
+||Inline spoiler text||    \`||spoiler content||\`
 
+# Code
+[hr]
+### Block code
+\`\`\`
+code block
+\`\`\`
+\`\`\`css
+.css /* code block */ { color: red; } 
+\`\`\`
+
+### Inline code
+\`inlinde code\` made by text wrapped in \`\` \`quotes\` \`\`
+
+# Smileys
+[hr]
 :) :shock:
 
-Custom DIV
+# Images
+[hr]
+Image
+[img no-zoom 225x317]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]     [img no-zoom width=200]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]     [img]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img] [img]https://kawai.shikimori.one/system/users/x160/1.png?1591612283[/img]
+Poster
+[poster]https://www.ljmu.ac.uk/~/media/ljmu/news/starsedit.jpg[/poster]
+
+# Divs and Spans
+[hr]
+[div=b-link_button]
+\`[div=b-link_button]...[/div]\`
+[/div]
+
 \`[div=fc-2][div=f-column][/div][div=f-column][/div][/div]\`
 
 [div=fc-2]
@@ -350,39 +379,33 @@ Custom DIV
 [right]\`[right]...[/right]\`[/right]
 [center]\`[center]...[/center]\`[/center]
 
-[hr]
-
-\`\`\`
-code block
-\`\`\`
-\`\`\`css
-css code block
-\`\`\`
-- Bullet List
-- def
-> - \`quoted\` list
-- > list \`quoted\`
-
-> Quote
-> > nope
-> yes
-
-Image
-[img no-zoom 225x317]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]     [img no-zoom width=200]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]     [img]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img] [img]https://kawai.shikimori.one/system/users/x160/1.png?1591612283[/img]
-Poster
-[poster]https://www.ljmu.ac.uk/~/media/ljmu/news/starsedit.jpg[/poster]
-
-[div=b-link_button]
-\`[div=b-link_button]...[/div]\`
-[/div]
-
 div [div=b-link_button]inline divs are not parsed by editor[/div] div
 Instead use \`[span]\` bbcode [span=b-anime_status_tag anons]as inline element[/span]
 \`\`\`
 Instead use \`[span]\` bbcode [span=b-anime_status_tag anons]as inline element[/span]
 \`\`\`
 
+# Quotes and Lists
+[hr]
+### Bullet list
+- Bullet List
+- def
+
+### Quote
+> Quote
+> > nope
+> yes
+
+### Bullet and Quote combined
+> - \`quoted\` list
+- > list \`quoted\`
+
+### Old Quote
 [quote]Old style quote support[/quote]
 [quote=zxc]Old style quote with nickname[/quote]
 [quote=c1246;1945;Silentium°]Old style quote with user[/quote]
+
+# Videos
+[hr]
+[video]https://www.youtube.com/watch?v=0d4rPwIpzNw[/video] [video]https://www.youtube.com/watch?v=00000000000[/video] [video]https://www.youtube.com/watch?v=JyTvVtUr_2g&t=762s[/video] [video]http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi[/video] [video]https://video.sibnet.ru/video305613-SouL_Eater__AMW/[/video] [video]https://vimeo.com/194659752[/video] [video]https://vk.com/video-186803452_456239969[/video] [video]http://vk.com/video98023184_165811692[/video] [video]https://coub.com/view/1itox4[/video] [video]https://stormo.xyz/videos/245/stiv-djobs/[/video] [video]https://ok.ru/video/2444260543117[/video]
 `.trim();
