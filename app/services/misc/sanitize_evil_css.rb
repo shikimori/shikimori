@@ -41,14 +41,14 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
     # high bytes -- suspect
     # /[\x7f-\xff]/,
     # low bytes -- suspect
-    # /[\x00-\x08\x0B\x0C\x0E-\x1F]+/,
+    /[\x00-\x08\x0B\x0C\x0E-\x1F]+/,
     /&\#/, # bad charset
     COMMENTS_REGEXP,
     IMPORTS_REGEXP
   ]
 
   SPECIAL_REGEXP = /((?>content: ?['"].*?['"]))|\\\w/
-  FIX_CONTENT_REGEXP = /(content: ?['"]\\)\\_?(.*?['"])/
+  FIX_CONTENT_REGEXP = /(content: ?['"]\\)\\.?(\w{4}['"])/
   DATA_IMAGE_REGEXP = %r{
     (?: \b|^ )
     (?:
