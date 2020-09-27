@@ -13,8 +13,8 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
   /mix
 
   EVIL_WORDS = /
-    #{w 'eval'} |
-    #{w 'cookie'} |
+    #{w 'eval'}\b |
+    #{w 'cookie'}\b |
     \b#{w 'window'}\b |
     \b#{w 'parent'}\b |
     \b#{w 'this'}\b |
