@@ -61,7 +61,7 @@ export default class Topic extends ShikiEditable {
     this.$body = this.$inner.children('.body');
 
     this.$editorContainer = this.$('.editor-container');
-    this.$editor = this.$('.b-shiki_editor');
+    this.$editor = this.$('.b-shiki_editor, .b-shiki_editor-v2');
 
     // do not move to getter. it is redefined in FullDialog
     this.$commentsLoader = this.$('.comments-loader');
