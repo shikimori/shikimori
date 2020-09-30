@@ -48,11 +48,12 @@ export default class Comment extends ShikiEditable
 
     # ответ на комментарий
     @$('.item-reply').on 'click', (e) =>
-      comment_id = @root.id
-      nickname = @$root.data 'user_nickname'
-      reply = "[#{@_type()}=#{comment_id}]#{nickname}[/#{@_type()}], "
-
-      @$root.trigger 'comment:reply', [reply, @_is_offtopic()]
+      @$root.trigger 'comment:reply', [{
+        id: @root.id,
+        type: @_type(),
+        text: @$root.data('user_nickname')
+        url: "/#{@_type()}s/#{@root.id}"
+      }, @_is_offtopic()]
 
     # edit message
     @$('.main-controls .item-edit')

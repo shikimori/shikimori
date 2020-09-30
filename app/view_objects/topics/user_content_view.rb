@@ -1,4 +1,8 @@
 class Topics::UserContentView < Topics::View
+  def generated?
+    false
+  end
+
   def show_inner?
     true
   end

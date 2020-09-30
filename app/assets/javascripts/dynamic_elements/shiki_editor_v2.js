@@ -50,8 +50,12 @@ export default class ShikiEditorV2 extends View {
     return this.$node.closest('form');
   }
 
-  replyComment(text, _isOfftopic) {
-    this.editorApp.appendContent(text);
+  replyComment(reply, _isOfftopic) {
+    if (reply.contructor === String) {
+      this.editorApp.appendText(text);
+    } else {
+      this.editorApp.appendReply(reply);
+    }
   }
 
   _buildShikiUploader(ShikiUploader) {
