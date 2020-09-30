@@ -52,7 +52,7 @@ export default class ShikiEditorV2 extends View {
 
   replyComment(reply, _isOfftopic) {
     if (reply.contructor === String) {
-      this.editorApp.appendText(text);
+      this.editorApp.appendText(reply);
     } else {
       this.editorApp.appendReply(reply);
     }

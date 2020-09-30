@@ -4,5 +4,5 @@
   / = render 'comments/shiki_editor', comment: comment, f: f
   = render 'blocks/shiki_editor',
     text: comment.body,
-    field_name: 'comment[body]',
+    field_name: "#{comment.class.name.downcase}[body]",
     f: f
