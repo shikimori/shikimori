@@ -96,10 +96,6 @@ export default class Topic extends ShikiEditable {
 
     // ответ на топик
     $('.item-reply', this.$inner).on('click', () => {
-      const reply = this.$root.data('generated') ?
-        '' :
-        `[entry=${this.$root.attr('id')}]${this.$root.data('user_nickname')}[/entry], `;
-
       this.$root.trigger('comment:reply', [{
         id: this.$root.attr('id'),
         type: 'topic',
