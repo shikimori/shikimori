@@ -50,6 +50,10 @@ export default class ShikiEditorV2 extends View {
     return this.$node.closest('form');
   }
 
+  replyComment(text, _isOfftopic) {
+    this.editorApp.appendContent(text);
+  }
+
   _buildShikiUploader(ShikiUploader) {
     return new ShikiUploader({
       locale: window.LOCALE,
