@@ -100,7 +100,12 @@ export default class Topic extends ShikiEditable {
         '' :
         `[entry=${this.$root.attr('id')}]${this.$root.data('user_nickname')}[/entry], `;
 
-      this.$root.trigger('comment:reply', [reply]);
+      this.$root.trigger('comment:reply', [{
+        id: this.$root.attr('id'),
+        type: 'topic',
+        text: this.$root.data('user_nickname'),
+        url: this.$root.data('url')
+      }]);
     });
 
     this.$editor
@@ -167,11 +172,11 @@ export default class Topic extends ShikiEditable {
     this.on('appear', this._appear);
 
     // ответ на комментарий
-    this.on('comment:reply', (e, text, isOfftopic) => {
+    this.on('comment:reply', (e, reply, isOfftopic) => {
       // @editor is empty for unauthorized user
       if (this.editor) {
         this._showEditor();
-        this.editor.replyComment(text, isOfftopic);
+        this.editor.replyComment(reply, isOfftopic);
       }
     });
 

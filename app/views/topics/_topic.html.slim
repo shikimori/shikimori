@@ -5,8 +5,9 @@ article.shiki-object.to-process[
   data-appear_url=api_appears_url
   data-dynamic='topic'
   data-faye=(topic_view.is_mini ? false : topic_view.faye_channel).to_json
-  data-generated=topic_view.topic.generated?.to_json
+  data-generated=topic_view.generated?.to_json
   data-track_topic="#{JsExports::TopicsExport.instance.placeholder(topic_view.topic) unless local_assigns[:do_not_track]}"
+  data-url=topic_view.url
   data-user_id=topic_view.user.id
   data-user_nickname=topic_view.user.nickname
   itemscope
