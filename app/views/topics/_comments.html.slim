@@ -1,5 +1,5 @@
-- cache comments_view do
-  .b-comments
+.b-comments
+  - cache comments_view do
     - if comments_view.folded?
       .comments-hider = comments_view.hide_comments_text
       .comments-expander = comments_view.show_comments_text
@@ -19,7 +19,7 @@
     - else
       p.b-nothing_here = t 'no_comments'
 
-  - unless commentable.respond_to?(:is_closed) && commentable.is_closed
-    .editor-container
-      .subheadline = t '.your_comment'
-      = render 'comments/form', comment: comments_view.new_comment
+- unless commentable.respond_to?(:is_closed) && commentable.is_closed
+  .editor-container
+    .subheadline = t '.your_comment'
+    = render 'comments/form', comment: comments_view.new_comment
