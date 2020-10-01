@@ -232,6 +232,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       @is_mini,
       skip_body?,
       closed?, # not sure whether it is necessary
+      h.current_user&.preferences&.is_shiki_editor?,
       CACHE_VERSION
     )
   end
