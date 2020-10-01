@@ -1,9 +1,15 @@
-- content_for :head do
-  = auto_discovery_link_tag :rss,
-    url_for(safe_params.merge format: :rss),
-    title: t('.rss_title')
+- if params[:action] != 'tooltip'
+  - content_for :head do
+    = auto_discovery_link_tag :rss,
+      url_for(safe_params.merge format: :rss),
+      title: t('.rss_title')
 
-= render layout: 'topics/page' do |f|
+  = render layout: 'topics/page' do |f|
+    = render partial: 'topics/topic',
+      collection: [@topic_view],
+      as: :topic_view,
+      cache: true
+- else
   = render partial: 'topics/topic',
     collection: [@topic_view],
     as: :topic_view,
