@@ -124,9 +124,7 @@ module Shikimori
       if Rails.env.development?
         allow do
           origins '*'
-          resource '*',
-            headers: :any,
-            methods: %i[get options post put patch]
+          resource '*', headers: :any, methods: %i[get options post put patch]
         end
       else
         allow do
@@ -134,23 +132,17 @@ module Shikimori
             ALLOWED_DOMAINS.include?(Url.new(source).domain.to_s) &&
               Url.new(source).protocol.to_s == PROTOCOL
           end
-          resource '*',
-            headers: :any,
-            methods: %i[get options]
+          resource '*', headers: :any, methods: %i[get options]
         end
 
         allow do
           origins '*'
-          resource '/comments/smileys',
-            headers: :any,
-            methods: %i[get options]
+          resource '/comments/smileys', headers: :any, methods: %i[get options]
         end
 
         allow do
           origins '*'
-          resource '/api/*',
-            headers: :any,
-            methods: %i[get options post put patch]
+          resource '/api/*', headers: :any, methods: %i[get options post put patch]
         end
       end
     end
