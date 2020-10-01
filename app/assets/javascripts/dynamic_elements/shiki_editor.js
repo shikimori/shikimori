@@ -13,14 +13,8 @@ import { isMobile } from 'helpers/mobile_detect';
 export default class ShikiEditor extends ShikiView {
   initialize() {
     const { $node } = this;
-    this.$form = this.$('form');
-
-    if (this.$form.exists()) {
-      this.isInnerForm = true;
-    } else {
-      this.$form = $node.closest('form');
-      this.isInnerForm = false;
-    }
+    this.$form = $node.closest('form');
+    this.isInnerForm = false;
 
     this.$textarea = this.$('textarea');
 
@@ -226,11 +220,9 @@ export default class ShikiEditor extends ShikiView {
     this.$('footer .preview').on('click', () => {
       // подстановка данных о текущем элементе, если они есть
       const data = {};
-      const itemData = this.isInnerForm ?
-        this.$form.serializeHash()[this.type] : (
-          this.$node.triggerWithReturn('preview:params') ||
-            { body: this.text }
-        );
+      const itemData = this.$node.triggerWithReturn('preview:params') || (
+        { body: this.text }
+      );
       data[this.type] = itemData;
 
       this._shade();
@@ -428,7 +420,7 @@ export default class ShikiEditor extends ShikiView {
     });
 
     // замена комментария после успешного сохранения
-    this.on('ajax:success', (e, response) => (
+    $form.on('ajax:success', (e, response) => (
       $comment.view()._replace(response.html, response.JS_EXPORTS)
     ));
   }

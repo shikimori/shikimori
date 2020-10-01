@@ -62,6 +62,7 @@ export default class Topic extends ShikiEditable {
 
     this.$editorContainer = this.$('.editor-container');
     this.$editor = this.$('.b-shiki_editor, .b-shiki_editor-v2');
+    this.$editorForm = this.$editor.closest('form');
 
     // do not move to getter. it is redefined in FullDialog
     this.$commentsLoader = this.$('.comments-loader');
@@ -69,11 +70,14 @@ export default class Topic extends ShikiEditable {
     if (window.SHIKI_USER.isSignedIn &&
       window.SHIKI_USER.isDayRegistered && this.$editor.length
     ) {
+      // NOTE: remove .process() after shiki_editor_v1 is completely removed from the project
       this.editor = this.$editor.process().view();
     } else {
-      this.$editor.replaceWith(
+      this.$editorForm.replaceWith(
         `<div class='b-nothing_here'>${I18n.t('frontend.shiki_editor.not_available')}</div>`
       );
+      this.$editor = null;
+      this.$editorForm = null;
     }
 
     if (this.model && !this.model.is_viewed) { this._activate_appear_marker(); }
@@ -104,7 +108,7 @@ export default class Topic extends ShikiEditable {
       }]);
     });
 
-    this.$editor
+    this.$editorForm
       .on('ajax:success', (e, response) => {
         const $newComment = $(response.html).process(response.JS_EXPORTS);
 
