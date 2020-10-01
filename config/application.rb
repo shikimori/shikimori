@@ -143,6 +143,7 @@ module Shikimori
         allow do
           origins '*'
           resource '/api/*', headers: :any, methods: %i[get options post put patch]
+          resource '/oauth/token', headers: :any, methods: %i[post]
         end
       end
     end
