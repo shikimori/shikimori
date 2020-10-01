@@ -1,7 +1,12 @@
 class Api::V1::TopicIgnoresController < Api::V1Controller
   load_and_authorize_resource
 
+  before_action do
+    doorkeeper_authorize! :topics if doorkeeper_token.present?
+  end
+
   api :POST, '/topic_ignores', 'Create an ignore', deprecated: true
+  description 'Requires `topics` oauth scope'
   param :topic_ignore, Hash do
     param :topic_id, :number
     param :user_id, :number
@@ -19,6 +24,7 @@ class Api::V1::TopicIgnoresController < Api::V1Controller
   end
 
   api :DELETE, '/topic_ignores/:id', 'Destroy an ignore', deprecated: true
+  description 'Requires `topics` oauth scope'
   def destroy
     @resource.destroy
     render json: {
