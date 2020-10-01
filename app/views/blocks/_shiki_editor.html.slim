@@ -37,8 +37,6 @@
   ]
     = render 'comments/shiki_editor',
       text: local_assigns[:text],
-      field_name: local_assigns[:field_name]
-
-    - if defined?(f)
-      footer
-      = f.button :magic_submit, id: "submit_#{rand * 1000000}"
+      field_name: local_assigns[:field_name],
+      f: local_assigns[:f],
+      comment: local_assigns[:comment]
