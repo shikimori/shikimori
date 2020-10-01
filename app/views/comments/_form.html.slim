@@ -3,6 +3,7 @@
   input type='hidden' name='frontend' value='true'
   / = render 'comments/shiki_editor', comment: comment, f: f
   = render 'blocks/shiki_editor',
+    comment: comment,
     text: comment.body,
     field_name: "#{comment.class.name.downcase}[body]",
     f: f
