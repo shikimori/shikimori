@@ -1,6 +1,6 @@
 import delay from 'delay'
 
-import getSelectionText from 'helpers/get_selection_text'
+import { getSelectionText, getSelectionHtml } from 'helpers/get_selection'
 import axios from 'helpers/axios'
 import { animatedCollapse } from 'helpers/animated'
 
@@ -109,12 +109,15 @@ export default class ShikiEditable extends ShikiView
       # выделение текста в комментарии
       @$body.on 'mouseup', =>
         text = getSelectionText()
-        return unless text
+        html = getSelectionHtml()
+        return unless text || html
 
         # скрываем все кнопки цитаты
         $('.item-quote').hide()
 
-        @$root.data(selected_text: text)
+        @$root.data
+          selected_text: text,
+          selected_html: html
         $quote = $('.item-quote', @$inner).css(display: 'inline-block')
 
         delay().then ->
@@ -127,12 +130,17 @@ export default class ShikiEditable extends ShikiView
 
       # цитирование комментария
       $('.item-quote', @$inner).on 'click', (e) =>
-        ids = [@$root.prop('id'), @$root.data('user_id'), @$root.data('user_nickname')]
-        selected_text = @$root.data('selected_text')
-        type = @_type()[0]
-        quote = "[quote=#{type}#{ids.join ';'}]#{selected_text}[/quote]\n"
-
-        @$root.trigger 'comment:reply', [quote, @_is_offtopic?()]
+        @$root.trigger 'comment:reply', [
+          {
+            id: @$root.prop('id'),
+            type: @_type(),
+            userId: @$root.data('user_id'),
+            userNickname: @$root.data('user_nickname'),
+            text: @$root.data('selected_text'),
+            html: @$root.data('selected_html')
+          },
+          @_is_offtopic?()
+        ]
 
   _activate_appear_marker: ->
     @$inner.children('.b-appear_marker').addClass('active')
