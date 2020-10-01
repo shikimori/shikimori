@@ -106,17 +106,22 @@ class TopicsController < ShikimoriController
   end
 
   def tooltip
+    og noindex: true
     return render :missing if @resource.is_a? NoTopic
 
-    topic = Topics::TopicViewFactory.new(true, true).find params[:id]
+    @topic_view = Topics::TopicViewFactory.new(true, true).find params[:id]
 
-    render(
-      partial: 'topics/topic',
-      object: topic,
-      as: :topic_view,
-      layout: false,
-      formats: :html
-    )
+    if request.xhr?
+      render(
+        partial: 'topics/topic',
+        object: @topic_view,
+        as: :topic_view,
+        layout: false,
+        formats: :html
+      )
+    else
+      render :show
+    end
   end
 
   # выбранные топики
