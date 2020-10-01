@@ -73,9 +73,11 @@ export default class Topic extends ShikiEditable {
       // NOTE: remove .process() after shiki_editor_v1 is completely removed from the project
       this.editor = this.$editor.process().view();
     } else {
-      this.$editorForm.replaceWith(
-        `<div class='b-nothing_here'>${I18n.t('frontend.shiki_editor.not_available')}</div>`
-      );
+      if (this.$editorForm.length) {
+        this.$editorForm.replaceWith(
+          `<div class='b-nothing_here'>${I18n.t('frontend.shiki_editor.not_available')}</div>`
+        );
+      }
       this.$editor = null;
       this.$editorForm = null;
     }
@@ -108,22 +110,25 @@ export default class Topic extends ShikiEditable {
       }]);
     });
 
-    this.$editorForm
-      .on('ajax:success', (e, response) => {
-        const $newComment = $(response.html).process(response.JS_EXPORTS);
+    // no editor form for topic tooltip for example
+    if (this.$editorForm) {
+      this.$editorForm
+        .on('ajax:success', (e, response) => {
+          const $newComment = $(response.html).process(response.JS_EXPORTS);
 
-        this.$('.b-comments').find('.b-nothing_here').remove();
-        if (this.$editor.is(':last-child')) {
-          this.$('.b-comments').append($newComment);
-        } else {
-          this.$('.b-comments').prepend($newComment);
-        }
+          this.$('.b-comments').find('.b-nothing_here').remove();
+          if (this.$editor.is(':last-child')) {
+            this.$('.b-comments').append($newComment);
+          } else {
+            this.$('.b-comments').prepend($newComment);
+          }
 
-        $newComment.yellowFade();
+          $newComment.yellowFade();
 
-        this.editor.cleanup();
-        this._hideEditor();
-      });
+          this.editor.cleanup();
+          this._hideEditor();
+        });
+    }
 
     $('.item-ignore', this.$inner)
       .on('ajax:before', function() {
