@@ -1,4 +1,4 @@
-- if defined?(f)
+- if local_assigns[:f]
   - if f.object.kind_of? Comment
     - if f.object.persisted?
       = f.input :user_id, as: :hidden, input_html: { id: nil }
@@ -25,9 +25,9 @@
     ]
     .vue-app.b-ajax
 
-    - if defined?(f)
+    - if local_assigns[:f]
       footer
-      = f.button :magic_submit, id: "submit_#{rand * 1000000}"
+        = f.button :magic_submit, id: "submit_#{rand * 1000000}"
 
 - else
   .b-shiki_editor.to-process[

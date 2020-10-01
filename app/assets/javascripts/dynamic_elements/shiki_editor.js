@@ -389,15 +389,21 @@ export default class ShikiEditor extends ShikiView {
   }
 
   // ответ на комментарий
-  async replyComment({ id, type, userId, userNickname, text }, isOfftopic) {
+  async replyComment({ id, type, userId, userNickname, text, url }, isOfftopic) {
     if (isOfftopic) { this._markOfftopic(true); }
 
-    const ids = [id, userId, userNickname].join(';');
-    const type0 = type[0];
-    const quote = `[quote=${type0}${ids}]${text}[/quote]\n`;
+    let reply;
+
+    if (url) {
+      reply = `[${type}=${id}], `;
+    } else {
+      const ids = [id, userId, userNickname].join(';');
+      const type0 = type[0];
+      reply = `[quote=${type0}${ids}]${text}[/quote]\n`;
+    }
 
     this.$textarea
-      .val(`${this.text}\n${quote}`.replace(/^\n+/, ''))
+      .val(`${this.text}\n${reply}`.replace(/^\n+/, ''))
       .focus()
       .trigger('update') // для elastic плагина
       .setCursorPosition(this.text.length);
