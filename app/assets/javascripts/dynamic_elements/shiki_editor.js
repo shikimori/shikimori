@@ -417,13 +417,13 @@ export default class ShikiEditor extends ShikiView {
   }
 
   // переход в режим редактирования комментария
-  editComment($comment) {
+  editComment($comment, $form) {
     const $initialContent = $comment.children().detach();
-    $comment.append(this.$node);
+    $form.appendTo($comment);
 
     // отмена редактирования
     this.$('.cancel').on('click', () => {
-      this.$node.remove();
+      $form.remove();
       $comment.append($initialContent);
     });
 
