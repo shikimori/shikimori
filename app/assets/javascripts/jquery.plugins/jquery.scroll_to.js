@@ -1,5 +1,7 @@
+import delay from 'delay';
+
 $.extend({
-  scrollTo(marker, callback) {
+  async scrollTo(marker, callback) {
     let top;
 
     if (typeof marker === 'number') {
@@ -14,6 +16,11 @@ $.extend({
       }
     }
 
-    $('html, body').animate({ scrollTop: top }, 250, callback); // easeInOutCirc // easeOutElastic
+    $('html, body').animate({ scrollTop: top }, 300); // easeInOutCirc // easeOutElastic
+
+    if (callback) {
+      await delay(300);
+      callback();
+    }
   }
 });
