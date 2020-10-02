@@ -24446,7 +24446,7 @@
         franchise: bang_dream
         not_anime_ids:
         - 40352
-      :threshold: 96.8%
+      :threshold: 96.9%
       :generator:
         not_ignored_ids:
         - 38986
@@ -24864,7 +24864,7 @@
         franchise: major
         not_anime_ids:
         - 32324
-      :threshold: 95%
+      :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :major
@@ -25990,7 +25990,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.3%
+      :threshold: 91.4%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -26134,7 +26134,7 @@
         franchise: digimon
         not_anime_ids:
         - 4712
-      :threshold: 93.5%
+      :threshold: 91.9%
       :generator:
         ignore_latest_ids:
         - 38088
