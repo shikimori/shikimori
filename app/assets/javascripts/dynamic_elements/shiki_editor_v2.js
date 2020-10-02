@@ -63,6 +63,10 @@ export default class ShikiEditorV2 extends View {
     }
   }
 
+  cleanup() {
+    this.editorApp.clearContent();
+  }
+
   _buildShikiUploader(ShikiUploader) {
     return new ShikiUploader({
       locale: window.LOCALE,
