@@ -51,6 +51,11 @@ export default class ShikiEditorV2 extends View {
   }
 
   replyComment(reply, _isOfftopic) {
+    if (!this.$node.is(':appeared')) {
+      $.scrollTo(this.$node, () => this.replyComment(reply, _isOfftopic));
+      return;
+    }
+
     if (reply.constructor === String) {
       this.editorApp.appendText(reply);
     } else {
