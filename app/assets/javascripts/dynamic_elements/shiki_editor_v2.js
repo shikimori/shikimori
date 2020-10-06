@@ -50,6 +50,22 @@ export default class ShikiEditorV2 extends View {
     return this.$node.closest('form');
   }
 
+  editComment($comment, $form) {
+    const $initialContent = $comment.children().detach();
+    $form.appendTo($comment);
+
+    // отмена редактирования
+    this.$('.cancel').on('click', () => {
+      $form.remove();
+      $comment.append($initialContent);
+    });
+
+    // замена комментария после успешного сохранения
+    $form.on('ajax:success', (e, response) => (
+      $comment.view()._replace(response.html, response.JS_EXPORTS)
+    ));
+  }
+
   replyComment(reply, _isOfftopic) {
     if (!this.$node.is(':appeared')) {
       $.scrollTo(this.$node, () => this.replyComment(reply, _isOfftopic));
