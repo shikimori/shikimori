@@ -28,6 +28,8 @@
     - if local_assigns[:f]
       footer
         = f.button :magic_submit, id: "submit_#{rand * 1000000}"
+        - if f.object.persisted?
+          .cancel tabindex='0' = t 'actions.cancel'
 
 - else
   .b-shiki_editor.to-process[
