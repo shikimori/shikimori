@@ -74,6 +74,8 @@ export default class ShikiEditorV2 extends View {
 
     if (reply.constructor === String) {
       this.editorApp.appendText(reply);
+    } else if (reply.html) {
+      this.editorApp.appendQuote(reply);
     } else {
       this.editorApp.appendReply(reply);
     }
