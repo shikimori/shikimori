@@ -3,7 +3,11 @@ describe BbCodes::Tags::QuoteTag do
 
   context 'simple quote' do
     let(:text) { '[quote]test[/quote]' }
-    it { is_expected.to eq '<div class="b-quote"><div class="quote-content">test</div></div>' }
+    it do
+      is_expected.to eq(
+        "<div class='b-quote'><div class='quote-content'>test</div></div>"
+      )
+    end
 
     context 'new lines' do
       let(:text) do
@@ -14,7 +18,11 @@ describe BbCodes::Tags::QuoteTag do
           "[quote]\ntest\n[/quote]\n"
         ].sample
       end
-      it { is_expected.to eq '<div class="b-quote"><div class="quote-content">test</div></div>' }
+      it do
+        is_expected.to eq(
+          "<div class='b-quote'><div class='quote-content'>test</div></div>"
+        )
+      end
     end
 
     context 'with text' do
@@ -22,9 +30,9 @@ describe BbCodes::Tags::QuoteTag do
       it do
         is_expected.to eq(
           <<~HTML.squish
-            <div class="b-quote"><div
-              class="quoteable">[user]zz[/user]</div><div
-              class="quote-content">test</div></div>
+            <div class='b-quote'><div
+              class='quoteable'>[user]zz[/user]</div><div
+              class='quote-content'>test</div></div>
           HTML
         )
       end
@@ -36,9 +44,9 @@ describe BbCodes::Tags::QuoteTag do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <div class="b-quote"><div
-            class="quoteable">[topic=1 quote]3[/topic]</div><div
-            class="quote-content">test</div></div>
+          <div class='b-quote'><div
+            class='quoteable'>[topic=1 quote]3[/topic]</div><div
+            class='quote-content'>test</div></div>
         HTML
       )
     end
@@ -49,9 +57,9 @@ describe BbCodes::Tags::QuoteTag do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <div class="b-quote"><div
-            class="quoteable">[message=1 quote]3[/message]</div><div
-            class="quote-content">test</div></div>
+          <div class='b-quote'><div
+            class='quoteable'>[message=1 quote]3[/message]</div><div
+            class='quote-content'>test</div></div>
         HTML
       )
     end
@@ -62,9 +70,9 @@ describe BbCodes::Tags::QuoteTag do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <div class="b-quote"><div
-            class="quoteable">[comment=1 quote]3[/comment]</div><div
-            class="quote-content">test</div></div>
+          <div class='b-quote'><div
+            class='quoteable'>[comment=1 quote]3[/comment]</div><div
+            class='quote-content'>test</div></div>
         HTML
       )
     end
