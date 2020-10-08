@@ -1,3 +1,6 @@
+@import mixins/responsive
+@import mixins/font_shikimori
+
 .b-quote-v2
   background-color: #f3f5f7
   border-left: 4px solid #548eaa
@@ -5,3 +8,18 @@
 
   & > .b-list
     margin-left: 10px
+
+  .quoteable
+    &:before
+      +font_shikimori('"')
+      color: #333
+      margin-right: 5px
+      position: relative
+
+      +lte_ipad
+        font-size: 14px
+        top: 0px
+
+      +gte_laptop
+        font-size: 12px
+        top: 2px
