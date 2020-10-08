@@ -27,7 +27,9 @@ describe BbCodes::Markdown::ListQuoteParser do
 
     context 'blockquote' do
       let(:symbol) { ['>', '&gt;'].sample }
-      let(:html) { "<blockquote class='b-quote-v2'>a</blockquote>" }
+      let(:html) do
+        "<blockquote class='b-quote-v2'><div class='quote-content'>a</div></blockquote>"
+      end
       it { is_expected.to eq "q\n#{html}w" }
     end
 

@@ -6,8 +6,8 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
   UL_OPEN = BbCodes::Tags::ListTag::UL_OPEN
   UL_CLOSE = BbCodes::Tags::ListTag::UL_CLOSE
 
-  BLOCKQUOTE_OPEN = "<blockquote class='b-quote-v2'>"
-  BLOCKQUOTE_CLOSE = '</blockquote>'
+  BLOCKQUOTE_OPEN = "<blockquote class='b-quote-v2'><div class='quote-content'>"
+  BLOCKQUOTE_CLOSE = '</div></blockquote>'
 
   MULTILINE_BBCODES_MAX_SIZE = BbCodes::MULTILINE_BBCODES.map(&:size).max
 
