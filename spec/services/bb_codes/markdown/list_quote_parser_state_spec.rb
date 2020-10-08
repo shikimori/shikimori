@@ -137,7 +137,7 @@ describe BbCodes::Markdown::ListQuoteParserState do
       end
     end
 
-    context 'with quotable', :focus do
+    context 'with quotable' do
       let(:text) { ">?a\n> b" }
       it do
         is_expected.to eq(
@@ -151,7 +151,7 @@ describe BbCodes::Markdown::ListQuoteParserState do
 
       context 'w/o quote' do
         let(:text) { ">?a\nb" }
-        # it { is_expected.to eq ['', text] }
+        it { is_expected.to eq ['', text] }
       end
     end
   end
