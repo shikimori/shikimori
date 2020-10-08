@@ -96,8 +96,8 @@ private
 
     <<-HTML.squish
       <img
-        src="#{user.avatar_url 16}"
-        srcset="#{user.avatar_url 32} 2x"
+        src="#{ImageUrlGenerator.instance.url user, :x16}"
+        srcset="#{ImageUrlGenerator.instance.url user, :x32} 2x"
         alt="#{author_name}"
       /><span>#{author_name}</span>
     HTML
