@@ -94,8 +94,8 @@ describe BbCodes::Tags::CommentTag do
       it do
         is_expected.to eq(
           "[url=#{url} bubbled b-mention b-user16]<img "\
-            "src=\"#{user.avatar_url 16}\" "\
-            "srcset=\"#{user.avatar_url 32} 2x\" "\
+            "src=\"#{ImageUrlGenerator.instance.url user, :x16}\" "\
+            "srcset=\"#{ImageUrlGenerator.instance.url user, :x32} 2x\" "\
             "alt=\"#{ERB::Util.h user.nickname}\" />"\
             "<span>#{user.nickname}</span>[/url], test"
         )

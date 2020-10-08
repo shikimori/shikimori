@@ -140,7 +140,7 @@ module CommentHelper
 
             text.gsub!(
               $1,
-              "<a href=\"#{profile_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{$4}\" /><span>#{$4}</span></a>" # +
+              "<a href=\"#{profile_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{ImageUrlGenerator.instance.url user, :x16}\" srcset=\"#{ImageUrlGenerator.instance.url user, :x32} 2x\" alt=\"#{$4}\" /><span>#{$4}</span></a>" # +
               # (is_profile ? '' : wrote_html(user.sex))
             )
           rescue
@@ -153,7 +153,7 @@ module CommentHelper
             ban = Ban.find $2
 
             moderator_html = "<div class=\"b-user16\"><a href=\"#{profile_url ban.moderator}\" title=\"#{ERB::Util.h ban.moderator.nickname}\">\
-<img src=\"#{ban.moderator.avatar_url 16}\" srcset=\"#{ban.moderator.avatar_url 32} 2x\" alt=\"#{ERB::Util.h ban.moderator.nickname}\" /><span>#{ERB::Util.h ban.moderator.nickname}</span></a></div>"
+<img src=\"#{ImageUrlGenerator.instance.url ban.moderator, :x16}\" srcset=\"#{ImageUrlGenerator.instance.url ban.moderator, :x32} 2x\" alt=\"#{ERB::Util.h ban.moderator.nickname}\" /><span>#{ERB::Util.h ban.moderator.nickname}</span></a></div>"
             text.gsub! $1, "<br /><div class=\"ban\">#{moderator_html}: <span class=\"resolution\">#{ban.message}</span></div>"
           rescue ActiveRecord::RecordNotFound
             text.gsub! $1, ''
