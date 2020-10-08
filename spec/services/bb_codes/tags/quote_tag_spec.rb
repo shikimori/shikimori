@@ -45,7 +45,7 @@ describe BbCodes::Tags::QuoteTag do
       is_expected.to eq(
         <<~HTML.squish
           <div class='b-quote' data-attrs='t1;2;3'><div
-            class='quoteable'>[topic=1 quote]3[/topic]</div><div
+            class='quoteable'>[topic=1 quote=2]3[/topic]</div><div
             class='quote-content'>test</div></div>
         HTML
       )
@@ -58,7 +58,7 @@ describe BbCodes::Tags::QuoteTag do
       is_expected.to eq(
         <<~HTML.squish
           <div class='b-quote' data-attrs='m1;2;3'><div
-            class='quoteable'>[message=1 quote]3[/message]</div><div
+            class='quoteable'>[message=1 quote=2]3[/message]</div><div
             class='quote-content'>test</div></div>
         HTML
       )
@@ -71,7 +71,7 @@ describe BbCodes::Tags::QuoteTag do
       is_expected.to eq(
         <<~HTML.squish
           <div class='b-quote' data-attrs='c1;2;3'><div
-            class='quoteable'>[comment=1 quote]3[/comment]</div><div
+            class='quoteable'>[comment=1 quote=2]3[/comment]</div><div
             class='quote-content'>test</div></div>
         HTML
       )
