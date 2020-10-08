@@ -43,6 +43,12 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
       @state.join(''),
       rest_content
     ]
+  rescue ArgumentError => e
+    if e.message == 'not_blockquote'
+      ['', @text]
+    else
+      raise
+    end
   end
 
 private
@@ -75,11 +81,24 @@ private
         return parse_list seq_2 if seq_2.in? LIST_ITEM_VARIANTS
         return parse_blockquote seq_2 if seq_2 == BLOCKQUOTE_VARIANT_1
 
-        return if seq_2 == BLOCKQUOTE_QUOTABLE_VARIANT_1 && parse_blockquote_quotable(seq_2)
+        if seq_2 == BLOCKQUOTE_QUOTABLE_VARIANT_1
+          if parse_blockquote_quotable(seq_2) # rubocop:disable BlockNesting
+            return
+          else
+            raise ArgumentError, 'not_blockquote'
+          end
+        end
 
         seq_5 = @text[@index..(@index + 4)]
         return parse_blockquote seq_5 if seq_5 == BLOCKQUOTE_VARIANT_2
-        return if seq_5 == BLOCKQUOTE_QUOTABLE_VARIANT_2 && parse_blockquote_quotable(seq_5)
+
+        if seq_5 == BLOCKQUOTE_QUOTABLE_VARIANT_2
+          if parse_blockquote_quotable(seq_5) # rubocop:disable BlockNesting
+            return
+          else
+            raise ArgumentError, 'not_blockquote'
+          end
+        end
       end
 
       if @text[@index] == '['
