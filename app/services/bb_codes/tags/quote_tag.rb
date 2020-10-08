@@ -65,9 +65,11 @@ private
       replacements += 1
       attrs = $LAST_MATCH_INFO[:attrs]
 
-      "<div class='b-quote' data-attrs='#{attrs}'><div class='quoteable'>"\
-        "[comment=#{$LAST_MATCH_INFO[:comment_id]} quote]"\
-        "#{$LAST_MATCH_INFO[:nickname]}[/comment]"\
+      "<div class='b-quote' data-attrs='#{attrs}'><div class='quoteable'>" +
+        BbCodes::Quotes::QuoteableToBbcode.instance.call(
+          comment_id: $LAST_MATCH_INFO[:comment_id],
+          nickname: $LAST_MATCH_INFO[:nickname]
+        ) +
         "</div><div class='quote-content'>"
     end
 
@@ -79,9 +81,11 @@ private
       replacements += 1
       attrs = $LAST_MATCH_INFO[:attrs]
 
-      "<div class='b-quote' data-attrs='#{attrs}'><div class='quoteable'>"\
-        "[message=#{$LAST_MATCH_INFO[:message_id]} quote]"\
-        "#{$LAST_MATCH_INFO[:nickname]}[/message]"\
+      "<div class='b-quote' data-attrs='#{attrs}'><div class='quoteable'>" +
+        BbCodes::Quotes::QuoteableToBbcode.instance.call(
+          message_id: $LAST_MATCH_INFO[:message_id],
+          nickname: $LAST_MATCH_INFO[:nickname]
+        ) +
         "</div><div class='quote-content'>"
     end
 
@@ -93,9 +97,11 @@ private
       replacements += 1
       attrs = $LAST_MATCH_INFO[:attrs]
 
-      "<div class='b-quote' data-attrs='#{attrs}'><div class='quoteable'>"\
-        "[topic=#{$LAST_MATCH_INFO[:topic_id]} quote]"\
-        "#{$LAST_MATCH_INFO[:nickname]}[/topic]"\
+      "<div class='b-quote' data-attrs='#{attrs}'><div class='quoteable'>" +
+        BbCodes::Quotes::QuoteableToBbcode.instance.call(
+          topic_id: $LAST_MATCH_INFO[:topic_id],
+          nickname: $LAST_MATCH_INFO[:nickname]
+        ) +
         "</div><div class='quote-content'>"
     end
 
@@ -107,8 +113,10 @@ private
       replacements += 1
       attrs = $LAST_MATCH_INFO[:attrs]
 
-      "<div class='b-quote' data-attrs='#{attrs}'><div class='quoteable'>"\
-        "[user]#{$LAST_MATCH_INFO[:nickname]}[/user]"\
+      "<div class='b-quote' data-attrs='#{attrs}'><div class='quoteable'>" +
+        BbCodes::Quotes::QuoteableToBbcode.instance.call(
+          nickname: $LAST_MATCH_INFO[:nickname]
+        ) +
         "</div><div class='quote-content'>"
     end
 
