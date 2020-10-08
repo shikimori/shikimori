@@ -136,6 +136,24 @@ describe BbCodes::Markdown::ListQuoteParserState do
         )
       end
     end
+
+    context 'with quotable', :focus do
+      let(:text) { ">?a\n> b" }
+      it do
+        is_expected.to eq(
+          [
+            "<blockquote class='b-quote-v2'><div class='quoteable'>a</div>" \
+              "<div class='quote-content'>b</div></blockquote>",
+            nil
+          ]
+        )
+      end
+
+      context 'w/o quote' do
+        let(:text) { ">?a\nb" }
+        # it { is_expected.to eq ['', text] }
+      end
+    end
   end
 
   context 'list + blockquote' do

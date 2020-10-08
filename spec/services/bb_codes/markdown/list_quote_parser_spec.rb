@@ -31,6 +31,21 @@ describe BbCodes::Markdown::ListQuoteParser do
         "<blockquote class='b-quote-v2'><div class='quote-content'>a</div></blockquote>"
       end
       it { is_expected.to eq "q\n#{html}w" }
+
+      context 'with quotable' do
+        let(:text) { ">?a\n> b" }
+        it do
+          is_expected.to eq(
+            "<blockquote class='b-quote-v2'><div class='quoteable'>a</div>" \
+              "<div class='quote-content'>b</div></blockquote>"
+          )
+        end
+
+        context 'w/o quote' do
+          let(:text) { ">?a\nb" }
+          it { is_expected.to eq text }
+        end
+      end
     end
 
     context 'tags before' do
