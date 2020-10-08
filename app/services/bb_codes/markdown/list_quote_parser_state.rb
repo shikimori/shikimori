@@ -15,7 +15,9 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
   UL_OPEN = BbCodes::Tags::ListTag::UL_OPEN
   UL_CLOSE = BbCodes::Tags::ListTag::UL_CLOSE
 
-  BLOCKQUOTE_OPEN = "<blockquote class='b-quote-v2'><div class='quote-content'>"
+  BLOCKQUOTE_OPEN_TAG = "<blockquote class='b-quote-v2'%<attrs>s>"
+  BLOCKQUOTE_OPEN_CONTENT = "<div class='quote-content'>"
+  BLOCKQUOTE_QUOTEABLE_TAG = "<div class='quoteable'>%<quoteable>s</div>"
   BLOCKQUOTE_CLOSE = '</div></blockquote>'
 
   MULTILINE_BBCODES_MAX_SIZE = BbCodes::MULTILINE_BBCODES.map(&:size).max
@@ -156,7 +158,7 @@ private
     meta_end_index = @text.index(/\n|\Z/, meta_start_index)
 
     meta_text = @text.slice(meta_start_index, meta_end_index - meta_start_index)
-    meta = BbCodes::Markdown::ParseQuoteMeta.call meta_text
+    meta_attrs = BbCodes::Quotes::ParseMeta.call meta_text
 
     from_index = @index + tag_sequence.size + meta_text.size + 1 + @nested_sequence.size
     to_index = from_index + tag_sequence.size
@@ -164,15 +166,15 @@ private
 
     if BLOCKQUOTE_VARIANTS.include? next_tag_sequence
       move tag_sequence.size + meta_text.size + 1 + @nested_sequence.size
-      parse_blockquote next_tag_sequence, meta
+      parse_blockquote next_tag_sequence, meta_attrs, meta_text
     else
       false
     end
   end
 
-  def parse_blockquote tag_sequence, _meta = nil
+  def parse_blockquote tag_sequence, meta_attrs = nil, meta_text = nil
     is_first_line = true
-    @state.push BLOCKQUOTE_OPEN
+    push_blockquote_open meta_attrs, meta_text
     @nested_sequence += tag_sequence
     # puts "processBlockQuote '#{@nested_sequence}'"
 
@@ -204,5 +206,21 @@ private
   def matched_sequence? sequence
     sequence.present? && @text[@index] == sequence[0] &&
       @text.slice(@index, sequence.size) == sequence
+  end
+
+  def push_blockquote_open meta_attrs, meta_text
+    if meta_attrs
+      quoteable = BbCodes::Quotes::QuoteableToBbcode.instance.call(meta_attrs)
+
+      @state.push(
+        format(BLOCKQUOTE_OPEN_TAG, attrs: " data-attrs='#{meta_text}'") +
+          format(BLOCKQUOTE_QUOTEABLE_TAG, quoteable: quoteable) +
+          BLOCKQUOTE_OPEN_CONTENT
+      )
+    else
+      @state.push(
+        format(BLOCKQUOTE_OPEN_TAG, attrs: '') + BLOCKQUOTE_OPEN_CONTENT
+      )
+    end
   end
 end

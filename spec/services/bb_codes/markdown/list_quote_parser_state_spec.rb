@@ -142,8 +142,8 @@ describe BbCodes::Markdown::ListQuoteParserState do
       it do
         is_expected.to eq(
           [
-            "<blockquote class='b-quote-v2'><div class='quoteable'>a</div>" \
-              "<div class='quote-content'>b</div></blockquote>",
+            "<blockquote class='b-quote-v2' data-attrs='a'><div class='quoteable'>"\
+              "[user]a[/user]</div><div class='quote-content'>b</div></blockquote>",
             nil
           ]
         )
