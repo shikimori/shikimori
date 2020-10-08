@@ -316,13 +316,16 @@ describe BbCodes::Text do
       end
 
       context 'comment quote' do
-        let(:text) { "[quote=c#{comment.id};#{user.id};zz]test[/quote]" }
+        let(:text) { "[quote=#{attrs}]test[/quote]" }
+        let(:attrs) { "c#{comment.id};#{user.id};zz" }
         let(:comment) { create :comment, user: user }
 
         it do
           is_expected.to_not include '[quote='
           is_expected.to_not include '[comment='
-          is_expected.to include '<div class="b-quote">'
+          is_expected.to include(
+            '<div class="b-quote" data-attrs="' + attrs + '">'
+          )
         end
       end
 
