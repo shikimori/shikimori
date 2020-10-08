@@ -20,7 +20,7 @@ describe BbCodes::Quotes::QuoteableToBbcode do
     end
     it do
       is_expected.to eq(
-        "[comment=#{meta[:comment_id]} quote]#{meta[:nickname]}[/comment]"
+        "[comment=#{meta[:comment_id]} quote=2]#{meta[:nickname]}[/comment]"
       )
     end
   end
@@ -35,7 +35,7 @@ describe BbCodes::Quotes::QuoteableToBbcode do
     end
     it do
       is_expected.to eq(
-        "[message=#{meta[:message_id]} quote]#{meta[:nickname]}[/message]"
+        "[message=#{meta[:message_id]} quote=2]#{meta[:nickname]}[/message]"
       )
     end
   end
@@ -50,7 +50,7 @@ describe BbCodes::Quotes::QuoteableToBbcode do
     end
     it do
       is_expected.to eq(
-        "[topic=#{meta[:topic_id]} quote]#{meta[:nickname]}[/topic]"
+        "[topic=#{meta[:topic_id]} quote=2]#{meta[:nickname]}[/topic]"
       )
     end
   end

@@ -16,18 +16,22 @@ class BbCodes::Quotes::QuoteableToBbcode
 private
 
   def comment_to_html meta
-    "[comment=#{meta[:comment_id]} quote]#{meta[:nickname]}[/comment]"
+    "[comment=#{meta[:comment_id]} #{quote meta}]#{meta[:nickname]}[/comment]"
   end
 
   def message_to_html meta
-    "[message=#{meta[:message_id]} quote]#{meta[:nickname]}[/message]"
+    "[message=#{meta[:message_id]} #{quote meta}]#{meta[:nickname]}[/message]"
   end
 
   def topic_to_html meta
-    "[topic=#{meta[:topic_id]} quote]#{meta[:nickname]}[/topic]"
+    "[topic=#{meta[:topic_id]} #{quote meta}]#{meta[:nickname]}[/topic]"
   end
 
   def user_to_html meta
     "[user]#{meta[:nickname]}[/user]"
+  end
+
+  def quote meta
+    meta[:user_id].present? ? "quote=#{meta[:user_id]}" : 'quote'
   end
 end

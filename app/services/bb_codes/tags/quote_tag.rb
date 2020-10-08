@@ -6,7 +6,7 @@ class BbCodes::Tags::QuoteTag
     \[quote=
       (?<attrs>
         c?(?<comment_id>\d+);
-        \d+;
+        (?<user_id>\d+);
         (?<nickname>[^\]]+)
       )
     \] \n?
@@ -16,7 +16,7 @@ class BbCodes::Tags::QuoteTag
     \[quote=
       (?<attrs>
         m(?<message_id>\d+);
-        \d+;
+        (?<user_id>\d+);
         (?<nickname>[^\]]+)
       )
     \] \n?
@@ -26,7 +26,7 @@ class BbCodes::Tags::QuoteTag
     \[quote=
       (?<attrs>
         t(?<topic_id>\d+);
-        \d+;
+        (?<user_id>\d+);
         (?<nickname>[^\]]+)
       )
     \] \n?
@@ -68,6 +68,7 @@ private
       "<div class='b-quote' data-attrs='#{attrs}'><div class='quoteable'>" +
         BbCodes::Quotes::QuoteableToBbcode.instance.call(
           comment_id: $LAST_MATCH_INFO[:comment_id],
+          user_id: $LAST_MATCH_INFO[:user_id],
           nickname: $LAST_MATCH_INFO[:nickname]
         ) +
         "</div><div class='quote-content'>"
@@ -84,6 +85,7 @@ private
       "<div class='b-quote' data-attrs='#{attrs}'><div class='quoteable'>" +
         BbCodes::Quotes::QuoteableToBbcode.instance.call(
           message_id: $LAST_MATCH_INFO[:message_id],
+          user_id: $LAST_MATCH_INFO[:user_id],
           nickname: $LAST_MATCH_INFO[:nickname]
         ) +
         "</div><div class='quote-content'>"
@@ -100,6 +102,7 @@ private
       "<div class='b-quote' data-attrs='#{attrs}'><div class='quoteable'>" +
         BbCodes::Quotes::QuoteableToBbcode.instance.call(
           topic_id: $LAST_MATCH_INFO[:topic_id],
+          user_id: $LAST_MATCH_INFO[:user_id],
           nickname: $LAST_MATCH_INFO[:nickname]
         ) +
         "</div><div class='quote-content'>"
