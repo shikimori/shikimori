@@ -86,8 +86,9 @@ describe BbCodes::Tags::CommentTag do
   end
 
   context 'quote' do
-    let(:text) { "[comment=#{comment.id} quote]#{user.nickname}[/comment], test" }
+    let(:text) { "[comment=#{comment.id} #{quote_part}]#{user.nickname}[/comment], test" }
     let(:comment) { create :comment, user: user }
+    let(:quote_part) { 'quote' }
 
     context 'with avatar' do
       let(:user) { create :user, :with_avatar }
@@ -108,6 +109,27 @@ describe BbCodes::Tags::CommentTag do
           "[url=#{url} bubbled b-mention b-user16]"\
             "<span>#{user.nickname}</span>[/url], test"
         )
+      end
+    end
+
+    context 'non existing comment' do
+      let(:comment) { build_stubbed :comment }
+      it do
+        is_expected.to eq(
+          "<a href='http://test.host/comments/#{comment.id}' "\
+          "class='b-mention b-entry-404 bubbled'>"\
+          "<s>@</s><span>#{user.nickname}</span><del>[comment=#{comment.id}]</del></a>, test"
+        )
+      end
+
+      context 'quote with user_id' do
+        let(:quote_part) { "quote=#{user.id}" }
+        it do
+          is_expected.to eq(
+            "[user=#{user.id}]#{user.nickname}[/user]" \
+              "<span class='b-mention b-entry-404'><del>[comment=#{comment.id}]</del></span>, test"
+          )
+        end
       end
     end
   end

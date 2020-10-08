@@ -9,7 +9,7 @@ class BbCodes::Tags::CommentTag
 
   def bbcode_regexp
     @bbcode_regexp ||= %r{
-      \[#{name_regexp}=(?<id>\d+) (?<quote>\ quote)?\]
+      \[#{name_regexp}=(?<id>\d+) (?<quote>\ quote(?:=(?<quote_user_id>\d+))?)?\]
         (?<text> (?: (?!\[#{name_regexp}).)*? )
       \[/#{name_regexp}\]
       |
@@ -35,7 +35,11 @@ class BbCodes::Tags::CommentTag
           $LAST_MATCH_INFO[:quote].present?
         )
       else
-        not_found_to_html entry_id, $LAST_MATCH_INFO[:text]
+        not_found_to_html(
+          entry_id,
+          $LAST_MATCH_INFO[:text],
+          $LAST_MATCH_INFO[:quote_user_id]
+        )
       end
     end
   end
@@ -54,7 +58,17 @@ private
     "[url=#{url} #{css_classes}]#{mention_html}#{author_html}[/url]"
   end
 
-  def not_found_to_html entry_id, text
+  def not_found_to_html entry_id, text, quote_user_id
+    user = User.find_by id: quote_user_id if quote_user_id.present?
+
+    if user
+      not_found_quote_to_html entry_id, text, user
+    else
+      not_found_mention_to_html entry_id, text
+    end
+  end
+
+  def not_found_mention_to_html entry_id, text
     url = entry_id_url entry_id
     open_tag = url ? "a href='#{url}'" : 'span'
     close_tag = url ? 'a' : 'span'
@@ -65,6 +79,11 @@ private
     "<#{open_tag} class='#{css_classes}'><s>@</s>" +
       (text.present? ? "<span>#{text}</span>" : '') +
       "<del>[#{name}=#{entry_id}]</del></#{close_tag}>"
+  end
+
+  def not_found_quote_to_html entry_id, text, user
+    "[user=#{user.id}]#{text}[/user]<span class='b-mention b-entry-404'>" \
+      "<del>[#{name}=#{entry_id}]</del></span>"
   end
 
   def entry_url entry
