@@ -1,10 +1,10 @@
 class BbCodes::Markdown::ParseQuoteMeta
-  method_object :meta
+  method_object :text
 
   def call
-    return nil if @meta.blank?
+    return nil if @text.blank?
 
-    split = @meta.split(';')
+    split = @text.split(';')
 
     if split.one?
       nickname_meta split[0]
@@ -15,25 +15,25 @@ class BbCodes::Markdown::ParseQuoteMeta
 
 private
 
-  def nickname_meta meta
+  def nickname_meta text
     {
-      nickname: meta
+      nickname: text
     }
   end
 
   def attributes_meta split
-    hash = {}
+    meta = {}
     id = split[0][1..].to_i
 
     case split[0][0]
-      when 'c' then hash[:comment_id] = id
-      when 'm' then hash[:message_id] = id
-      when 't' then hash[:topic_id] = id
+      when 'c' then meta[:comment_id] = id
+      when 'm' then meta[:message_id] = id
+      when 't' then meta[:topic_id] = id
       else return nil
     end
 
-    hash[:user_id] = split[1].to_i
-    hash[:nickname] = split[2]
-    hash
+    meta[:user_id] = split[1].to_i
+    meta[:nickname] = split[2]
+    meta
   end
 end

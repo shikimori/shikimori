@@ -1,7 +1,16 @@
 class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
   LIST_ITEM_VARIANTS = ['- ', '+ ', '* ']
+
   BLOCKQUOTE_VARIANT_1 = '> '
   BLOCKQUOTE_VARIANT_2 = '&gt; '
+
+  BLOCKQUOTE_VARIANTS = [
+    BLOCKQUOTE_VARIANT_1,
+    BLOCKQUOTE_VARIANT_2
+  ]
+
+  BLOCKQUOTE_QUOTABLE_VARIANT_1 = '>?'
+  BLOCKQUOTE_QUOTABLE_VARIANT_2 = '&gt;?'
 
   UL_OPEN = BbCodes::Tags::ListTag::UL_OPEN
   UL_CLOSE = BbCodes::Tags::ListTag::UL_CLOSE
@@ -24,8 +33,6 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
   end
 
   def to_html
-    # binding.pry
-    # ap @text
     parse_line while @index < @text.size && !@is_exit_sequence
 
     rest_content = @text[@index..] if @index <= @text.size - 1
@@ -66,8 +73,11 @@ private
         return parse_list seq_2 if seq_2.in? LIST_ITEM_VARIANTS
         return parse_blockquote seq_2 if seq_2 == BLOCKQUOTE_VARIANT_1
 
+        return if seq_2 == BLOCKQUOTE_QUOTABLE_VARIANT_1 && parse_blockquote_quotable(seq_2)
+
         seq_5 = @text[@index..(@index + 4)]
         return parse_blockquote seq_5 if seq_5 == BLOCKQUOTE_VARIANT_2
+        return if seq_5 == BLOCKQUOTE_QUOTABLE_VARIANT_2 && parse_blockquote_quotable(seq_5)
       end
 
       if @text[@index] == '['
@@ -141,7 +151,26 @@ private
     # puts "processBulletListLines '#{@nested_sequence}'"
   end
 
-  def parse_blockquote tag_sequence
+  def parse_blockquote_quotable tag_sequence # rubocop:disable AbcSize
+    meta_start_index = @index + tag_sequence.size
+    meta_end_index = @text.index(/\n|\Z/, meta_start_index)
+
+    meta_text = @text.slice(meta_start_index, meta_end_index - meta_start_index)
+    meta = BbCodes::Markdown::ParseQuoteMeta.call meta_text
+
+    from_index = @index + tag_sequence.size + meta_text.size + 1 + @nested_sequence.size
+    to_index = from_index + tag_sequence.size
+    next_tag_sequence = @text.slice from_index, to_index - from_index
+
+    if BLOCKQUOTE_VARIANTS.include? next_tag_sequence
+      move tag_sequence.size + meta_text.size + 1 + @nested_sequence.size
+      parse_blockquote next_tag_sequence, meta
+    else
+      false
+    end
+  end
+
+  def parse_blockquote tag_sequence, _meta = nil
     is_first_line = true
     @state.push BLOCKQUOTE_OPEN
     @nested_sequence += tag_sequence
