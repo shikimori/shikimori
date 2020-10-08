@@ -16,11 +16,11 @@ class BbCodes::Quotes::QuoteableToBbcode
 private
 
   def comment_to_html meta
-    "[comment=#{meta[:comment_id]} quote]"
+    "[comment=#{meta[:comment_id]} quote]#{meta[:nickname]}[/comment]"
   end
 
   def message_to_html meta
-    "[message=#{meta[:message_id]} quote]"
+    "[message=#{meta[:message_id]} quote]#{meta[:nickname]}[/message]"
   end
 
   def topic_to_html meta

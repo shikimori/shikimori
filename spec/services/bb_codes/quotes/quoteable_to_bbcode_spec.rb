@@ -18,7 +18,11 @@ describe BbCodes::Quotes::QuoteableToBbcode do
         nickname: 'rty'
       }
     end
-    it { is_expected.to eq "[comment=#{meta[:comment_id]} quote]" }
+    it do
+      is_expected.to eq(
+        "[comment=#{meta[:comment_id]} quote]#{meta[:nickname]}[/comment]"
+      )
+    end
   end
 
   context 'm1;2;qwe' do
@@ -29,7 +33,11 @@ describe BbCodes::Quotes::QuoteableToBbcode do
         nickname: 'yui'
       }
     end
-    it { is_expected.to eq "[message=#{meta[:message_id]} quote]" }
+    it do
+      is_expected.to eq(
+        "[message=#{meta[:message_id]} quote]#{meta[:nickname]}[/message]"
+      )
+    end
   end
 
   context 't1;2;qwe' do
