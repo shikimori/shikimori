@@ -1,4 +1,4 @@
-class BbCodes::Markdown::ParseQuoteMeta
+class BbCodes::Quotes::ParseMeta
   method_object :text
 
   def call

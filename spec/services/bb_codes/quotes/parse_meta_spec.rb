@@ -1,4 +1,4 @@
-describe BbCodes::Markdown::ParseQuoteMeta do
+describe BbCodes::Quotes::ParseMeta do
   subject { described_class.call text }
 
   context 'empty line' do
