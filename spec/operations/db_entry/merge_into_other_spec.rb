@@ -152,6 +152,18 @@ describe DbEntry::MergeIntoOther do
         expect { user_history_1_2.reload }.to raise_error ActiveRecord::RecordNotFound
       end
 
+      context 'no entry_2 rate' do
+        let!(:user_rate_1_2) {}
+        let!(:user_rate_log_1_2) {}
+        let!(:user_history_1_2) {}
+
+        it do
+          expect(user_rate_1_1.reload.target).to eq entry_2
+          expect(user_rate_log_1_1.reload.target).to eq entry_2
+          expect(user_history_1_1.reload.target).to eq entry_2
+        end
+      end
+
       context 'entry_2 is completed' do
         let(:user_rate_1_2_status) { :completed }
 
