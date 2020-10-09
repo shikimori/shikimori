@@ -1,5 +1,5 @@
 import delay from 'delay';
-import { bind } from 'shiki-decorators';
+import { bind, throttle, debounce } from 'shiki-decorators';
 
 import { getSelectionText, getSelectionHtml } from 'helpers/get_selection';
 import axios from 'helpers/axios';
@@ -92,6 +92,41 @@ export default class ShikiEditable extends ShikiView {
         this.$root.trigger('comment:reply', [quote, this?._isOfftopic()]);
       });
     }
+  }
+
+  @bind
+  setSelection() {
+    this.throttledSetSelection();
+  }
+
+  @debounce(100)
+  @throttle(100)
+  async throttledSetSelection() {
+    const text = getSelectionText();
+    const html = getSelectionHtml();
+    if (!text && !html) { return; }
+
+    // скрываем все кнопки цитаты
+    $('.item-quote').hide();
+
+    this.$root.data({
+      selected_text: text,
+      selected_html: html
+    });
+    const $quote = $('.item-quote', this.$inner).css({ display: 'inline-block' });
+
+    await delay();
+    $(document).one('click', async () => {
+      if (!getSelectionText().length) {
+        $quote.hide();
+        return;
+      }
+
+      await delay(250);
+      if (!getSelectionText().length) {
+        $quote.hide();
+      }
+    });
   }
 
   _activateAppearMarker() {
