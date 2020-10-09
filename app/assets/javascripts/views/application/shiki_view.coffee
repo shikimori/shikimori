@@ -14,7 +14,7 @@ export default class ShikiView extends View
 
     return unless @$inner.exists()
 
-  _check_height: =>
+  _checkHeight: =>
     if window.SHIKI_USER.isCommentsAutoCollapsed
       @$inner.checkHeight
         maxHeight: @MAX_PREVIEW_HEIGHT
@@ -28,11 +28,11 @@ export default class ShikiView extends View
 
   _reload: =>
     @_shade()
-    axios.get(@_reload_url()).then (response) =>
+    axios.get(@_reloadUrl()).then (response) =>
       @_replace response.data.content, response.data.JS_EXPORTS
 
   # урл для перезагрузки элемента
-  _reload_url: ->
+  _reloadUrl: ->
     @$node.data 'url'
 
   _replace: (html, JS_EXPORTS) ->

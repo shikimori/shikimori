@@ -62,7 +62,7 @@ export default class Poll extends View {
   // private functions
   _render() {
     const $oldRoot = this.$root;
-    this._set_root(
+    this._setRoot(
       JST[TEMPLATE]({
         model: this.model,
         can_vote: this.canVote,

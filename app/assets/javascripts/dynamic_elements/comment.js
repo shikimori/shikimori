@@ -16,22 +16,22 @@ export default class Comment extends ShikiEditable {
     return {
       can_destroy: false,
       can_edit: false,
-      id: parseInt(this.root.id),
+      id: parseInt(this.node.id),
       is_viewed: true,
-      user_id: this.$root.data('user_id')
+      user_id: this.$node.data('user_id')
     };
   }
 
   initialize() {
     // data attribute is set in Comments.Tracker
-    this.model = this.$root.data('model') || this._defaultModel();
+    this.model = this.$node.data('model') || this._defaultModel();
 
     if (window.SHIKI_USER.isUserIgnored(this.model.user_id)) {
       // node can be not inserted into DOM yet
-      if (this.$root.parent().length) {
-        this.$root.remove();
+      if (this.$node.parent().length) {
+        this.$node.remove();
       } else {
-        delay().then(() => this.$root.remove());
+        delay().then(() => this.$node.remove());
       }
       return;
     }
@@ -40,31 +40,23 @@ export default class Comment extends ShikiEditable {
     this.$moderationForm = this.$('.moderation-ban');
 
     if (this.model && !this.model.is_viewed) { this._activate_appear_marker(); }
-    this.$root.one('mouseover', this._deactivateInaccessibleButtons);
+    this.$node.one('mouseover', this._deactivateInaccessibleButtons);
     this.$('.item-mobile').one(this._deactivateInaccessibleButtons);
 
     if (this.$inner.hasClass('check_height')) {
       const $images = this.$body.find('img');
+
       if ($images.exists()) {
-        // картинки могут быть уменьшены image_normalizer'ом,
-        // поэтому делаем с задержкой
+        // картинки могут быть уменьшены image_normalizer'ом, поэтому делаем с задержкой
         $images.imagesLoaded(() => {
-          delay(10).then(() => this._check_height());
+          delay(10).then(() => this._checkHeight());
         });
       } else {
-        this._check_height();
+        this._checkHeight();
       }
     }
 
-    // ответ на комментарий
-    this.$('.item-reply').on('click', e => {
-      this.$root.trigger('comment:reply', [{
-        id: this.root.id,
-        type: this._type(),
-        text: this.$root.data('user_nickname'),
-        url: `/${this._type()}s/${this.root.id}`
-      }, this._isOfftopic()]);
-    });
+    this.$('.item-reply').on('click', this._commentReply);
 
     // edit message
     this.$('.main-controls .item-edit')
@@ -73,7 +65,7 @@ export default class Comment extends ShikiEditable {
       .on('ajax:success', (e, html, _status, _xhr) => {
         const $form = $(html).process();
         $form.find('.b-shiki_editor, .b-shiki_editor-v2').view()
-          .editComment(this.$root, $form);
+          .editComment(this.$node, $form);
       });
 
     // moderation
@@ -149,6 +141,18 @@ export default class Comment extends ShikiEditable {
 
   _isOfftopic() {
     return this.$('.b-offtopic_marker').css('display') !== 'none';
+  }
+
+  @bind
+  _commentReply() {
+    const reply = {
+      id: this.node.id,
+      type: this._type(),
+      text: this.$node.data('user_nickname'),
+      url: `/${this._type()}s/${this.node.id}`
+    };
+
+    this.$node.trigger('comment:reply', [reply, this._isOfftopic()]);
   }
 
   @bind
