@@ -46,6 +46,18 @@ describe Comments::ExtractQuotedModels do
     end
   end
 
+  describe 'comment quote v2' do
+    let(:comment) { create :comment, user: user }
+    let(:text) { ">?c#{comment.id};#{user.id};test2" }
+
+    it do
+      is_expected.to eq OpenStruct.new(
+        comments: [comment],
+        users: [user]
+      )
+    end
+  end
+
   describe 'multiple entries' do
     let(:comment_1) { create :comment, user: user }
     let(:comment_2) { create :comment, user: user }
