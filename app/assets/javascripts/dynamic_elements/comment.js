@@ -37,10 +37,11 @@ export default class Comment extends ShikiEditable {
     }
 
     this.$body = this.$('.body');
+    this.$moderationForm = this.$('.moderation-ban');
 
     if (this.model && !this.model.is_viewed) { this._activate_appear_marker(); }
-    this.$root.one('mouseover', this._deactivate_inaccessible_buttons);
-    this.$('.item-mobile').one(this._deactivate_inaccessible_buttons);
+    this.$root.one('mouseover', this._deactivateInaccessibleButtons);
+    this.$('.item-mobile').one(this._deactivateInaccessibleButtons);
 
     if (this.$inner.hasClass('check_height')) {
       const $images = this.$body.find('img');
@@ -48,7 +49,7 @@ export default class Comment extends ShikiEditable {
         // картинки могут быть уменьшены image_normalizer'ом,
         // поэтому делаем с задержкой
         $images.imagesLoaded(() => {
-          return delay(10).then(() => this._check_height());
+          delay(10).then(() => this._check_height());
         });
       } else {
         this._check_height();
@@ -57,23 +58,23 @@ export default class Comment extends ShikiEditable {
 
     // ответ на комментарий
     this.$('.item-reply').on('click', e => {
-      return this.$root.trigger('comment:reply', [{
+      this.$root.trigger('comment:reply', [{
         id: this.root.id,
         type: this._type(),
         text: this.$root.data('user_nickname'),
         url: `/${this._type()}s/${this.root.id}`
-      }, this._is_offtopic()]);
-  });
+      }, this._isOfftopic()]);
+    });
 
     // edit message
     this.$('.main-controls .item-edit')
       .on('ajax:before', this._shade)
       .on('ajax:complete', this._unshade)
-      .on('ajax:success', (e, html, status, xhr) => {
+      .on('ajax:success', (e, html, _status, _xhr) => {
         const $form = $(html).process();
-        return $form.find('.b-shiki_editor, .b-shiki_editor-v2').view()
+        $form.find('.b-shiki_editor, .b-shiki_editor-v2').view()
           .editComment(this.$root, $form);
-    });
+      });
 
     // moderation
     this.$('.main-controls .item-moderation').on('click', () => {
@@ -81,29 +82,25 @@ export default class Comment extends ShikiEditable {
       return this.$('.moderation-controls').show();
     });
 
-    this.$('.item-offtopic, .item-summary').on('click', function(e) {
-      const confirm_type = this.classList.contains('selected') ? 'remove' : 'add';
-      return $(this).attr('data-confirm', $(this).data(`confirm-${confirm_type}`));
-    });
+    this.$('.item-offtopic, .item-summary').on('click', this._markOfftopicOrSummary);
 
     this.$('.item-spoiler, .item-abuse').on('ajax:before', function(e) {
       const reason = prompt($(this).data('reason-prompt'));
 
       if (reason === null) {
         return false;
-      } else {
-        return $(this).data({form: {
-          reason
-        }
-        });
       }
+      return $(this).data({ form: {
+        reason
+      }
+      });
     });
 
     // пометка комментария обзором/оффтопиком
     this.$('.item-summary,.item-offtopic,.item-spoiler,.item-abuse,.b-offtopic_marker,.b-summary_marker').on('ajax:success', (e, data, satus, xhr) => {
       if ('affected_ids' in data && data.affected_ids.length) {
         data.affected_ids.forEach(id => $(`.b-comment#${id}`).view()?.mark(data.kind, data.value));
-        flash.notice(marker_message(data));
+        flash.notice(markerMessage(data));
       } else {
         flash.notice(I18n.t(`${I18N_KEY}.your_request_will_be_considered`));
       }
@@ -112,29 +109,23 @@ export default class Comment extends ShikiEditable {
     });
 
     // cancel moderation
-    this.$('.moderation-controls .item-moderation-cancel').on('click', () => {
-      //@$('.main-controls').show()
-      //@$('.moderation-controls').hide()
-      return this._close_aside();
-    });
+    this.$('.moderation-controls .item-moderation-cancel').on('click', () =>
+      // @$('.main-controls').show()
+      // @$('.moderation-controls').hide()
+      this._closeAside()
+    );
 
     // кнопка бана или предупреждения
     this.$('.item-ban').on('ajax:success', (e, html) => {
       const form = new BanForm(html);
 
-      this.$('.moderation-ban').html(form.$root).show();
-      return this._close_aside();
+      this.$moderationForm.html(form.$root).show();
+      this._closeAside();
     });
 
     // закрытие формы бана
-    this.$('.moderation-ban').on('click', '.cancel', () => {
-      return this.$('.moderation-ban').hide();
-    });
-
-    // сабмит формы бана
-    this.$('.moderation-ban').on('ajax:success', 'form', (e, response) => {
-      return this._replace(response.html);
-    });
+    this.$moderationForm.on('click', '.cancel', () => this.$moderationForm.hide());
+    this.$moderationForm.on('ajax:success', 'form', this._moderationSubmit);
 
     // изменение ответов
     this.on('faye:comment:set_replies', (e, data) => {
@@ -143,55 +134,59 @@ export default class Comment extends ShikiEditable {
     });
 
     // хештег со ссылкой на комментарий
-    return this.$('.hash').one('mouseover', function() {
+    this.$('.hash').one('mouseover', function() {
       const $node = $(this);
       return $node
-        .attr({href: $node.data('url')})
+        .attr({ href: $node.data('url') })
         .changeTag('a');
     });
   }
 
   mark(kind, value) {
     this.$(`.item-${kind}`).toggleClass('selected', value);
-    return this.$(`.b-${kind}_marker`).toggle(value);
+    this.$(`.b-${kind}_marker`).toggle(value);
   }
 
-  _is_offtopic() {
+  _isOfftopic() {
     return this.$('.b-offtopic_marker').css('display') !== 'none';
   }
 
   @bind
-  _deactivate_inaccessible_buttons() {
+  _markOfftopicOrSummary({ currentTarget }) {
+    const confirmType = currentTarget.classList.contains('selected') ? 'remove' : 'add';
+    $(currentTarget).attr('data-confirm', $(currentTarget).data(`confirm-${confirmType}`));
+  }
+
+  @bind
+  _moderationSubmit(_e, response) {
+    this._replace(response.html);
+  }
+
+  @bind
+  _deactivateInaccessibleButtons() {
     if (!this.model.can_edit) { this.$('.item-edit').addClass('hidden'); }
     if (!this.model.can_destroy) { this.$('.item-delete').addClass('hidden'); }
 
     if (window.SHIKI_USER.isModerator) {
       this.$('.moderation-controls .item-abuse').addClass('hidden');
       return this.$('.moderation-controls .item-spoiler').addClass('hidden');
-    } else {
-      return this.$('.moderation-controls .item-ban').addClass('hidden');
     }
+    return this.$('.moderation-controls .item-ban').addClass('hidden');
   }
 }
 
-// текст сообщения, отображаемый при изменении маркера
-var marker_message = function(data) {
+function markerMessage(data) {
   if (data.value) {
     if (data.kind === 'offtopic') {
       if (data.affected_ids.length > 1) {
         return flash.notice(I18n.t(`${I18N_KEY}.comments_marked_as_offtopic`));
-      } else {
-        return flash.notice(I18n.t(`${I18N_KEY}.comment_marked_as_offtopic`));
       }
-    } else {
-      return flash.notice(I18n.t(`${I18N_KEY}.comment_marked_as_summary`));
+      return flash.notice(I18n.t(`${I18N_KEY}.comment_marked_as_offtopic`));
     }
-
-  } else {
-    if (data.kind === 'offtopic') {
-      return flash.notice(I18n.t(`${I18N_KEY}.comment_not_marked_as_offtopic`));
-    } else {
-      return flash.notice(I18n.t(`${I18N_KEY}.comment_not_marked_as_summary`));
-    }
+    return flash.notice(I18n.t(`${I18N_KEY}.comment_marked_as_summary`));
   }
+  if (data.kind === 'offtopic') {
+    return flash.notice(I18n.t(`${I18N_KEY}.comment_not_marked_as_offtopic`));
+  }
+  return flash.notice(I18n.t(`${I18N_KEY}.comment_not_marked_as_summary`));
 };
