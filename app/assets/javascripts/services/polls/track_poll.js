@@ -4,7 +4,7 @@ import Poll from 'views/polls/view';
 export default class TrackPoll {
   constructor(poll, $root) {
     $with(this._selector(poll), $root)
-      .data({ model: poll })
+      .data('model', poll)
       .each((_, node) => new Poll(node, poll));
   }
 
