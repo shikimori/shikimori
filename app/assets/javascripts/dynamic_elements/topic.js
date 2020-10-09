@@ -23,9 +23,9 @@ const SHOW_IGNORED_TOPICS_IN = [
 // TODO: move code related to comments to separate class
 export default class Topic extends ShikiEditable {
   _type() { return 'topic'; }
-  _type_label() { return I18n.t(`${I18N_KEY}.type_label`); } // eslint-disable-line camelcase
+  _typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); } // eslint-disable-line camelcase
   // similar to hash from JsExports::TopicsExport#serialize
-  _default_model() { // eslint-disable-line camelcase
+  _defaultModel() { // eslint-disable-line camelcase
     return {
       can_destroy: false,
       can_edit: false,
@@ -41,7 +41,7 @@ export default class Topic extends ShikiEditable {
 
   initialize() {
     // data attribute is set in Topics.Tracker
-    this.model = this.$root.data('model') || this._default_model();
+    this.model = this.$root.data('model') || this._defaultModel();
 
     if (window.SHIKI_USER.isUserIgnored(this.model.user_id) ||
         window.SHIKI_USER.isTopicIgnored(this.model.id)) {
