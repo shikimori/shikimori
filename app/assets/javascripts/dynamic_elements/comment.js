@@ -9,10 +9,10 @@ const I18N_KEY = 'frontend.dynamic_elements.comment';
 
 export default class Comment extends ShikiEditable {
   _type() { return 'comment'; }
-  _type_label() { return I18n.t(`${I18N_KEY}.type_label`); }
+  _typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); }
 
   // similar to hash from JsExports::CommentsExport#serialize
-  _default_model() {
+  _defaultModel() {
     return {
       can_destroy: false,
       can_edit: false,
@@ -24,7 +24,7 @@ export default class Comment extends ShikiEditable {
 
   initialize() {
     // data attribute is set in Comments.Tracker
-    this.model = this.$root.data('model') || this._default_model();
+    this.model = this.$root.data('model') || this._defaultModel();
 
     if (window.SHIKI_USER.isUserIgnored(this.model.user_id)) {
       // node can be not inserted into DOM yet
