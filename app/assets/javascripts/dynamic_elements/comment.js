@@ -7,6 +7,15 @@ import BanForm from 'views/comments/ban_form';
 
 const I18N_KEY = 'frontend.dynamic_elements.comment';
 
+const AJAX_BUTTONS = [
+  '.item-summary',
+  '.item-offtopic',
+  '.item-spoiler',
+  '.item-abuse',
+  '.b-offtopic_marker',
+  '.b-summary_marker'
+];
+
 export default class Comment extends ShikiEditable {
   _type() { return 'comment'; }
   _typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); }
@@ -68,15 +77,7 @@ export default class Comment extends ShikiEditable {
     this.$('.item-offtopic, .item-summary').on('click', this._markOfftopicOrSummary);
     this.$('.item-spoiler, .item-abuse').on('ajax:before', this._markSpoilerOrAbuse);
 
-    const AJAX_CONTROLS = [
-      '.item-summary',
-      '.item-offtopic',
-      '.item-spoiler',
-      '.item-abuse',
-      '.b-offtopic_marker',
-      '.b-summary_marker'
-    ];
-    this.$(AJAX_CONTROLS.join(',')).on('ajax:success', this._processAjaxControlRequest);
+    this.$(AJAX_BUTTONS.join(',')).on('ajax:success', this._processAjaxControlRequest);
 
     this.$('.main-controls .item-moderation').on('click', this._showModrationControls);
     this.$('.moderation-controls .item-moderation-cancel')
