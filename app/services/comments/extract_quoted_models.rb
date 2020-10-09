@@ -1,8 +1,8 @@
 class Comments::ExtractQuotedModels
   REGEXP = /
-    \[(?<tag>quote|comment|topic|mention)=(?<data>[^\]]+)\]
+    \[(quote|comment|topic|mention)=([^\]]+)\]
       |
-    (?<tag>>\?)(?<data>.+) (?:\n|\Z)
+    (>\?)(.+) (?:\n|\Z)
   /mx
 
   method_object :text
