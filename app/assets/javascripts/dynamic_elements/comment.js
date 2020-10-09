@@ -65,40 +65,26 @@ export default class Comment extends ShikiEditable {
       .on('ajax:complete', this._unshade)
       .on('ajax:success', this._edit);
 
-    this.$('.main-controls .item-moderation').on('click', this._showModration);
     this.$('.item-offtopic, .item-summary').on('click', this._markOfftopicOrSummary);
     this.$('.item-spoiler, .item-abuse').on('ajax:before', this._markSpoilerOrAbuse);
 
-    // пометка комментария обзором/оффтопиком
-    this.$('.item-summary,.item-offtopic,.item-spoiler,.item-abuse,.b-offtopic_marker,.b-summary_marker').on('ajax:success', (e, data, satus, xhr) => {
-      if ('affected_ids' in data && data.affected_ids.length) {
-        data.affected_ids.forEach(id => $(`.b-comment#${id}`).view()?.mark(data.kind, data.value));
-        flash.notice(markerMessage(data));
-      } else {
-        flash.notice(I18n.t(`${I18N_KEY}.your_request_will_be_considered`));
-      }
+    const AJAX_CONTROLS = [
+      '.item-summary',
+      '.item-offtopic',
+      '.item-spoiler',
+      '.item-abuse',
+      '.b-offtopic_marker',
+      '.b-summary_marker'
+    ];
+    this.$(AJAX_CONTROLS.join(',')).on('ajax:success', this._processAjaxControlRequest);
 
-      return this.$('.item-moderation-cancel').trigger('click');
-    });
+    this.$('.main-controls .item-moderation').on('click', this._showModrationControls);
+    this.$('.moderation-controls .item-moderation-cancel')
+      .on('click', this._hideModerationControls);
 
-    // cancel moderation
-    this.$('.moderation-controls .item-moderation-cancel').on('click', () =>
-      // @$('.main-controls').show()
-      // @$('.moderation-controls').hide()
-      this._closeAside()
-    );
-
-    // кнопка бана или предупреждения
-    this.$('.item-ban').on('ajax:success', (e, html) => {
-      const form = new BanForm(html);
-
-      this.$moderationForm.html(form.$root).show();
-      this._closeAside();
-    });
-
-    // закрытие формы бана
-    this.$moderationForm.on('click', '.cancel', () => this.$moderationForm.hide());
-    this.$moderationForm.on('ajax:success', 'form', this._moderationSubmit);
+    this.$('.item-ban').on('ajax:success', this._showModerationForm);
+    this.$moderationForm.on('click', '.cancel', this._hideModerationForm);
+    this.$moderationForm.on('ajax:success', 'form', this._processModerationRequest);
 
     // изменение ответов
     this.on('faye:comment:set_replies', (e, data) => {
@@ -168,14 +154,44 @@ export default class Comment extends ShikiEditable {
   }
 
   @bind
-  _showModration() {
+  _showModrationControls() {
     this.$('.main-controls').hide();
     this.$('.moderation-controls').show();
   }
 
   @bind
-  _moderationSubmit(_e, response) {
+  _hideModerationControls() {
+    this._closeAside();
+  }
+
+  @bind
+  _showModerationForm(e, html) {
+    const form = new BanForm(html);
+
+    this.$moderationForm.html(form.$root).show();
+    this._closeAside();
+  }
+
+  @bind
+  _hideModerationForm() {
+    this.$moderationForm.hide();
+  }
+
+  @bind
+  _processModerationRequest(_e, response) {
     this._replace(response.html);
+  }
+
+  @bind
+  _processAjaxControlRequest(e, data) {
+    if ('affected_ids' in data && data.affected_ids.length) {
+      data.affected_ids.forEach(id => $(`.b-comment#${id}`).view()?.mark(data.kind, data.value));
+      flash.notice(markerMessage(data));
+    } else {
+      flash.notice(I18n.t(`${I18N_KEY}.your_request_will_be_considered`));
+    }
+
+    this._hideModerationControls();
   }
 
   @bind
