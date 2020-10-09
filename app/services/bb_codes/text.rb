@@ -128,8 +128,6 @@ private
       text = markdown_parser.instance.format text
     end
 
-    ap text
-
     TAGS.each do |tag_parser|
       text = tag_parser.instance.format text
     end

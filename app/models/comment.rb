@@ -54,15 +54,16 @@ class Comment < ApplicationRecord
   after_create :increment_comments
   after_create :creation_callbacks
 
-  after_save :release_the_banhammer!, if: -> { saved_change_to_body? }
-  after_save :touch_commentable
-  after_save :notify_quoted, if: -> { saved_change_to_body? }
-
   before_destroy :decrement_comments
   before_destroy :destroy_images
+
   after_destroy :destruction_callbacks
   after_destroy :touch_commentable
   after_destroy :remove_notifies
+
+  after_save :release_the_banhammer!, if: -> { saved_change_to_body? }
+  after_save :touch_commentable
+  after_save :notify_quoted, if: -> { saved_change_to_body? }
 
   # TODO: remove when review param is removed from API (after 01.09.2016)
   def review= value
@@ -101,6 +102,7 @@ class Comment < ApplicationRecord
     # http://stackoverflow.com/a/3464012
     commentable_klass = commentable_type.constantize
     commentable = commentable_klass.find(commentable_id)
+
     if commentable.respond_to?(:can_be_commented_by?)
       throw :abort unless commentable.can_be_commented_by?(self)
     end

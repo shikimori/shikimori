@@ -218,7 +218,7 @@ describe Comment do
 
     describe '#notify_quoted' do
       before { allow(Comments::NotifyQuoted).to receive :call }
-      let!(:comment) { create :comment }
+      let!(:comment) { create :comment, :with_notify_quoted }
       it do
         expect(Comments::NotifyQuoted).to have_received(:call).with(
           old_body: nil,
