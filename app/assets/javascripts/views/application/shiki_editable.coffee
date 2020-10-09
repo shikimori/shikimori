@@ -145,7 +145,7 @@ export default class ShikiEditable extends ShikiView
           @_isOfftopic?()
         ]
 
-  _activate_appear_marker: ->
+  _activateAppearMarker: ->
     @$inner.children('.b-appear_marker').addClass('active')
     @$inner.children('.markers').find('.b-new_marker').addClass('active')
 

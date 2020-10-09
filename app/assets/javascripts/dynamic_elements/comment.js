@@ -39,9 +39,9 @@ export default class Comment extends ShikiEditable {
     this.$body = this.$('.body');
     this.$moderationForm = this.$('.moderation-ban');
 
-    if (this.model && !this.model.is_viewed) { this._activate_appear_marker(); }
-    this.$node.one('mouseover', this._deactivateInaccessibleButtons);
-    this.$('.item-mobile').one(this._deactivateInaccessibleButtons);
+    if (this.model && !this.model.is_viewed) {
+      this._activateAppearMarker();
+    }
 
     if (this.$inner.hasClass('check_height')) {
       const $images = this.$body.find('img');
@@ -56,37 +56,18 @@ export default class Comment extends ShikiEditable {
       }
     }
 
+    this.$node.one('mouseover', this._deactivateInaccessibleButtons);
+    this.$('.item-mobile').one(this._deactivateInaccessibleButtons);
     this.$('.item-reply').on('click', this._commentReply);
 
-    // edit message
     this.$('.main-controls .item-edit')
       .on('ajax:before', this._shade)
       .on('ajax:complete', this._unshade)
-      .on('ajax:success', (e, html, _status, _xhr) => {
-        const $form = $(html).process();
-        $form.find('.b-shiki_editor, .b-shiki_editor-v2').view()
-          .editComment(this.$node, $form);
-      });
+      .on('ajax:success', this._edit);
 
-    // moderation
-    this.$('.main-controls .item-moderation').on('click', () => {
-      this.$('.main-controls').hide();
-      return this.$('.moderation-controls').show();
-    });
-
+    this.$('.main-controls .item-moderation').on('click', this._showModration);
     this.$('.item-offtopic, .item-summary').on('click', this._markOfftopicOrSummary);
-
-    this.$('.item-spoiler, .item-abuse').on('ajax:before', function(e) {
-      const reason = prompt($(this).data('reason-prompt'));
-
-      if (reason === null) {
-        return false;
-      }
-      return $(this).data({ form: {
-        reason
-      }
-      });
-    });
+    this.$('.item-spoiler, .item-abuse').on('ajax:before', this._markSpoilerOrAbuse);
 
     // пометка комментария обзором/оффтопиком
     this.$('.item-summary,.item-offtopic,.item-spoiler,.item-abuse,.b-offtopic_marker,.b-summary_marker').on('ajax:success', (e, data, satus, xhr) => {
@@ -144,6 +125,14 @@ export default class Comment extends ShikiEditable {
   }
 
   @bind
+  _edit(_e, html, _status, _xhr) {
+    const $form = $(html).process();
+
+    $form.find('.b-shiki_editor, .b-shiki_editor-v2').view()
+      .editComment(this.$node, $form);
+  }
+
+  @bind
   _commentReply() {
     const reply = {
       id: this.node.id,
@@ -157,8 +146,31 @@ export default class Comment extends ShikiEditable {
 
   @bind
   _markOfftopicOrSummary({ currentTarget }) {
-    const confirmType = currentTarget.classList.contains('selected') ? 'remove' : 'add';
-    $(currentTarget).attr('data-confirm', $(currentTarget).data(`confirm-${confirmType}`));
+    const confirmType = currentTarget.classList.contains('selected') ?
+      'remove' :
+      'add';
+
+    $(currentTarget).attr(
+      'data-confirm',
+      $(currentTarget).data(`confirm-${confirmType}`)
+    );
+  }
+
+  @bind
+  _markSpoilerOrAbuse({ currentTarget }) {
+    const reason = prompt($(currentTarget).data('reason-prompt'));
+
+    // return value grabbed by triggerAndReturn in rauils_ujs
+    if (reason == null) { return false; }
+
+    $(currentTarget).data({ form: { reason } });
+    return true;
+  }
+
+  @bind
+  _showModration() {
+    this.$('.main-controls').hide();
+    this.$('.moderation-controls').show();
   }
 
   @bind
@@ -173,9 +185,10 @@ export default class Comment extends ShikiEditable {
 
     if (window.SHIKI_USER.isModerator) {
       this.$('.moderation-controls .item-abuse').addClass('hidden');
-      return this.$('.moderation-controls .item-spoiler').addClass('hidden');
+      this.$('.moderation-controls .item-spoiler').addClass('hidden');
+    } else {
+      this.$('.moderation-controls .item-ban').addClass('hidden');
     }
-    return this.$('.moderation-controls .item-ban').addClass('hidden');
   }
 }
 

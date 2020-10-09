@@ -82,7 +82,7 @@ export default class Topic extends ShikiEditable {
       this.$editorForm = null;
     }
 
-    if (this.model && !this.model.is_viewed) { this._activate_appear_marker(); }
+    if (this.model && !this.model.is_viewed) { this._activateAppearMarker(); }
     if (this.model) { this._actualizeVoting(); }
 
     this.$inner.one('mouseover', this._deactivateInaccessibleButtons);
