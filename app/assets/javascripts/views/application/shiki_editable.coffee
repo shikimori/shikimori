@@ -101,32 +101,35 @@ export default class ShikiEditable extends ShikiView
       @_replace "<div class='b-comment-info b-#{@_type()}'><span>#{message}</span><a class='b-user16' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a></div>"
       false # очень важно! иначе эвенты зациклятся из-за такого же обработчика в родителе
 
+  setSelection: =>
+    console.log('setSelection');
+    text = getSelectionText()
+    html = getSelectionHtml()
+    return unless text || html
+
+    # скрываем все кнопки цитаты
+    $('.item-quote').hide()
+
+    @$root.data
+      selected_text: text,
+      selected_html: html
+    $quote = $('.item-quote', @$inner).css(display: 'inline-block')
+
+    delay().then ->
+      $(document).one 'click', ->
+        unless getSelectionText().length
+          $quote.hide()
+        else
+          delay(250).then ->
+            $quote.hide() unless getSelectionText().length
+
   # колбек после инициализации
   _after_initialize: ->
     super()
 
     if @$body
       # выделение текста в комментарии
-      @$body.on 'mouseup', =>
-        text = getSelectionText()
-        html = getSelectionHtml()
-        return unless text || html
-
-        # скрываем все кнопки цитаты
-        $('.item-quote').hide()
-
-        @$root.data
-          selected_text: text,
-          selected_html: html
-        $quote = $('.item-quote', @$inner).css(display: 'inline-block')
-
-        delay().then ->
-          $(document).one 'click', ->
-            unless getSelectionText().length
-              $quote.hide()
-            else
-              delay(250).then ->
-                $quote.hide() unless getSelectionText().length
+      @$body.on 'mouseup', @setSelection
 
       # цитирование комментария
       $('.item-quote', @$inner).on 'click', (e) =>
