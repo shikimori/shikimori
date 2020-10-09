@@ -3,7 +3,7 @@ export default class View
   constructor: (node, arg1, arg2, arg3) ->
     @_initialize node
     @initialize arg1, arg2, arg3
-    @_after_initialize()
+    @_afterInitialize()
 
   on: ->
     @$node.on.apply(@$node, arguments)
@@ -26,10 +26,10 @@ export default class View
     @$node.view(@)
 
   # колбек после инициализации
-  _after_initialize: ->
+  _afterInitialize: ->
 
   # set root node
-  _set_root: (node) ->
+  _setRoot: (node) ->
     @$root = @$node = $(node)
     @root = @node = @$root[0]
     @$root.data view_object: @

@@ -2,7 +2,7 @@ import Topic from './topic';
 
 export default class ShortDialog extends Topic {
   _type() { return 'dialog'; }
-  _type_label() { return I18n.t('frontend.dynamic_elements.dialog.type_label'); } // eslint-disable-line camelcase
+  _typeLabel() { return I18n.t('frontend.dynamic_elements.dialog.type_label'); } // eslint-disable-line camelcase
 
   initialize() {
     this._checkHeight();

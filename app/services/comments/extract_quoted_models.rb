@@ -1,12 +1,8 @@
 class Comments::ExtractQuotedModels
   MENTION = /(quote|comment|topic|mention)/
-  REGEXP = %r{
+  REGEXP = /
     \[#{MENTION.source}=([^\]]+)\]
-      (?:
-        (?:\[#{MENTION.source}.*?\][\s\S]*?\[/#{MENTION.source}\]|[\s\S])*?
-      )
-    \[/#{MENTION.source}\]
-  }mx
+  /mx
 
   method_object :text
 
