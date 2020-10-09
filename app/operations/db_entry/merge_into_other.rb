@@ -80,18 +80,22 @@ private
     end
   end
 
-  def merge_user_rates
+  def merge_user_rates # rubocop:disable all
     return unless @entry.respond_to? :rates
 
     other_rates = @other.rates.to_a
 
     @entry.rates.each do |user_rate|
       user_id = user_rate.user_id
+
       if user_rate.completed?
         other_rate = other_rates.find { |v| v.user_id == user_id }
-        next if other_rate.completed?
 
-        cleanup_user_rate other_rate
+        if other_rate
+          next if other_rate.completed?
+
+          cleanup_user_rate other_rate
+        end
       end
 
       user_rate.update! target: @other
