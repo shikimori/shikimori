@@ -24,7 +24,7 @@ export default class ShikiEditable extends ShikiView
 
     # по нажатиям на кнопки закрываем меню в мобильной версии
     @$(BUTTONS.join(','), @$inner).on 'click', =>
-      @_close_aside()
+      @_closeAside()
 
     # deletion
     $('.item-delete', @$inner).on 'click', =>
@@ -40,7 +40,7 @@ export default class ShikiEditable extends ShikiView
     $('.item-delete-cancel', @$inner).on 'click', =>
       #@$('.main-controls').show()
       #@$('.delete-controls').hide()
-      @_close_aside()
+      @_closeAside()
 
     # переключение на мобильую версию кнопок кнопок
     $('.item-mobile', @$inner).on 'click', =>
@@ -142,7 +142,7 @@ export default class ShikiEditable extends ShikiView
             text: @$root.data('selected_text'),
             html: @$root.data('selected_html')
           },
-          @_is_offtopic?()
+          @_isOfftopic?()
         ]
 
   _activate_appear_marker: ->
@@ -150,7 +150,7 @@ export default class ShikiEditable extends ShikiView
     @$inner.children('.markers').find('.b-new_marker').addClass('active')
 
   # закрытие кнопок в мобильной версии
-  _close_aside: ->
+  _closeAside: ->
     # ">" need because in dialogs we may have nested inner element
     $('> .item-mobile', @$inner).click() if $('.item-mobile', @$inner).is('.selected')
 
