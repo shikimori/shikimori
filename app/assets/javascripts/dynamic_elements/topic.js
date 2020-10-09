@@ -29,18 +29,18 @@ export default class Topic extends ShikiEditable {
     return {
       can_destroy: false,
       can_edit: false,
-      id: parseInt(this.root.id),
+      id: parseInt(this.node.id),
       is_viewed: true,
-      user_id: this.$root.data('user_id')
+      user_id: this.$node.data('user_id')
     };
   }
   _reloadUrl() { // eslint-disable-line camelcase
-    return `/${this._type()}s/${this.$root.attr('id')}/reload?is_preview=${this.isPreview}`;
+    return `/${this._type()}s/${this.$node.attr('id')}/reload?is_preview=${this.isPreview}`;
   }
 
   initialize() {
     // data attribute is set in Topics.Tracker
-    this.model = this.$root.data('model') || this._defaultModel();
+    this.model = this.$node.data('model') || this._defaultModel();
 
     if (window.SHIKI_USER.isUserIgnored(this.model.user_id) ||
         window.SHIKI_USER.isTopicIgnored(this.model.id)) {
@@ -48,10 +48,10 @@ export default class Topic extends ShikiEditable {
         this._toggleIgnored(true);
       } else {
         // node can be not inserted into DOM yet
-        if (this.$root.parent().length) {
-          this.$root.remove();
+        if (this.$node.parent().length) {
+          this.$node.remove();
         } else {
-          delay().then(() => this.$root.remove());
+          delay().then(() => this.$node.remove());
         }
         return;
       }
@@ -98,16 +98,6 @@ export default class Topic extends ShikiEditable {
           new ShikiGallery(this.$('.b-cosplay_gallery .b-gallery'))
         ));
     }
-
-    // ответ на топик
-    $('.item-reply', this.$inner).on('click', () => {
-      this.$root.trigger('comment:reply', [{
-        id: this.$root.attr('id'),
-        type: 'topic',
-        text: this.$root.data('user_nickname'),
-        url: this.$root.data('url')
-      }]);
-    });
 
     // no editor form for topic tooltip for example
     if (this.$editorForm) {
@@ -234,7 +224,7 @@ export default class Topic extends ShikiEditable {
       const trackableType = e.type.match(/comment|message/)[0];
       const trackableId = data[`${trackableType}_id`];
 
-      if (e.target === this.$root[0]) {
+      if (e.target === this.$node[0]) {
         this.$(`.b-${trackableType}#${trackableId}`).trigger(e.type, data);
       }
     });
@@ -269,16 +259,16 @@ export default class Topic extends ShikiEditable {
   }
 
   @memoize
-  get isPreview() { return this.$root.hasClass('b-topic-preview'); }
+  get isPreview() { return this.$node.hasClass('b-topic-preview'); }
 
   @memoize
-  get isCosplay() { return this.$root.hasClass('b-cosplay-topic'); }
+  get isCosplay() { return this.$node.hasClass('b-cosplay-topic'); }
 
   @memoize
-  get isClubPage() { return this.$root.hasClass('b-club_page-topic'); }
+  get isClubPage() { return this.$node.hasClass('b-club_page-topic'); }
 
   @memoize
-  get isReview() { return this.$root.hasClass('b-review-topic'); }
+  get isReview() { return this.$node.hasClass('b-review-topic'); }
 
   @memoize
   get $commentsHider() { return this.$('.comments-hider'); }
@@ -301,7 +291,7 @@ export default class Topic extends ShikiEditable {
   // удаляем уже имеющиеся подгруженные элементы
   _filterPresentEntries($comments) {
     const filter = 'b-comment';
-    const presentIds = $(`.${filter}`, this.$root)
+    const presentIds = $(`.${filter}`, this.$node)
       .toArray()
       .map(v => v.id)
       .filter(v => v);

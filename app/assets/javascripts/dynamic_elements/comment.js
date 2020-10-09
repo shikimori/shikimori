@@ -67,7 +67,6 @@ export default class Comment extends ShikiEditable {
 
     this.$node.one('mouseover', this._deactivateInaccessibleButtons);
     this.$('.item-mobile').one(this._deactivateInaccessibleButtons);
-    this.$('.item-reply').on('click', this._commentReply);
 
     this.$('.main-controls .item-edit')
       .on('ajax:before', this._shade)
@@ -107,18 +106,6 @@ export default class Comment extends ShikiEditable {
 
     $form.find('.b-shiki_editor, .b-shiki_editor-v2').view()
       .editComment(this.$node, $form);
-  }
-
-  @bind
-  _commentReply() {
-    const reply = {
-      id: this.node.id,
-      type: this._type(),
-      text: this.$node.data('user_nickname'),
-      url: `/${this._type()}s/${this.node.id}`
-    };
-
-    this.$node.trigger('comment:reply', [reply, this._isOfftopic()]);
   }
 
   @bind

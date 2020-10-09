@@ -19,7 +19,7 @@ const BUTTONS = [
 
 export default class ShikiEditable extends ShikiView {
   _reloadUrl() {
-    return `/${this._type()}s/${this.$root.attr('id')}`;
+    return `/${this._type()}s/${this.node.id}`;
   }
 
   // внутренняя инициализация
@@ -46,22 +46,10 @@ export default class ShikiEditable extends ShikiView {
     super._afterInitialize();
 
     if (this.$body) {
-      // выделение текста в комментарии
       this.$body.on('mouseup', this.setSelection);
 
-      // цитирование комментария
-      $('.item-quote', this.$inner).on('click', () => {
-        const quote = {
-          id: this.$root.prop('id'),
-          type: this._type(),
-          user_id: this.$root.data('user_id'),
-          nickname: this.$root.data('user_nickname'),
-          text: this.$root.data('selected_text'),
-          html: this.$root.data('selected_html')
-        };
-
-        this.$root.trigger('comment:reply', [quote, this?._isOfftopic()]);
-      });
+      $('.item-quote', this.$inner).on('click', this._itemQuote);
+      $('.item-reply', this.$inner).on('click', this._itemReply);
     }
   }
 
@@ -80,7 +68,7 @@ export default class ShikiEditable extends ShikiView {
     // скрываем все кнопки цитаты
     $('.item-quote').hide();
 
-    this.$root.data({
+    this.$node.data({
       selected_text: text,
       selected_html: html
     });
@@ -137,12 +125,12 @@ export default class ShikiEditable extends ShikiView {
 
   @bind
   _toggleMobileControls() {
-    this.$root.toggleClass('aside-expanded');
+    this.$node.toggleClass('aside-expanded');
     $('.item-mobile', this.$inner).toggleClass('selected');
 
     // из-за снятия overflow для элемента с .aside-expanded,
     // сокращённая высота работает некорректно, поэтому её надо убрать
-    this.$root.find('>.b-height_shortener').click();
+    this.$node.find('>.b-height_shortener').click();
   }
 
   @bind
@@ -155,18 +143,44 @@ export default class ShikiEditable extends ShikiView {
         .data('click_activated', true)
         .trigger('reappear');
 
-      axios.post($newMarker.data('reappear_url'), { ids: this.$root.attr('id') });
+      axios.post($newMarker.data('reappear_url'), { ids: this.$node.attr('id') });
     } else if ($newMarker.data('click_activated')) {
       $newMarker
         .addClass('off')
         .trigger('disappear');
 
-      axios.post($newMarker.data('appear_url'), { ids: this.$root.attr('id') });
+      axios.post($newMarker.data('appear_url'), { ids: this.$node.attr('id') });
     } else {
       // эвент appear обрабатывается в topic
       const $appears = this.$('.b-appear_marker.active');
       $appears.trigger('appear', [$appears, true]);
     }
+  }
+
+  @bind
+  _itemQuote() {
+    const quote = {
+      id: this.node.prop('id'),
+      type: this._type(),
+      user_id: this.$node.data('user_id'),
+      nickname: this.$node.data('user_nickname'),
+      text: this.$node.data('selected_text'),
+      html: this.$node.data('selected_html')
+    };
+
+    this.$node.trigger('comment:reply', [quote, this?._isOfftopic()]);
+  }
+
+  @bind
+  _itemReply() {
+    const reply = {
+      id: this.node.id,
+      type: this._type(),
+      text: this.$node.data('user_nickname'),
+      url: this.$node.data('url') || `/${this._type()}s/${this.node.id}`
+    };
+
+    this.$node.trigger('comment:reply', [reply, this?._isOfftopic()]);
   }
 
   @bind
