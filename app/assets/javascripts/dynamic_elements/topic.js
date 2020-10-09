@@ -35,7 +35,7 @@ export default class Topic extends ShikiEditable {
     };
   }
   @bind
-  _reload_url() { // eslint-disable-line camelcase
+  _reloadUrl() { // eslint-disable-line camelcase
     return `/${this._type()}s/${this.$root.attr('id')}/reload?is_preview=${this.isPreview}`;
   }
 

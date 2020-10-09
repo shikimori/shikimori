@@ -124,7 +124,7 @@ export default class ShikiEditable extends ShikiView
             $quote.hide() unless getSelectionText().length
 
   # колбек после инициализации
-  _after_initialize: ->
+  _afterInitialize: ->
     super()
 
     if @$body
@@ -165,5 +165,5 @@ export default class ShikiEditable extends ShikiView
     # window.SHIKI_FAYE_LOADER.apply() if @_type() == 'topic'
 
   # url перезагрузки содержимого
-  _reload_url: =>
+  _reloadUrl: =>
     "/#{@_type()}s/#{@$root.attr 'id'}"
