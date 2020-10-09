@@ -41,35 +41,6 @@ export default class ShikiEditable extends ShikiView {
     this.on(`faye:${this._type()}:deleted`, this._fayeDeleted);
   }
 
-  @bind
-  setSelection() {
-    console.log('setSelection');
-    const text = getSelectionText();
-    const html = getSelectionHtml();
-    if (!text && !html) { return; }
-
-    // скрываем все кнопки цитаты
-    $('.item-quote').hide();
-
-    this.$root.data({
-      selected_text: text,
-      selected_html: html
-    });
-    const $quote = $('.item-quote', this.$inner).css({ display: 'inline-block' });
-
-    delay().then(() =>
-      $(document).one('click', () => {
-        if (!getSelectionText().length) {
-          $quote.hide();
-        } else {
-          delay(250).then(() => {
-            if (!getSelectionText().length) { return $quote.hide(); }
-          });
-        }
-      })
-    );
-  }
-
   // колбек после инициализации
   _afterInitialize() {
     super._afterInitialize();
