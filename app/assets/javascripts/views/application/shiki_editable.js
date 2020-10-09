@@ -167,8 +167,11 @@ export default class ShikiEditable extends ShikiView {
       text: this.$node.data('selected_text'),
       html: this.$node.data('selected_html')
     };
+    const isOfftopic = typeof this._isOfftopic === 'function' ?
+      this._isOfftopic() :
+      false;
 
-    this.$node.trigger('comment:reply', [quote, this?._isOfftopic()]);
+    this.$node.trigger('comment:reply', [quote, isOfftopic]);
   }
 
   @bind
@@ -179,8 +182,11 @@ export default class ShikiEditable extends ShikiView {
       text: this.$node.data('user_nickname'),
       url: this.$node.data('url') || `/${this._type()}s/${this.node.id}`
     };
+    const isOfftopic = typeof this._isOfftopic === 'function' ?
+      this._isOfftopic() :
+      false;
 
-    this.$node.trigger('comment:reply', [reply, this?._isOfftopic()]);
+    this.$node.trigger('comment:reply', [reply, isOfftopic]);
   }
 
   @bind
