@@ -34,7 +34,6 @@ export default class Topic extends ShikiEditable {
       user_id: this.$root.data('user_id')
     };
   }
-  @bind
   _reloadUrl() { // eslint-disable-line camelcase
     return `/${this._type()}s/${this.$root.attr('id')}/reload?is_preview=${this.isPreview}`;
   }

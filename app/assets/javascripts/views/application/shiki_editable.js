@@ -18,6 +18,10 @@ const BUTTONS = [
 ];
 
 export default class ShikiEditable extends ShikiView {
+  _reloadUrl() {
+    return `/${this._type()}s/${this.$root.attr('id')}`;
+  }
+
   // внутренняя инициализация
   _initialize(...args) {
     super._initialize(...args);
@@ -26,32 +30,11 @@ export default class ShikiEditable extends ShikiView {
     // по нажатиям на кнопки закрываем меню в мобильной версии
     this.$(BUTTONS.join(','), this.$inner).on('click', () => this._closeAside());
 
-    // deletion
-    $('.item-delete', this.$inner).on('click', () => {
-      $('.main-controls', this.$inner).hide();
-      return $('.delete-controls', this.$inner).show();
-    });
+    $('.item-delete', this.$inner).on('click', this._showDeleteControls);
+    $('.item-delete-confirm', this.$inner).on('ajax:loading', this._submitDelete);
+    $('.item-delete-cancel', this.$inner).on('click', this._hideDeleteControls);
 
-    // confirm deletion
-    $('.item-delete-confirm', this.$inner).on('ajax:loading', (e, data, status, xhr) => {
-      $.hideCursorMessage();
-      animatedCollapse(this.root).then(() => this.$root.remove());
-    });
-
-    // cancel deletion
-    $('.item-delete-cancel', this.$inner).on('click', () =>
-      // @$('.main-controls').show()
-      // @$('.delete-controls').hide()
-      this._closeAside()
-    );
-
-    // переключение на мобильую версию кнопок кнопок
-    $('.item-mobile', this.$inner).on('click', () => {
-      this.$root.toggleClass('aside-expanded');
-      $('.item-mobile', this.$inner).toggleClass('selected');
-      // из-за снятия overflow для элемента с .aside-expanded, сокращённая высота работает некорректно, поэтому её надо убрать
-      return this.$root.find('>.b-height_shortener').click();
-    });
+    $('.item-mobile', this.$inner).on('click', this._toggleMobileControls);
 
     // по клику на 'новое' пометка прочитанным
     $newMarker.on('click', () => {
@@ -161,7 +144,7 @@ export default class ShikiEditable extends ShikiView {
 
   _activateAppearMarker() {
     this.$inner.children('.b-appear_marker').addClass('active');
-    return this.$inner.children('.markers').find('.b-new_marker').addClass('active');
+    this.$inner.children('.markers').find('.b-new_marker').addClass('active');
   }
 
   // закрытие кнопок в мобильной версии
@@ -176,8 +159,31 @@ export default class ShikiEditable extends ShikiView {
     $('.moderation-controls', this.$inner).hide();
   }
 
-  // url перезагрузки содержимого
-  _reloadUrl() {
-    return `/${this._type()}s/${this.$root.attr('id')}`;
+  @bind
+  _showDeleteControls() {
+    $('.main-controls', this.$inner).hide();
+    $('.delete-controls', this.$inner).show();
+  }
+
+  @bind
+  _hideDeleteControls() {
+    this._closeAside();
+  }
+
+  @bind
+  async _submitDelete() {
+    $.hideCursorMessage();
+    await animatedCollapse(this.node);
+    this.$node.remove();
+  }
+
+  @bind
+  _toggleMobileControls() {
+    this.$root.toggleClass('aside-expanded');
+    $('.item-mobile', this.$inner).toggleClass('selected');
+
+    // из-за снятия overflow для элемента с .aside-expanded,
+    // сокращённая высота работает некорректно, поэтому её надо убрать
+    this.$root.find('>.b-height_shortener').click();
   }
 }
