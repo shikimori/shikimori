@@ -134,8 +134,8 @@ export default class ShikiEditable extends ShikiView
           {
             id: @$root.prop('id'),
             type: @_type(),
-            userId: @$root.data('user_id'),
-            userNickname: @$root.data('user_nickname'),
+            user_id: @$root.data('user_id'),
+            nickname: @$root.data('user_nickname'),
             text: @$root.data('selected_text'),
             html: @$root.data('selected_html')
           },
