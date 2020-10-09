@@ -160,7 +160,7 @@ export default class ShikiEditable extends ShikiView {
   @bind
   _itemQuote() {
     const quote = {
-      id: this.node.prop('id'),
+      id: this.node.id,
       type: this._type(),
       user_id: this.$node.data('user_id'),
       nickname: this.$node.data('user_nickname'),
