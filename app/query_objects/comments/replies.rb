@@ -1,4 +1,3 @@
-# replies to the comment
 class Comments::Replies
   method_object :comment
 
@@ -8,9 +7,7 @@ class Comments::Replies
     comments_scope
       .each do |comment|
         search_ids.clone.each do |id|
-          next unless comment.body.include?("[comment=#{id}]") ||
-              comment.body.include?("[quote=#{id};") ||
-              comment.body.include?("[quote=c#{id};")
+          next unless reply? comment.body, id
 
           search_ids << comment.id
         end
@@ -29,5 +26,11 @@ private
       )
       .order(:id)
       .limit(10_000)
+  end
+
+  def reply? body, comment_id
+    body.include?("[comment=#{comment_id}]") ||
+      body.include?("[quote=c#{comment_id};") ||
+      body.include?(">?c#{comment_id};")
   end
 end
