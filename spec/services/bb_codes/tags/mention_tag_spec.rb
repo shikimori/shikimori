@@ -4,7 +4,11 @@ describe BbCodes::Tags::MentionTag do
 
   it do
     is_expected.to eq(
-      "<a href='http://test.host/zxc' class='b-mention'><s>@</s><span>zxc</span></a>"
+      <<~HTML.squish
+        <a href='http://test.host/zxc' class='b-mention'
+          data-id='1345' data-type='user'
+          data-text='zxc'><s>@</s><span>zxc</span></a>
+      HTML
     )
   end
 end
