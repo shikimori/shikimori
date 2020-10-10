@@ -1,4 +1,4 @@
-class BbCodes::Tags::CommentTag
+class BbCodes::Tags::CommentTag # rubocop:disable ClassLength
   include Singleton
   extend DslAttribute
 
@@ -13,7 +13,7 @@ class BbCodes::Tags::CommentTag
         (?<text> (?: (?!\[#{name_regexp}).)*? )
       \[/#{name_regexp}\]
       |
-      \[#{name_regexp}=(?<id>\d+)\]
+      \[#{name_regexp}=(?<id>\d+) (?<quote>\ quote(?:=(?<quote_user_id>\d+))?)?\]
     }mix
   end
 
