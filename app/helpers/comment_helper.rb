@@ -6,7 +6,7 @@ module CommentHelper
   # include AniMangaHelper
 
   COMPLEX_BB_CODES = %i[
-    smileys club club_page collection article contest mention version anime_video
+    smileys club club_page collection article contest version anime_video
     user review posters ban
   ]
 
@@ -66,22 +66,6 @@ module CommentHelper
       text.gsub!(v, format('<img src="%s%s.gif" alt="%s" title="%s" class="smiley" />', @@smileys_path, v, v, v))
     end
     text
-  end
-
-  def mention_to_html text, _poster = nil
-    text.gsub /\[mention=(?<user_id>\d+)\](?<nickname>[\s\S]*?)\[\/mention\]/ do |match|
-      nickname = $LAST_MATCH_INFO[:nickname]
-
-      if nickname.present?
-        url = profile_url User.param_to(nickname)
-        "<a href='#{url}' class='b-mention'>"\
-          "<s>@</s><span>#{nickname}</span></a>"
-      else
-        match
-      end
-    rescue ActionController::UrlGenerationError
-      match
-    end
   end
 
   def remove_old_tags(html)

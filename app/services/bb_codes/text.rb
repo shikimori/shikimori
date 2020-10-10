@@ -22,6 +22,7 @@ class BbCodes::Text
   ]
 
   TAGS_LIST = %i[
+    mention
     quote replies
     user comment topic message
 
