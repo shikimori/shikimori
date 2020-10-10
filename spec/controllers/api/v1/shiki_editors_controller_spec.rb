@@ -90,6 +90,7 @@ describe Api::V1::ShikiEditorsController do
         comment: {
           comment.id.to_s => {
             'id' => comment.id,
+            'user_id' => comment.user.id,
             'text' => comment.user.nickname,
             'url' => comment_url(comment)
           }
@@ -104,6 +105,7 @@ describe Api::V1::ShikiEditorsController do
         topic: {
           topic.id.to_s => {
             'id' => topic.id,
+            'user_id' => comment.user.id,
             'text' => topic.user.nickname,
             'url' => UrlGenerator.instance.topic_url(topic)
           }
