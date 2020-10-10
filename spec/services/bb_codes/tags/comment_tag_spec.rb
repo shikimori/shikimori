@@ -10,7 +10,7 @@ describe BbCodes::Tags::CommentTag do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <a href='http://test.host/comments/#{comment.id}' class='bubbled b-mention'
+          <a href='#{url}' class='bubbled b-mention'
             data-id='#{comment.id}' data-type='comment'
             data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
         HTML
@@ -36,7 +36,7 @@ describe BbCodes::Tags::CommentTag do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <a href='http://test.host/comments/#{comment.id}' class='bubbled b-mention'
+          <a href='#{url}' class='bubbled b-mention'
             data-id='#{comment.id}' data-type='comment'
             data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
         HTML
@@ -66,7 +66,7 @@ describe BbCodes::Tags::CommentTag do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <a href='http://test.host/comments/#{comment.id}' class='bubbled b-mention'
+          <a href='#{url}' class='bubbled b-mention'
             data-id='#{comment.id}' data-type='comment'
             data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
           <a href='http://test.host/comments/#{comment_2.id}' class='bubbled b-mention'
@@ -84,7 +84,7 @@ describe BbCodes::Tags::CommentTag do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <a href='http://test.host/comments/#{comment.id}' class='bubbled b-mention'
+          <a href='#{url}' class='bubbled b-mention'
             data-id='#{comment.id}' data-type='comment'
             data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
         HTML
@@ -112,11 +112,15 @@ describe BbCodes::Tags::CommentTag do
       let(:user) { create :user, :with_avatar }
       it do
         is_expected.to eq(
-          "[url=#{url} bubbled b-mention b-user16]<img "\
-            "src=\"#{ImageUrlGenerator.instance.url user, :x16}\" "\
-            "srcset=\"#{ImageUrlGenerator.instance.url user, :x32} 2x\" "\
-            "alt=\"#{ERB::Util.h user.nickname}\" />"\
-            "<span>#{user.nickname}</span>[/url], test"
+          <<~HTML.squish
+            <a href='#{url}'
+              class='bubbled b-mention b-user16'
+              data-id='#{comment.id}' data-type='comment'
+              data-text='#{user.nickname}'><img
+              src="#{ImageUrlGenerator.instance.url user, :x16}"
+              srcset="#{ImageUrlGenerator.instance.url user, :x32} 2x"
+              alt="#{ERB::Util.h user.nickname}" /><span>#{user.nickname}</span></a>, test
+          HTML
         )
       end
     end
@@ -124,8 +128,11 @@ describe BbCodes::Tags::CommentTag do
     context 'without avatar' do
       it do
         is_expected.to eq(
-          "[url=#{url} bubbled b-mention b-user16]"\
-            "<span>#{user.nickname}</span>[/url], test"
+          <<~HTML.squish
+            <a href='#{url}' class='bubbled b-mention'
+              data-id='#{comment.id}' data-type='comment'
+              data-text='#{user.nickname}'><span>#{user.nickname}</span></a>, test
+          HTML
         )
       end
     end

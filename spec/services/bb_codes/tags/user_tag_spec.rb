@@ -6,16 +6,24 @@ describe BbCodes::Tags::UserTag do
 
   it do
     is_expected.to eq(
-      "[url=#{url} b-mention]<s>@</s>#{user.nickname}[/url], test"
+      <<~HTML.squish
+        <a href='#{url}' class='b-mention'
+          data-id='#{user.id}' data-type='user'
+          data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
+      HTML
     )
   end
 
   context 'with text' do
-    let(:text) { "[user=#{user.id}], test[/user]" }
+    let(:text) { "[user=#{user.id}]test[/user], test" }
 
     it do
       is_expected.to eq(
-        "[url=#{url} b-mention]<s>@</s>, test[/url]"
+        <<~HTML.squish
+          <a href='http://test.host/#{user.nickname}' class='b-mention'
+            data-id='#{user.id}' data-type='user'
+            data-text='#{user.nickname}'><s>@</s><span>test</span></a>, test
+        HTML
       )
     end
   end

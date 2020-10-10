@@ -58,7 +58,7 @@ private
 
     "<a href='#{url}' class='#{css_classes}'" \
       " data-id='#{entry.id}' data-type='#{type}' data-text='#{user.nickname}'" \
-      ">#{mention_html}<span>#{quoted_html}</span></a>"
+      ">#{mention_html}#{quoted_html}</a>"
   end
 
   def not_found_to_html entry_id, text, quote_user_id
@@ -101,7 +101,7 @@ private
     [
       ('bubbled' if entry && self.class::IS_BUBBLED),
       'b-mention',
-      ('b-user16' if user && is_quoted)
+      ('b-user16' if user && is_quoted && user.avatar.present?)
     ].compact.join(' ')
   end
 
@@ -109,7 +109,7 @@ private
     if is_quoted
       quoteed_author_html user, quoted_name
     else
-      quoted_name
+      "<span>#{quoted_name}</span>"
     end
   end
 
@@ -120,8 +120,8 @@ private
       <img
         src="#{ImageUrlGenerator.instance.url user, :x16}"
         srcset="#{ImageUrlGenerator.instance.url user, :x32} 2x"
-        alt="#{author_name}"
-      /><span>#{author_name}</span>
+        alt="#{quoted_name}"
+      /><span>#{quoted_name}</span>
     HTML
   end
 

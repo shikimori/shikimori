@@ -7,7 +7,11 @@ describe BbCodes::Tags::MessageTag do
 
   it do
     is_expected.to eq(
-      "[url=#{url} bubbled b-mention]<s>@</s>#{user.nickname}[/url], test"
+      <<~HTML.squish
+        <a href='#{url}' class='bubbled b-mention'
+          data-id='#{message.id}' data-type='message'
+          data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
+      HTML
     )
   end
 
