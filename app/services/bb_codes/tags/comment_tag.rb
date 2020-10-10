@@ -21,7 +21,7 @@ class BbCodes::Tags::CommentTag
     @id_regexp ||= /\[#{name_regexp}=(\d+)/
   end
 
-  def format text
+  def format text # rubocop:disable MethodLength
     entries = fetch_entries text
 
     text.gsub(bbcode_regexp) do
@@ -46,16 +46,19 @@ class BbCodes::Tags::CommentTag
 
 private
 
-  def bbcode_to_html entry, text, is_quoted # rubocop:disable all
-    user = entry&.send(self.class::USER_FIELD) if is_quoted || text.blank?
+  def bbcode_to_html entry, text, is_quoted
+    user = entry&.send(self.class::USER_FIELD)
 
-    author_name = text.presence || user&.nickname || NOT_FOUND
+    author_name = text.presence || user.nickname || NOT_FOUND
+    type = entry.class.name.downcase
     url = entry_url entry
     css_classes = css_classes entry, user, is_quoted
-    author_html = author_html is_quoted, user, author_name
+    quoted_html = quoted_html is_quoted, user, author_name
     mention_html = is_quoted ? '' : '<s>@</s>'
 
-    "[url=#{url} #{css_classes}]#{mention_html}#{author_html}[/url]"
+    "<a href='#{url}' class='#{css_classes}'" \
+      " data-id='#{entry.id}' data-type='#{type}' data-text='#{user.nickname}'" \
+      ">#{mention_html}<span>#{quoted_html}</span></a>"
   end
 
   def not_found_to_html entry_id, text, quote_user_id
@@ -102,16 +105,16 @@ private
     ].compact.join(' ')
   end
 
-  def author_html is_quoted, user, author_name
+  def quoted_html is_quoted, user, quoted_name
     if is_quoted
-      quoteed_author_html user, author_name
+      quoteed_author_html user, quoted_name
     else
-      author_name
+      quoted_name
     end
   end
 
-  def quoteed_author_html user, author_name
-    return "<span>#{author_name}</span>" unless user&.avatar&.present?
+  def quoteed_author_html user, quoted_name
+    return "<span>#{quoted_name}</span>" unless user&.avatar&.present?
 
     <<-HTML.squish
       <img
