@@ -175,6 +175,16 @@ describe BbCodes::Markdown::ListQuoteParser do
               "a\nb\nc</div></blockquote>"
           )
         end
+
+        context 'empty intermediate line' do
+          let(:text) { "#{symbol} a\n#{symbol} \n#{symbol} c" }
+          it do
+            is_expected.to eq(
+              "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+                "a\n\nc</div></blockquote>"
+            )
+          end
+        end
       end
     end
   end
