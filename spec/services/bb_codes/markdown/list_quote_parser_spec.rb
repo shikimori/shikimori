@@ -26,25 +26,29 @@ describe BbCodes::Markdown::ListQuoteParser do
     end
 
     context 'blockquote' do
-      let(:symbol) { ['>', '&gt;'].sample }
-      let(:html) do
-        "<blockquote class='b-quote-v2'><div class='quote-content'>a</div></blockquote>"
-      end
-      it { is_expected.to eq "q\n#{html}w" }
+      ['>', '&gt;'].each do |sym|
+        context sym do
+          let(:symbol) { sym }
+          let(:html) do
+            "<blockquote class='b-quote-v2'><div class='quote-content'>a</div></blockquote>"
+          end
+          it { is_expected.to eq "q\n#{html}w" }
 
-      context 'with quotable' do
-        let(:text) { ">?a\n> b" }
-        it do
-          is_expected.to eq(
-            "<blockquote class='b-quote-v2' data-attrs='a'><div class='quoteable'>" \
-              '[user]a[/user]</div>' \
-              "<div class='quote-content'>b</div></blockquote>"
-          )
-        end
+          context 'with quotable' do
+            let(:text) { ">?a\n> b" }
+            it do
+              is_expected.to eq(
+                "<blockquote class='b-quote-v2' data-attrs='a'><div class='quoteable'>" \
+                  '[user]a[/user]</div>' \
+                  "<div class='quote-content'>b</div></blockquote>"
+              )
+            end
 
-        context 'w/o quote' do
-          let(:text) { ">?a\nb" }
-          it { is_expected.to eq text }
+            context 'w/o quote' do
+              let(:text) { ">?a\nb" }
+              it { is_expected.to eq text }
+            end
+          end
         end
       end
     end
@@ -89,7 +93,7 @@ describe BbCodes::Markdown::ListQuoteParser do
     end
   end
 
-  context 'multiline line' do
+  context 'multiline list' do
     before do
       allow_any_instance_of(BbCodes::Markdown::ListQuoteParserState)
         .to receive(:to_html)
@@ -156,6 +160,21 @@ describe BbCodes::Markdown::ListQuoteParser do
             "<h2><ul class='b-list'><li>4</li></ul></h2>" \
             "<ul class='b-list'><li>5</li></ul>"
         )
+      end
+    end
+  end
+
+  context 'multiple blockquotes' do
+    ['>', '&gt;'].each do |sym|
+      context sym do
+        let(:symbol) { sym }
+        let(:text) { "#{symbol} a\n#{symbol} b\n#{symbol} c" }
+        it do
+          is_expected.to eq(
+            "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+              "a\nb\nc</div></blockquote>"
+          )
+        end
       end
     end
   end
