@@ -160,6 +160,7 @@ private
     {
       id: model.id,
       text: model.from.nickname,
+      user_id: model.from_id,
       url: message_url(model)
     }
   end
