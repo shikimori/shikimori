@@ -10,7 +10,8 @@ class BbCodes::Tags::CommentTag # rubocop:disable ClassLength
   def bbcode_regexp
     @bbcode_regexp ||= %r{
       \[
-        (?<type>#{name_regexp})=(?<id>\d+)(?:;(?<user_id>\d+))? (?<quote>\ quote(?:=(?<quote_user_id>\d+))?)?
+        (?<type>#{name_regexp})=(?<id>\d+)(?:;(?<user_id>\d+))?
+          (?<quote>\ quote(?:=(?<quote_user_id>\d+))?)?
       \]
         (?<text> (?: (?!\[#{name_regexp}).)*? )
       \[/#{name_regexp}\]
@@ -77,7 +78,7 @@ private
     end
   end
 
-  def not_found_mention_to_html entry_id, type, text, user # rubocop:disable CyclomaticComplexity, PerceivedComplexity
+  def not_found_mention_to_html entry_id, type, text, user # rubocop:disable CyclomaticComplexity
     url = entry_id_url entry_id
     open_tag = url ? "a href='#{url}'" : 'span'
     close_tag = url ? 'a' : 'span'
