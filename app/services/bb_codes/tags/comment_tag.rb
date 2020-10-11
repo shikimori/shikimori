@@ -9,11 +9,13 @@ class BbCodes::Tags::CommentTag # rubocop:disable ClassLength
 
   def bbcode_regexp
     @bbcode_regexp ||= %r{
-      \[#{name_regexp}=(?<id>\d+) (?<quote>\ quote(?:=(?<quote_user_id>\d+))?)?\]
+      \[
+        #{name_regexp}=(?<id>\d+)(?:;(?<user_id>\d+))? (?<quote>\ quote(?:=(?<quote_user_id>\d+))?)?
+      \]
         (?<text> (?: (?!\[#{name_regexp}).)*? )
       \[/#{name_regexp}\]
       |
-      \[#{name_regexp}=(?<id>\d+) (?<quote>\ quote(?:=(?<quote_user_id>\d+))?)?\]
+      \[#{name_regexp}=(?<id>\d+)(?:;(?<user_id>\d+))?\]
     }mix
   end
 
