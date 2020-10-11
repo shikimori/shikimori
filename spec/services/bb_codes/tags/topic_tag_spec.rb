@@ -8,7 +8,7 @@ describe BbCodes::Tags::TopicTag do
   it do
     is_expected.to eq(
       <<~HTML.squish
-        <a href='#{url}' class='bubbled b-mention'
+        <a href='#{url}' class='b-mention bubbled'
           data-id='#{topic.id}' data-type='topic'
           data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
       HTML
