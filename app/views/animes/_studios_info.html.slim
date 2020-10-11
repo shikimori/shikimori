@@ -1,15 +1,15 @@
 - entry.real_studios.uniq(&:name).each do |studio|
-  - if studio.image_file_name && entry.real_studios.uniq(&:name).one?
+  - if studio.image_file_name && entry.real_studios.uniq(&:filtered_name).one?
     a[
       href=entry.collection_url(studio: studio)
-      title=t('.studio_animes', studio_name: studio.name)
+      title=t('.studio_animes', studio_name: studio.filtered_name)
     ]
       img.studio-logo[
         src=cdn_image(studio, :original)
-        alt=t('.studio_animes', studio_name: studio.name)
+        alt=t('.studio_animes', studio_name: studio.filtered_name)
       ]
   - else
     a.b-tag[
       href=entry.collection_url(studio: studio)
-      title=t(".studio_animes", studio_name: studio.name)
-    ] == "#{studio.name}\n"
+      title=t(".studio_animes", studio_name: studio.filtered_name)
+    ] == "#{studio.filtered_name}\n"
