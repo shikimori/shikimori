@@ -11,15 +11,19 @@ class Publisher < ApplicationRecord
     name
   ]
 
-  has_and_belongs_to_many :mangas
-
   def to_param
     format('%<id>d-%<slug>s', id: id, slug: name.gsub(/[^\w]+/, '-').gsub(/^-|-$/, ''))
   end
 
   # возвращет все id, связанные с текущим
   def self.related id, recursive = false
-    related = MERGED.map { |k, v| k == id ? v : (v == id ? k : nil) }.compact
+    related = MERGED.map do |k, v|
+      if k == id
+        v
+      else
+        (v == id ? k : nil)
+      end
+    end.compact
     related = related.map { |v| self.related(v, true) }.flatten.uniq unless recursive
     related << id
   end
