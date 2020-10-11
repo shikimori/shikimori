@@ -62,7 +62,10 @@ private
     mention_html = is_quoted ? '' : '<s>@</s>'
 
     "<a href='#{url}' class='#{css_classes}'" \
-      " data-id='#{entry.id}' data-type='#{type}' data-text='#{user.nickname}'" \
+      " data-id='#{entry.id}'" \
+      " data-type='#{type}'" \
+      " data-user_id='#{user&.id}'" \
+      " data-text='#{user.nickname}'" \
       ">#{mention_html}#{quoted_html}</a>"
   end
 
@@ -90,7 +93,10 @@ private
     quoted_html = "<span>#{quoted_text}</span>" if quoted_text.present?
 
     "<#{open_tag} class='#{css_classes}'" \
-      " data-id='#{entry_id}' data-type='#{type}' data-text='#{user&.nickname}'" \
+      " data-id='#{entry_id}'" \
+      " data-type='#{type}'" \
+      " data-user_id='#{user&.id}'" \
+      " data-text='#{user&.nickname}'" \
       "><s>@</s>#{quoted_html}" \
       "<del>[#{name}=#{entry_id}]</del></#{close_tag}>"
   end

@@ -9,7 +9,7 @@ describe BbCodes::Tags::TopicTag do
     is_expected.to eq(
       <<~HTML.squish
         <a href='#{url}' class='b-mention bubbled'
-          data-id='#{topic.id}' data-type='topic'
+          data-id='#{topic.id}' data-type='topic' data-user_id='#{user.id}'
           data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
       HTML
     )
@@ -27,8 +27,11 @@ describe BbCodes::Tags::TopicTag do
 
     it do
       is_expected.to eq(
-        "<a href='#{url}' class='b-mention b-entry-404 bubbled'>" \
-          "<s>@</s><del>[topic=#{topic_id}]</del></a>, test"
+        <<~HTML.squish
+          <a href='#{url}' class='b-mention b-entry-404 bubbled'
+            data-id='#{topic_id}' data-type='topic' data-user_id=''
+            data-text=''><s>@</s><del>[topic=#{topic_id}]</del></a>, test
+        HTML
       )
     end
   end
