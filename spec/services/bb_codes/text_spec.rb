@@ -130,12 +130,19 @@ describe BbCodes::Text do
 
     describe '[mention]' do
       let(:text) { '[mention=1]test[/mention]' }
+      let(:data_attrs) do
+        {
+          id: 1,
+          type: :user,
+          text: 'test'
+        }
+      end
+
       it do
         is_expected.to eq(
           <<~HTML.squish
             <a href="http://test.host/test" class="b-mention"
-              data-id="1" data-type="user"
-              data-text="test"><s>@</s><span>test</span></a>
+              data-attrs='#{data_attrs.to_json}'><s>@</s><span>test</span></a>
           HTML
         )
       end

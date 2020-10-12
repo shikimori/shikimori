@@ -6,7 +6,7 @@ class BbCodes::Tags::MentionTag
   def format text
     text.gsub REGEXP do |match|
       nickname = $LAST_MATCH_INFO[:nickname]
-      user_id = $LAST_MATCH_INFO[:user_id]
+      user_id = $LAST_MATCH_INFO[:user_id].to_i
 
       if nickname.present?
         url = UrlGenerator.instance.profile_url User.param_to(nickname)
@@ -23,10 +23,15 @@ class BbCodes::Tags::MentionTag
 private
 
   def bbcode_to_html nickname, user_id, url
+    data_attrs = {
+      id: user_id,
+      type: 'user',
+      text: nickname
+    }.to_json
+
     <<~HTML.squish
       <a href='#{url}' class='b-mention'
-        data-id='#{user_id}' data-type='user'
-        data-text='#{nickname}'><s>@</s><span>#{nickname}</span></a>
+        data-attrs='#{data_attrs}'><s>@</s><span>#{nickname}</span></a>
     HTML
   end
 end
