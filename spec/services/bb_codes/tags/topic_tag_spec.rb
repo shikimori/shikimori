@@ -32,15 +32,7 @@ describe BbCodes::Tags::TopicTag do
         forum: offtopic_forum
       )
     end
-
-    let(:data_attrs) do
-      {
-        id: topic_id,
-        type: :topic,
-        user_id: nil,
-        text: nil
-      }
-    end
+    let(:data_attrs) { { id: topic_id, type: :topic } }
 
     it do
       is_expected.to eq(

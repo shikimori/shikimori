@@ -10,14 +10,7 @@ describe BbCodes::Tags::CommentTag do
       text: user.nickname
     }
   end
-  let(:data_404_attrs) do
-    {
-      id: comment.id,
-      type: :comment,
-      user_id: nil,
-      text: nil
-    }
-  end
+  let(:data_404_attrs) { { id: comment.id, type: :comment } }
 
   context 'selfclosed' do
     let(:text) { "[comment=#{comment.id}], test" }

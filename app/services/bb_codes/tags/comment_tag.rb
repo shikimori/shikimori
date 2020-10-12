@@ -177,6 +177,6 @@ private
       type: type,
       user_id: user_id,
       text: text
-    }.to_json
+    }.compact.to_json
   end
 end

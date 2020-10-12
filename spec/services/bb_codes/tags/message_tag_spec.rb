@@ -25,15 +25,7 @@ describe BbCodes::Tags::MessageTag do
 
   context 'non existing message' do
     let(:message) { build_stubbed :message }
-
-    let(:data_attrs) do
-      {
-        id: message.id,
-        type: :message,
-        user_id: nil,
-        text: nil
-      }
-    end
+    let(:data_attrs) { { id: message.id, type: :message } }
 
     it do
       is_expected.to eq(
