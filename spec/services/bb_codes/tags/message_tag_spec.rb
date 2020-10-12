@@ -38,8 +38,8 @@ describe BbCodes::Tags::MessageTag do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <span class='b-mention b-entry-404'
-            data-attrs='#{data_attrs.to_json}'><s>@</s><del>[message=#{message.id}]</del></span>, test
+          <a href='#{url}' class='b-mention b-entry-404 bubbled'
+            data-attrs='#{data_attrs.to_json}'><s>@</s><del>[message=#{message.id}]</del></a>, test
         HTML
       )
     end
