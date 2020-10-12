@@ -5,12 +5,20 @@ describe BbCodes::Tags::TopicTag do
   let(:topic) { create :topic, user: user, forum: animanga_forum }
   let(:url) { UrlGenerator.instance.topic_url topic }
 
+  let(:data_attrs) do
+    {
+      id: topic.id,
+      type: :topic,
+      user_id: topic.user_id,
+      text: user.nickname
+    }
+  end
+
   it do
     is_expected.to eq(
       <<~HTML.squish
         <a href='#{url}' class='b-mention bubbled'
-          data-id='#{topic.id}' data-type='topic' data-user_id='#{user.id}'
-          data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
+          data-attrs='#{data_attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
       HTML
     )
   end
@@ -25,12 +33,20 @@ describe BbCodes::Tags::TopicTag do
       )
     end
 
+    let(:data_attrs) do
+      {
+        id: topic_id,
+        type: :topic,
+        user_id: nil,
+        text: nil
+      }
+    end
+
     it do
       is_expected.to eq(
         <<~HTML.squish
           <a href='#{url}' class='b-mention b-entry-404 bubbled'
-            data-id='#{topic_id}' data-type='topic' data-user_id=''
-            data-text=''><s>@</s><del>[topic=#{topic_id}]</del></a>, test
+            data-attrs='#{data_attrs.to_json}'><s>@</s><del>[topic=#{topic_id}]</del></a>, test
         HTML
       )
     end

@@ -98,8 +98,8 @@ describe Api::V1::ShikiEditorsController do
         message: {
           message.id.to_s => {
             'id' => message.id,
-            'text' => message.from.nickname,
             'user_id' => message.from_id,
+            'text' => message.from.nickname,
             'url' => message_url(message)
           }
         },

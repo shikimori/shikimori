@@ -16,7 +16,9 @@ class BbCodes::Tags::CommentTag # rubocop:disable ClassLength
         (?<text> (?: (?!\[#{name_regexp}).)*? )
       \[/#{name_regexp}\]
       |
-      \[(?<type>#{name_regexp})=(?<id>\d+)(?:;(?<user_id>\d+))?\]
+      \[
+        (?<type>#{name_regexp})=(?<id>\d+)(?:;(?<user_id>\d+))?
+      \]
     }mix
   end
 
@@ -33,18 +35,18 @@ class BbCodes::Tags::CommentTag # rubocop:disable ClassLength
 
       if entry
         bbcode_to_html(
-          entry,
-          $LAST_MATCH_INFO[:type],
-          $LAST_MATCH_INFO[:text],
-          $LAST_MATCH_INFO[:quote].present?
+          entry: entry,
+          type: $LAST_MATCH_INFO[:type],
+          text: $LAST_MATCH_INFO[:text],
+          is_quoted: $LAST_MATCH_INFO[:quote].present?
         )
       else
         not_found_to_html(
-          entry_id,
-          $LAST_MATCH_INFO[:type],
-          $LAST_MATCH_INFO[:text],
-          $LAST_MATCH_INFO[:user_id],
-          $LAST_MATCH_INFO[:quote_user_id]
+          entry_id: entry_id,
+          type: $LAST_MATCH_INFO[:type],
+          text: $LAST_MATCH_INFO[:text],
+          user_id: $LAST_MATCH_INFO[:user_id],
+          quote_user_id: $LAST_MATCH_INFO[:quote_user_id]
         )
       end
     end
@@ -52,7 +54,7 @@ class BbCodes::Tags::CommentTag # rubocop:disable ClassLength
 
 private
 
-  def bbcode_to_html entry, type, text, is_quoted
+  def bbcode_to_html entry:, type:, text:, is_quoted:
     user = entry&.send(self.class::USER_FIELD)
 
     author_name = text.presence || user.nickname || NOT_FOUND
@@ -61,15 +63,18 @@ private
     quoted_html = quoted_html is_quoted, user, author_name
     mention_html = is_quoted ? '' : '<s>@</s>'
 
-    "<a href='#{url}' class='#{css_classes}'" \
-      " data-id='#{entry.id}'" \
-      " data-type='#{type}'" \
-      " data-user_id='#{user&.id}'" \
-      " data-text='#{user.nickname}'" \
+    data_attrs = data_attrs(
+      id: entry.id,
+      type: type,
+      user_id: user&.id,
+      text: user&.nickname
+    )
+
+    "<a href='#{url}' class='#{css_classes}' data-attrs='#{data_attrs}'" \
       ">#{mention_html}#{quoted_html}</a>"
   end
 
-  def not_found_to_html entry_id, type, text, user_id, quote_user_id
+  def not_found_to_html entry_id:, type:, text:, user_id:, quote_user_id:
     if user_id || quote_user_id
       user = User.find_by id: user_id || quote_user_id
     end
@@ -81,7 +86,7 @@ private
     end
   end
 
-  def not_found_mention_to_html entry_id, type, text, user # rubocop:disable CyclomaticComplexity
+  def not_found_mention_to_html entry_id, type, text, user # rubocop:disable CyclomaticComplexity, MethodLength
     url = entry_id_url entry_id
     open_tag = url ? "a href='#{url}'" : 'span'
     close_tag = url ? 'a' : 'span'
@@ -92,11 +97,14 @@ private
     quoted_text = text.presence || user&.nickname
     quoted_html = "<span>#{quoted_text}</span>" if quoted_text.present?
 
-    "<#{open_tag} class='#{css_classes}'" \
-      " data-id='#{entry_id}'" \
-      " data-type='#{type}'" \
-      " data-user_id='#{user&.id}'" \
-      " data-text='#{user&.nickname}'" \
+    data_attrs = data_attrs(
+      id: entry_id,
+      type: type,
+      user_id: user&.id,
+      text: user&.nickname
+    )
+
+    "<#{open_tag} class='#{css_classes}' data-attrs='#{data_attrs}'"\
       "><s>@</s>#{quoted_html}" \
       "<del>[#{name}=#{entry_id}]</del></#{close_tag}>"
   end
@@ -161,5 +169,14 @@ private
 
   def name_regexp
     name
+  end
+
+  def data_attrs id:, type:, user_id:, text:
+    {
+      id: id,
+      type: type,
+      user_id: user_id,
+      text: text
+    }.to_json
   end
 end

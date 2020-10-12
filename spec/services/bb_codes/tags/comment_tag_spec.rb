@@ -2,6 +2,22 @@ describe BbCodes::Tags::CommentTag do
   subject { described_class.instance.format text }
 
   let(:url) { UrlGenerator.instance.comment_url comment }
+  let(:data_attrs) do
+    {
+      id: comment.id,
+      type: :comment,
+      user_id: comment.user_id,
+      text: user.nickname
+    }
+  end
+  let(:data_404_attrs) do
+    {
+      id: comment.id,
+      type: :comment,
+      user_id: nil,
+      text: nil
+    }
+  end
 
   context 'selfclosed' do
     let(:text) { "[comment=#{comment.id}], test" }
@@ -11,8 +27,7 @@ describe BbCodes::Tags::CommentTag do
       is_expected.to eq(
         <<~HTML.squish
           <a href='#{url}' class='b-mention bubbled'
-            data-id='#{comment.id}' data-type='comment' data-user_id='#{comment.user_id}'
-              data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
+            data-attrs='#{data_attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
         HTML
       )
     end
@@ -24,8 +39,7 @@ describe BbCodes::Tags::CommentTag do
         is_expected.to eq(
           <<~HTML.squish
             <a href='#{url}' class='b-mention b-entry-404 bubbled'
-              data-id='#{comment.id}' data-type='comment' data-user_id=''
-              data-text=''><s>@</s><del>[comment=#{comment.id}]</del></a>, test
+              data-attrs='#{data_404_attrs.to_json}'><s>@</s><del>[comment=#{comment.id}]</del></a>, test
           HTML
         )
       end
@@ -39,8 +53,7 @@ describe BbCodes::Tags::CommentTag do
         is_expected.to eq(
           <<~HTML.squish
             <a href='#{url}' class='b-mention bubbled'
-              data-id='#{comment.id}' data-type='comment' data-user_id='#{user.id}'
-              data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
+              data-attrs='#{data_attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
           HTML
         )
       end
@@ -52,8 +65,7 @@ describe BbCodes::Tags::CommentTag do
           is_expected.to eq(
             <<~HTML.squish
               <a href='#{url}' class='b-mention b-entry-404 bubbled'
-                data-id='#{comment.id}' data-type='comment' data-user_id='#{user.id}'
-                data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span><del>[comment=#{comment.id}]</del></a>, test
+                data-attrs='#{data_attrs.to_json}'><s>@</s><span>#{user.nickname}</span><del>[comment=#{comment.id}]</del></a>, test
             HTML
           )
         end
@@ -69,8 +81,7 @@ describe BbCodes::Tags::CommentTag do
       is_expected.to eq(
         <<~HTML.squish
           <a href='#{url}' class='b-mention bubbled'
-            data-id='#{comment.id}' data-type='comment' data-user_id='#{user.id}'
-            data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
+          data-attrs='#{data_attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
         HTML
       )
     end
@@ -82,8 +93,7 @@ describe BbCodes::Tags::CommentTag do
         is_expected.to eq(
           <<~HTML.squish
             <a href='#{url}' class='b-mention b-entry-404 bubbled'
-              data-id='#{comment.id}' data-type='comment' data-user_id=''
-              data-text=''><s>@</s><span>#{user.nickname}</span><del>[comment=#{comment.id}]</del></a>, test
+              data-attrs='#{data_404_attrs.to_json}'><s>@</s><span>#{user.nickname}</span><del>[comment=#{comment.id}]</del></a>, test
           HTML
         )
       end
@@ -102,11 +112,9 @@ describe BbCodes::Tags::CommentTag do
       is_expected.to eq(
         <<~HTML.squish
           <a href='#{url}' class='b-mention bubbled'
-            data-id='#{comment.id}' data-type='comment' data-user_id='#{user.id}'
-            data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
+            data-attrs='#{data_attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
           <a href='http://test.host/comments/#{comment_2.id}' class='b-mention bubbled'
-            data-id='#{comment_2.id}' data-type='comment' data-user_id='#{user_2.id}'
-            data-text='#{user_2.nickname}'><s>@</s><span>qwe</span></a>
+            data-attrs='#{{ id: comment_2.id, type: :comment, user_id: comment_2.user_id, text: user_2.nickname }.to_json}'><s>@</s><span>qwe</span></a>
         HTML
       )
     end
@@ -120,8 +128,7 @@ describe BbCodes::Tags::CommentTag do
       is_expected.to eq(
         <<~HTML.squish
           <a href='#{url}' class='b-mention bubbled'
-            data-id='#{comment.id}' data-type='comment' data-user_id='#{user.id}'
-            data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
+            data-attrs='#{data_attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
         HTML
       )
     end
@@ -133,8 +140,7 @@ describe BbCodes::Tags::CommentTag do
         is_expected.to eq(
           <<~HTML.squish
             <a href='#{url}' class='b-mention b-entry-404 bubbled'
-              data-id='#{comment.id}' data-type='comment' data-user_id=''
-              data-text=''><s>@</s><del>[comment=#{comment.id}]</del></a>, test
+              data-attrs='#{data_404_attrs.to_json}'><s>@</s><del>[comment=#{comment.id}]</del></a>, test
           HTML
         )
       end
@@ -153,8 +159,7 @@ describe BbCodes::Tags::CommentTag do
           <<~HTML.squish
             <a href='#{url}'
               class='b-mention bubbled b-user16'
-              data-id='#{comment.id}' data-type='comment' data-user_id='#{user.id}'
-              data-text='#{user.nickname}'><img
+              data-attrs='#{data_attrs.to_json}'><img
               src="#{ImageUrlGenerator.instance.url user, :x16}"
               srcset="#{ImageUrlGenerator.instance.url user, :x32} 2x"
               alt="#{ERB::Util.h user.nickname}" /><span>#{user.nickname}</span></a>, test
@@ -168,8 +173,7 @@ describe BbCodes::Tags::CommentTag do
         is_expected.to eq(
           <<~HTML.squish
             <a href='#{url}' class='b-mention bubbled'
-              data-id='#{comment.id}' data-type='comment' data-user_id='#{user.id}'
-              data-text='#{user.nickname}'><span>#{user.nickname}</span></a>, test
+              data-attrs='#{data_attrs.to_json}'><span>#{user.nickname}</span></a>, test
           HTML
         )
       end
@@ -181,8 +185,7 @@ describe BbCodes::Tags::CommentTag do
         is_expected.to eq(
           <<~HTML.squish
             <a href='#{url}' class='b-mention b-entry-404 bubbled'
-              data-id='#{comment.id}' data-type='comment' data-user_id=''
-              data-text=''><s>@</s><span>#{user.nickname}</span><del>[comment=#{comment.id}]</del></a>, test
+              data-attrs='#{data_404_attrs.to_json}'><s>@</s><span>#{user.nickname}</span><del>[comment=#{comment.id}]</del></a>, test
           HTML
         )
       end
