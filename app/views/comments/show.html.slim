@@ -19,24 +19,25 @@
       - else
         = render 'comments/comment', comment: @view.decorated_comment , formats: :html
 
-    .cc-2
-      .c-column
-        .subheadline.h10 = i18n_i 'abuse_request', :other
-        .block
-          - if @view.abuse_requests.any?
-            = render partial: 'moderations/abuse_requests/abuse_request',
-              collection: @view.abuse_requests
-          - else
-            .b-nothing_here = t '.no_abuse_requests'
+    - if @view.abuse_requests.any? || @view.bans.any?
+      .cc-2
+        .c-column
+          .subheadline.h10 = i18n_i 'abuse_request', :other
+          .block
+            - if @view.abuse_requests.any?
+              = render partial: 'moderations/abuse_requests/abuse_request',
+                collection: @view.abuse_requests
+            - else
+              .b-nothing_here = t '.no_abuse_requests'
 
-      .c-column
-        .subheadline.h10 = i18n_i 'ban', :other
-        .block_m
-          - if @view.bans.any?
-            = render partial: 'moderations/bans/ban',
-              collection: @view.bans
-          - else
-            .b-nothing_here = t '.no_bans'
+        .c-column
+          .subheadline.h10 = i18n_i 'ban', :other
+          .block_m
+            - if @view.bans.any?
+              = render partial: 'moderations/bans/ban',
+                collection: @view.bans
+            - else
+              .b-nothing_here = t '.no_bans'
 
     .block
       / .b-options-floated.count = @view.replies.size
