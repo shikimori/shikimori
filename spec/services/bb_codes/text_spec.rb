@@ -142,7 +142,7 @@ describe BbCodes::Text do
         is_expected.to eq(
           <<~HTML.squish
             <a href="http://test.host/test" class="b-mention"
-              data-attrs='#{data_attrs.to_json}'><s>@</s><span>test</span></a>
+              data-attrs="#{ERB::Util.h data_attrs.to_json}"><s>@</s><span>test</span></a>
           HTML
         )
       end
