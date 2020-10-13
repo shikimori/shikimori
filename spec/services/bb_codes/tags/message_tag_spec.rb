@@ -9,7 +9,7 @@ describe BbCodes::Tags::MessageTag do
     {
       id: message.id,
       type: :message,
-      user_id: message.from_id,
+      userId: message.from_id,
       text: user.nickname
     }
   end

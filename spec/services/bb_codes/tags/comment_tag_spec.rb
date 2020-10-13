@@ -6,7 +6,7 @@ describe BbCodes::Tags::CommentTag do
     {
       id: comment.id,
       type: :comment,
-      user_id: comment.user_id,
+      userId: comment.user_id,
       text: user.nickname
     }
   end
@@ -107,7 +107,7 @@ describe BbCodes::Tags::CommentTag do
           <a href='#{url}' class='b-mention bubbled'
             data-attrs='#{attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
           <a href='http://test.host/comments/#{comment_2.id}' class='b-mention bubbled'
-            data-attrs='#{{ id: comment_2.id, type: :comment, user_id: comment_2.user_id, text: user_2.nickname }.to_json}'><s>@</s><span>qwe</span></a>
+            data-attrs='#{{ id: comment_2.id, type: :comment, userId: comment_2.user_id, text: user_2.nickname }.to_json}'><s>@</s><span>qwe</span></a>
         HTML
       )
     end

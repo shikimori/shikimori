@@ -175,7 +175,7 @@ private
     {
       id: id,
       type: type,
-      user_id: user_id,
+      userId: user_id,
       text: text
     }.compact
   end

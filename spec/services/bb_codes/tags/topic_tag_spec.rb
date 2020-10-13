@@ -9,7 +9,7 @@ describe BbCodes::Tags::TopicTag do
     {
       id: topic.id,
       type: :topic,
-      user_id: topic.user_id,
+      userId: topic.user_id,
       text: user.nickname
     }
   end
