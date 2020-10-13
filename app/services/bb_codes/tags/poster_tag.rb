@@ -43,8 +43,9 @@ private
 
   def html_for_image user_image
     url = ImageUrlGenerator.instance.url user_image, :original
+    attrs = { id: user_image.id, isPoster: true }
 
-    "<span class='b-image b-poster no-zoom'>" \
+    "<span class='b-image b-poster no-zoom' data-attrs='#{attrs.to_json}'>" \
       "<img src='#{url}' "\
         "data-width='#{user_image.width}' "\
         "data-height='#{user_image.height}' "\

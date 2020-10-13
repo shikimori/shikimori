@@ -1,4 +1,4 @@
-class BbCodes::Tags::ImageTag
+class BbCodes::Tags::ImageTag # rubocop:disable ClassLength
   include Singleton
 
   DELETED_MARKER = 'deleted'
