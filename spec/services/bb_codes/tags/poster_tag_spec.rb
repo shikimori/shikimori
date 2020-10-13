@@ -14,10 +14,11 @@ describe BbCodes::Tags::PosterTag do
     let(:url) { 'http://site.com/site-url' }
     let(:camo_url) { UrlGenerator.instance.camo_url url }
     let(:text) { "[poster]#{url}[/poster]" }
+    let(:attrs) { { isPoster: true } }
 
     it do
       is_expected.to eq(
-        "<span class='b-image b-poster no-zoom'>" \
+        "<span class='b-image b-poster no-zoom' data-attrs='#{attrs.to_json}'>" \
           "<img src='#{camo_url}' loading='lazy' />" \
         '</span>'
       )
