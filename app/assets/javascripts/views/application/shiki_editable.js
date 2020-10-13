@@ -162,7 +162,7 @@ export default class ShikiEditable extends ShikiView {
     const quote = {
       id: this.node.id,
       type: this._type(),
-      user_id: this.$node.data('user_id'),
+      userId: this.$node.data('user_id'),
       nickname: this.$node.data('user_nickname'),
       text: this.$node.data('selected_text'),
       html: this.$node.data('selected_html')
@@ -179,7 +179,7 @@ export default class ShikiEditable extends ShikiView {
     const reply = {
       id: this.node.id,
       type: this._type(),
-      user_id: this.$node.data('user_id'),
+      userId: this.$node.data('user_id'),
       text: this.$node.data('user_nickname'),
       url: this.$node.data('url') || `/${this._type()}s/${this.node.id}`
     };
