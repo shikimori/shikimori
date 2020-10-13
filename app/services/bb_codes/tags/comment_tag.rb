@@ -63,14 +63,14 @@ private
     quoted_html = quoted_html is_quoted, user, author_name
     mention_html = is_quoted ? '' : '<s>@</s>'
 
-    data_attrs = data_attrs(
+    attrs = build_attrs(
       id: entry.id,
       type: type,
       user_id: user&.id,
       text: user&.nickname
     )
 
-    "<a href='#{url}' class='#{css_classes}' data-attrs='#{data_attrs}'" \
+    "<a href='#{url}' class='#{css_classes}' data-attrs='#{attrs.to_json}'" \
       ">#{mention_html}#{quoted_html}</a>"
   end
 
@@ -97,14 +97,14 @@ private
     quoted_text = text.presence || user&.nickname
     quoted_html = "<span>#{quoted_text}</span>" if quoted_text.present?
 
-    data_attrs = data_attrs(
+    attrs = build_attrs(
       id: entry_id,
       type: type,
       user_id: user&.id,
       text: user&.nickname
     )
 
-    "<#{open_tag} class='#{css_classes}' data-attrs='#{data_attrs}'"\
+    "<#{open_tag} class='#{css_classes}' data-attrs='#{attrs.to_json}'"\
       "><s>@</s>#{quoted_html}" \
       "<del>[#{name}=#{entry_id}]</del></#{close_tag}>"
   end
@@ -171,12 +171,12 @@ private
     name
   end
 
-  def data_attrs id:, type:, user_id:, text:
+  def build_attrs id:, type:, user_id:, text:
     {
       id: id,
       type: type,
       user_id: user_id,
       text: text
-    }.compact.to_json
+    }.compact
   end
 end
