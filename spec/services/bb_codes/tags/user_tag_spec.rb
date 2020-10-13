@@ -3,13 +3,13 @@ describe BbCodes::Tags::UserTag do
 
   let(:text) { "[user=#{user.id}], test" }
   let(:url) { UrlGenerator.instance.profile_url user }
+  let(:attrs) { { id: user.id, type: :user, text: user.nickname } }
 
   it do
     is_expected.to eq(
       <<~HTML.squish
         <a href='#{url}' class='b-mention'
-          data-id='#{user.id}' data-type='user'
-          data-text='#{user.nickname}'><s>@</s><span>#{user.nickname}</span></a>, test
+          data-attrs='#{attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
       HTML
     )
   end
@@ -21,8 +21,7 @@ describe BbCodes::Tags::UserTag do
       is_expected.to eq(
         <<~HTML.squish
           <a href='http://test.host/#{user.nickname}' class='b-mention'
-            data-id='#{user.id}' data-type='user'
-            data-text='#{user.nickname}'><s>@</s><span>test</span></a>, test
+            data-attrs='#{attrs.to_json}'><s>@</s><span>test</span></a>, test
         HTML
       )
     end
@@ -30,10 +29,11 @@ describe BbCodes::Tags::UserTag do
 
   context 'non existing user' do
     let(:user) { build_stubbed :user }
+    let(:attrs) { { id: user.id, type: :user } }
 
     it do
       is_expected.to eq(
-        "<span class='b-mention b-entry-404'><s>@</s>" \
+        "<span class='b-mention b-entry-404' data-attrs='#{attrs.to_json}'><s>@</s>" \
           "<del>[user=#{user.id}]</del></span>, test"
       )
     end
