@@ -146,7 +146,7 @@ private
   def serialize_forum_entry model
     {
       id: model.id,
-      user_id: model.user.id,
+      userId: model.user.id,
       text: model.user.nickname,
       url: model.is_a?(Comment) ?
         comment_url(model) :
@@ -160,7 +160,7 @@ private
     {
       id: model.id,
       text: model.from.nickname,
-      user_id: model.from_id,
+      userId: model.from_id,
       url: message_url(model)
     }
   end

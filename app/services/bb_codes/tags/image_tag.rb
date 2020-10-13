@@ -42,9 +42,9 @@ class BbCodes::Tags::ImageTag
 private
 
   def html_for user_image:, attrs:, text_hash:
-    marker_html = marker_html user_image, attrs[:is_no_zoom]
+    marker_html = marker_html user_image, attrs[:isNoZoom]
 
-    if attrs[:is_no_zoom]
+    if attrs[:isNoZoom]
       small_image_html(
         user_image: user_image,
         attrs: attrs,
@@ -100,7 +100,7 @@ private
       id: user_image.id,
       width: (width if width.positive?),
       height: (height if height.positive?),
-      is_no_zoom: is_no_zoom || small_image?(user_image) ? true : nil,
+      isNoZoom: is_no_zoom || small_image?(user_image) ? true : nil,
       class: css_class
     }.compact
 

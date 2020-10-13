@@ -12,7 +12,7 @@ describe BbCodes::Tags::ImageTag do
       id: user_image.id,
       width: (width if defined? width),
       height: (height if defined? height),
-      is_no_zoom: (is_no_zoom if defined? is_no_zoom),
+      isNoZoom: (is_no_zoom if defined? is_no_zoom),
       class: (css_class if defined? css_class)
     }.compact
   end
