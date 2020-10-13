@@ -54,7 +54,7 @@ rules:
     - 2
     - as-needed
   no-console: 1
-  no-alert: 1
+  no-alert: 0
   no-debugger: 1
   no-trailing-spaces:
     - error
