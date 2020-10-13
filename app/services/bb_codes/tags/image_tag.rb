@@ -44,7 +44,7 @@ private
   def html_for user_image:, attrs:, text_hash:
     marker_html = marker_html user_image, attrs[:is_no_zoom]
 
-    if attrs[:is_no_zoom] || small_image?(user_image)
+    if attrs[:is_no_zoom]
       small_image_html(
         user_image: user_image,
         attrs: attrs,
@@ -66,7 +66,8 @@ private
 
     <<-HTML.squish.strip
       <span class='b-image
-        no-zoom#{" #{attrs[:class]}" if attrs[:class]}'><img
+        no-zoom#{" #{attrs[:class]}" if attrs[:class]}'
+        data-attrs='#{attrs.to_json}'><img
         src='#{original_url}' #{sizes_html}#{" class='check-width'" if sizes_html.blank?}
         loading='lazy' />#{marker_html}</span>
     HTML
@@ -84,7 +85,8 @@ private
         href='#{original_url}'
         rel='#{text_hash}'
         class='b-image
-        unprocessed#{" #{attrs[:class]}" if attrs[:class]}'><img
+        unprocessed#{" #{attrs[:class]}" if attrs[:class]}'
+        data-attrs='#{attrs.to_json}'><img
         src='#{preview_url}' #{sizes_html attrs}
         data-width='#{user_image.width}'
         data-height='#{user_image.height}'
@@ -93,27 +95,29 @@ private
     HTML
   end
 
-  def build_attrs user_image:, width:, height:, is_no_zoom:, css_class: # rubocop:disable MethodLength, AbcSize
+  def build_attrs user_image:, width:, height:, is_no_zoom:, css_class:
     attrs = {
       id: user_image.id,
       width: (width if width.positive?),
       height: (height if height.positive?),
-      is_no_zoom: is_no_zoom,
+      is_no_zoom: is_no_zoom || small_image?(user_image) ? true : nil,
       class: css_class
     }.compact
 
-    if attrs[:width] && attrs[:height]
-      ratio = (1.0 * user_image.width / user_image.height).round(2)
-      scaled_width = [700, attrs[:width], user_image.width].min
-      scaled_height = (1.0 * attrs[:width] / attrs[:height]).round(2) != ratio ?
-        (scaled_width / ratio).to_i :
-        attrs[:height]
-
-      attrs[:width] = scaled_width
-      attrs[:height] = scaled_height
-    end
+    scale_sizes attrs, user_image if attrs[:width] && attrs[:height]
 
     attrs
+  end
+
+  def scale_sizes attrs, user_image
+    ratio = (1.0 * user_image.width / user_image.height).round(2)
+    scaled_width = [700, attrs[:width], user_image.width].min
+    scaled_height = (1.0 * attrs[:width] / attrs[:height]).round(2) != ratio ?
+      (scaled_width / ratio).to_i :
+      attrs[:height]
+
+    attrs[:width] = scaled_width
+    attrs[:height] = scaled_height
   end
 
   def small_image? user_image
