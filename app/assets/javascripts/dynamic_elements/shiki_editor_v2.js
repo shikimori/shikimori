@@ -96,6 +96,9 @@ export default class ShikiEditorV2 extends View {
   _buildApp(Vue, ShikiEditorApp, ShikiUploader, ShikiRequest) {
     const shikiUploader = this._buildShikiUploader(ShikiUploader);
     const shikiRequest = new ShikiRequest(window.location.origin, axios);
+    const localizationField = document.body.getAttribute('data-localized_names') == 'en' ?
+      'name' :
+      'russian';
 
     return new Vue({
       el: this.vueNode,
@@ -111,7 +114,8 @@ export default class ShikiEditorV2 extends View {
           shikiUploader,
           shikiRequest,
           globalSearch: window.globalSearch,
-          content: this.input.value
+          content: this.input.value,
+          localizationField
         },
         on: {
           preview({ node, JS_EXPORTS }) {
