@@ -14,13 +14,11 @@ describe BbCodes::Tags::PosterTag do
     let(:url) { 'http://site.com/site-url' }
     let(:camo_url) { UrlGenerator.instance.camo_url url }
     let(:text) { "[poster]#{url}[/poster]" }
-    let(:attrs) { { isPoster: true } }
 
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <span class='b-image b-poster no-zoom'
-            data-attrs='#{attrs.to_json}'><img src='#{camo_url}'
+          <span class='b-image b-poster no-zoom'><img src='#{camo_url}'
             loading='lazy' /></span>
         HTML
       )
@@ -32,7 +30,7 @@ describe BbCodes::Tags::PosterTag do
     let(:user_image) do
       create :user_image, user: build_stubbed(:user), width: 400, height: 500
     end
-    let(:attrs) { { id: user_image.id, isPoster: true } }
+    let(:attrs) { { id: user_image.id } }
 
     it do
       is_expected.to eq(
