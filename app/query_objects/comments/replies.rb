@@ -30,6 +30,7 @@ private
 
   def reply? body, comment_id
     body.include?("[comment=#{comment_id}]") ||
+      body.include?("[comment=#{comment_id};") ||
       body.include?("[quote=c#{comment_id};") ||
       body.include?(">?c#{comment_id};")
   end

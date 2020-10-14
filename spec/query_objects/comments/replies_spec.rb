@@ -22,6 +22,9 @@ describe Comments::Replies do
   let!(:reply_4_1) do
     create :comment, body: ">?c#{comment.id};", commentable: commentable_1
   end
+  let!(:reply_5_1) do
+    create :comment, body: "[comment=#{comment.id};1]", commentable: commentable_1
+  end
 
-  it { is_expected.to eq [reply_2_1, reply_3_1, reply_4_1] }
+  it { is_expected.to eq [reply_2_1, reply_3_1, reply_4_1, reply_5_1] }
 end
