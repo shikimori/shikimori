@@ -75,7 +75,7 @@ describe BbCodes::Tags::AnimeTag do
     context 'with russian name' do
       let(:name_html) do
         "<span class='name-en'>#{model.name}</span>"\
-          "<span class='name-ru' data-text='#{model.russian}'></span>"
+          "<span class='name-ru'>#{model.russian}</span>"
       end
       let(:russian) { 'test' }
       let(:text) { "[anime=#{model.id}]" }
@@ -116,7 +116,7 @@ describe BbCodes::Tags::AnimeTag do
       let(:text) { "[anime=#{model.id}]test[/anime]" }
       let(:name_html) do
         "<span class='name-en'>#{model.name}</span>"\
-          "<span class='name-ru' data-text='#{model.russian}'></span>"
+          "<span class='name-ru'>#{model.russian}</span>"
       end
       it { is_expected.to eq html }
     end

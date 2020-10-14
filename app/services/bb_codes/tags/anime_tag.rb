@@ -71,7 +71,7 @@ private
   def localization_span model
     if model.russian.present?
       "<span class='name-en'>#{model.name}</span>"\
-      "<span class='name-ru' data-text='#{model.russian}'></span>"
+        "<span class='name-ru'>#{model.russian}</span>"
     else
       model.name
     end
