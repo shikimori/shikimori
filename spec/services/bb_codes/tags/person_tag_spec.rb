@@ -1,15 +1,27 @@
-describe BbCodes::Tags::CharacterTag do
+describe BbCodes::Tags::PersonTag do
   subject { described_class.instance.format text }
+  let(:model) { create :person, id: 9876543, name: 'zxcvbn', russian: '' }
+  let(:attrs) do
+    {
+      id: model.id,
+      type: 'person',
+      name: model.name,
+      russian: model.russian
+    }
+  end
+  let(:url) { UrlGenerator.instance.person_url model }
 
-  let(:character) { create :character, id: 9876543, name: 'zxcvbn', russian: '' }
   let(:html) do
     <<-HTML.squish
-      <a href="#{Shikimori::PROTOCOL}://test.host/characters/9876543-zxcvbn" title="zxcvbn"
-      class="bubbled b-link"
-      data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/characters/9876543-zxcvbn/tooltip">zxcvbn</a>
+      <a
+        href='#{url}'
+        title='#{model.name}'
+        class='bubbled b-link'
+        data-tooltip_url='#{url}/tooltip'
+        data-attrs='#{attrs.to_json}'>#{model.name}</a>
     HTML
   end
-  let(:text) { "[character=#{character.id}]" }
+  let(:text) { "[person=#{model.id}]" }
 
   it { is_expected.to eq html }
 end

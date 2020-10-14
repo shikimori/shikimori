@@ -1,14 +1,26 @@
 describe BbCodes::Tags::AnimeTag do
   subject { described_class.instance.format text }
-  let(:anime) { create :anime, id: 9_876_543, name: 'test', russian: russian }
-
+  let(:model) { create :anime, id: 9_876_543, name: 'test', russian: russian }
+  let(:attrs) do
+    {
+      id: model.id,
+      type: 'anime',
+      name: model.name,
+      russian: model.russian
+    }
+  end
+  let(:url) { UrlGenerator.instance.anime_url model }
   let(:html) do
     <<~HTML.squish
-      <a href="#{Shikimori::PROTOCOL}://test.host/animes/9876543-test" title="test" class="bubbled b-link"
-      data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/9876543-test/tooltip">#{name_html}</a>
+      <a
+        href='#{url}'
+        title='#{model.name}'
+        class='bubbled b-link'
+        data-tooltip_url='#{url}/tooltip'
+        data-attrs='#{attrs.to_json}'>#{name_html}</a>
     HTML
   end
-  let(:name_html) { anime.name }
+  let(:name_html) { model.name }
   let(:russian) { '' }
 
   context 'missing anime' do
@@ -25,7 +37,7 @@ describe BbCodes::Tags::AnimeTag do
   end
 
   context '[anime=id]' do
-    let(:text) { "[anime=#{anime.id}]" }
+    let(:text) { "[anime=#{model.id}]" }
     it { is_expected.to eq html }
 
     context 'bigint' do
@@ -35,44 +47,44 @@ describe BbCodes::Tags::AnimeTag do
 
     context 'fallback' do
       let(:fallback) { 'http://ya.ru' }
-      let(:text) { "[anime=#{anime.id} fallback=zxc]" }
+      let(:text) { "[anime=#{model.id} fallback=zxc]" }
 
       it { is_expected.to eq html }
 
       context 'name' do
-        let(:text) { "[anime=#{anime.id} fallback=zxc asdasdasd fg]" }
+        let(:text) { "[anime=#{model.id} fallback=zxc asdasdasd fg]" }
         it { is_expected.to eq html }
       end
     end
 
     context 'name' do
-      let(:text) { "[anime=#{anime.id} asdasdasd-$#%^&*fg]" }
+      let(:text) { "[anime=#{model.id} asdasdasd-$#%^&*fg]" }
       it { is_expected.to eq html }
     end
 
     context 'multiple bb codes' do
-      let(:anime2) { create :anime, id: 98_765_432, name: 'zxcvbn', russian: russian }
-      let(:text) { "[anime=#{anime.id}][anime=#{anime2.id}]" }
+      let(:model_2) { create :anime, id: 98_765_432, name: 'zxcvbn', russian: russian }
+      let(:text) { "[anime=#{model.id}][anime=#{model_2.id}]" }
       it do
         is_expected.to include html
-        is_expected.to include anime.name
-        is_expected.to include anime2.name
+        is_expected.to include model.name
+        is_expected.to include model_2.name
       end
     end
 
     context 'with russian name' do
       let(:name_html) do
-        "<span class='name-en'>#{anime.name}</span>"\
-          "<span class='name-ru' data-text='#{anime.russian}'></span>"
+        "<span class='name-en'>#{model.name}</span>"\
+          "<span class='name-ru' data-text='#{model.russian}'></span>"
       end
       let(:russian) { 'test' }
-      let(:text) { "[anime=#{anime.id}]" }
+      let(:text) { "[anime=#{model.id}]" }
 
       it { is_expected.to eq html }
     end
 
     context 'with new lines or spaces text' do
-      let(:text) { "[anime=#{anime.id}]#{suffix}" }
+      let(:text) { "[anime=#{model.id}]#{suffix}" }
       let(:separator) { ["\n", ' '].sample }
       let(:suffix) { "#{separator}[/anime]" }
       it { is_expected.to eq html + suffix }
@@ -80,20 +92,20 @@ describe BbCodes::Tags::AnimeTag do
 
     context 'broken tags' do
       let(:text) do
-        "[anime=#{anime.id} fallback=http://shikimori.test/animes/32866]#{suffix}"
+        "[anime=#{model.id} fallback=http://shikimori.test/animes/32866]#{suffix}"
       end
       let(:suffix) { "\n[/anime][/quote]\n[/anime]" }
       it { is_expected.to eq html + suffix }
     end
 
     context 'tag after tag' do
-      let(:text) { "[anime=#{anime.id}], [anime=#{anime.id}]z[/anime]" }
+      let(:text) { "[anime=#{model.id}], [anime=#{model.id}]z[/anime]" }
       it { is_expected.to_not include '[anime' }
     end
   end
 
   context '[anime]id[/anime]' do
-    let(:text) { "[anime]#{anime.id}[/anime]" }
+    let(:text) { "[anime]#{model.id}[/anime]" }
     it { is_expected.to eq html }
   end
 
@@ -101,16 +113,16 @@ describe BbCodes::Tags::AnimeTag do
     let(:russian) { 'тест' }
 
     context 'name equals anime.name' do
-      let(:text) { "[anime=#{anime.id}]test[/anime]" }
+      let(:text) { "[anime=#{model.id}]test[/anime]" }
       let(:name_html) do
-        "<span class='name-en'>#{anime.name}</span>"\
-          "<span class='name-ru' data-text='#{anime.russian}'></span>"
+        "<span class='name-en'>#{model.name}</span>"\
+          "<span class='name-ru' data-text='#{model.russian}'></span>"
       end
       it { is_expected.to eq html }
     end
 
     context 'name not equals anime.name' do
-      let(:text) { "[anime=#{anime.id}]test2[/anime]" }
+      let(:text) { "[anime=#{model.id}]test2[/anime]" }
       let(:name_html) { 'test2' }
       it { is_expected.to eq html }
     end
