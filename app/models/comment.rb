@@ -193,16 +193,18 @@ class Comment < ApplicationRecord
   end
 
   def mark_offtopic flag
-    # mark comment thread as offtopic
     if flag
+      # mark comment thread as offtopic
       ids = Comments::Replies.call(self).map(&:id) + [id]
       Comment
+        .where.not(id: id)
         .where(id: ids)
         .update_all is_offtopic: flag, updated_at: Time.zone.now
-      self.is_offtopic = flag
+
+      update is_offtopic: flag
       ids
-    # mark as not offtopic current comment only
     else
+      # mark as not offtopic current comment only
       update is_offtopic: flag
       [id]
     end
