@@ -171,13 +171,17 @@ describe BbCodes::Text do
     describe '[image]' do
       let(:text) { "[image=#{user_image.id}]" }
       let(:user_image) { create :user_image, user: build_stubbed(:user) }
+      let(:attrs) { { id: user_image.id } }
+      let(:data_attrs) { attrs.to_json.gsub '"', '&quot;' }
+
       it do
         is_expected.to eq(
-          <<-HTML.squish.strip
+          <<~HTML.squish
             <a
               href="#{user_image.image.url :original, false}"
               rel="#{XXhash.xxh32 text, 0}"
-              class="b-image unprocessed"><img
+              class="b-image unprocessed"
+              data-attrs="#{data_attrs}"><img
                 src="#{user_image.image.url :thumbnail, false}"
                 data-width="#{user_image.width}"
                 data-height="#{user_image.height}"
