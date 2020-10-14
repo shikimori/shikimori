@@ -6,7 +6,7 @@ module CommentHelper
   # include AniMangaHelper
 
   COMPLEX_BB_CODES = %i[
-    smileys club club_page collection article contest version anime_video
+    smileys club club_page collection article contest version
     user review posters ban
   ]
 
@@ -92,7 +92,6 @@ module CommentHelper
   # TODO: refactor to bbcode class
   @@type_matchers = {
     Version => [/(\[version(?:=(\d+))?\]([^\[]*?)\[\/version\])/, :tooltip_moderations_version_url],
-    AnimeVideo => [/(\[anime_video(?:=(\d+))?\]([^\[]*?)\[\/anime_video\])/, :tooltip_anime_url],
     User => [/(\[(user|profile)(?:=(\d+))?\]([^\[]*?)\[\/(?:user|profile)\])/, nil],
     Review => [/(\[review=(\d+)\]([^\[]*?)\[\/review\])/, nil],
     Club => [/(\[club(?:=(\d+))?\]([^\[]*?)\[\/club\])/, nil],
@@ -148,11 +147,11 @@ module CommentHelper
           begin
             id = $2.nil? ? $3.to_i : $2.to_i
             entry = klass.find(id)
-            entry = entry.decorate unless entry.respond_to?(:name) # для AnimeVideo
+            entry = entry.decorate unless entry.respond_to?(:name)
             title = $2.nil? ? entry.name : $3
 
             additional = if preloader
-              preloader_url = send preloader, (entry.kind_of?(AnimeVideo) ? entry.anime : entry)
+              preloader_url = send preloader, entry
               " class=\"bubbled b-link\" data-tooltip_url=\"#{preloader_url}\""
             else
               " class=\"b-link\""
@@ -165,8 +164,6 @@ module CommentHelper
                 club_url entry
               elsif entry.kind_of? ClubPage
                 club_club_page_url entry.club, entry
-              elsif entry.kind_of? AnimeVideo
-                nil
               else
                 url_for entry
               end
