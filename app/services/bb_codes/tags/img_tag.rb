@@ -25,7 +25,7 @@ class BbCodes::Tags::ImgTag
   def format text, text_hash
     text.gsub REGEXP do
       html_for(
-        image_url: $LAST_MATCH_INFO[:image_url],
+        escaped_image_url: $LAST_MATCH_INFO[:image_url],
         link_url: $LAST_MATCH_INFO[:link_url],
         width: $LAST_MATCH_INFO[:width].to_i,
         height: $LAST_MATCH_INFO[:height].to_i,
@@ -39,7 +39,7 @@ class BbCodes::Tags::ImgTag
 private
 
   def html_for(
-    image_url:,
+    escaped_image_url:,
     link_url:,
     width:,
     height:,
@@ -47,6 +47,7 @@ private
     is_no_zoom:,
     text_hash:
   )
+    image_url = CGI.unescapeHTML escaped_image_url
     fixed_image_url = camo_url image_url
     camo_link_url = camo_url link_url if link_url&.match? %r{shikimori\.(\w+)/.*\.(?:jpg|png)}
     image_html = html_for_image fixed_image_url, width, height
@@ -79,8 +80,7 @@ private
     UrlGenerator.instance.camo_url(fix_url(image_url))
   end
 
-  def fix_url escpaed_url
-    url = CGI.unescapeHTML escpaed_url
+  def fix_url url
     url.match?(%r{\A(https?:)?//}) ? url : Url.new(url).with_http.to_s
   end
 end

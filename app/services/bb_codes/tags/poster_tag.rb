@@ -33,7 +33,8 @@ class BbCodes::Tags::PosterTag
 
 private
 
-  def html_for_url image_url
+  def html_for_url escaped_image_url
+    image_url = CGI.unescapeHTML escaped_image_url
     camo_url = UrlGenerator.instance.camo_url(image_url)
     attrs = { isPoster: true }
 

@@ -200,7 +200,7 @@ describe BbCodes::Text do
     describe '[poster]' do
       let(:url) { 'http://site.com/image.jpg' }
       let(:text) { "[poster]#{url}[/poster]" }
-      let(:camo_url) { UrlGenerator.instance.camo_url url }
+      let(:camo_url) { UrlGenerator.instance.camo_url CGI.unescapeHTML(url) }
       it do
         expect(camo_url).to include '?url=http%3A%2F%2Fsite.com%2Fimage.jpg'
         is_expected.to eq(
