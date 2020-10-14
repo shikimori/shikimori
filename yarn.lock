@@ -8522,17 +8522,17 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-shiki-decorators@^0.14.5:
-  version "0.14.5"
-  resolved "https://registry.yarnpkg.com/shiki-decorators/-/shiki-decorators-0.14.5.tgz#9a2a526eceac45ba5a1ed741c5fec238f8487d94"
-  integrity sha512-6cTW7BLow+xWFPKWEcOkbCC9JL7edZKyeBozZaWB6JUtEEuG5MDldeQJ3TIT9a9bKx1/vGRmKObZfvACg5JrKw==
+shiki-decorators@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/shiki-decorators/-/shiki-decorators-0.15.0.tgz#f93d3112dda9cc76614b69daf9ced76aad3be3c4"
+  integrity sha512-q5k6/LkbIwKztYQClexIbpKCGFSPK85g2XgDOq6JxJ+OU/U8XgNqNE/yR9y/Ad53vdhQ2mcOKYhCqJhxBgpUOw==
   dependencies:
     bind-decorator "1.0.11"
 
-shiki-editor@^0.14.5:
-  version "0.14.5"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.14.5.tgz#fc15b825ff8ff3500ed89300a3e81d8a2d628189"
-  integrity sha512-XiPYLztc62a4sET+P48X8v02eYIKo8Y5PIvlK/EggcN6FO8+GY7OO/aFZo48W1IAvD6VP+/Hw+ZoljhdStrEpw==
+shiki-editor@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.15.0.tgz#e6b54a2c59861e8d096a91b787dcddab3725e702"
+  integrity sha512-rtmgZ25t/FyZMscfAKue9LFRqeI/zNmT8lEEp277x8+ZBYyAucemh9WTDPOysySyGtslkmTvVN/agDCWhyB2pQ==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@popperjs/core" "^2.4.4"
@@ -8553,19 +8553,19 @@ shiki-editor@^0.14.5:
     vue-keypress "^2.1.1"
     withinviewport "^2.1.2"
 
-shiki-uploader@^0.14.5:
-  version "0.14.5"
-  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.14.5.tgz#cd22352dd844c233617d6898a955ccfc5f57c9d1"
-  integrity sha512-TRVGn9fQ2zU8H0qCbIgWSS7jYbpQrFa5KjrxD+AXD+4YQKEDw/dmE9AlZWXLMfe+sUtTzx14iov/iFGMFff4lQ==
+shiki-uploader@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.15.0.tgz#f542d082915fd85d00bdf778aed80dfa356757eb"
+  integrity sha512-eRpK+cg2wgiMrYjrPnv8dTz2oNmFyJYK+6ftFYhcDQnzvoPsjTjLM63r6L5PPO2k4P0rnDp7x8e4oPVWXXKZMQ==
   dependencies:
     "@uppy/core" "^1.11.0"
     "@uppy/xhr-upload" "^1.6.0"
     is-visible "^2.2.0"
 
-shiki-utils@^0.14.5:
-  version "0.14.5"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.14.5.tgz#5d89f94e6dbf2c56b4f8222661241bece0f3b49c"
-  integrity sha512-VggYVYx4bgL4qxowNQlvYSX+MCVe7gBkLnsUH3gr2ZtT3SB2DSH/NNYTIT7jg4WKsZlwP6MxbjW9m/Wxndp31w==
+shiki-utils@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.15.0.tgz#d85138067375d83e3ba977dd0c856cf046894693"
+  integrity sha512-Vg21ZSHJmzY6PFIHr+ZcuyF+nPwJKIEL2ax9kvOYawQghaSdSIGQD8R/dVi8MUx/tQ/2v2bIdbqDk6WLOliejA==
   dependencies:
     toastify-js "^1.8.0"
 
