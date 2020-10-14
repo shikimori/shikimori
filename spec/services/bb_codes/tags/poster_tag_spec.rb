@@ -11,14 +11,17 @@ describe BbCodes::Tags::PosterTag do
   end
 
   context 'external image' do
-    let(:url) { 'http://site.com/site-url' }
-    let(:camo_url) { UrlGenerator.instance.camo_url url }
-    let(:text) { "[poster]#{url}[/poster]" }
+    let(:image_url) { 'http://site.com/site-url?a=1&b=2' }
+    let(:escaped_image_url) { ERB::Util.h image_url }
+    let(:camo_url) { UrlGenerator.instance.camo_url CGI.unescapeHTML(image_url) }
+    let(:text) { "[poster]#{escaped_image_url}[/poster]" }
+    let(:attrs) { { src: image_url } }
 
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <span class='b-image b-poster no-zoom'><img src='#{camo_url}'
+          <span class='b-image b-poster no-zoom'
+            data-attrs='#{attrs.to_json}'><img src='#{camo_url}'
             loading='lazy' /></span>
         HTML
       )

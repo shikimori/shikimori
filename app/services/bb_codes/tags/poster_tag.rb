@@ -36,9 +36,11 @@ private
   def html_for_url escaped_image_url
     image_url = CGI.unescapeHTML escaped_image_url
     camo_url = UrlGenerator.instance.camo_url(image_url)
+    attrs = { src: image_url }
 
     <<~HTML.squish
-      <span class='b-image b-poster no-zoom'><img src='#{camo_url}'
+      <span class='b-image b-poster no-zoom'
+        data-attrs='#{attrs.to_json}'><img src='#{camo_url}'
           loading='lazy' /></span>
     HTML
   end
