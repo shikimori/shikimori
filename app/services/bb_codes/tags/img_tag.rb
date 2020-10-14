@@ -79,7 +79,8 @@ private
     UrlGenerator.instance.camo_url(fix_url(image_url))
   end
 
-  def fix_url url
+  def fix_url escpaed_url
+    url = CGI.unescapeHTML escpaed_url
     url.match?(%r{\A(https?:)?//}) ? url : Url.new(url).with_http.to_s
   end
 end

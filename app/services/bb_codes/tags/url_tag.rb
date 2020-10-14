@@ -29,7 +29,8 @@ class BbCodes::Tags::UrlTag
 
   def format text
     text.gsub REGEXP do
-      url, is_shikimori = match_url $LAST_MATCH_INFO[:url]
+      escaped_url, is_shikimori = match_url $LAST_MATCH_INFO[:url]
+      url = CGI.unescapeHTML escaped_url
       text = match_text $LAST_MATCH_INFO[:text], url
       css_class = $LAST_MATCH_INFO[:class]
 
@@ -61,7 +62,7 @@ private
   def match_url url
     if url.starts_with?('/')
       [url, !url.starts_with?('//')]
-    elsif Url.new(url).without_http.to_s =~ %r{(\w+\.)?shikimori\.\w+/(?<path>.+)}
+    elsif Url.new(url).without_http.to_s =~ %r{(?:\w+\.)?shikimori\.\w+/(?<path>.+)}
       ["/#{$LAST_MATCH_INFO[:path]}", true]
     else
       [Url.new(url).with_http.to_s, false]
@@ -71,7 +72,7 @@ private
   def match_text text, url
     return text if text
 
-    if Url.new(url).without_http.to_s =~ %r{(\w+\.)?shikimori\.\w+/(?<path>.+)}
+    if Url.new(url).without_http.to_s =~ %r{(?:\w+\.)?shikimori\.\w+/(?<path>.+)}
       "/#{$LAST_MATCH_INFO[:path]}"
     elsif url.size > MAX_SHORT_URL_SIZE
       Url.new(url).domain.to_s
