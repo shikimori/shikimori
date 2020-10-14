@@ -18,9 +18,11 @@ describe BbCodes::Tags::PosterTag do
 
     it do
       is_expected.to eq(
-        "<span class='b-image b-poster no-zoom' data-attrs='#{attrs.to_json}'>" \
-          "<img src='#{camo_url}' loading='lazy' />" \
-        '</span>'
+        <<~HTML.squish
+          <span class='b-image b-poster no-zoom'
+            data-attrs='#{attrs.to_json}'><img src='#{camo_url}'
+            loading='lazy' /></span>
+        HTML
       )
     end
   end
@@ -34,12 +36,14 @@ describe BbCodes::Tags::PosterTag do
 
     it do
       is_expected.to eq(
-        "<span class='b-image b-poster no-zoom' data-attrs='#{attrs.to_json}'>" \
-          "<img src='#{user_image.image.url :original, false}' " \
-            "data-width='#{user_image.width}' " \
-            "data-height='#{user_image.height}' " \
-            "loading='lazy' />"\
-        '</span>'
+        <<~HTML.squish
+          <span class='b-image b-poster no-zoom'
+            data-attrs='#{attrs.to_json}'><img
+              src='#{user_image.image.url :original, false}'
+              data-width='#{user_image.width}'
+              data-height='#{user_image.height}'
+              loading='lazy' /></span>
+        HTML
       )
     end
   end

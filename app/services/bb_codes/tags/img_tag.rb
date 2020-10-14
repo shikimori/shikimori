@@ -53,11 +53,11 @@ private
     image_html = html_for_image fixed_image_url, width, height
 
     if is_no_zoom
-      <<-HTML.squish.strip
+      <<~HTML.squish
         <span class='b-image no-zoom#{" #{css_class}" if css_class.present?}'>#{image_html}</span>
       HTML
     else
-      <<-HTML.squish.strip
+      <<~HTML.squish
         <a href='#{link_url || image_url}'
           data-href='#{camo_link_url || fixed_image_url}'
           rel='#{text_hash}'
