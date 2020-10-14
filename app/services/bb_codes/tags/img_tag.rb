@@ -38,7 +38,7 @@ class BbCodes::Tags::ImgTag
 
 private
 
-  def html_for(
+  def html_for( # rubocop:disable all
     escaped_image_url:,
     link_url:,
     width:,
@@ -51,17 +51,20 @@ private
     fixed_image_url = camo_url image_url
     camo_link_url = camo_url link_url if link_url&.match? %r{shikimori\.(\w+)/.*\.(?:jpg|png)}
     image_html = html_for_image fixed_image_url, width, height
+    attrs = { src: image_url }
 
     if is_no_zoom
       <<~HTML.squish
-        <span class='b-image no-zoom#{" #{css_class}" if css_class.present?}'>#{image_html}</span>
+        <span class='b-image no-zoom#{" #{css_class}" if css_class.present?}'
+          data-attrs='#{attrs.to_json}'>#{image_html}</span>
       HTML
     else
       <<~HTML.squish
         <a href='#{link_url || image_url}'
           data-href='#{camo_link_url || fixed_image_url}'
           rel='#{text_hash}'
-          class='b-image unprocessed#{" #{css_class}" if css_class.present?}'>#{image_html}</a>
+          class='b-image unprocessed#{" #{css_class}" if css_class.present?}'
+          data-attrs='#{attrs.to_json}'>#{image_html}</a>
       HTML
     end
   end
