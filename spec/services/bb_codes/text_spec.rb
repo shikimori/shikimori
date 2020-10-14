@@ -201,10 +201,17 @@ describe BbCodes::Text do
       let(:url) { 'http://site.com/image.jpg' }
       let(:text) { "[poster]#{url}[/poster]" }
       let(:camo_url) { UrlGenerator.instance.camo_url CGI.unescapeHTML(url) }
+      let(:attrs) { { isPoster: true } }
+      let(:data_attrs) { attrs.to_json.gsub '"', '&quot;' }
+
       it do
         expect(camo_url).to include '?url=http%3A%2F%2Fsite.com%2Fimage.jpg'
         is_expected.to eq(
-          "<span class=\"b-image b-poster no-zoom\"><img src=\"#{camo_url}\" loading=\"lazy\"></span>"
+          <<~HTML.squish
+            <span class="b-image b-poster no-zoom"
+              data-attrs="#{data_attrs}"><img src="#{camo_url}"
+                loading="lazy"></span>
+          HTML
         )
       end
     end
