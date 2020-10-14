@@ -13,7 +13,7 @@ describe BbCodes::Tags::PosterTag do
   context 'external image' do
     let(:image_url) { 'http://site.com/site-url?a=1&b=2' }
     let(:escaped_image_url) { ERB::Util.h image_url }
-    let(:camo_url) { UrlGenerator.instance.camo_url CGI.unescapeHTML(image_url) }
+    let(:camo_url) { UrlGenerator.instance.camo_url image_url }
     let(:text) { "[poster]#{escaped_image_url}[/poster]" }
     let(:attrs) { { src: image_url } }
 

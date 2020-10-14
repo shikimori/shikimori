@@ -3,7 +3,8 @@ describe BbCodes::Tags::ImgTag do
 
   let(:text_hash) { 'hash' }
   let(:image_url) { 'http://site.com/site-url' }
-  let(:text) { "[img]#{image_url}[/img]" }
+  let(:escaped_image_url) { ERB::Util.h image_url }
+  let(:text) { "[img]#{escaped_image_url}[/img]" }
   let(:camo_url) { UrlGenerator.instance.camo_url image_url }
   let(:attrs) { { src: image_url } }
 
