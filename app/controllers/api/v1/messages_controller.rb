@@ -65,7 +65,12 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
   description 'Requires `messages` oauth scope'
   def destroy
     faye.destroy @resource
-    respond_with @resource.decorate, notice: i18n_t('message.removed')
+
+    if frontent_request?
+      render json: { notice: i18n_t('message.removed') }
+    else
+      respond_with @resource.decorate
+    end
   end
 
   api :POST, '/messages/mark_read', 'Mark messages as read or unread'
