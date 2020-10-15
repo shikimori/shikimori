@@ -7,7 +7,6 @@ import { bind } from 'shiki-decorators';
 
 export default class ShikiEditorV2 extends View {
   async initialize() {
-    console.log(this.node);
     this.vueNode = this.node.querySelector('.vue-app');
     this.input = this.node.querySelector('input');
 
@@ -150,6 +149,6 @@ export default class ShikiEditorV2 extends View {
     this.vueNode = document.createElement('div');
     this.vueNode.classList.add('vue-app');
     this.vueNode.classList.add('b-ajax');
-    this.node.append(this.vueNode);
+    this.node.insertBefore(this.vueNode, this.node.querySelector('footer'));
   }
 }
