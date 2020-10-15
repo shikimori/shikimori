@@ -7,6 +7,7 @@ import { bind } from 'shiki-decorators';
 
 export default class ShikiEditorV2 extends View {
   async initialize() {
+    console.log(this.node);
     this.vueNode = this.node.querySelector('.vue-app');
     this.input = this.node.querySelector('input');
 
