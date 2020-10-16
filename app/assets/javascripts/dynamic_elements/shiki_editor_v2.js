@@ -66,9 +66,9 @@ export default class ShikiEditorV2 extends View {
     ));
   }
 
-  replyComment(reply, _isOfftopic) {
+  replyComment(reply, isOfftopic) {
     if (!this.$node.is(':appeared')) {
-      $.scrollTo(this.$node, () => this.replyComment(reply, _isOfftopic));
+      $.scrollTo(this.$node, () => this.replyComment(reply, isOfftopic));
       return;
     }
 
@@ -79,10 +79,17 @@ export default class ShikiEditorV2 extends View {
     } else {
       this.editorApp.appendReply(reply);
     }
+
+    if (isOfftopic) {
+      this._markOfftopic(true);
+    }
   }
 
   cleanup() {
     this.editorApp.clearContent();
+
+    this._markOfftopic(false);
+    this._markReview(false);
   }
 
   _buildShikiUploader(ShikiUploader) {
@@ -128,15 +135,41 @@ export default class ShikiEditorV2 extends View {
 
   _bindForm() {
     this.$form.on('submit', this.sync);
+    this.$('.b-offtopic_marker').on('click', this._onMarkOfftopic);
+    this.$('.b-summary_marker').on('click', this._onMarkReview);
   }
 
   _scheduleDestroy() {
     $(document).one('turbolinks:before-cache', this.destroy);
   }
 
+  _markOfftopic(isOfftopic) {
+    this.$('input[name="comment[is_offtopic]"]').val(isOfftopic ? 'true' : 'false');
+    this.$('.b-offtopic_marker').toggleClass('off', !isOfftopic);
+  }
+
+  _markReview(isReview) {
+    this.$('input[name="comment[is_summary]"]').val(isReview ? 'true' : 'false');
+    this.$('.b-summary_marker').toggleClass('off', !isReview);
+  }
+
   @bind
   sync() {
     this.input.value = this.editorApp.exportContent();
+  }
+
+  @bind
+  _onMarkOfftopic() {
+    this._markOfftopic(
+      this.$('.b-offtopic_marker').hasClass('off')
+    );
+  }
+
+  @bind
+  _onMarkReview() {
+    this._markReview(
+      this.$('.b-summary_marker').hasClass('off')
+    );
   }
 
   @bind
