@@ -87,11 +87,13 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
     end
   end
 
-  def sync
+  def sync # rubocop:disable AbcSize
     authorize! :sync, resource_klass
 
     id = @resource ? @resource.mal_id : params[:db_entry][:mal_id]
     type = resource_klass.base_class.name.downcase
+
+    NamedLogger.sync.info "#{type}##{id} User##{current_user.id}"
 
     MalParsers::FetchEntry.perform_async id, type
     Rails.cache.write [type, :sync, id], true, expires_in: 1.hour
