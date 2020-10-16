@@ -6,6 +6,8 @@ import axios from 'helpers/axios';
 import { bind } from 'shiki-decorators';
 
 export default class ShikiEditorV2 extends View {
+  isEdit = false
+
   async initialize() {
     this.vueNode = this.node.querySelector('.vue-app');
     this.input = this.node.querySelector('input');
@@ -54,8 +56,11 @@ export default class ShikiEditorV2 extends View {
     const $initialContent = $comment.children().detach();
     $form.appendTo($comment);
 
+    this.isEdit = true;
+
     // отмена редактирования
     this.$('.cancel').on('click', () => {
+      this.isEdit = false;
       $form.remove();
       $comment.append($initialContent);
     });
@@ -103,7 +108,7 @@ export default class ShikiEditorV2 extends View {
   _buildApp(Vue, ShikiEditorApp, ShikiUploader, ShikiRequest) {
     const shikiUploader = this._buildShikiUploader(ShikiUploader);
     const shikiRequest = new ShikiRequest(window.location.origin, axios);
-    const localizationField = document.body.getAttribute('data-localized_names') == 'en' ?
+    const localizationField = document.body.getAttribute('data-localized_names') === 'en' ?
       'name' :
       'russian';
 
@@ -175,6 +180,10 @@ export default class ShikiEditorV2 extends View {
   @bind
   destroy() {
     this.$form.off('submit', this.sync);
+
+    if (this.isEdit) {
+      this.$('footer .cancel').click();
+    }
 
     this.app?.$destroy();
     this.vueNode.remove();
