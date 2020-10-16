@@ -39,7 +39,7 @@
   &.off
     &:before
       color: $gray-3
-      border-color: $gray-1
+      border-color: rgba($active_color, 0.5)
       background-color: transparent
 
     +gte_laptop
@@ -48,6 +48,6 @@
         background-color: $hover_color
         border-color: darken($hover_color, 1.5%)
 
-      &:active:before
-        background-color: $active_color
-        border-color: darken($active_color, 1.5%)
+    &:active:before
+      background-color: $active_color
+      border-color: darken($active_color, 1.5%)
