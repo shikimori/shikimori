@@ -31,6 +31,19 @@
         - if f.object.persisted?
           .cancel tabindex='0' = t 'actions.cancel'
 
+        - if f.object.new_record?
+          aside.markers
+            - if f.object.try :allowed_summary?
+              .b-summary_marker.active[
+                class=(:off unless f.object.summary?)
+                data-text=t('markers.summary')
+              ]
+            - if f.object.respond_to? :offtopic?
+              .b-offtopic_marker.active[
+                class=(:off unless f.object.offtopic?)
+                data-text=t('markers.offtopic')
+              ]
+
 - else
   .b-shiki_editor.to-process[
     class=('size-xl' if local_assigns[:size] == 'xl')

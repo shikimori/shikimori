@@ -1,4 +1,5 @@
 @import mixins/block
+@import mixins/input
 
 .b-shiki_editor-v2
   +block
@@ -8,3 +9,22 @@
 
   footer
     margin-top: 15px
+    display: flex
+    align-items: center
+
+  aside.markers
+    margin-left: auto
+    display: flex
+
+    .b-summary_marker,
+    .b-offtopic_marker
+      margin: 0
+      float: none
+      width: auto
+
+      &:before
+        position: static
+        min-width: 80px
+        width: auto
+        +input-sizes
+

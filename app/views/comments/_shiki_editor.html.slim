@@ -52,7 +52,7 @@
       ]
 
   - if local_assigns[:f]
-    - if f.object.new_record?
+    - if f.object.new_record? && (f.object.try(:allowed_summary?) || f.object.respond_to?(:offtopic?))
       aside.markers
         - if f.object.try :allowed_summary?
           .b-summary_marker.active[
