@@ -201,6 +201,15 @@ export default class Comment extends ShikiEditable {
       .attr('href', $node.data('url'))
       .changeTag('a');
   }
+
+  _replace(html, JS_EXPORTS) {
+    const $replacement = $(html);
+    super._replace($replacement, JS_EXPORTS);
+
+    $replacement.imagesLoaded(() =>
+      $('.b-height_shortener .expand').click()
+    );
+  }
 }
 
 function markerMessage(data) {
