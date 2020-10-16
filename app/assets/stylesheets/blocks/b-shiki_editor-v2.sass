@@ -1,5 +1,5 @@
 @import mixins/block
-@import mixins/input
+@import mixins/shiki_button
 
 .b-shiki_editor-v2
   +block
@@ -22,9 +22,14 @@
       float: none
       width: auto
 
+      &:not(:last-child)
+        margin-right: 18px
+
       &:before
         position: static
         min-width: 80px
         width: auto
-        +input-sizes
+        display: block
+        font-size: 12px
+        line-height: $line_height
 
