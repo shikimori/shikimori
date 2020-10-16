@@ -7,18 +7,18 @@ class UserSerializer < ActiveModel::Serializer
     :url
 
   def avatar
-    with_http object.avatar_url(48)
+    object.avatar_url(48)
   end
 
   def image
     {
-      x160: with_http(object.avatar_url(160)),
-      x148: with_http(object.avatar_url(148)),
-      x80: with_http(object.avatar_url(80)),
-      x64: with_http(object.avatar_url(64)),
-      x48: with_http(object.avatar_url(48)),
-      x32: with_http(object.avatar_url(32)),
-      x16: with_http(object.avatar_url(16))
+      x160: object.avatar_url(160),
+      x148: object.avatar_url(148),
+      x80: object.avatar_url(80),
+      x64: object.avatar_url(64),
+      x48: object.avatar_url(48),
+      x32: object.avatar_url(32),
+      x16: object.avatar_url(16)
     }
   end
 
@@ -28,11 +28,5 @@ class UserSerializer < ActiveModel::Serializer
 
   def url
     UrlGenerator.instance.profile_url(object)
-  end
-
-private
-
-  def with_http url
-    Url.new(url).with_http.to_s
   end
 end
