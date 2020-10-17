@@ -13,7 +13,7 @@ describe AntispamConcern do
       it do
         expect { comment_2.save }.to_not change Comment, :count
         expect(comment_2.errors[:base]).to eq [
-          'Защита от спама. Попробуйте снова через 1 секунду.'
+          'Защита от спама. Попробуй снова через 1 секунду.'
         ]
       end
 
@@ -57,7 +57,7 @@ describe AntispamConcern do
       it do
         expect { club_3.save }.to_not change Club, :count
         expect(club_3.errors[:base]).to eq [
-          'Защита от спама. Подождите до завтра.'
+          'Защита от спама. Подожди до завтра.'
         ]
       end
 

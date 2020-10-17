@@ -49,7 +49,7 @@ describe MessagesQuery do
       let(:messages_type) { :inbox }
 
       it { is_expected.to have(2).items }
-      its(:first) { is_expected.to eq private }
+      its(:first) { is_expected.to eq private_3 }
     end
 
     context 'private' do
