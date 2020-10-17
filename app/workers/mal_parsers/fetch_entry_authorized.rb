@@ -10,6 +10,8 @@ class MalParsers::FetchEntryAuthorized
     update_authorized_imported_at! entry_id, entry_type
   rescue InvalidIdError
     update_authorized_imported_at! entry_id, entry_type
+  rescue RedisMutex::LockError, *Network::FaradayGet::NET_ERRORS
+    MalParsers::FetchEntryAuthorized.perform_in 30.minutes, entry_id, entry_type
   end
 
 private
