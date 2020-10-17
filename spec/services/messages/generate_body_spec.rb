@@ -220,6 +220,9 @@ describe Messages::GenerateBody do
       let(:kind) { MessageType::VERSION_ACCEPTED }
       let(:anime) { create :anime, id: 1, name: 'test', russian: '' }
       let(:linked) { create :version, item: anime, id: 1 }
+      let(:attrs) { { id: anime.id, type: 'anime', name: anime.name, russian: anime.russian } }
+      let(:data_attrs) { attrs.to_json.gsub '"', '&quot;' }
+
       it do
         is_expected.to eq(
           <<~HTML.squish
@@ -228,7 +231,8 @@ describe Messages::GenerateBody do
             data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1/tooltip">правка</a>
             для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"
             title="test" class="bubbled b-link"
-            data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip">test</a> принята.
+            data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip"
+            data-attrs="#{data_attrs}">test</a> принята.
           HTML
         )
       end
@@ -238,6 +242,8 @@ describe Messages::GenerateBody do
       let(:kind) { MessageType::VERSION_REJECTED }
       let(:anime) { create :anime, id: 1, name: 'test', russian: '' }
       let(:linked) { create :version, item: anime, id: 1, moderator: user_from }
+      let(:attrs) { { id: anime.id, type: 'anime', name: anime.name, russian: anime.russian } }
+      let(:data_attrs) { attrs.to_json.gsub '"', '&quot;' }
 
       context 'with reason' do
         let(:body) { 'zxc' }
@@ -249,7 +255,8 @@ describe Messages::GenerateBody do
               data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1/tooltip">правка</a>
               для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"
               title="test" class="bubbled b-link"
-              data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip">test</a>
+              data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip"
+              data-attrs="#{data_attrs}">test</a>
               отклонена по причине:
               <div class="b-quote" data-attrs="from"><div class="quoteable">from</div><div
               class="quote-content">zxc</div></div>
@@ -267,7 +274,8 @@ describe Messages::GenerateBody do
               data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1/tooltip">правка</a>
               для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"
               title="test" class="bubbled b-link"
-              data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip">test</a>
+              data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip"
+              data-attrs="#{data_attrs}">test</a>
               отклонена.
             HTML
           )
