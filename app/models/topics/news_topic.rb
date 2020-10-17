@@ -19,15 +19,18 @@ class Topics::NewsTopic < Topic
   def full_title
     return title unless generated?
 
-    BbCodes::Text.call(
-      I18n.t(
-        "topics/news_topic.full_title.#{linked_type.underscore}",
-        action_name: title,
-        action_name_lower: title.downcase,
-        id: linked_id,
-        type: linked_type.underscore
+    BbCodes::Text
+      .call(
+        I18n.t(
+          "topics/news_topic.full_title.#{linked_type.underscore}",
+          action_name: title,
+          action_name_lower: title.downcase,
+          id: linked_id,
+          type: linked_type.underscore
+        )
       )
-    ).gsub(/<.*?>/, '')
+      .gsub(%r{<span class="name-ru">.*?</span>}, '')
+      .gsub(/<.*?>/, '')
   end
 
   def accept
