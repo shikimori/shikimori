@@ -1,9 +1,13 @@
 /* global IS_LOCAL_SHIKI_PACKAGES */
-import View from 'views/application/view';
+import delay from 'delay';
 import memoize from 'memoize-decorator';
+import { bind } from 'shiki-decorators';
+import { flash } from 'shiki-utils';
+
+import View from 'views/application/view';
+
 import csrf from 'helpers/csrf';
 import axios from 'helpers/axios';
-import { bind } from 'shiki-decorators';
 
 export default class ShikiEditorV2 extends View {
   isEdit = false
@@ -112,6 +116,8 @@ export default class ShikiEditorV2 extends View {
       'name' :
       'russian';
 
+    const { $form } = this;
+
     return new Vue({
       el: this.vueNode,
       components: { ShikiEditorApp },
@@ -132,6 +138,9 @@ export default class ShikiEditorV2 extends View {
         on: {
           preview({ node, JS_EXPORTS }) {
             $(node).process(JS_EXPORTS);
+          },
+          submit() {
+            $form.submit();
           }
         }
       })
@@ -139,7 +148,12 @@ export default class ShikiEditorV2 extends View {
   }
 
   _bindForm() {
-    this.$form.on('submit', this.sync);
+    this.$form
+      .on('submit', this._formSubmit)
+      .on('ajax:before', this._formAjaxBefore)
+      .on('ajax:complete', this._formAjaxComplete)
+      .on('ajax:success', this._formAjaxSuccess);
+
     this.$('.b-offtopic_marker').on('click', this._onMarkOfftopic);
     this.$('.b-summary_marker').on('click', this._onMarkReview);
   }
@@ -159,8 +173,30 @@ export default class ShikiEditorV2 extends View {
   }
 
   @bind
-  sync() {
+  _formSubmit() {
     this.input.value = this.editorApp.exportContent();
+  }
+
+  @bind
+  _formAjaxBefore() {
+    if (this.input.value.replace(/\n| |\r|\t/g, '')) {
+      this.$node.addClass('b-ajax');
+      return true;
+    }
+
+    flash.error(I18n.t('frontend.shiki_editor.text_cant_be_blank'));
+    return false;
+  }
+
+  @bind
+  _formAjaxComplete() {
+    this.$node.removeClass('b-ajax');
+  }
+
+  @bind
+  async _formAjaxSuccess() {
+    await delay();
+    this.editorApp.focus();
   }
 
   @bind
@@ -179,7 +215,10 @@ export default class ShikiEditorV2 extends View {
 
   @bind
   destroy() {
-    this.$form.off('submit', this.sync);
+    this.$form.off('submit', this._formSubmit);
+    this.$form.off('ajax:before', this._formAjaxBefore);
+    this.$form.off('ajax:complete', this._formAjaxComplete);
+    this.$form.off('ajax:success', this._formAjaxSuccess);
 
     if (this.isEdit) {
       this.$('footer .cancel').click();
