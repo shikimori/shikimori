@@ -1,5 +1,9 @@
-.b-shiki_editor.to-process data-dynamic='shiki_editor'
-  = simple_form_for [:api, comment], remote: true, authenticity_token: true,
-    html: { data: { type: :json }, id: nil } do |f|
-    input type='hidden' name='frontend' value='true'
-    = render 'comments/shiki_editor', comment: comment, f: f
+= simple_form_for [:api, comment], remote: true, authenticity_token: true,
+  html: { data: { type: :json }, id: nil } do |f|
+  input type='hidden' name='frontend' value='true'
+  / = render 'comments/shiki_editor', comment: comment, f: f
+  = render 'blocks/shiki_editor',
+    comment: comment,
+    text: comment.body,
+    field_name: "#{comment.class.name.downcase}[body]",
+    f: f

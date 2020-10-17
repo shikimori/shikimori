@@ -19,4 +19,12 @@ class BbCodes::Tags::UserTag < BbCodes::Tags::CommentTag
 
   def entry_id_url _entry_id
   end
+
+  def build_attrs id:, type:, user_id:, text: # rubocop:disable UnusedMethodArgument
+    {
+      id: id,
+      type: type,
+      text: text
+    }.compact
+  end
 end

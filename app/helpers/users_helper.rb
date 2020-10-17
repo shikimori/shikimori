@@ -1,7 +1,7 @@
 module UsersHelper
   class << self
     def localized_name entry, user
-      russian_option = entry.kind_of?(Genre) ? :russian_genres? : :russian_names
+      russian_option = entry.is_a?(Genre) ? :russian_genres? : :russian_names
       allowed_russian = entry.respond_to?(:russian) && entry.russian.present?
 
       if allowed_russian && russian_names?(russian_option, user)
@@ -24,11 +24,11 @@ module UsersHelper
   end
 
   def localization_span entry
-    key = entry.kind_of?(Genre) ? 'genre' : 'name'
+    key = entry.is_a?(Genre) ? 'genre' : 'name'
 
     if entry.try(:russian).present?
       "<span class='#{key}-en'>#{h entry.name}</span>"\
-      "<span class='#{key}-ru' data-text='#{h entry.russian}'></span>".html_safe
+        "<span class='#{key}-ru'>#{h entry.russian}</span>".html_safe
     else
       entry.name
     end

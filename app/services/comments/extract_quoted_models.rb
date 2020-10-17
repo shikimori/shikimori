@@ -1,17 +1,16 @@
 class Comments::ExtractQuotedModels
-  MENTION = /(quote|comment|topic|mention)/
-  REGEXP = %r{
-    \[#{MENTION.source}=([^\]]+)\]
-      (?:
-        (?:\[#{MENTION.source}.*?\][\s\S]*?\[/#{MENTION.source}\]|[\s\S])*?
-      )
-    \[/#{MENTION.source}\]
-  }mx
+  REGEXP = /
+    \[(quote|comment|topic|mention)=([^\]]+)\]
+      |
+    (>\?)(.+) (?:\n|\Z)
+  /mx
 
   method_object :text
 
   def call
-    results = @text.to_s.scan(REGEXP).map { |(tag, data)| extract tag, data }
+    results = @text.to_s.scan(REGEXP).map do |(tag_1, data_1, tag_2, data_2)|
+      extract tag_1 || tag_2, data_1 || data_2
+    end
 
     OpenStruct.new(
       comments: results.map(&:first).compact.uniq,
@@ -23,7 +22,7 @@ private
 
   def extract tag, data
     case tag
-      when 'quote'
+      when 'quote', '>?'
         extract_quote data
 
       when 'mention'

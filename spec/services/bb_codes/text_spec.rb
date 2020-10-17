@@ -130,11 +130,19 @@ describe BbCodes::Text do
 
     describe '[mention]' do
       let(:text) { '[mention=1]test[/mention]' }
+      let(:data_attrs) do
+        {
+          id: 1,
+          type: :user,
+          text: 'test'
+        }
+      end
+
       it do
         is_expected.to eq(
           <<~HTML.squish
-            <a href="#{Shikimori::PROTOCOL}://shikimori.test/test"
-            class="b-mention"><s>@</s><span>test</span></a>
+            <a href="http://test.host/test" class="b-mention"
+              data-attrs="#{ERB::Util.h data_attrs.to_json}"><s>@</s><span>test</span></a>
           HTML
         )
       end
@@ -163,13 +171,17 @@ describe BbCodes::Text do
     describe '[image]' do
       let(:text) { "[image=#{user_image.id}]" }
       let(:user_image) { create :user_image, user: build_stubbed(:user) }
+      let(:attrs) { { id: user_image.id } }
+      let(:data_attrs) { attrs.to_json.gsub '"', '&quot;' }
+
       it do
         is_expected.to eq(
-          <<-HTML.squish.strip
+          <<~HTML.squish
             <a
               href="#{user_image.image.url :original, false}"
               rel="#{XXhash.xxh32 text, 0}"
-              class="b-image unprocessed"><img
+              class="b-image unprocessed"
+              data-attrs="#{data_attrs}"><img
                 src="#{user_image.image.url :thumbnail, false}"
                 data-width="#{user_image.width}"
                 data-height="#{user_image.height}"
@@ -188,11 +200,19 @@ describe BbCodes::Text do
     describe '[poster]' do
       let(:url) { 'http://site.com/image.jpg' }
       let(:text) { "[poster]#{url}[/poster]" }
-      let(:camo_url) { UrlGenerator.instance.camo_url url }
+      let(:camo_url) { UrlGenerator.instance.camo_url CGI.unescapeHTML(url) }
+      let(:attrs) { { src: url } }
+      let(:data_attrs) { attrs.to_json.gsub '"', '&quot;' }
+
       it do
         expect(camo_url).to include '?url=http%3A%2F%2Fsite.com%2Fimage.jpg'
         is_expected.to eq(
-          "<span class=\"b-image b-poster no-zoom\"><img src=\"#{camo_url}\" loading=\"lazy\"></span>"
+          <<~HTML.squish
+            <span class="b-image b-poster no-zoom"
+              data-attrs="#{data_attrs}"><img
+                src="#{camo_url}"
+                loading="lazy"></span>
+          HTML
         )
       end
     end
@@ -316,13 +336,16 @@ describe BbCodes::Text do
       end
 
       context 'comment quote' do
-        let(:text) { "[quote=c#{comment.id};#{user.id};zz]test[/quote]" }
+        let(:text) { "[quote=#{attrs}]test[/quote]" }
+        let(:attrs) { "c#{comment.id};#{user.id};zz" }
         let(:comment) { create :comment, user: user }
 
         it do
           is_expected.to_not include '[quote='
           is_expected.to_not include '[comment='
-          is_expected.to include '<div class="b-quote">'
+          is_expected.to include(
+            '<div class="b-quote" data-attrs="' + attrs + '">'
+          )
         end
       end
 

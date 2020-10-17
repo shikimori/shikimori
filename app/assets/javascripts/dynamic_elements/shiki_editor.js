@@ -13,14 +13,8 @@ import { isMobile } from 'helpers/mobile_detect';
 export default class ShikiEditor extends ShikiView {
   initialize() {
     const { $node } = this;
-    this.$form = this.$('form');
-
-    if (this.$form.exists()) {
-      this.isInnerForm = true;
-    } else {
-      this.$form = $node.closest('form');
-      this.isInnerForm = false;
-    }
+    this.$form = $node.closest('form');
+    this.isInnerForm = false;
 
     this.$textarea = this.$('textarea');
 
@@ -226,11 +220,9 @@ export default class ShikiEditor extends ShikiView {
     this.$('footer .preview').on('click', () => {
       // подстановка данных о текущем элементе, если они есть
       const data = {};
-      const itemData = this.isInnerForm ?
-        this.$form.serializeHash()[this.type] : (
-          this.$node.triggerWithReturn('preview:params') ||
-            { body: this.text }
-        );
+      const itemData = this.$node.triggerWithReturn('preview:params') || (
+        { body: this.text }
+      );
       data[this.type] = itemData;
 
       this._shade();
@@ -397,11 +389,21 @@ export default class ShikiEditor extends ShikiView {
   }
 
   // ответ на комментарий
-  async replyComment(text, isOfftopic) {
+  async replyComment({ id, type, userId, userNickname, text, url }, isOfftopic) {
     if (isOfftopic) { this._markOfftopic(true); }
 
+    let reply;
+
+    if (url) {
+      reply = `[${type}=${id}], `;
+    } else {
+      const ids = [id, userId, userNickname].join(';');
+      const type0 = type[0];
+      reply = `[quote=${type0}${ids}]${text}[/quote]\n`;
+    }
+
     this.$textarea
-      .val(`${this.text}\n${text}`.replace(/^\n+/, ''))
+      .val(`${this.text}\n${reply}`.replace(/^\n+/, ''))
       .focus()
       .trigger('update') // для elastic плагина
       .setCursorPosition(this.text.length);
@@ -413,18 +415,18 @@ export default class ShikiEditor extends ShikiView {
   }
 
   // переход в режим редактирования комментария
-  editComment($comment) {
+  editComment($comment, $form) {
     const $initialContent = $comment.children().detach();
-    $comment.append(this.$node);
+    $form.appendTo($comment);
 
     // отмена редактирования
     this.$('.cancel').on('click', () => {
-      this.$node.remove();
+      $form.remove();
       $comment.append($initialContent);
     });
 
     // замена комментария после успешного сохранения
-    this.on('ajax:success', (e, response) => (
+    $form.on('ajax:success', (e, response) => (
       $comment.view()._replace(response.html, response.JS_EXPORTS)
     ));
   }

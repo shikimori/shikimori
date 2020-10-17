@@ -105,7 +105,7 @@ aside.buttons
       span.item-delete-confirm[
         title=t('actions.delete')
         data-text=t('actions.delete')
-        action=api_message_url(message)
+        action=api_message_url(message, frontend: 1)
         data-type='json'
         data-remote='true'
         data-method='delete'

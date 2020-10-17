@@ -11,7 +11,7 @@ class BbCodes::Tags::AnimeTag
     @regexp ||= %r{
       \[#{name}=(?<id>\d+) #{FALLBACK.source} #{NAME.source}\]
         (?! \  )
-        (?<name> (?:(?!\[#{name}).)*? )
+        (?<text> (?:(?!\[#{name}).)*? )
       \[/#{name}\]
       |
       \[#{name} #{FALLBACK.source} #{NAME.source}\]
@@ -24,17 +24,17 @@ class BbCodes::Tags::AnimeTag
   end
 
   def format text
-    db_entries = fetch_entries text
+    db_entries = fetch_models text
 
     text.gsub regexp do |matched|
       id = $LAST_MATCH_INFO[:id].to_i
-      name = $LAST_MATCH_INFO[:name]
+      text = $LAST_MATCH_INFO[:text]
       fallback = $LAST_MATCH_INFO[:fallback]
 
-      entry = db_entries[id]
+      model = db_entries[id]
 
-      if entry
-        bbcode_to_html entry.decorate, (name if name != entry.name)
+      if model
+        bbcode_to_html model.decorate, maybe_text(text, model)
       elsif fallback
         fallback
       else
@@ -45,12 +45,14 @@ class BbCodes::Tags::AnimeTag
 
 private
 
-  def bbcode_to_html entry, name
-    fixed_name = name || localization_span(entry)
+  def bbcode_to_html model, text
+    fixed_name = text || localization_span(model)
 
     <<~HTML.squish
-      <a href="#{entry_url entry}" title="#{entry.name}" class="bubbled b-link"
-      data-tooltip_url="#{tooltip_url entry}">#{fixed_name}</a>
+      <a href='#{model_url model}' title='#{model.name}'
+        class='bubbled b-link'
+        data-tooltip_url='#{tooltip_url model}'
+        data-attrs='#{attrs(model).to_json}'>#{fixed_name}</a>
     HTML
   end
 
@@ -58,24 +60,37 @@ private
     "<span class='b-entry-404'><del>#{string}</del></span>"
   end
 
-  def entry_url entry
-    UrlGenerator.instance.send :"#{name}_url", entry
+  def model_url model
+    UrlGenerator.instance.send :"#{name}_url", model
   end
 
-  def tooltip_url entry
-    UrlGenerator.instance.send :"tooltip_#{name}_url", entry
+  def tooltip_url model
+    UrlGenerator.instance.send :"tooltip_#{name}_url", model
   end
 
-  def localization_span entry
-    if entry.russian.present?
-      "<span class='name-en'>#{entry.name}</span>"\
-      "<span class='name-ru' data-text='#{entry.russian}'></span>"
+  def localization_span model
+    if model.russian.present?
+      "<span class='name-en'>#{model.name}</span>"\
+        "<span class='name-ru'>#{model.russian}</span>"
     else
-      entry.name
+      model.name
     end
   end
 
-  def fetch_entries text
+  def maybe_text text, model
+    text if text != model.name && text != model.russian
+  end
+
+  def attrs model
+    {
+      id: model.id,
+      type: name,
+      name: model.name,
+      russian: model.russian
+    }
+  end
+
+  def fetch_models text
     ids = extract_ids text
     return {} if ids.none?
 

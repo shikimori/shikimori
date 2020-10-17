@@ -23,25 +23,24 @@ const SHOW_IGNORED_TOPICS_IN = [
 // TODO: move code related to comments to separate class
 export default class Topic extends ShikiEditable {
   _type() { return 'topic'; }
-  _type_label() { return I18n.t(`${I18N_KEY}.type_label`); } // eslint-disable-line camelcase
+  _typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); } // eslint-disable-line camelcase
   // similar to hash from JsExports::TopicsExport#serialize
-  _default_model() { // eslint-disable-line camelcase
+  _defaultModel() { // eslint-disable-line camelcase
     return {
       can_destroy: false,
       can_edit: false,
-      id: parseInt(this.root.id),
+      id: parseInt(this.node.id),
       is_viewed: true,
-      user_id: this.$root.data('user_id')
+      user_id: this.$node.data('user_id')
     };
   }
-  @bind
-  _reload_url() { // eslint-disable-line camelcase
-    return `/${this._type()}s/${this.$root.attr('id')}/reload?is_preview=${this.isPreview}`;
+  _reloadUrl() { // eslint-disable-line camelcase
+    return `/${this._type()}s/${this.$node.attr('id')}/reload?is_preview=${this.isPreview}`;
   }
 
   initialize() {
     // data attribute is set in Topics.Tracker
-    this.model = this.$root.data('model') || this._default_model();
+    this.model = this.$node.data('model') || this._defaultModel();
 
     if (window.SHIKI_USER.isUserIgnored(this.model.user_id) ||
         window.SHIKI_USER.isTopicIgnored(this.model.id)) {
@@ -49,10 +48,10 @@ export default class Topic extends ShikiEditable {
         this._toggleIgnored(true);
       } else {
         // node can be not inserted into DOM yet
-        if (this.$root.parent().length) {
-          this.$root.remove();
+        if (this.$node.parent().length) {
+          this.$node.remove();
         } else {
-          delay().then(() => this.$root.remove());
+          delay().then(() => this.$node.remove());
         }
         return;
       }
@@ -61,7 +60,8 @@ export default class Topic extends ShikiEditable {
     this.$body = this.$inner.children('.body');
 
     this.$editorContainer = this.$('.editor-container');
-    this.$editor = this.$('.b-shiki_editor');
+    this.$editor = this.$('.b-shiki_editor, .b-shiki_editor-v2');
+    this.$editorForm = this.$editor.closest('form');
 
     // do not move to getter. it is redefined in FullDialog
     this.$commentsLoader = this.$('.comments-loader');
@@ -69,14 +69,19 @@ export default class Topic extends ShikiEditable {
     if (window.SHIKI_USER.isSignedIn &&
       window.SHIKI_USER.isDayRegistered && this.$editor.length
     ) {
+      // NOTE: remove .process() after shiki_editor_v1 is completely removed from the project
       this.editor = this.$editor.process().view();
     } else {
-      this.$editor.replaceWith(
-        `<div class='b-nothing_here'>${I18n.t('frontend.shiki_editor.not_available')}</div>`
-      );
+      if (this.$editorForm.length) {
+        this.$editorForm.replaceWith(
+          `<div class='b-nothing_here'>${I18n.t('frontend.shiki_editor.not_available')}</div>`
+        );
+      }
+      this.$editor = null;
+      this.$editorForm = null;
     }
 
-    if (this.model && !this.model.is_viewed) { this._activate_appear_marker(); }
+    if (this.model && !this.model.is_viewed) { this._activateAppearMarker(); }
     if (this.model) { this._actualizeVoting(); }
 
     this.$inner.one('mouseover', this._deactivateInaccessibleButtons);
@@ -94,31 +99,25 @@ export default class Topic extends ShikiEditable {
         ));
     }
 
-    // ответ на топик
-    $('.item-reply', this.$inner).on('click', () => {
-      const reply = this.$root.data('generated') ?
-        '' :
-        `[entry=${this.$root.attr('id')}]${this.$root.data('user_nickname')}[/entry], `;
+    // no editor form for topic tooltip for example
+    if (this.$editorForm) {
+      this.$editorForm
+        .on('ajax:success', (e, response) => {
+          const $newComment = $(response.html).process(response.JS_EXPORTS);
 
-      this.$root.trigger('comment:reply', [reply]);
-    });
+          this.$('.b-comments').find('.b-nothing_here').remove();
+          if (this.$editor.is(':last-child')) {
+            this.$('.b-comments').append($newComment);
+          } else {
+            this.$('.b-comments').prepend($newComment);
+          }
 
-    this.$editor
-      .on('ajax:success', (e, response) => {
-        const $newComment = $(response.html).process(response.JS_EXPORTS);
+          $newComment.yellowFade();
 
-        this.$('.b-comments').find('.b-nothing_here').remove();
-        if (this.$editor.is(':last-child')) {
-          this.$('.b-comments').append($newComment);
-        } else {
-          this.$('.b-comments').prepend($newComment);
-        }
-
-        $newComment.yellowFade();
-
-        this.editor.cleanup();
-        this._hideEditor();
-      });
+          this.editor.cleanup();
+          this._hideEditor();
+        });
+    }
 
     $('.item-ignore', this.$inner)
       .on('ajax:before', function() {
@@ -167,11 +166,11 @@ export default class Topic extends ShikiEditable {
     this.on('appear', this._appear);
 
     // ответ на комментарий
-    this.on('comment:reply', (e, text, isOfftopic) => {
+    this.on('comment:reply', (e, reply, isOfftopic) => {
       // @editor is empty for unauthorized user
       if (this.editor) {
         this._showEditor();
-        this.editor.replyComment(text, isOfftopic);
+        this.editor.replyComment(reply, isOfftopic);
       }
     });
 
@@ -225,7 +224,7 @@ export default class Topic extends ShikiEditable {
       const trackableType = e.type.match(/comment|message/)[0];
       const trackableId = data[`${trackableType}_id`];
 
-      if (e.target === this.$root[0]) {
+      if (e.target === this.$node[0]) {
         this.$(`.b-${trackableType}#${trackableId}`).trigger(e.type, data);
       }
     });
@@ -260,16 +259,16 @@ export default class Topic extends ShikiEditable {
   }
 
   @memoize
-  get isPreview() { return this.$root.hasClass('b-topic-preview'); }
+  get isPreview() { return this.$node.hasClass('b-topic-preview'); }
 
   @memoize
-  get isCosplay() { return this.$root.hasClass('b-cosplay-topic'); }
+  get isCosplay() { return this.$node.hasClass('b-cosplay-topic'); }
 
   @memoize
-  get isClubPage() { return this.$root.hasClass('b-club_page-topic'); }
+  get isClubPage() { return this.$node.hasClass('b-club_page-topic'); }
 
   @memoize
-  get isReview() { return this.$root.hasClass('b-review-topic'); }
+  get isReview() { return this.$node.hasClass('b-review-topic'); }
 
   @memoize
   get $commentsHider() { return this.$('.comments-hider'); }
@@ -292,7 +291,7 @@ export default class Topic extends ShikiEditable {
   // удаляем уже имеющиеся подгруженные элементы
   _filterPresentEntries($comments) {
     const filter = 'b-comment';
-    const presentIds = $(`.${filter}`, this.$root)
+    const presentIds = $(`.${filter}`, this.$node)
       .toArray()
       .map(v => v.id)
       .filter(v => v);
@@ -516,8 +515,4 @@ export default class Topic extends ShikiEditable {
       this.$commentsCollapser.remove();
     }
   }
-}
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
 }

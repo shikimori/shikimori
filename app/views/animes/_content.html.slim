@@ -52,7 +52,7 @@
           - anime.real_studios.each do |studio|
             .b-tag.linkeable[
               data-href=anime.collection_url(studio: studio.to_param)
-            ] = studio.name
+            ] = studio.filtered_name
 
       - if anime.respond_to?(:publishers) && anime.real_publishers.any?
         = info_line i18n_io('Publisher', anime.real_publishers.one? ? :one : :few) do

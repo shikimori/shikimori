@@ -251,9 +251,8 @@ describe Messages::GenerateBody do
               title="test" class="bubbled b-link"
               data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip">test</a>
               отклонена по причине:
-              <div class="b-quote"><div class="quoteable">from
-              <span class="text-ru">написал:</span><span class="text-en"
-              data-text="wrote:"></span></div><div class="quote-content">zxc</div></div>
+              <div class="b-quote" data-attrs="from"><div class="quoteable">from</div><div
+              class="quote-content">zxc</div></div>
             HTML
           )
         end

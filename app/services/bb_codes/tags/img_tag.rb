@@ -25,7 +25,7 @@ class BbCodes::Tags::ImgTag
   def format text, text_hash
     text.gsub REGEXP do
       html_for(
-        image_url: $LAST_MATCH_INFO[:image_url],
+        escaped_image_url: $LAST_MATCH_INFO[:image_url],
         link_url: $LAST_MATCH_INFO[:link_url],
         width: $LAST_MATCH_INFO[:width].to_i,
         height: $LAST_MATCH_INFO[:height].to_i,
@@ -38,8 +38,8 @@ class BbCodes::Tags::ImgTag
 
 private
 
-  def html_for(
-    image_url:,
+  def html_for( # rubocop:disable all
+    escaped_image_url:,
     link_url:,
     width:,
     height:,
@@ -47,20 +47,24 @@ private
     is_no_zoom:,
     text_hash:
   )
+    image_url = CGI.unescapeHTML escaped_image_url
     fixed_image_url = camo_url image_url
     camo_link_url = camo_url link_url if link_url&.match? %r{shikimori\.(\w+)/.*\.(?:jpg|png)}
     image_html = html_for_image fixed_image_url, width, height
+    attrs = { src: image_url }
 
     if is_no_zoom
-      <<-HTML.squish.strip
-        <span class='b-image no-zoom#{" #{css_class}" if css_class.present?}'>#{image_html}</span>
+      <<~HTML.squish
+        <span class='b-image no-zoom#{" #{css_class}" if css_class.present?}'
+          data-attrs='#{attrs.to_json}'>#{image_html}</span>
       HTML
     else
-      <<-HTML.squish.strip
+      <<~HTML.squish
         <a href='#{link_url || image_url}'
           data-href='#{camo_link_url || fixed_image_url}'
           rel='#{text_hash}'
-          class='b-image unprocessed#{" #{css_class}" if css_class.present?}'>#{image_html}</a>
+          class='b-image unprocessed#{" #{css_class}" if css_class.present?}'
+          data-attrs='#{attrs.to_json}'>#{image_html}</a>
       HTML
     end
   end

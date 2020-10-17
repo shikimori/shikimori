@@ -1,15 +1,18 @@
 @import mixins/responsive
 
+=shiki_button_sizes
+  font-size: 13px
+  line-height: 23px
+  padding: 0 10px
+
 =shiki_button($background-color: #456)
+  +shiki_button_sizes
   background-color: $background-color
   border: 0
   clear: right
   color: #fff
   cursor: pointer
   display: inline-block
-  font-size: 13px
-  line-height: 23px
-  padding: 0 10px
   transition: background-color 0.3s ease, color 0.3s ease
   user-select: none
 

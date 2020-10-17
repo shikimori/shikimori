@@ -10,7 +10,7 @@ class Api::V2::Topics::IgnoresController < Api::V2Controller
   end
 
   api :POST, '/v2/topics/:topic_id/ignore', 'Ignore a topic'
-  description 'Requires `ignores` oauth scope'
+  description 'Requires `topics` oauth scope'
   def create
     TopicIgnore.find_or_create_by(
       topic_id: params[:topic_id],
@@ -22,7 +22,7 @@ class Api::V2::Topics::IgnoresController < Api::V2Controller
   end
 
   api :DELETE, '/v2/topics/:topic_id/ignore', 'Unignore a topic'
-  description 'Requires `ignores` oauth scope'
+  description 'Requires `topics` oauth scope'
   def destroy
     TopicIgnore
       .where(topic_id: params[:topic_id])

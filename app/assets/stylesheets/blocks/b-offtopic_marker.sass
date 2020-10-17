@@ -6,8 +6,11 @@ body[data-locale=ru] .b-offtopic_marker
   &:before
     color: #f58ebb
 
-  +gte_laptop
-    &.off
+  &.off
+    &:before
+      border-color: rgba(#f58ebb, 0.5)
+
+    +gte_laptop
       &:hover:before
         color: #f58ebb
 
@@ -17,7 +20,10 @@ body[data-locale=en] .b-offtopic_marker
   &:before
     color: #f58ebb
 
-  +gte_laptop
-    &.off
+  &.off
+    &:before
+      border-color: rgba(#f58ebb, 0.5)
+
+    +gte_laptop
       &:hover:before
         color: #f58ebb

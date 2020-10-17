@@ -51,17 +51,17 @@
         data-direction='top'
       ]
 
-  - if defined?(f)
-    - if comment.new_record?
+  - if local_assigns[:f]
+    - if f.object.new_record? && (f.object.try(:allowed_summary?) || f.object.respond_to?(:offtopic?))
       aside.markers
-        - if comment.try :allowed_summary?
+        - if f.object.try :allowed_summary?
           .b-summary_marker.active[
-            class=(:off unless comment.summary?)
+            class=(:off unless f.object.summary?)
             data-text=t('markers.summary')
           ]
-        - if comment.respond_to? :offtopic?
+        - if f.object.respond_to? :offtopic?
           .b-offtopic_marker.active[
-            class=(:off unless comment.offtopic?)
+            class=(:off unless f.object.offtopic?)
             data-text=t('markers.offtopic')
           ]
 
@@ -142,7 +142,7 @@
 
 .body
   .editor
-    - if defined? f
+    - if local_assigns[:f]
       - if f.object.kind_of? Comment
         - if f.object.persisted?
           = f.input :user_id, as: :hidden, input_html: { id: nil }
@@ -179,8 +179,8 @@
   .preview
 
 footer
-  - if defined?(f)
-    - if comment.persisted?
+  - if local_assigns[:f]
+    - if f.object.persisted?
       = f.button :magic_submit, id: "submit_#{rand * 1000000}"
       .b-button.preview[
         tabindex='0'
@@ -208,5 +208,5 @@ footer
   .about-bb_codes
     a[
       href=bb_codes_pages_url
-      target='_blank'
+      target='_blaNK'
     ] = t '.bb_codes_guide'

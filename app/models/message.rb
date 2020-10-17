@@ -37,7 +37,7 @@ class Message < ApplicationRecord
   end
 
   def delete_by user
-    if kind == MessageType::PRIVATE && to == user
+    if kind == MessageType::PRIVATE && to == user && to_id != from_id
       update! is_deleted_by_to: true, read: true
     else
       destroy!

@@ -1,13 +1,24 @@
 class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
   LIST_ITEM_VARIANTS = ['- ', '+ ', '* ']
+
   BLOCKQUOTE_VARIANT_1 = '> '
   BLOCKQUOTE_VARIANT_2 = '&gt; '
+
+  BLOCKQUOTE_VARIANTS = [
+    BLOCKQUOTE_VARIANT_1,
+    BLOCKQUOTE_VARIANT_2
+  ]
+
+  BLOCKQUOTE_QUOTABLE_VARIANT_1 = '>?'
+  BLOCKQUOTE_QUOTABLE_VARIANT_2 = '&gt;?'
 
   UL_OPEN = BbCodes::Tags::ListTag::UL_OPEN
   UL_CLOSE = BbCodes::Tags::ListTag::UL_CLOSE
 
-  BLOCKQUOTE_OPEN = "<blockquote class='b-quote-v2'>"
-  BLOCKQUOTE_CLOSE = '</blockquote>'
+  BLOCKQUOTE_OPEN_TAG = "<blockquote class='b-quote-v2'%<attrs>s>"
+  BLOCKQUOTE_OPEN_CONTENT = "<div class='quote-content'>"
+  BLOCKQUOTE_QUOTEABLE_TAG = "<div class='quoteable'>%<quoteable>s</div>"
+  BLOCKQUOTE_CLOSE = '</div></blockquote>'
 
   MULTILINE_BBCODES_MAX_SIZE = BbCodes::MULTILINE_BBCODES.map(&:size).max
 
@@ -24,8 +35,6 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
   end
 
   def to_html
-    # binding.pry
-    # ap @text
     parse_line while @index < @text.size && !@is_exit_sequence
 
     rest_content = @text[@index..] if @index <= @text.size - 1
@@ -34,6 +43,12 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
       @state.join(''),
       rest_content
     ]
+  rescue ArgumentError => e
+    if e.message == 'not_blockquote'
+      ['', @text]
+    else
+      raise
+    end
   end
 
 private
@@ -66,8 +81,24 @@ private
         return parse_list seq_2 if seq_2.in? LIST_ITEM_VARIANTS
         return parse_blockquote seq_2 if seq_2 == BLOCKQUOTE_VARIANT_1
 
+        if seq_2 == BLOCKQUOTE_QUOTABLE_VARIANT_1
+          if parse_blockquote_quotable(seq_2) # rubocop:disable BlockNesting
+            return
+          else
+            raise ArgumentError, 'not_blockquote'
+          end
+        end
+
         seq_5 = @text[@index..(@index + 4)]
         return parse_blockquote seq_5 if seq_5 == BLOCKQUOTE_VARIANT_2
+
+        if seq_5 == BLOCKQUOTE_QUOTABLE_VARIANT_2
+          if parse_blockquote_quotable(seq_5) # rubocop:disable BlockNesting
+            return
+          else
+            raise ArgumentError, 'not_blockquote'
+          end
+        end
       end
 
       if @text[@index] == '['
@@ -141,9 +172,28 @@ private
     # puts "processBulletListLines '#{@nested_sequence}'"
   end
 
-  def parse_blockquote tag_sequence
+  def parse_blockquote_quotable tag_sequence # rubocop:disable AbcSize
+    meta_start_index = @index + tag_sequence.size
+    meta_end_index = @text.index(/\n|\Z/, meta_start_index)
+
+    meta_text = @text.slice(meta_start_index, meta_end_index - meta_start_index)
+    meta_attrs = BbCodes::Quotes::ParseMeta.call meta_text
+
+    from_index = @index + tag_sequence.size + meta_text.size + 1 + @nested_sequence.size
+    to_index = from_index + tag_sequence.size
+    next_tag_sequence = @text.slice from_index, to_index - from_index
+
+    if BLOCKQUOTE_VARIANTS.include? next_tag_sequence
+      move tag_sequence.size + meta_text.size + 1 + @nested_sequence.size
+      parse_blockquote next_tag_sequence, meta_attrs, meta_text
+    else
+      false
+    end
+  end
+
+  def parse_blockquote tag_sequence, meta_attrs = nil, meta_text = nil
     is_first_line = true
-    @state.push BLOCKQUOTE_OPEN
+    push_blockquote_open meta_attrs, meta_text
     @nested_sequence += tag_sequence
     # puts "processBlockQuote '#{@nested_sequence}'"
 
@@ -175,5 +225,21 @@ private
   def matched_sequence? sequence
     sequence.present? && @text[@index] == sequence[0] &&
       @text.slice(@index, sequence.size) == sequence
+  end
+
+  def push_blockquote_open meta_attrs, meta_text
+    if meta_attrs
+      quoteable = BbCodes::Quotes::QuoteableToBbcode.instance.call(meta_attrs)
+
+      @state.push(
+        format(BLOCKQUOTE_OPEN_TAG, attrs: " data-attrs='#{meta_text}'") +
+          format(BLOCKQUOTE_QUOTEABLE_TAG, quoteable: quoteable) +
+          BLOCKQUOTE_OPEN_CONTENT
+      )
+    else
+      @state.push(
+        format(BLOCKQUOTE_OPEN_TAG, attrs: '') + BLOCKQUOTE_OPEN_CONTENT
+      )
+    end
   end
 end

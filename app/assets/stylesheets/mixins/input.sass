@@ -15,12 +15,21 @@
   +placeholder
     color: #999
 
-=input
-  +input_colors
+=input_sizes
   border-radius: 0
   line-height: 27px
   margin: 0
   padding: 0 7px
+
+  +iphone
+    line-height: 31px
+
+  +lte_ipad
+    font-size: 16px
+
+=input
+  +input_colors
+  +input_sizes
   width: 100%
 
   &[type=submit],
@@ -48,12 +57,6 @@
     +iphone
       padding-top: 0
       line-height: 31px
-
-  +iphone
-    line-height: 31px
-
-  +lte_ipad
-    font-size: 16px
 
   +gte_ipad
     &:not(textarea)

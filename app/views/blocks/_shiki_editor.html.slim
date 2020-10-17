@@ -1,4 +1,20 @@
-- if local_assigns[:shiki_editor_v2] || current_user.preferences.is_shiki_editor?
+- if local_assigns[:f]
+  - if f.object.kind_of? Comment
+    - if f.object.persisted?
+      = f.input :user_id, as: :hidden, input_html: { id: nil }
+    = f.input :commentable_id, as: :hidden, input_html: { id: nil }
+    = f.input :commentable_type, as: :hidden, input_html: { id: nil }
+    = f.input :is_offtopic, as: :hidden, input_html: { id: nil }
+    = f.input :is_summary, as: :hidden, input_html: { id: nil }
+
+  - elsif f.object.kind_of? Message
+    = f.input :kind, as: :hidden, input_html: { id: nil }
+    = f.input :from_id, as: :hidden, input_html: { id: nil }
+    = f.input :to_id, as: :hidden, input_html: { id: nil }
+  - else
+    - raise ArgumentError, f.object
+
+- if local_assigns[:shiki_editor_v2] || current_user&.preferences&.is_shiki_editor?
   .b-shiki_editor-v2.to-process[
     data-dynamic='shiki_editor_v2'
   ]
@@ -8,6 +24,26 @@
       name=local_assigns[:field_name]
     ]
     .vue-app.b-ajax
+
+    - if local_assigns[:f]
+      footer
+        = f.button :magic_submit, id: "submit_#{rand * 1000000}"
+        - if f.object.persisted?
+          .cancel tabindex='0' = t 'actions.cancel'
+
+        - if f.object.new_record?
+          aside.markers
+            - if f.object.try :allowed_summary?
+              .b-summary_marker.active[
+                class=(:off unless f.object.summary?)
+                data-text=t('markers.summary')
+              ]
+            - if f.object.respond_to? :offtopic?
+              .b-offtopic_marker.active[
+                class=(:off unless f.object.offtopic?)
+                data-text=t('markers.offtopic')
+              ]
+
 - else
   .b-shiki_editor.to-process[
     class=('size-xl' if local_assigns[:size] == 'xl')
@@ -16,4 +52,6 @@
   ]
     = render 'comments/shiki_editor',
       text: local_assigns[:text],
-      field_name: local_assigns[:field_name]
+      field_name: local_assigns[:field_name],
+      f: local_assigns[:f],
+      comment: local_assigns[:comment]

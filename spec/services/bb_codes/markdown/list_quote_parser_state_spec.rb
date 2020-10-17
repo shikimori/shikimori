@@ -77,7 +77,10 @@ describe BbCodes::Markdown::ListQuoteParserState do
       let(:text) { '> qwe' }
       it do
         is_expected.to eq(
-          ["<blockquote class='b-quote-v2'>qwe</blockquote>", nil]
+          [
+            "<blockquote class='b-quote-v2'><div class='quote-content'>qwe</div></blockquote>",
+            nil
+          ]
         )
       end
     end
@@ -86,7 +89,10 @@ describe BbCodes::Markdown::ListQuoteParserState do
       let(:text) { '&gt; qwe' }
       it do
         is_expected.to eq(
-          ["<blockquote class='b-quote-v2'>qwe</blockquote>", nil]
+          [
+            "<blockquote class='b-quote-v2'><div class='quote-content'>qwe</div></blockquote>",
+            nil
+          ]
         )
       end
     end
@@ -95,7 +101,10 @@ describe BbCodes::Markdown::ListQuoteParserState do
       let(:text) { "> a\n> b\n> c" }
       it do
         is_expected.to eq(
-          ["<blockquote class='b-quote-v2'>a\nb\nc</blockquote>", nil]
+          [
+            "<blockquote class='b-quote-v2'><div class='quote-content'>a\nb\nc</div></blockquote>",
+            nil
+          ]
         )
       end
     end
@@ -105,9 +114,9 @@ describe BbCodes::Markdown::ListQuoteParserState do
       it do
         is_expected.to eq(
           [
-            "<blockquote class='b-quote-v2'>" \
-              "<blockquote class='b-quote-v2'>test</blockquote>" \
-              '</blockquote>',
+            "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+              "<blockquote class='b-quote-v2'><div class='quote-content'>test</div></blockquote>" \
+              '</div></blockquote>',
             nil
           ]
         )
@@ -119,12 +128,30 @@ describe BbCodes::Markdown::ListQuoteParserState do
       it do
         is_expected.to eq(
           [
-            "<blockquote class='b-quote-v2'>" \
-              "<blockquote class='b-quote-v2'>test</blockquote>" \
-              'b</blockquote>',
+            "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+              "<blockquote class='b-quote-v2'><div class='quote-content'>test</div></blockquote>" \
+              'b</div></blockquote>',
             nil
           ]
         )
+      end
+    end
+
+    context 'with quotable' do
+      let(:text) { ">?a\n> b" }
+      it do
+        is_expected.to eq(
+          [
+            "<blockquote class='b-quote-v2' data-attrs='a'><div class='quoteable'>"\
+              "[user]a[/user]</div><div class='quote-content'>b</div></blockquote>",
+            nil
+          ]
+        )
+      end
+
+      context 'w/o quote' do
+        let(:text) { ">?a\nb" }
+        it { is_expected.to eq ['', text] }
       end
     end
   end
@@ -136,7 +163,7 @@ describe BbCodes::Markdown::ListQuoteParserState do
         is_expected.to eq(
           [
             "<ul class='b-list'><li>" \
-              "<blockquote class='b-quote-v2'>test</blockquote>" \
+              "<blockquote class='b-quote-v2'><div class='quote-content'>test</div></blockquote>" \
               '</li></ul>',
             nil
           ]
@@ -150,7 +177,7 @@ describe BbCodes::Markdown::ListQuoteParserState do
         is_expected.to eq(
           [
             "<ul class='b-list'><li>" \
-              "<blockquote class='b-quote-v2'>test\n123</blockquote>" \
+              "<blockquote class='b-quote-v2'><div class='quote-content'>test\n123</div></blockquote>" \
               '</li></ul>',
             nil
           ]
@@ -163,9 +190,9 @@ describe BbCodes::Markdown::ListQuoteParserState do
       it do
         is_expected.to eq(
           [
-            "<blockquote class='b-quote-v2'>" \
+            "<blockquote class='b-quote-v2'><div class='quote-content'>" \
               "<ul class='b-list'><li>test\n123</li></ul>" \
-              '</blockquote>',
+              '</div></blockquote>',
             nil
           ]
         )
@@ -179,12 +206,12 @@ describe BbCodes::Markdown::ListQuoteParserState do
         is_expected.to eq(
           [
             "<ul class='b-list'><li>" \
-              "<blockquote class='b-quote-v2'>" \
+              "<blockquote class='b-quote-v2'><div class='quote-content'>" \
                 '123' \
-              '</blockquote></li></ul>' \
-              "<blockquote class='b-quote-v2'>" \
+              '</div></blockquote></li></ul>' \
+              "<blockquote class='b-quote-v2'><div class='quote-content'>" \
                 "<ul class='b-list'><li>456\n789</li></ul>" \
-              '</blockquote>',
+              '</div></blockquote>',
             nil
           ]
         )

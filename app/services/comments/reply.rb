@@ -38,7 +38,8 @@ class Comments::Reply
 private
 
   def update_comment new_body
-    comment.update_columns(
+    # use update instead of update_column so `commentable` is touched too
+    comment.update(
       body: new_body,
       updated_at: comment.updated_at + 1.second
     )

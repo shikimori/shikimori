@@ -1,4 +1,4 @@
-class BbCodes::Tags::CommentTag
+class BbCodes::Tags::CommentTag # rubocop:disable ClassLength
   include Singleton
   extend DslAttribute
 
@@ -9,11 +9,16 @@ class BbCodes::Tags::CommentTag
 
   def bbcode_regexp
     @bbcode_regexp ||= %r{
-      \[#{name_regexp}=(?<id>\d+) (?<quote>\ quote)?\]
+      \[
+        (?<type>#{name_regexp})=(?<id>\d+)(?:;(?<user_id>\d+))?
+          (?<quote>\ quote(?:=(?<quote_user_id>\d+))?)?
+      \]
         (?<text> (?: (?!\[#{name_regexp}).)*? )
       \[/#{name_regexp}\]
       |
-      \[#{name_regexp}=(?<id>\d+)\]
+      \[
+        (?<type>#{name_regexp})=(?<id>\d+)(?:;(?<user_id>\d+))?
+      \]
     }mix
   end
 
@@ -21,7 +26,7 @@ class BbCodes::Tags::CommentTag
     @id_regexp ||= /\[#{name_regexp}=(\d+)/
   end
 
-  def format text
+  def format text # rubocop:disable MethodLength
     entries = fetch_entries text
 
     text.gsub(bbcode_regexp) do
@@ -30,31 +35,58 @@ class BbCodes::Tags::CommentTag
 
       if entry
         bbcode_to_html(
-          entry,
-          $LAST_MATCH_INFO[:text],
-          $LAST_MATCH_INFO[:quote].present?
+          entry: entry,
+          type: $LAST_MATCH_INFO[:type],
+          text: $LAST_MATCH_INFO[:text],
+          is_quoted: $LAST_MATCH_INFO[:quote].present?
         )
       else
-        not_found_to_html entry_id, $LAST_MATCH_INFO[:text]
+        not_found_to_html(
+          entry_id: entry_id,
+          type: $LAST_MATCH_INFO[:type],
+          text: $LAST_MATCH_INFO[:text],
+          user_id: $LAST_MATCH_INFO[:user_id],
+          quote_user_id: $LAST_MATCH_INFO[:quote_user_id]
+        )
       end
     end
   end
 
 private
 
-  def bbcode_to_html entry, text, is_quoted # rubocop:disable all
-    user = entry&.send(self.class::USER_FIELD) if is_quoted || text.blank?
+  def bbcode_to_html entry:, type:, text:, is_quoted:
+    user = entry&.send(self.class::USER_FIELD)
 
-    author_name = text.presence || user&.nickname || NOT_FOUND
+    author_name = text.presence || user.nickname || NOT_FOUND
     url = entry_url entry
     css_classes = css_classes entry, user, is_quoted
-    author_html = author_html is_quoted, user, author_name
+    quoted_html = quoted_html is_quoted, user, author_name
     mention_html = is_quoted ? '' : '<s>@</s>'
 
-    "[url=#{url} #{css_classes}]#{mention_html}#{author_html}[/url]"
+    attrs = build_attrs(
+      id: entry.id,
+      type: type,
+      user_id: user&.id,
+      text: user&.nickname
+    )
+
+    "<a href='#{url}' class='#{css_classes}' data-attrs='#{attrs.to_json}'" \
+      ">#{mention_html}#{quoted_html}</a>"
   end
 
-  def not_found_to_html entry_id, text
+  def not_found_to_html entry_id:, type:, text:, user_id:, quote_user_id:
+    if user_id || quote_user_id
+      user = User.find_by id: user_id || quote_user_id
+    end
+
+    if user && quote_user_id
+      not_found_quote_to_html entry_id, type, text, user
+    else
+      not_found_mention_to_html entry_id, type, text, user
+    end
+  end
+
+  def not_found_mention_to_html entry_id, type, text, user # rubocop:disable CyclomaticComplexity, MethodLength
     url = entry_id_url entry_id
     open_tag = url ? "a href='#{url}'" : 'span'
     close_tag = url ? 'a' : 'span'
@@ -62,9 +94,24 @@ private
       'b-mention b-entry-404 bubbled' :
       'b-mention b-entry-404'
 
-    "<#{open_tag} class='#{css_classes}'><s>@</s>" +
-      (text.present? ? "<span>#{text}</span>" : '') +
+    quoted_text = text.presence || user&.nickname
+    quoted_html = "<span>#{quoted_text}</span>" if quoted_text.present?
+
+    attrs = build_attrs(
+      id: entry_id,
+      type: type,
+      user_id: user&.id,
+      text: user&.nickname
+    )
+
+    "<#{open_tag} class='#{css_classes}' data-attrs='#{attrs.to_json}'"\
+      "><s>@</s>#{quoted_html}" \
       "<del>[#{name}=#{entry_id}]</del></#{close_tag}>"
+  end
+
+  def not_found_quote_to_html entry_id, _type, text, user
+    "[user=#{user.id}]#{text}[/user]<span class='b-mention b-entry-404'>" \
+      "<del>[#{name}=#{entry_id}]</del></span>"
   end
 
   def entry_url entry
@@ -77,29 +124,29 @@ private
 
   def css_classes entry, user, is_quoted
     [
-      ('bubbled' if entry && self.class::IS_BUBBLED),
       'b-mention',
-      ('b-user16' if user && is_quoted)
+      ('bubbled' if entry && self.class::IS_BUBBLED),
+      ('b-user16' if user && is_quoted && user.avatar.present?)
     ].compact.join(' ')
   end
 
-  def author_html is_quoted, user, author_name
+  def quoted_html is_quoted, user, quoted_name
     if is_quoted
-      quoteed_author_html user, author_name
+      quoteed_author_html user, quoted_name
     else
-      author_name
+      "<span>#{quoted_name}</span>"
     end
   end
 
-  def quoteed_author_html user, author_name
-    return "<span>#{author_name}</span>" unless user&.avatar&.present?
+  def quoteed_author_html user, quoted_name
+    return "<span>#{quoted_name}</span>" unless user&.avatar&.present?
 
     <<-HTML.squish
       <img
-        src="#{user.avatar_url 16}"
-        srcset="#{user.avatar_url 32} 2x"
-        alt="#{author_name}"
-      /><span>#{author_name}</span>
+        src="#{ImageUrlGenerator.instance.url user, :x16}"
+        srcset="#{ImageUrlGenerator.instance.url user, :x32} 2x"
+        alt="#{quoted_name}"
+      /><span>#{quoted_name}</span>
     HTML
   end
 
@@ -122,5 +169,14 @@ private
 
   def name_regexp
     name
+  end
+
+  def build_attrs id:, type:, user_id:, text:
+    {
+      id: id,
+      type: type,
+      userId: user_id,
+      text: text
+    }.compact
   end
 end

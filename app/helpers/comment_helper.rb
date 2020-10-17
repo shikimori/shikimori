@@ -6,7 +6,7 @@ module CommentHelper
   # include AniMangaHelper
 
   COMPLEX_BB_CODES = %i[
-    smileys club club_page collection article contest mention version anime_video
+    smileys club club_page collection article contest version
     user review posters ban
   ]
 
@@ -68,22 +68,6 @@ module CommentHelper
     text
   end
 
-  def mention_to_html text, _poster = nil
-    text.gsub /\[mention=(?<user_id>\d+)\](?<nickname>[\s\S]*?)\[\/mention\]/ do |match|
-      nickname = $LAST_MATCH_INFO[:nickname]
-
-      if nickname.present?
-        url = profile_url User.param_to(nickname)
-        "<a href='#{url}' class='b-mention'>"\
-          "<s>@</s><span>#{nickname}</span></a>"
-      else
-        match
-      end
-    rescue ActionController::UrlGenerationError
-      match
-    end
-  end
-
   def remove_old_tags(html)
     html
       .gsub(/(?:<|&lt;)p(?:>|&gt;)[\t\n\r]*([\s\S]*?)[\t\n\r]*(?:<|&lt;)\/p(?:>|&gt;)/i, '\1')
@@ -108,7 +92,6 @@ module CommentHelper
   # TODO: refactor to bbcode class
   @@type_matchers = {
     Version => [/(\[version(?:=(\d+))?\]([^\[]*?)\[\/version\])/, :tooltip_moderations_version_url],
-    AnimeVideo => [/(\[anime_video(?:=(\d+))?\]([^\[]*?)\[\/anime_video\])/, :tooltip_anime_url],
     User => [/(\[(user|profile)(?:=(\d+))?\]([^\[]*?)\[\/(?:user|profile)\])/, nil],
     Review => [/(\[review=(\d+)\]([^\[]*?)\[\/review\])/, nil],
     Club => [/(\[club(?:=(\d+))?\]([^\[]*?)\[\/club\])/, nil],
@@ -140,11 +123,12 @@ module CommentHelper
 
             text.gsub!(
               $1,
-              "<a href=\"#{profile_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{$4}\" /><span>#{$4}</span></a>" +
-              (is_profile ? '' : wrote_html(user.sex))
+              "<a href=\"#{profile_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{ImageUrlGenerator.instance.url user, :x16}\" srcset=\"#{ImageUrlGenerator.instance.url user, :x32} 2x\" alt=\"#{$4}\" /><span>#{$4}</span></a>" # +
+              # (is_profile ? '' : wrote_html(user.sex))
             )
           rescue
-            text.gsub! $1, "#{$4}#{is_profile ? '' : " #{wrote_html('male')}"}"
+            # text.gsub! $1, "#{$4}#{is_profile ? '' : " #{wrote_html('male')}"}"
+            text.gsub! $1, $4
           end
 
         elsif klass == Ban
@@ -152,7 +136,7 @@ module CommentHelper
             ban = Ban.find $2
 
             moderator_html = "<div class=\"b-user16\"><a href=\"#{profile_url ban.moderator}\" title=\"#{ERB::Util.h ban.moderator.nickname}\">\
-<img src=\"#{ban.moderator.avatar_url 16}\" srcset=\"#{ban.moderator.avatar_url 32} 2x\" alt=\"#{ERB::Util.h ban.moderator.nickname}\" /><span>#{ERB::Util.h ban.moderator.nickname}</span></a></div>"
+<img src=\"#{ImageUrlGenerator.instance.url ban.moderator, :x16}\" srcset=\"#{ImageUrlGenerator.instance.url ban.moderator, :x32} 2x\" alt=\"#{ERB::Util.h ban.moderator.nickname}\" /><span>#{ERB::Util.h ban.moderator.nickname}</span></a></div>"
             text.gsub! $1, "<br /><div class=\"ban\">#{moderator_html}: <span class=\"resolution\">#{ban.message}</span></div>"
           rescue ActiveRecord::RecordNotFound
             text.gsub! $1, ''
@@ -163,11 +147,11 @@ module CommentHelper
           begin
             id = $2.nil? ? $3.to_i : $2.to_i
             entry = klass.find(id)
-            entry = entry.decorate unless entry.respond_to?(:name) # для AnimeVideo
+            entry = entry.decorate unless entry.respond_to?(:name)
             title = $2.nil? ? entry.name : $3
 
             additional = if preloader
-              preloader_url = send preloader, (entry.kind_of?(AnimeVideo) ? entry.anime : entry)
+              preloader_url = send preloader, entry
               " class=\"bubbled b-link\" data-tooltip_url=\"#{preloader_url}\""
             else
               " class=\"b-link\""
@@ -180,8 +164,6 @@ module CommentHelper
                 club_url entry
               elsif entry.kind_of? ClubPage
                 club_club_page_url entry.club, entry
-              elsif entry.kind_of? AnimeVideo
-                nil
               else
                 url_for entry
               end

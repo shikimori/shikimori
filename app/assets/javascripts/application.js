@@ -137,3 +137,20 @@ $(document).on(Object.keys(bindings).join(' '), e => {
     }
   });
 });
+
+$(document).on('selectionchange', _ => {
+  let selection;
+
+  if (window.getSelection) {
+    selection = window.getSelection();
+  } else if (document.getSelection) {
+    selection = document.getSelection();
+  }
+
+  if (selection && selection.focusNode) {
+    $(selection.focusNode)
+      .closest('.shiki-object')
+      .view()
+      ?.setSelection();
+  }
+});

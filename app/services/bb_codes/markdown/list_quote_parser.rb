@@ -4,8 +4,8 @@ class BbCodes::Markdown::ListQuoteParser
   MARKDOWN_LIST_OR_QUOTE_REGEXP = %r{
     (?: ^ | (?<prefix> #{BbCodes::BLOCK_TAG_EDGE_PREFIX_REGEXP.source} ) )
     (?:
-      (?: [-+*>] | &gt; )
-      \ (?:
+      (?: (?:[-+*>]|&gt;)\ | (?:&gt;|>)\? )
+      (?:
         (?: \[(?<tag>#{BbCodes::MULTILINE_BBCODES.join('|')})[\s\S]+?\[/\k<tag>\] | . )*+
         (?: \n \ + .++ )*
       ) (?: \n|$ )

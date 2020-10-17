@@ -13,7 +13,7 @@ describe Comments::ExtractQuotedModels do
 
   describe 'just quote' do
     let(:topic) { create :topic, user: user }
-    let(:text) { "[quote=200778;#{user.id};test2]test[/quote]" }
+    let(:text) { "[quote=200778;#{user.id};test2]" }
     it do
       is_expected.to eq OpenStruct.new(
         comments: [],
@@ -24,7 +24,7 @@ describe Comments::ExtractQuotedModels do
 
   describe 'comment reply' do
     let(:comment) { create :comment, user: user }
-    let(:text) { "[comment=#{comment.id}]test[/comment]" }
+    let(:text) { "[comment=#{comment.id}]" }
 
     it do
       is_expected.to eq OpenStruct.new(
@@ -36,7 +36,19 @@ describe Comments::ExtractQuotedModels do
 
   describe 'comment quote' do
     let(:comment) { create :comment, user: user }
-    let(:text) { "[quote=c#{comment.id};#{user.id};test2]test[/quote]" }
+    let(:text) { "[quote=c#{comment.id};#{user.id};test2]" }
+
+    it do
+      is_expected.to eq OpenStruct.new(
+        comments: [comment],
+        users: [user]
+      )
+    end
+  end
+
+  describe 'comment quote v2' do
+    let(:comment) { create :comment, user: user }
+    let(:text) { ">?c#{comment.id};#{user.id};test2" }
 
     it do
       is_expected.to eq OpenStruct.new(

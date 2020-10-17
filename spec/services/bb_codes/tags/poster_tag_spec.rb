@@ -11,30 +11,40 @@ describe BbCodes::Tags::PosterTag do
   end
 
   context 'external image' do
-    let(:url) { 'http://site.com/site-url' }
-    let(:camo_url) { UrlGenerator.instance.camo_url url }
-    let(:text) { "[poster]#{url}[/poster]" }
+    let(:image_url) { 'http://site.com/site-url?a=1&b=2' }
+    let(:escaped_image_url) { ERB::Util.h image_url }
+    let(:camo_url) { UrlGenerator.instance.camo_url image_url }
+    let(:text) { "[poster]#{escaped_image_url}[/poster]" }
+    let(:attrs) { { src: image_url } }
+
     it do
       is_expected.to eq(
-        "<span class='b-image b-poster no-zoom'>" \
-          "<img src='#{camo_url}' loading='lazy' />" \
-        '</span>'
+        <<~HTML.squish
+          <span class='b-image b-poster no-zoom'
+            data-attrs='#{attrs.to_json}'><img src='#{camo_url}'
+            loading='lazy' /></span>
+        HTML
       )
     end
   end
 
   context 'shiki image' do
     let(:text) { "[poster=#{user_image.id}]" }
-    let(:user_image) { create :user_image, user: build_stubbed(:user), width: 400, height: 500 }
+    let(:user_image) do
+      create :user_image, user: build_stubbed(:user), width: 400, height: 500
+    end
+    let(:attrs) { { id: user_image.id } }
 
     it do
       is_expected.to eq(
-        "<span class='b-image b-poster no-zoom'>" \
-          "<img src='#{user_image.image.url :original, false}' " \
-            "data-width='#{user_image.width}' " \
-            "data-height='#{user_image.height}' " \
-            "loading='lazy' />"\
-        '</span>'
+        <<~HTML.squish
+          <span class='b-image b-poster no-zoom'
+            data-attrs='#{attrs.to_json}'><img
+              src='#{user_image.image.url :original, false}'
+              data-width='#{user_image.width}'
+              data-height='#{user_image.height}'
+              loading='lazy' /></span>
+        HTML
       )
     end
   end

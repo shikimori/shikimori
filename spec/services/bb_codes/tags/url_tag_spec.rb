@@ -2,10 +2,11 @@ describe BbCodes::Tags::UrlTag do
   subject { described_class.instance.format text }
 
   let(:rel) { 'rel="noopener noreferrer nofollow"' }
-  let(:url) { 'http://site.com/site-url' }
+  let(:url) { 'http://site.com/site-url?a=1&b=2' }
+  let(:escaped_url) { ERB::Util.h url }
 
   context 'without text' do
-    let(:text) { "[url]#{url}[/url]" }
+    let(:text) { "[url]#{escaped_url}[/url]" }
 
     it do
       is_expected.to eq(
@@ -14,7 +15,7 @@ describe BbCodes::Tags::UrlTag do
     end
 
     context 'with class' do
-      let(:text) { "[url aa bb]#{url}[/url]" }
+      let(:text) { "[url aa bb]#{escaped_url}[/url]" }
       it do
         is_expected.to eq(
           "<a class=\"b-link aa bb\" href=\"#{url}\" #{rel}>#{Url.new(url).without_http}</a>"
@@ -23,8 +24,8 @@ describe BbCodes::Tags::UrlTag do
     end
 
     context 'wo protocol url' do
-      let(:url) { '//site.com/site-url' }
-      let(:text) { "[url]#{url}[/url]" }
+      let(:url) { '//site.com/site-url?a=1&b=2' }
+      let(:text) { "[url]#{escaped_url}[/url]" }
       it do
         is_expected.to eq(
           "<a class=\"b-link\" href=\"#{url}\" #{rel}>#{Url.new(url).without_http}</a>"
@@ -105,10 +106,11 @@ describe BbCodes::Tags::UrlTag do
     end
 
     context 'without http' do
-      let(:text) { '[url=site.com/site-url]text[/url]' }
+      let(:url) { 'site.com/site-url?a=1&b=2' }
+      let(:text) { "[url=#{escaped_url}]text[/url]" }
       it do
         is_expected.to eq(
-          "<a class=\"b-link\" href=\"#{url}\" #{rel}>text</a>"
+          "<a class=\"b-link\" href=\"http://#{url}\" #{rel}>text</a>"
         )
       end
     end

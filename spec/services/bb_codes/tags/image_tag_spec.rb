@@ -7,18 +7,29 @@ describe BbCodes::Tags::ImageTag do
   let(:text) { "[image=#{user_image.id}]" }
   let(:user_image) { create :user_image, width: 400, height: 500 }
 
+  let(:attrs) do
+    {
+      id: user_image.id,
+      width: (width if defined? width),
+      height: (height if defined? height),
+      isNoZoom: (is_no_zoom if defined? is_no_zoom),
+      class: (css_class if defined? css_class)
+    }.compact
+  end
+
   context 'common case' do
     it do
       is_expected.to eq(
         <<-HTML.squish.strip
             <a href='#{user_image.image.url :original, false}'
               rel='#{text_hash}'
-              class='b-image unprocessed'><img
+              class='b-image unprocessed'
+              data-attrs='#{attrs.to_json}'><img
                 src='#{user_image.image.url :thumbnail, false}'
                 data-width='#{user_image.width}'
                 data-height='#{user_image.height}'
                 loading='lazy'
-              /><span class='marker'>400x500</span></a>
+                /><span class='marker'>400x500</span></a>
         HTML
       )
     end
@@ -26,15 +37,17 @@ describe BbCodes::Tags::ImageTag do
 
   context 'no zoom' do
     let(:text) { "[image=#{user_image.id} no-zoom]" }
+    let(:is_no_zoom) { true }
 
     it do
       is_expected.to eq(
         <<-HTML.squish.strip
-            <span class='b-image no-zoom'><img
-              src='#{user_image.image.url :original, false}'
-              class='check-width'
-              loading='lazy'
-            /></span>
+            <span class='b-image no-zoom'
+              data-attrs='#{attrs.to_json}'><img
+                src='#{user_image.image.url :original, false}'
+                class='check-width'
+                loading='lazy'
+                /></span>
         HTML
       )
     end
@@ -49,21 +62,23 @@ describe BbCodes::Tags::ImageTag do
           <a
             href='#{user_image.image.url :original, false}'
             rel='#{text_hash}'
-            class='b-image unprocessed'><img
+            class='b-image unprocessed'
+            data-attrs='#{attrs.to_json}'><img
               src='#{user_image.image.url :thumbnail, false}'
               data-width='#{user_image.width}'
               data-height='#{user_image.height}'
               loading='lazy'
-            /><span class='marker'>400x500</span></a>
+              /><span class='marker'>400x500</span></a>
           <a
             href='#{user_image_2.image.url :original, false}'
             rel='#{text_hash}'
-            class='b-image unprocessed'><img
+            class='b-image unprocessed'
+            data-attrs='#{{ id: user_image_2.id }.to_json}'><img
               src='#{user_image_2.image.url :thumbnail, false}'
               data-width='#{user_image_2.width}'
               data-height='#{user_image_2.height}'
               loading='lazy'
-            /><span class='marker'>1000x1000</span></a>
+              /><span class='marker'>1000x1000</span></a>
         HTML
       )
     end
@@ -71,30 +86,35 @@ describe BbCodes::Tags::ImageTag do
 
   context 'small image' do
     let(:user_image) { create :user_image, width: 249, height: 249 }
+    let(:is_no_zoom) { true }
+
     it do
       is_expected.to eq(
-        <<-HTML.squish.strip
-            <span class='b-image no-zoom'><img
+        <<-HTML.squish
+          <span class='b-image no-zoom'
+            data-attrs='#{attrs.to_json}'><img
               src='#{user_image.image.url :original, false}'
               class='check-width'
               loading='lazy'
-            /></span>
+              /></span>
         HTML
       )
     end
 
     context 'css_class' do
-      let(:text) { "[image=#{user_image.id} class=abc]" }
+      let(:text) { "[image=#{user_image.id} class=#{css_class}]" }
       let(:user_image) { create :user_image, width: 249, height: 249 }
+      let(:css_class) { 'abc' }
 
       it do
         is_expected.to eq(
-          <<-HTML.squish.strip
-              <span class='b-image no-zoom abc'><img
+          <<-HTML.squish
+            <span class='b-image no-zoom abc'
+              data-attrs='#{attrs.to_json}'><img
                 src='#{user_image.image.url :original, false}'
                 class='check-width'
                 loading='lazy'
-              /></span>
+                /></span>
           HTML
         )
       end
@@ -112,102 +132,145 @@ describe BbCodes::Tags::ImageTag do
 
   context 'with sizes' do
     let(:user_image) { create :user_image, width: 400, height: 400 }
-    let(:text) { "[image=#{user_image.id} 400x500]" }
+    let(:text) { "[image=#{user_image.id} #{width}x#{height}]" }
+
+    let(:width) { 400 }
+    let(:height) { 400 }
+
     it do
       is_expected.to eq(
-        <<-HTML.squish.strip
+        <<-HTML.squish
           <a
             href='#{user_image.image.url :original, false}'
             rel='#{text_hash}'
-            class='b-image unprocessed'><img
+            class='b-image unprocessed'
+            data-attrs='#{attrs.to_json}'><img
               src='#{user_image.image.url :preview, false}'
               width='400'
               height='400'
               data-width='#{user_image.width}'
               data-height='#{user_image.height}'
               loading='lazy'
-            /><span class='marker'>400x400</span></a>
+              /><span class='marker'>400x400</span></a>
         HTML
       )
+    end
+
+    context 'keeps aspect ratio' do
+      let(:height) { 500 }
+
+      it do
+        is_expected.to eq(
+          <<-HTML.squish
+            <a
+              href='#{user_image.image.url :original, false}'
+              rel='#{text_hash}'
+              class='b-image unprocessed'
+              data-attrs='#{{ **attrs, height: 400 }.to_json}'><img
+                src='#{user_image.image.url :preview, false}'
+                width='400'
+                height='400'
+                data-width='#{user_image.width}'
+                data-height='#{user_image.height}'
+                loading='lazy'
+                /><span class='marker'>400x400</span></a>
+          HTML
+        )
+      end
     end
   end
 
   context 'with width' do
     let(:text) { "[image=#{user_image.id} w=400]" }
+    let(:width) { 400 }
+
     it do
       is_expected.to eq(
-        <<-HTML.squish.strip
+        <<-HTML.squish
           <a
             href='#{user_image.image.url :original, false}'
             rel='#{text_hash}'
-            class='b-image unprocessed'><img
+            class='b-image unprocessed'
+            data-attrs='#{attrs.to_json}'><img
               src='#{user_image.image.url :preview, false}'
               width='400'
               data-width='#{user_image.width}'
               data-height='#{user_image.height}'
               loading='lazy'
-            /><span class='marker'>400x500</span></a>
+              /><span class='marker'>400x500</span></a>
         HTML
       )
     end
   end
 
   context 'with height' do
-    let(:text) { "[image=#{user_image.id} h=400]" }
+    let(:text) { "[image=#{user_image.id} h=#{height}]" }
+    let(:height) { 400 }
+
     it do
       is_expected.to eq(
-        <<-HTML.squish.strip
+        <<-HTML.squish
           <a href='#{user_image.image.url :original, false}'
             rel='#{text_hash}'
-            class='b-image unprocessed'><img
+            class='b-image unprocessed'
+            data-attrs='#{attrs.to_json}'><img
               src='#{user_image.image.url :preview, false}'
               height='400'
               data-width='#{user_image.width}'
               data-height='#{user_image.height}'
               loading='lazy'
-            /><span class='marker'>400x500</span></a>
+              /><span class='marker'>400x500</span></a>
         HTML
       )
     end
   end
 
   context 'with width&height' do
-    let(:text) { "[image=#{user_image.id} w=400 h=500]" }
+    let(:text) { "[image=#{user_image.id} w=#{width} h=#{height}]" }
+    let(:width) { 400 }
+    let(:height) { 500 }
+
     it do
       is_expected.to eq(
-        <<-HTML.squish.strip
+        <<-HTML.squish
           <a
             href='#{user_image.image.url :original, false}'
             rel='#{text_hash}'
-            class='b-image unprocessed'><img
+            class='b-image unprocessed'
+            data-attrs='#{attrs.to_json}'><img
               src='#{user_image.image.url :preview, false}'
               width='400'
               height='500'
               data-width='#{user_image.width}'
               data-height='#{user_image.height}'
               loading='lazy'
-            /><span class='marker'>400x500</span></a>
+              /><span class='marker'>400x500</span></a>
         HTML
       )
     end
   end
 
   context 'with class' do
-    let(:text) { "[image=#{user_image.id} w=400 h=500 c=test]" }
+    let(:text) { "[image=#{user_image.id} w=#{width} h=#{height} c=#{css_class}]" }
+    let(:width) { 400 }
+    let(:height) { 500 }
+    let(:css_class) { 'test' }
+
     it do
       is_expected.to eq(
-        <<-HTML.squish.strip
+        <<-HTML.squish
           <a
             href='#{user_image.image.url :original, false}'
             rel='#{text_hash}'
-            class='b-image unprocessed test'><img
+            class='b-image unprocessed test'
+            data-attrs='#{attrs.to_json}'><img
               src='#{user_image.image.url :preview, false}'
               width='400'
               height='500'
               data-width='#{user_image.width}'
               data-height='#{user_image.height}'
               loading='lazy'
-            /><span class='marker'>400x500</span></a>
+              /><span class='marker'>400x500</span></a>
         HTML
       )
     end

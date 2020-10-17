@@ -14,6 +14,7 @@ FactoryBot.define do
       stub_method model, :release_the_banhammer!
       stub_method model, :touch_commentable
       stub_method model, :create_viewing
+      stub_method model, :notify_quoted
     end
 
     trait :with_create_viewing do
@@ -48,6 +49,10 @@ FactoryBot.define do
 
     trait :with_touch_commentable do
       after(:build) { |model| unstub_method model, :touch_commentable }
+    end
+
+    trait :with_notify_quoted do
+      after(:build) { |model| unstub_method model, :notify_quoted }
     end
   end
 end

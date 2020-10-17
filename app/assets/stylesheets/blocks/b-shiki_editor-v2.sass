@@ -1,7 +1,34 @@
 @import mixins/block
+@import mixins/shiki_button
 
 .b-shiki_editor-v2
   +block
 
   .vue-app.b-ajax
     min-height: 124px
+
+  footer
+    margin-top: 15px
+    display: flex
+    align-items: center
+
+  aside.markers
+    margin-left: auto
+    display: flex
+
+    .b-summary_marker,
+    .b-offtopic_marker
+      margin: 0
+      float: none
+      width: auto
+
+      &:not(:last-child)
+        margin-right: 18px
+
+      &:before
+        display: block
+        font-size: 12px
+        line-height: 17px
+        min-width: 80px
+        position: static
+        width: auto

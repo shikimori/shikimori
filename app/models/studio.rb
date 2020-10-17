@@ -18,7 +18,6 @@ class Studio < ApplicationRecord
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   # Relations
-  has_and_belongs_to_many :animes
   has_attached_file :image,
     url: '/system/studios/:style/:id.:extension',
     path: ':rails_root/public/system/studios/:style/:id.:extension'
@@ -39,21 +38,21 @@ class Studio < ApplicationRecord
 
   # возвращет все id, связанные с текущим
   def self.related(id)
-    MERGED.map { |k, v| k == id ? v : (v == id ? k : nil) }.compact << id
-  end
-
-  # возвращает все аниме студии с учетом склеенных студий
-  def all_animes
-    animes unless MERGED.value?(id)
-    ids = []
-    ApplicationRecord.connection
-        .execute(format('SELECT * FROM animes_studios where studio_id in (%s)', (MERGED.select { |_k, v| v == id }.map { |k, _v| k } + [id]).join(','))).each do |v|
-      ids << v[0]
+    MERGED.map do |k, v|
+      if k == id
+        v
+      else
+        (v == id ? k : nil)
+      end
     end
-    Anime.where(id: ids)
+    .compact << id
   end
 
   def to_param
-    format('%d-%s', id, name.gsub(/[^\w]+/, '-').gsub(/^-|-$/, ''))
+    format(
+      '%<id>d-%<name>s',
+      id: id,
+      name: name.gsub(/[^\w]+/, '-').gsub(/^-|-$/, '')
+    )
   end
 end

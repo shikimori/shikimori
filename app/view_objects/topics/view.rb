@@ -6,6 +6,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :user,
     :body,
     :viewed?,
+    :generated?,
     :decomposed_body,
     :tags,
     :created_at,
@@ -24,7 +25,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   BODY_TRUCATE_SIZE = 500
   TRUNCATE_OMNISSION = '…'
-  CACHE_VERSION = :v16
+  CACHE_VERSION = :v18
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
@@ -231,6 +232,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       @is_mini,
       skip_body?,
       closed?, # not sure whether it is necessary
+      h.current_user&.preferences&.is_shiki_editor?,
       CACHE_VERSION
     )
   end

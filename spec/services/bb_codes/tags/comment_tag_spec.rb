@@ -2,6 +2,15 @@ describe BbCodes::Tags::CommentTag do
   subject { described_class.instance.format text }
 
   let(:url) { UrlGenerator.instance.comment_url comment }
+  let(:attrs) do
+    {
+      id: comment.id,
+      type: :comment,
+      userId: comment.user_id,
+      text: user.nickname
+    }
+  end
+  let(:data_404_attrs) { { id: comment.id, type: :comment } }
 
   context 'selfclosed' do
     let(:text) { "[comment=#{comment.id}], test" }
@@ -9,7 +18,10 @@ describe BbCodes::Tags::CommentTag do
 
     it do
       is_expected.to eq(
-        "[url=#{url} bubbled b-mention]<s>@</s>#{user.nickname}[/url], test"
+        <<~HTML.squish
+          <a href='#{url}' class='b-mention bubbled'
+            data-attrs='#{attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
+        HTML
       )
     end
 
@@ -18,8 +30,64 @@ describe BbCodes::Tags::CommentTag do
 
       it do
         is_expected.to eq(
-          "<a href='#{url}' class='b-mention b-entry-404 bubbled'>"\
-            "<s>@</s><del>[comment=#{comment.id}]</del></a>, test"
+          <<~HTML.squish
+            <a href='#{url}' class='b-mention b-entry-404 bubbled'
+              data-attrs='#{data_404_attrs.to_json}'><s>@</s><del>[comment=#{comment.id}]</del></a>, test
+          HTML
+        )
+      end
+    end
+
+    context 'with user_id' do
+      let(:text) { "[comment=#{comment.id};#{user.id}], test" }
+      let(:comment) { create :comment, user: user }
+
+      it do
+        is_expected.to eq(
+          <<~HTML.squish
+            <a href='#{url}' class='b-mention bubbled'
+              data-attrs='#{attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
+          HTML
+        )
+      end
+
+      context 'non existing comment' do
+        let(:comment) { build_stubbed :comment }
+
+        it do
+          is_expected.to eq(
+            <<~HTML.squish
+              <a href='#{url}' class='b-mention b-entry-404 bubbled'
+                data-attrs='#{attrs.to_json}'><s>@</s><span>#{user.nickname}</span><del>[comment=#{comment.id}]</del></a>, test
+            HTML
+          )
+        end
+      end
+    end
+  end
+
+  context 'with author' do
+    let(:text) { "[comment=#{comment.id}]#{user.nickname}[/comment], test" }
+    let(:comment) { create :comment }
+
+    it do
+      is_expected.to eq(
+        <<~HTML.squish
+          <a href='#{url}' class='b-mention bubbled'
+          data-attrs='#{attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
+        HTML
+      )
+    end
+
+    context 'non existing comment' do
+      let(:comment) { build_stubbed :comment }
+
+      it do
+        is_expected.to eq(
+          <<~HTML.squish
+            <a href='#{url}' class='b-mention b-entry-404 bubbled'
+              data-attrs='#{data_404_attrs.to_json}'><s>@</s><span>#{user.nickname}</span><del>[comment=#{comment.id}]</del></a>, test
+          HTML
         )
       end
     end
@@ -35,31 +103,13 @@ describe BbCodes::Tags::CommentTag do
 
     it do
       is_expected.to eq(
-        "[url=#{url} bubbled b-mention]<s>@</s>#{user.nickname}[/url], test " \
-          "[url=#{url_2} bubbled b-mention]<s>@</s>qwe[/url]"
+        <<~HTML.squish
+          <a href='#{url}' class='b-mention bubbled'
+            data-attrs='#{attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
+          <a href='http://test.host/comments/#{comment_2.id}' class='b-mention bubbled'
+            data-attrs='#{{ id: comment_2.id, type: :comment, userId: comment_2.user_id, text: user_2.nickname }.to_json}'><s>@</s><span>qwe</span></a>
+        HTML
       )
-    end
-  end
-
-  context 'with author' do
-    let(:text) { "[comment=#{comment.id}]#{user.nickname}[/comment], test" }
-    let(:comment) { create :comment }
-
-    it do
-      is_expected.to eq(
-        "[url=#{url} bubbled b-mention]<s>@</s>#{user.nickname}[/url], test"
-      )
-    end
-
-    context 'non existing comment' do
-      let(:comment) { build_stubbed :comment }
-
-      it do
-        is_expected.to eq(
-          "<a href='#{url}' class='b-mention b-entry-404 bubbled'>"\
-          "<s>@</s><span>#{user.nickname}</span><del>[comment=#{comment.id}]</del></a>, test"
-        )
-      end
     end
   end
 
@@ -69,7 +119,10 @@ describe BbCodes::Tags::CommentTag do
 
     it do
       is_expected.to eq(
-        "[url=#{url} bubbled b-mention]<s>@</s>#{user.nickname}[/url], test"
+        <<~HTML.squish
+          <a href='#{url}' class='b-mention bubbled'
+            data-attrs='#{attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
+        HTML
       )
     end
 
@@ -78,26 +131,32 @@ describe BbCodes::Tags::CommentTag do
 
       it do
         is_expected.to eq(
-          "<a href='#{url}' class='b-mention b-entry-404 bubbled'>"\
-            "<s>@</s><del>[comment=#{comment.id}]</del></a>, test"
+          <<~HTML.squish
+            <a href='#{url}' class='b-mention b-entry-404 bubbled'
+              data-attrs='#{data_404_attrs.to_json}'><s>@</s><del>[comment=#{comment.id}]</del></a>, test
+          HTML
         )
       end
     end
   end
 
   context 'quote' do
-    let(:text) { "[comment=#{comment.id} quote]#{user.nickname}[/comment], test" }
+    let(:text) { "[comment=#{comment.id} #{quote_part}]#{user.nickname}[/comment], test" }
     let(:comment) { create :comment, user: user }
+    let(:quote_part) { 'quote' }
 
     context 'with avatar' do
       let(:user) { create :user, :with_avatar }
       it do
         is_expected.to eq(
-          "[url=#{url} bubbled b-mention b-user16]<img "\
-            "src=\"#{user.avatar_url 16}\" "\
-            "srcset=\"#{user.avatar_url 32} 2x\" "\
-            "alt=\"#{ERB::Util.h user.nickname}\" />"\
-            "<span>#{user.nickname}</span>[/url], test"
+          <<~HTML.squish
+            <a href='#{url}'
+              class='b-mention bubbled b-user16'
+              data-attrs='#{attrs.to_json}'><img
+              src="#{ImageUrlGenerator.instance.url user, :x16}"
+              srcset="#{ImageUrlGenerator.instance.url user, :x32} 2x"
+              alt="#{ERB::Util.h user.nickname}" /><span>#{user.nickname}</span></a>, test
+          HTML
         )
       end
     end
@@ -105,9 +164,33 @@ describe BbCodes::Tags::CommentTag do
     context 'without avatar' do
       it do
         is_expected.to eq(
-          "[url=#{url} bubbled b-mention b-user16]"\
-            "<span>#{user.nickname}</span>[/url], test"
+          <<~HTML.squish
+            <a href='#{url}' class='b-mention bubbled'
+              data-attrs='#{attrs.to_json}'><span>#{user.nickname}</span></a>, test
+          HTML
         )
+      end
+    end
+
+    context 'non existing comment' do
+      let(:comment) { build_stubbed :comment }
+      it do
+        is_expected.to eq(
+          <<~HTML.squish
+            <a href='#{url}' class='b-mention b-entry-404 bubbled'
+              data-attrs='#{data_404_attrs.to_json}'><s>@</s><span>#{user.nickname}</span><del>[comment=#{comment.id}]</del></a>, test
+          HTML
+        )
+      end
+
+      context 'quote with user_id' do
+        let(:quote_part) { "quote=#{user.id}" }
+        it do
+          is_expected.to eq(
+            "[user=#{user.id}]#{user.nickname}[/user]" \
+              "<span class='b-mention b-entry-404'><del>[comment=#{comment.id}]</del></span>, test"
+          )
+        end
       end
     end
   end

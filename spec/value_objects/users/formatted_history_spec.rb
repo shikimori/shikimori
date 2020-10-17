@@ -20,7 +20,7 @@ describe Users::FormattedHistory do
   describe '#localized_name' do
     context 'with russian' do
       let(:russian) { 'тест' }
-      it { expect(entry.localized_name).to eq "<span class='name-en'>test</span><span class='name-ru' data-text='тест'></span>" }
+      it { expect(entry.localized_name).to eq "<span class='name-en'>test</span><span class='name-ru'>тест</span>" }
     end
 
     context 'without russian' do

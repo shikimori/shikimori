@@ -33,22 +33,28 @@ class BbCodes::Tags::PosterTag
 
 private
 
-  def html_for_url image_url
+  def html_for_url escaped_image_url
+    image_url = CGI.unescapeHTML escaped_image_url
     camo_url = UrlGenerator.instance.camo_url(image_url)
+    attrs = { src: image_url }
 
-    "<span class='b-image b-poster no-zoom'>" \
-      "<img src='#{camo_url}' loading='lazy' />" \
-    '</span>'
+    <<~HTML.squish
+      <span class='b-image b-poster no-zoom'
+        data-attrs='#{attrs.to_json}'><img src='#{camo_url}'
+          loading='lazy' /></span>
+    HTML
   end
 
   def html_for_image user_image
     url = ImageUrlGenerator.instance.url user_image, :original
+    attrs = { id: user_image.id }
 
-    "<span class='b-image b-poster no-zoom'>" \
-      "<img src='#{url}' "\
-        "data-width='#{user_image.width}' "\
-        "data-height='#{user_image.height}' "\
-        "loading='lazy' />" \
-    '</span>'
+    <<~HTML.squish
+      <span class='b-image b-poster no-zoom'
+        data-attrs='#{attrs.to_json}'><img src='#{url}'
+          data-width='#{user_image.width}'
+          data-height='#{user_image.height}'
+          loading='lazy' /></span>
+    HTML
   end
 end

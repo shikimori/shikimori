@@ -5,19 +5,34 @@ describe BbCodes::Tags::MessageTag do
   let(:url) { UrlGenerator.instance.message_url message }
   let(:message) { create :message, from: user }
 
+  let(:attrs) do
+    {
+      id: message.id,
+      type: :message,
+      userId: message.from_id,
+      text: user.nickname
+    }
+  end
+
   it do
     is_expected.to eq(
-      "[url=#{url} bubbled b-mention]<s>@</s>#{user.nickname}[/url], test"
+      <<~HTML.squish
+        <a href='#{url}' class='b-mention bubbled'
+          data-attrs='#{attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
+      HTML
     )
   end
 
   context 'non existing message' do
     let(:message) { build_stubbed :message }
+    let(:attrs) { { id: message.id, type: :message } }
 
     it do
       is_expected.to eq(
-        "<span class='b-mention b-entry-404'><s>@</s>" \
-          "<del>[message=#{message.id}]</del></span>, test"
+        <<~HTML.squish
+          <a href='#{url}' class='b-mention b-entry-404 bubbled'
+            data-attrs='#{attrs.to_json}'><s>@</s><del>[message=#{message.id}]</del></a>, test
+        HTML
       )
     end
   end
