@@ -88,18 +88,11 @@
     - if topic_type_policy.news_topic?
       = render 'topics/form/posters', topic: topic, f: f
 
-    .field-name.m5
-      b = t ".#{topic_type_policy.news_topic? ? :news : :topic}_text"
     = render 'blocks/shiki_editor',
       text: topic.decomposed_body.text,
       field_name: 'topic[body]',
       size: 'xl',
       no_preview_avatar: true
-
-    / .b-shiki_editor.to-process data-dynamic='shiki_editor'
-    /   = render 'comments/shiki_editor',
-    /     text: topic.decomposed_body.text,
-    /     field_name: 'topic[body]'
 
   .buttons
     a.cancel href=back_url = t 'actions.cancel'
