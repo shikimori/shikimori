@@ -54,7 +54,7 @@ private
   def order_by_type
     case @messages_type
       when :private then Arel.sql('read, (case when read=true then -id else id end)')
-      else [:read, id: :desc]
+      else [id: :desc]
     end
   end
 
