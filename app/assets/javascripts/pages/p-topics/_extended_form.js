@@ -148,9 +148,11 @@ export async function initTagsApp(type) {
 
   const $app = $('#vue_tags_input');
   const $tags = $(`.b-input.${type}_tags`);
+  const initialHtml = $app[0].outerHTML;
+
   $tags.hide();
 
-  new Vue({
+  return new Vue({
     el: '#vue_tags_input',
     render: h => h(TagsInput, {
       props: {
@@ -163,6 +165,10 @@ export async function initTagsApp(type) {
         tagsLimit: 3,
         isDowncase: true
       }
-    })
+    }),
+    beforeDestroy() {
+      $tags.show();
+      $(this.$el).replaceWith(initialHtml);
+    },
   });
 }

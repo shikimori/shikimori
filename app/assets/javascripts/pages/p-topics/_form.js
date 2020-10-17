@@ -1,6 +1,13 @@
 import { initTagsApp, initVideo, initWall, initForm } from './_extended_form';
 
 const LINKED_TYPE_USER_SELECT = '.topic-linked select.type';
+let tagsApp;
+
+pageUnload('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
+  if (tagsApp) {
+    tagsApp.$destroy();
+  }
+});
 
 pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
   const $form = $('.b-form.edit_topic, .b-form.new_topic, .new-review-form');
@@ -8,7 +15,7 @@ pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
 
   const $video = initVideo('topic', $form, $wall);
   initWall($form, $wall);
-  initTagsApp('topic');
+  initTagsApp('topic').then(app => tagsApp = app);
   initForm('topic', $form, $wall, $video);
 
   const $topicLinked = $('#topic_linked', $form);
