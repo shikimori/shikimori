@@ -130,8 +130,8 @@ describe FayeService do
     context 'message' do
       before { expect(FayePublisher).to_not receive :new }
 
-      context 'private', :focus do
-        let(:trackable) { create :message, :private, to: user }
+      context 'private' do
+        let(:trackable) { create :message, :private, to: user, from: user_2 }
 
         it { is_expected.to be_persisted }
         its(:is_deleted_by_to) { is_expected.to eq true }
