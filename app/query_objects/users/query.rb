@@ -2,7 +2,7 @@ class Users::Query < QueryObjectBase
   SEARCH_LIMIT = 999
 
   def self.fetch
-    new User.order(last_online_at: :desc)
+    new User.order(id: :desc)
   end
 
   def search phrase

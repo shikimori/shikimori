@@ -3,11 +3,12 @@ class UsersController < ShikimoriController
 
   LIMIT = 15
   THRESHOLDS = [100, 175, 350]
+  CACHE_VERSION = :v3
 
   def index
     og page_title: i18n_i('User', :other)
 
-    ids = Rails.cache.fetch([:search, params[:search], @page, :v2], expires_in: 1.minute) do
+    ids = Rails.cache.fetch(cache_key, expires_in: 1.minute) do
       Users::Query.fetch
         .search(params[:search])
         .paginate(@page, LIMIT)
@@ -20,7 +21,7 @@ class UsersController < ShikimoriController
       .transform(&:decorate)
   end
 
-  def similar # rubocop:disable MethodLength, AbcSize
+  def similar # rubocop:disable all
     og noindex: true
     @threshold = params[:threshold].to_i
     @klass = params[:klass] == Manga.name.downcase ? Manga : Anime
@@ -55,5 +56,11 @@ class UsersController < ShikimoriController
     @collection = Users::Query.fetch
       .search(params[:search])
       .paginate(1, CompleteQuery::AUTOCOMPLETE_LIMIT)
+  end
+
+private
+
+  def cache_key
+    [:search, params[:search], @page, CACHE_VERSION]
   end
 end
