@@ -18,7 +18,7 @@
 
         = render @collection
 
-      - if @dialog.target_user.admin?
+      - if @dialog.target_user.admin? && !current_user.staff?
         .admin-message
           .subheadline.red = t '.before_you_message_me'
           ul.b-list.is-wide
