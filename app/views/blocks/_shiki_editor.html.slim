@@ -14,7 +14,7 @@
   - else
     - raise ArgumentError, f.object
 
-- if false
+- if local_assigns[:shiki_editor_v2] || current_user&.preferences&.is_shiki_editor?
   .b-shiki_editor-v2.to-process[
     data-dynamic='shiki_editor_v2'
   ]
