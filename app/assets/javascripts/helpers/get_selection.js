@@ -31,7 +31,7 @@ export function getSelectionHtml() {
       html = document.selection.createRange().htmlText;
     }
   }
-  if (html.match(/<div class="body"/)) {
+  if (html?.match(/<div class="body"/)) {
     return $with('div.body', $(html)).html();
   }
   return html;
