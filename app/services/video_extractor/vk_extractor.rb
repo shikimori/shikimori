@@ -66,16 +66,11 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
 
     API_URL +
       "?videos=#{matches[1]}_#{matches[2]}" \
-      "&access_token=#{vk_access_token}" \
+      "&access_token=#{access_token}" \
       "&v=#{API_VERSION}"
   end
 
-  def vk_access_token
-    if Rails.env.test?
-      Rails.application.secrets.oauth[:vkontakte][:user_access_token]
-    else
-      ENV['VK_USER_ACCESS_TOKEN'] ||
-        Rails.application.secrets.oauth[:vkontakte][:user_access_token]
-    end
+  def access_token
+    Rails.application.secrets.vkontakte[:user_access_token]
   end
 end
