@@ -180,6 +180,8 @@ export default class GlobalSearch extends View {
     this.isActive = false;
     this._toggleGlobalSearch();
 
+    this.$input.val('');
+
     if (this.$input.is(':focus')) {
       this.$input.blur();
     }
