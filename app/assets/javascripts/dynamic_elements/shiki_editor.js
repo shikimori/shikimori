@@ -378,6 +378,10 @@ export default class ShikiEditor extends ShikiView {
     this.$('.b-summary_marker').toggleClass('off', !isReview);
   }
 
+  focus() {
+    this.$textarea.focus();
+  }
+
   // очистка редактора
   cleanup() {
     this._markOfftopic(false);
@@ -397,10 +401,11 @@ export default class ShikiEditor extends ShikiView {
     if (url) {
       reply = `[${type}=${id}], `;
     } else {
-      const ids = [id, userId, nickname].join(';');
-      debugger
+      const ids = [id, userId, nickname];
       const type0 = type[0];
-      reply = `[quote=${type0}${ids}]${text}[/quote]\n`;
+      const prefix = userId ? `=${type0}${ids.join(';')}` : '';
+
+      reply = `[quote${prefix}]${text}[/quote]\n`;
     }
 
     this.$textarea

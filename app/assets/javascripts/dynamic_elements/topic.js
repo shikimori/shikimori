@@ -171,7 +171,12 @@ export default class Topic extends ShikiEditable {
       // @editor is empty for unauthorized user
       if (this.editor) {
         this._showEditor();
-        this.editor.replyComment(reply, isOfftopic);
+
+        if (reply) { // it is empty for generated topics
+          this.editor.replyComment(reply, isOfftopic);
+        } else {
+          this.editor.focus();
+        }
       }
     });
 

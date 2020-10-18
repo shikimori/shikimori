@@ -182,6 +182,11 @@ export default class ShikiEditable extends ShikiView {
 
   @bind
   _itemReply() {
+    if (this.isGenerated) {
+      this.$node.trigger('comment:reply');
+      return;
+    }
+
     const reply = {
       id: this.node.id,
       type: this._type(),
