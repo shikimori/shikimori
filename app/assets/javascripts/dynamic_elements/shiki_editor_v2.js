@@ -94,6 +94,11 @@ export default class ShikiEditorV2 extends View {
     }
   }
 
+  focus() {
+    $.scrollTo(this.editorApp.$el);
+    this.editorApp.focus();
+  }
+
   cleanup() {
     this.editorApp.clearContent();
 
