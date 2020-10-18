@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_15_225432) do
+ActiveRecord::Schema.define(version: 2020_10_17_175650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -638,6 +638,7 @@ ActiveRecord::Schema.define(version: 2020_09_15_225432) do
     t.index ["from_id", "kind"], name: "private_and_notifications"
     t.index ["linked_type", "linked_id"], name: "index_messages_on_linked_type_and_linked_id"
     t.index ["to_id", "kind", "read"], name: "messages_for_profile"
+    t.index ["to_id", "linked_id"], name: "index_messages_on_to_id_and_linked_id"
   end
 
   create_table "name_matches", id: :serial, force: :cascade do |t|
@@ -1162,6 +1163,7 @@ ActiveRecord::Schema.define(version: 2020_09_15_225432) do
     t.datetime "updated_at", null: false
     t.index ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
     t.index ["votable_type", "votable_id"], name: "index_votes_on_votable_type_and_votable_id"
+    t.index ["voter_id", "votable_id"], name: "index_votes_on_voter_id_and_votable_id"
     t.index ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
     t.index ["voter_type", "voter_id"], name: "index_votes_on_voter_type_and_voter_id"
   end
