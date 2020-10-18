@@ -15,3 +15,5 @@ ru:
         ignored_topic: Игнорируемый топик
       comment:
         ignored_user: Комментарий от игнорируемого пользователя
+    shiki_editor:
+      hide: Скрыть

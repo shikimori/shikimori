@@ -19,6 +19,7 @@ const SHOW_IGNORED_TOPICS_IN = [
   'topics_show',
   'collections_show'
 ];
+const EDITOR_SELECTOR = '.b-shiki_editor, .b-shiki_editor-v2';
 
 // TODO: move code related to comments to separate class
 export default class Topic extends ShikiEditable {
@@ -60,7 +61,7 @@ export default class Topic extends ShikiEditable {
     this.$body = this.$inner.children('.body');
 
     this.$editorContainer = this.$('.editor-container');
-    this.$editor = this.$('.b-shiki_editor, .b-shiki_editor-v2');
+    this.$editor = this.$(EDITOR_SELECTOR);
     this.$editorForm = this.$editor.closest('form');
 
     // do not move to getter. it is redefined in FullDialog
@@ -175,7 +176,7 @@ export default class Topic extends ShikiEditable {
     });
 
     // клик скрытию редактора
-    this.$('.b-shiki_editor').on('click', '.hide', this._hideEditor);
+    this.$(EDITOR_SELECTOR).on('click', '.hide', this._hideEditor);
 
     // delegated handlers becase it is replaced on postload in
     // inherited classes (FullDialog)

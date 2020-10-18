@@ -1,4 +1,5 @@
 @import mixins/block
+@import mixins/link
 @import mixins/shiki_button
 
 .b-shiki_editor-v2
@@ -11,6 +12,15 @@
     margin-top: 15px
     display: flex
     align-items: center
+
+    .cancel,
+    .hide
+      +js-link
+      font-size: 13px
+      margin-left: 20px
+
+    .hide
+      display: none
 
   aside.markers
     margin-left: auto

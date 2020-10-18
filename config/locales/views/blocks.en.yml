@@ -15,3 +15,5 @@ en:
         ignored_topic: Ignored topic
       comment:
         ignored_user: Comment of ignored user
+    shiki_editor:
+      hide: Hide
