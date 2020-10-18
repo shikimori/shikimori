@@ -64,8 +64,7 @@ export default class ShikiEditable extends ShikiView {
     this.throttledSetSelection();
   }
 
-  @debounce(100)
-  @throttle(100)
+  @debounce(150)
   async throttledSetSelection() {
     const text = getSelectionText();
     const html = getSelectionHtml();

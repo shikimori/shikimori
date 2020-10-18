@@ -1,17 +1,7 @@
 import $with from './with';
 
 export function getSelectionText() {
-  let text;
-
-  if (window.getSelection) {
-    text = window.getSelection();
-  } else if (document.getSelection) {
-    text = document.getSelection();
-  } else if (document.selection) {
-    text = document.selection.createRange().text;
-  }
-
-  return (text.toString() || '').trim();
+  return $(`<div>${getSelectionHtml()}</div>`).text();
 }
 
 export function getSelectionHtml() {
@@ -31,8 +21,10 @@ export function getSelectionHtml() {
       html = document.selection.createRange().htmlText;
     }
   }
-  if (html?.match(/<div class="body"/)) {
+
+  if (html.match(/<div class="body"/)) {
     return $with('div.body', $(html)).html();
   }
+
   return html;
 }
