@@ -1,5 +1,6 @@
 import delay from 'delay';
 import { bind, throttle, debounce } from 'shiki-decorators';
+import memoize from 'memoize-decorator';
 
 import { getSelectionText, getSelectionHtml } from 'helpers/get_selection';
 import axios from 'helpers/axios';
@@ -51,6 +52,11 @@ export default class ShikiEditable extends ShikiView {
       $('.item-quote', this.$inner).on('click', this._itemQuote);
       $('.item-reply', this.$inner).on('click', this._itemReply);
     }
+  }
+
+  @memoize
+  get isGenerated() {
+    return !!this.$node.data('generated');
   }
 
   @bind
@@ -162,8 +168,8 @@ export default class ShikiEditable extends ShikiView {
     const quote = {
       id: this.node.id,
       type: this._type(),
-      userId: this.$node.data('user_id'),
-      nickname: this.$node.data('user_nickname'),
+      userId: this.isGenerated ? null : this.$node.data('user_id'),
+      nickname: this.isGenerated ? null : this.$node.data('user_nickname'),
       text: this.$node.data('selected_text'),
       html: this.$node.data('selected_html')
     };
