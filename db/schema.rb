@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_17_175650) do
+ActiveRecord::Schema.define(version: 2020_10_18_173247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -791,7 +791,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
   end
 
   create_table "publishers", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
+    t.string "name", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "desynced", default: [], null: false, array: true
@@ -825,10 +825,10 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
   end
 
   create_table "reviews", id: :serial, force: :cascade do |t|
-    t.integer "target_id"
-    t.string "target_type", limit: 255
-    t.integer "user_id"
-    t.text "text"
+    t.integer "target_id", null: false
+    t.string "target_type", null: false
+    t.integer "user_id", null: false
+    t.text "text", null: false
     t.integer "overall"
     t.integer "storyline"
     t.integer "music"
@@ -837,8 +837,8 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "comment_id"
-    t.string "source", limit: 255
-    t.string "moderation_state", limit: 255, default: "pending"
+    t.string "source"
+    t.string "moderation_state", default: "pending", null: false
     t.integer "approver_id"
     t.string "locale", null: false
     t.integer "cached_votes_up", default: 0
@@ -879,20 +879,20 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
   end
 
   create_table "studios", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "short_name", limit: 255
+    t.string "name", null: false
+    t.string "short_name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "japanese", limit: 255
+    t.string "japanese"
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.integer "ani_db_id"
-    t.string "ani_db_name", limit: 255
+    t.string "ani_db_name"
     t.text "description_ru"
     t.text "description_en"
-    t.string "website", limit: 255
+    t.string "website"
     t.boolean "is_visible", null: false
     t.boolean "is_publisher", default: false, null: false
     t.boolean "is_verified", default: false, null: false
@@ -939,8 +939,8 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
 
   create_table "topics", id: :serial, force: :cascade do |t|
     t.string "title", limit: 255
-    t.integer "user_id"
-    t.integer "forum_id"
+    t.integer "user_id", null: false
+    t.integer "forum_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "type", limit: 255
@@ -966,7 +966,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
   end
 
   create_table "user_histories", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.integer "target_id"
     t.string "target_type", limit: 255
     t.string "action", limit: 255
@@ -981,7 +981,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
   end
 
   create_table "user_images", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.integer "linked_id"
     t.string "linked_type", limit: 255
     t.datetime "created_at", null: false
@@ -1004,7 +1004,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
   end
 
   create_table "user_preferences", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.boolean "anime_in_profile", default: true
     t.boolean "manga_in_profile", default: true
     t.string "default_sort", limit: 255, default: "name", null: false
@@ -1046,14 +1046,14 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
   end
 
   create_table "user_rates", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "target_id"
+    t.integer "user_id", null: false
+    t.integer "target_id", null: false
     t.integer "score", default: 0, null: false
     t.integer "status", default: 0, null: false
     t.integer "episodes", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "target_type", limit: 255
+    t.string "target_type", null: false
     t.integer "volumes", default: 0, null: false
     t.integer "chapters", default: 0, null: false
     t.string "text", limit: 16384
@@ -1063,11 +1063,11 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
   end
 
   create_table "user_tokens", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.string "provider", limit: 255
-    t.string "uid", limit: 255
-    t.string "token", limit: 255
-    t.string "secret", limit: 255
+    t.integer "user_id", null: false
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.string "token"
+    t.string "secret"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "nickname", limit: 255
@@ -1076,7 +1076,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
-    t.string "email", limit: 255
+    t.string "email", null: false
     t.string "encrypted_password", limit: 128
     t.string "reset_password_token", limit: 255
     t.datetime "remember_created_at"
@@ -1093,7 +1093,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
     t.datetime "last_online_at"
     t.text "about", default: "", null: false
     t.string "sex", limit: 255
-    t.string "website", limit: 1024
+    t.string "website"
     t.string "avatar_file_name", limit: 255
     t.string "avatar_content_type", limit: 255
     t.integer "avatar_file_size"
@@ -1118,10 +1118,10 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
   end
 
   create_table "versions", id: :serial, force: :cascade do |t|
-    t.string "item_type", limit: 255
-    t.integer "item_id"
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
     t.integer "user_id"
-    t.string "state", limit: 255
+    t.string "state", null: false
     t.datetime "created_at"
     t.jsonb "item_diff"
     t.integer "moderator_id"
@@ -1137,17 +1137,17 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
   end
 
   create_table "videos", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "url", limit: 255
+    t.string "name"
+    t.string "url", null: false
     t.integer "uploader_id"
     t.integer "anime_id"
-    t.string "kind", limit: 255
+    t.string "kind", null: false
     t.string "state", limit: 255, default: "uploaded", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "image_url", limit: 1024
-    t.string "player_url", limit: 1024
-    t.string "hosting", limit: 255
+    t.string "image_url", null: false
+    t.string "player_url", null: false
+    t.string "hosting", null: false
     t.index ["anime_id"], name: "index_videos_on_anime_id"
   end
 
@@ -1169,7 +1169,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_175650) do
   end
 
   create_table "webm_videos", id: :serial, force: :cascade do |t|
-    t.string "url", limit: 1024, null: false
+    t.string "url", null: false
     t.string "state", null: false
     t.string "thumbnail_file_name"
     t.string "thumbnail_content_type"
