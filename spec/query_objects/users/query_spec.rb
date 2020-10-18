@@ -8,30 +8,26 @@ describe Users::Query do
   let!(:user_1) do
     create :user,
       current_sign_in_at: 10.days.ago,
-      last_online_at: 10.days.ago,
       current_sign_in_ip: '127.0.0.1'
   end
   let!(:user_2) do
     create :user,
       current_sign_in_at: 20.days.ago,
-      last_online_at: 20.days.ago,
       last_sign_in_ip: '127.0.0.1',
       created_at: 2.days.ago
   end
   let!(:user_3) do
     create :user,
       current_sign_in_at: 70.days.ago,
-      last_online_at: 60.days.ago,
       created_at: 3.days.ago.beginning_of_day
   end
   let!(:user_4) do
     create :user,
       current_sign_in_at: 50.days.ago,
-      last_online_at: 40.days.ago,
       created_at: 3.days.ago.end_of_day
   end
 
-  let(:all_users) { [user_1, user_2, user_4, user_3] }
+  let(:all_users) { [user_4, user_3, user_2, user_1] }
 
   describe '.fetch' do
     subject { query }
@@ -65,7 +61,7 @@ describe Users::Query do
       let(:phrase) { ['', nil].sample }
 
       it do
-        is_expected.to eq [user_1, user_2, user_4, user_3]
+        is_expected.to eq all_users
         expect(Elasticsearch::Query::User).to_not have_received :call
       end
     end
