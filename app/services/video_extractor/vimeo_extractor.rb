@@ -1,35 +1,38 @@
-class VideoExtractor::VimeoExtractor < VideoExtractor::OpenGraphExtractor
-  OPEN_URI_OPTIONS = VideoExtractor::OpenGraphExtractor::OPEN_URI_OPTIONS.merge(
-    **Proxy.prepaid_proxy
-  )
-
+class VideoExtractor::VimeoExtractor < VideoExtractor::BaseExtractor
   URL_REGEX = %r{
     https?://(?:www\.)?(
-      (?<hosting>vimeo).com/[\wА-я_-]+#{PARAMS}
+      (?<hosting>vimeo).com/(?<id>[\wА-я_-]+)#{PARAMS}
     )
   }xi
 
-  ID_PROPERTY = "meta[property='al:ios:url']"
-  ID_REGEXP = %r{
-    /videos/(?<id>\w+)
-    |
-    \A vimeo://(?<id>\w+) \Z
-  }mix
+  def video_data_url
+    'https://api.vimeo.com/videos/' + video_id
+  end
+
+  def video_id
+    @video_id ||= url.match(self.class::URL_REGEX)[:id]
+  end
+
+  def image_url
+    parsed_data.first
+  end
 
   def player_url
-    return unless parsed_data.second
-
     "//player.vimeo.com/video/#{parsed_data.second}"
   end
 
-  def parse_data html
-    doc = Nokogiri::HTML html
+  def parse_data json
+    data = JSON.parse(json, symbolize_names: true)
+    image = data.dig(:pictures, :sizes, 3, :link)
 
-    og_image = doc.css(IMAGE_PROPERTIES.join(',')).first
-    og_id = doc.css(ID_PROPERTY).first
+    [image, video_id] if image
+  end
 
-    if og_image && og_id && og_id[:content] =~ ID_REGEXP
-      [og_image[:content], $LAST_MATCH_INFO[:id]]
-    end
+  def fetch_page
+    OpenURI.open_uri(video_data_url, { 'Authorization' => "Bearer #{access_token}" }).read
+  end
+
+  def access_token
+    Rails.application.secrets.vimeo[:app_access_token]
   end
 end
