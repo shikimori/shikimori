@@ -389,7 +389,7 @@ export default class ShikiEditor extends ShikiView {
   }
 
   // ответ на комментарий
-  async replyComment({ id, type, userId, userNickname, text, url }, isOfftopic) {
+  async replyComment({ id, type, userId, nickname, text, url }, isOfftopic) {
     if (isOfftopic) { this._markOfftopic(true); }
 
     let reply;
@@ -397,7 +397,8 @@ export default class ShikiEditor extends ShikiView {
     if (url) {
       reply = `[${type}=${id}], `;
     } else {
-      const ids = [id, userId, userNickname].join(';');
+      const ids = [id, userId, nickname].join(';');
+      debugger
       const type0 = type[0];
       reply = `[quote=${type0}${ids}]${text}[/quote]\n`;
     }
