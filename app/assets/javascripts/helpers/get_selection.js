@@ -1,3 +1,5 @@
+import $with from './with';
+
 export function getSelectionText() {
   let text;
 
@@ -28,6 +30,9 @@ export function getSelectionHtml() {
     if (document.selection.type === 'Text') {
       html = document.selection.createRange().htmlText;
     }
+  }
+  if (html.match(/<div class="body"/)) {
+    return $with('div.body', $(html)).html();
   }
   return html;
 }
