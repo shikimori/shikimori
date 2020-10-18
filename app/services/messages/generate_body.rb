@@ -150,20 +150,21 @@ private
   end
 
   def linked_name
-    if linked.is_a? Comment
-      Messages::MentionSource.call(
-        @message.linked.commentable,
-        @message.linked.id
-      )
+    case linked
+      when Comment
+        Messages::MentionSource.call(
+          @message.linked.commentable,
+          @message.linked.id
+        )
 
-    elsif linked.is_a? Ban
-      Messages::MentionSource.call(
-        @message.linked.comment.commentable,
-        @message.linked.comment.id
-      )
+      when Ban
+        Messages::MentionSource.call(
+          @message.linked.comment.commentable,
+          @message.linked.comment.id
+        )
 
-    else
-      Messages::MentionSource.call @message.linked, nil
+      else
+        Messages::MentionSource.call @message.linked, nil
     end
   end
 end

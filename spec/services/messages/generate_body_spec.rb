@@ -123,6 +123,25 @@ describe Messages::GenerateBody do
           HTML
         )
       end
+
+      context 'in anime topic' do
+        let(:linked) { build_stubbed :comment, id: 1, commentable: topic }
+        let(:topic) { build_stubbed :anime_topic, id: 1, title: 'test', linked: anime }
+        let(:anime) { build_stubbed :anime, id: 1 }
+
+        it do
+          is_expected.to eq(
+            <<~HTML.squish
+              Написал <a class="b-link"
+              href="#{Shikimori::PROTOCOL}://test.host/comments/1">что-то</a>
+              тебе в топике
+              <a href="#{Shikimori::PROTOCOL}://test.host/forum/animanga/anime-1-anime-1/1-obsuzhdenie-anime#comment-1"
+              class="bubbled b-link"
+              data-href="http://test.host/comments/1">Обсуждение аниме [anime]1[/anime]</a>.
+            HTML
+          )
+        end
+      end
     end
 
     context 'subscription_commented' do

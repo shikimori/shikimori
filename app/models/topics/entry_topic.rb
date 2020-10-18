@@ -12,12 +12,15 @@ class Topics::EntryTopic < Topic
   def full_title
     return title unless generated?
 
-    BbCodes::Text.call(
-      I18n.t(
-        "topics/entry_topic.full_title.#{linked.class.name.underscore}",
-        i18n_params
+    BbCodes::Text
+      .call(
+        I18n.t(
+          "topics/entry_topic.full_title.#{linked.class.name.underscore}",
+          i18n_params
+        )
       )
-    ).gsub(/<.*?>/, '')
+      .gsub(%r{<span class="name-ru">.*?</span>}, '')
+      .gsub(/<.*?>/, '')
   end
 
   def body
