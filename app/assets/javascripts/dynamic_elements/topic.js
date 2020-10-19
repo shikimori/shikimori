@@ -175,7 +175,7 @@ export default class Topic extends ShikiEditable {
         if (reply) { // it is empty for generated topics
           this.editor.replyComment(reply, isOfftopic);
         } else {
-          this.editor.focus(true);
+          this.editor.focus();
         }
       }
     });

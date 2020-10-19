@@ -78,8 +78,8 @@ export default class ShikiEditorV2 extends View {
     }
   }
 
-  focus(isScroll) {
-    if (isScroll) {
+  focus() {
+    if (!$(this.editorApp.$el).is(':appeared')) {
       $.scrollTo(this.editorApp.$el);
     }
 

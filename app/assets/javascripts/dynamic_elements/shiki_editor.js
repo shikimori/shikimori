@@ -289,7 +289,7 @@ export default class ShikiEditor extends ShikiView {
         this.$textarea.focus();
       });
 
-    this.initialization.resolve();
+    delay().then(() => this.initialization.resolve());
   }
 
   get type() {

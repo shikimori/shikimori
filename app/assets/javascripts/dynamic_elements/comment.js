@@ -110,7 +110,7 @@ export default class Comment extends ShikiEditable {
     $form.appendTo(this.$node);
 
     const editor = $form.find(EDITOR_SELECTOR).view();
-    editor.initialization.promise.then(() => editor.focus(false));
+    editor.initialization.promise.then(() => editor.focus());
 
     // отмена редактирования
     $form.find('.cancel').on('click', () => {
