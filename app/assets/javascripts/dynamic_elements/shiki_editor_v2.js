@@ -1,6 +1,7 @@
 /* global IS_LOCAL_SHIKI_PACKAGES */
 import delay from 'delay';
 import memoize from 'memoize-decorator';
+import pDefer from 'p-defer';
 import { bind } from 'shiki-decorators';
 import { flash } from 'shiki-utils';
 
@@ -10,7 +11,7 @@ import csrf from 'helpers/csrf';
 import axios from 'helpers/axios';
 
 export default class ShikiEditorV2 extends View {
-  isEdit = false
+  initialization = pDefer()
 
   async initialize() {
     this.vueNode = this.node.querySelector('.vue-app');
@@ -45,6 +46,8 @@ export default class ShikiEditorV2 extends View {
 
     this._bindForm();
     this._scheduleDestroy();
+
+    this.initialization.resolve();
   }
 
   get editorApp() {
@@ -54,25 +57,6 @@ export default class ShikiEditorV2 extends View {
   @memoize
   get $form() {
     return this.$node.closest('form');
-  }
-
-  editComment($comment, $form) {
-    const $initialContent = $comment.children().detach();
-    $form.appendTo($comment);
-
-    this.isEdit = true;
-
-    // отмена редактирования
-    this.$('.cancel').on('click', () => {
-      this.isEdit = false;
-      $form.remove();
-      $comment.append($initialContent);
-    });
-
-    // замена комментария после успешного сохранения
-    $form.on('ajax:success', (e, response) => (
-      $comment.view()._replace(response.html, response.JS_EXPORTS)
-    ));
   }
 
   replyComment(reply, isOfftopic) {
@@ -94,8 +78,11 @@ export default class ShikiEditorV2 extends View {
     }
   }
 
-  focus() {
-    $.scrollTo(this.editorApp.$el);
+  focus(isScroll) {
+    if (isScroll) {
+      $.scrollTo(this.editorApp.$el);
+    }
+
     this.editorApp.focus();
   }
 
@@ -201,7 +188,7 @@ export default class ShikiEditorV2 extends View {
   @bind
   async _formAjaxSuccess() {
     await delay();
-    this.editorApp.focus();
+    this.focus();
   }
 
   @bind
@@ -224,10 +211,6 @@ export default class ShikiEditorV2 extends View {
     this.$form.off('ajax:before', this._formAjaxBefore);
     this.$form.off('ajax:complete', this._formAjaxComplete);
     this.$form.off('ajax:success', this._formAjaxSuccess);
-
-    if (this.isEdit) {
-      this.$('footer .cancel').click();
-    }
 
     this.app?.$destroy();
     this.vueNode.remove();

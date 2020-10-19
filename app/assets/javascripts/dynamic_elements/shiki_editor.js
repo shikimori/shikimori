@@ -1,5 +1,6 @@
-import delay from 'delay';
 import autosize from 'autosize';
+import delay from 'delay';
+import pDefer from 'p-defer';
 import { bind } from 'shiki-decorators';
 import { flash } from 'shiki-utils';
 
@@ -11,6 +12,8 @@ import { isMobile } from 'helpers/mobile_detect';
 
 // TODO: refactor constructor
 export default class ShikiEditor extends ShikiView {
+  initialization = pDefer()
+
   initialize() {
     const { $node } = this;
     this.$form = $node.closest('form');
@@ -19,7 +22,7 @@ export default class ShikiEditor extends ShikiView {
     this.$textarea = this.$('textarea');
 
     // при вызове фокуса на shiki-editor передача сообщения в редактор
-    this.on('focus', () => this.$textarea.trigger('focus'));
+    this.on('focus', focus);
 
     // по первому фокусу на редактор включаем autosize
     this.$textarea.one('focus', () => delay().then(() => autosize(this.$textarea[0])));
@@ -285,6 +288,8 @@ export default class ShikiEditor extends ShikiView {
 
         this.$textarea.focus();
       });
+
+    this.initialization.resolve();
   }
 
   get type() {
@@ -378,6 +383,7 @@ export default class ShikiEditor extends ShikiView {
     this.$('.b-summary_marker').toggleClass('off', !isReview);
   }
 
+  @bind
   focus() {
     this.$textarea.focus();
   }
@@ -416,24 +422,11 @@ export default class ShikiEditor extends ShikiView {
 
     await delay();
     if ((isMobile()) && !this.$textarea.is(':appeared')) {
-      $.scrollTo(this.$form, null, () => this.$textarea.focus());
+      $.scrollTo(this.$form, null, this.focus);
     }
   }
 
-  // переход в режим редактирования комментария
-  editComment($comment, $form) {
-    const $initialContent = $comment.children().detach();
-    $form.appendTo($comment);
-
-    // отмена редактирования
-    this.$('.cancel').on('click', () => {
-      $form.remove();
-      $comment.append($initialContent);
-    });
-
-    // замена комментария после успешного сохранения
-    $form.on('ajax:success', (e, response) => (
-      $comment.view()._replace(response.html, response.JS_EXPORTS)
-    ));
+  // added for compatibility with shiki-editor-v2
+  destroy() {
   }
 }

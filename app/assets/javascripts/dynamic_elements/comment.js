@@ -16,6 +16,8 @@ const AJAX_BUTTONS = [
   '.b-summary_marker'
 ];
 
+const EDITOR_SELECTOR = '.b-shiki_editor, .b-shiki_editor-v2';
+
 export default class Comment extends ShikiEditable {
   _type() { return 'comment'; }
   _typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); }
@@ -104,8 +106,23 @@ export default class Comment extends ShikiEditable {
   _edit(_e, html, _status, _xhr) {
     const $form = $(html).process();
 
-    $form.find('.b-shiki_editor, .b-shiki_editor-v2').view()
-      .editComment(this.$node, $form);
+    const $initialContent = this.$node.children().detach();
+    $form.appendTo(this.$node);
+
+    const editor = $form.find(EDITOR_SELECTOR).view();
+    editor.initialization.promise.then(() => editor.focus(false));
+
+    // отмена редактирования
+    $form.find('.cancel').on('click', () => {
+      editor.destroy();
+      $form.remove();
+      this.$node.append($initialContent);
+    });
+
+    // замена комментария после успешного сохранения
+    $form.on('ajax:success', (e, response) => (
+      this._replace(response.html, response.JS_EXPORTS)
+    ));
   }
 
   @bind
