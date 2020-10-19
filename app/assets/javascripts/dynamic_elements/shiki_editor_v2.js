@@ -14,6 +14,21 @@ export default class ShikiEditorV2 extends View {
   initialization = pDefer()
 
   async initialize() {
+    await this._buildEditor();
+    window.editor = this;
+    this.initialization.resolve();
+  }
+
+  get editorApp() {
+    return this.app.$children[0];
+  }
+
+  @memoize
+  get $form() {
+    return this.$node.closest('form');
+  }
+
+  async _buildEditor() {
     this.vueNode = this.node.querySelector('.vue-app');
     this.input = this.node.querySelector('input');
 
@@ -46,17 +61,6 @@ export default class ShikiEditorV2 extends View {
 
     this._bindForm();
     this._scheduleDestroy();
-
-    this.initialization.resolve();
-  }
-
-  get editorApp() {
-    return this.app.$children[0];
-  }
-
-  @memoize
-  get $form() {
-    return this.$node.closest('form');
   }
 
   replyComment(reply, isOfftopic) {
@@ -86,11 +90,11 @@ export default class ShikiEditorV2 extends View {
     this.editorApp.focus();
   }
 
-  cleanup() {
-    this.editorApp.clearContent();
-
+  async cleanup() {
     this._markOfftopic(false);
     this._markReview(false);
+
+    this.editorApp.clearContent();
   }
 
   _buildShikiUploader(ShikiUploader) {
@@ -207,6 +211,8 @@ export default class ShikiEditorV2 extends View {
 
   @bind
   destroy() {
+    $(document).off('turbolinks:before-cache', this.destroy);
+
     this.$form.off('submit', this._formSubmit);
     this.$form.off('ajax:before', this._formAjaxBefore);
     this.$form.off('ajax:complete', this._formAjaxComplete);
