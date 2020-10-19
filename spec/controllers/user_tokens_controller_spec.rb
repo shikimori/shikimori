@@ -14,7 +14,7 @@ describe UserTokensController do
     end
 
     context 'not allowed' do
-      let(:user_token) { create :user_token }
+      let(:user_token) { create :user_token, user: user_2 }
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
