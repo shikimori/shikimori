@@ -101,7 +101,9 @@ class CommentsController < ShikimoriController
     if params[:comment][:target_type] && params[:comment][:target_id]
       @comment = DescriptionComment.new(
         @comment,
-        params[:comment][:target_type], params[:comment][:target_id]
+        params[:comment][:target_type],
+        params[:comment][:target_id],
+        params[:comment][:lang]
       )
     end
 

@@ -12,7 +12,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   MAX_COLLECTIONS = 3
   MAX_FAVOURITES = 12
 
-  CACHE_VERSION = :v8
+  CACHE_VERSION = :v11
 
   def headline
     headline_array
@@ -67,26 +67,28 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def description_html_ru
     html = Rails.cache.fetch CacheHelper.keys(:description_html_ru, object, CACHE_VERSION) do
-      BbCodes::EntryText.call description_ru.text, object
+      # TODO: move gsub into BbCodes::EntryText
+      BbCodes::EntryText
+        .call(description_ru.text, object)
+        .gsub(%r{<span class="name-ru">(.*?)</span>}, '\1')
+        .gsub(%r{<span class="name-en">.*?</span>}, '')
+        .html_safe
     end
 
-    if html.blank?
-      "<p class='b-nothing_here'>#{i18n_t 'no_description'}</p>".html_safe
-    else
-      html
-    end
+    html.presence || "<p class='b-nothing_here'>#{i18n_t 'no_description'}</p>".html_safe
   end
 
   def description_html_en
     html = Rails.cache.fetch CacheHelper.keys(:descrption_html_en, object) do
-      BbCodes::Text.call(description_en.text)
+      # TODO: move gsub into BbCodes::EntryText
+      BbCodes::Text
+        .call(description_en.text)
+        .gsub(%r{<span class="name-ru">.*?</span>}, '')
+        .gsub(%r{<span class="name-en">(.*?)</span>}, '\1')
+        .html_safe
     end
 
-    if html.blank?
-      "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe
-    else
-      html
-    end
+    html.presence || "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe
   end
 
   def description_html_truncated length = 150
@@ -94,7 +96,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
       description_html,
       length: length,
       separator: ' ',
-      word_boundary: /\S[\.\?\!<>]/
+      word_boundary: /\S[.?!<>]/
     ).html_safe
   end
 
@@ -103,7 +105,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
       description_html.gsub(%r{<br ?/?>}, "\n").gsub(/<.*?>/, ''),
       length: 250,
       separator: ' ',
-      word_boundary: /\S[\.\?\!<>]/
+      word_boundary: /\S[.?!<>]/
     )
   end
 

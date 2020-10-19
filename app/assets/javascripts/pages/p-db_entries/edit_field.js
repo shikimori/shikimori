@@ -9,7 +9,7 @@ pageLoad('.db_entries-edit_field', () => {
           body: $(this).view().$textarea.val(),
           target_id: $editor.data('target_id'),
           target_type: $editor.data('target_type'),
-          locale: $('.edit-page.description_ru').exists() ? 'ru' : 'en'
+          lang: $('.edit-page.description_ru').exists() ? 'ru' : 'en'
         };
       });
 
