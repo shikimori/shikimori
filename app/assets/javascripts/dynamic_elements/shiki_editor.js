@@ -405,7 +405,8 @@ export default class ShikiEditor extends ShikiView {
     let reply;
 
     if (url) {
-      reply = `[${type}=${id}], `;
+      const ids = [id, userId].compact();
+      reply = `[${type}=${ids.join(';')}], `;
     } else {
       const ids = [id, userId, nickname];
       const type0 = type[0];
