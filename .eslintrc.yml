@@ -64,7 +64,7 @@ rules:
     - props: false
   no-underscore-dangle: 0
   no-unused-vars:
-    - error
+    - warn
     - argsIgnorePattern: ^_
       varsIgnorePattern: ^_
   no-use-before-define: 0
