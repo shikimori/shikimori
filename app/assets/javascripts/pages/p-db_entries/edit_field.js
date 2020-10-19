@@ -4,17 +4,18 @@ pageLoad('.db_entries-edit_field', () => {
   if ($description.exists()) {
     const $editor = $('.b-shiki_editor');
     $editor
-      .on('preview:params', function () {
+      .on('preview:params', function() {
         return {
           body: $(this).view().$textarea.val(),
           target_id: $editor.data('target_id'),
-          target_type: $editor.data('target_type')
+          target_type: $editor.data('target_type'),
+          locale: $('.edit-page.description_ru').exists() ? 'ru' : 'en'
         };
       });
 
-    $('form', $description).on('submit', function () {
+    $('form', $description).on('submit', function() {
       const $form = $(this);
-      const newDescription = function (text, source) {
+      const newDescription = function(text, source) {
         if (source) {
           return `${text}[source]${source}[/source]`;
         }
@@ -60,7 +61,7 @@ pageLoad('.db_entries-edit_field', () => {
 
     $('#anime_imageboard_tag, #manga_imageboard_tag, #character_imageboard_tag')
       .completable()
-      .on('autocomplete:success autocomplete:text', function (e, result) {
+      .on('autocomplete:success autocomplete:text', function(e, result) {
         this.value = Object.isString(result) ? result : result.value;
         $gallery.data({ imageboard_tag: this.value });
         $gallery.html(galleryHtml);
@@ -76,7 +77,7 @@ pageLoad('.db_entries-edit_field', () => {
     const $currentGenres = $('.c-current_genres').children().last();
     const $allGenres = $('.c-all_genres').children().last();
 
-    $currentGenres.on('click', '.remove', function () {
+    $currentGenres.on('click', '.remove', function() {
       const $genre = $(this).closest('.genre').remove();
 
       $allGenres.find(`#${$genre.attr('id')}`)
@@ -84,7 +85,7 @@ pageLoad('.db_entries-edit_field', () => {
         .yellowFade();
     });
 
-    $currentGenres.on('click', '.up', function () {
+    $currentGenres.on('click', '.up', function() {
       const $genre = $(this).closest('.genre');
       const $prior = $genre.prev();
 
@@ -94,7 +95,7 @@ pageLoad('.db_entries-edit_field', () => {
         .yellowFade();
     });
 
-    $currentGenres.on('click', '.down', function () {
+    $currentGenres.on('click', '.down', function() {
       const $genre = $(this).closest('.genre');
       const $next = $genre.next();
 
@@ -104,7 +105,7 @@ pageLoad('.db_entries-edit_field', () => {
         .yellowFade();
     });
 
-    $allGenres.on('click', '.name', function () {
+    $allGenres.on('click', '.name', function() {
       const $genre = $(this).closest('.genre');
 
       if ($genre.hasClass('included')) {
@@ -124,7 +125,7 @@ pageLoad('.db_entries-edit_field', () => {
 
       const newIds = $currentGenres
         .children()
-        .map(function () { return parseInt(this.id); })
+        .map(function() { return parseInt(this.id); })
         .toArray();
       const currentIds = $itemDiff.data('current_ids');
 
@@ -246,7 +247,7 @@ async function initSortableApp($node) {
 
   $('form', $node).on('submit', () => {
     const $images = $('.c-screenshot:not(.deleted) img', $node);
-    const ids = $images.map(function () { return $(this).data('id'); });
+    const ids = $images.map(function() { return $(this).data('id'); });
     $node.find('#entry_ids').val($.makeArray(ids).join(','));
   });
 
