@@ -1,10 +1,10 @@
-- url = entry.is_a?(Person) ? person_url(entry) : character_url(entry)
+- url = (entry.respond_to?(:url) ? entry.url : person_url(entry))
 - text = localized_name entry
 
 .b-db_entry-variant-list_item[
   data-id=entry.id
   data-text=text
-  data-type=(entry.is_a?(Person) ? 'person' : 'character')
+  data-type=(entry.is_a?(Character) ? 'character' : 'person')
   data-url=url
 ]
   .image.linkeable.bubbled[
