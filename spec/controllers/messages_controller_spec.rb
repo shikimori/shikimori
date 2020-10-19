@@ -44,7 +44,17 @@ describe MessagesController do
   end
 
   describe '#preview' do
-    subject! { post :preview, params: { message: { body: 'test', from_id: user.id, to_id: user.id, kind: MessageType::PRIVATE } } }
+    subject! do
+      post :preview,
+        params: {
+          message: {
+            body: 'test',
+            from_id: user.id,
+            to_id: user.id,
+            kind: MessageType::PRIVATE
+          }
+      }
+    end
 
     it { expect(response).to have_http_status :success }
   end

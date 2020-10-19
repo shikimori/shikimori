@@ -143,21 +143,6 @@
 .body
   .editor
     - if local_assigns[:f]
-      - if f.object.kind_of? Comment
-        - if f.object.persisted?
-          = f.input :user_id, as: :hidden, input_html: { id: nil }
-        = f.input :commentable_id, as: :hidden, input_html: { id: nil }
-        = f.input :commentable_type, as: :hidden, input_html: { id: nil }
-        = f.input :is_offtopic, as: :hidden, input_html: { id: nil }
-        = f.input :is_summary, as: :hidden, input_html: { id: nil }
-
-      - elsif f.object.kind_of? Message
-        = f.input :kind, as: :hidden, input_html: { id: nil }
-        = f.input :from_id, as: :hidden, input_html: { id: nil }
-        = f.input :to_id, as: :hidden, input_html: { id: nil }
-      - else
-        - raise ArgumentError, f.object
-
       = f.input :body,
         as: :text,
         input_html: {\
