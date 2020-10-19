@@ -1,13 +1,14 @@
 import WallImage from './image';
 
 const HEIGHT_RATIO = {
-  other: 1.0,
-  shrinked: 0.744
+  default: 1.0,
+  'shrinked-1_3': 0.744,
+  'shrinked-1_5': 0.8
 };
 
 export default class WallVideo extends WallImage {
   initialize() {
-    this.is_shrinked = this.$node.hasClass('shrinked');
+    this.ratioKey = this.node.className.match(/shrinked-\d_\d/)?.[0] || 'default';
     super.initialize();
   }
 
@@ -35,6 +36,6 @@ export default class WallVideo extends WallImage {
   }
 
   _heightRatio() {
-    return HEIGHT_RATIO[this.is_shrinked ? 'shrinked' : 'other'];
+    return HEIGHT_RATIO[this.ratioKey];
   }
 }
