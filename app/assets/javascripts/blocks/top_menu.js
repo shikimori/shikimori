@@ -5,7 +5,7 @@ import GlobalSearch from 'views/search/global';
 
 import showModal from 'helpers/show_modal';
 import globalHandler from 'helpers/global_handler';
-import { isMobile } from 'helpers/mobile_detect';
+import { isMobile } from 'shiki-utils';
 
 $(document).on('turbolinks:load', () => {
   const $search = $('.l-top_menu-v2 .global-search');

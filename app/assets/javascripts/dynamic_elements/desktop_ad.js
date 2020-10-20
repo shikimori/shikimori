@@ -3,7 +3,7 @@ import { AdView } from 'views/ads/ad_view';
 import { YandexAd } from 'views/ads/yandex_ad';
 import { MytargetAd } from 'views/ads/mytarget_ad';
 
-import { mobileDetect, isTablet, isPhone } from 'helpers/mobile_detect';
+import { mobileDetect, isTablet, isPhone } from 'shiki-utils';
 
 export default class DesktopAd extends View {
   initialize() {

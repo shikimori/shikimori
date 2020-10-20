@@ -11,7 +11,7 @@ import {
   ANIME_TOOLTIP_OPTIONS,
   COMMON_TOOLTIP_OPTIONS
 } from 'helpers/tooltip_options';
-import { isMobile } from 'helpers/mobile_detect';
+import { isMobile } from 'shiki-utils';
 import $with from 'helpers/with';
 
 $.fn.extend({

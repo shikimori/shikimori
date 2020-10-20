@@ -8,7 +8,7 @@ import axios from 'helpers/axios';
 import preventEvent from 'helpers/prevent_event';
 import ShikiView from 'views/application/shiki_view';
 
-import { isMobile } from 'helpers/mobile_detect';
+import { isMobile } from 'shiki-utils';
 
 // TODO: refactor constructor
 export default class ShikiEditor extends ShikiView {

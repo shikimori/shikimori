@@ -2,7 +2,7 @@ import Swiper from './swiper';
 import View from 'views/application/view';
 import Wall from 'views/wall/view';
 
-import { isPhone } from 'helpers/mobile_detect';
+import { isPhone } from 'shiki-utils';
 
 let GLOBAL_HANDLER = false;
 

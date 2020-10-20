@@ -8607,11 +8607,12 @@ shiki-uploader@^0.15.10:
     "@uppy/xhr-upload" "^1.6.0"
     is-visible "^2.2.0"
 
-shiki-utils@^0.15.10:
-  version "0.15.10"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.15.10.tgz#1506c47bb4c384133c977996478a38f1c4c8d1e9"
-  integrity sha512-tjz/LZCTWINwwPLKqRcDs1Ro7jrmbZAfc1w4HLnC6A3LmyzbUWaT9GPqUlVx8I1XdBXgLeVQENqcrYznGjZ9lA==
+shiki-utils@^0.15.11:
+  version "0.15.11"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.15.11.tgz#3843b6d62adf32d5fcd186a38038813908642cad"
+  integrity sha512-LAHziGP8IHuAERl8wKyEBj55qT6cIwEJRQEeCf6cnwboewXScCfD1Q4eizaQSzLWaAyQvVOUgCXcrtkcAHTGuA==
   dependencies:
+    ismobilejs "^1.1.1"
     toastify-js "^1.8.0"
 
 signal-exit@^3.0.0:

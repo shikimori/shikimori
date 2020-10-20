@@ -8,7 +8,7 @@ import View from 'views/application/view';
 import AutocompleteEngine from './autocomplete_engine';
 import IndexEngine from './index_engine';
 
-import { isMobile } from 'helpers/mobile_detect';
+import { isMobile } from 'shiki-utils';
 import globalHandler from 'helpers/global_handler';
 import JST from 'helpers/jst';
 

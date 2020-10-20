@@ -1,5 +1,5 @@
 import dayjs from 'helpers/dayjs';
-import { isMobile } from 'helpers/mobile_detect';
+import { isMobile } from 'shiki-utils';
 
 pageLoad('profiles_show', () => {
   $('.friend-action').on('ajax:success', () => (

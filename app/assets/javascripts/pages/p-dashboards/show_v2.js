@@ -1,4 +1,4 @@
-import { isPhone, isMobile } from 'helpers/mobile_detect';
+import { isPhone, isMobile } from 'shiki-utils';
 
 let swipers = [];
 

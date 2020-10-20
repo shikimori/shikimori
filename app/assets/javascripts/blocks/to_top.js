@@ -1,4 +1,4 @@
-import { isMobile } from 'helpers/mobile_detect';
+import { isMobile } from 'shiki-utils';
 
 let toTopVisible = null;
 let $toTop = null;

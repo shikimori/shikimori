@@ -1,4 +1,4 @@
-// import { isMobile, isWebkit } from 'helpers/mobile_detect';
+// import { isMobile, isWebkit } from 'shiki-utils';
 
 // ссылки на camo в href содержат оригинальный url картинки,
 // а в data-href проксированный url картинки

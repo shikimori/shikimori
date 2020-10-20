@@ -10,7 +10,7 @@
  * Date:    Wed Sep 22 06:02:10 2010 +0000
  */
 import delay from 'delay'
-import { isMobile } from 'helpers/mobile_detect';
+import { isMobile } from 'shiki-utils';
 
 (function($) {
   // static constructs
