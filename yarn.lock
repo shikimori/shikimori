@@ -8387,6 +8387,11 @@ schema-utils@^2.6.1, schema-utils@^2.6.5, schema-utils@^2.6.6, schema-utils@^2.7
     ajv "^6.12.2"
     ajv-keywords "^3.4.1"
 
+scroll-lock@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/scroll-lock/-/scroll-lock-2.1.4.tgz#2698551a18f6f88fa3e71a52db09adc4060c949e"
+  integrity sha512-v1uK+1UbDj15V+b2PeAVvoh5TDd7Ub1JPQcEdKE8z+dPS/1xytmPGSD3F2A6la1qp8xLXcGfW11Nrs9Ch7pAag==
+
 scss-tokenizer@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/scss-tokenizer/-/scss-tokenizer-0.2.3.tgz#8eb06db9a9723333824d3f5530641149847ce5d1"
@@ -8567,17 +8572,17 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-shiki-decorators@^0.15.10:
-  version "0.15.10"
-  resolved "https://registry.yarnpkg.com/shiki-decorators/-/shiki-decorators-0.15.10.tgz#a40ea7999f95e2aa1acaab5271d04d3fd5fd3620"
-  integrity sha512-IM/lvQrYvPzKpk8ZELc6yjwzWofA5dvk+mMj3rvrDbUL7HJ4XiiAgJpl8jgvZ+jSJE7S5m7d/g88C+VSaqoUog==
+shiki-decorators@^0.15.12:
+  version "0.15.12"
+  resolved "https://registry.yarnpkg.com/shiki-decorators/-/shiki-decorators-0.15.12.tgz#c6006581041b4ada45f1c50148af5e1e0da8b647"
+  integrity sha512-GWulk/t1YrC1689F21kEVAWE/pz5VGifs5mv9Upke+etmakyYrBZHi1Zs2H7HhDa9MhUaZyvpucgdXwimR1Kjg==
   dependencies:
     bind-decorator "1.0.11"
 
-shiki-editor@^0.15.10:
-  version "0.15.10"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.15.10.tgz#3b3c50c0d70a504a0f31c22a548173c936f1be4e"
-  integrity sha512-WkUOJckNxugNQ4B6bdz2Ekjv9nV4fNirIV1XBKW8ZpyJ2VQa6XVE6T8zPHssQKUkZOB8PZ/t12zZVr9eMuNzdw==
+shiki-editor@^0.15.12:
+  version "0.15.12"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.15.12.tgz#a19821b7672583546d35e1b5d70ddc186024827c"
+  integrity sha512-R+JcTULnA8rDSgl7ksEx0EmKEDjKkrom9Bz7iG/tmZHQfDnGg0/NbRLC4prSEJkj2BGcUseDaTw9j1SXsZYNZA==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@popperjs/core" "^2.4.4"
@@ -8594,23 +8599,24 @@ shiki-editor@^0.15.10:
     prosemirror-tables "^1.1.0"
     prosemirror-utils "^0.9.6"
     prosemirror-view "1.15.6"
+    scroll-lock "^2.1.4"
     vue-dragscroll "^2.1.0"
     vue-keypress "^2.1.1"
     withinviewport "^2.1.2"
 
-shiki-uploader@^0.15.10:
-  version "0.15.10"
-  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.15.10.tgz#51b60a3c41490753b17ad0e523a49c763fe5748d"
-  integrity sha512-ROUgcgrxeH/tkAeYG52OLAzJ6inF7hBiAA/zHBigw2T31Bnhsgzm5dKFJhYa+SoWHpmjRarFLKet63sAwFzDqQ==
+shiki-uploader@^0.15.12:
+  version "0.15.12"
+  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.15.12.tgz#35ad6707714eebc3f015fd413853926b5d2b915c"
+  integrity sha512-pCsDy2LTNYtYe6oKHVEkF1m1BfLtdfveoEMMEb0M6qgQzHyq2n1YWKpB/lWR4hYgyDwfZQQ2mKdFM9yHt1W3Mg==
   dependencies:
     "@uppy/core" "^1.11.0"
     "@uppy/xhr-upload" "^1.6.0"
     is-visible "^2.2.0"
 
-shiki-utils@^0.15.11:
-  version "0.15.11"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.15.11.tgz#3843b6d62adf32d5fcd186a38038813908642cad"
-  integrity sha512-LAHziGP8IHuAERl8wKyEBj55qT6cIwEJRQEeCf6cnwboewXScCfD1Q4eizaQSzLWaAyQvVOUgCXcrtkcAHTGuA==
+shiki-utils@^0.15.12:
+  version "0.15.12"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.15.12.tgz#6c078946dad0b789233e478053297a1229e83423"
+  integrity sha512-Opz7cOXsLkkU8uc3WMV2bJrStHQvLqDjh4D5g199LQ/WeqNNxzkLURGkkOwoO8qxLpDx0cK+XXG32WWi9tMqPQ==
   dependencies:
     ismobilejs "^1.1.1"
     toastify-js "^1.8.0"
