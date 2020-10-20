@@ -223,9 +223,10 @@ export default class ShikiEditor extends ShikiView {
     this.$('footer .preview').on('click', () => {
       // подстановка данных о текущем элементе, если они есть
       const data = {};
-      const itemData = this.$node.triggerWithReturn('preview:params') || (
-        { body: this.text }
-      );
+      const itemData = {
+        ...(this.$node.triggerWithReturn('preview:params') || {}),
+        body: this.text
+      };
       data[this.type] = itemData;
 
       this._shade();
