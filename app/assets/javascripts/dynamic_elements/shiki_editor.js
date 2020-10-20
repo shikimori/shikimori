@@ -375,12 +375,12 @@ export default class ShikiEditor extends ShikiView {
   }
 
   _markOfftopic(isOfftopic) {
-    this.$('input[name="comment[is_offtopic]"]').val(isOfftopic ? 'true' : 'false');
+    this.$form.find('input[name="comment[is_offtopic]"]').val(isOfftopic ? 'true' : 'false');
     this.$('.b-offtopic_marker').toggleClass('off', !isOfftopic);
   }
 
   _markReview(isReview) {
-    this.$('input[name="comment[is_summary]"]').val(isReview ? 'true' : 'false');
+    this.$form.find('input[name="comment[is_summary]"]').val(isReview ? 'true' : 'false');
     this.$('.b-summary_marker').toggleClass('off', !isReview);
   }
 
