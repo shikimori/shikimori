@@ -168,9 +168,9 @@ export default class ShikiEditable extends ShikiView {
       id: this.node.id,
       type: this._type(),
       userId: this.isGenerated ? null : this.$node.data('user_id'),
-      nickname: this.isGenerated ? null : this.$node.data('user_nickname'),
-      text: this.$node.data('selected_text'),
-      html: this.$node.data('selected_html')
+      nickname: this.isGenerated ? null : String(this.$node.data('user_nickname')),
+      text: String(this.$node.data('selected_text')),
+      html: String(this.$node.data('selected_html'))
     };
     const isOfftopic = typeof this._isOfftopic === 'function' ?
       this._isOfftopic() :
@@ -190,7 +190,7 @@ export default class ShikiEditable extends ShikiView {
       id: this.node.id,
       type: this._type(),
       userId: this.$node.data('user_id'),
-      text: this.$node.data('user_nickname'),
+      text: String(this.$node.data('user_nickname')),
       url: this.$node.data('url') || `/${this._type()}s/${this.node.id}`
     };
     const isOfftopic = typeof this._isOfftopic === 'function' ?
