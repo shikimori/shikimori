@@ -192,7 +192,9 @@ export default class ShikiEditorV2 extends View {
   @bind
   async _formAjaxSuccess() {
     await delay();
-    this.focus();
+    if ($(this.editorApp.$el).is(':visible')) {
+      this.focus();
+    }
   }
 
   @bind
