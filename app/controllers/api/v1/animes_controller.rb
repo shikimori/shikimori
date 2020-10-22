@@ -6,7 +6,6 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     NekoRepository.instance.cache_key(
       params[:controller],
       params[:action],
-      ((rand * 1000).to_i if params[:random]),
       Anime.count,
       :v6
     ).to_json
@@ -300,6 +299,7 @@ private
       request.path,
       params.to_json,
       params[:mylist].present? ? current_user.try(:cache_key) : nil,
+      ((rand * 1000).to_i if params[:order] == 'random'),
       :v2
     ].join('|'))
   end
