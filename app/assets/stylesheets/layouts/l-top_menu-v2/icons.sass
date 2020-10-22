@@ -5,7 +5,8 @@
   &:before
     +font_shikimori($content)
     font-size: 20px
-    line-height: $top_menu-height
+    +css4
+      line-height: var(--top-menu-height)
     vertical-align: middle
 
 =submenu_icon($content, $font-size: 18px)

@@ -9,7 +9,7 @@
     +css4
       font-family: var(--font-alt)
       letter-spacing: var(--font-alt-text-letter-spacing)
-    height: $top_menu-height // need for mobile profile height
+      height: var(--top-menu-height) // required for mobile profile height
     outline: none
     user-select: none
 
@@ -99,7 +99,8 @@
         align-items: center
         color: #fff
         display: inline-flex
-        height: $top_menu-height
+        +css4
+          height: var(--top-menu-height)
         flex-grow: 1
         // compensates button gte_ipad padding. need to remove button padding around link
         margin: 0 -15px

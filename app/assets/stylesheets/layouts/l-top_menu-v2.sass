@@ -1,12 +1,11 @@
 @import globals
+@import mixins/css4
 @import mixins/ellipsis2
 @import mixins/link
 @import mixins/margins
 @import mixins/responsive
 @import mixins/retina
 @import mixins/font_shikimori
-
-$top_menu-height: 46px
 
 $top_menu-background_color: #343434
 $top_menu_background_hover: $gray-4
@@ -20,7 +19,8 @@ $top_menu_background_active: lighten($gray-4, 6%)
 .l-top_menu-v2
   background: $top_menu-background_color
   color: #fff
-  height: $top_menu-height
+  +css4
+    height: var(--top-menu-height)
   position: relative // w/o it z-index wont work
   z-index: 10
   // wo inner
@@ -65,7 +65,8 @@ $top_menu_background_active: lighten($gray-4, 6%)
   .logo-container
     align-items: center
     display: flex
-    height: $top_menu-height
+    +css4
+      height: var(--top-menu-height)
     padding: 0 5px
 
     +gte_ipad
