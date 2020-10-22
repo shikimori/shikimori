@@ -1,10 +1,10 @@
+const EDITOR_SELECTOR = '.b-shiki_editor, .b-shiki_editor-v2';
 
 pageLoad('characters_show', async () => {
   $('.text').checkHeight({ maxHeight: 200 });
 
   $('.b-subposter-actions .new_comment').on('click', () => {
-    const $editor = $('.b-form.new_comment textarea');
-    $.scrollTo($editor, () => $editor.focus());
+    $(EDITOR_SELECTOR).view().focus();
   });
 
   const [{ FavoriteStar }, { LangTrigger }] = await Promise.all([

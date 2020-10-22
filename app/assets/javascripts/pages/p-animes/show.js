@@ -1,3 +1,5 @@
+const EDITOR_SELECTOR = '.b-shiki_editor, .b-shiki_editor-v2';
+
 pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
   $('.b-notice').tipsy({ gravity: 's' });
   $('.c-screenshot').magnificRelGallery();
@@ -24,14 +26,13 @@ pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
   });
 
   $('.b-subposter-actions .new_comment').on('click', () => {
-    const $editor = $('.b-form.new_comment textarea');
-    $.scrollTo($editor, () => $editor.focus());
+    $(EDITOR_SELECTOR).view().focus();
   });
 
   const [{ FavoriteStar }, { LangTrigger }] = await Promise.all([
     import(/* webpackChunkName: "db_entries_show" */ 'views/db_entries/favorite_star'),
     import(/* webpackChunkName: "db_entries_show" */ 'views/db_entries/lang_trigger')
-  ])
+  ]);
 
   new LangTrigger('.b-lang_trigger');
   new FavoriteStar($('.b-subposter-actions .fav-add'), gon.is_favoured);

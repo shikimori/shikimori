@@ -1,10 +1,11 @@
+const EDITOR_SELECTOR = '.b-shiki_editor, .b-shiki_editor-v2';
+
 pageLoad('people_show', async () => {
   $('.b-entry-info').checkHeight({ maxHeight: 101, withoutShade: true });
 
   // комментировать
   $('.b-subposter-actions .new_comment').on('click', () => {
-    const $editor = $('.b-form.new_comment textarea');
-    $.scrollTo($editor, () => $editor.focus());
+    $(EDITOR_SELECTOR).view().focus();
   });
 
   const { FavoriteStar } =
