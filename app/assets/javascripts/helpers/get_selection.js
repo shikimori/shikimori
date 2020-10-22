@@ -1,5 +1,9 @@
 import $with from './with';
 
+export function isGetSelectionTextSupported() {
+  return typeof window.getSelection !== 'undefined';
+}
+
 export function getSelectionText() {
   return $(`<div>${getSelectionHtml()}</div>`).text();
 }
@@ -7,7 +11,7 @@ export function getSelectionText() {
 export function getSelectionHtml() {
   let html = '';
 
-  if (typeof window.getSelection !== 'undefined') {
+  if (isGetSelectionTextSupported()) {
     const sel = window.getSelection();
     if (sel.rangeCount) {
       const container = document.createElement('div');

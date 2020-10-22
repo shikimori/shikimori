@@ -1,5 +1,7 @@
-import View from 'views/application/view';
 import { bind } from 'shiki-decorators';
+
+import View from 'views/application/view';
+import { getSelectionText, isGetSelectionTextSupported } from 'helpers/get_selection';
 
 export default class SpoilerInline extends View {
   initialize() {
@@ -20,6 +22,14 @@ export default class SpoilerInline extends View {
       return;
     }
 
+    // prevent spoiler from collapse during text selection
+    if (this.isOpened && getSelectionText() && isGetSelectionTextSupported()) {
+      if (e.currentTarget.contains(window.getSelection().focusNode)) {
+        e.currentTarget.blur();
+        return;
+      }
+    }
+
     // prevent form submition
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -28,6 +38,10 @@ export default class SpoilerInline extends View {
     if (e.x || e.y) { this.node.blur(); }
 
     this.node.classList.toggle('is-opened');
+  }
+
+  get isOpened() {
+    return this.node.classList.contains('is-opened');
   }
 
   @bind
