@@ -88,10 +88,6 @@ class Ability
         message.to_id == User::MORR_ID
     end
 
-    can :create, AnimeVideoReport do |report|
-      report.user_id == User::GUEST_ID && (report.broken? || report.wrong?)
-    end
-
     # can %i[new create], AnimeVideo, &:uploaded?
   end
 
