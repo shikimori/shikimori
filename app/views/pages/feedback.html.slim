@@ -2,21 +2,24 @@
   .subheadline.m5 = t '.title'
   .about
     = BbCodes::Text.call t('.text')
-  .b-shiki_editor.to-process data-dynamic='shiki_editor'
-    = simple_form_for @feedback_message,
-        url: api_messages_url,
-        as: :message,
-        remote: true,
-        authenticity_token: true,
-        html: { data: { type: :json } } do |f|
-      - unless user_signed_in?
-        input[
-          type='hidden'
-          name=Api::V1::MessagesController::ANTISPAM_TOKEN_NAME
-          data-token="antispam-#{Api::V1::MessagesController::ANTISPAM_TOKEN_VALUE}"
-          data-antispam
-        ]
-        .m10
-          = f.input :feedback_address, label: 'E-mail', hint: 'Сюда может прийти ответ'
-      = f.input :location, as: :hidden
-      = render 'comments/shiki_editor', comment: @feedback_message, f: f
+  = simple_form_for @feedback_message,
+      url: api_messages_url,
+      as: :message,
+      remote: true,
+      authenticity_token: true,
+      html: { data: { type: :json } } do |f|
+    - unless user_signed_in?
+      input[
+        type='hidden'
+        name=Api::V1::MessagesController::ANTISPAM_TOKEN_NAME
+        data-token="antispam-#{Api::V1::MessagesController::ANTISPAM_TOKEN_VALUE}"
+        data-antispam
+      ]
+      .m10
+        = f.input :feedback_address, label: 'E-mail', hint: 'Сюда может прийти ответ'
+    = f.input :location, as: :hidden
+    = render 'blocks/shiki_editor',
+      text: @feedback_message.body,
+      field_name: 'message[body]',
+      f: f
+

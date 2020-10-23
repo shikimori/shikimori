@@ -6,7 +6,8 @@ export default class ShikiModal extends View {
 
     this.$modal
       .find('.inner')
-      .append(this.$root);
+      .append(this.$root)
+      .process();
 
     this.$modal
       .css('top', $(window).scrollTop());
