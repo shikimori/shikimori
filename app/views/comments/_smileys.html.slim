@@ -1,4 +1,9 @@
 - smiley_groups.map do |smiley_group|
   div
     - smiley_group.each do |smiley|
-      img.smiley src="#{smileys_path}#{smiley}.gif" alt=smiley title=smiley
+      img.smiley[
+        src="#{smileys_path}#{smiley}.gif"
+        alt=smiley
+        title=smiley
+        loading='lazy'
+      ]
