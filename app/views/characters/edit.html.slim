@@ -8,31 +8,26 @@
             .field = Character.human_attribute_name :name
             .value
               span = @resource.name
-              - if can? :restricted_update, Version
+              - if VersionsPolicy.change_allowed? current_user, @resource, :name
                 a.b-js-action.to-process[
                   href=@resource.edit_field_url(:name)
                   data-dynamic='week_registered'
                 ] = t 'moderators_only'
               - else
-                .b-js-action = t 'moderators_only'
+                a.b-js-action.is-disabled = t 'moderators_only'
 
-          li
-            .field = Character.human_attribute_name :russian
-            .value
-              span = @resource.russian
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:russian)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          li
-            .field = Character.human_attribute_name :japanese
-            .value
-              span = @resource.japanese
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:japanese)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
+          - %i[russian japanese].each do |field|
+            li
+              .field = @resource.class.human_attribute_name field
+              .value
+                span = @resource.russian
+                - if VersionsPolicy.change_allowed? current_user, @resource, field
+                  a.b-js-action.to-process[
+                    href=@resource.edit_field_url(field)
+                    data-dynamic='week_registered'
+                  ] = t 'actions.edit'
+                - else
+                  a.b-js-action.is-disabled = t 'actions.edit'
 
       .f-column
         ul.b-list.is-wide
