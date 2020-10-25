@@ -252,7 +252,7 @@ class Abilities::User
       if version.is_a? Versions::RoleVersion
         false
       else
-        VersionPolicy.change_allowed? version, @user
+        VersionsPolicy.version_allowed? @user, version
       end
     end
     can %i[destroy], Version do |version|

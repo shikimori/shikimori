@@ -21,7 +21,8 @@ class VersionsPolicy
 
 private
 
-  def allowed?
+  def allowed? # rubocop:disable CyclomaticComplexity
+    return false unless @user
     return false if @user.banned?
     return false if @user.not_trusted_version_changer?
     return false if @user.not_trusted_names_changer? && name_changing?

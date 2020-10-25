@@ -21,6 +21,12 @@ describe VersionsPolicy do
   it { expect(version_allowed).to eq true }
   it { expect(change_allowed).to eq true }
 
+  context 'no user' do
+    let(:user) { nil }
+    it { expect(version_allowed).to eq false }
+    it { expect(change_allowed).to eq false }
+  end
+
   context 'user banned' do
     before { user.read_only_at = 1.hour.from_now }
     it { expect(version_allowed).to eq false }

@@ -8,7 +8,7 @@
             .field = @resource.class.human_attribute_name(:name)
             .value
               span = @resource.name
-              - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { name: [] })
+              - if VersionsPolicy.change_allowed? current_user, @resource, :name
                 a.b-js-action href=@resource.edit_field_url(:name)
                   = t 'moderators_only'
               - else
