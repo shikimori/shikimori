@@ -13,7 +13,7 @@
   .block
     .subheadline.m5 = t 'dashboards.animes.recommended.title'
 
-    .b-list style="margin-left: 5px"
+    .b-list.is-wide
       li: a.b-link[
         href=send(:"recommendations_favourites_#{menu.klass.name.downcase}_url")
       ] = t "dashboards.#{menu.klass.table_name}.recommended.favourite"
