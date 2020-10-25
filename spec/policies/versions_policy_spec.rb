@@ -8,9 +8,12 @@ describe VersionsPolicy do
   let(:item) { build_stubbed :anime }
   let(:item_diff) do
     {
-      russian: ['История финала 2', 'История финала 22']
+      change_field => [change_from, change_to]
     }
   end
+  let(:change_field) { :russian }
+  let(:change_from) { 'a' }
+  let(:change_to) { 'b' }
 
   it { is_expected.to eq true }
 
@@ -27,5 +30,18 @@ describe VersionsPolicy do
   context 'not matched author' do
     let(:author) { user_2 }
     it { is_expected.to eq false }
+  end
+
+  context 'changed restricted field' do
+    let(:change_field) { :name }
+
+    context 'from nil to value' do
+      let(:change_from) { nil }
+      it { is_expected.to eq true }
+    end
+
+    context 'from value to value' do
+      it { is_expected.to eq false }
+    end
   end
 end
