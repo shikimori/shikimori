@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_22_032309) do
+ActiveRecord::Schema.define(version: 2020_10_25_185432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -976,6 +976,7 @@ ActiveRecord::Schema.define(version: 2020_10_22_032309) do
     t.string "prior_value", limit: 255
     t.index ["target_type", "user_id", "id"], name: "index_user_histories_on_target_type_and_user_id_and_id"
     t.index ["updated_at"], name: "index_user_histories_on_updated_at"
+    t.index ["user_id", "action"], name: "user_histories_UserDataFetcherBase_latest_import_index", where: "((action)::text = ANY ((ARRAY['mal_anime_import'::character varying, 'ap_anime_import'::character varying, 'anime_history_clear'::character varying, 'mal_manga_import'::character varying, 'ap_manga_import'::character varying, 'manga_history_clear'::character varying])::text[]))"
     t.index ["user_id", "updated_at"], name: "index_user_histories_on_user_id_and_updated_at"
     t.index ["user_id"], name: "index_user_histories_on_user_id"
   end
