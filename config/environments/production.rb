@@ -1,6 +1,12 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+=begin
+  Rails.logger = ActiveSupport::Logger.new(STDOUT)
+  Dalli.logger = Rails.logger
+  ActiveRecord::Base.logger = Rails.logger
+=end
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
