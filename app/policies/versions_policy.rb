@@ -2,11 +2,20 @@ class VersionsPolicy
   pattr_initialize :user, %i[version db_entry field]
 
   def self.version_allowed? user, version
-    new(user, version: version).call
+    new(
+      user,
+      version: version
+    ).call
   end
 
   def self.change_allowed? user, db_entry, field
-    new(user, db_entry: db_entry, field: field).call
+    new(
+      user,
+      db_entry: db_entry.respond_to?(:decorated?) && db_entry.decorated? ?
+        db_entry.object :
+        db_entry,
+      field: field.to_s
+    ).call
   end
 
   def call
@@ -39,7 +48,7 @@ private
     if @version
       @version.item_diff.keys
     else
-      [@field.to_s]
+      [@field]
     end
   end
 
