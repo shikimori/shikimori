@@ -13,7 +13,8 @@ class RolesPolicy
   static_facade :accessible?, :role
 
   def accessible?
-    !RESTRICTED_ROLES.include?(@role.to_sym) ||
+    RESTRICTED_ROLES.exclude?(@role.to_sym) ||
+      h.current_user&.staff? ||
       h.can?(:"manage_#{@role}_role", User)
   end
 end
