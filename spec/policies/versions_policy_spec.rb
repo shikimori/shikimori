@@ -27,6 +27,26 @@ describe VersionsPolicy do
     it { is_expected.to eq false }
   end
 
+  context 'not_trusted_names_changer' do
+    before { user.roles = %i[not_trusted_names_changer] }
+
+    context 'not name field' do
+      let(:change_field) { 'description_ru' }
+      it { is_expected.to eq true }
+    end
+
+    context 'name field' do
+      context 'not DbEntry model' do
+        let(:item) { build_stubbed :video }
+        it { is_expected.to eq true }
+      end
+
+      context 'DbEntry model' do
+        it { is_expected.to eq false }
+      end
+    end
+  end
+
   context 'not matched author' do
     let(:author) { user_2 }
     it { is_expected.to eq false }

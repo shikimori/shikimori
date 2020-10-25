@@ -11,7 +11,10 @@ module Types
       version_fansub_moderator
 
       trusted_version_changer
+
       not_trusted_version_changer
+      not_trusted_names_changer
+
       review_moderator
       collection_moderator
       news_moderator

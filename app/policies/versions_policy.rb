@@ -4,6 +4,7 @@ class VersionsPolicy
   def change_allowed?
     return false if @user.banned?
     return false if @user.not_trusted_version_changer?
+    return false if @user.not_trusted_names_changer? && name_changed?
     return false if not_matched_author?
 
     if changed_restricted_fields.any?
@@ -40,5 +41,13 @@ private
     changed_restricted_fields.all? do |field|
       @version.item_diff.dig(field, 0).nil?
     end
+  end
+
+  def name_changed?
+    (
+      @version.item_diff.keys & Abilities::VersionNamesModerator::MANAGED_FIELDS
+    ).any? && Abilities::VersionNamesModerator::MANAGED_MODELS.include?(
+      version.item_type
+    )
   end
 end

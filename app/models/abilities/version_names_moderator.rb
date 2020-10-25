@@ -24,6 +24,8 @@ class Abilities::VersionNamesModerator
         MANAGED_MODELS.include?(version.item_type)
     end
 
+    can %i[manage_not_trusted_names_changer_role], User
+
     can %i[filter autocomplete_user autocomplete_moderator], Version
   end
 end

@@ -22,5 +22,5 @@ ul.b-list.is-wide.block
       - if RolesPolicy.accessible?(role) && current_user&.send("#{role}?")
         .have-role ✓
 
-    - if %w[retired_moderator version_fansub_moderator not_trusted_version_changer statistics_moderator completed_announced_animes video_super_moderator].include? role
+    - if %w[retired_moderator version_fansub_moderator not_trusted_names_changer statistics_moderator completed_announced_animes video_super_moderator].include? role
       .m15
