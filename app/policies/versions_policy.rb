@@ -1,7 +1,11 @@
 class VersionsPolicy
-  static_facade :change_allowed?, :version, :user
+  pattr_initialize :user, %i[version item field]
 
-  def change_allowed?
+  def self.version_allowed? user, version
+    new(user, version: version).call
+  end
+
+  def call
     return false if @user.banned?
     return false if @user.not_trusted_version_changer?
     return false if @user.not_trusted_names_changer? && name_changed?
