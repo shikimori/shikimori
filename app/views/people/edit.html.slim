@@ -4,58 +4,23 @@
     .fc-2
       .f-column
         ul.b-list.is-wide
-          li
-            .field = Person.human_attribute_name :name
-            .value
-              span = @resource.name
-              - if can? :restricted_update, Version
-                a.b-js-action href=@resource.edit_field_url(:name)
-                  = t 'moderators_only'
-              - else
-                .b-js-action = t 'moderators_only'
-
-          li
-            .field = Person.human_attribute_name :russian
-            .value
-              span = @resource.russian
-              a.b-js-action href=@resource.edit_field_url(:russian)
-                = t 'actions.edit'
-
-          li
-            .field = Person.human_attribute_name :japanese
-            .value
-              span = @resource.japanese
-              a.b-js-action href=@resource.edit_field_url(:japanese)
-                = t 'actions.edit'
-
-          li
-            .field = Person.human_attribute_name :birthday
-            .value
-              span = formatted_date(@resource.birthday, true) if @resource.birthday
-              a.b-js-action href=@resource.edit_field_url(:birthday)
-                = t 'actions.edit'
-
-          li
-            .field = Person.human_attribute_name :website
-            .value
-              span = @resource.website_html
-              a.b-js-action href=@resource.edit_field_url(:website)
-                = t 'actions.edit'
+          - %i[name russian japanese birthday website].each do |field|
+            = render 'db_entries/edit_field_li',
+              resource: @resource,
+              field: field,
+              formatter: {\
+                website: ->(_value) { @resource.website_html }\
+              }[field]
 
       .f-column
         ul.b-list.is-wide
-          li
-            .field = Person.human_attribute_name :image
-            .value
-              - if @resource.image.exists?
-                - if can? :restricted_update, Version
-                  a.b-js-action href=@resource.edit_field_url(:image)
-                    = t 'moderators_only'
-                - else
-                  .b-js-action = t 'moderators_only'
-              - else
-                a.b-js-action href=@resource.edit_field_url(:image)
-                  = t 'actions.edit'
+          - %i[image].each do |field|
+            = render 'db_entries/edit_field_li',
+              resource: @resource,
+              field: field,
+              formatter: {\
+                image: ->(_value) {}\
+              }[field]
 
   = render 'db_entries/synchronization', resource: @resource
   = render 'db_entries/dangerous_actions', resource: @resource

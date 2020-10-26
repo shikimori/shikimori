@@ -8,3 +8,17 @@
 
   &:first-child
     margin-left: 0
+
+  &.is-disabled
+    cursor: not-allowed
+
+    +gte_laptop
+      &:hover
+        +css4
+          color: var(--link-color)
+          border-bottom: 1px dotted var(--link-border-color)
+
+    &:active
+      +css4
+        color: var(--link-color)
+        border-bottom: 1px dotted var(--link-border-color)

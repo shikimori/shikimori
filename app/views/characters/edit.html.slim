@@ -4,86 +4,22 @@
     .fc-2
       .f-column
         ul.b-list.is-wide
-          li
-            .field = Character.human_attribute_name :name
-            .value
-              span = @resource.name
-              - if can? :restricted_update, Version
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:name)
-                  data-dynamic='week_registered'
-                ] = t 'moderators_only'
-              - else
-                .b-js-action = t 'moderators_only'
-
-          li
-            .field = Character.human_attribute_name :russian
-            .value
-              span = @resource.russian
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:russian)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          li
-            .field = Character.human_attribute_name :japanese
-            .value
-              span = @resource.japanese
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:japanese)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
+          - %i[name russian japanese].each do |field|
+            = render 'db_entries/edit_field_li',
+              resource: @resource,
+              field: field
 
       .f-column
         ul.b-list.is-wide
-          li
-            .field = @resource.class.human_attribute_name :image
-            .value
-              - if @resource.image.exists?
-                - if can? :restricted_update, Version
-                  a.b-js-action.to-process[
-                    href=@resource.edit_field_url(:image)
-                    data-dynamic='week_registered'
-                  ] = t 'moderators_only'
-                - else
-                  .b-js-action = t 'moderators_only'
-              - else
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:image)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-
-          - if ru_host?
-            li
-              .field = Character.human_attribute_name :description_ru
-              .value
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:description_ru)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-
-          li
-            .field = Character.human_attribute_name :description_en
-            .value
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:description_en)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          / li
-            / .field = Character.human_attribute_name :cosplay
-            / .value.under_development
-              / span = t('under_development').downcase
-              /a.b-js-action href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
-
-          li
-            .field = Character.human_attribute_name :imageboard_tag
-            .value
-              span = @resource.imageboard_tag
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:imageboard_tag)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
+          - %i[image description_ru description_en imageboard_tag].each do |field|
+            = render 'db_entries/edit_field_li',
+              resource: @resource,
+              field: field,
+              formatter: {\
+                image: ->(_value) {},
+                description_ru: ->(_value) {},
+                description_en: ->(_value) {}\
+              }[field]
 
   = render 'db_entries/synchronization', resource: @resource
   = render 'db_entries/dangerous_actions', resource: @resource

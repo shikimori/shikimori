@@ -3,6 +3,7 @@ class Abilities::VersionFansubModerator
   prepend Draper::CanCanCan
 
   MANAGED_FIELDS = %w[fandubbers fansubbers]
+  MANAGED_MODELS = [Anime.name]
 
   def initialize _user
     can :increment_episode, Anime
@@ -18,6 +19,8 @@ class Abilities::VersionFansubModerator
         version.item_diff &&
         (version.item_diff.keys - MANAGED_FIELDS).none?
     end
+
+    can %i[manage_not_trusted_fansub_changer_role], User
 
     can %i[filter autocomplete_user autocomplete_moderator], Version
   end

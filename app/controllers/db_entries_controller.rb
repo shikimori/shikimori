@@ -45,8 +45,9 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
     og noindex: true, page_title: i18n_t('entry_edit')
     @field = params[:field]
 
-    authorize! :create, temp_verison
-    authorize! :restricted_update, temp_verison if restricted_fields.include? @field
+    unless VersionsPolicy.change_allowed? current_user, @resource, @field
+      raise CanCan::AccessDenied
+    end
 
     if json?
       render 'db_entries/versions',
@@ -57,10 +58,6 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def update
-    if (update_params.keys & restricted_fields).any?
-      authorize! :restricted_update, temp_verison
-    end
-
     Version.transaction do
       @version =
         if update_params[:image]
@@ -206,19 +203,6 @@ private
 
     version.auto_accept if version.persisted? && can?(:auto_accept, version)
     version
-  end
-
-  def temp_verison
-    Version.new(
-      user: current_user,
-      item: @resource.decorated? ? @resource.object : @resource,
-      item_diff: (
-        update_params.present? ?
-          { update_params.keys.first => [] } :
-          { @field => [] }
-      ),
-      state: 'pending'
-    )
   end
 
   def reset_poster resource

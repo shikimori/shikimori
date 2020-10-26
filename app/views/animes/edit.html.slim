@@ -4,51 +4,10 @@
     .fc-2
       .f-column
         ul.b-list.is-wide
-          li
-            .field = @resource.class.human_attribute_name(:name)
-            .value
-              span = @resource.name
-              - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { name: [] })
-                a.b-js-action href=@resource.edit_field_url(:name)
-                  = t 'moderators_only'
-              - else
-                .b-js-action = t 'moderators_only'
-
-          li
-            .field = @resource.class.human_attribute_name(:russian)
-            .value
-              span = @resource.russian
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:russian)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          li
-            .field = @resource.class.human_attribute_name(:license_name_ru)
-            .value
-              span = @resource.license_name_ru
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:license_name_ru)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          li
-            .field = @resource.class.human_attribute_name(:synonyms)
-            .value
-              span = @resource.synonyms.join(', ')
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:synonyms)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          li
-            .field = @resource.class.human_attribute_name(:japanese)
-            .value
-              span = @resource.japanese
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:japanese)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
+          - %i[name russian license_name_ru synonyms japanese].each do |field|
+            = render 'db_entries/edit_field_li',
+              resource: @resource,
+              field: field
 
           - if @resource.franchise.present?
             li
@@ -60,92 +19,22 @@
                       href=@resource.collection_url(franchise: @resource.franchise)
                     ] = @resource.franchise
 
-          - if user_signed_in? && current_user.admin? && @resource.anime?
-            li
-              .field = @resource.class.human_attribute_name(:torrents_name)
-              .value
-                span = @resource.torrents_name
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:torrents_name)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
+          - if current_user&.admin? && @resource.anime?
+            = render 'db_entries/edit_field_li',
+              resource: @resource,
+              field: :torrents_name
 
-          li.m15
-            .field = @resource.class.human_attribute_name(:licensor)
-            .value
-              span = @resource.licensor
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:licensor)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          li
-            .field = @resource.class.human_attribute_name(:kind)
-            .value
-              span = @resource.kind_text
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:kind)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
+          - %i[licensor kind rating genres status aired_on released_on duration].each do |field|
+            = render 'db_entries/edit_field_li',
+              resource: @resource,
+              field: field,
+              class: ('m15' if %i[licensor genres].include? field),
+              formatter: {\
+                genres: ->(value) { value.map { |v| v.is_a?(Genre) ? localization_span(v) : v }.join(', ').html_safe },
+                duration: ->(value) { humanize_minutes value }\
+              }[field]
 
           - if @resource.anime?
-            li
-              .field = @resource.class.human_attribute_name(:rating)
-              .value
-                span = @resource.rating_text
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:rating)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-
-          li.m15
-            .field = @resource.class.human_attribute_name(:genres)
-            .value
-              span = @resource.genres.map { |v| localization_span v }.join(', ').html_safe
-              - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { genre_ids: [] })
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:genre_ids)
-                  data-dynamic='week_registered'
-                ] = t 'moderators_only'
-              - else
-                .b-js-action = t 'moderators_only'
-
-          li
-            .field = @resource.class.human_attribute_name(:status)
-            .value
-              span = @resource.status_text
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:status)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          li
-            .field = @resource.class.human_attribute_name(:aired_on)
-            .value
-              span = formatted_date @resource.object.aired_on, true
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:aired_on)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          li
-            .field = @resource.class.human_attribute_name(:released_on)
-            .value
-              span = formatted_date @resource.released_on, true
-              a.b-js-action.to-process[
-              href=@resource.edit_field_url(:released_on)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          - if @resource.anime?
-            li
-              .field = @resource.class.human_attribute_name(:duration)
-              .value
-                span = humanize_minutes @resource.duration
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:duration)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
             li
               .field = @resource.class.human_attribute_name(:episodes_aired)
               .value
@@ -163,138 +52,29 @@
                     data-confirm=t('.confirm_rollback')
                   ] = t 'actions.rollback'
 
-          - else
-            li
-              .field = @resource.class.human_attribute_name(:volumes)
-              .value
-                span = @resource.volumes
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:volumes)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-
-            li
-              .field = @resource.class.human_attribute_name(:chapters)
-              .value
-                span = @resource.chapters
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:chapters)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-
-          - if @resource.anime?
-            li
-              .field = @resource.class.human_attribute_name(:episodes)
-              .value
-                span = @resource.episodes
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:episodes)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
+          - %i[episodes volumes chapters].each do |field|
+            = render 'db_entries/edit_field_li',
+              resource: @resource,
+              field: field,
+              class: ('m15' if %i[episodes chapters].include? field)
 
       .f-column
         ul.b-list.is-wide
-          li
-            .field = @resource.class.human_attribute_name(:image)
-            .value
-              - if @resource.image.exists?
-                - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { image: [] })
-                  a.b-js-action.to-process[
-                    href=@resource.edit_field_url(:image)
-                    data-dynamic='week_registered'
-                  ] = t 'moderators_only'
-                - else
-                  .b-js-action = t 'moderators_only'
-
-              - else
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:image)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-
-          - if ru_host?
-            li
-              .field = @resource.class.human_attribute_name(:description_ru)
-              .value
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:description_ru)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-
-          li.m15
-            .field = @resource.class.human_attribute_name(:description_en)
-            .value
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:description_en)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          - if @resource.anime? && @resource.screenshots_allowed?
-            li
-              .field = @resource.class.human_attribute_name(:screenshots)
-              .value
-                span = "#{@resource.screenshots.size} #{i18n_i 'screenshot', @resource.screenshots.size}"
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:screenshots)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-
-          - if @resource.anime?
-            li.m15
-              .field = @resource.class.human_attribute_name(:videos)
-              .value
-                span = "#{@resource.videos.size} #{i18n_i 'video', @resource.videos.size}"
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:videos)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-
-            / li
-              / .field = Anime.human_attribute_name(:cosplay)
-              / .value.under_development
-                / span = t('under_development').downcase
-                /a.b-js-action href=@resource.edit_field_url(:cosplay) = t 'actions.edit'
-
-          li
-            .field = @resource.class.human_attribute_name(:imageboard_tag)
-            .value
-              span = @resource.imageboard_tag
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:imageboard_tag)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          - if @resource.anime?
-            li
-              .field = @resource.class.human_attribute_name(:coub_tags)
-              .value
-                span = "#{@resource.coub_tags.size} #{i18n_i 'tag', @resource.coub_tags.size}"
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:coub_tags)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-                .sample
-                  = @resource.coub_tags.join(', ')
-
-          li.m15
-            .field = t '.external_links'
-            .value
-              span = @resource.available_external_links.map(&:label).join(', ').html_safe
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:external_links)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          - if @resource.anime?
-            - %i[fansubbers fandubbers].each do |field|
-              li
-                .field = @resource.class.human_attribute_name(field)
-                .value
-                  span = @resource.send(field).join(', ')
-                  a.b-js-action.to-process[
-                    href=@resource.edit_field_url(field)
-                    data-dynamic='week_registered'
-                  ] = t 'actions.edit'
+          - is_screenshots = @resource.anime? && @resource.screenshots_allowed?
+          - %i[image description_ru description_en screenshots videos imageboard_tag coub_tags external_links fansubbers fandubbers].delete_if { |v| v == :screenshots && !is_screenshots }.each do |field|
+            = render 'db_entries/edit_field_li',
+              resource: @resource,
+              field: field,
+              class: ('m15' if %i[description_en videos external_links].include? field),
+              formatter: {\
+                image: ->(_value) {},
+                description_ru: ->(_value) {},
+                description_en: ->(_value) {},
+                screenshots: ->(value) { "#{value.size} #{i18n_i 'screenshot', value.size}" },
+                videos: ->(value) { "#{value.size} #{i18n_i 'video', value.size}" },
+                coub_tags: ->(value) { "#{value.size} #{i18n_i 'tag', value.size}" },
+                external_links: ->(value) { @resource.available_external_links.map(&:label).join(', ').html_safe }\
+              }[field]
 
     ul.b-list.is-wide
       li
