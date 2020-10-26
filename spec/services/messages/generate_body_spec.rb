@@ -137,7 +137,7 @@ describe Messages::GenerateBody do
               тебе в топике
               <a href="#{Shikimori::PROTOCOL}://test.host/forum/animanga/anime-1-anime-1/1-obsuzhdenie-anime#comment-1"
               class="bubbled b-link"
-              data-href="http://test.host/comments/1">Обсуждение аниме [anime]1[/anime]</a>.
+              data-href="#{Shikimori::PROTOCOL}://test.host/comments/1">Обсуждение аниме [anime]1[/anime]</a>.
             HTML
           )
         end
