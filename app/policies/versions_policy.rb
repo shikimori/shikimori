@@ -43,11 +43,13 @@ class VersionsPolicy
 
 private
 
-  def allowed? # rubocop:disable CyclomaticComplexity
+  def allowed? # rubocop:disable CyclomaticComplexity, PerceivedComplexity
     return false unless @user
     return false if @user.banned?
     return false if @user.not_trusted_version_changer?
     return false if @user.not_trusted_names_changer? && name_changing?
+    return false if @user.not_trusted_texts_changer? && text_changing?
+    return false if @user.not_trusted_fansub_changer? && fansub_changing?
     return false if @version && not_matched_author?
 
     true
@@ -93,6 +95,22 @@ private
     (
       change_fields & Abilities::VersionNamesModerator::MANAGED_FIELDS
     ).any? && Abilities::VersionNamesModerator::MANAGED_MODELS.include?(
+      item_type
+    )
+  end
+
+  def text_changing?
+    (
+      change_fields & Abilities::VersionTextsModerator::MANAGED_FIELDS
+    ).any? && Abilities::VersionTextsModerator::MANAGED_MODELS.include?(
+      item_type
+    )
+  end
+
+  def fansub_changing?
+    (
+      change_fields & Abilities::VersionFansubModerator::MANAGED_FIELDS
+    ).any? && Abilities::VersionFansubModerator::MANAGED_MODELS.include?(
       item_type
     )
   end

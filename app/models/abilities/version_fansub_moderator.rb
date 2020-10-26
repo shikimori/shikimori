@@ -3,6 +3,7 @@ class Abilities::VersionFansubModerator
   prepend Draper::CanCanCan
 
   MANAGED_FIELDS = %w[fandubbers fansubbers]
+  MANAGED_MODELS = [Anime.name]
 
   def initialize _user
     can :increment_episode, Anime

@@ -49,6 +49,68 @@ describe VersionsPolicy do
     end
 
     context 'name field' do
+      let(:field) do
+        (
+          Abilities::VersionNamesModerator::MANAGED_FIELDS -
+            Anime::RESTRICTED_FIELDS
+        ).sample
+      end
+
+      context 'not DbEntry model' do
+        let(:item) { build_stubbed :video }
+        it { expect(version_allowed).to eq true }
+        it { expect(change_allowed).to eq true }
+      end
+
+      context 'DbEntry model' do
+        it { expect(version_allowed).to eq false }
+        it { expect(change_allowed).to eq false }
+      end
+    end
+  end
+
+  context 'not_trusted_texts_changer' do
+    before { user.roles = %i[not_trusted_texts_changer] }
+
+    context 'not text field' do
+      let(:field) { 'russian' }
+      it { expect(version_allowed).to eq true }
+      it { expect(change_allowed).to eq true }
+    end
+
+    context 'text field' do
+      let(:field) do
+        (
+          Abilities::VersionTextsModerator::MANAGED_FIELDS -
+            Anime::RESTRICTED_FIELDS
+        ).sample
+      end
+
+      context 'not DbEntry model' do
+        let(:item) { build_stubbed :video }
+        it { expect(version_allowed).to eq true }
+        it { expect(change_allowed).to eq true }
+      end
+
+      context 'DbEntry model' do
+        it { expect(version_allowed).to eq false }
+        it { expect(change_allowed).to eq false }
+      end
+    end
+  end
+
+  context 'not_trusted_fansub_changer' do
+    before { user.roles = %i[not_trusted_fansub_changer] }
+
+    context 'not fansub field' do
+      let(:field) { 'russian' }
+      it { expect(version_allowed).to eq true }
+      it { expect(change_allowed).to eq true }
+    end
+
+    context 'fansub field' do
+      let(:field) { Abilities::VersionFansubModerator::MANAGED_FIELDS.sample }
+
       context 'not DbEntry model' do
         let(:item) { build_stubbed :video }
         it { expect(version_allowed).to eq true }
