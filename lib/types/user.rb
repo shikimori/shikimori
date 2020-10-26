@@ -32,6 +32,8 @@ module Types
       censored_profile
       cheat_bot
       completed_announced_animes
+      ignored_in_achievement_statistics
+
       bot
       admin
     ]

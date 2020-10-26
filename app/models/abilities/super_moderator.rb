@@ -42,7 +42,7 @@ class Abilities::SuperModerator
       manage_censored_avatar_role
       manage_censored_profile_role
       manage_cheat_bot_role
-      manage_completed_announced_animes_role
+      manage_ignored_in_achievement_statistics_role
     ], User
   end
 
