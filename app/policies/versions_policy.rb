@@ -1,21 +1,25 @@
 class VersionsPolicy
-  pattr_initialize :user, %i[version db_entry field]
-
   def self.version_allowed? user, version
-    new(
-      user,
-      version: version
-    ).call
+    new(user, version: version).call
   end
 
   def self.change_allowed? user, db_entry, field
-    new(
-      user,
-      db_entry: db_entry.respond_to?(:decorated?) && db_entry.decorated? ?
+    new(user, db_entry: db_entry, field: field).call
+  end
+
+  def initialize user, version: nil, db_entry: nil, field: nil
+    @user = user
+    @version = version
+
+    if db_entry
+      @db_entry = db_entry.respond_to?(:decorated?) && db_entry.decorated? ?
         db_entry.object :
-        db_entry,
-      field: field.to_s
-    ).call
+        db_entry
+    end
+
+    unless field.nil?
+      @field = field.to_s
+    end
   end
 
   def call
@@ -26,6 +30,15 @@ class VersionsPolicy
     else
       true
     end
+  end
+  alias change_allowed? call
+  alias version_allowed? call
+
+  def restricted_fields
+    @restricted_fields ||=
+      Kernel.const_defined?("#{item_type}::RESTRICTED_FIELDS") ?
+        "#{item_type}::RESTRICTED_FIELDS".constantize :
+        []
   end
 
 private
@@ -54,13 +67,6 @@ private
 
   def changing_restricted_fields
     @changing_restricted_fields ||= change_fields & restricted_fields
-  end
-
-  def restricted_fields
-    @restricted_fields ||=
-      Kernel.const_defined?("#{item_type}::RESTRICTED_FIELDS") ?
-        "#{item_type}::RESTRICTED_FIELDS".constantize :
-        []
   end
 
   def item_type
