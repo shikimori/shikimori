@@ -1,4 +1,4 @@
-- if resource.respond_to? field
+- if (resource.decorated? ? resource.object : resource).respond_to? field
   - policy = VersionsPolicy.new(current_user, db_entry: resource, field: field)
   - field_param = field == :genres ? :genre_ids : field
 
