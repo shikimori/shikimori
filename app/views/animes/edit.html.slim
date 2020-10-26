@@ -29,7 +29,10 @@
               resource: @resource,
               field: field,
               class: ('m15' if %i[licensor genres].include? field),
-              formatter: { duration: ->(value) { humanize_minutes value } }[field]
+              formatter: {\
+                genres: ->(value) { value.map { |v| v.is_a?(Genre) ? localization_span(v) : v }.join(', ').html_safe },
+                duration: ->(value) { humanize_minutes value }\
+              }[field]
 
           - if @resource.anime?
             li
@@ -57,107 +60,21 @@
 
       .f-column
         ul.b-list.is-wide
-          li
-            .field = @resource.class.human_attribute_name(:image)
-            .value
-              - if @resource.image.exists?
-                - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { image: [] })
-                  a.b-js-action.to-process[
-                    href=@resource.edit_field_url(:image)
-                    data-dynamic='week_registered'
-                  ] = t 'moderators_only'
-                - else
-                  .b-js-action = t 'moderators_only'
-
-              - else
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:image)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-
-          - if ru_host?
-            li
-              .field = @resource.class.human_attribute_name(:description_ru)
-              .value
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:description_ru)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-
-          li.m15
-            .field = @resource.class.human_attribute_name(:description_en)
-            .value
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:description_en)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          - if @resource.anime? && @resource.screenshots_allowed?
-            li
-              .field = @resource.class.human_attribute_name(:screenshots)
-              .value
-                span = "#{@resource.screenshots.size} #{i18n_i 'screenshot', @resource.screenshots.size}"
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:screenshots)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-
-          - if @resource.anime?
-            li.m15
-              .field = @resource.class.human_attribute_name(:videos)
-              .value
-                span = "#{@resource.videos.size} #{i18n_i 'video', @resource.videos.size}"
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:videos)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-
-            / li
-              / .field = Anime.human_attribute_name(:cosplay)
-              / .value.under_development
-                / span = t('under_development').downcase
-                /a.b-js-action href=@resource.edit_field_url(:cosplay) = t 'actions.edit'
-
-          li
-            .field = @resource.class.human_attribute_name(:imageboard_tag)
-            .value
-              span = @resource.imageboard_tag
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:imageboard_tag)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          - if @resource.anime?
-            li
-              .field = @resource.class.human_attribute_name(:coub_tags)
-              .value
-                span = "#{@resource.coub_tags.size} #{i18n_i 'tag', @resource.coub_tags.size}"
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:coub_tags)
-                  data-dynamic='week_registered'
-                ] = t 'actions.edit'
-                .sample
-                  = @resource.coub_tags.join(', ')
-
-          li.m15
-            .field = t '.external_links'
-            .value
-              span = @resource.available_external_links.map(&:label).join(', ').html_safe
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:external_links)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
-
-          - if @resource.anime?
-            - %i[fansubbers fandubbers].each do |field|
-              li
-                .field = @resource.class.human_attribute_name(field)
-                .value
-                  span = @resource.send(field).join(', ')
-                  a.b-js-action.to-process[
-                    href=@resource.edit_field_url(field)
-                    data-dynamic='week_registered'
-                  ] = t 'actions.edit'
+          - is_screenshots = @resource.anime? && @resource.screenshots_allowed?
+          - %i[image description_ru description_en screenshots videos imageboard_tag coub_tags external_links fansubbers fandubbers].delete_if { |v| v == :screenshots && !is_screenshots }.each do |field|
+            = render 'db_entries/edit_field_li',
+              resource: @resource,
+              field: field,
+              class: ('m15' if %i[description_en videos external_links].include? field),
+              formatter: {\
+                image: ->(_value) {},
+                description_ru: ->(_value) {},
+                description_en: ->(_value) {},
+                screenshots: ->(value) { "#{value.size} #{i18n_i 'screenshot', value.size}" },
+                videos: ->(value) { "#{value.size} #{i18n_i 'video', value.size}" },
+                coub_tags: ->(value) { "#{value.size} #{i18n_i 'tag', value.size}" },
+                external_links: ->(value) { @resource.available_external_links.map(&:label).join(', ').html_safe }\
+              }[field]
 
     ul.b-list.is-wide
       li

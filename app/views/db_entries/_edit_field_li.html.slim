@@ -10,8 +10,8 @@
       - if local_assigns[:formatter]
         span = local_assigns[:formatter].(value)
       - elsif value.is_a? Array
-        span = value.map { |v| v.is_a?(Genre) ? localization_span(v) : v }.join(', ').html_safe
-      - elsif value.is_a? Data
+        span = value.join(', ')
+      - elsif value.is_a? Date
         span = formatted_date value, true
       - elsif value.present?
         span = value
@@ -30,3 +30,7 @@
           ] = t 'actions.edit'
         - else
           a.b-js-action.is-disabled = t 'actions.edit'
+
+        - if field == :coub_tags
+          .sample
+            = value.join(', ')
