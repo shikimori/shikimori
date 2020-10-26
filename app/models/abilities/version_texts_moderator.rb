@@ -26,6 +26,8 @@ class Abilities::VersionTextsModerator
         MANAGED_MODELS.include?(version.item_type)
     end
 
+    can %i[manage_not_trusted_texts_changer_role], User
+
     can %i[filter autocomplete_user autocomplete_moderator], Version
   end
 end

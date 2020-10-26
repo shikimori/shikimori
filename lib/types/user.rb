@@ -13,7 +13,9 @@ module Types
       trusted_version_changer
 
       not_trusted_version_changer
+      not_trusted_texts_changer
       not_trusted_names_changer
+      not_trusted_fansub_changer
 
       review_moderator
       collection_moderator

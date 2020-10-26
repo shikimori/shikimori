@@ -90,6 +90,8 @@ describe Versions::RoleVersion do
         it { is_expected.to be_able_to :manage_trusted_version_changer_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_version_changer_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_names_changer_role, user }
+        it { is_expected.to be_able_to :manage_not_trusted_texts_changer_role, user }
+        it { is_expected.to be_able_to :manage_not_trusted_fansub_changer_role, user }
         it { is_expected.to be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to be_able_to :manage_retired_moderator_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_abuse_reporter_role, user }
@@ -129,6 +131,8 @@ describe Versions::RoleVersion do
         it { is_expected.to be_able_to :manage_trusted_version_changer_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_version_changer_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_names_changer_role, user }
+        it { is_expected.to be_able_to :manage_not_trusted_texts_changer_role, user }
+        it { is_expected.to be_able_to :manage_not_trusted_fansub_changer_role, user }
         it { is_expected.to be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to be_able_to :manage_retired_moderator_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_abuse_reporter_role, user }
@@ -168,6 +172,8 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_names_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_texts_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_abuse_reporter_role, user }
@@ -200,6 +206,56 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_version_changer_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_names_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_texts_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_fansub_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_trusted_fansub_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_abuse_reporter_role, user }
+      end
+    end
+
+    context 'version_texts_moderator' do
+      let(:role) { :version_texts_moderator }
+
+      describe 'super_moderator roles' do
+        it { is_expected.to_not be_able_to :manage_forum_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_review_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_news_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_article_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_collection_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_version_names_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_version_texts_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_version_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_version_fansub_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_trusted_version_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_version_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_names_changer_role, user }
+        it { is_expected.to be_able_to :manage_not_trusted_texts_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_fansub_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_trusted_fansub_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_abuse_reporter_role, user }
+      end
+    end
+
+    context 'version_fansub_moderator' do
+      let(:role) { :version_fansub_moderator }
+
+      describe 'super_moderator roles' do
+        it { is_expected.to_not be_able_to :manage_forum_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_review_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_news_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_article_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_collection_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_version_names_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_version_texts_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_version_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_version_fansub_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_trusted_version_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_version_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_names_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_texts_changer_role, user }
+        it { is_expected.to be_able_to :manage_not_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_abuse_reporter_role, user }
@@ -244,6 +300,8 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_names_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_texts_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_abuse_reporter_role, user }
