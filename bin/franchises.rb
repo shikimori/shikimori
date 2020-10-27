@@ -105,6 +105,7 @@ data
     important_titles = franchise.reject(&:kind_special?)
 
     total_duration = franchise.sum { |v| Neko::Duration.call v }
+
     ova_duration = ova.sum { |v| Neko::Duration.call v }
     long_specials_duration = long_specials.sum { |v| Neko::Duration.call v }
     short_specials_duration = short_specials.sum { |v| Neko::Duration.call v }
@@ -135,14 +136,26 @@ data
       )
       .sum { |v| Neko::Duration.call v }
 
-    formula_threshold = (
-      total_duration -
+    threshold_duration = total_duration -
       ova_duration_subtract -
       long_specials_duration_subtract -
       short_specials_duration_subtract -
       mini_specials_duration -
       ignored_latest_duration
-    ) * 100.0 / total_duration
+
+    # ap [
+    #   rule['filters']['franchise'], {
+    #     total_duration: total_duration,
+    #     threshold_duration: threshold_duration,
+    #     threshold_duration_ova: threshold_duration + ova_duration_subtract,
+    #     threshold_duration_ova_long: threshold_duration + ova_duration_subtract + long_specials_duration_subtract,
+    #     threshold_duration_ova_long_short: threshold_duration + ova_duration_subtract + long_specials_duration_subtract + short_specials_duration_subtract,
+    #     threshold_duration_ova_long_short_mini: threshold_duration + ova_duration_subtract + long_specials_duration_subtract + short_specials_duration_subtract + mini_specials_duration
+    #   }
+    # ] if threshold_duration < 700
+    threshold_duration = 700 if threshold_duration < 700 && total_duration > 700
+
+    formula_threshold = threshold_duration * 100.0 / total_duration
 
     if total_duration > 30_000
       formula_threshold = [60, formula_threshold].min
