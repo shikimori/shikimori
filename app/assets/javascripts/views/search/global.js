@@ -331,9 +331,10 @@ export default class GlobalSearch extends View {
       }
     } else {
       let url;
+      const $activeLink = this.$activeItem.find('.name .b-link');
 
-      if (this.$activeItem.length) {
-        url = this.$activeItem.find('.name .b-link').attr('href');
+      if (this.$activeItem.length && $activeLink.length) {
+        url = $activeLink.attr('href');
       } else {
         url =
           URI(this.$node.data(`search_${this.currentMode}_url`))
