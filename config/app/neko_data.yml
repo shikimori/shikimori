@@ -8307,6 +8307,10 @@
         - 37651
         - 36999
         - 1770
+        - 1386
+        - 2917
+        - 2935
+        - 2982
       :generator:
         person_id: 5089
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -19887,9 +19891,9 @@
         - 2920
         - 2922
         - 37703
-      :threshold: 99.3%
+      :threshold: 100%
       :generator:
-        threshold: 99.3%
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ashita_no_joe
@@ -19924,7 +19928,7 @@
         - 37703
       :threshold: 0.01
       :generator:
-        threshold: 99.3%
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ashita_no_joe
@@ -23448,9 +23452,13 @@
       :filters:
         franchise: dog_days
         not_anime_ids:
+        - 17419
         - 29413
+        - 31967
         - 35063
-      :threshold: 96.9%
+      :threshold: 100%
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :dog_days
@@ -23480,9 +23488,13 @@
       :filters:
         franchise: dog_days
         not_anime_ids:
+        - 17419
         - 29413
+        - 31967
         - 35063
       :threshold: 0.01
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :dog_days
@@ -26049,7 +26061,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.4%
+      :threshold: 91.7%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -30397,6 +30409,8 @@
         - 27417
         - 35079
         - 26
+        - 39547
+        - 40496
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -30790,6 +30804,8 @@
         - 27417
         - 35079
         - 26
+        - 39547
+        - 40496
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -31185,6 +31201,8 @@
         - 27417
         - 35079
         - 26
+        - 39547
+        - 40496
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -32866,6 +32884,7 @@
         - 40221
         - 36999
         - 39587
+        - 40496
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -33925,6 +33944,7 @@
         - 40221
         - 36999
         - 39587
+        - 40496
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -34984,6 +35004,7 @@
         - 40221
         - 36999
         - 39587
+        - 40496
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
