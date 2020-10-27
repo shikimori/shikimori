@@ -16499,7 +16499,7 @@
       :algo: duration
       :filters:
         franchise: bleach
-      :threshold: 98.1%
+      :threshold: 97.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :bleach
@@ -17609,7 +17609,7 @@
         - 36242
         - 38419
         - 40181
-      :threshold: 93.6%
+      :threshold: 93.7%
       :generator:
         ignore_latest_ids:
         - 38234
@@ -19128,7 +19128,7 @@
         - 41188
         - 41189
         - 41204
-      :threshold: 95.1%
+      :threshold: 95.4%
       :generator:
         not_ignored_ids:
         - 14951
@@ -20696,7 +20696,7 @@
         - 42380
         - 42432
         - 42439
-      :threshold: 88.7%
+      :threshold: 88.4%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -21587,7 +21587,7 @@
         franchise: inuyasha
         not_anime_ids:
         - 31133
-      :threshold: 95.7%
+      :threshold: 93.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :inuyasha
@@ -21727,7 +21727,7 @@
         - 36760
         - 38788
         - 40348
-      :threshold: 93.5%
+      :threshold: 93.6%
       :generator:
         ignore_latest_ids:
         - 38770
@@ -22552,7 +22552,7 @@
         not_anime_ids:
         - 36865
         - 38056
-      :threshold: 94.2%
+      :threshold: 94.6%
       :generator:
         ignore_latest_ids:
         - 38201
