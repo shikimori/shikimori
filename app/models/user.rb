@@ -32,6 +32,7 @@ class User < ApplicationRecord
     article_moderator
     cosplay_moderator
     contest_moderator
+    statistics_moderator
   ]
 
   devise(
