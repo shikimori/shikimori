@@ -7,7 +7,7 @@ class TestsController < ShikimoriController
   skip_before_action :verify_authenticity_token, only: [:echo]
 
   DEFAULT_MINIMUM_TITLES = 4
-  DEFAULT_MINIMUM_DURATION = 850
+  DEFAULT_MINIMUM_DURATION = 700
   DEFAULT_MINIMUM_USER_RATES = 1000
 
   USERS_PER_PAGE = 72
