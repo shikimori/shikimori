@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_185432) do
+ActiveRecord::Schema.define(version: 2020_10_29_151804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 2020_10_25_185432) do
     t.text "fansubbers", default: [], null: false, array: true
     t.text "fandubbers", default: [], null: false, array: true
     t.string "licensor", default: "", null: false
+    t.string "licensors", default: [], null: false, array: true
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["russian"], name: "index_animes_on_russian"
@@ -617,6 +618,7 @@ ActiveRecord::Schema.define(version: 2020_10_25_185432) do
     t.string "franchise"
     t.string "license_name_ru"
     t.string "licensor", default: "", null: false
+    t.string "licensors", default: [], null: false, array: true
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"
@@ -976,7 +978,7 @@ ActiveRecord::Schema.define(version: 2020_10_25_185432) do
     t.string "prior_value", limit: 255
     t.index ["target_type", "user_id", "id"], name: "index_user_histories_on_target_type_and_user_id_and_id"
     t.index ["updated_at"], name: "index_user_histories_on_updated_at"
-    t.index ["user_id", "action"], name: "user_histories_UserDataFetcherBase_latest_import_index", where: "((action)::text = ANY ((ARRAY['mal_anime_import'::character varying, 'ap_anime_import'::character varying, 'anime_history_clear'::character varying, 'mal_manga_import'::character varying, 'ap_manga_import'::character varying, 'manga_history_clear'::character varying])::text[]))"
+    t.index ["user_id", "action"], name: "user_histories_UserDataFetcherBase_latest_import_index", where: "((action)::text = ANY (ARRAY[('mal_anime_import'::character varying)::text, ('ap_anime_import'::character varying)::text, ('anime_history_clear'::character varying)::text, ('mal_manga_import'::character varying)::text, ('ap_manga_import'::character varying)::text, ('manga_history_clear'::character varying)::text]))"
     t.index ["user_id", "updated_at"], name: "index_user_histories_on_user_id_and_updated_at"
     t.index ["user_id"], name: "index_user_histories_on_user_id"
   end
