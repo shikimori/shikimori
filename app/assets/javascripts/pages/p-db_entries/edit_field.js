@@ -140,6 +140,7 @@ pageLoad('.db_entries-edit_field', () => {
 
   const ARRAY_FIELDS = [
     'synonyms',
+    'licensors',
     'coub_tags',
     'fansubbers',
     'fandubbers',
@@ -150,9 +151,9 @@ pageLoad('.db_entries-edit_field', () => {
     initArrayFieldApp();
   }
 
-  if ($('.edit-page.licensor').exists()) {
-    initTagsApp($('.anime_licensor, .manga_licensor'));
-  }
+  // if ($('.edit-page.licensor').exists()) {
+  //   initTagsApp($('.anime_licensor, .manga_licensor'));
+  // }
 });
 
 async function initExternalLinksApp() {
@@ -220,27 +221,27 @@ export async function initArrayFieldApp() {
   });
 }
 
-async function initTagsApp($tags) {
-  const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
-  const { default: TagsInput } = await import('vue/components/tags_input');
-
-  const $app = $('#vue_app');
-  $tags.hide();
-
-  new Vue({
-    el: '#vue_app',
-    render: h => h(TagsInput, {
-      props: {
-        label: $tags.find('label').text(),
-        input: $tags.find('input')[0],
-        value: [$app.data('value')].compact(),
-        autocompleteBasic: $app.data('autocomplete_basic'),
-        autocompleteOther: [],
-        tagsLimit: 1
-      }
-    })
-  });
-}
+// async function initTagsApp($tags) {
+//   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
+//   const { default: TagsInput } = await import('vue/components/tags_input');
+// 
+//   const $app = $('#vue_app');
+//   $tags.hide();
+// 
+//   new Vue({
+//     el: '#vue_app',
+//     render: h => h(TagsInput, {
+//       props: {
+//         label: $tags.find('label').text(),
+//         input: $tags.find('input')[0],
+//         value: [$app.data('value')].compact(),
+//         autocompleteBasic: $app.data('autocomplete_basic'),
+//         autocompleteOther: [],
+//         tagsLimit: 1
+//       }
+//     })
+//   });
+// }
 
 async function initSortableApp($node) {
   if (!$node.length) { return; }

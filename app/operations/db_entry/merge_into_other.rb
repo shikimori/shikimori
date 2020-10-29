@@ -24,7 +24,7 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
     genre_ids
     imageboard_tag
     license_name_ru
-    licensor
+    licensors
     name
     japanese
     popularity

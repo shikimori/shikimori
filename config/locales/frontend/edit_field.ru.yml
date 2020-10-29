@@ -3,6 +3,8 @@ ru:
     synonyms: &synonyms
       nothing_here: Нет названий
       name: Название
+    licensors:
+      <<: *synonyms
     coub_tags:
       <<: *synonyms
     fansubbers:

@@ -60,7 +60,7 @@ ru:
         options: Настройки
         imported_at: Синхронизировано
         desynced: &desynced Не синхронизируются
-        licensor: Лицензировано
+        licensors: Лицензировано
         is_censored: 18+ контент
         source: Источник
       manga: &manga_attributes

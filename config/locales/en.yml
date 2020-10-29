@@ -60,7 +60,7 @@ en:
         options: Options
         imported_at: Synchronized
         desynced: Not synchronized
-        licensor: Licensed by
+        licensors: Licensed by
         is_censored: 18+ content
         source: Source
       manga: &manga_attributes

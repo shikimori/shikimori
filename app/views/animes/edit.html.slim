@@ -24,11 +24,11 @@
               resource: @resource,
               field: :torrents_name
 
-          - %i[licensor kind rating genres status aired_on released_on duration].each do |field|
+          - %i[licensors kind rating genres status aired_on released_on duration].each do |field|
             = render 'db_entries/edit_field_li',
               resource: @resource,
               field: field,
-              class: ('m15' if %i[licensor genres].include? field),
+              class: ('m15' if %i[licensors genres].include? field),
               formatter: {\
                 genres: ->(value) { value.map { |v| v.is_a?(Genre) ? localization_span(v) : v }.join(', ').html_safe },
                 duration: ->(value) { humanize_minutes value }\
