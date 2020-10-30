@@ -202,10 +202,9 @@ export async function initArrayFieldApp() {
     render: h => h(ArrayField, {
       props: {
         resourceType: $app.data('resource_type'),
-        // entryType: $app.data('entry_type'),
-        // entryId: $app.data('entry_id'),
         field: $app.data('field'),
-        autocompleteUrl: $app.data('autocomplete_url')
+        autocompleteUrl: $app.data('autocomplete_url'),
+        autocompleteType: $app.data('autocomplete_type')
       }
     })
   });

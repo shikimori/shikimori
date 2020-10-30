@@ -27,16 +27,16 @@ const defaultOptions = {
 $.fn.extend({
   completable(options = { }) {
     return this.each(function () {
-      const $element = $(this);
+      const $node = $(this);
 
-      return $element
+      return $node
         .autocomplete('data-autocomplete', {
           ...defaultOptions,
           formatItem(entry) {
             return entry.label;
           },
           parse(data) {
-            $element.trigger('parse');
+            $node.trigger('parse');
             return data.reverse();
           },
           ...options
@@ -46,21 +46,21 @@ $.fn.extend({
             entry.id = entry.data;
 
             entry.name = entry.value;
-            $element.trigger('autocomplete:success', [entry]);
+            $node.trigger('autocomplete:success', [entry]);
             return;
           }
 
           if (this.value) {
             const matches = this.value.match(DB_ENTRY_URL_REGEXP);
             if (matches) {
-              $element.trigger('autocomplete:success', [{
+              $node.trigger('autocomplete:success', [{
                 url: this.value,
                 id: matches[1],
                 name: paramToName(matches[2])
               }]);
               return;
             }
-            $element.trigger('autocomplete:text', [this.value]);
+            $node.trigger('autocomplete:text', [this.value]);
           }
         });
     });
@@ -84,6 +84,23 @@ $.fn.extend({
             .process();
 
           this.value = '';
+        });
+    });
+  },
+
+  completablePlain() {
+    return this.each(function () {
+      const $node = $(this);
+
+      return $node
+        .autocomplete('data-autocomplete', {
+          ...defaultOptions,
+          minChars: 1,
+          parse(data) { return data.map(value => ({ value })); },
+          formatItem(entry) { return entry.value; },
+        })
+        .on('result', (_e, entry) => {
+          $node.trigger('autocomplete:text', [entry.value]);
         });
     });
   }
