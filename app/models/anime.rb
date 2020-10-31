@@ -57,6 +57,32 @@ class Anime < DbEntry
     end
   end
 
+  update_index('fansubbers#fansubber') do
+    items = []
+
+    if saved_change_to_fansubbers?
+      added = fansubbers
+        .map { |v| { id: v, kind: 'fansubbers' } }
+      deleted = (previous_changes['fansubbers'][0] - previous_changes['fansubbers'][1])
+        .select { |v| Anime.where('? = any(fansubbers)', v).none? }
+        .map { |v| { id: v, kind: 'fansubbers', '_destroyed': true } }
+
+      items += added + deleted
+    end
+
+    if saved_change_to_fandubbers?
+      added = fandubbers
+        .map { |v| { id: v, kind: 'fandubbers' } }
+      deleted = (previous_changes['fandubbers'][0] - previous_changes['fandubbers'][1])
+        .select { |v| Anime.where('? = any(fandubbers)', v).none? }
+        .map { |v| { id: v, kind: 'fandubbers', '_destroyed': true } }
+
+      items += added + deleted
+    end
+
+    items if items.any?
+  end
+
   # relations
   has_many :person_roles, dependent: :destroy
   has_many :characters, through: :person_roles
