@@ -222,6 +222,7 @@ Rails.application.routes.draw do
 
   namespace :autocomplete do
     resources :licensors, only: %i[index]
+    resources :fansubbers, only: %i[index]
   end
 
   # api
