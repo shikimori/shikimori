@@ -18,7 +18,7 @@ describe Elasticsearch::Query::Fansubber, :vcr do
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }
-  let(:kind) { 'fansubbers' }
+  let(:kind) { Types::Fansubber::Kind[:fansubber] }
 
   it { is_expected.to eq ['test', 'test zxct'] }
 end

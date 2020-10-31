@@ -48,10 +48,10 @@ class Anime < DbEntry
   update_index('licensors#licensor') do
     if saved_change_to_licensors?
       added = licensors
-        .map { |v| { id: v, kind: 'anime' } }
+        .map { |v| { id: v, kind: Types::Licensor::Kind[:anime] } }
       deleted = (previous_changes['licensors'][0] - previous_changes['licensors'][1])
         .select { |v| Anime.where('? = any(licensors)', v).none? }
-        .map { |v| { id: v, kind: 'anime', '_destroyed': true } }
+        .map { |v| { id: v, kind: Types::Licensor::Kind[:anime], '_destroyed': true } }
 
       added + deleted
     end
@@ -62,20 +62,20 @@ class Anime < DbEntry
 
     if saved_change_to_fansubbers?
       added = fansubbers
-        .map { |v| { id: v, kind: 'fansubbers' } }
+        .map { |v| { id: v, kind: Types::Fansubber::Kind[:fansubber] } }
       deleted = (previous_changes['fansubbers'][0] - previous_changes['fansubbers'][1])
         .select { |v| Anime.where('? = any(fansubbers)', v).none? }
-        .map { |v| { id: v, kind: 'fansubbers', '_destroyed': true } }
+        .map { |v| { id: v, kind: Types::Fansubber::Kind[:fansubber], '_destroyed': true } }
 
       items += added + deleted
     end
 
     if saved_change_to_fandubbers?
       added = fandubbers
-        .map { |v| { id: v, kind: 'fandubbers' } }
+        .map { |v| { id: v, kind: Types::Fansubber::Kind[:fandubber] } }
       deleted = (previous_changes['fandubbers'][0] - previous_changes['fandubbers'][1])
         .select { |v| Anime.where('? = any(fandubbers)', v).none? }
-        .map { |v| { id: v, kind: 'fandubbers', '_destroyed': true } }
+        .map { |v| { id: v, kind: Types::Fansubber::Kind[:fandubber], '_destroyed': true } }
 
       items += added + deleted
     end

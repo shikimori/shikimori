@@ -19,6 +19,6 @@ private
   end
 
   def kind_query
-    { term: { kind: @kind } }
+    { term: { kind: Types::Fansubber::Kind[@kind] } }
   end
 end

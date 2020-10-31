@@ -18,7 +18,7 @@ describe Elasticsearch::Query::Licensor, :vcr do
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }
-  let(:kind) { 'anime' }
+  let(:kind) { Types::Licensor::Kind[:anime] }
 
   it { is_expected.to eq ['test', 'test zxct'] }
 end
