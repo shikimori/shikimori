@@ -25,7 +25,7 @@
         data-entry_type=resource.object.class.base_class.name
         data-values=resource.licensors.to_json
         data-field='licensors'
-        data-autocomplete_url=autocomplete_licensors_url(kind: resource.object.class.base_class.name.downcase)
+        data-autocomplete_url=autocomplete_licensors_url(kind: ::Types::Licensor::Kind[resource.object.class.base_class.name.downcase])
         data-autocomplete_type='plain'
       ]
         .block_m.b-nothing_here = t 'loading'

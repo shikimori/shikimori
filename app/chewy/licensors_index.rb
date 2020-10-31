@@ -9,13 +9,13 @@ class LicensorsIndex < ApplicationIndex
         .where.not(licensors: [])
         .distinct
         .pluck(Arel.sql('unnest(licensors)'))
-        .map { |entry| { id: entry, kind: 'anime' } }
+        .map { |entry| { id: entry, kind: Types::Licensor::Kind[:anime] } }
 
       mangas = Manga
         .where.not(licensors: [])
         .distinct
         .pluck(Arel.sql('unnest(licensors)'))
-        .map { |entry| { id: entry, kind: 'manga' } }
+        .map { |entry| { id: entry, kind: Types::Licensor::Kind[:manga] } }
 
       animes + mangas
     },

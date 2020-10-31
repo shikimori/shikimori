@@ -9,13 +9,13 @@ class FansubbersIndex < ApplicationIndex
         .where.not(fansubbers: [])
         .distinct
         .pluck(Arel.sql('unnest(fansubbers)'))
-        .map { |entry| { id: entry, kind: 'fansubbers' } }
+        .map { |entry| { id: entry, kind: Types::Fansubber::Kind[:fansubber] } }
 
       fandubbers = Anime
         .where.not(fandubbers: [])
         .distinct
         .pluck(Arel.sql('unnest(fandubbers)'))
-        .map { |entry| { id: entry, kind: 'fandubbers' } }
+        .map { |entry| { id: entry, kind: Types::Fansubber::Kind[:fandubber] } }
 
       fansubbers + fandubbers
     },

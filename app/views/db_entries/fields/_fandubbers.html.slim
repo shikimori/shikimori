@@ -10,6 +10,8 @@
         data-entry_type=@resource.object.class.base_class.name
         data-values=@resource.fandubbers.to_json
         data-field='fandubbers'
+        data-autocomplete_url=autocomplete_fansubbers_url(kind: ::Types::Fansubber::Kind[:fandubber])
+        data-autocomplete_type='plain'
       ]
         .block_m.b-nothing_here = t 'loading'
 
