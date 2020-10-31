@@ -12,9 +12,27 @@ describe Elasticsearch::Query::Fansubber, :vcr do
     )
   end
 
-  let!(:anime_1) { create :anime, fansubbers: ['test'] }
-  let!(:anime_2) { create :anime, fansubbers: ['test zxct', 'zxct'] }
-  let!(:anime_3) { create :anime, fandubbers: ['test 2'] }
+  let!(:anime_1) do
+    create :anime,
+      id: 99999,
+      name: 'anime_1',
+      russian: 'аниме_1',
+      fansubbers: ['test']
+  end
+  let!(:anime_2) do
+    create :anime,
+      id: 99998,
+      name: 'anime_2',
+      russian: 'аниме_2',
+      fansubbers: ['test zxct', 'zxct']
+  end
+  let!(:anime_3) do
+    create :anime,
+      id: 99997,
+      name: 'anime_3',
+      russian: 'аниме_3',
+      fandubbers: ['test 2']
+  end
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }

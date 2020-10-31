@@ -121,10 +121,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '200'
+      - '201'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":9,"errors":false,"items":[{"index":{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":21,"errors":false,"items":[{"index":{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: head
@@ -158,7 +158,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"index":{"_id":1}}
+        {"index":{"_id":99999}}
         {"name":"anime_1","russian":"аниме_1","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"license_name_ru":null,"weight":1.2}
     headers:
       User-Agent:
@@ -177,10 +177,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '200'
+      - '201'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":10,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"1","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":1,"status":200}}]}'
+      string: '{"took":25,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99999","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":7,"_primary_term":1,"status":200}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: head
@@ -238,7 +238,7 @@ http_interactions:
       - '217'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":12,"errors":false,"items":[{"index":{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test
+      string: '{"took":41,"errors":false,"items":[{"index":{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test
         zxct","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}},{"index":{"_index":"shikimori_test_licensors","_type":"licensor","_id":"zxct","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -273,7 +273,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"index":{"_id":2}}
+        {"index":{"_id":99998}}
         {"name":"anime_2","russian":"аниме_2","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"license_name_ru":null,"weight":1.2}
     headers:
       User-Agent:
@@ -292,10 +292,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '200'
+      - '202'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":10,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"2","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":1,"status":200}}]}'
+      string: '{"took":21,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99998","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":11,"_primary_term":1,"status":200}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: head
@@ -348,10 +348,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '203'
+      - '202'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":32,"errors":false,"items":[{"index":{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test
+      string: '{"took":18,"errors":false,"items":[{"index":{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test
         2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -375,7 +375,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '6796'
+      - '478'
     body:
       encoding: UTF-8
       string: ''
@@ -386,7 +386,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"index":{"_id":1}}
+        {"index":{"_id":99999}}
         {"name":"manga_1","russian":"манга_1","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"license_name_ru":null,"weight":1.301}
     headers:
       User-Agent:
@@ -405,10 +405,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '201'
+      - '199'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":9,"errors":false,"items":[{"index":{"_index":"shikimori_test_mangas","_type":"manga","_id":"1","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":1,"status":200}}]}'
+      string: '{"took":20,"errors":false,"items":[{"index":{"_index":"shikimori_test_mangas","_type":"manga","_id":"99999","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: get
@@ -436,7 +436,7 @@ http_interactions:
       - '226'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":0,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":2,"max_score":115.36052,"hits":[{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test","_score":115.36052,"_source":{"kind":"anime","name":"test"}},{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test
+      string: '{"took":4,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":2,"max_score":115.36052,"hits":[{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test","_score":115.36052,"_source":{"kind":"anime","name":"test"}},{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test
         zxct","_score":22.891273,"_source":{"kind":"anime","name":"test zxct"}}]}}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0
