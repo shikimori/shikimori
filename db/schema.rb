@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_29_194113) do
+ActiveRecord::Schema.define(version: 2020_11_02_175012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -145,7 +145,6 @@ ActiveRecord::Schema.define(version: 2020_10_29_194113) do
     t.text "coub_tags", default: [], null: false, array: true
     t.text "fansubbers", default: [], null: false, array: true
     t.text "fandubbers", default: [], null: false, array: true
-    t.string "licensor", default: "", null: false
     t.string "licensors", default: [], null: false, array: true
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
@@ -617,7 +616,6 @@ ActiveRecord::Schema.define(version: 2020_10_29_194113) do
     t.integer "publisher_ids", default: [], null: false, array: true
     t.string "franchise"
     t.string "license_name_ru"
-    t.string "licensor", default: "", null: false
     t.string "licensors", default: [], null: false, array: true
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
