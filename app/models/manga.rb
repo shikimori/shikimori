@@ -27,6 +27,27 @@ class Manga < DbEntry
     end
   end
 
+  update_index('licensors#licensor') do
+    if saved_change_to_licensors?
+      added = licensors
+        .map { |v| { id: v, kind: 'manga' } }
+      deleted = (previous_changes['licensors'][0] - previous_changes['licensors'][1])
+        .select { |v| Manga.where('? = any(licensors)', v).none? }
+        .map { |v| { id: v, kind: 'manga', '_destroyed': true } }
+
+      added + deleted
+    end
+  end
+
+  # update_index('licensors#licensor') do
+  #   if saved_change_to_licensors?
+  #     added = licensors.map { |v| OpenStruct.new id: v, kind: 'manga' }
+  #     deleted = previous_changes['licensors'][0] - previous_changes['licensors'][1]
+  # 
+  #     added + deleted
+  #   end
+  # end
+
   attr_accessor :in_list
 
   # relations

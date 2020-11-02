@@ -14,7 +14,6 @@ class AnimesController < DbEntriesController
   UPDATE_PARAMS = %i[
     russian
     license_name_ru
-    licensor
     torrents_name
     imageboard_tag
     description_ru
@@ -24,6 +23,7 @@ class AnimesController < DbEntriesController
     *Anime::DESYNCABLE,
     external_links: [EXTERNAL_LINK_PARAMS],
     synonyms: [],
+    licensors: [],
     coub_tags: [],
     fansubbers: [],
     fandubbers: [],

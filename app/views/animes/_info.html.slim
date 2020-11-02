@@ -53,8 +53,8 @@
         data-direction='right'
       ] = entry.rating_text
 
-  - if entry.licensor.present?
-    = info_line Anime.human_attribute_name(:licensor), entry.licensor
+  - if entry.licensors.any?
+    = info_line Anime.human_attribute_name(:licensor), entry.licensors.join(', ')
 
   - if ru_host? && @resource.license_name_ru != @resource.russian
     = info_line Anime.human_attribute_name(:license_name_ru) do

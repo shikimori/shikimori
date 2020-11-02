@@ -3,6 +3,8 @@ en:
     synonyms: &synonyms
       nothing_here: No names
       name: Name
+    licensors:
+      <<: *synonyms
     coub_tags:
       <<: *synonyms
     fansubbers:

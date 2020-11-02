@@ -45,6 +45,44 @@ class Anime < DbEntry
     end
   end
 
+  update_index('licensors#licensor') do
+    if saved_change_to_licensors?
+      added = licensors
+        .map { |v| { id: v, kind: Types::Licensor::Kind[:anime] } }
+      deleted = (previous_changes['licensors'][0] - previous_changes['licensors'][1])
+        .select { |v| Anime.where('? = any(licensors)', v).none? }
+        .map { |v| { id: v, kind: Types::Licensor::Kind[:anime], '_destroyed': true } }
+
+      added + deleted
+    end
+  end
+
+  update_index('fansubbers#fansubber') do
+    items = []
+
+    if saved_change_to_fansubbers?
+      added = fansubbers
+        .map { |v| { id: v, kind: Types::Fansubber::Kind[:fansubber] } }
+      deleted = (previous_changes['fansubbers'][0] - previous_changes['fansubbers'][1])
+        .select { |v| Anime.where('? = any(fansubbers)', v).none? }
+        .map { |v| { id: v, kind: Types::Fansubber::Kind[:fansubber], '_destroyed': true } }
+
+      items += added + deleted
+    end
+
+    if saved_change_to_fandubbers?
+      added = fandubbers
+        .map { |v| { id: v, kind: Types::Fansubber::Kind[:fandubber] } }
+      deleted = (previous_changes['fandubbers'][0] - previous_changes['fandubbers'][1])
+        .select { |v| Anime.where('? = any(fandubbers)', v).none? }
+        .map { |v| { id: v, kind: Types::Fansubber::Kind[:fandubber], '_destroyed': true } }
+
+      items += added + deleted
+    end
+
+    items if items.any?
+  end
+
   # relations
   has_many :person_roles, dependent: :destroy
   has_many :characters, through: :person_roles
@@ -218,8 +256,8 @@ class Anime < DbEntry
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   before_save :track_changes
-  after_save :generate_news, if: -> { saved_change_to_status? }
   after_create :generate_name_matches
+  after_save :generate_news, if: -> { saved_change_to_status? }
 
   def episodes= value
     value.blank? ? super(0) : super(value)
@@ -251,7 +289,7 @@ class Anime < DbEntry
   end
 
   def torrents_name
-    self[:torrents_name].present? ? self[:torrents_name] : nil
+    self[:torrents_name].presence
   end
 
   def broadcast_at

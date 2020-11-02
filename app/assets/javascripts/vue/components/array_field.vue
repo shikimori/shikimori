@@ -44,13 +44,16 @@ import { mapGetters, mapActions } from 'vuex';
 import draggable from 'vuedraggable';
 import delay from 'delay';
 
+const PLAIN_AUTOCOMPLETE_TYPE = 'plain';
+
 export default {
   name: 'ArrayField',
   components: { draggable },
   props: {
     field: { type: String, required: true },
     resourceType: { type: String, required: true },
-    autocompleteUrl: { type: String, required: false, default: undefined }
+    autocompleteUrl: { type: String, required: false, default: undefined },
+    autocompleteType: { type: String, required: false, default: undefined }
   },
   data: () => ({
     dragOptions: {
@@ -111,9 +114,28 @@ export default {
     autocomplete() {
       if (!this.autocompleteUrl) { return; }
 
-      $('input', this.$el)
+      const $inputs = $('input', this.$el)
         .filter((index, node) => !$(node).data('autocomplete-enabled'))
-        .data('autocomplete-enabled', true)
+        .data('autocomplete-enabled', true);
+
+      switch (this.autocompleteType) {
+        case PLAIN_AUTOCOMPLETE_TYPE:
+          this.autocompletePlain($inputs);
+          break;
+
+        default:
+          this.autocompleteDefault($inputs);
+      }
+    },
+    autocompletePlain($node) {
+      $node
+        .completablePlain()
+        .on('autocomplete:text', (e, value) => {
+          this.collection[($(e.currentTarget).data('collection_index'))].value = value;
+        });
+    },
+    autocompleteDefault($node) {
+      $node
         .completable()
         .on('autocomplete:success', (e, { value }) => {
           this.collection[($(e.currentTarget).data('collection_index'))].value = value;

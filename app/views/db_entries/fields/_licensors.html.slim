@@ -1,0 +1,37 @@
+/ .cc-2
+/   .c-column
+/     = simple_form_for resource.object do |f|
+/       #vue_app[
+/         data-value=@resource.licensor
+/         data-field='licensor'
+/         data-autocomplete_basic=@resource.class.distinct.pluck(:licensor).select(&:present?).sort
+/       ]
+/         .block_m.b-nothing_here = t 'loading'
+/       = f.input :licensor, input_html: { class: 'w-100' }
+/       = render 'versions/reason', class: 'w-100'
+/ 
+/       .buttons
+/         a.cancel href=resource.edit_url = t 'actions.cancel'
+/         = f.button :magic_submit
+
+.m5
+  b = Anime.human_attribute_name :licensors
+.cc-2
+  .c-column
+    = simple_form_for resource.object do |f|
+      #vue_app[
+        data-resource_type=resource.object.class.name
+        data-entry_id=resource.id
+        data-entry_type=resource.object.class.base_class.name
+        data-values=resource.licensors.to_json
+        data-field='licensors'
+        data-autocomplete_url=autocomplete_licensors_url(kind: ::Types::Licensor::Kind[resource.object.class.base_class.name.downcase])
+        data-autocomplete_type='plain'
+      ]
+        .block_m.b-nothing_here = t 'loading'
+      = render 'versions/reason'
+
+      .buttons
+        a.cancel href=resource.edit_url = t 'actions.cancel'
+        = f.button :magic_submit
+

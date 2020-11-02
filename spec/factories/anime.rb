@@ -20,6 +20,7 @@ FactoryBot.define do
     fandubbers { [] }
     options { [] }
     licensor { '' }
+    licensors { [] }
     desynced { [] }
 
     after :build do |model|
