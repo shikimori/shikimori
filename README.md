@@ -62,6 +62,13 @@ alter user shikimori_test with superuser;
 
 ### Create databases
 Make sure `en_US.UTF-8` database collation is set https://gist.github.com/ffmike/877447#gistcomment-2851598
+
+Or you manually initialize new database with command
+```sh
+initdb --pgdata=/usr/local/var/postgres-13 -E 'UTF-8' --lc-collate='en_US.UTF-8' --lc-ctype='en_US.UTF-8'
+```
+
+Create rails databases
 ```sh
 rails db:create
 ```
