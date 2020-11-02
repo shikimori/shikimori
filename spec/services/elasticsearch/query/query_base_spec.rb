@@ -50,7 +50,7 @@ describe Elasticsearch::Query::QueryBase, :vcr do
 
     context 'edge_phrase first' do
       let(:phrase) { 'zx' }
-      it { is_expected.to have_keys [anime_3.id, anime_2.id] }
+      it { is_expected.to have_keys [anime_2.id, anime_3.id] }
     end
   end
 
