@@ -1,3 +1,4 @@
+# NOTE: not used anymore
 class EntryWeight
   method_object :entry
 
