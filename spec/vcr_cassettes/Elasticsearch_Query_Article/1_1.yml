@@ -271,4 +271,49 @@ http_interactions:
       string: '{"took":5,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":2,"max_score":444.91446,"hits":[{"_index":"shikimori_test_articles","_type":"article","_id":"1","_score":444.91446,"_source":{"name":"test","locale":"ru"}},{"_index":"shikimori_test_articles","_type":"article","_id":"2","_score":56.025562,"_source":{"name":"test
         zxct","locale":"ru"}}]}}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '301'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "name" : "DHPrGVH",
+          "cluster_name" : "elasticsearch_morr",
+          "cluster_uuid" : "zsI_nPsHSduJqorx30dxkQ",
+          "version" : {
+            "number" : "6.8.3",
+            "build_flavor" : "oss",
+            "build_type" : "tar",
+            "build_hash" : "0c48c0e",
+            "build_date" : "2019-08-29T19:05:24.312154Z",
+            "build_snapshot" : false,
+            "lucene_version" : "7.7.0",
+            "minimum_wire_compatibility_version" : "5.6.0",
+            "minimum_index_compatibility_version" : "5.0.0"
+          },
+          "tagline" : "You Know, for Search"
+        }
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0
