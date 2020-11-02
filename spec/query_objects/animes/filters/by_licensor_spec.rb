@@ -3,9 +3,9 @@ describe Animes::Filters::ByLicensor do
 
   let(:scope) { Anime.order :id }
 
-  let!(:anime_1) { create :anime, licensor: 'r' }
-  let!(:anime_2) { create :anime, licensor: 'r' }
-  let!(:anime_3) { create :anime, licensor: 'g' }
+  let!(:anime_1) { create :anime, licensors: %w[r] }
+  let!(:anime_2) { create :anime, licensors: %w[r] }
+  let!(:anime_3) { create :anime, licensors: %w[g] }
   let!(:anime_4) { create :anime }
 
   context 'positive' do
