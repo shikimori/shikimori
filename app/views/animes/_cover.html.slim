@@ -31,7 +31,7 @@ span.misc
       span.publisher = anime.publishers.first.name
 
   - elsif cover_notice == :licensor
-    span.licensor = anime.licensor
+    span.licensors = anime.licensors.join(', ')
 
   - elsif cover_notice == :year_kind
     span.right = anime.year
@@ -42,8 +42,8 @@ span.misc
   - elsif cover_notice == :year_licensor
     span.right = anime.year
 
-    - if anime.licensor.present?
-      span = anime.licensor
+    - if anime.licensors.any?
+      span = anime.licensors.join(', ')
 
   - elsif cover_notice == :next_episode
     - if time_of_next_episode(anime) != '00:00'
