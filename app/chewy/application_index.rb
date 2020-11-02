@@ -75,6 +75,9 @@ class ApplicationIndex < Chewy::Index
         }
       }
     },
+    index: {
+      max_ngram_diff: 20
+    },
     analysis: {
       analyzer: {
         original_analyzer: {
@@ -123,20 +126,20 @@ class ApplicationIndex < Chewy::Index
         edge_ngram_tokenizer: {
           type: 'edgeNGram',
           min_gram: 1,
-          max_gram: 99
+          max_gram: 20
         }
       },
       filter: {
         edgeNGram_filter: {
           type: 'edgeNGram',
           min_gram: 1,
-          max_gram: 99,
+          max_gram: 20,
           side: 'front'
         },
         nGram_filter: {
           type: 'nGram',
           min_gram: 1,
-          max_gram: 99
+          max_gram: 20
         },
         distinct_words_filter: {
           type: 'unique',
