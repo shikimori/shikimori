@@ -21,28 +21,60 @@ class ApplicationIndex < Chewy::Index
     type: 'text',
     index: true,
     analyzer: :original_analyzer,
-    search_analyzer: :search_phrase_analyzer
+    search_analyzer: :search_phrase_analyzer,
+    similarity: :scripted_tfidf
   }
   EDGE_PHRASE_FIELD = {
     type: 'text',
     index: true,
     analyzer: :edge_phrase_analyzer,
-    search_analyzer: :search_phrase_analyzer
+    search_analyzer: :search_phrase_analyzer,
+    similarity: :scripted_tfidf
   }
   EDGE_WORD_FIELD = {
     type: 'text',
     index: true,
     analyzer: :edge_word_analyzer,
-    search_analyzer: :search_word_analyzer
+    search_analyzer: :search_word_analyzer,
+    similarity: :scripted_tfidf
   }
   NGRAM_FIELD = {
     type: 'text',
     index: true,
     analyzer: :ngram_analyzer,
-    search_analyzer: :search_word_analyzer
+    search_analyzer: :search_word_analyzer,
+    similarity: :scripted_tfidf
   }
 
   DEFAULT_SETTINGS = {
+    number_of_shards: 1,
+    similarity: {
+      scripted_tfidf: {
+        type: 'scripted',
+        script: {
+          # here we disable idf (https://www.elastic.co/guide/en/elasticsearch/guide/master/scoring-theory.html#idf) because
+          # becase in names search it just dilutes resulting score (https://stackoverflow.com/questions/33208587/elasticsearch-score-disable-idf?lq=1)
+          # https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-similarity.html\#scripted_similarity
+          # "source": "double tf = Math.sqrt(doc.freq); double idf = Math.log((field.docCount+1.0)/(term.docFreq+1.0)) + 1.0; double norm = 1/Math.sqrt(doc.length); return query.boost * tf * idf * norm;"
+          source: <<~TEXT.squish
+            double tf = Math.sqrt(doc.freq);
+
+            double from_min = 1.0;
+            double from_max = 20.0;
+            double to_min = 0.9;
+            double to_max = 1.0;
+
+            double x = doc.length;
+
+            double percent = (x - from_min) / (from_max - from_min);
+            double fixed_percent = Math.min(1, Math.max(percent, 0));
+            double norm = 1.0 / (to_min + (to_max - to_min) * percent);
+
+            return query.boost * tf * norm;
+          TEXT
+        }
+      }
+    },
     analysis: {
       analyzer: {
         original_analyzer: {
@@ -53,12 +85,23 @@ class ApplicationIndex < Chewy::Index
         edge_phrase_analyzer: {
           type: 'custom',
           tokenizer: 'edge_ngram_tokenizer',
-          filter: %w[lowercase asciifolding synonyms_filter edgeNGram_filter unique_words_filter]
+          filter: %w[
+            lowercase
+            asciifolding
+            synonyms_filter
+            edgeNGram_filter
+            unique_words_filter
+          ]
         },
         edge_word_analyzer: {
           type: 'custom',
           tokenizer: 'standard',
-          filter: %w[lowercase asciifolding synonyms_filter edgeNGram_filter]
+          filter: %w[
+            lowercase
+            asciifolding
+            synonyms_filter
+            edgeNGram_filter
+          ]
         },
         ngram_analyzer: {
           type: 'custom',
