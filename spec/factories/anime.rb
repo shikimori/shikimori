@@ -19,7 +19,6 @@ FactoryBot.define do
     fansubbers { [] }
     fandubbers { [] }
     options { [] }
-    licensor { '' }
     licensors { [] }
     desynced { [] }
 

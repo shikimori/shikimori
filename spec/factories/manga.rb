@@ -11,7 +11,6 @@ FactoryBot.define do
     is_censored { false }
     type { Manga.name }
     imageboard_tag { nil }
-    licensor { '' }
     licensors { [] }
     desynced { [] }
 
