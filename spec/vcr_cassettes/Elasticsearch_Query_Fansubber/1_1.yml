@@ -1,0 +1,472 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: http://localhost:9200/shikimori_test_fansubbers
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '175'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"root_cause":[{"type":"index_not_found_exception","reason":"no
+        such index [shikimori_test_fansubbers]","resource.type":"index_or_alias","resource.id":"shikimori_test_fansubbers","index_uuid":"_na_","index":"shikimori_test_fansubbers"}],"type":"index_not_found_exception","reason":"no
+        such index [shikimori_test_fansubbers]","resource.type":"index_or_alias","resource.id":"shikimori_test_fansubbers","index_uuid":"_na_","index":"shikimori_test_fansubbers"},"status":404}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: put
+    uri: http://localhost:9200/shikimori_test_fansubbers?include_type_name=true
+    body:
+      encoding: UTF-8
+      string: '{"settings":{"number_of_shards":1,"similarity":{"scripted_tfidf":{"type":"scripted","script":{"source":"double
+        tf = Math.sqrt(doc.freq); double from_min = 1.0; double from_max = 20.0; double
+        to_min = 0.9; double to_max = 1.0; double x = doc.length; double percent =
+        (x - from_min) / (from_max - from_min); double fixed_percent = Math.min(1,
+        Math.max(percent, 0)); double norm = 1.0 / (to_min + (to_max - to_min) * percent);
+        return query.boost * tf * norm;"}}},"index":{"max_ngram_diff":20},"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":20}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":20,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":20},"distinct_words_filter":{"type":"unique","only_on_same_position":true},"unique_words_filter":{"type":"unique"},"synonyms_filter":{"type":"synonym","synonyms":["i,
+        s1, 1","ii, s2, 2, Ⅱ","iii, s3, 3, Ⅲ","iv, s4, 4, Ⅳ","v, s5, 5, Ⅴ","vi, s6,
+        6, Ⅵ","vii, s7, 7, Ⅶ","viii, s8, 8, Ⅷ","ix, s9, 9, Ⅸ","x, s10, 10, Ⅹ","е,
+        ё, Е, Ё"]}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter","unique_words_filter"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","nGram_filter","distinct_words_filter"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter"]}}}},"mappings":{"fansubber":{"properties":{"kind":{"type":"keyword"},"name":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}}}}}}'
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Warning:
+      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "The [edgeNGram] token filter name
+        is deprecated and will be removed in a future version. Please change the filter
+        name to [edge_ngram] instead."
+      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "The [edgeNGram] tokenizer name is
+        deprecated and will be removed in a future version. Please change the tokenizer
+        name to [edge_ngram] instead."
+      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "The [nGram] token filter name is
+        deprecated and will be removed in a future version. Please change the filter
+        name to [ngram] instead."
+      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "[types removal] Using include_type_name
+        in create index requests is deprecated. The parameter will be removed in the
+        next major version."
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '91'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_fansubbers"}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_fansubbers
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '2773'
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_fansubbers/fansubber/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":"test"}}
+        {"kind":"fansubber","name":"test"}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Warning:
+      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "[types removal] Specifying types
+        in bulk requests is deprecated."
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '202'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":41,"errors":false,"items":[{"index":{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_animes
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '8571'
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":99999}}
+        {"name":"anime_1","russian":"аниме_1","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"license_name_ru":null,"weight":1}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Warning:
+      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "[types removal] Specifying types
+        in bulk requests is deprecated."
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '202'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":24,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99999","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":1,"status":201}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_fansubbers
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '2773'
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_fansubbers/fansubber/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":"test zxct"}}
+        {"kind":"fansubber","name":"test zxct"}
+        {"index":{"_id":"zxct"}}
+        {"kind":"fansubber","name":"zxct"}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Warning:
+      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "[types removal] Specifying types
+        in bulk requests is deprecated."
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '222'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":24,"errors":false,"items":[{"index":{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test
+        zxct","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":1,"status":201}},{"index":{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"zxct","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":1,"status":201}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_animes
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '8571'
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":99998}}
+        {"name":"anime_2","russian":"аниме_2","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"license_name_ru":null,"weight":1}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Warning:
+      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "[types removal] Specifying types
+        in bulk requests is deprecated."
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '205'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":35,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99998","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":3,"_primary_term":1,"status":201}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_fansubbers
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '2773'
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_fansubbers/fansubber/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":"test 2"}}
+        {"kind":"fandubber","name":"test 2"}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Warning:
+      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "[types removal] Specifying types
+        in bulk requests is deprecated."
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '209'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":23,"errors":false,"items":[{"index":{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test
+        2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":3,"_primary_term":1,"status":201}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_animes
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '8571'
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":99997}}
+        {"name":"anime_3","russian":"аниме_3","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"license_name_ru":null,"weight":1}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Warning:
+      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "[types removal] Specifying types
+        in bulk requests is deprecated."
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '204'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":26,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99997","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":4,"_primary_term":1,"status":201}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/shikimori_test_fansubbers/fansubber/_search?rest_total_hits_as_int=true
+    body:
+      encoding: UTF-8
+      string: '{"size":10,"query":{"bool":{"must":[{"dis_max":{"queries":[{"match":{"name.original":{"query":"test","boost":400}}},{"match":{"name.edge_phrase":{"query":"test","boost":50}}},{"match":{"name.edge_word":{"query":"test","boost":20}}},{"match":{"name.ngram":{"query":"test"}}}],"tie_breaker":0,"boost":1}},{"term":{"kind":"fansubber"}}]}}}'
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Warning:
+      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "[types removal] Specifying types
+        in search requests is deprecated."
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '223'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":1,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":2,"max_score":444.80115,"hits":[{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test","_score":444.80115,"_source":{"kind":"fansubber","name":"test"}},{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test
+        zxct","_score":55.91223,"_source":{"kind":"fansubber","name":"test zxct"}}]}}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+recorded_with: VCR 6.0.0
