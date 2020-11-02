@@ -119,7 +119,7 @@ describe Messages::GenerateBody do
             Написал <a class="b-link"
             href="#{Shikimori::PROTOCOL}://test.host/comments/1-test">что-то</a>
             тебе в топике
-            <a href="#{Shikimori::PROTOCOL}://test.host/forum/offtopic/1-test">test</a>.
+            <a href="#{UrlGenerator.instance.topic_url linked}">test</a>.
           HTML
         )
       end
@@ -133,11 +133,11 @@ describe Messages::GenerateBody do
           is_expected.to eq(
             <<~HTML.squish
               Написал <a class="b-link"
-              href="#{Shikimori::PROTOCOL}://test.host/comments/1">что-то</a>
+              href="#{UrlGenerator.instance.comment_url linked}">что-то</a>
               тебе в топике
-              <a href="#{Shikimori::PROTOCOL}://test.host/forum/animanga/anime-1-anime-1/1-obsuzhdenie-anime#comment-1"
+              <a href="#{UrlGenerator.instance.topic_url topic}#comment-1"
               class="bubbled b-link"
-              data-href="#{Shikimori::PROTOCOL}://test.host/comments/1">Обсуждение аниме [anime]1[/anime]</a>.
+              data-href="#{UrlGenerator.instance.comment_url linked}">Обсуждение аниме [anime]1[/anime]</a>.
             HTML
           )
         end
@@ -151,7 +151,7 @@ describe Messages::GenerateBody do
         is_expected.to eq(
           <<~HTML.squish
             Новые сообщения в топике
-            <a href="#{Shikimori::PROTOCOL}://test.host/forum/offtopic/1-test">test</a>.
+            <a href="#{UrlGenerator.instance.topic_url linked}">test</a>.
           HTML
         )
       end
@@ -180,9 +180,9 @@ describe Messages::GenerateBody do
           is_expected.to eq(
             <<~HTML.squish
               Тебе вынесено предупреждение за комментарий в топике
-              <a href="#{Shikimori::PROTOCOL}://test.host/forum/offtopic/#{offtopic_topic.to_param}#comment-#{comment.id}"
+              <a href="#{UrlGenerator.instance.topic_url offtopic_topic}#comment-#{comment.id}"
               class="bubbled b-link"
-              data-href="#{Shikimori::PROTOCOL}://test.host/comments/#{comment.id}">offtopic</a>.
+              data-href="#{UrlGenerator.instance.comment_url comment}">offtopic</a>.
             HTML
           )
         end
@@ -211,9 +211,9 @@ describe Messages::GenerateBody do
           is_expected.to eq(
             <<~HTML.squish
               Ты забанен на 3 часа за комментарий в топике
-              <a href="#{Shikimori::PROTOCOL}://test.host/forum/offtopic/#{offtopic_topic.to_param}#comment-#{comment.id}"
+              <a href="#{UrlGenerator.instance.topic_url offtopic_topic}#comment-#{comment.id}"
               class="bubbled b-link"
-              data-href="#{Shikimori::PROTOCOL}://test.host/comments/#{comment.id}\">offtopic</a>.
+              data-href="#{UrlGenerator.instance.comment_url comment}">offtopic</a>.
             HTML
           )
         end
