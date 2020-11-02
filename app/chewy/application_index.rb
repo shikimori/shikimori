@@ -157,7 +157,7 @@ class ApplicationIndex < Chewy::Index
             'vii, s7, 7, Ⅶ',
             'viii, s8, 8, Ⅷ',
             'ix, s9, 9, Ⅸ',
-            'x, s10, 10, Ⅹ'
+            'x, s10, 10, Ⅹ',
             'е, ё, Е, Ё'
           ]
         }

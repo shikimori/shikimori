@@ -11,7 +11,7 @@ class MangasIndex < ApplicationIndex
     NAME_FIELDS.each do |name_field|
       field(
         name_field,
-        type: :keyword,
+        type: 'keyword',
         index: false,
         value: lambda do |model|
           if name_field =~ /^(?<name>\w+)_(?<index>\d)$/
@@ -28,7 +28,7 @@ class MangasIndex < ApplicationIndex
       end
     end
     field :weight,
-      type: :half_float,
+      type: 'half_float',
       index: false,
       value: -> (model, _) { EntryWeight.call model }
   end
