@@ -212,4 +212,64 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"took":1,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":2,"max_score":35.22308,"hits":[{"_index":"shikimori_test_animes","_type":"anime","_id":"1","_score":35.22308,"_source":{"name":"test","russian":"","english":"test","japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"license_name_ru":null,"weight":1.2}},{"_index":"shikimori_test_animes","_type":"anime","_id":"2","_score":35.22308,"_source":{"name":"test","russian":"","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"license_name_ru":null,"weight":1.2}}]}}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":1}}
+        {"name":"test","russian":"","english":"test","japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"license_name_ru":null,"weight":1}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '204'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":17,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"1","_version":11,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":43,"_primary_term":1,"status":200}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":2}}
+        {"name":"test","russian":"","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"license_name_ru":null,"weight":1}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '203'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":17,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"2","_version":11,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":44,"_primary_term":1,"status":200}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0
