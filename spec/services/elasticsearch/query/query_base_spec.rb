@@ -28,17 +28,17 @@ describe Elasticsearch::Query::QueryBase, :vcr do
   describe 'edge_phrase match' do
     context 'one letter' do
       let(:phrase) { 't' }
-      it { is_expected.to have_keys [anime_2.id, anime_1.id] }
+      it { is_expected.to have_keys [anime_1.id, anime_2.id] }
     end
 
     context 'two letters' do
       let(:phrase) { 'te' }
-      it { is_expected.to have_keys [anime_2.id, anime_1.id] }
+      it { is_expected.to have_keys [anime_1.id, anime_2.id] }
     end
 
     context 'more letters' do
       let(:phrase) { 'tes' }
-      it { is_expected.to have_keys [anime_2.id, anime_1.id] }
+      it { is_expected.to have_keys [anime_1.id, anime_2.id] }
     end
   end
 
