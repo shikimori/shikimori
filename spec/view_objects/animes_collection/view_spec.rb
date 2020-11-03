@@ -16,6 +16,7 @@ describe AnimesCollection::View do
   before do
     allow(view.h).to receive(:safe_params).and_return view_context_params
     allow(view.h).to receive(:url_params).and_return view_context_params
+    allow(view).to receive(:search_russian?).and_return nil
   end
 
   describe '#collection' do

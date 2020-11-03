@@ -35,7 +35,11 @@ class AnimesCollection::View < ViewObjectBase # rubocop:disable ClassLength
     !recommendations?
   end
 
-  def cache_key # rubocop:disable AbcSize
+  def search_russian?
+    h.controller.search_russian?
+  end
+
+  def cache_key # rubocop:disable AbcSize, MethodLength
     user_key = user if h.params[:mylist]
 
     if h.params[:search] || h.params[:q]
@@ -45,7 +49,14 @@ class AnimesCollection::View < ViewObjectBase # rubocop:disable ClassLength
         .first
         .created_at
     end
-    initial_key = [klass.name, user_key, last_created_at, CACHE_VERSION.to_s]
+
+    initial_key = [
+      klass.name,
+      user_key,
+      last_created_at,
+      search_russian?,
+      CACHE_VERSION.to_s
+    ]
 
     h.url_params
       .except(:action, :controller, :format)

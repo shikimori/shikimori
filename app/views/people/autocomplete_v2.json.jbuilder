@@ -2,6 +2,9 @@ json.content render(
   partial: 'people/variants/list_item',
   collection: @collection,
   as: :entry,
+  locals: {
+    is_search_russian: search_russian?
+  },
   formats: :html
 )
 

@@ -12,7 +12,7 @@ span.image-decor
       class=(cover_notice == :none ? :two_lined : :left_aligned)
       itemprop='name'
     ]
-      = localization_span anime
+      = localization_span anime, is_search_russian: local_assigns[:is_search_russian]
   - elsif cover_by == :linkeable
     a.title[
       class=(cover_notice == :none ? :two_lined : :left_aligned)
@@ -21,7 +21,7 @@ span.image-decor
       itemprop='url'
       tabindex="-1"
     ]
-      = localization_span anime
+      = localization_span anime, is_search_russian: local_assigns[:is_search_russian]
 
 span.misc
   - if cover_notice == :studio

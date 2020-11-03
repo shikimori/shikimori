@@ -1,4 +1,5 @@
 class Api::V1::PeopleController < Api::V1Controller
+  include SearchPhraseConcern
   before_action :fetch_resource, except: %i[search]
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
@@ -14,7 +15,7 @@ class Api::V1::PeopleController < Api::V1Controller
   def search
     @collection = Autocomplete::Person.call(
       scope: Person.all,
-      phrase: params[:search] || params[:q],
+      phrase: search_phrase,
       is_seyu: params[:kind] == 'seyu',
       is_mangaka: params[:kind] == 'mangaka',
       is_producer: params[:kind] == 'producer'

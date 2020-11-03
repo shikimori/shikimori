@@ -21,7 +21,7 @@
       a.b-link.bubbled[
         href=entry.url
         title=entry.name
-      ] = localization_span entry
+      ] = localization_span entry, is_search_russian: local_assigns[:is_search_russian]
 
     - if entry.kind.present?
       .line

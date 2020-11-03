@@ -1,4 +1,4 @@
-json.content render(@collection, formats: :html)
+json.content render(@collection, is_search_russian: search_russian?, formats: :html)
 
 if @collection.next_page?
   json.postloader render(

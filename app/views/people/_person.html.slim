@@ -37,7 +37,7 @@ article.c-column.b-catalog_entry.c-person[
         span.title[
           class=(:two_lined unless person.kind_of? RoleEntry)
           itemprop='name'
-        ] = localization_span person
+        ] = localization_span person, is_search_russian: local_assigns[:is_search_russian]
 
       - if person.kind_of? RoleEntry
         span.misc.centered

@@ -23,12 +23,18 @@ module UsersHelper
     UsersHelper.localized_name entry, current_user
   end
 
-  def localization_span entry
+  def localization_span entry, is_search_russian: nil
     key = entry.is_a?(Genre) ? 'genre' : 'name'
 
-    if entry.try(:russian).present?
-      "<span class='#{key}-en'>#{h entry.name}</span>"\
-        "<span class='#{key}-ru'>#{h entry.russian}</span>".html_safe
+    if is_search_russian.nil?
+      if entry.try(:russian).present?
+        "<span class='#{key}-en'>#{h entry.name}</span>"\
+          "<span class='#{key}-ru'>#{h entry.russian}</span>".html_safe
+      else
+        entry.name
+      end
+    elsif is_search_russian && entry.try(:russian).present?
+      entry.russian
     else
       entry.name
     end

@@ -17,14 +17,20 @@
         .m0 class="cc-#{data[:kind] == 'tv' || data[:kind] == 'movie' ? 'entries' : 6}"
           = render partial: 'animes/anime',
             collection: @view.collection[data[:kind]],
-            locals: { cover_notice: cover_notice },
+            locals: { \
+              cover_notice: cover_notice,
+              is_search_russian: @view.search_russian? \
+            },
             cache: ->(entry, _) { CacheHelper.keys entry, cover_notice }
       - else
         .m0 class="cc-#{data[:kind] == 'doujin' || data[:kind] == 'one_shot' ? 6 : 'entries'}"
           = render partial: 'animes/anime',
             collection: @view.collection[data[:kind]],
-            locals: { cover_notice: cover_notice },
-            cache: ->(entry, _) { CacheHelper.keys entry, cover_notice }
+            locals: { \
+              cover_notice: cover_notice,
+              is_search_russian: @view.search_russian? \
+            },
+            cache: ->(entry, _) { CacheHelper.keys entry, cover_notice, @view.search_russian? }
 
 - else
   .cc-entries
@@ -35,8 +41,11 @@
 
       = render partial: 'animes/anime',
         collection: @view.collection,
-        locals: { cover_notice: cover_notice },
-        cache: ->(entry, _) { CacheHelper.keys entry, cover_notice }
+        locals: { \
+          cover_notice: cover_notice,
+          is_search_russian: @view.search_russian? \
+        },
+        cache: ->(entry, _) { CacheHelper.keys entry, cover_notice, @view.search_russian? }
 
   - if @view.next_page_url
     = render 'blocks/postloader',

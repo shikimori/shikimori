@@ -1,4 +1,5 @@
 class Api::V1::CharactersController < Api::V1Controller
+  include SearchPhraseConcern
   before_action :fetch_resource, except: [:search]
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
@@ -14,7 +15,7 @@ class Api::V1::CharactersController < Api::V1Controller
   def search
     @collection = Autocomplete::Character.call(
       scope: Character.all,
-      phrase: params[:search] || params[:q]
+      phrase: search_phrase
     )
     respond_with @collection, each_serializer: CharacterSerializer
   end

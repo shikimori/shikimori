@@ -24,10 +24,11 @@ article.c-column.b-catalog_entry[
       = render partial: 'animes/cover',
         object: anime,
         as: :anime,
-        locals: {\
+        locals: { \
           cover_title: cover_title,
           cover_by: cover_by,
-          cover_notice: cover_notice\
+          cover_notice: cover_notice,
+          is_search_russian: local_assigns[:is_search_russian] \
         }
 
   - elsif cover_by == :linkeable
@@ -41,10 +42,11 @@ article.c-column.b-catalog_entry[
       = render partial: 'animes/cover',
         object: anime,
         as: :anime,
-        locals: {\
+        locals: { \
           cover_title: cover_title,
           cover_by: cover_by,
           cover_notice: cover_notice,
+          is_search_russian: local_assigns[:is_search_russian] \
         }
 
   - else

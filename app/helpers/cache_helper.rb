@@ -18,7 +18,7 @@ module CacheHelper
 
   class << self
     def keys *args
-      args + [
+      args.compact + [
         I18n.locale,
         # I18N_HASH[I18n.locale],
         CacheHelperInstance.instance.domain,

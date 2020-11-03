@@ -1,4 +1,5 @@
 class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLength
+  include SearchPhraseConcern
   CENSORED = /\b(?:sex|секс|porno?|порно)\b/mix
 
   before_action do
@@ -51,11 +52,10 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
     scope = @view.klass == Manga ? Manga.where.not(kind: Ranobe::KIND) : @view.klass.all
     scope.where! is_censored: false if params[:censored] == 'false'
 
-    @phrase = params[:search] || params[:q]
     @collection = "Autocomplete::#{@view.klass.name}".constantize
       .call(
         scope: scope,
-        phrase: @phrase
+        phrase: search_phrase
       )
       .map(&:decorate)
   end

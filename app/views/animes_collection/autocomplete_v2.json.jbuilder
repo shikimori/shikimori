@@ -4,7 +4,8 @@ json.content render(
   as: :entry,
   locals: {
     no_user_rate: true,
-    with_status: true
+    with_status: true,
+    is_search_russian: search_russian?
   },
   formats: :html
 )

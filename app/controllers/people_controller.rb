@@ -60,10 +60,9 @@ class PeopleController < DbEntriesController # rubocop:disable ClassLength
   end
 
   def autocomplete
-    @phrase = params[:search] || params[:q]
     @collection = Autocomplete::Person.call(
       scope: Person.all,
-      phrase: @phrase,
+      phrase: search_phrase,
       is_seyu: seyu?,
       is_mangaka: mangaka?,
       is_producer: producer?
