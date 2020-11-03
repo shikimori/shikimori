@@ -22,12 +22,12 @@ class FansubbersIndex < ApplicationIndex
     name: 'fansubber'
   ) do
     field :kind,
-      type: :keyword,
+      type: 'keyword',
       value: ->(entry) { entry[:kind] }
 
     field(
       :name,
-      type: :keyword,
+      type: 'keyword',
       value: ->(entry) { entry[:id] },
       index: false
     ) do

@@ -1,6 +1,6 @@
 describe ApplicationIndex, :vcr do
   # include_context :disable_vcr
-  # include_context :chewy_indexes, %i[clubs]
+  include_context :chewy_indexes, %i[clubs]
   # include_context :chewy_logger
 
   let(:url) { 'http://localhost:9200/shikimori_test_clubs/_analyze' }
@@ -20,9 +20,7 @@ describe ApplicationIndex, :vcr do
   let(:text) { 'Kai wa-sama' }
 
   subject do
-    JSON.parse(response, symbolize_names: true)[:tokens].map do |entry|
-      entry[:token]
-    end
+    JSON.parse(response, symbolize_names: true)[:tokens].pluck(:token)
   end
 
   context 'original_analyzer' do

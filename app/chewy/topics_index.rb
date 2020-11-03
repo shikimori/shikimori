@@ -38,7 +38,7 @@ class TopicsIndex < ApplicationIndex
   define_type Topic.includes(:linked) do
     NAME_FIELDS.each do |name_field|
       field name_field,
-        type: :keyword,
+        type: 'keyword',
         index: false,
         fields: {
           original: ORIGINAL_FIELD,
@@ -54,7 +54,7 @@ class TopicsIndex < ApplicationIndex
           end
         }
     end
-    field :locale, type: :keyword
+    field :locale, type: 'keyword'
     field :forum_id, type: :integer
   end
 end
