@@ -40,8 +40,8 @@ http_interactions:
         Math.max(percent, 0)); double norm = 1.0 / (to_min + (to_max - to_min) * percent);
         return query.boost * tf * norm;"}}},"index":{"max_ngram_diff":20},"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":20}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":20,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":20},"distinct_words_filter":{"type":"unique","only_on_same_position":true},"unique_words_filter":{"type":"unique"},"synonyms_filter":{"type":"synonym","synonyms":["i,
         s1, 1","ii, s2, 2, Ⅱ","iii, s3, 3, Ⅲ","iv, s4, 4, Ⅳ","v, s5, 5, Ⅴ","vi, s6,
-        6, Ⅵ","vii, s7, 7, Ⅶ","viii, s8, 8, Ⅷ","ix, s9, 9, Ⅸ","x, s10, 10, Ⅹ","е,
-        ё, Е, Ё"]}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter","unique_words_filter"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","nGram_filter","distinct_words_filter"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter"]}}}},"mappings":{"user":{"properties":{"nickname":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}}}}}}'
+        6, Ⅵ","vii, s7, 7, Ⅶ","viii, s8, 8, Ⅷ","ix, s9, 9, Ⅸ","x, s10, 10, Ⅹ"]}},"char_filter":{"e_char_filter":{"type":"mapping","mappings":["Ё
+        =\u003e Е","ё =\u003e е"]}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["e_char_filter"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter","unique_words_filter"],"char_filter":["e_char_filter"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter"],"char_filter":["e_char_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","nGram_filter","distinct_words_filter"],"char_filter":["e_char_filter"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["e_char_filter"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["e_char_filter"]}}}},"mappings":{"user":{"properties":{"nickname":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}}}}}}'
     headers:
       User-Agent:
       - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
@@ -98,7 +98,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '2741'
+      - '3002'
     body:
       encoding: UTF-8
       string: ''
@@ -157,7 +157,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '2741'
+      - '3002'
     body:
       encoding: UTF-8
       string: ''
@@ -193,7 +193,7 @@ http_interactions:
       - '205'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":25,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23456793","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":1,"status":201}}]}'
+      string: '{"took":22,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23456793","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: get
@@ -226,5 +226,50 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"took":0,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":2,"max_score":444.44446,"hits":[{"_index":"shikimori_test_users","_type":"user","_id":"23456792","_score":444.44446,"_source":{"nickname":"test"}},{"_index":"shikimori_test_users","_type":"user","_id":"23456793","_score":55.555557,"_source":{"nickname":"test
         zxct"}}]}}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '312'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "name" : "imac.local",
+          "cluster_name" : "elasticsearch_brew",
+          "cluster_uuid" : "ivAGlIPoRO2_N3yh-1T6iQ",
+          "version" : {
+            "number" : "7.9.3-SNAPSHOT",
+            "build_flavor" : "oss",
+            "build_type" : "tar",
+            "build_hash" : "unknown",
+            "build_date" : "2020-10-22T16:26:49.195652Z",
+            "build_snapshot" : true,
+            "lucene_version" : "8.6.2",
+            "minimum_wire_compatibility_version" : "6.8.0",
+            "minimum_index_compatibility_version" : "6.0.0-beta1"
+          },
+          "tagline" : "You Know, for Search"
+        }
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0

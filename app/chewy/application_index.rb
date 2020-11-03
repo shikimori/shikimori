@@ -5,9 +5,9 @@ curl -XPOST 'http://localhost:9200/shikimori_test_clubs/_analyze' \
   -H 'Content-Type: application/json' \
   -d'{ "analyzer": "ngram_analyzer", "text": "kaichou wa" }' | jq
 
-curl -XPOST 'http://localhost:9200/shikimori_test_clubs/_analyze' \
+curl -XPOST 'http://localhost:9200/shikimori_test_animes/_analyze' \
   -H 'Content-Type: application/json' \
-  -d'{ "analyzer": "original_analyzer", "text": "kaichou wa" }' | jq
+  -d'{ "analyzer": "original_analyzer", "text": "Ёрмунганд" }' | jq
 =end
 
 # see how field value is splitted into tokens
@@ -83,7 +83,8 @@ class ApplicationIndex < Chewy::Index
         original_analyzer: {
           type: 'custom',
           tokenizer: 'keyword',
-          filter: %w[lowercase asciifolding synonyms_filter]
+          filter: %w[lowercase asciifolding synonyms_filter],
+          char_filter: %w[e_char_filter]
         },
         edge_phrase_analyzer: {
           type: 'custom',
@@ -94,7 +95,8 @@ class ApplicationIndex < Chewy::Index
             synonyms_filter
             edgeNGram_filter
             unique_words_filter
-          ]
+          ],
+          char_filter: %w[e_char_filter]
         },
         edge_word_analyzer: {
           type: 'custom',
@@ -104,22 +106,26 @@ class ApplicationIndex < Chewy::Index
             asciifolding
             synonyms_filter
             edgeNGram_filter
-          ]
+          ],
+          char_filter: %w[e_char_filter]
         },
         ngram_analyzer: {
           type: 'custom',
           tokenizer: 'standard',
-          filter: %w[lowercase asciifolding synonyms_filter nGram_filter distinct_words_filter]
+          filter: %w[lowercase asciifolding synonyms_filter nGram_filter distinct_words_filter],
+          char_filter: %w[e_char_filter]
         },
         search_phrase_analyzer: {
           type: 'custom',
           tokenizer: 'keyword',
-          filter: %w[lowercase asciifolding synonyms_filter]
+          filter: %w[lowercase asciifolding synonyms_filter],
+          char_filter: %w[e_char_filter]
         },
         search_word_analyzer: {
           type: 'custom',
           tokenizer: 'standard',
-          filter: %w[lowercase asciifolding synonyms_filter]
+          filter: %w[lowercase asciifolding synonyms_filter],
+          char_filter: %w[e_char_filter]
         }
       },
       tokenizer: {
@@ -160,9 +166,14 @@ class ApplicationIndex < Chewy::Index
             'vii, s7, 7, Ⅶ',
             'viii, s8, 8, Ⅷ',
             'ix, s9, 9, Ⅸ',
-            'x, s10, 10, Ⅹ',
-            'е, ё, Е, Ё'
+            'x, s10, 10, Ⅹ'
           ]
+        }
+      },
+      char_filter: {
+        e_char_filter: {
+          type: 'mapping',
+          mappings: ['Ё => Е', 'ё => е']
         }
       }
     }

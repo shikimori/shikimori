@@ -7,7 +7,7 @@ class AnimesIndex < ApplicationIndex
 
   settings DEFAULT_SETTINGS
 
-  # define_type Anime.where(id: [20, 1735]) do
+  # define_type Anime.where(id: [12413]) do
   # define_type Anime.where("name ilike '%naruto%'") do
   define_type Anime do
     NAME_FIELDS.each do |name_field|
