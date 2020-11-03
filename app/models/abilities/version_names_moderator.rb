@@ -12,7 +12,7 @@ class Abilities::VersionNamesModerator
   ]
   MANAGED_MODELS = Abilities::VersionTextsModerator::MANAGED_MODELS
 
-  def initialize _user
+  def initialize user
     can :sync, [Anime, Manga, Person, Character] do |entry|
       entry.mal_id.present?
     end
@@ -22,6 +22,9 @@ class Abilities::VersionNamesModerator
         version.item_diff &&
         (version.item_diff.keys & MANAGED_FIELDS).any? &&
         MANAGED_MODELS.include?(version.item_type)
+    end
+    cannot :destroy, Version do |version|
+      version.user_id != user.id
     end
 
     can %i[manage_not_trusted_names_changer_role], User

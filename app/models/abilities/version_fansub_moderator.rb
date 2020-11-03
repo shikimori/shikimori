@@ -5,7 +5,7 @@ class Abilities::VersionFansubModerator
   MANAGED_FIELDS = %w[fandubbers fansubbers]
   MANAGED_MODELS = [Anime.name]
 
-  def initialize _user
+  def initialize user
     can :increment_episode, Anime
     can :rollback_episode, Anime
     can :upload_episode, Anime
@@ -18,6 +18,9 @@ class Abilities::VersionFansubModerator
       !version.is_a?(Versions::RoleVersion) &&
         version.item_diff &&
         (version.item_diff.keys - MANAGED_FIELDS).none?
+    end
+    cannot :destroy, Version do |version|
+      version.user_id != user.id
     end
 
     can %i[manage_not_trusted_fansub_changer_role], User
