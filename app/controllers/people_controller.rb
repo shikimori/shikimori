@@ -61,7 +61,14 @@ class PeopleController < DbEntriesController
   end
 
   def autocomplete
-    @collection = Autocomplete::Person.call search_params
+    @phrase = params[:search] || params[:q]
+    @collection = Autocomplete::Person.call(
+      scope: Person.all,
+      phrase: @phrase,
+      is_seyu: seyu?,
+      is_mangaka: mangaka?,
+      is_producer: producer?
+    )
   end
 
   def autocomplete_v2
@@ -81,16 +88,6 @@ private
       .permit(UPDATE_PARAMS)
   rescue ActionController::ParameterMissing
     {}
-  end
-
-  def search_params
-    {
-      scope: Person.all,
-      phrase: SearchHelper.unescape(params[:search] || params[:q]),
-      is_seyu: seyu?,
-      is_mangaka: mangaka?,
-      is_producer: producer?
-    }
   end
 
   def search_title
