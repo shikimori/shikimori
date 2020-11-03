@@ -28,7 +28,7 @@ describe ApplicationIndex, :vcr do
 
     it do
       is_expected.to eq [
-        'kai wa-sama'
+        'kai wa sama'
       ]
     end
   end
@@ -44,11 +44,11 @@ describe ApplicationIndex, :vcr do
         'kai ',
         'kai w',
         'kai wa',
-        'kai wa-',
-        'kai wa-s',
-        'kai wa-sa',
-        'kai wa-sam',
-        'kai wa-sama'
+        'kai wa ',
+        'kai wa s',
+        'kai wa sa',
+        'kai wa sam',
+        'kai wa sama'
       ]
     end
 
@@ -166,7 +166,7 @@ describe ApplicationIndex, :vcr do
 
     it do
       is_expected.to eq [
-        'kai wa-sama'
+        'kai wa sama'
       ]
     end
 
