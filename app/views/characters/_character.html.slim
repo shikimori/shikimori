@@ -35,7 +35,7 @@ article.c-column.b-catalog_entry.c-character[
     - if cover_title != :none
       - if cover_by == :link
         span.title.two_lined itemprop='name'
-          = localization_span character
+          = localization_span character, is_search_russian: local_assigns[:is_search_russian]
 
   - unless content_by == :tooltip || content_by == :none
     .content
