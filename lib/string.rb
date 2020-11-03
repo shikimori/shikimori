@@ -1,5 +1,5 @@
 class String
-  RussianRange = ('А'.ord)..('я'.ord)
+  RUSSIAN_RANGE = ('А'.ord)..('я'.ord)
 
   def keywords
     downcase
@@ -108,15 +108,17 @@ class String
     each_char do |ch|
       return true if CJKV_RANGES.any? { |range| range.cover? ch.unpack1('H*').hex }
     end
+
     false
   end
 
   def contains_russian?
     matched = 0
     each_char do |char|
-      matched += 1 if RussianRange.cover?(char.ord) || char == ' '
+      matched += 1 if RUSSIAN_RANGE.cover?(char.ord) || char == ' '
     end
-    matched >= size / 2
+
+    matched.positive? && matched >= size / 2
   rescue ArgumentError
     false
   end

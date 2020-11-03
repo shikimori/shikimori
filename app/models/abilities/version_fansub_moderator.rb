@@ -5,7 +5,7 @@ class Abilities::VersionFansubModerator
   MANAGED_FIELDS = %w[fandubbers fansubbers]
   MANAGED_MODELS = [Anime.name]
 
-  def initialize user
+  def initialize user # rubocop:disable MethodLength
     can :increment_episode, Anime
     can :rollback_episode, Anime
     can :upload_episode, Anime
