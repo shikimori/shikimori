@@ -1,5 +1,4 @@
-# rubocop:disable ClassLength
-class PeopleController < DbEntriesController
+class PeopleController < DbEntriesController # rubocop:disable ClassLength
   before_action :resource_redirect, if: :resource_id
   before_action :set_breadcrumbs, if: -> { @resource }
   before_action :js_export, only: %i[show]
@@ -114,7 +113,7 @@ private
     end
   end
 
-  def set_breadcrumbs
+  def set_breadcrumbs # rubocop:disable AbcSize
     breadcrumb i18n_t('all_people'), people_url
 
     breadcrumb i18n_t('producers'), producers_people_url if @resource.producer?
@@ -135,8 +134,7 @@ private
     end
   end
 
-  # rubocop:disable MethodLength
-  def js_export
+  def js_export # rubocop:disable MethodLength
     gon.push(
       person_role: {
         producer: @resource.main_role?(:producer),
@@ -156,7 +154,6 @@ private
       }
     )
   end
-  # rubocop:enable MethodLength
 
   def mangaka?
     params[:kind] == 'mangaka'
@@ -170,4 +167,3 @@ private
     params[:kind] == 'seyu'
   end
 end
-# rubocop:enable ClassLength
