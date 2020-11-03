@@ -32,6 +32,6 @@ class AnimesIndex < ApplicationIndex
     field :weight,
       type: 'half_float',
       index: false,
-      value: -> (model, _) { 1 } # EntryWeight.call model }
+      value: -> (model, _) { 1.2 } # EntryWeight.call model }
   end
 end
