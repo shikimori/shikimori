@@ -84,7 +84,7 @@ class ApplicationIndex < Chewy::Index
           type: 'custom',
           tokenizer: 'keyword',
           filter: %w[lowercase asciifolding synonyms_filter],
-          char_filter: %w[e_char_filter]
+          char_filter: %w[char_mappings]
         },
         edge_phrase_analyzer: {
           type: 'custom',
@@ -96,7 +96,7 @@ class ApplicationIndex < Chewy::Index
             edgeNGram_filter
             unique_words_filter
           ],
-          char_filter: %w[e_char_filter]
+          char_filter: %w[char_mappings]
         },
         edge_word_analyzer: {
           type: 'custom',
@@ -107,25 +107,31 @@ class ApplicationIndex < Chewy::Index
             synonyms_filter
             edgeNGram_filter
           ],
-          char_filter: %w[e_char_filter]
+          char_filter: %w[char_mappings]
         },
         ngram_analyzer: {
           type: 'custom',
           tokenizer: 'standard',
-          filter: %w[lowercase asciifolding synonyms_filter nGram_filter distinct_words_filter],
-          char_filter: %w[e_char_filter]
+          filter: %w[
+            lowercase
+            asciifolding
+            synonyms_filter
+            nGram_filter
+            distinct_words_filter
+          ],
+          char_filter: %w[char_mappings]
         },
         search_phrase_analyzer: {
           type: 'custom',
           tokenizer: 'keyword',
           filter: %w[lowercase asciifolding synonyms_filter],
-          char_filter: %w[e_char_filter]
+          char_filter: %w[char_mappings]
         },
         search_word_analyzer: {
           type: 'custom',
           tokenizer: 'standard',
           filter: %w[lowercase asciifolding synonyms_filter],
-          char_filter: %w[e_char_filter]
+          char_filter: %w[char_mappings]
         }
       },
       tokenizer: {
@@ -171,11 +177,17 @@ class ApplicationIndex < Chewy::Index
         }
       },
       char_filter: {
-        e_char_filter: {
+        char_mappings: {
           type: 'mapping',
-          mappings: ['Ё => Е', 'ё => е']
+          mappings: [
+            'Ё => Е',
+            'ё => е',
+            '. => \\u0020',
+            '_ => \\u0020',
+            '- => \\u0020'
+          ]
         }
-      }
+      },
     }
   }
 end
