@@ -39,7 +39,7 @@ class RecommendationsController < AnimesCollectionController
           (user_signed_in? && current_user.id != 1 && current_user.id != 1945) # 1945 - Silicium
         user_signed_in? ? current_user.object : nil
       else
-        User.find_by(nickname: SearchHelper.unescape(params[:user])) ||
+        User.find_by(nickname: User.param_to(params[:user])) ||
           User.find_by(id: params[:user])
       end
   end

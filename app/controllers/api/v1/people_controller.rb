@@ -14,7 +14,7 @@ class Api::V1::PeopleController < Api::V1Controller
   def search
     @collection = Autocomplete::Person.call(
       scope: Person.all,
-      phrase: SearchHelper.unescape(params[:search] || params[:q]),
+      phrase: params[:search] || params[:q],
       is_seyu: params[:kind] == 'seyu',
       is_mangaka: params[:kind] == 'mangaka',
       is_producer: params[:kind] == 'producer'

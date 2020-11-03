@@ -3,7 +3,7 @@ class CoubTagsQuery
   AUTOCOMPLETE_LIMIT = 30
 
   def initialize phrase
-    @search = SearchHelper.unescape phrase
+    @search = phrase
     @klass = CoubTag
   end
 

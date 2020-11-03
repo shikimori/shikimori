@@ -3,7 +3,7 @@ class DanbooruTagsQuery
   AUTOCOMPLETE_LIMIT = 30
 
   def initialize phrase
-    @search = SearchHelper.unescape phrase
+    @search = phrase
     @klass = DanbooruTag
   end
 

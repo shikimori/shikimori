@@ -14,7 +14,7 @@ class Api::V1::CharactersController < Api::V1Controller
   def search
     @collection = Autocomplete::Character.call(
       scope: Character.all,
-      phrase: SearchHelper.unescape(params[:search] || params[:q])
+      phrase: params[:search] || params[:q]
     )
     respond_with @collection, each_serializer: CharacterSerializer
   end
