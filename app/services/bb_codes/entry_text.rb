@@ -7,7 +7,7 @@ class BbCodes::EntryText
     text = character_names text, @entry
     text = remove_wiki_codes(text) unless @entry.is_a? Club
 
-    BbCodes::Text.call text
+    BbCodes::Text.call "[div=b-text]#{text}[/div]"
   end
 
 private
