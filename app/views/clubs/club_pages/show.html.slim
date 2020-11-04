@@ -7,6 +7,6 @@
 
   .block
     = cache [@club_page, ClubPageDecorator::CACHE_VERSION] do
-      = BbCodes::Text.call @club_page.text
+      = BbCodes::EntryText.call @club_page.text, @club_page
 
   = render 'db_entries/comments', resource: @resource
