@@ -15,7 +15,6 @@ export default class ShikiEditorV2 extends View {
 
   async initialize() {
     await this._buildEditor();
-    window.editor = this;
     this.initialization.resolve();
   }
 
