@@ -4,6 +4,7 @@ pageLoad('.db_entries-edit_field', () => {
   if ($description.exists()) {
     $('form', $description).on('submit', function() {
       const $form = $(this);
+
       const newDescription = function(text, source) {
         if (source) {
           return `${text}[source]${source}[/source]`;
