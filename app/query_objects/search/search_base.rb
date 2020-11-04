@@ -4,7 +4,7 @@ class Search::SearchBase
   method_object %i[scope! phrase! ids_limit!]
 
   def call
-    search_ids = elastic_results.keys
+    search_ids = @phrase.blank? ? [] : elastic_results.keys
 
     if search_ids.any?
       @scope
