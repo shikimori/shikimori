@@ -1,6 +1,5 @@
 describe BbCodes::EntryText do
   before do
-    allow(BbCodes::Paragraphs).to receive(:call) { |text| text + 'p' }
     allow(BbCodes::CharactersNames).to receive(:call) { |text| text + 'c' }
   end
 
@@ -9,11 +8,11 @@ describe BbCodes::EntryText do
 
   context 'entry with characters' do
     let(:entry) { build :anime }
-    it { is_expected.to eq 'zcp' }
+    it { is_expected.to eq 'zc' }
   end
 
   context 'entry without characters' do
     let(:entry) { build :character }
-    it { is_expected.to eq 'zp' }
+    it { is_expected.to eq 'z' }
   end
 end

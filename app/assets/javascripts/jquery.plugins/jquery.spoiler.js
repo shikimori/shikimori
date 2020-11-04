@@ -1,6 +1,6 @@
 $.fn.extend({
   spoiler() {
-    return this.each(function () {
+    return this.each(function() {
       const $root = $(this);
       if (!$root.hasClass('unprocessed')) {
         return;
@@ -12,22 +12,13 @@ $.fn.extend({
 
       $root.on('spoiler:open', () => $label.click());
 
-      $label.on('click', function (e) {
+      $label.on('click', function(e) {
         if ((e.target !== $label[0]) && !$(this).closest($label).exists()) {
           return;
         }
 
         $label.hide();
         $content.css({ display: 'inline' });
-
-        $content.find('.b-prgrph').each(function () {
-          $content.addClass('no-cursor');
-          $(this)
-            .addClass('inner-prgrph')
-            .removeClass('b-prgrph')
-            .wrap('<div class="b-spoiler_prgrph"></div>');
-        });
-
         $content.process_hidden_content();
       });
 

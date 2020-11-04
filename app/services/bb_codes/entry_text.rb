@@ -5,7 +5,7 @@ class BbCodes::EntryText
     text = prepare @text
 
     text = character_names text, @entry
-    text = paragraphs(remove_wiki_codes(text)) unless @entry.is_a? Club
+    text = remove_wiki_codes(text) unless @entry.is_a? Club
 
     BbCodes::Text.call text
   end
@@ -23,10 +23,6 @@ private
     else
       text
     end
-  end
-
-  def paragraphs text
-    BbCodes::Paragraphs.call text
   end
 
   # must be called after character_names
