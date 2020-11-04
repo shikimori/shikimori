@@ -17,6 +17,7 @@
 - if local_assigns[:shiki_editor_v2] || current_user&.preferences&.is_shiki_editor?
   .b-shiki_editor-v2.to-process[
     data-dynamic='shiki_editor_v2'
+    class=('b-text_with_paragraphs' if local_assigns[:is_text_with_paragraphs])
   ]
     input[
       type='hidden'
@@ -50,7 +51,6 @@
   .b-shiki_editor.to-process[
     class=('size-xl' if local_assigns[:size] == 'xl')
     class=('no-preview-avatar' if local_assigns[:no_preview_avatar])
-    class=('b-text_with_paragraphs' if local_assigns[:is_text_with_paragraphs])
     data-dynamic='shiki_editor'
   ]
     = render 'comments/shiki_editor',

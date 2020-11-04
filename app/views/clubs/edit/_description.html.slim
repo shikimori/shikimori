@@ -6,7 +6,8 @@
       text: @resource.description.text,
       field_name: 'club[description]',
       size: 'xl',
-      no_preview_avatar: true
+      no_preview_avatar: true,
+      is_text_with_paragraphs: true
 
   .buttons
     a.cancel href=club_url(@resource) = t 'actions.cancel'
