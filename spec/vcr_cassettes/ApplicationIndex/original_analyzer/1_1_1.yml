@@ -91,16 +91,15 @@ http_interactions:
         tyo","chu =\u003e tyu","di =\u003e zi","du =\u003e zu","dya =\u003e ja","dyo
         =\u003e jo","dyu =\u003e ju","ei =\u003e e","fio =\u003e feo","fu =\u003e
         hu","gha =\u003e ga","gho =\u003e go","ghu =\u003e gu","gue =\u003e ghe","gui
-        =\u003e ghi","guia =\u003e ghia","guio =\u003e ghio","guiu =\u003e ghiu","gv
-        =\u003e gu","ha =\u003e wa","he =\u003e e","ia =\u003e ja","ie =\u003e ye","io
-        =\u003e jo","iu =\u003e ju","ji =\u003e zi","kio =\u003e qeo","mio =\u003e
-        meo","nho =\u003e neo","nhu =\u003e niu","oh =\u003e o","ou =\u003e o","pia
-        =\u003e pea","pio =\u003e peo","piu =\u003e peu","qio =\u003e qeo","quio =\u003e
-        qeo","ria =\u003e rea","rio =\u003e reo","sh =\u003e s","sha =\u003e sya","shi
-        =\u003e si","sho =\u003e syo","shu =\u003e syu","ssh =\u003e s","tch =\u003e
-        ch","tsu =\u003e tu","uea =\u003e ya","ueo =\u003e yo","ueu =\u003e yu","ui
-        =\u003e vi","uia =\u003e ya","uio =\u003e yo","uiu =\u003e yu","uu =\u003e
-        u","va =\u003e ua","ve =\u003e ue","vea =\u003e ya","veo =\u003e yo","veu
+        =\u003e ghi","gv =\u003e gu","ha =\u003e wa","he =\u003e e","ia =\u003e ja","ie
+        =\u003e ye","io =\u003e jo","iu =\u003e ju","ji =\u003e zi","kio =\u003e qeo","mio
+        =\u003e meo","nho =\u003e neo","nhu =\u003e niu","oh =\u003e o","ou =\u003e
+        o","pia =\u003e pea","pio =\u003e peo","piu =\u003e peu","qio =\u003e qeo","quio
+        =\u003e qeo","ria =\u003e rea","rio =\u003e reo","sh =\u003e s","sha =\u003e
+        sya","shi =\u003e si","sho =\u003e syo","shu =\u003e syu","ssh =\u003e s","tch
+        =\u003e ch","tsu =\u003e tu","uea =\u003e ya","ueo =\u003e yo","ueu =\u003e
+        yu","ui =\u003e vi","uia =\u003e ya","uio =\u003e yo","uiu =\u003e yu","uu
+        =\u003e u","va =\u003e ua","ve =\u003e ue","vea =\u003e ya","veo =\u003e yo","veu
         =\u003e yu","via =\u003e ya","vio =\u003e yo","viu =\u003e yu","vo =\u003e
         uo","we =\u003e e","wo =\u003e o","zya =\u003e ja","zyo =\u003e jo","zyu =\u003e
         ju","zzu =\u003e dzu"]}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["char_mappings"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter","unique_words_filter"],"char_filter":["char_mappings"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter"],"char_filter":["char_mappings"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","nGram_filter","distinct_words_filter"],"char_filter":["char_mappings"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["char_mappings"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["char_mappings"]}}}},"mappings":{"club":{"properties":{"name":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"locale":{"type":"keyword"}}}}}'
