@@ -58,11 +58,7 @@
         field_name: 'club_page[text]',
         size: 'xl',
         no_preview_avatar: true,
-        is_text_with_paragraphs: true,
-        preview_params: { \
-          target_id: @resource.club_id,
-          target_type: 'Club' \
-        }
+        is_text_with_paragraphs: true
 
     .buttons
       a.cancel href=@back_url = t 'actions.cancel'
