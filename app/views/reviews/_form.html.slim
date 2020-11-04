@@ -21,7 +21,11 @@
     field_name: 'review[text]',
     size: 'xl',
     no_preview_avatar: true,
-    is_text_with_paragraphs: true
+    is_text_with_paragraphs: true,
+    preview_params: { \
+      target_id: review.target_id,
+      target_type: review.target_type \
+    }
 
   .buttons
     a.cancel href=@back_url = t 'actions.cancel'
