@@ -16,10 +16,12 @@
     .body
       = render 'stars', review: review, in_edit: true, with_music: resource.anime?
 
-  .b-shiki_editor.to-process.size-xl data-dynamic='shiki_editor'
-    = render 'comments/shiki_editor',
-      text: review.text,
-      field_name: 'review[text]'
+  = render 'blocks/shiki_editor',
+    text: review.text,
+    field_name: 'review[text]',
+    size: 'xl',
+    no_preview_avatar: true,
+    is_text_with_paragraphs: true
 
   .buttons
     a.cancel href=@back_url = t 'actions.cancel'

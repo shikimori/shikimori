@@ -35,7 +35,8 @@ header.head.misc
         text: @resource.decomposed_body.text,
         field_name: 'article[body]',
         size: 'xl',
-        no_preview_avatar: true
+        no_preview_avatar: true,
+        is_text_with_paragraphs: true
 
     - if @resource.persisted?
       = f.input :state,
