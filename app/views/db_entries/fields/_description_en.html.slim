@@ -1,21 +1,24 @@
 = simple_form_for resource.object do |f|
-  .b-shiki_editor.to-process.no-preview-avatar.size-xl[
-    data-dynamic='shiki_editor'
-    data-target_id=resource.id
-    data-target_type=resource.object.class.name
-  ]
-    = f.input :description_en, as: :hidden
+  = f.input :description_en, as: :hidden
 
-    / description_en_text is a virtual field -
-    / it will be filtered out by permitted params
-    = render 'comments/shiki_editor',
-      text: resource.description_en.text,
-      field_name: "#{resource.object.class.name.downcase}[description_en_text]"
+  / description_en_text is a virtual field -
+  / it will be filtered out by permitted params
+  = render 'blocks/shiki_editor',
+    text: resource.description_ru.text,
+    field_name: "#{resource.object.class.name.downcase}[description_ru_text]",
+    size: 'xl',
+    no_preview_avatar: true,
+    is_text_with_paragraphs: true,
+    preview_params: { \
+      target_id: resource.id,
+      target_type: resource.object.class.name,
+      lang: 'en' \
+    }
 
-    = render 'blocks/source',
-      authors: resource.authors(:description_en),
-      source: resource.description_en.source,
-      field: 'description'
+  = render 'blocks/source',
+    authors: resource.authors(:description_en),
+    source: resource.description_en.source,
+    field: 'description'
 
   / description_en_source is a virtual field -
   / it will be filtered out by permitted params

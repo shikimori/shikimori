@@ -2,17 +2,6 @@ pageLoad('.db_entries-edit_field', () => {
   const $description = $('.edit-page.description_ru, .edit-page.description_en');
 
   if ($description.exists()) {
-    const $editor = $('.b-shiki_editor');
-    $editor
-      .on('preview:params', function() {
-        return {
-          body: $(this).view().$textarea.val(),
-          target_id: $editor.data('target_id'),
-          target_type: $editor.data('target_type'),
-          lang: $('.edit-page.description_ru').exists() ? 'ru' : 'en'
-        };
-      });
-
     $('form', $description).on('submit', function() {
       const $form = $(this);
       const newDescription = function(text, source) {

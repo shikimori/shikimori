@@ -13,7 +13,12 @@
       field_name: "#{resource.object.class.name.downcase}[description_ru_text]",
       size: 'xl',
       no_preview_avatar: true,
-      is_text_with_paragraphs: true
+      is_text_with_paragraphs: true,
+      preview_params: { \
+        target_id: resource.id,
+        target_type: resource.object.class.name,
+        lang: 'ru' \
+      }
 
     = render 'blocks/source',
       authors: resource.authors(:description_ru),

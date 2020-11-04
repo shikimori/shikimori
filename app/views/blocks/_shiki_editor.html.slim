@@ -18,6 +18,7 @@
   .b-shiki_editor-v2.to-process[
     data-dynamic='shiki_editor_v2'
     class=('b-text_with_paragraphs' if local_assigns[:is_text_with_paragraphs])
+    data-preview_params=(local_assigns[:preview_params].to_json if local_assigns[:preview_params])
   ]
     input[
       type='hidden'
@@ -52,6 +53,7 @@
     class=('size-xl' if local_assigns[:size] == 'xl')
     class=('no-preview-avatar' if local_assigns[:no_preview_avatar])
     data-dynamic='shiki_editor'
+    data-preview_params=(local_assigns[:preview_params].to_json if local_assigns[:preview_params])
   ]
     = render 'comments/shiki_editor',
       text: local_assigns[:text],
