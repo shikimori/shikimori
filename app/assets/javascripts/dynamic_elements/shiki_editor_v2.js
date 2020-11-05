@@ -15,7 +15,6 @@ export default class ShikiEditorV2 extends View {
 
   async initialize() {
     await this._buildEditor();
-    window.editor = this;
     this.initialization.resolve();
   }
 
@@ -26,6 +25,10 @@ export default class ShikiEditorV2 extends View {
   @memoize
   get $form() {
     return this.$node.closest('form');
+  }
+
+  get text() {
+    return this.editorApp.exportContent();
   }
 
   async _buildEditor() {
@@ -129,7 +132,8 @@ export default class ShikiEditorV2 extends View {
           shikiRequest,
           globalSearch: window.globalSearch,
           content: this.input.value,
-          localizationField
+          localizationField,
+          previewParams: this.$node.data('preview_params')
         },
         on: {
           preview({ node, JS_EXPORTS }) {

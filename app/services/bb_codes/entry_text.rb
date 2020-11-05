@@ -1,13 +1,17 @@
 class BbCodes::EntryText
-  method_object :text, :entry
+  method_object :text, %i[entry lang]
 
   def call
-    text = prepare @text
+    text = @entry ?
+      remove_wiki_codes(character_names(prepare(@text), @entry)) :
+      @text
 
-    text = character_names text, @entry
-    text = paragraphs(remove_wiki_codes(text)) unless @entry.is_a? Club
+    html = BbCodes::Text.call text
+    html = finalize_names html if @lang
 
-    BbCodes::Text.call text
+    <<-HTML.strip.html_safe
+      <div class="b-text_with_paragraphs">#{html}</div>
+    HTML
   end
 
 private
@@ -25,15 +29,30 @@ private
     end
   end
 
-  def paragraphs text
-    BbCodes::Paragraphs.call text
-  end
-
   # must be called after character_names
   # becase [[...]] are used in BbCodes::CharactersNames
   def remove_wiki_codes text
+    return text unless @entry.is_a? Character
+
     text
       .gsub(/\[\[[^\]|]+?\|(.*?)\]\]/, '\1')
       .gsub(/\[\[(.*?)\]\]/, '\1')
+  end
+
+  def finalize_names html
+    case @lang.to_sym
+      when :ru
+        html
+          .gsub(%r{<span class="name-ru">(.*?)</span>}, '\1')
+          .gsub(%r{<span class="name-en">.*?</span>}, '')
+
+      when :en
+        html
+          .gsub(%r{<span class="name-ru">.*?</span>}, '')
+          .gsub(%r{<span class="name-en">(.*?)</span>}, '\1')
+
+      else
+        html
+    end
   end
 end

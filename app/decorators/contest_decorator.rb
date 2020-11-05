@@ -56,11 +56,6 @@ class ContestDecorator < DbEntryDecorator
     rounds.last.matches.first
   end
 
-  # описание контеста
-  # def description
-    # BbCodes::EntryText.call object.description, object
-  # end
-
   # # победители контеста
   # def results round=nil
     # strategy.results(round).take(winners_count).map(&:decorate)

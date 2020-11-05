@@ -63,15 +63,22 @@ class Api::V1::ShikiEditorsController < Api::V1Controller # rubocop:disable Clas
     show
   end
 
-  def preview
-    text = JsExports::Supervisor.instance.sweep(
-      BbCodes::Text.call(
-        Banhammer.instance.censor(params[:text] || '')
-      )
-    )
+  def preview # rubocop:disable AbcSize
+    censored_text = Banhammer.instance.censor params[:text] || ''
+
+    html =
+      if params[:target_type] && params[:target_id]
+        BbCodes::EntryText.call(
+          censored_text,
+          entry: params[:target_type].constantize.find_by(id: params[:target_id]),
+          lang: params[:lang]
+        )
+      else
+        BbCodes::Text.call censored_text
+      end
 
     render json: {
-      html: text,
+      html: JsExports::Supervisor.instance.sweep(html),
       JS_EXPORTS: JsExports::Supervisor.instance.export(current_user)
     }
   end

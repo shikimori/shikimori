@@ -4,23 +4,26 @@
   p.warning Перед внесением изменений обязательно ознакомься с <a href="http://#{Shikimori::DOMAIN}/clubs/2-Perevody">правилами</a>.
 
   = simple_form_for resource.object do |f|
-    .b-shiki_editor.to-process.no-preview-avatar.size-xl[
-      data-dynamic='shiki_editor'
-      data-target_id=resource.id
-      data-target_type=resource.object.class.name
-    ]
-      = f.input :description_ru, as: :hidden
+    = f.input :description_ru, as: :hidden
 
-      / description_ru_text is a virtual field -
-      / it will be filtered out by permitted params
-      = render 'comments/shiki_editor',
-        text: resource.description_ru.text,
-        field_name: "#{resource.object.class.name.downcase}[description_ru_text]"
+    / description_ru_text is a virtual field -
+    / it will be filtered out by permitted params
+    = render 'blocks/shiki_editor',
+      text: resource.description_ru.text,
+      field_name: "#{resource.object.class.name.downcase}[description_ru_text]",
+      size: 'xl',
+      no_preview_avatar: true,
+      is_text_with_paragraphs: true,
+      preview_params: { \
+        target_id: resource.id,
+        target_type: resource.object.class.name,
+        lang: 'ru' \
+      }
 
-      = render 'blocks/source',
-        authors: resource.authors(:description_ru),
-        source: resource.description_ru.source,
-        field: 'description'
+    = render 'blocks/source',
+      authors: resource.authors(:description_ru),
+      source: resource.description_ru.source,
+      field: 'description'
 
     / description_ru_source is a virtual field -
     / it will be filtered out by permitted params

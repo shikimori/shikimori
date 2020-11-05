@@ -44,7 +44,7 @@
         = topic_view.html_footer
 
     - unless topic_view.skip_body?
-      .body
+      .body.b-text_with_paragraphs
         - if topic_view.minified?
           - if topic_view.topic_type_policy.review_topic?
             = render 'topics/reviews/entry_cover', view: topic_view,

@@ -1,16 +1,4 @@
 pageLoad('clubs_edit', async () => {
-  // description page
-  if ($('.edit-page.description').exists()) {
-    $('.b-shiki_editor')
-      .on('preview:params', function() {
-        return {
-          body: $(this).view().$textarea.val(),
-          target_id: 1,
-          target_type: 'Club'
-        };
-      });
-  }
-
   // links page
   if ($('.edit-page.links').exists()) {
     $('.anime-suggest').completableVariant();

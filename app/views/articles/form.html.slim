@@ -30,12 +30,12 @@ header.head.misc
 
     = render 'topics/form/posters', topic: @resource, f: f
 
-    .b-input
-      = render 'blocks/shiki_editor',
-        text: @resource.decomposed_body.text,
-        field_name: 'article[body]',
-        size: 'xl',
-        no_preview_avatar: true
+    = render 'blocks/shiki_editor',
+      text: @resource.decomposed_body.text,
+      field_name: 'article[body]',
+      size: 'xl',
+      no_preview_avatar: true,
+      is_text_with_paragraphs: true
 
     - if @resource.persisted?
       = f.input :state,
