@@ -1,17 +1,20 @@
 .b-text_with_paragraphs
-  br:not(:last-child)
+  br
     content: ''
     display: block
     height: 0 // must use margin-bottom, because height does not work in firefox
     margin-bottom: 5px
 
-  p br,
-  br + br
-    content: none !important
-    margin: 0
+    &.br
+      content: none
 
   p
     margin-bottom: 5px
+
+  li,
+  p
+    br
+      content: none
 
   .b-spoiler_block,
   .b-quote,

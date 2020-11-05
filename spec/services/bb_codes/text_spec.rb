@@ -468,4 +468,10 @@ describe BbCodes::Text do
     subject { service.send :prepare, text }
     it { is_expected.to eq "z\n\nx" }
   end
+
+  describe '#mark_sequential_br' do
+    let(:text) { 'z<br><br>x' }
+    subject { service.send :mark_sequential_br, text }
+    it { is_expected.to eq "z<br><br class='br'>x" }
+  end
 end

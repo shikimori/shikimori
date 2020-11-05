@@ -143,10 +143,16 @@ private
       text = tag_klass.instance.format text
     end
 
-    new_lines_to_br text
+    mark_sequential_br(new_lines_to_br(text))
   end
 
   def new_lines_to_br text
     text.gsub(/\n/, '<br>')
+  end
+
+  def mark_sequential_br text
+    text.gsub(/<br>(?<brs>(?:<br>)+)/) do
+      '<br>' + $LAST_MATCH_INFO[:brs].gsub('<br>', "<br class='br'>")
+    end
   end
 end
