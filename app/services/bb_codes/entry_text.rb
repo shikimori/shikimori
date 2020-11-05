@@ -2,12 +2,9 @@ class BbCodes::EntryText
   method_object :text, :entry
 
   def call
-    text = prepare @text
+    text = character_names remove_wiki_codes(prepare(@text)), @entry
 
-    text = character_names text, @entry
-    text = remove_wiki_codes(text) unless @entry.is_a? Club
-
-    <<-HTML.html_safe
+    <<-HTML.strip.html_safe
       <div class="b-text_with_paragraphs">#{BbCodes::Text.call text}</div>
     HTML
   end
