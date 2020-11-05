@@ -14,13 +14,13 @@ pageLoad('.db_entries-edit_field', () => {
 
       $('[name$="description_ru]"]', $form).val(
         combineDescription(
-          $('.shiki_editor-selector[data-name$="description_ru_text]"]', $form).view().text,
+          $('.shiki_editor-selector[data-field_name$="description_ru_text]"]', $form).view().text,
           $('[name$="description_ru_source]"]', $form).val()
         )
       );
       $('[name$="description_en]"]', $form).val(
         combineDescription(
-          $('.shiki_editor-selector[data-name$="description_ru_text]"]', $form).view().text,
+          $('.shiki_editor-selector[data-field_name$="description_ru_text]"]', $form).view().text,
           $('[name$="description_en_source]"]', $form).val()
         )
       );

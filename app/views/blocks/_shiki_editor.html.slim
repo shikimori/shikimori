@@ -19,7 +19,7 @@
     data-dynamic='shiki_editor_v2'
     class=('b-text_with_paragraphs' if local_assigns[:is_text_with_paragraphs])
     data-preview_params=(local_assigns[:preview_params].to_json if local_assigns[:preview_params])
-    data-name=local_assigns[:field_name]
+    data-field_name=local_assigns[:field_name]
   ]
     input[
       type='hidden'
@@ -56,7 +56,7 @@
     class=('b-text_with_paragraphs' if local_assigns[:is_text_with_paragraphs])
     data-dynamic='shiki_editor'
     data-preview_params=(local_assigns[:preview_params].to_json if local_assigns[:preview_params])
-    data-name=local_assigns[:field_name]
+    data-field_name=local_assigns[:field_name]
   ]
     = render 'comments/shiki_editor',
       text: local_assigns[:text],
