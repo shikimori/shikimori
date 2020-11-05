@@ -236,7 +236,7 @@ private
     end
   end
 
-  def klass_lower
+  def klass_lower # rubocop:disable AbcSize
     if object.is_a? Character # because character has method :anime?
       Character.name.downcase
 
