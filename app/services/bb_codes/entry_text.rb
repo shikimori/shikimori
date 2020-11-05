@@ -27,6 +27,8 @@ private
   # must be called after character_names
   # becase [[...]] are used in BbCodes::CharactersNames
   def remove_wiki_codes text
+    return text unless @entry.is_a? Character
+
     text
       .gsub(/\[\[[^\]|]+?\|(.*?)\]\]/, '\1')
       .gsub(/\[\[(.*?)\]\]/, '\1')
