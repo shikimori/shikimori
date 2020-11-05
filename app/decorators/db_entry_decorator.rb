@@ -103,13 +103,13 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def main_topic_view
     Topics::TopicViewFactory.new(false, false).build(
-      object.maybe_topic(h.lang_from_host)
+      object.maybe_topic(h.locale_from_host)
     )
   end
 
   def preview_topic_view
     Topics::TopicViewFactory.new(true, false).build(
-      object.maybe_topic(h.lang_from_host)
+      object.maybe_topic(h.locale_from_host)
     )
   end
 
@@ -118,13 +118,13 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def all_clubs
-    Clubs::Query.fetch(h.user_signed_in?, h.lang_from_host)
+    Clubs::Query.fetch(h.user_signed_in?, h.locale_from_host)
       .where(id: clubs_scope)
       .decorate
   end
 
   def clubs_scope
-    scope = object.clubs.where(lang: h.lang_from_host)
+    scope = object.clubs.where(lang: h.locale_from_host)
     scope.where! is_censored: false if !object.try(:censored?) && h.censored_forbidden?
     scope
   end
@@ -146,7 +146,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def collections_scope
     object.collections.available
-      .where(lang: h.lang_from_host)
+      .where(lang: h.locale_from_host)
   end
 
   def favoured?
