@@ -151,8 +151,8 @@ private
   end
 
   def mark_sequential_br text
-    text.gsub(/<br>(?<brs>(?:<br>)+)/) do
-      '<br>' + $LAST_MATCH_INFO[:brs].gsub('<br>', "<br class='br'>")
+    text.gsub(/(?:<br>){2,99}/) do |match|
+      match.gsub('<br>', "<br class='br'>")
     end
   end
 end

@@ -470,8 +470,16 @@ describe BbCodes::Text do
   end
 
   describe '#mark_sequential_br' do
-    let(:text) { 'z<br><br>x' }
     subject { service.send :mark_sequential_br, text }
-    it { is_expected.to eq "z<br><br class='br'>x" }
+
+    context 'one br' do
+      let(:text) { 'z<br>x' }
+      it { is_expected.to eq text }
+    end
+
+    context 'multiple brs' do
+      let(:text) { 'z<br><br>x' }
+      it { is_expected.to eq "z<br class='br'><br class='br'>x" }
+    end
   end
 end
