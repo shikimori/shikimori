@@ -16,8 +16,6 @@ const AJAX_BUTTONS = [
   '.b-summary_marker'
 ];
 
-const EDITOR_SELECTOR = '.b-shiki_editor, .b-shiki_editor-v2';
-
 export default class Comment extends ShikiEditable {
   _type() { return 'comment'; }
   _typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); }
@@ -109,7 +107,7 @@ export default class Comment extends ShikiEditable {
     const $initialContent = this.$node.children().detach();
     $form.appendTo(this.$node);
 
-    const editor = $form.find(EDITOR_SELECTOR).view();
+    const editor = $form.find('.shiki_editor-selector').view();
     editor.initialization.promise.then(() => editor.focus());
 
     // отмена редактирования

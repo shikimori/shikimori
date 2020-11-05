@@ -27,6 +27,10 @@ export default class ShikiEditorV2 extends View {
     return this.$node.closest('form');
   }
 
+  get text() {
+    return this.editorApp.exportContent();
+  }
+
   async _buildEditor() {
     this.vueNode = this.node.querySelector('.vue-app');
     this.input = this.node.querySelector('input');
@@ -128,7 +132,8 @@ export default class ShikiEditorV2 extends View {
           shikiRequest,
           globalSearch: window.globalSearch,
           content: this.input.value,
-          localizationField
+          localizationField,
+          previewParams: this.$node.data('preview_params')
         },
         on: {
           preview({ node, JS_EXPORTS }) {

@@ -97,7 +97,6 @@ class CommentsController < ShikimoriController
   def preview
     @comment = Comment.new(preview_params).decorate
 
-    # это может быть предпросмотр не просто текста, а описания к аниме или манге
     if params[:comment][:target_type] && params[:comment][:target_id]
       @comment = DescriptionComment.new(
         @comment,

@@ -5,8 +5,8 @@
   .subheadline
     = @club_page.name
 
-  .block
+  .block.b-text_with_paragraphs
     = cache [@club_page, ClubPageDecorator::CACHE_VERSION] do
-      = BbCodes::EntryText.call @club_page.text, @club_page
+      = BbCodes::Text.call @club_page.text
 
   = render 'db_entries/comments', resource: @resource
