@@ -10,14 +10,14 @@ describe BbCodes::EntryText do
   context 'with charaacters' do
     let(:entry) { build :anime }
 
-    it { is_expected.to eq '<div class="b-text_with_paragraphs">[[z]]c</div>' }
+    it { is_expected.to eq '<div class="b-text_with_paragraphs">zc</div>' }
     it { is_expected.to be_html_safe }
   end
 
   context 'wo characters' do
     let(:entry) { build :person }
 
-    it { is_expected.to eq '<div class="b-text_with_paragraphs">[[z]]</div>' }
+    it { is_expected.to eq '<div class="b-text_with_paragraphs">z</div>' }
     it { is_expected.to be_html_safe }
   end
 
