@@ -67,12 +67,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def description_html_ru
     html = Rails.cache.fetch CacheHelper.keys(:description_html_ru, object, CACHE_VERSION) do
-      # TODO: move gsub into BbCodes::EntryText
-      BbCodes::EntryText
-        .call(description_ru.text, object)
-        .gsub(%r{<span class="name-ru">(.*?)</span>}, '\1')
-        .gsub(%r{<span class="name-en">.*?</span>}, '')
-        .html_safe
+      BbCodes::EntryText.call description_ru.text, entry: object, locale: :ru
     end
 
     html.presence || "<p class='b-nothing_here'>#{i18n_t 'no_description'}</p>".html_safe
@@ -81,11 +76,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   def description_html_en
     html = Rails.cache.fetch CacheHelper.keys(:descrption_html_en, object) do
       # TODO: move gsub into BbCodes::EntryText
-      BbCodes::Text
-        .call(description_en.text)
-        .gsub(%r{<span class="name-ru">.*?</span>}, '')
-        .gsub(%r{<span class="name-en">(.*?)</span>}, '\1')
-        .html_safe
+      BbCodes::Text.call description_en.text, locale: :en
     end
 
     html.presence || "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe

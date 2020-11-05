@@ -3,8 +3,9 @@ describe BbCodes::EntryText do
     allow(BbCodes::CharactersNames).to receive(:call) { |text| text + 'c' }
   end
 
-  subject! { described_class.call text, entry }
+  subject! { described_class.call text, entry: entry, locale: locale }
   let(:text) { '[[z]]' }
+  let(:locale) { nil }
 
   context 'with charaacters' do
     let(:entry) { build :anime }

@@ -1,11 +1,16 @@
 class BbCodes::EntryText
-  method_object :text, :entry
+  method_object :text, %i[entry locale]
 
   def call
-    text = character_names remove_wiki_codes(prepare(@text)), @entry
+    text = @entry ?
+      remove_wiki_codes(character_names(prepare(@text), @entry)) :
+      @text
+
+    html = BbCodes::Text.call text
+    html = finalize_names html if @locale
 
     <<-HTML.strip.html_safe
-      <div class="b-text_with_paragraphs">#{BbCodes::Text.call text}</div>
+      <div class="b-text_with_paragraphs">#{html}</div>
     HTML
   end
 
@@ -32,5 +37,19 @@ private
     text
       .gsub(/\[\[[^\]|]+?\|(.*?)\]\]/, '\1')
       .gsub(/\[\[(.*?)\]\]/, '\1')
+  end
+
+  def finalize_names
+    case @locale.to_sym
+      when :ru
+        html
+          .gsub(%r{<span class="name-ru">(.*?)</span>}, '\1')
+          .gsub(%r{<span class="name-en">.*?</span>}, '')
+
+      when :en
+        html
+          .gsub(%r{<span class="name-ru">.*?</span>}, '')
+          .gsub(%r{<span class="name-en">(.*?)</span>}, '\1')
+    end
   end
 end

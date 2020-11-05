@@ -8,20 +8,6 @@ class DescriptionComment < SimpleDelegator
   end
 
   def html_body
-    if @lang == 'ru'
-      # TODO: move gsub into BbCodes::EntryText
-      BbCodes::EntryText
-        .call(body, @target)
-        .gsub(%r{<span class="name-ru">(.*?)</span>}, '\1')
-        .gsub(%r{<span class="name-en">.*?</span>}, '')
-        .html_safe
-    else
-      # TODO: move gsub into BbCodes::EntryText
-      BbCodes::Text
-        .call(body)
-        .gsub(%r{<span class="name-ru">.*?</span>}, '')
-        .gsub(%r{<span class="name-en">(.*?)</span>}, '\1')
-        .html_safe
-    end
+    BbCodes::EntryText.call body, entry: @target, locale: @lang
   end
 end
