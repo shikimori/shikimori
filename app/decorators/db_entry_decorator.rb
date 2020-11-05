@@ -75,7 +75,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def description_html_en
     html = Rails.cache.fetch CacheHelper.keys(:descrption_html_en, object) do
-      BbCodes::Text.call description_en.text, lang: :en
+      BbCodes::EntryText.call description_en.text, lang: :en
     end
 
     html.presence || "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe
