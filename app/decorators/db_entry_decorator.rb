@@ -67,7 +67,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def description_html_ru
     html = Rails.cache.fetch CacheHelper.keys(:description_html_ru, object, CACHE_VERSION) do
-      BbCodes::EntryText.call description_ru.text, entry: object, locale: :ru
+      BbCodes::EntryText.call description_ru.text, entry: object, lang: :ru
     end
 
     html.presence || "<p class='b-nothing_here'>#{i18n_t 'no_description'}</p>".html_safe
@@ -75,8 +75,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def description_html_en
     html = Rails.cache.fetch CacheHelper.keys(:descrption_html_en, object) do
-      # TODO: move gsub into BbCodes::EntryText
-      BbCodes::Text.call description_en.text, locale: :en
+      BbCodes::Text.call description_en.text, lang: :en
     end
 
     html.presence || "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe
@@ -104,13 +103,13 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def main_topic_view
     Topics::TopicViewFactory.new(false, false).build(
-      object.maybe_topic(h.locale_from_host)
+      object.maybe_topic(h.lang_from_host)
     )
   end
 
   def preview_topic_view
     Topics::TopicViewFactory.new(true, false).build(
-      object.maybe_topic(h.locale_from_host)
+      object.maybe_topic(h.lang_from_host)
     )
   end
 
@@ -119,13 +118,13 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def all_clubs
-    Clubs::Query.fetch(h.user_signed_in?, h.locale_from_host)
+    Clubs::Query.fetch(h.user_signed_in?, h.lang_from_host)
       .where(id: clubs_scope)
       .decorate
   end
 
   def clubs_scope
-    scope = object.clubs.where(locale: h.locale_from_host)
+    scope = object.clubs.where(lang: h.lang_from_host)
     scope.where! is_censored: false if !object.try(:censored?) && h.censored_forbidden?
     scope
   end
@@ -147,7 +146,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def collections_scope
     object.collections.available
-      .where(locale: h.locale_from_host)
+      .where(lang: h.lang_from_host)
   end
 
   def favoured?

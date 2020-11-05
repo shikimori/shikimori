@@ -8,6 +8,6 @@ class DescriptionComment < SimpleDelegator
   end
 
   def html_body
-    BbCodes::EntryText.call body, entry: @target, locale: @lang
+    BbCodes::EntryText.call body, entry: @target, lang: @lang
   end
 end

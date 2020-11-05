@@ -1,5 +1,5 @@
 class BbCodes::EntryText
-  method_object :text, %i[entry locale]
+  method_object :text, %i[entry lang]
 
   def call
     text = @entry ?
@@ -7,7 +7,7 @@ class BbCodes::EntryText
       @text
 
     html = BbCodes::Text.call text
-    html = finalize_names html if @locale
+    html = finalize_names html if @lang
 
     <<-HTML.strip.html_safe
       <div class="b-text_with_paragraphs">#{html}</div>
@@ -39,8 +39,8 @@ private
       .gsub(/\[\[(.*?)\]\]/, '\1')
   end
 
-  def finalize_names
-    case @locale.to_sym
+  def finalize_names html
+    case @lang.to_sym
       when :ru
         html
           .gsub(%r{<span class="name-ru">(.*?)</span>}, '\1')
@@ -50,6 +50,9 @@ private
         html
           .gsub(%r{<span class="name-ru">.*?</span>}, '')
           .gsub(%r{<span class="name-en">(.*?)</span>}, '\1')
+
+      else
+        html
     end
   end
 end
