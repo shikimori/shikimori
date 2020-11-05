@@ -124,7 +124,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def clubs_scope
-    scope = object.clubs.where(lang: h.locale_from_host)
+    scope = object.clubs.where(locale: h.locale_from_host)
     scope.where! is_censored: false if !object.try(:censored?) && h.censored_forbidden?
     scope
   end
@@ -146,7 +146,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def collections_scope
     object.collections.available
-      .where(lang: h.locale_from_host)
+      .where(locale: h.locale_from_host)
   end
 
   def favoured?
