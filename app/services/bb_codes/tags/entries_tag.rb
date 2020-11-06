@@ -16,7 +16,7 @@ class BbCodes::Tags::EntriesTag
           |
         \s (?<wall>wall)
       )+
-    \]
+    \] \n?
   /imx
   DEFAULT_COLUMNS = 8
   MAX_ENTRIES = 500

@@ -5,7 +5,7 @@ describe BbCodes::Tags::EntriesTag do
     context 'animes' do
       let(:anime_1) { create :anime }
       let(:anime_2) { create :anime }
-      let(:text) { "[animes ids=#{anime_1.id},#{anime_2.id}]" }
+      let(:text) { "[animes ids=#{anime_1.id},#{anime_2.id}]\n" }
 
       it 'has default number of columns' do
         expect(html).to include "<div class='cc-#{BbCodes::Tags::EntriesTag::DEFAULT_COLUMNS}-g15 "
