@@ -2,13 +2,13 @@ const DB_ENTRY_URL_REGEXP =
   /\/(animes|mangas|characters|people|ranobe|clubs|collections)\/[A-z]*(\d+)([\w-]*)/;
 
 const DB_ENTRY_KIND_REPLACEMENTS = {
-  animes: 'anime',
-  mangas: 'manga',
-  characters: 'character',
-  people: 'person',
-  ranobe: 'ranobe',
-  clubs: 'club',
-  collections: 'collection'
+  animes: { en: 'Anime', ru: 'Аниме' },
+  mangas: { en: 'Manga', ru: 'Манга' },
+  characters: { en: 'Character', ru: 'Персонаж' },
+  people: { en: 'Person', ru: 'Человек' },
+  ranobe: { en: 'Ranobe', ru: 'Ранобэ' },
+  clubs: { en: 'Club', ru: 'Клуб' },
+  collections: { en: 'Collection', ru: 'Коллекция' },
 };
 
 function paramToName([_, kind, id, name]) {
@@ -16,7 +16,7 @@ function paramToName([_, kind, id, name]) {
     .split('-')
     .filter(v => !Object.isEmpty(v))
     .map(v => v.capitalize())
-    .join(' ') || `${DB_ENTRY_KIND_REPLACEMENTS[kind]}/${id}`;
+    .join(' ') || `${DB_ENTRY_KIND_REPLACEMENTS[kind][window.LOCALE]}#${id}`;
 }
 
 const defaultOptions = {
