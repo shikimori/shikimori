@@ -14,7 +14,7 @@ header.head
       .block
         .cc-group
           - grouped_achievements.group_by(&:neko_id).each do |neko_id, achievements|
-            ul.b-list.c-column
+            ul.b-list.is-wide.c-column
               li
                 a[
                   href=achievement_url(group, neko_id)
