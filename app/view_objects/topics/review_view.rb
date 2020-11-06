@@ -37,21 +37,9 @@ class Topics::ReviewView < Topics::UserContentView
     end
   end
 
-  # def html_body
-  #   text = review.text
-  #
-  #   if preview? || minified?
-  #     text = text
-  #       .gsub(%r{\[/?center\]}, '')
-  #       .gsub(%r{\[poster.*?\].*?\[/\poster\]|\[poster=.*?\]}, '')
-  #       .strip
-  #       # .gsub(%r{\[spoiler.*?\]\s*\[/spoiler\]}, '')
-  #       # .gsub(%r{\[(img|poster|image).*?\].*\[/\1\]}, '')
-  #       # .gsub(/\[(poster|image)=.*?\]/, '')
-  #   end
-  #
-  #   stars_html + super(text)
-  # end
+  def html_body
+    stars_html + super
+  end
 
   def vote_results?
     review.votes_count.positive?
