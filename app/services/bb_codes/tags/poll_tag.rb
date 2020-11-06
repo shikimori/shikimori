@@ -1,9 +1,9 @@
 class BbCodes::Tags::PollTag
   include Singleton
 
-  REGEXP = %r{
-    \[poll=(\d+)\]
-  }mix
+  REGEXP = /
+    \[poll=(\d+)\] \n?
+  /mix
 
   def format text
     text.gsub(
