@@ -1,12 +1,22 @@
 const DB_ENTRY_URL_REGEXP =
-  /\/(?:animes|mangas|characters|people|ranobe|clubs)\/[A-z]*(\d+)([\w-]+)/;
+  /\/(animes|mangas|characters|people|ranobe|clubs|collections)\/[A-z]*(\d+)([\w-]*)/;
 
-function paramToName(param) {
-  return param
+const DB_ENTRY_KIND_REPLACEMENTS = {
+  animes: 'anime',
+  mangas: 'manga',
+  characters: 'character',
+  people: 'person',
+  ranobe: 'ranobe',
+  clubs: 'club',
+  collections: 'collection'
+};
+
+function paramToName([_, kind, id, name]) {
+  return name
     .split('-')
     .filter(v => !Object.isEmpty(v))
     .map(v => v.capitalize())
-    .join(' ');
+    .join(' ') || `${DB_ENTRY_KIND_REPLACEMENTS[kind]}/${id}`;
 }
 
 const defaultOptions = {
@@ -55,8 +65,8 @@ $.fn.extend({
             if (matches) {
               $node.trigger('autocomplete:success', [{
                 url: this.value,
-                id: matches[1],
-                name: paramToName(matches[2])
+                id: matches[2],
+                name: paramToName(matches)
               }]);
               return;
             }
