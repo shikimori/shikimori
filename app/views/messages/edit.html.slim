@@ -1,1 +1,7 @@
-= render partial: 'comments/form', locals: { comment: @resource }
+= render 'comments/form',
+  comment: @resource,
+  preview_params: { \
+    kind: @resource.kind,
+    from_id: @resource.from_id,
+    to_id: @resource.to_id \
+  }
