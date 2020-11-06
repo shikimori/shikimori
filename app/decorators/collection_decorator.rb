@@ -53,7 +53,7 @@ private
 
   def bbcode_links
     text
-      .scan(BbCodes::Tags::EntriesTag::REGEXP)
+      .scan(BbCodes::Tags::DbEntriesTag::REGEXP)
       .map(&:second)
       .flat_map { |v| v.split(',') }
       .uniq

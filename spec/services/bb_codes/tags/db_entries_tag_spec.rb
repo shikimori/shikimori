@@ -1,4 +1,4 @@
-describe BbCodes::Tags::EntriesTag do
+describe BbCodes::Tags::DbEntriesTag do
   subject(:html) { described_class.instance.format text }
 
   describe 'type' do
@@ -8,17 +8,17 @@ describe BbCodes::Tags::EntriesTag do
       let(:text) { "[animes ids=#{anime_1.id},#{anime_2.id}]\n" }
 
       it 'has default number of columns' do
-        expect(html).to include "<div class='cc-#{BbCodes::Tags::EntriesTag::DEFAULT_COLUMNS}-g15 "
+        expect(html).to include "<div class='cc-#{BbCodes::Tags::DbEntriesTag::DEFAULT_COLUMNS}-g15 "
       end
       it('has entries') { expect(html.scan('b-catalog_entry')).to have(2).items }
 
       context 'max entries limit' do
-        before { stub_const 'BbCodes::Tags::EntriesTag::MAX_ENTRIES', 2 }
+        before { stub_const 'BbCodes::Tags::DbEntriesTag::MAX_ENTRIES', 2 }
         it('has entries') { expect(html.scan('b-catalog_entry')).to have(2).items }
       end
 
       context 'exact max entries limit' do
-        before { stub_const 'BbCodes::Tags::EntriesTag::MAX_ENTRIES', 1 }
+        before { stub_const 'BbCodes::Tags::DbEntriesTag::MAX_ENTRIES', 1 }
         it('has warn message') { expect(html).to eq '[color=red]limit exceeded (1 max)[/color]' }
       end
     end

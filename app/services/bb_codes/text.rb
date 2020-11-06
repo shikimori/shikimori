@@ -28,7 +28,7 @@ class BbCodes::Text
 
     db_entry_url
     video_url video
-    poster wall_image entries
+    poster wall_image db_entries
     wall poll
 
     contest_status contest_round_status
