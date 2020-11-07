@@ -92,7 +92,7 @@ class ApplicationRecord < ActiveRecord::Base
       data = data.delete("\u0000") if data.is_a? String
 
       if is_double_quotes
-        connection.quote(data).delete('"').tr("'", '"')
+        connection.quote(data).gsub('"', '\\"').tr("'", '"')
       else
         connection.quote data
       end

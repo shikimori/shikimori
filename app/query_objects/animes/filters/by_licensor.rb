@@ -42,7 +42,7 @@ private
 
   def terms_sql terms
     sql = terms
-      .map { |term| ApplicationRecord.sanitize term, is_double_quotes: true }
+      .map { |term| ApplicationRecord.sanitize term, true }
       .join(',')
 
     "licensors && '{#{sql}}'"
