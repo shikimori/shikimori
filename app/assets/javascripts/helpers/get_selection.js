@@ -26,9 +26,17 @@ export function getSelectionHtml() {
     }
   }
 
+  let $html = $(html);
+
   if (html.match(/<div class="body"/)) {
-    return $with('div.body', $(html)).html();
+    $html = $with('div.body', $html);
   }
 
-  return html;
+  const namesLocale = document.body.getAttribute('data-localized_names');
+  const genresLocale = document.body.getAttribute('data-localized_genres');
+
+  $html.find(namesLocale === 'ru' ? '.name-en' : '.name-ru').remove();
+  $html.find(genresLocale === 'ru' ? '.genre-en' : '.genre-ru').remove();
+
+  return $html.html();
 }
