@@ -61,6 +61,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     if show_description_ru?
       description_html_ru
     else
+      1/0
       description_html_en
     end
   end

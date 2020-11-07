@@ -3,7 +3,7 @@
 
   .block
     = render 'blocks/shiki_editor',
-      text: @resource.description.text,
+      text: @resource.object.description,
       field_name: 'club[description]',
       size: 'xl',
       no_preview_avatar: true,

@@ -22,6 +22,14 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
     )
   end
 
+  def description_html
+    html = Rails.cache.fetch CacheHelper.keys(:description_html, object, CACHE_VERSION) do
+      BbCodes::Text.call object.description
+    end
+
+    html.presence || "<p class='b-nothing_here'>#{i18n_t 'no_description'}</p>".html_safe
+  end
+
   def image
     object.logo
   end

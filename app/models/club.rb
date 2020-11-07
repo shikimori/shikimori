@@ -181,16 +181,6 @@ class Club < ApplicationRecord
     member_roles.where(user: user).destroy_all
   end
 
-  # для совместимости с DbEntry
-  def description_ru
-    description
-  end
-
-  # для совместимости с DbEntry
-  def description_en
-    description
-  end
-
   def topic_user
     owner
   end
