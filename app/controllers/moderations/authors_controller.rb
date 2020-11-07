@@ -23,11 +23,11 @@ class Moderations::AuthorsController < ModerationsController # rubocop:disable C
     breadcrumb i18n_t('page_title'), moderations_authors_url
 
     @fansub_animes = Anime
-      .where(':name = ANY(fansubbers)', name: update_params[:name])
+      .where("fansubbers && '{#{Anime.sanitize update_params[:name], true}}'")
       .order(order_sql)
 
     @fandub_animes = Anime
-      .where(':name = ANY(fandubbers)', name: update_params[:name])
+      .where("fandubbers && '{#{Anime.sanitize update_params[:name], true}}'")
       .order(order_sql)
   end
 
