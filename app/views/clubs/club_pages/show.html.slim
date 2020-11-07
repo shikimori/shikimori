@@ -5,7 +5,7 @@
   .subheadline
     = @club_page.name
 
-  .block.b-text_with_paragraphs
+  .block
     = cache [@club_page, ClubPageDecorator::CACHE_VERSION] do
       = BbCodes::Text.call @club_page.text
 
