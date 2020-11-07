@@ -21,7 +21,7 @@ class ApplicationRecord < ActiveRecord::Base
       offset = 0
 
       begin
-        batch = ActiveRecord::Base.connection.select_all <<-SQL
+        batch = ActiveRecord::Base.connection.select_all <<-SQL.squish
           #{sql}
           LIMIT #{batch_size}
           OFFSET #{offset}
@@ -87,11 +87,15 @@ class ApplicationRecord < ActiveRecord::Base
       end
     end
 
-    def sanitize data
+    def sanitize data, is_double_quotes: false
       # http://shikimori.local/animes/page/30?type=1%00%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%252527%252522
       data = data.delete("\u0000") if data.is_a? String
 
-      connection.quote data
+      if is_double_quotes
+        connection.quote(data).delete('"').tr("'", '"')
+      else
+        connection.quote data
+      end
     end
   end
 end

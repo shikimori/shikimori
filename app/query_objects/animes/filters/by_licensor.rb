@@ -16,9 +16,7 @@ private
     meaningful_positives = positives.reject { |v| v == ANYTHING }
 
     if meaningful_positives.any?
-      scope = scope.where(
-        meaningful_positives.map { |v| term_sql v }.join(' or ')
-      )
+      scope = scope.where(terms_sql(meaningful_positives))
     end
 
     if meaningful_positives.size != positives.size
@@ -32,9 +30,7 @@ private
     meaningful_negatives = negatives.reject { |v| v == ANYTHING }
 
     if meaningful_negatives.any?
-      scope = scope.where.not(
-        meaningful_negatives.map { |v| term_sql v }.join(' or ')
-      )
+      scope = scope.where.not(terms_sql(meaningful_negatives))
     end
 
     if meaningful_negatives.size != negatives.size
@@ -44,7 +40,11 @@ private
     scope
   end
 
-  def term_sql term
-    "#{ApplicationRecord.sanitize term} = any(licensors)"
+  def terms_sql terms
+    sql = terms
+      .map { |term| ApplicationRecord.sanitize term, is_double_quotes: true }
+      .join(',')
+
+    "licensors && '{#{sql}}'"
   end
 end
