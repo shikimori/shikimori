@@ -87,7 +87,7 @@ class ApplicationRecord < ActiveRecord::Base
       end
     end
 
-    def sanitize data, is_double_quotes: false
+    def sanitize data, is_double_quotes = false
       # http://shikimori.local/animes/page/30?type=1%00%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%252527%252522
       data = data.delete("\u0000") if data.is_a? String
 

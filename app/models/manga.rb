@@ -32,7 +32,7 @@ class Manga < DbEntry
       added = licensors
         .map { |v| { id: v, kind: 'manga' } }
       deleted = (previous_changes['licensors'][0] - previous_changes['licensors'][1])
-        .select { |v| Manga.where('? = any(licensors)', v).none? }
+        .select { |v| Manga.where("licensors && '{#{Manga.sanitize v, true}}'").none? }
         .map { |v| { id: v, kind: 'manga', '_destroyed': true } }
 
       added + deleted
