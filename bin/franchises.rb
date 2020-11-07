@@ -248,6 +248,7 @@ begin
         UserRate
           .where(target_type: Anime.name)
           .where(target_id: neko_rule.animes_scope.pluck(:id))
+          .where(status: %i[completed watching rewatching])
           .where.not(user_id: User.cheat_bot)
           .select('count(distinct(user_id))')
           .to_a
