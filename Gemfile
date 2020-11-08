@@ -186,6 +186,7 @@ group :development, :test do
   gem 'guard-rspec', require: false
   gem 'guard-rubocop', require: false
   gem 'guard-spring', require: false
+  gem 'guard-brakeman', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 

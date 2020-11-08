@@ -165,6 +165,7 @@ GEM
       debug_inspector (>= 0.0.1)
     bootsnap (1.5.0)
       msgpack (~> 1.0)
+    brakeman (4.10.0)
     browser (5.1.0)
     bugsnag (6.18.0)
       concurrent-ruby (~> 1.0)
@@ -336,6 +337,10 @@ GEM
       pry (>= 0.9.12)
       shellany (~> 0.0)
       thor (>= 0.18.1)
+    guard-brakeman (0.8.6)
+      brakeman (>= 2.1.1)
+      guard (>= 2.0.0)
+      guard-compat (~> 1.0)
     guard-bundler (3.0.0)
       bundler (>= 2.1, < 3)
       guard (~> 2.2)
@@ -773,6 +778,7 @@ DEPENDENCIES
   gcm
   gon
   guard
+  guard-brakeman
   guard-bundler
   guard-i18n-js!
   guard-pow
