@@ -19,7 +19,7 @@
         :key='entry.key'
       )
         .delete(
-          @click='remove(entry)'
+          @click='remove(entry.key)'
         )
         .drag-handle
         .b-input
