@@ -15,7 +15,8 @@
       v-if='collection.length'
     )
       .b-collection_item.single-line(
-        v-for='(entry, index) in collection'
+        v-for='entry in collection'
+        :key='entry.key'
       )
         .delete(
           @click='remove(entry)'
@@ -24,14 +25,15 @@
         .b-input
           input(
             type='text'
-            v-model='entry.value'
+            :value='entry.value'
             :name="`${resourceType.toLowerCase()}[${field}][]`"
             :placeholder="I18n.t('frontend.' + field + '.name')"
+            @input='update({ key: entry.key, value: $event.target.value })'
             @keydown.enter='submit'
             @keydown.8='removeEmpty(entry)'
             @keydown.esc='removeEmpty(entry)'
             :data-autocomplete='autocompleteUrl'
-            :data-collection_index='index'
+            :data-item_key='entry.key'
           )
 
     .b-button(
@@ -40,7 +42,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapState, mapActions } from 'vuex';
 import draggable from 'vuedraggable';
 import delay from 'delay';
 
@@ -62,12 +64,11 @@ export default {
     }
   }),
   computed: {
-    ...mapGetters([
-      'isEmpty'
-    ]),
+    ...mapState({ items: 'collection' }),
+    ...mapGetters(['isEmpty']),
     collection: {
       get() {
-        return this.$store.state.collection;
+        return this.items;
       },
       set(items) {
         this.$store.dispatch('replace', items);
@@ -79,9 +80,7 @@ export default {
     this.autocomplete();
   },
   methods: {
-    ...mapActions([
-      'remove'
-    ]),
+    ...mapActions(['remove', 'update']),
     async add() {
       this.$store.dispatch('add', { value: '' });
       await this.focusLast();
@@ -102,7 +101,7 @@ export default {
       if (Object.isEmpty(entry.value) &&
           this.$store.state.collection.length > 1
       ) {
-        this.remove(entry);
+        this.remove(entry.key);
         this.focusLast();
       }
     },
@@ -131,14 +130,16 @@ export default {
       $node
         .completablePlain()
         .on('autocomplete:text', (e, value) => {
-          this.collection[($(e.currentTarget).data('collection_index'))].value = value;
+          const key = $(e.currentTarget).data('item_key');
+          this.update({ key, value });
         });
     },
     autocompleteDefault($node) {
       $node
         .completable()
         .on('autocomplete:success', (e, { value }) => {
-          this.collection[($(e.currentTarget).data('collection_index'))].value = value;
+          const key = $(e.currentTarget).data('item_key');
+          this.update({ key, value });
         });
     },
     cleanup() {

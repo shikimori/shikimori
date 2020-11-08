@@ -2,29 +2,38 @@ let uniqId = 987654321;
 const newId = () => uniqId += 1;
 
 // store for simple collection of items
-module.exports = {
+export default {
   state: {
     collection: []
   },
 
   actions: {
-    replace({ commit }, value) { commit('REPLACE', value); },
-    add({ commit }, value) { commit('ADD', value); },
-    remove({ commit }, data) { commit('REMOVE', data); },
+    replace({ commit }, collection) { commit('REPLACE', collection); },
+    add({ commit }, item) { commit('ADD', item); },
+    remove({ commit }, key) { commit('REMOVE', key); },
+    update({ commit }, item) { commit('UPDATE', item); },
     cleanup({ commit }) { commit('CLEANUP'); }
   },
 
   mutations: {
-    REPLACE(state, newCollection) {
-      state.collection = newCollection;
+    REPLACE(state, collection) {
+      state.collection = collection;
     },
 
-    ADD(state, itemData) {
-      state.collection.push(Object.add(itemData, { key: newId() }));
+    ADD(state, item) {
+      state.collection.push({ ...item, key: newId() });
     },
 
-    REMOVE(state, item) {
-      state.collection.splice(state.collection.indexOf(item), 1);
+    REMOVE(state, key) {
+      state.collection.splice(state.collection.findIndex(v => v.key === key), 1);
+    },
+
+    UPDATE(state, item) {
+      this._vm.$set(
+        state.collection,
+        state.collection.findIndex(v => v.key === item.key),
+        item
+      );
     },
 
     CLEANUP(state) {
