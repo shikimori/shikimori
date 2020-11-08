@@ -7,10 +7,6 @@ class ClubProfileSerializer < ClubSerializer
   has_many :characters
   has_many :images
 
-  def description
-    object.description.text
-  end
-
   # TODO: deprecated
   def thread_id
     object.maybe_topic(scope.locale_from_host).id
