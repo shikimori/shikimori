@@ -26,7 +26,7 @@ export function getSelectionHtml() {
     }
   }
 
-  let $html = $(html);
+  let $html = $(`<div>${html}</div>`);
 
   if (html.match(/<div class="body"/)) {
     $html = $with('div.body', $html);
