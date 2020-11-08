@@ -22,8 +22,8 @@
         href=entry.url
         title=entry.name
       ]
-        - if local_assigns[:is_search_russian].nil?
-          = localization_span entry, is_search_russian: local_assigns[:is_search_russian]
+        - if local_assigns[:is_search_russian].nil? || entry.russian.blank?
+          = localization_span entry
         - else
           | #{localization_span entry, is_search_russian: local_assigns[:is_search_russian]}
           span.b-separator.inline
