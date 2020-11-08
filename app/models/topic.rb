@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Topic < ApplicationRecord
+class Topic < ApplicationRecord # rubocop:disable ClassLength
   include AntispamConcern
   include Commentable
   include DecomposableBodyConcern
@@ -68,12 +68,12 @@ class Topic < ApplicationRecord
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
 
   has_many :messages,
-    -> { where "linked_type = '#{Topic.name}'" },
+    -> { where linked_type: Topic.name },
+    inverse_of: :linked,
     foreign_key: :linked_id,
     dependent: :delete_all
 
   has_many :topic_ignores,
-    foreign_key: :topic_id,
     dependent: :destroy
 
   # топики без топиков о выходе эпизодов
