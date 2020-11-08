@@ -640,16 +640,16 @@ Rails.application.routes.draw do
   end
 
   # cosplay
-  constraints id: /\d[^\/]*?/ do
-    resources :cosplay, path: '/cosplay' do
-      get :mod, on: :collection
-
-      resources :cosplay_galleries, path: '', controller: 'cosplay' do
-        get :delete
-        get :undelete
-      end
-    end
-  end
+  # constraints id: /\d[^\/]*?/ do
+  #   resources :cosplay, path: '/cosplay' do
+  #     get :mod, on: :collection
+  # 
+  #     resources :cosplay_galleries, path: '', controller: 'cosplay' do
+  #       get :delete
+  #       get :undelete
+  #     end
+  #   end
+  # end
 
   # cosplayers
   get 'cosplay/:gallery/comments' => 'cosplayers#comments', as: :cosplay_comments

@@ -10,6 +10,10 @@ class Api::V1::UserRatesController < Api::V1Controller
   UNIQ_EXCEPTIONS = [ActiveRecord::RecordNotUnique, PG::UniqueViolation]
   ALLOWED_EXCEPTIONS = [PG::Error, RangeError, NotSaved]
 
+  RatesType = Types::Strict::Symbol
+    .constructor { |v| "#{v}_rates".to_sym }
+    .enum(:anime_rates, :manga_rates)
+
   before_action except: %i[show] do
     doorkeeper_authorize! :user_rates if doorkeeper_token.present?
   end
@@ -105,14 +109,14 @@ class Api::V1::UserRatesController < Api::V1Controller
 
   api :DELETE, '/user_rates/:type/cleanup', 'Delete entire user rates and history'
   description 'Requires `user_rates` oauth scope'
-  def cleanup
+  def cleanup # rubocop:disable AbcSize
     user = current_user.object
 
     user.history.where(target_type: params[:type].capitalize).delete_all
     user.history.where(action: "#{params[:type]}_import").delete_all
     user.history.where(action: "mal_#{params[:type]}_import").delete_all
     user.history.where(action: "ap_#{params[:type]}_import").delete_all
-    user.send("#{params[:type]}_rates").delete_all
+    user.send(RatesType[params[:type]]).delete_all
     user.touch
 
     if params[:type] == 'anime'
@@ -131,7 +135,7 @@ class Api::V1::UserRatesController < Api::V1Controller
   def reset
     user = current_user.object
 
-    user.send("#{params[:type]}_rates").update_all score: 0
+    user.send(RatesType[params[:type]]).update_all score: 0
     user.touch
 
     if params[:type] == 'anime'

@@ -57,4 +57,6 @@ header.head.misc
           span.num
             = gallery.images.count
           | )
-        == gallery.target.empty? ? '&ndash;' : gallery.target
+        - if gallery.target.empty?
+          | &ndash;
+        = gallery.target

@@ -17,9 +17,12 @@ class ContestSuggestionsController < ShikimoriController
   end
 
   def create
-    item = params[:contest_suggestion][:item_type].constantize.find params[:contest_suggestion][:item_id]
+    item = params[:contest_suggestion][:item_type].constantize.find(
+      params[:contest_suggestion][:item_id]
+    )
     ContestSuggestion.suggest @contest, current_user, item
-    redirect_to @contest
+
+    redirect_to contest_url(@contest)
   end
 
   def destroy
@@ -30,10 +33,11 @@ class ContestSuggestionsController < ShikimoriController
       .first!
       .destroy
 
-    redirect_to @contest
+    redirect_to contest_url(@contest)
   end
 
 private
+
   def fetch_contest
     @contest = Contest.where(id: params[:contest_id], state: 'proposing').first!
   end

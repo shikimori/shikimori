@@ -9,7 +9,6 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
   before_action :fetch_resource, if: :resource_id
   before_action :og_db_entry_meta, if: :resource_id
 
-
   COLLETIONS_PER_PAGE = 4
   DANGEROUS_ACTION_DELAY_INTERVAL = 30.minutes
 
