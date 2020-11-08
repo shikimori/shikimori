@@ -22,7 +22,14 @@
       a.b-link.bubbled[
         href=url
         title=text
-      ] = localization_span entry, is_search_russian: local_assigns[:is_search_russian]
+      ]
+        - if local_assigns[:is_search_russian].nil?
+          = localization_span entry, is_search_russian: local_assigns[:is_search_russian]
+        - else
+          | #{localization_span entry, is_search_russian: local_assigns[:is_search_russian]}
+          span.b-separator.inline
+           | /
+          | #{localization_span entry, is_search_russian: !local_assigns[:is_search_russian]}
 
     - if entry.respond_to? :formatted_roles
       - roles = entry.formatted_roles.split(',').map(&:strip)
