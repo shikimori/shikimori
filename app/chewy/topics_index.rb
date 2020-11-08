@@ -40,18 +40,18 @@ class TopicsIndex < ApplicationIndex
       field name_field,
         type: 'keyword',
         index: false,
-        fields: {
-          original: ORIGINAL_FIELD,
-          edge_phrase: EDGE_PHRASE_FIELD,
-          edge_word: EDGE_WORD_FIELD,
-          ngram: NGRAM_FIELD
-        },
         value: -> {
           if FIELD_VALUE[name_field]
             FIELD_VALUE[name_field].(self)
           else
             send(name_field)
           end
+        },
+        fields: {
+          original: ORIGINAL_FIELD,
+          edge_phrase: EDGE_PHRASE_FIELD,
+          edge_word: EDGE_WORD_FIELD,
+          ngram: NGRAM_FIELD
         }
     end
     field :locale, type: 'keyword'
