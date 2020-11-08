@@ -9,7 +9,7 @@ const FORBIDDEN_TAGS = [
   'nipples', 'spread_legs', 'flat_color', 'micro_bikini', 'monochrome',
   'bottomless', 'censored', 'meme', 'dakimakura', 'undressing',
   'lowres', 'plump', 'cameltoe', 'bandaid_on_pussy', 'bandaids_on_nipples',
-  'oral', 'footjob', 'erect_nipples\b.*\bpanties', 'breasts\b.*\btopless',
+  'oral', 'footjob', 'erect_nipples\\b.*\\bpanties', 'breasts\\b.*\\btopless',
   'crotch_zipper', 'bdsm', 'side-tie_panties', 'anal', 'masturbation',
   'panty_pull', 'loli', 'print_panties'
 ];
