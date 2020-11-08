@@ -815,7 +815,7 @@ DEPENDENCIES
   rack-attack
   rack-cors
   rack-utf8_sanitizer
-  rails (= 5.2.4.4)
+  rails
   rails-controller-testing
   rails-i18n
   rb-fchange
