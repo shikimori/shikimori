@@ -1,0 +1,26 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "b3bff51aa72ed32a725a345178892c31d69f845b49d408f709e646edb7b8604b",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/torrents_controller.rb",
+      "line": 42,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(Anime.find(params[:id].to_i).decorate.edit_url)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TorrentsController",
+        "method": "create"
+      },
+      "user_input": "Anime.find(params[:id].to_i).decorate.edit_url",
+      "confidence": "High",
+      "note": ""
+    }
+  ],
+  "updated": "2020-11-08 16:05:51 +0300",
+  "brakeman_version": "4.10.0"
+}

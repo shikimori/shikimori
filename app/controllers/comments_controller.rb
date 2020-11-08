@@ -106,7 +106,7 @@ class CommentsController < ShikimoriController
       )
     end
 
-    render @comment
+    render partial: 'comment', object: @comment
   end
 
   def smileys
