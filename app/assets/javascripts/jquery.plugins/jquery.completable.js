@@ -110,7 +110,9 @@ $.fn.extend({
           formatItem(entry) { return entry.value; },
         })
         .on('result', (_e, entry) => {
-          $node.trigger('autocomplete:text', [entry.value]);
+          if (entry) {
+            $node.trigger('autocomplete:text', [entry.value]);
+          }
         });
     });
   }
