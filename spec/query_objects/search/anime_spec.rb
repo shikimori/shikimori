@@ -8,7 +8,9 @@ describe Search::Anime do
       )
   end
 
-  subject { described_class.call scope: scope, phrase: phrase, ids_limit: ids_limit }
+  subject do
+    described_class.call scope: scope, phrase: phrase, ids_limit: ids_limit
+  end
 
   let(:scope) { Anime.all }
   let(:phrase) { 'Kaichou' }

@@ -25,16 +25,15 @@ class LicensorsIndex < ApplicationIndex
       type: 'keyword',
       value: ->(entry) { entry[:kind] }
 
-    field(
-      :name,
+    field :name,
       type: 'keyword',
+      index: false,
       value: ->(entry) { entry[:id] },
-      index: false
-    ) do
-      field :original, ORIGINAL_FIELD
-      field :edge_phrase, EDGE_PHRASE_FIELD
-      field :edge_word, EDGE_WORD_FIELD
-      field :ngram, NGRAM_FIELD
-    end
+      fields: {
+        original: ORIGINAL_FIELD,
+        edge_phrase: EDGE_PHRASE_FIELD,
+        edge_word: EDGE_WORD_FIELD,
+        ngram: NGRAM_FIELD
+      }
   end
 end

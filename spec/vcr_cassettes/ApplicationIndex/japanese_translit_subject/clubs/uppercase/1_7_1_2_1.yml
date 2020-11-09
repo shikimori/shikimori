@@ -192,7 +192,7 @@ http_interactions:
     uri: http://localhost:9200/shikimori_test_clubs/_analyze
     body:
       encoding: UTF-8
-      string: '{"analyzer":"search_phrase_analyzer","text":"te st"}'
+      string: '{"analyzer":"original_analyzer","text":"Bio"}'
     headers:
       User-Agent:
       - Faraday v0.17.3
@@ -210,9 +210,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '101'
+      - '99'
     body:
       encoding: ASCII-8BIT
-      string: '{"tokens":[{"token":"te st","start_offset":0,"end_offset":5,"type":"word","position":0}]}'
+      string: '{"tokens":[{"token":"bio","start_offset":0,"end_offset":3,"type":"word","position":0}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0

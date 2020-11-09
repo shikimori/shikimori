@@ -1,9 +1,10 @@
 describe ApplicationIndex, :vcr do
   # include_context :disable_vcr
-  include_context :chewy_indexes, %i[clubs]
+  include_context :chewy_indexes, %i[animes clubs]
   # include_context :chewy_logger
 
-  let(:url) { 'http://localhost:9200/shikimori_test_clubs/_analyze' }
+  let(:url) { "http://localhost:9200/shikimori_test_#{type}/_analyze" }
+  let(:type) { :clubs }
   let(:response) do
     Faraday
       .get do |req|
@@ -210,6 +211,36 @@ describe ApplicationIndex, :vcr do
     context 'same words' do
       let(:text) { 'tes tes' }
       it { is_expected.to eq %w[tes tes] }
+    end
+  end
+
+  context 'japanese translit subject' do
+    let(:analyzer) { :original_analyzer }
+
+    context 'clubs' do
+      context 'lowercase' do
+        let(:text) { 'bio' }
+        it { is_expected.to eq %w[bio] }
+      end
+
+      context 'uppercase' do
+        let(:text) { 'Bio' }
+        it { is_expected.to eq %w[bio] }
+      end
+    end
+
+    context 'animes' do
+      let(:type) { :animes }
+
+      context 'lowercase' do
+        let(:text) { 'bio' }
+        it { is_expected.to eq %w[beo] }
+      end
+
+      context 'uppercase' do
+        let(:text) { 'Bio' }
+        it { is_expected.to eq %w[beo] }
+      end
     end
   end
 end

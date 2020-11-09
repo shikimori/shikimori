@@ -84,7 +84,7 @@ class ApplicationIndex < Chewy::Index
           type: 'custom',
           tokenizer: 'keyword',
           filter: %w[lowercase asciifolding synonyms_filter],
-          char_filter: %w[char_mappings]
+          char_filter: %w[default_char_mappings]
         },
         edge_phrase_analyzer: {
           type: 'custom',
@@ -96,7 +96,7 @@ class ApplicationIndex < Chewy::Index
             edgeNGram_filter
             unique_words_filter
           ],
-          char_filter: %w[char_mappings]
+          char_filter: %w[default_char_mappings]
         },
         edge_word_analyzer: {
           type: 'custom',
@@ -107,7 +107,7 @@ class ApplicationIndex < Chewy::Index
             synonyms_filter
             edgeNGram_filter
           ],
-          char_filter: %w[char_mappings]
+          char_filter: %w[default_char_mappings]
         },
         ngram_analyzer: {
           type: 'custom',
@@ -119,20 +119,20 @@ class ApplicationIndex < Chewy::Index
             nGram_filter
             distinct_words_filter
           ],
-          char_filter: %w[char_mappings]
+          char_filter: %w[default_char_mappings]
         },
         search_phrase_analyzer: {
           type: 'custom',
           tokenizer: 'keyword',
           filter: %w[lowercase asciifolding synonyms_filter],
-          char_filter: %w[char_mappings]
+          char_filter: %w[default_char_mappings]
         },
         search_word_analyzer: {
           type: 'custom',
           tokenizer: 'standard',
           filter: %w[lowercase asciifolding synonyms_filter],
-          char_filter: %w[char_mappings]
-        }
+          char_filter: %w[default_char_mappings]
+        },
       },
       tokenizer: {
         edge_ngram_tokenizer: {
@@ -177,88 +177,176 @@ class ApplicationIndex < Chewy::Index
         }
       },
       char_filter: {
-        char_mappings: {
+        default_char_mappings: {
           type: 'mapping',
           mappings: [
             'Ё => Е',
             'ё => е',
             '. => \\u0020',
             '_ => \\u0020',
-            '- => \\u0020',
-            # https://en.wikipedia.org/wiki/Romanization_of_Japanese
-            'bio => beo',
-            'cha => tya',
-            'chi => ti',
-            'cho => tyo',
-            'chu => tyu',
-            'di => zi',
-            'du => zu',
-            'dya => ja',
-            'dyo => jo',
-            'dyu => ju',
-            'ei => e',
-            'fio => feo',
-            'fu => hu',
-            'gha => ga',
-            'gho => go',
-            'ghu => gu',
-            'gue => ghe',
-            'gui => ghi',
-            'gv => gu',
-            'ha => wa',
-            'he => e',
-            'ia => ja',
-            'ie => ye',
-            'io => jo',
-            'iu => ju',
-            'ji => zi',
-            'kio => qeo',
-            'mio => meo',
-            'nho => neo',
-            'nhu => niu',
-            'oh => o',
-            'ou => o',
-            'pia => pea',
-            'pio => peo',
-            'piu => peu',
-            'qio => qeo',
-            'quio => qeo',
-            'ria => rea',
-            'rio => reo',
-            'sh => s',
-            'sha => sya',
-            'shi => si',
-            'sho => syo',
-            'shu => syu',
-            'ssh => s',
-            'tch => ch',
-            'tsu => tu',
-            'uea => ya',
-            'ueo => yo',
-            'ueu => yu',
-            'ui => vi',
-            'uia => ya',
-            'uio => yo',
-            'uiu => yu',
-            'uu => u',
-            'va => ua',
-            've => ue',
-            'vea => ya',
-            'veo => yo',
-            'veu => yu',
-            'via => ya',
-            'vio => yo',
-            'viu => yu',
-            'vo => uo',
-            'we => e',
-            'wo => o',
-            'zya => ja',
-            'zyo => jo',
-            'zyu => ju',
-            'zzu => dzu'
-          ]
-        }
-      },
+            '- => \\u0020'
+          ],
+        },
+      }
     }
+  }
+
+  JP_SETTINGS = DEFAULT_SETTINGS.deep_dup
+  JP_CHAR_MAPPINGS = 'japanese_translit_char_mappings'
+
+  JP_SETTINGS[:analysis][:analyzer][:original_analyzer][:char_filter] << JP_CHAR_MAPPINGS
+  JP_SETTINGS[:analysis][:analyzer][:edge_phrase_analyzer][:char_filter] << JP_CHAR_MAPPINGS
+  JP_SETTINGS[:analysis][:analyzer][:edge_word_analyzer][:char_filter] << JP_CHAR_MAPPINGS
+  JP_SETTINGS[:analysis][:analyzer][:ngram_analyzer][:char_filter] << JP_CHAR_MAPPINGS
+
+  JP_SETTINGS[:analysis][:analyzer][:search_phrase_analyzer][:char_filter] << JP_CHAR_MAPPINGS
+  JP_SETTINGS[:analysis][:analyzer][:search_word_analyzer][:char_filter] << JP_CHAR_MAPPINGS
+
+  JP_SETTINGS[:analysis][:char_filter][JP_CHAR_MAPPINGS.to_sym] =  {
+    type: 'mapping',
+    mappings: [
+      # https://en.wikipedia.org/wiki/Romanization_of_Japanese
+      'bio => beo',
+      'cha => tya',
+      'chi => ti',
+      'cho => tyo',
+      'chu => tyu',
+      'di => zi',
+      'du => zu',
+      'dya => ja',
+      'dyo => jo',
+      'dyu => ju',
+      'ei => e',
+      'fio => feo',
+      'fu => hu',
+      'gha => ga',
+      'gho => go',
+      'ghu => gu',
+      'gue => ghe',
+      'gui => ghi',
+      'gv => gu',
+      'ha => wa',
+      'he => e',
+      'ia => ja',
+      'ie => ye',
+      'io => jo',
+      'iu => ju',
+      'ji => zi',
+      'kio => qeo',
+      'mio => meo',
+      'nho => neo',
+      'nhu => niu',
+      'oh => o',
+      'ou => o',
+      'pia => pea',
+      'pio => peo',
+      'piu => peu',
+      'qio => qeo',
+      'quio => qeo',
+      'ria => rea',
+      'rio => reo',
+      'sh => s',
+      'sha => sya',
+      'shi => si',
+      'sho => syo',
+      'shu => syu',
+      'ssh => s',
+      'tch => ch',
+      'tsu => tu',
+      'uea => ya',
+      'ueo => yo',
+      'ueu => yu',
+      'ui => vi',
+      'uia => ya',
+      'uio => yo',
+      'uiu => yu',
+      'uu => u',
+      'va => ua',
+      've => ue',
+      'vea => ya',
+      'veo => yo',
+      'veu => yu',
+      'via => ya',
+      'vio => yo',
+      'viu => yu',
+      'vo => uo',
+      'we => e',
+      'wo => o',
+      'zya => ja',
+      'zyo => jo',
+      'zyu => ju',
+      'zzu => dzu',
+      # uppercase
+      'Bio => Beo',
+      'Cha => Tya',
+      'Chi => Ti',
+      'Cho => Tyo',
+      'Chu => Tyu',
+      'Di => Zi',
+      'Du => Zu',
+      'Dya => Ja',
+      'Dyo => Jo',
+      'Dyu => Ju',
+      'Ei => E',
+      'Fio => Feo',
+      'Fu => Hu',
+      'Gha => Ga',
+      'Gho => Go',
+      'Ghu => Gu',
+      'Gue => Ghe',
+      'Gui => Ghi',
+      'Gv => Gu',
+      'Ha => Wa',
+      'He => E',
+      'Ia => Ja',
+      'Ie => Ye',
+      'Io => Jo',
+      'Iu => Ju',
+      'Ji => Zi',
+      'Kio => Qeo',
+      'Mio => Meo',
+      'Nho => Neo',
+      'Nhu => Niu',
+      'Oh => O',
+      'Ou => O',
+      'Pia => Pea',
+      'Pio => Peo',
+      'Piu => Peu',
+      'Qio => Qeo',
+      'Quio => Qeo',
+      'Ria => Rea',
+      'Rio => Reo',
+      'Sh => S',
+      'Sha => Sya',
+      'Shi => Si',
+      'Sho => Syo',
+      'Shu => Syu',
+      'Ssh => S',
+      'Tch => Ch',
+      'Tsu => Tu',
+      'Uea => Ya',
+      'Ueo => Yo',
+      'Ueu => Yu',
+      'Ui => Vi',
+      'Uia => Ya',
+      'Uio => Yo',
+      'Uiu => Yu',
+      'Uu => U',
+      'Va => Ua',
+      'Ve => Ue',
+      'Vea => Ya',
+      'Veo => Yo',
+      'Veu => Yu',
+      'Via => Ya',
+      'Vio => Yo',
+      'Viu => Yu',
+      'Vo => Uo',
+      'We => E',
+      'Wo => O',
+      'Zya => Ja',
+      'Zyo => Jo',
+      'Zyu => Ju',
+      'Zzu => Dzu'
+    ]
   }
 end
