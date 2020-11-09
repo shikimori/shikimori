@@ -28,11 +28,11 @@ header.head.misc
         = f.input :name
 
         .block
-          .b-shiki_editor.to-process data-dynamic='shiki_editor'
-            .field-name = Collection.human_attribute_name :text
-            = render 'comments/shiki_editor',
-              text: @resource.text,
-              field_name: 'poll[text]'
+          = render 'blocks/shiki_editor',
+            text: @resource.text,
+            field_name: 'poll[text]',
+            no_preview_avatar: true,
+            is_text_with_paragraphs: true
 
         = f.button :magic_submit
         a.cancel href="#{profile_polls_url @user}" = t 'actions.cancel'
