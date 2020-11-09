@@ -253,7 +253,7 @@ http_interactions:
       - '200'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":29,"errors":false,"items":[{"index":{"_index":"shikimori_test_clubs","_type":"club","_id":"1096","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":1,"status":201}}]}'
+      string: '{"took":28,"errors":false,"items":[{"index":{"_index":"shikimori_test_clubs","_type":"club","_id":"1096","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: get
@@ -284,7 +284,7 @@ http_interactions:
       - '218'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":1,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":2,"max_score":444.91446,"hits":[{"_index":"shikimori_test_clubs","_type":"club","_id":"1094","_score":444.91446,"_source":{"name":"test","locale":"ru"}},{"_index":"shikimori_test_clubs","_type":"club","_id":"1095","_score":56.025562,"_source":{"name":"test
+      string: '{"took":0,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":2,"max_score":444.91446,"hits":[{"_index":"shikimori_test_clubs","_type":"club","_id":"1094","_score":444.91446,"_source":{"name":"test","locale":"ru"}},{"_index":"shikimori_test_clubs","_type":"club","_id":"1095","_score":56.025562,"_source":{"name":"test
         zxct","locale":"ru"}}]}}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:

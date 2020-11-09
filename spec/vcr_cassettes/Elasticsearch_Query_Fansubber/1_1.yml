@@ -132,10 +132,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '205'
+      - '204'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":33,"errors":false,"items":[{"index":{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":27,"errors":false,"items":[{"index":{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: head
@@ -158,7 +158,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '10867'
+      - '11699'
     body:
       encoding: UTF-8
       string: ''
@@ -194,7 +194,7 @@ http_interactions:
       - '201'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":28,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99999","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":1,"status":201}}]}'
+      string: '{"took":29,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99999","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: head
@@ -252,10 +252,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '223'
+      - '222'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":25,"errors":false,"items":[{"index":{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test
+      string: '{"took":29,"errors":false,"items":[{"index":{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test
         zxct","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":1,"status":201}},{"index":{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"zxct","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -279,7 +279,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '10867'
+      - '11699'
     body:
       encoding: UTF-8
       string: ''
@@ -312,10 +312,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '204'
+      - '203'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":26,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99998","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":3,"_primary_term":1,"status":201}}]}'
+      string: '{"took":29,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99998","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":3,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: head
@@ -374,7 +374,7 @@ http_interactions:
       - '209'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":28,"errors":false,"items":[{"index":{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test
+      string: '{"took":26,"errors":false,"items":[{"index":{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test
         2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":3,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -398,7 +398,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '10867'
+      - '11699'
     body:
       encoding: UTF-8
       string: ''
@@ -431,10 +431,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '205'
+      - '204'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":35,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99997","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":4,"_primary_term":1,"status":201}}]}'
+      string: '{"took":28,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99997","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":4,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: get
@@ -462,10 +462,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '223'
+      - '222'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":1,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":2,"max_score":444.80115,"hits":[{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test","_score":444.80115,"_source":{"kind":"fansubber","name":"test"}},{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test
+      string: '{"took":0,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":2,"max_score":444.80115,"hits":[{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test","_score":444.80115,"_source":{"kind":"fansubber","name":"test"}},{"_index":"shikimori_test_fansubbers","_type":"fansubber","_id":"test
         zxct","_score":55.91223,"_source":{"kind":"fansubber","name":"test zxct"}}]}}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0

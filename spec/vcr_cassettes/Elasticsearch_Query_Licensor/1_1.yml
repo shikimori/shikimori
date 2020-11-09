@@ -29,51 +29,6 @@ http_interactions:
       string: '{"acknowledged":true}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
-    method: get
-    uri: http://localhost:9200/
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
-      Content-Type:
-      - application/json
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '310'
-    body:
-      encoding: ASCII-8BIT
-      string: |
-        {
-          "name" : "mbp13",
-          "cluster_name" : "elasticsearch_brew",
-          "cluster_uuid" : "zsI_nPsHSduJqorx30dxkQ",
-          "version" : {
-            "number" : "7.9.3-SNAPSHOT",
-            "build_flavor" : "oss",
-            "build_type" : "tar",
-            "build_hash" : "unknown",
-            "build_date" : "2020-10-22T16:26:49.195652Z",
-            "build_snapshot" : true,
-            "lucene_version" : "8.6.2",
-            "minimum_wire_compatibility_version" : "6.8.0",
-            "minimum_index_compatibility_version" : "6.0.0-beta1"
-          },
-          "tagline" : "You Know, for Search"
-        }
-  recorded_at: Thu, 10 May 2018 16:00:00 GMT
-- request:
     method: put
     uri: http://localhost:9200/shikimori_test_licensors?include_type_name=true
     body:
@@ -177,10 +132,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '201'
+      - '200'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":25,"errors":false,"items":[{"index":{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":29,"errors":false,"items":[{"index":{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: head
@@ -203,7 +158,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '12209'
+      - '11699'
     body:
       encoding: UTF-8
       string: ''
@@ -236,10 +191,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '202'
+      - '203'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":26,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99999","_version":6,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":12,"_primary_term":1,"status":200}}]}'
+      string: '{"took":30,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99999","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":5,"_primary_term":1,"status":200}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: head
@@ -300,7 +255,7 @@ http_interactions:
       - '222'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":21,"errors":false,"items":[{"index":{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test
+      string: '{"took":29,"errors":false,"items":[{"index":{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test
         zxct","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":1,"status":201}},{"index":{"_index":"shikimori_test_licensors","_type":"licensor","_id":"zxct","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -324,7 +279,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '12209'
+      - '11699'
     body:
       encoding: UTF-8
       string: ''
@@ -357,10 +312,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '205'
+      - '203'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":27,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99998","_version":6,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":13,"_primary_term":1,"status":200}}]}'
+      string: '{"took":31,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99998","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":6,"_primary_term":1,"status":200}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: head
@@ -416,10 +371,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '205'
+      - '206'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":20,"errors":false,"items":[{"index":{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test
+      string: '{"took":26,"errors":false,"items":[{"index":{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test
         2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":3,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -443,7 +398,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '12209'
+      - '10867'
     body:
       encoding: UTF-8
       string: ''
@@ -476,10 +431,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '204'
+      - '203'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":24,"errors":false,"items":[{"index":{"_index":"shikimori_test_mangas","_type":"manga","_id":"99999","_version":6,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":9,"_primary_term":1,"status":200}}]}'
+      string: '{"took":32,"errors":false,"items":[{"index":{"_index":"shikimori_test_mangas","_type":"manga","_id":"99999","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":4,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: get
@@ -512,5 +467,50 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"took":0,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":2,"max_score":444.80115,"hits":[{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test","_score":444.80115,"_source":{"kind":"anime","name":"test"}},{"_index":"shikimori_test_licensors","_type":"licensor","_id":"test
         zxct","_score":55.91223,"_source":{"kind":"anime","name":"test zxct"}}]}}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '310'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "name" : "mbp13",
+          "cluster_name" : "elasticsearch_brew",
+          "cluster_uuid" : "zsI_nPsHSduJqorx30dxkQ",
+          "version" : {
+            "number" : "7.9.3-SNAPSHOT",
+            "build_flavor" : "oss",
+            "build_type" : "tar",
+            "build_hash" : "unknown",
+            "build_date" : "2020-10-22T16:26:49.195652Z",
+            "build_snapshot" : true,
+            "lucene_version" : "8.6.2",
+            "minimum_wire_compatibility_version" : "6.8.0",
+            "minimum_index_compatibility_version" : "6.0.0-beta1"
+          },
+          "tagline" : "You Know, for Search"
+        }
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0

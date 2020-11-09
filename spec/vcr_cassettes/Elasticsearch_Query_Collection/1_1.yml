@@ -132,10 +132,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '203'
+      - '204'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":31,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":38,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: head
@@ -191,10 +191,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '203'
+      - '201'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":34,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":1,"status":201}}]}'
+      string: '{"took":28,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: head
@@ -250,10 +250,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '202'
+      - '204'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":30,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"3","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":1,"status":201}}]}'
+      string: '{"took":28,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"3","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: get
