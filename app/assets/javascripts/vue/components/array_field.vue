@@ -2,7 +2,7 @@
   .block
     input(
       type='hidden'
-      :name='`${resourceType.toLowerCase()}[${field}][]`'
+      :name='emptyInputName || `${resourceType.toLowerCase()}[${field}][]`'
       v-if='isEmpty'
     )
     .b-nothing_here(
@@ -26,7 +26,7 @@
           input(
             type='text'
             :value='entry.value'
-            :name="`${resourceType.toLowerCase()}[${field}][]`"
+            :name="inputName || `${resourceType.toLowerCase()}[${field}][]`"
             :placeholder="I18n.t('frontend.' + field + '.name')"
             @input='update({ key: entry.key, value: $event.target.value })'
             @keydown.enter='submit'
@@ -35,9 +35,8 @@
             :data-autocomplete='autocompleteUrl'
             :data-item_key='entry.key'
           )
-
     .b-button(
-      @click="add"
+      @click='add'
     ) {{ I18n.t('frontend.actions.add') }}
 </template>
 
@@ -53,6 +52,8 @@ export default {
   components: { draggable },
   props: {
     field: { type: String, required: true },
+    inputName: { type: String, required: false, default: undefined },
+    emptyInputName: { type: String, required: false, default: undefined },
     resourceType: { type: String, required: true },
     autocompleteUrl: { type: String, required: false, default: undefined },
     autocompleteType: { type: String, required: false, default: undefined }
@@ -98,9 +99,7 @@ export default {
       }
     },
     removeEmpty(entry) {
-      if (Object.isEmpty(entry.value) &&
-          this.$store.state.collection.length > 1
-      ) {
+      if (Object.isEmpty(entry.value) && this.collection.length > 1) {
         this.remove(entry.key);
         this.focusLast();
       }
