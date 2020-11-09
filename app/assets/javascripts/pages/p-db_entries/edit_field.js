@@ -152,7 +152,7 @@ async function initExternalLinksApp() {
   const { default: storeSchema } = await import('vue/stores/collection');
 
   const $app = $('#vue_external_links');
-  const values = $app.data('external_links');
+  const values = $app.data('external_links').map(v => ({ ...v, key: v.id }));
 
   const store = new Vuex.Store(storeSchema);
   store.state.collection = values;

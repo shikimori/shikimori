@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 import ExternalLink from './external_link';
 import draggable from 'vuedraggable';
@@ -55,12 +55,11 @@ export default {
     }
   }),
   computed: {
-    ...mapGetters([
-      'isEmpty'
-    ]),
+    ...mapState({ items: 'collection' }),
+    ...mapGetters(['isEmpty']),
     collection: {
       get() {
-        return this.$store.state.collection;
+        return this.items;
       },
       set(items) {
         this.$store.dispatch('replace', items);

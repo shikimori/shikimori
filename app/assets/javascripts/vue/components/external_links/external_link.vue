@@ -1,7 +1,7 @@
 <template lang='pug'>
   .b-collection_item
     .delete(
-      @click="remove(link)"
+      @click='remove(link.key)'
     )
     .drag-handle
     input(
@@ -36,8 +36,9 @@
     )
     .b-input.select
       select(
-        v-model='link.kind'
+        :value='link.kind'
         :name="fieldName('kind')"
+        @input='update({ ...link, kind: $event.target.value })'
       )
         optgroup(
           :label='I18n.t("frontend.external_links.groups.links")'
@@ -56,9 +57,10 @@
     .b-input
       input(
         type='text'
-        v-model='link.url'
+        :value='link.url'
         :name="fieldName('url')"
         :placeholder="I18n.t('activerecord.attributes.external_link.url')"
+        @input='update({ ...link, url: $event.target.value })'
         @keydown.enter='submit'
         @keydown.8='removeEmpty(link)'
         @keydown.esc='removeEmpty(link)'
@@ -78,7 +80,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'ExternalLink',
@@ -91,6 +93,7 @@ export default {
     watchOnlineKinds: { type: Array, required: true }
   },
   computed: {
+    ...mapState(['collection']),
     isYoutubeKind() {
       return this.link.kind === 'youtube';
     },
@@ -113,9 +116,7 @@ export default {
     });
   },
   methods: {
-    ...mapActions([
-      'remove'
-    ]),
+    ...mapActions(['remove', 'update']),
     fieldName(name) {
       if (!Object.isEmpty(this.link.url)) {
         return `${this.resourceType.toLowerCase()}[external_links][][${name}]`;
@@ -129,8 +130,8 @@ export default {
       }
     },
     removeEmpty(link) {
-      if (Object.isEmpty(link.url) && this.$store.state.collection.length > 1) {
-        this.remove(link);
+      if (Object.isEmpty(link.url) && this.collection.length > 1) {
+        this.remove(link.key);
         this.$emit('focusLast');
       }
     }
