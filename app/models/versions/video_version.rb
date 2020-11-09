@@ -22,7 +22,8 @@ class Versions::VideoVersion < Version
   def reject_changes
     case action
       when Actions[:upload] then delete_video
-      when Actions[:delete] then confirm_video
+      # nothing to do when rejection video deletion
+      when Actions[:delete] then true
     end
   end
 

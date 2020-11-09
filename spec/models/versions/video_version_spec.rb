@@ -47,7 +47,7 @@ describe Versions::VideoVersion do
     end
 
     context 'delete' do
-      let(:video) { create :video, :deleted }
+      let(:video) { create :video, :confirmed }
       let(:action) { Versions::VideoVersion::Actions[:delete] }
 
       it { expect(video.reload).to be_confirmed }
