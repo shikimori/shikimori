@@ -21,7 +21,8 @@ function paramToName([_, kind, id, name]) {
 
 const defaultOptions = {
   // autoFill: true,
-  cacheLength: 10,
+  // cacheLength: 10,
+  cacheLength: 0,
   delay: 10,
   max: 30,
 
