@@ -26,8 +26,9 @@
           input(
             type='text'
             name='poll[variants_attributes][][label]'
-            v-model='pollVariant.label'
+            :value='pollVariant.label'
             :placeholder="I18n.t('frontend.poll_variants.label')"
+            @input='update({ pollVariant: pollVariant.key, label: $event.target.value })'
             @keydown.enter='submit'
             @keydown.8='removeEmpty(pollVariant)'
             @keydown.esc='removeEmpty(pollVariant)'
@@ -39,8 +40,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-
+import { mapGetters, mapState, mapActions } from 'vuex';
 import draggable from 'vuedraggable';
 import delay from 'delay';
 
@@ -56,12 +56,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      'isEmpty'
-    ]),
+    ...mapState({ items: 'collection' }),
+    ...mapGetters(['isEmpty']),
     collection: {
       get() {
-        return this.$store.state.collection;
+        return this.items;
       },
       set(items) {
         this.$store.dispatch('replace', items);
@@ -69,7 +68,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['remove']),
+    ...mapActions(['remove', 'update']),
     add() {
       this.$store.dispatch('add', { label: '' });
       this.focusLast();
