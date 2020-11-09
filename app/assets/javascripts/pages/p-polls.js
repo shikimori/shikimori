@@ -3,7 +3,7 @@ pageLoad('.polls', async () => {
 
   const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
   const { default: Poll } = await import('vue/components/poll');
-  const storeSchema = await import('vue/stores/collection');
+  const { default: storeSchema } = await import('vue/stores/collection');
 
   const pollVariants = $('#poll_form').data('poll').variants;
 

@@ -12,13 +12,14 @@
     draggable.block(
       v-bind='dragOptions'
       v-model='collection'
-      v-if="collection.length"
+      v-if='collection.length'
     )
       .b-collection_item.single-line(
         v-for='pollVariant in collection'
+        :key='pollVariant.key'
       )
         .delete(
-          @click='remove(pollVariant)'
+          @click='remove(pollVariant.key)'
         )
         .drag-handle
         .b-input
@@ -68,9 +69,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'remove'
-    ]),
+    ...mapActions(['remove']),
     add() {
       this.$store.dispatch('add', { label: '' });
       this.focusLast();
@@ -83,7 +82,7 @@ export default {
     },
     removeEmpty(pollVariant) {
       if (Object.isEmpty(pollVariant.label) && this.$store.state.collection.length > 1) {
-        this.remove(pollVariant);
+        this.remove(pollVariant.key);
         this.focusLast();
       }
     },
