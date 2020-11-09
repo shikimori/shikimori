@@ -33,11 +33,11 @@ header.head.misc
         = f.input :name, autofocus: @resource.name.blank?
 
         .block
-          .b-shiki_editor.to-process data-dynamic='shiki_editor'
-            .field-name = Collection.human_attribute_name :text
-            = render 'comments/shiki_editor',
-              text: @resource.text,
-              field_name: 'poll[text]'
+          = render 'blocks/shiki_editor',
+            text: @resource.text,
+            field_name: 'poll[text]',
+            no_preview_avatar: true,
+            is_text_with_paragraphs: true
 
         / .b-input
           label #{Poll.human_attribute_name :state}: #{@resource.human_state_name.downcase}
