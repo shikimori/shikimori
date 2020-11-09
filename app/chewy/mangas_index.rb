@@ -5,7 +5,7 @@ class MangasIndex < ApplicationIndex
     license_name_ru
   ]
 
-  settings DEFAULT_SETTINGS
+  settings JP_SETTINGS
 
   define_type Manga.where.not(type: Ranobe.name) do
     NAME_FIELDS.each do |name_field|

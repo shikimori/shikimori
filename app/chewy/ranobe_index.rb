@@ -5,7 +5,7 @@ class RanobeIndex < ApplicationIndex
     license_name_ru
   ]
 
-  settings DEFAULT_SETTINGS
+  settings JP_SETTINGS
 
   define_type Ranobe do
     NAME_FIELDS.each do |name_field|

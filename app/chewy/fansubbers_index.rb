@@ -28,6 +28,7 @@ class FansubbersIndex < ApplicationIndex
     field :name,
       type: 'keyword',
       index: false,
+      value: ->(entry) { entry[:id] },
       fields: {
         original: ORIGINAL_FIELD,
         edge_phrase: EDGE_PHRASE_FIELD,

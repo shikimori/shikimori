@@ -3,7 +3,7 @@ class PeopleIndex < ApplicationIndex
     name japanese russian
   ]
 
-  settings DEFAULT_SETTINGS
+  settings JP_SETTINGS
 
   define_type Person do
     NAME_FIELDS.each do |name_field|

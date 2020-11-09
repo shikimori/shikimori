@@ -3,7 +3,7 @@ class CharactersIndex < ApplicationIndex
     name japanese fullname russian
   ]
 
-  settings DEFAULT_SETTINGS
+  settings JP_SETTINGS
 
   define_type Character do
     NAME_FIELDS.each do |name_field|

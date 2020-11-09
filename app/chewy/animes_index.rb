@@ -5,7 +5,7 @@ class AnimesIndex < ApplicationIndex
     license_name_ru
   ]
 
-  settings DEFAULT_SETTINGS
+  settings JP_SETTINGS
 
   # define_type Anime.where(id: [12413]) do
   # define_type Anime.where("name ilike '%naruto%'") do
