@@ -8,6 +8,8 @@ class Redirecter
   def call env
     request = Rack::Request.new env
 
+    return @app.call(env) unless request.get?
+
     if !VALID_HOSTS.include? request.host
       [301, { 'Location' => fixed_url(request).sub(request.host, Shikimori::DOMAIN) }, []]
 
