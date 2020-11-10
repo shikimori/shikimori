@@ -3,4 +3,4 @@
   .m8
     b.text-red Пожалуйста, внимательно прочитай правила перед внесением правок!
   .m20
-    = BbCodes::Text.call "[spoiler=[div=b-js-action][size=18][b]Правила[/b][/size][/div]][div]" + club_page.text + "[right]Изменить текст можно на странице [club_page=#{club_page.id}]#{club_page.name}[/club_page][/right][/div][/spoiler]"
+    = BbCodes::Text.call "[spoiler_block=Правила is-fullwidth is-centered]" + club_page.text + "[right]Изменить текст можно на странице [club_page=#{club_page.id}]#{club_page.name}[/club_page][/right][/spoiler_block]"
