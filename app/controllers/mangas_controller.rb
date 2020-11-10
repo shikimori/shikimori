@@ -2,7 +2,6 @@ class MangasController < AnimesController
   UPDATE_PARAMS = %i[
     russian
     license_name_ru
-    licensor
     imageboard_tag
     description_ru
     description_en
@@ -10,6 +9,7 @@ class MangasController < AnimesController
   ] + [
     *Manga::DESYNCABLE,
     external_links: [EXTERNAL_LINK_PARAMS],
+    licensors: [],
     synonyms: [],
     desynced: []
   ]
