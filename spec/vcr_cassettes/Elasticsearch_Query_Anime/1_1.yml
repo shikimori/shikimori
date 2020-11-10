@@ -274,4 +274,49 @@ http_interactions:
       string: !binary |-
         eyJ0b29rIjoyLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjoxLCJzdWNjZXNzZnVsIjoxLCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoyLCJtYXhfc2NvcmUiOjM1LjIyMzA4LCJoaXRzIjpbeyJfaW5kZXgiOiJzaGlraW1vcmlfdGVzdF9hbmltZXMiLCJfdHlwZSI6ImFuaW1lIiwiX2lkIjoiMSIsIl9zY29yZSI6MzUuMjIzMDgsIl9zb3VyY2UiOnsibmFtZSI6InRlc3QiLCJydXNzaWFuIjoi0LDQsCIsImVuZ2xpc2giOm51bGwsImphcGFuZXNlIjpudWxsLCJzeW5vbnltc18wIjpudWxsLCJzeW5vbnltc18xIjpudWxsLCJzeW5vbnltc18yIjpudWxsLCJzeW5vbnltc18zIjpudWxsLCJzeW5vbnltc180IjpudWxsLCJzeW5vbnltc181IjpudWxsLCJsaWNlbnNlX25hbWVfcnUiOm51bGwsIndlaWdodCI6MS4yfX0seyJfaW5kZXgiOiJzaGlraW1vcmlfdGVzdF9hbmltZXMiLCJfdHlwZSI6ImFuaW1lIiwiX2lkIjoiMiIsIl9zY29yZSI6NC40MDI4ODUsIl9zb3VyY2UiOnsibmFtZSI6InRlc3QgenhjdCIsInJ1c3NpYW4iOiLQsNCwIiwiZW5nbGlzaCI6bnVsbCwiamFwYW5lc2UiOm51bGwsInN5bm9ueW1zXzAiOm51bGwsInN5bm9ueW1zXzEiOm51bGwsInN5bm9ueW1zXzIiOm51bGwsInN5bm9ueW1zXzMiOm51bGwsInN5bm9ueW1zXzQiOm51bGwsInN5bm9ueW1zXzUiOm51bGwsImxpY2Vuc2VfbmFtZV9ydSI6bnVsbCwid2VpZ2h0IjoxLjJ9fV19fQ==
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '310'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "name" : "mbp13",
+          "cluster_name" : "elasticsearch_brew",
+          "cluster_uuid" : "zsI_nPsHSduJqorx30dxkQ",
+          "version" : {
+            "number" : "7.9.3-SNAPSHOT",
+            "build_flavor" : "oss",
+            "build_type" : "tar",
+            "build_hash" : "unknown",
+            "build_date" : "2020-10-22T16:26:49.195652Z",
+            "build_snapshot" : true,
+            "lucene_version" : "8.6.2",
+            "minimum_wire_compatibility_version" : "6.8.0",
+            "minimum_index_compatibility_version" : "6.0.0-beta1"
+          },
+          "tagline" : "You Know, for Search"
+        }
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0

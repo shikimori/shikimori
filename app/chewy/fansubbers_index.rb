@@ -35,5 +35,23 @@ class FansubbersIndex < ApplicationIndex
         edge_word: EDGE_WORD_FIELD,
         ngram: NGRAM_FIELD
       }
+
+    WORDS_MIN = 1.0
+    WORDS_MAX = 20.0
+
+    SCORE_MIN = 1.0
+    SCORE_MAX = 1.025
+
+    field :weight,
+      type: 'half_float',
+      index: false,
+      # https://www.wolframalpha.com/input/?i=plot+%281.1+%2F+%281+%2B+%281.1+-+1%29+*+%28min%281%2C+max%28%28%28x+-+1.0%29+%2F+%2820.0+-+1.0%29%29%2C+0%29%29%29%29%29+from+x%3D0+to+30
+      value: -> (entry, _) {
+        x = entry[:id].length
+
+        percent = (x - WORDS_MIN) / (WORDS_MAX - WORDS_MIN)
+        fixed_percent = [1, [percent, 0].max].min
+        1.0 / (SCORE_MIN + (SCORE_MAX - SCORE_MIN) * percent)
+      }
   end
 end

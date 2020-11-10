@@ -50,12 +50,17 @@ class ApplicationIndex < Chewy::Index
     number_of_shards: 1,
     similarity: {
       scripted_tfidf: {
+        # "type": "BM25",
+        # "k1": "1.9",
+        # "b": "0.75",
+        # "discount_overlaps": true
         type: 'scripted',
         script: {
           # here we disable idf (https://www.elastic.co/guide/en/elasticsearch/guide/master/scoring-theory.html#idf) because
           # becase in names search it just dilutes resulting score (https://stackoverflow.com/questions/33208587/elasticsearch-score-disable-idf?lq=1)
-          # https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-similarity.html\#scripted_similarity
+          # https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-similarity.html
           # "source": "double tf = Math.sqrt(doc.freq); double idf = Math.log((field.docCount+1.0)/(term.docFreq+1.0)) + 1.0; double norm = 1/Math.sqrt(doc.length); return query.boost * tf * idf * norm;"
+          # https://www.wolframalpha.com/input/?i=plot+%281.0+%2F+%280.9+%2B+%281.0+-+0.9%29+*+%28min%281%2C+max%28%28%28x+-+1.0%29+%2F+%2820.0+-+1.0%29%29%2C+0%29%29%29%29%29+from+x%3D0+to+30
           source: <<~TEXT.squish
             double tf = Math.sqrt(doc.freq);
 
@@ -72,7 +77,20 @@ class ApplicationIndex < Chewy::Index
 
             return query.boost * tf * norm;
           TEXT
-        }
+        },
+        # weight_script: {
+        #   source: <<~TEXT.squish
+        #     double idf = Math.log((field.docCount+1.0)/(term.docFreq+1.0)) + 1.0;
+        #     return query.boost * idf;
+        #   TEXT
+        # },
+        # script: {
+        #   source: <<~TEXT.squish
+        #     double tf = Math.sqrt(doc.freq);
+        #     double norm = 1/Math.sqrt(doc.length);
+        #     return weight * tf * norm;
+        #   TEXT
+        # }
       }
     },
     index: {
