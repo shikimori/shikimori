@@ -21,11 +21,11 @@ class Animes::Filters::Terms
 private
 
   def parse value
-    splitted_value = value.is_a?(Symbol) ? [value] : value.split(',')
+    splitted_value = value.is_a?(String) ? value.split(',') : [value.to_s]
 
     splitted_value.map do |term|
       is_negative = term[0] == '!'
-      value = is_negative ? term[1..-1] : term
+      value = is_negative ? term[1..] : term
 
       OpenStruct.new(
         value: @dry_type ? @dry_type[value] : value,
