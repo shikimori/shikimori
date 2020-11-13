@@ -36,8 +36,8 @@ class FansubbersIndex < ApplicationIndex
         ngram: NGRAM_FIELD
       }
 
-    WORDS_MIN = 1.0
-    WORDS_MAX = 20.0
+    LETTERS_MIN = 1.0
+    LETTERS_MAX = 20.0
 
     SCORE_MIN = 1.0
     SCORE_MAX = 1.025
@@ -49,7 +49,7 @@ class FansubbersIndex < ApplicationIndex
       value: -> (entry, _) {
         x = entry[:id].length
 
-        percent = (x - WORDS_MIN) / (WORDS_MAX - WORDS_MIN)
+        percent = (x - LETTERS_MIN) / (LETTERS_MAX - LETTERS_MIN)
         fixed_percent = [1, [percent, 0].max].min
         1.0 / (SCORE_MIN + (SCORE_MAX - SCORE_MIN) * percent)
       }
