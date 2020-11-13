@@ -6,8 +6,11 @@ class Users::CleanupDoorkeeperTokens
 
   CLEANUP_INTERVAL = 4.months
 
-  EXPIRE_SQL = <<-SQL.squish
-    (revoked_at is not null and revoked_at < :delete_before)
+  EXPIRE_GRANT_SQL = <<-SQL.squish
+    revoked_at is not null and revoked_at < :now
+  SQL
+  EXPIRE_TOKEN_SQL = <<-SQL.squish
+    (revoked_at is not null and revoked_at < :now)
     or (
       expires_in is not null
       and (created_at + expires_in * interval '1 second') < :delete_before
@@ -15,9 +18,16 @@ class Users::CleanupDoorkeeperTokens
   SQL
 
   def perform
-    expire = [EXPIRE_SQL, { delete_before: CLEANUP_INTERVAL.ago }]
+    expire_grant_sql = [
+      EXPIRE_GRANT_SQL,
+      { now: Time.zone.now }
+    ]
+    expire_token_sql = [
+      EXPIRE_TOKEN_SQL,
+      { now: Time.zone.now, delete_before: CLEANUP_INTERVAL.ago }
+    ]
 
-    Doorkeeper::AccessGrant.where(expire).in_batches(&:delete_all)
-    Doorkeeper::AccessToken.where(expire).in_batches(&:delete_all)
+    Doorkeeper::AccessGrant.where(expire_grant_sql).in_batches(&:delete_all)
+    Doorkeeper::AccessToken.where(expire_token_sql).in_batches(&:delete_all)
   end
 end

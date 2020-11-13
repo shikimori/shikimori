@@ -39,12 +39,12 @@ describe Users::CleanupDoorkeeperTokens do
   subject! { described_class.new.perform }
 
   it do
-    expect(token_1.reload).to be_persisted
+    expect { token_1.reload }.to raise_error ActiveRecord::RecordNotFound
     expect { token_2.reload }.to raise_error ActiveRecord::RecordNotFound
     expect(token_3.reload).to be_persisted
     expect { token_4.reload }.to raise_error ActiveRecord::RecordNotFound
 
-    expect(grant_1.reload).to be_persisted
-    expect { grant_2.reload }.to raise_error ActiveRecord::RecordNotFound
+    expect { grant_1.reload }.to raise_error ActiveRecord::RecordNotFound
+    expect(grant_2.reload).to be_persisted
   end
 end
