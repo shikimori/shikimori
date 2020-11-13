@@ -5,7 +5,8 @@ export function isGetSelectionTextSupported() {
 }
 
 export function getSelectionText() {
-  return $(`<div>${getSelectionHtml()}</div>`).text();
+  const html = getSelectionHtml().replace(/<br.*?>/g, '<--BR-->');
+  return $(`<div>${html}</div>`).text().replace(/<--BR-->/g, '\n').trim();
 }
 
 export function getSelectionHtml() {
