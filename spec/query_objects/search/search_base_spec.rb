@@ -4,7 +4,13 @@ describe Search::SearchBase, :vcr do
   include_context :chewy_indexes, %i[users]
   # include_context :chewy_logger
 
-  subject { Search::User.call scope: scope, phrase: phrase, ids_limit: ids_limit }
+  subject do
+    Search::User.call(
+      scope: scope,
+      phrase: phrase,
+      ids_limit: ids_limit
+    )
+  end
 
   let(:scope) { User.all }
   let(:phrase) { 'zxct' }

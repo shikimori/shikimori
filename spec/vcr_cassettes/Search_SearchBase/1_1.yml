@@ -29,6 +29,51 @@ http_interactions:
       string: '{"acknowledged":true}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
+    method: get
+    uri: http://localhost:9200/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '310'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "name" : "mbp13",
+          "cluster_name" : "elasticsearch_brew",
+          "cluster_uuid" : "zsI_nPsHSduJqorx30dxkQ",
+          "version" : {
+            "number" : "7.9.3-SNAPSHOT",
+            "build_flavor" : "oss",
+            "build_type" : "tar",
+            "build_hash" : "unknown",
+            "build_date" : "2020-10-22T16:26:49.195652Z",
+            "build_snapshot" : true,
+            "lucene_version" : "8.6.2",
+            "minimum_wire_compatibility_version" : "6.8.0",
+            "minimum_index_compatibility_version" : "6.0.0-beta1"
+          },
+          "tagline" : "You Know, for Search"
+        }
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
     method: put
     uri: http://localhost:9200/shikimori_test_users?include_type_name=true
     body:
@@ -42,7 +87,7 @@ http_interactions:
         s1, 1","ii, s2, 2, Ⅱ","iii, s3, 3, Ⅲ","iv, s4, 4, Ⅳ","v, s5, 5, Ⅴ","vi, s6,
         6, Ⅵ","vii, s7, 7, Ⅶ","viii, s8, 8, Ⅷ","ix, s9, 9, Ⅸ","x, s10, 10, Ⅹ"]}},"char_filter":{"default_char_mappings":{"type":"mapping","mappings":["Ё
         =\u003e Е","ё =\u003e е",". =\u003e \\u0020","_ =\u003e \\u0020","- =\u003e
-        \\u0020"]}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter","unique_words_filter"],"char_filter":["default_char_mappings"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter"],"char_filter":["default_char_mappings"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","nGram_filter","distinct_words_filter"],"char_filter":["default_char_mappings"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings"]}}}},"mappings":{"user":{"properties":{"nickname":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}}}}}}'
+        \\u0020"]}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter","unique_words_filter"],"char_filter":["default_char_mappings"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter"],"char_filter":["default_char_mappings"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","nGram_filter","distinct_words_filter"],"char_filter":["default_char_mappings"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings"]}}}},"mappings":{"user":{"properties":{"nickname":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"weight":{"type":"half_float","index":false}}}}}'
     headers:
       User-Agent:
       - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
@@ -99,7 +144,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '3103'
+      - '3148'
     body:
       encoding: UTF-8
       string: ''
@@ -111,7 +156,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {"index":{"_id":23456792}}
-        {"nickname":"test"}
+        {"nickname":"test","weight":0.9960681520314547}
     headers:
       User-Agent:
       - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
@@ -135,7 +180,7 @@ http_interactions:
       - '207'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":28,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23456792","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":35,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23456792","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: head
@@ -158,7 +203,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '3103'
+      - '3148'
     body:
       encoding: UTF-8
       string: ''
@@ -170,7 +215,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {"index":{"_id":23456793}}
-        {"nickname":"test zxct"}
+        {"nickname":"test zxct","weight":0.9895833333333333}
     headers:
       User-Agent:
       - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
@@ -191,17 +236,17 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '204'
+      - '205'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":28,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23456793","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":1,"status":201}}]}'
+      string: '{"took":26,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23456793","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: get
     uri: http://localhost:9200/shikimori_test_users/user/_search?rest_total_hits_as_int=true
     body:
       encoding: UTF-8
-      string: '{"size":2,"query":{"dis_max":{"queries":[{"match":{"nickname.original":{"query":"zxct","boost":400}}},{"match":{"nickname.edge_phrase":{"query":"zxct","boost":50}}},{"match":{"nickname.edge_word":{"query":"zxct","boost":20}}},{"match":{"nickname.ngram":{"query":"zxct"}}}],"tie_breaker":0,"boost":1}}}'
+      string: '{"size":2,"query":{"function_score":{"query":{"dis_max":{"queries":[{"match":{"nickname.original":{"query":"zxct","boost":400}}},{"match":{"nickname.edge_phrase":{"query":"zxct","boost":50}}},{"match":{"nickname.edge_word":{"query":"zxct","boost":20}}},{"match":{"nickname.ngram":{"query":"zxct"}}}],"tie_breaker":0,"boost":1}},"field_value_factor":{"field":"weight","modifier":"none","factor":1}}}}'
     headers:
       User-Agent:
       - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
@@ -222,10 +267,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '197'
+      - '217'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":0,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":1,"max_score":22.093023,"hits":[{"_index":"shikimori_test_users","_type":"user","_id":"23456793","_score":22.093023,"_source":{"nickname":"test
-        zxct"}}]}}'
+      string: '{"took":14,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":1,"max_score":21.866484,"hits":[{"_index":"shikimori_test_users","_type":"user","_id":"23456793","_score":21.866484,"_source":{"nickname":"test
+        zxct","weight":0.9895833333333333}}]}}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0
