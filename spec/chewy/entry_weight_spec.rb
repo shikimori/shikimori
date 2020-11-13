@@ -1,4 +1,4 @@
-describe EntryWeight do
+describe Relevance::EntryWeight do
   subject { described_class.call entry }
   let(:entry) do
     build :anime,
@@ -11,13 +11,13 @@ describe EntryWeight do
   let(:kind) { :tv }
   let(:score) { 10 }
   let(:aired_on) { Date.new year }
-  let(:year) { EntryWeight::OLD_YEAR }
+  let(:year) { Relevance::EntryWeight::OLD_YEAR }
   let(:is_censored) { false }
 
   it { is_expected.to eq 1.875 }
 
   context 'year' do
-    let(:year) { EntryWeight::OLD_YEAR - 1 }
+    let(:year) { Relevance::EntryWeight::OLD_YEAR - 1 }
     it { is_expected.to eq 1.699 }
   end
 
@@ -37,7 +37,7 @@ describe EntryWeight do
   end
 
   context 'all bad factors' do
-    let(:year) { EntryWeight::OLD_YEAR - 1 }
+    let(:year) { Relevance::EntryWeight::OLD_YEAR - 1 }
     let(:score) { 6 }
     let(:kind) { :special }
     it { is_expected.to eq 1.703 }

@@ -1,5 +1,5 @@
 # NOTE: not used anymore
-class EntryWeight
+class Relevance::EntryWeight
   method_object :entry
 
   OLD_YEAR = 1992
