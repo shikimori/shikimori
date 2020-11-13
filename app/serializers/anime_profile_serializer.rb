@@ -4,7 +4,8 @@ class AnimeProfileSerializer < AnimeSerializer
     :description_html, :description_source, :franchise,
     :favoured, :anons, :ongoing, :thread_id, :topic_id,
     :myanimelist_id,
-    :rates_scores_stats, :rates_statuses_stats, :updated_at, :next_episode_at
+    :rates_scores_stats, :rates_statuses_stats, :updated_at, :next_episode_at,
+    :fansubbers, :fandubbers, :licensors
 
   has_many :genres
   has_many :studios
