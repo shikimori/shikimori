@@ -2,6 +2,7 @@ class AnimesIndex < ApplicationIndex
   NAME_FIELDS = %i[
     name russian english japanese
     synonyms_0 synonyms_1 synonyms_2 synonyms_3 synonyms_4 synonyms_5
+    synonyms_6 synonyms_7 synonyms_8
     license_name_ru
   ]
 
@@ -28,9 +29,10 @@ class AnimesIndex < ApplicationIndex
           ngram: NGRAM_FIELD
         }
     end
-    field :weight,
-      type: 'half_float',
-      index: false,
-      value: -> (model, _) { 1.2 } # Relevance::EntryWeight.call model }
+
+    # field :weight,
+    #   type: 'half_float',
+    #   index: false,
+    #   value: ->(model, _) { 1.2 } # Relevance::EntryWeight.call model }
   end
 end
