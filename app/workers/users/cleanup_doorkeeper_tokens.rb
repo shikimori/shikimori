@@ -6,7 +6,7 @@ class Users::CleanupDoorkeeperTokens
 
   CLEANUP_INTERVAL = 4.months
 
-  EXPIRE_SQL = <<-SQL
+  EXPIRE_SQL = <<-SQL.squish
     (revoked_at is not null and revoked_at < :delete_before)
     or (
       expires_in is not null

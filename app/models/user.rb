@@ -58,6 +58,7 @@ class User < ApplicationRecord
     -> { order id: :desc },
     as: :owner,
     dependent: :destroy
+
   has_many :access_grants,
     class_name: 'Doorkeeper::AccessGrant',
     foreign_key: :resource_owner_id,
@@ -66,6 +67,7 @@ class User < ApplicationRecord
     class_name: 'Doorkeeper::AccessToken',
     foreign_key: :resource_owner_id,
     dependent: :destroy
+
   has_many :user_tokens, dependent: :destroy
 
   has_many :achievements, dependent: :destroy
