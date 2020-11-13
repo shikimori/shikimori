@@ -24,6 +24,20 @@ describe Users::CleanupDoorkeeperTokens do
       expires_in: 1.week
   end
 
+  let!(:token_5) do
+    create :oauth_token,
+      application: oauth_application,
+      created_at: 4.months.ago,
+      expires_in: 1.week
+  end
+  let!(:token_6) do
+    create :oauth_token,
+      application: oauth_application,
+      created_at: 4.months.ago,
+      expires_in: 1.week,
+      previous_refresh_token: token_5.token
+  end
+
   let!(:grant_1) do
     create :oauth_token,
       application: oauth_application,
@@ -43,6 +57,9 @@ describe Users::CleanupDoorkeeperTokens do
     expect { token_2.reload }.to raise_error ActiveRecord::RecordNotFound
     expect(token_3.reload).to be_persisted
     expect { token_4.reload }.to raise_error ActiveRecord::RecordNotFound
+
+    expect { token_5.reload }.to raise_error ActiveRecord::RecordNotFound
+    expect(token_6.reload).to be_persisted
 
     expect { grant_1.reload }.to raise_error ActiveRecord::RecordNotFound
     expect(grant_2.reload).to be_persisted

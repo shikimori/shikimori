@@ -1,6 +1,3 @@
-# TODO: make a better cleanup worker
-# do not cleanup by expiration time
-# cleanup all tokens which are put into previous_refresh_token column
 class Users::CleanupDoorkeeperTokens
   include Sidekiq::Worker
 
@@ -29,5 +26,14 @@ class Users::CleanupDoorkeeperTokens
 
     Doorkeeper::AccessGrant.where(expire_grant_sql).in_batches(&:delete_all)
     Doorkeeper::AccessToken.where(expire_token_sql).in_batches(&:delete_all)
+    Doorkeeper::AccessToken.where(token: previous_refresh_tokens).in_batches(&:delete_all)
+  end
+
+private
+
+  def previous_refresh_tokens
+    Doorkeeper::AccessToken
+      .where.not(previous_refresh_token: '')
+      .select('previous_refresh_token')
   end
 end
