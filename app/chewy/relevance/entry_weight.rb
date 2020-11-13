@@ -20,7 +20,7 @@ class Relevance::EntryWeight
     manhua: 10,
     novel: 10,
     doujin: 8,
-    one_shot: 7,
+    one_shot: 7
   }
 
   DEFAULT_WEIGHT = 6
