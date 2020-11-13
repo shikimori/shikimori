@@ -1,6 +1,6 @@
 class Comments::ExtractQuotedModels
   REGEXP = /
-    \[(quote|comment|topic|mention)=([^\]]+)\]
+    \[(quote|comment|topic|mention|user)=([^\]]+)\]
       |
     (>\?)(.+) (?:\n|\Z)
   /mx
@@ -25,7 +25,7 @@ private
       when 'quote', '>?'
         extract_quote data
 
-      when 'mention'
+      when 'mention', 'user'
         extract_mention data
 
       else

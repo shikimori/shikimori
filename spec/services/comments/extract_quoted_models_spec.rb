@@ -11,9 +11,20 @@ describe Comments::ExtractQuotedModels do
     end
   end
 
-  describe 'just quote' do
+  describe 'quote' do
     let(:topic) { create :topic, user: user }
     let(:text) { "[quote=200778;#{user.id};test2]" }
+    it do
+      is_expected.to eq OpenStruct.new(
+        comments: [],
+        users: [user]
+      )
+    end
+  end
+
+  describe 'mention' do
+    let(:topic) { create :topic, user: user }
+    let(:text) { "[user=#{user.id}]" }
     it do
       is_expected.to eq OpenStruct.new(
         comments: [],
