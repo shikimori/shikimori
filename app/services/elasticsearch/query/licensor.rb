@@ -10,10 +10,23 @@ class Elasticsearch::Query::Licensor < Elasticsearch::Query::QueryBase
 
 private
 
-  def query
+  def query # rubocop:disable MethodLength
     {
-      bool: {
-        must: [super, kind_query]
+      function_score: {
+        query: {
+          dis_max: {
+            queries: [{
+              bool: {
+                must: [super, kind_query]
+              }
+            }]
+          }
+        },
+        field_value_factor: {
+          field: 'weight',
+          modifier: 'none',
+          factor: 1
+        }
       }
     }
   end
