@@ -1,5 +1,6 @@
 import Uri from 'urijs';
 import axios from 'helpers/axios';
+import delay from 'delay';
 
 pageLoad('profiles_favorites', async () => {
   const $sortable = $('.cc-favourites.sortable');
@@ -25,11 +26,16 @@ pageLoad('profiles_favorites', async () => {
     onEnd() {
       $sortable.removeClass('draggable');
     },
-    onSort(e) {
+    async onSort(e) {
       const reorderUrl = $(e.item).data('reorder_url');
-      axios.post(
-        Uri(reorderUrl).setQuery({ new_index: e.newIndex }).toString()
-      );
+      $sortable.parent().addClass('b-ajax');
+      await Promise.all([
+        axios.post(
+          Uri(reorderUrl).setQuery({ new_index: e.newIndex }).toString()
+        ),
+        delay(250)
+      ]);
+      $sortable.parent().removeClass('b-ajax');
     }
   });
 });

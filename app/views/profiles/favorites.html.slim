@@ -144,4 +144,5 @@
           = render @favorites_view.people, (params[:edit] ? { cover_by: :link, content_by: :none } : {})
 
   - if params[:edit]
-    a.b-button href=favorites_profile_url(@resource) = t('back').capitalize
+    div
+      a.b-button href=favorites_profile_url(@resource) = t('back').capitalize

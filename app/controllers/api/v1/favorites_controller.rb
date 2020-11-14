@@ -89,7 +89,9 @@ class Api::V1::FavoritesController < Api::V1Controller
   api :POST, '/favorites/:id/reorder', 'Assign a new position to a favorite'
   param :new_index, :undef
   def reorder
-    @resource.insert_at params[:new_index].to_i + 1
+    Retryable.retryable tries: 2, on: PG::TRDeadlockDetected, sleep: 1 do
+      @resource.insert_at params[:new_index].to_i + 1
+    end
     head 200
   end
 end
