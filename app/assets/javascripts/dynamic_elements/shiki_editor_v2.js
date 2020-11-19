@@ -1,8 +1,7 @@
 /* global IS_LOCAL_SHIKI_PACKAGES */
 import delay from 'delay';
-import memoize from 'memoize-decorator';
 import pDefer from 'p-defer';
-import { bind } from 'shiki-decorators';
+import { bind, memoize } from 'shiki-decorators';
 import { flash } from 'shiki-utils';
 
 import View from 'views/application/view';
@@ -48,9 +47,9 @@ export default class ShikiEditorV2 extends View {
           'shiki-editor'
       ),
       import(
-        IS_LOCAL_SHIKI_PACKAGES ?
-          'packages/shiki-uploader' :
-          'shiki-uploader'
+        // IS_LOCAL_SHIKI_PACKAGES ?
+        //   'packages/shiki-uploader' :
+        'shiki-uploader'
       ),
       import(
         IS_LOCAL_SHIKI_PACKAGES ?

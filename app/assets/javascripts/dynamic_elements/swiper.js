@@ -1,5 +1,5 @@
 import delay from 'delay';
-import memoize from 'memoize-decorator';
+import { memoize } from 'shiki-decorators';
 
 import View from 'views/application/view';
 import Wall from 'views/wall/view';

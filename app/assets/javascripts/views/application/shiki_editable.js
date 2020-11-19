@@ -1,6 +1,5 @@
 import delay from 'delay';
-import { bind, throttle, debounce } from 'shiki-decorators';
-import memoize from 'memoize-decorator';
+import { bind, debounce, memoize, throttle } from 'shiki-decorators';
 
 import { getSelectionText, getSelectionHtml } from 'helpers/get_selection';
 import axios from 'helpers/axios';

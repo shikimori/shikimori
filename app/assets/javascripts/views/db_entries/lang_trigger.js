@@ -1,6 +1,5 @@
 import View from 'views/application/view';
-import { bind } from 'shiki-decorators';
-import memoize from 'memoize-decorator';
+import { bind, memoize } from 'shiki-decorators';
 
 export class LangTrigger extends View {
   initialize() {

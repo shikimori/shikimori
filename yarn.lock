@@ -8606,10 +8606,10 @@ shiki-editor@^0.15.33:
     vue-keypress "^2.1.1"
     withinviewport "^2.1.2"
 
-shiki-uploader@^0.15.33:
-  version "0.15.33"
-  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-0.15.33.tgz#abff71905165426b02107ff5275d0b2d799e0953"
-  integrity sha512-UIMhijiSS9ziGh3Aj0pJxNpA1PPIc/825x8iwiGVN3kMG6K5NHQlHEwdxzJijG0YkUripbFPbkKlXxk1PgHgLQ==
+shiki-uploader@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/shiki-uploader/-/shiki-uploader-1.0.0.tgz#7827f08558f89d3becd69560e71cfb80cf22548f"
+  integrity sha512-DSekZMoHhUHR3bdH2E51l50RbuvwDpGoFhtY8VdvtSw+W9EKuVH/uqN35KCQhKAemq9F+sHaSiSPA0TOigoQfw==
   dependencies:
     "@uppy/core" "^1.11.0"
     "@uppy/xhr-upload" "^1.6.0"

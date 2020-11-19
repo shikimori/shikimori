@@ -10,7 +10,11 @@ default: &default
 
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
-  additional_paths: ['../shiki-packages']
+  additional_paths: [
+    '../shiki-packages'
+    # '../shiki-uploader',
+    # '../shiki-decorators'
+  ]
 
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
