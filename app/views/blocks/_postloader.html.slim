@@ -1,7 +1,7 @@
 - raise 'url should not be defined' if defined?(url)
 
 .b-postloader.collapsed[
-  data-remote=next_url
+  data-remote=next_url.sub(/(?:\.json|)$/, '.json')
   data-filter=(filter if defined?(filter))
   data-appear-top-offset='900'
   data-pages_limit=(local_assigns[:pages_limit])
@@ -9,13 +9,13 @@
 ]
   - if defined?(prev_url) && prev_url.present?
     a.prev[
-      href=prev_url.sub(/.json$/, '')
+      href=prev_url.sub(/\.json$/, '')
       rel='prev'
     ] = "← #{t 'pagination.back'}"
 
   - if defined?(next_url) && next_url.present?
     a.next[
-      href=next_url.sub(/.json$/, '')
+      href=next_url.sub(/\.json$/, '')
       rel='next'
     ] = "#{t 'pagination.next'} →"
 
