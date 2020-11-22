@@ -1,4 +1,8 @@
-json.content render(@collection, formats: :html)
+json.content render(
+  partial: 'moderations/bans/ban',
+  collection: @collection,
+  formats: :html
+)
 
 if @collection.size == controller.class::LIMIT
   json.postloader render(

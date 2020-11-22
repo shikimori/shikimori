@@ -1,4 +1,8 @@
-json.content render(@processed, formats: :html)
+json.content render(
+  partial: 'moderations/abuse_requests/abuse_request',
+  collection: @processed,
+  formats: :html
+)
 
 if @processed.size == controller.class::LIMIT
   json.postloader render(
