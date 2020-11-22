@@ -2,7 +2,7 @@ class Video < ApplicationRecord
   ALLOWED_HOSTINGS = %i[youtube vk rutube sibnet smotret_anime vimeo] # dailymotion
 
   belongs_to :anime, optional: true
-  belongs_to :uploader, class_name: User.name
+  belongs_to :uploader, class_name: 'User'
 
   enumerize :hosting,
     in: Types::Video::Hosting.values,
@@ -12,10 +12,11 @@ class Video < ApplicationRecord
     predicates: true
 
   validates :uploader_id, :url, :kind, presence: true
-  validates_uniqueness_of :url,
+  validates :url, uniqueness: {
     case_sensitive: true,
     scope: [:anime_id],
     conditions: -> { where.not state: :deleted }
+  }
 
   before_create :check_url
   before_create :check_hosting
@@ -28,7 +29,8 @@ class Video < ApplicationRecord
           case kind
             #{kind.values.map.with_index { |v, index| "when '#{v}' then #{index}" }.join("\n")}
             else 99999999999
-          end, id
+          end,
+          id
         SQL
       )
     )
