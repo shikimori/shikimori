@@ -640,8 +640,7 @@ ru:
         character_trailer: Трейлер персонажа
         clip: Отрывок
         episode_preview: Превью эпизода
-        op_clip: Клип OP
-        ed_clip: Клип ED
+        op_ed_clip: Музыкальный клип
         other: Прочее
     list_import:
       list_type:
