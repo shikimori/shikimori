@@ -86,7 +86,7 @@ private
       if @version
         @version.item_diff.dig(field, 0).nil?
       else
-        @db_entry.send(field).nil?
+        @db_entry.send(field).nil? || @db_entry.send(field).blank? # blank check for image fields
       end
     end
   end
