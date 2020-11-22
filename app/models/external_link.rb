@@ -24,7 +24,8 @@ class ExternalLink < ApplicationRecord
     ru: 'Википедия',
     en: 'Wikipedia',
     ja: 'ウィキペディア',
-    zh: '维基百科'
+    zh: '维基百科',
+    ko: '위키백과'
   }
 
   NO_URL = 'NONE'
@@ -51,7 +52,7 @@ class ExternalLink < ApplicationRecord
   end
 
   def label
-    if kind_wikipedia? && url =~ %r{/(?<lang>ru|en|ja|zh)\.wikipedia\.org/}
+    if kind_wikipedia? && url =~ %r{/(?<lang>ru|en|ja|zh|ko)\.wikipedia\.org/}
       WIKIPEDIA_LABELS[$LAST_MATCH_INFO[:lang].to_sym] || kind_text
     else
       kind_text
