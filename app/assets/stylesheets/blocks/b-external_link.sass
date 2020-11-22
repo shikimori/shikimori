@@ -2,10 +2,23 @@
 
 // how to convert original images
 // for file in app/assets/images/blocks/b-external_links/original/*; do; convert $file -thumbnail '32x32' ${file//original\//}; convert $file -thumbnail '64x64' ${${file//original\//}//.png/@2x.png}; done;
-$kinds: myanimelist, official_site, wikipedia, anime_news_network, anime_db, kage_project, kinopoisk, world_art, ruranobe, readmanga, novelupdates, mangaupdates, mangafox, mangachan, mangahub, smotret_anime, youtube_channel, twitter, novel_tl, mangalib, ranobelib, remanga
+$kinds_png: myanimelist, official_site, wikipedia, anime_news_network, anime_db, kage_project, kinopoisk, world_art, ruranobe, readmanga, novelupdates, mangaupdates, mangafox, mangachan, mangahub, smotret_anime, youtube_channel, twitter, novel_tl, mangalib, ranobelib, remanga
+$kinds_svg: baike_baidu_wiki, namu_wiki
 
 $image-size: 19px
 $image-path: 'blocks/b-external_links'
+
+=external_link_icon
+  .linkeable:before,
+  a:before,
+  span:before
+    content: ''
+    position: absolute
+    height: $image-size
+    width: $image-size
+    margin-left: -($image-size + 5px)
+    margin-top: 1px
+    @content
 
 .b-external_link
   .linkeable,
@@ -14,15 +27,14 @@ $image-path: 'blocks/b-external_links'
     display: inline-block
     margin-left: $image-size + 5px
 
-  @each $kind in $kinds
+  @each $kind in $kinds_png
     &.#{$kind}
-      .linkeable:before,
-      a:before,
-      span:before
+      +external_link_icon
         +background-inline-retina('#{$image-path}/#{$kind}', 'png', $image-size, $image-size)
-        content: ''
-        position: absolute
-        height: $image-size
-        width: $image-size
-        margin-left: -($image-size + 5px)
-        margin-top: 1px
+
+  @each $kind in $kinds_svg
+    &.#{$kind}
+      +external_link_icon
+        background: asset_url('#{$image-path}/#{$kind}.svg')
+        background-size: contain
+        background-repeat: no-repeat

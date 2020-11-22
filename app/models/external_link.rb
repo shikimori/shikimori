@@ -20,6 +20,10 @@ class ExternalLink < ApplicationRecord
       will_save_change_to_source?
   }
 
+  LANG_WIKIPEDIA_REGEXP = %r{/(?<lang>ru|en|ja|zh|ko)\.wikipedia\.org/}
+  BAIKE_BAIDU_WIKI_REGEXP = /baike.baidu.com/
+  NAMU_WIKI_REGEXP = /namu.wiki/
+
   WIKIPEDIA_LABELS = {
     ru: 'Википедия',
     en: 'Wikipedia',
@@ -52,14 +56,36 @@ class ExternalLink < ApplicationRecord
   end
 
   def label
-    if kind_wikipedia? && url =~ %r{/(?<lang>ru|en|ja|zh|ko)\.wikipedia\.org/}
+    if kind_wikipedia? && url =~ LANG_WIKIPEDIA_REGEXP
       WIKIPEDIA_LABELS[$LAST_MATCH_INFO[:lang].to_sym] || kind_text
+    elsif baike_baidu_wiki?
+      'Wiki Baidu'
+    elsif namu_wiki?
+      'Wiki Namu'
     else
       kind_text
     end
   end
 
+  def icon_kind
+    if baike_baidu_wiki?
+      'baike_baidu_wiki'
+    elsif namu_wiki?
+      'namu_wiki'
+    else
+      kind.to_s
+    end
+  end
+
 private
+
+  def baike_baidu_wiki?
+    kind_wikipedia? && url.match?(BAIKE_BAIDU_WIKI_REGEXP)
+  end
+
+  def namu_wiki?
+    kind_wikipedia? && url.match?(NAMU_WIKI_REGEXP)
+  end
 
   def compute_checksum
     self.checksum = Digest::MD5.hexdigest(
