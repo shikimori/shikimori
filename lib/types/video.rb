@@ -14,6 +14,7 @@ module Types
       op
       ed
       other
+      op_ed_clip
       op_clip
       ed_clip
       episode_preview
