@@ -1,7 +1,7 @@
 = render 'versions/note_from_club_page', club_page_id: 2044
 
 - if params[:video_id]
-  - video = @resource.videos.find params[:video_id]
+  - video = @resource.object.videos.find params[:video_id]
 
   .cc-2.block
     .c-column
