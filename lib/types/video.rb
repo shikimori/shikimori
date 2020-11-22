@@ -11,11 +11,11 @@ module Types
       character_trailer
       clip
       cm
+      op
+      ed
       other
       op_clip
       ed_clip
-      op
-      ed
       episode_preview
     ]
 

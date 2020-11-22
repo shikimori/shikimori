@@ -29,18 +29,25 @@ class AnimeDecorator < AniMangaDecorator
     Copyright::SCREENSHOTS.exclude?(id) && !censored?
   end
 
-  def videos limit = nil
+  def videos limit = nil # rubocop:disable PerceivedComplexity, CyclomaticComplexity, AbcSize
     return [] if Copyright::VIDEOS.include?(id)
+    return [] unless object.respond_to? :videos
 
     # return [] unless h.ignore_copyright?
     # return [] if forbidden?
 
     @videos ||= {}
-    @videos[limit] ||=
-      if object.respond_to? :videos
-        object.videos.limit limit
-      else
-        []
+    @videos[limit] ||= (limit ? object.videos.ordered.limit(limit) : object.videos)
+      .sort_by do |video|
+        if video.op? || video.ed?
+          match = video.name&.match(/\b(?:op|ed|opening|ending)[0 ]*(\d+)/i)
+        end
+
+        [
+          Types::Video::KINDS.index(video.kind.to_sym),
+          match ? match[1].to_i : -1,
+          video.id
+        ]
       end
   end
 
@@ -52,7 +59,7 @@ class AnimeDecorator < AniMangaDecorator
     Coubs::Fetch.call(tags: coub_tags, iterator: nil)
   end
 
-  def next_episode_at with_broadcast = true
+  def next_episode_at with_broadcast = true # rubocop:disable CyclomaticComplexity
     return unless ongoing? || anons?
 
     calendars_for_next_episode

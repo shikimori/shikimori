@@ -30,11 +30,6 @@ class Video < ApplicationRecord
             #{kind.values.map.with_index { |v, index| "when '#{v}' then #{index}" }.join("\n")}
             else 99999999999
           end,
-          case kind
-            when #{Video.sanitize Types::Video::Kind[:op]} then name
-            when #{Video.sanitize Types::Video::Kind[:ed]} then name
-            else 'zzzzzzz'
-          end,
           id
         SQL
       )
