@@ -10,7 +10,8 @@ class AniMangaDecorator < DbEntryDecorator
   instance_cache :topics, :news_topics, :reviews, :reviews_count, :cosplay?,
     :current_rate, :changes, :versions, :versions_page,
     :roles, :related, :friend_rates, :recent_rates, :chronology,
-    :rates_scores_stats, :rates_statuses_stats, :available_external_links,
+    :rates_scores_stats, :rates_statuses_stats,
+    :external_links, :available_external_links,
     :watch_online_external_links, :menu_external_links
 
   def topic_views
@@ -167,6 +168,12 @@ class AniMangaDecorator < DbEntryDecorator
       from_date: h.formatted_date(aired_on, true, false),
       to_date: h.formatted_date(released_on, true, false))
     I18n.russian? ? text.capitalize : text
+  end
+
+  def external_links
+    object.external_links.sort_by do |link|
+      Types::ExternalLink::Kind.values.index link.kind.to_sym
+    end
   end
 
   def watch_online_external_links
