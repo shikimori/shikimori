@@ -9,12 +9,12 @@ module Types
     KINDS = %i[
       pv
       character_trailer
-      clip
       cm
       op
       ed
-      other
       op_ed_clip
+      clip
+      other
       episode_preview
     ]
 

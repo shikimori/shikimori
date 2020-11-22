@@ -7,7 +7,7 @@
       = render @resource.videos.find(params[:video_id])
 
   - else
-    = cache [@resource, params[:action], :v5] do
+    = cache [@resource, params[:action], :v6] do
       - wo_preview = @resource.videos.reject(&:episode_preview?)
       - with_preview = @resource.videos.select(&:episode_preview?).sort_by { |v| [v.name, v.id] }
 
