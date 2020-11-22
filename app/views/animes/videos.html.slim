@@ -4,7 +4,7 @@
       a.item-edit href=edit_video_anime_url(@resource, params[:video_id])
     .subheadline #{Video.model_name.human} ##{params[:video_id]}
     .cc.m10
-      = render @resource.videos.find(params[:video_id])
+      = render @resource.object.videos.find(params[:video_id])
 
   - else
     = cache [@resource, params[:action], :v6] do
