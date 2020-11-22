@@ -32,8 +32,9 @@ module Types
         world_art
         kinopoisk
         kage_project
+        twitter
         smotret_anime
-      ] + WATCH_ONLINE_KINDS + %i[twitter],
+      ] + WATCH_ONLINE_KINDS,
       manga: COMMON_KINDS + %i[
         readmanga
         mangalib
