@@ -40,7 +40,7 @@ class ExternalLink < ApplicationRecord
 
   def visible?
     !source_hidden? &&
-      !Types::ExternalLink::INVISIBLE_KINDS.include?(kind.to_sym)
+      Types::ExternalLink::INVISIBLE_KINDS.exclude?(kind.to_sym)
   end
 
   def disabled?
