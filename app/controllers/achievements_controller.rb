@@ -46,7 +46,7 @@ class AchievementsController < ShikimoriController
       @resource.level
     )
 
-    @collection = QueryObjectBase
+    @users = QueryObjectBase
       .new(@resource.users_scope)
       .paginate(@page, USERS_PER_PAGE)
   end
@@ -71,7 +71,7 @@ private
     end
   end
 
-  def set_collection # rubocop:disable AbcSize
+  def set_collection
     @collection = NekoRepository
       .instance
       .select { |v| v.neko_id == params[:id].to_sym && v.group == params[:group].to_sym }

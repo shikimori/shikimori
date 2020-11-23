@@ -7,13 +7,13 @@ header.head.misc
   .block
     .b-options-floated = @resource.users_count
     .subheadline = i18n_i 'User', :other
-    - if @collection.any?
+    - if @users.any?
       .cc-8
         = render partial: 'users/user',
-          collection: @collection,
+          collection: @users,
           locals: { content_by: :named_avatar }
 
-        - if @collection.size == controller.class::USERS_PER_PAGE
+        - if @users.size == controller.class::USERS_PER_PAGE
           = render 'blocks/postloader',
             filter: 'b-user',
             next_url: current_url(page: @page + 1)

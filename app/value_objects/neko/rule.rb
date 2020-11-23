@@ -34,6 +34,8 @@ class Neko::Rule
     )
   SQL
 
+  CACHE_VERSION = :v3 # rubocop:disable VariableNumber
+
   def group
     Types::Achievement::INVERTED_NEKO_IDS[
       Types::Achievement::NekoId[neko_id]
@@ -133,6 +135,7 @@ class Neko::Rule
       .where(id: Achievement.where(neko_id: neko_id, level: level).select(:user_id))
       .where.not("roles && '{#{Types::User::Roles[:cheat_bot]}}'")
       .where.not("roles && '{#{Types::User::Roles[:completed_announced_animes]}}'")
+      .where.not("roles && '{#{Types::User::Roles[:ignored_in_achievement_statistics]}}'")
       .order(:id)
   end
 
@@ -186,7 +189,11 @@ class Neko::Rule
   end
 
   def cache_key
-    [Digest::MD5.hexdigest(to_json), Achievement.where(neko_id: neko_id).cache_key, :v2]
+    [
+      Digest::MD5.hexdigest(to_json),
+      Achievement.where(neko_id: neko_id).cache_key,
+      CACHE_VERSION
+    ]
   end
 
   def threshold_percent?
