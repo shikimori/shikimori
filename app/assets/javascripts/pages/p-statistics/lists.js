@@ -23,7 +23,7 @@ function renderCharts(Highcharts, node, stats, type) {
       text: `${type} list size`
     },
     xAxis: {
-      categories: Object.keys(stats)
+      categories: Object.keys(stats[Object.keys(stats)[0]])
     },
     yAxis: {
       title: {
@@ -33,9 +33,9 @@ function renderCharts(Highcharts, node, stats, type) {
     credits: {
       enabled: false
     },
-    series: [{
-      name: type,
-      data: Object.values(stats)
-    }]
+    series: Object
+      .keys(stats)
+      .map(key => ({ name: key, data: Object.values(stats[key]) }))
+      .sortBy(({ data }) => -data[0])
   });
 }

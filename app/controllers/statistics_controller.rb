@@ -23,17 +23,24 @@ class StatisticsController < ShikimoriController
 
   def lists
     scopes = {
-      anime: UserRate.where(target_type: 'Anime'),
-      manga_with_ranobe: UserRate.where(target_type: 'Manga'),
-      ranobe: UserRate.where(target_type: 'Manga').joins(:manga).where(mangas: { kind: Types::Manga::Kind[:novel] })
+      anime: {
+        anime: UserRate.where(target_type: 'Anime')
+      },
+      manga: {
+        manga_with_ranobe: UserRate.where(target_type: 'Manga'),
+        ranobe: UserRate.where(target_type: 'Manga').joins(:manga).where(mangas: { kind: Types::Manga::Kind[:novel] })
+      }
     };
 
-    @stats = scopes.each_with_object({}) do |(type, scope), memo|
-      memo[type] = calculate_stats type, scope
+    @stats = scopes.each_with_object({}) do |(kind, types), memo|
+      types.each do |type, scope|
+        memo[kind] ||= {}
+        memo[kind][type] = calculate_stats type, scope
+      end
     end
 
-    @stats[:manga] = @stats[:manga_with_ranobe].dup.each_with_object({}) do |(key, count), memo|
-      memo[key] = count - @stats[:ranobe][key]
+    @stats[:manga][:manga] = @stats[:manga][:manga_with_ranobe].dup.each_with_object({}) do |(key, count), memo|
+      memo[key] = count - @stats[:manga][:ranobe][key]
     end
   end
 
@@ -41,6 +48,7 @@ private
 
   def calculate_stats type, scope
     PgCache.fetch([:lists_stats, type, :v2]) do
+      1/0
       DbStatistics::ListSizes.call scope
     end
   end
@@ -141,12 +149,10 @@ private
     data
   end
 
-  # статистика по типам
   def stats_by_kind
-    stats_data(@animes, :kind, @kinds)
+    stats_data @animes, :kind, @kinds
   end
 
-  # подготовка общих данных
   def prepare
     @genres = Genre.order(:position).map { |v| UsersHelper.localized_name v, current_user }
     @studios_by_id = Studio.all.each_with_object({}) { |v, memo| memo[v.id] = v }
@@ -185,7 +191,6 @@ private
     @tv = @animes.select(&:kind_tv?)
   end
 
-  # выборка статистики
   def stats_data animes, grouping, categories
     years = animes.group_by { |v| v[:aired_on].strftime('%Y') }.keys
 
@@ -217,8 +222,7 @@ private
     }
   end
 
-  # приведение статистики к нормальному виду
-  def normalize(data, minimum)
+  def normalize data, minimum
     new_series = data[:series].map do |entry|
       {
         name: entry[:name],
