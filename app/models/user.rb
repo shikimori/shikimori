@@ -204,6 +204,9 @@ class User < ApplicationRecord
 
   scope :suspicious, -> { where(SUSPISIOUS_USERS_SQL).or(cheat_bot) } # very slow
   scope :cheat_bot, -> { where "roles && '{#{Types::User::Roles[:cheat_bot]}}'" }
+  scope :excluded_from_statistics, -> {
+    where "roles && '{#{Types::User::ROLES_EXCLUDED_FROM_STATISTICS.join ','}}'"
+  }
 
   enumerize :locale,
     in: Types::Locale.values,
@@ -374,7 +377,9 @@ class User < ApplicationRecord
   end
 
   def excluded_from_statistics?
-    cheat_bot? || completed_announced_animes? || ignored_in_achievement_statistics?
+    cheat_bot? ||
+      completed_announced_animes? ||
+      ignored_in_achievement_statistics?
   end
 
   # for async mails for Devise 4

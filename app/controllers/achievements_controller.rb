@@ -5,6 +5,8 @@ class AchievementsController < ShikimoriController
   before_action :find_collection, only: %i[group]
   before_action :set_collection, only: %i[show users]
 
+  helper_method :users_scope
+
   USERS_PER_PAGE = 48
   MAX_PAGE = 50
 
@@ -46,9 +48,8 @@ class AchievementsController < ShikimoriController
       @resource.level
     )
 
-    @users = QueryObjectBase
-      .new(@resource.users_scope)
-      .paginate(@page, USERS_PER_PAGE)
+    @scope = users_scope.filter(neko_id: @resource.neko_id, level: @resource.level)
+    @users = @scope.paginate(@page, USERS_PER_PAGE)
   end
 
 private
@@ -95,5 +96,9 @@ private
         )
       )
     end
+  end
+
+  def users_scope
+    Achievements::UsersQuery.fetch((current_user if params[:action] == 'users'))
   end
 end

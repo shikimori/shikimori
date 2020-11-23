@@ -126,19 +126,6 @@ class Neko::Rule
     animes_scope.size
   end
 
-  def users_count
-    @users_count ||= users_scope.except(:order).size
-  end
-
-  def users_scope
-    User
-      .where(id: Achievement.where(neko_id: neko_id, level: level).select(:user_id))
-      .where.not("roles && '{#{Types::User::Roles[:cheat_bot]}}'")
-      .where.not("roles && '{#{Types::User::Roles[:completed_announced_animes]}}'")
-      .where.not("roles && '{#{Types::User::Roles[:ignored_in_achievement_statistics]}}'")
-      .order(:id)
-  end
-
   def animes_scope filters = rule[:filters]
     scope = Animes::NekoScope.call
     return scope unless filters

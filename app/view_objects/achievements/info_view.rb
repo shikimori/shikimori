@@ -4,7 +4,7 @@ class Achievements::InfoView
 
   delegate :animes_scope, :neko_id, :anime_rates, to: :achievement
 
-  CACHE_VERSION = :v5
+  CACHE_VERSION = :v5 # rubocop:disable VariableNumber
 
   def achievement
     achievements.first

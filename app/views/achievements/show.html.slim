@@ -34,7 +34,7 @@ header.head.misc
                 .value
                   a[
                     href=achievement_users_url(achievement.group, achievement.neko_id, achievement.level)
-                  ] = achievement.users_count
+                  ] = users_scope.filter(neko_id: achievement.neko_id, level: achievement.level).size
 
           .block_m
             = render 'achievements/statistics', achievement: achievement

@@ -3,9 +3,9 @@ header.head.misc
     = og.headline
   = render 'application/breadcrumbs'
 
-= cache @resource.cache_key do
+= cache [@resource.cache_key, current_user&.ignored_in_achievement_statistics? ? current_user.id : 0] do
   .block
-    .b-options-floated = @resource.users_count
+    .b-options-floated = @scope.size
     .subheadline = i18n_i 'User', :other
     - if @users.any?
       .cc-8

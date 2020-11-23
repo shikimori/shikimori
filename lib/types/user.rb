@@ -37,6 +37,12 @@ module Types
       bot
       admin
     ]
+    ROLES_EXCLUDED_FROM_STATISTICS = %i[
+      cheat_bot
+      completed_announced_animes
+      ignored_in_achievement_statistics
+    ]
+
     Roles = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(*ROLES)
