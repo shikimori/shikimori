@@ -7762,6 +7762,11 @@
         - 40100
         - 20931
         - 40059
+        - 40515
+        - 37175
+        - 13431
+        - 41114
+        - 34834
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
@@ -14455,6 +14460,9 @@
         - 40489
         - 41341
       :threshold: 95%
+      :generator:
+        ignore_latest_ids:
+        - 42916
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :sword_art_online
@@ -14727,6 +14735,7 @@
         franchise: boku_no_hero_academia
         not_anime_ids:
         - 35262
+        - 43683
       :threshold: 95%
       :ignore_latest_ids:
       - 39565
@@ -14760,6 +14769,7 @@
         franchise: boku_no_hero_academia
         not_anime_ids:
         - 35262
+        - 43683
       :threshold: 0.01
       :ignore_latest_ids:
       - 39565
@@ -15136,6 +15146,8 @@
         - 34438
         - 40315
         - 40334
+        - 41075
+        - 40836
       :threshold: 95%
       :generator:
         ignore_latest_ids:
@@ -15190,6 +15202,8 @@
         - 34438
         - 40315
         - 40334
+        - 41075
+        - 40836
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -17008,6 +17022,7 @@
         threshold: 95%
         ignore_latest_ids:
         - 40416
+        - 42423
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :date_a_live
@@ -17041,6 +17056,7 @@
         threshold: 95%
         ignore_latest_ids:
         - 40416
+        - 42423
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :date_a_live
@@ -30415,6 +30431,8 @@
         - 26
         - 39547
         - 40496
+        - 36882
+        - 25397
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -30810,6 +30828,8 @@
         - 26
         - 39547
         - 40496
+        - 36882
+        - 25397
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -31207,6 +31227,8 @@
         - 26
         - 39547
         - 40496
+        - 36882
+        - 25397
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
