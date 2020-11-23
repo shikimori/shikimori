@@ -13,7 +13,7 @@ header.head.misc
           collection: @users,
           locals: { content_by: :named_avatar }
 
-        - if @users.size == controller.class::USERS_PER_PAGE
+        - if @users.next_page?
           = render 'blocks/postloader',
             filter: 'b-user',
             next_url: current_url(page: @page + 1)

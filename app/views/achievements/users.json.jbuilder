@@ -5,7 +5,7 @@ json.content render(
   formats: :html
 )
 
-if @users.size == controller.class::USERS_PER_PAGE
+if @users.next_page?
   json.postloader render(
     'blocks/postloader',
     filter: 'b-user',
