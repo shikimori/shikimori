@@ -24,7 +24,6 @@ export default class PaginatedCatalog {
       this.$pagination.hide();
     }
 
-    this.pagesLimit = 15;
     this.pageChange = {};
 
     this.$content.on(
@@ -40,10 +39,6 @@ export default class PaginatedCatalog {
       window.location.href,
       this.load.bind(this)
     );
-  }
-
-  get isPagesLimit() {
-    return this.$content.children().length >= this.pagesLimit;
   }
 
   load(url) {
@@ -115,10 +110,6 @@ export default class PaginatedCatalog {
 
     this.$linkPrev.toggleClass('disabled', !data.prev_page_url);
     this.$linkNext.toggleClass('disabled', !data.next_page_url);
-
-    if (this.isPagesLimit) {
-      $content.find('.b-postloader').data({ locked: true });
-    }
 
     // this.$content.process(data.JS_EXPORTS)
   }
