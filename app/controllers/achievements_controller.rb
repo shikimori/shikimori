@@ -99,6 +99,6 @@ private
   end
 
   def users_scope
-    Achievements::UsersQuery.fetch((current_user if params[:action] == 'users'))
+    Achievements::UsersQuery.fetch current_user
   end
 end
