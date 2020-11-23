@@ -20,12 +20,36 @@ describe Achievements::UsersQuery do
   end
   let(:neko_id) { Types::Achievement::NekoId[:test] }
   let!(:achievement_1) do
-    create :achievement, neko_id: rule.neko_id, level: rule.level, user: user
+    create :achievement,
+      neko_id: rule.neko_id,
+      level: rule.level,
+      user: user
   end
   let!(:achievement_2) do
-    create :achievement, neko_id: rule.neko_id, level: rule.level, user: user_2
+    create :achievement,
+      neko_id: rule.neko_id,
+      level: rule.level,
+      user: user_2
+  end
+
+  let!(:achievement_3) do
+    create :achievement,
+      neko_id: Types::Achievement::NekoId[:animelist],
+      level: rule.level,
+      user: user_3
+  end
+  let!(:achievement_4) do
+    create :achievement,
+      neko_id: rule.neko_id,
+      level: rule.level + 1,
+      user: user_3
   end
 
   let(:scope) { User.all }
   it { is_expected.to eq [user, user_2] }
+
+  context 'sample' do
+    let(:scope) { User.where(id: user_2.id) }
+    it { is_expected.to eq [user_2] }
+  end
 end
