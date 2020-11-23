@@ -3,17 +3,17 @@ header.head.misc
     = og.headline
   = render 'application/breadcrumbs'
 
-= cache @resource.cache_key do
+= cache [@resource.cache_key, current_user&.ignored_in_achievement_statistics? ? current_user.id : 0] do
   .block
-    .b-options-floated = @resource.users_count
+    .b-options-floated = @scope.size
     .subheadline = i18n_i 'User', :other
-    - if @collection.any?
+    - if @users.any?
       .cc-8
         = render partial: 'users/user',
-          collection: @collection,
+          collection: @users,
           locals: { content_by: :named_avatar }
 
-        - if @collection.size == controller.class::USERS_PER_PAGE
+        - if @users.next_page?
           = render 'blocks/postloader',
             filter: 'b-user',
             next_url: current_url(page: @page + 1)

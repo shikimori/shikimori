@@ -1,11 +1,11 @@
 json.content render(
   partial: 'users/user',
-  collection: @collection,
+  collection: @users,
   locals: { content_by: :named_avatar },
   formats: :html
 )
 
-if @collection.size == controller.class::USERS_PER_PAGE
+if @users.next_page?
   json.postloader render(
     'blocks/postloader',
     filter: 'b-user',
