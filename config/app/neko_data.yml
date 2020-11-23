@@ -15688,6 +15688,8 @@
         - 32739
         - 34085
         - 38055
+        - 43745
+        - 43751
       :threshold: 93.4%
       :generator:
         ignore_latest_ids:
@@ -15730,6 +15732,8 @@
         - 32739
         - 34085
         - 38055
+        - 43745
+        - 43751
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -30436,6 +30440,15 @@
         - 40496
         - 36882
         - 25397
+        - 37982
+        - 28121
+        - 33352
+        - 32887
+        - 32801
+        - 37348
+        - 37347
+        - 40453
+        - 40454
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -30833,6 +30846,15 @@
         - 40496
         - 36882
         - 25397
+        - 37982
+        - 28121
+        - 33352
+        - 32887
+        - 32801
+        - 37348
+        - 37347
+        - 40453
+        - 40454
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -31232,6 +31254,15 @@
         - 40496
         - 36882
         - 25397
+        - 37982
+        - 28121
+        - 33352
+        - 32887
+        - 32801
+        - 37348
+        - 37347
+        - 40453
+        - 40454
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
