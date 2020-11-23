@@ -339,6 +339,24 @@ describe User do
         it { expect(user).to_not be_generated_email }
       end
     end
+
+    describe '#excluded_from_statistics?' do
+      before { subject.roles = roles }
+
+      context 'has no excluded role' do
+        let(:roles) { [] }
+        its(:excluded_from_statistics?) { is_expected.to eq false }
+      end
+
+      context 'has excluded role' do
+        let(:roles) do
+          [
+            %i[cheat_bot completed_announced_animes ignored_in_achievement_statistics].sample
+          ]
+        end
+        its(:excluded_from_statistics?) { is_expected.to eq true }
+      end
+    end
   end
 
   describe 'permissions' do

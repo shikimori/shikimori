@@ -373,6 +373,10 @@ class User < ApplicationRecord
     email.match?(/^generated_\w+/)
   end
 
+  def excluded_from_statistics?
+    cheat_bot? || completed_announced_animes? || ignored_in_achievement_statistics?
+  end
+
   # for async mails for Devise 4
   def send_devise_notification notification, *args
     ShikiMailer.delay_for(0.seconds).send(notification, self, *args)
