@@ -42,7 +42,7 @@ $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) 
     const pagesLimit = $dataPostloader.data('pages_limit');
     const $prevLink = $dataPostloader.find('a.prev');
     const prevUrl = $prevLink.attr('href');
-    const match = prevUrl.match(/(?:\?|&)page=(\d+)/);
+    const match = prevUrl.match(/(?:\?|&|\/)page(?:=|\/)(\d+)/);
 
     if (match) {
       const currentPage = parseInt(match[1]) + 1;
@@ -51,10 +51,13 @@ $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) 
       if (newPrevPage < 0) {
         $prevLink.remove();
       } else {
-        const newPrevUrl = URI(prevUrl)
-          .removeSearch('page')
-          .addSearch('page', newPrevPage)
-          .toString();
+        const newPrevUrl = prevUrl
+          .replace(/(\?|&|\/)page(=|\/)(\d+)/, `$1page$2${newPrevPage}`)
+          .replace(/&page=1$/, '')
+          .replace('?page=1&', '?')
+          .replace(/\?page=1$/, '')
+          .replace(/\/page\/1/, '')
+          .replace(/\/$/, '');
 
         $prevLink.attr('href', newPrevUrl);
       }
