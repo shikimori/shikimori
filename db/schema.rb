@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_23_133421) do
+ActiveRecord::Schema.define(version: 2020_11_23_180551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_133421) do
     t.string "licensors", default: [], null: false, array: true
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
+    t.index ["rating"], name: "index_animes_on_rating"
     t.index ["russian"], name: "index_animes_on_russian"
     t.index ["score"], name: "index_animes_on_score"
     t.index ["status", "score", "kind"], name: "anime_online_dashboard_query"
@@ -959,6 +960,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_133421) do
     t.boolean "is_closed", default: false, null: false
     t.index ["generated", "type", "created_at"], name: "index_entries_on_in_forum_and_type_and_created_at"
     t.index ["linked_id", "linked_type", "comments_count", "generated"], name: "entries_total_select"
+    t.index ["type", "forum_id"], name: "index_topics_on_type_and_forum_id"
     t.index ["type", "linked_id", "linked_type"], name: "i_entries_type_linked_type_linked_id"
     t.index ["type", "updated_at"], name: "index_topics_on_type_and_updated_at"
     t.index ["type", "user_id"], name: "i_entries_type_user_id"
@@ -1043,6 +1045,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_133421) do
     t.datetime "created_at"
     t.index ["oauth_application_id"], name: "index_user_rate_logs_on_oauth_application_id"
     t.index ["target_type", "target_id"], name: "index_user_rate_logs_on_target_type_and_target_id"
+    t.index ["user_id", "id"], name: "index_user_rate_logs_on_user_id_and_id"
     t.index ["user_id"], name: "index_user_rate_logs_on_user_id"
   end
 
