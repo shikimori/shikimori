@@ -20,7 +20,7 @@ class DbStatistics::ListSizes
   def call
     scope = @scope
       .where(status: %i[completed rewatching])
-      .where.not(user_id: User.cheat_bot.select('id'))
+      .where.not(user_id: User.excluded_from_statistics.select('id'))
       .group(:user_id)
 
     compute scope

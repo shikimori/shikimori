@@ -18,4 +18,16 @@ describe DbStatistics::ListSizes do
     expect(subject['10']).to eq 1
     expect(subject.values[1..].all?(&:zero?)).to eq true
   end
+
+  context 'user is excluded' do
+    let(:user) do
+      create :user,
+        roles: [Types::User::ROLES_EXCLUDED_FROM_STATISTICS.sample]
+    end
+
+    it do
+      is_expected.to have(described_class::INTERVALS[interval].size).keys
+      expect(subject.values.all?(&:zero?)).to eq true
+    end
+  end
 end
