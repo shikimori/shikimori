@@ -10,7 +10,5 @@ json.content JsExports::Supervisor.instance.sweep(
 )
 json.page @view.page
 json.pages_count @view.pages_count
-json.next_page_url @view.next_page_url
-json.prev_page_url @view.prev_page_url
 
 json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)

@@ -203,7 +203,7 @@ export default (base_path, current_url, change_callback) ->
         $li.children('.filter').hide()
 
     # формирование строки урла по выбранным элементам
-    compile: ->
+    compile: (page) ->
       path_filters = ''
       location_filters = urlParse(window.location.href, true).query
 
@@ -220,6 +220,9 @@ export default (base_path, current_url, change_callback) ->
             return
 
           path_filters += "/#{field}/#{values.join ','}"
+
+      if page && page != 1
+        path_filters += "/page/#{page}"
 
       @last_compiled = URI(base_path + path_filters).query(location_filters).toString()
 

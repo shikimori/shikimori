@@ -94,42 +94,40 @@ export default class PaginatedCatalog {
   }
 
   _onPageLoadByScroll($content, data) {
-    this.$linkCurrent.html(this.$linkCurrent.html().replace(/-\d+|$/, `-${data.page}`));
+    const pages = this.$linkCurrent.html().split('-').map(parseInt);
+    pages[1] = data.page;
+
+    const isFirstPage = pages[0] === 1;
+    const isLastPage = pages[1] === data.pages_count;
+
+    this.$linkCurrent.html(pages.join('-'));
     this.$linkTitle.html(this.$linkTitle.data('text'));
     this.$linkTotal.html(data.pages_count);
 
-    this.$linkPrev.attr({
-      href: data.prev_page_url || '',
-      action: data.prev_page_url
-    });
+    // this.$linkPrev.attr('href', isFirstPage ? null : this.filters.compile(data.page - 1));
+    this.$linkNext.attr('href', isLastPage ? null : this.filters.compile(data.page + 1));
 
-    this.$linkNext.attr({
-      href: data.next_page_url || '',
-      action: data.next_page_url
-    });
-
-    this.$linkPrev.toggleClass('disabled', !data.prev_page_url);
-    this.$linkNext.toggleClass('disabled', !data.next_page_url);
+    this.$linkPrev.toggleClass('disabled', isFirstPage);
+    this.$linkNext.toggleClass('disabled', isLastPage);
 
     // this.$content.process(data.JS_EXPORTS)
   }
 
   // private methods
   _changePage(isRollback) {
-    const value = parseInt(this.pageChange.$input.val()) || 1;
+    const page = parseInt(this.pageChange.$input.val()) || 1;
 
     this.$linkCurrent.removeClass('active');
 
-    if (isRollback || (value === this.pageChange.priorValue)) {
+    if (isRollback || (page === this.pageChange.priorValue)) {
       this.$linkCurrent.html(this.pageChange.priorValue);
     } else {
       const $link = this.$linkNext
         .add(this.$linkPrev)
         .filter(':not(.disabled)')
         .first();
-
-      this.$linkCurrent.html(value);
-      this.load($link.attr('href').replace(/\/\d+$/, `/${value}`));
+      this.$linkCurrent.html(page);
+      this.load($link.attr('href').replace(/\/\d+$/, `/${page}`));
     }
 
     this.pageChange.$input = null;
@@ -181,14 +179,14 @@ export default class PaginatedCatalog {
     this.$linkCurrent.html(data.page);
     this.$linkTotal.html(data.pages_count);
 
-    this.$linkPrev.attr({ href: data.prev_page_url || '', action: data.prev_page_url });
+    this.$linkPrev.attr({ href: data.prev_page_url || '' });
     if (data.prev_page_url) {
       this.$linkPrev.removeClass('disabled');
     } else {
       this.$linkPrev.addClass('disabled');
     }
 
-    this.$linkNext.attr({ href: data.next_page_url || '', action: data.next_page_url });
+    this.$linkNext.attr({ href: data.next_page_url || '' });
     if (data.next_page_url) {
       this.$linkNext.removeClass('disabled');
     } else {
