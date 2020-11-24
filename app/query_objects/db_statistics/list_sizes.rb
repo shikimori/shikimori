@@ -1,34 +1,21 @@
 class DbStatistics::ListSizes
-  INTERVALS = [
-    10,
-    20,
-    30,
-    40,
-    50,
-    60,
-    70,
-    80,
-    90,
-    100,
-    120,
-    140,
-    160,
-    180,
-    200,
-    230,
-    260,
-    300,
-    350,
-    400,
-    500,
-    600,
-    700,
-    800,
-    900,
-    1000
-  ]
+  Interval = Types::Strict::Symbol
+    .constructor(&:to_sym)
+    .enum(:long, :short)
 
-  method_object :scope
+  INTERVALS = {
+    Interval[:long] => [
+      10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+      120, 140, 160, 180, 200, 230, 260, 300, 350, 400, 500,
+      600, 700, 800, 900, 1000
+    ],
+    Interval[:short] => [
+      10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+      120, 140, 160, 180, 200, 230, 260, 300, 350, 400
+    ]
+  }
+
+  method_object :scope, :interval
 
   def call
     scope = @scope
@@ -41,23 +28,29 @@ class DbStatistics::ListSizes
 
 private
 
+  def interval_values
+    INTERVALS[Interval[@interval]]
+  end
+
   def compute scope
-    INTERVALS.each_with_object({}).with_index do |(min_value, memo), index|
-      is_last = index == INTERVALS.size - 1
+    interval_values
+      .each_with_object({})
+      .with_index do |(min_value, memo), index|
+        is_last = index == interval_values.size - 1
 
-      count_scope =
-        if is_last
-          scope.having("count(*) >= #{min_value}")
-        else
-          max_value = (min_value + INTERVALS[index + 1])
-          scope.having("count(*) >= #{min_value} and count(*) < #{max_value}")
-        end
+        count_scope =
+          if is_last
+            scope.having("count(*) >= #{min_value}")
+          else
+            max_value = (min_value + interval_values[index + 1])
+            scope.having("count(*) >= #{min_value} and count(*) < #{max_value}")
+          end
 
-      count = ApplicationRecord
-        .connection
-        .execute("SELECT count(*) from (#{count_scope.select('1').to_sql}) as t")[0]['count']
+        count = ApplicationRecord
+          .connection
+          .execute("SELECT count(*) from (#{count_scope.select('1').to_sql}) as t")[0]['count']
 
-      memo[is_last ? "#{min_value}+" : min_value.to_s] = count
-    end
+        memo[is_last ? "#{min_value}+" : min_value.to_s] = count
+      end
   end
 end

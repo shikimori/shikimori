@@ -1,6 +1,7 @@
 describe DbStatistics::ListSizes do
-  subject { described_class.call scope }
+  subject { described_class.call scope, interval }
   let(:scope) { UserRate.where(target_type: 'Manga') }
+  let(:interval) { described_class::Interval[:long] }
 
   10.times do |i|
     let!(:"manga_#{i}") { create :manga }
@@ -13,8 +14,8 @@ describe DbStatistics::ListSizes do
   end
 
   it do
-    is_expected.to have(described_class::INTERVALS.size).keys
+    is_expected.to have(described_class::INTERVALS[interval].size).keys
     expect(subject['10']).to eq 1
-    expect(subject.values[1..-1].all?(&:zero?)).to eq true
+    expect(subject.values[1..].all?(&:zero?)).to eq true
   end
 end
