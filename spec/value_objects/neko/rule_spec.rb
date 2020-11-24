@@ -131,36 +131,6 @@ describe Neko::Rule do
     end
   end
 
-  describe '#users_count' do
-    subject { rule.users_count }
-
-    context 'no users' do
-      it { is_expected.to eq 0 }
-    end
-
-    context 'has users' do
-      let!(:achievement_1) do
-        create :achievement, neko_id: rule.neko_id, level: rule.level, user: user
-      end
-      let!(:achievement_2) do
-        create :achievement, neko_id: rule.neko_id, level: rule.level, user: user_2
-      end
-
-      it { is_expected.to eq 2 }
-    end
-  end
-
-  describe '#users_scope' do
-    let!(:achievement_1) do
-      create :achievement, neko_id: rule.neko_id, level: rule.level, user: user
-    end
-    let!(:achievement_2) do
-      create :achievement, neko_id: rule.neko_id, level: rule.level, user: user_2
-    end
-
-    it { expect(rule.users_scope).to eq [user, user_2] }
-  end
-
   describe '#animes_count' do
     let(:genre) { create :genre }
     let!(:anime) { create :anime, genre_ids: [genre.id] }
