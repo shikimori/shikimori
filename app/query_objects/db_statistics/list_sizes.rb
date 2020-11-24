@@ -38,11 +38,11 @@ private
       .with_index do |(min_value, memo), index|
         is_last = index == interval_values.size - 1
 
-        subscope = count_scope scope, min_value, index, is_last
+        count_scope = count_scope scope, min_value, index, is_last
 
         count = ApplicationRecord
           .connection
-          .execute("SELECT count(*) from (#{subscope.select('1').to_sql}) as t")[0]['count']
+          .execute("SELECT count(*) from (#{count_scope.select('1').to_sql}) as t")[0]['count']
 
         memo[is_last ? "#{min_value}+" : min_value.to_s] = count
       end

@@ -7,31 +7,33 @@ pageLoad('statistics_lists', async () => {
 
   $('.chart').toArray().forEach(node => {
     const stats = $(node).data('stats');
-    const type = node.getAttribute('data-type');
+    const label = node.getAttribute('data-label');
     if (!stats) { return; }
 
-    renderCharts(Highcharts, node, stats, type);
+    renderCharts(Highcharts, { node, stats, label });
   });
 });
 
-function renderCharts(Highcharts, node, stats, type) {
+function renderCharts(Highcharts, { node, stats, label }) {
+  const keys = Object.keys(stats);
+
   Highcharts.chart(node, {
-    chart: {
-      type: 'area'
-    },
-    title: {
-      text: `${type} list size`
-    },
+    chart: { type: 'area' },
+    title: { text: label },
     xAxis: {
-      categories: Object.keys(stats[Object.keys(stats)[0]])
+      categories: Object.keys(stats[keys[0]])
     },
     yAxis: {
-      title: {
-        text: 'Users'
-      }
+      title: { text: 'Users' }
     },
-    credits: {
-      enabled: false
+    credits: { enabled: false },
+    // plotOptions: {
+    //   area: {
+    //     stacking: 'normal'
+    //   }
+    // },
+    tooltip: {
+      split: true
     },
     series: Object
       .keys(stats)

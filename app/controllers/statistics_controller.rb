@@ -23,31 +23,38 @@ class StatisticsController < ShikimoriController
 
   def lists
     scopes = {
-      anime: {
-        anime: UserRate.where(target_type: 'Anime')
-      },
-      manga: {
-        all_manga: UserRate.where(target_type: 'Manga'),
-      }
+      anime: { anime: anime_scope },
+      manga: { manga: manga_scope },
+      animes: Types::Anime::KINDS.each_with_object({}) do |kind, memo|
+        memo[kind] = anime_scope.joins(:anime).where(animes: { kind: kind })
+      end,
+      mangas: Types::Manga::KINDS.each_with_object({}) do |kind, memo|
+        memo[kind] = manga_scope.joins(:manga).where(mangas: { kind: kind })
+      end
     };
 
-    Types::Manga::KINDS.each do |kind|
-      scopes[:manga][kind] = UserRate.where(target_type: 'Manga').joins(:manga).where(mangas: { kind: kind })
-    end
-
-    @stats = scopes.each_with_object({}) do |(kind, types), memo|
-      types.each do |type, scope|
-        memo[kind] ||= {}
-        memo[kind][type] = calculate_stats type, scope
+    @stats = scopes.each_with_object({}) do |(type, kinds), memo|
+      kinds.each do |kind, scope|
+        interval = %i[anime manga].include?(type) ? :long : :short
+        memo[type] ||= {}
+        memo[type][kind] = calculate_stats "#{type}_#{kind}", interval, scope
       end
     end
   end
 
 private
 
-  def calculate_stats type, scope
-    PgCache.fetch([:lists_stats, type, :v3]) do
-      DbStatistics::ListSizes.call scope
+  def anime_scope
+    UserRate.where(target_type: 'Anime').where(user_id: 1..1000)
+  end
+
+  def manga_scope
+    UserRate.where(target_type: 'Manga').where(user_id: 1..1000)
+  end
+
+  def calculate_stats key, interval, scope
+    PgCache.fetch([:lists_stats, key, interval, :v8]) do
+      DbStatistics::ListSizes.call scope, interval
     end
   end
 
