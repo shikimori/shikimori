@@ -95,36 +95,33 @@ export default class PaginatedCatalog {
 
   _onPageLoadByScroll($content, data) {
     const pages = this.$linkCurrent.html().split('-').map(parseInt);
-    const currentPage = data.page;
+    const { page: currentPage, pages_count: pagesCount } = data;
+    const isLastPage = currentPage === pagesCount;
 
     pages[1] = currentPage;
 
-    const isLastPage = currentPage === data.pages_count;
-
     this.$linkCurrent.html(pages.join('-'));
     this.$linkTitle.html(this.$linkTitle.data('text'));
-    this.$linkTotal.html(data.pages_count);
+    this.$linkTotal.html(pagesCount);
 
-    this.$linkNext.attr(
-      'href',
-      isLastPage ? null : this.filters.compile(currentPage + 1)
-    );
-    this.$linkNext.toggleClass('disabled', isLastPage);
+    this.$linkNext
+      .attr('href', isLastPage ? null : this.filters.compile(currentPage + 1))
+      .toggleClass('disabled', isLastPage);
 
     // this.$content.process(data.JS_EXPORTS)
   }
 
   // private methods
   _changePage(isRollback) {
-    const page = parseInt(this.pageChange.$input.val()) || 1;
+    const currentPage = parseInt(this.pageChange.$input.val()) || 1;
 
     this.$linkCurrent.removeClass('active');
 
-    if (isRollback || (page === this.pageChange.priorValue)) {
+    if (isRollback || (currentPage === this.pageChange.priorValue)) {
       this.$linkCurrent.html(this.pageChange.priorValue);
     } else {
-      this.$linkCurrent.html(page);
-      this.load(this.filters.compile(page));
+      this.$linkCurrent.html(currentPage);
+      this.load(this.filters.compile(currentPage));
     }
 
     this.pageChange.$input = null;
@@ -156,8 +153,18 @@ export default class PaginatedCatalog {
   }
 
   _processResponse(data, url) {
-    document.title = `${data.title}`;
-    const $content = $(data.content);
+    const {
+      page: currentPage,
+      pages_count: pagesCount,
+      content,
+      title,
+      notice
+    } = data;
+    const isFirstPage = currentPage === 1;
+    const isLastPage = currentPage === pagesCount;
+
+    document.title = `${title}`;
+    const $content = $(content);
 
     // using Object.clone cause UserRatesTracker changes data in its its argument
     UserRatesTracker.track(Object.clone(data.JS_EXPORTS), $content);
@@ -168,32 +175,23 @@ export default class PaginatedCatalog {
     }
     this.$content.html($content).process();
 
-    $('.head h1').html(data.title);
+    $('.head h1').html(title);
     if (data.notice) {
-      $('.head .notice').html(data.notice);
+      $('.head .notice').html(notice);
     }
 
-    this.$linkCurrent.html(data.page);
-    this.$linkTotal.html(data.pages_count);
+    this.$linkCurrent.html(currentPage);
+    this.$linkTotal.html(pagesCount);
 
-    this.$linkPrev.attr({ href: data.prev_page_url || '' });
-    if (data.prev_page_url) {
-      this.$linkPrev.removeClass('disabled');
-    } else {
-      this.$linkPrev.addClass('disabled');
-    }
+    this.$linkPrev
+      .attr('href', isFirstPage ? null : this.filters.compile(currentPage - 1))
+      .toggleClass('disabled', isFirstPage);
 
-    this.$linkNext.attr({ href: data.next_page_url || '' });
-    if (data.next_page_url) {
-      this.$linkNext.removeClass('disabled');
-    } else {
-      this.$linkNext.addClass('disabled');
-    }
+    this.$linkNext
+      .attr('href', isLastPage ? null : this.filters.compile(currentPage + 1))
+      .toggleClass('disabled', isLastPage);
 
-    this.$pagination.toggle(
-      !(this.$linkNext.hasClass('disabled') && this.$linkPrev.hasClass('disabled'))
-    );
-
+    this.$pagination.toggle(!isLastPage || !isFirstPage);
     this.$content.trigger('ajax:success');
 
     if (url) {
