@@ -1,7 +1,9 @@
-json.content render(
-  partial: 'dialogs/dialog',
-  collection: @collection,
-  formats: :html
+json.content JsExports::Supervisor.instance.sweep(
+  render(
+    partial: 'dialogs/dialog',
+    collection: @collection,
+    formats: %i[html]
+  )
 )
 
 if @add_postloader
@@ -11,3 +13,5 @@ if @add_postloader
     next_url: index_profile_dialogs_url(@resource, page: @page + 1)
   )
 end
+
+json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)
