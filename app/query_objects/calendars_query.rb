@@ -9,6 +9,10 @@ class CalendarsQuery
   ANNOUNCED_FROM = 1.week
   ANNOUNCED_UNTIL = 1.month
 
+  def initialize scope = Anime.all
+    @scope = scope
+  end
+
   def fetch_grouped
     group fetch
   end
@@ -64,7 +68,7 @@ private
   end
 
   def fetch_ongoings
-    Anime
+    @scope
       .includes(:episode_news_topics, :anime_calendars)
       .references(:anime_calendars)
       .where(status: :ongoing)
@@ -79,7 +83,7 @@ private
   end
 
   def fetch_announced
-    Anime
+    @scope
       .includes(:episode_news_topics, :anime_calendars)
       .references(:anime_calendars)
       .where(status: :anons)
