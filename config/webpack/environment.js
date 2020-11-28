@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const { environment } = require('@rails/webpacker');
 
-const IS_LOCAL_SHIKI_PACKAGES = process.env.USER === 'morr';
+const IS_LOCAL_SHIKI_PACKAGES = false;
 
 // vue
 const { VueLoaderPlugin } = require('vue-loader');
