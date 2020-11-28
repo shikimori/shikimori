@@ -40,7 +40,7 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
     rest_content = @text[@index..] if @index <= @text.size - 1
 
     [
-      @state.join(''),
+      @state.join,
       rest_content
     ]
   rescue ArgumentError => e
@@ -129,6 +129,7 @@ private
   end
 
   def parse_list tag_sequence
+    is_first_line = true
     prior_sequence = @nested_sequence
 
     @state.push UL_OPEN
@@ -136,11 +137,12 @@ private
     # puts "processBulletList '#{@nested_sequence}'"
 
     loop do
-      move tag_sequence.length
+      move is_first_line ? tag_sequence.length : @nested_sequence.length
       @state.push '<li>'
       parse_list_lines prior_sequence, '  '
       @state.push '</li>'
 
+      is_first_line = false
       break unless sequence_continued?
     end
 
