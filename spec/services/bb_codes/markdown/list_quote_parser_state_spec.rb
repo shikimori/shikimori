@@ -186,20 +186,6 @@ describe BbCodes::Markdown::ListQuoteParserState do
     end
 
     context 'sample' do
-      let(:text) { "> - test\n>   123" }
-      it do
-        is_expected.to eq(
-          [
-            "<blockquote class='b-quote-v2'><div class='quote-content'>" \
-              "<ul class='b-list'><li>test\n123</li></ul>" \
-              '</div></blockquote>',
-            nil
-          ]
-        )
-      end
-    end
-
-    context 'sample' do
       let(:text) { "- > 123\n> - 456\n>   789" }
 
       it do

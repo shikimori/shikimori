@@ -8580,10 +8580,10 @@ shiki-decorators@^1.0.0:
     bind-decorator "1.0.11"
     memoize-decorator "^1.0.2"
 
-shiki-editor@^0.15.33:
-  version "0.15.33"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.15.33.tgz#6b0c1a012b2cf1b9c3b23d9693145d9652add61a"
-  integrity sha512-wbdJwweaJZ+KhPV00+CJDMEx879gI3/Jgz+kHm5MF23PyEcIDwax8na2X5VLp9Q/ZZoeidzUoJhZdIGOmASgZQ==
+shiki-editor@^0.15.35:
+  version "0.15.35"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-0.15.35.tgz#7d2fac849db76201e264d723159d80ac7b27b2ad"
+  integrity sha512-xoEhrdyc35O/5wNJbtyjXO10BjfV5rSYt4SNvcPo8jKeYRwL++eBv3p3n2grFlhnLUcBP/DCC9icV+tIO2XIgQ==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@popperjs/core" "^2.4.4"
@@ -8615,10 +8615,10 @@ shiki-uploader@^1.0.0:
     "@uppy/xhr-upload" "^1.6.0"
     is-visible "^2.2.0"
 
-shiki-utils@^0.15.33:
-  version "0.15.33"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.15.33.tgz#cf5289738413ca96ffe1a8bdfe6058765d37facd"
-  integrity sha512-lBqygGk5Taptjr/SplfzaT1sg6GHE3vKnBWq9ip+blM+p5PWTyr2FbFSQ89+xD0lCCVu+DioPUQ/DWnwT4dMqQ==
+shiki-utils@^0.15.35:
+  version "0.15.35"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-0.15.35.tgz#8377069308e93af61351fe3149f549c7797cbef7"
+  integrity sha512-7l+3zVuJwmNFfh/3NzgbMa6+f4CVJdBmQYNo/y/eSjT9pc2IN4Waf4ciFd1x1VYJD7LeVrUwxQsFbQAKeOCJog==
   dependencies:
     ismobilejs "^1.1.1"
     toastify-js "^1.8.0"
@@ -9687,7 +9687,7 @@ void-elements@^3.1.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha1-YU9/v42AHwu18GYfWy9XhXUOTwk=
 
-vue-custom-scrollbar@morr/vue-custom-scrollbar#1.1.5:
+"vue-custom-scrollbar@github:morr/vue-custom-scrollbar#1.1.5":
   version "1.1.5"
   resolved "https://codeload.github.com/morr/vue-custom-scrollbar/tar.gz/d50510e6d63c59b3f29c94e106b5b6972e3081d0"
 
