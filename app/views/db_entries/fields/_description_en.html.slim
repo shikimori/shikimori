@@ -4,8 +4,8 @@
   / description_en_text is a virtual field -
   / it will be filtered out by permitted params
   = render 'blocks/shiki_editor',
-    text: resource.description_ru.text,
-    field_name: "#{resource.object.class.name.downcase}[description_ru_text]",
+    text: resource.description_en.text,
+    field_name: "#{resource.object.class.name.downcase}[description_en_text]",
     size: 'xl',
     no_preview_avatar: true,
     is_text_with_paragraphs: true,
