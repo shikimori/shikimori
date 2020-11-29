@@ -3,21 +3,18 @@ class UsersController < ShikimoriController
 
   LIMIT = 15
   THRESHOLDS = [100, 175, 350]
-  CACHE_VERSION = :v3
 
   def index
     og page_title: i18n_i('User', :other)
 
-    ids = Rails.cache.fetch(cache_key, expires_in: 1.minute) do
-      Users::Query.fetch
-        .search(params[:search])
-        .paginate(@page, LIMIT)
-        .pluck(:id)
+    scope = Users::Query.fetch
+
+    if params[:search].present?
+      scope = scope.search(params[:search])
     end
 
-    @collection = Users::Query.fetch
-      .where(id: ids)
-      .paginated_slice(@page, LIMIT)
+    @collection = scope
+      .paginate(@page, LIMIT)
       .transform(&:decorate)
   end
 
