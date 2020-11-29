@@ -693,7 +693,7 @@ Rails.application.routes.draw do
     get "#{kind}/menu(/rating/:rating)" => 'animes_collection#menu',
       as: "menu_#{kind}", klass: kind.singularize
 
-    resources kind, only: %i[show], format: /html/ do
+    resources kind, only: %i[show] do
       member do
         get :characters
         get :staff

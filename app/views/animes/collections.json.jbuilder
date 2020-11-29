@@ -1,10 +1,12 @@
-json.content JsExports::Supervisor.instance.sweep(render(
-  partial: 'topics/topic',
-  collection: @collection,
-  as: :topic_view,
-  formats: :html,
-  cache: true
-))
+json.content JsExports::Supervisor.instance.sweep(
+  render(
+    partial: 'topics/topic',
+    collection: @collection,
+    as: :topic_view,
+    formats: :html,
+    cache: true
+  )
+)
 
 if @collection.next_page?
   json.postloader render(
