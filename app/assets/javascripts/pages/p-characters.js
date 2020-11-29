@@ -1,3 +1,5 @@
+import Cosplay from 'views/animes/cosplay';
+
 pageLoad('characters_show', async () => {
   $('.text').checkHeight({ maxHeight: 200 });
 
@@ -8,7 +10,7 @@ pageLoad('characters_show', async () => {
   const [{ FavoriteStar }, { LangTrigger }] = await Promise.all([
     import(/* webpackChunkName: "db_entries_show" */ 'views/db_entries/favorite_star'),
     import(/* webpackChunkName: "db_entries_show" */ 'views/db_entries/lang_trigger')
-  ])
+  ]);
 
   new LangTrigger('.b-lang_trigger');
   new FavoriteStar($('.b-subposter-actions .fav-add'), gon.is_favoured);
@@ -21,5 +23,5 @@ pageLoad('characters_art', async () => {
   new ImageboardsGallery('.b-gallery');
 });
 pageLoad('characters_cosplay', () => {
-  new Animes.Cosplay('.l-content');
+  new Cosplay('.l-content');
 });
