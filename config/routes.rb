@@ -904,7 +904,7 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[index] do
     collection do
-      get '(/p-:page)' => 'users#index', as: ''
+      get '(/page/:page)' => 'users#index', as: ''
       get '/similar/:klass/(:threshold)(/page/:page)' => 'users#similar',
         as: 'similar',
         klass: /anime|manga/

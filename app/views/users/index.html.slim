@@ -8,7 +8,7 @@ header.head.misc
   p.notice
     = t '.notice'
 
-- cache @collection do
+- cache [@collection, :v2] do
   .b-search-results
     - if @collection.any?
       = render partial: 'users/user',
@@ -21,4 +21,5 @@ header.head.misc
       = render 'blocks/postloader',
         filter: 'b-user',
         next_url: current_url(page: @collection.next_page),
-        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?)
+        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?),
+        pages_limit: 10
