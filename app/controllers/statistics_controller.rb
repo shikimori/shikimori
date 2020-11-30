@@ -54,7 +54,7 @@ private
 
   def calculate_stats key, interval, scope
     PgCache.fetch([:lists_stats, key, interval, :v8]) do
-      DbStatistics::ListSizes.call scope, interval
+      DbStatistics::ListSize.call scope, interval
     end
   end
 

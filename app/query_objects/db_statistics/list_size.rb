@@ -1,4 +1,4 @@
-class DbStatistics::ListSizes
+class DbStatistics::ListSize
   Interval = Types::Strict::Symbol
     .constructor(&:to_sym)
     .enum(:long, :short)

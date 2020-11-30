@@ -1,4 +1,4 @@
-describe DbStatistics::ListSizes do
+describe DbStatistics::ListSize do
   subject { described_class.call scope, interval }
   let(:scope) { UserRate.where(target_type: 'Manga') }
   let(:interval) { described_class::Interval[:long] }
