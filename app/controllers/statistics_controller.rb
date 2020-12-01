@@ -45,11 +45,11 @@ class StatisticsController < ShikimoriController
 private
 
   def anime_scope
-    UserRate.where(target_type: 'Anime').where(user_id: 1..1000)
+    UserRate.where(target_type: 'Anime')
   end
 
   def manga_scope
-    UserRate.where(target_type: 'Manga').where(user_id: 1..1000)
+    UserRate.where(target_type: 'Manga')
   end
 
   def calculate_stats key, interval, scope
