@@ -13,27 +13,23 @@ describe DbStatistics::ListDuration do
       .with(stats)
       .and_return intervals
   end
-  let(:stats) { [0, 59, 60, 100, 100, 30000, 100001] }
+  let(:stats) { [699, 700, 701, 72999, 73000, 73001] }
   let(:intervals) do
-    [700, 2100, 5200, 11000, 19000, 28000, 40000, 54000, 73000, 100000]
+    [700, 2100, 5200, 11000, 19000, 28000, 40000, 54000, 73000, described_class::FINAL_INTERVAL]
   end
 
   it do
-    ap subject
-    # is_expected.to have(described_class::INTERVALS[interval].size).keys
-    # expect(subject['10']).to eq 1
-    # expect(subject.values[1..].all?(&:zero?)).to eq true
+    is_expected.to eq(
+      700 => 1, # [0..700)
+      2100 => 2, # [700-2100)
+      5200 => 0, # [2100..5200)
+      11000 => 0, # [5200..11000)
+      19000 => 0, # [11000..19000)
+      28000 => 0, # [19000..28000)
+      40000 => 0, # [28000..40000)
+      54000 => 0, # [40000..54000)
+      73000 => 1, # [40000..73000)
+      99_999_999 => 2 # [73000..)
+    )
   end
-
-  # context 'user is excluded' do
-  #   let(:user) do
-  #     create :user,
-  #       roles: [Types::User::ROLES_EXCLUDED_FROM_STATISTICS.sample]
-  #   end
-  #
-  #   it do
-  #     is_expected.to have(described_class::INTERVALS[interval].size).keys
-  #     expect(subject.values.all?(&:zero?)).to eq true
-  #   end
-  # end
 end

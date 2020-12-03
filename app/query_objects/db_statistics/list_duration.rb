@@ -15,12 +15,28 @@ class DbStatistics::ListDuration
     ) as total_duration
   SQL
 
-  SLICE_SIZE = 5000
   JOIN_ASSOCIATION = {
     anime: :anime,
     manga: :manga
   }
-  INTERVALS = 10
+
+  INTERVALS = [
+    10,
+    20,
+    30,
+    40,
+    50,
+    69,
+    85,
+    93,
+    97,
+    99.5
+  ]
+
+  FINAL_INTERVAL = 99_999_999
+  SLICE_SIZE = 5000
+
+  CACHE_VERSION = :v_15
 
   def call
     stats = fetch
@@ -41,29 +57,34 @@ private
       slice.select { |v| v >= 60 }.each { |v| durations.push v }
     end
 
-    durations
+    durations.sort
   end
 
   def fetch_slice iteration
-    @scope
-      .joins(JOIN_ASSOCIATION[type])
-      .where.not(user_id: User.excluded_from_statistics.select('id'))
-      .where(user_id: (iteration * SLICE_SIZE)..((iteration + 1) * SLICE_SIZE))
-      .group('user_id')
-      .pluck(Arel.sql(SELECT_SQL))
+    @scope.
+      joins(JOIN_ASSOCIATION[type]).
+      where.not(user_id: User.excluded_from_statistics.select('id')).
+      where(user_id: (iteration * SLICE_SIZE)..((iteration + 1) * SLICE_SIZE)).
+      group('user_id').
+      pluck(Arel.sql(SELECT_SQL))
   end
 
   def spawn_intervals stats
-    data = confidence_interval(stats.sort)
-
-    1.upto(INTERVALS).map do |i|
-      round_up(data[data.size * i / (INTERVALS + 1)])
+    intervals = INTERVALS.map do |percent|
+      round_up(stats[stats.size * percent / 100])
     end
+
+    intervals.push FINAL_INTERVAL
   end
 
   def fill_intervals intervals, stats
-    stats.each_with_object(intervals_hash(intervals)) do |duration, memo|
+    stats.each_with_object(intervals_hash(intervals)) do |value, memo|
+      intervals.each do |interval|
+        next if value >= interval
 
+        memo[interval] += 1
+        break
+      end
     end
   end
 
@@ -91,20 +112,18 @@ private
   end
 
   def max_id
-    User.order(id: :desc).limit(1).pluck(:id)
+    User.order(id: :desc).limit(1).pluck(:id).first
   end
 
   def cache_key iteration
-    [Digest::MD5.hexdigest(@scope.to_sql), iteration, :v8]
-  end
-
-  def confidence_interval stats
-    stats[(stats.size * 0.05)..(stats.size * 0.95)]
+    [Digest::MD5.hexdigest(@scope.to_sql), iteration, CACHE_VERSION]
   end
 end
 
-# Rails.logger = ActiveSupport::Logger.new(STDOUT)
-# Dalli.logger = Rails.logger
-# ActiveRecord::Base.logger = Rails.logger
-#
-# scope = UserRate.where(target_type: 'Anime'); z = DbStatistics::ListDuration.call(scope, :anime)
+if Rails.env.production?
+  Rails.logger = ActiveSupport::Logger.new(STDOUT)
+  Dalli.logger = Rails.logger
+  ActiveRecord::Base.logger = Rails.logger
+
+  scope = UserRate.where(target_type: 'Anime'); z = DbStatistics::ListDuration.call(scope, :anime)
+end
