@@ -1,4 +1,6 @@
 class DbStatistics::ListDuration
+  method_object :scope, :type
+
   CACHE_VERSION = :v10
 
   Type = Types::Strict::Symbol
