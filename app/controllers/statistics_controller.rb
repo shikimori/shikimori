@@ -3,6 +3,8 @@ class StatisticsController < ShikimoriController
   respond_to :html
   YEARS_AGO = 26.years
 
+  CACHE_VERSION = DbStatistics::ListDuration::CACHE_VERSION
+
   def index
     og page_title: i18n_t('page_title')
     og description: i18n_t('page_description')
@@ -33,16 +35,30 @@ class StatisticsController < ShikimoriController
       end
     };
 
-    @stats = scopes.each_with_object({}) do |(type, kinds), memo|
+    @list_stats = calculate_list_stats scopes
+    @duration_stats = calculate_duration_stats scopes
+  end
+
+private
+
+  def calculate_list_stats scopes
+    scopes.each_with_object({}) do |(type, kinds), memo|
       kinds.each do |kind, scope|
         interval = %i[anime manga].include?(type) ? :long : :short
         memo[type] ||= {}
-        memo[type][kind] = calculate_stats "#{type}_#{kind}", interval, scope
+        memo[type][kind] = list_stats "#{type}_#{kind}", interval, scope
       end
     end
   end
 
-private
+  def calculate_duration_stats scopes
+    scopes.each_with_object({}) do |(type, kinds), memo|
+      kinds.each do |kind, scope|
+        memo[type] ||= {}
+        memo[type][kind] = duration_stats "#{type}_#{kind}", type, scope
+      end
+    end
+  end
 
   def anime_scope
     UserRate.where(target_type: 'Anime')
@@ -52,9 +68,15 @@ private
     UserRate.where(target_type: 'Manga')
   end
 
-  def calculate_stats key, interval, scope
-    PgCache.fetch([:lists_stats, key, interval, :v8]) do
+  def list_stats key, interval, scope
+    PgCache.fetch([:lists_stats, key, interval, CACHE_VERSION]) do
       DbStatistics::ListSize.call scope, interval
+    end
+  end
+
+  def duration_stats key, type, scope
+    PgCache.fetch([:duration_stats, key, CACHE_VERSION]) do
+      DbStatistics::ListDuration.call scope, type.to_s.singularize.to_sym
     end
   end
 
