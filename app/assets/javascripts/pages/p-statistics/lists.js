@@ -21,7 +21,7 @@ function renderCharts(Highcharts, { node, stats, label }) {
     chart: { type: 'area' },
     title: { text: label },
     xAxis: {
-      categories: Object.keys(stats[keys[0]])
+      categories: Object.keys(stats[keys[0]]).sortBy(v => parseInt(v.replace(/[^\d].*/, '')))
     },
     yAxis: {
       title: { text: 'Users' }
