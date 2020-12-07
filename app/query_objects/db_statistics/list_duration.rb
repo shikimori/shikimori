@@ -103,7 +103,7 @@ private
     durations = []
 
     0.upto(iterations) do |iteration|
-      slice = Rails.cache.fetch cache_key(iteration) do
+      slice = Rails.cache.fetch cache_key(iteration), expires_in: 1.day do
         fetch_slice iteration
       end
 
