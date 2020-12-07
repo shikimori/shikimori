@@ -1,7 +1,7 @@
 class DbStatistics::ListDuration
   method_object :scope, :type
 
-  CACHE_VERSION = :v10
+  CACHE_VERSION = :v11
 
   Type = Types::Strict::Symbol
     .constructor(&:to_sym)
@@ -68,11 +68,12 @@ class DbStatistics::ListDuration
     95,
     97,
     99,
-    99.5
+    99.455,
+    99.91
   ]
-
   FINAL_INTERVAL = 99_999_999
   SLICE_SIZE = 5000
+  MINUTES_IN_DAY = 60.0 * 24
 
   def call
     stats = fetch
@@ -85,16 +86,16 @@ private
   def transform_keys stats # rubocop:disable AbcSize
     stats.transform_keys.with_index do |key, index|
       days = index == stats.size - 1 ?
-        (stats.keys[-2] / 360.0).ceil :
-        (key / 360.0).ceil
+        (stats.keys[-2] / MINUTES_IN_DAY).ceil :
+        (key / MINUTES_IN_DAY).ceil
 
       if index.zero?
         "#{days}-"
       elsif index == stats.size - 1
         "#{days}+"
       else
-        prior_days = (stats.keys[index - 1] / 360.0).ceil + 1
-        "#{prior_days}-#{days}"
+        prior_days = (stats.keys[index - 1] / MINUTES_IN_DAY).ceil + 1
+        [prior_days, days].uniq.join('-')
       end
     end
   end
