@@ -17479,6 +17479,7 @@
       :filters:
         franchise: one_piece
         not_anime_ids:
+        - 2107
         - 2680
         - 8171
         - 12001
@@ -17496,8 +17497,7 @@
         - 37902
         - 38419
         - 40181
-        - 2107
-      :threshold: 94.7%
+      :threshold: 95%
       :generator:
         ignore_latest_ids:
         - 38234
@@ -17530,6 +17530,7 @@
       :filters:
         franchise: one_piece
         not_anime_ids:
+        - 2107
         - 2680
         - 8171
         - 12001
@@ -17547,7 +17548,6 @@
         - 37902
         - 38419
         - 40181
-        - 2107
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -17585,6 +17585,7 @@
         - 2449
         - 4672
         - 10090
+        - 10949
         - 17187
         - 19191
         - 19193
@@ -17592,7 +17593,7 @@
         - 22013
         - 31617
         - 38600
-      :threshold: 91.9%
+      :threshold: 91.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ghost_in_the_shell
@@ -17626,6 +17627,7 @@
         - 2449
         - 4672
         - 10090
+        - 10949
         - 17187
         - 19191
         - 19193
@@ -21266,6 +21268,7 @@
         - 2269
         - 2294
         - 2305
+        - 2695
         - 2743
         - 3626
         - 3963
@@ -21305,11 +21308,7 @@
         - 42380
         - 42432
         - 42439
-        - 14007
-        - 2695
-        - 20667
-        - 24371
-      :threshold: 87.8%
+      :threshold: 87.4%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -21354,6 +21353,7 @@
         - 2269
         - 2294
         - 2305
+        - 2695
         - 2743
         - 3626
         - 3963
@@ -21393,10 +21393,6 @@
         - 42380
         - 42432
         - 42439
-        - 14007
-        - 2695
-        - 20667
-        - 24371
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -21687,6 +21683,7 @@
       :filters:
         franchise: dragon_ball
         not_anime_ids:
+        - 502
         - 6714
         - 11359
         - 11659
@@ -21697,7 +21694,7 @@
         - 23935
         - 33947
         - 38653
-      :threshold: 95.3%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :dragon_ball
@@ -21727,6 +21724,7 @@
       :filters:
         franchise: dragon_ball
         not_anime_ids:
+        - 502
         - 6714
         - 11359
         - 11659
@@ -22357,6 +22355,9 @@
       :filters:
         franchise: little_busters
       :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 35960
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :little_busters
@@ -22589,7 +22590,7 @@
       :algo: duration
       :filters:
         franchise: ginga_eiyuu_densetsu
-      :threshold: 90%
+      :threshold: 91.8%
       :generator:
         ignore_latest_ids:
         - 36371
@@ -22791,6 +22792,7 @@
         - 19879
         - 19961
         - 24373
+        - 25987
         - 30144
         - 32087
         - 32088
@@ -22808,7 +22810,6 @@
         - 38056
         - 38087
         - 39339
-        - 25987
       :threshold: 95%
       :generator:
         ignore_latest_ids:
@@ -22849,6 +22850,7 @@
         - 19879
         - 19961
         - 24373
+        - 25987
         - 30144
         - 32087
         - 32088
@@ -22866,7 +22868,6 @@
         - 38056
         - 38087
         - 39339
-        - 25987
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -26744,8 +26745,8 @@
         not_anime_ids:
         - 8410
         - 10370
-        - 21479
         - 13231
+        - 21479
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -26778,8 +26779,8 @@
         not_anime_ids:
         - 8410
         - 10370
-        - 21479
         - 13231
+        - 21479
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
