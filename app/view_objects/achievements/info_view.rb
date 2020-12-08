@@ -47,6 +47,8 @@ class Achievements::InfoView
   end
 
   def filters
+    return unless achievement.rule[:filters]
+
     {
       **achievement.rule[:filters].symbolize_keys,
       ignore_latest_ids: achievement.rule[:ignore_latest_ids],
