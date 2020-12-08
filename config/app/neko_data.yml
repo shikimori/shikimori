@@ -19059,6 +19059,7 @@
         - 41188
         - 41189
         - 41204
+        - 42600
       :threshold: 95.6%
       :generator:
         not_ignored_ids:
@@ -19116,6 +19117,7 @@
         - 41188
         - 41189
         - 41204
+        - 42600
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -19772,7 +19774,8 @@
         - 36835
         - 37865
         - 42136
-      :threshold: 92.6%
+        - 42984
+      :threshold: 92.9%
       :generator:
         ignore_latest_ids:
         - 37966
@@ -19818,6 +19821,7 @@
         - 36835
         - 37865
         - 42136
+        - 42984
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -21308,7 +21312,7 @@
         - 42380
         - 42432
         - 42439
-      :threshold: 87.4%
+      :threshold: 88.5%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -27071,7 +27075,7 @@
         - 39101
         - 39102
         - 39162
-      :threshold: 90%
+      :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :transformers
