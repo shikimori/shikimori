@@ -7,6 +7,14 @@ describe StatisticsController do
 
   describe '#lists' do
     subject { get :lists }
+    before do
+      allow(controller)
+        .to receive(:list_stats)
+        .and_return({})
+      allow(controller)
+        .to receive(:duration_stats)
+        .and_return({})
+    end
     it { is_expected.to have_http_status :success }
   end
 end
