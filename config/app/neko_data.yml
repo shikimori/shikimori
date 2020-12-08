@@ -14740,6 +14740,10 @@
         - 35262
         - 43683
       :threshold: 95%
+      :generator:
+        ignore_latest_ids:
+        - 39565
+        - 44200
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :boku_no_hero_academia
@@ -14772,6 +14776,10 @@
         - 35262
         - 43683
       :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 39565
+        - 44200
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :boku_no_hero_academia
