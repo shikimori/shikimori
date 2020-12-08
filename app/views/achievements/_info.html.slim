@@ -84,7 +84,7 @@
   .line.m10
     .key = t '.rules'
     .value.filters
-      = BbCodes::Text.call "[code=json]#{JSON.pretty_generate(view.filters).gsub(/\[.*\]/mix) {|match| match.gsub(/\n|\ /, '') }}[/code]"
+      = BbCodes::Text.call "[code=json]#{JSON.pretty_generate(view.filters).gsub(/\[.*?\]/mix) {|match| match.gsub(/\n|\ /, '') }}[/code]"
 
   - if local_assigns[:extended] && view.show_animes?
     = spoiler t('.show_anime_list') do

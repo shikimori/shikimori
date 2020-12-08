@@ -4,7 +4,7 @@ class Achievements::InfoView
 
   delegate :animes_scope, :neko_id, :anime_rates, to: :achievement
 
-  CACHE_VERSION = :v5 # rubocop:disable VariableNumber
+  CACHE_VERSION = :v5
 
   def achievement
     achievements.first
@@ -47,7 +47,11 @@ class Achievements::InfoView
   end
 
   def filters
-    achievement.rule[:filters]
+    {
+      **achievement.rule[:filters].symbolize_keys,
+      ignore_latest_ids: achievement.rule[:ignore_latest_ids],
+      not_ignored_ids: achievement.rule[:not_ignored_ids]
+    }.compact
   end
 
   def extended_cache_key
