@@ -47,13 +47,14 @@ class Achievements::InfoView
   end
 
   def filters
-    return unless achievement.rule[:filters]
-
-    {
-      **achievement.rule[:filters].symbolize_keys,
-      ignore_latest_ids: achievement.rule[:ignore_latest_ids],
-      not_ignored_ids: achievement.rule[:not_ignored_ids]
-    }.compact
+    if achievement.rule[:generator]
+      {
+        **achievement.rule[:filters].symbolize_keys,
+        **achievement.rule[:generator].symbolize_keys
+      }
+    else
+      achievement.rule[:filters]
+    end
   end
 
   def extended_cache_key
