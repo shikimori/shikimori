@@ -40,6 +40,7 @@ module Types
         mangalib
         remanga
         mangaupdates
+        mangadex
         mangafox
         mangachan
         mangahub
@@ -52,6 +53,7 @@ module Types
         remanga
         novelupdates
         mangaupdates
+        mangadex
       ]
     }
 
