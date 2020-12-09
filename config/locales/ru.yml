@@ -533,6 +533,7 @@ ru:
         mangalib: MangaLib
         ranobelib: RanobeLib
         remanga: ReManga
+        mangadex: MangaDex
       source:
         shikimori: Shikimori
         myanimelist: MyAnimeList
