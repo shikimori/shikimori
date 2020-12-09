@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_08_133136) do
+ActiveRecord::Schema.define(version: 2020_12_09_105210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -124,7 +124,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_133136) do
     t.datetime "imported_at"
     t.datetime "next_episode_at"
     t.string "imageboard_tag", limit: 255
-    t.string "source", limit: 255
     t.string "torrents_name", limit: 255
     t.float "site_score", default: 0.0, null: false
     t.text "desynced", default: [], null: false, array: true
@@ -140,11 +139,11 @@ ActiveRecord::Schema.define(version: 2020_12_08_133136) do
     t.integer "studio_ids", default: [], null: false, array: true
     t.string "season"
     t.string "franchise"
-    t.string "options", default: [], null: false, array: true
     t.string "license_name_ru"
     t.text "coub_tags", default: [], null: false, array: true
     t.text "fansubbers", default: [], null: false, array: true
     t.text "fandubbers", default: [], null: false, array: true
+    t.string "options", default: [], null: false, array: true
     t.string "licensors", default: [], null: false, array: true
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
@@ -195,7 +194,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_133136) do
     t.datetime "imported_at"
     t.string "imageboard_tag", limit: 255
     t.string "russian", default: "", null: false
-    t.string "source", limit: 255
     t.text "desynced", default: [], null: false, array: true
     t.integer "mal_id"
     t.boolean "is_anime", default: false, null: false
@@ -602,7 +600,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_133136) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "imageboard_tag", limit: 255
-    t.string "source", limit: 255
     t.float "site_score", default: 0.0, null: false
     t.datetime "parsed_at"
     t.text "desynced", default: [], null: false, array: true
@@ -979,7 +976,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_133136) do
     t.index ["target_type", "user_id", "id"], name: "index_user_histories_on_target_type_and_user_id_and_id"
     t.index ["updated_at"], name: "index_user_histories_on_updated_at"
     t.index ["user_id", "action"], name: "user_histories_UserDataFetcherBase_latest_import_index", where: "((action)::text = ANY (ARRAY[('mal_anime_import'::character varying)::text, ('ap_anime_import'::character varying)::text, ('anime_history_clear'::character varying)::text, ('mal_manga_import'::character varying)::text, ('ap_manga_import'::character varying)::text, ('manga_history_clear'::character varying)::text]))"
-    t.index ["user_id", "updated_at"], name: "index_user_histories_on_user_id_and_updated_at"
     t.index ["user_id"], name: "index_user_histories_on_user_id"
   end
 
@@ -1115,7 +1111,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_133136) do
     t.string "roles", limit: 4096, default: [], null: false, array: true
     t.text "notification_settings", default: [], null: false, array: true
     t.index ["email"], name: "index_users_on_email"
-    t.index ["last_online_at"], name: "index_users_on_last_online_at"
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["roles"], name: "index_users_on_roles", using: :gin
