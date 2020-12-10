@@ -6,8 +6,24 @@
 
 $bar_height: 8px
 
+center > .poll-outer
+  display: flex
+  justify-content: center
+
+  .b-poll
+    flex-grow: 1
+    text-align: left
+
+.right-text .poll-outer
+  display: flex
+  justify-content: flex-end
+
+  .b-poll
+    flex-grow: 1
+    text-align: left
+
 .b-poll
-  +block
+  max-width: 350px
 
   .poll
     margin-bottom: 10px
@@ -20,7 +36,6 @@ $bar_height: 8px
       +shiki_button
 
   .poll-variants
-    max-width: 350px
     margin-bottom: 15px
 
     &:last-child
