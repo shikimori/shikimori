@@ -41,7 +41,7 @@ export default class ShikiEditorV2 extends View {
       { ShikiRequest }
     ] = await Promise.all([
       import(/* webpackChunkName: "vue" */ 'vue/instance'),
-      import(/* webpackChunkName: "shiki-editor" */ 'shiki-editor'),
+      import(/* webpackChunkName: "shiki-editor" */ 'shiki-editor-v2'),
       import('shiki-uploader'),
       import('shiki-utils')
     ]);
