@@ -8560,10 +8560,10 @@ shiki-decorators@^1.0.1:
     bind-decorator "1.0.11"
     memoize-decorator "^1.0.2"
 
-shiki-editor-v2@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/shiki-editor-v2/-/shiki-editor-v2-1.0.5.tgz#245838aeaef6ac88c25e7ee107bd79c7e4237164"
-  integrity sha512-OM6igrveRep5pP2AJKZYN0ZkLbzH4w1B6tAepUHxiqCu/G9FodWsZpAcPw6FfqwDtU9eHl3wlRNNuu2HcQgpgA==
+shiki-editor-v2@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/shiki-editor-v2/-/shiki-editor-v2-1.0.6.tgz#6c4cacb8e1cf37c600347154305ad65b9d861f2f"
+  integrity sha512-T7d12agrEvAcrCnt3PSFUfRMsBdRigEmtuH8T43owL5WNAhfvH6WuCUo0k4l90/Ona3BwtS7WOYIQ+pKeFCkLg==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@popperjs/core" "^2.4.4"
