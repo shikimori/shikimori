@@ -6,7 +6,7 @@ module CommentHelper
   # include AniMangaHelper
 
   COMPLEX_BB_CODES = %i[
-    smileys club club_page collection article contest version
+    club club_page collection article contest version
     user review posters ban
   ]
 

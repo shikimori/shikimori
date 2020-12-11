@@ -129,6 +129,10 @@ private
       text = markdown_parser.instance.format text
     end
 
+    # fixes smileys in db_entry names
+    # https://github.com/shikimori/shikimori/issues/2055
+    text = smileys_to_html text
+
     TAGS.each do |tag_parser|
       text = tag_parser.instance.format text
     end
