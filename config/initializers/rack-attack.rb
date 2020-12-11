@@ -22,7 +22,7 @@ end
 Rack::Attack.safelist('autocomplete_and_search_and_shiki_editor') do |req|
   req.get? && (
     req.path.ends_with?('/autocomplete') ||
-    req.env['REQUEST_URI'].starts_with?('/api/users?search=') ||
+    req.env['REQUEST_URI']&.starts_with?('/api/users?search=') ||
     req.path.starts_with?('/api/shiki_editor')
   )
 end
