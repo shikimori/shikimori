@@ -55,7 +55,8 @@ default: &default
 
 development:
   <<: *default
-  compile: <%=!!ENV['NO_REDIRECTER'] %> # disable compilation without dev server
+  compile: false
+  # compile: <%=!!ENV['NO_REDIRECTER'] %> # disable compilation without dev server
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
@@ -79,7 +80,7 @@ development:
 
 test:
   <<: *default
-  compile: true
+  compile: false
 
   # Compile test packs to a separate directory
   public_output_path: packs-test
