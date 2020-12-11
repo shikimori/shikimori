@@ -3,16 +3,19 @@ describe BbCodes::Tags::ImgTag do
 
   let(:text_hash) { 'hash' }
   let(:image_url) { 'http://site.com/site-url' }
-  let(:escaped_image_url) { ERB::Util.h image_url }
   let(:text) { "[img]#{escaped_image_url}[/img]" }
   let(:camo_url) { UrlGenerator.instance.camo_url image_url }
   let(:attrs) { { src: image_url } }
+
+  let(:escaped_image_url) { ERB::Util.h image_url }
+  let(:escaped_image_url_2) { ERB::Util.h image_url_2 }
+  let(:escaped_link_url) { ERB::Util.h link_url }
 
   context 'common case' do
     it do
       is_expected.to eq(
         <<-HTML.squish.strip
-          <a href='#{image_url}'
+          <a href='#{escaped_image_url}'
             data-href='#{camo_url}'
             rel='#{text_hash}'
             class='b-image unprocessed'
@@ -48,7 +51,7 @@ describe BbCodes::Tags::ImgTag do
       is_expected.to eq(
         <<~HTML.squish
           <a
-            href='#{image_url}'
+            href='#{escaped_image_url}'
             data-href='#{camo_url}'
             rel='#{text_hash}'
             class='b-image unprocessed'
@@ -57,7 +60,7 @@ describe BbCodes::Tags::ImgTag do
               class='check-width'
               loading='lazy'></a>
             <a
-              href='#{image_url_2}'
+              href='#{escaped_image_url_2}'
               data-href='#{camo_url_2}'
               rel='#{text_hash}'
               class='b-image unprocessed'
@@ -104,9 +107,9 @@ describe BbCodes::Tags::ImgTag do
         is_expected.to eq(
           <<~HTML.squish
             <a
-              href='#{link_url}'
+              href='#{escaped_link_url}'
               data-href='#{camo_url}'
-              rel='hash' 
+              rel='hash'#{' '}
               class='b-image unprocessed'
               data-attrs='#{attrs.to_json}'><img
                 src='#{camo_url}'
@@ -125,7 +128,7 @@ describe BbCodes::Tags::ImgTag do
         is_expected.to eq(
           <<~HTML.squish
             <a
-              href='#{link_url}'
+              href='#{escaped_link_url}'
               data-href='#{camo_link_url}'
               rel='hash'
               class='b-image unprocessed'

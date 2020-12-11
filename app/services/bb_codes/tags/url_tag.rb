@@ -9,7 +9,7 @@ class BbCodes::Tags::UrlTag
       (?: https?: )?
       //
       (?:www\.)?
-      ( [^\s<\[\].,;:)(] | [.,;:)(] (?!=\s|$|[<\[\]\ ;,]) )+
+      (?: [^\s<\[\].,;:)(] | [.,;:)(] (?!=\s|$|[<\[\]\ ;,]) )+
     )
   }mix
 
@@ -51,7 +51,8 @@ private
     end
 
     <<~HTML.squish
-      <a class="#{css_classes}" href="#{url}"#{REL unless is_shikimori}>#{link_text}</a>
+      <a class="#{ERB::Util.h css_classes}"
+      href="#{ERB::Util.h url}"#{REL unless is_shikimori}>#{link_text}</a>
     HTML
   end
 

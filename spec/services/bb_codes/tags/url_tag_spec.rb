@@ -3,14 +3,17 @@ describe BbCodes::Tags::UrlTag do
 
   let(:rel) { 'rel="noopener noreferrer nofollow"' }
   let(:url) { 'http://site.com/site-url?a=1&b=2' }
+
   let(:escaped_url) { ERB::Util.h url }
+  let(:escaped_path) { ERB::Util.h path }
+  let(:escaped_text) { ERB::Util.h text }
 
   context 'without text' do
     let(:text) { "[url]#{escaped_url}[/url]" }
 
     it do
       is_expected.to eq(
-        "<a class=\"b-link\" href=\"#{url}\" #{rel}>#{Url.new(url).without_http}</a>"
+        "<a class=\"b-link\" href=\"#{escaped_url}\" #{rel}>#{Url.new(url).without_http}</a>"
       )
     end
 
@@ -18,7 +21,7 @@ describe BbCodes::Tags::UrlTag do
       let(:text) { "[url aa bb]#{escaped_url}[/url]" }
       it do
         is_expected.to eq(
-          "<a class=\"b-link aa bb\" href=\"#{url}\" #{rel}>#{Url.new(url).without_http}</a>"
+          "<a class=\"b-link aa bb\" href=\"#{escaped_url}\" #{rel}>#{Url.new(url).without_http}</a>"
         )
       end
     end
@@ -28,7 +31,7 @@ describe BbCodes::Tags::UrlTag do
       let(:text) { "[url]#{escaped_url}[/url]" }
       it do
         is_expected.to eq(
-          "<a class=\"b-link\" href=\"#{url}\" #{rel}>#{Url.new(url).without_http}</a>"
+          "<a class=\"b-link\" href=\"#{escaped_url}\" #{rel}>#{Url.new(url).without_http}</a>"
         )
       end
     end
@@ -37,7 +40,7 @@ describe BbCodes::Tags::UrlTag do
       let(:url) { 'http://site.com/' + ('x' * BbCodes::Tags::UrlTag::MAX_SHORT_URL_SIZE) }
       it do
         is_expected.to eq(
-          "<a class=\"b-link\" href=\"#{url}\" #{rel}>site.com</a>"
+          "<a class=\"b-link\" href=\"#{escaped_url}\" #{rel}>site.com</a>"
         )
       end
     end
@@ -46,7 +49,7 @@ describe BbCodes::Tags::UrlTag do
       let(:url) { '//shikimori.test/animes' }
       it do
         is_expected.to eq(
-          "<a class=\"b-link\" href=\"#{url}\" #{rel}>/animes</a>"
+          "<a class=\"b-link\" href=\"#{escaped_url}\" #{rel}>/animes</a>"
         )
       end
     end
@@ -55,7 +58,7 @@ describe BbCodes::Tags::UrlTag do
       let(:url) { '//shikimori.test/%D0%92%D0%B8%D0%BD%D0%BD%D0%B8' }
       it do
         is_expected.to eq(
-          "<a class=\"b-link\" href=\"#{url}\" #{rel}>/Винни</a>"
+          "<a class=\"b-link\" href=\"#{escaped_url}\" #{rel}>/Винни</a>"
         )
       end
     end
@@ -83,7 +86,7 @@ describe BbCodes::Tags::UrlTag do
     context 'some shiki url' do
       let(:text) { "https://shikimori.one#{path}" }
       let(:path) { '/tests/border?image_url=http://i.imgur.com/Arxun3R.gif&image_border=@ff0000' }
-      it { is_expected.to eq "<a class=\"b-link\" href=\"#{path}\">#{path}</a>" }
+      it { is_expected.to eq "<a class=\"b-link\" href=\"#{escaped_path}\">#{path}</a>" }
     end
   end
 
@@ -92,7 +95,7 @@ describe BbCodes::Tags::UrlTag do
 
     it do
       is_expected.to eq(
-        "<a class=\"b-link\" href=\"#{url}\" #{rel}>text</a>"
+        "<a class=\"b-link\" href=\"#{escaped_url}\" #{rel}>text</a>"
       )
     end
 
@@ -100,7 +103,7 @@ describe BbCodes::Tags::UrlTag do
       let(:text) { "[url=#{url} aa bb]text[/url]" }
       it do
         is_expected.to eq(
-          "<a class=\"b-link aa bb\" href=\"#{url}\" #{rel}>text</a>"
+          "<a class=\"b-link aa bb\" href=\"#{escaped_url}\" #{rel}>text</a>"
         )
       end
     end
@@ -110,7 +113,7 @@ describe BbCodes::Tags::UrlTag do
       let(:text) { "[url=#{escaped_url}]text[/url]" }
       it do
         is_expected.to eq(
-          "<a class=\"b-link\" href=\"http://#{url}\" #{rel}>text</a>"
+          "<a class=\"b-link\" href=\"#{ERB::Util.h "http://#{url}"}\" #{rel}>text</a>"
         )
       end
     end
@@ -126,7 +129,7 @@ describe BbCodes::Tags::UrlTag do
       let(:text) { url }
       it do
         is_expected.to eq(
-          "<a class=\"b-link\" href=\"#{url}\" #{rel}>#{Url.new(url).without_http}</a>"
+          "<a class=\"b-link\" href=\"#{escaped_url}\" #{rel}>#{Url.new(url).without_http}</a>"
         )
       end
     end
@@ -136,7 +139,7 @@ describe BbCodes::Tags::UrlTag do
       let(:text) { url }
       it do
         is_expected.to eq(
-          "<a class=\"b-link\" href=\"#{url}\" #{rel}>#{Url.new(url).without_http}</a>"
+          "<a class=\"b-link\" href=\"#{escaped_url}\" #{rel}>#{Url.new(url).without_http}</a>"
         )
       end
     end
@@ -145,7 +148,7 @@ describe BbCodes::Tags::UrlTag do
       let(:text) { "#{url}.json" }
       it do
         is_expected.to eq(
-          "<a class=\"b-link\" href=\"#{url}.json\" #{rel}>#{Url.new(url).without_http}.json</a>"
+          "<a class=\"b-link\" href=\"#{ERB::Util.h "#{url}.json"}\" #{rel}>#{Url.new(url).without_http}.json</a>"
         )
       end
     end
@@ -154,7 +157,7 @@ describe BbCodes::Tags::UrlTag do
       let(:text) { "#{url} test" }
       it do
         is_expected.to eq(
-          "<a class=\"b-link\" href=\"#{url}\" #{rel}>#{Url.new(url).without_http}</a> test"
+          "<a class=\"b-link\" href=\"#{escaped_url}\" #{rel}>#{Url.new(url).without_http}</a> test"
         )
       end
     end
@@ -163,7 +166,7 @@ describe BbCodes::Tags::UrlTag do
       let(:text) { "#{url}." }
       it do
         is_expected.to eq(
-          "<a class=\"b-link\" href=\"#{url}\" #{rel}>#{Url.new(url).without_http}</a>."
+          "<a class=\"b-link\" href=\"#{escaped_url}\" #{rel}>#{Url.new(url).without_http}</a>."
         )
       end
     end
@@ -172,7 +175,7 @@ describe BbCodes::Tags::UrlTag do
       let(:text) { "#{url}, test" }
       it do
         is_expected.to eq(
-          "<a class=\"b-link\" href=\"#{url}\" #{rel}>#{Url.new(url).without_http}</a>, test"
+          "<a class=\"b-link\" href=\"#{escaped_url}\" #{rel}>#{Url.new(url).without_http}</a>, test"
         )
       end
     end
@@ -181,7 +184,7 @@ describe BbCodes::Tags::UrlTag do
       let(:text) { "(#{url})" }
       it do
         is_expected.to eq(
-          "(<a class=\"b-link\" href=\"#{url}\" #{rel}>#{Url.new(url).without_http}</a>)"
+          "(<a class=\"b-link\" href=\"#{escaped_url}\" #{rel}>#{Url.new(url).without_http}</a>)"
         )
       end
     end
@@ -190,7 +193,7 @@ describe BbCodes::Tags::UrlTag do
       let(:text) { "url(#{url});" }
       it do
         is_expected.to eq(
-          "url(<a class=\"b-link\" href=\"#{url}\" #{rel}>#{Url.new(url).without_http}</a>);"
+          "url(<a class=\"b-link\" href=\"#{escaped_url}\" #{rel}>#{Url.new(url).without_http}</a>);"
         )
       end
     end
@@ -218,7 +221,7 @@ describe BbCodes::Tags::UrlTag do
       let(:text) { 'https://github.com/shikimori/shikimori/commit/f77bcc324ac6e20eeadaff9363ac71ec9c99301e' }
       it do
         is_expected.to eq(
-          "<a class=\"b-link\" href=\"https://github.com/shikimori/shikimori/commit/f77bcc324ac6e20eeadaff9363ac71ec9c99301e\" #{rel}>github.com</a>"
+          "<a class=\"b-link\" href=\"#{escaped_text}\" #{rel}>github.com</a>"
         )
       end
     end
@@ -226,7 +229,7 @@ describe BbCodes::Tags::UrlTag do
     # context 'broken tag' do
     #   let(:link) { '[url=https://z.org/%B0«z»' } # Zrubocop:disable Style/FormatStringToken
     #   let(:text) { "[url=#{url}]#{link}[/url]" }
-    #   it { is_expected.to eq "<a class=\"b-link\" href=\"#{url}\">#{link}</a>" }
+    #   it { is_expected.to eq "<a class=\"b-link\" href=\"#{escaped_url}\">#{link}</a>" }
     # end
   end
 end

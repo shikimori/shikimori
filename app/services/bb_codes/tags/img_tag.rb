@@ -55,15 +55,15 @@ private
 
     if is_no_zoom
       <<~HTML.squish
-        <span class='b-image no-zoom#{" #{css_class}" if css_class.present?}'
+        <span class='b-image no-zoom#{" #{ERB::Util.h css_class}" if css_class.present?}'
           data-attrs='#{attrs.to_json}'>#{image_html}</span>
       HTML
     else
       <<~HTML.squish
-        <a href='#{link_url || image_url}'
+        <a href='#{ERB::Util.h(link_url || image_url)}'
           data-href='#{camo_link_url || fixed_image_url}'
           rel='#{text_hash}'
-          class='b-image unprocessed#{" #{css_class}" if css_class.present?}'
+          class='b-image unprocessed#{" #{ERB::Util.h css_class}" if css_class.present?}'
           data-attrs='#{attrs.to_json}'>#{image_html}</a>
       HTML
     end

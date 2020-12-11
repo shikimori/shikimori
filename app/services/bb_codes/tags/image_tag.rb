@@ -68,7 +68,7 @@ private
       <span class='b-image
         no-zoom#{" #{attrs[:class]}" if attrs[:class]}'
         data-attrs='#{attrs.to_json}'><img
-        src='#{original_url}' #{sizes_html}#{" class='check-width'" if sizes_html.blank?}
+        src='#{ERB::Util.h original_url}' #{sizes_html}#{" class='check-width'" if sizes_html.blank?}
         loading='lazy' />#{marker_html}</span>
     HTML
   end
@@ -82,10 +82,10 @@ private
 
     <<-HTML.squish.strip
       <a
-        href='#{original_url}'
+        href='#{ERB::Util.h original_url}'
         rel='#{text_hash}'
         class='b-image
-        unprocessed#{" #{attrs[:class]}" if attrs[:class]}'
+        unprocessed#{" #{ERB::Util.h attrs[:class]}" if attrs[:class]}'
         data-attrs='#{attrs.to_json}'><img
         src='#{preview_url}' #{sizes_html attrs}
         data-width='#{user_image.width}'
@@ -112,9 +112,9 @@ private
   def scale_sizes attrs, user_image
     ratio = (1.0 * user_image.width / user_image.height).round(2)
     scaled_width = [700, attrs[:width], user_image.width].min
-    scaled_height = (1.0 * attrs[:width] / attrs[:height]).round(2) != ratio ?
-      (scaled_width / ratio).to_i :
-      attrs[:height]
+    scaled_height = (1.0 * attrs[:width] / attrs[:height]).round(2) == ratio ?
+      attrs[:height] :
+      (scaled_width / ratio).to_i
 
     attrs[:width] = scaled_width
     attrs[:height] = scaled_height
