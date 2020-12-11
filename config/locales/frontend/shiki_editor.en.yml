@@ -29,4 +29,5 @@ en:
         spoiler_label: Spoiler label
       preview: Preview
       source: Source code
-      too_large_content: Text is too large. The visual editor will fail and has therefore been disabled.
+      huge_content_mode: Text is too large. The visual editor will fail and has therefore been disabled.
+      normal_content_mode: The visual editor is available again
