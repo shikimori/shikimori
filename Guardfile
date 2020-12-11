@@ -1,5 +1,5 @@
 ignore %r{
-  bin | public | node_modules | tmp | .git
+  bin | public | node_modules | tmp | .git | app/assets/javascripts/ | app/assets/stylesheets
 }x
 
 guard :bundler do
