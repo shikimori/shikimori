@@ -30,6 +30,8 @@
 
 body
   background-image: asset_url("/assets/background/square_bg.png")
+  min-height: 100vh
+
   +css4
     font-family: var(--font-main)
     font-size: var(--font-size-base-desktop)
@@ -37,17 +39,8 @@ body
   +iphone
     font-size: var(--font-size-base-mobile)
 
-  min-height: 100vh
-  // -moz-osx-font-smoothing: grayscale
-  // -webkit-font-smoothing: antialiased
-  // // -webkit-overflow-scrolling: touch
-
   +lte_ipad
     background: none !important
-    // font-size: 16px
-
-  // +gte_laptop
-    font-size: 13px
 
   &.chrome
     text-rendering: auto
