@@ -222,7 +222,7 @@ export default class Comment extends ShikiEditable {
     super._replace($replacement, JS_EXPORTS);
 
     $replacement.imagesLoaded(() =>
-      $('.b-height_shortener .expand').click()
+      $replacement.find('.b-height_shortener .expand').click()
     );
   }
 }
