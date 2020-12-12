@@ -77,8 +77,8 @@ private
     end
   end
 
-  def maybe_text text, model
-    text if text != model.name && text != model.russian
+  def maybe_text text, _model
+    text # if text != model.name && text != model.russian
   end
 
   def attrs model
