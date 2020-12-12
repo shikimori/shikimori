@@ -429,7 +429,7 @@ export default class ShikiEditor extends ShikiView {
     }
   }
 
-  // added for compatibility with shiki-editor-v2
+  // added for compatibility with shiki-editor
   destroy() {
   }
 }

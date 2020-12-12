@@ -8594,10 +8594,10 @@ shiki-uploader@^1.0.0:
     "@uppy/xhr-upload" "^1.6.0"
     is-visible "^2.2.0"
 
-shiki-utils@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-1.0.0.tgz#c3e7f362c4e33fc629364b18ab7d6cfa05668cba"
-  integrity sha512-g75NUqZkvjGO4FP0wR/x0yz7eTCKklekspL0CIDpaFKWcdHFN+5AcHCPoPaWhn9ol6AuO/1Y7pRw5e4ncaiwBw==
+shiki-utils@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-1.0.1.tgz#525ef9161ce2583187e27ae171e3df69e9488566"
+  integrity sha512-P3RyVl8oSn4ZxiH/j2WuvDLMNVbtELbmNWSI7MktTKj/MGTKg3DgyguV3fX7MOczVw1ips4ETSLETEvpI8xbNQ==
   dependencies:
     ismobilejs "^1.1.1"
     toastify-js "^1.8.0"
@@ -9666,7 +9666,7 @@ void-elements@^3.1.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha1-YU9/v42AHwu18GYfWy9XhXUOTwk=
 
-"vue-custom-scrollbar@github:morr/vue-custom-scrollbar#1.1.5":
+vue-custom-scrollbar@morr/vue-custom-scrollbar#1.1.5:
   version "1.1.5"
   resolved "https://codeload.github.com/morr/vue-custom-scrollbar/tar.gz/d50510e6d63c59b3f29c94e106b5b6972e3081d0"
 
