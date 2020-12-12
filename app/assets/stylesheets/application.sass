@@ -101,11 +101,12 @@ input,
 select,
 textarea
   border: 1px solid #999999
-  +gte_ipad
-    font-size: 13px
 
   +iphone
-    font-size: 15px
+    font-size: 16px
+
+  +gte_ipad
+    font-size: 13px
 
 input:not([type]),
 input[type=email],
@@ -119,13 +120,6 @@ textarea
 input
   +placeholder
     user-select: none
-
-select
-  +gte_ipad
-    font-size: 11px
-
-  +iphone
-    font-size: 13px
 
 textarea
   line-height: $line_height
