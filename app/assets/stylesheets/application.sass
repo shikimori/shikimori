@@ -32,7 +32,11 @@ body
   background-image: asset_url("/assets/background/square_bg.png")
   +css4
     font-family: var(--font-main)
-  font-size: 13px
+    font-size: var(--base-font-size-desktop)
+
+  +iphone
+    font-size: var(--base-font-size-mobile)
+
   min-height: 100vh
   // -moz-osx-font-smoothing: grayscale
   // -webkit-font-smoothing: antialiased
