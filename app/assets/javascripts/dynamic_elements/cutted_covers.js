@@ -5,7 +5,7 @@ let PRIOR_ID = 0;
 let GLOBAL_HANDLER = false;
 
 export const GLOBAL_SELECTOR = 'd-cutted_covers';
-const DATA_KEY = 'cutted-covers';
+export const DATA_KEY = 'cutted-covers';
 
 export const RATIO = {
   entry: 318.0 / 225.0,

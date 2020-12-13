@@ -9,7 +9,7 @@ function handleResize() {
 $.fn.extend({
   // выравнивание анимешных и манговых постеров по высоте минимального элемента
   alignPosters() {
-    return this.each(function () {
+    return this.each(function() {
       const $root = $(this);
 
       if (!resizeBinded) {
