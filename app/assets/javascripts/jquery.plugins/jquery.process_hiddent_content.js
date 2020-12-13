@@ -6,16 +6,13 @@ $.fn.extend({
     return this.each(async function () {
       const $content = $(this);
 
-      await delay();
-      requestAnimationFrame(() => {
-        // хак для корректной работы галерей аниме внутри спойлеров
-        $content.find('.align-posters').trigger('spoiler:opened');
-        $content.find(`.${GLOBAL_SELECTOR}`).each(function () {
-          const data = $(this).data(DATA_KEY);
-          if (data) {
-            data.injectCss();
-          }
-        });
+      // хак для корректной работы галерей аниме внутри спойлеров
+      $content.find('.align-posters').trigger('spoiler:opened');
+      $content.find(`.${GLOBAL_SELECTOR}`).each(function () {
+        const data = $(this).data(DATA_KEY);
+        if (data) {
+          data.injectCss();
+        }
       });
     });
   }

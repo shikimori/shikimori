@@ -33,6 +33,7 @@ export default class SpoilerBlock extends View {
     } else {
       this.node.classList.add('is-opened');
       await animatedExpand(this.content);
+      $(this.content).process_hidden_content();
     }
   }
 
