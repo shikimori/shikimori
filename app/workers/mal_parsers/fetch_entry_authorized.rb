@@ -2,7 +2,7 @@ class MalParsers::FetchEntryAuthorized
   include Sidekiq::Worker
   sidekiq_options(
     queue: :mal_parsers,
-    retry: false
+    retry_in: 0
   )
 
   def perform entry_id, entry_type
