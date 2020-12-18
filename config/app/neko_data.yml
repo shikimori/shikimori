@@ -276,6 +276,7 @@
         - 36633
         - 37773
         - 39292
+        - 41006
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: &2
     :neko_id:
@@ -586,6 +587,7 @@
         - 36633
         - 37773
         - 39292
+        - 41006
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -876,6 +878,7 @@
         - 36633
         - 37773
         - 39292
+        - 41006
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -8124,6 +8127,7 @@
         - 1002
         - 227
         - 974
+        - 4103
       :generator:
         person_id: 2349
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -9233,6 +9237,10 @@
         - 4420
         - 40515
         - 39183
+        - 2656
+        - 8664
+        - 25029
+        - 8359
       :generator:
         person_id: 5068
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -9934,6 +9942,7 @@
         - 6055
         - 1796
         - 5053
+        - 7106
       :generator:
         person_id: 5094
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -19569,7 +19578,6 @@
         not_anime_ids:
         - 30953
         - 31128
-        - 32412
         - 36498
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -19603,7 +19611,6 @@
         not_anime_ids:
         - 30953
         - 31128
-        - 32412
         - 36498
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -30179,6 +30186,7 @@
         - 38328
         - 2904
         - 308
+        - 567
         - 782
         - 1956
         - 237
@@ -30588,6 +30596,7 @@
         - 38328
         - 2904
         - 308
+        - 567
         - 782
         - 1956
         - 237
@@ -30999,6 +31008,7 @@
         - 38328
         - 2904
         - 308
+        - 567
         - 782
         - 1956
         - 237
