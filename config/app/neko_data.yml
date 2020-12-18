@@ -19579,7 +19579,7 @@
         - 30953
         - 31128
         - 36498
-      :threshold: 100%
+      :threshold: 98.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :arslan_senki
