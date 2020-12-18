@@ -20,15 +20,23 @@ class MalParsers::Authorization
   LOGIN = 'shiki1'
   PASSWORD = 'PUcnnh0hM4MK'
 
+  MALSESSIONID = '5icqpq8e0gdke4rtrut2f5o3f5'
+  # MALSESSIONID = 'ja5legpvs3ri2iuqn39uh8nvp4'
+
   def cookie
-    RedisMutex.with_lock(self.class.name, block: 0) do
-      Rails.cache.fetch(CACHE_KEY) { authorize }
-    end
+    %W[
+      MALSESSIONID=#{MALSESSIONID};
+      is_logged_in=1;
+    ]
+    # RedisMutex.with_lock(self.class.name, block: 0) do
+    #   Rails.cache.fetch(CACHE_KEY) { authorize }
+    # end
   end
 
   def refresh
-    Rails.cache.delete CACHE_KEY
-    cookie
+    raise 'have to refresh MAL cookie!'
+    # Rails.cache.delete CACHE_KEY
+    # cookie
   end
 
 private
