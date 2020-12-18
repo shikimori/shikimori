@@ -1,6 +1,6 @@
 module Types
   module Manga
-    KINDS = %i[manga manhwa manhua novel one_shot doujin]
+    KINDS = %i[manga manhwa manhua light_novel novel one_shot doujin]
     STATUSES = %i[anons ongoing released paused discontinued]
 
     Kind = Types::Strict::Symbol
