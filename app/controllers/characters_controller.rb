@@ -115,7 +115,7 @@ class CharactersController < PeopleController
     )
   end
 
-  def autocomplete_v2
+  def autocomplete_v2 # rubocop:disable Naming/VariableNumber
     og noindex: true, nofollow: true
 
     autocomplete

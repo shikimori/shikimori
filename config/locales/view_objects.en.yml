@@ -123,8 +123,14 @@ en:
           manga: Manga
           manhua: Manhua
           manhwa: Manhwa
-          novel: Light Novels
+          light_novel: Light Novels
+          novel: Novels
           one_shot: One Shots
+        short:
+          <<: *manga_long
+      ranobe:
+        long:
+          <<: *manga_long
         short:
           <<: *manga_long
     of_genres: of %{genres} %{list}

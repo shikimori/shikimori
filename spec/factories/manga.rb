@@ -18,7 +18,7 @@ FactoryBot.define do
       sequence(:name) { |n| "ranobe_#{n}" }
       sequence(:russian) { |n| "ранобэ_#{n}" }
       type { Ranobe.name }
-      kind { Ranobe::KIND }
+      kind { Ranobe::KINDS.first }
     end
 
     trait :with_mal_id do

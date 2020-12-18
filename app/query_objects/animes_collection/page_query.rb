@@ -36,7 +36,7 @@ private
     )
 
     if @klass == Manga
-      scope.where.not(kind: Ranobe::KIND)
+      scope.where.not(kind: Ranobe::KINDS)
     else
       scope
     end

@@ -60,7 +60,7 @@ class UserHistoryDecorator < BaseDecorator
           kind = if target.anime?
             target.kind_movie? ? :movie : :anime
           else
-            target.kind_novel? ? :novel : :manga
+            target.kind_light_novel? || target.kind_novel? ? :novel : :manga
           end
 
           i18n_t "actions.episodes.completed_#{kind}"

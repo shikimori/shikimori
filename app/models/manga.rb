@@ -194,6 +194,8 @@ class Manga < DbEntry
 private
 
   def set_type
-    self.type = kind_novel? ? Ranobe.name : Manga.name
+    self.type = kind_novel? || kind_light_novel? ?
+      Ranobe.name :
+      Manga.name
   end
 end

@@ -29,7 +29,12 @@ private
     PersonRole
       .where.not(character_id: nil)
       .where.not(manga_id: nil)
-      .joins("inner join mangas on mangas.id = manga_id and mangas.kind != 'novel'")
+      .joins(
+        <<~SQL.squish
+          inner join mangas on mangas.id = manga_id and
+            mangas.kind != 'novel' and mangas.kind != 'light_novel'
+        SQL
+      )
       .pluck(:character_id)
       .uniq
   end
@@ -38,7 +43,12 @@ private
     PersonRole
       .where.not(character_id: nil)
       .where.not(manga_id: nil)
-      .joins("inner join mangas on mangas.id = manga_id and mangas.kind = 'novel'")
+      .joins(
+        <<~SQL.squish
+          inner join mangas on mangas.id = manga_id and
+            (mangas.kind = 'novel' or mangas.kind = 'light_novel')
+        SQL
+      )
       .pluck(:character_id)
       .uniq
   end

@@ -32,7 +32,12 @@ describe Menus::CollectionMenu do
 
     context 'ranobe' do
       let(:klass) { Ranobe }
-      it { expect(view.kinds).to eq [] }
+      it do
+        expect(view.kinds.first).to be_kind_of Titles::KindTitle
+        expect(view.kinds.map(&:text)).to eq %w[
+          light_novel novel
+        ]
+      end
     end
   end
 

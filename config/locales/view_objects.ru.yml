@@ -123,17 +123,16 @@ ru:
           manga: Манга
           manhua: Маньхуа
           manhwa: Манхва
-          novel: Ранобэ
+          light_novel: Ранобэ
+          novel: Новеллы
           one_shot: Ваншоты
         short:
           <<: *manga_long
       ranobe:
         long:
           <<: *manga_long
-          novel: Ранобэ
         short:
           <<: *manga_long
-          novel: Ранобэ
     of_genres: '%{genres} %{list}'
 
   titles/localized_season_text:

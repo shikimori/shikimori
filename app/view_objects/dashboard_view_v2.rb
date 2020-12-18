@@ -98,7 +98,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def manga_kinds
-    (Manga.kind.values - [Ranobe::KIND]).map do |kind|
+    (Manga.kind.values - Ranobe::KINDS).map do |kind|
       Titles::KindTitle.new kind, Manga
     end
   end
@@ -113,7 +113,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
     h.params[:no_admin].blank? && h.current_user&.admin?
   end
 
-  def cache_keys
+  def cache_keys # rubocop:disable AbcSize
     {
       admin: [admin_area?, CACHE_VERSION],
       ongoings: [:ongoings, rand(5), CACHE_VERSION],

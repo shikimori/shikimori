@@ -494,14 +494,16 @@ ru:
         manga: Манга
         manhua: Маньхуа
         manhwa: Манхва
-        novel: Ранобэ
+        novel: Новелла
+        light_novel: Ранобэ
         one_shot: Ваншот
         short:
           doujin: Додзинси
           manga: Манга
           manhua: Маньхуа
           manhwa: Манхва
-          novel: Ранобэ
+          novel: Новелла
+          light_novel: Ранобэ
           one_shot: Ваншот
     ranobe:
       <<: *manga_enumerize

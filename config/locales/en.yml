@@ -494,14 +494,16 @@ en:
         manga: Manga
         manhua: Manhua
         manhwa: Manhwa
-        novel: Light Novel
+        novel: Novel
+        light_novel: Light Novel
         one_shot: One Shot
         short:
           doujin: Doujin
           manga: Manga
           manhua: Manhua
           manhwa: Manhwa
-          novel: Light Novel
+          novel: Novel
+          light_novel: Light Novel
           one_shot: One Shot
     ranobe:
       <<: *manga_enumerize

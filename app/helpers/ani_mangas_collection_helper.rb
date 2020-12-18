@@ -10,6 +10,7 @@ module AniMangasCollectionHelper
 
       { kind: 'manga', color: 'blue' },
       { kind: 'manhwa', color: 'purple' },
+      { kind: 'light_novel', color: 'green' },
       { kind: 'novel', color: 'green' },
       { kind: 'manhua', color: 'orange' },
       { kind: 'one_shot', color: 'skyblue' },

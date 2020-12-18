@@ -124,7 +124,7 @@ private
 
       manga: data.sum { |v| v.target.kinda_manga? && (v.target.kind_manga? || v.target.kind_manhwa? || v.target.kind_manhua?) ? 1 : 0 },
       oneshot: data.sum { |v| v.target.kinda_manga? && v.target.kind_one_shot? ? 1 : 0 },
-      novel: data.sum { |v| v.target.kinda_manga? && v.target.kind_novel? ? 1 : 0 },
+      novel: data.sum { |v| v.target.kinda_manga? && (v.target.kind_light_novel? || v.target.kind_novel?) ? 1 : 0 },
       doujin: data.sum { |v| v.target.kinda_manga? && v.target.kind_doujin? ? 1 : 0 }
     }
     if anime?

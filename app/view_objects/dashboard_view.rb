@@ -56,7 +56,7 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def manga_kinds
-    (Manga.kind.values - [Ranobe::KIND]).map do |kind|
+    (Manga.kind.values - Ranobe::KINDS).map do |kind|
       Titles::KindTitle.new kind, Manga
     end
   end
