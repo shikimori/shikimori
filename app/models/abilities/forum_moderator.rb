@@ -2,7 +2,9 @@ class Abilities::ForumModerator
   include CanCan::Ability
   prepend Draper::CanCanCan
 
-  MAXIMUM_COMMENTS_TO_DELETE = 1_000
+  MAXIMUM_COMMENTS_TO_DELETE = 250
+  MAXIMUM_SUMMARIES_TO_DELETE = 25
+  MAXIMUM_TOPIC_COMMENTS_TO_DELETE = 1_000
 
   def initialize _user # rubocop:disable MethodLength, AbcSize
     can :manage, Comment
@@ -36,11 +38,11 @@ class Abilities::ForumModerator
       Comment.where(user_id: user.id).where(is_summary: false).count < MAXIMUM_COMMENTS_TO_DELETE
     end
     can :delete_all_summaries, User do |user|
-      Comment.where(user_id: user.id).where(is_summary: true).count < MAXIMUM_COMMENTS_TO_DELETE
+      Comment.where(user_id: user.id).where(is_summary: true).count < MAXIMUM_SUMMARIES_TO_DELETE
     end
 
     can :delete_all_topics, User do |user|
-      Topic.where(user_id: user.id).sum(:comments_count) < MAXIMUM_COMMENTS_TO_DELETE
+      Topic.where(user_id: user.id).sum(:comments_count) < MAXIMUM_TOPIC_COMMENTS_TO_DELETE
     end
 
     can %i[
