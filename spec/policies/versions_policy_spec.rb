@@ -8,7 +8,7 @@ describe VersionsPolicy do
   let(:author) { user }
   let(:user) { seed :user }
 
-  let(:item) { build_stubbed :anime, field => change_from }
+  let(:item) { build_stubbed :anime }
   let(:item_diff) do
     {
       field => [change_from, change_to]
@@ -140,8 +140,37 @@ describe VersionsPolicy do
 
     context 'from value to value' do
       let(:field) { :name }
+
       it { expect(version_allowed).to eq false }
       it { expect(change_allowed).to eq false }
+
+      context 'version_names_moderator' do
+        before { user.roles = %i[version_names_moderator] }
+
+        it { expect(version_allowed).to eq true }
+        it { expect(change_allowed).to eq true }
+      end
+
+      context 'version_texts_moderator' do
+        before { user.roles = %i[version_texts_moderator] }
+
+        it { expect(version_allowed).to eq false }
+        it { expect(change_allowed).to eq false }
+      end
+
+      context 'version_moderator' do
+        before { user.roles = %i[version_moderator] }
+
+        it { expect(version_allowed).to eq false }
+        it { expect(change_allowed).to eq false }
+
+        context 'image' do
+          let(:field) { :image }
+
+          it { expect(version_allowed).to eq true }
+          it { expect(change_allowed).to eq true }
+        end
+      end
     end
   end
 end

@@ -79,7 +79,7 @@ private
     # must be new ability object here otherwise
     # it will return false in runtime
     # (i.e. during Version creation in DbEntriesController)
-    return true if Ability.new(@user).can?(:restricted_update, Version)
+    return true if Ability.new(@user).can?(:restricted_update, version_or_double)
 
     # allow changes from nil
     changing_restricted_fields.all? do |field|
@@ -113,5 +113,10 @@ private
     ).any? && Abilities::VersionFansubModerator::MANAGED_MODELS.include?(
       item_type
     )
+  end
+
+  def version_or_double
+    @version_or_double ||= @version ||
+      Version.new(item: @db_entry, item_diff: { @field => [1, 2] })
   end
 end
