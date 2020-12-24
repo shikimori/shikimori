@@ -33,6 +33,8 @@ private
   rescue StandardError => e
     if e.message.include? 'cannot load such file'
       text
+    elsif e.message.include? 'Document tree depth limit exceeded'
+      text
     else
       raise
     end
