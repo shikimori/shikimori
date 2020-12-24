@@ -12,4 +12,8 @@ class Topics::NewsTopics::ContestStatusTopic < Topics::NewsTopic
   def full_title
     "#{title} #{linked.title}"
   end
+
+  def body
+    '[wall][wall_image=1316293][/wall]'
+  end
 end

@@ -88,9 +88,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def country
-    render plain: (
-      GeoipAccess.instance.country_code(params[:ip] || request.remote_ip)
-    )
+    render plain: GeoipAccess.instance.country_code(params[:ip] || request.remote_ip)
   end
 
   def raise_exception
@@ -132,12 +130,12 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
     @proxies_count = Proxy.count
 
-    unless Rails.env.test?
+    if Rails.env.production?
       memcached_stats = Rails.cache.stats[
         "#{Rails.application.config.cache_store[1]}:11211"
       ]
       @memcached_space = (
-        memcached_stats['bytes'].to_f / memcached_stats['limit_maxbytes'].to_f * 100.0
+        memcached_stats['bytes'].to_f / memcached_stats['limit_maxbytes'] * 100.0
       ).round 2
       @memcached_items = memcached_stats['curr_items'].to_i
       @memcached_hits_misses = (
