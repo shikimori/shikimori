@@ -86,12 +86,22 @@ header.head
           ul.b-list.is-wide
             li
               a.b-link[
-                href=anime_translations_url
+                href=translations_name_anime_url
+                title=t('.missing_anime_names')
+              ] = t '.missing_anime_names'
+            li
+              a.b-link[
+                href=translations_description_anime_url
                 title=t('.missing_anime_descriptions')
               ] = t '.missing_anime_descriptions'
             li
               a.b-link[
-                href=manga_translations_url
+                href=translations_name_manga_url
+                title=t('.missing_manga_names')
+              ] = t '.missing_manga_names'
+            li
+              a.b-link[
+                href=translations_description_manga_url
                 title=t('.missing_manga_descriptions')
               ] = t '.missing_manga_descriptions'
             li

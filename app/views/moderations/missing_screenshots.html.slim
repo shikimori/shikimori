@@ -1,16 +1,15 @@
 header.head
   h1 = og.headline
-
   - t('.notices').each do |notice|
     p.notice
       = I18n.interpolate notice,
         limit: Moderation::MissingScreenshotsQuery::LIMIT
   = render 'application/breadcrumbs'
 
-.subheadline.m5 = t '.animes'
-ul.b-list.is-wide.cc-3
+.subheadline = Anime.model_name.human
+ul.b-list.is-wide.cc-2
   - @collection.each do |anime|
-    li.c-column.m0
+    li.c-column
       a.bubbled.b-link[
         href=anime_url(anime)
       ] = localized_name anime

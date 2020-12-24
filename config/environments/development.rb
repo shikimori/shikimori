@@ -21,7 +21,7 @@ Rails.application.configure do
     config.cache_store = :mem_cache_store, 'localhost', {
       namespace: 'shikimori_development_v2',
       compress: true,
-      value_max_bytes: 1024 * 1024 * 128
+      value_max_bytes: 1024 * 1024 * 32
     }
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{2.days.to_i}"

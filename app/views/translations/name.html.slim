@@ -1,0 +1,25 @@
+header.head
+  h1 = og.headline
+  p.notice = t 'moderations.cache'
+  = render 'application/breadcrumbs'
+
+.subheadline = @klass.model_name.human
+ul.b-list.is-wide.cc-2
+  - @collection.each do |db_entry|
+    li.c-column
+      a.bubbled[
+        class=db_entry.kind
+        href=url_for(db_entry)
+        data-href="#{respond_to?("tooltip_#{db_entry.class.name.downcase}_url") ? send("tooltip_#{db_entry.class.name.downcase}_url", db_entry) : ''}"
+      ] = localization_span db_entry
+      | &nbsp;&nbsp;
+      - if db_entry.anons? || db_entry.ongoing?
+        span.b-anime_status_tag[
+          class=db_entry.status
+          data-text=db_entry.status_text.downcase
+        ]
+        | &nbsp;&nbsp;
+      - if db_entry.kind
+        span.b-tag = db_entry.kind_text
+      - if db_entry.year
+        span.b-tag = db_entry.year

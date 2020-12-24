@@ -1,0 +1,43 @@
+header.head
+  h1 = og.headline
+  .notice
+    p Список #{@klass == Anime ? 'аниме' : 'манги'} без описаний для тех, кто хочет помочь сайту.
+    p #{@klass == Anime ? 'Аниме' : 'Манга'} c описаниями, взятыми с других сайтов, тут так же присутствуют.
+    p Сайту очень нужны собственные уникальные описания. Без этого гугл/яндекс не будут показывать
+      шикимори на высоких позициях в поиске, и к нам из-за этого будет приходить меньше новых людей.
+    p Подробности в <a href="#{page_breadcrumbs['Переводы']}">клубе переводов</a>.
+  p.notice = t 'moderations.cache'
+  = render 'application/breadcrumbs'
+  = render 'application/breadcrumbs',
+    page_breadcrumbs: [[t('moderations_controller.title'), moderations_url]]
+
+.headline = @klass.model_name.human
+.cc-2.translations
+  - @filtered_groups.each do |(name, db_entries)|
+    .c-column.m30
+      .subheadline = name
+      ul.b-list.is-wide
+        - db_entries.each_with_index do |db_entry, index|
+          - no_description = db_entry.description_ru.blank? || db_entry.description_ru == db_entry.description_en || db_entry.description_ru =~ /\[source\]/
+
+          li class="#{:translated unless (db_entry.too_short? || no_description) && !@changes.include?(db_entry.id)}"
+            a.bubbled[
+              href=url_for(db_entry)
+              data-href="#{respond_to?("tooltip_#{db_entry.class.name.downcase}_url") ? send("tooltip_#{db_entry.class.name.downcase}_url", db_entry) : ''}"
+            ] = localization_span db_entry
+
+            - if db_entry.anons? || db_entry.ongoing?
+              | &nbsp;&nbsp;
+              span.b-anime_status_tag[
+                class=db_entry.status
+                data-text=db_entry.status_text.downcase
+              ]
+
+            - if @klass == Anime
+              - if TranslationsController::TRANSLATE_ME.include?(db_entry.id) && !@changes.include?(db_entry.id) && (db_entry.description_ru == nil || db_entry.description_ru == '' || db_entry.description_ru == db_entry.description_en)
+                | &nbsp;&nbsp;
+                span style="font-size:9px; color: red;" это в первую очередь
+
+            - if db_entry.too_short? && !no_description
+              | &nbsp;&nbsp;
+              span style="font-size:9px; color: green;" описание очень короткое

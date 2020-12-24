@@ -1,5 +1,6 @@
 ru:
   moderations:
+    cache: &cache Отображённый список кешируется сайтом. Обновляется раз в час.
     defaults: &defaults
       accept: принять
       expand_all: раскрыть всё
@@ -14,7 +15,9 @@ ru:
     show:
       content: Контент
       header_notice: Журналы модерации и информация о контенте сайта
+      missing_anime_names: Аниме без русских названий
       missing_anime_descriptions: Аниме без описаний
+      missing_manga_names: Манга без русских названий
       missing_manga_descriptions: Манга без описаний
       missing_screenshots: Аниме без кадров
       fansub_authors: Авторы фансаба/фандаба
@@ -34,11 +37,10 @@ ru:
       proxies_count: Проксей доступно
 
     missing_screenshots:
-      animes: Аниме
       notices:
         - Здесь отображены %{limit} наиболее популярных аниме,
           у которых отсутствуют кадры.
-        - Отображённый список кешируется сайтом. Обновляется раз в час.
+        - *cache
 
     abuse_requests:
       index:

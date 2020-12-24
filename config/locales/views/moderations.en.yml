@@ -14,9 +14,11 @@ en:
     show:
       content: Site content
       header_notice: Moderation journals
-      missing_anime_descriptions: Animes w/o description
-      missing_manga_descriptions: Mangas w/o description
-      missing_screenshots: Animes w/o screenshots
+      missing_anime_names: Anime w/o russian name
+      missing_anime_descriptions: Anime w/o description
+      missing_manga_names: Anime w/o russian name
+      missing_manga_descriptions: Manga w/o description
+      missing_screenshots: Anime w/o screenshots
       fansub_authors: Fansub/fandub authors
       moderation: Moderation
       news_journal: News journal
@@ -34,7 +36,6 @@ en:
       proxies_count: Proxies available
 
     missing_screenshots:
-      animes: Animes
       notices:
         - This is the list of top %{limit} most popular animes
           with missing screenshots.

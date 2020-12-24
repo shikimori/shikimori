@@ -506,8 +506,17 @@ Rails.application.routes.draw do
   end
 
   resource :translations, only: [] do
-    get :anime, action: :show, anime: true
-    get :manga, action: :show, manga: true
+    nested do
+      scope :description, as: :description, nested: true do
+        get :anime, action: :description, anime: true
+        get :manga, action: :description, manga: true
+      end
+
+      scope :name, as: :name, nested: true do
+        get :anime, action: :name, anime: true
+        get :manga, action: :name, manga: true
+      end
+    end
   end
 
   resources :clubs, except: %i[edit destroy] do

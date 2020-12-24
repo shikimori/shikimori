@@ -180,3 +180,6 @@ Style/CollectionMethods:
 
 Style/Lambda:
   EnforcedStyle: literal
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
