@@ -8560,10 +8560,10 @@ shiki-decorators@^1.0.1:
     bind-decorator "1.0.11"
     memoize-decorator "^1.0.2"
 
-shiki-editor@1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-1.0.7.tgz#f1f49434798c6571b40692790f565311f01883b8"
-  integrity sha512-/UQ6hFFQw1M4yrHWtQRkexUQAGQgGL+H/wCnRnDjRxuCk5hftPZ6GbbPkU2pjqtMStDarAHjX0yqMldGatN5sA==
+shiki-editor@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-1.0.8.tgz#ad37c01ecbbe985c7b147b9f9479829c071fd361"
+  integrity sha512-hzDqJ/UNG6v3jwLd5L6CfSU7M28FM0WFhzDxau6EAyG+18Hxuc6P0TiwCmvOKbFWCdAB62uzRJ+SiYIjmzW2oQ==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@popperjs/core" "^2.4.4"
@@ -8594,7 +8594,7 @@ shiki-uploader@^1.0.0:
     "@uppy/xhr-upload" "^1.6.0"
     is-visible "^2.2.0"
 
-shiki-utils@1.0.1:
+shiki-utils@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-1.0.1.tgz#525ef9161ce2583187e27ae171e3df69e9488566"
   integrity sha512-P3RyVl8oSn4ZxiH/j2WuvDLMNVbtELbmNWSI7MktTKj/MGTKg3DgyguV3fX7MOczVw1ips4ETSLETEvpI8xbNQ==
