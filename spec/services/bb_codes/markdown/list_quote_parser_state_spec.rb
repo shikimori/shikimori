@@ -249,6 +249,26 @@ describe BbCodes::Markdown::ListQuoteParserState do
     end
   end
 
+  context 'maximum nesting', :focus do
+    let(:text) { '> > > > > a' }
+    it do
+      is_expected.to eq(
+        [
+          "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+            "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+              "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+                "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+                  '> a' \
+                '</div></blockquote>' \
+              '</div></blockquote>' \
+            '</div></blockquote>' \
+          '</div></blockquote>',
+          nil
+        ]
+      )
+    end
+  end
+
   context 'exit sequence' do
     let(:text) { '- 1</h4>- 2' }
     let(:exit_sequence) { '</h4>' }

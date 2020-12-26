@@ -24,6 +24,8 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
 
   TAG_CLOSE_REGEXP = %r{</\w+>}
 
+  MAX_NESTING = 4
+
   def initialize text, index = 0, nested_sequence = '', exit_sequence = nil
     @text = text
     @nested_sequence = nested_sequence
@@ -32,6 +34,7 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
     @is_exit_sequence = false
 
     @state = []
+    @nesting = 0 
   end
 
   def to_html
@@ -76,7 +79,7 @@ private
         return
       end
 
-      if is_start
+      if is_start && @nesting < MAX_NESTING
         seq_2 = @text[@index..(@index + 1)]
         return parse_list seq_2 if seq_2.in? LIST_ITEM_VARIANTS
         return parse_blockquote seq_2 if seq_2 == BLOCKQUOTE_VARIANT_1
@@ -131,6 +134,7 @@ private
   def parse_list tag_sequence
     is_first_line = true
     prior_sequence = @nested_sequence
+    @nesting += 1
 
     @state.push UL_OPEN
     @nested_sequence += tag_sequence
@@ -147,8 +151,9 @@ private
     end
 
     @state.push UL_CLOSE
-
     @nested_sequence = @nested_sequence.slice(0, @nested_sequence.size - tag_sequence.size)
+    @nesting -= 1
+
     # puts "processBulletList '#{@nested_sequence}'"
   end
 
@@ -197,6 +202,7 @@ private
     is_first_line = true
     push_blockquote_open meta_attrs, meta_text
     @nested_sequence += tag_sequence
+    @nesting += 1
     # puts "processBlockQuote '#{@nested_sequence}'"
 
     loop do
@@ -209,6 +215,7 @@ private
 
     @state.push BLOCKQUOTE_CLOSE
     @nested_sequence = @nested_sequence.slice(0, @nested_sequence.size - tag_sequence.size)
+    @nesting -= 1
     # puts "processBlockQuote '#{@nested_sequence}'"
   end
 
