@@ -24,6 +24,7 @@ module Types
       wink
       netflix
       okko
+      more_tv
       youtube
     ]
     KINDS = {
