@@ -26,7 +26,7 @@ namespace :neko do
       .split("\n")
       .map(&:strip)
       .select(&:present?)
-      .select { |v| v =~ /^[A-Za-z_ ]+$/ }
+      .select { |v| v =~ /^[A-Za-z_ 0-9]+$/ }
       .flat_map(&:split)
 
     if (neko_ids & shiki_ids).size != neko_ids.size
