@@ -111,7 +111,7 @@ describe CollectionsController do
     end
   end
 
-  describe '#autocomplete', :focus do
+  describe '#autocomplete' do
     let(:phrase) { 'Fff' }
     let(:collection_1) { create :collection, :published }
     let(:collection_2) { create :collection, :published }

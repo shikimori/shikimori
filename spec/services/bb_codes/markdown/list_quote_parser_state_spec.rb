@@ -249,7 +249,7 @@ describe BbCodes::Markdown::ListQuoteParserState do
     end
   end
 
-  context 'maximum nesting', :focus do
+  context 'maximum nesting' do
     let(:text) { '> > > > > a' }
     it do
       is_expected.to eq(
