@@ -7,8 +7,8 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
     .map { |v| "(item_diff->>'#{v}') is null" }
     .join(' and ')
 
-  def self.fetch type # rubocop:disable all
-    scope = new Version.all
+  def self.fetch type
+    scope = new Version.order(:id)
 
     case Types[type]
       when Types[:all_content]

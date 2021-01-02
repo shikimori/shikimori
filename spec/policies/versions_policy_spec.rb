@@ -131,7 +131,7 @@ describe VersionsPolicy do
 
   context 'changed restricted field' do
     context 'from nil to value' do
-      let(:field) { %i[name image].sample }
+      let(:field) { :image }
       let(:change_from) { nil }
 
       it { expect(version_allowed).to eq true }
