@@ -19,6 +19,7 @@ describe Club do
     it { is_expected.to have_many :ranobe }
     it { is_expected.to have_many :characters }
     it { is_expected.to have_many :clubs }
+    it { is_expected.to have_many :collections }
 
     it { is_expected.to have_many(:images).dependent(:destroy) }
 

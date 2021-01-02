@@ -1,4 +1,5 @@
 class Collection < ApplicationRecord
+  include ClubsConcern
   include AntispamConcern
   include TopicsConcern
   include ModeratableConcern
