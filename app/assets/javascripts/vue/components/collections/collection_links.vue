@@ -14,9 +14,11 @@
               ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
               .move-left.b-js-link(
                 :class='{ "is-disabled": index === 0 }'
+                @click='() => index === 0 ? null : moveGroupLeft(groupName)'
               )
               .move-right.b-js-link(
                 :class='{ "is-disabled": index === groups.length - 1 }'
+                @click='() => index === groups.length - 1 ? null : moveGroupRight(groupName)'
               )
               .add
                 .b-js-link(
@@ -141,6 +143,8 @@ export default {
       'addLink',
       'moveLink',
       'renameGroup',
+      'moveGroupLeft',
+      'moveGroupRight',
       'refill'
     ]),
     addNewGroup(e) {

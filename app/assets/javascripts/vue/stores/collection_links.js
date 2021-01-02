@@ -24,23 +24,39 @@ module.exports = {
   },
 
   actions: {
-    fillLink(context, { link, changes }) {
-      context.commit('FILL_LINK', { link, changes });
+    fillLink({ commit, state }, { link, changes }) {
+      commit('FILL_LINK', { link, changes });
 
-      if (hasDuplicate(context.state.collection.links, link)) {
-        context.commit('REMOVE_LINK', link);
+      if (hasDuplicate(state.collection.links, link)) {
+        commit('REMOVE_LINK', link);
       }
 
-      if (noLinksToFill(context.state.collection.links, link.group)) {
-        context.commit('ADD_LINK', { group: link.group });
+      if (noLinksToFill(state.collection.links, link.group)) {
+        commit('ADD_LINK', { group: link.group });
       }
     },
 
-    addLink(context, data) { context.commit('ADD_LINK', data); },
-    removeLink(context, data) { context.commit('REMOVE_LINK', data); },
-    moveLink(context, data) { context.commit('MOVE_LINK', data); },
-    renameGroup(context, data) { context.commit('RENAME_GROUP', data); },
-    refill(context, data) { context.commit('REFILL', data); }
+    addLink({ commit }, data) { commit('ADD_LINK', data); },
+    removeLink({ commit }, data) { commit('REMOVE_LINK', data); },
+    moveLink({ commit }, data) { commit('MOVE_LINK', data); },
+    moveGroupLeft({ commit, getters }, groupName) {
+      const index = getters.groups.indexOf(groupName);
+
+      commit('SWAP_GROUPS', {
+        groupLeft: getters.groups[index - 1],
+        groupRight: groupName
+      });
+    },
+    moveGroupRight({ commit, getters }, groupName) {
+      const index = getters.groups.indexOf(groupName);
+
+      commit('SWAP_GROUPS', {
+        groupLeft: groupName,
+        groupRight: getters.groups[index + 1]
+      });
+    },
+    renameGroup({ commit }, data) { commit('RENAME_GROUP', data); },
+    Refill({ commit }, data) { commit('REFILL', data); }
   },
 
   mutations: {
@@ -92,6 +108,21 @@ module.exports = {
           link.group = toName;
         }
       });
+    },
+
+    SWAP_GROUPS({ collection }, { groupLeft, groupRight }) {
+      const leftIndex = collection.links.findIndex(v => v.group === groupLeft);
+      const leftItems = collection.links.filter(v => v.group === groupLeft);
+
+      const rightIndex = collection.links.findIndex(v => v.group === groupRight);
+      const rightItems = collection.links.filter(v => v.group === groupRight);
+
+      collection.links = [
+        ...collection.links.slice(0, leftIndex),
+        ...rightItems,
+        ...leftItems,
+        ...collection.links.slice(rightIndex + rightItems.length, collection.links.length)
+      ];
     },
 
     FILL_LINK(state, { link, changes }) {
