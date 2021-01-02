@@ -20,35 +20,56 @@
           club: club,
           kind: kind
 
+    - if club.collections.any?
+      .block
+        .subheadline.m5
+          - if club.collections.size != club.menu_collections
+            a[
+              href=collections_club_url(club)
+              title=i18n_i('collection', :other)
+            ]
+              = i18n_i 'collection', :other
+              .count = club.collections.size
+          - else
+            = i18n_i 'collection', :other
+
+        - club.menu_collections.each do |collection|
+          .b-menu-line
+            a.b-link href=collection_url(collection)
+              = collection.name
+
     - if club.menu_members.any?
-      .subheadline
-        span.linkeable data-href=members_club_url(club)
-          = i18n_i 'member', :other
-          .count = club.members.size
-      .cc.members
-        = render partial: 'users/user',
-          collection: club.menu_members,
-          locals: { content_by: :avatar }
+      .block
+        .subheadline
+          span.linkeable data-href=members_club_url(club)
+            = i18n_i 'member', :other
+            .count = club.members.size
+        .cc.members
+          = render partial: 'users/user',
+            collection: club.menu_members,
+            locals: { content_by: :avatar }
 
     - if club.admins.any?
-      .subheadline = i18n_i 'administration'
-      .cc-4.admin
-        = render partial: 'users/user',
-          collection: club.admins,
-          locals: { content_by: :named_avatar }
+      .block.m0
+        .subheadline = i18n_i 'administration'
+        .cc-4.admin
+          = render partial: 'users/user',
+            collection: club.admins,
+            locals: { content_by: :named_avatar }
 
     - if club.clubs.any?
-      .subheadline
-        - if club.clubs.size != club.menu_clubs
-          a[
-            href=clubs_club_url(club)
-            title=i18n_i('club', :other)
-          ]
+      .block
+        .subheadline
+          - if club.clubs.size != club.menu_clubs
+            a[
+              href=clubs_club_url(club)
+              title=i18n_i('club', :other)
+            ]
+              = i18n_i 'club', :other
+              .count = club.clubs.size
+          - else
             = i18n_i 'club', :other
-            .count = club.clubs.size
-        - else
-          = i18n_i 'club', :other
-      .clubs
-        = render partial: 'clubs/club',
-          collection: club.menu_clubs,
-          locals: { content_by: :detailed }
+        .clubs
+          = render partial: 'clubs/club',
+            collection: club.menu_clubs,
+            locals: { content_by: :detailed }
