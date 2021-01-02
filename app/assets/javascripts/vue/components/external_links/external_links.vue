@@ -6,7 +6,7 @@
       v-if='isEmpty'
     )
     .b-nothing_here(
-      v-if="!collection.length"
+      v-if='!collection.length'
     )
       | {{ I18n.t('frontend.external_links.nothing_here') }}
     draggable.block(
