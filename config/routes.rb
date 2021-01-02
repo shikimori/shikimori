@@ -527,6 +527,8 @@ Rails.application.routes.draw do
       get :ranobe
       get :characters
       get :images
+      get :clubs
+      get :collections
 
       get 'edit/:section' => :edit,
         as: :edit,

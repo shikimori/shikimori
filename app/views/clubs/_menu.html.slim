@@ -13,7 +13,7 @@
   = render 'clubs/actions', club: club
   = render 'clubs/club_pages/menu_pages', club: club, club_page: @club_page
 
-  = cache [club, club.clubs.cache_key, :menu] do
+  = cache club.menu_linked_cache_key do
     - if club.animes.any?
       = render 'clubs/menu_linked_entries',
         collection: club.menu_animes,
@@ -39,14 +39,14 @@
         name: i18n_i('character', :other),
         ratio_type: 'person'
 
-    - if club.members_sample.any?
+    - if club.menu_members.any?
       .subheadline
         span.linkeable data-href=members_club_url(club)
           = i18n_i 'member', :other
-          .count = club.members.count
+          .count = club.members.size
       .cc.members
         = render partial: 'users/user',
-          collection: club.members_sample,
+          collection: club.menu_members,
           locals: { content_by: :avatar }
 
     - if club.admins.any?
@@ -56,8 +56,14 @@
           collection: club.admins,
           locals: { content_by: :named_avatar }
 
-    - if club.menu_clubs.any?
-      .subheadline = i18n_i 'club', :other
+    - if club.clubs.any?
+      .subheadline
+        - if club.clubs.size != club.menu_clubs
+          span.linkeable data-href=clubs_club_url(club)
+            = i18n_i 'club', :other
+            .count = club.clubs.size
+        - else
+          = i18n_i 'club', :other
       .clubs
         = render partial: 'clubs/club',
           collection: club.menu_clubs,

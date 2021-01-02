@@ -1,11 +1,15 @@
 class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
-  rails_cache :all_animes, :all_mangas, :all_ranobe, :all_characters,
-    :all_clubs, :all_collections, :all_images
   instance_cache :description, :animes, :mangas, :characters, :images,
-    :comments, :banned, :members_sample, :forum_topics_views
+    :comments, :banned, :menu_members, :forum_topics_views,
+    :all_animes, :all_mangas, :all_ranobe, :all_characters,
+    :all_clubs, :all_collections, :all_images
 
   MENU_ENTRIES = 12
+  MENU_OTHER = 4
   FORUM_TOPICS = 4
+  LINKED_KINDS = %i[animes mangas ranobe characters clubs collections]
+
+  delegate :description, to: :object
 
   def url
     h.club_url object
@@ -20,10 +24,6 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
       'topic[linked_id]' => object.id,
       'topic[linked_type]' => Club.name
     )
-  end
-
-  def description
-    object.description
   end
 
   def description_html
@@ -48,56 +48,37 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
     member_roles.find { |v| v.user_id == h.current_user.id }&.role if h.user_signed_in?
   end
 
-  def members_sample
+  def menu_members
     all_member_roles.where(role: :member).limit(12).map(&:user)
   end
 
-  def animes
-    all_animes
+  LINKED_KINDS.each do |kind|
+    define_method kind do
+      send :"all_#{kind}"
+    end
+
+    define_method :"menu_#{kind}" do
+      entries = send(:"all_#{kind}").shuffle
+
+      entries
+        .take(entries.first.is_a?(DbEntry) ? MENU_ENTRIES : MENU_OTHER)
+        .sort_by do |entry|
+          if entry.respond_to? :ranked
+            entry.ranked
+          elsif entry.respond_to? :russian
+            h.localized_name(v)
+          else
+            entry.name
+          end
+        end
+    end
   end
 
-  def mangas
-    all_mangas
-  end
-
-  def ranobe
-    all_ranobe
-  end
-
-  def characters
-    all_characters
-  end
-
-  def menu_animes
-    all_animes
-      .shuffle
-      .take(MENU_ENTRIES)
-      .sort_by(&:ranked)
-  end
-
-  def menu_mangas
-    all_mangas
-      .shuffle
-      .take(MENU_ENTRIES)
-      .sort_by(&:ranked)
-  end
-
-  def menu_ranobe
-    all_ranobe
-      .shuffle
-      .take(MENU_ENTRIES)
-      .sort_by(&:ranked)
-  end
-
-  def menu_characters
-    all_characters
-      .shuffle
-      .take(MENU_ENTRIES)
-      .sort_by { |v| h.localized_name(v) }
-  end
-
-  def menu_clubs
-    all_clubs
+  def menu_linked_cache_key
+    [
+      object,
+      :menu
+    ] + LINKED_KINDS.map { |kind| object.send(kind).cache_key }
   end
 
   def images limit = 10_000
@@ -150,9 +131,7 @@ private
   end
 
   def all_characters
-    object.characters
-      .sort_by { |v| h.localized_name(v) }
-      .map(&:decorate)
+    object.characters.order(h.localization_field).decorate
   end
 
   def all_clubs

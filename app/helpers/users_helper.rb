@@ -40,6 +40,10 @@ module UsersHelper
     end
   end
 
+  def localization_field
+    russian_names? ? :russian : :name
+  end
+
   def russian_names? russian_option = :russian_names
     UsersHelper.russian_names? russian_option, current_user
   end
