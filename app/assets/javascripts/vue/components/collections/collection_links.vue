@@ -5,13 +5,19 @@
       .subheadline {{ I18n.t(`frontend.collections.kind.${collection.kind}`) }}
       .cc-3-flex
         .c-column(
-          v-for='groupName in groups'
+          v-for='(groupName, index) in groups'
         )
           .b-input.group
             .group-headline
               label(
                 :for="'group_' + groupName"
               ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
+              .move-left.b-js-link(
+                :class='{ "is-disabled": index === 0 }'
+              )
+              .move-right.b-js-link(
+                :class='{ "is-disabled": index === groups.length - 1 }'
+              )
               .add
                 .b-js-link(
                   v-if='links.length < maxLinks'
@@ -206,6 +212,7 @@ export default {
 
 <style scoped lang='sass'>
 @import 'app/assets/stylesheets/globals'
+@import 'app/assets/stylesheets/mixins/responsive'
 
 .new-group
   padding-top: 8px
@@ -222,10 +229,45 @@ export default {
 
 .group-headline
   display: flex
+  height: 21px
 
   label
     display: inline-block
+    line-height: inherit
     font-weight: bold
+
+  .move-left,
+  .move-right
+    border-bottom: none
+    align-items: center
+    display: flex
+    justify-content: center
+    width: 16px
+    height: 100%
+
+    &.is-disabled
+      color: $gray-1
+      cursor: default
+
+    &:before
+      content: '\e81c'
+      font-family: shikimori
+      position: absolute
+
+  .move-left
+    margin-left: 7px
+
+    &:before
+      position: absolute
+      transform: rotate(180deg)
+
+      +iphone
+        transform: rotate(-90deg)
+
+  .move-right
+    &:before
+      +iphone
+        transform: rotate(90deg)
 
   .add
     margin-left: auto
