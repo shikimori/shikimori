@@ -14,30 +14,11 @@
   = render 'clubs/club_pages/menu_pages', club: club, club_page: @club_page
 
   = cache club.menu_linked_cache_key do
-    - if club.animes.any?
-      = render 'clubs/menu_linked_entries',
-        collection: club.menu_animes,
-        url: animes_club_url(club),
-        name: i18n_i('anime')
-
-    - if club.mangas.any?
-      = render 'clubs/menu_linked_entries',
-        collection: club.menu_mangas,
-        url: mangas_club_url(club),
-        name: i18n_i('manga')
-
-    - if club.ranobe.any?
-      = render 'clubs/menu_linked_entries',
-        collection: club.menu_ranobe,
-        url: ranobe_club_url(club),
-        name: i18n_i('ranobe')
-
-    - if club.characters.any?
-      = render 'clubs/menu_linked_entries',
-        collection: club.menu_characters,
-        url: characters_club_url(club),
-        name: i18n_i('character', :other),
-        ratio_type: 'person'
+    - %i[animes mangas ranobe characters].each do |kind|
+      - if club.send(kind).any?
+        = render 'clubs/menu_linked_entries',
+          club: club,
+          kind: kind
 
     - if club.menu_members.any?
       .subheadline
@@ -59,7 +40,10 @@
     - if club.clubs.any?
       .subheadline
         - if club.clubs.size != club.menu_clubs
-          span.linkeable data-href=clubs_club_url(club)
+          a[
+            href=clubs_club_url(club)
+            title=i18n_i('club', :other)
+          ]
             = i18n_i 'club', :other
             .count = club.clubs.size
         - else

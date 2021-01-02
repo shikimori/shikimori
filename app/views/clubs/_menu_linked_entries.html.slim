@@ -1,14 +1,20 @@
+- kind_singular = kind.to_s.singularize
+- name = i18n_i kind_singular, :other
+- url = send :"#{kind}_club_url", club
+- entries = club.send :"menu_#{kind}"
+
 .block.user_rates-minified.to-process[
   data-dynamic='cutted_covers'
-  data-ratio_type=(local_assigns[:ratio_type] || :entry)
+  data-ratio_type=(kind == :characters ? :person : :entry)
 ]
   .subheadline
-    a[
-      href=local_assigns[:url]
-      title=local_assigns[:name]
-    ] = local_assigns[:name]
+    - if club.send(kind).size != entries.size
+      a href=url title=name
+        = name
+        .count = entries.size
+    - else
+      = name
   .cc-4a
-    - type = collection.first.object.class.name.downcase
-    = render partial: "#{type.pluralize}/#{type}",
-      collection: collection,
+    = render partial: "#{kind}/#{kind_singular}",
+      collection: entries,
       locals: { cover_by: :image_link }

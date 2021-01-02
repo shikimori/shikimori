@@ -1,0 +1,8 @@
+= render layout: 'page' do
+  h2.subheadline = og.headline
+
+  / .b-clubs.index
+  /   = render partial: 'clubs/club',
+  /     collection: @resource.clubs,
+  /     locals: { content_by: :detailed },
+  /     cache: ->(entry, _) { CacheHelper.keys entry, :detailed }
