@@ -12,10 +12,11 @@
               label(
                 :for="'group_' + groupName"
               ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
-              .add.b-js-link(
-                v-if='links.length < maxLinks'
-                @click='addLink({group: groupName})'
-              ) {{ I18n.t('frontend.actions.add').toLowerCase() }}
+              .add
+                .b-js-link(
+                  v-if='links.length < maxLinks'
+                  @click='addLink({group: groupName})'
+                ) {{ I18n.t('frontend.actions.add').toLowerCase() }}
             input(
               :id="'group_' + groupName"
               :value='groupName'
@@ -228,16 +229,16 @@ export default {
 
   .add
     margin-left: auto
-    font-size: 11px
-    margin-right: 5px
-    margin-top: 6px
 
-    &:before
-      font-family: shikimori
-      position: absolute
-      margin-left: -12px
-      margin-top: 1px
-      content: '+'
+    .b-js-link
+      font-size: 11px
+
+      &:before
+        font-family: shikimori
+        position: absolute
+        margin-left: -12px
+        margin-top: 1px
+        content: '+'
 
 .group
   .name
@@ -247,7 +248,6 @@ export default {
     overflow: hidden
     text-overflow: ellipsis
     white-space: nowrap
-    width: calc(100% - 6px)
 
 .collection_links
   height: 100%
