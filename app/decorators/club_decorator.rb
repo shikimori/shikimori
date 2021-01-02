@@ -1,6 +1,6 @@
 class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
   rails_cache :all_animes, :all_mangas, :all_ranobe, :all_characters,
-    :all_clubs, :all_images
+    :all_clubs, :all_collections, :all_images
   instance_cache :description, :animes, :mangas, :characters, :images,
     :comments, :banned, :members_sample, :forum_topics_views
 
@@ -157,5 +157,9 @@ private
 
   def all_clubs
     object.clubs.order(:name)
+  end
+
+  def all_collections
+    object.collections.order(:name)
   end
 end

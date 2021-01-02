@@ -554,7 +554,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :collections do
+  resources :collections, concerns: %i[autocompletable] do
     get '(/p-:page)' => 'collections#index', as: '', on: :collection
   end
 

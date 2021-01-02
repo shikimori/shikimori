@@ -74,6 +74,19 @@
             = check_box_tag 'club[club_ids][]', club.id, checked: true
             a href=club_url(club) = club.name
 
+    .c-column.block_m
+      input.collection-suggest.subheadline-input.downgrade_landscape[
+        type='text'
+        placeholder=t('collection_name')
+        data-variant_name='club[collection_ids][]'
+        data-autocomplete=autocomplete_collections_url
+      ]
+      .subheadline.m5 = i18n_i 'collection'
+      .variants
+        - @resource.all_collections.uniq(&:id).each do |collection|
+          .variant
+            = check_box_tag 'club[collection_ids][]', collection.id, checked: true
+            a.bubbled href=collection_url(collection) = collection.name
   /- if @resource && @resource.admins.include?(current_user)
     div style="display: none;"
       .subheadline.m5 = i18n_i 'moderator', :other

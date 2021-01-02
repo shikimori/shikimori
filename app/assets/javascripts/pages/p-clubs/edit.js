@@ -6,6 +6,7 @@ pageLoad('clubs_edit', async () => {
     $('.ranobe-suggest').completableVariant();
     $('.character-suggest').completableVariant();
     $('.club-suggest').completableVariant();
+    $('.collection-suggest').completableVariant();
   }
 
   // members page

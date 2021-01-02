@@ -1,5 +1,5 @@
 class CollectionsController < ShikimoriController
-  load_and_authorize_resource :collection, except: %i[index]
+  load_and_authorize_resource :collection, except: %i[index autocomplete]
 
   before_action { og page_title: i18n_i('Collection', :other) }
   before_action :set_breadcrumbs, except: :index
@@ -77,6 +77,13 @@ class CollectionsController < ShikimoriController
     else
       redirect_to collections_url, notice: i18n_t('collection_deleted')
     end
+  end
+
+  def autocomplete
+    @collection = Collections::Query.fetch(locale_from_host)
+      .search(params[:search], locale_from_host)
+      .paginate(1, CompleteQuery::AUTOCOMPLETE_LIMIT)
+      .reverse
   end
 
 private

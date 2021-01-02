@@ -110,4 +110,28 @@ describe CollectionsController do
       expect(response).to redirect_to collections_url
     end
   end
+
+  describe '#autocomplete', :focus do
+    let(:phrase) { 'Fff' }
+    let(:collection_1) { create :collection, :published }
+    let(:collection_2) { create :collection, :published }
+
+    before do
+      allow(Elasticsearch::Query::Collection).to receive(:call).with(
+        locale: :ru,
+        phrase: phrase,
+        limit: Collections::Query::SEARCH_LIMIT
+      ).and_return(
+        collection_1.id => 987,
+        collection_2.id => 654
+      )
+    end
+    subject! { get :autocomplete, params: { search: phrase }, xhr: true }
+
+    it do
+      expect(collection).to eq [collection_2, collection_1]
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
 end
