@@ -124,6 +124,12 @@ class ClubsController < ShikimoriController
     og page_title: i18n_t('club_characters')
   end
 
+  def clubs
+    og noindex: true
+    redirect_to club_url(@resource) if @resource.clubs.none?
+    og page_title: i18n_t('club_clubs')
+  end
+
   def images
     og noindex: true
     og page_title: i18n_t('club_images')

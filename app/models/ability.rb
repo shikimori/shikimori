@@ -76,7 +76,7 @@ class Ability
     alias_action :current, :read, :users, :comments, :grid, to: :see_contest
     alias_action(
       :index, :show, :comments,
-      :animes, :mangas, :ranobe, :characters, :members, :images,
+      :animes, :mangas, :ranobe, :characters, :members, :clubs, :collections, :images,
       to: :see_club
     )
   end

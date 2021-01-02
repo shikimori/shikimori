@@ -19,5 +19,13 @@ FactoryBot.define do
     trait :character do
       linked { FactoryBot.create :character }
     end
+
+    trait :club do
+      linked { FactoryBot.create :club }
+    end
+
+    trait :collection do
+      linked { FactoryBot.create :collection }
+    end
   end
 end

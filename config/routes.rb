@@ -526,9 +526,9 @@ Rails.application.routes.draw do
       get :mangas
       get :ranobe
       get :characters
-      get :images
       get :clubs
       get :collections
+      get :images
 
       get 'edit/:section' => :edit,
         as: :edit,

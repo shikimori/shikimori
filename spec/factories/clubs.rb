@@ -54,6 +54,18 @@ FactoryBot.define do
       end
     end
 
+    trait :linked_club do
+      after :build do |model|
+        FactoryBot.create :club_link, :club, club: model
+      end
+    end
+
+    trait :linked_collection do
+      after :build do |model|
+        FactoryBot.create :club_link, :collection, club: model
+      end
+    end
+
     trait :with_member do
       after :build do |model|
         FactoryBot.create :club_role, club: model

@@ -66,7 +66,7 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
           if entry.respond_to? :ranked
             entry.ranked
           elsif entry.respond_to? :russian
-            h.localized_name(v)
+            h.localized_name entry
           else
             entry.name
           end

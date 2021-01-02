@@ -147,6 +147,7 @@ en:
     club_manga: Club mangas
     club_ranobe: Club light novels
     club_characters: Club characters
+    club_clubs: Club clubs
     club_images: Club images
 
   clubs/club_images_controller:
