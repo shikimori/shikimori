@@ -8,7 +8,7 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
     .join(' and ')
 
   def self.fetch type
-    scope = new Version.order(:id)
+    scope = new Version.all
 
     case Types[type]
       when Types[:all_content]

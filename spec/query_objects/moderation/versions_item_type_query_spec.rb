@@ -1,5 +1,5 @@
 describe Moderation::VersionsItemTypeQuery do
-  subject { described_class.fetch type }
+  subject { described_class.fetch(type).sort_by(&:id) }
 
   let(:anime) { create :anime }
   let(:manga) { create :manga }
