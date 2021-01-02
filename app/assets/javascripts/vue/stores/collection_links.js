@@ -16,6 +16,13 @@ module.exports = {
     collection: {}
   },
 
+  getters: {
+    collection(store) { return store.collection; },
+    links(store) { return store.collection.links; },
+    groups(store) { return store.collection.links.map(v => v.group).unique(); },
+    groupedLinks(store) { return store.collection.links.groupBy(v => v.group); }
+  },
+
   actions: {
     fillLink(context, { link, changes }) {
       context.commit('FILL_LINK', { link, changes });
@@ -94,13 +101,6 @@ module.exports = {
     REFILL(state, data) {
       state.collection.links = data;
     }
-  },
-
-  getters: {
-    collection(store) { return store.collection; },
-    links(store) { return store.collection.links; },
-    groups(store) { return store.collection.links.map(v => v.group).unique(); },
-    groupedLinks(store) { return store.collection.links.groupBy(v => v.group); }
   },
 
   modules: {}

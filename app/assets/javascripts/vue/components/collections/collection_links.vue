@@ -8,7 +8,7 @@
           v-for='groupName in groups'
         )
           .b-input.group
-            div
+            .group-headline
               label(
                 :for="'group_' + groupName"
               ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
@@ -219,16 +219,15 @@ export default {
       line-height: $line_height
       padding-left: 15px
 
-.group
+.group-headline
+  display: flex
+
   label
     display: inline-block
     font-weight: bold
 
-  .name
-    max-width: 100%
-
   .add
-    float: right
+    margin-left: auto
     font-size: 11px
     margin-right: 5px
     margin-top: 6px
@@ -239,6 +238,10 @@ export default {
       margin-left: -12px
       margin-top: 1px
       content: '+'
+
+.group
+  .name
+    max-width: 100%
 
   input
     overflow: hidden
