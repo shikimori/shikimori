@@ -1,6 +1,6 @@
 class Moderations::VersionsController < ModerationsController
   load_and_authorize_resource except: [:index]
-  before_action :set_view, only: %i[index filter autocomplete_user autocomplete_moderator]
+  before_action :set_view, only: %i[index autocomplete_user autocomplete_moderator]
 
   AUTOCOMPLETE_LIMIT = 10
 
