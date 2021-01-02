@@ -147,6 +147,7 @@ ru:
     club_ranobe: Ранобэ клуба
     club_characters: Персонажи клуба
     club_clubs: Клубы клуба
+    club_collections: Коллекции клуба
     club_images: Картинки клуба
 
   clubs/club_images_controller:

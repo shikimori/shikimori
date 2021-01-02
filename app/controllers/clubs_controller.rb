@@ -130,6 +130,21 @@ class ClubsController < ShikimoriController
     og page_title: i18n_t('club_clubs')
   end
 
+  def collections
+    og noindex: true
+    redirect_to club_url(@resource) if @resource.collections.none?
+    og page_title: i18n_t('club_collections')
+
+    @collection = Collections::Query.fetch(locale_from_host)
+      .where(id: @resource.collections)
+      .paginate(@page, DbEntriesController::COLLETIONS_PER_PAGE)
+      .transform do |collection|
+        Topics::TopicViewFactory
+          .new(true, true)
+          .build(collection.maybe_topic(locale_from_host))
+      end
+  end
+
   def images
     og noindex: true
     og page_title: i18n_t('club_images')

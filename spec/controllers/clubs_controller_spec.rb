@@ -190,6 +190,19 @@ describe ClubsController do
     end
   end
 
+  describe '#collections' do
+    context 'without_collections' do
+      subject! { get :collections, params: { id: club.to_param } }
+      it { expect(response).to redirect_to club_url(club) }
+    end
+
+    context 'with_characters' do
+      let(:club) { create :club, :with_topics, :linked_collection }
+      subject! { get :collections, params: { id: club.to_param } }
+      it { expect(response).to have_http_status :success }
+    end
+  end
+
   describe '#autocomplete' do
     let(:phrase) { 'Fff' }
     let(:club_1) { create :club, :with_topics }
