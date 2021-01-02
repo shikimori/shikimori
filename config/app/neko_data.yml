@@ -8253,6 +8253,7 @@
         - 33091
         - 33190
         - 34126
+        - 41930
       :generator:
         person_id: 2885
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -26008,21 +26009,23 @@
       :filters:
         franchise: idolish7
         not_anime_ids:
+        - 37710
+      :threshold: 96.9%
+      :generator:
+        not_ignored_ids:
+        - 32446
         - 32030
         - 32031
-        - 32446
         - 33420
         - 35654
         - 36289
         - 37679
-        - 37710
         - 37863
         - 38052
         - 40900
         - 40967
         - 41099
         - 41167
-      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :idolish7
@@ -26052,21 +26055,23 @@
       :filters:
         franchise: idolish7
         not_anime_ids:
+        - 37710
+      :threshold: 0.01
+      :generator:
+        not_ignored_ids:
+        - 32446
         - 32030
         - 32031
-        - 32446
         - 33420
         - 35654
         - 36289
         - 37679
-        - 37710
         - 37863
         - 38052
         - 40900
         - 40967
         - 41099
         - 41167
-      :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :idolish7
