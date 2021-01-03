@@ -412,7 +412,7 @@ GEM
     mimemagic (0.3.5)
     mini_magick (4.11.0)
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.5.0)
     minitest (5.14.2)
     mize (0.3.5)
       protocol
@@ -426,8 +426,9 @@ GEM
     net-ssh (6.1.0)
     newrelic_rpm (6.14.0)
     nio4r (2.5.4)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.11.0.rc4)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
     nokogumbo (2.0.4)
       nokogiri (~> 1.8, >= 1.8.4)
     non-stupid-digest-assets (1.0.9)
@@ -492,6 +493,7 @@ GEM
     public_suffix (4.0.6)
     puma (5.1.1)
       nio4r (~> 2.0)
+    racc (1.5.2)
     rack (2.2.3)
     rack-attack (6.3.1)
       rack (>= 1.0, < 3)
@@ -799,7 +801,7 @@ DEPENDENCIES
   mini_magick
   msgpack
   newrelic_rpm
-  nokogiri
+  nokogiri (>= 1.11.0.rc4)
   nokogumbo
   non-stupid-digest-assets
   omniauth
