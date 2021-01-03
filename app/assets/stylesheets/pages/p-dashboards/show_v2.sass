@@ -252,7 +252,7 @@
     font-size: 13px
     padding: 5px 10px
 
-    +lte_ipad
+    +iphone
       min-width: 30px
       margin-top: 5px
 
@@ -261,6 +261,14 @@
 
       span
         display: none
+
+    +ipad
+      margin-top: 5px
+
+    +gte_ipad
+      &:before
+        font-size: 12px
+        padding-right: 6px
 
   .news_wall
     +fcolumn-responsive($ipad-columns: 2, $laptop-columns: 3, $offset-mobile: 40px, $offset-desktop: 48px, $selector: '.b-news_wall-topic, .b-postloader')
