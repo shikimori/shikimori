@@ -107,6 +107,23 @@
       border-color: darken(#7b8590, 3%)
       cursor: default
 
+  &.blue
+    color: #fff
+    background-color: #19669c
+    border-color: darken(#19669c, 2%)
+    border-width: 1px
+
+    +gte_laptop
+      &:hover
+        background-color: $link-4
+        border-color: darken($link-4, 2%)
+        color: #fff
+
+    &:active
+      background-color: $link-2
+      border-color: darken($link-4, 2%)
+      color: #fff
+
   &.light-green
     transition: background-color 0.25s ease, border-color 0.25s ease
     background-color: $green
