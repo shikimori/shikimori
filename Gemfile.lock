@@ -801,7 +801,7 @@ DEPENDENCIES
   mini_magick
   msgpack
   newrelic_rpm
-  nokogiri (>= 1.11.0.rc4)
+  nokogiri
   nokogumbo
   non-stupid-digest-assets
   omniauth

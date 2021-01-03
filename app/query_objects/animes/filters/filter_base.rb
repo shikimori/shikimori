@@ -27,6 +27,7 @@ class Animes::Filters::FilterBase
 
   def self.inherited subclass
     subclass.send :prepend, DryRescue
+    super
   end
 
 private

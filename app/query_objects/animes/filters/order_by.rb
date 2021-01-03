@@ -151,7 +151,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
 private
 
   def fixed_value
-    @value.blank? ? DEFAULT_ORDER : @valuj
+    @value.presence || DEFAULT_ORDER
   end
 
   def custom_sorting?
