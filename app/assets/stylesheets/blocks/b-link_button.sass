@@ -3,11 +3,17 @@
 @import mixins/responsive
 @import mixins/font_shikimori
 
-=link_button_icon($icon)
-  &:before
-    +font_shikimori($icon)
-    font-weight: normal
-    padding-right: 8px
+=link_button_icon($icon, $is-before: true)
+  @if $is-before
+    &:before
+      +font_shikimori($icon)
+      font-weight: normal
+      padding-right: 8px
+  @else
+    &:after
+      +font_shikimori($icon)
+      font-weight: normal
+      padding-left: 8px
 
 .b-link_button
   +ellipsis2
@@ -159,3 +165,6 @@
 
   &.join-club
     +link_button_icon('\002b')
+
+  &.arrow-right
+    +link_button_icon('\E850', false)

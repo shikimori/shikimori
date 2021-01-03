@@ -735,6 +735,12 @@
       "src": "iconic"
     },
     {
+      "uid": "e26b9d4bdcd0b60ed2cafa8f41ffc6d2",
+      "css": "right-bold",
+      "code": 59472,
+      "src": "mfglabs"
+    },
+    {
       "uid": "d56a0cd800b7346409f9c15d1dfce123",
       "css": "zoom_out_map",
       "code": 59453,
