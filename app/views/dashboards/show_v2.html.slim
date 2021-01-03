@@ -100,7 +100,7 @@
                 ] = t '.recommended.favourite'
 
               .forum-container
-                a.b-link_button.dark[
+                a.b-link_button.dark.arrow-right[
                   href=forum_url
                 ] = t 'forum'
 
@@ -108,13 +108,19 @@
       .block2
         .headline.purple.linkheadline
           a href="#{Shikimori::PROTOCOLS[:production]}://#{Shikimori::DOMAINS[:production]}" = Shikimori::DOMAINS[:production]
-        p Сайт уже больше года как обзавёлся новым доменом. Некоторый функционал на
+        p Сайт уже больше два года как обзавёлся новым доменом. Некоторый функционал на
           старом shikimori.org работает некорректно, а часть ссылок сломаны и ведут на новый домен.<br>
           В недалеком будущем со старого домена shikimori.org сайт будет автоматически редиректить на
           новый домен shikimori.one.
 
     .block2
-      .headline.skyblue.m15 = t '.latest_news'
+      .subheadline-buttons
+        a.b-link_button.dark-2.create-topic[
+          href=@view.new_news_url
+          title=t('topics.menu_actions.create_news')
+        ]
+          span = t 'topics.menu_actions.create_news'
+      .headline.orange.m15 = t '.latest_news'
       .news_wall.latest-news
         = render partial: 'topics/topic',
           collection: @view.news_topic_views[0..2],
@@ -126,7 +132,7 @@
 
     = cache @view.cache_keys[:db_updates] do
       .block2
-        .headline.orange.m15
+        .headline.magenta.m15
           a[
             href=forum_topics_url(:updates)
             title=t('.generated_news')

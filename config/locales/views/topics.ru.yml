@@ -38,9 +38,9 @@ ru:
         news_topic: Новостной топик
       review:
         pick_target: Выбери, о чём рецензия
-        go_next: Далее →
+        go_next: Далее
       rules:
-        go_next: Далее →
+        go_next: Далее
       video:
         attach: Прикрепить
         topic_video: Видео
