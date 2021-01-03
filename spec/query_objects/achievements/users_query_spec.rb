@@ -52,11 +52,11 @@ describe Achievements::UsersQuery do
     end
 
     describe '#filter' do
-      let(:scope) { User.all }
+      let(:scope) { User.order(:id) }
       it { is_expected.to eq [user, user_2] }
 
       context 'sample' do
-        let(:scope) { User.where(id: user_2.id) }
+        let(:scope) { User.where(id: user_2.id).order(:id) }
         it { is_expected.to eq [user_2] }
       end
     end
