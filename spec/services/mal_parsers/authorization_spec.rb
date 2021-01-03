@@ -1,5 +1,5 @@
 describe MalParsers::Authorization, :vcr do
-  include_context :disable_vcr
+  # include_context :disable_vcr
   let(:service) { MalParsers::Authorization.instance }
 
   describe '#cookie' do
