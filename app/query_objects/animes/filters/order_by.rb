@@ -1,32 +1,39 @@
 class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable ClassLength
   method_object :scope, :value
 
+  COMMON_FIELDS = %i[
+    name
+    russian
+    status
+    popularity
+    ranked
+    released_on
+    aired_on
+    id
+    id_desc
+    rate_id
+    rate_status
+    rate_updated
+    rate_score
+    site_score
+    kind
+    licensor
+    user_1
+    user_2
+    random
+  ]
+
+  AnimeField = Types::Strict::Symbol
+    .constructor(&:to_sym)
+    .enum(:episodes, *COMMON_FIELDS)
+
+  MangaField = Types::Strict::Symbol
+    .constructor(&:to_sym)
+    .enum(:chapters, :volumes, *COMMON_FIELDS)
+
   Field = Types::Strict::Symbol
     .constructor(&:to_sym)
-    .enum(
-      :name,
-      :russian,
-      :episodes,
-      :chapters,
-      :volumes,
-      :status,
-      :popularity,
-      :ranked,
-      :released_on,
-      :aired_on,
-      :id,
-      :id_desc,
-      :rate_id,
-      :rate_status,
-      :rate_updated,
-      :rate_score,
-      :site_score,
-      :kind, # :type
-      :licensor,
-      :user_1,
-      :user_2,
-      :random
-    )
+    .enum(*(AnimeField.values + MangaField.values).uniq)
 
   dry_type Field
   field :order
@@ -115,7 +122,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     @scope.order(self.class.arel_sql(terms: positives, scope: @scope))
   end
 
-  def self.arel_sql term: nil, terms: nil, scope:
+  def self.arel_sql scope:, term: nil, terms: nil
     if term
       term_sql term: term, scope: scope, arel_sql: true
     else
@@ -133,7 +140,10 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
   end
 
   def self.term_sql term:, scope:, arel_sql:
-    sql = format ORDER_SQL[Field[term]], table_name: scope.table_name
+    sql = format(
+      ORDER_SQL[scope.table_name == 'animes' ? AnimeField[term] : MangaField[term]],
+      table_name: scope.table_name
+    )
 
     arel_sql ? Arel.sql(sql) : sql
   end
@@ -141,7 +151,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
 private
 
   def fixed_value
-    @value.blank? ? DEFAULT_ORDER : @value
+    @value.blank? ? DEFAULT_ORDER : @valuj
   end
 
   def custom_sorting?
