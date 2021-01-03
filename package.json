@@ -46,7 +46,7 @@
     "throttle-debounce": "^2.3.0",
     "turbolinks": "^5.2.0",
     "uevent": "^2.0.0",
-    "urijs": "^1.19.2",
+    "urijs": "^1.19.4",
     "url-parse": "^1.4.7",
     "vue": "2.6.12",
     "vue-loader": "^15.9.3",
