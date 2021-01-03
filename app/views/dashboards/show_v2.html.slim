@@ -139,20 +139,20 @@
               collection: @view.db_updates,
               as: :topic_view
 
-    - if @view.admin_area?
-      javascript:
-        $(document.body).on('click', '.b-admin_panel .reload', function() {
-          var $panel = $('.b-admin_panel').addClass('b-ajax');
-          $(this).addClass('active');
-          $panel.load($panel.data('postloaded-url'), () => (
-            $panel.removeClass('b-ajax')
-          ));
-        });
-      .b-admin_panel.to-process[
-        data-dynamic='postloaded'
-        data-postloaded-url='/apanel'
-      ]
-        .ajax-loading.vk-like
+    / - if @view.admin_area?
+    /   javascript:
+    /     $(document.body).on('click', '.b-admin_panel .reload', function() {
+    /       var $panel = $('.b-admin_panel').addClass('b-ajax');
+    /       $(this).addClass('active');
+    /       $panel.load($panel.data('postloaded-url'), () => (
+    /         $panel.removeClass('b-ajax')
+    /       ));
+    /     });
+    /   .b-admin_panel.to-process[
+    /     data-dynamic='postloaded'
+    /     data-postloaded-url='/apanel'
+    /   ]
+    /     .ajax-loading.vk-like
 
     .block2
       .headline.skyblue.m15 = t '.more_news'
