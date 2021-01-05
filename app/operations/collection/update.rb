@@ -7,7 +7,7 @@ class Collection::Update < ServiceObjectBase
   def call
     Collection.transaction do
       update_collection
-      publish if @model.published? && @model.topics.none?
+      publish if @model.published? && hidden_topic?
     end
     @model
   end
@@ -23,13 +23,23 @@ private
   end
 
   def publish
-    generate_topic
+    publish_topic
     touch_all_linked
-    change_creation_date
+    touch_creation_date
   end
 
-  def generate_topic
-    @model.generate_topics @model.locale
+  def publish_topic
+    @model.topics.each do |topic|
+      Topic::Update.call(
+        topic: topic,
+        params: {
+          forum_id: Topic::FORUM_IDS[model.class.name],
+          created_at: Time.zone.now,
+          updated_at: Time.zone.now
+        },
+        faye: faye_service
+      )
+    end
   end
 
   def touch_all_linked
@@ -38,8 +48,8 @@ private
       .update_all updated_at: Time.zone.now
   end
 
-  def change_creation_date
-    @model.update created_at: Time.zone.now
+  def touch_creation_date
+    @model.update created_at: Time.zone.now, updated_at: Time.zone.now
   end
 
   def collection_links
@@ -57,5 +67,13 @@ private
 
   def update_params
     params.except(:links)
+  end
+
+  def faye_service
+    FayeService.new @model.user, nil
+  end
+
+  def hidden_topic?
+    @model.topics.first.forum_id == Forum::HIDDEN_ID
   end
 end

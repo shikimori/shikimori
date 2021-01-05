@@ -10,6 +10,9 @@ describe Collection::Update do
       user: user,
       created_at: 1.day.ago
   end
+  let!(:topic) do
+    create :collection_topic, linked: collection, forum_id: Forum::HIDDEN_ID
+  end
   let(:type) { %i[anime manga ranobe].sample }
 
   context 'valid params' do
@@ -56,7 +59,7 @@ describe Collection::Update do
         text: 'xx2'
       )
 
-      expect(collection.topics).to be_empty
+      # expect(collection.topics).to be_empty
       expect(collection.created_at).to be_within(0.1).of 1.day.ago
       expect { collection_link_1.reload }.to raise_error ActiveRecord::RecordNotFound
       expect { collection_link_2.reload }.to raise_error ActiveRecord::RecordNotFound
@@ -69,12 +72,19 @@ describe Collection::Update do
 
     describe 'publish' do
       let(:state) { 'published' }
+
       it do
         expect(collection.errors).to be_empty
         expect(collection.reload).to have_attributes params.except(:links)
-        expect(collection.created_at).to be_within(0.1).of Time.zone.now
         expect(collection.topics).to have(1).item
-        expect(collection.topics.first.locale).to eq collection.locale
+        expect(collection.topics.first).to have_attributes(
+          id: topic.id,
+          forum_id: Topic::FORUM_IDS['Collection']
+        )
+        expect(collection.created_at).to be_within(0.1).of Time.zone.now
+        expect(collection.updated_at).to be_within(0.1).of Time.zone.now
+        expect(collection.topics.first.created_at).to be_within(0.1).of Time.zone.now
+        expect(collection.topics.first.updated_at).to be_within(0.1).of Time.zone.now
 
         # NOTE: disabled because of `touch: true` in CollectionLink
         # expect(db_entry_1.reload.updated_at).to be_within(0.1).of Time.zone.now
