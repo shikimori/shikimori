@@ -5,10 +5,12 @@ describe Topics::Generate::Topic do
     described_class.call(
       model: model,
       user: user,
-      locale: locale
+      locale: locale,
+      forum_id: forum_id
     )
   end
   let(:locale) { 'ru' }
+  let(:forum_id) { [news_forum.id, nil].sample }
 
   shared_examples_for :topic do
     context 'without existing topic' do
@@ -23,7 +25,7 @@ describe Topics::Generate::Topic do
       it do
         expect { subject }.to change(Topic, :count).by 1
         is_expected.to have_attributes(
-          forum_id: Topic::FORUM_IDS[model.class.name],
+          forum_id: forum_id || Topic::FORUM_IDS[model.class.name],
           generated: true,
           linked: model,
           user: user,

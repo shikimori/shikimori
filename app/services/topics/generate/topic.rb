@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Topics::Generate::Topic
-  method_object %i[model! user! locale!]
+  method_object %i[model! user! locale! forum_id]
 
   def call
     topic = build_topic
@@ -24,7 +24,7 @@ private
 
   def build_topic
     if model.respond_to? :topics
-      model.topics.find_by(find_by_attributes) ||
+      model.topics.find_by(attributes_of_find_by) ||
         model.topics.build(topic_attributes)
     else
       model.build_topic topic_attributes
@@ -47,7 +47,7 @@ private
     }
   end
 
-  def find_by_attributes
+  def attributes_of_find_by
     topic_attributes.slice(:type, :locale)
   end
 
@@ -60,7 +60,8 @@ private
   end
 
   def forum_id
-    Topic::FORUM_IDS[model.class.name] ||
+    @forum_id ||
+      Topic::FORUM_IDS[model.class.name] ||
       raise(ArgumentError, model.class.name)
   end
 
