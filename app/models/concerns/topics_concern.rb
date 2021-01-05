@@ -4,7 +4,7 @@ module TopicsConcern
   included do
     # special association for dependent destroy
     has_many :all_topics,
-      class_name: Topic.name,
+      class_name: 'Topic',
       as: :linked,
       dependent: :destroy
 
@@ -14,7 +14,7 @@ module TopicsConcern
       inverse_of: :linked # topic always load know its linked
 
     has_many :news_topics, -> { order created_at: :desc },
-      class_name: Topics::NewsTopic.name,
+      class_name: 'Topics::NewsTopic',
       as: :linked,
       inverse_of: :linked # topic always must know its linked
 
