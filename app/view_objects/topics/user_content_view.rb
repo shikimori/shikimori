@@ -1,6 +1,4 @@
 class Topics::UserContentView < Topics::View
-  delegate :unpublished?, to: :linked
-
   def generated?
     false
   end
@@ -11,6 +9,10 @@ class Topics::UserContentView < Topics::View
 
   def need_trucation?
     false
+  end
+
+  def unpublished?
+    @topic.linked.respond_to?(:unpublished?) && @topic.linked.unpublished?
   end
 
   def changed_at # rubocop:disable AbcSize
