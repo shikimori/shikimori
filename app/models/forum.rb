@@ -19,6 +19,7 @@ class Forum < ApplicationRecord
   NEWS_ID = 20
   ARTICLES_ID = 21
   PREMODERATION_ID = 22
+  HIDDEN_ID = 23
 
   UPDATES_FORUM = FakeForum.new 'updates', 'Обновления аниме', 'Anime updates'
   MY_CLUBS_FORUM = FakeForum.new 'my_clubs', 'Мои клубы', 'My clubs'
@@ -36,21 +37,27 @@ class Forum < ApplicationRecord
       cached.select { |v| PUBLIC_SECTIONS.include? v.permalink }
     end
 
+    # rubocop:disable Rails/DynamicFindBy
     def news
-      find_by_permalink('news')
+      find_by_permalink 'news'
     end
 
     def reviews
-      find_by_permalink('reviews')
+      find_by_permalink 'reviews'
     end
 
     def articles
-      find_by_permalink('articles')
+      find_by_permalink 'articles'
     end
 
     def collections
-      find_by_permalink('collections')
+      find_by_permalink 'collections'
     end
+
+    def hidden
+      find_by_permalink 'hidden'
+    end
+    # rubocop:enable Rails/DynamicFindBy
 
     def find_by_permalink permalink
       cached_plus_special.find do |forum|
