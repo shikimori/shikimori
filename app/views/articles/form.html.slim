@@ -42,6 +42,14 @@ header.head.misc
         include_blank: false,
         disabled: @resource.published?,
         hint: t(".hint.#{@resource.state}").html_safe
+
+      - if @resource.unpublished?
+        .b-input
+          a.b-button.blue[
+            target='_blank'
+            href=article_url(@resource)
+          ] = t 'actions.preview'
+
     - else
       .buttons
         a.cancel href=articles_url = t 'actions.cancel'

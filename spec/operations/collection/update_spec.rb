@@ -81,12 +81,13 @@ describe Collection::Update do
         expect(collection.errors).to be_empty
         expect(collection.reload).to have_attributes params.except(:links)
         expect(collection.created_at).to be_within(0.1).of Time.zone.now
-        expect(collection.topics.first.created_at).to be_within(0.1).of Time.zone.now
+
         expect(collection.topics).to have(1).item
         expect(collection.topics.first).to have_attributes(
           id: topic.id,
           forum_id: Topic::FORUM_IDS['Collection']
         )
+        expect(collection.topics.first.created_at).to be_within(0.1).of Time.zone.now
 
         # NOTE: disabled because of `touch: true` in CollectionLink
         # expect(db_entry_1.reload.updated_at).to be_within(0.1).of Time.zone.now
