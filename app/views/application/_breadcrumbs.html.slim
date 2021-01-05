@@ -5,5 +5,8 @@
         itemscope
         itemtype='http://data-vocabulary.org/Breadcrumb'
       ]
-        a.b-link href=url title=name itemprop='url'
-          span itemprop='title' = name
+        - if url
+          a.b-link href=url title=name itemprop='url'
+            span itemprop='title' = name
+        - else
+          span.no-url itemprop='title' = name
