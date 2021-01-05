@@ -38,11 +38,13 @@ en:
       explain:
         abuse: Please describe (optional)
         spoiler: Please describe (optional)
+    edition: Edition
+    increment: Increment (+)
+    preview: Preview
     quote: Quote
     reject: Reject
     reply: Reply
     rollback: Rollback (-)
-    increment: Increment (+)
     save_apply: Save & Apply
     start: Start
     stop: Stop

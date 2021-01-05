@@ -9,6 +9,7 @@ en:
       mini: &header_mini
         topic_ignored: ignored
         topic_closed: closed
+        unpublished: not published
       common:
         <<: *header_mini
         about: about

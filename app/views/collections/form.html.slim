@@ -27,6 +27,13 @@ header.head.misc
           disabled: @resource.published?,
           hint: t(".hint.#{@resource.state}").html_safe
 
+        - if @resource.unpublished?
+          .b-input
+            a.b-button.blue[
+              target='_blank'
+              href=collection_url(@resource)
+            ] = t 'actions.preview'
+
       = render 'blocks/shiki_editor',
         text: @resource.text,
         field_name: 'collection[text]',

@@ -28,7 +28,11 @@ class CollectionsController < ShikimoriController
   end
 
   def show
-    raise ActiveRecord::RecordNotFound unless @resource.published?
+    unless @resource.published?
+      raise ActiveRecord::RecordNotFound unless can?(:edit, @resource)
+      breadcrumb @resource.name, edit_collection_url(@resource)
+      breadcrumb t('actions.preview'), nil
+    end
 
     og page_title: @resource.name
     @topic_view = Topics::TopicViewFactory
@@ -97,6 +101,7 @@ private
         @resource.published? ? collection_url(@resource) :
           edit_collection_url(@resource)
       )
+      breadcrumb t('actions.edition'), nil
     end
   end
 

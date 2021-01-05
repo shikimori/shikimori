@@ -1,5 +1,6 @@
 class Topics::CollectionView < Topics::UserContentView
   instance_cache :collection
+  delegate :unpublished?, to: :collection
 
   def container_classes
     super 'b-collection-topic'

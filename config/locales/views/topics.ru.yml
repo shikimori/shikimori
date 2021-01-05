@@ -9,6 +9,7 @@ ru:
       mini: &header_mini
         topic_ignored: в игноре
         topic_closed: закрыт
+        unpublished: не опубликовано
       common:
         <<: *header_mini
         about: о
