@@ -13,7 +13,7 @@ class Topics::UserContentView < Topics::View
     false
   end
 
-  def changed_at
+  def changed_at # rubocop:disable AbcSize
     linked = @topic.linked
 
     return unless linked&.updated_at && linked&.created_at

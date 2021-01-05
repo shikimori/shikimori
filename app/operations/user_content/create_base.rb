@@ -2,8 +2,9 @@
 
 class UserContent::CreateBase < ServiceObjectBase
   extend DslAttribute
-  pattr_initialize :params, :locale
   dsl_attribute :klass
+
+  pattr_initialize :params, :locale
 
   def call
     klass.transaction do

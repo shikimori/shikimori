@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 describe Article::Update do
-  subject { Article::Update.call article, params }
+  include_context :timecop, 'Wed, 16 Sep 2020 16:23:41 MSK +03:00'
+  subject { described_class.call article, params }
 
-  let(:article) { create :article, user: user }
+  let(:article) { create :article, user: user, created_at: 1.day.ago }
+  let!(:topic) do
+    create :article_topic, linked: article, forum_id: Forum::HIDDEN_ID
+  end
 
   context 'valid params' do
     let(:params) do
@@ -19,7 +23,12 @@ describe Article::Update do
     it do
       expect(article.errors).to be_empty
       expect(article.reload).to have_attributes params
-      expect(article.topics).to be_empty
+      expect(article.created_at).to be_within(0.1).of 1.day.ago
+
+      expect(article.topics.first).to have_attributes(
+        id: topic.id,
+        forum_id: Forum::HIDDEN_ID
+      )
     end
 
     describe 'publish' do
@@ -27,8 +36,14 @@ describe Article::Update do
       it do
         expect(article.errors).to be_empty
         expect(article.reload).to have_attributes params
+        expect(article.created_at).to be_within(0.1).of Time.zone.now
+
         expect(article.topics).to have(1).item
-        expect(article.topics.first.locale).to eq article.locale
+        expect(article.topics.first).to have_attributes(
+          id: topic.id,
+          forum_id: Topic::FORUM_IDS['Article']
+        )
+        expect(article.topics.first.created_at).to be_within(0.1).of Time.zone.now
       end
     end
   end

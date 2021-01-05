@@ -20,6 +20,7 @@ private
 
   def publish
     publish_topic
+    touch_creation_date
   end
 
   def publish_topic
