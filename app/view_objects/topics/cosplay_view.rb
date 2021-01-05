@@ -41,9 +41,14 @@ class Topics::CosplayView < Topics::UserContentView
   end
 
   def images_bb_codes
-    topic.linked.images.limit(IMAGES_IN_PREVIEW).each.map do |image|
-      "[url=#{ImageUrlGenerator.instance.url image, :original}][img]"\
-        "#{ImageUrlGenerator.instance.url image, :preview}[/img][/url]"
-    end.join('')
+    topic
+      .linked
+      .images
+      .limit(IMAGES_IN_PREVIEW)
+      .map do |image|
+        "[url=#{ImageUrlGenerator.instance.url image, :original}][img]"\
+          "#{ImageUrlGenerator.instance.url image, :preview}[/img][/url]"
+      end
+      .join
   end
 end
