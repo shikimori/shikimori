@@ -1,8 +1,30 @@
-@import mixins/shiki_button
 @import mixins/responsive
+@import mixins/shiki_button
+@import mixins/font_shikimori
 
 .b-button
   +shiki_button
+
+  &.blue
+    color: #fff
+    background-color: #19669c
+    border-color: darken(#19669c, 2%)
+    border-width: 1px
+
+    +gte_laptop
+      &:hover
+        background-color: $link-4
+        border-color: darken($link-4, 2%)
+        color: #fff
+
+    &:active
+      background-color: $link-2
+      border-color: darken($link-4, 2%)
+      color: #fff
+
+    &:after
+      +font_shikimori('\f08e')
+      padding-left: 6px
 
 a.b-button
   color: #fff
