@@ -21,6 +21,11 @@ describe Article::Create do
         state: 'unpublished'
       )
       expect(article.errors).to be_empty
+      expect(article.topics.first).to have_attributes(
+        linked: article,
+        type: Topics::EntryTopics::ArticleTopic.name,
+        forum_id: Forum::HIDDEN_ID
+      )
     end
   end
 
