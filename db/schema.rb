@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_05_114841) do
+ActiveRecord::Schema.define(version: 2021_01_05_115347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -522,12 +522,12 @@ ActiveRecord::Schema.define(version: 2021_01_05_114841) do
   end
 
   create_table "forums", id: :serial, force: :cascade do |t|
-    t.integer "position"
-    t.string "name_ru", limit: 255
-    t.string "permalink", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "name_en"
+    t.integer "position", null: false
+    t.string "name_ru", null: false
+    t.string "permalink", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name_en", null: false
   end
 
   create_table "friend_links", id: :serial, force: :cascade do |t|
