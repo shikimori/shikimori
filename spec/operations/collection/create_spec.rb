@@ -22,6 +22,12 @@ describe Collection::Create do
         state: 'unpublished'
       )
       expect(collection.errors).to be_empty
+      expect(collection.topics).to have(1).item
+      expect(collection.topics.first).to have_attributes(
+        linked: collection,
+        type: Topics::EntryTopics::CollectionTopic.name,
+        forum_id: Forum::HIDDEN_ID
+      )
     end
   end
 

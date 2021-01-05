@@ -21,11 +21,11 @@ module TopicsConcern
     attr_implement :topic_user
   end
 
-  def generate_topics locales
+  def generate_topics locales, forum_id: nil
     if self.class < DbEntry
-      generate_entry_topics locales
+      generate_entry_topics locales, forum_id
     else
-      generate_user_topics locales
+      generate_user_topics locales, forum_id
     end
   end
 
@@ -41,22 +41,24 @@ module TopicsConcern
 
 private
 
-  def generate_entry_topics locales
+  def generate_entry_topics locales, forum_id
     Array(locales).map do |locale|
       Topics::Generate::EntryTopic.call(
         model: self,
         user: topic_user,
-        locale: locale
+        locale: locale,
+        forum_id: forum_id
       )
     end
   end
 
-  def generate_user_topics locales
+  def generate_user_topics locales, forum_id
     Array(locales).map do |locale|
       Topics::Generate::Topic.call(
         model: self,
         user: topic_user,
-        locale: locale
+        locale: locale,
+        forum_id: forum_id
       )
     end
   end
