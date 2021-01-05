@@ -111,17 +111,20 @@ module.exports = {
     },
 
     SWAP_GROUPS({ collection }, { groupLeft, groupRight }) {
-      const leftIndex = collection.links.findIndex(v => v.group === groupLeft);
-      const leftItems = collection.links.filter(v => v.group === groupLeft);
+      const groups = collection.links.map(v => v.group).unique();
+      const links = collection.links.sortBy(v => groups.indexOf(v.group));
 
-      const rightIndex = collection.links.findIndex(v => v.group === groupRight);
-      const rightItems = collection.links.filter(v => v.group === groupRight);
+      const leftIndex = links.findIndex(v => v.group === groupLeft);
+      const leftItems = links.filter(v => v.group === groupLeft);
+
+      const rightIndex = links.findIndex(v => v.group === groupRight);
+      const rightItems = links.filter(v => v.group === groupRight);
 
       collection.links = [
-        ...collection.links.slice(0, leftIndex),
+        ...links.slice(0, leftIndex),
         ...rightItems,
         ...leftItems,
-        ...collection.links.slice(rightIndex + rightItems.length, collection.links.length)
+        ...links.slice(rightIndex + rightItems.length, collection.links.length)
       ];
     },
 
