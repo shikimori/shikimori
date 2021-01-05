@@ -4,13 +4,15 @@ class Collection::Create < ServiceObjectBase
   pattr_initialize :params, :locale
 
   def call
-    model = Collection.create params
+    Collection.transaction do
+      model = Collection.create params
 
-    if model.persisted?
-      model.generate_topics model.locale, forum_id: Forum::HIDDEN_ID
+      if model.persisted?
+        model.generate_topics model.locale, forum_id: Forum::HIDDEN_ID
+      end
+
+      model
     end
-
-    model
   end
 
 private
