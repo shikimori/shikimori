@@ -1,4 +1,6 @@
 class Topics::UserContentView < Topics::View
+  delegate :unpublished?, to: :linked
+
   def generated?
     false
   end
