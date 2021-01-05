@@ -9,6 +9,10 @@ class Topics::CosplayView < Topics::UserContentView
     preview?
   end
 
+  def unpublished?
+    false
+  end
+
   def poster is_2x
     topic.user.avatar_url is_2x ? 80 : 48
   end

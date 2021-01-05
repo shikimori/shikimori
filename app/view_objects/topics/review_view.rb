@@ -11,6 +11,10 @@ class Topics::ReviewView < Topics::UserContentView
     is_preview || is_mini
   end
 
+  def unpublished?
+    false
+  end
+
   def action_tag
     OpenStruct.new(
       type: 'review',
