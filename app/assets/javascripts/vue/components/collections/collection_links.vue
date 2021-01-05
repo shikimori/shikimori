@@ -13,10 +13,12 @@
                 :for="'group_' + groupName"
               ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
               .move-left.b-js-link(
+                v-if='groups.length > 1'
                 :class='{ "is-disabled": index === 0 }'
                 @click='() => index === 0 ? null : moveGroupLeft(groupName)'
               )
               .move-right.b-js-link(
+                v-if='groups.length > 1'
                 :class='{ "is-disabled": index === groups.length - 1 }'
                 @click='() => index === groups.length - 1 ? null : moveGroupRight(groupName)'
               )
