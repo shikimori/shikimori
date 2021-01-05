@@ -7,7 +7,7 @@ class Topics::Generate::News::BaseTopic < Topics::Generate::Topic
 private
 
   def build_topic
-    model.news_topics.find_by(find_by_attributes) ||
+    model.news_topics.find_by(attributes_of_find_by) ||
       model.news_topics.build(topic_attributes)
   end
 
@@ -22,7 +22,7 @@ private
     )
   end
 
-  def find_by_attributes
+  def attributes_of_find_by
     super.merge topic_attributes.slice(:action, :value)
   end
 
