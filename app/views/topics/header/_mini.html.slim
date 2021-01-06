@@ -1,5 +1,9 @@
 .name-date
   .status-tags
+    - if topic_view.respond_to?(:unpublished?) && topic_view.unpublished?
+      .b-anime_status_tag.other[
+        data-text=t('.unpublished')
+      ]
     - if topic_view.action_tag
       .b-anime_status_tag[
         class=topic_view.action_tag.type
