@@ -7,6 +7,10 @@ header.head.misc
     .subheadline.m5 = i18n_i 'error', :other
     == @resource.errors.full_messages.join('<br>')
 
+= simple_form_for [@resource, @resource.collection_roles.new], html: { class: 'hidden' } do |f|
+  = f.input :collection_id
+  = f.input :user_id
+
 #collection_form[
   data-collection=CollectionSerializer.new(@resource, scope: self).to_json
   data-autocomplete_url=((@resource.ranobe? ? autocomplete_ranobe_index_url : send(:"autocomplete_#{@resource.kind.pluralize}_url", censored: false)) if @resource.persisted?)
@@ -41,15 +45,16 @@ header.head.misc
             | #{Collection.human_attribute_name :user}&nbsp;
             = render 'users/user_16', user: @resource.user
 
+          input.coauthor-suggest.subheadline-input.downgrade_landscape[
+            type='text'
+            placeholder=t('username')
+            data-autocomplete=autocomplete_users_url
+          ]
           .subheadline
             = t '.coauthors'
           - @resource.coauthors.each do |user|
             .m5
               = render 'users/user_16', user: user
-            / input[
-            /   type='text'
-            /   data-autocomplete=autocomplete_users_url
-            / ]
 
       = render 'blocks/shiki_editor',
         text: @resource.text,

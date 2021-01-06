@@ -6,19 +6,16 @@ pageLoad(
   () => {
     initVueApp();
 
-    // $nicknameInput
-    //   .completable()
-    //   .on('autocomplete:success autocomplete:text', (_e, entry) => {
-    //     if (entry.constructor === Object && entry.name) {
-    //       $nicknameInput.val(entry.name);
-    //     }
-    //     $nicknameInput.closest('form').submit();
-    //   })
-    //   .on('keydown', e => {
-    //     if (e.keyCode === 27) { // esc
-    //       $('.cancel', $inviteBlock).click();
-    //     }
-    //   });
+    const $coauthorSuggest = $('.coauthor-suggest');
+    if ($coauthorSuggest.length) {
+      $coauthorSuggest
+        .completable()
+        .on('autocomplete:success', (_e, entry) => {
+          const $form = $('#new_collection_role');
+          $form.find('#collection_role_user_id').val(entry.id);
+          $form.submit();
+        });
+    }
   }
 );
 
