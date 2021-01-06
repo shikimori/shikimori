@@ -23,8 +23,8 @@ class Abilities::User
       topic_abilities if @user.week_registered?
       comment_abilities if @user.day_registered?
       review_abilities if @user.week_registered?
-      collection_abilities if @user.week_registered?
       article_abilities if @user.week_registered?
+      collection_abilities if @user.week_registered?
       club_abilities
       club_image_abilities if @user.week_registered?
       oauth_applications_abilities if @user.day_registered?
@@ -168,15 +168,22 @@ class Abilities::User
     end
   end
 
+  def article_abilities
+    can %i[new create edit update destroy], Article do |article|
+      article.user_id == @user.id
+    end
+  end
+
   def collection_abilities
     can %i[new create edit update destroy], Collection do |collection|
       collection.user_id == @user.id
     end
-  end
 
-  def article_abilities
-    can %i[new create edit update destroy], Article do |article|
-      article.user_id == @user.id
+    can :create, CollectionRole do |collection_role|
+      collection_role.collection.user_id == @user.id
+    end
+    can :destroy, CollectionRole do |collection_role|
+      collection_role.user_id == @user.id || can?(:create, collection_role)
     end
   end
 

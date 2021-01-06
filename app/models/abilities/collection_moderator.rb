@@ -4,5 +4,6 @@ class Abilities::CollectionModerator
 
   def initialize _user
     can :manage, Collection
+    can :manage, CollectionRole
   end
 end
