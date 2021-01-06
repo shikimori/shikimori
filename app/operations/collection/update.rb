@@ -10,6 +10,9 @@ private
     if @model.update update_params
       @model.links.delete_all
       CollectionLink.import collection_links
+      # must touch because there can be no changes in update_params,
+      # but collection_links could be changed
+      @model.touch
     end
   end
 
