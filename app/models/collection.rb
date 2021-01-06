@@ -55,4 +55,12 @@ class Collection < ApplicationRecord
   def description_en
     text
   end
+
+  def coauthor? user
+    collection_role(user).present?
+  end
+
+  def collection_role user
+    collection_roles.find { |v| v.user_id == user.id }
+  end
 end

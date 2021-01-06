@@ -19,6 +19,40 @@ describe Collection do
     it { is_expected.to enumerize(:locale).in(*Types::Locale.values) }
   end
 
+  describe 'instance methods' do
+    describe '#collection_role' do
+      let(:user) { build_stubbed :user }
+      let(:collection) { build_stubbed :collection, collection_roles: [collection_role] }
+      let(:collection_role) { build_stubbed :collection_role, user: user }
+      subject { collection.collection_role user }
+
+      it { is_expected.to eq collection_role }
+    end
+
+    describe '#coauthor?' do
+      let(:collection) { build_stubbed :collection }
+      let(:user) { build_stubbed :user }
+      subject { collection.coauthor? user }
+
+      context 'owner' do
+        let(:collection) { build_stubbed :collection, user: user }
+        it { is_expected.to be false }
+      end
+
+      context 'admin' do
+        let(:collection) do
+          build_stubbed :collection,
+            collection_roles: [build_stubbed(:collection_role, user: user)]
+        end
+        it { is_expected.to be true }
+      end
+
+      context 'not a member' do
+        it { is_expected.to be false }
+      end
+    end
+  end
+
   describe 'permissions' do
     let(:collection) { build_stubbed :collection }
     let(:user) { build_stubbed :user, :user, :week_registered }

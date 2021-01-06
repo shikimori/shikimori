@@ -157,7 +157,10 @@ describe Club do
       end
 
       context 'admin' do
-        let(:club) { build_stubbed :club, member_roles: [build_stubbed(:club_role, :member, user: user)] }
+        let(:club) do
+          build_stubbed :club,
+            member_roles: [build_stubbed(:club_role, :member, user: user)]
+        end
         it { is_expected.to be true }
       end
 
@@ -177,7 +180,10 @@ describe Club do
       end
 
       context 'is admin' do
-        let(:club) { build_stubbed :club, member_roles: [build_stubbed(:club_role, :admin, user: user)] }
+        let(:club) do
+          build_stubbed :club,
+            member_roles: [build_stubbed(:club_role, :admin, user: user)]
+        end
         it { is_expected.to be true }
       end
 
@@ -207,7 +213,10 @@ describe Club do
       subject { club.invited? user }
 
       context 'invited' do
-        let(:club) { build_stubbed :club, invites: [build_stubbed(:club_invite, dst: user)] }
+        let(:club) do
+          build_stubbed :club,
+            invites: [build_stubbed(:club_invite, dst: user)]
+        end
         it { is_expected.to be true }
       end
 
@@ -408,7 +417,7 @@ describe Club do
           let(:image_upload_policy) { Types::Club::ImageUploadPolicy[:members] }
 
           context 'not member' do
-            let(:club_role) {}
+            let(:club_role) { nil }
             it { is_expected.to_not be_able_to :upload_image, club }
           end
 
@@ -421,7 +430,7 @@ describe Club do
           let(:image_upload_policy) { Types::Club::ImageUploadPolicy[:admins] }
 
           context 'not member' do
-            let(:club_role) {}
+            let(:club_role) { nil }
             it { is_expected.to_not be_able_to :upload_image, club }
           end
 
