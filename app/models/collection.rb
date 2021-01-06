@@ -18,6 +18,7 @@ class Collection < ApplicationRecord
     class_name: 'CollectionLink',
     dependent: :destroy
   has_many :collection_roles, dependent: :destroy
+  has_many :coauthors, through: :collection_roles, source: :user
 
   validates :name, :user, :kind, presence: true
   validates :locale, presence: true
