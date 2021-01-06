@@ -20,11 +20,19 @@ pageLoad('.clubs', () => {
     $('.cancel', $inviteBlock).click();
   });
 
-  $nicknameInput.on('keydown', e => {
-    if (e.keyCode === 27) { // esc
-      $('.cancel', $inviteBlock).click();
-    }
-  });
+  $nicknameInput
+    .completable()
+    .on('autocomplete:success autocomplete:text', (_e, entry) => {
+      if (entry.constructor === Object && entry.name) {
+        $nicknameInput.val(entry.name);
+      }
+      $nicknameInput.closest('form').submit();
+    })
+    .on('keydown', e => {
+      if (e.keyCode === 27) { // esc
+        $('.cancel', $inviteBlock).click();
+      }
+    });
 
   $('.upload input', $menu).on('change', ({ currentTarget }) => {
     $(currentTarget).closest('form').submit();

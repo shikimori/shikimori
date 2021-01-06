@@ -67,7 +67,12 @@
           html: { 'data-type' => :json } do |f|
         = f.input :club_id, as: :hidden
         = f.input :src_id, as: :hidden
-        = f.input :dst_id, as: :string, placeholder: t('username')
+        = f.input :dst_id,
+          as: :string,
+          placeholder: t('username'),
+          input_html: { \
+            'data-autocomplete': autocomplete_users_url \
+          }
 
         = f.button :magic_submit
         .cancel = t 'actions.cancel'
