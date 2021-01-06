@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_05_140924) do
+ActiveRecord::Schema.define(version: 2021_01_06_061246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -295,6 +295,15 @@ ActiveRecord::Schema.define(version: 2021_01_05_140924) do
     t.string "text", limit: 2048
     t.index ["collection_id", "linked_id", "group"], name: "uniq_collections_linked_links", unique: true
     t.index ["linked_type", "linked_id"], name: "index_collection_links_on_linked_type_and_linked_id"
+  end
+
+  create_table "collection_roles", force: :cascade do |t|
+    t.bigint "collection_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collection_id"], name: "index_collection_roles_on_collection_id"
+    t.index ["user_id"], name: "index_collection_roles_on_user_id"
   end
 
   create_table "collections", id: :serial, force: :cascade do |t|
@@ -1179,6 +1188,8 @@ ActiveRecord::Schema.define(version: 2021_01_05_140924) do
     t.index ["url"], name: "index_webm_videos_on_url", unique: true
   end
 
+  add_foreign_key "collection_roles", "collections"
+  add_foreign_key "collection_roles", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
 end
