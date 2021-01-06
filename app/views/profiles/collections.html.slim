@@ -4,8 +4,13 @@
     - if can? :access_collections, @resource
       .misc-links
         a[
-          href=(params.key?(:unpublished) ? current_url(unpublished: nil) : current_url(unpublished: '1'))
-        ] = params.key?(:unpublished) ? t('.unpublished') : t('.published')
+          href=current_url(unpublished: nil)
+          class=(:selected unless params.key?(:unpublished))
+        ] = t '.published'
+        a[
+          href=current_url(unpublished: '1')
+          class=(:selected if params.key?(:unpublished))
+        ] = t '.unpublished'
 
   .b-forum[
     data-faye='false'
