@@ -2,7 +2,7 @@ import dayjs from 'helpers/dayjs';
 
 const I18N_TIME_FORMATS = {
   ru: 'D MMMM YYYY, H:mm:ss',
-  en: 'MMMM Do YYYY, h:mm:ss a'
+  en: 'MMMM D YYYY, h:mm:ss a'
 };
 
 const I18N_DATE_FORMATS = {
