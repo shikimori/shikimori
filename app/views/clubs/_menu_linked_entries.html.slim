@@ -11,7 +11,7 @@
     - if club.send(kind).size != entries.size
       a href=url title=name
         = name
-        .count = entries.size
+        .count = club.send(kind).size
     - else
       = name
   .cc-4a
