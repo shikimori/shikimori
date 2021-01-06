@@ -7,7 +7,7 @@ header.head.misc
     .subheadline.m5 = i18n_i 'error', :other
     == @resource.errors.full_messages.join('<br>')
 
-- new_role = @resource.collection_roles.new
+- new_role = CollectionRole.new(collection: @resource)
 - if can? :create, new_role
   = simple_form_for [@resource, new_role], html: { class: 'hidden' } do |f|
     = f.input :collection_id
@@ -53,11 +53,22 @@ header.head.misc
               placeholder=t('username')
               data-autocomplete=autocomplete_users_url
             ]
-          .subheadline
+          .subheadline.m5
             = t '.coauthors'
-          - @resource.coauthors.each do |user|
-            .m5
-              = render 'users/user_16', user: user
+          .coauthors-hint.m5 = t '.note_about_page_reload'
+          - if @resource.collection_roles.any?
+            - @resource.collection_roles.each do |collection_role|
+              .m5
+                = render 'users/user_16', user: collection_role.user
+                - if can? :destroy, collection_role
+                  .remove-coauthor
+                    a.b-js-link[
+                      href=collection_collection_role_url(@resource, collection_role)
+                      data-method='delete'
+                      data-confirm=t('actions.confirm_simple')
+                    ] = t('actions.delete').downcase
+          - else
+            .b-nothing_here = t '.no_coauthors' 
 
       = render 'blocks/shiki_editor',
         text: @resource.text,

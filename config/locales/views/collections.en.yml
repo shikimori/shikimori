@@ -14,5 +14,8 @@ en:
         published: >-
           Cancellation of publication is not possible
       coauthors: Coauthors
+      note_about_page_reload: Adding or removing a co-author will cause the page to reload.
+         Make sure the changes to the collection are saved before this action.
+      no_coauthors: No coauthors
     preview:
       more: +%{count} more

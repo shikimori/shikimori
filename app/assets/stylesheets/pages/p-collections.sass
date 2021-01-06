@@ -1,3 +1,16 @@
+@import mixins/brackets_surrounded
+
 .p-collections-index
   .b-topic > .inner aside.buttons
     display: none
+
+.p-collections-new,
+.p-collections-create,
+.p-collections-edit,
+.p-collections-update
+  .remove-coauthor
+    +brackets_surrounded($padding: 2px)
+    font-size: 11px
+
+  .coauthors-hint
+    color: $gray-3
