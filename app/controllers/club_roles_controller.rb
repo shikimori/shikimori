@@ -1,7 +1,7 @@
 class ClubRolesController < ShikimoriController
   load_and_authorize_resource except: [:autocomplete]
 
-  # вступление в клуб
+  # join club
   def create
     @resource.club.join current_user
 
@@ -13,7 +13,7 @@ class ClubRolesController < ShikimoriController
       )
   end
 
-  # выход из клуба
+  # leave club
   def destroy
     @resource.club.leave current_user
     redirect_to club_url(@resource.club),

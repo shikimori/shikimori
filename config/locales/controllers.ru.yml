@@ -175,6 +175,10 @@ ru:
     invitation_accepted: Приглашение принято
     invitation_rejected: Приглашение отклонено
 
+  collection_roles_controller:
+    you_have_added_coauthor: Ты @{f:добавила|m:добавил} соавтора "%{coauthor}"
+    you_have_removed_coauthor: Ты @{f:удалила|m:удалил} соавтора "%{coauthor}"
+
   contests_controller:
     contests: Турниры
     new_contest: Новый турнир

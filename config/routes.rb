@@ -558,6 +558,7 @@ Rails.application.routes.draw do
 
   resources :collections, concerns: %i[autocompletable] do
     get '(/p-:page)' => 'collections#index', as: '', on: :collection
+    resources :collection_roles, only: %i[create destroy]
   end
 
   resources :articles do

@@ -7,8 +7,8 @@ describe ClubRolesController do
         params: {
           club_id: club.id,
           club_role: {
-            club_id: club.id, user_id:
-            user.id
+            club_id: club.id,
+            user_id: user.id
           }
         }
     end

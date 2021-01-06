@@ -176,6 +176,10 @@ en:
     invitation_accepted: Invitation accepted
     invitation_rejected: Invitation rejected
 
+  collection_roles_controller:
+    you_have_added_coauthor: You have added coauthor "%{nickname}"
+    you_have_removed_coauthor: You have removed coauthor "%{coauthor}"
+
   contests_controller:
     contests: Contests
     new_contest: New contest
