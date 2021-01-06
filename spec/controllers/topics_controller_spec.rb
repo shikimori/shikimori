@@ -214,7 +214,7 @@ describe TopicsController do
   end
 
   describe '#edit' do
-    let(:make_request) { get :edit, params: { id: topic.id } }
+    let(:make_request) { get :edit, params: { id: topic.to_param } }
 
     context 'guest' do
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
