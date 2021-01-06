@@ -1,11 +1,9 @@
-# TODO: move forum topics actions to Forum::TopicsController
-# other actions should stay here
+# TODO: move forum topics actions to Forum::TopicsController other actions should stay here
 class TopicsController < ShikimoriController
   before_action :check_post_permission, only: %i[create update destroy]
-  load_and_authorize_resource(
-    class: Topic,
-    only: %i[new create edit update destroy]
-  )
+
+  load_and_authorize_resource class: Topic, only: %i[new create update destroy]
+  load_resource class: Topic, only: %i[edit]
 
   before_action :fetch_topic, only: %i[show tooltip]
   before_action :set_view
@@ -60,6 +58,7 @@ class TopicsController < ShikimoriController
 
   def edit
     ensure_redirect! @topic_view.urls.edit_url if params[:action] == 'edit'
+    authorize! :edit, @resource
   end
 
   def create
