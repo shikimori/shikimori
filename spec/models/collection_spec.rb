@@ -113,10 +113,25 @@ describe Collection do
       it { is_expected.to be_able_to :manage, collection }
     end
 
+    context 'collection coauthor' do
+      let(:collection) { create :collection, user: user_2 }
+      let(:user) { user_3 }
+      let!(:collection_role) do
+        create :collection_role, user: user, collection: collection
+      end
+      it { is_expected.to_not be_able_to :new, collection }
+      it { is_expected.to_not be_able_to :create, collection }
+      it { is_expected.to be_able_to :edit, collection }
+      it { is_expected.to be_able_to :update, collection }
+      it { is_expected.to_not be_able_to :destroy, collection }
+    end
+
     context 'user' do
       it { is_expected.to be_able_to :read, collection }
       it { is_expected.to_not be_able_to :new, collection }
+      it { is_expected.to_not be_able_to :create, collection }
       it { is_expected.to_not be_able_to :edit, collection }
+      it { is_expected.to_not be_able_to :update, collection }
       it { is_expected.to_not be_able_to :destroy, collection }
     end
 

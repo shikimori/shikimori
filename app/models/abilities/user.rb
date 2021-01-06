@@ -178,7 +178,9 @@ class Abilities::User
     can %i[new create edit update destroy], Collection do |collection|
       collection.user_id == @user.id
     end
-
+    can %i[edit update], Collection do |collection|
+      collection.coauthor? @user
+    end
     can :create, CollectionRole do |collection_role|
       collection_role.collection.user_id == @user.id
     end
