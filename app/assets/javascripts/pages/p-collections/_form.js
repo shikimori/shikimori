@@ -5,6 +5,20 @@ pageLoad(
   'collections_update',
   () => {
     initVueApp();
+
+    // $nicknameInput
+    //   .completable()
+    //   .on('autocomplete:success autocomplete:text', (_e, entry) => {
+    //     if (entry.constructor === Object && entry.name) {
+    //       $nicknameInput.val(entry.name);
+    //     }
+    //     $nicknameInput.closest('form').submit();
+    //   })
+    //   .on('keydown', e => {
+    //     if (e.keyCode === 27) { // esc
+    //       $('.cancel', $inviteBlock).click();
+    //     }
+    //   });
   }
 );
 
