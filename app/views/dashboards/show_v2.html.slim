@@ -133,9 +133,10 @@
     = cache @view.cache_keys[:db_updates] do
       .block2
         .headline.magenta.m15
-          a[
+          a.to-process[
             href=forum_topics_url(:updates)
             title=t('.generated_news')
+            data-dynamic='week_registereD'
           ] = t '.generated_news'
         .db-updates
           .mobile-slider-prev

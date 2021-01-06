@@ -131,7 +131,7 @@ private
     end
   end
 
-  def parse_list tag_sequence
+  def parse_list tag_sequence # rubocop:disable MethodLength
     is_first_line = true
     prior_sequence = @nested_sequence
     @nesting += 1
