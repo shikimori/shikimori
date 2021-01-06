@@ -56,7 +56,7 @@ module.exports = {
       });
     },
     renameGroup({ commit }, data) { commit('RENAME_GROUP', data); },
-    Refill({ commit }, data) { commit('REFILL', data); }
+    refill({ commit }, data) { commit('REFILL', data); }
   },
 
   mutations: {
