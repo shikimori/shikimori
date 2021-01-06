@@ -115,6 +115,8 @@ en:
       no_achievements: No achievements yet.
       moderation:
         amount: Amount
+      published: published
+      unpublished: not published
 
     edit:
       account:

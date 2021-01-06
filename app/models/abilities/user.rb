@@ -143,10 +143,7 @@ class Abilities::User
         false
       end
     end
-    can :access_messages, User do |user|
-      user == @user
-    end
-    can [:edit, :update], User do |user|
+    can %i[edit update access_messages access_collections], User do |user|
       user == @user || @user.admin?
     end
 

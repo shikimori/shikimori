@@ -108,7 +108,15 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
 
     scope = @resource.topics
       .where(type: Topics::EntryTopics::CollectionTopic.name)
+      .joins('left join collections on collections.id = linked_id')
       .order(created_at: :desc)
+
+    scope =
+      if params.key?(:unpublished) && can?(:access_collections, @resource)
+        scope.where(collections: { state: :unpublished })
+      else
+        scope.where.not(collections: { state: :unpublished })
+      end
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, TOPICS_LIMIT)

@@ -1,5 +1,12 @@
 = render layout: 'page' do
-  h2.subheadline = og.headline
+  h2.subheadline
+    = og.headline
+    - if can? :access_collections, @resource
+      .misc-links
+        a[
+          href=(params.key?(:unpublished) ? current_url(unpublished: nil) : current_url(unpublished: '1'))
+        ] = params.key?(:unpublished) ? t('.unpublished') : t('.published')
+
   .b-forum[
     data-faye='false'
   ]
