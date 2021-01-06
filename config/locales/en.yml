@@ -253,6 +253,7 @@ en:
         kind: Type
         text: Description
         state: State
+        user: Creator
       article:
         name: Name
         text: Text

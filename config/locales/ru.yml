@@ -253,6 +253,7 @@ ru:
         kind: Тип
         text: Описание
         state: Статус
+        user: Создатель
       collection_link:
         group: Группа
         text: Комментарий
