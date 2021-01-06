@@ -5,17 +5,15 @@ describe ClubRole do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :user }
-    it { is_expected.to validate_presence_of :club }
     it { is_expected.to validate_presence_of :role }
 
     it 'uniq index on user_id+club_id is_expected.to work' do
-      expect {
-        expect {
+      expect(proc do
+        expect(proc do
           club.members << user
           club.members << user
-        }.to raise_error(ActiveRecord::RecordNotUnique)
-      }.to change(ClubRole, :count).by 1
+        end).to raise_error(ActiveRecord::RecordNotUnique)
+      end).to change(ClubRole, :count).by 1
     end
   end
 

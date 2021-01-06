@@ -51,7 +51,7 @@ class User < ApplicationRecord
 
   attribute :last_online_at, :datetime, default: -> { Time.zone.now }
 
-  has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
+  has_one :preferences, dependent: :destroy, class_name: 'UserPreferences'
   accepts_nested_attributes_for :preferences
 
   has_many :oauth_applications,
@@ -71,16 +71,16 @@ class User < ApplicationRecord
   has_many :user_tokens, dependent: :destroy
 
   has_many :achievements, dependent: :destroy
-  has_many :comments_all, class_name: Comment.name, dependent: :destroy
+  has_many :comments_all, class_name: 'Comment', dependent: :destroy
   has_many :abuse_requests, dependent: :destroy
 
   has_many :anime_rates, -> { where target_type: Anime.name },
-    class_name: UserRate.name,
+    class_name: 'UserRate',
     source: :target_id,
     dependent: :destroy
 
   has_many :manga_rates, -> { where target_type: Manga.name },
-    class_name: UserRate.name,
+    class_name: 'UserRate',
     source: :target_id,
     dependent: :destroy
 
@@ -89,23 +89,28 @@ class User < ApplicationRecord
   has_many :topic_viewings, dependent: :delete_all
   has_many :comment_viewings, dependent: :delete_all
 
-  has_many :history, class_name: UserHistory.name, dependent: :destroy
+  has_many :history, class_name: 'UserHistory', dependent: :destroy
 
   has_many :friend_links, foreign_key: :src_id, dependent: :destroy
   has_many :friends, through: :friend_links, source: :dst
 
   has_many :favourites, dependent: :destroy
   has_many :favourite_seyu, -> { where kind: Types::Favourite::Kind[:seyu] },
-    class_name: Favourite.name
+    class_name: 'Favourite'
   has_many :favourite_producers, -> { where kind: Types::Favourite::Kind[:producer] },
-    class_name: Favourite.name
+    class_name: 'Favourite'
   has_many :favourite_mangakas, -> { where kind: Types::Favourite::Kind[:mangaka] },
-    class_name: Favourite.name
+    class_name: 'Favourite'
   has_many :favourite_persons, -> { where kind: Types::Favourite::Kind[:person] },
-    class_name: Favourite.name
+    class_name: 'Favourite'
 
-  has_many :messages, foreign_key: :to_id, dependent: :destroy
-  has_many :messages_from, foreign_key: :from_id, dependent: :destroy, class_name: Message.name
+  has_many :messages,
+    foreign_key: :to_id,
+    dependent: :destroy
+  has_many :messages_from,
+    foreign_key: :from_id,
+    class_name: 'Message',
+    dependent: :destroy
 
   has_many :reviews, dependent: :destroy
 
@@ -114,21 +119,22 @@ class User < ApplicationRecord
 
   has_many :club_roles, dependent: :destroy
   has_many :club_admin_roles, -> { where role: :admin },
-    class_name: ClubRole.name
+    class_name: 'ClubRole'
   has_many :clubs, through: :club_roles
   has_many :club_images, dependent: :destroy
 
   has_many :collections, dependent: :destroy
+  has_many :collection_roles, dependent: :destroy
   has_many :articles, dependent: :destroy
 
   has_many :versions, dependent: :destroy
 
-  has_many :topics, class_name: Topic.name, dependent: :destroy
+  has_many :topics, class_name: 'Topic', dependent: :destroy
   has_many :topic_ignores, dependent: :destroy
   has_many :ignored_topics, through: :topic_ignores, source: :topic
 
   has_many :nickname_changes,
-    class_name: UserNicknameChange.name,
+    class_name: 'UserNicknameChange',
     dependent: :destroy
   has_many :recommendation_ignores, dependent: :destroy
 

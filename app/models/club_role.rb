@@ -7,7 +7,7 @@ class ClubRole < ApplicationRecord
 
   enumerize :role, in: %i[member admin], defualt: :member, predicates: true
 
-  validates :user, :club, :role, presence: true
+  validates :role, presence: true
 
 private
 

@@ -2,6 +2,7 @@ describe Collection do
   describe 'relations' do
     it { is_expected.to belong_to :user }
     it { is_expected.to have_many(:links).dependent :destroy }
+    it { is_expected.to have_many(:collection_roles).dependent :destroy }
   end
 
   describe 'validations' do

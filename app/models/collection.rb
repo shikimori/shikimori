@@ -17,6 +17,7 @@ class Collection < ApplicationRecord
     inverse_of: :collection,
     class_name: 'CollectionLink',
     dependent: :destroy
+  has_many :collection_roles, dependent: :destroy
 
   validates :name, :user, :kind, presence: true
   validates :locale, presence: true
