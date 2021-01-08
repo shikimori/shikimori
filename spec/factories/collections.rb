@@ -7,6 +7,7 @@ FactoryBot.define do
     moderation_state { :pending }
     text { '' }
     locale { :ru }
+    published_at { nil }
 
     Types::Collection::State.values.each { |value| trait(value) { state { value } } }
     Types::Collection::Kind.values.each { |value| trait(value) { kind { value } } }
