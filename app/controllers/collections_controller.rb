@@ -28,11 +28,12 @@ class CollectionsController < ShikimoriController
   end
 
   def show
-    unless @resource.published?
-      raise ActiveRecord::RecordNotFound unless can?(:edit, @resource)
-      breadcrumb @resource.name, edit_collection_url(@resource)
-      breadcrumb t('actions.preview'), nil
+    if @resource.unpublished? && cannot?(:edit, @resource)
+      raise ActiveRecord::RecordNotFound
     end
+
+    breadcrumb @resource.name, edit_collection_url(@resource)
+    breadcrumb t('actions.preview'), nil
 
     og page_title: @resource.name
     @topic_view = Topics::TopicViewFactory
