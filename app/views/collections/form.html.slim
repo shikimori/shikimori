@@ -30,17 +30,63 @@ header.head.misc
             disabled: @resource.persisted?
 
           - if @resource.persisted?
-            = f.input :state,
+            .b-input
+              label = Collection.human_attribute_name :state
+              div: b = @resource.human_state_name
+              .collection-state-hint = t ".hint.#{@resource.state_name}"
+            / = f.input :state,
               include_blank: false,
-              disabled: @resource.published?,
-              hint: t(".hint.#{@resource.state}").html_safe
+              disabled: true
+              / disabled: @resource.published?,
+              / hint: t(".hint.#{@resource.state}").html_safe
 
-            - if @resource.unpublished?
-              .b-input
-                a.b-button.blue[
+            - if can? :manage, @resource
+              div[
+                class=(@resource.unpublished? ? 'b-input' : 'cc-2')
+              ]
+                - if @resource.can_to_published?
+                  .b-input[
+                    class=('c-column' unless @resource.unpublished?)
+                  ]
+                    a.b-button.m3
+                      = t '.to_published'
+                    .collection-state-hint
+                      = t '.hint.published'
+                    .page-reload-hint
+                      == t '.note_about_page_reload'
+
+                - if @resource.can_to_private?
+                  .b-input[
+                    class=('c-column' unless @resource.unpublished?)
+                  ]
+                    a.b-button.m3
+                      = t '.to_private'
+                    .collection-state-hint
+                      = t '.hint.private'
+                    .page-reload-hint
+                      == t '.note_about_page_reload'
+
+                - if @resource.can_to_hidden?
+                  .b-input[
+                    class=('c-column' unless @resource.unpublished?)
+                  ]
+                    a.b-button.m3
+                      = t '.to_hidden'
+                    .collection-state-hint
+                      = t '.hint.hidden'
+                    .page-reload-hint
+                      == t '.note_about_page_reload'
+
+            .b-input
+              - if @resource.unpublished?
+                a.b-button.blue.is-external_link[
                   target='_blank'
                   href=collection_url(@resource)
                 ] = t 'actions.preview'
+              - else
+                a.b-button.blue.is-arrow[
+                  href=collection_url(@resource)
+                ] = t '.to_collection'
         .c-column
           - if @resource.persisted?
             .m5
@@ -56,7 +102,7 @@ header.head.misc
               ]
             .subheadline.m5
               = t '.coauthors'
-            .coauthors-hint.m5 = t '.note_about_page_reload'
+            .page-reload-hint.m5 == t '.note_about_page_reload'
             - if @resource.collection_roles.any?
               - @resource.collection_roles.each do |collection_role|
                 .m5

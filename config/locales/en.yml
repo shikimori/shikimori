@@ -405,6 +405,12 @@ en:
           pending: importing
           finished: imported
           failed: failed
+      collection:
+        states:
+          unpublished: Not published
+          published: Published
+          private: Private
+          hidden: Hidden
 
   activemodel:
     errors:
@@ -589,9 +595,6 @@ en:
         ranobe: Light Novels
         character: Characters
         person: People
-      state:
-        unpublished: Not published
-        published: Published
     article:
       state:
         unpublished: Not published

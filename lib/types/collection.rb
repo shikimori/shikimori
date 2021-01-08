@@ -6,6 +6,6 @@ module Types
 
     State = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(:unpublished, :published)
+      .enum(:unpublished, :private, :hidden, :published)
   end
 end

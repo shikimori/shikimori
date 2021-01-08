@@ -22,9 +22,13 @@
       border-color: darken($link-4, 2%)
       color: #fff
 
-    &:after
-      +font_shikimori('\f08e')
-      padding-left: 6px
+  &.is-external_link:after
+    +font_shikimori('\f08e')
+    padding-left: 6px
+
+  &.is-arrow:after
+    +font_shikimori('\e850')
+    padding-left: 6px
 
 a.b-button
   color: #fff

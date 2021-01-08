@@ -405,6 +405,12 @@ ru:
           pending: импортируется
           finished: импортировано
           failed: ошибка
+      collection:
+        states:
+          unpublished: Не опубликовано
+          published: Опубликовано
+          private: Личная
+          hidden: Скрытая
 
   activemodel:
     errors:
@@ -589,9 +595,6 @@ ru:
         ranobe: Ранобэ
         character: Персонажи
         person: Люди
-      state:
-        unpublished: Не опубликовано
-        published: Опубликовано
     article:
       state:
         unpublished: Не опубликовано

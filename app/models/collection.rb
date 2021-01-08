@@ -24,12 +24,23 @@ class Collection < ApplicationRecord
   validates :locale, presence: true
 
   enumerize :kind, in: Types::Collection::Kind.values, predicates: true
-  enumerize :state, in: Types::Collection::State.values, predicates: true
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
+  # enumerize :state, in: Types::Collection::State.values, predicates: true
 
   scope :unpublished, -> { where state: :unpublished }
   scope :published, -> { where state: :published }
   scope :available, -> { published.where.not(moderation_state: :rejected) }
+
+  state_machine :state, initial: :unpublished do
+    state :unpublished
+    state :published
+    state :private
+    state :hidden
+
+    event(:to_published) { transition %i[unpublished private hidden] => :published }
+    event(:to_private) { transition %i[unpublished published hidden] => :private }
+    event(:to_hidden) { transition %i[unpublished published private] => :hidden }
+  end
 
   def to_param
     "#{id}-#{name.permalinked}"

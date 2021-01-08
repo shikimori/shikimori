@@ -8,14 +8,28 @@ en:
     form:
       hint:
         unpublished: >-
-          The publication will make the collection visible to everyone and
-          create a topic on the forum<br>
-          Cancellation of publication is not possible.
+          The collection is not displayed on the forum, is not moderated,
+          not visible in the author's profile,
+          not available for viewing and commenting by site users.
         published: >-
-          Cancellation of publication is not possible
+          The collection is displayed on the forum, moderated,
+          visible in the author's profile,
+          available for viewing and commenting by site users.
+        private: >-
+          The collection is not displayed on the forum, is not moderated,
+          visible in the author's profile,
+          available for viewing and commenting by site users.
+        hidden:
+          The collection is not displayed on the forum, is not moderated,
+          not visible in the author's profile,
+          not available for viewing and commenting by site users.
+      to_published: Publish
+      to_private: Make private
+      to_hidden: Make hidden
+      to_collection: To collection
       coauthors: Coauthors
-      note_about_page_reload: Adding or removing a co-author will cause the page to reload.
-         Make sure the changes to the collection are saved before this action.
+      note_about_page_reload: >-
+        Will cause page reload. Make sure the collection is saved before changing.
       no_coauthors: No coauthors
     preview:
       more: +%{count} more
