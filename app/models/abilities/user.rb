@@ -172,7 +172,16 @@ class Abilities::User
   end
 
   def collection_abilities
-    can :manage, Collection do |collection|
+    can %i[
+      new
+      create
+      edit
+      update
+      destroy
+      to_published
+      to_private
+      to_hidden
+    ], Collection do |collection|
       collection.user_id == @user.id
     end
     can %i[edit update], Collection do |collection|

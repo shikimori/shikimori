@@ -9,7 +9,10 @@ FactoryBot.define do
     locale { :ru }
     published_at { nil }
 
-    Types::Collection::State.values.each { |value| trait(value) { state { value } } }
+    Collection.state_machine.states.map(&:value).each do |value|
+      trait(value.to_sym) { state { value } }
+    end
+
     Types::Collection::Kind.values.each { |value| trait(value) { kind { value } } }
 
     after :build do |model|

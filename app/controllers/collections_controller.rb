@@ -5,7 +5,7 @@ class CollectionsController < ShikimoriController
   before_action :set_breadcrumbs, except: :index
   before_action :resource_redirect, if: :resource_id
 
-  UPDATE_PARAMS = %i[name text state] + [
+  UPDATE_PARAMS = %i[name text] + [
     links: %w[linked_id group text]
   ]
   CREATE_PARAMS = %i[user_id kind] + UPDATE_PARAMS
@@ -63,8 +63,8 @@ class CollectionsController < ShikimoriController
     render :form
   end
 
-  def update
-    Collection::Update.call @resource, update_params
+  def update changes = update_params
+    Collection::Update.call @resource, changes
 
     if @resource.errors.blank?
       redirect_to edit_collection_url(@resource), notice: t('changes_saved')
@@ -72,6 +72,16 @@ class CollectionsController < ShikimoriController
       flash[:alert] = t('changes_not_saved')
       edit
     end
+  end
+
+  def to_published
+    # update state: :published
+  end
+
+  def to_private
+  end
+
+  def to_hidden
   end
 
   def destroy

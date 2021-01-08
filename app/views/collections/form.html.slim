@@ -34,59 +34,6 @@ header.head.misc
               label = Collection.human_attribute_name :state
               div: b = @resource.human_state_name
               .collection-state-hint = t ".hint.#{@resource.state_name}"
-            / = f.input :state,
-              include_blank: false,
-              disabled: true
-              / disabled: @resource.published?,
-              / hint: t(".hint.#{@resource.state}").html_safe
-
-            - if can? :manage, @resource
-              div[
-                class=(@resource.unpublished? ? 'b-input' : 'cc-2')
-              ]
-                - if @resource.can_to_published?
-                  .b-input[
-                    class=('c-column' unless @resource.unpublished?)
-                  ]
-                    a.b-button.m3
-                      = t '.to_published'
-                    .collection-state-hint
-                      = t '.hint.published'
-                    .page-reload-hint
-                      == t '.note_about_page_reload'
-
-                - if @resource.can_to_private?
-                  .b-input[
-                    class=('c-column' unless @resource.unpublished?)
-                  ]
-                    a.b-button.m3
-                      = t '.to_private'
-                    .collection-state-hint
-                      = t '.hint.private'
-                    .page-reload-hint
-                      == t '.note_about_page_reload'
-
-                - if @resource.can_to_hidden?
-                  .b-input[
-                    class=('c-column' unless @resource.unpublished?)
-                  ]
-                    a.b-button.m3
-                      = t '.to_hidden'
-                    .collection-state-hint
-                      = t '.hint.hidden'
-                    .page-reload-hint
-                      == t '.note_about_page_reload'
-
-            .b-input
-              - if @resource.unpublished?
-                a.b-button.blue.is-external_link[
-                  target='_blank'
-                  href=collection_url(@resource)
-                ] = t 'actions.preview'
-              - else
-                a.b-button.blue.is-arrow[
-                  href=collection_url(@resource)
-                ] = t '.to_collection'
         .c-column
           - if @resource.persisted?
             .m5
@@ -117,6 +64,46 @@ header.head.misc
             - else
               .b-nothing_here = t '.no_coauthors' 
 
+      - if can? :destroy, @resource
+        .cc-3
+          - if @resource.can_to_published?
+            .c-column.b-input
+              a.b-button.m3
+                = t '.to_published'
+              .collection-state-hint
+                = t '.hint.published'
+              .page-reload-hint
+                == t '.note_about_page_reload'
+
+          - if @resource.can_to_private?
+            .c-column.b-input
+              a.b-button.m3
+                = t '.to_private'
+              .collection-state-hint
+                = t '.hint.private'
+              .page-reload-hint
+                == t '.note_about_page_reload'
+
+          - if @resource.can_to_hidden?
+            .c-column.b-input
+              a.b-button.m3
+                = t '.to_hidden'
+              .collection-state-hint
+                = t '.hint.hidden'
+              .page-reload-hint
+                == t '.note_about_page_reload'
+
+      .b-input
+        - if @resource.unpublished?
+          a.b-button.blue.is-external_link[
+            target='_blank'
+            href=collection_url(@resource)
+          ] = t 'actions.preview'
+        - else
+          a.b-button.blue.is-arrow[
+            href=collection_url(@resource)
+          ] = t '.to_collection'
+
       = render 'blocks/shiki_editor',
         text: @resource.text,
         field_name: 'collection[text]',
@@ -129,7 +116,7 @@ header.head.misc
         a.cancel href=collections_url = t 'actions.cancel'
         = f.button :magic_submit
 
-      - if @resource.persisted?
+      - if @resource.persisted? && can?(:destroy, @resource)
         a.remove[
           href=collection_url(@resource)
           title=t('actions.delete')

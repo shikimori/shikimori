@@ -40,6 +40,10 @@ class Collection < ApplicationRecord
     event(:to_published) { transition %i[unpublished private hidden] => :published }
     event(:to_private) { transition %i[unpublished published hidden] => :private }
     event(:to_hidden) { transition %i[unpublished published private] => :hidden }
+
+    # before_transition %i[unpublished private hidden] => :published do |collection, _transition|
+    #   collection.published_at ||= Time.zone.now
+    # end
   end
 
   def to_param

@@ -15,7 +15,7 @@ class Article < ApplicationRecord
   validates :locale, presence: true
 
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
-  enumerize :state, in: Types::Collection::State.values, predicates: true
+  enumerize :state, in: Types::Article::State.values, predicates: true
 
   scope :unpublished, -> { where state: :unpublished }
   scope :published, -> { where state: :published }
