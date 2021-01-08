@@ -7766,6 +7766,7 @@
         - 13431
         - 41114
         - 34834
+        - 1422
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
