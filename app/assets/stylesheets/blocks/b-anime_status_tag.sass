@@ -3,64 +3,71 @@
 
 .b-anime_status_tag
   &.released
-    +static_marker(white, $released_tag)
+    +static_marker(#fff, $released_tag)
 
     // &.light
     //   background-color: #699e5d
     //   border: 1px solid darken(#699e5d, 1.5%)
 
   &.anons
-    +static_marker(white, $anons_tag)
+    +static_marker(#fff, $anons_tag)
 
     // &.light
     //   background-color: #c16348
     //   border: 1px solid darken(#c16348, 1.5%)
 
   &.ongoing
-    +static_marker(white, $ongoing_tag)
+    +static_marker(#fff, $ongoing_tag)
 
     // &.light
     //   background-color: #4f84ba
     //   border: 1px solid darken(#4f84ba, 1.5%)
 
   &.discontinued
-    +static_marker(white, #b19143)
+    +static_marker(#fff, #b19143)
 
   &.paused
-    +static_marker(white, #a063cf)
+    +static_marker(#fff, #a063cf)
 
   &.episode,
   &.studio,
     +static_marker(#123, #e8ebf0)
 
-  &.other
+  &.other,
     +static_marker(#fff, #678)
-  // &.studio
-    +marker(#123, #e8ebf0, darken(#e8ebf0, 6%), lighten(#e8ebf0, 6%))
 
   &.contest
-    +static_marker(white, #a063cf)
+    +static_marker(#fff, #a063cf)
 
   &.news
-    +static_marker(white, #ff8a3c)
+    +static_marker(#fff, #ff8a3c)
 
   &.review
-    +static_marker(white, #f477ad)
+    +static_marker(#fff, #f477ad)
 
   &.collection
-    +static_marker(white, #48cb53)
+    +static_marker(#fff, #48cb53)
 
   &.article
-    +static_marker(white, #c16348)
+    +static_marker(#fff, #c16348)
 
   &.cosplay
-    +static_marker(white, #f7b42c)
+    +static_marker(#fff, #f7b42c)
 
   &.offtopic
     +static_marker(#f58ebb, #fdebf3)
 
   &.ignored
-    +static_marker(white, $red)
+    +static_marker(#fff, $red)
 
   &.broadcast
-    +static_marker(white, #f477ad)
+    +static_marker(#fff, #f477ad)
+
+  &.unpublished-collection
+    +static_marker(#fff, #678)
+
+  &.private-collection
+    +static_marker(#fff, #81cfea)
+
+  &.hidden-collection
+    +static_marker(#fff, #a063cf)

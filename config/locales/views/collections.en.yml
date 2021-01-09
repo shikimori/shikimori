@@ -28,6 +28,7 @@ en:
       to_hidden: Make hidden
       to_collection: To collection
       coauthors: Coauthors
+      confirm_status_change: Confirm status change
       note_about_page_reload: >-
         Will cause page reload. Make sure the collection is saved before changing.
       no_coauthors: No coauthors

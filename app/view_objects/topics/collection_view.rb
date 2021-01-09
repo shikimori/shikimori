@@ -34,10 +34,21 @@ class Topics::CollectionView < Topics::UserContentView
   end
 
   def action_tag
-    OpenStruct.new(
+    tags = Array(super)
+
+    unless collection.published?
+      tags << OpenStruct.new(
+        type: "#{collection.state_name}-collection",
+        text: collection.human_state_name.downcase
+      )
+    end
+
+    tags << OpenStruct.new(
       type: 'collection',
       text: Collection.model_name.human.downcase
     )
+
+    tags
   end
 
   def collection
