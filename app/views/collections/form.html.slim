@@ -33,7 +33,7 @@ header.head.misc
             .b-input
               label = Collection.human_attribute_name :state
               div: b = @resource.human_state_name
-              .collection-state-hint = t ".hint.#{@resource.state_name}"
+              .collection-state-hint == t ".hint.#{@resource.state_name}"
         .c-column
           - if @resource.persisted?
             .m5
@@ -68,16 +68,24 @@ header.head.misc
         .cc-3
           - if @resource.can_to_published?
             .c-column.b-input
-              a.b-button.m3
+              a.b-button.m3[
+                href=to_published_collection_url(@resource)
+                data-method='post'
+                data-confirm=t('.confirm_status_change')
+              ]
                 = t '.to_published'
               .collection-state-hint
-                = t '.hint.published'
+                == t '.hint.published'
               .page-reload-hint
                 == t '.note_about_page_reload'
 
           - if @resource.can_to_private?
             .c-column.b-input
-              a.b-button.m3
+              a.b-button.m3[
+                href=to_private_collection_url(@resource)
+                data-method='post'
+                data-confirm=t('.confirm_status_change')
+              ]
                 = t '.to_private'
               .collection-state-hint
                 = t '.hint.private'
@@ -86,7 +94,11 @@ header.head.misc
 
           - if @resource.can_to_hidden?
             .c-column.b-input
-              a.b-button.m3
+              a.b-button.m3[
+                href=to_hidden_collection_url(@resource)
+                data-method='post'
+                data-confirm=t('.confirm_status_change')
+              ]
                 = t '.to_hidden'
               .collection-state-hint
                 = t '.hint.hidden'
