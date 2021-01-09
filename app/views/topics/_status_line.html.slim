@@ -35,7 +35,8 @@
     - if topic_type_policy.collection_topic?
       span.collection-size = topic_view.collection.size
 
-    span.comments == topic_view.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
+    - if topic_type_policy.commentable_topic?
+      span.comments == topic_view.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
 
     - if topic_type_policy.votable_topic?
       = render 'topics/reviews/votes_count', review: topic_view.topic.linked

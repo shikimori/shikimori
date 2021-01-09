@@ -214,13 +214,41 @@ describe Topic::TypePolicy do
     end
   end
 
-  describe '#votable_topic?' do
-    subject { policy.votable_topic? }
+  describe '#commentable_topic?' do
+    subject { policy.commentable_topic? }
+
+    context 'collection_topic' do
+      let(:topic) { collection_topic }
+
+      context 'unpublished' do
+        let(:collection_state) { :unpublished }
+        it { is_expected.to eq false }
+      end
+
+      context 'published' do
+        let(:collection_state) { :published }
+        it { is_expected.to eq true }
+      end
+
+      context 'hidden' do
+        let(:collection_state) { :hidden }
+        it { is_expected.to eq true }
+      end
+
+      context 'private' do
+        let(:collection_state) { :private }
+        it { is_expected.to eq false }
+      end
+    end
 
     context 'other' do
       let(:topic) { forum_topic }
-      it { is_expected.to eq false }
+      it { is_expected.to eq true }
     end
+  end
+
+  describe '#votable_topic?' do
+    subject { policy.votable_topic? }
 
     context 'review_topic' do
       let(:topic) { review_topic }
@@ -254,6 +282,11 @@ describe Topic::TypePolicy do
         let(:collection_state) { :private }
         it { is_expected.to eq false }
       end
+    end
+
+    context 'other' do
+      let(:topic) { forum_topic }
+      it { is_expected.to eq false }
     end
   end
 end

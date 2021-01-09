@@ -57,6 +57,10 @@ class Topic::TypePolicy
     topic.instance_of? Topics::EntryTopics::ArticleTopic
   end
 
+  def commentable_topic?
+    !collection_topic? || topic.linked.published? || topic.linked.hidden?
+  end
+
   def votable_topic?
     review_topic? || cosplay_gallery_topic? || (
       collection_topic? && (topic.linked.published? || topic.linked.hidden?)
