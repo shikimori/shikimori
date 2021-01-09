@@ -37,5 +37,5 @@
 
     span.comments == topic_view.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
 
-    - if topic_type_policy.review_topic? || topic_type_policy.cosplay_gallery_topic? || topic_type_policy.collection_topic?
+    - if topic_type_policy.votable_topic?
       = render 'topics/reviews/votes_count', review: topic_view.topic.linked

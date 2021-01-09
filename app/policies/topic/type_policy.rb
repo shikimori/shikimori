@@ -1,14 +1,12 @@
-# frozen_string_literal: true
-
 class Topic::TypePolicy
   pattr_initialize :topic
 
   def forum_topic?
-    topic.class.name == Topic.name || club_user_topic?
+    topic.instance_of?(Topic) || club_user_topic?
   end
 
   def news_topic?
-    topic.class.name == Topics::NewsTopic.name
+    topic.instance_of? Topics::NewsTopic
   end
 
   def generated_news_topic?
@@ -20,31 +18,31 @@ class Topic::TypePolicy
   end
 
   def review_topic?
-    topic.class.name == Topics::EntryTopics::ReviewTopic.name
+    topic.instance_of? Topics::EntryTopics::ReviewTopic
   end
 
   def cosplay_gallery_topic?
-    topic.class.name == Topics::EntryTopics::CosplayGalleryTopic.name
+    topic.instance_of? Topics::EntryTopics::CosplayGalleryTopic
   end
 
   def contest_topic?
-    topic.class.name == Topics::EntryTopics::ContestTopic.name
+    topic.instance_of? Topics::EntryTopics::ContestTopic
   end
 
   def contest_status_topic?
-    topic.class.name == Topics::NewsTopics::ContestStatusTopic.name
+    topic.instance_of? Topics::NewsTopics::ContestStatusTopic
   end
 
   def club_topic?
-    topic.class.name == Topics::EntryTopics::ClubTopic.name
+    topic.instance_of? Topics::EntryTopics::ClubTopic
   end
 
   def club_user_topic?
-    topic.class.name == Topics::ClubUserTopic.name
+    topic.instance_of? Topics::ClubUserTopic
   end
 
   def club_page_topic?
-    topic.class.name == Topics::EntryTopics::ClubPageTopic.name
+    topic.instance_of? Topics::EntryTopics::ClubPageTopic
   end
 
   def any_club_topic?
@@ -52,10 +50,16 @@ class Topic::TypePolicy
   end
 
   def collection_topic?
-    topic.class.name == Topics::EntryTopics::CollectionTopic.name
+    topic.instance_of? Topics::EntryTopics::CollectionTopic
   end
 
   def article_topic?
-    topic.class.name == Topics::EntryTopics::ArticleTopic.name
+    topic.instance_of? Topics::EntryTopics::ArticleTopic
+  end
+
+  def votable_topic?
+    review_topic? || cosplay_gallery_topic? || (
+      collection_topic? && (topic.linked.published? || topic.linked.hidden?)
+    )
   end
 end

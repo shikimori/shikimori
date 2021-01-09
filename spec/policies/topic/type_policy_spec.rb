@@ -1,7 +1,5 @@
-# frozen_string_literal: true
-
 describe Topic::TypePolicy do
-  let(:policy) { Topic::TypePolicy.new topic }
+  let(:policy) { described_class.new topic }
 
   let(:forum_topic) { build_stubbed :forum_topic }
   let(:news_topic) { build_stubbed :news_topic }
@@ -13,8 +11,11 @@ describe Topic::TypePolicy do
   let(:club_topic) { build_stubbed :club_topic }
   let(:club_user_topic) { build_stubbed :club_user_topic }
   let(:club_page_topic) { build_stubbed :club_page_topic }
-  let(:collection_topic) { build_stubbed :collection_topic }
+  let(:collection_topic) { build_stubbed :collection_topic, linked: collection }
   let(:article_topic) { build_stubbed :article_topic }
+
+  let(:collection) { build_stubbed :collection, collection_state }
+  let(:collection_state) { :published }
 
   describe '#forum_topic?' do
     subject { policy.forum_topic? }
@@ -210,6 +211,49 @@ describe Topic::TypePolicy do
     context 'not cospaly gallery topic' do
       let(:topic) { forum_topic }
       it { is_expected.to eq false }
+    end
+  end
+
+  describe '#votable_topic?' do
+    subject { policy.votable_topic? }
+
+    context 'other' do
+      let(:topic) { forum_topic }
+      it { is_expected.to eq false }
+    end
+
+    context 'review_topic' do
+      let(:topic) { review_topic }
+      it { is_expected.to eq true }
+    end
+
+    context 'cosplay_gallery_topic' do
+      let(:topic) { cosplay_gallery_topic }
+      it { is_expected.to eq true }
+    end
+
+    context 'collection_topic' do
+      let(:topic) { collection_topic }
+
+      context 'unpublished' do
+        let(:collection_state) { :unpublished }
+        it { is_expected.to eq false }
+      end
+
+      context 'published' do
+        let(:collection_state) { :published }
+        it { is_expected.to eq true }
+      end
+
+      context 'hidden' do
+        let(:collection_state) { :hidden }
+        it { is_expected.to eq true }
+      end
+
+      context 'private' do
+        let(:collection_state) { :private }
+        it { is_expected.to eq false }
+      end
     end
   end
 end

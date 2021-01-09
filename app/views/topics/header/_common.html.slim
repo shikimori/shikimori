@@ -57,6 +57,6 @@
   - unless topic_view.status_line?
     span.time
       time[
-        itemprop="commentTime"
+        itemprop='commentTime'
         datetime=topic_view.created_at.iso8601
       ] = l topic_view.created_at, format: '%e %B %Y'

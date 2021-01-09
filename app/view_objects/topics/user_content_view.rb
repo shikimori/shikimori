@@ -33,8 +33,4 @@ class Topics::UserContentView < Topics::View
       I18n.t 'markers.offtopic'
     end
   end
-
-  def footer_vote?
-    !preview?
-  end
 end

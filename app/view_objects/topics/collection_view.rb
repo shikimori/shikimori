@@ -55,6 +55,10 @@ class Topics::CollectionView < Topics::UserContentView
     @topic.linked.decorate
   end
 
+  def footer_vote?
+    collection.published? || collection.hidden?
+  end
+
 private
 
   def preview_html
