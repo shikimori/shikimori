@@ -1,13 +1,9 @@
 .name-date
   .status-tags
-    - if topic_view.respond_to?(:unpublished?) && topic_view.unpublished?
-      .b-anime_status_tag.other[
-        data-text=t('.unpublished')
-      ]
-    - if topic_view.action_tag
+    - Array(topic_view.action_tag).each do |tag|
       .b-anime_status_tag[
-        class=topic_view.action_tag.type
-        data-text=topic_view.action_tag.text
+        class=tag.type
+        data-text=tag.text
       ]
     - if topic_view.try :offtopic_tag
       .b-anime_status_tag.offtopic data-text=topic_view.offtopic_tag
