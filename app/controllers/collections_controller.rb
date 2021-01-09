@@ -68,15 +68,15 @@ class CollectionsController < ShikimoriController
   end
 
   def to_published
-    collection_update transaction: to_published
+    collection_update transition: :to_published
   end
 
   def to_private
-    collection_update transaction: to_private
+    collection_update transition: :to_private
   end
 
   def to_hidden
-    collection_update transaction: to_hidden
+    collection_update transition: :to_hidden
   end
 
   def destroy

@@ -1,21 +1,26 @@
 describe CollectionsController do
   include_context :authenticated, :user, :week_registered
 
+  let(:collection) do
+    create :collection, :with_topics,
+      kind: Types::Collection::Kind[type],
+      user: user
+  end
+  let(:type) { %i[anime manga ranobe].sample }
+
   describe '#index' do
-    before { get :index }
+    subject! { get :index }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#new' do
-    before { get :new, params: { collection: { user_id: user.id } } }
+    subject! { get :new, params: { collection: { user_id: user.id } } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do
-    include_context :authenticated, :user, :week_registered
-
     context 'valid params' do
-      before { post :create, params: { collection: params } }
+      subject! { post :create, params: { collection: params } }
       let(:params) do
         {
           user_id: user.id,
@@ -32,7 +37,7 @@ describe CollectionsController do
     end
 
     context 'invalid params' do
-      before { post :create, params: { collection: params } }
+      subject! { post :create, params: { collection: params } }
       let(:params) { { user_id: user.id } }
 
       it do
@@ -43,16 +48,8 @@ describe CollectionsController do
   end
 
   describe '#update' do
-    include_context :authenticated, :user, :week_registered
-    let(:collection) do
-      create :collection, :with_topics,
-        kind: Types::Collection::Kind[type],
-        user: user
-    end
-    let(:type) { %i[anime manga ranobe].sample }
-
     context 'valid params' do
-      before do
+      subject! do
         patch :update,
           params: {
             id: collection.id,
@@ -84,12 +81,8 @@ describe CollectionsController do
     end
 
     context 'invalid params' do
-      before do
-        patch 'update',
-          params: {
-            id: collection.id,
-            collection: params
-          }
+      subject! do
+        patch 'update', params: { id: collection.id, collection: params }
       end
       let(:params) { { name: '' } }
 
@@ -100,8 +93,37 @@ describe CollectionsController do
     end
   end
 
+  describe '#to_published' do
+    subject! { post :to_published, params: { id: collection.id } }
+
+    it do
+      expect(resource.reload).to be_published
+      expect(resource.errors).to be_empty
+      expect(response).to redirect_to edit_collection_url(resource)
+    end
+  end
+
+  describe '#to_private' do
+    subject! { post :to_private, params: { id: collection.id } }
+
+    it do
+      expect(resource.reload).to be_private
+      expect(resource.errors).to be_empty
+      expect(response).to redirect_to edit_collection_url(resource)
+    end
+  end
+
+  describe '#to_hidden' do
+    subject! { post :to_hidden, params: { id: collection.id } }
+
+    it do
+      expect(resource.reload).to be_hidden
+      expect(resource.errors).to be_empty
+      expect(response).to redirect_to edit_collection_url(resource)
+    end
+  end
+
   describe '#destroy' do
-    include_context :authenticated, :user, :week_registered
     let(:collection) { create :collection, user: user }
     before { delete :destroy, params: { id: collection.id } }
 

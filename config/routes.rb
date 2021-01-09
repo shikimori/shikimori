@@ -557,10 +557,14 @@ Rails.application.routes.draw do
   end
 
   resources :collections, concerns: %i[autocompletable] do
-    get '(/p-:page)' => 'collections#index', as: '', on: :collection
-    post :to_published
-    post :to_private
-    post :to_hidden
+    member do
+      post :to_published
+      post :to_private
+      post :to_hidden
+    end
+    collection do
+      get '(/p-:page)' => 'collections#index', as: ''
+    end
     resources :collection_roles, only: %i[create destroy]
   end
 

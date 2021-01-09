@@ -78,7 +78,7 @@ describe Collection::Update do
 
       it do
         expect(collection.errors).to be_empty
-        expect(collection.reload.state).to eq 'published'
+        expect(collection.reload).to be_published
         expect(collection.published_at).to be_within(0.1).of Time.zone.now
         expect(collection.created_at).to be_within(0.1).of Time.zone.now
 
