@@ -7,10 +7,10 @@
       span = topic_view.topic_title_html
 
     .status-line
-      - if topic_view.action_tag
+      - Array(topic_view.action_tag).each do |tag|
         .b-anime_status_tag[
-          class=topic_view.action_tag.type
-          data-text=topic_view.action_tag.text
+          class=tag.type
+          data-text=tag.text
         ]
       - unless topic_view.db_entry_topic?
         time[

@@ -15,10 +15,10 @@ a.db-update.bubbled.unprocessed[
       = topic_view.topic_title_html
 
     .status-time
-      - if topic_view.action_tag
+      - Array(topic_view.action_tag).each do |tag|
         .b-anime_status_tag[
-          class=topic_view.action_tag.type
-          data-text=topic_view.action_tag.text
+          class=tag.type
+          data-text=tag.text
         ]
       time[
         itemprop='commentTime'
