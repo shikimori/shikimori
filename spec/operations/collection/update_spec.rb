@@ -2,7 +2,11 @@
 
 describe Collection::Update do
   include_context :timecop, 'Wed, 16 Sep 2020 16:23:41 MSK +03:00'
-  subject { described_class.call collection, params }
+  subject do
+    described_class.call collection,
+      params: params,
+      transition: transition
+  end
 
   let(:collection) do
     create :collection,
@@ -14,12 +18,12 @@ describe Collection::Update do
     create :collection_topic, linked: collection, forum_id: Forum::HIDDEN_ID
   end
   let(:type) { %i[anime manga ranobe].sample }
+  let(:transition) { nil }
 
   context 'valid params' do
     let(:params) do
       {
         name: 'test collection',
-        state: state,
         links: [{
           linked_id: db_entry_1.id,
           group: 'zz1',
@@ -31,7 +35,6 @@ describe Collection::Update do
         }]
       }
     end
-    let(:state) { 'unpublished' }
     let!(:collection_link_1) do
       create :collection_link, collection: collection, linked: db_entry_1
     end
@@ -67,19 +70,16 @@ describe Collection::Update do
 
       expect { collection_link_1.reload }.to raise_error ActiveRecord::RecordNotFound
       expect { collection_link_2.reload }.to raise_error ActiveRecord::RecordNotFound
-
-      # NOTE: disabled because of `touch: true` in CollectionLink
-      # expect(db_entry_1.reload.updated_at).to be_within(0.1).of 1.day.ago
-      # expect(db_entry_2.reload.updated_at).to be_within(0.1).of 1.day.ago
-      # expect(db_entry_3.reload.updated_at).to be_within(0.1).of 1.day.ago
     end
 
     describe 'publish' do
-      let(:state) { 'published' }
+      let(:transition) { :to_published }
+      let(:params) { nil }
 
       it do
         expect(collection.errors).to be_empty
-        expect(collection.reload).to have_attributes params.except(:links)
+        expect(collection.reload.state).to eq 'published'
+        expect(collection.published_at).to be_within(0.1).of Time.zone.now
         expect(collection.created_at).to be_within(0.1).of Time.zone.now
 
         expect(collection.topics).to have(1).item
@@ -88,11 +88,6 @@ describe Collection::Update do
           forum_id: Topic::FORUM_IDS['Collection']
         )
         expect(collection.topics.first.created_at).to be_within(0.1).of Time.zone.now
-
-        # NOTE: disabled because of `touch: true` in CollectionLink
-        # expect(db_entry_1.reload.updated_at).to be_within(0.1).of Time.zone.now
-        # expect(db_entry_2.reload.updated_at).to be_within(0.1).of Time.zone.now
-        # expect(db_entry_3.reload.updated_at).to be_within(0.1).of 1.day.ago
       end
     end
   end

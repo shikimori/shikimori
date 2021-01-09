@@ -63,25 +63,20 @@ class CollectionsController < ShikimoriController
     render :form
   end
 
-  def update changes = update_params
-    Collection::Update.call @resource, changes
-
-    if @resource.errors.blank?
-      redirect_to edit_collection_url(@resource), notice: t('changes_saved')
-    else
-      flash[:alert] = t('changes_not_saved')
-      edit
-    end
+  def update
+    collection_update params: update_params
   end
 
   def to_published
-    # update state: :published
+    collection_update transaction: to_published
   end
 
   def to_private
+    collection_update transaction: to_private
   end
 
   def to_hidden
+    collection_update transaction: to_hidden
   end
 
   def destroy
@@ -102,6 +97,17 @@ class CollectionsController < ShikimoriController
   end
 
 private
+
+  def collection_update update_params
+    Collection::Update.call @resource, update_params
+
+    if @resource.errors.blank?
+      redirect_to edit_collection_url(@resource), notice: t('changes_saved')
+    else
+      flash[:alert] = t('changes_not_saved')
+      edit
+    end
+  end
 
   def set_breadcrumbs
     breadcrumb i18n_i('Collection', :other), collections_url

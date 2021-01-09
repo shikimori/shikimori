@@ -8,6 +8,7 @@ class UserContent::UpdateBase < ServiceObjectBase
     klass.transaction do
       update
       publish if @model.published? && hidden_topic?
+      unpublish unless @model.published? || hidden_topic?
     end
     @model
   end
@@ -19,19 +20,27 @@ private
   end
 
   def publish
-    publish_topic
+    if @model.respond_to?(:published_at) && !@model.published_at
+      @model.update! published_at: Time.zone.now
+    end
+
+    update_topic(
+      forum_id: Topic::FORUM_IDS[model.class.name],
+      created_at: @model.respond_to?(:published_at) ? @model.published_at : Time.zone.now,
+      updated_at: @model.respond_to?(:published_at) ? @model.published_at : Time.zone.now
+    )
     touch_creation_date
   end
 
-  def publish_topic
+  def unpublish
+    update_topic forum_id: Forum::HIDDEN_ID
+  end
+
+  def update_topic params
     @model.topics.each do |topic|
       Topic::Update.call(
         topic: topic,
-        params: {
-          forum_id: Topic::FORUM_IDS[model.class.name],
-          created_at: Time.zone.now,
-          updated_at: Time.zone.now
-        },
+        params: params,
         faye: faye_service
       )
     end

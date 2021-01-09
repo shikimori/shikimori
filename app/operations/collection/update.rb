@@ -4,10 +4,16 @@ class Collection::Update < UserContent::UpdateBase
   klass Collection
   MAX_LINKS = 500
 
+  pattr_initialize :model, %i[params transition]
+
 private
 
   def update
-    if @model.update update_params
+    if @transition && @model.send(:"can_#{@transition}?")
+      @model.send :"#{@transition}!"
+    end
+
+    if @params && @model.update(update_params)
       @model.links.delete_all
       CollectionLink.import collection_links
       # must touch because there can be no changes in update_params,
@@ -17,14 +23,13 @@ private
   end
 
   def publish
-    publish_topic
+    super
     touch_all_linked
-    touch_creation_date
   end
 
   def touch_all_linked
     @model.kind.capitalize.constantize
-      .where(id: links.pluck(:linked_id))
+      .where(id: @model.links.pluck(:linked_id))
       .update_all updated_at: Time.zone.now
   end
 
@@ -42,6 +47,6 @@ private
   end
 
   def update_params
-    params.except(:links)
+    @params.except(:links)
   end
 end
