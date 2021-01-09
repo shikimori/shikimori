@@ -25,5 +25,11 @@ private
       state: "Types::#{klass}::State".constantize[:unpublished],
       locale: @locale
     )
+  rescue NameError
+    @params.merge locale: @locale
+  end
+
+  def state
+    "Types::#{klass}::State".constantize[:unpublished]
   end
 end
