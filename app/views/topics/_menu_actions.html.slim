@@ -18,7 +18,7 @@
     - else
       a.b-link_button.dark.create-topic.to-process[
         href=(forum == Forum.news ? menu.new_news_url : menu.new_topic_url)
-        data-dynamic='week_registereD'
+        data-dynamic='week_registered'
       ] = t(forum == Forum.news ? '.create_news' : '.create_topic')
 
     - if menu.changeable_forums?
