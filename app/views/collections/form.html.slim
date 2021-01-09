@@ -74,10 +74,20 @@ header.head.misc
                 data-confirm=t('.confirm_status_change')
               ]
                 = t '.to_published'
+              .status.status-available.status-available.b-tooltipped.unprocessed[
+                title=t('.status.available')
+                data-direction='top'
+              ]
+              .status.status-moderated.status-available.b-tooltipped.unprocessed[
+                title=t('.status.moderated')
+                data-direction='top'
+              ]
+              .status.status-profile.status-available.b-tooltipped.unprocessed[
+                title=t('.status.profile')
+                data-direction='top'
+              ]
               .collection-state-hint
                 == t '.hint.published'
-              .page-reload-hint
-                == t '.note_about_page_reload'
 
           - if @resource.can_to_private?
             .c-column.b-input
@@ -87,10 +97,20 @@ header.head.misc
                 data-confirm=t('.confirm_status_change')
               ]
                 = t '.to_private'
+              .status.status-not_available.status-available.b-tooltipped.unprocessed[
+                title=t('.status.not_available')
+                data-direction='top'
+              ]
+              .status.status-moderated.status-not_available.b-tooltipped.unprocessed[
+                title=t('.status.not_moderated')
+                data-direction='top'
+              ]
+              .status.status-profile.status-available.b-tooltipped.unprocessed[
+                title=t('.status.profile')
+                data-direction='top'
+              ]
               .collection-state-hint
                 = t '.hint.private'
-              .page-reload-hint
-                == t '.note_about_page_reload'
 
           - if @resource.can_to_hidden?
             .c-column.b-input
@@ -100,10 +120,20 @@ header.head.misc
                 data-confirm=t('.confirm_status_change')
               ]
                 = t '.to_hidden'
+              .status.status-not_available.status-available.b-tooltipped.unprocessed[
+                title=t('.status.not_available')
+                data-direction='top'
+              ]
+              .status.status-moderated.status-not_available.b-tooltipped.unprocessed[
+                title=t('.status.not_moderated')
+                data-direction='top'
+              ]
+              .status.status-profile.status-not_available.b-tooltipped.unprocessed[
+                title=t('.status.not_profile')
+                data-direction='top'
+              ]
               .collection-state-hint
                 = t '.hint.hidden'
-              .page-reload-hint
-                == t '.note_about_page_reload'
 
       - if @resource.persisted?
         .b-input

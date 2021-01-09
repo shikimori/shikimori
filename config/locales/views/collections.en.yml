@@ -8,29 +8,34 @@ en:
     form:
       hint:
         unpublished: >-
-          The collection is not displayed on the forum, is not moderated,
-          not visible in the author's profile,
-          not available for viewing and commenting by site users.
+          The collection is not displayed in collections and on the forum, is not moderated,
+          not visible in the author's profile.
         published: >-
-          The collection is displayed on the forum, moderated,
-          visible in the author's profile,
-          available for viewing and commenting by site users.
+          The collection is displayed in collections and on the forum, moderated,
+          visible in the author's profile.
         private: >-
-          The collection is not displayed on the forum, is not moderated,
-          visible in the author's profile,
-          available for viewing and commenting by site users.
+          The collection is not displayed in collections and on the forum, is not moderated,
+          visible in the author's profile.
         hidden:
-          The collection is not displayed on the forum, is not moderated,
-          not visible in the author's profile,
-          not available for viewing and commenting by site users.
+          The collection is not displayed in collections and on the forum, is not moderated,
+          not visible in the author's profile.
+      status:
+        available: Available in collections and on the forum
+        not_available: Not available in collections and on the forum
+        moderated: Moderated by moderators
+        not_moderated: Not moderated by moderators
+        profile: Available in author's profile
+        not_profile: Not available in author's profile
       to_published: Publish
       to_private: Make private
       to_hidden: Make hidden
       to_collection: To collection
       coauthors: Coauthors
-      confirm_status_change: Confirm status change
+      confirm_status_change: >-
+        Confirm status change. It will cause page reload,
+        make sure the collection is saved before changing.
       note_about_page_reload: >-
-        Will cause page reload. Make sure the collection is saved before changing.
+        The change Will cause page reload, make sure the collection is saved before changing.
       no_coauthors: No coauthors
     preview:
       more: +%{count} more
