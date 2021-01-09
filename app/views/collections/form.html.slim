@@ -62,9 +62,9 @@ header.head.misc
                         data-confirm=t('actions.confirm_simple')
                       ] = t('actions.delete').downcase
             - else
-              .b-nothing_here = t '.no_coauthors' 
+              .b-nothing_here = t '.no_coauthors'
 
-      - if can? :destroy, @resource
+      - if @resource.persisted? && can?(:create, @resource)
         .cc-3
           - if @resource.can_to_published?
             .c-column.b-input
@@ -93,16 +93,17 @@ header.head.misc
               .page-reload-hint
                 == t '.note_about_page_reload'
 
-      .b-input
-        - if @resource.unpublished?
-          a.b-button.blue.is-external_link[
-            target='_blank'
-            href=collection_url(@resource)
-          ] = t 'actions.preview'
-        - else
-          a.b-button.blue.is-arrow[
-            href=collection_url(@resource)
-          ] = t '.to_collection'
+      - if @resource.persisted?
+        .b-input
+          - if @resource.unpublished?
+            a.b-button.blue.is-external_link[
+              target='_blank'
+              href=collection_url(@resource)
+            ] = t 'actions.preview'
+          - else
+            a.b-button.blue.is-arrow[
+              href=collection_url(@resource)
+            ] = t '.to_collection'
 
       = render 'blocks/shiki_editor',
         text: @resource.text,

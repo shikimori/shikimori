@@ -151,7 +151,7 @@ describe CollectionsController do
     subject! { get :autocomplete, params: { search: phrase }, xhr: true }
 
     it do
-      expect(collection).to eq [collection_2, collection_1]
+      expect(assigns(:collection)).to eq [collection_2, collection_1]
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
     end

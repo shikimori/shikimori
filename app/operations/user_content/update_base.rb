@@ -23,11 +23,12 @@ private
     if @model.respond_to?(:published_at) && !@model.published_at
       @model.update! published_at: Time.zone.now
     end
+    published_at = @model.respond_to?(:published_at) ? @model.published_at : Time.zone.now
 
     update_topic(
       forum_id: Topic::FORUM_IDS[model.class.name],
-      created_at: @model.respond_to?(:published_at) ? @model.published_at : Time.zone.now,
-      updated_at: @model.respond_to?(:published_at) ? @model.published_at : Time.zone.now
+      created_at: published_at,
+      updated_at: published_at
     )
     touch_creation_date
   end
