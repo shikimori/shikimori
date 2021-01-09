@@ -117,6 +117,8 @@ ru:
         amount: Количество
       published: опубликованные
       unpublished: не опубликованные
+      private: личные
+      hidden: скрытые
 
     edit:
       account:

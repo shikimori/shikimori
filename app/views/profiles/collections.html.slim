@@ -4,16 +4,16 @@
       a.item-new-collection href=new_collection_url(collection: { user_id: current_user&.id })
   h2.subheadline
     = og.headline
-    - if can? :access_collections, @resource
-      .misc-links
+    .misc-links
+      a[
+        href=current_url(state: nil)
+        class=(:selected unless params.key?(:state))
+      ] = t '.published'
+      - (can?(:access_collections, @resource) ? %w[private hidden unpublished] : %w[private]).each do |state|
         a[
-          href=current_url(unpublished: nil)
-          class=(:selected unless params.key?(:unpublished))
-        ] = t '.published'
-        a[
-          href=current_url(unpublished: '1')
-          class=(:selected if params.key?(:unpublished))
-        ] = t '.unpublished'
+          href=current_url(state: state)
+          class=(:selected if params[:state] == state)
+        ] = t ".#{state}"
 
   .b-forum[
     data-faye='false'

@@ -32,10 +32,10 @@ class Collection < ApplicationRecord
   scope :available, -> { published.where.not(moderation_state: :rejected) }
 
   state_machine :state, initial: :unpublished do
-    state :unpublished
     state :published
     state :private
     state :hidden
+    state :unpublished
 
     event(:to_published) { transition %i[unpublished private hidden] => :published }
     event(:to_private) { transition %i[unpublished published hidden] => :private }

@@ -117,6 +117,8 @@ en:
         amount: Amount
       published: published
       unpublished: not published
+      private: private
+      hidden: hidden
 
     edit:
       account:
