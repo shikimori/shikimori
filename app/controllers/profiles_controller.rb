@@ -118,6 +118,8 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       %w[private hidden unpublished] :
       %w[private]
 
+    @counts = scope.except(:order).group('collections.state').count
+
     scope =
       if @state.in?(@available_states)
         scope.where(collections: { state: @state })
