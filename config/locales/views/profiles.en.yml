@@ -115,10 +115,11 @@ en:
       no_achievements: No achievements yet.
       moderation:
         amount: Amount
-      published: published
-      unpublished: not published
-      private: private
-      hidden: hidden
+      collections:
+        published: Published
+        unpublished: Not published
+        private: Private
+        hidden: Hidden
 
     edit:
       account:

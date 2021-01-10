@@ -103,8 +103,11 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def collections
+    @state = params[:state] || 'published'
+
     og noindex: true
     og page_title: i18n_io('Collection', :few)
+    og notice: i18n_t("collections.#{@state}")
 
     scope = @resource.topics
       .where(type: Topics::EntryTopics::CollectionTopic.name)
@@ -116,8 +119,8 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       %w[private]
 
     scope =
-      if params.key?(:state) && params[:state].in?(@available_states)
-        scope.where(collections: { state: params[:state] })
+      if @state.in?(@available_states)
+        scope.where(collections: { state: @state })
       else
         scope.where(collections: { state: :published })
       end

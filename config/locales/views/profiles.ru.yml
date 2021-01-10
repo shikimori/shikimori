@@ -115,10 +115,11 @@ ru:
       no_achievements: Нет достижений.
       moderation:
         amount: Количество
-      published: опубликованные
-      unpublished: не опубликованные
-      private: личные
-      hidden: скрытые
+      collections:
+        published: Опубликованные
+        unpublished: Не опубликованные
+        private: Личные
+        hidden: Скрытые
 
     edit:
       account:

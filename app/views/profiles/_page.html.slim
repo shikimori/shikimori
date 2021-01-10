@@ -17,6 +17,9 @@ header.head.misc[
       = @user.nickname
     = render 'profiles/status', view: @view
     = yield :head_misc
+  - if og.notice.present?
+    .notice
+      == og.notice
 
   = yield :head_notice
   = render 'application/breadcrumbs'

@@ -25,6 +25,19 @@ en:
     achievements: Achievements
     users: Users
     user_profile: '%{user} profile'
+    collections:
+      unpublished: >-
+        Unpublished collections is not displayed in collections and on the forum, is not moderated,
+        not visible in the author's profile.
+      published: >-
+        Published collections is displayed in collections and on the forum, moderated,
+        visible in the author's profile.
+      private: >-
+        Private collections is not displayed in collections and on the forum, is not moderated,
+        visible in the author's profile.
+      hidden:
+        Hidden collections is not displayed in collections and on the forum, is not moderated,
+        not visible in the author's profile.
 
   dialogs_controller:
     <<: *profiles_controller
