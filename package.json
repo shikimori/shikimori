@@ -7,7 +7,7 @@
     "@johmun/vue-tags-input": "^2.1.0",
     "@rails/webpacker": "5.2.1",
     "autosize": "^4.0.2",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "blueimp-md5": "2.18.0",
     "bowser": "2.11.0",
     "codemirror": "^5.58.1",
