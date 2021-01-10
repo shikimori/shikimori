@@ -80,7 +80,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def footer_vote?
-    !preview? && topic_type_policy.votable_topic?
+    !preview? && !minified? && topic_type_policy.votable_topic?
   end
 
   def poster_title

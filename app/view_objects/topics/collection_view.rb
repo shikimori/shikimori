@@ -56,7 +56,7 @@ class Topics::CollectionView < Topics::UserContentView
   end
 
   def footer_vote?
-    collection.published? || collection.hidden?
+    super && (collection.published? || collection.hidden?)
   end
 
 private
