@@ -32,8 +32,10 @@ class CollectionsController < ShikimoriController
       raise ActiveRecord::RecordNotFound
     end
 
-    breadcrumb @resource.name, edit_collection_url(@resource)
-    breadcrumb t('actions.preview'), nil
+    if @resource.unpublished?
+      breadcrumb @resource.name, edit_collection_url(@resource)
+      breadcrumb t('actions.preview'), nil
+    end
 
     og page_title: @resource.name
     @topic_view = Topics::TopicViewFactory
@@ -110,6 +112,14 @@ private
   end
 
   def set_breadcrumbs
+    if @resource&.published?
+      set_collections_breadcrumbs
+    else
+      set_profile_breadcrumbs
+    end
+  end
+
+  def set_collections_breadcrumbs
     breadcrumb i18n_i('Collection', :other), collections_url
 
     if %w[edit update].include? params[:action]
@@ -120,6 +130,15 @@ private
       )
       breadcrumb t('actions.edition'), nil
     end
+  end
+
+  def set_profile_breadcrumbs
+    owner = @resource.user.decorate
+
+    breadcrumb i18n_i('User', :other), users_url
+    breadcrumb owner.nickname, owner.url
+    breadcrumb i18n_i('Collection', :other), collections_profile_url(owner)
+    
   end
 
   def create_params

@@ -9,7 +9,7 @@
         href=current_url(state: nil)
         class=(:selected unless params.key?(:state))
       ] = t '.published'
-      - (can?(:access_collections, @resource) ? %w[private hidden unpublished] : %w[private]).each do |state|
+      - @available_states.each do |state|
         a[
           href=current_url(state: state)
           class=(:selected if params[:state] == state)
