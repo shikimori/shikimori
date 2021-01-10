@@ -141,7 +141,7 @@ private
     )
     breadcrumb i18n_i('Collection', :other), collections_profile_url(owner)
     breadcrumb(
-      I18n.t("profiles.page.#{@resource.state}"),
+      I18n.t("profiles.page.collections.#{@resource.state}"),
       collections_profile_url(owner, state: @resource.state).capitalize
     )
   end
