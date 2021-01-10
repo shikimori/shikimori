@@ -1,23 +1,19 @@
 = render layout: 'page' do
+  .b-options-floated.mobile-phone
+    a[
+      href=current_url(state: nil)
+      class=(:selected unless params.key?(:state))
+    ] = t '.published'
+    - @available_states.each do |state|
+      a[
+        href=current_url(state: state)
+        class=(:selected if params[:state] == state)
+      ] = t ".#{state}"
   - if @view.own_profile?
     .subheadline-buttons
       a.item-new-collection href=new_collection_url(collection: { user_id: current_user&.id })
-  h2.subheadline
-    = og.headline
-    .misc-links
-      a[
-        href=current_url(state: nil)
-        class=(:selected unless params.key?(:state))
-      ] = t '.published'
-      - @available_states.each do |state|
-        a[
-          href=current_url(state: state)
-          class=(:selected if params[:state] == state)
-        ] = t ".#{state}"
-
-  .b-forum[
-    data-faye='false'
-  ]
+  h2.subheadline = og.headline
+  .b-forum data-faye='false'
     - if @collection.any?
       = render partial: 'topics/topic',
         collection: @collection,

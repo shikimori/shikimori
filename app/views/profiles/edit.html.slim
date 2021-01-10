@@ -5,7 +5,7 @@
       == @resource.errors.full_messages.join('<br>')
 
   .b-options-floated.mobile-phone
-    - %w(account profile styles list notifications misc).each do |section|
+    - %w[account profile styles list notifications misc].each do |section|
       a[
         class=(:selected if @section == section || section == ProfilesController::PARENT_SECTIONS[params[:section]])
         href=@resource.edit_url(section: section)
