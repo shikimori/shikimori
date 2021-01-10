@@ -163,7 +163,6 @@ export default class PaginatedCatalog {
     const isFirstPage = currentPage === 1;
     const isLastPage = currentPage === pagesCount;
 
-    document.title = `${title}`;
     const $content = $(content);
 
     // using Object.clone cause UserRatesTracker changes data in its its argument
@@ -175,7 +174,10 @@ export default class PaginatedCatalog {
     }
     this.$content.html($content).process();
 
-    $('.head h1').html(title);
+    if (data.title) {
+      $('.head h1').html(title);
+      document.title = `${title}`;
+    }
     if (data.notice) {
       $('.head .notice').html(notice);
     }
