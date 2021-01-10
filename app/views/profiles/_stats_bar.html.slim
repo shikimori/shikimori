@@ -1,7 +1,7 @@
 .b-stats_bar class=stats_bar.type.downcase
   - if view.own_profile?
     .compatibility
-      a href=users_url(similar: 'similar', klass: stats_bar.type.downcase)
+      a href=similar_users_url(klass: stats_bar.type.downcase)
         = t '.similar_users'
 
   - elsif view.compatibility_view.value stats_bar.type
