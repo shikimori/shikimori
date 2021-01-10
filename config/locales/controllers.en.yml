@@ -6,7 +6,6 @@ en:
 
 
 
-
   topics_controller: &topics_controller
     title: Shikimori Forum
     new_topic: Create a topic
@@ -25,6 +24,7 @@ en:
     feed: Feed
     achievements: Achievements
     users: Users
+    user_profile: '%{user} profile'
 
   dialogs_controller:
     <<: *profiles_controller

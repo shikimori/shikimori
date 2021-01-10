@@ -24,6 +24,7 @@ ru:
     feed: Лента
     achievements: Достижения
     users: Пользователи
+    user_profile: Профиль %{user}
 
   dialogs_controller:
     <<: *profiles_controller

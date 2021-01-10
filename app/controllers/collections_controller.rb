@@ -135,8 +135,10 @@ private
   def set_profile_breadcrumbs
     owner = @resource.user.decorate
 
-    breadcrumb i18n_i('User', :other), users_url
-    breadcrumb owner.nickname, owner.url
+    breadcrumb(
+      I18n.t('profiles_controller.user_profile', user: current_user.nickname),
+      current_user.url
+    )
     breadcrumb i18n_i('Collection', :other), collections_profile_url(owner)
     breadcrumb(
       I18n.t("profiles.page.#{@resource.state}"),
