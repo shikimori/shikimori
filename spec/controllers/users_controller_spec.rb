@@ -8,6 +8,7 @@ describe UsersController do
   end
 
   describe '#similar' do
+    include_context :authenticated, :user
     subject! do
       get :similar,
         params: {

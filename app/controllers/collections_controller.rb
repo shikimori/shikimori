@@ -2,7 +2,7 @@ class CollectionsController < ShikimoriController
   load_and_authorize_resource :collection, except: %i[index autocomplete]
 
   before_action { og page_title: i18n_i('Collection', :other) }
-  before_action :set_breadcrumbs, except: :index
+  before_action :set_breadcrumbs, except: %i[index autocomplete]
   before_action :resource_redirect, if: :resource_id
 
   UPDATE_PARAMS = %i[name text] + [

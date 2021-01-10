@@ -1,5 +1,6 @@
 class UsersController < ShikimoriController
   respond_to :json, :html, only: :index
+  before_action :authenticate_user!, only: :similar
 
   LIMIT = 15
   THRESHOLDS = [100, 175, 350]
