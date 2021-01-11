@@ -55,10 +55,6 @@ class Topics::CollectionView < Topics::UserContentView
     @topic.linked.decorate
   end
 
-  def footer_vote?
-    super && (collection.published? || collection.private?)
-  end
-
 private
 
   def preview_html
