@@ -5,7 +5,7 @@ class FixName < ServiceObjectBase
   SPACES = /(?:[[:space:]]|[⁤ ឵⠀ᅠ­]|\p{C})+/
   ALL_EXTENSIONS = %w[
     css js jpg jpeg png gif css js ttf eot otf svg woff php woff2 bmp html
-    rar zip gz tar
+    rar zip gz tar rss
   ]
   EXTENSIONS = /
     \.(#{ALL_EXTENSIONS.join('|')})$
