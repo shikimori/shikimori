@@ -77,8 +77,8 @@ class CollectionsController < ShikimoriController
     collection_update transition: :to_private
   end
 
-  def to_hidden
-    collection_update transition: :to_hidden
+  def to_opened
+    collection_update transition: :to_opened
   end
 
   def destroy

@@ -119,7 +119,7 @@ en:
         published: Published
         unpublished: Not published
         private: Private
-        hidden: Hidden
+        opened: Opened
 
     edit:
       account:

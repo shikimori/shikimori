@@ -118,8 +118,8 @@ ru:
       collections:
         published: Опубликованные
         unpublished: Не опубликованные
-        private: Личные
-        hidden: Скрытые
+        private: Приватные
+        opened: Открытые
 
     edit:
       account:

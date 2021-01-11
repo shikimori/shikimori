@@ -8,27 +8,27 @@ en:
     form:
       hint:
         unpublished: >-
-          The collection is not displayed in collections and on the forum, is not moderated,
+          The collection is not displayed in collections section and on the forum, is not moderated,
           not visible in the author's profile.
         published: >-
-          The collection is displayed in collections and on the forum, moderated,
+          The collection is displayed in collections section and on the forum, moderated,
           visible in the author's profile.
         private: >-
-          The collection is not displayed in collections and on the forum, is not moderated,
-          visible in the author's profile.
-        hidden:
-          The collection is not displayed in collections and on the forum, is not moderated,
+          The collection is not displayed in collections section and on the forum, is not moderated,
           not visible in the author's profile.
+        opened:
+          The collection is not displayed in collections section and on the forum, is not moderated,
+          visible in the author's profile.
       status:
-        available: Available in collections and on the forum
-        not_available: Not available in collections and on the forum
+        available: Visible in collections and on the forum
+        not_available: Not visible in collections and on the forum
         moderated: Moderated by moderators
         not_moderated: Not moderated by moderators
-        profile: Available in author's profile
-        not_profile: Not available in author's profile
+        profile: Visible in author's profile
+        not_profile: Not visible in author's profile
       to_published: Publish
       to_private: Make private
-      to_hidden: Make hidden
+      to_opened: Make opened
       to_collection: To collection
       coauthors: Coauthors
       confirm_status_change: >-

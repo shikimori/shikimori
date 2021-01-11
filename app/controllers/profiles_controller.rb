@@ -115,8 +115,8 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       .order(created_at: :desc)
 
     @available_states = can?(:access_collections, @resource) ?
-      %w[private hidden unpublished] :
-      %w[private]
+      %w[private opened unpublished] :
+      %w[opened]
 
     @counts = scope.except(:order).group('collections.state').count
 

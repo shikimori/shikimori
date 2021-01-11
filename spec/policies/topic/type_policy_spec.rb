@@ -230,8 +230,8 @@ describe Topic::TypePolicy do
         it { is_expected.to eq true }
       end
 
-      context 'hidden' do
-        let(:collection_state) { :hidden }
+      context 'opened' do
+        let(:collection_state) { :opened }
         it { is_expected.to eq true }
       end
 
@@ -273,8 +273,8 @@ describe Topic::TypePolicy do
         it { is_expected.to eq true }
       end
 
-      context 'hidden' do
-        let(:collection_state) { :hidden }
+      context 'opened' do
+        let(:collection_state) { :opened }
         it { is_expected.to eq true }
       end
 

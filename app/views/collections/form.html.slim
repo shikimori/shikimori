@@ -89,6 +89,29 @@ header.head.misc
               .collection-state-hint
                 == t '.hint.published'
 
+          - if @resource.can_to_opened?
+            .c-column.b-input
+              a.b-button.m3[
+                href=to_opened_collection_url(@resource)
+                data-method='post'
+                data-confirm=t('.confirm_status_change')
+              ]
+                = t '.to_opened'
+              .status.status-not_available.status-available.b-tooltipped.unprocessed[
+                title=t('.status.not_available')
+                data-direction='top'
+              ]
+              .status.status-moderated.status-not_available.b-tooltipped.unprocessed[
+                title=t('.status.not_moderated')
+                data-direction='top'
+              ]
+              .status.status-profile.status-available.b-tooltipped.unprocessed[
+                title=t('.status.profile')
+                data-direction='top'
+              ]
+              .collection-state-hint
+                = t '.hint.opened'
+
           - if @resource.can_to_private?
             .c-column.b-input
               a.b-button.m3[
@@ -105,35 +128,12 @@ header.head.misc
                 title=t('.status.not_moderated')
                 data-direction='top'
               ]
-              .status.status-profile.status-available.b-tooltipped.unprocessed[
-                title=t('.status.profile')
-                data-direction='top'
-              ]
-              .collection-state-hint
-                = t '.hint.private'
-
-          - if @resource.can_to_hidden?
-            .c-column.b-input
-              a.b-button.m3[
-                href=to_hidden_collection_url(@resource)
-                data-method='post'
-                data-confirm=t('.confirm_status_change')
-              ]
-                = t '.to_hidden'
-              .status.status-not_available.status-available.b-tooltipped.unprocessed[
-                title=t('.status.not_available')
-                data-direction='top'
-              ]
-              .status.status-moderated.status-not_available.b-tooltipped.unprocessed[
-                title=t('.status.not_moderated')
-                data-direction='top'
-              ]
               .status.status-profile.status-not_available.b-tooltipped.unprocessed[
                 title=t('.status.not_profile')
                 data-direction='top'
               ]
               .collection-state-hint
-                = t '.hint.hidden'
+                = t '.hint.private'
 
       - if @resource.persisted?
         .b-input

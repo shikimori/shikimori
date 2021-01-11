@@ -407,10 +407,10 @@ ru:
           failed: ошибка
       collection:
         states:
-          unpublished: Не опубликовано
-          published: Опубликовано
-          private: Личная
-          hidden: Скрытая
+          unpublished: Не опубликованная
+          published: Опубликованная
+          private: Приватная
+          opened: Открытая
 
   activemodel:
     errors:

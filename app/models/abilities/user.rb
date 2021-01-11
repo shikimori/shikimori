@@ -180,7 +180,7 @@ class Abilities::User
       destroy
       to_published
       to_private
-      to_hidden
+      to_opened
     ], Collection do |collection|
       collection.user_id == @user.id
     end

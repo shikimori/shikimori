@@ -113,11 +113,11 @@ describe CollectionsController do
     end
   end
 
-  describe '#to_hidden' do
-    subject! { post :to_hidden, params: { id: collection.id } }
+  describe '#to_opened' do
+    subject! { post :to_opened, params: { id: collection.id } }
 
     it do
-      expect(resource.reload).to be_hidden
+      expect(resource.reload).to be_opened
       expect(resource.errors).to be_empty
       expect(response).to redirect_to edit_collection_url(resource)
     end

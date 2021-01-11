@@ -560,7 +560,7 @@ Rails.application.routes.draw do
     member do
       post :to_published
       post :to_private
-      post :to_hidden
+      post :to_opened
     end
     collection do
       get '(/p-:page)' => 'collections#index', as: ''

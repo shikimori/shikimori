@@ -410,7 +410,7 @@ en:
           unpublished: Not published
           published: Published
           private: Private
-          hidden: Hidden
+          opened: Opened
 
   activemodel:
     errors:

@@ -58,12 +58,12 @@ class Topic::TypePolicy
   end
 
   def commentable_topic?
-    !collection_topic? || topic.linked.published? || topic.linked.hidden?
+    !collection_topic? || topic.linked.published? || topic.linked.opened?
   end
 
   def votable_topic?
     review_topic? || cosplay_gallery_topic? || (
-      collection_topic? && (topic.linked.published? || topic.linked.hidden?)
+      collection_topic? && (topic.linked.published? || topic.linked.opened?)
     )
   end
 end

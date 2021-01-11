@@ -34,14 +34,14 @@ class Collection < ApplicationRecord
   state_machine :state, initial: :unpublished do
     state :published
     state :private
-    state :hidden
+    state :opened
     state :unpublished
 
-    event(:to_published) { transition %i[unpublished private hidden] => :published }
-    event(:to_private) { transition %i[unpublished published hidden] => :private }
-    event(:to_hidden) { transition %i[unpublished published private] => :hidden }
+    event(:to_published) { transition %i[unpublished private opened] => :published }
+    event(:to_private) { transition %i[unpublished published opened] => :private }
+    event(:to_opened) { transition %i[unpublished published private] => :opened }
 
-    # before_transition %i[unpublished private hidden] => :published do |collection, _transition|
+    # before_transition %i[unpublished private opened] => :published do |collection, _transition|
     #   collection.published_at ||= Time.zone.now
     # end
   end
