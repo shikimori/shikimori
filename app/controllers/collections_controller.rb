@@ -132,7 +132,7 @@ private
     end
   end
 
-  def set_profile_breadcrumbs
+  def set_profile_breadcrumbs # rubocop:disable AbcSize
     owner = @resource.user.decorate
 
     breadcrumb(
@@ -144,6 +144,11 @@ private
       I18n.t("profiles.page.collections.#{@resource.state}"),
       collections_profile_url(owner, state: @resource.state).capitalize
     )
+
+    if %w[edit update].include? params[:action]
+      breadcrumb @resource.name, collection_url(@resource)
+      breadcrumb t('actions.edition'), nil
+    end
   end
 
   def create_params
