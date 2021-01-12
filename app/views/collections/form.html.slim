@@ -29,6 +29,14 @@ header.head.misc
             include_blank: false,
             disabled: @resource.persisted?
 
+          = f.input :tags,
+            input_html: { value: f.object.tags&.join(','), class: 'w-100' },
+            as: :string
+          #vue_tags_input[
+            data-value=f.object.tags
+            data-autocomplete_basic=Collections::TagsQuery.call
+          ]
+
           - if @resource.persisted?
             .b-input
               label = Collection.human_attribute_name :state

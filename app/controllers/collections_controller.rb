@@ -5,7 +5,7 @@ class CollectionsController < ShikimoriController
   before_action :set_breadcrumbs, except: %i[index autocomplete]
   before_action :resource_redirect, if: :resource_id
 
-  UPDATE_PARAMS = %i[name text] + [
+  UPDATE_PARAMS = %i[name text tags] + [
     links: %w[linked_id group text]
   ]
   CREATE_PARAMS = %i[user_id kind] + UPDATE_PARAMS
@@ -152,11 +152,22 @@ private
   end
 
   def create_params
-    params.require(:collection).permit(*CREATE_PARAMS)
+    collection_params CREATE_PARAMS
   end
   alias new_params create_params
 
   def update_params
-    params.require(:collection).permit(*UPDATE_PARAMS)
+    collection_params UPDATE_PARAMS
+  end
+
+  def collection_params permitted_keys
+    params
+      .require(:collection)
+      .permit(*permitted_keys)
+      .tap do |fixed_params|
+        unless fixed_params[:tags].nil?
+          fixed_params[:tags] = fixed_params[:tags].split(',').map(&:strip).select(&:present?)
+        end
+      end
   end
 end

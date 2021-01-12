@@ -17,8 +17,8 @@ class Article < ApplicationRecord
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
   enumerize :state, in: Types::Article::State.values, predicates: true
 
-  scope :unpublished, -> { where state: :unpublished }
-  scope :published, -> { where state: :published }
+  scope :unpublished, -> { where state: Types::Article::State[:unpublished] }
+  scope :published, -> { where state: Types::Article::State[:published] }
   scope :available, -> { published.where.not(moderation_state: :rejected) }
 
   def to_param

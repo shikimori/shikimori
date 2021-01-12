@@ -1,3 +1,18 @@
+import { initTagsApp } from '../p-topics/_extended_form';
+
+let tagsApp;
+
+pageUnload(
+  'collections_new',
+  'collections_edit',
+  'collections_create',
+  'collections_update',
+  () => {
+    if (tagsApp) {
+      tagsApp.$destroy();
+    }
+  });
+
 pageLoad(
   'collections_new',
   'collections_edit',
@@ -5,6 +20,7 @@ pageLoad(
   'collections_update',
   () => {
     initVueApp();
+    initTagsApp('collection').then(app => tagsApp = app);
 
     const $coauthorSuggest = $('.coauthor-suggest');
     if ($coauthorSuggest.length) {

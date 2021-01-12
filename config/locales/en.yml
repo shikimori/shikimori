@@ -254,6 +254,7 @@ en:
         text: Description
         state: State
         user: Creator
+        tags: Tags
       article:
         name: Name
         text: Text

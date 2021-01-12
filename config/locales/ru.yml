@@ -254,6 +254,7 @@ ru:
         text: Описание
         state: Статус
         user: Создатель
+        tags: Теги
       collection_link:
         group: Группа
         text: Комментарий
