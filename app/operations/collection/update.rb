@@ -47,6 +47,6 @@ private
   end
 
   def update_params
-    @params.except(:links)
+    super.except(:links)
   end
 end

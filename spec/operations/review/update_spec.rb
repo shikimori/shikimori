@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 describe Review::Update do
+  include_context :timecop, 'Wed, 16 Sep 2020 16:23:41 MSK +03:00'
   subject { Review::Update.call review, params }
 
   let(:review) { create :review }
@@ -19,6 +20,7 @@ describe Review::Update do
     end
     it do
       expect(review.errors).to be_empty
+      expect(review.changed_at).to be_within(0.1).of Time.zone.now
       expect(review.reload).to have_attributes params
     end
   end

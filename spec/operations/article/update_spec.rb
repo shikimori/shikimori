@@ -24,6 +24,7 @@ describe Article::Update do
       expect(article.errors).to be_empty
       expect(article.reload).to have_attributes params
       expect(article.created_at).to be_within(0.1).of 1.day.ago
+      expect(article.changed_at).to be_within(0.1).of Time.zone.now
 
       expect(article.topics.first).to have_attributes(
         id: topic.id,
@@ -33,10 +34,12 @@ describe Article::Update do
 
     describe 'publish' do
       let(:state) { 'published' }
+
       it do
         expect(article.errors).to be_empty
         expect(article.reload).to have_attributes params
         expect(article.created_at).to be_within(0.1).of Time.zone.now
+        expect(article.changed_at).to be_within(0.1).of Time.zone.now
 
         expect(article.topics).to have(1).item
         expect(article.topics.first).to have_attributes(

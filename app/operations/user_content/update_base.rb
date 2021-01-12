@@ -10,18 +10,26 @@ class UserContent::UpdateBase < ServiceObjectBase
       publish if @model.published? && hidden_topic?
       unpublish unless @model.published? || hidden_topic?
     end
+
     @model
   end
 
 private
 
   def update
-    @model.update @params
+    @model.update update_params
+  end
+
+  def update_params
+    @params.merge changed_at: Time.zone.now
   end
 
   def publish
     if @model.respond_to?(:published_at) && !@model.published_at
-      @model.update! published_at: Time.zone.now
+      @model.update!(
+        published_at: Time.zone.now,
+        changed_at: Time.zone.now
+      )
     end
     published_at = @model.respond_to?(:published_at) ? @model.published_at : Time.zone.now
 
