@@ -16,7 +16,7 @@ class Topics::UserContentView < Topics::View
   end
 
   def changed_at # rubocop:disable all
-    changed_at = @topic.linked.respond_to?(:changed_at) && linked.changed_at
+    changed_at = @topic.linked.respond_to?(:changed_at) && @topic.linked.changed_at
     return changed_at if changed_at
 
     updated_at = @topic.linked&.updated_at
