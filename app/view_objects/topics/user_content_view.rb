@@ -15,17 +15,21 @@ class Topics::UserContentView < Topics::View
     @topic.linked.respond_to?(:unpublished?) && @topic.linked.unpublished?
   end
 
-  def changed_at # rubocop:disable AbcSize
-    linked = @topic.linked
+  def changed_at # rubocop:disable all
+    changed_at = @topic.linked.respond_to?(:changed_at) && linked.changed_at
+    return changed_at if changed_at
 
-    return unless linked&.updated_at && linked&.created_at
-    return if linked.updated_at - linked.created_at < 1.hour
-    return if format_date(linked.updated_at) ==
-      format_date(linked.created_at)
-    return if h.time_ago_in_words(linked.updated_at, nil, true) ==
-      h.time_ago_in_words(linked.created_at, nil, true)
+    updated_at = @topic.linked&.updated_at
+    created_at = @topic.linked&.created_at
 
-    linked.updated_at
+    return unless updated_at && created_at
+    return if updated_at - created_at < 1.hour
+    return if format_date(updated_at) ==
+      format_date(created_at)
+    return if h.time_ago_in_words(updated_at, nil, true) ==
+      h.time_ago_in_words(created_at, nil, true)
+
+    updated_at
   end
 
   def offtopic_tag
