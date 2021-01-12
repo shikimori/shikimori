@@ -3,6 +3,7 @@ FactoryBot.define do
     association :target, factory: :anime
     user { seed :user }
     text { 's' * Review::MINIMUM_LENGTH }
+    changed_at { nil }
 
     overall { 1 }
     storyline { 1 }

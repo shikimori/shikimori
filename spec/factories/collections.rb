@@ -8,6 +8,7 @@ FactoryBot.define do
     text { '' }
     locale { :ru }
     published_at { nil }
+    changed_at { nil }
 
     Collection.state_machine.states.map(&:value).each do |value|
       trait(value.to_sym) { state { value } }

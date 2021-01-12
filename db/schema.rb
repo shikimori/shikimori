@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_08_175751) do
+ActiveRecord::Schema.define(version: 2021_01_12_121731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -164,6 +164,7 @@ ActiveRecord::Schema.define(version: 2021_01_08_175751) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "state", null: false
+    t.datetime "changed_at"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
@@ -320,6 +321,7 @@ ActiveRecord::Schema.define(version: 2021_01_08_175751) do
     t.integer "cached_votes_up", default: 0
     t.integer "cached_votes_down", default: 0
     t.datetime "published_at"
+    t.datetime "changed_at"
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
@@ -851,6 +853,7 @@ ActiveRecord::Schema.define(version: 2021_01_08_175751) do
     t.string "locale", null: false
     t.integer "cached_votes_up", default: 0
     t.integer "cached_votes_down", default: 0
+    t.datetime "changed_at"
     t.index ["target_id", "target_type"], name: "index_reviews_on_target_id_and_target_type"
   end
 

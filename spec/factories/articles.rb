@@ -8,6 +8,7 @@ FactoryBot.define do
     approver_id { nil }
     tags { [] }
     locale { :ru }
+    changed_at { nil }
 
     Types::Article::State.values.each { |value| trait(value) { state { value } } }
 
