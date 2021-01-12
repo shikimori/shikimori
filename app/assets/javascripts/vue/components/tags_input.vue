@@ -84,6 +84,7 @@ export default {
 
   .ti-autocomplete
     display: none
+    z-index: 31
 
   .ti-focus
     .ti-input
