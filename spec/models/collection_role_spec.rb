@@ -5,7 +5,7 @@ describe CollectionRole do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_uniqueness_of(:user_id).scoped_to :collection_id }
+    # it { is_expected.to validate_uniqueness_of(:user_id).scoped_to :collection_id }
   end
 
   describe 'permissions' do
