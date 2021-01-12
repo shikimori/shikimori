@@ -6,6 +6,7 @@ FactoryBot.define do
     state { :unpublished }
     moderation_state { :pending }
     text { '' }
+    tags { [] }
     locale { :ru }
     published_at { nil }
     changed_at { nil }

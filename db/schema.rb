@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_12_140418) do
+ActiveRecord::Schema.define(version: 2021_01_12_155445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -323,6 +323,7 @@ ActiveRecord::Schema.define(version: 2021_01_12_140418) do
     t.integer "cached_votes_down", default: 0
     t.datetime "published_at"
     t.datetime "changed_at"
+    t.text "tags", default: [], null: false, array: true
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
