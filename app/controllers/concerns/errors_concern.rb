@@ -16,8 +16,7 @@ module ErrorsConcern
     end
   end
 
-  # rubocop:disable MethodLength, AbcSize, CyclomaticComplexity, PerceivedComplexity
-  def runtime_error error
+  def runtime_error error # rubocop:disable MethodLength, AbcSize, CyclomaticComplexity, PerceivedComplexity
     if defined? Airbrake
       Airbrake.notify error,
         url: request.url,
@@ -41,28 +40,27 @@ module ErrorsConcern
     )
 
     if NOT_FOUND_ERRORS.include? error.class
-      not_found_error(error)
+      not_found_error error
 
-    elsif error.is_a?(AgeRestricted)
-      age_restricted_error(error)
+    elsif error.is_a? AgeRestricted
+      age_restricted_error error
 
-    elsif error.is_a?(CanCan::AccessDenied)
-      forbidden_error(error)
+    elsif error.is_a? CanCan::AccessDenied
+      forbidden_error error
 
-    elsif error.is_a?(StatusCodeError)
-      status_code_error(error)
+    elsif error.is_a? StatusCodeError
+      status_code_error error
 
-    elsif error.is_a?(CopyrightedResource)
-      copyrighted_error(error)
+    elsif error.is_a? CopyrightedResource
+      copyrighted_error error
 
     elsif is_a?(Api::V1Controller) || json?
-      api_error(error)
+      api_error error
 
     else
-      standard_error(error)
+      standard_error error
     end
   end
-  # rubocop:enable MethodLength, AbcSize, CyclomaticComplexity, PerceivedComplexity
 
 private
 
