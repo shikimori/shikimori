@@ -8,7 +8,6 @@ production:
   :concurrency: 60
 
 :queues:
-  - [achievements, 6]
   - [default, 5]
   - [cpu_intensive, 5]
   - [high_priority, 8]
@@ -23,7 +22,6 @@ production:
   - [dangerous_actions, 8]
 
 :limits:
-  achievement: 10
   cpu_intensive: 2
   imports: 2
   mal_parsers: 50
