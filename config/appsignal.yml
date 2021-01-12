@@ -1,18 +1,18 @@
 default: &defaults
   # Your push api key, it is possible to set this dynamically using ERB:
   # push_api_key: "<%= ENV['APPSIGNAL_PUSH_API_KEY'] %>"
-  push_api_key: "94520d30-a390-427b-bb67-f785847518dc"
+  push_api_key: '9185649b-2890-4c72-8694-ec567fd3e2d4'
 
   # Your app's name
-  name: "App"
+  name: 'App'
 
   # Actions that should not be monitored by AppSignal
   # ignore_actions:
   #   - ApplicationController#isup
 
-  # See http://docs.appsignal.com/ruby/configuration/options.html for
-  # all configuration options.
-
+  # Errors that should not be recorded by AppSignal
+  # For more information see our docs:
+  # https://docs.appsignal.com/ruby/configuration/ignore-errors.html
   ignore_errors:
     - AbstractController::ActionNotFound
     - ActionController::InvalidAuthenticityToken
@@ -43,15 +43,18 @@ default: &defaults
     - Sidekiq::Shutdown
     - Terrapin::ExitStatusError
 
+  # See http://docs.appsignal.com/ruby/configuration/options.html for
+  # all configuration options.
+
 # Configuration per environment, leave out an environment or set active
 # to false to not push metrics for that environment.
 beta:
   <<: *defaults
-  active: false
+  active: true
 
 development:
   <<: *defaults
-  active: false
+  active: true
 
 production:
   <<: *defaults
