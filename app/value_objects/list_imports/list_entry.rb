@@ -3,7 +3,8 @@ class ListImports::ListEntry
 
   TargetType = Types::Strict::String.enum('Anime', 'Manga')
 
-  attribute :target_title, String, allow_nil: true
+  attribute :target_title, String,
+    default: ->(object, _attribute) { "ID=#{object.target_id}" }
   attribute :target_id, Integer
   attribute :target_type, TargetType
 
