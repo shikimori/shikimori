@@ -4,6 +4,10 @@ describe CollectionRole do
     it { is_expected.to belong_to(:collection).touch(true) }
   end
 
+  describe 'validations' do
+    it { is_expected.to validate_uniqueness_of(:user_id).scoped_to :collection_id }
+  end
+
   describe 'permissions' do
     subject { Ability.new user }
     let(:user) { build_stubbed :user, :week_registered }
