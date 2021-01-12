@@ -12,12 +12,15 @@ describe Collection::Update do
     create :collection,
       kind: Types::Collection::Kind[type],
       user: user,
+      moderation_state: moderation_state,
+      approver: user,
       created_at: 1.day.ago
   end
   let!(:topic) do
     create :collection_topic, linked: collection, forum_id: Forum::HIDDEN_ID
   end
   let(:type) { %i[anime manga ranobe].sample }
+  let(:moderation_state) { %i[accepted pending].sample }
   let(:transition) { nil }
 
   context 'valid params' do
@@ -90,6 +93,16 @@ describe Collection::Update do
           forum_id: Topic::FORUM_IDS['Collection']
         )
         expect(collection.topics.first.created_at).to be_within(0.1).of Time.zone.now
+      end
+
+      context 'rejected collection' do
+        let(:moderation_state) { :rejected }
+
+        it do
+          expect(collection.topics.first).to have_attributes(
+            forum_id: Forum::OFFTOPIC_ID
+          )
+        end
       end
     end
   end

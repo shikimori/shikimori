@@ -34,7 +34,7 @@ private
     published_at = @model.respond_to?(:published_at) ? @model.published_at : Time.zone.now
 
     update_topic(
-      forum_id: Topic::FORUM_IDS[model.class.name],
+      forum_id: publish_forum_id,
       created_at: published_at,
       updated_at: published_at
     )
@@ -61,6 +61,10 @@ private
 
   def hidden_topic?
     @model.topics.first.forum_id == Forum::HIDDEN_ID
+  end
+
+  def publish_forum_id
+    Topic::FORUM_IDS[model.class.name]
   end
 
   def faye_service

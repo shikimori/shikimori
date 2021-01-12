@@ -46,6 +46,14 @@ private
     (@params[:links] || []).take(MAX_LINKS)
   end
 
+  def publish_forum_id
+    if @model.rejected?
+      Forum::OFFTOPIC_ID
+    else
+      super
+    end
+  end
+
   def update_params
     super.except(:links)
   end
