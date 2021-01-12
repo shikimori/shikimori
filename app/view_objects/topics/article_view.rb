@@ -1,8 +1,6 @@
 class Topics::ArticleView < Topics::UserContentView
   BODY_TRUCATE_SIZE = 125
 
-  delegate :tags, to: :article
-
   def container_classes
     super 'b-article-topic'
   end
@@ -30,34 +28,8 @@ class Topics::ArticleView < Topics::UserContentView
     h.article_url article
   end
 
-  # def html_body
-  #   text = @topic.decomposed_body.text
-  # 
-  #   if preview? || minified?
-  #     text = text
-  #       .gsub(%r{\[/?center\]}, '')
-  #       .gsub(%r{\[poster.*?\].*?\[/\poster\]|\[poster=.*?\]}, '')
-  #       .strip
-  #       # .gsub(%r{\[spoiler.*?\]\s*\[/spoiler\]}, '')
-  #       # .gsub(/\[(poster|image)=.*?\]/, '')
-  #       # .gsub(%r{\[(img|poster|image).*?\].*\[/\1\]}, '')
-  #   end
-  # 
-  #   super(text)
-  # end
-
   def skip_body?
     preview? && html_footer.present?
-  end
-
-  def prebody?
-    return false if preview?
-
-    html_footer.present? || tags.any?
-  end
-
-  def footer_vote?
-    false
   end
 
   def linked_in_avatar?

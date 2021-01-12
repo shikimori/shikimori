@@ -59,6 +59,10 @@ class Topics::CollectionView < Topics::UserContentView
     @topic.linked.decorate
   end
 
+  def prebody?
+    tags.any?
+  end
+
 private
 
   def preview_html

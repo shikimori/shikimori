@@ -32,6 +32,18 @@ class Topics::UserContentView < Topics::View
     updated_at
   end
 
+  def tags
+    @topic.linked.respond_to?(:tags) ?
+      @topic.linked.tags :
+      super
+  end
+
+  def prebody?
+    return false if preview?
+
+    html_footer.present? || tags.any?
+  end
+
   def offtopic_tag
     if @topic.linked.respond_to?(:rejected?) && @topic.linked.rejected?
       I18n.t 'markers.offtopic'
