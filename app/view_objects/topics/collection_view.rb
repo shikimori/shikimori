@@ -51,6 +51,10 @@ class Topics::CollectionView < Topics::UserContentView
     tags
   end
 
+  def offtopic_tag
+    super if collection.published?
+  end
+
   def collection
     @topic.linked.decorate
   end
