@@ -2,7 +2,7 @@ class CollectionRolesController < ShikimoriController
   load_and_authorize_resource
 
   def create
-    @resource.save!
+    @resource.save! rescue ActiveRecord::RecordInvalid
 
     redirect_to edit_collection_url(@resource.collection),
       notice: i18n_t(
