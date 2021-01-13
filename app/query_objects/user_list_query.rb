@@ -1,7 +1,7 @@
 class UserListQuery
-  pattr_initialize :klass, :user, :params
+  method_object :klass, :user, :params
 
-  def fetch
+  def call
     user_rates
       .each_with_object(statuses) do |rate, memo|
         memo[rate.status.to_sym] ||= []

@@ -15,9 +15,7 @@ class UserLibraryView < ViewObjectBase
     end
   end
 
-  def any?
-    list_page.any?
-  end
+  delegate :any?, to: :list_page
 
   def list_page
     truncated_list.each do |status, list|
@@ -63,11 +61,11 @@ class UserLibraryView < ViewObjectBase
 
   def full_list
     Rails.cache.fetch cache_key do
-      UserListQuery.new(
+      UserListQuery.call(
         klass,
         user,
         h.params.merge(censored: false, order: sort_order)
-      ).fetch
+      )
     end
   end
 
@@ -99,6 +97,7 @@ private
         i += 1
 
         next if i <= from
+
         if i > to
           list[status].stats = nil if list[status]
           break
@@ -113,7 +112,6 @@ private
     list
   end
 
-  # аггрегированная статистика по данным
   def list_stats data, reduce = true
     stats = {
       tv: data.sum { |v| v.target.anime? && v.target.kind_tv? ? 1 : 0 },
@@ -122,9 +120,14 @@ private
       special: data.sum { |v| v.target.anime? && v.target.kind_special? ? 1 : 0 },
       music: data.sum { |v| v.target.anime? && v.target.kind_music? ? 1 : 0 },
 
-      manga: data.sum { |v| v.target.kinda_manga? && (v.target.kind_manga? || v.target.kind_manhwa? || v.target.kind_manhua?) ? 1 : 0 },
+      manga: data.sum do |v|
+        v.target.kinda_manga? &&
+          (v.target.kind_manga? || v.target.kind_manhwa? || v.target.kind_manhua?) ? 1 : 0
+      end,
       oneshot: data.sum { |v| v.target.kinda_manga? && v.target.kind_one_shot? ? 1 : 0 },
-      novel: data.sum { |v| v.target.kinda_manga? && (v.target.kind_light_novel? || v.target.kind_novel?) ? 1 : 0 },
+      novel: data.sum do |v|
+        v.target.kinda_manga? && (v.target.kind_light_novel? || v.target.kind_novel?) ? 1 : 0
+      end,
       doujin: data.sum { |v| v.target.kinda_manga? && v.target.kind_doujin? ? 1 : 0 }
     }
     if anime?
@@ -149,7 +152,7 @@ private
       :user_list,
       :v7,
       user,
-      Digest::MD5.hexdigest(h.request.url.gsub(/\.json$/, '').gsub(/\/page\/\d+/, '')),
+      Digest::MD5.hexdigest(h.request.url.gsub(/\.json$/, '').gsub(%r{/page/\d+}, '')),
       sort_order
       # h.user_signed_in? ? h.current_user.preferences.russian_names? : false
     ]
