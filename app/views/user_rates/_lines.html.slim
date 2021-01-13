@@ -1,3 +1,4 @@
+- is_own_profile = profile_view.own_profile?
 table.b-table.list-lines
   - if list.index == 1
     thead
@@ -51,9 +52,9 @@ table.b-table.list-lines
   tbody.entries
     - list.user_rates.each_with_index do |user_rate, index|
       tr.user_rate.unprocessed.selectable[
-        class=(:editable if profile_view.own_profile?)
-        data-remote=('true' if profile_view.own_profile?)
-        data-action=(edit_user_rate_path(user_rate) if profile_view.own_profile?)
+        class=(:editable if is_own_profile)
+        data-remote=('true' if is_own_profile)
+        data-action=(edit_user_rate_path(user_rate) if is_own_profile)
         data-type='html'
         data-rate_url=api_v2_user_rate_path(user_rate)
         data-target_id=user_rate.target_id
@@ -83,7 +84,7 @@ table.b-table.list-lines
             - if user_rate.text.present?
               div = user_rate.text_html
 
-        td.num class=(:hoverable if profile_view.own_profile?)
+        td.num class=(:hoverable if is_own_profile)
           span.current-value[
             data-field='score'
             data-max='10'
@@ -91,7 +92,7 @@ table.b-table.list-lines
           ] = user_rate.score.zero? ? '&ndash;'.html_safe : user_rate.score
 
         - if library.anime?
-          td.num class=(:hoverable if profile_view.own_profile?)
+          td.num class=(:hoverable if is_own_profile)
             span.current-value[
               data-field='episodes'
               data-max=user_rate.anime.episodes
@@ -111,7 +112,7 @@ table.b-table.list-lines
                 = user_rate.anime.episodes.zero? ? '?' : user_rate.anime.episodes
 
         - else
-          td.num class=(:hoverable if profile_view.own_profile?)
+          td.num class=(:hoverable if is_own_profile)
             span.current-value[
               data-field='chapters'
               data-max=user_rate.manga.chapters
@@ -125,7 +126,7 @@ table.b-table.list-lines
               = user_rate.manga.chapters.zero? ? '?' : user_rate.manga.chapters
 
           - if @resource.preferences.volumes_in_manga?
-            td.num class=(:hoverable if profile_view.own_profile?)
+            td.num class=(:hoverable if is_own_profile)
               span.current-value[
                 data-field='volumes'
                 data-max=user_rate.manga.volumes
