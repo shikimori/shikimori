@@ -148,5 +148,5 @@ table.b-table.list-lines
                 = user_rate.target_volumes.zero? ? '?' : user_rate.target_volumes
 
         td.num
-          - if user_rate.target_kind
+          - if user_rate.target_kind.present?
             = t "enumerize.#{user_rate.target_class_downcase}.kind.short.#{user_rate.target_kind}"

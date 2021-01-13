@@ -7,6 +7,7 @@ class UserRatesController < ProfilesController
 
   skip_before_action :fetch_resource, :set_breadcrumbs,
     except: %i[index]
+  helper_method :scores_options, :statuses_options
 
   SortOrder = Animes::Filters::OrderBy::Field
 
@@ -59,6 +60,19 @@ private
   def save_sort_order
     if params[:order] && current_user.preferences.default_sort != params[:order]
       current_user.preferences.update default_sort: params[:order]
+    end
+  end
+
+  def scores_options
+    @scores ||= {}
+    @scores[I18n.locale] ||= 1.upto(10).map do |score|
+      ["(#{score}) #{I18n.t("activerecord.attributes.user_rate.scores.#{score}")}", score]
+    end
+  end
+
+  def statuses_options target_type
+    UserRate.statuses.map do |status_name, _status_id|
+      [UserRate.status_name(status_name, target_type), status_name]
     end
   end
 end
