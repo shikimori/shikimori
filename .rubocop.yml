@@ -149,6 +149,8 @@ Style/StringConcatenation:
   Enabled: false
 Style/ExplicitBlockArgument:
   Enabled: false
+Style/TernaryParentheses:
+  Enabled: false
 Rails/OutputSafety:
   Enabled: false
 Rails/SkipsModelValidations:
