@@ -147,6 +147,8 @@ Style/HashAsLastArrayItem:
   Enabled: false
 Style/StringConcatenation:
   Enabled: false
+Style/ExplicitBlockArgument:
+  Enabled: false
 Rails/OutputSafety:
   Enabled: false
 Rails/SkipsModelValidations:

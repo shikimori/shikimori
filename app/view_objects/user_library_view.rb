@@ -47,7 +47,7 @@ class UserLibraryView < ViewObjectBase
       end
 
     stats[:days] = stats[:days].round(2) if stats[:days]
-    stats.delete_if { |_, v| !(v > 0) }
+    stats.delete_if { |_, v| !v.positive? }
     stats
   end
 
@@ -130,21 +130,27 @@ private
       end,
       doujin: data.sum { |v| v.target.kinda_manga? && v.target.kind_doujin? ? 1 : 0 }
     }
+
     if anime?
       stats[:episodes] = data.sum(&:episodes)
     else
       stats[:chapters] = data.sum(&:chapters)
       stats[:volumes] = data.sum(&:volumes) if user.preferences.volumes_in_manga?
     end
-    stats[:days] = (data.sum do |v|
-      if anime?
-        SpentTimeDuration.new(v).anime_hours v.target.episodes, v.target.duration
-      else
-        SpentTimeDuration.new(v).manga_hours v.target.chapters, v.target.volumes
-      end
-    end.to_f / 60 / 24).round(2)
 
-    reduce ? stats.select { |_, v| v.positive? }.to_hash : stats
+    stats[:days] = (
+      data.sum do |v|
+        if anime?
+          SpentTimeDuration.new(v).anime_hours v.target.episodes, v.target.duration
+        else
+          SpentTimeDuration.new(v).manga_hours v.target.chapters, v.target.volumes
+        end
+      end.to_f / 60 / 24
+    ).round(2)
+
+    reduce ?
+      stats.select { |_, v| v.positive? }.to_hash :
+      stats
   end
 
   def cache_key
