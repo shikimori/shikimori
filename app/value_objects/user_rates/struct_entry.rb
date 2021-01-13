@@ -19,6 +19,7 @@ UserRates::StructEntry = Struct.new(
   :target_chapters,
   :target_kind,
   :target_year,
+  :target_image_file_name,
   :target_is_ongoing,
   :target_is_anons
 )
@@ -57,6 +58,7 @@ class UserRates::StructEntry
       (target.chapters unless is_anime),
       target.kind.to_s,
       target.year,
+      target.image_file_name,
       target.ongoing?,
       target.anons?
     )

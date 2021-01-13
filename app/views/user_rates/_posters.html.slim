@@ -5,7 +5,8 @@
       name: user_rate.target_name,
       russian: user_rate.target_russian,
       kind: user_rate.target_kind,
-      aired_on: (Date.new(user_rate.target_year) if user_rate.target_year) \
+      aired_on: (Date.new(user_rate.target_year) if user_rate.target_year),
+      image_file_name: user_rate.target_image_file_name \
     )
     .c-column.user_rate[
       data-target_id=user_rate.target_id
