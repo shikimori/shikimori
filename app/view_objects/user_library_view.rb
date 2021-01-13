@@ -108,7 +108,7 @@ private
       end
     end
 
-    # UserRates::RefreshIrrelevant.call list, klass
+    UserRates::RefreshIrrelevant.call list, klass
     list
   end
 

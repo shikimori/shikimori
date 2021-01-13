@@ -57,9 +57,9 @@ table.b-table.list-lines
       tr.user_rate.unprocessed.selectable[
         class=(:editable if is_own_profile)
         data-remote=('true' if is_own_profile)
-        data-action=(edit_user_rate_path(user_rate) if is_own_profile)
+        data-action=(edit_user_rate_path(user_rate.id) if is_own_profile)
         data-type='html'
-        data-rate_url=api_v2_user_rate_path(user_rate)
+        data-rate_url=api_v2_user_rate_path(user_rate.id)
         data-target_id=user_rate.target_id
         data-target_name=user_rate.target_name
         data-target_russian=user_rate.target_russian
@@ -107,7 +107,7 @@ table.b-table.list-lines
               data-min='0'
             ]
               span
-                = user_rate.target_episodes
+                = user_rate.episodes
             span.misc-value
               span.b-separator.inline
                 | /
