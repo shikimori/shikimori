@@ -79,7 +79,11 @@ pageLoad('user_rates_index', () => {
     const $form = $(formHtml).process();
     const modal = new ShikiModal($form);
 
-    $('.remove', $form).on('ajax:success', () => $poster.remove());
+    $('.remove', $form).on('ajax:success', e => {
+      e.stopImmediatePropagation();
+      $poster.remove();
+      modal.close();
+    });
     $form.on('ajax:success', (_e, data) => {
       $poster.children('.text')
         .html(data && data.text_html ? data.text_html : '')
