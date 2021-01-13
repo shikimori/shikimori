@@ -1,4 +1,7 @@
 - is_own_profile = profile_view.own_profile?
+- ongoing_text = i18n_i 'ongoing'
+- anons_text = i18n_i 'anons'
+
 table.b-table.list-lines
   - if list.index == 1
     thead
@@ -67,12 +70,16 @@ table.b-table.list-lines
             = list.index + index
         td.name
           a.tooltipped href=user_rate.target_url data-predelay='500'
-            = user_rate.target_name
+            - if user_rate.target_russian.present?
+              span.name-en = user_rate.target_name
+              span.name-ru = user_rate.target_russian
+            - else
+              = user_rate.target_name
 
-          - if user_rate.target.ongoing?
-            span.ongoing = i18n_i 'ongoing'
-          - elsif user_rate.target.anons?
-            span.anons = i18n_i 'anons'
+          - if user_rate.target_is_ongoing
+            span.ongoing = ongoing_text
+          - elsif user_rate.target_is_anons
+            span.anons = anons_text
 
           span.rewatches
             - if user_rate.rewatches > 0
@@ -96,27 +103,27 @@ table.b-table.list-lines
           td.num class=(:hoverable if is_own_profile)
             span.current-value[
               data-field='episodes'
-              data-max=user_rate.anime.episodes
+              data-max=user_rate.target_episodes
               data-min='0'
             ]
               span
-                = user_rate.episodes
+                = user_rate.target_episodes
             span.misc-value
               span.b-separator.inline
                 | /
-              - if user_rate.anime.ongoing? && user_rate.anime.episodes_aired > 0
-                = user_rate.anime.episodes_aired
+              - if user_rate.target_is_ongoing && user_rate.target_episodes_aired.positive?
+                = user_rate.target_episodes_aired
                 span.episodes_total
-                  = user_rate.anime.episodes.zero? ? '?' : user_rate.anime.episodes
+                  = user_rate.target_episodes.zero? ? '?' : user_rate.target_episodes
 
               - else
-                = user_rate.anime.episodes.zero? ? '?' : user_rate.anime.episodes
+                = user_rate.target_episodes.zero? ? '?' : user_rate.target_episodes
 
         - else
           td.num class=(:hoverable if is_own_profile)
             span.current-value[
               data-field='chapters'
-              data-max=user_rate.manga.chapters
+              data-max=user_rate.target_chapters
               data-min='0'
             ]
               span
@@ -124,13 +131,13 @@ table.b-table.list-lines
             span.misc-value
               span.b-separator.inline
                 | /
-              = user_rate.manga.chapters.zero? ? '?' : user_rate.manga.chapters
+              = user_rate.target_chapters.zero? ? '?' : user_rate.target_chapters
 
           - if @resource.preferences.volumes_in_manga?
             td.num class=(:hoverable if is_own_profile)
               span.current-value[
                 data-field='volumes'
-                data-max=user_rate.manga.volumes
+                data-max=user_rate.target_volumes
                 data-min='0'
               ]
                 span
@@ -138,7 +145,8 @@ table.b-table.list-lines
               span.misc-value
                 span.b-separator.inline
                   | /
-                = user_rate.manga.volumes.zero? ? '?' : user_rate.manga.volumes
+                = user_rate.target_volumes.zero? ? '?' : user_rate.target_volumes
 
         td.num
-          = user_rate.target_kind
+          - if user_rate.target_kind
+            = t "enumerize.#{user_rate.target_class_downcase}.kind.short.#{user_rate.target_kind}"

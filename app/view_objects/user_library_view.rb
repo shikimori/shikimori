@@ -62,9 +62,9 @@ class UserLibraryView < ViewObjectBase
   def full_list
     Rails.cache.fetch cache_key do
       UserListQuery.call(
-        klass,
-        user,
-        h.params.merge(censored: false, order: sort_order)
+        klass: klass,
+        user: user,
+        params: h.params.merge(censored: false, order: sort_order)
       )
     end
   end
@@ -108,7 +108,7 @@ private
       end
     end
 
-    UserRates::RefreshIrrelevant.call list, klass
+    # UserRates::RefreshIrrelevant.call list, klass
     list
   end
 

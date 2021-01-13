@@ -4,6 +4,12 @@ class ListCompareService
 
   method_object %i[user_1! user_2! params!]
 
+  URL_PREFIX = {
+    'Anime' => 'animes',
+    'Manga' => 'mangas',
+    'Ranobe' => 'ranobe'
+  }
+
   def call
     # список первого пользователя
     user_1_rates = user_rates @user_1
@@ -147,7 +153,7 @@ private
         ).round(2) :
         nil,
 
-      url: "/#{klass.name.downcase.pluralize}/" +
+      url: "/#{URL_PREFIX[klass.name]}/" +
         CopyrightedIds.instance.change(id, klass.name.downcase)
     }
 

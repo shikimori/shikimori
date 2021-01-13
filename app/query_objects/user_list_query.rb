@@ -1,13 +1,13 @@
 class UserListQuery
-  method_object :klass, :user, :params
+  method_object %i[klass! user! params!]
 
   def call
     user_rates
-      .each_with_object(statuses) do |rate, memo|
-        memo[rate.status.to_sym] ||= []
-        memo[rate.status.to_sym] << rate.decorate
+      .each_with_object(statuses) do |user_rate, memo|
+        memo[user_rate.status.to_sym] ||= []
+        memo[user_rate.status.to_sym] << UserRates::StructEntry.create(user_rate)
       end
-      .delete_if { |_status, rates| rates.none? }
+      .delete_if { |_status, user_rates| user_rates.none? }
   end
 
 private
