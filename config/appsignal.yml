@@ -50,11 +50,11 @@ default: &defaults
 # to false to not push metrics for that environment.
 beta:
   <<: *defaults
-  active: true
+  active: false
 
 development:
   <<: *defaults
-  active: true
+  active: false
 
 production:
   <<: *defaults
