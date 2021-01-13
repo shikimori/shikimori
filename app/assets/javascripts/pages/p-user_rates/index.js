@@ -115,7 +115,11 @@ function filterList() {
 
     while (num < block.entries.length) {
       const entry = block.entries[num];
-      if ((entry.title.indexOf(filterValue) !== -1) || (entry.text.indexOf(filterValue) !== -1)) {
+      if (
+        (entry.target_name.indexOf(filterValue) !== -1) ||
+        (entry.target_russian.indexOf(filterValue) !== -1) ||
+        (entry.text.indexOf(filterValue) !== -1)
+      ) {
         visible = true;
 
         if (entry.display !== '') {
@@ -154,7 +158,8 @@ function updateListCache() {
           return {
             node,
             target_id: $node.data('target_id'),
-            title: String($node.data('title')).toLowerCase(),
+            target_name: String($node.data('target_name')).toLowerCase(),
+            target_russian: String($node.data('target_russian')).toLowerCase(),
             text: String($node.data('text') || '').toLowerCase(),
             display: node.style.display
           };
