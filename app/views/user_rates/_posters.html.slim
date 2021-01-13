@@ -1,11 +1,19 @@
 .list-posters.cc-5.to-process data-dynamic='cutted_covers'
   - list.user_rates.each do |user_rate|
+    - target = user_rate.target_class_downcased.capitalize.constantize.new( \
+      id: user_rate.target_id,
+      name: user_rate.target_name,
+      russian: user_rate.target_russian,
+      kind: user_rate.target_kind,
+      aired_on: (Date.new(user_rate.target_year) if user_rate.target_year) \
+    )
     .c-column.user_rate[
       data-target_id=user_rate.target_id
-      data-title=user_rate.target_name
+      data-target_name=user_rate.target_name
+      data-target_russian=user_rate.target_russian
       data-text=user_rate.text
     ]
-      = render user_rate.target.decorate,
+      = render target.decorate,
         cover_notice: :year_kind,
         tooltip_predelay: profile_view.own_profile? ? 750 : 450
       .text class=(:hidden if user_rate.text.blank?)
@@ -13,7 +21,7 @@
       - if profile_view.own_profile?
         .edit-user_rate[
           data-remote="true"
-          data-action=edit_user_rate_path(user_rate, detailed: true)
+          data-action=edit_user_rate_path(user_rate.id, detailed: true)
           data-type='html'
-          data-rate_url=api_v2_user_rate_path(user_rate)
+          data-rate_url=api_v2_user_rate_path(user_rate.id)
         ]

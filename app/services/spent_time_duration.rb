@@ -47,8 +47,12 @@ private
   end
 
   def entry_klass
-    if @user_rate.is_a?(ExtendedUserRate)
+    if @user_rate.is_a? UserRates::StructEntry
+      @user_rate.target_class_downcased == 'ranobe' ? Ranobe : Manga
+
+    elsif @user_rate.is_a? ExtendedUserRate
       @user_rate.type == Ranobe.name ? Ranobe : Manga
+
     else
       @user_rate.manga.is_a?(Ranobe) ? Ranobe : Manga
     end

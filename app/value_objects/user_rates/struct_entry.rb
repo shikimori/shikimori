@@ -8,7 +8,7 @@ UserRates::StructEntry = Struct.new(
   :chapters,
   :rewatches,
   :target_id,
-  :target_class_downcase,
+  :target_class_downcased,
   :target_name,
   :target_russian,
   :target_url,
@@ -18,6 +18,7 @@ UserRates::StructEntry = Struct.new(
   :target_volumes,
   :target_chapters,
   :target_kind,
+  :target_year,
   :target_is_ongoing,
   :target_is_anons
 )
@@ -32,7 +33,7 @@ class UserRates::StructEntry
   def self.create user_rate # rubocop:disable all
     is_anime = user_rate.target_type == 'Anime'
     target = is_anime ? user_rate.anime : user_rate.manga
-    target_class_downcase = target.class.name.downcase
+    target_class_downcased = target.class.name.downcase
 
     UserRates::StructEntry.new(
       user_rate.id,
@@ -44,17 +45,18 @@ class UserRates::StructEntry
       user_rate.chapters,
       user_rate.rewatches,
       user_rate.target_id,
-      target_class_downcase,
+      target_class_downcased,
       target.name,
       target.russian,
       "/#{URL_PREFIX[target.class.name]}/" +
-        CopyrightedIds.instance.change(user_rate.target_id, target_class_downcase),
+        CopyrightedIds.instance.change(user_rate.target_id, target_class_downcased),
       (target.episodes if is_anime),
       (target.episodes_aired if is_anime),
       (target.duration if is_anime),
       (target.volumes unless is_anime),
       (target.chapters unless is_anime),
       target.kind.to_s,
+      target.year,
       target.ongoing?,
       target.anons?
     )
