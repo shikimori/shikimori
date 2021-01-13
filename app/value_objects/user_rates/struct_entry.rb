@@ -14,6 +14,7 @@ UserRates::StructEntry = Struct.new(
   :target_url,
   :target_episodes,
   :target_episodes_aired,
+  :target_episode_duration,
   :target_volumes,
   :target_chapters,
   :target_kind,
@@ -50,9 +51,10 @@ class UserRates::StructEntry
         CopyrightedIds.instance.change(user_rate.target_id, target_class_downcase),
       (target.episodes if is_anime),
       (target.episodes_aired if is_anime),
+      (target.duration if is_anime),
       (target.volumes unless is_anime),
       (target.chapters unless is_anime),
-      target.kind,
+      target.kind.to_s,
       target.ongoing?,
       target.anons?
     )
