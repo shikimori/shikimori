@@ -1,5 +1,11 @@
 describe UserListQuery do
-  subject { described_class.call Anime, user, params }
+  subject do
+    described_class.call(
+      klass: Anime,
+      user: user,
+      params: params
+    )
+  end
   let(:params) { { mylist: '1,2', order: 'name' } }
 
   let!(:user_rate_1) do
@@ -28,8 +34,14 @@ describe UserListQuery do
   end
 
   it do
-    is_expected.to have(2).items
-    expect(subject.first).to eq [:watching, [user_rate_2, user_rate_1]]
-    expect(subject[:completed]).to eq [user_rate_3]
+    is_expected.to eq(
+      watching: [
+        UserRates::StructEntry.create(user_rate_2),
+        UserRates::StructEntry.create(user_rate_1)
+      ],
+      completed: [
+        UserRates::StructEntry.create(user_rate_3)
+      ]
+    )
   end
 end
