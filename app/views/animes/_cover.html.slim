@@ -16,7 +16,7 @@ span.image-decor
   - elsif cover_by == :linkeable
     a.title[
       class=(cover_notice == :none ? :two_lined : :left_aligned)
-      href=url_for(anime)
+      href=anime.url
       title=anime.name
       itemprop='url'
       tabindex="-1"

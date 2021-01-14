@@ -5,12 +5,24 @@ describe Animes::UserRatesStatisticsQuery do
   let(:cheat_bot) { create :user, :cheat_bot }
   let(:entry) { create :anime }
 
-  let!(:user_rate_1) { create :user_rate, :watching, user: user_2, target: entry, score: 9 }
-  let!(:user_rate_2) { create :user_rate, :planned, user: user_3, target: entry, score: 5 }
-  let!(:user_rate_3) { create :user_rate, :planned, user: user_4, target: entry, score: 9 }
-  let!(:user_rate_4) { create :user_rate, :completed, user: user_5, target: entry }
-  let!(:user_rate_5) { create :user_rate, :rewatching, user: user_6, target: entry }
-  let!(:user_rate_6) { create :user_rate, :rewatching, user: cheat_bot, target: entry, score: 9 }
+  let!(:user_rate_1) do
+    create :user_rate, :watching, user: user_2, target: entry, score: 9
+  end
+  let!(:user_rate_2) do
+    create :user_rate, :planned, user: user_3, target: entry, score: 5
+  end
+  let!(:user_rate_3) do
+    create :user_rate, :planned, user: user_4, target: entry, score: 9
+  end
+  let!(:user_rate_4) do
+    create :user_rate, :completed, user: user_5, target: entry
+  end
+  let!(:user_rate_5) do
+    create :user_rate, :rewatching, user: user_6, target: entry
+  end
+  let!(:user_rate_6) do
+    create :user_rate, :rewatching, user: cheat_bot, target: entry, score: 9
+  end
 
   let(:query) { Animes::UserRatesStatisticsQuery.new(entry, user) }
 
