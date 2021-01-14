@@ -118,7 +118,7 @@ module Shikimori
     end
 
     config.middleware.use Rack::Attack
-    config.middleware.use LogBeforeTimeout
+    # config.middleware.use LogBeforeTimeout
 
     config.middleware.insert_before 0, Rack::Cors do
       if Rails.env.development?
