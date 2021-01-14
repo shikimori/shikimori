@@ -34,8 +34,10 @@ private
   def assign_entry status, index, entry
     user_rate = @library[status].user_rates[index]
 
-    user_rate.target_episodes = entry.episodes
-    user_rate.target_episodes_aired = entry.episodes_aired
+    if entry.respond_to? :episodes
+      user_rate.target_episodes = entry.episodes
+      user_rate.target_episodes_aired = entry.episodes_aired
+    end
     user_rate.target_is_anons = entry.anons?
     user_rate.target_is_ongoing = entry.ongoing?
   end
