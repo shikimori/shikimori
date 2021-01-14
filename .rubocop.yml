@@ -136,6 +136,9 @@ Naming/VariableNumber:
   - v23
   - v24
   - v25
+  - x48
+  - x96
+  - x160
   - ignore302
 Lint/UriEscapeUnescape:
   Enabled: false

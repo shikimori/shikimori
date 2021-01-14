@@ -21,7 +21,7 @@ class ImageUrlGenerator
     image_url_path = entry.send(image_method).url image_size, only_path
 
     if Rails.env.test? ||
-        (Rails.env.development? && image_file_path && File.exist?(image_file_path))
+        (!Rails.env.production? && image_file_path && File.exist?(image_file_path))
       local_url image_url_path
     else
       production_url image_url_path, image_index
