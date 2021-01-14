@@ -1,5 +1,5 @@
 describe ImageUrlGenerator do
-  let(:service) { ImageUrlGenerator.instance }
+  let(:service) { described_class.instance }
 
   let(:timestamp) { '1425232393' }
   include_context :timecop, '2015-03-01T20:53:13.183710+03:00'
@@ -8,8 +8,12 @@ describe ImageUrlGenerator do
     subject { service.url entry, image_size }
 
     context 'production environment' do
-      before { allow(Rails.env).to receive(:production?).and_return true }
+      before do
+        allow(Rails.env).to receive(:production?).and_return true
+        allow(Rails.env).to receive(:test?).and_return false
+      end
       let(:protocol) { Shikimori::PROTOCOLS[:production] }
+      let(:domain) { Shikimori::DOMAINS[:production] }
 
       context 'anime' do
         let(:entry) { build_stubbed :anime, :with_image, id: 1 }
@@ -18,7 +22,7 @@ describe ImageUrlGenerator do
           let(:image_size) { :original }
           it do
             is_expected.to eq(
-              "#{protocol}://kawai.test.host/system/animes/original/1.jpg?#{timestamp}"
+              "#{protocol}://kawai.#{domain}/system/animes/original/1.jpg?#{timestamp}"
             )
           end
         end
@@ -27,7 +31,7 @@ describe ImageUrlGenerator do
           let(:image_size) { :x48 }
           it do
             is_expected.to eq(
-              "#{protocol}://kawai.test.host/system/animes/x48/1.jpg?#{timestamp}"
+              "#{protocol}://kawai.#{domain}/system/animes/x48/1.jpg?#{timestamp}"
             )
           end
         end
@@ -38,7 +42,7 @@ describe ImageUrlGenerator do
         let(:image_size) { :x96 }
         it do
           is_expected.to eq(
-            "#{protocol}://moe.test.host/system/clubs/x96/2.jpg?#{timestamp}"
+            "#{protocol}://moe.#{domain}/system/clubs/x96/2.jpg?#{timestamp}"
           )
         end
       end
@@ -48,7 +52,7 @@ describe ImageUrlGenerator do
         let(:image_size) { :x160 }
         it do
           is_expected.to eq(
-            "#{protocol}://moe.test.host/system/users/x160/2.png?#{timestamp}"
+            "#{protocol}://moe.#{domain}/system/users/x160/2.png?#{timestamp}"
           )
         end
       end
@@ -58,7 +62,7 @@ describe ImageUrlGenerator do
         let(:image_size) { :x48 }
         it do
           is_expected.to eq(
-            "#{protocol}://desu.test.host/system/users/x48/3.png?#{timestamp}"
+            "#{protocol}://desu.#{domain}/system/users/x48/3.png?#{timestamp}"
           )
         end
       end

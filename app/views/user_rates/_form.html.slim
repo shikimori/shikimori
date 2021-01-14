@@ -14,7 +14,7 @@
 
   = f.input :score,
     as: :select,
-    collection: UserRateDecorator.scores_options
+    collection: scores_options
 
   - if f.object.anime?
     = f.input :episodes,
@@ -36,7 +36,7 @@
       }
 
   = f.input :status,
-    collection: UserRateDecorator.statuses_options(f.object.target_type),
+    collection: statuses_options(f.object.target_type),
     include_blank: false
   = f.input :rewatches,
     label: UserRate.human_attribute_name(f.object.anime? ? :rewatches : :rereads),

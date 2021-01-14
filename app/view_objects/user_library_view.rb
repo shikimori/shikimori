@@ -47,7 +47,7 @@ class UserLibraryView < ViewObjectBase
       end
 
     stats[:days] = stats[:days].round(2) if stats[:days]
-    stats.delete_if { |_, v| !(v > 0) }
+    stats.delete_if { |_, v| !v.positive? }
     stats
   end
 
@@ -62,9 +62,9 @@ class UserLibraryView < ViewObjectBase
   def full_list
     Rails.cache.fetch cache_key do
       UserListQuery.call(
-        klass,
-        user,
-        h.params.merge(censored: false, order: sort_order)
+        klass: klass,
+        user: user,
+        params: h.params.merge(censored: false, order: sort_order)
       )
     end
   end
@@ -112,45 +112,64 @@ private
     list
   end
 
+  # rubocop:disable all
   def list_stats data, reduce = true
-    stats = {
-      tv: data.sum { |v| v.target.anime? && v.target.kind_tv? ? 1 : 0 },
-      movie: data.sum { |v| v.target.anime? && v.target.kind_movie? ? 1 : 0 },
-      ova: data.sum { |v| v.target.anime? && (v.target.kind_ova? || v.target.kind_ona?) ? 1 : 0 },
-      special: data.sum { |v| v.target.anime? && v.target.kind_special? ? 1 : 0 },
-      music: data.sum { |v| v.target.anime? && v.target.kind_music? ? 1 : 0 },
+    stats = anime? ? anime_stats(data) : manga_stats(data)
 
-      manga: data.sum do |v|
-        v.target.kinda_manga? &&
-          (v.target.kind_manga? || v.target.kind_manhwa? || v.target.kind_manhua?) ? 1 : 0
-      end,
-      oneshot: data.sum { |v| v.target.kinda_manga? && v.target.kind_one_shot? ? 1 : 0 },
-      novel: data.sum do |v|
-        v.target.kinda_manga? && (v.target.kind_light_novel? || v.target.kind_novel?) ? 1 : 0
-      end,
-      doujin: data.sum { |v| v.target.kinda_manga? && v.target.kind_doujin? ? 1 : 0 }
-    }
-    if anime?
-      stats[:episodes] = data.sum(&:episodes)
-    else
-      stats[:chapters] = data.sum(&:chapters)
-      stats[:volumes] = data.sum(&:volumes) if user.preferences.volumes_in_manga?
-    end
-    stats[:days] = (data.sum do |v|
-      if anime?
-        SpentTimeDuration.new(v).anime_hours v.target.episodes, v.target.duration
-      else
-        SpentTimeDuration.new(v).manga_hours v.target.chapters, v.target.volumes
-      end
-    end.to_f / 60 / 24).round(2)
+    stats[:days] = (
+      data.sum do |v|
+        if anime?
+          SpentTimeDuration
+            .new(v)
+            .anime_hours(v.target_episodes, v.target_episode_duration)
+        else
+          SpentTimeDuration
+            .new(v)
+            .manga_hours(v.target_chapters, v.target_volumes)
+        end
+      end.to_f / 60 / 24
+    ).round(2)
 
-    reduce ? stats.select { |_, v| v.positive? }.to_hash : stats
+    reduce ?
+      stats.select { |_, v| v.positive? }.to_hash :
+      stats
   end
+
+  def anime_stats data
+    {
+      tv: data.sum { |v| v.target_kind == 'tv' ? 1 : 0 },
+      movie: data.sum { |v| v.target_kind == 'movie' ? 1 : 0 },
+      ova: data.sum { |v| (v.target_kind == 'ova' || v.target_kind == 'ona') ? 1 : 0 },
+      special: data.sum { |v| v.target_kind == 'special' ? 1 : 0 },
+      music: data.sum { |v| v.target_kind == 'music' ? 1 : 0 },
+      episodes: data.sum(&:episodes)
+    }
+  end
+
+  def manga_stats data
+    stats = {
+      manga: data.sum do |v|
+        (
+          v.target_kind == 'manga' || v.target_kind == 'manhwa' ||
+            v.target_kind == 'manhua'
+        ) ? 1 : 0
+      end,
+      oneshot: data.sum { |v| v.target_kind == 'one_shot' ? 1 : 0 },
+      novel: data.sum do |v|
+        (v.target_kind == 'light_novel' || v.target_kind == 'novel') ? 1 : 0
+      end,
+      doujin: data.sum { |v| v.target_kind == 'doujin' ? 1 : 0 },
+      chapters: data.sum(&:chapters)
+    }
+    stats[:volumes] = data.sum(&:volumes) if user.preferences.volumes_in_manga?
+    stats
+  end
+  # rubocop:enable all
 
   def cache_key
     [
       :user_list,
-      :v7,
+      :v8,
       user,
       Digest::MD5.hexdigest(h.request.url.gsub(/\.json$/, '').gsub(%r{/page/\d+}, '')),
       sort_order
