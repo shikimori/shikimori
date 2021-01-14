@@ -18,26 +18,30 @@ class Animes::UserRatesStatisticsQuery
   # end
 
   def statuses_stats
-    anticheat_scope
-      .group(:status)
-      .count
-      .sort_by(&:first)
-      .each_with_object({}) do |(status, count), memo|
-        fixed_status = status == 'rewatching' ? 'completed' : status
-        memo[fixed_status] ||= 0
-        memo[fixed_status] += count
-      end
+    Rails.cache.fetch [:statuses_stats, @entry], expires_in: 2.weeks do
+      anticheat_scope
+        .group(:status)
+        .count
+        .sort_by(&:first)
+        .each_with_object({}) do |(status, count), memo|
+          fixed_status = status == 'rewatching' ? 'completed' : status
+          memo[fixed_status] ||= 0
+          memo[fixed_status] += count
+        end
+    end
   end
 
   def scores_stats
-    Hash[
-      anticheat_scope
-        .group(:score)
-        .count
-        .sort_by(&:first)
-        .reverse
-        .reject { |k, _v| k.zero? }
-    ]
+    Rails.cache.fetch [:scores_stats, @entry], expires_in: 2.weeks do
+      Hash[
+        anticheat_scope
+          .group(:score)
+          .count
+          .sort_by(&:first)
+          .reverse
+          .reject { |k, _v| k.zero? }
+      ]
+    end
   end
 
 private
