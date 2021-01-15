@@ -1,5 +1,6 @@
 class Profiles::CompatibilityView < ViewObjectBase
   pattr_initialize :user
+  instance_cache :all_compatibility
 
   def value klass
     all_compatibility[klass.downcase.to_sym] if all_compatibility
