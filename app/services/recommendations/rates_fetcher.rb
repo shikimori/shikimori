@@ -47,7 +47,7 @@ class Recommendations::RatesFetcher
     key = "#{cache_key}_#{normalization.class.name}"
 
     @data[key] ||=
-      PgCache.fetch key, expires_in: 2.weeks, serializer: MessagePack do
+      PgCache.fetch key, expires_in: 8.weeks, serializer: MessagePack do
         fetch_raw_scores.each_with_object({}) do |(user_id, data), memo|
           memo[user_id] = normalization.normalize data, user_id
         end
@@ -58,7 +58,7 @@ private
 
   def fetch_raw_scores
     @fetch_raw_scores ||=
-      PgCache.fetch cache_key, expires_in: 2.weeks, serializer: MessagePack do
+      PgCache.fetch cache_key, expires_in: 8.weeks, serializer: MessagePack do
         fetch_rates @klass
       end
   end
