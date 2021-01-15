@@ -35,10 +35,10 @@ class VideoExtractor::BaseExtractor
       current_player_url = player_url
       return unless current_image_url && current_player_url
 
-      AnimeOnline::VideoData.new(
-        hosting: hosting,
-        image_url: current_image_url,
-        player_url: current_player_url
+      Vieos::ExtractedEntry.new(
+        hosting,
+        current_image_url,
+        current_player_url
       )
     end
   rescue *(ALLOWED_EXCEPTIONS + [EmptyContentError])
