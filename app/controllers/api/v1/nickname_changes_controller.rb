@@ -5,6 +5,8 @@ class Api::V1::NicknameChangesController < Api::V1Controller
 
   def cleanup
     current_user.nickname_changes.update_all is_deleted: true
+    current_user.touch
+
     render json: { notice: i18n_t('cleared') }
   end
 end
