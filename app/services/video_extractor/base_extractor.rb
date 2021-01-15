@@ -29,9 +29,7 @@ class VideoExtractor::BaseExtractor
     Retryable.retryable tries: 2, on: ALLOWED_EXCEPTIONS, sleep: 1 do
       return unless valid_url? && opengraph_page?
 
-      NamedLogger.download_video.info "#{url} start"
       current_image_url = image_url
-      NamedLogger.download_video.info "#{url} end"
       current_player_url = player_url
       return unless current_image_url && current_player_url
 
@@ -69,7 +67,10 @@ class VideoExtractor::BaseExtractor
 
   def parsed_data
     @parsed_data ||= PgCache.fetch url, expires_in: 2.years, serializer: MessagePack do
-      parse_data fetch_page
+      NamedLogger.download_video.info "#{url} start"
+      parsed_data = parse_data fetch_page
+      NamedLogger.download_video.info "#{url} end"
+      parsed_data
     end
   end
 
