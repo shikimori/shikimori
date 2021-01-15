@@ -35,7 +35,7 @@ class VideoExtractor::BaseExtractor
       current_player_url = player_url
       return unless current_image_url && current_player_url
 
-      Vieos::ExtractedEntry.new(
+      Videos::ExtractedEntry.new(
         hosting,
         current_image_url,
         current_player_url
@@ -68,7 +68,7 @@ class VideoExtractor::BaseExtractor
   end
 
   def parsed_data
-    @parsed_data ||= Rails.cache.fetch url, expires_in: 2.weeks do
+    @parsed_data ||= PgCache.fetch url, expires_in: 2.years, serializer: MessagePack do
       parse_data fetch_page
     end
   end
