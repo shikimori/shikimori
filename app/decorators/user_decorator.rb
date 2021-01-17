@@ -43,7 +43,7 @@ class UserDecorator < BaseDecorator
     is_friended? && friended?(h.current_user)
   end
 
-  def stats
+  def list_stats
     cache_key = [
       :profile_stats,
       object.cache_key,
@@ -52,7 +52,7 @@ class UserDecorator < BaseDecorator
     ]
 
     Rails.cache.fetch cache_key do
-      Users::ProfileStatsQuery.call object
+      Users::ListStatsQuery.call object
     end
   end
 

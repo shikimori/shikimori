@@ -1,4 +1,4 @@
-class Users::ProfileStats
+class Users::ListStats
   include ShallowAttributes
 
   attribute :activity, Hash

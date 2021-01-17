@@ -1,4 +1,4 @@
-class Users::ProfileStatsView # rubocop:disable ClassLength
+class Users::ListStatsView # rubocop:disable ClassLength
   pattr_initialize :profile_stats
 
   include Translation

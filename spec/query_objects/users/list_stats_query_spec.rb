@@ -1,4 +1,4 @@
-describe Users::ProfileStatsQuery do
+describe Users::ListStatsQuery do
   let(:anime) { create :anime, episodes: 24, duration: 60 }
   let(:manga) { create :manga, chapters: 54 }
 
