@@ -1,0 +1,5 @@
+= cache @collection do
+  - @collection.each_with_index do |nickname_change, index|
+    = nickname_change.value
+    - if index != @collection.size - 1
+      ' ,

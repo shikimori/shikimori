@@ -104,6 +104,8 @@ ru:
   users/polls_controller:
     <<: *profiles_controller
     new: Новый опрос
+  users/nickname_changes_controller:
+    <<: *profiles_controller
 
   animes_collection_controller: &animes_collection_controller
     search: Поиск “%{search}”

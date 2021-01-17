@@ -18,7 +18,7 @@ en:
       remove_from_ignored: Remove from Ignored
       send_message: Send Message
       user_profile_settings: User Profile Settings
-      history_rss: "%{user}'s History"
+      history_rss: :profiles.page.rss_title
     achievements:
       achievements: :profiles_controller.achievements
       no_achievements: :profiles.page.no_achievements
@@ -121,6 +121,7 @@ en:
         unpublished: Not published
         private: Private
         opened: Opened
+      nickname_changes: "User's nicknames"
 
     edit:
       account:

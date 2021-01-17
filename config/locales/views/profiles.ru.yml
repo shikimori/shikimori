@@ -18,7 +18,7 @@ ru:
       remove_from_ignored: Удалить из игнора
       send_message: Написать
       user_profile_settings: Настройки профиля
-      history_rss: История пользователя %{user}
+      history_rss: :profiles.page.rss_title
     achievements:
       achievements: :profiles_controller.achievements
       no_achievements: :profiles.page.no_achievements
@@ -121,6 +121,7 @@ ru:
         unpublished: Не опубликованные
         private: Приватные
         opened: Открытые
+      nickname_changes: Ники пользователя
 
     edit:
       account:

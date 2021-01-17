@@ -1,0 +1,6 @@
+- if request.xhr?
+  = render 'nickname_changes'
+- else
+  = render layout: 'page' do
+    .subheadline = t '.nickname_changes'
+    = render 'nickname_changes'
