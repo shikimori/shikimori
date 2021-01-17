@@ -6,6 +6,7 @@ class Users::ActivityStats
   attribute :summaries_count, Integer
   attribute :reviews_count, Integer
   attribute :collections_count, Integer
+  attribute :articles_count, Integer
   attribute :versions_count, Integer
   attribute :video_uploads_count, Integer
   attribute :video_reports_count, Integer

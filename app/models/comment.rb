@@ -14,11 +14,11 @@ class Comment < ApplicationRecord
   MIN_SUMMARY_SIZE = 230
 
   # associations
-  belongs_to :user
+  belongs_to :user, touch: :activity_at
   belongs_to :commentable, polymorphic: true
   belongs_to :topic,
     optional: true,
-    class_name: Topic.name,
+    class_name: 'Topic',
     foreign_key: :commentable_id
 
   has_many :abuse_requests, -> { order :id }, dependent: :destroy
