@@ -17,14 +17,14 @@
         return $.contains(window.document.documentElement, ele);
     }
 
-	// Returns true if it is a DOM element
-	// http://stackoverflow.com/a/384380/999
-	function isElement(o) {
-		return (
-			typeof HTMLElement === 'object' ? o instanceof HTMLElement : //DOM2
-			o && typeof o === 'object' && o.nodeType === 1 && typeof o.nodeName === 'string'
-		);	
-	}
+  // Returns true if it is a DOM element
+  // http://stackoverflow.com/a/384380/999
+  function isElement(o) {
+    return (
+      typeof HTMLElement === 'object' ? o instanceof HTMLElement : //DOM2
+      o && typeof o === 'object' && o.nodeType === 1 && typeof o.nodeName === 'string'
+    );
+  }
 
     var tipsyIDcounter = 0;
     function tipsyID() {
@@ -44,15 +44,26 @@
                 return;
             }
 
-            if (isElement(this.$element) && !this.$element.is(':visible')) { 
-                return; 
+            if (isElement(this.$element) && !this.$element.is(':visible')) {
+                return;
             }
-            
+
             var title;
             if (this.enabled && (title = this.getTitle())) {
                 var $tip = this.tip();
 
-                $tip.find('.tipsy-inner' + this.options.theme)[this.options.html ? 'html' : 'text'](title);
+                const $inner = $tip.find('.tipsy-inner' + this.options.theme);
+                if (title?.constructor === Promise) {
+                  $inner[this.options.html ? 'html' : 'text'](`
+                    <div class='b-ajax vk-like' style='margin: 8px 60px 15px' />
+                  `);
+                  title.then(content => {
+                    this.options.title = () => content;
+                    this.show();
+                  });
+                } else {
+                  $inner[this.options.html ? 'html' : 'text'](title);
+                }
 
                 $tip[0].className = 'tipsy' + this.options.theme; // reset classname in case of dynamic gravity
                 if (this.options.className) {
@@ -156,7 +167,7 @@
             }
         },
 
-        getTitle: function() {
+        getTitle() {
             var title, $e = this.$element, o = this.options;
             this.fixTitle();
             if (typeof o.title === 'string') {
@@ -164,7 +175,9 @@
             } else if (typeof o.title === 'function') {
                 title = o.title.call($e[0]);
             }
-            title = ('' + title).replace(/(^\s*|\s*$)/, '');
+            if (title?.constructor !== Promise) {
+              title = ('' + title).replace(/(^\s*|\s*$)/, '');
+            }
             return title || o.fallback;
         },
 
@@ -283,7 +296,7 @@
         delayOut: 0,
         fade: false,
         fadeInTime: 400,
-        fadeOutTime: 400, 
+        fadeOutTime: 400,
         shadow: false,
         shadowBlur: 8,
         shadowOpacity: 1,
@@ -410,5 +423,5 @@
             return dir.ew;
         }
     };
-    
+
 })(jQuery, window);
