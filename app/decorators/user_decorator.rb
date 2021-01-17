@@ -53,9 +53,9 @@ class UserDecorator < BaseDecorator
       CACHE_VERSION
     ]
 
-    Rails.cache.fetch cache_key do
-      Users::ListStatsQuery.call object
-    end
+    Profiles::ListStatsView.new(
+      Rails.cache.fetch(cache_key) { Users::ListStatsQuery.call object }
+    )
   end
 
   def activity_stats

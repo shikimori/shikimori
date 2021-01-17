@@ -52,10 +52,6 @@ class Users::ActivityStatsQuery
       .count
   end
 
-  def video_changes_count
-    video_reports_count + video_versions_count
-  end
-
   def video_reports_count
     AnimeVideoReport
       .where(user: @user)

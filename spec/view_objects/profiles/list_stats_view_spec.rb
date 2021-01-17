@@ -1,4 +1,4 @@
-describe Users::ListStatsView do
+describe Profiles::ListStatsView do
   let(:profile_stats) do
     Users::ListStats.new(
       spent_time: spent_time,
@@ -21,7 +21,7 @@ describe Users::ListStatsView do
     )
   end
   let(:user) { user_2 }
-  let(:stats) { Users::ListStatsView.new(profile_stats) }
+  let(:stats) { Profiles::ListStatsView.new(profile_stats) }
 
   let(:anime_spent_time) { SpentTime.new 0 }
   let(:manga_spent_time) { SpentTime.new 0 }

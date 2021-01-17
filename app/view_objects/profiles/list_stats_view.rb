@@ -1,12 +1,8 @@
-class Users::ListStatsView # rubocop:disable ClassLength
+class Profiles::ListStatsView # rubocop:disable ClassLength
   pattr_initialize :profile_stats
 
   include Translation
   prepend ActiveCacher.instance
-
-  instance_cache :comments_count, :topics_count, :summaries_count,
-    :reviews_count, :collections_count,
-    :versions_count, :video_uploads_count, :video_reports_count, :video_versions_count
 
   delegate :anime_ratings, :anime_spent_time, :full_statuses, :manga,
     :list_counts, :manga_spent_time, :spent_time, :stats_bars, :statuses,
