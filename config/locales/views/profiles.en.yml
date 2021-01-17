@@ -18,6 +18,7 @@ en:
       remove_from_ignored: Remove from Ignored
       send_message: Send Message
       user_profile_settings: User Profile Settings
+      history_rss: "%{user}'s History"
     achievements:
       achievements: :profiles_controller.achievements
       no_achievements: :profiles.page.no_achievements

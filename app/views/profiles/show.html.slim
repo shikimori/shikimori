@@ -1,9 +1,7 @@
-/ = UserProfileSerializer.new(@resource).to_json
-
 - content_for :head do
   = auto_discovery_link_tag :rss,
     profile_url(@resource, format: :rss),
-    title: "История пользователя #{@resource.nickname}"
+    title: t('.history_rss', user: @resource.nickname)
 
 .profile-head[
   data-user-id=@resource.id
