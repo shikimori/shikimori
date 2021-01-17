@@ -4,6 +4,7 @@ class Users::ListStatsQuery # rubocop:disable ClassLength
   method_object :user
 
   instance_cache :stats, :anime_spent_time, :manga_spent_time, :spent_time
+  delegate :stats_bars, to: :stats
 
   CACHE_VERSION = :v5
 

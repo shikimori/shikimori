@@ -240,7 +240,7 @@
           .time class=(:checked if @resource.list_stats.spent_time.months_6 >= 1) 6 #{i18n_i 'datetime.month', 6}
           .time class=(:checked if @resource.list_stats.spent_time.years >= 1) 1 #{i18n_i 'datetime.year'}
 
-      = render 'profiles/activity', stats: @resource.activity_stats
+      = render 'profiles/activity', list_stats: @resource.list_stats
 
     .c-column.c-right
       .cc-2a.m30
