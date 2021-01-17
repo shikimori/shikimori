@@ -27,7 +27,7 @@ header.head
     .l-content
       = yield
 
-    - unless Rails.env.development? && params[:no_menu]
+    - unless Rails.env.development? && params.key?(:no_menu)
       aside.l-menu.ajax-opacity
         = render 'menu_actions',
           forum: @forums_view.forum,
