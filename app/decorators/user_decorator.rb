@@ -35,7 +35,6 @@ class UserDecorator < BaseDecorator
     [can_vote_1?, can_vote_2?, can_vote_3?].count { |v| v }
   end
 
-  # добавлен ли пользователь в друзья текущему пользователю
   def is_friended?
     h.current_user&.friend_links&.any? { |v| v.dst_id == id }
   end
@@ -45,9 +44,15 @@ class UserDecorator < BaseDecorator
   end
 
   def stats
-    Rails.cache.fetch [:profile_stats, object, :v3] do
-      profile_stats = Users::ProfileStatsQuery.new(object).to_profile_stats
-      Profiles::StatsView.new(profile_stats)
+    cache_key = [
+      :profile_stats,
+      object.cache_key,
+      object.rate_at || object.updated_at,
+      :v3
+    ]
+
+    Rails.cache.fetch cache_key do
+      Users::ProfileStatsQuery.call object
     end
   end
 

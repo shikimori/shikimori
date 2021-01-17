@@ -1,7 +1,7 @@
 - content_for :head do
   = auto_discovery_link_tag :rss,
     profile_url(@resource, format: :rss),
-    title: t('.history_rss', user: @resource.nickname)
+    title: t('.history_rss', nickname: @resource.nickname)
 
 .profile-head[
   data-user-id=@resource.id
@@ -94,7 +94,7 @@
     header.head.misc
       h1[
         class=(:aliases if @resource.nickname_changes?)
-        title=(@resource.nicknames_tooltip if @resource.nickname_changes?)
+        data-tooltip_url=(profile_nickname_changes_url(@resource) if @resource.nickname_changes?)
       ]
         - if params[:action] != 'show'
           a.back[
@@ -213,115 +213,115 @@
             a href=comments_profile_url(@resource)
               = "#{@resource.stats.comments_count} #{i18n_i 'comment', @resource.stats.comments_count}"
 
-.profile-content
-  .cc-2.block
-    .c-column.c-left
-      .lifetime.b-stats_bar
-        .title
-          - if @resource.stats.spent_time.days.positive?
-            .value.b-tooltipped.dotted.unprocessed[
-              title=@resource.stats.spent_time_in_days
-              data-direction='top'
-            ] = @resource.stats.spent_time_in_words
-            .label == @resource.stats.spent_time_label
-          - else
-            = t('.no_spent_time')
-
-        .bar
-          .cuts
-            .cut.week
-            .cut.month
-            .cut.month_3
-            .cut.month_6
-            .cut.year
-
-          .first style="width: #{@resource.stats.spent_time_percent}%"
-          /.second style='width: 12%' title="Запланировано"
-          /.third style='width: 58%'
-          .third style="width: #{100 - @resource.stats.spent_time_percent}%"
-        .times
-          .time class=(:checked if @resource.stats.spent_time.weeks >= 1) 1 #{i18n_i 'datetime.week'}
-          .time class=(:checked if @resource.stats.spent_time.months >= 1) 1 #{i18n_i 'datetime.month'}
-          .time class=(:checked if @resource.stats.spent_time.months_3 >= 1) 3 #{i18n_i 'datetime.month', 3}
-          .time class=(:checked if @resource.stats.spent_time.months_6 >= 1) 6 #{i18n_i 'datetime.month', 6}
-          .time class=(:checked if @resource.stats.spent_time.years >= 1) 1 #{i18n_i 'datetime.year'}
-
-      = render 'profiles/activity', stats: @resource.stats
-
-    .c-column.c-right
-      .cc-2a.m30
-        .c-column.m0
-          .subheadline
-            - if @resource.friends.any? && @resource.friends.size > @resource.friends_to_display
-              a href=friends_profile_url(@resource) title=t('profiles_controller.friends')
-                = t('profiles_controller.friends')
-            - else
-              = t('profiles_controller.friends')
-          .cc-friends
-            - if @resource.friends.any?
-              = render @resource.friends.take(@resource.friends_to_display),
-                content_by: :avatar
-            - else
-              .b-nothing_here = t('.no_friends')
-
-        .c-column.m0
-          .subheadline
-            - if @resource.clubs_for_domain.any? && @resource.clubs_for_domain.size > @resource.clubs_to_display
-              a href=clubs_profile_url(@resource) title=i18n_i('Club', :other)
-                = i18n_i 'Club', :other
-            - else
-              = i18n_i 'Club', :other
-
-          .b-clubs.one-line
-            - if @resource.clubs_for_domain.any?
-              = render partial: 'clubs/club',
-                collection: @resource.random_clubs,
-                locals: { content_by: :avatar }
-            - else
-              .b-nothing_here = t('.no_clubs')
-
-      - if @resource.favorites
-        .block
-          .subheadline
-            - if @resource.favorites.any?
-              a href=favorites_profile_url(@resource) title=t('profiles_controller.favorites')
-                = t('profiles_controller.favorites')
-            - else
-              = t('profiles_controller.favorites')
-          .cc-favourites.user_rates-minified.to-process[
-            data-dynamic='cutted_covers'
-            data-ratio_type='character'
-          ]
-            - if @resource.favorites.any?
-              = render @resource.favorites, cover_by: :image_link
-            - else
-              .b-nothing_here = t('.no_favourite')
-
-  - if @view.achievements_preview_view.available?
-    = render 'profiles/achievements', view: @view.achievements_preview_view
-
-  - if @view.about_html.present?
-    .about.block
-      - if @view.own_profile?
-        .subheadline-buttons
-          a.item-edit href=@resource.edit_url(section: 'profile')
-      .subheadline
-        = t('.about')
-      = @view.about_html
-
-  - if @view.show_comments?
-    .block
-      .subheadline.m0
-        - if @resource.preview_comments_view.comments_count.positive?
-          a href=feed_profile_url(@resource) title=t('profiles_controller.feed')
-            = t('profiles_controller.feed')
-        - else
-          = t('profiles_controller.feed')
-      div
-        .b-topic.to-process[
-          data-dynamic='topic'
-          data-faye=@resource.preview_comments_view.faye_channel.to_json
-        ]
-          = render 'topics/comments',
-            comments_view: @resource.preview_comments_view,
-            commentable: @resource
+/ .profile-content
+/   .cc-2.block
+/     .c-column.c-left
+/       .lifetime.b-stats_bar
+/         .title
+/           - if @resource.stats.spent_time.days.positive?
+/             .value.b-tooltipped.dotted.unprocessed[
+/               title=@resource.stats.spent_time_in_days
+/               data-direction='top'
+/             ] = @resource.stats.spent_time_in_words
+/             .label == @resource.stats.spent_time_label
+/           - else
+/             = t('.no_spent_time')
+/
+/         .bar
+/           .cuts
+/             .cut.week
+/             .cut.month
+/             .cut.month_3
+/             .cut.month_6
+/             .cut.year
+/
+/           .first style="width: #{@resource.stats.spent_time_percent}%"
+/           /.second style='width: 12%' title="Запланировано"
+/           /.third style='width: 58%'
+/           .third style="width: #{100 - @resource.stats.spent_time_percent}%"
+/         .times
+/           .time class=(:checked if @resource.stats.spent_time.weeks >= 1) 1 #{i18n_i 'datetime.week'}
+/           .time class=(:checked if @resource.stats.spent_time.months >= 1) 1 #{i18n_i 'datetime.month'}
+/           .time class=(:checked if @resource.stats.spent_time.months_3 >= 1) 3 #{i18n_i 'datetime.month', 3}
+/           .time class=(:checked if @resource.stats.spent_time.months_6 >= 1) 6 #{i18n_i 'datetime.month', 6}
+/           .time class=(:checked if @resource.stats.spent_time.years >= 1) 1 #{i18n_i 'datetime.year'}
+/
+/       = render 'profiles/activity', stats: @resource.stats
+/
+/     .c-column.c-right
+/       .cc-2a.m30
+/         .c-column.m0
+/           .subheadline
+/             - if @resource.friends.any? && @resource.friends.size > @resource.friends_to_display
+/               a href=friends_profile_url(@resource) title=t('profiles_controller.friends')
+/                 = t('profiles_controller.friends')
+/             - else
+/               = t('profiles_controller.friends')
+/           .cc-friends
+/             - if @resource.friends.any?
+/               = render @resource.friends.take(@resource.friends_to_display),
+/                 content_by: :avatar
+/             - else
+/               .b-nothing_here = t('.no_friends')
+/
+/         .c-column.m0
+/           .subheadline
+/             - if @resource.clubs_for_domain.any? && @resource.clubs_for_domain.size > @resource.clubs_to_display
+/               a href=clubs_profile_url(@resource) title=i18n_i('Club', :other)
+/                 = i18n_i 'Club', :other
+/             - else
+/               = i18n_i 'Club', :other
+/
+/           .b-clubs.one-line
+/             - if @resource.clubs_for_domain.any?
+/               = render partial: 'clubs/club',
+/                 collection: @resource.random_clubs,
+/                 locals: { content_by: :avatar }
+/             - else
+/               .b-nothing_here = t('.no_clubs')
+/
+/       - if @resource.favorites
+/         .block
+/           .subheadline
+/             - if @resource.favorites.any?
+/               a href=favorites_profile_url(@resource) title=t('profiles_controller.favorites')
+/                 = t('profiles_controller.favorites')
+/             - else
+/               = t('profiles_controller.favorites')
+/           .cc-favourites.user_rates-minified.to-process[
+/             data-dynamic='cutted_covers'
+/             data-ratio_type='character'
+/           ]
+/             - if @resource.favorites.any?
+/               = render @resource.favorites, cover_by: :image_link
+/             - else
+/               .b-nothing_here = t('.no_favourite')
+/
+/   - if @view.achievements_preview_view.available?
+/     = render 'profiles/achievements', view: @view.achievements_preview_view
+/
+/   - if @view.about_html.present?
+/     .about.block
+/       - if @view.own_profile?
+/         .subheadline-buttons
+/           a.item-edit href=@resource.edit_url(section: 'profile')
+/       .subheadline
+/         = t('.about')
+/       = @view.about_html
+/
+/   - if @view.show_comments?
+/     .block
+/       .subheadline.m0
+/         - if @resource.preview_comments_view.comments_count.positive?
+/           a href=feed_profile_url(@resource) title=t('profiles_controller.feed')
+/             = t('profiles_controller.feed')
+/         - else
+/           = t('profiles_controller.feed')
+/       div
+/         .b-topic.to-process[
+/           data-dynamic='topic'
+/           data-faye=@resource.preview_comments_view.faye_channel.to_json
+/         ]
+/           = render 'topics/comments',
+/             comments_view: @resource.preview_comments_view,
+/             commentable: @resource

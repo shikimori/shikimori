@@ -1,4 +1,3 @@
-# аниме и манга в списке пользователя
 class UserRate < ApplicationRecord
   # максимальное значение эпизодов/частей
   MAXIMUM_EPISODES = 10_000
@@ -17,15 +16,15 @@ class UserRate < ApplicationRecord
 
   belongs_to :target, polymorphic: true
   belongs_to :anime,
-    class_name: Anime.name,
+    class_name: 'Anime',
     foreign_key: :target_id,
     optional: true
   belongs_to :manga,
-    class_name: Manga.name,
+    class_name: 'Manga',
     foreign_key: :target_id,
     optional: true
 
-  belongs_to :user, touch: true
+  belongs_to :user, touch: :rate_at
 
   before_save :smart_process_changes
   before_save :log_changed, if: -> { persisted? && changes.any? }
@@ -97,7 +96,8 @@ class UserRate < ApplicationRecord
 
 private
 
-  # перед сохранением модели, смотрим, что изменилось, и соответствующе меняем остальные поля, и заносим запись в историю
+  # перед сохранением модели, смотрим, что изменилось,
+  # соответствующе меняем остальные поля и заносим запись в историю
   def smart_process_changes
     self.rewatches ||= 0
 

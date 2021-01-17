@@ -2,11 +2,11 @@ describe Users::ProfileStatsQuery do
   let(:anime) { create :anime, episodes: 24, duration: 60 }
   let(:manga) { create :manga, chapters: 54 }
 
-  subject(:stats) { Users::ProfileStatsQuery.new user }
+  subject(:stats) { described_class.new user }
 
-  describe '#to_profile_stats' do
+  describe '#call' do
     let!(:anime_rate) { create :user_rate, :watching, user: user, anime: anime, episodes: 12 }
-    it { expect(stats.to_profile_stats.to_h).to have(17).items }
+    it { expect(stats.call.to_h).to have(16).items }
   end
 
   describe '#spent_time' do

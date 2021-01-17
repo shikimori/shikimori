@@ -1,4 +1,4 @@
-class Profiles::Stats
+class Users::ProfileStats
   include ShallowAttributes
 
   attribute :activity, Hash
@@ -14,7 +14,6 @@ class Profiles::Stats
   attribute :spent_time, SpentTime
   attribute :stats_bars, Array, of: Profiles::BarStats
   attribute :statuses, Hash
-  attribute :user, User
   attribute :genres, Hash
   attribute :studios, Hash
   attribute :publishers, Hash
