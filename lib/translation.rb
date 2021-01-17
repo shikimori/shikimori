@@ -5,10 +5,14 @@ module Translation
   def i18n_t key, options = {}
     yield options if block_given?
 
-    klass = self.class == Class ? self : self.class
+    klass = instance_of?(Class) ? self : self.class
     I18n.t! "#{klass.name.underscore}.#{key}", options
-  rescue I18n::MissingTranslationData
-    I18n.t key, options
+  rescue I18n::MissingTranslationData => e
+    begin
+      I18n.t key, options
+    rescue I18n::NoTranslation
+      raise e
+    end
   end
 
   # only for nouns with cardinal numbers
@@ -26,7 +30,7 @@ module Translation
         I18n.t "inflections.#{key.downcase}.#{count_key}", default: default
       end
 
-    key != key.downcase ? translation.capitalize : translation
+    key == key.downcase ? translation : translation.capitalize
   end
 
   # only for nouns with ordinal numbers
@@ -41,7 +45,7 @@ module Translation
         I18n.t "inflections.#{key.downcase}.#{count_key}", default: default
       end
 
-    key != key.downcase ? translation.capitalize : translation
+    key == key.downcase ? translation : translation.capitalize
   end
 
   # only for verbs
@@ -49,7 +53,7 @@ module Translation
     options = options.merge(default: key.tr('_', ' ')) unless I18n.russian?
     translation = I18n.t "verbs.#{key.downcase}.#{count_key(count)}", options
 
-    key != key.downcase ? translation.capitalize : translation
+    key == key.downcase ? translation : translation.capitalize
   end
 
   # phrases from phrases.*.yml are translated directly with I18n
