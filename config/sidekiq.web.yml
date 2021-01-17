@@ -9,7 +9,6 @@ production:
 
 :queues:
   - [default, 5]
-  - [cpu_intensive, 5]
   - [high_priority, 8]
   - [imports, 4]
   - [low_priority, 1]
@@ -22,7 +21,6 @@ production:
   - [dangerous_actions, 8]
 
 :limits:
-  cpu_intensive: 2
   imports: 2
   mal_parsers: 50
   anime365_parsers: 3
