@@ -30,6 +30,11 @@ class Collection < ApplicationRecord
   scope :unpublished, -> { where state: :unpublished }
   scope :published, -> { where state: :published }
 
+  scope :available, -> { visible.published }
+  scope :publicly_available, -> {
+    available.or(where(state: Types::Collection::State[:opened]))
+  }
+
   state_machine :state, initial: :unpublished do
     state Types::Collection::State[:published]
     state Types::Collection::State[:private]

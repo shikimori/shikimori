@@ -6,7 +6,10 @@ describe Users::ListStatsQuery do
 
   describe '#call' do
     let!(:anime_rate) { create :user_rate, :watching, user: user, anime: anime, episodes: 12 }
-    it { expect(stats.call.to_h).to have(16).items }
+    it do
+      expect(stats.call.to_h).to have(16).items
+      expect(stats.call).to be_kind_of Users::ListStats
+    end
   end
 
   describe '#spent_time' do

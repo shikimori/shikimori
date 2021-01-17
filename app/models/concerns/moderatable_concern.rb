@@ -3,8 +3,7 @@ module ModeratableConcern
 
   included do # rubocop:disable BlockLength
     belongs_to :approver,
-      class_name: User.name,
-      foreign_key: :approver_id,
+      class_name: 'User',
       optional: true
 
     scope :pending, -> { where moderation_state: %w[pending] }

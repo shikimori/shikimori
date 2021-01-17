@@ -165,65 +165,59 @@
 
   .c-info
     .c-lists-info
-      - @resource.stats.stats_bars.each do |stats_bar|
+      - @resource.list_stats.stats_bars.each do |stats_bar|
         = render 'stats_bar', stats_bar: stats_bar, view: @view, user: @view.user
 
-    - if @resource.stats.social_activity?
+    - if @resource.activity_stats.social_activity?
       .c-additionals
         b #{t '.activity'}:
-        - if @resource.stats.reviews_count.positive?
-          div[
-            data-type='reviews'
-          ]
+        - if @resource.activity_stats.reviews_count.positive?
+          div data-type='reviews'
             a href=reviews_profile_url(@resource)
-              = "#{@resource.stats.reviews_count} #{i18n_i 'review', @resource.stats.reviews_count}"
+              ' #{@resource.activity_stats.reviews_count}
+              = i18n_i 'review', @resource.activity_stats.reviews_count
 
-        - if @resource.stats.summaries_count.positive?
-          div[
-            data-type='summaries'
-          ]
+        - if @resource.activity_stats.summaries_count.positive?
+          div data-type='summaries'
             a href=summaries_profile_url(@resource)
-              = "#{@resource.stats.summaries_count} #{i18n_i 'summary', @resource.stats.summaries_count}"
+              ' #{@resource.activity_stats.summaries_count}
+              = i18n_i 'summary', @resource.activity_stats.summaries_count
 
-        - if @resource.stats.versions_count.positive?
-          div[
-            data-type='versions'
-          ]
+        - if @resource.activity_stats.versions_count.positive?
+          div data-type='versions'
             a href=versions_profile_url(@resource)
-              = "#{@resource.stats.versions_count} #{i18n_i 'content_change', @resource.stats.versions_count}"
+              ' #{@resource.activity_stats.versions_count}
+              = i18n_i 'content_change', @resource.activity_stats.versions_count
 
-        - if ru_host? && @resource.stats.video_uploads_count.positive?
-          div[
-            data-type='video_uploads'
-          ]
+        - if ru_host? && @resource.activity_stats.video_uploads_count.positive?
+          div data-type='video_uploads'
             span
-              = "#{@resource.stats.video_uploads_count} #{i18n_i 'video_upload', @resource.stats.video_uploads_count}"
+              ' #{@resource.activity_stats.video_uploads_count}
+              = i18n_i 'video_upload', @resource.activity_stats.video_uploads_count
 
-        - if ru_host? && @resource.stats.video_changes_count.positive?
-          div[
-            data-type='video_changes'
-          ]
+        - if ru_host? && @resource.activity_stats.video_changes_count.positive?
+          div data-type='video_changes'
             span
-              = "#{@resource.stats.video_changes_count} #{i18n_i 'video_change', @resource.stats.video_changes_count}"
+              ' #{@resource.activity_stats.video_changes_count}
+              = i18n_i 'video_change', @resource.activity_stats.video_changes_count
 
-        - if @resource.stats.comments_count.positive?
-          div[
-            data-type='comments'
-          ]
+        - if @resource.activity_stats.comments_count.positive?
+          div data-type='comments'
             a href=comments_profile_url(@resource)
-              = "#{@resource.stats.comments_count} #{i18n_i 'comment', @resource.stats.comments_count}"
+              ' #{@resource.activity_stats.comments_count}
+              = i18n_i 'comment', @resource.activity_stats.comments_count
 
 / .profile-content
 /   .cc-2.block
 /     .c-column.c-left
 /       .lifetime.b-stats_bar
 /         .title
-/           - if @resource.stats.spent_time.days.positive?
+/           - if @resource.list_stats.spent_time.days.positive?
 /             .value.b-tooltipped.dotted.unprocessed[
-/               title=@resource.stats.spent_time_in_days
+/               title=@resource.list_stats.spent_time_in_days
 /               data-direction='top'
-/             ] = @resource.stats.spent_time_in_words
-/             .label == @resource.stats.spent_time_label
+/             ] = @resource.list_stats.spent_time_in_words
+/             .label == @resource.list_stats.spent_time_label
 /           - else
 /             = t('.no_spent_time')
 /
@@ -235,18 +229,18 @@
 /             .cut.month_6
 /             .cut.year
 /
-/           .first style="width: #{@resource.stats.spent_time_percent}%"
+/           .first style="width: #{@resource.list_stats.spent_time_percent}%"
 /           /.second style='width: 12%' title="Запланировано"
 /           /.third style='width: 58%'
-/           .third style="width: #{100 - @resource.stats.spent_time_percent}%"
+/           .third style="width: #{100 - @resource.list_stats.spent_time_percent}%"
 /         .times
-/           .time class=(:checked if @resource.stats.spent_time.weeks >= 1) 1 #{i18n_i 'datetime.week'}
-/           .time class=(:checked if @resource.stats.spent_time.months >= 1) 1 #{i18n_i 'datetime.month'}
-/           .time class=(:checked if @resource.stats.spent_time.months_3 >= 1) 3 #{i18n_i 'datetime.month', 3}
-/           .time class=(:checked if @resource.stats.spent_time.months_6 >= 1) 6 #{i18n_i 'datetime.month', 6}
-/           .time class=(:checked if @resource.stats.spent_time.years >= 1) 1 #{i18n_i 'datetime.year'}
+/           .time class=(:checked if @resource.list_stats.spent_time.weeks >= 1) 1 #{i18n_i 'datetime.week'}
+/           .time class=(:checked if @resource.list_stats.spent_time.months >= 1) 1 #{i18n_i 'datetime.month'}
+/           .time class=(:checked if @resource.list_stats.spent_time.months_3 >= 1) 3 #{i18n_i 'datetime.month', 3}
+/           .time class=(:checked if @resource.list_stats.spent_time.months_6 >= 1) 6 #{i18n_i 'datetime.month', 6}
+/           .time class=(:checked if @resource.list_stats.spent_time.years >= 1) 1 #{i18n_i 'datetime.year'}
 /
-/       = render 'profiles/activity', stats: @resource.stats
+/       = render 'profiles/activity', stats: @resource.activity_stats
 /
 /     .c-column.c-right
 /       .cc-2a.m30

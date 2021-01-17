@@ -29,6 +29,8 @@ class Review < ApplicationRecord
 
   enumerize :locale, in: %i[ru en], predicates: { prefix: true }
 
+  scope :available, -> { visible }
+
   def topic_user
     user
   end

@@ -20,6 +20,8 @@ class Article < ApplicationRecord
   scope :unpublished, -> { where state: Types::Article::State[:unpublished] }
   scope :published, -> { where state: Types::Article::State[:published] }
 
+  scope :available, -> { visible.published }
+
   def to_param
     "#{id}-#{name.permalinked}"
   end

@@ -1,6 +1,8 @@
 class UserDecorator < BaseDecorator
   instance_cache :clubs_for_domain, :exact_last_online_at,
-    :is_friended?, :mutual_friended?, :stats
+    :is_friended?, :mutual_friended?, :list_stats
+
+  CACHE_VERSION = :v1
 
   def self.model_name
     User.model_name
@@ -45,14 +47,27 @@ class UserDecorator < BaseDecorator
 
   def list_stats
     cache_key = [
-      :profile_stats,
+      :list_stats,
       object.cache_key,
       object.rate_at || object.updated_at,
-      :v3
+      CACHE_VERSION
     ]
 
     Rails.cache.fetch cache_key do
       Users::ListStatsQuery.call object
+    end
+  end
+
+  def activity_stats
+    cache_key = [
+      :activity_stats,
+      object.cache_key,
+      object.activity_at || object.updated_at,
+      CACHE_VERSION
+    ]
+
+    Rails.cache.fetch cache_key do
+      Users::ActivityStatsQuery.call object
     end
   end
 
