@@ -1,5 +1,8 @@
 = cache @collection do
+  ' #{t '.aka', known: (@user.female? ? 'известна' : 'известен')}
   - @collection.each_with_index do |nickname_change, index|
-    = nickname_change.value
+    b style='white-space: nowrap'
+      = nickname_change.value
+
     - if index != @collection.size - 1
       ' ,

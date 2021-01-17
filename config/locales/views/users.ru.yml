@@ -90,3 +90,6 @@ ru:
         episodes: '%{value} эп'
         volumes: '%{value} т'
         chapters: '%{value} гл'
+    nickname_changes:
+      nickname_changes:
+        aka: Также %{known} как

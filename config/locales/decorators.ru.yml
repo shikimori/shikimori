@@ -88,7 +88,6 @@ ru:
     watched_first_episodes: '%{watched} %{number}%{suffix} %{division}'
   user_profile_decorator:
     <<: *user_decorator
-    aka: Также %{known} как
   version_decorator:
     field_name:
       screenshots_upload: Загрузка кадров

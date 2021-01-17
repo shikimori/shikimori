@@ -88,7 +88,6 @@ en:
     watched_first_episodes: '%{watched} %{number} %{division}'
   user_profile_decorator:
     <<: *user_decorator
-    aka: Also known as
   version_decorator:
     field_name:
       screenshots_upload: Screenshots upload
