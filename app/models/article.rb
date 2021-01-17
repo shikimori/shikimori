@@ -19,7 +19,6 @@ class Article < ApplicationRecord
 
   scope :unpublished, -> { where state: Types::Article::State[:unpublished] }
   scope :published, -> { where state: Types::Article::State[:published] }
-  scope :available, -> { published.where.not(moderation_state: :rejected) }
 
   def to_param
     "#{id}-#{name.permalinked}"
