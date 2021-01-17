@@ -2,11 +2,11 @@
   .b-options-floated.mobile-phone_portrait
     span.link.selected
       = i18n_io('Summary', :few)
-      span.brackets = @resource.stats.summaries_count
+      span.brackets = @resource.activity_stats.summaries_count
 
     a href=comments_profile_url(@resource)
       = i18n_io('Comment', :few)
-      span.brackets = @resource.stats.comments_count
+      span.brackets = @resource.activity_stats.comments_count
 
   h2.subheadline = og.headline
   .b-comments

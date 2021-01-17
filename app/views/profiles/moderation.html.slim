@@ -47,13 +47,13 @@
         p.b-nothing_here = t('answers.no').capitalize
 
   .cc-3.block
-    - if @resource.stats.topics_count.positive?
+    - if @resource.activity_stats.topics_count.positive?
       .c-column
         .subheadline
           a href=topics_profile_url(@resource)
             = i18n_io 'Topic', :few
         .b-entry-info
-          = info_line t('.moderation.amount'), @resource.stats.topics_count
+          = info_line t('.moderation.amount'), @resource.activity_stats.topics_count
           - if can? :delete_all_topics, @resource
             a.b-button[
               href=topics_profile_moderation_url(@resource)
@@ -61,13 +61,13 @@
               data-confirm=t('actions.confirm')
             ] = t 'actions.delete_all'
 
-    - if @resource.stats.reviews_count.positive?
+    - if @resource.activity_stats.reviews_count.positive?
       .c-column
         .subheadline
           a href=reviews_profile_url(@resource)
             = i18n_io 'Review', :few
         .b-entry-info
-          = info_line t('.moderation.amount'), @resource.stats.reviews_count
+          = info_line t('.moderation.amount'), @resource.activity_stats.reviews_count
           - if can? :delete_all_reviews, @resource
             a.b-button[
               href=reviews_profile_moderation_url(@resource)
@@ -76,29 +76,29 @@
             ] = t 'actions.delete_all'
 
 
-    - if @resource.stats.collections_count.positive?
+    - if @resource.activity_stats.collections_count.positive?
       .c-column
         .subheadline
           a href=collections_profile_url(@resource)
             = i18n_io 'Collection', :few
         .b-entry-info
-          = info_line t('.moderation.amount'), @resource.stats.collections_count
+          = info_line t('.moderation.amount'), @resource.activity_stats.collections_count
 
-    - if @resource.stats.articles_count.positive?
+    - if @resource.activity_stats.articles_count.positive?
       .c-column
         .subheadline
           a href=articles_profile_url(@resource)
             = i18n_io 'Article', :few
         .b-entry-info
-          = info_line t('.moderation.amount'), @resource.stats.articles_count
+          = info_line t('.moderation.amount'), @resource.activity_stats.articles_count
 
-    - if @resource.stats.comments_count.positive?
+    - if @resource.activity_stats.comments_count.positive?
       .c-column
         .subheadline
           a href=comments_profile_url(@resource)
             = i18n_io 'Comment', :few
         .b-entry-info
-          = info_line t('.moderation.amount'), @resource.stats.comments_count
+          = info_line t('.moderation.amount'), @resource.activity_stats.comments_count
           - if can? :delete_all_comments, @resource
             a.b-button[
               href=comments_profile_moderation_url(@resource)
@@ -106,13 +106,13 @@
               data-confirm=t('actions.confirm')
             ] = t 'actions.delete_all'
 
-    - if @resource.stats.summaries_count.positive?
+    - if @resource.activity_stats.summaries_count.positive?
       .c-column
         .subheadline
           a href=summaries_profile_url(@resource)
             = i18n_io 'Summary', :few
         .b-entry-info
-          = info_line t('.moderation.amount'), @resource.stats.summaries_count
+          = info_line t('.moderation.amount'), @resource.activity_stats.summaries_count
           - if can? :delete_all_summaries, @resource
             a.b-button[
               href=summaries_profile_moderation_url(@resource)
@@ -120,31 +120,31 @@
               data-confirm=t('actions.confirm')
             ] = t 'actions.delete_all'
 
-    - if @resource.stats.versions_count.positive?
+    - if @resource.activity_stats.versions_count.positive?
       .c-column
         .subheadline
           a href=versions_profile_url(@resource)
             = i18n_io 'Content_change', :few
         .b-entry-info
-          = info_line t('.moderation.amount'), @resource.stats.versions_count
+          = info_line t('.moderation.amount'), @resource.activity_stats.versions_count
 
-    - if ru_host? && @resource.stats.video_uploads_count.positive?
+    - if ru_host? && @resource.activity_stats.video_uploads_count.positive?
       .c-column
         .subheadline
           = i18n_io 'Video_upload', :few
         .b-entry-info
-          = info_line t('.moderation.amount'), @resource.stats.video_uploads_count
+          = info_line t('.moderation.amount'), @resource.activity_stats.video_uploads_count
 
-    - if ru_host? && @resource.stats.video_versions_count.positive?
+    - if ru_host? && @resource.activity_stats.video_versions_count.positive?
       .c-column
         .subheadline
           = i18n_io 'Video_change', :few
         .b-entry-info
-          = info_line t('.moderation.amount'), @resource.stats.video_versions_count
+          = info_line t('.moderation.amount'), @resource.activity_stats.video_versions_count
 
-    - if ru_host? && @resource.stats.video_reports_count.positive?
+    - if ru_host? && @resource.activity_stats.video_reports_count.positive?
       .c-column
         .subheadline
           = i18n_io 'Video_report', :few
         .b-entry-info
-          = info_line t('.moderation.amount'), @resource.stats.video_reports_count
+          = info_line t('.moderation.amount'), @resource.activity_stats.video_reports_count

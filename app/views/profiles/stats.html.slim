@@ -25,24 +25,24 @@
       /.mini-charts
         /.scores
           /.b-options-floated
-            /- if @resource.stats.anime? && @resource.stats.kinda_manga?
+            /- if @resource.list_stats.anime? && @resource.list_stats.kinda_manga?
               /a.link class="#{@kind == :anime ? 'selected' : ''}" href="#{profile_url @resource, :anime}" Аниме
               /a.link class="#{@kind == :manga ? 'selected' : ''}" href="#{profile_url @resource, :manga}" Манга
           /.subheadline.m5 Оценки
-          /#scores data-stats="#{@resource.stats.scores[@kind].to_json}" data-bar="horizontal"
+          /#scores data-stats="#{@resource.list_stats.scores[@kind].to_json}" data-bar="horizontal"
 
         /.types
           /.subheadline.m5 Типы
-          /#types data-stats="#{@resource.stats.kinds[@kind].to_json}" data-bar="horizontal"
+          /#types data-stats="#{@resource.list_stats.kinds[@kind].to_json}" data-bar="horizontal"
 
         /- if @kind != :manga
           /.ratings
             /.subheadline.m5 Рейтинги
-            /#ratings data-stats="#{@resource.stats.ratings[@kind].to_json}" data-bar="horizontal"
+            /#ratings data-stats="#{@resource.list_stats.ratings[@kind].to_json}" data-bar="horizontal"
 
   /.activity
     /.subheadline Активность
-    /- if @resource.stats.activity.any?
-      /#activity_inc data-stats="#{@resource.stats.activity.to_json}" data-bar="vertical" data-flattened="true"
+    /- if @resource.list_stats.activity.any?
+      /#activity_inc data-stats="#{@resource.list_stats.activity.to_json}" data-bar="vertical" data-flattened="true"
     /- else
       /p.stat-sorry Недостаточно данных для формирования статистики
