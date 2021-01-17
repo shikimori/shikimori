@@ -17,25 +17,25 @@ class UserProfileSerializer < UserSerializer
 
   def stats
     {
-      statuses: object.stats.statuses,
-      full_statuses: object.stats.full_statuses,
+      statuses: object.list_stats.statuses,
+      full_statuses: object.list_stats.full_statuses,
       scores: {
-        anime: object.stats.scores(:anime),
-        manga: object.stats.scores(:manga)
+        anime: object.list_stats.scores(:anime),
+        manga: object.list_stats.scores(:manga)
       },
       types: {
-        anime: object.stats.kinds(:anime),
-        manga: object.stats.kinds(:manga)
+        anime: object.list_stats.kinds(:anime),
+        manga: object.list_stats.kinds(:manga)
       },
       ratings: {
-        anime: object.stats.anime_ratings
+        anime: object.list_stats.anime_ratings
       },
-      has_anime?: object.stats.anime?,
-      has_manga?: object.stats.manga?,
-      genres: [], # object.stats.genres,
-      studios: [], # object.stats.studios,
-      publishers: [], # object.stats.publishers,
-      activity: object.stats.activity(26)
+      has_anime?: object.list_stats.anime?,
+      has_manga?: object.list_stats.manga?,
+      genres: [], # object.list_stats.genres,
+      studios: [], # object.list_stats.studios,
+      publishers: [], # object.list_stats.publishers,
+      activity: object.list_stats.activity(26)
     }
   end
 
