@@ -1,11 +1,11 @@
 - content_for :head_misc do
-  - if params[:list_type] == 'anime' && @user.stats.manga? && @user.preferences.manga_in_profile?
+  - if params[:list_type] == 'anime' && @user.list_stats.manga? && @user.preferences.manga_in_profile?
     a.misc[
       href=profile_user_rates_url(@user, list_type: 'manga')
       title="#{t '.to_manga'}"
     ] = t '.to_manga'
 
-  - if params[:list_type] == 'manga' && @user.stats.anime? && @user.preferences.anime_in_profile?
+  - if params[:list_type] == 'manga' && @user.list_stats.anime? && @user.preferences.anime_in_profile?
     a.misc[
       href=profile_user_rates_url(@user, list_type: 'anime')
       title=t('.to_anime')
@@ -61,8 +61,8 @@
                 alt=@resource.nickname
               ]
 
-        = render 'user_rates/stats',
+        = render 'user_rates/list_stats',
           resource: @resource,
-          stats: @resource.stats,
+          list_stats: @resource.list_stats,
           list_type: params[:list_type].to_sym
         = render 'animes_collection/menu', menu: @menu, in_user_profile: true

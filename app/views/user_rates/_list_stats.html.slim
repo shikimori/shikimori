@@ -2,14 +2,14 @@
   .scores.block
     .subheadline.m5 = i18n_i 'Score', :other
     #scores[
-      data-stats=stats.scores(params[:list_type]).to_json
+      data-stats=list_stats.scores(params[:list_type]).to_json
       data-bar="horizontal"
     ]
 
   .types.block
     .subheadline.m5 = i18n_i 'Kind', :other
     #types[
-      data-stats=stats.kinds(params[:list_type]).to_json
+      data-stats=list_stats.kinds(params[:list_type]).to_json
       data-bar="horizontal"
     ]
 
@@ -17,15 +17,15 @@
     .ratings.block
       .subheadline.m5 = i18n_i 'Rating', :other
       #ratings[
-        data-stats=stats.anime_ratings.to_json
+        data-stats=list_stats.anime_ratings.to_json
         data-bar="horizontal"
       ]
 
 .block
   .subheadline = i18n_i 'Genre', :other
-  - if stats.genres[list_type].any?
+  - if list_stats.genres[list_type].any?
     .stat-categories
-      - stats.genres[list_type].each do |stat|
+      - list_stats.genres[list_type].each do |stat|
         - is_selected = params[:genre].to_s.split(',').include?(stat[:category].to_param)
         a.category[
           class="t#{stat[:scale]} #{:active if is_selected}"
@@ -37,9 +37,9 @@
 - if list_type == :anime
   .block
     .subheadline = i18n_i 'Studio', :other
-    - if stats.studios[list_type].any?
+    - if list_stats.studios[list_type].any?
       .stat-categories
-        - stats.studios[list_type].each do |stat|
+        - list_stats.studios[list_type].each do |stat|
           - is_selected = params[:studio].to_s.split(',').include?(stat[:category].to_param)
           a.category[
             class="t#{stat[:scale]} #{:active if is_selected}"
@@ -51,9 +51,9 @@
 - else
   .block
     .subheadline = i18n_i 'Publisher', :other
-    - if stats.publishers[list_type].any?
+    - if list_stats.publishers[list_type].any?
       .stat-categories
-        - stats.publishers[list_type].each do |stat|
+        - list_stats.publishers[list_type].each do |stat|
           - is_selected = params[:publisher].to_s.split(',').include?(stat[:category].to_param)
           a.category[
             class="t#{stat[:scale]} #{:active if is_selected}"

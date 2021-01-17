@@ -1,5 +1,5 @@
 # TODO: refactor
-class UserLibraryView < ViewObjectBase
+class Profiles::LibraryView < ViewObjectBase
   vattr_initialize :user
   instance_cache :full_list, :truncated_list, :total_stats, :klass,
     :list_page, :page
@@ -25,7 +25,7 @@ class UserLibraryView < ViewObjectBase
   end
 
   def counts
-    user.stats.list_counts anime? ? :anime : :manga
+    @user.list_stats.list_counts anime? ? :anime : :manga
   end
 
   def add_postloader?
@@ -63,7 +63,7 @@ class UserLibraryView < ViewObjectBase
     Rails.cache.fetch cache_key do
       UserListQuery.call(
         klass: klass,
-        user: user,
+        user: @user,
         params: h.params.merge(censored: false, order: sort_order)
       )
     end
@@ -161,7 +161,7 @@ private
       doujin: data.sum { |v| v.target_kind == 'doujin' ? 1 : 0 },
       chapters: data.sum(&:chapters)
     }
-    stats[:volumes] = data.sum(&:volumes) if user.preferences.volumes_in_manga?
+    stats[:volumes] = data.sum(&:volumes) if @user.preferences.volumes_in_manga?
     stats
   end
   # rubocop:enable all
@@ -170,7 +170,8 @@ private
     [
       :user_list,
       :v8,
-      user,
+      @user.cache_key,
+      @user.rate_at || @user.updated_at,
       Digest::MD5.hexdigest(h.request.url.gsub(/\.json$/, '').gsub(%r{/page/\d+}, '')),
       sort_order
       # h.user_signed_in? ? h.current_user.preferences.russian_names? : false

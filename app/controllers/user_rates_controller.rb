@@ -15,7 +15,7 @@ class UserRatesController < ProfilesController
     og noindex: true
     og page_title: t("#{params[:list_type]}_list")
 
-    @library = UserLibraryView.new @resource
+    @library = Profiles::LibraryView.new @resource
     @menu = Menus::CollectionMenu.new @library.klass
 
     # additional check fo sort order an trigger Dry::Types::ConstraintError in case of invalid value
