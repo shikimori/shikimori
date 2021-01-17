@@ -16,4 +16,8 @@ class Users::ActivityStats
       reviews_count.positive? || versions_count.positive? ||
       video_uploads_count.positive? || video_changes_count.positive?
   end
+
+  def video_changes_count
+    video_reports_count + video_versions_count
+  end
 end
