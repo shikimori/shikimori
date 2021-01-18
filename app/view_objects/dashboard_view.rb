@@ -120,7 +120,7 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def list_counts kind
-    h.current_user.stats.list_counts kind
+    h.current_user.list_stats.list_counts kind
   end
 
   def history
