@@ -1,18 +1,18 @@
 .activity
   .title = t('.activity_graph')
-  - if stats.activity(26).any?
+  - if list_stats.activity(26).any?
     .graph.x26[
-      data-stats=stats.activity(26).to_json
-      data-intervals_count="26"
-      data-bar="vertical"
-      data-flattened="true"
+      data-stats=list_stats.activity(26).to_json
+      data-intervals_count='26'
+      data-bar='vertical'
+      data-flattened='true'
       data-no_stat_text=t('.no_stat_text')
     ]
     .graph.x34[
-      data-stats=stats.activity(34).to_json
-      data-intervals_count="34"
-      data-bar="vertical"
-      data-flattened="true"
+      data-stats=list_stats.activity(34).to_json
+      data-intervals_count='34'
+      data-bar='vertical'
+      data-flattened='true'
       data-no_stat_text=t('.no_stat_text')
     ]
   - else

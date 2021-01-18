@@ -1,6 +1,6 @@
-describe Profiles::StatsView do
+describe Profiles::ListStatsView do
   let(:profile_stats) do
-    Profiles::Stats.new(
+    Users::ListStats.new(
       spent_time: spent_time,
       anime_spent_time: anime_spent_time,
       manga_spent_time: manga_spent_time,
@@ -21,7 +21,7 @@ describe Profiles::StatsView do
     )
   end
   let(:user) { user_2 }
-  let(:stats) { Profiles::StatsView.new(profile_stats) }
+  let(:stats) { Profiles::ListStatsView.new(profile_stats) }
 
   let(:anime_spent_time) { SpentTime.new 0 }
   let(:manga_spent_time) { SpentTime.new 0 }
@@ -181,84 +181,5 @@ describe Profiles::StatsView do
       let(:anime_interval) { 365 * 1.25 }
       it { is_expected.to eq '456 дней аниме' }
     end
-  end
-
-  describe '#comments_count' do
-    let(:topic) { create :topic, user: user }
-    let!(:comment) { create_list :comment, 2, user: user, commentable: topic }
-    let!(:comment_2) { create :comment, commentable: topic }
-    subject { stats.comments_count }
-
-    it { is_expected.to eq 2 }
-  end
-
-  describe '#summaries_count' do
-    let(:topic) { create :topic, user: user }
-    let!(:comment) { create :comment, :summary, user: user, commentable: topic }
-    let!(:comment_2) { create :comment, user: user, commentable: topic }
-    subject { stats.summaries_count }
-
-    it { is_expected.to eq 1 }
-  end
-
-  describe '#reviews_count' do
-    let!(:review) { create :review, user: user }
-    let!(:review_2) { create :review }
-    subject { stats.reviews_count }
-
-    it { is_expected.to eq 1 }
-  end
-
-  describe '#content_changes_count' do
-    let(:anime) { create :anime }
-    let!(:version_1) { create :version, user: user, item: anime, state: :taken }
-    let!(:version_2) { create :version, user: user, item: anime, state: :accepted }
-    let!(:version_3) { create :version, user: user, item: anime, state: :pending }
-    let!(:version_4) { create :version, user: user, item: anime, state: :rejected }
-    let!(:version_5) { create :version, user: user, item: anime, state: :deleted }
-    let!(:version_6) { create :version, item: anime, state: :taken }
-    let!(:version_7) do
-      create :version,
-        user: user,
-        item: create(:anime_video),
-        state: :taken
-    end
-    subject { stats.versions_count }
-
-    it { is_expected.to eq 2 }
-  end
-
-  describe '#video_uploads_count' do
-    let!(:report_1) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
-    let!(:report_2) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
-    let!(:report_3) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
-    let!(:report_4) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
-    let!(:report_5) { create :anime_video_report, :broken, user: user, state: 'accepted' }
-    let!(:report_6) { create :anime_video_report, :broken, user: user, state: 'rejected' }
-    let!(:report_7) { create :anime_video_report, :broken, state: 'accepted' }
-
-    subject { stats.video_uploads_count }
-
-    it { is_expected.to eq 4 }
-  end
-
-  describe '#video_changes_count' do
-    let(:anime_video) { create :anime_video }
-    let(:anime) { create :anime }
-
-    let!(:report_1) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
-    let!(:report_2) { create :anime_video_report, :broken, user: user, state: 'accepted' }
-    let!(:report_3) { create :anime_video_report, :broken, user: user, state: 'accepted' }
-    let!(:report_4) { create :anime_video_report, :broken, user: user, state: 'accepted' }
-    let!(:report_5) { create :anime_video_report, :broken, user: user, state: 'rejected' }
-    let!(:report_6) { create :anime_video_report, :broken, state: 'accepted' }
-
-    let!(:version_1) { create :version, user: user, item: anime_video, state: :accepted }
-    let!(:version_2) { create :version, user: user, item: anime_video, state: :accepted }
-    let!(:version_3) { create :version, user: user, item: anime, state: :pending }
-
-    subject { stats.video_changes_count }
-
-    it { is_expected.to eq 5 }
   end
 end

@@ -15,8 +15,9 @@ class Review < ApplicationRecord
 
   MINIMUM_LENGTH = 3000
 
+  belongs_to :user,
+    touch: Rails.env.test? ? false : :activity_at
   belongs_to :target, polymorphic: true, touch: true
-  belongs_to :user
 
   validates :user, :target, presence: true
   validates :text,
@@ -28,6 +29,8 @@ class Review < ApplicationRecord
   validates :locale, presence: true
 
   enumerize :locale, in: %i[ru en], predicates: { prefix: true }
+
+  scope :available, -> { visible }
 
   def topic_user
     user

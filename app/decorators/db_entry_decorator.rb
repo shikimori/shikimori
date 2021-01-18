@@ -145,7 +145,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def collections_scope
-    object.collections.available
+    object.collections.visible
       .where(locale: h.locale_from_host)
   end
 

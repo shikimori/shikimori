@@ -1,5 +1,5 @@
 class UserHistory < ApplicationRecord
-  belongs_to :user, touch: true
+  belongs_to :user
   belongs_to :target, polymorphic: true, optional: true
 
   belongs_to :anime, foreign_key: :target_id, optional: true

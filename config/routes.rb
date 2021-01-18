@@ -1030,6 +1030,7 @@ Rails.application.routes.draw do
         delete :topics
         delete :reviews
       end
+      resources :nickname_changes, only: %i[index]
     end
   end
 

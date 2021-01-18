@@ -6,7 +6,7 @@ describe Users::PollsController do
     let!(:poll_2) { create :poll, user: user }
     let!(:poll_3) { create :poll, user: user_2 }
 
-    before { get :index, params: { profile_id: user.to_param } }
+    subject! { get :index, params: { profile_id: user.to_param } }
 
     it do
       expect(collection).to eq [poll_2, poll_1]
@@ -16,7 +16,7 @@ describe Users::PollsController do
 
   describe '#show' do
     let(:poll) { create :poll, state, user: user }
-    before { get :show, params: { profile_id: user.to_param, id: poll.id } }
+    subject! { get :show, params: { profile_id: user.to_param, id: poll.id } }
 
     context 'pending' do
       let(:state) { :pending }
@@ -30,7 +30,7 @@ describe Users::PollsController do
   end
 
   describe '#new' do
-    before do
+    subject! do
       get :new,
         params: {
           profile_id: user.to_param,
@@ -41,7 +41,7 @@ describe Users::PollsController do
   end
 
   describe '#create' do
-    before do
+    subject! do
       post :create,
         params: {
           profile_id: user.to_param,
@@ -79,7 +79,7 @@ describe Users::PollsController do
 
   describe '#edit' do
     let(:poll) { create :poll, :pending, user: user }
-    before { get :edit, params: { profile_id: user.to_param, id: poll.id } }
+    subject! { get :edit, params: { profile_id: user.to_param, id: poll.id } }
 
     it { expect(response).to have_http_status :success }
   end
@@ -88,7 +88,7 @@ describe Users::PollsController do
     let(:poll) { create :poll, poll_state, user: user, name: 'qqq', text: 'cc' }
     let!(:poll_variant) { create :poll_variant, poll: poll, label: 'zzz' }
 
-    before do
+    subject! do
       post :update,
         params: {
           profile_id: user.to_param,
@@ -148,7 +148,7 @@ describe Users::PollsController do
 
   describe '#start' do
     let(:poll) { create :poll, :pending, :with_variants, user: user }
-    before { post :start, params: { profile_id: user.to_param, id: poll.id } }
+    subject! { post :start, params: { profile_id: user.to_param, id: poll.id } }
 
     it do
       expect(resource.reload).to be_started
@@ -159,7 +159,7 @@ describe Users::PollsController do
   describe '#stop' do
     let(:poll) { create :poll, :started, user: user }
 
-    before { post :stop, params: { profile_id: user.to_param, id: poll.id } }
+    subject! { post :stop, params: { profile_id: user.to_param, id: poll.id } }
 
     it do
       expect(resource.reload).to be_stopped
@@ -170,7 +170,7 @@ describe Users::PollsController do
   describe '#destroy' do
     let(:poll) { create :poll, user: user }
 
-    before do
+    subject! do
       delete :destroy,
         params: {
           profile_id: user.to_param,

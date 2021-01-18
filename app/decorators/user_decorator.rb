@@ -1,6 +1,8 @@
 class UserDecorator < BaseDecorator
   instance_cache :clubs_for_domain, :exact_last_online_at,
-    :is_friended?, :mutual_friended?, :stats
+    :is_friended?, :mutual_friended?, :list_stats
+
+  CACHE_VERSION = :v1
 
   def self.model_name
     User.model_name
@@ -35,7 +37,6 @@ class UserDecorator < BaseDecorator
     [can_vote_1?, can_vote_2?, can_vote_3?].count { |v| v }
   end
 
-  # добавлен ли пользователь в друзья текущему пользователю
   def is_friended?
     h.current_user&.friend_links&.any? { |v| v.dst_id == id }
   end
@@ -44,10 +45,29 @@ class UserDecorator < BaseDecorator
     is_friended? && friended?(h.current_user)
   end
 
-  def stats
-    Rails.cache.fetch [:profile_stats, object, :v3] do
-      profile_stats = Users::ProfileStatsQuery.new(object).to_profile_stats
-      Profiles::StatsView.new(profile_stats)
+  def list_stats
+    cache_key = [
+      :list_stats,
+      object.cache_key,
+      object.rate_at || object.updated_at,
+      CACHE_VERSION
+    ]
+
+    Profiles::ListStatsView.new(
+      Rails.cache.fetch(cache_key) { Users::ListStatsQuery.call object }
+    )
+  end
+
+  def activity_stats
+    cache_key = [
+      :activity_stats,
+      object.cache_key,
+      object.activity_at || object.updated_at,
+      CACHE_VERSION
+    ]
+
+    Rails.cache.fetch cache_key do
+      Users::ActivityStatsQuery.call object
     end
   end
 

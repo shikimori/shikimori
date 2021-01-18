@@ -1,19 +1,19 @@
-# TODO: refactor
-class Users::ProfileStatsQuery
+class Users::ListStatsQuery # rubocop:disable ClassLength
   prepend ActiveCacher.instance
 
-  vattr_initialize :user
+  method_object :user
 
   instance_cache :stats, :anime_spent_time, :manga_spent_time, :spent_time
+  delegate :stats_bars, to: :stats
 
   CACHE_VERSION = :v5
 
-  def to_profile_stats
-    stats_hash = Profiles::Stats.attributes.each_with_object({}) do |k, memo|
-      memo[k] = public_send(k)
-    end
-
-    Profiles::Stats.new stats_hash
+  def call
+    Users::ListStats.new(
+      Users::ListStats.attributes.each_with_object({}) do |field, memo|
+        memo[field] = public_send field
+      end
+    )
   end
 
   def activity
@@ -50,11 +50,11 @@ class Users::ProfileStatsQuery
     }
   end
 
-  def is_anime
+  def is_anime # rubocop:disable Naming/PredicateName
     stats.anime_rates.any?
   end
 
-  def is_manga
+  def is_manga # rubocop:disable Naming/PredicateName
     stats.manga_rates.any?
   end
 
@@ -69,7 +69,10 @@ class Users::ProfileStatsQuery
     time = stats.manga_rates.sum do |extended_user_rate|
       SpentTimeDuration
         .new(extended_user_rate)
-        .manga_hours(extended_user_rate.entry_chapters, extended_user_rate.entry_volumes)
+        .manga_hours(
+          extended_user_rate.entry_chapters,
+          extended_user_rate.entry_volumes
+        )
     end
     SpentTime.new(time / 60.0 / 24)
   end
@@ -83,10 +86,6 @@ class Users::ProfileStatsQuery
 
   def spent_time
     SpentTime.new(anime_spent_time.days + manga_spent_time.days)
-  end
-
-  def stats_bars
-    stats.stats_bars
   end
 
   def statuses
@@ -103,25 +102,15 @@ class Users::ProfileStatsQuery
     }
   end
 
-  # def graph_time
-    # GrapthTime.new spent_time
-  # end
-
   def genres
     {
       anime: stats.by_categories(
-        'genre',
-        AnimeGenresRepository.instance.to_a,
-        stats.anime_valuable_rates,
-        [],
-        19
+        'genre', AnimeGenresRepository.instance.to_a,
+        stats.anime_valuable_rates, [], 19
       ),
       manga: stats.by_categories(
-        'genre',
-        MangaGenresRepository.instance.to_a,
-        [],
-        stats.manga_valuable_rates,
-        19
+        'genre', MangaGenresRepository.instance.to_a,
+        [], stats.manga_valuable_rates, 19
       )
     }
   end
@@ -129,11 +118,8 @@ class Users::ProfileStatsQuery
   def studios
     {
       anime: stats.by_categories(
-        'studio',
-        StudiosRepository.instance.select(&:is_visible),
-        stats.anime_valuable_rates,
-        nil,
-        17
+        'studio', StudiosRepository.instance.select(&:is_visible),
+        stats.anime_valuable_rates, nil, 17
       )
     }
   end
@@ -141,16 +127,13 @@ class Users::ProfileStatsQuery
   def publishers
     {
       manga: stats.by_categories(
-        'publisher',
-        PublishersRepository.instance.to_a,
-        nil,
-        stats.manga_valuable_rates,
-        17
+        'publisher', PublishersRepository.instance.to_a,
+        nil, stats.manga_valuable_rates, 17
       )
     }
   end
 
-  private
+private
 
   def activity_by_size size
     stats.by_activity size
@@ -179,14 +162,7 @@ class Users::ProfileStatsQuery
     )[type.to_sym]
   end
 
-  # for ActiveCacher
-  def cache_key_object
-    @user
-  end
-
   def stats
-    Rails.cache.fetch [:user_statistics_query, user, CACHE_VERSION] do
-      Users::StatisticsQuery.new user
-    end
+    Users::StatisticsQuery.new @user
   end
 end

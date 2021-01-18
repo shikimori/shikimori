@@ -90,3 +90,6 @@ en:
         episodes: '%{value} ep'
         volumes: '%{value} vol'
         chapters: '%{value} ch'
+    nickname_changes:
+      nickname_changes:
+        aka: Also known as

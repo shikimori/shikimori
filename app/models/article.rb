@@ -10,7 +10,8 @@ class Article < ApplicationRecord
   )
   update_index('articles#article') { self if saved_change_to_name? }
 
-  belongs_to :user
+  belongs_to :user,
+    touch: Rails.env.test? ? false : :activity_at
   validates :name, :user, :body, presence: true
   validates :locale, presence: true
 
@@ -19,7 +20,8 @@ class Article < ApplicationRecord
 
   scope :unpublished, -> { where state: Types::Article::State[:unpublished] }
   scope :published, -> { where state: Types::Article::State[:published] }
-  scope :available, -> { published.where.not(moderation_state: :rejected) }
+
+  scope :available, -> { visible.published }
 
   def to_param
     "#{id}-#{name.permalinked}"

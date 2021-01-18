@@ -15,6 +15,9 @@ FactoryBot.define do
 
     about { '' }
 
+    activity_at { nil }
+    rate_at { nil }
+
     after :build do |model|
       stub_method model, :add_to_index
       stub_method model, :create_history_entry

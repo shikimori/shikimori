@@ -12,7 +12,8 @@ class Collection < ApplicationRecord
   acts_as_votable cacheable_strategy: :update_columns
   update_index('collections#collection') { self if saved_change_to_name? }
 
-  belongs_to :user
+  belongs_to :user,
+    touch: Rails.env.test? ? false : :activity_at
   has_many :links, -> { order :id },
     inverse_of: :collection,
     class_name: 'CollectionLink',
@@ -29,7 +30,11 @@ class Collection < ApplicationRecord
 
   scope :unpublished, -> { where state: :unpublished }
   scope :published, -> { where state: :published }
-  scope :available, -> { published.where.not(moderation_state: :rejected) }
+
+  scope :available, -> { visible.published }
+  scope :publicly_available, -> {
+    available.or(where(state: Types::Collection::State[:opened]))
+  }
 
   state_machine :state, initial: :unpublished do
     state Types::Collection::State[:published]

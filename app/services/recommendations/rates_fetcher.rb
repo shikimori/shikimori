@@ -1,21 +1,15 @@
-# NOTE: в конфиге мемкеша должна быть опция -I 32M
-# иначе кеш оценок пользователей не влезет в мемкеш!
 class Recommendations::RatesFetcher
-  attr_writer :user_ids
-  attr_writer :target_ids
-  attr_writer :by_user
-  attr_writer :with_deletion
-  attr_writer :user_cache_key
+  attr_writer :user_ids, :target_ids, :by_user, :with_deletion, :user_cache_key
 
   MINIMUM_SCORES = 100
 
-  USER_RATES_SQL = <<~SQL
+  USER_RATES_SQL = <<~SQL.squish
     user_rates.status != '#{UserRate.status_id :planned}'
       and user_rates.score > 0
   SQL
 
   # greately reduce number of selected UserRates by filtering them by users list size
-  LIST_SIZE_SQL = <<-SQL
+  LIST_SIZE_SQL = <<-SQL.squish
     user_rates.user_id in (
       select users.id
         from users
@@ -26,7 +20,7 @@ class Recommendations::RatesFetcher
     )
   SQL
 
-  DB_ENTRY_JOINS_SQL = <<~SQL
+  DB_ENTRY_JOINS_SQL = <<~SQL.squish
     inner join %<table_name>s a
       on a.id = user_rates.target_id
       and a.kind != 'special'

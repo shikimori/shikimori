@@ -111,8 +111,13 @@ module ActiveCacher
         escaped_method = method.to_s.include?('?') ? "is_#{method[0..-2]}" : method
 
         cacher.send :define_method, method do |*args|
-          instance_variable_get("@__#{escaped_method}") ||
+          value = instance_variable_get("@__#{escaped_method}")
+
+          if value.nil?
             instance_variable_set("@__#{escaped_method}", Rails.cache.fetch([self.class.name, cache_key_object, method], expires_in: 2.weeks) { prepare_for_cache(super *args) })
+          else
+            value
+          end
         end
       end
     end
@@ -122,8 +127,13 @@ module ActiveCacher
         escaped_method = method.to_s.include?('?') ? "is_#{method[0..-2]}" : method
 
         cacher.send :define_method, method do |*args|
-          instance_variable_get("@__#{escaped_method}") ||
+          value = instance_variable_get("@__#{escaped_method}")
+
+          if value.nil?
             instance_variable_set("@__#{escaped_method}", prepare_for_cache(super *args))
+          else
+            value
+          end
         end
       end
     end

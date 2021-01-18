@@ -1,7 +1,7 @@
 # TODO: move methods into Profiles::View and other Profiles::*View classes
 class UserProfileDecorator < UserDecorator
-  instance_cache :all_compatibility, :friends,
-    :nickname_changes, :favorites,
+  instance_cache :nickname_changes?,
+    :all_compatibility, :friends, :favorites,
     :main_comments_view, :preview_comments_view, :ignored_topics,
     :random_clubs
 
@@ -23,25 +23,7 @@ class UserProfileDecorator < UserDecorator
   # end
 
   def nickname_changes?
-    nickname_changes.any?
-  end
-
-  def nickname_changes
-    query =
-      if h.can? :manage, Ban
-        UserNicknameChange.unscoped.where(user: object)
-      else
-        object.nickname_changes
-      end
-
-    query.reject { |v| v.value == object.nickname }
-  end
-
-  def nicknames_tooltip
-    i18n_t('aka', known: (object.female? ? 'известна' : 'известен')) + ':&nbsp;' +
-      nickname_changes
-        .map { |v| "<b style='white-space: nowrap'>#{h.h v.value}</b>" }
-        .join("<span color='#555'>,</span> ")
+    Users::NicknameChangesQuery.call(object, h.can?(:manage, Ban)).any?
   end
 
   def friends

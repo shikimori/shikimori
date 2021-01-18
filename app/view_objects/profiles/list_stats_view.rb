@@ -1,12 +1,8 @@
-class Profiles::StatsView # rubocop:disable ClassLength
+class Profiles::ListStatsView # rubocop:disable ClassLength
   pattr_initialize :profile_stats
 
   include Translation
   prepend ActiveCacher.instance
-
-  instance_cache :comments_count, :topics_count, :summaries_count,
-    :reviews_count, :collections_count,
-    :versions_count, :video_uploads_count, :video_reports_count, :video_versions_count
 
   delegate :anime_ratings, :anime_spent_time, :full_statuses, :manga,
     :list_counts, :manga_spent_time, :spent_time, :stats_bars, :statuses,
@@ -143,74 +139,5 @@ class Profiles::StatsView # rubocop:disable ClassLength
   def time_since_signup
     time = SpentTime.new((Time.zone.now - User.first.created_at) / 1.day)
     localize_spent_time time, false
-  end
-
-  def social_activity?
-    comments_count.positive? || summaries_count.positive? ||
-      reviews_count.positive? || versions_count.positive? ||
-      video_uploads_count.positive? || video_changes_count.positive?
-  end
-
-  def comments_count
-    Comment.where(is_summary: false, user_id: user.id).count
-  end
-
-  def topics_count
-    Topic
-      .where(user_id: user.id)
-      .user_topics
-      .count
-  end
-
-  def summaries_count
-    Comment.where(is_summary: true, user_id: user.id).count
-  end
-
-  def reviews_count
-    user.reviews.count
-  end
-
-  def collections_count
-    user.collections.available.count
-  end
-
-  def articles_count
-    user.articles.available.count
-  end
-
-  def versions_count
-    user
-      .versions
-      .where(state: %i[taken accepted auto_accepted])
-      .where.not(item_type: AnimeVideo.name)
-      .count
-  end
-
-  def video_uploads_count
-    AnimeVideoReport
-      .where(user: user)
-      .where(kind: :uploaded)
-      .where.not(state: %i[rejected post_rejected])
-      .count
-  end
-
-  def video_changes_count
-    video_reports_count + video_versions_count
-  end
-
-  def video_reports_count
-    AnimeVideoReport
-      .where(user: user)
-      .where.not(kind: :uploaded)
-      .where.not(state: %i[rejected post_rejected])
-      .count
-  end
-
-  def video_versions_count
-    user
-      .versions
-      .where(state: %i[taken accepted auto_accepted])
-      .where(item_type: AnimeVideo.name)
-      .count
   end
 end

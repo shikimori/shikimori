@@ -3,9 +3,9 @@ class Users::StatisticsQuery
   prepend ActiveCacher.instance
   instance_cache :activity_stats
 
-  attr_reader :anime_rates, :anime_valuable_rates
-  attr_reader :manga_rates, :manga_valuable_rates
-  attr_reader :genres, :studios, :publishers
+  attr_reader :anime_rates, :anime_valuable_rates,
+    :manga_rates, :manga_valuable_rates,
+    :genres, :studios, :publishers
 
   # стандартный формат дат для сравнения
   DATE_FORMAT = '%Y-%m-%d'
@@ -70,7 +70,7 @@ class Users::StatisticsQuery
   # статистика активности просмотра аниме / чтения манги
   def by_activity(intervals)
     @by_activity ||= {}
-    @by_activity[intervals] ||= compute_by_activity *activity_stats, intervals
+    @by_activity[intervals] ||= compute_by_activity(*activity_stats, intervals)
   end
 
   def activity_stats
@@ -80,8 +80,8 @@ class Users::StatisticsQuery
     # удаляем всё без duration т.к. по ним активность всё равно 0 посчитается
     rates.select!(&:duration)
 
-    rates_cache = rates.each_with_object({}) do |rate, rez|
-      rez["#{rate.target_id}#{rate.target_type}"] = rate
+    rates_cache = rates.index_by do |rate|
+      "#{rate.target_id}#{rate.target_type}"
     end
     cache_keys = Set.new rates_cache.keys
 
@@ -316,8 +316,8 @@ class Users::StatisticsQuery
   # выборка статистики по категориям в списке пользователя
   def by_categories(category_name, categories, anime_rates, manga_rates, limit)
     # статистика по предпочитаемым элементам
-    categories_by_id = categories.each_with_object({}) do |v, data|
-      data[v.id] = v
+    categories_by_id = categories.index_by do |v|
+      v.id
     end
 
     # выборка подсчитываемых элементов

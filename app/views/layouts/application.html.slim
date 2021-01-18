@@ -46,7 +46,7 @@ html
 
     - else
       header.l-top_menu-v2
-        - unless Rails.env.development? && params[:no_menu]
+        - unless Rails.env.development? && params.key?(:no_menu)
           = render 'application/top_menu'
 
       section.l-page *itemprop
@@ -56,7 +56,7 @@ html
               | shikimori.org забанен мосгорсудом
             .b-close data-cookie-name='red_alert'
 
-        - unless Rails.env.development? && params[:no_menu]
+        - unless Rails.env.development? && params.key?(:no_menu)
           - if @layout.hot_topics?
             = render 'application/hot_topics', layout: @layout
         div
@@ -64,7 +64,7 @@ html
             = yield
 
         footer.l-footer
-          - unless Rails.env.development? && params[:no_menu]
+          - unless Rails.env.development? && params.key?(:no_menu)
               = render 'application/footer'
 
         = render 'spnsrs/ad', ad: Ad.new(:footer)

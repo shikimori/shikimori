@@ -14,8 +14,9 @@ class Version < ApplicationRecord
     user_id_key: :user_id
   )
 
-  belongs_to :user
-  belongs_to :moderator, class_name: User.name, optional: true
+  belongs_to :user,
+    touch: Rails.env.test? ? false : :activity_at
+  belongs_to :moderator, class_name: 'User', optional: true
   # optional item becase it can be deleted later and we don't need this version to fail on validation
   belongs_to :item, polymorphic: true, touch: true, optional: true
   belongs_to :associated, polymorphic: true, touch: true, optional: true

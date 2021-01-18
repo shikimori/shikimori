@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_12_155445) do
+ActiveRecord::Schema.define(version: 2021_01_17_113654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1009,11 +1009,11 @@ ActiveRecord::Schema.define(version: 2021_01_12_155445) do
   end
 
   create_table "user_nickname_changes", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.string "value", limit: 255
+    t.integer "user_id", null: false
+    t.string "value", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "is_deleted", default: false
+    t.boolean "is_deleted", default: false, null: false
     t.index ["user_id", "value"], name: "index_user_nickname_changes_on_user_id_and_value", unique: true
   end
 
@@ -1125,6 +1125,8 @@ ActiveRecord::Schema.define(version: 2021_01_12_155445) do
     t.integer "style_id"
     t.string "roles", limit: 4096, default: [], null: false, array: true
     t.text "notification_settings", default: [], null: false, array: true
+    t.datetime "activity_at"
+    t.datetime "rate_at"
     t.index ["email"], name: "index_users_on_email"
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

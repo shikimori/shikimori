@@ -35,7 +35,7 @@ private
   end
 
   def anime_with_manga?
-    @user.stats.anime? && @user.stats.manga? &&
+    @user.list_stats.anime? && @user.list_stats.manga? &&
       @user.preferences.anime_in_profile? && @user.preferences.manga_in_profile?
   end
 

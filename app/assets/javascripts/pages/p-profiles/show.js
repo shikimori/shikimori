@@ -1,4 +1,6 @@
+import axios from 'helpers/axios';
 import dayjs from 'helpers/dayjs';
+
 import { isMobile } from 'shiki-utils';
 
 pageLoad('profiles_show', () => {
@@ -12,7 +14,11 @@ pageLoad('profiles_show', () => {
   $('h1.aliases').tipsy({
     gravity: isMobile() ? 'n' : 'w',
     html: true,
-    prependTo: document.body
+    prependTo: document.body,
+    async title() {
+      const { data } = await axios.get(this.getAttribute('data-tooltip_url'));
+      return data;
+    }
   });
 
   $('.activity .graph')
