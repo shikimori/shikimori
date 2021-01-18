@@ -1,6 +1,6 @@
 class UserDecorator < BaseDecorator
   instance_cache :clubs_for_domain, :exact_last_online_at,
-    :is_friended?, :mutual_friended?, :list_stats
+    :is_friended?, :mutual_friended?, :list_stats, :activity_stats
 
   CACHE_VERSION = :v1
 
