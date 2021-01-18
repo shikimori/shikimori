@@ -29,15 +29,11 @@ class VideoExtractor::BaseExtractor
     Retryable.retryable tries: 2, on: ALLOWED_EXCEPTIONS, sleep: 1 do
       return unless valid_url? && opengraph_page?
 
-      current_image_url = image_url
-      current_player_url = player_url
-      return unless current_image_url && current_player_url
+      entry = PgCache.fetch url, expires_in: 2.years do
+        fetch_and_build_entry
+      end
 
-      Videos::ExtractedEntry.new(
-        hosting,
-        current_image_url,
-        current_player_url
-      )
+      entry if entry.image_url && entry.player_url
     end
   rescue *(ALLOWED_EXCEPTIONS + [EmptyContentError])
     nil
@@ -65,13 +61,20 @@ class VideoExtractor::BaseExtractor
     url.match? self::URL_REGEX
   end
 
+  def fetch_and_build_entry
+    NamedLogger.download_video.info "#{url} start"
+    entry = Videos::ExtractedEntry.new(
+      hosting,
+      image_url,
+      player_url
+    )
+    NamedLogger.download_video.info "#{url} end"
+    entry
+  end
+
   def parsed_data
-    @parsed_data ||= PgCache.fetch url, expires_in: 2.years, serializer: MessagePack do
-      NamedLogger.download_video.info "#{url} start"
-      parsed_data = parse_data fetch_page
-      NamedLogger.download_video.info "#{url} end"
-      parsed_data
-    end
+    @parsed_data ||= {}
+    @parsed_data[url] ||= parse_data(fetch_page)
   end
 
   def fetch_page
