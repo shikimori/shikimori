@@ -12,7 +12,8 @@ class Collection < ApplicationRecord
   acts_as_votable cacheable_strategy: :update_columns
   update_index('collections#collection') { self if saved_change_to_name? }
 
-  belongs_to :user, touch: :activity_at
+  belongs_to :user,
+    touch: Rails.env.test? ? false : :activity_at
   has_many :links, -> { order :id },
     inverse_of: :collection,
     class_name: 'CollectionLink',

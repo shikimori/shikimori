@@ -24,7 +24,8 @@ class UserRate < ApplicationRecord
     foreign_key: :target_id,
     optional: true
 
-  belongs_to :user, touch: :rate_at
+  belongs_to :user,
+    touch: Rails.env.test? ? false : :rate_at
 
   before_save :smart_process_changes
   before_save :log_changed, if: -> { persisted? && changes.any? }

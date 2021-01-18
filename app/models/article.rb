@@ -10,7 +10,8 @@ class Article < ApplicationRecord
   )
   update_index('articles#article') { self if saved_change_to_name? }
 
-  belongs_to :user, touch: :activity_at
+  belongs_to :user,
+    touch: Rails.env.test? ? false : :activity_at
   validates :name, :user, :body, presence: true
   validates :locale, presence: true
 

@@ -14,7 +14,8 @@ class Comment < ApplicationRecord
   MIN_SUMMARY_SIZE = 230
 
   # associations
-  belongs_to :user, touch: :activity_at
+  belongs_to :user,
+    touch: Rails.env.test? ? false : :activity_at
   belongs_to :commentable, polymorphic: true
   belongs_to :topic,
     optional: true,
