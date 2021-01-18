@@ -1,9 +1,10 @@
 describe Users::ActivityStatsQuery do
   subject(:stats) { described_class.new user }
+  let(:anime) { create :anime }
 
   describe '#call' do
     it do
-      expect(stats.call.to_h).to have(9).items
+      expect(stats.call.to_h).to have(10).items
       expect(stats.call).to be_kind_of Users::ActivityStats
     end
   end
@@ -61,9 +62,8 @@ describe Users::ActivityStatsQuery do
     its(:video_uploads_count) { is_expected.to eq 4 }
   end
 
-  describe '#video_changes_count' do
+  describe '#video_versions_count, #video_uploads_count' do
     let(:anime_video) { create :anime_video }
-    let(:anime) { create :anime }
 
     let!(:report_1) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
     let!(:report_2) { create :anime_video_report, :broken, user: user, state: 'accepted' }
@@ -76,11 +76,11 @@ describe Users::ActivityStatsQuery do
     let!(:version_2) { create :version, user: user, item: anime_video, state: :accepted }
     let!(:version_3) { create :version, user: user, item: anime, state: :pending }
 
-    its(:video_changes_count) { is_expected.to eq 5 }
+    its(:video_versions_count) { is_expected.to eq 2 }
+    its(:video_uploads_count) { is_expected.to eq 1 }
   end
 
   describe '#versions_count' do
-    let(:anime) { create :anime }
     let!(:version_1) { create :version, user: user, item: anime, state: :taken }
     let!(:version_2) { create :version, user: user, item: anime, state: :accepted }
     let!(:version_3) { create :version, user: user, item: anime, state: :pending }
@@ -94,6 +94,6 @@ describe Users::ActivityStatsQuery do
         state: :taken
     end
 
-    it(:versions_count) { is_expected.to eq 2 }
+    its(:versions_count) { is_expected.to eq 3 }
   end
 end
