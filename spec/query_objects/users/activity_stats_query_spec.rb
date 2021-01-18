@@ -48,4 +48,52 @@ describe Users::ActivityStatsQuery do
 
     its(:articles_count) { is_expected.to eq 2 }
   end
+
+  describe '#video_uploads_count' do
+    let!(:report_1) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
+    let!(:report_2) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
+    let!(:report_3) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
+    let!(:report_4) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
+    let!(:report_5) { create :anime_video_report, :broken, user: user, state: 'accepted' }
+    let!(:report_6) { create :anime_video_report, :broken, user: user, state: 'rejected' }
+    let!(:report_7) { create :anime_video_report, :broken, state: 'accepted' }
+
+    its(:video_uploads_count) { is_expected.to eq 4 }
+  end
+
+  describe '#video_changes_count' do
+    let(:anime_video) { create :anime_video }
+    let(:anime) { create :anime }
+
+    let!(:report_1) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
+    let!(:report_2) { create :anime_video_report, :broken, user: user, state: 'accepted' }
+    let!(:report_3) { create :anime_video_report, :broken, user: user, state: 'accepted' }
+    let!(:report_4) { create :anime_video_report, :broken, user: user, state: 'accepted' }
+    let!(:report_5) { create :anime_video_report, :broken, user: user, state: 'rejected' }
+    let!(:report_6) { create :anime_video_report, :broken, state: 'accepted' }
+
+    let!(:version_1) { create :version, user: user, item: anime_video, state: :accepted }
+    let!(:version_2) { create :version, user: user, item: anime_video, state: :accepted }
+    let!(:version_3) { create :version, user: user, item: anime, state: :pending }
+
+    its(:video_changes_count) { is_expected.to eq 5 }
+  end
+
+  describe '#versions_count' do
+    let(:anime) { create :anime }
+    let!(:version_1) { create :version, user: user, item: anime, state: :taken }
+    let!(:version_2) { create :version, user: user, item: anime, state: :accepted }
+    let!(:version_3) { create :version, user: user, item: anime, state: :pending }
+    let!(:version_4) { create :version, user: user, item: anime, state: :rejected }
+    let!(:version_5) { create :version, user: user, item: anime, state: :deleted }
+    let!(:version_6) { create :version, item: anime, state: :taken }
+    let!(:version_7) do
+      create :version,
+        user: user,
+        item: create(:anime_video),
+        state: :taken
+    end
+
+    it(:versions_count) { is_expected.to eq 2 }
+  end
 end
