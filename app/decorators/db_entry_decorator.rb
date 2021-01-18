@@ -12,7 +12,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   MAX_COLLECTIONS = 3
   MAX_FAVOURITES = 12
 
-  CACHE_VERSION = :v11
+  CACHE_VERSION = :v1
 
   def headline
     headline_array
@@ -66,16 +66,30 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def description_html_ru
-    html = Rails.cache.fetch CacheHelper.keys(:description_html_ru, object, CACHE_VERSION) do
-      BbCodes::EntryText.call description_ru.text, entry: object, lang: :ru
+    text = description_ru.text
+    cache_key = CacheHelper.keys(
+      object.cache_key,
+      XXhash.xxh32(text),
+      CACHE_VERSION
+    )
+
+    html = Rails.cache.fetch cache_key do
+      BbCodes::EntryText.call text, entry: object, lang: :ru
     end
 
     html.presence || "<p class='b-nothing_here'>#{i18n_t 'no_description'}</p>".html_safe
   end
 
   def description_html_en
-    html = Rails.cache.fetch CacheHelper.keys(:descrption_html_en, object) do
-      BbCodes::EntryText.call description_en.text, lang: :en
+    text = description_en.text
+    cache_key = CacheHelper.keys(
+      object.cache_key,
+      XXhash.xxh32(text),
+      CACHE_VERSION
+    )
+
+    html = Rails.cache.fetch cache_key do
+      BbCodes::EntryText.call text, lang: :en
     end
 
     html.presence || "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe

@@ -5,9 +5,14 @@ class CommentDecorator < BaseDecorator
 
   def html_body
     if persisted?
-      Rails.cache.fetch cache_key do
-        object.html_body
-      end
+      text = object.body
+      cache_key = CacheHelper.keys(
+        object.cache_key,
+        XXhash.xxh32(text),
+        CACHE_VERSION
+      )
+
+      Rails.cache.fetch(cache_key) { object.html_body }
     else
       object.html_body
     end
@@ -15,11 +20,5 @@ class CommentDecorator < BaseDecorator
 
   def broadcast?
     object.body.include? Comment::Broadcast::BB_CODE
-  end
-
-private
-
-  def cache_key
-    CacheHelper.keys object, :body, CACHE_VERSION
   end
 end

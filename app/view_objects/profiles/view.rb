@@ -2,6 +2,7 @@ class Profiles::View < ViewObjectBase
   vattr_initialize :user
 
   BANNED_PROFILES = %w[7683]
+  CACHE_VERSION = :v1
 
   def history_view
     @history_view ||= Profiles::HistoryView.new @user
@@ -44,9 +45,14 @@ class Profiles::View < ViewObjectBase
   def about_html
     return if censored_profile?
 
-    Rails.cache.fetch CacheHelper.keys(:about, @user) do
-      BbCodes::Text.call @user.about || ''
-    end
+    text = @user.about || ''
+    cache_key = CacheHelper.keys(
+      @user.cache_key,
+      XXhash.xxh32(text),
+      CACHE_VERSION
+    )
+
+    Rails.cache.fetch(cache_key) { BbCodes::Text.call text }
   end
 
   def common_info
