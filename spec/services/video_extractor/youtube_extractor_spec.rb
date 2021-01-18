@@ -8,7 +8,7 @@ describe VideoExtractor::YoutubeExtractor do
       context 'common case' do
         let(:url) { 'http://www.youtube.com/watch?v=VdwKZ6JDENc' }
 
-        its(:hosting) { is_expected.to eq 'youtube' }
+        its(:hosting) { is_expected.to eq :youtube }
         its(:image_url) { is_expected.to eq '//img.youtube.com/vi/VdwKZ6JDENc/hqdefault.jpg' }
         its(:player_url) { is_expected.to eq '//youtube.com/embed/VdwKZ6JDENc' }
       end
@@ -16,7 +16,7 @@ describe VideoExtractor::YoutubeExtractor do
       context 'youtu.be' do
         let(:url) { 'http://youtu.be/n5qqfOXRRaA?t=3m3s' }
 
-        its(:hosting) { is_expected.to eq 'youtube' }
+        its(:hosting) { is_expected.to eq :youtube }
         its(:image_url) { is_expected.to eq '//img.youtube.com/vi/n5qqfOXRRaA/hqdefault.jpg' }
         its(:player_url) { is_expected.to eq '//youtube.com/embed/n5qqfOXRRaA?start=3m3s' }
       end
@@ -24,7 +24,7 @@ describe VideoExtractor::YoutubeExtractor do
       context 'embed url' do
         let(:url) { 'https://www.youtube.com/embed/paezRkeNr5Q?start=3m3s' }
 
-        its(:hosting) { is_expected.to eq 'youtube' }
+        its(:hosting) { is_expected.to eq :youtube }
         its(:image_url) { is_expected.to eq '//img.youtube.com/vi/paezRkeNr5Q/hqdefault.jpg' }
         its(:player_url) { is_expected.to eq '//youtube.com/embed/paezRkeNr5Q?start=3m3s' }
       end
@@ -32,7 +32,7 @@ describe VideoExtractor::YoutubeExtractor do
       context 'www.youtube.com/v/' do
         let(:url) { '//www.youtube.com/embed/paezRkeNr5Q?start=5s' }
 
-        its(:hosting) { is_expected.to eq 'youtube' }
+        its(:hosting) { is_expected.to eq :youtube }
         its(:image_url) { is_expected.to eq '//img.youtube.com/vi/paezRkeNr5Q/hqdefault.jpg' }
         its(:player_url) { is_expected.to eq '//youtube.com/embed/paezRkeNr5Q?start=5s' }
       end
@@ -45,7 +45,7 @@ describe VideoExtractor::YoutubeExtractor do
           ].sample
         end
 
-        its(:hosting) { is_expected.to eq 'youtube' }
+        its(:hosting) { is_expected.to eq :youtube }
         its(:image_url) { is_expected.to eq '//img.youtube.com/vi/VdwKZ6JDENc/hqdefault.jpg' }
         its(:player_url) { is_expected.to eq '//youtube.com/embed/VdwKZ6JDENc?start=123' }
       end
