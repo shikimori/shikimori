@@ -15,8 +15,8 @@ class Review < ApplicationRecord
 
   MINIMUM_LENGTH = 3000
 
+  belongs_to :user, touch: :activity_at
   belongs_to :target, polymorphic: true, touch: true
-  belongs_to :user
 
   validates :user, :target, presence: true
   validates :text,
