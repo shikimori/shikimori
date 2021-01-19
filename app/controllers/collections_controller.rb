@@ -136,8 +136,8 @@ private
     owner = @resource.user.decorate
 
     breadcrumb(
-      I18n.t('profiles_controller.user_profile', user: current_user.nickname),
-      current_user.url
+      I18n.t('profiles_controller.user_profile', user: @resource.user.nickname),
+      profile_url(@resource.user)
     )
     breadcrumb i18n_i('Collection', :other), collections_profile_url(owner)
     breadcrumb(
