@@ -5,7 +5,10 @@ describe MessagesService do
     create :message, :profile_commented, to: user, from: user, created_at: 1.hour.ago
   end
   let!(:message_2) do
-    create :message, :profile_commented, to: create(:user), from: user, created_at: 30.minutes.ago
+    create :message, :profile_commented,
+      to: create(:user),
+      from: user,
+      created_at: 30.minutes.ago
   end
   let!(:message_3) { create :message, :private, to: user, from: user }
 

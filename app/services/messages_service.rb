@@ -1,7 +1,7 @@
 class MessagesService
   pattr_initialize :user
 
-  def read_by is_read:, kind: nil, type: nil, ids: nil
+  def read_by is_read:, kind: nil, type: nil, ids: nil, touch_user: true
     raise ArgumentError unless kind || type || ids
 
     scope = Message
@@ -13,7 +13,7 @@ class MessagesService
     scope.where! id: ids if ids
 
     scope.update_all read: is_read
-    user.touch
+    user.touch if touch_user
   end
 
   def delete_by kind: nil, type: nil
