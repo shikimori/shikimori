@@ -54,7 +54,7 @@ class UserRate < ApplicationRecord
   end
 
   def text_html
-    text.present? ? BbCodes::Text.call(text) : text
+    BbCodes::CachedText.call text
   end
 
   def status= new_status
