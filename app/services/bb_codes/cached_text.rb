@@ -4,7 +4,7 @@ class BbCodes::CachedText
   MINIMAL_CACHE_LIMIT = 36
 
   def call
-    return @text if @text.blank?
+    return @text || '' if @text.blank?
 
     if @text.size > MINIMAL_CACHE_LIMIT
       Rails.cache.fetch [:text_html, @text.size, XXhash.xxh32(@text)] do

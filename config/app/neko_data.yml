@@ -4589,6 +4589,7 @@
         - 38759
         - 39388
         - 38476
+        - 41364
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5057,6 +5058,7 @@
         - 38759
         - 39388
         - 38476
+        - 41364
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5525,6 +5527,7 @@
         - 38759
         - 39388
         - 38476
+        - 41364
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -30910,6 +30913,7 @@
         - 37987
         - 32900
         - 40497
+        - 34561
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -31322,6 +31326,7 @@
         - 37987
         - 32900
         - 40497
+        - 34561
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -31736,6 +31741,7 @@
         - 37987
         - 32900
         - 40497
+        - 34561
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
