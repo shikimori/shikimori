@@ -1,7 +1,7 @@
 class MessagesService
   pattr_initialize :user
 
-  def read_by kind: nil, type: nil, ids: nil, is_read: # rubocop:disable CyclomaticComplexity
+  def read_by is_read:, kind: nil, type: nil, ids: nil
     raise ArgumentError unless kind || type || ids
 
     scope = Message

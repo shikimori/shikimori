@@ -34,7 +34,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   def show
     og noindex: true if @resource.created_at > 1.year.ago
 
-    if user_signed_in? && current_user.id == @resource.id
+    if user_signed_in? && @view.own_profile?
       MessagesService
         .new(@resource.object)
         .read_by(kind: MessageType::PROFILE_COMMENTED, is_read: true)
