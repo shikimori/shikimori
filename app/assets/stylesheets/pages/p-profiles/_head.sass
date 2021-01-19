@@ -49,15 +49,20 @@
       float: left
       max-width: 160px
 
-      +gte_ipad
-        margin: 10px $block-offset $block-offset 0
-
       +iphone
         margin: 10px $block-offset/2 $block-offset/2 0
 
+      +gte_ipad
+        margin: 10px $block-offset $block-offset 0
+
       img
         +iphone
+          height: 80px
           width: 80px
+
+        +gte_ipad
+          height: 160px
+          width: 160px
 
       .profile-actions
         margin-top: 5px
