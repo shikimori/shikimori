@@ -36,9 +36,8 @@ class MessagesQuery < SimpleQueryBase
 
   def where_by_type
     case @messages_type
-      when :inbox then { kind: [MessageType::PRIVATE] }
-      when :private then { kind: [MessageType::PRIVATE], read: false }
-      when :sent then { kind: [MessageType::PRIVATE] }
+      when :inbox, :sent then { kind: MessageType::PRIVATE }
+      when :private then { kind: MessageType::PRIVATE, read: false }
       when :news then { kind: NEWS_KINDS }
       when :notifications then { kind: NOTIFICATION_KINDS }
       else raise ArgumentError, "unknown type: #{@messages_type}"
@@ -59,10 +58,10 @@ private
   end
 
   def where_by_sender
-    if @messages_type == :sent
-      { from_id: @user.id }
-    else
-      { to_id: @user.id, is_deleted_by_to: false }
+    case @messages_type
+      when :sent then { from_id: @user.id }
+      when :news then { to_id: @user.id }
+      else { to_id: @user.id, is_deleted_by_to: false }
     end
   end
 end
