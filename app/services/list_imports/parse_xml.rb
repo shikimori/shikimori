@@ -8,6 +8,7 @@ class ListImports::ParseXml
     'reading' => 'watching',
     'completed' => 'completed',
     'on-hold' => 'on_hold',
+    'on hold' => 'on_hold', # "On Hold" is in Kitsu lists
     'dropped' => 'dropped',
     'rewatching' => 'rewatching',
     'rereading' => 'rewatching'
@@ -31,8 +32,6 @@ private
     ListImports::ListEntry.new list_entry_data
   end
 
-  # rubocop:disable MethodLength
-  # rubocop:disable AbcSize
   def parse list_entry_data
     {
       target_id: parse_id(list_entry_data),
@@ -49,8 +48,6 @@ private
       chapters: extract_number(list_entry_data['my_read_chapters'])
     }
   end
-  # rubocop:enable AbcSize
-  # rubocop:enable MethodLength
 
   def entry_key
     anime_list? ? 'anime' : 'manga'
