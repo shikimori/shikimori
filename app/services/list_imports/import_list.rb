@@ -69,7 +69,9 @@ private
 
     list_entry.export(user_rate)
 
-    return output list_entry, NOT_CHANGED unless user_rate.changed?
+    unless user_rate.changed?
+      return output fill_title(list_entry, user_rate), NOT_CHANGED
+    end
 
     if user_rate.valid?
       user_rate.save!
@@ -113,5 +115,14 @@ private
 
   def output_updated old_list_entry, new_list_entry
     @list_import.output[UPDATED] << [old_list_entry, new_list_entry]
+  end
+
+  def fill_title list_entry, user_rate
+    if list_entry.target_title.blank?
+      list_entry.target_title =
+        UsersHelper.localized_name user_rate.target, @list_import.user
+    end
+
+    list_entry
   end
 end
