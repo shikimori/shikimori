@@ -131,7 +131,7 @@ module Clockwork
   end
 
   every 1.week, 'weekly.stuff.2', at: 'Monday 02:45' do
-    OldMessagesCleaner.perform_async
+    Messages::CleanupOutdated.perform_async
     UserImagesCleaner.perform_async
     SakuhindbImporter.perform_async with_fail: true
     # SubtitlesImporter.perform_async :latest
