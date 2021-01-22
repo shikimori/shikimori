@@ -1,7 +1,7 @@
 class Messages::CleanupOutdated
   include Sidekiq::Worker
 
-  EXPIRE_INTERVAL = 1.month
+  EXPIRE_INTERVAL = 1.month + 30.days
 
   KINDS = MessagesQuery::NEWS_KINDS + MessagesQuery::NOTIFICATION_KINDS - [
     MessageType::FRIEND_REQUEST,
