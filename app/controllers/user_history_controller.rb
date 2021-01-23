@@ -26,7 +26,7 @@ class UserHistoryController < ProfilesController
 
   def destroy
     @resource.destroy
-    @resource.touch :rate_at
+    @user.touch :rate_at
 
     redirect_to profile_list_history_url(@user)
   end
