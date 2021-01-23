@@ -39,7 +39,7 @@
   = render 'spnsrs/ad', ad: Ad.new(:menu_240x400)
 
   - if user_signed_in?
-    - cache [:stats, resource, current_user, :v3], expired_in: 1.day do
+    - cache [:stats, resource, current_user, :v4], expired_in: 1.day do
       - if resource.friend_rates.any?
         .block
           .subheadline.m5 = t '.in_friends_lists'
