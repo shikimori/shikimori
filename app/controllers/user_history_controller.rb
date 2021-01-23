@@ -26,6 +26,8 @@ class UserHistoryController < ProfilesController
 
   def destroy
     @resource.destroy
+    @resource.touch :rate_at
+
     redirect_to profile_list_history_url(@user)
   end
 
@@ -43,7 +45,7 @@ class UserHistoryController < ProfilesController
       )
       .delete_all
     @resource.object.history.create! action: clear_action
-    @resource.touch
+    @resource.touch :rate_at
 
     render json: {
       notice: "Выполнена очистка вашей истории по #{anime? ? 'аниме' : 'манге'}"
