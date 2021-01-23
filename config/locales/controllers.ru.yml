@@ -24,7 +24,7 @@ ru:
     feed: Лента
     achievements: Достижения
     users: Пользователи
-    user_profile: Профиль %{user}
+    user_profile: Профиль
     collections:
       unpublished: >-
         Не опубликованные коллекции не отображаются в разделе коллекций и на форуме, не модерируются,

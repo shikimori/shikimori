@@ -135,10 +135,7 @@ private
   def set_profile_breadcrumbs # rubocop:disable AbcSize, MethodLength
     owner = @resource.user.decorate
 
-    breadcrumb(
-      I18n.t('profiles_controller.user_profile', user: @resource.user.nickname),
-      profile_url(@resource.user)
-    )
+    breadcrumb I18n.t('profiles_controller.user_profile'), profile_url(@resource.user)
     breadcrumb i18n_i('Collection', :other), collections_profile_url(owner)
 
     if @resource.persisted?

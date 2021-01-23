@@ -267,7 +267,7 @@ private
   end
 
   def set_breadcrumbs
-    breadcrumb i18n_t('user_profile', user: @resource.nickname), @resource.url
+    breadcrumb i18n_t('user_profile'), @resource.url
 
     og page_title: i18n_t('profile')
     og page_title: @resource.nickname

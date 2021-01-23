@@ -27,10 +27,7 @@ class UsersController < ShikimoriController
     return redirect_to current_url(threshold: THRESHOLDS[2]) unless THRESHOLDS.include?(@threshold)
 
     og page_title: i18n_t('similar_users')
-    breadcrumb(
-      I18n.t('profiles_controller.user_profile', user: current_user.nickname),
-      current_user.url
-    )
+    breadcrumb I18n.t('profiles_controller.user_profile'), current_user.url
 
     @similar_ids = SimilarUsersFetcher.call(
       user: current_user&.object,

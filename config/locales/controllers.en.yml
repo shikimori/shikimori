@@ -24,7 +24,7 @@ en:
     feed: Feed
     achievements: Achievements
     users: Users
-    user_profile: '%{user} profile'
+    user_profile: Profile
     collections:
       unpublished: >-
         Unpublished collections is not displayed in collections section and on the forum, is not moderated,
