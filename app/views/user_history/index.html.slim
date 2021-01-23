@@ -7,7 +7,7 @@
   .b-options-floated
     a href=logs_profile_user_history_index_url(@resource) = t '.logs'
   h2.subheadline = og.headline
-  - cache [:history, @resource, @page, @profile_view.own_profile?, :v4] do
+  - cache [:history, @resource.rate_at, @page, @profile_view.own_profile?, :v4] do
     .block
       = render 'history',
         collection: @view.collection,
