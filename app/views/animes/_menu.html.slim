@@ -86,7 +86,7 @@
               .hide-more
                 | &mdash; #{t '.hide'}
 
-  - cache resource do
+  - cache [resource, :v2] do
     = render 'blocks/favoured', resource: resource
 
     - if resource.menu_clubs.any?
