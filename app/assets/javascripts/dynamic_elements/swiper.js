@@ -48,8 +48,10 @@ export default class Swiper extends View {
 
     this._initializeContent();
 
-    await delay(500);
     this.update();
+
+    // await delay(500); // don't why I added it
+    // this.update();
   }
 
   get width() {
