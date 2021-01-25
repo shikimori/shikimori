@@ -1,29 +1,3 @@
-javascript:
-  $(function() {
-    $('.date').html(new Date());
-    $('.moment').html(moment().format());
-    $('.moment_diff').html(MOMENT_DIFF);
-    $('.server_time').html(moment($(document.body).data('server-time')).format());
-
-    var $div1 = $('.test1');
-    $div1.html(moment($div1.data('datetime')).fromNow());
-
-    var $div2 = $('.test2');
-    $div2.html(moment($div2.data('datetime')).add(MOMENT_DIFF).fromNow());
-
-    var $div3 = $('.test3');
-    $div3.html(moment($div3.data('datetime')).subtract(MOMENT_DIFF).fromNow());
-
-    var $div4 = $('.test4');
-    $div4.html(moment($div4.data('datetime')).fromNow());
-
-    var $div5 = $('.test5');
-    $div5.html(moment($div5.data('datetime')).add(MOMENT_DIFF).fromNow());
-
-    var $div6 = $('.test6');
-    $div6.html(moment($div6.data('datetime')).subtract(MOMENT_DIFF).fromNow());
-  });
-
 header.head
   h1 Тест вычисления времени
   p.description Страница для теста парсинга дат
@@ -40,17 +14,17 @@ header.head
       .date
 
     .m10
-      p: b moment().format()
-      .moment
+      p: b datejs().format()
+      .dayjs
 
   .c-column
     .m10
-      p: b moment($(document.body).data('server-time')).format()
+      p: b datejs($(document.body).data('server-time')).format()
       .server_time
 
     .m10
       p: b server&local diff
-      .moment_diff
+      .dayjs_diff
 
 .cc-2
   .c-column
