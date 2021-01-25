@@ -15,8 +15,14 @@ class UserPreferencesController < ProfilesController
 
   def update
     authorize! :edit, @resource
+    preferences = @resource.preferences
 
-    if @resource.preferences.update user_preferences_params
+    if preferences.update user_preferences_params
+      if preferences.saved_change_to_anime_in_profile? ||
+          preferences.saved_change_to_manga_in_profile?
+        @resource.touch :rate_at # otherwise cache profile page won't be updated
+      end
+
       return super if params[:user].present?
       return head 200 if request.xhr?
 
