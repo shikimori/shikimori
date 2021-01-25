@@ -15026,7 +15026,11 @@
         franchise: nanatsu_no_taizai
         not_anime_ids:
         - 36923
+        - 45567
       :threshold: 95.1%
+      :generator:
+        ignore_latest_ids:
+        - 46420
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :nanatsu_no_taizai
@@ -15057,6 +15061,7 @@
         franchise: nanatsu_no_taizai
         not_anime_ids:
         - 36923
+        - 45567
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -24177,6 +24182,9 @@
       :filters:
         franchise: slam_dunk
       :threshold: 98.7%
+      :generator:
+        ignore_latest_ids:
+        - 45649
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :slam_dunk
