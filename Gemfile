@@ -37,8 +37,9 @@ gem 'pg_query' # for suggested indexes in pghero
 gem 'pghero'
 
 # background jobs
-gem 'sidekiq'
+gem 'sidekiq', '5.2.7' # do not upgrade to 6.0 until rails isn't upgraded to 6.0 version
 gem 'sidekiq-limit_fetch'
+# gem 'sidekiq-limit_fetch', github: 'brainopia/sidekiq-limit_fetch', branch: 'master' # <- for sidekiq 6
 gem 'sidekiq-unique-jobs'
 
 # auth

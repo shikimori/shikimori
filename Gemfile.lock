@@ -850,7 +850,7 @@ DEPENDENCIES
   scout_apm
   shallow_attributes!
   shoulda-matchers
-  sidekiq
+  sidekiq (= 5.2.7)
   sidekiq-limit_fetch
   sidekiq-unique-jobs
   simple_form
