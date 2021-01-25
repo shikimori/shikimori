@@ -2,7 +2,7 @@ class UserPreferencesController < ProfilesController
   UPDATE_PARAMS = %i[
     anime_in_profile manga_in_profile favorites_in_profile
     comments_in_profile achievements_in_profile statistics_start_on
-    about_on_top about
+    about
     show_hentai_images show_social_buttons
     apply_user_styles is_show_smileys menu_contest
     russian_genres russian_names
@@ -12,6 +12,7 @@ class UserPreferencesController < ProfilesController
   ] + [
     forums: []
   ]
+    # about_on_top
 
   def update
     authorize! :edit, @resource

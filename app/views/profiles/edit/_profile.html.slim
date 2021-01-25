@@ -15,8 +15,8 @@
         end_year: Time.zone.today.year,
         default: @resource.created_at
 
-  .b-options-floated.about-options
-    = f.input :about_on_top
+  / .b-options-floated.about-options
+  /   = f.input :about_on_top
   .block
     .subheadline = t '.about_me'
     = render 'blocks/shiki_editor',
