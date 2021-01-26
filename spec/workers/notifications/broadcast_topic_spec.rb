@@ -28,18 +28,41 @@ describe Notifications::BroadcastTopic do
   let(:is_processed) { false }
   let(:created_at) { Time.zone.now }
 
+  before do
+    allow(Notifications::SendMessage).to receive :perform_async
+    stub_const 'Notifications::BroadcastTopic::MESSAGES_PER_JOB', messages_per_job
+  end
+  let(:messages_per_job) { 3 }
+
   context 'broadcasted topic' do
+    let(:messages_per_job) { 2 }
+    let(:message_attributes) do
+      {
+        'created_at' => topic.created_at,
+        'from_id' => topic.user_id,
+        'kind' => MessageType::SITE_NEWS,
+        'linked_id' => topic.id,
+        'linked_type' => Topic.name
+      }
+    end
+
     it do
-      expect { subject }.to change(Message, :count).by users.count
-      is_expected.to have(3).items
-      expect(messages.first).to have_attributes(
-        from: topic.user,
-        body: nil,
-        kind: MessageType::SITE_NEWS,
-        linked: topic
-      )
-      expect(messages.first.created_at).to be_within(0.1).of topic.created_at
-      expect(messages.map(&:to).sort_by(&:id)).to eq users.sort_by(&:id)
+      is_expected.to eq true
+
+      expect(Notifications::SendMessage)
+        .to have_received(:perform_async)
+        .with(message_attributes, [user.id, user_2.id])
+        .ordered
+
+      expect(Notifications::SendMessage)
+        .to have_received(:perform_async)
+        .with(message_attributes, [user_3.id])
+        .ordered
+
+      expect(Notifications::SendMessage)
+        .to have_received(:perform_async)
+        .twice
+
       expect(topic.reload).to be_processed
     end
   end
@@ -49,18 +72,26 @@ describe Notifications::BroadcastTopic do
     let(:linked) { create :contest }
     let(:is_broadcast) { false }
     let(:action) { :finished }
+    let(:created_at) { 1.day.ago }
+
+    let(:message_attributes) do
+      {
+        'created_at' => 1.day.ago,
+        'from_id' => topic.user_id,
+        'kind' => MessageType::CONTEST_FINISHED,
+        'linked_id' => linked.id,
+        'linked_type' => Contest.name
+      }
+    end
 
     it do
-      expect { subject }.to change(Message, :count).by users.count
-      is_expected.to have(3).items
-      expect(messages.first).to have_attributes(
-        from: topic.user,
-        body: nil,
-        kind: MessageType::CONTEST_FINISHED,
-        linked: linked
-      )
-      expect(messages.first.created_at).to be_within(0.1).of topic.created_at
-      expect(messages.map(&:to).sort_by(&:id)).to eq users.sort_by(&:id)
+      is_expected.to eq true
+
+      expect(Notifications::SendMessage)
+        .to have_received(:perform_async)
+        .with(message_attributes, [user.id, user_2.id, user_3.id])
+        .once
+
       expect(topic.reload).to be_processed
     end
   end
@@ -71,17 +102,24 @@ describe Notifications::BroadcastTopic do
     let(:linked) { create :anime }
     let(:action) { Types::Topic::NewsTopic::Action[AnimeHistoryAction::Anons] }
 
+    let(:message_attributes) do
+      {
+        'created_at' => topic.created_at,
+        'from_id' => topic.user_id,
+        'kind' => Types::Topic::NewsTopic::Action[AnimeHistoryAction::Anons].to_s,
+        'linked_id' => topic.id,
+        'linked_type' => Topic.name
+      }
+    end
+
     it do
-      expect { subject }.to change(Message, :count).by users.count
-      is_expected.to have(3).items
-      expect(messages.first).to have_attributes(
-        from: topic.user,
-        body: nil,
-        kind: topic.action,
-        linked: topic
-      )
-      expect(messages.first.created_at).to be_within(0.1).of topic.created_at
-      expect(messages.map(&:to).sort_by(&:id)).to eq users.sort_by(&:id)
+      is_expected.to eq true
+
+      expect(Notifications::SendMessage)
+        .to have_received(:perform_async)
+        .with(message_attributes, [user.id, user_2.id, user_3.id])
+        .once
+
       expect(topic.reload).to be_processed
     end
   end
@@ -92,9 +130,8 @@ describe Notifications::BroadcastTopic do
     let(:linked) { create :anime }
 
     it do
-      expect(-> {
-        expect { subject }.to raise_error ArgumentError
-      }).to_not change Message, :count
+      expect { subject }.to raise_error ArgumentError
+      expect(Notifications::SendMessage).to_not have_received :perform_async
       expect(topic.reload).to_not be_processed
     end
   end
@@ -103,9 +140,8 @@ describe Notifications::BroadcastTopic do
     let(:is_processed) { true }
 
     it do
-      expect { subject }.to_not change Message, :count
-      is_expected.to be_empty
-      expect(Topics::SubscribedUsersQuery).to_not have_received :call
+      is_expected.to be_nil
+      expect(Notifications::SendMessage).to_not have_received :perform_async
       expect(topic.reload).to be_processed
     end
   end
@@ -116,9 +152,8 @@ describe Notifications::BroadcastTopic do
     let(:is_broadcast) { false }
 
     it do
-      expect { subject }.to_not change Message, :count
-      is_expected.to be_empty
-      expect(Topics::SubscribedUsersQuery).to_not have_received :call
+      is_expected.to be_nil
+      expect(Notifications::SendMessage).to_not have_received :perform_async
       expect(topic.reload).to be_processed
     end
   end
@@ -134,9 +169,8 @@ describe Notifications::BroadcastTopic do
     end
 
     it do
-      expect { subject }.to_not change Message, :count
-      is_expected.to be_empty
-      expect(Topics::SubscribedUsersQuery).to_not have_received :call
+      is_expected.to be_nil
+      expect(Notifications::SendMessage).to_not have_received :perform_async
       expect(topic.reload).to be_processed
     end
   end
@@ -145,9 +179,8 @@ describe Notifications::BroadcastTopic do
     let(:topic) { build_stubbed :topic }
 
     it do
-      expect { subject }.to_not change Message, :count
-      is_expected.to be_empty
-      expect(Topics::SubscribedUsersQuery).to_not have_received :call
+      is_expected.to be_nil
+      expect(Notifications::SendMessage).to_not have_received :perform_async
     end
   end
 end

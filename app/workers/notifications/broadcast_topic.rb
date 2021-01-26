@@ -8,27 +8,32 @@ class Notifications::BroadcastTopic
   )
 
   NEWS_EXPIRE_IN = 1.week
+  MESSAGES_PER_JOB = 1000
+  MESSAGE_ATTRIBUTES = %w[from_id kind linked_id linked_type created_at]
 
   def perform topic_id
     topic = Topic.find_by id: topic_id
-    return [] if !topic || topic.processed?
+    return if !topic || topic.processed?
 
     if skip? topic
       topic.update_column :processed, true
-      return []
+      return
     end
 
-    messages = build_messages topic
+    message_attributes = prepare_message topic
+    user_ids = subscribed_user_ids topic
 
-    ApplicationRecord.transaction do
-      topic.update_column :processed, true
-      messages.each_slice(5000) { |slice| Message.import slice, validate: false }
-    end
-
-    messages
+    schedule_send message_attributes, user_ids
+    topic.update_column :processed, true
   end
 
 private
+
+  def schedule_send message, user_ids
+    user_ids.each_slice(MESSAGES_PER_JOB) do |slice|
+      Notifications::SendMessage.perform_async message, slice
+    end
+  end
 
   def skip? topic
     return false if topic.broadcast?
@@ -40,11 +45,11 @@ private
   end
 
   def music? topic
-    topic.linked&.respond_to?(:kind_music?) && topic.linked&.kind_music?
+    topic.linked.respond_to?(:kind_music?) && topic.linked&.kind_music?
   end
 
   def censored? topic
-    topic.linked&.respond_to?(:censored?) && topic.linked&.censored?
+    topic.linked.respond_to?(:censored?) && topic.linked&.censored?
   end
 
   def expired? topic
@@ -55,25 +60,20 @@ private
     topic.is_a? Topics::NewsTopics::ContestStatusTopic
   end
 
-  def build_messages topic
-    subscribed_users(topic).map do |user|
-      build_message topic, user
-    end
+  def subscribed_user_ids topic
+    Topics::SubscribedUsersQuery.call(topic).pluck :id
   end
 
-  def subscribed_users topic
-    Topics::SubscribedUsersQuery.call topic
-  end
-
-  def build_message topic, user
-    Message.new(
-      from: topic.user,
-      to: user,
-      body: nil,
-      kind: message_type(topic),
-      linked: linked(topic),
-      created_at: topic.created_at
-    )
+  def prepare_message topic
+    Message
+      .new(
+        from: topic.user,
+        kind: message_type(topic),
+        linked: linked(topic),
+        created_at: topic.created_at
+      )
+      .attributes
+      .slice(*MESSAGE_ATTRIBUTES)
   end
 
   def message_type topic
