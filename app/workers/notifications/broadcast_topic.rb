@@ -31,7 +31,7 @@ private
 
   def schedule_send message, user_ids
     user_ids.each_slice(MESSAGES_PER_JOB) do |slice|
-      Notifications::SendMessage.perform_async message, slice
+      Notifications::SendMessages.perform_async message, slice
     end
   end
 

@@ -1,7 +1,7 @@
 describe Notifications::BroadcastTopic do
   include_context :timecop
+  subject { described_class.new.perform topic.id }
 
-  subject(:messages) { described_class.new.perform topic.id }
   before do
     allow(Topics::SubscribedUsersQuery)
       .to receive(:call)
@@ -29,7 +29,7 @@ describe Notifications::BroadcastTopic do
   let(:created_at) { Time.zone.now }
 
   before do
-    allow(Notifications::SendMessage).to receive :perform_async
+    allow(Notifications::SendMessages).to receive :perform_async
     stub_const 'Notifications::BroadcastTopic::MESSAGES_PER_JOB', messages_per_job
   end
   let(:messages_per_job) { 3 }
@@ -49,17 +49,17 @@ describe Notifications::BroadcastTopic do
     it do
       is_expected.to eq true
 
-      expect(Notifications::SendMessage)
+      expect(Notifications::SendMessages)
         .to have_received(:perform_async)
         .with(message_attributes, [user.id, user_2.id])
         .ordered
 
-      expect(Notifications::SendMessage)
+      expect(Notifications::SendMessages)
         .to have_received(:perform_async)
         .with(message_attributes, [user_3.id])
         .ordered
 
-      expect(Notifications::SendMessage)
+      expect(Notifications::SendMessages)
         .to have_received(:perform_async)
         .twice
 
@@ -87,7 +87,7 @@ describe Notifications::BroadcastTopic do
     it do
       is_expected.to eq true
 
-      expect(Notifications::SendMessage)
+      expect(Notifications::SendMessages)
         .to have_received(:perform_async)
         .with(message_attributes, [user.id, user_2.id, user_3.id])
         .once
@@ -115,7 +115,7 @@ describe Notifications::BroadcastTopic do
     it do
       is_expected.to eq true
 
-      expect(Notifications::SendMessage)
+      expect(Notifications::SendMessages)
         .to have_received(:perform_async)
         .with(message_attributes, [user.id, user_2.id, user_3.id])
         .once
@@ -131,7 +131,7 @@ describe Notifications::BroadcastTopic do
 
     it do
       expect { subject }.to raise_error ArgumentError
-      expect(Notifications::SendMessage).to_not have_received :perform_async
+      expect(Notifications::SendMessages).to_not have_received :perform_async
       expect(topic.reload).to_not be_processed
     end
   end
@@ -141,7 +141,7 @@ describe Notifications::BroadcastTopic do
 
     it do
       is_expected.to be_nil
-      expect(Notifications::SendMessage).to_not have_received :perform_async
+      expect(Notifications::SendMessages).to_not have_received :perform_async
       expect(topic.reload).to be_processed
     end
   end
@@ -153,7 +153,7 @@ describe Notifications::BroadcastTopic do
 
     it do
       is_expected.to be_nil
-      expect(Notifications::SendMessage).to_not have_received :perform_async
+      expect(Notifications::SendMessages).to_not have_received :perform_async
       expect(topic.reload).to be_processed
     end
   end
@@ -170,7 +170,7 @@ describe Notifications::BroadcastTopic do
 
     it do
       is_expected.to be_nil
-      expect(Notifications::SendMessage).to_not have_received :perform_async
+      expect(Notifications::SendMessages).to_not have_received :perform_async
       expect(topic.reload).to be_processed
     end
   end
@@ -180,7 +180,7 @@ describe Notifications::BroadcastTopic do
 
     it do
       is_expected.to be_nil
-      expect(Notifications::SendMessage).to_not have_received :perform_async
+      expect(Notifications::SendMessages).to_not have_received :perform_async
     end
   end
 end
