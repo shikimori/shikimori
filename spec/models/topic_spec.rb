@@ -86,8 +86,8 @@ describe Topic do
 
       it do
         is_expected.not_to be_able_to :new, topic
-        is_expected.not_to be_able_to :edit, topic
         is_expected.not_to be_able_to :create, topic
+        is_expected.not_to be_able_to :edit, topic
         is_expected.not_to be_able_to :update, topic
         is_expected.not_to be_able_to :destroy, topic
         is_expected.not_to be_able_to :moderate, topic
@@ -100,8 +100,8 @@ describe Topic do
 
       it do
         is_expected.not_to be_able_to :new, topic
-        is_expected.not_to be_able_to :edit, topic
         is_expected.not_to be_able_to :create, topic
+        is_expected.not_to be_able_to :edit, topic
         is_expected.not_to be_able_to :update, topic
         is_expected.not_to be_able_to :destroy, topic
         is_expected.not_to be_able_to :moderate, topic
@@ -114,8 +114,8 @@ describe Topic do
 
       it do
         is_expected.to be_able_to :new, topic
-        is_expected.to be_able_to :edit, topic
         is_expected.to be_able_to :create, topic
+        is_expected.to be_able_to :edit, topic
         is_expected.to be_able_to :update, topic
         is_expected.not_to be_able_to :moderate, topic
       end
@@ -124,8 +124,8 @@ describe Topic do
         let(:user) { build_stubbed :user, :user, :day_registered }
         it do
           is_expected.not_to be_able_to :new, topic
-          is_expected.not_to be_able_to :edit, topic
           is_expected.not_to be_able_to :create, topic
+          is_expected.not_to be_able_to :edit, topic
           is_expected.to_not be_able_to :update, topic
           is_expected.not_to be_able_to :moderate, topic
         end
@@ -135,8 +135,8 @@ describe Topic do
         let(:user) { build_stubbed :user, :banned, :week_registered }
         it do
           is_expected.not_to be_able_to :new, topic
-          is_expected.not_to be_able_to :edit, topic
           is_expected.not_to be_able_to :create, topic
+          is_expected.not_to be_able_to :edit, topic
           is_expected.not_to be_able_to :update, topic
           is_expected.not_to be_able_to :moderate, topic
         end
@@ -237,6 +237,7 @@ describe Topic do
 
       context 'common topic' do
         it { is_expected.to_not be_able_to :edit, topic }
+        it { is_expected.to_not be_able_to :update, topic }
         it { is_expected.to_not be_able_to :manage, topic }
         it { is_expected.not_to be_able_to :moderate, topic }
       end
@@ -269,6 +270,7 @@ describe Topic do
       context 'common topic' do
         context 'comments_count < 2000' do
           it { is_expected.to be_able_to :edit, topic }
+          it { is_expected.to be_able_to :update, topic }
           it { is_expected.to be_able_to :manage, topic }
           it { is_expected.not_to be_able_to :moderate, topic }
         end
@@ -276,6 +278,7 @@ describe Topic do
         context 'comments_count >= 2000' do
           let(:comments_count) { 2000 }
           it { is_expected.to be_able_to :edit, topic }
+          it { is_expected.to be_able_to :update, topic }
           it { is_expected.to_not be_able_to :manage, topic }
           it { is_expected.not_to be_able_to :moderate, topic }
         end
@@ -326,6 +329,7 @@ describe Topic do
 
         it { is_expected.to_not be_able_to :new, topic }
         it { is_expected.to_not be_able_to :edit, topic }
+        it { is_expected.to_not be_able_to :update, topic }
         it { is_expected.to_not be_able_to :create, topic }
         it { is_expected.to_not be_able_to :update, topic }
         it { is_expected.not_to be_able_to :moderate, topic }
@@ -336,6 +340,7 @@ describe Topic do
 
         it { is_expected.to be_able_to :new, topic }
         it { is_expected.to be_able_to :edit, topic }
+        it { is_expected.to be_able_to :update, topic }
         it { is_expected.to be_able_to :create, topic }
         it { is_expected.to be_able_to :update, topic }
         it { is_expected.not_to be_able_to :moderate, topic }
@@ -351,6 +356,7 @@ describe Topic do
 
         it { is_expected.to_not be_able_to :new, topic }
         it { is_expected.to_not be_able_to :edit, topic }
+        it { is_expected.to_not be_able_to :update, topic }
         it { is_expected.to_not be_able_to :create, topic }
         it { is_expected.to_not be_able_to :update, topic }
         it { is_expected.not_to be_able_to :moderate, topic }
@@ -361,6 +367,7 @@ describe Topic do
 
         it { is_expected.to be_able_to :new, topic }
         it { is_expected.to be_able_to :edit, topic }
+        it { is_expected.to be_able_to :update, topic }
         it { is_expected.to be_able_to :create, topic }
         it { is_expected.to be_able_to :update, topic }
         it { is_expected.not_to be_able_to :moderate, topic }
