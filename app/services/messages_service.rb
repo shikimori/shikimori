@@ -31,6 +31,6 @@ class MessagesService
 private
 
   def kinds_by_type type
-    MessagesQuery.new(user, type).where_by_type[:kind]
+    Messages::Query.new(user, type).where_by_type[:kind]
   end
 end

@@ -1,5 +1,5 @@
-describe MessagesQuery do
-  let(:query) { MessagesQuery.new user, messages_type }
+describe Messages::Query do
+  let(:query) { Messages::Query.new user, messages_type }
 
   let!(:private) do
     create :message,

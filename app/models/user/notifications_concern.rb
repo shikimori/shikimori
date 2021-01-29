@@ -25,7 +25,7 @@ private
   # number of unread notifications
   def unread_news
     Message.where(to_id: id)
-      .where(kind: MessagesQuery::NEWS_KINDS)
+      .where(kind: Messages::Query::NEWS_KINDS)
       .where(read: false)
       .where.not(from_id: ignored_user_ids, to_id: ignored_user_ids)
       .count
@@ -34,7 +34,7 @@ private
   # number of unread notifications
   def unread_notifications
     Message.where(to_id: id)
-      .where(kind: MessagesQuery::NOTIFICATION_KINDS)
+      .where(kind: Messages::Query::NOTIFICATION_KINDS)
       .where(read: false)
       .where.not(from_id: ignored_user_ids, to_id: ignored_user_ids)
       .count

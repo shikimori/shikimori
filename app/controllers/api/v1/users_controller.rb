@@ -140,7 +140,7 @@ class Api::V1::UsersController < Api::V1Controller
   def messages
     @limit = [[params[:limit].to_i, 1].max, MESSAGES_LIMIT].min
 
-    messages = MessagesQuery
+    messages = Messages::Query
       .new(current_user, params[:type].try(:to_sym) || '')
       .fetch(@page, @limit)
       .decorate

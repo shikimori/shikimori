@@ -32,7 +32,7 @@ class MessageDecorator < BaseDecorator
       h.contest_url linked
     elsif club_broadcast?
       h.club_url(linked.commentable.linked) + "#comment-#{linked.id}"
-    elsif MessagesQuery::NEWS_KINDS.include?(kind) && linked
+    elsif Messages::Query::NEWS_KINDS.include?(kind) && linked
       UrlGenerator.instance.topic_url(linked)
     else
       h.profile_url from

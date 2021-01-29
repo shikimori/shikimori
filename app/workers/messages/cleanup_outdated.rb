@@ -3,7 +3,7 @@ class Messages::CleanupOutdated
 
   EXPIRE_INTERVAL = 1.month + 30.days
 
-  KINDS = MessagesQuery::NEWS_KINDS + MessagesQuery::NOTIFICATION_KINDS - [
+  KINDS = Messages::Query::NEWS_KINDS + Messages::Query::NOTIFICATION_KINDS - [
     MessageType::FRIEND_REQUEST,
     MessageType::CLUB_REQUEST
   ]

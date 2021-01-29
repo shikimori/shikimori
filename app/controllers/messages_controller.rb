@@ -24,7 +24,7 @@ class MessagesController < ProfilesController
     ].min
 
     @collection, @add_postloader =
-      MessagesQuery.new(@resource, @messages_type).postload @page, @limit
+      Messages::Query.new(@resource, @messages_type).postload @page, @limit
     @collection = @collection.map(&:decorate)
 
     og page_title: localized_page_title
