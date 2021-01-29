@@ -4,7 +4,7 @@ default: &defaults
   push_api_key: '9185649b-2890-4c72-8694-ec567fd3e2d4'
 
   # Your app's name
-  name: 'App V3'
+  name: 'App V4'
 
   # Actions that should not be monitored by AppSignal
   # ignore_actions:
