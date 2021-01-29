@@ -7,7 +7,8 @@ json.content JsExports::Supervisor.instance.sweep(
   )
 )
 
-if @collection.next_page?
+# @collection can be simple array in `chosen` action
+if @collection.respond_to?(:next_page?) && @collection.next_page?
   json.postloader render(
     'blocks/postloader',
     filter: 'b-message',
