@@ -27,15 +27,15 @@ class Messages::Query < SimpleQueryBase
 
   def query
     Message
-      .where(where_by_type)
+      .where(self.class.where_by_type(@messages_type))
       .where(where_by_sender)
       .where.not(from_id: ignores_ids, to_id: ignores_ids)
       .includes(:linked, :from, :to)
       .order(*order_by_type)
   end
 
-  def where_by_type
-    case @messages_type
+  def self.where_by_type type
+    case type
       when :inbox, :sent then { kind: MessageType::PRIVATE }
       when :private then { kind: MessageType::PRIVATE, read: false }
       when :news then { kind: NEWS_KINDS }
