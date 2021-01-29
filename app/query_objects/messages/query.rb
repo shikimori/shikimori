@@ -1,4 +1,13 @@
 class Messages::Query < QueryObjectBase
+  InboxType = Types::Strict::Symbol
+    .enum(:inbox, :sent, :private, :news, :notifications)
+
+  IGNORE_SUPPORTED_INBOX_TYPES = [
+    InboxType[:private],
+    InboxType[:inbox],
+    InboxType[:sent]
+  ]
+
   NEWS_KINDS = [
     MessageType::ANONS,
     MessageType::ONGOING,
@@ -23,17 +32,18 @@ class Messages::Query < QueryObjectBase
     MessageType::VERSION_REJECTED
   ]
 
-  def self.fetch user, messages_type
-    ignores_ids = user.ignores.map(&:target_id)
+  def self.fetch user, type
+    inbox_type = InboxType[type]
 
     scope = Message
       .includes(:linked, :from, :to)
-      .order(*order_by_type(messages_type))
+      .order(*order_by_type(inbox_type))
 
-    scope.where! where_by_type(messages_type)
-    scope.where! where_by_sender(user, messages_type)
+    scope.where! where_by_inbox_type(inbox_type)
+    scope.where! where_by_sender(user, inbox_type)
 
-    if ignores_ids.any?
+    if IGNORE_SUPPORTED_INBOX_TYPES.include? inbox_type
+      ignores_ids = user.ignores.map(&:target_id)
       scope = scope.where.not(from_id: ignores_ids, to_id: ignores_ids)
     end
 
@@ -41,27 +51,26 @@ class Messages::Query < QueryObjectBase
   end
 
   class << self
-    def where_by_type type
-      case type
-        when :inbox, :sent then { kind: MessageType::PRIVATE }
-        when :private then { kind: MessageType::PRIVATE, read: false }
-        when :news then { kind: NEWS_KINDS }
-        when :notifications then { kind: NOTIFICATION_KINDS }
-        else raise ArgumentError, "unknown type: #{type}"
+    def where_by_inbox_type inbox_type
+      case inbox_type
+        when InboxType[:inbox], InboxType[:sent] then { kind: MessageType::PRIVATE }
+        when InboxType[:private] then { kind: MessageType::PRIVATE, read: false }
+        when InboxType[:news] then { kind: NEWS_KINDS }
+        when InboxType[:notifications] then { kind: NOTIFICATION_KINDS }
       end
     end
 
-    def where_by_sender user, type
-      case type
-        when :sent then { from_id: user.id }
-        when :news then { to_id: user.id }
+    def where_by_sender user, inbox_type
+      case inbox_type
+        when InboxType[:sent] then { from_id: user.id }
+        when InboxType[:news], InboxType[:notifications] then { to_id: user.id }
         else { to_id: user.id, is_deleted_by_to: false }
       end
     end
 
-    def order_by_type type
-      case type
-        when :private then Arel.sql('read, (case when read=true then -id else id end)')
+    def order_by_type inbox_type
+      case inbox_type
+        when InboxType[:private] then Arel.sql('read, (case when read=true then -id else id end)')
         else [id: :desc]
       end
     end

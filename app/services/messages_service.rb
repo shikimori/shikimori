@@ -30,7 +30,7 @@ class MessagesService
 
 private
 
-  def kinds_by_type type
-    Messages::Query.where_by_type(type)[:kind]
+  def kinds_by_type inbox_type
+    Messages::Query.where_by_inbox_type(inbox_type)[:kind]
   end
 end
