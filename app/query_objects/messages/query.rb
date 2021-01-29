@@ -24,14 +24,20 @@ class Messages::Query < QueryObjectBase
   ]
 
   def self.fetch user, messages_type
-    ignores_ids = user.ignores.map(&:target_id) << 0
+    ignores_ids = user.ignores.map(&:target_id)
 
-    new Message
-      .where(where_by_type(messages_type))
-      .where(where_by_sender(user, messages_type))
-      .where.not(from_id: ignores_ids, to_id: ignores_ids)
+    scope = Message
       .includes(:linked, :from, :to)
       .order(*order_by_type(messages_type))
+
+    scope.where! where_by_type(messages_type)
+    scope.where! where_by_sender(user, messages_type)
+
+    if ignores_ids.any?
+      scope = scope.where.not(from_id: ignores_ids, to_id: ignores_ids)
+    end
+
+    new scope
   end
 
   class << self
