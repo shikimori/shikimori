@@ -10115,6 +10115,7 @@
         - 23615
         - 9177
         - 4680
+        - 312
       :generator:
         person_id: 5393
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -15027,7 +15028,7 @@
         not_anime_ids:
         - 36923
         - 45567
-      :threshold: 95.1%
+      :threshold: 95%
       :generator:
         ignore_latest_ids:
         - 46420
@@ -15063,6 +15064,9 @@
         - 36923
         - 45567
       :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 46420
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :nanatsu_no_taizai
@@ -24214,6 +24218,9 @@
       :filters:
         franchise: slam_dunk
       :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 45649
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :slam_dunk
@@ -27434,6 +27441,35 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :taiho_shichau_zo
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/taiho_shichau_zo.jpg"
+    :border_color:
+    :title_ru: Вы арестованы!
+    :text_ru:
+    :title_en: Taiho Shichau zo
+    :text_en:
+    :topic_id: 247360
+    :rule: &512
+      :algo: duration
+      :filters:
+        franchise: taiho_shichau_zo
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :taiho_shichau_zo
+  level: 0
+  image: "/assets/achievements/anime/franchise/taiho_shichau_zo.jpg"
+  border_color:
+  title_ru: Вы арестованы!
+  text_ru:
+  title_en: Taiho Shichau zo
+  text_en:
+  topic_id: 247360
+  rule: *512
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :ad_police
     :level: 0
     :image: "/assets/achievements/anime/franchise/ad_police.jpg"
@@ -27443,7 +27479,7 @@
     :title_en: Bubblegum Crisis
     :text_en:
     :topic_id: 247360
-    :rule: &512
+    :rule: &513
       :algo: duration
       :filters:
         franchise: ad_police
@@ -27460,35 +27496,6 @@
   title_ru: Кризис каждый день
   text_ru:
   title_en: Bubblegum Crisis
-  text_en:
-  topic_id: 247360
-  rule: *512
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :taiho_shichau_zo
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/taiho_shichau_zo.jpg"
-    :border_color:
-    :title_ru: Вы арестованы!
-    :text_ru:
-    :title_en: Taiho Shichau zo
-    :text_en:
-    :topic_id: 247360
-    :rule: &513
-      :algo: duration
-      :filters:
-        franchise: taiho_shichau_zo
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :taiho_shichau_zo
-  level: 0
-  image: "/assets/achievements/anime/franchise/taiho_shichau_zo.jpg"
-  border_color:
-  title_ru: Вы арестованы!
-  text_ru:
-  title_en: Taiho Shichau zo
   text_en:
   topic_id: 247360
   rule: *513
