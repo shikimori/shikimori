@@ -18,16 +18,17 @@ class MessagesController < ProfilesController
   MESSAGES_PER_PAGE = 15
 
   def index
+    og page_title: localized_page_title
+
     @limit = [
       [params[:limit].to_i, MESSAGES_PER_PAGE].max,
       MESSAGES_PER_PAGE * 2
     ].min
 
-    @collection, @add_postloader =
-      Messages::Query.new(@resource, @messages_type).postload @page, @limit
-    @collection = @collection.map(&:decorate)
-
-    og page_title: localized_page_title
+    @collection = Messages::Query
+      .fetch(@resource, @messages_type)
+      .paginate(@page, @limit)
+      .transform(&:decorate)
   end
 
   def show
@@ -102,7 +103,7 @@ class MessagesController < ProfilesController
     end
 
     @messages = raw_messages.map do |message|
-      if message.linked&.respond_to?(:linked) && message.linked&.linked
+      if message.linked.respond_to?(:linked) && message.linked&.linked
         linked = message.linked.linked
       end
 
@@ -114,7 +115,7 @@ class MessagesController < ProfilesController
           nil,
         link: linked ? url_for(linked) : messages_url(type: :notifications),
         linked_name: linked ? linked.name : nil,
-        pubDate: Time.at(message.created_at.to_i).to_s(:rfc822),
+        pubDate: Time.zone.at(message.created_at.to_i).to_s(:rfc822),
         title: linked ? linked.name : i18n_i('Site')
       }
     end
@@ -135,12 +136,10 @@ class MessagesController < ProfilesController
 private
 
   def localized_page_title
-    if @messages_type == :news
-      i18n_t '.site_news'
-    elsif @messages_type == :private
-      i18n_t '.private_messages'
-    else
-      i18n_t '.site_notifications'
+    case @messages_type
+      when :news then i18n_t '.site_news'
+      when :private then i18n_t '.private_messages'
+      else i18n_t '.site_notifications'
     end
   end
 

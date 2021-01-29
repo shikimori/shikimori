@@ -140,6 +140,7 @@ Naming/VariableNumber:
   - x96
   - x160
   - ignore302
+  - rfc822
 Lint/UriEscapeUnescape:
   Enabled: false
 Naming/RescuedExceptionsVariableName:
