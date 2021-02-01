@@ -1,121 +1,121 @@
 class Ad < ViewObjectBase # rubocop:disable ClassLength
-# present advertur blocks
-# block_1: [92_129, 2_731],
-# block_2: [92_445, 1_256],
-# block_3: [92_485, nil]
+  # present advertur blocks
+  # block_1: [92_129, 2_731],
+  # block_2: [92_445, 1_256],
+  # block_3: [92_485, nil]
 
-# CACHE_KEY = Digest::MD5.hexdigest(META_TYPES.to_json)
+  # CACHE_KEY = Digest::MD5.hexdigest(META_TYPES.to_json)
 
-attr_reader :banner_type, :policy
+  attr_reader :banner_type, :policy
 
-def initialize meta
-  meta = Types::Ad::Meta[:menu_240x400] if switch_to_x240? meta
-  meta = Types::Ad::Meta[:menu_300x600] if switch_to_x300? meta
+  def initialize meta
+    meta = Types::Ad::Meta[:menu_240x400] if switch_to_x240? meta
+    meta = Types::Ad::Meta[:menu_300x600] if switch_to_x300? meta
 
-  META_TYPES[h.clean_host?][Types::Ad::Meta[meta]].each do |type|
-    switch_banner Types::Ad::Type[type]
-    break if allowed?
+    META_TYPES[h.clean_host?][Types::Ad::Meta[meta]].each do |type|
+      switch_banner Types::Ad::Type[type]
+      break if allowed?
+    end
   end
-end
 
-def allowed?
-  if h.controller.instance_variable_get controller_key(banner[:placement])
-    false
-  else
-    policy.allowed? && (!@rules || @rules.show?)
+  def allowed?
+    if h.controller.instance_variable_get controller_key(banner[:placement])
+      false
+    else
+      policy.allowed? && (!@rules || @rules.show?)
+    end
   end
-end
 
-def provider
-  banner[:provider]
-end
+  def provider
+    banner[:provider]
+  end
 
-def placeholder?
-  Rails.env.development? && !special?
-end
+  def placeholder?
+    Rails.env.development? && !special?
+  end
 
-def platform
-  banner[:platform]
-end
+  def platform
+    banner[:platform]
+  end
 
-def ad_params
-  return unless yandex_direct?
+  def ad_params
+    return unless yandex_direct?
 
-  {
-    blockId: banner[:yandex_id],
-    renderTo: @banner_type,
-    async: true
-  }
-end
+    {
+      blockId: banner[:yandex_id],
+      renderTo: @banner_type,
+      async: true
+    }
+  end
 
-def css_class
-  "spns_#{@banner_type}"
-end
+  def css_class
+    "spns_#{@banner_type}"
+  end
 
-def to_html
-  finalize
+  def to_html
+    finalize
 
-  <<-HTML.gsub(/\n|^\ +/, '')
-    <div class="b-spns-#{@banner_type}">
-      <center>
-        #{ad_html}
-      </center>
-    </div>
-  HTML
-end
+    <<-HTML.gsub(/\n|^\ +/, '')
+      <div class="b-spns-#{@banner_type}">
+        <center>
+          #{ad_html}
+        </center>
+      </div>
+    HTML
+  end
 
 private
 
-def switch_banner banner_type
-  @banner_type = banner_type
-  @policy = build_policy
-  @rules = build_rules
-end
+  def switch_banner banner_type
+    @banner_type = banner_type
+    @policy = build_policy
+    @rules = build_rules
+  end
 
-def build_policy
-  AdsPolicy.new(
-    user: h.current_user,
-    ad_provider: provider,
-    is_ru_host: h.ru_host?,
-    is_disabled: h.cookies["#{css_class}_disabled"].present?
-  )
-end
+  def build_policy
+    AdsPolicy.new(
+      user: h.current_user,
+      ad_provider: provider,
+      is_ru_host: h.ru_host?,
+      is_disabled: h.cookies["#{css_class}_disabled"].present?
+    )
+  end
 
-def build_rules
-  return unless banner[:rules]
+  def build_rules
+    return unless banner[:rules]
 
-  Ads::Rules.new banner[:rules], h.cookies[banner[:rules][:cookie]]
-end
+    Ads::Rules.new banner[:rules], h.cookies[banner[:rules][:cookie]]
+  end
 
-def banner
-  BANNERS[h.clean_host?][@banner_type]
-end
+  def banner
+    BANNERS[h.clean_host?][@banner_type]
+  end
 
-def yandex_direct?
-  provider == Types::Ad::Provider[:yandex_direct]
-end
+  def yandex_direct?
+    provider == Types::Ad::Provider[:yandex_direct]
+  end
 
-def mytarget?
-  provider == Types::Ad::Provider[:mytarget]
-end
+  def mytarget?
+    provider == Types::Ad::Provider[:mytarget]
+  end
 
-def special?
-  provider == Types::Ad::Provider[:special]
-end
+  def special?
+    provider == Types::Ad::Provider[:special]
+  end
 
-def banner?
-  banner[:images].present?
-end
+  def banner?
+    banner[:images].present?
+  end
 
-def html?
-  banner[:html].present?
-end
+  def html?
+    banner[:html].present?
+  end
 
-def iframe?
-  provider == Types::Ad::Provider[:advertur]
-end
+  def iframe?
+    provider == Types::Ad::Provider[:advertur]
+  end
 
-def ad_html # rubocop:disable all
+  def ad_html # rubocop:disable all
     if placeholder?
       width, height =
         if @banner_type =~ /(?<width>\d+)x(?<height>\d+)/
@@ -149,7 +149,9 @@ def ad_html # rubocop:disable all
           "<img src='#{image[:src]}'>"
         end
 
-      "<a href='#{banner[:url] || image[:url]}'>#{image_html}</a>"
+      pixel_html = "<img src='#{banner[:pixel]}' width='0' height='0'>" if banner[:pixel]
+
+      "#{pixel_html}<a href='#{banner[:url] || image[:url]}'>#{image_html}</a>"
     elsif html?
       banner[:html]
 
@@ -201,31 +203,33 @@ def ad_html # rubocop:disable all
 
   BANNERS = {
     true => {
-      # disable after 2020-08-21
+      # disable after 2021-02-08
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://redir.wargaming.net/ifmkwire/?pub_id=shikimorione_600х1000',
-        images: (2..2).map do |i|
+        url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=jawxa&pr=[RANDOM]',
+        images: (1..1).map do |i|
           {
-            src: "/assets/globals/events/special_#{i}.jpg",
-            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+            src: "/assets/globals/events/special_menu_#{i}.jpg",
+            src_2x: "/assets/globals/events/special_menu_#{i}@2x.jpg"
           }
         end,
         rules: {
           cookie: 'i1',
-          shows_per_week: 380
+          shows_per_week: 540 # 380
         },
+        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dkfpm&pfb=jawxa&pr=[RANDOM]&ptrc=b',
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
       },
-      # disable after 2020-08-21
+      # disable after 2021-02-08
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://redir.wargaming.net/ifmkwire/?pub_id=shikimorione_2340х360',
+        url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=jawxa&pr=[RANDOM]',
+        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dkfpm&pfb=jawxa&pr=[RANDOM]&ptrc=b',
         images: (1..1).map do |i|
           {
-            src: "/assets/globals/events/special_#{i}.jpg",
-            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+            src: "/assets/globals/events/special_wide_#{i}.jpg",
+            src_2x: "/assets/globals/events/special_wide_#{i}@2x.jpg"
           }
         end,
         # html: (
@@ -316,33 +320,58 @@ def ad_html # rubocop:disable all
       }
     },
     false => {
-      # disable after 2020-08-21
+      # disable after 2021-02-08
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://wo.ws/2tiDb3o',
-        images: (3..4).map do |i|
+        url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=jawxa&pr=[RANDOM]',
+        images: (1..1).map do |i|
           {
-            src: "/assets/globals/events/special_#{i}.jpg",
-            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+            src: "/assets/globals/events/special_menu_#{i}.jpg",
+            src_2x: "/assets/globals/events/special_menu_#{i}@2x.jpg"
           }
         end,
         rules: {
           cookie: 'i1',
-          shows_per_week: 380
+          shows_per_week: 540 # 380
         },
+        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dkfpm&pfb=jawxa&pr=[RANDOM]&ptrc=b',
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
       },
-      # disable after 2020-08-21
+      # disable after 2021-02-08
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://wo.ws/2tiDb3o',
+        url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=jawxa&pr=[RANDOM]',
+        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dkfpm&pfb=jawxa&pr=[RANDOM]&ptrc=b',
         images: (1..1).map do |i|
           {
-            src: "/assets/globals/events/special_#{i}.jpg",
-            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+            src: "/assets/globals/events/special_wide_#{i}.jpg",
+            src_2x: "/assets/globals/events/special_wide_#{i}@2x.jpg"
           }
         end,
+        # html: (
+        #   <<~HTML
+        #     <style>
+        #       #iframe_special_x1170 {
+        #         max-width: 1150px;
+        #         width: 100%;
+        #         height: 180px;
+        #         margin: 0 auto;
+        #         overflow: hidden;
+        #       }
+        #       .spns_special_x1170 {
+        #         max-width: 1150px;
+        #         margin: 0 auto;
+        #         overflow: hidden;
+        #       }
+        #       .b-spns-special_x1170 {
+        #         margin: 0 auto 45px;
+        #         overflow: hidden;
+        #       }
+        #     </style>
+        #     <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
+        #   HTML
+        # ),
         placement: Types::Ad::Placement[:content],
         platform: Types::Ad::Platform[:desktop]
       },
@@ -409,12 +438,12 @@ def ad_html # rubocop:disable all
         Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # disable after 2020-08-21
+        Types::Ad::Type[:special_x300], # disable after 2021-02-08
         Types::Ad::Type[:yd_240x600],
         Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # disable after 2020-08-21
+        Types::Ad::Type[:special_x300], # disable after 2021-02-08
         Types::Ad::Type[:yd_300x600],
         Types::Ad::Type[:mt_300x600]
       ],
@@ -430,7 +459,7 @@ def ad_html # rubocop:disable all
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170], # disable after 2020-08-21
+        Types::Ad::Type[:special_x1170], # disable after 2021-02-08
         Types::Ad::Type[:yd_970x250],
         Types::Ad::Type[:mt_970x250]
       ]
@@ -442,13 +471,13 @@ def ad_html # rubocop:disable all
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # disable after 2020-08-21
+        Types::Ad::Type[:special_x300], # disable after 2021-02-08
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # disable after 2020-08-21
+        Types::Ad::Type[:special_x300], # disable after 2021-02-08
         # Types::Ad::Type[:mt_300x600],
         # Types::Ad::Type[:yd_300x600],
         # Types::Ad::Type[:advrtr_240x400],
@@ -465,7 +494,7 @@ def ad_html # rubocop:disable all
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170] # disable after 2020-08-21
+        Types::Ad::Type[:special_x1170] # disable after 2021-02-08
       ]
     }
   }
