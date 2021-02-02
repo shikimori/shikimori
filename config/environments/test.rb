@@ -47,7 +47,15 @@ Rails.application.configure do
   config.logger = ActiveSupport::Logger.new(nil)
   config.log_level = :fatal
 
-  if defined?(Pry)
+  if defined? Pry
     Pry.config.auto_indent = false
   end
+
+  # config.after_initialize do
+  #   if defined? Bullet
+  #     Bullet.enable        = true
+  #     Bullet.bullet_logger = true
+  #     Bullet.raise         = true # raise an error if n+1 query occurs
+  #   end
+  # end
 end
