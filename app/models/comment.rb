@@ -20,14 +20,19 @@ class Comment < ApplicationRecord
   belongs_to :topic,
     optional: true,
     class_name: 'Topic',
-    foreign_key: :commentable_id
+    foreign_key: :commentable_id,
+    inverse_of: :comments
 
-  has_many :abuse_requests, -> { order :id }, dependent: :destroy
-  has_many :bans, -> { order :id }
+  has_many :abuse_requests, -> { order :id },
+    dependent: :destroy,
+    inverse_of: :comment
+  has_many :bans, -> { order :id },
+    inverse_of: :comment
 
   has_many :messages, -> { where linked_type: Comment.name },
     foreign_key: :linked_id,
-    dependent: :destroy
+    dependent: :destroy,
+    inverse_of: :linked
 
   boolean_attributes :summary, :offtopic
 
@@ -243,7 +248,7 @@ class Comment < ApplicationRecord
   private
 
   def offtopic_topic?
-    return false unless topic.present?
+    return false if topic.blank?
 
     topic.id == Topic::TOPIC_IDS[:offtopic][topic.locale.to_sym]
   end
