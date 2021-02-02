@@ -1,5 +1,6 @@
 class FillLinksCountCounterCache < ActiveRecord::Migration[5.2]
   def change
+    commit_db_transaction
     scope = Collection.includes(:links)
     size = scope.size
 
