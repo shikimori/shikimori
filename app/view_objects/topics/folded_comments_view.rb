@@ -5,6 +5,7 @@ class Topics::FoldedCommentsView < ViewObjectBase
 
   def comments
     comments_scope
+      .includes(:topic)
       .limit(comments_limit)
       .decorate
       .to_a
