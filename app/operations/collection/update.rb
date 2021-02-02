@@ -16,6 +16,7 @@ private
     if @params && @model.update(update_params)
       CollectionLink.where(collection: @model).delete_all
       CollectionLink.import collection_links
+      Collection.reset_counters @model.id, :links_count
       # must touch because there can be no changes in update_params,
       # but collection_links could be changed
       @model.touch
@@ -55,6 +56,6 @@ private
   end
 
   def update_params
-    super.except(:links).merge(links_count: links.size)
+    super.except(:links)
   end
 end
