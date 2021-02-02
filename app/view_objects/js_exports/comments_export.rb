@@ -1,15 +1,15 @@
 class JsExports::CommentsExport < JsExports::ExportBase
-private
+  private
 
   def fetch_entries user
     Comment
       .with_viewed(user)
       .where(id: tracked_ids)
-      .includes(:topic)
       .select(
         "comments.id, comments.created_at, #{Comment::VIEWED_JOINS_SELECT}"
       )
       .order(:id)
+      # .includes(:topic)
   end
 
   def serialize comment, user
