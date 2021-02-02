@@ -56,6 +56,7 @@ describe Collection::Update do
       expect(collection.created_at).to be_within(0.1).of 1.day.ago
       expect(collection.changed_at).to be_within(0.1).of Time.zone.now
       expect(collection.links).to have(2).items
+      expect(collection.links_count).to eq 2
       expect(collection.links.first).to have_attributes(
         linked: db_entry_1,
         group: 'zz1',
@@ -85,6 +86,7 @@ describe Collection::Update do
         expect(collection.reload).to be_published
         expect(collection.published_at).to be_within(0.1).of Time.zone.now
         expect(collection.created_at).to be_within(0.1).of Time.zone.now
+        expect(collection.changed_at).to be_within(0.1).of Time.zone.now
         expect(collection.changed_at).to be_within(0.1).of Time.zone.now
 
         expect(collection.topics).to have(1).item

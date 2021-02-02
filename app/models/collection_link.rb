@@ -1,5 +1,7 @@
 class CollectionLink < ApplicationRecord
-  belongs_to :collection, touch: true
+  belongs_to :collection,
+    touch: true,
+    counter_cache: :links_count
   belongs_to :linked, polymorphic: true
 
   Types::Collection::Kind.values.each do |kind| # rubocop:disable Style/HashEachMethods

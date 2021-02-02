@@ -10,6 +10,7 @@ FactoryBot.define do
     locale { :ru }
     published_at { nil }
     changed_at { nil }
+    links_count { 0 }
 
     Collection.state_machine.states.map(&:value).each do |value|
       trait(value.to_sym) { state { value } }
