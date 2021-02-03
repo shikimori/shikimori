@@ -88,7 +88,7 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
   before_save :check_spam_abuse, if: :will_save_change_to_body?
 
   def title
-    return self[:title]&.html_safe if user&.bot?
+    return self[:title]&.html_safe if User::BOT_IDS.include? user_id
 
     self[:title]
   end

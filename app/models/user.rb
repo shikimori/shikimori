@@ -17,6 +17,17 @@ class User < ApplicationRecord
   BANHAMMER_ID = 6_942
   MESSANGER_ID = Rails.env.test? ? MORR_ID : 1_680
 
+  # added in optimizations purpose to prevent use of`user.bot?` in code
+  BOT_IDS = [
+    13, # Мафую-тян
+    14, # Чидзуру-сан
+    15, # Минацу-тян
+    16, # Ака-тян
+    1680, # Кураноскэ-кун
+    2357, # Idzumi
+    6942 # Аясэ-тян
+  ]
+
   STAFF_ROLES = %w[
     admin
     super_moderator
