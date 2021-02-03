@@ -28,7 +28,7 @@ class DbEntry < ApplicationRecord
   end
 
   def anime?
-    self.class == Anime
+    instance_of? Anime
   end
 
   def kinda_manga?
@@ -36,11 +36,11 @@ class DbEntry < ApplicationRecord
   end
 
   def manga?
-    self.class == Manga
+    instance_of? Manga
   end
 
   def ranobe?
-    self.class == Ranobe
+    instance_of? Ranobe
   end
 
   def topic_user
@@ -58,9 +58,4 @@ class DbEntry < ApplicationRecord
 
     "http://myanimelist.net/#{self.class.base_class.name.downcase}/#{mal_id}"
   end
-
-  # TODO: uncomment when source field is removed from Anime and Manga
-  # def source
-  #  raise 'use DbEntryDecorator#description.source instead!'
-  # end
 end

@@ -181,7 +181,9 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def authors field
     @authors ||= {}
-    @authors[field] ||= versions_scope.authors(field)
+    @authors[field] ||= versions_scope
+      .except(:includes)
+      .authors(field)
   end
 
   def contest_winners
@@ -226,11 +228,13 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 private
 
   def versions_scope
+    scope = super
+
     if h.params[:video_id]
-      super.where(item_id: h.params[:video_id], item_type: Video.name)
-    else
-      super
+      scope = scope.where item_id: h.params[:video_id], item_type: Video.name
     end
+
+    scope
   end
 
   def show_description_ru?
