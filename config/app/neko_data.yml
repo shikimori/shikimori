@@ -2042,6 +2042,7 @@
         - 42373
         - 42372
         - 38685
+        - 34541
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -2506,6 +2507,7 @@
         - 42373
         - 42372
         - 38685
+        - 34541
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -2970,6 +2972,7 @@
         - 42373
         - 42372
         - 38685
+        - 34541
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3433,6 +3436,7 @@
         - 42373
         - 42372
         - 38685
+        - 34541
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -15724,6 +15728,7 @@
         - 38055
         - 43745
         - 43751
+        - 47307
       :threshold: 93.4%
       :generator:
         ignore_latest_ids:
@@ -15768,6 +15773,7 @@
         - 38055
         - 43745
         - 43751
+        - 47307
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
