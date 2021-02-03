@@ -41,7 +41,7 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def flatten_roles
-    object.person_roles.flat_map(&:roles)
+    all_roles.flat_map(&:roles)
   end
 
   def grouped_roles
