@@ -50,9 +50,6 @@ class Person < DbEntry
   ]
   MANGAKA_ROLES = ['Original Creator', 'Story & Art', 'Story', 'Art']
 
-  def source
-  end
-
   def mal_url
     return unless mal_id
 
