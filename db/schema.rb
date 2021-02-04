@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_194614) do
+ActiveRecord::Schema.define(version: 2021_02_03_162552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -58,6 +58,16 @@ ActiveRecord::Schema.define(version: 2021_02_02_194614) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["anime_id", "service", "identifier"], name: "index_anime_links_on_anime_id_and_service_and_identifier", unique: true
+  end
+
+  create_table "anime_stats", force: :cascade do |t|
+    t.jsonb "scores_stats", default: [], null: false
+    t.jsonb "list_stats", default: [], null: false
+    t.string "entry_type", null: false
+    t.bigint "entry_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entry_type", "entry_id"], name: "index_anime_stats_on_entry_type_and_entry_id"
   end
 
   create_table "anime_video_authors", id: :serial, force: :cascade do |t|

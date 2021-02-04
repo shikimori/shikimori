@@ -1,5 +1,13 @@
-require 'rails_helper'
+describe AnimeStat do
+  describe 'associations' do
+    it { is_expected.to belong_to :entry }
+  end
 
-RSpec.describe AnimeStat, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'validations' do
+    # it { is_expected.to validate_presence_of :entry }
+  end
+
+  describe 'enumerize' do
+    it { is_expected.to enumerize(:entry_type).in(*Types::AnimeStat::EntryType.values) }
+  end
 end
