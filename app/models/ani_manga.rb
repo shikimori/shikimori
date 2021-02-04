@@ -1,5 +1,15 @@
 module AniManga
+  extend ActiveSupport::Concern
+
   ONGOING_TO_RELEASED_DAYS = 2
+
+  included do
+    has_one :stat,
+      class_name: 'AnimeStat',
+      as: :entry,
+      inverse_of: :entry,
+      dependent: :destroy
+  end
 
   def year
     aired_on&.year
