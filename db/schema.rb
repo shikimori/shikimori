@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2021_02_03_162552) do
     t.bigint "entry_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["entry_type", "entry_id"], name: "index_anime_stats_on_entry_type_and_entry_id"
+    t.index ["entry_type", "entry_id"], name: "index_anime_stats_on_entry_type_and_entry_id", unique: true
   end
 
   create_table "anime_video_authors", id: :serial, force: :cascade do |t|
