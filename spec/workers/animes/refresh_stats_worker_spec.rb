@@ -11,7 +11,7 @@ describe Animes::RefreshStatsWorker do
   end
 
   context 'manga' do
-    let(:kind) { 'anime' }
+    let(:kind) { 'manga' }
     it do
       is_expected.to eq :zzz
       expect(Animes::RefreshStats).to have_received(:call).with Manga.all

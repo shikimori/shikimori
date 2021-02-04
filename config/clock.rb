@@ -75,6 +75,7 @@ module Clockwork
     FinishExpiredAnimes.perform_async
     MalParsers::ScheduleExpiredAuthorized.perform_async
     PgCaches::Cleanup.perform_async
+    Animes::RefreshStatsWorker.perform_async
 
     # AnimeLinksVerifier.perform_async
     # AutobanFix.perform_async
