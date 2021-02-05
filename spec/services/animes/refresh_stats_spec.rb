@@ -44,10 +44,10 @@ describe Animes::RefreshStats do
       score: 10
   end
 
-  context 'no anime stat', :focus do
+  context 'no anime stat' do
     it do
       expect { subject }.to change(AnimeStat, :count).by 2
-      expect(anime_1.stat).to have_attributes(
+      expect(anime_1.stats).to have_attributes(
         scores_stats: [{
           'key' => 'score_10',
           'value' => 2
@@ -55,14 +55,23 @@ describe Animes::RefreshStats do
           'key' => 'score_8',
           'value' => 1
         }],
-        list_stats: []
+        list_stats: [{
+          'key' => 'status_completed',
+          'value' => 2
+        }, {
+          'key' => 'status_watching',
+          'value' => 1
+        }]
       )
-      expect(anime_2.stat).to have_attributes(
+      expect(anime_2.stats).to have_attributes(
         scores_stats: [{
           'key' => 'score_10',
           'value' => 1
         }],
-        list_stats: []
+        list_stats: [{
+          'key' => 'status_completed',
+          'value' => 1
+        }]
       )
     end
   end
