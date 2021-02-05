@@ -30,7 +30,7 @@ class Animes::RefreshStats
     anime_stats = build_stats
 
     AnimeStat.transaction do
-      AnimeStat.delete_all
+      AnimeStat.where(entry_type: anime_stats.first.entry_type).delete_all
       AnimeStat.import anime_stats
     end
   end

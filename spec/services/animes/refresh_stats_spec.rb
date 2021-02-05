@@ -76,11 +76,15 @@ describe Animes::RefreshStats do
     end
   end
 
-  context 'has anime stat' do
+  context 'has some stat' do
     let!(:anime_stat_2) { create :anime_stat, entry: anime_2 }
+    let!(:manga_stat) { create :anime_stat, entry: manga }
+    let(:manga) { create :manga }
+
     it do
       expect { subject }.to change(AnimeStat, :count).by 1
       expect { anime_stat_2.reload }.to raise_error ActiveRecord::RecordNotFound
+      expect(manga_stat).to be_persisted
     end
   end
 end
