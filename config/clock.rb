@@ -116,8 +116,9 @@ module Clockwork
     NamedLogger.clockwork.info 'daily.cleanups finished'
   end
 
-  every 1.day, 'daily.statistics', at: '07:00' do
-    Animes::RefreshStatsWorker.perform_async
+  every 1.day, 'daily.statistics', at: '06:00' do
+    Animes::RefreshStatsWorker.perform_async 'anime'
+    Animes::RefreshStatsWorker.perform_async 'manga'
     Achievements::UpdateStatistics.perform_async
 
     NamedLogger.clockwork.info 'daily.statistics finished'
