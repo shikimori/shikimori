@@ -4,7 +4,7 @@ module AniManga
   ONGOING_TO_RELEASED_DAYS = 2
 
   included do
-    has_one :stat,
+    has_one :stats,
       class_name: 'AnimeStat',
       as: :entry,
       inverse_of: :entry,
