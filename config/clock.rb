@@ -117,6 +117,7 @@ module Clockwork
   end
 
   every 1.day, 'daily.statistics', at: '07:00' do
+    Animes::RefreshStatsWorker.perform_async
     Achievements::UpdateStatistics.perform_async
 
     NamedLogger.clockwork.info 'daily.statistics finished'
