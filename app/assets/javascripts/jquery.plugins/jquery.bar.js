@@ -32,11 +32,6 @@ function simpleBar($chart, options) {
 
   const field = options.field || 'value';
   let stats = $chart.data('stats');
-  const intervalsCount = $chart.data('intervals_count');
-
-  let maximum = stats.max((v, _k) => v[field])?.[field];
-
-  let flattened = false;
 
   if (!stats || !stats.length) {
     if (options.noData) {
@@ -44,6 +39,10 @@ function simpleBar($chart, options) {
     }
     return;
   }
+
+  const intervalsCount = $chart.data('intervals_count');
+  let maximum = stats.max((v, _k) => v[field])?.[field];
+  let flattened = false;
 
   if ($chart.data('flattened')) {
     const values = stats
@@ -79,6 +78,10 @@ function simpleBar($chart, options) {
     }
 
     $chart.append(html.join(''));
+  }
+
+  if (options.map) {
+    stats = stats.map(entry => options.map(entry));
   }
 
   if (options.filter) {

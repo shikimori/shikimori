@@ -28,5 +28,7 @@ translations:
     '*.activerecord.attributes.user_rate.*',
     '*.activerecord.attributes.collection_link.*',
     '*.activerecord.attributes.external_link.url',
+    '*.activerecord.attributes.user_rate.statuses.anime.*',
+    '*.activerecord.attributes.user_rate.statuses.manga.*',
     '*.frontend.*'
   ]

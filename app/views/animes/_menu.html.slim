@@ -12,29 +12,29 @@
           alt=resource.name
         ]
 
-  - cache [:stats, resource, :v2] do
-    .block
-      .subheadline = t '.scores'
-      #rates_scores_stats[
-        data-stats=resource.rates_scores_stats.to_json
-        data-bar='horizontal'
-      ]
+  .block
+    .subheadline = t '.scores'
+    #rates_scores_stats[
+      data-stats=resource.stats&.scores_stats.to_json
+      data-bar='horizontal'
+    ]
 
-    .block
-      .subheadline = t '.in_users_lists'
-      #rates_statuses_stats[
-        data-stats=resource.rates_statuses_stats.to_json
-        data-bar='horizontal'
-      ]
-      - rates_count = resource.rates_statuses_stats.sum { |v| v[:value] }
-      - if rates_count > 0
-        .total-rates
-          - if rates_count > 1
-            = t '.many_users_have_it_in_their_lists',
-                user_count: rates_count,
-                users: i18n_i('person', rates_count, :genitive)
-          - else
-            = t '.one_user_has_it_in_his_list'
+  .block
+    .subheadline = t '.in_users_lists'
+    #rates_statuses_stats[
+      data-stats=resource.stats&.list_stats.to_json
+      data-bar='horizontal'
+      data-entry_type=resource.stats&.entry_type&.downcase
+    ]
+    - rates_count = resource.stats&.list_stats&.sum { |v| v['value'] } || 0
+    - if rates_count > 0
+      .total-rates
+        - if rates_count > 1
+          = t '.many_users_have_it_in_their_lists',
+              user_count: rates_count,
+              users: i18n_i('person', rates_count, :genitive)
+        - else
+          = t '.one_user_has_it_in_his_list'
 
   = render 'spnsrs/ad', ad: Ad.new(:menu_240x400)
 

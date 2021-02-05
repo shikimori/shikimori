@@ -10,7 +10,6 @@ class AniMangaDecorator < DbEntryDecorator
   instance_cache :topics, :news_topics, :reviews, :reviews_count, :cosplay?,
     :current_rate, :changes, :versions, :versions_page,
     :roles, :related, :friend_rates, :recent_rates, :chronology,
-    :rates_scores_stats, :rates_statuses_stats,
     :external_links, :available_external_links,
     :watch_online_external_links, :menu_external_links
 
@@ -72,22 +71,6 @@ class AniMangaDecorator < DbEntryDecorator
       []
     end
   end
-
-  def rates_statuses_stats
-    rates_query.statuses_stats.map do |k, v|
-      { name: UserRate.status_name(k, object.class.name), value: v }
-    end
-  end
-
-  def rates_scores_stats
-    rates_query.scores_stats.map do |k, v|
-      { name: k, value: v }
-    end
-  end
-
-  # def recent_rates limit
-    # rates_query.recent_rates limit
-  # end
 
   def chronology
     Animes::ChronologyQuery.new(object).fetch.map(&:decorate)

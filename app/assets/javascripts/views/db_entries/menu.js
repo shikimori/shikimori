@@ -5,6 +5,7 @@ import { ANIME_TOOLTIP_OPTIONS } from 'helpers/tooltip_options';
 import axios from 'helpers/axios';
 
 const NO_DATA_I18N_KEY = 'frontend.pages.p_animes.no_data';
+const STATUS_I18N_KEY = 'activerecord.attributes.user_rate.statuses'
 
 export class AnimesMenu extends View {
   async initialize() {
@@ -29,23 +30,32 @@ export class AnimesMenu extends View {
     this.$('#rates_scores_stats')
       .empty()
       .bar({
-        filter(entry, percent) { return percent >= 2; },
-        noData($chart) {
-          $chart.html(`<p class='b-nothing_here'>${I18n.t(NO_DATA_I18N_KEY)}</p>`);
-        }
+        filter: (_entry, percent) => percent >= 2,
+        map: entry => ({
+          name: entry.key,
+          value: entry.value
+        }),
+        noData: $chart => (
+          $chart.html(`<p class='b-nothing_here'>${I18n.t(NO_DATA_I18N_KEY)}</p>`)
+        )
       });
   }
 
   _statusesStatsBar() {
-    this.$('#rates_statuses_stats')
+    const $bar = this.$('#rates_statuses_stats');
+    const entryType = $bar.data('entry_type');
+
+    $bar
       .empty()
       .bar({
-        title(entry, percent) {
-          return percent > 15 ? entry.value : '';
-        },
-        noData($chart) {
-          $chart.html(`<p class='b-nothing_here'>${I18n.t(NO_DATA_I18N_KEY)}</p>`);
-        }
+        title: (entry, percent)  => percent > 15 ? entry.value : '',
+        map: entry => ({
+          name: I18n.t(`${STATUS_I18N_KEY}.${entryType}.${entry.key}`),
+          value: entry.value
+        }),
+        noData: $chart => (
+          $chart.html(`<p class='b-nothing_here'>${I18n.t(NO_DATA_I18N_KEY)}</p>`)
+        )
       });
   }
 
