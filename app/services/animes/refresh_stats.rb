@@ -56,7 +56,7 @@ private
     10.downto(1)
       .map do |i|
         key = :"score_#{i}"
-        { key: key, value: entry.send(key) } if entry.send(key).positive?
+        { key: i.to_s, value: entry.send(key) } if entry.send(key).positive?
       end
       .compact
   end
@@ -65,7 +65,7 @@ private
     %i[planned completed watching dropped on_hold]
       .map do |status|
         key = :"status_#{status}"
-        { key: key, value: entry.send(key) } if entry.send(key).positive?
+        { key: status, value: entry.send(key) } if entry.send(key).positive?
       end
       .compact
   end

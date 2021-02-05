@@ -49,27 +49,27 @@ describe Animes::RefreshStats do
       expect { subject }.to change(AnimeStat, :count).by 2
       expect(anime_1.stats).to have_attributes(
         scores_stats: [{
-          'key' => 'score_10',
+          'key' => '10',
           'value' => 2
         }, {
-          'key' => 'score_8',
+          'key' => '8',
           'value' => 1
         }],
         list_stats: [{
-          'key' => 'status_completed',
+          'key' => 'completed',
           'value' => 2
         }, {
-          'key' => 'status_watching',
+          'key' => 'watching',
           'value' => 1
         }]
       )
       expect(anime_2.stats).to have_attributes(
         scores_stats: [{
-          'key' => 'score_10',
+          'key' => '10',
           'value' => 1
         }],
         list_stats: [{
-          'key' => 'status_completed',
+          'key' => 'completed',
           'value' => 1
         }]
       )
