@@ -75,7 +75,6 @@ module Clockwork
     FinishExpiredAnimes.perform_async
     MalParsers::ScheduleExpiredAuthorized.perform_async
     PgCaches::Cleanup.perform_async
-    Animes::RefreshStatsWorker.perform_async
 
     # AnimeLinksVerifier.perform_async
     # AutobanFix.perform_async
@@ -118,6 +117,7 @@ module Clockwork
   end
 
   every 1.day, 'daily.statistics', at: '07:00' do
+    Animes::RefreshStatsWorker.perform_async
     Achievements::UpdateStatistics.perform_async
 
     NamedLogger.clockwork.info 'daily.statistics finished'
