@@ -84,7 +84,7 @@ class AnimeProfileSerializer < AnimeSerializer
   def rates_statuses_stats
     (object.stats&.list_stats || []).map do |entry|
       {
-        name: I18n.t('activerecord.attributes.user_rate.statuses.' +
+        name: I18n.t('activerecord.attributes.user_rate.statuses.' \
           "#{object.class.base_class.name.downcase}.#{entry['key']}"),
         value: entry['value']
       }
