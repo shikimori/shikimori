@@ -77,7 +77,7 @@ class AnimeProfileSerializer < AnimeSerializer
 
   def rates_scores_stats
     (object.stats&.scores_stats || []).map do |entry|
-      { name: entry['key'], value: entry['value'] }
+      { name: entry['key'].to_i, value: entry['value'] }
     end
   end
 
