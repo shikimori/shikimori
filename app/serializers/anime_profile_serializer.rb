@@ -74,4 +74,12 @@ class AnimeProfileSerializer < AnimeSerializer
   def anons
     object.anons?
   end
+
+  def rates_scores_stats
+    []
+  end
+
+  def rates_statuses_stats
+    []
+  end
 end
