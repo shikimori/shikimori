@@ -34,6 +34,7 @@ describe Manga do
     it { is_expected.to have_one :anidb_external_link }
 
     it { is_expected.to have_one(:stats).dependent :destroy }
+    it { is_expected.to have_many(:anime_stat_histories).dependent :destroy }
   end
 
   describe 'validations' do

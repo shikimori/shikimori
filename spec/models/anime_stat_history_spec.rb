@@ -1,4 +1,4 @@
-describe AnimeStat do
+describe AnimeStatHistory do
   describe 'associations' do
     it { is_expected.to belong_to :entry }
   end
