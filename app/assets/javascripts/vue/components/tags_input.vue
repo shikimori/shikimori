@@ -57,7 +57,7 @@ export default {
       return this.tagsLimit > 1 ? [';', ',', ' '] : undefined;
     },
     addOnKey() {
-      return this.tagsLimit > 1 ? [9, 13, 32, 188] : undefined;
+      return this.tagsLimit > 1 ? [9, 13, 32, ','] : undefined;
     }
   },
   methods: {
