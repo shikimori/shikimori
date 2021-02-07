@@ -6,7 +6,7 @@ class CreateAnimeStatHistories < ActiveRecord::Migration[5.2]
       t.references :entry,
         polymorphic: true,
         null: false,
-        index: { unique: true }
+        index: true
 
       t.date :created_on, null: false
     end

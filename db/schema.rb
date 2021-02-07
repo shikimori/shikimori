@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2021_02_07_133039) do
     t.bigint "entry_id", null: false
     t.date "created_on", null: false
     t.index ["entry_id", "entry_type", "created_on"], name: "index_anime_stat_histories_on_e_id_and_e_type_and_created_on", unique: true
-    t.index ["entry_type", "entry_id"], name: "index_anime_stat_histories_on_entry_type_and_entry_id", unique: true
+    t.index ["entry_type", "entry_id"], name: "index_anime_stat_histories_on_entry_type_and_entry_id"
   end
 
   create_table "anime_stats", force: :cascade do |t|

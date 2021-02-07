@@ -74,6 +74,40 @@ describe Animes::RefreshStats do
         }]
       )
     end
+
+    context 'anime_state_history entry' do
+      it do
+        expect { subject }.to change(AnimeStatHistory, :count).by 2
+        expect(anime_1.anime_stat_histories.first).to have_attributes(
+          scores_stats: [{
+            'key' => '10',
+            'value' => 2
+          }, {
+            'key' => '8',
+            'value' => 1
+          }],
+          list_stats: [{
+            'key' => 'completed',
+            'value' => 2
+          }, {
+            'key' => 'watching',
+            'value' => 1
+          }],
+          created_on: Time.zone.today
+        )
+        expect(anime_2.anime_stat_histories.first).to have_attributes(
+          scores_stats: [{
+            'key' => '10',
+            'value' => 1
+          }],
+          list_stats: [{
+            'key' => 'completed',
+            'value' => 1
+          }],
+          created_on: Time.zone.today
+        )
+      end
+    end
   end
 
   context 'has some stat' do
@@ -85,6 +119,25 @@ describe Animes::RefreshStats do
       expect { subject }.to change(AnimeStat, :count).by 1
       expect { anime_stat_2.reload }.to raise_error ActiveRecord::RecordNotFound
       expect(manga_stat).to be_persisted
+    end
+
+    context 'anime_state_history entry' do
+      let!(:anime_stat_history_1) do
+        create :anime_stat_history, entry: anime_2, created_on: Time.zone.today
+      end
+      let!(:anime_stat_history_2) do
+        create :anime_stat_history, entry: anime_2, created_on: Time.zone.yesterday
+      end
+      let!(:manga_stat_history) do
+        create :anime_stat_history, entry: manga, created_on: Time.zone.today
+      end
+
+      it do
+        expect { subject }.to change(AnimeStatHistory, :count).by 1
+        expect { anime_stat_history_1.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(anime_stat_history_2).to be_persisted
+        expect(manga_stat).to be_persisted
+      end
     end
   end
 end

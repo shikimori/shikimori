@@ -33,6 +33,16 @@ class Animes::RefreshStats
       AnimeStat.where(entry_type: anime_stats.first.entry_type).delete_all
       AnimeStat.import anime_stats
     end
+
+    today = Time.zone.today
+    anime_stat_history = build_history anime_stats, today
+
+    AnimeStatHistory.transaction do
+      AnimeStatHistory
+        .where(created_on: today, entry_type: anime_stats.first.entry_type)
+        .delete_all
+      AnimeStatHistory.import anime_stat_history
+    end
   end
 
 private
@@ -50,6 +60,18 @@ private
           list_stats: list_stats(entry)
         )
       end
+  end
+
+  def build_history anime_stats, today
+    anime_stats.map do |anime_stat|
+      AnimeStatHistory.new(
+        scores_stats: anime_stat.scores_stats,
+        list_stats: anime_stat.list_stats,
+        entry_id: anime_stat.entry_id,
+        entry_type: anime_stat.entry_type,
+        created_on: today
+      )
+    end
   end
 
   def scores_stats entry
