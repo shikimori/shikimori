@@ -24,4 +24,11 @@ describe BbCodes::Tags::VideoUrlTag do
     let(:text) { "[video]https://www.youtube.com/watch?v=#{hash}[/video]" }
     it { is_expected.to eq text }
   end
+
+  context 'two sequential youtube urls' do
+    let(:text) { "https://www.youtube.com/\n#{url}" }
+    let(:url) { 'https://www.youtube.com/watch?v=xzIlPzO_-Zg' }
+
+    it { is_expected.to eq "https://www.youtube.com/\n[video]#{url}[/video]" }
+  end
 end

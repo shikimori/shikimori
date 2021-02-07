@@ -8,7 +8,7 @@ class BbCodes::Tags::VideoUrlTag
     )?
     (?<url> #{VideoExtractor.matcher} )
     (?<url_suffix> \[/\k<tag>\] )?
-  }mix
+  }ix
 
   def format text
     text.gsub VIDEO_REGEXP do |match|
