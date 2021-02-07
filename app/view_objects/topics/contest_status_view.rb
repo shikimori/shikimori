@@ -3,6 +3,10 @@ class Topics::ContestStatusView < Topics::NewsView
     super 'b-contest_status-topic'
   end
 
+  def need_trucation?
+    preview?
+  end
+
   def minified?
     true
   end
