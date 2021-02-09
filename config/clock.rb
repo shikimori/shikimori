@@ -192,6 +192,14 @@ module Clockwork
     NamedLogger.clockwork.info 'monthly.schedule_missing finished'
   end
 
+  every 1.day, 'quarter.animes', at: '05:00', if: lambda { |t| t.day == 1 && (t.month % 4) == 0 } do
+    MalParsers::FetchPage.perform_async 'anime', 'name', 0, 99999
+  end
+
+  every 1.day, 'quarter.mangas', at: '05:00', if: lambda { |t| t.day == 10 && (t.month % 4) == 0 } do
+    MalParsers::FetchPage.perform_async 'manga', 'name', 0, 99999
+  end
+
   # every 1.day, 'monthly.vacuum', at: '05:00', if: lambda { |t| t.day == 28 } do
   #   VacuumDb.perform_async
   # end
