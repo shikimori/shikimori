@@ -85,10 +85,13 @@ $body_phone_left_margin: 40px
       +gte_ipad
         margin-left: $body_left_margin // it fixes overflow bug in chrome 77 https://monosnap.com/file/i7BNJOKE9LQe4OFmgiPzUOCNMJ0Jos
 
-      .name
+      a.name
         +link
-        // +css4
-          font-family: var(--font-alt)
+
+      span.name
+        color: #123
+
+      .name
         font-weight: 600
 
       .time

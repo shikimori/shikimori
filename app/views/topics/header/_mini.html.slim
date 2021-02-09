@@ -16,8 +16,14 @@
         data-text=t('.topic_ignored')
       ]
 
-  a.name[
-    href=topic_view.urls.poster_url
-    title=topic_view.topic_title
-    itemprop=('itemReviewed' if topic_view.topic_type_policy.review_topic?)
-  ] = topic_view.topic_title_html
+  - if topic_view.preview?
+    a.name[
+      href=topic_view.urls.poster_url
+      title=topic_view.topic_title
+      itemprop=('itemReviewed' if topic_view.topic_type_policy.review_topic?)
+    ] = topic_view.topic_title_html
+  - else
+    span.name[
+      title=topic_view.topic_title
+      itemprop=('itemReviewed' if topic_view.topic_type_policy.review_topic?)
+    ] = topic_view.topic_title_html
