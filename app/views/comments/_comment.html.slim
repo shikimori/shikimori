@@ -15,7 +15,15 @@
   / класс нужен из-за проверки высоты
   .inner class=(:check_height if comment.persisted? && (comment.body.size > 500 || comment.body =~ /\[poster/ || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5))
     - if comment.persisted?
-      span.item-mobile title=t('actions.actions')
+      span.item-quote-mobile.to-process[
+        title=t('actions.quote')
+        data-text=t('actions.quote')
+        data-dynamic='day_registered'
+      ]
+      span.item-mobile.to-process[
+        title=t('actions.actions')
+        data-dynamic='day_registered'
+      ]
 
       aside.markers
         - if comment.try :allowed_summary?

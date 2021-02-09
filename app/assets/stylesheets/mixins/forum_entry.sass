@@ -145,6 +145,14 @@ $body_phone_left_margin: 40px
     right: 0
     top: -5px
 
+  .item-quote-mobile
+    position: absolute
+    right: 0
+    top: -5px
+
+    &.is-active + .item-mobile
+      display: none
+
   // expanded menu in mobile version
   &.aside-expanded
     +lte_ipad

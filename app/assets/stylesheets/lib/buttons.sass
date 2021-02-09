@@ -5,6 +5,14 @@
 .item-mobile
   +icon_button('m')
 
+.item-quote-mobile
+  +iphone
+    &.is-active
+      +icon_button('\e80b')
+
+  +gte_ipad
+    display: none !important
+
 .buttons
   color: #999
   float: right
@@ -82,9 +90,8 @@
   .item-unpreview
     +icon_button('\e812')
 
-  .item-quote
+  .item-quote.is-active
     +icon_button('\e80b')
-    display: none
 
   .item-reply
     +icon_button('\f02a')

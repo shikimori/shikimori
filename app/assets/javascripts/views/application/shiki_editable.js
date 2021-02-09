@@ -16,6 +16,7 @@ const BUTTONS = [
   '.item-offtopic',
   '.item-cancel'
 ];
+const ITEM_QUOTE_SELECTOR = '.item-quote, .item-quote-mobile';
 
 export default class ShikiEditable extends ShikiView {
   _reloadUrl() {
@@ -48,7 +49,7 @@ export default class ShikiEditable extends ShikiView {
     if (this.$body) {
       this.$body.on('mouseup', this.setSelection);
 
-      $('.item-quote', this.$inner).on('click', this._itemQuote);
+      $(ITEM_QUOTE_SELECTOR, this.$inner).on('click', this._itemQuote);
       $('.item-reply', this.$inner).on('click', this._itemReply);
     }
   }
@@ -70,24 +71,24 @@ export default class ShikiEditable extends ShikiView {
     if (!text && !html) { return; }
 
     // скрываем все кнопки цитаты
-    $('.item-quote').hide();
+    $(ITEM_QUOTE_SELECTOR).removeClass('is-active');
 
     this.$node.data({
       selected_text: text,
       selected_html: html
     });
-    const $quote = $('.item-quote', this.$inner).css({ display: 'inline-block' });
+    const $quote = $(ITEM_QUOTE_SELECTOR, this.$inner).addClass('is-active');
 
     await delay();
     $(document).one('click', async () => {
       if (!getSelectionText().length) {
-        $quote.hide();
+        $quote.removeClass('is-active');
         return;
       }
 
       await delay(250);
       if (!getSelectionText().length) {
-        $quote.hide();
+        $quote.removeClass('is-active');
       }
     });
   }
