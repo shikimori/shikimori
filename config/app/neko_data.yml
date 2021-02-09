@@ -9082,6 +9082,7 @@
         - 1088
         - 1089
         - 1
+        - 37262
       :generator:
         person_id: 2501
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -9643,6 +9644,9 @@
         - 10681
         - 33354
         - 35320
+        - 1958
+        - 2274
+        - 2768
       :generator:
         person_id: 1877
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
