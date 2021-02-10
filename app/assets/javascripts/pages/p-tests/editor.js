@@ -10,7 +10,7 @@ const IS_RAW_2 = false && IS_RAW && IS_LOCAL_SHIKI_PACKAGES;
 const IS_VUE = !IS_RAW || !IS_LOCAL_SHIKI_PACKAGES;
 let TEST_DEMO_CONTENT;
 
-if (false && process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   TEST_DEMO_CONTENT = `
 Немного Сакуры (малая часть):
 [spoiler=спойлер] [image=1171572][image=1171573][image=1171574][image=1171575][image=1171576][image=1171577][image=1171578]
@@ -148,9 +148,7 @@ if (false && process.env.NODE_ENV === 'development') {
 `.trim();
 
   TEST_DEMO_CONTENT = `
-z
-[video]https://www.youtube.com/watch?v=0d4rPwIpzNw[/video]
-x
+test [spoiler_block]zxc[/spoiler_block]
 `.trim();
 }
 
