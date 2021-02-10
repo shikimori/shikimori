@@ -108,6 +108,9 @@ class Ability
     can :read, Review
     can :read, Topic
     can :read, Collection, state: %i[published opened]
+    can :read, Collection do |collection|
+      collection.published? || collection.opened?
+    end
     can :read, Article
     can :read, OauthApplication
     can :read, Ban
