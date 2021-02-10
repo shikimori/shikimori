@@ -173,6 +173,7 @@ class Abilities::User
 
   def collection_abilities
     can %i[
+      read
       new
       create
       edit
@@ -184,7 +185,7 @@ class Abilities::User
     ], Collection do |collection|
       collection.user_id == @user.id
     end
-    can %i[edit update], Collection do |collection|
+    can %i[read edit update], Collection do |collection|
       collection.coauthor? @user
     end
     can :create, CollectionRole do |collection_role|
