@@ -150,8 +150,6 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     apipie-rails (0.5.18)
       rails (>= 4.1)
-    appsignal (2.11.2)
-      rack
     arel (9.0.0)
     ast (2.4.1)
     attr_extras (6.2.4)
@@ -169,6 +167,8 @@ GEM
       msgpack (~> 1.0)
     brakeman (4.10.1)
     browser (5.2.0)
+    bugsnag (6.19.0)
+      concurrent-ruby (~> 1.0)
     builder (3.2.4)
     bullet (6.1.3)
       activesupport (>= 3.0.0)
@@ -743,7 +743,6 @@ DEPENDENCIES
   airbrussh
   amatch!
   apipie-rails
-  appsignal
   attr_extras
   autoprefixer-rails
   awesome_print
@@ -751,6 +750,7 @@ DEPENDENCIES
   binding_of_caller
   bootsnap
   browser
+  bugsnag
   bullet
   cancancan!
   capistrano
