@@ -12,10 +12,8 @@ class Users::MarkAsCompletedUnavailableAnimes
   COMPLETED_UNAVAILABLES_LIMIT = 2
 
   def perform
-    User.transaction do
-      cleanup_roles
-      assign_roles
-    end
+    cleanup_roles
+    assign_roles
   end
 
 private
