@@ -5,16 +5,20 @@ class BbCodes::Tags::ImageTag # rubocop:disable ClassLength
   DELETED_IMAGE_PATH = '/assets/globals/missing_main.png'
   DELETED_IMAGE_HTML = "<img src='#{DELETED_IMAGE_PATH}' loading='lazy' />"
 
+  OPTIONS_REGEXP = /
+    (?:
+      (?: \s c(?:lass)?=(?<css_class>[\w_-]+) )? |
+      (?: \s (?<width>\d+)x(?<height>\d+) )? |
+      (?: \s w(?:idth)?=(?<width>\d+) )? |
+      (?: \s h(?:eight)?=(?<height>\d+) )? |
+      (?<no_zoom> \s no-zoom )?
+    )*
+  /xi
+
   REGEXP = /
     \[
       image=(?<id>\d+|#{DELETED_MARKER})
-      (?:
-        (?: \s c(?:lass)?=(?<css_class>[\w_-]+) )? |
-        (?: \s (?<width>\d+)x(?<height>\d+) )? |
-        (?: \s w(?:idth)?=(?<width>\d+) )? |
-        (?: \s h(?:eight)?=(?<height>\d+) )? |
-        (?<no_zoom> \s no-zoom )?
-      )*
+      #{OPTIONS_REGEXP.source}
     \]
   /xi
 

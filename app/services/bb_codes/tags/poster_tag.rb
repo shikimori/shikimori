@@ -11,8 +11,11 @@ class BbCodes::Tags::PosterTag
 
     |
 
-    \[poster (?:=(?<id>\d+|#{DELETED_MARKER}))\]
-  }imx
+    \[poster
+      (?:=(?<id>\d+|#{DELETED_MARKER}))
+      #{BbCodes::Tags::ImageTag::OPTIONS_REGEXP.source}
+    \]
+  }xi
 
   def format text
     text.gsub REGEXP do |matched|
