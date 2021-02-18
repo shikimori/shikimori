@@ -7780,6 +7780,7 @@
         - 41114
         - 34834
         - 1422
+        - 38853
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
@@ -9647,6 +9648,7 @@
         - 1958
         - 2274
         - 2768
+        - 1890
       :generator:
         person_id: 1877
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -10125,6 +10127,7 @@
         - 9177
         - 4680
         - 312
+        - 7479
       :generator:
         person_id: 5393
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -15732,7 +15735,6 @@
         - 38055
         - 43745
         - 43751
-        - 47307
       :threshold: 93.4%
       :generator:
         ignore_latest_ids:
@@ -15777,7 +15779,6 @@
         - 38055
         - 43745
         - 43751
-        - 47307
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -22256,6 +22257,7 @@
       :generator:
         ignore_latest_ids:
         - 38373
+        - 47409
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :macross
@@ -22300,6 +22302,7 @@
       :generator:
         ignore_latest_ids:
         - 38373
+        - 47409
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :macross
@@ -23744,6 +23747,35 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :hayate_no_gotoku
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/hayate_no_gotoku.jpg"
+    :border_color:
+    :title_ru: Боевой дворецкий Хаятэ!
+    :text_ru:
+    :title_en: Hayate no Gotoku!
+    :text_en:
+    :topic_id: 247360
+    :rule: &401
+      :algo: duration
+      :filters:
+        franchise: hayate_no_gotoku
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :hayate_no_gotoku
+  level: 0
+  image: "/assets/achievements/anime/franchise/hayate_no_gotoku.jpg"
+  border_color:
+  title_ru: Боевой дворецкий Хаятэ!
+  text_ru:
+  title_en: Hayate no Gotoku!
+  text_en:
+  topic_id: 247360
+  rule: *401
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :cardcaptor_sakura
     :level: 1
     :image: "/assets/achievements/anime/franchise/cardcaptor_sakura.jpg"
@@ -23753,7 +23785,7 @@
     :title_en: Cardcaptor Sakura
     :text_en:
     :topic_id: 247360
-    :rule: &401
+    :rule: &402
       :algo: duration
       :filters:
         franchise: cardcaptor_sakura
@@ -23769,35 +23801,6 @@
   title_ru: Сакура — собирательница карт
   text_ru:
   title_en: Cardcaptor Sakura
-  text_en:
-  topic_id: 247360
-  rule: *401
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :hayate_no_gotoku
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/hayate_no_gotoku.jpg"
-    :border_color:
-    :title_ru: Боевой дворецкий Хаятэ!
-    :text_ru:
-    :title_en: Hayate no Gotoku!
-    :text_en:
-    :topic_id: 247360
-    :rule: &402
-      :algo: duration
-      :filters:
-        franchise: hayate_no_gotoku
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :hayate_no_gotoku
-  level: 0
-  image: "/assets/achievements/anime/franchise/hayate_no_gotoku.jpg"
-  border_color:
-  title_ru: Боевой дворецкий Хаятэ!
-  text_ru:
-  title_en: Hayate no Gotoku!
   text_en:
   topic_id: 247360
   rule: *402
@@ -27420,6 +27423,35 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :taiho_shichau_zo
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/taiho_shichau_zo.jpg"
+    :border_color:
+    :title_ru: Вы арестованы!
+    :text_ru:
+    :title_en: Taiho Shichau zo
+    :text_en:
+    :topic_id: 247360
+    :rule: &511
+      :algo: duration
+      :filters:
+        franchise: taiho_shichau_zo
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :taiho_shichau_zo
+  level: 0
+  image: "/assets/achievements/anime/franchise/taiho_shichau_zo.jpg"
+  border_color:
+  title_ru: Вы арестованы!
+  text_ru:
+  title_en: Taiho Shichau zo
+  text_en:
+  topic_id: 247360
+  rule: *511
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :ad_police
     :level: 1
     :image: "/assets/achievements/anime/franchise/ad_police.jpg"
@@ -27429,7 +27461,7 @@
     :title_en: Bubblegum Crisis
     :text_en:
     :topic_id: 247360
-    :rule: &511
+    :rule: &512
       :algo: duration
       :filters:
         franchise: ad_police
@@ -27446,35 +27478,6 @@
   title_ru: Кризис каждый день
   text_ru:
   title_en: Bubblegum Crisis
-  text_en:
-  topic_id: 247360
-  rule: *511
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :taiho_shichau_zo
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/taiho_shichau_zo.jpg"
-    :border_color:
-    :title_ru: Вы арестованы!
-    :text_ru:
-    :title_en: Taiho Shichau zo
-    :text_en:
-    :topic_id: 247360
-    :rule: &512
-      :algo: duration
-      :filters:
-        franchise: taiho_shichau_zo
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :taiho_shichau_zo
-  level: 0
-  image: "/assets/achievements/anime/franchise/taiho_shichau_zo.jpg"
-  border_color:
-  title_ru: Вы арестованы!
-  text_ru:
-  title_en: Taiho Shichau zo
   text_en:
   topic_id: 247360
   rule: *512
@@ -28438,6 +28441,7 @@
         franchise: cyborg
         not_anime_ids:
         - 8394
+        - 31050
         - 32736
         - 32737
         - 33163
@@ -28473,6 +28477,7 @@
         franchise: cyborg
         not_anime_ids:
         - 8394
+        - 31050
         - 32736
         - 32737
         - 33163
@@ -28700,6 +28705,7 @@
         - 3008
         - 3915
         - 4154
+        - 4578
         - 5344
         - 5475
         - 6889
@@ -28741,6 +28747,7 @@
         - 3008
         - 3915
         - 4154
+        - 4578
         - 5344
         - 5475
         - 6889
@@ -29017,8 +29024,11 @@
       :filters:
         franchise: mazinkaiser
         not_anime_ids:
+        - 3898
+        - 4385
+        - 4386
         - 18365
-      :threshold: 93.4%
+      :threshold: 92.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :mazinkaiser
@@ -29048,6 +29058,9 @@
       :filters:
         franchise: mazinkaiser
         not_anime_ids:
+        - 3898
+        - 4385
+        - 4386
         - 18365
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
