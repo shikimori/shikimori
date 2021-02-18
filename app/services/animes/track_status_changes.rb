@@ -27,7 +27,7 @@ private
     return unless status_changed? 'ongoing' => 'released'
     # when ancient anime without released_on is marked released
     return unless @anime.released_on
-    return if released_in_past?
+    return if released_in_past_or_today?
 
     @anime.status = :ongoing
     @anime.released_on = nil
@@ -37,8 +37,8 @@ private
     @anime.aired_on <= Time.zone.today
   end
 
-  def released_in_past?
-    @anime.released_on < Time.zone.today
+  def released_in_past_or_today?
+    @anime.released_on <= Time.zone.today
   end
 
   def status_changed? change
