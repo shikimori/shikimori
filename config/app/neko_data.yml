@@ -19163,6 +19163,8 @@
         - 41189
         - 41204
         - 42600
+        - 42783
+        - 42889
       :threshold: 95.9%
       :generator:
         not_ignored_ids:
@@ -19221,6 +19223,8 @@
         - 41189
         - 41204
         - 42600
+        - 42783
+        - 42889
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -19523,7 +19527,7 @@
         - 8756
         - 13931
         - 25375
-      :threshold: 90%
+      :threshold: 90.4%
       :generator:
         ignore_latest_ids:
         - 40024
@@ -22111,7 +22115,7 @@
         franchise: inuyasha
         not_anime_ids:
         - 31133
-      :threshold: 94.2%
+      :threshold: 94.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :inuyasha
@@ -26269,7 +26273,7 @@
         franchise: digimon
         not_anime_ids:
         - 4712
-      :threshold: 92.1%
+      :threshold: 92.2%
       :generator:
         ignore_latest_ids:
         - 38088
@@ -26867,7 +26871,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.8%
+      :threshold: 91.2%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -27151,7 +27155,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 96.7%
+      :threshold: 96.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
