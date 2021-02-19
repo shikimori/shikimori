@@ -32,7 +32,7 @@ export default class ShikiEditorV2 extends View {
 
   @memoize
   get isSessionStorageAvailable() {
-    return typeof(sessionStorage) !== 'undefined';
+    return window.ENV === 'development' && typeof(sessionStorage) !== 'undefined';
   }
 
   get text() {
