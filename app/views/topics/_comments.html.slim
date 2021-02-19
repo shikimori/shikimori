@@ -22,4 +22,6 @@
 - unless commentable.respond_to?(:is_closed) && commentable.is_closed
   .editor-container
     .subheadline = t '.your_comment'
-    = render 'comments/form', comment: comments_view.new_comment
+    = render 'comments/form',
+      comment: comments_view.new_comment,
+      cache_object: comments_view.respond_to?(:topic) ? comments_view.topic : comments_view.comment

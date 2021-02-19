@@ -20,6 +20,7 @@
     class=('b-text_with_paragraphs' if local_assigns[:is_text_with_paragraphs])
     data-preview_params=(local_assigns[:preview_params].to_json if local_assigns[:preview_params])
     data-field_name=local_assigns[:field_name]
+    data-cache_key=local_assigns[:cache_key]
   ]
     input[
       type='hidden'

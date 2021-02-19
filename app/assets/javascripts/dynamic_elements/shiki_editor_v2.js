@@ -15,6 +15,10 @@ export default class ShikiEditorV2 extends View {
   async initialize() {
     await this._buildEditor();
     this.initialization.resolve();
+
+    if (window.ENV === 'development') {
+      console.log(['editor', this, 'key', this.cacheKey, this.node]);
+    }
   }
 
   get editorApp() {
@@ -26,6 +30,11 @@ export default class ShikiEditorV2 extends View {
     return this.$node.closest('form');
   }
 
+  @memoize
+  get isSessionStorageAvailable() {
+    return typeof(sessionStorage) !== 'undefined';
+  }
+
   get text() {
     return this.editorApp.exportContent();
   }
@@ -33,6 +42,7 @@ export default class ShikiEditorV2 extends View {
   async _buildEditor() {
     this.vueNode = this.node.querySelector('.vue-app');
     this.input = this.node.querySelector('input');
+    this.cacheKey = this.node.getAttribute('data-cache_key');
 
     const [
       { Vue },
@@ -118,7 +128,7 @@ export default class ShikiEditorV2 extends View {
           shikiUploader,
           shikiRequest,
           globalSearch: window.globalSearch,
-          content: this.input.value,
+          content: this._initialContent(),
           localizationField,
           previewParams: this.$node.data('preview_params')
         },
@@ -145,8 +155,17 @@ export default class ShikiEditorV2 extends View {
     this.$('.b-summary_marker').on('click', this._onMarkReview);
   }
 
+  _initialContent() {
+    return this.input.value || (
+      this.cacheKey && this.isSessionStorageAvailable ?
+        (window.sessionStorage.getItem(this.cacheKey) || '') :
+        ''
+    );
+  }
+
   _scheduleDestroy() {
     $(document).one('turbolinks:before-cache', this.destroy);
+    $(window).one('beforeunload', this.destroy);
   }
 
   _markOfftopic(isOfftopic) {
@@ -205,11 +224,16 @@ export default class ShikiEditorV2 extends View {
   @bind
   destroy() {
     $(document).off('turbolinks:before-cache', this.destroy);
+    $(window).off('beforeunload', this.destroy);
 
     this.$form.off('submit', this._formSubmit);
     this.$form.off('ajax:before', this._formAjaxBefore);
     this.$form.off('ajax:complete', this._formAjaxComplete);
     this.$form.off('ajax:success', this._formAjaxSuccess);
+
+    if (this.app && this.cacheKey && this.isSessionStorageAvailable) {
+      window.sessionStorage.setItem(this.cacheKey, this.editorApp.exportContent());
+    }
 
     this.app?.$destroy();
     this.vueNode.remove();
