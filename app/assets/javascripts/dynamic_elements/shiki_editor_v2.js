@@ -156,11 +156,7 @@ export default class ShikiEditorV2 extends View {
   }
 
   _initialContent() {
-    return this.input.value || (
-      this.cacheKey && this.isSessionStorageAvailable ?
-        (window.sessionStorage.getItem(this.cacheKey) || '') :
-        ''
-    );
+    return this.input.value || this._readCacheValue();
   }
 
   _scheduleDestroy() {
@@ -176,6 +172,18 @@ export default class ShikiEditorV2 extends View {
   _markReview(isReview) {
     this.$form.find('input[name$="[is_summary]"]').val(isReview ? 'true' : 'false');
     this.$('.b-summary_marker').toggleClass('off', !isReview);
+  }
+
+  _readCacheValue() {
+    return this.cacheKey && this.isSessionStorageAvailable ?
+      (window.sessionStorage.getItem(this.cacheKey) || '') :
+      ''
+  }
+
+  _writeCacheValue(value) {
+    if (this.cacheKey && this.isSessionStorageAvailable) {
+      window.sessionStorage.setItem(this.cacheKey, value);
+    }
   }
 
   @bind
@@ -202,6 +210,11 @@ export default class ShikiEditorV2 extends View {
   @bind
   async _formAjaxSuccess() {
     await delay();
+
+    this.input.value = '';
+    this.editorApp.setContent('');
+    this._writeCacheValue('');
+
     if ($(this.editorApp.$el).is(':visible')) {
       this.focus();
     }
@@ -231,8 +244,8 @@ export default class ShikiEditorV2 extends View {
     this.$form.off('ajax:complete', this._formAjaxComplete);
     this.$form.off('ajax:success', this._formAjaxSuccess);
 
-    if (this.app && this.cacheKey && this.isSessionStorageAvailable) {
-      window.sessionStorage.setItem(this.cacheKey, this.editorApp.exportContent());
+    if (this.app) {
+      this._writeCacheValue(this.editorApp.exportContent());
     }
 
     this.app?.$destroy();
