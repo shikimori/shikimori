@@ -21,7 +21,8 @@
     field_name: 'review[text]',
     size: 'xl',
     no_preview_avatar: true,
-    is_text_with_paragraphs: true
+    is_text_with_paragraphs: true,
+    cache_key: (review.class.name if review.new_record?)
 
   .buttons
     a.cancel href=@back_url = t 'actions.cancel'

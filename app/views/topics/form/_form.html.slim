@@ -93,7 +93,8 @@
       field_name: 'topic[body]',
       size: 'xl',
       no_preview_avatar: true,
-      is_text_with_paragraphs: true
+      is_text_with_paragraphs: true,
+      cache_key: (topic.class.name if topic.new_record?)
 
   .buttons
     a.cancel href=back_url = t 'actions.cancel'

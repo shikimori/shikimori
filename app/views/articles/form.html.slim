@@ -35,7 +35,8 @@ header.head.misc
       field_name: 'article[body]',
       size: 'xl',
       no_preview_avatar: true,
-      is_text_with_paragraphs: true
+      is_text_with_paragraphs: true,
+      cache_key: (@resource.class.name if @resource.new_record?)
 
     - if @resource.persisted?
       = f.input :state,
