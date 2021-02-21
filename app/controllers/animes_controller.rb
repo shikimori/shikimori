@@ -263,7 +263,7 @@ private
 
       if @resource.kind_tv?
         breadcrumb i18n_t('breadcrumbs.anime.tv'),
-          animes_collection_url(type: @resource.kind)
+          animes_collection_url(kind: @resource.kind)
       end
 
       if @resource.kind_movie?
