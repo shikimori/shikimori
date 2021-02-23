@@ -2043,6 +2043,11 @@
         - 42372
         - 38685
         - 34541
+        - 42143
+        - 40571
+        - 40550
+        - 38005
+        - 40610
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -2508,6 +2513,11 @@
         - 42372
         - 38685
         - 34541
+        - 42143
+        - 40571
+        - 40550
+        - 38005
+        - 40610
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -2973,6 +2983,11 @@
         - 42372
         - 38685
         - 34541
+        - 42143
+        - 40571
+        - 40550
+        - 38005
+        - 40610
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3437,6 +3452,11 @@
         - 42372
         - 38685
         - 34541
+        - 42143
+        - 40571
+        - 40550
+        - 38005
+        - 40610
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -4594,6 +4614,8 @@
         - 39388
         - 38476
         - 41364
+        - 34503
+        - 7897
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5063,6 +5085,8 @@
         - 39388
         - 38476
         - 41364
+        - 34503
+        - 7897
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5532,6 +5556,8 @@
         - 39388
         - 38476
         - 41364
+        - 34503
+        - 7897
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -7781,6 +7807,7 @@
         - 34834
         - 1422
         - 38853
+        - 44213
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
@@ -31924,6 +31951,7 @@
         - 38924
         - 12259
         - 226
+        - 39753
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
   default_values: *2
   neko_id: :oniichan
