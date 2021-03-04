@@ -36,7 +36,7 @@ header.head.misc
       size: 'xl',
       no_preview_avatar: true,
       is_text_with_paragraphs: true,
-      cache_key: (@resource.class.name if @resource.new_record?)
+      cache_key: @resource.new_record? ? @resource.class.name : @resource.cache_key
 
     - if @resource.persisted?
       = f.input :state,
