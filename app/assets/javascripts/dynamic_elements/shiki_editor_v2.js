@@ -11,6 +11,7 @@ import axios from 'helpers/axios';
 
 export default class ShikiEditorV2 extends View {
   initialization = pDefer()
+  processedInitialContent = null
 
   async initialize() {
     await this._buildEditor();
@@ -18,6 +19,10 @@ export default class ShikiEditorV2 extends View {
 
     if (window.ENV === 'development') {
       console.log(['editor', this, 'key', this.cacheKey, this.node]);
+    }
+
+    if (this.isSessionStorageAvailable) {
+      this.processedInitialContent = this.editorApp.exportContent();
     }
   }
 
@@ -97,6 +102,10 @@ export default class ShikiEditorV2 extends View {
     this.editorApp.clearContent();
   }
 
+  _initialContent() {
+    return this.input.value || this._readCacheValue();
+  }
+
   _buildShikiUploader(ShikiUploader) {
     return new ShikiUploader({
       locale: window.LOCALE,
@@ -128,7 +137,7 @@ export default class ShikiEditorV2 extends View {
           shikiUploader,
           shikiRequest,
           globalSearch: window.globalSearch,
-          content: this.initialContent,
+          content: this._initialContent(),
           localizationField,
           previewParams: this.$node.data('preview_params')
         },
@@ -155,10 +164,6 @@ export default class ShikiEditorV2 extends View {
     this.$('.b-summary_marker').on('click', this._onMarkReview);
   }
 
-  _initialContent() {
-    return this.input.value || this._readCacheValue();
-  }
-
   _scheduleDestroy() {
     $(document).one('turbolinks:before-cache', this.destroy);
     $(window).one('beforeunload', this.destroy);
@@ -177,14 +182,14 @@ export default class ShikiEditorV2 extends View {
   _readCacheValue() {
     return this.cacheKey && this.isSessionStorageAvailable ?
       (window.sessionStorage.getItem(this.cacheKey) || '') :
-      ''
+      '';
   }
 
   _writeCacheValue(value) {
     if (this.cacheKey && this.isSessionStorageAvailable && value) {
       const content = value.trim();
 
-      if (content && content !== this.initialContent) {
+      if (content && content !== this.processedInitialContent) {
         window.sessionStorage.setItem(this.cacheKey, content);
       }
     }
