@@ -128,7 +128,7 @@ export default class ShikiEditorV2 extends View {
           shikiUploader,
           shikiRequest,
           globalSearch: window.globalSearch,
-          content: this._initialContent(),
+          content: this.initialContent,
           localizationField,
           previewParams: this.$node.data('preview_params')
         },
@@ -181,11 +181,11 @@ export default class ShikiEditorV2 extends View {
   }
 
   _writeCacheValue(value) {
-    if (this.cacheKey && this.isSessionStorageAvailable) {
-      const trimmedValue = value?.trim();
+    if (this.cacheKey && this.isSessionStorageAvailable && value) {
+      const content = value.trim();
 
-      if (trimmedValue) {
-        window.sessionStorage.setItem(this.cacheKey, trimmedValue);
+      if (content && content !== this.initialContent) {
+        window.sessionStorage.setItem(this.cacheKey, content);
       }
     }
   }
