@@ -35,7 +35,7 @@
     "packery": "^2.1.2",
     "paste.js": "^0.0.21",
     "pikaday": "^1.8.0",
-    "pug": "^3.0.0",
+    "pug": "^3.0.1",
     "pug-loader": "^2.4.0",
     "pug-plain-loader": "^1.0.0",
     "shiki-decorators": "^1.0.1",
