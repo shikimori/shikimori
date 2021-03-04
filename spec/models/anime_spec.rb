@@ -133,7 +133,7 @@ describe Anime do
           let(:anime) do
             create :anime, :with_callbacks,
               status: :ongoing,
-              released_on: Time.zone.today
+              released_on: Time.zone.tomorrow
           end
           before { anime.update status: :released }
 
