@@ -150,11 +150,18 @@ $body_phone_left_margin: 40px
 
   .item-quote-mobile
     position: absolute
-    right: 0
-    top: -5px
+
+    +iphone
+      right: 0
+      top: -5px
+
+    +ipad
+      right: 45px
+      top: -4px
 
     &.is-active + .item-mobile
-      display: none
+      +iphone
+        display: none
 
   // expanded menu in mobile version
   &.aside-expanded

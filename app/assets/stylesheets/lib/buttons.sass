@@ -6,11 +6,11 @@
   +icon_button('m')
 
 .item-quote-mobile
-  +iphone
+  +lte_ipad
     &.is-active
       +icon_button('\e80b')
 
-  +gte_ipad
+  +gte_laptop
     display: none !important
 
 .buttons
@@ -90,8 +90,12 @@
   .item-unpreview
     +icon_button('\e812')
 
-  .item-quote.is-active
-    +icon_button('\e80b')
+  .item-quote
+    &.is-active
+      +icon_button('\e80b')
+
+    +lte_ipad
+      display: none
 
   .item-reply
     +icon_button('\f02a')
