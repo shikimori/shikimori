@@ -195,6 +195,12 @@ export default class ShikiEditorV2 extends View {
     }
   }
 
+  _clearCacheValue() {
+    if (this.cacheKey && this.isSessionStorageAvailable) {
+      window.sessionStorage.removeItem(this.cacheKey);
+    }
+  }
+
   @bind
   _formSubmit() {
     this.input.value = this.editorApp.exportContent();
@@ -222,7 +228,7 @@ export default class ShikiEditorV2 extends View {
 
     this.input.value = '';
     this.editorApp.setContent('');
-    this._writeCacheValue('');
+    this._clearCacheValue();
 
     if ($(this.editorApp.$el).is(':visible')) {
       this.focus();
