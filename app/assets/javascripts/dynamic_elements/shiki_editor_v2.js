@@ -22,6 +22,7 @@ export default class ShikiEditorV2 extends View {
     }
 
     if (this.isSessionStorageAvailable) {
+      await delay(10);
       this.processedInitialContent = this.editorApp.exportContent();
     }
   }
