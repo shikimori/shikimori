@@ -23,7 +23,7 @@ export default class ShikiEditorV2 extends View {
 
     if (this.isSessionStorageAvailable) {
       await delay(10);
-      this.processedInitialContent = this.editorApp.exportContent();
+      this.processedInitialContent = this.editorContent;
     }
   }
 
@@ -41,7 +41,7 @@ export default class ShikiEditorV2 extends View {
     return window.ENV === 'development' && typeof(sessionStorage) !== 'undefined';
   }
 
-  get text() {
+  get editorContent() {
     return this.editorApp.exportContent();
   }
 
@@ -192,8 +192,8 @@ export default class ShikiEditorV2 extends View {
     if (!trimmedValue) { return this._clearCacheValue(); }
 
     if (this.cacheKey && this.isSessionStorageAvailable) {
-      if (content && content !== this.processedInitialContent) {
-        window.sessionStorage.setItem(this.cacheKey, content);
+      if (trimmedValue !== this.processedInitialContent) {
+        window.sessionStorage.setItem(this.cacheKey, trimmedValue);
       }
     }
   }
@@ -206,7 +206,7 @@ export default class ShikiEditorV2 extends View {
 
   @bind
   _formSubmit() {
-    this.input.value = this.editorApp.exportContent();
+    this.input.value = this.editorContent;
   }
 
   @bind
@@ -263,7 +263,7 @@ export default class ShikiEditorV2 extends View {
     this.$form.off('ajax:success', this._formAjaxSuccess);
 
     if (this.app) {
-      this._writeCacheValue(this.editorApp.exportContent());
+      this._writeCacheValue(this.editorContent);
     }
 
     this.app?.$destroy();
