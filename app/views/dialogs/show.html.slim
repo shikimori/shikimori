@@ -50,4 +50,5 @@
               kind: new_message.kind,
               from_id: new_message.from_id,
               to_id: new_message.to_id \
-            }
+            },
+            cache_key: "dialogs/#{new_message.from_id}/#{new_message.to_id}"
