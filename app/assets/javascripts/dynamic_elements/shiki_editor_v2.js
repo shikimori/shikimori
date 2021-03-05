@@ -187,9 +187,11 @@ export default class ShikiEditorV2 extends View {
   }
 
   _writeCacheValue(value) {
-    if (this.cacheKey && this.isSessionStorageAvailable && value) {
-      const content = value.trim();
+    const trimmedValue = value?.trim();
 
+    if (!trimmedValue) { return this._clearCacheValue(); }
+
+    if (this.cacheKey && this.isSessionStorageAvailable) {
       if (content && content !== this.processedInitialContent) {
         window.sessionStorage.setItem(this.cacheKey, content);
       }
