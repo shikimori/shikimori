@@ -8560,10 +8560,10 @@ shiki-decorators@^1.0.1:
     bind-decorator "1.0.11"
     memoize-decorator "^1.0.2"
 
-shiki-editor@^1.0.10:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-1.0.10.tgz#9650fd64c8101b767c586c5b8a67d31998a2ad17"
-  integrity sha512-OK/FdnpujhDA43ZY7O7qgJNhrNMrD/5dQQwKZMK5vjSicQukrgUfC8izHqwYI02zSHAI3TrtjbkgVvzlwMYeLA==
+shiki-editor@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-1.0.11.tgz#492c86978cc571532bea549c0b20510a2e069d28"
+  integrity sha512-qHm+uLr5CB4RC1h2qNR3cSTOCdNtSTvVFbb1e886fzkllip5r4phEwCMHHa4jXsdnIO238dLUxqRN6p0tm7rNw==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@popperjs/core" "^2.4.4"
@@ -9666,9 +9666,8 @@ void-elements@^3.1.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha1-YU9/v42AHwu18GYfWy9XhXUOTwk=
 
-vue-custom-scrollbar@morr/vue-custom-scrollbar#1.1.5:
+"vue-custom-scrollbar@github:morr/vue-custom-scrollbar#1.1.5":
   version "1.1.5"
-  uid d50510e6d63c59b3f29c94e106b5b6972e3081d0
   resolved "https://codeload.github.com/morr/vue-custom-scrollbar/tar.gz/d50510e6d63c59b3f29c94e106b5b6972e3081d0"
 
 vue-dragscroll@^2.1.0:
