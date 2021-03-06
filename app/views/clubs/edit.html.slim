@@ -7,7 +7,7 @@
       == @resource.errors.full_messages.join('<br>')
 
   .b-options-floated.mobile-phone
-    - %w(main description pages links members styles).each do |section|
+    - %w[main description pages links members styles].each do |section|
       a[
         class=(:selected if @section == section)
         href=edit_club_url(@club, section: section)

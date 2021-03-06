@@ -1,1 +1,3 @@
-= render 'comments/form', comment: @comment
+= render 'comments/form',
+  comment: @comment,
+  cache_key: @comment.cache_key
