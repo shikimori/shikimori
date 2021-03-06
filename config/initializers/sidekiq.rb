@@ -44,3 +44,7 @@ Sidekiq.configure_server do |config|
     chain.add ChewyMiddleware
   end
 end
+
+if Rails.env.development? && Time.zone.today < Time.zone.parse('2021-06-01')
+  Redis.exists_returns_integer =  true
+end
