@@ -39,6 +39,11 @@ class TranslationsController < ShikimoriController
     27411, 27525, 27631, 27831, 28999, 30307, 30344, 30382, 20815, 30187
   ]
 
+  NAME_IGNORE_IDS = {
+    Anime => [13971, 6215, 10979],
+    Manga => [10606]
+  }
+
   def description
     @klass = params[:anime] ? Anime : Manga
     name = @klass.name.downcase
@@ -83,6 +88,7 @@ class TranslationsController < ShikimoriController
     @collection = Rails.cache.fetch :"missing_#{name}_names", expires_in: 1.hour do
       scope = @klass
         .where("score > 0 or status = 'anons'")
+        .where.not(id: NAME_IGNORE_IDS[@klass])
         .where(russian: '')
 
       collection = scope
