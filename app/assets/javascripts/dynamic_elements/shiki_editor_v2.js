@@ -88,6 +88,8 @@ export default class ShikiEditorV2 extends View {
       this.editorApp.appendQuote(reply);
     } else if (this._isNoReply(reply)) {
       this.editorApp.appendReply(reply);
+    } else {
+      this.editorApp.focus();
     }
 
     if (isOfftopic) {
