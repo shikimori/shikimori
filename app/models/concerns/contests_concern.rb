@@ -5,7 +5,7 @@ module ContestsConcern
     has_many :contest_links,
       ->(entry) { where linked_type: entry.class.base_class.name },
       foreign_key: :linked_id,
-      inverse_of: :item,
+      inverse_of: :linked,
       dependent: :destroy
 
     has_many :contest_winners,
