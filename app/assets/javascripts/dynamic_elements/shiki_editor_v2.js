@@ -38,6 +38,16 @@ export default class ShikiEditorV2 extends View {
     return window.ENV === 'development' && typeof(sessionStorage) !== 'undefined';
   }
 
+  @memoize
+  get cacheKey() {
+    const cacheKey = this.node.getAttribute('data-cache_key');
+    const fieldName = this.node.getAttribute('data-field_name');
+
+    if (!cacheKey) { return null; }
+
+    return fieldName ? `${cacheKey}/${fieldName}` : cacheKey;
+  }
+
   get editorContent() {
     return this.editorApp.exportContent();
   }
@@ -45,7 +55,6 @@ export default class ShikiEditorV2 extends View {
   async _buildEditor() {
     this.vueNode = this.node.querySelector('.vue-app');
     this.input = this.node.querySelector('input');
-    this.cacheKey = this.node.getAttribute('data-cache_key');
 
     const [
       { Vue },
