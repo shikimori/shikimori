@@ -17,9 +17,9 @@ export default class ShikiEditorV2 extends View {
     await this._buildEditor();
     this.initialization.resolve();
 
-    if (window.ENV === 'development') {
-      console.log(['editor', this, 'key', this.cacheKey, this.node]);
-    }
+    // if (window.ENV === 'development') {
+    //   console.log(['editor', this, 'key', this.cacheKey, this.node]);
+    // }
 
     this._processCache();
   }
