@@ -17,10 +17,6 @@ export default class ShikiEditorV2 extends View {
     await this._buildEditor();
     this.initialization.resolve();
 
-    // if (window.ENV === 'development') {
-    //   console.log(['editor', this, 'key', this.cacheKey, this.node]);
-    // }
-
     this._processCache();
   }
 
@@ -35,6 +31,10 @@ export default class ShikiEditorV2 extends View {
 
   @memoize
   get isSessionStorageAvailable() {
+    if (window.ENV === 'development') {
+      console.log(['editor', this, 'key', this.cacheKey, this.node]);
+    }
+
     return window.ENV === 'development' && typeof(sessionStorage) !== 'undefined';
   }
 
@@ -85,7 +85,7 @@ export default class ShikiEditorV2 extends View {
       this.editorApp.appendText(reply);
     } else if (reply.html) {
       this.editorApp.appendQuote(reply);
-    } else {
+    } else if (this._isNoReply(reply)) {
       this.editorApp.appendReply(reply);
     }
 
@@ -221,6 +221,10 @@ export default class ShikiEditorV2 extends View {
     if (this.cacheKey && this.isSessionStorageAvailable) {
       window.sessionStorage.removeItem(this.cacheKey);
     }
+  }
+
+  _isNoReply(reply) {
+    return !this.editorContent.endsWith(`[${reply.type}=${reply.id};${reply.userId}],`);
   }
 
   @bind
