@@ -54,12 +54,12 @@ describe Collection do
   end
 
   describe 'permissions' do
-    let(:collection) { build_stubbed :collection }
+    let(:collection) { build_stubbed :collection, :published }
     let(:user) { build_stubbed :user, :user, :week_registered }
     subject { Ability.new user }
 
     context 'collection owner' do
-      let(:collection) { build_stubbed :collection, user: user }
+      let(:collection) { build_stubbed :collection, :published, user: user }
 
       context 'not banned' do
         it { is_expected.to be_able_to :read, collection }
