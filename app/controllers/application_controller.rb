@@ -16,8 +16,8 @@ class ApplicationController < ActionController::Base
   layout :set_layout
 
   before_action do
-    @layout = LayoutView.new
-    @top_menu = Menus::TopMenu.new
+    @layout = ::LayoutView.new
+    @top_menu = ::Menus::TopMenu.new
   end
 
   before_action :fix_googlebot
