@@ -14,6 +14,26 @@ describe BbCodes::Tags::DivTag do
       ].sample
     end
     it { is_expected.to eq '<div data-div>test</div>' }
+
+    context 'wrapped in other tags'do
+      let(:text) do
+        [
+          "[span][div]\ntest\n[/div][/span]\n"
+        ].sample
+      end
+
+      it { is_expected.to eq '[span]<div data-div>test</div>[/span]' }
+    end
+
+    context 'wrapped in other bbcodes' do
+      let(:text) do
+        [
+          "<span>[div]\ntest\n[/div]</span>\n"
+        ].sample
+      end
+
+      it { is_expected.to eq '<span><div data-div>test</div></span>' }
+    end
   end
 
   context 'class' do

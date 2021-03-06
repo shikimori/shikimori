@@ -12,7 +12,12 @@ class BbCodes::Tags::DivTag
   TAG_END_REGEXP = %r{
     \n? \[
       /div
-    \] \n?
+    \]
+    (?<other_closed_tags>
+      (?:
+        [\[<] / (?!div) \w+ [\]>]
+      )*
+    ) \n?
   }mix
 
   FORBIDDEN_CLASSES = %w[
@@ -66,7 +71,7 @@ private
   def div_end text, replacements, original_text
     result = text.gsub TAG_END_REGEXP do
       replacements -= 1
-      '</div>'
+      "</div>#{$LAST_MATCH_INFO[:other_closed_tags]}"
     end
 
     if replacements.zero?

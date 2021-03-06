@@ -482,4 +482,20 @@ describe BbCodes::Text do
       it { is_expected.to eq "z<br class='br'><br class='br'>x" }
     end
   end
+
+  describe '#new_lines_to_br' do
+    context 'sample' do
+      subject { service.call }
+
+      let(:text) { "1\n2" }
+      it { is_expected.to eq '1<br>2' }
+    end
+
+    context 'sample' do
+      subject { service.send :new_lines_to_br, text }
+
+      let(:text) { "1\n2" }
+      it { is_expected.to eq '1<br>2' }
+    end
+  end
 end
