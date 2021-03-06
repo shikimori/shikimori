@@ -124,7 +124,7 @@ private
       .require(:comment)
       .permit(:body, :is_summary, :is_offtopic, :commentable_id, :commentable_type, :user_id)
       .tap do |comment|
-        comment[:user_id] ||= current_user.id
+        comment[:user_id] ||= current_user&.id # can be no current_user with broken cookies
         comment[:body] = Banhammer.instance.censor comment[:body], nil
       end
   end
