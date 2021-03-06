@@ -31,11 +31,12 @@ export default class ShikiEditorV2 extends View {
 
   @memoize
   get isSessionStorageAvailable() {
-    if (window.ENV === 'development') {
-      console.log(['editor', this, 'key', this.cacheKey, this.node]);
-    }
+    // if (window.ENV === 'development') {
+    //   console.log(['editor', this, 'key', this.cacheKey, this.node]);
+    // }
 
-    return window.ENV === 'development' && typeof(sessionStorage) !== 'undefined';
+    // return window.ENV === 'development' && typeof(sessionStorage) !== 'undefined';
+    return typeof(sessionStorage) !== 'undefined';
   }
 
   @memoize
