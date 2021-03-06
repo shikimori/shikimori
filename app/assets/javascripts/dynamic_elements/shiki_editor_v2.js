@@ -21,10 +21,7 @@ export default class ShikiEditorV2 extends View {
       console.log(['editor', this, 'key', this.cacheKey, this.node]);
     }
 
-    if (this.isSessionStorageAvailable) {
-      await delay(10);
-      this.processedInitialContent = this.editorContent;
-    }
+    this._processCache();
   }
 
   get editorApp() {
@@ -104,7 +101,20 @@ export default class ShikiEditorV2 extends View {
   }
 
   _initialContent() {
-    return this.input.value || this._readCacheValue();
+    return this.input.value;
+  }
+
+  async _processCache() {
+    if (!this.isSessionStorageAvailable) { return; }
+
+    await delay(10);
+    this.processedInitialContent = this.editorContent;
+
+    const cachedValue = this._readCacheValue()
+    if (cachedValue && cachedValue !== this.processedInitialContent) {
+      this.editorApp.setContent(cachedValue);
+      this.processedInitialContent = cachedValue;
+    }
   }
 
   _buildShikiUploader(ShikiUploader) {
