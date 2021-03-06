@@ -21,5 +21,6 @@
     = render 'blocks/shiki_editor',
       text: @feedback_message.body,
       field_name: 'message[body]',
-      f: f
+      f: f,
+      cache_key: 'feedback'
 
