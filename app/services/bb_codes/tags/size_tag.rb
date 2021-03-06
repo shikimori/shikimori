@@ -7,7 +7,7 @@ class BbCodes::Tags::SizeTag
     \[/size\]
   }mix
 
-  MAXIMUM_FONT_SIZE = 26
+  MAXIMUM_FONT_SIZE = 35
 
   def format text
     text.gsub REGEXP do

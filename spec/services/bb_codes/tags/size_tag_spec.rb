@@ -7,8 +7,8 @@ describe BbCodes::Tags::SizeTag do
   end
 
   context 'large size' do
-    let(:text) { '[size=26]test[/size]' }
-    it { is_expected.to eq '<span style="font-size: 26px;">test</span>' }
+    let(:text) { '[size=36]test[/size]' }
+    it { is_expected.to eq '<span style="font-size: 35px;">test</span>' }
   end
 
   context 'newline' do
