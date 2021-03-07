@@ -8,7 +8,7 @@ class BbCodes::Tags::RepliesTag
       \[
         replies=(?<ids> [\d,]+ )
       \]
-    )\Z
+    )
   /mx
   DISPLAY_LIMIT = 100
 
