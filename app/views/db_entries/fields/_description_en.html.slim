@@ -13,7 +13,8 @@
       target_id: resource.id,
       target_type: resource.object.class.name,
       lang: 'en' \
-    }
+    },
+    cache_key: resource.cache_key
 
   = render 'blocks/source',
     authors: resource.authors(:description_en),
