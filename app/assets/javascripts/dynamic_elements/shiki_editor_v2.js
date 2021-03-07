@@ -53,6 +53,14 @@ export default class ShikiEditorV2 extends View {
     return this.editorApp.exportContent();
   }
 
+  // added for compatibility with shiki-editor-v1
+  // used in
+  //  combineDescription(
+  //    $('.shiki_editor-selector[data-field_name$="description_ru_text]"]', $form).view().text,
+  //    $('[name$="description_ru_source]"]', $form).val()
+  //  )
+  get text() { return this.editorContent; }
+
   async _buildEditor() {
     this.vueNode = this.node.querySelector('.vue-app');
     this.input = this.node.querySelector('input');
