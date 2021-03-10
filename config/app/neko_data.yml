@@ -31954,6 +31954,7 @@
         - 12259
         - 226
         - 39753
+        - 40747
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
   default_values: *2
   neko_id: :oniichan
