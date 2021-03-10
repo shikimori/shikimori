@@ -12,8 +12,10 @@ class Users::MarkAsCompletedUnavailableAnimes
   COMPLETED_UNAVAILABLES_LIMIT = 2
 
   def perform
-    cleanup_roles
-    assign_roles
+    User.transaction do
+      cleanup_roles
+      assign_roles
+    end
   end
 
 private
@@ -21,10 +23,16 @@ private
   def cleanup_roles
     User
       .where("roles && '{#{Types::User::Roles[:completed_announced_animes]}}'")
-      .each do |user|
-        user.roles = user.roles.reject { |v| v == 'completed_announced_animes' }
-        user.save!
-      end
+      .update_all(
+        <<~SQL.squish
+          updated_at = #{ApplicationRecord.sanitize Time.zone.now},
+          roles = array_remove(roles, 'completed_announced_animes')
+        SQL
+      )
+      # .each do |user|
+      #   user.roles = user.roles.reject { |v| v == 'completed_announced_animes' }
+      #   user.save!
+      # end
   end
 
   def assign_roles
@@ -33,10 +41,16 @@ private
       .or(
         User.where(id: user_ids_completed_unavailables_scope)
       )
-      .each do |user|
-        user.roles << Types::User::Roles[:completed_announced_animes]
-        user.save!
-      end
+      .update_all(
+        <<~SQL.squish
+          updated_at = #{ApplicationRecord.sanitize Time.zone.now},
+          roles = array_append(roles, 'completed_announced_animes')
+        SQL
+      )
+      # .each do |user|
+      #   user.roles << Types::User::Roles[:completed_announced_animes]
+      #   user.save!
+      # end
   end
 
   def user_ids_completed_announces_scope
