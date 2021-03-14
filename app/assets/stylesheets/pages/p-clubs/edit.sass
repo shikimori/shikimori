@@ -1,7 +1,10 @@
 @import mixins/bracket_action
 @import mixins/brackets_surrounded
+@import mixins/hide_mobile_menu
 
 .p-clubs-edit
+  +hide_mobile_menu
+
   .description, .pages
     .b-shiki_editor .b-comment .inner header
       display: none
