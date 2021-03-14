@@ -1,10 +1,13 @@
-@import mixins/clearfix
 @import globals
-@import mixins/float_column
-@import mixins/link
 @import mixins/clear_left
+@import mixins/clearfix
+@import mixins/float_column
+@import mixins/hide_mobile_menu
+@import mixins/link
 
 .p-db_entries-edit_field
+  +hide_mobile_menu
+
   p.warning
     color: $red
     margin-bottom: $block-offset / 2
