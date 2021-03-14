@@ -1,6 +1,7 @@
 @import globals
 @import mixins/float_column
 @import mixins/frame_form
+@import mixins/hide_mobile_menu
 
 .p-topics-new,
 .p-topics-edit,
@@ -10,6 +11,8 @@
 .p-articles-edit,
 .p-articles-create,
 .p-articles-update
+  +hide_mobile_menu
+
   .topic-video
     .video
       line-height: 0

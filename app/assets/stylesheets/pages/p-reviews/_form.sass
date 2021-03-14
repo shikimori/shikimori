@@ -1,9 +1,12 @@
 @import mixins/responsive
+@import mixins/hide_mobile_menu
 
 .p-reviews-new,
 .p-reviews-edit,
 .p-reviews-create,
 .p-reviews-update
+  +hide_mobile_menu
+
   .votes
     +gte_laptop
       margin-top: 120px !important
