@@ -15647,8 +15647,6 @@
       :generator:
         ignore_latest_ids:
         - 3786
-        not_ignored_ids:
-        - 3786
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :evangelion
@@ -15691,8 +15689,6 @@
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
-        - 3786
-        not_ignored_ids:
         - 3786
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
