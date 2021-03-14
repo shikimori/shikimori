@@ -28,7 +28,6 @@ set :linked_dirs, %w[
   public/packs
   public/.well-known/acme-challenge
 ]
-set :linked_dirs, %w[dist]
 set :copy_files, %w[node_modules]
 
 set :keep_releases, 5
