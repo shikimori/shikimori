@@ -50,6 +50,7 @@ class UserDecorator < BaseDecorator
       :list_stats,
       object.cache_key,
       object.rate_at || object.updated_at,
+      object.preferences.statistics_start_on,
       CACHE_VERSION
     ]
 
