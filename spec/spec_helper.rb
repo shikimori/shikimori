@@ -19,7 +19,7 @@ RSpec.configure do |config|
   end
 
   config.backtrace_exclusion_patterns << /gems/
-  config.order = :defined
+  config.order = ENV['CIRCLE_CI'] ? :defined : :rand
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
