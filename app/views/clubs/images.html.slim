@@ -3,13 +3,12 @@
   .subheadline.m5 = og.headline
   .b-gallery.block[
     data-can_upload=can?(:upload, @resource).to_s
-    data-rel="club_gallery"
+    data-rel='club_gallery'
   ]
-    - cache [@resource, :v2] do
-      = render 'blocks/upload_progress'
-      .container[
-        data-upload_url=club_club_images_url(@resource)
-        data-destroy_url=club_club_image_url(@resource, 'ID')
-        data-images=(@resource.all_images.map { |club_image| ClubImageSerializer.new(club_image, scope: self).to_h }.to_json)
-      ]
-        .grid_sizer
+    = render 'blocks/upload_progress'
+    .container[
+      data-upload_url=club_club_images_url(@resource)
+      data-destroy_url=club_club_image_url(@resource, 'ID')
+      data-images=(@resource.all_images.map { |club_image| ClubImageSerializer.new(club_image, scope: self).to_h }.to_json)
+    ]
+      .grid_sizer
