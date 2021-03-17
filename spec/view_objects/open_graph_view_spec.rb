@@ -32,12 +32,18 @@ describe OpenGraphView do
       before do
         allow(view.h).to receive(:current_url) do |hash|
           view.h.url_for(view_context_params.merge(hash))
+        # rescue Exception => e
+        #   x = view.h
+        #   z = view_context_params.merge(hash)
+        #   binding.pry
+        #   x.url_for(z)
+        #   binding.pry
         end
       end
 
       let(:view_context_params) do
         {
-          controller: 'animes_collection',
+          controller: '/animes_collection',
           action: 'index',
           page: 2,
           klass: 'anime'
