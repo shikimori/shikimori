@@ -20387,6 +20387,7 @@
         not_anime_ids:
         - 821
         - 12725
+        - 47410
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -20419,6 +20420,7 @@
         not_anime_ids:
         - 821
         - 12725
+        - 47410
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
