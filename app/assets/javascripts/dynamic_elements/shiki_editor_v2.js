@@ -64,6 +64,7 @@ export default class ShikiEditorV2 extends View {
   async _buildEditor() {
     this.vueNode = this.node.querySelector('.vue-app');
     this.input = this.node.querySelector('input');
+    this.appPlaceholder = this.node.querySelector('.app-placeholder')
 
     const [
       { Vue },
@@ -152,15 +153,20 @@ export default class ShikiEditorV2 extends View {
       'name' :
       'russian';
 
-    const { $form } = this;
+    const { $form, appPlaceholder } = this;
 
     return new Vue({
       el: this.vueNode,
       components: { ShikiEditorApp },
       mounted() {
+        appPlaceholder.classList.add('hidden');
+
         if ($('.l-top_menu-v2').css('position') === 'sticky') {
           this.$children[0].isMenuBarOffset = true;
         }
+      },
+      beforeDestroy() {
+        appPlaceholder.classList.remove('hidden');
       },
       render: createElement => createElement(ShikiEditorApp, {
         props: {
@@ -305,7 +311,6 @@ export default class ShikiEditorV2 extends View {
 
     this.vueNode = document.createElement('div');
     this.vueNode.classList.add('vue-app');
-    this.vueNode.classList.add('b-ajax');
     this.node.insertBefore(this.vueNode, this.node.querySelector('footer'));
   }
 }

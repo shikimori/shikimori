@@ -230,4 +230,49 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"tokens":[{"token":"k","start_offset":0,"end_offset":3,"type":"<ALPHANUM>","position":0},{"token":"ka","start_offset":0,"end_offset":3,"type":"<ALPHANUM>","position":0},{"token":"kai","start_offset":0,"end_offset":3,"type":"<ALPHANUM>","position":0},{"token":"w","start_offset":4,"end_offset":6,"type":"<ALPHANUM>","position":1},{"token":"wa","start_offset":4,"end_offset":6,"type":"<ALPHANUM>","position":1},{"token":"s","start_offset":7,"end_offset":11,"type":"<ALPHANUM>","position":2},{"token":"sa","start_offset":7,"end_offset":11,"type":"<ALPHANUM>","position":2},{"token":"sam","start_offset":7,"end_offset":11,"type":"<ALPHANUM>","position":2},{"token":"sama","start_offset":7,"end_offset":11,"type":"<ALPHANUM>","position":2}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '310'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "name" : "imac.local",
+          "cluster_name" : "elasticsearch_brew",
+          "cluster_uuid" : "ivAGlIPoRO2_N3yh-1T6iQ",
+          "version" : {
+            "number" : "7.10.2-SNAPSHOT",
+            "build_flavor" : "oss",
+            "build_type" : "tar",
+            "build_hash" : "unknown",
+            "build_date" : "2021-01-16T01:41:27.115673Z",
+            "build_snapshot" : true,
+            "lucene_version" : "8.7.0",
+            "minimum_wire_compatibility_version" : "6.8.0",
+            "minimum_index_compatibility_version" : "6.0.0-beta1"
+          },
+          "tagline" : "You Know, for Search"
+        }
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0

@@ -1,6 +1,7 @@
 @import mixins/block
 @import mixins/link
 @import mixins/shiki_button
+@import mixins/input
 
 .b-shiki_editor-v2
   +block
@@ -42,3 +43,48 @@
         min-width: 80px
         position: static
         width: auto
+
+  .app-placeholder
+    .menubar
+      padding-top: 7px
+      display: flex
+
+      +lte_ipad
+        margin-bottom: 10px
+
+      +gte_laptop
+        margin-bottom: 6px
+
+    .icon
+      display: flex
+      height: 19px
+      justify-content: center
+      margin: 0 1px
+      padding: 0 4px
+      width: 27px
+
+      &:before
+        content: ''
+        border: 1px solid #ddd
+        background-color: #e4e4e4
+
+        +lte_ipad
+          width: 17px
+          height: 17px
+
+        +gte_laptop
+          width: 14px
+          height: 14px
+
+      &-light:before
+        background-color: #fafafa
+
+      &-right
+        margin-left: auto
+
+    .textarea
+      +input
+      +input_disabled
+      height: 89px
+      width: 100%
+      max-width: 100% !important
