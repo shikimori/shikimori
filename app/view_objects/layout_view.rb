@@ -39,7 +39,7 @@ class LayoutView < ViewObjectBase
     CSS
   end
 
-  def user_data # rubocop:disable AbcSize
+  def user_data # rubocop:disable all
     user = h.current_user
 
     {
@@ -51,7 +51,7 @@ class LayoutView < ViewObjectBase
       is_day_registered: !!user&.day_registered?,
       is_week_registered: !!user&.week_registered?,
       is_comments_auto_collapsed: !h.user_signed_in? ||
-        user&.preferences&.comments_auto_collapsed?,
+        !!user&.preferences&.comments_auto_collapsed?,
       is_comments_auto_loaded: !!user&.preferences&.comments_auto_loaded?
     }
   end
