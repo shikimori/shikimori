@@ -1,6 +1,10 @@
 describe OpenGraphView do
   include_context :view_context_stub
 
+  before do
+    allow(view.h.request).to receive(:url).and_return request_url
+  end
+  let(:request_url) { 'http://test.com/qwe' }
   let(:view) { described_class.new }
 
   describe '#site_name' do
@@ -22,9 +26,7 @@ describe OpenGraphView do
     subject { view.canonical_url }
 
     context 'no page param' do
-      before { allow(view.h.request).to receive(:url).and_return url }
-      let(:url) { 'http://zzz.com?123#45' }
-
+      let(:request_url) { 'http://zzz.com?123#45' }
       it { is_expected.to eq 'http://zzz.com' }
     end
 
@@ -32,12 +34,6 @@ describe OpenGraphView do
       before do
         allow(view.h).to receive(:current_url) do |hash|
           view.h.url_for(view_context_params.merge(hash))
-        # rescue Exception => e
-        #   x = view.h
-        #   z = view_context_params.merge(hash)
-        #   binding.pry
-        #   x.url_for(z)
-        #   binding.pry
         end
       end
 
@@ -161,10 +157,7 @@ describe OpenGraphView do
       it { is_expected.to eq 'noindex,nofollow' }
 
       context 'has another canonical url' do
-        before do
-          allow(view).to receive(:canonical_url).and_return 'zzz'
-          allow(view.h.request).to receive(:url).and_return 'zxc'
-        end
+        let(:request_url) { 'http://test.com/qwe?abc' }
         it { is_expected.to be_nil }
       end
     end
