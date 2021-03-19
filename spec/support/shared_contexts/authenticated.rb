@@ -22,5 +22,6 @@ shared_context :authenticated do |role, register_trait|
     end
   end
 
+  # let(:current_user) { user.decorate }
   before { sign_in user }
 end

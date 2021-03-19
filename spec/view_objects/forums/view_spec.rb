@@ -95,13 +95,11 @@ describe Forums::View do
   end
 
   describe '#faye_subscriptions' do
-    before do
-      user.preferences.forums = [offtopic_forum.id]
-      allow(view.h).to receive(:user_signed_in?).and_return is_signed_in
-    end
-
     context 'authenticated' do
-      let(:is_signed_in) { true }
+      before do
+        user.build_preferences
+        user.preferences.forums = [offtopic_forum.id]
+      end
 
       context 'no forum' do
         it do
@@ -127,7 +125,6 @@ describe Forums::View do
     end
 
     context 'not authenticated' do
-      let(:is_signed_in) { false }
       it { expect(view.faye_subscriptions).to eq [] }
     end
   end
@@ -191,7 +188,7 @@ describe Forums::View do
 
     context 'no linekd' do
       let(:view_context_params) { {} }
-      let(:permalink) {}
+      let(:permalink) { nil }
 
       it { expect(view.linked).to be_nil }
     end

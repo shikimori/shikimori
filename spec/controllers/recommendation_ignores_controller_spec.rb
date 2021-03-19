@@ -32,10 +32,18 @@ describe RecommendationIgnoresController do
     let(:anime2) { create :anime }
     let(:anime3) { create :anime }
 
-    let!(:recommendation_ignore_1) { create :recommendation_ignore, user: user, target: create(:manga) }
-    let!(:recommendation_ignore_2) { create :recommendation_ignore, user: user, target: anime1 }
-    let!(:recommendation_ignore_3) { create :recommendation_ignore, user: user, target: anime2 }
-    let!(:recommendation_ignore_4) { create :recommendation_ignore, user: create(:user), target: anime3 }
+    let!(:recommendation_ignore_1) do
+      create :recommendation_ignore, user: user, target: create(:manga)
+    end
+    let!(:recommendation_ignore_2) do
+      create :recommendation_ignore, user: user, target: anime1
+    end
+    let!(:recommendation_ignore_3) do
+      create :recommendation_ignore, user: user, target: anime2
+    end
+    let!(:recommendation_ignore_4) do
+      create :recommendation_ignore, user: create(:user), target: anime3
+    end
 
     before { delete :cleanup, params: { target_type: 'anime' } }
 

@@ -15,6 +15,7 @@ class RecommendationIgnoresController < ShikimoriController
   end
 
 private
+
   def entry
     klass.find params[:target_id]
   end

@@ -8,10 +8,8 @@ describe LayoutView do
       .to receive(:instance_variable_get)
       .with('@blank_layout')
       .and_return is_blank_layout
-    allow(view.h).to receive(:current_user).and_return current_user
   end
   let(:is_blank_layout) { false }
-  let(:current_user) { user.decorate }
 
   describe '#body_id, #body_class' do
     let(:controller_name) { 'animes' }
@@ -112,18 +110,18 @@ describe LayoutView do
   describe '#user_data' do
     context 'user' do
       let!(:topic_ignore) do
-        create :topic_ignore, user: current_user, topic: offtopic_topic
+        create :topic_ignore, user: user, topic: offtopic_topic
       end
       let!(:user_ignore) do
-        create :ignore, user: current_user, target: ignored_user
+        create :ignore, user: user, target: ignored_user
       end
       let(:ignored_user) { create :user }
 
       it do
         expect(view.user_data).to eq(
-          id: current_user.id,
-          url: current_user.url,
-          is_moderator: current_user.forum_moderator?,
+          id: user.id,
+          url: user.decorate.url,
+          is_moderator: user.forum_moderator?,
           ignored_topics: [offtopic_topic.id],
           ignored_users: [ignored_user.id],
           is_day_registered: false,
@@ -135,7 +133,7 @@ describe LayoutView do
     end
 
     context 'guest' do
-      let(:current_user) { nil }
+      let(:user) { nil }
 
       it do
         expect(view.user_data).to eq(
