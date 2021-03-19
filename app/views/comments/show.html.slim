@@ -43,10 +43,7 @@
       / .b-options-floated.count = @view.replies.size
       .subheadline.m0 = t '.replies'
       .block
-        .b-topic[
-          data-dynamic='topic'
-          data-faye='false'
-        ]
+        .b-topic
           = render 'topics/comments',
             comments_view: @view,
             commentable: @view.comment.commentable
