@@ -131,10 +131,14 @@ describe Api::V1::AnimesController, :show_in_doc do
   end
 
   describe '#franchise' do
+    before { Animes::BannedRelations.instance.clear_cache! }
+    after(:all) { Animes::BannedRelations.instance.clear_cache! }
+
     let(:anime) { create :anime }
     let!(:similar) { create :related_anime, source: anime, anime: create(:anime), relation: 'Adaptation' }
+
     subject! { get :franchise, params: { id: anime.id }, format: :json }
-    after { Animes::BannedRelations.instance.clear_cache! }
+
 
     it do
       expect(response).to have_http_status :success

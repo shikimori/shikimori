@@ -1,7 +1,8 @@
 describe RecommendationIgnoresController do
   include_context :authenticated, :user
 
-  after { Animes::BannedRelations.instance.clear_cache! }
+  before { Animes::BannedRelations.instance.clear_cache! }
+  after(:all) { Animes::BannedRelations.instance.clear_cache! }
 
   describe '#create' do
     let(:anime) { create :anime, :special }

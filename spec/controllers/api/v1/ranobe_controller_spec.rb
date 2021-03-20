@@ -18,7 +18,7 @@ describe Api::V1::RanobeController, :show_in_doc do
       allow(Search::Ranobe).to receive(:call) { |params| params[:scope] }
     end
 
-    before do
+    subject! do
       get :index,
         params: {
           page: 1,
@@ -44,7 +44,7 @@ describe Api::V1::RanobeController, :show_in_doc do
 
   describe '#show' do
     let(:ranobe) { create :ranobe, :with_topics }
-    before { get :show, params: { id: ranobe.id }, format: :json }
+    subject! { get :show, params: { id: ranobe.id }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -55,7 +55,7 @@ describe Api::V1::RanobeController, :show_in_doc do
   describe '#similar' do
     let(:ranobe) { create :ranobe }
     let!(:similar) { create :similar_manga, src: ranobe }
-    before { get :similar, params: { id: ranobe.id }, format: :json }
+    subject! { get :similar, params: { id: ranobe.id }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -70,7 +70,8 @@ describe Api::V1::RanobeController, :show_in_doc do
     let(:person) { create :person }
     let!(:role_1) { create :person_role, manga: ranobe, character: character, roles: %w[Main] }
     let!(:role_2) { create :person_role, manga: ranobe, person: person, roles: %w[Director] }
-    before { get :roles, params: { id: ranobe.id }, format: :json }
+
+    subject! { get :roles, params: { id: ranobe.id }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -82,7 +83,8 @@ describe Api::V1::RanobeController, :show_in_doc do
   describe '#related' do
     let(:ranobe) { create :ranobe }
     let!(:similar) { create :related_manga, source: ranobe, manga: create(:ranobe), relation: 'Adaptation' }
-    before { get :related, params: { id: ranobe.id }, format: :json }
+
+    subject! { get :related, params: { id: ranobe.id }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -92,10 +94,13 @@ describe Api::V1::RanobeController, :show_in_doc do
   end
 
   describe '#franchise' do
+    before { Animes::BannedRelations.instance.clear_cache! }
+    after(:all) { Animes::BannedRelations.instance.clear_cache! }
+
     let(:ranobe) { create :ranobe }
     let!(:similar) { create :related_manga, source: ranobe, manga: create(:ranobe), relation: 'Adaptation' }
-    before { get :franchise, params: { id: ranobe.id }, format: :json }
-    after { Animes::BannedRelations.instance.clear_cache! }
+
+    subject! { get :franchise, params: { id: ranobe.id }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -111,7 +116,8 @@ describe Api::V1::RanobeController, :show_in_doc do
         kind: :wikipedia,
         url: 'en.wikipedia.org'
     end
-    before { get :external_links, params: { id: ranobe.id }, format: :json }
+
+    subject! { get :external_links, params: { id: ranobe.id }, format: :json }
 
     it do
       expect(collection).to have(2).items

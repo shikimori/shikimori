@@ -2,7 +2,7 @@ describe Animes::BannedRelations do
   let(:query) { Animes::BannedRelations.instance }
 
   before { Animes::BannedRelations.instance.clear_cache! }
-  after { Animes::BannedRelations.instance.clear_cache! }
+  after(:all) { Animes::BannedRelations.instance.clear_cache! }
 
   describe '#animes & #anime' do
     before do

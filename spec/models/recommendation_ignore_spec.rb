@@ -13,7 +13,8 @@ describe RecommendationIgnore do
     let(:anime_2) { create :anime }
     let(:anime_3) { create :anime }
 
-    after { Animes::BannedRelations.instance.clear_cache! }
+    before { Animes::BannedRelations.instance.clear_cache! }
+    after(:all) { Animes::BannedRelations.instance.clear_cache! }
 
     describe '.block' do
       let!(:related_1) { create :related_anime, source_id: anime_2.id, anime_id: anime_3.id }

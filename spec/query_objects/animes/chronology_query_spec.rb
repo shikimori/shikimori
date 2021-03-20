@@ -1,8 +1,10 @@
 describe Animes::ChronologyQuery do
-  let(:query) { Animes::ChronologyQuery }
-  after { Animes::BannedRelations.instance.clear_cache! }
+  before { Animes::BannedRelations.instance.clear_cache! }
+  after(:all) { Animes::BannedRelations.instance.clear_cache! }
 
-  let(:anime_1) { create :anime, id: 1, aired_on: 1.years.ago }
+  let(:query) { described_class }
+
+  let(:anime_1) { create :anime, id: 1, aired_on: 1.year.ago }
   let(:anime_2) { create :anime, id: 2, aired_on: 2.years.ago }
   let(:anime_3) { create :anime, id: 3, aired_on: 3.years.ago }
 
