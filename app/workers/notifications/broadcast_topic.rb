@@ -70,7 +70,8 @@ private
         from: topic.user,
         kind: message_type(topic),
         linked: linked(topic),
-        created_at: topic.created_at.change(usec: 0) # usec is used to fix unstable specs in CIRCLE_CI
+        # `usec` is used to fix unstable specs in CIRCLE_CI
+        created_at: topic.created_at.change(usec: 0)
       )
       .attributes
       .slice(*MESSAGE_ATTRIBUTES)

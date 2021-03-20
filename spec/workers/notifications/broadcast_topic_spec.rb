@@ -38,7 +38,7 @@ describe Notifications::BroadcastTopic do
     let(:messages_per_job) { 2 }
     let(:message_attributes) do
       {
-        'created_at' => topic.created_at.change(usec: 0), # usec is used to fix unstable specs in CIRCLE_CI
+        'created_at' => topic.created_at.change(usec: 0), # `usec` is used to fix unstable specs in CIRCLE_CI
         'from_id' => topic.user_id,
         'kind' => MessageType::SITE_NEWS,
         'linked_id' => topic.id,
@@ -76,7 +76,7 @@ describe Notifications::BroadcastTopic do
 
     let(:message_attributes) do
       {
-        'created_at' => 1.day.ago.change(usec: 0), # usec is used to fix unstable specs in CIRCLE_CI
+        'created_at' => 1.day.ago.change(usec: 0), # `usec` is used to fix unstable specs in CIRCLE_CI
         'from_id' => topic.user_id,
         'kind' => MessageType::CONTEST_FINISHED,
         'linked_id' => linked.id,
@@ -104,7 +104,7 @@ describe Notifications::BroadcastTopic do
 
     let(:message_attributes) do
       {
-        'created_at' => topic.created_at.change(usec: 0), # usec is used to fix unstable specs in CIRCLE_CI
+        'created_at' => topic.created_at.change(usec: 0), # `usec` is used to fix unstable specs in CIRCLE_CI
         'from_id' => topic.user_id,
         'kind' => Types::Topic::NewsTopic::Action[AnimeHistoryAction::Anons].to_s,
         'linked_id' => topic.id,
