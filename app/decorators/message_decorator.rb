@@ -1,8 +1,13 @@
 class MessageDecorator < BaseDecorator
-  instance_cache :action_tag, :generate_body
+  instance_cache :action_tag, :generate_body, :title
 
   def broken?
-    linked_type.present? && linked_id.present? && !linked
+    title
+    generate_body
+
+    @is_broken || (
+      linked_type.present? && linked_id.present? && !linked
+    )
   end
 
   def image
@@ -47,6 +52,9 @@ class MessageDecorator < BaseDecorator
     else
       from.nickname
     end
+  rescue NoMethodError
+    @is_broken = true
+    nil
   end
 
   def for_generated_news_topic?
@@ -78,6 +86,9 @@ class MessageDecorator < BaseDecorator
 
   def generate_body
     Messages::GenerateBody.call object
+  rescue NoMethodError
+    @is_broken = true
+    nil
   end
 
 private

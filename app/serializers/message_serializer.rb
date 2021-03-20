@@ -4,18 +4,21 @@ class MessageSerializer < ActiveModel::Serializer
   has_one :to
 
   def body
-    object.body || (object.linked&.to_s)
+    object.body || object.linked&.to_s
   end
 
   def html_body
+    return if object.broken?
+
     object.generate_body.gsub(%r{(?<!:)//(?=\w)}, 'http://')
   end
 
   def linked
-    return nil unless object.linked
+    return unless object.linked
+
     hash = { id: object.linked.id }
 
-    if object.linked&.is_a?(Topic)
+    if object.linked.is_a? Topic
       hash[:topic_url] = UrlGenerator.instance.topic_url object.linked
 
       # TODO: deprecated
