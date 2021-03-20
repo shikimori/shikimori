@@ -17,7 +17,7 @@
             .b-new_marker.active[
               class=(:off if message.read)
               data-appear_url=mark_read_api_messages_url(is_read: '1')
-              data-reappear="true"
+              data-reappear='true'
               data-reappear_url=mark_read_api_messages_url(is_read: '0')
               data-text=t('markers.new')
             ]
@@ -32,9 +32,10 @@
           a.name = t '.broken.header'
       .body
         .b-nothing_here = t '.broken.body'
-        .b-appear_marker.active[
-          class="appear-message-#{message.id}"
-        ]
+        - if !message.read && message.to == current_user
+          .b-appear_marker.active[
+            class="appear-message-#{message.id}"
+          ]
     - else
       header
         - unless message.for_generated_news_topic?
