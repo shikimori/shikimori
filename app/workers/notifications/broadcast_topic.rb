@@ -70,7 +70,7 @@ private
         from: topic.user,
         kind: message_type(topic),
         linked: linked(topic),
-        created_at: topic.created_at
+        created_at: topic.created_at.change(usec: 0) # usec is used to fix unstable specs in CIRCLE_CI
       )
       .attributes
       .slice(*MESSAGE_ATTRIBUTES)
