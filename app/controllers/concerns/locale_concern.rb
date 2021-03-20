@@ -8,7 +8,9 @@ module LocaleConcern
   end
 
   def set_locale
-    I18n.locale = params[:locale] || current_user&.locale || locale_from_host
+    I18n.locale = params[:locale]&.to_sym ||
+      current_user&.locale&.to_sym ||
+      locale_from_host
   end
 
   def set_user_locale_from_host

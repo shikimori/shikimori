@@ -31,6 +31,7 @@ describe ClubsController do
 
     context 'club locale != locale from domain' do
       before { allow(controller).to receive(:ru_host?).and_return false }
+      after { I18n.locale = :ru }
       it { expect { make_request }.to raise_error ActiveRecord::RecordNotFound }
     end
   end
