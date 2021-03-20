@@ -3,7 +3,7 @@ describe Tags::CleanupCoubCacheJob do
   let!(:pg_cache_2) do
     create :pg_cache_data,
       key: Coubs::Request.pg_cache_key(
-        tag: anime_1.coub_tags.sample,
+        tag: anime_1.coub_tags.first,
         page: described_class::PAGES.sample
       ),
       expires_at: Coubs::Request::EXPIRES_IN.from_now -
@@ -12,7 +12,7 @@ describe Tags::CleanupCoubCacheJob do
   let!(:pg_cache_3) do
     create :pg_cache_data,
       key: Coubs::Request.pg_cache_key(
-        tag: anime_1.coub_tags.sample,
+        tag: anime_1.coub_tags.last,
         page: described_class::PAGES.sample
       ),
       expires_at: Coubs::Request::EXPIRES_IN.from_now -
