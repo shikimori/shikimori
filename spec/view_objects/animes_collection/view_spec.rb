@@ -180,7 +180,7 @@ describe AnimesCollection::View do
     end
 
     context 'no season' do
-      let(:season) {}
+      let(:season) { }
       it { is_expected.to eq false }
     end
 
@@ -262,13 +262,22 @@ describe AnimesCollection::View do
     let(:view_context_params) do
       {
         controller: 'animes_collection',
-        klass: 'anime',
-        # format: 'a',
-        # template: 'd',
-        # is_adult: 'e',
-        kind: 'tv'
-        # ids: ['c'],
-        # exclude_ids: ['b']
+        action: 'index',
+        kind: 'tv',
+        status: nil,
+        season: nil,
+        franchise: nil,
+        achievement: nil,
+        genre: nil,
+        studio: nil,
+        publisher: nil,
+        duration: nil,
+        rating: nil,
+        score: nil,
+        options: nil,
+        mylist: nil,
+        'order-by': nil,
+        page: nil
       }
     end
 
@@ -316,7 +325,9 @@ describe AnimesCollection::View do
 
       context 'first page' do
         let(:page) { 1 }
-        it { is_expected.to eq "#{Shikimori::PROTOCOL}://test.host/animes/kind/tv/page/2" }
+        it do
+          is_expected.to eq "#{Shikimori::PROTOCOL}://test.host/animes/kind/tv/page/2"
+        end
       end
 
       context 'second page' do
