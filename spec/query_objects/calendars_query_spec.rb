@@ -2,7 +2,7 @@ describe CalendarsQuery do
   let(:query) { described_class.new }
   subject { query.fetch }
 
-  include_context :timecop, '28-12-2015 00:00:00'
+  include_context :timecop, '28-12-2015 12:00:00'
 
   context 'common calendar' do
     let!(:anime_1) { create :anime, name: '1' }
