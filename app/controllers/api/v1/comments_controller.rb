@@ -70,8 +70,10 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
     param :is_offtopic, :bool, required: false
     param :is_summary, :bool, required: false
   end
-  param :frontend, :bool
-  param :broadcast, :bool
+  param :frontend, :bool, 'Used by shikimori frontend code. Ignore it.'
+  param :broadcast,
+    :bool,
+    'Used to broadcast comment of club topic. Only club admins can broadcast.'
   def create
     @resource = Comment::Create.call faye, create_params, locale_from_host
 

@@ -109,7 +109,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
 
   api :POST, '/messages/delete_all', 'Delete all messages'
   description 'Requires `messages` oauth scope'
-  param :frontend, :bool
+  param :frontend, :bool, 'Used by shikimori frontend code. Ignore it.'
   param :type, %w[news notifications]
   error code: 302
   def delete_all
