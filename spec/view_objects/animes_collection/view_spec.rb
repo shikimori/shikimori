@@ -180,7 +180,7 @@ describe AnimesCollection::View do
     end
 
     context 'no season' do
-      let(:season) { }
+      let(:season) { nil }
       it { is_expected.to eq false }
     end
 
