@@ -8,7 +8,7 @@ app_path = "#{app_root}/current"
 shared_path = "#{app_root}/shared"
 
 # Set unicorn options
-worker_processes ENV['SHIKI_TYPE'] == 'db' ? 10 : 17
+worker_processes ENV['SHIKI_TYPE'] == 'db' ? 8 : 17
 timeout 90
 listen "#{shared_path}/tmp/sockets/unicorn.socket", backlog: 4098
 
