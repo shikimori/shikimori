@@ -42,6 +42,7 @@ private
   def archive
     ListImport
       .where('created_at < ?', ARCHIVE_INTERVAL.ago)
+      .where(is_archived: false)
       .each do |list_import|
         list_import.update! is_archived: true, output: {}
       end
