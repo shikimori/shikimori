@@ -8,7 +8,7 @@ production:
   :concurrency: 60
 
 :queues:
-  # - [achievements, 6]
+  - [achievements, 6]
   - [chewy, 10]
   - [cpu_intensive, 5]
   - [critical, 10]
@@ -18,7 +18,7 @@ production:
   - [history_jobs, 5]
 
 :limits:
-  # achievement: 10
+  achievement: 10
   cpu_intensive: 2
   episode_notifications: 1
   push_notifications: 5
