@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_07_133039) do
+ActiveRecord::Schema.define(version: 2021_03_29_052857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -606,6 +606,7 @@ ActiveRecord::Schema.define(version: 2021_02_07_133039) do
     t.string "duplicate_policy", null: false
     t.string "list_type", null: false
     t.jsonb "output"
+    t.boolean "is_archived", default: false, null: false
     t.index ["user_id"], name: "index_list_imports_on_user_id"
   end
 

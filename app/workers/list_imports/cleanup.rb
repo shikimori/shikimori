@@ -4,10 +4,12 @@ class ListImports::Cleanup
 
   FAIL_INTERVAL = 7.days
   FILE_DELETION_INTERVAL = 30.days
+  ARCHIVE_INTERVAL = 90.days
 
   def perform
     fail_expired
     delete_files
+    archive
   end
 
 private
@@ -34,6 +36,14 @@ private
           list_file_size: nil,
           list_updated_at: nil
         )
+      end
+  end
+
+  def archive
+    ListImport
+      .where('created_at < ?', ARCHIVE_INTERVAL.ago)
+      .each do |list_import|
+        list_import.update! is_archived: true, output: {}
       end
   end
 end
