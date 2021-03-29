@@ -15,7 +15,7 @@ describe Users::ListImportsController do
   describe '#create' do
     let(:list) do
       Rack::Test::UploadedFile.new(
-        "#{Rails.root}/spec/files/list.xml",
+        Rails.root.join('spec/files/list.xml'),
         'application/xml'
       )
     end
@@ -41,7 +41,7 @@ describe Users::ListImportsController do
   end
 
   describe '#show' do
-    let(:list_import) { create :list_import, user: user }
+    let(:list_import) { create :list_import, user: user, is_archived: is_archived }
     subject! do
       get :show,
         params: {
@@ -50,6 +50,14 @@ describe Users::ListImportsController do
         }
     end
 
-    it { expect(response).to have_http_status :success }
+    context 'not archived' do
+      let(:is_archived) { false }
+      it { expect(response).to have_http_status :success }
+    end
+
+    context 'archived' do
+      let(:is_archived) { true }
+      it { expect(response).to redirect_to edit_profile_url(user, section: :list) }
+    end
   end
 end

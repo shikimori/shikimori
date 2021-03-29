@@ -21,6 +21,8 @@ class Users::ListImportsController < ProfilesController
   end
 
   def show
+    return redirect_to edit_profile_url(@user, section: :list) if @resource.is_archived?
+
     @view = ListImportView.new @resource
   end
 
