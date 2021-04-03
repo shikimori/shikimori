@@ -6074,6 +6074,7 @@
         - 39705
         - 38691
         - 40852
+        - 34572
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -6590,6 +6591,7 @@
         - 39705
         - 38691
         - 40852
+        - 34572
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -7106,6 +7108,7 @@
         - 39705
         - 38691
         - 40852
+        - 34572
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -8901,6 +8904,7 @@
         - 37033
         - 37651
         - 169
+        - 33050
       :generator:
         person_id: 2582
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -15654,7 +15658,7 @@
         - 43745
         - 43751
         - 47307
-      :threshold: 81.7%
+      :threshold: 93.4%
       :generator:
         ignore_latest_ids:
         - 3786
@@ -17568,7 +17572,7 @@
         - 37902
         - 38419
         - 40181
-      :threshold: 95.5%
+      :threshold: 95.4%
       :generator:
         ignore_latest_ids:
         - 38234
@@ -19842,7 +19846,7 @@
         - 37865
         - 42136
         - 42984
-      :threshold: 93%
+      :threshold: 92.9%
       :generator:
         ignore_latest_ids:
         - 37966
@@ -19925,6 +19929,7 @@
       :generator:
         ignore_latest_ids:
         - 35645
+        - 48573
         not_ignored_ids:
         - 36684
         - 36685
@@ -19960,6 +19965,7 @@
       :generator:
         ignore_latest_ids:
         - 35645
+        - 48573
         not_ignored_ids:
         - 36684
         - 36685
@@ -21839,6 +21845,7 @@
         - 23935
         - 33947
         - 38653
+        - 48617
       :threshold: 95.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -21880,6 +21887,7 @@
         - 23935
         - 33947
         - 38653
+        - 48617
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -22059,6 +22067,7 @@
         - 36760
         - 40348
         - 42476
+        - 47413
       :threshold: 94.1%
       :generator:
         ignore_latest_ids:
@@ -22113,6 +22122,7 @@
         - 36760
         - 40348
         - 42476
+        - 47413
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -26313,7 +26323,7 @@
         franchise: digimon
         not_anime_ids:
         - 4712
-      :threshold: 93.1%
+      :threshold: 93%
       :generator:
         ignore_latest_ids:
         - 38088
@@ -26847,7 +26857,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.4%
+      :threshold: 91.3%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -27195,7 +27205,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 95.8%
+      :threshold: 96%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
@@ -27469,6 +27479,35 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :taiho_shichau_zo
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/taiho_shichau_zo.jpg"
+    :border_color:
+    :title_ru: Вы арестованы!
+    :text_ru:
+    :title_en: Taiho Shichau zo
+    :text_en:
+    :topic_id: 247360
+    :rule: &511
+      :algo: duration
+      :filters:
+        franchise: taiho_shichau_zo
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :taiho_shichau_zo
+  level: 0
+  image: "/assets/achievements/anime/franchise/taiho_shichau_zo.jpg"
+  border_color:
+  title_ru: Вы арестованы!
+  text_ru:
+  title_en: Taiho Shichau zo
+  text_en:
+  topic_id: 247360
+  rule: *511
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :ad_police
     :level: 1
     :image: "/assets/achievements/anime/franchise/ad_police.jpg"
@@ -27478,7 +27517,7 @@
     :title_en: Bubblegum Crisis
     :text_en:
     :topic_id: 247360
-    :rule: &511
+    :rule: &512
       :algo: duration
       :filters:
         franchise: ad_police
@@ -27495,35 +27534,6 @@
   title_ru: Кризис каждый день
   text_ru:
   title_en: Bubblegum Crisis
-  text_en:
-  topic_id: 247360
-  rule: *511
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :taiho_shichau_zo
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/taiho_shichau_zo.jpg"
-    :border_color:
-    :title_ru: Вы арестованы!
-    :text_ru:
-    :title_en: Taiho Shichau zo
-    :text_en:
-    :topic_id: 247360
-    :rule: &512
-      :algo: duration
-      :filters:
-        franchise: taiho_shichau_zo
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :taiho_shichau_zo
-  level: 0
-  image: "/assets/achievements/anime/franchise/taiho_shichau_zo.jpg"
-  border_color:
-  title_ru: Вы арестованы!
-  text_ru:
-  title_en: Taiho Shichau zo
   text_en:
   topic_id: 247360
   rule: *512
