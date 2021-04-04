@@ -15154,7 +15154,7 @@
         - 34428
         - 36683
         - 37264
-      :threshold: 90.4%
+      :threshold: 92.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :overlord
@@ -15658,7 +15658,7 @@
         - 43745
         - 43751
         - 47307
-      :threshold: 93.4%
+      :threshold: 81.7%
       :generator:
         ignore_latest_ids:
         - 3786
@@ -16219,7 +16219,7 @@
         - 36729
         - 38784
         - 40761
-      :threshold: 89.6%
+      :threshold: 89.5%
       :generator:
         ignore_latest_ids:
         - 33050
@@ -17572,7 +17572,7 @@
         - 37902
         - 38419
         - 40181
-      :threshold: 95.4%
+      :threshold: 95.5%
       :generator:
         ignore_latest_ids:
         - 38234
@@ -19846,7 +19846,7 @@
         - 37865
         - 42136
         - 42984
-      :threshold: 92.9%
+      :threshold: 93%
       :generator:
         ignore_latest_ids:
         - 37966
@@ -21523,7 +21523,7 @@
         - 42380
         - 42432
         - 42439
-      :threshold: 88.5%
+      :threshold: 88.4%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -22159,7 +22159,7 @@
         franchise: inuyasha
         not_anime_ids:
         - 31133
-      :threshold: 94.3%
+      :threshold: 94.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :inuyasha
@@ -26323,7 +26323,7 @@
         franchise: digimon
         not_anime_ids:
         - 4712
-      :threshold: 93%
+      :threshold: 93.1%
       :generator:
         ignore_latest_ids:
         - 38088
@@ -27004,7 +27004,7 @@
         - 39101
         - 39102
         - 39162
-      :threshold: 80%
+      :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :transformers
@@ -27205,7 +27205,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 96%
+      :threshold: 95.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
