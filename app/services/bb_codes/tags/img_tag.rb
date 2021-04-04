@@ -49,7 +49,7 @@ private
   )
     image_url = CGI.unescapeHTML escaped_image_url
     fixed_image_url = camo_url image_url
-    camo_link_url = camo_url link_url if link_url&.match? %r{shikimori\.(\w+)/.*\.(?:jpg|png)}
+    camo_link_url = camo_url link_url if link_url&.match? %r{shikimori\.(\w+)/.*\.(?:jpg|png|webp)}
     image_html = html_for_image fixed_image_url, width, height
     attrs = { src: image_url }
 
