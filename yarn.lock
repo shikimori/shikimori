@@ -7621,7 +7621,7 @@ prosemirror-inputrules@^1.1.2:
     prosemirror-state "^1.0.0"
     prosemirror-transform "^1.0.0"
 
-prosemirror-keymap@^1.0.0, prosemirror-keymap@^1.1.2, prosemirror-keymap@^1.1.4:
+prosemirror-keymap@^1.0.0, prosemirror-keymap@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/prosemirror-keymap/-/prosemirror-keymap-1.1.4.tgz#8b481bf8389a5ac40d38dbd67ec3da2c7eac6a6d"
   integrity sha512-Al8cVUOnDFL4gcI5IDlG6xbZ0aOD/i3B17VT+1JbHWDguCgt/lBHVTHUBcKvvbSg6+q/W4Nj1Fu6bwZSca3xjg==
@@ -7629,7 +7629,7 @@ prosemirror-keymap@^1.0.0, prosemirror-keymap@^1.1.2, prosemirror-keymap@^1.1.4:
     prosemirror-state "^1.0.0"
     w3c-keyname "^2.2.0"
 
-prosemirror-model@^1.0.0, prosemirror-model@^1.1.0, prosemirror-model@^1.10.0, prosemirror-model@^1.8.1:
+prosemirror-model@^1.0.0, prosemirror-model@^1.1.0, prosemirror-model@^1.10.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/prosemirror-model/-/prosemirror-model-1.12.0.tgz#deb6acbce5c62ea35ef3d59c7d4c54f65d6d9fba"
   integrity sha512-B5syrXluQwEPfih8PqZcVg2VWRUf8Rj97K/VNSkQtjUPL1BCoTUgdLERIlxdWHkwqvujFsT3Pw5ubc4/ofF1jQ==
@@ -7644,7 +7644,7 @@ prosemirror-schema-list@^1.1.2:
     prosemirror-model "^1.0.0"
     prosemirror-transform "^1.0.0"
 
-prosemirror-state@^1.0.0, prosemirror-state@^1.2.2, prosemirror-state@^1.3.1, prosemirror-state@^1.3.3:
+prosemirror-state@^1.0.0, prosemirror-state@^1.2.2, prosemirror-state@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/prosemirror-state/-/prosemirror-state-1.3.3.tgz#b2862866b14dec2b3ae1ab18229f2bd337651a2c"
   integrity sha512-PLXh2VJsIgvlgSTH6I2Yg6vk1CzPDp21DFreVpQtDMY2S6WaMmrQgDTLRcsrD8X38v8Yc873H7+ogdGzyIPn+w==
@@ -7652,28 +7652,16 @@ prosemirror-state@^1.0.0, prosemirror-state@^1.2.2, prosemirror-state@^1.3.1, pr
     prosemirror-model "^1.0.0"
     prosemirror-transform "^1.0.0"
 
-prosemirror-tables@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/prosemirror-tables/-/prosemirror-tables-1.1.1.tgz#ad66300cc49500455cf1243bb129c9e7d883321e"
-  integrity sha512-LmCz4jrlqQZRsYRDzCRYf/pQ5CUcSOyqZlAj5kv67ZWBH1SVLP2U9WJEvQfimWgeRlIz0y0PQVqO1arRm1+woA==
-  dependencies:
-    prosemirror-keymap "^1.1.2"
-    prosemirror-model "^1.8.1"
-    prosemirror-state "^1.3.1"
-    prosemirror-transform "^1.2.1"
-    prosemirror-view "^1.13.3"
-
-prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0, prosemirror-transform@^1.2.1:
+prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/prosemirror-transform/-/prosemirror-transform-1.2.8.tgz#4b86544fa43637fe381549fb7b019f4fb71fe65c"
   integrity sha512-hKqceqv9ZmMQXNQkhFjr0KFGPvkhygaWND+uIM0GxRpALrKfxP97SsgHTBs3OpJhDmh5N+mB4D/CksB291Eavg==
   dependencies:
     prosemirror-model "^1.0.0"
 
-prosemirror-utils@^0.9.6:
+"prosemirror-utils@github:atlassian/prosemirror-utils#remove-prosemirror-tables":
   version "0.9.6"
-  resolved "https://registry.yarnpkg.com/prosemirror-utils/-/prosemirror-utils-0.9.6.tgz#3d97bd85897e3b535555867dc95a51399116a973"
-  integrity sha512-UC+j9hQQ1POYfMc5p7UFxBTptRiGPR7Kkmbl3jVvU8VgQbkI89tR/GK+3QYC8n+VvBZrtAoCrJItNhWSxX3slA==
+  resolved "https://codeload.github.com/atlassian/prosemirror-utils/tar.gz/9e2db389d408f376e0fc1f8bdffd95063e8d00af"
 
 prosemirror-view@1.15.6:
   version "1.15.6"
@@ -7684,7 +7672,7 @@ prosemirror-view@1.15.6:
     prosemirror-state "^1.0.0"
     prosemirror-transform "^1.1.0"
 
-prosemirror-view@^1.0.0, prosemirror-view@^1.1.0, prosemirror-view@^1.13.3:
+prosemirror-view@^1.0.0, prosemirror-view@^1.1.0:
   version "1.16.4"
   resolved "https://registry.yarnpkg.com/prosemirror-view/-/prosemirror-view-1.16.4.tgz#f7034c52566338f6872874a56b02fcb234adb8a5"
   integrity sha512-2loIeZhHDWSNn4fxriiq4oizp5D2GzvVZwkuEKNSEPV5OHh4Pl3JS6R5OV4UwSvh8UbpPsdNfsrcvSheMJPAQg==
@@ -8614,10 +8602,10 @@ shiki-decorators@^1.0.1:
     bind-decorator "1.0.11"
     memoize-decorator "^1.0.2"
 
-shiki-editor@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-1.1.2.tgz#cd1f9d04010c0b539d73c3063a29306307b28bfb"
-  integrity sha512-V8wj7G0YzJG9S0qn2DX1x0eNaF+cLF+CQE86GEP/iIEgn2tje5kj8hQtsYpIW+thzyfciCXBazupgvfE0JNU5Q==
+shiki-editor@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-1.1.5.tgz#128ec36666cc2be85bec4478a8008e8847e2cc8d"
+  integrity sha512-Rc2KM/C3Z7S7nopOHNJYr75Nb9MIJG9a3z+SoLZJtqmSU71pEJS+vz1s+C+jm3Bt3SO07Qrf1vpQ6anZRm4glg==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@popperjs/core" "^2.4.4"
@@ -8630,8 +8618,7 @@ shiki-editor@^1.1.2:
     prosemirror-model "^1.10.0"
     prosemirror-schema-list "^1.1.2"
     prosemirror-state "^1.3.3"
-    prosemirror-tables "^1.1.1"
-    prosemirror-utils "^0.9.6"
+    prosemirror-utils atlassian/prosemirror-utils#remove-prosemirror-tables
     prosemirror-view "1.15.6"
     scroll-lock "^2.1.4"
     text-field-edit "^3.1.0"
