@@ -1,7 +1,7 @@
 class Api::V1::AppearController < Api::V1Controller
   before_action :authenticate_user!
 
-  api :POST, '/appear', 'Mark comments or topics as read'
+  api :POST, '/appears', 'Mark comments or topics as read'
   param :ids, :undef
   def create
     return head 200 unless params[:ids]
