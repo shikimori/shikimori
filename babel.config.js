@@ -74,7 +74,12 @@ module.exports = function (api) {
         }
       ],
       '@babel/plugin-proposal-optional-chaining',
-      '@babel/plugin-proposal-logical-assignment-operators'
+      '@babel/plugin-proposal-logical-assignment-operators',
+      [
+        '@babel/plugin-proposal-pipeline-operator',
+        { proposal: 'minimal' }
+      ],
+      '@babel/plugin-proposal-partial-application'
     ].filter(Boolean)
   };
 };
