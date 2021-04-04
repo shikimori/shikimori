@@ -1,16 +1,27 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_action :set_omniauth_data
 
-  EXCEPTIONS = [ActiveRecord::RecordNotUnique, PG::UniqueViolation]
+  EXCEPTIONS = [
+    ActiveRecord::RecordNotUnique,
+    PG::UniqueViolation,
+    RedisMutex::LockError
+  ]
 
   def authorize
     Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
-      omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
+      RedisMutex.with_lock("#{@omni.provider}/#{@omni.uid}", block: 5) do
+        @preexisting_token = UserToken.find_by(
+          provider: @omni.provider,
+          uid: @omni.uid
+        )
+
+        omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
+      end
     end
   end
-  alias_method :twitter, :authorize
-  alias_method :vkontakte, :authorize
-  alias_method :facebook, :authorize
+  alias twitter authorize
+  alias vkontakte authorize
+  alias facebook authorize
 
 private
 
@@ -30,7 +41,8 @@ private
   end
 
   def omniauth_sign_in
-    return false unless @preexisting_token && @preexisting_token.user
+    return false unless @preexisting_token&.user
+
     @resource = @preexisting_token.user
 
     flash[:notice] = I18n.t 'devise.omniauth_callbacks.success',
@@ -42,7 +54,7 @@ private
     true
   end
 
-  def omniauth_sign_up
+  def omniauth_sign_up # rubocop:disable all
     @resource = Users::PopulateOmniauth.call User.new, omniauth_data
 
     if omniauth_data.provider == 'yandex' || omniauth_data.provider == 'google_apps'
@@ -85,11 +97,6 @@ private
         redirect_to root_url
       end
       false
-    else
-      @preexisting_token = UserToken.find_by(
-        provider: @omni.provider,
-        uid: @omni.uid
-      )
     end
   end
 
@@ -97,9 +104,8 @@ private
     @omni
   end
 
-  def safe_save user
+  def safe_save _user
     @resource.save
-
   rescue PG::UniqueViolation, ActiveRecord::RecordNotUnique
     false
   end
