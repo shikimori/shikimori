@@ -8560,10 +8560,10 @@ shiki-decorators@^1.0.1:
     bind-decorator "1.0.11"
     memoize-decorator "^1.0.2"
 
-shiki-editor@^1.0.17:
-  version "1.0.17"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-1.0.17.tgz#4e730301339a356e25921acc2e26848378fbe9d5"
-  integrity sha512-G9/83eoGbfbk2tPcTTFEs2BR9sCGngL1IaF8zjY5QZNkaFb+0PUvJgfccgzd1BLn5C016Jrf999/QXkAunHxNg==
+shiki-editor@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-1.1.0.tgz#bdec89b71c1b977290cda114bbc6ebe7ffcba75b"
+  integrity sha512-UrXf5066xN3l3ezCOQYNK6GxJA7rbjOIwV8RA8HA1FNGaNmquZshG/rOThmouG78AzQxgqGuHHYSVWmaf3XIgw==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@popperjs/core" "^2.4.4"
@@ -8580,6 +8580,7 @@ shiki-editor@^1.0.17:
     prosemirror-utils "^0.9.6"
     prosemirror-view "1.15.6"
     scroll-lock "^2.1.4"
+    text-field-edit "^3.1.0"
     vue-custom-scrollbar morr/vue-custom-scrollbar#1.1.5
     vue-dragscroll "^2.1.0"
     vue-keypress "^2.1.1"
@@ -9238,6 +9239,11 @@ terser@^5.0.0:
     commander "^2.20.0"
     source-map "~0.6.1"
     source-map-support "~0.5.12"
+
+text-field-edit@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/text-field-edit/-/text-field-edit-3.1.0.tgz#f02ea723192f1e164c437b9b6fec296ea89eaddc"
+  integrity sha512-4mVLiSRR5/p0Zhdl8QkjkUeYUDMSQSYdKsEgR6uOySjcc6QB/O2hzuUlxepL2kQQL0NrpYiI6Ywj6TZULYI9/w==
 
 text-table@^0.2.0:
   version "0.2.0"
