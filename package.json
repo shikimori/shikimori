@@ -27,6 +27,7 @@
     "js-base64": "3.5.2",
     "js-cookie": "^2.2.1",
     "local-storage": "^2.0.0",
+    "lodash": "^4.17.21",
     "magnific-popup": "^1.1.0",
     "nouislider": "^14.6.2",
     "p-defer": "^3.0.0",

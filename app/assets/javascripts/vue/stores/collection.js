@@ -1,3 +1,6 @@
+import filter from 'lodash/filter';
+import uniqBy from 'lodash/uniqBy';
+
 let uniqId = 987654321;
 const newId = () => uniqId += 1;
 
@@ -40,7 +43,10 @@ export default {
       state.collection.forEach(item => {
         item.value = item.value.trim();
       });
-      state.collection = state.collection.filter(v => v.value);
+
+      state.collection = state.collection
+        |> filter(?, 'value')
+        |> uniqBy(?, 'value');
     }
   },
 
