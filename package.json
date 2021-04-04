@@ -2,6 +2,11 @@
   "name": "shikimori",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.10.5",
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.13.8",
+    "@babel/plugin-proposal-partial-application": "^7.12.13",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.7",
+    "@babel/plugin-proposal-pipeline-operator": "^7.12.1",
     "@johmun/vue-tags-input": "^2.1.0",
     "@rails/webpacker": "5.2.1",
     "autosize": "^4.0.2",
@@ -55,11 +60,6 @@
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.10.5",
-    "@babel/plugin-proposal-logical-assignment-operators": "^7.13.8",
-    "@babel/plugin-proposal-partial-application": "^7.12.13",
-    "@babel/plugin-proposal-optional-chaining": "^7.12.7",
-    "@babel/plugin-proposal-pipeline-operator": "^7.12.1",
     "babel-eslint": "11.0.0-beta.2",
     "coffeelint": "^2.1.0",
     "coffeescript": "1.12.7",
