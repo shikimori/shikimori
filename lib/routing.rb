@@ -8,7 +8,8 @@ module Routing
       (?: (?:#{Shikimori::STATIC_SUBDOMAINS.join '|'})\. )?
       shikimori \. (?: org|one|dev|local|test ) |
       static\d?.wallpapers-anime.com |
-      images\d.alphacoders.com
+      images\d.alphacoders.com |
+      \w.radikal.ru
     )
     \Z
   /mix
