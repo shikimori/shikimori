@@ -7659,7 +7659,7 @@ prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0:
   dependencies:
     prosemirror-model "^1.0.0"
 
-"prosemirror-utils@github:atlassian/prosemirror-utils#remove-prosemirror-tables":
+prosemirror-utils@atlassian/prosemirror-utils#remove-prosemirror-tables, "prosemirror-utils@github:atlassian/prosemirror-utils#remove-prosemirror-tables":
   version "0.9.6"
   resolved "https://codeload.github.com/atlassian/prosemirror-utils/tar.gz/9e2db389d408f376e0fc1f8bdffd95063e8d00af"
 
@@ -8621,6 +8621,32 @@ shiki-editor@^1.1.5:
     prosemirror-utils atlassian/prosemirror-utils#remove-prosemirror-tables
     prosemirror-view "1.15.6"
     scroll-lock "^2.1.4"
+    text-field-edit "^3.1.0"
+    vue-custom-scrollbar morr/vue-custom-scrollbar#1.1.5
+    vue-dragscroll "^2.1.0"
+    vue-keypress "^2.1.1"
+    withinviewport "^2.1.2"
+
+shiki-editor@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-1.1.6.tgz#afa9fdc33c2feb4771038e6b99934383dbe25c1c"
+  integrity sha512-B5Kt6Lx724Sum1wL+BfyNI5YDI5fEgWetMtvVQIENxSn3OrNoH8EV2+hRdRT+4kOsgws39VGvqiTN7jfeNpVuA==
+  dependencies:
+    "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
+    "@popperjs/core" "^2.4.4"
+    prosemirror-commands "^1.1.4"
+    prosemirror-dropcursor "^1.3.2"
+    prosemirror-gapcursor "^1.1.5"
+    prosemirror-history "^1.1.3"
+    prosemirror-inputrules "^1.1.2"
+    prosemirror-keymap "^1.1.4"
+    prosemirror-model "^1.10.0"
+    prosemirror-schema-list "^1.1.2"
+    prosemirror-state "^1.3.3"
+    prosemirror-utils atlassian/prosemirror-utils#remove-prosemirror-tables
+    prosemirror-view "1.15.6"
+    scroll-lock "^2.1.4"
+    shiki-editor "^1.1.5"
     text-field-edit "^3.1.0"
     vue-custom-scrollbar morr/vue-custom-scrollbar#1.1.5
     vue-dragscroll "^2.1.0"
@@ -9713,7 +9739,7 @@ void-elements@^3.1.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha1-YU9/v42AHwu18GYfWy9XhXUOTwk=
 
-"vue-custom-scrollbar@github:morr/vue-custom-scrollbar#1.1.5":
+"vue-custom-scrollbar@github:morr/vue-custom-scrollbar#1.1.5", vue-custom-scrollbar@morr/vue-custom-scrollbar#1.1.5:
   version "1.1.5"
   resolved "https://codeload.github.com/morr/vue-custom-scrollbar/tar.gz/d50510e6d63c59b3f29c94e106b5b6972e3081d0"
 
