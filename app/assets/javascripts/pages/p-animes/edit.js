@@ -1,4 +1,4 @@
-import URI from 'urijs';
+import TinyUri from 'tiny-uri';
 import dayjs from 'helpers/dayjs';
 
 const DATE_FORMAT = 'DD.MM.YYYY HH:mm';
@@ -10,11 +10,9 @@ pageLoad('animes_edit', () => {
     const date = prompt($node.data('custom_confirm_text'), defaultDate);
 
     if (date) {
-      const newUrl = URI($node.attr('href'))
-        .removeQuery('aired_at')
-        .addQuery({
-          aired_at: dayjs(date, DATE_FORMAT).toString()
-        });
+      const newUrl = new TinyUri($node.attr('href'))
+        .query.set('aired_at', dayjs(date, DATE_FORMAT).toString())
+        .toString();
 
       $node.attr('href', newUrl);
     } else {

@@ -1,4 +1,5 @@
-import URI from 'urijs';
+import TinyUri from 'tiny-uri';
+
 import { debounce } from 'throttle-debounce';
 import { flash } from 'shiki-utils';
 
@@ -138,12 +139,9 @@ export default class CollectionSearch extends View {
     const url = this.$root.data(`${key}_url`);
     if (!url) { return null; }
 
-    const uri = URI(url).removeQuery('phrase');
-
-    if (phrase) {
-      return uri.addQuery({ phrase });
-    }
-    return uri;
+    return new TinyUri(url)
+      .query.set('phrase', phrase || null)
+      .toString();
   }
 
   _showAjax() {

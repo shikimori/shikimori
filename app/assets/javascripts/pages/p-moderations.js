@@ -1,4 +1,4 @@
-import URI from 'urijs';
+import TinyUri from 'tiny-uri';
 import Turbolinks from 'turbolinks';
 import cookies from 'js-cookie';
 import delay from 'delay';
@@ -14,7 +14,9 @@ function datePicker() {
 
   new DatePicker('.date-filter')
     .on('date:picked', function () {
-      const newUrl = new URI(window.location.href).setQuery('created_on', this.value).href();
+      const newUrl = new TinyUri(window.location.href)
+        .query.set('created_on', this.value || null)
+        .toString();
       Turbolinks.visit(newUrl);
     });
 }

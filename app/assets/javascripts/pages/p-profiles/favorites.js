@@ -1,4 +1,4 @@
-import Uri from 'urijs';
+import TinyUri from 'tiny-uri';
 import axios from 'helpers/axios';
 import delay from 'delay';
 
@@ -31,7 +31,7 @@ pageLoad('profiles_favorites', async () => {
       $sortable.parent().addClass('b-ajax');
       await Promise.all([
         axios.post(
-          Uri(reorderUrl).setQuery({ new_index: e.newIndex }).toString()
+          new TinyUri(reorderUrl).query.set('new_index', e.newIndex).toString()
         ),
         delay(250)
       ]);

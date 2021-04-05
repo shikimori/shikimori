@@ -1,4 +1,4 @@
-import URI from 'urijs';
+import TinyUri from 'tiny-uri';
 import { debounce } from 'throttle-debounce';
 import pDefer from 'p-defer';
 import { flash } from 'shiki-utils';
@@ -85,13 +85,9 @@ export default class IndexEngine {
   }
 
   _searchUrl(phrase) {
-    const uri = URI(window.location.href.replace(/\/page\/\d+/, ''))
-      .removeQuery('search');
-
-    if (phrase) {
-      return uri.addQuery({ search: phrase });
-    }
-    return uri;
+    return new TinyUri(window.location.href.replace(/\/page\/\d+/, ''))
+      .query.set('search', phrase || null)
+      .toString();
   }
 
   _changeUrl(phrase) {
@@ -100,12 +96,9 @@ export default class IndexEngine {
   }
 
   _url(url, phrase) {
-    const uri = URI(url).removeQuery('search');
-
-    if (phrase) {
-      return uri.addQuery({ search: phrase });
-    }
-    return uri;
+    return new TinyUri(url)
+      .query.set('search', phrase || null)
+      .toString();
   }
 
   _showAjax() {

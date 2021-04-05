@@ -1,14 +1,14 @@
 import Turbolinks from 'turbolinks';
-import URI from 'urijs';
+import TinyUri from 'tiny-uri';
 
 pageLoad('profiles_comments', () =>
   $('form.comments-search').on('submit', e => {
     e.preventDefault();
 
     const $search = $(e.currentTarget).find('input.search');
-    const url = URI($search.data('search_url'))
-      .removeQuery('phrase')
-      .addQuery({ phrase: $search.val() });
+    const url = new TinyUri($search.data('search_url'))
+      .query.set('phrase', $search.val())
+      .toString();
 
     Turbolinks.visit(url);
   })

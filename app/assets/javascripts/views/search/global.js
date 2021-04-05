@@ -1,5 +1,5 @@
 import Turbolinks from 'turbolinks';
-import URI from 'urijs';
+import TinyUri from 'tiny-uri';
 import delay from 'delay';
 import { bind } from 'shiki-decorators';
 
@@ -336,10 +336,10 @@ export default class GlobalSearch extends View {
       if (this.$activeItem.length && $activeLink.length) {
         url = $activeLink.attr('href');
       } else {
-        url =
-          URI(this.$node.data(`search_${this.currentMode}_url`))
-            .removeQuery('search')
-            .addQuery({ search: this.phrase });
+        debugger
+        url = new TinyUri(this.$node.data(`search_${this.currentMode}_url`))
+          .query.set('search', this.phrase || null)
+          .toString();
       }
 
       Turbolinks.visit(url);

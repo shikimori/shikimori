@@ -1,4 +1,4 @@
-import URI from 'urijs';
+import TinyUri from 'tiny-uri';
 
 const TOOLTIP_TEMPLATE = `<div> \
   <div class='tooltip-inner'> \
@@ -62,11 +62,11 @@ export const ANIME_TOOLTIP_OPTIONS = Object.add(COMMON_TOOLTIP_OPTIONS, {
 
     if ($image.exists() && ($image.width() >= 110)) {
       const minifiedTooltipUrl =
-        URI($trigger.data('tooltip_url'))
-          .search({ minified: '1' })
+        new TinyUri($trigger.data('tooltip_url'))
+          .query.set('minified', '1')
           .toString();
 
-      $trigger.data({ tooltip_url: minifiedTooltipUrl });
+      $trigger.data('tooltip_url', minifiedTooltipUrl);
 
       this.getTip().addClass('minified');
     }

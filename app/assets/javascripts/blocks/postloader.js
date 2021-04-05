@@ -1,5 +1,4 @@
 import axios from 'helpers/axios';
-import URI from 'urijs';
 
 $(() => {
   $.appear('.b-postloader');

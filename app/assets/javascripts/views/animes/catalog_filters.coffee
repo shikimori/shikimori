@@ -1,7 +1,7 @@
 # TODO: refactor to normal classes
 import inNewTab from 'helpers/in_new_tab'
 import urlParse from 'url-parse'
-import URI from 'urijs'
+import TinyUri from 'tiny-uri'
 
 DEFAULT_ORDER = 'ranked'
 DEFAULT_DATA =
@@ -224,7 +224,9 @@ export default (base_path, current_url, change_callback) ->
       if page && page != 1
         path_filters += "/page/#{page}"
 
-      @last_compiled = URI(base_path + path_filters).query(location_filters).toString()
+      @last_compiled = new TinyUri(base_path + path_filters)
+        .query.set(location_filters)
+        .toString()
 
     last_compiled: null
 

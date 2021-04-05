@@ -9347,6 +9347,11 @@ timsort@^0.3.0:
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
+tiny-uri@^8.0.9:
+  version "8.0.9"
+  resolved "https://registry.yarnpkg.com/tiny-uri/-/tiny-uri-8.0.9.tgz#e25fc8071dd63fc6a4aa1b82436fee9c7f1a9f9a"
+  integrity sha512-WVGnijhwYh4Nuzgd/W725nuFg46HvgKkleZk6sf6G50uTckNS/lrQ8PG/p6+hRy/6p3i87XCixHsEtNeTVftjA==
+
 tmp@^0.0.29:
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.29.tgz#f25125ff0dd9da3ccb0c2dd371ee1288bb9128c0"
@@ -9618,11 +9623,6 @@ uri-js@^4.2.2:
   integrity sha512-B0yRTzYdUCCn9n+F4+Gh4yIDtMQcaJsmYBDsTSG8g/OejKBodLQ2IHfN3bM7jUsRXndopT7OIXWdYqc1fjmV6g==
   dependencies:
     punycode "^2.1.0"
-
-urijs@^1.19.6:
-  version "1.19.6"
-  resolved "https://registry.yarnpkg.com/urijs/-/urijs-1.19.6.tgz#51f8cb17ca16faefb20b9a31ac60f84aa2b7c870"
-  integrity sha512-eSXsXZ2jLvGWeLYlQA3Gh36BcjF+0amo92+wHPyN1mdR8Nxf75fuEuYTd9c0a+m/vhCjRK0ESlE9YNLW+E1VEw==
 
 urix@^0.1.0:
   version "0.1.0"
