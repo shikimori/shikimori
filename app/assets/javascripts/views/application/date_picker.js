@@ -4,7 +4,7 @@ import dayjs from 'helpers/dayjs';
 const INPUT_FORMAT = 'YYYY-MM-DD';
 
 export class DatePicker extends View {
-  async initialize() {
+  initialize() {
     import(/* webpackChunkName: "pikaday" */ 'pikaday/scss/pikaday.scss');
     this.initPromise = import(/* webpackChunkName: "pikaday" */ 'vendor/async/pikaday')
       .then(Pikaday => this._initPicker(Pikaday.default));
@@ -46,7 +46,7 @@ export class DatePicker extends View {
     }
 
     this.$root
-      .on('keypress', e => {
+      .on('keydown', e => {
         if (e.keyCode === 13) {
           this.$root.trigger('date:picked');
         }
