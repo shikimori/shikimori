@@ -9,6 +9,9 @@ import View from 'views/application/view';
 import csrf from 'helpers/csrf';
 import axios from 'helpers/axios';
 
+const VUE_PENDING_CLASS = 'vue-node'
+const VUE_INITIALIZED_CLASS = 'vue-node-initialized'
+
 export default class ShikiEditorV2 extends View {
   initialization = pDefer()
   processedInitialContent = null
@@ -62,9 +65,13 @@ export default class ShikiEditorV2 extends View {
   get text() { return this.editorContent; }
 
   async _buildEditor() {
-    this.vueNode = this.node.querySelector('.vue-app');
+    this.vueNode = this.node.querySelector(`.${VUE_PENDING_CLASS}`);
     this.input = this.node.querySelector('input');
     this.appPlaceholder = this.node.querySelector('.app-placeholder')
+
+    if (!this.vueNode) {
+      this._rebuildNodes();
+    }
 
     const [
       { Vue },
@@ -83,6 +90,16 @@ export default class ShikiEditorV2 extends View {
 
     this._bindForm();
     this._scheduleDestroy();
+  }
+
+  _rebuildNodes() {
+    this.node.querySelector(`.${VUE_INITIALIZED_CLASS}`)?.remove();
+
+    this.appPlaceholder.classList.remove('hidden');
+
+    this.vueNode = document.createElement('div');
+    this.vueNode.classList.add(VUE_PENDING_CLASS);
+    this.node.insertBefore(this.vueNode, this.node.querySelector('footer'));
   }
 
   replyComment(reply, isOfftopic) {
@@ -178,6 +195,7 @@ export default class ShikiEditorV2 extends View {
           localizationField,
           previewParams: this.$node.data('preview_params')
         },
+        class: VUE_INITIALIZED_CLASS,
         on: {
           preview({ node, JS_EXPORTS }) {
             $(node).process(JS_EXPORTS);
@@ -306,11 +324,11 @@ export default class ShikiEditorV2 extends View {
       this._writeCacheValue(this.editorContent);
     }
 
-    this.app?.$destroy();
-    this.vueNode.remove();
+    // this.app?.$destroy();
+    // this.vueNode.remove();
 
-    this.vueNode = document.createElement('div');
-    this.vueNode.classList.add('vue-app');
-    this.node.insertBefore(this.vueNode, this.node.querySelector('footer'));
+    // this.vueNode = document.createElement('div');
+    // this.vueNode.classList.add('vue-app');
+    // this.node.insertBefore(this.vueNode, this.node.querySelector('footer'));
   }
 }
