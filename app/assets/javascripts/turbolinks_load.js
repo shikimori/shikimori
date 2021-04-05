@@ -1,14 +1,14 @@
 import Turbolinks from 'turbolinks';
-import bowser from 'bowser';
+// import bowser from 'bowser';
 import cookies from 'js-cookie';
 import { flash } from 'shiki-utils';
 
 $(document).on('turbolinks:load', () => {
   window.flash = flash;
 
-  document.body.classList.add(
-    bowser.name.toLowerCase().replace(/ /g, '_')
-  );
+  // document.body.classList.add(
+  //   bowser.name.toLowerCase().replace(/ /g, '_')
+  // );
 
   $('p.flash-notice').each((k, v) => {
     if (v.innerHTML.length) { flash.notice(v.innerHTML); }
