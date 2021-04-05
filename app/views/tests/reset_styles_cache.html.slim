@@ -1,6 +1,6 @@
 - if request.post?
   - if @was_exist || @count > 0
-    .subheadline.green Success. Url is used in #{pluralize @count, 'style'}
+    .subheadline.green Success. Url is used in #{pluralize @count, 'style', plural: 'styles'}
   - else
     .subheadline.red Cache entry not found
 - else
