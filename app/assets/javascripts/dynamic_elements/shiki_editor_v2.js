@@ -15,6 +15,7 @@ const VUE_INITIALIZED_CLASS = 'vue-node-initialized'
 export default class ShikiEditorV2 extends View {
   initialization = pDefer()
   processedInitialContent = null
+  isPendingSubmit = false
 
   async initialize() {
     await this._buildEditor();
@@ -265,6 +266,7 @@ export default class ShikiEditorV2 extends View {
   @bind
   _formSubmit() {
     this.input.value = this.editorContent;
+    this.isPendingSubmit = true;
   }
 
   @bind
@@ -320,15 +322,12 @@ export default class ShikiEditorV2 extends View {
     this.$form.off('ajax:complete', this._formAjaxComplete);
     this.$form.off('ajax:success', this._formAjaxSuccess);
 
-    if (this.app) {
+    if (!this.app) { return; }
+
+    if (this.isPendingSubmit) {
+      this._clearCacheValue();
+    } else {
       this._writeCacheValue(this.editorContent);
     }
-
-    // this.app?.$destroy();
-    // this.vueNode.remove();
-
-    // this.vueNode = document.createElement('div');
-    // this.vueNode.classList.add('vue-app');
-    // this.node.insertBefore(this.vueNode, this.node.querySelector('footer'));
   }
 }
