@@ -1,5 +1,3 @@
-import Cosplay from 'views/animes/cosplay';
-
 pageLoad('characters_show', async () => {
   $('.text').checkHeight({ maxHeight: 200 });
 
@@ -22,6 +20,9 @@ pageLoad('characters_art', async () => {
 
   new ImageboardsGallery('.b-gallery');
 });
-pageLoad('characters_cosplay', () => {
+pageLoad('characters_cosplay', async () => {
+  const { Cosplay } = await import(
+    /* webpackChunkName: "animes_cosplay" */ 'views/animes/cosplay'
+  );
   new Cosplay('.l-content');
 });

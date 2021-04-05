@@ -1,7 +1,7 @@
 import View from 'views/application/view';
 import { bind } from 'shiki-decorators';
 
-export default class Cosplay extends View {
+export class Cosplay extends View {
   initialize() {
     this._initGalleries();
     this.on('postloader:success', this._initGalleries);
