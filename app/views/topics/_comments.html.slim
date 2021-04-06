@@ -26,4 +26,4 @@
       comment: comments_view.new_comment,
       cache_key: comments_view.respond_to?(:topic) ? \
         "#{comments_view.topic.cache_key}/reply" : \
-        comments_view.comment.cache_key
+        comments_view.comment.topic.cache_key

@@ -151,8 +151,7 @@ export default class ShikiEditorV2 extends View {
 
     const cachedValue = this._readCacheValue()
     if (cachedValue && cachedValue !== this.processedInitialContent) {
-      this.editorApp.setContent(cachedValue);
-      this.processedInitialContent = cachedValue;
+      this.editorApp.setUnsavedContent(cachedValue);
     }
   }
 
@@ -244,7 +243,10 @@ export default class ShikiEditorV2 extends View {
   _writeCacheValue(value) {
     const trimmedValue = value?.trim();
 
-    if (!trimmedValue) { return this._clearCacheValue(); }
+    if (!trimmedValue) {
+      if (this.editorApp.unsavedContent) { return; }
+      return this._clearCacheValue();
+    }
 
     if (this.cacheKey && this.isSessionStorageAvailable) {
       if (trimmedValue !== this.processedInitialContent) {
