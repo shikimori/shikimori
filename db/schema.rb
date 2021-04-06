@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_29_052857) do
+ActiveRecord::Schema.define(version: 2021_04_06_130216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1062,7 +1062,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_052857) do
     t.boolean "apply_user_styles", default: true, null: false
     t.integer "favorites_in_profile", default: 8, null: false
     t.boolean "achievements_in_profile", default: true, null: false
-    t.string "dashboard_type", default: "old", null: false
+    t.string "dashboard_type", default: "new", null: false
     t.boolean "is_shiki_editor", default: false, null: false
     t.index ["user_id"], name: "index_profile_settings_on_user_id"
   end

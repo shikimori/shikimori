@@ -1,8 +1,8 @@
 class DashboardsController < ShikimoriController
   before_action do
-    @view = current_user&.preferences&.dashboard_type_new? ?
-      DashboardViewV2.new :
-      DashboardView.new
+    @view = current_user&.preferences&.dashboard_type_old? ?
+      DashboardView.new :
+      DashboardViewV2.new
     @view.cache_keys.values
     # @view = DashboardViewV2.new if Rails.env.development?
   end
