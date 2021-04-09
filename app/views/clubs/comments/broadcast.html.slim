@@ -12,4 +12,5 @@
     = render 'blocks/shiki_editor',
       text: @new_comment.body,
       field_name: 'comment[body]',
-      f: f
+      f: f,
+      cache_key: "#{@resource.cache_key}/broadcast"
