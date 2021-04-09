@@ -26,26 +26,21 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
   end
 
   def advance_members round, _prior_round
-    ids_to_wins = @statistics.sorted_scores
+    ids_by_wins = @statistics.sorted_scores
 
     round.matches.each do |match|
-      group_half_len = top_group_length(ids_to_wins) >> 1
-      rest_ids = ids_to_wins.keys
-      top_half = rest_ids.shift(group_half_len)
-      low_half = rest_ids.shift(group_half_len)
+      ids = ids_by_wins.keys
 
-      left_id = top_half.shift
-      right_id = (
-        low_half + top_half.reverse! + rest_ids -
-        @statistics.opponents_of(left_id)
-      ).first
+      left_id = ids.shift
+      right_id = (ids - @statistics.opponents_of(left_id)).first
 
-      ids_to_wins.delete left_id
+      ids_by_wins.delete left_id
+
       if right_id
-        ids_to_wins.delete right_id
+        ids_by_wins.delete right_id
       else
         # taking key of first key=>value pair
-        right_id = ids_to_wins.shift.try(:first)
+        right_id = ids_by_wins.shift.try(:first)
       end
 
       match_check_and_update(match, left_id, right_id)
@@ -66,24 +61,6 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
       right_id: right_id,
       right_type: @contest.member_klass.name
     )
-  end
-
-  def top_group_length sorted_hash
-    len = sorted_hash.length
-    return len if len < 3
-
-    ids = sorted_hash.keys.drop(1)
-    # we don't bother of first element's wins;
-    # even with higher number of wins, it belongs to this group, not to previous
-
-    group_wins = sorted_hash[ids.first]
-    group_len = 1
-    ids.each do |id|
-      break unless sorted_hash[id] == group_wins
-
-      group_len += 1
-    end
-    group_len
   end
 
   def advance_loser match

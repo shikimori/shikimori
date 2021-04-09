@@ -70,7 +70,7 @@ describe Contest::SwissStrategy do
 
     before do
       Contest::Start.call contest
-      contest.rounds.flat_map(&:matches).each_with_index do |match, index|
+      contest.rounds.flat_map(&:matches).each do |match|
         match.update(
           started_on: Time.zone.yesterday,
           finished_on: Time.zone.yesterday,
@@ -119,8 +119,8 @@ describe Contest::SwissStrategy do
           expect(contest.rounds[1].matches[0].left_id).to eq w1.id
           expect(contest.rounds[1].matches[0].right_id).to eq w2.id
           expect(contest.rounds[1].matches[1].left_id).to eq w3.id
-          expect(contest.rounds[1].matches[1].right_id).to eq l2.id
-          expect(contest.rounds[1].matches[2].left_id).to eq l1.id
+          expect(contest.rounds[1].matches[1].right_id).to eq l1.id
+          expect(contest.rounds[1].matches[2].left_id).to eq l2.id
           expect(contest.rounds[1].matches[2].right_id).to eq l3.id
         end
       end
@@ -131,8 +131,8 @@ describe Contest::SwissStrategy do
         it 'choose members which were not opponents in previous matches' do
           expect(contest.rounds[2].matches[0].left_id).to eq w1.id
           expect(contest.rounds[2].matches[0].right_id).to eq w3.id
-          expect(contest.rounds[2].matches[1].left_id).to eq l1.id
-          expect(contest.rounds[2].matches[1].right_id).to eq w2.id
+          expect(contest.rounds[2].matches[1].left_id).to eq w2.id
+          expect(contest.rounds[2].matches[1].right_id).to eq l1.id
           expect(contest.rounds[2].matches[2].left_id).to eq l2.id
           expect(contest.rounds[2].matches[2].right_id).to eq l3.id
         end
