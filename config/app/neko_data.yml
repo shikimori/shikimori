@@ -8707,6 +8707,7 @@
         - 36873
         - 17895
         - 31733
+        - 43692
       :generator:
         person_id: 6831
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -31011,6 +31012,7 @@
         - 32900
         - 40497
         - 34561
+        - 40028
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -31424,6 +31426,7 @@
         - 32900
         - 40497
         - 34561
+        - 40028
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -31839,6 +31842,7 @@
         - 32900
         - 40497
         - 34561
+        - 40028
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
