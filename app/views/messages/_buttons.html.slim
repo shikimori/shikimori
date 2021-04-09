@@ -88,6 +88,12 @@ aside.buttons
           title=t('actions.reply')
           data-text=t('actions.reply')
         ]
+      - elsif message.kind == MessageType::CLUB_BROADCAST
+        a.item-reply[
+          href=comment_url(message.linked)
+          title=t('actions.reply')
+          data-text=t('actions.reply')
+        ]
 
       - if can? :destroy, message
         span.item-delete[
