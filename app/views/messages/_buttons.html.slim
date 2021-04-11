@@ -82,15 +82,9 @@ aside.buttons
             data-remote='true'
           ]
 
-      - elsif message.kind == MessageType::QUOTED_BY_USER
+      - elsif message.reply_url.present?
         a.item-reply[
-          href=reply_comment_url(message.linked)
-          title=t('actions.reply')
-          data-text=t('actions.reply')
-        ]
-      - elsif message.kind == MessageType::CLUB_BROADCAST
-        a.item-reply[
-          href=comment_url(message.linked)
+          href=message.reply_url
           title=t('actions.reply')
           data-text=t('actions.reply')
         ]

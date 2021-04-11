@@ -66,6 +66,14 @@ class Forums::View < ViewObjectBase
     Forums::Form.new
   end
 
+  def redirect_url
+    h.url_for linked
+  end
+
+  def hidden?
+    @forum == 'hidden'
+  end
+
 private
 
   def user_subscriptions

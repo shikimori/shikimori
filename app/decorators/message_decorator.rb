@@ -91,6 +91,16 @@ class MessageDecorator < BaseDecorator
     nil
   end
 
+  def reply_url
+    if kind == MessageType::CLUB_BROADCAST
+      return h.comment_url(linked)
+    end
+
+    return if kind != MessageType::QUOTED_BY_USER
+
+    h.reply_comment_url linked
+  end
+
 private
 
   def anime_related?

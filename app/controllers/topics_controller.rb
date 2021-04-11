@@ -32,6 +32,7 @@ class TopicsController < ShikimoriController
   def show
     # новости аниме без комментариев поисковым системам не скармливаем
     return render :missing if @resource.is_a? NoTopic
+    return redirect_to @forums_view.redirect_url if @forums_view.hidden?
 
     raise AgeRestricted if @resource&.linked.try(:censored?) && censored_forbidden?
 
