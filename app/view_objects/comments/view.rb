@@ -33,7 +33,7 @@ class Comments::View < Topics::FoldedCommentsView
       commentable_id: comment.commentable_id,
       commentable_type: comment.commentable_type,
       body: is_reply ?
-        "[comment=#{comment.id}]#{comment.user.nickname}[/comment], " :
+        "[comment=#{comment.id};#{comment.user_id}], " :
         ''
     )
   end
