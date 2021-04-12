@@ -33,11 +33,8 @@ export default class PaginatedCatalog {
       .on('click', '.link', this._onPaginationLinkClick)
       .on('click', '.no-hover', this._onPaginationPageSelect);
 
-    this.filters = new CatalogFilters(
-      basePath,
-      window.location.href,
-      this.load
-    );
+    this.filters =
+      new CatalogFilters(basePath, window.location.href, this.load);
   }
 
   @bind
@@ -150,7 +147,10 @@ export default class PaginatedCatalog {
       return;
     }
 
-    if (window.location.href === absoulteUrl) {
+    if (
+      window.location.href === absoulteUrl ||
+      decodeURI(window.location.href) == absoulteUrl
+    ) {
       this._processResponse(data, absoulteUrl);
     }
   }
