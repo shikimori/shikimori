@@ -8,5 +8,5 @@ test:
   prefix: 'shikimori_test'
 production:
   <<: *development
-  host: <%=ENV['USER'] != 'morr' ? '192.168.0.2:9200' : 'localhost:9200' %>
+  host: 'localhost:9200'
   prefix: <%=ENV['USER'] != 'morr' ? 'shikimori_production' : 'shikimori_development' %>

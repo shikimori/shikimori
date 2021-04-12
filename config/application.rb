@@ -157,9 +157,7 @@ module Shikimori
 
     config.active_record.cache_versioning = true
 
-    config.redis_host = Rails.env.production? && ENV['USER'] != 'morr' ?
-      '192.168.0.3' :
-      'localhost'
+    config.redis_host = 'localhost'
     config.redis_db = 2
 
     # достали эксепшены с ханибаджера
@@ -172,8 +170,7 @@ module Shikimori
       185.62.190.16
       88.198.7.123
       159.69.114.227
-      192.168.0.3
-      192.168.0.2
+      135.181.210.175
     ).map do |proxy|
       IPAddr.new proxy
     end
