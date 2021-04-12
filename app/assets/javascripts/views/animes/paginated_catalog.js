@@ -1,5 +1,6 @@
 import Turbolinks from 'turbolinks';
 import { flash } from 'shiki-utils';
+import { bind } from 'shiki-decorators';
 
 import UserRatesTracker from 'services/user_rates/tracker';
 import ajaxCacher from 'services/ajax_cacher';
@@ -26,21 +27,20 @@ export default class PaginatedCatalog {
 
     this.pageChange = {};
 
-    this.$content.on(
-      'postloader:before',
-      (_e, $content, $data) => this._onPageLoadByScroll($content, $data)
-    );
+    this.$content
+      .on('postloader:before', this._onPageLoadByScroll);
     this.$pagination
-      .on('click', '.link', e => this._onPaginationLinkClick(e))
-      .on('click', '.no-hover', e => this._onPaginationPageSelect(e));
+      .on('click', '.link', this._onPaginationLinkClick)
+      .on('click', '.no-hover', this._onPaginationPageSelect);
 
     this.filters = new CatalogFilters(
       basePath,
       window.location.href,
-      this.load.bind(this)
+      this.load
     );
   }
 
+  @bind
   load(url) {
     window.history.pushState({ turbolinks: true, url }, '', url);
 
@@ -49,6 +49,7 @@ export default class PaginatedCatalog {
   }
 
   // events
+  @bind
   _onPaginationLinkClick(e) {
     if (inNewTab(e)) { return; }
 
@@ -64,6 +65,7 @@ export default class PaginatedCatalog {
     this.load($link.attr('href'));
   }
 
+  @bind
   _onPaginationPageSelect({ currentTarget }) {
     const $link = $(currentTarget).find('.link-current');
 
@@ -93,7 +95,8 @@ export default class PaginatedCatalog {
       });
   }
 
-  _onPageLoadByScroll($content, data) {
+  @bind
+  _onPageLoadByScroll(_e, $content, data) {
     const pages = this.$linkCurrent.html().split('-').map(parseInt);
     const { page: currentPage, pages_count: pagesCount } = data;
     const isLastPage = currentPage === pagesCount;

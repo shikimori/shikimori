@@ -1,7 +1,5 @@
 import PaginatedCatalog from 'views/animes/paginated_catalog';
 
-// let paginatedCatalog = null;
-
 pageLoad('animes_collection_index', 'recommendations_index', 'userlist_comparer_show', () => {
   if ($('.l-menu [data-dynamic=postloaded]').exists()) {
     $('.l-menu').one('postloaded:success', initCatalog);
@@ -33,6 +31,4 @@ pageUnload('animes_collection_index', 'recommendations_index', 'userlist_compare
       .removeClass('item-add')
       .addClass('item-minus');
   }
-
-  // paginatedCatalog.bind_history()
 });
