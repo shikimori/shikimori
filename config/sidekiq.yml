@@ -5,7 +5,7 @@ staging:
   :concurrency: 5
 
 production:
-  :concurrency: 60
+  :concurrency: 80
 
 :queues:
   - [high_priority, 8]
