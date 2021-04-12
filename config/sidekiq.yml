@@ -23,7 +23,6 @@ production:
   - [low_priority, 1]
   - [mailers, 5]
   - [imports, 4]
-  - [achievements, 6]
   - [chewy, 10]
   - [dangerous_actions, 8]
 
