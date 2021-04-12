@@ -8,7 +8,7 @@ module Rack::Attack::Request::RealIpFix
 end
 Rack::Attack::Request.send :include, Rack::Attack::Request::RealIpFix
 
-NEKO_IP = '88.198.7.116'
+NEKO_IP = '135.181.210.175'
 SMOTRET_ANIME_USER_AGENT = 'Anime 365 (https://smotretanime.ru/; info@smotretanime.ru)'
 
 Rack::Attack.safelist('neko') do |req|
