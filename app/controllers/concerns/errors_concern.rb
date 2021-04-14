@@ -98,7 +98,9 @@ private
       safe_params.merge(copyrighted_resource_id_key => resource.to_param, ignore302: nil)
     )
 
-    if %w[rss os json].include?(request.format) || params[:ignore302] == '1'
+    if user_signed_in? ||
+        %w[rss os json].include?(request.format) ||
+        params[:ignore302] == '1'
       redirect_to @new_url, status: :moved_permanently
     else
       render 'pages/page_moved.html', layout: false, status: :not_found, formats: :html
