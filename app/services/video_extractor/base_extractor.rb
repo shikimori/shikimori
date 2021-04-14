@@ -101,9 +101,10 @@ private
   end
 
   def fetch_page url
-    OpenURI.open_uri(
-      video_api_url(url),
-      self.class::OPEN_URI_OPTIONS
-    ).read
+    OpenURI.open_uri(video_api_url(url), open_uri_options).read
+  end
+
+  def open_uri_options
+    self.class::OPEN_URI_OPTIONS
   end
 end

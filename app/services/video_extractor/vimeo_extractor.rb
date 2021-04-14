@@ -5,31 +5,33 @@ class VideoExtractor::VimeoExtractor < VideoExtractor::BaseExtractor
     )
   }xi
 
-  def video_api_url
-    'https://api.vimeo.com/videos/' + video_id
+private
+
+  def video_id url
+    url.match(self.class::URL_REGEX)[:id]
   end
 
-  def video_id
-    @video_id ||= url.match(self.class::URL_REGEX)[:id]
+  def video_api_url url
+    'https://api.vimeo.com/videos/' + video_id(url)
   end
 
-  def image_url
-    parsed_data.first
+  def extract_image_url data
+    data.first
   end
 
-  def player_url
-    "//player.vimeo.com/video/#{parsed_data.second}"
+  def extract_player_url data
+    "//player.vimeo.com/video/#{data.second}"
   end
 
-  def parse_data json
+  def parse_data json, url
     data = JSON.parse(json, symbolize_names: true)
     image = data.dig(:pictures, :sizes, 3, :link)
 
-    [image, video_id] if image
+    [image, video_id(url)] if image
   end
 
-  def fetch_page
-    OpenURI.open_uri(video_api_url, { 'Authorization' => "Bearer #{access_token}" }).read
+  def open_uri_options
+    super.merge('Authorization' => "Bearer #{access_token}")
   end
 
   def access_token
