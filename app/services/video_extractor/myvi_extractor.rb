@@ -4,14 +4,12 @@ class VideoExtractor::MyviExtractor < VideoExtractor::OpenGraphExtractor
       (?<hosting>myvi).(?:top|tv)/id\w+\?v=[\wА-я_-]+#{PARAMS}
     )
   }xi
+  URL_REPLACEMENT = %r{//myvi\.(?:tv|top)}
 
 private
 
   def normalize_url url
-    'https:' +
-      Url.new(
-        super.gsub('//myvi.tv', '//myvi.top')
-      ).add_www.without_protocol.to_s
+    super.gsub(URL_REPLACEMENT, '//www.myvi.top')
   end
 
   def extract_image_url url
