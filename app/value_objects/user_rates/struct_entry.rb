@@ -2,6 +2,7 @@ UserRates::StructEntry = Struct.new(
   :id,
   :score,
   :text,
+  :text_html,
   :episodes,
   :volumes,
   :chapters,
@@ -39,6 +40,7 @@ class UserRates::StructEntry
       user_rate.id,
       user_rate.score,
       user_rate.text,
+      user_rate.text_html,
       user_rate.episodes,
       user_rate.volumes,
       user_rate.chapters,
@@ -60,9 +62,5 @@ class UserRates::StructEntry
       target.ongoing?,
       target.anons?
     )
-  end
-
-  def text_html
-    BbCodes::CachedText.call text
   end
 end
