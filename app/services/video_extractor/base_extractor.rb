@@ -15,14 +15,8 @@ class VideoExtractor::BaseExtractor
     read_timeout: 7
   }
 
-  def url
-    @parsed_url ||= @url if URI.parse @url
-  rescue StandardError
-    @parsed_url ||= URI.encode(@url)
-  end
-
-  def video_data_url
-    url
+  def self.valid_url? url
+    url.match? self::URL_REGEX
   end
 
   def fetch
@@ -39,6 +33,18 @@ class VideoExtractor::BaseExtractor
     nil
   end
 
+private
+
+  def url
+    @parsed_url ||= @url if URI.parse @url
+  rescue StandardError
+    @parsed_url ||= URI.encode(@url)
+  end
+
+  def video_data_url
+    url
+  end
+
   def hosting
     self
       .class
@@ -51,14 +57,6 @@ class VideoExtractor::BaseExtractor
 
   def valid_url?
     self.class.valid_url? url
-  end
-
-  def opengraph_page?
-    parsed_data.present?
-  end
-
-  def self.valid_url? url
-    url.match? self::URL_REGEX
   end
 
   def fetch_and_build_entry

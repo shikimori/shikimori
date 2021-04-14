@@ -8,6 +8,8 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
 
   TOO_MANY_REQUESTS_EROOR_CODE = 6
 
+private
+
   def url
     self.class.normalize_url super
   end

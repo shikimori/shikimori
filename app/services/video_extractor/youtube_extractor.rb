@@ -1,5 +1,4 @@
 class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
-  # rubocop:disable RedundantRegexpEscape
   URL_REGEX = %r{
     (?:https?:)? // (?:www\.)?
     (?:
@@ -22,7 +21,8 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
       (?:\?start=(?<time>\w+))?
     )
   }xi
-  # rubocop:enable RedundantRegexpEscape
+
+private
 
   def image_url
     "//img.youtube.com/vi/#{matches[:key]}/hqdefault.jpg"
@@ -36,6 +36,11 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
   def matches
     @matches ||= url.match URL_REGEX
   end
+
+  # def parsed_data
+  #   Videos::ExtractedEntry.new(
+  #   )
+  # end
 
   # def exists?
   #   # задержка, т.к. ютуб блочит при частых запросах

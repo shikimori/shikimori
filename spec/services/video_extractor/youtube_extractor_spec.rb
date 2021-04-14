@@ -1,5 +1,5 @@
 describe VideoExtractor::YoutubeExtractor do
-  let(:service) { VideoExtractor::YoutubeExtractor.new url }
+  let(:service) { described_class.new url }
 
   describe '#fetch' do
     subject { service.fetch }
