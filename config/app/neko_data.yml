@@ -7819,6 +7819,8 @@
         - 44213
         - 6554
         - 1292
+        - 39022
+        - 3323
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
