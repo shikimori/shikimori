@@ -37,10 +37,6 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
     @matches ||= url.match URL_REGEX
   end
 
-  def opengraph_page?
-    true
-  end
-
   # def exists?
   #   # задержка, т.к. ютуб блочит при частых запросах
   #   sleep 1 unless Rails.env.test?
