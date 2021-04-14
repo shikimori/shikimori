@@ -1,8 +1,8 @@
 describe VideoExtractor::MyviExtractor, :vcr do
-  let(:service) { described_class.new url }
+  let(:service) { described_class.instance }
 
   describe 'fetch' do
-    subject { service.fetch }
+    subject { service.fetch url }
     let(:url) do
       [
         'https://www.myvi.top/idaofy?v=kcptso3b1mpr8n8fc3xyof5tyh',

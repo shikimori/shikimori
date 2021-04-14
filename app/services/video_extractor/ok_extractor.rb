@@ -4,6 +4,8 @@ class VideoExtractor::OkExtractor < VideoExtractor::OpenGraphExtractor
     (?<hosting>ok).ru/(videoembed|live|video)/(?<key>[\wА-я_-]+)#{PARAMS}
   }mix
 
+private
+
   def normalize_url url
     super.gsub %r{/(?:videoembed|live)/}, '/video/'
   end
