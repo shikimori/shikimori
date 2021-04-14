@@ -8,6 +8,7 @@ class Profiles::LibraryView < ViewObjectBase
     'lines' => 400,
     'posters' => 50
   }
+  CACHE_VERSION = :v9
 
   def each
     list_page.each do |entry|
@@ -169,12 +170,11 @@ private
   def cache_key
     [
       :user_list,
-      :v8,
       @user.cache_key,
       @user.rate_at || @user.updated_at,
       Digest::MD5.hexdigest(h.request.url.gsub(/\.json$/, '').gsub(%r{/page/\d+}, '')),
-      sort_order
-      # h.user_signed_in? ? h.current_user.preferences.russian_names? : false
+      sort_order,
+      CACHE_VERSION
     ]
   end
 
