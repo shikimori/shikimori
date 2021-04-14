@@ -1,40 +1,56 @@
 describe VideoExtractor::YoutubeExtractor do
-  let(:service) { described_class.new url }
+  let(:service) { described_class.instance }
 
   describe '#fetch' do
-    subject { service.fetch }
+    subject { service.fetch url }
 
     context 'valid_url' do
       context 'common case' do
         let(:url) { 'http://www.youtube.com/watch?v=VdwKZ6JDENc' }
 
-        its(:hosting) { is_expected.to eq :youtube }
-        its(:image_url) { is_expected.to eq '//img.youtube.com/vi/VdwKZ6JDENc/hqdefault.jpg' }
-        its(:player_url) { is_expected.to eq '//youtube.com/embed/VdwKZ6JDENc' }
+        it do
+          is_expected.to have_attributes(
+            hosting: :youtube,
+            image_url: '//img.youtube.com/vi/VdwKZ6JDENc/hqdefault.jpg',
+            player_url: '//youtube.com/embed/VdwKZ6JDENc'
+          )
+        end
       end
 
       context 'youtu.be' do
         let(:url) { 'http://youtu.be/n5qqfOXRRaA?t=3m3s' }
 
-        its(:hosting) { is_expected.to eq :youtube }
-        its(:image_url) { is_expected.to eq '//img.youtube.com/vi/n5qqfOXRRaA/hqdefault.jpg' }
-        its(:player_url) { is_expected.to eq '//youtube.com/embed/n5qqfOXRRaA?start=3m3s' }
+        it do
+          is_expected.to have_attributes(
+            hosting: :youtube,
+            image_url: '//img.youtube.com/vi/n5qqfOXRRaA/hqdefault.jpg',
+            player_url: '//youtube.com/embed/n5qqfOXRRaA?start=3m3s'
+          )
+        end
       end
 
       context 'embed url' do
         let(:url) { 'https://www.youtube.com/embed/paezRkeNr5Q?start=3m3s' }
 
-        its(:hosting) { is_expected.to eq :youtube }
-        its(:image_url) { is_expected.to eq '//img.youtube.com/vi/paezRkeNr5Q/hqdefault.jpg' }
-        its(:player_url) { is_expected.to eq '//youtube.com/embed/paezRkeNr5Q?start=3m3s' }
+        it do
+          is_expected.to have_attributes(
+            hosting: :youtube,
+            image_url: '//img.youtube.com/vi/paezRkeNr5Q/hqdefault.jpg',
+            player_url: '//youtube.com/embed/paezRkeNr5Q?start=3m3s'
+          )
+        end
       end
 
       context 'www.youtube.com/v/' do
         let(:url) { '//www.youtube.com/embed/paezRkeNr5Q?start=5s' }
 
-        its(:hosting) { is_expected.to eq :youtube }
-        its(:image_url) { is_expected.to eq '//img.youtube.com/vi/paezRkeNr5Q/hqdefault.jpg' }
-        its(:player_url) { is_expected.to eq '//youtube.com/embed/paezRkeNr5Q?start=5s' }
+        it do
+          is_expected.to have_attributes(
+            hosting: :youtube,
+            image_url: '//img.youtube.com/vi/paezRkeNr5Q/hqdefault.jpg',
+            player_url: '//youtube.com/embed/paezRkeNr5Q?start=5s'
+          )
+        end
       end
 
       context 'with time' do
@@ -45,37 +61,59 @@ describe VideoExtractor::YoutubeExtractor do
           ].sample
         end
 
-        its(:hosting) { is_expected.to eq :youtube }
-        its(:image_url) { is_expected.to eq '//img.youtube.com/vi/VdwKZ6JDENc/hqdefault.jpg' }
-        its(:player_url) { is_expected.to eq '//youtube.com/embed/VdwKZ6JDENc?start=123' }
+        it do
+          is_expected.to have_attributes(
+            hosting: :youtube,
+            image_url: '//img.youtube.com/vi/VdwKZ6JDENc/hqdefault.jpg',
+            player_url: '//youtube.com/embed/VdwKZ6JDENc?start=123'
+          )
+        end
       end
 
       context '& params after' do
         let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc&ff=vcxvcx' }
-        its(:player_url) { is_expected.to eq '//youtube.com/embed/VdwKZ6JDENc' }
+        it do
+          is_expected.to have_attributes(
+            player_url: '//youtube.com/embed/VdwKZ6JDENc'
+          )
+        end
       end
 
       context '&amp; params after' do
         let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc&amp;ff=vcxvcx' }
-        its(:player_url) { is_expected.to eq '//youtube.com/embed/VdwKZ6JDENc' }
+        it do
+          is_expected.to have_attributes(
+            player_url: '//youtube.com/embed/VdwKZ6JDENc'
+          )
+        end
       end
 
       context '& params before' do
         let(:url) { 'http://youtube.com/watch?sdfdsf=dfdfs&v=VdwKZ6JDENc' }
-        its(:player_url) { is_expected.to eq '//youtube.com/embed/VdwKZ6JDENc' }
-        it { is_expected.to be_present }
+        it do
+          is_expected.to have_attributes(
+            player_url: '//youtube.com/embed/VdwKZ6JDENc'
+          )
+        end
       end
 
       context '&amp; params before' do
         let(:url) { 'http://youtube.com/watch?sdfdsf=dfdfs&amp;v=VdwKZ6JDENc' }
-        its(:player_url) { is_expected.to eq '//youtube.com/embed/VdwKZ6JDENc' }
-        it { is_expected.to be_present }
+        it do
+          is_expected.to have_attributes(
+            player_url: '//youtube.com/embed/VdwKZ6JDENc'
+          )
+        end
       end
 
       context 'params_surrounded' do
         let(:url) { 'http://youtube.com/watch?sdfdsf=dfdfs&v=VdwKZ6JDENc&ff=vcxvcx#t=123' }
-        its(:player_url) { is_expected.to eq '//youtube.com/embed/VdwKZ6JDENc?start=123' }
-        it { is_expected.to be_present }
+
+        it do
+          is_expected.to have_attributes(
+            player_url: '//youtube.com/embed/VdwKZ6JDENc?start=123'
+          )
+        end
       end
     end
 

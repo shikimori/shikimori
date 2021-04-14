@@ -16,7 +16,7 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   # (?<hosting>mediafile).online/video/[\wА-я_-]+/[\wА-я_-]+/
 
   # freeze on attept to make request from shiki
-  # (?<hosting>stormo).(?:xyz|tv)/videos/[\wА-я_-]+/[\wА-я_-]+/ 
+  # (?<hosting>stormo).(?:xyz|tv)/videos/[\wА-я_-]+/[\wА-я_-]+/
 
   # myvi is banned in RF
   # (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS} |
@@ -41,25 +41,28 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
     meta[property='og:video:url']
   ]
 
-  def image_url
-    Url.new(parsed_data.first).without_protocol.to_s if parsed_data.first
+private
+
+  def extract_image_url data
+    Url.new(data.first).without_protocol.to_s if data.first
   end
 
-  def player_url
-    return unless parsed_data.second
-
-    Url.new(parsed_data.second).without_protocol.to_s
+  def extract_player_url data
+    Url.new(data.second).without_protocol.to_s if data.second
   end
 
-  def hosting
+  def extract_hosting url
     url.match(self.class::URL_REGEX) && $LAST_MATCH_INFO[:hosting].to_sym
   end
 
-  def parse_data html
-    doc = Nokogiri::HTML html
+  def parse_data content, url
+    doc = Nokogiri::HTML content
 
     og_image = doc.css(IMAGE_PROPERTIES.join(',')).first
-    og_video = (self.class::VIDEO_PROPERTIES_BY_HOSTING[hosting] || self.class::VIDEO_PROPERTIES)
+    og_video = (
+      self.class::VIDEO_PROPERTIES_BY_HOSTING[extract_hosting(url)] ||
+        self.class::VIDEO_PROPERTIES
+    )
       .map { |v| doc.css(v).first }
       .find(&:present?)
 

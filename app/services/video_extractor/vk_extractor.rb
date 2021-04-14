@@ -8,14 +8,14 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
 
   TOO_MANY_REQUESTS_EROOR_CODE = 6
 
-private
-
-  def url
-    self.class.normalize_url super
+  def normalize_url url
+    super(url).gsub('//vkontakte.ru', '//vk.com')
   end
 
-  def image_url
-    url = parsed_data[:photo_800] || parsed_data[:photo_320]
+private
+
+  def extract_image_url data
+    url = data[:photo_800] || data[:photo_320]
     return unless url
 
     Url
@@ -24,8 +24,8 @@ private
       .to_s
   end
 
-  def player_url
-    url = parsed_data[:player]
+  def extract_player_url data
+    url = data[:player]
     return unless url
 
     Url
@@ -36,20 +36,16 @@ private
       .gsub(/&api_hash=[^&]+/, '')
   end
 
-  def self.normalize_url url
-    url.gsub('http://', 'https://').gsub('//vkontakte.ru', '//vk.com')
-  end
-
-  def parse_data json
+  def parse_data json, _url
     json&.dig(:response, :items, 0) || {}
   end
 
-  def fetch_page
+  def fetch_page url
     @attempts ||= 1
 
     json =
       RedisMutex.with_lock('vk_request', block: 1) do
-        JSON.parse super, symbolize_names: true
+        JSON.parse super(url), symbolize_names: true
       end
 
     raise RetryError if json&.dig(:error, :error_code) == TOO_MANY_REQUESTS_EROOR_CODE
@@ -63,7 +59,7 @@ private
     retry
   end
 
-  def video_data_url
+  def video_api_url url
     matches = url.match(URL_REGEX)
 
     API_URL +

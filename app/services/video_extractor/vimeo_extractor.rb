@@ -5,7 +5,7 @@ class VideoExtractor::VimeoExtractor < VideoExtractor::BaseExtractor
     )
   }xi
 
-  def video_data_url
+  def video_api_url
     'https://api.vimeo.com/videos/' + video_id
   end
 
@@ -29,7 +29,7 @@ class VideoExtractor::VimeoExtractor < VideoExtractor::BaseExtractor
   end
 
   def fetch_page
-    OpenURI.open_uri(video_data_url, { 'Authorization' => "Bearer #{access_token}" }).read
+    OpenURI.open_uri(video_api_url, { 'Authorization' => "Bearer #{access_token}" }).read
   end
 
   def access_token

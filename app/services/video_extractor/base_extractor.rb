@@ -1,6 +1,7 @@
 class VideoExtractor::BaseExtractor
-  vattr_initialize :url
-  attr_implement :parse_data
+  include Singleton
+
+  attr_implement :parse_data, :extract_image_url, :extract_player_url
 
   ALLOWED_EXCEPTIONS = Network::FaradayGet::NET_ERRORS
   PARAMS = /(?:(?:\?|\#|&amp;|&)[\w=+%-]+)*/.source
@@ -15,37 +16,81 @@ class VideoExtractor::BaseExtractor
     read_timeout: 7
   }
 
-  def self.valid_url? url
-    url.match? self::URL_REGEX
+  def fetch url
+    fixed_url = normalize_url url
+    return unless valid_url? fixed_url
+
+    if remote_request_required?
+      fetch_remote fixed_url
+    else
+      fetch_local fixed_url
+    end
   end
 
-  def fetch
+  def fetch_remote url
     Retryable.retryable tries: 2, on: ALLOWED_EXCEPTIONS, sleep: 1 do
-      return unless valid_url?
-
-      entry = PgCache.fetch url, expires_in: 2.years do
-        fetch_and_build_entry
+      PgCache.fetch url, expires_in: 2.years do
+        fetch_and_build_entry url
       end
-
-      entry if entry&.image_url && entry&.player_url
     end
   rescue *(ALLOWED_EXCEPTIONS + [EmptyContentError])
     nil
   end
 
-private
+  def fetch_local url
+    match = url.match self.class::URL_REGEX
 
-  def url
-    @parsed_url ||= @url if URI.parse @url
-  rescue StandardError
-    @parsed_url ||= URI.encode(@url)
+    Videos::ExtractedEntry.new(
+      extract_hosting(url),
+      extract_image_url(match),
+      extract_player_url(match)
+    )
   end
 
-  def video_data_url
+  def valid_url? url
+    url.match? self.class::URL_REGEX
+  end
+
+  def normalize_url url
+    fixed_url = begin
+      url if URI.parse url
+    rescue StandardError
+      URI.encode url
+    end
+
+    fixed_url.gsub('http://', 'https://')
+  end
+
+private
+
+  def remote_request_required?
+    true
+  end
+
+  def fetch_and_build_entry url
+    NamedLogger.download_video.info "#{url} start"
+
+    content = fetch_page url
+    data = parse_data content, url if content.present?
+    entry = nil
+
+    if data.present?
+      entry = Videos::ExtractedEntry.new(
+        extract_hosting(url),
+        extract_image_url(data),
+        extract_player_url(data)
+      )
+    end
+
+    NamedLogger.download_video.info "#{url} end"
+    entry
+  end
+
+  def video_api_url url
     url
   end
 
-  def hosting
+  def extract_hosting _url
     self
       .class
       .name
@@ -55,28 +100,10 @@ private
       .to_sym
   end
 
-  def valid_url?
-    self.class.valid_url? url
-  end
-
-  def fetch_and_build_entry
-    NamedLogger.download_video.info "#{url} start"
-
-    entry =
-      if parsed_data.present?
-        Videos::ExtractedEntry.new(hosting, image_url, player_url)
-      end
-
-    NamedLogger.download_video.info "#{url} end"
-    entry
-  end
-
-  def parsed_data
-    @parsed_data ||= {}
-    @parsed_data[url] ||= parse_data(fetch_page)
-  end
-
-  def fetch_page
-    OpenURI.open_uri(video_data_url, self.class::OPEN_URI_OPTIONS).read
+  def fetch_page url
+    OpenURI.open_uri(
+      video_api_url(url),
+      self.class::OPEN_URI_OPTIONS
+    ).read
   end
 end

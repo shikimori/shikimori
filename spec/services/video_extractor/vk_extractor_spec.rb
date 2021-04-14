@@ -1,8 +1,8 @@
 describe VideoExtractor::VkExtractor, :vcr do
-  let(:service) { described_class.new url }
+  let(:service) { described_class.instance }
 
   describe '#fetch' do
-    subject { service.fetch }
+    subject { service.fetch url }
 
     context 'valid_url' do
       context 'common' do
@@ -47,8 +47,8 @@ describe VideoExtractor::VkExtractor, :vcr do
     end
   end
 
-  describe '.normalize_url' do
-    subject { described_class.normalize_url url }
+  describe '#normalize_url' do
+    subject { service.normalize_url url }
     let(:url) { 'http://vkontakte.ru/video17174270_167070090' }
 
     it { is_expected.to eq 'https://vk.com/video17174270_167070090' }

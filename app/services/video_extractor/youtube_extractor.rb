@@ -24,23 +24,18 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
 
 private
 
-  def image_url
-    "//img.youtube.com/vi/#{matches[:key]}/hqdefault.jpg"
+  def remote_request_required?
+    false
   end
 
-  def player_url
-    "//youtube.com/embed/#{matches[:key]}" +
-      (matches[:time].present? ? "?start=#{matches[:time]}" : '')
+  def extract_image_url match
+    "//img.youtube.com/vi/#{match[:key]}/hqdefault.jpg"
   end
 
-  def matches
-    @matches ||= url.match URL_REGEX
+  def extract_player_url match
+    "//youtube.com/embed/#{match[:key]}" +
+      (match[:time].present? ? "?start=#{match[:time]}" : '')
   end
-
-  # def parsed_data
-  #   Videos::ExtractedEntry.new(
-  #   )
-  # end
 
   # def exists?
   #   # задержка, т.к. ютуб блочит при частых запросах

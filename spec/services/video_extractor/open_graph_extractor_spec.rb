@@ -1,8 +1,8 @@
 describe VideoExtractor::OpenGraphExtractor, :vcr do
-  let(:service) { described_class.new url }
+  let(:service) { described_class.instance }
 
   describe '#fetch' do
-    subject { service.fetch }
+    subject { service.fetch url }
 
     # context 'twitch' do
     #   context do
@@ -34,8 +34,13 @@ describe VideoExtractor::OpenGraphExtractor, :vcr do
       let(:url) { 'http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi' }
 
       its(:hosting) { is_expected.to eq :sibnet }
-      its(:image_url) { is_expected.to eq '//video.sibnet.ru/upload/cover/video_1234982_0.jpg' }
-      its(:player_url) { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1234982' }
+      it do
+        is_expected.to have_attributes(
+          hosting: :sibnet,
+          image_url: '//video.sibnet.ru/upload/cover/video_1234982_0.jpg',
+          player_url: '//video.sibnet.ru/shell.php?videoid=1234982'
+        )
+      end
 
       context 'broken_video' do
         let(:url) { 'http://video.sibnet.ru/video996603-Kyou_no_Asuka_Show_1_5_serii__rus__sub_' }
@@ -43,11 +48,15 @@ describe VideoExtractor::OpenGraphExtractor, :vcr do
       end
 
       context 'embed url' do
-        let(:url) { 'https://video.sibnet.ru/shell.php?videoid=3510020' }
+        let(:url) { 'https://video.sibnet.ru/shell.php?videoid=1234982' }
 
-        its(:hosting) { is_expected.to eq :sibnet }
-        its(:image_url) { is_expected.to eq '//video.sibnet.ru/upload/cover/video_3510020_0.jpg' }
-        its(:player_url) { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=3510020' }
+        it do
+          is_expected.to have_attributes(
+            hosting: :sibnet,
+            image_url: '//video.sibnet.ru/upload/cover/video_1234982_0.jpg',
+            player_url: '//video.sibnet.ru/shell.php?videoid=1234982'
+          )
+        end
       end
     end
 
