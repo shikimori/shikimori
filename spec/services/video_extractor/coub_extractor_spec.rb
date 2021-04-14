@@ -1,8 +1,8 @@
 describe VideoExtractor::CoubExtractor, :vcr do
-  let(:service) { described_class.new url }
+  let(:service) { described_class.instance }
 
   describe 'fetch' do
-    subject { service.fetch }
+    subject { service.fetch url }
     let(:url) { 'http://coub.com/view/bqn2pda' }
 
     its(:hosting) { is_expected.to eq :coub }

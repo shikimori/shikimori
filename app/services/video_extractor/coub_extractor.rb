@@ -7,11 +7,13 @@ class VideoExtractor::CoubExtractor < VideoExtractor::OpenGraphExtractor
     )
   }xi
 
-  def url
-    @fixed_url ||= "https:#{Url.new(super).without_protocol}"
+private
+
+  def normalize_url url
+    "https:#{Url.new(super).without_protocol}"
   end
 
-  def player_url
+  def extract_player_url data
     url = super
     Url.new(super).params(autostart: true, startWithHD: true).to_s if url
   end

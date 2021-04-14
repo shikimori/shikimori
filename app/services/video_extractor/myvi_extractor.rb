@@ -8,7 +8,7 @@ class VideoExtractor::MyviExtractor < VideoExtractor::OpenGraphExtractor
 private
 
   def normalize_url url
-    @fixed_url ||= 'https:' +
+    'https:' +
       Url.new(
         super.gsub('//myvi.tv', '//myvi.top')
       ).add_www.without_protocol.to_s
