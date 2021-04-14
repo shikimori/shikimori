@@ -1,8 +1,8 @@
 describe VideoExtractor::OkExtractor, :vcr do
-  let(:service) { described_class.new url }
+  let(:service) { described_class.instance }
 
   describe '#fetch' do
-    subject { service.fetch }
+    subject { service.fetch url }
 
     context '/live/' do
       let(:url) { 'https://ok.ru/live/815923404420' }
