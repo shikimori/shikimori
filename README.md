@@ -220,7 +220,7 @@ end
 ```
 
 ```sh
-scp /tmp/anime_*.json devops@shiki_web:/tmp/
+scp /tmp/anime_*.json devops@shiki:/tmp/
 ```
 
 ```ruby
@@ -310,7 +310,7 @@ end;
 ```
 
 ```sh
-scp /tmp/z.json devops@shiki_web:/tmp/
+scp /tmp/z.json devops@shiki:/tmp/
 ```
 
 ```ruby
@@ -409,5 +409,5 @@ rails i18n:js:export
 
 ### Manually update proxies
 ```sh
-rails runner "ProxyWorker.new.perform; File.open('/tmp/proxies.json', 'w') { |f| f.write Proxy.all.to_json }" && scp /tmp/proxies.json shiki_web:/tmp/ && ssh devops@shiki_web 'source /home/devops/.zshrc && cd /home/apps/shikimori/production/current && RAILS_ENV=production bundle exec rails runner "Proxy.transaction do; Proxy.delete_all; JSON.parse(open(\"/tmp/proxies.json\").read, symbolize_names: true).each {|v| Proxy.create! v }; end; puts Proxy.count"'
+rails runner "ProxyWorker.new.perform; File.open('/tmp/proxies.json', 'w') { |f| f.write Proxy.all.to_json }" && scp /tmp/proxies.json shiki:/tmp/ && ssh devops@shiki 'source /home/devops/.zshrc && cd /home/apps/shikimori/production/current && RAILS_ENV=production bundle exec rails runner "Proxy.transaction do; Proxy.delete_all; JSON.parse(open(\"/tmp/proxies.json\").read, symbolize_names: true).each {|v| Proxy.create! v }; end; puts Proxy.count"'
 ```
