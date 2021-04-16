@@ -311,6 +311,8 @@ end;
 
 ```sh
 scp /tmp/z.json devops@shiki:/tmp/
+ssh shiki
+rc
 ```
 
 ```ruby
@@ -325,23 +327,23 @@ end
 ApplicationRecord.transaction do
   UserRate.where(user_id: user_id).destroy_all;
   UserRate.wo_timestamp { UserRate.import(json[:user_rates].map {|v| UserRate.new v }); };
-end
+end;
 
 # ApplicationRecord.transaction do
 #   UserRateLog.where(user_id: user_id).destroy_all;
 #   UserRateLog.wo_timestamp { UserRateLog.import(json[:user_rate_logs].map {|v| UserRateLog.new v }); };
-# end
+# end;
 
 ApplicationRecord.transaction do
   UserHistory.where(user_id: user_id).destroy_all;
   UserHistory.wo_timestamp { UserHistory.import(json[:user_history].map {|v| UserHistory.new v }); };
-end
+end;
 
-User.wo_timestamp { v = User.new json[:user]; v.save validate: false }
-UserPreferences.wo_timestamp { v = UserPreferences.new json[:user_preferences]; v.save validate: false }
-Style.wo_timestamp { v = Style.new json[:style]; v.save validate: false }
+# User.wo_timestamp { v = User.new json[:user]; v.save validate: false }
+# UserPreferences.wo_timestamp { v = UserPreferences.new json[:user_preferences]; v.save validate: false }
+# Style.wo_timestamp { v = Style.new json[:style]; v.save validate: false }
 
-User.find(user_id).touch
+User.find(user_id).update rate_at: Time.zone.now
 ```
 
 ### Generate favicons
