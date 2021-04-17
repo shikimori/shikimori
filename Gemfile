@@ -26,7 +26,7 @@ gem 'sassc-rails'
 gem 'gon'
 gem 'turbolinks'
 gem 'uglifier'
-gem 'webpacker'
+gem 'webpacker'#, '6.0.0.beta.6'
 
 # templates
 gem 'jbuilder' # для рендеринга json
