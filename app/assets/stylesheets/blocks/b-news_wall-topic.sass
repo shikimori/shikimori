@@ -62,17 +62,25 @@
       +date
       line-height: 18px
       margin-bottom: 5px // need margin in case of content wrapping
+      margin-right: auto
 
     .comments
       line-height: 18px
       color: #333
-      margin-left: auto
       font-size: 12px
 
       &:before
         +font_shikimori('f')
         font-size: 13px
         padding-right: 5px
+
+    .is-pinned
+      color: #333
+
+      &:before
+        +font_shikimori('📌')
+        font-size: 14px
+        margin-right: 13px
 
   .title
     +two_line_ellipsis(15px, 1.55)

@@ -32,6 +32,9 @@
       ] = topic_view.format_date topic_view.changed_at
 
   .section.additional
+    - if topic_view.pinned?
+      .is-pinned
+
     - if topic_type_policy.collection_topic?
       span.collection-size = topic_view.collection.size
 

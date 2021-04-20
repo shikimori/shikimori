@@ -18,6 +18,8 @@
         datetime=topic_view.created_at.iso8601
         data-no-tooltip="true"
       ] = topic_view.format_date topic_view.created_at
+      - if topic_view.pinned?
+        .is-pinned
       .comments == topic_view.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
 
     .title[
