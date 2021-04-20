@@ -16,6 +16,6 @@ class Topics::TagsQuery
   BASIC_TAGS_WITH_PROMO = BASIC_TAGS + [PROMO_TAG]
 
   def call
-    Topics::NewsTopic.distinct.pluck(Arel.sql('unnest(tags) as tag')).sort - BASIC_TAGS
+    Topics::NewsTopic.distinct.pluck(Arel.sql('unnest(tags) as tag')).sort - BASIC_TAGS_WITH_PROMO
   end
 end
