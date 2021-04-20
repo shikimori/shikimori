@@ -8,6 +8,7 @@ FactoryBot.define do
     tags { [] }
 
     locale { 'ru' }
+    is_pinned { false }
 
     after :build do |model|
       stub_method model, :antispam_checks

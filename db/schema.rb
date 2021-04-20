@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_130216) do
+ActiveRecord::Schema.define(version: 2021_04_20_171910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -992,7 +992,9 @@ ActiveRecord::Schema.define(version: 2021_04_06_130216) do
     t.datetime "commented_at"
     t.text "tags", default: [], null: false, array: true
     t.boolean "is_closed", default: false, null: false
+    t.boolean "is_pinned", default: false, null: false
     t.index ["generated", "type", "created_at"], name: "index_entries_on_in_forum_and_type_and_created_at"
+    t.index ["is_pinned"], name: "index_topics_on_is_pinned", where: "(is_pinned = true)"
     t.index ["linked_id", "linked_type", "comments_count", "generated"], name: "entries_total_select"
     t.index ["type", "forum_id"], name: "index_topics_on_type_and_forum_id"
     t.index ["type", "linked_id", "linked_type"], name: "i_entries_type_linked_type_linked_id"
