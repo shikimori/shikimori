@@ -283,6 +283,7 @@ en:
         forum_id: Section
         source: Source
         tags: Tags
+        is_pinned: Pinned
         is_closed: Closed
         broadcast: Broadcast
       version:

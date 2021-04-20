@@ -4,5 +4,6 @@ class Abilities::NewsModerator
 
   def initialize _user
     can :manage, Topics::NewsTopic
+    can :promote, Topic
   end
 end

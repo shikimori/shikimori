@@ -145,7 +145,7 @@ class TopicsController < ShikimoriController
 
 private
 
-  def topic_params # rubocop:disable AbcSize
+  def topic_params # rubocop:disable all
     allowed_params =
       if can?(:manage, Topic) || %w[new create].include?(params[:action])
         CREATE_PARAMS
@@ -154,6 +154,7 @@ private
       end
     allowed_params += [:broadcast] if can? :broadcast, Topic
     allowed_params += [:is_closed] if can? :close, Topic
+    allowed_params += [:is_pinned] if can? :promote, Topic
 
     params.require(:topic).permit(*allowed_params).tap do |fixed_params|
       fixed_params[:body] = Topics::ComposeBody.call(params[:topic])

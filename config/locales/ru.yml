@@ -283,6 +283,7 @@ ru:
         forum_id: Раздел
         source: Источник
         tags: Теги
+        is_pinned: Закреплен
         is_closed: Закрыт
         broadcast: Массовая рассылка
       version:

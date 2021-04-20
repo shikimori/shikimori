@@ -4,6 +4,7 @@
 - is_edit_type = topic.persisted? && can?(:manage, Topic) && !topic_type_policy.any_club_topic?
 - is_show_broadcast = can?(:broadcast, topic) && !topic_type_policy.any_club_topic?
 - is_show_closed = topic.persisted? && can?(:close, topic) && !topic_type_policy.any_club_topic?
+- is_show_pinned = topic.persisted? && can?(:promote, topic) && !topic_type_policy.any_club_topic?
 - is_forum_id_hidden = topic_type_policy.any_club_topic? || (topic_type_policy.news_topic? && topic.new_record?)
 - is_show_forum = !topic_type_policy.any_club_topic? && ((!is_forum_id_hidden && !topic_type_policy.news_topic?) || (topic.persisted? && can?(:manage, Topic)))
 
@@ -59,10 +60,9 @@
               input_html: { value: f.object.tags&.join(','), class: 'w-100' },
               hint: 'Не задавай в теги имена собственные: названия аниме, имена людей, названия компаний.<br>Первым тегом должен быть основной раздел, к которому относится новость. Выбирай его из выпадающего списка.<br>Следующие теги, уточняющие, старайся выбрать из второго списка.<br>Крайне желательно не добавлять новых тегов, если среди уже имеющихся в базе тегов есть любой хоть чуть-чуть подходящий.'.html_safe,
               as: :string
-            - can_create_promotions = current_user.admin? || current_user.super_moderator? || current_user.news_moderator?
             #vue_tags_input[
               data-value=f.object.tags
-              data-autocomplete_basic=(can_create_promotions ? Topics::TagsQuery::BASIC_TAGS_WITH_PROMO : Topics::TagsQuery::BASIC_TAGS)
+              data-autocomplete_basic=(can?(:promote, Topic) ? Topics::TagsQuery::BASIC_TAGS_WITH_PROMO : Topics::TagsQuery::BASIC_TAGS)
               data-autocomplete_other=Topics::TagsQuery.call
             ]
 
@@ -78,6 +78,8 @@
             - if topic_type_policy.news_topic?
               = render 'topics/form/linked', topic: topic
 
+            - if is_show_pinned
+              = f.input :is_pinned, wrapper_class: ('b-input m10' if is_show_closed || is_show_broadcast)
             - if is_show_broadcast
               = f.input :broadcast, wrapper_class: ('b-input m10' if is_show_closed)
             - if is_show_closed

@@ -24,6 +24,7 @@ class Abilities::ForumModerator
     can :close, Topic
     cannot :broadcast, Topic
     cannot :moderate, Topic
+    cannot :promote, Topic
 
     can :manage, Ban
     cannot :destroy, Ban
