@@ -7771,7 +7771,7 @@ prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0:
   dependencies:
     prosemirror-model "^1.0.0"
 
-prosemirror-utils@atlassian/prosemirror-utils#remove-prosemirror-tables:
+prosemirror-utils@atlassian/prosemirror-utils#remove-prosemirror-tables, "prosemirror-utils@github:atlassian/prosemirror-utils#remove-prosemirror-tables":
   version "0.9.6"
   resolved "https://codeload.github.com/atlassian/prosemirror-utils/tar.gz/9e2db389d408f376e0fc1f8bdffd95063e8d00af"
 
@@ -8752,10 +8752,10 @@ shiki-editor@^1.1.5:
     vue-keypress "^2.1.1"
     withinviewport "^2.1.2"
 
-shiki-editor@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-1.2.0.tgz#4e9ecd4d8a4d1c7a05099ad4c804dbb54e4a3c9c"
-  integrity sha512-If3HBeP2WoDZ97dToFiKP8zsTmbbr/S4AcyWwc+lbR9uIidXNJuWe/Xz9ehVXYvSPObntccBHl+aPT2+7JDWpw==
+shiki-editor@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-1.2.1.tgz#c02a50399723d6055334b47e2d9f056d3821d9e4"
+  integrity sha512-9qH6L8GXkZe3Pa/2d/nNVGw+DJhqulCxdBCksgtdZ6sLNewzgfMc/UXYG7UhIUOgIuxDlvmnfXR8S9ve0O0jGA==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@popperjs/core" "^2.4.4"
@@ -9891,7 +9891,7 @@ void-elements@^3.1.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha1-YU9/v42AHwu18GYfWy9XhXUOTwk=
 
-vue-custom-scrollbar@morr/vue-custom-scrollbar#1.1.5:
+"vue-custom-scrollbar@github:morr/vue-custom-scrollbar#1.1.5", vue-custom-scrollbar@morr/vue-custom-scrollbar#1.1.5:
   version "1.1.5"
   resolved "https://codeload.github.com/morr/vue-custom-scrollbar/tar.gz/d50510e6d63c59b3f29c94e106b5b6972e3081d0"
 
