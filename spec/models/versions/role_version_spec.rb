@@ -292,7 +292,7 @@ describe Versions::RoleVersion do
       let(:role) { :statistics_moderator }
 
       describe 'statistics_moderator roles' do
-        it { is_expected.to be_able_to :manage_cheat_bot_role, user }
+        it { is_expected.to_not be_able_to :manage_cheat_bot_role, user }
         it { is_expected.to_not be_able_to :manage_completed_announced_animes_role, user }
         it { is_expected.to be_able_to :manage_ignored_in_achievement_statistics_role, user }
       end
