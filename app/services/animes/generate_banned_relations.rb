@@ -27,9 +27,13 @@ private
 
   def combine merged_data, cache
     merged_data.map do |ids|
-      ids.map do |id|
-        "#{id[0]}#{id[/\d+/]}###" + cache[id[0]].find(id[/\d+/]).name[0..60]
-      end
+      ids
+        .map do |id|
+          "#{id[0]}#{id[/\d+/]}###" + cache[id[0]].find(id[/\d+/]).name[0..60]
+        rescue ActiveRecord::RecordNotFound
+          nil
+        end
+        .compact
     end
   end
 
