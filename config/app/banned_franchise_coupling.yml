@@ -8,11 +8,15 @@
   - A21 # One Piece
   - A813 # Dragon Ball Z
 -
-  - A10199 # Super Doll Licca-chan: Licca-chan Zettai Zetsumei! Doll Knigh
-  - A9274 # Chou Seimeitai Transformers Beast Wars Metals: Convoy Daihens
+  - A101 # Air
+  - A48775 # Kaginado
 -
   - A1037 # Saint Beast: Seijuu Kourin-hen
   - A682 # Otogi Story Tenshi no Shippo
+-
+  - A10507 # Inazuma Eleven Go
+  - A12651 # Danball Senki W
+  - A15785 # Inazuma Eleven Go vs. Danball Senki W Movie
 -
   - A10507 # Inazuma Eleven Go
   - A15785 # Inazuma Eleven Go vs. Danball Senki W Movie
@@ -93,7 +97,7 @@
 -
   - A1293 # Urusei Yatsura
   - A210 # Ranma ½
-  - A249 # InuYasha (TV)
+  - A249 # InuYasha
   - A6566 # Its a Rumic World: 50th Anniversary Weekly★Shonen Sunday
 -
   - A12965 # Jewelpet Movie: Sweets Dance Princess
@@ -124,6 +128,9 @@
 -
   - A13511 # Cofun Gal no Coffy: Cofunderella
   - A38025 # Himitsukessha Taka no Tsume GG
+-
+  - A13655 # Little Busters!
+  - A48775 # Kaginado
 -
   - A13677 # Ao no Exorcist Movie Special
   - A9627 # Kakko Kawaii Sengen!
@@ -157,6 +164,9 @@
   - A14349 # Little Witch Academia
   - A32681 # Uchuu Patrol Luluco
 -
+  - A144 # Kanon
+  - A48775 # Kaginado
+-
   - A1458 # Uchuu no Kishi Tekkaman
   - A33027 # Infini-T Force
 -
@@ -178,6 +188,9 @@
   - A1520 # Black Jack
   - A9991 # Bremen 4: Jigoku no Naka no Tenshi-tachi
 -
+  - A1530 # Kanon (2006)
+  - A48775 # Kaginado
+-
   - A15335 # Gintama Movie 2: Kanketsu-hen - Yorozuya yo Eien Nare
   - A19261 # Gintama x Mameshiba
 -
@@ -192,9 +205,6 @@
 -
   - A1638 # Peter Pan no Bouken
   - A2576 # Araiguma Rascal
--
-  - A16498 # Shingeki no Kyojin
-  - A37012 # Animegatari x Shingeki no Kyojin Collab Eizou
 -
   - A1663 # Haha wo Tazunete Sanzenri
   - A37423 # Shiawase Pasta Story
@@ -318,6 +328,9 @@
   - A2165 # Gegege no Kitarou (2007)
   - A34471 # Youkai Watch Movie 4: Shadow Side - Oni-ou no Fukkatsu
 -
+  - A2167 # Clannad
+  - A48775 # Kaginado
+-
   - A21743 # Donten ni Warau
   - A37285 # Ippun de Wakaru Eiga "Donten ni Warau" Kaisetsu Yokoku
 -
@@ -420,13 +433,13 @@
   - A24765 # Gakkougurashi!
   - A36805 # Kirara Fantasia
 -
-  - A249 # InuYasha (TV)
+  - A249 # InuYasha
   - A6567 # Urusei Yatsura: The Shougaibutsu Suieitaikai
 -
   - A24909 # Kaitou Joker
   - A35745 # 40 Shuunen Da yo!! CoroCoro All-Star Shougakkou
 -
-  - A2547 # Princess Sara
+  - A2547 # Shoukoujo Sara
   - A37423 # Shiawase Pasta Story
 -
   - A2553 # Flanders no Inu
@@ -506,9 +519,6 @@
   - A37423 # Shiawase Pasta Story
 -
   - A28351 # Hikari no Megami
-  - A5265 # Mega Man
--
-  - A28351 # Hikari no Megami
   - A527 # Pokemon
 -
   - A2852 # Accelerando: Datenshi-tachi no Sasayaki
@@ -573,7 +583,6 @@
   - A33512 # Animegatari x Koukaku Kidoutai Collab Eizou
 -
   - A30617 # Animegatari
-  - A37012 # Animegatari x Shingeki no Kyojin Collab Eizou
 -
   - A30757 # Monster Strike
   - A40323 # Gintama: Monster Strike-hen
@@ -622,6 +631,9 @@
 -
   - A31647 # Ponkotsuland Saga
   - A37521 # Vinland Saga
+-
+  - A31716 # Rewrite
+  - A48775 # Kaginado
 -
   - A3199 # Nanatsu no Umi no Tico
   - A37423 # Shiawase Pasta Story
@@ -791,7 +803,7 @@
   - A384 # Gantz
   - A40711 # Gantz x Senran Kagura New Link
 -
-  - A38659 # Shinchou Yuusha: Kono Yuusha ga Ore Tsueee Kuse ni Shinchou S
+  - A38659 # Shinchou Yuusha: Kono Yuusha ga Ore Tueee Kuse ni Shinchou Su
   - A41567 # Isekai Quartet 3
 -
   - A39721 # Fairy Tail x Mameshiba
@@ -816,7 +828,6 @@
   - A5249 # Mitsume ga Tooru
 -
   - A6511 # Chou Seimeitai Transformers Beast Wars Neo
-  - A9274 # Chou Seimeitai Transformers Beast Wars Metals: Convoy Daihens
 -
   - A80 # Mobile Suit Gundam
   - A9170 # Kimi ga Nozomu Eien: Gundam Parody
