@@ -78,6 +78,7 @@
               - topic_view.tags.each do |tag|
                 .b-anime_status_tag.other[
                   data-text=tag
+                  class=(:promo if tag == Topics::TagsQuery::PROMO_TAG)
                 ]
 
           - if topic_view.show_source?

@@ -59,9 +59,10 @@
               input_html: { value: f.object.tags&.join(','), class: 'w-100' },
               hint: 'Не задавай в теги имена собственные: названия аниме, имена людей, названия компаний.<br>Первым тегом должен быть основной раздел, к которому относится новость. Выбирай его из выпадающего списка.<br>Следующие теги, уточняющие, старайся выбрать из второго списка.<br>Крайне желательно не добавлять новых тегов, если среди уже имеющихся в базе тегов есть любой хоть чуть-чуть подходящий.'.html_safe,
               as: :string
+            - can_create_promotions = current_user.admin? || current_user.super_moderator? || current_user.news_moderator?
             #vue_tags_input[
               data-value=f.object.tags
-              data-autocomplete_basic=Topics::TagsQuery::BASIC_TAGS
+              data-autocomplete_basic=(can_create_promotions ? Topics::TagsQuery::BASIC_TAGS_WITH_PROMO : Topics::TagsQuery::BASIC_TAGS)
               data-autocomplete_other=Topics::TagsQuery.call
             ]
 

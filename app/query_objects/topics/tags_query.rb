@@ -12,6 +12,8 @@ class Topics::TagsQuery
     лайв_экшен
     прочее
   ]
+  PROMO_TAG = 'партнёрский_материал'
+  BASIC_TAGS_WITH_PROMO = BASIC_TAGS + [PROMO_TAG]
 
   def call
     Topics::NewsTopic.distinct.pluck(Arel.sql('unnest(tags) as tag')).sort - BASIC_TAGS
