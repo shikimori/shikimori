@@ -21,13 +21,13 @@
     {
       "uid": "44e04715aecbca7f266a17d5a7863c68",
       "css": "plus",
-      "code": 59392,
+      "code": 43,
       "src": "fontawesome"
     },
     {
       "uid": "861ab06e455e2de3232ebef67d60d708",
       "css": "minus",
-      "code": 59395,
+      "code": 45,
       "src": "fontawesome"
     },
     {
@@ -231,7 +231,7 @@
     {
       "uid": "in76hg99crrkpcbz2rjnmgbiw74s72y0",
       "css": "ok-1",
-      "code": 59427,
+      "code": 10003,
       "src": "modernpics"
     },
     {
@@ -369,7 +369,7 @@
     {
       "uid": "815503841e980c848f55e0271deacead",
       "css": "link",
-      "code": 59428,
+      "code": 128279,
       "src": "entypo"
     },
     {
@@ -405,7 +405,7 @@
     {
       "uid": "dd6c6b221a1088ff8a9b9cd32d0b3dd5",
       "css": "check",
-      "code": 59429,
+      "code": 9745,
       "src": "fontawesome"
     },
     {
@@ -417,7 +417,7 @@
     {
       "uid": "3d3564ef8962e846646928bbf91c0dfc",
       "css": "play_arrow",
-      "code": 59432,
+      "code": 59427,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -431,7 +431,7 @@
     {
       "uid": "98b6223826be0b4a3264a4bc3add619c",
       "css": "replay",
-      "code": 59443,
+      "code": 59429,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -445,7 +445,7 @@
     {
       "uid": "64887a6c4dc61d7bf5b463a3b92febe4",
       "css": "done",
-      "code": 59444,
+      "code": 59428,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -459,7 +459,7 @@
     {
       "uid": "61bd809ee750d7781f146dab89d60594",
       "css": "close",
-      "code": 59445,
+      "code": 59432,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -501,7 +501,7 @@
     {
       "uid": "b1ec8e90c2c85cf0035849980a3789b3",
       "css": "twitter",
-      "code": 59452,
+      "code": 84,
       "src": "zocial"
     },
     {
@@ -543,7 +543,7 @@
     {
       "uid": "c64623255a4a7c72436b199b05296c4f",
       "css": "emo-happy",
-      "code": 59464,
+      "code": 59392,
       "src": "fontelico"
     },
     {
@@ -567,7 +567,7 @@
     {
       "uid": "3672e421828d3c857493287ef840fbe5",
       "css": "texture",
-      "code": 59465,
+      "code": 59431,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -587,7 +587,7 @@
     {
       "uid": "a11b4d97f05752bd86d642acb1e36537",
       "css": "person",
-      "code": 59466,
+      "code": 59465,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -615,7 +615,7 @@
     {
       "uid": "0dc0bbb32961e94bbee4184339e5ec32",
       "css": "arrow_upward",
-      "code": 59468,
+      "code": 59395,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -629,7 +629,7 @@
     {
       "uid": "d0f989070441b8692fa4edc54787ef42",
       "css": "not_interested",
-      "code": 59473,
+      "code": 59468,
       "src": "custom_icons",
       "selected": true,
       "svg": {
