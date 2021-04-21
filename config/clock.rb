@@ -125,7 +125,7 @@ module Clockwork
   end
 
   every 1.week, 'weekly.stuff.1', at: 'Monday 00:45' do
-    Anidb::ImportDescriptionsJob.perform_async
+    # Anidb::ImportDescriptionsJob.perform_async
     Tags::CleanupImageboardsCacheJob.perform_async
     Tags::CleanupCoubCacheJob.perform_async
 
