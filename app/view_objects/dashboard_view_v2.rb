@@ -227,8 +227,7 @@ private
     Topics::Query
       .fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
-      .except(:order)
-      .order(is_pinned: :desc, updated_at: :desc)
+      .order(is_pinned: :desc, created_at: :desc)
   end
 
   def db_updates_scope
