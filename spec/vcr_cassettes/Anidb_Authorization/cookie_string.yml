@@ -1,11 +1,223 @@
 ---
 http_interactions:
 - request:
+    method: get
+    uri: https://anidb.net/?Accept=text/html,application/xhtml%2Bxml,application/xml%3Bq=0.9,image/webp,*/*%3Bq=0.8&Accept-Encoding=gzip,%20deflate&Accept-Language=en-US,en%3Bq=0.8,ru%3Bq=0.6,ja%3Bq=0.4&Origin=http://anidb.net&Referer=http://anidb.net/perl-bin/animedb.pl?show=login&User-Agent=Mozilla/5.0%20(Macintosh%3B%20Intel%20Mac%20OS%20X%2010_11_6)%20AppleWebKit/537.36%20(KHTML,%20like%20Gecko)%20Chrome/55.0.2883.95%20Safari/537.36
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.17.4
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 21 Apr 2021 16:36:23 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding
+      Set-Cookie:
+      - adbuin=1619022983-LXfj; path=/; expires=Sat, 19-Apr-2031 16:36:23 GMT; secure;
+        HttpOnly; SameSite=Lax
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - Wed, 21 Apr 2021 16:36:23 GMT
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - sameorigin
+      Referrer-Policy:
+      - same-origin
+      Expect-Ct:
+      - max-age=86400, enforce
+      Permissions-Policy:
+      - accelerometer=(), camera=(), fullscreen=(self), geolocation=(), gyroscope=(),
+        magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()
+      Content-Security-Policy:
+      - default-src 'none'; connect-src 'self'; font-src *.anidb.net; form-action
+        'self'; img-src * data:; script-src 'self' *.anidb.net www.google.com/recaptcha/
+        www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' *; child-src
+        kiwiirc.com *.youtube-nocookie.com www.google.com/recaptcha/; frame-ancestors
+        'self'; base-uri 'self'; manifest-src *.anidb.net;
+    body:
+      encoding: ASCII-8BIT
+      string: "<!DOCTYPE html>\n<html lang=\"en\" prefix=\"og: http://ogp.me/ns#\">\n\t<head>\n\t\t<meta
+        http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"/>\n\t\t<meta
+        name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\t\t<title>AniDB
+        AntiLeech - AniDB</title>\n\t\t<meta property=\"og:description\" name=\"description\"
+        content=\"Looking for information about AniDB AntiLeech? AniDB is the right
+        place for you. AniDB is a not-for-profit anime database providing you with
+        all infor...\"/>\n\t\t<meta name=\"robots\" content=\"index, follow\"/>\n\t\t<link
+        rel=\"stylesheet\" href=\"https://cdn-eu.anidb.net/css/anidbstyle3/anidbstyle3.css?v=2021-04-09T09-33-51\"
+        type=\"text/css\" title=\"Style\"/>\n\t\t<link rel=\"apple-touch-icon\" sizes=\"180x180\"
+        href=\"https://cdn-eu.anidb.net/css/icons/touch/apple-touch-icon.png?v=6APwgP3EOy\"/>\n\t\t<link
+        rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"https://cdn-eu.anidb.net/css/icons/touch/favicon-32x32.png?v=6APwgP3EOy\"/>\n\t\t<link
+        rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"https://cdn-eu.anidb.net/css/icons/touch/favicon-16x16.png?v=6APwgP3EOy\"/>\n\t\t<link
+        rel=\"manifest\" href=\"https://cdn-eu.anidb.net/css/icons/touch/site.webmanifest?v=6APwgP3EOy\"/>\n\t\t<link
+        rel=\"mask-icon\" href=\"https://cdn-eu.anidb.net/css/icons/touch/safari-pinned-tab.svg?v=6APwgP3EOy\"
+        color=\"#e18e3c\"/>\n\t\t<link rel=\"shortcut icon\" href=\"https://cdn-eu.anidb.net/css/icons/touch/favicon.ico?v=6APwgP3EOy\"/>\n\t\t<link
+        property=\"og:url\" rel=\"canonical\" href=\"https://anidb.net/?Accept=text%2Fhtml%2Capplication%2Fxhtml%2Bxml%2Capplication%2Fxml%3Bq%3D0.9%2Cimage%2Fwebp%2C%2A%2F%2A%3Bq%3D0.8&amp;Accept-Encoding=gzip%2C%20deflate&amp;Accept-Language=en-US%2Cen%3Bq%3D0.8%2Cru%3Bq%3D0.6%2Cja%3Bq%3D0.4&amp;Origin=http%3A%2F%2Fanidb.net&amp;Referer=http%3A%2F%2Fanidb.net%2Fperl-bin%2Fanimedb.pl%3Fshow%3Dlogin&amp;User-Agent=Mozilla%2F5.0%20%28Macintosh%3B%20Intel%20Mac%20OS%20X%2010_11_6%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F55.0.2883.95%20Safari%2F537.36\"/>\n\t\t<link
+        rel=\"search\" type=\"application/opensearchdescription+xml\" href=\"https://anidb.net/opensearch.xml\"
+        title=\"AniDB\"/>\n\t\t<link rel=\"alternate\" type=\"application/atom+xml\"
+        title=\"AniDB Latest Files\" href=\"https://anidb.net/feeds/files.atom\"/>\n\t\t<link
+        rel=\"alternate\" type=\"application/atom+xml\" title=\"AniDB Latest News\"
+        href=\"https://anidb.net/feeds/news.atom\"/>\n\t\t<meta name=\"anidb-url\"
+        content=\"\" id=\"anidb-url\" data-anidb-url=\"https://anidb.net/perl-bin/animedb.pl?show=main&amp;Accept=text%2Fhtml%2Capplication%2Fxhtml%2Bxml%2Capplication%2Fxml%3Bq%3D0.9%2Cimage%2Fwebp%2C%2A%2F%2A%3Bq%3D0.8&amp;Accept-Encoding=gzip%2C%20deflate&amp;Accept-Language=en-US%2Cen%3Bq%3D0.8%2Cru%3Bq%3D0.6%2Cja%3Bq%3D0.4&amp;Origin=http%3A%2F%2Fanidb.net&amp;Referer=http%3A%2F%2Fanidb.net%2Fperl-bin%2Fanimedb.pl%3Fshow%3Dlogin&amp;User-Agent=Mozilla%2F5.0%20%28Macintosh%3B%20Intel%20Mac%20OS%20X%2010_11_6%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F55.0.2883.95%20Safari%2F537.36\"/>\n\t\t<meta
+        name=\"apple-mobile-web-app-title\" content=\"AniDB\"/>\n\t\t<meta name=\"application-name\"
+        content=\"AniDB\"/>\n\t\t<meta name=\"msapplication-TileColor\" content=\"#da532c\"/>\n\t\t<meta
+        name=\"msapplication-config\" content=\"https://cdn-eu.anidb.net/css/icons/touch/browserconfig.xml?v=6APwgP3EOy\"/>\n\t\t<meta
+        name=\"theme-color\" content=\"#ffffff\"/>\n\t\t<meta name=\"twitter:card\"
+        content=\"summary\"/>\n\t\t<meta name=\"twitter:site\" content=\"@anidbstatus\"/>\n\t\t<meta
+        name=\"twitter:creator\" content=\"@anidbstatus\"/>\n\t\t<meta property=\"og:title\"
+        content=\"AniDB AntiLeech - AniDB\"/>\n\t\t\t<script defer src=\"https://cdn-eu.anidb.net/js/libs/js.cookie.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.form.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.fancybox.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.sortable.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.tablesorter.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.toastr.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.uploadfile.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.wysibb.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jqueryui.position.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/select2.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/highcharts.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/legacy/legacy.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/WordSuggest.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/global.min.js?v=2021-04-03T16-36-55\"></script>\n\t</head>\n\t<body
+        id=\"anidb\" class=\"main\">\n<div id=\"layout-hint\" class=\"hint\">\n\t<span
+        class=\"head\">HINT:</span>\n\t<span class=\"msg\">Don't like these messages?
+        As a registered user you can disable them! Why not <a href=\"/user/register\">sign
+        up now</a>? It's free!</span>\n</div>\n<div id=\"layout-nav\" class=\"main_nav\">\n\t<ul
+        id=\"layout-menu\" class=\"main_menu\">\n\t\t<li class=\"sub-menu main\" title=\"Menu\">\n\t\t\t<span
+        class=\"tab\">Menu</span>\n\t\t\t<ul id=\"menu-main\">\n\t\t\t\t<li class=\"main\"><a
+        title=\"Main\" href=\"/\"><span>main</span></a></li>\n\t\t\t\t<li class=\"search\"><a
+        title=\"Advanced search\" href=\"/search/anime\"><span>search</span></a></li>\n\t\t\t\t<li
+        class=\"calendar\"><a title=\"Anime calendar\" href=\"/anime/season\"><span>season
+        chart</span></a></li>\n\t\t\t\t<li class=\"schedule\"><a title=\"Episode schedule\"
+        href=\"/anime/schedule\"><span>schedule</span></a></li>\n\t\t\t\t<li class=\"random\"><a
+        title=\"Random anime\" href=\"/anime/random\"><span>random</span></a></li>\n\t\t\t</ul>\n\t\t\t<span></span>\n\t\t</li>\n\t\t<li
+        class=\"sub-menu listings\" title=\"Content\">\n\t\t\t<span class=\"tab\">Content</span>\n\t\t\t<ul
+        id=\"menu-lists\">\n\t\t\t\t<li class=\"latest\"><a title=\"Latest additions\"
+        href=\"/latest\"><span>latest</span></a></li>\n\t\t\t\t<li class=\"anime\"><a
+        title=\"Anime list\" href=\"/anime\"><span>anime</span></a></li>\n\t\t\t\t<li
+        class=\"character\"><a title=\"Character list\" href=\"/character\"><span>characters</span></a></li>\n\t\t\t\t<li
+        class=\"club\"><a title=\"Club list\" href=\"/club\"><span>clubs</span></a></li>\n\t\t\t\t<li
+        class=\"creator\"><a title=\"Creator list\" href=\"/creator\"><span>creators</span></a></li>\n\t\t\t\t<li
+        class=\"collection\"><a title=\"Collection list\" href=\"/collection\"><span>collections</span></a></li>\n\t\t\t\t<li
+        class=\"group\"><a title=\"Group list\" href=\"/group\"><span>groups</span></a></li>\n\t\t
+        \  \t\t<li class=\"song\"><a title=\"Song list\" href=\"/song\"><span>songs</span></a></li>\n\t\t
+        \  \t\t<li class=\"tags\"><a title=\"Tag list\" href=\"/tag\"><span>tags</span></a></li>\n\t\t\t</ul>\n\t\t\t<span></span>\n\t\t</li>\n\t\t<li
+        class=\"sub-menu support\" title=\"Support\">\n\t\t\t<span class=\"tab\">Support</span>\n\t\t\t<ul
+        id=\"menu-support\">\n\n\t\t\t\t<li class=\"forum\"><a title=\"Help @ forum\"
+        href=\"/forum\"><span>forum</span></a></li>\n\t\t\t\t<li class=\"help\"><a
+        title=\"Help @ wiki\" href=\"https://wiki.anidb.net/Main_Page\" data-anidb-rel=\"anidb::wiki\"><span>help</span></a></li>\n\t\t\t\t<li
+        class=\"irc\"><a title=\"Help @ IRC\" href=\"/irc\"><span>IRC</span></a></li>\n\n\t\t\t\t<li
+        class=\"report\"><a title=\"Report a mistake\" href=\"https://wiki.anidb.net/Report_mistake\"
+        data-anidb-rel=\"anidb::wiki\"><span>report error</span></a></li>\n\t\t\t\t<li
+        class=\"software\"><a title=\"Software to interact with AniDB\" href=\"/software\"><span>software</span></a></li>\n\t\t\t\t<li
+        class=\"staff\"><a title=\"AniDB staff\" href=\"/admin/staff\"><span>staff</span></a></li>\n\t\t\t</ul>\n\t\t\t<span></span>\n\t\t</li>\n\t\t<li
+        class=\"sub-menu terms\" title=\"Terms &amp; Licenses\">\n\t\t\t<span class=\"tab\">Terms
+        &amp; Licenses</span>\n\t\t\t<ul id=\"menu-terms\">\n\t\t\t\t<li class=\"donate\"><a
+        title=\"Accounting, Patreon\" href=\"/donation\"><span>donate</span></a></li>\n\t\t\t\t<li
+        class=\"credits\"><a title=\"Credits, Software Licenses\" href=\"https://wiki.anidb.net/Credits\"
+        data-anidb-rel=\"anidb::wiki\"><span>credits</span></a></li>\n\t\t\t\t<li
+        class=\"policies\"><a title=\"Terms of Service, Privacy Policy, Licenses\"
+        href=\"/policy\"><span>policies</span></a></li>\n\t\t\t</ul>\n\t\t\t<span></span>\n\t\t</li>\n\t\t<li
+        class=\"sub-menu login\" title=\"Register or login\">\n\t\t\t<span class=\"tab\">Register
+        or login</span>\n\t\t\t<form action=\"/perl-bin/animedb.pl\" method=\"post\">\n\t\t\t\t<div>\n\t\t\t\t\t<fieldset><input
+        type=\"hidden\" name=\"show\" value=\"main\"/>\n\t\t\t\t\t</fieldset>\n\t\t\t\t\t<ul
+        id=\"menu-login\">\n\t\t\t\t\t\t<li id=\"user-login\" class=\"user-login\"><a
+        title=\"Show login page\" href=\"/user/login\"><span>login</span></a></li>\n\t\t\t\t\t\t<li
+        id=\"user-signup\" class=\"user-signup\"><a title=\"Register now\" href=\"/user/register\"><span>register</span></a></li>\n\t\t\t\t\t\t<li
+        id=\"user-xname\" class=\"user-xname\" title=\"User name\"><span><input name=\"xuser\"
+        class=\"text\" maxlength=\"16\" type=\"text\" value=\"\"/></span></li>\n\t\t\t\t\t\t<li
+        id=\"user-xpass\" class=\"user-xpass\" title=\"Password\"><span><input name=\"xpass\"
+        class=\"text\" maxlength=\"64\" type=\"password\"/></span></li>\n\t\t\t\t\t\t<li
+        id=\"user-xkeep\" class=\"user-xkeep\" title=\"Remember login data\"><span><label><input
+        name=\"xdoautologin\" type=\"checkbox\" checked=\"checked\"/> <span>stay logged
+        in</span></label></span></li>\n\t\t\t\t\t\t<li id=\"user-xauth\" class=\"user-xauth\"
+        title=\"Login\"><span><button class=\"login\" name=\"do.auth\" type=\"submit\"
+        value=\"login\"><span>Login</span></button></span></li>\n\t\t\t\t\t</ul>\n\t\t\t\t\t<span></span>\n\t\t\t\t</div>\n\t\t\t</form>\n\t\t</li>\n\t</ul>\n\t<div
+        class=\"menu_hr\"></div>\n\t<div id=\"layout-search\" class=\"main_search\">\n\t\t<div
+        class=\"search container\" itemscope itemtype=\"https://schema.org/WebSite\">\n\t\t\t<span
+        class=\"hide\" itemprop=\"name\">AniDB</span>\n\t\t\t<a class=\"hide\" rel=\"canonical\"
+        href=\"https://anidb.net\" itemprop=\"url\"></a>\n\t\t\t<form action=\"/perl-bin/animedb.pl\"
+        method=\"get\" itemprop=\"potentialAction\" itemscope itemtype=\"https://schema.org/SearchAction\">\n\t\t\t\t<div
+        itemprop=\"target\" content=\"https://anidb.net/search/anime/?adb.search={adb.search}&amp;do.search=1\">\n\t\t\t\t\t<input
+        itemprop=\"query-input\" id=\"layout-searchbox\" accesskey=\"s\" type=\"text\"
+        name=\"adb.search\" value=\"\" class=\"text\"/>\n\t<select name=\"show\" id=\"layout-searchselect\"
+        size=\"1\"><option value=\"search\" selected=\"selected\">all</option><option
+        value=\"animelist\">anime</option><option value=\"characterlist\">character</option><option
+        value=\"clublist\">club</option><option value=\"collectionlist\">collections</option><option
+        value=\"creatorlist\">creator</option><option value=\"eplist\">episodes</option><option
+        value=\"grouplist\">group</option><option value=\"mylist\">mylist</option><option
+        value=\"songlist\">songs</option><option value=\"taglist\">tags</option><option
+        value=\"userlist\">user</option>\n\t</select>\n\t\t\t\t\t<button type=\"submit\"
+        name=\"do.search\" value=\"1\" class=\"submit search\">Search</button>\n\t\t\t\t\t<fieldset><input
+        type=\"hidden\" name=\"cleanurl\" value=\"1\"/></fieldset>\n\t\t\t\t</div>\n\t\t\t</form>\n\t\t\t<form
+        class=\"random\" action=\"/perl-bin/animedb.pl\" method=\"get\">\n\t\t\t\t<fieldset>\n\t\t\t\t\t<input
+        type=\"hidden\" name=\"do.random\" value=\"1\"/>\n\t\t\t\t\t<input type=\"hidden\"
+        name=\"show\" value=\"anime\"/>\n\t\t\t\t</fieldset>\n\t\t\t\t<button type=\"submit\"
+        value=\"lucky\" class=\"submit random\">I'm Feeling Lucky</button>\n\t\t\t</form>\n\t\t\t<a
+        title=\"advsearch\" class=\"advsearch\" href=\"/search/anime\"><span>advanced
+        search</span></a>\n\t\t</div>\n\t</div>\n</div>\n<div id=\"layout-content\">\n\t<div
+        id=\"layout-main\">\n\t\t<h1 class=\"main\">AniDB AntiLeech</h1>\n\t\t\n\t\t<div
+        class=\"g_content main_all\">\n\t\t<a href=\"/perl-bin/animedb.pl?show=mptigum\"
+        style=\"display:none;\">Download (Do <b>NOT</b> click!)</a>\n\t<div class=\"g_msg
+        g_bubble error\">\n\t\t<h3>ERROR</h3>\n\t\t<div class=\"container\">YOU HAVE
+        BEEN AUTO-BANNED FROM ANIDB FOR EXCESSIVE USAGE.<br/>Ban-ID: #427976\n\t\t</div>\n\t</div>\n\t<div
+        class=\"g_msg g_bubble note\">\n\t\t<h3>NOTE</h3>\n\t\t<div class=\"container\">If
+        you think that you have been denied access unjustified, please contact an
+        AniDB moderator on irc.<br/><br/>In order to minimise serverload AniDB tries
+        to prevent automated accesses and \"crawling of the website. You have exceeded
+        the limit for AniDB user accesses.<br/>You will not be allowed any more page
+        loads for the time being.<br/>A usual ban may last either 15min or 24h depending
+        on the severity of the action.<br/><br/>Continuing trying to gain access will
+        increase the duration of the ban.<br/><br/>For more information consult:\n\t\t\t<ul>\n\t\t\t\t<li><a
+        href=\"https://wiki.anidb.net/AniDB:AntiLeech\">AniDB AntiLeech Documentation</a></li>\n\t\t\t\t<li><a
+        href=\"/irc\">AniDB IRC channel</a></li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t\t</div><!--g_content-->\n\t\t<div
+        class=\"g_end\"></div>\n\t</div><!--layout-main-->\n</div><!--layout-content-->\n\n<div
+        id=\"layout-footer\">\n\t<p><a href=\"https://anidb.net\" property=\"cc:attributionName\">AniDB</a>
+        is licensed under a <a rel=\"license\" href=\"https://creativecommons.org/licenses/by-nc-sa/4.0/\">Creative
+        Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>\n\t<p>v
+        2020-01, &copy; 2002-2020 by AniDB; all rights reserved. [0s] - <span title=\"generated
+        at\">21.04.2021 16:36:23</span></p>\n\t<div itemscope itemtype=\"https://schema.org/Organization\">\n\t\t<a
+        class=\"hide\" itemprop=\"url\" href=\"https://anidb.net\">Home</a>\n\t\t<img
+        class=\"hide\" alt=\"AniDB\" itemprop=\"logo\" src=\"https://cdn-eu.anidb.net/css/icons/touch/android-chrome-512x512.png\"/>\n\t\t<span
+        class=\"hide\" itemprop=\"name\">AniDB</span>\n\t\t<div class=\"links\">\n\t\t\t<a
+        class=\"i_icon brand i_resource_twitter\" itemprop=\"sameAs\" title=\"Stay
+        up2date with AniDB on Twitter!\" href=\"https://twitter.com/AniDBStatus\"
+        data-anidb-rel=\"anidb::extern\"><span class=\"text\">Twitter</span></a>\n\t\t\t<a
+        class=\"i_icon brand i_resource_patreon\" itemprop=\"sameAs\" title=\"Become
+        a patron for AniDB!\" href=\"https://www.patreon.com/AniDB\" data-anidb-rel=\"anidb::extern\"><span
+        class=\"text\">Become a patron!</span></a>\n\t\t</div>\n\t</div>\n\t\t<a href=\"/perl-bin/animedb.pl?show=mptigum\"
+        style=\"display:none;\">Download (Do <b>NOT</b> click!)</a>\n</div>\n\t</body>\n</html>"
+  recorded_at: Wed, 21 Apr 2021 16:36:23 GMT
+- request:
     method: post
-    uri: http://anidb.net/perl-bin/animedb.pl?show=login
+    uri: https://anidb.net/perl-bin/animedb.pl
     body:
       encoding: UTF-8
-      string: show=main&xuser=naruto1451&xpass=Wy6F27yNuDFB&xdoautologin=on&xkeepoldcookie=on&do.auth.x=Login
+      string: show=main&xuser=naruto1452&xpass=Wy6F27yNuDFB&xdoautologin=on&do.auth=Login
     headers:
       User-Agent:
       - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML,
@@ -20,117 +232,276 @@ http_interactions:
       - http://anidb.net
       Referer:
       - http://anidb.net/perl-bin/animedb.pl?show=login
+      Cookie:
+      - adbuin=1619022983-LXfj
+  response:
+    status:
+      code: 302
+      message: Found
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 21 Apr 2021 16:37:28 GMT
+      Content-Type:
+      - text/html; charset=iso-8859-1
+      Content-Length:
+      - '202'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - adbsess=nCOVLMqnGUAfKtji; path=/; expires=Sat, 19-Apr-2031 16:37:28 GMT; secure;
+        HttpOnly; SameSite=Lax
+      - adbsessuser=naruto1452; path=/; expires=Sat, 19-Apr-2031 16:37:28 GMT; secure;
+        HttpOnly; SameSite=Lax
+      - adbss=911926-nCOVLMqn; domain=.anidb.net; path=/; expires=Sat, 19-Apr-2031
+        16:37:28 GMT; secure; HttpOnly; SameSite=Lax
+      - anidbsettings=%7B%22USEAJAX%22%3A1%7D; path=/; expires=Thu, 22-Apr-2021 16:37:28
+        GMT; secure; SameSite=Lax
+      Location:
+      - https://anidb.net/
+      Expires:
+      - Wed, 21 Apr 2021 16:37:28 GMT
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - sameorigin
+      Referrer-Policy:
+      - same-origin
+      Expect-Ct:
+      - max-age=86400, enforce
+      Permissions-Policy:
+      - accelerometer=(), camera=(), fullscreen=(self), geolocation=(), gyroscope=(),
+        magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()
+      Content-Security-Policy:
+      - default-src 'none'; connect-src 'self'; font-src *.anidb.net; form-action
+        'self'; img-src * data:; script-src 'self' *.anidb.net www.google.com/recaptcha/
+        www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' *; child-src
+        kiwiirc.com *.youtube-nocookie.com www.google.com/recaptcha/; frame-ancestors
+        'self'; base-uri 'self'; manifest-src *.anidb.net;
+    body:
+      encoding: UTF-8
+      string: |
+        <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+        <html><head>
+        <title>302 Found</title>
+        </head><body>
+        <h1>Found</h1>
+        <p>The document has moved <a href="https://anidb.net/">here</a>.</p>
+        </body></html>
+  recorded_at: Wed, 21 Apr 2021 16:37:28 GMT
+- request:
+    method: get
+    uri: https://anidb.net/?Accept=text/html,application/xhtml%2Bxml,application/xml%3Bq=0.9,image/webp,*/*%3Bq=0.8&Accept-Encoding=gzip,%20deflate&Accept-Language=en-US,en%3Bq=0.8,ru%3Bq=0.6,ja%3Bq=0.4&Origin=http://anidb.net&User-Agent=Mozilla/5.0%20(Macintosh%3B%20Intel%20Mac%20OS%20X%2010_11_6)%20AppleWebKit/537.36%20(KHTML,%20like%20Gecko)%20Chrome/55.0.2883.95%20Safari/537.36
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.17.4
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
   response:
     status:
       code: 200
       message: OK
     headers:
-      Date:
-      - Sun, 02 Apr 2017 11:54:29 GMT
       Server:
-      - Apache
+      - nginx
+      Date:
+      - Wed, 21 Apr 2021 16:58:23 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding
+      Set-Cookie:
+      - adbuin=1619024303-Arfb; path=/; expires=Sat, 19-Apr-2031 16:58:23 GMT; secure;
+        HttpOnly; SameSite=Lax
       Cache-Control:
       - no-cache
       Pragma:
       - no-cache
+      Expires:
+      - Wed, 21 Apr 2021 16:58:23 GMT
       X-Content-Type-Options:
       - nosniff
-      X-Frame-Options:
-      - SAMEORIGIN
       X-Xss-Protection:
       - 1; mode=block
-      Content-Type:
-      - text/html; charset=UTF-8
-      Expires:
-      - Sun, 02 Apr 2017 11:54:29 GMT
-      Set-Cookie:
-      - adbautopass=zwsofsxfdnrzyxdj; path=/; expires=Wed, 31-Mar-2027 11:54:29 GMT
-      - adbautouser=naruto1451; path=/; expires=Wed, 31-Mar-2027 11:54:29 GMT
-      - adbsess=HeOtBhOHtFVJILxs; path=/; expires=Tue, 04-Apr-2017 11:54:29 GMT
-      - adbsessuser=naruto1451; path=/; expires=Wed, 31-Mar-2027 11:54:29 GMT
-      - adbss=740345-HeOtBhOH; domain=.anidb.net; path=/; expires=Tue, 04-Apr-2017
-        11:54:29 GMT
-      - adbuin=1491134069-bSaf; path=/; expires=Wed, 31-Mar-2027 11:54:29 GMT
-      - anidbsettings=%7B%22USEAJAX%22%3A1%7D; path=/; expires=Wed, 31-Mar-2027 11:54:29
-        GMT
-      Vary:
-      - Accept-Encoding
-      Content-Encoding:
-      - gzip
-      Transfer-Encoding:
-      - chunked
+      X-Frame-Options:
+      - sameorigin
+      Referrer-Policy:
+      - same-origin
+      Expect-Ct:
+      - max-age=86400, enforce
+      Permissions-Policy:
+      - accelerometer=(), camera=(), fullscreen=(self), geolocation=(), gyroscope=(),
+        magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()
+      Content-Security-Policy:
+      - default-src 'none'; connect-src 'self'; font-src *.anidb.net; form-action
+        'self'; img-src * data:; script-src 'self' *.anidb.net www.google.com/recaptcha/
+        www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' *; child-src
+        kiwiirc.com *.youtube-nocookie.com www.google.com/recaptcha/; frame-ancestors
+        'self'; base-uri 'self'; manifest-src *.anidb.net;
     body:
       encoding: ASCII-8BIT
-      string: !binary |-
-        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
-        Ule/6Hcs8f8fsvKyZ/IvAAA=
-    http_version: 
-  recorded_at: Sun, 02 Apr 2017 11:54:39 GMT
-recorded_with: VCR 3.0.3
+      string: "<!DOCTYPE html>\n<html lang=\"en\" prefix=\"og: http://ogp.me/ns#\">\n\t<head>\n\t\t<meta
+        http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"/>\n\t\t<meta
+        name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\t\t<title>AniDB
+        AntiLeech - AniDB</title>\n\t\t<meta property=\"og:description\" name=\"description\"
+        content=\"Looking for information about AniDB AntiLeech? AniDB is the right
+        place for you. AniDB is a not-for-profit anime database providing you with
+        all infor...\"/>\n\t\t<meta name=\"robots\" content=\"index, follow\"/>\n\t\t<link
+        rel=\"stylesheet\" href=\"https://cdn-eu.anidb.net/css/anidbstyle3/anidbstyle3.css?v=2021-04-09T09-33-51\"
+        type=\"text/css\" title=\"Style\"/>\n\t\t<link rel=\"apple-touch-icon\" sizes=\"180x180\"
+        href=\"https://cdn-eu.anidb.net/css/icons/touch/apple-touch-icon.png?v=6APwgP3EOy\"/>\n\t\t<link
+        rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"https://cdn-eu.anidb.net/css/icons/touch/favicon-32x32.png?v=6APwgP3EOy\"/>\n\t\t<link
+        rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"https://cdn-eu.anidb.net/css/icons/touch/favicon-16x16.png?v=6APwgP3EOy\"/>\n\t\t<link
+        rel=\"manifest\" href=\"https://cdn-eu.anidb.net/css/icons/touch/site.webmanifest?v=6APwgP3EOy\"/>\n\t\t<link
+        rel=\"mask-icon\" href=\"https://cdn-eu.anidb.net/css/icons/touch/safari-pinned-tab.svg?v=6APwgP3EOy\"
+        color=\"#e18e3c\"/>\n\t\t<link rel=\"shortcut icon\" href=\"https://cdn-eu.anidb.net/css/icons/touch/favicon.ico?v=6APwgP3EOy\"/>\n\t\t<link
+        property=\"og:url\" rel=\"canonical\" href=\"https://anidb.net/?Accept=text%2Fhtml%2Capplication%2Fxhtml%2Bxml%2Capplication%2Fxml%3Bq%3D0.9%2Cimage%2Fwebp%2C%2A%2F%2A%3Bq%3D0.8&amp;Accept-Encoding=gzip%2C%20deflate&amp;Accept-Language=en-US%2Cen%3Bq%3D0.8%2Cru%3Bq%3D0.6%2Cja%3Bq%3D0.4&amp;Origin=http%3A%2F%2Fanidb.net&amp;User-Agent=Mozilla%2F5.0%20%28Macintosh%3B%20Intel%20Mac%20OS%20X%2010_11_6%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F55.0.2883.95%20Safari%2F537.36\"/>\n\t\t<link
+        rel=\"search\" type=\"application/opensearchdescription+xml\" href=\"https://anidb.net/opensearch.xml\"
+        title=\"AniDB\"/>\n\t\t<link rel=\"alternate\" type=\"application/atom+xml\"
+        title=\"AniDB Latest Files\" href=\"https://anidb.net/feeds/files.atom\"/>\n\t\t<link
+        rel=\"alternate\" type=\"application/atom+xml\" title=\"AniDB Latest News\"
+        href=\"https://anidb.net/feeds/news.atom\"/>\n\t\t<meta name=\"anidb-url\"
+        content=\"\" id=\"anidb-url\" data-anidb-url=\"https://anidb.net/perl-bin/animedb.pl?show=main&amp;Accept=text%2Fhtml%2Capplication%2Fxhtml%2Bxml%2Capplication%2Fxml%3Bq%3D0.9%2Cimage%2Fwebp%2C%2A%2F%2A%3Bq%3D0.8&amp;Accept-Encoding=gzip%2C%20deflate&amp;Accept-Language=en-US%2Cen%3Bq%3D0.8%2Cru%3Bq%3D0.6%2Cja%3Bq%3D0.4&amp;Origin=http%3A%2F%2Fanidb.net&amp;User-Agent=Mozilla%2F5.0%20%28Macintosh%3B%20Intel%20Mac%20OS%20X%2010_11_6%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F55.0.2883.95%20Safari%2F537.36\"/>\n\t\t<meta
+        name=\"apple-mobile-web-app-title\" content=\"AniDB\"/>\n\t\t<meta name=\"application-name\"
+        content=\"AniDB\"/>\n\t\t<meta name=\"msapplication-TileColor\" content=\"#da532c\"/>\n\t\t<meta
+        name=\"msapplication-config\" content=\"https://cdn-eu.anidb.net/css/icons/touch/browserconfig.xml?v=6APwgP3EOy\"/>\n\t\t<meta
+        name=\"theme-color\" content=\"#ffffff\"/>\n\t\t<meta name=\"twitter:card\"
+        content=\"summary\"/>\n\t\t<meta name=\"twitter:site\" content=\"@anidbstatus\"/>\n\t\t<meta
+        name=\"twitter:creator\" content=\"@anidbstatus\"/>\n\t\t<meta property=\"og:title\"
+        content=\"AniDB AntiLeech - AniDB\"/>\n\t\t\t<script defer src=\"https://cdn-eu.anidb.net/js/libs/js.cookie.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.form.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.fancybox.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.sortable.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.tablesorter.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.toastr.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.uploadfile.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jquery.wysibb.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/jqueryui.position.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/select2.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/libs/highcharts.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/legacy/legacy.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/WordSuggest.min.js?v=2021-04-03T16-36-55\"></script>\n\t\t\t<script
+        defer src=\"https://cdn-eu.anidb.net/js/global.min.js?v=2021-04-03T16-36-55\"></script>\n\t</head>\n\t<body
+        id=\"anidb\" class=\"main\">\n<div id=\"layout-hint\" class=\"hint\">\n\t<span
+        class=\"head\">HINT:</span>\n\t<span class=\"msg\">You're missing out on most
+        features of AniDB. Why not <a href=\"/user/register\">sign up now</a>? It's
+        free!</span>\n</div>\n<div id=\"layout-nav\" class=\"main_nav\">\n\t<ul id=\"layout-menu\"
+        class=\"main_menu\">\n\t\t<li class=\"sub-menu main\" title=\"Menu\">\n\t\t\t<span
+        class=\"tab\">Menu</span>\n\t\t\t<ul id=\"menu-main\">\n\t\t\t\t<li class=\"main\"><a
+        title=\"Main\" href=\"/\"><span>main</span></a></li>\n\t\t\t\t<li class=\"search\"><a
+        title=\"Advanced search\" href=\"/search/anime\"><span>search</span></a></li>\n\t\t\t\t<li
+        class=\"calendar\"><a title=\"Anime calendar\" href=\"/anime/season\"><span>season
+        chart</span></a></li>\n\t\t\t\t<li class=\"schedule\"><a title=\"Episode schedule\"
+        href=\"/anime/schedule\"><span>schedule</span></a></li>\n\t\t\t\t<li class=\"random\"><a
+        title=\"Random anime\" href=\"/anime/random\"><span>random</span></a></li>\n\t\t\t</ul>\n\t\t\t<span></span>\n\t\t</li>\n\t\t<li
+        class=\"sub-menu listings\" title=\"Content\">\n\t\t\t<span class=\"tab\">Content</span>\n\t\t\t<ul
+        id=\"menu-lists\">\n\t\t\t\t<li class=\"latest\"><a title=\"Latest additions\"
+        href=\"/latest\"><span>latest</span></a></li>\n\t\t\t\t<li class=\"anime\"><a
+        title=\"Anime list\" href=\"/anime\"><span>anime</span></a></li>\n\t\t\t\t<li
+        class=\"character\"><a title=\"Character list\" href=\"/character\"><span>characters</span></a></li>\n\t\t\t\t<li
+        class=\"club\"><a title=\"Club list\" href=\"/club\"><span>clubs</span></a></li>\n\t\t\t\t<li
+        class=\"creator\"><a title=\"Creator list\" href=\"/creator\"><span>creators</span></a></li>\n\t\t\t\t<li
+        class=\"collection\"><a title=\"Collection list\" href=\"/collection\"><span>collections</span></a></li>\n\t\t\t\t<li
+        class=\"group\"><a title=\"Group list\" href=\"/group\"><span>groups</span></a></li>\n\t\t
+        \  \t\t<li class=\"song\"><a title=\"Song list\" href=\"/song\"><span>songs</span></a></li>\n\t\t
+        \  \t\t<li class=\"tags\"><a title=\"Tag list\" href=\"/tag\"><span>tags</span></a></li>\n\t\t\t</ul>\n\t\t\t<span></span>\n\t\t</li>\n\t\t<li
+        class=\"sub-menu support\" title=\"Support\">\n\t\t\t<span class=\"tab\">Support</span>\n\t\t\t<ul
+        id=\"menu-support\">\n\n\t\t\t\t<li class=\"forum\"><a title=\"Help @ forum\"
+        href=\"/forum\"><span>forum</span></a></li>\n\t\t\t\t<li class=\"help\"><a
+        title=\"Help @ wiki\" href=\"https://wiki.anidb.net/Main_Page\" data-anidb-rel=\"anidb::wiki\"><span>help</span></a></li>\n\t\t\t\t<li
+        class=\"irc\"><a title=\"Help @ IRC\" href=\"/irc\"><span>IRC</span></a></li>\n\n\t\t\t\t<li
+        class=\"report\"><a title=\"Report a mistake\" href=\"https://wiki.anidb.net/Report_mistake\"
+        data-anidb-rel=\"anidb::wiki\"><span>report error</span></a></li>\n\t\t\t\t<li
+        class=\"software\"><a title=\"Software to interact with AniDB\" href=\"/software\"><span>software</span></a></li>\n\t\t\t\t<li
+        class=\"staff\"><a title=\"AniDB staff\" href=\"/admin/staff\"><span>staff</span></a></li>\n\t\t\t</ul>\n\t\t\t<span></span>\n\t\t</li>\n\t\t<li
+        class=\"sub-menu terms\" title=\"Terms &amp; Licenses\">\n\t\t\t<span class=\"tab\">Terms
+        &amp; Licenses</span>\n\t\t\t<ul id=\"menu-terms\">\n\t\t\t\t<li class=\"donate\"><a
+        title=\"Accounting, Patreon\" href=\"/donation\"><span>donate</span></a></li>\n\t\t\t\t<li
+        class=\"credits\"><a title=\"Credits, Software Licenses\" href=\"https://wiki.anidb.net/Credits\"
+        data-anidb-rel=\"anidb::wiki\"><span>credits</span></a></li>\n\t\t\t\t<li
+        class=\"policies\"><a title=\"Terms of Service, Privacy Policy, Licenses\"
+        href=\"/policy\"><span>policies</span></a></li>\n\t\t\t</ul>\n\t\t\t<span></span>\n\t\t</li>\n\t\t<li
+        class=\"sub-menu login\" title=\"Register or login\">\n\t\t\t<span class=\"tab\">Register
+        or login</span>\n\t\t\t<form action=\"/perl-bin/animedb.pl\" method=\"post\">\n\t\t\t\t<div>\n\t\t\t\t\t<fieldset><input
+        type=\"hidden\" name=\"show\" value=\"main\"/>\n\t\t\t\t\t</fieldset>\n\t\t\t\t\t<ul
+        id=\"menu-login\">\n\t\t\t\t\t\t<li id=\"user-login\" class=\"user-login\"><a
+        title=\"Show login page\" href=\"/user/login\"><span>login</span></a></li>\n\t\t\t\t\t\t<li
+        id=\"user-signup\" class=\"user-signup\"><a title=\"Register now\" href=\"/user/register\"><span>register</span></a></li>\n\t\t\t\t\t\t<li
+        id=\"user-xname\" class=\"user-xname\" title=\"User name\"><span><input name=\"xuser\"
+        class=\"text\" maxlength=\"16\" type=\"text\" value=\"\"/></span></li>\n\t\t\t\t\t\t<li
+        id=\"user-xpass\" class=\"user-xpass\" title=\"Password\"><span><input name=\"xpass\"
+        class=\"text\" maxlength=\"64\" type=\"password\"/></span></li>\n\t\t\t\t\t\t<li
+        id=\"user-xkeep\" class=\"user-xkeep\" title=\"Remember login data\"><span><label><input
+        name=\"xdoautologin\" type=\"checkbox\" checked=\"checked\"/> <span>stay logged
+        in</span></label></span></li>\n\t\t\t\t\t\t<li id=\"user-xauth\" class=\"user-xauth\"
+        title=\"Login\"><span><button class=\"login\" name=\"do.auth\" type=\"submit\"
+        value=\"login\"><span>Login</span></button></span></li>\n\t\t\t\t\t</ul>\n\t\t\t\t\t<span></span>\n\t\t\t\t</div>\n\t\t\t</form>\n\t\t</li>\n\t</ul>\n\t<div
+        class=\"menu_hr\"></div>\n\t<div id=\"layout-search\" class=\"main_search\">\n\t\t<div
+        class=\"search container\" itemscope itemtype=\"https://schema.org/WebSite\">\n\t\t\t<span
+        class=\"hide\" itemprop=\"name\">AniDB</span>\n\t\t\t<a class=\"hide\" rel=\"canonical\"
+        href=\"https://anidb.net\" itemprop=\"url\"></a>\n\t\t\t<form action=\"/perl-bin/animedb.pl\"
+        method=\"get\" itemprop=\"potentialAction\" itemscope itemtype=\"https://schema.org/SearchAction\">\n\t\t\t\t<div
+        itemprop=\"target\" content=\"https://anidb.net/search/anime/?adb.search={adb.search}&amp;do.search=1\">\n\t\t\t\t\t<input
+        itemprop=\"query-input\" id=\"layout-searchbox\" accesskey=\"s\" type=\"text\"
+        name=\"adb.search\" value=\"\" class=\"text\"/>\n\t<select name=\"show\" id=\"layout-searchselect\"
+        size=\"1\"><option value=\"search\" selected=\"selected\">all</option><option
+        value=\"animelist\">anime</option><option value=\"characterlist\">character</option><option
+        value=\"clublist\">club</option><option value=\"collectionlist\">collections</option><option
+        value=\"creatorlist\">creator</option><option value=\"eplist\">episodes</option><option
+        value=\"grouplist\">group</option><option value=\"mylist\">mylist</option><option
+        value=\"songlist\">songs</option><option value=\"taglist\">tags</option><option
+        value=\"userlist\">user</option>\n\t</select>\n\t\t\t\t\t<button type=\"submit\"
+        name=\"do.search\" value=\"1\" class=\"submit search\">Search</button>\n\t\t\t\t\t<fieldset><input
+        type=\"hidden\" name=\"cleanurl\" value=\"1\"/></fieldset>\n\t\t\t\t</div>\n\t\t\t</form>\n\t\t\t<form
+        class=\"random\" action=\"/perl-bin/animedb.pl\" method=\"get\">\n\t\t\t\t<fieldset>\n\t\t\t\t\t<input
+        type=\"hidden\" name=\"do.random\" value=\"1\"/>\n\t\t\t\t\t<input type=\"hidden\"
+        name=\"show\" value=\"anime\"/>\n\t\t\t\t</fieldset>\n\t\t\t\t<button type=\"submit\"
+        value=\"lucky\" class=\"submit random\">I'm Feeling Lucky</button>\n\t\t\t</form>\n\t\t\t<a
+        title=\"advsearch\" class=\"advsearch\" href=\"/search/anime\"><span>advanced
+        search</span></a>\n\t\t</div>\n\t</div>\n</div>\n<div id=\"layout-content\">\n\t<div
+        id=\"layout-main\">\n\t\t<h1 class=\"main\">AniDB AntiLeech</h1>\n\t\t\n\t\t<div
+        class=\"g_content main_all\">\n\t\t<a href=\"/perl-bin/animedb.pl?show=qyhrvqt\"
+        style=\"display:none;\">Download (Do <b>NOT</b> click!)</a>\n\t<div class=\"g_msg
+        g_bubble error\">\n\t\t<h3>ERROR</h3>\n\t\t<div class=\"container\">YOU HAVE
+        BEEN AUTO-BANNED FROM ANIDB FOR EXCESSIVE USAGE.<br/>Ban-ID: #777231\n\t\t</div>\n\t</div>\n\t<div
+        class=\"g_msg g_bubble note\">\n\t\t<h3>NOTE</h3>\n\t\t<div class=\"container\">If
+        you think that you have been denied access unjustified, please contact an
+        AniDB moderator on irc.<br/><br/>In order to minimise serverload AniDB tries
+        to prevent automated accesses and \"crawling of the website. You have exceeded
+        the limit for AniDB user accesses.<br/>You will not be allowed any more page
+        loads for the time being.<br/>A usual ban may last either 15min or 24h depending
+        on the severity of the action.<br/><br/>Continuing trying to gain access will
+        increase the duration of the ban.<br/><br/>For more information consult:\n\t\t\t<ul>\n\t\t\t\t<li><a
+        href=\"https://wiki.anidb.net/AniDB:AntiLeech\">AniDB AntiLeech Documentation</a></li>\n\t\t\t\t<li><a
+        href=\"/irc\">AniDB IRC channel</a></li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t\t</div><!--g_content-->\n\t\t<div
+        class=\"g_end\"></div>\n\t</div><!--layout-main-->\n</div><!--layout-content-->\n\n<div
+        id=\"layout-footer\">\n\t<p><a href=\"https://anidb.net\" property=\"cc:attributionName\">AniDB</a>
+        is licensed under a <a rel=\"license\" href=\"https://creativecommons.org/licenses/by-nc-sa/4.0/\">Creative
+        Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>\n\t<p>v
+        2020-01, &copy; 2002-2020 by AniDB; all rights reserved. [0s] - <span title=\"generated
+        at\">21.04.2021 16:58:23</span></p>\n\t<div itemscope itemtype=\"https://schema.org/Organization\">\n\t\t<a
+        class=\"hide\" itemprop=\"url\" href=\"https://anidb.net\">Home</a>\n\t\t<img
+        class=\"hide\" alt=\"AniDB\" itemprop=\"logo\" src=\"https://cdn-eu.anidb.net/css/icons/touch/android-chrome-512x512.png\"/>\n\t\t<span
+        class=\"hide\" itemprop=\"name\">AniDB</span>\n\t\t<div class=\"links\">\n\t\t\t<a
+        class=\"i_icon brand i_resource_twitter\" itemprop=\"sameAs\" title=\"Stay
+        up2date with AniDB on Twitter!\" href=\"https://twitter.com/AniDBStatus\"
+        data-anidb-rel=\"anidb::extern\"><span class=\"text\">Twitter</span></a>\n\t\t\t<a
+        class=\"i_icon brand i_resource_patreon\" itemprop=\"sameAs\" title=\"Become
+        a patron for AniDB!\" href=\"https://www.patreon.com/AniDB\" data-anidb-rel=\"anidb::extern\"><span
+        class=\"text\">Become a patron!</span></a>\n\t\t</div>\n\t</div>\n\t\t<a href=\"/perl-bin/animedb.pl?show=qyhrvqt\"
+        style=\"display:none;\">Download (Do <b>NOT</b> click!)</a>\n</div>\n\t</body>\n</html>"
+  recorded_at: Wed, 21 Apr 2021 16:58:23 GMT
+recorded_with: VCR 6.0.0

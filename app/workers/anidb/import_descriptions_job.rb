@@ -34,7 +34,7 @@ class Anidb::ImportDescriptionsJob
   def update_description_en db_entry
     description_en = anidb_description_en(db_entry)
 
-    unless description_en.blank?
+    if description_en.present?
       db_entry.update! description_en: description_en
     end
   end

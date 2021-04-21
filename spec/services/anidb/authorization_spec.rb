@@ -10,11 +10,10 @@ describe Anidb::Authorization do
 
     it do
       is_expected.to eq(
-        'adbautopass=zwsofsxfdnrzyxdj; '\
-        'adbautouser=naruto1451; '\
-        'adbsess=HeOtBhOHtFVJILxs; '\
-        'adbsessuser=naruto1451; '\
-        'adbss=740345-HeOtBhOH; '\
+        'adbuin=1619024303-Arfb; '\
+        'adbsess=nCOVLMqnGUAfKtji; '\
+        'adbsessuser=naruto1452; '\
+        'adbss=911926-nCOVLMqn; '\
         'anidbsettings=%7B%22USEAJAX%22%3A1%7D;'
       )
     end

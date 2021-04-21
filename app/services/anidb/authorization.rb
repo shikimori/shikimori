@@ -5,16 +5,16 @@ class Anidb::Authorization
 
   CACHE_KEY = 'anidb_authorization_cookie'
   COOKIES = %w[
+    adbuin
     adbsess
-    adbss
     adbsessuser
+    adbss
     anidbsettings
-    adbautouser
-    adbautopass
   ]
 
-  LOGIN_PATH = '/perl-bin/animedb.pl?show=login'
-  LOGIN = 'naruto1451'
+  ROOT_PATH = '/'
+  LOGIN_PATH = '/perl-bin/animedb.pl'
+  LOGIN = Rails.env.test? ? 'naruto1452' : 'naruto1455'
   PASSWORD = 'Wy6F27yNuDFB'
 
   HEADERS = {
@@ -25,8 +25,7 @@ class Anidb::Authorization
       'q=0.9,image/webp,*/*;q=0.8',
     'Accept-Encoding' => 'gzip, deflate',
     'Accept-Language' => 'en-US,en;q=0.8,ru;q=0.6,ja;q=0.4',
-    'Origin' => 'http://anidb.net',
-    'Referer' => 'http://anidb.net/perl-bin/animedb.pl?show=login'
+    'Origin' => 'http://anidb.net'
   }
 
   # NOTE: space between cookies is important for anidb
@@ -45,18 +44,25 @@ class Anidb::Authorization
     cookie
   end
 
-  private
+private
 
   def authorize
-    connection = Faraday.new('http://anidb.net') do |faraday|
+    connection = Faraday.new('https://anidb.net') do |faraday|
       faraday.use :cookie_jar
       faraday.adapter Faraday.default_adapter
     end
 
-    response = connection.post LOGIN_PATH, login_params, HEADERS
-    cookies = parse_cookies response.headers['set-cookie']
+    response1 = connection.get ROOT_PATH, HEADERS
+    cookies1 = parse_cookies response1.headers['set-cookie']
 
-    raise 'anidb unauthorized' unless valid?(cookies)
+    response2 = connection.post LOGIN_PATH, login_params, HEADERS.merge(
+      'Referer' => 'https://anidb.net/'
+    )
+    cookies2 = parse_cookies response2.headers['set-cookie']
+
+    cookies = cookies1 + cookies2
+
+    raise 'anidb unauthorized' unless valid? cookies
 
     cookies
   end
@@ -64,7 +70,9 @@ class Anidb::Authorization
   def parse_cookies cookie_header
     cookie_header
       .split(',')
-      .select { |v| v =~ /=/ && COOKIES.any? { |cookie| v.include? cookie } }
+      .select do |v|
+        v.include?('=') && COOKIES.any? { |cookie| v.include? cookie }
+      end
       .map { |v| v.gsub(/;.*/, ';').strip }
   end
 
@@ -74,8 +82,7 @@ class Anidb::Authorization
       xuser=#{LOGIN}
       xpass=#{PASSWORD}
       xdoautologin=on
-      xkeepoldcookie=on
-      do.auth.x=Login
+      do.auth=Login
     ].join('&')
   end
 
