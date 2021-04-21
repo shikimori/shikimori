@@ -12,6 +12,11 @@ pageUnload('dashboards_show', () => {
   if (!$('.p-dashboards-show .v2').length) { return; }
   destroySwipers();
 
+  const createTopic = document.querySelector('.create-topic');
+  if (createTopic) {
+    createTopic.href = createTopic.href.replace('%USER_ID%', window.SHIKI_USER.id);
+  }
+
   $(document).off('resize:debounced orientationchange', reInitSwipers);
 });
 

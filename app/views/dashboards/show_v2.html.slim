@@ -115,7 +115,8 @@
 
     .block2
       .subheadline-buttons
-        a.b-link_button.dark-2.create-topic[
+        a.b-link_button.dark-2.create-topic.to-process[
+          data-dynamic='week_registered'
           href=@view.new_news_url
           title=t('topics.menu_actions.create_news')
         ]
