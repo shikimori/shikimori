@@ -29,7 +29,7 @@ private
           source: :myanimelist,
           kind: external_link[:kind],
           url: external_link[:url]
-        )
+        ) rescue ActiveRecord::RecordInvalid
       end
   end
 
