@@ -6,17 +6,16 @@ pageLoad('dashboards_show', () => {
   if (!$('.p-dashboards-show .v2').length) { return; }
   reInitSwipers();
   $(document).on('resize:debounced orientationchange', reInitSwipers);
-});
-
-pageUnload('dashboards_show', () => {
-  if (!$('.p-dashboards-show .v2').length) { return; }
-  destroySwipers();
 
   const createTopic = document.querySelector('.create-topic');
   if (createTopic) {
     createTopic.href = createTopic.href.replace('%USER_ID%', window.SHIKI_USER.id);
   }
+});
 
+pageUnload('dashboards_show', () => {
+  if (!$('.p-dashboards-show .v2').length) { return; }
+  destroySwipers();
   $(document).off('resize:debounced orientationchange', reInitSwipers);
 });
 
