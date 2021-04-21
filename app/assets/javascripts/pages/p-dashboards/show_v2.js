@@ -9,7 +9,7 @@ pageLoad('dashboards_show', () => {
 
   const createTopic = document.querySelector('.create-topic');
   if (createTopic) {
-    createTopic.href = createTopic.href.replace('%USER_ID%', window.SHIKI_USER.id);
+    createTopic.href = createTopic.href.replace('USER_ID', window.SHIKI_USER.id);
   }
 });
 

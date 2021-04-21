@@ -130,7 +130,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
 
   def new_news_url
     h.new_topic_url(
-      'topic[user_id]' => '%USER_ID%',
+      'topic[user_id]' => 'USER_ID',
       'topic[type]' => Topics::NewsTopic.name
     )
   end
