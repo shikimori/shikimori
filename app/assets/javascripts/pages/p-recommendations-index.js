@@ -12,7 +12,7 @@ pageLoad('recommendations_index', 'recommendations_favourites', async () => {
     await delay(5000);
 
     if (url === document.location.href) {
-      Turbolinks.visit(document.location.href);
+      window.location.reload();
       return;
     }
   }
