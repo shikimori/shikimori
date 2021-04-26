@@ -36,18 +36,14 @@ class UsersController < ShikimoriController
     )
 
     if @similar_ids
-      ids = @similar_ids
-        .drop(LIMIT * (@page - 1))
-        .take(LIMIT)
-
-      @collection = User
-        .where(id: ids)
-        .sort_by { |user| ids.index user.id }
-        .map(&:decorate)
+      @collection = Users::Query.new(User.all)
+        .where(id: @similar_ids)
+        .order_by_ids(@similar_ids)
+        .paginate(@page, LIMIT)
+        .transform(&:decorate)
     end
 
-    @add_postloader = @similar_ids&.any? &&
-      @page * LIMIT < SimilarUsersService::MAXIMUM_RESULTS
+    render :index if json?
   end
 
   def autocomplete

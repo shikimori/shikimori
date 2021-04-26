@@ -51,4 +51,19 @@ class Users::Query < QueryObjectBase
       )
       .order(:created_at)
   end
+
+  def order_by_ids ids
+    joined_ids = ids.join(',')
+
+    chain @scope.order(
+      Arel.sql(
+        <<-SQL.squish
+          position(
+            concat(#{@scope.model.table_name}.id::text, ',') in
+              #{ApplicationRecord.sanitize "#{joined_ids},"}
+          )
+        SQL
+      )
+    )
+  end
 end

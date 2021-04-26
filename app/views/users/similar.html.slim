@@ -43,7 +43,9 @@ header.head.misc
   - else
     = render @collection, content_by: :detailed
 
-    - if @add_postloader
-      = render 'blocks/postloader', filter: 'b-user',
-        next_url: users_url(page: @page+1, search: params[:search]),
-        prev_url: (@page > 1 ? users_url(page: @page+1, search: params[:search]) : nil)
+    - if @collection.next_page?
+      = render 'blocks/postloader',
+        filter: 'b-user',
+        next_url: current_url(page: @collection.next_page),
+        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?),
+        pages_limit: 10
