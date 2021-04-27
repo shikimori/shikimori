@@ -3,11 +3,11 @@ import { bind } from 'shiki-decorators';
 import View from 'views/application/view';
 import axios from 'helpers/axios';
 
-const MAX_PREVIEW_HEIGHT = 450;
-const COLLAPSED_HEIGHT = 150;
-
 // общий класс для комментария, топика, редактора
 export default class ShikiView extends View {
+  MAX_PREVIEW_HEIGHT = 450
+  COLLAPSED_HEIGHT = 150
+
   _initialize(...args) {
     super._initialize(...args);
 
