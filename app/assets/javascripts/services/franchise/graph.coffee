@@ -3,10 +3,10 @@ import d3 from 'd3'
 import { FranchiseNode } from './node'
 import { ShikiMath } from 'services/shiki_math'
 
-export class FranchiseGraph
-  START_MARKERS = ['prequel']
-  END_MARKERS = ['sequel']
+START_MARKERS = ['prequel']
+END_MARKERS = ['sequel']
 
+export class FranchiseGraph
   constructor: (data) ->
     # image sizes
     @image_w = 48
@@ -220,14 +220,14 @@ export class FranchiseGraph
     # year
     @d3_image_container.append('svg:text')
       .attr
-        x: (d) -> d.year_x()
-        y: (d) -> d.year_y()
+        x: (d) -> d.yearX()
+        y: (d) -> d.yearY()
         class: 'year shadow'
       .text (d) -> d.year
     @d3_image_container.append('svg:text')
       .attr
-        x: (d) -> d.year_x()
-        y: (d) -> d.year_y()
+        x: (d) -> d.yearX()
+        y: (d) -> d.yearY()
         class: 'year'
       .text (d) -> d.year
 
