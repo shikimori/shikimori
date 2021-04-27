@@ -1080,6 +1080,11 @@
   dependencies:
     vue "^2.6.10"
 
+"@morr/user-idle@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@morr/user-idle/-/user-idle-2.0.0.tgz#46a8116fcc9ae90ad2e91aad124c3abee02a2846"
+  integrity sha512-z2jdNi1xSncdAo2yKLUt9ZKQT4rdVvq1RzviGH1kmE6yOQaCTNPz4jjppKlpaHTvFfUHaQIi3DmXGlk1NzNbww==
+
 "@npmcli/move-file@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@npmcli/move-file/-/move-file-1.0.1.tgz#de103070dac0f48ce49cf6693c23af59c0f70464"
@@ -5333,11 +5338,6 @@ jquery-mousewheel@^3.1.13:
   resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
   integrity sha1-BvAzXxbjU6aV5yBr9QUDy1I6buU=
 
-jquery.idle@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/jquery.idle/-/jquery.idle-1.3.0.tgz#959c89036321e739d7f123637b2dfa865282a65c"
-  integrity sha512-WzUPvkpq+UR7oDWcGhSf3278yJEZvrnpjx5L0EdM4dBGcbLYo2N0s8ICIQhO9xdNVceQbPilOPgoe58+iMfpmg==
-
 jquery@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
@@ -7771,7 +7771,7 @@ prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0:
   dependencies:
     prosemirror-model "^1.0.0"
 
-prosemirror-utils@atlassian/prosemirror-utils#remove-prosemirror-tables, "prosemirror-utils@github:atlassian/prosemirror-utils#remove-prosemirror-tables":
+prosemirror-utils@atlassian/prosemirror-utils#remove-prosemirror-tables:
   version "0.9.6"
   resolved "https://codeload.github.com/atlassian/prosemirror-utils/tar.gz/9e2db389d408f376e0fc1f8bdffd95063e8d00af"
 
@@ -9891,7 +9891,7 @@ void-elements@^3.1.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha1-YU9/v42AHwu18GYfWy9XhXUOTwk=
 
-"vue-custom-scrollbar@github:morr/vue-custom-scrollbar#1.1.5", vue-custom-scrollbar@morr/vue-custom-scrollbar#1.1.5:
+vue-custom-scrollbar@morr/vue-custom-scrollbar#1.1.5:
   version "1.1.5"
   resolved "https://codeload.github.com/morr/vue-custom-scrollbar/tar.gz/d50510e6d63c59b3f29c94e106b5b6972e3081d0"
 

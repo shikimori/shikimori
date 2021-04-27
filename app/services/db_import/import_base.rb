@@ -67,7 +67,7 @@ private
 
     @data
       .except(*ignored_fields)
-      .delete_if { |_k,v| v.blank? }
+      .delete_if { |_k, v| v.blank? }
   end
 
   def desynced_fields
