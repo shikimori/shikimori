@@ -19,7 +19,6 @@ export default class FayeLoader {
 
   constructor() {
     this.apply();
-    console.log(this.id);
 
     // refresh subscruptions when something is changed in outside world
     $(document).on(WORLD_CHANGED_EVENTS.join(' '), this.apply);
