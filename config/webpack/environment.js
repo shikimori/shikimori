@@ -10,12 +10,6 @@ const vueLoader = require('./loaders/vue');
 environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin());
 environment.loaders.prepend('vue', vueLoader);
 
-// coffee
-// https://github.com/rails/webpacker/issues/2162
-const coffeeLoader = require('./loaders/coffee');
-
-environment.loaders.prepend('coffee', coffeeLoader);
-
 // pug
 const pugLoader = require('./loaders/pug');
 
@@ -24,7 +18,7 @@ environment.loaders.append('pug', pugLoader);
 environment.loaders.get('babel').exclude =
   /node_modules\/(?!delay|p-defer|get-js|swiper|shiki-utils|shiki-editor|shiki-uploader|shiki-decorators|prosemirror-utils)/;
 environment.loaders.get('file').exclude =
-  /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
+  /\.(js|vue|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
 
 environment.plugins.append(
   'Provide',
