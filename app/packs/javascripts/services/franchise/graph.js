@@ -2,7 +2,7 @@
 import d3 from 'd3';
 
 import { FranchiseNode } from './node';
-import { ShikiMath } from 'services/shiki_math';
+import { ShikiMath } from '@/services/shiki_math';
 
 const START_MARKERS = ['prequel'];
 const END_MARKERS = ['sequel'];

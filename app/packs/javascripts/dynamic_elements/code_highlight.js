@@ -1,5 +1,5 @@
 /* global importScripts */
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 const NO_HIGHLIGHT = 'nohighlight';
 

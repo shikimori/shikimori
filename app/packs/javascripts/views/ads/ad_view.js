@@ -1,7 +1,7 @@
 import cookies from 'js-cookie';
 import delay from 'delay';
 
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 const removeAd = function (adClass) {
   console.log(`remove ad ${adClass}`);

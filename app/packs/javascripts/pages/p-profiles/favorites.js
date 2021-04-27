@@ -1,5 +1,5 @@
 import TinyUri from 'tiny-uri';
-import axios from 'helpers/axios';
+import axios from '@/helpers/axios';
 import delay from 'delay';
 
 pageLoad('profiles_favorites', async () => {

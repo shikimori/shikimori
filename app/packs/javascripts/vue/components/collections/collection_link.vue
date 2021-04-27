@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from '@/vuex';
 import autosize from 'autosize';
 
 function highlight(selector) {

@@ -1,10 +1,10 @@
 import delay from 'delay';
 import { bind, memoize } from 'shiki-decorators';
 
-import ShikiEditable from 'views/application/shiki_editable';
+import ShikiEditable from '@/views/application/shiki_editable';
 
-import axios from 'helpers/axios';
-import { animatedCollapse, animatedExpand } from 'helpers/animated';
+import axios from '@/helpers/axios';
+import { animatedCollapse, animatedExpand } from '@/helpers/animated';
 
 const I18N_KEY = 'frontend.dynamic_elements.topic';
 const FAYE_EVENTS = [

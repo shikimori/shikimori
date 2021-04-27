@@ -1,5 +1,5 @@
 import { bind } from 'shiki-decorators';
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 export class PredefinedCheckbox extends View {
   initialize(regexp) {

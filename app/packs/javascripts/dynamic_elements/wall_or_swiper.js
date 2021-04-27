@@ -1,6 +1,6 @@
 import Swiper from './swiper';
-import View from 'views/application/view';
-import Wall from 'views/wall/view';
+import View from '@/views/application/view';
+import Wall from '@/views/wall/view';
 
 import { isPhone } from 'shiki-utils';
 

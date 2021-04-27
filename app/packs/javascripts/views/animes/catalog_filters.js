@@ -1,6 +1,6 @@
 // TODO: refactor to normal classes
 // cleanup decaffeinate artefacts
-import inNewTab from 'helpers/in_new_tab';
+import inNewTab from '@/helpers/in_new_tab';
 import urlParse from 'url-parse';
 import TinyUri from 'tiny-uri';
 

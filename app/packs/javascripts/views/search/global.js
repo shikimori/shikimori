@@ -3,14 +3,14 @@ import TinyUri from 'tiny-uri';
 import delay from 'delay';
 import { bind } from 'shiki-decorators';
 
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 import AutocompleteEngine from './autocomplete_engine';
 import IndexEngine from './index_engine';
 
 import { isMobile } from 'shiki-utils';
-import globalHandler from 'helpers/global_handler';
-import JST from 'helpers/jst';
+import globalHandler from '@/helpers/global_handler';
+import JST from '@/helpers/jst';
 
 const VARIANT_SELECTOR = '.b-db_entry-variant-list_item';
 const ITEM_SELECTOR = `${VARIANT_SELECTOR}, .search-mode`;

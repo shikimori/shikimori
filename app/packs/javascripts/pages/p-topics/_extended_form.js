@@ -1,5 +1,5 @@
-import axios from 'helpers/axios';
-import Wall from 'views/wall/view';
+import axios from '@/helpers/axios';
+import Wall from '@/views/wall/view';
 
 export function initForm(type, $form, $wall, $video) {
   $form.on('submit', () => {

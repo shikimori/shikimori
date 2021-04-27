@@ -1,6 +1,6 @@
-import View from 'views/application/view';
+import View from '@/views/application/view';
 import { bind } from 'shiki-decorators';
-import { animatedCollapse, animatedExpand } from 'helpers/animated';
+import { animatedCollapse, animatedExpand } from '@/helpers/animated';
 
 export default class SpoilerBlock extends View {
   initialize() {

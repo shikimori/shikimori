@@ -1,5 +1,5 @@
-import View from 'views/application/view';
-import dayjs from 'helpers/dayjs';
+import View from '@/views/application/view';
+import dayjs from '@/helpers/dayjs';
 
 const INPUT_FORMAT = 'YYYY-MM-DD';
 

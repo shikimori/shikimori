@@ -1,18 +1,18 @@
 import delay from 'delay';
 import cookies from 'js-cookie';
 
-import UserRatesTracker from 'services/user_rates/tracker';
-import TopicsTracker from 'services/topics/tracker';
-import CommentsTracker from 'services/comments/tracker';
-import PollsTracker from 'services/polls/tracker';
+import UserRatesTracker from '@/services/user_rates/tracker';
+import TopicsTracker from '@/services/topics/tracker';
+import CommentsTracker from '@/services/comments/tracker';
+import PollsTracker from '@/services/polls/tracker';
 import DynamicParser from 'dynamic_elements/_parser';
 
 import {
   ANIME_TOOLTIP_OPTIONS,
   COMMON_TOOLTIP_OPTIONS
-} from 'helpers/tooltip_options';
+} from '@/helpers/tooltip_options';
 import { isMobile } from 'shiki-utils';
-import $with from 'helpers/with';
+import $with from '@/helpers/with';
 
 $.fn.extend({
   process(JS_EXPORTS) {

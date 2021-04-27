@@ -1,7 +1,7 @@
 import delay from 'delay';
 import imagesLoaded from 'imagesloaded';
 
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 export default class Html5Video extends View {
   initialize() {

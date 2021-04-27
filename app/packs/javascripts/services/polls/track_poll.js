@@ -1,5 +1,5 @@
-import $with from 'helpers/with';
-import Poll from 'views/polls/view';
+import $with from '@/helpers/with';
+import Poll from '@/views/polls/view';
 
 export default class TrackPoll {
   constructor(poll, $root) {

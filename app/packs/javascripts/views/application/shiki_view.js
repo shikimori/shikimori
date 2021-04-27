@@ -1,7 +1,7 @@
 import { bind } from 'shiki-decorators';
 
-import View from 'views/application/view';
-import axios from 'helpers/axios';
+import View from '@/views/application/view';
+import axios from '@/helpers/axios';
 
 // общий класс для комментария, топика, редактора
 export default class ShikiView extends View {

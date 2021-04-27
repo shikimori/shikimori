@@ -1,7 +1,7 @@
 import { bind } from 'shiki-decorators';
-import axios from 'helpers/axios';
+import axios from '@/helpers/axios';
 
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 export default class Clickloaded extends View {
   isLoading = false;

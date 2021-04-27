@@ -1,7 +1,7 @@
 import { bind } from 'shiki-decorators';
 import { flash } from 'shiki-utils';
 
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 const I18N_KEY = 'frontend.dynamic_elements.not_implemented_yet_action';
 

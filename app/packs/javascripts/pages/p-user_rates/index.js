@@ -2,13 +2,13 @@ import delay from 'delay';
 import Turbolinks from 'turbolinks';
 import { flash } from 'shiki-utils';
 
-import { COMMON_TOOLTIP_OPTIONS } from 'helpers/tooltip_options';
+import { COMMON_TOOLTIP_OPTIONS } from '@/helpers/tooltip_options';
 import { isMobile } from 'shiki-utils';
-import axios from 'helpers/axios';
-import { animatedCollapse, animatedExpand } from 'helpers/animated';
+import axios from '@/helpers/axios';
+import { animatedCollapse, animatedExpand } from '@/helpers/animated';
 
-import ShikiModal from 'views/application/shiki_modal';
-import CatalogFilters from 'views/animes/catalog_filters';
+import ShikiModal from '@/views/application/shiki_modal';
+import CatalogFilters from '@/views/animes/catalog_filters';
 
 // TODO: этот гигантский файл нуждается в рефакторинге
 let listCache = [];

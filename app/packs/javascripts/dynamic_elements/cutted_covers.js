@@ -1,5 +1,5 @@
 import delay from 'delay';
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 let PRIOR_ID = 0;
 let GLOBAL_HANDLER = false;

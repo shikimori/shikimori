@@ -3,9 +3,9 @@ import { debounce } from 'throttle-debounce';
 import pDefer from 'p-defer';
 import { flash } from 'shiki-utils';
 
-import ajaxCacher from 'services/ajax_cacher';
+import ajaxCacher from '@/services/ajax_cacher';
 
-import JST from 'helpers/jst';
+import JST from '@/helpers/jst';
 
 export default class IndexEngine {
   constructor() {

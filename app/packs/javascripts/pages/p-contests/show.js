@@ -1,4 +1,4 @@
-import ContestRound from 'views/contests/round';
+import ContestRound from '@/views/contests/round';
 
 pageLoad('contests_show', () => {
   if (!$('.contest_round').length) {

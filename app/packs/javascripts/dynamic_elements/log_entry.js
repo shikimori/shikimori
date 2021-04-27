@@ -1,8 +1,8 @@
 import delay from 'delay';
 import { bind } from 'shiki-decorators';
 
-import ShikiView from 'views/application/shiki_view';
-import BanForm from 'views/comments/ban_form';
+import ShikiView from '@/views/application/shiki_view';
+import BanForm from '@/views/comments/ban_form';
 
 export default class LogEntry extends ShikiView {
   initialize() {

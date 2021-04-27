@@ -1,4 +1,4 @@
-// import Wall from 'views/wall/view';
+// import Wall from '@/views/wall/view';
 
 pageLoad('tests_show', async () => {
   // new Wall($('.images-test .shiki-wall'));

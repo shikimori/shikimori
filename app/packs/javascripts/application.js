@@ -8,7 +8,7 @@ Turbolinks.start();
 
 import delay from 'delay';
 
-const requireVendor = require.context('vendor', false);
+const requireVendor = require.context('@/vendor', false);
 requireVendor.keys().forEach(requireVendor);
 
 import 'magnific-popup';
@@ -31,33 +31,33 @@ import 'codemirror/addon/search/matchesonscrollbar.css';
 
 import { throttle, debounce } from 'throttle-debounce';
 
-import pageLoad from 'helpers/page_load'; // eslint-disable-line import/newline-after-import
+import pageLoad from '@/helpers/page_load'; // eslint-disable-line import/newline-after-import
 window.pageLoad = pageLoad;
 
-import pageUnload from 'helpers/page_unload'; // eslint-disable-line import/newline-after-import
+import pageUnload from '@/helpers/page_unload'; // eslint-disable-line import/newline-after-import
 window.pageUnload = pageUnload;
 
-const requireJqueryPlugins = require.context('jquery.plugins', true);
+const requireJqueryPlugins = require.context('@/jquery.plugins', true);
 requireJqueryPlugins.keys().forEach(requireJqueryPlugins);
 
-const requirePages = require.context('pages', true);
+const requirePages = require.context('@/pages', true);
 requirePages.keys().forEach(requirePages);
 
-const requireBlocks = require.context('blocks', true);
+const requireBlocks = require.context('@/blocks', true);
 requireBlocks.keys().forEach(requireBlocks);
 
-import ShikiUser from 'models/shiki_user';
+import ShikiUser from '@/models/shiki_user';
 
-import FayeLoader from 'services/faye_loader';
-import CommentsNotifier from 'services/comments_notifier';
-import AchievementsNotifier from 'services/achievements_notifier';
+import FayeLoader from '@/services/faye_loader';
+import CommentsNotifier from '@/services/comments_notifier';
+import AchievementsNotifier from '@/services/achievements_notifier';
 
-import bindings from 'helpers/bindings';
+import bindings from '@/helpers/bindings';
 
-import 'helpers/p';
-import 'i18n/translations';
+import '@/helpers/p';
+import '@/i18n/translations';
 
-import dayjs from 'helpers/dayjs'; // eslint-disable-line import/newline-after-import
+import dayjs from '@/helpers/dayjs'; // eslint-disable-line import/newline-after-import
 window.dayjs = dayjs;
 
 $(document).one('turbolinks:load', () => {

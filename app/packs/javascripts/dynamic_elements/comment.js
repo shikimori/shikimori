@@ -2,8 +2,8 @@ import delay from 'delay';
 import { flash } from 'shiki-utils';
 import { bind } from 'shiki-decorators';
 
-import ShikiEditable from 'views/application/shiki_editable';
-import BanForm from 'views/comments/ban_form';
+import ShikiEditable from '@/views/application/shiki_editable';
+import BanForm from '@/views/comments/ban_form';
 
 const I18N_KEY = 'frontend.dynamic_elements.comment';
 

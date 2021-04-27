@@ -1,5 +1,5 @@
 import delay from 'delay';
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 const DEPLOY_INTERVAL = 50;
 

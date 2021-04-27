@@ -1,4 +1,4 @@
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 export default class ShikiModal extends View {
   initialize() {

@@ -1,7 +1,7 @@
 import { bind } from 'shiki-decorators';
 
-import View from 'views/application/view';
-import { getSelectionText, isGetSelectionTextSupported } from 'helpers/get_selection';
+import View from '@/views/application/view';
+import { getSelectionText, isGetSelectionTextSupported } from '@/helpers/get_selection';
 
 export default class SpoilerInline extends View {
   initialize() {

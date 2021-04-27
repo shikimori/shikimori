@@ -1,7 +1,7 @@
 import { bind } from 'shiki-decorators';
 import { flash } from 'shiki-utils';
 
-import View from 'views/application/view';
+import View from '@/views/application/view';
 import * as AuthorizedAction from './authorized_action';
 
 const I18N_KEY = 'frontend.dynamic_elements.day_registered_action';

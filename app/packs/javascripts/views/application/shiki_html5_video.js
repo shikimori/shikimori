@@ -1,6 +1,6 @@
 import localStorage from 'local-storage';
 import { bind } from 'shiki-decorators';
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 const VOLUME_KEY = 'video_volume';
 const FULLSCREEN_EVENTS = 'webkitfullscreenchange mozfullscreenchange fullscreenchange';

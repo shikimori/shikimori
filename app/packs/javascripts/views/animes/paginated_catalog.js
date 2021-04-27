@@ -2,13 +2,13 @@ import Turbolinks from 'turbolinks';
 import { flash } from 'shiki-utils';
 import { bind } from 'shiki-decorators';
 
-import UserRatesTracker from 'services/user_rates/tracker';
-import ajaxCacher from 'services/ajax_cacher';
+import UserRatesTracker from '@/services/user_rates/tracker';
+import ajaxCacher from '@/services/ajax_cacher';
 
 import DynamicParser from 'dynamic_elements/_parser';
-import CatalogFilters from 'views/animes/catalog_filters';
+import CatalogFilters from '@/views/animes/catalog_filters';
 
-import inNewTab from 'helpers/in_new_tab';
+import inNewTab from '@/helpers/in_new_tab';
 
 export default class PaginatedCatalog {
   constructor(basePath) {

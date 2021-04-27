@@ -1,4 +1,4 @@
-import View from 'views/application/view';
+import View from '@/views/application/view';
 import { bind } from 'shiki-decorators';
 
 export class Cosplay extends View {

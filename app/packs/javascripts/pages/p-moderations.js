@@ -5,9 +5,9 @@ import delay from 'delay';
 
 import { initArrayFieldApp } from './p-db_entries/edit_field';
 
-import CollectionSearch from 'views/search/collection';
-import { DatePicker } from 'views/application/date_picker';
-import { animatedCollapse } from 'helpers/animated';
+import CollectionSearch from '@/views/search/collection';
+import { DatePicker } from '@/views/application/date_picker';
+import { animatedCollapse } from '@/helpers/animated';
 
 function datePicker() {
   if (!$('.date-filter').exists()) { return; }

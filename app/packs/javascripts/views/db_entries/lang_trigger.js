@@ -1,4 +1,4 @@
-import View from 'views/application/view';
+import View from '@/views/application/view';
 import { bind, memoize } from 'shiki-decorators';
 
 export class LangTrigger extends View {

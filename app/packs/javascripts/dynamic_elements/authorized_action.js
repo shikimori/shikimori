@@ -1,7 +1,7 @@
 import { bind } from 'shiki-decorators';
 import { flash } from 'shiki-utils';
 
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 export const I18N_KEY = 'frontend.dynamic_elements.authorized_action';
 export class AuthorizedAction extends View {

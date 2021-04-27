@@ -1,5 +1,6 @@
 const webpack = require('webpack');
-const { environment } = require('@rails/webpacker');
+const { environment, config } = require('@rails/webpacker');
+const path = require('path');
 
 const IS_LOCAL_SHIKI_PACKAGES = false;
 
@@ -107,5 +108,9 @@ environment.plugins.append(
     IS_FAYE_LOGGING: true // process.env.NODE_ENV === 'production'
   })
 );
+
+environment.config.resolve.alias = {
+  '@': path.resolve(__dirname, '..', '..', config.source_path, 'javascripts')
+};
 
 module.exports = environment;

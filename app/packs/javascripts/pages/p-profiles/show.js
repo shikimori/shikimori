@@ -1,5 +1,5 @@
-import axios from 'helpers/axios';
-import dayjs from 'helpers/dayjs';
+import axios from '@/helpers/axios';
+import dayjs from '@/helpers/dayjs';
 
 import { isMobile } from 'shiki-utils';
 

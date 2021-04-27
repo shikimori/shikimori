@@ -1,9 +1,9 @@
 import delay from 'delay';
 import Turbolinks from 'turbolinks';
 
-import ajaxCacher from 'services/ajax_cacher';
-import inNewTab from 'helpers/in_new_tab';
-import axios from 'helpers/axios';
+import ajaxCacher from '@/services/ajax_cacher';
+import inNewTab from '@/helpers/in_new_tab';
+import axios from '@/helpers/axios';
 
 pageLoad('recommendations_index', 'recommendations_favourites', async () => {
   // если страница ещё не готова, перегрузимся через 5 секунд

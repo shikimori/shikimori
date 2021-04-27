@@ -1,4 +1,4 @@
-import PaginatedCatalog from 'views/animes/paginated_catalog';
+import PaginatedCatalog from '@/views/animes/paginated_catalog';
 
 pageLoad('animes_collection_index', 'recommendations_index', 'userlist_comparer_show', () => {
   if ($('.l-menu [data-dynamic=postloaded]').exists()) {

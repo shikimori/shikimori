@@ -4,10 +4,10 @@ import pDefer from 'p-defer';
 import { bind, memoize } from 'shiki-decorators';
 import { flash } from 'shiki-utils';
 
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
-import csrf from 'helpers/csrf';
-import axios from 'helpers/axios';
+import csrf from '@/helpers/csrf';
+import axios from '@/helpers/axios';
 
 const VUE_PENDING_CLASS = 'vue-node'
 const VUE_INITIALIZED_CLASS = 'vue-node-initialized'

@@ -1,4 +1,4 @@
-import $with from 'helpers/with';
+import $with from '@/helpers/with';
 
 export default class TrackUserRate {
   constructor(userRate, $container) {

@@ -1,5 +1,5 @@
 import { bind } from 'shiki-decorators';
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 const ADD_CLASS = 'fav-add';
 const REMOVE_CLASS = 'fav-remove';

@@ -1,7 +1,7 @@
 import delay from 'delay';
 import { flash } from 'shiki-utils';
 
-import csrf from 'helpers/csrf';
+import csrf from '@/helpers/csrf';
 
 const I18N_KEY = 'frontend.lib.jquery_shiki_file';
 

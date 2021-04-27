@@ -1,7 +1,7 @@
 import { bind } from 'shiki-decorators';
 
-import JST from 'helpers/jst';
-import axios from 'helpers/axios';
+import JST from '@/helpers/jst';
+import axios from '@/helpers/axios';
 import UserRateButton from './button';
 
 const EXTENDED_TEMPLATE = 'user_rates/extended';

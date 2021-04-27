@@ -1,6 +1,6 @@
-import axios from 'helpers/axios';
+import axios from '@/helpers/axios';
 
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 export default class Postloaded extends View {
   async initialize() {

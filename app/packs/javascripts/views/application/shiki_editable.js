@@ -1,11 +1,11 @@
 import delay from 'delay';
 import { bind, debounce, memoize, throttle } from 'shiki-decorators';
 
-import { getSelectionText, getSelectionHtml } from 'helpers/get_selection';
-import axios from 'helpers/axios';
-import { animatedCollapse } from 'helpers/animated';
+import { getSelectionText, getSelectionHtml } from '@/helpers/get_selection';
+import axios from '@/helpers/axios';
+import { animatedCollapse } from '@/helpers/animated';
 
-import ShikiView from 'views/application/shiki_view';
+import ShikiView from '@/views/application/shiki_view';
 
 const BUTTONS = [
   '.item-ignore',

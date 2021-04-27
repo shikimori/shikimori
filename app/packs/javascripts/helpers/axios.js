@@ -1,5 +1,5 @@
 import axios from 'axios';
-import csrf from 'helpers/csrf';
+import csrf from '@/helpers/csrf';
 
 export default axios.create({
   headers: Object.assign(

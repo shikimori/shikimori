@@ -2,11 +2,7 @@
 require('core-js/stable');
 require('regenerator-runtime/runtime');
 
-// must be require to prevent bugs with load order
-window.$ = require('jquery'); // eslint-disable-line import/newline-after-import
-window.jQuery = window.$;
-
-import sugar from 'vendor/sugar'; // eslint-disable-line import/newline-after-import
+import sugar from 'javascripts/vendor/sugar'; // eslint-disable-line import/newline-after-import
 sugar.extend();
 
 import WebFont from 'webfontloader';
@@ -23,6 +19,6 @@ $(() => (
   ), 50)
 ));
 
-require('application');
-require('turbolinks_load');
-require('turbolinks_before_cache');
+import '@/application';
+import '@/turbolinks_load';
+import '@/turbolinks_before_cache';

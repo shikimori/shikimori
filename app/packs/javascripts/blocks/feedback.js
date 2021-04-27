@@ -1,4 +1,4 @@
-import ShikiModal from 'views/application/shiki_modal';
+import ShikiModal from '@/views/application/shiki_modal';
 import { flash } from 'shiki-utils';
 
 $(document).on('turbolinks:load', () => {

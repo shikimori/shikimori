@@ -1,4 +1,4 @@
-import View from 'views/application/view';
+import View from '@/views/application/view';
 
 import WallCluster from './cluster';
 import WallImage from './image';

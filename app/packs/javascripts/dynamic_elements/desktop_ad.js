@@ -1,7 +1,7 @@
-import View from 'views/application/view';
-import { AdView } from 'views/ads/ad_view';
-import { YandexAd } from 'views/ads/yandex_ad';
-import { MytargetAd } from 'views/ads/mytarget_ad';
+import View from '@/views/application/view';
+import { AdView } from '@/views/ads/ad_view';
+import { YandexAd } from '@/views/ads/yandex_ad';
+import { MytargetAd } from '@/views/ads/mytarget_ad';
 
 import { mobileDetect, isTablet, isPhone } from 'shiki-utils';
 
