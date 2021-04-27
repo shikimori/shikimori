@@ -1,4 +1,3 @@
-// TODO: cleanup decaffeinate artefacts
 import d3 from 'd3';
 import { memoize } from 'shiki-decorators'
 
