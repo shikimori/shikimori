@@ -1193,10 +1193,10 @@
   resolved "https://registry.yarnpkg.com/@morr/user-idle/-/user-idle-2.0.0.tgz#46a8116fcc9ae90ad2e91aad124c3abee02a2846"
   integrity sha512-z2jdNi1xSncdAo2yKLUt9ZKQT4rdVvq1RzviGH1kmE6yOQaCTNPz4jjppKlpaHTvFfUHaQIi3DmXGlk1NzNbww==
 
-"@morr/withinviewport@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@morr/withinviewport/-/withinviewport-2.1.2.tgz#087bc41dee42c206dd64e4a0d52747af42aebf55"
-  integrity sha512-gxOazX3XUw5VhQUkrr5V5Y3UwV85UJ3KK8O5wr0uNoYfKfP4cmdcvgIZnGuBQ5cv75gXOBO1MB1OrhhFdC9TFA==
+"@morr/withinviewport@2.1.3-0":
+  version "2.1.3-0"
+  resolved "https://registry.yarnpkg.com/@morr/withinviewport/-/withinviewport-2.1.3-0.tgz#c1a2480421f59c8bf5f375e273eb78362f9c8032"
+  integrity sha512-XF+qJZfaXazTKt69DqZsbeI9VqHbm8HjEPF1h14bk5pn6216ay1gY+rdTVTW/XUGGbLmIxex1xsKCrXC6tpWNQ==
 
 "@npmcli/move-file@^1.0.1":
   version "1.0.1"
@@ -4818,7 +4818,7 @@ https-browserify@^1.0.0:
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
 
-i18n-js@^3.8.2:
+i18n-js@^3.8.0:
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/i18n-js/-/i18n-js-3.8.0.tgz#b8fd6b12e1d88cb71f9806c29bca7c31c012e504"
   integrity sha512-hDsGgPuvw/2P+lXSbOafAwspK8Ste8YrwuuUg17W3wEcO1JkQxBlPgsN1t2+852nTnz4YSYTjZc/1nAA2PC/nw==
@@ -7753,19 +7753,19 @@ promise@^7.0.1:
   dependencies:
     asap "~2.0.3"
 
-prosemirror-commands@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/prosemirror-commands/-/prosemirror-commands-1.1.4.tgz#991563e67623acab4f8c510fad1570f8b4693780"
-  integrity sha512-kj4Qi+8h3EpJtZuuEDwZ9h2/QNGWDsIX/CzjmClxi9GhxWyBUMVUvIFk0mgdqHyX20lLeGmOpc0TLA5aPzgpWg==
+prosemirror-commands@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/prosemirror-commands/-/prosemirror-commands-1.1.7.tgz#5b31ae0fe82835d36d22c780641c0b651f27dd03"
+  integrity sha512-tuQr8q5euDjE+WAHWmu1JMLYWsPfUDH80QLLpnQrPYOPysO26FZyyHwEvA0+hUzvF8fOt1oMj0+/YM9UsPkZiA==
   dependencies:
     prosemirror-model "^1.0.0"
     prosemirror-state "^1.0.0"
     prosemirror-transform "^1.0.0"
 
-prosemirror-dropcursor@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/prosemirror-dropcursor/-/prosemirror-dropcursor-1.3.2.tgz#28738c4ed7102e814d7a8a26d70018523fc7cd6d"
-  integrity sha512-4c94OUGyobGnwcQI70OXyMhE/9T4aTgjU+CHxkd5c7D+jH/J0mKM/lk+jneFVKt7+E4/M0D9HzRPifu8U28Thw==
+prosemirror-dropcursor@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/prosemirror-dropcursor/-/prosemirror-dropcursor-1.3.4.tgz#a7f799ff9ecb520d3e1dbb3cb39d27ce41066618"
+  integrity sha512-eVmpMG5+fmvANT3xDzRirmG240rB/piI31ExIfW0Mkvo5/cYC/lm1fFMAOzjO22uc5OQXiodRqOnyE05+g3UqA==
   dependencies:
     prosemirror-state "^1.0.0"
     prosemirror-transform "^1.1.0"
@@ -7806,10 +7806,17 @@ prosemirror-keymap@^1.0.0, prosemirror-keymap@^1.1.4:
     prosemirror-state "^1.0.0"
     w3c-keyname "^2.2.0"
 
-prosemirror-model@^1.0.0, prosemirror-model@^1.1.0, prosemirror-model@^1.10.0:
+prosemirror-model@^1.0.0, prosemirror-model@^1.1.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/prosemirror-model/-/prosemirror-model-1.12.0.tgz#deb6acbce5c62ea35ef3d59c7d4c54f65d6d9fba"
   integrity sha512-B5syrXluQwEPfih8PqZcVg2VWRUf8Rj97K/VNSkQtjUPL1BCoTUgdLERIlxdWHkwqvujFsT3Pw5ubc4/ofF1jQ==
+  dependencies:
+    orderedmap "^1.1.0"
+
+prosemirror-model@^1.14.1:
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/prosemirror-model/-/prosemirror-model-1.14.1.tgz#d784c67f95a5d66b853e82ff9a87a50353ef9cd5"
+  integrity sha512-vZcbI+24VloFefKZkDnMaEpipL/vSKKPdFiik4KOnTzq3e6AO7+CAOixZ2G/SsfRaYC965XvnOIEbhIQdgki7w==
   dependencies:
     orderedmap "^1.1.0"
 
@@ -7821,10 +7828,18 @@ prosemirror-schema-list@^1.1.2:
     prosemirror-model "^1.0.0"
     prosemirror-transform "^1.0.0"
 
-prosemirror-state@^1.0.0, prosemirror-state@^1.2.2, prosemirror-state@^1.3.3:
+prosemirror-state@^1.0.0, prosemirror-state@^1.2.2:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/prosemirror-state/-/prosemirror-state-1.3.3.tgz#b2862866b14dec2b3ae1ab18229f2bd337651a2c"
   integrity sha512-PLXh2VJsIgvlgSTH6I2Yg6vk1CzPDp21DFreVpQtDMY2S6WaMmrQgDTLRcsrD8X38v8Yc873H7+ogdGzyIPn+w==
+  dependencies:
+    prosemirror-model "^1.0.0"
+    prosemirror-transform "^1.0.0"
+
+prosemirror-state@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/prosemirror-state/-/prosemirror-state-1.3.4.tgz#4c6b52628216e753fc901c6d2bfd84ce109e8952"
+  integrity sha512-Xkkrpd1y/TQ6HKzN3agsQIGRcLckUMA9u3j207L04mt8ToRgpGeyhbVv0HI7omDORIBHjR29b7AwlATFFf2GLA==
   dependencies:
     prosemirror-model "^1.0.0"
     prosemirror-transform "^1.0.0"
@@ -7836,23 +7851,23 @@ prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0:
   dependencies:
     prosemirror-model "^1.0.0"
 
-prosemirror-utils@atlassian/prosemirror-utils#remove-prosemirror-tables, "prosemirror-utils@github:atlassian/prosemirror-utils#remove-prosemirror-tables":
+"prosemirror-utils@github:atlassian/prosemirror-utils#remove-prosemirror-tables":
   version "0.9.6"
   resolved "https://codeload.github.com/atlassian/prosemirror-utils/tar.gz/9e2db389d408f376e0fc1f8bdffd95063e8d00af"
-
-prosemirror-view@1.15.6:
-  version "1.15.6"
-  resolved "https://registry.yarnpkg.com/prosemirror-view/-/prosemirror-view-1.15.6.tgz#446bf7662235300c5f47362af2db805c6df3ad24"
-  integrity sha512-9FBFB+rK5pvvzHsHOacy0T/Jf+OxZSzY8tSlQiur3SZwAVaNVQm+fl23V/6gU2dHBnreGxjYx9jK+F3XPsPCGw==
-  dependencies:
-    prosemirror-model "^1.1.0"
-    prosemirror-state "^1.0.0"
-    prosemirror-transform "^1.1.0"
 
 prosemirror-view@^1.0.0, prosemirror-view@^1.1.0:
   version "1.16.4"
   resolved "https://registry.yarnpkg.com/prosemirror-view/-/prosemirror-view-1.16.4.tgz#f7034c52566338f6872874a56b02fcb234adb8a5"
   integrity sha512-2loIeZhHDWSNn4fxriiq4oizp5D2GzvVZwkuEKNSEPV5OHh4Pl3JS6R5OV4UwSvh8UbpPsdNfsrcvSheMJPAQg==
+  dependencies:
+    prosemirror-model "^1.1.0"
+    prosemirror-state "^1.0.0"
+    prosemirror-transform "^1.1.0"
+
+prosemirror-view@^1.18.4:
+  version "1.18.4"
+  resolved "https://registry.yarnpkg.com/prosemirror-view/-/prosemirror-view-1.18.4.tgz#179141df117cf414434ade08115f2e233d135f6d"
+  integrity sha512-6oi62XRK5WxhMX1Amjk5uMsWILUEcFbFF75i09BzpAdI+5glhs7heCaRvKOj4v3YRJ7LJVkOXS9xvjetlE3+pA==
   dependencies:
     prosemirror-model "^1.1.0"
     prosemirror-state "^1.0.0"
@@ -8787,52 +8802,26 @@ shiki-decorators@^1.0.1:
     bind-decorator "1.0.11"
     memoize-decorator "^1.0.2"
 
-shiki-editor@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-1.1.5.tgz#128ec36666cc2be85bec4478a8008e8847e2cc8d"
-  integrity sha512-Rc2KM/C3Z7S7nopOHNJYr75Nb9MIJG9a3z+SoLZJtqmSU71pEJS+vz1s+C+jm3Bt3SO07Qrf1vpQ6anZRm4glg==
+shiki-editor@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-1.2.4.tgz#3c630b6b5c68b9ab63c20283c69460a6210d29d9"
+  integrity sha512-5dSue91I32sk2SgGYyOh2zy8ggPLVSlVsF1Hot1zY+9JptopE/oYbKLclaQm+TwWHsLhyXGB5/p7Hx2QmaVqdg==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
+    "@morr/withinviewport" "2.1.3-0"
     "@popperjs/core" "^2.4.4"
-    prosemirror-commands "^1.1.4"
-    prosemirror-dropcursor "^1.3.2"
+    prosemirror-commands "^1.1.7"
+    prosemirror-dropcursor "^1.3.4"
     prosemirror-gapcursor "^1.1.5"
     prosemirror-history "^1.1.3"
     prosemirror-inputrules "^1.1.2"
     prosemirror-keymap "^1.1.4"
-    prosemirror-model "^1.10.0"
+    prosemirror-model "^1.14.1"
     prosemirror-schema-list "^1.1.2"
-    prosemirror-state "^1.3.3"
+    prosemirror-state "^1.3.4"
     prosemirror-utils atlassian/prosemirror-utils#remove-prosemirror-tables
-    prosemirror-view "1.15.6"
+    prosemirror-view "^1.18.4"
     scroll-lock "^2.1.4"
-    text-field-edit "^3.1.0"
-    vue-custom-scrollbar morr/vue-custom-scrollbar#1.1.5
-    vue-dragscroll "^2.1.0"
-    vue-keypress "^2.1.1"
-    withinviewport "^2.1.2"
-
-shiki-editor@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-1.2.2.tgz#691dbd62d28ec18e1b82a9835859347d73881ba2"
-  integrity sha512-7+2BTLj+I9bHd6OtpET0TKN1jsleWo3ZB2TecXj68ZqDGI3FI9NaJESmX+/cMxgWBBXhFSv9HFlT7/wPGzZAVw==
-  dependencies:
-    "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
-    "@morr/withinviewport" "^2.1.2"
-    "@popperjs/core" "^2.4.4"
-    prosemirror-commands "^1.1.4"
-    prosemirror-dropcursor "^1.3.2"
-    prosemirror-gapcursor "^1.1.5"
-    prosemirror-history "^1.1.3"
-    prosemirror-inputrules "^1.1.2"
-    prosemirror-keymap "^1.1.4"
-    prosemirror-model "^1.10.0"
-    prosemirror-schema-list "^1.1.2"
-    prosemirror-state "^1.3.3"
-    prosemirror-utils atlassian/prosemirror-utils#remove-prosemirror-tables
-    prosemirror-view "1.15.6"
-    scroll-lock "^2.1.4"
-    shiki-editor "^1.1.5"
     text-field-edit "^3.1.0"
     vue-custom-scrollbar morr/vue-custom-scrollbar#1.1.5
     vue-dragscroll "^2.1.0"
@@ -9951,7 +9940,7 @@ void-elements@^3.1.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha1-YU9/v42AHwu18GYfWy9XhXUOTwk=
 
-"vue-custom-scrollbar@github:morr/vue-custom-scrollbar#1.1.5", vue-custom-scrollbar@morr/vue-custom-scrollbar#1.1.5:
+"vue-custom-scrollbar@github:morr/vue-custom-scrollbar#1.1.5":
   version "1.1.5"
   resolved "https://codeload.github.com/morr/vue-custom-scrollbar/tar.gz/d50510e6d63c59b3f29c94e106b5b6972e3081d0"
 
@@ -10306,11 +10295,6 @@ with@^7.0.0:
     "@babel/types" "^7.9.6"
     assert-never "^1.2.1"
     babel-walk "3.0.0-canary-5"
-
-withinviewport@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/withinviewport/-/withinviewport-2.1.2.tgz#7b09a5e566be15e51211ebfd4afb9aad6bc5dc12"
-  integrity sha512-bOZt20QiBkAroXwCAVnb+ajYNPAzVrTKCKuVAuWtLbXlOk3e5cAS5diZMWhYP4Cpyq3GS47jk+fsb5tQqhIxtg==
 
 word-wrap@^1.2.3:
   version "1.2.3"
