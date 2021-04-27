@@ -92,7 +92,7 @@ export default class Topic extends ShikiEditable {
     }
 
     if (this.isCosplay && !this.isPreview) {
-      import(/* webpackChunkName: "galleries" */ 'views/application/shiki_gallery')
+      import(/* webpackChunkName: "galleries" */ '@/views/application/shiki_gallery')
         .then(({ ShikiGallery }) => (
           new ShikiGallery(this.$('.b-cosplay_gallery .b-gallery'))
         ));

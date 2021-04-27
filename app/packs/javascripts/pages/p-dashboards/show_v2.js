@@ -25,7 +25,7 @@ async function reInitSwipers() {
   if (!isMobile() && !isPhone()) { return; }
 
   const { default: Swiper } =
-    await import(/* webpackChunkName: "swiper" */ 'vendor/async/swiper');
+    await import(/* webpackChunkName: "swiper" */ '@/vendor/async/swiper');
 
   if (isMobile()) {
     swipers.push(

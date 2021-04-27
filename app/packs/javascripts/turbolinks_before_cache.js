@@ -1,4 +1,4 @@
-import DynamicParser from 'dynamic_elements/_parser';
+import DynamicParser from '@/dynamic_elements/_parser';
 
 $(document).on('turbolinks:before-cache', () => {
   // need to reset style of HTML because it can be set to 'overflow: hidden' by magnificPopup

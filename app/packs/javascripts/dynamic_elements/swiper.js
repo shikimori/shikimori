@@ -248,7 +248,7 @@ export default class Swiper extends View {
       .wrapAll('<div class="swiper-wrapper" />');
 
     const { default: _Swiper } =
-      await import(/* webpackChunkName: "swiper" */ 'vendor/async/swiper');
+      await import(/* webpackChunkName: "swiper" */ '@/vendor/async/swiper');
 
     this.swiper = new _Swiper(this.root, {
       slidesPerView: 'auto',

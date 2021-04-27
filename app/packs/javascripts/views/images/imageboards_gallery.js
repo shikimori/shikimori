@@ -9,7 +9,7 @@ export class ImageboardsGallery extends PreloadedGallery {
 
   async _buildLoader() {
     const { ImageboardsLoader } =
-      await import(/* webpackChunkName: "imageboards_loader" */ 'services/images/imageboards_loader');
+      await import(/* webpackChunkName: "imageboards_loader" */ '@/services/images/imageboards_loader');
 
     const tag = encodeURIComponent(this.$root.data('imageboard_tag') || '').trim();
 

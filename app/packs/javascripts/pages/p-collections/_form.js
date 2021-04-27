@@ -44,9 +44,9 @@ pageLoad(
 async function initVueApp() {
   if (!$('#vue_collection_links').exists()) { return; }
 
-  const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
-  const { default: CollectionLinks } = await import('vue/components/collections/collection_links'); // eslint-disable-line max-len
-  const storeSchema = await import('vue/stores/collection_links');
+  const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
+  const { default: CollectionLinks } = await import('@/vue/components/collections/collection_links'); // eslint-disable-line max-len
+  const storeSchema = await import('@/vue/stores/collection_links');
 
   const collection = $('#collection_form').data('collection');
   const autocompleteUrl = $('#collection_form').data('autocomplete_url');

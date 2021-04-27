@@ -32,7 +32,7 @@ $.magnificPopup.registerModule(NS, {
         // preload: 'none'
       });
 
-      import(/* webpackChunkName: "html5player" */ 'views/application/shiki_html5_video')
+      import(/* webpackChunkName: "html5player" */ '@/views/application/shiki_html5_video')
         .then(({ ShikiHtml5Video }) => new ShikiHtml5Video($video));
 
       $video.appendTo($videoContainer);

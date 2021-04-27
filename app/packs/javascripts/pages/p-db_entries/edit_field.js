@@ -46,7 +46,7 @@ pageLoad('.db_entries-edit_field', () => {
     const galleryHtml = $gallery.html();
 
     if ($gallery.data('imageboard_tag')) {
-      import(/* webpackChunkName: "galleries" */ 'views/images/imageboards_gallery')
+      import(/* webpackChunkName: "galleries" */ '@/views/images/imageboards_gallery')
         .then(({ ImageboardsGallery }) => (
           new ImageboardsGallery($gallery)
         ));
@@ -59,7 +59,7 @@ pageLoad('.db_entries-edit_field', () => {
         $gallery.data({ imageboard_tag: this.value });
         $gallery.html(galleryHtml);
 
-        import(/* webpackChunkName: "galleries" */ 'views/images/imageboards_gallery')
+        import(/* webpackChunkName: "galleries" */ '@/views/images/imageboards_gallery')
           .then(({ ImageboardsGallery }) => (
             new ImageboardsGallery($gallery)
           ));
@@ -150,9 +150,9 @@ pageLoad('.db_entries-edit_field', () => {
 });
 
 async function initExternalLinksApp() {
-  const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
-  const { default: ExternalLinks } = await import('vue/components/external_links/external_links');
-  const { default: storeSchema } = await import('vue/stores/collection');
+  const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
+  const { default: ExternalLinks } = await import('@/vue/components/external_links/external_links');
+  const { default: storeSchema } = await import('@/vue/stores/collection');
 
   const $app = $('#vue_external_links');
   const values = $app.data('external_links').map(v => ({ ...v, key: v.id }));
@@ -176,9 +176,9 @@ async function initExternalLinksApp() {
 }
 
 export async function initArrayFieldApp() {
-  const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
-  const { default: ArrayField } = await import('vue/components/array_field');
-  const { default: storeSchema } = await import('vue/stores/collection');
+  const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
+  const { default: ArrayField } = await import('@/vue/components/array_field');
+  const { default: storeSchema } = await import('@/vue/stores/collection');
 
   const $app = $('#vue_app');
   const values = $app.data('values');
@@ -214,8 +214,8 @@ export async function initArrayFieldApp() {
 }
 
 // async function initTagsApp($tags) {
-//   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
-//   const { default: TagsInput } = await import('vue/components/tags_input');
+//   const { Vue } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
+//   const { default: TagsInput } = await import('@/vue/components/tags_input');
 // 
 //   const $app = $('#vue_app');
 //   $tags.hide();
@@ -253,7 +253,7 @@ async function initSortableApp($node) {
 }
 
 async function initUploaderApp($node) {
-  const { FileUploader } = await import('views/file_uploader');
+  const { FileUploader } = await import('@/views/file_uploader');
 
   new FileUploader($node[0], { isResetAfterUpload: false })
     .on('upload:file:success', (_e, { response }) => (

@@ -28,8 +28,8 @@ pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
   });
 
   const [{ FavoriteStar }, { LangTrigger }] = await Promise.all([
-    import(/* webpackChunkName: "db_entries_show" */ 'views/db_entries/favorite_star'),
-    import(/* webpackChunkName: "db_entries_show" */ 'views/db_entries/lang_trigger')
+    import(/* webpackChunkName: "db_entries_show" */ '@/views/db_entries/favorite_star'),
+    import(/* webpackChunkName: "db_entries_show" */ '@/views/db_entries/lang_trigger')
   ]);
 
   new LangTrigger('.b-lang_trigger');

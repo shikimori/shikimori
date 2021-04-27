@@ -2,7 +2,7 @@ pageLoad('statistics_index', async () => {
   $('#image_placeholder').hide();
 
   const Highcharts = await import(/* webpackChunkName: "highcharts" */ 'highcharts');
-  const { colors } = await import(/* webpackChunkName: "highcharts" */ 'vendor/highcharts_colors');
+  const { colors } = await import(/* webpackChunkName: "highcharts" */ '@/vendor/highcharts_colors');
 
   Highcharts.getOptions().colors.length = 0;
   colors.forEach(color => Highcharts.getOptions().colors.push(color));

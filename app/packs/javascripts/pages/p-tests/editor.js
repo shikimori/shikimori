@@ -159,7 +159,7 @@ pageLoad('tests_editor', async () => {
   const $shikiEditor = $('.b-shiki_editor');
   const $textarea = $shikiEditor.find('textarea');
 
-  const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
+  const { Vue } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
   const { ShikiEditor } = await import(/* webpackChunkName: "shiki-editor" */ 'shiki-editor');
   const { ShikiRequest } = await import('shiki-utils');
 

@@ -10,7 +10,7 @@ export class Cosplay extends View {
   @bind
   async _initGalleries() {
     const { ShikiGallery } =
-      await import(/* webpackChunkName: "galleries" */ 'views/application/shiki_gallery');
+      await import(/* webpackChunkName: "galleries" */ '@/views/application/shiki_gallery');
 
     this.$('.b-gallery:not(.processed)').each(function () {
       new ShikiGallery(this);

@@ -6,8 +6,8 @@ pageLoad('characters_show', async () => {
   });
 
   const [{ FavoriteStar }, { LangTrigger }] = await Promise.all([
-    import(/* webpackChunkName: "db_entries_show" */ 'views/db_entries/favorite_star'),
-    import(/* webpackChunkName: "db_entries_show" */ 'views/db_entries/lang_trigger')
+    import(/* webpackChunkName: "db_entries_show" */ '@/views/db_entries/favorite_star'),
+    import(/* webpackChunkName: "db_entries_show" */ '@/views/db_entries/lang_trigger')
   ]);
 
   new LangTrigger('.b-lang_trigger');
@@ -16,13 +16,13 @@ pageLoad('characters_show', async () => {
 
 pageLoad('characters_art', async () => {
   const { ImageboardsGallery } =
-    await import(/* webpackChunkName: "galleries" */ 'views/images/imageboards_gallery');
+    await import(/* webpackChunkName: "galleries" */ '@/views/images/imageboards_gallery');
 
   new ImageboardsGallery('.b-gallery');
 });
 pageLoad('characters_cosplay', async () => {
   const { Cosplay } = await import(
-    /* webpackChunkName: "animes_cosplay" */ 'views/animes/cosplay'
+    /* webpackChunkName: "animes_cosplay" */ '@/views/animes/cosplay'
   );
   new Cosplay('.l-content');
 });

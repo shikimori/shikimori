@@ -1,5 +1,5 @@
 import delay from 'delay';
-import { GLOBAL_SELECTOR, DATA_KEY } from 'dynamic_elements/cutted_covers';
+import { GLOBAL_SELECTOR, DATA_KEY } from '@/dynamic_elements/cutted_covers';
 
 $.fn.extend({
   process_hidden_content() {

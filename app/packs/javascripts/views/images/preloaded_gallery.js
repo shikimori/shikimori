@@ -61,7 +61,7 @@ export class PreloadedGallery extends ShikiGallery {
 
   // private methods
   async _buildLoader() {
-    const { StaticLoader } = await import('services/images/static_loader');
+    const { StaticLoader } = await import('@/services/images/static_loader');
     const images = this.$container.data('images');
 
     this.loader = new StaticLoader(PreloadedGallery.BATCH_SIZE, images);

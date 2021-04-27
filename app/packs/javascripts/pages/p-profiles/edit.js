@@ -23,7 +23,7 @@ async function pageStyles() {
   });
 
   const { EditStyles } =
-    await import(/* webpackChunkName: "edit_styles" */ 'views/styles/edit');
+    await import(/* webpackChunkName: "edit_styles" */ '@/views/styles/edit');
 
   new EditStyles('.b-edit_styles');
 }

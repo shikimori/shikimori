@@ -20,7 +20,7 @@ pageLoad('clubs_edit', async () => {
   // styles page
   if ($('.edit-page.styles').exists()) {
     const { EditStyles } =
-      await import(/* webpackChunkName: "edit_styles" */ 'views/styles/edit');
+      await import(/* webpackChunkName: "edit_styles" */ '@/views/styles/edit');
 
     new EditStyles('.b-edit_styles');
   }

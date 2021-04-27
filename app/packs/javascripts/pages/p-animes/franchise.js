@@ -1,8 +1,8 @@
 pageLoad('animes_franchise', 'mangas_franchise', 'ranobe_franchise', async () => {
   const d3 = await import(/* webpackChunkName: "d3" */ 'd3');
-  const { ShikiMath } = await import(/* webpackChunkName: "franchise" */ 'services/shiki_math');
+  const { ShikiMath } = await import(/* webpackChunkName: "franchise" */ '@/services/shiki_math');
   const { FranchiseGraph } =
-    await import(/* webpackChunkName: "franchise" */ 'services/franchise/graph');
+    await import(/* webpackChunkName: "franchise" */ '@/services/franchise/graph');
 
   try {
     render(ShikiMath, FranchiseGraph, d3);

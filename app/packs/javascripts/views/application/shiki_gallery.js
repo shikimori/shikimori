@@ -35,7 +35,7 @@ export class ShikiGallery extends View {
   }
 
   async _addUpload(isShikiUploadCustom) {
-    const { FileUploader } = await import('views/file_uploader');
+    const { FileUploader } = await import('@/views/file_uploader');
 
     this.fileUploader = new FileUploader(this.$container[0])
       .on('upload:file:success', (_e, { response }) => {

@@ -25,7 +25,7 @@ export function initForm(type, $form, $wall, $video) {
 }
 
 export async function initWall($form, $wall) {
-  const { FileUploader } = await import('views/file_uploader');
+  const { FileUploader } = await import('@/views/file_uploader');
 
   const $upload = $('.topic-posters .b-dropzone', $form);
 
@@ -143,8 +143,8 @@ function attachVideo(videoData, $topicVideo, $wall) {
 export async function initTagsApp(type) {
   if (!$(`#${type}_tags`).length) { return; }
 
-  const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
-  const { default: TagsInput } = await import('vue/components/tags_input');
+  const { Vue } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
+  const { default: TagsInput } = await import('@/vue/components/tags_input');
 
   const $app = $('#vue_tags_input');
   const $tags = $(`.b-input.${type}_tags`);
@@ -152,7 +152,7 @@ export async function initTagsApp(type) {
 
   $tags.hide();
 
-  return new Vue({
+  new Vue({
     el: '#vue_tags_input',
     render: h => h(TagsInput, {
       props: {

@@ -1,9 +1,9 @@
 pageLoad('.polls', async () => {
   if (!$('#vue_poll_variants').exists()) { return; }
 
-  const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
-  const { default: ArrayField } = await import('vue/components/array_field');
-  const { default: storeSchema } = await import('vue/stores/collection');
+  const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
+  const { default: ArrayField } = await import('@/vue/components/array_field');
+  const { default: storeSchema } = await import('@/vue/stores/collection');
 
   const pollVariants = $('#poll_form').data('poll').variants;
 

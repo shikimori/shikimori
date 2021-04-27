@@ -7,7 +7,7 @@ pageLoad('people_show', async () => {
   });
 
   const { FavoriteStar } =
-    await import(/* webpackChunkName: "db_entries_show" */ 'views/db_entries/favorite_star');
+    await import(/* webpackChunkName: "db_entries_show" */ '@/views/db_entries/favorite_star');
 
   Object.keys(gon.is_favoured).forEach(role => {
     if (gon.person_role[role] || gon.is_favoured[role]) {
