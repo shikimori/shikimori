@@ -23,7 +23,11 @@ environment.loaders.get('file').exclude =
 environment.plugins.append(
   'Provide',
   new webpack.ProvidePlugin({
-    I18n: 'i18n-js'
+    I18n: 'i18n-js',
+    $: 'jquery',
+    jQuery: 'jquery',
+    'window.jQuery': 'jquery',
+    'window.$': 'jquery'
   })
 );
 
