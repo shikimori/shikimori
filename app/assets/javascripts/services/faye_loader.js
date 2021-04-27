@@ -24,19 +24,8 @@ export default class FayeLoader {
     $(document).on(WORLD_CHANGED_EVENTS.join(' '), this.apply);
     // disconnect faye after 10 minutes of user inactivity
     idle({
-      onIdle() {
-        if (this.client) {
-          if (IS_FAYE_LOGGING) { console.log('faye disconnect on idle'); }
-          this._disconnect();
-        }
-      },
-      onActive() {
-        if (!this.client) {
-          if (IS_FAYE_LOGGING) { console.log('faye connect on active'); }
-          this.connect();
-          this.apply();
-        }
-      },
+      onIdle: this._idleShutdown,
+      onActive: this._idleRestore,
       idle: INACTIVITY_INTERVAL
     }).start();
   }
@@ -139,5 +128,22 @@ export default class FayeLoader {
 
         if (IS_FAYE_LOGGING) { console.log(`faye subscribed ${channel}`); }
       });
+  }
+
+  @bind
+  _idleShutdown() {
+    if (!this.client) { return; }
+
+    if (IS_FAYE_LOGGING) { console.log('faye disconnect on idle'); }
+    this._disconnect();
+  }
+
+  @bind
+  _idleRestore() {
+    if (this.client) { return; }
+
+    if (IS_FAYE_LOGGING) { console.log('faye connect on active'); }
+    this.connect();
+    this.apply();
   }
 }
