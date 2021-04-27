@@ -68,7 +68,7 @@
     "fsevents": "^2.3.2",
     "webpack-bundle-analyzer": "^3.9.0",
     "webpack-dev-server": "^3.11.0",
-    "webpackbar": "^4.0.0"
+    "webpackbar": "^5.0.0-3"
   },
   "optionalDependencies": {
     "fsevents": "^2.3.2"
