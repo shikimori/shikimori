@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import { mapGetters, mapState, mapActions } from '@/vuex';
-import draggable from '@/vuedraggable';
+import { mapGetters, mapState, mapActions } from 'vuex';
+import draggable from 'vuedraggable';
 import delay from 'delay';
 
 const PLAIN_AUTOCOMPLETE_TYPE = 'plain';

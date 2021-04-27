@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from '@/vuex';
+import { mapGetters, mapState } from 'vuex';
 
 import ExternalLink from './external_link';
-import draggable from '@/vuedraggable';
+import draggable from 'vuedraggable';
 import delay from 'delay';
 
 export default {

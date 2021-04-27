@@ -86,8 +86,8 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from '@/vuex';
-import draggable from '@/vuedraggable';
+import { mapGetters, mapActions } from 'vuex';
+import draggable from 'vuedraggable';
 import autosize from 'autosize';
 
 import { flash } from 'shiki-utils';
