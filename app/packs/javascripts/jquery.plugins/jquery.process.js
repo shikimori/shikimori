@@ -32,6 +32,10 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
   CommentsTracker.track(JS_EXPORTS, $root);
   PollsTracker.track(JS_EXPORTS, $root);
 
+  // video must be processed before dynamic Wall, otherwise "shrinked" class sometimes
+  // is assigned too late for video inside wall (after WallVideo is initialized)
+  $with('.b-video.unprocessed', $root).shikiVideo();
+
   new DynamicParser($with('.to-process', $root));
 
   $with('time', $root).livetime();
@@ -42,8 +46,6 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
   $with('.linkeable', $root)
     .changeTag('a')
     .removeClass('linkeable');
-
-  $with('.b-video.unprocessed', $root).shikiVideo();
 
   // чёрные мелкие тултипы
   $with('.b-tooltipped.unprocessed', $root)
