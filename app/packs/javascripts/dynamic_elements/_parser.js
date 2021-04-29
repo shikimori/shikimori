@@ -1,4 +1,3 @@
-import { AlignedPosters } from './aligned_posters';
 import { AuthorizedAction } from './authorized_action';
 import Clickloaded from './clickloaded';
 import CodeHighlight from './code_highlight';
@@ -16,8 +15,6 @@ import Postloaded from './postloaded';
 import ShortDialog from './short_dialog';
 import Swiper from './swiper';
 import Switcher from './switcher';
-import ShikiEditor from './shiki_editor';
-import ShikiEditorV2 from './shiki_editor_v2';
 import SpoilerBlock from './spoiler_block';
 import SpoilerInline from './spoiler_inline';
 import Tabs from './tabs';
@@ -51,7 +48,10 @@ export default class DynamicParser {
     });
   }
 
-  alignedPosters(node) {
+  async alignedPosters(node) {
+    const { AlignedPosters } = await import(
+      /* webpackChunkName: "aligned_posters" */ './aligned_posters'
+    );
     new AlignedPosters(node);
   }
 
@@ -115,11 +115,17 @@ export default class DynamicParser {
     new ShortDialog(node);
   }
 
-  shikiEditor(node) {
+  async shikiEditor(node) {
+    const { default: ShikiEditor } = await import(
+      /* webpackChunkName: "shiki_editor" */ './shiki_editor'
+    );
     new ShikiEditor(node);
   }
 
-  shikiEditorV2(node) {
+  async shikiEditorV2(node) {
+    const { default: ShikiEditorV2 } = await import(
+      /* webpackChunkName: "shiki_editor_v2" */ './shiki_editor_v2'
+    );
     new ShikiEditorV2(node);
   }
 

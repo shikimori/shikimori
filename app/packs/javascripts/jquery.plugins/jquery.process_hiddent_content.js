@@ -1,5 +1,4 @@
 import * as CuttedCovers from '@/dynamic_elements/cutted_covers';
-import * as AlignedPosters from '@/dynamic_elements/aligned_posters';
 
 $.fn.extend({
   process_hidden_content() {
@@ -13,6 +12,10 @@ $.fn.extend({
           data.process();
         }
       });
+
+      const AlignedPosters = await import(
+        /* webpackChunkName: "aligned_posters" */ '@/dynamic_elements/aligned_posters'
+      );
 
       $content.find(`.${AlignedPosters.GLOBAL_SELECTOR}`).each(function() {
         const data = $(this).data(AlignedPosters.DATA_KEY);
