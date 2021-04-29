@@ -16,7 +16,6 @@ function setHanler() {
 }
 
 function update() {
-  console.log('update');
   $(`.${GLOBAL_SELECTOR}`).each((_index, node) => (
     $(node).data(DATA_KEY)?.process()
   ));

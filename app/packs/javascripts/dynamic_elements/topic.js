@@ -70,7 +70,7 @@ export default class Topic extends ShikiEditable {
       window.SHIKI_USER.isDayRegistered && this.$editor.length
     ) {
       // NOTE: remove .process() after shiki_editor_v1 is completely removed from the project
-      this.editor = this.$editor.process().view();
+      this.$editor.process();
     } else {
       if (this.$editorForm.length) {
         this.$editorForm.replaceWith(
@@ -261,6 +261,10 @@ export default class Topic extends ShikiEditable {
         .view()
         .mark(data.mark_kind, data.mark_value);
     });
+  }
+
+  get editor() {
+    return this.$editor.view();
   }
 
   @memoize
