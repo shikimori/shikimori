@@ -1,4 +1,4 @@
-import imagesLoaded from 'imagesloaded';
+import { loadImages } from '@/helpers/load_image';
 
 import View from '@/views/application/view';
 
@@ -25,7 +25,7 @@ export default class Wall extends View {
     this.maxHeight = options.maxHeight;
 
     if (options.awaitImagesLoaded === undefined || options.awaitImagesLoaded) {
-      await imagesLoaded(this.node);
+      await loadImages(this.node);
     }
 
     this._prepare();

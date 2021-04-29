@@ -1,5 +1,5 @@
 import delay from 'delay';
-import imagesLoaded from 'imagesloaded';
+import loadImage from 'image-promise';
 
 import View from '@/views/application/view';
 
@@ -21,12 +21,12 @@ export default class Html5Video extends View {
     const thumbnail = new Image();
     thumbnail.src = this.$node.data('src');
 
-    imagesLoaded(thumbnail)
-      .on('done', () => {
+    loadImage(thumbnail)
+      .then(() => {
         this.node.src = this.$node.data('src');
         this.node.srcset = this.$node.data('srcset');
       })
-      .on('fail', async () => {
+      .catch(async () => {
         if (attempt <= 60) {
           await delay(5000 * (attempt + 1));
           this._replaceImage(attempt + 1);

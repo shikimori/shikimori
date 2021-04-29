@@ -4859,6 +4859,11 @@ ignore@^4.0.6:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-4.0.6.tgz#750e3db5862087b4737ebac8207ffd1ef27b25fc"
   integrity sha512-cyFDKrqc/YdcWFniJhzI42+AzS+gNwmUzOSFcRCQYwySuBBBy/KjuxWLZ/FHEH6Moq1NizMOBWyTcv8O4OZIMg==
 
+image-promise@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/image-promise/-/image-promise-7.0.1.tgz#97134ff205de927af01c57b7daba2f6f7f6b2501"
+  integrity sha512-399HJHce1d3aEz4EYXLU4MUgUjX0gO0Bewu8mY4iLYItpNpBWLSQkevbYRPDViyISsL6K2bJiLadhxGCctRIOg==
+
 imagesloaded@^4.1.4:
   version "4.1.4"
   resolved "https://registry.yarnpkg.com/imagesloaded/-/imagesloaded-4.1.4.tgz#1376efcd162bb768c34c3727ac89cc04051f3cc7"

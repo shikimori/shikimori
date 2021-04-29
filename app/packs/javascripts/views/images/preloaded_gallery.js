@@ -1,6 +1,5 @@
 import delay from 'delay';
 import { bind } from 'shiki-decorators';
-import imagesLoaded from 'imagesloaded';
 
 import { ShikiGallery } from '@/views/application/shiki_gallery';
 import JST from '@/helpers/jst';
@@ -49,13 +48,13 @@ export class PreloadedGallery extends ShikiGallery {
     const html = images.map(image => this._imageToHtml(image));
     const $batch = $(html.join(''));
 
-    imagesLoaded($batch, loadedImages => this._deployBatch(loadedImages));
+    this.desandroImagesLoaded($batch, loadedImages => this._deployBatch(loadedImages));
   }
 
   @bind
   async _appendUploaded(_e, image) {
     const $image = $(this._imageToHtml(image));
-    await imagesLoaded($image);
+    await this.desandroImagesLoaded($image);
 
     this._deployImage($image, 0 * DEPLOY_INTERVAL, PREPEND_ACTION);
   }
@@ -66,6 +65,9 @@ export class PreloadedGallery extends ShikiGallery {
     const images = this.$container.data('images');
 
     this.loader = new StaticLoader(PreloadedGallery.BATCH_SIZE, images);
+
+    const { default: imagesLoaded } = await import('imagesloaded');
+    this.desandroImagesLoaded = imagesLoaded;
   }
 
   _appearMarker() {

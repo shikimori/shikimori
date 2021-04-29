@@ -1,5 +1,5 @@
 import delay from 'delay';
-import imagesLoaded from 'imagesloaded';
+import loadImage from 'image-promise';
 
 // почему-то без задержки не работает
 function checkImage(image, options) {
@@ -33,17 +33,17 @@ function checkImage(image, options) {
 
 $.fn.extend({
   normalizeImage(options) {
-    return this.each(function() {
+    return this.each(async function() {
       const image = this;
 
-      imagesLoaded(image, async () => {
-        await delay();
-        if (image.loading === 'lazy' && !image.naturalWidth && !image.complete) {
-          $(image).on('load', () => checkImage(image, options));
-        } else {
-          checkImage(image, options);
-        }
-      });
+      await loadImage(image);
+      await delay();
+
+      if (image.loading === 'lazy' && !image.naturalWidth && !image.complete) {
+        $(image).on('load', () => checkImage(image, options));
+      } else {
+        checkImage(image, options);
+      }
     });
   }
 });

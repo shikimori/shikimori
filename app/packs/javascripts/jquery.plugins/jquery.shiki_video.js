@@ -1,4 +1,4 @@
-import imagesLoaded from 'imagesloaded';
+import imagePromise from 'image-promise';
 
 const prepare = (domain, href) => (
   {
@@ -46,7 +46,9 @@ const hostingPatterns = url => (
 $.fn.extend({
   shikiVideo() {
     return this.each(async function () {
-      const $root = $(this);
+      const root = this;
+      const $root = $(root);
+
       if (!$root.hasClass('unprocessed')) { return; }
       $root.removeClass('unprocessed');
 
@@ -81,18 +83,18 @@ $.fn.extend({
         }
       });
 
-      const $poster = $root.find('img');
-      await imagesLoaded($poster);
+      const posterImg = root.querySelector('img');
+      await imagePromise(posterImg);
 
       if ($root.hasClass('youtube') &&
-        $poster[0].naturalWidth === 120 && $poster[0].naturalHeight === 90
+        posterImg.naturalWidth === 120 && posterImg.naturalHeight === 90
       ) {
-        $poster[0].src = '/assets/globals/missing_video.png';
+        posterImg.src = '/assets/globals/missing_video.png';
         $root.addClass('shrinked-1_3 dynamically-replaced');
         return;
       }
 
-      const ratio = (($poster[0].naturalWidth * 1.0) / $poster[0].naturalHeight).round(1);
+      const ratio = ((posterImg.naturalWidth * 1.0) / posterImg.naturalHeight).round(1);
 
       // http://vk.com/video98023184_165811692
       if (ratio === 1.3) {

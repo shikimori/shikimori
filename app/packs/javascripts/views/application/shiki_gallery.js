@@ -1,7 +1,7 @@
 import delay from 'delay';
-import imagesLoaded from 'imagesloaded';
 
 import View from '@/views/application/view';
+import { loadImages } from '@/helpers/load_image';
 
 const DEPLOY_INTERVAL = 50;
 
@@ -17,7 +17,8 @@ export class ShikiGallery extends View {
       this._addUpload(options.shikiUploadCustom);
     }
 
-    await imagesLoaded(this.$container);
+    await loadImages(this.$container[0]);
+
     const { default: Packery } = await import('packery');
 
     this.packery = new Packery(this.$container[0], {

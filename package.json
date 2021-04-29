@@ -22,6 +22,7 @@
     "get-js": "^0.0.7",
     "highcharts": "^8.2.0",
     "i18n-js": "^3.8.0",
+    "image-promise": "^7.0.1",
     "imagesloaded": "^4.1.4",
     "is-visible": "^2.2.0",
     "jquery": "^3.6.0",

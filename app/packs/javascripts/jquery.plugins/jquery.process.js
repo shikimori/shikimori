@@ -1,11 +1,14 @@
 import delay from 'delay';
 import cookies from 'js-cookie';
+import imagePromise from 'image-promise';
 
 import UserRatesTracker from '@/services/user_rates/tracker';
 import TopicsTracker from '@/services/topics/tracker';
 import CommentsTracker from '@/services/comments/tracker';
 import PollsTracker from '@/services/polls/tracker';
 import DynamicParser from '@/dynamic_elements/_parser';
+
+import { loadImages } from '@/helpers/load_image';
 
 import {
   ANIME_TOOLTIP_OPTIONS,
@@ -100,7 +103,7 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
   const $posters = $with('.align-posters.unprocessed', $root);
   if ($posters.length) {
     $posters.removeClass('unprocessed');
-    imagesLoaded($posters, () => $posters.alignPosters());
+    imagePromise($posters.find('img').toArray()).then(() => $posters.alignPosters());
   }
 
   // с задержкой делаем потому, что collapsed блоки могут быть в контенте,

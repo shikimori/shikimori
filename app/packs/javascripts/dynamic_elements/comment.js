@@ -1,10 +1,11 @@
 import delay from 'delay';
 import { flash } from 'shiki-utils';
 import { bind } from 'shiki-decorators';
-import imagesLoaded from 'imagesloaded';
+import imagePromise from 'image-promise';
 
 import ShikiEditable from '@/views/application/shiki_editable';
 import BanForm from '@/views/comments/ban_form';
+import { loadImages } from '@/helpers/load_image';
 
 const I18N_KEY = 'frontend.dynamic_elements.comment';
 
@@ -58,8 +59,9 @@ export default class Comment extends ShikiEditable {
 
       if ($images.exists()) {
         // картинки могут быть уменьшены image_normalizer'ом, поэтому делаем с задержкой
-        imagesLoaded($images, () => {
-          delay(10).then(() => this._checkHeight());
+        imagePromise($images.toArray()).then(async () => {
+          await delay(10);
+          this._checkHeight();
         });
       } else {
         this._checkHeight();
@@ -218,13 +220,13 @@ export default class Comment extends ShikiEditable {
       .changeTag('a');
   }
 
-  _replace(html, JS_EXPORTS) {
+  async _replace(html, JS_EXPORTS) {
     const $replacement = $(html);
     super._replace($replacement, JS_EXPORTS);
 
-    imagesLoaded($replacement, () =>
-      $replacement.find('.b-height_shortener .expand').click()
-    );
+    await loadImages($replacement[0]);
+    await delay(250);
+    $replacement.find('.b-height_shortener .expand').click();
   }
 }
 
