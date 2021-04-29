@@ -1,3 +1,5 @@
+import 'paste.js';
+
 import autosize from 'autosize';
 import delay from 'delay';
 import pDefer from 'p-defer';

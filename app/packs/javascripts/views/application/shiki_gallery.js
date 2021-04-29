@@ -1,37 +1,38 @@
 import delay from 'delay';
+import imagesLoaded from 'imagesloaded';
+
 import View from '@/views/application/view';
 
 const DEPLOY_INTERVAL = 50;
 
 export class ShikiGallery extends View {
-  initialize(customOptions) {
+  async initialize(customOptions) {
     const options = customOptions || {};
 
     this.$container = this.$('.container');
 
     $('.b-image', this.$container).shikiImage();
 
-    this.$container.imagesLoaded(async () => {
-      const { default: Packery } = await import('packery');
-
-      this.packery = new Packery(this.$container[0], {
-        columnWidth: '.grid_sizer',
-        containerStyle: null,
-        gutter: 0,
-        isAnimated: false,
-        isResizeBound: false,
-        itemSelector: '.b-image',
-        transitionDuration: options.imageboard ? 0 : '0.25s'
-      });
-
-      this.$container
-        .addClass('packery')
-        .data({ packery: this.packery });
-    });
-
     if (options.shikiUpload) {
       this._addUpload(options.shikiUploadCustom);
     }
+
+    await imagesLoaded(this.$container);
+    const { default: Packery } = await import('packery');
+
+    this.packery = new Packery(this.$container[0], {
+      columnWidth: '.grid_sizer',
+      containerStyle: null,
+      gutter: 0,
+      isAnimated: false,
+      isResizeBound: false,
+      itemSelector: '.b-image',
+      transitionDuration: options.imageboard ? 0 : '0.25s'
+    });
+
+    this.$container
+      .addClass('packery')
+      .data({ packery: this.packery });
   }
 
   async _addUpload(isShikiUploadCustom) {

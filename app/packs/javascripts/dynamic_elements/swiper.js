@@ -1,5 +1,6 @@
 import delay from 'delay';
 import { memoize } from 'shiki-decorators';
+import imagesLoaded from 'imagesloaded';
 
 import View from '@/views/application/view';
 import Wall from '@/views/wall/view';
@@ -307,11 +308,11 @@ export default class Swiper extends View {
   async _imagesLoaded() {
     let hasFailed = false;
 
-    await this.$root.imagesLoaded().catch(() => hasFailed = true);
+    await imagesLoaded(this.root).catch(() => hasFailed = true);
 
     if (this.$('.dynamically-replaced').length) {
       // when thumbnail of video is broken, then it is replaced to shikimori custom thumbnail image
-      await this.$root.imagesLoaded().catch(() => hasFailed = true);
+      await imagesLoaded(this.root).catch(() => hasFailed = true);
     }
     return hasFailed;
   }

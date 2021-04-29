@@ -1,10 +1,9 @@
 import delay from 'delay';
+import imagesLoaded from 'imagesloaded';
 
 pageLoad('comments_show', async () => {
-  await delay(250);
-
   // expand displayed comment and do not expand all replies to that comment
-  $('.b-comment').first().imagesLoaded(() =>
-    $('.b-height_shortener .expand').click()
-  );
+  await imagesLoaded('.b-comment');
+  await delay(250);
+  $('.b-height_shortener .expand').click();
 });

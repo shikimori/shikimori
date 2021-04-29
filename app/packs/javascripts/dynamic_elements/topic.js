@@ -1,5 +1,6 @@
 import delay from 'delay';
 import { bind, memoize } from 'shiki-decorators';
+import imagesLoaded from 'imagesloaded';
 
 import ShikiEditable from '@/views/application/shiki_editable';
 
@@ -87,7 +88,7 @@ export default class Topic extends ShikiEditable {
     $('.item-mobile', this.$inner).one(this._deactivateInaccessibleButtons);
 
     if (this.isPreview || this.isClubPage) {
-      this.$body.imagesLoaded(this._checkHeight);
+      imagesLoaded(this.$body, this._checkHeight);
       this._checkHeight();
     }
 

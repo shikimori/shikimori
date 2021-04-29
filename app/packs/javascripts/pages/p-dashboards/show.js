@@ -1,5 +1,5 @@
-// import getjs from 'get-js';
 import delay from 'delay';
+import imagesLoaded from 'imagesloaded';
 
 pageLoad('dashboards_show', async () => {
   if ($('.p-dashboards-show .v2').length) { return; }
@@ -13,7 +13,7 @@ pageLoad('dashboards_show', async () => {
   });
 
   await delay(500);
-  $('.cc-news').imagesLoaded(() => {
+  imagesLoaded($('.cc-news'), () => {
     const $userNews = $('.c-news_topics');
     const $generatedNews = $('.c-generated_news');
 

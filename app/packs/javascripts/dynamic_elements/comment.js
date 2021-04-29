@@ -1,6 +1,7 @@
 import delay from 'delay';
 import { flash } from 'shiki-utils';
 import { bind } from 'shiki-decorators';
+import imagesLoaded from 'imagesloaded';
 
 import ShikiEditable from '@/views/application/shiki_editable';
 import BanForm from '@/views/comments/ban_form';
@@ -57,7 +58,7 @@ export default class Comment extends ShikiEditable {
 
       if ($images.exists()) {
         // картинки могут быть уменьшены image_normalizer'ом, поэтому делаем с задержкой
-        $images.imagesLoaded(() => {
+        imagesLoaded($images, () => {
           delay(10).then(() => this._checkHeight());
         });
       } else {
@@ -221,7 +222,7 @@ export default class Comment extends ShikiEditable {
     const $replacement = $(html);
     super._replace($replacement, JS_EXPORTS);
 
-    $replacement.imagesLoaded(() =>
+    imagesLoaded($replacement, () =>
       $replacement.find('.b-height_shortener .expand').click()
     );
   }

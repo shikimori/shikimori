@@ -50,7 +50,8 @@ export const COMMON_TOOLTIP_OPTIONS = {
   }
 };
 
-export const ANIME_TOOLTIP_OPTIONS = Object.add(COMMON_TOOLTIP_OPTIONS, {
+export const ANIME_TOOLTIP_OPTIONS = {
+  ...COMMON_TOOLTIP_OPTIONS,
   offset: [-4, 10, -10],
   position: 'top right',
   predelay: 350,
@@ -71,4 +72,4 @@ export const ANIME_TOOLTIP_OPTIONS = Object.add(COMMON_TOOLTIP_OPTIONS, {
       this.getTip().addClass('minified');
     }
   }
-});
+};

@@ -11,24 +11,6 @@ import delay from 'delay';
 const requireVendor = require.context('@/vendor', false);
 requireVendor.keys().forEach(requireVendor);
 
-import 'magnific-popup';
-import 'magnific-popup/dist/magnific-popup.css';
-import 'nouislider/distribute/nouislider.css';
-
-import 'jquery-appear-original';
-import 'jquery-mousewheel';
-
-require('paste.js');
-require('imagesloaded');
-
-// used in views/styles/edit.coffee
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/solarized.css';
-import 'codemirror/addon/hint/show-hint.css';
-import 'codemirror/addon/dialog/dialog.css';
-import 'codemirror/addon/display/fullscreen.css';
-import 'codemirror/addon/search/matchesonscrollbar.css';
-
 import { throttle, debounce } from 'throttle-debounce';
 
 import pageLoad from '@/helpers/page_load'; // eslint-disable-line import/newline-after-import

@@ -1,3 +1,5 @@
+import imagesLoaded from 'imagesloaded';
+
 const prepare = (domain, href) => (
   {
     index: `${domain}/`,
@@ -43,7 +45,7 @@ const hostingPatterns = url => (
 
 $.fn.extend({
   shikiVideo() {
-    return this.each(function () {
+    return this.each(async function () {
       const $root = $(this);
       if (!$root.hasClass('unprocessed')) { return; }
       $root.removeClass('unprocessed');
@@ -80,28 +82,27 @@ $.fn.extend({
       });
 
       const $poster = $root.find('img');
+      await imagesLoaded($poster);
 
-      $poster.imagesLoaded(() => {
-        if ($root.hasClass('youtube') &&
-          $poster[0].naturalWidth === 120 && $poster[0].naturalHeight === 90
-        ) {
-          $poster[0].src = '/assets/globals/missing_video.png';
-          $root.addClass('shrinked-1_3 dynamically-replaced');
-          return;
-        }
+      if ($root.hasClass('youtube') &&
+        $poster[0].naturalWidth === 120 && $poster[0].naturalHeight === 90
+      ) {
+        $poster[0].src = '/assets/globals/missing_video.png';
+        $root.addClass('shrinked-1_3 dynamically-replaced');
+        return;
+      }
 
-        const ratio = (($poster[0].naturalWidth * 1.0) / $poster[0].naturalHeight).round(1);
+      const ratio = (($poster[0].naturalWidth * 1.0) / $poster[0].naturalHeight).round(1);
 
-        // http://vk.com/video98023184_165811692
-        if (ratio === 1.3) {
-          $root.addClass('shrinked-1_3');
-        }
+      // http://vk.com/video98023184_165811692
+      if (ratio === 1.3) {
+        $root.addClass('shrinked-1_3');
+      }
 
-        // https://video.sibnet.ru/video305613-SouL_Eater__AMW/
-        if (ratio === 1.5) {
-          $root.addClass('shrinked-1_5');
-        }
-      });
+      // https://video.sibnet.ru/video305613-SouL_Eater__AMW/
+      if (ratio === 1.5) {
+        $root.addClass('shrinked-1_5');
+      }
     });
   }
 });

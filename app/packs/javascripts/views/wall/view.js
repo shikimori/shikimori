@@ -1,3 +1,5 @@
+import imagesLoaded from 'imagesloaded';
+
 import View from '@/views/application/view';
 
 import WallCluster from './cluster';
@@ -23,7 +25,7 @@ export default class Wall extends View {
     this.maxHeight = options.maxHeight;
 
     if (options.awaitImagesLoaded === undefined || options.awaitImagesLoaded) {
-      await this.$root.imagesLoaded().catch(() => {});
+      await imagesLoaded(this.node).catch(() => {});
     }
 
     this._prepare();

@@ -99,10 +99,8 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
   // выравнивание картинок в галерее аниме постеров
   const $posters = $with('.align-posters.unprocessed', $root);
   if ($posters.length) {
-    $posters
-      .removeClass('unprocessed')
-      .find('img')
-      .imagesLoaded(() => $posters.alignPosters());
+    $posters.removeClass('unprocessed');
+    imagesLoaded($posters, () => $posters.alignPosters());
   }
 
   // с задержкой делаем потому, что collapsed блоки могут быть в контенте,
