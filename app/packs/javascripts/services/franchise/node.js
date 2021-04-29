@@ -1,5 +1,5 @@
 import d3 from 'd3';
-import { memoize } from 'shiki-decorators'
+import { memoize } from 'shiki-decorators';
 
 import axios from '@/helpers/axios';
 

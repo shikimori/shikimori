@@ -144,5 +144,4 @@ settings:
     node:
       extensions:
         - '.js'
-        - '.coffee'
         - '.vue'

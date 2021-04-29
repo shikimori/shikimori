@@ -79,6 +79,9 @@ describe BbCodes::Tags::DbEntriesTag do
     let(:text) { "[animes ids=#{anime.id} wall columns=8]" }
 
     it('has entry') { expect(html).to include 'b-catalog_entry' }
-    it('has aligned posters') { expect(html).to include 'cc-8-g0 align-posters unprocessed' }
+    it('has aligned posters') do
+      expect(html).to include "data-dynamic='aligned_posters'"
+      expect(html).to include 'cc-8-g0 to-process'
+    end
   end
 end

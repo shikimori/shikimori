@@ -1452,12 +1452,6 @@
     return true;
   }
 
-  function simpleRepeat(n, fn) {
-    for (var i = 0; i < n; i++) {
-      fn(i);
-    }
-  }
-
   function simpleClone(obj) {
     return simpleMerge({}, obj);
   }
@@ -3895,68 +3889,6 @@
       return arrayGroupBy(arr, map, groupFn);
     },
 
-    /***
-     * @method inGroups(num, [padding])
-     * @returns Array
-     * @short Groups the array into `num` arrays.
-     * @extra If specified, [padding] will be added to the last array to be of
-     *        equal length.
-     *
-     * @example
-     *
-     *   [1,2,3,4,5,6,7].inGroups(3)    -> [[1,2,3],[4,5,6],[7]]
-     *   [1,2,3,4,5,6,7].inGroups(3, 0) -> [[1,2,3],[4,5,6],[7,0,0]]
-     *
-     * @param {number} num
-     * @param {any} [padding]
-     *
-     ***/
-    'inGroups': function(arr, num, padding) {
-      var pad = isDefined(padding);
-      var result = new Array(num);
-      var divisor = ceil(arr.length / num);
-      simpleRepeat(num, function(i) {
-        var index = i * divisor;
-        var group = arr.slice(index, index + divisor);
-        if (pad && group.length < divisor) {
-          simpleRepeat(divisor - group.length, function() {
-            group.push(padding);
-          });
-        }
-        result[i] = group;
-      });
-      return result;
-    },
-
-    /***
-     * @method inGroupsOf(num, [padding] = null)
-     * @returns Array
-     * @short Groups the array into arrays of `num` elements each.
-     * @extra [padding] will be added to the last array to be of equal length.
-     *
-     * @example
-     *
-     *   [1,2,3,4,5,6,7].inGroupsOf(4)    -> [ [1,2,3,4], [5,6,7] ]
-     *   [1,2,3,4,5,6,7].inGroupsOf(4, 0) -> [ [1,2,3,4], [5,6,7,0] ]
-     *
-     * @param {number} num
-     * @param {any} [padding]
-     *
-     ***/
-    'inGroupsOf': function(arr, num, padding) {
-      var result = [], len = arr.length, group;
-      if (len === 0 || num === 0) return arr;
-      if (isUndefined(num)) num = 1;
-      if (isUndefined(padding)) padding = null;
-      simpleRepeat(ceil(len / num), function(i) {
-        group = arr.slice(num * i, num * i + num);
-        while(group.length < num) {
-          group.push(padding);
-        }
-        result.push(group);
-      });
-      return result;
-    },
 
     /***
      * @method shuffle()

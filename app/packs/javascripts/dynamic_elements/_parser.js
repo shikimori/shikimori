@@ -1,3 +1,4 @@
+import { AlignedPosters } from './aligned_posters';
 import { AuthorizedAction } from './authorized_action';
 import Clickloaded from './clickloaded';
 import CodeHighlight from './code_highlight';
@@ -48,6 +49,10 @@ export default class DynamicParser {
         }
       });
     });
+  }
+
+  alignedPosters(node) {
+    new AlignedPosters(node);
   }
 
   authorized(node) {

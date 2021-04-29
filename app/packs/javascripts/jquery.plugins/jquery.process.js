@@ -1,6 +1,5 @@
 import delay from 'delay';
 import cookies from 'js-cookie';
-import imagePromise from 'image-promise';
 
 import UserRatesTracker from '@/services/user_rates/tracker';
 import TopicsTracker from '@/services/topics/tracker';
@@ -100,13 +99,6 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
   $with('.b-show_more.unprocessed', $root)
     .removeClass('unprocessed')
     .showMore();
-
-  // выравнивание картинок в галерее аниме постеров
-  const $posters = $with('.align-posters.unprocessed', $root);
-  if ($posters.length) {
-    $posters.removeClass('unprocessed');
-    imagePromise($posters.find('img').toArray()).then(() => $posters.alignPosters());
-  }
 
   // с задержкой делаем потому, что collapsed блоки могут быть в контенте,
   // загруженном аяксом, а process для таких случаев вызывается ещё до вставки в DOM

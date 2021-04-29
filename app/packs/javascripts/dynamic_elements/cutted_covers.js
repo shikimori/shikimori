@@ -17,7 +17,7 @@ function update() {
   $('#injectCSSContainer').empty();
 
   $(`.${GLOBAL_SELECTOR}`).each((_index, node) => (
-    $(node).data(DATA_KEY)?.injectCss()
+    $(node).data(DATA_KEY)?.process()
   ));
 }
 
@@ -30,32 +30,32 @@ export class CuttedCovers extends View {
   async initialize() {
     if (!GLOBAL_HANDLER) { setHanler(); }
 
-    // $.process иногда выполняется ДО вставки в DOM, а этот код должен быть
-    // выполнен, когда уже @root вставлен в DOM. поэтому delay
+    // $.process sometimes executed BEFORE a node is inserted into the DOM,
+    // but this code must executed AFTER a node is inserted into the DOM.
+    // that is why `delay` is used here
     await delay();
 
     this._fetchPoster();
-    this.collection_id = `cutted_covers_${this.incrementId()}`;
-    this.ratio_value = RATIO[this.nodeRatio(this.node)] || RATIO.entry;
+    this.collectionId = `cutted_covers_${this.incrementId()}`;
+    this.ratioValue = RATIO[this.nodeRatio(this.node)] || RATIO.entry;
 
-    this.injectCss();
+    this.process();
 
-    this.node.id = this.collection_id;
+    this.node.id = this.collectionId;
     this.node.classList.add(GLOBAL_SELECTOR);
-
     this.$node.data(DATA_KEY, this);
   }
 
-  injectCss() {
+  process() {
     if (!this.$poster || !$.contains(document.documentElement, this.$poster[0])) {
       this._fetchPoster();
     }
-    const height = (this.$poster.width() * this.ratio_value).round(2);
+    const height = (this.$poster.width() * this.ratioValue).round(2);
     const width = this.$poster.width();
 
     if ((width > 0) && (height > 0)) {
       $.injectCSS({
-        [`#${this.collection_id}`]: {
+        [`#${this.collectionId}`]: {
           '.image-cutter': {
             'max-width': width,
             'max-height': height
