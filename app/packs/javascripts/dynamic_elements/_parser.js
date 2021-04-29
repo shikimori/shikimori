@@ -15,6 +15,8 @@ import Postloaded from './postloaded';
 import ShortDialog from './short_dialog';
 import Swiper from './swiper';
 import Switcher from './switcher';
+import ShikiEditor from './shiki_editor';
+import ShikiEditorV2 from './shiki_editor_v2';
 import SpoilerBlock from './spoiler_block';
 import SpoilerInline from './spoiler_inline';
 import Tabs from './tabs';
@@ -115,17 +117,11 @@ export default class DynamicParser {
     new ShortDialog(node);
   }
 
-  async shikiEditor(node) {
-    const { default: ShikiEditor } = await import(
-      /* webpackChunkName: "shiki_editor" */ './shiki_editor'
-    );
+  shikiEditor(node) {
     new ShikiEditor(node);
   }
 
-  async shikiEditorV2(node) {
-    const { default: ShikiEditorV2 } = await import(
-      /* webpackChunkName: "shiki_editor_v2" */ './shiki_editor_v2'
-    );
+  shikiEditorV2(node) {
     new ShikiEditorV2(node);
   }
 

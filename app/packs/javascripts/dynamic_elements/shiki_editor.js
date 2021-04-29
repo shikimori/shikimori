@@ -1,6 +1,3 @@
-import 'paste.js';
-
-import autosize from 'autosize';
 import delay from 'delay';
 import pDefer from 'p-defer';
 import { bind } from 'shiki-decorators';
@@ -16,7 +13,7 @@ import { isMobile } from 'shiki-utils';
 export default class ShikiEditor extends ShikiView {
   initialization = pDefer()
 
-  initialize() {
+  async initialize() {
     const { $node } = this;
     this.$form = $node.closest('form');
     this.isInnerForm = false;
@@ -25,6 +22,11 @@ export default class ShikiEditor extends ShikiView {
 
     // при вызове фокуса на shiki-editor передача сообщения в редактор
     this.on('focus', focus);
+
+    await import(/* webpackChunkName: "shiki_editor_v1" */ 'paste.js');
+    const { default: autosize } = await import(
+      /* webpackChunkName: "shiki_editor_v1" */ 'autosize'
+    );
 
     // по первому фокусу на редактор включаем autosize
     this.$textarea.one('focus', () => delay().then(() => autosize(this.$textarea[0])));
