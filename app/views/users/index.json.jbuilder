@@ -5,7 +5,7 @@ json.content render(
   formats: :html
 )
 
-if @collection.next_page?
+if @collection&.next_page?
   json.postloader render(
     'blocks/postloader',
     filter: 'b-user',
