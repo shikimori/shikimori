@@ -50,8 +50,12 @@
         margin-left: auto
         padding-top: 1px
 
-    &.contest,
-    &.mail
+    &.contest:after
+      content: '\2713'
+      font-family: shikimori
+      margin-left: 5px
+
+    &[data-count]
       position: relative
 
       &:after
@@ -59,8 +63,9 @@
         border-radius: 50%
         border: 1px solid $top_menu-background_color
         color: $top_menu-background_color
-        font-size: 8px
+        content: attr(data-count)
         font-family: Tahoma
+        font-size: 8px
         height: 14px
         line-height: 14px
         position: absolute
@@ -68,15 +73,6 @@
         text-align: center
         top: 7px
         width: 14px
-
-    &.contest:after
-      content: '\2713'
-      font-family: shikimori
-      margin-left: 5px
-
-    &.mail:after
-      content: attr(data-count)
-      margin-left: 10px
 
   .menu-dropdown
     +gte_ipad
