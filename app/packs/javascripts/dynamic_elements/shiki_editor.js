@@ -318,6 +318,7 @@ export default class ShikiEditor extends ShikiView {
     this.$node.removeClass('previewed');
 
     if (!this.$('.editor-controls').is(':appeared')) {
+      console.log('scrollTo 1');
       $.scrollTo(this.$node);
     }
   }
@@ -429,6 +430,7 @@ export default class ShikiEditor extends ShikiView {
 
     await delay();
     if ((isMobile()) && !this.$textarea.is(':appeared')) {
+      console.log('scrollTo 2');
       $.scrollTo(this.$form, null, this.focus);
     }
   }
