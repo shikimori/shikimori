@@ -141,11 +141,10 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def release_date_tooltip # rubocop:disable all
-    return unless released_on && aired_on
-    return unless released?
-    return if aired_on.year == released_on.year
-    return if released_on.day == 1 && released_on.month == 1
-    return if aired_on.day == 1 && aired_on.month == 1
+    return unless released_on && aired_on && released?
+    if aired_on.day == 1 && aired_on.month == 1 && released_on.day == 1 && released_on.month == 1
+      return
+    end
 
     text = i18n_t('datetime.release_dates.since_till_date',
       from_date: h.formatted_date(aired_on, true, false),
