@@ -35,14 +35,16 @@ export default class ShikiEditor extends ShikiView {
     this.$form
       .on('ajax:before', () => {
         if (this.text.replace(/\n| |\r|\t/g, '')) {
-          return this._shade();
+          this._shade();
+          return;
         }
         flash.error(I18n.t('frontend.shiki_editor.text_cant_be_blank'));
         return false;
       }).on('ajax:complete', this._unshade)
-      .on('ajax:success', () => {
+      .on('ajax:success', async () => {
         this._hidePreview();
-        return delay().then(() => this.$textarea[0].dispatchEvent(new Event('autosize:update')));
+        await delay();
+        this.$textarea[0].dispatchEvent(new Event('autosize:update'));
       });
 
     // при клике на неselected кнопку, закрываем все остальные selected кнопки
@@ -317,8 +319,7 @@ export default class ShikiEditor extends ShikiView {
   _hidePreview() {
     this.$node.removeClass('previewed');
 
-    if (!this.$('.editor-controls').is(':appeared')) {
-      console.log('scrollTo 1');
+    if (!this.$('.editor-controls').is(':appeared') && this.$node.is(':visible')) {
       $.scrollTo(this.$node);
     }
   }
@@ -430,7 +431,6 @@ export default class ShikiEditor extends ShikiView {
 
     await delay();
     if ((isMobile()) && !this.$textarea.is(':appeared')) {
-      console.log('scrollTo 2');
       $.scrollTo(this.$form, null, this.focus);
     }
   }
