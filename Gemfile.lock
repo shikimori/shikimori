@@ -71,7 +71,7 @@ GIT
 
 GIT
   remote: https://github.com/shikimori/mal_parser.git
-  revision: 80d3e172174eae9835ec9883d983685fa48ccb66
+  revision: 166ab3069d1a07d4bea56ca6e4b0f9620ba3ded8
   specs:
     mal_parser (0.2.0)
       attr_extras
@@ -420,7 +420,7 @@ GEM
       rake
     mini_magick (4.11.0)
     mini_mime (1.1.0)
-    mini_portile2 (2.5.0)
+    mini_portile2 (2.5.1)
     minitest (5.14.4)
     mize (0.3.5)
       protocol
