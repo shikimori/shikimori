@@ -1,6 +1,8 @@
 import axios from '@/helpers/axios';
 import Wall from '@/views/wall/view';
 
+let wall;
+
 export function initForm(type, $form, $wall, $video) {
   $form.on('submit', () => {
     const $attachments = $('.attachments-submit-container', $form).empty();
@@ -29,7 +31,7 @@ export async function initWall($form, $wall) {
 
   const $upload = $('.topic-posters .b-dropzone', $form);
 
-  if (!$upload.length) { return; } // it can be page with terms
+  if (!$upload.length) { return null; } // it can be page with terms
 
   new FileUploader($upload[0])
     .on('upload:file:success', (_e, { response }) => {
@@ -56,6 +58,15 @@ id='${response.id}'>\
     e.preventDefault();
     removeImage($(e.target).closest('.b-image').remove(), $wall);
   });
+
+  return {
+    destroy() {
+      if (wall) {
+        wall.$node.find('.c-video.b-video').remove();
+        wall = null;
+      }
+    }
+  };
 }
 
 function removeImage($image, $wall) {
@@ -65,7 +76,7 @@ function removeImage($image, $wall) {
 
 function resetWall($wall) {
   $wall.find('img').css({ width: '', height: '' });
-  new Wall($wall);
+  wall = new Wall($wall);
 }
 
 // function linkedAnimeId($linkedType, $linkedId) {
@@ -154,6 +165,10 @@ export async function initTagsApp(type) {
 
   new Vue({
     el: '#vue_tags_input',
+    beforeDestroy() {
+      $tags.show();
+      $(this.$el).replaceWith(initialHtml);
+    },
     render: h => h(TagsInput, {
       props: {
         label: $tags.find('label').text(),
@@ -165,10 +180,6 @@ export async function initTagsApp(type) {
         tagsLimit: 3,
         isDowncase: true
       }
-    }),
-    beforeDestroy() {
-      $tags.show();
-      $(this.$el).replaceWith(initialHtml);
-    },
+    })
   });
 }

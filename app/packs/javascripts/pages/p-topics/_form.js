@@ -2,10 +2,16 @@ import { initTagsApp, initVideo, initWall, initForm } from './_extended_form';
 
 const LINKED_TYPE_USER_SELECT = '.topic-linked select.type';
 let tagsApp;
+let wallApp;
 
 pageUnload('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
   if (tagsApp) {
     tagsApp.$destroy();
+    tagsApp = null;
+  }
+  if (wallApp) {
+    wallApp.destroy();
+    wallApp = null;
   }
 });
 
@@ -14,7 +20,7 @@ pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
   const $wall = $form.find('.b-shiki_wall');
 
   const $video = initVideo('topic', $form, $wall);
-  initWall($form, $wall);
+  initWall($form, $wall).then(app => wallApp = app);
   initTagsApp('topic').then(app => tagsApp = app);
   initForm('topic', $form, $wall, $video);
 
