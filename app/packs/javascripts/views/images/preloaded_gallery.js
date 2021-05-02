@@ -40,7 +40,7 @@ export class PreloadedGallery extends ShikiGallery {
       this._imagesLoad(loadedImages)
     );
 
-    this._appearMarker();
+    this._appendAppearLoader();
     this._fetch();
   }
 
@@ -69,7 +69,10 @@ export class PreloadedGallery extends ShikiGallery {
     this.loader = new StaticLoader(PreloadedGallery.BATCH_SIZE, images);
   }
 
-  _appearMarker() {
+  _appendAppearLoader() {
+    // cleanup appear marker in case of moving back in history
+    this.$node.find('.ajax-loading.vk-like.b-appear_marker').remove();
+
     this.$appearMarker = $(APPEAR_MARKER_HTML).insertAfter(this.$container);
     this.$appearMarker.on('appear', () => this._fetch());
   }
