@@ -26191,39 +26191,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :saint_seiya
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/saint_seiya.jpg"
-    :border_color:
-    :title_ru: Рыцари Зодиака
-    :text_ru:
-    :title_en: Saint Seiya
-    :text_en:
-    :topic_id: 247360
-    :rule: &471
-      :algo: duration
-      :filters:
-        franchise: saint_seiya
-        not_anime_ids:
-        - 6153
-        - 6154
-        - 35326
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :saint_seiya
-  level: 0
-  image: "/assets/achievements/anime/franchise/saint_seiya.jpg"
-  border_color:
-  title_ru: Рыцари Зодиака
-  text_ru:
-  title_en: Saint Seiya
-  text_en:
-  topic_id: 247360
-  rule: *471
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :fushigi_yuugi
     :level: 1
     :image: "/assets/achievements/anime/franchise/fushigi_yuugi.jpg"
@@ -26233,7 +26200,7 @@
     :title_en: Fushigi Yuugi
     :text_en:
     :topic_id: 247360
-    :rule: &472
+    :rule: &471
       :algo: duration
       :filters:
         franchise: fushigi_yuugi
@@ -26251,6 +26218,39 @@
   title_ru: Таинственная игра
   text_ru:
   title_en: Fushigi Yuugi
+  text_en:
+  topic_id: 247360
+  rule: *471
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :saint_seiya
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/saint_seiya.jpg"
+    :border_color:
+    :title_ru: Рыцари Зодиака
+    :text_ru:
+    :title_en: Saint Seiya
+    :text_en:
+    :topic_id: 247360
+    :rule: &472
+      :algo: duration
+      :filters:
+        franchise: saint_seiya
+        not_anime_ids:
+        - 6153
+        - 6154
+        - 35326
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :saint_seiya
+  level: 0
+  image: "/assets/achievements/anime/franchise/saint_seiya.jpg"
+  border_color:
+  title_ru: Рыцари Зодиака
+  text_ru:
+  title_en: Saint Seiya
   text_en:
   topic_id: 247360
   rule: *472
@@ -28568,6 +28568,64 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :wan_jie_xian_zong
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/wan_jie_xian_zong.jpg"
+    :border_color:
+    :title_ru: Страна десяти тысяч чудес
+    :text_ru:
+    :title_en: Wan Jie Xian Zong
+    :text_en:
+    :topic_id: 247360
+    :rule: &544
+      :algo: duration
+      :filters:
+        franchise: wan_jie_xian_zong
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :wan_jie_xian_zong
+  level: 1
+  image: "/assets/achievements/anime/franchise/wan_jie_xian_zong.jpg"
+  border_color:
+  title_ru: Страна десяти тысяч чудес
+  text_ru:
+  title_en: Wan Jie Xian Zong
+  text_en:
+  topic_id: 247360
+  rule: *544
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :wan_jie_xian_zong
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/wan_jie_xian_zong.jpg"
+    :border_color:
+    :title_ru: Страна десяти тысяч чудес
+    :text_ru:
+    :title_en: Wan Jie Xian Zong
+    :text_en:
+    :topic_id: 247360
+    :rule: &545
+      :algo: duration
+      :filters:
+        franchise: wan_jie_xian_zong
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :wan_jie_xian_zong
+  level: 0
+  image: "/assets/achievements/anime/franchise/wan_jie_xian_zong.jpg"
+  border_color:
+  title_ru: Страна десяти тысяч чудес
+  text_ru:
+  title_en: Wan Jie Xian Zong
+  text_en:
+  topic_id: 247360
+  rule: *545
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :captain_tsubasa
     :level: 1
     :image: "/assets/achievements/anime/franchise/captain_tsubasa.jpg"
@@ -28577,7 +28635,7 @@
     :title_en: Captain Tsubasa
     :text_en:
     :topic_id: 247360
-    :rule: &544
+    :rule: &546
       :algo: duration
       :filters:
         franchise: captain_tsubasa
@@ -28596,7 +28654,7 @@
   title_en: Captain Tsubasa
   text_en:
   topic_id: 247360
-  rule: *544
+  rule: *546
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28609,7 +28667,7 @@
     :title_en: Captain Tsubasa
     :text_en:
     :topic_id: 247360
-    :rule: &545
+    :rule: &547
       :algo: duration
       :filters:
         franchise: captain_tsubasa
@@ -28628,7 +28686,7 @@
   title_en: Captain Tsubasa
   text_en:
   topic_id: 247360
-  rule: *545
+  rule: *547
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28641,7 +28699,7 @@
     :title_en: Soukou Kihei Votoms
     :text_en:
     :topic_id: 247360
-    :rule: &546
+    :rule: &548
       :algo: duration
       :filters:
         franchise: votoms_finder
@@ -28662,7 +28720,7 @@
   title_en: Soukou Kihei Votoms
   text_en:
   topic_id: 247360
-  rule: *546
+  rule: *548
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28675,7 +28733,7 @@
     :title_en: Soukou Kihei Votoms
     :text_en:
     :topic_id: 247360
-    :rule: &547
+    :rule: &549
       :algo: duration
       :filters:
         franchise: votoms_finder
@@ -28696,7 +28754,7 @@
   title_en: Soukou Kihei Votoms
   text_en:
   topic_id: 247360
-  rule: *547
+  rule: *549
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28709,7 +28767,7 @@
     :title_en: Ling Yu
     :text_en:
     :topic_id: 247360
-    :rule: &548
+    :rule: &550
       :algo: duration
       :filters:
         franchise: ling_yu
@@ -28725,7 +28783,7 @@
   title_en: Ling Yu
   text_en:
   topic_id: 247360
-  rule: *548
+  rule: *550
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28738,7 +28796,7 @@
     :title_en: Ling Yu
     :text_en:
     :topic_id: 247360
-    :rule: &549
+    :rule: &551
       :algo: duration
       :filters:
         franchise: ling_yu
@@ -28754,7 +28812,7 @@
   title_en: Ling Yu
   text_en:
   topic_id: 247360
-  rule: *549
+  rule: *551
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28767,7 +28825,7 @@
     :title_en: Cyborg 009
     :text_en:
     :topic_id: 247360
-    :rule: &550
+    :rule: &552
       :algo: duration
       :filters:
         franchise: cyborg
@@ -28790,7 +28848,7 @@
   title_en: Cyborg 009
   text_en:
   topic_id: 247360
-  rule: *550
+  rule: *552
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28803,7 +28861,7 @@
     :title_en: Cyborg 009
     :text_en:
     :topic_id: 247360
-    :rule: &551
+    :rule: &553
       :algo: duration
       :filters:
         franchise: cyborg
@@ -28826,7 +28884,7 @@
   title_en: Cyborg 009
   text_en:
   topic_id: 247360
-  rule: *551
+  rule: *553
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28839,7 +28897,7 @@
     :title_en: Cobra
     :text_en:
     :topic_id: 247360
-    :rule: &552
+    :rule: &554
       :algo: duration
       :filters:
         franchise: space_cobra
@@ -28855,7 +28913,7 @@
   title_en: Cobra
   text_en:
   topic_id: 247360
-  rule: *552
+  rule: *554
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28868,7 +28926,7 @@
     :title_en: Cobra
     :text_en:
     :topic_id: 247360
-    :rule: &553
+    :rule: &555
       :algo: duration
       :filters:
         franchise: space_cobra
@@ -28884,7 +28942,7 @@
   title_en: Cobra
   text_en:
   topic_id: 247360
-  rule: *553
+  rule: *555
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28897,7 +28955,7 @@
     :title_en: Time Bokan
     :text_en:
     :topic_id: 247360
-    :rule: &554
+    :rule: &556
       :algo: duration
       :filters:
         franchise: time_bokan
@@ -28926,7 +28984,7 @@
   title_en: Time Bokan
   text_en:
   topic_id: 247360
-  rule: *554
+  rule: *556
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28939,7 +28997,7 @@
     :title_en: Time Bokan
     :text_en:
     :topic_id: 247360
-    :rule: &555
+    :rule: &557
       :algo: duration
       :filters:
         franchise: time_bokan
@@ -28968,7 +29026,7 @@
   title_en: Time Bokan
   text_en:
   topic_id: 247360
-  rule: *555
+  rule: *557
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -28981,7 +29039,7 @@
     :title_en: Transformers
     :text_en:
     :topic_id: 247360
-    :rule: &556
+    :rule: &558
       :algo: duration
       :filters:
         franchise: transformers
@@ -29006,7 +29064,7 @@
   title_en: Transformers
   text_en:
   topic_id: 247360
-  rule: *556
+  rule: *558
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29019,7 +29077,7 @@
     :title_en: Transformers
     :text_en:
     :topic_id: 247360
-    :rule: &557
+    :rule: &559
       :algo: duration
       :filters:
         franchise: transformers
@@ -29044,7 +29102,7 @@
   title_en: Transformers
   text_en:
   topic_id: 247360
-  rule: *557
+  rule: *559
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29057,7 +29115,7 @@
     :title_en: To Heart
     :text_en:
     :topic_id: 247360
-    :rule: &558
+    :rule: &560
       :algo: duration
       :filters:
         franchise: to_heart
@@ -29076,7 +29134,7 @@
   title_en: To Heart
   text_en:
   topic_id: 247360
-  rule: *558
+  rule: *560
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29089,7 +29147,7 @@
     :title_en: To Heart
     :text_en:
     :topic_id: 247360
-    :rule: &559
+    :rule: &561
       :algo: duration
       :filters:
         franchise: to_heart
@@ -29108,7 +29166,7 @@
   title_en: To Heart
   text_en:
   topic_id: 247360
-  rule: *559
+  rule: *561
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29121,7 +29179,7 @@
     :title_en: Konjiki no Gash Bell
     :text_en:
     :topic_id: 247360
-    :rule: &560
+    :rule: &562
       :algo: duration
       :filters:
         franchise: konjiki_no_gash_bell
@@ -29137,7 +29195,7 @@
   title_en: Konjiki no Gash Bell
   text_en:
   topic_id: 247360
-  rule: *560
+  rule: *562
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29150,7 +29208,7 @@
     :title_en: Konjiki no Gash Bell
     :text_en:
     :topic_id: 247360
-    :rule: &561
+    :rule: &563
       :algo: duration
       :filters:
         franchise: konjiki_no_gash_bell
@@ -29166,7 +29224,7 @@
   title_en: Konjiki no Gash Bell
   text_en:
   topic_id: 247360
-  rule: *561
+  rule: *563
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29179,7 +29237,7 @@
     :title_en: El Hazard
     :text_en:
     :topic_id: 247360
-    :rule: &562
+    :rule: &564
       :algo: duration
       :filters:
         franchise: el_hazard
@@ -29195,7 +29253,7 @@
   title_en: El Hazard
   text_en:
   topic_id: 247360
-  rule: *562
+  rule: *564
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29208,7 +29266,7 @@
     :title_en: El Hazard
     :text_en:
     :topic_id: 247360
-    :rule: &563
+    :rule: &565
       :algo: duration
       :filters:
         franchise: el_hazard
@@ -29224,7 +29282,7 @@
   title_en: El Hazard
   text_en:
   topic_id: 247360
-  rule: *563
+  rule: *565
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29237,7 +29295,7 @@
     :title_en: Dirty Pair
     :text_en:
     :topic_id: 247360
-    :rule: &564
+    :rule: &566
       :algo: duration
       :filters:
         franchise: dirty_pair
@@ -29253,7 +29311,7 @@
   title_en: Dirty Pair
   text_en:
   topic_id: 247360
-  rule: *564
+  rule: *566
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29266,7 +29324,7 @@
     :title_en: Dirty Pair
     :text_en:
     :topic_id: 247360
-    :rule: &565
+    :rule: &567
       :algo: duration
       :filters:
         franchise: dirty_pair
@@ -29282,7 +29340,7 @@
   title_en: Dirty Pair
   text_en:
   topic_id: 247360
-  rule: *565
+  rule: *567
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29295,7 +29353,7 @@
     :title_en: Mazinkaiser
     :text_en:
     :topic_id: 247360
-    :rule: &566
+    :rule: &568
       :algo: duration
       :filters:
         franchise: mazinkaiser
@@ -29316,7 +29374,7 @@
   title_en: Mazinkaiser
   text_en:
   topic_id: 247360
-  rule: *566
+  rule: *568
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29329,7 +29387,7 @@
     :title_en: Mazinkaiser
     :text_en:
     :topic_id: 247360
-    :rule: &567
+    :rule: &569
       :algo: duration
       :filters:
         franchise: mazinkaiser
@@ -29350,97 +29408,97 @@
   title_en: Mazinkaiser
   text_en:
   topic_id: 247360
-  rule: *567
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :saber_marionette_j
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
-    :border_color:
-    :title_ru: Воины-марионетки Джей
-    :text_ru:
-    :title_en: Saber Marionette J
-    :text_en:
-    :topic_id: 247360
-    :rule: &568
-      :algo: duration
-      :filters:
-        franchise: saber_marionette_j
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :saber_marionette_j
-  level: 1
-  image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
-  border_color:
-  title_ru: Воины-марионетки Джей
-  text_ru:
-  title_en: Saber Marionette J
-  text_en:
-  topic_id: 247360
-  rule: *568
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :saber_marionette_j
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
-    :border_color:
-    :title_ru: Воины-марионетки Джей
-    :text_ru:
-    :title_en: Saber Marionette J
-    :text_en:
-    :topic_id: 247360
-    :rule: &569
-      :algo: duration
-      :filters:
-        franchise: saber_marionette_j
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :saber_marionette_j
-  level: 0
-  image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
-  border_color:
-  title_ru: Воины-марионетки Джей
-  text_ru:
-  title_en: Saber Marionette J
-  text_en:
-  topic_id: 247360
   rule: *569
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :jigoku_sensei_nube
+    :neko_id: :saber_marionette_j
     :level: 1
-    :image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+    :image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
     :border_color:
-    :title_ru: Адский учитель Нубэ
+    :title_ru: Воины-марионетки Джей
     :text_ru:
-    :title_en: Jigoku Sensei Nube
+    :title_en: Saber Marionette J
     :text_en:
     :topic_id: 247360
     :rule: &570
       :algo: duration
       :filters:
-        franchise: jigoku_sensei_nube
+        franchise: saber_marionette_j
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
-  neko_id: :jigoku_sensei_nube
+  neko_id: :saber_marionette_j
   level: 1
-  image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+  image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
   border_color:
-  title_ru: Адский учитель Нубэ
+  title_ru: Воины-марионетки Джей
   text_ru:
-  title_en: Jigoku Sensei Nube
+  title_en: Saber Marionette J
   text_en:
   topic_id: 247360
   rule: *570
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :saber_marionette_j
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
+    :border_color:
+    :title_ru: Воины-марионетки Джей
+    :text_ru:
+    :title_en: Saber Marionette J
+    :text_en:
+    :topic_id: 247360
+    :rule: &571
+      :algo: duration
+      :filters:
+        franchise: saber_marionette_j
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :saber_marionette_j
+  level: 0
+  image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
+  border_color:
+  title_ru: Воины-марионетки Джей
+  text_ru:
+  title_en: Saber Marionette J
+  text_en:
+  topic_id: 247360
+  rule: *571
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :jigoku_sensei_nube
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+    :border_color:
+    :title_ru: Адский учитель Нубэ
+    :text_ru:
+    :title_en: Jigoku Sensei Nube
+    :text_en:
+    :topic_id: 247360
+    :rule: &572
+      :algo: duration
+      :filters:
+        franchise: jigoku_sensei_nube
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :jigoku_sensei_nube
+  level: 1
+  image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+  border_color:
+  title_ru: Адский учитель Нубэ
+  text_ru:
+  title_en: Jigoku Sensei Nube
+  text_en:
+  topic_id: 247360
+  rule: *572
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :jigoku_sensei_nube
     :level: 0
     :image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
@@ -29450,7 +29508,7 @@
     :title_en: Jigoku Sensei Nube
     :text_en:
     :topic_id: 247360
-    :rule: &571
+    :rule: &573
       :algo: duration
       :filters:
         franchise: jigoku_sensei_nube
@@ -29466,7 +29524,7 @@
   title_en: Jigoku Sensei Nube
   text_en:
   topic_id: 247360
-  rule: *571
+  rule: *573
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29479,7 +29537,7 @@
     :title_en: Di Gi Charat
     :text_en:
     :topic_id: 247360
-    :rule: &572
+    :rule: &574
       :algo: duration
       :filters:
         franchise: di_gi_charat
@@ -29495,7 +29553,7 @@
   title_en: Di Gi Charat
   text_en:
   topic_id: 247360
-  rule: *572
+  rule: *574
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29508,7 +29566,7 @@
     :title_en: Di Gi Charat
     :text_en:
     :topic_id: 247360
-    :rule: &573
+    :rule: &575
       :algo: duration
       :filters:
         franchise: di_gi_charat
@@ -29524,7 +29582,7 @@
   title_en: Di Gi Charat
   text_en:
   topic_id: 247360
-  rule: *573
+  rule: *575
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29537,7 +29595,7 @@
     :title_en: Galaxy Angel
     :text_en:
     :topic_id: 247360
-    :rule: &574
+    :rule: &576
       :algo: duration
       :filters:
         franchise: galaxy_angel
@@ -29553,7 +29611,7 @@
   title_en: Galaxy Angel
   text_en:
   topic_id: 247360
-  rule: *574
+  rule: *576
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29566,7 +29624,7 @@
     :title_en: Galaxy Angel
     :text_en:
     :topic_id: 247360
-    :rule: &575
+    :rule: &577
       :algo: duration
       :filters:
         franchise: galaxy_angel
@@ -29582,120 +29640,62 @@
   title_en: Galaxy Angel
   text_en:
   topic_id: 247360
-  rule: *575
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :haou_daikei_ryuu_knight
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
-    :border_color:
-    :title_ru: Властелин властелинов Рыцарь Рю
-    :text_ru:
-    :title_en: Haou Daikei Ryuu Knight
-    :text_en:
-    :topic_id: 247360
-    :rule: &576
-      :algo: duration
-      :filters:
-        franchise: haou_daikei_ryuu_knight
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :haou_daikei_ryuu_knight
-  level: 1
-  image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
-  border_color:
-  title_ru: Властелин властелинов Рыцарь Рю
-  text_ru:
-  title_en: Haou Daikei Ryuu Knight
-  text_en:
-  topic_id: 247360
-  rule: *576
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :haou_daikei_ryuu_knight
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
-    :border_color:
-    :title_ru: Властелин властелинов Рыцарь Рю
-    :text_ru:
-    :title_en: Haou Daikei Ryuu Knight
-    :text_en:
-    :topic_id: 247360
-    :rule: &577
-      :algo: duration
-      :filters:
-        franchise: haou_daikei_ryuu_knight
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :haou_daikei_ryuu_knight
-  level: 0
-  image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
-  border_color:
-  title_ru: Властелин властелинов Рыцарь Рю
-  text_ru:
-  title_en: Haou Daikei Ryuu Knight
-  text_en:
-  topic_id: 247360
   rule: *577
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :wan_jie_xian_zong
+    :neko_id: :haou_daikei_ryuu_knight
     :level: 1
-    :image: "/assets/achievements/anime/franchise/wan_jie_xian_zong.jpg"
+    :image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
     :border_color:
-    :title_ru: Страна десяти тысяч чудес
+    :title_ru: Властелин властелинов Рыцарь Рю
     :text_ru:
-    :title_en: Wan Jie Xian Zong
+    :title_en: Haou Daikei Ryuu Knight
     :text_en:
     :topic_id: 247360
     :rule: &578
       :algo: duration
       :filters:
-        franchise: wan_jie_xian_zong
+        franchise: haou_daikei_ryuu_knight
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
-  neko_id: :wan_jie_xian_zong
+  neko_id: :haou_daikei_ryuu_knight
   level: 1
-  image: "/assets/achievements/anime/franchise/wan_jie_xian_zong.jpg"
+  image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
   border_color:
-  title_ru: Страна десяти тысяч чудес
+  title_ru: Властелин властелинов Рыцарь Рю
   text_ru:
-  title_en: Wan Jie Xian Zong
+  title_en: Haou Daikei Ryuu Knight
   text_en:
   topic_id: 247360
   rule: *578
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :wan_jie_xian_zong
+    :neko_id: :haou_daikei_ryuu_knight
     :level: 0
-    :image: "/assets/achievements/anime/franchise/wan_jie_xian_zong.jpg"
+    :image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
     :border_color:
-    :title_ru: Страна десяти тысяч чудес
+    :title_ru: Властелин властелинов Рыцарь Рю
     :text_ru:
-    :title_en: Wan Jie Xian Zong
+    :title_en: Haou Daikei Ryuu Knight
     :text_en:
     :topic_id: 247360
     :rule: &579
       :algo: duration
       :filters:
-        franchise: wan_jie_xian_zong
+        franchise: haou_daikei_ryuu_knight
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
-  neko_id: :wan_jie_xian_zong
+  neko_id: :haou_daikei_ryuu_knight
   level: 0
-  image: "/assets/achievements/anime/franchise/wan_jie_xian_zong.jpg"
+  image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
   border_color:
-  title_ru: Страна десяти тысяч чудес
+  title_ru: Властелин властелинов Рыцарь Рю
   text_ru:
-  title_en: Wan Jie Xian Zong
+  title_en: Haou Daikei Ryuu Knight
   text_en:
   topic_id: 247360
   rule: *579
