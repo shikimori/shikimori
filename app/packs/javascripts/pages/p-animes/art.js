@@ -8,4 +8,5 @@ pageLoad('animes_art', 'mangas_art', 'ranobe_art', async () => {
 
 pageUnload('animes_art', 'mangas_art', 'ranobe_art', () => {
   gallery.destroy();
+  gallery = null;
 });

@@ -1,3 +1,12 @@
+let gallery;
+
+pageUnload('.db_entries-edit_field', () => {
+  if (gallery) {
+    gallery.destroy();
+    gallery = null;
+  }
+});
+
 pageLoad('.db_entries-edit_field', () => {
   const $description = $('.edit-page.description_ru, .edit-page.description_en');
 
@@ -47,9 +56,12 @@ pageLoad('.db_entries-edit_field', () => {
 
     if ($gallery.data('imageboard_tag')) {
       import(/* webpackChunkName: "galleries" */ '@/views/images/imageboards_gallery')
-        .then(({ ImageboardsGallery }) => (
-          new ImageboardsGallery($gallery)
-        ));
+        .then(({ ImageboardsGallery }) => {
+          if (gallery) {
+            gallery.destroy();
+          }
+          gallery = new ImageboardsGallery($gallery);
+        });
     }
 
     $('#anime_imageboard_tag, #manga_imageboard_tag, #character_imageboard_tag')
@@ -60,9 +72,12 @@ pageLoad('.db_entries-edit_field', () => {
         $gallery.html(galleryHtml);
 
         import(/* webpackChunkName: "galleries" */ '@/views/images/imageboards_gallery')
-          .then(({ ImageboardsGallery }) => (
-            new ImageboardsGallery($gallery)
-          ));
+          .then(({ ImageboardsGallery }) => {
+            if (gallery) {
+              gallery.destroy();
+            }
+            gallery = new ImageboardsGallery($gallery);
+          });
       });
   }
 
