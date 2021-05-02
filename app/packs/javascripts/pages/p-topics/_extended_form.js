@@ -152,7 +152,7 @@ function attachVideo(videoData, $topicVideo, $wall) {
 }
 
 export async function initTagsApp(type) {
-  if (!$(`#${type}_tags`).length) { return; }
+  if (!$(`#${type}_tags`).length) { return null; }
 
   const { Vue } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
   const { default: TagsInput } = await import('@/vue/components/tags_input');
@@ -163,7 +163,7 @@ export async function initTagsApp(type) {
 
   $tags.hide();
 
-  new Vue({
+  return new Vue({
     el: '#vue_tags_input',
     beforeDestroy() {
       $tags.show();
