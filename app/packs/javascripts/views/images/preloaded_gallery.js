@@ -32,6 +32,8 @@ export class PreloadedGallery extends ShikiGallery {
 
     this._cleanup();
 
+    const { default: imagesLoaded } = await import('imagesloaded');
+    this.desandroImagesLoaded = imagesLoaded;
     await this._buildLoader();
 
     this.loader.on(this.loader.FETCH_EVENT, (_e, loadedImages) =>
@@ -65,9 +67,6 @@ export class PreloadedGallery extends ShikiGallery {
     const images = this.$container.data('images');
 
     this.loader = new StaticLoader(PreloadedGallery.BATCH_SIZE, images);
-
-    const { default: imagesLoaded } = await import('imagesloaded');
-    this.desandroImagesLoaded = imagesLoaded;
   }
 
   _appearMarker() {
