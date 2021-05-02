@@ -5,7 +5,6 @@ let tagsApp;
 let wallApp;
 
 pageUnload('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
-    console.log(tagsApp);
   if (tagsApp) {
     tagsApp.$destroy();
     tagsApp = null;
