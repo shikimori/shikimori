@@ -30,8 +30,6 @@ export class PreloadedGallery extends ShikiGallery {
 
     this.on('upload:success', this._appendUploaded);
 
-    this._cleanup();
-
     const { default: imagesLoaded } = await import('imagesloaded');
     this.desandroImagesLoaded = imagesLoaded;
     await this._buildLoader();
@@ -42,6 +40,11 @@ export class PreloadedGallery extends ShikiGallery {
 
     this._appendAppearLoader();
     this._fetch();
+  }
+
+  destroy() {
+    this.$node.find('.ajax-loading.vk-like.b-appear_marker').remove();
+    this.$container.children(':not(.grid_sizer)').remove();
   }
 
   // callbacks
@@ -70,9 +73,6 @@ export class PreloadedGallery extends ShikiGallery {
   }
 
   _appendAppearLoader() {
-    // cleanup appear marker in case of moving back in history
-    this.$node.find('.ajax-loading.vk-like.b-appear_marker').remove();
-
     this.$appearMarker = $(APPEAR_MARKER_HTML).insertAfter(this.$container);
     this.$appearMarker.on('appear', () => this._fetch());
   }
@@ -82,11 +82,6 @@ export class PreloadedGallery extends ShikiGallery {
       this.loader.fetch();
       this._stopPostload();
     }
-  }
-
-  _cleanup() {
-    // need to clenup old images that can be present because of turbolinks page:restore
-    this.$container.children(':not(.grid_sizer)').remove();
   }
 
   _startPostload() {

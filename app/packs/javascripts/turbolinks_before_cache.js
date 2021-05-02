@@ -8,7 +8,15 @@ $(document).on('turbolinks:before-cache', () => {
   $('.tipsy').remove();
   $('body > .tooltip').remove();
 
-  $('[data-dynamic]').addClass(DynamicParser.PENDING_CLASS);
+  $('[data-dynamic]')
+    .each((_index, node) => {
+      const view = $(node).view();
+
+      if (view && view.destroy) {
+        view.destroy();
+      }
+    })
+    .addClass(DynamicParser.PENDING_CLASS);
 
   const jsExportKeys = $(document.body).data('js_export_supervisor_keys');
   if (!Object.isEmpty(jsExportKeys)) {
@@ -24,8 +32,6 @@ $(document).on('turbolinks:before-cache', () => {
   $('.bubbled-processed')
     .removeClass('bubbled-processed')
     .addClass('bubbled');
-
-  $('.b-shiki_editor').addClass('unprocessed');
 
   // height shortener
   $('.b-height_shortener').each((_index, node) => {
