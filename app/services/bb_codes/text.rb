@@ -26,15 +26,13 @@ class BbCodes::Text
     quote replies
     user comment topic message
 
-    db_entry_url
-    video_url video
+    db_entry_url video_url url
+    video
     poster wall_image db_entries
     wall poll
 
     contest_status contest_round_status
     source broadcast
-
-    url
 
     div span hr br p
     b i u s
