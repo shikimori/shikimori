@@ -50,7 +50,7 @@ private
   def build_stats
     @scope
       .joins(:rates)
-      .where.not(user_rates: { user_id: User.cheat_bot })
+      .where.not(user_rates: { user_id: User.excluded_from_statistics })
       .group(:id)
       .select(select_sql)
       .map do |entry|
