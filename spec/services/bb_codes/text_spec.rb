@@ -98,7 +98,7 @@ describe BbCodes::Text do
     end
 
     describe '[url]' do
-      context 'example 1' do
+      context 'plain url' do
         let(:text) { 'http://www.small-games.info' }
         it do
           is_expected.to eq(
@@ -107,11 +107,36 @@ describe BbCodes::Text do
         end
       end
 
-      context 'example 2' do
+      context 'bbcode' do
         let(:text) { '[url=http://www.small-games.info]www.small-games.info[/url]' }
         it do
           is_expected.to eq(
             '<a class="b-link" href="http://www.small-games.info" rel="noopener noreferrer nofollow">www.small-games.info</a>'
+          )
+        end
+      end
+
+      context 'nested bbcodes' do
+        let(:text) { '[url=http://ya.ru][div=aaa]zzz[/div][/url]' }
+
+        it do
+          is_expected.to eq(
+            <<~HTML.squish
+              <a class="b-link" href="http://ya.ru"
+                rel="noopener noreferrer nofollow"><div class="aaa" data-div="">zzz</div></a>
+            HTML
+          )
+        end
+      end
+
+      describe 'xss' do
+        let(:text) { "[url]<!--><script>alert('XSS');</script -->[/url]" }
+        it do
+          is_expected.to eq(
+            <<~HTML.squish
+              <a class="b-link" href="http://<!--><script>alert('XSS');</script -->"
+                rel="noopener noreferrer nofollow">&lt;!--&gt;&lt;script&gt;alert('XSS');&lt;/script --&gt;</a>
+            HTML
           )
         end
       end
@@ -428,18 +453,6 @@ describe BbCodes::Text do
             <div class="b-quote"><div class="quote-content"><br><div
               class="b-quote"><div
               class="quote-content"><br>test<br></div></div></div></div><br><div data-div=""><br>test<br></div>
-          HTML
-        )
-      end
-    end
-
-    describe 'xss' do
-      let(:text) { "[url]<!--><script>alert('XSS');</script -->[/url]" }
-      it do
-        is_expected.to eq(
-          <<~HTML.squish
-            <a class="b-link" href="http://<!--><script>alert('XSS');</script -->"
-              rel="noopener noreferrer nofollow">&lt;!--&gt;&lt;script&gt;alert('XSS');&lt;/script --&gt;</a>
           HTML
         )
       end
