@@ -38,7 +38,7 @@ describe AniMangaDecorator do
         context 'same year' do
           let(:released_on) { '03-03-2011' }
           its(:release_date_text) { is_expected.to eq 'с 2 февр. 2011 г. по 3 марта 2011 г.' }
-          its(:release_date_tooltip) { is_expected.to 'С 2 февраля 2011 г. по 3 марта 2011 г.' }
+          its(:release_date_tooltip) { is_expected.to eq 'С 2 февраля 2011 г. по 3 марта 2011 г.' }
         end
       end
 
