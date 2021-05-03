@@ -65,7 +65,7 @@ describe BbCodes::Text do
         let(:text) { '[quote][spoiler=qwe]test[/quote][/spoiler]' }
         it do
           is_expected.to eq(
-            <<-HTML.squish
+            <<~HTML.squish
               <div class="b-quote"><div class="quote-content"><div
                 class="b-spoiler_block to-process"
                 data-dynamic="spoiler_block"><span tabindex="0">qwe</span><div>test</div></div></div></div>
@@ -428,6 +428,18 @@ describe BbCodes::Text do
             <div class="b-quote"><div class="quote-content"><br><div
               class="b-quote"><div
               class="quote-content"><br>test<br></div></div></div></div><br><div data-div=""><br>test<br></div>
+          HTML
+        )
+      end
+    end
+
+    describe 'xss' do
+      let(:text) { "[url]<!--><script>alert('XSS');</script -->[/url]" }
+      it do
+        is_expected.to eq(
+          <<~HTML.squish
+            <a class="b-link" href="http://<!--><script>alert('XSS');</script -->"
+              rel="noopener noreferrer nofollow">&lt;!--&gt;&lt;script&gt;alert('XSS');&lt;/script --&gt;</a>
           HTML
         )
       end

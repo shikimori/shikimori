@@ -52,7 +52,7 @@ private
 
     <<~HTML.squish
       <a class="#{ERB::Util.h css_classes}"
-      href="#{ERB::Util.h url}"#{REL unless is_shikimori}>#{link_text}</a>
+      href="#{ERB::Util.h url}"#{REL unless is_shikimori}>#{ERB::Util.h link_text}</a>
     HTML
   end
 
