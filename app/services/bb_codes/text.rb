@@ -34,10 +34,12 @@ class BbCodes::Text
     contest_status contest_round_status
     source broadcast
 
+    url
+
     div span hr br p
     b i u s
     size center right
-    color solid url
+    color solid
     list h3
 
     spoiler
