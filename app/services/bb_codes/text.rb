@@ -26,8 +26,9 @@ class BbCodes::Text
     quote replies
     user comment topic message
 
-    db_entry_url video_url url
-    video
+    db_entry_url
+    video_url video
+    url
     poster wall_image db_entries
     wall poll
 
@@ -121,10 +122,6 @@ private
     text = BbCodes::UserMention.call text
     text = BbCodes::DbEntryMention.call text
 
-    HASH_TAGS.each do |tag_klass|
-      text = tag_klass.instance.format text, text_hash
-    end
-
     MARKDOWNS.each do |markdown_parser|
       text = markdown_parser.instance.format text
     end
@@ -135,6 +132,10 @@ private
 
     TAGS.each do |tag_parser|
       text = tag_parser.instance.format text
+    end
+
+    HASH_TAGS.each do |tag_klass|
+      text = tag_klass.instance.format text, text_hash
     end
 
     BB_CODE_REPLACERS.each do |processor|
