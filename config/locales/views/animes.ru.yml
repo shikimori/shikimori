@@ -70,10 +70,12 @@ ru:
         few: И ещё %{count} человека
         many: И ещё %{count} человек
       episodes_preview: Превью эпизодов
-      watch_online: Онлайн просмотр
       anime_calendar:
         episode: Эпизод
         date: Дата
+
+    watch_online:
+      watch_online: Онлайн просмотр
 
     menu:
       scores: Оценки людей

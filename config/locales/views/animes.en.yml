@@ -70,10 +70,12 @@ en:
         one: And %{count} user more
         other: And %{count} users more
       episodes_preview: Episodes preview
-      watch_online: Watch Online
       anime_calendar:
         episode: Episode
         date: Date
+
+    watch_online:
+      watch_online: Watch Online
 
     menu:
       scores: Scores
