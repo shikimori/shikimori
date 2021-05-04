@@ -21,7 +21,7 @@ describe BbCodes::Tags::PosterTag do
       is_expected.to eq(
         <<~HTML.squish
           <span class='b-image b-poster no-zoom'
-            data-attrs='#{attrs.to_json}'><img src='#{camo_url}'
+            data-attrs='#{ERB::Util.h attrs.to_json}'><img src='#{ERB::Util.h camo_url}'
             loading='lazy' /></span>
         HTML
       )
@@ -39,7 +39,7 @@ describe BbCodes::Tags::PosterTag do
       is_expected.to eq(
         <<~HTML.squish
           <span class='b-image b-poster no-zoom'
-            data-attrs='#{attrs.to_json}'><img
+            data-attrs='#{ERB::Util.h attrs.to_json}'><img
               src='#{user_image.image.url :original, false}'
               data-width='#{user_image.width}'
               data-height='#{user_image.height}'

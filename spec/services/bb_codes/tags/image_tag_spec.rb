@@ -24,7 +24,7 @@ describe BbCodes::Tags::ImageTag do
             <a href='#{user_image.image.url :original, false}'
               rel='#{text_hash}'
               class='b-image unprocessed'
-              data-attrs='#{attrs.to_json}'><img
+              data-attrs='#{ERB::Util.h attrs.to_json}'><img
                 src='#{user_image.image.url :thumbnail, false}'
                 data-width='#{user_image.width}'
                 data-height='#{user_image.height}'
@@ -43,7 +43,7 @@ describe BbCodes::Tags::ImageTag do
       is_expected.to eq(
         <<-HTML.squish.strip
             <span class='b-image no-zoom'
-              data-attrs='#{attrs.to_json}'><img
+              data-attrs='#{ERB::Util.h attrs.to_json}'><img
                 src='#{user_image.image.url :original, false}'
                 class='check-width'
                 loading='lazy'
@@ -63,7 +63,7 @@ describe BbCodes::Tags::ImageTag do
             href='#{user_image.image.url :original, false}'
             rel='#{text_hash}'
             class='b-image unprocessed'
-            data-attrs='#{attrs.to_json}'><img
+            data-attrs='#{ERB::Util.h attrs.to_json}'><img
               src='#{user_image.image.url :thumbnail, false}'
               data-width='#{user_image.width}'
               data-height='#{user_image.height}'
@@ -73,7 +73,7 @@ describe BbCodes::Tags::ImageTag do
             href='#{user_image_2.image.url :original, false}'
             rel='#{text_hash}'
             class='b-image unprocessed'
-            data-attrs='#{{ id: user_image_2.id }.to_json}'><img
+            data-attrs='#{ERB::Util.h({ id: user_image_2.id }.to_json)}'><img
               src='#{user_image_2.image.url :thumbnail, false}'
               data-width='#{user_image_2.width}'
               data-height='#{user_image_2.height}'
@@ -92,7 +92,7 @@ describe BbCodes::Tags::ImageTag do
       is_expected.to eq(
         <<-HTML.squish
           <span class='b-image no-zoom'
-            data-attrs='#{attrs.to_json}'><img
+            data-attrs='#{ERB::Util.h attrs.to_json}'><img
               src='#{user_image.image.url :original, false}'
               class='check-width'
               loading='lazy'
@@ -110,7 +110,7 @@ describe BbCodes::Tags::ImageTag do
         is_expected.to eq(
           <<-HTML.squish
             <span class='b-image no-zoom abc'
-              data-attrs='#{attrs.to_json}'><img
+              data-attrs='#{ERB::Util.h attrs.to_json}'><img
                 src='#{user_image.image.url :original, false}'
                 class='check-width'
                 loading='lazy'
@@ -144,7 +144,7 @@ describe BbCodes::Tags::ImageTag do
             href='#{user_image.image.url :original, false}'
             rel='#{text_hash}'
             class='b-image unprocessed'
-            data-attrs='#{attrs.to_json}'><img
+            data-attrs='#{ERB::Util.h attrs.to_json}'><img
               src='#{user_image.image.url :preview, false}'
               width='400'
               height='400'
@@ -166,7 +166,7 @@ describe BbCodes::Tags::ImageTag do
               href='#{user_image.image.url :original, false}'
               rel='#{text_hash}'
               class='b-image unprocessed'
-              data-attrs='#{{ **attrs, height: 400 }.to_json}'><img
+              data-attrs='#{ERB::Util.h({ **attrs, height: 400 }.to_json)}'><img
                 src='#{user_image.image.url :preview, false}'
                 width='400'
                 height='400'
@@ -191,7 +191,7 @@ describe BbCodes::Tags::ImageTag do
             href='#{user_image.image.url :original, false}'
             rel='#{text_hash}'
             class='b-image unprocessed'
-            data-attrs='#{attrs.to_json}'><img
+            data-attrs='#{ERB::Util.h attrs.to_json}'><img
               src='#{user_image.image.url :preview, false}'
               width='400'
               data-width='#{user_image.width}'
@@ -213,7 +213,7 @@ describe BbCodes::Tags::ImageTag do
           <a href='#{user_image.image.url :original, false}'
             rel='#{text_hash}'
             class='b-image unprocessed'
-            data-attrs='#{attrs.to_json}'><img
+            data-attrs='#{ERB::Util.h attrs.to_json}'><img
               src='#{user_image.image.url :preview, false}'
               height='400'
               data-width='#{user_image.width}'
@@ -237,7 +237,7 @@ describe BbCodes::Tags::ImageTag do
             href='#{user_image.image.url :original, false}'
             rel='#{text_hash}'
             class='b-image unprocessed'
-            data-attrs='#{attrs.to_json}'><img
+            data-attrs='#{ERB::Util.h attrs.to_json}'><img
               src='#{user_image.image.url :preview, false}'
               width='400'
               height='500'
@@ -263,7 +263,7 @@ describe BbCodes::Tags::ImageTag do
             href='#{user_image.image.url :original, false}'
             rel='#{text_hash}'
             class='b-image unprocessed test'
-            data-attrs='#{attrs.to_json}'><img
+            data-attrs='#{ERB::Util.h attrs.to_json}'><img
               src='#{user_image.image.url :preview, false}'
               width='400'
               height='500'

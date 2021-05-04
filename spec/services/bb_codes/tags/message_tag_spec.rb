@@ -18,7 +18,7 @@ describe BbCodes::Tags::MessageTag do
     is_expected.to eq(
       <<~HTML.squish
         <a href='#{url}' class='b-mention bubbled'
-          data-attrs='#{attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
+          data-attrs='#{ERB::Util.h attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
       HTML
     )
   end
@@ -31,7 +31,7 @@ describe BbCodes::Tags::MessageTag do
       is_expected.to eq(
         <<~HTML.squish
           <a href='#{url}' class='b-mention b-entry-404 bubbled'
-            data-attrs='#{attrs.to_json}'><s>@</s><del>[message=#{message.id}]</del></a>, test
+            data-attrs='#{ERB::Util.h attrs.to_json}'><s>@</s><del>[message=#{message.id}]</del></a>, test
         HTML
       )
     end

@@ -20,7 +20,7 @@ describe BbCodes::Tags::ImgTag do
             data-href='#{camo_url}'
             rel='#{text_hash}'
             class='b-image unprocessed'
-            data-attrs='#{attrs.to_json}'><img
+            data-attrs='#{ERB::Util.h attrs.to_json}'><img
               src='#{camo_url}'
               class='check-width'
               loading='lazy'></a>
@@ -35,8 +35,8 @@ describe BbCodes::Tags::ImgTag do
       is_expected.to eq(
         <<-HTML.squish.strip
           <span class='b-image no-zoom'
-            data-attrs='#{attrs.to_json}'><img src='#{camo_url}'
-            class='check-width' loading='lazy'></span>
+            data-attrs='#{ERB::Util.h attrs.to_json}'><img
+            src='#{escaped_camo_url}' class='check-width' loading='lazy'></span>
         HTML
       )
     end
@@ -56,7 +56,7 @@ describe BbCodes::Tags::ImgTag do
             data-href='#{camo_url}'
             rel='#{text_hash}'
             class='b-image unprocessed'
-            data-attrs='#{attrs.to_json}'><img
+            data-attrs='#{ERB::Util.h attrs.to_json}'><img
               src='#{camo_url}'
               class='check-width'
               loading='lazy'></a>
@@ -65,7 +65,7 @@ describe BbCodes::Tags::ImgTag do
               data-href='#{camo_url_2}'
               rel='#{text_hash}'
               class='b-image unprocessed'
-              data-attrs='#{attrs_2.to_json}'><img
+              data-attrs='#{ERB::Util.h attrs_2.to_json}'><img
                 src='#{camo_url_2}'
                 class='check-width'
                 loading='lazy'></a>
@@ -112,7 +112,7 @@ describe BbCodes::Tags::ImgTag do
               data-href='#{camo_url}'
               rel='hash'#{' '}
               class='b-image unprocessed'
-              data-attrs='#{attrs.to_json}'><img
+              data-attrs='#{ERB::Util.h attrs.to_json}'><img
                 src='#{camo_url}'
                 class='check-width'
                 loading='lazy'></a>
@@ -133,7 +133,7 @@ describe BbCodes::Tags::ImgTag do
               data-href='#{camo_link_url}'
               rel='hash'
               class='b-image unprocessed'
-              data-attrs='#{attrs.to_json}'><img
+              data-attrs='#{ERB::Util.h attrs.to_json}'><img
                 src='#{camo_url}'
                 class='check-width'
                 loading='lazy'></a>
@@ -155,7 +155,7 @@ describe BbCodes::Tags::ImgTag do
             data-href='#{escaped_camo_url}'
             rel='#{text_hash}'
             class='b-image unprocessed'
-            data-attrs='#{attrs.to_json}'><img
+            data-attrs='#{ERB::Util.h attrs.to_json}'><img
               src='#{escaped_camo_url}'
               class='check-width'
               loading='lazy'></a>

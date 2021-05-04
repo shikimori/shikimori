@@ -52,7 +52,7 @@ private
       <a href='#{model_url model}' title='#{model.name}'
         class='bubbled b-link'
         data-tooltip_url='#{tooltip_url model}'
-        data-attrs='#{attrs(model).to_json}'>#{fixed_name}</a>
+        data-attrs='#{ERB::Util.h attrs(model).to_json}'>#{fixed_name}</a>
     HTML
   end
 

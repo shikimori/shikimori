@@ -60,7 +60,7 @@ private
     author_name = text.presence || user.nickname || NOT_FOUND
     url = entry_url entry
     css_classes = css_classes entry, user, is_quoted
-    quoted_html = quoted_html is_quoted, user, author_name
+    quoted_safe_html = quoted_html is_quoted, user, author_name
     mention_html = is_quoted ? '' : '<s>@</s>'
 
     attrs = build_attrs(
@@ -70,8 +70,8 @@ private
       text: user&.nickname
     )
 
-    "<a href='#{url}' class='#{css_classes}' data-attrs='#{attrs.to_json}'" \
-      ">#{mention_html}#{quoted_html}</a>"
+    "<a href='#{url}' class='#{css_classes}' data-attrs='#{ERB::Util.h attrs.to_json}'" \
+      ">#{mention_html}#{quoted_safe_html}</a>"
   end
 
   def not_found_to_html entry_id:, type:, text:, user_id:, quote_user_id:
@@ -95,7 +95,7 @@ private
       'b-mention b-entry-404'
 
     quoted_text = text.presence || user&.nickname
-    quoted_html = "<span>#{quoted_text}</span>" if quoted_text.present?
+    quoted_safe_html = "<span>#{ERB::Util.h quoted_text}</span>" if quoted_text.present?
 
     attrs = build_attrs(
       id: entry_id,
@@ -104,13 +104,13 @@ private
       text: user&.nickname
     )
 
-    "<#{open_tag} class='#{css_classes}' data-attrs='#{attrs.to_json}'"\
-      "><s>@</s>#{quoted_html}" \
+    "<#{open_tag} class='#{css_classes}' data-attrs='#{ERB::Util.h attrs.to_json}'"\
+      "><s>@</s>#{quoted_safe_html}" \
       "<del>[#{name}=#{entry_id}]</del></#{close_tag}>"
   end
 
   def not_found_quote_to_html entry_id, _type, text, user
-    "[user=#{user.id}]#{text}[/user]<span class='b-mention b-entry-404'>" \
+    "[user=#{user.id}]#{ERB::Util.h text}[/user]<span class='b-mention b-entry-404'>" \
       "<del>[#{name}=#{entry_id}]</del></span>"
   end
 
@@ -134,7 +134,7 @@ private
     if is_quoted
       quoteed_author_html user, quoted_name
     else
-      "<span>#{quoted_name}</span>"
+      "<span>#{ERB::Util.h quoted_name}</span>"
     end
   end
 
@@ -145,8 +145,8 @@ private
       <img
         src="#{ImageUrlGenerator.instance.url user, :x16}"
         srcset="#{ImageUrlGenerator.instance.url user, :x32} 2x"
-        alt="#{quoted_name}"
-      /><span>#{quoted_name}</span>
+        alt="#{ERB::Util.h quoted_name}"
+      /><span>#{ERB::Util.h quoted_name}</span>
     HTML
   end
 

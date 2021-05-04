@@ -71,7 +71,7 @@ private
     <<-HTML.squish.strip
       <span class='b-image
         no-zoom#{" #{attrs[:class]}" if attrs[:class]}'
-        data-attrs='#{attrs.to_json}'><img
+        data-attrs='#{ERB::Util.h attrs.to_json}'><img
         src='#{ERB::Util.h original_url}' #{sizes_html}#{" class='check-width'" if sizes_html.blank?}
         loading='lazy' />#{marker_html}</span>
     HTML
@@ -90,7 +90,7 @@ private
         rel='#{text_hash}'
         class='b-image
         unprocessed#{" #{ERB::Util.h attrs[:class]}" if attrs[:class]}'
-        data-attrs='#{attrs.to_json}'><img
+        data-attrs='#{ERB::Util.h attrs.to_json}'><img
         src='#{preview_url}' #{sizes_html attrs}
         data-width='#{user_image.width}'
         data-height='#{user_image.height}'

@@ -31,7 +31,7 @@ private
 
     <<~HTML.squish
       <a href='#{url}' class='b-mention'
-        data-attrs='#{data_attrs}'><s>@</s><span>#{nickname}</span></a>
+        data-attrs='#{ERB::Util.h data_attrs}'><s>@</s><span>#{ERB::Util.h nickname}</span></a>
     HTML
   end
 end

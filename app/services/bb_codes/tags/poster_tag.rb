@@ -43,7 +43,7 @@ private
 
     <<~HTML.squish
       <span class='b-image b-poster no-zoom'
-        data-attrs='#{attrs.to_json}'><img src='#{camo_url}'
+        data-attrs='#{ERB::Util.h attrs.to_json}'><img src='#{ERB::Util.h camo_url}'
           loading='lazy' /></span>
     HTML
   end
@@ -54,7 +54,7 @@ private
 
     <<~HTML.squish
       <span class='b-image b-poster no-zoom'
-        data-attrs='#{attrs.to_json}'><img src='#{url}'
+        data-attrs='#{ERB::Util.h attrs.to_json}'><img src='#{url}'
           data-width='#{user_image.width}'
           data-height='#{user_image.height}'
           loading='lazy' /></span>

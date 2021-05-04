@@ -18,7 +18,7 @@ describe BbCodes::Tags::PersonTag do
         title='#{model.name}'
         class='bubbled b-link'
         data-tooltip_url='#{url}/tooltip'
-        data-attrs='#{attrs.to_json}'>#{model.name}</a>
+        data-attrs='#{ERB::Util.h attrs.to_json}'>#{model.name}</a>
     HTML
   end
   let(:text) { "[person=#{model.id}]" }

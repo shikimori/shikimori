@@ -17,7 +17,7 @@ describe BbCodes::Tags::AnimeTag do
         title='#{model.name}'
         class='bubbled b-link'
         data-tooltip_url='#{url}/tooltip'
-        data-attrs='#{attrs.to_json}'>#{name_html}</a>
+        data-attrs='#{ERB::Util.h attrs.to_json}'>#{name_html}</a>
     HTML
   end
   let(:name_html) { model.name }

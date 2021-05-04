@@ -9,19 +9,20 @@ describe BbCodes::Tags::UserTag do
     is_expected.to eq(
       <<~HTML.squish
         <a href='#{url}' class='b-mention'
-          data-attrs='#{attrs.to_json}'><s>@</s><span>#{user.nickname}</span></a>, test
+          data-attrs='#{ERB::Util.h attrs.to_json}'><s>@</s><span>#{ERB::Util.h user.nickname}</span></a>, test
       HTML
     )
   end
 
   context 'with text' do
-    let(:text) { "[user=#{user.id}]test[/user], test" }
+    let(:text) { "[user=#{user.id}]#{xss}[/user], test" }
+    let(:xss) { "XSS'" }
 
     it do
       is_expected.to eq(
         <<~HTML.squish
           <a href='http://test.host/#{user.nickname}' class='b-mention'
-            data-attrs='#{attrs.to_json}'><s>@</s><span>test</span></a>, test
+            data-attrs='#{ERB::Util.h attrs.to_json}'><s>@</s><span>#{ERB::Util.h xss}</span></a>, test
         HTML
       )
     end
@@ -33,7 +34,7 @@ describe BbCodes::Tags::UserTag do
 
     it do
       is_expected.to eq(
-        "<span class='b-mention b-entry-404' data-attrs='#{attrs.to_json}'><s>@</s>" \
+        "<span class='b-mention b-entry-404' data-attrs='#{ERB::Util.h attrs.to_json}'><s>@</s>" \
           "<del>[user=#{user.id}]</del></span>, test"
       )
     end
