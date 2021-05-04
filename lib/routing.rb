@@ -148,7 +148,9 @@ private
 
     fixed_url = image_url.starts_with?('//') ? url.with_protocol.to_s : image_url
 
-    camo_root_url(force_shikimori_one) +
-      "#{camo_digest fixed_url}?url=#{CGI.escape fixed_url}"
+    (
+      camo_root_url(force_shikimori_one) +
+        "#{camo_digest fixed_url}?url=#{CGI.escape fixed_url}"
+    ).html_safe
   end
 end

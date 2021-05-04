@@ -49,8 +49,12 @@ private
   )
     image_url = CGI.unescapeHTML escaped_image_url
     fixed_image_url = camo_url image_url
+    safe_image_url = fixed_image_url.html_safe? ?
+      fixed_image_url :
+      ERB::Util.h(fixed_image_url)
+
     camo_link_url = camo_url link_url if link_url&.match? %r{shikimori\.(\w+)/.*\.(?:jpg|png|webp)}
-    image_html = html_for_image fixed_image_url, width, height
+    image_html = html_for_image safe_image_url, width, height
     attrs = { src: image_url }
 
     if is_no_zoom
@@ -61,7 +65,7 @@ private
     else
       <<~HTML.squish
         <a href='#{ERB::Util.h(link_url || image_url)}'
-          data-href='#{camo_link_url || fixed_image_url}'
+          data-href='#{camo_link_url || safe_image_url}'
           rel='#{text_hash}'
           class='b-image unprocessed#{" #{ERB::Util.h css_class}" if css_class.present?}'
           data-attrs='#{attrs.to_json}'>#{image_html}</a>
@@ -69,21 +73,24 @@ private
     end
   end
 
-  def html_for_image image_url, width, height
+  def html_for_image safe_image_url, width, height
     sizes_html = ''
     sizes_html += " width='#{width}'" if width.positive?
     sizes_html += " height='#{height.to_i}'" if height.positive?
 
     <<-HTML.squish.strip
-      <img src='#{image_url}' class='check-width'#{sizes_html} loading='lazy'>
+      <img src='#{safe_image_url}'
+        class='check-width'#{sizes_html} loading='lazy'>
     HTML
   end
 
   def camo_url image_url
-    UrlGenerator.instance.camo_url(fix_url(image_url))
+    UrlGenerator.instance.camo_url fix_url(image_url)
   end
 
   def fix_url url
-    url.match?(%r{\A(https?:)?//}) ? url : Url.new(url).with_http.to_s
+    url.match?(%r{\A(https?:)?//}) ?
+      url :
+      Url.new(url).with_http.to_s
   end
 end

@@ -217,8 +217,9 @@ describe BbCodes::Text do
     end
 
     describe '[img]' do
-      let(:url) { 'http://site.com/image.jpg' }
-      let(:text) { "[img]#{url}[/img]" }
+      let(:text) { "[img]#{image_url}[/img]" }
+      let(:image_url) { 'http://site.com/image.jpg' }
+
       it { is_expected.to include 'class="b-image unprocessed"' }
     end
 

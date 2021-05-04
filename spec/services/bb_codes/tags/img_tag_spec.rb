@@ -10,11 +10,12 @@ describe BbCodes::Tags::ImgTag do
   let(:escaped_image_url) { ERB::Util.h image_url }
   let(:escaped_image_url_2) { ERB::Util.h image_url_2 }
   let(:escaped_link_url) { ERB::Util.h link_url }
+  let(:escaped_camo_url) { ERB::Util.h camo_url }
 
   context 'common case' do
     it do
       is_expected.to eq(
-        <<-HTML.squish.strip
+        <<-HTML.squish
           <a href='#{escaped_image_url}'
             data-href='#{camo_url}'
             rel='#{text_hash}'
@@ -139,6 +140,27 @@ describe BbCodes::Tags::ImgTag do
           HTML
         )
       end
+    end
+  end
+
+  context 'xss' do
+    let(:image_url) do
+      'https://moe.shikimori.one/z.jpg?z=&#39;onload=alert(&#39;XSS&#39;);&#39;'
+    end
+
+    it do
+      is_expected.to eq(
+        <<-HTML.squish
+          <a href='#{escaped_image_url}'
+            data-href='#{escaped_camo_url}'
+            rel='#{text_hash}'
+            class='b-image unprocessed'
+            data-attrs='#{attrs.to_json}'><img
+              src='#{escaped_camo_url}'
+              class='check-width'
+              loading='lazy'></a>
+        HTML
+      )
     end
   end
 end
