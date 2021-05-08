@@ -46,7 +46,9 @@ class BbCodes::Tags::AnimeTag
 private
 
   def bbcode_to_html model, text
-    fixed_name = text || localization_span(model)
+    fixed_name = text.presence ?
+      ERB::Util.h(text) :
+      localization_span(model)
 
     <<~HTML.squish
       <a href='#{model_url model}' title='#{model.name}'

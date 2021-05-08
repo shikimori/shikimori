@@ -113,12 +113,12 @@ describe BbCodes::Tags::AnimeTag do
     let(:russian) { 'тест' }
 
     context 'name equals anime.name' do
-      let(:text) { "[anime=#{model.id}]test[/anime]" }
+      let(:text) { "[anime=#{model.id}]XSS'[/anime]" }
       # let(:name_html) do
       #   "<span class='name-en'>#{model.name}</span>"\
       #     "<span class='name-ru'>#{model.russian}</span>"
       # end
-      let(:name_html) { 'test' }
+      let(:name_html) { ERB::Util.h "XSS'" }
       it { is_expected.to eq html }
     end
 
