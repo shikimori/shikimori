@@ -2,24 +2,24 @@ class BbCodes::Tags::ImgTag
   include Singleton
 
   REGEXP = %r{
-      \[url=(?<link_url>#{BbCodes::Tags::UrlTag::URL_SYMBOL_CLASS}+)\]
-        \[img\]
-          (?<image_url> [^\[\],. ] .*? )
-        \[/img\]
-      \[/url\]
-    |
-      \[
-        img
-        (?:
-          (?: \s c(?:lass)?=(?<css_class>[\w_-]+) )? |
-          (?: \s (?<width>\d+)x(?<height>\d+) )? |
-          (?: \s w(?:idth)?=(?<width>\d+) )? |
-          (?: \s h(?:eight)?=(?<height>\d+) )? |
-          (?<no_zoom> \s no-zoom )?
-        )*
-      \]
+    \[url=(?<link_url>#{BbCodes::Tags::UrlTag::URL_SYMBOL_CLASS}+)\]
+      \[img\]
         (?<image_url> [^\[\],. ] .*? )
       \[/img\]
+    \[/url\]
+  |
+    \[
+      img
+      (?:
+        (?: \s c(?:lass)?=(?<css_class>[\w_-]+) )? |
+        (?: \s (?<width>\d+)x(?<height>\d+) )? |
+        (?: \s w(?:idth)?=(?<width>\d+) )? |
+        (?: \s h(?:eight)?=(?<height>\d+) )? |
+        (?<no_zoom> \s no-zoom )?
+      )*
+    \]
+      (?<image_url> [^\[\],. ] .*? )
+    \[/img\]
   }imx
 
   def format text, text_hash

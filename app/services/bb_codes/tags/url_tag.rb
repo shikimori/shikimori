@@ -71,7 +71,7 @@ private
   end
 
   def match_text text, url
-    return text if text
+    return CGI.unescapeHTML(text) if text
 
     if Url.new(url).without_http.to_s =~ %r{(?:\w+\.)?shikimori\.\w+/(?<path>.+)}
       "/#{$LAST_MATCH_INFO[:path]}"
