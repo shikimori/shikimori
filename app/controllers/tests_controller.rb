@@ -264,7 +264,7 @@ private
           target_type: Anime.name,
           target_id: animes.map(&:id)
         )
-        .where.not(user_id: User.cheat_bot)
+        .where.not(user_id: User.excluded_from_statistics)
         .size
     end
   end
