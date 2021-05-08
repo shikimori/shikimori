@@ -22,13 +22,14 @@ class BbCodes::Text
   ]
 
   TAGS_LIST = %i[
+    db_entry_url
+    video_url video
+    url
+
     mention
     quote replies
     user comment topic message
 
-    db_entry_url
-    video_url video
-    url
     poster wall_image db_entries
     wall poll
 
