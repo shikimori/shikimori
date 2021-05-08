@@ -40,8 +40,16 @@ class Version < ApplicationRecord
     event(:reject) { transition %i[pending auto_accepted] => :rejected }
     event(:to_deleted) { transition pending: :deleted, if: :deleteable? }
 
-    event(:accept_taken) { transition taken: :accepted, if: :takeable? }
-    event(:take_accepted) { transition accepted: :taken, if: :takeable? }
+    event(:accept_taken) do
+      transition taken: :accepted, if: ->(version) {
+        version.takeable? || version.optionally_takeable?
+      }
+    end
+    event(:take_accepted) do
+      transition accepted: :taken, if: ->(version) {
+        version.takeable? || version.optionally_takeable?
+      }
+    end
 
     before_transition(
       pending: %i[accepted auto_accepted taken]
@@ -89,6 +97,10 @@ class Version < ApplicationRecord
       %i[pending auto_accepted] => %i[accepted taken rejected deleted]
     ) do |version, transition|
       version.update moderator: transition.args.first if transition.args.first
+    end
+
+    after_transition pending: %i[auto_accepted] do |version, _transition|
+      version.fix_state if version.respond_to? :fix_state
     end
 
     after_transition pending: %i[accepted taken] do |version, _transition|
@@ -155,6 +167,10 @@ class Version < ApplicationRecord
     false
   end
 
+  def optionally_takeable?
+    false
+  end
+
   def deleteable?
     true
   end
@@ -171,8 +187,10 @@ private
   end
 
   def add_desynced field
-    if item.respond_to?(:desynced) && item.class::DESYNCABLE.include?(field)
-      item.desynced << field unless item.desynced.include?(field)
+    if item.respond_to?(:desynced) &&
+        item.class::DESYNCABLE.include?(field) &&
+        item.desynced.exclude?(field)
+      item.desynced << field
     end
   end
 

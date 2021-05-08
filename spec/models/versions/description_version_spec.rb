@@ -14,12 +14,17 @@ describe Versions::DescriptionVersion do
   end
 
   describe '#fix_state' do
-    let(:version) { create :description_version, state: state,
-      item_diff: item_diff }
+    let(:version) do
+      create :description_version, state: state, item_diff: item_diff
+    end
     before { version.fix_state }
 
     context 'description_ru' do
-      let(:item_diff) {{ description_ru: [old, new] }}
+      let(:item_diff) do
+        {
+          description_ru: [old, new]
+        }
+      end
 
       context 'accepted' do
         let(:state) { 'accepted' }
@@ -58,7 +63,11 @@ describe Versions::DescriptionVersion do
     end
 
     context 'description_en' do
-      let(:item_diff) {{ description_en: [old, new] }}
+      let(:item_diff) do
+        {
+          description_en: [old, new]
+        }
+      end
       let(:state) { 'accepted' }
 
       let(:old) { 'aaaaaaaa aa' }
