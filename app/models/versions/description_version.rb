@@ -1,6 +1,4 @@
 class Versions::DescriptionVersion < Version
-  include HTMLDiff
-
   def fix_state
     self.state = measure_changes.enough? ? 'accepted' : 'taken'
     save if changed?
