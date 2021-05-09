@@ -10,6 +10,7 @@ export function loadImage(node, selector = 'img') {
 }
 
 export function loadImages(node, selector = 'img') {
+  if (!node) { debugger }
   if (node.constructor === String) {
     node = document.querySelector(node);
   }
