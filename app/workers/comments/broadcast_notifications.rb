@@ -28,7 +28,9 @@ private
       from: comment.user,
       to: user,
       kind: MessageType::CLUB_BROADCAST,
-      linked: comment
+      linked: comment,
+      created_at: comment.created_at,
+      updated_at: comment.created_at
     )
   end
 end
