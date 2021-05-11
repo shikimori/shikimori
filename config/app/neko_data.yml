@@ -319,7 +319,8 @@
     :title_ru: Ураган
     :text_ru: Ураганы имеют одну интересную особенность — в их центре всегда спокойно.
     :title_en: Hurricane
-    :text_en:
+    :text_en: Hurricanes have one interesting feature - it is always quiet at their
+      center.
     :topic_id: 0
     :rule: &3
       :algo: count
@@ -597,7 +598,7 @@
   title_ru: Ураган
   text_ru: Ураганы имеют одну интересную особенность — в их центре всегда спокойно.
   title_en: Hurricane
-  text_en:
+  text_en: Hurricanes have one interesting feature - it is always quiet at their center.
   topic_id: 0
   rule: *3
   mandatory_attributes: *4
@@ -610,7 +611,7 @@
     :title_ru: Безумие
     :text_ru: Умри, пожалуйста!
     :title_en: Insanity
-    :text_en:
+    :text_en: Die, please!
     :topic_id: 0
     :rule: &5
       :algo: count
@@ -888,7 +889,7 @@
   title_ru: Безумие
   text_ru: Умри, пожалуйста!
   title_en: Insanity
-  text_en:
+  text_en: Die, please!
   topic_id: 0
   rule: *5
   mandatory_attributes: *4
@@ -900,8 +901,8 @@
     :border_color: "#e52b50"
     :title_ru: Добро пожаловать!
     :text_ru: Легкой поступью вы вошли в этот мир.
-    :title_en:
-    :text_en:
+    :title_en: Welcome to the world!
+    :text_en: You entered this world with a light footsteps.
     :topic_id: 227416
     :rule: &6
       :algo: count
@@ -914,8 +915,8 @@
   border_color: "#e52b50"
   title_ru: Добро пожаловать!
   text_ru: Легкой поступью вы вошли в этот мир.
-  title_en:
-  text_en:
+  title_en: Welcome to the world!
+  text_en: You entered this world with a light footsteps.
   topic_id: 227416
   rule: *6
   mandatory_attributes: *4
@@ -927,8 +928,9 @@
     :border_color: "#a5260a"
     :title_ru: Это всего лишь начало
     :text_ru: Ставки начинают расти. Кто-то уже сдался, но вы... Вы ещё в строю.
-    :title_en:
-    :text_en:
+    :title_en: This is only the beginning
+    :text_en: The stakes are beginning to rise. Some have already given up, but you...
+      You're still in line.
     :topic_id: 0
     :rule: &7
       :algo: count
@@ -941,8 +943,9 @@
   border_color: "#a5260a"
   title_ru: Это всего лишь начало
   text_ru: Ставки начинают расти. Кто-то уже сдался, но вы... Вы ещё в строю.
-  title_en:
-  text_en:
+  title_en: This is only the beginning
+  text_en: The stakes are beginning to rise. Some have already given up, but you...
+    You're still in line.
   topic_id: 0
   rule: *7
   mandatory_attributes: *4
@@ -955,8 +958,9 @@
     :title_ru: Мои силы растут!
     :text_ru: Вы достигли магического трехзначного числа. Но не время останавливаться,
       все еще впереди!
-    :title_en:
-    :text_en:
+    :title_en: My powers are growing!
+    :text_en: You have reached the magic three-digit number. But it's not time to
+      stop, everything is still ahead of you!
     :topic_id: 0
     :rule: &8
       :algo: count
@@ -970,8 +974,9 @@
   title_ru: Мои силы растут!
   text_ru: Вы достигли магического трехзначного числа. Но не время останавливаться,
     все еще впереди!
-  title_en:
-  text_en:
+  title_en: My powers are growing!
+  text_en: You have reached the magic three-digit number. But it's not time to stop,
+    everything is still ahead of you!
   topic_id: 0
   rule: *8
   mandatory_attributes: *4
@@ -984,8 +989,9 @@
     :title_ru: Беззаботный зритель
     :text_ru: Ничего серьёзного. Вы лишь успели привыкнуть к тому, что глаза у персонажей
       больше, чем нос. Если у них вообще есть нос.
-    :title_en:
-    :text_en:
+    :title_en: Carefree viewer
+    :text_en: Nothing serious. You just got used to the fact that the characters'
+      eyes are bigger than their noses. If they have a nose at all.
     :topic_id: 0
     :rule: &9
       :algo: count
@@ -999,8 +1005,9 @@
   title_ru: Беззаботный зритель
   text_ru: Ничего серьёзного. Вы лишь успели привыкнуть к тому, что глаза у персонажей
     больше, чем нос. Если у них вообще есть нос.
-  title_en:
-  text_en:
+  title_en: Carefree viewer
+  text_en: Nothing serious. You just got used to the fact that the characters' eyes
+    are bigger than their noses. If they have a nose at all.
   topic_id: 0
   rule: *9
   mandatory_attributes: *4
@@ -1013,8 +1020,9 @@
     :title_ru: Легкая прогулка
     :text_ru: В дорогу дальнюю идем по неизведанным тропинкам. Сколько впереди ещё
       интересного!
-    :title_en:
-    :text_en:
+    :title_en: A cakewalk
+    :text_en: We are going on a long journey along uncharted paths. How many interesting
+      things lie ahead!
     :topic_id: 0
     :rule: &10
       :algo: count
@@ -1027,8 +1035,9 @@
   border_color: "#FFDC33"
   title_ru: Легкая прогулка
   text_ru: В дорогу дальнюю идем по неизведанным тропинкам. Сколько впереди ещё интересного!
-  title_en:
-  text_en:
+  title_en: A cakewalk
+  text_en: We are going on a long journey along uncharted paths. How many interesting
+    things lie ahead!
   topic_id: 0
   rule: *10
   mandatory_attributes: *4
@@ -1041,8 +1050,9 @@
     :title_ru: Эстет
     :text_ru: Качественная графика, прекрасное музыкальное сопровождение, интересные
       сюжеты... эти японские мультики весьма хороши.
-    :title_en:
-    :text_en:
+    :title_en: Aesthete
+    :text_en: High-quality graphics, great music, interesting plots... these Japanese
+      cartoons are quite good.
     :topic_id: 0
     :rule: &11
       :algo: count
@@ -1056,8 +1066,9 @@
   title_ru: Эстет
   text_ru: Качественная графика, прекрасное музыкальное сопровождение, интересные
     сюжеты... эти японские мультики весьма хороши.
-  title_en:
-  text_en:
+  title_en: Aesthete
+  text_en: High-quality graphics, great music, interesting plots... these Japanese
+    cartoons are quite good.
   topic_id: 0
   rule: *11
   mandatory_attributes: *4
@@ -1069,8 +1080,9 @@
     :border_color: "#ACB78E"
     :title_ru: Есть чем похвастаться
     :text_ru: Просмотрено 400 аниме. Это... солидно. Вы можете гордиться собой, определённо.
-    :title_en:
-    :text_en:
+    :title_en: Something to brag about
+    :text_en: Watched 400 anime. That's... trustworthy. You can be proud of yourself,
+      definitely.
     :topic_id: 0
     :rule: &12
       :algo: count
@@ -1083,8 +1095,9 @@
   border_color: "#ACB78E"
   title_ru: Есть чем похвастаться
   text_ru: Просмотрено 400 аниме. Это... солидно. Вы можете гордиться собой, определённо.
-  title_en:
-  text_en:
+  title_en: Something to brag about
+  text_en: Watched 400 anime. That's... trustworthy. You can be proud of yourself,
+    definitely.
   topic_id: 0
   rule: *12
   mandatory_attributes: *4
@@ -1097,8 +1110,9 @@
     :title_ru: Много свободного времени?
     :text_ru: Одно увлечение может затянуть с головой, но помните, что в мире ещё
       много приятных вещей...
-    :title_en:
-    :text_en:
+    :title_en: Lots of free time?
+    :text_en: One hobby can suck you in, but remember that there are many more pleasant
+      things in the world...
     :topic_id: 0
     :rule: &13
       :algo: count
@@ -1112,8 +1126,9 @@
   title_ru: Много свободного времени?
   text_ru: Одно увлечение может затянуть с головой, но помните, что в мире ещё много
     приятных вещей...
-  title_en:
-  text_en:
+  title_en: Lots of free time?
+  text_en: One hobby can suck you in, but remember that there are many more pleasant
+    things in the world...
   topic_id: 0
   rule: *13
   mandatory_attributes: *4
@@ -1126,8 +1141,9 @@
     :title_ru: Сатанинский предел?
     :text_ru: Стремишься стать частью той силы, что вечно хочет зла и вечно совершает
       благо? Что ж, только внимательно читай те условия контракта, что мелким шрифтом.
-    :title_en:
-    :text_en:
+    :title_en: Satan's limit?
+    :text_en: Do you aspire to be part of that force that always wants evil and always
+      does good? Well, just read the terms of the contract carefully in the fine print.
     :topic_id: 0
     :rule: &14
       :algo: count
@@ -1141,8 +1157,9 @@
   title_ru: Сатанинский предел?
   text_ru: Стремишься стать частью той силы, что вечно хочет зла и вечно совершает
     благо? Что ж, только внимательно читай те условия контракта, что мелким шрифтом.
-  title_en:
-  text_en:
+  title_en: Satan's limit?
+  text_en: Do you aspire to be part of that force that always wants evil and always
+    does good? Well, just read the terms of the contract carefully in the fine print.
   topic_id: 0
   rule: *14
   mandatory_attributes: *4
@@ -1154,8 +1171,8 @@
     :border_color: "#20B2AA"
     :title_ru: Это даже не финальная форма
     :text_ru: Ваш единственный путь — вверх. Пора учиться доброй снисходительности.
-    :title_en:
-    :text_en:
+    :title_en: It's not even the final form.
+    :text_en: Your only way is up. It's time to learn good condescension.
     :topic_id: 0
     :rule: &15
       :algo: count
@@ -1168,8 +1185,8 @@
   border_color: "#20B2AA"
   title_ru: Это даже не финальная форма
   text_ru: Ваш единственный путь — вверх. Пора учиться доброй снисходительности.
-  title_en:
-  text_en:
+  title_en: It's not even the final form.
+  text_en: Your only way is up. It's time to learn good condescension.
   topic_id: 0
   rule: *15
   mandatory_attributes: *4
@@ -1183,8 +1200,10 @@
     :text_ru: У каждого свои звезды. Одним они указывают путь, для других это просто
       маленькие огоньки. Дорога вперед бесконечна. Хотите ли вы продолжать идти по
       ней?
-    :title_en:
-    :text_en:
+    :title_en: Endless Journey
+    :text_en: Everyone has their own stars. To some they show the way, to others they
+      are just little lights. The road ahead is endless. Do you want to keep going
+      down it?
     :topic_id: 0
     :rule: &16
       :algo: count
@@ -1198,8 +1217,10 @@
   title_ru: Бесконечное путешествие
   text_ru: У каждого свои звезды. Одним они указывают путь, для других это просто
     маленькие огоньки. Дорога вперед бесконечна. Хотите ли вы продолжать идти по ней?
-  title_en:
-  text_en:
+  title_en: Endless Journey
+  text_en: Everyone has their own stars. To some they show the way, to others they
+    are just little lights. The road ahead is endless. Do you want to keep going down
+    it?
   topic_id: 0
   rule: *16
   mandatory_attributes: *4
@@ -1211,8 +1232,8 @@
     :border_color: "#a2a2d0"
     :title_ru: Точка невозврата
     :text_ru: Вы достигли четырёхзначного числа. Довольны?
-    :title_en:
-    :text_en:
+    :title_en: Point of no return
+    :text_en: You have reached a four-digit number. Are you satisfied?
     :topic_id: 0
     :rule: &17
       :algo: count
@@ -1225,8 +1246,8 @@
   border_color: "#a2a2d0"
   title_ru: Точка невозврата
   text_ru: Вы достигли четырёхзначного числа. Довольны?
-  title_en:
-  text_en:
+  title_en: Point of no return
+  text_en: You have reached a four-digit number. Are you satisfied?
   topic_id: 0
   rule: *17
   mandatory_attributes: *4
@@ -1242,8 +1263,12 @@
       Два котенок — самый смелый
       Три котенок — самый умный
       А четыре — самый шумный
-    :title_en:
-    :text_en:
+    :title_en: One, two, three, four
+    :text_en: |-
+      The first kitten is the whitest
+      The second kitten is the bravest
+      The third kitten is the smartest
+      And the fourth is the noisiest
     :topic_id: 0
     :rule: &18
       :algo: count
@@ -1260,8 +1285,12 @@
     Два котенок — самый смелый
     Три котенок — самый умный
     А четыре — самый шумный
-  title_en:
-  text_en:
+  title_en: One, two, three, four
+  text_en: |-
+    The first kitten is the whitest
+    The second kitten is the bravest
+    The third kitten is the smartest
+    And the fourth is the noisiest
   topic_id: 0
   rule: *18
   mandatory_attributes: *4
@@ -1274,8 +1303,9 @@
     :title_ru: Гурман
     :text_ru: Ваша неразборчивость в потреблении аниме-блюд вызывает трепет, а способность
       переваривать любой контент — восхищение.
-    :title_en:
-    :text_en:
+    :title_en: Gourmet
+    :text_en: Your indiscriminate consumption of anime food is awe-inspiring, and
+      your ability to digest any content is admirable.
     :topic_id: 0
     :rule: &19
       :algo: count
@@ -1289,8 +1319,9 @@
   title_ru: Гурман
   text_ru: Ваша неразборчивость в потреблении аниме-блюд вызывает трепет, а способность
     переваривать любой контент — восхищение.
-  title_en:
-  text_en:
+  title_en: Gourmet
+  text_en: Your indiscriminate consumption of anime food is awe-inspiring, and your
+    ability to digest any content is admirable.
   topic_id: 0
   rule: *19
   mandatory_attributes: *4
@@ -1302,8 +1333,8 @@
     :border_color: "#ED3CCA"
     :title_ru: Маньяк
     :text_ru: Это так круто? Возможно, вам следует обратиться к врачу.
-    :title_en:
-    :text_en:
+    :title_en: Maniac
+    :text_en: Is that so cool? Perhaps you should see a doctor.
     :topic_id: 0
     :rule: &20
       :algo: count
@@ -1316,8 +1347,8 @@
   border_color: "#ED3CCA"
   title_ru: Маньяк
   text_ru: Это так круто? Возможно, вам следует обратиться к врачу.
-  title_en:
-  text_en:
+  title_en: Maniac
+  text_en: Is that so cool? Perhaps you should see a doctor.
   topic_id: 0
   rule: *20
   mandatory_attributes: *4
@@ -1330,8 +1361,9 @@
     :title_ru: Герой
     :text_ru: Результат интенсивных тренировок на поприще аниме-просмотра — необычный
       внешний вид, а побочный эффект — стильный костюмчик.
-    :title_en:
-    :text_en:
+    :title_en: Hero
+    :text_en: The result of intensive training in the field of anime-viewing - an
+      unusual appearance, and a side effect - a stylish suit.
     :topic_id: 0
     :rule: &21
       :algo: count
@@ -1345,8 +1377,9 @@
   title_ru: Герой
   text_ru: Результат интенсивных тренировок на поприще аниме-просмотра — необычный
     внешний вид, а побочный эффект — стильный костюмчик.
-  title_en:
-  text_en:
+  title_en: Hero
+  text_en: The result of intensive training in the field of anime-viewing - an unusual
+    appearance, and a side effect - a stylish suit.
   topic_id: 0
   rule: *21
   mandatory_attributes: *4
@@ -1359,8 +1392,9 @@
     :title_ru: Голубая кровь
     :text_ru: Вы находитесь так высоко! Кто-то восхищается вами, кто-то завидует,
       и это — заслуженно. Но не стоит задирать нос, помните, что и вы начинали с малого.
-    :title_en:
-    :text_en:
+    :title_en: Blue Blood
+    :text_en: You are so high up! Someone admires you, someone envies you, and it
+      is well-deserved. But don't get cocky, remember that you also started out small.
     :topic_id: 0
     :rule: &22
       :algo: count
@@ -1374,8 +1408,9 @@
   title_ru: Голубая кровь
   text_ru: Вы находитесь так высоко! Кто-то восхищается вами, кто-то завидует, и это
     — заслуженно. Но не стоит задирать нос, помните, что и вы начинали с малого.
-  title_en:
-  text_en:
+  title_en: Blue Blood
+  text_en: You are so high up! Someone admires you, someone envies you, and it is
+    well-deserved. But don't get cocky, remember that you also started out small.
   topic_id: 0
   rule: *22
   mandatory_attributes: *4
@@ -1389,8 +1424,10 @@
     :text_ru: |-
       Мастер познается в самоограничении.
       И в долгой созерцательной практике.
-    :title_en:
-    :text_en:
+    :title_en: Enlightened
+    :text_en: |-
+      A master is learned through self-restraint.
+      And in long contemplative practice.
     :topic_id: 0
     :rule: &23
       :algo: count
@@ -1405,8 +1442,10 @@
   text_ru: |-
     Мастер познается в самоограничении.
     И в долгой созерцательной практике.
-  title_en:
-  text_en:
+  title_en: Enlightened
+  text_en: |-
+    A master is learned through self-restraint.
+    And in long contemplative practice.
   topic_id: 0
   rule: *23
   mandatory_attributes: *4
@@ -1419,8 +1458,9 @@
     :title_ru: Легенда
     :text_ru: Вы один из избранных. Вам уже даже не нужно хвастаться, потому что все
       и так слышали о вас.
-    :title_en:
-    :text_en:
+    :title_en: The Legend
+    :text_en: You are one of the chosen ones. You don't even have to brag anymore,
+      because everyone has heard about you.
     :topic_id: 0
     :rule: &24
       :algo: count
@@ -1434,8 +1474,9 @@
   title_ru: Легенда
   text_ru: Вы один из избранных. Вам уже даже не нужно хвастаться, потому что все
     и так слышали о вас.
-  title_en:
-  text_en:
+  title_en: The Legend
+  text_en: You are one of the chosen ones. You don't even have to brag anymore, because
+    everyone has heard about you.
   topic_id: 0
   rule: *24
   mandatory_attributes: *4
@@ -1447,8 +1488,8 @@
     :border_color: "#231A24"
     :title_ru: 'SlotAchieveName_0020: NULL'
     :text_ru: 'Description: Теперь вам не нужно аниме, чтобы смотреть аниме.'
-    :title_en:
-    :text_en:
+    :title_en: 'SlotAchieveName_0020: NULL'
+    :text_en: 'Description: Now you don''t need anime to watch anime.'
     :topic_id: 0
     :rule: &25
       :algo: count
@@ -1461,8 +1502,8 @@
   border_color: "#231A24"
   title_ru: 'SlotAchieveName_0020: NULL'
   text_ru: 'Description: Теперь вам не нужно аниме, чтобы смотреть аниме.'
-  title_en:
-  text_en:
+  title_en: 'SlotAchieveName_0020: NULL'
+  text_en: 'Description: Now you don''t need anime to watch anime.'
   topic_id: 0
   rule: *25
   mandatory_attributes: *4
@@ -1475,8 +1516,9 @@
     :title_ru: Смерть дышит в спину
     :text_ru: Практически всё в этом мире умирает. Жизнь — всего лишь незначительная
       частичка, не более чем секундное явление. Смерть повсеместна.
-    :title_en:
-    :text_en:
+    :title_en: Death breathes in the back
+    :text_en: Almost everything in this world dies. Life is but an insignificant speck,
+      no more than a moment. Death is ubiquitous.
     :topic_id: 227420
     :rule: &26
       :algo: count
@@ -1494,8 +1536,9 @@
   title_ru: Смерть дышит в спину
   text_ru: Практически всё в этом мире умирает. Жизнь — всего лишь незначительная
     частичка, не более чем секундное явление. Смерть повсеместна.
-  title_en:
-  text_en:
+  title_en: Death breathes in the back
+  text_en: Almost everything in this world dies. Life is but an insignificant speck,
+    no more than a moment. Death is ubiquitous.
   topic_id: 227420
   rule: *26
   mandatory_attributes: *4
@@ -1507,8 +1550,8 @@
     :border_color: "#510a0b"
     :title_ru: Ночной кошмар
     :text_ru: Птицей Гермеса меня называют, крылья свои пожирая, сам я себя укрощаю.
-    :title_en:
-    :text_en:
+    :title_en: Nightmare
+    :text_en: The bird of Hermes is my name eating my wings to make me tame.
     :topic_id: 0
     :rule: &27
       :algo: count
@@ -1525,8 +1568,8 @@
   border_color: "#510a0b"
   title_ru: Ночной кошмар
   text_ru: Птицей Гермеса меня называют, крылья свои пожирая, сам я себя укрощаю.
-  title_en:
-  text_en:
+  title_en: Nightmare
+  text_en: The bird of Hermes is my name eating my wings to make me tame.
   topic_id: 0
   rule: *27
   mandatory_attributes: *4
@@ -1538,8 +1581,9 @@
     :border_color: "#d7adb1"
     :title_ru: Все чудовища — это люди
     :text_ru: Только люди могут смотреть на убийство себе подобных ради развлечения.
-    :title_en: All monsters are human
-    :text_en:
+    :title_en: All monsters are humans
+    :text_en: Only human beings can watch the killing of their own kind for the sake
+      of entertainment.
     :topic_id: 0
     :rule: &28
       :algo: count
@@ -1556,8 +1600,9 @@
   border_color: "#d7adb1"
   title_ru: Все чудовища — это люди
   text_ru: Только люди могут смотреть на убийство себе подобных ради развлечения.
-  title_en: All monsters are human
-  text_en:
+  title_en: All monsters are humans
+  text_en: Only human beings can watch the killing of their own kind for the sake
+    of entertainment.
   topic_id: 0
   rule: *28
   mandatory_attributes: *4
@@ -1569,8 +1614,8 @@
     :border_color: "#2a2a2a"
     :title_ru: Hell
     :text_ru: Смотри! Внутри меня ничего нет — там пустота, я даже боль не чувствую.
-    :title_en:
-    :text_en:
+    :title_en: The Seventh Circle
+    :text_en: Look! There's nothing inside me - there's empty, I don't even feel pain.
     :topic_id: 0
     :rule: &29
       :algo: count
@@ -1587,8 +1632,8 @@
   border_color: "#2a2a2a"
   title_ru: Hell
   text_ru: Смотри! Внутри меня ничего нет — там пустота, я даже боль не чувствую.
-  title_en:
-  text_en:
+  title_en: The Seventh Circle
+  text_en: Look! There's nothing inside me - there's empty, I don't even feel pain.
   topic_id: 0
   rule: *29
   mandatory_attributes: *4
@@ -3478,8 +3523,8 @@
     :border_color: "#1a5369"
     :title_ru: Обычный японский школьник
     :text_ru: Довольно заурядно.
-    :title_en:
-    :text_en:
+    :title_en: The average Japanese schoolboy (or schoolgirl).
+    :text_en: Pretty ordinary.
     :topic_id: 222056
     :rule: &34
       :algo: count
@@ -3495,8 +3540,8 @@
   border_color: "#1a5369"
   title_ru: Обычный японский школьник
   text_ru: Довольно заурядно.
-  title_en:
-  text_en:
+  title_en: The average Japanese schoolboy (or schoolgirl).
+  text_en: Pretty ordinary.
   topic_id: 222056
   rule: *34
   mandatory_attributes: *4
@@ -3508,8 +3553,8 @@
     :border_color: "#884467"
     :title_ru: Житейские мелочи
     :text_ru: Полностью погрязли в повседневных делах и симпатичных вещах.
-    :title_en:
-    :text_en:
+    :title_en: The little things of life
+    :text_en: Totally bogged down in the day-to-day business and pretty things.
     :topic_id: 0
     :rule: &35
       :algo: count
@@ -3525,8 +3570,8 @@
   border_color: "#884467"
   title_ru: Житейские мелочи
   text_ru: Полностью погрязли в повседневных делах и симпатичных вещах.
-  title_en:
-  text_en:
+  title_en: The little things of life
+  text_en: Totally bogged down in the day-to-day business and pretty things.
   topic_id: 0
   rule: *35
   mandatory_attributes: *4
@@ -3539,8 +3584,9 @@
     :title_ru: Дзэн
     :text_ru: Предельная концентрация на будничной жизни. Когда вы перестали задумыватьcя
       о прошлом, будущем и начали жить этим моментом?
-    :title_en:
-    :text_en:
+    :title_en: Zen
+    :text_en: The ultimate concentration on everyday life. When did you stop thinking
+      about the past, the future, and start living in the moment?
     :topic_id: 0
     :rule: &36
       :algo: count
@@ -3557,8 +3603,9 @@
   title_ru: Дзэн
   text_ru: Предельная концентрация на будничной жизни. Когда вы перестали задумыватьcя
     о прошлом, будущем и начали жить этим моментом?
-  title_en:
-  text_en:
+  title_en: Zen
+  text_en: The ultimate concentration on everyday life. When did you stop thinking
+    about the past, the future, and start living in the moment?
   topic_id: 0
   rule: *36
   mandatory_attributes: *4
@@ -3571,8 +3618,9 @@
     :title_ru: Прима ундина
     :text_ru: Вы способны на чудо. Продлить незабываемые мгновения навечно для вас
       ничего не стоит.
-    :title_en:
-    :text_en:
+    :title_en: Prima undine
+    :text_en: You are capable of a miracle. It costs you nothing to prolong unforgettable
+      moments forever.
     :topic_id: 0
     :rule: &37
       :algo: count
@@ -3589,8 +3637,9 @@
   title_ru: Прима ундина
   text_ru: Вы способны на чудо. Продлить незабываемые мгновения навечно для вас ничего
     не стоит.
-  title_en:
-  text_en:
+  title_en: Prima undine
+  text_en: You are capable of a miracle. It costs you nothing to prolong unforgettable
+    moments forever.
   topic_id: 0
   rule: *37
   mandatory_attributes: *4
@@ -3742,8 +3791,8 @@
     :border_color: "#FFDC33"
     :title_ru: Эскапизм
     :text_ru: Иллюзии захватывают ваш разум.
-    :title_en:
-    :text_en:
+    :title_en: Escapism
+    :text_en: Illusions take over your mind.
     :topic_id: 227426
     :rule: &42
       :algo: count
@@ -3760,8 +3809,8 @@
   border_color: "#FFDC33"
   title_ru: Эскапизм
   text_ru: Иллюзии захватывают ваш разум.
-  title_en:
-  text_en:
+  title_en: Escapism
+  text_en: Illusions take over your mind.
   topic_id: 227426
   rule: *42
   mandatory_attributes: *4
@@ -3773,8 +3822,8 @@
     :border_color: "#474a51"
     :title_ru: Фетишизм
     :text_ru: Как рыба в воде.
-    :title_en:
-    :text_en:
+    :title_en: Fetishism
+    :text_en: Like a duck to water.
     :topic_id: 0
     :rule: &43
       :algo: count
@@ -3791,8 +3840,8 @@
   border_color: "#474a51"
   title_ru: Фетишизм
   text_ru: Как рыба в воде.
-  title_en:
-  text_en:
+  title_en: Fetishism
+  text_en: Like a duck to water.
   topic_id: 0
   rule: *43
   mandatory_attributes: *4
@@ -3805,8 +3854,9 @@
     :title_ru: NEET
     :text_ru: Увлечение эротическим контентом начинает сказываться на вашей реальной
       жизни.
-    :title_en:
-    :text_en:
+    :title_en: NEET
+    :text_en: The fascination with erotic content is beginning to affect your real
+      life.
     :topic_id: 0
     :rule: &44
       :algo: count
@@ -3824,8 +3874,8 @@
   title_ru: NEET
   text_ru: Увлечение эротическим контентом начинает сказываться на вашей реальной
     жизни.
-  title_en:
-  text_en:
+  title_en: NEET
+  text_en: The fascination with erotic content is beginning to affect your real life.
   topic_id: 0
   rule: *44
   mandatory_attributes: *4
@@ -3837,8 +3887,8 @@
     :border_color: "#ff496c"
     :title_ru: Хикикомори
     :text_ru: Уровень вашего либидо достиг максимально возможного. Окружающие трепещут.
-    :title_en:
-    :text_en:
+    :title_en: Hikikomori
+    :text_en: Your libido has reached its maximum level. Those around you are in awe.
     :topic_id: 0
     :rule: &45
       :algo: count
@@ -3855,8 +3905,8 @@
   border_color: "#ff496c"
   title_ru: Хикикомори
   text_ru: Уровень вашего либидо достиг максимально возможного. Окружающие трепещут.
-  title_en:
-  text_en:
+  title_en: Hikikomori
+  text_en: Your libido has reached its maximum level. Those around you are in awe.
   topic_id: 0
   rule: *45
   mandatory_attributes: *4
@@ -3868,8 +3918,8 @@
     :border_color: "#e2b801"
     :title_ru: Сталкер
     :text_ru: Почему ты меня не замечаешь?
-    :title_en:
-    :text_en:
+    :title_en: Stalker
+    :text_en: Why don't you notice me?
     :topic_id: 222064
     :rule: &46
       :algo: count
@@ -3885,8 +3935,8 @@
   border_color: "#e2b801"
   title_ru: Сталкер
   text_ru: Почему ты меня не замечаешь?
-  title_en:
-  text_en:
+  title_en: Stalker
+  text_en: Why don't you notice me?
   topic_id: 222064
   rule: *46
   mandatory_attributes: *4
@@ -3898,8 +3948,8 @@
     :border_color: "#DC143C"
     :title_ru: Первое признание в любви
     :text_ru: Если ты не признаешься, она никогда не узнает о твоих чувствах.
-    :title_en:
-    :text_en:
+    :title_en: First confession of love
+    :text_en: If you don't confess, she'll never know how you feel.
     :topic_id: 0
     :rule: &47
       :algo: count
@@ -3915,8 +3965,8 @@
   border_color: "#DC143C"
   title_ru: Первое признание в любви
   text_ru: Если ты не признаешься, она никогда не узнает о твоих чувствах.
-  title_en:
-  text_en:
+  title_en: First confession of love
+  text_en: If you don't confess, she'll never know how you feel.
   topic_id: 0
   rule: *47
   mandatory_attributes: *4
@@ -3928,8 +3978,8 @@
     :border_color: "#f16251"
     :title_ru: Конфетно-букетный период
     :text_ru: Любовь — это желание отдавать.
-    :title_en:
-    :text_en:
+    :title_en: Confetti and Bouquet Period
+    :text_en: Love is the desire to give.
     :topic_id: 0
     :rule: &48
       :algo: count
@@ -3945,8 +3995,8 @@
   border_color: "#f16251"
   title_ru: Конфетно-букетный период
   text_ru: Любовь — это желание отдавать.
-  title_en:
-  text_en:
+  title_en: Confetti and Bouquet Period
+  text_en: Love is the desire to give.
   topic_id: 0
   rule: *48
   mandatory_attributes: *4
@@ -3958,8 +4008,8 @@
     :border_color: "#FAE7B5"
     :title_ru: Эксперт в отношениях
     :text_ru: Сердце, полное любви.
-    :title_en:
-    :text_en:
+    :title_en: Relationship expert
+    :text_en: A heart full of love.
     :topic_id: 0
     :rule: &49
       :algo: count
@@ -3975,8 +4025,8 @@
   border_color: "#FAE7B5"
   title_ru: Эксперт в отношениях
   text_ru: Сердце, полное любви.
-  title_en:
-  text_en:
+  title_en: Relationship expert
+  text_en: A heart full of love.
   topic_id: 0
   rule: *49
   mandatory_attributes: *4
@@ -4048,8 +4098,9 @@
     :border_color: "#c5d0e6"
     :title_ru: Ценитель классики
     :text_ru: 'Раньше было лучше: деревья — выше, трава — зеленее, а аниме — интереснее.'
-    :title_en:
-    :text_en:
+    :title_en: A connoisseur of classics
+    :text_en: 'It used to be better: the trees were taller, the grass was greener,
+      and the anime was more interesting.'
     :topic_id: 227424
     :rule: &52
       :algo: count
@@ -4064,8 +4115,9 @@
   border_color: "#c5d0e6"
   title_ru: Ценитель классики
   text_ru: 'Раньше было лучше: деревья — выше, трава — зеленее, а аниме — интереснее.'
-  title_en:
-  text_en:
+  title_en: A connoisseur of classics
+  text_en: 'It used to be better: the trees were taller, the grass was greener, and
+    the anime was more interesting.'
   topic_id: 227424
   rule: *52
   mandatory_attributes: *4
@@ -4078,8 +4130,9 @@
     :title_ru: Золотая коллекция
     :text_ru: Запах целлулоида, полароиды, стереорадиолы… Вы помните всё так, как
       будто это было вчера.
-    :title_en:
-    :text_en:
+    :title_en: Golden Collection
+    :text_en: The smell of celluloid, Polaroids, stereo radios... You remember everything
+      as if it were yesterday.
     :topic_id: 0
     :rule: &53
       :algo: count
@@ -4095,8 +4148,9 @@
   title_ru: Золотая коллекция
   text_ru: Запах целлулоида, полароиды, стереорадиолы… Вы помните всё так, как будто
     это было вчера.
-  title_en:
-  text_en:
+  title_en: Golden Collection
+  text_en: The smell of celluloid, Polaroids, stereo radios... You remember everything
+    as if it were yesterday.
   topic_id: 0
   rule: *53
   mandatory_attributes: *4
@@ -4108,8 +4162,8 @@
     :border_color: "#1c1c1c"
     :title_ru: Ветер ностальгии
     :text_ru: Серьезно, сколько вам лет?
-    :title_en:
-    :text_en:
+    :title_en: The Wind of Nostalgia
+    :text_en: Seriously, how old are you?
     :topic_id: 0
     :rule: &54
       :algo: count
@@ -4124,8 +4178,8 @@
   border_color: "#1c1c1c"
   title_ru: Ветер ностальгии
   text_ru: Серьезно, сколько вам лет?
-  title_en:
-  text_en:
+  title_en: The Wind of Nostalgia
+  text_en: Seriously, how old are you?
   topic_id: 0
   rule: *54
   mandatory_attributes: *4
@@ -4137,8 +4191,8 @@
     :border_color: "#a5a5a5"
     :title_ru: Часть минувшей эпохи
     :text_ru: Живая легенда. Носишь шляпу кота Перро и здоровался с Осаму Тедзукой.
-    :title_en:
-    :text_en:
+    :title_en: A part of a bygone era
+    :text_en: A living legend. Wearing a Perro cat hat and saying hello to Osamu Tezuka.
     :topic_id: 0
     :rule: &55
       :algo: count
@@ -4153,8 +4207,8 @@
   border_color: "#a5a5a5"
   title_ru: Часть минувшей эпохи
   text_ru: Живая легенда. Носишь шляпу кота Перро и здоровался с Осаму Тедзукой.
-  title_en:
-  text_en:
+  title_en: A part of a bygone era
+  text_en: A living legend. Wearing a Perro cat hat and saying hello to Osamu Tezuka.
   topic_id: 0
   rule: *55
   mandatory_attributes: *4
@@ -4166,8 +4220,8 @@
     :border_color: "#FBCEB1"
     :title_ru: Начинающий моэфаг
     :text_ru: Позволь проводить тебя в очаровательный 2D-мир.
-    :title_en:
-    :text_en:
+    :title_en: Beginning moe-fan
+    :text_en: Let me escort you into the enchanted 2D world.
     :topic_id: 227423
     :rule: &56
       :algo: count
@@ -4630,8 +4684,8 @@
   border_color: "#FBCEB1"
   title_ru: Начинающий моэфаг
   text_ru: Позволь проводить тебя в очаровательный 2D-мир.
-  title_en:
-  text_en:
+  title_en: Beginning moe-fan
+  text_en: Let me escort you into the enchanted 2D world.
   topic_id: 227423
   rule: *56
   mandatory_attributes: *4
@@ -4643,8 +4697,8 @@
     :border_color: "#fdbdba"
     :title_ru: Лучи кавая
     :text_ru: Поражают в самое сердце.
-    :title_en:
-    :text_en:
+    :title_en: Kawaii Rays
+    :text_en: Striking at the heart.
     :topic_id: 0
     :rule: &57
       :algo: count
@@ -5107,8 +5161,8 @@
   border_color: "#fdbdba"
   title_ru: Лучи кавая
   text_ru: Поражают в самое сердце.
-  title_en:
-  text_en:
+  title_en: Kawaii Rays
+  text_en: Striking at the heart.
   topic_id: 0
   rule: *57
   mandatory_attributes: *4
@@ -5120,8 +5174,9 @@
     :border_color: "#ff0000"
     :title_ru: Первоклассная моэта
     :text_ru: Вы приняли слишком большую дозу тортиков и сами стали излучать моэ.
-    :title_en:
-    :text_en:
+    :title_en: A first-rate moe
+    :text_en: You've taken too large a dose of cakes and you've begun to radiate moe
+      yourself.
     :topic_id: 0
     :rule: &58
       :algo: count
@@ -5584,8 +5639,9 @@
   border_color: "#ff0000"
   title_ru: Первоклассная моэта
   text_ru: Вы приняли слишком большую дозу тортиков и сами стали излучать моэ.
-  title_en:
-  text_en:
+  title_en: A first-rate moe
+  text_en: You've taken too large a dose of cakes and you've begun to radiate moe
+    yourself.
   topic_id: 0
   rule: *58
   mandatory_attributes: *4
@@ -7392,8 +7448,8 @@
     :border_color: "#4682B4"
     :title_ru: Скупая слеза
     :text_ru: Это всего лишь дождь.
-    :title_en:
-    :text_en:
+    :title_en: A stingy tear
+    :text_en: It's only rain.
     :topic_id: 222044
     :rule: &70
       :algo: count
@@ -7409,8 +7465,8 @@
   border_color: "#4682B4"
   title_ru: Скупая слеза
   text_ru: Это всего лишь дождь.
-  title_en:
-  text_en:
+  title_en: A stingy tear
+  text_en: It's only rain.
   topic_id: 222044
   rule: *70
   mandatory_attributes: *4
@@ -7422,8 +7478,8 @@
     :border_color: "#8B4513"
     :title_ru: Эмпатия среднего уровня
     :text_ru: Ну давай, расскажи нам, как плакал над Хатико.
-    :title_en:
-    :text_en:
+    :title_en: Mid-level empathy
+    :text_en: Come on, tell us how you cried over Hachiko.
     :topic_id: 0
     :rule: &71
       :algo: count
@@ -7439,8 +7495,8 @@
   border_color: "#8B4513"
   title_ru: Эмпатия среднего уровня
   text_ru: Ну давай, расскажи нам, как плакал над Хатико.
-  title_en:
-  text_en:
+  title_en: Mid-level empathy
+  text_en: Come on, tell us how you cried over Hachiko.
   topic_id: 0
   rule: *71
   mandatory_attributes: *4
@@ -7452,8 +7508,8 @@
     :border_color: "#000000"
     :title_ru: Идеальная грусть
     :text_ru: Вам стоит проявлять эмоции тогда, когда хотите. Незачем притворяться.
-    :title_en:
-    :text_en:
+    :title_en: Perfect blue
+    :text_en: You should show emotion when you want to. There's no need to pretend.
     :topic_id: 0
     :rule: &72
       :algo: count
@@ -7469,8 +7525,8 @@
   border_color: "#000000"
   title_ru: Идеальная грусть
   text_ru: Вам стоит проявлять эмоции тогда, когда хотите. Незачем притворяться.
-  title_en:
-  text_en:
+  title_en: Perfect blue
+  text_en: You should show emotion when you want to. There's no need to pretend.
   topic_id: 0
   rule: *72
   mandatory_attributes: *4
@@ -7482,8 +7538,8 @@
     :border_color: "#00008B"
     :title_ru: Максимальная эмоциональная отзывчивость
     :text_ru: Шрамы на сердце других становятся твоими.
-    :title_en:
-    :text_en:
+    :title_en: Maximum emotional responsiveness
+    :text_en: The scars on the heart of others become yours.
     :topic_id: 0
     :rule: &73
       :algo: count
@@ -7499,8 +7555,8 @@
   border_color: "#00008B"
   title_ru: Максимальная эмоциональная отзывчивость
   text_ru: Шрамы на сердце других становятся твоими.
-  title_en:
-  text_en:
+  title_en: Maximum emotional responsiveness
+  text_en: The scars on the heart of others become yours.
   topic_id: 0
   rule: *73
   mandatory_attributes: *4
@@ -7839,6 +7895,7 @@
         - 1292
         - 39022
         - 3323
+        - 43697
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
@@ -8926,6 +8983,7 @@
         - 37651
         - 169
         - 33050
+        - 38085
       :generator:
         person_id: 2582
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -9786,6 +9844,7 @@
         - 629
         - 23133
         - 41168
+        - 39585
       :generator:
         person_id: 4002
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -10605,8 +10664,8 @@
     :border_color: "#93bc3c"
     :title_ru: Первая встреча с духами
     :text_ru: Слабое сердце манит демонов. Хотите жить — никогда не расслабляйтесь.
-    :title_en:
-    :text_en:
+    :title_en: First encounter with spirits
+    :text_en: A weak heart beckons demons. If you want to live, never relax.
     :topic_id: 222068
     :rule: &119
       :algo: count
@@ -10622,8 +10681,8 @@
   border_color: "#93bc3c"
   title_ru: Первая встреча с духами
   text_ru: Слабое сердце манит демонов. Хотите жить — никогда не расслабляйтесь.
-  title_en:
-  text_en:
+  title_en: First encounter with spirits
+  text_en: A weak heart beckons demons. If you want to live, never relax.
   topic_id: 222068
   rule: *119
   mandatory_attributes: *4
@@ -10636,8 +10695,9 @@
     :title_ru: Обнаружили у себя странные силы?
     :text_ru: Сила есть в каждом из нас. Но, когда она пробуждается, важно решить,
       как её использовать. Иногда мы совсем не готовы к этому.
-    :title_en:
-    :text_en:
+    :title_en: Have you found strange powers?
+    :text_en: The power is in all of us. But when it awakens, it is important to decide
+      how to use it. Sometimes we are not at all ready for it.
     :topic_id: 0
     :rule: &120
       :algo: count
@@ -10654,8 +10714,9 @@
   title_ru: Обнаружили у себя странные силы?
   text_ru: Сила есть в каждом из нас. Но, когда она пробуждается, важно решить, как
     её использовать. Иногда мы совсем не готовы к этому.
-  title_en:
-  text_en:
+  title_en: Have you found strange powers?
+  text_en: The power is in all of us. But when it awakens, it is important to decide
+    how to use it. Sometimes we are not at all ready for it.
   topic_id: 0
   rule: *120
   mandatory_attributes: *4
@@ -10668,8 +10729,9 @@
     :title_ru: В поисках Ёкаев
     :text_ru: Если услышите колокольный звон в горах и, пойдя на звук, увидите дичь,
       значит, это был рев бога гор.
-    :title_en:
-    :text_en:
+    :title_en: In Search of the Yokai
+    :text_en: If you hear bells ringing in the mountains and go to the sound and see
+      game, it means it was the roar of the mountain god.
     :topic_id: 0
     :rule: &121
       :algo: count
@@ -10686,8 +10748,9 @@
   title_ru: В поисках Ёкаев
   text_ru: Если услышите колокольный звон в горах и, пойдя на звук, увидите дичь,
     значит, это был рев бога гор.
-  title_en:
-  text_en:
+  title_en: In Search of the Yokai
+  text_en: If you hear bells ringing in the mountains and go to the sound and see
+    game, it means it was the roar of the mountain god.
   topic_id: 0
   rule: *121
   mandatory_attributes: *4
@@ -10699,8 +10762,8 @@
     :border_color: "#800000"
     :title_ru: Унесённые призраками
     :text_ru: Если забудешь своё имя, то не сможешь вернуться домой.
-    :title_en:
-    :text_en:
+    :title_en: Gone with the Ghosts
+    :text_en: If you forget your name, you can't go home.
     :topic_id: 0
     :rule: &122
       :algo: count
@@ -10716,8 +10779,8 @@
   border_color: "#800000"
   title_ru: Унесённые призраками
   text_ru: Если забудешь своё имя, то не сможешь вернуться домой.
-  title_en:
-  text_en:
+  title_en: Gone with the Ghosts
+  text_en: If you forget your name, you can't go home.
   topic_id: 0
   rule: *122
   mandatory_attributes: *4
@@ -10729,8 +10792,8 @@
     :border_color: "#A63233"
     :title_ru: Душа компании
     :text_ru: Немного со странностями, зато с ним всегда весело.
-    :title_en:
-    :text_en:
+    :title_en: Soul of the company
+    :text_en: He's a little weird, but he's always fun to be with.
     :topic_id: 271370
     :rule: &123
       :algo: count
@@ -11939,8 +12002,8 @@
   border_color: "#A63233"
   title_ru: Душа компании
   text_ru: Немного со странностями, зато с ним всегда весело.
-  title_en:
-  text_en:
+  title_en: Soul of the company
+  text_en: He's a little weird, but he's always fun to be with.
   topic_id: 271370
   rule: *123
   mandatory_attributes: *4
@@ -11952,8 +12015,8 @@
     :border_color: "#007276"
     :title_ru: Заводила
     :text_ru: Втянет в самые захватывающие приключения!
-    :title_en:
-    :text_en:
+    :title_en: Firestarter
+    :text_en: Will pull you into the most exciting adventures!
     :topic_id: 0
     :rule: &124
       :algo: count
@@ -13162,8 +13225,8 @@
   border_color: "#007276"
   title_ru: Заводила
   text_ru: Втянет в самые захватывающие приключения!
-  title_en:
-  text_en:
+  title_en: Firestarter
+  text_en: Will pull you into the most exciting adventures!
   topic_id: 0
   rule: *124
   mandatory_attributes: *4
@@ -13175,8 +13238,8 @@
     :border_color: "#71566F"
     :title_ru: Человек-праздник
     :text_ru: Способен растормошить весь этот скучный мир и взорвать фейерверком!
-    :title_en:
-    :text_en:
+    :title_en: The Holiday Man
+    :text_en: Able to stir up this whole boring world and explode with fireworks!
     :topic_id: 0
     :rule: &125
       :algo: count
@@ -14385,8 +14448,8 @@
   border_color: "#71566F"
   title_ru: Человек-праздник
   text_ru: Способен растормошить весь этот скучный мир и взорвать фейерверком!
-  title_en:
-  text_en:
+  title_en: The Holiday Man
+  text_en: Able to stir up this whole boring world and explode with fireworks!
   topic_id: 0
   rule: *125
   mandatory_attributes: *4
@@ -15682,6 +15745,7 @@
         - 43745
         - 43751
         - 47307
+        - 41030
       :threshold: 81.7%
       :generator:
         ignore_latest_ids:
@@ -15725,6 +15789,7 @@
         - 43745
         - 43751
         - 47307
+        - 41030
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -21945,6 +22010,9 @@
         - 38653
         - 48617
       :threshold: 95.1%
+      :generator:
+        not_ignored_ids:
+        - 502
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :dragon_ball
@@ -26487,7 +26555,7 @@
       :algo: duration
       :filters:
         franchise: doupo_cangqiong
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :doupo_cangqiong
@@ -29881,8 +29949,9 @@
     :title_ru: Первое дело
     :text_ru: Было непросто, но вы смогли поймать своего первого преступника. Поздравляем,
       продолжайте в том же духе!
-    :title_en:
-    :text_en:
+    :title_en: First case
+    :text_en: It wasn't easy, but you managed to catch your first offender. Congratulations,
+      keep up the good work!
     :topic_id: 222047
     :rule: &584
       :algo: count
@@ -29899,8 +29968,9 @@
   title_ru: Первое дело
   text_ru: Было непросто, но вы смогли поймать своего первого преступника. Поздравляем,
     продолжайте в том же духе!
-  title_en:
-  text_en:
+  title_en: First case
+  text_en: It wasn't easy, but you managed to catch your first offender. Congratulations,
+    keep up the good work!
   topic_id: 222047
   rule: *584
   mandatory_attributes: *4
@@ -29912,8 +29982,8 @@
     :border_color: "#3a59a8"
     :title_ru: Убийца — дворецкий!
     :text_ru: Вы не понаслышке знакомы с дедукцией. Вам нет равных среди юных детективов.
-    :title_en:
-    :text_en:
+    :title_en: The murderer is a butler!
+    :text_en: You are no stranger to deduction. You have no equal among young detectives.
     :topic_id: 0
     :rule: &585
       :algo: count
@@ -29929,8 +29999,8 @@
   border_color: "#3a59a8"
   title_ru: Убийца — дворецкий!
   text_ru: Вы не понаслышке знакомы с дедукцией. Вам нет равных среди юных детективов.
-  title_en:
-  text_en:
+  title_en: The murderer is a butler!
+  text_en: You are no stranger to deduction. You have no equal among young detectives.
   topic_id: 0
   rule: *585
   mandatory_attributes: *4
@@ -29942,8 +30012,8 @@
     :border_color: "#3D2B1F"
     :title_ru: За семью печатями
     :text_ru: Мэтры детективного дела обращаются к вам за советами.
-    :title_en:
-    :text_en:
+    :title_en: Behind the Seven Seals
+    :text_en: The masters of detective work turn to you for advice.
     :topic_id: 0
     :rule: &586
       :algo: count
@@ -29959,8 +30029,8 @@
   border_color: "#3D2B1F"
   title_ru: За семью печатями
   text_ru: Мэтры детективного дела обращаются к вам за советами.
-  title_en:
-  text_en:
+  title_en: Behind the Seven Seals
+  text_en: The masters of detective work turn to you for advice.
   topic_id: 0
   rule: *586
   mandatory_attributes: *4
@@ -29973,8 +30043,9 @@
     :title_ru: Великий детектив
     :text_ru: Интересных дел катастрофически мало! На поприще детектива вы добились
       всего.
-    :title_en:
-    :text_en:
+    :title_en: The Grand Detective
+    :text_en: Interesting cases are disastrously few! In the field of detective you
+      have achieved everything.
     :topic_id: 0
     :rule: &587
       :algo: count
@@ -29990,8 +30061,9 @@
   border_color: "#919192"
   title_ru: Великий детектив
   text_ru: Интересных дел катастрофически мало! На поприще детектива вы добились всего.
-  title_en:
-  text_en:
+  title_en: The Grand Detective
+  text_en: Interesting cases are disastrously few! In the field of detective you have
+    achieved everything.
   topic_id: 0
   rule: *587
   mandatory_attributes: *4
@@ -30160,8 +30232,8 @@
     :border_color: "#c71585"
     :title_ru: Оно существует
     :text_ru: Вы открыли новый и странный мир. Продолжайте просмотр дальше.
-    :title_en:
-    :text_en:
+    :title_en: It does exist
+    :text_en: You have discovered a new and strange world. Keep watching.
     :topic_id: 227417
     :rule: &593
       :algo: count
@@ -30178,8 +30250,8 @@
   border_color: "#c71585"
   title_ru: Оно существует
   text_ru: Вы открыли новый и странный мир. Продолжайте просмотр дальше.
-  title_en:
-  text_en:
+  title_en: It does exist
+  text_en: You have discovered a new and strange world. Keep watching.
   topic_id: 227417
   rule: *593
   mandatory_attributes: *4
@@ -30192,8 +30264,9 @@
     :title_ru: Это вообще реально?
     :text_ru: Ориентация в пространстве нарушена. Стало трудно отличить реальность
       и вымысел.
-    :title_en:
-    :text_en:
+    :title_en: Is it even real?
+    :text_en: Orientation in space was disturbed. It became difficult to distinguish
+      between reality and fiction.
     :topic_id: 0
     :rule: &594
       :algo: count
@@ -30211,8 +30284,9 @@
   title_ru: Это вообще реально?
   text_ru: Ориентация в пространстве нарушена. Стало трудно отличить реальность и
     вымысел.
-  title_en:
-  text_en:
+  title_en: Is it even real?
+  text_en: Orientation in space was disturbed. It became difficult to distinguish
+    between reality and fiction.
   topic_id: 0
   rule: *594
   mandatory_attributes: *4
@@ -30224,8 +30298,8 @@
     :border_color: "#DC143C"
     :title_ru: Вынос мозга
     :text_ru: "*fatal error."
-    :title_en:
-    :text_en:
+    :title_en: Blew my mind.
+    :text_en: "*fatal error."
     :topic_id: 0
     :rule: &595
       :algo: count
@@ -30242,8 +30316,8 @@
   border_color: "#DC143C"
   title_ru: Вынос мозга
   text_ru: "*fatal error."
-  title_en:
-  text_en:
+  title_en: Blew my mind.
+  text_en: "*fatal error."
   topic_id: 0
   rule: *595
   mandatory_attributes: *4
@@ -30255,8 +30329,9 @@
     :border_color: "#20B2AA"
     :title_ru: Вы видели слишком много
     :text_ru: Вы превзошли свою природу и теперь находитесь на совершенно другом уровне.
-    :title_en:
-    :text_en:
+    :title_en: You have seen too much
+    :text_en: You have surpassed your nature and are now on a completely different
+      level.
     :topic_id: 0
     :rule: &596
       :algo: count
@@ -30273,8 +30348,8 @@
   border_color: "#20B2AA"
   title_ru: Вы видели слишком много
   text_ru: Вы превзошли свою природу и теперь находитесь на совершенно другом уровне.
-  title_en:
-  text_en:
+  title_en: You have seen too much
+  text_en: You have surpassed your nature and are now on a completely different level.
   topic_id: 0
   rule: *596
   mandatory_attributes: *4
@@ -30469,8 +30544,8 @@
     :border_color: "#F08080"
     :title_ru: But then I lol'd
     :text_ru: Неужели вам понравился японский юмор?
-    :title_en:
-    :text_en:
+    :title_en: But then I lol'd
+    :text_en: Did you really enjoy Japanese humor?
     :topic_id: 222035
     :rule: &602
       :algo: count
@@ -30486,8 +30561,8 @@
   border_color: "#F08080"
   title_ru: But then I lol'd
   text_ru: Неужели вам понравился японский юмор?
-  title_en:
-  text_en:
+  title_en: But then I lol'd
+  text_en: Did you really enjoy Japanese humor?
   topic_id: 222035
   rule: *602
   mandatory_attributes: *4
@@ -30499,8 +30574,8 @@
     :border_color: "#8B0000"
     :title_ru: Комедиант
     :text_ru: Теперь вам известны основы комедии.
-    :title_en:
-    :text_en:
+    :title_en: Comedian
+    :text_en: Now you know the basics of comedy.
     :topic_id: 0
     :rule: &603
       :algo: count
@@ -30516,8 +30591,8 @@
   border_color: "#8B0000"
   title_ru: Комедиант
   text_ru: Теперь вам известны основы комедии.
-  title_en:
-  text_en:
+  title_en: Comedian
+  text_en: Now you know the basics of comedy.
   topic_id: 0
   rule: *603
   mandatory_attributes: *4
@@ -30530,8 +30605,9 @@
     :title_ru: До колик в животе!
     :text_ru: Пародия, каламбур, ирония, сарказм, гротеск — отныне ни одна шутка не
       проскользнет мимо вас.
-    :title_en:
-    :text_en:
+    :title_en: Till the stomach cramps
+    :text_en: Parody, puns, irony, sarcasm, grotesque - from now on no joke will slip
+      past you.
     :topic_id: 0
     :rule: &604
       :algo: count
@@ -30548,8 +30624,9 @@
   title_ru: До колик в животе!
   text_ru: Пародия, каламбур, ирония, сарказм, гротеск — отныне ни одна шутка не проскользнет
     мимо вас.
-  title_en:
-  text_en:
+  title_en: Till the stomach cramps
+  text_en: Parody, puns, irony, sarcasm, grotesque - from now on no joke will slip
+    past you.
   topic_id: 0
   rule: *604
   mandatory_attributes: *4
@@ -30561,8 +30638,8 @@
     :border_color: "#FFA500"
     :title_ru: Праздник без конца
     :text_ru: Жизнь серьезна всегда, но жить всегда серьезно — нельзя!
-    :title_en:
-    :text_en:
+    :title_en: A celebration without end
+    :text_en: Life is always serious, but living always seriously is impossible!
     :topic_id: 0
     :rule: &605
       :algo: count
@@ -30578,8 +30655,8 @@
   border_color: "#FFA500"
   title_ru: Праздник без конца
   text_ru: Жизнь серьезна всегда, но жить всегда серьезно — нельзя!
-  title_en:
-  text_en:
+  title_en: A celebration without end
+  text_en: Life is always serious, but living always seriously is impossible!
   topic_id: 0
   rule: *605
   mandatory_attributes: *4
@@ -30592,8 +30669,9 @@
     :title_ru: Давным-давно, в далекой-далекой галактике...
     :text_ru: Как только первый шаг сделаете вы по Тёмному Пути, то свернуть уже не
       сможете с него.
-    :title_en:
-    :text_en:
+    :title_en: Once upon a time, in a galaxy far, far away...
+    :text_en: Once you take the first step along the Dark Path, you cannot turn away
+      from it.
     :topic_id: 222059
     :rule: &606
       :algo: count
@@ -30610,8 +30688,9 @@
   title_ru: Давным-давно, в далекой-далекой галактике...
   text_ru: Как только первый шаг сделаете вы по Тёмному Пути, то свернуть уже не сможете
     с него.
-  title_en:
-  text_en:
+  title_en: Once upon a time, in a galaxy far, far away...
+  text_en: Once you take the first step along the Dark Path, you cannot turn away
+    from it.
   topic_id: 222059
   rule: *606
   mandatory_attributes: *4
@@ -30624,8 +30703,9 @@
     :title_ru: Изобретатель
     :text_ru: Вероятно, вы способны сделать пригодным для использования даже то, что
       является кучей мусора в глазах других.
-    :title_en:
-    :text_en:
+    :title_en: Inventor
+    :text_en: You are probably able to make usable even what is a pile of garbage
+      in the eyes of others.
     :topic_id: 0
     :rule: &607
       :algo: count
@@ -30642,8 +30722,9 @@
   title_ru: Изобретатель
   text_ru: Вероятно, вы способны сделать пригодным для использования даже то, что
     является кучей мусора в глазах других.
-  title_en:
-  text_en:
+  title_en: Inventor
+  text_en: You are probably able to make usable even what is a pile of garbage in
+    the eyes of others.
   topic_id: 0
   rule: *607
   mandatory_attributes: *4
@@ -30656,8 +30737,9 @@
     :title_ru: Безумный ученый
     :text_ru: В ваших руках рождается гармония между фантастикой, научными фактами
       и мистикой.
-    :title_en:
-    :text_en:
+    :title_en: Mad Scientist
+    :text_en: In your hands, a harmony between fiction, scientific fact and mysticism
+      is born.
     :topic_id: 0
     :rule: &608
       :algo: count
@@ -30674,8 +30756,9 @@
   title_ru: Безумный ученый
   text_ru: В ваших руках рождается гармония между фантастикой, научными фактами и
     мистикой.
-  title_en:
-  text_en:
+  title_en: Mad Scientist
+  text_en: In your hands, a harmony between fiction, scientific fact and mysticism
+    is born.
   topic_id: 0
   rule: *608
   mandatory_attributes: *4
@@ -30687,8 +30770,8 @@
     :border_color: "#DAA520"
     :title_ru: Великий Разум
     :text_ru: Фантастика — это реальность. Всё, о чём вы подумали, осуществляется.
-    :title_en:
-    :text_en:
+    :title_en: Great Intelligence
+    :text_en: Fiction is reality. Everything you thought about is happening.
     :topic_id: 0
     :rule: &609
       :algo: count
@@ -30704,8 +30787,8 @@
   border_color: "#DAA520"
   title_ru: Великий Разум
   text_ru: Фантастика — это реальность. Всё, о чём вы подумали, осуществляется.
-  title_en:
-  text_en:
+  title_en: Great Intelligence
+  text_en: Fiction is reality. Everything you thought about is happening.
   topic_id: 0
   rule: *609
   mandatory_attributes: *4
@@ -30837,8 +30920,8 @@
     :border_color: "#9ad1ee"
     :title_ru: Тишина
     :text_ru: Кудере молчит только потому что того хочет.
-    :title_en:
-    :text_en:
+    :title_en: Silence
+    :text_en: Kudere is silent only because she wants.
     :topic_id: 227421
     :rule: &614
       :algo: count
@@ -31230,6 +31313,8 @@
         - 40497
         - 34561
         - 40028
+        - 5682
+        - 438
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -31238,8 +31323,8 @@
   border_color: "#9ad1ee"
   title_ru: Тишина
   text_ru: Кудере молчит только потому что того хочет.
-  title_en:
-  text_en:
+  title_en: Silence
+  text_en: Kudere is silent only because she wants.
   topic_id: 227421
   rule: *614
   mandatory_attributes: *4
@@ -31251,8 +31336,8 @@
     :border_color: "#4a4a40"
     :title_ru: Мудрость
     :text_ru: Умный менее всего одинок тогда, когда он находится в одиночестве.
-    :title_en:
-    :text_en:
+    :title_en: Wisdom
+    :text_en: The clever one is least alone when he is alone.
     :topic_id: 0
     :rule: &615
       :algo: count
@@ -31644,6 +31729,8 @@
         - 40497
         - 34561
         - 40028
+        - 5682
+        - 438
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -31652,8 +31739,8 @@
   border_color: "#4a4a40"
   title_ru: Мудрость
   text_ru: Умный менее всего одинок тогда, когда он находится в одиночестве.
-  title_en:
-  text_en:
+  title_en: Wisdom
+  text_en: The clever one is least alone when he is alone.
   topic_id: 0
   rule: *615
   mandatory_attributes: *4
@@ -31667,8 +31754,10 @@
     :text_ru: |-
       - Как вы можете оставаться таким холодным?
       - Практика.
-    :title_en:
-    :text_en:
+    :title_en: Coolness
+    :text_en: |-
+      - How can you stay so cold?
+      - Practice.
     :topic_id: 0
     :rule: &616
       :algo: count
@@ -32060,6 +32149,8 @@
         - 40497
         - 34561
         - 40028
+        - 5682
+        - 438
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -32070,8 +32161,10 @@
   text_ru: |-
     - Как вы можете оставаться таким холодным?
     - Практика.
-  title_en:
-  text_en:
+  title_en: Coolness
+  text_en: |-
+    - How can you stay so cold?
+    - Practice.
   topic_id: 0
   rule: *616
   mandatory_attributes: *4
@@ -32220,8 +32313,8 @@
     :border_color: "#de3c20"
     :title_ru: Попаданец
     :text_ru: Первый шаг в новом мире.
-    :title_en:
-    :text_en:
+    :title_en: Where am I?
+    :text_en: First step in a new world.
     :topic_id: 222041
     :rule: &618
       :algo: count
@@ -32237,8 +32330,8 @@
   border_color: "#de3c20"
   title_ru: Попаданец
   text_ru: Первый шаг в новом мире.
-  title_en:
-  text_en:
+  title_en: Where am I?
+  text_en: First step in a new world.
   topic_id: 222041
   rule: *618
   mandatory_attributes: *4
@@ -32250,8 +32343,8 @@
     :border_color: "#472a18"
     :title_ru: Искатель приключений
     :text_ru: Диковинные вещицы, верные друзья и великие свершения ждут тебя!
-    :title_en:
-    :text_en:
+    :title_en: Adventurer
+    :text_en: Outlandish things, loyal friends, and great accomplishments await you!
     :topic_id: 0
     :rule: &619
       :algo: count
@@ -32267,8 +32360,8 @@
   border_color: "#472a18"
   title_ru: Искатель приключений
   text_ru: Диковинные вещицы, верные друзья и великие свершения ждут тебя!
-  title_en:
-  text_en:
+  title_en: Adventurer
+  text_en: Outlandish things, loyal friends, and great accomplishments await you!
   topic_id: 0
   rule: *619
   mandatory_attributes: *4
@@ -32280,8 +32373,8 @@
     :border_color: "#C5D0E6"
     :title_ru: Герой
     :text_ru: Ваши подвиги войдут в историю.
-    :title_en:
-    :text_en:
+    :title_en: The Hero
+    :text_en: Your exploits will go down in history.
     :topic_id: 0
     :rule: &620
       :algo: count
@@ -32297,8 +32390,8 @@
   border_color: "#C5D0E6"
   title_ru: Герой
   text_ru: Ваши подвиги войдут в историю.
-  title_en:
-  text_en:
+  title_en: The Hero
+  text_en: Your exploits will go down in history.
   topic_id: 0
   rule: *620
   mandatory_attributes: *4
@@ -32310,8 +32403,8 @@
     :border_color: "#003153"
     :title_ru: Вершитель
     :text_ru: Жизнь, смерть и судьбы народов вы держите в своих руках.
-    :title_en:
-    :text_en:
+    :title_en: Hooded Justice
+    :text_en: You hold the life, death and destinies of nations in your hands.
     :topic_id: 0
     :rule: &621
       :algo: count
@@ -32327,8 +32420,8 @@
   border_color: "#003153"
   title_ru: Вершитель
   text_ru: Жизнь, смерть и судьбы народов вы держите в своих руках.
-  title_en:
-  text_en:
+  title_en: Hooded Justice
+  text_en: You hold the life, death and destinies of nations in your hands.
   topic_id: 0
   rule: *621
   mandatory_attributes: *4
@@ -32340,8 +32433,8 @@
     :border_color: "#6E5160"
     :title_ru: Миг, и ты ее потерял
     :text_ru: Все закончилось не успев начаться, остались лишь приятные воспоминания.
-    :title_en:
-    :text_en:
+    :title_en: A moment, and you lost it.
+    :text_en: It was over before it started, leaving only pleasant memories.
     :topic_id: 245151
     :rule: &622
       :algo: count
@@ -32356,8 +32449,8 @@
   border_color: "#6E5160"
   title_ru: Миг, и ты ее потерял
   text_ru: Все закончилось не успев начаться, остались лишь приятные воспоминания.
-  title_en:
-  text_en:
+  title_en: A moment, and you lost it.
+  text_en: It was over before it started, leaving only pleasant memories.
   topic_id: 245151
   rule: *622
   mandatory_attributes: *4
@@ -32369,8 +32462,8 @@
     :border_color: "#FAE7B5"
     :title_ru: Зависимость
     :text_ru: Сколько раз вы уже произнесли «еще один» за последние девять часов?
-    :title_en:
-    :text_en:
+    :title_en: Dependence
+    :text_en: How many times have you said "one more" in the last nine hours?
     :topic_id: 0
     :rule: &623
       :algo: count
@@ -32385,8 +32478,8 @@
   border_color: "#FAE7B5"
   title_ru: Зависимость
   text_ru: Сколько раз вы уже произнесли «еще один» за последние девять часов?
-  title_en:
-  text_en:
+  title_en: Dependence
+  text_en: How many times have you said "one more" in the last nine hours?
   topic_id: 0
   rule: *623
   mandatory_attributes: *4
@@ -32398,8 +32491,8 @@
     :border_color: "#425e17"
     :title_ru: Блок за блоком
     :text_ru: Вы, как при игре в тетрис, строите грандиозное из маленьких кусочков.
-    :title_en:
-    :text_en:
+    :title_en: Block by block
+    :text_en: You, as in a game of tetris, build the grandiose out of small pieces.
     :topic_id: 0
     :rule: &624
       :algo: count
@@ -32414,8 +32507,8 @@
   border_color: "#425e17"
   title_ru: Блок за блоком
   text_ru: Вы, как при игре в тетрис, строите грандиозное из маленьких кусочков.
-  title_en:
-  text_en:
+  title_en: Block by block
+  text_en: You, as in a game of tetris, build the grandiose out of small pieces.
   topic_id: 0
   rule: *624
   mandatory_attributes: *4
@@ -32427,8 +32520,9 @@
     :border_color: "#474a51"
     :title_ru: Великое в малом
     :text_ru: Вы узнали, что некоторые из лучших аниме выходят в коротком формате.
-    :title_en:
-    :text_en:
+    :title_en: The Greatness in Smallness
+    :text_en: You've learned that some of the best anime are coming out in a short
+      format.
     :topic_id: 0
     :rule: &625
       :algo: count
@@ -32443,8 +32537,8 @@
   border_color: "#474a51"
   title_ru: Великое в малом
   text_ru: Вы узнали, что некоторые из лучших аниме выходят в коротком формате.
-  title_en:
-  text_en:
+  title_en: The Greatness in Smallness
+  text_en: You've learned that some of the best anime are coming out in a short format.
   topic_id: 0
   rule: *625
   mandatory_attributes: *4
@@ -32706,8 +32800,8 @@
     :border_color: "#FCD975"
     :title_ru: Это не то, о чем ты подумал
     :text_ru: Н-не то, чтобы я волновалась о тебе, я-ясно?
-    :title_en:
-    :text_en:
+    :title_en: It's not what you think.
+    :text_en: N-not that I'm worried about you, o-okay?
     :topic_id: 227430
     :rule: &634
       :algo: count
@@ -33756,8 +33850,8 @@
   border_color: "#FCD975"
   title_ru: Это не то, о чем ты подумал
   text_ru: Н-не то, чтобы я волновалась о тебе, я-ясно?
-  title_en:
-  text_en:
+  title_en: It's not what you think.
+  text_en: N-not that I'm worried about you, o-okay?
   topic_id: 227430
   rule: *634
   mandatory_attributes: *4
@@ -33769,8 +33863,8 @@
     :border_color: "#D5713F"
     :title_ru: Дурак!
     :text_ru: Заткнись! Заткнись! Заткнись!
-    :title_en:
-    :text_en:
+    :title_en: Baka!
+    :text_en: Shut up! Shut up! Shut up!
     :topic_id: 0
     :rule: &635
       :algo: count
@@ -34819,8 +34913,8 @@
   border_color: "#D5713F"
   title_ru: Дурак!
   text_ru: Заткнись! Заткнись! Заткнись!
-  title_en:
-  text_en:
+  title_en: Baka!
+  text_en: Shut up! Shut up! Shut up!
   topic_id: 0
   rule: *635
   mandatory_attributes: *4
@@ -34832,8 +34926,8 @@
     :border_color: "#cd7f32"
     :title_ru: Цундере мне вовсе не интересны!
     :text_ru: Ну, если только совсем чуть-чуть...
-    :title_en:
-    :text_en:
+    :title_en: I'm not interested in tsundere at all!
+    :text_en: Well, if only just a little bit...
     :topic_id: 0
     :rule: &636
       :algo: count
@@ -35882,8 +35976,8 @@
   border_color: "#cd7f32"
   title_ru: Цундере мне вовсе не интересны!
   text_ru: Ну, если только совсем чуть-чуть...
-  title_en:
-  text_en:
+  title_en: I'm not interested in tsundere at all!
+  text_en: Well, if only just a little bit...
   topic_id: 0
   rule: *636
   mandatory_attributes: *4
