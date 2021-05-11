@@ -37,6 +37,6 @@ production:
   anime365_parsers: 3
   push_notifications: 5
   imports: 2
-  achievement: 50
+  achievements: 50
   episode_notifications: 1
   dangerous_actions: 1
