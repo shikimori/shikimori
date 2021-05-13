@@ -12,7 +12,7 @@ class MangaDecorator < AniMangaDecorator
   end
 
   def menu_external_links
-    if h.user_signed_in? && h.current_user.week_registered?
+    if h.user_signed_in? && h.current_user.week_registered? && Copyright::MANGA_IDS.exclude?(id)
       available_external_links
     else
       available_external_links.reject(&:read_online?)

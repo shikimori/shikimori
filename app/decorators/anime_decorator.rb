@@ -26,11 +26,11 @@ class AnimeDecorator < AniMangaDecorator
   end
 
   def screenshots_allowed?
-    Copyright::SCREENSHOTS.exclude?(id) && !censored?
+    Copyright::ANIME_SCREENSHOTS.exclude?(id) && !censored?
   end
 
   def videos limit = nil # rubocop:disable PerceivedComplexity, CyclomaticComplexity, AbcSize
-    return [] if Copyright::VIDEOS.include?(id)
+    return [] if Copyright::ANIME_VIDEOS.include?(id)
     return [] unless object.respond_to? :videos
 
     # return [] unless h.ignore_copyright?
