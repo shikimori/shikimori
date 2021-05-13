@@ -100,7 +100,7 @@ class BbCodes::Text
     code_tag = BbCodes::Tags::CodeTag.new
 
     code_tag.postprocess parse(code_tag.preprocess(text))
-  rescue BbCodes::Tags::CodeTag::BrokenTagError
+  rescue BbCodes::Tags::CodeTag::BbCodes::BrokenTagError
     parse(text)
   end
 

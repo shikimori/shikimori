@@ -1,4 +1,4 @@
-class BbCodes::Tags::CodeTag
+class BbCodes::Tags::CodeTag # rubocop:disable ClassLength
   BBCODE_REGEXP = %r{
     \[ code (?:=(?<language>[\w+#-]+))? \]
       (?<before> \ + | \ +[\r\n]+ | [\r\n]* )
@@ -19,9 +19,6 @@ class BbCodes::Tags::CodeTag
   CODE_INLINE_OPEN_TAG = "<code class='b-code_inline'>"
   CODE_INLINE_CLOSE_TAG = '</code>'
 
-  class BrokenTagError < RuntimeError
-  end
-
   def preprocess text
     @cache = []
     proprocess_markdown(preprocess_bbcode(text))
@@ -30,7 +27,7 @@ class BbCodes::Tags::CodeTag
   def postprocess text
     fixed_text = postprocess_markdown(postprocess_bbcode(text))
 
-    raise BrokenTagError if @cache.any?
+    raise BbCodes::BrokenTagError if @cache.any?
 
     fixed_text
   end
@@ -61,7 +58,7 @@ private
     text.gsub CODE_PLACEHOLDER_1 do
       code = @cache.shift
 
-      raise BrokenTagError if code.nil?
+      raise BbCodes::BrokenTagError if code.nil?
 
       if code.language
         code_highlight code.text, code.language
@@ -90,7 +87,7 @@ private
   def postprocess_markdown text
     text.gsub CODE_PLACEHOLDER_2 do
       code = @cache.shift
-      raise BrokenTagError if code.nil?
+      raise BbCodes::BrokenTagError if code.nil?
 
       code_inline code.text
     end
