@@ -76,6 +76,18 @@ describe ExternalLink do
       end
     end
 
+    describe '#read_online?' do
+      let(:external_link) { build :external_link, kind }
+      let(:kind) { Types::ExternalLink::Kind[:wikipedia] }
+
+      it { expect(external_link).to_not be_read_online }
+
+      context 'read online kind' do
+        let(:kind) { Types::ExternalLink::Kind[:remanga] }
+        it { expect(external_link).to be_read_online }
+      end
+    end
+
     describe '#label, #icon_kind' do
       subject(:external_link) { build :external_link, kind, url: url }
 

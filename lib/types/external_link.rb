@@ -27,6 +27,25 @@ module Types
       more_tv
       youtube
     ]
+    MANGA_READ_ONLINE_KINDS = %i[
+      readmanga
+      mangalib
+      remanga
+      mangaupdates
+      mangadex
+      mangafox
+      mangachan
+      mangahub
+    ]
+    RANOBE_READ_ONLINE_KINDS = %i[
+      novel_tl
+      ruranobe
+      ranobelib
+      remanga
+      novelupdates
+      mangaupdates
+      mangadex
+    ]
     KINDS = {
       anime: COMMON_KINDS + %i[
         anime_db
@@ -36,26 +55,8 @@ module Types
         twitter
         smotret_anime
       ] + WATCH_ONLINE_KINDS,
-      manga: COMMON_KINDS + %i[
-        readmanga
-        mangalib
-        remanga
-        mangaupdates
-        mangadex
-        mangafox
-        mangachan
-        mangahub
-      ],
-      ranobe: COMMON_KINDS + %i[
-        twitter
-        novel_tl
-        ruranobe
-        ranobelib
-        remanga
-        novelupdates
-        mangaupdates
-        mangadex
-      ]
+      manga: COMMON_KINDS + MANGA_READ_ONLINE_KINDS,
+      ranobe: COMMON_KINDS + %i[twitter] + RANOBE_READ_ONLINE_KINDS
     }
 
     INVISIBLE_KINDS = %i[myanimelist smotret_anime mangachan]

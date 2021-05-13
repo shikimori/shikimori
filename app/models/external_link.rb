@@ -55,6 +55,11 @@ class ExternalLink < ApplicationRecord
     Types::ExternalLink::WATCH_ONLINE_KINDS.include? kind.to_sym
   end
 
+  def read_online?
+    Types::ExternalLink::MANGA_READ_ONLINE_KINDS.include?(kind.to_sym) ||
+      Types::ExternalLink::RANOBE_READ_ONLINE_KINDS.include?(kind.to_sym)
+  end
+
   def label
     if kind_wikipedia? && url =~ LANG_WIKIPEDIA_REGEXP
       WIKIPEDIA_LABELS[$LAST_MATCH_INFO[:lang].to_sym] || kind_text
