@@ -13,8 +13,8 @@ class BbCodes::Tags::CodeTag # rubocop:disable ClassLength
 
   MARKDOWN_REGEXP = /(?<mark>`++)(?<code>(?:(?!\k<mark>).)+)\k<mark>/
 
-  CODE_PLACEHOLDER_1 = '<<-CODE-1-PLACEHODLER->>'
-  CODE_PLACEHOLDER_2 = '<<-CODE-2-PLACEHODLER->>'
+  CODE_PLACEHOLDER_1 = '!!-CODE-1-!!'
+  CODE_PLACEHOLDER_2 = '!!-CODE-2-!!'
 
   CODE_INLINE_OPEN_TAG = "<code class='b-code_inline'>"
   CODE_INLINE_CLOSE_TAG = '</code>'

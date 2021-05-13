@@ -1,4 +1,4 @@
-class BbCodes::Text
+class BbCodes::Text # rubocop:disable ClassLength
   method_object :text
 
   # TODO: cleanup
@@ -48,6 +48,7 @@ class BbCodes::Text
   TAGS = BbCodes::ToTagParser.call TAGS_LIST
   PRE_POST_PROCESS_TAG_LIST = %i[
     code
+    smiley
   ]
   # html5_video must be after url tag
   # spoiler must be after other tags because its label can't contain any other bbcodes
@@ -95,13 +96,15 @@ class BbCodes::Text
     BbCodes::CleanupHtml.call text
   end
 
-  # TODO: перенести весь код ббкодов сюда или в связанные классы
   def bb_codes text
-    code_tag = BbCodes::Tags::CodeTag.new
+    tags = PRE_POST_PROCESS_TAG.map(&:new)
 
-    code_tag.postprocess parse(code_tag.preprocess(text))
-  rescue BbCodes::Tags::CodeTag::BbCodes::BrokenTagError
-    parse(text)
+    text = tags.inject(text) { |memo, tag| tag.preprocess memo }
+    text = parse text
+
+    tags.reverse.inject(text) { |memo, tag| tag.postprocess memo }
+  rescue BbCodes::BrokenTagError
+    parse text
   end
 
   def remove_spam text
@@ -130,10 +133,6 @@ private
     MARKDOWNS.each do |markdown_parser|
       text = markdown_parser.instance.format text
     end
-
-    # fixes smileys in db_entry names
-    # https://github.com/shikimori/shikimori/issues/2055
-    text = smileys_to_html text
 
     TAGS.each do |tag_parser|
       text = tag_parser.instance.format text

@@ -1,2 +1,2 @@
-class BbCodes::BbCodes::BrokenTagError < RuntimeError
+class BbCodes::BrokenTagError < RuntimeError
 end

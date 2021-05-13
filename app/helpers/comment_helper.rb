@@ -10,64 +10,6 @@ module CommentHelper
     user review posters ban
   ]
 
-  @@smileys_path = '/images/smileys/'
-  @@smileys_synonym = {
-    ':)' => ':-)'
-  }
-  @smiley_first_to_replace = [':dunno:']
-  @@smiley_groups = [
-    [':)', ':D', ':-D', ':lol:', ':ololo:', ':evil:', '+_+', ':cool:', ':thumbup:', ':yahoo:', ':tea2:', ':star:'],
-    [':oh:', ':shy:', ':shy2:', ':hurray:', ':-P', ':roll:', ':!:', ':watching:', ':love:', ':love2:', ':bunch:', ':perveted:'],
-    [':(', ':very sad:', ':depressed:', ':depressed2:', ':hopeless:', ':very sad2:', ':-(', ':cry:', ':cry6:', ':Cry2:', ':Cry3:', ':Cry4:'],
-    [':-o', ':shock:', ':shock2:', ':scream:', ':dont want:', ':noooo:', ':scared:', ':shocked2:', ':shocked3:', ':shocked4:',
-     ':tea shock:', ':frozen3:'],
-    [':angry4:', ':revenge:', ':evil2:', ':twisted:', ':angry:', ':angry3:', ':angry5:', ':angry6:', ':cold:', ':strange4:', ':ball:', ':evil3:'],
-    [':8):', ':oh2:', ':ooph:', ':wink:', ':dunno:', ':dont listen:', ':hypno:', ':advise:', ':bored:', ':disappointment:', ':hunf:'], # , ":idea:"
-    [':hot:', ':hot2:', ':hot3:', ':stress:', ':strange3:', ':strange2:', ':strange1:', ':Bath2:', ':strange:', ':hope:', ':hope3:', ':diplom:'],
-    [':hi:', ':bye:', ':sleep:', ':bow:', ':Warning:', ':Ban:', ':Im dead:', ':sick:', ':s1:', ':s3:', ':s2:', ':happy_cry:'],
-    [':ill:',
-     ':sad2:',
-     ':bullied:', ':bdl2:',
-     ':Happy Birthday:', ':flute:',
-     ':cry5:',
-     ':gaze:', ':hope2:',
-     ':sleepy:',
-     ':study:', ':study2:', ':study3:', ':gamer:',
-     ':animal:',
-     ':caterpillar:',
-     ':cold2:', ':shocked:', ':frozen:', ':frozen2:', ':kia:', ':interested:',
-     ':happy:',
-     ':happy3:',
-     ':water:', ':dance:', ':liar:', ':prcl:',
-     ':play:',
-     ':s4:', ':s:',
-     ':bath:',
-     ':kiss:', ':whip:', ':relax:', ':smoker:', ':smoker2:', ':bdl:', ':cool2:',
-     ':V:', ':V2:', ':V3:',
-     ':sarcasm:', ':angry2:', ':kya:']
-  ]
-  @@smileys = @@smiley_groups.flatten
-  @@replaceable_smileys = @smiley_first_to_replace + (@@smileys.reverse - @smiley_first_to_replace)
-
-  def smileys
-    @@smileys
-  end
-
-  def smileys_path
-    @@smileys_path
-  end
-
-  def smiley_groups
-    @@smiley_groups
-  end
-
-  def smileys_to_html text, _poster = nil
-    @@replaceable_smileys.each do |v|
-      text.gsub!(v, format('<img src="%s%s.gif" alt="%s" title="%s" class="smiley" />', @@smileys_path, v, v, v))
-    end
-    text
-  end
-
   def remove_old_tags(html)
     html
       .gsub(/(?:<|&lt;)p(?:>|&gt;)[\t\n\r]*([\s\S]*?)[\t\n\r]*(?:<|&lt;)\/p(?:>|&gt;)/i, '\1')
