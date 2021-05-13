@@ -22,13 +22,9 @@ class BbCodes::Tags::CodeTag
   class BrokenTagError < RuntimeError
   end
 
-  def initialize text
-    @text = text
+  def preprocess text
     @cache = []
-  end
-
-  def preprocess
-    proprocess_markdown(preprocess_bbcode(@text))
+    proprocess_markdown(preprocess_bbcode(text))
   end
 
   def postprocess text

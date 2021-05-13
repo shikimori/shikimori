@@ -46,11 +46,16 @@ class BbCodes::Text
     html5_video
   ]
   TAGS = BbCodes::ToTagParser.call TAGS_LIST
+  PRE_POST_PROCESS_TAG_LIST = %i[
+    code
+  ]
   # html5_video must be after url tag
   # spoiler must be after other tags because its label can't contain any other bbcodes
 
   DB_ENTRY_BB_CODES = %i[anime manga ranobe character person]
   DB_ENTRY_TAGS = BbCodes::ToTagParser.call DB_ENTRY_BB_CODES
+
+  PRE_POST_PROCESS_TAG = BbCodes::ToTagParser.call PRE_POST_PROCESS_TAG_LIST
 
   OBSOLETE_TAGS = %r{\[user_change=\d+\] | \[/user_change\]}mix
 
@@ -90,12 +95,11 @@ class BbCodes::Text
     BbCodes::CleanupHtml.call text
   end
 
-  # обработка ббкодов текста
   # TODO: перенести весь код ббкодов сюда или в связанные классы
   def bb_codes text
-    code_tag = BbCodes::Tags::CodeTag.new(text)
+    code_tag = BbCodes::Tags::CodeTag.new
 
-    code_tag.postprocess parse(code_tag.preprocess)
+    code_tag.postprocess parse(code_tag.preprocess(text))
   rescue BbCodes::Tags::CodeTag::BrokenTagError
     parse(text)
   end

@@ -1,12 +1,12 @@
 describe BbCodes::Tags::CodeTag do
-  let(:tag) { described_class.new text }
+  let(:tag) { described_class.new }
   let(:other_tag) { BbCodes::Tags::BTag.instance }
 
   let(:placeholder_1) { described_class::CODE_PLACEHOLDER_1 }
   let(:placeholder_2) { described_class::CODE_PLACEHOLDER_2 }
 
   describe '#preprocess' do
-    subject { tag.preprocess }
+    subject { tag.preprocess text }
 
     context 'code block' do
       context 'sample' do
@@ -79,7 +79,7 @@ describe BbCodes::Tags::CodeTag do
   end
 
   describe '#preprocess, #postprocess' do
-    subject { tag.postprocess other_tag.format(tag.preprocess) }
+    subject { tag.postprocess other_tag.format(tag.preprocess(text)) }
 
     context 'bbcode' do
       context 'without language' do
@@ -208,7 +208,7 @@ describe BbCodes::Tags::CodeTag do
   end
 
   describe '#preprocess, #restore' do
-    subject { tag.restore other_tag.format(tag.preprocess) }
+    subject { tag.restore other_tag.format(tag.preprocess(text)) }
     let(:content) { '[b]test[/b]' }
 
     context 'sample' do
