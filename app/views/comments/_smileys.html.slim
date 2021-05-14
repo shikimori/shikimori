@@ -1,8 +1,8 @@
-- smiley_groups.map do |smiley_group|
+- BbCodes::Tags::SmileyTag::SMILEY_GROUPS.map do |smiley_group|
   div
     - smiley_group.each do |smiley|
       img.smiley[
-        src="#{smileys_path}#{smiley}.gif"
+        src="#{BbCodes::Tags::SmileyTag::IMAGE_PATH}#{smiley}.gif"
         alt=smiley
         title=smiley
         loading='lazy'
