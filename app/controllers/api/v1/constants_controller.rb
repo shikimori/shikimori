@@ -38,10 +38,10 @@ class Api::V1::ConstantsController < Api::V1Controller
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/constants/smileys'
   def smileys
-    collection = CommentHelper.class_variable_get(:@@smiley_groups).flatten.map do |smiley|
+    collection = BbCodes::Tags::SmileyTag::SMILEY_GROUPS.flatten.map do |smiley|
       {
         bbcode: smiley,
-        path: "#{CommentHelper.class_variable_get(:@@smileys_path)}#{smiley}.gif",
+        path: "#{BbCodes::Tags::SmileyTag::IMAGE_PATH}#{smiley}.gif",
       }
     end
 
