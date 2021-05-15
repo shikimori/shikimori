@@ -56,8 +56,8 @@ private
     HTML
   end
 
-  def video_bb_code url
-    "[html5_video]#{url}[/html5_video]"
+  def video_bb_code escaped_url
+    "[html5_video]#{escaped_url}[/html5_video]"
   end
 
   def match_url url
