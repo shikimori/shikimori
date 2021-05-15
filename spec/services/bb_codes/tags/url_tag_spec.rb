@@ -80,6 +80,19 @@ describe BbCodes::Tags::UrlTag do
     context 'webm url tag' do
       let(:url) { 'http://html5demos.com/assets/dizzy.webm' }
       it { is_expected.to eq '[html5_video]http://html5demos.com/assets/dizzy.webm[/html5_video]' }
+
+      context 'xss is not preliminary escaped' do
+        let(:escaped_in_BbCodes_Text_XSS) { ERB::Util.h '"\'<XSS>' }
+        let(:little_changed_XSS) { '&amp;quot;&amp;#39;&amp;lt;XSS&amp;gt;' }
+
+        let(:url) do
+          "http://html5demos.com/assets/dizzy#{escaped_in_BbCodes_Text_XSS}.webm"
+        end
+        it do
+          is_expected.to eq '[html5_video]' \
+            "http://html5demos.com/assets/dizzy#{little_changed_XSS}.webm[/html5_video]"
+        end
+      end
     end
 
     context 'mp4 url tag' do

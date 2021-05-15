@@ -35,7 +35,7 @@ class BbCodes::Tags::UrlTag
       css_class = $LAST_MATCH_INFO[:class]
 
       webm_link?(url) ?
-        video_bb_code(url) :
+        video_bb_code(escaped_url) :
         link_tag(url, text, css_class, is_shikimori)
     end
   end
@@ -52,7 +52,7 @@ private
 
     <<~HTML.squish
       <a class="#{ERB::Util.h css_classes}"
-      href="#{ERB::Util.h url}"#{REL unless is_shikimori}>#{ERB::Util.h link_text}</a>
+        href="#{ERB::Util.h url}"#{REL unless is_shikimori}>#{ERB::Util.h link_text}</a>
     HTML
   end
 

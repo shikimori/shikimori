@@ -18,7 +18,7 @@ class BbCodes::Tags::Html5VideoTag
 
   def format text
     text.gsub REGEXP do
-      url = $LAST_MATCH_INFO[:url]
+      url = CGI.unescapeHTML $LAST_MATCH_INFO[:url]
       html_tag(url).strip
     end
   end
