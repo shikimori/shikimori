@@ -46,12 +46,10 @@ class BbCodes::Tags::AnimeTag
 private
 
   def bbcode_to_html model, text
-    fixed_name = text.presence ?
-      ERB::Util.h(text) :
-      localization_span(model)
+    fixed_name = text.presence || localization_span(model)
 
     <<~HTML.squish
-      <a href='#{model_url model}' title='#{model.name}'
+      <a href='#{model_url model}' title='#{ERB::Util.h model.name}'
         class='bubbled b-link'
         data-tooltip_url='#{tooltip_url model}'
         data-attrs='#{ERB::Util.h attrs(model).to_json}'>#{fixed_name}</a>
@@ -72,10 +70,10 @@ private
 
   def localization_span model
     if model.russian.present?
-      "<span class='name-en'>#{model.name}</span>"\
-        "<span class='name-ru'>#{model.russian}</span>"
+      "<span class='name-en'>#{ERB::Util.h model.name}</span>"\
+        "<span class='name-ru'>#{ERB::Util.h model.russian}</span>"
     else
-      model.name
+      ERB::Util.h model.name
     end
   end
 
