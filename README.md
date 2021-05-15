@@ -413,3 +413,35 @@ rails i18n:js:export
 ```sh
 rails runner "ProxyWorker.new.perform; File.open('/tmp/proxies.json', 'w') { |f| f.write Proxy.all.to_json }" && scp /tmp/proxies.json shiki:/tmp/ && ssh devops@shiki 'source /home/devops/.zshrc && cd /home/apps/shikimori/production/current && RAILS_ENV=production bundle exec rails runner "Proxy.transaction do; Proxy.delete_all; JSON.parse(open(\"/tmp/proxies.json\").read, symbolize_names: true).each {|v| Proxy.create! v }; end; puts Proxy.count"'
 ```
+
+### Snippets
+
+Convert topic to article
+
+```ruby
+ApplicationRecord.transaction do
+  topic_id = 296373
+  topic = Topic.find topic_id
+  article = Article.create!(
+    state: 'published',
+    moderation_state: 'accepted',
+    approver_id: 1,
+    locale: 'ru',
+    created_at: topic.created_at,
+    updated_at: topic.updated_at,
+    changed_at: topic.updated_at,
+    name: topic.title,
+    user_id: topic.user_id,
+    body: topic.body
+  )
+  topic.update_columns(
+    title: nil,
+    forum_id: 21,
+    type: "Topics::EntryTopics::ArticleTopic",
+    generated: true,
+    body: nil,
+    linked_id: article.id,
+    linked_type: 'Article'
+  )
+end
+```
