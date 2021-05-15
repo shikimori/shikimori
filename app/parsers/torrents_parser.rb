@@ -7,7 +7,8 @@ class TorrentsParser
 
   IGNORED_TORRENTS = Set.new [
     'Chuunibyou demo Koi ga Shitai! Lite - 04 (640x360 x264 AAC).mp4',
-    '[WZF]Ore_no_Imouto_ga_Konna_ni_Kawaii_Wake_ga_Nai_-_Capitulo_13-15[BDRip][X264-AAC][1280x720][Sub_Esp]',
+    '[WZF]Ore_no_Imouto_ga_Konna_ni_Kawaii_Wake_ga_Nai_-_Capitulo_13-15' \
+      '[BDRip][X264-AAC][1280x720][Sub_Esp]',
     'Owari Subs] Mahouka Koukou no Rettousei ~ Esplorando Mahouka 03 [Webrip][207F8116].mkv',
     '[iPUNISHER] Mahouka Koukou No Rettousei - Yoku Wakaru Mahouka - 03 [720p][AAC].mkv',
     '[모에-Raws] Kuzu no Honkai #04 (CX 1280x720 x264 AAC).mp4'
@@ -20,7 +21,7 @@ class TorrentsParser
   ANIME_WITH_NAME_MATCH_ONLY = [10_049, 10_033, 6336, 11_319]
   ANIME_WITH_ALL_SUB_GROUPS = [9539, 12_979, 13_163, 6702, 15_417]
 
-  END_OF_NAME = /[\w()_!~?\.+-‒]+/
+  END_OF_NAME = /[\w()_!~?.+-‒]+/
   EPISODE_FOR_HISTORY_REGEXES = /
     #{END_OF_NAME} # last part of name
     (?: _- )?
@@ -31,7 +32,7 @@ class TorrentsParser
     (\d+) # episode name
     (?: _-_Part_\d )?
     (?: v[0-3] )? # v0 v1 v2 - release version
-    (?: _ \( \d{1,2} \) )? # additional episode number in bracked
+    (?: _ \( \d{1,3} \) )? # additional episode number in brackets
     [_-]*
     (?: _rev\d )?
     (?: _RAW | _END )?
@@ -61,11 +62,12 @@ class TorrentsParser
   EPISODES_WITH_COMMA_FOR_HISTORY_REGEXES = [
     /#{END_OF_NAME}_(\d+)-(\d+),_?(\d+)_raw_720/i
   ]
+
   def self.extract_episodes_num episode_name
     return [] if IGNORED_TORRENTS.include? episode_name
     return [] if ignored_phrases? episode_name
 
-    num = parse_episodes_num(episode_name).select { |v| v < 1000 }
+    num = parse_episodes_num(episode_name).select { |v| v < 2000 }
 
     if episode_name =~ /cardfight!![ _]vanguard/i && episode_name =~ /link[ _]joker/i
       num.map { |v| v - 104 }

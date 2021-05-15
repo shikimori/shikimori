@@ -1,7 +1,7 @@
 class TorrentsController < ShikimoriController
   def create
     @klass = Anime
-    anime = Anime.find(params[:id].to_i)
+    anime = Anime.find CopyrightedIds.instance.restore(params[:id], 'anime')
 
     authorize! :upload_episode, anime
 

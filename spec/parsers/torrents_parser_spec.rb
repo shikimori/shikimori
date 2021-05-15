@@ -30,6 +30,7 @@ describe TorrentsParser do
       it { expect(TorrentsParser.extract_episodes_num('[OPC-Raws]_One_Piece_556_[D-CX_1280x720_VFR_H264_AAC]_[F8F6F8A2].mp4')).to eq [556] }
       it { expect(TorrentsParser.extract_episodes_num('[Leopard-Raws] Panty & Stocking with Garterbelt - 01 RAW (BS4 1280x720 x264 AAC).mp4')).to eq [1] }
       it { expect(TorrentsParser.extract_episodes_num('[Sena-Raws] Teekyuu 2 - 04 (AT-X HD! 1280x720 x264 AAC).mp4')).to eq [4] }
+      it { expect(TorrentsParser.extract_episodes_num('[SSA] Detective Conan - 1006 [480p].mkv')).to eq [1006] }
     end
 
     it 'last episodes' do
@@ -43,7 +44,7 @@ describe TorrentsParser do
 
     it 'too big numbers' do
       expect(TorrentsParser.extract_episodes_num('[Leopard-Raws] Anime 999 (MBS 1280x720 x264 AAC).mp3')).to eq [999]
-      expect(TorrentsParser.extract_episodes_num('[Leopard-Raws] Anime 1001 (MBS 1280x720 x264 AAC).mp3')).to eq []
+      expect(TorrentsParser.extract_episodes_num('[Leopard-Raws] Anime 2001 (MBS 1280x720 x264 AAC).mp3')).to eq []
     end
 
     it 'gintama' do
