@@ -1645,8 +1645,9 @@
     :border_color: "#DC143C"
     :title_ru: Контракт заключён
     :text_ru: My master, положено начало вашего становления юной волшебницей.
-    :title_en:
-    :text_en:
+    :title_en: The contract is signed
+    :text_en: My master, the beginning of your development as a young sorceress has
+      been laid.
     :topic_id: 222067
     :rule: &30
       :algo: count
@@ -2101,8 +2102,9 @@
   border_color: "#DC143C"
   title_ru: Контракт заключён
   text_ru: My master, положено начало вашего становления юной волшебницей.
-  title_en:
-  text_en:
+  title_en: The contract is signed
+  text_en: My master, the beginning of your development as a young sorceress has been
+    laid.
   topic_id: 222067
   rule: *30
   mandatory_attributes: *4
@@ -2115,8 +2117,9 @@
     :title_ru: Магия — второе имя
     :text_ru: Не важно, какой ваш пол и сколько вам лет, если ваше призвание — нести
       любовь и справедливость.
-    :title_en:
-    :text_en:
+    :title_en: Magic is a Second Name
+    :text_en: It doesn't matter what your gender or how old you are, as long as your
+      calling is to bring love and justice.
     :topic_id: 0
     :rule: &31
       :algo: count
@@ -2572,8 +2575,9 @@
   title_ru: Магия — второе имя
   text_ru: Не важно, какой ваш пол и сколько вам лет, если ваше призвание — нести
     любовь и справедливость.
-  title_en:
-  text_en:
+  title_en: Magic is a Second Name
+  text_en: It doesn't matter what your gender or how old you are, as long as your
+    calling is to bring love and justice.
   topic_id: 0
   rule: *31
   mandatory_attributes: *4
@@ -2585,8 +2589,8 @@
     :border_color: "#4169E1"
     :title_ru: Все враги побеждены
     :text_ru: Опасность миновала! Можно возвращаться к семье и школьным друзьям.
-    :title_en:
-    :text_en:
+    :title_en: All enemies defeated
+    :text_en: The danger is over! You can go back to your family and school friends.
     :topic_id: 0
     :rule: &32
       :algo: count
@@ -3041,8 +3045,8 @@
   border_color: "#4169E1"
   title_ru: Все враги побеждены
   text_ru: Опасность миновала! Можно возвращаться к семье и школьным друзьям.
-  title_en:
-  text_en:
+  title_en: All enemies defeated
+  text_en: The danger is over! You can go back to your family and school friends.
   topic_id: 0
   rule: *32
   mandatory_attributes: *4
@@ -3054,8 +3058,8 @@
     :border_color: "#FE28A2"
     :title_ru: Настоящее волшебство?
     :text_ru: Вашим силам теперь подвластно само мироздание.
-    :title_en:
-    :text_en:
+    :title_en: Real magic?
+    :text_en: Your powers allow to change the universe
     :topic_id: 0
     :rule: &33
       :algo: count
@@ -3510,8 +3514,8 @@
   border_color: "#FE28A2"
   title_ru: Настоящее волшебство?
   text_ru: Вашим силам теперь подвластно само мироздание.
-  title_en:
-  text_en:
+  title_en: Real magic?
+  text_en: Your powers allow to change the universe
   topic_id: 0
   rule: *33
   mandatory_attributes: *4
@@ -3651,8 +3655,8 @@
     :border_color: "#B03F35"
     :title_ru: Народный дружинник
     :text_ru: На улицах неспокойно. Нельзя терять бдительности.
-    :title_en:
-    :text_en:
+    :title_en: People's vigilant
+    :text_en: The streets are turbulent. Can't let our guard down
     :topic_id: 222038
     :rule: &38
       :algo: count
@@ -3673,8 +3677,8 @@
   border_color: "#B03F35"
   title_ru: Народный дружинник
   text_ru: На улицах неспокойно. Нельзя терять бдительности.
-  title_en:
-  text_en:
+  title_en: People's vigilant
+  text_en: The streets are turbulent. Can't let our guard down
   topic_id: 222038
   rule: *38
   mandatory_attributes: *4
@@ -3686,8 +3690,8 @@
     :border_color: "#c34d0a"
     :title_ru: Гражданин, пройдёмте
     :text_ru: У каждого полицейского есть дело, которое не даёт ему покоя.
-    :title_en:
-    :text_en:
+    :title_en: You are detained
+    :text_en: Every policeman has a case that keeps him busy.
     :topic_id: 0
     :rule: &39
       :algo: count
@@ -3708,8 +3712,8 @@
   border_color: "#c34d0a"
   title_ru: Гражданин, пройдёмте
   text_ru: У каждого полицейского есть дело, которое не даёт ему покоя.
-  title_en:
-  text_en:
+  title_en: You are detained
+  text_en: Every policeman has a case that keeps him busy.
   topic_id: 0
   rule: *39
   mandatory_attributes: *4
@@ -3721,8 +3725,8 @@
     :border_color: "#f4a900"
     :title_ru: Отдел особого назначения
     :text_ru: О скольких способах противостояния преступникам вы осведомлены?
-    :title_en:
-    :text_en:
+    :title_en: Special Purpose Division
+    :text_en: How many ways to confront criminals are you aware of?
     :topic_id: 0
     :rule: &40
       :algo: count
@@ -3743,8 +3747,8 @@
   border_color: "#f4a900"
   title_ru: Отдел особого назначения
   text_ru: О скольких способах противостояния преступникам вы осведомлены?
-  title_en:
-  text_en:
+  title_en: Special Purpose Division
+  text_en: How many ways to confront criminals are you aware of?
   topic_id: 0
   rule: *40
   mandatory_attributes: *4
@@ -3756,8 +3760,8 @@
     :border_color: "#c7d0cc"
     :title_ru: Вершина иерархии
     :text_ru: Как вы себя чувствуете, забравшись так далеко?
-    :title_en:
-    :text_en:
+    :title_en: Top of the hierarchy
+    :text_en: How do you feel about getting this far?
     :topic_id: 0
     :rule: &41
       :algo: count
@@ -3778,8 +3782,8 @@
   border_color: "#c7d0cc"
   title_ru: Вершина иерархии
   text_ru: Как вы себя чувствуете, забравшись так далеко?
-  title_en:
-  text_en:
+  title_en: Top of the hierarchy
+  text_en: How do you feel about getting this far?
   topic_id: 0
   rule: *41
   mandatory_attributes: *4
@@ -4038,8 +4042,8 @@
     :border_color: "#A25F2A"
     :title_ru: Марафонец
     :text_ru: 10, 20, 30... 100 эпизодов! Я только разогреваюсь!
-    :title_en:
-    :text_en:
+    :title_en: Marathoner
+    :text_en: 10, 20, 30... 100 episodes! I'm just warming up!
     :topic_id: 227422
     :rule: &50
       :algo: count
@@ -4054,8 +4058,8 @@
   border_color: "#A25F2A"
   title_ru: Марафонец
   text_ru: 10, 20, 30... 100 эпизодов! Я только разогреваюсь!
-  title_en:
-  text_en:
+  title_en: Marathoner
+  text_en: 10, 20, 30... 100 episodes! I'm just warming up!
   topic_id: 227422
   rule: *50
   mandatory_attributes: *4
@@ -4068,8 +4072,9 @@
     :title_ru: Собиратель Колоссов
     :text_ru: Вас интересуют только монументальные произведения, ведь на мелочи вы
       не размениваетесь.
-    :title_en:
-    :text_en:
+    :title_en: Colossus Collector
+    :text_en: You are only interested in monumental works, because you do not change
+      it for trifles.
     :topic_id: 0
     :rule: &51
       :algo: count
@@ -4085,8 +4090,9 @@
   title_ru: Собиратель Колоссов
   text_ru: Вас интересуют только монументальные произведения, ведь на мелочи вы не
     размениваетесь.
-  title_en:
-  text_en:
+  title_en: Colossus Collector
+  text_en: You are only interested in monumental works, because you do not change
+    it for trifles.
   topic_id: 0
   rule: *51
   mandatory_attributes: *4
@@ -5653,8 +5659,8 @@
     :border_color: "#755C48"
     :title_ru: Так мужественно, что не вздохнуть
     :text_ru: Ваши первые шаги в жанре, а борода уже не сбривается.
-    :title_en:
-    :text_en:
+    :title_en: So courageous that you can't breathe.
+    :text_en: Your first steps in the genre, and your beard is no longer shaved off.
     :topic_id: 227419
     :rule: &59
       :algo: count
@@ -6157,8 +6163,8 @@
   border_color: "#755C48"
   title_ru: Так мужественно, что не вздохнуть
   text_ru: Ваши первые шаги в жанре, а борода уже не сбривается.
-  title_en:
-  text_en:
+  title_en: So courageous that you can't breathe.
+  text_en: Your first steps in the genre, and your beard is no longer shaved off.
   topic_id: 227419
   rule: *59
   mandatory_attributes: *4
@@ -6170,8 +6176,8 @@
     :border_color: "#c79001"
     :title_ru: Тестостероновый шторм
     :text_ru: Вы больше не помещаетесь в зеркалах.
-    :title_en:
-    :text_en:
+    :title_en: Testosterone storm
+    :text_en: You no longer fit in mirrors.
     :topic_id: 0
     :rule: &60
       :algo: count
@@ -6674,8 +6680,8 @@
   border_color: "#c79001"
   title_ru: Тестостероновый шторм
   text_ru: Вы больше не помещаетесь в зеркалах.
-  title_en:
-  text_en:
+  title_en: Testosterone storm
+  text_en: You no longer fit in mirrors.
   topic_id: 0
   rule: *60
   mandatory_attributes: *4
@@ -6687,8 +6693,8 @@
     :border_color: "#c537a3"
     :title_ru: Альфа-самец
     :text_ru: Физика играет по вашим правилам.
-    :title_en:
-    :text_en:
+    :title_en: Alpha male
+    :text_en: Physics plays by your rules.
     :topic_id: 0
     :rule: &61
       :algo: count
@@ -7191,8 +7197,8 @@
   border_color: "#c537a3"
   title_ru: Альфа-самец
   text_ru: Физика играет по вашим правилам.
-  title_en:
-  text_en:
+  title_en: Alpha male
+  text_en: Physics plays by your rules.
   topic_id: 0
   rule: *61
   mandatory_attributes: *4
@@ -7204,8 +7210,8 @@
     :border_color: "#708090"
     :title_ru: Пилот Evangelion Unit
     :text_ru: ОЯШ, полезай в робота!
-    :title_en:
-    :text_en:
+    :title_en: Evangelion Unit Pilot
+    :text_en: Get In The Freaking Robot Shinji
     :topic_id: 222036
     :rule: &62
       :algo: count
@@ -7221,8 +7227,8 @@
   border_color: "#708090"
   title_ru: Пилот Evangelion Unit
   text_ru: ОЯШ, полезай в робота!
-  title_en:
-  text_en:
+  title_en: Evangelion Unit Pilot
+  text_en: Get In The Freaking Robot Shinji
   topic_id: 222036
   rule: *62
   mandatory_attributes: *4
@@ -7235,8 +7241,9 @@
     :title_ru: Hasshin!
     :text_ru: Некогда непривычный костюм пилота теперь сидит как влитой. Вы — ас,
       впереди — бесконечные сражения.
-    :title_en:
-    :text_en:
+    :title_en: Hasshin!
+    :text_en: The once unfamiliar pilot's suit now fits like a glove. You're an ace,
+      with endless battles ahead of you.
     :topic_id: 0
     :rule: &63
       :algo: count
@@ -7253,8 +7260,9 @@
   title_ru: Hasshin!
   text_ru: Некогда непривычный костюм пилота теперь сидит как влитой. Вы — ас, впереди
     — бесконечные сражения.
-  title_en:
-  text_en:
+  title_en: Hasshin!
+  text_en: The once unfamiliar pilot's suit now fits like a glove. You're an ace,
+    with endless battles ahead of you.
   topic_id: 0
   rule: *63
   mandatory_attributes: *4
@@ -7267,8 +7275,9 @@
     :title_ru: Man of Steel
     :text_ru: Можете взять яйцо не раздавив, можете исполнить танцевальное па... но
       боевой доспех стал вашей второй кожей не для этого.
-    :title_en:
-    :text_en:
+    :title_en: Man of Steel
+    :text_en: You can take an egg without crushing it, you can do a dance move...
+      but that's not what the battle armor was your second skin for.
     :topic_id: 0
     :rule: &64
       :algo: count
@@ -7285,8 +7294,9 @@
   title_ru: Man of Steel
   text_ru: Можете взять яйцо не раздавив, можете исполнить танцевальное па... но боевой
     доспех стал вашей второй кожей не для этого.
-  title_en:
-  text_en:
+  title_en: Man of Steel
+  text_en: You can take an egg without crushing it, you can do a dance move... but
+    that's not what the battle armor was your second skin for.
   topic_id: 0
   rule: *64
   mandatory_attributes: *4
@@ -7298,8 +7308,8 @@
     :border_color: "#20B2AA"
     :title_ru: Ньютайп
     :text_ru: ORE WA GUNDAM
-    :title_en:
-    :text_en:
+    :title_en: Newtype
+    :text_en: ORE WA GUNDAM
     :topic_id: 0
     :rule: &65
       :algo: count
@@ -7315,8 +7325,8 @@
   border_color: "#20B2AA"
   title_ru: Ньютайп
   text_ru: ORE WA GUNDAM
-  title_en:
-  text_en:
+  title_en: Newtype
+  text_en: ORE WA GUNDAM
   topic_id: 0
   rule: *65
   mandatory_attributes: *4
@@ -7328,8 +7338,8 @@
     :border_color: "#006400"
     :title_ru: Новобранец
     :text_ru: Зачислены на военную службу в очередной призыв.
-    :title_en:
-    :text_en:
+    :title_en: The Rookie
+    :text_en: Enlisted in the regular draft
     :topic_id: 222037
     :rule: &66
       :algo: count
@@ -7345,8 +7355,8 @@
   border_color: "#006400"
   title_ru: Новобранец
   text_ru: Зачислены на военную службу в очередной призыв.
-  title_en:
-  text_en:
+  title_en: The Rookie
+  text_en: Enlisted in the regular draft
   topic_id: 222037
   rule: *66
   mandatory_attributes: *4
@@ -7358,8 +7368,8 @@
     :border_color: "#5f665a"
     :title_ru: Сержант
     :text_ru: Толковый сержант необыкновенно полезен в армии, так ведь?
-    :title_en:
-    :text_en:
+    :title_en: Sergeant
+    :text_en: A smart sergeant is unusually useful in the army, isn't he?
     :topic_id: 0
     :rule: &67
       :algo: count
@@ -7375,8 +7385,8 @@
   border_color: "#5f665a"
   title_ru: Сержант
   text_ru: Толковый сержант необыкновенно полезен в армии, так ведь?
-  title_en:
-  text_en:
+  title_en: Sergeant
+  text_en: A smart sergeant is unusually useful in the army, isn't he?
   topic_id: 0
   rule: *67
   mandatory_attributes: *4
@@ -7388,8 +7398,8 @@
     :border_color: "#101011"
     :title_ru: Майор
     :text_ru: Забыли о человеческих чувствах ради долга.
-    :title_en:
-    :text_en:
+    :title_en: Major
+    :text_en: Forget human feelings for the sake of duty.
     :topic_id: 0
     :rule: &68
       :algo: count
@@ -7405,8 +7415,8 @@
   border_color: "#101011"
   title_ru: Майор
   text_ru: Забыли о человеческих чувствах ради долга.
-  title_en:
-  text_en:
+  title_en: Major
+  text_en: Forget human feelings for the sake of duty.
   topic_id: 0
   rule: *68
   mandatory_attributes: *4
@@ -7418,8 +7428,8 @@
     :border_color: "#2a456e"
     :title_ru: Генерал
     :text_ru: Запах напалма поутру вам нравится больше, чем аниме.
-    :title_en:
-    :text_en:
+    :title_en: General
+    :text_en: You like the smell of gunpowder in the morning better than anime.
     :topic_id: 0
     :rule: &69
       :algo: count
@@ -7435,8 +7445,8 @@
   border_color: "#2a456e"
   title_ru: Генерал
   text_ru: Запах напалма поутру вам нравится больше, чем аниме.
-  title_en:
-  text_en:
+  title_en: General
+  text_en: You like the smell of gunpowder in the morning better than anime.
   topic_id: 0
   rule: *69
   mandatory_attributes: *4
@@ -15242,6 +15252,9 @@
         - 36683
         - 37264
       :threshold: 92.9%
+      :generator:
+        ignore_latest_ids:
+        - 48896
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :overlord
@@ -22011,6 +22024,8 @@
         - 48617
       :threshold: 95.1%
       :generator:
+        ignore_latest_ids:
+        - 48903
         not_ignored_ids:
         - 502
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -30076,8 +30091,8 @@
     :title_ru: Уроки истории
     :text_ru: История может быть захватывающей... Вот только не стоит учить ее по
       аниме.
-    :title_en:
-    :text_en:
+    :title_en: History Lessons
+    :text_en: A history can be fascinating... But don't learn it from an anime.
     :topic_id: 222065
     :rule: &588
       :algo: count
@@ -30093,8 +30108,8 @@
   border_color: "#C5D0E6"
   title_ru: Уроки истории
   text_ru: История может быть захватывающей... Вот только не стоит учить ее по аниме.
-  title_en:
-  text_en:
+  title_en: History Lessons
+  text_en: A history can be fascinating... But don't learn it from an anime.
   topic_id: 222065
   rule: *588
   mandatory_attributes: *4
@@ -30106,8 +30121,8 @@
     :border_color: "#4f3542"
     :title_ru: Оглянувшись назад
     :text_ru: Не знающий своего прошлого, не имеет будущего.
-    :title_en:
-    :text_en:
+    :title_en: In hindsight
+    :text_en: Who does not know his past has no future
     :topic_id: 0
     :rule: &589
       :algo: count
@@ -30123,8 +30138,8 @@
   border_color: "#4f3542"
   title_ru: Оглянувшись назад
   text_ru: Не знающий своего прошлого, не имеет будущего.
-  title_en:
-  text_en:
+  title_en: In hindsight
+  text_en: Who does not know his past has no future
   topic_id: 0
   rule: *589
   mandatory_attributes: *4
@@ -30136,8 +30151,8 @@
     :border_color: "#353a58"
     :title_ru: Археолог
     :text_ru: Разбитая посуда приносит счастье только археологам.
-    :title_en:
-    :text_en:
+    :title_en: Archaeologist
+    :text_en: Broken crockery brings happiness only to archaeologists.
     :topic_id: 0
     :rule: &590
       :algo: count
@@ -30153,8 +30168,8 @@
   border_color: "#353a58"
   title_ru: Археолог
   text_ru: Разбитая посуда приносит счастье только археологам.
-  title_en:
-  text_en:
+  title_en: Archaeologist
+  text_en: Broken crockery brings happiness only to archaeologists.
   topic_id: 0
   rule: *590
   mandatory_attributes: *4
@@ -30167,8 +30182,9 @@
     :title_ru: Путешественник во времени
     :text_ru: Машина времени есть у каждого. Для путешествия в прошлое есть воспоминания,
       а для путешествия в будущее — мечты.
-    :title_en:
-    :text_en:
+    :title_en: Time Traveler
+    :text_en: Everyone has a time machine. There are memories for traveling to the
+      past and dreams for traveling to the future.
     :topic_id: 0
     :rule: &591
       :algo: count
@@ -30185,8 +30201,9 @@
   title_ru: Путешественник во времени
   text_ru: Машина времени есть у каждого. Для путешествия в прошлое есть воспоминания,
     а для путешествия в будущее — мечты.
-  title_en:
-  text_en:
+  title_en: Time Traveler
+  text_en: Everyone has a time machine. There are memories for traveling to the past
+    and dreams for traveling to the future.
   topic_id: 0
   rule: *591
   mandatory_attributes: *4
@@ -30198,8 +30215,8 @@
     :border_color: "#228b22"
     :title_ru: Родом из детства
     :text_ru: Аниме — это один из маленьких шансов вернуться в детство.
-    :title_en:
-    :text_en:
+    :title_en: From childhood
+    :text_en: Anime is one small chance to go back to childhood.
     :topic_id: 245150
     :rule: &592
       :algo: count
@@ -30219,8 +30236,8 @@
   border_color: "#228b22"
   title_ru: Родом из детства
   text_ru: Аниме — это один из маленьких шансов вернуться в детство.
-  title_en:
-  text_en:
+  title_en: From childhood
+  text_en: Anime is one small chance to go back to childhood.
   topic_id: 245150
   rule: *592
   mandatory_attributes: *4
@@ -30361,8 +30378,8 @@
     :border_color: "#FBCEB1"
     :title_ru: Звуки музыки
     :text_ru: Они раскрашивают этот мир в яркие цвета.
-    :title_en:
-    :text_en:
+    :title_en: Sounds of music
+    :text_en: They bring brightness to our lives.
     :topic_id: 222061
     :rule: &597
       :algo: count
@@ -30378,8 +30395,8 @@
   border_color: "#FBCEB1"
   title_ru: Звуки музыки
   text_ru: Они раскрашивают этот мир в яркие цвета.
-  title_en:
-  text_en:
+  title_en: Sounds of music
+  text_en: They bring brightness to our lives.
   topic_id: 222061
   rule: *597
   mandatory_attributes: *4
@@ -30392,8 +30409,9 @@
     :title_ru: Там, где слова бессильны
     :text_ru: Музыка – это язык, на котором душа общается с душою, стирая границы
       условностей.
-    :title_en:
-    :text_en:
+    :title_en: Where words are powerless.
+    :text_en: Music is a language in which the soul communicates with the soul, erasing
+      the boundaries of convention.
     :topic_id: 0
     :rule: &598
       :algo: count
@@ -30409,8 +30427,9 @@
   border_color: "#9DB1CC"
   title_ru: Там, где слова бессильны
   text_ru: Музыка – это язык, на котором душа общается с душою, стирая границы условностей.
-  title_en:
-  text_en:
+  title_en: Where words are powerless.
+  text_en: Music is a language in which the soul communicates with the soul, erasing
+    the boundaries of convention.
   topic_id: 0
   rule: *598
   mandatory_attributes: *4
@@ -30423,8 +30442,9 @@
     :title_ru: Новая мелодия
     :text_ru: В буре страстей и море эмоций рождаются композиции, способные изменить
       мир.
-    :title_en:
-    :text_en:
+    :title_en: New Tune
+    :text_en: In the storm of passion and the sea of emotion, compositions capable
+      of changing the world are born.
     :topic_id: 0
     :rule: &599
       :algo: count
@@ -30441,8 +30461,9 @@
   title_ru: Новая мелодия
   text_ru: В буре страстей и море эмоций рождаются композиции, способные изменить
     мир.
-  title_en:
-  text_en:
+  title_en: New Tune
+  text_en: In the storm of passion and the sea of emotion, compositions capable of
+    changing the world are born.
   topic_id: 0
   rule: *599
   mandatory_attributes: *4
@@ -30455,8 +30476,9 @@
     :title_ru: Играя на струнах души
     :text_ru: Музыка – это не просто красивые мелодии, без нее сама жизнь была бы
       ошибкой.
-    :title_en:
-    :text_en:
+    :title_en: Playing on the soul's strings
+    :text_en: Music is not just beautiful melodies; without it, life itself would
+      be a mistake.
     :topic_id: 0
     :rule: &600
       :algo: count
@@ -30472,8 +30494,9 @@
   border_color: "#4D4234"
   title_ru: Играя на струнах души
   text_ru: Музыка – это не просто красивые мелодии, без нее сама жизнь была бы ошибкой.
-  title_en:
-  text_en:
+  title_en: Playing on the soul's strings
+  text_en: Music is not just beautiful melodies; without it, life itself would be
+    a mistake.
   topic_id: 0
   rule: *600
   mandatory_attributes: *4
@@ -30487,8 +30510,10 @@
     :text_ru: |-
       Классика западной литературы глазами Востока.
       Встретиться с любимой книгой дважды — в бумаге и на экране.
-    :title_en:
-    :text_en:
+    :title_en: World Masterpiece Theater
+    :text_en: |-
+      The classics of Western literature through the eyes of the East.
+      Meet your favorite book twice - in paper and on screen.
     :topic_id: 248176
     :rule: &601
       :algo: count
@@ -30531,8 +30556,10 @@
   text_ru: |-
     Классика западной литературы глазами Востока.
     Встретиться с любимой книгой дважды — в бумаге и на экране.
-  title_en:
-  text_en:
+  title_en: World Masterpiece Theater
+  text_en: |-
+    The classics of Western literature through the eyes of the East.
+    Meet your favorite book twice - in paper and on screen.
   topic_id: 248176
   rule: *601
   mandatory_attributes: *4
@@ -30800,8 +30827,8 @@
     :border_color: "#FFDC33"
     :title_ru: Первый заезд
     :text_ru: Стартовый свисток дан — вперед!
-    :title_en:
-    :text_en:
+    :title_en: First race
+    :text_en: The starting whistle is blown - go!
     :topic_id: 227429
     :rule: &610
       :algo: count
@@ -30817,8 +30844,8 @@
   border_color: "#FFDC33"
   title_ru: Первый заезд
   text_ru: Стартовый свисток дан — вперед!
-  title_en:
-  text_en:
+  title_en: First race
+  text_en: The starting whistle is blown - go!
   topic_id: 227429
   rule: *610
   mandatory_attributes: *4
@@ -30830,8 +30857,8 @@
     :border_color: "#cc1111"
     :title_ru: С головой ушел в игру
     :text_ru: Борьба в самом разгаре, пора войти в Зону.
-    :title_en:
-    :text_en:
+    :title_en: Got into the game
+    :text_en: The fight is in full swing, it's time to enter the Zone.
     :topic_id: 0
     :rule: &611
       :algo: count
@@ -30847,8 +30874,8 @@
   border_color: "#cc1111"
   title_ru: С головой ушел в игру
   text_ru: Борьба в самом разгаре, пора войти в Зону.
-  title_en:
-  text_en:
+  title_en: Got into the game
+  text_en: The fight is in full swing, it's time to enter the Zone.
   topic_id: 0
   rule: *611
   mandatory_attributes: *4
@@ -30859,9 +30886,9 @@
     :image: "/assets/achievements/anime/sports_3.jpg"
     :border_color: "#82c54f"
     :title_ru: Добро пожаловать в Высшую лигу
-    :text_ru: Остался последний рывок до победы.
-    :title_en:
-    :text_en:
+    :text_ru: Остался последний рывок до победы!
+    :title_en: Welcome to the Major League
+    :text_en: One last push to win!
     :topic_id: 0
     :rule: &612
       :algo: count
@@ -30876,9 +30903,9 @@
   image: "/assets/achievements/anime/sports_3.jpg"
   border_color: "#82c54f"
   title_ru: Добро пожаловать в Высшую лигу
-  text_ru: Остался последний рывок до победы.
-  title_en:
-  text_en:
+  text_ru: Остался последний рывок до победы!
+  title_en: Welcome to the Major League
+  text_en: One last push to win!
   topic_id: 0
   rule: *612
   mandatory_attributes: *4
@@ -30890,8 +30917,8 @@
     :border_color: "#c45812"
     :title_ru: Олимпийский чемпион
     :text_ru: На вершине пьедестала. Отличная работа!
-    :title_en:
-    :text_en:
+    :title_en: Olympic champion
+    :text_en: On top of the pedestal. Great job!
     :topic_id: 0
     :rule: &613
       :algo: count
@@ -30907,8 +30934,8 @@
   border_color: "#c45812"
   title_ru: Олимпийский чемпион
   text_ru: На вершине пьедестала. Отличная работа!
-  title_en:
-  text_en:
+  title_en: Olympic champion
+  text_en: On top of the pedestal. Great job!
   topic_id: 0
   rule: *613
   mandatory_attributes: *4
@@ -32176,8 +32203,8 @@
     :border_color: "#f0d698"
     :title_ru: Братик
     :text_ru: Вы знаете, как счастливо жить с сестрёнкой вечно.
-    :title_en:
-    :text_en:
+    :title_en: Onii-chan~~
+    :text_en: You know how to live happily ever after with a sissy.
     :topic_id: 227425
     :rule: &617
       :algo: count
@@ -32300,8 +32327,8 @@
   border_color: "#f0d698"
   title_ru: Братик
   text_ru: Вы знаете, как счастливо жить с сестрёнкой вечно.
-  title_en:
-  text_en:
+  title_en: Onii-chan~~
+  text_en: You know how to live happily ever after with a sissy.
   topic_id: 227425
   rule: *617
   mandatory_attributes: *4
@@ -32550,8 +32577,8 @@
     :border_color: "#e82a8d"
     :title_ru: Вуайерист-любитель
     :text_ru: Поздравляем! В тебе проснулась внутренняя фудзёси!
-    :title_en:
-    :text_en:
+    :title_en: Amateur Voyeurist
+    :text_en: Congratulations! The inner fujoshi has awakened in you!
     :topic_id: 227418
     :rule: &626
       :algo: count
@@ -32568,8 +32595,8 @@
   border_color: "#e82a8d"
   title_ru: Вуайерист-любитель
   text_ru: Поздравляем! В тебе проснулась внутренняя фудзёси!
-  title_en:
-  text_en:
+  title_en: Amateur Voyeurist
+  text_en: Congratulations! The inner fujoshi has awakened in you!
   topic_id: 227418
   rule: *626
   mandatory_attributes: *4
@@ -32582,8 +32609,9 @@
     :title_ru: Голубок
     :text_ru: Поворачивать назад уже слишком поздно. Пора совершить каминг-аут и наконец-то
       признать свою любовь к "не очень традиционным" историям.
-    :title_en:
-    :text_en:
+    :title_en: Dove
+    :text_en: It's too late to turn back now. It's time to make a cameo and finally
+      admit your love for "not so traditional" stories.
     :topic_id: 0
     :rule: &627
       :algo: count
@@ -32601,8 +32629,9 @@
   title_ru: Голубок
   text_ru: Поворачивать назад уже слишком поздно. Пора совершить каминг-аут и наконец-то
     признать свою любовь к "не очень традиционным" историям.
-  title_en:
-  text_en:
+  title_en: Dove
+  text_en: It's too late to turn back now. It's time to make a cameo and finally admit
+    your love for "not so traditional" stories.
   topic_id: 0
   rule: *627
   mandatory_attributes: *4
@@ -32614,8 +32643,8 @@
     :border_color: "#e82a8d"
     :title_ru: Шиппер
     :text_ru: Мужская дружба? Не, не слышали.
-    :title_en:
-    :text_en:
+    :title_en: Shipper
+    :text_en: Male friendship? No, you haven't.
     :topic_id: 0
     :rule: &628
       :algo: count
@@ -32632,8 +32661,8 @@
   border_color: "#e82a8d"
   title_ru: Шиппер
   text_ru: Мужская дружба? Не, не слышали.
-  title_en:
-  text_en:
+  title_en: Shipper
+  text_en: Male friendship? No, you haven't.
   topic_id: 0
   rule: *628
   mandatory_attributes: *4
@@ -32645,8 +32674,8 @@
     :border_color: "#915274"
     :title_ru: Яойный бог
     :text_ru: Яой — не жанр. Яой — это стиль жизни.
-    :title_en:
-    :text_en:
+    :title_en: Yaoi God
+    :text_en: Yaoi is not a genre. Yaoi is a way of life.
     :topic_id: 0
     :rule: &629
       :algo: count
@@ -32663,8 +32692,8 @@
   border_color: "#915274"
   title_ru: Яойный бог
   text_ru: Яой — не жанр. Яой — это стиль жизни.
-  title_en:
-  text_en:
+  title_en: Yaoi God
+  text_en: Yaoi is not a genre. Yaoi is a way of life.
   topic_id: 0
   rule: *629
   mandatory_attributes: *4
@@ -32676,8 +32705,8 @@
     :border_color: "#172d91"
     :title_ru: 3–2–1... Пуск!
     :text_ru: Маленький шаг для одного человека, но гигантский скачок для всего человечества.
-    :title_en:
-    :text_en:
+    :title_en: 3-2-1... Launch!
+    :text_en: That's one small step for man, one giant leap for mankind
     :topic_id: 227428
     :rule: &630
       :algo: count
@@ -32693,8 +32722,8 @@
   border_color: "#172d91"
   title_ru: 3–2–1... Пуск!
   text_ru: Маленький шаг для одного человека, но гигантский скачок для всего человечества.
-  title_en:
-  text_en:
+  title_en: 3-2-1... Launch!
+  text_en: That's one small step for man, one giant leap for mankind
   topic_id: 227428
   rule: *630
   mandatory_attributes: *4
@@ -32707,8 +32736,9 @@
     :title_ru: Земля отсюда совсем крошечная
     :text_ru: До чего же прекрасна Земля, если глядеть на неё сверху! Однако, не слишком
       ли тесно? Вашему миру пора расширяться — от маленькой Земли до целой вселенной.
-    :title_en:
-    :text_en:
+    :title_en: The earth is tiny from here
+    :text_en: From this distant vantage point, the Earth might not seem of particular
+      interest. But for us, it's different.
     :topic_id: 0
     :rule: &631
       :algo: count
@@ -32725,8 +32755,9 @@
   title_ru: Земля отсюда совсем крошечная
   text_ru: До чего же прекрасна Земля, если глядеть на неё сверху! Однако, не слишком
     ли тесно? Вашему миру пора расширяться — от маленькой Земли до целой вселенной.
-  title_en:
-  text_en:
+  title_en: The earth is tiny from here
+  text_en: From this distant vantage point, the Earth might not seem of particular
+    interest. But for us, it's different.
   topic_id: 0
   rule: *631
   mandatory_attributes: *4
@@ -32738,8 +32769,8 @@
     :border_color: "#bb7171"
     :title_ru: Межзвездный скиталец
     :text_ru: Космос. Он так пуст, но в то же время полон жизни.
-    :title_en:
-    :text_en:
+    :title_en: Interstellar Wanderer
+    :text_en: Space. It is so empty, but at the same time full of life.
     :topic_id: 0
     :rule: &632
       :algo: count
@@ -32755,8 +32786,8 @@
   border_color: "#bb7171"
   title_ru: Межзвездный скиталец
   text_ru: Космос. Он так пуст, но в то же время полон жизни.
-  title_en:
-  text_en:
+  title_en: Interstellar Wanderer
+  text_en: Space. It is so empty, but at the same time full of life.
   topic_id: 0
   rule: *632
   mandatory_attributes: *4
@@ -32769,8 +32800,9 @@
     :title_ru: Император галактики
     :text_ru: Вы правитель всей Вселенной. Неизменный и победоносный. Нет никого с
       большей силой, чем у вас.
-    :title_en:
-    :text_en:
+    :title_en: Emperor of the Galaxy
+    :text_en: You are the ruler of the entire universe. Unchanging and victorious.
+      There is no one with more power than you.
     :topic_id: 0
     :rule: &633
       :algo: count
@@ -32787,8 +32819,9 @@
   title_ru: Император галактики
   text_ru: Вы правитель всей Вселенной. Неизменный и победоносный. Нет никого с большей
     силой, чем у вас.
-  title_en:
-  text_en:
+  title_en: Emperor of the Galaxy
+  text_en: You are the ruler of the entire universe. Unchanging and victorious. There
+    is no one with more power than you.
   topic_id: 0
   rule: *633
   mandatory_attributes: *4
@@ -35989,8 +36022,8 @@
     :border_color: "#f19cbb"
     :title_ru: Цветущая юность
     :text_ru: Уже не девочка, но еще не женщина. Да что со мной происходит-то?!
-    :title_en:
-    :text_en:
+    :title_en: Youth That Can Bloom
+    :text_en: No longer a girl, but not yet a woman. What's happening to me?!
     :topic_id: 222645
     :rule: &637
       :algo: count
@@ -36006,8 +36039,8 @@
   border_color: "#f19cbb"
   title_ru: Цветущая юность
   text_ru: Уже не девочка, но еще не женщина. Да что со мной происходит-то?!
-  title_en:
-  text_en:
+  title_en: Youth That Can Bloom
+  text_en: No longer a girl, but not yet a woman. What's happening to me?!
   topic_id: 222645
   rule: *637
   mandatory_attributes: *4
@@ -36020,8 +36053,8 @@
     :title_ru: Я делаю то, что мне нравится!
     :text_ru: Мы не учимся быть артистами, художниками или писателями — мы учимся
       быть.
-    :title_en:
-    :text_en:
+    :title_en: I do what I like to do!
+    :text_en: We don't learn to be artists, painters or writers - we learn to be.
     :topic_id: 0
     :rule: &638
       :algo: count
@@ -36037,8 +36070,8 @@
   border_color: "#ffe4c4"
   title_ru: Я делаю то, что мне нравится!
   text_ru: Мы не учимся быть артистами, художниками или писателями — мы учимся быть.
-  title_en:
-  text_en:
+  title_en: I do what I like to do!
+  text_en: We don't learn to be artists, painters or writers - we learn to be.
   topic_id: 0
   rule: *638
   mandatory_attributes: *4
@@ -36051,8 +36084,8 @@
     :title_ru: Мы — это наши поступки
     :text_ru: Быть человеком — значит взять на себя какую-то ответственность, а не
       просто заполнять собой пространство.
-    :title_en:
-    :text_en:
+    :title_en: We are our actions
+    :text_en: To be human is to take some responsibility, not just to fill up space.
     :topic_id: 0
     :rule: &639
       :algo: count
@@ -36069,8 +36102,8 @@
   title_ru: Мы — это наши поступки
   text_ru: Быть человеком — значит взять на себя какую-то ответственность, а не просто
     заполнять собой пространство.
-  title_en:
-  text_en:
+  title_en: We are our actions
+  text_en: To be human is to take some responsibility, not just to fill up space.
   topic_id: 0
   rule: *639
   mandatory_attributes: *4
@@ -36082,8 +36115,9 @@
     :border_color: "#464451"
     :title_ru: Мемуары гейши
     :text_ru: Сколько бы ни существовало историй, лучшая — та, что написана вместе.
-    :title_en:
-    :text_en:
+    :title_en: Memoirs of a Geisha
+    :text_en: No matter how many stories there are, the best one is the one written
+      together.
     :topic_id: 0
     :rule: &640
       :algo: count
@@ -36099,8 +36133,8 @@
   border_color: "#464451"
   title_ru: Мемуары гейши
   text_ru: Сколько бы ни существовало историй, лучшая — та, что написана вместе.
-  title_en:
-  text_en:
+  title_en: Memoirs of a Geisha
+  text_en: No matter how many stories there are, the best one is the one written together.
   topic_id: 0
   rule: *640
   mandatory_attributes: *4
