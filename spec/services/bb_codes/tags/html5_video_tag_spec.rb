@@ -1,7 +1,7 @@
 describe BbCodes::Tags::Html5VideoTag do
   subject!(:html) { described_class.instance.format text }
 
-  let(:url) { 'http://html5demos.com/assets/dizzy.webm' }
+  let(:url) { 'http://html5demos.com/assets/dizzy.webm?XSS=<>"\'' }
   let(:text) { "[html5_video]#{url}[/html5_video]" }
   let(:webm_video) { WebmVideo.first }
 
@@ -19,16 +19,11 @@ describe BbCodes::Tags::Html5VideoTag do
             srcset="#{BbCodes::Tags::Html5VideoTag::DEFAULT_THUMBNAIL_RETINA} 2x"
             data-src="#{webm_video.thumbnail.url :normal}"
             data-srcset="#{webm_video.thumbnail.url :retina} 2x"
-            data-video="#{webm_video.url}"
+            data-video="#{ERB::Util.h webm_video.url}"
           />
         </div>
-        <a class="marker" href="#{webm_video.url}">html5</a>
+        <a class="marker" href="#{ERB::Util.h webm_video.url}">html5</a>
       </div>
     HTML
-  end
-
-  context 'xss' do
-    let(:text) { "[html5_video]#{%w[< > " '].sample}[/html5_video]" }
-    it { is_expected.to eq text }
   end
 end

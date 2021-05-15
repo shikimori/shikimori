@@ -4,7 +4,7 @@ class BbCodes::Tags::Html5VideoTag
 
   REGEXP = %r{
     \[html5_video\]
-      (?<url> #{BbCodes::Tags::UrlTag::URL_SYMBOL_CLASS}*? )
+      (?<url> .*? )
     \[/html5_video\]
   }mix
 
@@ -38,10 +38,10 @@ private
             srcset="#{DEFAULT_THUMBNAIL_RETINA} 2x" \
             data-src="#{webm_video.thumbnail.url :normal}" \
             data-srcset="#{webm_video.thumbnail.url :retina} 2x" \
-            data-video="#{webm_video.url}" \
+            data-video="#{ERB::Util.h webm_video.url}" \
           />
         </div>
-        <a class="marker" href="#{webm_video.url}">html5</a>
+        <a class="marker" href="#{ERB::Util.h webm_video.url}">html5</a>
       </div>
     HTML
   end
