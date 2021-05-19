@@ -83,7 +83,8 @@ private
     end
 
     NamedLogger.download_video.info "#{url} end"
-    entry
+
+    entry if entry.image_url.present? && entry.player_url.present?
   end
 
   def video_api_url url
