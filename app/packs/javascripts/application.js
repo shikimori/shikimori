@@ -22,8 +22,10 @@ window.pageUnload = pageUnload;
 const requireJqueryPlugins = require.context('@/jquery.plugins', true);
 requireJqueryPlugins.keys().forEach(requireJqueryPlugins);
 
-const requirePages = require.context('@/pages', true);
-requirePages.keys().forEach(requirePages);
+// const requirePages = require.context('@/pages', true);
+// requirePages.keys().forEach(requirePages);
+
+require('@/pages/p-tests/vue');
 
 const requireBlocks = require.context('@/blocks', true);
 requireBlocks.keys().forEach(requireBlocks);
