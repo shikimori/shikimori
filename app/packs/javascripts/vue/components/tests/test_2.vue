@@ -1,22 +1,23 @@
 <template>
   <div class='b-input'>
     <input
-      :id='inputData.name'
-      v-model='inputData.value'
+      :id='name'
+      :value='modelValue'
       type='text'
       class='form-control'
       autofocus
-      :class='inputData.append'
-      :placeholder='inputData.placeholder'
-      :name='inputData.name'
+      :class='$attrs.class'
+      :placeholder='placeholder'
+      :name='name'
+      @input='$emit("update:modelValue", $event.target.value)'
     >
     <label
-      v-if='inputData.error'
-      :for='inputData.name'
+      v-if='error'
+      :for='name'
       generated
       class='error'
     >
-      error: {{ inputData.error }}
+      error: {{ error }}
     </label>
   </div>
 </template>
@@ -24,8 +25,12 @@
 <script>
 export default {
   name: 'TestInput',
+  inheritAttrs: false,
   props: {
-    inputData: { type: Object, required: true }
+    modelValue: { type: [String, Number], required: false, default: '' },
+    name: { type: String, required: true },
+    error: { type: String, required: false, default: '' },
+    placeholder: { type: String, required: false, default: '' }
   }
 };
 </script>

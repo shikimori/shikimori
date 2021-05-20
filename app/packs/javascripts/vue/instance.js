@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+// import Vue from 'vue';
+// import Vuex from 'vuex';
 
 // Vue.config.productionTip = false;
 // Vue.config.devtools = false;
@@ -11,4 +11,4 @@ import Vuex from 'vuex';
 
 // Vue.use(Vuex);
 
-export { Vue, Vuex };
+// export { Vue, Vuex };

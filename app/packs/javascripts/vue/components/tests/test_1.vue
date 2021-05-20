@@ -4,9 +4,11 @@
       You wrote: {{ inputData.value != '' ? inputData.value : 'nothing' }}
     </div>
     <TestInput
-      :input-data='inputData'
+      v-model='inputData.name'
+      v-bind='inputData'
     />
     <button class='b-button'>Submit</button>
+    <pre class='b-code-v2'><code>{{ inputData }}</code></pre>
   </form>
 </template>
 
@@ -19,10 +21,10 @@ export default {
   data: () => ({
     inputData: {
       name: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5),
-      append: '',
+      class: 'xx',
       value: '',
-      placeholder: '',
-      error: 'zz'
+      placeholder: 'Placeholder',
+      error: 'zzz'
     }
   })
 };
