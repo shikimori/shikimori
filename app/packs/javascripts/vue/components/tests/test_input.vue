@@ -1,4 +1,4 @@
-<template>
+<template inherit-attrs='false'>
   <div class='b-input'>
     <input
       :id='name'
@@ -22,15 +22,13 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'TestInput',
-  inheritAttrs: false,
-  props: {
-    modelValue: { type: [String, Number], required: false, default: '' },
-    name: { type: String, required: true },
-    error: { type: String, required: false, default: '' },
-    placeholder: { type: String, required: false, default: '' }
-  }
-};
+<script setup>
+import { defineProps } from 'vue';
+
+defineProps({
+  modelValue: { type: [String, Number], required: false, default: '' },
+  name: { type: String, required: true },
+  error: { type: String, required: false, default: '' },
+  placeholder: { type: String, required: false, default: '' }
+});
 </script>
