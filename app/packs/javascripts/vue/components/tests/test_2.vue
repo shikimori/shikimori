@@ -1,21 +1,23 @@
-<template lang="pug">
-  .b-input
-    input(
-      type="text"
-      class="form-control"
+<template>
+  <div class='b-input'>
+    <input
+      :id='inputData.name'
+      v-model='inputData.value'
+      type='text'
+      class='form-control'
       autofocus
-      :class="inputData.append"
-      v-model="inputData.value"
-      :placeholder="inputData.placeholder"
-      :name="inputData.name"
-      :id="inputData.name"
-    )
-    label(
-      :for="inputData.name"
-      generated="true"
-      class="error"
-      v-if="inputData.error"
-    ) error: {{ inputData.error }}
+      :class='inputData.append'
+      :placeholder='inputData.placeholder'
+      :name='inputData.name'
+    >
+    <label
+      v-if='inputData.error'
+      :for='inputData.name'
+      generated
+      class='error'
+    >
+      error: {{ inputData.error }}
+    </label>
   </div>
 </template>
 

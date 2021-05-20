@@ -1,10 +1,13 @@
-<template lang="pug">
-  form
-    .test-label You wrote: {{inputData.value != '' ? inputData.value : 'nothing'}}
-    TestInput(
-      :input-data="inputData"
-    )
-    button.b-button Submit
+<template>
+  <form>
+    <div class='test-label'>
+      You wrote: {{ inputData.value != '' ? inputData.value : 'nothing' }}
+    </div>
+    <TestInput
+      :input-data='inputData'
+    />
+    <button class='b-button'>Submit</button>
+  </form>
 </template>
 
 <script>
