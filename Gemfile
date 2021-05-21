@@ -70,7 +70,7 @@ gem 'rs_russian'
 gem 'translit'
 gem 'sixarm_ruby_unaccent' # adds method `unaccent`. it is used in Tags::GenerateNames
 gem 'simple_form'
-gem 'simple_form-magic_submit', github: 'morr/simple_form-magic_submit'
+gem 'simple_form-magic_submit', github: 'morr/simple_form-magic_submit', branch: 'master'
 gem 'state_machine'
 gem 'active_model_serializers'
 gem 'concurrent-ruby-edge'

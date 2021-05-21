@@ -56,11 +56,12 @@ GIT
 
 GIT
   remote: https://github.com/morr/simple_form-magic_submit.git
-  revision: 8b78222cfbfa4b116b5e07da9d2368ffbceb9b64
+  revision: 89cfeaab010259de858aaf0013334c11140727ca
+  branch: master
   specs:
     simple_form-magic_submit (1.2.0)
-      i18n (>= 0.6)
-      simple_form (>= 3.0.0.beta1)
+      i18n (~> 1.6)
+      simple_form (> 4.0)
 
 GIT
   remote: https://github.com/nbudin/htmldiff-lcs.git
@@ -434,7 +435,7 @@ GEM
     net-ssh (6.1.0)
     newrelic_rpm (6.15.0)
     nio4r (2.5.7)
-    nokogiri (1.11.3)
+    nokogiri (1.11.5)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     nokogumbo (2.0.5)
@@ -890,4 +891,4 @@ DEPENDENCIES
   xxhash
 
 BUNDLED WITH
-   2.2.16
+   2.2.17
