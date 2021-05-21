@@ -20,59 +20,59 @@
   )
 </template>
 
-<script>
+<script setup>
+import { defineProps, ref, computed } from 'vue';
+
 import VueTagsInput from '@sipec/vue3-tags-input';
 
-export default {
-  name: 'TagsInput',
-  components: { VueTagsInput },
-  props: {
-    label: { type: String, required: true },
-    hint: { type: String, required: false, default: undefined },
-    tagsLimit: { type: Number, required: true },
-    autocompleteBasic: { type: Array, required: true },
-    autocompleteOther: { type: Array, required: true },
-    input: { type: HTMLInputElement, required: true },
-    value: { type: Array, required: true },
-    isDowncase: { type: Boolean, required: false, default: false }
-  },
-  data() {
-    return {
-      tag: '',
-      tags: this.value.map(v => ({ text: v }))
-    };
-  },
-  computed: {
-    autocompleteItems() {
-      return (
-        this.tags.length && this.autocompleteOther.length ?
-          this.autocompleteOther :
-          this.autocompleteBasic
-      )
-        .filter(v => !this.tags.find(tag => tag.text === v))
-        .filter(v => (this.tag ? v.startsWith(this.tag) : true))
-        .map(v => ({ text: v }));
-    },
-    separators() {
-      return this.tagsLimit > 1 ? [';', ',', ' '] : undefined;
-    },
-    addOnKey() {
-      return this.tagsLimit > 1 ? [9, 13, 32, ','] : undefined;
-    }
-  },
-  methods: {
-    checkTag({ tag, addTag }) {
-      if (this.isDowncase) {
-        tag.text = tag.text.toLowerCase();
-      }
-      addTag(tag);
-    },
-    syncToInput(newTags) {
-      this.tags = newTags;
-      this.input.value = this.tags.map(v => v.text).join(','); // eslint-disable-line vue/no-mutating-props
-    }
+const props = defineProps({
+  label: { type: String, required: true },
+  hint: { type: String, required: false, default: undefined },
+  tagsLimit: { type: Number, required: true },
+  autocompleteBasic: { type: Array, required: true },
+  autocompleteOther: { type: Array, required: true },
+  input: { type: HTMLInputElement, required: true },
+  value: { type: Array, required: true },
+  isDowncase: { type: Boolean, required: false, default: false }
+});
+
+let tag = ref('');
+let tags = ref(props.value.map(v => ({ text: v })));
+
+const autocompleteItems = computed(() => (
+  (
+    tags.value.length && props.autocompleteOther.length ?
+      props.autocompleteOther :
+      props.autocompleteBasic
+  )
+    .filter(v => !tags.value.find(tag_value => tag_value.text === v))
+    .filter(v => (tag.value ? v.startsWith(tag.value) : true))
+    .map(v => ({ text: v }))
+));
+
+const separators = computed(() => (
+  props.tagsLimit > 1 ?
+    [';', ',', ' '] :
+    undefined
+));
+
+const addOnKey = computed(() => (
+  props.tagsLimit > 1 ?
+    [9, 13, 32, ','] :
+    undefined
+));
+
+function checkTag({ tag, addTag }) {
+  if (props.isDowncase) {
+    tag.text = tag.text.toLowerCase();
   }
-};
+  addTag(tag);
+}
+
+function syncToInput(newTags) {
+  tags.value = newTags;
+  props.input.value = tags.value.map(v => v.text).join(','); // eslint-disable-line vue/no-mutating-props
+}
 </script>
 
 <style scoped lang='sass'>
