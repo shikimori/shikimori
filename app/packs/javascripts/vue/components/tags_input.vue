@@ -12,7 +12,7 @@
       @before-adding-tag='checkTag'
       @tags-changed='syncToInput'
       placeholder=''
-      v-model='tag'
+      v-model='tagModel'
     )
   span.hint(
     v-if='hint'
@@ -36,7 +36,7 @@ const props = defineProps({
   isDowncase: { type: Boolean, required: false, default: false }
 });
 
-let tag = ref('');
+let tagModel = ref('');
 let tags = ref(props.value.map(v => ({ text: v })));
 
 const autocompleteItems = computed(() => (
@@ -46,7 +46,7 @@ const autocompleteItems = computed(() => (
       props.autocompleteBasic
   )
     .filter(v => !tags.value.find(tag_value => tag_value.text === v))
-    .filter(v => (tag.value ? v.startsWith(tag.value) : true))
+    .filter(v => (tagModel.value ? v.startsWith(tagModel.value) : true))
     .map(v => ({ text: v }))
 ));
 
