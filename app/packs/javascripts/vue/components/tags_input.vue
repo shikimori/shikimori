@@ -1,27 +1,27 @@
 <template lang='pug'>
-  .b-input
-    label
-      | {{ label }}
-      vue-tags-input(
-        :add-on-key='addOnKey'
-        :separators='separators'
-        :autocomplete-items='autocompleteItems'
-        :autocomplete-always-open='tags.length < tagsLimit && !!autocompleteItems.length'
-        :tags='tags'
-        :max-tags='tagsLimit'
-        @before-adding-tag='checkTag'
-        @tags-changed='syncToInput'
-        placeholder=''
-        v-model='tag'
-      )
-    span.hint(
-      v-if='hint'
-      v-html='hint'
+.b-input
+  label
+    | {{ label }}
+    VueTagsInput(
+      :add-on-key='addOnKey'
+      :separators='separators'
+      :autocomplete-items='autocompleteItems'
+      :autocomplete-always-open='tags.length < tagsLimit && !!autocompleteItems.length'
+      :tags='tags'
+      :max-tags='tagsLimit'
+      @before-adding-tag='checkTag'
+      @tags-changed='syncToInput'
+      placeholder=''
+      v-model='tag'
     )
+  span.hint(
+    v-if='hint'
+    v-html='hint'
+  )
 </template>
 
 <script>
-import VueTagsInput from '@johmun/vue-tags-input';
+import VueTagsInput from '@sipec/vue3-tags-input';
 
 export default {
   name: 'TagsInput',
@@ -69,7 +69,7 @@ export default {
     },
     syncToInput(newTags) {
       this.tags = newTags;
-      this.input.value = this.tags.map(v => v.text).join(',');
+      this.input.value = this.tags.map(v => v.text).join(','); // eslint-disable-line vue/no-mutating-props
     }
   }
 };
