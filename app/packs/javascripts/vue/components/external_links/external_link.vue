@@ -1,82 +1,82 @@
 <template lang='pug'>
-  .b-collection_item
-    .delete(
-      @click='remove(link.key)'
+.b-collection_item
+  .delete(
+    @click='remove(link.key)'
+  )
+  .drag-handle
+  input(
+    type='hidden'
+    v-model='link.entry_id'
+    :name="fieldName('entry_id')"
+  )
+  input(
+    type='hidden'
+    v-model='link.entry_type'
+    :name="fieldName('entry_type')"
+  )
+  input(
+    type='hidden'
+    v-model='link.created_at'
+    :name="fieldName('created_at')"
+  )
+  input(
+    type='hidden'
+    v-model='link.updated_at'
+    :name="fieldName('updated_at')"
+  )
+  input(
+    type='hidden'
+    v-model='link.imported_at'
+    :name="fieldName('imported_at')"
+  )
+  input(
+    type='hidden'
+    v-model='link.source'
+    :name="fieldName('source')"
+  )
+  .b-input.select
+    select(
+      :value='link.kind'
+      :name="fieldName('kind')"
+      @input='update({ ...link, kind: $event.target.value })'
     )
-    .drag-handle
-    input(
-      type='hidden'
-      v-model='link.entry_id'
-      :name="fieldName('entry_id')"
-    )
-    input(
-      type='hidden'
-      v-model='link.entry_type'
-      :name="fieldName('entry_type')"
-    )
-    input(
-      type='hidden'
-      v-model='link.created_at'
-      :name="fieldName('created_at')"
-    )
-    input(
-      type='hidden'
-      v-model='link.updated_at'
-      :name="fieldName('updated_at')"
-    )
-    input(
-      type='hidden'
-      v-model='link.imported_at'
-      :name="fieldName('imported_at')"
-    )
-    input(
-      type='hidden'
-      v-model='link.source'
-      :name="fieldName('source')"
-    )
-    .b-input.select
-      select(
-        :value='link.kind'
-        :name="fieldName('kind')"
-        @input='update({ ...link, kind: $event.target.value })'
+      optgroup(
+        :label='I18n.t("frontend.external_links.groups.links")'
       )
-        optgroup(
-          :label='I18n.t("frontend.external_links.groups.links")'
-        )
-          option(
-            v-for='kindOption in kindOptionsLinks'
-            :value='kindOption.last()'
-          ) {{ kindOption.first() }}
-        optgroup(
-          :label='I18n.t("frontend.external_links.groups.watch_online")'
-        )
-          option(
-            v-for='kindOption in kindOptionsWatchOnline'
-            :value='kindOption.last()'
-          ) {{ kindOption.first() }}
-    .b-input
-      input(
-        type='text'
-        :value='link.url'
-        :name="fieldName('url')"
-        :placeholder="I18n.t('activerecord.attributes.external_link.url')"
-        @input='update({ ...link, url: $event.target.value })'
-        @keydown.enter='submit'
-        @keydown.8='removeEmpty(link)'
-        @keydown.esc='removeEmpty(link)'
+        option(
+          v-for='kindOption in kindOptionsLinks'
+          :value='kindOption.last()'
+        ) {{ kindOption.first() }}
+      optgroup(
+        :label='I18n.t("frontend.external_links.groups.watch_online")'
       )
-      span.hint.warn(
-        v-if='isYoutubeKind'
-      )
-        | {{ I18n.t('frontend.external_links.warn.youtube') }}
-      span.hint.warn(
-        v-else-if='isYoutubeChannelKind'
-      )
-        | {{ I18n.t('frontend.external_links.warn.youtube_channel') }}
-      span.hint.warn(
-        v-else-if='isWatchOnlineKind'
-      )
-        | {{ I18n.t('frontend.external_links.warn.watch_online') }}
+        option(
+          v-for='kindOption in kindOptionsWatchOnline'
+          :value='kindOption.last()'
+        ) {{ kindOption.first() }}
+  .b-input
+    input(
+      type='text'
+      :value='link.url'
+      :name="fieldName('url')"
+      :placeholder="I18n.t('activerecord.attributes.external_link.url')"
+      @input='update({ ...link, url: $event.target.value })'
+      @keydown.enter='submit'
+      @keydown.8='removeEmpty(link)'
+      @keydown.esc='removeEmpty(link)'
+    )
+    span.hint.warn(
+      v-if='isYoutubeKind'
+    )
+      | {{ I18n.t('frontend.external_links.warn.youtube') }}
+    span.hint.warn(
+      v-else-if='isYoutubeChannelKind'
+    )
+      | {{ I18n.t('frontend.external_links.warn.youtube_channel') }}
+    span.hint.warn(
+      v-else-if='isWatchOnlineKind'
+    )
+      | {{ I18n.t('frontend.external_links.warn.watch_online') }}
 </template>
 
 <script>

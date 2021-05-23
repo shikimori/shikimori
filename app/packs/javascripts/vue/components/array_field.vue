@@ -1,43 +1,43 @@
 <template lang='pug'>
-  .block
-    input(
-      type='hidden'
-      :name='emptyInputName || `${resourceType.toLowerCase()}[${field}][]`'
-      v-if='isEmpty'
+.block
+  input(
+    type='hidden'
+    :name='emptyInputName || `${resourceType.toLowerCase()}[${field}][]`'
+    v-if='isEmpty'
+  )
+  .b-nothing_here(
+    v-if='!collection.length'
+  )
+    | {{ I18n.t('frontend.' + field + '.nothing_here') }}
+  draggable.block(
+    v-bind='dragOptions'
+    v-model='collection'
+    v-if='collection.length'
+  )
+    .b-collection_item.single-line(
+      v-for='entry in collection'
+      :key='entry.key'
     )
-    .b-nothing_here(
-      v-if='!collection.length'
-    )
-      | {{ I18n.t('frontend.' + field + '.nothing_here') }}
-    draggable.block(
-      v-bind='dragOptions'
-      v-model='collection'
-      v-if='collection.length'
-    )
-      .b-collection_item.single-line(
-        v-for='entry in collection'
-        :key='entry.key'
+      .delete(
+        @click='remove(entry.key)'
       )
-        .delete(
-          @click='remove(entry.key)'
+      .drag-handle
+      .b-input
+        input(
+          type='text'
+          :value='entry.value'
+          :name="inputName || `${resourceType.toLowerCase()}[${field}][]`"
+          :placeholder="I18n.t('frontend.' + field + '.name')"
+          @input='update({ key: entry.key, value: $event.target.value })'
+          @keydown.enter='submit'
+          @keydown.8='removeEmpty(entry)'
+          @keydown.esc='removeEmpty(entry)'
+          :data-autocomplete='autocompleteUrl'
+          :data-item_key='entry.key'
         )
-        .drag-handle
-        .b-input
-          input(
-            type='text'
-            :value='entry.value'
-            :name="inputName || `${resourceType.toLowerCase()}[${field}][]`"
-            :placeholder="I18n.t('frontend.' + field + '.name')"
-            @input='update({ key: entry.key, value: $event.target.value })'
-            @keydown.enter='submit'
-            @keydown.8='removeEmpty(entry)'
-            @keydown.esc='removeEmpty(entry)'
-            :data-autocomplete='autocompleteUrl'
-            :data-item_key='entry.key'
-          )
-    .b-button(
-      @click='add'
-    ) {{ I18n.t('frontend.actions.add') }}
+  .b-button(
+    @click='add'
+  ) {{ I18n.t('frontend.actions.add') }}
 </template>
 
 <script>

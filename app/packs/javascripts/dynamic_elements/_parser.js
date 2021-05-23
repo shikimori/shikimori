@@ -16,7 +16,7 @@ import ShortDialog from './short_dialog';
 import Swiper from './swiper';
 import Switcher from './switcher';
 import ShikiEditor from './shiki_editor';
-// import ShikiEditorV2 from './shiki_editor_v2';
+import ShikiEditorV2 from './shiki_editor_v2';
 import SpoilerBlock from './spoiler_block';
 import SpoilerInline from './spoiler_inline';
 import Tabs from './tabs';
@@ -122,8 +122,7 @@ export default class DynamicParser {
   }
 
   shikiEditorV2(node) {
-    new ShikiEditor(node);
-    // new ShikiEditorV2(node);
+    new ShikiEditorV2(node);
   }
 
   swiper(node) {
