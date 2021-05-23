@@ -68,7 +68,8 @@
 
       & > i.edit,
       & > i.expand,
-      & > i.center
+      & > i.center,
+      & > i.remove
         +link_color(#fff)
         // +link_color(#7b8084)
         align-items: center
@@ -102,6 +103,11 @@
       & > i.center
         &:before
           +font_shiki_editor('\e803')
+          font-weight: normal
+
+      & > i.remove
+        &:before
+          +font_shikimori('✕')
           font-weight: normal
 
   & > span
