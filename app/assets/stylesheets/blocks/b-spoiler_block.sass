@@ -22,6 +22,7 @@
       min-height: 29px
       white-space: pre-wrap // otherwise spaces around tags will be ignored
 
+    // do not apply `margin-left: auto` inside ProseMirror
     &:not([data-node-view-wrapper])
       & > span:after
         margin-left: auto
@@ -52,9 +53,11 @@
       &:after
         transform: rotate(180deg)
 
+  // drag'n'drop inside PromiseMirror
   &[data-node-view-wrapper]
-    & > span
-      user-select: none
+    transition: opacity 0.25s
+  &.ProseMirror-selectednode
+    opacity: 0.65
 
   & > span
     & > .separator
@@ -64,7 +67,8 @@
     & > i.edit,
     & > i.expand,
     & > i.center,
-    & > i.remove
+    & > i.remove,
+    & > i.drag-handle
       +link_color(#fff)
       // +link_color(#7b8084)
       align-items: center
@@ -85,25 +89,21 @@
       &:active
         background: rgba(#fcfcfc, 0.9)
 
-    & > i.edit
       &:before
-        +font_shikimori('\e842')
         font-weight: normal
 
-    & > i.expand
+    & > i.edit:before
+      +font_shikimori('\e842')
+    & > i.expand:before
+      +font_shiki_editor('\e83d')
+    & > i.center:before
+      +font_shiki_editor('\e803')
+    & > i.remove:before
+      +font_shikimori('✕')
+    & > i.drag-handle
+      cursor: -webkit-grab
       &:before
-        +font_shiki_editor('\e83d')
-        font-weight: normal
-
-    & > i.center
-      &:before
-        +font_shiki_editor('\e803')
-        font-weight: normal
-
-    & > i.remove
-      &:before
-        +font_shikimori('✕')
-        font-weight: normal
+        +font_shikimori('m')
 
   & > span
     +shiki_button(#678)
