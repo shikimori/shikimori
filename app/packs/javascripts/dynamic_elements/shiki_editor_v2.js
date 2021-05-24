@@ -16,6 +16,7 @@ export default class ShikiEditorV2 extends View {
   initialization = pDefer()
   processedInitialContent = null
   isPendingSubmit = false
+  editorApp = null
 
   async initialize() {
     await this._buildEditor();
@@ -24,9 +25,9 @@ export default class ShikiEditorV2 extends View {
     this._processCache();
   }
 
-  get editorApp() {
-    return this.app.$children[0];
-  }
+  // get editorApp() {
+  //   return this.app.$children[0];
+  // }
 
   @memoize
   get $form() {
@@ -82,8 +83,7 @@ export default class ShikiEditorV2 extends View {
     ] = await Promise.all([
       import(/* webpackChunkName: "vue" */ 'vue'),
       import(/* webpackChunkName: "shiki-editor" */
-        '../../../../../shiki-editor'
-        // 'shiki-editor'
+        'shiki-editor'
       ),
       import('shiki-uploader'),
       import('shiki-utils')
@@ -185,9 +185,9 @@ export default class ShikiEditorV2 extends View {
       mounted() {
         appPlaceholder.classList.add('hidden');
 
-        if ($('.l-top_menu-v2').css('position') === 'sticky') {
-          this.$children[0].isMenuBarOffset = true;
-        }
+        // if ($('.l-top_menu-v2').css('position') === 'sticky') {
+        //   this.$children[0].isMenuBarOffset = true;
+        // }
       },
       beforeUnmount() {
         appPlaceholder.classList.remove('hidden');
@@ -205,6 +205,9 @@ export default class ShikiEditorV2 extends View {
         },
         onSubmit() {
           $form.submit();
+        },
+        ref: (el) => {
+          this.editorApp = el;
         }
       })
     });
