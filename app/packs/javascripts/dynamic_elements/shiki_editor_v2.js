@@ -25,10 +25,6 @@ export default class ShikiEditorV2 extends View {
     this._processCache();
   }
 
-  // get editorApp() {
-  //   return this.app.$children[0];
-  // }
-
   @memoize
   get $form() {
     return this.$node.closest('form');
@@ -206,9 +202,7 @@ export default class ShikiEditorV2 extends View {
         onSubmit() {
           $form.submit();
         },
-        ref: (el) => {
-          this.editorApp = el;
-        }
+        ref: el => this.editorApp = el
       })
     });
     app.config.globalProperties.I18n = I18n;
