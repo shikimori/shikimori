@@ -81,7 +81,10 @@ export default class ShikiEditorV2 extends View {
       { ShikiRequest }
     ] = await Promise.all([
       import(/* webpackChunkName: "vue" */ 'vue'),
-      import(/* webpackChunkName: "shiki-editor" */ 'shiki-editor'),
+      import(/* webpackChunkName: "shiki-editor" */
+        '../../../../../shiki-editor'
+        // 'shiki-editor'
+      ),
       import('shiki-uploader'),
       import('shiki-utils')
     ]);
@@ -190,23 +193,18 @@ export default class ShikiEditorV2 extends View {
         appPlaceholder.classList.remove('hidden');
       },
       render: () => h(ShikiEditorApp, {
-        props: {
-          vue: Vue,
-          shikiUploader,
-          shikiRequest,
-          globalSearch: window.globalSearch,
-          content: this._initialContent(),
-          localizationField,
-          previewParams: this.$node.data('preview_params')
-        },
+        shikiUploader,
+        shikiRequest,
+        globalSearch: window.globalSearch,
+        content: this._initialContent(),
+        localizationField,
+        previewParams: this.$node.data('preview_params'),
         class: VUE_INITIALIZED_CLASS,
-        on: {
-          preview({ node, JS_EXPORTS }) {
-            $(node).process(JS_EXPORTS);
-          },
-          submit() {
-            $form.submit();
-          }
+        onPreview({ node, JS_EXPORTS }) {
+          $(node).process(JS_EXPORTS);
+        },
+        onSubmit() {
+          $form.submit();
         }
       })
     });
