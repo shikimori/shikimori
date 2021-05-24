@@ -293,58 +293,6 @@ User.where(id: UserRate.where(target: anime).select('user_id')).update_all updat
 
 ```
 
-### Move user data from development to production
-```ruby
-user = User.find(547860);
-
-File.open('/tmp/z.json', 'w') do |f|
-  f.write({
-    user: user,
-    user_preferences: user.preferences,
-    style: user.style,
-    user_history: UserHistory.where(user_id: user.id),
-    # user_rate_logs: UserRateLog.where(user_id: user.id),
-    user_rates: UserRate.where(user_id: user.id)
-  }.to_json);
-end;
-```
-
-```sh
-scp /tmp/z.json devops@shiki:/tmp/
-ssh shiki
-rc
-```
-
-```ruby
-user_id = 547860;
-json = JSON.parse(open('/tmp/z.json').read).symbolize_keys;
-
-class UserRate < ApplicationRecord
-  def log_created; end
-  def log_deleted; end
-end
-
-ApplicationRecord.transaction do
-  UserRate.where(user_id: user_id).destroy_all;
-  UserRate.wo_timestamp { UserRate.import(json[:user_rates].map {|v| UserRate.new v }); };
-end;
-
-# ApplicationRecord.transaction do
-#   UserRateLog.where(user_id: user_id).destroy_all;
-#   UserRateLog.wo_timestamp { UserRateLog.import(json[:user_rate_logs].map {|v| UserRateLog.new v }); };
-# end;
-
-ApplicationRecord.transaction do
-  UserHistory.where(user_id: user_id).destroy_all;
-  UserHistory.wo_timestamp { UserHistory.import(json[:user_history].map {|v| UserHistory.new v }); };
-end;
-
-# User.wo_timestamp { v = User.new json[:user]; v.save validate: false }
-# UserPreferences.wo_timestamp { v = UserPreferences.new json[:user_preferences]; v.save validate: false }
-# Style.wo_timestamp { v = Style.new json[:style]; v.save validate: false }
-
-User.find(user_id).update rate_at: Time.zone.now
-```
 
 ### Generate favicons
 
@@ -416,8 +364,7 @@ rails runner "ProxyWorker.new.perform; File.open('/tmp/proxies.json', 'w') { |f|
 
 ### Snippets
 
-Convert topic to article
-
+#### Convert topic to article
 ```ruby
 ApplicationRecord.transaction do
   topic_id = 296373
@@ -444,4 +391,114 @@ ApplicationRecord.transaction do
     linked_type: 'Article'
   )
 end
+```
+
+#### Restore from UserRateLog
+```ruby
+user_id = 794365;
+scope = User.find(user_id).user_rate_logs.order(:id);
+
+UserHistory.where(user_id: user_id).where('created_at >= ?', scope.first.created_at).each(&:destroy);
+
+class UserRate < ApplicationRecord
+  def log_created; end
+  def log_deleted; end
+end
+
+UserRate.transaction do
+  scope.each do |log|
+    Timecop.freeze(log.created_at) do
+      base_attrs = { user_id: user_id, target_type: log.target_type, target_id: log.target_id }
+      diff_attrs = log.diff.except('id').each_with_object({}) {|(k,(old,new)),memo| memo[k] = new }
+
+      if log.diff['id']
+        if log.diff['id'][0].nil?
+          base_attrs_with_id = base_attrs.merge('id' => log.diff['id'][1])
+
+          prior_rate = UserRate.find_by(base_attrs)
+
+          attrs = diff_attrs.merge(
+            prior_rate ?
+              prior_rate.attributes.except('id') :
+              base_attrs_with_id
+          )
+          prior_rate&.destroy
+
+          user_rate = UserRate.find_or_initialize_by(base_attrs_with_id)
+          user_rate.assign_attributes(attrs)
+
+          user_rate.save!
+        else
+          UserRate.find_by(id: log.diff['id'][0])&.destroy
+        end
+      else
+        user_rate = UserRate.find_or_initialize_by(base_attrs)
+        user_rate.assign_attributes(diff_attrs)
+        ap user_rate
+        user_rate.save!
+      end
+    end
+  end
+end
+
+User.find(user_id).update! rate_at: Time.zone.now
+```
+
+#### Move user data from development to production
+```ruby
+user = User.find(794365);
+
+class IPAddr
+  def as_json(options = nil)
+    to_s
+  end
+end
+
+File.open('/tmp/z.json', 'w') do |f|
+  f.write({
+    # user: user,
+    # user_preferences: user.preferences,
+    # style: user.style,
+    user_history: UserHistory.where(user_id: user.id),
+    # user_rate_logs: UserRateLog.where(user_id: user.id),
+    user_rates: UserRate.where(user_id: user.id)
+  }.to_json);
+end;
+```
+
+```sh
+scp /tmp/z.json devops@shiki:/tmp/
+ssh shiki
+rc
+```
+
+```ruby
+user_id = 794365;
+json = JSON.parse(open('/tmp/x.json').read).symbolize_keys;
+
+class UserRate < ApplicationRecord
+  def log_created; end
+  def log_deleted; end
+end
+
+ApplicationRecord.transaction do
+  UserRate.where(user_id: user_id).destroy_all;
+  UserRate.wo_timestamp { UserRate.import(json[:user_rates].map {|v| UserRate.new v }); };
+end;
+
+ApplicationRecord.transaction do
+  UserRateLog.where(user_id: user_id).destroy_all;
+  UserRateLog.wo_timestamp { UserRateLog.import(json[:user_rate_logs].map {|v| UserRateLog.new v }); };
+ end;
+
+ApplicationRecord.transaction do
+  UserHistory.where(user_id: user_id).destroy_all;
+  UserHistory.wo_timestamp { UserHistory.import(json[:user_history].map {|v| UserHistory.new v }); };
+end;
+
+# User.wo_timestamp { v = User.new json[:user]; v.save validate: false }
+# UserPreferences.wo_timestamp { v = UserPreferences.new json[:user_preferences]; v.save validate: false }
+# Style.wo_timestamp { v = Style.new json[:style]; v.save validate: false }
+
+User.find(user_id).update rate_at: Time.zone.now
 ```
