@@ -17,7 +17,7 @@ const pugLoader = require('./loaders/pug');
 environment.loaders.append('pug', pugLoader);
 
 environment.loaders.get('babel').exclude =
-  /node_modules\/(?!delay|p-defer|get-js|swiper|shiki-utils|shiki-editor|shiki-uploader|shiki-decorators|prosemirror-utils|vue)/; // eslint-disable-line max-len
+  /node_modules\/(?!delay|p-defer|get-js|swiper|shiki-utils|shiki-editor|shiki-uploader|shiki-decorators|prosemirror-utils)/; // eslint-disable-line max-len
 environment.loaders.get('file').exclude =
   /\.(js|vue|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
 
