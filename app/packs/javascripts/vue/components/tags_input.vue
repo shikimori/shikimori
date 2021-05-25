@@ -78,22 +78,22 @@ function syncToInput(newTags) {
 <style scoped lang='sass'>
 @import 'app/assets/stylesheets/mixins/input'
 
-.b-input /deep/
-  .vue-tags-input
+.b-input
+  ::v-deep(.vue-tags-input)
     max-width: 100% !important
 
-  .ti-autocomplete
+  ::v-deep(.ti-autocomplete)
     display: none
     z-index: 31
 
-  .ti-focus
+  ::v-deep(.ti-focus)
     .ti-input
       +input_focus
 
     .ti-autocomplete
       display: block
 
-  .ti-input
+  ::v-deep(.ti-input)
     +input
     padding: 0 1px
     max-width: 100% !important
@@ -101,7 +101,7 @@ function syncToInput(newTags) {
     input
       width: 100% !important
 
-  .ti-tag
+  ::v-deep(.ti-tag)
     font-size: 12px
     margin: 4px 2px
 
@@ -119,7 +119,7 @@ function syncToInput(newTags) {
     .ti-content
       align-items: flex-start
 
-  .ti-new-tag-input-wrapper
+  ::v-deep(.ti-new-tag-input-wrapper)
     margin: 0
     padding: 0
 
