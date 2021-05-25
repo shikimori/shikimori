@@ -1,5 +1,5 @@
 <template lang='pug'>
-.block
+.block_m
   input(
     type='hidden'
     :name='emptyInputName || `${resourceType.toLowerCase()}[${field}][]`'
@@ -10,31 +10,30 @@
   )
     | {{ I18n.t('frontend.' + field + '.nothing_here') }}
   draggable.block(
-    v-bind='dragOptions'
-    v-model='collection'
     v-if='collection.length'
+    v-model='collection'
+    item-key='element => element.key'
+    v-bind='dragOptions'
   )
-    .b-collection_item.single-line(
-      v-for='entry in collection'
-      :key='entry.key'
-    )
-      .delete(
-        @click='remove(entry.key)'
-      )
-      .drag-handle
-      .b-input
-        input(
-          type='text'
-          :value='entry.value'
-          :name="inputName || `${resourceType.toLowerCase()}[${field}][]`"
-          :placeholder="I18n.t('frontend.' + field + '.name')"
-          @input='update({ key: entry.key, value: $event.target.value })'
-          @keydown.enter='submit'
-          @keydown.8='removeEmpty(entry)'
-          @keydown.esc='removeEmpty(entry)'
-          :data-autocomplete='autocompleteUrl'
-          :data-item_key='entry.key'
+    template(#item="{element}")
+      .b-collection_item.single-line
+        .delete(
+          @click='remove(element.key)'
         )
+        .drag-handle
+        .b-input
+          input(
+            type='text'
+            :value='element.value'
+            :name="inputName || `${resourceType.toLowerCase()}[${field}][]`"
+            :placeholder="I18n.t('frontend.' + field + '.name')"
+            @input='update({ key: element.key, value: $event.target.value })'
+            @keydown.enter='submit'
+            @keydown.8='removeEmpty(element)'
+            @keydown.esc='removeEmpty(element)'
+            :data-autocomplete='autocompleteUrl'
+            :data-item_key='element.key'
+          )
   .b-button(
     @click='add'
   ) {{ I18n.t('frontend.actions.add') }}
@@ -149,6 +148,6 @@ export default {
 </script>
 
 <style scoped lang='sass'>
-  .b-nothing_here
-    margin-bottom: 15px
+.b-nothing_here
+  margin-bottom: 15px
 </style>
