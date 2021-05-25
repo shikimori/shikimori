@@ -1,3 +1,4 @@
+/* eslint-disable vue/one-component-per-file */
 let gallery;
 
 pageUnload('.db_entries-edit_field', () => {
@@ -158,40 +159,35 @@ pageLoad('.db_entries-edit_field', () => {
   if ($(ARRAY_FIELDS.map(v => `.edit-page.${v}`).join(',')).exists()) {
     initArrayFieldApp();
   }
-
-  // if ($('.edit-page.licensor').exists()) {
-  //   initTagsApp($('.anime_licensor, .manga_licensor'));
-  // }
 });
 
-// async function initExternalLinksApp() {
-//   const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
-//   const { default: ExternalLinks } = await import('@/vue/components/external_links/external_links');
-//   const { default: storeSchema } = await import('@/vue/stores/collection');
-//
-//   const $app = $('#vue_external_links');
-//   const values = $app.data('external_links').map(v => ({ ...v, key: v.id }));
-//
-//   const store = new Vuex.Store(storeSchema);
-//   store.state.collection = values;
-//
-//   new Vue({
-//     el: '#vue_external_links',
-//     store,
-//     render: h => h(ExternalLinks, {
-//       props: {
-//         kindOptions: $app.data('kind_options'),
-//         resourceType: $app.data('resource_type'),
-//         entryType: $app.data('entry_type'),
-//         entryId: $app.data('entry_id'),
-//         watchOnlineKinds: $app.data('watch_online_kinds')
-//       }
-//     })
-//   });
-// }
-//
+async function initExternalLinksApp() {
+  const { createApp } = await import(/* webpackChunkName: "vue" */ 'vue');
+  const { createStore } = await import(/* webpackChunkName: "vuex" */ 'vuex');
+
+  const { default: ExternalLinks } = await import('@/vue/components/external_links/external_links');
+  const { default: storeSchema } = await import('@/vue/stores/collection');
+
+  const $app = $('#vue_external_links');
+  const values = $app.data('external_links').map(v => ({ ...v, key: v.id }));
+
+  const store = createStore(storeSchema);
+  store.state.collection = values;
+
+  const app = createApp(ExternalLinks, {
+    kindOptions: $app.data('kind_options'),
+    resourceType: $app.data('resource_type'),
+    entryType: $app.data('entry_type'),
+    entryId: $app.data('entry_id'),
+    watchOnlineKinds: $app.data('watch_online_kinds')
+  });
+  app.use(store);
+  app.config.globalProperties.I18n = I18n;
+  app.mount('#vue_external_links');
+}
+
 export async function initArrayFieldApp() {
-  const { createApp, h } = await import(/* webpackChunkName: "vue" */ 'vue');
+  const { createApp } = await import(/* webpackChunkName: "vue" */ 'vue');
   const { createStore } = await import(/* webpackChunkName: "vuex" */ 'vuex');
 
   const { default: ArrayField } = await import('@/vue/components/array_field');
@@ -226,28 +222,6 @@ export async function initArrayFieldApp() {
     e.currentTarget.submit();
   });
 }
-
-// // async function initTagsApp($tags) {
-// //   const { Vue } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
-// //   const { default: TagsInput } = await import('@/vue/components/tags_input');
-// //
-// //   const $app = $('#vue_app');
-// //   $tags.hide();
-// //
-// //   new Vue({
-// //     el: '#vue_app',
-// //     render: h => h(TagsInput, {
-// //       props: {
-// //         label: $tags.find('label').text(),
-// //         input: $tags.find('input')[0],
-// //         value: [$app.data('value')].compact(),
-// //         autocompleteBasic: $app.data('autocomplete_basic'),
-// //         autocompleteOther: [],
-// //         tagsLimit: 1
-// //       }
-// //     })
-// //   });
-// // }
 
 async function initSortableApp($node) {
   if (!$node.length) { return; }

@@ -32,11 +32,9 @@ export default {
     },
 
     UPDATE(state, item) {
-      this._vm.$set(
-        state.collection,
-        state.collection.findIndex(v => v.key === item.key),
-        item
-      );
+      const index = state.collection.findIndex(v => v.key === item.key);
+
+      state.collection[index] = item;
     },
 
     CLEANUP(state) {

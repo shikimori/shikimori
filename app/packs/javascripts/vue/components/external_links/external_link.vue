@@ -92,6 +92,7 @@ export default {
     entryId: { type: Number, required: true },
     watchOnlineKinds: { type: Array, required: true }
   },
+  emits: ['add:next', 'focus:last'],
   computed: {
     ...mapState(['collection']),
     isYoutubeKind() {
@@ -126,13 +127,13 @@ export default {
     submit(e) {
       if (!e.metaKey && !e.ctrlKey) {
         e.preventDefault();
-        this.$emit('add_next');
+        this.$emit('add:next');
       }
     },
     removeEmpty(link) {
       if (Object.isEmpty(link.url) && this.collection.length > 1) {
         this.remove(link.key);
-        this.$emit('focusLast');
+        this.$emit('focus:last');
       }
     }
   }
@@ -157,5 +158,4 @@ export default {
 
   .drag-handle
     margin-top: 3px
-
 </style>

@@ -1,5 +1,5 @@
 <template lang='pug'>
-.block
+.block_m
   input(
     type='hidden'
     :name="`${resourceType.toLowerCase()}[external_links][]`"
@@ -10,22 +10,22 @@
   )
     | {{ I18n.t('frontend.external_links.nothing_here') }}
   draggable.block(
-    v-bind='dragOptions'
-    v-model='collection'
     v-if='collection.length'
+    v-model='collection'
+    item-key='element => element.id || element.key'
+    v-bind='dragOptions'
   )
-    ExternalLink(
-      v-for='link in collection'
-      @add_next='add'
-      @focusLast='focusLast'
-      :key='link.id || link.key'
-      :link='link'
-      :kind-options='kindOptions'
-      :resource-type='resourceType'
-      :entry-type='entryType'
-      :entry-id='entryId'
-      :watch-online-kinds='watchOnlineKinds'
-    )
+    template(#item="{element}")
+      ExternalLink(
+        :link='element'
+        :kind-options='kindOptions'
+        :resource-type='resourceType'
+        :entry-type='entryType'
+        :entry-id='entryId'
+        :watch-online-kinds='watchOnlineKinds'
+        @add:next='add'
+        @focusLast='focusLast'
+      )
   .b-button(
     @click='add'
   ) {{ I18n.t('frontend.actions.add') }}
@@ -87,6 +87,6 @@ export default {
 </script>
 
 <style scoped lang='sass'>
-  .b-nothing_here
-    margin-bottom: 15px
+.b-nothing_here
+  margin-bottom: 15px
 </style>
