@@ -187,7 +187,7 @@ async function initExternalLinksApp() {
 }
 
 export async function initArrayFieldApp() {
-  const { createApp } = await import(/* webpackChunkName: "vue" */ 'vue');
+  const { createApp, nextTick } = await import(/* webpackChunkName: "vue" */ 'vue');
   const { createStore } = await import(/* webpackChunkName: "vuex" */ 'vuex');
 
   const { default: ArrayField } = await import('@/vue/components/array_field');
@@ -217,7 +217,7 @@ export async function initArrayFieldApp() {
     e.stopImmediatePropagation();
 
     await store.dispatch('cleanup');
-    await app.$nextTick();
+    await nextTick();
 
     e.currentTarget.submit();
   });
