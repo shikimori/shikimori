@@ -1,4 +1,4 @@
-module.exports = function (api) {
+module.exports = function(api) {
   const validEnv = ['development', 'test', 'production'];
   const currentEnv = api.env();
   const isDevelopmentEnv = api.env('development');
@@ -16,6 +16,7 @@ module.exports = function (api) {
   }
 
   return {
+    sourceType: 'unambiguous',
     presets: [
       isTestEnv && [
         '@babel/preset-env',
@@ -29,10 +30,14 @@ module.exports = function (api) {
         '@babel/preset-env',
         {
           forceAllTransforms: true,
-          useBuiltIns: 'entry',
+          useBuiltIns: 'usage',
           corejs: 3,
           modules: false,
-          exclude: ['transform-typeof-symbol']
+          exclude: [
+            'transform-typeof-symbol',
+            'transform-async-to-generator',
+            'transform-regenerator'
+          ]
         }
       ]
     ].filter(Boolean),
@@ -49,11 +54,12 @@ module.exports = function (api) {
         '@babel/plugin-transform-runtime',
         {
           helpers: false,
-          regenerator: true,
+          regenerator: false,
           corejs: false
         }
       ],
-      ['@babel/plugin-transform-regenerator', { async: false }],
+      // ['@babel/plugin-transform-regenerator', { async: false }],
+      ['module:fast-async', { spec: true }],
       '@babel/plugin-proposal-optional-chaining',
       '@babel/plugin-proposal-logical-assignment-operators',
       [
