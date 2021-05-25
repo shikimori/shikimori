@@ -1,5 +1,6 @@
 <template>
   <form>
+    <div>{{ isLoading ? `Loading... ${timer}` : 'Loaded!' }}</div>
     <div class='test-label'>
       You wrote: {{ inputData.value ? inputData.value : 'nothing' }}
     </div>
@@ -13,8 +14,12 @@
 </template>
 
 <script setup>
+import { reactive, ref } from 'vue';
+import delay from 'delay';
 import TestInput from './test_input';
-import { reactive } from 'vue';
+
+const isLoading = ref(true);
+const timer = ref(5);
 
 const inputData = reactive({
   name: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5),
@@ -22,6 +27,18 @@ const inputData = reactive({
   value: '',
   placeholder: 'Placeholder',
   error: 'zzz'
+});
+
+delay(1000).then(async () => {
+  timer.value -= 1;
+  await delay(1000);
+  timer.value -= 1;
+  await delay(1000);
+  timer.value -= 1;
+  await delay(1000);
+  timer.value -= 1;
+  await delay(1000);
+  isLoading.value = false;
 });
 </script>
 
