@@ -11,7 +11,7 @@ $.fn.extend({
           if (attributeName === 'data-title') { attributeName = 'title'; }
         }
         replacement.setAttribute(attributeName, attribute.value);
-      };
+      }
 
       while (this.childNodes.length) {
         replacement.appendChild(this.childNodes[0]);
