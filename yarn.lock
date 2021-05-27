@@ -7648,7 +7648,7 @@ prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0:
   dependencies:
     prosemirror-model "^1.0.0"
 
-prosemirror-utils@atlassian/prosemirror-utils#remove-prosemirror-tables:
+"prosemirror-utils@github:atlassian/prosemirror-utils#remove-prosemirror-tables":
   version "0.9.6"
   resolved "https://codeload.github.com/atlassian/prosemirror-utils/tar.gz/9e2db389d408f376e0fc1f8bdffd95063e8d00af"
 
@@ -8524,10 +8524,10 @@ shiki-decorators@^1.0.1:
     bind-decorator "1.0.11"
     memoize-decorator "^1.0.2"
 
-shiki-editor@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-2.0.2.tgz#03f950694fd039a5250d8d11317b2d34a906a516"
-  integrity sha512-LOzfHzPv7wPCtUPMcxl6uHPkiOKOZ3EKLBgqEV0Io6kUBfx/Qki46qlYUT96QI9sYokFGgXmZixB33uGplHPCw==
+shiki-editor@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-2.0.3.tgz#3af685d5875c3c80e320bcf6ce891eaceeda9683"
+  integrity sha512-kOC6oDqZL7vIi+K5WZupcghfavzNZPOn4pspwBHOXyyM+CI0b6O+6fhHSKoI0W/iEGaObPtdxRkxPJ/9SMLbXA==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@morr/withinviewport" "2.1.3-1"
@@ -9653,7 +9653,7 @@ vue3-keypress@^4.0.1:
   resolved "https://registry.yarnpkg.com/vue3-keypress/-/vue3-keypress-4.0.1.tgz#161959779dda7a0bb86902fac594c75117a0dca4"
   integrity sha512-oKxLpVsQq1iosuwi38fbH+K2NL2HqbFT8U7yE1fzxcUB0Mup1vS7OcnNMqkgv+FHFJTNvlYAOwLctVK/ahz6Ng==
 
-vue3-perfect-scrollbar@morr/vue3-perfect-scrollbar#master:
+"vue3-perfect-scrollbar@github:morr/vue3-perfect-scrollbar#master":
   version "1.5.5"
   resolved "https://codeload.github.com/morr/vue3-perfect-scrollbar/tar.gz/04340756fd75f245e25042003b9c4a6ced343381"
 
