@@ -7906,6 +7906,9 @@
         - 39022
         - 3323
         - 43697
+        - 42206
+        - 39555
+        - 33566
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
@@ -8385,6 +8388,7 @@
         - 875
         - 4087
         - 13203
+        - 39815
       :generator:
         person_id: 2009
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -15289,6 +15293,9 @@
         - 36683
         - 37264
       :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 48896
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :overlord
@@ -15758,7 +15765,6 @@
         - 43745
         - 43751
         - 47307
-        - 41030
       :threshold: 81.7%
       :generator:
         ignore_latest_ids:
@@ -15802,7 +15808,6 @@
         - 43745
         - 43751
         - 47307
-        - 41030
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -16328,9 +16333,6 @@
         - 38086
         - 38085
         - 42030
-        not_ignored_ids:
-        - 33049
-        - 33050
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :fate
@@ -16388,9 +16390,6 @@
         - 38086
         - 38085
         - 42030
-        not_ignored_ids:
-        - 33049
-        - 33050
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :fate
@@ -20090,6 +20089,7 @@
         - 37865
         - 42136
         - 42984
+        - 42914
       :threshold: 93%
       :generator:
         ignore_latest_ids:
@@ -20137,6 +20137,7 @@
         - 37865
         - 42136
         - 42984
+        - 42914
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -22010,7 +22011,6 @@
       :filters:
         franchise: dragon_ball
         not_anime_ids:
-        - 502
         - 6714
         - 11359
         - 11659
@@ -22057,7 +22057,6 @@
       :filters:
         franchise: dragon_ball
         not_anime_ids:
-        - 502
         - 6714
         - 11359
         - 11659
@@ -22070,6 +22069,11 @@
         - 38653
         - 48617
       :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 48903
+        not_ignored_ids:
+        - 502
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :dragon_ball
@@ -23270,7 +23274,6 @@
         - 38056
         - 38087
         - 39339
-        - 46735
         - 48409
       :threshold: 95%
       :generator:
@@ -23330,7 +23333,6 @@
         - 38056
         - 38087
         - 39339
-        - 46735
         - 48409
       :threshold: 0.01
       :generator:
@@ -24626,8 +24628,6 @@
       :algo: duration
       :filters:
         franchise: teekyuu
-        not_anime_ids:
-        - 31669
       :threshold: 89.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -24657,8 +24657,6 @@
       :algo: duration
       :filters:
         franchise: teekyuu
-        not_anime_ids:
-        - 31669
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -26274,39 +26272,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :fushigi_yuugi
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/fushigi_yuugi.jpg"
-    :border_color:
-    :title_ru: Таинственная игра
-    :text_ru:
-    :title_en: Fushigi Yuugi
-    :text_en:
-    :topic_id: 247360
-    :rule: &471
-      :algo: duration
-      :filters:
-        franchise: fushigi_yuugi
-        not_anime_ids:
-        - 27567
-      :threshold: 100%
-      :generator:
-        threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :fushigi_yuugi
-  level: 1
-  image: "/assets/achievements/anime/franchise/fushigi_yuugi.jpg"
-  border_color:
-  title_ru: Таинственная игра
-  text_ru:
-  title_en: Fushigi Yuugi
-  text_en:
-  topic_id: 247360
-  rule: *471
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :saint_seiya
     :level: 0
     :image: "/assets/achievements/anime/franchise/saint_seiya.jpg"
@@ -26316,7 +26281,7 @@
     :title_en: Saint Seiya
     :text_en:
     :topic_id: 247360
-    :rule: &472
+    :rule: &471
       :algo: duration
       :filters:
         franchise: saint_seiya
@@ -26334,6 +26299,39 @@
   title_ru: Рыцари Зодиака
   text_ru:
   title_en: Saint Seiya
+  text_en:
+  topic_id: 247360
+  rule: *471
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :fushigi_yuugi
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/fushigi_yuugi.jpg"
+    :border_color:
+    :title_ru: Таинственная игра
+    :text_ru:
+    :title_en: Fushigi Yuugi
+    :text_en:
+    :topic_id: 247360
+    :rule: &472
+      :algo: duration
+      :filters:
+        franchise: fushigi_yuugi
+        not_anime_ids:
+        - 27567
+      :threshold: 100%
+      :generator:
+        threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :fushigi_yuugi
+  level: 1
+  image: "/assets/achievements/anime/franchise/fushigi_yuugi.jpg"
+  border_color:
+  title_ru: Таинственная игра
+  text_ru:
+  title_en: Fushigi Yuugi
   text_en:
   topic_id: 247360
   rule: *472
@@ -26570,7 +26568,7 @@
       :algo: duration
       :filters:
         franchise: doupo_cangqiong
-      :threshold: 95%
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :doupo_cangqiong
