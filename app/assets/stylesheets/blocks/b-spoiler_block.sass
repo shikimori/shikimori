@@ -21,19 +21,10 @@
       font-size: 14px
       min-height: 29px
       white-space: pre-wrap // otherwise spaces around tags will be ignored
-      // align-items: center
-      // background: #f3f5f7 !important
-      // border: 1px solid #678
-      // border-bottom-width: 2px
-      // border-left-width: 4px
-      // color: #123 !important
 
-      // &:before
-      //   content: ''
-      //   width: 23px
-      //   margin-right: auto
-
-      &:after
+    // do not apply `margin-left: auto` inside ProseMirror
+    &:not([data-node-view-wrapper])
+      & > span:after
         margin-left: auto
 
     &.is-opened > span > i.expand:before
@@ -62,47 +53,51 @@
       &:after
         transform: rotate(180deg)
 
-      & > .separator
-        margin-left: 11px
-        margin-right: auto
+  & > span
+    & > .separator
+      margin-left: 11px
+      margin-right: auto
 
-      & > i.edit,
-      & > i.expand,
-      & > i.center
-        +link_color(#fff)
-        // +link_color(#7b8084)
-        align-items: center
-        // background: rgba(#fcfcfc, 0.75)
-        cursor: pointer
-        display: inline-flex
-        flex-shrink: 0
-        font-style: normal
-        height: 23px
-        justify-content: center
-        margin-right: 5px
-        width: 23px
+    & > i.edit,
+    & > i.expand,
+    & > i.center,
+    & > i.remove,
+    & > i.drag-handle
+      +link_color(#fff)
+      // +link_color(#7b8084)
+      align-items: center
+      // background: rgba(#fcfcfc, 0.75)
+      cursor: pointer
+      display: inline-flex
+      flex-shrink: 0
+      font-style: normal
+      height: 23px
+      justify-content: center
+      margin-right: 5px
+      width: 23px
 
-        +gte_laptop
-          &:hover
-            background: rgba(#fcfcfc, 0.75)
+      +gte_laptop
+        &:hover
+          background: rgba(#fcfcfc, 0.75)
 
-        &:active
-          background: rgba(#fcfcfc, 0.9)
+      &:active
+        background: rgba(#fcfcfc, 0.9)
 
-      & > i.edit
-        &:before
-          +font_shikimori('\e842')
-          font-weight: normal
+      &:before
+        font-weight: normal
 
-      & > i.expand
-        &:before
-          +font_shiki_editor('\e83d')
-          font-weight: normal
-
-      & > i.center
-        &:before
-          +font_shiki_editor('\e803')
-          font-weight: normal
+    & > i.edit:before
+      +font_shikimori('\e842')
+    & > i.expand:before
+      +font_shiki_editor('\e83d')
+    & > i.center:before
+      +font_shiki_editor('\e803')
+    & > i.remove:before
+      +font_shikimori('✕')
+    & > i.drag-handle
+      cursor: -webkit-grab
+      &:before
+        +font_shikimori('m')
 
   & > span
     +shiki_button(#678)
@@ -110,7 +105,7 @@
     display: inline-flex
     min-height: 23px
     pointer-events: all
-    // line-height: 1.45
+    transition: min-height .25s, font-size .25s
 
     &:active
       outline: none

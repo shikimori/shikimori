@@ -146,6 +146,7 @@ en:
 
     scopes:
       user_rates: Change your list of anime and manga
+      email: Receive your email address
       messages: Read your private messages, send private messages on your behalf
       comments: Comment on your behalf
       topics: Create topics and reviews on your behalf

@@ -30,15 +30,20 @@ pageLoad('pages_oauth', () => {
           return ((status >= 200) && (status < 300)) || (status === 401);
         }
       })
-      .then(request =>
+      .then(request => {
         $formatResponse
           .removeClass('b-ajax')
           .html(formatResponse(JSON.stringify(request.data)))
-          .process()).catch(error =>
+          .process();
+
+        $('#access_token').val(request.data.access_token);
+        $('#refresh_token').val(request.data.refresh_token);
+      })
+      .catch(error => (
         $formatResponse
           .removeClass('b-ajax')
           .html(formatResponse(error.toString()))
-      );
+      ));
   });
 
   $('#refresh_acces_token').on('click', ({ currentTarget }) => {

@@ -44,7 +44,11 @@ class Api::V1::UsersController < Api::V1Controller
 
   api :GET, '/users/whoami', "Show current user's brief info"
   def whoami
-    respond_with current_user, serializer: UserInfoSerializer
+    if doorkeeper_token&.accessible? && doorkeeper_token&.includes_scope?('email')
+      respond_with current_user, serializer: UserInfoWithEmailSerializer
+    else
+      respond_with current_user, serializer: UserInfoSerializer
+    end
   end
 
   api :GET, '/users/sign_out', 'Sign out the user'

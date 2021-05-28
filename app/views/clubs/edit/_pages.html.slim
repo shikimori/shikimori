@@ -2,7 +2,7 @@
   - if @resource.pages.none?
     .b-nothing_here = t 'clubs.club_pages.form.no_pages'
   - else
-    ul.b-list
+    ul.b-list.is-wide
       - @resource.root_pages.each do |page|
         = render 'clubs/club_pages/club_page',
           club: @resource,

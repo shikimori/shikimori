@@ -5,21 +5,8 @@
   line-height: 23px
   padding: 0 10px
 
-=shiki_button($background-color: #456)
-  +shiki_button_sizes
+=shiki_button_background($background-color)
   background-color: $background-color
-  border: 0
-  clear: right
-  color: #fff
-  cursor: pointer
-  display: inline-block
-  transition: background-color 0.3s ease, color 0.3s ease
-  user-select: none
-
-  span
-    font-size: 15px
-    font-weight: bold
-    display: inline
 
   +gte_laptop
     &:hover
@@ -32,3 +19,19 @@
   &.disabled
     background-color: #7b8590
     cursor: default
+
+=shiki_button($background-color: #456)
+  +shiki_button_sizes
+  +shiki_button_background($background-color)
+  border: 0
+  clear: right
+  color: #fff
+  cursor: pointer
+  display: inline-block
+  transition: background-color 0.3s ease, color 0.3s ease
+  user-select: none
+
+  span
+    font-size: 15px
+    font-weight: bold
+    display: inline

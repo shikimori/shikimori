@@ -2,7 +2,6 @@
 root: true
 
 env:
-  browser: true
   node: true
   es6: true
   jquery: true
@@ -10,8 +9,7 @@ env:
 parser: vue-eslint-parser
 
 extends:
-  - airbnb-base
-  - plugin:vue/recommended
+  - plugin:vue/vue3-recommended
   - eslint:recommended
   - plugin:import/errors
   - plugin:import/warnings
@@ -63,10 +61,10 @@ rules:
     - 2
     - props: false
   no-underscore-dangle: 0
-  no-unused-vars:
-    - warn
-    - argsIgnorePattern: ^_
-      varsIgnorePattern: ^_
+  no-unused-vars: 0 # temporarily disabled because it does not work with vue-3 script setup syntax
+    # - error
+    # - argsIgnorePattern: ^_
+    #   varsIgnorePattern: ^_
   no-use-before-define: 0
   no-mixed-operators: 0
   no-new: 0

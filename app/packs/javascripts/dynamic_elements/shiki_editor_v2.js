@@ -16,16 +16,13 @@ export default class ShikiEditorV2 extends View {
   initialization = pDefer()
   processedInitialContent = null
   isPendingSubmit = false
+  editorApp = null
 
   async initialize() {
     await this._buildEditor();
     this.initialization.resolve();
 
     this._processCache();
-  }
-
-  get editorApp() {
-    return this.app.$children[0];
   }
 
   @memoize
@@ -75,18 +72,25 @@ export default class ShikiEditorV2 extends View {
     }
 
     const [
-      { Vue },
+      { createApp, h },
       { ShikiEditorApp },
       { default: ShikiUploader },
       { ShikiRequest }
     ] = await Promise.all([
-      import(/* webpackChunkName: "vue" */ '@/vue/instance'),
-      import(/* webpackChunkName: "shiki-editor" */ 'shiki-editor'),
+      import(/* webpackChunkName: "vue" */ 'vue'),
+      import(/* webpackChunkName: "shiki-editor" */
+        'shiki-editor'
+      ),
       import('shiki-uploader'),
       import('shiki-utils')
     ]);
 
-    this.app = this._buildApp(Vue, ShikiEditorApp, ShikiUploader, ShikiRequest);
+    this.app = this._buildApp(
+      { createApp, h },
+      ShikiEditorApp,
+      ShikiUploader,
+      ShikiRequest
+    );
     this.vueNode = this.app.$el;
 
     this._bindForm();
@@ -163,7 +167,7 @@ export default class ShikiEditorV2 extends View {
     });
   }
 
-  _buildApp(Vue, ShikiEditorApp, ShikiUploader, ShikiRequest) {
+  _buildApp({ createApp, h }, ShikiEditorApp, ShikiUploader, ShikiRequest) {
     const shikiUploader = this._buildShikiUploader(ShikiUploader);
     const shikiRequest = new ShikiRequest(window.location.origin, axios);
     const localizationField = document.body.getAttribute('data-localized_names') === 'en' ?
@@ -172,40 +176,39 @@ export default class ShikiEditorV2 extends View {
 
     const { $form, appPlaceholder } = this;
 
-    return new Vue({
-      el: this.vueNode,
+    const app = createApp({
       components: { ShikiEditorApp },
       mounted() {
         appPlaceholder.classList.add('hidden');
 
-        if ($('.l-top_menu-v2').css('position') === 'sticky') {
-          this.$children[0].isMenuBarOffset = true;
-        }
+        // if ($('.l-top_menu-v2').css('position') === 'sticky') {
+        //   this.$children[0].isMenuBarOffset = true;
+        // }
       },
-      beforeDestroy() {
+      beforeUnmount() {
         appPlaceholder.classList.remove('hidden');
       },
-      render: createElement => createElement(ShikiEditorApp, {
-        props: {
-          vue: Vue,
-          shikiUploader,
-          shikiRequest,
-          globalSearch: window.globalSearch,
-          content: this._initialContent(),
-          localizationField,
-          previewParams: this.$node.data('preview_params')
-        },
+      render: () => h(ShikiEditorApp, {
+        shikiUploader,
+        shikiRequest,
+        globalSearch: window.globalSearch,
+        content: this._initialContent(),
+        localizationField,
+        previewParams: this.$node.data('preview_params'),
         class: VUE_INITIALIZED_CLASS,
-        on: {
-          preview({ node, JS_EXPORTS }) {
-            $(node).process(JS_EXPORTS);
-          },
-          submit() {
-            $form.submit();
-          }
-        }
+        onPreview({ node, JS_EXPORTS }) {
+          $(node).process(JS_EXPORTS);
+        },
+        onSubmit() {
+          $form.submit();
+        },
+        ref: el => this.editorApp = el
       })
     });
+    app.config.globalProperties.I18n = I18n;
+    app.mount(this.vueNode);
+
+    return app;
   }
 
   _bindForm() {

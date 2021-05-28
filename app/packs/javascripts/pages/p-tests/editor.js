@@ -159,7 +159,6 @@ pageLoad('tests_editor', async () => {
   const $shikiEditor = $('.b-shiki_editor');
   const $textarea = $shikiEditor.find('textarea');
 
-  const { Vue } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
   const { ShikiEditor } = await import(/* webpackChunkName: "shiki-editor" */ 'shiki-editor');
   const { ShikiRequest } = await import('shiki-utils');
 
@@ -175,7 +174,7 @@ pageLoad('tests_editor', async () => {
       extensions: [],
       content: TEST_DEMO_CONTENT || DEMO_CONTENT,
       shikiRequest
-    }, null, Vue);
+    });
 
     if (IS_RAW_2) {
       new ShikiEditor({
@@ -183,7 +182,7 @@ pageLoad('tests_editor', async () => {
         extensions: [],
         content: TEST_DEMO_CONTENT || DEMO_CONTENT,
         shikiRequest
-      }, null, Vue);
+      });
     } else {
       $(rawNode2).closest('.block').hide();
     }
@@ -332,7 +331,7 @@ spoiler content
 code block
 \`\`\`
 \`\`\`css
-.css /* code block */ { color: red; } 
+.css /* code block */ { color: red; }
 \`\`\`
 
 ### Inline code

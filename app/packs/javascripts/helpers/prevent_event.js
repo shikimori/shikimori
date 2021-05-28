@@ -1,4 +1,4 @@
-export default function (e) {
+export default function preventEvent(e) {
   e.stopImmediatePropagation();
   e.preventDefault();
 }

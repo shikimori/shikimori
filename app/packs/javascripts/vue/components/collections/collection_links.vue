@@ -1,88 +1,89 @@
 <template lang='pug'>
+.block
   .block
-    .block
-      .b-options-floated {{ `${links.length} / ${maxLinks}` }}
-      .subheadline {{ I18n.t(`frontend.collections.kind.${collection.kind}`) }}
-      .cc-3-flex
-        .c-column(
-          v-for='(groupName, index) in groups'
-        )
-          .b-input.group
-            .group-headline
-              label(
-                :for="'group_' + groupName"
-              ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
-              .move-left.b-js-link(
-                v-if='groups.length > 1'
-                :class='{ "is-disabled": index === 0 }'
-                @click='() => index === 0 ? null : moveGroupLeft(groupName)'
-              )
-              .move-right.b-js-link(
-                v-if='groups.length > 1'
-                :class='{ "is-disabled": index === groups.length - 1 }'
-                @click='() => index === groups.length - 1 ? null : moveGroupRight(groupName)'
-              )
-              .add
-                .b-js-link(
-                  v-if='links.length < maxLinks'
-                  @click='addLink({group: groupName})'
-                ) {{ I18n.t('frontend.actions.add').toLowerCase() }}
-            input(
-              :id="'group_' + groupName"
-              :value='groupName'
-              :data-original_value='groupName'
-              :placeholder="I18n.t('frontend.collections.group_name')"
-              class='name'
-              @blur='onGroupRename'
-              @change='onGroupRename'
-              @keydown.enter.prevent='onGroupRename'
-              type='text'
+    .b-options-floated {{ `${links.length} / ${maxLinks}` }}
+    .subheadline {{ I18n.t(`frontend.collections.kind.${collection.kind}`) }}
+    .cc-3-flex
+      .c-column(
+        v-for='(groupName, index) in groups'
+      )
+        .b-input.group
+          .group-headline
+            label(
+              :for="'group_' + groupName"
+            ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
+            .move-left.b-js-link(
+              v-if='groups.length > 1'
+              :class='{ "is-disabled": index === 0 }'
+              @click='() => index === 0 ? null : moveGroupLeft(groupName)'
             )
-
-          draggable.collection_links(
-            v-bind='dragOptions'
-            @update='onDragUpdate'
-            @add='onDragAdd'
+            .move-right.b-js-link(
+              v-if='groups.length > 1'
+              :class='{ "is-disabled": index === groups.length - 1 }'
+              @click='() => index === groups.length - 1 ? null : moveGroupRight(groupName)'
+            )
+            .add
+              .b-js-link(
+                v-if='links.length < maxLinks'
+                @click='addLink({group: groupName})'
+              ) {{ I18n.t('frontend.actions.add').toLowerCase() }}
+          input(
+            :id="'group_' + groupName"
+            :value='groupName'
+            :data-original_value='groupName'
+            :placeholder="I18n.t('frontend.collections.group_name')"
+            class='name'
+            @blur='onGroupRename'
+            @change='onGroupRename'
+            @keydown.enter.prevent='onGroupRename'
+            type='text'
           )
+
+        draggable.collection_links(
+          v-model='groupedLinks[groupName]'
+          item-key='element => element.id || element.key'
+          v-bind='dragOptions'
+          @update='onDragUpdate'
+          @add='onDragAdd'
+        )
+          template(#item="{element}")
             CollectionLink(
-              v-for='link in groupedLinks[groupName]'
-              :key='link.id || link.key'
-              :link='link'
+              :link='element'
               :autocomplete-url='autocompleteUrl'
             )
 
-        .c-column.new-group(
-          v-if='links.length < maxLinks'
+      .c-column.new-group(
+        v-if='links.length < maxLinks'
+      )
+        div(
+          v-if="Object.isEmpty(groupedLinks[''])"
         )
-          div(
-            v-if="Object.isEmpty(groupedLinks[''])"
-          )
-            .b-button(
-              @click='addNewGroup'
-            ) {{ I18n.t('frontend.actions.add') }}
-          .button-container(
-            v-if="!Object.isEmpty(groupedLinks[''])"
-          )
-            div
-              .b-button.disabled {{ I18n.t('frontend.actions.add') }}
-            .hint {{ I18n.t('frontend.collections.disabled_add_group_hint') }}
+          .b-button(
+            @click='addNewGroup'
+          ) {{ I18n.t('frontend.actions.add') }}
+        .button-container(
+          v-if="!Object.isEmpty(groupedLinks[''])"
+        )
+          div
+            .b-button.disabled {{ I18n.t('frontend.actions.add') }}
+          .hint {{ I18n.t('frontend.collections.disabled_add_group_hint') }}
 
-    .block.json
-      .subheadline.m5 JSON
-      .b-spoiler.unprocessed
-        label {{ I18n.t('frontend.collections.json_warning') }}
-        .content
-          .before
-          .inner
-            .b-input
-              textarea(
-                @change='onRefill'
-                @keydown.ctrl.enter='onRefill'
-                @keydown.meta.enter='onRefill'
-                @focus.once='addAutosize'
-                v-bind:value='linksJSON'
-              )
-          .after
+  .block.json
+    .subheadline.m5 JSON
+    .b-spoiler.unprocessed
+      label {{ I18n.t('frontend.collections.json_warning') }}
+      .content
+        .before
+        .inner
+          .b-input
+            textarea(
+              @change='onRefill'
+              @keydown.ctrl.enter='onRefill'
+              @keydown.meta.enter='onRefill'
+              @focus.once='addAutosize'
+              v-bind:value='linksJSON'
+            )
+        .after
 </template>
 
 <script>

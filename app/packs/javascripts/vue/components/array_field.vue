@@ -1,43 +1,42 @@
 <template lang='pug'>
-  .block
-    input(
-      type='hidden'
-      :name='emptyInputName || `${resourceType.toLowerCase()}[${field}][]`'
-      v-if='isEmpty'
-    )
-    .b-nothing_here(
-      v-if='!collection.length'
-    )
-      | {{ I18n.t('frontend.' + field + '.nothing_here') }}
-    draggable.block(
-      v-bind='dragOptions'
-      v-model='collection'
-      v-if='collection.length'
-    )
-      .b-collection_item.single-line(
-        v-for='entry in collection'
-        :key='entry.key'
-      )
+.block_m
+  input(
+    type='hidden'
+    :name='emptyInputName || `${resourceType.toLowerCase()}[${field}][]`'
+    v-if='isEmpty'
+  )
+  .b-nothing_here(
+    v-if='!collection.length'
+  )
+    | {{ I18n.t('frontend.' + field + '.nothing_here') }}
+  draggable.block(
+    v-if='collection.length'
+    v-model='collection'
+    item-key='element => element.key'
+    v-bind='dragOptions'
+  )
+    template(#item="{element}")
+      .b-collection_item.single-line
         .delete(
-          @click='remove(entry.key)'
+          @click='remove(element.key)'
         )
         .drag-handle
         .b-input
           input(
             type='text'
-            :value='entry.value'
+            :value='element.value'
             :name="inputName || `${resourceType.toLowerCase()}[${field}][]`"
             :placeholder="I18n.t('frontend.' + field + '.name')"
-            @input='update({ key: entry.key, value: $event.target.value })'
+            @input='update({ key: element.key, value: $event.target.value })'
             @keydown.enter='submit'
-            @keydown.8='removeEmpty(entry)'
-            @keydown.esc='removeEmpty(entry)'
+            @keydown.8='removeEmpty(element)'
+            @keydown.esc='removeEmpty(element)'
             :data-autocomplete='autocompleteUrl'
-            :data-item_key='entry.key'
+            :data-item_key='element.key'
           )
-    .b-button(
-      @click='add'
-    ) {{ I18n.t('frontend.actions.add') }}
+  .b-button(
+    @click='add'
+  ) {{ I18n.t('frontend.actions.add') }}
 </template>
 
 <script>
@@ -149,6 +148,6 @@ export default {
 </script>
 
 <style scoped lang='sass'>
-  .b-nothing_here
-    margin-bottom: 15px
+.b-nothing_here
+  margin-bottom: 15px
 </style>

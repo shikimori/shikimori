@@ -1,9 +1,8 @@
-pageLoad('tests_vue', async () => {
-  const { Vue } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
-  const { default: Test1 } = await import('@/vue/components/tests/test_1.vue');
+// import { createApp } from 'vue';
 
-  new Vue({
-    el: '#vue_app',
-    render: h => h(Test1)
-  });
+pageLoad('tests_vue', async () => {
+  const { createApp } = await import(/* webpackChunkName: "vue" */ 'vue');
+  const { default: Test } = await import('@/vue/components/tests/test');
+
+  createApp(Test).mount('#vue_app');
 });

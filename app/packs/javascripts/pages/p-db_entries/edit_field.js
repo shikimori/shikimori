@@ -1,3 +1,4 @@
+/* eslint-disable vue/one-component-per-file */
 let gallery;
 
 pageUnload('.db_entries-edit_field', () => {
@@ -158,97 +159,69 @@ pageLoad('.db_entries-edit_field', () => {
   if ($(ARRAY_FIELDS.map(v => `.edit-page.${v}`).join(',')).exists()) {
     initArrayFieldApp();
   }
-
-  // if ($('.edit-page.licensor').exists()) {
-  //   initTagsApp($('.anime_licensor, .manga_licensor'));
-  // }
 });
 
 async function initExternalLinksApp() {
-  const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
+  const { createApp } = await import(/* webpackChunkName: "vue" */ 'vue');
+  const { createStore } = await import(/* webpackChunkName: "vuex" */ 'vuex');
+
   const { default: ExternalLinks } = await import('@/vue/components/external_links/external_links');
   const { default: storeSchema } = await import('@/vue/stores/collection');
 
   const $app = $('#vue_external_links');
   const values = $app.data('external_links').map(v => ({ ...v, key: v.id }));
 
-  const store = new Vuex.Store(storeSchema);
+  const store = createStore(storeSchema);
   store.state.collection = values;
 
-  new Vue({
-    el: '#vue_external_links',
-    store,
-    render: h => h(ExternalLinks, {
-      props: {
-        kindOptions: $app.data('kind_options'),
-        resourceType: $app.data('resource_type'),
-        entryType: $app.data('entry_type'),
-        entryId: $app.data('entry_id'),
-        watchOnlineKinds: $app.data('watch_online_kinds')
-      }
-    })
+  const app = createApp(ExternalLinks, {
+    kindOptions: $app.data('kind_options'),
+    resourceType: $app.data('resource_type'),
+    entryType: $app.data('entry_type'),
+    entryId: $app.data('entry_id'),
+    watchOnlineKinds: $app.data('watch_online_kinds')
   });
+  app.use(store);
+  app.config.globalProperties.I18n = I18n;
+  app.mount('#vue_external_links');
 }
 
 export async function initArrayFieldApp() {
-  const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
+  const { createApp, nextTick } = await import(/* webpackChunkName: "vue" */ 'vue');
+  const { createStore } = await import(/* webpackChunkName: "vuex" */ 'vuex');
+
   const { default: ArrayField } = await import('@/vue/components/array_field');
   const { default: storeSchema } = await import('@/vue/stores/collection');
 
   const $app = $('#vue_app');
   const values = $app.data('values');
 
-  const store = new Vuex.Store(storeSchema);
+  const store = createStore(storeSchema);
   store.state.collection = values.map((value, index) => ({
     key: index,
     value
   }));
 
-  const app = new Vue({
-    el: '#vue_app',
-    store,
-    render: h => h(ArrayField, {
-      props: {
-        resourceType: $app.data('resource_type'),
-        field: $app.data('field'),
-        autocompleteUrl: $app.data('autocomplete_url'),
-        autocompleteType: $app.data('autocomplete_type')
-      }
-    })
+  const app = createApp(ArrayField, {
+    resourceType: $app.data('resource_type'),
+    field: $app.data('field'),
+    autocompleteUrl: $app.data('autocomplete_url'),
+    autocompleteType: $app.data('autocomplete_type')
   });
+  app.use(store);
+  app.config.globalProperties.I18n = I18n;
+  app.mount('#vue_app');
 
   $('form').one('submit', async e => {
     e.preventDefault();
     e.stopImmediatePropagation();
 
     await store.dispatch('cleanup');
-    await app.$nextTick();
+    await nextTick();
 
     e.currentTarget.submit();
   });
 }
-
-// async function initTagsApp($tags) {
-//   const { Vue } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
-//   const { default: TagsInput } = await import('@/vue/components/tags_input');
-// 
-//   const $app = $('#vue_app');
-//   $tags.hide();
-// 
-//   new Vue({
-//     el: '#vue_app',
-//     render: h => h(TagsInput, {
-//       props: {
-//         label: $tags.find('label').text(),
-//         input: $tags.find('input')[0],
-//         value: [$app.data('value')].compact(),
-//         autocompleteBasic: $app.data('autocomplete_basic'),
-//         autocompleteOther: [],
-//         tagsLimit: 1
-//       }
-//     })
-//   });
-// }
 
 async function initSortableApp($node) {
   if (!$node.length) { return; }

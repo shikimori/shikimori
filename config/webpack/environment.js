@@ -17,7 +17,7 @@ const pugLoader = require('./loaders/pug');
 environment.loaders.append('pug', pugLoader);
 
 environment.loaders.get('babel').exclude =
-  /node_modules\/(?!delay|p-defer|get-js|swiper|shiki-utils|shiki-editor|shiki-uploader|shiki-decorators|prosemirror-utils)/;
+  /node_modules\/(?!delay|p-defer|get-js|swiper|shiki-utils|shiki-editor|shiki-uploader|shiki-decorators|prosemirror-utils)/; // eslint-disable-line max-len
 environment.loaders.get('file').exclude =
   /\.(js|vue|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
 
@@ -105,12 +105,21 @@ environment.plugins.append(
   'some_definitions',
   new webpack.DefinePlugin({
     IS_LOCAL_SHIKI_PACKAGES,
-    IS_FAYE_LOGGING: true // process.env.NODE_ENV === 'production'
+    IS_FAYE_LOGGING: true, // process.env.NODE_ENV === 'production'
+    __VUE_OPTIONS_API__: true,
+    __VUE_PROD_DEVTOOLS__: false
   })
 );
 
 environment.config.resolve.alias = {
   '@': path.resolve(__dirname, '..', '..', config.source_path, 'javascripts')
+  // 'vue': '@vue/runtime-dom'
+  // 'vue': 'vue/dist/vue.runtime.esm-bundler.js'
 };
+
+environment.config.resolve.modules = [
+  // fix vue load in ../shiki-editor
+  path.join(__dirname, '../../node_modules')
+];
 
 module.exports = environment;

@@ -5,7 +5,7 @@ const INPUT_FORMAT = 'YYYY-MM-DD';
 
 export class DatePicker extends View {
   initialize() {
-    import(/* webpackChunkName: "pikaday" */ 'pikaday/scss/pikaday.scss');
+    import(/* webpackChunkName: "pikaday" */ 'pikaday/css/pikaday.css');
     this.initPromise = import(/* webpackChunkName: "pikaday" */ '@/vendor/async/pikaday')
       .then(Pikaday => this._initPicker(Pikaday.default));
   }

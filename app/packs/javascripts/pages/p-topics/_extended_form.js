@@ -154,7 +154,7 @@ function attachVideo(videoData, $topicVideo, $wall) {
 export async function initTagsApp(type) {
   if (!$(`#${type}_tags`).length) { return null; }
 
-  const { Vue } = await import(/* webpackChunkName: "vue" */ '@/vue/instance');
+  const { createApp, h } = await import(/* webpackChunkName: "vue" */ 'vue');
   const { default: TagsInput } = await import('@/vue/components/tags_input');
 
   const $app = $('#vue_tags_input');
@@ -163,14 +163,13 @@ export async function initTagsApp(type) {
 
   $tags.hide();
 
-  return new Vue({
-    el: '#vue_tags_input',
-    beforeDestroy() {
+  const app = createApp({
+    beforeUnmount() {
       $tags.show();
       $(this.$el).replaceWith(initialHtml);
     },
-    render: h => h(TagsInput, {
-      props: {
+    render() {
+      return h(TagsInput, {
         label: $tags.find('label').text(),
         hint: $tags.find('.hint').html(),
         input: $tags.find('input')[0],
@@ -179,7 +178,9 @@ export async function initTagsApp(type) {
         autocompleteOther: $app.data('autocomplete_other') || [],
         tagsLimit: 3,
         isDowncase: true
-      }
-    })
+      });
+    }
   });
+
+  app.mount('#vue_tags_input');
 }
