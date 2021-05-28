@@ -140,6 +140,9 @@
       .subheadline.m8 = t '.on_other_sites'
       = render resource.menu_external_links, class: 'b-menu-line'
 
+      - if resource.manga? && Copyright::MANGA_IDS.include?(resource.id)
+        p.copyrighted = t '.copyrighted'
+
   / - if user_signed_in? && current_user.day_registered?
   - if user_signed_in?
     - if resource.respond_to?(:fansubbers) && resource.fansubbers.any?

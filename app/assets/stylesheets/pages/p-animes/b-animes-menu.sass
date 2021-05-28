@@ -2,6 +2,7 @@
 @import mixins/block
 @import mixins/css4
 @import mixins/ellipsis2
+@import mixins/font_shikimori
 @import mixins/link
 @import mixins/responsive
 
@@ -86,3 +87,19 @@
 
         .ajax-loading
           margin-top: 35px
+
+  .copyrighted
+    font-size: 11px
+    color: $gray-4
+    line-height: 1.35
+    margin-top: 5px
+    display: flex
+    align-items: center
+
+    &:before
+      +font_shikimori('!')
+      flex-shrink: 0
+      font-size: 18px
+      margin-right: 6px
+      text-align: center
+      width: 19px

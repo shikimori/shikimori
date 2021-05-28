@@ -13,19 +13,18 @@ $image-path: 'blocks/b-external_links'
   a:before,
   span:before
     content: ''
-    position: absolute
+    flex-shrink: 0
     height: $image-size
+    margin-right: 6px
     width: $image-size
-    margin-left: -($image-size + 5px)
-    margin-top: 1px
     @content
 
 .b-external_link
   .linkeable,
   a,
   span
-    display: inline-block
-    margin-left: $image-size + 5px
+    display: flex
+    align-items: center
 
   @each $kind in $kinds_png
     &.#{$kind}
