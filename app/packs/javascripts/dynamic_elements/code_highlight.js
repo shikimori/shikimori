@@ -40,7 +40,7 @@ export default class CodeHighlight extends View {
 
     this.worker = this.buildWorker(function() {
       importScripts(
-        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.16.2/highlight.min.js'
+        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js'
       );
 
       this.onmessage = function(event) {
