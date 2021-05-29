@@ -71,18 +71,19 @@ export class EditStyles extends View {
 
   async _importComponents() {
     const { default: CodeMirror } = await import(/* webpackChunkName: "codemirror" */ 'codemirror');
-    const { default: md5 } = await import(/* webpackChunkName: "codemirror" */ 'blueimp-md5');
+    const { default: md5 } = await import(/* webpackChunkName: "codemirror5" */ 'blueimp-md5');
 
-    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/hint/show-hint.js');
-    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/hint/css-hint.js');
-
-    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/display/fullscreen.js');
-    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/dialog/dialog.js');
-    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/search/searchcursor.js');
-    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/search/search.js');
-    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/scroll/annotatescrollbar.js');
-    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/search/matchesonscrollbar.js');
-    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/search/jump-to-line.js');
+    await Promise.all([
+      import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/hint/show-hint'),
+      import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/hint/css-hint'),
+      import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/display/fullscreen'),
+      import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/dialog/dialog'),
+      import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/search/searchcursor'),
+      import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/search/search'),
+      import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/scroll/annotatescrollbar'),
+      import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/search/matchesonscrollbar'),
+      import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/search/jump-to-line')
+    ]);
 
     this.md5 = md5;
     this.CodeMirror = CodeMirror;

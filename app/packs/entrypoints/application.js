@@ -28,7 +28,7 @@ import 'nouislider/distribute/nouislider.css';
 import 'jquery-appear-original';
 import 'jquery-mousewheel';
 
-// used in views/styles/edit.coffee
+// used in views/styles/edit.js
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/solarized.css';
 import 'codemirror/addon/hint/show-hint.css';
