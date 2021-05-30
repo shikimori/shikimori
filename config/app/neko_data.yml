@@ -8585,8 +8585,6 @@
         - 10469
         - 10638
         - 11239
-        - 11977
-        - 11979
         - 15689
         - 14515
         - 17074
@@ -10333,6 +10331,7 @@
         - 31610
         - 34106
         - 41911
+        - 5493
       :generator:
         person_id: 1891
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -21771,6 +21770,7 @@
         - 37765
         - 38716
         - 38717
+        - 49073
         not_ignored_ids:
         - 14007
         - 20667
@@ -21856,6 +21856,7 @@
         - 37765
         - 38716
         - 38717
+        - 49073
         not_ignored_ids:
         - 14007
         - 20667
