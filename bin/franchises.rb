@@ -44,14 +44,16 @@ data.each do |rule|
     .reject { |anime| Neko::IsAllowed.call anime }
     .map(&:id)
 
-  not_anime_ids = ((rule['filters']['not_anime_ids'] || []) + recap_ids).uniq.sort -
-    (rule.dig('generator', 'not_ignored_ids') || [])
+  not_anime_ids = (
+    ((rule['filters']['not_anime_ids'] || []) + recap_ids).uniq.sort -
+      (rule.dig('generator', 'not_ignored_ids') || [])
+  ).sort
 
-  not_anime_ids =  Anime
-    .where.not(status: :anons)
-    .where(id: not_anime_ids)
-    .order(:id)
-    .pluck(:id)
+  # not_anime_ids =  Anime
+  #   .where.not(status: :anons)
+  #   .where(id: not_anime_ids)
+  #   .order(:id)
+  #   .pluck(:id)
 
   if not_anime_ids.any?
     rule['filters']['not_anime_ids'] = not_anime_ids
