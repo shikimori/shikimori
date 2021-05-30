@@ -34,7 +34,7 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
     @is_exit_sequence = false
 
     @state = []
-    @nesting = 0 
+    @nesting = 0
   end
 
   def to_html
@@ -224,7 +224,11 @@ private
   end
 
   def finalize_content start_index, end_index
-    @state.push @text[start_index..end_index]
+    @state.push(
+      BbCodes::Markdown::HeadlineParser.instance.format(
+        @text[start_index..end_index]
+      )
+    )
   end
 
   def sequence_continued?
