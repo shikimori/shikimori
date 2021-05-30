@@ -60,6 +60,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import autosize from 'autosize';
 
+
 function highlight(selector) {
   const $node = $(selector);
 
@@ -108,7 +109,7 @@ export default {
 
       highlight(
         '.b-collection_item' +
-          `[data-linked_id='${this.link.linked_id}']` +
+          `[data-linked_id='${changes.linked_id}']` +
           `[data-group='${this.link.group}']`
       );
     },
