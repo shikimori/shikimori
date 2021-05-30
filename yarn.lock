@@ -4569,10 +4569,10 @@ highcharts@^9.0.0:
   resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-9.0.0.tgz#2e5d382481f71c50ac7f086e7bdead394fab71d4"
   integrity sha512-MJCtidFytGSQvsV3OEM+vFTLpjUcp7jmFpLn8h3oL4WKp0gxUOQg6Nw00sqMWGdiadst0gOZO4804zynTcYjZQ==
 
-highlight.js@~11.0.0-beta1:
-  version "11.0.0-beta1"
-  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-11.0.0-beta1.tgz#25a5bb4d3d146559eced4546e30589b677eaea55"
-  integrity sha512-VW5JkcAcxP4xmNXd30gI5xlgDyb+gdRRfs/uviAknAxbykaoW1Ua0xCHPFrZgeuAcWSc0ZpyI11r5kigJFVH2A==
+highlight.js@~11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-11.0.0.tgz#e22ac9ca45edc4f87a2187685d591a108ceb8449"
+  integrity sha512-ByaTMfsSuoqerTwemOgpIhfULEIaK52JJYhky/sK7/Yqc0+t7Uh5DHay9vIC94YXSupnQ1Vqfc9VXrYP4eXW3Q==
 
 hmac-drbg@^1.0.1:
   version "1.0.1"
@@ -5638,13 +5638,14 @@ loglevel@^1.6.8:
   resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.6.8.tgz#8a25fb75d092230ecd4457270d80b54e28011171"
   integrity sha512-bsU7+gc9AJ2SqpzxwU3+1fedl8zAntbtC5XYlt3s2j1hJcn2PsXSmgN8TaLG/J1/2mod4+cE/3vNL70/c1RNCA==
 
-lowlight@wooorm/lowlight#main:
-  version "1.20.0"
-  resolved "https://codeload.github.com/wooorm/lowlight/tar.gz/b6d0d245e43f5dd63cb3b0a1c07c6ee1f97a14fd"
+lowlight@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/lowlight/-/lowlight-2.0.1.tgz#2c1afacc34feab47411e71a39d4efedc2b8ee820"
+  integrity sha512-HB2PZDjmI3NlcSukkKHTwhXIiVhKMq8NZVcIMo8qXUJundfbes8JpE3jtqW/InByhOVd4X0XitTTzgiNoavAzQ==
   dependencies:
     "@types/hast" "^2.0.0"
     fault "^2.0.0"
-    highlight.js "~11.0.0-beta1"
+    highlight.js "~11.0.0"
 
 lru-cache@^5.1.1:
   version "5.1.1"
@@ -7659,7 +7660,7 @@ prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0:
   dependencies:
     prosemirror-model "^1.0.0"
 
-prosemirror-utils@atlassian/prosemirror-utils#remove-prosemirror-tables:
+"prosemirror-utils@github:atlassian/prosemirror-utils#remove-prosemirror-tables":
   version "0.9.6"
   resolved "https://codeload.github.com/atlassian/prosemirror-utils/tar.gz/9e2db389d408f376e0fc1f8bdffd95063e8d00af"
 
@@ -8530,15 +8531,15 @@ shiki-decorators@^1.0.1:
     bind-decorator "1.0.11"
     memoize-decorator "^1.0.2"
 
-shiki-editor@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-2.2.2.tgz#3aa5d9e84fffd9f61389f65a6497650e2017509b"
-  integrity sha512-3dwa/Z2zEeVjCFJG12OcC0yYGCDonH0GPBEsAuPp+KuMJP5zVdjg0sbbEks+Y+AGDBPkmiT4HvhjlAX7J0IYxw==
+shiki-editor@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-2.2.4.tgz#c8720965add51e1487660c7e8ba5f52f0281cf90"
+  integrity sha512-NHJ37WW7O0inn3UKPGdJms48jCtN8D0furL70UdIqnaosQZGoymiT0WqW/hv8BKShLeWU6zBAHHbV9Zw4mH7wQ==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@morr/withinviewport" "2.1.3-1"
     "@popperjs/core" "^2.4.4"
-    lowlight wooorm/lowlight#main
+    lowlight "2.0.1"
     prosemirror-commands "^1.1.7"
     prosemirror-dropcursor "^1.3.5"
     prosemirror-gapcursor "^1.1.5"
@@ -9660,7 +9661,7 @@ vue3-keypress@^4.0.1:
   resolved "https://registry.yarnpkg.com/vue3-keypress/-/vue3-keypress-4.0.1.tgz#161959779dda7a0bb86902fac594c75117a0dca4"
   integrity sha512-oKxLpVsQq1iosuwi38fbH+K2NL2HqbFT8U7yE1fzxcUB0Mup1vS7OcnNMqkgv+FHFJTNvlYAOwLctVK/ahz6Ng==
 
-vue3-perfect-scrollbar@morr/vue3-perfect-scrollbar#master:
+"vue3-perfect-scrollbar@github:morr/vue3-perfect-scrollbar#master":
   version "1.5.5"
   resolved "https://codeload.github.com/morr/vue3-perfect-scrollbar/tar.gz/04340756fd75f245e25042003b9c4a6ced343381"
 

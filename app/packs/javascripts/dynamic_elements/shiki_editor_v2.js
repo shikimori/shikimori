@@ -80,6 +80,7 @@ export default class ShikiEditorV2 extends View {
       import(/* webpackChunkName: "vue" */ 'vue'),
       import(/* webpackChunkName: "shiki-editor" */
         'shiki-editor'
+        // '../../../../../shiki-editor'
       ),
       import('shiki-uploader'),
       import('shiki-utils')

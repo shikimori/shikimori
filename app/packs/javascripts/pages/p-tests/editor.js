@@ -155,8 +155,10 @@ wall test end
 `.trim();
 
   TEST_DEMO_CONTENT = `
-> ## Заголовок
-> Текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+wall test start
+[wall]
+[image=1435119][image=1435118][image=1435117][image=1435126][image=1435132][image=1435133][image=1435130][image=1435131][image=1435165][image=1435179][image=1435180][/wall]
+wall test end
 `.trim();
 }
 
