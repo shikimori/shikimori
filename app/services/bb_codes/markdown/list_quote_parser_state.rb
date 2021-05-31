@@ -26,11 +26,19 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
 
   MAX_NESTING = 4
 
+  MULTILINE_BBCODES_NESTED_SEQUENCE_MATCHER = %r{
+    (?<tag_start>\[(?<tag>#{BbCodes::MULTILINE_BBCODES.join('|')}) [^\]]*? \])
+    (?<content>[\s\S]*?)
+    (?<tag_end>\[/\k<tag>\])
+  }x
+  MULTILINE_BBCODES_NESTED_SEQUENCE_REPLACERS = {}
+
   def initialize text, index = 0, nested_sequence = '', exit_sequence = nil
     @text = text
     @nested_sequence = nested_sequence
     @exit_sequence = exit_sequence
     @index = index
+    @is_traversed_tags = false
     @is_exit_sequence = false
 
     @state = []
@@ -124,6 +132,7 @@ private
     tag_end_index = rest_text.index tag_end
 
     if tag_end_index
+      @is_traversed_tags = true
       move tag_end_index + tag_end.length
       true
     else
@@ -224,11 +233,16 @@ private
   end
 
   def finalize_content start_index, end_index
-    @state.push(
-      BbCodes::Markdown::HeadlineParser.instance.format(
-        @text[start_index..end_index]
-      )
+    text = BbCodes::Markdown::HeadlineParser.instance.format(
+      @text[start_index..end_index]
     )
+
+    if @is_traversed_tags
+      text = replace_nested_sequence_inside_multiline_bbcodes text
+      @is_traversed_tags = false
+    end
+
+    @state.push text
   end
 
   def sequence_continued?
@@ -253,6 +267,24 @@ private
       @state.push(
         format(BLOCKQUOTE_OPEN_TAG, attrs: '') + BLOCKQUOTE_OPEN_CONTENT
       )
+    end
+  end
+
+  def replace_nested_sequence_inside_multiline_bbcodes text
+    MULTILINE_BBCODES_NESTED_SEQUENCE_REPLACERS[@nested_sequence] ||=
+      /(\A|\n)#{Regexp.escape @nested_sequence}(.*)/
+
+    text.gsub(MULTILINE_BBCODES_NESTED_SEQUENCE_MATCHER) do
+      tag_start = $LAST_MATCH_INFO[:tag_start]
+      content = $LAST_MATCH_INFO[:content]
+      tag_end = $LAST_MATCH_INFO[:tag_end]
+
+      content_wo_nested_sequence = content.gsub(
+        MULTILINE_BBCODES_NESTED_SEQUENCE_REPLACERS[@nested_sequence],
+        '\1\2'
+      )
+
+      tag_start + content_wo_nested_sequence + tag_end
     end
   end
 end

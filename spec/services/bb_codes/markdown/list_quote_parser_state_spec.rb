@@ -276,29 +276,47 @@ describe BbCodes::Markdown::ListQuoteParserState do
     it { is_expected.to eq ["<ul class='b-list'><li>1</li></ul>", '</h4>- 2'] }
   end
 
-  context 'headline' do
-    context 'single line' do
-      let(:text) { '> # test' }
-      it do
-        is_expected.to eq [
-          "<blockquote class='b-quote-v2'><div class='quote-content'>" \
-            '<h2>test</h2>' \
-            '</div></blockquote>',
-          nil
-        ]
+  context 'nested' do
+    context 'markdown' do
+      context 'headline' do
+        context 'single line' do
+          let(:text) { '> # test' }
+          it do
+            is_expected.to eq [
+              "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+                '<h2>test</h2>' \
+                '</div></blockquote>',
+              nil
+            ]
+          end
+        end
+
+        context 'multiline' do
+          let(:text) { "> zxc\n> # test" }
+          it do
+            is_expected.to eq [
+              "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+                "zxc\n" \
+                '<h2>test</h2>' \
+                '</div></blockquote>',
+              nil
+            ]
+          end
+        end
       end
     end
 
-    context 'multiline' do
-      let(:text) { "> zxc\n> # test" }
-      it do
-        is_expected.to eq [
-          "<blockquote class='b-quote-v2'><div class='quote-content'>" \
-            "zxc\n" \
-            '<h2>test</h2>' \
-            '</div></blockquote>',
-          nil
-        ]
+    context 'bbcodes' do
+      context 'div' do
+        let(:text) { "> z[div]\n> test\n> [/div]x" }
+        it do
+          is_expected.to eq [
+            "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+              "z[div]\ntest\n[/div]x" \
+              '</div></blockquote>',
+            nil
+          ]
+        end
       end
     end
   end
