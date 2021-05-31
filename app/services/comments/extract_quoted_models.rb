@@ -2,7 +2,7 @@ class Comments::ExtractQuotedModels
   REGEXP = /
     \[(quote|comment|topic|mention|user)=([^\]]+)\]
       |
-    (>\?)(.+) (?:\n|\Z)
+    (>\?)([^\n]+) (?:\n|\Z)
   /mx
 
   method_object :text
