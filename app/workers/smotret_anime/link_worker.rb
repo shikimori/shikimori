@@ -2,8 +2,8 @@ class SmotretAnime::LinkWorker
   include Sidekiq::Worker
   sidekiq_options queue: :anime365_parsers
 
-  API_URL = 'https://smotretanime.ru/api/series/?myAnimeListId=%<mal_id>i&fields=id,title,links'
-  SMOTRET_ANIME_URL = 'https://smotretanime.ru/catalog/%<smotret_anime_id>i'
+  API_URL = 'https://smotret-anime.online/api/series/?myAnimeListId=%<mal_id>i&fields=id,title,links'
+  SMOTRET_ANIME_URL = 'https://smotret-anime.online/catalog/%<smotret_anime_id>i'
 
   GIVE_UP_INTERVAL = 1.month
 
@@ -75,7 +75,7 @@ private
     .compact
     .reject { |link| link[:kind] == Types::ExternalLink::Kind[:myanimelist] }
     .reject { |link| link[:url].match?(/\bakira/i) }
-    # for some reason it returns "akira" links for some animes: https://smotretanime.ru/api/series/?myAnimeListId=41372&fields=id,title,links
+    # for some reason it returns "akira" links for some animes: https://smotret-anime.online/api/series/?myAnimeListId=41372&fields=id,title,links
   end
 
   def create_link anime, attributes

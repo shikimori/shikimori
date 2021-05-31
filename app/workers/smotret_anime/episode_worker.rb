@@ -5,7 +5,7 @@ class SmotretAnime::EpisodeWorker
     retry: false
   )
 
-  EPISODES_API_URL = 'https://smotretanime.ru/api/series/%<smotret_anime_id>i?fields=id,episodes'
+  EPISODES_API_URL = 'https://smotret-anime.online/api/series/%<smotret_anime_id>i?fields=id,episodes'
   TRUST_INTERVAL = 3.hours
 
   NO_DATE = '2000-01-01 00:00:00'
