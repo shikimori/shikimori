@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://smotretanime.ru/api/series/?fields=id,title,links&myAnimeListId=38080
+    uri: https://smotret-anime.online/api/series/?fields=id,title,links&myAnimeListId=38080
     body:
       encoding: US-ASCII
       string: ''
