@@ -44,7 +44,7 @@
     "pug-loader": "^2.4.0",
     "pug-plain-loader": "^1.1.0",
     "shiki-decorators": "^1.0.1",
-    "shiki-editor": "^2.2.5",
+    "shiki-editor": "^2.2.6",
     "shiki-uploader": "^1.1.1",
     "shiki-utils": "^1.0.1",
     "swiper": "^6.5.8",
