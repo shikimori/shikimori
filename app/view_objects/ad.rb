@@ -204,9 +204,10 @@ private
   BANNERS = {
     true => {
       # disable after 2021-02-08
+      # convert -resize 50% app/assets/images/globals/events/special_menu_1@2x.jpg app/assets/images/globals/events/special_menu_1.jpg
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=jawxa&pr=[RANDOM]',
+        url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=jphwg&pr=[RANDOM]',
         images: (1..1).map do |i|
           {
             src: "/assets/globals/events/special_menu_#{i}.jpg",
@@ -217,15 +218,16 @@ private
           cookie: 'i1',
           shows_per_week: 540 # 380
         },
-        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dkfpm&pfb=jawxa&pr=[RANDOM]&ptrc=b',
+        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dpjra&pfb=jphwg&pr=[RANDOM]&ptrc=b',
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
       },
       # disable after 2021-02-08
+      # convert -resize 50% app/assets/images/globals/events/special_wide_1@2x.jpg app/assets/images/globals/events/special_wide_1.jpg
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=jawxa&pr=[RANDOM]',
-        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dkfpm&pfb=jawxa&pr=[RANDOM]&ptrc=b',
+        url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=jphwg&pr=[RANDOM]',
+        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dpjra&pfb=jphwg&pr=[RANDOM]&ptrc=b',
         images: (1..1).map do |i|
           {
             src: "/assets/globals/events/special_wide_#{i}.jpg",
