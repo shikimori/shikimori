@@ -1,6 +1,9 @@
 class NameValidator < ActiveModel::EachValidator
   BANNED_NICKNAMES = %w[
     Youtoome
+    shikimori
+    shikimori.one
+    shikimori.org
   ]
   PREDEFINED_PATHS = %i[
     about
