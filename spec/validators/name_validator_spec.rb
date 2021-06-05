@@ -26,6 +26,10 @@ describe NameValidator, type: :validator do
         expect(user).to_not allow_value('Tést').for :nickname
         expect(user).to_not allow_value('Tеst').for :nickname
         expect(user).to_not allow_value('Теst').for :nickname
+        expect(user).to_not allow_value('shikimori').for :nickname
+        expect(user).to_not allow_value('users').for :nickname
+        expect(user).to_not allow_value('users.test').for :nickname
+        expect(user).to allow_value('users_test').for :nickname
       end
     end
 

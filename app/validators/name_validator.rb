@@ -40,7 +40,8 @@ class NameValidator < ActiveModel::EachValidator
     \A(?:
       #{Forum::VARIANTS.join '|'} |
       #{PREDEFINED_PATHS.join '|'} |
-      #{BANNED_NICKNAMES.join '|'}
+      #{PREDEFINED_PATHS.map { |v| "#{v}\\.\\w+" }.join '|'} |
+      #{BANNED_NICKNAMES.join '|'} |
     )\Z | (?:
       \.
       (?:#{FixName::ALL_EXTENSIONS.join('|')})
