@@ -20,7 +20,7 @@
             alt=user.nickname
           ]
 
-      p.last-online
+      .last-online
         = user.last_online
 
     .history
@@ -85,8 +85,11 @@
             alt=user.nickname
           ]
 
-      p.last-online
+      .last-online
         = I18n.l user.created_at, format: :full
+
+      - if user.banned?
+        .read_only_at = l user.read_only_at, format: :short
 
   - else
     - raise ArgumentError, content_by
