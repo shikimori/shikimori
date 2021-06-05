@@ -88,8 +88,11 @@
       .last-online
         = I18n.l user.created_at, format: :full
 
-      - if user.banned?
-        .read_only_at = l user.read_only_at, format: :short
+      .moderation
+        - if can? :manage, user
+          .id = user.id
+        - if user.banned?
+          .read_only_at = l user.read_only_at, format: :short
 
   - else
     - raise ArgumentError, content_by
