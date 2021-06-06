@@ -200,9 +200,9 @@ GEM
       xpath (~> 3.2)
     case_transform (0.2)
       activesupport
-    chewy (5.1.0)
-      activesupport (>= 4.0)
-      elasticsearch (>= 2.0.0)
+    chewy (6.0.0)
+      activesupport (>= 5.2)
+      elasticsearch (>= 6.3.0)
       elasticsearch-dsl
     climate_control (0.2.0)
     clockwork (2.0.4)
@@ -217,7 +217,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     colorize (0.8.1)
-    concurrent-ruby (1.1.8)
+    concurrent-ruby (1.1.9)
     concurrent-ruby-edge (0.6.0)
       concurrent-ruby (~> 1.1.6)
     connection_pool (2.2.5)
@@ -274,14 +274,14 @@ GEM
       dry-core (~> 0.5, >= 0.5)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
-    elasticsearch (7.5.0)
-      elasticsearch-api (= 7.5.0)
-      elasticsearch-transport (= 7.5.0)
-    elasticsearch-api (7.5.0)
+    elasticsearch (7.6.0)
+      elasticsearch-api (= 7.6.0)
+      elasticsearch-transport (= 7.6.0)
+    elasticsearch-api (7.6.0)
       multi_json
     elasticsearch-dsl (0.1.9)
-    elasticsearch-transport (7.5.0)
-      faraday (>= 0.14, < 1)
+    elasticsearch-transport (7.6.0)
+      faraday (~> 1)
       multi_json
     em-http-request (1.1.7)
       addressable (>= 2.3.4)
@@ -301,13 +301,24 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faraday (0.17.4)
+    faraday (1.4.2)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.1)
       multipart-post (>= 1.2, < 3)
-    faraday-cookie_jar (0.0.6)
-      faraday (>= 0.7.4)
+      ruby2_keywords (>= 0.0.4)
+    faraday-cookie_jar (0.0.7)
+      faraday (>= 0.8.0)
       http-cookie (~> 1.0.0)
-    faraday_middleware (0.13.1)
-      faraday (>= 0.7.4, < 1.0)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.1.0)
+    faraday_middleware (1.0.0)
+      faraday (~> 1.0)
     faye (1.4.0)
       cookiejar (>= 0.3.0)
       em-http-request (>= 1.1.6)
@@ -627,6 +638,7 @@ GEM
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
     ruby-progressbar (1.11.0)
+    ruby2_keywords (0.0.4)
     ruby_parser (3.15.1)
       sexp_processor (~> 4.9)
     sassc (2.4.0)
@@ -782,6 +794,7 @@ DEPENDENCIES
   draper
   draper-cancancan
   dry-types
+  elasticsearch-transport
   enumerize
   factory_bot_rails
   factory_girl-seeds!
