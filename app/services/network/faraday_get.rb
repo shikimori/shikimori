@@ -59,14 +59,10 @@ private
   end
 
   def absolute_url url, current_url
-    if url.match? %r{^/(?!/)}
-      "#{Url.new(current_url).without_path}#{url}"
-
-    elsif url.match? %r{^(?!http)(?!/)\w}
-      "#{current_url.gsub(%r{/[^/]*$}, '/')}#{url}"
-
-    else
-      url
+    case url
+      when %r{^/(?!/)} then "#{Url.new(current_url).without_path}#{url}"
+      when %r{^(?!http)(?!/)\w} then "#{current_url.gsub(%r{/[^/]*$}, '/')}#{url}"
+      else url
     end
   end
 end
