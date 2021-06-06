@@ -612,4 +612,32 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"took":122,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"99997","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":1,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/shikimori_test_fansubbers/_alias
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.7; darwin x86_64; Faraday v1.4.2)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '68'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"shikimori_test_fansubbers":{"aliases":{}}}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0

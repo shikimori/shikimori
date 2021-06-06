@@ -273,4 +273,32 @@ http_interactions:
       string: '{"took":0,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":2,"max_score":442.70834,"hits":[{"_index":"shikimori_test_users","_type":"user","_id":"23456792","_score":442.70834,"_source":{"nickname":"test","weight":0.9960681520314547}},{"_index":"shikimori_test_users","_type":"user","_id":"23456793","_score":54.985897,"_source":{"nickname":"test
         zxct","weight":0.9895833333333333}}]}}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/shikimori_test_users/_alias
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.7; darwin x86_64; Faraday v1.4.2)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '63'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"shikimori_test_users":{"aliases":{}}}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0

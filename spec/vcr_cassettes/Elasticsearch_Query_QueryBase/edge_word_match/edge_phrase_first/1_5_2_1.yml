@@ -392,4 +392,32 @@ http_interactions:
       string: !binary |-
         eyJ0b29rIjoxLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjoxLCJzdWNjZXNzZnVsIjoxLCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoyLCJtYXhfc2NvcmUiOjU1LjU1NTU1NywiaGl0cyI6W3siX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfYW5pbWVzIiwiX3R5cGUiOiJhbmltZSIsIl9pZCI6IjMiLCJfc2NvcmUiOjU1LjU1NTU1NywiX3NvdXJjZSI6eyJuYW1lIjoienhjIiwicnVzc2lhbiI6ItCw0L3QuNC80LVfMyIsImVuZ2xpc2giOm51bGwsImphcGFuZXNlIjpudWxsLCJzeW5vbnltc18wIjpudWxsLCJzeW5vbnltc18xIjpudWxsLCJzeW5vbnltc18yIjpudWxsLCJzeW5vbnltc18zIjpudWxsLCJzeW5vbnltc180IjpudWxsLCJzeW5vbnltc181IjpudWxsLCJzeW5vbnltc182IjpudWxsLCJzeW5vbnltc183IjpudWxsLCJzeW5vbnltc184IjpudWxsLCJsaWNlbnNlX25hbWVfcnUiOm51bGx9fSx7Il9pbmRleCI6InNoaWtpbW9yaV90ZXN0X2FuaW1lcyIsIl90eXBlIjoiYW5pbWUiLCJfaWQiOiIyIiwiX3Njb3JlIjoyMS45NjUzMTksIl9zb3VyY2UiOnsibmFtZSI6InRlc3QgenhjdCBxcXEiLCJydXNzaWFuIjoi0LDQvdC40LzQtV8yIiwiZW5nbGlzaCI6bnVsbCwiamFwYW5lc2UiOm51bGwsInN5bm9ueW1zXzAiOm51bGwsInN5bm9ueW1zXzEiOm51bGwsInN5bm9ueW1zXzIiOm51bGwsInN5bm9ueW1zXzMiOm51bGwsInN5bm9ueW1zXzQiOm51bGwsInN5bm9ueW1zXzUiOm51bGwsInN5bm9ueW1zXzYiOm51bGwsInN5bm9ueW1zXzciOm51bGwsInN5bm9ueW1zXzgiOm51bGwsImxpY2Vuc2VfbmFtZV9ydSI6bnVsbH19XX19
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/shikimori_test_animes/_alias
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.7; darwin x86_64; Faraday v1.4.2)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '63'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"shikimori_test_animes":{"aliases":{}}}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0

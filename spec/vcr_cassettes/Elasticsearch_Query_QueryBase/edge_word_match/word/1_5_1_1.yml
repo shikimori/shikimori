@@ -392,4 +392,32 @@ http_interactions:
       string: !binary |-
         eyJ0b29rIjoxLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjoxLCJzdWNjZXNzZnVsIjoxLCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoxLCJtYXhfc2NvcmUiOjIxLjk2NTMxOSwiaGl0cyI6W3siX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfYW5pbWVzIiwiX3R5cGUiOiJhbmltZSIsIl9pZCI6IjIiLCJfc2NvcmUiOjIxLjk2NTMxOSwiX3NvdXJjZSI6eyJuYW1lIjoidGVzdCB6eGN0IHFxcSIsInJ1c3NpYW4iOiLQsNC90LjQvNC1XzIiLCJlbmdsaXNoIjpudWxsLCJqYXBhbmVzZSI6bnVsbCwic3lub255bXNfMCI6bnVsbCwic3lub255bXNfMSI6bnVsbCwic3lub255bXNfMiI6bnVsbCwic3lub255bXNfMyI6bnVsbCwic3lub255bXNfNCI6bnVsbCwic3lub255bXNfNSI6bnVsbCwic3lub255bXNfNiI6bnVsbCwic3lub255bXNfNyI6bnVsbCwic3lub255bXNfOCI6bnVsbCwibGljZW5zZV9uYW1lX3J1IjpudWxsfX1dfX0=
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/shikimori_test_animes/_alias
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.7; darwin x86_64; Faraday v1.4.2)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '63'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"shikimori_test_animes":{"aliases":{}}}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0

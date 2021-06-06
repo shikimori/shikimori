@@ -388,4 +388,32 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"took":83,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23456942","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":8,"_primary_term":2,"status":201}}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/shikimori_test_clubs/_alias
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.7; darwin x86_64; Faraday v1.4.2)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '63'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"shikimori_test_clubs":{"aliases":{}}}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0

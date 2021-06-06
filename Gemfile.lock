@@ -794,7 +794,6 @@ DEPENDENCIES
   draper
   draper-cancancan
   dry-types
-  elasticsearch-transport
   enumerize
   factory_bot_rails
   factory_girl-seeds!
