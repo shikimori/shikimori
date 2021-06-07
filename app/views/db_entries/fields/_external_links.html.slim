@@ -6,41 +6,42 @@
 
 .external_links
   = simple_form_for resource.object do |f|
-    #vue_external_links[
-      data-resource_type=resource.object.class.name
-      data-entry_id=resource.id
-      data-entry_type=resource.object.class.base_class.name
-      data-external_links=ActiveModel::Serializer::CollectionSerializer.new(resource.external_links).to_json
-      data-kind_options=kind_options.to_json
-      data-watch_online_kinds=::Types::ExternalLink::WATCH_ONLINE_KINDS.to_json
-    ]
-      .block_m.b-nothing_here = t 'loading'
+    .cc-2.block
+      .c-column.m0
+        #vue_external_links[
+          data-resource_type=resource.object.class.name
+          data-entry_id=resource.id
+          data-entry_type=resource.object.class.base_class.name
+          data-external_links=ActiveModel::Serializer::CollectionSerializer.new(resource.external_links).to_json
+          data-kind_options=kind_options.to_json
+          data-watch_online_kinds=::Types::ExternalLink::WATCH_ONLINE_KINDS.to_json
+        ]
+          .block_m.b-nothing_here = t 'loading'
+      .c-column.m0
+        - if other_links.any?
+          div
+            b = t '.imported'
+          .m5
+            .hint = t '.to_change'
+            .hint == t '.to_disable'
 
-    - if other_links.any?
-    .block
-      div
-        b = t '.imported'
-      .m5
-        .hint = t '.to_change'
-        .hint == t '.to_disable'
+          - (other_links + (resource.anime? && current_user.staff? ? [resource.smotret_anime_external_link] : [])).compact.each do |external_link|
+            .b-collection_item.read-only
+              .b-input.select
+                select[disabled]
+                  option = external_link.kind_text
+                span.from = t '.from'
 
-      - (other_links + (resource.anime? && current_user.staff? ? [resource.smotret_anime_external_link] : [])).compact.each do |external_link|
-        .b-collection_item.read-only
-          .b-input.select
-            select[disabled]
-              option = external_link.kind_text
-            span.from = t '.from'
+                b.b-external_link class=external_link.source
+                  span
+                    = external_link.source_text
 
-            b.b-external_link class=external_link.source
-              span
-                = external_link.source_text
-
-          .b-input
-            input[
-            type='text'
-            value=external_link.url
-            disabled
-          ]
+              .b-input
+                input[
+                type='text'
+                value=external_link.url
+                disabled
+              ]
 
     .cc-2
       .c-column
