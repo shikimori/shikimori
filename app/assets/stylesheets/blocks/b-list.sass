@@ -10,6 +10,9 @@
     line-height: $line_height
     list-style: none
 
+    &:empty:after
+      content: ' '
+
     &:before
       position: absolute
       content: ''
