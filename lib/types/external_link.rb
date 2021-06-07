@@ -52,6 +52,7 @@ module Types
         world_art
         kinopoisk
         kage_project
+        subs_com_ru
         twitter
         smotret_anime
       ] + WATCH_ONLINE_KINDS,
