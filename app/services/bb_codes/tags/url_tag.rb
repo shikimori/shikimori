@@ -2,7 +2,7 @@ class BbCodes::Tags::UrlTag
   include Singleton
   MAX_SHORT_URL_SIZE = 65
 
-  BEFORE_URL = /(?<= \s|^|>|\()/
+  BEFORE_URL = /(?<= \s|^|>|\( )/
   URL_SYMBOL_CLASS = /[^"'<>\[\]]/.source
   URL = %r{
     (?<url>
