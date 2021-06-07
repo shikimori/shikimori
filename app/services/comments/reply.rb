@@ -39,6 +39,7 @@ private
 
   def update_comment new_body
     # use update instead of update_column so `commentable` is touched too
+    comment.instance_variable_set :@skip_banhammer, true
     comment.update(
       body: new_body,
       updated_at: comment.updated_at + 1.second

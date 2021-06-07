@@ -67,7 +67,8 @@ class Comment < ApplicationRecord
   after_destroy :touch_commentable
   after_destroy :remove_notifies
 
-  after_save :release_the_banhammer!, if: -> { saved_change_to_body? }
+  after_save :release_the_banhammer!,
+    if: -> { saved_change_to_body? && !@skip_banhammer }
   after_save :touch_commentable
   after_save :notify_quoted, if: -> { saved_change_to_body? }
 
