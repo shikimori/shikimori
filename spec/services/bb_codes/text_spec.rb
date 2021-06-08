@@ -185,7 +185,7 @@ describe BbCodes::Text do
 
     describe '[br]' do
       let(:text) { '[br]' }
-      it { is_expected.to eq '<br>' }
+      it { is_expected.to eq '<br data-keep="">' }
     end
 
     describe '[p]' do
@@ -504,8 +504,12 @@ describe BbCodes::Text do
     end
 
     context 'multiple brs' do
-      let(:text) { 'z<br><br>x' }
-      it { is_expected.to eq "z<br class='br'><br class='br'>x" }
+      let(:text) { 'z<br><br><br data-keep>x' }
+      it do
+        is_expected.to eq(
+          'z<br class="br"><br class="br"><br class="br" data-keep>x'
+        )
+      end
     end
   end
 

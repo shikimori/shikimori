@@ -73,8 +73,10 @@ class BbCodes::Text # rubocop:disable ClassLength
        t.me/rezero_translation # copyright request
       )
   }mix
-
   BANNED_TEXT = '[deleted]'
+
+  SEQUENTIAL_BR_GLOBAL_MATCH_REGEXP = /(?:<br(?: data-keep)?>){2,99}/
+  SEQUENTIAL_BR_REPLACEMENT_REGEXP = /<br( data-keep|)>/
 
   default_url_options[:protocol] = Shikimori::PROTOCOL
   default_url_options[:host] ||=
@@ -160,8 +162,8 @@ private
   end
 
   def mark_sequential_br text
-    text.gsub(/(?:<br>){2,99}/) do |match|
-      match.gsub('<br>', "<br class='br'>")
+    text.gsub(SEQUENTIAL_BR_GLOBAL_MATCH_REGEXP) do |match|
+      match.gsub(SEQUENTIAL_BR_REPLACEMENT_REGEXP, '<br class="br"\1>')
     end
   end
 end
