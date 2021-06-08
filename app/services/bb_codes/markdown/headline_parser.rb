@@ -6,7 +6,7 @@ class BbCodes::Markdown::HeadlineParser
     (?<level>\#{1,5})
     \ (?<text>
       (?: \[(?<tag>#{BbCodes::MULTILINE_BBCODES.join('|')})[\s\S]+?\[/\k<tag>\] | . )*+
-    ) (?:\n|$)
+    ) (?:\n|\[br\]|$)
   }x
 
   def format text # rubocop:disable MethodLength
