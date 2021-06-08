@@ -13,10 +13,10 @@ class BbCodes::Markdown::SpoilerInlineParser
     text.gsub(REGEXP) do |match|
       text = $LAST_MATCH_INFO[:text]
 
-      if !text.match? FORBIDDEN_BBCODES_REGEXP
-        "#{TAG_OPEN}<span>#{text}</span>#{TAG_CLOSE}"
-      else
+      if text.match? FORBIDDEN_BBCODES_REGEXP
         match
+      else
+        "#{TAG_OPEN}<span>#{text}</span>#{TAG_CLOSE}"
       end
     end
   end

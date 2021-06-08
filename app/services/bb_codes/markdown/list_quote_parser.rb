@@ -8,7 +8,7 @@ class BbCodes::Markdown::ListQuoteParser
       (?:
         (?: \[(?<tag>#{BbCodes::MULTILINE_BBCODES.join('|')})[\s\S]+?\[/\k<tag>\] | . )*+
         (?: (?:\n \ +|\[br\]) .++ )*
-      ) (?: \n | $ | \[br\] )
+      ) (?: \n | \[br\] | $ )
     )+
   }x
   PREFIX_REPLACEMENT = /([<\[])(\w)/

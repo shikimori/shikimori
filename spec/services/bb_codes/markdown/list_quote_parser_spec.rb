@@ -172,10 +172,10 @@ describe BbCodes::Markdown::ListQuoteParser do
       end
 
       context 'at the middle and at the end' do
-        let(:text) { "#{symbol} a[br][br]" }
+        let(:text) { "#{symbol} a[br]b[br]" }
         it do
           is_expected.to eq(
-            "<ul class='b-list'><li>a[br]" +
+            "<ul class='b-list'><li>a[br]b" +
               BbCodes::Markdown::ListQuoteParserState::EMPTY_LINE_PLACEHOLDER_HTML +
               '</li></ul>'
           )
@@ -237,17 +237,17 @@ describe BbCodes::Markdown::ListQuoteParser do
                 "<blockquote class='b-quote-v2'><div class='quote-content'>" \
                   'a' +
                   BbCodes::Markdown::ListQuoteParserState::EMPTY_LINE_PLACEHOLDER_HTML +
-                  'b</div></blockquote>'
+                  '</div></blockquote>'
               )
             end
           end
 
           context 'at the middle and at the end' do
-            let(:text) { "#{symbol} a[br][br]" }
+            let(:text) { "#{symbol} a[br]b[br]" }
             it do
               is_expected.to eq(
                 "<blockquote class='b-quote-v2'><div class='quote-content'>" \
-                  'a[br]' +
+                  'a[br]b' +
                   BbCodes::Markdown::ListQuoteParserState::EMPTY_LINE_PLACEHOLDER_HTML +
                   '</div></blockquote>'
               )
