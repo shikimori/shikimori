@@ -150,6 +150,39 @@ describe BbCodes::Markdown::ListQuoteParser do
       end
     end
 
+    context 'supports [br]' do
+      context 'at the middle' do
+        let(:text) { "#{symbol} a[br]b" }
+        it do
+          is_expected.to eq(
+            "<ul class='b-list'><li>a[br]b</li></ul>"
+          )
+        end
+      end
+
+      context 'at the end' do
+        let(:text) { "#{symbol} a[br]" }
+        it do
+          is_expected.to eq(
+            "<ul class='b-list'><li>a" +
+              BbCodes::Markdown::ListQuoteParserState::EMPTY_LINE_PLACEHOLDER_HTML +
+              '</li></ul>'
+          )
+        end
+      end
+
+      context 'at the middle and at the end' do
+        let(:text) { "#{symbol} a[br][br]" }
+        it do
+          is_expected.to eq(
+            "<ul class='b-list'><li>a[br]" +
+              BbCodes::Markdown::ListQuoteParserState::EMPTY_LINE_PLACEHOLDER_HTML +
+              '</li></ul>'
+          )
+        end
+      end
+    end
+
     context 'commplex case' do
       let(:text) { "<h2>- 1</h2><h2>- 2</h2>- 3\n<h2>- 4</h2>- 5" }
       it do
@@ -183,6 +216,42 @@ describe BbCodes::Markdown::ListQuoteParser do
               "<blockquote class='b-quote-v2'><div class='quote-content'>" \
                 "a\n\nc</div></blockquote>"
             )
+          end
+        end
+
+        context 'supports [br]' do
+          context 'at the middle' do
+            let(:text) { "#{symbol} a[br]b" }
+            it do
+              is_expected.to eq(
+                "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+                  'a[br]b</div></blockquote>'
+              )
+            end
+          end
+
+          context 'at the end' do
+            let(:text) { "#{symbol} a[br]" }
+            it do
+              is_expected.to eq(
+                "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+                  'a' +
+                  BbCodes::Markdown::ListQuoteParserState::EMPTY_LINE_PLACEHOLDER_HTML +
+                  'b</div></blockquote>'
+              )
+            end
+          end
+
+          context 'at the middle and at the end' do
+            let(:text) { "#{symbol} a[br][br]" }
+            it do
+              is_expected.to eq(
+                "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+                  'a[br]' +
+                  BbCodes::Markdown::ListQuoteParserState::EMPTY_LINE_PLACEHOLDER_HTML +
+                  '</div></blockquote>'
+              )
+            end
           end
         end
       end

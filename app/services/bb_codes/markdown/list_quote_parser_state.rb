@@ -12,8 +12,8 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
   BLOCKQUOTE_QUOTABLE_VARIANT_1 = '>?'
   BLOCKQUOTE_QUOTABLE_VARIANT_2 = '&gt;?'
 
-  UL_OPEN = BbCodes::Tags::ListTag::UL_OPEN
-  UL_CLOSE = BbCodes::Tags::ListTag::UL_CLOSE
+  LIST_OPEN_TAG = BbCodes::Tags::ListTag::LIST_OPEN_TAG
+  LIST_CLOSE_TAG = BbCodes::Tags::ListTag::LIST_CLOSE_TAG
 
   BLOCKQUOTE_OPEN_TAG = "<blockquote class='b-quote-v2'%<attrs>s>"
   BLOCKQUOTE_OPEN_CONTENT = "<div class='quote-content'>"
@@ -21,6 +21,9 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
   BLOCKQUOTE_CLOSE = '</div></blockquote>'
 
   MULTILINE_BBCODES_MAX_SIZE = BbCodes::MULTILINE_BBCODES.map(&:size).max
+
+  BR_ENDING_REGEXP = /(\[br\])+\Z/
+  EMPTY_LINE_PLACEHOLDER_HTML = "<div data='empty-line-placeholder'><br></div>"
 
   TAG_CLOSE_REGEXP = %r{</\w+>}
 
@@ -145,7 +148,7 @@ private
     prior_sequence = @nested_sequence
     @nesting += 1
 
-    @state.push UL_OPEN
+    @state.push LIST_OPEN_TAG
     @nested_sequence += tag_sequence
     # puts "processBulletList '#{@nested_sequence}'"
 
@@ -153,13 +156,14 @@ private
       move is_first_line ? tag_sequence.length : @nested_sequence.length
       @state.push '<li>'
       parse_list_lines prior_sequence, '  '
+      ensure_empty_line_placeholder!
       @state.push '</li>'
 
       is_first_line = false
       break unless sequence_continued?
     end
 
-    @state.push UL_CLOSE
+    @state.push LIST_CLOSE_TAG
     @nested_sequence = @nested_sequence.slice(0, @nested_sequence.size - tag_sequence.size)
     @nesting -= 1
 
@@ -222,6 +226,7 @@ private
       break unless sequence_continued?
     end
 
+    ensure_empty_line_placeholder!
     @state.push BLOCKQUOTE_CLOSE
     @nested_sequence = @nested_sequence.slice(0, @nested_sequence.size - tag_sequence.size)
     @nesting -= 1
@@ -285,6 +290,14 @@ private
       )
 
       tag_start + content_wo_nested_sequence + tag_end
+    end
+  end
+
+  def ensure_empty_line_placeholder!
+    if @state.last.ends_with? '[br]'
+      @state[@state.size - 1] = @state.last.gsub(BR_ENDING_REGEXP) do |match|
+        match.gsub '[br]', EMPTY_LINE_PLACEHOLDER_HTML
+      end
     end
   end
 end

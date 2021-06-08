@@ -32,6 +32,36 @@ describe BbCodes::Markdown::ListQuoteParserState do
       it { is_expected.to eq ["<ul class='b-list'><li>a\nb</li></ul>", nil] }
     end
 
+    context 'item content on next line via [br]' do
+      let(:text) { '- a[br]b' }
+      it { is_expected.to eq ["<ul class='b-list'><li>a[br]b</li></ul>", nil] }
+    end
+
+    context 'item ends with [br]' do
+      let(:text) { '- a[br]' }
+      it do
+        is_expected.to eq [
+          "<ul class='b-list'><li>a" +
+            BbCodes::Markdown::ListQuoteParserState::EMPTY_LINE_PLACEHOLDER_HTML +
+            '</li></ul>',
+          nil
+        ]
+      end
+    end
+
+    context 'item ends with multiple [br]' do
+      let(:text) { '- a[br][br]' }
+      it do
+        is_expected.to eq [
+          "<ul class='b-list'><li>a" +
+            BbCodes::Markdown::ListQuoteParserState::EMPTY_LINE_PLACEHOLDER_HTML +
+            BbCodes::Markdown::ListQuoteParserState::EMPTY_LINE_PLACEHOLDER_HTML +
+            '</li></ul>',
+          nil
+        ]
+      end
+    end
+
     context 'content after' do
       let(:text) { "- a\nb" }
       it { is_expected.to eq ["<ul class='b-list'><li>a</li></ul>b", nil] }
@@ -103,6 +133,47 @@ describe BbCodes::Markdown::ListQuoteParserState do
         is_expected.to eq(
           [
             "<blockquote class='b-quote-v2'><div class='quote-content'>a\nb\nc</div></blockquote>",
+            nil
+          ]
+        )
+      end
+    end
+
+    context 'item content on next line via [br]' do
+      let(:text) { '> a[br]b' }
+      it do
+        is_expected.to eq(
+          [
+            "<blockquote class='b-quote-v2'><div class='quote-content'>a[br]b</div></blockquote>",
+            nil
+          ]
+        )
+      end
+    end
+
+    context 'item ends with [br]' do
+      let(:text) { '> a[br]' }
+      it do
+        is_expected.to eq(
+          [
+            "<blockquote class='b-quote-v2'><div class='quote-content'>a" +
+              BbCodes::Markdown::ListQuoteParserState::EMPTY_LINE_PLACEHOLDER_HTML +
+              '</div></blockquote>',
+            nil
+          ]
+        )
+      end
+    end
+
+    context 'item ends with multiple [br]' do
+      let(:text) { '> a[br][br]' }
+      it do
+        is_expected.to eq(
+          [
+            "<blockquote class='b-quote-v2'><div class='quote-content'>a" +
+              BbCodes::Markdown::ListQuoteParserState::EMPTY_LINE_PLACEHOLDER_HTML +
+              BbCodes::Markdown::ListQuoteParserState::EMPTY_LINE_PLACEHOLDER_HTML +
+              '</div></blockquote>',
             nil
           ]
         )

@@ -16,8 +16,8 @@ class BbCodes::Tags::ListTag
     (?<brs> \n\n )?
   }mix
 
-  UL_OPEN = "<ul class='b-list'>"
-  UL_CLOSE = '</ul>'
+  LIST_OPEN_TAG = "<ul class='b-list'>"
+  LIST_CLOSE_TAG = '</ul>'
 
   def format text
     format_bb_list_items(
@@ -33,13 +33,13 @@ private
         "<li>#{$LAST_MATCH_INFO[:li]}</li>"
       end
 
-      "#{UL_OPEN}#{items}#{UL_CLOSE}"
+      "#{LIST_OPEN_TAG}#{items}#{LIST_CLOSE_TAG}"
     end
   end
 
   def format_bb_list_items text
     text.gsub(BBCODE_LIST_ITEM_REGEXP) do
-      "#{UL_OPEN}<li>#{$LAST_MATCH_INFO[:li]}</li>#{UL_CLOSE}" +
+      "#{LIST_OPEN_TAG}<li>#{$LAST_MATCH_INFO[:li]}</li>#{LIST_CLOSE_TAG}" +
         ($LAST_MATCH_INFO[:brs] ? "\n" : '')
     end
   end
