@@ -17453,6 +17453,7 @@
         - 37902
         - 38419
         - 40181
+        - 46171
       :threshold: 95.5%
       :generator:
         ignore_latest_ids:
@@ -17504,6 +17505,7 @@
         - 37902
         - 38419
         - 40181
+        - 46171
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -23321,6 +23323,8 @@
       :generator:
         ignore_latest_ids:
         - 38201
+        - 49119
+        - 49120
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :osomatsu_san
@@ -23380,6 +23384,8 @@
       :generator:
         ignore_latest_ids:
         - 38201
+        - 49119
+        - 49120
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :osomatsu_san
@@ -25577,6 +25583,7 @@
         - 41781
         - 41780
         - 41782
+        - 45731
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :bang_dream
@@ -25638,6 +25645,7 @@
         - 41781
         - 41780
         - 41782
+        - 45731
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :bang_dream
