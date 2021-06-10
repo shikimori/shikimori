@@ -109,7 +109,9 @@ data
     end
     franchise = franchise.reject(&:anons?)
 
-    ova = franchise.select(&:kind_ova?)
+    ova = franchise.select do |anime|
+      anime.kind_ova? || (anime.kind_ona? && anime.episodes < 4 && anime.duration < 30 )
+    end
     long_specials = franchise
       .select(&:kind_special?)
       .select { |v| v.duration >= 22 }
