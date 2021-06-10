@@ -18810,7 +18810,7 @@
         franchise: natsume_yuujinchou
         not_anime_ids:
         - 19945
-      :threshold: 94.4%
+      :threshold: 93.8%
       :generator:
         ignore_latest_ids:
         - 36538
@@ -26684,7 +26684,9 @@
       :algo: duration
       :filters:
         franchise: doupo_cangqiong
-      :threshold: 100%
+      :threshold: 97%
+      :generator:
+        threshold: 97%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :doupo_cangqiong
@@ -26714,6 +26716,8 @@
       :filters:
         franchise: doupo_cangqiong
       :threshold: 0.01
+      :generator:
+        threshold: 97%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :doupo_cangqiong
