@@ -16303,7 +16303,7 @@
         - 38784
         - 40469
         - 40761
-      :threshold: 88.1%
+      :threshold: 88.3%
       :generator:
         ignore_latest_ids:
         - 33050
@@ -18810,7 +18810,7 @@
         franchise: natsume_yuujinchou
         not_anime_ids:
         - 19945
-      :threshold: 95%
+      :threshold: 94.4%
       :generator:
         ignore_latest_ids:
         - 36538
@@ -19413,7 +19413,7 @@
         - 41188
         - 41189
         - 41204
-      :threshold: 95.9%
+      :threshold: 95.5%
       :generator:
         not_ignored_ids:
         - 14951
@@ -19429,6 +19429,9 @@
         - 40245
         - 41202
         - 41319
+        - 42600
+        - 42889
+        - 48377
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :love_live
@@ -19486,6 +19489,9 @@
         - 40245
         - 41202
         - 41319
+        - 42600
+        - 42889
+        - 48377
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :love_live
@@ -21790,7 +21796,7 @@
         - 42380
         - 42432
         - 42439
-      :threshold: 87.8%
+      :threshold: 87.6%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -25542,7 +25548,7 @@
         - 41377
         - 48772
         - 48773
-      :threshold: 96.9%
+      :threshold: 93.8%
       :generator:
         not_ignored_ids:
         - 38986
@@ -26678,7 +26684,7 @@
       :algo: duration
       :filters:
         franchise: doupo_cangqiong
-      :threshold: 97%
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :doupo_cangqiong
@@ -27078,7 +27084,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.4%
+      :threshold: 91.7%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -27350,7 +27356,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 94.7%
+      :threshold: 94.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
@@ -27958,7 +27964,7 @@
         - 38647
         - 38648
         - 40543
-      :threshold: 84.5%
+      :threshold: 84.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pripara
@@ -28899,7 +28905,7 @@
         not_anime_ids:
         - 39226
         - 39227
-      :threshold: 96.7%
+      :threshold: 96.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :captain_tsubasa
