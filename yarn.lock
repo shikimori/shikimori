@@ -8531,10 +8531,10 @@ shiki-decorators@^1.0.1:
     bind-decorator "1.0.11"
     memoize-decorator "^1.0.2"
 
-shiki-editor@^2.2.10:
-  version "2.2.10"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-2.2.10.tgz#9639be6bbc0aa5dcac0a422ffddaa1eddd057db2"
-  integrity sha512-BxDJ+6eR2lJW6Vt7o7dgpQFaAwREUlG9BGrVCNUUgMEDe6sZ2zVVAOfomELmeV+TP9NS2+vHiucBtp9nrYSjew==
+shiki-editor@^2.2.12:
+  version "2.2.12"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-2.2.12.tgz#dbc68de5a6b22de0ff088ee3c23f3c82256cb27d"
+  integrity sha512-C58YAPbAHQyF1qbG/oOqCV0EgZg53LCfxGnmZGsWv+OKdk/cq1plWpNpFQcJ9xJZTfi4FZj4slITyIHwbbPDBQ==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@morr/withinviewport" "2.1.3-1"
