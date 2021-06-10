@@ -49,11 +49,26 @@ data.each do |rule|
       (rule.dig('generator', 'not_ignored_ids') || [])
   ).sort
 
-  # not_anime_ids =  Anime
-  #   .where.not(status: :anons)
-  #   .where(id: not_anime_ids)
-  #   .order(:id)
-  #   .pluck(:id)
+  missing_ids = not_anime_ids - Anime.where(id: not_anime_ids).pluck(:id)
+  missing_ids.each do |missing_id|
+    Proxy.off!
+    puts "importing anime ID=#{missing_id}"
+    Chewy.strategy(:atomic) do
+      MalParsers::FetchEntry.new.perform missing_id, 'anime'
+    end
+  end
+  missing_ids = not_anime_ids - Anime.where(id: not_anime_ids).pluck(:id)
+
+  if missing_ids.any?
+    raise "Missing Anime ID=#{missing_ids.join ','}"
+  end
+
+  # exclude anonses
+  not_anime_ids = Anime
+    .where.not(status: :anons)
+    .where(id: not_anime_ids)
+    .order(:id)
+    .pluck(:id)
 
   if not_anime_ids.any?
     rule['filters']['not_anime_ids'] = not_anime_ids
@@ -85,7 +100,7 @@ data
     File.open(franchise_yml, 'w') { |f| f.write data.to_yaml }
   end
 
-puts 'generating thresholds...'
+# puts 'generating thresholds...'
 data
   .each do |rule|
     franchise = Anime.where(franchise: rule['filters']['franchise'])
