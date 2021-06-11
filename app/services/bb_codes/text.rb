@@ -136,12 +136,12 @@ private
       text = markdown_parser.instance.format text
     end
 
-    HASH_TAGS.each do |tag_klass|
-      text = tag_klass.instance.format text, text_hash
-    end
-
     TAGS.each do |tag_parser|
       text = tag_parser.instance.format text
+    end
+
+    HASH_TAGS.each do |tag_klass|
+      text = tag_klass.instance.format text, text_hash
     end
 
     BB_CODE_REPLACERS.each do |processor|
