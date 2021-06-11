@@ -38,7 +38,8 @@ class BbCodes::Tags::ImageTag # rubocop:disable ClassLength
 
         html_for user_image: user_image, attrs: attrs, text_hash: text_hash
       else
-        matched
+
+        not_found_to_html matched
       end
     end
   end
@@ -97,6 +98,10 @@ private
         loading='lazy'
       />#{marker_html}</a>
     HTML
+  end
+
+  def not_found_to_html string
+    "<span class='b-entry-404'><del>#{string}</del></span>"
   end
 
   def build_attrs user_image:, width:, height:, is_no_zoom:, css_class:

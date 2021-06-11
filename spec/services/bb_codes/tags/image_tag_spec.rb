@@ -130,6 +130,16 @@ describe BbCodes::Tags::ImageTag do
     end
   end
 
+  context 'not found image' do
+    let(:text) { '[image=1234677]' }
+
+    it do
+      is_expected.to eq(
+        "<span class='b-entry-404'><del>#{text}</del></span>"
+      )
+    end
+  end
+
   context 'with sizes' do
     let(:user_image) { create :user_image, width: 400, height: 400 }
     let(:text) { "[image=#{user_image.id} #{width}x#{height}]" }
