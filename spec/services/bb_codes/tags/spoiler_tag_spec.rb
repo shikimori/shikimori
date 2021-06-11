@@ -31,6 +31,23 @@ describe BbCodes::Tags::SpoilerTag do
       )
     end
 
+    context 'not found entry html in label' do
+      let(:label) { "<span class='b-entry-404'><del>[image=1293745 h=171]</del></span>" }
+      it do
+        is_expected.to eq(
+          prefix +
+            "<div class='b-spoiler unprocessed'>" \
+              "<label>#{label}</label>" \
+              "<div class='content'>" \
+                "<div class='before'></div>" \
+                "<div class='inner'>#{content}</div>" \
+                "<div class='after'></div>" \
+              '</div>' \
+            '</div>' + suffix
+        )
+      end
+    end
+
     context 'strip label' do
       let(:label) { ' a ' }
       it do

@@ -1,7 +1,16 @@
-class BbCodes::Tags::SpoilerTag
+class BbCodes::Tags::SpoilerTag # rubocop:disable ClassLength
   include Singleton
 
-  LABEL_REGEXP = /(?:=(?<label>[^\[\]\n\r]+?))?/
+  LABEL_REGEXP = %r{
+    (?:
+      = (?<label>
+        (?:
+          <span\ class='b-entry-404'>.+?</span> |
+          [^\[\]\n\r]
+        )+?
+      )
+    )?
+  }x
   REGEXP = %r{
     (?<prefix>
       ^ | \n | #{BbCodes::BLOCK_TAG_EDGE_PREFIX_REGEXP.source}
