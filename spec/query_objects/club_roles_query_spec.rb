@@ -10,9 +10,25 @@ describe ClubRolesQuery do
     let(:user_3) { create :user, nickname: 'zzzz' }
     let(:user_4) { create :user, nickname: 'xxxx' }
 
-    let(:query) { ClubRolesQuery.new(club) }
+    before do
+      allow(Elasticsearch::Query::User)
+        .to receive(:call)
+        .with(phrase: phrase, limit: described_class::IDS_LIMIT)
+        .and_return results
+    end
 
-    it { expect(query.complete('mo')).to eq [user_1, user_2] }
-    it { expect(query.complete('morrr')).to eq [user_2] }
+    subject! { described_class.new(club).complete phrase }
+
+    context 'sample' do
+      let(:phrase) { 'mo' }
+      let(:results) { { user_1.id => 0.123123, user_2.id => 0.1 } }
+      it { is_expected.to eq [user_1, user_2] }
+    end
+
+    context 'sample' do
+      let(:phrase) { 'morr' }
+      let(:results) { { user_2.id => 0.1 } }
+      it { is_expected.to eq [user_2] }
+    end
   end
 end
