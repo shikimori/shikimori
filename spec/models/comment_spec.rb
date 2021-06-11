@@ -210,8 +210,18 @@ describe Comment do
         end
 
         describe 'image' do
-          let(:body) { '[image=149374 9999x9999]' }
-          it { expect(comment.html_body).to eq '[image=149374]' }
+          let!(:user_image) { create :user_image }
+          before do
+            allow(BbCodes::Text)
+              .to receive(:call)
+              .with(final_bbcode)
+              .and_return final_bbcode
+          end
+
+          let(:final_bbcode) { "[image=#{user_image.id}]" }
+          let(:body) { "[image=#{user_image.id} 9999x9999]" }
+
+          it { expect(comment.html_body).to eq final_bbcode }
         end
       end
     end
