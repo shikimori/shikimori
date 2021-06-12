@@ -14,7 +14,8 @@ class Messages::CheckSpamAbuse
     bit.ly/seowriters |
     toptargetseo.com |
     glamourescorts69.com |
-    ormworks.com
+    ormworks.com |
+    discord.gg/GzzMYBZK
   }mix
 
   SPAM_PHRASES = [
