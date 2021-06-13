@@ -206,7 +206,7 @@ describe BbCodes::Markdown::ListQuoteParser do
       end
 
       context 'content after' do
-        let(:text) { "#{symbol} #{code_placeholder}  after" }
+        let(:text) { "#{symbol} #{code_placeholder}\n  after" }
         it do
           is_expected.to eq(
             "<ul class='b-list'><li>#{code_placeholder}" \
