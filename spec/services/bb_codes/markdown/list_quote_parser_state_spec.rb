@@ -397,7 +397,12 @@ describe BbCodes::Markdown::ListQuoteParserState do
 
     context 'blockquote' do
       context 'the only content' do
-        let(:text) { "&gt; #{code_placeholder}" }
+        let(:text) do
+          [
+            "&gt; #{code_placeholder}",
+            "&gt; #{code_placeholder}\n"
+          ].sample
+        end
         it do
           is_expected.to eq [
             "<blockquote class='b-quote-v2'><div class='quote-content'>" \
@@ -409,7 +414,7 @@ describe BbCodes::Markdown::ListQuoteParserState do
       end
 
       context 'in the beginning' do
-        let(:text) { "&gt; #{code_placeholder}&gt; after" }
+        let(:text) { "&gt; #{code_placeholder}\n&gt; after" }
         it do
           is_expected.to eq [
             "<blockquote class='b-quote-v2'><div class='quote-content'>" \
@@ -421,7 +426,7 @@ describe BbCodes::Markdown::ListQuoteParserState do
       end
 
       context 'in the end' do
-        let(:text) { "&gt; before\n&gt; #{code_placeholder}" }
+        let(:text) { "&gt; before\n&gt; #{code_placeholder}\n" }
         it do
           is_expected.to eq [
             "<blockquote class='b-quote-v2'><div class='quote-content'>" \
@@ -433,7 +438,7 @@ describe BbCodes::Markdown::ListQuoteParserState do
       end
 
       context 'in the middle' do
-        let(:text) { "&gt; before\n&gt; #{code_placeholder}&gt; after" }
+        let(:text) { "&gt; before\n&gt; #{code_placeholder}\n&gt; after" }
         it do
           is_expected.to eq [
             "<blockquote class='b-quote-v2'><div class='quote-content'>" \
@@ -474,11 +479,11 @@ describe BbCodes::Markdown::ListQuoteParserState do
       end
 
       context 'in the beginning' do
-        let(:text) { "- #{code_placeholder}  after" }
+        let(:text) { "- #{code_placeholder}\n  after" }
         it do
           is_expected.to eq [
             "<ul class='b-list'><li>" \
-              "#{code_placeholder}after" \
+              "#{code_placeholder}\nafter" \
               '</li></ul>',
             nil
           ]
@@ -498,11 +503,11 @@ describe BbCodes::Markdown::ListQuoteParserState do
       end
 
       context 'in the middle' do
-        let(:text) { "- before\n  #{code_placeholder}  after" }
+        let(:text) { "- before\n  #{code_placeholder}\n  after" }
         it do
           is_expected.to eq [
             "<ul class='b-list'><li>" \
-              "before\n#{code_placeholder}after" \
+              "before\n#{code_placeholder}\nafter" \
               '</li></ul>',
             nil
           ]

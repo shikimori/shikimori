@@ -37,7 +37,7 @@ describe BbCodes::Tags::CodeTag do
 
         context 'multiline' do
           let(:text) { "```\nzxc\n```\nq" }
-          it { is_expected.to eq "#{placeholder_1}q" }
+          it { is_expected.to eq "#{placeholder_1}\nq" }
         end
 
         context 'nested' do
@@ -64,40 +64,6 @@ describe BbCodes::Tags::CodeTag do
           context 'possibly in middle of list' do
             let(:text) { "  ```\n  zxc\n  ```" }
             it { is_expected.to eq "  #{placeholder_1}" }
-          end
-
-          context 'content after' do
-            context 'ends with \n' do
-              let(:text) { "- ```\n  zxc\n  ```\n" }
-              it { is_expected.to eq "- #{placeholder_1}" }
-            end
-
-            context 'ends with the same nesting' do
-              let(:text) { "- ```\n  zxc\n  ```\n  Z" }
-              it { is_expected.to eq "- #{placeholder_1}  Z" }
-            end
-
-            context 'ends with the same nesting with spaces' do
-              let(:text) { "- ```\n  zxc\n  ```\n    Z" }
-              it { is_expected.to eq "- #{placeholder_1}    Z" }
-            end
-
-            context 'ends with higher nesting' do
-              context 'sample' do
-                let(:text) { "- ```\n  zxc\n  ```\n  > Z" }
-                it { is_expected.to eq "- #{placeholder_1}  > Z" }
-              end
-
-              context 'sample' do
-                let(:text) { "> ```\n> zxc\n> ```\n> > Z" }
-                it { is_expected.to eq "> #{placeholder_1}> > Z" }
-              end
-            end
-
-            context 'ends with lower nesting' do
-              let(:text) { "- ```\n  zxc\n  ```\nZ" }
-              it { is_expected.to eq "- #{placeholder_1}Z" }
-            end
           end
 
           context 'invalid markdown' do
@@ -256,10 +222,12 @@ describe BbCodes::Tags::CodeTag do
             let(:text) { "> ```\n> #{content}\n> ```\n" }
             it do
               is_expected.to eq(
-                <<-HTML.squish
-                  > <pre class='b-code-v2 to-process' data-dynamic='code_highlight'
-                    data-language=''><code>#{content}</code></pre>
-                HTML
+                ( # rubocop:disable RedundantParentheses
+                  <<-HTML.squish
+                    > <pre class='b-code-v2 to-process' data-dynamic='code_highlight'
+                      data-language=''><code>#{content}</code></pre>
+                  HTML
+                ) + "\n"
               )
             end
           end
@@ -324,18 +292,14 @@ describe BbCodes::Tags::CodeTag do
     end
 
     context 'nested markdown' do
-      let(:text) { "> ```\n> zxc\n> ```" }
+      let(:text) do
+        [
+          "> ```\n> zxc\n> ```",
+          "> ```\n> zxc\n> ```\n",
+          "> ```\n> zxc\n> ```\nz"
+        ].sample
+      end
       it { is_expected.to eq text }
-
-      context 'ends with \n and content' do
-        let(:text) { "- ```\n  zxc\n  ```\n" }
-        it { is_expected.to eq text }
-      end
-
-      context 'ends with \n and content' do
-        let(:text) { "- ```\n  zxc\n  ```\nafter" }
-        it { is_expected.to eq text }
-      end
     end
   end
 end

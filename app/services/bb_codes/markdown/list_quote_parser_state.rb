@@ -82,11 +82,15 @@ private
 
       @is_exit_sequence = matched_sequence?(@exit_sequence) if @exit_sequence
 
-      # binding.pry if @index == 17
-
-      if is_end || is_code_block_end
+      if is_code_block_end
         finalize_content start_index, @index - 1
-        move 1 unless is_code_block_end
+        move 1
+        return
+      end
+
+      if is_end
+        finalize_content start_index, @index - 1
+        move 1
         return
       end
 

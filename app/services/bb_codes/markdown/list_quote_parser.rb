@@ -3,31 +3,42 @@ class BbCodes::Markdown::ListQuoteParser
 
   CODE_PLACEHOLDER = BbCodes::Tags::CodeTag::CODE_PLACEHOLDER_1
 
+  # MARKDOWN_LIST_OR_QUOTE_REGEXP = %r{
+  #   (?: ^ | (?<prefix> #{BbCodes::BLOCK_TAG_EDGE_PREFIX_REGEXP.source} ) )
+  #   (?:
+  #     (?: (?:[-+*>]|&gt;)\ | (?:&gt;|>)\? )
+  #     (?:
+  #       (?:
+  #         \[(?<tag>#{BbCodes::MULTILINE_BBCODES.join('|')})
+  #           [\s\S]+?
+  #         \[/\k<tag>\]
+  #           |
+  #         (?! #{Regexp.escape CODE_PLACEHOLDER} ) .
+  #       )*+
+  #       # (?: # used to allow multiline content
+  #       #   (?: \n \ + | \[br\] | #{Regexp.escape CODE_PLACEHOLDER} ) .++
+  #       # )*
+  #      ) (?: #{Regexp.escape CODE_PLACEHOLDER} | \n | \[br\] | $ )
+  #   )+
+  # }x
   MARKDOWN_LIST_OR_QUOTE_REGEXP = %r{
     (?: ^ | (?<prefix> #{BbCodes::BLOCK_TAG_EDGE_PREFIX_REGEXP.source} ) )
     (?:
       (?: (?:[-+*>]|&gt;)\ | (?:&gt;|>)\? )
       (?:
-        (?:
-          \[(?<tag>#{BbCodes::MULTILINE_BBCODES.join('|')})
-            [\s\S]+?
-          \[/\k<tag>\]
-            |
-          (?! #{Regexp.escape CODE_PLACEHOLDER} ) .
-        )*+
-        # (?: # used to allow multiline content
-        #   (?: \n \ + | \[br\] | #{Regexp.escape CODE_PLACEHOLDER} ) .++
-        # )*
-       ) (?: #{Regexp.escape CODE_PLACEHOLDER} | \n | \[br\] | $ )
+        (?: \[(?<tag>#{BbCodes::MULTILINE_BBCODES.join('|')})[\s\S]+?\[/\k<tag>\] | . )*+
+        (?: (?:\n \ +|\[br\]) .++ )*
+      ) (?: \n | \[br\] | $ )
     )+
   }x
+
   PREFIX_REPLACEMENT = /([<\[])(\w)/
 
   MAX_NESTING = 5
 
   def format text
-    ap [text, text.match(MARKDOWN_LIST_OR_QUOTE_REGEXP)]
-    1/0 if text.match(MARKDOWN_LIST_OR_QUOTE_REGEXP).last == 'Z'
+    # ap [text, text.match(MARKDOWN_LIST_OR_QUOTE_REGEXP)]
+    # 1/0 if text.match(MARKDOWN_LIST_OR_QUOTE_REGEXP).last == 'Z'
     bbcode_to_html(text, 1).first
   end
 
