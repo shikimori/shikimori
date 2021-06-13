@@ -37,33 +37,61 @@ describe BbCodes::Tags::CodeTag do
 
         context 'multiline' do
           let(:text) { "```\nzxc\n```\nq" }
-          it { is_expected.to eq "#{placeholder_1}\nq" }
+          it { is_expected.to eq "#{placeholder_1}q" }
         end
 
         context 'nested' do
-          context 'in quote' do
-            let(:text) { "> ```\n> zxc\n> ```" }
-            it { is_expected.to eq "> #{placeholder_1}" }
+          context 'the only content' do
+            context 'in quote' do
+              let(:text) { "> ```\n> zxc\n> ```" }
+              it { is_expected.to eq "> #{placeholder_1}" }
+            end
+
+            context 'in &gt; quote' do
+              let(:text) { "&gt; ```\n&gt; zxc\n&gt; ```" }
+              it { is_expected.to eq "&gt; #{placeholder_1}" }
+            end
+
+            context 'in list' do
+              let(:text) { "- ```\n  zxc\n  ```" }
+              it { is_expected.to eq "- #{placeholder_1}" }
+            end
+
+            context 'in quote then in list' do
+              let(:text) { "> - ```\n>   zxc\n>   ```" }
+              it { is_expected.to eq "> - #{placeholder_1}" }
+            end
+
+            context 'possibly in middle of list' do
+              let(:text) { "  ```\n  zxc\n  ```" }
+              it { is_expected.to eq "  #{placeholder_1}" }
+            end
           end
 
-          context 'in &gt; quote' do
-            let(:text) { "&gt; ```\n&gt; zxc\n&gt; ```" }
-            it { is_expected.to eq "&gt; #{placeholder_1}" }
-          end
+          context 'more content present' do
+            context 'quote' do
+              context 'before' do
+                let(:text) { "> zxc\n> ```\n> zxc\n> ```" }
+                it { is_expected.to eq "> zxc\n> #{placeholder_1}" }
+              end
 
-          context 'in list' do
-            let(:text) { "- ```\n  zxc\n  ```" }
-            it { is_expected.to eq "- #{placeholder_1}" }
-          end
+              context 'after' do
+                let(:text) { "> ```\n> zxc\n> ```\n> zxc" }
+                it { is_expected.to eq "> #{placeholder_1}\n> zxc" }
+              end
+            end
 
-          context 'in quote then in list' do
-            let(:text) { "> - ```\n>   zxc\n>   ```" }
-            it { is_expected.to eq "> - #{placeholder_1}" }
-          end
+            context 'list' do
+              context 'before' do
+                let(:text) { "- zxc\n  ```\n  zxc\n  ```" }
+                it { is_expected.to eq "- zxc\n  #{placeholder_1}" }
+              end
 
-          context 'possibly in middle of list' do
-            let(:text) { "  ```\n  zxc\n  ```" }
-            it { is_expected.to eq "  #{placeholder_1}" }
+              context 'after' do
+                let(:text) { "- ```\n  zxc\n  ```\n  zxc" }
+                it { is_expected.to eq "- #{placeholder_1}\n  zxc" }
+              end
+            end
           end
 
           context 'invalid markdown' do
@@ -292,14 +320,16 @@ describe BbCodes::Tags::CodeTag do
     end
 
     context 'nested markdown' do
-      let(:text) do
-        [
-          "> ```\n> zxc\n> ```",
-          "> ```\n> zxc\n> ```\n",
-          "> ```\n> zxc\n> ```\nz"
-        ].sample
+      [
+        "> ```\n> zxc\n> ```",
+        "> ```\n> zxc\n> ```\n",
+        "> ```\n> zxc\n> ```\nz"
+      ].each do |text_sample|
+        context 'sample' do
+          let(:text) { text_sample }
+          it { is_expected.to eq text_sample }
+        end
       end
-      it { is_expected.to eq text }
     end
   end
 end
