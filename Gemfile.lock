@@ -117,6 +117,8 @@ GEM
       activemodel (>= 4.1, < 6)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
+    active_record_doctor (1.8.0)
+      activerecord (>= 4.2.0)
     active_record_query_trace (1.6.2)
     activejob (5.2.5)
       activesupport (= 5.2.5)
@@ -757,6 +759,7 @@ PLATFORMS
 DEPENDENCIES
   actionpack-action_caching
   active_model_serializers
+  active_record_doctor
   active_record_query_trace
   activerecord-import
   acts_as_list

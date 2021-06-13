@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_31_202935) do
+ActiveRecord::Schema.define(version: 2021_06_13_030928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -325,7 +325,6 @@ ActiveRecord::Schema.define(version: 2021_05_31_202935) do
     t.datetime "updated_at", null: false
     t.index ["collection_id"], name: "index_collection_roles_on_collection_id"
     t.index ["user_id", "collection_id"], name: "index_collection_roles_on_user_id_and_collection_id", unique: true
-    t.index ["user_id"], name: "index_collection_roles_on_user_id"
   end
 
   create_table "collections", id: :serial, force: :cascade do |t|
@@ -1081,7 +1080,6 @@ ActiveRecord::Schema.define(version: 2021_05_31_202935) do
     t.index ["oauth_application_id"], name: "index_user_rate_logs_on_oauth_application_id"
     t.index ["target_type", "target_id"], name: "index_user_rate_logs_on_target_type_and_target_id"
     t.index ["user_id", "id"], name: "index_user_rate_logs_on_user_id_and_id"
-    t.index ["user_id"], name: "index_user_rate_logs_on_user_id"
   end
 
   create_table "user_rates", id: :serial, force: :cascade do |t|

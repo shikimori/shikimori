@@ -133,6 +133,7 @@ group :beta, :production do
 end
 
 group :development do
+  gem 'active_record_doctor'
   gem 'meta_request'
 
   gem 'spring'
