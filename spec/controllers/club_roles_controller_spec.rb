@@ -33,6 +33,13 @@ describe ClubRolesController do
     let(:user) { create :user, nickname: 'Fff' }
     let!(:club_role) { create :club_role, club: club, user: user }
     let(:club) { create :club, owner: user }
+    before do
+      allow(Elasticsearch::Query::User)
+        .to receive(:call)
+        .with(phrase: user.nickname, limit: ClubRolesQuery::IDS_LIMIT)
+        .and_return(user.id => 0.1)
+    end
+
     subject! do
       get :autocomplete,
         params: {
