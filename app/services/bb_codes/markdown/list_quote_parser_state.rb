@@ -76,19 +76,15 @@ private
     start_index = @index
 
     while @index <= @text.size
-      is_start = start_index == @index
-      is_end = end_of_line?
-      is_code_block_end = end_of_code_block?
-
       @is_exit_sequence = matched_sequence?(@exit_sequence) if @exit_sequence
 
-      if is_code_block_end
-        finalize_content start_index, @index - 1
-        move 1
+      if end_of_code_block?
+        finalize_content start_index, @index
+        move 2
         return
       end
 
-      if is_end
+      if end_of_line?
         finalize_content start_index, @index - 1
         move 1
         return
@@ -99,7 +95,7 @@ private
         return
       end
 
-      if is_start && @nesting < MAX_NESTING
+      if start_of_line?(start_index) && @nesting < MAX_NESTING
         seq_2 = @text[@index..(@index + 1)]
         return parse_list seq_2 if seq_2.in? LIST_ITEM_VARIANTS
         return parse_blockquote seq_2 if seq_2 == BLOCKQUOTE_VARIANT_1
@@ -136,6 +132,22 @@ private
     end
 
     finalize_content start_index, @index
+  end
+
+  def start_of_line? start_index
+    start_index == @index
+  end
+
+  def end_of_line?
+    @text[@index] == "\n" || @text[@index].nil?
+  end
+
+  def end_of_code_block? index = @index
+    size = CODE_PLACEHOLDER.size
+
+    @text[index] == CODE_PLACEHOLDER.last &&
+      index > size - 1 &&
+      @text.slice(index - size + 1, size) == CODE_PLACEHOLDER
   end
 
   def traverse tag
@@ -188,7 +200,7 @@ private
 
     loop do
       if line.positive?
-        @state.push "\n"
+        @state.push "\n" unless end_of_code_block?(@index - 2)
         move @nested_sequence.length
       end
 
@@ -308,17 +320,5 @@ private
         match.gsub '[br]', EMPTY_LINE_PLACEHOLDER_HTML
       end
     end
-  end
-
-  def end_of_line?
-    @text[@index] == "\n" || @text[@index].nil?
-  end
-
-  def end_of_code_block?
-    size = CODE_PLACEHOLDER.size
-
-    @text[@index - 1] == CODE_PLACEHOLDER.last &&
-      @index > size - 1 &&
-      @text.slice(@index - size, size) == CODE_PLACEHOLDER
   end
 end

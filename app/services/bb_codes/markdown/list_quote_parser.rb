@@ -37,8 +37,6 @@ class BbCodes::Markdown::ListQuoteParser
   MAX_NESTING = 5
 
   def format text
-    # ap [text, text.match(MARKDOWN_LIST_OR_QUOTE_REGEXP)]
-    # 1/0 if text.match(MARKDOWN_LIST_OR_QUOTE_REGEXP).last == 'Z'
     bbcode_to_html(text, 1).first
   end
 

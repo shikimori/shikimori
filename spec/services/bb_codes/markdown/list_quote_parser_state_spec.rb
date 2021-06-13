@@ -392,7 +392,7 @@ describe BbCodes::Markdown::ListQuoteParserState do
     end
   end
 
-  context 'code block' do
+  context 'code_block' do
     let(:code_placeholder) { described_class::CODE_PLACEHOLDER }
 
     context 'blockquote' do
@@ -483,7 +483,7 @@ describe BbCodes::Markdown::ListQuoteParserState do
         it do
           is_expected.to eq [
             "<ul class='b-list'><li>" \
-              "#{code_placeholder}\nafter" \
+              "#{code_placeholder}after" \
               '</li></ul>',
             nil
           ]
@@ -507,7 +507,7 @@ describe BbCodes::Markdown::ListQuoteParserState do
         it do
           is_expected.to eq [
             "<ul class='b-list'><li>" \
-              "before\n#{code_placeholder}\nafter" \
+              "before\n#{code_placeholder}after" \
               '</li></ul>',
             nil
           ]
