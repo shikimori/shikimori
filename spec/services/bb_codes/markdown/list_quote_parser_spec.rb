@@ -183,6 +183,48 @@ describe BbCodes::Markdown::ListQuoteParser do
       end
     end
 
+    context 'supports CODE_PLACEHOLDER' do
+      let(:code_placeholder) { described_class::CODE_PLACEHOLDER }
+
+      context 'the only content' do
+        let(:text) { "#{symbol} #{code_placeholder}" }
+        it do
+          is_expected.to eq(
+            "<ul class='b-list'><li>#{code_placeholder}</li></ul>"
+          )
+        end
+      end
+
+      context 'content before' do
+        let(:text) { "#{symbol} before\n  #{code_placeholder}" }
+        it do
+          is_expected.to eq(
+            "<ul class='b-list'><li>before\n" \
+              "#{code_placeholder}</li></ul>"
+          )
+        end
+      end
+
+      context 'content after' do
+        let(:text) { "#{symbol} #{code_placeholder}  after" }
+        it do
+          is_expected.to eq(
+            "<ul class='b-list'><li>#{code_placeholder}" \
+              'after</li></ul>'
+          )
+        end
+      end
+
+      context 'multiline content' do
+        let(:text) { "#{symbol} #{code_placeholder}z" }
+        it do
+          is_expected.to eq(
+            "<ul class='b-list'><li>#{code_placeholder}</li></ul>z"
+          )
+        end
+      end
+    end
+
     context 'commplex case' do
       let(:text) { "<h2>- 1</h2><h2>- 2</h2>- 3\n<h2>- 4</h2>- 5" }
       it do

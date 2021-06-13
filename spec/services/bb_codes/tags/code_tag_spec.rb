@@ -69,34 +69,34 @@ describe BbCodes::Tags::CodeTag do
           context 'content after' do
             context 'ends with \n' do
               let(:text) { "- ```\n  zxc\n  ```\n" }
-              it { is_expected.to eq "- #{placeholder_1}\n" }
+              it { is_expected.to eq "- #{placeholder_1}" }
             end
 
             context 'ends with the same nesting' do
               let(:text) { "- ```\n  zxc\n  ```\n  Z" }
-              it { is_expected.to eq "- #{placeholder_1}Z" }
+              it { is_expected.to eq "- #{placeholder_1}  Z" }
             end
 
             context 'ends with the same nesting with spaces' do
               let(:text) { "- ```\n  zxc\n  ```\n    Z" }
-              it { is_expected.to eq "- #{placeholder_1}  Z" }
+              it { is_expected.to eq "- #{placeholder_1}    Z" }
             end
 
             context 'ends with higher nesting' do
               context 'sample' do
                 let(:text) { "- ```\n  zxc\n  ```\n  > Z" }
-                it { is_expected.to eq "- #{placeholder_1}> Z" }
+                it { is_expected.to eq "- #{placeholder_1}  > Z" }
               end
 
               context 'sample' do
                 let(:text) { "> ```\n> zxc\n> ```\n> > Z" }
-                it { is_expected.to eq "> #{placeholder_1}> Z" }
+                it { is_expected.to eq "> #{placeholder_1}> > Z" }
               end
             end
 
             context 'ends with lower nesting' do
               let(:text) { "- ```\n  zxc\n  ```\nZ" }
-              it { is_expected.to eq "- #{placeholder_1}\nZ" }
+              it { is_expected.to eq "- #{placeholder_1}Z" }
             end
           end
 
@@ -256,12 +256,10 @@ describe BbCodes::Tags::CodeTag do
             let(:text) { "> ```\n> #{content}\n> ```\n" }
             it do
               is_expected.to eq(
-                ( # rubocop:disable RedundantParentheses
-                  <<-HTML.squish
-                    > <pre class='b-code-v2 to-process' data-dynamic='code_highlight'
-                      data-language=''><code>#{content}</code></pre>
-                  HTML
-                ) + "\n"
+                <<-HTML.squish
+                  > <pre class='b-code-v2 to-process' data-dynamic='code_highlight'
+                    data-language=''><code>#{content}</code></pre>
+                HTML
               )
             end
           end
@@ -329,8 +327,13 @@ describe BbCodes::Tags::CodeTag do
       let(:text) { "> ```\n> zxc\n> ```" }
       it { is_expected.to eq text }
 
-      context 'ends with \n' do
+      context 'ends with \n and content' do
         let(:text) { "- ```\n  zxc\n  ```\n" }
+        it { is_expected.to eq text }
+      end
+
+      context 'ends with \n and content' do
+        let(:text) { "- ```\n  zxc\n  ```\nafter" }
         it { is_expected.to eq text }
       end
     end

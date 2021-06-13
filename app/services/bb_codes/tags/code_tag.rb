@@ -43,7 +43,7 @@ class BbCodes::Tags::CodeTag # rubocop:disable ClassLength
 private
 
   def preprocess_bbcode text # rubocop:disable all
-    text.gsub BBCODE_REGEXP do |match|
+    text.gsub BBCODE_REGEXP do |match| # rubocop:disable BlockLength
       markdown_opening = $LAST_MATCH_INFO[:markdown_opening]
       markdown_nesting = $LAST_MATCH_INFO[:markdown_nesting]
       markdown_ending = $LAST_MATCH_INFO[:markdown_ending]
@@ -66,8 +66,8 @@ private
         markdown_opening ?
           markdown_placeholder(
             opening: markdown_opening,
-            nesting: markdown_nesting,
-            ending: markdown_ending,
+            # nesting: markdown_nesting,
+            # ending: markdown_ending,
             aftermath: markdown_aftermath
           ) :
           CODE_PLACEHOLDER_1
@@ -156,7 +156,8 @@ private
     if code.markdown_opening
       code.original
         .gsub(/\A#{Regexp.escape code.markdown_opening}/, '')
-        .delete_suffix(code.markdown_ending + code.markdown_aftermath)
+        .delete_suffix(code.markdown_aftermath)
+        # .delete_suffix(code.markdown_ending + code.markdown_aftermath)
     else
       code.original
     end
@@ -179,20 +180,19 @@ private
 
   def markdown_placeholder(
     opening:,
-    nesting:,
-    ending:,
+    # nesting:,
+    # ending:,
     aftermath:
   )
-    fixed_ending = ''
-    nesting_difference = aftermath.delete_prefix nesting
+    # fixed_ending = ''
+    #
+    # # handle case when additional spaces were added on next line
+    # if aftermath.size >= nesting.size && aftermath.starts_with?(nesting)
+    #   fixed_ending = aftermath
+    # elsif aftermath != nesting
+    #   fixed_ending = ending + aftermath
+    # end
 
-    # handle case when additional spaces were added on next line
-    if aftermath.size > nesting.size && aftermath.starts_with?(nesting)
-      fixed_ending = nesting_difference
-    elsif aftermath != nesting
-      fixed_ending = ending + aftermath
-    end
-
-    opening + CODE_PLACEHOLDER_1 + fixed_ending
+    opening + CODE_PLACEHOLDER_1 + aftermath
   end
 end

@@ -391,4 +391,123 @@ describe BbCodes::Markdown::ListQuoteParserState do
       end
     end
   end
+
+  context 'code block' do
+    let(:code_placeholder) { described_class::CODE_PLACEHOLDER }
+
+    context 'blockquote' do
+      context 'the only content' do
+        let(:text) { "&gt; #{code_placeholder}" }
+        it do
+          is_expected.to eq [
+            "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+              "#{code_placeholder}" \
+              '</div></blockquote>',
+            nil
+          ]
+        end
+      end
+
+      context 'in the beginning' do
+        let(:text) { "&gt; #{code_placeholder}&gt; after" }
+        it do
+          is_expected.to eq [
+            "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+              "#{code_placeholder}after" \
+              '</div></blockquote>',
+            nil
+          ]
+        end
+      end
+
+      context 'in the end' do
+        let(:text) { "&gt; before\n&gt; #{code_placeholder}" }
+        it do
+          is_expected.to eq [
+            "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+              "before\n#{code_placeholder}" \
+              '</div></blockquote>',
+            nil
+          ]
+        end
+      end
+
+      context 'in the middle' do
+        let(:text) { "&gt; before\n&gt; #{code_placeholder}&gt; after" }
+        it do
+          is_expected.to eq [
+            "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+              "before\n#{code_placeholder}after" \
+              '</div></blockquote>',
+            nil
+          ]
+        end
+      end
+
+      # let(:text) do
+      #   "&gt; #{code_placeholder}&gt; &gt; after"
+      # end
+      #
+      # it do
+      #   is_expected.to eq [
+      #     "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+      #       "#{code_placeholder}" \
+      #       "<blockquote class='b-quote-v2'><div class='quote-content'>" \
+      #       'after</div></blockquote>' \
+      #       '</div></blockquote>',
+      #     nil
+      #   ]
+      # end
+    end
+
+    context 'list' do
+      context 'the only content' do
+        let(:text) { "- #{code_placeholder}" }
+        it do
+          is_expected.to eq [
+            "<ul class='b-list'><li>" \
+              "#{code_placeholder}" \
+              '</li></ul>',
+            nil
+          ]
+        end
+      end
+
+      context 'in the beginning' do
+        let(:text) { "- #{code_placeholder}  after" }
+        it do
+          is_expected.to eq [
+            "<ul class='b-list'><li>" \
+              "#{code_placeholder}after" \
+              '</li></ul>',
+            nil
+          ]
+        end
+      end
+
+      context 'in the end' do
+        let(:text) { "- before\n  #{code_placeholder}" }
+        it do
+          is_expected.to eq [
+            "<ul class='b-list'><li>" \
+              "before\n#{code_placeholder}" \
+              '</li></ul>',
+            nil
+          ]
+        end
+      end
+
+      context 'in the middle' do
+        let(:text) { "- before\n  #{code_placeholder}  after" }
+        it do
+          is_expected.to eq [
+            "<ul class='b-list'><li>" \
+              "before\n#{code_placeholder}after" \
+              '</li></ul>',
+            nil
+          ]
+        end
+      end
+    end
+  end
 end

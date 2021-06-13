@@ -25,7 +25,8 @@ class BbCodes::Markdown::ListQuoteParserState # rubocop:disable ClassLength
   BR_ENDING_REGEXP = /(\[br\])+\Z/
   EMPTY_LINE_PLACEHOLDER_HTML = "<div data='empty-line-placeholder'><br></div>"
 
-  TAG_CLOSE_REGEXP = %r{</\w+>}
+  CODE_PLACEHOLDER = BbCodes::Tags::CodeTag::CODE_PLACEHOLDER_1
+  TAG_CLOSE_REGEXP = %r{</\w+>|#{Regexp.escape CODE_PLACEHOLDER}}
 
   MAX_NESTING = 4
 
@@ -76,12 +77,16 @@ private
 
     while @index <= @text.size
       is_start = start_index == @index
-      is_end = @text[@index] == "\n" || @text[@index].nil?
+      is_end = end_of_line?
+      is_code_block_end = end_of_code_block?
+
       @is_exit_sequence = matched_sequence?(@exit_sequence) if @exit_sequence
 
-      if is_end
+      # binding.pry if @index == 17
+
+      if is_end || is_code_block_end
         finalize_content start_index, @index - 1
-        move 1
+        move 1 unless is_code_block_end
         return
       end
 
@@ -299,5 +304,17 @@ private
         match.gsub '[br]', EMPTY_LINE_PLACEHOLDER_HTML
       end
     end
+  end
+
+  def end_of_line?
+    @text[@index] == "\n" || @text[@index].nil?
+  end
+
+  def end_of_code_block?
+    size = CODE_PLACEHOLDER.size
+
+    @text[@index - 1] == CODE_PLACEHOLDER.last &&
+      @index > size - 1 &&
+      @text.slice(@index - size, size) == CODE_PLACEHOLDER
   end
 end
