@@ -8,7 +8,9 @@ class BbCodes::Tags::CodeTag # rubocop:disable ClassLength
     |
     ^ (?<markdown_opening> (?:>\ |&gt;\ |-\ |\ \ )+ )? ``` (?<language>[\w+#-]+)? \n
       (?<code_block> .*? ) \n
-    ^ (?<markdown_nesting> (?:>\ |&gt;\ |\ \ )+ )? ``` (?<markdown_ending>\n|$)
+    ^ (?<markdown_nesting> (?:>\ |&gt;\ |\ \ )+ )? ```
+      (?<markdown_ending> \n|$ )
+      (?<markdown_aftermath> (?:>\ |&gt;\ |\ \ )* )
   }mix
 
   INLINE_MARKDOWN_REGEXP = /(?<mark>`++)(?<code>(?:(?!\k<mark>).)+)\k<mark>/
@@ -45,6 +47,7 @@ private
       markdown_opening = $LAST_MATCH_INFO[:markdown_opening]
       markdown_nesting = $LAST_MATCH_INFO[:markdown_nesting]
       markdown_ending = $LAST_MATCH_INFO[:markdown_ending]
+      markdown_aftermath = $LAST_MATCH_INFO[:markdown_aftermath]
 
       if markdown_nesting_matched? markdown_opening, markdown_nesting
         store(
@@ -56,11 +59,17 @@ private
           suffix: $LAST_MATCH_INFO[:suffix] == "\n" ? '<br>' : '',
           markdown_opening: markdown_opening,
           markdown_nesting: markdown_nesting,
-          markdown_ending: markdown_ending
+          markdown_ending: markdown_ending,
+          markdown_aftermath: markdown_aftermath
         )
 
         markdown_opening ?
-          markdown_opening + CODE_PLACEHOLDER_1 + markdown_ending :
+          markdown_placeholder(
+            opening: markdown_opening,
+            nesting: markdown_nesting,
+            ending: markdown_ending,
+            aftermath: markdown_aftermath
+          ) :
           CODE_PLACEHOLDER_1
       else
         match
@@ -127,7 +136,8 @@ private
     suffix: nil,
     markdown_opening: nil,
     markdown_nesting: nil,
-    markdown_ending: nil
+    markdown_ending: nil,
+    markdown_aftermath: nil
   )
     @cache.push OpenStruct.new(
       text: text.gsub(/\\`/, '`'),
@@ -137,7 +147,8 @@ private
       suffix: suffix,
       markdown_opening: markdown_opening,
       markdown_nesting: markdown_nesting,
-      markdown_ending: markdown_ending
+      markdown_ending: markdown_ending,
+      markdown_aftermath: markdown_aftermath
     )
   end
 
@@ -145,7 +156,7 @@ private
     if code.markdown_opening
       code.original
         .gsub(/\A#{Regexp.escape code.markdown_opening}/, '')
-        .gsub(/#{code.markdown_ending}\Z/, '')
+        .delete_suffix(code.markdown_ending + code.markdown_aftermath)
     else
       code.original
     end
@@ -155,7 +166,7 @@ private
     if code.markdown_opening
       code.text
         .gsub(/^#{Regexp.escape code.markdown_nesting}/, '')
-        .gsub(/#{code.markdown_ending}\Z/, '')
+        .delete_suffix(code.markdown_ending + code.markdown_aftermath)
     else
       code.text
     end
@@ -164,5 +175,24 @@ private
   def markdown_nesting_matched? markdown_opening, markdown_nesting
     markdown_opening&.gsub('&gt;', '>')&.size ==
       markdown_nesting&.gsub('&gt;', '>')&.size
+  end
+
+  def markdown_placeholder(
+    opening:,
+    nesting:,
+    ending:,
+    aftermath:
+  )
+    fixed_ending = ''
+    nesting_difference = aftermath.delete_prefix nesting
+
+    # handle case when additional spaces were added on next line
+    if aftermath.size > nesting.size && aftermath.starts_with?(nesting)
+      fixed_ending = nesting_difference
+    elsif aftermath != nesting
+      fixed_ending = ending + aftermath
+    end
+
+    opening + CODE_PLACEHOLDER_1 + fixed_ending
   end
 end

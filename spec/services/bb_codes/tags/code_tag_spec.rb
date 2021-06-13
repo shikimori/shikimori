@@ -42,15 +42,13 @@ describe BbCodes::Tags::CodeTag do
 
         context 'nested' do
           context 'in quote' do
-            context '>' do
-              let(:text) { "> ```\n> zxc\n> ```" }
-              it { is_expected.to eq "> #{placeholder_1}" }
-            end
+            let(:text) { "> ```\n> zxc\n> ```" }
+            it { is_expected.to eq "> #{placeholder_1}" }
+          end
 
-            context '&gt;' do
-              let(:text) { "&gt; ```\n&gt; zxc\n&gt; ```" }
-              it { is_expected.to eq "&gt; #{placeholder_1}" }
-            end
+          context 'in &gt; quote' do
+            let(:text) { "&gt; ```\n&gt; zxc\n&gt; ```" }
+            it { is_expected.to eq "&gt; #{placeholder_1}" }
           end
 
           context 'in list' do
@@ -63,17 +61,46 @@ describe BbCodes::Tags::CodeTag do
             it { is_expected.to eq "> - #{placeholder_1}" }
           end
 
-          context 'ends with \n' do
-            let(:text) { "- ```\n  zxc\n  ```\n" }
-            it { is_expected.to eq "- #{placeholder_1}\n" }
-          end
-
           context 'possibly in middle of list' do
             let(:text) { "  ```\n  zxc\n  ```" }
             it { is_expected.to eq "  #{placeholder_1}" }
           end
 
-          context 'not valid cases' do
+          context 'content after' do
+            context 'ends with \n' do
+              let(:text) { "- ```\n  zxc\n  ```\n" }
+              it { is_expected.to eq "- #{placeholder_1}\n" }
+            end
+
+            context 'ends with the same nesting' do
+              let(:text) { "- ```\n  zxc\n  ```\n  Z" }
+              it { is_expected.to eq "- #{placeholder_1}Z" }
+            end
+
+            context 'ends with the same nesting with spaces' do
+              let(:text) { "- ```\n  zxc\n  ```\n    Z" }
+              it { is_expected.to eq "- #{placeholder_1}  Z" }
+            end
+
+            context 'ends with higher nesting' do
+              context 'sample' do
+                let(:text) { "- ```\n  zxc\n  ```\n  > Z" }
+                it { is_expected.to eq "- #{placeholder_1}> Z" }
+              end
+
+              context 'sample' do
+                let(:text) { "> ```\n> zxc\n> ```\n> > Z" }
+                it { is_expected.to eq "> #{placeholder_1}> Z" }
+              end
+            end
+
+            context 'ends with lower nesting' do
+              let(:text) { "- ```\n  zxc\n  ```\nZ" }
+              it { is_expected.to eq "- #{placeholder_1}\nZ" }
+            end
+          end
+
+          context 'invalid markdown' do
             context 'ends in list' do
               let(:text) { "> - ```\n>   zxc\n> - ```" }
               it { is_expected.to eq text }
