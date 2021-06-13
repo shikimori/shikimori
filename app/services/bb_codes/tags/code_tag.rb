@@ -6,12 +6,12 @@ class BbCodes::Tags::CodeTag # rubocop:disable ClassLength
       (?<after> [\ \r\n]* )
     \[ /code \] (?<suffix> \n?)
     |
-    ^ (?<markdown_opening> (?:>\ |-\ |\ \ )+ )? ``` (?<language>[\w+#-]+)? \n
+    ^ (?<markdown_opening> (?:>\ |&gt;\ |-\ |\ \ )+ )? ``` (?<language>[\w+#-]+)? \n
       (?<code_block> .*? ) \n
-    ^ (?<markdown_ending> (?:>\ |\ \ )+ )? ``` (?:\n|$)
+    ^ (?<markdown_ending> (?:>\ |&gt;\ |\ \ )+ )? ``` (?:\n|$)
   }mix
 
-  MARKDOWN_REGEXP = /(?<mark>`++)(?<code>(?:(?!\k<mark>).)+)\k<mark>/
+  INLINE_MARKDOWN_REGEXP = /(?<mark>`++)(?<code>(?:(?!\k<mark>).)+)\k<mark>/
 
   CODE_PLACEHOLDER_1 = '!!-CODE-1-!!'
   CODE_PLACEHOLDER_2 = '!!-CODE-2-!!'
@@ -21,11 +21,11 @@ class BbCodes::Tags::CodeTag # rubocop:disable ClassLength
 
   def preprocess text
     @cache = []
-    proprocess_markdown(preprocess_bbcode(text))
+    proprocess_inline_markdown(preprocess_bbcode(text))
   end
 
   def postprocess text
-    fixed_text = postprocess_markdown(postprocess_bbcode(text))
+    fixed_text = postprocess_inline_markdown(postprocess_bbcode(text))
 
     raise BbCodes::BrokenTagError if @cache.any?
 
@@ -45,7 +45,7 @@ private
       markdown_opening = $LAST_MATCH_INFO[:markdown_opening]
       markdown_ending = $LAST_MATCH_INFO[:markdown_ending]
 
-      if markdown_opening&.size == markdown_ending&.size
+      if markdown_nesting_matched? markdown_opening, markdown_ending
         store(
           text: $LAST_MATCH_INFO[:code] || $LAST_MATCH_INFO[:code_block],
           original: match,
@@ -84,8 +84,8 @@ private
     end
   end
 
-  def proprocess_markdown text
-    text.gsub MARKDOWN_REGEXP do |match|
+  def proprocess_inline_markdown text
+    text.gsub INLINE_MARKDOWN_REGEXP do |match|
       store(
         text: $LAST_MATCH_INFO[:code],
         original: match
@@ -94,7 +94,7 @@ private
     end
   end
 
-  def postprocess_markdown text
+  def postprocess_inline_markdown text
     text.gsub CODE_PLACEHOLDER_2 do
       code = @cache.shift
       raise BbCodes::BrokenTagError if code.nil?
@@ -151,5 +151,10 @@ private
     else
       code.text
     end
+  end
+
+  def markdown_nesting_matched? markdown_opening, markdown_ending
+    markdown_opening&.gsub('&gt;', '>')&.size ==
+      markdown_ending&.gsub('&gt;', '>')&.size
   end
 end

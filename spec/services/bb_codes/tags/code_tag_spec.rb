@@ -42,8 +42,15 @@ describe BbCodes::Tags::CodeTag do
 
         context 'nested' do
           context 'in quote' do
-            let(:text) { "> ```\n> zxc\n> ```" }
-            it { is_expected.to eq "> #{placeholder_1}" }
+            context '>' do
+              let(:text) { "> ```\n> zxc\n> ```" }
+              it { is_expected.to eq "> #{placeholder_1}" }
+            end
+
+            context '&gt;' do
+              let(:text) { "&gt; ```\n&gt; zxc\n&gt; ```" }
+              it { is_expected.to eq "&gt; #{placeholder_1}" }
+            end
           end
 
           context 'in list' do
