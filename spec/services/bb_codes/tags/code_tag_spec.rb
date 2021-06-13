@@ -29,14 +29,48 @@ describe BbCodes::Tags::CodeTag do
         it { is_expected.to eq "q#{placeholder_1}w#{placeholder_1}1" }
       end
 
-      context 'sample' do
-        let(:text) { "```\nzxc\n```" }
-        it { is_expected.to eq placeholder_1 }
-      end
+      context 'markdown' do
+        context 'single line' do
+          let(:text) { "```\nzxc\n```" }
+          it { is_expected.to eq placeholder_1 }
+        end
 
-      context 'sample' do
-        let(:text) { "```\nzxc\n```\nq" }
-        it { is_expected.to eq "#{placeholder_1}q" }
+        context 'multiline' do
+          let(:text) { "```\nzxc\n```\nq" }
+          it { is_expected.to eq "#{placeholder_1}q" }
+        end
+
+        context 'nested' do
+          context 'in quote' do
+            let(:text) { "> ```\n> zxc\n> ```" }
+            it { is_expected.to eq "> #{placeholder_1}" }
+          end
+
+          context 'in list' do
+            let(:text) { "- ```\n  zxc\n  ```" }
+            it { is_expected.to eq "- #{placeholder_1}" }
+          end
+
+          context 'in quote then in list' do
+            let(:text) { "> - ```\n>   zxc\n>   ```" }
+            it { is_expected.to eq "> - #{placeholder_1}" }
+          end
+
+          context 'ends in list' do
+            let(:text) { "> - ```\n>   zxc\n> - ```" }
+            it { is_expected.to eq text }
+          end
+
+          context 'ends on another nesting level' do
+            let(:text) { "> - ```\n>   zxc\n>     ```" }
+            it { is_expected.to eq text }
+          end
+
+          context 'possibly in middle of list' do
+            let(:text) { "  ```\n  zxc\n  ```" }
+            it { is_expected.to eq "  #{placeholder_1}" }
+          end
+        end
       end
     end
 
@@ -61,19 +95,21 @@ describe BbCodes::Tags::CodeTag do
         it { is_expected.to eq text }
       end
 
-      context 'sample' do
-        let(:text) { '``zx`cz``' }
-        it { is_expected.to eq placeholder_2 }
-      end
+      context 'markdown' do
+        context 'sample' do
+          let(:text) { '``zx`cz``' }
+          it { is_expected.to eq placeholder_2 }
+        end
 
-      context 'sample' do
-        let(:text) { '```zx`cz``' }
-        it { is_expected.to eq "`#{placeholder_2}" }
-      end
+        context 'sample' do
+          let(:text) { '```zx`cz``' }
+          it { is_expected.to eq "`#{placeholder_2}" }
+        end
 
-      context 'sample' do
-        let(:text) { '``zx`cz```' }
-        it { is_expected.to eq "#{placeholder_2}`" }
+        context 'sample' do
+          let(:text) { '``zx`cz```' }
+          it { is_expected.to eq "#{placeholder_2}`" }
+        end
       end
     end
   end
@@ -158,11 +194,21 @@ describe BbCodes::Tags::CodeTag do
       context 'code_block' do
         let(:content) { ' [b]qe[/b] ' }
 
-        context 'sample' do
+        context 'not nested' do
           let(:text) { "```\n#{content}\n```" }
           it do
             is_expected.to eq <<-HTML.squish
               <pre class='b-code-v2 to-process' data-dynamic='code_highlight'
+                data-language=''><code>#{content}</code></pre>
+            HTML
+          end
+        end
+
+        context 'nested' do
+          let(:text) { "> ```\n> #{content}\n> ```" }
+          it do
+            is_expected.to eq <<-HTML.squish
+              > <pre class='b-code-v2 to-process' data-dynamic='code_highlight'
                 data-language=''><code>#{content}</code></pre>
             HTML
           end
@@ -223,6 +269,11 @@ describe BbCodes::Tags::CodeTag do
 
     context 'sample' do
       let(:text) { "`#{content}`" }
+      it { is_expected.to eq text }
+    end
+
+    context 'nested markdown' do
+      let(:text) { "> ```\n> zxc\n> ```" }
       it { is_expected.to eq text }
     end
   end

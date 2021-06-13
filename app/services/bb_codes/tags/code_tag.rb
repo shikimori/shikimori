@@ -6,9 +6,9 @@ class BbCodes::Tags::CodeTag # rubocop:disable ClassLength
       (?<after> [\ \r\n]* )
     \[ /code \] (?<suffix> \n?)
     |
-    ^ ``` (?<language>[\w+#-]+)? \n
+    ^ (?<markdown_opening> (?:>\ |-\ |\ \ )+ )? ``` (?<language>[\w+#-]+)? \n
       (?<code_block> .*? ) \n
-    ^ ``` (?:\n|$)
+    ^ (?<markdown_ending> (?:>\ |\ \ )+ )? ``` (?:\n|$)
   }mix
 
   MARKDOWN_REGEXP = /(?<mark>`++)(?<code>(?:(?!\k<mark>).)+)\k<mark>/
@@ -35,22 +35,34 @@ class BbCodes::Tags::CodeTag # rubocop:disable ClassLength
   def restore text
     text
       .gsub(CODE_PLACEHOLDER_2) { @cache.shift.original }
-      .gsub(CODE_PLACEHOLDER_1) { @cache.shift.original }
+      .gsub(CODE_PLACEHOLDER_1) { restore_code_block @cache.shift }
   end
 
 private
 
-  def preprocess_bbcode text
+  def preprocess_bbcode text # rubocop:disable all
     text.gsub BBCODE_REGEXP do |match|
-      store(
-        $LAST_MATCH_INFO[:code] || $LAST_MATCH_INFO[:code_block],
-        $LAST_MATCH_INFO[:language],
-        $LAST_MATCH_INFO[:code_block] ? 'z' : $LAST_MATCH_INFO[:before],
-        $LAST_MATCH_INFO[:code_block] ? 'z' : $LAST_MATCH_INFO[:after],
-        $LAST_MATCH_INFO[:suffix] == "\n" ? '<br>' : '',
+      markdown_opening = $LAST_MATCH_INFO[:markdown_opening]
+      markdown_ending = $LAST_MATCH_INFO[:markdown_ending]
+
+      if markdown_opening&.size == markdown_ending&.size
+        store(
+          text: $LAST_MATCH_INFO[:code] || $LAST_MATCH_INFO[:code_block],
+          original: match,
+          language: $LAST_MATCH_INFO[:language],
+          before: $LAST_MATCH_INFO[:code_block] ? 'z' : $LAST_MATCH_INFO[:before],
+          after: $LAST_MATCH_INFO[:code_block] ? 'z' : $LAST_MATCH_INFO[:after],
+          suffix: $LAST_MATCH_INFO[:suffix] == "\n" ? '<br>' : '',
+          markdown_opening: markdown_opening,
+          markdown_ending: markdown_ending
+        )
+
+        markdown_opening ?
+          markdown_opening + CODE_PLACEHOLDER_1 :
+          CODE_PLACEHOLDER_1
+      else
         match
-      )
-      CODE_PLACEHOLDER_1
+      end
     end
   end
 
@@ -61,9 +73,11 @@ private
       raise BbCodes::BrokenTagError if code.nil?
 
       if code.language
-        code_highlight code.text, code.language
+        code_highlight code_block_text(code), code.language
+
       elsif code_block? code.text, code.content_around
-        code_highlight code.text, nil
+        code_highlight code_block_text(code), nil
+
       else
         code_inline(code.text) + code.suffix
       end
@@ -73,12 +87,8 @@ private
   def proprocess_markdown text
     text.gsub MARKDOWN_REGEXP do |match|
       store(
-        $LAST_MATCH_INFO[:code],
-        nil,
-        nil,
-        nil,
-        nil,
-        match
+        text: $LAST_MATCH_INFO[:code],
+        original: match
       )
       CODE_PLACEHOLDER_2
     end
@@ -107,19 +117,39 @@ private
   end
 
   def store( # rubocop:disable ParameterLists
-    text,
-    language,
-    before,
-    after,
-    suffix,
-    original
+    text:,
+    original:,
+    language: nil,
+    before: nil,
+    after: nil,
+    suffix: nil,
+    markdown_opening: nil,
+    markdown_ending: nil
   )
     @cache.push OpenStruct.new(
       text: text.gsub(/\\`/, '`'),
+      original: original,
       language: language,
       content_around: (!before.empty? if before) || (!after.empty? if after),
       suffix: suffix,
-      original: original
+      markdown_opening: markdown_opening,
+      markdown_ending: markdown_ending
     )
+  end
+
+  def restore_code_block code
+    if code.markdown_opening
+      code.original.gsub(/\A#{Regexp.escape code.markdown_opening}/, '')
+    else
+      code.original
+    end
+  end
+
+  def code_block_text code
+    if code.markdown_opening
+      code.text.gsub(/^#{Regexp.escape code.markdown_ending}/, '')
+    else
+      code.text
+    end
   end
 end
