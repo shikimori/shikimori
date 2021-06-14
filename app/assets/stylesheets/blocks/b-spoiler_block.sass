@@ -10,6 +10,9 @@
   & + .b-spoiler_block
     margin-top: 2px
 
+  &.is-fullwidth + .b-spoiler_block.is-fullwidth
+    margin-top: 5px
+
   &:not(.is-opened)
     & > div
       display: none
@@ -34,6 +37,9 @@
       & > span:before
         content: ''
         margin-right: auto
+
+    & > div > .b-spoiler_block.is-fullwidth:first-child
+      margin-top: 5px
 
   &.is-centered
     &:not(.is-fullwidth)
