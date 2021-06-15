@@ -10583,6 +10583,7 @@
         - 91
         - 1657
         - 92
+        - 37765
       :generator:
         person_id: 2337
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -19139,7 +19140,7 @@
         - 34939
         - 38110
         - 38112
-      :threshold: 92.7%
+      :threshold: 91.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :tales_of
@@ -19434,6 +19435,9 @@
         - 42600
         - 42889
         - 48377
+        - 42783
+        - 48378
+        - 47635
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :love_live
@@ -19494,6 +19498,9 @@
         - 42600
         - 42889
         - 48377
+        - 42783
+        - 48378
+        - 47635
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :love_live
@@ -21758,6 +21765,7 @@
         - 2269
         - 2294
         - 2305
+        - 2391
         - 2695
         - 2743
         - 3626
@@ -21798,7 +21806,7 @@
         - 42380
         - 42432
         - 42439
-      :threshold: 87.6%
+      :threshold: 87.9%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -21844,6 +21852,7 @@
         - 2269
         - 2294
         - 2305
+        - 2391
         - 2695
         - 2743
         - 3626
