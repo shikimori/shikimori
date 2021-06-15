@@ -9,7 +9,7 @@ class AnimesCollection::View < ViewObjectBase # rubocop:disable ClassLength
   SEASON_LIMIT = 1000
 
   DEFAULT_ORDER = Animes::Filters::OrderBy::DEFAULT_ORDER
-  CACHE_VERSION = 28
+  CACHE_VERSION = 29
 
   def collection
     if season_page?

@@ -24,7 +24,8 @@ class Animes::FranchiseName
     'aria the natural' => 'aria',
     'marvel future avengers' => 'marvel',
     're:zero kara hajimeru isekai seikatsu' => 're_zero',
-    'dungeon ni deai wo motomeru no wa machigatteiru darou ka' => 'danmachi'
+    'dungeon ni deai wo motomeru no wa machigatteiru darou ka' => 'danmachi',
+    'tales of crestoria' => 'tales_of'
   }
 
   def call

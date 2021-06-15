@@ -33,10 +33,18 @@ private
   def fetch_related ids, relations
     ids_to_fetch = ids - relations.keys
 
-    fetched_ids = grouped_relation(ids_to_fetch).flat_map do |source_id, group|
-      relations[source_id] = group.reject { |relation| banned? source_id, relation }
-      relations[source_id].map { |v| v[related_field] }
-    end
+    fetched_ids = grouped_relation(ids_to_fetch)
+      .flat_map do |source_id, group|
+        relations[source_id] = group.reject { |relation| banned? source_id, relation }
+        relations[source_id].map { |v| v[related_field] }
+      end
+      .uniq
+
+    # if (ids & [46089, 42832, 38361, 391]).any? || (fetched_ids & [46089, 42832, 38361, 391]).any?
+    #   ap [ids, fetched_ids - ids]
+    #   binding.pry
+    #   1/0
+    # end
 
     if fetched_ids.any?
       fetch_related fetched_ids, relations
