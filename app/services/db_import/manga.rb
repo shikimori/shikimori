@@ -5,8 +5,16 @@ class DbImport::Manga < DbImport::Anime
 
 private
 
+  def assign_genres genres
+    super genres
+
+    unless :is_censored.in? desynced_fields
+      entry.is_censored = entry.kind_doujin? || entry.genres.any?(&:censored?)
+    end
+  end
+
   def find_or_create_genre data
-    MangaGenresRepository.instance.find_by_mal_id data[:id]
+    MangaGenresRepository.instance.find_by_mal_id data[:id] # rubocop:disable DynamicFindBy
   rescue ActiveRecord::RecordNotFound
     Genre.create! mal_id: data[:id], name: data[:name], kind: :manga
   end
@@ -18,7 +26,7 @@ private
   def find_or_create_publisher data
     publisher = PublishersRepository.instance.find data[:id]
 
-    if publisher.name != data[:name] && !publisher.desynced.include?('name')
+    if publisher.name != data[:name] && publisher.desynced.exclude?('name')
       publisher.update! name: data[:name]
     end
 
