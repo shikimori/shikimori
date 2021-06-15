@@ -90,31 +90,62 @@ describe Animes::Filters::Policy do
   end
 
   describe 'kind' do
-    context 'music' do
-      let(:kind) do
-        [
-          Types::Anime::Kind[:music],
-          'music',
-          'tv,music'
-        ].sample
+    describe 'music' do
+      context 'music' do
+        let(:kind) do
+          [
+            Types::Anime::Kind[:music],
+            'music',
+            'tv,music'
+          ].sample
+        end
+
+        it { expect(no_hentai).to eq true }
+        it { expect(no_music).to eq false }
       end
 
-      it { expect(no_hentai).to eq true }
-      it { expect(no_music).to eq false }
+      context 'not music' do
+        let(:kind) do
+          [
+            nil,
+            'tv',
+            '!music',
+            'tv,!music'
+          ].sample
+        end
+
+        it { expect(no_hentai).to eq true }
+        it { expect(no_music).to eq true }
+      end
     end
 
-    context 'not music' do
-      let(:kind) do
-        [
-          nil,
-          'tv',
-          '!music',
-          'tv,!music'
-        ].sample
+    describe 'doujin' do
+      context 'doujin' do
+        let(:kind) do
+          [
+            Types::Manga::Kind[:doujin],
+            'doujin',
+            'manga,doujin'
+          ].sample
+        end
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq true }
       end
 
-      it { expect(no_hentai).to eq true }
-      it { expect(no_music).to eq true }
+      context 'not doujin' do
+        let(:kind) do
+          [
+            nil,
+            'tv',
+            '!doujin',
+            'manga,!doujin'
+          ].sample
+        end
+
+        it { expect(no_hentai).to eq true }
+        it { expect(no_music).to eq true }
+      end
     end
   end
 

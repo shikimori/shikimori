@@ -4,6 +4,7 @@ class Animes::Filters::Policy
     ADULT_RATING_REGEXP =
       /(?:\A|,)(?:#{Types::Anime::Rating[:rx]}|#{Types::Anime::Rating[:r_plus]})\b/
     MUSIC_REGEXP = /(?:\A|,)#{Types::Anime::Kind[:music]}\b/
+    DOUJIN_REGEXP = /(?:\A|,)#{Types::Manga::Kind[:doujin]}\b/
 
     HENTAI_GENRES_IDS = Genre::HENTAI_IDS + Genre::YAOI_IDS + Genre::YURI_IDS
     HENTAI_GENRES_REGEXP = /(?:\A|,)(?:#{HENTAI_GENRES_IDS.join '|'})\b/
@@ -11,7 +12,9 @@ class Animes::Filters::Policy
     def exclude_hentai? params
       return false if forbid_filtering? params
 
-      !adult_rating?(params[:rating]) && !hentai_genre?(params[:genre])
+      !adult_rating?(params[:rating]) &&
+        !hentai_genre?(params[:genre]) &&
+        !doujin_kind?(params[:kind])
     end
 
     def exclude_music? params
@@ -33,6 +36,11 @@ class Animes::Filters::Policy
     def music_kind? kind
       kind == Types::Anime::Kind[:music] ||
         kind.is_a?(String) && kind.match?(MUSIC_REGEXP)
+    end
+
+    def doujin_kind? kind
+      kind == Types::Manga::Kind[:doujin] ||
+        kind.is_a?(String) && kind.match?(DOUJIN_REGEXP)
     end
 
     def forbid_filtering? params # rubocop:disable all
