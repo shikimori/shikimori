@@ -47,6 +47,7 @@
       .subheadline.m5 = menu.klass.human_attribute_name(:kind)
       ul.b-block_list.kinds.anime-params
         - menu.kinds.each do |kind|
+          - next if kind.text.to_sym == ::Types::Manga::Kind[:doujin] && !user_signed_in?
           li[
             data-field='kind'
             data-value=kind.text
