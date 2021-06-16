@@ -390,7 +390,7 @@ Instead use \`[span]\` bbcode [span=b-anime_status_tag anons]as inline element[/
 [quote=zxc]Old style quote with nickname[/quote]
 [quote=c1246;1945;Silentium°]Old style quote with user[/quote]
 
-[spoiler_block=Код]
+[spoiler_block=Код is-fullwidth]
 ### Блочный код
 \`\`\`
 code block

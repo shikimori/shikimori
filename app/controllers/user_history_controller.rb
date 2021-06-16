@@ -5,7 +5,7 @@ class UserHistoryController < ProfilesController
   LOGS_LIMIT = 45
 
   def index
-    redirect_to @resource.url unless @resource.history.any?
+    redirect_to @resource.url if @resource.history.none?
     og noindex: true
     og page_title: i18n_t('page_title.history')
 
@@ -31,7 +31,7 @@ class UserHistoryController < ProfilesController
     redirect_to profile_list_history_url(@user)
   end
 
-  def reset
+  def reset # rubocop:disable MethodLength, AbcSize
     authorize! :edit, @resource
 
     @resource.object.history.where(target_type: params[:type].capitalize).delete_all
