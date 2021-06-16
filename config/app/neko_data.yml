@@ -17443,9 +17443,11 @@
         - 15323
         - 16143
         - 19123
+        - 20871
         - 28683
         - 32437
         - 34165
+        - 35770
         - 36215
         - 36239
         - 36240
@@ -17455,8 +17457,6 @@
         - 38419
         - 40181
         - 46171
-        - 35770
-        - 20871
       :threshold: 95.5%
       :generator:
         ignore_latest_ids:
@@ -17497,9 +17497,11 @@
         - 15323
         - 16143
         - 19123
+        - 20871
         - 28683
         - 32437
         - 34165
+        - 35770
         - 36215
         - 36239
         - 36240
@@ -17509,8 +17511,6 @@
         - 38419
         - 40181
         - 46171
-        - 35770
-        - 20871
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -19145,7 +19145,7 @@
         - 38110
         - 38112
         - 38361
-      :threshold: 91.8%
+      :threshold: 92%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :tales_of
