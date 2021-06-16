@@ -17455,6 +17455,8 @@
         - 38419
         - 40181
         - 46171
+        - 35770
+        - 20871
       :threshold: 95.5%
       :generator:
         ignore_latest_ids:
@@ -17507,6 +17509,8 @@
         - 38419
         - 40181
         - 46171
+        - 35770
+        - 20871
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -19140,6 +19144,7 @@
         - 34939
         - 38110
         - 38112
+        - 38361
       :threshold: 91.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -19174,6 +19179,7 @@
         - 34939
         - 38110
         - 38112
+        - 38361
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
