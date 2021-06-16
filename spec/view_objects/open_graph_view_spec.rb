@@ -156,10 +156,10 @@ describe OpenGraphView do
 
       it { is_expected.to eq 'noindex,nofollow' }
 
-      context 'has another canonical url' do
-        let(:request_url) { 'http://test.com/qwe?abc' }
-        it { is_expected.to be_nil }
-      end
+      # context 'has another canonical url' do
+      #   let(:request_url) { 'http://test.com/qwe?abc' }
+      #   it { is_expected.to be_nil }
+      # end
     end
   end
 end

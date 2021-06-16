@@ -47,7 +47,7 @@ class OpenGraphView < ViewObjectBase
   end
 
   def meta_robots
-    return if canonical_url != h.request.url
+    # return if canonical_url != h.request.url
 
     content = [
       ('noindex' if noindex),
