@@ -4,6 +4,7 @@ class AchievementsController < ShikimoriController
   end
   before_action :find_collection, only: %i[group]
   before_action :set_collection, only: %i[show users]
+  before_action :set_level, only: %i[users]
 
   helper_method :users_scope
 
@@ -34,8 +35,6 @@ class AchievementsController < ShikimoriController
 
   def users # rubocop:disable AbcSize
     show
-    @resource = @collection.find { |achievement| achievement.level == params[:level].to_i }
-
     og page_title: i18n_t('level', level: @resource.level)
     breadcrumb(
       @resource.title(current_user, ru_host?),
@@ -81,6 +80,11 @@ private
       end
 
     raise ActiveRecord::RecordNotFound if @collection.none?
+  end
+
+  def set_level
+    @resource = @collection.find { |achievement| achievement.level == params[:level].to_i }
+    raise ActiveRecord::RecordNotFound if @resource.nil?
   end
 
   def build_topic_resource topic_id
