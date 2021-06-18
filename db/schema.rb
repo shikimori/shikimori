@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_18_120204) do
+ActiveRecord::Schema.define(version: 2021_06_18_120249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -957,6 +957,13 @@ ActiveRecord::Schema.define(version: 2021_06_18_120204) do
     t.index ["user_id"], name: "index_summaries_on_user_id"
   end
 
+  create_table "summary_viewings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "viewed_id", null: false
+    t.index ["user_id", "viewed_id"], name: "index_summary_viewings_on_user_id_and_viewed_id", unique: true
+    t.index ["viewed_id"], name: "index_summary_viewings_on_viewed_id"
+  end
+
   create_table "svds", id: :serial, force: :cascade do |t|
     t.binary "entry_ids"
     t.binary "lsa"
@@ -1244,5 +1251,6 @@ ActiveRecord::Schema.define(version: 2021_06_18_120204) do
   add_foreign_key "summaries", "animes"
   add_foreign_key "summaries", "mangas"
   add_foreign_key "summaries", "users"
+  add_foreign_key "summary_viewings", "users"
   add_foreign_key "topic_viewings", "users"
 end
