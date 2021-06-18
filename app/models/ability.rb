@@ -106,6 +106,7 @@ class Ability
     can %i[read preview], Style
 
     can :read, Review
+    can :read, Summary
     can :read, Topic
     can :read, Collection, state: %i[published opened]
     can :read, Collection do |collection|
