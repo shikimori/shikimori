@@ -944,6 +944,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_170731) do
     t.text "imports", array: true
   end
 
+<<<<<<< HEAD
   create_table "summaries", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "anime_id"
@@ -967,6 +968,22 @@ ActiveRecord::Schema.define(version: 2021_07_25_170731) do
     t.index ["viewed_id"], name: "index_summary_viewings_on_viewed_id"
   end
 
+||||||| parent of a03c2b459 (add summary model)
+=======
+  create_table "summaries", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "anime_id"
+    t.bigint "manga_id"
+    t.text "body", null: false
+    t.boolean "is_positive", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["anime_id"], name: "index_summaries_on_anime_id"
+    t.index ["manga_id"], name: "index_summaries_on_manga_id"
+    t.index ["user_id"], name: "index_summaries_on_user_id"
+  end
+
+>>>>>>> a03c2b459 (add summary model)
   create_table "svds", id: :serial, force: :cascade do |t|
     t.binary "entry_ids"
     t.binary "lsa"
@@ -1251,9 +1268,16 @@ ActiveRecord::Schema.define(version: 2021_07_25_170731) do
   add_foreign_key "comment_viewings", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+<<<<<<< HEAD
   add_foreign_key "summaries", "animes"
   add_foreign_key "summaries", "mangas"
   add_foreign_key "summaries", "users"
   add_foreign_key "summary_viewings", "users"
   add_foreign_key "topic_viewings", "users"
+||||||| parent of a03c2b459 (add summary model)
+=======
+  add_foreign_key "summaries", "animes"
+  add_foreign_key "summaries", "mangas"
+  add_foreign_key "summaries", "users"
+>>>>>>> a03c2b459 (add summary model)
 end
