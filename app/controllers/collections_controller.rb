@@ -141,7 +141,7 @@ private
     if @resource.persisted?
       breadcrumb(
         I18n.t("profiles.page.collections.#{@resource.state}"),
-        collections_profile_url(owner, state: @resource.state).capitalize
+        collections_profile_url(owner, state: @resource.state)
       )
     end
 
