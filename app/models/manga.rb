@@ -86,6 +86,8 @@ class Manga < DbEntry
     foreign_key: :target_id,
     dependent: :destroy
 
+  has_many :summaries, dependent: :destroy
+
   has_many :cosplay_gallery_links, as: :linked, dependent: :destroy
 
   has_many :cosplay_galleries, -> { where deleted: false, confirmed: true },

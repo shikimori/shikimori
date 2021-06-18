@@ -4,7 +4,7 @@ describe SummaryViewing do
     it do
       is_expected.to belong_to(:viewed)
         .class_name(Summary.name)
-        .with_foreign_key(:viewed_id)
+        .inverse_of(:viewings)
     end
   end
 end
