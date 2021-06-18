@@ -63,8 +63,9 @@
     / другой сущности, кроме комментария
     - if comment.user
       header
+        / data-href=(comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user))
         span.linkeable[
-          data-href=(comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user))
+          data-href=profile_url(comment.user)
         ]
           img[
             src=comment.user.avatar_url(48)
