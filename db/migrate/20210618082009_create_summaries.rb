@@ -6,6 +6,7 @@ class CreateSummaries < ActiveRecord::Migration[5.2]
       t.references :manga, index: true, foreign_key: true
       t.text :body, null: false
       t.boolean :is_positive, null: false
+      t.boolean :is_written_before_release, null: false
 
       t.timestamps null: false
     end
