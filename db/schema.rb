@@ -1279,5 +1279,10 @@ ActiveRecord::Schema.define(version: 2021_07_25_170731) do
   add_foreign_key "summaries", "animes"
   add_foreign_key "summaries", "mangas"
   add_foreign_key "summaries", "users"
+<<<<<<< HEAD
 >>>>>>> a03c2b459 (add summary model)
+||||||| parent of 3b2e0142a (update topic_viewings schema)
+=======
+  add_foreign_key "topic_viewings", "users"
+>>>>>>> 3b2e0142a (update topic_viewings schema)
 end
