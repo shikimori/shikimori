@@ -17457,7 +17457,7 @@
         - 38419
         - 40181
         - 46171
-      :threshold: 95.5%
+      :threshold: 95.6%
       :generator:
         ignore_latest_ids:
         - 38234
@@ -19422,7 +19422,7 @@
         - 41188
         - 41189
         - 41204
-      :threshold: 95.5%
+      :threshold: 95.2%
       :generator:
         not_ignored_ids:
         - 14951
@@ -19725,7 +19725,7 @@
         - 8756
         - 13931
         - 25375
-      :threshold: 90.4%
+      :threshold: 90%
       :generator:
         ignore_latest_ids:
         - 40024
@@ -25691,7 +25691,7 @@
         franchise: idolish7
         not_anime_ids:
         - 37710
-      :threshold: 97%
+      :threshold: 97.1%
       :generator:
         not_ignored_ids:
         - 32446
@@ -26641,7 +26641,7 @@
         franchise: digimon
         not_anime_ids:
         - 4712
-      :threshold: 93.2%
+      :threshold: 93.3%
       :generator:
         ignore_latest_ids:
         - 38088
@@ -27383,7 +27383,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 94.5%
+      :threshold: 94.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
