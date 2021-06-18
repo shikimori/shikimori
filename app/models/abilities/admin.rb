@@ -22,12 +22,14 @@ class Abilities::Admin
 
     can :manage, Topic
     can :manage, Comment
+    can :manage, Summary
     can :manage, Message
     can :manage, Club
     can :manage, ClubPage
     can :manage, ClubImage
 
     can :delete_all_comments, User
+    can :delete_all_summaries, User
     can :delete_all_topics, User
     can :delete_all_reviews, User
 
