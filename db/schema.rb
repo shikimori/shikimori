@@ -983,7 +983,18 @@ ActiveRecord::Schema.define(version: 2021_07_25_170731) do
     t.index ["user_id"], name: "index_summaries_on_user_id"
   end
 
+<<<<<<< HEAD
 >>>>>>> a03c2b459 (add summary model)
+||||||| parent of 22fcf0ebc (create summary_viewings table)
+=======
+  create_table "summary_viewings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "viewed_id", null: false
+    t.index ["user_id", "viewed_id"], name: "index_summary_viewings_on_user_id_and_viewed_id", unique: true
+    t.index ["viewed_id"], name: "index_summary_viewings_on_viewed_id"
+  end
+
+>>>>>>> 22fcf0ebc (create summary_viewings table)
   create_table "svds", id: :serial, force: :cascade do |t|
     t.binary "entry_ids"
     t.binary "lsa"
@@ -1280,9 +1291,14 @@ ActiveRecord::Schema.define(version: 2021_07_25_170731) do
   add_foreign_key "summaries", "mangas"
   add_foreign_key "summaries", "users"
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> a03c2b459 (add summary model)
 ||||||| parent of 3b2e0142a (update topic_viewings schema)
 =======
+||||||| parent of 22fcf0ebc (create summary_viewings table)
+=======
+  add_foreign_key "summary_viewings", "users"
+>>>>>>> 22fcf0ebc (create summary_viewings table)
   add_foreign_key "topic_viewings", "users"
 >>>>>>> 3b2e0142a (update topic_viewings schema)
 end
