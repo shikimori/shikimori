@@ -37,6 +37,7 @@ describe Topic do
       end
     end
   end
+
   describe 'instance methods' do
     describe '#comment_added' do
       let(:topic) { create :topic }
