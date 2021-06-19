@@ -5,7 +5,7 @@ class Summary < ApplicationRecord
 
   antispam(
     interval: 1.minute,
-    disable_if: -> { user.admin? && Rails.env.development? },
+    disable_if: -> { Rails.env.development? && user&.admin? },
     user_id_key: :user_id
   )
 
@@ -23,8 +23,8 @@ class Summary < ApplicationRecord
     uniqueness: { scope: %i[manga_id] },
     if: :anime?
 
-  # validates :anime, presence: true, if: -> { manga_id.nil? }
-  # validates :manga, presence: true, if: -> { anime_id.nil? }
+  validates :anime, presence: true, unless: :manga?
+  validates :manga, presence: true, unless: :anime?
 
   def html_body
     BbCodes::Text.call body
