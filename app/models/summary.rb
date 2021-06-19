@@ -26,6 +26,10 @@ class Summary < ApplicationRecord
   validates :anime, presence: true, unless: :manga?
   validates :manga, presence: true, unless: :anime?
 
+  scope :positive, -> { where tone: Types::Summary::Tone[:positive] }
+  scope :neutral, -> { where tone: Types::Summary::Tone[:neutral] }
+  scope :negative, -> { where tone: Types::Summary::Tone[:negative] }
+
   def html_body
     BbCodes::Text.call body
   end

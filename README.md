@@ -507,9 +507,9 @@ User.find(user_id).update rate_at: Time.zone.now
 ```
 if Rails.env.development?
   reload!
+  ActiveRecord::Base.logger.level = 3;
   Summary.destroy_all 
 end
-ActiveRecord::Base.logger.level = 3;
 [Anime, Manga].each do |klass|
   normalization = Recommendations::Normalizations::ZScoreCentering.new;
   rates_fetcher = Recommendations::RatesFetcher.new(klass);
@@ -546,9 +546,8 @@ ActiveRecord::Base.logger.level = 3;
           true
         elsif db_entry.released? && db_entry.released_on?
           comment.created_at >= db_entry.released_on
-        else
-          puts 'zzzzzz'
-          binding.pry
+        else # other manga states
+          true
         end
 
       summary = Summary.new(
@@ -577,7 +576,7 @@ ActiveRecord::Base.logger.level = 3;
               anime: (db_entry if db_entry.anime?),
               manga: (db_entry if db_entry.manga? || db_entry.ranobe?)
             ).
-            destroy_all
+            destroy!
           summary.save!
         end
       end
