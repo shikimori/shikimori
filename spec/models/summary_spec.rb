@@ -21,6 +21,19 @@ describe Summary do
     end
   end
 
+  describe 'scopes' do
+    let(:anime) { create :anime }
+    let!(:positive) { create :summary, :positive, anime: anime }
+    let!(:neutral) { create :summary, :neutral, anime: anime, user: user_admin }
+    let!(:negative) { create :summary, :negative, anime: anime, user: user_day_registered }
+
+    describe 'positive' do
+      it { expect(Summary.positive).to eq [positive] }
+      it { expect(Summary.neutral).to eq [neutral] }
+      it { expect(Summary.negative).to eq [negative] }
+    end
+  end
+
   describe 'instance methods' do
     describe '#anime? & #manga?' do
       subject { build :summary, anime_id: anime_id, manga_id: manga_id }
