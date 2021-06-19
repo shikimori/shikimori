@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_18_120249) do
+ActiveRecord::Schema.define(version: 2021_06_19_073338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -955,6 +955,8 @@ ActiveRecord::Schema.define(version: 2021_06_18_120249) do
     t.datetime "updated_at", null: false
     t.index ["anime_id"], name: "index_summaries_on_anime_id"
     t.index ["manga_id"], name: "index_summaries_on_manga_id"
+    t.index ["user_id", "anime_id"], name: "index_summaries_on_user_id_and_anime_id", unique: true, where: "(anime_id IS NOT NULL)"
+    t.index ["user_id", "manga_id"], name: "index_summaries_on_user_id_and_manga_id", unique: true, where: "(manga_id IS NOT NULL)"
     t.index ["user_id"], name: "index_summaries_on_user_id"
   end
 
