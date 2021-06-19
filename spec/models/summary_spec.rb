@@ -20,6 +20,29 @@ describe Summary do
   end
 
   describe 'instance methods' do
+    describe '#anime? & #manga?' do
+      subject { build :summary, anime_id: anime_id, manga_id: manga_id }
+      let(:anime_id) { nil }
+      let(:manga_id) { nil }
+
+      its(:anime?) { is_expected.to eq false }
+      its(:manga?) { is_expected.to eq false }
+
+      context 'is anime' do
+        let(:anime_id) { 1 }
+
+        its(:anime?) { is_expected.to eq true }
+        its(:manga?) { is_expected.to eq false }
+      end
+
+      context 'is anime' do
+        let(:manga_id) { 1 }
+
+        its(:anime?) { is_expected.to eq false }
+        its(:manga?) { is_expected.to eq true }
+      end
+    end
+
     describe '#html_body' do
       subject { build :summary, body: body }
       let(:body) { '[b]zxc[/b]' }
