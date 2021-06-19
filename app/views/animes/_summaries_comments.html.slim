@@ -1,0 +1,16 @@
+/ .headline.m0
+.subheadline.m0
+  = i18n_io 'Summary', :few
+  .misc-links
+    a
+      | все
+      .count = resource.summaries.count
+    a
+      | положительные
+      .count = resource.summaries.positive.count
+    a
+      | нейтральные
+      .count = resource.summaries.neutral.count
+    a
+      | отрицательные
+      .count = resource.summaries.negative.count

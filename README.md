@@ -508,16 +508,16 @@ User.find(user_id).update rate_at: Time.zone.now
 if Rails.env.development?
   reload!
   ActiveRecord::Base.logger.level = 3;
-  Summary.destroy_all 
+  Summary.delete_all 
 end
 [Anime, Manga].each do |klass|
   normalization = Recommendations::Normalizations::ZScoreCentering.new;
-  rates_fetcher = Recommendations::RatesFetcher.new(klass);
   summary = nil;
 
   Comment.
     includes(:user, commentable: :linked).
     where(is_summary: true).
+    where(commentable_id: Topic.where(linked: Anime.find(1))).
     find_each do |comment|
       db_entry = comment.commentable.linked
       next if db_entry.class.base_class != klass
@@ -525,16 +525,17 @@ end
       user = comment.user
       tone = Types::Summary::Tone[:neutral]
 
-      rates_fetcher.user_ids = user.id
-      rates_fetcher.user_cache_key = user.cache_key_with_version
+      rates_fetcher = Recommendations::RatesFetcher.new klass, [user.id]
       rates = rates_fetcher.fetch(normalization)
 
       normalized_score = rates.dig(user.id, db_entry.id)
+      # binding.pry if comment.id == 7263530
+      # ap [normalized_score, user.id, comment.id]
 
       if normalized_score
         if normalized_score >= 0.095
           tone = Types::Summary::Tone[:positive]
-        elsif normalized_score <= 0.095
+        elsif normalized_score <= -0.095
           tone = Types::Summary::Tone[:negative]
         end
       end
