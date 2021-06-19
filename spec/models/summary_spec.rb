@@ -1,14 +1,16 @@
 describe Summary do
   describe 'associations' do
     it { is_expected.to belong_to :user }
-    it { is_expected.to belong_to(:anime).optional }
-    it { is_expected.to belong_to(:manga).optional }
+    # it { is_expected.to belong_to(:anime).optional }
+    # it { is_expected.to belong_to(:manga).optional }
   end
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :body }
-    # it { is_expected.to validate_presence_of :anime }
-    # it { is_expected.to validate_presence_of :manga }
+    it { is_expected.to validate_presence_of :anime }
+    it { is_expected.to validate_presence_of :manga }
+    # it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:anime_id) }
+    # it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:manga_id) }
   end
 
   describe 'enumerize' do
