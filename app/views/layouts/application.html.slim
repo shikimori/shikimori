@@ -1,10 +1,10 @@
 doctype html
 html
   head
-    / - if Rails.env.production?
-      script src='//d2wy8f7a9ursnm.cloudfront.net/v6/bugsnag.min.js'
+    - if Rails.env.production?
+      script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"
       javascript:
-        window.bugsnagClient = bugsnag('53db12877ef0393d09c2d70866636050')
+        Bugsnag.start({ apiKey: 'd1af732acc3c9cd41faf02770503299b' })
     = render 'application/head'
 
   / - if Rails.env.production? && shikimori?
