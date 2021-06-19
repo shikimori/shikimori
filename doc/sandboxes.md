@@ -323,50 +323,82 @@ User.find(user_id).update rate_at: Time.zone.now
 
 #### Convert Comment.is_summary to Summary
 ```
-normalization = Recommendations::Normalizations::ZScoreCentering.new;
-rates_fetcher = Recommendations::RatesFetcher.new(Anime);
-summary = nil;
+if Rails.env.development?
+  reload!
+  Summary.destroy_all 
+end
+ActiveRecord::Base.logger.level = 3;
+[Anime, Manga].each do |klass|
+  normalization = Recommendations::Normalizations::ZScoreCentering.new;
+  rates_fetcher = Recommendations::RatesFetcher.new(klass);
+  summary = nil;
 
-Comment.
-  includes(:user, commentable: :linked).
-  where(commentable_type: 'Topic').
-  where(commentable_id: Topic.where(linked: Anime.find(19))).
-  where(is_summary: true).
-  each do |comment|
-    user = comment.user
-    anime = comment.commentable.linked
-    tone = Types::Summary::Tone[:neutral]
+  Comment.
+    includes(:user, commentable: :linked).
+    where(is_summary: true).
+    find_each do |comment|
+      db_entry = comment.commentable.linked
+      next if db_entry.class.base_class != klass
 
-    rates_fetcher.user_ids = user.id
-    rates_fetcher.user_cache_key = user.cache_key_with_version
-    rates = rates_fetcher.fetch(normalization)
+      user = comment.user
+      tone = Types::Summary::Tone[:neutral]
 
-    normalized_score = rates.dig(user.id, anime.id)
+      rates_fetcher.user_ids = user.id
+      rates_fetcher.user_cache_key = user.cache_key_with_version
+      rates = rates_fetcher.fetch(normalization)
 
-    if normalized_score
-      if normalized_score >= 0.095
-        tone = Types::Summary::Tone[:positive]
-      elsif normalized_score <= 0.095
-        tone = Types::Summary::Tone[:negative]
-      end
-    end
+      normalized_score = rates.dig(user.id, db_entry.id)
 
-    is_written_before_release =
-      if anime.released? && !anime.released_on
-        false
-      elsif anime.ongoing? || anime.anons?
-        true
-      elsif anime.released? && anime.released_on?
-        comment.created_at >= anime.released_on
+      if normalized_score
+        if normalized_score >= 0.095
+          tone = Types::Summary::Tone[:positive]
+        elsif normalized_score <= 0.095
+          tone = Types::Summary::Tone[:negative]
+        end
       end
 
-    summary = Summary.new(
-      user: user,
-      body: comment.body,
-      anime: anime,
-      tone: tone,
-      is_written_before_release: is_written_before_release
-    )
-    Summary.wo_antispam { summary.save! }
-  end;
+      is_written_before_release =
+        if db_entry.released? && !db_entry.released_on
+          false
+        elsif db_entry.ongoing? || db_entry.anons?
+          true
+        elsif db_entry.released? && db_entry.released_on?
+          comment.created_at >= db_entry.released_on
+        else
+          puts 'zzzzzz'
+          binding.pry
+        end
+
+      summary = Summary.new(
+        user: user,
+        body: comment.body,
+        anime: (db_entry if db_entry.anime?),
+        manga: (db_entry if db_entry.manga? || db_entry.ranobe?),
+        tone: tone,
+        is_written_before_release: is_written_before_release
+      )
+      Summary.wo_antispam do
+        summary.save!
+      rescue ActiveRecord::RecordInvalid
+        Summary.transaction do
+          Comment.
+            where(is_summary: true).
+            where(commentable: comment.commentable, user_id: comment.user_id).
+            order(:id)[0..-2].
+              each do |comment|
+              comment.update! is_summary: false
+            end
+
+          Summary.
+            find_by(
+              user: user,
+              anime: (db_entry if db_entry.anime?),
+              manga: (db_entry if db_entry.manga? || db_entry.ranobe?)
+            ).
+            destroy_all
+          summary.save!
+        end
+      end
+    end;
+end;
 ```
