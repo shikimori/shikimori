@@ -12,13 +12,13 @@ describe Recommendations::Normalizations::ZScore do
   describe '#normalize' do
     subject { formula.normalize ratings, nil }
 
-    #describe 'no deviation' do
-      #let(:ratings) { { 1 => 8, 2 => 8, 3 => 8 } }
-
-      #it { expect(subject.values.first).to be_nan }
-      #it { expect(subject.values.second).to be_nan }
-      #it { expect(subject.values.third).to be_nan }
-    #end
+    # describe 'no deviation' do
+    #   let(:ratings) { { 1 => 8, 2 => 8, 3 => 8 } }
+    #
+    #   it { expect(subject.values.first).to be_nan }
+    #   it { expect(subject.values.second).to be_nan }
+    #   it { expect(subject.values.third).to be_nan }
+    # end
 
     describe 'common deviation' do
       it { is_expected.to eq 4 => -1, 6 => 0, 8 => 1 }
