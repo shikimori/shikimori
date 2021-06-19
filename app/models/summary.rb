@@ -21,7 +21,7 @@ class Summary < ApplicationRecord
     if: :anime?
   validates :user_id,
     uniqueness: { scope: %i[manga_id] },
-    if: :anime?
+    if: :manga?
 
   validates :anime, presence: true, unless: :manga?
   validates :manga, presence: true, unless: :anime?
