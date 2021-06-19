@@ -33,7 +33,7 @@ header.head
           = render 'spnsrs/ad', ad: Ad.new(:horizontal_x90)
 
       - if params[:action] == 'show'
-        = render 'db_entries/comments', resource: @resource
+        = render 'animes/summaries_comments', resource: @resource
 
     aside.l-menu
       = render 'animes/menu', resource: @resource
