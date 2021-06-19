@@ -4,6 +4,11 @@ FactoryBot.define do
     anime { nil }
     manga { nil }
     body { 'MyText' }
-    is_positive { false }
+    tone { Types::Summary::Tone[:neutral] }
+    is_written_before_release { false }
+
+    Types::Summary::Tone.values.each do |value|
+      trait(value) { tone { value } }
+    end
   end
 end

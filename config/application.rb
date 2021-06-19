@@ -81,6 +81,8 @@ module Shikimori
     Terrapin::ExitStatusError
   ]
 
+  IS_SUMMARIES_ENABLED = !Rails.env.production?
+
   class Application < Rails::Application
     def redis
       Rails.application.config.redis

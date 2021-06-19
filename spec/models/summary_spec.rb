@@ -11,6 +11,14 @@ describe Summary do
     # it { is_expected.to validate_presence_of :manga }
   end
 
+  describe 'enumerize' do
+    it do
+      is_expected
+        .to enumerize(:tone)
+        .in(*Types::Summary::Tone.values)
+    end
+  end
+
   describe 'instance methods' do
     describe '#html_body' do
       subject { build :summary, body: body }
