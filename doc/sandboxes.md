@@ -320,3 +320,53 @@ end;
 
 User.find(user_id).update rate_at: Time.zone.now
 ```
+
+#### Convert Comment.is_summary to Summary
+```
+normalization = Recommendations::Normalizations::ZScoreCentering.new;
+rates_fetcher = Recommendations::RatesFetcher.new(Anime);
+summary = nil;
+
+Comment.
+  includes(:user, commentable: :linked).
+  where(commentable_type: 'Topic').
+  where(commentable_id: Topic.where(linked: Anime.find(19))).
+  where(is_summary: true).
+  each do |comment|
+    user = comment.user
+    anime = comment.commentable.linked
+    tone = Types::Summary::Tone[:neutral]
+
+    rates_fetcher.user_ids = user.id
+    rates_fetcher.user_cache_key = user.cache_key_with_version
+    rates = rates_fetcher.fetch(normalization)
+
+    normalized_score = rates.dig(user.id, anime.id)
+
+    if normalized_score
+      if normalized_score >= 0.095
+        tone = Types::Summary::Tone[:positive]
+      elsif normalized_score <= 0.095
+        tone = Types::Summary::Tone[:negative]
+      end
+    end
+
+    is_written_before_release =
+      if anime.released? && !anime.released_on
+        false
+      elsif anime.ongoing? || anime.anons?
+        true
+      elsif anime.released? && anime.released_on?
+        comment.created_at >= anime.released_on
+      end
+
+    summary = Summary.new(
+      user: user,
+      body: comment.body,
+      anime: anime,
+      tone: tone,
+      is_written_before_release: is_written_before_release
+    )
+    Summary.wo_antispam { summary.save! }
+  end;
+```
