@@ -4,7 +4,9 @@
       span Все #{i18n_io 'summary', :few}
     .count = resource.summaries.count
 
-  .navigation-block.navigation-block-positive
+  .navigation-block.navigation-block-positive[
+    data-ellispsis-allowed=true
+  ]
     .label
       span Положительные
     .count = resource.summaries.positive.count
@@ -14,7 +16,9 @@
       span Нейтральные
     .count = resource.summaries.neutral.count
 
-  .navigation-block.navigation-block-negative
+  .navigation-block.navigation-block-negative[
+    data-ellispsis-allowed=true
+  ]
     .label
       span Отрицательные
     .count = resource.summaries.negative.count
