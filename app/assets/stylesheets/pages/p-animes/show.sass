@@ -218,9 +218,8 @@
     background-color: $backgroud
     border-color: $border
 
-    .count
+    // .count
       +brackets_surrounded(darken($color, 7%))
-
       &:before,
       &:after
         float: none
@@ -230,13 +229,15 @@
         &:hover
           background-color: darken($backgroud, 5%)
           color: darken($color, 5%)
-          +css4
+          border-color: darken($border, 8%)
+          // +css4
             border-color: var(--link-hover-color)
 
       &:active
         color: darken($color, 9%)
         background-color: darken($backgroud, 9%)
-        +css4
+          border-color: darken($border, 13%)
+        // +css4
           border-color: var(--link-active-color)
 
   .summaries-navigation
@@ -276,13 +277,20 @@
             margin-right: 7px
 
       .count
+        +brackets_surrounded
+        font-weight: normal
         white-space: nowrap
+
+        &:before,
+        &:after
+          float: none
 
         +lte_ipad
           font-size: 13px
           margin-left: 4px
 
         +gte_laptop
+          font-size: 15px
           margin-left: 7px
 
       &:not(.is-active)
@@ -316,6 +324,9 @@
         .label:before
           +lte_ipad
             display: none
+
+          +gte_laptop
+            font-weight: normal
 
       &-all
         +navigation_block_colors(map-get($variables, --headline-color), map-get($variables, --headline-background-color), map-get($variables, --headline-border-color))
