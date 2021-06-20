@@ -3,6 +3,7 @@
 @import mixins/clearfix
 @import mixins/comma_separated
 @import mixins/float_column
+@import mixins/font_shikimori
 @import mixins/icons
 @import mixins/link
 @import mixins/plashka
@@ -240,17 +241,22 @@
 
   .summaries-navigation
     display: flex
-    height: 39px
-    line-height: 39px
 
     +css4
       font-family: var(--font-alt)
+
+    +lte_ipad
+      height: 30px
+      line-height: 30px
+
+    +gte_laptop
+      height: 39px
+      line-height: 39px
 
     .navigation-block
       align-items: baseline
       border-left: 5px solid
       display: flex
-      font-size: 16px
       padding: 0 10px
       text-transform: uppercase
       transition: all 0.25s
@@ -258,22 +264,48 @@
       white-space: nowrap
       -webkit-tap-highlight-color: transparent
 
+      +lte_ipad
+        font-size: 15px
+
+      +gte_laptop
+        font-size: 16px
+
+      .label
+        &:before
+          +gte_laptop
+            margin-right: 7px
+
       .count
-        margin-left: 7px
         white-space: nowrap
+
+        +lte_ipad
+          font-size: 13px
+          margin-left: 4px
+
+        +gte_laptop
+          margin-left: 7px
 
       &:not(.is-active)
         cursor: pointer
-        padding-top: 2px
+
+        +gte_laptop
+          padding-top: 2px
 
         .label
-          display: none
+          span
+            +lte_ipad
+              display: none
+
+        .count
+          +lte_ipad
+            display: none
 
       &.is-active
         flex-grow: 1
-        padding-top: 1px
         // .headline styles
-        font-size: 18px
+        +gte_laptop
+          font-size: 18px
+          padding-top: 1px
         font-weight: 700
         letter-spacing: 0.13px
         text-transform: uppercase
@@ -281,14 +313,30 @@
         +css4
           font-family: var(--font-alt)
 
+        .label:before
+          +lte_ipad
+            display: none
+
       &-all
         +navigation_block_colors(map-get($variables, --headline-color), map-get($variables, --headline-background-color), map-get($variables, --headline-border-color))
+
+        .label:before
+          +lte_ipad
+            +font_shikimori('\e843')
 
       &-positive
         +navigation_block_colors(#85bd7a, #eff9e6, #bee893)
 
+        .label:before
+          +font_shikimori('\e800')
+
       &-neutral
         +navigation_block_colors(#7aaebd, #f6fcfd, #93c5e8)
+        .label:before
+          +font_shikimori('\e912')
 
       &-negative
         +navigation_block_colors(#bd857a, #fff1f2, #e8a092)
+
+        .label:before
+          +font_shikimori('\e911')
