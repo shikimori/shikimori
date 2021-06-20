@@ -2,12 +2,12 @@ doctype html
 html
   head
     - if Rails.env.production?
-      script src='//dmc1acwvwny3.cloudfront.net/atatus.js'
-      javascript:
+      / script src='//dmc1acwvwny3.cloudfront.net/atatus.js'
+      / javascript:
         atatus.config('f86ba68ed53048a2a9594b96b4959754').install();
 
-      / script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"
-      / javascript:
+      script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"
+      javascript:
         Bugsnag.start({ apiKey: 'd1af732acc3c9cd41faf02770503299b' })
     = render 'application/head'
 
