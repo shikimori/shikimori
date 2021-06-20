@@ -34,4 +34,12 @@ pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
 
   new LangTrigger('.b-lang_trigger');
   new FavoriteStar($('.b-subposter-actions .fav-add'), gon.is_favoured);
+
+  $('.summaries-navigation .navigation-block').on('click', ({ currentTarget }) => {
+    if (currentTarget.classList.contains('is-active')) {
+      return;
+    }
+    $('.summaries-navigation .navigation-block.is-active').removeClass('is-active');
+    currentTarget.classList.add('is-active');
+  });
 });

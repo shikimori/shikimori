@@ -1,16 +1,30 @@
 / .headline.m0
-.subheadline.m0
-  = i18n_io 'Summary', :few
-  .misc-links
-    a
-      | все
-      .count = resource.summaries.count
-    a
-      | положительные
-      .count = resource.summaries.positive.count
-    a
-      | нейтральные
-      .count = resource.summaries.neutral.count
-    a
-      | отрицательные
-      .count = resource.summaries.negative.count
+/ .headline
+.summaries-navigation
+  .navigation-block.navigation-block-all.is-active
+    | Все
+    span.label
+      | &nbsp;
+      = i18n_io 'Summary', :few
+    .count = resource.summaries.count
+
+  .navigation-block.navigation-block-positive
+    | Положительные
+    span.label
+      | &nbsp;
+      = i18n_io 'Summary', :few
+    .count = resource.summaries.positive.count
+
+  .navigation-block.navigation-block-neutral
+    | Нейтральные
+    span.label
+      | &nbsp;
+      = i18n_io 'Summary', :few
+    .count = resource.summaries.neutral.count
+
+  .navigation-block.navigation-block-negative
+    | Отрицательные
+    span.label
+      | &nbsp;
+      = i18n_io 'Summary', :few
+    .count = resource.summaries.negative.count

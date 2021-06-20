@@ -1,6 +1,5 @@
 @import mixins/block
-@import mixins/clear_left
-@import mixins/clear_right
+@import mixins/brackets_surrounded
 @import mixins/clearfix
 @import mixins/comma_separated
 @import mixins/float_column
@@ -212,3 +211,79 @@
   .cc-similar
     .b-catalog_entry
       margin-bottom: 0 !important
+
+  =navigation_block_colors($color, $backgroud, $border)
+    color: $color
+    background-color: $backgroud
+    border-color: $border
+    transition: background-color 0.25s, border-color 0.25s, color 0.25s
+
+    .count
+      +brackets_surrounded(darken($color, 7%))
+
+    &:not(.is-active)
+      +gte_laptop
+        &:hover
+          background-color: darken($backgroud, 5%)
+          color: darken($color, 5%)
+          +css4
+            border-color: var(--link-hover-color)
+
+      &:active
+        color: darken($color, 9%)
+        background-color: darken($backgroud, 9%)
+        +css4
+          border-color: var(--link-active-color)
+
+  .summaries-navigation
+    display: flex
+    line-height: 39px
+    height: 39px
+
+    +css4
+      font-family: var(--font-alt)
+
+    .navigation-block
+      align-items: baseline
+      border-left: 5px solid 
+      display: flex
+      padding: 0 10px
+      // user-select: none
+      white-space: nowrap
+      font-size: 16px
+      padding-top: 1px
+
+      .count
+        margin-left: 7px
+
+      &:not(.is-active)
+        cursor: pointer
+
+        .label
+          display: none
+
+      &.is-active
+        flex-grow: 1
+        order: -1
+        padding-top: 0
+        text-transform: uppercase
+        // .headline styles
+        font-size: 18px
+        font-weight: 700
+        letter-spacing: 0.13px
+        text-transform: uppercase
+        -webkit-font-smoothing: antialiased
+        +css4
+          font-family: var(--font-alt)
+
+      &-all
+        +navigation_block_colors(map-get($variables, --headline-color), map-get($variables, --headline-background-color), map-get($variables, --headline-border-color))
+
+      &-positive
+        +navigation_block_colors(#85bd7a, #eff9e6, #bee893)
+
+      &-neutral
+        +navigation_block_colors(#7aaebd, #f6fcfd, #93c5e8)
+
+      &-negative
+        +navigation_block_colors(#bd857a, #fff1f2, #e8a092)
