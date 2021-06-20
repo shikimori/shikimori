@@ -219,12 +219,6 @@
     background-color: $backgroud
     border-color: $border
 
-    // .count
-      +brackets_surrounded(darken($color, 7%))
-      &:before,
-      &:after
-        float: none
-
     &:not(.is-active)
       +gte_laptop
         &:hover
@@ -240,6 +234,15 @@
           border-color: darken($border, 13%)
         // +css4
           border-color: var(--link-active-color)
+
+  =navigation_block_ellipsis
+    min-width: 0 // to make ellipsis work
+
+    .label
+      min-width: 0 // to make ellipsis work
+
+      span
+        +ellipsis2
 
   .summaries-navigation
     display: flex
@@ -360,6 +363,9 @@
         +css4
           font-family: var(--font-alt)
 
+        +iphone
+          +navigation_block_ellipsis
+
         +gte_laptop
           font-size: 17px
           padding-top: 1px
@@ -375,10 +381,4 @@
             font-weight: normal
 
       &.is-ellipsis
-        min-width: 0 // to make ellipsis work
-
-        .label
-          min-width: 0 // to make ellipsis work
-
-          span
-            +ellipsis2
+        +navigation_block_ellipsis
