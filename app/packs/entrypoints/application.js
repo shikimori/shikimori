@@ -1,6 +1,6 @@
 // do not remove. a lot of errors in old browsers otherwise (windows phone browser for example)
-// import 'core-js/stable';
-// import 'regenerator-runtime/runtime';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 import sugar from 'javascripts/vendor/sugar'; // eslint-disable-line import/newline-after-import
 sugar.extend();
