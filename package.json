@@ -19,7 +19,6 @@
     "dayjs": "^1.10.4",
     "delay": "^5.0.0",
     "diff-match-patch": "^1.0.5",
-    "fast-async": "7",
     "faye": "^1.3.0",
     "get-js": "^0.0.7",
     "highcharts": "^9.0.0",

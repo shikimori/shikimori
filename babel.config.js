@@ -30,14 +30,31 @@ module.exports = function(api) {
         '@babel/preset-env',
         {
           forceAllTransforms: true,
-          useBuiltIns: 'usage',
+          useBuiltIns: 'entry',
           corejs: 3,
           modules: false,
-          exclude: [
-            'transform-typeof-symbol',
-            'transform-async-to-generator',
-            'transform-regenerator'
-          ]
+          bugfixes: true,
+          // loose: true,
+          exclude: ['transform-typeof-symbol']
+
+          // latest webpacker config https://github.com/rails/webpacker/blob/master/package/babel/preset.js
+          // useBuiltIns: 'entry',
+          // corejs: '3.8',
+          // modules: false,
+          // bugfixes: true,
+          // loose: true,
+          // exclude: ['transform-typeof-symbol']
+
+          // config for fast-async
+          // forceAllTransforms: true,
+          // useBuiltIns: 'usage',
+          // corejs: '3',
+          // modules: false,
+          // exclude: [
+          //   'transform-typeof-symbol',
+          //   'transform-async-to-generator',
+          //   'transform-regenerator'
+          // ]
         }
       ]
     ].filter(Boolean),
@@ -54,12 +71,15 @@ module.exports = function(api) {
         '@babel/plugin-transform-runtime',
         {
           helpers: false,
-          regenerator: false,
+          regenerator: true,
+          // config for fast-async
+          // regenerator: false,
           corejs: false
         }
       ],
-      // ['@babel/plugin-transform-regenerator', { async: false }],
-      ['module:fast-async', { spec: true }],
+      ['@babel/plugin-transform-regenerator', { async: false }],
+      // config for fast-async
+      // ['module:fast-async', { spec: true }],
       '@babel/plugin-proposal-optional-chaining',
       '@babel/plugin-proposal-logical-assignment-operators',
       [
