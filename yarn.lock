@@ -2,6 +2,29 @@
 # yarn lockfile v1
 
 
+"@appsignal/core@^1.1.7":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@appsignal/core/-/core-1.1.7.tgz#522b4124e6dd8715bfcf1a2dbba0d07f2128219c"
+  integrity sha512-xyjJIg0x8u0+EQhFGnK9IzG4vY97D/YLM1NFgRX0lUg+bYuWHEemblWbU3/2JDNKqHhpJW5/8yjVqGR9P64lVQ==
+  dependencies:
+    "@appsignal/types" "^2.0.5"
+    isomorphic-unfetch "^3.1.0"
+    tslib "^2.0.3"
+
+"@appsignal/javascript@^1.3.12":
+  version "1.3.12"
+  resolved "https://registry.yarnpkg.com/@appsignal/javascript/-/javascript-1.3.12.tgz#89f946c197e21472837fbd94a308793874e0a009"
+  integrity sha512-uinylUwbBsjd6sIc3EQsOSoRCVYp7ue62B//tTnGxu71+yig1TGRfGbWtNSuWHWMqz2zZ7GzTXnmayUeeyWR9A==
+  dependencies:
+    "@appsignal/core" "^1.1.7"
+    "@appsignal/types" "^2.0.5"
+    tslib "^2.0.3"
+
+"@appsignal/types@^2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@appsignal/types/-/types-2.0.5.tgz#a7de841b21b3fa5668da1f7ef523ea851e5eb0e6"
+  integrity sha512-T2Fi6co9Yft4KY1Ij/RcPV+BUTU8jSgtWXeFanPn5qPaZwRj8kh7jO/3B1inMlP11FYWWkO7Ugz5+HbetSvJ0A==
+
 "@babel/code-frame@7.12.11":
   version "7.12.11"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.12.11.tgz#f4ad435aa263db935b8f10f2c552d23fb716a63f"
@@ -5252,6 +5275,14 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
+isomorphic-unfetch@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/isomorphic-unfetch/-/isomorphic-unfetch-3.1.0.tgz#87341d5f4f7b63843d468438128cb087b7c3e98f"
+  integrity sha512-geDJjpoZ8N0kWexiwkX8F9NkTsXhetLPVbZFQ+JTW239QNOwvB0gniuR1Wc6f0AMTn7/mFGyXvHTifrCp/GH8Q==
+  dependencies:
+    node-fetch "^2.6.1"
+    unfetch "^4.2.0"
+
 isstream@0.1.x:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
@@ -6062,6 +6093,11 @@ nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
+
+node-fetch@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
+  integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
 node-forge@0.9.0:
   version "0.9.0"
@@ -9307,6 +9343,11 @@ tslib@^1.9.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
 
+tslib@^2.0.3:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
+  integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
+
 tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/tty-browserify/-/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
@@ -9373,6 +9414,11 @@ unbox-primitive@^1.0.0:
     has-bigints "^1.0.1"
     has-symbols "^1.0.2"
     which-boxed-primitive "^1.0.2"
+
+unfetch@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/unfetch/-/unfetch-4.2.0.tgz#7e21b0ef7d363d8d9af0fb929a5555f6ef97a3be"
+  integrity sha512-F9p7yYCn6cIW9El1zi0HI6vqpeIvBsr3dSuRO6Xuppb1u5rXpCPmMvLSyECLhybr9isec8Ohl0hPekMVrEinDA==
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

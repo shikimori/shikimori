@@ -2,6 +2,8 @@ doctype html
 html
   head
     - if Rails.env.production?
+      = javascript_pack_tag 'track_errors', data: { 'turbolinks-track' => 'reload' }
+    / - if Rails.env.production?
       script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"
       javascript:
         Bugsnag.start({ apiKey: 'd1af732acc3c9cd41faf02770503299b' })
