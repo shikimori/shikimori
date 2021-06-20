@@ -38,7 +38,7 @@
     select(
       :value='link.kind'
       :name="fieldName('kind')"
-      @input='update({ ...link, kind: $event.target.value })'
+      @input='updateField("kind", $event.target.value)'
     )
       optgroup(
         :label='I18n.t("frontend.external_links.groups.links")'
@@ -60,7 +60,7 @@
       :value='link.url'
       :name="fieldName('url')"
       :placeholder="I18n.t('activerecord.attributes.external_link.url')"
-      @input='update({ ...link, url: $event.target.value })'
+      @input='updateField("url", $event.target.value)'
       @keydown.enter='submit'
       @keydown.8='removeEmpty(link)'
       @keydown.esc='removeEmpty(link)'
@@ -123,6 +123,12 @@ export default {
         return `${this.resourceType.toLowerCase()}[external_links][][${name}]`;
       }
       return '';
+    },
+    updateField(field, value) {
+      this.update({
+        ...this.link,
+        [field]: value
+      });
     },
     submit(e) {
       if (!e.metaKey && !e.ctrlKey) {
