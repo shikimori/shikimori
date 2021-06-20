@@ -1,8 +1,3 @@
-// import * as atatus from 'atatus-js'; // eslint-disable-line import/newline-after-import
-// atatus
-//   .config('ebe5fd3d4c754a9592b7f30f70a9c16f')
-//   .install();
-
 import Turbolinks from 'turbolinks'; // eslint-disable-line import/newline-after-import
 Turbolinks.start();
 
