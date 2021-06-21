@@ -266,7 +266,6 @@
       align-items: baseline
       border-left: 5px solid
       display: flex
-      padding: 0 10px
       text-transform: uppercase
       transition: all 0.25s
       user-select: none
@@ -275,9 +274,11 @@
 
       +lte_laptop
         font-size: 15px
+        padding: 0 10px
 
       +gte_desktop
         font-size: 16px
+        padding: 0 13px
 
       .label
         display: flex
@@ -285,8 +286,11 @@
 
         &:before
           // flex-shrink: 0
-          +gte_laptop
+          +laptop
             margin-right: 7px
+
+          +gte_desktop
+            margin-right: 9px
 
         span
           // flex-shrink: 0
