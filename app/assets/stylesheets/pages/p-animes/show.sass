@@ -281,25 +281,25 @@
         padding: 0 13px
 
       .label
+        align-items: baseline
         display: flex
-        // flex-shrink: 0
 
         &:before
-          // flex-shrink: 0
+          +lte_ipad
+            padding-top: 2px
+
           +laptop
             margin-right: 7px
+            font-size: 15px
 
           +gte_desktop
+            font-size: 16px
             margin-right: 9px
-
-        span
-          // flex-shrink: 0
 
       .count
         +brackets_surrounded
         font-weight: normal
         white-space: nowrap
-        // flex-shrink: 0
 
         &:before,
         &:after
@@ -370,8 +370,10 @@
         +iphone
           +navigation_block_ellipsis
 
-        +gte_laptop
+        +laptop
           font-size: 17px
+
+        +gte_laptop
           padding-top: 1px
 
         +gte_desktop
