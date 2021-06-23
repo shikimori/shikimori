@@ -310,13 +310,14 @@ Rails.application.routes.draw do
       resources :publishers, only: %i[index]
 
       resources :forums, only: %i[index]
-      resources :topics, only: %i[index show create update destroy] do
+      resources :topics, except: %i[new edit] do
         collection do
           get :updates
           get :hot
         end
       end
-      resources :comments, only: %i[show index create update destroy]
+      resources :comments, except: %i[new edit]
+      resources :summaries, except: %i[new edit show index]
 
       resources :topic_ignores, only: %i[create destroy]
       resources :user_images, only: %i[create]
