@@ -11,7 +11,8 @@ class AniMangaDecorator < DbEntryDecorator
     :current_rate, :changes, :versions, :versions_page,
     :roles, :related, :friend_rates, :recent_rates, :chronology,
     :external_links, :available_external_links,
-    :watch_online_external_links, :menu_external_links
+    :watch_online_external_links, :menu_external_links,
+    :topic_views, :summary_views
 
   def topic_views
     object
@@ -21,8 +22,16 @@ class AniMangaDecorator < DbEntryDecorator
       .includes(:forum)
       .limit(TOPICS_PER_PAGE)
       .order(:updated_at)
-      .map { |topic| Topics::TopicViewFactory.new(false, false).build topic }
-      .map { |topic_view| format_menu_topic topic_view, :updated_at }
+      .map do |topic|
+        format_menu_topic(
+          Topics::TopicViewFactory.new(false, false).build(topic),
+          :updated_at
+        )
+      end
+  end
+
+  def summary_views
+    object.summaries.take(7)
   end
 
   def reviews_count
