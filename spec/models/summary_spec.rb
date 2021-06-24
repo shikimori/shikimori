@@ -34,6 +34,64 @@ describe Summary do
     end
   end
 
+  describe 'callbacks' do
+    describe '#fill_is_written_before_release' do
+      include_context :timecop
+      subject { summary.is_written_before_release }
+
+      let(:summary) do
+        Summary.create(
+          anime: anime,
+          body: 'a' * described_class::MIN_BODY_SIZE,
+          user: user,
+          tone: 'positive',
+          is_written_before_release: is_written_before_release
+        )
+      end
+      let(:anime) { create :anime, status, released_on: released_on }
+
+      let(:status) { :released }
+      let(:released_on) { nil }
+
+      context 'is set' do
+        context 'true' do
+          let(:is_written_before_release) { true }
+          it { is_expected.to eq true }
+        end
+
+        context 'false' do
+          let(:is_written_before_release) { false }
+          it { is_expected.to eq false }
+        end
+      end
+
+      context 'not set' do
+        let(:is_written_before_release) { nil }
+
+        context 'released' do
+          let(:status) { :released }
+
+          context 'released_on is set' do
+            context 'released_on > now()' do
+              let(:released_on) { 1.day.from_now }
+              it { is_expected.to eq true }
+            end
+
+            context 'released_on <= now()' do
+              let(:released_on) { Time.zone.now }
+              it { is_expected.to eq false }
+            end
+          end
+        end
+
+        context 'not released' do
+          let(:status) { %i[anons ongoing].sample }
+          it { is_expected.to eq true }
+        end
+      end
+    end
+  end
+
   describe 'instance methods' do
     describe '#anime? & #manga?' do
       subject { build :summary, anime_id: anime_id, manga_id: manga_id }
