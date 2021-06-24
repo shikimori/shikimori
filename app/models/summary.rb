@@ -17,7 +17,9 @@ class Summary < ApplicationRecord
 
   MIN_BODY_SIZE = 230
 
-  validates :body, presence: true
+  validates :body,
+    presence: true,
+    length: { minimum: MIN_BODY_SIZE }
   validates :user_id,
     uniqueness: { scope: %i[anime_id] },
     if: :anime?
