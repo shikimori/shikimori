@@ -460,6 +460,10 @@ en:
     comment:
       removed: Comment removed
 
+  api/v1/summaries_controller:
+    comment:
+      removed: Summary removed
+
   api/v1/messages_controller:
     messages:
       read: Messages marked as read

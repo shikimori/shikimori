@@ -1,5 +1,5 @@
 describe Comment::Create do
-  subject(:comment) { Comment::Create.call faye, params, locale }
+  subject(:comment) { described_class.call faye, params, locale }
 
   let(:anime) { create :anime }
   let!(:topic) { create :anime_topic, user: user, linked: anime, locale: locale }
