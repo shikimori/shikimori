@@ -15,6 +15,8 @@ class Summary < ApplicationRecord
 
   enumerize :tone, in: Types::Summary::Tone.values
 
+  MIN_BODY_SIZE = 230
+
   validates :body, presence: true
   validates :user_id,
     uniqueness: { scope: %i[anime_id] },
@@ -30,6 +32,9 @@ class Summary < ApplicationRecord
   scope :neutral, -> { where tone: Types::Summary::Tone[:neutral] }
   scope :negative, -> { where tone: Types::Summary::Tone[:negative] }
 
+  before_create :fill_is_written_before_release,
+    if: -> { is_written_before_release.nil? }
+
   def html_body
     BbCodes::Text.call body
   end
@@ -40,5 +45,13 @@ class Summary < ApplicationRecord
 
   def manga?
     manga_id.present?
+  end
+
+private
+
+  def fill_is_written_before_release
+    self.is_written_before_release = !anime.released? || (
+      anime.released_on && anime.released_on > Time.zone.now
+    )
   end
 end
