@@ -49,13 +49,18 @@ class Summary < ApplicationRecord
     manga_id.present?
   end
 
+  def db_entry
+    anime? ? anime : manga
+  end
+
+  def db_entry_released_before?
+    db_entry.released? &&
+      (!db_entry.released_on || db_entry.released_on <= Time.zone.today)
+  end
+
 private
 
   def fill_is_written_before_release
-    self.is_written_before_release = !!(
-      !anime.released? || (
-        anime.released_on && anime.released_on > Time.zone.now
-      )
-    )
+    self.is_written_before_release = !db_entry_released_before?
   end
 end

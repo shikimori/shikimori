@@ -37,7 +37,6 @@ describe Summary do
 
   describe 'callbacks' do
     describe '#fill_is_written_before_release' do
-      include_context :timecop
       subject { summary.is_written_before_release }
 
       let(:summary) do
@@ -74,12 +73,12 @@ describe Summary do
 
           context 'released_on is set' do
             context 'released_on > now()' do
-              let(:released_on) { 1.day.from_now }
+              let(:released_on) { Time.zone.tomorrow }
               it { is_expected.to eq true }
             end
 
             context 'released_on <= now()' do
-              let(:released_on) { Time.zone.now }
+              let(:released_on) { Time.zone.today }
               it { is_expected.to eq false }
             end
           end
@@ -94,26 +93,29 @@ describe Summary do
   end
 
   describe 'instance methods' do
-    describe '#anime? & #manga?' do
-      subject { build :summary, anime_id: anime_id, manga_id: manga_id }
-      let(:anime_id) { nil }
-      let(:manga_id) { nil }
+    describe '#anime? & #manga?, #db_entry' do
+      subject { build :summary, anime: anime, manga: manga }
+      let(:anime) { nil }
+      let(:manga) { nil }
 
       its(:anime?) { is_expected.to eq false }
       its(:manga?) { is_expected.to eq false }
+      its(:db_entry) { is_expected.to eq nil }
 
       context 'is anime' do
-        let(:anime_id) { 1 }
+        let(:anime) { build_stubbed :anime }
 
         its(:anime?) { is_expected.to eq true }
         its(:manga?) { is_expected.to eq false }
+        its(:db_entry) { is_expected.to eq anime }
       end
 
       context 'is anime' do
-        let(:manga_id) { 1 }
+        let(:manga) { build_stubbed :manga }
 
         its(:anime?) { is_expected.to eq false }
         its(:manga?) { is_expected.to eq true }
+        its(:db_entry) { is_expected.to eq manga }
       end
     end
 
@@ -121,6 +123,33 @@ describe Summary do
       subject { build :summary, body: body }
       let(:body) { '[b]zxc[/b]' }
       its(:html_body) { is_expected.to eq '<strong>zxc</strong>' }
+    end
+
+    describe '#db_entry_released_before?' do
+      let(:anime) { build_stubbed :anime, status, released_on: released_on }
+      subject { build :summary, anime: anime }
+
+      context 'released' do
+        let(:status) { :released }
+
+        context 'released_on is set' do
+          context 'released_on > now()' do
+            let(:released_on) { Time.zone.tomorrow }
+            its(:db_entry_released_before?) { is_expected.to eq false }
+          end
+
+          context 'released_on <= now()' do
+            let(:released_on) { Time.zone.today }
+            its(:db_entry_released_before?) { is_expected.to eq true }
+          end
+        end
+      end
+
+      context 'not released' do
+        let(:status) { %i[anons ongoing].sample }
+        let(:released_on) { nil }
+        its(:db_entry_released_before?) { is_expected.to eq false }
+      end
     end
   end
 
