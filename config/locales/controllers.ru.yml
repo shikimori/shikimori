@@ -460,6 +460,10 @@ ru:
     comment:
       removed: Комментарий удалён
 
+  api/v1/summaries_controller:
+    comment:
+      removed: Отзыв удалён
+
   api/v1/messages_controller:
     messages:
       read: Сообщения прочитаны

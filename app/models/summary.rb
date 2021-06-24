@@ -52,8 +52,10 @@ class Summary < ApplicationRecord
 private
 
   def fill_is_written_before_release
-    self.is_written_before_release = !anime.released? || (
-      anime.released_on && anime.released_on > Time.zone.now
+    self.is_written_before_release = !!(
+      !anime.released? || (
+        anime.released_on && anime.released_on > Time.zone.now
+      )
     )
   end
 end
