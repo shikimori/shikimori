@@ -65,7 +65,7 @@ describe Api::V1::SummariesController do
     end
 
     context 'success' do
-      let(:body) { 'blablabla' }
+      let(:body) { 'b' * Summary::MIN_BODY_SIZE }
 
       context 'frontend' do
         let(:is_frontend) { true }
@@ -108,7 +108,7 @@ describe Api::V1::SummariesController do
     end
 
     context 'forbidden' do
-      let(:summary) { create :summary }
+      let(:summary) { create :summary, user: user_admin, anime: anime }
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
