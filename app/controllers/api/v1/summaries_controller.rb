@@ -19,7 +19,7 @@ class Api::V1::SummariesController < Api::V1Controller
 
   def update
     if Summary::Update.call(@resource, update_params) && frontent_request?
-      render :comment
+      render :summary
     else
       respond_with @resource
     end
@@ -28,18 +28,21 @@ class Api::V1::SummariesController < Api::V1Controller
   def destroy
     @resource.destroy
 
-    render json: { notice: i18n_t('comment.removed') }
+    render json: { notice: i18n_t('summary.removed') }
   end
 
 private
 
-  def summary_params
+  def create_params
     params
       .require(:summary)
       .permit(:body, :anime_id, :tone)
+      .merge(user: current_user)
   end
 
-  def create_params
-    summary_params.merge(user: current_user)
+  def update_params
+    params
+      .require(:summary)
+      .permit(:body, :anime_id, :is_written_before_release, :tone)
   end
 end

@@ -461,7 +461,7 @@ en:
       removed: Comment removed
 
   api/v1/summaries_controller:
-    comment:
+    summary:
       removed: Summary removed
 
   api/v1/messages_controller:

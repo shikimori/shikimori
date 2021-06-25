@@ -461,7 +461,7 @@ ru:
       removed: Комментарий удалён
 
   api/v1/summaries_controller:
-    comment:
+    summary:
       removed: Отзыв удалён
 
   api/v1/messages_controller:
