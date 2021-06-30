@@ -128,4 +128,6 @@
               field: field,
               only_one: version.item_diff.keys.one?
 
-      span.closing
+      span[
+        prevent-last-child-style-for-previous-element
+      ]
