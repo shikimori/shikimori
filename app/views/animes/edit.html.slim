@@ -146,8 +146,7 @@
                 a.b-link href="http://www.tokyotosho.info/search.php?terms=#{URI.encode phrase}"
                   = phrase
 
-  = render 'db_entries/dangerous_actions', resource: @resource
-
+  = render 'db_entries/dangerous_actions/index', resource: @resource
 
         / - if current_user.admin?
         /   .c-column

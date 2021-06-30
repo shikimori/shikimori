@@ -1,0 +1,17 @@
+- if @resource.mal_id.present?
+  .b-warning.is-background
+    p.warning
+      b
+        ' #{i18n_i resource.object.class.name, 1, :subjective} присутствует на MAL!
+        br
+        ' Перед действием обязательно написать
+        a href=profile_url('morr') @morr
+    p.warning
+      ' Нужно отключить парсинг #{resource.object.class == Manga ? 'этой' : 'этого'}
+      ' #{i18n_i resource.object.class.name.downcase, 1, :genitive} с MAL,
+      ' добавив ID #{resource.object.class == Manga ? 'этой' : 'этого'}
+      ' #{i18n_i resource.object.class.name.downcase, 1, :genitive} в файл
+      a[
+        href='https://github.com/shikimori/shikimori/blob/master/config/app/banned_mal_ids.yml'
+      ] проекта.
+    p.warning Или можно самостоятельно создать пул-реквест в проект с дрбавлением ID.

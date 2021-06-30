@@ -48,8 +48,10 @@ en:
       syncing: Syncing
       refresh: update
     dangerous_actions:
-      dangerous_actions: Dangerous actions
-      merge_into_other: Merge into other
-      deletion: Deletion
-      send_for_merging: Send for merging
-      send_for_removal: Send for removal
+      index:
+        dangerous_actions: Dangerous actions
+        merge_into_other: Merge into other
+        merge_duplicate: Merge duplicate
+        deletion: Deletion
+        send_for_merging: Send for merging
+        send_for_removal: Send for removal
