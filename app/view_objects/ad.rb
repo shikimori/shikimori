@@ -203,7 +203,7 @@ private
 
   BANNERS = {
     true => {
-      # disable after 2021-02-08
+      # disable after 2021-02-21 15:00
       # convert -resize 50% app/assets/images/globals/events/special_menu_1@2x.jpg app/assets/images/globals/events/special_menu_1.jpg
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
@@ -222,7 +222,7 @@ private
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
       },
-      # disable after 2021-02-08
+      # disable after 2021-02-21 15:00
       # convert -resize 50% app/assets/images/globals/events/special_wide_1@2x.jpg app/assets/images/globals/events/special_wide_1.jpg
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
@@ -322,7 +322,7 @@ private
       }
     },
     false => {
-      # disable after 2021-02-08
+      # disable after 2021-02-21 15:00
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
         url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=jawxa&pr=[RANDOM]',
@@ -340,7 +340,7 @@ private
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
       },
-      # disable after 2021-02-08
+      # disable after 2021-02-21 15:00
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
         url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=jawxa&pr=[RANDOM]',
@@ -440,12 +440,12 @@ private
         Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # disable after 2021-02-08
+        Types::Ad::Type[:special_x300], # 2021-02-21 15:00
         Types::Ad::Type[:yd_240x600],
         Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # disable after 2021-02-08
+        Types::Ad::Type[:special_x300], # 2021-02-21 15:00
         Types::Ad::Type[:yd_300x600],
         Types::Ad::Type[:mt_300x600]
       ],
@@ -461,7 +461,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170], # disable after 2021-02-08
+        Types::Ad::Type[:special_x1170], # 2021-02-21 15:00
         Types::Ad::Type[:yd_970x250],
         Types::Ad::Type[:mt_970x250]
       ]
@@ -473,13 +473,13 @@ private
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # disable after 2021-02-08
+        Types::Ad::Type[:special_x300], # 2021-02-21 15:00
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # disable after 2021-02-08
+        Types::Ad::Type[:special_x300], # 2021-02-21 15:00
         # Types::Ad::Type[:mt_300x600],
         # Types::Ad::Type[:yd_300x600],
         # Types::Ad::Type[:advrtr_240x400],
@@ -496,7 +496,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170] # disable after 2021-02-08
+        Types::Ad::Type[:special_x1170] # 2021-02-21 15:00
       ]
     }
   }

@@ -34,6 +34,8 @@
                       value=t('.send_for_merging')
                     ]
 
+                = spoiler t('.merge_as_episode') do
+
           - if can?(:destroy, resource)
             .f-column
               = spoiler t('.deletion') do
