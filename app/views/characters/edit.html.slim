@@ -22,6 +22,5 @@
               }[field]
 
   = render 'db_entries/synchronization', resource: @resource
-  = render 'db_entries/dangerous_actions', resource: @resource
-
+  = render 'db_entries/dangerous_actions/index', resource: @resource
   = render 'db_entries/versions', collection: @resource.parameterized_versions
