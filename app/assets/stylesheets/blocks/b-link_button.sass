@@ -21,11 +21,11 @@
   border: 0
   border: 1px solid darken(#eeeef1, 3%)
   color: #123
-  cursor: pointer
   display: block
   font-size: 15px
   +css4
     font-family: var(--font-alt)
+  cursor: pointer
   font-weight: 600
   line-height: 1
   margin-bottom: 10px
@@ -33,6 +33,7 @@
   padding: 8px 20px
   text-align: center
   transition: background-color 0.25s ease, border-color 0.25s ease
+  user-select: none
 
   &:last-child
     margin-bottom: 0
@@ -60,29 +61,6 @@
 
   &.inline
     display: inline-block
-
-  &.dark
-    background-color: #456
-    border-color: darken(#456, 3%)
-    color: #fff
-
-    +gte_laptop
-      &:hover
-        background-color: $link-3
-        border-color: darken($link-3, 2%)
-        color: #fff
-
-    &:active
-      background-color: $link-2
-      border-color: darken($link-4, 2%)
-      color: #fff
-
-    &.disabled,
-    &.disabled:hover,
-    &.disabled:active,
-      background-color: #7b8590
-      border-color: darken(#7b8590, 3%)
-      cursor: default
 
   &.dark-2
     background-color: #678
@@ -185,3 +163,33 @@
 
   &.arrow-right
     +link_button_icon('\E850', false)
+
+  &.dark
+    background-color: #456
+    border-color: darken(#456, 3%)
+    color: #fff
+
+    +gte_laptop
+      &:hover
+        background-color: $link-3
+        border-color: darken($link-3, 2%)
+        color: #fff
+
+    &:active
+      background-color: $link-2
+      border-color: darken($link-4, 2%)
+      color: #fff
+
+    &.disabled,
+    &.disabled:hover,
+    &.disabled:active
+      background-color: #7b8590
+      border-color: darken(#7b8590, 3%)
+      cursor: default
+
+  &.active,
+  &.active:hover,
+  &.active:active
+    background-color: #4c7fa4
+    border-color: darken(#4c7fa4, 3%)
+    cursor: default
