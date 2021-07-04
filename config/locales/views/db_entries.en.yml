@@ -50,8 +50,10 @@ en:
     dangerous_actions:
       index:
         dangerous_actions: Dangerous actions
-        merge_into_other: Merge into other
-        merge_duplicate: Merge duplicate
+        # merge_into_other: Merge into other
+        merge_as_duplicate: Merge as duplicate
+        merge_as_episode: Merge as episode
+        merge_episodes: Merge episodes
         deletion: Deletion
         send_for_merging: Send for merging
         send_for_removal: Send for removal

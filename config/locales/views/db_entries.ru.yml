@@ -50,8 +50,12 @@ ru:
     dangerous_actions:
       index:
         dangerous_actions: Опасные действия
-        merge_into_other: Слить с другим
-        merge_duplicate: Слить дубль
+        # merge_into_other: Слить с другим
+        merge_as_duplicate: Слить как дубль
+        merge_as_episode: Слить как эпизод c номером
+        merge_episodes: Влить эпизоды без номеров
         deletion: Удалить
         send_for_merging: Отправить на слияние
         send_for_removal: Отправить на удаление
+        into_another: в другое
+        into_here: сюда
