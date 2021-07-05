@@ -60,49 +60,43 @@
               .hidden[
                 data-tab
               ]
-                = render 'db_entries/dangerous_actions/warning_headline',
-                  is_merge: true,
-                  resource: resource,
-                  headline: "#{t '.merge_as_episode'} (#{t ".into_another.#{resource.object.class.name.downcase}"})" do
-                .b-input.merge_target_id[
-                  data-type=resource.object.class.name
-                ]
-                  input type='hidden' name='target_id'
-                  label С чем сливать
-                  input[
-                    type='text'
-                    placeholder=t(:"#{resource.object.class.name.downcase}_#{resource.object.class.in?([Character, Person]) ? 'name' : 'title'}")
-                    data-autocomplete=(resource.ranobe? ? autocomplete_ranobe_index_url : send(:"autocomplete_#{resource.object.class.name.downcase.pluralize}_url"))
+                = form_tag resource.merge_url, method: :delete do |f|
+                  = render 'db_entries/dangerous_actions/warning_headline',
+                    is_merge: true,
+                    resource: resource,
+                    headline: "#{t '.merge_as_episode'} (#{t ".into_another.#{resource.object.class.name.downcase}"})" do
+                  .b-input.merge_target_id[
+                    data-type=resource.object.class.name
                   ]
-                - if resource.anime?
+                    input type='hidden' name='target_id'
+                    label С чем сливать
+                    input[
+                      type='text'
+                      placeholder=t(:"#{resource.object.class.name.downcase}_#{resource.object.class.in?([Character, Person]) ? 'name' : 'title'}")
+                      data-autocomplete=(resource.ranobe? ? autocomplete_ranobe_index_url : send(:"autocomplete_#{resource.object.class.name.downcase.pluralize}_url"))
+                    ]
                   .b-input
                     label Номер эпизода
                     input[
                       type='number'
                       name='episode'
                       min='1'
-                      max=(resource.episodes if resource.episodes.positive?)
                     ]
-                - else
-                  .d-flex
-                    .b-input.mr-4
-                      label Номер главы
-                      input[
-                        type='number'
-                        name='chapter'
-                        min='1'
-                        max=(resource.chapters if resource.chapters.positive?)
-                      ]
-                    .align-self-center.mr-4 или
+                  - if resource.kinda_manga?
                     .b-input
-                      label Номер тома
-                      input[
-                        type='number'
-                        name='volume'
-                        min='1'
-                        max=(resource.volumes if resource.volumes.positive?)
-                      ]
-                = render 'db_entries/dangerous_actions/warning_mal_presence', resource: resource
+                      label Тип эпизода
+                      select name='episodes_type'
+                        option[
+                          selected
+                          value='chapters'
+                        ] Глава
+                        option value='volumes' Том
+                  = render 'db_entries/dangerous_actions/warning_mal_presence', resource: resource
+                  input.b-button[
+                    type='submit'
+                    disabled
+                    value=t('.send_for_merging')
+                  ]
 
               .hidden[
                 data-tab
@@ -111,7 +105,7 @@
                   is_merge: true,
                   resource: resource,
                   headline: "#{t '.merge_episodes'} (#{t '.into_here'})" do
-                h1 test
+                h1.mb-5 Not implemented yet
                 = render 'db_entries/dangerous_actions/warning_mal_presence', resource: resource
 
           - if can?(:destroy, resource)

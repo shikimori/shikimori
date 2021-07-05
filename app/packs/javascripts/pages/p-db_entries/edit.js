@@ -1,12 +1,14 @@
 pageLoad('.db_entries-edit', () => {
-
   $('.merge_target_id').each((_index, node) => {
     const $merge = $(node);
-    const $targetId = $merge.find('input[type=hidden]');
     const $form = $merge.closest('form');
+    const $submit = $form.find('input[type=submit]');
 
-    $merge
-      .find('input[type=text]')
+    const $targetId = $form.find('input[name=target_id]');
+    const $episode = $form.find('input[name=episode]');
+
+    $form
+      .find('input[data-autocomplete]')
       .completable()
       .on('autocomplete:success', ({ currentTarget }, entry) => {
         const type = $merge.data('type');
@@ -23,14 +25,26 @@ pageLoad('.db_entries-edit', () => {
           `)
           .process();
         $(currentTarget).remove();
-        $form.find('input[type=submit]').prop('disabled', false);
+        syncSubmit($submit, $targetId, $episode);
       });
 
     $form.on('submit', e => {
-      if (!$targetId.val()) {
+      if (!isValid($targetId, $episode)) {
         e.preventDefault();
         e.stopImmediatePropagation();
       }
     });
+
+    $episode.on('keyup change', () => {
+      syncSubmit($submit, $targetId, $episode);
+    });
   });
 });
+
+function syncSubmit($submit, $targetId, $episode) {
+  $submit.prop('disabled', !isValid($targetId, $episode));
+}
+
+function isValid($targetId, $episode) {
+  return !!$targetId.val() && (!$episode.length || !!$episode.val());
+}
