@@ -204,9 +204,9 @@ class PersonDecorator < DbEntryDecorator
       else
         jobs = []
 
-        jobs << 'anime' if anime?
-        jobs << 'manga' if manga?
-        jobs << 'ranobe' if ranobe?
+        jobs << 'anime' if anime_roles?
+        jobs << 'manga' if manga_roles?
+        jobs << 'ranobe' if ranobe_roles?
 
         "#{jobs.join('_')}_projects_participant"
       end
@@ -215,11 +215,11 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def occupation_key
-    if anime? && manga?
+    if anime_roles? && manga_roles?
       :anime_manga
-    elsif anime?
+    elsif anime_roles?
       :anime
-    elsif manga?
+    elsif manga_roles?
       :manga
     else
       :anime
@@ -277,11 +277,11 @@ class PersonDecorator < DbEntryDecorator
     Character.find(fav_character)
   end
 
-  def anime?
+  def anime_roles?
     all_roles.any? { |v| !v.anime_id.nil? }
   end
 
-  def manga?
+  def manga_roles?
     all_roles.any? { |v| !v.manga_id.nil? }
   end
 
