@@ -48,17 +48,6 @@ $spacers: (
   )
 );
 
-// .25
-// .5
-// .75
-// 1
-// 1.5
-// 2
-// 3
-// 4
-// 6
-// 8
-
 @mixin spacing() {
   @each $prop, $abbrev in (margin: m, padding: p) {
     @each $size, $lengths in $spacers {
