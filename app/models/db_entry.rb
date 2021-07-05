@@ -32,7 +32,7 @@ class DbEntry < ApplicationRecord
   end
 
   def kinda_manga?
-    self.class <= Manga
+    !!(self.class <= Manga)
   end
 
   def manga?

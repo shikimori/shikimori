@@ -1,4 +1,5 @@
 @import mixins/ellipsis2
+@import mixins/flex_column
 @import mixins/responsive
 
 .p-db_entries-edit
@@ -47,3 +48,6 @@
       &:active
         background-color: darken(#fedddf, 2%)
         border-color: darken(#fec2c5, 3%)
+
+    .fc-actions
+      +fcolumn-responsive($landscape-columns: 1, $ipad-columns: 4, $gutter: 20px)

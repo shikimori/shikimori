@@ -3,13 +3,13 @@
     = spoiler t('.dangerous_actions') do
       .to-process data-dynamic='tabs'
         .block
-          div class=(resource.anime? || resource.manga? || resource.ranobe? ? 'fc-4' : 'fc-2')
+          div class=(resource.anime? || resource.kinda_manga? ? 'fc-actions' : 'fc-2')
             - if can?(:merge, resource)
               .f-column
                 .b-link_button.light-red[
                   data-tab-switch
                 ] = t('.merge_as_duplicate')
-              - if resource.anime? || resource.manga? || resource.ranobe?
+              - if resource.anime? || resource.kinda_manga?
                 .f-column
                   .b-link_button.light-red[
                     data-tab-switch
@@ -34,14 +34,10 @@
               data-tab
             ]
               = form_tag resource.merge_url, method: :delete do |f|
-                = render('db_entries/dangerous_actions/warning_headline', headline: t('.merge_as_duplicate')) do
-                  p.warning После нажатия кнопки в очередь задач сайта будет добавлена задача,
-                    сливающая #{i18n_i resource.object.class.name.downcase, 1, :accusative} с
-                    #{resource.object.class == Manga ? 'другой' : 'другим'}.
-                  p.warning Слияние начнётся через 30 минут и может занять от 5 минут
-                    до пары часов в зависимости
-                    от популярности #{resource.object.class == Manga ? 'этой' : 'этого'}
-                    #{i18n_i resource.object.class.name.downcase, 1, :genitive} на сайте.
+                = render 'db_entries/dangerous_actions/warning_headline',
+                  is_merge: true,
+                  resource: resource,
+                  headline: "#{t '.merge_as_duplicate'} (#{t(".into_another.#{resource.object.class.name.downcase}")})" do
                 .b-input.merge_target_id[
                   data-type=resource.object.class.name
                 ]
@@ -60,18 +56,61 @@
                   value=t('.send_for_merging')
                 ]
 
-            - if resource.anime? || resource.manga? || resource.ranobe?
+            - if resource.anime? || resource.kinda_manga?
               .hidden[
                 data-tab
               ]
-                = render('db_entries/dangerous_actions/warning_headline', headline: t('.merge_as_episode')) do
-                h1 test
+                = render 'db_entries/dangerous_actions/warning_headline',
+                  is_merge: true,
+                  resource: resource,
+                  headline: "#{t '.merge_as_episode'} (#{t ".into_another.#{resource.object.class.name.downcase}"})" do
+                .b-input.merge_target_id[
+                  data-type=resource.object.class.name
+                ]
+                  input type='hidden' name='target_id'
+                  label С чем сливать
+                  input[
+                    type='text'
+                    placeholder=t(:"#{resource.object.class.name.downcase}_#{resource.object.class.in?([Character, Person]) ? 'name' : 'title'}")
+                    data-autocomplete=(resource.ranobe? ? autocomplete_ranobe_index_url : send(:"autocomplete_#{resource.object.class.name.downcase.pluralize}_url"))
+                  ]
+                - if resource.anime?
+                  .b-input
+                    label Номер эпизода
+                    input[
+                      type='number'
+                      name='episode'
+                      min='1'
+                      max=(resource.episodes if resource.episodes.positive?)
+                    ]
+                - else
+                  .d-flex
+                    .b-input.mr-4
+                      label Номер главы
+                      input[
+                        type='number'
+                        name='chapter'
+                        min='1'
+                        max=(resource.chapters if resource.chapters.positive?)
+                      ]
+                    .align-self-center.mr-4 или
+                    .b-input
+                      label Номер тома
+                      input[
+                        type='number'
+                        name='volume'
+                        min='1'
+                        max=(resource.volumes if resource.volumes.positive?)
+                      ]
                 = render 'db_entries/dangerous_actions/warning_mal_presence', resource: resource
 
               .hidden[
                 data-tab
               ]
-                = render('db_entries/dangerous_actions/warning_headline', headline: t('.merge_episodes')) do
+                = render 'db_entries/dangerous_actions/warning_headline',
+                  is_merge: true,
+                  resource: resource,
+                  headline: "#{t '.merge_episodes'} (#{t '.into_here'})" do
                 h1 test
                 = render 'db_entries/dangerous_actions/warning_mal_presence', resource: resource
 
@@ -79,7 +118,8 @@
             .hidden[
               data-tab
             ]
-              = render('db_entries/dangerous_actions/warning_headline', headline: t('.deletion')) do
+              = render 'db_entries/dangerous_actions/warning_headline',
+                headline: t('.deletion') do
                 p.warning После нажатия кнопки в очередь задач сайта будет добавлена задача,
                   удаляющая #{i18n_i resource.object.class.name.downcase, 1, :accusative}.
                 p.warning Удаление начнётся через 30 минут и может занять от 5 минут

@@ -57,3 +57,10 @@ en:
         deletion: Deletion
         send_for_merging: Send for merging
         send_for_removal: Send for removal
+        into_here: into here
+        into_another:
+          anime: into another anime
+          manga: into another manga
+          ranobe: into another light novel
+          character: into another character
+          person: into another person

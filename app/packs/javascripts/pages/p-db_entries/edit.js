@@ -1,6 +1,7 @@
 pageLoad('.db_entries-edit', () => {
-  const $merge = $('.merge_target_id');
-  if ($merge.length) {
+
+  $('.merge_target_id').each((_index, node) => {
+    const $merge = $(node);
     const $targetId = $merge.find('input[type=hidden]');
     const $form = $merge.closest('form');
 
@@ -31,5 +32,5 @@ pageLoad('.db_entries-edit', () => {
         e.stopImmediatePropagation();
       }
     });
-  }
+  });
 });

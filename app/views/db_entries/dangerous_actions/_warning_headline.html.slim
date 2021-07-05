@@ -5,4 +5,11 @@
       ' Это действие необратимо!
     | Нажимать только один раз!
 
+  - if local_assigns[:is_merge]
+    p.warning После нажатия кнопки в очередь задач сайта будет добавлена задача,
+      сливающая #{i18n_i resource.object.class.name.downcase, 1, :accusative}.
+    p.warning Слияние начнётся через 30 минут и может занять от 5 минут
+      до пары часов в зависимости
+      от популярности #{resource.object.class == Manga ? 'этой' : 'этого'}
+      #{i18n_i resource.object.class.name.downcase, 1, :genitive} на сайте.
   = yield

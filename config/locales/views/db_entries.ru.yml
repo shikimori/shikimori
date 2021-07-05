@@ -57,5 +57,10 @@ ru:
         deletion: Удалить
         send_for_merging: Отправить на слияние
         send_for_removal: Отправить на удаление
-        into_another: в другое
         into_here: сюда
+        into_another:
+          anime: в другое аниме
+          manga: в другую мангу
+          ranobe: в другое ранобэ
+          character: в другого персонажа
+          person: в другого человека
