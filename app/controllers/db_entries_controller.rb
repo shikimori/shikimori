@@ -119,7 +119,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
     )
   end
 
-  def merge
+  def merge_into_other
     authorize! :merge, resource_klass
 
     DbEntries::MergeIntoOther.perform_in(
@@ -127,6 +127,24 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
       @resource.object.class.base_class.name,
       @resource.id,
       params[:target_id].to_i,
+      current_user.id
+    )
+
+    redirect_back(
+      fallback_location: @resource.edit_url,
+      notice: i18n_t('merge_scheduled')
+    )
+  end
+
+  def merge_as_episode
+    authorize! :merge, resource_klass
+
+    DbEntries::MergeAsEpisode.perform_in(
+      DANGEROUS_ACTION_DELAY_INTERVAL,
+      @resource.object.class.base_class.name,
+      @resource.id,
+      params[:target_id].to_i,
+      params[:episode].to_i,
       current_user.id
     )
 

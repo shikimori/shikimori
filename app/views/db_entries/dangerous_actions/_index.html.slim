@@ -4,7 +4,7 @@
       .to-process data-dynamic='tabs'
         .block
           div class=(resource.anime? || resource.kinda_manga? ? 'fc-actions' : 'fc-2')
-            - if can?(:merge, resource)
+            - if can? :merge, resource
               .f-column
                 .b-link_button.light-red[
                   data-tab-switch
@@ -21,7 +21,7 @@
                     data-tab-switch
                   ]
                     = t('.merge_episodes')
-            - if can?(:destroy, resource)
+            - if can? :destroy, resource
               .f-column
                 .b-link_button.light-red[
                   data-tab-switch
@@ -29,11 +29,11 @@
                   = t('.deletion')
 
         .block_m
-          - if can?(:merge, resource)
+          - if can? :merge, resource
             .hidden[
               data-tab
             ]
-              = form_tag resource.merge_url, method: :delete do |f|
+              = form_tag resource.merge_into_other_url, method: :delete do |f|
                 = render 'db_entries/dangerous_actions/warning_headline',
                   is_merge: true,
                   resource: resource,
@@ -60,7 +60,7 @@
               .hidden[
                 data-tab
               ]
-                = form_tag resource.merge_url, method: :delete do |f|
+                = form_tag resource.merge_as_episode_url, method: :delete do |f|
                   = render 'db_entries/dangerous_actions/warning_headline',
                     is_merge: true,
                     resource: resource,
@@ -108,7 +108,7 @@
                 h1.mb-5 Not implemented yet
                 = render 'db_entries/dangerous_actions/warning_mal_presence', resource: resource
 
-          - if can?(:destroy, resource)
+          - if can? :destroy, resource
             .hidden[
               data-tab
             ]

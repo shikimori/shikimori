@@ -40,7 +40,8 @@ Rails.application.routes.draw do
       post :sync
       post :refresh_poster
       delete :destroy
-      delete :merge
+      delete :merge_into_other
+      delete :merge_as_episode
     end
 
     collection do
