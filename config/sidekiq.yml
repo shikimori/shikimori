@@ -33,7 +33,7 @@ production:
   torrents_parsers: 1
   webm_thumbnails: 1
   history_jobs: 1
-  mal_parsers: 50
+  mal_parsers: 40
   anime365_parsers: 3
   push_notifications: 5
   imports: 2
