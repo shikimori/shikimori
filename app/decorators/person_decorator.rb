@@ -206,7 +206,7 @@ class PersonDecorator < DbEntryDecorator
 
         jobs << 'anime' if anime_roles?
         jobs << 'manga' if manga_roles?
-        jobs << 'ranobe' if ranobe_roles?
+        # jobs << 'ranobe' if ranobe_roles?
 
         "#{jobs.join('_')}_projects_participant"
       end
