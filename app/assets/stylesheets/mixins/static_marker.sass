@@ -1,5 +1,4 @@
 @import globals
-@import mixins/css4
 @import mixins/responsive
 
 =static_marker($color, $background, $hover_color: darken($background, 4%), $active_color: darken($background, 2%))
@@ -8,10 +7,9 @@
   color: $color
   cursor: default
   display: inline-block
+  font-family: var(--font-alt)
   font-size: 12px
-  +css4
-    font-family: var(--font-alt)
-    letter-spacing: var(--font-alt-text-letter-spacing)
+  letter-spacing: var(--font-alt-text-letter-spacing)
   line-height: 1.4
   padding: 0 5px
   text-align: center

@@ -1,6 +1,5 @@
 // http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/agate.min.css
 @import globals
-@import mixins/css4
 
 .b-code-v2
   background: #263238
@@ -16,16 +15,15 @@
     background-color: #747474
     border-radius: 2px
     content: attr(data-language)
-    padding: 0 7px
+    font-family: var(--font-code)
     line-height: 19px
+    padding: 0 7px
     position: absolute
     right: 8px
     top: 6px
 
-    +css4
-      font-family: var(--font-code)
-
 code
+  font-family: var(--font-code)
   font-size: inherit
   font-variant-ligatures: none
   line-height: 1.5
@@ -34,9 +32,6 @@ code
   white-space: pre-wrap
   word-break: normal
   word-wrap: break-word
-
-  +css4
-    font-family: var(--font-code)
 
   &.b-code_inline
     background-color: #f9f2f4

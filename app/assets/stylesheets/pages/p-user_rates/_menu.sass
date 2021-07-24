@@ -1,5 +1,4 @@
 @import globals
-@import mixins/css4
 @import mixins/clearfix
 @import mixins/link
 @import mixins/responsive
@@ -41,13 +40,11 @@
       padding: 1px 5px
 
       &.active
-        +css4
-          color: var(--link-hover-color)
+        color: var(--link-hover-color)
 
         +gte_laptop
           &:hover
-            +css4
-              color: var(--link-active-color)
+            color: var(--link-active-color)
 
     .t0
       font-size: 9px

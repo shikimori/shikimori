@@ -1,5 +1,4 @@
 @import globals
-@import mixins/css4
 
 $margin-left: 3px
 $margin-right: 9px
@@ -9,15 +8,14 @@ $margin-right: 9px
   color: #123
   cursor: default
   display: inline-block
+  font-family: var(--font-alt)
+  letter-spacing: var(--font-alt-text-letter-spacing)
   line-height: 16px
   margin-left: $margin-left
   margin-right: $margin-right
   padding-top: 1px
   text-decoration: none
   transition: none
-  +css4
-    font-family: var(--font-alt)
-    letter-spacing: var(--font-alt-text-letter-spacing)
 
   &[href]
     border-bottom-color: $link-4

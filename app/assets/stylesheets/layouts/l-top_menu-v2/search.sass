@@ -1,4 +1,3 @@
-@import mixins/css4
 @import mixins/placeholder
 
 $input-height: 29px
@@ -104,8 +103,7 @@ $input-height: 29px
     display: none
     min-height: 42px
     position: absolute
-    +css4
-      top: calc(var(--top-menu-height) - 8px)
+    top: calc(var(--top-menu-height) - 8px)
     width: 100%
     z-index: 1001
 
@@ -141,8 +139,7 @@ $input-height: 29px
       position: relative
 
       +gte_laptop
-        +css4
-          max-height: calc(100vh - var(--top-menu-height) + 14px)
+        max-height: calc(100vh - var(--top-menu-height) + 14px)
         overflow-y: auto
 
     .nothing_found:before
@@ -247,8 +244,7 @@ $input-height: 29px
         left: 0
         padding: 13px 0
         position: absolute
-        +css4
-          top: var(--top-menu-height)
+        top: var(--top-menu-height)
 
         label.field
           display: block

@@ -15,7 +15,6 @@
 @import mixins/link
 @import mixins/placeholder
 @import mixins/font_face
-@import mixins/css4
 
 @import '../../../node_modules/shiki-utils/flash.sass';
 @import '../../../node_modules/shiki-uploader/index.sass';
@@ -23,18 +22,15 @@
 // +font-face('shikimori', 'shikimori', normal, $asset-pipeline: true, $file-formats: eot woff woff2 ttf svg);
 +font-face('shikimori', 'shikimori');
 
-@if $css4
-  \:root
-    @each $variable, $value in $variables
-      #{$variable}: $value
+\:root
+  @each $variable, $value in $variables
+    #{$variable}: $value
 
 body
   background-image: asset_url("/assets/background/square_bg.png")
+  font-family: var(--font-main)
+  font-size: var(--font-size-base-desktop)
   min-height: 100vh
-
-  +css4
-    font-family: var(--font-main)
-    font-size: var(--font-size-base-desktop)
 
   +iphone
     font-size: var(--font-size-base-mobile)
@@ -87,12 +83,10 @@ strong, b
 
 input,
 select
-  +css4
-    font-family: var(--font-alt)
+  font-family: var(--font-alt)
 
 textarea
-  +css4
-    font-family: var(--font-main)
+  font-family: var(--font-main)
 
 input,
 select,
@@ -161,8 +155,7 @@ h2,
 h3,
 h4
   color: #123
-  +css4
-    font-family: var(--font-alt)
+  font-family: var(--font-alt)
   font-weight: normal
 
 h2

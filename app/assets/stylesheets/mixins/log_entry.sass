@@ -1,5 +1,4 @@
 @import globals
-@import mixins/css4
 @import mixins/date
 @import mixins/link
 @import mixins/responsive
@@ -34,8 +33,7 @@
 
     +gte_laptop
       &:hover .id-label
-        +css4
-          color: var(--link-hover-color)
+        color: var(--link-hover-color)
 
   .id-label
     padding-right: 1px
@@ -84,8 +82,7 @@
     del
       color: $red
     ins
-      +css4
-        color: var(--link-color)
+      color: var(--link-color)
 
   .moderation
     display: flex

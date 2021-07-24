@@ -1,5 +1,4 @@
 @import mixins/block
-@import mixins/css4
 @import mixins/float_column
 @import mixins/icons
 @import mixins/responsive
@@ -43,12 +42,10 @@
 
       +gte_laptop
         &:hover:before
-          +css4
-            color: var(--link-hover-color)
+          color: var(--link-hover-color)
 
       &:active:before
-        +css4
-          color: var(--link-active-color)
+        color: var(--link-active-color)
 
       &:after
         background: transparent

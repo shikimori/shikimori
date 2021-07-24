@@ -1,6 +1,5 @@
 @import globals
 @import mixins/brackets_surrounded
-@import mixins/css4
 @import mixins/dash_separated
 @import mixins/ellipsis2
 @import mixins/hover_underlined
@@ -15,9 +14,8 @@ header.head
   h1, h2
     border-bottom: none
     display: inline-block
-    +css4
-      color: var(--headline-color)
-      font-family: var(--font-alt)
+    color: var(--headline-color)
+    font-family: var(--font-alt)
     font-size: 30px
     font-weight: normal
     margin: 0
@@ -56,14 +54,12 @@ header.head
 
       +gte_laptop
         &:hover:after
-          +css4
-            border-bottom: 1px solid var(--link-border-hover-color)
+          border-bottom: 1px solid var(--link-border-hover-color)
 
   .misc, a.edit
     color: $gray-2
     display: inline-block
-    +css4
-      font-family: var(--font-main)
+    font-family: var(--font-main)
     font-size: 11px
     line-height: 12px
     padding: 17px 0 0 10px
@@ -88,11 +84,10 @@ header.head
 
 .headline
   +ellipsis2
-  +css4
-    background: var(--headline-background-color)
-    border-left: 5px solid var(--headline-border-color)
-    color: var(--headline-color)
-    font-family: var(--font-alt)
+  background: var(--headline-background-color)
+  border-left: 5px solid var(--headline-border-color)
+  color: var(--headline-color)
+  font-family: var(--font-alt)
   font-size: 18px
   font-weight: 700
   letter-spacing: 0.13px
@@ -116,19 +111,16 @@ header.head
 
     &:before
       +font_shikimori('\e81c')
+      color: var(--headline-arrow-color)
       position: absolute
       right: 10px
-      +css4
-        color: var(--headline-arrow-color)
 
     +gte_laptop
       &:hover:before
-        +css4
-          color: var(--link-hover-color)
+        color: var(--link-hover-color)
 
     &:active:before
-      +css4
-        color: var(--link-active-color)
+      color: var(--link-active-color)
 
   &.linkheadline
     & > a
@@ -140,17 +132,14 @@ header.head
       +gte_laptop
         &:hover,
         &:hover:before
-          +css4
-            color: var(--link-hover-color)
+          color: var(--link-hover-color)
 
       &:active,
       &:active:before
-        +css4
-          color: var(--link-active-color)
+        color: var(--link-active-color)
 
   .misc-links
-    +css4
-      font-family: var(--font-main)
+    font-family: var(--font-main)
 
     +gte_ipad
       display: inline
@@ -170,12 +159,10 @@ header.head
       text-transform: none
 
       &.selected
-        +css4
-          color: var(--link-hover-color)
+        color: var(--link-hover-color)
 
         &:hover
-          +css4
-            color: var(--link-active-color)
+          color: var(--link-active-color)
 
 h1, h2, h3, h4, h5
   &.headline,

@@ -1,24 +1,20 @@
 @import globals
-@import mixins/css4
 @import mixins/responsive
 
 /* цвет, становящийся ссылковым по наведению
 =link_color($color: 'null')
   //transition: color 0.2s ease
   @if $color == 'null'
-    +css4
-      color: var(--link-color)
+    color: var(--link-color)
   @else
     color: $color
 
   +gte_laptop
     &:hover
-      +css4
-        color: var(--link-hover-color)
+      color: var(--link-hover-color)
 
   &:active
-    +css4
-      color: var(--link-active-color)
+    color: var(--link-active-color)
 
 /* голубая ссылка без подчёркивания
 =link($color: 'null')
@@ -28,12 +24,10 @@
   +gte_laptop
     &:hover
       text-decoration: underline
-      +css4
-        border-bottom-color: var(--link-border-hover-color)
+      border-bottom-color: var(--link-border-hover-color)
 
   &:active
-    +css4
-      border-bottom-color: var(--link-border-active-color)
+    border-bottom-color: var(--link-border-active-color)
 
 /* голубая ссылка с подчёркиванием
 =link_underlined($color: 'null')
@@ -42,21 +36,18 @@
 
 =js-link
   +link
-  +css4
-    border-bottom: 1px dotted var(--link-border-color)
+  border-bottom: 1px dotted var(--link-border-color)
   display: inline-block
   line-height: 1
   user-select: none
 
   +gte_laptop
     &:hover
-      +css4
-        border-bottom-color: var(--link-border-hover-color)
+      border-bottom-color: var(--link-border-hover-color)
       text-decoration: none !important
 
   &:active
-    +css4
-      border-bottom-color: var(--link-border-active-color)
+    border-bottom-color: var(--link-border-active-color)
     text-decoration: none !important
 
   &.active

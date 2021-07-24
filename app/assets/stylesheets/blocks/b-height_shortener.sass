@@ -1,5 +1,4 @@
 @import globals
-@import mixins/css4
 @import mixins/link
 @import mixins/responsive
 
@@ -28,18 +27,15 @@ $text_margin: 0px
     transition: none
 
     span
-      +css4
-        border-bottom: 1px dotted var(--link-border-color)
+      border-bottom: 1px dotted var(--link-border-color)
       display: inline-block
 
     +gte_laptop
       &:hover span
-        +css4
-          border-bottom-color: var(--link-border-hover-color)
+        border-bottom-color: var(--link-border-hover-color)
 
     &:active span
-      +css4
-        border-bottom-color: var(--link-border-active-color)
+      border-bottom-color: var(--link-border-active-color)
 
     &:after
       content: '↑'

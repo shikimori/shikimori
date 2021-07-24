@@ -1,5 +1,4 @@
 @import mixins/block
-@import mixins/css4
 @import mixins/font_shikimori
 @import mixins/responsive
 
@@ -109,14 +108,12 @@
 
     +gte_laptop
       &:hover
-        +css4
-          background-color: var(--link-hover-color)
+        background-color: var(--link-hover-color)
         color: #fff
         opacity: 1
 
     &:active
-      +css4
-        background-color: var(--link-active-color)
+      background-color: var(--link-active-color)
       color: #fff
       opacity: 1
 

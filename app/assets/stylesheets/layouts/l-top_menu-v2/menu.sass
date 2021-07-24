@@ -1,15 +1,12 @@
-@import mixins/css4
-
 .l-top_menu-v2
   .menu-icon,
   .menu-dropdown > span
     align-items: center
     color: inherit
     display: flex
-    +css4
-      font-family: var(--font-alt)
-      letter-spacing: var(--font-alt-text-letter-spacing)
-      height: var(--top-menu-height) // required for mobile profile height
+    font-family: var(--font-alt)
+    letter-spacing: var(--font-alt-text-letter-spacing)
+    height: var(--top-menu-height) // required for mobile profile height
     outline: none
     user-select: none
 
@@ -95,8 +92,7 @@
         align-items: center
         color: #fff
         display: inline-flex
-        +css4
-          height: var(--top-menu-height)
+        height: var(--top-menu-height)
         flex-grow: 1
         // compensates button gte_ipad padding. need to remove button padding around link
         margin: 0 -15px

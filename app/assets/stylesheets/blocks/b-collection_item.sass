@@ -1,5 +1,4 @@
 @import globals
-@import mixins/css4
 @import mixins/ellipsis2
 @import mixins/font_shikimori
 @import mixins/responsive
@@ -28,8 +27,7 @@
     opacity: 1
 
     .drag-handle
-      +css4
-        color: var(--link-active-color) !important
+      color: var(--link-active-color) !important
 
   &.single-line
     .delete
@@ -62,12 +60,10 @@
 
     +gte_laptop
       &:hover
-        +css4
-          color: var(--link-hover-color)
+        color: var(--link-hover-color)
 
     &:active
-      +css4
-        color: var(--link-active-color)
+      color: var(--link-active-color)
 
   .delete
     color: #123

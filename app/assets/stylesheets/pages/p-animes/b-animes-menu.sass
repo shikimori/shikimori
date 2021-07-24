@@ -1,6 +1,5 @@
 @import globals
 @import mixins/block
-@import mixins/css4
 @import mixins/ellipsis2
 @import mixins/font_shikimori
 @import mixins/link
@@ -50,8 +49,7 @@
 
       +gte_laptop
         &:hover .name
-          +css4
-            color: var(--link-hover-color)
+          color: var(--link-hover-color)
           text-decoration: underline
 
       .name

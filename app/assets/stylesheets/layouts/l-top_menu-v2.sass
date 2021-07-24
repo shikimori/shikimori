@@ -1,5 +1,4 @@
 @import globals
-@import mixins/css4
 @import mixins/ellipsis2
 @import mixins/link
 @import mixins/margins
@@ -19,8 +18,7 @@ $top_menu_background_active: lighten($gray-4, 6%)
 .l-top_menu-v2
   background: $top_menu-background_color
   color: #fff
-  +css4
-    height: var(--top-menu-height)
+  height: var(--top-menu-height)
   position: relative // w/o it z-index wont work
   z-index: 10
   // wo inner
@@ -65,8 +63,7 @@ $top_menu_background_active: lighten($gray-4, 6%)
   .logo-container
     align-items: center
     display: flex
-    +css4
-      height: var(--top-menu-height)
+    height: var(--top-menu-height)
     padding: 0 5px
 
     +gte_ipad

@@ -1,4 +1,3 @@
-@import mixins/css4
 @import mixins/date
 @import mixins/responsive
 @import mixins/font_shikimori
@@ -14,8 +13,7 @@
     +gte_laptop
       &:hover
         .title
-          +css4
-            color: var(--link-hover-color)
+          color: var(--link-hover-color)
 
     &:active
       .title
@@ -85,6 +83,5 @@
   .title
     +two_line_ellipsis(15px, 1.55)
     color: #123
-    +css4
-      font-family: var(--font-alt)
+    font-family: var(--font-alt)
     font-weight: 600

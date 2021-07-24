@@ -1,6 +1,5 @@
 @import globals
 @import mixins/clearfix
-@import mixins/css4
 @import mixins/ellipsis2
 @import mixins/link
 @import mixins/font_shikimori
@@ -81,21 +80,17 @@
 
   +gte_laptop
     &:hover .title
-      +css4
-        color: var(--link-hover-color)
+      color: var(--link-hover-color)
       text-decoration: underline
 
       &:after
-        +css4
-          color: var(--link-hover-color)
+        color: var(--link-hover-color)
 
   &:active .title
-    +css4
-      color: var(--link-active-color)
+    color: var(--link-active-color)
 
     &:after
-      +css4
-        color: var(--link-active-color)
+      color: var(--link-active-color)
 
   .title
     +ellipsis2
@@ -115,20 +110,16 @@
 
     +gte_laptop
       &:hover
-        +css4
-          color: var(--link-hover-color)
+        color: var(--link-hover-color)
 
         &:after
-          +css4
-            color: var(--link-hover-color)
+          color: var(--link-hover-color)
 
     &:active
-      +css4
-        color: var(--link-active-color)
+      color: var(--link-active-color)
 
       &:after
-        +css4
-          color: var(--link-active-color)
+        color: var(--link-active-color)
 
   .notice
     +ellipsis2

@@ -1,5 +1,4 @@
 @import globals
-@import mixins/css4
 @import mixins/ellipsis2
 @import mixins/float_column
 @import mixins/link
@@ -68,8 +67,6 @@ $max_width: 167px
         bottom: 0
         color: #fff
         font-size: 12px
-        // +css4
-          font-family: var(--font-alt)
         letter-spacing: 0.13px
         line-height: 1.45
         padding: 2px 5px
@@ -107,8 +104,7 @@ $max_width: 167px
 
     +gte_laptop
       &:hover .title
-        +css4
-          color: var(--link-hover-color)
+        color: var(--link-hover-color)
         text-decoration: underline
 
     .misc
@@ -192,11 +188,9 @@ $max_width: 167px
   &.planned .image-decor
     &:before
       background: #fff
-      +css4
-        border-color: var(--link-color)
+      border-color: var(--link-color)
     &:after
-      +css4
-        color: var(--link-color)
+      color: var(--link-color)
       content: $icon-planned
       font-size: 24px
 
@@ -209,8 +203,7 @@ $max_width: 167px
 
   &.watching .image-decor
     &:before
-      +css4
-        background: var(--link-color)
+      background: var(--link-color)
     &:after
       color: #fff
       content: $icon-watching
@@ -218,8 +211,7 @@ $max_width: 167px
 
   &.rewatching .image-decor
     &:before
-      +css4
-        background: var(--link-color)
+      background: var(--link-color)
     &:after
       color: #fff
       content: $icon-rewatching
