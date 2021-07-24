@@ -2100,6 +2100,7 @@
         - 42506
         - 40024
         - 40429
+        - 45665
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -2578,6 +2579,7 @@
         - 42506
         - 40024
         - 40429
+        - 45665
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3055,6 +3057,7 @@
         - 42506
         - 40024
         - 40429
+        - 45665
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3530,6 +3533,7 @@
         - 42506
         - 40024
         - 40429
+        - 45665
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -7977,6 +7981,7 @@
         - 36563
         - 14407
         - 10588
+        - 5343
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
@@ -18321,6 +18326,7 @@
         - 11979
         - 23831
         - 35300
+        - 49290
       :threshold: 100%
       :generator:
         ignore_latest_ids:
@@ -18359,6 +18365,7 @@
         - 11979
         - 23831
         - 35300
+        - 49290
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -19969,9 +19976,9 @@
         - 2920
         - 2922
         - 37703
-      :threshold: 100%
+      :threshold: 94%
       :generator:
-        threshold: 100%
+        threshold: 94%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ashita_no_joe
@@ -20006,7 +20013,7 @@
         - 37703
       :threshold: 0.01
       :generator:
-        threshold: 100%
+        threshold: 94%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ashita_no_joe
@@ -25765,6 +25772,7 @@
         - 41780
         - 41782
         - 45731
+        - 49471
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :bang_dream
@@ -25827,6 +25835,7 @@
         - 41780
         - 41782
         - 45731
+        - 49471
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :bang_dream
@@ -27283,6 +27292,7 @@
         - 38850
         - 42422
         - 40587
+        - 49426
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pretty_cure
@@ -27323,6 +27333,7 @@
         - 38850
         - 42422
         - 40587
+        - 49426
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pretty_cure
@@ -27830,38 +27841,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :d_c
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/d_c.png"
-    :border_color:
-    :title_ru: С начала
-    :text_ru:
-    :title_en: Da Capo
-    :text_en:
-    :topic_id: 247360
-    :rule: &515
-      :algo: duration
-      :filters:
-        franchise: d_c
-        not_anime_ids:
-        - 4508
-        - 17020
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :d_c
-  level: 1
-  image: "/assets/achievements/anime/franchise/d_c.png"
-  border_color:
-  title_ru: С начала
-  text_ru:
-  title_en: Da Capo
-  text_en:
-  topic_id: 247360
-  rule: *515
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :ad_police
     :level: 0
     :image: "/assets/achievements/anime/franchise/ad_police.jpg"
@@ -27871,7 +27850,7 @@
     :title_en: Bubblegum Crisis
     :text_en:
     :topic_id: 247360
-    :rule: &516
+    :rule: &515
       :algo: duration
       :filters:
         franchise: ad_police
@@ -27888,6 +27867,38 @@
   title_ru: Кризис каждый день
   text_ru:
   title_en: Bubblegum Crisis
+  text_en:
+  topic_id: 247360
+  rule: *515
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :d_c
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/d_c.png"
+    :border_color:
+    :title_ru: С начала
+    :text_ru:
+    :title_en: Da Capo
+    :text_en:
+    :topic_id: 247360
+    :rule: &516
+      :algo: duration
+      :filters:
+        franchise: d_c
+        not_anime_ids:
+        - 4508
+        - 17020
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :d_c
+  level: 1
+  image: "/assets/achievements/anime/franchise/d_c.png"
+  border_color:
+  title_ru: С начала
+  text_ru:
+  title_en: Da Capo
   text_en:
   topic_id: 247360
   rule: *516
