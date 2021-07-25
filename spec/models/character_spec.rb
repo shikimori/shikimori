@@ -15,6 +15,14 @@ describe Character do
     it { is_expected.to have_many(:contest_winners).dependent :destroy }
   end
 
+  describe 'validations' do
+    it { is_expected.to validate_length_of(:description_ru).is_at_most(16384) }
+    it { is_expected.to validate_length_of(:description_en).is_at_most(16384) }
+    it { is_expected.to validate_length_of(:name).is_at_most(255) }
+    it { is_expected.to validate_length_of(:japanese).is_at_most(255) }
+    it { is_expected.to validate_length_of(:fullname).is_at_most(255) }
+  end
+
   it_behaves_like :touch_related_in_db_entry, :character
   it_behaves_like :topics_concern, :character
   it_behaves_like :collections_concern

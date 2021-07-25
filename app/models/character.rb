@@ -46,6 +46,8 @@ class Character < DbEntry
   before_post_process { translit_paperclip_file_name :image }
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
+  validates :description_ru, :description_en, length: { maximum: 16_384 }
+  validates :name, :japanese, :fullname, length: { maximum: 255 }
 
   # альтернативное имя "в кавычках"
   def altname

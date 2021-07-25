@@ -8,6 +8,8 @@ describe AbuseRequest do
   describe 'validations' do
     it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_presence_of :comment }
+    it { is_expected.to validate_presence_of :comment }
+    it { is_expected.to validate_length_of(:reason).is_at_most(4096) }
 
     context 'accepted' do
       subject { build :abuse_request, state: 'accepted' }

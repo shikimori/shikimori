@@ -43,6 +43,7 @@ class Person < DbEntry
   before_post_process { translit_paperclip_file_name :image }
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
+  validates :name, :japanese, length: { maximum: 255 }
 
   SEYU_ROLES = %w[
     English Italian Hungarian Japanese German Hebrew Brazilian French

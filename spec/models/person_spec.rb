@@ -10,6 +10,11 @@ describe Person do
     it { is_expected.to have_attached_file :image }
   end
 
+  describe 'validations' do
+    it { is_expected.to validate_length_of(:name).is_at_most(255) }
+    it { is_expected.to validate_length_of(:japanese).is_at_most(255) }
+  end
+
   it_behaves_like :touch_related_in_db_entry, :person
   it_behaves_like :topics_concern, :person
   it_behaves_like :collections_concern

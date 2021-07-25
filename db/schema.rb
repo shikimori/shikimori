@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_15_092219) do
+ActiveRecord::Schema.define(version: 2021_07_25_140750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2021_06_15_092219) do
     t.datetime "updated_at", null: false
     t.string "state", limit: 255
     t.integer "approver_id"
-    t.text "reason"
+    t.string "reason", limit: 4096
     t.index ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, where: "((state)::text = 'pending'::text)"
   end
 
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 2021_06_15_092219) do
 
   create_table "animes", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
-    t.text "description_ru"
+    t.string "description_ru", limit: 16384
     t.text "description_en"
     t.string "kind", limit: 255
     t.integer "episodes", default: 0, null: false
@@ -139,7 +139,7 @@ ActiveRecord::Schema.define(version: 2021_06_15_092219) do
     t.string "status", limit: 255
     t.string "rating", limit: 255
     t.integer "episodes_aired", default: 0, null: false
-    t.string "russian", default: "", null: false
+    t.string "russian", limit: 255, default: "", null: false
     t.boolean "is_censored", default: false
     t.datetime "imported_at"
     t.datetime "next_episode_at"
@@ -149,8 +149,8 @@ ActiveRecord::Schema.define(version: 2021_06_15_092219) do
     t.text "desynced", default: [], null: false, array: true
     t.string "origin"
     t.string "broadcast"
-    t.string "english"
-    t.string "japanese"
+    t.string "english", limit: 255
+    t.string "japanese", limit: 255
     t.integer "mal_id"
     t.datetime "authorized_imported_at"
     t.text "synonyms", default: [], null: false, array: true
@@ -204,7 +204,7 @@ ActiveRecord::Schema.define(version: 2021_06_15_092219) do
     t.string "name", limit: 255
     t.string "japanese", limit: 255
     t.string "fullname", limit: 255
-    t.text "description_ru"
+    t.string "description_ru", limit: 16384
     t.text "description_en"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -348,8 +348,8 @@ ActiveRecord::Schema.define(version: 2021_06_15_092219) do
   end
 
   create_table "comment_viewings", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "viewed_id"
+    t.integer "user_id", null: false
+    t.integer "viewed_id", null: false
     t.index ["user_id", "viewed_id"], name: "index_comment_viewings_on_user_id_and_viewed_id", unique: true
     t.index ["viewed_id"], name: "index_comment_viewings_on_viewed_id"
   end
@@ -611,7 +611,7 @@ ActiveRecord::Schema.define(version: 2021_06_15_092219) do
 
   create_table "mangas", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
-    t.text "description_ru"
+    t.string "description_ru", limit: 16384
     t.text "description_en"
     t.string "kind", limit: 255
     t.integer "volumes", default: 0, null: false
@@ -619,7 +619,7 @@ ActiveRecord::Schema.define(version: 2021_06_15_092219) do
     t.integer "chapters", default: 0, null: false
     t.integer "chapters_aired", default: 0, null: false
     t.string "status", limit: 255
-    t.string "russian", default: "", null: false
+    t.string "russian", limit: 255, default: "", null: false
     t.decimal "score", default: "0.0", null: false
     t.integer "ranked"
     t.integer "popularity"
@@ -638,8 +638,8 @@ ActiveRecord::Schema.define(version: 2021_06_15_092219) do
     t.float "site_score", default: 0.0, null: false
     t.datetime "parsed_at"
     t.text "desynced", default: [], null: false, array: true
-    t.string "english"
-    t.string "japanese"
+    t.string "english", limit: 255
+    t.string "japanese", limit: 255
     t.integer "mal_id"
     t.string "type"
     t.datetime "authorized_imported_at"
@@ -944,6 +944,29 @@ ActiveRecord::Schema.define(version: 2021_06_15_092219) do
     t.text "imports", array: true
   end
 
+  create_table "summaries", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "anime_id"
+    t.bigint "manga_id"
+    t.text "body", null: false
+    t.string "tone", null: false
+    t.boolean "is_written_before_release", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["anime_id"], name: "index_summaries_on_anime_id"
+    t.index ["manga_id"], name: "index_summaries_on_manga_id"
+    t.index ["user_id", "anime_id"], name: "index_summaries_on_user_id_and_anime_id", unique: true, where: "(anime_id IS NOT NULL)"
+    t.index ["user_id", "manga_id"], name: "index_summaries_on_user_id_and_manga_id", unique: true, where: "(manga_id IS NOT NULL)"
+    t.index ["user_id"], name: "index_summaries_on_user_id"
+  end
+
+  create_table "summary_viewings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "viewed_id", null: false
+    t.index ["user_id", "viewed_id"], name: "index_summary_viewings_on_user_id_and_viewed_id", unique: true
+    t.index ["viewed_id"], name: "index_summary_viewings_on_viewed_id"
+  end
+
   create_table "svds", id: :serial, force: :cascade do |t|
     t.binary "entry_ids"
     t.binary "lsa"
@@ -965,8 +988,8 @@ ActiveRecord::Schema.define(version: 2021_06_15_092219) do
   end
 
   create_table "topic_viewings", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "viewed_id"
+    t.integer "user_id", null: false
+    t.integer "viewed_id", null: false
     t.index ["user_id", "viewed_id"], name: "index_topic_viewings_on_user_id_and_viewed_id", unique: true
     t.index ["viewed_id"], name: "index_topic_viewings_on_viewed_id"
   end
@@ -1225,6 +1248,12 @@ ActiveRecord::Schema.define(version: 2021_06_15_092219) do
   add_foreign_key "bans", "users", column: "moderator_id"
   add_foreign_key "collection_roles", "collections"
   add_foreign_key "collection_roles", "users"
+  add_foreign_key "comment_viewings", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "summaries", "animes"
+  add_foreign_key "summaries", "mangas"
+  add_foreign_key "summaries", "users"
+  add_foreign_key "summary_viewings", "users"
+  add_foreign_key "topic_viewings", "users"
 end
