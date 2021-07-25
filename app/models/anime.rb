@@ -252,8 +252,8 @@ class Anime < DbEntry
     predicates: true,
     multiple: true
 
-  validates :name, presence: true
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
+  validates :season, length: { maximum: 255 }
 
   before_save :track_changes
   after_create :generate_name_matches

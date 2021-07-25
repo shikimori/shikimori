@@ -15,8 +15,10 @@ module AniManga
       inverse_of: :entry,
       dependent: :destroy
 
+    validates :name, presence: true
     validates :description_ru, :description_en, length: { maximum: 16_384 }
-    validates :name, :english, :russian, :japanese, length: { maximum: 255 }
+    validates :name, :english, :russian, :japanese, :franchise, :license_name_ru,
+      length: { maximum: 255 }
   end
 
   def year

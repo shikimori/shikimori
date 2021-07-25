@@ -4,6 +4,11 @@ describe OauthApplication do
     it { is_expected.to have_many(:user_rate_logs).dependent(:destroy) }
   end
 
+  describe 'validations' do
+    it { is_expected.to validate_presence_of :name }
+    it { is_expected.to validate_length_of(:name).is_at_most(255) }
+  end
+
   describe 'permissions' do
     let(:oauth_application) do
       build_stubbed :oauth_application,

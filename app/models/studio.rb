@@ -1,4 +1,6 @@
 class Studio < ApplicationRecord
+  validates :name, presence: true, length: { maximum: 255 }
+
   MERGED = {
     83 => 48,
     88 => 48,

@@ -150,7 +150,6 @@ class Manga < DbEntry
     in: Types::Manga::Status.values,
     predicates: true
 
-  validates :name, presence: true
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   before_create :set_type

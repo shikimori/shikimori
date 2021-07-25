@@ -22,6 +22,7 @@ class Collection < ApplicationRecord
   has_many :coauthors, through: :collection_roles, source: :user
 
   validates :name, :user, :kind, presence: true
+  validates :name, length: { maximum: 255 }
   validates :locale, presence: true
 
   enumerize :kind, in: Types::Collection::Kind.values, predicates: true

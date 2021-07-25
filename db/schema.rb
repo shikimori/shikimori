@@ -157,8 +157,8 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
     t.integer "cached_rates_count", default: 0, null: false
     t.integer "genre_ids", default: [], null: false, array: true
     t.integer "studio_ids", default: [], null: false, array: true
-    t.string "season"
-    t.string "franchise"
+    t.string "season", limit: 255
+    t.string "franchise", limit: 255
     t.string "license_name_ru"
     t.text "coub_tags", default: [], null: false, array: true
     t.text "fansubbers", default: [], null: false, array: true
@@ -174,7 +174,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
   end
 
   create_table "articles", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", limit: 255, null: false
     t.bigint "user_id", null: false
     t.text "body", null: false
     t.string "moderation_state", limit: 255, default: "pending"
@@ -267,7 +267,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
   create_table "club_pages", id: :serial, force: :cascade do |t|
     t.integer "club_id", null: false
     t.integer "parent_page_id"
-    t.string "name", null: false
+    t.string "name", limit: 255, null: false
     t.text "text", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -328,7 +328,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
   end
 
   create_table "collections", id: :serial, force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", limit: 255, null: false
     t.integer "user_id", null: false
     t.string "kind", null: false
     t.text "text", null: false
@@ -501,7 +501,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
   end
 
   create_table "coub_tags", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", limit: 255, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_coub_tags_on_name", unique: true
@@ -647,7 +647,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
     t.integer "cached_rates_count", default: 0, null: false
     t.integer "genre_ids", default: [], null: false, array: true
     t.integer "publisher_ids", default: [], null: false, array: true
-    t.string "franchise"
+    t.string "franchise", limit: 255
     t.string "license_name_ru"
     t.string "licensors", default: [], null: false, array: true
     t.index ["kind"], name: "index_mangas_on_kind"
@@ -714,7 +714,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
   end
 
   create_table "oauth_applications", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", limit: 255, null: false
     t.string "uid", null: false
     t.string "secret", null: false
     t.text "redirect_uri", null: false
@@ -824,7 +824,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
   end
 
   create_table "publishers", id: :serial, force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "desynced", default: [], null: false, array: true
@@ -913,7 +913,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
   end
 
   create_table "studios", id: :serial, force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", limit: 255, null: false
     t.string "short_name"
     t.datetime "created_at"
     t.datetime "updated_at"

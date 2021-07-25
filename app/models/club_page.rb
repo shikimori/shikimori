@@ -20,6 +20,7 @@ class ClubPage < ApplicationRecord
     default: Types::ClubPage::Layout[:menu]
 
   validates :club, :name, presence: true
+  validates :name, length: { maximum: 255 }
 
   scope :ordered, -> { order :position, :id }
 

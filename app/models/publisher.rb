@@ -1,4 +1,6 @@
 class Publisher < ApplicationRecord
+  validates :name, presence: true, length: { maximum: 255 }
+
   MERGED = {
     # 48 => 8,
     # 206 => 81,
