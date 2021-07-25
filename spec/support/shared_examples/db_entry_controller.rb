@@ -134,8 +134,8 @@ shared_examples :db_entry_controller do |entry_name|
     end
   end
 
-  describe '#merge' do
-    let(:make_request) { delete :merge, params: { id: entry.id, target_id: entry_2.id } }
+  describe '#merge_into_other' do
+    let(:make_request) { delete :merge_into_other, params: { id: entry.id, target_id: entry_2.id } }
     let(:entry_2) { build_stubbed entry.class.name.downcase.to_sym }
 
     before { allow(DbEntries::MergeIntoOther).to receive :perform_in }
