@@ -8,10 +8,9 @@ html[
       / javascript:
         atatus.config('f86ba68ed53048a2a9594b96b4959754').install();
 
-      - if defined? Bugsnag
-        script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"
-        javascript:
-          Bugsnag.start({ apiKey: "3e994e677403e0ce03fa03393801d37d" })
+      script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"
+      javascript:
+        Bugsnag.start({ apiKey: "3e994e677403e0ce03fa03393801d37d" })
 
     = render 'application/head'
 
