@@ -1,5 +1,7 @@
 class Studio < ApplicationRecord
   validates :name, presence: true, length: { maximum: 255 }
+  validates :short_name, :japanese, :ani_db_name, length: { maximum: 255 }
+  validates :description_ru, :description_en, length: { maximum: 16_384 }
 
   MERGED = {
     83 => 48,

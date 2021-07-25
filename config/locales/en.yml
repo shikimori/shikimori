@@ -241,6 +241,7 @@ en:
       club:
         name: Name
         owner: Founder
+        description: Text
         display_images: Show Images
         join_policy: Terms of Joining
         comment_policy: Comments Policy

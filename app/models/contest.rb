@@ -40,6 +40,7 @@ class Contest < ApplicationRecord
   enumerize :user_vote_key, in: Types::Contest::UserVoteKey.values
 
   validates :title_ru, :title_en, presence: true
+  validates :description_ru, :description_en, length: { maximum: 32_768 }
   validates :user, :started_on, :user_vote_key, :strategy_type,
     :member_type, presence: true
   validates :matches_interval, :match_duration, :matches_per_round,
@@ -56,7 +57,7 @@ class Contest < ApplicationRecord
     source_type: Character.name
 
   has_many :suggestions,
-    class_name: ContestSuggestion.name,
+    class_name: 'ContestSuggestion',
     dependent: :destroy
 
   state_machine :state, initial: :created do

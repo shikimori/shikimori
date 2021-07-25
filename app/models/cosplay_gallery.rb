@@ -39,6 +39,8 @@ class CosplayGallery < ApplicationRecord
     source: :linked,
     source_type: Character.name
 
+  validates :description, :description_cos_rain, length: { maximum: 16_384 }
+
   scope :visible, -> { where confirmed: true, deleted: false }
 
   accepts_nested_attributes_for :images, :deleted_images

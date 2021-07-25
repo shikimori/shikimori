@@ -105,9 +105,9 @@ class Club < ApplicationRecord
   has_attached_file :logo,
     styles: {
       main: '215x215>',
-      x96: '96x96#', # rubocop:disable VariableNumber
-      x73: '73x73#', # rubocop:disable VariableNumber
-      x48: '48x48#' # rubocop:disable VariableNumber
+      x96: '96x96#',
+      x73: '73x73#',
+      x48: '48x48#'
     },
     url: '/system/clubs/:style/:id.:extension',
     path: ':rails_root/public/system/clubs/:style/:id.:extension',
@@ -117,6 +117,8 @@ class Club < ApplicationRecord
   validates :owner, presence: true
   validates :logo, attachment_content_type: { content_type: /\Aimage/ }
   validates :locale, presence: true
+  validates :description, length: { maximum: 150_000 }, unless: :collections_club?
+  validates :description, length: { maximum: 300_000 }, if: :collections_club?
 
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
 
@@ -208,5 +210,9 @@ private
     ClubsIndex.import self
   rescue StandardError => error
     Bugsnag.notify error if defined? Bugsnag
+  end
+
+  def collections_club?
+    id == 2046
   end
 end

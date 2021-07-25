@@ -241,6 +241,7 @@ ru:
       club:
         name: Название
         owner: Основатель
+        description: Текст
         display_images: Отображать раздел картинок
         join_policy: Возможность вступления
         comment_policy: Возможность комментирования

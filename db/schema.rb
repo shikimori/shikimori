@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
   create_table "animes", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
     t.string "description_ru", limit: 16384
-    t.text "description_en"
+    t.string "description_en", limit: 16384
     t.string "kind", limit: 255
     t.integer "episodes", default: 0, null: false
     t.integer "duration"
@@ -204,8 +204,8 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
     t.string "name", limit: 255
     t.string "japanese", limit: 255
     t.string "fullname", limit: 255
-    t.string "description_ru", limit: 16384
-    t.text "description_en"
+    t.string "description_ru", limit: 32768
+    t.string "description_en", limit: 32768
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "image_file_name", limit: 255
@@ -290,7 +290,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
     t.integer "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text "description"
+    t.string "description", limit: 500000
     t.string "logo_file_name", limit: 255
     t.string "logo_content_type", limit: 255
     t.integer "logo_file_size"
@@ -446,16 +446,16 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
     t.string "member_type", limit: 255, default: "anime"
     t.string "title_en", limit: 255
     t.integer "cached_uniq_voters_count", default: 0, null: false
-    t.text "description_ru"
-    t.text "description_en"
+    t.string "description_ru", limit: 32768
+    t.string "description_en", limit: 32768
     t.index ["state", "started_on", "finished_on"], name: "index_contests_on_state_and_started_on_and_finished_on"
   end
 
   create_table "cosplay_galleries", id: :serial, force: :cascade do |t|
     t.string "cos_rain_id", limit: 255
     t.string "target", limit: 255
-    t.text "description_cos_rain"
-    t.text "description"
+    t.string "description_cos_rain", limit: 16384
+    t.string "description", limit: 16384
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "confirmed", default: false, null: false
@@ -579,7 +579,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
     t.string "russian", limit: 255
     t.integer "position"
     t.integer "seo", default: 99
-    t.text "description"
+    t.string "description", limit: 4096
     t.string "kind", null: false
     t.integer "mal_id", null: false
     t.index ["mal_id", "kind"], name: "index_genres_on_mal_id_and_kind", unique: true
@@ -612,7 +612,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
   create_table "mangas", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
     t.string "description_ru", limit: 16384
-    t.text "description_en"
+    t.string "description_en", limit: 16384
     t.string "kind", limit: 255
     t.integer "volumes", default: 0, null: false
     t.integer "volumes_aired", default: 0, null: false
@@ -727,8 +727,8 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
     t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
-    t.text "description_ru", null: false
-    t.text "description_en", null: false
+    t.string "description_ru", limit: 16384, null: false
+    t.string "description_en", limit: 16384, null: false
     t.boolean "confidential", default: true, null: false
     t.string "allowed_scopes", default: [], null: false, array: true
     t.index ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
@@ -914,18 +914,18 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
 
   create_table "studios", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255, null: false
-    t.string "short_name"
+    t.string "short_name", limit: 500000
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "japanese"
+    t.string "japanese", limit: 500000
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.integer "ani_db_id"
-    t.string "ani_db_name"
-    t.text "description_ru"
-    t.text "description_en"
+    t.string "ani_db_name", limit: 500000
+    t.string "description_ru", limit: 16384
+    t.string "description_en", limit: 16384
     t.string "website"
     t.boolean "is_visible", null: false
     t.boolean "is_publisher", default: false, null: false

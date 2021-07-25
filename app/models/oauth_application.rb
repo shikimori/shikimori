@@ -24,6 +24,7 @@ class OauthApplication < Doorkeeper::Application
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
   validates :name, presence: true, length: { maximum: 255 }
+  validates :description_ru, :description_en, length: { maximum: 16_384 }
 
   scope :with_access_grants, -> {
     left_outer_joins(:access_grants)
