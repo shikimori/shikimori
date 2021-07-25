@@ -261,7 +261,7 @@ ru:
         text: Комментарий
       article:
         name: Название
-        text: Текст
+        body: Текст
         state: Статус
         tags: Теги
       poll:

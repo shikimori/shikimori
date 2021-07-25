@@ -2,12 +2,13 @@ class Ban < ApplicationRecord
   include Translation
 
   belongs_to :user
-  belongs_to :moderator, class_name: User.name
+  belongs_to :moderator, class_name: 'User'
   belongs_to :comment, touch: true, optional: true
   belongs_to :abuse_request, touch: true, optional: true
 
   validates :user, :moderator, presence: true
   validates :duration, :reason, presence: true
+  validates :reason, length: { maximum: 4096 }
   # validates :comment, :abuse_request, presence: true
 
   before_validation :set_user

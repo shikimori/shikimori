@@ -13,6 +13,7 @@ class Club < ApplicationRecord
   after_create :add_to_index # update_index does not wotrk because of second save in StylesConcern
 
   TRANSLATORS_ID = 2
+  SPECIAL_CLUB_IDS = [2046, 202, 72, 2852]
 
   has_many :member_roles,
     class_name: 'ClubRole',
@@ -117,8 +118,8 @@ class Club < ApplicationRecord
   validates :owner, presence: true
   validates :logo, attachment_content_type: { content_type: /\Aimage/ }
   validates :locale, presence: true
-  validates :description, length: { maximum: 150_000 }, unless: :collections_club?
-  validates :description, length: { maximum: 300_000 }, if: :collections_club?
+  validates :description, length: { maximum: 150_000 }, unless: :special_club?
+  validates :description, length: { maximum: 300_000 }, if: :special_club?
 
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
 
@@ -212,7 +213,7 @@ private
     Bugsnag.notify error if defined? Bugsnag
   end
 
-  def collections_club?
-    id == 2046
+  def special_club?
+    SPECIAL_CLUB_IDS.include? id
   end
 end

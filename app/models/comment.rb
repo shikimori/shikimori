@@ -41,7 +41,7 @@ class Comment < ApplicationRecord
   validates :commentable_type,
     inclusion: { in: Types::Comment::CommentableType.values }
   validates :body,
-    length: { minimum: 2, maximum: 60_000 },
+    length: { minimum: 2, maximum: 32_000 },
     if: -> { will_save_change_to_body? && summary? }
 
   validates :body,

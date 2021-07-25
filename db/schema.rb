@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_25_140750) do
+ActiveRecord::Schema.define(version: 2021_07_25_170731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -176,7 +176,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
   create_table "articles", force: :cascade do |t|
     t.string "name", limit: 255, null: false
     t.bigint "user_id", null: false
-    t.text "body", null: false
+    t.string "body", limit: 140000, null: false
     t.string "moderation_state", limit: 255, default: "pending"
     t.integer "approver_id"
     t.text "tags", default: [], null: false, array: true
@@ -194,7 +194,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
     t.integer "abuse_request_id"
     t.integer "moderator_id"
     t.integer "duration", null: false
-    t.text "reason"
+    t.string "reason", limit: 4096
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_bans_on_user_id"
@@ -268,7 +268,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
     t.integer "club_id", null: false
     t.integer "parent_page_id"
     t.string "name", limit: 255, null: false
-    t.text "text", null: false
+    t.string "text", limit: 500000, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position", null: false
@@ -331,7 +331,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
     t.string "name", limit: 255, null: false
     t.integer "user_id", null: false
     t.string "kind", null: false
-    t.text "text", null: false
+    t.string "text", limit: 400000, null: false
     t.string "locale", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -357,7 +357,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_140750) do
   create_table "comments", id: :serial, force: :cascade do |t|
     t.integer "commentable_id"
     t.string "commentable_type", limit: 15
-    t.text "body"
+    t.string "body", limit: 64000
     t.integer "user_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"

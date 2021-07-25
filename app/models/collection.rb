@@ -23,6 +23,7 @@ class Collection < ApplicationRecord
 
   validates :name, :user, :kind, presence: true
   validates :name, length: { maximum: 255 }
+  validates :text, length: { maximum: 400_000 }
   validates :locale, presence: true
 
   enumerize :kind, in: Types::Collection::Kind.values, predicates: true

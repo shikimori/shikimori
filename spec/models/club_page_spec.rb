@@ -10,6 +10,7 @@ describe ClubPage do
     it { is_expected.to validate_presence_of :club }
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_length_of(:name).is_at_most(255) }
+    it { is_expected.to validate_length_of(:text).is_at_most(150000) }
   end
 
   describe 'enumerize' do

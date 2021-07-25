@@ -11,7 +11,7 @@ describe Ban do
     it { is_expected.to validate_presence_of :moderator }
     # it { is_expected.to validate_presence_of :duration }
     it { is_expected.to validate_presence_of :reason }
-
+    it { is_expected.to validate_length_of(:reason).is_at_most(4096) }
     # it { is_expected.to validate_presence_of :comment }
     # it { is_expected.to validate_presence_of :abuse_request }
   end

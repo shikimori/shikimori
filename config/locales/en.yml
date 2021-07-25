@@ -258,7 +258,7 @@ en:
         tags: Tags
       article:
         name: Name
-        text: Text
+        body: Text
         state: State
         tags: Tags
       collection_link:

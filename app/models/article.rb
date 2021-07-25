@@ -14,6 +14,7 @@ class Article < ApplicationRecord
     touch: Rails.env.test? ? false : :activity_at
   validates :name, :user, :body, presence: true
   validates :name, length: { maximum: 255 }
+  validates :body, length: { maximum: 140_000 }
   validates :locale, presence: true
 
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
