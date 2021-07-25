@@ -35,6 +35,7 @@ class Banhammer # rubocop:disable ClassLength
 
   MONTH_DURATION = 60 * 24 * 7 * 4
   DEFAULT_REPLACEMENT = '#'
+  HEAVY_ABUVENESS = 10
 
   def self.w word
     fixed_word = word.to_s.split(//).map { |v| l v }.join ' '
@@ -83,9 +84,13 @@ class Banhammer # rubocop:disable ClassLength
 private
 
   def ban comment
-    duration = ban_duration comment
+    abusiveness = abusiveness comment.body
+    duration = ban_duration comment, abusiveness
 
-    comment.update_column :body, replace_abusiveness(comment.body, nil) # rubocop:disable SkipsModelValidations
+    comment.update_column(
+      :body,
+      replace_abusiveness(comment.body, abusiveness >= HEAVY_ABUVENESS ? '#' : nil)
+    )
 
     Ban.create!(
       user: comment.user,
@@ -101,12 +106,12 @@ private
     i18n_t('ban_reason', url: StickyTopicView.site_rules(locale).object.url)
   end
 
-  def ban_duration comment
+  def ban_duration comment, abusiveness
     duration = duration_by comment
     multiplier = BanDuration.new(duration).to_i
 
     BanDuration.new(
-      [multiplier * abusiveness(comment.body), MONTH_DURATION].min
+      [multiplier * abusiveness, MONTH_DURATION].min
     ).to_s
   end
 

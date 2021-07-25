@@ -1,6 +1,11 @@
 describe Banhammer do
   let(:banhammer) { Banhammer.instance }
-  let(:comment) { build_stubbed :comment, user: user, body: text, commentable: build_stubbed(:topic, user: user) }
+  let(:comment) do
+    build_stubbed :comment,
+      user: user,
+      body: text,
+      commentable: build_stubbed(:topic, user: user)
+  end
   let(:text) { 'хуй' }
   let(:user) { build_stubbed :user }
 
@@ -31,7 +36,7 @@ describe Banhammer do
     end
   end
 
-  describe '#ban' do
+  describe '#ban', :focus do
     let!(:user_banhammer) { create :user, :banhammer }
     let(:comment) { create :comment, body: text }
     let(:text) { 'test хуй test хуй' }
@@ -48,6 +53,16 @@ describe Banhammer do
       expect(comment.body).to eq(
         "test [color=#ff4136]###[/color] test [color=#ff4136]###[/color]\n\n[ban=#{ban.id}]"
       )
+    end
+
+    context 'heavy abusiveness' do
+      let(:text) { 'test хуй test хуй хуй хуй хуй хуй хуй хуй хуй хуй' }
+      it do
+        expect(ban.duration).to eql BanDuration.new('150m')
+        expect(comment.body).to eq(
+          "test ### test ### ### ### ### ### ### ### ### ###\n\n[ban=#{ban.id}]"
+        )
+      end
     end
   end
 
