@@ -29,7 +29,7 @@ class AddLimitToTextFields < ActiveRecord::Migration[5.2]
       %i[description_ru description_en],
       32768
     ],
-    [:clubs, :description, 500_000],
+    [:clubs, :description, 600_000],
     [:studios, %i[short_name japanese ani_db_name], 500_000],
     [:cosplay_galleries, %i[description description_cos_rain], 16384]
   ]
