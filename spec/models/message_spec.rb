@@ -8,6 +8,19 @@ describe Message do
     it { is_expected.to validate_presence_of :to }
   end
 
+  describe 'validations' do
+    it { is_expected.to_not validate_presence_of :body }
+
+    context 'private' do
+      before { subject.kind = MessageType::PRIVATE }
+      it { is_expected.to validate_presence_of :body }
+      it { is_expected.to validate_length_of(:body).is_at_most(10000) }
+    end
+
+    it { is_expected.to validate_presence_of :from }
+    it { is_expected.to validate_presence_of :to }
+  end
+
   describe 'callbacks' do
     let(:user) { build_stubbed :user, :user }
 

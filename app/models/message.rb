@@ -18,6 +18,7 @@ class Message < ApplicationRecord
   validates :from, :to, presence: true
   validates :body,
     presence: true,
+    length: { minimum: 2, maximum: 10_000 },
     if: -> { kind == MessageType::PRIVATE }
 
   before_create :check_spam_abuse,
