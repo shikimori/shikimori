@@ -659,7 +659,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_170731) do
     t.integer "from_id"
     t.integer "to_id"
     t.string "kind", limit: 255
-    t.text "body"
+    t.string "body", limit: 800000
     t.boolean "read", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
