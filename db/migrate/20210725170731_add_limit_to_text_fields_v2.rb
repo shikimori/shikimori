@@ -5,7 +5,7 @@ class AddLimitToTextFieldsV2 < ActiveRecord::Migration[5.2]
     [:club_pages, :text, 500_000],
     [:collections, :text, 400_000],
     [:comments, :body, 64_000],
-    [:messages, :body, 800_000],
+    [:messages, :body, 900_000],
   ]
 
   def up
