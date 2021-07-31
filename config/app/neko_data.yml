@@ -277,6 +277,7 @@
         - 37773
         - 39292
         - 41006
+        - 2018
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: &2
     :neko_id:
@@ -589,6 +590,7 @@
         - 37773
         - 39292
         - 41006
+        - 2018
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -880,6 +882,7 @@
         - 37773
         - 39292
         - 41006
+        - 2018
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -2101,6 +2104,7 @@
         - 40024
         - 40429
         - 45665
+        - 38539
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -2580,6 +2584,7 @@
         - 40024
         - 40429
         - 45665
+        - 38539
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3058,6 +3063,7 @@
         - 40024
         - 40429
         - 45665
+        - 38539
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3534,6 +3540,7 @@
         - 40024
         - 40429
         - 45665
+        - 38539
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
