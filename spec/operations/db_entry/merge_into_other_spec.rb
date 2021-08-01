@@ -13,23 +13,23 @@ describe DbEntry::MergeIntoOther do
   end
   let(:entry_3) { create type }
 
-  let!(:user_rate_1_1) do
-    create :user_rate, user_rate_1_1_status, target: entry_1, user: user_1
+  let!(:user_1_rate_1) do
+    create :user_rate, user_1_rate_1_status, target: entry_1, user: user_1
   end
-  let(:user_rate_1_1_status) { :planned }
-  let!(:user_rate_1_2) do
-    create :user_rate, user_rate_1_2_status, target: entry_2, user: user_1
+  let(:user_1_rate_1_status) { :planned }
+  let!(:user_1_rate_2) do
+    create :user_rate, user_1_rate_2_status, target: entry_2, user: user_1
   end
-  let(:user_rate_1_2_status) { :planned }
-  let!(:user_rate_2_1) { create :user_rate, target: entry_1, user: user_2 }
+  let(:user_1_rate_2_status) { :planned }
+  let!(:user_2_rate_1) { create :user_rate, target: entry_1, user: user_2 }
 
-  let!(:user_rate_log_1_1) { create :user_rate_log, target: entry_1, user: user_1 }
-  let!(:user_rate_log_1_2) { create :user_rate_log, target: entry_2, user: user_1 }
-  let!(:user_rate_log_2_1) { create :user_rate_log, target: entry_1, user: user_2 }
+  let!(:user_1_rate_log_1) { create :user_rate_log, target: entry_1, user: user_1 }
+  let!(:user_1_rate_log_2) { create :user_rate_log, target: entry_2, user: user_1 }
+  let!(:user_2_rate_log_1) { create :user_rate_log, target: entry_1, user: user_2 }
 
-  let!(:user_history_1_1) { create :user_history, target: entry_1, user: user_1 }
-  let!(:user_history_1_2) { create :user_history, target: entry_2, user: user_1 }
-  let!(:user_history_2_1) { create :user_history, target: entry_1, user: user_2 }
+  let!(:user_1_history_1) { create :user_history, target: entry_1, user: user_1 }
+  let!(:user_1_history_2) { create :user_history, target: entry_2, user: user_1 }
+  let!(:user_2_history_1) { create :user_history, target: entry_1, user: user_2 }
 
   let!(:topic_1) { create :topic, linked: entry_1 }
   let!(:topic_2) { create :topic, linked: entry_1, generated: true }
@@ -96,17 +96,17 @@ describe DbEntry::MergeIntoOther do
 
     expect { entry_1.reload }.to raise_error ActiveRecord::RecordNotFound
 
-    expect { user_rate_1_1.reload }.to raise_error ActiveRecord::RecordNotFound
-    expect { user_rate_log_1_1.reload }.to raise_error ActiveRecord::RecordNotFound
-    expect { user_history_1_1.reload }.to raise_error ActiveRecord::RecordNotFound
+    expect { user_1_rate_1.reload }.to raise_error ActiveRecord::RecordNotFound
+    expect { user_1_rate_log_1.reload }.to raise_error ActiveRecord::RecordNotFound
+    expect { user_1_history_1.reload }.to raise_error ActiveRecord::RecordNotFound
 
-    expect(user_rate_1_2.reload).to be_persisted
-    expect(user_rate_log_1_2.reload).to be_persisted
-    expect(user_history_1_2.reload).to be_persisted
+    expect(user_1_rate_2.reload).to be_persisted
+    expect(user_1_rate_log_2.reload).to be_persisted
+    expect(user_1_history_2.reload).to be_persisted
 
-    expect(user_rate_2_1.reload.target).to eq entry_2
-    expect(user_rate_log_2_1.reload.target).to eq entry_2
-    expect(user_history_2_1.reload.target).to eq entry_2
+    expect(user_2_rate_1.reload.target).to eq entry_2
+    expect(user_2_rate_log_1.reload.target).to eq entry_2
+    expect(user_2_history_1.reload.target).to eq entry_2
 
     expect(topic_1.reload.linked).to eq entry_2
     expect { topic_2.reload }.to raise_error ActiveRecord::RecordNotFound
@@ -140,41 +140,41 @@ describe DbEntry::MergeIntoOther do
 
   describe 'user_rate' do
     context 'entry_1 is completed' do
-      let(:user_rate_1_1_status) { :completed }
+      let(:user_1_rate_1_status) { :completed }
 
       it do
-        expect(user_rate_1_1.reload.target).to eq entry_2
-        expect(user_rate_log_1_1.reload.target).to eq entry_2
-        expect(user_history_1_1.reload.target).to eq entry_2
+        expect(user_1_rate_1.reload.target).to eq entry_2
+        expect(user_1_rate_log_1.reload.target).to eq entry_2
+        expect(user_1_history_1.reload.target).to eq entry_2
 
-        expect { user_rate_1_2.reload }.to raise_error ActiveRecord::RecordNotFound
-        expect { user_rate_log_1_2.reload }.to raise_error ActiveRecord::RecordNotFound
-        expect { user_history_1_2.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect { user_1_rate_2.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect { user_1_rate_log_2.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect { user_1_history_2.reload }.to raise_error ActiveRecord::RecordNotFound
       end
 
       context 'no entry_2 rate' do
-        let!(:user_rate_1_2) {}
-        let!(:user_rate_log_1_2) {}
-        let!(:user_history_1_2) {}
+        let!(:user_1_rate_2) { nil }
+        let!(:user_1_rate_log_2) { nil }
+        let!(:user_1_history_2) { nil }
 
         it do
-          expect(user_rate_1_1.reload.target).to eq entry_2
-          expect(user_rate_log_1_1.reload.target).to eq entry_2
-          expect(user_history_1_1.reload.target).to eq entry_2
+          expect(user_1_rate_1.reload.target).to eq entry_2
+          expect(user_1_rate_log_1.reload.target).to eq entry_2
+          expect(user_1_history_1.reload.target).to eq entry_2
         end
       end
 
       context 'entry_2 is completed' do
-        let(:user_rate_1_2_status) { :completed }
+        let(:user_1_rate_2_status) { :completed }
 
         it do
-          expect { user_rate_1_1.reload }.to raise_error ActiveRecord::RecordNotFound
-          expect { user_rate_log_1_1.reload }.to raise_error ActiveRecord::RecordNotFound
-          expect { user_history_1_1.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect { user_1_rate_1.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect { user_1_rate_log_1.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect { user_1_history_1.reload }.to raise_error ActiveRecord::RecordNotFound
 
-          expect(user_rate_1_2.reload).to be_persisted
-          expect(user_rate_log_1_2.reload).to be_persisted
-          expect(user_history_1_2.reload).to be_persisted
+          expect(user_1_rate_2.reload).to be_persisted
+          expect(user_1_rate_log_2.reload).to be_persisted
+          expect(user_1_history_2.reload).to be_persisted
         end
       end
     end
