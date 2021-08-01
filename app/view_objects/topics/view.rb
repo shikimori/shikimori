@@ -168,7 +168,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
           .strip
       end
 
-      BbCodes::Text.call text
+      BbCodes::Text.call text, object: @topic
     end
   end
 

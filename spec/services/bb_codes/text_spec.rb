@@ -1,6 +1,7 @@
 describe BbCodes::Text do
-  let(:service) { described_class.new text }
+  let(:service) { described_class.new text, options }
   let(:text) { 'z' }
+  let(:options) { nil }
 
   describe '#call' do
     subject { service.call }
@@ -456,6 +457,82 @@ describe BbCodes::Text do
               class="quote-content"><br>test<br></div></div></div></div><br><div data-div=""><br>test<br></div>
           HTML
         )
+      end
+    end
+
+    describe '#highlight_event' do
+      let(:text) { 'zxc меха qwe' }
+
+      context 'no object' do
+        it { is_expected.to eq text }
+      end
+
+      context 'has object' do
+        let(:options) { { object: object } }
+
+        context 'new object' do
+          let(:object) { build :comment }
+
+          context 'before event time' do
+            include_context :timecop, '2021-08-01 15:44:03 +0300'
+            it { is_expected.to eq text }
+          end
+
+          context 'in event time' do
+            include_context :timecop, '2021-08-02 15:44:03 +0300'
+            it do
+              is_expected.to eq(
+                <<~HTML.squish
+                  zxc <a class="b-link"
+                  href=\"#{ERB::Util.h described_class::EVENT_URL}" target="_blank">меха</a>
+                  qwe
+                HTML
+              )
+            end
+
+            context 'not matched' do
+              let(:text) { ['zxcмеха qwe', 'zxc мехаqwe', '[zzz]меха', 'меха[zzz]'].sample }
+              it { is_expected.to eq text }
+            end
+          end
+
+          context 'after event time' do
+            include_context :timecop, '2021-08-01 15:44:03 +0300'
+            it { is_expected.to eq text }
+          end
+        end
+
+        context 'existing object' do
+          let(:object) { build_stubbed :comment, created_at: created_at }
+
+          context 'before event time' do
+            let(:created_at) { Time.zone.parse '2021-08-01 15:44:03 +0300' }
+            it { is_expected.to eq text }
+          end
+
+          context 'in event time' do
+            let(:created_at) { Time.zone.parse '2021-08-02 15:44:03 +0300' }
+            it do
+              is_expected.to eq(
+                <<~HTML.squish
+                  zxc <a class="b-link"
+                  href=\"#{ERB::Util.h described_class::EVENT_URL}" target="_blank">меха</a>
+                  qwe
+                HTML
+              )
+            end
+
+            context 'not matched' do
+              let(:text) { ['zxcмеха qwe', 'zxc мехаqwe', '[zzz]меха', 'меха[zzz]'].sample }
+              it { is_expected.to eq text }
+            end
+          end
+
+          context 'after event time' do
+            let(:created_at) { Time.zone.parse '2021-08-01 15:44:03 +0300' }
+            it { is_expected.to eq text }
+          end
+        end
       end
     end
   end

@@ -1,5 +1,5 @@
 class BbCodes::Text # rubocop:disable ClassLength
-  method_object :text
+  method_object :text, %i[object]
 
   # TODO: cleanup
   # delete CommentHelper
@@ -78,6 +78,16 @@ class BbCodes::Text # rubocop:disable ClassLength
   SEQUENTIAL_BR_GLOBAL_MATCH_REGEXP = /(?:<br(?: data-keep)?>){2,99}/
   SEQUENTIAL_BR_REPLACEMENT_REGEXP = /<br( data-keep|)>/
 
+  EVENT_START_TIME = Time.zone.parse '2021-08-02 00:00:00 +0300'
+  EVENT_END_TIME = Time.zone.parse '2021-09-01 00:00:00 +0300'
+  EVENT_REGEXP = /
+    #{BbCodes::Tags::UrlTag::BEFORE_URL.source}
+    (меха|киберпанк)
+    #{BbCodes::Tags::UrlTag::AFTER_URL.source}
+  /x
+  EVENT_URL = 'https://www8.hp.com/ru/ru/gaming/omen/15-laptop-intel.html?jumpid=ba_04ce0c8043&utm_source=Shikimori&utm_medium=other&utm_campaign=RU_Q3_FY21_PS_CPS_CPS%20Gaming_CPS%20Gaming_OMG_Regional__Gaming____&utm_content=sp'
+  EVENT_REPLACEMENT = "<a class='b-link' href='#{ERB::Util.h EVENT_URL}' target='_blank'>\\1</a>"
+
   default_url_options[:protocol] = Shikimori::PROTOCOL
   default_url_options[:host] ||=
     if Rails.env.development?
@@ -93,6 +103,7 @@ class BbCodes::Text # rubocop:disable ClassLength
     text = remove_spam text
 
     text = String.new ERB::Util.h(text)
+    text = highlight_event text if @object
     text = bb_codes text
 
     BbCodes::CleanupHtml.call text
@@ -165,5 +176,16 @@ private
     text.gsub(SEQUENTIAL_BR_GLOBAL_MATCH_REGEXP) do |match|
       match.gsub(SEQUENTIAL_BR_REPLACEMENT_REGEXP, '<br class="br"\1>')
     end
+  end
+
+  def highlight_event text
+    now = Time.zone.now
+    unless object.new_record? ||
+        (object.created_at >= EVENT_START_TIME && object.created_at <= EVENT_END_TIME)
+      return text
+    end
+    return text unless now >= EVENT_START_TIME && now <= EVENT_END_TIME
+
+    text.gsub EVENT_REGEXP, EVENT_REPLACEMENT
   end
 end

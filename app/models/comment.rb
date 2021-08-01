@@ -196,7 +196,7 @@ class Comment < ApplicationRecord
         body
       end
 
-    BbCodes::Text.call fixed_body
+    BbCodes::Text.call fixed_body, object: self
   end
 
   def mark_offtopic flag
