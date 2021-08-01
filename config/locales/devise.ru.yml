@@ -63,8 +63,8 @@ ru:
       already_confirmed: "уже подтверждена. Пожалуйста, попробуй войти на сайт"
       confirmation_period_expired: "должен быть подтверждён в течении %{period}, запроси подтверждение ещё раз"
       expired: "устарела. Запроси новую"
-      not_found: "не найдена"
-      not_locked: "не заблокирована"
+      not_found: "не найден"
+      not_locked: "не заблокирован"
       not_saved:
         one: "%{resource}: сохранение не удалось из-за %{count} ошибки"
         few: "%{resource}: сохранение не удалось из-за %{count} ошибок"
