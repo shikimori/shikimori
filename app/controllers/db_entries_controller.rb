@@ -136,7 +136,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
     )
   end
 
-  def merge_as_episode
+  def merge_as_episode # rubocop:disable AbcSize
     authorize! :merge, resource_klass
 
     DbEntries::MergeAsEpisode.perform_in(
@@ -145,6 +145,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
       @resource.id,
       params[:target_id].to_i,
       params[:episode].to_i,
+      params[:episode_field],
       current_user.id
     )
 

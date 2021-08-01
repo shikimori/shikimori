@@ -4,24 +4,18 @@ describe DbEntry::MergeAsEpisode do
   let(:entry_1) do
     create type, :with_topics,
       russian: 'zxc',
-      synonyms: %w[synonym_1 synonym_3]
+      synonyms: %w[synonym_1 synonym_3],
+      episode_field => entry_1_episodes
   end
+  let(:entry_1_episodes) { 3 }
   let(:entry_2) do
     create type,
       russian: '',
-      synonyms: %w[synonym_2]
+      synonyms: %w[synonym_2],
+      episode_field => entry_2_episodes
   end
+  let(:entry_2_episodes) { 6 }
   let(:entry_3) { create type }
-
-  let!(:user_1_rate_1) do
-    create :user_rate, user_1_rate_1_status, target: entry_1, user: user_1
-  end
-  let(:user_1_rate_1_status) { :planned }
-  let!(:user_1_rate_2) do
-    create :user_rate, user_1_rate_2_status, target: entry_2, user: user_1
-  end
-  let(:user_1_rate_2_status) { :planned }
-  let!(:user_2_rate_1) { create :user_rate, target: entry_1, user: user_2 }
 
   let!(:user_1_rate_log_1) { create :user_rate_log, target: entry_1, user: user_1 }
   let!(:user_1_rate_log_2) { create :user_rate_log, target: entry_2, user: user_1 }
@@ -88,8 +82,19 @@ describe DbEntry::MergeAsEpisode do
   let!(:external_link_1_2) { create :external_link, entry: entry_1, url: 'http://b.com' }
   let!(:external_link_2_1) { create :external_link, entry: entry_2, url: 'http://a.com' }
 
-  subject! { described_class.call entry: entry_1, other: entry_2, episode: episode }
+  let!(:user_rate_1) { nil }
+  let!(:user_rate_2) { nil }
+
+  subject! do
+    described_class.call(
+      entry: entry_1,
+      other: entry_2,
+      episode: episode,
+      episode_field: episode_field
+    )
+  end
   let(:episode) { 3 }
+  let(:episode_field) { type == :anime ? :episodes : :volumes }
 
   it do
     expect(entry_2.russian).to eq entry_1.russian
@@ -97,15 +102,12 @@ describe DbEntry::MergeAsEpisode do
 
     expect { entry_1.reload }.to raise_error ActiveRecord::RecordNotFound
 
-    expect { user_1_rate_1.reload }.to raise_error ActiveRecord::RecordNotFound
     expect { user_1_rate_log_1.reload }.to raise_error ActiveRecord::RecordNotFound
     expect { user_1_history_1.reload }.to raise_error ActiveRecord::RecordNotFound
 
-    expect(user_1_rate_2.reload).to be_persisted
     expect(user_1_rate_log_2.reload).to be_persisted
     expect(user_1_history_2.reload).to be_persisted
 
-    expect { user_2_rate_1.reload }.to raise_error ActiveRecord::RecordNotFound
     expect { user_2_rate_log_1.reload }.to raise_error ActiveRecord::RecordNotFound
     expect { user_2_history_1.reload }.to raise_error ActiveRecord::RecordNotFound
 
@@ -139,7 +141,53 @@ describe DbEntry::MergeAsEpisode do
     expect(external_link_1_2.reload.entry).to eq entry_2
   end
 
-  # describe 'user_rate' do
+  describe 'user_rate', :focus do
+    let!(:user_rate_1) do
+      create :user_rate,
+        target: entry_1,
+        user: user_1,
+        status: user_rate_1_status,
+        episode_field => user_rate_1_episodes
+    end
+    let(:user_rate_1_status) { 'watching' }
+    let(:user_rate_1_episodes) { 3 }
+
+    let!(:user_rate_2) do
+      create :user_rate,
+        target: entry_2,
+        user: user_1,
+        status: user_rate_2_status,
+        episode_field => user_rate_2_episodes
+    end
+    let(:user_rate_2_status) { 'watching' }
+    let(:user_rate_2_episodes) { 6 }
+
+    context 'planned -> *' do
+      let(:user_rate_1_status) { 'planned' }
+
+      it 'ignored', :focus do
+        expect { user_rate_1.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(user_rate_2.reload).to have_attributes(
+          status: user_rate_2_status,
+          episode_field => user_rate_2_episodes
+        )
+      end
+    end
+
+    context 'episode -> greater amount of episodes_watched' do
+      let(:user_rate_1_episodes) { 2 }
+      let(:episode) { 2 }
+      let(:user_rate_2_episodes) { 4 }
+
+      it 'ignored' do
+        expect { user_rate_1.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(user_rate_2.reload).to have_attributes(
+          status: user_rate_2_status,
+          episode_field => user_rate_2_episodes
+        )
+      end
+    end
+
   #   context 'entry_1 is completed' do
   #     let(:user_1_rate_1_status) { :completed }
   #
@@ -179,5 +227,5 @@ describe DbEntry::MergeAsEpisode do
   #       end
   #     end
   #   end
-  # end
+  end
 end

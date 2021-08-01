@@ -1,12 +1,13 @@
 class DbEntry::MergeAsEpisode < DbEntry::MergeIntoOther
-  method_object %i[entry! other! episode!]
+  method_object %i[entry! other! episode! episode_field!]
 
 private
 
   def merge_user_rates
     other_rates = @other.rates.to_a
 
-    @entry.rates.each do |_user_rate|
+    @entry.rates.each do |user_rate|
+      next if user_rate.planned?
     #   user_id = user_rate.user_id
     #
     #   if user_rate.completed?

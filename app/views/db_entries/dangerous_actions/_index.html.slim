@@ -85,12 +85,14 @@
                   - if resource.kinda_manga?
                     .b-input
                       label Тип эпизода
-                      select name='episodes_type'
+                      select name='episode_field'
                         option[
                           selected
                           value='chapters'
                         ] Глава
-                        option value='volumes' Том
+                        option value='episode_field' Том
+                  - else
+                    input type='hidden' name='episode_type' value='episodes'
                   = render 'db_entries/dangerous_actions/warning_mal_presence', resource: resource
                   input.b-button[
                     type='submit'
