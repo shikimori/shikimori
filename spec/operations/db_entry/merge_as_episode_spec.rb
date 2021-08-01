@@ -14,7 +14,7 @@ describe DbEntry::MergeAsEpisode do
       synonyms: %w[synonym_2],
       episode_field => entry_2_episodes
   end
-  let(:entry_2_episodes) { 6 }
+  let(:entry_2_episodes) { 5 }
   let(:entry_3) { create type }
 
   let!(:user_1_rate_log_1) { create :user_rate_log, target: entry_1, user: user_1 }
@@ -150,7 +150,7 @@ describe DbEntry::MergeAsEpisode do
         episode_field => user_rate_1_episodes
     end
     let(:user_rate_1_status) { 'watching' }
-    let(:user_rate_1_episodes) { 3 }
+    let(:user_rate_1_episodes) { 2 }
 
     let!(:user_rate_2) do
       create :user_rate,
@@ -160,7 +160,7 @@ describe DbEntry::MergeAsEpisode do
         episode_field => user_rate_2_episodes
     end
     let(:user_rate_2_status) { 'watching' }
-    let(:user_rate_2_episodes) { 6 }
+    let(:user_rate_2_episodes) { 3 }
 
     context 'planned -> *' do
       let(:user_rate_1_status) { 'planned' }
@@ -174,12 +174,12 @@ describe DbEntry::MergeAsEpisode do
       end
     end
 
-    context 'episode -> greater amount of episodes_watched' do
+    context 'rate_2 episodes >= entry episodes + rate_1 episodes' do
       let(:user_rate_1_episodes) { 2 }
       let(:episode) { 2 }
       let(:user_rate_2_episodes) { 4 }
 
-      it 'ignored' do
+      it do
         expect { user_rate_1.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(user_rate_2.reload).to have_attributes(
           status: user_rate_2_status,
@@ -188,44 +188,39 @@ describe DbEntry::MergeAsEpisode do
       end
     end
 
-  #   context 'entry_1 is completed' do
-  #     let(:user_1_rate_1_status) { :completed }
-  #
-  #     it do
-  #       expect(user_1_rate_1.reload.target).to eq entry_2
-  #       expect(user_1_rate_log_1.reload.target).to eq entry_2
-  #       expect(user_1_history_1.reload.target).to eq entry_2
-  #
-  #       expect { user_1_rate_2.reload }.to raise_error ActiveRecord::RecordNotFound
-  #       expect { user_1_rate_log_2.reload }.to raise_error ActiveRecord::RecordNotFound
-  #       expect { user_1_history_2.reload }.to raise_error ActiveRecord::RecordNotFound
-  #     end
-  #
-  #     context 'no entry_2 rate' do
-  #       let!(:user_1_rate_2) {}
-  #       let!(:user_1_rate_log_2) {}
-  #       let!(:user_1_history_2) {}
-  #
-  #       it do
-  #         expect(user_1_rate_1.reload.target).to eq entry_2
-  #         expect(user_1_rate_log_1.reload.target).to eq entry_2
-  #         expect(user_1_history_1.reload.target).to eq entry_2
-  #       end
-  #     end
-  #
-  #     context 'entry_2 is completed' do
-  #       let(:user_1_rate_2_status) { :completed }
-  #
-  #       it do
-  #         expect { user_1_rate_1.reload }.to raise_error ActiveRecord::RecordNotFound
-  #         expect { user_1_rate_log_1.reload }.to raise_error ActiveRecord::RecordNotFound
-  #         expect { user_1_history_1.reload }.to raise_error ActiveRecord::RecordNotFound
-  #
-  #         expect(user_1_rate_2.reload).to be_persisted
-  #         expect(user_1_rate_log_2.reload).to be_persisted
-  #         expect(user_1_history_2.reload).to be_persisted
-  #       end
-  #     end
-  #   end
+    context 'rate_2 episodes < entry episodes + rate_1 episodes' do
+      context '-> completed' do
+        it do
+          expect(user_rate_2.reload).to have_attributes(
+            status: 'complated',
+            episode_field => 6
+          )
+        end
+      end
+
+      context '-> not completed' do
+        context 'full apply' do
+          let(:entry_2_episodes) { 7 }
+
+          it do
+            expect(user_rate_2.reload).to have_attributes(
+              status: 'watching',
+              episode_field => 6
+            )
+          end
+        end
+
+        context 'partial apply' do
+          let(:user_rate_2_episodes) { 5 }
+
+          it do
+            expect(user_rate_2.reload).to have_attributes(
+              status: 'watching',
+              episode_field => 6
+            )
+          end
+        end
+      end
+    end
   end
 end
