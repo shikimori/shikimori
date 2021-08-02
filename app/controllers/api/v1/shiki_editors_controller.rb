@@ -71,10 +71,11 @@ class Api::V1::ShikiEditorsController < Api::V1Controller # rubocop:disable Clas
         BbCodes::EntryText.call(
           censored_text,
           entry: params[:target_type].constantize.find_by(id: params[:target_id]),
-          lang: params[:lang]
+          lang: params[:lang],
+          is_event: true
         )
       else
-        BbCodes::Text.call censored_text
+        BbCodes::Text.call censored_text, is_event: true
       end
 
     render json: {

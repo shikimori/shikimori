@@ -1,12 +1,12 @@
 class BbCodes::EntryText
-  method_object :text, %i[entry lang]
+  method_object :text, %i[entry lang is_event]
 
   def call
     text = @entry ?
       remove_wiki_codes(character_names(prepare(@text), @entry)) :
       @text
 
-    html = BbCodes::Text.call text
+    html = BbCodes::Text.call text, is_event: @is_event
     html = finalize_names html if @lang
 
     <<-HTML.strip.html_safe

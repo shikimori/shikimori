@@ -1,5 +1,5 @@
 class BbCodes::Text # rubocop:disable ClassLength
-  method_object :text, %i[object]
+  method_object :text, %i[object is_event]
 
   # TODO: cleanup
   # delete CommentHelper
@@ -103,7 +103,7 @@ class BbCodes::Text # rubocop:disable ClassLength
     text = remove_spam text
 
     text = String.new ERB::Util.h(text)
-    text = highlight_event text if @object
+    text = highlight_event text if @object || @is_event
     text = bb_codes text
 
     BbCodes::CleanupHtml.call text
@@ -180,8 +180,8 @@ private
 
   def highlight_event text
     now = Time.zone.now
-    unless object.new_record? ||
-        (object.created_at >= EVENT_START_TIME && object.created_at <= EVENT_END_TIME)
+    unless !@object || @object.new_record? ||
+        (@object.created_at >= EVENT_START_TIME && @object.created_at <= EVENT_END_TIME)
       return text
     end
     return text unless now >= EVENT_START_TIME && now <= EVENT_END_TIME
