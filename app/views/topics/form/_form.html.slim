@@ -4,7 +4,7 @@
 - is_edit_type = topic.persisted? && can?(:manage, Topic) && !topic_type_policy.any_club_topic?
 - is_show_broadcast = can?(:broadcast, topic) && !topic_type_policy.any_club_topic?
 - is_show_closed = topic.persisted? && can?(:close, topic) && !topic_type_policy.any_club_topic?
-- is_show_pinned = topic.persisted? && can?(:promote, topic) && !topic_type_policy.any_club_topic?
+- is_show_pinned = can?(:promote, topic) && !topic_type_policy.any_club_topic?
 - is_forum_id_hidden = topic_type_policy.any_club_topic? || (topic_type_policy.news_topic? && topic.new_record?)
 - is_show_forum = !topic_type_policy.any_club_topic? && ((!is_forum_id_hidden && !topic_type_policy.news_topic?) || (topic.persisted? && can?(:manage, Topic)))
 
