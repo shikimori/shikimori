@@ -84,7 +84,7 @@ class BbCodes::Text # rubocop:disable ClassLength
     #{BbCodes::Tags::UrlTag::BEFORE_URL.source}
     (меха|киберпанк)
     #{BbCodes::Tags::UrlTag::AFTER_URL.source}
-  /x
+  /xi
   EVENT_URL = 'https://www8.hp.com/ru/ru/gaming/omen/15-laptop-intel.html?jumpid=ba_04ce0c8043&utm_source=Shikimori&utm_medium=other&utm_campaign=RU_Q3_FY21_PS_CPS_CPS%20Gaming_CPS%20Gaming_OMG_Regional__Gaming____&utm_content=sp'
   EVENT_REPLACEMENT = "<a class='b-link' href='#{ERB::Util.h EVENT_URL}' target='_blank'>\\1</a>"
 
