@@ -27,6 +27,13 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
 
   CACHE_VERSION = DashboardView::CACHE_VERSION
 
+  TOPICS_EXCEPT_EXCLUDED_SQL = <<~SQL.squish
+    not (
+      topics.linked_type = 'Anime'
+        and topics.linked_id in (#{IGNORE_ONGOING_IDS.join ','})
+    )
+  SQL
+
   def ongoings
     all_ongoings.shuffle.take(ONGOINGS_TAKE).sort_by(&:ranked)
   end
@@ -235,6 +242,7 @@ private
     Topics::Query
       .fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
+      .where(TOPICS_EXCEPT_EXCLUDED_SQL)
   end
 
   def reviews_forum

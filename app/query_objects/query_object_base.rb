@@ -74,7 +74,7 @@ class QueryObjectBase
     super(*args) || @scope.send(:respond_to_missing?, *args)
   end
 
-  def method_missing method, *args, &block # rubocop:disable MethodMissingSuper
+  def method_missing method, *args, &block
     @scope.send method, *args, &block
   end
 

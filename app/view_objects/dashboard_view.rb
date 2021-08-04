@@ -1,5 +1,5 @@
 class DashboardView < ViewObjectBase # rubocop:disable ClassLength
-  CACHE_VERSION = :v5
+  CACHE_VERSION = :v6
 
   ONGOINGS_FETCH = 24
   ONGOINGS_TAKE = 8
@@ -35,7 +35,9 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
     38_008,
     38_427,
     39_003,
-    40_368
+    40_368,
+    48_753,
+    49_520
   ]
 
   instance_cache :ongoings, :favourites, :reviews, :contests, :forums,
