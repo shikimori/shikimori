@@ -46,12 +46,17 @@
     = info_line i18n_io('Genre', entry.genres.one? ? :one : :few) do
       = render 'animes/genres_info', entry: entry
 
-  - if entry.rating.present? && !entry.rating_none?
+  - if (entry.rating.present? && !entry.rating_none?) || entry.censored_in_russia?
     = info_line Anime.human_attribute_name(:rating) do
-      span.b-tooltipped.dotted.mobile.unprocessed[
-        title=t("enumerize.anime.rating.hint.#{entry.rating}")
-        data-direction='right'
-      ] = entry.rating_text
+      - if entry.rating.present? && !entry.rating_none?
+        span.b-tooltipped.dotted.mobile.unprocessed[
+          title=t("enumerize.anime.rating.hint.#{entry.rating}")
+          data-direction='right'
+        ] = entry.rating_text
+
+      - if entry.censored_in_russia?
+        span
+          | . В РФ только по достижению 18 лет.
 
   - if entry.licensors.any?
     = info_line Anime.human_attribute_name(:licensors), entry.licensors.join(', ')

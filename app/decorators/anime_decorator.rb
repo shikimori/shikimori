@@ -100,6 +100,10 @@ class AnimeDecorator < AniMangaDecorator
       anime_calendars.where(episode: [episodes_aired + 1, episodes_aired + 2]).to_a
   end
 
+  def censored_in_russia?
+    Copyright::CENSORED_IN_RUSSIA_ANIME_IDS.include? object.id
+  end
+
 private
 
   def next_broadcast_at

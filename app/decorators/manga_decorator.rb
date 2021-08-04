@@ -1,4 +1,8 @@
 class MangaDecorator < AniMangaDecorator
+  def censored_in_russia?
+    false
+  end
+
   def news_topic_views
     []
   end
