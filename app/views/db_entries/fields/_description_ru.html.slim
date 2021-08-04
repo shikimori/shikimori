@@ -1,7 +1,7 @@
 / - is_overload = Rails.cache.fetch(:texts_versions_count, expires_in: 1.hour) { ModerationPolicy.new(nil, nil, nil).texts_versions_count > 200 }
 
 / - if current_user&.staff? || !is_overload
-p.warning Перед внесением изменений обязательно ознакомься с <a href="http://#{Shikimori::DOMAIN}/clubs/2-Perevody">правилами</a>.
+p.warning Перед внесением изменений обязательно ознакомься с <a href="https://#{Shikimori::DOMAIN}/clubs/2052-moderatsiya-kontenta">правилами</a>.
 
 = simple_form_for resource.object do |f|
   = f.input :description_ru, as: :hidden
