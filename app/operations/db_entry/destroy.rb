@@ -9,7 +9,7 @@ class DbEntry::Destroy
       user_rate_logs.delete_all
       user_history.delete_all
 
-      User.where(id: user_ids).update_all updated_at: Time.zone.now
+      User.where(id: user_ids).update_all rate_at: Time.zone.now
 
       @entry.destroy!
     end
