@@ -9,11 +9,23 @@ private
   def merge_user_rates
     other_rates = @other.rates.to_a
 
-    @entry.rates.each do |user_rate|
-      next if user_rate.planned?
-    #   user_id = user_rate.user_id
+    @entry.rates.each do |entry_rate|
+      next if entry_rate.send(@episode_field).zero?
+
+      user_id = entry_rate.user_id
+
+      other_rate = other_rates.find { |v| v.user_id == user_id }
+      new_value = @episode + entry_rate.send(@episode_field) - 1
+
+      if other_rate
+      else
+        create_rate entry_rate, new_value
+        # entry_rate.update! target: @other, @episode_field => new_value
+      end
+      # next if other_rate.
+    #   user_id = entry_rate.user_id
     #
-    #   if user_rate.completed?
+    #   if entry_rate.completed?
     #     other_rate = other_rates.find { |v| v.user_id == user_id }
     #
     #     if other_rate
@@ -23,7 +35,7 @@ private
     #     end
     #   end
     #
-    #   user_rate.update! target: @other
+    #   entry_rate.update! target: @other
     #
     #   update_user_rate_logs user_id
     #   update_user_history user_id
@@ -45,5 +57,23 @@ private
 
   def delete_user_histories
     UserHistory.where(target: @entry).delete_all
+  end
+
+  def create_rate entry_rate, new_value
+    other_new_status =
+      case Types::UserRate::Status[entry_rate.status]
+        when Types::UserRate::Status[:on_hold] then Types::UserRate::Status[:on_hold]
+        when Types::UserRate::Status[:dropped] then Types::UserRate::Status[:dropped]
+        else Types::UserRate::Status[:watching]
+      end
+
+    UserRate.create!(
+      user_id: entry_rate.user_id,
+      target: @other,
+      @episode_field => new_value,
+      status: new_value == @other.send(@episode_field) ?
+        Types::UserRate::Status[:completed] :
+        other_new_status
+    )
   end
 end

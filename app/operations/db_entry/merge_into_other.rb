@@ -59,6 +59,8 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
 
       DbEntry::Destroy.call @entry.class.find(@entry.id)
     end
+
+    true
   end
 
 private
@@ -85,10 +87,10 @@ private
 
     other_rates = @other.rates.to_a
 
-    @entry.rates.each do |user_rate|
-      user_id = user_rate.user_id
+    @entry.rates.each do |entry_rate|
+      user_id = entry_rate.user_id
 
-      if user_rate.completed?
+      if entry_rate.completed?
         other_rate = other_rates.find { |v| v.user_id == user_id }
 
         if other_rate
@@ -98,7 +100,7 @@ private
         end
       end
 
-      user_rate.update! target: @other
+      entry_rate.update! target: @other
 
       update_user_rate_logs user_id
       update_user_history user_id

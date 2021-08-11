@@ -88,9 +88,11 @@ describe DbEntry::MergeIntoOther do
   let!(:external_link_1_2) { create :external_link, entry: entry_1, url: 'http://b.com' }
   let!(:external_link_2_1) { create :external_link, entry: entry_2, url: 'http://a.com' }
 
-  subject! { described_class.call entry: entry_1, other: entry_2 }
+  subject { described_class.call entry: entry_1, other: entry_2 }
 
   it do
+    is_expected.to eq true
+
     expect(entry_2.russian).to eq entry_1.russian
     expect(entry_2.synonyms).to eq %w[synonym_1 synonym_2 synonym_3]
 
@@ -143,6 +145,8 @@ describe DbEntry::MergeIntoOther do
       let(:user_1_rate_1_status) { :completed }
 
       it do
+        is_expected.to eq true
+
         expect(user_1_rate_1.reload.target).to eq entry_2
         expect(user_1_rate_log_1.reload.target).to eq entry_2
         expect(user_1_history_1.reload.target).to eq entry_2
@@ -158,6 +162,8 @@ describe DbEntry::MergeIntoOther do
         let!(:user_1_history_2) { nil }
 
         it do
+          is_expected.to eq true
+
           expect(user_1_rate_1.reload.target).to eq entry_2
           expect(user_1_rate_log_1.reload.target).to eq entry_2
           expect(user_1_history_1.reload.target).to eq entry_2
@@ -168,6 +174,8 @@ describe DbEntry::MergeIntoOther do
         let(:user_1_rate_2_status) { :completed }
 
         it do
+          is_expected.to eq true
+
           expect { user_1_rate_1.reload }.to raise_error ActiveRecord::RecordNotFound
           expect { user_1_rate_log_1.reload }.to raise_error ActiveRecord::RecordNotFound
           expect { user_1_history_1.reload }.to raise_error ActiveRecord::RecordNotFound

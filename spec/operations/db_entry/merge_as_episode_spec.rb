@@ -85,7 +85,7 @@ describe DbEntry::MergeAsEpisode do
   let!(:user_rate_1) { nil }
   let!(:user_rate_2) { nil }
 
-  subject! do
+  subject do
     described_class.call(
       entry: entry_1,
       other: entry_2,
@@ -97,6 +97,8 @@ describe DbEntry::MergeAsEpisode do
   let(:episode_field) { type == :anime ? :episodes : :volumes }
 
   it do
+    is_expected.to eq true
+
     expect(entry_2.russian).to eq ''
     expect(entry_2.synonyms).to eq %w[synonym_2]
 
@@ -141,7 +143,7 @@ describe DbEntry::MergeAsEpisode do
     expect(external_link_1_2.reload.entry).to eq entry_2
   end
 
-  describe 'user_rate', :focus do
+  describe 'user_rate' do
     let!(:user_rate_1) do
       create :user_rate,
         target: entry_1,
@@ -166,11 +168,48 @@ describe DbEntry::MergeAsEpisode do
       let(:user_rate_1_status) { 'planned' }
 
       it 'ignored' do
+        is_expected.to eq true
+
         expect { user_rate_1.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(user_rate_2.reload).to have_attributes(
           status: user_rate_2_status,
           episode_field => user_rate_2_episodes
         )
+      end
+    end
+
+    context 'completed/watching -> nil', :focus do
+      let!(:user_rate_2) { nil }
+
+      %w[watching on_hold dropped].each do |status|
+        context status do
+          let(:user_rate_1_status) { status }
+          let(:final_episodes_num) { 4 }
+          it do
+            expect { subject }.to_not change UserRate, :count
+            expect { user_rate_1.reload }.to raise_error ActiveRecord::RecordNotFound
+            expect(final_episodes_num).to eq 4
+            expect(final_episodes_num).to eq episode + user_rate_1.send(episode_field) - 1
+            expect(UserRate.order(id: :desc).first).to have_attributes(
+              status: status,
+              episode_field => final_episodes_num
+            )
+          end
+        end
+      end
+
+      %w[planned completed].each do |status|
+        context status do
+          let(:user_rate_1_status) { 'watching' }
+          it do
+            expect { subject }.to_not change UserRate, :count
+            expect { user_rate_1.reload }.to raise_error ActiveRecord::RecordNotFound
+            expect(UserRate.order(id: :desc).first).to have_attributes(
+              status: 'watching',
+              episode_field => 4
+            )
+          end
+        end
       end
     end
 
