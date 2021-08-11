@@ -64,7 +64,7 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
 private
 
   def assign_fields
-    ASSIGN_FIELDS.each do |field|
+    self.class::ASSIGN_FIELDS.each do |field|
       next unless @entry.respond_to?(field) && @other.respond_to?(field)
       next unless @other.send(field).blank? && @entry.send(field).present?
 
@@ -73,7 +73,7 @@ private
   end
 
   def merge_fields
-    MERGE_FIELDS.each do |field|
+    self.class::MERGE_FIELDS.each do |field|
       next unless @entry.respond_to?(field) && @other.respond_to?(field)
 
       @other.assign_attributes field => (@other.send(field) + @entry.send(field)).sort.uniq

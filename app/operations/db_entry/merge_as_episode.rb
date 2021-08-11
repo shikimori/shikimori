@@ -1,6 +1,9 @@
 class DbEntry::MergeAsEpisode < DbEntry::MergeIntoOther
   method_object %i[entry! other! episode! episode_field!]
 
+  ASSIGN_FIELDS = []
+  MERGE_FIELDS = []
+
 private
 
   def merge_user_rates

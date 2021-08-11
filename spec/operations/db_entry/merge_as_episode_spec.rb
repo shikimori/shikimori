@@ -97,8 +97,8 @@ describe DbEntry::MergeAsEpisode do
   let(:episode_field) { type == :anime ? :episodes : :volumes }
 
   it do
-    expect(entry_2.russian).to eq entry_1.russian
-    expect(entry_2.synonyms).to eq %w[synonym_1 synonym_2 synonym_3]
+    expect(entry_2.russian).to eq ''
+    expect(entry_2.synonyms).to eq %w[synonym_2]
 
     expect { entry_1.reload }.to raise_error ActiveRecord::RecordNotFound
 
@@ -165,7 +165,7 @@ describe DbEntry::MergeAsEpisode do
     context 'planned -> *' do
       let(:user_rate_1_status) { 'planned' }
 
-      it 'ignored', :focus do
+      it 'ignored' do
         expect { user_rate_1.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(user_rate_2.reload).to have_attributes(
           status: user_rate_2_status,
