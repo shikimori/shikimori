@@ -6,9 +6,9 @@ class DbEntries::MergeAsEpisode
   AnimeEpisodeField = Types::Coercible::Symbol.enum(:episodes)
   MangaEpisodeField = Types::Coercible::Symbol.enum(:volumes, :chapeters)
 
-  def perform type, from_id, to_id, episode, episode_field, user_id # rubocop:disable ParameterLists
+  def perform type, from_id, to_id, as_episode, episode_field, user_id # rubocop:disable ParameterLists
     NamedLogger.merge_as_episode.info(
-      "#{type}##{from_id} -> #{type}#{to_id} Episode##{episode} " \
+      "#{type}##{from_id} -> #{type}#{to_id} AsEpisode##{as_episode} " \
         "EpisodeField##{episode_field} User##{user_id}"
     )
 
@@ -17,7 +17,7 @@ class DbEntries::MergeAsEpisode
     DbEntry::MergeAsEpisode.call(
       entry: klass.find(from_id),
       other: klass.find(to_id),
-      episode: episode,
+      as_episode: as_episode,
       episode_field: self.class.const_get("#{klass.name}EpisodeField")[episode_field]
     )
   rescue ActiveRecord::RecordNotFound

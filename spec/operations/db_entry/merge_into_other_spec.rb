@@ -2,14 +2,26 @@ describe DbEntry::MergeIntoOther do
   let(:type) { %i[anime manga ranobe].sample }
 
   let(:entry) do
-    create type, :with_topics,
+    create type, :with_topics, {
+      **(type == :anime ? {
+        fansubbers: %w[fansubber_1 fansubber_3],
+        fandubbers: %w[fandubber_1 fandubber_3],
+        coub_tags: %w[coub_tag_1 coub_tag_3]
+      } : {}),
       russian: 'zxc',
       synonyms: %w[synonym_1 synonym_3]
+    }
   end
   let(:other) do
-    create type,
+    create type, {
+      **(type == :anime ? {
+        fansubbers: %w[fansubber_2],
+        fandubbers: %w[fandubber_2],
+        coub_tags: %w[coub_tag_2]
+      } : {}),
       russian: '',
       synonyms: %w[synonym_2]
+    }
   end
   let(:entry_3) { create type }
 
@@ -95,6 +107,11 @@ describe DbEntry::MergeIntoOther do
 
     expect(other.russian).to eq entry.russian
     expect(other.synonyms).to eq %w[synonym_1 synonym_2 synonym_3]
+    if type == :anime
+      expect(other.fansubbers).to eq %w[fansubber_1 fansubber_2 fansubber_3]
+      expect(other.fandubbers).to eq %w[fandubber_1 fandubber_2 fandubber_3]
+      expect(other.coub_tags).to eq %w[coub_tag_1 coub_tag_2 coub_tag_3]
+    end
 
     expect { entry.reload }.to raise_error ActiveRecord::RecordNotFound
 
