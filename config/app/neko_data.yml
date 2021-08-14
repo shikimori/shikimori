@@ -15071,7 +15071,7 @@
         - 664
         - 7902
         - 10842
-      :threshold: 97.3%
+      :threshold: 97.2%
       :generator:
         not_ignored_ids:
         - 908
@@ -16575,7 +16575,7 @@
         - 39607
         - 45753
         - 49318
-      :threshold: 100%
+      :threshold: 99%
       :generator:
         threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -16611,6 +16611,8 @@
         - 45753
         - 49318
       :threshold: 0.01
+      :generator:
+        threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :tensei_shitara_slime_datta_ken
@@ -17576,7 +17578,7 @@
         - 38419
         - 40181
         - 46171
-      :threshold: 95.6%
+      :threshold: 95.5%
       :generator:
         ignore_latest_ids:
         - 38234
@@ -21992,7 +21994,6 @@
         - 42380
         - 42432
         - 42439
-        - 43204
       :threshold: 87.2%
       :generator:
         ignore_latest_ids:
@@ -22080,7 +22081,6 @@
         - 42380
         - 42432
         - 42439
-        - 43204
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -29057,7 +29057,7 @@
       :algo: duration
       :filters:
         franchise: wan_jie_xian_zong
-      :threshold: 100%
+      :threshold: 99%
       :generator:
         threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -29089,6 +29089,8 @@
       :filters:
         franchise: wan_jie_xian_zong
       :threshold: 0.01
+      :generator:
+        threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :wan_jie_xian_zong
