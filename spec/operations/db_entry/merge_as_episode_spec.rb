@@ -287,6 +287,67 @@ describe DbEntry::MergeAsEpisode do
           end
         end
       end
+
+      [0, 1].each do |i|
+        context "entry.episodes = #{i}" do
+          let(:entry_episodes) { i }
+
+          context 'other.episodes = 6' do
+            let(:other_episodes) { 6 }
+
+            context 'user_rate_entry.episodes = 1' do
+              let(:user_rate_entry_episodes) { 1 }
+
+              context 'user_rate_other.episodes <= 4' do
+                let(:user_rate_other_episodes) { [1, 2, 3, 4].sample } # rubocop:disable CollectionLiteralInLoop
+
+                it '-> watching' do
+                  is_expected.to eq true
+                  expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+                  expect(user_rate_other.reload).to have_attributes(
+                    episode_field => 4,
+                    status: 'watching'
+                  )
+                end
+              end
+            end
+
+            context 'user_rate_entry.episodes = 0' do
+              let(:user_rate_entry_episodes) { 0 }
+
+              context 'user_rate_other.episodes <= 4' do
+                let(:user_rate_other_episodes) { [1, 2, 3, 4].sample } # rubocop:disable CollectionLiteralInLoop
+
+                it '-> watching' do
+                  is_expected.to eq true
+                  expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+                  expect(user_rate_other.reload).to have_attributes(
+                    episode_field => user_rate_other_episodes,
+                    status: 'watching'
+                  )
+                end
+              end
+            end
+
+            # context 'user_rate_entry.episodes = 0' do
+            #   let(:user_rate_entry_episodes) { 0 }
+            #
+            #   context 'user_rate_other.episodes = any' do
+            #     let(:user_rate_other_episodes) { [1, 2, 3, 4, 5, 6].sample }
+            #
+            #     it '-> watching' do
+            #       is_expected.to eq true
+            #       expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+            #       expect(user_rate_other.reload).to have_attributes(
+            #         episode_field => 5,
+            #         status: 'watching'
+            #       )
+            #     end
+            #   end
+            # end
+          end
+        end
+      end
     end
   end
 end
