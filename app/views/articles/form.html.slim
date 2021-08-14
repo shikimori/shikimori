@@ -23,7 +23,8 @@ header.head.misc
             as: :string
           #vue_tags_input[
             data-value=f.object.tags
-            data-autocomplete_basic=Articles::TagsQuery.call
+            data-autocomplete_basic=(can?(:promote, Topic) ? Topics::TagsQuery::BASIC_TAGS_WITH_PROMO : Topics::TagsQuery::BASIC_TAGS)
+            data-autocomplete_other=Topics::TagsQuery.call
           ]
         .f-column
           = render 'topics/form/video', topic: @resource, f: f
