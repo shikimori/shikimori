@@ -4,7 +4,7 @@ class DbEntries::MergeAsEpisode
 
   Type = Types::Coercible::String.enum(Anime.name, Manga.name)
   AnimeEpisodeField = Types::Coercible::Symbol.enum(:episodes)
-  MangaEpisodeField = Types::Coercible::Symbol.enum(:volumes, :chapeters)
+  MangaEpisodeField = Types::Coercible::Symbol.enum(:volumes, :chapters)
 
   def perform type, from_id, to_id, as_episode, episode_field, user_id # rubocop:disable ParameterLists
     NamedLogger.merge_as_episode.info(

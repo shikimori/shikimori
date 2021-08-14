@@ -309,6 +309,28 @@ describe DbEntry::MergeAsEpisode do
                     status: 'watching'
                   )
                 end
+
+                context 'mismatched one_shot episode_field' do
+                  let(:type) { :manga }
+                  let(:user_rate_entry_status) { :completed }
+
+                  let!(:user_rate_entry) do
+                    create :user_rate,
+                      target: entry,
+                      user: user_1,
+                      status: user_rate_entry_status,
+                      chapters: user_rate_entry_episodes
+                  end
+
+                  it '-> watching' do
+                    is_expected.to eq true
+                    expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+                    expect(user_rate_other.reload).to have_attributes(
+                      episode_field => 4,
+                      status: 'watching'
+                    )
+                  end
+                end
               end
             end
 
@@ -328,23 +350,6 @@ describe DbEntry::MergeAsEpisode do
                 end
               end
             end
-
-            # context 'user_rate_entry.episodes = 0' do
-            #   let(:user_rate_entry_episodes) { 0 }
-            #
-            #   context 'user_rate_other.episodes = any' do
-            #     let(:user_rate_other_episodes) { [1, 2, 3, 4, 5, 6].sample }
-            #
-            #     it '-> watching' do
-            #       is_expected.to eq true
-            #       expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
-            #       expect(user_rate_other.reload).to have_attributes(
-            #         episode_field => 5,
-            #         status: 'watching'
-            #       )
-            #     end
-            #   end
-            # end
           end
         end
       end

@@ -35,12 +35,13 @@ private
   end
 
   def merge_rate entry_rate, other_rates
-    return if entry_rate.send(@episode_field).zero?
+    entry_rate_value = corrected_enty_rate_value entry_rate
+    return if entry_rate_value.zero?
 
     user_id = entry_rate.user_id
 
     other_rate = other_rates.find { |v| v.user_id == user_id }
-    new_value = @as_episode + entry_rate.send(@episode_field) - 1
+    new_value = @as_episode + entry_rate_value - 1
 
     if other_rate
       other_rate.update!(
@@ -68,5 +69,15 @@ private
         Types::UserRate::Status[:completed] :
         other_new_status
     )
+  end
+
+  def corrected_enty_rate_value entry_rate
+    value = entry_rate.send @episode_field
+
+    if value.zero? && entry_rate.completed?
+      [@entry.send(@episode_field), 1].max
+    else
+      value
+    end
   end
 end
