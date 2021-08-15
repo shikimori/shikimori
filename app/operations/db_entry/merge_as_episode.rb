@@ -49,9 +49,7 @@ private
     new_value = @as_episode + entry_rate_value - 1
 
     if other_rate
-      other_rate.update!(
-        @episode_field => [other_rate.send(@episode_field), new_value].max
-      )
+      update_rate other_rate, new_value
     else
       create_rate entry_rate, new_value
     end
@@ -75,6 +73,20 @@ private
         other_new_status,
       text: merge_note(new_value)
     )
+  end
+
+  def update_rate other_rate, new_value
+    other_value = other_rate.send @episode_field
+
+    return if other_value >= new_value
+
+    new_text = (other_rate.text + "\n" + merge_note(new_value)).strip
+
+    if @as_episode == 1 || other_value == @as_episode - 1 || other_value >= @as_episode
+      other_rate.update! @episode_field => new_value, text: new_text
+    else
+      other_rate.update! text: new_text
+    end
   end
 
   def corrected_enty_rate_value entry_rate
