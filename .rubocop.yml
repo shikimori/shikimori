@@ -155,6 +155,10 @@ Layout/DotPosition:
   - leading
   - trailing
 
+Layout/LineEndStringConcatenationIndentation:
+  Enabled: true
+  EnforcedStyle: indented
+
 Style/CollectionMethods:
   Description: Preferred collection methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#map-find-select-reduce-size
