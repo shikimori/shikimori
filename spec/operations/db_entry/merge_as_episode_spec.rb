@@ -176,7 +176,8 @@ describe DbEntry::MergeAsEpisode do
         target: other,
         user: user_1,
         status: user_rate_other_status,
-        episode_field => user_rate_other_episodes
+        episode_field => user_rate_other_episodes,
+        text: 'zxc'
     end
     let(:user_rate_other_status) do
       user_rate_other_episodes == other_episodes ?
@@ -332,18 +333,20 @@ describe DbEntry::MergeAsEpisode do
             context 'user_rate_entry.episodes = 1' do
               let(:user_rate_entry_episodes) { 1 }
 
-              context 'user_rate_other.episodes = AS_EPISODE - 2 (2)' do
+              context 'user_rate_other.episodes = AS_EPISODE - 2 (2)', :focus do
                 let(:user_rate_other_episodes) { as_episode - 2 }
 
-                # it do
-                #   is_expected.to eq true
-                #   expect(user_rate_other_episodes).to eq 2
-                #   expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
-                #   expect(user_rate_other.reload).to have_attributes(
-                #     episode_field => 2,
-                #     status: 'watching'
-                #   )
-                # end
+                it do
+                  is_expected.to eq true
+                  expect(user_rate_other_episodes).to eq 2
+                  expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+                  expect(user_rate_other.reload).to have_attributes(
+                    episode_field => 2,
+                    status: 'watching',
+                    text: "zxc\n" \
+                      "✅ #{described_class::EPISODE_LABEL[episode_field]} 2-3 #{entry.name} (#{entry.russian})"
+                  )
+                end
               end
 
               context 'user_rate_other.episodes = AS_EPISODE - 1 (3)' do
@@ -355,7 +358,8 @@ describe DbEntry::MergeAsEpisode do
                   expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
                   expect(user_rate_other.reload).to have_attributes(
                     episode_field => 4,
-                    status: 'watching'
+                    status: 'watching',
+                    text: 'zxc'
                   )
                 end
 
@@ -376,7 +380,8 @@ describe DbEntry::MergeAsEpisode do
                     expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
                     expect(user_rate_other.reload).to have_attributes(
                       episode_field => 4,
-                      status: 'watching'
+                      status: 'watching',
+                      text: 'zxc'
                     )
                   end
                 end
@@ -395,7 +400,8 @@ describe DbEntry::MergeAsEpisode do
                   expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
                   expect(user_rate_other.reload).to have_attributes(
                     episode_field => user_rate_other_episodes,
-                    status: 'watching'
+                    status: 'watching',
+                    text: 'zxc'
                   )
                 end
               end
