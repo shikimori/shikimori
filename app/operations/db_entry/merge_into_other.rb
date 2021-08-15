@@ -53,7 +53,7 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
       merge_fields
       @other.save! if @other.changed?
 
-      RELATIONS.each do |relation|
+      self.class::RELATIONS.each do |relation|
         send :"merge_#{relation}"
       end
 
