@@ -177,7 +177,7 @@ describe DbEntry::MergeAsEpisode do
         user: user_1,
         status: user_rate_other_status,
         episode_field => user_rate_other_episodes,
-        text: 'zxc'
+        text: user_rate_other_text
     end
     let(:user_rate_other_status) do
       user_rate_other_episodes == other_episodes ?
@@ -185,6 +185,7 @@ describe DbEntry::MergeAsEpisode do
         'watching'
     end
     let(:user_rate_other_episodes) { 4 }
+    let(:user_rate_other_text) { '' }
 
     context 'planned -> *' do
       let(:user_rate_entry_status) { 'planned' }
@@ -279,6 +280,96 @@ describe DbEntry::MergeAsEpisode do
 
     context 'as_episode = 4' do
       let(:as_episode) { 4 }
+      let(:merge_text) do
+        "✅ #{described_class::EPISODE_LABEL[episode_field]} "\
+          "#{merge_text_episodes} #{entry.name} (#{entry.russian})"
+      end
+      let(:merge_text_episodes) { '4' }
+
+      context 'entry.episodes = 0 or 1' do
+        let(:entry_episodes) { [0, 1].sample }
+
+        context 'other.episodes = 6' do
+          let(:other_episodes) { 6 }
+
+          context 'user_rate_entry.episodes = 1' do
+            let(:user_rate_entry_episodes) { 1 }
+
+            context 'user_rate_other.episodes = AS_EPISODE - 2 (2)' do
+              let(:user_rate_other_episodes) { as_episode - 2 }
+              let(:user_rate_other_text) { 'zxc' }
+
+              it do
+                is_expected.to eq true
+                expect(user_rate_other_episodes).to eq 2
+                expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+                expect(user_rate_other.reload).to have_attributes(
+                  episode_field => user_rate_other_episodes,
+                  status: 'watching',
+                  text: "zxc\n" + merge_text
+                )
+              end
+            end
+
+            context 'user_rate_other.episodes = AS_EPISODE - 1 (3)' do
+              let(:user_rate_other_episodes) { as_episode - 1 }
+
+              it do
+                is_expected.to eq true
+                expect(user_rate_other_episodes).to eq 3
+                expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+                expect(user_rate_other.reload).to have_attributes(
+                  episode_field => 4,
+                  status: 'watching',
+                  text: merge_text
+                )
+              end
+
+              context 'mismatched one_shot episode_field' do
+                let(:type) { :manga }
+                let(:user_rate_entry_status) { :completed }
+
+                let!(:user_rate_entry) do
+                  create :user_rate,
+                    target: entry,
+                    user: user_1,
+                    status: user_rate_entry_status,
+                    chapters: user_rate_entry_episodes
+                end
+
+                it do
+                  is_expected.to eq true
+                  expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+                  expect(user_rate_other.reload).to have_attributes(
+                    episode_field => 4,
+                    status: 'watching',
+                    text: merge_text
+                  )
+                end
+              end
+            end
+          end
+
+          context 'user_rate_entry.episodes = 0' do
+            let(:user_rate_entry_episodes) { 0 }
+
+            context 'user_rate_other.episodes = AS_EPISODE - 1 (3)' do
+              let(:user_rate_other_episodes) { as_episode - 1 }
+
+              it do
+                is_expected.to eq true
+                expect(user_rate_other_episodes).to eq 3
+                expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+                expect(user_rate_other.reload).to have_attributes(
+                  episode_field => user_rate_other_episodes,
+                  status: 'watching',
+                  text: 'zxc'
+                )
+              end
+            end
+          end
+        end
+      end
 
       context 'entry.episodes = 3' do
         let(:entry_episodes) { 3 }
@@ -287,17 +378,61 @@ describe DbEntry::MergeAsEpisode do
           let(:other_episodes) { 6 }
 
           context 'user_rate_entry.episodes = 3' do
+            let(:merge_text_episodes) { '4-6' }
             let(:user_rate_entry_episodes) { 3 }
 
-            context 'user_rate_other.episodes = any' do
-              let(:user_rate_other_episodes) { [1, 2, 3, 4, 5, 6].sample }
+            context 'user_rate_other.episodes = 2' do
+              let(:user_rate_other_episodes) { 2 }
+
+              it do
+                is_expected.to eq true
+                expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+                expect(user_rate_other.reload).to have_attributes(
+                  episode_field => 2,
+                  status: 'watching',
+                  text: merge_text
+                )
+              end
+            end
+
+            context 'user_rate_other.episodes = 3' do
+              let(:user_rate_other_episodes) { 3 }
 
               it do
                 is_expected.to eq true
                 expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
                 expect(user_rate_other.reload).to have_attributes(
                   episode_field => 6,
-                  status: 'completed'
+                  status: 'completed',
+                  text: merge_text
+                )
+              end
+            end
+
+            context 'user_rate_other.episodes = 4' do
+              let(:user_rate_other_episodes) { 4 }
+
+              it do
+                is_expected.to eq true
+                expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+                expect(user_rate_other.reload).to have_attributes(
+                  episode_field => 6,
+                  status: 'completed',
+                  text: merge_text
+                )
+              end
+            end
+
+            context 'user_rate_other.episodes = 6' do
+              let(:user_rate_other_episodes) { 6 }
+
+              it do
+                is_expected.to eq true
+                expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+                expect(user_rate_other.reload).to have_attributes(
+                  episode_field => 6,
+                  status: 'completed',
+                  text: ''
                 )
               end
             end
@@ -316,94 +451,6 @@ describe DbEntry::MergeAsEpisode do
                   episode_field => 5,
                   status: 'watching'
                 )
-              end
-            end
-          end
-        end
-      end
-
-      # [0, 1].each do |i|
-      [1].each do |i|
-        context "entry.episodes = #{i}" do
-          let(:entry_episodes) { i }
-
-          context 'other.episodes = 6' do
-            let(:other_episodes) { 6 }
-
-            context 'user_rate_entry.episodes = 1' do
-              let(:user_rate_entry_episodes) { 1 }
-
-              context 'user_rate_other.episodes = AS_EPISODE - 2 (2)', :focus do
-                let(:user_rate_other_episodes) { as_episode - 2 }
-
-                it do
-                  is_expected.to eq true
-                  expect(user_rate_other_episodes).to eq 2
-                  expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
-                  expect(user_rate_other.reload).to have_attributes(
-                    episode_field => 2,
-                    status: 'watching',
-                    text: "zxc\n" \
-                      "✅ #{described_class::EPISODE_LABEL[episode_field]} 2-3 #{entry.name} (#{entry.russian})"
-                  )
-                end
-              end
-
-              context 'user_rate_other.episodes = AS_EPISODE - 1 (3)' do
-                let(:user_rate_other_episodes) { as_episode - 1 }
-
-                it do
-                  is_expected.to eq true
-                  expect(user_rate_other_episodes).to eq 3
-                  expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
-                  expect(user_rate_other.reload).to have_attributes(
-                    episode_field => 4,
-                    status: 'watching',
-                    text: 'zxc'
-                  )
-                end
-
-                context 'mismatched one_shot episode_field' do
-                  let(:type) { :manga }
-                  let(:user_rate_entry_status) { :completed }
-
-                  let!(:user_rate_entry) do
-                    create :user_rate,
-                      target: entry,
-                      user: user_1,
-                      status: user_rate_entry_status,
-                      chapters: user_rate_entry_episodes
-                  end
-
-                  it do
-                    is_expected.to eq true
-                    expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
-                    expect(user_rate_other.reload).to have_attributes(
-                      episode_field => 4,
-                      status: 'watching',
-                      text: 'zxc'
-                    )
-                  end
-                end
-              end
-            end
-
-            context 'user_rate_entry.episodes = 0' do
-              let(:user_rate_entry_episodes) { 0 }
-
-              context 'user_rate_other.episodes = AS_EPISODE - 1 (3)' do
-                let(:user_rate_other_episodes) { as_episode - 1 }
-
-                it do
-                  is_expected.to eq true
-                  expect(user_rate_other_episodes).to eq 3
-                  expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
-                  expect(user_rate_other.reload).to have_attributes(
-                    episode_field => user_rate_other_episodes,
-                    status: 'watching',
-                    text: 'zxc'
-                  )
-                end
               end
             end
           end
