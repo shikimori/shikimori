@@ -201,34 +201,67 @@ describe DbEntry::MergeAsEpisode do
 
     context 'completed/watching -> nil' do
       let!(:user_rate_other) { nil }
+      let(:new_user_rate) { UserRate.order(id: :desc).first }
 
-      %w[watching on_hold dropped].each do |status|
-        context status do
-          let(:user_rate_entry_status) { status }
-          let(:final_episodes_num) { 4 }
-          it do
-            expect { subject }.to_not change UserRate, :count
-            expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
-            expect(final_episodes_num).to eq 4
-            expect(final_episodes_num).to eq as_episode + user_rate_entry.send(episode_field) - 1
-            expect(UserRate.order(id: :desc).first).to have_attributes(
-              status: status,
-              episode_field => final_episodes_num
-            )
-          end
+      context 'as_episode = 1' do
+        let(:as_episode) { 1 }
+        let(:user_rate_entry_status) { :watching }
+        let(:final_episodes_num) { 2 }
+
+        it do
+          expect { subject }.to_not change UserRate, :count
+          expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect(final_episodes_num).to eq 2
+          expect(final_episodes_num).to eq as_episode + user_rate_entry.send(episode_field) - 1
+          expect(new_user_rate).to have_attributes(
+            status: 'watching',
+            episode_field => final_episodes_num,
+            text: "✅ #{described_class::EPISODE_LABEL[episode_field]} 1-2 #{entry.name} (#{entry.russian})"
+          )
         end
       end
 
-      %w[planned completed].each do |status|
-        context status do
-          let(:user_rate_entry_status) { 'watching' }
-          it do
-            expect { subject }.to_not change UserRate, :count
-            expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
-            expect(UserRate.order(id: :desc).first).to have_attributes(
-              status: 'watching',
-              episode_field => 4
-            )
+      context 'as_episode = 2' do
+        let(:as_episode) { 2 }
+        let(:user_rate_entry_status) { :watching }
+        let(:final_episodes_num) { 3 }
+
+        it do
+          expect { subject }.to_not change UserRate, :count
+          expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect(new_user_rate).to have_attributes(
+            status: 'watching',
+            episode_field => 0,
+            text: "✅ #{described_class::EPISODE_LABEL[episode_field]} 2-3 #{entry.name} (#{entry.russian})"
+          )
+        end
+      end
+
+      describe 'status mapping' do
+        %w[watching on_hold dropped].each do |status|
+          context status do
+            let(:user_rate_entry_status) { status }
+
+            it do
+              expect { subject }.to_not change UserRate, :count
+              expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+              expect(new_user_rate).to have_attributes(
+                status: status
+              )
+            end
+          end
+        end
+
+        %w[planned completed].each do |status|
+          context status do
+            let(:user_rate_entry_status) { 'watching' }
+            it do
+              expect { subject }.to_not change UserRate, :count
+              expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+              expect(new_user_rate).to have_attributes(
+                status: 'watching'
+              )
+            end
           end
         end
       end
@@ -258,7 +291,7 @@ describe DbEntry::MergeAsEpisode do
             context 'user_rate_other.episodes = any' do
               let(:user_rate_other_episodes) { [1, 2, 3, 4, 5, 6].sample }
 
-              it '-> completed' do
+              it do
                 is_expected.to eq true
                 expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
                 expect(user_rate_other.reload).to have_attributes(
@@ -275,7 +308,7 @@ describe DbEntry::MergeAsEpisode do
             context 'user_rate_other.episodes <= 5' do
               let(:user_rate_other_episodes) { [1, 2, 3, 4, 5].sample }
 
-              it '-> watching' do
+              it do
                 is_expected.to eq true
                 expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
                 expect(user_rate_other.reload).to have_attributes(
@@ -288,7 +321,8 @@ describe DbEntry::MergeAsEpisode do
         end
       end
 
-      [0, 1].each do |i|
+      # [0, 1].each do |i|
+      [1].each do |i|
         context "entry.episodes = #{i}" do
           let(:entry_episodes) { i }
 
@@ -298,11 +332,26 @@ describe DbEntry::MergeAsEpisode do
             context 'user_rate_entry.episodes = 1' do
               let(:user_rate_entry_episodes) { 1 }
 
-              context 'user_rate_other.episodes <= 4' do
-                let(:user_rate_other_episodes) { [1, 2, 3, 4].sample } # rubocop:disable CollectionLiteralInLoop
+              context 'user_rate_other.episodes = AS_EPISODE - 2 (2)' do
+                let(:user_rate_other_episodes) { as_episode - 2 }
 
-                it '-> watching' do
+                # it do
+                #   is_expected.to eq true
+                #   expect(user_rate_other_episodes).to eq 2
+                #   expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+                #   expect(user_rate_other.reload).to have_attributes(
+                #     episode_field => 2,
+                #     status: 'watching'
+                #   )
+                # end
+              end
+
+              context 'user_rate_other.episodes = AS_EPISODE - 1 (3)' do
+                let(:user_rate_other_episodes) { as_episode - 1 }
+
+                it do
                   is_expected.to eq true
+                  expect(user_rate_other_episodes).to eq 3
                   expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
                   expect(user_rate_other.reload).to have_attributes(
                     episode_field => 4,
@@ -322,7 +371,7 @@ describe DbEntry::MergeAsEpisode do
                       chapters: user_rate_entry_episodes
                   end
 
-                  it '-> watching' do
+                  it do
                     is_expected.to eq true
                     expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
                     expect(user_rate_other.reload).to have_attributes(
@@ -337,11 +386,12 @@ describe DbEntry::MergeAsEpisode do
             context 'user_rate_entry.episodes = 0' do
               let(:user_rate_entry_episodes) { 0 }
 
-              context 'user_rate_other.episodes <= 4' do
-                let(:user_rate_other_episodes) { [1, 2, 3, 4].sample } # rubocop:disable CollectionLiteralInLoop
+              context 'user_rate_other.episodes = AS_EPISODE - 1 (3)' do
+                let(:user_rate_other_episodes) { as_episode - 1 }
 
-                it '-> watching' do
+                it do
                   is_expected.to eq true
+                  expect(user_rate_other_episodes).to eq 3
                   expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
                   expect(user_rate_other.reload).to have_attributes(
                     episode_field => user_rate_other_episodes,

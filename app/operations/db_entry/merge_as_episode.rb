@@ -7,6 +7,11 @@ class DbEntry::MergeAsEpisode < DbEntry::MergeIntoOther
     fansubbers
     fandubbers
   ]
+  EPISODE_LABEL = {
+    episodes: 'Ep.',
+    volumes: 'Vol.',
+    chapters: 'Chap.'
+  }
 
 private
 
@@ -64,10 +69,11 @@ private
     UserRate.create!(
       user_id: entry_rate.user_id,
       target: @other,
-      @episode_field => new_value,
+      @episode_field => @as_episode == 1 ? new_value : 0,
       status: new_value == @other.send(@episode_field) ?
         Types::UserRate::Status[:completed] :
-        other_new_status
+        other_new_status,
+      text: merge_note(new_value)
     )
   end
 
@@ -79,5 +85,10 @@ private
     else
       value
     end
+  end
+
+  def merge_note new_value
+    "✅ #{EPISODE_LABEL[@episode_field]} #{[@as_episode, new_value].uniq.join('-')} " +
+      + @entry.name + (@entry.russian.present? ? " (#{@entry.russian})" : '')
   end
 end
