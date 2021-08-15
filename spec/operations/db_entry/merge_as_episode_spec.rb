@@ -363,7 +363,7 @@ describe DbEntry::MergeAsEpisode do
                 expect(user_rate_other.reload).to have_attributes(
                   episode_field => user_rate_other_episodes,
                   status: 'watching',
-                  text: 'zxc'
+                  text: ''
                 )
               end
             end
