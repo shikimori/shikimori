@@ -137,9 +137,10 @@ describe DbEntry::MergeAsEpisode do
     expect(other.maybe_topic(:ru).comments_count).to eq 1
 
     expect(review.reload.target).to eq other
-    expect(collection_link.reload.linked).to eq other
+    expect { collection_link.reload }.to raise_error ActiveRecord::RecordNotFound
+
     expect(version.reload.item).to eq other
-    expect(club_link.reload.linked).to eq other
+    expect { club_link.reload }.to raise_error ActiveRecord::RecordNotFound
     expect(cosplay_gallery_link.reload.linked).to eq other
     expect(recommendation_ignore.reload.target).to eq other
 

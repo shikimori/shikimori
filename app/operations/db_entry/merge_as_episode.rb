@@ -1,6 +1,11 @@
 class DbEntry::MergeAsEpisode < DbEntry::MergeIntoOther
   method_object %i[entry! other! as_episode! episode_field!]
 
+  RELATIONS = DbEntry::MergeIntoOther::RELATIONS - %i[
+    collection_links
+    club_links
+  ]
+
   ASSIGN_FIELDS = []
   MERGE_FIELDS = %i[
     coub_tags
