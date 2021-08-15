@@ -51,7 +51,7 @@
     "tiny-uri": "^8.1.0",
     "turbolinks": "^5.2.0",
     "uevent": "^2.0.1",
-    "url-parse": "^1.5.1",
+    "url-parse": "^1.5.2",
     "vue": "^3.0.11",
     "vue-loader": "^16.2.0",
     "vuedraggable": "^4.0.1",
