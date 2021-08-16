@@ -26,6 +26,7 @@ header.head.misc
           html: { class: 'b-form bold-labels' } do |f|
 
         = f.input :name
+        = f.input :width, include_blank: false
 
         .block
           = render 'blocks/shiki_editor',

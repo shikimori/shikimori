@@ -49,6 +49,7 @@ describe Users::PollsController do
             user_id: user.id,
             name: 'test',
             text: 'zxc',
+            width: 'limited',
             variants_attributes: [{
               label: 'test 1'
             }, {
@@ -67,6 +68,7 @@ describe Users::PollsController do
         name: 'test',
         text: 'zxc',
         state: 'pending',
+        width: 'limited',
         user_id: user.id
       )
       expect(resource.variants).to have(2).items
@@ -96,6 +98,7 @@ describe Users::PollsController do
           poll: {
             name: 'test',
             text: 'zxc',
+            width: 'limited',
             variants_attributes: [{
               label: 'test 1'
             }, {

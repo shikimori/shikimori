@@ -268,6 +268,7 @@ ru:
         name: Название
         text: Текст
         state: Статус
+        width: Ширина блока
       club_invite:
         dst: Пользователь
         dst_id: Пользователь
@@ -643,6 +644,10 @@ ru:
         mal_anime_import: Импорт с MyAnimeList
         mal_manga_import: Импорт с MyAnimeList
         registration: Регистрация на сайте
+    poll:
+      width:
+        limited: Ограничена (350px)
+        fullwidth: На всю ширину
     video:
       kind:
         pv: PV

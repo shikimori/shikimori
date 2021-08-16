@@ -4,6 +4,7 @@ FactoryBot.define do
     state { :pending }
     name { 'new poll' }
     text { 'poll text' }
+    width { Types::Poll::Width[:limited] }
 
     Poll.state_machine.states.map(&:value).each do |poll_state|
       trait(poll_state.to_sym) { state { poll_state } }

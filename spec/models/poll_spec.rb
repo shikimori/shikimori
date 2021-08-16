@@ -8,6 +8,14 @@ describe Poll do
     it { is_expected.to validate_presence_of :user }
   end
 
+  describe 'enumerize' do
+    it do
+      is_expected
+        .to enumerize(:width)
+        .in(*Types::Poll::Width.values)
+    end
+  end
+
   describe 'state_machine' do
     it { is_expected.to have_states :pending, :started, :stopped }
 
