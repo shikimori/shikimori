@@ -16,14 +16,14 @@
                 value=poll_variant.id
               )
               .radio-label
-                = poll_variant.label
+                != poll_variant.label_html
 
         else
           .poll-variant.result
             .votes-total= poll_variant.votes_total
             .votes-percent #{bar_percent(poll_variant)}%
             label
-              = poll_variant.label
+              != poll_variant.label_html
               if model.vote && model.vote.variant_id == poll_variant.id
                 .voted-for ✓
 
