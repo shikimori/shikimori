@@ -79,7 +79,7 @@ class BbCodes::Text # rubocop:disable ClassLength
   SEQUENTIAL_BR_REPLACEMENT_REGEXP = /<br( data-keep|)>/
 
   EVENT_START_TIME = Time.zone.parse '2021-08-02 00:00:00 +0300'
-  EVENT_END_TIME = Time.zone.parse '2021-09-01 00:00:00 +0300'
+  EVENT_END_TIME = Time.zone.parse '2021-08-16 59:59:59 +0300'
   EVENT_REGEXP = /
     #{BbCodes::Tags::UrlTag::BEFORE_URL.source}
     (меха|киберпанк)
