@@ -1,6 +1,8 @@
 .poll-outer
   // es5 only in pug
-  .b-poll
+  .b-poll(
+    class='is-' + model.width
+  )
     .poll
       .name= model.name
       .text!= model.text_html

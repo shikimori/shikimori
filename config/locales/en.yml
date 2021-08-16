@@ -268,6 +268,7 @@ en:
         name: Name
         text: Text
         state: State
+        width: Block width
       club_invite:
         dst: User
         dst_id: User
@@ -643,6 +644,10 @@ en:
         mal_anime_import: Imported animes from MyAnimeList
         mal_manga_import: Imported mangas from MyAnimeList
         registration: Registration
+    poll:
+      width:
+        limited: Limited (350px)
+        fullwidth: Fullwidth
     video:
       kind:
         pv: PV

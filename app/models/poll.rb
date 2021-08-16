@@ -5,9 +5,13 @@ class Poll < ApplicationRecord
 
   belongs_to :user
   has_many :variants, -> { order :id },
-    class_name: PollVariant.name,
+    class_name: 'PollVariant',
     inverse_of: :poll,
     dependent: :destroy
+
+  enumerize :width,
+    in: Types::Poll::Width.values,
+    predicates: true
 
   validates :user, presence: true
 

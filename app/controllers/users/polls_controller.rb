@@ -10,7 +10,7 @@ class Users::PollsController < ProfilesController
     end
   end
 
-  UPDATE_PARAMS = %i[name text] + [{
+  UPDATE_PARAMS = %i[name text width] + [{
     variants_attributes: %i[label]
   }]
   CREATE_PARAMS = %i[user_id] + UPDATE_PARAMS
@@ -41,7 +41,11 @@ class Users::PollsController < ProfilesController
 
   def update
     if @resource.started?
-      @resource.update name: update_params[:name], text: update_params[:text]
+      @resource.update(
+        name: update_params[:name],
+        width: update_params[:width],
+        text: update_params[:text]
+      )
 
       redirect_to profile_poll_url(@user, @resource)
     else

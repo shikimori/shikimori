@@ -1,5 +1,5 @@
 class PollSerializer < ActiveModel::Serializer
-  attributes :id, :name, :text, :text_html, :state, :vote_abstain_url, :vote
+  attributes :id, :name, :text, :text_html, :width, :state, :vote_abstain_url, :vote
   has_many :variants
 
   def vote_abstain_url
