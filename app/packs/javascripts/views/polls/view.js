@@ -35,6 +35,7 @@ export default class Poll extends View {
   // handlers
   @bind
   _radioClick(e) {
+    if (e.target.tagName === 'A') { return; }
     e.preventDefault();
 
     const $radio = $(e.currentTarget).find('input');
