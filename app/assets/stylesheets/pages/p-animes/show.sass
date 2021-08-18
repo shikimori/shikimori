@@ -225,15 +225,13 @@
           background-color: darken($backgroud, 5%)
           color: darken($color, 5%)
           border-color: darken($border, 8%)
-          // +css4
-            border-color: var(--link-hover-color)
+          // border-color: var(--link-hover-color)
 
       &:active
         color: darken($color, 9%)
         background-color: darken($backgroud, 9%)
-          border-color: darken($border, 13%)
-        // +css4
-          border-color: var(--link-active-color)
+        border-color: darken($border, 13%)
+        // border-color: var(--link-active-color)
 
   =navigation_block_ellipsis
     min-width: 0 // to make ellipsis work
@@ -246,9 +244,7 @@
 
   .summaries-navigation
     display: flex
-
-    +css4
-      font-family: var(--font-alt)
+    font-family: var(--font-alt)
 
     +lte_ipad
       height: 30px
@@ -333,7 +329,7 @@
             display: none
 
       &-all
-        +navigation_block_colors(map-get($variables, --headline-color), map-get($variables, --headline-background-color), map-get($variables, --headline-border-color))
+        +navigation_block_colors(#123, #e8ebef, #d8dde4)
 
         .label:before
           +lte_ipad
@@ -358,14 +354,12 @@
           +font_shikimori('\e911')
 
       &.is-active
+        -webkit-font-smoothing: antialiased
         flex-grow: 1
+        font-family: var(--font-alt)
         font-weight: 700
         letter-spacing: 0.13px
         text-transform: uppercase
-        -webkit-font-smoothing: antialiased
-
-        +css4
-          font-family: var(--font-alt)
 
         +iphone
           +navigation_block_ellipsis
