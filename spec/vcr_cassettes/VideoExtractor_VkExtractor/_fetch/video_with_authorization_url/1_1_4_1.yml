@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.vk.com/method/video.get?access_token=USER_ACCESS_TOKEN_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&v=5.73&videos=-26094363_159977945
+    uri: https://api.vk.com/method/video.get?access_token=USER_ACCESS_TOKEN_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&v=5.131&videos=-26094363_159977945
     body:
       encoding: US-ASCII
       string: ''

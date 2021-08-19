@@ -4,7 +4,7 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
   }xi
 
   API_URL = 'https://api.vk.com/method/video.get'
-  API_VERSION = '5.73'
+  API_VERSION = '5.131'
 
   TOO_MANY_REQUESTS_EROOR_CODE = 6
 
