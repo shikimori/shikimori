@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.vk.com/method/video.get?access_token=USER_ACCESS_TOKEN_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&v=5.73&videos=98023184_165811692
+    uri: https://api.vk.com/method/video.get?access_token=USER_ACCESS_TOKEN_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&v=5.131&videos=98023184_165811692
     body:
       encoding: US-ASCII
       string: ''
@@ -39,4 +39,4 @@ http_interactions:
         AMV Sword Art Online (skillet-rise)","duration":232,"description":"","date":1374189566,"comments":122,"views":10241,"photo_130":"https:\/\/pp.userapi.com\/c514511\/u98023184\/video\/s_297a36bb.jpg","photo_320":"https:\/\/pp.userapi.com\/c514511\/u98023184\/video\/l_81cce630.jpg","player":"https:\/\/vk.com\/video_ext.php?oid=98023184&id=165811692&hash=6d9a4c5f93270892&__ref=vk.api&api_hash=153556048049bbc3cca44400c0d5_GEZTMOBVGIZTS","can_add":1}]}}'
     http_version: 
   recorded_at: Wed, 29 Aug 2018 16:34:31 GMT
-recorded_with: VCR 4.0.0
+recorded_with: VCR 6.0.0
