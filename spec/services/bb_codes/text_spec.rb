@@ -503,6 +503,7 @@ describe BbCodes::Text do
         end
 
         context 'existing object' do
+          include_context :timecop, '2021-08-02 15:44:03 +0300'
           let(:object) { build_stubbed :comment, created_at: created_at }
 
           context 'before event time' do
@@ -511,7 +512,7 @@ describe BbCodes::Text do
           end
 
           context 'in event time' do
-            let(:created_at) { Time.zone.parse '2021-08-02 15:44:03 +0300' }
+            let(:created_at) { Time.zone.parse '2021-08-03 15:44:03 +0300' }
             it do
               is_expected.to eq(
                 <<~HTML.squish
