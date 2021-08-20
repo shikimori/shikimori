@@ -77,6 +77,9 @@ class CharactersController < PeopleController
   end
 
   def art
+    if @resource.rkn_abused?
+      redirect_to @resource.url, status: :moved_permanently
+    end
     og page_title: t('imageboard_art')
   end
 

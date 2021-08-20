@@ -49,4 +49,12 @@ module Copyright
     40010, # Ishuzoku Reviewers
     40046 # Id:Invaded
   ]
+
+  ABUSED_BY_RKN_CHARACTER_IDS = [
+    37698, # Kobato Hasegawa
+    82525, # Shiro
+    38934, # Maria Takayama
+    65263, # Kotori Itsuka
+    70603 # Yoshino
+  ]
 end
