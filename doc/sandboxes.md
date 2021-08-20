@@ -336,6 +336,7 @@ ActiveRecord::Base.logger.level = 3;
   Comment.
     includes(:user, commentable: :linked).
     where(is_summary: true).
+    order(id: :desc).
     find_each do |comment|
       db_entry = comment.commentable.linked
       next if db_entry.class.base_class != klass
@@ -358,9 +359,9 @@ ActiveRecord::Base.logger.level = 3;
       end
 
       is_written_before_release =
-        if db_entry.released? && !db_entry.released_on
+        if (db_entry.released? && !db_entry.released_on) || (db_entry.is_a?(Manga) && db_entry.discontinued?)
           false
-        elsif db_entry.ongoing? || db_entry.anons?
+        elsif db_entry.ongoing? || db_entry.anons? || (db_entry.is_a?(Manga) && db_entry.paused?)
           true
         elsif db_entry.released? && db_entry.released_on?
           comment.created_at >= db_entry.released_on
@@ -377,28 +378,34 @@ ActiveRecord::Base.logger.level = 3;
         tone: tone,
         is_written_before_release: is_written_before_release
       )
+      summary.instance_variable_set :@is_migration, true
       Summary.wo_antispam do
         summary.save!
+        ap summary
       rescue ActiveRecord::RecordInvalid
-        Summary.transaction do
-          Comment.
-            where(is_summary: true).
-            where(commentable: comment.commentable, user_id: comment.user_id).
-            order(:id)[0..-2].
-              each do |comment|
-              comment.update! is_summary: false
-            end
-
-          Summary.
-            find_by(
-              user: user,
-              anime: (db_entry if db_entry.anime?),
-              manga: (db_entry if db_entry.manga? || db_entry.ranobe?)
-            ).
-            destroy_all
-          summary.save!
-        end
+        raise unless summary.errors[:user_id].present?
       end
     end;
 end;
+#         Summary.transaction do
+#           Comment.
+#             where(is_summary: true).
+#             where(commentable: comment.commentable, user_id: comment.user_id).
+#             order(:id)[0..-2].
+#             each do |comment|
+#               comment.update! is_summary: false # convert only last comment to summary
+#             end
+# 
+#           Summary.
+#             find_by(
+#               user: user,
+#               anime: (db_entry if db_entry.anime?),
+#               manga: (db_entry if db_entry.manga? || db_entry.ranobe?)
+#             ).
+#             destroy_all
+#           summary.save!
+#         end
+#       end
+#     end;
+# end;
 ```

@@ -19,7 +19,8 @@ class Summary < ApplicationRecord
 
   validates :body,
     presence: true,
-    length: { minimum: MIN_BODY_SIZE }
+    length: { minimum: MIN_BODY_SIZE },
+    unless: -> { @is_migration }
   validates :user_id,
     uniqueness: { scope: %i[anime_id] },
     if: :anime?
