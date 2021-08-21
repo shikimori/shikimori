@@ -32,6 +32,7 @@ class Recommendations::RatesFetcher
     @user_ids = user_ids
     @target_ids = nil
     @data = {}
+    @fetch_raw_scores = {}
     @by_user = true
     @with_deletion = true
   end
@@ -51,7 +52,7 @@ class Recommendations::RatesFetcher
 private
 
   def fetch_raw_scores
-    @fetch_raw_scores ||=
+    @fetch_raw_scores[cache_key] ||=
       PgCache.fetch cache_key, expires_in: 8.weeks, serializer: MessagePack do
         fetch_rates @klass
       end
@@ -75,14 +76,14 @@ private
 
   def scope klass
     # no need in filtering by list size if @user_ids is provided
-    list_size_sql = @with_deletion && @user_ids.blank?
+    is_list_size_sql = @with_deletion && @user_ids.blank?
 
     scope = UserRate
       .select(:user_id, :target_id, :score)
       .where(target_type: klass.name)
       .where(USER_RATES_SQL)
       .where((
-        format(LIST_SIZE_SQL, minimum_scores: MINIMUM_SCORES) if list_size_sql
+        format(LIST_SIZE_SQL, minimum_scores: MINIMUM_SCORES) if is_list_size_sql
       ))
       .joins(format(DB_ENTRY_JOINS_SQL, table_name: klass.table_name))
       .order(:id)
