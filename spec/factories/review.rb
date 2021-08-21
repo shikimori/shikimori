@@ -13,6 +13,9 @@ FactoryBot.define do
 
     locale { :ru }
 
+    cached_votes_up { 0 }
+    cached_votes_down { 0 }
+
     after :build do |model|
       stub_method model, :antispam_checks
     end

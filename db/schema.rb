@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_16_135117) do
+ActiveRecord::Schema.define(version: 2021_08_21_143753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -290,7 +290,7 @@ ActiveRecord::Schema.define(version: 2021_08_16_135117) do
     t.integer "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "description", limit: 500000
+    t.string "description", limit: 600000
     t.string "logo_file_name", limit: 255
     t.string "logo_content_type", limit: 255
     t.integer "logo_file_size"
@@ -659,7 +659,7 @@ ActiveRecord::Schema.define(version: 2021_08_16_135117) do
     t.integer "from_id"
     t.integer "to_id"
     t.string "kind", limit: 255
-    t.string "body", limit: 800000
+    t.string "body", limit: 900000
     t.boolean "read", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -954,6 +954,7 @@ ActiveRecord::Schema.define(version: 2021_08_16_135117) do
     t.boolean "is_written_before_release", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "comments_count", default: 0, null: false
     t.index ["anime_id"], name: "index_summaries_on_anime_id"
     t.index ["manga_id"], name: "index_summaries_on_manga_id"
     t.index ["user_id", "anime_id"], name: "index_summaries_on_user_id_and_anime_id", unique: true, where: "(anime_id IS NOT NULL)"

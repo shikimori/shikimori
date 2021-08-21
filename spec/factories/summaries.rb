@@ -7,6 +7,8 @@ FactoryBot.define do
     tone { Types::Summary::Tone[:neutral] }
     is_written_before_release { false }
 
+    comments_count { 0 }
+
     Types::Summary::Tone.values.each do |value|
       trait(value) { tone { value } }
     end
