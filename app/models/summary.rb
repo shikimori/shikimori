@@ -16,7 +16,7 @@ class Summary < ApplicationRecord
   belongs_to :anime, optional: true
   belongs_to :manga, optional: true
 
-  enumerize :tone, in: Types::Summary::Tone.values
+  enumerize :opinion, in: Types::Summary::Opinion.values
 
   MIN_BODY_SIZE = 230
 
@@ -34,9 +34,9 @@ class Summary < ApplicationRecord
   validates :anime, presence: true, unless: :manga?
   validates :manga, presence: true, unless: :anime?
 
-  scope :positive, -> { where tone: Types::Summary::Tone[:positive] }
-  scope :neutral, -> { where tone: Types::Summary::Tone[:neutral] }
-  scope :negative, -> { where tone: Types::Summary::Tone[:negative] }
+  scope :positive, -> { where opinion: Types::Summary::Opinion[:positive] }
+  scope :neutral, -> { where opinion: Types::Summary::Opinion[:neutral] }
+  scope :negative, -> { where opinion: Types::Summary::Opinion[:negative] }
 
   before_create :fill_is_written_before_release,
     if: -> { is_written_before_release.nil? }

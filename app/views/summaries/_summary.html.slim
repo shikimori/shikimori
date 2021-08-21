@@ -23,21 +23,24 @@
           srcset="#{summary.user.avatar_url 80} 2x"
           alt=summary.user.nickname
         ]
-      .name-date
-        a.name[
-           href=profile_url(summary.user)
-           itemprop='creator'
-           tabindex='-1'
-        ]
-          = summary.user.nickname
+      .header-content
+        .name-date
+          a.name[
+            href=profile_url(summary.user)
+            itemprop='creator'
+            tabindex='-1'
+          ]
+            = summary.user.nickname
 
-        - if summary.persisted?
-          span.time
-            time[
-              itemprop='dateCreated'
-              datetime=summary.created_at.iso8601
-            ] = l summary.created_at, format: '%e %B %Y'
-            span.hash data-url=summary_url(summary) #
+          - if summary.persisted?
+            span.time
+              time[
+                itemprop='dateCreated'
+                datetime=summary.created_at.iso8601
+              ] = l summary.created_at, format: '%e %B %Y'
+              span.hash data-url=summary_url(summary) #
+        .summary-info
+          .opinion class=summary.opinion
 
     .body itemprop='text'
       = summary.html_body

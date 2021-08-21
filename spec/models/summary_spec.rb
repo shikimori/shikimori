@@ -17,8 +17,8 @@ describe Summary do
   describe 'enumerize' do
     it do
       is_expected
-        .to enumerize(:tone)
-        .in(*Types::Summary::Tone.values)
+        .to enumerize(:opinion)
+        .in(*Types::Summary::Opinion.values)
     end
   end
 
@@ -44,7 +44,7 @@ describe Summary do
           anime: anime,
           body: 'a' * described_class::MIN_BODY_SIZE,
           user: user,
-          tone: 'positive',
+          opinion: 'positive',
           is_written_before_release: is_written_before_release
         )
       end

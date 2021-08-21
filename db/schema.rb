@@ -950,7 +950,7 @@ ActiveRecord::Schema.define(version: 2021_08_21_144119) do
     t.bigint "anime_id"
     t.bigint "manga_id"
     t.text "body", null: false
-    t.string "tone", null: false
+    t.string "opinion", null: false
     t.boolean "is_written_before_release", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
