@@ -6,8 +6,7 @@
 $comment_border: 1px dashed #ddd
 $comment_offset: 15px
 
-=shiki_comment
-  +forum_entry
+=shiki_comment_margins
   border-top: $comment_border
   margin-bottom: $comment_offset
 
@@ -19,6 +18,10 @@ $comment_offset: 15px
 
   .comments-loaded &:last-child
     margin-bottom: $comment_offset
+
+=shiki_comment
+  +forum_entry
+  +shiki_comment_margins
 
   aside.moderation-ban
     +frame_form

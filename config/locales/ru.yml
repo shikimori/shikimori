@@ -593,6 +593,12 @@ ru:
       layout:
         menu: Меню
         none: Скрыто
+    summary:
+      opinion:
+        positive: Положительный
+        negative: Отрицательный
+        neutral: Нейтральный
+        unknown: Нейтральный
     collection:
       kind:
         anime: Аниме

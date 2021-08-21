@@ -23,7 +23,7 @@ end
     includes(:user, commentable: :linked).
     where(is_summary: true).
     order(id: :desc).
-    limit(3).where(commentable_id: Anime.find(31240).decorate.main_topic_view.id).
+    #limit(100).where(commentable_id: Anime.find(31240).decorate.main_topic_view.id).
     find_each do |comment|
       db_entry = comment.commentable.linked
       next if db_entry.class.base_class != klass
@@ -35,7 +35,6 @@ end
       rates = rates_fetcher.fetch(normalization)
 
       normalized_score = rates.dig(user.id, db_entry.id)
-      binding.pry
 
       opinion =
         if normalized_score

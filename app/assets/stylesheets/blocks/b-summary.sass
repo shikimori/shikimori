@@ -1,8 +1,10 @@
 @import mixins/forum_entry
 @import mixins/font_shikimori
+@import mixins/shiki_comment
 
 .b-summary
   +forum_entry
+  +shiki_comment_margins
 
   & > .inner
     header
@@ -12,16 +14,30 @@
         float: none
 
     .name-date
+      margin-top: -4px
+      margin-bottom: 4px
       margin-left: 0
 
   .summary-info
+    font-family: var(--font-alt)
     display: flex
+
+    .positive
+      color: #549e14
+
+    .neutral,
+    .unknown
+      color: $gray-4
+
+    .negative
+      color: #fc575e
 
     .opinion
       align-items: center
       display: flex
       height: 30px
       justify-content: center
+      margin-right: 10px
       width: 30px
 
       &:before
@@ -30,22 +46,31 @@
 
       &.positive
         background: #eff9e6
-        color: #549e14
 
         &:before
           content: '\e82f'
 
       &.neutral,
       &.unknown
-        background: #fff1f2
-        color: #fc575e
+        background: lighten($gray-1, 25%)
 
         &:before
           content: '\002d'
 
       &.negative
-        background: $gray-1
-        color: $gray-4
+        background: #fff1f2
 
         &:before
-          content: '\e82f'
+          content: '\e82e'
+
+    .label
+      font-size: 13px
+      font-weight: 600
+      line-height: 18px
+      margin-top: -2px
+      margin-bottom: 4px
+
+    .in-auhtor-list
+      color: #4e5257
+      font-size: 12px
+      line-height: 12px

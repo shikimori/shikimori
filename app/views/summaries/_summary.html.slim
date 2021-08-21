@@ -41,6 +41,11 @@
               span.hash data-url=summary_url(summary) #
         .summary-info
           .opinion class=summary.opinion
+          div
+            .label class=summary.opinion
+              = summary.opinion_text
+            .in-auhtor-list
+              ' #{t '.in_author_list'}:
 
     .body itemprop='text'
       = summary.html_body

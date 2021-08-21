@@ -593,6 +593,12 @@ en:
       layout:
         menu: Menu
         none: Hidden
+    summary:
+      opinion:
+        positive: Positive
+        negative: Negative
+        neutral: Neutral
+        unknown: Neutral
     collection:
       kind:
         anime: Anime
