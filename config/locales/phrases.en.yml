@@ -159,6 +159,6 @@ en:
   date_field: Date
   navigation: Navigation
   form_errors: Errors
-  'yes': Yes
-  'no': No
+  'yes': 'Yes'
+  'no': 'No'
   is_deleted: Deleted
