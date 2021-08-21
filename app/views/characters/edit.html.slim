@@ -12,6 +12,7 @@
       .f-column
         ul.b-list.is-wide
           - %i[image description_ru description_en imageboard_tag].each do |field|
+            - next if field == :imageboard_tag && @resource.respond_to?(:rkn_abused?) && @resource.rkn_abused?
             = render 'db_entries/edit_field_li',
               resource: @resource,
               field: field,

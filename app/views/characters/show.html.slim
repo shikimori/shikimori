@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  = cache [@resource, user_signed_in?, :v11] do
+  = cache [@resource, user_signed_in?, :v12] do
     .b-db_entry
       .c-image
         .cc
@@ -38,7 +38,7 @@
 
       .c-about
         .cc
-          - if @resource.russian.present? || @resource.japanese.present? || @resource.altname.present? || @resource.imageboard_tag.present? || @resource.cosplay? || @resource.contest_winners.any?
+          - if @resource.russian.present? || @resource.japanese.present? || @resource.altname.present? || (@resource.imageboard_tag.present? && !@resource.rkn_abused?) || @resource.cosplay? || @resource.contest_winners.any?
             .c-info-left
               .subheadline = t '.names'
               .b-entry-info
@@ -57,7 +57,7 @@
                           data-href=cosplay_character_url(@resource)
                         ] = t 'cosplay'
 
-                      - if @resource.imageboard_tag.present?
+                      - if @resource.imageboard_tag.present? && !@resource.rkn_abused?
                         span.linkeable[
                           data-href=art_character_url(@resource)
                         ] = t 'imageboard_art'

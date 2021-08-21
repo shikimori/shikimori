@@ -1,16 +1,19 @@
-.block
-  = simple_form_for resource.object do |f|
-    = f.input :imageboard_tag,
-      input_html: { 'data-autocomplete' => autocomplete_imageboards_url }
-    = render 'versions/reason'
+- if resource.respond_to?(:rkn_abused?) && resource.rkn_abused?
+  .block Disabled because of [eais#1541024] Роскомнадзор информирует/the Roscomnadzor is informing
+- else
+  .block
+    = simple_form_for resource.object do |f|
+      = f.input :imageboard_tag,
+        input_html: { 'data-autocomplete' => autocomplete_imageboards_url }
+      = render 'versions/reason'
 
-    .buttons
-      a.cancel href=resource.edit_url = t 'actions.cancel'
-      = f.button :magic_submit
+      .buttons
+        a.cancel href=resource.edit_url = t 'actions.cancel'
+        = f.button :magic_submit
 
-.b-gallery[
-  data-imageboard_tag=resource.imageboard_tag
-]
-  / data-with-hentai-images=(user_signed_in? && current_user.preferences.show_hentai_images?).to_json
-  .container
-    .grid_sizer
+  .b-gallery[
+    data-imageboard_tag=resource.imageboard_tag
+  ]
+    / data-with-hentai-images=(user_signed_in? && current_user.preferences.show_hentai_images?).to_json
+    .container
+      .grid_sizer

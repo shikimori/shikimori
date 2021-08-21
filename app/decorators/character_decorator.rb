@@ -27,7 +27,7 @@ class CharacterDecorator < PersonDecorator
       (:ranobe if object.is_ranobe)
     ].compact.join('_')
 
-    i18n_t "job_title.#{key.present? ? key : 'character'}"
+    i18n_t "job_title.#{key.presence || 'character'}"
   end
 
   # презентер косплея
@@ -55,6 +55,10 @@ class CharacterDecorator < PersonDecorator
   # есть ли косплей
   def cosplay?
     CosplayGalleriesQuery.new(object).fetch(1, 1).any?
+  end
+
+  def rkn_abused?
+    Copyright::ABUSED_BY_RKN_CHARACTER_IDS.include? object.id
   end
 
 private
