@@ -1,4 +1,5 @@
 @import mixins/forum_entry
+@import mixins/font_shikimori
 
 .b-summary
   +forum_entry
@@ -14,4 +15,37 @@
       margin-left: 0
 
   .summary-info
+    display: flex
+
     .opinion
+      align-items: center
+      display: flex
+      height: 30px
+      justify-content: center
+      width: 30px
+
+      &:before
+        +font_shikimori
+        font-size: 16px
+
+      &.positive
+        background: #eff9e6
+        color: #549e14
+
+        &:before
+          content: '\e82f'
+
+      &.neutral,
+      &.unknown
+        background: #fff1f2
+        color: #fc575e
+
+        &:before
+          content: '\002d'
+
+      &.negative
+        background: $gray-1
+        color: $gray-4
+
+        &:before
+          content: '\e82f'
