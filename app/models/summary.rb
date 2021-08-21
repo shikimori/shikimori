@@ -1,5 +1,6 @@
 class Summary < ApplicationRecord
   include AntispamConcern
+  include Commentable
   include Moderatable
   include Viewable
 
@@ -8,6 +9,8 @@ class Summary < ApplicationRecord
     disable_if: -> { Rails.env.development? && user&.admin? },
     user_id_key: :user_id
   )
+
+  acts_as_votable cacheable_strategy: :update_columns
 
   belongs_to :user
   belongs_to :anime, optional: true
