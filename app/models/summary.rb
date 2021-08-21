@@ -62,6 +62,14 @@ class Summary < ApplicationRecord
       (!db_entry.released_on || db_entry.released_on <= Time.zone.today)
   end
 
+  def cache_key_with_version
+    if user_id
+      "#{super}/user/#{user.id}/#{user.rate_at.to_i}"
+    else
+      super
+    end
+  end
+
 private
 
   def fill_is_written_before_release

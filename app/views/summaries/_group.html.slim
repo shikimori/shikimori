@@ -1,1 +1,3 @@
-= render @resource.summary_views
+= render partial: 'summaries/summary',
+  collection: summaries,
+  cached: ->(entry) { CacheHelper.keys entry }
