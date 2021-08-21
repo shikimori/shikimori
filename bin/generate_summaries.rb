@@ -23,13 +23,12 @@ end
     includes(:user, commentable: :linked).
     where(is_summary: true).
     order(id: :desc).
-    limit(114).where(commentable_id: Anime.find(7054).decorate.main_topic_view.id).
+    # limit(10000).where(commentable_id: Anime.find(3358).decorate.main_topic_view.id).
     find_each do |comment|
       db_entry = comment.commentable.linked
       next if db_entry.class.base_class != klass
 
       user = comment.user
-      tone = Types::Summary::Tone[:neutral]
 
       rates_fetcher.user_ids = user.id
       rates_fetcher.user_cache_key = user.cache_key_with_version
@@ -37,15 +36,18 @@ end
 
       normalized_score = rates.dig(user.id, db_entry.id)
 
-      if normalized_score
-        if normalized_score >= 0.095
-          tone = Types::Summary::Tone[:positive]
-        elsif normalized_score <= 0.095
-          tone = Types::Summary::Tone[:negative]
+      tone =
+        if normalized_score
+          if normalized_score >= 0.095
+            Types::Summary::Tone[:positive]
+          elsif normalized_score <= -0.095
+            Types::Summary::Tone[:negative]
+          else
+            Types::Summary::Tone[:neutral]
+          end
+        else
+          Types::Summary::Tone[:unknown]
         end
-      else
-        tone = Types::Summary::Tone[:unknown]
-      end
       ap "#{normalized_score} #{tone}"
 
       is_written_before_release =
