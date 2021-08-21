@@ -1,1 +1,48 @@
-div summary ID=#{summary.id}
+.b-summary[
+  id=summary.id
+]
+  - if summary.persisted?
+    a name="summary-#{summary.id}"
+  .inner class=(:check_height if summary.persisted?)
+    - if summary.persisted?
+      aside.markers
+        .b-new_marker[
+          data-appear_url=api_appears_url
+          data-text=t('markers.new')
+        ]
+      aside.moderation-ban
+      / = render 'summarys/buttons', summary: summary
+
+    header
+      / data-href=(summary.respond_to?(:topic_url) ? summary.topic_url : profile_url(summary.user))
+      span.linkeable[
+        data-href=profile_url(summary.user)
+      ]
+        img[
+          src=summary.user.avatar_url(48)
+          srcset="#{summary.user.avatar_url 80} 2x"
+          alt=summary.user.nickname
+        ]
+      .name-date
+        a.name[
+           href=profile_url(summary.user)
+           itemprop='creator'
+           tabindex='-1'
+        ]
+          = summary.user.nickname
+
+        - if summary.persisted?
+          span.time
+            time[
+              itemprop='dateCreated'
+              datetime=summary.created_at.iso8601
+            ] = l summary.created_at, format: '%e %B %Y'
+            span.hash data-url=summary_url(summary) #
+
+    .body itemprop='text'
+      = summary.html_body
+
+    - if summary.persisted?
+      .b-appear_marker[
+        class="appear-summary-#{summary.id}"
+      ]

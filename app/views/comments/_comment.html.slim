@@ -76,7 +76,7 @@
           a.name[
             href=(comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user))
             itemprop='creator'
-            tabindex="-1"
+            tabindex='-1'
           ]
             /- if comment.respond_to?(:topic_url)
             - if comment.kind_of? SolitaryCommentDecorator
@@ -95,6 +95,7 @@
     .body itemprop='text'
       = comment.html_body
 
-    .b-appear_marker[
-      class="appear-comment-#{comment.id}"
-    ]
+    - if comment.persisted?
+      .b-appear_marker[
+        class="appear-comment-#{comment.id}"
+      ]
