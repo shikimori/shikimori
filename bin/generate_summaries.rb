@@ -3,20 +3,27 @@ puts 'loading rails...'
 ENV['RAILS_ENV'] = ARGV.first || ENV['RAILS_ENV'] || 'development'
 require File.expand_path(File.dirname(__FILE__) + '/../config/environment')
 
-puts 'generating summaries...'
-if Rails.env.development?
-  Summary.destroy_all 
-end
 ActiveRecord::Base.logger.level = 3;
+if Rails.env.development?
+  # reload!
+  puts 'Destroying all summaries...'
+  Summary.destroy_all
+else
+  raise RuntimeError
+end
+
 [Anime, Manga].each do |klass|
+  puts "Fetching #{klass.name.downcase} scores..."
   normalization = Recommendations::Normalizations::ZScoreCentering.new;
   rates_fetcher = Recommendations::RatesFetcher.new(klass);
   summary = nil;
 
+  puts 'Generating summaries...'
   Comment.
     includes(:user, commentable: :linked).
     where(is_summary: true).
     order(id: :desc).
+    limit(114).where(commentable_id: Anime.find(7054).decorate.main_topic_view.id).
     find_each do |comment|
       db_entry = comment.commentable.linked
       next if db_entry.class.base_class != klass
@@ -36,7 +43,10 @@ ActiveRecord::Base.logger.level = 3;
         elsif normalized_score <= 0.095
           tone = Types::Summary::Tone[:negative]
         end
+      else
+        tone = Types::Summary::Tone[:unknown]
       end
+      ap "#{normalized_score} #{tone}"
 
       is_written_before_release =
         if (db_entry.released? && !db_entry.released_on) || (db_entry.is_a?(Manga) && db_entry.discontinued?)
@@ -61,7 +71,7 @@ ActiveRecord::Base.logger.level = 3;
       summary.instance_variable_set :@is_migration, true
       Summary.wo_antispam do
         summary.save!
-        ap summary
+        # ap summary
       rescue ActiveRecord::RecordInvalid
         raise unless summary.errors[:user_id].present?
       end

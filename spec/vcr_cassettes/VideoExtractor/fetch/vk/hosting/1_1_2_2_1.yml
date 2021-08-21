@@ -37,6 +37,48 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"response":{"count":1,"items":[{"id":165811692,"owner_id":98023184,"title":"SAO
         AMV Sword Art Online (skillet-rise)","duration":232,"description":"","date":1374189566,"comments":122,"views":10241,"photo_130":"https:\/\/pp.userapi.com\/c514511\/u98023184\/video\/s_297a36bb.jpg","photo_320":"https:\/\/pp.userapi.com\/c514511\/u98023184\/video\/l_81cce630.jpg","player":"https:\/\/vk.com\/video_ext.php?oid=98023184&id=165811692&hash=6d9a4c5f93270892&__ref=vk.api&api_hash=1535571943db84f3a8fd66fea162_GEZTMOBVGIZTS","can_add":1}]}}'
-    http_version: 
   recorded_at: Wed, 29 Aug 2018 19:45:34 GMT
-recorded_with: VCR 4.0.0
+- request:
+    method: get
+    uri: https://api.vk.com/method/video.get?access_token=USER_ACCESS_TOKEN_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&v=5.131&videos=98023184_165811692
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML,
+        like Gecko) Chrome/39.0.2171.71 Safari/537.36
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - kittenx
+      Date:
+      - Sat, 21 Aug 2021 12:49:46 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '183'
+      Connection:
+      - keep-alive
+      X-Powered-By:
+      - KPHP/7.4.108292
+      Set-Cookie:
+      - remixir=DELETED; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=.vk.com;
+        secure; HttpOnly
+      Cache-Control:
+      - no-store
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"error_code":5,"error_msg":"User authorization failed: invalid
+        access_token (4).","request_params":[{"key":"videos","value":"98023184_165811692"},{"key":"v","value":"5.131"},{"key":"method","value":"video.get"},{"key":"oauth","value":"1"}]}}'
+  recorded_at: Sat, 21 Aug 2021 12:49:46 GMT
+recorded_with: VCR 6.0.0
