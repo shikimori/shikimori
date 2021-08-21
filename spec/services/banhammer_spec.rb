@@ -143,7 +143,8 @@ describe Banhammer do
   end
 
   describe '#ban_duration' do
-    subject { banhammer.send :ban_duration, comment }
+    subject { banhammer.send :ban_duration, comment, abusiveness }
+    let(:abusiveness) { banhammer.send :abusiveness, comment.body }
 
     context 'had no bans' do
       it { is_expected.to eq '15m' }
