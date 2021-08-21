@@ -38,7 +38,7 @@ class Banhammer # rubocop:disable ClassLength
   HEAVY_ABUVENESS = 10
 
   def self.w word
-    fixed_word = word.to_s.split(//).map { |v| l v }.join ' '
+    fixed_word = word.to_s.chars.map { |v| l v }.join ' '
     "(?:#{fixed_word})"
   end
 
