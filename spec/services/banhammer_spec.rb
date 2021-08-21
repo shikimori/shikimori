@@ -36,7 +36,7 @@ describe Banhammer do
     end
   end
 
-  describe '#ban', :focus do
+  describe '#ban' do
     let!(:user_banhammer) { create :user, :banhammer }
     let(:comment) { create :comment, body: text }
     let(:text) { 'test хуй test хуй' }
