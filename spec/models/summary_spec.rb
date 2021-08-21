@@ -151,6 +151,45 @@ describe Summary do
         its(:db_entry_released_before?) { is_expected.to eq false }
       end
     end
+
+    describe '#cache_key_with_version' do
+      include_context :timecop, '2021-08-01 15:44:03 +0300'
+
+      let(:summary) { build_stubbed :summary, id: 1, user: user }
+      let(:user) { build_stubbed :user, id: 2, rate_at: Time.zone.now }
+
+      it do
+        expect(summary.cache_key_with_version).to eq(
+          'summaries/1-20210801124403000000/user/2/1627821843'
+        )
+      end
+    end
+
+    describe '#user_rate' do
+      let(:summary) { build_stubbed :summary, anime: anime, manga: manga }
+      let(:anime) { nil }
+      let(:manga) { nil }
+
+      subject { summary.user_rate }
+
+      context 'no rate' do
+        it { is_expected.to be_nil }
+      end
+
+      context 'anime rate' do
+        let(:anime) { create :anime }
+        let!(:user_rate) { create :user_rate, target: anime, user: user }
+
+        it { is_expected.to eq user_rate }
+      end
+
+      context 'manga rate' do
+        let(:manga) { create :manga }
+        let!(:user_rate) { create :user_rate, target: manga, user: user }
+
+        it { is_expected.to eq user_rate }
+      end
+    end
   end
 
   describe 'permissions' do

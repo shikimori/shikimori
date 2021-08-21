@@ -63,11 +63,16 @@ class Summary < ApplicationRecord
   end
 
   def cache_key_with_version
-    if user_id
-      "#{super}/user/#{user.id}/#{user.rate_at.to_i}"
-    else
-      super
-    end
+    "#{super}/user/#{user.id}/#{user.rate_at.to_i}"
+  end
+
+  def user_rate
+    @user_rate ||=
+      if anime?
+        UserRate.find_by user_id: user_id, target_type: 'Anime', target_id: anime_id
+      else
+        UserRate.find_by user_id: user_id, target_type: 'Manga', target_id: manga_id
+      end
   end
 
 private
