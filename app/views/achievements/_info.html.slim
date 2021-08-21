@@ -95,4 +95,4 @@
           = render partial: 'animes/anime',
             collection: view.animes_scope.decorate,
             locals: { cover_notice: :year_kind },
-            cache: ->(entry, _) { CacheHelper.keys entry, :year_kind }
+            cached: ->(entry) { CacheHelper.keys entry, :year_kind }
