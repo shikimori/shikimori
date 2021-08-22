@@ -1,6 +1,7 @@
 @import mixins/forum_entry
 @import mixins/font_shikimori
 @import mixins/shiki_comment
+@import mixins/user_rate-minified
 
 .b-summary
   +forum_entry
@@ -21,13 +22,14 @@
   .summary-info
     font-family: var(--font-alt)
     display: flex
+    align-items: flex-end
 
     .positive
       color: #549e14
 
     .neutral,
     .unknown
-      color: $gray-4
+      color: #123
 
     .negative
       color: #fc575e
@@ -52,6 +54,7 @@
 
       &.neutral,
       &.unknown
+        color: $gray-4
         background: lighten($gray-1, 25%)
 
         &:before
@@ -70,7 +73,27 @@
       margin-top: -2px
       margin-bottom: 4px
 
-    .in-auhtor-list
+    .user-rate-label
       color: #4e5257
       font-size: 12px
       line-height: 12px
+
+      &.is-missing
+        color: #123
+        font-weight: bold
+        margin-left: 5px
+
+    .user-rate
+      +user_rate-minified
+      margin-left: 10px
+
+      .b-add_to_list
+        .edit:before
+          cursor: default
+
+        .text
+          cursor: inherit
+          text-decoration: none
+
+        .trigger
+          max-width: 140px

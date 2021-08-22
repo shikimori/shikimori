@@ -44,8 +44,20 @@
           div
             .label class=summary.opinion
               = summary.opinion_text
-            .in-auhtor-list
-              ' #{t '.in_author_list'}:
+            .user-rate-label
+              | #{t '.in_author_list'}:
+              - unless summary.user_rate
+                b.missing &nbsp;#{t 'no'}
+          - if summary.user_rate
+            .user-rate
+              .b-add_to_list class=summary.user_rate.status
+                .trigger
+                  .edit-trigger
+                    .edit
+                    .text
+                      .status-name = summary.user_rate.status_name
+          / - else
+            .user-rate-label.is-missing
 
     .body itemprop='text'
       = summary.html_body
