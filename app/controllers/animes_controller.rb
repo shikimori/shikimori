@@ -137,6 +137,7 @@ class AnimesController < DbEntriesController
     unless @resource.art?
       return redirect_to @resource.url, status: :moved_permanently
     end
+    raise AgeRestricted if censored_forbidden?
 
     og noindex: true, nofollow: true
     og page_title: t('imageboard_art')
