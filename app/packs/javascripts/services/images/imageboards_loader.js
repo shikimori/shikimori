@@ -33,7 +33,9 @@ export class ImageboardsLoader extends StaticLoader {
     this.hashes = {};
     this.awaitingLoad = false;
 
-    this.loaders = LOADERS.map(LoaderKlass => new LoaderKlass(this.tag, this.forbiddenTags));
+    this.loaders = LOADERS.map(LoaderKlass => (
+      new LoaderKlass(this.tag + ' rating:safe', this.forbiddenTags)
+    ));
     this.loaders.forEach(loader => {
       loader.on(loader.FETCH_EVENT, (_e, images) => this._loaderFetch(images));
     });
