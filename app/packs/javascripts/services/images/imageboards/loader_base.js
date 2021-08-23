@@ -101,7 +101,7 @@ export class LoaderBase {
   }
 
   _camoUrl(imageUrl, filename) {
-    return this.camoBaseUrl + `?filename=${filename}&url=${imageUrl}`;
+    return this.camoBaseUrl + `?token=allow&filename=${filename}&url=${imageUrl}`;
   }
 
   _imageUrl(imageUrl, filename) {
