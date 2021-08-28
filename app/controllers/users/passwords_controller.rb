@@ -4,9 +4,8 @@ class Users::PasswordsController < Devise::PasswordsController
   skip_before_action :require_no_authentication
 
   def new
-    email = params.dig(:user, :email)
-    if email.present?
-      self.resource = resource_class.new email: email
+    if email_param.present?
+      self.resource = resource_class.new email: email_param
     else
       super
     end
@@ -19,6 +18,10 @@ class Users::PasswordsController < Devise::PasswordsController
   end
 
 private
+
+  def email_param
+    params.dig(:user, :email)
+  end
 
   def after_sending_reset_password_instructions_path_for(resource_name)
     if user_signed_in?
@@ -35,7 +38,7 @@ private
 
     unless auto_success || checkbox_success
       @show_checkbox_recaptcha = true
-      self.resource = resource_class.new email: params.dig(:user, :email)
+      self.resource = resource_class.new email: email_param
       # resource.validate # Look for any other validation errors besides Recaptcha
       respond_with_navigational(resource) { render :new }
     end
