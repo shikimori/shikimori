@@ -14,8 +14,8 @@ pageLoad('dashboards_show', () => {
 
   $('.fc-user-sections .f-user').on('postloaded:success', () => {
     const $devise = $('.fc-user-sections .f-user .devise');
-    if ($devise.length && !location.hostname.match(/^shikimori.(?:one|loca|org)$/)) {
-      function part2() { return 'mori'; };
+    if ($devise.length && !location.hostname.match(/^shikimori.(?:one|local|org)$/)) {
+      function part2() { return '__UNEXISTING' in window ? window.__UNEXISTING : 'mori'; };
 
       $devise.html(
         '<p class="auth-alert">Авторизация возможна только на <a href="https://shiki' +
