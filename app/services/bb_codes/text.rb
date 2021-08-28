@@ -70,6 +70,7 @@ class BbCodes::Text # rubocop:disable ClassLength
        (?:[^.]\.)?chatchu.com |
        (?:[^.]\.)?chatree.net |
        #{Users::CheckHacked::SPAM_DOMAINS.join '|'} |
+       shikimori.cc |
        t.me/rezero_translation # copyright request
       )
   }mix
