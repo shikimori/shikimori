@@ -22,7 +22,10 @@ header.head.m15
       }
 
   .block
-    = recaptcha_tags
+    - if @show_checkbox_recaptcha
+      = recaptcha_tags
+    - else
+      = recaptcha_v3 action: 'forgot', site_key: Rails.application.secrets.recaptcha[:v3][:site_key]
 
   .block
     = f.button :magic_submit

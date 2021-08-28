@@ -28,8 +28,8 @@ private
     checkbox_success = verify_recaptcha unless auto_success
 
     unless auto_success || checkbox_success
-      self.resource = resource_class.new sign_up_params
       @show_checkbox_recaptcha = true
+      self.resource = resource_class.new sign_up_params
       # disabled because of expensive email validation
       # resource.validate # Look for any other validation errors besides Recaptcha
       set_minimum_password_length
