@@ -14,13 +14,12 @@ pageLoad('dashboards_show', () => {
 
   $('.fc-user-sections .f-user').on('postloaded:success', () => {
     const $devise = $('.fc-user-sections .f-user .devise');
-    if ($devise.length && !location.hostname.match(/^shikimori.(?:one|local|org)$/)) {
-      const part1 = 'shiki';
-      const part2 = 'mori';
+    if ($devise.length && !location.hostname.match(/^shikimori.(?:one|loca|org)$/)) {
+      function part2() { return 'mori'; };
 
       $devise.html(
-        '<p class="auth-alert">Авторизация возможна только на <a href="https://' +
-        part1 + part2 + '.one">' + part1 + part2 + '.one</a> домене</p>'
+        '<p class="auth-alert">Авторизация возможна только на <a href="https://shiki' +
+        part2() + '.one">shiki' + part2() + '.one</a> домене</p>'
       );
     }
   });
