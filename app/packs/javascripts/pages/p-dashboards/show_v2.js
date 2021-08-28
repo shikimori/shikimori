@@ -15,7 +15,11 @@ pageLoad('dashboards_show', () => {
   $('.fc-user-sections .f-user').on('postloaded:success', () => {
     const $devise = $('.fc-user-sections .f-user .devise');
     if ($devise.length && !location.hostname.match(/^shikimori.(?:one|local|org)$/)) {
-      $devise.html('<p class="auth-alert">Авторизация возможна только на <a href="https://shikimori.one">shikimori.one</a> домене</p>');
+      $devise.html(
+        '<p class="auth-alert">Авторизация возможна только на <a href="https://shiki' +
+        'mori.one">shiki' +
+        'mori.one</a> домене</p>'
+      );
     }
   });
 });
