@@ -8,8 +8,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   ]
 
   def authorize
-    Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
-      RedisMutex.with_lock("#{@omni.provider}/#{@omni.uid}", block: 5) do
+    Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 3 do
+      RedisMutex.with_lock("#{@omni.provider}/#{@omni.uid}", block: 5, expire: 4) do
         @preexisting_token = UserToken.find_by(
           provider: @omni.provider,
           uid: @omni.uid
