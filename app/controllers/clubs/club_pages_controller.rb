@@ -15,6 +15,7 @@ class Clubs::ClubPagesController < ShikimoriController
     @back_url = @club.url
 
     @resource = @resource.decorate
+    raise AgeRestricted if @club.censored? && censored_forbidden?
 
     @resource.parents.each do |club_page|
       breadcrumb club_page.name, club_club_page_path(@club, club_page)

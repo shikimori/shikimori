@@ -215,7 +215,7 @@ describe Comment do
           before do
             allow(BbCodes::Text)
               .to receive(:call)
-              .with(final_bbcode)
+              .with(final_bbcode, object: comment)
               .and_return final_bbcode
           end
 

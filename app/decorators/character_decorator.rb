@@ -30,6 +30,11 @@ class CharacterDecorator < PersonDecorator
     i18n_t "job_title.#{key.presence || 'character'}"
   end
 
+  def art?
+    Shikimori::IS_IMAGEBOARD_TAGS_ENABLED &&
+      imageboard_tag.present? && !rkn_abused?
+  end
+
   # презентер косплея
   def cosplay
     @cosplay ||= AniMangaPresenter::CosplayPresenter.new object, h

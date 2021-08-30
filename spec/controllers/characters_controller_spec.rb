@@ -73,14 +73,11 @@ describe CharactersController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#art' do
-    subject! { get :art, params: { id: character.to_param } }
-    it { expect(response).to have_http_status :success }
-  end
-
-  describe '#images' do
-    subject! { get :images, params: { id: character.to_param } }
-    it { expect(response).to redirect_to art_character_url(character) }
+  if Shikimori::IS_IMAGEBOARD_TAGS_ENABLED
+    describe '#art' do
+      subject! { get :art, params: { id: character.to_param } }
+      it { expect(response).to have_http_status :success }
+    end
   end
 
   describe '#favoured' do

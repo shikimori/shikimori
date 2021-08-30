@@ -33,8 +33,10 @@ if Rails.env.development?
   end
 end
 
+MODIFIER = 10
+
 # Throttle requests to 5 requests per second per ip
-Rack::Attack.throttle('req/ip', limit: 5, period: 1.second) do |req|
+Rack::Attack.throttle('req/ip', limit: 5 * MODIFIER, period: 1.second) do |req|
   # If the return value is truthy, the cache key for the return value
   # is incremented and compared with the limit. In this case:
   #   "rack::attack:#{Time.now.to_i/1.second}:req/ip:#{req.ip}"
@@ -45,19 +47,19 @@ Rack::Attack.throttle('req/ip', limit: 5, period: 1.second) do |req|
   end
 end
 
-Rack::Attack.throttle('per second', limit: 15, period: 1.second) do |req|
+Rack::Attack.throttle('per second', limit: 15 * MODIFIER, period: 1.second) do |req|
   if req.user_agent == SMOTRET_ANIME_USER_AGENT
     req.real_ip
   end
 end
 
-Rack::Attack.throttle('per minute', limit: 90, period: 60.second) do |req|
+Rack::Attack.throttle('per minute', limit: 90 * MODIFIER, period: 60.second) do |req|
   if req.user_agent != SMOTRET_ANIME_USER_AGENT
     req.real_ip
   end
 end
 
-Rack::Attack.throttle('smotret-anime per minute', limit: 270, period: 60.second) do |req|
+Rack::Attack.throttle('smotret-anime per minute', limit: 270 * MODIFIER, period: 60.second) do |req|
   if req.user_agent == SMOTRET_ANIME_USER_AGENT
     req.real_ip
   end

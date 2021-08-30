@@ -23,8 +23,9 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   COMMENTS_LIMIT = 20
   VERSIONS_PER_PAGE = 30
 
+  # name location
   USER_PARAMS = %i[
-    avatar nickname name location website sex birth_on about locale
+    avatar nickname website sex birth_on about locale
   ] + [{
     ignored_user_ids: [],
     notification_settings: [],

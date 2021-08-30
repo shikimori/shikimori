@@ -29,11 +29,14 @@ header.head.m15
     = f.input :password
 
   .block
-    = recaptcha_tags
+    - if @show_checkbox_recaptcha
+      = recaptcha_tags
+    - else
+      = recaptcha_v3 action: 'sign_up', site_key: Rails.application.secrets.recaptcha[:v3][:site_key]
 
   .block
     = f.button :magic_submit
-    a.cancel href="#{new_user_session_url}" = t '.sign_in'
-    a.cancel href="#{new_user_password_url}" = t '.forgot_password'
+    a.cancel href=new_user_session_url = t '.sign_in'
+    a.cancel href=new_user_password_url = t '.forgot_password'
 
   = render 'devise/social'

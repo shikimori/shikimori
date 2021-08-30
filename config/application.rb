@@ -82,6 +82,7 @@ module Shikimori
   ]
 
   IS_SUMMARIES_ENABLED = !Rails.env.production?
+  IS_IMAGEBOARD_TAGS_ENABLED = false
 
   class Application < Rails::Application
     def redis

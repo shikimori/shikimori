@@ -1,9 +1,12 @@
 = simple_form_for resource, as: 'user', url: session_path('user') do |f|
-  - if f.object.errors.any?
+  - if f.object.errors.any? || flash[:recaptcha_error].present?
     .b-errors
-      .subheadline.m5  = t '.errors'
+      .subheadline.m5 = t 'form_errors'
       .block
-        == f.object.errors.full_messages.join('<br>')
+        - if f.object.errors.any?
+          p == f.object.errors.full_messages.join('<br>')
+        - if flash[:recaptcha_error].present?
+          p = flash[:recaptcha_error]
 
   .block
     = f.input :nickname,
@@ -16,7 +19,13 @@
 
     = f.input :password
 
-  .block.submits
+  .block
+    - if @show_checkbox_recaptcha
+      = recaptcha_tags
+    - else
+      = recaptcha_v3 action: 'sign_in', site_key: Rails.application.secrets.recaptcha[:v3][:site_key]
+
+  .block
     = f.button :magic_submit
     a.cancel href=new_user_registration_url = t '.sign_up'
     a.cancel href=new_user_password_url = t '.forgot_password'

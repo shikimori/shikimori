@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.vk.com/method/video.get?access_token=USER_ACCESS_TOKEN_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&v=5.73&videos=-98023184_165811692
+    uri: https://api.vk.com/method/video.get?access_token=USER_ACCESS_TOKEN_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&v=5.131&videos=-98023184_165811692
     body:
       encoding: US-ASCII
       string: ''
@@ -38,4 +38,4 @@ http_interactions:
       string: '{"response":{"count":0,"items":[]}}'
     http_version: 
   recorded_at: Wed, 29 Aug 2018 16:33:49 GMT
-recorded_with: VCR 4.0.0
+recorded_with: VCR 6.0.0

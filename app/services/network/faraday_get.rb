@@ -9,7 +9,7 @@ class Network::FaradayGet
     OpenSSL::SSL::SSLError,
     URI::InvalidURIError, OpenURI::HTTPError,
     SocketError,
-    Errno::ECONNRESET, Errno::ETIMEDOUT, Errno::EMFILE, Errno::EADDRNOTAVAIL,
+    Errno::ECONNRESET, Errno::ETIMEDOUT, Errno::EMFILE, Errno::EADDRNOTAVAIL, Errno::EINVAL,
     Faraday::ConnectionFailed, Faraday::TimeoutError,
     (Addressable::URI::InvalidURIError if defined? Addressable)
   ].compact
