@@ -36,7 +36,7 @@ describe Banhammer do
     end
   end
 
-  describe '#ban', :focus do
+  describe '#ban' do
     let!(:user_banhammer) { create :user, :banhammer }
     let(:comment) { create :comment, body: text }
     let(:text) { 'test хуй test хуй' }
@@ -143,7 +143,8 @@ describe Banhammer do
   end
 
   describe '#ban_duration' do
-    subject { banhammer.send :ban_duration, comment }
+    subject { banhammer.send :ban_duration, comment, abusiveness }
+    let(:abusiveness) { banhammer.send :abusiveness, comment.body }
 
     context 'had no bans' do
       it { is_expected.to eq '15m' }
