@@ -81,6 +81,8 @@ module Shikimori
     Terrapin::ExitStatusError
   ]
 
+  IS_IMAGEBOARD_TAGS_ENABLED = false
+
   class Application < Rails::Application
     def redis
       Rails.application.config.redis

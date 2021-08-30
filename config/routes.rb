@@ -728,7 +728,9 @@ Rails.application.routes.draw do
         get :chronology
         get :franchise
 
-        get :art
+        if Shikimori::IS_IMAGEBOARD_TAGS_ENABLED
+          get :art
+        end
         get :images
         get :clubs
         get :collections
@@ -803,7 +805,9 @@ Rails.application.routes.draw do
       get :animes
       get :mangas
       get :ranobe
-      get :art
+      if Shikimori::IS_IMAGEBOARD_TAGS_ENABLED
+        get :art
+      end
       get :images
       get 'cosplay(/page/:page)' => :cosplay, as: :cosplay
       get :clubs

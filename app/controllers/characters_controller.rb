@@ -77,9 +77,7 @@ class CharactersController < PeopleController
   end
 
   def art
-    if @resource.rkn_abused?
-      redirect_to @resource.url, status: :moved_permanently
-    end
+    redirect_to @resource.url, status: :moved_permanently unless @resource.art?
     raise AgeRestricted if censored_forbidden?
 
     og page_title: t('imageboard_art')

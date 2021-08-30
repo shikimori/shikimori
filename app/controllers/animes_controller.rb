@@ -134,9 +134,7 @@ class AnimesController < DbEntriesController
   end
 
   def art
-    unless @resource.art?
-      return redirect_to @resource.url, status: :moved_permanently
-    end
+    return redirect_to @resource.url, status: :moved_permanently unless @resource.art?
     raise AgeRestricted if censored_forbidden?
 
     og noindex: true, nofollow: true

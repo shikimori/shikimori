@@ -49,7 +49,7 @@
                 - if @resource.altname.present?
                   = info_line t('.other'), @resource.altname
 
-                - if @resource.imageboard_tag.present? || @resource.cosplay?
+                - if (Shikimori::IS_IMAGEBOARD_TAGS_ENABLED && @resource.imageboard_tag.present? && !@resource.rkn_abused?) || @resource.cosplay?
                   .additional-links
                     .line-container
                       - if @resource.cosplay?
@@ -57,7 +57,7 @@
                           data-href=cosplay_character_url(@resource)
                         ] = t 'cosplay'
 
-                      - if @resource.imageboard_tag.present? && !@resource.rkn_abused?
+                      - if @resource.art?
                         span.linkeable[
                           data-href=art_character_url(@resource)
                         ] = t 'imageboard_art'

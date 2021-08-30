@@ -35,7 +35,8 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def art?
-    imageboard_tag.present? && !forbidden?
+    Shikimori::IS_IMAGEBOARD_TAGS_ENABLED &&
+      imageboard_tag.present? && !forbidden?
   end
 
   def episode_torrents?
