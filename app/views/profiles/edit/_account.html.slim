@@ -21,8 +21,8 @@
             a href=new_user_password_url(user: { email: @resource.email })
               = t '.password_recovery'
 
-        = f.input :name
-        = f.input :location
+        / = f.input :name
+        / = f.input :location
         = f.input :website
         = f.input :sex, as: :select, collection: [:male, :female]
         = f.input :birth_on,

@@ -7,6 +7,14 @@ class UserProfileSerializer < UserSerializer
 
   delegate :common_info, :full_years, to: :view
 
+  def name
+    nil
+  end
+
+  def location
+    nil
+  end
+
   def last_online_at
     object.exact_last_online_at
   end

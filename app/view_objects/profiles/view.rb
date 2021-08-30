@@ -61,7 +61,7 @@ class Profiles::View < ViewObjectBase
     info << "id: #{@user.id}" if h.user_signed_in? && h.current_user.admin?
 
     if h.can? :access_list, @user
-      info << h.h(@user.name)
+      # info << h.h(@user.name)
       unless @user.sex.blank?
         info << i18n_t('male') if @user.male?
         info << i18n_t('female') if @user.female?
@@ -69,7 +69,7 @@ class Profiles::View < ViewObjectBase
       if @user.birth_on.present? && full_years > 12
         info << "#{full_years} #{i18n_i 'years_old', full_years}"
       end
-      info << @user.location
+      # info << @user.location
       info << @user.website
 
       info.select!(&:present?)
