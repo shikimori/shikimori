@@ -7,7 +7,7 @@ describe Summary::Create do
     {
       anime_id: anime.id,
       body: body,
-      tone: 'positive',
+      opinion: 'positive',
       user: user
     }
   end
@@ -24,7 +24,7 @@ describe Summary::Create do
     expect(subject).to have_attributes(
       anime_id: anime.id,
       body: body,
-      tone: 'positive',
+      opinion: 'positive',
       user: user,
       is_written_before_release: released_on > Time.zone.now
     )

@@ -9,7 +9,7 @@ describe Api::V1::SummariesController do
       {
         anime_id: anime.id,
         body: body,
-        tone: 'positive'
+        opinion: 'positive'
       }
     end
 
