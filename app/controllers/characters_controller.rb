@@ -83,10 +83,6 @@ class CharactersController < PeopleController
     og page_title: t('imageboard_art')
   end
 
-  def images
-    redirect_to art_character_url(@resource), status: :moved_permanently
-  end
-
   def cosplay
     @limit = 2
     @collection, @add_postloader =

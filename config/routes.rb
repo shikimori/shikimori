@@ -731,7 +731,6 @@ Rails.application.routes.draw do
         if Shikimori::IS_IMAGEBOARD_TAGS_ENABLED
           get :art
         end
-        get :images
         get :clubs
         get :collections
 
@@ -808,7 +807,6 @@ Rails.application.routes.draw do
       if Shikimori::IS_IMAGEBOARD_TAGS_ENABLED
         get :art
       end
-      get :images
       get 'cosplay(/page/:page)' => :cosplay, as: :cosplay
       get :clubs
       get :collections

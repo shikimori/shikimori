@@ -150,10 +150,6 @@ class AnimesController < DbEntriesController
     og page_title: 'Coub'
   end
 
-  def images
-    redirect_to @resource.art_url, status: :moved_permanently
-  end
-
   def cosplay
     @limit = 2
     @collection, @add_postloader = CosplayGalleriesQuery
