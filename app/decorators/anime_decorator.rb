@@ -27,7 +27,7 @@ class AnimeDecorator < AniMangaDecorator
   end
 
   def screenshots_allowed?
-    Copyright::ANIME_SCREENSHOTS.exclude?(id) && !censored? && !@resource.rkn_abused?
+    Copyright::ANIME_SCREENSHOTS.exclude?(id) && !censored? && !rkn_abused?
   end
 
   def videos limit = nil # rubocop:disable PerceivedComplexity, CyclomaticComplexity, AbcSize
