@@ -32,7 +32,7 @@ header.head
         - if shikimori?
           = render 'spnsrs/ad', ad: Ad.new(:horizontal_x90)
 
-      - if params[:action] == 'show'
+      - if params[:action] == 'show' && !@resource.rkn_abused?
         = render 'db_entries/comments', resource: @resource
 
     aside.l-menu
