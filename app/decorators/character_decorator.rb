@@ -62,10 +62,6 @@ class CharacterDecorator < PersonDecorator
     CosplayGalleriesQuery.new(object).fetch(1, 1).any?
   end
 
-  def rkn_abused?
-    Copyright::ABUSED_BY_RKN_CHARACTER_IDS.include? object.id
-  end
-
 private
 
   def map_roles person_roles_scope

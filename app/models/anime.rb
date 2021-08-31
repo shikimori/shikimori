@@ -302,8 +302,16 @@ class Anime < DbEntry
   end
 
   def censored?
-    is_censored || ADULT_RATING == rating
+    is_censored || ADULT_RATING == rating || rkn_abused?
     # || (kind_ova? && SUB_ADULT_RATING == rating)
+  end
+
+  def rkn_abused?
+    Copyright::ABUSED_BY_RKN_ANIME_IDS.include? id
+  end
+
+  def image_file_name
+    rkn_abused? ? nil : super
   end
 
 private

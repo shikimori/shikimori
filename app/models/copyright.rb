@@ -57,4 +57,11 @@ module Copyright
     65263, # Kotori Itsuka
     70603 # Yoshino
   ]
+
+  ABUSED_BY_RKN_ANIME_IDS = [
+    5391, # Pico to Chico
+    34659, # Otokonoko ♂ Delivery
+    17371, # Natsuyasumi.
+    37405 # Dokidoki Little Ooyasan
+  ]
 end

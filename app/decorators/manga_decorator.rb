@@ -4,6 +4,8 @@ class MangaDecorator < AniMangaDecorator
   end
 
   def news_topic_views
+    return [] if rkn_abused?
+
     []
   end
 

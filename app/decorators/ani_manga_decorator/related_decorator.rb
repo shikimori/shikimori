@@ -1,39 +1,31 @@
 class AniMangaDecorator::RelatedDecorator < BaseDecorator
   instance_cache :related, :similar, :all
 
-  # связанные аниме
   def related
+    return [] if object.rkn_abused?
+
     all.map do |v|
       RelatedEntry.new (v.anime || v.manga).decorate, v.relation
     end
   end
 
-  # похожие аниме
   def similar
+    return [] if object.rkn_abused?
+
     object
       .send("similar_#{object.class.base_class.name.downcase.pluralize}")
       .map(&:decorate)
   end
 
-  # есть ли они вообще?
-  def any?
-    related.any?
-  end
+  delegate :any?, to: :related
 
-  # одно ли связанное аниме?
   def one?
     related.size == 1
   end
 
-  # одно ли что-либо, кроме адаптаций?
   def chronology?
     related.any? { |v| v.relation.downcase != 'adaptation' }
   end
-
-  # достаточно ли большое число связанных аниме?
-  #def many?
-    #related.size > AnimeDecorator::VISIBLE_RELATED
-  #end
 
   def all
     object

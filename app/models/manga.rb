@@ -33,7 +33,7 @@ class Manga < DbEntry
         .map { |v| { id: v, kind: 'manga' } }
       deleted = (previous_changes['licensors'][0] - previous_changes['licensors'][1])
         .select { |v| Manga.where("licensors && '{#{Manga.sanitize v, true}}'").none? }
-        .map { |v| { id: v, kind: 'manga', '_destroyed': true } }
+        .map { |v| { id: v, kind: 'manga', _destroyed: true } }
 
       added + deleted
     end
@@ -43,7 +43,7 @@ class Manga < DbEntry
   #   if saved_change_to_licensors?
   #     added = licensors.map { |v| OpenStruct.new id: v, kind: 'manga' }
   #     deleted = previous_changes['licensors'][0] - previous_changes['licensors'][1]
-  # 
+  #
   #     added + deleted
   #   end
   # end
@@ -152,8 +152,8 @@ class Manga < DbEntry
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
-  before_create :set_type
   before_save :set_type, if: -> { kind_changed? }
+  before_create :set_type
   after_create :generate_name_matches
 
   def name
@@ -187,13 +187,17 @@ class Manga < DbEntry
   end
 
   def censored?
-    is_censored
+    is_censored || rkn_abused?
+  end
+
+  def rkn_abused?
+    Copyright::ABUSED_BY_RKN_ANIME_IDS.include? id
   end
 
 private
 
   def set_type
-    self.type = kind_novel? || kind_light_novel? ?
+    self.type = (kind_novel? || kind_light_novel?) ?
       Ranobe.name :
       Manga.name
   end
