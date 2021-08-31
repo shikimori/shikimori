@@ -50,7 +50,7 @@ module Copyright
     40046 # Id:Invaded
   ]
 
-  ABUSED_BY_RKN_CHARACTER_IDS = [
+  ABUSED_BY_RKN_CHARACTER_ART_IDS = [
     37698, # Kobato Hasegawa
     82525, # Shiro
     38934, # Maria Takayama
@@ -58,10 +58,23 @@ module Copyright
     70603 # Yoshino
   ]
 
+  ABUSED_BY_RKN_CHARACTER_IDS = [
+    2515, # Pico
+    15967, # Coco
+    2516 # Chico
+  ]
+
   ABUSED_BY_RKN_ANIME_IDS = [
     5391, # Pico to Chico
+    4866, # Pico x CoCo x Chico
     34659, # Otokonoko ♂ Delivery
     17371, # Natsuyasumi.
-    37405 # Dokidoki Little Ooyasan
+    37405, # Dokidoki Little Ooyasan
+    6546, # Pico: My Little Summer Story
+    1639 # Boku no Pico
+  ]
+
+  ABUSED_BY_RKN_MANGA_IDS = [
+    5467 # Boku no Pico
   ]
 end

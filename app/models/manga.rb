@@ -191,7 +191,7 @@ class Manga < DbEntry
   end
 
   def rkn_abused?
-    Copyright::ABUSED_BY_RKN_ANIME_IDS.include? id
+    Copyright::ABUSED_BY_RKN_MANGA_IDS.include? id
   end
 
 private

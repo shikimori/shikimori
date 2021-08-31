@@ -310,10 +310,6 @@ class Anime < DbEntry
     Copyright::ABUSED_BY_RKN_ANIME_IDS.include? id
   end
 
-  def image_file_name
-    rkn_abused? ? nil : super
-  end
-
 private
 
   def track_changes

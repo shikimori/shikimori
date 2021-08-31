@@ -32,7 +32,13 @@ class CharacterDecorator < PersonDecorator
 
   def art?
     Shikimori::IS_IMAGEBOARD_TAGS_ENABLED &&
-      imageboard_tag.present? && !rkn_abused?
+      imageboard_tag.present? &&
+      !rkn_abused? &&
+      !rkn_art_abused?
+  end
+
+  def rkn_art_abused?
+    Copyright::ABUSED_BY_RKN_CHARACTER_ART_IDS.include? object.id
   end
 
   # презентер косплея

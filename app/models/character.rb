@@ -57,4 +57,8 @@ class Character < DbEntry
   def rkn_abused?
     Copyright::ABUSED_BY_RKN_CHARACTER_IDS.include? id
   end
+
+  def image_file_name
+    rkn_abused? ? nil : super
+  end
 end
