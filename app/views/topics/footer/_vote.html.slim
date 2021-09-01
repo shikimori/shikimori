@@ -19,7 +19,8 @@
       data-method='post'
       data-remote='true'
       data-type='json'
-    ] = t('answers.yes').capitalize
+    ]
+      span = t('answers.yes').capitalize
     .separator
     .vote.no.to-process[
       data-action=votes_url(votable_id: votable.id, votable_type: votable.class.name, vote: 'no')
@@ -27,4 +28,5 @@
       data-method='post'
       data-remote='true'
       data-type='json'
-    ] = t('answers.no').capitalize
+    ]
+      span = t('answers.no').capitalize

@@ -41,13 +41,17 @@
         content: '/'
 
     .vote
-      +js-link
+      +link_color
       opacity: 0.9
       transition: opacity 0.2s ease, color 0.2s ease, border-bottom-color 0.2s ease
 
       &:before
         +font_shikimori
+        cursor: pointer
         padding-right: 7px
+
+      span
+        +js-link
 
       &.yes
         +iphone_portrait
@@ -56,16 +60,24 @@
         &:before
           content: '\e82f'
 
-        &.selected, &:hover
-          border-bottom-color: $green
+        &.selected,
+        &:hover
           color: $green
           opacity: 1
+
+          span
+            color: inherit
+            border-bottom-color: $green
 
       &.no
         &:before
           content: '\e82e'
 
-        &.selected, &:hover
-          border-bottom-color: $red
+        &.selected,
+        &:hover
           color: $red
           opacity: 1
+
+          span
+            color: inherit
+            border-bottom-color: $red
