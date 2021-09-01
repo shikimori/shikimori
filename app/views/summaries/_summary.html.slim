@@ -50,6 +50,7 @@
                 b.missing &nbsp;#{t 'no'}
           - if summary.user_rate
             .user-rate
+              = render 'blocks/rate', score: summary.user_rate.score, is_no_text_score: true
               .b-add_to_list class=summary.user_rate.status
                 .trigger
                   .edit-trigger

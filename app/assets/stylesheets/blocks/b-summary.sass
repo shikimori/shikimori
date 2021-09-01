@@ -86,14 +86,27 @@
     .user-rate
       +user_rate-minified
       margin-left: 10px
+      display: flex
+      align-items: center
 
       .b-add_to_list
+        min-width: 134px
+
         .edit:before
           cursor: default
 
         .text
           cursor: inherit
           text-decoration: none
+          font-weight: normal
 
         .trigger
           max-width: 140px
+
+      .b-rate
+        min-width: auto
+        max-width: auto
+
+        div
+          font-size: 20px
+          margin-right: 10px
