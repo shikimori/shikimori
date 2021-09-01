@@ -251,7 +251,11 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def format_date datetime
-    h.l datetime, format: '%e %B %Y'
+    self.class.format_date datetime, format: '%e %B %Y'
+  end
+
+  def self.format_date datetime
+    I18n.l datetime, format: '%e %B %Y'
   end
 
 private

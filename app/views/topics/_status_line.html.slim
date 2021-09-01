@@ -19,7 +19,7 @@
   ]
     time[
       datetime=topic_view.created_at.iso8601
-      data-no-tooltip="true"
+      data-no-tooltip='true'
     ] = topic_view.format_date topic_view.created_at
 
   - if topic_view.respond_to?(:changed_at) && topic_view.changed_at
@@ -28,7 +28,7 @@
     ]
       time[
         datetime=topic_view.changed_at.iso8601
-        data-no-tooltip="true"
+        data-no-tooltip='true'
       ] = topic_view.format_date topic_view.changed_at
 
   .section.additional

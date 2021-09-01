@@ -57,8 +57,15 @@
                     .edit
                     .text
                       .status-name = summary.user_rate.status_name
-          / - else
-            .user-rate-label.is-missing
+    - if summary.persisted?
+      .b-status-line
+        .section.created_at[
+          title=t('topics.status_line.created_at', date: Topics::View.format_date(summary.created_at))
+        ]
+          time[
+            datetime=summary.created_at.iso8601
+            data-no-tooltip='true'
+          ] = Topics::View.format_date summary.created_at
 
     .body itemprop='text'
       = summary.html_body
