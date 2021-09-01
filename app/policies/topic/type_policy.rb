@@ -1,5 +1,5 @@
 class Topic::TypePolicy
-  pattr_initialize :topic
+  vattr_initialize :topic
 
   def forum_topic?
     topic.instance_of?(Topic) || club_user_topic?
@@ -61,9 +61,13 @@ class Topic::TypePolicy
     !collection_topic? || topic.linked.published? || topic.linked.opened?
   end
 
+  def summary_topic?
+    topic.is_a? Summary
+  end
+
   def votable_topic?
     review_topic? || cosplay_gallery_topic? || (
       collection_topic? && (topic.linked.published? || topic.linked.opened?)
-    )
+    ) || summary_topic?
   end
 end

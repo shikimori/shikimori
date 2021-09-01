@@ -284,9 +284,25 @@ describe Topic::TypePolicy do
       end
     end
 
+    context 'summary_topic' do
+      let(:topic) { build_stubbed :summary }
+      it { is_expected.to eq true }
+    end
+
     context 'other' do
       let(:topic) { forum_topic }
       it { is_expected.to eq false }
+    end
+  end
+
+  describe '#summary_topic?' do
+    subject { policy.summary_topic? }
+
+    it { is_expected.to eq false }
+
+    context 'summary' do
+      let(:topic) { build_stubbed :summary }
+      it { is_expected.to eq true }
     end
   end
 end
