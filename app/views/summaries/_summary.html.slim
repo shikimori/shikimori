@@ -67,6 +67,16 @@
             data-no-tooltip='true'
           ] = Topics::View.format_date summary.created_at
 
+        - if topic_view.respond_to?(:changed_at) && topic_view.changed_at
+          .section.changed_at[
+            title=t('.changed_at', date: topic_view.format_date(topic_view.changed_at))
+          ]
+            time[
+              datetime=topic_view.changed_at.iso8601
+              data-no-tooltip="true"
+            ] = topic_view.format_date topic_view.changed_at
+
+
     .body itemprop='text'
       = summary.html_body
 
