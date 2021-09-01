@@ -134,8 +134,8 @@ export default class Topic extends ShikiEditable {
       });
 
     // голосование за/против рецензии
-    this.$('.footer-vote .vote').on('ajax:before', e => {
-      this.$inner.find('.footer-vote').addClass('b-ajax');
+    this.$('.b-footer_vote .vote').on('ajax:before', e => {
+      this.$inner.find('.b-footer_vote').addClass('b-ajax');
       const isYes = $(e.target).hasClass('yes');
 
       if (isYes && !this.model.voted_yes) {
@@ -158,8 +158,8 @@ export default class Topic extends ShikiEditable {
       this._actualizeVoting();
     });
 
-    this.$('.footer-vote .vote').on('ajax:complete', function() {
-      $(this).closest('.footer-vote').removeClass('b-ajax');
+    this.$('.b-footer_vote .vote').on('ajax:complete', function() {
+      $(this).closest('.b-footer_vote').removeClass('b-ajax');
     });
 
     // прочтение комментриев
@@ -447,11 +447,11 @@ export default class Topic extends ShikiEditable {
 
   _actualizeVoting() {
     this.$inner
-      .find('.footer-vote .vote.yes, .user-vote .voted-for')
+      .find('.b-footer_vote .vote.yes, .user-vote .voted-for')
       .toggleClass('selected', this.model.voted_yes);
 
     this.$inner
-      .find('.footer-vote .vote.no, .user-vote .voted-against')
+      .find('.b-footer_vote .vote.no, .user-vote .voted-against')
       .toggleClass('selected', this.model.voted_no);
 
     if (this.model.votes_for) {
