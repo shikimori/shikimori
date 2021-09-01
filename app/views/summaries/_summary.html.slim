@@ -32,13 +32,13 @@
           ]
             = summary.user.nickname
 
-          - if summary.persisted?
-            span.time
-              time[
-                itemprop='dateCreated'
-                datetime=summary.created_at.iso8601
-              ] = l summary.created_at, format: '%e %B %Y'
-              span.hash data-url=summary_url(summary) #
+          / - if summary.persisted?
+          /   span.time
+          /     time[
+          /       itemprop='dateCreated'
+          /       datetime=summary.created_at.iso8601
+          /     ] = l summary.created_at, format: '%e %B %Y'
+          /     span.hash data-url=summary_url(summary) #
         .summary-info
           .opinion class=summary.opinion
           div
@@ -62,6 +62,11 @@
 
     .body itemprop='text'
       = summary.html_body
+
+    footer
+      = render 'topics/footer/vote',
+        topic_type_policy: Topic::TypePolicy.new(summary),
+        votable: summary
 
     - if summary.persisted?
       .b-appear_marker[

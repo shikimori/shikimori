@@ -1,11 +1,16 @@
+@import mixins/block
 @import mixins/forum_entry
 @import mixins/font_shikimori
 @import mixins/shiki_comment
 @import mixins/user_rate-minified
 
 .b-summary
+  +block
   +forum_entry
   +shiki_comment_margins
+
+  border-top: 1px solid #ddd
+  padding-top: 10px
 
   & > .inner
     header
@@ -107,9 +112,10 @@
           max-width: 140px
 
       .b-rate
+        line-height: 1
+        margin-right: 10px
+        max-width: none
         min-width: auto
-        max-width: auto
 
         div
           font-size: 20px
-          margin-right: 10px
