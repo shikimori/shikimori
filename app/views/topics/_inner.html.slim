@@ -96,7 +96,9 @@
         = topic_view.html_footer
 
       - if topic_view.footer_vote?
-        = render 'topics/footer/vote', topic_view: topic_view
+        = render 'topics/footer/vote',
+          topic_type_policy: topic_view.topic_type_policy,
+          votable: topic_view.topic.linked
 
     .b-appear_marker[
       class="appear-topic-#{topic_view.topic.id}"

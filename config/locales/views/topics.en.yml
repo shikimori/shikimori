@@ -19,6 +19,7 @@ en:
           review: Is this review useful?
           cosplay: Do you like it?
           collection: Is this collection useful or interesting?
+          summary: Is this summary useful?
     comments:
       your_comment: Your comment
     inner:

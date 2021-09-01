@@ -298,7 +298,10 @@ describe Topic::TypePolicy do
   describe '#summary_topic?' do
     subject { policy.summary_topic? }
 
-    it { is_expected.to eq false }
+    context 'not summary' do
+      let(:topic) { forum_topic }
+      it { is_expected.to eq false }
+    end
 
     context 'summary' do
       let(:topic) { build_stubbed :summary }

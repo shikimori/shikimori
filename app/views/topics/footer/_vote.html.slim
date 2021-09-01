@@ -1,18 +1,20 @@
 .footer-vote
   .star
   .notice
-    - if topic_view.topic_type_policy.review_topic?
+    - if topic_type_policy.review_topic?
       = t '.question.review'
-    - elsif topic_view.topic_type_policy.cosplay_gallery_topic?
+    - elsif topic_type_policy.cosplay_gallery_topic?
       = t '.question.cosplay'
-    - elsif topic_view.topic_type_policy.collection_topic?
+    - elsif topic_type_policy.collection_topic?
       = t '.question.collection'
+    - elsif topic_type_policy.summary_topic?
+      = t '.question.summary'
     - else
-      - raise "unknown topic type for topic_id=#{topic_view.id}"
+      - raise "unexpected type of #{topic_type_policy.objcet.class.name.downcase}.id=#{topic_type_policy.object.id}"
 
   .vote-group
     .vote.yes.to-process[
-      data-action=votes_url(votable_id: topic_view.topic.linked.id, votable_type: topic_view.topic.linked.class.name, vote: 'yes')
+      data-action=votes_url(votable_id: votable.id, votable_type: votable.class.name, vote: 'yes')
       data-dynamic='authorized'
       data-method='post'
       data-remote='true'
@@ -20,7 +22,7 @@
     ] = t('answers.yes').capitalize
     .separator
     .vote.no.to-process[
-      data-action=votes_url(votable_id: topic_view.topic.linked.id, votable_type: topic_view.topic.linked.class.name, vote: 'no')
+      data-action=votes_url(votable_id: votable.id, votable_type: votable.class.name, vote: 'no')
       data-dynamic='authorized'
       data-method='post'
       data-remote='true'

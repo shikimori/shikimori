@@ -19,6 +19,7 @@ ru:
           review: Эта рецензия полезна?
           cosplay: Тебе нравится?
           collection: Эта коллекция полезна или интересна?
+          summary: Этот отзыв полезен?
     comments:
       your_comment: Твой комментарий
     inner:
