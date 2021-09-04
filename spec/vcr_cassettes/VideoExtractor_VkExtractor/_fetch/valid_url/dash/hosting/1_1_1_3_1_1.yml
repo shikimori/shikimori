@@ -20,23 +20,111 @@ http_interactions:
       message: OK
     headers:
       Server:
-      - Internet Information Services
+      - kittenx
       Date:
-      - Wed, 29 Aug 2018 16:25:44 GMT
+      - Sat, 04 Sep 2021 11:57:12 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '495'
+      - '163'
       Connection:
       - keep-alive
       X-Powered-By:
-      - PHP/3.16479
+      - KPHP/7.4.108474
+      Set-Cookie:
+      - remixir=DELETED; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=.vk.com;
+        secure; HttpOnly
       Cache-Control:
       - no-store
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"error_code":6,"error_msg":"Too many requests per second","request_params":[{"key":"videos","value":"-42313379_167267838"},{"key":"v","value":"5.131"},{"key":"method","value":"video.get"},{"key":"oauth","value":"1"}]}}'
+  recorded_at: Sat, 04 Sep 2021 11:57:12 GMT
+- request:
+    method: get
+    uri: https://api.vk.com/method/video.get?access_token=USER_ACCESS_TOKEN_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&v=5.131&videos=-42313379_167267838
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML,
+        like Gecko) Chrome/39.0.2171.71 Safari/537.36
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - kittenx
+      Date:
+      - Sat, 04 Sep 2021 11:57:13 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '163'
+      Connection:
+      - keep-alive
+      X-Powered-By:
+      - KPHP/7.4.108474
+      Set-Cookie:
+      - remixir=DELETED; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=.vk.com;
+        secure; HttpOnly
+      Cache-Control:
+      - no-store
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"error_code":6,"error_msg":"Too many requests per second","request_params":[{"key":"videos","value":"-42313379_167267838"},{"key":"v","value":"5.131"},{"key":"method","value":"video.get"},{"key":"oauth","value":"1"}]}}'
+  recorded_at: Sat, 04 Sep 2021 11:57:13 GMT
+- request:
+    method: get
+    uri: https://api.vk.com/method/video.get?access_token=USER_ACCESS_TOKEN_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&v=5.131&videos=-42313379_167267838
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML,
+        like Gecko) Chrome/39.0.2171.71 Safari/537.36
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - kittenx
+      Date:
+      - Sat, 04 Sep 2021 11:57:14 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '603'
+      Connection:
+      - keep-alive
+      X-Powered-By:
+      - KPHP/7.4.108474
+      Set-Cookie:
+      - remixir=DELETED; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=.vk.com;
+        secure; HttpOnly
+      Cache-Control:
+      - no-store
+      X-Frame-Options:
+      - DENY
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eyJyZXNwb25zZSI6eyJjb3VudCI6MSwiaXRlbXMiOlt7ImlkIjoxNjcyNjc4MzgsIm93bmVyX2lkIjotNDIzMTMzNzksInRpdGxlIjoiTm9yYWdhbWkgfCDQkdC10LfQtNC+0LzQvdGL0Lkg0JHQvtCzIHwg0K3Qv9C40LfQvtC0IDMgfCDQntC30LLRg9GH0LjQstCw0L3QuNC1OiBLaXJzeSAmIFNpbHZlclRhdHN1ICYgU2NvcnBpbyIsImR1cmF0aW9uIjoxNDY5LCJkZXNjcmlwdGlvbiI6IktpcnN5IHwgT2ZmaWNpYWwgUGFnZSB8IEphcnQuVFZcbltodHRwczpcL1wvdmsuY29tXC9raXJzeV9wYWdlXSIsImRhdGUiOjEzOTA2OTM5NTgsImNvbW1lbnRzIjowLCJ2aWV3cyI6MzQ0LCJwaG90b18xMzAiOiJodHRwczpcL1wvcHAudXNlcmFwaS5jb21cL2M1Mjg0MDhcL3U3NTUwNzc1NVwvdmlkZW9cL3NfZTRmYzk4NGIuanBnIiwicGhvdG9fMzIwIjoiaHR0cHM6XC9cL3BwLnVzZXJhcGkuY29tXC9jNTI4NDA4XC91NzU1MDc3NTVcL3ZpZGVvXC9sXzJmYWRiYTE5LmpwZyIsImFsYnVtX2lkIjo1MTU3MzcxMSwicGxheWVyIjoiaHR0cHM6XC9cL3ZrLmNvbVwvdmlkZW9fZXh0LnBocD9vaWQ9LTQyMzEzMzc5JmlkPTE2NzI2NzgzOCZoYXNoPWE5NDFkNzVlZWExNzZkZWQmX19yZWY9dmsuYXBpJmFwaV9oYXNoPTE1MzU1NTk5NDQyNGJmNjY0NmQ1NmM4MjgyYTVfR0VaVE1PQlZHSVpUUyIsImNhbl9hZGQiOjF9XX19
-    http_version: 
-  recorded_at: Wed, 29 Aug 2018 16:25:35 GMT
-recorded_with: VCR 4.0.0
+        eyJyZXNwb25zZSI6eyJjb3VudCI6MSwiaXRlbXMiOlt7ImNhbl9jb21tZW50IjoxLCJjYW5fbGlrZSI6MSwiY2FuX3JlcG9zdCI6MSwiY2FuX3N1YnNjcmliZSI6MSwiY2FuX2FkZF90b19mYXZlcyI6MSwiY2FuX2FkZCI6MSwiY29tbWVudHMiOjAsImRhdGUiOjEzOTA2OTM5NTgsImRlc2NyaXB0aW9uIjoiS2lyc3kgfCBPZmZpY2lhbCBQYWdlIHwgSmFydC5UVlxuW2h0dHBzOlwvXC92ay5jb21cL2tpcnN5X3BhZ2VdIiwiZHVyYXRpb24iOjE0NjksImltYWdlIjpbeyJoZWlnaHQiOjk2LCJ1cmwiOiJodHRwczpcL1wvc3VuOS02Mi51c2VyYXBpLmNvbVwvYzUyODQwOFwvdTc1NTA3NzU1XC92aWRlb1wvc19lNGZjOTg0Yi5qcGciLCJ3aWR0aCI6MTMwLCJ3aXRoX3BhZGRpbmciOjF9LHsiaGVpZ2h0IjoxMjAsInVybCI6Imh0dHBzOlwvXC9zdW45LTQ3LnVzZXJhcGkuY29tXC9jNTI4NDA4XC91NzU1MDc3NTVcL3ZpZGVvXC9tXzg3MmRkZDJjLmpwZyIsIndpZHRoIjoxNjAsIndpdGhfcGFkZGluZyI6MX0seyJoZWlnaHQiOjI0MCwidXJsIjoiaHR0cHM6XC9cL3N1bjktNTIudXNlcmFwaS5jb21cL2M1Mjg0MDhcL3U3NTUwNzc1NVwvdmlkZW9cL2xfMmZhZGJhMTkuanBnIiwid2lkdGgiOjMyMCwid2l0aF9wYWRkaW5nIjoxfV0sImlkIjoxNjcyNjc4MzgsIm93bmVyX2lkIjotNDIzMTMzNzksInRpdGxlIjoiTm9yYWdhbWkgfCDQkdC10LfQtNC+0LzQvdGL0Lkg0JHQvtCzIHwg0K3Qv9C40LfQvtC0IDMgfCDQntC30LLRg9GH0LjQstCw0L3QuNC1OiBLaXJzeSAmIFNpbHZlclRhdHN1ICYgU2NvcnBpbyIsImlzX2Zhdm9yaXRlIjpmYWxzZSwicGxheWVyIjoiaHR0cHM6XC9cL3ZrLmNvbVwvdmlkZW9fZXh0LnBocD9vaWQ9LTQyMzEzMzc5JmlkPTE2NzI2NzgzOCZoYXNoPWE5NDFkNzVlZWExNzZkZWQmX19yZWY9dmsuYXBpJmFwaV9oYXNoPTE2MzA3NTY2MzQwY2RlZmU1ZWY5MmI0MWE5NmZfR0VaVE1PQlZHSVpUUyIsInR5cGUiOiJ2aWRlbyIsInZpZXdzIjozNTEsImFsYnVtX2lkIjo1MTU3MzcxMX1dfX0=
+  recorded_at: Sat, 04 Sep 2021 11:57:14 GMT
+recorded_with: VCR 6.0.0
