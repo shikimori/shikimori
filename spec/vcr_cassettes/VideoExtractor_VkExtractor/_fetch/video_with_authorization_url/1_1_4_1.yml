@@ -20,9 +20,9 @@ http_interactions:
       message: OK
     headers:
       Server:
-      - Internet Information Services
+      - kittenx
       Date:
-      - Wed, 29 Aug 2018 16:27:05 GMT
+      - Sat, 04 Sep 2021 11:57:11 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -30,12 +30,16 @@ http_interactions:
       Connection:
       - keep-alive
       X-Powered-By:
-      - PHP/3.16479
+      - KPHP/7.4.108474
+      Set-Cookie:
+      - remixir=DELETED; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=.vk.com;
+        secure; HttpOnly
       Cache-Control:
       - no-store
+      X-Frame-Options:
+      - DENY
     body:
       encoding: ASCII-8BIT
       string: '{"response":{"count":0,"items":[]}}'
-    http_version: 
-  recorded_at: Wed, 29 Aug 2018 16:26:56 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Sat, 04 Sep 2021 11:57:11 GMT
+recorded_with: VCR 6.0.0

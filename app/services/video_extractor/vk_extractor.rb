@@ -14,8 +14,13 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
 
 private
 
-  def extract_image_url data
-    url = data[:photo_800] || data[:photo_320]
+  def extract_image_url data # rubocop:disable all
+    url = data[:photo_800] ||
+      data[:photo_320] ||
+      (
+        data[:image]&.find { |v| v[:width] == 800 } ||
+        data[:image]&.max_by { |v| v[:width] }
+      )&.dig(:url)
     return unless url
 
     Url
@@ -64,8 +69,8 @@ private
 
     API_URL +
       "?videos=#{matches[1]}_#{matches[2]}" \
-      "&access_token=#{access_token}" \
-      "&v=#{API_VERSION}"
+        "&access_token=#{access_token}" \
+        "&v=#{API_VERSION}"
   end
 
   def access_token
