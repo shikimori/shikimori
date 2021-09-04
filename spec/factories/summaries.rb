@@ -6,6 +6,7 @@ FactoryBot.define do
     body { 'a' * Summary::MIN_BODY_SIZE }
     opinion { Types::Summary::Opinion[:neutral] }
     is_written_before_release { false }
+    changed_at { nil }
 
     comments_count { 0 }
     cached_votes_up { 0 }
