@@ -14,22 +14,25 @@
           title=localized_name(topic_view.topic.linked)
         ] = localized_name topic_view.topic.linked
 
+  - created_at_text = topic_view.format_date topic_view.created_at
+  - changed_at_text = topic_view.format_date topic_view.changed_at if topic_view.respond_to?(:changed_at) && topic_view.changed_at
+
   .section.created_at[
-    title=t('.created_at', date: topic_view.format_date(topic_view.created_at))
+    title=t('.created_at', date: created_at_text)
   ]
     time[
       datetime=topic_view.created_at.iso8601
       data-no-tooltip='true'
-    ] = topic_view.format_date topic_view.created_at
+    ] = created_at_text
 
-  - if topic_view.respond_to?(:changed_at) && topic_view.changed_at
+  - if changed_at_text && changed_at_text != created_at_text
     .section.changed_at[
-      title=t('.changed_at', date: topic_view.format_date(topic_view.changed_at))
+      title=t('.changed_at', date: changed_at_text)
     ]
       time[
         datetime=topic_view.changed_at.iso8601
         data-no-tooltip='true'
-      ] = topic_view.format_date topic_view.changed_at
+      ] = changed_at_text
 
   .section.additional
     - if topic_view.pinned?
