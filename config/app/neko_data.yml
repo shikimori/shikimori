@@ -278,6 +278,9 @@
         - 39292
         - 41006
         - 2018
+        - 40594
+        - 42571
+        - 48488
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: &2
     :neko_id:
@@ -591,6 +594,9 @@
         - 39292
         - 41006
         - 2018
+        - 40594
+        - 42571
+        - 48488
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -883,6 +889,9 @@
         - 39292
         - 41006
         - 2018
+        - 40594
+        - 42571
+        - 48488
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -8942,6 +8951,7 @@
         - 1922
         - 2607
         - 949
+        - 3786
       :generator:
         person_id: 5111
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -16356,7 +16366,8 @@
         - 38784
         - 40469
         - 40761
-      :threshold: 88.3%
+        - 49633
+      :threshold: 90%
       :generator:
         ignore_latest_ids:
         - 33050
@@ -16414,6 +16425,7 @@
         - 38784
         - 40469
         - 40761
+        - 49633
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -22496,6 +22508,7 @@
       :generator:
         ignore_latest_ids:
         - 38770
+        - 49320
         not_ignored_ids:
         - 1365
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -22551,6 +22564,7 @@
       :generator:
         ignore_latest_ids:
         - 38770
+        - 49320
         not_ignored_ids:
         - 1365
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -24416,6 +24430,7 @@
         - 40693
         - 40753
         - 42882
+        - 49735
       :threshold: 88.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -24462,6 +24477,7 @@
         - 40693
         - 40753
         - 42882
+        - 49735
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -32650,6 +32666,8 @@
         - 40747
         - 39535
         - 41899
+        - 37735
+        - 36654
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
   default_values: *2
   neko_id: :oniichan
@@ -34209,6 +34227,7 @@
         - 40908
         - 38555
         - 39535
+        - 42571
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -35275,6 +35294,7 @@
         - 40908
         - 38555
         - 39535
+        - 42571
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -36341,6 +36361,7 @@
         - 40908
         - 38555
         - 39535
+        - 42571
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
