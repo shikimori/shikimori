@@ -23,7 +23,7 @@ end
     includes(:user, commentable: :linked).
     where(is_summary: true).
     order(id: :desc).
-    limit(1000).where(commentable_id: Anime.find(37987).decorate.main_topic_view.id).
+    # limit(1000).where(commentable_id: Anime.find(31240).decorate.main_topic_view.id).
     find_each do |comment|
       db_entry = comment.commentable.linked
       next if db_entry.class.base_class != klass
