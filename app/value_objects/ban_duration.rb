@@ -4,12 +4,15 @@ class BanDuration
   delegate :to_i, :zero?, :minutes, to: :value
   attr_reader :value
 
+  DAY_INTERVAL = 60 * 24
+
   # duration in minutes
   def initialize duration
-    @value = if duration.kind_of? String
-      parse duration
-    else
-      duration
+    @value =
+      if duration.is_a? String
+        parse duration
+      else
+        duration
     end
   end
 
@@ -17,11 +20,12 @@ class BanDuration
     hash = to_hash
     result = []
 
-    result << "#{hash[:years]}y" if hash[:years] > 0
-    result << "#{hash[:weeks]}w" if hash[:weeks] > 0
-    result << "#{hash[:days]}d" if hash[:days] > 0
-    result << "#{hash[:hours]}h" if hash[:hours] > 0
-    result << "#{hash[:minutes]}m" if hash[:minutes] > 0
+    result << "#{hash[:years]}y" if hash[:years].positive?
+    result << "#{hash[:months]}M" if hash[:months].positive?
+    result << "#{hash[:weeks]}w" if hash[:weeks].positive?
+    result << "#{hash[:days]}d" if hash[:days].positive?
+    result << "#{hash[:hours]}h" if hash[:hours].positive?
+    result << "#{hash[:minutes]}m" if hash[:minutes].positive?
 
     if result.any?
       result.join ' '
@@ -33,38 +37,42 @@ class BanDuration
   def humanize
     to_hash.each_with_object([]) do |(type, value), memo|
       next if memo.size == 2
-      if memo.size == 1 && value == 0
+
+      if memo.size == 1 && value.zero?
         memo << nil
         next
       end
 
-      if value > 0
-        key = type.to_s.singularize
-        duration = i18n_i "datetime.#{key}", value
+      next unless value.positive?
 
-        memo << "#{value} #{duration}"
-      end
+      key = type.to_s.singularize
+      duration = i18n_i "datetime.#{key}", value
+
+      memo << "#{value} #{duration}"
     end.compact.join ' '
   end
 
-  def eql? ban_duration
-    to_i == ban_duration.to_i
+  def eql? other
+    to_i == other.to_i
   end
 
 private
 
-  def to_hash
+  def to_hash # rubocop:disable AbcSize
+    days = (value / DAY_INTERVAL).floor
+
     {
-      years: (value / (60*24 * 365)).floor,
-      weeks: (((value / (60*24)).floor % 365) / 7).floor,
-      days: (value / (60*24)).floor % 365 % 7,
+      years: (value / (DAY_INTERVAL * 365)).floor,
+      months: ((days % 365) / 30).floor,
+      weeks: ((days % 365 % 30) / 7).floor,
+      days: days % 365 % 30 % 7,
       hours: (value / 60).floor % 24,
       minutes: value % 60
     }
   end
 
   def parse string
-    string.strip.split(/ +/).map do |duration_part|
+    string.strip.split(/ +/).sum do |duration_part|
       kind = duration_part[-1]
       number = duration_part[0..-2].to_f
 
@@ -76,16 +84,19 @@ private
           (number * 60).to_i
 
         when 'd'
-          (number * 60 * 24).to_i
+          (number * DAY_INTERVAL).to_i
 
         when 'w'
-          (number * 60 * 24 * 7).to_i
+          (number * DAY_INTERVAL * 7).to_i
+
+        when 'M'
+          (number * DAY_INTERVAL * 30).to_i
 
         when 'y'
-          (number * 60 * 24 * 365).to_i
+          (number * DAY_INTERVAL * 365).to_i
       end
-    end.sum
-  rescue
+    end
+  rescue StandardError
     nil
   end
 end

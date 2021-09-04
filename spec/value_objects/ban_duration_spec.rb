@@ -27,6 +27,11 @@ describe BanDuration do
       it { is_expected.to eq '2w' }
     end
 
+    describe 'months' do
+      let(:duration) { 60 * 24 * 60 }
+      it { is_expected.to eq '2M' }
+    end
+
     describe 'years' do
       let(:duration) { 365 * 60 * 24 * 2 }
       it { is_expected.to eq '2y' }
@@ -34,7 +39,7 @@ describe BanDuration do
 
     describe 'mixed' do
       let(:duration) { 60 * 24 * 365 * 7 + 60 * 24 * 7 * 8 + 60 * 24 * 3 + 60 * 4 + 15 }
-      it { is_expected.to eq '7y 8w 3d 4h 15m' }
+      it { is_expected.to eq '7y 1M 4w 1d 4h 15m' }
     end
   end
 
@@ -61,14 +66,27 @@ describe BanDuration do
       it { is_expected.to eq 60 * 24 * 7 * 3 }
     end
 
+    describe 'months' do
+      let(:duration) { '3M' }
+      it { is_expected.to eq 60 * 24 * 30 * 3 }
+    end
+
     describe 'years' do
       let(:duration) { '9y' }
       it { is_expected.to eq 60 * 24 * 365 * 9 }
     end
 
     describe 'mixed' do
-      let(:duration) { '7y 3w 2h 5d 1m' }
-      it { is_expected.to eq 60 * 24 * 365 * 7 + 60 * 24 * 7 * 3 + 60 * 24 * 5 + 60 * 2 + 1 }
+      let(:duration) { '7y 2M 3w 2h 5d 1m' }
+      it do
+        is_expected.to eq(
+          60 * 24 * 365 * 7 +
+            60 * 24 * 30 *2 +
+            60 * 24 * 7 * 3 +
+            60 * 24 * 5 +
+            60 * 2 + 1
+        )
+      end
     end
   end
 
