@@ -15,7 +15,7 @@
 
     header
       / data-href=(summary.respond_to?(:topic_url) ? summary.topic_url : profile_url(summary.user))
-      span.linkeable[
+      span.linkeable.author-link[
         data-href=profile_url(summary.user)
       ]
         img[
@@ -40,14 +40,6 @@
                 span.comments == summary.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
               = render 'topics/reviews/votes_count', review: summary
 
-
-          / - if summary.persisted?
-          /   span.time
-          /     time[
-          /       itemprop='dateCreated'
-          /       datetime=summary.created_at.iso8601
-          /     ] = l summary.created_at, format: '%e %B %Y'
-          /     span.hash data-url=summary_url(summary) #
         .summary-info
           .opinion class=summary.opinion
           div
@@ -66,6 +58,12 @@
                     .edit
                     .text
                       .status-name = summary.user_rate.status_name
+
+    - if summary.is_written_before_release && !summary.db_entry.ongoing?
+      .b-anime_status_tag.is_written_before_release.b-tooltipped.unprocessed[
+        title=t(".is_written_before_release.#{summary.db_entry.class.name.downcase}")
+        data-direction='right'
+      ] = Summary.human_attribute_name(:is_written_before_release)
 
     .body itemprop='text'
       = summary.html_body

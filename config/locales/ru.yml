@@ -277,6 +277,8 @@ ru:
         name: Название
         text: Текст
         layout: Расположение
+      summary:
+        is_written_before_release: Отзыв на онгоинг
       topic:
         title: Название
         body: Текст
