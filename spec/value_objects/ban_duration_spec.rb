@@ -81,7 +81,7 @@ describe BanDuration do
       it do
         is_expected.to eq(
           60 * 24 * 365 * 7 +
-            60 * 24 * 30 *2 +
+            60 * 24 * 30 * 2 +
             60 * 24 * 7 * 3 +
             60 * 24 * 5 +
             60 * 2 + 1

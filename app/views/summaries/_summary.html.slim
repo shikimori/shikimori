@@ -23,14 +23,23 @@
           srcset="#{summary.user.avatar_url 80} 2x"
           alt=summary.user.nickname
         ]
-      div
-        .name-date
+      .head-container
+        .name-status
           a.name[
             href=profile_url(summary.user)
             itemprop='creator'
             tabindex='-1'
           ]
             = summary.user.nickname
+
+          - if summary.persisted?
+            .b-status-line
+
+              = render 'topics/status_line/section_dates', object: summary
+              .section.additional
+                span.comments == summary.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
+              = render 'topics/reviews/votes_count', review: summary
+
 
           / - if summary.persisted?
           /   span.time
@@ -57,14 +66,6 @@
                     .edit
                     .text
                       .status-name = summary.user_rate.status_name
-
-    - if summary.persisted?
-      .b-status-line
-
-        = render 'topics/status_line/section_dates', object: summary
-        .section.additional
-          span.comments == summary.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
-        = render 'topics/reviews/votes_count', review: summary
 
     .body itemprop='text'
       = summary.html_body

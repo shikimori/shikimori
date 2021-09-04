@@ -23,7 +23,7 @@ end
     includes(:user, commentable: :linked).
     where(is_summary: true).
     order(id: :desc).
-    #limit(100).where(commentable_id: Anime.find(31240).decorate.main_topic_view.id).
+    limit(1000).where(commentable_id: Anime.find(37987).decorate.main_topic_view.id).
     find_each do |comment|
       db_entry = comment.commentable.linked
       next if db_entry.class.base_class != klass
@@ -68,7 +68,8 @@ end
         anime: (db_entry if db_entry.anime?),
         manga: (db_entry if db_entry.manga? || db_entry.ranobe?),
         opinion: opinion,
-        is_written_before_release: is_written_before_release
+        is_written_before_release: is_written_before_release,
+        created_at: comment.created_at
       )
       summary.instance_variable_set :@is_migration, true
       Summary.wo_antispam do
