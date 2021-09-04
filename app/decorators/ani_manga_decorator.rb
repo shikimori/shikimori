@@ -31,7 +31,7 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def summary_views
-    object.summaries.includes(:user).take(200)
+    object.summaries.includes(:user).take(20)
   end
 
   def reviews_count

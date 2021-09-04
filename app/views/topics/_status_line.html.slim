@@ -14,25 +14,7 @@
           title=localized_name(topic_view.topic.linked)
         ] = localized_name topic_view.topic.linked
 
-  - created_at_text = topic_view.format_date topic_view.created_at
-  - changed_at_text = topic_view.format_date topic_view.changed_at if topic_view.respond_to?(:changed_at) && topic_view.changed_at
-
-  .section.created_at[
-    title=t('.created_at', date: created_at_text)
-  ]
-    time[
-      datetime=topic_view.created_at.iso8601
-      data-no-tooltip='true'
-    ] = created_at_text
-
-  - if changed_at_text && changed_at_text != created_at_text
-    .section.changed_at[
-      title=t('.changed_at', date: changed_at_text)
-    ]
-      time[
-        datetime=topic_view.changed_at.iso8601
-        data-no-tooltip='true'
-      ] = changed_at_text
+  = render 'topics/status_line/section_dates', object: topic_view
 
   .section.additional
     - if topic_view.pinned?

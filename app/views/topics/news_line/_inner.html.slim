@@ -16,7 +16,7 @@
         time[
           datetime=topic_view.created_at.iso8601
           data-no-tooltip='true'
-        ] = topic_view.format_date topic_view.created_at
+        ] = Topics::View.format_date topic_view.created_at
         span = t '.by'
         .author
           img[

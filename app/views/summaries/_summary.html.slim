@@ -57,25 +57,14 @@
                     .edit
                     .text
                       .status-name = summary.user_rate.status_name
+
     - if summary.persisted?
       .b-status-line
-        .section.created_at[
-          title=t('topics.status_line.created_at', date: Topics::View.format_date(summary.created_at))
-        ]
-          time[
-            datetime=summary.created_at.iso8601
-            data-no-tooltip='true'
-          ] = Topics::View.format_date summary.created_at
 
-        - if summary.respond_to?(:updated_at) && summary.updated_at
-          .section.changed_at[
-            title=t('topics.status_line.changed_at', date: Topics::View.format_date(summary.updated_at))
-          ]
-            time[
-              datetime=summary.updated_at.iso8601
-              data-no-tooltip="true"
-            ] = Topics::View.format_date summary.updated_at
-
+        = render 'topics/status_line/section_dates', object: summary
+        .section.additional
+          span.comments == summary.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
+        = render 'topics/reviews/votes_count', review: summary
 
     .body itemprop='text'
       = summary.html_body
