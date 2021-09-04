@@ -91,17 +91,18 @@
             = "#{entry.preview_topic_view.comments_count} #{i18n_i 'comment', entry.preview_topic_view.comments_count}"
 
     / - if entry.files? || entry.art? || (entry.anime? && entry.coub_tags.any?) || entry.cosplay?
-    - if entry.art? || (entry.anime? && entry.coub_tags.any?) || entry.cosplay?
-      .additional-links
-        .line-container
-          - if entry.cosplay?
-            a href=entry.cosplay_url title=t('.cosplay') = t '.cosplay'
+    - unless entry.rkn_abused?
+      - if entry.art? || (entry.anime? && entry.coub_tags.any?) || entry.cosplay?
+        .additional-links
+          .line-container
+            - if entry.cosplay?
+              a href=entry.cosplay_url title=t('.cosplay') = t '.cosplay'
 
-          - if entry.art?
-            span.linkeable data-href=entry.art_url = t '.art'
+            - if entry.art?
+              span.linkeable data-href=entry.art_url = t '.art'
 
-          - if entry.anime? && entry.coub_tags.any?
-            span.linkeable data-href=entry.coub_url Coub
+            - if entry.anime? && entry.coub_tags.any?
+              span.linkeable data-href=entry.coub_url Coub
 
-          / - if entry.files?
-            span.link.linkeable data-href=entry.files_url = t '.files'
+            / - if entry.files?
+              span.link.linkeable data-href=entry.files_url = t '.files'

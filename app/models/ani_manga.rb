@@ -60,4 +60,8 @@ module AniManga
   def generate_name_matches
     NameMatches::Refresh.perform_async self.class.name, id
   end
+
+  def image_file_name
+    rkn_abused? ? nil : super
+  end
 end

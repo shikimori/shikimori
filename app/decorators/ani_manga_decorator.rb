@@ -177,6 +177,8 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def available_external_links # rubocop:disable all
+    return [] if rkn_abused?
+
     all_links = (object.all_external_links.select(&:visible?) + (mal_id ? [mal_external_link] : []))
       .sort_by { |link| Types::ExternalLink::Source.values.index link.source.to_sym }
 

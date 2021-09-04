@@ -45,7 +45,7 @@
             collection: @resource.roles.displayed_people,
             as: :entry
 
-- if @resource.roles.main_characters.any?
+- if !@resource.rkn_abused? && @resource.roles.main_characters.any?
   .cc-characters
     .c-characters.m0
       .subheadline
@@ -54,7 +54,7 @@
       .cc.m0.to-process data-dynamic='cutted_covers' data-ratio_type='person'
         = render @resource.roles.main_characters
 
-- elsif @resource.roles.supporting_characters.any?
+- elsif !@resource.rkn_abused? && @resource.roles.supporting_characters.any?
   .cc-characters
     .c-characters.m0
       .subheadline

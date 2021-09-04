@@ -2,6 +2,8 @@ class AnimeDecorator < AniMangaDecorator
   instance_cache :files, :coubs, :next_episode_at, :news_topic_views
 
   def news_topic_views
+    return [] if rkn_abused?
+
     object
       .news_topics
       .where(locale: h.locale_from_host)
@@ -18,7 +20,6 @@ class AnimeDecorator < AniMangaDecorator
 
   def screenshots limit = nil
     return [] unless screenshots_allowed?
-    return [] if censored?
 
     @screenshots ||= {}
     @screenshots[limit] ||=
@@ -30,11 +31,11 @@ class AnimeDecorator < AniMangaDecorator
   end
 
   def screenshots_allowed?
-    Copyright::ANIME_SCREENSHOTS.exclude?(id) && !censored?
+    Copyright::ANIME_SCREENSHOTS.exclude?(id) && !censored? && !rkn_abused?
   end
 
   def videos limit = nil # rubocop:disable PerceivedComplexity, CyclomaticComplexity, AbcSize
-    return [] if Copyright::ANIME_VIDEOS.include?(id)
+    return [] if Copyright::ANIME_VIDEOS.include?(id) && !rkn_abused?
     return [] unless object.respond_to? :videos
 
     # return [] unless h.ignore_copyright?
@@ -85,14 +86,22 @@ class AnimeDecorator < AniMangaDecorator
     'http://schema.org/Movie'
   end
 
+  def fansubbers
+    rkn_abused? ? [] : super
+  end
+
+  def fandubbers
+    rkn_abused? ? [] : super
+  end
+
   def sorted_fansubbers
-    @sorted_fansubbers ||= object.fansubbers
+    @sorted_fansubbers ||= fansubbers
       .map { |name| fix_group_name name }
       .sort_by { |name| group_name_sort_criteria name }
   end
 
   def sorted_fandubbers
-    @sorted_fandubbers ||= object.fandubbers
+    @sorted_fandubbers ||= fandubbers
       .map { |name| fix_group_name name }
       .sort_by { |name| group_name_sort_criteria name }
   end
