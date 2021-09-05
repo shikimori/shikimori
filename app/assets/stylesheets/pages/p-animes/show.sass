@@ -282,10 +282,10 @@
         display: flex
 
         &:before
-          +lte_ipad
+          +iphone
             padding-top: 2px
 
-          +laptop
+          +ipad_laptop
             margin-right: 7px
             font-size: 15px
 
@@ -302,11 +302,11 @@
         &:after
           float: none
 
-        +lte_ipad
+        +iphone
           font-size: 13px
           margin-left: 4px
 
-        +laptop
+        +ipad_laptop
           font-size: 14px
           margin-left: 5px
 
@@ -322,18 +322,18 @@
 
         .label
           span
-            +lte_ipad
+            +iphone
               display: none
 
         .count
-          +lte_ipad
+          +iphone
             display: none
 
       &-all
         +navigation_block_colors(#123, #e8ebef, #d8dde4)
 
         .label:before
-          +lte_ipad
+          +iphone
             +font_shikimori('\e843')
 
       &-positive
@@ -375,10 +375,10 @@
           font-size: 18px
 
         .label:before
-          +lte_ipad
+          +iphone
             display: none
 
-          +gte_laptop
+          +gte_ipad
             font-weight: normal
 
       &.is-ellipsis
