@@ -1,79 +1,77 @@
 .b-summary[
   id=summary.id
+  class=(:check_height if summary.persisted?)
 ]
   - if summary.persisted?
     a name="summary-#{summary.id}"
-  .inner class=(:check_height if summary.persisted?)
-    - if summary.persisted?
-      aside.markers
-        .b-new_marker[
-          data-appear_url=api_appears_url
-          data-text=t('markers.new')
-        ]
-      aside.moderation-ban
-      / = render 'summarys/buttons', summary: summary
-
-    header
-      / data-href=(summary.respond_to?(:topic_url) ? summary.topic_url : profile_url(summary.user))
-      span.linkeable.author-link[
-        data-href=profile_url(summary.user)
+  - if summary.persisted?
+    aside.markers
+      .b-new_marker[
+        data-appear_url=api_appears_url
+        data-text=t('markers.new')
       ]
-        img[
-          src=summary.user.avatar_url(48)
-          srcset="#{summary.user.avatar_url 80} 2x"
-          alt=summary.user.nickname
-        ]
-      .head-container
-        .name-status
-          a.name[
-            href=profile_url(summary.user)
-            itemprop='creator'
-            tabindex='-1'
-          ]
-            = summary.user.nickname
+    aside.moderation-ban
+    / = render 'summarys/buttons', summary: summary
 
-          - if summary.persisted?
-            .b-status-line
-
-              = render 'topics/status_line/section_dates', object: summary
-              .section.additional
-                span.comments == summary.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
-              = render 'topics/reviews/votes_count', review: summary
-
-        .summary-info
-          .opinion class=summary.opinion
-          div
-            .label class=summary.opinion
-              = summary.opinion_text
-            .user-rate-label
-              | #{t '.in_author_list'}:
-              - unless summary.user_rate
-                b.missing &nbsp;#{t 'no'}
-          - if summary.user_rate
-            .user-rate
-              = render 'blocks/rate', score: summary.user_rate.score, is_no_text_score: true
-              .b-add_to_list class=summary.user_rate.status
-                .trigger
-                  .edit-trigger
-                    .edit
-                    .text
-                      .status-name = summary.user_rate.status_name
-
-    - if summary.is_written_before_release && !summary.db_entry.ongoing?
-      .b-anime_status_tag.is_written_before_release.b-tooltipped.unprocessed[
-        title=t(".is_written_before_release.#{summary.db_entry.class.name.downcase}")
-        data-direction='right'
-      ] = Summary.human_attribute_name(:is_written_before_release)
-
-    .body itemprop='text'
-      = summary.html_body
-
-    footer
-      = render 'topics/footer/vote',
-        topic_type_policy: Topic::TypePolicy.new(summary),
-        votable: summary
-
-    - if summary.persisted?
-      .b-appear_marker[
-        class="appear-summary-#{summary.id}"
+  header
+    / data-href=(summary.respond_to?(:topic_url) ? summary.topic_url : profile_url(summary.user))
+    a.author-link href=profile_url(summary.user)
+      img[
+        src=summary.user.avatar_url(48)
+        srcset="#{summary.user.avatar_url 80} 2x"
+        alt=summary.user.nickname
       ]
+    .head-container
+      .name-status
+        a.name[
+          href=profile_url(summary.user)
+          itemprop='creator'
+          tabindex='-1'
+        ]
+          = summary.user.nickname
+
+        - if summary.persisted?
+          .b-status-line
+
+            = render 'topics/status_line/section_dates', object: summary
+            .section.additional
+              span.comments == summary.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
+            = render 'topics/reviews/votes_count', review: summary
+
+      .summary-info
+        .opinion class=summary.opinion
+        div
+          .label class=summary.opinion
+            = summary.opinion_text
+          .user-rate-label
+            | #{t '.in_author_list'}:
+            - unless summary.user_rate
+              b.missing &nbsp;#{t 'no'}
+        - if summary.user_rate
+          .user-rate
+            = render 'blocks/rate', score: summary.user_rate.score, is_no_text_score: true
+            .b-add_to_list class=summary.user_rate.status
+              .trigger
+                .edit-trigger
+                  .edit
+                  .text
+                    .status-name = summary.user_rate.status_name
+
+  - if summary.is_written_before_release && !summary.db_entry.ongoing?
+    .b-anime_status_tag.is_written_before_release.b-tooltipped.unprocessed[
+      title=t(".is_written_before_release.#{summary.db_entry.class.name.downcase}")
+      data-direction='right'
+    ] = Summary.human_attribute_name(:is_written_before_release)
+
+  .body itemprop='text'
+    = summary.html_body
+
+  footer
+    = render 'topics/footer/vote',
+      topic_type_policy: Topic::TypePolicy.new(summary),
+      votable: summary
+
+  - if summary.persisted?
+    .b-appear_marker[
+      class="appear-summary-#{summary.id}"
+    ]

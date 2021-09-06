@@ -6,23 +6,24 @@
 
 .b-summary
   +block
-  +forum_entry
   +shiki_comment_margins
 
   border-top: 1px solid #ddd
   padding-top: 10px
 
-  & > .inner
-    header
-      display: flex
-      margin-bottom: 10px
+  header
+    display: flex
+    margin-bottom: 10px
 
-      .author-link
-        line-height: 0
+    +iphone
+      flex-direction: column
+
+    .author-link
+      line-height: 0
+      margin: 1px 10px 0 0
 
       img
-        float: none
-        margin-bottom: 0
+        width: 48px
 
   .head-container
     width: 100%
