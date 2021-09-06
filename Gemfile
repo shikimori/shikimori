@@ -20,7 +20,6 @@ gem 'msgpack'
 group :beta, :production do
   gem 'autoprefixer-rails'
 end
-gem 'coffee-rails'
 gem 'non-stupid-digest-assets'
 gem 'sassc-rails'
 gem 'gon'
