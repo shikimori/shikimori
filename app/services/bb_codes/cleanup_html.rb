@@ -24,7 +24,7 @@ private
 
     # NOTE: `Nokogiri.HTML5` used from nokogumbo gem
     # it fixes html much better in comparison to Nokogiri
-    Nokogiri.HTML5(fix(text))
+    Nokogiri::HTML5(fix(text))
       .css('body')
       .inner_html
       .html_safe
