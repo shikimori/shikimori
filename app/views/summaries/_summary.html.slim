@@ -57,10 +57,11 @@
                     .status-name = summary.user_rate.status_name
 
   - if summary.is_written_before_release && !summary.db_entry.ongoing?
-    .b-anime_status_tag.is_written_before_release.b-tooltipped.unprocessed[
-      title=t(".is_written_before_release.#{summary.db_entry.class.name.downcase}")
-      data-direction='right'
-    ] = Summary.human_attribute_name(:is_written_before_release)
+    .is_written_before_release-container
+      .b-anime_status_tag.is_written_before_release.b-tooltipped.unprocessed[
+        title=t(".is_written_before_release.#{summary.db_entry.class.name.downcase}")
+        data-direction='right'
+      ] = Summary.human_attribute_name(:is_written_before_release)
 
   .body itemprop='text'
     = summary.html_body

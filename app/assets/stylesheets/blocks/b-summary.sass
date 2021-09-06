@@ -3,6 +3,7 @@
 @import mixins/font_shikimori
 @import mixins/shiki_comment
 @import mixins/user_rate-minified
+@import mixins/clear_left
 
 .b-summary
   +block
@@ -12,6 +13,7 @@
   padding-top: 10px
 
   header
+    +clear_left
     margin-bottom: 10px
 
     +gte_ipad
@@ -26,7 +28,7 @@
       width: 48px
 
       +iphone
-        margin-bottom: 8px
+        margin-bottom: 10px
 
       img
         width: 100%
@@ -125,9 +127,13 @@
     .user-rate
       +user_rate-minified
       display: flex
-      align-items: flex-end
+
+      +iphone
+        align-items: center
+        margin-top: 10px
 
       +gte_ipad
+        align-items: flex-end
         margin-left: 10px
 
       .b-add_to_list
@@ -153,6 +159,11 @@
         div
           font-size: 20px
 
-  .is_written_before_release
+  .is_written_before_release-container
     margin-bottom: 5px
-    margin-top: -3px
+
+    +iphone
+      margin-top: -2px
+
+    +gte_ipad
+      margin-top: -4px
