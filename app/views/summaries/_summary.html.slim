@@ -1,6 +1,5 @@
 .b-summary[
   id=summary.id
-  class=(:check_height if summary.persisted?)
 ]
   - if summary.persisted?
     a name="summary-#{summary.id}"
@@ -22,12 +21,18 @@
         alt=summary.user.nickname
       ]
     .summary-details
-      a.name[
-        href=profile_url(summary.user)
-        itemprop='creator'
-        tabindex='-1'
-      ]
-        = summary.user.nickname
+      .name-url
+        a.name[
+          href=profile_url(summary.user)
+          itemprop='creator'
+          tabindex='-1'
+        ]
+          = summary.user.nickname
+
+        a.to-summary[
+          href=send("#{summary.db_entry.class.name.downcase}_summary_url", summary.db_entry, summary)
+        ]
+          | <<< #{t '.go_to_summary'}
 
       - if summary.persisted?
         .b-status-line
@@ -63,7 +68,10 @@
         data-direction='right'
       ] = Summary.human_attribute_name(:is_written_before_release)
 
-  .body itemprop='text'
+  .body[
+    itemprop='text'
+    class=(:check_height if summary.persisted?)
+  ]
     = summary.html_body
 
   footer

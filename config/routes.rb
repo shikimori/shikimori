@@ -756,6 +756,7 @@ Rails.application.routes.draw do
       end
 
       resources :reviews, type: kind.singularize.capitalize, except: [:show]
+      resources :summaries, only: %i[show] # index
     end
   end
 

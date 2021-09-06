@@ -1,9 +1,10 @@
 @import mixins/block
-@import mixins/forum_entry
+@import mixins/clear_left
 @import mixins/font_shikimori
+@import mixins/forum_entry
+@import mixins/link
 @import mixins/shiki_comment
 @import mixins/user_rate-minified
-@import mixins/clear_left
 
 .b-summary
   +block
@@ -42,9 +43,18 @@
       line-height: 1
       margin-top: -4px
 
-    .name
-      font-size: 14px
-      font-weight: bold
+    .name-url
+      display: flex
+
+      .name
+        font-size: 14px
+        font-weight: bold
+
+      .to-summary
+        +link
+        align-self: flex-end
+        font-size: 11px
+        margin-left: $block-offset
 
     .b-status-line
       color: #456

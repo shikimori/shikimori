@@ -3,6 +3,7 @@ en:
     summary:
       in_author_list: In author's list
       is_written_before_release:
-        anime: Review written prior to the end of the anime
+        anime: SUmmary written prior to the end of the anime
         manga: Review written prior to the end of the manga
         ranobe: Review written prior to the end of the light novel
+      go_to_summary: go to review

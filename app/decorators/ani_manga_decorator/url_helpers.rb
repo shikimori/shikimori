@@ -91,6 +91,21 @@ module AniMangaDecorator::UrlHelpers
     )
   end
 
+  # def summaries_url
+  #   h.send(
+  #     "#{klass_lower.pluralize}_summaries_url",
+  #     params
+  #   )
+  # end
+
+  def summary_url summary
+    h.send(
+      "#{klass_lower}_summary_url",
+      object,
+      summary
+    )
+  end
+
   # адрес косплея персонажа
   # def cosplay_url character, gallery = nil
   #   if gallery
