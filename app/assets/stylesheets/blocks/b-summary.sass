@@ -12,43 +12,55 @@
   padding-top: 10px
 
   header
-    display: flex
     margin-bottom: 10px
 
-    +iphone
-      flex-direction: column
+    +gte_ipad
+      display: flex
 
     .author-link
+      float: left
+      height: 48px
       line-height: 0
-      margin: 1px 10px 0 0
+      margin-right: 10px
+      margin-top: 4px
+      width: 48px
+
+      +iphone
+        margin-bottom: 8px
 
       img
-        width: 48px
+        width: 100%
 
-  .head-container
-    width: 100%
-
-    .name-status
+  .summary-details
+    +gte_ipad
       align-items: center
       display: flex
-      margin-bottom: 4px
-      margin-top: -4px
+      flex-grow: 1
+      flex-wrap: wrap
       line-height: 1
+      margin-top: -4px
 
-      .name
-        font-size: 14px
-        font-weight: bold
-        line-height: inherit
+    .name
+      font-size: 14px
+      font-weight: bold
 
-      .b-status-line
-        margin: 0 0 0 auto
-        line-height: inherit
-        color: #456
+    .b-status-line
+      color: #456
+      line-height: inherit
+      margin: 0 0 0 auto
 
   .summary-info
-    font-family: var(--font-alt)
-    display: flex
     align-items: flex-end
+    display: flex
+    font-family: var(--font-alt)
+
+    +iphone
+      width: 100%
+      flex-wrap: wrap
+
+    +gte_ipad
+      align-self: flex-end
+      flex-basis: 100%
 
     .positive
       color: #549e14
@@ -63,6 +75,7 @@
     .opinion
       align-items: center
       display: flex
+      flex-shrink: 0
       height: 30px
       justify-content: center
       margin-right: 10px
@@ -111,9 +124,11 @@
 
     .user-rate
       +user_rate-minified
-      margin-left: 10px
       display: flex
       align-items: flex-end
+
+      +gte_ipad
+        margin-left: 10px
 
       .b-add_to_list
         min-width: 134px

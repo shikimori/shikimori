@@ -21,22 +21,21 @@
         srcset="#{summary.user.avatar_url 80} 2x"
         alt=summary.user.nickname
       ]
-    .head-container
-      .name-status
-        a.name[
-          href=profile_url(summary.user)
-          itemprop='creator'
-          tabindex='-1'
-        ]
-          = summary.user.nickname
+    .summary-details
+      a.name[
+        href=profile_url(summary.user)
+        itemprop='creator'
+        tabindex='-1'
+      ]
+        = summary.user.nickname
 
-        - if summary.persisted?
-          .b-status-line
+      - if summary.persisted?
+        .b-status-line
 
-            = render 'topics/status_line/section_dates', object: summary
-            .section.additional
-              span.comments == summary.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
-            = render 'topics/reviews/votes_count', review: summary
+          = render 'topics/status_line/section_dates', object: summary
+          .section.additional
+            span.comments == summary.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
+          = render 'topics/reviews/votes_count', review: summary
 
       .summary-info
         .opinion class=summary.opinion
