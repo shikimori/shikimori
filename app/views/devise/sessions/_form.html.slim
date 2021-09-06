@@ -20,7 +20,7 @@
     = f.input :password
 
   .block
-    - if @show_checkbox_recaptcha
+    - if @show_checkbox_recaptcha || !Shikimori::IS_RECAPTCHA_V3
       = recaptcha_tags
     - else
       = recaptcha_v3 action: 'sign_in', site_key: Rails.application.secrets.recaptcha[:v3][:site_key]

@@ -679,4 +679,4 @@ ru:
 
   recaptcha:
     errors:
-      verification_failed: Проверка reCAPTCHA не пройдена, пожалуйста, повторите попытку
+      verification_failed: Проверка reCAPTCHA не пройдена, повтори попытку

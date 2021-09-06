@@ -82,6 +82,7 @@ module Shikimori
   ]
 
   IS_IMAGEBOARD_TAGS_ENABLED = false
+  IS_RECAPTCHA_V3 = false
 
   class Application < Rails::Application
     def redis

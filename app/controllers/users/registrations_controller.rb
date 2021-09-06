@@ -23,8 +23,11 @@ private
   end
 
   def check_captcha
-    auto_success = verify_recaptcha action: 'sign_up', minimum_score: 0.25,
-      secret_key: Rails.application.secrets.recaptcha[:v3][:secret_key]
+    if Shikimori::IS_RECAPTCHA_V3
+      auto_success = verify_recaptcha action: 'sign_up',
+        minimum_score: 0.4,
+        secret_key: Rails.application.secrets.recaptcha[:v3][:secret_key]
+    end
     checkbox_success = verify_recaptcha unless auto_success
 
     unless auto_success || checkbox_success
