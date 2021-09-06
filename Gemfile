@@ -20,7 +20,6 @@ gem 'msgpack'
 group :beta, :production do
   gem 'autoprefixer-rails'
 end
-gem 'coffee-rails'
 gem 'non-stupid-digest-assets'
 gem 'sassc-rails'
 gem 'gon'
@@ -76,7 +75,6 @@ gem 'active_model_serializers'
 gem 'concurrent-ruby-edge'
 
 gem 'nokogiri'
-gem 'nokogumbo'
 # gem 'sanitize'
 
 # gem 'mobylette' # для is_mobile_request в application_controller#show_social?. гем добавляет :mobyle mime type. с ним в ипаде сайт падает сразу после регистрации
