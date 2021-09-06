@@ -55,7 +55,12 @@
         +link
         align-self: flex-end
         font-size: 11px
-        margin-left: $block-offset
+
+        +iphone
+          margin-left: auto
+
+        +gte_ipad
+          margin-left: $block-offset
 
     .b-status-line
       color: #456
