@@ -85,7 +85,7 @@ private
 
     return if other_value >= new_value
 
-    new_text = (other_rate.text + "\n" + merge_note(new_value)).strip
+    new_text = ((other_rate.text ? other_rate.text + "\n" : '') + merge_note(new_value)).strip
 
     if @as_episode == 1 || other_value == @as_episode - 1 || other_value >= @as_episode
       other_rate.update! @episode_field => new_value, text: new_text
