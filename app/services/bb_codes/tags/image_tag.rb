@@ -3,7 +3,9 @@ class BbCodes::Tags::ImageTag # rubocop:disable ClassLength
 
   DELETED_MARKER = 'deleted'
   DELETED_IMAGE_PATH = '/assets/globals/missing_main.png'
-  DELETED_IMAGE_HTML = "<img src='#{DELETED_IMAGE_PATH}' loading='lazy' />"
+  DELETED_IMAGE_2X_PATH = '/assets/globals/missing_main@2x.png'
+  DELETED_IMAGE_HTML =
+    "<img src='#{DELETED_IMAGE_PATH}' srcset='#{DELETED_IMAGE_2X_PATH} 2x' loading='lazy' />"
 
   OPTIONS_REGEXP = /
     (?:
