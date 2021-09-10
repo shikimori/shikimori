@@ -21,7 +21,7 @@ class Profiles::View < ViewObjectBase
   end
 
   def censored_profile?
-    @user.censored_profile? && !own_profile?
+    (@user.censored_profile? || @user.forever_banned?) && !own_profile?
   end
 
   def show_comments?

@@ -103,7 +103,7 @@ private
 
     if h.user_signed_in? && !h.current_user.preferences.apply_user_styles
       try_style(h.current_user)
-    elsif user && !user.censored_profile?
+    elsif user && !user.censored_profile? && !user.forever_banned?
       try_style(user)
     else
       try_style(club) || try_style(h.current_user)
