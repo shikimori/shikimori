@@ -1,0 +1,213 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://discord.gg/hVybUWQQGS
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 301
+      message: Moved Permanently
+    headers:
+      Date:
+      - Fri, 10 Sep 2021 20:58:38 GMT
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Content-Length:
+      - '0'
+      Connection:
+      - keep-alive
+      Location:
+      - https://discord.com/invite/hVybUWQQGS
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Robots-Tag:
+      - noindex, nofollow, noarchive, nocache, noimageindex, noodp
+      X-Xss-Protection:
+      - 1; mode=block
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=yXcX%2BhxiulA3niUAWipKGqDKqOmwQ3AB9zdnnE7hAGTJEWVidJqb5YLKdNVfD4YXHyGOWVya2IjbPKEOz4%2BpBvowAsL%2BSv8LZvATf9HcFWxhIe1gq2ATooZU%2BU4%3D"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 68cb93586b037b87-DME
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Fri, 10 Sep 2021 20:58:38 GMT
+- request:
+    method: get
+    uri: https://discord.com/invite/hVybUWQQGS
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 10 Sep 2021 20:58:39 GMT
+      Content-Type:
+      - text/html
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - 68cb9358bba84971-DME
+      Cache-Control:
+      - private
+      Etag:
+      - W/"bc8fcdd881ffb84376dc0f110aaf177a"
+      Last-Modified:
+      - Fri, 10 Sep 2021 20:42:46 GMT
+      Set-Cookie:
+      - __dcfduid=df717420127911ec9a74cb68d4871649; Expires=Wed, 09 Sep 2026 20:58:39
+        GMT; Max-Age=157680000; Path=/; Secure; HttpOnly; SameSite=Lax
+      - __sdcfduid=df717421127911ec9a74cb68d4871649d2b688a66b08d1c1aec1c85062c3d5ad28462986137d818e75c680017f8cd414;
+        Expires=Wed, 09 Sep 2026 20:58:39 GMT; Max-Age=157680000; Path=/; Secure;
+        HttpOnly; SameSite=Lax
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Cf-Cache-Status:
+      - HIT
+      Content-Security-Policy:
+      - 'default-src ''self''; script-src ''self'' ''unsafe-eval'' ''unsafe-inline''
+        ''nonce-NzMsMTIwLDE3NiwxNiw0NSwxMzUsNDksMTYz'' https://cdn.discordapp.com/animations/
+        https://www.gstatic.com/recaptcha/ https://www.google.com/recaptcha/ https://recaptcha.net/recaptcha/
+        https://*.hcaptcha.com https://hcaptcha.com https://js.stripe.com https://js.braintreegateway.com
+        https://assets.braintreegateway.com https://www.paypalobjects.com https://checkout.paypal.com;
+        style-src ''self'' ''unsafe-inline'' https://cdn.discordapp.com https://*.hcaptcha.com
+        https://hcaptcha.com; img-src ''self'' blob: data: https://*.discordapp.net
+        https://*.discordapp.com https://*.discord.com https://i.scdn.co https://i.ytimg.com
+        https://i.imgur.com https://*.gyfcat.com https://media.tenor.co https://media.tenor.com
+        https://c.tenor.com https://*.youtube.com https://*.giphy.com https://static-cdn.jtvnw.net
+        https://pbs.twimg.com https://assets.braintreegateway.com https://checkout.paypal.com;
+        font-src ''self'' https://fonts.gstatic.com; connect-src ''self'' https://status.discordapp.com
+        https://status.discord.com https://support.discordapp.com https://support.discord.com
+        https://discordapp.com https://discord.com https://cdn.discordapp.com https://media.discordapp.net
+        https://router.discordapp.net wss://*.discord.gg https://best.discord.media
+        https://latency.discord.media wss://*.discord.media wss://dealer.spotify.com
+        https://api.spotify.com https://sentry.io https://api.twitch.tv https://api.stripe.com
+        https://api.braintreegateway.com https://client-analytics.braintreegateway.com
+        https://origin-analytics-prod.production.braintree-api.com https://payments.braintree-api.com
+        https://www.googleapis.com https://*.algolianet.com https://*.hcaptcha.com
+        https://hcaptcha.com https://*.algolia.net ws://127.0.0.1:* http://127.0.0.1:*;
+        media-src ''self'' blob: https://*.discordapp.net https://*.discord.com https://*.discordapp.com
+        https://*.youtube.com https://streamable.com https://vid.me https://*.gfycat.com
+        https://twitter.com https://oddshot.akamaized.net https://*.giphy.com https://i.imgur.com
+        https://media.tenor.co https://media.tenor.com https://c.tenor.com; frame-src
+        https://discordapp.com/domain-migration discord: https://www.google.com/recaptcha/
+        https://recaptcha.net/recaptcha/ https://*.hcaptcha.com https://hcaptcha.com
+        https://js.stripe.com https://hooks.stripe.com https://checkout.paypal.com
+        https://assets.braintreegateway.com https://player.twitch.tv https://clips.twitch.tv/embed
+        https://player.vimeo.com https://www.youtube.com/embed/ https://twitter.com/i/videos/
+        https://www.funimation.com/player/ https://www.redditmedia.com/mediaembed/
+        https://open.spotify.com/embed/ https://w.soundcloud.com/player/ https://audius.co/embed/
+        https://*.watchanimeattheoffice.com https://localhost:* https://*.discordsays.com;
+        child-src ''self'' https://assets.braintreegateway.com https://checkout.paypal.com;'
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Permissions-Policy:
+      - interest-cohort=()
+      X-Build-Id:
+      - 648fbd8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=AGfeaog7Tho5sjCVV%2B0K9tTI7MvA%2Fls4c9MpLkwn59mjs2yImMCTJCka6l8wuB5I6zGPwOTmME%2FZmpFOaNghu3yBNgnjRUxIi1Ea0bXwJ%2FYmYHPl%2B3YACSXIV%2BVU"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400, h3-28=":443"; ma=86400, h3-27=":443";
+        ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        <!DOCTYPE html>
+        <html>
+          <head>    <meta charset="utf-8" />
+            <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" name="viewport" />
+        <meta name="description" content="Check out the 1September do u remember1? community on Discord - hang out with 148 other members and enjoy free voice and text chat." />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@discord" />
+        <meta name="twitter:title" content="Join the 1September do u remember1? Discord Server!" />
+        <meta name="twitter:description" content="Check out the 1September do u remember1? community on Discord - hang out with 148 other members and enjoy free voice and text chat." />
+        <meta property="og:title" content="Join the 1September do u remember1? Discord Server!" />
+        <meta property="og:url" content="https://discord.com/invite/hVybUWQQGS" />
+        <meta property="og:description" content="Check out the 1September do u remember1? community on Discord - hang out with 148 other members and enjoy free voice and text chat." />
+        <meta property="og:site_name" content="Discord" />
+        <meta property="og:image" content="https://cdn.discordapp.com/splashes/778692326524583987/7dc3e0ed951c24de4626b29995965618.jpg?size=512" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="512" />
+        <meta property="og:image:height" content="512" />
+        <meta name="twitter:image" content="https://cdn.discordapp.com/splashes/778692326524583987/7dc3e0ed951c24de4626b29995965618.jpg?size=512" />
+        <meta name="googlebot" content="noindex, nofollow"><meta name="bingbot" content="noindex, nofollow"><meta name="slurp" content="noindex, nofollow"><meta name="duckduckbot" content="noindex, nofollow"><meta name="baiduspider" content="noindex, nofollow"><meta name="yandexbot" content="noindex, nofollow"><meta name="naver" content="noindex, nofollow"><meta name="facebookexternalhit" content="index, follow"><meta name="twitterbot" content="index, follow"><link rel="canonical" href="https://discord.com/invite/hVybUWQQGS"/>
+        <link rel="stylesheet" href="/assets/0.a5e3c91de95368273752.css" integrity="sha256-2SY8n42c06+678wuCmhRWClYBJ0PjWvrP4eQWs1Tj3s= sha512-uPK9jsCMeN75q2/BIibNsMS/xw+p16NPPMk4ZPcVrO0tTPEKAtxD/oTtlgtoSGg6A+X78rtk0gYkJ/+tcXll2g=="><link rel="icon" href="/assets/847541504914fd33810e70a0ea73177e.ico" /><title>1September do u remember1?</title>  </head>
+
+          <body>
+            <div id="app-mount"></div><script nonce="NzMsMTIwLDE3NiwxNiw0NSwxMzUsNDksMTYz">window.__OVERLAY__ = /overlay/.test(location.pathname)</script><script nonce="NzMsMTIwLDE3NiwxNiw0NSwxMzUsNDksMTYz">window.__BILLING_STANDALONE__ = /^\/billing/.test(location.pathname)</script><script nonce="NzMsMTIwLDE3NiwxNiw0NSwxMzUsNDksMTYz">window.GLOBAL_ENV = {
+                API_ENDPOINT: '//discord.com/api',
+                API_VERSION: 9,
+                GATEWAY_ENDPOINT: 'wss://gateway.discord.gg',
+                WEBAPP_ENDPOINT: '//discord.com',
+                CDN_HOST: 'cdn.discordapp.com',
+                ASSET_ENDPOINT: 'https://discord.com',
+                MEDIA_PROXY_ENDPOINT: 'https://media.discordapp.net',
+                WIDGET_ENDPOINT: '//discord.com/widget',
+                INVITE_HOST: 'discord.gg',
+                GUILD_TEMPLATE_HOST: 'discord.new',
+                GIFT_CODE_HOST: 'discord.gift',
+                RELEASE_CHANNEL: 'stable',
+                MARKETING_ENDPOINT: '//discord.com',
+                BRAINTREE_KEY: 'production_5st77rrc_49pp2rp4phym7387',
+                STRIPE_KEY: 'pk_live_CUQtlpQUF0vufWpnpUmQvcdi',
+                NETWORKING_ENDPOINT: '//router.discordapp.net',
+                RTC_LATENCY_ENDPOINT: '//latency.discord.media/rtc',
+                ACTIVITY_APPLICATION_HOST: 'discordsays.com',
+                PROJECT_ENV: 'production',
+                REMOTE_AUTH_ENDPOINT: '//remote-auth-gateway.discord.gg',
+                SENTRY_TAGS: {"buildId":"648fbd8","buildType":"normal"},
+                MIGRATION_SOURCE_ORIGIN: 'https://discordapp.com',
+                MIGRATION_DESTINATION_ORIGIN: 'https://discord.com',
+                HTML_TIMESTAMP: Date.now(),
+                ALGOLIA_KEY: 'aca0d7082e4e63af5ba5917d5e96bed0',
+              };</script><script nonce="NzMsMTIwLDE3NiwxNiw0NSwxMzUsNDksMTYz">!function(){if(null!=window.WebSocket){if(function(n){try{var e=localStorage.getItem(n);return null==e?null:JSON.parse(e)}catch(n){return null}}("token")&&!window.__OVERLAY__){var n=null!=window.DiscordNative||null!=window.require?"etf":"json",e=window.GLOBAL_ENV.GATEWAY_ENDPOINT+"/?encoding="+n+"&v="+window.GLOBAL_ENV.API_VERSION+"&compress=zlib-stream";console.log("[FAST CONNECT] connecting to: "+e);var o=new WebSocket(e);o.binaryType="arraybuffer";var t=Date.now(),i={open:!1,identify:!1,gateway:e,messages:[]};o.onopen=function(){console.log("[FAST CONNECT] connected in "+(Date.now()-t)+"ms"),i.open=!0},o.onclose=o.onerror=function(){window._ws=null},o.onmessage=function(n){i.messages.push(n)},window._ws={ws:o,state:i}}}}();</script><script src="/assets/ba30adb6ea6c85f62120.js" integrity="sha256-cznAH+zF7op8EI/Y4lEHRfVi1GohBXjEUrOjLHGhDC0= sha512-9JblclaSm5MM6fBfCOho3SPeXdy1qd+P+ZBD10l2rtZGCJiAJwgDB6JmdI2fdsRz6zvod4LHzO3rNRk/zvoWaA=="></script><script src="/assets/7c30eb13a9138eb631ab.js" integrity="sha256-BwOppR7fzE1lUObfzv/dlKYC0BVUPY3QIEdjVmlDKUo= sha512-bi7SjZ1tHKdLtlMShGTeClbufPWht4UNJH+LwwkLqbVs5ToIXwTx55lfIGxnf9KPismqhoyvuREenZIZYmSAhg=="></script><script src="/assets/046cc19985383348b91d.js" integrity="sha256-nswOyiLhDj9b2f4EqFJp2Jk+pQg7ohyl//wZK/WqtIY= sha512-UHEPDJqbjigodqye/pIuzFzjun4TullzkKhB8rw8GBc9jLdWYloLxcVAO7x/Ob7WtlmxecFcudx4fNVSkt8o5A=="></script><script src="/assets/5b3d6324feef574cefe9.js" integrity="sha256-X7izB8pGelapeS1wgzAxHfJqIHtsDh3ioYZlV2etxVo= sha512-C8gdocUB8ZZKri1tf9t1KXRvlMqMF/U8bJk+IYWYkk8z73eXF8NZd/Daq87zrKDh8G4vAV/sl6CFdff1CPUplQ=="></script>  </body>
+        </html>
+  recorded_at: Fri, 10 Sep 2021 20:58:38 GMT
+recorded_with: VCR 6.0.0

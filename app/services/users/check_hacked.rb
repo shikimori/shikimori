@@ -15,6 +15,9 @@ class Users::CheckHacked
     shikme.naru.to
     shiki.morry.ru
   ]
+  SPAM_LINKS = %w[
+    discord.com/invite/hVybUWQQGS
+  ]
   NOT_SPAM_DOMAINS = %w[
     shikimori.org
     shikimori.one
@@ -59,9 +62,9 @@ class Users::CheckHacked
 private
 
   def spam?
-    (
-      domains(follow(links(@text))) & SPAM_DOMAINS
-    ).any?
+    links = follow(links(@text))
+
+    (domains(links) & SPAM_DOMAINS).any? || (wo_protocol(links) & SPAM_LINKS).any?
   end
 
   def ban_text
@@ -83,14 +86,18 @@ private
   end
 
   def follow urls
-    urls.map do |url|
-      Rails.cache.fetch([url, :follow]) { Network::FinalUrl.call(url) || url }
-    end
+    urls
+      .map do |url|
+        Rails.cache.fetch([url, :follow]) { Network::FinalUrl.call(url) || url }
+      end
+      .select(&:present?)
   end
 
   def domains urls
-    urls
-      .select(&:present?)
-      .map { |url| Url.new(url).domain.to_s }
+    urls.map { |url| Url.new(url).domain.to_s }
+  end
+
+  def wo_protocol urls
+    urls.map { |url| url.gsub(%r{\A(?:https?:)?//}, '') }
   end
 end
