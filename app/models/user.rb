@@ -361,8 +361,8 @@ class User < ApplicationRecord
       )
   end
 
-  def avatar_url size
-    if censored_avatar?
+  def avatar_url size, ignore_censored = false
+    if !ignore_censored && (censored_avatar? || forever_banned?)
       format(
         '//www.gravatar.com/avatar/%<email_hash>s?s=%<size>i&d=identicon',
         email_hash: Digest::MD5.hexdigest('takandar+censored@gmail.com'),
@@ -374,7 +374,11 @@ class User < ApplicationRecord
   end
 
   def forever_banned?
-    (read_only_at || Time.zone.now) > 1.year.from_now
+    if @is_forever_banned.nil?
+      @is_forever_banned = (read_only_at || Time.zone.now) > 1.year.from_now
+    else
+      @is_forever_banned
+    end
   end
 
   def day_registered?

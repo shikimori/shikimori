@@ -54,6 +54,16 @@ describe Users::CheckHacked do
           .with message.from_id
       end
     end
+
+    context 'spam link', :vcr do
+      let(:text) { 'https://discord.gg/hVybUWQQGS' }
+      it do
+        is_expected.to eq false
+        expect(Users::LockHacked)
+          .to have_received(:perform_async)
+          .with message.from_id
+      end
+    end
   end
 
   context 'not spam' do

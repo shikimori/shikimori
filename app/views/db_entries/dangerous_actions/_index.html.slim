@@ -80,7 +80,7 @@
                     input[
                       type='number'
                       name='as_episode'
-                      min='1'
+                      min='0'
                     ]
                   - if resource.kinda_manga?
                     .b-input
@@ -88,11 +88,11 @@
                       select name='episode_field'
                         option[
                           selected
-                          value='volumes'
-                        ] Том
-                        option[
                           value='chapters'
                         ] Глава
+                        option[
+                          value='volumes'
+                        ] Том
                   - else
                     input type='hidden' name='episode_type' value='episodes'
                   = render 'db_entries/dangerous_actions/warning_mal_presence', resource: resource

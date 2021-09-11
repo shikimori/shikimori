@@ -440,6 +440,7 @@ Rails.application.routes.draw do
   get '/', to: 'dashboards#show', as: :new_session
   get '/page/:page', to: 'dashboards#show', as: :root_page
   get '/dashboards/dynamic', to: 'dashboards#dynamic', as: :dashboards_dynamic
+  get 'data-deletion', to: 'dashboards#data_deletion'
 
   # seo redirects
   get 'r' => redirect('/reviews')

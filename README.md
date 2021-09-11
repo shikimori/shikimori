@@ -11,7 +11,7 @@ OSX or Linux
 PostgreSQL >= 10.0, Ruby >= 2.6, NodeJS >= 10.0, Elasticsearch 6.x (7.0 not supported), Memcached, Redis
 
 ## Issues Board (Agile Season)
-https://agileseason.com/shared/boards/a98d1565b276f3781070f0e74a7ffcf1
+https://agileseason.com/#/shared/board/098d2e36dff32f296d7815cf943ac8eb
 
 ## Requirements
 

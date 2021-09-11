@@ -51,7 +51,9 @@ private
     user_id = entry_rate.user_id
 
     other_rate = other_rates.find { |v| v.user_id == user_id }
-    new_value = @as_episode + entry_rate_value - 1
+    new_value = zero_episode? ?
+      entry_rate_value :
+      @as_episode + entry_rate_value - 1
 
     if other_rate
       update_rate other_rate, new_value
@@ -80,17 +82,26 @@ private
     )
   end
 
+  def update_rate_note other_rate, new_value
+    other_rate.update! text: new_note(other_rate.text, new_value)
+  end
+
   def update_rate other_rate, new_value
+    if zero_episode?
+      return update_rate_note other_rate, new_value
+    end
+
     other_value = other_rate.send @episode_field
 
     return if other_value >= new_value
 
-    new_text = (other_rate.text + "\n" + merge_note(new_value)).strip
-
     if @as_episode == 1 || other_value == @as_episode - 1 || other_value >= @as_episode
-      other_rate.update! @episode_field => new_value, text: new_text
+      other_rate.update!(
+        @episode_field => new_value,
+        text: new_note(other_rate.text, new_value)
+      )
     else
-      other_rate.update! text: new_text
+      update_rate_note other_rate, new_value
     end
   end
 
@@ -104,8 +115,23 @@ private
     end
   end
 
+  def new_note other_rate_text, new_value
+    (
+      (other_rate_text ? other_rate_text + "\n" : '') +
+        merge_note(new_value)
+    ).strip
+  end
+
   def merge_note new_value
-    "✅ #{EPISODE_LABEL[@episode_field]} #{[@as_episode, new_value].uniq.join('-')} " +
+    episodes = zero_episode? ?
+      0 :
+      [@as_episode, new_value].uniq.join('-')
+
+    "✅ #{EPISODE_LABEL[@episode_field]} #{episodes} " +
       + @entry.name + (@entry.russian.present? ? " (#{@entry.russian})" : '')
+  end
+
+  def zero_episode?
+    @as_episode.zero?
   end
 end

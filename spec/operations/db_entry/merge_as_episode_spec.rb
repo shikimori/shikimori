@@ -442,8 +442,8 @@ describe DbEntry::MergeAsEpisode do
           context 'user_rate_entry.episodes = 2' do
             let(:user_rate_entry_episodes) { 2 }
 
-            context 'user_rate_other.episodes <= 5' do
-              let(:user_rate_other_episodes) { [1, 2, 3, 4, 5].sample }
+            context 'user_rate_other.episodes = [3-5]' do
+              let(:user_rate_other_episodes) { [3, 4, 5].sample }
 
               it do
                 is_expected.to eq true
@@ -454,7 +454,53 @@ describe DbEntry::MergeAsEpisode do
                 )
               end
             end
+
+            context 'user_rate_other.episodes = [0, 1, 2]' do
+              let(:user_rate_other_episodes) { [0, 1, 2].sample }
+
+              it do
+                is_expected.to eq true
+                expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+                expect(user_rate_other.reload).to have_attributes(
+                  episode_field => user_rate_other_episodes,
+                  status: 'watching'
+                )
+              end
+            end
           end
+        end
+      end
+    end
+
+    context 'as_episode = 0' do
+      let(:as_episode) { 0 }
+      let(:user_rate_entry_episodes) { 1 }
+      let(:user_rate_other_episodes) { [1, 2].sample }
+
+      context 'has other_rate' do
+        it do
+          is_expected.to eq true
+          expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect(user_rate_other.reload).to have_attributes(
+            episode_field => user_rate_other_episodes,
+            status: 'watching',
+            text: "✅ #{described_class::EPISODE_LABEL[episode_field]} 0 #{entry.name} (#{entry.russian})"
+          )
+        end
+      end
+
+      context 'no other_rate' do
+        let!(:user_rate_other) { nil }
+        let(:new_user_rate) { UserRate.order(id: :desc).first }
+
+        it do
+          is_expected.to eq true
+          expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect(new_user_rate).to have_attributes(
+            status: 'watching',
+            episode_field => 0,
+            text: "✅ #{described_class::EPISODE_LABEL[episode_field]} 0 #{entry.name} (#{entry.russian})"
+          )
         end
       end
     end

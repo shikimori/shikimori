@@ -23,4 +23,7 @@ class DashboardsController < ShikimoriController
 
   def dynamic
   end
+
+  def data_deletion
+  end
 end

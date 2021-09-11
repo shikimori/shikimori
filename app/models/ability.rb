@@ -14,7 +14,7 @@ class Ability
         merge Abilities::ForumModerator.new(user)
       end
 
-      if user.news_moderator? || user.admin?
+      if user.news_moderator? || user.admin? || user.super_moderator?
         merge Abilities::NewsModerator.new(user)
       end
 
@@ -22,15 +22,15 @@ class Ability
         merge Abilities::ContestModerator.new(user)
       end
 
-      if user.review_moderator? || user.admin?
+      if user.review_moderator? || user.admin? || user.super_moderator?
         merge Abilities::ReviewModerator.new(user)
       end
 
-      if user.collection_moderator? || user.admin?
+      if user.collection_moderator? || user.admin? || user.super_moderator?
         merge Abilities::CollectionModerator.new(user)
       end
 
-      if user.article_moderator? || user.admin?
+      if user.article_moderator? || user.admin? || user.super_moderator?
         merge Abilities::ArticleModerator.new(user)
       end
 
