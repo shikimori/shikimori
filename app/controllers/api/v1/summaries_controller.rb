@@ -36,13 +36,13 @@ private
   def create_params
     params
       .require(:summary)
-      .permit(:body, :anime_id, :tone)
+      .permit(:body, :anime_id, :opinion)
       .merge(user: current_user)
   end
 
   def update_params
     params
       .require(:summary)
-      .permit(:body, :anime_id, :is_written_before_release, :tone)
+      .permit(:body, :anime_id, :is_written_before_release, :opinion)
   end
 end
