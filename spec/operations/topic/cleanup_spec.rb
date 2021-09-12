@@ -30,6 +30,8 @@ describe Topic::Cleanup do
       id: 9999993
   end
 
+  let(:comment_1_is_summary) { false }
+
   let(:old_created_at) { described_class::COMMENT_LIVE_TIME.ago - 1.day }
   let(:fresh_created_at) { described_class::COMMENT_LIVE_TIME.ago + 1.day }
 
@@ -38,7 +40,12 @@ describe Topic::Cleanup do
   let(:image_3) { create :user_image }
   let(:image_4) { create :user_image }
 
-  before { stub_const 'Topic::Cleanup::COMMENTS_OFFSET', 1 }
+  before do
+    stub_const 'Topic::Cleanup::COMMENTS_OFFSET', 1
+    if comment_1_is_summary
+      comment_1.update_column :is_summary, true
+    end
+  end
 
   subject! { described_class.call topic }
 
@@ -52,5 +59,21 @@ describe Topic::Cleanup do
     expect(comment_2.reload.body).to eq '[poster=deleted]'
     expect(comment_3.reload.body).to eq "[image=#{image_3.id}]"
     expect(comment_4.reload.body).to eq "[image=#{image_4.id}]"
+  end
+
+  context 'skip summaries', :focus do
+    let(:comment_1_is_summary) { true }
+
+    it do
+      expect(image_1.reload).to be_persisted
+      expect { image_2.reload }.to raise_error ActiveRecord::RecordNotFound
+      expect(image_3.reload).to be_persisted
+      expect(image_4.reload).to be_persisted
+
+      expect(comment_1.reload.body).to eq "[image=#{image_1.id}] [image=123456]"
+      expect(comment_2.reload.body).to eq '[poster=deleted]'
+      expect(comment_3.reload.body).to eq "[image=#{image_3.id}]"
+      expect(comment_4.reload.body).to eq "[image=#{image_4.id}]"
+    end
   end
 end
