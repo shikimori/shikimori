@@ -17,11 +17,21 @@ private
   def extract_quoted_images body
     return [] if @is_cleanup_quotes
 
+    image_ids_in_quotes(body) + image_ids_in_code(body)
+  end
+
+  def image_ids_in_quotes body
     body
       .gsub(BbCodes::Markdown::ListQuoteParser::MARKDOWN_LIST_OR_QUOTE_REGEXP)
       .flat_map do |match|
         match.scan(IMAGES_REGEXP).map(&:second)
       end
+  end
+
+  def image_ids_in_code body
+    code_tag = BbCodes::Tags::CodeTag.new
+    code_tag.preprocess(body)
+    code_tag.cache.flat_map { |cache| cache[:text].scan(IMAGES_REGEXP).map(&:second) }
   end
 
   def cleanup body, skip_ids

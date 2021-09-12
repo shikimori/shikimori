@@ -20,6 +20,8 @@ class BbCodes::Tags::CodeTag # rubocop:disable ClassLength
   CODE_INLINE_OPEN_TAG = "<code class='b-code_inline'>"
   CODE_INLINE_CLOSE_TAG = '</code>'
 
+  attr_reader :cache
+
   def preprocess text
     @cache = []
     proprocess_inline_markdown(preprocess_bbcode(text))

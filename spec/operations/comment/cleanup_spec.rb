@@ -1,5 +1,8 @@
 describe Comment::Cleanup do
-  let!(:comment) { create :comment, body: "[image=#{image.id}]\n> > [image=123456]" }
+  let!(:comment) do
+    create :comment,
+      body: "[image=#{image.id}]\n> > [image=123456]\n\n`[image=234567]`"
+  end
   let(:image) { create :user_image }
 
   before do
@@ -11,14 +14,18 @@ describe Comment::Cleanup do
 
   it do
     expect(image.reload).to be_persisted
-    expect(comment.reload.body).to eq "[image=#{image.id}]\n> > [image=123456]"
+    expect(comment.reload.body).to eq(
+      "[image=#{image.id}]\n> > [image=123456]\n\n`[image=234567]`"
+    )
   end
 
   context 'is_cleanup_summaries' do
     let(:options) { { is_cleanup_summaries: true } }
     it do
       expect { image.reload }.to raise_error ActiveRecord::RecordNotFound
-      expect(comment.reload.body).to eq "[image=deleted]\n> > [image=123456]"
+      expect(comment.reload.body).to eq(
+        "[image=deleted]\n> > [image=123456]\n\n`[image=234567]`"
+      )
     end
   end
 
@@ -27,7 +34,9 @@ describe Comment::Cleanup do
     let(:options) { { is_cleanup_quotes: true } }
     it do
       expect { image.reload }.to raise_error ActiveRecord::RecordNotFound
-      expect(comment.reload.body).to eq "[image=deleted]\n> > [image=deleted]"
+      expect(comment.reload.body).to eq(
+        "[image=deleted]\n> > [image=deleted]\n\n`[image=deleted]`"
+      )
     end
   end
 end
