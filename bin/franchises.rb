@@ -40,6 +40,7 @@ end
 puts 'excluding recaps...'
 data.each do |rule|
   recap_ids = Anime
+    .where.not(status: :anons)
     .where(franchise: rule['filters']['franchise'])
     .reject { |anime| Neko::IsAllowed.call anime }
     .map(&:id)
@@ -64,11 +65,11 @@ data.each do |rule|
   end
 
   # exclude anonses
-  not_anime_ids = Anime
-    .where.not(status: :anons)
-    .where(id: not_anime_ids)
-    .order(:id)
-    .pluck(:id)
+  # not_anime_ids = Anime
+  #   .where.not(status: :anons)
+  #   .where(id: not_anime_ids)
+  #   .order(:id)
+  #   .pluck(:id)
 
   if not_anime_ids.any?
     rule['filters']['not_anime_ids'] = not_anime_ids
