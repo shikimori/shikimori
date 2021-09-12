@@ -41,10 +41,10 @@ private
 
   def cleanup body, skip_ids
     body.gsub(IMAGES_REPLACEMENT_REGEXP) do |match|
-      image_id = $LAST_MATCH_INFO[:user_image_id].to_i
-      next match if skip_ids.include? image_id
+      user_image_id = $LAST_MATCH_INFO[:user_image_id].to_i
+      next match if skip_ids.include? user_image_id
 
-      UserImage.find_by(id: image_id)&.destroy
+      UserImages::CleanupJob.perform_in 1.minute, user_image_id
       "[#{$LAST_MATCH_INFO[:type]}=#{DELETED_MARKER}"
     end
   end

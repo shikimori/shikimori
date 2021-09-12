@@ -11,42 +11,78 @@ describe Comment::Cleanup do
   describe '#call' do
     let!(:comment) do
       create :comment,
-        body: "[image=#{image.id}]\n> > [image=123456]\n\n`[image=234567]`"
+        body: "[image=#{user_image_1.id}]\n> > [image=#{user_image_2.id}]\n\n`[image=#{user_image_3.id}]`"
     end
-    let(:image) { create :user_image }
+    let(:user_image_1) { create :user_image }
+    let(:user_image_2) { create :user_image }
+    let(:user_image_3) { create :user_image }
 
     before do
       comment.update_column :is_summary, true if is_summary
     end
-    let(:is_summary) { true }
+
+    before { allow(UserImages::CleanupJob).to receive :perform_in }
     subject! { described_class.call comment, options }
     let(:options) { {} }
 
-    it do
-      expect(image.reload).to be_persisted
-      expect(comment.reload.body).to eq(
-        "[image=#{image.id}]\n> > [image=123456]\n\n`[image=234567]`"
-      )
-    end
-
-    context 'is_cleanup_summaries' do
-      let(:options) { { is_cleanup_summaries: true } }
+    context 'not summary' do
+      let(:is_summary) { false }
       it do
-        expect { image.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(UserImages::CleanupJob).to have_received(:perform_in).once
+        expect(UserImages::CleanupJob)
+          .to have_received(:perform_in)
+          .with(1.minute, user_image_1.id)
+
         expect(comment.reload.body).to eq(
-          "[image=deleted]\n> > [image=123456]\n\n`[image=234567]`"
+          "[image=deleted]\n> > [image=#{user_image_2.id}]\n\n`[image=#{user_image_3.id}]`"
         )
       end
     end
 
-    context 'is_cleanup_quotes' do
-      let(:is_summary) { false }
-      let(:options) { { is_cleanup_quotes: true } }
+    context 'summary' do
+      let(:is_summary) { true }
+
       it do
-        expect { image.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(UserImages::CleanupJob).to_not have_received :perform_in
+
         expect(comment.reload.body).to eq(
-          "[image=deleted]\n> > [image=deleted]\n\n`[image=deleted]`"
+          "[image=#{user_image_1.id}]\n> > [image=#{user_image_2.id}]\n\n`[image=#{user_image_3.id}]`"
         )
+      end
+
+      context 'is_cleanup_summaries' do
+        let(:options) { { is_cleanup_summaries: true } }
+        it do
+          expect(UserImages::CleanupJob).to have_received(:perform_in).once
+          expect(UserImages::CleanupJob)
+            .to have_received(:perform_in)
+            .with(1.minute, user_image_1.id)
+
+          expect(comment.reload.body).to eq(
+            "[image=deleted]\n> > [image=#{user_image_2.id}]\n\n`[image=#{user_image_3.id}]`"
+          )
+        end
+      end
+
+      context 'is_cleanup_quotes' do
+        let(:is_summary) { false }
+        let(:options) { { is_cleanup_quotes: true } }
+        it do
+          expect(UserImages::CleanupJob).to have_received(:perform_in).thrice
+          expect(UserImages::CleanupJob)
+            .to have_received(:perform_in)
+            .with(1.minute, user_image_1.id)
+          expect(UserImages::CleanupJob)
+            .to have_received(:perform_in)
+            .with(1.minute, user_image_2.id)
+          expect(UserImages::CleanupJob)
+            .to have_received(:perform_in)
+            .with(1.minute, user_image_3.id)
+
+          expect(comment.reload.body).to eq(
+            "[image=deleted]\n> > [image=deleted]\n\n`[image=deleted]`"
+          )
+        end
       end
     end
   end
