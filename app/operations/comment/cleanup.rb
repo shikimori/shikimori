@@ -1,5 +1,5 @@
 class Comment::Cleanup
-  method_object :comment, %i[is_cleanup_summaries]
+  method_object :comment, %i[is_cleanup_summaries is_cleanup_quotes]
 
   IMAGES_REGEXP = /\[(?<type>image|poster)=(?<user_image_id>\d+)/mix
   DELETED_MARKER = BbCodes::Tags::ImageTag::DELETED_MARKER
@@ -7,11 +7,30 @@ class Comment::Cleanup
   def call
     return if @comment.is_summary && !@is_cleanup_summaries
 
-    new_body = @comment.body.gsub(IMAGES_REGEXP) do
-      UserImage.find_by(id: $LAST_MATCH_INFO[:user_image_id])&.destroy
-      "[#{$LAST_MATCH_INFO[:type]}=#{DELETED_MARKER}"
-    end
+    new_body = cleanup @comment.body, extract_quoted_images(@comment.body)
 
     @comment.update_column :body, new_body if new_body != @comment.body
+  end
+
+private
+
+  def extract_quoted_images body
+    return [] if @is_cleanup_quotes
+
+    body
+      .gsub(BbCodes::Markdown::ListQuoteParser::MARKDOWN_LIST_OR_QUOTE_REGEXP)
+      .flat_map do |match|
+        match.scan(IMAGES_REGEXP).map(&:second)
+      end
+  end
+
+  def cleanup body, skip_ids
+    body.gsub(IMAGES_REGEXP) do |match|
+      image_id = $LAST_MATCH_INFO[:user_image_id]
+      next match if skip_ids.include? image_id
+
+      UserImage.find_by(id: image_id)&.destroy
+      "[#{$LAST_MATCH_INFO[:type]}=#{DELETED_MARKER}"
+    end
   end
 end
