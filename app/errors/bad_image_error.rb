@@ -1,2 +1,0 @@
-class BadImageError < ArgumentError
-end

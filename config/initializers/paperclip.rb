@@ -25,11 +25,11 @@ end
 # ----
 
 # отключаем проверку на spoofing, она работает как-то странно
-module Paperclip::HasAttachedFile::WithoutSpoofingCheck
-  def add_required_validations
-  end
-end
-Paperclip::HasAttachedFile.send :prepend, Paperclip::HasAttachedFile::WithoutSpoofingCheck
+# module Paperclip::HasAttachedFile::WithoutSpoofingCheck
+#   def add_required_validations
+#   end
+# end
+# Paperclip::HasAttachedFile.send :prepend, Paperclip::HasAttachedFile::WithoutSpoofingCheck
 
 # для транслитерации названий файлов
 module TransliteratePaperclip
@@ -69,8 +69,9 @@ module Paperclip
 
       raise Errors::NotIdentifiedByImageMagickError unless geometry
 
-      if geometry.width.to_i > 10_000 || geometry.height.to_i > 10_000
-        raise BadImageError
+      if geometry.width < 10 || geometry.width > 10_000 ||
+          geometry.height < 10 || geometry.height > 10_000
+        raise Errors::NotIdentifiedByImageMagickError
       else
         geometry
       end
@@ -81,6 +82,7 @@ module Paperclip
     def geometry_string
       orientation = Paperclip.options[:use_exif_orientation] ?
         "%[exif:orientation]" : "1"
+
       Paperclip.run(
         "identify",
         "-format '%wx%h,#{orientation}' :file", {
@@ -89,6 +91,8 @@ module Paperclip
           :swallow_stderr => true
         }
       )
+    rescue Terrapin::ExitStatusError
+      raise Errors::NotIdentifiedByImageMagickError
     end
 
     def path
@@ -96,9 +100,7 @@ module Paperclip
     end
 
     def raise_if_blank_file
-      if path.blank?
-        raise Errors::NotIdentifiedByImageMagickError.new("Cannot find the geometry of a file with a blank name")
-      end
+      raise Errors::NotIdentifiedByImageMagickError if path.blank?
     end
   end
 end
