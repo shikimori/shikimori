@@ -9,7 +9,6 @@ class Topic::Cleanup
 
     comments(@topic).find_each do |comment|
       next if comment.created_at > COMMENT_LIVE_TIME.ago
-      next if comment.is_summary
 
       Comment::Cleanup.call comment
     end

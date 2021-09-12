@@ -60,20 +60,4 @@ describe Topic::Cleanup do
     expect(comment_3.reload.body).to eq "[image=#{image_3.id}]"
     expect(comment_4.reload.body).to eq "[image=#{image_4.id}]"
   end
-
-  context 'skip summaries', :focus do
-    let(:comment_1_is_summary) { true }
-
-    it do
-      expect(image_1.reload).to be_persisted
-      expect { image_2.reload }.to raise_error ActiveRecord::RecordNotFound
-      expect(image_3.reload).to be_persisted
-      expect(image_4.reload).to be_persisted
-
-      expect(comment_1.reload.body).to eq "[image=#{image_1.id}] [image=123456]"
-      expect(comment_2.reload.body).to eq '[poster=deleted]'
-      expect(comment_3.reload.body).to eq "[image=#{image_3.id}]"
-      expect(comment_4.reload.body).to eq "[image=#{image_4.id}]"
-    end
-  end
 end
