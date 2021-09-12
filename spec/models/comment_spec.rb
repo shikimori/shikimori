@@ -119,20 +119,13 @@ describe Comment do
     end
 
     describe '#destroy_images' do
-      let(:user_image_1) { create :user_image, user_id: user.id }
-      let(:user_image_2) { create :user_image, user_id: user_2.id }
-      let(:comment) do
-        create :comment,
-          user_id: user.id,
-          body: "[poster=#{user_image_1.id}][poster=#{user_image_2.id}]"
-      end
-      before { allow(UserImages::CleanupJob).to receive :perform_in }
+      let(:comment) { create :comment }
+      before { allow(Comment::Cleanup).to receive :call }
       subject! { comment.destroy! }
       it do
-        expect(UserImages::CleanupJob).to have_received(:perform_in).once
-        expect(UserImages::CleanupJob)
-          .to have_received(:perform_in)
-          .with(1.minute, user_image_1.id)
+        expect(Comment::Cleanup)
+          .to have_received(:call)
+          .with(comment, is_cleanup_summaries: true)
       end
     end
 

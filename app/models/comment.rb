@@ -99,13 +99,7 @@ class Comment < ApplicationRecord
   end
 
   def destroy_images
-    image_ids = Comment::Cleanup.scan_user_image_ids body
-
-    UserImage.where(user_id: user_id, id: image_ids)
-      .pluck(:id)
-      .each do |user_image_id|
-        UserImages::CleanupJob.perform_in 1.minute, user_image_id
-      end
+    Comment::Cleanup.call self, is_cleanup_summaries: true
   end
 
   # TODO: get rid of this method
