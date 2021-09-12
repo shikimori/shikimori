@@ -65,9 +65,10 @@ module Paperclip
     end
 
     def make
-      geometry = GeometryParser.new(geometry_string.strip).make
+      raw_geometry, format = geometry_string.strip.split('!')
+      geometry = GeometryParser.new(raw_geometry).make
 
-      raise Errors::NotIdentifiedByImageMagickError unless geometry
+      raise Errors::NotIdentifiedByImageMagickError if !geometry || format == 'SVG'
 
       if geometry.width < 10 || geometry.width > 10_000 ||
           geometry.height < 10 || geometry.height > 10_000
@@ -85,7 +86,7 @@ module Paperclip
 
       Paperclip.run(
         "identify",
-        "-format '%wx%h,#{orientation}' :file", {
+        "-format '%wx%h,#{orientation}!%m' :file", {
           :file => "#{path}[0]"
         }, {
           :swallow_stderr => true
