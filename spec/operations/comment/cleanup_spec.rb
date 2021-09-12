@@ -9,9 +9,9 @@ describe Comment::Cleanup do
   end
 
   describe '#call' do
-    let!(:comment) do
-      create :comment,
-        body: "[image=#{user_image_1.id}]\n> > [image=#{user_image_2.id}]\n\n`[image=#{user_image_3.id}]`"
+    let!(:comment) { create :comment, body: comment_body }
+    let(:comment_body) do
+      "[image=#{user_image_1.id}]\n> > [image=#{user_image_2.id}]\n\n`[image=#{user_image_3.id}]`"
     end
     let(:user_image_1) { create :user_image }
     let(:user_image_2) { create :user_image }
@@ -33,9 +33,20 @@ describe Comment::Cleanup do
           .to have_received(:perform_in)
           .with(1.minute, user_image_1.id)
 
-        expect(comment.reload.body).to eq(
+        expect(comment.body).to eq(
           "[image=deleted]\n> > [image=#{user_image_2.id}]\n\n`[image=#{user_image_3.id}]`"
         )
+      end
+
+      context 'skip_model_update' do
+        let(:options) { { skip_model_update: true } }
+        it do
+          expect(UserImages::CleanupJob).to have_received(:perform_in).once
+          expect(UserImages::CleanupJob)
+            .to have_received(:perform_in)
+            .with(1.minute, user_image_1.id)
+          expect(comment.body).to eq comment_body
+        end
       end
     end
 
@@ -44,10 +55,7 @@ describe Comment::Cleanup do
 
       it do
         expect(UserImages::CleanupJob).to_not have_received :perform_in
-
-        expect(comment.reload.body).to eq(
-          "[image=#{user_image_1.id}]\n> > [image=#{user_image_2.id}]\n\n`[image=#{user_image_3.id}]`"
-        )
+        expect(comment.body).to eq comment_body
       end
 
       context 'is_cleanup_summaries' do
@@ -58,7 +66,7 @@ describe Comment::Cleanup do
             .to have_received(:perform_in)
             .with(1.minute, user_image_1.id)
 
-          expect(comment.reload.body).to eq(
+          expect(comment.body).to eq(
             "[image=deleted]\n> > [image=#{user_image_2.id}]\n\n`[image=#{user_image_3.id}]`"
           )
         end
@@ -79,7 +87,7 @@ describe Comment::Cleanup do
             .to have_received(:perform_in)
             .with(1.minute, user_image_3.id)
 
-          expect(comment.reload.body).to eq(
+          expect(comment.body).to eq(
             "[image=deleted]\n> > [image=deleted]\n\n`[image=deleted]`"
           )
         end

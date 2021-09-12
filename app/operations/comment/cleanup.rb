@@ -1,5 +1,5 @@
 class Comment::Cleanup
-  method_object :comment, %i[is_cleanup_summaries is_cleanup_quotes]
+  method_object :comment, %i[is_cleanup_summaries is_cleanup_quotes skip_model_update]
 
   IMAGES_SCAN_REGEXP = /\[(?:image|poster)=(\d+)/mix
   IMAGES_REPLACEMENT_REGEXP = /\[(?<type>image|poster)=(?<user_image_id>\d+)/mix
@@ -10,7 +10,9 @@ class Comment::Cleanup
 
     new_body = cleanup @comment.body, extract_quoted_images(@comment.body)
 
-    @comment.update_column :body, new_body if new_body != @comment.body
+    if !@skip_model_update && new_body != @comment.body
+      @comment.update_column :body, new_body
+    end
   end
 
   def self.scan_user_image_ids text

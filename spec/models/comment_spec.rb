@@ -125,7 +125,7 @@ describe Comment do
       it do
         expect(Comment::Cleanup)
           .to have_received(:call)
-          .with(comment, is_cleanup_summaries: true)
+          .with(comment, is_cleanup_summaries: true, skip_model_update: true)
       end
     end
 
