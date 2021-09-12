@@ -9,13 +9,13 @@ describe Comment::Cleanup do
   end
 
   describe '#call' do
-    let!(:comment) { create :comment, body: comment_body }
+    let!(:comment) { create :comment, body: comment_body, user: user }
     let(:comment_body) do
       "[image=#{user_image_1.id}]\n> > [image=#{user_image_2.id}]\n\n`[image=#{user_image_3.id}]`"
     end
-    let(:user_image_1) { create :user_image }
-    let(:user_image_2) { create :user_image }
-    let(:user_image_3) { create :user_image }
+    let(:user_image_1) { create :user_image, user: user }
+    let(:user_image_2) { create :user_image, user: user }
+    let(:user_image_3) { create :user_image, user: user }
 
     before do
       comment.update_column :is_summary, true if is_summary
@@ -45,6 +45,14 @@ describe Comment::Cleanup do
           expect(UserImages::CleanupJob)
             .to have_received(:perform_in)
             .with(1.minute, user_image_1.id)
+          expect(comment.body).to eq comment_body
+        end
+      end
+
+      context 'do not destroy images of other users' do
+        let(:user_image_1) { create :user_image, user: user_2 }
+        it do
+          expect(UserImages::CleanupJob).to_not have_received :perform_in
           expect(comment.body).to eq comment_body
         end
       end
