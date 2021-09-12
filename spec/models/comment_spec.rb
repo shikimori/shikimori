@@ -126,10 +126,13 @@ describe Comment do
           user_id: user.id,
           body: "[poster=#{user_image_1.id}][poster=#{user_image_2.id}]"
       end
+      before { allow(UserImages::CleanupJob).to receive :perform_in }
       subject! { comment.destroy! }
       it do
-        expect { user_image_1.reload }.to raise_error ActiveRecord::RecordNotFound
-        expect(user_image_2.reload).to be_persisted
+        expect(UserImages::CleanupJob).to have_received(:perform_in).once
+        expect(UserImages::CleanupJob)
+          .to have_received(:perform_in)
+          .with(1.minute, user_image_1.id)
       end
     end
 
