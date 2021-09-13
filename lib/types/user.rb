@@ -25,6 +25,7 @@ module Types
       contest_moderator
       statistics_moderator
 
+      news_super_moderator
       video_super_moderator
 
       not_trusted_abuse_reporter
