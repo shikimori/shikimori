@@ -1,9 +1,12 @@
-class DbEntry::MergeAsEpisode < DbEntry::MergeIntoOther
+class DbEntry::MergeAsEpisode < DbEntry::MergeIntoOther # rubocop:disable ClassLength
   method_object %i[entry! other! as_episode! episode_field!]
 
-  RELATIONS = DbEntry::MergeIntoOther::RELATIONS - %i[
-    collection_links
-    club_links
+  RELATIONS = %i[
+    russian
+    reviews
+    contest_links
+    external_links
+    user_rates
   ]
 
   ASSIGN_FIELDS = []
@@ -19,6 +22,18 @@ class DbEntry::MergeAsEpisode < DbEntry::MergeIntoOther
   }
 
 private
+
+  def merge_russian
+    return if @entry.russian.blank?
+
+    last_russian_index = @other.synonyms.rindex(&:contains_russian?)
+    new_synonyms = @other.synonyms.insert(
+      last_russian_index ? last_russian_index + 1 : -1,
+      @entry.russian
+    )
+
+    @other.update! synonyms: new_synonyms
+  end
 
   def merge_user_rates
     other_rates = @other.rates.to_a
