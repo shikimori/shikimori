@@ -28,7 +28,7 @@ private
 
     last_russian_index = @other.synonyms.rindex(&:contains_russian?)
     new_synonyms = @other.synonyms.insert(
-      last_russian_index ? last_russian_index + 1 : -1,
+      last_russian_index ? last_russian_index + 1 : 0,
       @entry.russian
     )
 
