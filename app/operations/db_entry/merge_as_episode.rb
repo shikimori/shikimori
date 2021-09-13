@@ -98,7 +98,7 @@ private
   end
 
   def update_rate_note other_rate, new_value
-    other_rate.update! text: new_note(other_rate.text, new_value)
+    other_rate.update! text: new_note(other_rate.text, new_value, other_rate.send(@episode_field))
   end
 
   def update_rate other_rate, new_value
@@ -113,7 +113,7 @@ private
     if @as_episode == 1 || other_value == @as_episode - 1 || other_value >= @as_episode
       other_rate.update!(
         @episode_field => new_value,
-        text: new_note(other_rate.text, new_value)
+        text: new_note(other_rate.text, new_value, other_rate.send(@episode_field))
       )
     else
       update_rate_note other_rate, new_value
@@ -130,7 +130,9 @@ private
     end
   end
 
-  def new_note other_rate_text, new_value
+  def new_note other_rate_text, new_value, prior_value
+    return other_rate_text if zero_episode? && prior_value.positive?
+
     (
       (other_rate_text ? other_rate_text + "\n" : '') +
         merge_note(new_value)

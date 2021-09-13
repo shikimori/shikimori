@@ -478,14 +478,29 @@ describe DbEntry::MergeAsEpisode do
       let(:user_rate_other_episodes) { [1, 2].sample }
 
       context 'has other_rate' do
-        it do
-          is_expected.to eq true
-          expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
-          expect(user_rate_other.reload).to have_attributes(
-            episode_field => user_rate_other_episodes,
-            status: 'watching',
-            text: "✅ #{described_class::EPISODE_LABEL[episode_field]} 0 #{entry.name} (#{entry.russian})"
-          )
+        context 'user_rate_other_episodes == 0' do
+          let(:user_rate_other_episodes) { 0 }
+          it do
+            is_expected.to eq true
+            expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+            expect(user_rate_other.reload).to have_attributes(
+              episode_field => user_rate_other_episodes,
+              status: 'watching',
+              text: "✅ #{described_class::EPISODE_LABEL[episode_field]} 0 #{entry.name} (#{entry.russian})"
+            )
+          end
+        end
+
+        context 'user_rate_other_episodes > 0' do
+          it do
+            is_expected.to eq true
+            expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+            expect(user_rate_other.reload).to have_attributes(
+              episode_field => user_rate_other_episodes,
+              status: 'watching',
+              text: ''
+            )
+          end
         end
       end
 
