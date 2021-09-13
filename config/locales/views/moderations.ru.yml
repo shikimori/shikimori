@@ -243,6 +243,7 @@ ru:
         history: :moderations.bans.index.history
         notice:
           super_moderator: Может назначать модераторов
+          news_super_moderator: Может назначать модераторов новостей и другого контента
           retired_moderator: Модератор в отставке
           version_names_moderator: Модератор пользовательских правок названий в базе сайта
           version_texts_moderator: Модератор пользовательских правок текстов в базе сайта

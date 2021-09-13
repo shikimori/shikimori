@@ -242,6 +242,7 @@ en:
         history: :moderations.bans.index.history
         notice:
           super_moderator: Can assign moderators
+          super_moderator: Can assign news and other content moderators
           retired_moderator: Retired moderator
           version_names_moderator: Moderator of names edits in the database
           version_texts_moderator: Moderator of texts edits in the database
