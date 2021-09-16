@@ -25,11 +25,12 @@ end
 # ----
 
 # отключаем проверку на spoofing, она работает как-то странно
-# module Paperclip::HasAttachedFile::WithoutSpoofingCheck
-#   def add_required_validations
-#   end
-# end
-# Paperclip::HasAttachedFile.send :prepend, Paperclip::HasAttachedFile::WithoutSpoofingCheck
+# disabling it breaks ListImport validations
+module Paperclip::HasAttachedFile::WithoutSpoofingCheck
+  def add_required_validations
+  end
+end
+Paperclip::HasAttachedFile.send :prepend, Paperclip::HasAttachedFile::WithoutSpoofingCheck
 
 # для транслитерации названий файлов
 module TransliteratePaperclip
