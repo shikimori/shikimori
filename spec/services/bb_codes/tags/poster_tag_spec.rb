@@ -3,11 +3,7 @@ describe BbCodes::Tags::PosterTag do
 
   context 'deleted image' do
     let(:text) { "[poster=#{described_class::DELETED_MARKER}]" }
-    it do
-      is_expected.to eq(
-        "<img src='#{BbCodes::Tags::ImageTag::DELETED_IMAGE_PATH}' loading='lazy' />"
-      )
-    end
+    it { is_expected.to eq BbCodes::Tags::ImageTag::DELETED_IMAGE_HTML }
   end
 
   context 'external image' do
