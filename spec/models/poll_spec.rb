@@ -6,6 +6,9 @@ describe Poll do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :user }
+    it { is_expected.to validate_presence_of :name }
+    it { is_expected.to validate_length_of(:name).is_at_most(255) }
+    it { is_expected.to validate_length_of(:text).is_at_most(10000) }
   end
 
   describe 'enumerize' do
