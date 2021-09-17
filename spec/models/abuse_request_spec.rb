@@ -107,14 +107,17 @@ describe AbuseRequest do
     end
 
     context 'not forum_moderator' do
-      let(:role) do
-        (
-          Types::User::Roles.values -
-          %i[forum_moderator - super_moderator - admin]
-        ).sample
+      roles = (
+        Types::User::Roles.values -
+        %i[forum_moderator - super_moderator - news_super_moderator - admin]
+      )
+      roles.each do |role_value|
+        context role_value do
+          let(:role) { role_value }
+          it { is_expected.to_not be_able_to :manage, abuse_request }
+          it { is_expected.to be_able_to :read, abuse_request }
+        end
       end
-      it { is_expected.to_not be_able_to :manage, abuse_request }
-      it { is_expected.to be_able_to :read, abuse_request }
     end
   end
 

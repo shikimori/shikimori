@@ -14,6 +14,6 @@ describe DbEntry::Destroy do
     expect { user_rate.reload }.to raise_error ActiveRecord::RecordNotFound
     expect { user_rate_log.reload }.to raise_error ActiveRecord::RecordNotFound
     expect { user_history.reload }.to raise_error ActiveRecord::RecordNotFound
-    expect(user.rate_at).to eq Time.zone.now
+    expect(user.rate_at.to_i).to eq Time.zone.now.to_i
   end
 end

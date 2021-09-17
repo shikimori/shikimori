@@ -12,7 +12,7 @@ class Topics::Generate::Topic
     if updated_at
       faye_service.create! topic
     else
-      Topic.wo_timestamp { topic.save! }
+      topic.class.wo_timestamp { topic.save! }
     end
 
     broadcast topic if broadcast? topic

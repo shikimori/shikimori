@@ -120,9 +120,10 @@ class AnimeDecorator < AniMangaDecorator
 private
 
   def next_broadcast_at
-    if broadcast_at && broadcast_at > 1.week.ago
-      broadcast_at < 1.hour.ago ? broadcast_at + 1.week : broadcast_at
-    end
+    return if anons? || date_uncertain?(aired_on)
+    return unless broadcast_at && broadcast_at > 1.week.ago
+
+    broadcast_at < 1.hour.ago ? broadcast_at + 1.week : broadcast_at
   end
 
   def fix_group_name name

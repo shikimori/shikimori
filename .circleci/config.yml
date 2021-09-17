@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/ruby:2.6.6-node-browsers
+      - image: circleci/ruby:2.6.8-node-browsers
         environment:
           RAILS_ENV: test
           PGHOST: 127.0.0.1
@@ -37,7 +37,7 @@ jobs:
       - run:
           name: install bundler
           command: |
-            gem install bundler:2.1.4
+            gem install bundler:2.2.26
 
       - run:
           name: install dependencies
