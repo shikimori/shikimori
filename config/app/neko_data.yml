@@ -17946,6 +17946,7 @@
         - 22013
         - 31617
         - 38600
+        - 49402
       :threshold: 91.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -17988,6 +17989,7 @@
         - 22013
         - 31617
         - 38600
+        - 49402
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -22017,6 +22019,7 @@
         - 38716
         - 38717
         - 49073
+        - 49827
         not_ignored_ids:
         - 14007
         - 20667
@@ -22105,6 +22108,7 @@
         - 38716
         - 38717
         - 49073
+        - 49827
         not_ignored_ids:
         - 14007
         - 20667
