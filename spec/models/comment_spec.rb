@@ -119,17 +119,13 @@ describe Comment do
     end
 
     describe '#destroy_images' do
-      let(:user_image_1) { create :user_image, user_id: user.id }
-      let(:user_image_2) { create :user_image, user_id: user_2.id }
-      let(:comment) do
-        create :comment,
-          user_id: user.id,
-          body: "[poster=#{user_image_1.id}][poster=#{user_image_2.id}]"
-      end
+      let(:comment) { create :comment }
+      before { allow(Comment::Cleanup).to receive :call }
       subject! { comment.destroy! }
       it do
-        expect { user_image_1.reload }.to raise_error ActiveRecord::RecordNotFound
-        expect(user_image_2.reload).to be_persisted
+        expect(Comment::Cleanup)
+          .to have_received(:call)
+          .with(comment, is_cleanup_summaries: true, skip_model_update: true)
       end
     end
 

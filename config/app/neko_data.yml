@@ -8360,6 +8360,7 @@
         - 227
         - 974
         - 4103
+        - 3786
       :generator:
         person_id: 2349
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -9950,6 +9951,7 @@
         - 23133
         - 41168
         - 39585
+        - 41674
       :generator:
         person_id: 4002
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -14873,7 +14875,7 @@
         franchise: naruto
         not_anime_ids:
         - 40971
-      :threshold: 96.8%
+      :threshold: 96.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :naruto
@@ -15008,7 +15010,7 @@
         not_anime_ids:
         - 35262
         - 43683
-      :threshold: 95%
+      :threshold: 94.5%
       :generator:
         ignore_latest_ids:
         - 39565
@@ -15081,7 +15083,7 @@
         - 664
         - 7902
         - 10842
-      :threshold: 97.2%
+      :threshold: 97.3%
       :generator:
         not_ignored_ids:
         - 908
@@ -16723,7 +16725,7 @@
       :algo: duration
       :filters:
         franchise: high_school_dxd
-      :threshold: 91.3%
+      :threshold: 91.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :high_school_dxd
@@ -17590,7 +17592,7 @@
         - 38419
         - 40181
         - 46171
-      :threshold: 95.5%
+      :threshold: 95.6%
       :generator:
         ignore_latest_ids:
         - 38234
@@ -19558,7 +19560,7 @@
         - 41188
         - 41189
         - 41204
-      :threshold: 95.2%
+      :threshold: 95.5%
       :generator:
         not_ignored_ids:
         - 14951
@@ -20274,7 +20276,7 @@
         - 42174
         - 42914
         - 42984
-      :threshold: 93%
+      :threshold: 92.7%
       :generator:
         ignore_latest_ids:
         - 37966
@@ -22006,7 +22008,8 @@
         - 42380
         - 42432
         - 42439
-      :threshold: 87.2%
+        - 43204
+      :threshold: 87.3%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -22093,6 +22096,7 @@
         - 42380
         - 42432
         - 42439
+        - 43204
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -25291,7 +25295,7 @@
         franchise: aria
         not_anime_ids:
         - 5196
-      :threshold: 93.2%
+      :threshold: 89.3%
       :generator:
         ignore_latest_ids:
         - 41674
@@ -25767,7 +25771,7 @@
         - 41377
         - 48772
         - 48773
-      :threshold: 92.3%
+      :threshold: 88.5%
       :generator:
         not_ignored_ids:
         - 38986
@@ -25891,7 +25895,7 @@
         franchise: idolish7
         not_anime_ids:
         - 37710
-      :threshold: 97.1%
+      :threshold: 97.6%
       :generator:
         not_ignored_ids:
         - 32446
@@ -26841,7 +26845,7 @@
         franchise: digimon
         not_anime_ids:
         - 4712
-      :threshold: 93.3%
+      :threshold: 93.4%
       :generator:
         ignore_latest_ids:
         - 38088
@@ -27103,7 +27107,7 @@
         - 10823
         - 10824
         - 10825
-      :threshold: 96.1%
+      :threshold: 96%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ranma
@@ -27311,7 +27315,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.8%
+      :threshold: 91.2%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -27653,7 +27657,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 94.2%
+      :threshold: 94.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
@@ -28193,7 +28197,7 @@
         - 38647
         - 38648
         - 40543
-      :threshold: 84.6%
+      :threshold: 93.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pripara

@@ -16,11 +16,12 @@ production:
   - [cpu_intensive, 5]
   - [slow_parsers, 5]
   - [torrents_parsers, 5]
-  - [mal_parsers, 3]
+  # - [mal_parsers, 3]
   - [anime365_parsers, 3]
   - [webm_thumbnails, 5]
   - [history_jobs, 5]
   - [low_priority, 1]
+  - [cleanup_jobs, 1]
   - [mailers, 5]
   - [imports, 4]
   - [achievements, 6]
@@ -33,6 +34,7 @@ production:
   torrents_parsers: 1
   webm_thumbnails: 1
   history_jobs: 1
+  cleanup_jobs: 1
   mal_parsers: 40
   anime365_parsers: 3
   push_notifications: 5

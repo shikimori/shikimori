@@ -42,7 +42,7 @@ class ListImport < ApplicationRecord
         text/plain
       ]
     },
-    size: { in: 0..15.megabytes },
+    size: { in: 0..(15.megabytes) },
     if: :pending?
 
   after_create :schedule_worker

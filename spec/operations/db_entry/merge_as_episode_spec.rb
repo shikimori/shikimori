@@ -32,7 +32,7 @@ describe DbEntry::MergeAsEpisode do
       } : {}),
       russian: '',
       episode_field => other_episodes,
-      synonyms: %w[synonym_2]
+      synonyms: %w[русское_название_2 русское_название_1 synonym_2]
     }
   end
   let(:other_episodes) { 5 }
@@ -112,7 +112,7 @@ describe DbEntry::MergeAsEpisode do
     is_expected.to eq true
 
     expect(other.russian).to eq ''
-    expect(other.synonyms).to eq %w[synonym_2]
+    expect(other.synonyms).to eq %w[русское_название_2 русское_название_1 zxc synonym_2]
     if type == :anime
       expect(other.fansubbers).to eq %w[fansubber_1 fansubber_2 fansubber_3]
       expect(other.fandubbers).to eq %w[fandubber_1 fandubber_2 fandubber_3]
@@ -130,19 +130,19 @@ describe DbEntry::MergeAsEpisode do
     expect { user_2_rate_log_entry.reload }.to raise_error ActiveRecord::RecordNotFound
     expect { user_2_history_entry.reload }.to raise_error ActiveRecord::RecordNotFound
 
-    expect(topic_1.reload.linked).to eq other
+    expect { topic_1.reload.reload }.to raise_error ActiveRecord::RecordNotFound
     expect { topic_2.reload }.to raise_error ActiveRecord::RecordNotFound
 
-    expect(comment_1.reload.commentable).to eq other.maybe_topic(:ru)
-    expect(other.maybe_topic(:ru).comments_count).to eq 1
+    expect { comment_1.reload.reload }.to raise_error ActiveRecord::RecordNotFound
+    expect(other.maybe_topic(:ru).comments_count).to eq 0
 
     expect(review.reload.target).to eq other
     expect { collection_link.reload }.to raise_error ActiveRecord::RecordNotFound
 
-    expect(version.reload.item).to eq other
+    expect { version.reload }.to raise_error ActiveRecord::RecordNotFound
     expect { club_link.reload }.to raise_error ActiveRecord::RecordNotFound
-    expect(cosplay_gallery_link.reload.linked).to eq other
-    expect(recommendation_ignore.reload.target).to eq other
+    expect { cosplay_gallery_link.reload }.to raise_error ActiveRecord::RecordNotFound
+    expect { recommendation_ignore.reload }.to raise_error ActiveRecord::RecordNotFound
 
     expect(contest_link.reload.linked).to eq other
     expect(contest_winner.reload.item).to eq other
@@ -151,11 +151,11 @@ describe DbEntry::MergeAsEpisode do
     expect(contest_match_2.winner_id).to eq other.id
 
     if entry.respond_to? :anime_links
-      expect(anime_link.reload.anime).to eq other
+      expect { anime_link.reload }.to raise_error ActiveRecord::RecordNotFound
     end
 
     expect { favourite_1_1.reload }.to raise_error ActiveRecord::RecordNotFound
-    expect(favourite_2_1.reload.linked).to eq other
+    expect { favourite_2_1.reload.reload }.to raise_error ActiveRecord::RecordNotFound
 
     expect { external_link_1_1.reload }.to raise_error ActiveRecord::RecordNotFound
     expect(external_link_1_2.reload.entry).to eq other
@@ -478,14 +478,29 @@ describe DbEntry::MergeAsEpisode do
       let(:user_rate_other_episodes) { [1, 2].sample }
 
       context 'has other_rate' do
-        it do
-          is_expected.to eq true
-          expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
-          expect(user_rate_other.reload).to have_attributes(
-            episode_field => user_rate_other_episodes,
-            status: 'watching',
-            text: "✅ #{described_class::EPISODE_LABEL[episode_field]} 0 #{entry.name} (#{entry.russian})"
-          )
+        context 'user_rate_other_episodes == 0' do
+          let(:user_rate_other_episodes) { 0 }
+          it do
+            is_expected.to eq true
+            expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+            expect(user_rate_other.reload).to have_attributes(
+              episode_field => user_rate_other_episodes,
+              status: 'watching',
+              text: "✅ #{described_class::EPISODE_LABEL[episode_field]} 0 #{entry.name} (#{entry.russian})"
+            )
+          end
+        end
+
+        context 'user_rate_other_episodes > 0' do
+          it do
+            is_expected.to eq true
+            expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+            expect(user_rate_other.reload).to have_attributes(
+              episode_field => user_rate_other_episodes,
+              status: 'watching',
+              text: ''
+            )
+          end
         end
       end
 

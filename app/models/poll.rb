@@ -14,6 +14,8 @@ class Poll < ApplicationRecord
     predicates: true
 
   validates :user, presence: true
+  validates :name, presence: true, length: { maximum: 255 }
+  validates :text, length: { maximum: 10_000 }
 
   state_machine :state, initial: :pending do
     state :pending

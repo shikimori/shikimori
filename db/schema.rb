@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_04_100350) do
+ActiveRecord::Schema.define(version: 2021_09_16_074804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -813,8 +813,8 @@ ActiveRecord::Schema.define(version: 2021_09_04_100350) do
     t.string "state", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
-    t.text "text", null: false
+    t.string "name", limit: 255
+    t.string "text", limit: 25000, null: false
     t.string "width", default: "limited", null: false
     t.index ["user_id"], name: "index_polls_on_user_id"
   end

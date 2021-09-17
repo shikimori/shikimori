@@ -1,9 +1,12 @@
-class DbEntry::MergeAsEpisode < DbEntry::MergeIntoOther
+class DbEntry::MergeAsEpisode < DbEntry::MergeIntoOther # rubocop:disable ClassLength
   method_object %i[entry! other! as_episode! episode_field!]
 
-  RELATIONS = DbEntry::MergeIntoOther::RELATIONS - %i[
-    collection_links
-    club_links
+  RELATIONS = %i[
+    russian
+    reviews
+    contest_links
+    external_links
+    user_rates
   ]
 
   ASSIGN_FIELDS = []
@@ -19,6 +22,18 @@ class DbEntry::MergeAsEpisode < DbEntry::MergeIntoOther
   }
 
 private
+
+  def merge_russian
+    return if @entry.russian.blank?
+
+    last_russian_index = @other.synonyms.rindex(&:contains_russian?)
+    new_synonyms = @other.synonyms.insert(
+      last_russian_index ? last_russian_index + 1 : 0,
+      @entry.russian
+    )
+
+    @other.update! synonyms: new_synonyms
+  end
 
   def merge_user_rates
     other_rates = @other.rates.to_a
@@ -83,7 +98,7 @@ private
   end
 
   def update_rate_note other_rate, new_value
-    other_rate.update! text: new_note(other_rate.text, new_value)
+    other_rate.update! text: new_note(other_rate.text, new_value, other_rate.send(@episode_field))
   end
 
   def update_rate other_rate, new_value
@@ -98,7 +113,7 @@ private
     if @as_episode == 1 || other_value == @as_episode - 1 || other_value >= @as_episode
       other_rate.update!(
         @episode_field => new_value,
-        text: new_note(other_rate.text, new_value)
+        text: new_note(other_rate.text, new_value, other_rate.send(@episode_field))
       )
     else
       update_rate_note other_rate, new_value
@@ -115,7 +130,9 @@ private
     end
   end
 
-  def new_note other_rate_text, new_value
+  def new_note other_rate_text, new_value, prior_value
+    return other_rate_text if zero_episode? && prior_value.positive?
+
     (
       (other_rate_text ? other_rate_text + "\n" : '') +
         merge_note(new_value)

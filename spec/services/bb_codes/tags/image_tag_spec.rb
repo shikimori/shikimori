@@ -123,11 +123,7 @@ describe BbCodes::Tags::ImageTag do
 
   context 'deleted image' do
     let(:text) { "[image=#{described_class::DELETED_MARKER}]" }
-    it do
-      is_expected.to eq(
-        "<img src='#{described_class::DELETED_IMAGE_PATH}' loading='lazy' />"
-      )
-    end
+    it { is_expected.to eq described_class::DELETED_IMAGE_HTML }
   end
 
   context 'not found image' do

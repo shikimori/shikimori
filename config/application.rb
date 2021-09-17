@@ -75,7 +75,6 @@ module Shikimori
     InvalidParameterError
     EmptyContentError
     MalParser::RecordNotFound
-    BadImageError
     Errors::NotIdentifiedByImageMagickError
     Sidekiq::Shutdown
     Terrapin::ExitStatusError

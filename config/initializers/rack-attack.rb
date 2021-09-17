@@ -33,7 +33,7 @@ if Rails.env.development?
   end
 end
 
-MODIFIER = 10
+MODIFIER = 1
 
 # Throttle requests to 5 requests per second per ip
 Rack::Attack.throttle('req/ip', limit: 5 * MODIFIER, period: 1.second) do |req|

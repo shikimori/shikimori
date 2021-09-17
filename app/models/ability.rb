@@ -8,13 +8,16 @@ class Ability
     guest_restrictions unless user
 
     if user
+      is_admin_or_super_moderators = user.admin? ||
+        user.super_moderator? || user.news_super_moderator?
+
       merge Abilities::User.new(user)
 
-      if user.forum_moderator? || user.admin?
+      if user.forum_moderator? || is_admin_or_super_moderators
         merge Abilities::ForumModerator.new(user)
       end
 
-      if user.news_moderator? || user.admin? || user.super_moderator?
+      if user.news_moderator? || is_admin_or_super_moderators
         merge Abilities::NewsModerator.new(user)
       end
 
@@ -22,15 +25,15 @@ class Ability
         merge Abilities::ContestModerator.new(user)
       end
 
-      if user.review_moderator? || user.admin? || user.super_moderator?
+      if user.review_moderator? || is_admin_or_super_moderators
         merge Abilities::ReviewModerator.new(user)
       end
 
-      if user.collection_moderator? || user.admin? || user.super_moderator?
+      if user.collection_moderator? || is_admin_or_super_moderators
         merge Abilities::CollectionModerator.new(user)
       end
 
-      if user.article_moderator? || user.admin? || user.super_moderator?
+      if user.article_moderator? || is_admin_or_super_moderators
         merge Abilities::ArticleModerator.new(user)
       end
 
@@ -52,6 +55,10 @@ class Ability
 
       if user.super_moderator? || user.admin?
         merge Abilities::SuperModerator.new(user)
+      end
+
+      if is_admin_or_super_moderators
+        merge Abilities::NewsSuperModerator.new(user)
       end
 
       if user.video_super_moderator? || user.admin?

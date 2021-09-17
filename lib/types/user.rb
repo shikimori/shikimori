@@ -2,6 +2,7 @@ module Types
   module User
     ROLES = %i[
       super_moderator
+      news_super_moderator
       forum_moderator
       retired_moderator
 

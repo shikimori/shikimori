@@ -99,8 +99,7 @@ class Comment < ApplicationRecord
   end
 
   def destroy_images
-    image_ids = body.scan(/\[(?:image|poster)=(?<id>\d+)/).flatten.map(&:to_i).uniq
-    UserImage.where(user_id: user_id, id: image_ids).destroy_all
+    Comment::Cleanup.call self, is_cleanup_summaries: true, skip_model_update: true
   end
 
   # TODO: get rid of this method
