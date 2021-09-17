@@ -23,7 +23,7 @@ end
     includes(:user, commentable: :linked).
     where(is_summary: true).
     order(id: :desc).
-    # limit(1000).where(commentable_id: Anime.find(31240).decorate.main_topic_view.id).
+    limit(1000).where(commentable_id: Anime.find(31240).decorate.main_topic_view.id).
     find_each do |comment|
       db_entry = comment.commentable.linked
       next if db_entry.class.base_class != klass
@@ -40,7 +40,7 @@ end
         if normalized_score
           if normalized_score >= 0.095
             Types::Summary::Opinion[:positive]
-          elsif normalized_score <= -0.095
+          elsif normalized_score <= -0.14
             Types::Summary::Opinion[:negative]
           else
             Types::Summary::Opinion[:neutral]
@@ -48,7 +48,14 @@ end
         else
           Types::Summary::Opinion[:unknown]
         end
-      ap "#{normalized_score} #{opinion}"
+
+      is_dropped = UserRate.find_by(target: db_entry, user: user)&.dropped?
+      if is_dropped
+        opinion = Types::Summary::Opinion[:negative]
+        ap "dropped #{opinion}"
+      else
+        ap "#{normalized_score} #{opinion}"
+      end
 
       is_written_before_release =
         if (db_entry.released? && !db_entry.released_on) || (db_entry.is_a?(Manga) && db_entry.discontinued?)
