@@ -25,7 +25,7 @@
 
 .summaries-groups
   .summaries-group
-    = render 'summaries/group', summaries: @resource.summary_views
-  .summaries-group
-  .summaries-group
-  .summaries-group
+    / = render 'summaries/group', summaries: @resource.summary_views
+  .summaries-group data-opinion=::Types::Summary::Opinion[:positive]
+  .summaries-group data-opinion=::Types::Summary::Opinion[:neutral]
+  .summaries-group data-opinion=::Types::Summary::Opinion[:negative]
