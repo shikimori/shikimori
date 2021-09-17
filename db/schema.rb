@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_16_074804) do
+ActiveRecord::Schema.define(version: 2021_09_17_135737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -507,6 +507,29 @@ ActiveRecord::Schema.define(version: 2021_09_16_074804) do
     t.index ["name"], name: "index_coub_tags_on_name", unique: true
   end
 
+  create_table "critiques", id: :serial, force: :cascade do |t|
+    t.integer "target_id", null: false
+    t.string "target_type", null: false
+    t.integer "user_id", null: false
+    t.text "text", null: false
+    t.integer "overall"
+    t.integer "storyline"
+    t.integer "music"
+    t.integer "characters"
+    t.integer "animation"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "comment_id"
+    t.string "source"
+    t.string "moderation_state", default: "pending", null: false
+    t.integer "approver_id"
+    t.string "locale", null: false
+    t.integer "cached_votes_up", default: 0
+    t.integer "cached_votes_down", default: 0
+    t.datetime "changed_at"
+    t.index ["target_id", "target_type"], name: "index_critiques_on_target_id_and_target_type"
+  end
+
   create_table "danbooru_tags", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
     t.integer "kind"
@@ -856,29 +879,6 @@ ActiveRecord::Schema.define(version: 2021_09_16_074804) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["source_id", "manga_id"], name: "index_related_mangas_on_source_id_and_manga_id"
-  end
-
-  create_table "reviews", id: :serial, force: :cascade do |t|
-    t.integer "target_id", null: false
-    t.string "target_type", null: false
-    t.integer "user_id", null: false
-    t.text "text", null: false
-    t.integer "overall"
-    t.integer "storyline"
-    t.integer "music"
-    t.integer "characters"
-    t.integer "animation"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "comment_id"
-    t.string "source"
-    t.string "moderation_state", default: "pending", null: false
-    t.integer "approver_id"
-    t.string "locale", null: false
-    t.integer "cached_votes_up", default: 0
-    t.integer "cached_votes_down", default: 0
-    t.datetime "changed_at"
-    t.index ["target_id", "target_type"], name: "index_reviews_on_target_id_and_target_type"
   end
 
   create_table "screenshots", id: :serial, force: :cascade do |t|
