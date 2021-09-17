@@ -16,7 +16,7 @@ production:
   - [cpu_intensive, 5]
   - [slow_parsers, 5]
   - [torrents_parsers, 5]
-  - [mal_parsers, 3]
+  # - [mal_parsers, 3]
   - [anime365_parsers, 3]
   - [webm_thumbnails, 5]
   - [history_jobs, 5]
