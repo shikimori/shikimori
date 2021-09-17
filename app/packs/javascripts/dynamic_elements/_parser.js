@@ -22,6 +22,7 @@ import SpoilerInline from './spoiler_inline';
 import Tabs from './tabs';
 import TextAnnotated from './text_annotated';
 import Topic from './topic';
+import Summary from './summary';
 import UserRateButton from './user_rates/button';
 import UserRateExtended from './user_rates/extended';
 import WallOrSwiper from './wall_or_swiper';
@@ -139,6 +140,10 @@ export default class DynamicParser {
 
   spoilerInline(node) {
     new SpoilerInline(node);
+  }
+
+  summary(node) {
+    new Summary(node);
   }
 
   tabs(node) {

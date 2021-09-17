@@ -8,7 +8,7 @@ export default class ShortDialog extends Topic {
     this._checkHeight();
     this.on('appear', this._appear);
 
-    // по клику на Ответить помечаем сущность прочитанной
+    // по клику на ответить помечаем сущность прочитанной
     this.$('.item-reply').on('click', () => {
       this.$('.b-new_marker.active').click();
     });
