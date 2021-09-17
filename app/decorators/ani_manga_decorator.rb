@@ -141,11 +141,10 @@ class AniMangaDecorator < DbEntryDecorator
     end
   end
 
-  def release_date_tooltip # rubocop:disable all
+  def release_date_tooltip
     return unless released_on && aired_on && released?
-    if aired_on.day == 1 && aired_on.month == 1 && released_on.day == 1 && released_on.month == 1
-      return
-    end
+
+    return if date_uncertain?(aired_on) && date_uncertain?(released_on)
 
     text = i18n_t('datetime.release_dates.since_till_date',
       from_date: h.formatted_date(aired_on, true, false),
@@ -210,5 +209,9 @@ private
       source: :myanimelist,
       url: object.mal_url
     )
+  end
+
+  def date_uncertain? date
+    !date || (date.day == 1 && date.month == 1)
   end
 end
