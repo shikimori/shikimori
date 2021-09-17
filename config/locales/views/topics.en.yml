@@ -53,8 +53,9 @@ en:
     status_line:
       about: about
       by: by
-      changed_at: Changed at %{date}
-      created_at: Created at %{date}
+      section_dates:
+        changed_at: Changed at %{date}
+        created_at: Created at %{date}
     menu_actions:
       create_topic: Create a topic
       create_news: Write news
