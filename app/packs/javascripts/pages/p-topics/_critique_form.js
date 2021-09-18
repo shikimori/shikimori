@@ -1,7 +1,7 @@
 import delay from 'delay';
 
 pageLoad('topics_new', () => {
-  const $form = $('.new-review-form');
+  const $form = $('.new-critique-form');
   if (!$form.length) { return; }
 
   const $topicLinked = $('#topic_linked', $form);

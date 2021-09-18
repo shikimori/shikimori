@@ -1,6 +1,6 @@
 class Topics::CritiqueView < Topics::UserContentView
   def container_classes
-    super 'b-review-topic'
+    super 'b-critique-topic'
   end
 
   def need_trucation?
