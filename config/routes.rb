@@ -441,11 +441,13 @@ Rails.application.routes.draw do
   get 'data-deletion', to: 'dashboards#data_deletion'
 
   # seo redirects
-  get 'r' => redirect('/reviews')
+  get 'r' => redirect('/critique')
+  get 'reviews' => redirect('/critiques')
   constraints other: /.*/  do
     get 'r/:other' => redirect { |params, request| "/reviews/#{params[:other]}" }
     get 'person/:other' => redirect { |params, request| "/people/#{params[:other]}" }
     get 'seyu/:other' => redirect { |params, request| "/people/#{params[:other]}" }
+    get 'reviews/:other' => redirect { |params, request| "/critiques/#{params[:other]}" }
     # TODO: remove type param after 2018-06-01
     %i[animes mangas ranobe].each do |type|
       get "#{type}/type/:other" => redirect { |params, request| "/#{type}/kind/#{params[:other]}" }
