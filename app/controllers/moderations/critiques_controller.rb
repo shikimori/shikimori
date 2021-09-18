@@ -22,17 +22,17 @@ class Moderations::CritiquesController < ModerationsController
 
   def accept
     @resource.accept current_user
-    redirect_back fallback_location: moderations_reviews_url
+    redirect_back fallback_location: moderations_critiques_url
   end
 
   def reject
     @resource.reject current_user
-    redirect_back fallback_location: moderations_reviews_url
+    redirect_back fallback_location: moderations_critiques_url
   end
 
   def cancel
     @resource.cancel
-    redirect_back fallback_location: moderations_reviews_url
+    redirect_back fallback_location: moderations_critiques_url
   end
 
 private

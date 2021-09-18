@@ -23,7 +23,7 @@ ru:
       fansub_authors: Авторы фансаба/фандаба
       moderation: Модерация
       news_journal: Журнал новостей
-      reviews_journal: Журнал рецензий
+      critiques_journal: Журнал рецензий
       collections_journal: Журнал коллекций
       articles_journal: Журнал статей
       anime_video_authors: Авторы видео
@@ -113,13 +113,13 @@ ru:
         for_deleted_comment: за удалённый комментарий
         warning: предупреждение
 
-    reviews:
+    critiques:
       index:
         <<: *defaults
         notice: История модерации рецензий
         instructions:
           - Рецензия должна в целом соответствовать
-            <a href="//shikimori.one/animes/1-Cowboy-Bebop/reviews/new">
+            <a href="//shikimori.one/animes/1-Cowboy-Bebop/critiques/new">
             критериям</a>.
           - Отклонённые рецензии превращаются в топик оффтопика
             без возможности восстановления.

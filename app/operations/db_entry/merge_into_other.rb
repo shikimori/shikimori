@@ -5,7 +5,7 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
     user_rates
     topics
     comments
-    reviews
+    critiques
     collection_links
     versions
     club_links
@@ -167,10 +167,10 @@ private
     end
   end
 
-  def merge_reviews
+  def merge_critiques
     return unless @entry.respond_to? :critiques
 
-    @entry.reviews.each { |v| v.update target: @other }
+    @entry.critiques.each { |v| v.update target: @other }
   end
 
   def merge_collection_links

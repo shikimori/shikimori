@@ -229,7 +229,7 @@ en:
       index: Bans journal
       show: 'Ban #%{id}'
 
-  moderations/reviews_controller:
+  moderations/critiques_controller:
     <<: *moderations_controller
     page_title: Critiques moderation
 
@@ -318,10 +318,10 @@ en:
       anime: Related to anime
       manga: Related to manga
       ranobe: Related to light novel
-    reviews:
-      anime: Anime reviews
-      manga: Manga reviews
-      ranobe: Light novel reviews
+    critiques:
+      anime: Anime critiques
+      manga: Manga critiques
+      ranobe: Light novel critiques
     breadcrumbs:
       anime:
         list: Anime
@@ -386,7 +386,7 @@ en:
       List of major anime studios sorted by volume of media produced.
 
 
-  reviews_controller:
+  critiques_controller:
     <<: *animes_controller
     new_review: New review
     edit_review: Edit review

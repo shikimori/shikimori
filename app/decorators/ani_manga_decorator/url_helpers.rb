@@ -100,8 +100,8 @@ module AniMangaDecorator::UrlHelpers
   #   end
   # end
 
-  def reviews_url
-    h.send "#{klass_lower}_reviews_url", object
+  def critiques_url
+    h.send "#{klass_lower}_critiques_url", object
   end
 
   def new_review_url

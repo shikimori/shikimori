@@ -10,7 +10,7 @@
         cache: true
 
     - else
-      p.b-nothing_here = t 'no_reviews'
+      p.b-nothing_here = t 'no_critiques'
 
     - if @collection.size == controller.class::TOPICS_LIMIT
       = render 'blocks/postloader',

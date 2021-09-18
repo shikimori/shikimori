@@ -19,7 +19,7 @@ describe Users::ActivityStatsQuery do
     its(:summaries_count) { is_expected.to eq 1 }
   end
 
-  describe '#reviews_count' do
+  describe '#critiques_count' do
     let!(:critique_1) { create :critique, :accepted, user: user, approver: user }
     let!(:critique_2) { create :critique, :pending, user: user }
     let!(:critique_4) { create :critique, :rejected, user: user, approver: user }

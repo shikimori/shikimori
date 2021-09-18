@@ -68,11 +68,11 @@ ru:
       new_club: Создан новый клуб
       new_club_topic: Создан новый топик
       new_club_page: Создана новая страница
-      reviews: Рецензии
+      critiques: Рецензии
       show_more: '+ показать ещё'
       sticky_topics: Прикреплённое
       to_clubs: К клубам
-      to_reviews: К рецензиям
+      to_critiques: К рецензиям
       user_review: 'Рецензия %{author}'
       contests: :dashboards.show.contests
     cosplay:

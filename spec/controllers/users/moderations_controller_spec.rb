@@ -88,7 +88,7 @@ describe Users::ModerationsController do
     end
   end
 
-  context '#reviews' do
+  context '#critiques' do
     let!(:critique_1) { create :critique, user: target_user }
     let!(:critique_2) { create :critique, user: user }
 

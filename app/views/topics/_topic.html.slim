@@ -40,7 +40,7 @@ article.shiki-object.to-process[
   - elsif topic_view.show_inner?
     = render 'topics/inner', topic_view: topic_view
 
-  / do not replace to `minified?`, it will work incorrectly for reviews
+  / do not replace to `minified?`, it will work incorrectly for critiques
   - unless topic_view.is_mini || !topic_view.topic_type_policy.commentable_topic?
     = render 'topics/comments',
       comments_view: topic_view.comments_view,

@@ -10,7 +10,7 @@ class ModerationPolicy
     :all_content_versions_count,
     :names_versions_count, :texts_versions_count, :content_versions_count, :fansub_versions_count
 
-  def reviews_count
+  def critiques_count
     return 0 unless !@moderation_filter || @user&.critique_moderator?
 
     Critique.pending.where(locale: @locale).size

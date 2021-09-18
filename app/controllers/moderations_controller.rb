@@ -29,7 +29,7 @@ class ModerationsController < ShikimoriController # rubocop:disable ClassLength
     end
 
     if can? :manage_critique_moderator_role, User
-      @reviews_stats = reviews_stats
+      @critiques_stats = critiques_stats
     end
 
     if can? :manage_collection_moderator_role, User
@@ -133,8 +133,8 @@ private
     end
   end
 
-  def reviews_stats
-    Rails.cache.fetch %i[reviews_stats v4], expires_in: 1.day do
+  def critiques_stats
+    Rails.cache.fetch %i[critiques_stats v4], expires_in: 1.day do
       Critique
         .where('created_at > ?', 4.month.ago)
         .where.not(moderation_state: :pending)

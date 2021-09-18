@@ -100,7 +100,7 @@ private
   def add_breadcrumbs
     breadcrumb(
       i18n_i('Critique', :other),
-      send("#{resource_klass.name.downcase}_reviews_url", @resource)
+      send("#{resource_klass.name.downcase}_critiques_url", @resource)
     )
 
     if @review&.persisted? && params[:action] != 'show'
@@ -110,7 +110,7 @@ private
       )
       @back_url = @review.url
     else
-      @back_url = send("#{resource_klass.name.downcase}_reviews_url", @resource)
+      @back_url = send("#{resource_klass.name.downcase}_critiques_url", @resource)
     end
   end
 

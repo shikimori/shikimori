@@ -25,8 +25,8 @@ class Forums::Menu < ViewObjectBase
     Forums::List.new with_forum_size: true
   end
 
-  def reviews
-    @reviews ||= Critique
+  def critiques
+    @critiques ||= Critique
       .where('created_at >= ?', 2.weeks.ago)
       .where(locale: h.locale_from_host)
       .visible
@@ -70,7 +70,7 @@ class Forums::Menu < ViewObjectBase
 
   def new_review_url
     h.new_topic_url(
-      forum: Forum.reviews,
+      forum: Forum.critiques,
       'topic[user_id]' => h.current_user&.id,
       'topic[forum_id]' => forum ? forum.id : nil
     )

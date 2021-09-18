@@ -61,16 +61,16 @@
               data-confirm=t('actions.confirm')
             ] = t 'actions.delete_all'
 
-    - if @resource.activity_stats.reviews_count.positive?
+    - if @resource.activity_stats.critiques_count.positive?
       .c-column
         .subheadline
-          a href=reviews_profile_url(@resource)
+          a href=critiques_profile_url(@resource)
             = i18n_io 'Critique', :few
         .b-entry-info
-          = info_line t('.moderation.amount'), @resource.activity_stats.reviews_count
+          = info_line t('.moderation.amount'), @resource.activity_stats.critiques_count
           - if can? :delete_all_critiques, @resource
             a.b-button[
-              href=reviews_profile_moderation_url(@resource)
+              href=critiques_profile_moderation_url(@resource)
               data-method='delete'
               data-confirm=t('actions.confirm')
             ] = t 'actions.delete_all'

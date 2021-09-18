@@ -18,13 +18,13 @@ describe Forums::Menu do
     it { expect(view.forums).to be_kind_of Forums::List }
   end
 
-  describe '#reviews' do
+  describe '#critiques' do
     let(:user_en) { build_stubbed :user }
 
     let!(:critique) { create :critique }
     let!(:critique_en) { create :critique, user: user_en, locale: :en }
 
-    it { expect(view.reviews).to eq [review] }
+    it { expect(view.critiques).to eq [review] }
   end
 
   describe '#sticky_topics' do

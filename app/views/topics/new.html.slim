@@ -1,7 +1,7 @@
 - topic_type_policy = Topic::TypePolicy.new @resource
 
 = render layout: 'topics/page' do |f|
-  - if @resource.forum == Forum.reviews
+  - if @resource.forum == Forum.critiques
     = render 'topics/form/review',
       topic: @resource
   - elsif @resource.type.nil?

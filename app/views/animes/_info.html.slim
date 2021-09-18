@@ -74,13 +74,13 @@
       ]
         span ···
 
-  - if entry.pcritique_topic_view.any_comments? || entry.pcritique_topic_view.any_summaries? || entry.reviews_count > 0
+  - if entry.pcritique_topic_view.any_comments? || entry.pcritique_topic_view.any_summaries? || entry.critiques_count > 0
     .additional-links
       .line-container
         .key #{t ".#{entry.object.class.name.downcase}_additionals"}:
-        - if entry.reviews_count > 0
-          span.linkeable data-href="#{entry.reviews_url}"
-            = "#{entry.reviews_count} #{i18n_i 'review', entry.reviews_count}"
+        - if entry.critiques_count > 0
+          span.linkeable data-href="#{entry.critiques_url}"
+            = "#{entry.critiques_count} #{i18n_i 'review', entry.critiques_count}"
 
         - if entry.pcritique_topic_view.any_summaries?
           span.linkeable data-href="#{entry.summaries_url}"

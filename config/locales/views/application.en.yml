@@ -17,7 +17,7 @@ en:
         ranobe: :activerecord.models.ranobe
         clubs: Clubs
         collections: Collections
-        reviews: Critiques
+        critiques: Critiques
         articles: Articles
         forum: :forum
         users: Users

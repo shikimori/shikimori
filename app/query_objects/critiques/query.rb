@@ -9,31 +9,31 @@ class Critiques::Query
   end
 
   def fetch
-    reviews = @entry.reviews
+    critiques = @entry.critiques
       .includes(:user, :topics)
       .where(locale: @locale)
 
     if @id.present? && @id != 0
-      reviews.where(id: @id)
+      critiques.where(id: @id)
     else
-      reviews = reviews.visible
+      critiques = critiques.visible
       [
-        bubbled(reviews),
-        not_bubbled(reviews)
+        bubbled(critiques),
+        not_bubbled(critiques)
       ].compact.flatten.uniq
     end
   end
 
 private
 
-  def bubbled reviews
-    reviews
+  def bubbled critiques
+    critiques
       .select { |v| v.created_at + NEW_REVIEW_BUBBLE_INTERVAL > Time.zone.now }
       .sort_by { |v| - v.id }
   end
 
-  def not_bubbled reviews
-    reviews
+  def not_bubbled critiques
+    critiques
       .select { |v| v.created_at + NEW_REVIEW_BUBBLE_INTERVAL <= Time.zone.now }
       .sort_by { |v| -(v.cached_votes_up - v.cached_votes_down) }
   end

@@ -90,7 +90,7 @@ FactoryBot.define do
     factory :cosplay_forum, traits: %i[cosplay]
     factory :news_forum, traits: %i[news]
     factory :offtopic_forum, traits: %i[offtopic]
-    factory :critiques_forum, traits: %i[reviews]
+    factory :critiques_forum, traits: %i[critiques]
     factory :premoderation_forum, traits: %i[premoderation]
     factory :hidden_forum, traits: %i[hidden]
   end

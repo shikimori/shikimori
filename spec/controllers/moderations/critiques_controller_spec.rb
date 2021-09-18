@@ -14,7 +14,7 @@ describe Moderations::CritiquesController do
 
     it do
       expect(resource).to be_accepted
-      expect(response).to redirect_to moderations_reviews_url
+      expect(response).to redirect_to moderations_critiques_url
     end
   end
 
@@ -25,7 +25,7 @@ describe Moderations::CritiquesController do
 
     it do
       expect(resource).to be_rejected
-      expect(response).to redirect_to moderations_reviews_url
+      expect(response).to redirect_to moderations_critiques_url
     end
   end
 
@@ -36,7 +36,7 @@ describe Moderations::CritiquesController do
 
     it do
       expect(resource).to be_pending
-      expect(response).to redirect_to moderations_reviews_url
+      expect(response).to redirect_to moderations_critiques_url
     end
   end
 end

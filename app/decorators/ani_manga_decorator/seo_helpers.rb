@@ -8,7 +8,7 @@ module AniMangaDecorator::SeoHelpers
       "#{short_name object} персонажи",
       "#{short_name object} обсуждение",
       (cosplay.characters.any? ? "#{short_name object} косплей" : nil),
-      (reviews? ? "#{short_name object} обзоры, рецензии, отзывы" : '')
+      (critiques? ? "#{short_name object} обзоры, рецензии, отзывы" : '')
     ].select(&:present?).join(', ')
   end
 

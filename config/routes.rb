@@ -441,10 +441,10 @@ Rails.application.routes.draw do
   get 'data-deletion', to: 'dashboards#data_deletion'
 
   # seo redirects
-  get 'r' => redirect('/critique')
+  get 'r' => redirect('/critiques')
   get 'reviews' => redirect('/critiques')
   constraints other: /.*/  do
-    get 'r/:other' => redirect { |params, request| "/reviews/#{params[:other]}" }
+    get 'r/:other' => redirect { |params, request| "/critiques/#{params[:other]}" }
     get 'person/:other' => redirect { |params, request| "/people/#{params[:other]}" }
     get 'seyu/:other' => redirect { |params, request| "/people/#{params[:other]}" }
     get 'reviews/:other' => redirect { |params, request| "/critiques/#{params[:other]}" }
@@ -453,7 +453,7 @@ Rails.application.routes.draw do
       get "#{type}/type/:other" => redirect { |params, request| "/#{type}/kind/#{params[:other]}" }
     end
   end
-  constraints forum: /a|m|c|p|s|f|o|g|reviews|cosplay|v|news|games|vn/, format: /html|json|rss/ do
+  constraints forum: /a|m|c|p|s|f|o|g|critiques|cosplay|v|news|games|vn/, format: /html|json|rss/ do
     get ':forum(/s-:linked)/new' => redirect { |_, request| "/forum#{request.path}" }
     get ':forum(/s-:linked)(/p-:page)' => redirect { |_, request| "/forum#{request.path}" }
     get ':forum(/s-:linked)/:id' => redirect { |_, request| "/forum#{request.path}" }

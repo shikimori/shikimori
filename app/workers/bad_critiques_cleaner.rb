@@ -5,7 +5,7 @@ class BadCritiquesCleaner
   MINIMUM_VOTES = 35
 
   def perform
-    bad_reviews.each do |review|
+    bad_critiques.each do |review|
       review.reject! rejecter, "Рецензию оценили минимум #{MINIMUM_VOTES} человек, из которых более 80% оставили негативную оценку."
     end
   end
@@ -16,17 +16,17 @@ private
     @rejecter ||= User.find User::MESSANGER_ID
   end
 
-  def bad_reviews
-    reviews.select { |review| low_level? review }
+  def bad_critiques
+    critiques.select { |review| low_level? review }
   end
 
-  def reviews
-    @reviews ||= Critique.where(moderation_state: 'pending').to_a
+  def critiques
+    @critiques ||= Critique.where(moderation_state: 'pending').to_a
   end
 
   def votes
     @vites ||= Vote
-      .where(voteable_type: Critique.name, voteable_id: reviews.map(&:id))
+      .where(voteable_type: Critique.name, voteable_id: critiques.map(&:id))
       .where.not(user_id: User.suspicious)
       .to_a
   end

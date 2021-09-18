@@ -48,12 +48,12 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   def second_column_topic_views
     displayed_ids = first_column_topic_views.map(&:id)
 
-    reviews = critiques_views.reject { |v| displayed_ids.include? v.id }
+    critiques = critiques_views.reject { |v| displayed_ids.include? v.id }
     articles = articles_views.reject { |v| displayed_ids.include? v.id }
     collections = collections_views.reject { |v| displayed_ids.include? v.id }
 
     (
-      take_n_plus_other(reviews, 1, 2) +
+      take_n_plus_other(critiques, 1, 2) +
         take_n_plus_other(articles, 1, 2) +
         take_n_plus_other(collections, 1, 2)
     )
@@ -126,7 +126,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
       ongoings: [:ongoings, rand(5), CACHE_VERSION],
       collections: [collections_scope.cache_key, CACHE_VERSION],
       articles: [articles_scope.cache_key, CACHE_VERSION],
-      reviews: [reviews_scope.cache_key, CACHE_VERSION],
+      critiques: [critiques_scope.cache_key, CACHE_VERSION],
       contests: [contests_scope.cache_key, CACHE_VERSION],
       news: [news_scope.cache_key, page, CACHE_VERSION],
       db_updates: [db_updates_scope.cache_key, page, CACHE_VERSION],
@@ -171,7 +171,7 @@ private
   end
 
   def critiques_views
-    reviews_scope.to_a
+    critiques_scope.to_a
   end
 
   def articles_views
@@ -216,10 +216,10 @@ private
       end
   end
 
-  def reviews_scope
+  def critiques_scope
     Topics::Query
       .fetch(h.locale_from_host, h.censored_forbidden?)
-      .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
+      .by_forum(critiques_forum, h.current_user, h.censored_forbidden?)
       .limit(6)
       .transform do |topic|
         Topics::NewsLineView.new topic, true, true
@@ -245,8 +245,8 @@ private
       .where(TOPICS_EXCEPT_EXCLUDED_SQL)
   end
 
-  def reviews_forum
-    Forum.find_by_permalink('reviews') # rubocop:disable DynamicFindBy
+  def critiques_forum
+    Forum.find_by_permalink('critiques') # rubocop:disable DynamicFindBy
   end
 
   def collections_forum

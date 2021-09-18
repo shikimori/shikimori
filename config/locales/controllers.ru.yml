@@ -229,7 +229,7 @@ ru:
       index: Журнал банов
       show: 'Бан #%{id}'
 
-  moderations/reviews_controller:
+  moderations/critiques_controller:
     <<: *moderations_controller
     page_title: Модерация рецензий
 
@@ -318,7 +318,7 @@ ru:
       anime: Связанное с аниме
       manga: Связанное с мангой
       ranobe: Связанное с ранобэ
-    reviews:
+    critiques:
       anime: Отзывы об аниме
       manga: Отзывы о манге
       ranobe: Отзывы о ранобэ
@@ -386,7 +386,7 @@ ru:
       Список наиболее крупных студий, занимающихся созданием аниме;
       отсортировано по объёму работ.
 
-  reviews_controller:
+  critiques_controller:
     <<: *animes_controller
     new_review: Новая рецензия
     edit_review: Изменение рецензии

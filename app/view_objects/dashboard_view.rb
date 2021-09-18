@@ -141,8 +141,8 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
 
     {
       ongoings: [:ongoings, rand(5), CACHE_VERSION],
-      reviews: [Critique.order(id: :desc).first, CACHE_VERSION],
-      reviews_index: rand(REVIEWS_FETCH), # to randomize reviews output
+      critiques: [Critique.order(id: :desc).first, CACHE_VERSION],
+      critiques_index: rand(REVIEWS_FETCH), # to randomize critiques output
       news: [:news, news_key, CACHE_VERSION],
       updates: [:updates, updates_key, CACHE_VERSION],
       migration: h.domain_migration_note
@@ -180,7 +180,7 @@ private
   def all_critique_topic_views
     Topics::Query
       .fetch(h.locale_from_host, h.censored_forbidden?)
-      .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
+      .by_forum(critiques_forum, h.current_user, h.censored_forbidden?)
       .limit(REVIEWS_FETCH)
       .as_views(true, true)
   end
@@ -192,7 +192,7 @@ private
       # .shuffle
   # end
 
-  def reviews_forum
-    Forum.find_by_permalink('reviews') # rubocop:disable DynamicFindBy
+  def critiques_forum
+    Forum.find_by_permalink('critiques') # rubocop:disable DynamicFindBy
   end
 end

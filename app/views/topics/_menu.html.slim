@@ -14,7 +14,7 @@
         /srcset="//moe.shikimori.one/system/user_images/original/40225/95247.jpg 2x"
       /]
 
-/ - cache [:site_block, :critiques, presenter.reviews_key], expires_in: 6.hours do
+/ - cache [:site_block, :critiques, presenter.critiques_key], expires_in: 6.hours do
 
 / .block2.sponsors
   / .subheadline.gray = t 'sponsors'
@@ -24,15 +24,15 @@
     / / - else
     / div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
-- if menu.reviews.any?
-  .block2.reviews
+- if menu.critiques.any?
+  .block2.critiques
     h2.subheadline.m13
       a[
         href=forum_topics_url(:critiques)
-        title=t('.to_reviews')
-      ] = t '.reviews'
+        title=t('.to_critiques')
+      ] = t '.critiques'
     ul
-      - menu.reviews.each do |review|
+      - menu.critiques.each do |review|
         - critique_topic = review.topic(locale_from_host)
 
         li.entry

@@ -3,7 +3,7 @@ describe Critiques::Query do
 
   before do
     Critique.wo_antispam do
-      @reviews = [
+      @critiques = [
         create(:critique, target: entry, user: user),
         create(:critique, target: entry, user: user, created_at: Critiques::Query::NEW_REVIEW_BUBBLE_INTERVAL.ago),
         create(:critique, target: entry, user: user),
@@ -17,12 +17,12 @@ describe Critiques::Query do
     let(:locale) { :ru }
 
     describe 'with_id' do
-      let(:query) { Critiques::Query.new entry, user, locale, @reviews[0].id }
+      let(:query) { Critiques::Query.new entry, user, locale, @critiques[0].id }
 
       it 'has 1 item' do
         expect(subject.size).to eq(1)
       end
-      its(:first) { is_expected.to eq @reviews[0] }
+      its(:first) { is_expected.to eq @critiques[0] }
     end
 
     describe 'without_id' do
@@ -31,8 +31,8 @@ describe Critiques::Query do
       it 'has 3 items' do
         is_expected.to have(3).items
       end
-      its(:last) { is_expected.to eq @reviews[1] }
-      its(:first) { is_expected.to eq @reviews[2] }
+      its(:last) { is_expected.to eq @critiques[1] }
+      its(:first) { is_expected.to eq @critiques[2] }
     end
   end
 end

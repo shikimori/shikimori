@@ -176,11 +176,11 @@
                 href=forum_topics_url(:critiques)
                 title=i18n_i('Critique', :other)
               ] = i18n_i 'Critique', :other
-              / h2 = t '.reviews'
+              / h2 = t '.critiques'
               / a.b-link[
                 / href=forum_topics_url(:critiques)
-                / title=t('.all_reviews')
-              / ] = t '.all_reviews'
+                / title=t('.all_critiques')
+              / ] = t '.all_critiques'
             div
               = render partial: 'topics/topic',
                 collection: @view.critique_topic_views,

@@ -1,13 +1,13 @@
 .b-hot_topics-v2
   .subject = t '.hot_topics'
 
-  - unless layout.moderation_policy.reviews_count.zero?
-    - unless current_user.admin? && layout.moderation_policy.reviews_count < 100
+  - unless layout.moderation_policy.critiques_count.zero?
+    - unless current_user.admin? && layout.moderation_policy.critiques_count < 100
       a.b-link.b-tooltipped.unprocessed.moderation[
-        href=moderations_reviews_url
+        href=moderations_critiques_url
         data-direction='bottom'
       ]
-        = "#{i18n_i 'Critique'}: #{layout.moderation_policy.reviews_count}"
+        = "#{i18n_i 'Critique'}: #{layout.moderation_policy.critiques_count}"
 
   - unless layout.moderation_policy.names_versions_count.zero?
     - unless current_user.admin? && layout.moderation_policy.names_versions_count < 100

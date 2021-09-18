@@ -126,8 +126,8 @@ describe Topics::ForumQuery do
     it { is_expected.to eq [anime_topic, anime_news_topic] }
   end
 
-  context 'reviews' do
-    let(:forum) { reviews_forum }
+  context 'critiques' do
+    let(:forum) { critiques_forum }
     it { is_expected.to eq [review.topic(locale)] }
   end
 

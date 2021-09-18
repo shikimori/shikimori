@@ -94,7 +94,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
 
-  def reviews
+  def critiques
     og noindex: true
     og page_title: i18n_io('Critique', :few)
 

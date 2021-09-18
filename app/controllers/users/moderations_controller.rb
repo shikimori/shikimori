@@ -32,7 +32,7 @@ class Users::ModerationsController < ProfilesController
     redirect_to moderation_profile_url @resource
   end
 
-  def reviews
+  def critiques
     authorize! :delete_all_critiques, @resource
 
     Critique

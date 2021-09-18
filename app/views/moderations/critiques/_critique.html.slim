@@ -20,7 +20,7 @@
     - else
       = t "deleted.#{review.model}"
 
-  = render 'reviews/votes', review: review
+  = render 'critiques/votes', critique: critique
 
   span.state.inline class=review.moderation_state
     = review.human_moderation_state_name

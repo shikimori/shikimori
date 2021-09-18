@@ -1,5 +1,5 @@
 json.content render(
-  partial: 'moderations/reviews/review',
+  partial: 'moderations/critiques/critique',
   collection: @processed,
   formats: :html
 )

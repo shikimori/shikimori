@@ -68,11 +68,11 @@ en:
       new_club: Created new club
       new_club_topic: Created new topic
       new_club_page: Created new page
-      reviews: Critiques
+      critiques: Critiques
       show_more: '+ show more'
       sticky_topics: Sticky Topics
       to_clubs: To Clubs
-      to_reviews: To Critiques
+      to_critiques: To Critiques
       user_review: "%{author}'s review"
       contests: :dashboards.show.contests
     cosplay:

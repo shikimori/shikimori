@@ -1,8 +1,8 @@
 - cache topic_view.cache_key do
   /# Template Dependency: topics/cosplay/*
-  /# Template Dependency: topics/reviews/*
-  /# Template Dependency: reviews/stars
-  /# Template Dependency: reviews/votes
+  /# Template Dependency: topics/critiques/*
+  /# Template Dependency: critiques/stars
+  /# Template Dependency: critiques/votes
   /# Template Dependency: collections/collection
   /# Helper Dependency Updated: May 6, 2017 at 6pm
 
@@ -48,7 +48,7 @@
       .body.b-text_with_paragraphs
         - if topic_view.minified?
           - if topic_view.topic_type_policy.critique_topic?
-            = render 'topics/reviews/entry_cover', view: topic_view,
+            = render 'topics/critiques/entry_cover', view: topic_view,
               entry: topic_view.topic.linked.target.decorate
 
           - if topic_view.need_trucation?
