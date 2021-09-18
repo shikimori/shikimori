@@ -458,6 +458,8 @@ Rails.application.routes.draw do
     get ':forum(/s-:linked)(/p-:page)' => redirect { |_, request| "/forum#{request.path}" }
     get ':forum(/s-:linked)/:id' => redirect { |_, request| "/forum#{request.path}" }
   end
+  get 'forum/reviews' => redirect('/forum/critiques')
+  get 'forum/reviews/:other' => redirect { |params, request| "/forum/critiques/#{params[:other]}" }
   {
     o: %i[offtopic s],
     s: %i[site s],
