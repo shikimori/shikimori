@@ -140,12 +140,14 @@ private
   end
 
   def merge_note new_value
-    episodes = zero_episode? ?
-      0 :
-      [@as_episode, new_value].uniq.join('-')
+    unless zero_episode?
+      episodes = [@as_episode, new_value].uniq.join('-')
+      label = EPISODE_LABEL[@episode_field]
+      episodes_text = "#{label} #{episodes} "
+    end
+    russian_text = " (#{@entry.russian})" if @entry.russian.present?
 
-    "✅ #{EPISODE_LABEL[@episode_field]} #{episodes} " +
-      + @entry.name + (@entry.russian.present? ? " (#{@entry.russian})" : '')
+    "✅ #{episodes_text}" + @entry.name + russian_text
   end
 
   def zero_episode?

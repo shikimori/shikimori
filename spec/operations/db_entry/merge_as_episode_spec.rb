@@ -486,7 +486,7 @@ describe DbEntry::MergeAsEpisode do
             expect(user_rate_other.reload).to have_attributes(
               episode_field => user_rate_other_episodes,
               status: 'watching',
-              text: "✅ #{described_class::EPISODE_LABEL[episode_field]} 0 #{entry.name} (#{entry.russian})"
+              text: "✅ #{entry.name} (#{entry.russian})"
             )
           end
         end
@@ -514,7 +514,7 @@ describe DbEntry::MergeAsEpisode do
           expect(new_user_rate).to have_attributes(
             status: 'watching',
             episode_field => 0,
-            text: "✅ #{described_class::EPISODE_LABEL[episode_field]} 0 #{entry.name} (#{entry.russian})"
+            text: "✅ #{entry.name} (#{entry.russian})"
           )
         end
       end
