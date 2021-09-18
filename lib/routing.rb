@@ -69,7 +69,7 @@ module Routing
       )
 
     elsif topic_type_policy.not_generated_news_topic? ||
-        topic_type_policy.review_topic?
+        topic_type_policy.critique_topic?
 
       forum_topic_url options.merge(
         id: topic,

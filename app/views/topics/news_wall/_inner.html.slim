@@ -32,6 +32,6 @@
   / .body
     .body-truncated
       .body-truncated-inner[
-        itemprop=(topic_view.topic_type_policy.review_topic? ? :reviewBody : :articleBody)
+        itemprop=(topic_view.topic_type_policy.critique_topic? ? :reviewBody : :articleBody)
       ]
         = topic_view.html_body_truncated

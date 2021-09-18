@@ -88,8 +88,8 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
     ].compact
   end
 
-  def review_topic_views
-    all_review_topic_views
+  def critique_topic_views
+    all_critique_topic_views
       .shuffle
       .reject { |view| view.topic.linked.target.censored? }
       .sort_by { |view| -view.topic.id }
@@ -177,7 +177,7 @@ private
       .decorate
   end
 
-  def all_review_topic_views
+  def all_critique_topic_views
     Topics::Query
       .fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)

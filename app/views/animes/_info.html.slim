@@ -74,7 +74,7 @@
       ]
         span ···
 
-  - if entry.preview_topic_view.any_comments? || entry.preview_topic_view.any_summaries? || entry.reviews_count > 0
+  - if entry.pcritique_topic_view.any_comments? || entry.pcritique_topic_view.any_summaries? || entry.reviews_count > 0
     .additional-links
       .line-container
         .key #{t ".#{entry.object.class.name.downcase}_additionals"}:
@@ -82,13 +82,13 @@
           span.linkeable data-href="#{entry.reviews_url}"
             = "#{entry.reviews_count} #{i18n_i 'review', entry.reviews_count}"
 
-        - if entry.preview_topic_view.any_summaries?
+        - if entry.pcritique_topic_view.any_summaries?
           span.linkeable data-href="#{entry.summaries_url}"
-            = "#{entry.preview_topic_view.summaries_count} #{i18n_i 'summary', entry.preview_topic_view.summaries_count}"
+            = "#{entry.pcritique_topic_view.summaries_count} #{i18n_i 'summary', entry.pcritique_topic_view.summaries_count}"
 
-        - if entry.preview_topic_view.any_comments?
-          span.linkeable data-href="#{entry.preview_topic_view.url}"
-            = "#{entry.preview_topic_view.comments_count} #{i18n_i 'comment', entry.preview_topic_view.comments_count}"
+        - if entry.pcritique_topic_view.any_comments?
+          span.linkeable data-href="#{entry.pcritique_topic_view.url}"
+            = "#{entry.pcritique_topic_view.comments_count} #{i18n_i 'comment', entry.pcritique_topic_view.comments_count}"
 
     / - if entry.files? || entry.art? || (entry.anime? && entry.coub_tags.any?) || entry.cosplay?
     - unless entry.rkn_abused?

@@ -248,7 +248,7 @@ describe Topic do
       end
 
       context 'generated review topic' do
-        let(:topic) { build_stubbed :review_topic }
+        let(:topic) { build_stubbed :critique_topic }
         it { is_expected.to_not be_able_to :manage, topic }
       end
 
@@ -290,7 +290,7 @@ describe Topic do
       end
 
       context 'generated review topic' do
-        let(:topic) { build_stubbed :review_topic, user: build_stubbed(:user) }
+        let(:topic) { build_stubbed :critique_topic, user: build_stubbed(:user) }
         it { is_expected.to be_able_to :manage, topic }
       end
     end
@@ -321,7 +321,7 @@ describe Topic do
     end
 
     describe 'review topic' do
-      let(:topic) { build_stubbed :review_topic, user: review_owner }
+      let(:topic) { build_stubbed :critique_topic, user: review_owner }
       let(:user) { build_stubbed :user, :user, :week_registered }
 
       context 'common user' do

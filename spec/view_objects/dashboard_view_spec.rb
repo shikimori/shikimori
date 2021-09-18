@@ -33,9 +33,9 @@ describe DashboardView do
     it { expect(view.db_others(Anime)).to have(4).items }
   end
 
-  describe '#review_topic_views' do
+  describe '#critique_topic_views' do
     let!(:review) { create :review, :with_topics }
-    it { expect(view.review_topic_views).to have(1).item }
+    it { expect(view.critique_topic_views).to have(1).item }
   end
 
   describe '#news_topic_views' do

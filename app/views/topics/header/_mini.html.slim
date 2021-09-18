@@ -20,10 +20,10 @@
     a.name[
       href=topic_view.urls.poster_url
       title=topic_view.topic_title
-      itemprop=('itemCritiqueed' if topic_view.topic_type_policy.review_topic?)
+      itemprop=('itemCritiqueed' if topic_view.topic_type_policy.critique_topic?)
     ] = topic_view.topic_title_html
   - else
     span.name[
       title=topic_view.topic_title
-      itemprop=('itemCritiqueed' if topic_view.topic_type_policy.review_topic?)
+      itemprop=('itemCritiqueed' if topic_view.topic_type_policy.critique_topic?)
     ] = topic_view.topic_title_html

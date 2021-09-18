@@ -5,7 +5,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     :menu_clubs, :all_clubs, :collections_size, :menu_collections,
     :contest_winners,
     :favoured, :favoured?, :all_favoured, :favoured_size,
-    :main_topic_view, :preview_topic_view,
+    :main_topic_view, :pcritique_topic_view,
     :parameterized_versions
 
   MAX_CLUBS = 4
@@ -121,7 +121,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     )
   end
 
-  def preview_topic_view
+  def pcritique_topic_view
     Topics::TopicViewFactory.new(true, false).build(
       object.maybe_topic(h.locale_from_host)
     )

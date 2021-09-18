@@ -1,37 +1,37 @@
-- if user_signed_in? || resource.preview_topic_view.comments_count > 0
-  - if resource.preview_topic_view.summaries_count > 0
+- if user_signed_in? || resource.pcritique_topic_view.comments_count > 0
+  - if resource.pcritique_topic_view.summaries_count > 0
     .b-options-floated.mobile-phone_portrait
-      - if resource.preview_topic_view.summaries_count > 0
+      - if resource.pcritique_topic_view.summaries_count > 0
         span.linkeable data-href=resource.summaries_url
           = t '.all_summaries'
-          span.brackets = resource.preview_topic_view.summaries_count
+          span.brackets = resource.pcritique_topic_view.summaries_count
 
-      - if resource.preview_topic_view.any_comments?
-        span.linkeable data-href=resource.preview_topic_view.url
+      - if resource.pcritique_topic_view.any_comments?
+        span.linkeable data-href=resource.pcritique_topic_view.url
           = t '.all_comments'
-          span.brackets = resource.preview_topic_view.comments_count
+          span.brackets = resource.pcritique_topic_view.comments_count
 
-    - if resource.preview_topic_view.any_comments?
+    - if resource.pcritique_topic_view.any_comments?
       .subheadline.m0
-        = i18n_io resource.preview_topic_view.any_summaries? ? 'Summary' : 'Comment', :few
+        = i18n_io resource.pcritique_topic_view.any_summaries? ? 'Summary' : 'Comment', :few
 
   - else
     .subheadline.m0
-      - if resource.preview_topic_view.comments_count > 0
+      - if resource.pcritique_topic_view.comments_count > 0
         a[
-          href=resource.preview_topic_view.url
+          href=resource.pcritique_topic_view.url
           title=t('.all_comments')
         ]
           = i18n_io 'Comment', :few
-          .count = resource.preview_topic_view.comments_count
+          .count = resource.pcritique_topic_view.comments_count
       - else
         = i18n_io 'Comment', :few
 
   div
     .b-topic.to-process[
       data-dynamic='topic'
-      data-faye=resource.preview_topic_view.faye_channel.to_json
+      data-faye=resource.pcritique_topic_view.faye_channel.to_json
     ]
       = render 'topics/comments',
-        comments_view: resource.preview_topic_view.comments_view,
-        commentable: resource.preview_topic_view.topic
+        comments_view: resource.pcritique_topic_view.comments_view,
+        commentable: resource.pcritique_topic_view.topic

@@ -169,7 +169,7 @@
           / div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
       - cache [@view.cache_keys[:reviews], @view.cache_keys[:reviews_index]] do
-        - if @view.review_topic_views.any?
+        - if @view.critique_topic_views.any?
           .block
             h2.subheadline.magenta.linkheadline
               a[
@@ -183,7 +183,7 @@
               / ] = t '.all_reviews'
             div
               = render partial: 'topics/topic',
-                collection: @view.review_topic_views,
+                collection: @view.critique_topic_views,
                 as: :topic_view
 
       - if ru_host?

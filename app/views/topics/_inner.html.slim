@@ -47,14 +47,14 @@
     - unless topic_view.skip_body?
       .body.b-text_with_paragraphs
         - if topic_view.minified?
-          - if topic_view.topic_type_policy.review_topic?
+          - if topic_view.topic_type_policy.critique_topic?
             = render 'topics/reviews/entry_cover', view: topic_view,
               entry: topic_view.topic.linked.target.decorate
 
           - if topic_view.need_trucation?
             .body-truncated
               .body-truncated-inner[
-                itemprop=(topic_view.topic_type_policy.review_topic? ? :reviewBody : :articleBody)
+                itemprop=(topic_view.topic_type_policy.critique_topic? ? :reviewBody : :articleBody)
               ]
                 = topic_view.html_body_truncated
 
