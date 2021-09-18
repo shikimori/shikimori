@@ -3,12 +3,12 @@ class ChangeUrlColumnsStringLimitsAndAddNotNullsV1 < ActiveRecord::Migration[5.2
     Video.where(image_url: nil).destroy_all
     UserToken.where(user_id: nil).destroy_all
 
-    change_column :reviews, :target_id, :integer, null: false
-    change_column :reviews, :target_type, :string, null: false
-    change_column :reviews, :user_id, :integer, null: false
-    change_column :reviews, :text, :text, null: false
-    change_column :reviews, :source, :string
-    change_column :reviews, :moderation_state, :string, null: false
+    change_column :critiques, :target_id, :integer, null: false
+    change_column :critiques, :target_type, :string, null: false
+    change_column :critiques, :user_id, :integer, null: false
+    change_column :critiques, :text, :text, null: false
+    change_column :critiques, :source, :string
+    change_column :critiques, :moderation_state, :string, null: false
 
     change_column :publishers, :name, :string, null: false
 
@@ -55,12 +55,12 @@ class ChangeUrlColumnsStringLimitsAndAddNotNullsV1 < ActiveRecord::Migration[5.2
   end
 
   def down
-    change_column :reviews, :target_id, :integer
-    change_column :reviews, :target_type, :string
-    change_column :reviews, :user_id, :integer
-    change_column :reviews, :text, :text
-    change_column :reviews, :source, :string, limit: 255
-    change_column :reviews, :moderation_state, :string,  limit: 255
+    change_column :critiques, :target_id, :integer
+    change_column :critiques, :target_type, :string
+    change_column :critiques, :user_id, :integer
+    change_column :critiques, :text, :text
+    change_column :critiques, :source, :string, limit: 255
+    change_column :critiques, :moderation_state, :string,  limit: 255
 
     change_column :publishers, :name, :string, limit: 255
 

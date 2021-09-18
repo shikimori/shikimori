@@ -117,7 +117,7 @@ en:
         <<: *defaults
         notice: This is the history of critiques moderation
         instructions:
-          - In general review should follow the guidelines outlined
+          - In general critique should follow the guidelines outlined
             <a href="//shikimori.one/animes/1-Cowboy-Bebop/critiques/new">
             here</a>.
           - Rejected critiques are converted to 'Off-Topic' forum topics
@@ -128,7 +128,7 @@ en:
           That's not all yet. Other critiques will be available for
           moderation after processing the ones above.
 
-      review:
+      critique:
         accept: accept
         move_to_offtopic: move to offtopic
 

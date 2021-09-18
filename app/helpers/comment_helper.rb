@@ -7,7 +7,7 @@ module CommentHelper
 
   COMPLEX_BB_CODES = %i[
     club club_page collection article contest version
-    user review posters ban
+    user critique posters ban
   ]
 
   def remove_old_tags(html)
@@ -35,7 +35,7 @@ module CommentHelper
   @@type_matchers = {
     Version => [/(\[version(?:=(\d+))?\]([^\[]*?)\[\/version\])/, :tooltip_moderations_version_url],
     User => [/(\[(user|profile)(?:=(\d+))?\]([^\[]*?)\[\/(?:user|profile)\])/, nil],
-    Critique => [/(\[review=(\d+)\]([^\[]*?)\[\/review\])/, nil],
+    Critique => [/(\[critique=(\d+)\]([^\[]*?)\[\/critique\])/, nil],
     Club => [/(\[club(?:=(\d+))?\]([^\[]*?)\[\/club\])/, nil],
     ClubPage => [/(\[club_page(?:=(\d+))?\]([^\[]*?)\[\/club_page\])/, nil],
     Collection => [/(\[collection(?:=(\d+))?\]([^\[]*?)\[\/collection\])/, nil],
@@ -48,8 +48,8 @@ module CommentHelper
       while text =~ matcher
         if klass == Critique
           begin
-            review = Critique.find($2)
-            text.gsub!($1, "<a class=\"b-link\" href=\"#{url_for [review.target, review]}\" title=\"Обзор #{review.target.name} от #{review.user.nickname}\">#{$3}</a>")
+            critique = Critique.find($2)
+            text.gsub!($1, "<a class=\"b-link\" href=\"#{url_for [critique.target, critique]}\" title=\"Обзор #{critique.target.name} от #{critique.user.nickname}\">#{$3}</a>")
           rescue
             text.gsub! $1, "<b>#{$3}</b>"
           end

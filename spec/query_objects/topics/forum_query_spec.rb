@@ -75,7 +75,7 @@ describe Topics::ForumQuery do
   context 'user defined forums' do
     before do
       user.preferences.forums = forums if user
-      review.topic(locale).update_column :updated_at, review.updated_at
+      critique.topic(locale).update_column :updated_at, critique.updated_at
     end
 
     context 'no user' do
@@ -84,7 +84,7 @@ describe Topics::ForumQuery do
         is_expected.to eq(
           [anime_topic] +
             all_sticky_topics +
-            [review.topic(locale)]
+            [critique.topic(locale)]
         )
       end
     end
@@ -128,7 +128,7 @@ describe Topics::ForumQuery do
 
   context 'critiques' do
     let(:forum) { critiques_forum }
-    it { is_expected.to eq [review.topic(locale)] }
+    it { is_expected.to eq [critique.topic(locale)] }
   end
 
   context 'news' do

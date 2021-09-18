@@ -175,7 +175,7 @@
           div data-type='critiques'
             a href=critiques_profile_url(@resource)
               ' #{@resource.activity_stats.critiques_count}
-              = i18n_i 'review', @resource.activity_stats.critiques_count
+              = i18n_i 'critique', @resource.activity_stats.critiques_count
 
         - if @resource.activity_stats.summaries_count.positive?
           div data-type='summaries'

@@ -24,7 +24,7 @@ describe Forums::Menu do
     let!(:critique) { create :critique }
     let!(:critique_en) { create :critique, user: user_en, locale: :en }
 
-    it { expect(view.critiques).to eq [review] }
+    it { expect(view.critiques).to eq [critique] }
   end
 
   describe '#sticky_topics' do

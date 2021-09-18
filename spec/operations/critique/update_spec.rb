@@ -2,7 +2,7 @@
 
 describe Critique::Update do
   include_context :timecop, 'Wed, 16 Sep 2020 16:23:41 MSK +03:00'
-  subject { Critique::Update.call review, params }
+  subject { Critique::Update.call critique, params }
 
   let(:critique) { create :critique }
   let(:anime) { create :anime }
@@ -19,9 +19,9 @@ describe Critique::Update do
       }
     end
     it do
-      expect(review.errors).to be_empty
-      expect(review.changed_at).to be_within(0.1).of Time.zone.now
-      expect(review.reload).to have_attributes params
+      expect(critique.errors).to be_empty
+      expect(critique.changed_at).to be_within(0.1).of Time.zone.now
+      expect(critique.reload).to have_attributes params
     end
   end
 
@@ -32,8 +32,8 @@ describe Critique::Update do
       }
     end
     it do
-      expect(review.errors).to be_present
-      expect(review.reload).not_to have_attributes params
+      expect(critique.errors).to be_present
+      expect(critique.reload).not_to have_attributes params
     end
   end
 end

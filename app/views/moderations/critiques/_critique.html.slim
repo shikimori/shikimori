@@ -1,50 +1,50 @@
 .b-log_entry.mobile-multiline
   span
     a[
-      href=UrlGenerator.instance.topic_url(review.maybe_topic(locale_from_host))
+      href=UrlGenerator.instance.topic_url(critique.maybe_topic(locale_from_host))
     ]
       span.id-label #
-      = review.id
+      = critique.id
 
   span.date
-    = review.created_at.strftime '%d.%m.%Y'
+    = critique.created_at.strftime '%d.%m.%Y'
 
   span.author
-    = render 'users/user_16', user: review.user
+    = render 'users/user_16', user: critique.user
 
-  span.id data-text=(review.target_type)
-    - if review.target
+  span.id data-text=(critique.target_type)
+    - if critique.target
       a.bubbled[
-        href=url_for(review.target)
-      ] = review.target.name
+        href=url_for(critique.target)
+      ] = critique.target.name
     - else
-      = t "deleted.#{review.model}"
+      = t "deleted.#{critique.model}"
 
   = render 'critiques/votes', critique: critique
 
-  span.state.inline class=review.moderation_state
-    = review.human_moderation_state_name
+  span.state.inline class=critique.moderation_state
+    = critique.human_moderation_state_name
 
-  - if review.approver.present?
+  - if critique.approver.present?
     .moderator
-      = render 'users/user_16', user: review.approver
+      = render 'users/user_16', user: critique.approver
 
   - if can? :manage, Critique
-    - if review.can_accept? || review.can_reject? || review.can_cancel?
+    - if critique.can_accept? || critique.can_reject? || critique.can_cancel?
       .moderation.inline
-        - if review.can_accept?
+        - if critique.can_accept?
           a.link.accept[
-            href=accept_moderations_review_path(review)
+            href=accept_moderations_critique_path(critique)
             data-method='post'
           ] = t '.accept'
-        - if review.can_reject?
+        - if critique.can_reject?
           a.link.reject[
-            href=reject_moderations_review_path(review)
+            href=reject_moderations_critique_path(critique)
             data-method='post'
           ] = t '.move_to_offtopic'
-        - if review.can_cancel?
+        - if critique.can_cancel?
           a.link.cancel[
-            href=cancel_moderations_review_path(review)
+            href=cancel_moderations_critique_path(critique)
             data-method='post'
             data-confirm=t('actions.confirm_simple')
           ] = t('actions.cancel').downcase

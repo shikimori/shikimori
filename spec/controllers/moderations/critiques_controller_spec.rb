@@ -9,7 +9,7 @@ describe Moderations::CritiquesController do
 
   describe '#accept' do
     include_context :authenticated, :critique_moderator
-    subject! { post :accept, params: { id: review.id } }
+    subject! { post :accept, params: { id: critique.id } }
     let(:critique) { create :critique }
 
     it do
@@ -20,7 +20,7 @@ describe Moderations::CritiquesController do
 
   describe '#reject' do
     include_context :authenticated, :critique_moderator
-    subject! { post :reject, params: { id: review.id } }
+    subject! { post :reject, params: { id: critique.id } }
     let(:critique) { create :critique, :with_topics }
 
     it do
@@ -31,7 +31,7 @@ describe Moderations::CritiquesController do
 
   describe '#cancel' do
     include_context :authenticated, :critique_moderator
-    subject! { post :cancel, params: { id: review.id } }
+    subject! { post :cancel, params: { id: critique.id } }
     let(:critique) { create :critique, :accepted, approver: user }
 
     it do

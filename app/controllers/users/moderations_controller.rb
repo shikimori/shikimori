@@ -37,7 +37,7 @@ class Users::ModerationsController < ProfilesController
 
     Critique
       .where(user_id: @resource.id)
-      .each { |review| faye.destroy review }
+      .each { |critique| faye.destroy critique }
 
     redirect_to moderation_profile_url @resource
   end

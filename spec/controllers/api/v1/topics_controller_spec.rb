@@ -29,7 +29,7 @@ describe Api::V1::TopicsController do
     let(:critique) { create :critique }
     let(:topic) do
       create :critique_topic,
-        linked: review,
+        linked: critique,
         body: 'test [spoiler=спойлер]test[/spoiler] test'
     end
 

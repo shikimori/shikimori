@@ -4,7 +4,7 @@ pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
 
   $('.text').checkHeight({ maxHeight: 200 });
 
-  const $newCritique = $('.new_review');
+  const $newCritique = $('.new_critique');
   if (window.SHIKI_USER.isSignedIn) {
     const newCritiqueUrl = $newCritique
       .attr('href')

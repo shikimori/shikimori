@@ -4,10 +4,10 @@ class Critique::Create < ServiceObjectBase
   pattr_initialize :params, :locale
 
   def call
-    review = Critique.new params
-    review.locale = locale
+    critique = Critique.new params
+    critique.locale = locale
 
-    review.generate_topics locale if review.save
-    review
+    critique.generate_topics locale if critique.save
+    critique
   end
 end

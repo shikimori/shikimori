@@ -19,29 +19,29 @@ class CritiquesController < AnimesController # rubocop:disable ClassLength
       params[:id].to_i
     )
     @collection = query.fetch
-      .map do |review|
-        topic = review.maybe_topic locale_from_host
+      .map do |critique|
+        topic = critique.maybe_topic locale_from_host
         Topics::CritiqueView.new topic, true, true
       end
   end
 
   def new
-    og page_title: i18n_t('new_review')
+    og page_title: i18n_t('new_critique')
     @rules_topic = Topics::TopicViewFactory.new(false, false).find_by(id: RULES_TOPIC_ID)
   end
 
   def edit
-    og page_title: i18n_t('edit_review')
+    og page_title: i18n_t('edit_critique')
   end
 
   def create
-    @review = Critique::Create.call resource_params, locale_from_host
+    @critique = Critique::Create.call resource_params, locale_from_host
 
-    if @review.errors.blank?
-      topic = @review.maybe_topic locale_from_host
+    if @critique.errors.blank?
+      topic = @critique.maybe_topic locale_from_host
       redirect_to(
         UrlGenerator.instance.topic_url(topic),
-        notice: i18n_t('review.created')
+        notice: i18n_t('critique.created')
       )
     else
       new
@@ -50,13 +50,13 @@ class CritiquesController < AnimesController # rubocop:disable ClassLength
   end
 
   def update
-    Critique::Update.call @review, resource_params
+    Critique::Update.call @critique, resource_params
 
-    if @review.errors.blank?
-      topic = @review.maybe_topic locale_from_host
+    if @critique.errors.blank?
+      topic = @critique.maybe_topic locale_from_host
       redirect_to(
         UrlGenerator.instance.topic_url(topic),
-        notice: i18n_t('review.updated')
+        notice: i18n_t('critique.updated')
       )
     else
       edit
@@ -65,8 +65,8 @@ class CritiquesController < AnimesController # rubocop:disable ClassLength
   end
 
   def destroy
-    @review.destroy
-    render json: { notice: i18n_t('review.removed') }
+    @critique.destroy
+    render json: { notice: i18n_t('critique.removed') }
   end
 
 private
@@ -103,12 +103,12 @@ private
       send("#{resource_klass.name.downcase}_critiques_url", @resource)
     )
 
-    if @review&.persisted? && params[:action] != 'show'
+    if @critique&.persisted? && params[:action] != 'show'
       breadcrumb(
-        i18n_t('review_by', nickname: @review.user.nickname),
-        @review.url
+        i18n_t('critique_by', nickname: @critique.user.nickname),
+        @critique.url
       )
-      @back_url = @review.url
+      @back_url = @critique.url
     else
       @back_url = send("#{resource_klass.name.downcase}_critiques_url", @resource)
     end
@@ -116,12 +116,12 @@ private
 
   def add_title
     og page_title: i18n_i('Critique', :other)
-    og page_title: i18n_t('review_by', nickname: @review.user.nickname) if params[:action] == 'show'
+    og page_title: i18n_t('critique_by', nickname: @critique.user.nickname) if params[:action] == 'show'
   end
 
   def actualize_resource
     if @resource.is_a? Critique
-      @review = @resource.decorate
+      @critique = @resource.decorate
       @resource = @anime || @manga || @ranobe
     end
   end

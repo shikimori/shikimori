@@ -95,7 +95,7 @@ private
 
     if topic
       OpenStruct.new(
-        pcritique_topic_view: Topics::TopicViewFactory.new(true, false).build(
+        preview_topic_view: Topics::TopicViewFactory.new(true, false).build(
           topic
         )
       )

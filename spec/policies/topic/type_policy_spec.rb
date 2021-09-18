@@ -81,12 +81,12 @@ describe Topic::TypePolicy do
   describe '#critique_topic?' do
     subject { policy.critique_topic? }
 
-    context 'review topic' do
+    context 'critique topic' do
       let(:topic) { critique_topic }
       it { is_expected.to eq true }
     end
 
-    context 'not review topic' do
+    context 'not critique topic' do
       let(:topic) { forum_topic }
       it { is_expected.to eq false }
     end

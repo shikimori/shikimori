@@ -16,7 +16,7 @@ ru:
       person: Человек
       poll: Опрос
       ranobe: Ранобэ
-      review: Рецензия
+      critique: Рецензия
       topic: Топик
       topics/news_topic: Новостной топик
       user: Пользователь
@@ -191,7 +191,7 @@ ru:
         list: Файл списка
         list_type: Тип списка
         state: Статус
-      review:
+      critique:
         text: Текст
         storyline: Сюжет
         animation: Рисовка
@@ -355,7 +355,7 @@ ru:
           proposing: сбор номинантов
           started: активно
           finished: завершено
-      review: &review_states
+      critique: &critique_states
         states:
           pending: ожидает модерации
           accepted: принято
@@ -364,11 +364,11 @@ ru:
           publish: Опубликовать
           unpublish: Отменить публикацию
       collection:
-        <<: *review_states
+        <<: *critique_states
       article:
-        <<: *review_states
+        <<: *critique_states
       topics/news_topic:
-        <<: *review_states
+        <<: *critique_states
       poll:
         states:
           pending: Создаётся
@@ -564,7 +564,7 @@ ru:
     abuse_request:
       kind:
         offtopic: оффтоп
-        review: отзыв
+        critique: отзыв
         spoiler: спойлер
         abuse: нарушение
     topics/news_topic:

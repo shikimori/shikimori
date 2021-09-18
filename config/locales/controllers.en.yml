@@ -10,7 +10,7 @@ en:
     title: Shikimori Forum
     new_topic: Create a topic
     new_news: Write news
-    new_review: Write a review
+    new_critique: Write a critique
     new_aricle: Write an article
     topic:
       created: Topic created
@@ -388,13 +388,13 @@ en:
 
   critiques_controller:
     <<: *animes_controller
-    new_review: New review
-    edit_review: Edit review
-    review:
+    new_critique: New critique
+    edit_critique: Edit critique
+    critique:
       created: Critique created
       updated: Critique updated
       removed: Critique removed
-    review_by: Critique by %{nickname}
+    critique_by: Critique by %{nickname}
 
   users_controller:
     similar_users: Similar users

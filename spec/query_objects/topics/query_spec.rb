@@ -31,7 +31,7 @@ describe Topics::Query do
     subject { query.by_forum critiques_forum, user, is_censored_forbidden }
     let!(:critique) { create :critique, :with_topics }
 
-    it { is_expected.to eq [review.topic(locale)] }
+    it { is_expected.to eq [critique.topic(locale)] }
   end
 
   describe '#by_linked' do

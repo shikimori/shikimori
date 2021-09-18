@@ -75,7 +75,7 @@ describe Users::ModerationsController do
         expect { topic_3.reload }.to raise_error ActiveRecord::RecordNotFound
 
         expect(topic_4.reload).to be_persisted
-        expect(review.all_topics).to be_one
+        expect(critique.all_topics).to be_one
         expect(collection.all_topics).to be_one
 
         is_expected.to redirect_to moderation_profile_url(target_user)
@@ -98,8 +98,8 @@ describe Users::ModerationsController do
       subject! { make_request }
 
       it do
-        expect { review_1.reload }.to raise_error ActiveRecord::RecordNotFound
-        expect(review_2.reload).to be_persisted
+        expect { critique_1.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(critique_2.reload).to be_persisted
         is_expected.to redirect_to moderation_profile_url(target_user)
       end
     end

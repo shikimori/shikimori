@@ -61,7 +61,7 @@ describe Topics::TopicViewFactory do
       end
     end
 
-    context 'review' do
+    context 'critique' do
       let(:topic) { build :critique_topic }
       it { expect(view).to be_a Topics::CritiqueView }
     end

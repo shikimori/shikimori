@@ -10,7 +10,7 @@ describe Votable::Vote do
   let(:vote) { 'yes' }
   let(:voter) { seed :user }
 
-  context 'review' do
+  context 'critique' do
     let(:votable) { create :critique }
 
     it do

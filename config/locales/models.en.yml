@@ -102,7 +102,7 @@ en:
       ranobe: Light novel thread
       character: Character thread
       person: Person thread
-      review: Critique thread
+      critique: Critique thread
       contest: Contest thread
       club: Club thread
       club_page: Club page thread
@@ -116,7 +116,7 @@ en:
       ranobe: '[ranobe=%{id}]Light novel[/ranobe] discussion thread.'
       character: '[character=%{id}]Character[/character] discussion thread.'
       person: '[person=%{id}]Person[/person] discussion thread.'
-      review: '[review=%{id}]Critique[/review] discussion thread.'
+      critique: '[critique=%{id}]Critique[/critique] discussion thread.'
       contest: '[contest=%{id}]Contest[/contest] discussion thread.'
       club: '[club=%{id}]Club[/club] discussion thread.'
       club_page: '[club=%{club_id}]Club[/club] [club_page=%{club_page_id}]page[/club_page] discussion thread.'
@@ -130,10 +130,10 @@ en:
       ranobe: Light novel [ranobe]%{id}[/ranobe] discussion
       character: Character [character]%{id}[/character] discussion
       person: Person [person]%{id}[/person] discussion
-      review:
-        anime: Anime %{target_name} review by %{author} discussion
-        manga: Manga %{target_name} review by %{author} discussion
-        ranobe: Light novel %{target_name} review by %{author} discussion
+      critique:
+        anime: Anime %{target_name} critique by %{author} discussion
+        manga: Manga %{target_name} critique by %{author} discussion
+        ranobe: Light novel %{target_name} critique by %{author} discussion
       contest: Contest [contest]%{id}[/contest] discussion
       club: Club [club]%{id}[/club] discussion
       club_page: Club [club_page]%{club_id}[/club_page] page [club_page]%{club_page_id}[/club_page] discussion

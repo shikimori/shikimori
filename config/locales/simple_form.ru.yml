@@ -149,5 +149,5 @@ ru:
         <<: *user_buttons
       topic:
         <<: *user_buttons
-      review:
+      critique:
         <<: *user_buttons

@@ -116,10 +116,10 @@ describe Forums::View do
 
       context 'linked_forum' do
         let(:forum) { 'critiques' }
-        let(:options) { { linked: review, linked_forum: true } }
-        let(:review) { create :critique }
+        let(:options) { { linked: critique, linked_forum: true } }
+        let(:critique) { create :critique }
         it do
-          expect(view.faye_subscriptions).to eq ["review-#{review.id}"]
+          expect(view.faye_subscriptions).to eq ["critique-#{critique.id}"]
         end
       end
     end

@@ -37,7 +37,7 @@ en:
     page:
       actions:
         comment: Comment
-        review: Write review
+        critique: Write critique
         add_to_favorites: Add to Favorite
         remove_from_favorites: Remove from Favorite
         edit: Edit
@@ -47,7 +47,7 @@ en:
       linked_directly: Linked Directly
       chronology: Chronology
       franchise: Franchise
-      create_review: Create review
+      create_critique: Create critique
       upload_episode: Add episodes from tokyotosho.info
       search_on:
         toshokan: Search on Toshokan

@@ -133,7 +133,7 @@ describe DbEntry::MergeIntoOther do
     expect(comment_1.reload.commentable).to eq other.maybe_topic(:ru)
     expect(other.maybe_topic(:ru).comments_count).to eq 1
 
-    expect(review.reload.target).to eq other
+    expect(critique.reload.target).to eq other
     expect(collection_link.reload.linked).to eq other
     expect(version.reload.item).to eq other
     expect(club_link.reload.linked).to eq other

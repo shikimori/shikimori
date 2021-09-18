@@ -1,10 +1,10 @@
 - unless %w[new create].include? params[:action]
   .b-forums
     - if forum == Forum.critiques
-      a.b-link_button.dark.create-review.to-process[
+      a.b-link_button.dark.create-critique.to-process[
         data-dynamic='week_registered'
-        href=menu.new_review_url
-      ] = t '.create_review'
+        href=menu.new_critique_url
+      ] = t '.create_critique'
     - elsif forum == Forum.articles
       a.b-link_button.dark.create-article.to-process[
         data-dynamic='week_registered'

@@ -4,9 +4,9 @@
 = render layout: 'animes/page' do |f|
   - if user_signed_in?
     .subheadline-buttons
-      a.item-new-review[
-        href=@resource.new_review_url
-        title=t('.create_review')
+      a.item-new-critique[
+        href=@resource.new_critique_url
+        title=t('.create_critique')
       ]
   .subheadline.m5 = og.headline
   - if @collection.any?

@@ -2,7 +2,7 @@
 
 = render layout: 'topics/page' do |f|
   - if @resource.forum == Forum.critiques
-    = render 'topics/form/review',
+    = render 'topics/form/critique',
       topic: @resource
   - elsif @resource.type.nil?
     = render 'topics/form/type',

@@ -68,7 +68,7 @@ class Forums::Menu < ViewObjectBase
     )
   end
 
-  def new_review_url
+  def new_critique_url
     h.new_topic_url(
       forum: Forum.critiques,
       'topic[user_id]' => h.current_user&.id,

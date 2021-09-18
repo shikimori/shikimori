@@ -93,7 +93,7 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
       .shuffle
       .reject { |view| view.topic.linked.target.censored? }
       .sort_by { |view| -view.topic.id }
-      .select.with_index { |_review, index| index == cache_keys[:critiques_index] }
+      .select.with_index { |_critique, index| index == cache_keys[:critiques_index] }
   end
 
   def news_topic_views

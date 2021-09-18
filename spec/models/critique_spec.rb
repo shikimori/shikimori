@@ -31,7 +31,7 @@ describe Critique do
       let!(:critique_2) do
         create :critique, :accepted, user: build_stubbed(:user), approver: user
       end
-      it { is_expected.to eq [review_1] }
+      it { is_expected.to eq [critique_1] }
     end
 
     describe 'visible' do
@@ -43,7 +43,7 @@ describe Critique do
       let!(:critique_3) do
         create :critique, :rejected, user: build_stubbed(:user), approver: user
       end
-      it { is_expected.to eq [review_1, review_2] }
+      it { is_expected.to eq [critique_1, critique_2] }
     end
   end
 
@@ -52,75 +52,75 @@ describe Critique do
     let(:user) { build_stubbed :user, :user, :week_registered }
     subject { Ability.new user }
 
-    context 'review owner' do
+    context 'critique owner' do
       let(:critique) { build_stubbed :critique, user: user }
 
       context 'not banned' do
-        it { is_expected.to be_able_to :read, review }
-        it { is_expected.to be_able_to :new, review }
-        it { is_expected.to be_able_to :create, review }
-        it { is_expected.to be_able_to :edit, review }
-        it { is_expected.to be_able_to :update, review }
-        it { is_expected.to be_able_to :destroy, review }
-        it { is_expected.to_not be_able_to :manage, review }
+        it { is_expected.to be_able_to :read, critique }
+        it { is_expected.to be_able_to :new, critique }
+        it { is_expected.to be_able_to :create, critique }
+        it { is_expected.to be_able_to :edit, critique }
+        it { is_expected.to be_able_to :update, critique }
+        it { is_expected.to be_able_to :destroy, critique }
+        it { is_expected.to_not be_able_to :manage, critique }
       end
 
       context 'newly registered' do
         let(:user) { build_stubbed :user, :user }
 
-        it { is_expected.to be_able_to :read, review }
-        it { is_expected.to_not be_able_to :new, review }
-        it { is_expected.to_not be_able_to :create, review }
-        it { is_expected.to_not be_able_to :edit, review }
-        it { is_expected.to_not be_able_to :update, review }
-        it { is_expected.to_not be_able_to :destroy, review }
-        it { is_expected.to_not be_able_to :manage, review }
+        it { is_expected.to be_able_to :read, critique }
+        it { is_expected.to_not be_able_to :new, critique }
+        it { is_expected.to_not be_able_to :create, critique }
+        it { is_expected.to_not be_able_to :edit, critique }
+        it { is_expected.to_not be_able_to :update, critique }
+        it { is_expected.to_not be_able_to :destroy, critique }
+        it { is_expected.to_not be_able_to :manage, critique }
       end
 
       context 'day registered' do
         let(:user) { build_stubbed :user, :user, :day_registered }
 
-        it { is_expected.to be_able_to :read, review }
-        it { is_expected.to_not be_able_to :new, review }
-        it { is_expected.to_not be_able_to :create, review }
-        it { is_expected.to_not be_able_to :edit, review }
-        it { is_expected.to_not be_able_to :update, review }
-        it { is_expected.to_not be_able_to :destroy, review }
-        it { is_expected.to_not be_able_to :manage, review }
+        it { is_expected.to be_able_to :read, critique }
+        it { is_expected.to_not be_able_to :new, critique }
+        it { is_expected.to_not be_able_to :create, critique }
+        it { is_expected.to_not be_able_to :edit, critique }
+        it { is_expected.to_not be_able_to :update, critique }
+        it { is_expected.to_not be_able_to :destroy, critique }
+        it { is_expected.to_not be_able_to :manage, critique }
       end
 
       context 'banned' do
         let(:user) { build_stubbed :user, :banned }
 
-        it { is_expected.to be_able_to :read, review }
-        it { is_expected.to_not be_able_to :new, review }
-        it { is_expected.to_not be_able_to :create, review }
-        it { is_expected.to_not be_able_to :edit, review }
-        it { is_expected.to_not be_able_to :update, review }
-        it { is_expected.to_not be_able_to :destroy, review }
-        it { is_expected.to_not be_able_to :manage, review }
+        it { is_expected.to be_able_to :read, critique }
+        it { is_expected.to_not be_able_to :new, critique }
+        it { is_expected.to_not be_able_to :create, critique }
+        it { is_expected.to_not be_able_to :edit, critique }
+        it { is_expected.to_not be_able_to :update, critique }
+        it { is_expected.to_not be_able_to :destroy, critique }
+        it { is_expected.to_not be_able_to :manage, critique }
       end
     end
 
     context 'critique_moderator' do
       let(:user) { build_stubbed :user, :critique_moderator }
-      it { is_expected.to be_able_to :manage, review }
+      it { is_expected.to be_able_to :manage, critique }
     end
 
     context 'user' do
-      it { is_expected.to be_able_to :read, review }
-      it { is_expected.to_not be_able_to :new, review }
-      it { is_expected.to_not be_able_to :edit, review }
-      it { is_expected.to_not be_able_to :destroy, review }
+      it { is_expected.to be_able_to :read, critique }
+      it { is_expected.to_not be_able_to :new, critique }
+      it { is_expected.to_not be_able_to :edit, critique }
+      it { is_expected.to_not be_able_to :destroy, critique }
     end
 
     context 'guest' do
       let(:user) { nil }
 
-      it { is_expected.to be_able_to :read, review }
-      it { is_expected.to_not be_able_to :new, review }
-      it { is_expected.to_not be_able_to :edit, review }
-      it { is_expected.to_not be_able_to :destroy, review }
+      it { is_expected.to be_able_to :read, critique }
+      it { is_expected.to_not be_able_to :new, critique }
+      it { is_expected.to_not be_able_to :edit, critique }
+      it { is_expected.to_not be_able_to :destroy, critique }
     end
   end
 

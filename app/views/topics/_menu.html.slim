@@ -32,8 +32,8 @@
         title=t('.to_critiques')
       ] = t '.critiques'
     ul
-      - menu.critiques.each do |review|
-        - critique_topic = review.topic(locale_from_host)
+      - menu.critiques.each do |critique|
+        - critique_topic = critique.topic(locale_from_host)
 
         li.entry
           a[
@@ -42,17 +42,17 @@
           ]
             .image-name
               img[
-                src=cdn_image(review.target, :x48)
-                srcset="#{cdn_image review.target, :x96} 2x"
-                alt=localized_name(review.target)
+                src=cdn_image(critique.target, :x48)
+                srcset="#{cdn_image critique.target, :x96} 2x"
+                alt=localized_name(critique.target)
               ]
               span.title
-                == review.target.name
+                == critique.target.name
             span.misc
-              = t '.user_review', author: review.user.nickname
+              = t '.user_critique', author: critique.user.nickname
             time.misc.date[
-              datetime=review.created_at.iso8601
-            ] = l review.created_at, format: '%e %B %Y'
+              datetime=critique.created_at.iso8601
+            ] = l critique.created_at, format: '%e %B %Y'
 
 .block2.clubs
   h2.subheadline.m13

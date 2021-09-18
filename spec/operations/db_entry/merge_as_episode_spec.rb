@@ -136,7 +136,7 @@ describe DbEntry::MergeAsEpisode do
     expect { comment_1.reload.reload }.to raise_error ActiveRecord::RecordNotFound
     expect(other.maybe_topic(:ru).comments_count).to eq 0
 
-    expect(review.reload.target).to eq other
+    expect(critique.reload.target).to eq other
     expect { collection_link.reload }.to raise_error ActiveRecord::RecordNotFound
 
     expect { version.reload }.to raise_error ActiveRecord::RecordNotFound

@@ -5,8 +5,8 @@ class BadCritiquesCleaner
   MINIMUM_VOTES = 35
 
   def perform
-    bad_critiques.each do |review|
-      review.reject! rejecter, "Рецензию оценили минимум #{MINIMUM_VOTES} человек, из которых более 80% оставили негативную оценку."
+    bad_critiques.each do |critique|
+      critique.reject! rejecter, "Рецензию оценили минимум #{MINIMUM_VOTES} человек, из которых более 80% оставили негативную оценку."
     end
   end
 
@@ -17,7 +17,7 @@ private
   end
 
   def bad_critiques
-    critiques.select { |review| low_level? review }
+    critiques.select { |critique| low_level? critique }
   end
 
   def critiques
@@ -31,10 +31,10 @@ private
       .to_a
   end
 
-  def low_level? review
-    votes_total = review.cached_votes_up + review.cached_votes_down
+  def low_level? critique
+    votes_total = critique.cached_votes_up + critique.cached_votes_down
 
     votes_total >= MINIMUM_VOTES &&
-      (review.cached_votes_down / votes_total) >= 0.8
+      (critique.cached_votes_down / votes_total) >= 0.8
   end
 end

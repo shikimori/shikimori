@@ -24,7 +24,7 @@ describe CritiquesController do
         params: {
           anime_id: anime.to_param,
           type: Anime.name,
-          review: params
+          critique: params
         }
     end
 
@@ -39,7 +39,7 @@ describe CritiquesController do
         params: {
           anime_id: anime.to_param,
           type: 'Anime',
-          review: params
+          critique: params
         }
     end
 
@@ -90,7 +90,7 @@ describe CritiquesController do
         params: {
           anime_id: anime.to_param,
           type: Anime.name,
-          id: review.id
+          id: critique.id
         }
     end
     it { expect(response).to have_http_status :success }
@@ -102,8 +102,8 @@ describe CritiquesController do
     before do
       patch :update,
         params: {
-          id: review.id,
-          review: params,
+          id: critique.id,
+          critique: params,
           anime_id: anime.to_param,
           type: 'Anime'
         }
@@ -144,7 +144,7 @@ describe CritiquesController do
     before do
       delete :destroy,
         params: {
-          id: review.id,
+          id: critique.id,
           anime_id: anime.to_param,
           type: Anime.name
         }

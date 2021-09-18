@@ -16,7 +16,7 @@ en:
     footer:
       vote:
         question:
-          review: Is this review useful?
+          critique: Is this critique useful?
           cosplay: Do you like it?
           collection: Is this collection useful or interesting?
     comments:
@@ -36,8 +36,8 @@ en:
         pick_topic_type: Choose topic type
         common_topic: Common topic
         news_topic: News topic
-      review:
-        pick_target: Choose what a review is about
+      critique:
+        pick_target: Choose what a critique is about
         go_next: Next →
       rules:
         go_next: Next →
@@ -57,7 +57,7 @@ en:
     menu_actions:
       create_topic: Create a topic
       create_news: Write news
-      create_review: Write a review
+      create_critique: Write a critique
       create_article: Write an article
       create_collection: Create a collection
       reload_forum: refresh forum
@@ -73,7 +73,7 @@ en:
       sticky_topics: Sticky Topics
       to_clubs: To Clubs
       to_critiques: To Critiques
-      user_review: "%{author}'s review"
+      user_critique: "%{author}'s critique"
       contests: :dashboards.show.contests
     cosplay:
       info:

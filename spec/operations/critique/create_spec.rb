@@ -21,12 +21,12 @@ describe Critique::Create do
       }
     end
     it do
-      expect(review).to be_persisted
-      expect(review).to have_attributes params.merge(locale: locale.to_s)
-      expect(review.errors).to be_empty
+      expect(critique).to be_persisted
+      expect(critique).to have_attributes params.merge(locale: locale.to_s)
+      expect(critique.errors).to be_empty
 
-      expect(review.topics).to have(1).item
-      expect(review.topics.first.locale).to eq locale.to_s
+      expect(critique.topics).to have(1).item
+      expect(critique.topics.first.locale).to eq locale.to_s
     end
   end
 
@@ -43,9 +43,9 @@ describe Critique::Create do
       }
     end
     it do
-      expect(review).to be_new_record
-      expect(review.errors).to be_present
-      expect(review.topics).to be_empty
+      expect(critique).to be_new_record
+      expect(critique.errors).to be_present
+      expect(critique.topics).to be_empty
     end
   end
 end

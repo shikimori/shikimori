@@ -13,25 +13,25 @@ class Topics::CritiqueView < Topics::UserContentView
 
   def action_tag
     OpenStruct.new(
-      type: 'review',
-      text: i18n_i('review', :one)
+      type: 'critique',
+      text: i18n_i('critique', :one)
     )
   end
 
   def topic_title
     if preview?
-      review.target.name
+      critique.target.name
     else
       i18n_t(
-        "title.#{review.target_type.downcase}",
-        target_name: h.h(h.localized_name(review.target))
+        "title.#{critique.target_type.downcase}",
+        target_name: h.h(h.localized_name(critique.target))
       ).html_safe
     end
   end
 
   def topic_title_html
     if preview?
-      h.localization_span review.target
+      h.localization_span critique.target
     else
       topic_title
     end
@@ -42,27 +42,27 @@ class Topics::CritiqueView < Topics::UserContentView
   end
 
   def vote_results?
-    review.votes_count.positive?
+    critique.votes_count.positive?
   end
 
 private
 
   def body
-    review.text
+    critique.text
   end
 
   def stars_html
     h.render(
       partial: 'critiques/stars',
       locals: {
-        review: review,
-        with_music: review.entry.is_a?(Anime)
+        critique: critique,
+        with_music: critique.entry.is_a?(Anime)
       },
       formats: :html
     )
   end
 
-  def review
+  def critique
     @topic.linked
   end
 end

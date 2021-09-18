@@ -4,6 +4,6 @@ class ChangeReviewsForumToCritiquesForum < ActiveRecord::Migration[5.2]
   end
 
   def down
-    Forum.find_by(id: 12)&.update! permalink: 'reviews', name_en: 'Reviews'
+    Forum.find_by(id: 12)&.update! permalink: 'critiques', name_en: 'Reviews'
   end
 end

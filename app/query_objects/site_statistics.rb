@@ -111,7 +111,7 @@ class SiteStatistics
       .limit(USERS_LIMIT * 4)
   end
 
-  def reviewers
+  def critiqueers
     User
       .joins(:critiques)
       .where.not(critiques: { moderation_state: :rejected })
