@@ -120,7 +120,7 @@ private
     comment_params = params
       .require(:comment)
       .permit(
-        :body, :review, :offtopic, :is_summary, :is_offtopic,
+        :body, :offtopic, :is_summary, :is_offtopic,
         :commentable_id, :commentable_type, :user_id
       )
 
@@ -129,7 +129,7 @@ private
         comment_params[:commentable_type].gsub('Entry', Topic.name)
     end
 
-    comment_params.except(:review, :offtopic)
+    comment_params.except(:offtopic)
   end
 
   def create_params

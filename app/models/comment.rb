@@ -72,11 +72,6 @@ class Comment < ApplicationRecord
   after_save :touch_commentable
   after_save :notify_quoted, if: -> { saved_change_to_body? }
 
-  # TODO: remove when review param is removed from API (after 01.09.2016)
-  def review= value
-    self[:is_summary] = value
-  end
-
   def commentable
     if association(:topic).loaded? && !topic.nil? && commentable_type == 'Topic'
       topic
