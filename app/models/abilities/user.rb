@@ -4,7 +4,7 @@ class Abilities::User
   prepend Draper::CanCanCan
 
   GENERATED_USER_TOPICS = [
-    Topics::EntryTopics::ReviewTopic.name,
+    Topics::EntryTopics::CritiqueTopic.name,
     Topics::EntryTopics::CollectionTopic.name,
     Topics::EntryTopics::ArticleTopic.name
   ]
@@ -160,7 +160,7 @@ class Abilities::User
   end
 
   def review_abilities
-    can %i[new create edit update destroy], Review do |review|
+    can %i[new create edit update destroy], Critique do |review|
       review.user_id == @user.id
     end
   end

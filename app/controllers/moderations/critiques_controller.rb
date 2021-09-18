@@ -1,4 +1,4 @@
-class Moderations::ReviewsController < ModerationsController
+class Moderations::CritiquesController < ModerationsController
   load_and_authorize_resource
 
   PENDING_PER_PAGE = 15
@@ -10,7 +10,7 @@ class Moderations::ReviewsController < ModerationsController
     og page_title: i18n_t('page_title')
 
     @moderators = User
-      .where("roles && '{#{Types::User::Roles[:review_moderator]}}'")
+      .where("roles && '{#{Types::User::Roles[:critique_moderator]}}'")
       .where.not(id: User::MORR_ID)
       .sort_by { |v| v.nickname.downcase }
 
@@ -38,7 +38,7 @@ class Moderations::ReviewsController < ModerationsController
 private
 
   def processed_scope
-    Review
+    Critique
       .where(moderation_state: %i[accepted rejected])
       .where(locale: locale_from_host)
       .includes(:user, :approver, :target, :topics)
@@ -46,7 +46,7 @@ private
   end
 
   def pending_scope
-    Review
+    Critique
       .where(moderation_state: :pending)
       .where(locale: locale_from_host)
       .includes(:user, :approver, :target, :topics)

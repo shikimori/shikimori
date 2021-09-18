@@ -231,7 +231,7 @@ en:
 
   moderations/reviews_controller:
     <<: *moderations_controller
-    page_title: Reviews moderation
+    page_title: Critiques moderation
 
   moderations/collections_controller:
     <<: *moderations_controller
@@ -391,10 +391,10 @@ en:
     new_review: New review
     edit_review: Edit review
     review:
-      created: Review created
-      updated: Review updated
-      removed: Review removed
-    review_by: Review by %{nickname}
+      created: Critique created
+      updated: Critique updated
+      removed: Critique removed
+    review_by: Critique by %{nickname}
 
   users_controller:
     similar_users: Similar users

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Review < ApplicationRecord
+class Critique < ApplicationRecord
   include AntispamConcern
   include Moderatable
   include TopicsConcern
@@ -36,7 +36,7 @@ class Review < ApplicationRecord
     user
   end
 
-  # хз что это за хрень и почему ReviewComment.first.linked.target
+  # хз что это за хрень и почему CritiqueComment.first.linked.target
   # возвращает сам обзор. я так и не понял
   def entry
     @entry ||= target_type.constantize.find(target_id)

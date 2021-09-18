@@ -56,8 +56,8 @@ FactoryBot.define do
       generated { true }
     end
 
-    factory :review_topic, class: 'Topics::EntryTopics::ReviewTopic' do
-      type { 'Topics::EntryTopics::ReviewTopic' }
+    factory :review_topic, class: 'Topics::EntryTopics::CritiqueTopic' do
+      type { 'Topics::EntryTopics::CritiqueTopic' }
       forum { seed :reviews_forum }
       generated { true }
     end

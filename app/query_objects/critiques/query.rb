@@ -1,4 +1,4 @@
-class Reviews::Query
+class Critiques::Query
   NEW_REVIEW_BUBBLE_INTERVAL = 2.days
 
   def initialize entry, user, locale, id = 0

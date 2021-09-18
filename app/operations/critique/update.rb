@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Review::Update < ServiceObjectBase
+class Critique::Update < ServiceObjectBase
   pattr_initialize :model, :params
 
   def call

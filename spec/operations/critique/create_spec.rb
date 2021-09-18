@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-describe Review::Create do
-  subject(:review) { Review::Create.call params, locale }
+describe Critique::Create do
+  subject(:review) { Critique::Create.call params, locale }
 
   let(:anime) { create :anime }
   let(:locale) { :en }
@@ -12,7 +12,7 @@ describe Review::Create do
         user_id: user.id,
         target_type: anime.class.name,
         target_id: anime.id,
-        text: 'x' * Review::MINIMUM_LENGTH,
+        text: 'x' * Critique::MINIMUM_LENGTH,
         storyline: 1,
         characters: 2,
         animation: 3,
@@ -34,7 +34,7 @@ describe Review::Create do
     let(:params) do
       {
         user_id: user.id,
-        text: 'x' * Review::MINIMUM_LENGTH,
+        text: 'x' * Critique::MINIMUM_LENGTH,
         storyline: 1,
         characters: 2,
         animation: 3,

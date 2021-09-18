@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Review do
+describe Critique do
   describe 'relations' do
     it { is_expected.to belong_to :target }
     it { is_expected.to belong_to :user }
@@ -25,7 +25,7 @@ describe Review do
 
   context 'scopes' do
     describe 'pending' do
-      subject { Review.pending }
+      subject { Critique.pending }
 
       let!(:review_1) { create :review, :pending }
       let!(:review_2) do
@@ -35,7 +35,7 @@ describe Review do
     end
 
     describe 'visible' do
-      subject { Review.visible.order(:id) }
+      subject { Critique.visible.order(:id) }
       let!(:review_1) { create :review, :pending }
       let!(:review_2) do
         create :review, :accepted, user: build_stubbed(:user), approver: user
@@ -102,8 +102,8 @@ describe Review do
       end
     end
 
-    context 'review_moderator' do
-      let(:user) { build_stubbed :user, :review_moderator }
+    context 'critique_moderator' do
+      let(:user) { build_stubbed :user, :critique_moderator }
       it { is_expected.to be_able_to :manage, review }
     end
 

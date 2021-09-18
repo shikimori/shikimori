@@ -1,4 +1,4 @@
-describe Moderations::ReviewsController do
+describe Moderations::CritiquesController do
   describe '#index' do
     include_context :authenticated
     let!(:review) { create :review, :with_topics }
@@ -8,7 +8,7 @@ describe Moderations::ReviewsController do
   end
 
   describe '#accept' do
-    include_context :authenticated, :review_moderator
+    include_context :authenticated, :critique_moderator
     subject! { post :accept, params: { id: review.id } }
     let(:review) { create :review }
 
@@ -19,7 +19,7 @@ describe Moderations::ReviewsController do
   end
 
   describe '#reject' do
-    include_context :authenticated, :review_moderator
+    include_context :authenticated, :critique_moderator
     subject! { post :reject, params: { id: review.id } }
     let(:review) { create :review, :with_topics }
 
@@ -30,7 +30,7 @@ describe Moderations::ReviewsController do
   end
 
   describe '#cancel' do
-    include_context :authenticated, :review_moderator
+    include_context :authenticated, :critique_moderator
     subject! { post :cancel, params: { id: review.id } }
     let(:review) { create :review, :accepted, approver: user }
 

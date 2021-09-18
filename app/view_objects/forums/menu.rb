@@ -26,7 +26,7 @@ class Forums::Menu < ViewObjectBase
   end
 
   def reviews
-    @reviews ||= Review
+    @reviews ||= Critique
       .where('created_at >= ?', 2.weeks.ago)
       .where(locale: h.locale_from_host)
       .visible

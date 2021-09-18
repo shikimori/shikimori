@@ -4,12 +4,12 @@ describe ModerationPolicy do
 
   describe '#reviews_count' do
     before do
-      allow(Review)
+      allow(Critique)
         .to receive_message_chain(:pending, :where, :size)
         .and_return(reviews_count)
     end
     let(:reviews_count) { 1 }
-    let(:user) { build :user, :review_moderator }
+    let(:user) { build :user, :critique_moderator }
 
     it { expect(policy.reviews_count).to eq 1 }
 

@@ -65,10 +65,10 @@
       .c-column
         .subheadline
           a href=reviews_profile_url(@resource)
-            = i18n_io 'Review', :few
+            = i18n_io 'Critique', :few
         .b-entry-info
           = info_line t('.moderation.amount'), @resource.activity_stats.reviews_count
-          - if can? :delete_all_reviews, @resource
+          - if can? :delete_all_critiques, @resource
             a.b-button[
               href=reviews_profile_moderation_url(@resource)
               data-method='delete'

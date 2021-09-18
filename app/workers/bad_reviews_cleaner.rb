@@ -1,4 +1,4 @@
-class BadReviewsCleaner
+class BadCritiquesCleaner
   include Sidekiq::Worker
   sidekiq_options unique: :until_executed
 
@@ -21,12 +21,12 @@ private
   end
 
   def reviews
-    @reviews ||= Review.where(moderation_state: 'pending').to_a
+    @reviews ||= Critique.where(moderation_state: 'pending').to_a
   end
 
   def votes
     @vites ||= Vote
-      .where(voteable_type: Review.name, voteable_id: reviews.map(&:id))
+      .where(voteable_type: Critique.name, voteable_id: reviews.map(&:id))
       .where.not(user_id: User.suspicious)
       .to_a
   end

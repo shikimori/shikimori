@@ -7,7 +7,7 @@
         href=moderations_reviews_url
         data-direction='bottom'
       ]
-        = "#{i18n_i 'Review'}: #{layout.moderation_policy.reviews_count}"
+        = "#{i18n_i 'Critique'}: #{layout.moderation_policy.reviews_count}"
 
   - unless layout.moderation_policy.names_versions_count.zero?
     - unless current_user.admin? && layout.moderation_policy.names_versions_count < 100

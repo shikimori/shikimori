@@ -6,7 +6,7 @@ FactoryBot.define do
     dashboard_type { 'new' }
     forums do
       [
-        Topic::FORUM_IDS['Review'],
+        Topic::FORUM_IDS['Critique'],
         Topic::FORUM_IDS['Anime'],
         Topic::FORUM_IDS['Contest'],
         Topic::FORUM_IDS['Group'],

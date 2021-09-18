@@ -1,8 +1,8 @@
 FactoryBot.define do
-  factory :review do
+  factory :critique do
     association :target, factory: :anime
     user { seed :user }
-    text { 's' * Review::MINIMUM_LENGTH }
+    text { 's' * Critique::MINIMUM_LENGTH }
     changed_at { nil }
 
     overall { 1 }
@@ -21,7 +21,7 @@ FactoryBot.define do
     trait(:accepted) { moderation_state { :accepted } }
     trait(:rejected) { moderation_state { :rejected } }
 
-    # Review.state_machine.states.map(&:value).each do |review_state|
+    # Critique.state_machine.states.map(&:value).each do |review_state|
       # trait(review_state.to_sym) { moderation_state review_state }
     # end
 

@@ -33,9 +33,9 @@ class Users::ModerationsController < ProfilesController
   end
 
   def reviews
-    authorize! :delete_all_reviews, @resource
+    authorize! :delete_all_critiques, @resource
 
-    Review
+    Critique
       .where(user_id: @resource.id)
       .each { |review| faye.destroy review }
 

@@ -37,7 +37,7 @@ class User < ApplicationRecord
     version_moderator
     version_fansub_moderator
     trusted_version_changer
-    review_moderator
+    critique_moderator
     collection_moderator
     news_moderator
     article_moderator

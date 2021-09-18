@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-describe Review::Update do
+describe Critique::Update do
   include_context :timecop, 'Wed, 16 Sep 2020 16:23:41 MSK +03:00'
-  subject { Review::Update.call review, params }
+  subject { Critique::Update.call review, params }
 
   let(:review) { create :review }
   let(:anime) { create :anime }
@@ -15,7 +15,7 @@ describe Review::Update do
         user_id: user.id,
         target_type: anime.class.name,
         target_id: anime.id,
-        text: 'x' * Review::MINIMUM_LENGTH
+        text: 'x' * Critique::MINIMUM_LENGTH
       }
     end
     it do

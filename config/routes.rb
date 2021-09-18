@@ -172,7 +172,7 @@ Rails.application.routes.draw do
         post :cleanup
       end
     end
-    resources :reviews, only: [] do
+    resources :critiques, only: [] do
       get '(/page/:page)' => :index, as: '', on: :collection
       member do
         post :accept
@@ -754,7 +754,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :reviews, type: kind.singularize.capitalize, except: [:show]
+      resources :critiques, type: kind.singularize.capitalize, except: [:show]
     end
   end
 
@@ -966,7 +966,7 @@ Rails.application.routes.draw do
         as: :edit,
         section: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
 
-      get 'reviews(/page/:page)' => :reviews, as: :reviews
+      get 'critiques(/page/:page)' => :critiques, as: :critiques
       get 'collections(/page/:page)' => :collections, as: :collections
       get 'articles(/page/:page)' => :articles, as: :articles
       get 'topics(/page/:page)' => :topics, as: :topics
@@ -1032,7 +1032,7 @@ Rails.application.routes.draw do
         delete :comments
         delete :summaries
         delete :topics
-        delete :reviews
+        delete :critiques
       end
       resources :nickname_changes, only: %i[index]
     end

@@ -62,10 +62,10 @@ FactoryBot.define do
     end
 
     trait :reviews do
-      id { Topic::FORUM_IDS[Review.name] }
+      id { Topic::FORUM_IDS[Critique.name] }
       permalink { 'reviews' }
       name_ru { 'Рецензии' }
-      name_en { 'Reviews' }
+      name_en { 'Critiques' }
     end
 
     trait :premoderation do

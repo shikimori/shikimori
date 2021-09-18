@@ -48,7 +48,7 @@ class Topics::TopicViewFactory
 private
 
   def review_topic topic
-    Topics::ReviewView.new topic, is_preview, is_mini
+    Topics::CritiqueView.new topic, is_preview, is_mini
   end
 
   def contest_topic topic

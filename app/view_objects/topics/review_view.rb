@@ -1,4 +1,4 @@
-class Topics::ReviewView < Topics::UserContentView
+class Topics::CritiqueView < Topics::UserContentView
   def container_classes
     super 'b-review-topic'
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ReviewsController < AnimesController # rubocop:disable ClassLength
+class CritiquesController < AnimesController # rubocop:disable ClassLength
   load_and_authorize_resource
 
   before_action :actualize_resource
@@ -12,7 +12,7 @@ class ReviewsController < AnimesController # rubocop:disable ClassLength
 
   # обзоры аниме или манги
   def index
-    query = Reviews::Query.new(
+    query = Critiques::Query.new(
       @resource.object,
       current_user,
       locale_from_host,
@@ -21,7 +21,7 @@ class ReviewsController < AnimesController # rubocop:disable ClassLength
     @collection = query.fetch
       .map do |review|
         topic = review.maybe_topic locale_from_host
-        Topics::ReviewView.new topic, true, true
+        Topics::CritiqueView.new topic, true, true
       end
   end
 
@@ -35,7 +35,7 @@ class ReviewsController < AnimesController # rubocop:disable ClassLength
   end
 
   def create
-    @review = Review::Create.call resource_params, locale_from_host
+    @review = Critique::Create.call resource_params, locale_from_host
 
     if @review.errors.blank?
       topic = @review.maybe_topic locale_from_host
@@ -50,7 +50,7 @@ class ReviewsController < AnimesController # rubocop:disable ClassLength
   end
 
   def update
-    Review::Update.call @review, resource_params
+    Critique::Update.call @review, resource_params
 
     if @review.errors.blank?
       topic = @review.maybe_topic locale_from_host
@@ -99,7 +99,7 @@ private
 
   def add_breadcrumbs
     breadcrumb(
-      i18n_i('Review', :other),
+      i18n_i('Critique', :other),
       send("#{resource_klass.name.downcase}_reviews_url", @resource)
     )
 
@@ -115,12 +115,12 @@ private
   end
 
   def add_title
-    og page_title: i18n_i('Review', :other)
+    og page_title: i18n_i('Critique', :other)
     og page_title: i18n_t('review_by', nickname: @review.user.nickname) if params[:action] == 'show'
   end
 
   def actualize_resource
-    if @resource.is_a? Review
+    if @resource.is_a? Critique
       @review = @resource.decorate
       @resource = @anime || @manga || @ranobe
     end

@@ -37,7 +37,7 @@ header.head
           - if linked.kind_of?(Anime) || linked.kind_of?(Manga)
             = render 'animes/menu', resource: linked.decorate
 
-          - elsif linked.kind_of? Review
+          - elsif linked.kind_of? Critique
             = render 'animes/menu', resource: linked.target.decorate
 
           - elsif linked.kind_of? Character

@@ -30,7 +30,7 @@ module Clockwork
 
   every 1.hour, 'hourly', at: '**:45' do
     # ProxyWorker.perform_async
-    BadReviewsCleaner.perform_async
+    BadCritiquesCleaner.perform_async
 
     NamedLogger.clockwork.info 'hourly finished'
   end

@@ -1,4 +1,4 @@
-class Topics::EntryTopics::ReviewTopic < Topics::EntryTopic
+class Topics::EntryTopics::CritiqueTopic < Topics::EntryTopic
   def title
     linked.target.name
   end

@@ -18,7 +18,7 @@ class Topic::TypePolicy
   end
 
   def review_topic?
-    topic.instance_of? Topics::EntryTopics::ReviewTopic
+    topic.instance_of? Topics::EntryTopics::CritiqueTopic
   end
 
   def cosplay_gallery_topic?

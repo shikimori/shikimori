@@ -141,7 +141,7 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
 
     {
       ongoings: [:ongoings, rand(5), CACHE_VERSION],
-      reviews: [Review.order(id: :desc).first, CACHE_VERSION],
+      reviews: [Critique.order(id: :desc).first, CACHE_VERSION],
       reviews_index: rand(REVIEWS_FETCH), # to randomize reviews output
       news: [:news, news_key, CACHE_VERSION],
       updates: [:updates, updates_key, CACHE_VERSION],

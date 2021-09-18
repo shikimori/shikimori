@@ -1,6 +1,6 @@
 class JsExports::TopicsExport < JsExports::ExportBase
   SPECIAL_TYPES = [
-    Review.name,
+    Critique.name,
     CosplayGallery.name,
     Collection.name
   ]
