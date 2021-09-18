@@ -63,7 +63,7 @@ FactoryBot.define do
 
     trait :critiques do
       id { Topic::FORUM_IDS[Critique.name] }
-      permalink { 'reviews' }
+      permalink { 'critiques' }
       name_ru { 'Рецензии' }
       name_en { 'Critiques' }
     end
