@@ -1,0 +1,15 @@
+span.critique-votes_count[
+  itemscope
+  itemprop='aggregateRating'
+  itemtype='http://schema.org/AggregateRating'
+]
+  meta itemprop='bestRating' content='10'
+  meta[
+    itemprop='ratingValue'
+    content=(critique.cached_votes_up * 10.0 / (critique.cached_votes_down + critique.cached_votes_up)).round(1)
+  ]
+  meta[
+    itemprop='ratingCount'
+    content=(critique.cached_votes_up + critique.cached_votes_down)
+  ]
+  = render 'critiques/votes', critique: critique

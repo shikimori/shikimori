@@ -1,3 +1,3 @@
-pageLoad('reviews_new', 'reviews_edit', 'reviews_create', 'reviews_update', () => {
+pageLoad('critiques_new', 'critiques_edit', 'critiques_create', 'critiques_update', () => {
   $('.b-rate').rateable();
 });

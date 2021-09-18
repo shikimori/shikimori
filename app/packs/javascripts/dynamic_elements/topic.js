@@ -427,7 +427,7 @@ export default class Topic extends ShikiEditable {
   @bind
   _checkHeight() {
     if (this.isCritique) {
-      const imageHeight = this.$('.review-entry_cover img').height();
+      const imageHeight = this.$('.critique-entry_cover img').height();
       const readMoreHeight = 13 + 5; // 5px - read_more offset
 
       if (imageHeight > 0) {
