@@ -6,7 +6,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
     :db_updates,
     :news_topic_views,
     :cache_keys,
-    :reviews_views,
+    :critiques_views,
     :articles_views,
     :collections_views,
     :history
@@ -40,7 +40,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
 
   def first_column_topic_views
     contest_topic_views +
-      (reviews_views + articles_views + collections_views)
+      (critiques_views + articles_views + collections_views)
         .sort_by { |v| -v.created_at.to_i }
         .take(TOPICS_PER_COLUMN - contest_topic_views.size)
   end
@@ -48,7 +48,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   def second_column_topic_views
     displayed_ids = first_column_topic_views.map(&:id)
 
-    reviews = reviews_views.reject { |v| displayed_ids.include? v.id }
+    reviews = critiques_views.reject { |v| displayed_ids.include? v.id }
     articles = articles_views.reject { |v| displayed_ids.include? v.id }
     collections = collections_views.reject { |v| displayed_ids.include? v.id }
 
@@ -170,7 +170,7 @@ private
       .decorate
   end
 
-  def reviews_views
+  def critiques_views
     reviews_scope.to_a
   end
 

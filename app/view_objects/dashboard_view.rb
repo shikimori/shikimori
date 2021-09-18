@@ -40,7 +40,7 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
     49_520
   ]
 
-  instance_cache :ongoings, :favourites, :reviews, :contests, :forums,
+  instance_cache :ongoings, :favourites, :critiques, :contests, :forums,
     :new_ongoings, :old_ongoings, :cache_keys
 
   def ongoings
@@ -93,7 +93,7 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
       .shuffle
       .reject { |view| view.topic.linked.target.censored? }
       .sort_by { |view| -view.topic.id }
-      .select.with_index { |_review, index| index == cache_keys[:reviews_index] }
+      .select.with_index { |_review, index| index == cache_keys[:critiques_index] }
   end
 
   def news_topic_views

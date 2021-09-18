@@ -1,6 +1,6 @@
 class Forums::Menu < ViewObjectBase
   pattr_initialize :forum, :linked
-  instance_cache :club_topics, :reviews
+  instance_cache :club_topics, :critiques
 
   def club_topics
     Topic

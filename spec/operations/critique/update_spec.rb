@@ -4,7 +4,7 @@ describe Critique::Update do
   include_context :timecop, 'Wed, 16 Sep 2020 16:23:41 MSK +03:00'
   subject { Critique::Update.call review, params }
 
-  let(:review) { create :review }
+  let(:critique) { create :critique }
   let(:anime) { create :anime }
 
   before { subject }

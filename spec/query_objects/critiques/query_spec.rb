@@ -4,10 +4,10 @@ describe Critiques::Query do
   before do
     Critique.wo_antispam do
       @reviews = [
-        create(:review, target: entry, user: user),
-        create(:review, target: entry, user: user, created_at: Critiques::Query::NEW_REVIEW_BUBBLE_INTERVAL.ago),
-        create(:review, target: entry, user: user),
-        create(:review, target: entry, user: user, locale: :en)
+        create(:critique, target: entry, user: user),
+        create(:critique, target: entry, user: user, created_at: Critiques::Query::NEW_REVIEW_BUBBLE_INTERVAL.ago),
+        create(:critique, target: entry, user: user),
+        create(:critique, target: entry, user: user, locale: :en)
       ]
     end
   end

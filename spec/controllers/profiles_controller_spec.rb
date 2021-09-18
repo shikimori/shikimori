@@ -48,8 +48,8 @@ describe ProfilesController do
   end
 
   describe '#reviews' do
-    let!(:review) { create :review, :with_topics, user: user }
-    subject! { get :reviews, params: { id: user.to_param } }
+    let!(:critique) { create :critique, :with_topics, user: user }
+    subject! { get :critiques, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 

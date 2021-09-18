@@ -11,7 +11,7 @@ describe Votable::Vote do
   let(:voter) { seed :user }
 
   context 'review' do
-    let(:votable) { create :review }
+    let(:votable) { create :critique }
 
     it do
       expect { subject }.to change(ActsAsVotable::Vote, :count).by 1

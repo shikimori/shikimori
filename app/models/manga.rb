@@ -91,7 +91,7 @@ class Manga < DbEntry
   has_many :cosplay_galleries, -> { where deleted: false, confirmed: true },
     through: :cosplay_gallery_links
 
-  has_many :reviews, -> { where target_type: Manga.name },
+  has_many :critiques, -> { where target_type: Manga.name },
     foreign_key: :target_id,
     dependent: :destroy
 

@@ -51,7 +51,7 @@ describe DbEntry::MergeAsEpisode do
 
   let!(:comment_1) { create :comment, :with_increment_comments, commentable: entry.maybe_topic(:ru) }
 
-  let!(:review) { create :review, target: entry }
+  let!(:critique) { create :critique, target: entry }
 
   let(:collection) { create :collection }
   let!(:collection_link) { create :collection_link, linked: entry, collection: collection }

@@ -168,7 +168,7 @@ private
   end
 
   def merge_reviews
-    return unless @entry.respond_to? :reviews
+    return unless @entry.respond_to? :critiques
 
     @entry.reviews.each { |v| v.update target: @other }
   end

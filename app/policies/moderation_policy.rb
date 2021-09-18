@@ -3,7 +3,7 @@ class ModerationPolicy
 
   pattr_initialize :user, :locale, :moderation_filter
 
-  instance_cache :reviews_count, :collections_count,
+  instance_cache :critiques_count, :collections_count,
     :abuses_total_count,
     :abuses_abuses_count,
     :abuses_pending_count,

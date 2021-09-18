@@ -1,5 +1,5 @@
 describe Votable::CleanupCheatBotVotes do
-  let(:votable) { create :review }
+  let(:votable) { create :critique }
 
   before do
     Votable::Vote.call(

@@ -13,12 +13,12 @@ describe Critique do
     it { is_expected.to validate_presence_of :locale }
 
     context 'accepted' do
-      subject { build :review, :accepted }
+      subject { build :critique, :accepted }
       it { is_expected.to validate_presence_of :approver }
     end
 
     context 'rejected' do
-      subject { build :review, :rejected }
+      subject { build :critique, :rejected }
       it { is_expected.to validate_presence_of :approver }
     end
   end
@@ -27,33 +27,33 @@ describe Critique do
     describe 'pending' do
       subject { Critique.pending }
 
-      let!(:review_1) { create :review, :pending }
-      let!(:review_2) do
-        create :review, :accepted, user: build_stubbed(:user), approver: user
+      let!(:critique_1) { create :critique, :pending }
+      let!(:critique_2) do
+        create :critique, :accepted, user: build_stubbed(:user), approver: user
       end
       it { is_expected.to eq [review_1] }
     end
 
     describe 'visible' do
       subject { Critique.visible.order(:id) }
-      let!(:review_1) { create :review, :pending }
-      let!(:review_2) do
-        create :review, :accepted, user: build_stubbed(:user), approver: user
+      let!(:critique_1) { create :critique, :pending }
+      let!(:critique_2) do
+        create :critique, :accepted, user: build_stubbed(:user), approver: user
       end
-      let!(:review_3) do
-        create :review, :rejected, user: build_stubbed(:user), approver: user
+      let!(:critique_3) do
+        create :critique, :rejected, user: build_stubbed(:user), approver: user
       end
       it { is_expected.to eq [review_1, review_2] }
     end
   end
 
   describe 'permissions' do
-    let(:review) { build_stubbed :review }
+    let(:critique) { build_stubbed :critique }
     let(:user) { build_stubbed :user, :user, :week_registered }
     subject { Ability.new user }
 
     context 'review owner' do
-      let(:review) { build_stubbed :review, user: user }
+      let(:critique) { build_stubbed :critique, user: user }
 
       context 'not banned' do
         it { is_expected.to be_able_to :read, review }
@@ -124,7 +124,7 @@ describe Critique do
     end
   end
 
-  it_behaves_like :antispam_concern, :review
-  it_behaves_like :topics_concern, :review
-  it_behaves_like :moderatable_concern, :review
+  it_behaves_like :antispam_concern, :critique
+  it_behaves_like :topics_concern, :critique
+  it_behaves_like :moderatable_concern, :critique
 end

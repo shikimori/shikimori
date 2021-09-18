@@ -26,7 +26,7 @@ describe Api::V1::TopicsController do
   end
 
   describe '#show', :show_in_doc do
-    let(:review) { create :review }
+    let(:critique) { create :critique }
     let(:topic) do
       create :critique_topic,
         linked: review,

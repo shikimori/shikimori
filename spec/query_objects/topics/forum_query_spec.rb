@@ -31,7 +31,7 @@ describe Topics::ForumQuery do
       forum: animanga_forum,
       updated_at: 1.day.ago
   end
-  let!(:review) { create :review, :with_topics, updated_at: 10.days.ago }
+  let!(:critique) { create :critique, :with_topics, updated_at: 10.days.ago }
   let!(:joined_club) do
     create :club, :with_topics,
       updated_at: 15.days.ago,

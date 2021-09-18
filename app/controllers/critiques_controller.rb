@@ -73,7 +73,7 @@ private
 
   def resource_params
     params
-      .require(:review)
+      .require(:critique)
       .permit(
         :user_id,
         :target_type,

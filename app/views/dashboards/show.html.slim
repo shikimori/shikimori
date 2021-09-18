@@ -168,17 +168,17 @@
         / - else
           / div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
-      - cache [@view.cache_keys[:reviews], @view.cache_keys[:reviews_index]] do
+      - cache [@view.cache_keys[:critiques], @view.cache_keys[:critiques_index]] do
         - if @view.critique_topic_views.any?
           .block
             h2.subheadline.magenta.linkheadline
               a[
-                href=forum_topics_url(:reviews)
+                href=forum_topics_url(:critiques)
                 title=i18n_i('Critique', :other)
               ] = i18n_i 'Critique', :other
               / h2 = t '.reviews'
               / a.b-link[
-                / href=forum_topics_url(:reviews)
+                / href=forum_topics_url(:critiques)
                 / title=t('.all_reviews')
               / ] = t '.all_reviews'
             div

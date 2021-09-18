@@ -2,7 +2,7 @@
 
 describe CritiquesController do
   let(:anime) { create :anime }
-  let(:review) { create :review, :with_topics, user: user, target: anime }
+  let(:critique) { create :critique, :with_topics, user: user, target: anime }
 
   describe '#index' do
     before { get :index, params: { anime_id: anime.to_param, type: 'Anime' } }
@@ -58,8 +58,8 @@ describe CritiquesController do
         }
       end
       it do
-        expect(assigns(:review)).to be_persisted
-        topic = assigns(:review).topic(controller.locale_from_host)
+        expect(assigns(:critique)).to be_persisted
+        topic = assigns(:critique).topic(controller.locale_from_host)
         expect(response).to redirect_to UrlGenerator.instance.topic_url topic
       end
     end
@@ -77,7 +77,7 @@ describe CritiquesController do
         }
       end
       it do
-        expect(assigns(:review)).to be_new_record
+        expect(assigns(:critique)).to be_new_record
         expect(response).to have_http_status :success
       end
     end
@@ -119,8 +119,8 @@ describe CritiquesController do
         }
       end
       it do
-        expect(assigns(:review).errors).to be_empty
-        topic = assigns(:review).topic(controller.locale_from_host)
+        expect(assigns(:critique).errors).to be_empty
+        topic = assigns(:critique).topic(controller.locale_from_host)
         expect(response).to redirect_to UrlGenerator.instance.topic_url topic
       end
     end
@@ -133,7 +133,7 @@ describe CritiquesController do
         }
       end
       it do
-        expect(assigns(:review).errors).to have(1).item
+        expect(assigns(:critique).errors).to have(1).item
         expect(response).to have_http_status :success
       end
     end
@@ -152,7 +152,7 @@ describe CritiquesController do
 
     it do
       expect(response.content_type).to eq 'application/json'
-      expect(assigns :review).to be_destroyed
+      expect(assigns :critique).to be_destroyed
       expect(response).to have_http_status :success
     end
   end

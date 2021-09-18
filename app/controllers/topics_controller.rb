@@ -43,7 +43,7 @@ class TopicsController < ShikimoriController
     topic_type_policy = Topic::TypePolicy.new(@resource)
     topic_type =
       if @resource.forum == Forum.reviews
-        :review
+        :critique
       elsif @resource.forum == Forum.articles
         :article
       elsif topic_type_policy.news_topic?

@@ -8,7 +8,7 @@ describe ModerationPolicy do
         .to receive_message_chain(:pending, :where, :size)
         .and_return(reviews_count)
     end
-    let(:reviews_count) { 1 }
+    let(:critiques_count) { 1 }
     let(:user) { build :user, :critique_moderator }
 
     it { expect(policy.reviews_count).to eq 1 }

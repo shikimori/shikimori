@@ -1,7 +1,7 @@
 describe Moderations::CritiquesController do
   describe '#index' do
     include_context :authenticated
-    let!(:review) { create :review, :with_topics }
+    let!(:critique) { create :critique, :with_topics }
     subject! { get :index }
 
     it { expect(response).to have_http_status :success }
@@ -10,7 +10,7 @@ describe Moderations::CritiquesController do
   describe '#accept' do
     include_context :authenticated, :critique_moderator
     subject! { post :accept, params: { id: review.id } }
-    let(:review) { create :review }
+    let(:critique) { create :critique }
 
     it do
       expect(resource).to be_accepted
@@ -21,7 +21,7 @@ describe Moderations::CritiquesController do
   describe '#reject' do
     include_context :authenticated, :critique_moderator
     subject! { post :reject, params: { id: review.id } }
-    let(:review) { create :review, :with_topics }
+    let(:critique) { create :critique, :with_topics }
 
     it do
       expect(resource).to be_rejected
@@ -32,7 +32,7 @@ describe Moderations::CritiquesController do
   describe '#cancel' do
     include_context :authenticated, :critique_moderator
     subject! { post :cancel, params: { id: review.id } }
-    let(:review) { create :review, :accepted, approver: user }
+    let(:critique) { create :critique, :accepted, approver: user }
 
     it do
       expect(resource).to be_pending

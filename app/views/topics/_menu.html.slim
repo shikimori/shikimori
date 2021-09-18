@@ -14,7 +14,7 @@
         /srcset="//moe.shikimori.one/system/user_images/original/40225/95247.jpg 2x"
       /]
 
-/ - cache [:site_block, :reviews, presenter.reviews_key], expires_in: 6.hours do
+/ - cache [:site_block, :critiques, presenter.reviews_key], expires_in: 6.hours do
 
 / .block2.sponsors
   / .subheadline.gray = t 'sponsors'
@@ -28,7 +28,7 @@
   .block2.reviews
     h2.subheadline.m13
       a[
-        href=forum_topics_url(:reviews)
+        href=forum_topics_url(:critiques)
         title=t('.to_reviews')
       ] = t '.reviews'
     ul

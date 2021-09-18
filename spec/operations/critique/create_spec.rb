@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Critique::Create do
-  subject(:review) { Critique::Create.call params, locale }
+  subject(:critique) { Critique::Create.call params, locale }
 
   let(:anime) { create :anime }
   let(:locale) { :en }

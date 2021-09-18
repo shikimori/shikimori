@@ -21,7 +21,7 @@ describe Manga do
     it { is_expected.to have_many :cosplay_gallery_links }
     it { is_expected.to have_many :cosplay_galleries }
 
-    it { is_expected.to have_many(:reviews).dependent(:destroy) }
+    it { is_expected.to have_many(:critiques).dependent(:destroy) }
 
     it { is_expected.to have_attached_file :image }
 

@@ -10,7 +10,7 @@ describe VotesController do
           vote: 'yes'
         }
     end
-    let(:votable) { create :review }
+    let(:votable) { create :critique }
 
     describe 'vote' do
       subject! { make_request }

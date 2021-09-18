@@ -325,7 +325,7 @@ describe Topic do
       let(:user) { build_stubbed :user, :user, :week_registered }
 
       context 'common user' do
-        let(:review_owner) { build_stubbed :user, :user, :week_registered }
+        let(:critique_owner) { build_stubbed :user, :user, :week_registered }
 
         it { is_expected.to_not be_able_to :new, topic }
         it { is_expected.to_not be_able_to :edit, topic }
@@ -336,7 +336,7 @@ describe Topic do
       end
 
       context 'review owner' do
-        let(:review_owner) { user }
+        let(:critique_owner) { user }
 
         it { is_expected.to be_able_to :new, topic }
         it { is_expected.to be_able_to :edit, topic }
