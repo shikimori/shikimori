@@ -2,8 +2,8 @@
   .c-column
     = simple_form_for resource.object do |f|
       = f.input :aired_on,
-        start_year: 1920,
-        end_year: Time.zone.now.year + 3,
+        start_year: Time.zone.now.year + 3,
+        end_year: 1920,
         include_blank: true
       = render 'versions/reason'
 
