@@ -758,7 +758,10 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :critiques, type: kind.singularize.capitalize, except: [:show]
+      resources :critiques,
+        type: kind.singularize.capitalize,
+        except: [:show],
+        controller: 'animes/critiques'
     end
   end
 

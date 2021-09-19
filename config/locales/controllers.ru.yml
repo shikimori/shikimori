@@ -386,7 +386,7 @@ ru:
       Список наиболее крупных студий, занимающихся созданием аниме;
       отсортировано по объёму работ.
 
-  critiques_controller:
+  animes/critiques_controller:
     <<: *animes_controller
     new_critique: Новая рецензия
     edit_critique: Изменение рецензии

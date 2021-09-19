@@ -1,7 +1,7 @@
 = render layout: 'animes/page' do |f|
   .block
     - if params[:rules_passed] != '1'
-      = render 'critiques/rules', resource: @resource, text: @additional_text
+      = render 'animes/critiques/rules', resource: @resource, text: @additional_text
 
     - else
       = render 'form', critique: @critique, resource: @resource

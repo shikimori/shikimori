@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CritiquesController < AnimesController # rubocop:disable ClassLength
+class Animes::CritiquesController < AnimesController # rubocop:disable ClassLength
   load_and_authorize_resource
 
   before_action :actualize_resource
@@ -10,9 +10,8 @@ class CritiquesController < AnimesController # rubocop:disable ClassLength
 
   RULES_TOPIC_ID = 299_770
 
-  # обзоры аниме или манги
   def index
-    query = Critiques::Query.new(
+    query = ::Critiques::Query.new(
       @resource.object,
       current_user,
       locale_from_host,
