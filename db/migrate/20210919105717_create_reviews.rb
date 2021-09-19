@@ -1,6 +1,6 @@
-class CreateSummaries < ActiveRecord::Migration[5.2]
+class CreateReviews < ActiveRecord::Migration[5.2]
   def change
-    create_table :summaries do |t|
+    create_table :reviews do |t|
       t.references :user, index: true, null: false, foreign_key: true
       t.references :anime, index: true, foreign_key: true
       t.references :manga, index: true, foreign_key: true
