@@ -1,10 +1,10 @@
 FactoryBot.define do
-  factory :summary do
+  factory :review do
     user { seed :user }
     anime { nil }
     manga { nil }
-    body { 'a' * Summary::MIN_BODY_SIZE }
-    opinion { Types::Summary::Opinion[:neutral] }
+    body { 'a' * Review::MIN_BODY_SIZE }
+    opinion { Types::Review::Opinion[:neutral] }
     is_written_before_release { false }
     changed_at { nil }
 
@@ -12,7 +12,7 @@ FactoryBot.define do
     cached_votes_up { 0 }
     cached_votes_down { 0 }
 
-    Types::Summary::Opinion.values.each do |value|
+    Types::Review::Opinion.values.each do |value|
       trait(value) { opinion { value } }
     end
   end

@@ -1,14 +1,14 @@
-class Summary::Update
-  method_object :summary, :params
+class Review::Update
+  method_object :review, :params
 
   def call
-    @summary.update fixed_params
+    @review.update fixed_params
   end
 
 private
 
   def fixed_params
-    if @summary.db_entry_released_before?
+    if @review.db_entry_released_before?
       params
     else
       params.except(:is_written_before_release)

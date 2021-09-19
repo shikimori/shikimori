@@ -108,10 +108,10 @@ Rails.application.routes.draw do
     collection do
       post :bounce
       post :spam
-    end
+\   end
   end
 
-  resources :summaries, only: %i[show]
+  resources :reviews, only: %i[show]
   resources :comments, except: %i[create update index] do
     collection do
       get :smileys
@@ -318,7 +318,7 @@ Rails.application.routes.draw do
         end
       end
       resources :comments, except: %i[new edit]
-      resources :summaries, except: %i[new edit show index]
+      resources :reviews, except: %i[new edit show index]
 
       resources :topic_ignores, only: %i[create destroy]
       resources :user_images, only: %i[create]
@@ -761,7 +761,7 @@ Rails.application.routes.draw do
       end
 
       resources :critiques, type: kind.singularize.capitalize, except: [:show]
-      resources :summaries, only: %i[show] # index
+      resources :reviews, only: %i[show] # index
     end
   end
 

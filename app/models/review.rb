@@ -1,4 +1,4 @@
-class Summary < ApplicationRecord
+class Review < ApplicationRecord
   include AntispamConcern
   include Commentable
   include Moderatable
@@ -16,7 +16,7 @@ class Summary < ApplicationRecord
   belongs_to :anime, optional: true
   belongs_to :manga, optional: true
 
-  enumerize :opinion, in: Types::Summary::Opinion.values
+  enumerize :opinion, in: Types::Review::Opinion.values
 
   MIN_BODY_SIZE = 230
 
@@ -34,14 +34,14 @@ class Summary < ApplicationRecord
   validates :anime, presence: true, unless: :manga?
   validates :manga, presence: true, unless: :anime?
 
-  scope :positive, -> { where opinion: Types::Summary::Opinion[:positive] }
+  scope :positive, -> { where opinion: Types::Review::Opinion[:positive] }
   scope :neutral, -> {
     where opinion: [
-      Types::Summary::Opinion[:neutral],
-      Types::Summary::Opinion[:unknown]
+      Types::Review::Opinion[:neutral],
+      Types::Review::Opinion[:unknown]
     ]
   }
-  scope :negative, -> { where opinion: Types::Summary::Opinion[:negative] }
+  scope :negative, -> { where opinion: Types::Review::Opinion[:negative] }
 
   before_create :fill_is_written_before_release,
     if: -> { is_written_before_release.nil? }

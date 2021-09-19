@@ -1,5 +1,5 @@
-describe Summary::Create do
-  subject(:summary) { described_class.call params }
+describe Review::Create do
+  subject(:review) { described_class.call params }
 
   let(:anime) { create :anime, :released, released_on: released_on }
   let(:released_on) { nil }
@@ -11,7 +11,7 @@ describe Summary::Create do
       user: user
     }
   end
-  let(:body) { 'a' * Summary::MIN_BODY_SIZE }
+  let(:body) { 'a' * Review::MIN_BODY_SIZE }
   let(:released_on) do
     [
       1.day.ago,

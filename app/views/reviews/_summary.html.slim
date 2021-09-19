@@ -1,0 +1,86 @@
+.b-review.shiki-object.to-process[
+  data-dynamic='review'
+  id=review.id
+]
+  - if review.persisted?
+    a name="review-#{review.id}"
+  - if review.persisted?
+    aside.markers
+      .b-new_marker[
+        data-appear_url=api_appears_url
+        data-text=t('markers.new')
+      ]
+    aside.moderation-ban
+    / = render 'reviews/buttons', review: review
+
+  header
+    / data-href=(review.respond_to?(:topic_url) ? review.topic_url : profile_url(review.user))
+    a.author-link href=profile_url(review.user)
+      img[
+        src=review.user.avatar_url(48)
+        srcset="#{review.user.avatar_url 80} 2x"
+        alt=review.user.nickname
+      ]
+    .review-details
+      .name-url
+        a.name[
+          href=profile_url(review.user)
+          itemprop='creator'
+          tabindex='-1'
+        ]
+          = review.user.nickname
+
+        a.to-review[
+          href=send("#{review.db_entry.class.name.downcase}_review_url", review.db_entry, review)
+        ]
+          | <<< #{t '.go_to_review'}
+
+      - if review.persisted?
+        .b-status-line
+
+          = render 'topics/status_line/section_dates', object: review
+          .section.additional
+            span.comments == review.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
+          = render 'topics/reviews/votes_count', review: review
+
+      .review-info
+        .opinion class=review.opinion
+        div
+          .label class=review.opinion
+            = review.opinion_text
+          .user-rate-label
+            | #{t '.in_author_list'}:
+            - unless review.user_rate
+              b.missing &nbsp;#{t 'no'}
+        - if review.user_rate
+          .user-rate
+            = render 'blocks/rate', score: review.user_rate.score, is_no_text_score: true
+            .b-add_to_list class=review.user_rate.status
+              .trigger
+                .edit-trigger
+                  .edit
+                  .text
+                    .status-name = review.user_rate.status_name
+
+  - if review.is_written_before_release && !review.db_entry.ongoing?
+    .is_written_before_release-container
+      .b-anime_status_tag.is_written_before_release.b-tooltipped.unprocessed[
+        title=t(".is_written_before_release.#{review.db_entry.class.name.downcase}")
+        data-direction='right'
+      ] = Review.human_attribute_name(:is_written_before_release)
+
+  .body[
+    itemprop='text'
+    class=(:check_height if review.persisted?)
+  ]
+    = review.html_body
+
+  footer
+    = render 'topics/footer/vote',
+      topic_type_policy: Topic::TypePolicy.new(review),
+      votable: review
+
+  - if review.persisted?
+    .b-appear_marker[
+      class="appear-review-#{review.id}"
+    ]

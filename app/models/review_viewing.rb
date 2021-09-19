@@ -1,6 +1,6 @@
-class SummaryViewing < ApplicationRecord
+class ReviewViewing < ApplicationRecord
   belongs_to :user
   belongs_to :viewed,
-    class_name: 'Summary',
+    class_name: 'Review',
     inverse_of: :viewings
 end

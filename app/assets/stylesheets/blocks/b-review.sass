@@ -6,7 +6,7 @@
 @import mixins/shiki_comment
 @import mixins/user_rate-minified
 
-.b-summary
+.b-review
   +block
   +shiki_comment_margins
 
@@ -34,7 +34,7 @@
       img
         width: 100%
 
-  .summary-details
+  .review-details
     +gte_ipad
       align-items: center
       display: flex
@@ -50,7 +50,7 @@
         font-size: 14px
         font-weight: bold
 
-      .to-summary
+      .to-review
         +ellipsis2
         +link
         align-self: flex-end
@@ -67,7 +67,7 @@
       line-height: inherit
       margin: 0 0 0 auto
 
-  .summary-info
+  .review-info
     align-items: flex-end
     display: flex
     font-family: var(--font-alt)

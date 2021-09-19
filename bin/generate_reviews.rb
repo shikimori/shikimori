@@ -6,8 +6,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../config/environment')
 ActiveRecord::Base.logger.level = 3;
 if Rails.env.development?
   # reload!
-  puts 'Destroying all summaries...'
-  Summary.destroy_all
+  puts 'Destroying all reviews...'
+  Review.destroy_all
 else
   raise RuntimeError
 end
@@ -16,12 +16,12 @@ end
   puts "Fetching #{klass.name.downcase} scores..."
   normalization = Recommendations::Normalizations::ZScoreCentering.new;
   rates_fetcher = Recommendations::RatesFetcher.new(klass);
-  summary = nil;
+  review = nil;
 
-  puts 'Generating summaries...'
+  puts 'Generating reviews...'
   Comment.
     includes(:user, commentable: :linked).
-    where(is_summary: true).
+    where(is_review: true).
     order(id: :desc).
     limit(1000).where(commentable_id: Anime.find(31240).decorate.main_topic_view.id).
     find_each do |comment|
@@ -39,19 +39,19 @@ end
       opinion =
         if normalized_score
           if normalized_score >= 0.095
-            Types::Summary::Opinion[:positive]
+            Types::Review::Opinion[:positive]
           elsif normalized_score <= -0.14
-            Types::Summary::Opinion[:negative]
+            Types::Review::Opinion[:negative]
           else
-            Types::Summary::Opinion[:neutral]
+            Types::Review::Opinion[:neutral]
           end
         else
-          Types::Summary::Opinion[:unknown]
+          Types::Review::Opinion[:unknown]
         end
 
       is_dropped = UserRate.find_by(target: db_entry, user: user)&.dropped?
       if is_dropped
-        opinion = Types::Summary::Opinion[:negative]
+        opinion = Types::Review::Opinion[:negative]
         ap "dropped #{opinion}"
       else
         ap "#{normalized_score} #{opinion}"
@@ -69,7 +69,7 @@ end
           binding.pry
         end
 
-      summary = Summary.new(
+      review = Review.new(
         user: user,
         body: comment.body,
         anime: (db_entry if db_entry.anime?),
@@ -78,12 +78,12 @@ end
         is_written_before_release: is_written_before_release,
         created_at: comment.created_at
       )
-      summary.instance_variable_set :@is_migration, true
-      Summary.wo_antispam do
-        summary.save!
-        # ap summary
+      review.instance_variable_set :@is_migration, true
+      Review.wo_antispam do
+        review.save!
+        # ap review
       rescue ActiveRecord::RecordInvalid
-        raise unless summary.errors[:user_id].present?
+        raise unless review.errors[:user_id].present?
       end
     end;
 end;

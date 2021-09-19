@@ -1,8 +1,8 @@
-describe Summary::Update do
-  subject { described_class.call summary, params }
+describe Review::Update do
+  subject { described_class.call review, params }
 
-  let(:summary) do
-    create :summary,
+  let(:review) do
+    create :review,
       user: user,
       anime: anime,
       is_written_before_release: true
@@ -19,14 +19,14 @@ describe Summary::Update do
   let(:is_written_before_release) { false }
 
   context 'valid update' do
-    let(:body) { 'b' * Summary::MIN_BODY_SIZE }
+    let(:body) { 'b' * Review::MIN_BODY_SIZE }
 
     context 'can change is_written_before_release' do
       let(:released_on) { Time.zone.today }
 
       it do
         is_expected.to eq true
-        expect(summary).to have_attributes(
+        expect(review).to have_attributes(
           body: body,
           is_written_before_release: is_written_before_release
         )
@@ -38,7 +38,7 @@ describe Summary::Update do
 
       it do
         is_expected.to eq true
-        expect(summary).to have_attributes(
+        expect(review).to have_attributes(
           body: body,
           is_written_before_release: true
         )
@@ -47,7 +47,7 @@ describe Summary::Update do
   end
 
   context 'invalid update' do
-    let(:body) { 'b' * (Summary::MIN_BODY_SIZE - 1) }
+    let(:body) { 'b' * (Review::MIN_BODY_SIZE - 1) }
     it { is_expected.to eq false }
   end
 end

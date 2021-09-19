@@ -1,7 +1,7 @@
-describe Api::V1::SummariesController do
+describe Api::V1::ReviewsController do
   include_context :authenticated
   let(:user) { create :user, :day_registered, nickname: 'zxc' } # do not remove. for apipie specs there is additional Timecop.freeze
-  let(:summary) { create :summary, user: user, anime: anime }
+  let(:review) { create :review, user: user, anime: anime }
   let(:anime) { create :anime }
 
   describe '#create' do
@@ -17,13 +17,13 @@ describe Api::V1::SummariesController do
       post :create,
         params: {
           frontend: is_frontend,
-          summary: params
+          review: params
         },
         format: :json
     end
 
     context 'success' do
-      let(:body) { 'x' * Summary::MIN_BODY_SIZE }
+      let(:body) { 'x' * Review::MIN_BODY_SIZE }
 
       context 'frontend' do
         let(:is_frontend) { true }
@@ -57,15 +57,15 @@ describe Api::V1::SummariesController do
     subject! do
       patch :update,
         params: {
-          id: summary.id,
+          id: review.id,
           frontend: is_frontend,
-          summary: params
+          review: params
         },
         format: :json
     end
 
     context 'success' do
-      let(:body) { 'b' * Summary::MIN_BODY_SIZE }
+      let(:body) { 'b' * Review::MIN_BODY_SIZE }
 
       context 'frontend' do
         let(:is_frontend) { true }
@@ -95,7 +95,7 @@ describe Api::V1::SummariesController do
 
   describe '#destroy' do
     let(:make_request) do
-      delete :destroy, params: { id: summary.id }, format: :json
+      delete :destroy, params: { id: review.id }, format: :json
     end
 
     context 'success', :show_in_doc do
@@ -108,7 +108,7 @@ describe Api::V1::SummariesController do
     end
 
     context 'forbidden' do
-      let(:summary) { create :summary, user: user_admin, anime: anime }
+      let(:review) { create :review, user: user_admin, anime: anime }
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
