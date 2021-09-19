@@ -764,7 +764,10 @@ Rails.application.routes.draw do
         type: kind.singularize.capitalize,
         except: [:show],
         controller: 'animes/critiques'
-      resources :reviews, only: %i[show] # index
+      resources :reviews,
+        type: kind.singularize.capitalize,
+        only: %i[show index new edit],
+        controller: 'animes/reviews'
     end
   end
 
