@@ -115,7 +115,9 @@ private
 
   def add_title
     og page_title: i18n_i('Critique', :other)
-    og page_title: i18n_t('critique_by', nickname: @critique.user.nickname) if params[:action] == 'show'
+    if params[:action] == 'show'
+      og page_title: i18n_t('critique_by', nickname: @critique.user.nickname)
+    end
   end
 
   def actualize_resource
