@@ -7,8 +7,8 @@
       = t '.question.cosplay'
     - elsif topic_type_policy.collection_topic?
       = t '.question.collection'
-    - elsif topic_type_policy.summary_topic?
-      = t '.question.summary'
+    - elsif topic_type_policy.review_topic?
+      = t '.question.review'
     - else
       - raise "unexpected type of #{topic_type_policy.objcet.class.name.downcase}.id=#{topic_type_policy.object.id}"
 

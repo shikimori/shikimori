@@ -19,6 +19,8 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :any_summaries?,
     to: :topic_comments_policy
 
+  delegate :format_date, to: :class
+
   instance_cache :html_body, :html_body_truncated, :html_footer,
     :comments_view, :urls, :action_tag, :topic_ignore,
     :topic_comments_policy, :topic_type_policy

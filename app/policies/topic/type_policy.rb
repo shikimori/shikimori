@@ -61,13 +61,13 @@ class Topic::TypePolicy
     !collection_topic? || @object.linked.published? || @object.linked.opened?
   end
 
-  def summary_topic?
+  def review_topic?
     @object.is_a? Summary
   end
 
   def votable_topic?
     critique_topic? || cosplay_gallery_topic? || (
       collection_topic? && (@object.linked.published? || @object.linked.opened?)
-    ) || summary_topic?
+    ) || review_topic?
   end
 end
