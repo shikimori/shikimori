@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_19_105722) do
+ActiveRecord::Schema.define(version: 2021_09_18_120357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -945,33 +945,6 @@ ActiveRecord::Schema.define(version: 2021_09_19_105722) do
     t.text "imports", array: true
   end
 
-  create_table "reviews", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "anime_id"
-    t.bigint "manga_id"
-    t.text "body", null: false
-    t.string "opinion", null: false
-    t.boolean "is_written_before_release", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "comments_count", default: 0, null: false
-    t.integer "cached_votes_up", default: 0, null: false
-    t.integer "cached_votes_down", default: 0, null: false
-    t.datetime "changed_at"
-    t.index ["anime_id"], name: "index_reviews_on_anime_id"
-    t.index ["manga_id"], name: "index_reviews_on_manga_id"
-    t.index ["user_id", "anime_id"], name: "index_reviews_on_user_id_and_anime_id", unique: true, where: "(anime_id IS NOT NULL)"
-    t.index ["user_id", "manga_id"], name: "index_reviews_on_user_id_and_manga_id", unique: true, where: "(manga_id IS NOT NULL)"
-    t.index ["user_id"], name: "index_reviews_on_user_id"
-  end
-
-  create_table "review_viewings", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.integer "viewed_id", null: false
-    t.index ["user_id", "viewed_id"], name: "index_review_viewings_on_user_id_and_viewed_id", unique: true
-    t.index ["viewed_id"], name: "index_review_viewings_on_viewed_id"
-  end
-
   create_table "svds", id: :serial, force: :cascade do |t|
     t.binary "entry_ids"
     t.binary "lsa"
@@ -1256,9 +1229,5 @@ ActiveRecord::Schema.define(version: 2021_09_19_105722) do
   add_foreign_key "comment_viewings", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
-  add_foreign_key "reviews", "animes"
-  add_foreign_key "reviews", "mangas"
-  add_foreign_key "reviews", "users"
-  add_foreign_key "review_viewings", "users"
   add_foreign_key "topic_viewings", "users"
 end

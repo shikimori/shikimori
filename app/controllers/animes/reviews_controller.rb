@@ -5,23 +5,19 @@ class Animes::ReviewsController < AnimesController
 
   before_action :actualize_resource
   before_action :add_title
-  before_action :add_breadcrumbs, except: [:index]
+  # before_action :add_breadcrumbs, except: %i[index]
   skip_before_action :og_meta
 
   # RULES_TOPIC_ID = 299_770
 
   def index
-    query = ::Reviews::Query.new(
-      @resource.object,
-      current_user,
-      locale_from_host,
-      params[:id].to_i
-    )
+    query = ::Reviews::Query.new @resource.object, current_user, params[:id].to_i
+
     @collection = query.fetch
-      .map do |review|
-        topic = review.maybe_topic locale_from_host
-        Topics::ReviewView.new topic, true, true
-      end
+      # .map do |review|
+      #   topic = review.maybe_topic locale_from_host
+      #   Topics::ReviewView.new topic, true, true
+      # end
   end
 
   # def new

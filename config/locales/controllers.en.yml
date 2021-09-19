@@ -396,6 +396,9 @@ en:
       removed: Critique removed
     critique_by: Critique by %{nickname}
 
+  animes/reviews_controller:
+    <<: *animes_controller
+
   users_controller:
     similar_users: Similar users
 

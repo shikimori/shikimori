@@ -396,6 +396,9 @@ ru:
       removed: Рецензия удалена
     critique_by: Рецензия от %{nickname}
 
+  animes/reviews_controller:
+    <<: *animes_controller
+
   users_controller:
     similar_users: Похожие пользователи
 

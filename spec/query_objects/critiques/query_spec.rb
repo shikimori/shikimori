@@ -12,7 +12,7 @@ describe Critiques::Query do
     end
   end
 
-  describe 'fetch' do
+  describe '#fetch' do
     subject { query.fetch.to_a }
     let(:locale) { :ru }
 
