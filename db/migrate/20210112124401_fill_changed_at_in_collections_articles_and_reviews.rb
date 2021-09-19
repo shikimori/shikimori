@@ -4,7 +4,7 @@ class FillChangedAtInCollectionsArticlesAndReviews < ActiveRecord::Migration[5.2
       update collections set changed_at = updated_at where changed_at is null;
     ]
     execute %q[
-      update reviews set changed_at = updated_at where changed_at is null;
+      update critiques set changed_at = updated_at where changed_at is null;
     ]
     execute %q[
       update articles set changed_at = updated_at where changed_at is null;

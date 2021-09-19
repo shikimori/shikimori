@@ -14,7 +14,7 @@ class FillUserRoles < ActiveRecord::Migration[5.1]
   ROLES = {
     admin: ADMIN_IDS,
     forum_moderator: FORUM_MODERATOR_IDS,
-    review_moderator: REVIEW_MODERATOR_IDS,
+    critique_moderator: REVIEW_MODERATOR_IDS,
     collection_moderator: COLLECTION_MODERATOR_IDS,
     version_moderator: VERSION_MODERATOR_IDS,
     translator: TRANSLATOR_IDS,

@@ -34,7 +34,7 @@ class FayeService
     if trackable.is_a? Message
       trackable.delete_by @actor
 
-    elsif trackable.is_a? Review
+    elsif trackable.is_a? Critique
       publisher.publish trackable.topic(trackable.locale), :deleted
       trackable.destroy
 

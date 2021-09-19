@@ -1,0 +1,29 @@
+@import mixins/responsive
+@import mixins/hide_mobile_menu
+
+.p-critiques-new,
+.p-critiques-edit,
+.p-critiques-create,
+.p-critiques-update
+  +hide_mobile_menu
+
+  .votes
+    +gte_laptop
+      margin-top: 120px !important
+
+  .critique-stars
+    float: none
+    width: auto
+    margin: 0 0 -10px
+
+    .star-line
+      display: inline-block
+
+      +gte_ipad
+        width: 30%
+
+      +iphone_portrait
+        width: 100%
+
+      +iphone_landscape
+        width: 50%

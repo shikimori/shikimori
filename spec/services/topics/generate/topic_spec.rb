@@ -87,8 +87,8 @@ describe Topics::Generate::Topic do
     it_behaves_like :topic
   end
 
-  context 'review' do
-    let(:model) { create :review }
+  context 'critique' do
+    let(:model) { create :critique }
     let(:user) { model.user }
     it_behaves_like :topic
   end

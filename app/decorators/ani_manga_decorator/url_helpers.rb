@@ -115,15 +115,15 @@ module AniMangaDecorator::UrlHelpers
   #   end
   # end
 
-  def reviews_url
-    h.send "#{klass_lower}_reviews_url", object
+  def critiques_url
+    h.send "#{klass_lower}_critiques_url", object
   end
 
-  def new_review_url
-    h.send "new_#{klass_lower}_review_url", object,
-      'review[user_id]' => h.current_user&.id,
-      'review[target_id]' => id,
-      'review[target_type]' => object.class.name
+  def new_critique_url
+    h.send "new_#{klass_lower}_critique_url", object,
+      'critique[user_id]' => h.current_user&.id,
+      'critique[target_id]' => id,
+      'critique[target_type]' => object.class.name
   end
 
   def resources_url

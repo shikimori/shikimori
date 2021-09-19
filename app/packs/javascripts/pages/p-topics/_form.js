@@ -16,7 +16,7 @@ pageUnload('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => 
 });
 
 pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
-  const $form = $('.b-form.edit_topic, .b-form.new_topic, .new-review-form');
+  const $form = $('.b-form.edit_topic, .b-form.new_topic, .new-critique-form');
   const $wall = $form.find('.b-shiki_wall');
 
   const $video = initVideo('topic', $form, $wall);

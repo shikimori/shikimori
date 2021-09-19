@@ -37,7 +37,7 @@ ru:
     page:
       actions:
         comment: Комментировать
-        review: Написать рецензию
+        critique: Написать рецензию
         add_to_favorites: Добавить в избранное
         remove_from_favorites: Удалить из избранного
         edit: Редактировать
@@ -47,7 +47,7 @@ ru:
       linked_directly: Напрямую
       chronology: Хронология
       franchise: Франшиза
-      create_review: Написать рецензию
+      create_critique: Написать рецензию
       upload_episode: Добавить эпизоды с tokyotosho.info
       search_on:
         toshokan: Поиск на тошокане

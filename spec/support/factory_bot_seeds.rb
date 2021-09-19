@@ -9,7 +9,7 @@ class FactoryBotSeeds
     user_week_registered
 
     news_forum
-    reviews_forum
+    critiques_forum
     animanga_forum
     contests_forum
     clubs_forum

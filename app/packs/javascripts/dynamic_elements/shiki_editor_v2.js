@@ -139,7 +139,7 @@ export default class ShikiEditorV2 extends View {
 
   async cleanup() {
     this._markOfftopic(false);
-    this._markReview(false);
+    this._markCritique(false);
 
     this.editorApp.clearContent();
   }
@@ -220,7 +220,7 @@ export default class ShikiEditorV2 extends View {
       .on('ajax:success', this._formAjaxSuccess);
 
     this.$('.b-offtopic_marker').on('click', this._onMarkOfftopic);
-    this.$('.b-summary_marker').on('click', this._onMarkReview);
+    this.$('.b-summary_marker').on('click', this._onMarkCritique);
   }
 
   _scheduleDestroy() {
@@ -233,9 +233,9 @@ export default class ShikiEditorV2 extends View {
     this.$('.b-offtopic_marker').toggleClass('off', !isOfftopic);
   }
 
-  _markReview(isReview) {
-    this.$form.find('input[name$="[is_summary]"]').val(isReview ? 'true' : 'false');
-    this.$('.b-summary_marker').toggleClass('off', !isReview);
+  _markCritique(isCritique) {
+    this.$form.find('input[name$="[is_summary]"]').val(isCritique ? 'true' : 'false');
+    this.$('.b-summary_marker').toggleClass('off', !isCritique);
   }
 
   _readCacheValue() {
@@ -312,8 +312,8 @@ export default class ShikiEditorV2 extends View {
   }
 
   @bind
-  _onMarkReview() {
-    this._markReview(
+  _onMarkCritique() {
+    this._markCritique(
       this.$('.b-summary_marker').hasClass('off')
     );
   }

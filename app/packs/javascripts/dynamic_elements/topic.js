@@ -273,7 +273,7 @@ export default class Topic extends ShikiEditable {
   get isClubPage() { return this.$node.hasClass('b-club_page-topic'); }
 
   @memoize
-  get isReview() { return this.$node.hasClass('b-review-topic'); }
+  get isCritique() { return this.$node.hasClass('b-critique-topic'); }
 
   @memoize
   get $commentsHider() { return this.$('.comments-hider'); }
@@ -426,8 +426,8 @@ export default class Topic extends ShikiEditable {
   // проверка высоты топика. урезание, если текст слишком длинный (точно такой же код в shiki_comment)
   @bind
   _checkHeight() {
-    if (this.isReview) {
-      const imageHeight = this.$('.review-entry_cover img').height();
+    if (this.isCritique) {
+      const imageHeight = this.$('.critique-entry_cover img').height();
       const readMoreHeight = 13 + 5; // 5px - read_more offset
 
       if (imageHeight > 0) {

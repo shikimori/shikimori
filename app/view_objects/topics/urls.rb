@@ -15,8 +15,8 @@ class Topics::Urls < ViewObjectBase
   end
 
   def edit_url
-    if topic_type_policy.review_topic?
-      h.send "edit_#{topic.linked.target_type.downcase}_review_url",
+    if topic_type_policy.critique_topic?
+      h.send "edit_#{topic.linked.target_type.downcase}_critique_url",
         topic.linked.target, topic.linked
 
     elsif topic_type_policy.collection_topic?
@@ -34,8 +34,8 @@ class Topics::Urls < ViewObjectBase
   end
 
   def destroy_url
-    if topic_type_policy.review_topic?
-      h.send "#{topic.linked.target_type.downcase}_review_url",
+    if topic_type_policy.critique_topic?
+      h.send "#{topic.linked.target_type.downcase}_critique_url",
         topic.linked.target, topic.linked
 
     elsif topic_type_policy.collection_topic?

@@ -4,7 +4,7 @@ class Users::ActivityStats
   attribute :comments_count, Integer
   attribute :topics_count, Integer
   attribute :summaries_count, Integer
-  attribute :reviews_count, Integer
+  attribute :critiques_count, Integer
   attribute :collections_count, Integer
   attribute :articles_count, Integer
   attribute :versions_count, Integer
@@ -14,7 +14,7 @@ class Users::ActivityStats
 
   def social_activity?
     comments_count.positive? || summaries_count.positive? ||
-      reviews_count.positive? || versions_count.positive? ||
+      critiques_count.positive? || versions_count.positive? ||
       video_uploads_count.positive? || video_changes_count.positive?
   end
 

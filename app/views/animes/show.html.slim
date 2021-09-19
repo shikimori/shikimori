@@ -36,12 +36,12 @@
                 data-dynamic='day_registered'
                 data-text=t('.actions.comment')
               ]
-              a.b-subposter-action.new_review.b-tooltipped.unprocessed.to-process[
-                href=@resource.new_review_url
-                title=t('.actions.review')
+              a.b-subposter-action.new_critique.b-tooltipped.unprocessed.to-process[
+                href=@resource.new_critique_url
+                title=t('.actions.critique')
                 data-direction='top'
                 data-dynamic='week_registered'
-                data-text=t('.actions.review')
+                data-text=t('.actions.critique')
               ]
               a.b-subposter-action.fav-add.b-tooltipped.unprocessed.to-process[
                 href=toggle_api_favorites_url(linked_type: @resource.object.class.name, linked_id: @resource.id)

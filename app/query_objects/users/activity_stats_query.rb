@@ -24,8 +24,8 @@ class Users::ActivityStatsQuery
     Comment.where(is_summary: true, user_id: @user.id).count
   end
 
-  def reviews_count
-    @user.reviews.available.count
+  def critiques_count
+    @user.critiques.available.count
   end
 
   def collections_count

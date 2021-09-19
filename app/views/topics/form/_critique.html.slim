@@ -1,0 +1,13 @@
+.subheadline = t '.pick_target'
+.new-critique-form
+  input#topic_linked_id type='hidden'
+  input#topic_linked_type type='hidden'
+
+  = render 'topics/form/linked',
+    topic: topic,
+    label: false,
+    critique_types: true
+
+  a.b-link_button.dark.arrow-right.inline.disabled[
+    data-url_template=new_anime_critique_url('TARGET_ID', 'critique[user_id]' => current_user&.id, 'critique[target_id]' => 'TARGET_ID', 'critique[target_type]' => 'TARGET_TYPE')
+  ] = t '.go_next'

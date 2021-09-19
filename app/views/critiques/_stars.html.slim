@@ -1,0 +1,45 @@
+- has_storyline = critique.storyline.present? && !critique.storyline.zero?
+- has_characters = critique.characters.present? && !critique.characters.zero?
+- has_animation = critique.animation.present? && !critique.animation.zero?
+- has_music = defined?(with_music) && with_music && critique.music.present? && !critique.music.zero?
+- has_overall = critique.overall.present? && !critique.overall.zero?
+
+- if defined?(in_edit) || has_storyline || has_characters || has_animation || has_music || has_overall
+  .critique-stars
+    - if defined?(in_edit) || has_storyline
+      .star-line
+        p.title = t '.story'
+        = render partial: 'blocks/rate', locals: { score: critique.storyline || 0, input_selector: ('#critique_storyline' if defined?(in_edit)) }
+        - if defined? in_edit
+          = hidden_field_tag 'critique[storyline]', critique.storyline
+
+    - if defined?(in_edit) || has_characters
+      .star-line
+        p.title = t '.characters'
+        = render partial: 'blocks/rate', locals: { score: critique.characters || 0, input_selector: ('#critique_characters' if defined?(in_edit)) }
+        - if defined? in_edit
+          = hidden_field_tag 'critique[characters]', critique.characters
+
+    - if defined?(in_edit) || has_animation
+      .star-line
+        p.title = t '.art'
+        = render partial: 'blocks/rate', locals: { score: critique.animation || 0, input_selector: ('#critique_animation' if defined?(in_edit)) }
+        - if defined? in_edit
+          = hidden_field_tag 'critique[animation]', critique.animation
+
+    - if defined?(in_edit) || has_music
+      .star-line
+        p.title = t '.sound'
+        = render partial: 'blocks/rate', locals: { score: critique.music || 0, input_selector: ('#critique_music' if defined?(in_edit)) }
+        - if defined? in_edit
+          = hidden_field_tag 'critique[music]', critique.music
+
+    - if defined?(in_edit) || has_overall
+      .star-line
+        p.title = t '.overall'
+        = render partial: 'blocks/rate', locals: { score: critique.overall || 0, input_selector: ('#critique_overall' if defined?(in_edit)) }
+        - if defined? in_edit
+          = hidden_field_tag 'critique[overall]', critique.overall
+
+- if has_overall
+  meta itemprop="critiqueRating" content="#{critique.overall}"

@@ -46,7 +46,7 @@ module Copyright
     38397, # Nande Koko ni Sensei ga!?
     38656, # Darwin's Game
     39017, # Kyokou Suiri
-    40010, # Ishuzoku Reviewers
+    40010, # Ishuzoku Critiqueers
     40046 # Id:Invaded
   ]
 

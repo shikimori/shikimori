@@ -27,4 +27,4 @@
       span.comments == topic_view.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
 
     - if topic_type_policy.votable_topic?
-      = render 'topics/reviews/votes_count', review: topic_view.topic.linked
+      = render 'topics/critiques/votes_count', critique: topic_view.topic.linked

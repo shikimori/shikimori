@@ -18,9 +18,9 @@ describe DashboardViewV2 do
     its(:collections_views) { is_expected.to have(1).item }
   end
 
-  describe '#reviews_views' do
-    let!(:review) { create :review, :with_topics }
-    its(:reviews_views) { is_expected.to have(1).item }
+  describe '#critiques_views' do
+    let!(:critique) { create :critique, :with_topics }
+    its(:critiques_views) { is_expected.to have(1).item }
   end
 
   describe '#articles_views' do

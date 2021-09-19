@@ -5,7 +5,7 @@ describe Topic::TypePolicy do
   let(:news_topic) { build_stubbed :news_topic }
   let(:generated_news_topic) { build_stubbed :news_topic, generated: true }
   let(:not_generated_news_topic) { build_stubbed :news_topic, generated: false }
-  let(:review_topic) { build_stubbed :review_topic }
+  let(:critique_topic) { build_stubbed :critique_topic }
   let(:cosplay_gallery_topic) { build_stubbed :cosplay_gallery_topic }
   let(:contest_topic) { build_stubbed :contest_topic }
   let(:club_topic) { build_stubbed :club_topic }
@@ -78,15 +78,15 @@ describe Topic::TypePolicy do
     end
   end
 
-  describe '#review_topic?' do
-    subject { policy.review_topic? }
+  describe '#critique_topic?' do
+    subject { policy.critique_topic? }
 
-    context 'review topic' do
-      let(:topic) { review_topic }
+    context 'critique topic' do
+      let(:topic) { critique_topic }
       it { is_expected.to eq true }
     end
 
-    context 'not review topic' do
+    context 'not critique topic' do
       let(:topic) { forum_topic }
       it { is_expected.to eq false }
     end
@@ -250,8 +250,8 @@ describe Topic::TypePolicy do
   describe '#votable_topic?' do
     subject { policy.votable_topic? }
 
-    context 'review_topic' do
-      let(:topic) { review_topic }
+    context 'critique_topic' do
+      let(:topic) { critique_topic }
       it { is_expected.to eq true }
     end
 

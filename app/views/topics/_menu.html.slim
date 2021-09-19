@@ -14,7 +14,7 @@
         /srcset="//moe.shikimori.one/system/user_images/original/40225/95247.jpg 2x"
       /]
 
-/ - cache [:site_block, :reviews, presenter.reviews_key], expires_in: 6.hours do
+/ - cache [:site_block, :critiques, presenter.critiques_key], expires_in: 6.hours do
 
 / .block2.sponsors
   / .subheadline.gray = t 'sponsors'
@@ -24,35 +24,35 @@
     / / - else
     / div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
-- if menu.reviews.any?
-  .block2.reviews
+- if menu.critiques.any?
+  .block2.critiques
     h2.subheadline.m13
       a[
-        href=forum_topics_url(:reviews)
-        title=t('.to_reviews')
-      ] = t '.reviews'
+        href=forum_topics_url(:critiques)
+        title=t('.to_critiques')
+      ] = t '.critiques'
     ul
-      - menu.reviews.each do |review|
-        - review_topic = review.topic(locale_from_host)
+      - menu.critiques.each do |critique|
+        - critique_topic = critique.topic(locale_from_host)
 
         li.entry
           a[
-            href=forum_topic_url(forum: review_topic.forum, id: review_topic)
-            title=review_topic.title
+            href=forum_topic_url(forum: critique_topic.forum, id: critique_topic)
+            title=critique_topic.title
           ]
             .image-name
               img[
-                src=cdn_image(review.target, :x48)
-                srcset="#{cdn_image review.target, :x96} 2x"
-                alt=localized_name(review.target)
+                src=cdn_image(critique.target, :x48)
+                srcset="#{cdn_image critique.target, :x96} 2x"
+                alt=localized_name(critique.target)
               ]
               span.title
-                == review.target.name
+                == critique.target.name
             span.misc
-              = t '.user_review', author: review.user.nickname
+              = t '.user_critique', author: critique.user.nickname
             time.misc.date[
-              datetime=review.created_at.iso8601
-            ] = l review.created_at, format: '%e %B %Y'
+              datetime=critique.created_at.iso8601
+            ] = l critique.created_at, format: '%e %B %Y'
 
 .block2.clubs
   h2.subheadline.m13

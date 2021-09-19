@@ -32,11 +32,11 @@ en:
       anime: '%{anime_days_count} %{anime_days} of anime'
       manga: '%{manga_days_count} %{manga_days} of manga'
 
-  topics/review_view:
+  topics/critique_view:
     title:
-      anime: Anime &laquo;%{target_name}&raquo; review
-      manga: Manga &laquo;%{target_name}&raquo; review
-      ranobe: Ranobe &laquo;%{target_name}&raquo; review
+      anime: Anime &laquo;%{target_name}&raquo; critique
+      manga: Manga &laquo;%{target_name}&raquo; critique
+      ranobe: Ranobe &laquo;%{target_name}&raquo; critique
 
   comments/view: &comments
     show_comments: Display %{comment_count} %{comment_word}

@@ -1,0 +1,18 @@
+.subheadline = og.headline
+.b-critique-topic.block
+  .body
+    = BbCodes::Text.call t '.introduction',
+      kind: @resource.anime? ? t('this.anime') : t('this.manga')
+
+    - if @rules_topic
+      = @rules_topic.html_body
+      .right-text
+        a.b-link href=@rules_topic.url = @rules_topic.topic_title
+        = BbCodes::Text.call "[right][profile=#{@rules_topic.user.id}]#{@rules_topic.user.nickname}[/profile][/right]"
+    - else
+      = BbCodes::Text.call t '.guidelines'
+
+center
+  a.b-link_button.dark.arrow-right.inline[
+    href=url_for(safe_params.merge(rules_passed: '1'))
+  ] = t 'topics.form.rules.go_next'

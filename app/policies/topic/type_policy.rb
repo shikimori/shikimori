@@ -17,8 +17,8 @@ class Topic::TypePolicy
     news_topic? && !@object.generated?
   end
 
-  def review_topic?
-    @object.instance_of? Topics::EntryTopics::ReviewTopic
+  def critique_topic?
+    @object.instance_of? Topics::EntryTopics::CritiqueTopic
   end
 
   def cosplay_gallery_topic?
@@ -66,8 +66,18 @@ class Topic::TypePolicy
   end
 
   def votable_topic?
+<<<<<<< HEAD
     review_topic? || cosplay_gallery_topic? || (
       collection_topic? && (@object.linked.published? || @object.linked.opened?)
     ) || summary_topic?
+||||||| f75f2aa13
+    review_topic? || cosplay_gallery_topic? || (
+      collection_topic? && (topic.linked.published? || topic.linked.opened?)
+    )
+=======
+    critique_topic? || cosplay_gallery_topic? || (
+      collection_topic? && (topic.linked.published? || topic.linked.opened?)
+    )
+>>>>>>> critiques
   end
 end

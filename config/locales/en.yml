@@ -16,7 +16,7 @@ en:
       person: Person
       poll: Poll
       ranobe: Light Novel
-      review: Review
+      critique: Critique
       topic: Topic
       topics/news_topic: News Topic
       user: User
@@ -191,7 +191,7 @@ en:
         list_type: List Type
         list: List File
         state: State
-      review:
+      critique:
         text: Text
         storyline: Story
         animation: Art
@@ -357,7 +357,7 @@ en:
           proposing: proposing candidates
           started: active
           finished: finished
-      review: &review_states
+      critique: &critique_states
         states:
           pending: pending approval
           accepted: accepted
@@ -366,11 +366,11 @@ en:
           publish: Publish
           unpublish: Unpublish
       collection:
-        <<: *review_states
+        <<: *critique_states
       article:
-        <<: *review_states
+        <<: *critique_states
       topics/news_topic:
-        <<: *review_states
+        <<: *critique_states
       poll:
         states:
           pending: Pending
@@ -566,7 +566,7 @@ en:
     abuse_request:
       kind:
         offtopic: offtopic
-        review: summary
+        critique: summary
         spoiler: spoiler
         abuse: abuse
     topics/news_topic:

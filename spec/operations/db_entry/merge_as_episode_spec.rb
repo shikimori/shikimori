@@ -51,7 +51,7 @@ describe DbEntry::MergeAsEpisode do
 
   let!(:comment_1) { create :comment, :with_increment_comments, commentable: entry.maybe_topic(:ru) }
 
-  let!(:review) { create :review, target: entry }
+  let!(:critique) { create :critique, target: entry }
 
   let(:collection) { create :collection }
   let!(:collection_link) { create :collection_link, linked: entry, collection: collection }
@@ -136,7 +136,7 @@ describe DbEntry::MergeAsEpisode do
     expect { comment_1.reload.reload }.to raise_error ActiveRecord::RecordNotFound
     expect(other.maybe_topic(:ru).comments_count).to eq 0
 
-    expect(review.reload.target).to eq other
+    expect(critique.reload.target).to eq other
     expect { collection_link.reload }.to raise_error ActiveRecord::RecordNotFound
 
     expect { version.reload }.to raise_error ActiveRecord::RecordNotFound
@@ -486,7 +486,7 @@ describe DbEntry::MergeAsEpisode do
             expect(user_rate_other.reload).to have_attributes(
               episode_field => user_rate_other_episodes,
               status: 'watching',
-              text: "✅ #{described_class::EPISODE_LABEL[episode_field]} 0 #{entry.name} (#{entry.russian})"
+              text: "✅ #{entry.name} (#{entry.russian})"
             )
           end
         end
@@ -514,7 +514,7 @@ describe DbEntry::MergeAsEpisode do
           expect(new_user_rate).to have_attributes(
             status: 'watching',
             episode_field => 0,
-            text: "✅ #{described_class::EPISODE_LABEL[episode_field]} 0 #{entry.name} (#{entry.russian})"
+            text: "✅ #{entry.name} (#{entry.russian})"
           )
         end
       end

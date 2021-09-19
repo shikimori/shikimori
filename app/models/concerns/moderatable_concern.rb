@@ -22,15 +22,15 @@ module ModeratableConcern
       event(:reject) { transition pending: :rejected }
       event(:cancel) { transition accepted: :pending }
 
-      before_transition pending: :accepted do |review, transition|
-        review.approver = transition.args.first
+      before_transition pending: :accepted do |critique, transition|
+        critique.approver = transition.args.first
       end
 
-      before_transition pending: :rejected do |review, transition|
-        review.approver = transition.args.first
-        review.to_offtopic!
+      before_transition pending: :rejected do |critique, transition|
+        critique.approver = transition.args.first
+        critique.to_offtopic!
 
-        Messages::CreateNotification.new(review)
+        Messages::CreateNotification.new(critique)
           .moderatable_banned(transition.args.second)
       end
     end

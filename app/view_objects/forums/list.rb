@@ -32,7 +32,7 @@ private
   def static_forums
     [
       decorate(Forum.news, true),
-      decorate(Forum.find_by_permalink('reviews'), true), # rubocop:disable DynamicFindBy
+      decorate(Forum.find_by_permalink('critiques'), true), # rubocop:disable DynamicFindBy
       decorate(Forum.find_by_permalink('contests'), true), # rubocop:disable DynamicFindBy
       decorate(Forum.find_by_permalink('collections'), true), # rubocop:disable DynamicFindBy
       decorate(Forum.find_by_permalink('articles'), true), # rubocop:disable DynamicFindBy

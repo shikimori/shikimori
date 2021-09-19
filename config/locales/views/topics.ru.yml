@@ -16,7 +16,7 @@ ru:
     footer:
       vote:
         question:
-          review: Эта рецензия полезна?
+          critique: Эта рецензия полезна?
           cosplay: Тебе нравится?
           collection: Эта коллекция полезна или интересна?
           summary: Этот отзыв полезен?
@@ -37,7 +37,7 @@ ru:
         pick_topic_type: Выбери тип топика
         common_topic: Обычный топик
         news_topic: Новостной топик
-      review:
+      critique:
         pick_target: Выбери, о чём рецензия
         go_next: Далее
       rules:
@@ -59,7 +59,7 @@ ru:
     menu_actions:
       create_topic: Создать топик
       create_news: Написать новость
-      create_review: Написать рецензию
+      create_critique: Написать рецензию
       create_article: Написать статью
       create_collection: Создать коллекцию
       reload_forum: обновить форум
@@ -70,12 +70,12 @@ ru:
       new_club: Создан новый клуб
       new_club_topic: Создан новый топик
       new_club_page: Создана новая страница
-      reviews: Рецензии
+      critiques: Рецензии
       show_more: '+ показать ещё'
       sticky_topics: Прикреплённое
       to_clubs: К клубам
-      to_reviews: К рецензиям
-      user_review: 'Рецензия %{author}'
+      to_critiques: К рецензиям
+      user_critique: 'Рецензия %{author}'
       contests: :dashboards.show.contests
     cosplay:
       info:

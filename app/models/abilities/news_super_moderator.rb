@@ -15,7 +15,7 @@ class Abilities::NewsSuperModerator
 
   def roles_abilities
     can %i[
-      manage_review_moderator_role
+      manage_critique_moderator_role
       manage_news_moderator_role
       manage_article_moderator_role
       manage_collection_moderator_role

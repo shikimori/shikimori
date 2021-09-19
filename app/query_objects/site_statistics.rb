@@ -111,12 +111,12 @@ class SiteStatistics
       .limit(USERS_LIMIT * 4)
   end
 
-  def reviewers
+  def critiqueers
     User
-      .joins(:reviews)
-      .where.not(reviews: { moderation_state: :rejected })
+      .joins(:critiques)
+      .where.not(critiques: { moderation_state: :rejected })
       .group('users.id')
-      .order(Arel.sql('count(reviews.id) desc'))
+      .order(Arel.sql('count(critiques.id) desc'))
       .limit(USERS_LIMIT)
   end
 

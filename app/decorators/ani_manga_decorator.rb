@@ -7,7 +7,7 @@ class AniMangaDecorator < DbEntryDecorator
   NEWS_PER_PAGE = 12
   VISIBLE_RELATED = 7
 
-  instance_cache :topics, :news_topics, :reviews, :reviews_count, :cosplay?,
+  instance_cache :topics, :news_topics, :critiques, :critiques_count, :cosplay?,
     :current_rate, :changes, :versions, :versions_page,
     :roles, :related, :friend_rates, :recent_rates, :chronology,
     :external_links, :available_external_links,
@@ -34,8 +34,8 @@ class AniMangaDecorator < DbEntryDecorator
     object.summaries.includes(:user).order(:id).take(20)
   end
 
-  def reviews_count
-    object.reviews.visible.count
+  def critiques_count
+    object.critiques.visible.count
   end
 
   def files?
@@ -52,8 +52,8 @@ class AniMangaDecorator < DbEntryDecorator
     anime? && h.current_user&.staff?
   end
 
-  def reviews?
-    reviews_count.positive?
+  def critiques?
+    critiques_count.positive?
   end
 
   def cosplay?

@@ -108,18 +108,18 @@ describe Forums::View do
       end
 
       context 'forum' do
-        let(:forum) { 'reviews' }
+        let(:forum) { 'critiques' }
         it do
-          expect(view.faye_subscriptions).to eq ["forum-#{reviews_forum.id}/ru"]
+          expect(view.faye_subscriptions).to eq ["forum-#{critiques_forum.id}/ru"]
         end
       end
 
       context 'linked_forum' do
-        let(:forum) { 'reviews' }
-        let(:options) { { linked: review, linked_forum: true } }
-        let(:review) { create :review }
+        let(:forum) { 'critiques' }
+        let(:options) { { linked: critique, linked_forum: true } }
+        let(:critique) { create :critique }
         it do
-          expect(view.faye_subscriptions).to eq ["review-#{review.id}"]
+          expect(view.faye_subscriptions).to eq ["critique-#{critique.id}"]
         end
       end
     end
@@ -172,9 +172,9 @@ describe Forums::View do
       it { expect(view.linked).to eq entry }
     end
 
-    context 'reviews' do
-      let(:permalink) { 'reviews' }
-      let(:entry) { create :review }
+    context 'critiques' do
+      let(:permalink) { 'critiques' }
+      let(:entry) { create :critique }
 
       it { expect(view.linked).to eq entry }
     end

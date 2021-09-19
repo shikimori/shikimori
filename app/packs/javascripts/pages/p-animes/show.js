@@ -4,14 +4,14 @@ pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
 
   $('.text').checkHeight({ maxHeight: 200 });
 
-  const $newReview = $('.new_review');
+  const $newCritique = $('.new_critique');
   if (window.SHIKI_USER.isSignedIn) {
-    const newReviewUrl = $newReview
+    const newCritiqueUrl = $newCritique
       .attr('href')
       .replace(/%5Buser_id%5D=(\d+|ID)/, `%5Buser_id%5D=${window.SHIKI_USER.id}`);
-    $newReview.attr({ href: newReviewUrl });
+    $newCritique.attr({ href: newCritiqueUrl });
   } else {
-    $newReview.hide();
+    $newCritique.hide();
   }
 
   // autoload of resource info for guests

@@ -248,8 +248,8 @@ describe Topic do
         it { is_expected.to_not be_able_to :manage, topic }
       end
 
-      context 'generated review topic' do
-        let(:topic) { build_stubbed :review_topic }
+      context 'generated critique topic' do
+        let(:topic) { build_stubbed :critique_topic }
         it { is_expected.to_not be_able_to :manage, topic }
       end
 
@@ -290,8 +290,8 @@ describe Topic do
         it { is_expected.to_not be_able_to :manage, topic }
       end
 
-      context 'generated review topic' do
-        let(:topic) { build_stubbed :review_topic, user: build_stubbed(:user) }
+      context 'generated critique topic' do
+        let(:topic) { build_stubbed :critique_topic, user: build_stubbed(:user) }
         it { is_expected.to be_able_to :manage, topic }
       end
     end
@@ -321,12 +321,12 @@ describe Topic do
       end
     end
 
-    describe 'review topic' do
-      let(:topic) { build_stubbed :review_topic, user: review_owner }
+    describe 'critique topic' do
+      let(:topic) { build_stubbed :critique_topic, user: critique_owner }
       let(:user) { build_stubbed :user, :user, :week_registered }
 
       context 'common user' do
-        let(:review_owner) { build_stubbed :user, :user, :week_registered }
+        let(:critique_owner) { build_stubbed :user, :user, :week_registered }
 
         it { is_expected.to_not be_able_to :new, topic }
         it { is_expected.to_not be_able_to :edit, topic }
@@ -336,8 +336,8 @@ describe Topic do
         it { is_expected.not_to be_able_to :moderate, topic }
       end
 
-      context 'review owner' do
-        let(:review_owner) { user }
+      context 'critique owner' do
+        let(:critique_owner) { user }
 
         it { is_expected.to be_able_to :new, topic }
         it { is_expected.to be_able_to :edit, topic }
@@ -363,7 +363,7 @@ describe Topic do
         it { is_expected.not_to be_able_to :moderate, topic }
       end
 
-      context 'review owner' do
+      context 'critique owner' do
         let(:collection_owner) { user }
 
         it { is_expected.to be_able_to :new, topic }

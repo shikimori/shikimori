@@ -40,7 +40,7 @@ describe AdsPolicy do
       let(:user) do
         build :user, %i[
           forum_moderator
-          review_moderator
+          critique_moderator
           version_moderator
           version_texts_moderator
           version_fansub_moderator

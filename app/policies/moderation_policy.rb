@@ -3,17 +3,17 @@ class ModerationPolicy
 
   pattr_initialize :user, :locale, :moderation_filter
 
-  instance_cache :reviews_count, :collections_count,
+  instance_cache :critiques_count, :collections_count,
     :abuses_total_count,
     :abuses_abuses_count,
     :abuses_pending_count,
     :all_content_versions_count,
     :names_versions_count, :texts_versions_count, :content_versions_count, :fansub_versions_count
 
-  def reviews_count
-    return 0 unless !@moderation_filter || @user&.review_moderator?
+  def critiques_count
+    return 0 unless !@moderation_filter || @user&.critique_moderator?
 
-    Review.pending.where(locale: @locale).size
+    Critique.pending.where(locale: @locale).size
   end
 
   def collections_count

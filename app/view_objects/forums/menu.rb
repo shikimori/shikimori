@@ -1,6 +1,6 @@
 class Forums::Menu < ViewObjectBase
   pattr_initialize :forum, :linked
-  instance_cache :club_topics, :reviews
+  instance_cache :club_topics, :critiques
 
   def club_topics
     Topic
@@ -25,8 +25,8 @@ class Forums::Menu < ViewObjectBase
     Forums::List.new with_forum_size: true
   end
 
-  def reviews
-    @reviews ||= Review
+  def critiques
+    @critiques ||= Critique
       .where('created_at >= ?', 2.weeks.ago)
       .where(locale: h.locale_from_host)
       .visible
@@ -68,9 +68,9 @@ class Forums::Menu < ViewObjectBase
     )
   end
 
-  def new_review_url
+  def new_critique_url
     h.new_topic_url(
-      forum: Forum.reviews,
+      forum: Forum.critiques,
       'topic[user_id]' => h.current_user&.id,
       'topic[forum_id]' => forum ? forum.id : nil
     )

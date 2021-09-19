@@ -13,8 +13,8 @@ class Topics::TopicViewFactory
   def build topic # rubocop:disable all
     topic_type_policy = Topic::TypePolicy.new(topic)
 
-    if topic_type_policy.review_topic?
-      review_topic topic
+    if topic_type_policy.critique_topic?
+      critique_topic topic
 
     elsif topic_type_policy.contest_topic?
       contest_topic topic
@@ -47,8 +47,8 @@ class Topics::TopicViewFactory
 
 private
 
-  def review_topic topic
-    Topics::ReviewView.new topic, is_preview, is_mini
+  def critique_topic topic
+    Topics::CritiqueView.new topic, is_preview, is_mini
   end
 
   def contest_topic topic

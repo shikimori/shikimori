@@ -130,7 +130,7 @@ class AnimesController < DbEntriesController
       return redirect_to @resource.url, status: :moved_permanently
     end
 
-    og page_title: i18n_t("reviews.#{@resource.object.class.name.downcase}")
+    og page_title: i18n_t("critiques.#{@resource.object.class.name.downcase}")
   end
 
   def art
@@ -293,7 +293,7 @@ private
 
     if @resource
       # everything except animes#show
-      if params[:action] != 'show' || params[:controller] == 'reviews'
+      if params[:action] != 'show' || params[:controller] == 'critiques'
         breadcrumb(
           UsersHelper.localized_name(@resource, current_user),
           @resource.url(false)

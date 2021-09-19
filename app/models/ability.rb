@@ -25,8 +25,8 @@ class Ability
         merge Abilities::ContestModerator.new(user)
       end
 
-      if user.review_moderator? || is_admin_or_super_moderators
-        merge Abilities::ReviewModerator.new(user)
+      if user.critique_moderator? || is_admin_or_super_moderators
+        merge Abilities::CritiqueModerator.new(user)
       end
 
       if user.collection_moderator? || is_admin_or_super_moderators
@@ -112,8 +112,8 @@ class Ability
 
     can %i[read preview], Style
 
-    can :read, Review
     can :read, Summary
+    can :read, Critique
     can :read, Topic
     can :read, Collection, state: %i[published opened]
     can :read, Collection do |collection|

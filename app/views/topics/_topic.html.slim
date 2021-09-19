@@ -11,7 +11,7 @@ article.shiki-object.to-process[
   data-user_id=topic_view.user.id
   data-user_nickname=topic_view.user.nickname
   itemscope
-  itemtype=(topic_view.topic_type_policy.review_topic? ? 'http://schema.org/Review' : 'http://schema.org/Article')
+  itemtype=(topic_view.topic_type_policy.critique_topic? ? 'http://schema.org/Critique' : 'http://schema.org/Article')
 ]
   meta itemprop='author' content=topic_view.topic.user.nickname
   meta itemprop='name' content=topic_view.topic.title
@@ -40,7 +40,7 @@ article.shiki-object.to-process[
   - elsif topic_view.show_inner?
     = render 'topics/inner', topic_view: topic_view
 
-  / do not replace to `minified?`, it will work incorrectly for reviews
+  / do not replace to `minified?`, it will work incorrectly for critiques
   - unless topic_view.is_mini || !topic_view.topic_type_policy.commentable_topic?
     = render 'topics/comments',
       comments_view: topic_view.comments_view,

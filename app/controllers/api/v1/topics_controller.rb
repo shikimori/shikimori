@@ -34,7 +34,7 @@ class Api::V1::TopicsController < Api::V1Controller
     Topics::EntryTopics::MangaTopic
     Topics::EntryTopics::PersonTopic
     Topics::EntryTopics::RanobeTopic
-    Topics::EntryTopics::ReviewTopic
+    Topics::EntryTopics::CritiqueTopic
     Topics::NewsTopic
     Topics::NewsTopics::ContestStatusTopic
   ], required: false

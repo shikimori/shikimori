@@ -40,7 +40,7 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
     49_520
   ]
 
-  instance_cache :ongoings, :favourites, :reviews, :contests, :forums,
+  instance_cache :ongoings, :favourites, :critiques, :contests, :forums,
     :new_ongoings, :old_ongoings, :cache_keys
 
   def ongoings
@@ -88,12 +88,12 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
     ].compact
   end
 
-  def review_topic_views
-    all_review_topic_views
+  def critique_topic_views
+    all_critique_topic_views
       .shuffle
       .reject { |view| view.topic.linked.target.censored? }
       .sort_by { |view| -view.topic.id }
-      .select.with_index { |_review, index| index == cache_keys[:reviews_index] }
+      .select.with_index { |_critique, index| index == cache_keys[:critiques_index] }
   end
 
   def news_topic_views
@@ -141,8 +141,8 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
 
     {
       ongoings: [:ongoings, rand(5), CACHE_VERSION],
-      reviews: [Review.order(id: :desc).first, CACHE_VERSION],
-      reviews_index: rand(REVIEWS_FETCH), # to randomize reviews output
+      critiques: [Critique.order(id: :desc).first, CACHE_VERSION],
+      critiques_index: rand(REVIEWS_FETCH), # to randomize critiques output
       news: [:news, news_key, CACHE_VERSION],
       updates: [:updates, updates_key, CACHE_VERSION],
       migration: h.domain_migration_note
@@ -177,10 +177,10 @@ private
       .decorate
   end
 
-  def all_review_topic_views
+  def all_critique_topic_views
     Topics::Query
       .fetch(h.locale_from_host, h.censored_forbidden?)
-      .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
+      .by_forum(critiques_forum, h.current_user, h.censored_forbidden?)
       .limit(REVIEWS_FETCH)
       .as_views(true, true)
   end
@@ -192,7 +192,7 @@ private
       # .shuffle
   # end
 
-  def reviews_forum
-    Forum.find_by_permalink('reviews') # rubocop:disable DynamicFindBy
+  def critiques_forum
+    Forum.find_by_permalink('critiques') # rubocop:disable DynamicFindBy
   end
 end

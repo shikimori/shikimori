@@ -37,7 +37,7 @@ class User < ApplicationRecord
     version_moderator
     version_fansub_moderator
     trusted_version_changer
-    review_moderator
+    critique_moderator
     collection_moderator
     news_moderator
     article_moderator
@@ -123,7 +123,7 @@ class User < ApplicationRecord
     class_name: 'Message',
     dependent: :destroy
 
-  has_many :reviews, dependent: :destroy
+  has_many :critiques, dependent: :destroy
 
   has_many :ignores, dependent: :destroy
   has_many :ignored_users, through: :ignores, source: :target

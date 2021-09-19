@@ -6,7 +6,7 @@ class Forum < ApplicationRecord
   # разделы, в которые можно создавать топики из интерфейса
   PUBLIC_SECTIONS = %w[animanga site games vn contests offtopic]
   VARIANTS = PUBLIC_SECTIONS + %w[
-    clubs my_clubs reviews news collections articles cosplay
+    clubs my_clubs critiques news collections articles cosplay
   ]
 
   ANIME_NEWS_ID = 1
@@ -42,8 +42,8 @@ class Forum < ApplicationRecord
       find_by_permalink 'news'
     end
 
-    def reviews
-      find_by_permalink 'reviews'
+    def critiques
+      find_by_permalink 'critiques'
     end
 
     def articles

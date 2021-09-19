@@ -87,7 +87,7 @@ en:
     anime: Deleted anime
     character: Deleted character
     manga: Deleted manga
-    review: Deleted review
+    critique: Deleted critique
     anime_video: Deleted video
     user: Deleted user
   error: error
@@ -119,7 +119,7 @@ en:
   news: News
   no_comments: No comments
   no_collections: No collections
-  no_reviews: No reviews
+  no_critiques: No critiques
   no_summaries: No summaries
   no_topics: No topics
   nothing_found: Nothing found
