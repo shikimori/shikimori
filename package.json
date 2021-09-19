@@ -54,7 +54,7 @@
     "url-parse": "^1.5.2",
     "vue": "^3.2.12",
     "vue-loader": "^16.5.0",
-    "vuedraggable": "^4.0.1",
+    "vuedraggable": "^4.1.0",
     "vuex": "^4.0.2",
     "webfontloader": "^1.6.28"
   },
