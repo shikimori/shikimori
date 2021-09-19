@@ -23,7 +23,7 @@ class Abilities::Admin
 
     can :manage, Topic
     can :manage, Comment
-    can :manage, Summary
+    can :manage, Review
     can :manage, Message
     can :manage, Club
     can :manage, ClubPage

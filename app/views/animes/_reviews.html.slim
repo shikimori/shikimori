@@ -1,0 +1,31 @@
+.reviews-navigation
+  .navigation-block.navigation-block-all.is-active
+    .label
+      span Все #{i18n_io 'review', :few}
+    .count = resource.reviews.count
+
+  .navigation-block.navigation-block-positive[
+    data-ellispsis-allowed=true
+  ]
+    .label
+      span Положительные
+    .count = resource.reviews.positive.count
+
+  .navigation-block.navigation-block-neutral
+    .label
+      span Нейтральные
+    .count = resource.reviews.neutral.count
+
+  .navigation-block.navigation-block-negative.is-ellipsis[
+    data-ellispsis-allowed=true
+  ]
+    .label
+      span Отрицательные
+    .count = resource.reviews.negative.count
+
+.reviews-groups
+  .reviews-group
+    / = render 'reviews/group', reviews: @resource.review_views
+  .reviews-group data-opinion=::Types::Review::Opinion[:positive]
+  .reviews-group data-opinion=::Types::Review::Opinion[:neutral]
+  .reviews-group data-opinion=::Types::Review::Opinion[:negative]

@@ -33,6 +33,15 @@ ru:
           one: отзыв
           few: отзыва
           many: отзывов
+      review:
+        subjective:
+          one: отзыв
+          few: отзыва
+          many: отзывов
+        accusative:
+          one: отзыв
+          few: отзыва
+          many: отзывов
       critique:
         subjective:
           one: рецензия
@@ -609,6 +618,9 @@ ru:
         one: комментарий
         few: комментарии
       summary:
+        one: отзыв
+        few: отзывы
+      review:
         one: отзыв
         few: отзывы
       critique:

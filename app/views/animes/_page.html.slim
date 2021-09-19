@@ -34,9 +34,9 @@ header.head
 
       - unless @resource.rkn_abused?
         - if params[:action] == 'show'
-          - if @resource.summaries.any?
+          - if @resource.reviews.any?
             .block
-              = render 'animes/summaries', resource: @resource
+              = render 'animes/reviews', resource: @resource
           = render 'db_entries/comments', resource: @resource
 
     aside.l-menu

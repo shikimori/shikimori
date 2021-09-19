@@ -35,7 +35,7 @@ pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
   new LangTrigger('.b-lang_trigger');
   new FavoriteStar($('.b-subposter-actions .fav-add'), gon.is_favoured);
 
-  const NAVIGATION_SELECTOR = '.summaries-navigation .navigation-block';
+  const NAVIGATION_SELECTOR = '.reviews-navigation .navigation-block';
   $(NAVIGATION_SELECTOR).on('click', ({ currentTarget }) => {
     if (currentTarget.classList.contains('is-active')) {
       return;

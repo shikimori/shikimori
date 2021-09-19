@@ -22,7 +22,7 @@ class Abilities::User
     unless @user.banned?
       topic_abilities if @user.week_registered?
       comment_abilities if @user.day_registered?
-      summary_abilities if @user.day_registered?
+      review_abilities if @user.day_registered?
       critique_abilities if @user.week_registered?
       article_abilities if @user.week_registered?
       collection_abilities if @user.week_registered?
@@ -104,15 +104,15 @@ class Abilities::User
     end
   end
 
-  def summary_abilities
-    can %i[new create], Summary do |summary|
-      summary.user_id == @user.id
+  def review_abilities
+    can %i[new create], Review do |review|
+      review.user_id == @user.id
     end
-    can :update, Summary do |summary|
-      can? :create, summary
+    can :update, Review do |review|
+      can? :create, review
     end
-    can [:destroy], Summary do |summary|
-      can? :create, summary
+    can [:destroy], Review do |review|
+      can? :create, review
     end
   end
 

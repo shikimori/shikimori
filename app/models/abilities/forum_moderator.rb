@@ -8,7 +8,7 @@ class Abilities::ForumModerator
 
   def initialize _user # rubocop:disable MethodLength, AbcSize
     can :manage, Comment
-    can :manage, Summary
+    can :manage, Review
 
     can %i[edit update], Topic do |topic|
       !topic.generated? ||
