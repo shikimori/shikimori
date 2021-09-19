@@ -285,7 +285,7 @@ describe Topic::TypePolicy do
     end
 
     context 'review_topic' do
-      let(:topic) { build_stubbed :summary }
+      let(:topic) { build_stubbed :review }
       it { is_expected.to eq true }
     end
 
@@ -298,13 +298,13 @@ describe Topic::TypePolicy do
   describe '#review_topic?' do
     subject { policy.review_topic? }
 
-    context 'not summary' do
+    context 'not review' do
       let(:topic) { forum_topic }
       it { is_expected.to eq false }
     end
 
-    context 'summary' do
-      let(:topic) { build_stubbed :summary }
+    context 'review' do
+      let(:topic) { build_stubbed :review }
       it { is_expected.to eq true }
     end
   end

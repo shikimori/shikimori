@@ -62,7 +62,7 @@ class Topic::TypePolicy
   end
 
   def review_topic?
-    @object.is_a? Summary
+    @object.is_a? Review
   end
 
   def votable_topic?
