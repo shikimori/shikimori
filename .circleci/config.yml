@@ -35,6 +35,11 @@ jobs:
           - v2-dependencies-
 
       - run:
+          name: fix libffi
+          command: |
+            sudo ln -s /usr/lib/x86_64-linux-gnu/libffi.so.7 /usr/lib/x86_64-linux-gnu/libffi.so.6
+
+      - run:
           name: install bundler
           command: |
             gem install bundler:2.2.26
