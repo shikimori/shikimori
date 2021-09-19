@@ -108,7 +108,7 @@ Rails.application.routes.draw do
     collection do
       post :bounce
       post :spam
-\   end
+    end
   end
 
   resources :reviews, only: %i[show]

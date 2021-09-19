@@ -86,7 +86,7 @@ class Manga < DbEntry
     foreign_key: :target_id,
     dependent: :destroy
 
-  has_many :summaries, dependent: :destroy, inverse_of: :manga
+  has_many :reviews, dependent: :destroy, inverse_of: :manga
 
   has_many :cosplay_gallery_links, as: :linked, dependent: :destroy
 

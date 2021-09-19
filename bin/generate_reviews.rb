@@ -21,7 +21,7 @@ end
   puts 'Generating reviews...'
   Comment.
     includes(:user, commentable: :linked).
-    where(is_review: true).
+    where(is_summary: true).
     order(id: :desc).
     limit(1000).where(commentable_id: Anime.find(31240).decorate.main_topic_view.id).
     find_each do |comment|

@@ -17,7 +17,7 @@ describe Manga do
     it { is_expected.to have_many :similar_mangas }
 
     it { is_expected.to have_many(:user_histories).dependent(:destroy) }
-    it { is_expected.to have_many(:summaries).dependent :destroy }
+    it { is_expected.to have_many(:reviews).dependent :destroy }
 
     it { is_expected.to have_many :cosplay_gallery_links }
     it { is_expected.to have_many :cosplay_galleries }

@@ -1,4 +1,4 @@
-describe Summary do
+describe Review do
   describe 'associations' do
     it { is_expected.to belong_to :user }
     # it { is_expected.to belong_to(:anime).optional }
@@ -18,29 +18,29 @@ describe Summary do
     it do
       is_expected
         .to enumerize(:opinion)
-        .in(*Types::Summary::Opinion.values)
+        .in(*Types::Review::Opinion.values)
     end
   end
 
   describe 'scopes' do
     let(:anime) { create :anime }
-    let!(:positive) { create :summary, :positive, anime: anime }
-    let!(:neutral) { create :summary, :neutral, anime: anime, user: user_admin }
-    let!(:negative) { create :summary, :negative, anime: anime, user: user_day_registered }
+    let!(:positive) { create :review, :positive, anime: anime }
+    let!(:neutral) { create :review, :neutral, anime: anime, user: user_admin }
+    let!(:negative) { create :review, :negative, anime: anime, user: user_day_registered }
 
     describe 'positive' do
-      it { expect(Summary.positive).to eq [positive] }
-      it { expect(Summary.neutral).to eq [neutral] }
-      it { expect(Summary.negative).to eq [negative] }
+      it { expect(Review.positive).to eq [positive] }
+      it { expect(Review.neutral).to eq [neutral] }
+      it { expect(Review.negative).to eq [negative] }
     end
   end
 
   describe 'callbacks' do
     describe '#fill_is_written_before_release' do
-      subject { summary.is_written_before_release }
+      subject { review.is_written_before_release }
 
-      let(:summary) do
-        Summary.create(
+      let(:review) do
+        Review.create(
           anime: anime,
           body: 'a' * described_class::MIN_BODY_SIZE,
           user: user,
@@ -94,7 +94,7 @@ describe Summary do
 
   describe 'instance methods' do
     describe '#anime? & #manga?, #db_entry' do
-      subject { build :summary, anime: anime, manga: manga }
+      subject { build :review, anime: anime, manga: manga }
       let(:anime) { nil }
       let(:manga) { nil }
 
@@ -120,14 +120,14 @@ describe Summary do
     end
 
     describe '#html_body' do
-      subject { build :summary, body: body }
+      subject { build :review, body: body }
       let(:body) { '[b]zxc[/b]' }
       its(:html_body) { is_expected.to eq '<strong>zxc</strong>' }
     end
 
     describe '#db_entry_released_before?' do
       let(:anime) { build_stubbed :anime, status, released_on: released_on }
-      subject { build :summary, anime: anime }
+      subject { build :review, anime: anime }
 
       context 'released' do
         let(:status) { :released }
@@ -155,22 +155,22 @@ describe Summary do
     describe '#cache_key_with_version' do
       include_context :timecop, '2021-08-01 15:44:03 +0300'
 
-      let(:summary) { build_stubbed :summary, id: 1, user: user }
+      let(:review) { build_stubbed :review, id: 1, user: user }
       let(:user) { build_stubbed :user, id: 2, rate_at: Time.zone.now }
 
       it do
-        expect(summary.cache_key_with_version).to eq(
+        expect(review.cache_key_with_version).to eq(
           'summaries/1-20210801124403000000/user/2/1627821843'
         )
       end
     end
 
     describe '#user_rate' do
-      let(:summary) { build_stubbed :summary, anime: anime, manga: manga }
+      let(:review) { build_stubbed :review, anime: anime, manga: manga }
       let(:anime) { nil }
       let(:manga) { nil }
 
-      subject { summary.user_rate }
+      subject { review.user_rate }
 
       context 'no rate' do
         it { is_expected.to be_nil }
@@ -197,56 +197,56 @@ describe Summary do
 
     context 'guest' do
       let(:user) { nil }
-      let(:summary) { build_stubbed :summary }
+      let(:review) { build_stubbed :review }
 
-      it { is_expected.to_not be_able_to :new, summary }
-      it { is_expected.to_not be_able_to :create, summary }
-      it { is_expected.to_not be_able_to :update, summary }
-      it { is_expected.to_not be_able_to :destroy, summary }
+      it { is_expected.to_not be_able_to :new, review }
+      it { is_expected.to_not be_able_to :create, review }
+      it { is_expected.to_not be_able_to :update, review }
+      it { is_expected.to_not be_able_to :destroy, review }
     end
 
-    context 'not summary owner' do
+    context 'not review owner' do
       let(:user) { build_stubbed :user, :user, :day_registered }
       let(:user_2) { build_stubbed :user, :user, :day_registered }
-      let(:summary) { build_stubbed :summary, user: user_2 }
+      let(:review) { build_stubbed :review, user: user_2 }
 
-      it { is_expected.to_not be_able_to :new, summary }
-      it { is_expected.to_not be_able_to :create, summary }
-      it { is_expected.to_not be_able_to :update, summary }
-      it { is_expected.to_not be_able_to :destroy, summary }
+      it { is_expected.to_not be_able_to :new, review }
+      it { is_expected.to_not be_able_to :create, review }
+      it { is_expected.to_not be_able_to :update, review }
+      it { is_expected.to_not be_able_to :destroy, review }
     end
 
-    context 'summary owner' do
+    context 'review owner' do
       let(:user) { build_stubbed :user, :user, :day_registered }
-      let(:summary) { build_stubbed :summary, user: user }
+      let(:review) { build_stubbed :review, user: user }
 
-      it { is_expected.to be_able_to :new, summary }
-      it { is_expected.to be_able_to :create, summary }
-      it { is_expected.to be_able_to :update, summary }
+      it { is_expected.to be_able_to :new, review }
+      it { is_expected.to be_able_to :create, review }
+      it { is_expected.to be_able_to :update, review }
 
       context 'user is registered < 1 day ago' do
         let(:user) { build_stubbed :user, :user }
 
-        it { is_expected.to_not be_able_to :new, summary }
-        it { is_expected.to_not be_able_to :create, summary }
-        it { is_expected.to_not be_able_to :update, summary }
+        it { is_expected.to_not be_able_to :new, review }
+        it { is_expected.to_not be_able_to :create, review }
+        it { is_expected.to_not be_able_to :update, review }
       end
 
       context 'banned user' do
         let(:user) { build_stubbed :user, :banned, :day_registered }
 
-        it { is_expected.to_not be_able_to :new, summary }
-        it { is_expected.to_not be_able_to :create, summary }
-        it { is_expected.to_not be_able_to :update, summary }
+        it { is_expected.to_not be_able_to :new, review }
+        it { is_expected.to_not be_able_to :create, review }
+        it { is_expected.to_not be_able_to :update, review }
       end
     end
 
     context 'forum moderator' do
       let(:user) { build_stubbed :user, :forum_moderator }
-      let(:summary) { build_stubbed :summary, user: build_stubbed(:user) }
-      it { is_expected.to be_able_to :manage, summary }
+      let(:review) { build_stubbed :review, user: build_stubbed(:user) }
+      it { is_expected.to be_able_to :manage, review }
     end
   end
 
-  it_behaves_like :antispam_concern, :summary
+  it_behaves_like :antispam_concern, :review
 end
