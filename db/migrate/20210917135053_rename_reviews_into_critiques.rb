@@ -1,5 +1,5 @@
-class RenameCritiquesIntoCritiques < ActiveRecord::Migration[5.2]
+class RenameReviewsIntoCritiques < ActiveRecord::Migration[5.2]
   def change
-    rename_table :critiques, :critiques
+    rename_table :reviews, :critiques
   end
 end
