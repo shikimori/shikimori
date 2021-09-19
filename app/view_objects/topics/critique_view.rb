@@ -53,7 +53,7 @@ private
 
   def stars_html
     h.render(
-      partial: 'critiques/stars',
+      partial: 'animes/critiques/stars',
       locals: {
         critique: critique,
         with_music: critique.entry.is_a?(Anime)

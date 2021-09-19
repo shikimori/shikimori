@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe CritiquesController do
+describe Animes::CritiquesController do
   let(:anime) { create :anime }
   let(:critique) { create :critique, :with_topics, user: user, target: anime }
 

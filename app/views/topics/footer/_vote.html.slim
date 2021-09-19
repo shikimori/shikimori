@@ -1,9 +1,9 @@
 .b-footer_vote
   .star
   .notice
-    - if topic_view.topic_type_policy.critique_topic?
+    - if topic_type_policy.critique_topic?
       = t '.question.critique'
-    - elsif topic_view.topic_type_policy.cosplay_gallery_topic?
+    - elsif topic_type_policy.cosplay_gallery_topic?
       = t '.question.cosplay'
     - elsif topic_type_policy.collection_topic?
       = t '.question.collection'

@@ -138,7 +138,9 @@
   - if resource.menu_external_links.any?
     .block
       .subheadline.m8 = t '.on_other_sites'
-      = render resource.menu_external_links, class: 'b-menu-line'
+        = render partial: 'animes/external_links/external_link',
+          collection: resource.menu_external_links,
+          locals: { class: 'b-menu-line' }
 
       - if resource.manga? && Copyright::MANGA_IDS.include?(resource.id)
         p.copyrighted = t '.copyrighted'

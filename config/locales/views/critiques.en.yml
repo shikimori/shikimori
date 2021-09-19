@@ -1,75 +1,76 @@
 en:
-  critiques:
-    form:
-      introduction: >-
-        [p]
-        A critique is a genre of journalism and art criticism
-        that contains a short critical evaluation and (optionally)
-        a rating of some work.
-        [/p]
-        [p]
-        It's very important that we can properly describe our impressions
-        and thoughts and thusly inform other users about the quality of
-        %{kind}. Also there are some unspoken rules that might help you
-        to write a valuable critique that you won't feel ashamed of once you
-        decide to show it to other people.
-        [/p]
-        [p]
-        Before you start find a few minutes to read the following
-        guidelines that will help you to write a competent and
-        professional-looking critique:
-        [/p]
-        [br]
+  animes:
+    critiques:
+      form:
+        introduction: >-
+          [p]
+          A critique is a genre of journalism and art criticism
+          that contains a short critical evaluation and (optionally)
+          a rating of some work.
+          [/p]
+          [p]
+          It's very important that we can properly describe our impressions
+          and thoughts and thusly inform other users about the quality of
+          %{kind}. Also there are some unspoken rules that might help you
+          to write a valuable critique that you won't feel ashamed of once you
+          decide to show it to other people.
+          [/p]
+          [p]
+          Before you start find a few minutes to read the following
+          guidelines that will help you to write a competent and
+          professional-looking critique:
+          [/p]
+          [br]
 
-      guidelines: >-
-        [*] Watching. First of all try to watch anime in high quality
-        either with good dubbing or subtitles
-        (the latter will give you an opportunity to evaluate seiyuus'
-        performance that might become a revelation for those
-        who are used to dubbed anime).
+        guidelines: >-
+          [*] Watching. First of all try to watch anime in high quality
+          either with good dubbing or subtitles
+          (the latter will give you an opportunity to evaluate seiyuus'
+          performance that might become a revelation for those
+          who are used to dubbed anime).
 
-        [*] Introduction. Tell about the reasons why you have
-        decided to write this critique, what has inspired you to
-        share your impressions. Or what part of anime or manga
-        stands out from the rest. This is the pivot of your critique.
-        You can right away refer to the plot, direction,
-        special effects or some general idea of producer or mangaka.
+          [*] Introduction. Tell about the reasons why you have
+          decided to write this critique, what has inspired you to
+          share your impressions. Or what part of anime or manga
+          stands out from the rest. This is the pivot of your critique.
+          You can right away refer to the plot, direction,
+          special effects or some general idea of producer or mangaka.
 
-        [*] Peculiarities. You can describe best moments or characteristic
-        features of anime or manga characters. Or else you can compare
-        similar works, give your interpretation of the plot,
-        criticize OST and much more.
+          [*] Peculiarities. You can describe best moments or characteristic
+          features of anime or manga characters. Or else you can compare
+          similar works, give your interpretation of the plot,
+          criticize OST and much more.
 
-        [*] Conclusion. Do you like this anime as a whole?
-        Is it worth watching? Sum up your thoughts about this anime
-        and evaluate the work of anime producer. Give your verdict.
+          [*] Conclusion. Do you like this anime as a whole?
+          Is it worth watching? Sum up your thoughts about this anime
+          and evaluate the work of anime producer. Give your verdict.
 
-        [br]
-        [br]
-        [p]
-        Also there are some tricks to get your critique up handsomely
-        we'd like to mention:
-        [/p]
+          [br]
+          [br]
+          [p]
+          Also there are some tricks to get your critique up handsomely
+          we'd like to mention:
+          [/p]
 
-        [*] Spell check your critique - everyone likes literate texts.
-        [*] Try not to make spoilers - no one likes spoilers.
-        [*] Try to divide your critique into paragraphs devoted to
-        specific topics.
+          [*] Spell check your critique - everyone likes literate texts.
+          [*] Try not to make spoilers - no one likes spoilers.
+          [*] Try to divide your critique into paragraphs devoted to
+          specific topics.
 
-        [br]
-        [br]
-        [p]
-        Now that you know all these tips and tricks
-        you will be able to write an excellent critique!
-        [/p]
-      go_next: Next →
+          [br]
+          [br]
+          [p]
+          Now that you know all these tips and tricks
+          you will be able to write an excellent critique!
+          [/p]
+        go_next: Next →
 
-    stars:
-      story: Story
-      characters: Characters
-      art: Art
-      sound: Sound
-      overall: Overall
+      stars:
+        story: Story
+        characters: Characters
+        art: Art
+        sound: Sound
+        overall: Overall
 
-    votes:
-      rejected: moved to offtopic
+      votes:
+        rejected: moved to offtopic

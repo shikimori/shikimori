@@ -386,7 +386,7 @@ en:
       List of major anime studios sorted by volume of media produced.
 
 
-  critiques_controller:
+  animes/critiques_controller:
     <<: *animes_controller
     new_critique: New critique
     edit_critique: Edit critique
