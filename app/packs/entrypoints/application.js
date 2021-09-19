@@ -27,7 +27,7 @@ window[key2] = require('jquery'); // eslint-disable-line import/newline-after-im
 
 import 'magnific-popup';
 import 'magnific-popup/dist/magnific-popup.css';
-import 'nouislider/distribute/nouislider.css';
+import 'nouislider/dist/nouislider.css';
 
 import 'jquery-appear-original';
 import 'jquery-mousewheel';

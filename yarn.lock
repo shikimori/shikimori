@@ -2083,10 +2083,10 @@ autoprefixer@^9.6.1:
     postcss "^7.0.17"
     postcss-value-parser "^4.0.0"
 
-autosize@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/autosize/-/autosize-4.0.2.tgz#073cfd07c8bf45da4b9fd153437f5bafbba1e4c9"
-  integrity sha512-jnSyH2d+qdfPGpWlcuhGiHmqBJ6g3X+8T+iRwFrHPLVcdoGJE/x6Qicm6aDHfTsbgZKxyV8UU/YB2p4cjKDRRA==
+autosize@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/autosize/-/autosize-5.0.1.tgz#ed269b0fa9b7eb47627048a1bb3299e99e003a0f"
+  integrity sha512-UIWUlE4TOVPNNj2jjrU39wI4hEYbneUypEqcyRmRFIx5CC2gNdg3rQr+Zh7/3h6egbBvm33TDQjNQKtj9Tk1HA==
 
 axios@^0.21.4:
   version "0.21.4"
@@ -5580,10 +5580,10 @@ js-base64@^3.6.0:
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.7.1.tgz#d5fa3ee5fe56a49db871516e70b0474238efcc68"
   integrity sha512-XyYXEUTP3ykPPnGPoesMr4yBygopit99iXW52yT1EWrkzwzvtAor/pbf+EBuDkwqSty7K10LeTjCkUn8c166aQ==
 
-js-cookie@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.1.tgz#69e106dc5d5806894562902aa5baec3744e9b2b8"
-  integrity sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==
+js-cookie@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-3.0.1.tgz#9e39b4c6c2f56563708d7d31f6f5f21873a92414"
+  integrity sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==
 
 js-stringify@^1.0.2:
   version "1.0.2"
@@ -6445,10 +6445,10 @@ normalize-url@^3.0.0:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
   integrity sha512-U+JJi7duF1o+u2pynbp2zXDW2/PADgC30f0GsHZtRh+HOcXHnw137TrNlyxxRvWW5fjKd3bcLHPxofWuCjaeZg==
 
-nouislider@^14.7.0:
-  version "14.7.0"
-  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-14.7.0.tgz#a71db0587c92567b6da1df57d251d3696d942362"
-  integrity sha512-4RtQ1+LHJKesDCNJrXkQcwXAWCrC2aggdLYMstS/G5fEWL+fXZbUA9pwVNHFghMGuFGRATlDLNInRaPeRKzpFQ==
+nouislider@^15.4.0:
+  version "15.4.0"
+  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-15.4.0.tgz#ac0d988e9ba59366062e5712e7cd37eb2e48630d"
+  integrity sha512-AV7UMhGhZ4Mj6ToMT812Ib8OJ4tAXR2/Um7C4l4ZvvsqujF0WpQTpqqHJ+9xt4174R7ueQOUrBR4yakJpAIPCA==
 
 npm-bundled@^1.0.1:
   version "1.0.6"
@@ -9033,15 +9033,10 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-ssr-window@^3.0.0:
+ssr-window@^3.0.0, ssr-window@^3.0.0-alpha.1:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ssr-window/-/ssr-window-3.0.0.tgz#fd5b82801638943e0cc704c4691801435af7ac37"
   integrity sha512-q+8UfWDg9Itrg0yWK7oe5p/XRCJpJF9OBtXfOPgSJl+u3Xd5KI328RUEvUqSMVM9CiQUEf1QdBzJMkYGErj9QA==
-
-ssr-window@^3.0.0-alpha.1:
-  version "3.0.0-alpha.4"
-  resolved "https://registry.yarnpkg.com/ssr-window/-/ssr-window-3.0.0-alpha.4.tgz#0c69a18c4305ecccdd8e11596155ca07b635f345"
-  integrity sha512-+dBRP/pZ+VyITxTzD0lMDzDwN/BmfUl8xi2e6t5Nz4+FqUphfcBLB1OOUSYCRNFB25rD3c8AJRYpY5rHTbL+kg==
 
 ssri@^6.0.1:
   version "6.0.2"
@@ -9325,10 +9320,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-swiper@^6.5.8:
-  version "6.5.8"
-  resolved "https://registry.yarnpkg.com/swiper/-/swiper-6.5.8.tgz#8a4f38145f99faa5d11b8d0306fc82e12801bcd5"
-  integrity sha512-SW8bNkJf8jCB4VdZsA1EZ3c87xshHS4f83YZVqT9ppkDKgspOfk9/I6dTtKGJFlsZpuE1S5X0LUAa7+QEaC0fQ==
+swiper@^6.8.4:
+  version "6.8.4"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-6.8.4.tgz#938fed4144f4d7952fbf9c44e5832d133a4de794"
+  integrity sha512-O+buF9Q+sMA0H7luMS8R59hCaJKlpo8PXhQ6ZYu6Rn2v9OsFd4d1jmrv14QvxtQpKAvL/ZiovEeANI/uDGet7g==
   dependencies:
     dom7 "^3.0.0"
     ssr-window "^3.0.0"
@@ -9487,10 +9482,10 @@ timsort@^0.3.0:
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
-tiny-uri@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/tiny-uri/-/tiny-uri-8.1.0.tgz#0ed578611f21867acacd1f1e2afa959fbb96481c"
-  integrity sha512-TzHBqn68xrRdg3Gn87LBNsCqzB6FKcOM690Qp8wB7zS42ux5tvGi5zmfJ4QszTGxncv7vccL1WFbXNb4ANWPOg==
+tiny-uri@^9.1.3:
+  version "9.1.3"
+  resolved "https://registry.yarnpkg.com/tiny-uri/-/tiny-uri-9.1.3.tgz#55709f8243da4ff8782b6f62257135ec2326dd45"
+  integrity sha512-+yLiz6dI07/zJlUJb+p97fRLdhi4FtZ8ykNnGI6Gmjfrom3EpV2nS1Zf/LnjwqY3qlPz534a4mNY69m9hrH0/A==
 
 tmp@^0.0.29:
   version "0.0.29"
