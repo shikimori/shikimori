@@ -945,7 +945,7 @@ ActiveRecord::Schema.define(version: 2021_09_19_105722) do
     t.text "imports", array: true
   end
 
-  create_table "summaries", force: :cascade do |t|
+  create_table "reviews", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "anime_id"
     t.bigint "manga_id"
@@ -958,18 +958,18 @@ ActiveRecord::Schema.define(version: 2021_09_19_105722) do
     t.integer "cached_votes_up", default: 0, null: false
     t.integer "cached_votes_down", default: 0, null: false
     t.datetime "changed_at"
-    t.index ["anime_id"], name: "index_summaries_on_anime_id"
-    t.index ["manga_id"], name: "index_summaries_on_manga_id"
-    t.index ["user_id", "anime_id"], name: "index_summaries_on_user_id_and_anime_id", unique: true, where: "(anime_id IS NOT NULL)"
-    t.index ["user_id", "manga_id"], name: "index_summaries_on_user_id_and_manga_id", unique: true, where: "(manga_id IS NOT NULL)"
-    t.index ["user_id"], name: "index_summaries_on_user_id"
+    t.index ["anime_id"], name: "index_reviews_on_anime_id"
+    t.index ["manga_id"], name: "index_reviews_on_manga_id"
+    t.index ["user_id", "anime_id"], name: "index_reviews_on_user_id_and_anime_id", unique: true, where: "(anime_id IS NOT NULL)"
+    t.index ["user_id", "manga_id"], name: "index_reviews_on_user_id_and_manga_id", unique: true, where: "(manga_id IS NOT NULL)"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
-  create_table "summary_viewings", force: :cascade do |t|
+  create_table "review_viewings", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "viewed_id", null: false
-    t.index ["user_id", "viewed_id"], name: "index_summary_viewings_on_user_id_and_viewed_id", unique: true
-    t.index ["viewed_id"], name: "index_summary_viewings_on_viewed_id"
+    t.index ["user_id", "viewed_id"], name: "index_review_viewings_on_user_id_and_viewed_id", unique: true
+    t.index ["viewed_id"], name: "index_review_viewings_on_viewed_id"
   end
 
   create_table "svds", id: :serial, force: :cascade do |t|
@@ -1256,9 +1256,9 @@ ActiveRecord::Schema.define(version: 2021_09_19_105722) do
   add_foreign_key "comment_viewings", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
-  add_foreign_key "summaries", "animes"
-  add_foreign_key "summaries", "mangas"
-  add_foreign_key "summaries", "users"
-  add_foreign_key "summary_viewings", "users"
+  add_foreign_key "reviews", "animes"
+  add_foreign_key "reviews", "mangas"
+  add_foreign_key "reviews", "users"
+  add_foreign_key "review_viewings", "users"
   add_foreign_key "topic_viewings", "users"
 end
