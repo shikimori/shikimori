@@ -460,8 +460,8 @@ ru:
     comment:
       removed: Комментарий удалён
 
-  api/v1/summaries_controller:
-    summary:
+  api/v1/reviews_controller:
+    review:
       removed: Отзыв удалён
 
   api/v1/messages_controller:

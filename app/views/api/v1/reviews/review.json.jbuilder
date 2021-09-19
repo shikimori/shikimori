@@ -1,9 +1,9 @@
 json.id @resource.id
 json.html JsExports::Supervisor.instance.sweep(
   render(
-    partial: 'summaries/summary',
+    partial: 'reviews/review',
     locals: {
-      summary: @resource
+      review: @resource
     },
     formats: %i[html]
   )

@@ -460,9 +460,9 @@ en:
     comment:
       removed: Comment removed
 
-  api/v1/summaries_controller:
-    summary:
-      removed: Summary removed
+  api/v1/reviews_controller:
+    review:
+      removed: Review removed
 
   api/v1/messages_controller:
     messages:
