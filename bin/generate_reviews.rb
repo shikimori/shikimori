@@ -46,7 +46,7 @@ end
             Types::Review::Opinion[:neutral]
           end
         else
-          Types::Review::Opinion[:unknown]
+          Types::Review::Opinion[:neutral]
         end
 
       is_dropped = UserRate.find_by(target: db_entry, user: user)&.dropped?
