@@ -15,9 +15,5 @@ describe Reviews::Query do
 
   subject { described_class.call db_entry }
 
-  it do
-    is_expected.to have(3).items
-    expect(subject.last).to eq @reviews[1]
-    expect(subject.first).to eq @reviews[2]
-  end
+  it { is_expected.to eq [@reviews[2], @reviews[0], @reviews[1]] }
 end
