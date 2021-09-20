@@ -1,38 +1,29 @@
 describe Critiques::Query do
-  let(:entry) { create :anime }
+  let(:db_entry) { create :anime }
 
   before do
     Critique.wo_antispam do
       @critiques = [
-        create(:critique, target: entry, user: user),
-        create(:critique, target: entry, user: user, created_at: Critiques::Query::NEW_REVIEW_BUBBLE_INTERVAL.ago),
-        create(:critique, target: entry, user: user),
-        create(:critique, target: entry, user: user, locale: :en)
+        create(:critique, target: db_entry, user: user),
+        create(:critique, target: db_entry, user: user, created_at: Critiques::Query::NEW_REVIEW_BUBBLE_INTERVAL.ago),
+        create(:critique, target: db_entry, user: user),
+        create(:critique, target: db_entry, user: user, locale: :en)
       ]
     end
   end
 
-  describe '#fetch' do
-    subject { query.fetch.to_a }
+  describe '#call' do
+    subject { described_class.call db_entry, locale: locale, id: id }
     let(:locale) { :ru }
 
     describe 'with_id' do
-      let(:query) { Critiques::Query.new entry, user, locale, @critiques[0].id }
-
-      it 'has 1 item' do
-        expect(subject.size).to eq(1)
-      end
-      its(:first) { is_expected.to eq @critiques[0] }
+      let(:id) { @critiques[0].id }
+      it { is_expected.to eq [@critiques[0]] }
     end
 
     describe 'without_id' do
-      let(:query) { Critiques::Query.new entry, user, locale }
-
-      it 'has 3 items' do
-        is_expected.to have(3).items
-      end
-      its(:last) { is_expected.to eq @critiques[1] }
-      its(:first) { is_expected.to eq @critiques[2] }
+      let(:id) { [0, nil].sample }
+      it { is_expected.to eq [@critiques[2], @critiques[0], @critiques[1]] }
     end
   end
 end

@@ -11,13 +11,11 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
   RULES_TOPIC_ID = 299_770
 
   def index
-    query = ::Critiques::Query.new(
-      @resource.object,
-      current_user,
-      locale_from_host,
-      params[:id].to_i
-    )
-    @collection = query.fetch
+    @collection = ::Critiques::Query
+      .call(@resource.object, {
+        locale: locale_from_host,
+        id: params[:id].to_i
+      })
       .map do |critique|
         topic = critique.maybe_topic locale_from_host
         Topics::CritiqueView.new topic, true, true
