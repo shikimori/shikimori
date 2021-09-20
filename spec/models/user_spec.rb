@@ -35,6 +35,7 @@ describe User do
     it { is_expected.to have_many(:club_roles).dependent(:destroy) }
     it { is_expected.to have_many :club_admin_roles }
     it { is_expected.to have_many :clubs }
+    it { is_expected.to have_many(:clubs_owned).dependent(:destroy) }
     it { is_expected.to have_many(:club_images).dependent(:destroy) }
 
     it { is_expected.to have_many(:collections).dependent(:destroy) }

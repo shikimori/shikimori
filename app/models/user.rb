@@ -132,6 +132,10 @@ class User < ApplicationRecord
   has_many :club_admin_roles, -> { where role: :admin },
     class_name: 'ClubRole'
   has_many :clubs, through: :club_roles
+  has_many :clubs_owned,
+    class_name: 'Club',
+    foreign_key: :owner_id,
+    dependent: :destroy
   has_many :club_images, dependent: :destroy
 
   has_many :collections, dependent: :destroy
