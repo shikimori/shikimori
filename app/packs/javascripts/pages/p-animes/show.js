@@ -34,20 +34,4 @@ pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
 
   new LangTrigger('.b-lang_trigger');
   new FavoriteStar($('.b-subposter-actions .fav-add'), gon.is_favoured);
-
-  const NAVIGATION_SELECTOR = '.reviews-navigation .navigation-block';
-  $(NAVIGATION_SELECTOR).on('click', ({ currentTarget }) => {
-    if (currentTarget.classList.contains('is-active')) {
-      return;
-    }
-    $(`${NAVIGATION_SELECTOR}.is-active`).removeClass('is-active');
-    currentTarget.classList.add('is-active');
-
-    $(`${NAVIGATION_SELECTOR}[data-ellispsis-allowed]`)
-      .removeClass('is-ellipsis');
-
-    $(`${NAVIGATION_SELECTOR}[data-ellispsis-allowed]:not(.is-active)`)
-      .last()
-      .addClass('is-ellipsis');
-  });
 });
