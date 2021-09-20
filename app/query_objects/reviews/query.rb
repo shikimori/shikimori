@@ -1,9 +1,15 @@
 class Reviews::Query
   NEW_REVIEW_BUBBLE_INTERVAL = 2.days
-  method_object :db_entry
+  method_object :db_entry, %i[opinion]
 
   def call
-    scope = db_entry.reviews.includes(:user, db_entry.anime? ? :anime : :manga)
+    scope = db_entry
+      .reviews
+      .includes(:user, db_entry.anime? ? :anime : :manga)
+
+    if @opinion.present?
+      scope.where! opinion: Types::Review::Opinion[@opinion]
+    end
 
     [
       bubbled(scope),
