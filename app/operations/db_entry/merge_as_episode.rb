@@ -147,7 +147,7 @@ private
     end
     russian_text = " (#{@entry.russian})" if @entry.russian.present?
 
-    "✅ #{episodes_text}" + @entry.name + russian_text
+    "✅ #{episodes_text}" + @entry.name + (russian_text || '')
   end
 
   def zero_episode?
