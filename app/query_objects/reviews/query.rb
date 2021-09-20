@@ -1,25 +1,14 @@
 class Reviews::Query
   NEW_REVIEW_BUBBLE_INTERVAL = 2.days
+  method_object :db_entry
 
-  def initialize entry, user, id = 0
-    @entry = entry
-    @user = user
-    @id = id
-  end
+  def call
+    scope = db_entry.reviews.includes(:user, db_entry.anime? ? :anime : :manga)
 
-  def fetch
-    reviews = @entry.reviews
-      .includes(:user)
-
-    if @id.present? && @id != 0
-      reviews.where(id: @id)
-    else
-      reviews = reviews.visible
-      [
-        bubbled(reviews),
-        not_bubbled(reviews)
-      ].compact.flatten.uniq
-    end
+    [
+      bubbled(scope),
+      not_bubbled(scope)
+    ].compact.flatten.uniq
   end
 
 private
