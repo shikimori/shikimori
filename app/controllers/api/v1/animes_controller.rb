@@ -166,7 +166,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     required: false,
     desc: 'Search phrase to filter animes by `name`'
   def index
-    limit = [[params[:limit].to_i, 1].max, 50].min
+    limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
     @collection = Rails.cache.fetch cache_key, expires_in: 2.days do
       AnimesCollection::PageQuery.call(

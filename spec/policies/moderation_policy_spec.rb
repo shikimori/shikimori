@@ -2,25 +2,25 @@ describe ModerationPolicy do
   let(:policy) { ModerationPolicy.new user, :ru, moderation_filter }
   let(:moderation_filter) { true }
 
-  describe '#reviews_count' do
+  describe '#critiques_count' do
     before do
-      allow(Review)
+      allow(Critique)
         .to receive_message_chain(:pending, :where, :size)
-        .and_return(reviews_count)
+        .and_return(critiques_count)
     end
-    let(:reviews_count) { 1 }
-    let(:user) { build :user, :review_moderator }
+    let(:critiques_count) { 1 }
+    let(:user) { build :user, :critique_moderator }
 
-    it { expect(policy.reviews_count).to eq 1 }
+    it { expect(policy.critiques_count).to eq 1 }
 
     context 'not moderator' do
       let(:user) { build :user, :user }
-      it { expect(policy.reviews_count).to eq 0 }
+      it { expect(policy.critiques_count).to eq 0 }
     end
 
     context 'no user' do
       let(:user) { nil }
-      it { expect(policy.reviews_count).to eq 0 }
+      it { expect(policy.critiques_count).to eq 0 }
     end
 
     context 'no moderation filter' do
@@ -28,12 +28,12 @@ describe ModerationPolicy do
 
       context 'not moderator' do
         let(:user) { build :user, :user }
-        it { expect(policy.reviews_count).to eq 1 }
+        it { expect(policy.critiques_count).to eq 1 }
       end
 
       context 'no user' do
         let(:user) { nil }
-        it { expect(policy.reviews_count).to eq 1 }
+        it { expect(policy.critiques_count).to eq 1 }
       end
     end
   end

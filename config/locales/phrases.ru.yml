@@ -87,7 +87,7 @@ ru:
     anime: Удалённое аниме
     character: Удалённый персонаж
     manga: Удалённая манга
-    review: Удалённая рецензия
+    critique: Удалённая рецензия
     anime_video: Удалённое видео
     user: Удалённый пользователь
   error: Ошибка
@@ -119,7 +119,7 @@ ru:
   news: Новости
   no_comments: Нет комментариев
   no_collections: Нет коллекций
-  no_reviews: Нет рецензий
+  no_critiques: Нет рецензий
   no_summaries: Нет отзывов
   no_topics: Нет топиков
   nothing_found: Ничего не найдено

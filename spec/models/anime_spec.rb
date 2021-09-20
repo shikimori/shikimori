@@ -37,7 +37,7 @@ describe Anime do
 
     it { is_expected.to have_many(:anime_calendars).dependent :destroy }
 
-    it { is_expected.to have_many(:reviews).dependent :destroy }
+    it { is_expected.to have_many(:critiques).dependent :destroy }
 
     it { is_expected.to have_many(:recommendation_ignores).dependent :destroy }
 

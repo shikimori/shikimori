@@ -173,7 +173,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
     end
 
     it '{{cite web |.*}}' do
-      expect(parser.cleanup_wikitext('{{cite web |url = http://www.animenewsnetwork.com/review/death-note/dvd-7 |title = Death Note DVD 7 |author = Theron Martin |date = 2009.02.09 |work = [[AnimeNewsNetwork]] |publisher =  |accessdate = 2012-04-22 |lang = en}}')).to be_empty
+      expect(parser.cleanup_wikitext('{{cite web |url = http://www.animenewsnetwork.com/critique/death-note/dvd-7 |title = Death Note DVD 7 |author = Theron Martin |date = 2009.02.09 |work = [[AnimeNewsNetwork]] |publisher =  |accessdate = 2012-04-22 |lang = en}}')).to be_empty
     end
 
     it '{{Переход|#Марс в античной мифологии|green}}' do

@@ -51,7 +51,7 @@ describe DbEntry::MergeAsEpisode do
 
   let!(:comment_1) { create :comment, :with_increment_comments, commentable: entry.maybe_topic(:ru) }
 
-  let!(:review) { create :review, target: entry }
+  let!(:critique) { create :critique, target: entry }
 
   let(:collection) { create :collection }
   let!(:collection_link) { create :collection_link, linked: entry, collection: collection }
@@ -136,7 +136,7 @@ describe DbEntry::MergeAsEpisode do
     expect { comment_1.reload.reload }.to raise_error ActiveRecord::RecordNotFound
     expect(other.maybe_topic(:ru).comments_count).to eq 0
 
-    expect(review.reload.target).to eq other
+    expect(critique.reload.target).to eq other
     expect { collection_link.reload }.to raise_error ActiveRecord::RecordNotFound
 
     expect { version.reload }.to raise_error ActiveRecord::RecordNotFound

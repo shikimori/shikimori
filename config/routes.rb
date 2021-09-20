@@ -172,7 +172,7 @@ Rails.application.routes.draw do
         post :cleanup
       end
     end
-    resources :reviews, only: [] do
+    resources :critiques, only: [] do
       get '(/page/:page)' => :index, as: '', on: :collection
       member do
         post :accept
@@ -441,21 +441,25 @@ Rails.application.routes.draw do
   get 'data-deletion', to: 'dashboards#data_deletion'
 
   # seo redirects
-  get 'r' => redirect('/reviews')
+  get 'r' => redirect('/critiques')
+  get 'reviews' => redirect('/critiques')
   constraints other: /.*/  do
-    get 'r/:other' => redirect { |params, request| "/reviews/#{params[:other]}" }
+    get 'r/:other' => redirect { |params, request| "/critiques/#{params[:other]}" }
     get 'person/:other' => redirect { |params, request| "/people/#{params[:other]}" }
     get 'seyu/:other' => redirect { |params, request| "/people/#{params[:other]}" }
+    get 'reviews/:other' => redirect { |params, request| "/critiques/#{params[:other]}" }
     # TODO: remove type param after 2018-06-01
     %i[animes mangas ranobe].each do |type|
       get "#{type}/type/:other" => redirect { |params, request| "/#{type}/kind/#{params[:other]}" }
     end
   end
-  constraints forum: /a|m|c|p|s|f|o|g|reviews|cosplay|v|news|games|vn/, format: /html|json|rss/ do
+  constraints forum: /a|m|c|p|s|f|o|g|critiques|cosplay|v|news|games|vn/, format: /html|json|rss/ do
     get ':forum(/s-:linked)/new' => redirect { |_, request| "/forum#{request.path}" }
     get ':forum(/s-:linked)(/p-:page)' => redirect { |_, request| "/forum#{request.path}" }
     get ':forum(/s-:linked)/:id' => redirect { |_, request| "/forum#{request.path}" }
   end
+  get 'forum/reviews' => redirect('/forum/critiques')
+  get 'forum/reviews/:other' => redirect { |params, request| "/forum/critiques/#{params[:other]}" }
   {
     o: %i[offtopic s],
     s: %i[site s],
@@ -488,7 +492,7 @@ Rails.application.routes.draw do
     get '/' => 'topics#index',  as: :forum
     scope(
       '(/:forum)(/:linked_type-:linked_id)',
-      forum: /animanga|site|offtopic|clubs|my_clubs|reviews|cosplay|contests|news|updates|games|vn|collections|articles|premoderation|hidden/,
+      forum: /animanga|site|offtopic|clubs|my_clubs|critiques|cosplay|contests|news|updates|games|vn|collections|articles|premoderation|hidden/,
       linked_type: /anime|manga|ranobe|character|person|club|contest|collection|article|cosplay_gallery/,
       format: /html|json|rss/
     ) do
@@ -754,7 +758,10 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :reviews, type: kind.singularize.capitalize, except: [:show]
+      resources :critiques,
+        type: kind.singularize.capitalize,
+        except: [:show],
+        controller: 'animes/critiques'
     end
   end
 
@@ -966,7 +973,7 @@ Rails.application.routes.draw do
         as: :edit,
         section: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
 
-      get 'reviews(/page/:page)' => :reviews, as: :reviews
+      get 'critiques(/page/:page)' => :critiques, as: :critiques
       get 'collections(/page/:page)' => :collections, as: :collections
       get 'articles(/page/:page)' => :articles, as: :articles
       get 'topics(/page/:page)' => :topics, as: :topics
@@ -1032,7 +1039,7 @@ Rails.application.routes.draw do
         delete :comments
         delete :summaries
         delete :topics
-        delete :reviews
+        delete :critiques
       end
       resources :nickname_changes, only: %i[index]
     end

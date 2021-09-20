@@ -28,10 +28,10 @@ describe Topics::Query do
   end
 
   describe '#by_forum' do
-    subject { query.by_forum reviews_forum, user, is_censored_forbidden }
-    let!(:review) { create :review, :with_topics }
+    subject { query.by_forum critiques_forum, user, is_censored_forbidden }
+    let!(:critique) { create :critique, :with_topics }
 
-    it { is_expected.to eq [review.topic(locale)] }
+    it { is_expected.to eq [critique.topic(locale)] }
   end
 
   describe '#by_linked' do

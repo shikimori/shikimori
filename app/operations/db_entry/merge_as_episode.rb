@@ -3,7 +3,7 @@ class DbEntry::MergeAsEpisode < DbEntry::MergeIntoOther # rubocop:disable ClassL
 
   RELATIONS = %i[
     russian
-    reviews
+    critiques
     contest_links
     external_links
     user_rates

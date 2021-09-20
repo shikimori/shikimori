@@ -24,7 +24,7 @@ private
   end
 
   def contributor? user # rubocop:disable all
-    user.forum_moderator? || user.review_moderator? ||
+    user.forum_moderator? || user.critique_moderator? ||
       user.version_moderator? || user.version_texts_moderator? ||
       user.version_fansub_moderator? ||
       user.trusted_version_changer? || user.retired_moderator?

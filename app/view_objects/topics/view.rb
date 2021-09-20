@@ -127,7 +127,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     # last condition is for user topics about anime
     if linked_in_avatar?
       linked =
-        if topic_type_policy.review_topic?
+        if topic_type_policy.critique_topic?
           @topic.linked.target
         elsif topic_type_policy.club_page_topic?
           @topic.linked.club

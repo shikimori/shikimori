@@ -1,7 +1,7 @@
 import { loadImages } from '@/helpers/load_image';
 
 pageLoad('topics_show', async () => {
-  const $stars = $('.body-inner .review-stars');
+  const $stars = $('.body-inner .critique-stars');
 
   if ($stars.length) {
     const $firstImage = $().first();
@@ -10,7 +10,7 @@ pageLoad('topics_show', async () => {
     const imageOffset = $firstImage.offset();
 
     if (imageOffset && imageOffset.top === ($stars.offset().top + $stars.outerHeight())) {
-      $firstImage.addClass('review-poster');
+      $firstImage.addClass('critique-poster');
     }
   }
 });

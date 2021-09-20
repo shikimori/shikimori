@@ -31,7 +31,7 @@ class Abilities::Admin
 
     can :delete_all_comments, User
     can :delete_all_topics, User
-    can :delete_all_reviews, User
+    can :delete_all_critiques, User
 
     can :manage, Style
     can :manage, Version

@@ -1,0 +1,12 @@
+span.b-critique_votes
+  span.votes-for #{critique.cached_votes_up}
+  span
+    | &nbsp;/&nbsp;
+  span.votes-against #{critique.cached_votes_down}
+
+  span.user-vote
+    span.voted-for ✓
+    span.voted-against ✕
+
+  - if critique.respond_to?(:rejected?) && critique.rejected?
+    span.warn = t '.rejected'

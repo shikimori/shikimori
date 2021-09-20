@@ -1,0 +1,29 @@
+= simple_form_for [resource, critique] do |f|
+  input type='hidden' name='rules_passed' value='1'
+  = f.input :user_id, as: :hidden
+  = f.input :target_id, as: :hidden
+  = f.input :target_type, as: :hidden
+
+  - if critique.errors.any?
+    .b-errors
+      .subheadline.m5 = i18n_i 'Error', :other
+      .block
+        == critique.errors.full_messages.join('<br>')
+
+  .subheadline = og.headline
+
+  .b-critique-topic.m15
+    .body
+      = render 'stars', critique: critique, in_edit: true, with_music: resource.anime?
+
+  = render 'blocks/shiki_editor',
+    text: critique.text,
+    field_name: 'critique[text]',
+    size: 'xl',
+    no_preview_avatar: true,
+    is_text_with_paragraphs: true,
+    cache_key: critique.cache_key
+
+  .buttons
+    a.cancel href=@back_url = t 'actions.cancel'
+    = f.button :magic_submit

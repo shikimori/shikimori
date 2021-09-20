@@ -67,8 +67,8 @@ class Topics::ForumQuery # rubocop:disable ClassLength
           guest_forums
         end
 
-      when 'reviews'
-        reviews_forums
+      when 'critiques'
+        critiques_forums
 
       when 'clubs'
         clubs_forums
@@ -135,7 +135,7 @@ private
     )
   end
 
-  def reviews_forums
+  def critiques_forums
     @scope
       .where(forum_id: @forum.id)
       .except(:order)

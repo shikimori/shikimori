@@ -98,7 +98,7 @@ describe Versions::RoleVersion do
       end
 
       describe 'news_super_moderator roles' do
-        it { is_expected.to be_able_to :manage_review_moderator_role, user }
+        it { is_expected.to be_able_to :manage_critique_moderator_role, user }
         it { is_expected.to be_able_to :manage_news_moderator_role, user }
         it { is_expected.to be_able_to :manage_article_moderator_role, user }
         it { is_expected.to be_able_to :manage_collection_moderator_role, user }
@@ -147,7 +147,7 @@ describe Versions::RoleVersion do
       end
 
       describe 'news_super_moderator roles' do
-        it { is_expected.to be_able_to :manage_review_moderator_role, user }
+        it { is_expected.to be_able_to :manage_critique_moderator_role, user }
         it { is_expected.to be_able_to :manage_news_moderator_role, user }
         it { is_expected.to be_able_to :manage_article_moderator_role, user }
         it { is_expected.to be_able_to :manage_collection_moderator_role, user }
@@ -196,7 +196,7 @@ describe Versions::RoleVersion do
       end
 
       describe 'news_super_moderator roles' do
-        it { is_expected.to be_able_to :manage_review_moderator_role, user }
+        it { is_expected.to be_able_to :manage_critique_moderator_role, user }
         it { is_expected.to be_able_to :manage_news_moderator_role, user }
         it { is_expected.to be_able_to :manage_article_moderator_role, user }
         it { is_expected.to be_able_to :manage_collection_moderator_role, user }
@@ -245,7 +245,7 @@ describe Versions::RoleVersion do
       end
 
       describe 'news_super_moderator roles' do
-        it { is_expected.to_not be_able_to :manage_review_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_critique_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_news_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_article_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_collection_moderator_role, user }
@@ -282,7 +282,7 @@ describe Versions::RoleVersion do
       end
 
       describe 'news_super_moderator roles' do
-        it { is_expected.to_not be_able_to :manage_review_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_critique_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_news_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_article_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_collection_moderator_role, user }
@@ -314,7 +314,7 @@ describe Versions::RoleVersion do
       end
 
       describe 'news_super_moderator roles' do
-        it { is_expected.to_not be_able_to :manage_review_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_critique_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_news_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_article_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_collection_moderator_role, user }
@@ -346,7 +346,7 @@ describe Versions::RoleVersion do
       end
 
       describe 'news_super_moderator roles' do
-        it { is_expected.to_not be_able_to :manage_review_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_critique_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_news_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_article_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_collection_moderator_role, user }
@@ -421,7 +421,7 @@ describe Versions::RoleVersion do
       end
 
       describe 'news_super_moderator roles' do
-        it { is_expected.to_not be_able_to :manage_review_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_critique_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_news_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_article_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_collection_moderator_role, user }

@@ -22,7 +22,7 @@ en:
       fansub_authors: Fansub/fandub authors
       moderation: Moderation
       news_journal: News journal
-      reviews_journal: Reviews journal
+      critiques_journal: Critiques journal
       collections_journal: Collections journal
       articles_journal: Articles journal
       anime_video_authors: Anime video authors
@@ -112,23 +112,23 @@ en:
         for_deleted_comment: for deleted comment
         warning: warning
 
-    reviews:
+    critiques:
       index:
         <<: *defaults
-        notice: This is the history of reviews moderation
+        notice: This is the history of critiques moderation
         instructions:
-          - In general review should follow the guidelines outlined
-            <a href="//shikimori.one/animes/1-Cowboy-Bebop/reviews/new">
+          - In general critique should follow the guidelines outlined
+            <a href="//shikimori.one/animes/1-Cowboy-Bebop/critiques/new">
             here</a>.
-          - Rejected reviews are converted to 'Off-Topic' forum topics
+          - Rejected critiques are converted to 'Off-Topic' forum topics
             and cannot be restored.
-          - Reject reviews containing either implicit or explicit trolling,
+          - Reject critiques containing either implicit or explicit trolling,
             abusive language or which are meant to cause flaming.
         more_summaries_pending: >-
-          That's not all yet. Other reviews will be available for
+          That's not all yet. Other critiques will be available for
           moderation after processing the ones above.
 
-      review:
+      critique:
         accept: accept
         move_to_offtopic: move to offtopic
 

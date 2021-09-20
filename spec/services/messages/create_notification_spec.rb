@@ -13,7 +13,7 @@ describe Messages::CreateNotification do
   end
 
   describe '#moderatable_banned' do
-    let(:target) { create :review, :with_topics, user: author, approver: approver }
+    let(:target) { create :critique, :with_topics, user: author, approver: approver }
     let(:author) { seed :user }
     let(:approver) { create :user }
 

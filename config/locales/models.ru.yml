@@ -102,7 +102,7 @@ ru:
       ranobe: Обсуждение ранобэ
       character: Обсуждение персонажа
       person: Обсуждение человека
-      review: Обсуждение рецензии
+      critique: Обсуждение рецензии
       contest: Обсуждение турнира
       club: Обсуждение клуба
       club_page: Обсуждение страницы
@@ -116,7 +116,7 @@ ru:
       ranobe: Топик обсуждения [ranobe=%{id}]ранобэ[/ranobe].
       character: Топик обсуждения [character=%{id}]персонажа[/character].
       person: Топик обсуждения [person=%{id}]человека[/person].
-      review: Топик обсуждения [review=%{id}]рецензии[/review].
+      critique: Топик обсуждения [critique=%{id}]рецензии[/critique].
       contest: Топик обсуждения [contest=%{id}]турнира[/contest].
       club: Топик обсуждения [club=%{id}]клуба[/club].
       club_page: Топик обсуждения [club_page=%{club_page_id}]страницы[/club_page] [club=%{club_id}]клуба[/club].
@@ -130,7 +130,7 @@ ru:
       ranobe: Обсуждение ранобэ [ranobe]%{id}[/ranobe]
       character: Обсуждение персонажа [character]%{id}[/character]
       person: Обсуждение человека [person]%{id}[/person]
-      review:
+      critique:
         anime: Обсуждение рецензии аниме %{target_name} от %{author}
         manga: Обсуждение рецензии манги %{target_name} от %{author}
         ranobe: Обсуждение рецензии ранобэ %{target_name} от %{author}

@@ -32,7 +32,7 @@ ru:
       anime: '%{anime_days_count} %{anime_days} аниме'
       manga: '%{manga_days_count} %{manga_days} манги'
 
-  topics/review_view:
+  topics/critique_view:
     title:
       anime: Рецензия на аниме &laquo;%{target_name}&raquo;
       manga: Рецензия на мангу &laquo;%{target_name}&raquo;

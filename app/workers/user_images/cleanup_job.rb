@@ -5,7 +5,7 @@ class UserImages::CleanupJob
   TEXT_FIELDS_MAPPING = {
     Club => :description,
     ClubPage => :text,
-    Review => :text,
+    Critique => :text,
     Article => :body,
     Poll => :text,
     User => :about,

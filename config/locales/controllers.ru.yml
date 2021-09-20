@@ -10,7 +10,7 @@ ru:
     title: Форум Шикимори
     new_topic: Создать топик
     new_news: Написать новость
-    new_review: Написать рецензию
+    new_critique: Написать рецензию
     new_article: Написать статью
     topic:
       created: Топик создан
@@ -229,7 +229,7 @@ ru:
       index: Журнал банов
       show: 'Бан #%{id}'
 
-  moderations/reviews_controller:
+  moderations/critiques_controller:
     <<: *moderations_controller
     page_title: Модерация рецензий
 
@@ -318,7 +318,7 @@ ru:
       anime: Связанное с аниме
       manga: Связанное с мангой
       ranobe: Связанное с ранобэ
-    reviews:
+    critiques:
       anime: Отзывы об аниме
       manga: Отзывы о манге
       ranobe: Отзывы о ранобэ
@@ -386,15 +386,15 @@ ru:
       Список наиболее крупных студий, занимающихся созданием аниме;
       отсортировано по объёму работ.
 
-  reviews_controller:
+  animes/critiques_controller:
     <<: *animes_controller
-    new_review: Новая рецензия
-    edit_review: Изменение рецензии
-    review:
+    new_critique: Новая рецензия
+    edit_critique: Изменение рецензии
+    critique:
       created: Рецензия создана
       updated: Рецензия изменена
       removed: Рецензия удалена
-    review_by: Рецензия от %{nickname}
+    critique_by: Рецензия от %{nickname}
 
   users_controller:
     similar_users: Похожие пользователи

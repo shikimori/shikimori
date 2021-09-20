@@ -145,7 +145,7 @@ class Anime < DbEntry
     -> { where deleted: false, confirmed: true },
     through: :cosplay_gallery_links
 
-  has_many :reviews, -> { where target_type: Anime.name },
+  has_many :critiques, -> { where target_type: Anime.name },
     foreign_key: :target_id,
     dependent: :destroy
 

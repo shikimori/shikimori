@@ -1,0 +1,10 @@
+@import mixins/responsive
+
+.p-moderations-index.p-critiques-index
+  .b-log_entry
+    +gte_ipad
+      .id
+        &:before
+          content: attr(data-text)
+          padding-right: 5px
+

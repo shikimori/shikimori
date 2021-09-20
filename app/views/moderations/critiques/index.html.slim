@@ -1,0 +1,45 @@
+header.head
+  h1 = og.headline
+  p.notice = t '.notice'
+  = render 'application/breadcrumbs'
+
+.subheadline = t '.instruction'
+.b-brief
+  .moderators
+    = render partial: 'users/user',
+      collection: @moderators,
+      locals: { content_by: :named_avatar }
+
+  ul.b-list.is-wide
+    - t('.instructions').each do |instruction|
+      li: p == instruction
+
+  - if @rules_topic
+    br
+    = @rules_topic.html_body
+    .right-text
+      a.b-link href=@rules_topic.url = @rules_topic.topic_title
+      = BbCodes::Text.call "[right][profile=#{@rules_topic.user.id}]#{@rules_topic.user.nickname}[/profile][/right]"
+
+- if @pending.any?
+  .subheadline.m5 = t '.queue'
+  .block
+    - if @pending.any?
+      = render partial: 'moderations/critiques/critique',
+        collection: @pending
+      - if @pending.size == Moderations::CritiquesController::PENDING_PER_PAGE
+        .m5
+        .b-nothing_here = t '.more_summaries_pending'
+    - else
+      .b-nothing_here = t '.queue_empty'
+
+- if @processed.any?
+  .subheadline.m5 = t '.history'
+  .block
+    = render partial: 'moderations/critiques/critique',
+      collection: @processed
+
+    - if @processed.size == controller.class::PROCESSED_PER_PAGE
+      = render 'blocks/postloader',
+        filter: 'b-log_entry',
+        next_url: current_url(page: @page + 1)

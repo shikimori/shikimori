@@ -44,12 +44,12 @@ header.head
 
         li
           a.b-link[
-            href=moderations_reviews_url
-            title=t('.reviews_journal')
+            href=moderations_critiques_url
+            title=t('.critiques_journal')
           ]
-            = t '.reviews_journal'
-            - if @moderation_policy.reviews_count.positive?
-              span.size = @moderation_policy.reviews_count
+            = t '.critiques_journal'
+            - if @moderation_policy.critiques_count.positive?
+              span.size = @moderation_policy.critiques_count
 
         li
           a.b-link[
@@ -256,7 +256,7 @@ header.head
                 datetime=job['enqueued_at'].iso8601
               ] = l job['enqueued_at'], format: '%e %B %Y'
 
-- if @abuse_requests_stats || @bans_stats || @content_versions_stats || @reviews_stats || @collections_stats || @articles_stats
+- if @abuse_requests_stats || @bans_stats || @content_versions_stats || @critiques_stats || @collections_stats || @articles_stats
   .subheadline.m15 Statistics for last 4 months
   .cc-3a
     - if @abuse_requests_stats
@@ -280,11 +280,11 @@ header.head
           - @content_versions_stats.each do |stat|
             li = "#{stat.moderator.nickname}: #{stat.count}"
 
-    - if @reviews_stats
+    - if @critiques_stats
       .c-column
-        .subheadline Reviews
+        .subheadline Critiques
         ul.b-list.is-wide
-          - @reviews_stats.each do |stat|
+          - @critiques_stats.each do |stat|
             li = "#{stat.approver.nickname}: #{stat.count}"
 
     - if @collections_stats

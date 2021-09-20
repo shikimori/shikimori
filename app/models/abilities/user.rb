@@ -4,7 +4,7 @@ class Abilities::User
   prepend Draper::CanCanCan
 
   GENERATED_USER_TOPICS = [
-    Topics::EntryTopics::ReviewTopic.name,
+    Topics::EntryTopics::CritiqueTopic.name,
     Topics::EntryTopics::CollectionTopic.name,
     Topics::EntryTopics::ArticleTopic.name
   ]
@@ -22,7 +22,7 @@ class Abilities::User
     unless @user.banned?
       topic_abilities if @user.week_registered?
       comment_abilities if @user.day_registered?
-      review_abilities if @user.week_registered?
+      critique_abilities if @user.week_registered?
       article_abilities if @user.week_registered?
       collection_abilities if @user.week_registered?
       club_abilities
@@ -159,9 +159,9 @@ class Abilities::User
     can :destroy, UserHistory, user_id: @user.id
   end
 
-  def review_abilities
-    can %i[new create edit update destroy], Review do |review|
-      review.user_id == @user.id
+  def critique_abilities
+    can %i[new create edit update destroy], Critique do |critique|
+      critique.user_id == @user.id
     end
   end
 
