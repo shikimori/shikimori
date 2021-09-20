@@ -1,0 +1,18 @@
+/ - content_for :head do
+  link rel='canonical' href="#{{forum_url :critiques}}"
+
+= render layout: 'animes/page' do |f|
+  - if user_signed_in?
+    .subheadline-buttons
+      a.item-new-critique[
+        href=@resource.new_critique_url
+        title=t('.create_review')
+      ]
+  .subheadline.m5 = og.headline
+  - if @collection.any?
+    .b-forum[
+      data-faye='false'
+    ]
+      = render partial: 'topics/topic', collection: @collection, as: :topic_view
+  - else
+    p.b-nothing_here = t 'no_reviews'

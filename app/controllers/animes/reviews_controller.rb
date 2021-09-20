@@ -11,13 +11,7 @@ class Animes::ReviewsController < AnimesController
   # RULES_TOPIC_ID = 299_770
 
   def index
-    query = ::Reviews::Query.new @resource.object, current_user, params[:id].to_i
-
-    @collection = query.fetch
-      # .map do |review|
-      #   topic = review.maybe_topic locale_from_host
-      #   Topics::ReviewView.new topic, true, true
-      # end
+    @collection = ::Reviews::Query.call @resource.object
   end
 
   # def new
