@@ -36,7 +36,7 @@ header.head
         - if params[:action] == 'show'
           - if @resource.reviews.any?
             .block
-              = render 'animes/reviews', resource: @resource
+              = render 'animes/reviews/navigation', resource: @resource
           = render 'db_entries/comments', resource: @resource
 
     aside.l-menu
