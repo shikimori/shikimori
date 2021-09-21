@@ -5,7 +5,7 @@
     data-opinion=''
   ]
     .label
-      span Все #{i18n_io 'review', :few}
+      span #{t '.opinion.all'} #{i18n_io 'review', :few}
     .count = resource.reviews.count
 
   .navigation-block.navigation-block-positive[
@@ -13,14 +13,14 @@
     data-ellispsis-allowed=true
   ]
     .label
-      span Положительные
+      span = t '.opinion.positive'
     .count = resource.reviews.positive.count
 
   .navigation-block.navigation-block-neutral[
     data-opinion=::Types::Review::Opinion[:neutral]
   ]
     .label
-      span Нейтральные
+      span = t '.opinion.neutral'
     .count = resource.reviews.neutral.count
 
   .navigation-block.navigation-block-negative[
@@ -28,7 +28,7 @@
     data-ellispsis-allowed=true
   ]
     .label
-      span Отрицательные
+      span = t '.opinion.negative'
     .count = resource.reviews.negative.count
 
 .reviews-groups

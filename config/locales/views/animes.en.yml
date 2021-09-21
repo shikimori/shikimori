@@ -121,6 +121,14 @@ en:
     cover:
       released: released
 
+    reviews:
+      navigation:
+        opinion:
+          all: All
+          positive: Positive
+          neutral: Neutral
+          negative: Negative
+
   mangas:
     <<: *animes
     publishers_info:

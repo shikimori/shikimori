@@ -121,6 +121,14 @@ ru:
     cover:
       released: релиз
 
+    reviews:
+      navigation:
+        opinion:
+          all: Все
+          positive: Положительные
+          neutral: Нейтральные
+          negative: Отрицательные
+
   mangas: &animes
     <<: *animes
     publishers_info:
