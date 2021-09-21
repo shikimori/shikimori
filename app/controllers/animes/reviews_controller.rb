@@ -11,8 +11,8 @@ class Animes::ReviewsController < AnimesController
   # RULES_TOPIC_ID = 299_770
 
   def index
-    @collection = ::Reviews::Query.call @resource.object,
-      opinion: (Types::Review::Opinion[params[:opinion]] if params[:opinion])
+    @opinion = (Types::Review::Opinion[params[:opinion]] if params[:opinion])
+    @collection = ::Reviews::Query.call @resource.object, opinion: @opinion
   end
 
   # def new

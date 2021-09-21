@@ -1,22 +1,30 @@
-.b-reviews_navigation
-  .navigation-block.navigation-block-all.is-active
+.b-reviews_navigation[
+  data-initial-opinion=local_assigns[:opinion]
+]
+  .navigation-block.navigation-block-all[
+    data-opinion=''
+  ]
     .label
       span Все #{i18n_io 'review', :few}
     .count = resource.reviews.count
 
   .navigation-block.navigation-block-positive[
+    data-opinion=::Types::Review::Opinion[:positive]
     data-ellispsis-allowed=true
   ]
     .label
       span Положительные
     .count = resource.reviews.positive.count
 
-  .navigation-block.navigation-block-neutral
+  .navigation-block.navigation-block-neutral[
+    data-opinion=::Types::Review::Opinion[:neutral]
+  ]
     .label
       span Нейтральные
     .count = resource.reviews.neutral.count
 
   .navigation-block.navigation-block-negative[
+    data-opinion=::Types::Review::Opinion[:negative]
     data-ellispsis-allowed=true
   ]
     .label

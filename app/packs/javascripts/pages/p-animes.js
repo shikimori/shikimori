@@ -20,4 +20,7 @@ pageLoad('.animes', '.mangas', '.ranobe', async () => {
       .last()
       .addClass('is-ellipsis');
   });
+
+  const opinion = $('.b-reviews_navigation').data('initial-opinion');
+  $(`${NAVIGATION_SELECTOR}[data-opinion=${opinion || "''"}`).click(); // eslint-disable-line quotes
 });
