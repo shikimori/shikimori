@@ -1,39 +1,24 @@
+- opinions = ([nil] + ::Types::Review::Opinion.values)
 .b-reviews_navigation[
   data-initial-opinion=local_assigns[:opinion]
 ]
-  .navigation-block.navigation-block-all[
-    data-opinion=''
-  ]
-    .label
-      span #{t '.opinion.all'} #{i18n_io 'review', :few}
-    .count = resource.reviews.count
-
-  .navigation-block.navigation-block-positive[
-    data-opinion=::Types::Review::Opinion[:positive]
-    data-ellispsis-allowed=true
-  ]
-    .label
-      span = t '.opinion.positive'
-    .count = resource.reviews.positive.count
-
-  .navigation-block.navigation-block-neutral[
-    data-opinion=::Types::Review::Opinion[:neutral]
-  ]
-    .label
-      span = t '.opinion.neutral'
-    .count = resource.reviews.neutral.count
-
-  .navigation-block.navigation-block-negative[
-    data-opinion=::Types::Review::Opinion[:negative]
-    data-ellispsis-allowed=true
-  ]
-    .label
-      span = t '.opinion.negative'
-    .count = resource.reviews.negative.count
+  - opinions.each do |opinion|
+    .navigation-block[
+      class="navigation-block-#{opinion || 'all'}"
+      data-opinion=(opinion || '')
+      data-ellispsis-allowed=%i[positive negative].include?(opinion)
+    ]
+      - if opinion
+        .label
+          span = t ".opinion.#{opinion}"
+        .count = resource.reviews.send(opinion).count
+      - else
+        .label
+          span #{t '.opinion.all'} #{i18n_io 'review', :few}
+        .count = resource.reviews.count
 
 .reviews-groups
-  .reviews-group
-    / = render 'reviews/group', reviews: @resource.review_views
-  .reviews-group data-opinion=::Types::Review::Opinion[:positive]
-  .reviews-group data-opinion=::Types::Review::Opinion[:neutral]
-  .reviews-group data-opinion=::Types::Review::Opinion[:negative]
+  - opinions.each do |opinion|
+    .reviews-group data-opinion=opinion
+      - if @collection && opinion == local_assigns[:opinion]
+        = render 'reviews/group', collection: @collection
