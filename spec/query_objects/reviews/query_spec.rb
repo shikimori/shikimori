@@ -14,18 +14,33 @@ describe Reviews::Query do
   let(:anime) { create :anime }
 
   subject(:query) { described_class.fetch db_entry }
+  let(:all_non_paginated_revies) { [@reviews[2], @reviews[1], @reviews[0]] }
 
-  describe '.fetch',:focus do
-    it { is_expected.to eq [@reviews[2], @reviews[0], @reviews[1]] }
+  describe '.fetch' do
+    it { is_expected.to eq all_non_paginated_revies }
   end
 
-  context 'no opinion' do
-    let(:opinion) { ['', nil].sample }
-    it { is_expected.to eq [@reviews[2], @reviews[0], @reviews[1]] }
-  end
+  describe '#by_opinion' do
+    subject { query.by_opinion opinion }
 
-  context 'has opinion' do
-    let(:opinion) { :positive }
-    it { is_expected.to eq [@reviews[0], @reviews[1]] }
+    context 'positive' do
+      let(:opinion) { :positive }
+      it { is_expected.to eq [@reviews[1], @reviews[0]] }
+    end
+
+    context 'neutral' do
+      let(:opinion) { :neutral }
+      it { is_expected.to eq [] }
+    end
+
+    context 'negative' do
+      let(:opinion) { :negative }
+      it { is_expected.to eq [@reviews[2]] }
+    end
+
+    context 'no opinion' do
+      let(:opinion) { [nil, ''].sample }
+      it { is_expected.to eq all_non_paginated_revies }
+    end
   end
 end
