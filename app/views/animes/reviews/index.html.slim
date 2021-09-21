@@ -1,10 +1,8 @@
-/ - content_for :head do
-  link rel='canonical' href="#{{forum_url :critiques}}"
-
 - if request.xhr?
   = render 'reviews/group', collection: @collection
 - else
   = render layout: 'animes/page' do |f|
     = render 'animes/reviews/navigation',
       resource: @resource,
-      collection: @collection
+      collection: @collection,
+      opinion: params[:opinion]

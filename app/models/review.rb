@@ -35,12 +35,7 @@ class Review < ApplicationRecord
   validates :manga, presence: true, unless: :anime?
 
   scope :positive, -> { where opinion: Types::Review::Opinion[:positive] }
-  scope :neutral, -> {
-    where opinion: [
-      Types::Review::Opinion[:neutral],
-      Types::Review::Opinion[:unknown]
-    ]
-  }
+  scope :neutral, -> { where opinion: Types::Review::Opinion[:neutral] }
   scope :negative, -> { where opinion: Types::Review::Opinion[:negative] }
 
   before_create :fill_is_written_before_release,
