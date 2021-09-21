@@ -13,7 +13,11 @@ describe Reviews::Query do
   let(:db_entry) { create :anime }
   let(:anime) { create :anime }
 
-  subject { described_class.call db_entry, opinion: opinion }
+  subject(:query) { described_class.fetch db_entry }
+
+  describe '.fetch',:focus do
+    it { is_expected.to eq [@reviews[2], @reviews[0], @reviews[1]] }
+  end
 
   context 'no opinion' do
     let(:opinion) { ['', nil].sample }

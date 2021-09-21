@@ -1,20 +1,23 @@
-class Reviews::Query
+class Reviews::Query < QueryObjectBase
   NEW_REVIEW_BUBBLE_INTERVAL = 2.days
-  method_object :db_entry, %i[opinion]
 
-  def call
-    scope = db_entry
+  def self.fetch db_entry
+    new db_entry
       .reviews
       .includes(:user, db_entry.anime? ? :anime : :manga)
+      .order(id: :desc)
+  end
 
+  def by_opinion
     if @opinion.present?
-      scope.where! opinion: Types::Review::Opinion[@opinion]
+      chain @scope.where opinion: Types::Review::Opinion[@opinion]
+    else
+      @scope
     end
-
-    [
-      bubbled(scope),
-      not_bubbled(scope)
-    ].compact.flatten.uniq
+    # [
+    #   bubbled(scope),
+    #   not_bubbled(scope)
+    # ].compact.flatten.uniq
   end
 
 private
