@@ -153,18 +153,26 @@
         margin-left: 10px
 
       .b-add_to_list
-        min-width: 134px
+        min-width: auto
 
         .edit:before
           cursor: default
 
+        .trigger
+          max-width: 145px
+          padding-right: 8px
+
+        .edit-trigger
+          display: flex
+
         .text
+          // overflow: visible
           cursor: inherit
           text-decoration: none
           font-weight: 600
 
-        .trigger
-          max-width: 140px
+        // &.is_written_before_release
+          max-width: 150px
 
       .b-rate
         line-height: 1

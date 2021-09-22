@@ -60,7 +60,7 @@
                 .edit-trigger
                   .edit
                   .text
-                    .status-name = review.user_rate.status_name
+                    .status-name data-text=review.user_rate.status_name
 
   - if review.is_written_before_release && !review.db_entry.ongoing?
     .is_written_before_release-container
