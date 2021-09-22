@@ -277,7 +277,7 @@ en:
         name: Name
         text: Text
         layout: Layout
-      summary:
+      review:
         is_written_before_release: Ongoing review
       topic:
         title: Title
