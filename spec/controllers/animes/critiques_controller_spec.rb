@@ -5,7 +5,7 @@ describe Animes::CritiquesController do
   let(:critique) { create :critique, :with_topics, user: user, target: anime }
 
   describe '#index' do
-    before { get :index, params: { anime_id: anime.to_param, type: 'Anime' } }
+    subject! { get :index, params: { anime_id: anime.to_param, type: 'Anime' } }
     it { expect(response).to have_http_status :success }
   end
 
@@ -19,7 +19,7 @@ describe Animes::CritiquesController do
         target_type: anime.class.name
       }
     end
-    before do
+    subject! do
       get :new,
         params: {
           anime_id: anime.to_param,
@@ -34,7 +34,7 @@ describe Animes::CritiquesController do
   describe '#create' do
     include_context :authenticated, :user, :week_registered
 
-    before do
+    subject! do
       post :create,
         params: {
           anime_id: anime.to_param,
@@ -85,7 +85,7 @@ describe Animes::CritiquesController do
 
   describe '#edit' do
     include_context :authenticated, :user, :week_registered
-    before do
+    subject! do
       get :edit,
         params: {
           anime_id: anime.to_param,
@@ -99,7 +99,7 @@ describe Animes::CritiquesController do
   describe '#update' do
     include_context :authenticated, :user, :week_registered
 
-    before do
+    subject! do
       patch :update,
         params: {
           id: critique.id,
@@ -141,7 +141,7 @@ describe Animes::CritiquesController do
 
   describe '#destroy' do
     include_context :authenticated, :user, :week_registered
-    before do
+    subject! do
       delete :destroy,
         params: {
           id: critique.id,
