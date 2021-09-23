@@ -20,6 +20,6 @@
 
 .reviews-groups
   - opinions.each do |opinion|
-    .reviews-group data-opinion=opinion
+    .reviews-group data-opinion=(opinion || '')
       - if @collection && opinion == local_assigns[:opinion]
         = render 'reviews/group', collection: @collection
