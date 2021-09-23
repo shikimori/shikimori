@@ -41,8 +41,8 @@ en:
       message:
         type_label: Message
 
-      summary:
-        type_label: Summary
+      review:
+        type_label: Review
 
       authorized_action:
         register_to_complete_action: >-

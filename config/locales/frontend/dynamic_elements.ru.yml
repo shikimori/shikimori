@@ -41,7 +41,7 @@ ru:
       message:
         type_label: Сообщение
 
-      summary:
+      review:
         type_label: Отзыв
 
       authorized_action:
