@@ -5,22 +5,8 @@ pageLoad('.animes', '.mangas', '.ranobe', async () => {
     new AnimesMenu('.b-animes-menu');
   }
 
-  const NAVIGATION_SELECTOR = '.b-reviews_navigation .navigation-block';
-  $(NAVIGATION_SELECTOR).on('click', ({ currentTarget }) => {
-    if (currentTarget.classList.contains('is-active')) {
-      return;
-    }
-    $(`${NAVIGATION_SELECTOR}.is-active`).removeClass('is-active');
-    currentTarget.classList.add('is-active');
+  const { ReviewsNavigation } =
+    await import(/* webpackChunkName: "db_entries_menu" */ '@/views/db_entries/reviews_navigation');
 
-    $(`${NAVIGATION_SELECTOR}[data-ellispsis-allowed]`)
-      .removeClass('is-ellipsis');
-
-    $(`${NAVIGATION_SELECTOR}[data-ellispsis-allowed]:not(.is-active)`)
-      .last()
-      .addClass('is-ellipsis');
-  });
-
-  const opinion = $('.b-reviews_navigation').data('initial-opinion');
-  $(`${NAVIGATION_SELECTOR}[data-opinion=${opinion || "''"}`).click(); // eslint-disable-line quotes
+  new ReviewsNavigation('.b-reviews_navigation');
 });
