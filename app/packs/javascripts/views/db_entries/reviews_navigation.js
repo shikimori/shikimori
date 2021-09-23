@@ -6,11 +6,12 @@ export class ReviewsNavigation extends View {
     this.$navigationBlocks = this.$('.navigation-block');
     const $reviewGroups = this.$node.next().children('.reviews-group');
 
-    this.entries = this.$navigationBlocks.toArray().map((node, index) => ({
+    this.states = this.$navigationBlocks.toArray().map((node, index) => ({
       navigationNode: node,
       reviewsNode: $reviewGroups[index],
       opinion: node.getAttribute('data-opinion'),
-      isActive: false
+      isActive: false,
+      isPendingContent: $reviewGroups[index].getAttribute('pending-content')
     }));
 
     this.$navigationBlocks.on('click', this.navigationBlockClick);
@@ -23,15 +24,35 @@ export class ReviewsNavigation extends View {
     this.selectOpinion(currentTarget.getAttribute('data-opinion'));
   }
 
-  selectOpinion(opinion) {entry;
-    const entry = this.#findEntry(opinion);
-    if (entry.isActive) { return; }
+  selectOpinion(opinion) {
+    const state = this.findEntry(opinion);
+    if (state.isActive) { return; }
 
     this.deselectActiveOpinion();
 
-    entry.isActive = true;
-    entry.navigationNode.classList.add('is-active');
+    state.isActive = true;
+    state.navigationNode.classList.add('is-active');
 
+    if (this.isNoContentLoaded(state.reviewsNode)) {
+      this.loadContent(state);
+    }
+
+    this.ellipsisFixes();
+  }
+
+  deselectActiveOpinion() {
+    const state = this.states.find(v => v.isActive);
+    if (!state) { return; }
+
+    state.isActive = false;
+    state.navigationNode.classList.remove('is-active');
+  }
+
+  findEntry(opinion) {
+    return this.states.find(state => state.opinion === opinion);
+  }
+
+  ellipsisFixes() {
     this.$navigationBlocks
       .filter('[data-ellispsis-allowed]')
       .removeClass('is-ellipsis');
@@ -42,15 +63,11 @@ export class ReviewsNavigation extends View {
       .addClass('is-ellipsis');
   }
 
-  deselectActiveOpinion() {
-    const entry =  this.entries.find(v => v.isActive);
-    if (!entry) { return; }
-
-    entry.isActive = false;
-    entry.navigationNode.classList.remove('is-active');
+  isNoContentLoaded(node) {
+    return node.childElementCount === 0;
   }
 
-  #findEntry(opinion) {
-    return this.entries.find(entry => entry.opinion === opinion);
+  loadContent(state) {
+    console.log('loadContent', state);
   }
 }
