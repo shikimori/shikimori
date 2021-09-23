@@ -5,7 +5,7 @@ import { ANIME_TOOLTIP_OPTIONS } from '@/helpers/tooltip_options';
 import axios from '@/helpers/axios';
 
 const NO_DATA_I18N_KEY = 'frontend.pages.p_animes.no_data';
-const STATUS_I18N_KEY = 'activerecord.attributes.user_rate.statuses'
+const STATUS_I18N_KEY = 'activerecord.attributes.user_rate.statuses';
 
 export class AnimesMenu extends View {
   async initialize() {

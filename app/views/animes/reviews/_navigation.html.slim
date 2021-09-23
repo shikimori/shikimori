@@ -1,6 +1,6 @@
 - opinions = ([nil] + ::Types::Review::Opinion.values)
 .b-reviews_navigation[
-  data-initial-opinion=local_assigns[:opinion]
+  data-initial-opinion=(local_assigns[:opinion] || '')
   data-url=@resource.reviews_url
 ]
   - opinions.each do |opinion|
