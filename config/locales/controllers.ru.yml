@@ -398,6 +398,7 @@ ru:
 
   animes/reviews_controller:
     <<: *animes_controller
+    review_by: Отзыв от %{nickname}
 
   users_controller:
     similar_users: Похожие пользователи

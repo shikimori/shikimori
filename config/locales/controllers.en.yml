@@ -398,6 +398,7 @@ en:
 
   animes/reviews_controller:
     <<: *animes_controller
+    review_by: Review by %{nickname}
 
   users_controller:
     similar_users: Similar users
