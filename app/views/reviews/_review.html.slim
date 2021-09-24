@@ -40,7 +40,6 @@
 
         - if review.persisted?
           .b-status-line
-
             = render 'topics/status_line/section_dates', object: review
             .section.additional
               span.comments == review.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
