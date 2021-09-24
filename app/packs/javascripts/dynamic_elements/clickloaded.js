@@ -4,9 +4,9 @@ import axios from '@/helpers/axios';
 import View from '@/views/application/view';
 
 export default class Clickloaded extends View {
-  isLoading = false;
 
   initialize() {
+    this.isLoading = false;
     this.$root.on('click', this.fetch);
   }
 

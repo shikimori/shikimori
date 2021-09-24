@@ -1,9 +1,9 @@
 import { chain } from 'shiki-decorators';
 
 export default class View {
-  constructor(node, arg1, arg2, arg3) {
+  constructor(node, ...args) {
     this._initialize(node);
-    this.initialize(arg1, arg2, arg3);
+    this.initialize(...args);
     this._afterInitialize();
   }
 

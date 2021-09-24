@@ -16,10 +16,10 @@ const VARIANT_SELECTOR = '.b-db_entry-variant-list_item';
 const ITEM_SELECTOR = `${VARIANT_SELECTOR}, .search-mode`;
 
 export default class GlobalSearch extends View {
-  isActive = false
-  isStubbedSearchMode = false
-
   initialize({ showMobileSearch, hideMobileSearch }) {
+    this.isActive = false;
+    this.isStubbedSearchMode = false;
+
     this.showMobileSearch = showMobileSearch;
     this.hideMobileSearch = hideMobileSearch;
 
@@ -55,7 +55,7 @@ export default class GlobalSearch extends View {
           this._selectItem(currentTarget, false);
         }
       })
-      .on('click', VARIANT_SELECTOR, (e) => {
+      .on('click', VARIANT_SELECTOR, e => {
         if (this.isStubbedSearchMode) {
           e.preventDefault();
           this.pick(e.currentTarget);
@@ -141,7 +141,7 @@ export default class GlobalSearch extends View {
     if (isMobile()) {
       this.showMobileSearch();
     }
-    this.$input.focus()
+    this.$input.focus();
   }
 
   pick(_node) {
@@ -336,7 +336,6 @@ export default class GlobalSearch extends View {
       if (this.$activeItem.length && $activeLink.length) {
         url = $activeLink.attr('href');
       } else {
-        debugger
         url = new TinyUri(this.$node.data(`search_${this.currentMode}_url`))
           .query.set('search', this.phrase || null)
           .toString();

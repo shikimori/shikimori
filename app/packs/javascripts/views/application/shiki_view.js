@@ -5,16 +5,14 @@ import axios from '@/helpers/axios';
 
 // общий класс для комментария, топика, редактора
 export default class ShikiView extends View {
-  MAX_PREVIEW_HEIGHT = 450
-  COLLAPSED_HEIGHT = 150
-
   _initialize(...args) {
     super._initialize(...args);
 
+    this.MAX_PREVIEW_HEIGHT = 450;
+    this.COLLAPSED_HEIGHT = 150;
+
     this.$node.removeClass('unprocessed');
     this.$inner = this.$('>.inner');
-
-    // if (!this.$inner.exists()) { return; }
   }
 
   @bind

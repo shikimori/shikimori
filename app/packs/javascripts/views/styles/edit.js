@@ -12,9 +12,9 @@ const PAGE_BORDER_REGEXP = /\/\* AUTO=page_border \*\/ .*[\r\n]?/;
 const STICKY_MENU_REGEXP = /\/\* AUTO=sticky_menu \*\/ .*[\r\n]?/;
 
 export class EditStyles extends View {
-  cssCache = {}
-
   async initialize() {
+    this.cssCache = {};
+
     this.$form = this.$('.edit_style');
     this.$preview = this.$('.preview');
 

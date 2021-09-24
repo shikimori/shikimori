@@ -13,12 +13,12 @@ const VUE_PENDING_CLASS = 'vue-node'
 const VUE_INITIALIZED_CLASS = 'vue-node-initialized'
 
 export default class ShikiEditorV2 extends View {
-  initialization = pDefer()
-  processedInitialContent = null
-  isPendingSubmit = false
-  editorApp = null
-
   async initialize() {
+    this.initialization = pDefer();
+    this.processedInitialContent = null;
+    this.isPendingSubmit = false;
+    this.editorApp = null;
+
     await this._buildEditor();
     this.initialization.resolve();
 
