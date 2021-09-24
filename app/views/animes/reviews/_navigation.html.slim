@@ -29,15 +29,12 @@
         class=('is-active' if opinion == local_assigns[:opinion])
       ]
         - if opinion == local_assigns[:opinion] && collection
-          - if collection.any?
-            = render 'reviews/group',
-              collection: collection,
-              is_preview: local_assigns[:is_preview]
+          = render 'reviews/group',
+            collection: collection,
+            is_preview: local_assigns[:is_preview]
           - if collection.next_page? && !local_assigns[:is_preview]
             = render 'blocks/postloader',
               filter: 'b-review',
               next_url: current_url(page: collection.next_page),
               prev_url: (current_url(page: collection.prev_page) if collection.prev_page?),
               pages_limit: controller.class::PER_PAGE
-          - else
-            .b-nothing_here = t 'no_reviews'

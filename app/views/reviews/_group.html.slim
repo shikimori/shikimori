@@ -1,3 +1,6 @@
-= render partial: 'reviews/review',
-  collection: collection,
-  cached: ->(entry) { CacheHelper.keys entry }
+- if collection.any?
+  = render partial: 'reviews/review',
+    collection: collection,
+    cached: ->(entry) { CacheHelper.keys entry }
+- elsif collection.page == 1
+  .b-nothing_here = t 'no_reviews'
