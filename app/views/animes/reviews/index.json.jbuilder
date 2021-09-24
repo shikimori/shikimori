@@ -1,10 +1,12 @@
-json.content render(
-  partial: 'reviews/group',
-  locals: {
-    collection: @collection,
-    is_preview: @is_preview
-  },
-  formats: :html
+json.content JsExports::Supervisor.instance.sweep(
+  render(
+    partial: 'reviews/group',
+    locals: {
+      collection: @collection,
+      is_preview: @is_preview
+    },
+    formats: :html
+  )
 )
 
 if !@is_preview && @collection&.next_page?
@@ -18,3 +20,5 @@ if !@is_preview && @collection&.next_page?
     pages_limit: controller.class::PER_PAGE
   )
 end
+
+json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)

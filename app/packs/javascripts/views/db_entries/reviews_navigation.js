@@ -117,5 +117,7 @@ export class ReviewsNavigation extends View {
     state.contentNode.innerHTML = data.content + (data.postloader || '');
     state.contentNode.classList.remove('b-ajax');
     state.isLoading = false;
+
+    $(state.contentNode).process(data.JS_EXPORTS);
   }
 }
