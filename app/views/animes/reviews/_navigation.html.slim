@@ -32,6 +32,7 @@
           = render 'reviews/group',
             collection: collection,
             is_preview: local_assigns[:is_preview]
+
           - if collection.next_page? && !local_assigns[:is_preview]
             = render 'blocks/postloader',
               filter: 'b-review',

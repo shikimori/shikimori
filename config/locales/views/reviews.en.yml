@@ -6,4 +6,6 @@ en:
         anime: SUmmary written prior to the end of the anime
         manga: Review written prior to the end of the manga
         ranobe: Review written prior to the end of the light novel
-      go_to_review: go to reviewg
+      go_to_review: go to review
+    group:
+      to_other_reviews: To other reviews
