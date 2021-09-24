@@ -21,6 +21,8 @@ export class ReviewsNavigation extends View {
     this.$navigations.on('click', this.navigationBlockClick);
 
     this.selectOpinion(this.initialOption, true);
+
+    $(document).one('turbolinks:before-cache', this.deselectActiveState);
   }
 
   @memoize
@@ -45,6 +47,11 @@ export class ReviewsNavigation extends View {
   @bind
   navigationBlockClick({ currentTarget }) {
     this.selectOpinion(currentTarget.getAttribute('data-opinion'));
+  }
+
+  @bind
+  deselectActiveState() {
+    this.deselectState(this.activeState);
   }
 
   selectOpinion(opinion, isSkipHistory) {
