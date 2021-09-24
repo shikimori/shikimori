@@ -49,25 +49,24 @@ end
           Types::Review::Opinion[:neutral]
         end
 
-      is_dropped = UserRate.find_by(target: db_entry, user: user)&.dropped?
-      if is_dropped
-        opinion = Types::Review::Opinion[:negative]
-        ap "dropped #{opinion}"
-      else
-        ap "#{normalized_score} #{opinion}"
-      end
-
       is_written_before_release =
         if (db_entry.released? && !db_entry.released_on) || (db_entry.is_a?(Manga) && db_entry.discontinued?)
           false
         elsif db_entry.ongoing? || db_entry.anons? || (db_entry.is_a?(Manga) && db_entry.paused?)
           true
         elsif db_entry.released? && db_entry.released_on?
-          comment.created_at >= db_entry.released_on
+          comment.created_at < db_entry.released_on
         else
-          puts 'zzzzzz'
-          binding.pry
+          raise "unexpected db_entry state"
         end
+
+      is_dropped = UserRate.find_by(target: db_entry, user: user)&.dropped?
+      if is_dropped
+        opinion = Types::Review::Opinion[:negative]
+        ap "dropped #{opinion} #{is_written_before_release}"
+      else
+        ap "#{normalized_score} #{opinion} #{is_written_before_release}"
+      end
 
       review = Review.new(
         user: user,
