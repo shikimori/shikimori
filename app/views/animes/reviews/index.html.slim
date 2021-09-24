@@ -1,9 +1,6 @@
-- if request.xhr?
-  = render 'reviews/group', collection: @collection
-- else
-  = render layout: 'animes/page' do |f|
-    = render 'animes/reviews/navigation',
-      resource: @resource,
-      collection: @collection,
-      opinion: @opinion,
-      is_preview: @is_preview
+= render layout: 'animes/page' do |f|
+  = render 'animes/reviews/navigation',
+    resource: @resource,
+    collection: @collection,
+    opinion: @opinion,
+    is_preview: @is_preview
