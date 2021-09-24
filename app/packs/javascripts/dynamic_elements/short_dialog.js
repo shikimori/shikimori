@@ -1,11 +1,12 @@
 import Topic from './topic';
+import { memoize } from 'shiki-decorators';
 
 export default class ShortDialog extends Topic {
   _type() { return 'dialog'; }
   _typeLabel() { return I18n.t('frontend.dynamic_elements.dialog.type_label'); } // eslint-disable-line camelcase
 
   initialize() {
-    this._checkHeight();
+    this._scheduleCheckHeight(false);
     this.on('appear', this._appear);
 
     // по клику на ответить помечаем сущность прочитанной
@@ -14,11 +15,8 @@ export default class ShortDialog extends Topic {
     });
   }
 
-  // private functions
-  _checkHeight() {
-    this.$inner.checkHeight({
-      maxHeight: this.MAX_PREVIEW_HEIGHT,
-      collapsedHeight: this.COLLAPSED_HEIGHT
-    });
+  @memoize
+  get $checkHeightNode() {
+    return this.$inner;
   }
 }

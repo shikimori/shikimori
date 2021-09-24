@@ -1,7 +1,9 @@
-import { bind } from 'shiki-decorators';
+import delay from 'delay';
+import { bind, memoize } from 'shiki-decorators';
 
 import View from '@/views/application/view';
 import axios from '@/helpers/axios';
+import { imagePromiseFinally } from '@/helpers/load_image';
 
 // общий класс для комментария, топика, редактора
 export default class ShikiView extends View {
@@ -15,11 +17,31 @@ export default class ShikiView extends View {
     this.$inner = this.$('>.inner');
   }
 
+  @memoize
+  get $checkHeightNode() {
+    return this.$inner;
+  }
+
+  async _scheduleCheckHeight(isSkipClassCheck = false) {
+    if (!isSkipClassCheck && !this.$checkHeightNode.hasClass('check_height')) {
+      return;
+    }
+
+    const $images = this.$checkHeightNode.find('img');
+
+    if ($images.length) {
+      // картинки могут быть уменьшены image_normalizer'ом, поэтому делаем с задержкой
+      await imagePromiseFinally($images.toArray());
+    }
+    await delay(10);
+    this._checkHeight();
+  }
+
   @bind
   _checkHeight() {
     if (!window.SHIKI_USER.isCommentsAutoCollapsed) { return; }
 
-    this.$inner.checkHeight({
+    this.$checkHeightNode.checkHeight({
       maxHeight: this.MAX_PREVIEW_HEIGHT,
       collapsedHeight: this.COLLAPSED_HEIGHT
     });

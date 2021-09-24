@@ -53,19 +53,7 @@ export default class Comment extends ShikiEditable {
       this._activateAppearMarker();
     }
 
-    if (this.$inner.hasClass('check_height')) {
-      const $images = this.$body.find('img');
-
-      if ($images.exists()) {
-        // картинки могут быть уменьшены image_normalizer'ом, поэтому делаем с задержкой
-        imagePromiseFinally($images.toArray()).then(async () => {
-          await delay(10);
-          this._checkHeight();
-        });
-      } else {
-        this._checkHeight();
-      }
-    }
+    this._scheduleCheckHeight();
 
     this.$node.one('mouseover', this._deactivateInaccessibleButtons);
     this.$('.item-mobile').one(this._deactivateInaccessibleButtons);
