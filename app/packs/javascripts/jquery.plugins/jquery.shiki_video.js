@@ -1,4 +1,4 @@
-import imagePromise from 'image-promise';
+import { imagePromiseFinally } from '@/helpers/load_image';
 
 const prepare = (domain, href) => (
   {
@@ -84,7 +84,7 @@ $.fn.extend({
       });
 
       const posterImg = root.querySelector('img');
-      await imagePromise(posterImg);
+      await imagePromiseFinally(posterImg);
 
       if ($root.hasClass('youtube') &&
         posterImg.naturalWidth === 120 && posterImg.naturalHeight === 90

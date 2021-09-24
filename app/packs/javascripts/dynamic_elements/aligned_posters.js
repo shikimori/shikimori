@@ -3,7 +3,7 @@ import delay from 'delay';
 import { memoize } from 'shiki-decorators';
 
 import View from '@/views/application/view';
-import { loadImages } from '@/helpers/load_image';
+import { loadImagesFinally } from '@/helpers/load_image';
 
 export const GLOBAL_SELECTOR = 'd-aligned_posters';
 export const DATA_KEY = 'cutted-covers';
@@ -34,7 +34,7 @@ export class AlignedPosters extends View {
     // that is why `delay` is used here
     await Promise.all([
       delay(),
-      loadImages(this.node)
+      loadImagesFinally(this.node)
     ]);
 
     this.process();

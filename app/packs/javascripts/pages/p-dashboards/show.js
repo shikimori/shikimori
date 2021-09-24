@@ -1,6 +1,6 @@
 import delay from 'delay';
 
-import { loadImages } from '@/helpers/load_image';
+import { loadImagesFinally } from '@/helpers/load_image';
 
 pageLoad('dashboards_show', async () => {
   if ($('.p-dashboards-show .v2').length) { return; }
@@ -14,7 +14,7 @@ pageLoad('dashboards_show', async () => {
   });
 
   await delay(500);
-  loadImages('.cc-news').then(() => {
+  loadImagesFinally('.cc-news').then(() => {
     const $userNews = $('.c-news_topics');
     const $generatedNews = $('.c-generated_news');
 

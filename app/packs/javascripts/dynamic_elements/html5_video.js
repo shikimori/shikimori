@@ -1,5 +1,5 @@
 import delay from 'delay';
-import loadImage from 'image-promise';
+import imagePromise from 'image-promise';
 
 import View from '@/views/application/view';
 
@@ -21,7 +21,7 @@ export default class Html5Video extends View {
     const thumbnail = new Image();
     thumbnail.src = this.$node.data('src');
 
-    loadImage(thumbnail)
+    imagePromise(thumbnail)
       .then(() => {
         this.node.src = this.$node.data('src');
         this.node.srcset = this.$node.data('srcset');

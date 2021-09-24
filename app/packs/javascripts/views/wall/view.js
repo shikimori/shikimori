@@ -1,10 +1,10 @@
-import { loadImages } from '@/helpers/load_image';
-
 import View from '@/views/application/view';
 
 import WallCluster from './cluster';
 import WallImage from './image';
 import WallVideo from './video';
+
+import { loadImagesFinally } from '@/helpers/load_image';
 
 const MIN_CLUSTER_WEIGHT = 2.5;
 const MIN_TWO_CLUSTERS_WEIGHT = 5.8;
@@ -25,7 +25,7 @@ export default class Wall extends View {
     this.maxHeight = options.maxHeight;
 
     if (options.awaitImagesLoaded === undefined || options.awaitImagesLoaded) {
-      await loadImages(this.node);
+      await loadImagesFinally(this.node);
     }
 
     this._prepare();

@@ -5,7 +5,7 @@ import ShikiEditable from '@/views/application/shiki_editable';
 
 import axios from '@/helpers/axios';
 import { animatedCollapse, animatedExpand } from '@/helpers/animated';
-import { loadImages } from '@/helpers/load_image';
+import { loadImagesFinally } from '@/helpers/load_image';
 
 const I18N_KEY = 'frontend.dynamic_elements.topic';
 const FAYE_EVENTS = [
@@ -88,7 +88,7 @@ export default class Topic extends ShikiEditable {
     $('.item-mobile', this.$inner).one(this._deactivateInaccessibleButtons);
 
     if (this.$body.length && (this.isPreview || this.isClubPage)) {
-      loadImages(this.$body[0]).then(this._checkHeight);
+      loadImagesFinally(this.$body[0]).then(this._checkHeight);
       this._checkHeight();
     }
 
