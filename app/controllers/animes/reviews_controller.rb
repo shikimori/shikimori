@@ -17,6 +17,8 @@ class Animes::ReviewsController < AnimesController
       .fetch(@resource.object)
       .by_opinion(@opinion)
       .paginate(@page, LIMIT)
+
+    sleep 2 if request.xhr?
   end
 
   # def new

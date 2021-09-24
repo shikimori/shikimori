@@ -13,7 +13,8 @@ export class ReviewsNavigation extends View {
       navigationNode: node,
       contentNode: this.$contents[index],
       opinion: node.getAttribute('data-opinion'),
-      isActive: false
+      isActive: false,
+      isLoading: false
     }));
 
     this.$navigations.on('click', this.navigationBlockClick);
@@ -86,7 +87,15 @@ export class ReviewsNavigation extends View {
   }
 
   async loadContent(state) {
+    if (state.isLoading) { return; }
+
+    state.contentNode.classList.add('b-ajax');
+    state.isLoading = true;
+
     const { data } = await axios.get(this.fetchUrl(state.opinion));
+
     state.contentNode.innerHTML = data;
+    state.contentNode.classList.remove('b-ajax');
+    state.isLoading = false;
   }
 }
