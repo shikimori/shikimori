@@ -10,13 +10,19 @@ class Animes::ReviewsController < AnimesController
 
   # RULES_TOPIC_ID = 299_770
   PER_PAGE = 7
+  PER_PREVIEW = 4
 
   def index
     @opinion = (Types::Review::Opinion[params[:opinion]] if params[:opinion])
-    @collection = ::Reviews::Query
+    @is_preview = !!params[:is_preview]
+
+    query = ::Reviews::Query
       .fetch(@resource.object)
       .by_opinion(@opinion)
-      .paginate(@page, 7)
+
+    @collection = @is_preview ?
+      query.paginate(1, PER_PREVIEW) :
+      query.paginate(@page, PER_PAGE)
   end
 
   def show

@@ -1,10 +1,11 @@
 json.content render(
   'reviews/group',
   collection: @collection,
+  is_preview: @is_preview,
   formats: :html
 )
 
-if @collection&.next_page?
+if !@is_preview && @collection&.next_page?
   json.postloader render(
     'blocks/postloader',
     filter: 'b-review',

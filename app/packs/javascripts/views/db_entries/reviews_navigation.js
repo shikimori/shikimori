@@ -91,16 +91,18 @@ export class ReviewsNavigation extends View {
     return node.childElementCount === 0;
   }
 
-  fetchUrl(opinion) {
-    if (!opinion) {
-      return this.fetchUrlBase;
-    }
+  fetchUrl(opinion, isPreview) {
+    const url = opinion ?
+      this.fetchUrlBase + '/' + opinion :
+      this.fetchUrlBase;
 
-    return this.fetchUrlBase + '/' + opinion;
+    return isPreview ?
+      new TinyUri(url).query.merge({ is_preview: true }).toString() :
+      url;
   }
 
   replaceHistoryState(state) {
-    const url = this.fetchUrl(state.opinion);
+    const url = this.fetchUrl(state.opinion, false);
     window.history.replaceState({ turbolinks: true, url }, '', url);
   }
 
@@ -110,9 +112,9 @@ export class ReviewsNavigation extends View {
     state.contentNode.classList.add('b-ajax');
     state.isLoading = true;
 
-    const { data } = await axios.get(this.fetchUrl(state.opinion));
+    const { data } = await axios.get(this.fetchUrl(state.opinion, this.isPreview));
 
-    state.contentNode.innerHTML = data.content + data.postloader;
+    state.contentNode.innerHTML = data.content + (data.postloader || '');
     state.contentNode.classList.remove('b-ajax');
     state.isLoading = false;
   }

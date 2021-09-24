@@ -2,7 +2,7 @@
   collection: collection,
   cached: ->(entry) { CacheHelper.keys entry }
 
-- if collection.next_page?
+- if collection.next_page? && !local_assigns[:is_preview]
   = render 'blocks/postloader',
     filter: 'b-review',
     next_url: current_url(page: collection.next_page),
