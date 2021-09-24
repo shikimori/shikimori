@@ -1,28 +1,29 @@
 - opinions = ([nil] + ::Types::Review::Opinion.values)
 .b-reviews_navigation[
   data-initial-opinion=(local_assigns[:opinion] || '')
-  data-url=@resource.reviews_url
+  data-fetch-url-base=@resource.reviews_url
 ]
-  - opinions.each do |opinion|
-    .navigation-block[
-      class="navigation-block-#{opinion || 'all'}"
-      data-opinion=(opinion || '')
-      data-ellispsis-allowed=%i[positive negative].include?(opinion)
-    ]
-      - if opinion
-        .label
-          span = t ".opinion.#{opinion}"
-        .count = resource.reviews.send(opinion).count
-      - else
-        .label
-          span #{t '.opinion.all'} #{i18n_io 'review', :few}
-        .count = resource.reviews.count
+  .navigation-container
+    - opinions.each do |opinion|
+      .navigation-node[
+        class="navigation-node-#{opinion || 'all'}"
+        data-opinion=(opinion || '')
+        data-ellispsis-allowed=%i[positive negative].include?(opinion)
+      ]
+        - if opinion
+          .label
+            span = t ".opinion.#{opinion}"
+          .count = resource.reviews.send(opinion).count
+        - else
+          .label
+            span #{t '.opinion.all'} #{i18n_io 'review', :few}
+          .count = resource.reviews.count
 
-.reviews-groups
-  - opinions.each do |opinion|
-    - is_content = !!(@collection && opinion == local_assigns[:opinion])
-    .reviews-group[
-      data-opinion=(opinion || '')
-    ]
-      - if is_content
-        = render 'reviews/group', collection: @collection
+  .content-container
+    - opinions.each do |opinion|
+      .content[
+        data-opinion=(opinion || '')
+        class=('is-active' if opinion == local_assigns[:opinion])
+      ]
+        - if !!(@collection && opinion == local_assigns[:opinion])
+          = render 'reviews/group', collection: @collection

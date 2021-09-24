@@ -32,23 +32,24 @@
       +ellipsis2
 
 .b-reviews_navigation
-  display: flex
-  font-family: var(--font-alt)
-  margin-bottom: 5px
+  .navigation-container
+    display: flex
+    font-family: var(--font-alt)
+    margin-bottom: 5px
 
-  +lte_ipad
-    height: 30px
-    line-height: 30px
+    +lte_ipad
+      height: 30px
+      line-height: 30px
 
-  +laptop
-    height: 36px
-    line-height: 36px
+    +laptop
+      height: 36px
+      line-height: 36px
 
-  +gte_desktop
-    height: 39px
-    line-height: 39px
+    +gte_desktop
+      height: 39px
+      line-height: 39px
 
-  .navigation-block
+  .navigation-node
     align-items: baseline
     border-left: 5px solid
     display: flex
@@ -172,3 +173,7 @@
 
     &.is-ellipsis
       +navigation_block_ellipsis
+
+  .content-node
+    &:not(.is-active)
+      display: none

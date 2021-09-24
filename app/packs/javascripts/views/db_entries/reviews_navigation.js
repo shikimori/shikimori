@@ -1,22 +1,34 @@
-import { bind } from 'shiki-decorators';
+import { bind, memoize } from 'shiki-decorators';
+import TinyUri from 'tiny-uri';
+
 import View from '@/views/application/view';
+import axios from '@/helpers/axios';
 
 export class ReviewsNavigation extends View {
   initialize() {
-    this.$navigationBlocks = this.$('.navigation-block');
-    const $reviewGroups = this.$node.next().children('.reviews-group');
+    this.$navigations = this.$('.navigation-container > .navigation-node');
+    this.$contents = this.$('.content-container > .content-node');
 
-    this.states = this.$navigationBlocks.toArray().map((node, index) => ({
+    this.states = this.$navigations.toArray().map((node, index) => ({
       navigationNode: node,
-      reviewsNode: $reviewGroups[index],
+      contentNode: this.$contents[index],
       opinion: node.getAttribute('data-opinion'),
-      isActive: false,
-      isPendingContent: $reviewGroups[index].getAttribute('pending-content')
+      isActive: false
     }));
 
-    this.$navigationBlocks.on('click', this.navigationBlockClick);
+    this.$navigations.on('click', this.navigationBlockClick);
 
-    this.selectOpinion(this.$node.data('initial-opinion'));
+    this.selectOpinion(this.initialOption);
+  }
+
+  @memoize
+  get initialOption() {
+    return this.$node.data('initial-opinion');
+  }
+
+  @memoize
+  get fetchUrlBase() {
+    return this.$node.data('fetch-url-base');
   }
 
   @bind
@@ -32,8 +44,9 @@ export class ReviewsNavigation extends View {
 
     state.isActive = true;
     state.navigationNode.classList.add('is-active');
+    state.contentNode.classList.add('is-active');
 
-    if (this.isNoContentLoaded(state.reviewsNode)) {
+    if (this.isNoContentLoaded(state.contentNode)) {
       this.loadContent(state);
     }
 
@@ -46,6 +59,7 @@ export class ReviewsNavigation extends View {
 
     state.isActive = false;
     state.navigationNode.classList.remove('is-active');
+    state.contentNode.classList.remove('is-active');
   }
 
   findEntry(opinion) {
@@ -53,11 +67,11 @@ export class ReviewsNavigation extends View {
   }
 
   ellipsisFixes() {
-    this.$navigationBlocks
+    this.$navigations
       .filter('[data-ellispsis-allowed]')
       .removeClass('is-ellipsis');
 
-    this.$navigationBlocks
+    this.$navigations
       .filter('[data-ellispsis-allowed]:not(.is-active)')
       .last()
       .addClass('is-ellipsis');
@@ -67,7 +81,12 @@ export class ReviewsNavigation extends View {
     return node.childElementCount === 0;
   }
 
-  loadContent(state) {
-    console.log('loadContent', state);
+  fetchUrl(opinion) {
+    return new TinyUri(this.fetchUrlBase).query.merge({ opinion }).toString();
+  }
+
+  async loadContent(state) {
+    const { data } = await axios.get(this.fetchUrl(state.opinion));
+    state.contentNode.innerHTML = data;
   }
 }
