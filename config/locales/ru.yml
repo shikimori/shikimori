@@ -595,7 +595,7 @@ ru:
       layout:
         menu: Меню
         none: Скрыто
-    summary:
+    review:
       opinion:
         positive: Положительный
         negative: Отрицательный

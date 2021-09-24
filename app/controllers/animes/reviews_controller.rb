@@ -17,8 +17,9 @@ class Animes::ReviewsController < AnimesController
       .fetch(@resource.object)
       .by_opinion(@opinion)
       .paginate(@page, LIMIT)
+  end
 
-    sleep 2 if request.xhr?
+  def show
   end
 
   # def new
@@ -68,7 +69,7 @@ private
 
   def actualize_resource
     if @resource.is_a? Review
-      @review = @resource.decorate
+      @review = @resource
       @resource = @anime || @manga || @ranobe
     end
   end

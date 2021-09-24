@@ -595,7 +595,7 @@ en:
       layout:
         menu: Menu
         none: Hidden
-    summary:
+    review:
       opinion:
         positive: Positive
         negative: Negative

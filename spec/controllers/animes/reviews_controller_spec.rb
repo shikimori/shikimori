@@ -11,10 +11,10 @@ describe Animes::ReviewsController do
     it { expect(response).to have_http_status :success }
   end
 
-  # describe '#show' do
-  #   subject! { get :show, params: { anime_id: anime.to_param, type: 'Anime' } }
-  #   it { expect(response).to have_http_status :success }
-  # end
+  describe '#show' do
+    subject! { get :show, params: { anime_id: anime.to_param, type: 'Anime' } }
+    it { expect(response).to have_http_status :success }
+  end
 
   # describe '#new' do
   #   include_context :authenticated, :user, :week_registered

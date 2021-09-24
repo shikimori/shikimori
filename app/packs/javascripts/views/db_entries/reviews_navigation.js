@@ -89,6 +89,9 @@ export class ReviewsNavigation extends View {
   async loadContent(state) {
     if (state.isLoading) { return; }
 
+    // const url = 
+    // window.history.replaceState({ turbolinks: true, url }, '', url);
+
     state.contentNode.classList.add('b-ajax');
     state.isLoading = true;
 
