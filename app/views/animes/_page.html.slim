@@ -37,7 +37,8 @@ header.head
           - if @resource.reviews.any?
             .block
               = render 'animes/reviews/navigation',
-                resource: @resource
+                resource: @resource,
+                is_preview: true
           = render 'db_entries/comments', resource: @resource
 
     aside.l-menu

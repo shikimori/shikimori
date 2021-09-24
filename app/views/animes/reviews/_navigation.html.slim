@@ -1,7 +1,9 @@
 - opinions = ([nil] + ::Types::Review::Opinion.values)
+
 .b-reviews_navigation[
-  data-initial-opinion=(local_assigns[:opinion] || '')
-  data-fetch-url-base=@resource.reviews_url
+  data-initial_opinion=(local_assigns[:opinion] || '')
+  data-fetch_url_base=resource.reviews_url
+  data-is_preview=!!local_assigns[:is_preview]
 ]
   .navigation-container
     - opinions.each do |opinion|
@@ -25,8 +27,8 @@
         data-opinion=(opinion || '')
         class=('is-active' if opinion == local_assigns[:opinion])
       ]
-        - if opinion == local_assigns[:opinion] && @collection
-          - if @collection.any?
-            = render 'reviews/group', collection: @collection
+        - if opinion == local_assigns[:opinion] && !local_assigns[:is_preview]
+          - if local_assigns[:collection].any?
+            = render 'reviews/group', collection: local_assigns[:collection]
           - else
             .b-nothing_here = t 'no_reviews'

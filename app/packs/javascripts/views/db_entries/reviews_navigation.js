@@ -24,12 +24,17 @@ export class ReviewsNavigation extends View {
 
   @memoize
   get initialOption() {
-    return this.$node.data('initial-opinion');
+    return this.$node.data('initial_opinion');
   }
 
   @memoize
   get fetchUrlBase() {
-    return this.$node.data('fetch-url-base');
+    return this.$node.data('fetch_url_base');
+  }
+
+  @memoize
+  get isPreview() {
+    return this.$node.data('is_preview') !== undefined;
   }
 
   @bind
@@ -47,7 +52,9 @@ export class ReviewsNavigation extends View {
     state.navigationNode.classList.add('is-active');
     state.contentNode.classList.add('is-active');
 
-    this.replaceHistoryState(state);
+    if (!this.isPreview) {
+      this.replaceHistoryState(state);
+    }
 
     if (this.isNoContentLoaded(state.contentNode)) {
       this.loadContent(state);
