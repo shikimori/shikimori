@@ -67,6 +67,25 @@
       line-height: inherit
       margin: 0 0 0 auto
 
+      +iphone
+        flex-wrap: nowrap
+
+        span
+          white-space: nowrap
+
+        time
+          display: block
+          +ellipsis2
+
+        .section.created_at
+          min-width: 0
+
+          &:after
+            display: none
+
+        .section.changed_at
+          display: none
+
   .review-info
     align-items: flex-end
     display: flex
