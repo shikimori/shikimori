@@ -9,7 +9,7 @@ pageLoad('.animes', '.mangas', '.ranobe', async () => {
 
   if ($('.b-reviews_navigation').exists()) {
     const { ReviewsNavigation } = await import(
-      /* webpackChunkName: "db_entries_menu" */
+      /* webpackChunkName: "reviews_navigation" */
       '@/views/db_entries/reviews_navigation'
     );
 
