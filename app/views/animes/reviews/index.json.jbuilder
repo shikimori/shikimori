@@ -1,7 +1,9 @@
 json.content render(
-  'reviews/group',
-  collection: @collection,
-  is_preview: @is_preview,
+  partial: 'reviews/group',
+  locals: {
+    collection: @collection,
+    is_preview: @is_preview
+  },
   formats: :html
 )
 
