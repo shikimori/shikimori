@@ -25,5 +25,8 @@
         data-opinion=(opinion || '')
         class=('is-active' if opinion == local_assigns[:opinion])
       ]
-        - if !!(@collection && opinion == local_assigns[:opinion])
-          = render 'reviews/group', collection: @collection
+        - if opinion == local_assigns[:opinion] && @collection
+          - if @collection.any?
+            = render 'reviews/group', collection: @collection
+          - else
+            .b-nothing_here = t 'no_reviews'

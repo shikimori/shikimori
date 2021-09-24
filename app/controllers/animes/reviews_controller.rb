@@ -9,14 +9,14 @@ class Animes::ReviewsController < AnimesController
   skip_before_action :og_meta
 
   # RULES_TOPIC_ID = 299_770
-  LIMIT = 10
+  PER_PAGE = 7
 
   def index
     @opinion = (Types::Review::Opinion[params[:opinion]] if params[:opinion])
     @collection = ::Reviews::Query
       .fetch(@resource.object)
       .by_opinion(@opinion)
-      .paginate(@page, LIMIT)
+      .paginate(@page, 7)
   end
 
   def show

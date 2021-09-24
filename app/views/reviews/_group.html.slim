@@ -1,3 +1,10 @@
 = render partial: 'reviews/review',
   collection: collection,
   cached: ->(entry) { CacheHelper.keys entry }
+
+- if @collection.next_page?
+  = render 'blocks/postloader',
+    filter: 'b-review',
+    next_url: current_url(page: @collection.next_page),
+    prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?),
+    pages_limit: controller.class::PER_PAGE

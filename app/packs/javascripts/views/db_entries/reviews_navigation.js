@@ -47,8 +47,11 @@ export class ReviewsNavigation extends View {
     state.navigationNode.classList.add('is-active');
     state.contentNode.classList.add('is-active');
 
+    this.replaceHistoryState(state);
+
     if (this.isNoContentLoaded(state.contentNode)) {
       this.loadContent(state);
+    } else {
     }
 
     this.ellipsisFixes();
@@ -83,21 +86,27 @@ export class ReviewsNavigation extends View {
   }
 
   fetchUrl(opinion) {
-    return new TinyUri(this.fetchUrlBase).query.merge({ opinion }).toString();
+    if (!opinion) {
+      return this.fetchUrlBase;
+    }
+
+    return this.fetchUrlBase + '/' + opinion;
+  }
+
+  replaceHistoryState(state) {
+    const url = this.fetchUrl(state.opinion);
+    window.history.replaceState({ turbolinks: true, url }, '', url);
   }
 
   async loadContent(state) {
     if (state.isLoading) { return; }
-
-    // const url = 
-    // window.history.replaceState({ turbolinks: true, url }, '', url);
 
     state.contentNode.classList.add('b-ajax');
     state.isLoading = true;
 
     const { data } = await axios.get(this.fetchUrl(state.opinion));
 
-    state.contentNode.innerHTML = data;
+    state.contentNode.innerHTML = data.content + data.postloader;
     state.contentNode.classList.remove('b-ajax');
     state.isLoading = false;
   }
