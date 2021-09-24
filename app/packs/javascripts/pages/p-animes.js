@@ -5,8 +5,10 @@ pageLoad('.animes', '.mangas', '.ranobe', async () => {
     new AnimesMenu('.b-animes-menu');
   }
 
-  const { ReviewsNavigation } =
-    await import(/* webpackChunkName: "db_entries_menu" */ '@/views/db_entries/reviews_navigation');
+  if ($('.b-reviews_navigation').exists()) {
+    const { ReviewsNavigation } =
+      await import(/* webpackChunkName: "db_entries_menu" */ '@/views/db_entries/reviews_navigation');
 
-  new ReviewsNavigation('.b-reviews_navigation');
+    new ReviewsNavigation('.b-reviews_navigation');
+  }
 });

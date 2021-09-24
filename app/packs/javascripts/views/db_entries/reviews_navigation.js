@@ -51,7 +51,6 @@ export class ReviewsNavigation extends View {
 
     if (this.isNoContentLoaded(state.contentNode)) {
       this.loadContent(state);
-    } else {
     }
 
     this.ellipsisFixes();
