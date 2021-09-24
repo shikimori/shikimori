@@ -90,7 +90,7 @@ private
       translate(
         lower(unaccent(#{text})),
         'абвгдеёзийклмнопрстуфхцьі',
-        'abvgdeezijklmnoprstufхc`i'
+        'abvgdeezijklmnoprstufxc`i'
       )
     SQL
   end
