@@ -1,4 +1,4 @@
-import { loadImages } from '@/helpers/load_image';
+import { loadImagesFinally } from '@/helpers/load_image';
 
 pageLoad('topics_show', async () => {
   const $stars = $('.body-inner .critique-stars');
@@ -6,7 +6,7 @@ pageLoad('topics_show', async () => {
   if ($stars.length) {
     const $firstImage = $().first();
 
-    await loadImages('.body-inner');
+    await loadImagesFinally('.body-inner');
     const imageOffset = $firstImage.offset();
 
     if (imageOffset && imageOffset.top === ($stars.offset().top + $stars.outerHeight())) {
