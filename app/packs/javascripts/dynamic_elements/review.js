@@ -1,4 +1,5 @@
 import Topic from './topic';
+import { memoize } from 'shiki-decorators';
 
 export default class Review extends Topic {
   _type() { return 'review'; }
@@ -10,16 +11,7 @@ export default class Review extends Topic {
 
     this.$body = this.$inner.children('.body');
 
-    this._checkHeight();
+    this._scheduleCheckHeight();
     this.on('appear', this._appear);
-  }
-
-  _checkHeight() {
-    if (!this.$body.hasClass('check_height')) { return; }
-
-    this.$body.checkHeight({
-      maxHeight: this.MAX_PREVIEW_HEIGHT,
-      collapsedHeight: this.COLLAPSED_HEIGHT
-    });
   }
 }
