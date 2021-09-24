@@ -19,7 +19,7 @@ export class ReviewsNavigation extends View {
 
     this.$navigations.on('click', this.navigationBlockClick);
 
-    this.selectOpinion(this.initialOption);
+    this.selectOpinion(this.initialOption, true);
   }
 
   @memoize
@@ -42,7 +42,7 @@ export class ReviewsNavigation extends View {
     this.selectOpinion(currentTarget.getAttribute('data-opinion'));
   }
 
-  selectOpinion(opinion) {
+  selectOpinion(opinion, isSkipHistory) {
     const state = this.findEntry(opinion);
     if (state.isActive) { return; }
 
@@ -52,7 +52,7 @@ export class ReviewsNavigation extends View {
     state.navigationNode.classList.add('is-active');
     state.contentNode.classList.add('is-active');
 
-    if (!this.isPreview) {
+    if (!this.isPreview && !isSkipHistory) {
       this.replaceHistoryState(state);
     }
 
