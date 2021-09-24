@@ -12,6 +12,10 @@ else
   raise RuntimeError
 end
 
+def cut_system_bbcodes text
+  text.gsub(/\[(?:replies|ban)=[\d,]+\]/, '').strip
+end
+
 [Anime, Manga].each do |klass|
   puts "Fetching #{klass.name.downcase} scores..."
   normalization = Recommendations::Normalizations::ZScoreCentering.new;
@@ -70,7 +74,7 @@ end
 
       review = Review.new(
         user: user,
-        body: comment.body,
+        body: cut_system_bbcodes(comment.body),
         anime: (db_entry if db_entry.anime?),
         manga: (db_entry if db_entry.manga? || db_entry.ranobe?),
         opinion: opinion,
