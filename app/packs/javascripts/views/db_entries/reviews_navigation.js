@@ -38,16 +38,20 @@ export class ReviewsNavigation extends View {
     return this.$node.data('is_preview') !== undefined;
   }
 
+  get activeState() {
+    return this.states.find(v => v.isActive);
+  }
+
   @bind
   navigationBlockClick({ currentTarget }) {
     this.selectOpinion(currentTarget.getAttribute('data-opinion'));
   }
 
   selectOpinion(opinion, isSkipHistory) {
-    const state = this.findEntry(opinion);
+    const state = this.findState(opinion);
     if (state.isActive) { return; }
 
-    const priorState = this.deselectActiveOpinion();
+    const priorState = this.deselectState(this.activeState);
 
     state.isActive = true;
     state.navigationNode.classList.add('is-active');
@@ -64,20 +68,20 @@ export class ReviewsNavigation extends View {
     this.ellipsisFixes();
   }
 
-  deselectActiveOpinion() {
-    const priorState = this.states.find(v => v.isActive);
-    if (!priorState) { return null; }
+  deselectState(state) {
+    if (!state) { return null; }
 
-    priorState.isActive = false;
-    priorState.navigationNode.classList.remove('is-active');
-    priorState.contentNode.classList.remove('is-active');
+    state.isActive = false;
+    state.navigationNode.classList.remove('is-active');
+    state.contentNode.classList.remove('is-active');
 
-    return priorState;
+    return state;
   }
 
-  findEntry(opinion) {
+  findState(opinion) {
     return this.states.find(state => state.opinion === opinion);
   }
+
 
   ellipsisFixes() {
     this.$navigations
