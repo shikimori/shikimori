@@ -4,6 +4,7 @@
   data-initial_opinion=(local_assigns[:opinion] || '')
   data-fetch_url_base=resource.reviews_url
   data-is_preview=!!local_assigns[:is_preview]
+  data-initial_page=(local_assigns[:page] || 1)
 ]
   .navigation-container
     - opinions.each do |opinion|

@@ -8,6 +8,7 @@ export class ReviewsNavigation extends View {
   initialize() {
     this.$navigations = this.$('.navigation-container > .navigation-node');
     this.$contents = this.$('.content-container > .content-node');
+    this.initialPage = this.$node.data('initial_page');
 
     this.states = this.$navigations.toArray().map((node, index) => ({
       navigationNode: node,
@@ -46,7 +47,7 @@ export class ReviewsNavigation extends View {
     const state = this.findEntry(opinion);
     if (state.isActive) { return; }
 
-    this.deselectActiveOpinion();
+    const priorState = this.deselectActiveOpinion();
 
     state.isActive = true;
     state.navigationNode.classList.add('is-active');
@@ -56,20 +57,22 @@ export class ReviewsNavigation extends View {
       this.replaceHistoryState(state);
     }
 
-    if (this.isNoContentLoaded(state.contentNode)) {
-      this.loadContent(state);
+    if (this.isNoContentLoaded(state)) {
+      this.loadContent(state, priorState);
     }
 
     this.ellipsisFixes();
   }
 
   deselectActiveOpinion() {
-    const state = this.states.find(v => v.isActive);
-    if (!state) { return; }
+    const priorState = this.states.find(v => v.isActive);
+    if (!priorState) { return null; }
 
-    state.isActive = false;
-    state.navigationNode.classList.remove('is-active');
-    state.contentNode.classList.remove('is-active');
+    priorState.isActive = false;
+    priorState.navigationNode.classList.remove('is-active');
+    priorState.contentNode.classList.remove('is-active');
+
+    return priorState;
   }
 
   findEntry(opinion) {
@@ -87,8 +90,8 @@ export class ReviewsNavigation extends View {
       .addClass('is-ellipsis');
   }
 
-  isNoContentLoaded(node) {
-    return node.childElementCount === 0;
+  isNoContentLoaded(state) {
+    return state.contentNode.childElementCount === 0;
   }
 
   fetchUrl(opinion, isPreview) {
@@ -106,7 +109,7 @@ export class ReviewsNavigation extends View {
     window.history.replaceState({ turbolinks: true, url }, '', url);
   }
 
-  async loadContent(state) {
+  async loadContent(state, priorState) {
     if (state.isLoading) { return; }
 
     state.contentNode.classList.add('b-ajax');
@@ -119,5 +122,14 @@ export class ReviewsNavigation extends View {
     state.isLoading = false;
 
     $(state.contentNode).process(data.JS_EXPORTS);
+
+    if (this.initialPage !== 1 && priorState) {
+      this.cleanNonFirstPage(priorState);
+    }
+  }
+
+  cleanNonFirstPage(state) {
+    state.contentNode.innerHTML = '';
+    this.initialPage = 1;
   }
 }

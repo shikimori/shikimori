@@ -38,7 +38,8 @@ header.head
             .block
               = render 'animes/reviews/navigation',
                 resource: @resource,
-                is_preview: true
+                is_preview: true,
+                collection: nil
           = render 'db_entries/comments', resource: @resource
 
     aside.l-menu
