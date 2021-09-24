@@ -29,13 +29,47 @@
   +gte_ipad
     margin-bottom: 5px
 
+  $border-height: 14px
+
   .section
     &:not(:last-child):after
       content: ''
       display: inline
+      line-height: $border-height
       border-right: 1px solid #acb1b4
       margin-right: 15px
       padding-right: 14px
+
+    &.main
+      display: flex
+
+      &:after
+        align-self: center
+        height: $border-height
+
+      & > span
+        align-self: baseline
+
+        &:not(:last-child)
+          margin-right: 15px
+
+      .collection-size
+        color: #333
+
+        &:before
+          +font_shikimori('\f00a')
+          display: inline-block
+          font-size: 14px
+          padding-right: 5px
+
+      .comments
+        &:before
+          +status_line_block_icon('f')
+
+      .is-pinned
+        &:before
+          +status_line_block_icon('📌')
+          padding-right: 0
 
     &.about
       span.about
@@ -63,33 +97,3 @@
       time
         &:before
           +status_line_block_icon('\e808')
-
-    &.additional
-      .collection-size
-        color: #333
-        display: inline-block
-        margin-right: 15px
-
-        &:before
-          +font_shikimori('\f00a')
-          display: inline-block
-          font-size: 14px
-          padding-right: 5px
-
-      .comments
-        display: inline-block
-
-        &:before
-          +status_line_block_icon('f')
-
-      .b-critique_votes
-        margin-left: 15px
-
-      .is-pinned
-        display: inline-block
-        margin-right: 15px
-
-        &:before
-          +status_line_block_icon('📌')
-          padding-right: 0
-
