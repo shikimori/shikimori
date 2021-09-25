@@ -58,36 +58,42 @@ export class ReviewsNavigation extends View {
 
   @bind
   deselectActiveState() {
-    this.deselectState(this.activeState);
+    this.deselectState(this.activeState, true);
   }
 
-  selectOpinion(opinion, isSkipHistory) {
+  selectOpinion(opinion, isSkipHistory = false) {
     const state = this.findState(opinion);
     if (state.isActive) { return; }
 
-    const priorState = this.deselectState(this.activeState);
+    const isMakePriorStatePending = this.activeState && !this.isContentLoaded(state);
+    const priorState = this.deselectState(this.activeState, !isMakePriorStatePending);
 
     state.isActive = true;
     state.navigationNode.classList.add('is-active');
-    state.contentNode.classList.add('is-active');
+
+    if (!isMakePriorStatePending) {
+      state.contentNode.classList.add('is-active');
+    }
 
     if (!this.isPreview && !isSkipHistory) {
       this.replaceHistoryState(state);
     }
 
-    if (this.isNoContentLoaded(state)) {
+    if (!this.isContentLoaded(state)) {
       this.loadContent(state, priorState);
     }
 
     this.ellipsisFixes();
   }
 
-  deselectState(state) {
+  deselectState(state, isDeselectContent) {
     if (!state) { return null; }
 
     state.isActive = false;
     state.navigationNode.classList.remove('is-active');
-    state.contentNode.classList.remove('is-active');
+    if (isDeselectContent) {
+      state.contentNode.classList.remove('is-active');
+    }
 
     return state;
   }
@@ -108,8 +114,8 @@ export class ReviewsNavigation extends View {
       .addClass('is-ellipsis');
   }
 
-  isNoContentLoaded(state) {
-    return state.contentNode.childElementCount === 0;
+  isContentLoaded(state) {
+    return state.contentNode.childElementCount > 0;
   }
 
   fetchUrl(opinion, isPreview) {
@@ -130,15 +136,19 @@ export class ReviewsNavigation extends View {
   async loadContent(state, priorState) {
     if (state.isLoading) { return; }
 
-    state.contentNode.classList.add('b-ajax');
+    (priorState || state).contentNode.classList.add('b-ajax');
     state.isLoading = true;
 
     const { data } = await axios.get(this.fetchUrl(state.opinion, this.isPreview));
 
     state.contentNode.innerHTML = data.content + (data.postloader || '');
-    state.contentNode.classList.remove('b-ajax');
+    (priorState || state).contentNode.classList.remove('b-ajax');
     state.isLoading = false;
 
+    if (priorState) {
+      priorState.contentNode.classList.remove('is-active');
+      state.contentNode.classList.add('is-active');
+    }
     $(state.contentNode).process(data.JS_EXPORTS);
 
     if (this.initialPage !== 1 && priorState) {
