@@ -10,6 +10,8 @@ class JsExports::ExportBase
 
     klass.include Singleton
     klass.const_set 'PLACEHOLDER', /data-track_#{name}="(\d+)"/mix
+
+    super
   end
 
   def placeholder topic

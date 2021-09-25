@@ -1,7 +1,7 @@
 .b-review.shiki-object.to-process[
   data-dynamic='review'
   id=review.id
-  data-track_topic="#{JsExports::ReviewsExport.instance.placeholder(review) unless local_assigns[:do_not_track]}"
+  data-track_review="#{JsExports::ReviewsExport.instance.placeholder(review) unless local_assigns[:do_not_track]}"
   data-user_id=review.user.id
   data-user_nickname=review.user.nickname
 ]
