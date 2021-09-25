@@ -69,7 +69,13 @@ private
 
   def add_title
     og page_title: i18n_i('Review', :other)
+
     if params[:action] == 'show'
+      breadcrumb(
+        i18n_i('Review', :other),
+        @resource.reviews_url
+      )
+
       og page_title: i18n_t('review_by', nickname: @review.user.nickname)
     end
   end

@@ -1,2 +1,7 @@
 = render layout: 'animes/page' do |f|
+  h2.subheadline.m0 = i18n_i('Review', :other)
 
+  .block
+    = render partial: 'reviews/review',
+      object: @review,
+      cached: ->(entry) { CacheHelper.keys entry }
