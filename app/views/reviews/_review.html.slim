@@ -36,10 +36,11 @@
           ]
             = review.user.nickname
 
-          a.to-review[
-            href=send("#{review.db_entry.class.name.downcase}_review_url", review.db_entry, review)
-          ]
-            | <<< #{t '.go_to_review'}
+          - unless local_assigns[:is_show]
+            a.to-review[
+              href=send("#{review.db_entry.class.name.downcase}_review_url", review.db_entry, review)
+            ]
+              | <<< #{t '.go_to_review'}
 
         - if review.persisted?
           .b-status-line
@@ -76,7 +77,7 @@
 
     .body[
       itemprop='text'
-      class=(:check_height if review.persisted?)
+      class=(:check_height if review.persisted? && !local_assigns[:is_show])
     ]
       = review.html_body
 
