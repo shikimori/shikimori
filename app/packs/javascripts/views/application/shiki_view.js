@@ -25,7 +25,7 @@ export default class ShikiView extends View {
   }
 
   async _scheduleCheckHeight(isSkipClassCheck = false) {
-    if (!isSkipClassCheck && !this.$checkHeightNode.hasClass('check_height')) {
+    if (!isSkipClassCheck && this.$checkHeightNode.data('check_height') !== '') {
       return;
     }
 

@@ -4,7 +4,9 @@
   data-appear_type='message'
   data-message_id=dialog.message.id
 ]
-  .inner.check_height
+  .inner[
+    data-check_height=true
+  ]
     span.item-mobile title="#{i18n_i 'Action', :other}"
     aside.markers
       - unless dialog.my_message?

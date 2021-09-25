@@ -9,7 +9,9 @@
     a name="review-#{review.id}"
 
   / .inner is added for compatibility with topic api
-  .inner class=(:check_height if review.persisted? && !local_assigns[:is_show])
+  .inner[
+    data-check_height=(review.persisted? && !local_assigns[:is_show])
+  ]
     - if review.persisted?
       aside.markers
         .b-new_marker[

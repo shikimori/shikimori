@@ -15,7 +15,9 @@
   - if comment.persisted?
     a name="comment-#{comment.id}"
 
-  .inner class=(:check_height if comment.persisted? && !local_assigns[:is_show] && possibly_long_content)
+  .inner[
+    data-check_height=(comment.persisted? && !local_assigns[:is_show] && possibly_long_content)
+  ]
     - if comment.persisted?
       span.item-quote-mobile.to-process[
         title=t('actions.quote')
