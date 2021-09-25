@@ -188,8 +188,16 @@
     &:not(.is-active)
       display: none
 
-    &.b-ajax
+    &.b-ajax,
+    &:empty
       min-height: 300px
+
+    &.b-ajax
+      &:after
+        top: 230px
+
+      &:empty:after
+        top: 50%
 
   .b-nothing_here
     margin-top: 10px
