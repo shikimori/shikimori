@@ -133,35 +133,7 @@ export default class Topic extends ShikiEditable {
         this._toggleIgnored(result.is_ignored);
       });
 
-    // голосование за/против рецензии
-    this.$('.b-footer_vote .vote').on('ajax:before', e => {
-      this.$inner.find('.b-footer_vote').addClass('b-ajax');
-      const isYes = $(e.target).hasClass('yes');
-
-      if (isYes && !this.model.voted_yes) {
-        this.model.votes_for += 1;
-
-        if (this.model.voted_no) {
-          this.model.votes_against -= 1;
-        }
-      } else if (!isYes && !this.model.voted_no) {
-        this.model.votes_against += 1;
-
-        if (this.model.voted_yes) {
-          this.model.votes_for -= 1;
-        }
-      }
-
-      this.model.voted_no = !isYes;
-      this.model.voted_yes = isYes;
-
-      this._actualizeVoting();
-    });
-
-    this.$('.b-footer_vote .vote').on('ajax:complete', function() {
-      $(this).closest('.b-footer_vote').removeClass('b-ajax');
-    });
-
+    this._bindVotes();
     // прочтение комментриев
     this.on('appear', this._appear);
 
@@ -519,5 +491,36 @@ export default class Topic extends ShikiEditable {
       this.$commentsHider.show();
       this.$commentsCollapser.remove();
     }
+  }
+
+  _bindVotes() {
+    // голосование за/против рецензии
+    this.$('.b-footer_vote .vote').on('ajax:before', e => {
+      this.$inner.find('.b-footer_vote').addClass('b-ajax');
+      const isYes = $(e.target).hasClass('yes');
+
+      if (isYes && !this.model.voted_yes) {
+        this.model.votes_for += 1;
+
+        if (this.model.voted_no) {
+          this.model.votes_against -= 1;
+        }
+      } else if (!isYes && !this.model.voted_no) {
+        this.model.votes_against += 1;
+
+        if (this.model.voted_yes) {
+          this.model.votes_for -= 1;
+        }
+      }
+
+      this.model.voted_no = !isYes;
+      this.model.voted_yes = isYes;
+
+      this._actualizeVoting();
+    });
+
+    this.$('.b-footer_vote .vote').on('ajax:complete', function() {
+      $(this).closest('.b-footer_vote').removeClass('b-ajax');
+    });
   }
 }

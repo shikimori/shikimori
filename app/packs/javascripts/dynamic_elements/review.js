@@ -11,9 +11,11 @@ export default class Review extends Topic {
 
     // data attribute is set in Topics.Tracker
     this.model = this.$node.data('model') || this._defaultModel();
-    console.log(this.model);
 
     this.$body = this.$inner.children('.body');
+
+    if (this.model) { this._actualizeVoting(); }
+    this._bindVotes();
 
     this._scheduleCheckHeight();
     this.on('appear', this._appear);
