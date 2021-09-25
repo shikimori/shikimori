@@ -3,6 +3,7 @@ import cookies from 'js-cookie';
 
 import UserRatesTracker from '@/services/user_rates/tracker';
 import TopicsTracker from '@/services/topics/tracker';
+import ReviewsTracker from '@/services/reviews/tracker';
 import CommentsTracker from '@/services/comments/tracker';
 import PollsTracker from '@/services/polls/tracker';
 import DynamicParser from '@/dynamic_elements/_parser';
@@ -25,10 +26,10 @@ $.fn.extend({
 
 async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EXPORTS) {
   const $root = $(root);
-  console.log(JS_EXPORTS)
 
   UserRatesTracker.track(JS_EXPORTS, $root);
   TopicsTracker.track(JS_EXPORTS, $root);
+  ReviewsTracker.track(JS_EXPORTS, $root);
   CommentsTracker.track(JS_EXPORTS, $root);
   PollsTracker.track(JS_EXPORTS, $root);
 
