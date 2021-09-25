@@ -15,9 +15,7 @@ private
       .order(:id)
   end
 
-  def serialize topic, user
-    ability = Ability.new user
-
+  def serialize topic, user, ability
     {
       **vote_status(topic, user),
       can_destroy: can_destroy?(ability, topic),

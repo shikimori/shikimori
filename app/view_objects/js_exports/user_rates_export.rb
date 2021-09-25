@@ -30,7 +30,7 @@ class JsExports::UserRatesExport
     end
   end
 
-  def export user
+  def export user, _ability
     anime_rates = user_rates ids(:anime), Anime, user
     manga_rates = user_rates ids(:manga), Manga, user
 

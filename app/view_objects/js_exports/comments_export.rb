@@ -12,9 +12,7 @@ class JsExports::CommentsExport < JsExports::ExportBase
       # .includes(:topic)
   end
 
-  def serialize comment, user
-    ability = Ability.new user
-
+  def serialize comment, _user, ability
     {
       can_destroy: ability.can?(:destroy, comment),
       can_edit: ability.can?(:edit, comment),
