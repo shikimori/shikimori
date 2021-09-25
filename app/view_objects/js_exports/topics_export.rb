@@ -19,25 +19,24 @@ private
     ability = Ability.new user
 
     {
+      **vote_status(topic, user),
       can_destroy: can_destroy?(ability, topic),
       can_edit: can_edit?(ability, topic),
       id: topic.id,
       is_viewed: topic.viewed?,
       user_id: topic.user_id
-    }.merge(vote_status(topic, user))
+    }
   end
 
   def vote_status topic, user
-    if votable? topic
-      {
-        voted_yes: user.liked?(topic.linked),
-        voted_no: user.disliked?(topic.linked),
-        votes_for: topic.linked.cached_votes_up,
-        votes_against: topic.linked.cached_votes_down
-      }
-    else
-      {}
-    end
+    return {} unless votable? topic
+
+    {
+      voted_yes: user.liked?(topic.linked),
+      voted_no: user.disliked?(topic.linked),
+      votes_for: topic.linked.cached_votes_up,
+      votes_against: topic.linked.cached_votes_down
+    }
   end
 
   def can_edit? ability, topic
