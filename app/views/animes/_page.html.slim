@@ -33,7 +33,7 @@ header.head
           = render 'spnsrs/ad', ad: Ad.new(:horizontal_x90)
 
       - unless @resource.rkn_abused?
-        - if params[:action] == 'show'
+        - if params[:action] == 'show' && main_resource_controller?
           / - if @resource.reviews.any?
           .block
             = render 'animes/reviews/navigation',

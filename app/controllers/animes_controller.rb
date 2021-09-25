@@ -36,6 +36,8 @@ class AnimesController < DbEntriesController
   before_action :js_export, only: %i[show]
   before_action :og_meta, if: :resource_id
 
+  helper_method :main_resource_controller?
+
   # display anime or manga
   def show
     @itemtype = @resource.itemtype
@@ -293,7 +295,7 @@ private
 
     if @resource
       # everything except animes#show
-      if params[:action] != 'show' || params[:controller] == 'critiques'
+      if params[:action] != 'show' || !main_resource_controller?
         breadcrumb(
           UsersHelper.localized_name(@resource, current_user),
           @resource.url(false)
@@ -309,5 +311,9 @@ private
 
   def js_export
     gon.push is_favoured: @resource.favoured?
+  end
+
+  def main_resource_controller?
+    self.class.name.split('::').one?
   end
 end
