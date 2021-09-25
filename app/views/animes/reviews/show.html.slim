@@ -3,6 +3,6 @@
 
   .block
     = render partial: 'reviews/review',
-      object: @review,
+      collection: [@review],
       locals: { is_show: true },
       cached: ->(entry) { CacheHelper.keys entry, :show }

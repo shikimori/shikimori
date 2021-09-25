@@ -17,7 +17,10 @@
       - if @view.ignored_user?
         = render 'blocks/ignored', ignored: @view.comment, kind: :ignored_user
       - else
-        = render 'comments/comment', comment: @view.decorated_comment , formats: :html
+        = render partial: 'comments/comment',
+          object: @view.decorated_comment,
+          locals: { is_show: true },
+          formats: :html
 
     - if @view.abuse_requests.any? || @view.bans.any?
       .cc-2

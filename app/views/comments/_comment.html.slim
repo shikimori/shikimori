@@ -1,3 +1,5 @@
+- possibly_long_content = comment.body.size > 500 || comment.body =~ /\[poster/ || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5
+
 .b-comment.shiki-object.to-process[
   class=(:tooltipped if params[:action] == 'tooltip')
   data-appear_type='comment'
@@ -12,8 +14,8 @@
 ]
   - if comment.persisted?
     a name="comment-#{comment.id}"
-  / класс нужен из-за проверки высоты
-  .inner class=(:check_height if comment.persisted? && (comment.body.size > 500 || comment.body =~ /\[poster/ || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5))
+
+  .inner class=(:check_height if comment.persisted? && !local_assigns[:is_show] && possibly_long_content)
     - if comment.persisted?
       span.item-quote-mobile.to-process[
         title=t('actions.quote')
@@ -90,7 +92,8 @@
                 itemprop='dateCreated'
                 datetime=comment.created_at.iso8601
               ] = l comment.created_at, format: '%e %B %Y'
-              span.hash data-url=comment_url(comment) #
+              - unless local_assigns[:is_show]
+                span.hash data-url=comment_url(comment) #
 
     .body itemprop='text'
       = comment.html_body

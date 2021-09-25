@@ -8,7 +8,7 @@
         href=@resource.new_critique_url
         title=t('.create_critique')
       ]
-  .subheadline.m5 = og.headline
+  h2.subheadline.m5 = og.headline
   - if @collection.any?
     .b-forum[
       data-faye='false'
