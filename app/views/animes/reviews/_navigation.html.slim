@@ -8,11 +8,13 @@
 ]
   .navigation-container
     - opinions.each do |opinion|
-      .navigation-node[
-        class="navigation-node-#{opinion || 'all'}"
-        data-opinion=(opinion || '')
-        data-ellispsis-allowed=%i[positive negative].include?(opinion)
-      ]
+      *{ \
+        tag: local_assigns[:is_preview] ? 'a' : 'div',
+        href: local_assigns[:is_preview] ? resource.reviews_url(opinion: opinion) : false,
+        class: "navigation-node navigation-node-#{opinion || 'all'}",
+        'data-opinion': (opinion || ''),
+        'data-ellispsis-allowed': %i[positive negative].include?(opinion) \
+      }
         - if opinion
           .label
             span = t ".opinion.#{opinion}"

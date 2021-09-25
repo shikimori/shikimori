@@ -3,6 +3,7 @@ import TinyUri from 'tiny-uri';
 
 import View from '@/views/application/view';
 import axios from '@/helpers/axios';
+import inNewTab from '@/helpers/in_new_tab';
 
 export class ReviewsNavigation extends View {
   initialize() {
@@ -45,8 +46,14 @@ export class ReviewsNavigation extends View {
   }
 
   @bind
-  navigationBlockClick({ currentTarget }) {
-    this.selectOpinion(currentTarget.getAttribute('data-opinion'));
+  navigationBlockClick(e) {
+    const opinion = e.currentTarget.getAttribute('data-opinion');
+
+    if (this.isPreview && opinion != this.activeState.opinion) {
+      if (inNewTab(e)) { return; }
+      e.preventDefault();
+    }
+    this.selectOpinion(opinion);
   }
 
   @bind
