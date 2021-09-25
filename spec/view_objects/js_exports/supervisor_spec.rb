@@ -1,9 +1,10 @@
 describe JsExports::Supervisor do
   let(:user) { build_stubbed :user }
-  let(:view) { JsExports::Supervisor.instance }
+  let(:view) { described_class.instance }
 
   let(:user_rates_export) { JsExports::UserRatesExport.instance }
   let(:topics_export) { JsExports::TopicsExport.instance }
+  let(:reviews_export) { JsExports::ReviewsExport.instance }
   let(:comments_export) { JsExports::CommentsExport.instance }
   let(:polls_export) { JsExports::PollsExport.instance }
 
@@ -11,7 +12,7 @@ describe JsExports::Supervisor do
     subject(:export) { view.export user }
     it do
       expect(export).to be_kind_of Hash
-      expect(export.keys).to eq JsExports::Supervisor::KEYS
+      expect(export.keys).to eq described_class::KEYS
     end
   end
 

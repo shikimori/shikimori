@@ -1,7 +1,7 @@
 class JsExports::Supervisor
   include Singleton
 
-  KEYS = %i[user_rates topics comments polls]
+  KEYS = %i[user_rates topics reviews comments polls]
 
   def export user
     return unless user

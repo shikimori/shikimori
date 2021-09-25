@@ -25,6 +25,7 @@ $.fn.extend({
 
 async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EXPORTS) {
   const $root = $(root);
+  console.log(JS_EXPORTS)
 
   UserRatesTracker.track(JS_EXPORTS, $root);
   TopicsTracker.track(JS_EXPORTS, $root);
