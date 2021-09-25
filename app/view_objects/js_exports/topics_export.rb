@@ -1,5 +1,5 @@
 class JsExports::TopicsExport < JsExports::ExportBase
-  SPECIAL_TYPES = [
+  VOTABLE_TYPES = [
     Critique.name,
     CosplayGallery.name,
     Collection.name
@@ -28,7 +28,7 @@ private
   end
 
   def vote_status topic, user
-    if special? topic
+    if votable? topic
       {
         voted_yes: user.liked?(topic.linked),
         voted_no: user.disliked?(topic.linked),
@@ -41,7 +41,7 @@ private
   end
 
   def can_edit? ability, topic
-    if special? topic
+    if votable? topic
       ability.can? :edit, topic.linked
     else
       ability.can? :edit, topic
@@ -49,14 +49,14 @@ private
   end
 
   def can_destroy? ability, topic
-    if special? topic
+    if votable? topic
       ability.can? :destroy, topic.linked
     else
       ability.can? :destroy, topic
     end
   end
 
-  def special? topic
-    SPECIAL_TYPES.include? topic.linked_type
+  def votable? topic
+    VOTABLE_TYPES.include? topic.linked_type
   end
 end

@@ -1,4 +1,5 @@
 import delay from 'delay';
+
 import { bind, memoize } from 'shiki-decorators';
 
 import ShikiEditable from '@/views/application/shiki_editable';

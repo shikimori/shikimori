@@ -9,6 +9,9 @@ export default class Review extends Topic {
     this.MAX_PREVIEW_HEIGHT = 200;
     this.COLLAPSED_HEIGHT = 150;
 
+    // data attribute is set in Topics.Tracker
+    this.model = this.$node.data('model') || this._defaultModel();
+
     this.$body = this.$inner.children('.body');
 
     this._scheduleCheckHeight();
