@@ -49,6 +49,16 @@
       height: 39px
       line-height: 39px
 
+  a.navigation-node.is-active
+    +lte_ipad
+      .label span
+        text-decoration: underline
+
+    +gte_laptop
+      &:hover
+        .label span
+          text-decoration: underline
+
   .navigation-node
     align-items: baseline
     border-left: 5px solid
