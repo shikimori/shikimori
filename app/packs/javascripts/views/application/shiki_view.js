@@ -5,6 +5,8 @@ import View from '@/views/application/view';
 import axios from '@/helpers/axios';
 import { imagePromiseFinally } from '@/helpers/load_image';
 
+const SPOILER_CLASSES = ['.b-spoiler', '.b-spoiler_block'];
+
 // общий класс для комментария, топика, редактора
 export default class ShikiView extends View {
   _initialize(...args) {
@@ -27,11 +29,16 @@ export default class ShikiView extends View {
       return;
     }
 
-    const $images = this.$checkHeightNode.find('img');
+    let imageNodes = this.$checkHeightNode.find('img').toArray();
+    const $spoilers = this.$checkHeightNode.find(SPOILER_CLASSES.join(','));
 
-    if ($images.length) {
+    if ($spoilers.length) {
+      imageNodes = imageNodes.subtract($spoilers.find('img').toArray());
+    }
+
+    if (imageNodes.length) {
       // картинки могут быть уменьшены image_normalizer'ом, поэтому делаем с задержкой
-      await imagePromiseFinally($images.toArray());
+      await imagePromiseFinally(imageNodes);
     }
     await delay(10);
     this._checkHeight();
