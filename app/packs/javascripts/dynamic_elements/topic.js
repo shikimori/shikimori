@@ -430,20 +430,18 @@ export default class Topic extends ShikiEditable {
   // private functions
   // проверка высоты топика. урезание, если текст слишком длинный (точно такой же код в shiki_comment)
   @bind
-  _checkTopicHeight() {
-    if (this.isCritique) {
-      const imageHeight = this.$('.critique-entry_cover img').height();
-      const readMoreHeight = 13 + 5; // 5px - read_more offset
+  _checkHeight() {
+    if (!this.isCritique) { return super._checkHeight(); }
 
-      if (imageHeight > 0) {
-        this.$checkHeightNode.checkHeight({
-          maxHeight: imageHeight - readMoreHeight,
-          collapsedHeight: imageHeight - readMoreHeight,
-          expandHtml: ''
-        });
-      }
-    } else {
-      this._checkHeight();
+    const imageHeight = this.$('.critique-entry_cover img').height();
+    const readMoreHeight = 13 + 5; // 5px - read_more offset
+
+    if (imageHeight > 0) {
+      this.$checkHeightNode.checkHeight({
+        maxHeight: imageHeight - readMoreHeight,
+        collapsedHeight: imageHeight - readMoreHeight,
+        expandHtml: ''
+      });
     }
   }
 

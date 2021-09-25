@@ -17,4 +17,9 @@ export default class Review extends Topic {
     this._scheduleCheckHeight();
     this.on('appear', this._appear);
   }
+
+  @memoize
+  get $checkHeightNode() {
+    return this.$inner;
+  }
 }

@@ -9,7 +9,7 @@
     a name="review-#{review.id}"
 
   / .inner is added for compatibility with topic api
-  .inner
+  .inner class=(:check_height if review.persisted? && !local_assigns[:is_show])
     - if review.persisted?
       aside.markers
         .b-new_marker[
@@ -75,10 +75,7 @@
           data-direction='right'
         ] = Review.human_attribute_name(:is_written_before_release)
 
-    .body[
-      itemprop='text'
-      class=(:check_height if review.persisted? && !local_assigns[:is_show])
-    ]
+    .body itemprop='text'
       = review.html_body
 
     footer
@@ -86,7 +83,7 @@
         topic_type_policy: Topic::TypePolicy.new(review),
         votable: review
 
-    - if review.persisted?
-      .b-appear_marker[
-        class="appear-review-#{review.id}"
-      ]
+  - if review.persisted?
+    .b-appear_marker[
+      class="appear-review-#{review.id}"
+    ]
