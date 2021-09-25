@@ -409,7 +409,7 @@ export default class Topic extends ShikiEditable {
     const readMoreHeight = 13 + 5; // 5px - read_more offset
 
     if (imageHeight > 0) {
-      this.$checkHeightNode.checkHeight({
+      this.$('.body-truncated').checkHeight({
         maxHeight: imageHeight - readMoreHeight,
         collapsedHeight: imageHeight - readMoreHeight,
         expandHtml: ''
