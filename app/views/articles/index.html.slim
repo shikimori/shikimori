@@ -22,7 +22,7 @@ header.head.misc
       = render partial: 'topics/topic',
         collection: @collection,
         as: :topic_view,
-        cache: true
+        cached: true
     - else
       .b-nothing_here = t '.nothing_here'
 

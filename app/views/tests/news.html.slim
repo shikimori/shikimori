@@ -2,8 +2,8 @@
   = render partial: 'topics/topic',
     collection: @view.news_topic_views[0..(params[:limit] ? params[:limit].to_i - 1 : -1)],
     locals: { do_not_track: true },
-    cache: true,
-    as: :topic_view
+    as: :topic_view,
+    cached: ->(entry) { CacheHelper.keys entry, :do_not_track }
 
   - if @view.news_topic_views.next_page
     = render 'blocks/postloader',

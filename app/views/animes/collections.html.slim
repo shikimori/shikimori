@@ -6,7 +6,7 @@
       = render partial: 'topics/topic',
         collection: @collection,
         as: :topic_view,
-        cache: true
+        cached: true
 
       - if @collection.next_page?
         = render 'blocks/postloader',

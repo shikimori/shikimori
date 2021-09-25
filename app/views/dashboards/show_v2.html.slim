@@ -126,7 +126,7 @@
         = render partial: 'topics/topic',
           collection: @view.news_topic_views[0..2],
           locals: { do_not_track: true },
-          cache: true,
+          cached: ->(entry) { CacheHelper.keys entry, :do_not_track }
           as: :topic_view
 
     = render 'dashboards/v2/content_updates', view: @view
@@ -168,7 +168,7 @@
         = render partial: 'topics/topic',
           collection: @view.news_topic_views[2..-1],
           locals: { do_not_track: true },
-          cache: true,
+          cached: ->(entry) { CacheHelper.keys entry, :do_not_track }
           as: :topic_view
 
         - if @view.news_topic_views.next_page
