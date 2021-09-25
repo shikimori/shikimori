@@ -31,8 +31,8 @@ module CacheHelper
         .compact + [
           I18n.locale,
           # I18N_HASH[I18n.locale],
-          CacheHelperInstance.instance.domain,
-          CacheHelperInstance.instance.subdomain
+          CacheHelperInstance.instance.domain
+          # CacheHelperInstance.instance.subdomain
         ]
     end
 
