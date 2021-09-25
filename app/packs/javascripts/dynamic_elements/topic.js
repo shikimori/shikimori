@@ -426,11 +426,11 @@ export default class Topic extends ShikiEditable {
       .find('.b-footer_vote .vote.no, .user-vote .voted-against')
       .toggleClass('selected', this.model.voted_no);
 
-    if (this.model.votes_for) {
+    if (this.model.votes_for != null) {
       this.$inner.find('.votes-for').html(`${this.model.votes_for}`);
     }
 
-    if (this.model.votes_against) {
+    if (this.model.votes_against != null) {
       this.$inner.find('.votes-against').html(`${this.model.votes_against}`);
     }
   }
