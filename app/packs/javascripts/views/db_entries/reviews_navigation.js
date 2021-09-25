@@ -1,5 +1,6 @@
 import { bind, memoize } from 'shiki-decorators';
 import TinyUri from 'tiny-uri';
+import delay from 'delay';
 
 import View from '@/views/application/view';
 import axios from '@/helpers/axios';
@@ -139,7 +140,10 @@ export class ReviewsNavigation extends View {
     (priorState || state).contentNode.classList.add('b-ajax');
     state.isLoading = true;
 
-    const { data } = await axios.get(this.fetchUrl(state.opinion, this.isPreview));
+    const [{ data }] = await Promise.all([
+      axios.get(this.fetchUrl(state.opinion, this.isPreview)),
+      delay(350)
+    ]);
 
     state.contentNode.innerHTML = data.content + (data.postloader || '');
     (priorState || state).contentNode.classList.remove('b-ajax');
