@@ -1,5 +1,5 @@
 describe JsExports::PollsExport do
-  let(:tracker) { JsExports::PollsExport.instance }
+  let(:tracker) { described_class.instance }
 
   let(:poll) { build_stubbed :poll }
 

@@ -1,5 +1,5 @@
 describe JsExports::UserRatesExport do
-  let(:tracker) { JsExports::UserRatesExport.instance }
+  let(:tracker) { described_class.instance }
 
   before { tracker.send :cleanup }
   after { tracker.send :cleanup }

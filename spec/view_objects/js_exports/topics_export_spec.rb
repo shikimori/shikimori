@@ -1,5 +1,5 @@
 describe JsExports::TopicsExport do
-  let(:tracker) { JsExports::TopicsExport.instance }
+  let(:tracker) { described_class.instance }
   let(:topic) { build_stubbed :topic }
 
   before { tracker.send :cleanup }

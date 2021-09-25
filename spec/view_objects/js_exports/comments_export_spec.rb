@@ -1,5 +1,5 @@
 describe JsExports::CommentsExport do
-  let(:tracker) { JsExports::CommentsExport.instance }
+  let(:tracker) { described_class.instance }
   let(:comment) { build_stubbed :comment }
 
   before { tracker.send :cleanup }
