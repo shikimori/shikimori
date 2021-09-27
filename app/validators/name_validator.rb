@@ -89,8 +89,8 @@ private
     <<~SQL.squish
       translate(
         lower(unaccent(#{text})),
-        'абвгдеёзийклмнопрстуфхцьі',
-        'abvgdeezijklmnoprstufxc`i'
+        'абвгдеёзийклмнопрстуфхцьіο0',
+        'abvgdeezijklmnoprstufxc`ioo'
       )
     SQL
   end
