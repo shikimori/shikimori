@@ -230,11 +230,7 @@ class Comment < ApplicationRecord
   def allowed_summary?
     commentable.instance_of?(Topics::EntryTopics::AnimeTopic) ||
       commentable.instance_of?(Topics::EntryTopics::MangaTopic) ||
-        commentable.instance_of?(Topics::EntryTopics::RanobeTopic) ||
-          # commentable is Anime/Manga/Ranobe when commentable has no created main topic
-          commentable.is_a?(Anime) ||
-            commentable.is_a?(Manga) ||
-              commentable.is_a?(Ranobe)
+        commentable.instance_of?(Topics::EntryTopics::RanobeTopic)
   end
 
 private
