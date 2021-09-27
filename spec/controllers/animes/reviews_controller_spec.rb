@@ -12,7 +12,9 @@ describe Animes::ReviewsController do
   end
 
   describe '#show' do
-    subject! { get :show, params: { anime_id: anime.to_param, type: 'Anime' } }
+    subject! do
+      get :show, params: { anime_id: anime.to_param, type: 'Anime', id: review.id }
+    end
     it { expect(response).to have_http_status :success }
   end
 

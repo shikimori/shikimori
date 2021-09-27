@@ -10,7 +10,7 @@ class Animes::ReviewsController < AnimesController
   skip_before_action :og_meta
 
   # RULES_TOPIC_ID = 299_770
-  PER_PAGE = 7
+  PER_PAGE = 8
   PER_PREVIEW = 4
 
   def index
