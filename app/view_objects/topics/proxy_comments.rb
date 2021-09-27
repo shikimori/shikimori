@@ -3,9 +3,12 @@
 # нет топиков, а есть лишь комментарии (например, в модели User)
 class Topics::ProxyComments < Topics::CommentsView
   def faye_channel
-    channel = model.is_a?(User) ?
-      FayePublisher::PROFILE_FAYE_CHANNEL :
-      model.class.name.underscore
+    channel =
+      case model
+        when User then FayePublisher::PROFILE_FAYE_CHANNEL
+        when Review then FayePublisher::REVIEW_FAYE_CHANNEL
+        else model.class.name.underscore
+      end
 
     ["#{channel}-#{model.id}"]
   end

@@ -5,6 +5,7 @@ class FayePublisher # rubocop:disable ClassLength
 
   PROFILE_FAYE_CHANNEL = 'profile'
   TOPIC_FAYE_CHANNEL = 'topic'
+  REVIEW_FAYE_CHANNEL = 'review'
 
   def self.faye_url
     shiki_domain = UrlGenerator.instance.shiki_domain

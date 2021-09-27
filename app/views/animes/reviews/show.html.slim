@@ -6,3 +6,14 @@
       collection: [@review],
       locals: { is_show: true },
       cached: ->(entry) { CacheHelper.keys entry, :show }
+
+  .block
+    .subheadline.m0 = i18n_i('Comment', :other)
+    div
+      .b-topic.to-process[
+        data-dynamic='topic'
+        data-faye=@comments_view.faye_channel.to_json
+      ]
+        = render 'topics/comments',
+          comments_view: @comments_view,
+          commentable: @review

@@ -27,6 +27,7 @@ class Animes::ReviewsController < AnimesController
   end
 
   def show
+    @comments_view = Topics::ProxyComments.new @review, false
   end
 
   # def new
