@@ -26,17 +26,22 @@ describe JsExports::ReviewsExport do
     end
   end
 
-  describe '#export', :focus do
+  describe '#export' do
     before do
       tracker.send :track, review_1.id
       tracker.send :track, review_2.id
-      tracker.export user_1, Ability.new(user_1)
+
+      Votable::Vote.call(
+        votable: review_2,
+        voter: user_1,
+        vote: 'yes'
+      )
     end
+
+    let(:anime) { create :anime }
 
     let(:review_1) { create :review, anime: anime, user: user_1 }
     let(:review_2) { create :review, anime: anime, user: user_2 }
-
-    let(:anime) { create :anime }
 
     let(:user_1) { create :user }
     let(:user_2) { create :user }
@@ -54,26 +59,42 @@ describe JsExports::ReviewsExport do
         can_edit: false,
         id: review_1.id,
         is_viewed: true,
-        user_id: review_1.user_id
+        user_id: review_1.user_id,
+        voted_no: false,
+        voted_yes: false,
+        votes_against: 0,
+        votes_for: 0
       }, {
         can_destroy: false,
         can_edit: false,
         id: review_2.id,
         is_viewed: false,
-        user_id: review_2.user_id
+        user_id: review_2.user_id,
+        voted_no: false,
+        voted_yes: true,
+        votes_against: 0,
+        votes_for: 1
       }]
       expect(export_2).to eq [{
         can_destroy: false,
         can_edit: false,
         id: review_1.id,
         is_viewed: true,
-        user_id: review_1.user_id
+        user_id: review_1.user_id,
+        voted_no: false,
+        voted_yes: false,
+        votes_against: 0,
+        votes_for: 0
       }, {
         can_destroy: false,
         can_edit: false,
         id: review_2.id,
         is_viewed: true,
-        user_id: review_2.user_id
+        user_id: review_2.user_id,
+        voted_no: false,
+        voted_yes: false,
+        votes_against: 0,
+        votes_for: 1
       }]
     end
   end
