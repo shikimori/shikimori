@@ -22,7 +22,7 @@ describe Comment do
   end
 
   describe 'callbacks' do
-    let(:topic) { build_stubbed :topic, user: user }
+    let(:topic) { build_stubbed :anime_topic, user: user }
     let(:comment) { create :comment, user: user, commentable: topic }
 
     describe '#forbid_tag_change' do
@@ -38,17 +38,32 @@ describe Comment do
     end
 
     describe '#cancel_summary' do
-      let(:comment) { build :comment, :summary, body: body }
+      let(:comment) do
+        build :comment, :summary, body: body, commentable: commentable
+      end
       before { comment.save }
 
-      context 'long comment' do
-        let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
-        it { expect(comment).to be_summary }
+      context 'anime/manga/ranobe topic' do
+        let(:commentable) { topic }
+
+        context 'long comment' do
+          let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
+          it { expect(comment).to be_summary }
+        end
+
+        context 'short comment' do
+          let(:body) { 'x' * (Comment::MIN_SUMMARY_SIZE - 1) }
+          it { expect(comment).to_not be_summary }
+        end
       end
 
-      context 'short comment' do
-        let(:body) { 'x' * (Comment::MIN_SUMMARY_SIZE - 1) }
-        it { expect(comment).to_not be_summary }
+      context 'other model' do
+        let(:commentable) { user }
+
+        context 'long comment' do
+          let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
+          it { expect(comment).to_not be_summary }
+        end
       end
     end
 

@@ -100,8 +100,6 @@ class Comment < ApplicationRecord
   # TODO: get rid of this method
   # проверка можно ли добавлять комментарий в комментируемый объект
   def check_access
-    # http://stackoverflow.com/a/3464012
-    commentable_klass = commentable_type.constantize
     commentable = commentable_klass.find(commentable_id)
 
     if commentable.respond_to?(:can_be_commented_by?)
@@ -112,6 +110,7 @@ class Comment < ApplicationRecord
   # отмена метки отзыва для коротких комментариев
   def cancel_summary
     self.is_summary = false if summary? && body.size < MIN_SUMMARY_SIZE
+    self.is_summary = false unless allowed_summary?
     true
   end
 
@@ -124,7 +123,6 @@ class Comment < ApplicationRecord
   # TODO: get rid of this method
   # для комментируемого объекта вызов колбеков, если они определены
   def creation_callbacks
-    commentable_klass = Object.const_get(commentable_type.to_sym)
     commentable = commentable_klass.find(commentable_id)
     self.commentable_type = commentable_klass.base_class.name
 
@@ -137,7 +135,6 @@ class Comment < ApplicationRecord
   # TODO: get rid of this method
   # для комментируемого объекта вызов колбеков, если они определены
   def destruction_callbacks
-    commentable_klass = Object.const_get(commentable_type.to_sym)
     commentable = commentable_klass.find(commentable_id)
 
     if commentable.respond_to?(:comment_deleted)
@@ -240,11 +237,15 @@ class Comment < ApplicationRecord
               commentable.is_a?(Ranobe)
   end
 
-  private
+private
 
   def offtopic_topic?
     return false if topic.blank?
 
     topic.id == Topic::TOPIC_IDS[:offtopic][topic.locale.to_sym]
+  end
+
+  def commentable_klass
+    @commentable_klass ||= Object.const_get commentable_type.to_sym
   end
 end
