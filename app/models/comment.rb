@@ -111,7 +111,6 @@ class Comment < ApplicationRecord
   def cancel_summary
     self.is_summary = false if summary? && body.size < MIN_SUMMARY_SIZE
     self.is_summary = false unless allowed_summary?
-    true
   end
 
   def check_spam_abuse
