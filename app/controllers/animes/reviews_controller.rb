@@ -5,7 +5,7 @@ class Animes::ReviewsController < AnimesController
 
   before_action :actualize_resource
   before_action :add_title
-  # before_action :add_breadcrumbs, except: %i[index]
+  before_action :add_breadcrumbs
 
   skip_before_action :og_meta
 
@@ -50,31 +50,19 @@ private
       params[:ranobe_id]
   end
 
-  # def add_breadcrumbs
-  #   breadcrumb(
-  #     i18n_i('Review', :other),
-  #     send("#{resource_klass.name.downcase}_reviews_url", @resource)
-  #   )
-  #
-  #   if @review&.persisted? && params[:action] != 'show'
-  #     breadcrumb(
-  #       i18n_t('review_by', nickname: @review.user.nickname),
-  #       @review.url
-  #     )
-  #     @back_url = @review.url
-  #   else
-  #     @back_url = send("#{resource_klass.name.downcase}_reviews_url", @resource)
-  #   end
-  # end
+  def add_breadcrumbs
+    if params[:action] == 'show'
+      breadcrumb i18n_i('Review', :other), @resource.reviews_url
+      @back_url = @resource.reviews_url
+    else
+      breadcrumb i18n_i('Review', :other), nil
+    end
+  end
 
   def add_title
     og page_title: i18n_i('Review', :other)
 
     if params[:action] == 'show'
-      breadcrumb(
-        i18n_i('Review', :other),
-        @resource.reviews_url
-      )
 
       og page_title: i18n_t('review_by', nickname: @review.user.nickname)
     end
