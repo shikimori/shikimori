@@ -43,7 +43,7 @@ describe JsExports::CommentsExport do
     end
 
     context 'user 1' do
-      subject { tracker.export user_1 }
+      subject { tracker.export user_1, Ability.new(user_1) }
 
       it do
         is_expected.to eq [{

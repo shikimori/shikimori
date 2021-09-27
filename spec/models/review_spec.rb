@@ -160,7 +160,7 @@ describe Review do
 
       it do
         expect(review.cache_key_with_version).to eq(
-          'summaries/1-20210801124403000000/user/2/1627821843'
+          'reviews/1-20210801124403000000/user/2/1627821843'
         )
       end
     end

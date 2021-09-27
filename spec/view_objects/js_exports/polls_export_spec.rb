@@ -31,13 +31,13 @@ describe JsExports::PollsExport do
     before do
       tracker.send :track, poll_1.id
       tracker.send :track, poll_2.id
-      tracker.export user
+      tracker.export user, Ability.new(user)
     end
 
     let(:poll_1) { create :poll, :pending }
     let(:poll_2) { create :poll, :started, :with_variants }
 
-    subject { tracker.export user }
+    subject { tracker.export user, Ability.new(user) }
 
     it do
       is_expected.to eq [

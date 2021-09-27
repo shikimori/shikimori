@@ -30,7 +30,7 @@ describe JsExports::ReviewsExport do
     before do
       tracker.send :track, review_1.id
       tracker.send :track, review_2.id
-      tracker.export user_1
+      tracker.export user_1, Ability.new(user_1)
     end
 
     let(:review_1) { create :review, anime: anime, user: user_1 }
@@ -45,8 +45,8 @@ describe JsExports::ReviewsExport do
       create :review_viewing, viewed: review_1, user: user_2
     end
 
-    let(:export_1) { tracker.export user_1 }
-    let(:export_2) { tracker.export user_2 }
+    let(:export_1) { tracker.export user_1, Ability.new(user_1) }
+    let(:export_2) { tracker.export user_2, Ability.new(user_2) }
 
     it do
       expect(export_1).to eq [{
