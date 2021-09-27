@@ -43,14 +43,17 @@ describe Api::V1::CommentsController do
   describe '#create' do
     let(:params) do
       {
-        commentable_id: topic.id,
-        commentable_type: Topic.name,
+        commentable_id: commentable_id,
+        commentable_type: commentable_type,
         body: body,
         is_offtopic: true,
-        is_summary: true
+        is_summary: is_summary
       }
     end
+    let(:commentable_id) { topic.id }
+    let(:commentable_type) { Topic.name }
     let(:is_broadcast) { false }
+    let(:is_summary) { false }
     before { allow(Comment::Broadcast).to receive :call }
 
     subject! do
@@ -85,9 +88,27 @@ describe Api::V1::CommentsController do
         end
       end
 
-      context 'api', :show_in_doc do
+      context 'api' do
         let(:is_frontend) { false }
-        it_behaves_like :successful_resource_change, :api
+
+        context 'topic', :show_in_doc do
+          it_behaves_like :successful_resource_change, :api
+        end
+
+        context 'user' do
+          let(:commentable_id) { user.id }
+          let(:commentable_type) { User.name }
+
+          it_behaves_like :successful_resource_change, :api
+        end
+
+        context 'review' do
+          let(:review) { create :review, anime: create(:anime) }
+          let(:commentable_id) { review.id }
+          let(:commentable_type) { Review.name }
+
+          it_behaves_like :successful_resource_change, :api
+        end
       end
     end
 

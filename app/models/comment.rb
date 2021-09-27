@@ -102,15 +102,18 @@ class Comment < ApplicationRecord
   def check_access
     commentable = commentable_klass.find(commentable_id)
 
-    if commentable.respond_to?(:can_be_commented_by?)
-      throw :abort unless commentable.can_be_commented_by?(self)
+    if commentable.respond_to?(:can_be_commented_by?) &&
+        !commentable.can_be_commented_by?(self)
+      throw :abort
     end
   end
 
   # отмена метки отзыва для коротких комментариев
   def cancel_summary
-    self.is_summary = false if summary? && body.size < MIN_SUMMARY_SIZE
-    self.is_summary = false unless allowed_summary?
+    return unless summary?
+    return if body.size >= MIN_SUMMARY_SIZE && allowed_summary?
+
+    self.is_summary = false
   end
 
   def check_spam_abuse

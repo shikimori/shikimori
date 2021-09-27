@@ -10,11 +10,13 @@ describe Comment::Create do
       commentable_id: commentable_id,
       commentable_type: commentable_type,
       body: 'x' * Comment::MIN_SUMMARY_SIZE,
-      is_offtopic: true,
-      is_summary: true,
+      is_offtopic: is_offtopic,
+      is_summary: is_summary,
       user: user
     }
   end
+  let(:is_offtopic) { [true, false].sample }
+  let(:is_summary) { true }
   let(:locale) { :en }
 
   before { allow_any_instance_of(FayePublisher).to receive :publish }
@@ -25,8 +27,8 @@ describe Comment::Create do
       expect(comment).to have_attributes(
         commentable_type: Topic.name,
         body: 'x' * Comment::MIN_SUMMARY_SIZE,
-        is_offtopic: true,
-        is_summary: true,
+        is_offtopic: is_offtopic,
+        is_summary: is_summary,
         user: user
       )
     end
@@ -37,26 +39,47 @@ describe Comment::Create do
 
     # TODO: cannot pass arbitrary topic class
     #       because of limit on commentable_type in comments
-    context 'commentable is topic' do
-      let(:commentable_id) { topic.id }
-      let(:commentable_type) { Topic.name }
+    describe 'commentable' do
+      context 'commentable is topic' do
+        let(:commentable_id) { topic.id }
+        let(:commentable_type) { Topic.name }
 
-      it_behaves_like :comment
-      it { is_expected.to eq topic }
-    end
+        it_behaves_like :comment
+        it { is_expected.to eq topic }
+      end
 
-    context 'commentable is user' do
-      let(:commentable_id) { user.id }
-      let(:commentable_type) { User.name }
+      context 'commentable is user' do
+        let(:commentable_id) { user.id }
+        let(:commentable_type) { User.name }
+        let(:is_summary) { false }
 
-      it do
-        expect(comment).to have_attributes(
-          commentable: user,
-          body: 'x' * Comment::MIN_SUMMARY_SIZE,
-          is_offtopic: true,
-          is_summary: true,
-          user: user
-        )
+        it do
+          expect(comment).to have_attributes(
+            commentable: user,
+            body: 'x' * Comment::MIN_SUMMARY_SIZE,
+            is_offtopic: is_offtopic,
+            is_summary: false,
+            user: user
+          )
+        end
+      end
+
+      context 'commentable is review' do
+        let(:review) { create :review, anime: anime }
+        let(:anime) { create :anime }
+        let(:commentable_id) { review.id }
+        let(:commentable_type) { Review.name }
+        let(:is_summary) { false }
+
+        it do
+          expect(comment).to have_attributes(
+            commentable: review,
+            body: 'x' * Comment::MIN_SUMMARY_SIZE,
+            is_offtopic: is_offtopic,
+            is_summary: false,
+            user: user
+          )
+        end
       end
     end
 
@@ -87,7 +110,7 @@ describe Comment::Create do
     context 'commentable is db entry without topic' do
       let(:commentable_id) { anime.id }
       let(:commentable_type) { Anime.name }
-      let(:topic) {}
+      let(:topic) { nil }
 
       it_behaves_like :comment
       it 'creates anime topic with specified locale' do

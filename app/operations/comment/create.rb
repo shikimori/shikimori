@@ -25,10 +25,10 @@ private
   def apply_commentable comment
     return if commentable_klass == NilClass
 
-    if commentable_klass <= Topic || commentable_klass <= User
-      comment.assign_attributes @params.slice(:commentable_id, :commentable_type)
-    else
+    if possibly_generate_topic? commentable_klass
       comment.commentable = find_or_generate_topic
+    else
+      comment.assign_attributes @params.slice(:commentable_id, :commentable_type)
     end
   end
 
@@ -37,7 +37,7 @@ private
       commentable_object.generate_topics(@locale).first
   end
 
-  # NOTE: Topic, User or DbEntry
+  # NOTE: Topic, User, Review or DbEntry
   def commentable_klass
     @params[:commentable_type].constantize
   rescue NameError
@@ -46,5 +46,13 @@ private
 
   def commentable_object
     commentable_klass.find @params[:commentable_id]
+  end
+
+  def possibly_generate_topic? commentable_klass
+    !(
+      commentable_klass <= Topic ||
+        commentable_klass <= User ||
+        commentable_klass == Review
+    )
   end
 end
