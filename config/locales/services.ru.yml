@@ -96,6 +96,7 @@ ru:
       nil: в <em>удалено</em>.
       topic: в топике <a href="%{url}"%{bubble}>%{name}</a>.
       profile: в профиле пользователя <a href="%{url}"%{bubble}>%{name}</a>.
+      review: в отзыве к <a href="%{url}"%{bubble}>%{name}</a>.
 
   messages/check_spam_abuse:
     ban_text: >-

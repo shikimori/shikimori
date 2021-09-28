@@ -97,6 +97,7 @@ en:
       nil: in <em>deleted</em>.
       topic: in topic <a href="%{url}"%{bubble}>%{name}</a>.
       profile: in <a href="%{url}"%{bubble}>%{name}</a>'s profile.
+      review: in review for <a href="%{url}"%{bubble}>%{name}</a>.
 
   messages/check_spam_abuse:
     ban_text: >-
