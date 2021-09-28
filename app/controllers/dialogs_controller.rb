@@ -6,26 +6,29 @@ class DialogsController < ProfilesController
   MESSAGES_PER_PAGE = 10
 
   def index
-    @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
+    @limit = [
+      [params[:limit].to_i, MESSAGES_PER_PAGE].max,
+      MESSAGES_PER_PAGE * 2
+    ].min
 
     @collection, @add_postloader = DialogsQuery.new(@resource).postload @page, @limit
   end
 
   def show
-    @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
+    @limit = [
+      [params[:limit].to_i, MESSAGES_PER_PAGE].max,
+      MESSAGES_PER_PAGE * 2
+    ].min
 
     target_user = User.find_by!(nickname: User.param_to(params[:id]))
     @dialog = Dialog.new(@resource, Message.new(to_id: target_user.id, from_id: @resource.id))
-    @replied_message = if params[:reply_message_id]
-      message = Message.find_by(id: params[:reply_message_id])
-      message if message && can?(:read, message)
-    end
 
     @collection, @add_postloader = DialogQuery
       .new(@resource, @dialog.target_user)
       .postload(@page, @limit)
 
     @collection = @collection.map(&:decorate)
+    prepare_reply if params[:reply_message_id]
 
     og page_title: i18n_t(:title, user: @dialog.target_user.nickname)
   end
@@ -49,5 +52,19 @@ private
   def add_breadcrumb
     breadcrumb t(:mail), profile_dialogs_url(@resource)
     @back_url = profile_dialogs_url(@resource)
+  end
+
+  def prepare_reply
+    message = Message.find_by(id: params[:reply_message_id])
+    return unless message && can?(:read, message)
+
+    gon.push reply: {
+      id: params[:reply_message_id],
+      type: :message,
+      userId: @dialog.target_user.id,
+      nickname: @dialog.target_user.nickname,
+      text: @dialog.target_user.nickname,
+      url: message_path(params[:reply_message_id])
+    }
   end
 end

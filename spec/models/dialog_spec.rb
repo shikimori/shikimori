@@ -63,7 +63,7 @@ describe Dialog do
     it do
       is_expected.to be_kind_of Message
       is_expected.to have_attributes(
-        body: '',
+        body: nil,
         from_id: user_1.id,
         to_id: user_2.id,
         kind: MessageType::PRIVATE

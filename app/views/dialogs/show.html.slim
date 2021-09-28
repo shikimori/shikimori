@@ -42,12 +42,21 @@
               gender: @dialog.user.sex
         - else
           .subheadline = t '.your_message'
-        - new_message = @dialog.new_message(@replied_message)
+        / - new_message = @dialog.new_message(@replied_message)
+        / = render 'comments/form',
+        /   comment: new_message,
+        /   preview_params: { \
+        /     kind: new_message.kind,
+        /     from_id: new_message.from_id,
+        /     to_id: new_message.to_id \
+        /   },
+        /   cache_key: "dialogs/#{new_message.from_id}/#{new_message.to_id}"
+
         = render 'comments/form',
-          comment: new_message,
+          comment: @dialog.new_message,
           preview_params: { \
-            kind: new_message.kind,
-            from_id: new_message.from_id,
-            to_id: new_message.to_id \
+            kind: @dialog.new_message.kind,
+            from_id: @dialog.new_message.from_id,
+            to_id: @dialog.new_message.to_id \
           },
-          cache_key: "dialogs/#{new_message.from_id}/#{new_message.to_id}"
+          cache_key: "dialogs/#{@dialog.new_message.from_id}/#{@dialog.new_message.to_id}"
