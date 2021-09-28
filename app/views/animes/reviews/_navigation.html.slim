@@ -12,7 +12,9 @@
       *{ \
         tag: local_assigns[:is_preview] && counts[index].positive? ? 'a' : 'div',
         href: local_assigns[:is_preview] && counts[index].positive? ? resource.reviews_url(opinion: opinion) : false,
-        class: "navigation-node navigation-node-#{opinion || 'all'}" + (" is-empty" if counts[index].zero?),
+        class: "navigation-node navigation-node-#{opinion || 'all'}" + \
+          "#{' is-empty' if counts[index].zero?}" + \
+          "#{' is-active' if local_assigns[:is_preview] && !opinion}",
         'data-opinion': (opinion || ''),
         'data-ellispsis-allowed': %i[positive negative].include?(opinion) \
       }
