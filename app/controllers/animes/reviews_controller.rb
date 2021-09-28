@@ -13,7 +13,7 @@ class Animes::ReviewsController < AnimesController
   PER_PAGE = 8
   PER_PREVIEW = 4
 
-  def index
+  def index # rubocop:disable AbcSize
     @opinion = (Types::Review::Opinion[params[:opinion]] if params[:opinion])
     @is_preview = !!params[:is_preview]
 
@@ -24,6 +24,10 @@ class Animes::ReviewsController < AnimesController
     @collection = @is_preview ?
       query.paginate(1, PER_PREVIEW) :
       query.paginate(@page, PER_PAGE)
+
+    if @collection.none? && !request.xhr?
+      redirect_to @resource.url, status: :moved_permanently
+    end
   end
 
   def show
