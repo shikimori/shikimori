@@ -1,5 +1,7 @@
 describe Topic::Cleanup do
-  let(:topic) { create :topic, comments_count: 4 }
+  let(:topic) { create :topic, id: topic_id, comments_count: comments_count }
+  let(:topic_id) { 987654345 }
+  let(:comments_count) { comments_offset + 3 }
 
   let!(:comment_1) do
     create :comment,
@@ -41,13 +43,14 @@ describe Topic::Cleanup do
   let(:image_4) { create :user_image }
 
   before do
-    stub_const 'Topic::Cleanup::COMMENTS_OFFSET', 1
+    stub_const 'Topic::Cleanup::COMMENTS_OFFSET', comments_offset
     if comment_1_is_summary
       comment_1.update_column :is_summary, true
     end
 
     allow(Comment::Cleanup).to receive :call
   end
+  let(:comments_offset) { 1 }
 
   subject! { described_class.call topic }
 
@@ -55,5 +58,15 @@ describe Topic::Cleanup do
     expect(Comment::Cleanup).to have_received(:call).twice
     expect(Comment::Cleanup).to have_received(:call).with(comment_1)
     expect(Comment::Cleanup).to have_received(:call).with(comment_2)
+  end
+
+  context 'ignored topic' do
+    let(:topic_id) { described_class::IGNORED_TOPIC_IDS.sample }
+    it { expect(Comment::Cleanup).to_not have_received :call }
+  end
+
+  context 'too few comments in the topic' do
+    let(:comments_count) { comments_offset }
+    it { expect(Comment::Cleanup).to_not have_received :call }
   end
 end
