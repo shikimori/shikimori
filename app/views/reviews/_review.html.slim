@@ -87,7 +87,7 @@
         topic_type_policy: Topic::TypePolicy.new(review),
         votable: review
       - if review_url
-        a.do-comment.b-link_button.dark-2 href=review_url
+        a.do-comment.b-link_button.dark-2 href=(review_url + '/reply')
           = t 'animes.page.actions.comment'
 
   - if review.persisted?

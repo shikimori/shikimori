@@ -767,11 +767,13 @@ Rails.application.routes.draw do
         type: kind.singularize.capitalize,
         only: %i[show new edit],
         controller: 'animes/reviews' do
-          collection do
-            get '(:opinion)(/page/:page)' => :index,
-              as: :index,
-              opinion: /positive|neutral|negative/
-          end
+          get '(:opinion)(/page/:page)' => :index,
+            as: :index,
+            opinion: /positive|neutral|negative/,
+            on: :collection
+          get 'reply' => :show,
+            as: :reply,
+            on: :member
         end
     end
   end
