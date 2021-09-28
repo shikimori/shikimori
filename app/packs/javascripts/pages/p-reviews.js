@@ -13,7 +13,7 @@ pageLoad('reviews_show', async () => {
     editor.replyComment(reply);
     editor.reprocessCache();
 
-    const url = window.location.href.replace(/\/reply\/.*$/, '');
+    const url = window.location.href.replace(/\/reply$/, '');
     if (url !== window.location.href) {
       window.history.replaceState({ turbolinks: true, url }, '', url);
     }
