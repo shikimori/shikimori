@@ -38,7 +38,7 @@ class MessagesController < ProfilesController
 
     render :show
   rescue CanCan::AccessDenied
-    render :missing
+    render :missing, status: :not_found
   end
 
   def tooltip
