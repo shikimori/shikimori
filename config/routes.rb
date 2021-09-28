@@ -111,7 +111,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reviews, only: %i[show]
   resources :comments, except: %i[create update index] do
     collection do
       get :smileys
