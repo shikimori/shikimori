@@ -1,14 +1,18 @@
-import Topic from './topic';
 import { memoize } from 'shiki-decorators';
+import { isPhone } from 'shiki-utils';
+
+import Topic from './topic';
 
 export default class Review extends Topic {
   _type() { return 'review'; }
   _typeLabel() { return I18n.t('frontend.dynamic_elements.review.type_label'); } // eslint-disable-line camelcase
 
   initialize() {
-    this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT = 220;
-    this.CHECK_HEIGHT_COLLAPSED_HEIGHT = 170;
-    this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 115;
+    const mobileOffset = isPhone() ? 63 : 0;
+
+    this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT = 220 + mobileOffset;
+    this.CHECK_HEIGHT_COLLAPSED_HEIGHT = 170 + mobileOffset;
+    this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 115 + mobileOffset;
 
     // data attribute is set in Topics.Tracker
     this.model = this.$node.data('model') || this._defaultModel();
