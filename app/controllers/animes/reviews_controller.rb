@@ -88,7 +88,7 @@ private
       userId: @review.user_id,
       nickname: @review.user.nickname,
       text: @review.user.nickname,
-      url: @resource.review_url(@review)
+      url: UrlGenerator.instance.review_url(@review)
     }
   end
 end

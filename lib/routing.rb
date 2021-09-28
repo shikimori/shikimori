@@ -89,6 +89,32 @@ module Routing
     end
   end
 
+  def review_url review, is_reply: false # rubocop:disable MethodLength
+    is_db_entry_cached = review.anime? ?
+      review.association_cached?(:anime) :
+      review.association_cached?(:manga)
+
+    prefix = 'reply_' if is_reply
+
+    if is_db_entry_cached
+      send(
+        "#{prefix}#{review.db_entry.class.name.downcase}_review_url",
+        review.db_entry,
+        review
+      )
+    else
+      send(
+        "#{prefix}#{review.anime? ? :anime : :manga}_review_url",
+        review.db_entry_id,
+        review
+      )
+    end
+  end
+
+  def reply_review_url review
+    review_url review, is_reply: true
+  end
+
   def forum_url forum, linked = nil
     if linked
       forum_topics_url forum,

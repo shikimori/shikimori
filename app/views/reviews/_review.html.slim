@@ -1,6 +1,3 @@
-- unless local_assigns[:is_show]
-  - review_url = send "#{review.db_entry.class.name.downcase}_review_url", review.db_entry, review
-
 .b-review.to-process[
   id=review.id
   data-dynamic='review'
@@ -42,8 +39,8 @@
           ]
             = review.user.nickname
 
-          - if review_url
-            a.to-review href=review_url
+          - unless local_assigns[:is_show]
+            a.to-review href=UrlGenerator.instance.review_url(review)
               | <<< #{t '.go_to_review'}
 
         - if review.persisted?
@@ -86,8 +83,8 @@
       = render 'topics/footer/vote',
         topic_type_policy: Topic::TypePolicy.new(review),
         votable: review
-      - if review_url
-        a.do-comment.b-link_button.dark-2 href=(review_url + '/reply')
+      - unless local_assigns[:is_show]
+        a.do-comment.b-link_button.dark-2 href=UrlGenerator.instance.reply_review_url(review)
           = t 'animes.page.actions.comment'
 
   - if review.persisted?
