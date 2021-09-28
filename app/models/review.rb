@@ -57,6 +57,10 @@ class Review < ApplicationRecord
     anime? ? anime : manga
   end
 
+  def db_entry_id
+    anime_id || manga_id
+  end
+
   def db_entry_released_before?
     db_entry.released? &&
       (!db_entry.released_on || db_entry.released_on <= Time.zone.today)

@@ -93,29 +93,32 @@ describe Review do
   end
 
   describe 'instance methods' do
-    describe '#anime? & #manga?, #db_entry' do
+    describe '#anime? & #manga?, #db_entry, #db_entry_id' do
       subject { build :review, anime: anime, manga: manga }
       let(:anime) { nil }
       let(:manga) { nil }
 
       its(:anime?) { is_expected.to eq false }
       its(:manga?) { is_expected.to eq false }
-      its(:db_entry) { is_expected.to eq nil }
+      its(:db_entry) { is_expected.to be_nil }
+      its(:db_entry_id) { is_expected.to be_nil }
 
-      context 'is anime' do
+      context 'anime' do
         let(:anime) { build_stubbed :anime }
 
         its(:anime?) { is_expected.to eq true }
         its(:manga?) { is_expected.to eq false }
         its(:db_entry) { is_expected.to eq anime }
+        its(:db_entry_id) { is_expected.to eq anime.id }
       end
 
-      context 'is anime' do
+      context 'manga' do
         let(:manga) { build_stubbed :manga }
 
         its(:anime?) { is_expected.to eq false }
         its(:manga?) { is_expected.to eq true }
         its(:db_entry) { is_expected.to eq manga }
+        its(:db_entry_id) { is_expected.to eq manga.id }
       end
     end
 
