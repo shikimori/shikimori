@@ -773,7 +773,8 @@ Rails.application.routes.draw do
             on: :collection
           get 'reply' => :show,
             as: :reply,
-            on: :member
+            on: :member,
+            is_reply: true
         end
     end
   end

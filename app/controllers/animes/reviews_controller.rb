@@ -32,6 +32,7 @@ class Animes::ReviewsController < AnimesController
 
   def show
     @comments_view = Topics::ProxyComments.new @review, false
+    push_js_reply if params[:is_reply]
   end
 
   # def new
@@ -78,5 +79,16 @@ private
       @review = @resource
       @resource = @anime || @manga || @ranobe
     end
+  end
+
+  def push_js_reply
+    gon.push reply: {
+      id: @review.id,
+      type: :review,
+      userId: @review.user_id,
+      nickname: @review.user.nickname,
+      text: @review.user.nickname,
+      url: @resource.review_url(@review)
+    }
   end
 end

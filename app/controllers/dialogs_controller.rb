@@ -28,7 +28,7 @@ class DialogsController < ProfilesController
       .postload(@page, @limit)
 
     @collection = @collection.map(&:decorate)
-    prepare_reply if params[:reply_message_id]
+    push_js_reply if params[:reply_message_id]
 
     og page_title: i18n_t(:title, user: @dialog.target_user.nickname)
   end
@@ -54,17 +54,17 @@ private
     @back_url = profile_dialogs_url(@resource)
   end
 
-  def prepare_reply
+  def push_js_reply
     message = Message.find_by(id: params[:reply_message_id])
     return unless message && can?(:read, message)
 
     gon.push reply: {
-      id: params[:reply_message_id],
+      id: message.id,
       type: :message,
       userId: @dialog.target_user.id,
       nickname: @dialog.target_user.nickname,
       text: @dialog.target_user.nickname,
-      url: message_path(params[:reply_message_id])
+      url: message_path(message.id)
     }
   end
 end
