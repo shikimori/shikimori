@@ -27,6 +27,12 @@ class FactoryBotSeeds
     site_problems_topic
     contests_proposals_topic
     socials_topic
+
+    anime
+    manga
+    ranobe
+    character
+    person
   ]
   CUSTOM_FACTORIES = %i[
     user
