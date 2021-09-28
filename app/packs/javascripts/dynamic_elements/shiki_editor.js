@@ -308,6 +308,10 @@ export default class ShikiEditor extends ShikiView {
     return this.$textarea.val();
   }
 
+  // does nothing. added for compatibility with shiki-editor-v2
+  reprocessCache() {
+  }
+
   _showPreview(previewHtml) {
     this.$node.addClass('previewed');
     $('.body .preview', this.$node)
