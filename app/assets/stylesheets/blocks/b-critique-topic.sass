@@ -45,10 +45,9 @@ $body-offset: 130px
     width: 227px
 
     +iphone_portrait
-      margin-top: 20px
-      width: 270px
       float: none
       margin-left: 0
+      margin-top: 10px
 
     & > .title
       color: #123
@@ -56,8 +55,28 @@ $body-offset: 130px
       font-weight: bold
       line-height: 0.5
 
-    .b-rate
+    .star-line
       margin-bottom: 10px
+
+      +iphone_portrait
+        margin-bottom: 7px
+
+        .b-rate
+          .stars,
+          .score-value
+            font-size: 28px
 
       &:last-child
         margin-bottom: 20px
+
+      .b-rate
+        +iphone_portrait
+          margin-top: -5px
+
+.b-critique-topic.b-topic-preview
+  +iphone_portrait
+    .critique-stars
+      margin-top: 0
+
+    .text-score
+      display: none
