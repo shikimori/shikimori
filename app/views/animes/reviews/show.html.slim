@@ -1,6 +1,5 @@
 = render layout: 'animes/page' do |f|
-  h2.subheadline.m5 = i18n_i('Review', :other)
-
+  h2.subheadline = i18n_i('Review', :other)
   .block
     = render partial: 'reviews/review',
       collection: [@review],
