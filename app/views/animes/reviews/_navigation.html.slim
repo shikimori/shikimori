@@ -1,4 +1,5 @@
 - opinions = ([nil] + ::Types::Review::Opinion.values)
+- counts = opinions.map { |opinion| opinion ? resource.reviews.send(opinion).count : resource.reviews.count }
 
 .b-reviews_navigation[
   data-initial_opinion=(local_assigns[:opinion] || '')
@@ -7,12 +8,11 @@
   data-initial_page=(local_assigns[:page] || 1)
 ]
   .navigation-container
-    - opinions.each do |opinion|
-      - count = opinion ? resource.reviews.send(opinion).count : resource.reviews.count
+    - opinions.each_with_index do |opinion, index|
       *{ \
-        tag: local_assigns[:is_preview] && count.positive? ? 'a' : 'div',
-        href: local_assigns[:is_preview] && count.positive? ? resource.reviews_url(opinion: opinion) : false,
-        class: "navigation-node navigation-node-#{opinion || 'all'}" + (" is-empty" if count.zero?),
+        tag: local_assigns[:is_preview] && counts[index].positive? ? 'a' : 'div',
+        href: local_assigns[:is_preview] && counts[index].positive? ? resource.reviews_url(opinion: opinion) : false,
+        class: "navigation-node navigation-node-#{opinion || 'all'}" + (" is-empty" if counts[index].zero?),
         'data-opinion': (opinion || ''),
         'data-ellispsis-allowed': %i[positive negative].include?(opinion) \
       }
@@ -22,15 +22,17 @@
               = t ".opinion.#{opinion}"
             - else
               | #{t '.opinion.all'} #{i18n_io 'review', :few}
-        .count = count
+        .count = counts[index]
 
   .content-container
-    - opinions.each do |opinion|
+    - opinions.each_with_index do |opinion, index|
       .content-node[
         data-opinion=(opinion || '')
         class=('is-active' if opinion == local_assigns[:opinion])
       ]
-        - if opinion == local_assigns[:opinion] && collection
+        - if counts[index].zero?
+          .b-nothing_here = t 'no_reviews'
+        - elsif opinion == local_assigns[:opinion] && collection
           = render 'reviews/group',
             collection: collection,
             is_preview: local_assigns[:is_preview]
