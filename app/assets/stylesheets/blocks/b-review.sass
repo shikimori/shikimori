@@ -2,6 +2,7 @@
 @import mixins/clear_left
 @import mixins/font_shikimori
 @import mixins/forum_entry
+// @import mixins/frame_form
 @import mixins/link
 @import mixins/shiki_comment
 @import mixins/user_rate-minified
@@ -211,3 +212,25 @@
 
   .b-height_shortener .expand
     font-size: 12px
+
+  footer
+    +gte_iphone-landscape
+      display: flex
+      align-items: center
+
+    .do-comment
+      // +frame_form
+      align-items: center
+      display: inline-flex
+      font-size: 14px
+      // font-family: var(--font-alt)
+      // font-weight: 500
+      // margin: 12px 0 12px 30px // vertical margins are the same that b-footer_vote has
+
+      +gte_iphone-landscape
+        margin-left: 30px
+
+      &:before
+        +font_shikimori('f')
+        margin-right: 9px
+        margin-left: -2px
