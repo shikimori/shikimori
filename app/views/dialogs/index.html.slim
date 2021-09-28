@@ -1,7 +1,7 @@
 = render layout: 'page' do
   = render 'navigation'
 
-  .subheadline.m5
+  .subheadline
     = og.headline
     - if params[:controller] == 'dialogs' && params[:action] == 'index'
       .misc-links

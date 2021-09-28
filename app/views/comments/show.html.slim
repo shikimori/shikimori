@@ -5,7 +5,7 @@
     formats: :html
 
 - else
-  .b-topic.to-process[
+  .to-process[
     data-dynamic='topic'
     data-faye=@view.faye_channel.to_json
   ]
@@ -44,9 +44,10 @@
 
     .block
       / .b-options-floated.count = @view.replies.size
-      .subheadline.m0 = t '.replies'
-      .block
-        .b-topic
-          = render 'topics/comments',
-            comments_view: @view,
-            commentable: @view.comment.commentable
+      .subheadline = t '.replies'
+      .to-process[
+        data-dynamic='topic'
+      ]
+        = render 'topics/comments',
+          comments_view: @view,
+          commentable: @view.comment.commentable

@@ -305,17 +305,16 @@
 
   - if @view.show_comments?
     .block
-      .subheadline.m0
+      .subheadline
         - if @resource.preview_comments_view.comments_count.positive?
           a href=feed_profile_url(@resource) title=t('profiles_controller.feed')
             = t('profiles_controller.feed')
         - else
           = t('profiles_controller.feed')
-      div
-        .b-topic.to-process[
-          data-dynamic='topic'
-          data-faye=@resource.preview_comments_view.faye_channel.to_json
-        ]
-          = render 'topics/comments',
-            comments_view: @resource.preview_comments_view,
-            commentable: @resource
+      .to-process[
+        data-dynamic='topic'
+        data-faye=@resource.preview_comments_view.faye_channel.to_json
+      ]
+        = render 'topics/comments',
+          comments_view: @resource.preview_comments_view,
+          commentable: @resource

@@ -2,10 +2,9 @@
   p.b-nothing_here.centered = t '.no_message'
 
 - else
-  .b-topic.to-process[
+  .to-process[
     data-dynamic='topic'
     data-faye='false'
   ]
     .subheadline = t '.user_message', id: @resource.id
-    .block
-      p.b-nothing_here = t '.no_message'
+    p.b-nothing_here = t '.no_message'

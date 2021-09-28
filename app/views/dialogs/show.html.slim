@@ -1,54 +1,53 @@
 = render layout: 'page' do
   = render 'navigation'
 
-  .subheadline.m0
+  .subheadline
     == t '.conversation_with_user',
       user: (render 'users/user_16', user: @dialog.target_user)
 
-  .block
-    .b-topic.shiki-object.to-process[
-      data-dynamic='full_dialog'
-      data-faye=@dialog.faye_channel.to_json
-      data-appear_type='message'
-    ]
-      .b-comments
-        - if @add_postloader
-          = render 'dialogs/postloader',
-            next_url: show_profile_dialog_url(@dialog.user, @dialog.target_user.to_param, page: @page + 1)
+  .to-process[
+    data-dynamic='full_dialog'
+    data-faye=@dialog.faye_channel.to_json
+    data-appear_type='message'
+  ]
+    .b-comments
+      - if @add_postloader
+        = render 'dialogs/postloader',
+          next_url: show_profile_dialog_url(@dialog.user, @dialog.target_user.to_param, page: @page + 1)
 
-        = render @collection
+      = render @collection
 
-      - if @dialog.target_user.admin? && !current_user.staff?
-        .admin-message
-          .subheadline.red = t '.before_you_message_me'
-          ul.b-list.is-wide
-            == t '.admin_message'
-            / - if ru_host? && I18n.russian?
-              li
-                | Шикимори никак не влияет на работу видео плеера при просмотре онлайн.&nbsp;
-                == BbCodes::Text.call "[spoiler=Подробнее.]#{t '.admin_message_about_video'}[/spoiler]"
-          p = t '.admin_message_postscriptum'
+    - if @dialog.target_user.admin? && !current_user.staff?
+      .admin-message.block
+        .subheadline.red = t '.before_you_message_me'
+        ul.b-list.is-wide
+          == t '.admin_message'
+          / - if ru_host? && I18n.russian?
+            li
+              | Шикимори никак не влияет на работу видео плеера при просмотре онлайн.&nbsp;
+              == BbCodes::Text.call "[spoiler=Подробнее.]#{t '.admin_message_about_video'}[/spoiler]"
+        p = t '.admin_message_postscriptum'
 
-      .editor-container
-        - if @dialog.target_user.ignores.where(target_id: @dialog.user.id).exists?
+    .editor-container
+      - if @dialog.target_user.ignores.where(target_id: @dialog.user.id).exists?
+        .subheadline.red
+          = t '.is_ignored_by_user',
+            user: @dialog.target_user.nickname,
+            gender: @dialog.target_user.sex
+      - else
+        - if @dialog.user.ignores.where(target_id: @dialog.target_user.id).exists?
           .subheadline.red
-            = t '.is_ignored_by_user',
+            = t '.is_ignored_by_you',
               user: @dialog.target_user.nickname,
-              gender: @dialog.target_user.sex
+              gender: @dialog.user.sex
         - else
-          - if @dialog.user.ignores.where(target_id: @dialog.target_user.id).exists?
-            .subheadline.red
-              = t '.is_ignored_by_you',
-                user: @dialog.target_user.nickname,
-                gender: @dialog.user.sex
-          - else
-            .subheadline = t '.your_message'
-          - new_message = @dialog.new_message(@replied_message)
-          = render 'comments/form',
-            comment: new_message,
-            preview_params: { \
-              kind: new_message.kind,
-              from_id: new_message.from_id,
-              to_id: new_message.to_id \
-            },
-            cache_key: "dialogs/#{new_message.from_id}/#{new_message.to_id}"
+          .subheadline = t '.your_message'
+        - new_message = @dialog.new_message(@replied_message)
+        = render 'comments/form',
+          comment: new_message,
+          preview_params: { \
+            kind: new_message.kind,
+            from_id: new_message.from_id,
+            to_id: new_message.to_id \
+          },
+          cache_key: "dialogs/#{new_message.from_id}/#{new_message.to_id}"
