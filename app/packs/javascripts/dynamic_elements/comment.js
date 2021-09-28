@@ -1,5 +1,5 @@
 import delay from 'delay';
-import { flash } from 'shiki-utils';
+import { flash, isPhone } from 'shiki-utils';
 import { bind } from 'shiki-decorators';
 
 import ShikiEditable from '@/views/application/shiki_editable';
@@ -33,6 +33,9 @@ export default class Comment extends ShikiEditable {
   }
 
   initialize() {
+    const mobileOffset = isPhone() ? -25 : 0;
+    this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 140 + mobileOffset;
+
     // data attribute is set in Comments.Tracker
     this.model = this.$node.data('model') || this._defaultModel();
 
