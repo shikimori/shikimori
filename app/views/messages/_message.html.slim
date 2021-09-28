@@ -1,8 +1,8 @@
-.b-message.shiki-object.to-process[
+.b-message.to-process[
   class=('b-generated_news' if message.for_generated_news_topic?)
   id=message.id
-  data-appear_type='message'
   data-dynamic='message'
+  data-appear_type='message'
   data-user_id=message.from.id
   data-user_nickname=message.from.nickname
 ]

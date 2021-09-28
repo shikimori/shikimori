@@ -47,6 +47,7 @@
       .subheadline = t '.replies'
       .to-process[
         data-dynamic='topic'
+        data-faye='false'
       ]
         = render 'topics/comments',
           comments_view: @view,

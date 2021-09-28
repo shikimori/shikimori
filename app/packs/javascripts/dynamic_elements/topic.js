@@ -350,7 +350,7 @@ export default class Topic extends ShikiEditable {
     if (!$filteredAppeared.exists()) { return; }
 
     const interval = byClick ? 1 : 1500;
-    const $objects = $filteredAppeared.closest('.shiki-object');
+    const $objects = $filteredAppeared.closest('[data-appear_type]');
     const $markers = $objects.find('.b-new_marker.active');
     const ids = $objects
       .map(function() {
