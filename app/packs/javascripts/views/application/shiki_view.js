@@ -12,8 +12,9 @@ export default class ShikiView extends View {
   _initialize(...args) {
     super._initialize(...args);
 
-    this.MAX_PREVIEW_HEIGHT = 450;
-    this.COLLAPSED_HEIGHT = 150;
+    this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT = 450;
+    this.CHECK_HEIGHT_COLLAPSED_HEIGHT = 150;
+    this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 0;
 
     this.$node.removeClass('unprocessed');
     this.$inner = this.$('>.inner');
@@ -49,8 +50,9 @@ export default class ShikiView extends View {
     if (!window.SHIKI_USER.isCommentsAutoCollapsed) { return; }
 
     this.$checkHeightNode.checkHeight({
-      maxHeight: this.MAX_PREVIEW_HEIGHT,
-      collapsedHeight: this.COLLAPSED_HEIGHT
+      maxHeight: this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT,
+      collapsedHeight: this.CHECK_HEIGHT_COLLAPSED_HEIGHT,
+      placeholderHeight: this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT
     });
   }
 

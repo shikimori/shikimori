@@ -6,14 +6,20 @@ $.fn.extend({
   //   withoutShade - добавлять ли тень
   //   collapsedHeight - высота свёрнутого блока
   //   expandHtml - html для блока "развернуть"
+  //   placeholderHeight - высота прозрачного кликабельного блока "развернуть"
   checkHeight(options = {}) {
     const maxHeight = options.maxHeight || 450;
     const withoutShade = (options.withoutShade != null) ? options.withoutShade : false;
     const collapsedHeight = options.collapsedHeight || Math.round((maxHeight * 2.0) / 3);
+    const placeholderHeight = options.placeholderHeight || 0;
+
     const shadeHtml = withoutShade ? '' : '<div class=\'shade\'></div>';
+    const placeholderHtml = placeholderHeight > 0 ?
+      `<div class='placeholder' style='height: ${placeholderHeight}px;'></div>` :
+      '';
     const expandHtml = (options.expandHtml != null) ?
       options.expandHtml :
-      '<div class=\'expand\'><span>' +
+      `<div class='expand'>${placeholderHtml}<span>` +
         `${I18n.t('frontend.dynamic_elements.check_height.expand')}</span></div>`;
 
     return this.each(function() {
