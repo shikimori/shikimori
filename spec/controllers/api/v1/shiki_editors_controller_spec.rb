@@ -112,6 +112,14 @@ describe Api::V1::ShikiEditorsController do
             'text' => topic.user.nickname,
             'url' => UrlGenerator.instance.topic_url(topic)
           }
+        },
+        review: {
+          review.id.to_s => {
+            'id' => review.id,
+            'userId' => comment.user.id,
+            'text' => review.user.nickname,
+            'url' => UrlGenerator.instance.review_url(review.reload)
+          }
         }
       )
     end
