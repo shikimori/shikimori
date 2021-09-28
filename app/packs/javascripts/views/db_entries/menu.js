@@ -1,8 +1,8 @@
 import delay from 'delay';
 
 import View from '@/views/application/view';
-import { ANIME_TOOLTIP_OPTIONS } from '@/helpers/tooltip_options';
-import axios from '@/helpers/axios';
+import { ANIME_TOOLTIP_OPTIONS } from '@/utils/tooltip_options';
+import axios from '@/utils/axios';
 
 const NO_DATA_I18N_KEY = 'frontend.pages.p_animes.no_data';
 const STATUS_I18N_KEY = 'activerecord.attributes.user_rate.statuses';

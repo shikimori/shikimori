@@ -1,4 +1,4 @@
-import checkHeight from '@/helpers/check_height';
+import checkHeight from '@/utils/check_height';
 
 pageLoad('characters_show', async () => {
   checkHeight($('.text'), { maxHeight: 200 });

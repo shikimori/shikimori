@@ -4,10 +4,10 @@ import { bind, memoize } from 'shiki-decorators';
 
 import ShikiEditable from '@/views/application/shiki_editable';
 
-import axios from '@/helpers/axios';
-import checkHeight from '@/helpers/check_height';
-import { animatedCollapse, animatedExpand } from '@/helpers/animated';
-import { loadImagesFinally } from '@/helpers/load_image';
+import axios from '@/utils/axios';
+import checkHeight from '@/utils/check_height';
+import { animatedCollapse, animatedExpand } from '@/utils/animated';
+import { loadImagesFinally } from '@/utils/load_image';
 
 const I18N_KEY = 'frontend.dynamic_elements.topic';
 const FAYE_EVENTS = [

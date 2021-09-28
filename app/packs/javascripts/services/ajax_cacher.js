@@ -1,4 +1,4 @@
-import axios from '@/helpers/axios';
+import axios from '@/utils/axios';
 
 let store = {};
 let queue = [];

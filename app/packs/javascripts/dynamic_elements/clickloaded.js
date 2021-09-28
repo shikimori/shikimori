@@ -1,5 +1,5 @@
 import { bind } from 'shiki-decorators';
-import axios from '@/helpers/axios';
+import axios from '@/utils/axios';
 
 import View from '@/views/application/view';
 

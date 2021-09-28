@@ -6,7 +6,7 @@ import { flash } from 'shiki-utils';
 import ajaxCacher from '@/services/ajax_cacher';
 import View from '@/views/application/view';
 
-import JST from '@/helpers/jst';
+import JST from '@/utils/jst';
 
 export default class CollectionSearch extends View {
   initialize() {

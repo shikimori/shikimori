@@ -1,6 +1,6 @@
 import delay from 'delay';
 
-import JST from '@/helpers/jst';
+import JST from '@/utils/jst';
 
 const COMMENT_SELECTOR = 'div.b-appear_marker.active';
 const FAYE_LOADER_SELECTOR = '.faye-loader';

@@ -1,4 +1,4 @@
-import checkHeight from '@/helpers/check_height';
+import checkHeight from '@/utils/check_height';
 
 pageLoad(
   'oauth_applications_new',

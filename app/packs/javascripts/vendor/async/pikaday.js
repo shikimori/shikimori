@@ -12,7 +12,7 @@
 {
     'use strict';
 
-    var moment = require('@/helpers/dayjs');
+    var moment = require('@/utils/dayjs');
     module.exports = factory(moment);
 
 }(this, function (moment)

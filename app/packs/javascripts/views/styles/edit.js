@@ -1,7 +1,7 @@
 import { debounce } from 'throttle-debounce';
 import cookies from 'js-cookie';
 
-import axios from '@/helpers/axios';
+import axios from '@/utils/axios';
 
 import View from '@/views/application/view';
 import { PredefinedCheckbox } from './predefined_checkbox';

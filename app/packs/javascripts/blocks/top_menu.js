@@ -3,8 +3,8 @@ import { debounce } from 'throttle-debounce';
 
 import GlobalSearch from '@/views/search/global';
 
-import showModal from '@/helpers/show_modal';
-import globalHandler from '@/helpers/global_handler';
+import showModal from '@/utils/show_modal';
+import globalHandler from '@/utils/global_handler';
 import { isMobile } from 'shiki-utils';
 
 $(document).on('turbolinks:load', () => {

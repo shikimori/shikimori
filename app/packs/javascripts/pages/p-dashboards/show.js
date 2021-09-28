@@ -1,6 +1,6 @@
 import delay from 'delay';
 
-import { loadImagesFinally } from '@/helpers/load_image';
+import { loadImagesFinally } from '@/utils/load_image';
 
 pageLoad('dashboards_show', async () => {
   if ($('.p-dashboards-show .v2').length) { return; }

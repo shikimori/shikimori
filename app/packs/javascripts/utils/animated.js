@@ -1,6 +1,6 @@
 // animation method inspired on https://css-tricks.com/using-css-transitions-auto-dimensions/
 import delay from 'delay';
-import newId from '@/helpers/new_id';
+import newId from '@/utils/new_id';
 
 const ANIMATION_DURATION = 350;
 const animations = {};

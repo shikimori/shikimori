@@ -1,7 +1,7 @@
 import delay from 'delay';
 
 import View from '@/views/application/view';
-import inNewTab from '@/helpers/in_new_tab';
+import inNewTab from '@/utils/in_new_tab';
 
 const VOTE_LEFT = 'left';
 const VOTE_RIGHT = 'right';

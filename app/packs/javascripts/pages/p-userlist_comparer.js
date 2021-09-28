@@ -1,5 +1,5 @@
 import CollectionSearch from '@/views/search/collection';
-import { COMMON_TOOLTIP_OPTIONS } from '@/helpers/tooltip_options';
+import { COMMON_TOOLTIP_OPTIONS } from '@/utils/tooltip_options';
 
 pageLoad('userlist_comparer_show', () => {
   new CollectionSearch('.b-collection_search');

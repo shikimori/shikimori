@@ -1,4 +1,4 @@
-import checkHeight from '@/helpers/check_height';
+import checkHeight from '@/utils/check_height';
 
 pageLoad('people_show', async () => {
   checkHeight($('.b-entry-info'), { maxHeight: 101, withoutShade: true });

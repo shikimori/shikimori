@@ -1,4 +1,4 @@
-import checkHeight from '@/helpers/check_height';
+import checkHeight from '@/utils/check_height';
 
 pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
   $('.b-notice').tipsy({ gravity: 's' });

@@ -1,4 +1,4 @@
-import axios from '@/helpers/axios';
+import axios from '@/utils/axios';
 
 pageLoad('contests_show', 'contests_edit', () => {
   if (!$('.proposing').exists()) { return; }

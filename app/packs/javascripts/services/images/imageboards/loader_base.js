@@ -1,7 +1,7 @@
 import uEvent from 'uevent';
 import { Base64 } from 'js-base64';
 
-import axios from '@/helpers/axios';
+import axios from '@/utils/axios';
 
 export class LoaderBase {
   FETCH_EVENT = 'loader:fetch';

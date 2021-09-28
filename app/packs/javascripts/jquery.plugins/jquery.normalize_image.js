@@ -1,5 +1,5 @@
 import delay from 'delay';
-import { imagePromiseFinally } from '@/helpers/load_image';
+import { imagePromiseFinally } from '@/utils/load_image';
 
 // почему-то без задержки не работает
 function checkImage(image, options) {

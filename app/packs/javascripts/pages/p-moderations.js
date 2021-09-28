@@ -7,9 +7,9 @@ import { initArrayFieldApp } from './p-db_entries/edit_field';
 
 import CollectionSearch from '@/views/search/collection';
 
-import checkHeight from '@/helpers/check_height';
+import checkHeight from '@/utils/check_height';
 import { DatePicker } from '@/views/application/date_picker';
-import { animatedCollapse } from '@/helpers/animated';
+import { animatedCollapse } from '@/utils/animated';
 
 function datePicker() {
   if (!$('.date-filter').exists()) { return; }

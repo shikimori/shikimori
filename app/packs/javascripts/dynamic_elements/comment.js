@@ -4,7 +4,7 @@ import { bind } from 'shiki-decorators';
 
 import ShikiEditable from '@/views/application/shiki_editable';
 import BanForm from '@/views/comments/ban_form';
-import { loadImagesFinally, imagePromiseFinally } from '@/helpers/load_image';
+import { loadImagesFinally, imagePromiseFinally } from '@/utils/load_image';
 
 const I18N_KEY = 'frontend.dynamic_elements.comment';
 

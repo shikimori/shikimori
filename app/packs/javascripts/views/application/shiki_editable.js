@@ -1,9 +1,9 @@
 import delay from 'delay';
 import { bind, debounce, memoize, throttle } from 'shiki-decorators';
 
-import { getSelectionText, getSelectionHtml } from '@/helpers/get_selection';
-import axios from '@/helpers/axios';
-import { animatedCollapse } from '@/helpers/animated';
+import { getSelectionText, getSelectionHtml } from '@/utils/get_selection';
+import axios from '@/utils/axios';
+import { animatedCollapse } from '@/utils/animated';
 
 import ShikiView from '@/views/application/shiki_view';
 

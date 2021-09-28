@@ -4,7 +4,7 @@ import { bind } from 'shiki-decorators';
 
 import UserRatesTracker from '@/services/user_rates/tracker';
 import View from '@/views/application/view';
-import JST from '@/helpers/jst';
+import JST from '@/utils/jst';
 
 import * as AuthorizedAction from '../authorized_action';
 

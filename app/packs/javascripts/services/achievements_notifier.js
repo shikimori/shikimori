@@ -1,4 +1,4 @@
-import JST from '@/helpers/jst';
+import JST from '@/utils/jst';
 import delay from 'delay';
 
 const MAXIMUM_ACHIEVEMETNS = 7;

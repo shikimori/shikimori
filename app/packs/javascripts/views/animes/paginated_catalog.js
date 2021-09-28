@@ -8,7 +8,7 @@ import ajaxCacher from '@/services/ajax_cacher';
 import DynamicParser from '@/dynamic_elements/_parser';
 import CatalogFilters from '@/views/animes/catalog_filters';
 
-import inNewTab from '@/helpers/in_new_tab';
+import inNewTab from '@/utils/in_new_tab';
 
 export default class PaginatedCatalog {
   constructor(basePath) {

@@ -3,8 +3,8 @@ import TinyUri from 'tiny-uri';
 import delay from 'delay';
 
 import View from '@/views/application/view';
-import axios from '@/helpers/axios';
-import inNewTab from '@/helpers/in_new_tab';
+import axios from '@/utils/axios';
+import inNewTab from '@/utils/in_new_tab';
 
 export class ReviewsNavigation extends View {
   initialize() {

@@ -2,9 +2,9 @@ import delay from 'delay';
 import { bind, memoize } from 'shiki-decorators';
 
 import View from '@/views/application/view';
-import axios from '@/helpers/axios';
-import checkHeight from '@/helpers/check_height';
-import { imagePromiseFinally } from '@/helpers/load_image';
+import axios from '@/utils/axios';
+import checkHeight from '@/utils/check_height';
+import { imagePromiseFinally } from '@/utils/load_image';
 
 const SPOILER_CLASSES = ['.b-spoiler', '.b-spoiler_block'];
 

@@ -3,8 +3,8 @@ import pDefer from 'p-defer';
 import { bind } from 'shiki-decorators';
 import { flash } from 'shiki-utils';
 
-import axios from '@/helpers/axios';
-import preventEvent from '@/helpers/prevent_event';
+import axios from '@/utils/axios';
+import preventEvent from '@/utils/prevent_event';
 import ShikiView from '@/views/application/shiki_view';
 
 import { isMobile } from 'shiki-utils';

@@ -1,4 +1,4 @@
-import $with from '@/helpers/with';
+import $with from '@/utils/with';
 import Poll from '@/views/polls/view';
 
 export default class TrackPoll {
