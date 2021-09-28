@@ -3,6 +3,7 @@ import { bind, memoize } from 'shiki-decorators';
 
 import View from '@/views/application/view';
 import axios from '@/helpers/axios';
+import checkHeight from '@/helpers/check_height';
 import { imagePromiseFinally } from '@/helpers/load_image';
 
 const SPOILER_CLASSES = ['.b-spoiler', '.b-spoiler_block'];
@@ -49,7 +50,7 @@ export default class ShikiView extends View {
   _checkHeight() {
     if (!window.SHIKI_USER.isCommentsAutoCollapsed) { return; }
 
-    this.$checkHeightNode.checkHeight({
+    checkHeight(this.$checkHeightNode, {
       maxHeight: this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT,
       collapsedHeight: this.CHECK_HEIGHT_COLLAPSED_HEIGHT,
       placeholderHeight: this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT

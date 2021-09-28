@@ -5,6 +5,7 @@ import { bind, memoize } from 'shiki-decorators';
 import ShikiEditable from '@/views/application/shiki_editable';
 
 import axios from '@/helpers/axios';
+import checkHeight from '@/helpers/check_height';
 import { animatedCollapse, animatedExpand } from '@/helpers/animated';
 import { loadImagesFinally } from '@/helpers/load_image';
 
@@ -409,7 +410,7 @@ export default class Topic extends ShikiEditable {
     const readMoreHeight = 13 + 5; // 5px - read_more offset
 
     if (imageHeight > 0) {
-      this.$('.body-truncated').checkHeight({
+      checkHeight(this.$('.body-truncated'), {
         maxHeight: imageHeight - readMoreHeight,
         collapsedHeight: imageHeight - readMoreHeight,
         expandHtml: ''
