@@ -139,7 +139,7 @@ export class ReviewsNavigation extends View {
   async loadContent(state, priorState) {
     if (state.isLoading) { return; }
 
-    (priorState || state).contentNode.classList.add('b-ajax');
+    priorState?.contentNode?.classList?.add('b-ajax');
     state.isLoading = true;
 
     const [{ data }] = await Promise.all([
@@ -148,7 +148,8 @@ export class ReviewsNavigation extends View {
     ]);
 
     state.contentNode.innerHTML = data.content + (data.postloader || '');
-    (priorState || state).contentNode.classList.remove('b-ajax');
+    priorState?.contentNode?.classList?.remove('b-ajax');
+    state.contentNode.classList.remove('b-ajax');
     state.isLoading = false;
 
     if (priorState) {

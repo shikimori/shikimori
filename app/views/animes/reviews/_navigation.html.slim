@@ -31,6 +31,7 @@
       .content-node[
         data-opinion=(opinion || '')
         class=('is-active' if opinion == local_assigns[:opinion])
+        class=('b-ajax' if counts[index].positive? && !(opinion == local_assigns[:opinion] && collection))
       ]
         - if counts[index].zero?
           .b-nothing_here = t 'no_reviews'
