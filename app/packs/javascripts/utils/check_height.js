@@ -2,16 +2,19 @@ import { animatedExpand } from './animated';
 
 export default function checkHeight(
   node,
-  options = { maxHeight: 450 }
+  options = {
+    maxHeight: 450,
+    isNoShade: false,
+    collapsedHeight: null,
+    placeholderHeight: 0
+  }
 ) {
-  const maxHeight = options.maxHeight || 450;
-  const withoutShade = (options.withoutShade != null) ? options.withoutShade : false;
-  const collapsedHeight = options.collapsedHeight || Math.round((maxHeight * 2.0) / 3);
-  const placeholderHeight = options.placeholderHeight || 0;
+  const collapsedHeight = options.collapsedHeight ||
+    Math.round((options.maxHeight * 2.0) / 3);
 
-  const shadeHtml = withoutShade ? '' : '<div class=\'shade\'></div>';
-  const placeholderHtml = placeholderHeight > 0 ?
-    `<div class='placeholder' style='height: ${placeholderHeight}px;'></div>` :
+  const shadeHtml = options.isNoShade ? '' : '<div class=\'shade\'></div>';
+  const placeholderHtml = options.placeholderHeight > 0 ?
+    `<div class='placeholder' style='height: ${options.placeholderHeight}px;'></div>` :
     '';
   const expandHtml = (options.expandHtml != null) ?
     options.expandHtml :
@@ -20,7 +23,7 @@ export default function checkHeight(
 
   const $node = $(node);
 
-  if (($node.height() > maxHeight) && !$node.hasClass('shortened')) {
+  if (($node.height() > options.maxHeight) && !$node.hasClass('shortened')) {
     const marginBottom = parseInt($node.css('margin-bottom'));
     const html = '<div class=\'b-height_shortener\' ' +
       `style='margin-bottom: ${marginBottom}px'>${shadeHtml}${expandHtml}</div>`;
