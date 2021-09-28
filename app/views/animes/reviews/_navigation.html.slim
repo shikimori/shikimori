@@ -8,21 +8,21 @@
 ]
   .navigation-container
     - opinions.each do |opinion|
+      - count = opinion ? resource.reviews.send(opinion).count : resource.reviews.count
       *{ \
-        tag: local_assigns[:is_preview] ? 'a' : 'div',
-        href: local_assigns[:is_preview] ? resource.reviews_url(opinion: opinion) : false,
-        class: "navigation-node navigation-node-#{opinion || 'all'}",
+        tag: local_assigns[:is_preview] && count.positive? ? 'a' : 'div',
+        href: local_assigns[:is_preview] && count.positive? ? resource.reviews_url(opinion: opinion) : false,
+        class: "navigation-node navigation-node-#{opinion || 'all'}" + (" is-empty" if count.zero?),
         'data-opinion': (opinion || ''),
         'data-ellispsis-allowed': %i[positive negative].include?(opinion) \
       }
-        - if opinion
-          .label
-            span = t ".opinion.#{opinion}"
-          .count = resource.reviews.send(opinion).count
-        - else
-          .label
-            span #{t '.opinion.all'} #{i18n_io 'review', :few}
-          .count = resource.reviews.count
+        .label
+          span
+            - if opinion
+              = t ".opinion.#{opinion}"
+            - else
+              | #{t '.opinion.all'} #{i18n_io 'review', :few}
+        .count = count
 
   .content-container
     - opinions.each do |opinion|

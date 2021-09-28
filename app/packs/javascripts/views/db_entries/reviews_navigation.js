@@ -48,6 +48,8 @@ export class ReviewsNavigation extends View {
 
   @bind
   navigationBlockClick(e) {
+    if (e.currentTarget.classList.contains('is-empty')) { return; }
+
     const opinion = e.currentTarget.getAttribute('data-opinion');
 
     if (this.isPreview && opinion != this.activeState.opinion) {

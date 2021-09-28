@@ -8,7 +8,7 @@
   background-color: $backgroud
   border-color: $border
 
-  &:not(.is-active)
+  &:not(.is-active):not(.is-empty)
     +gte_laptop
       &:hover
         background-color: darken($backgroud, 5%)
@@ -114,7 +114,7 @@
         font-size: 15px
         margin-left: 7px
 
-    &:not(.is-active)
+    &:not(.is-active):not(.is-empty)
       cursor: pointer
 
       +gte_laptop
