@@ -8,6 +8,11 @@ pageLoad('dialogs_show', async () => {
   const { reply } = gon;
   if (gon.reply) {
     editor.replyComment(reply);
+
+    const url = window.location.href.replace(/\/reply\/.*$/, '');
+    if (url !== window.location.href) {
+      window.history.replaceState({ turbolinks: true, url }, '', url);
+    }
   } else {
     editor.focus();
   }
