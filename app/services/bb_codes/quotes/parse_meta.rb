@@ -29,6 +29,7 @@ private
       when 'c' then meta[:comment_id] = id
       when 'm' then meta[:message_id] = id
       when 't' then meta[:topic_id] = id
+      when 'r' then meta[:review_id] = id
       else return nil
     end
 

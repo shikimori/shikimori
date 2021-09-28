@@ -1,11 +1,10 @@
-# rubocop:disable ClassLength
 class BbCodes::Tags::QuoteTag
   include Singleton
 
   FORUM_ENTRY_QUOTE_START_REGEXP = /
     \[quote=
       (?<attrs>
-        (:?
+        (?:
           m(?<message_id>\d+) |
           t(?<topic_id>\d+) |
           r(?<review_id>\d+) |
@@ -100,4 +99,3 @@ private
     end
   end
 end
-# rubocop:enable ClassLength

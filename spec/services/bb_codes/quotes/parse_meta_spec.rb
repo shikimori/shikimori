@@ -44,6 +44,17 @@ describe BbCodes::Quotes::ParseMeta do
     end
   end
 
+  context 'r1;1;qwe' do
+    let(:text) { 'r1;1;qwe' }
+    it do
+      is_expected.to eq(
+        review_id: 1,
+        user_id: 1,
+        nickname: 'qwe'
+      )
+    end
+  end
+
   context 'zxc;1;qwe' do
     let(:text) { 'zxc;1;qwe' }
     it { is_expected.to be nil }
