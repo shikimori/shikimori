@@ -52,7 +52,7 @@ describe AbuseRequestsService do
       end
 
       describe 'cancel' do
-        let(:comment) { create :comment, :summary, user: user }
+        let(:comment) { create :comment, :summary, :skip_cancel_summary, user: user }
 
         it do
           expect { act }.to_not change AbuseRequest, :count

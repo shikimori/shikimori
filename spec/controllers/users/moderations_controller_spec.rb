@@ -7,10 +7,7 @@ describe Users::ModerationsController do
   describe 'comments and summaries' do
     let!(:comment_1) { create :comment, user: target_user }
     let!(:comment_2) do
-      create :comment,
-        user: target_user,
-        is_summary: true,
-        body: 'x' * Comment::MIN_SUMMARY_SIZE
+      create :comment, :summary, :skip_cancel_summary, user: target_user
     end
     let!(:comment_3) { create :comment, user: user }
 

@@ -21,6 +21,12 @@ FactoryBot.define do
       after(:build) { |model| unstub_method model, :create_viewing }
     end
 
+    trait :skip_cancel_summary do
+      after :build do |model|
+        stub_method model, :cancel_summary
+      end
+    end
+
     trait :summary do
       is_summary { true }
       body { 'x' * Comment::MIN_SUMMARY_SIZE }

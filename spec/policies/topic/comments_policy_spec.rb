@@ -3,7 +3,7 @@
 describe Topic::CommentsPolicy do
   let(:policy) { Topic::CommentsPolicy.new topic }
 
-  let(:topic) { create :topic, comments_count: comments_count }
+  let(:topic) { create :anime_topic, comments_count: comments_count, linked: anime }
   let(:comments_count) { 0 }
 
   describe '#comments_count' do
