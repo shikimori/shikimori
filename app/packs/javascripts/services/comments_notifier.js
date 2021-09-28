@@ -49,7 +49,9 @@ export default class CommentsNotifier {
         .appendTo(document.body)
         .on('click', () => {
           const $firstUnread = $(`${COMMENT_SELECTOR}, ${FAYE_LOADER_SELECTOR}`).first();
-          $.scrollTo($firstUnread);
+          const firstUnreadNode = $firstUnread.closest('[data-appear_type]');
+
+          $.scrollTo(firstUnreadNode || $firstUnread);
         });
 
       this.scroll = $(window).scrollTop();
