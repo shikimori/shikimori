@@ -28,6 +28,27 @@ describe MessagesController do
     end
   end
 
+  describe '#tooltip' do
+    let(:message) { create :message, from: user }
+    let(:make_request) { get :tooltip, params: { id: message.to_param } }
+
+    context 'has access' do
+      subject! { make_request }
+      it do
+        expect(response).to render_template :show
+        expect(response).to have_http_status :success
+      end
+    end
+
+    context 'no access' do
+      let(:message) { create :message }
+      it do
+        expect(response).to_not render_template :show
+        expect(response).to have_http_status :success
+      end
+    end
+  end
+
   describe '#edit' do
     let(:message) { create :message, from: user }
     let(:make_request) { get :edit, params: { id: message.id } }
@@ -53,7 +74,7 @@ describe MessagesController do
             to_id: user.id,
             kind: MessageType::PRIVATE
           }
-      }
+        }
     end
 
     it { expect(response).to have_http_status :success }
