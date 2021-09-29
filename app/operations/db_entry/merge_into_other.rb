@@ -49,15 +49,17 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
 
   def call
     @other.class.transaction do
-      assign_fields
-      merge_fields
-      @other.save! if @other.changed?
+      UserRate.wo_logging do
+        assign_fields
+        merge_fields
+        @other.save! if @other.changed?
 
-      self.class::RELATIONS.each do |relation|
-        send :"merge_#{relation}"
+        self.class::RELATIONS.each do |relation|
+          send :"merge_#{relation}"
+        end
+
+        DbEntry::Destroy.call @entry.class.find(@entry.id)
       end
-
-      DbEntry::Destroy.call @entry.class.find(@entry.id)
     end
 
     true
