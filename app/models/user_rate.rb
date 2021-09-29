@@ -14,16 +14,37 @@ class UserRate < ApplicationRecord
     dropped: 4
   }
 
-  attr_writer :is_skip_logging
+  class << self
+    attr_accessor :is_skip_logging
+
+    def wo_logging
+      old = @is_skip_logging
+      @is_skip_logging = true
+
+      begin
+        yield
+      ensure
+        @is_skip_logging = old
+      end
+    end
+
+    def skip_logging?
+      !!@is_skip_logging
+    end
+  end
+
+  delegate :skip_logging?, to: :class
 
   belongs_to :target, polymorphic: true
   belongs_to :anime,
     class_name: 'Anime',
     foreign_key: :target_id,
+    inverse_of: :rates,
     optional: true
   belongs_to :manga,
     class_name: 'Manga',
     foreign_key: :target_id,
+    inverse_of: :rates,
     optional: true
 
   belongs_to :user,
@@ -255,9 +276,5 @@ private
   # запись в историю об удалении из списка
   def log_deleted
     UserHistory.add user, target, UserHistoryAction::DELETE
-  end
-
-  def skip_logging?
-    !!@is_skip_logging
   end
 end
