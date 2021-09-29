@@ -5,8 +5,10 @@ class ReviewsController < ShikimoriController
 
     if @resource.is_a? NoReview
       render :missing, status: :not_found
-    else
+    elsif request.xhr? || params[:action] == 'tooltip'
       render :show # have to manually call render otherwise comment display via ajax is broken
+    else
+      redirect_to UrlGenerator.instance.review_url(@resource, is_final_url: true)
     end
   end
 

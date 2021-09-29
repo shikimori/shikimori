@@ -7,8 +7,9 @@ describe ReviewsController do
       subject! { get :show, params: { id: review.id } }
 
       it do
-        expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'text/html'
+        expect(response).to redirect_to(
+          UrlGenerator.instance.review_url(review)
+        )
       end
     end
 
