@@ -46,6 +46,11 @@ describe CommentsController do
     end
   end
 
+  describe '#tooltip' do
+    subject! { get :tooltip, params: { id: comment.to_param } }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#fetch' do
     subject do
       get :fetch,
