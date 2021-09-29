@@ -1,6 +1,6 @@
 class OpenGraphView < ViewObjectBase
   attr_reader :page_title
-  attr_writer :description
+  attr_writer :description, :canonical_url
   attr_accessor :type, :image,
     :video_duration, :video_release_date, :video_tags,
     :book_release_date, :book_tags,
@@ -14,6 +14,8 @@ class OpenGraphView < ViewObjectBase
   end
 
   def canonical_url
+    return @canonical_url if @canonical_url.present?
+
     url =
       if h.params[:page].present? && h.params[:page].to_s.match?(/^\d+$/)
         h.current_url(page: nil)

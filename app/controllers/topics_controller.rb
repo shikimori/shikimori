@@ -224,7 +224,7 @@ private
   end
 
   def set_canonical
-    @canonical = @topic_view&.canonical_url # can be nil when topic is a NoTopic
+    og canonical_url: @topic_view&.canonical_url
   end
 
   def faye
