@@ -448,7 +448,9 @@ Rails.application.routes.draw do
     get 'r/:other' => redirect { |params, request| "/critiques/#{params[:other]}" }
     get 'person/:other' => redirect { |params, request| "/people/#{params[:other]}" }
     get 'seyu/:other' => redirect { |params, request| "/people/#{params[:other]}" }
-    get 'reviews/:other' => redirect { |params, request| "/critiques/#{params[:other]}" }
+    constraints other: /\d+-/ do
+      get 'reviews/:other' => redirect { |params, request| "/critiques/#{params[:other]}" }
+    end
     # TODO: remove type param after 2018-06-01
     %i[animes mangas ranobe].each do |type|
       get "#{type}/type/:other" => redirect { |params, request| "/#{type}/kind/#{params[:other]}" }
