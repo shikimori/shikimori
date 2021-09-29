@@ -4,7 +4,7 @@
     = render partial: 'reviews/review',
       collection: [@review],
       locals: { is_show: true },
-      cached: ->(entry) { CacheHelper.keys entry, :show }
+      cached: ->(entry) { CacheHelper.keys entry, :is_show }
 
   .block
     .subheadline = i18n_i('Comment', :other)
