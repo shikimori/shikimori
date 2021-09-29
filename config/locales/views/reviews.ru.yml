@@ -1,5 +1,8 @@
 ru:
   reviews:
+    missing:
+      user_review: 'Отзыв #%{id}'
+      no_review: Отзыв или был удалён, или никогда не существовал на сайте
     review:
       in_author_list: В списке у автора
       is_written_before_release:

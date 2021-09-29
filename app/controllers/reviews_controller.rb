@@ -1,10 +1,13 @@
 class ReviewsController < ShikimoriController
   def show
     og noindex: true, nofollow: true
-    @resource = Review.find id: params[:id]
+    @resource = Review.find_by(id: params[:id]) || NoReview.new(params[:id])
 
-  rescue ActiveRecord::RecordNotFound
-    render :missing, status: :not_found
+    if @resource.is_a? NoReview
+      render :missing, status: :not_found
+    else
+      render :show # have to manually call render otherwise comment display via ajax is broken
+    end
   end
 
   def tooltip

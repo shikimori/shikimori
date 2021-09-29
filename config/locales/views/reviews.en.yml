@@ -1,5 +1,8 @@
 en:
   reviews:
+    missing:
+      user_review: 'Review #%{id}'
+      no_review: Review is either deleted or Never existed on Shikimori
     review:
       in_author_list: In author's list
       is_written_before_release:

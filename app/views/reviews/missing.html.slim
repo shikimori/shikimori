@@ -1,0 +1,6 @@
+- if request.xhr?
+  p.b-nothing_here.centered = t '.no_review'
+
+- else
+  .subheadline = t '.user_review', id: @resource.id
+  p.b-nothing_here = t '.no_review'
