@@ -779,7 +779,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # resources :reviews, only: %i[show]
+  resources :reviews, only: %i[show]
   resources :user_rates, only: %i[edit]
 
   resources :animes, only: %i[edit update] do

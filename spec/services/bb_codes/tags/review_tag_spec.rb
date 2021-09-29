@@ -24,9 +24,10 @@ describe BbCodes::Tags::ReviewTag do
     )
   end
 
-  context 'non existing review' do
+  context 'non existing review', :url do
     let(:review) { build_stubbed :review }
     let(:attrs) { { id: review.id, type: :review } }
+    let(:url) { UrlGenerator.instance.review_url review.id }
 
     it do
       is_expected.to eq(
