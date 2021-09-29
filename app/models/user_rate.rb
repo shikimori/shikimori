@@ -14,6 +14,8 @@ class UserRate < ApplicationRecord
     dropped: 4
   }
 
+  attr_writer :is_skip_logging
+
   belongs_to :target, polymorphic: true
   belongs_to :anime,
     class_name: 'Anime',
@@ -28,10 +30,10 @@ class UserRate < ApplicationRecord
     touch: Rails.env.test? ? false : :rate_at
 
   before_save :smart_process_changes
-  before_save :log_changed, if: -> { persisted? && changes.any? }
-  after_create :log_created
+  before_save :log_changed, if: -> { !skip_logging? && persisted? && changes.any? }
+  after_create :log_created, unless: :skip_logging?
 
-  after_destroy :log_deleted
+  after_destroy :log_deleted, unless: :skip_logging?
 
   validates :target, :user, :status, presence: true
   validates :user_id, uniqueness: { scope: %i[target_id target_type] }
@@ -253,5 +255,9 @@ private
   # запись в историю об удалении из списка
   def log_deleted
     UserHistory.add user, target, UserHistoryAction::DELETE
+  end
+
+  def skip_logging?
+    !!@is_skip_logging
   end
 end

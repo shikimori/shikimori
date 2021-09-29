@@ -18,24 +18,48 @@ describe UserRate do
       let(:user_rate) { build :user_rate, status: 0 }
       after { user_rate.save }
 
-      it { expect(user_rate).to receive :log_created }
-      it { expect(user_rate).to receive :smart_process_changes }
+      it do
+        expect(user_rate).to receive :log_created
+        expect(user_rate).to receive :smart_process_changes
+      end
+
+      context '@is_skip_logging' do
+        before { user_rate.is_skip_logging = true }
+
+        it do
+          expect(user_rate).to_not receive :log_created
+          expect(user_rate).to receive :smart_process_changes
+        end
+      end
     end
 
     context '#update' do
       let(:user_rate) { create :user_rate, status: 0 }
       after { user_rate.update status: 1 }
 
-      it { expect(user_rate).to_not receive :log_created }
-      it { expect(user_rate).to receive :smart_process_changes }
+      it do
+        expect(user_rate).to_not receive :log_created
+        expect(user_rate).to receive :smart_process_changes
+      end
     end
 
     context '#destroy' do
       let(:user_rate) { create :user_rate, status: 0 }
       after { user_rate.destroy }
 
-      it { expect(user_rate).to receive :log_deleted }
-      it { expect(user_rate).to_not receive :smart_process_changes }
+      it do
+        expect(user_rate).to receive :log_deleted
+        expect(user_rate).to_not receive :smart_process_changes
+      end
+
+      context '@is_skip_logging' do
+        before { user_rate.is_skip_logging = true }
+
+        it do
+          expect(user_rate).to_not receive :log_deleted
+          expect(user_rate).to_not receive :smart_process_changes
+        end
+      end
     end
   end
 
