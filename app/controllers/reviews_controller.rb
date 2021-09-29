@@ -5,7 +5,7 @@ class ReviewsController < ShikimoriController
 
     return render :missing, status: :not_found if @resource.is_a? NoReview
 
-    review_url = UrlGenerator.instance.review_url(@resource, is_final_url: true)
+    review_url = UrlGenerator.instance.review_url(@resource, is_canonical: true)
     og canonical_url: review_url
 
     if request.xhr? || params[:action] == 'tooltip'

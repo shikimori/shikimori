@@ -89,7 +89,7 @@ module Routing
     end
   end
 
-  def review_url review, is_reply: false, is_final_url: false
+  def review_url review, is_reply: false, is_canonical: false
     # url from constructed object in broken [review] bbcode
     return super(review) if review.is_a? Integer
 
@@ -99,7 +99,7 @@ module Routing
 
     prefix = 'reply_' if is_reply
 
-    if is_db_entry_cached || is_reply || is_final_url
+    if is_db_entry_cached || is_reply || is_canonical
       send(
         "#{prefix}#{review.db_entry.class.name.downcase}_review_url",
         review.db_entry,

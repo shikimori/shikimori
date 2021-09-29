@@ -40,7 +40,7 @@
             = review.user.nickname
 
           - unless local_assigns[:is_show]
-            a.to-review href=UrlGenerator.instance.review_url(review)
+            a.to-review href=UrlGenerator.instance.review_url(review, is_canonical: true)
               | <<< #{t '.go_to_review'}
 
         - if review.persisted?
