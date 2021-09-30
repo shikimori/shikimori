@@ -20,6 +20,8 @@ export default class Review extends Topic {
     this.$body = this.$inner.children('.body');
 
     if (this.model) { this._actualizeVoting(); }
+    if (this.model && !this.model.is_viewed) { this._activateAppearMarker(); }
+
     this._bindVotes();
 
     this._scheduleCheckHeight();

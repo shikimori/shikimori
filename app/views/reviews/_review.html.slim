@@ -14,6 +14,7 @@
     data-check_height=(review.persisted? && !local_assigns[:is_show])
   ]
     - if review.persisted?
+      / span.item-mobile title=t('actions.actions')
       aside.markers
         .b-new_marker[
           data-appear_url=api_appears_url
