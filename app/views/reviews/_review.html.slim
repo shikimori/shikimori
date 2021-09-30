@@ -1,7 +1,7 @@
 .b-review.to-process[
   id=review.id
   data-dynamic='review'
-  data-appear_type='message'
+  data-appear_type='review'
   data-track_review="#{JsExports::ReviewsExport.instance.placeholder(review) unless local_assigns[:do_not_track]}"
   data-user_id=review.user.id
   data-user_nickname=review.user.nickname
@@ -88,7 +88,7 @@
         a.do-comment.b-link_button.dark-2 href=UrlGenerator.instance.reply_review_url(review)
           = t 'animes.page.actions.comment'
 
-  - if review.persisted?
-    .b-appear_marker[
-      class="appear-review-#{review.id}"
-    ]
+    - if review.persisted?
+      .b-appear_marker[
+        class="appear-review-#{review.id}"
+      ]
