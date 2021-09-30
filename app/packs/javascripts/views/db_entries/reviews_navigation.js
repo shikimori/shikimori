@@ -157,6 +157,7 @@ export class ReviewsNavigation extends View {
       state.contentNode.classList.add('is-active');
     }
     $(state.contentNode).process(data.JS_EXPORTS);
+    $(state.contentNode).trigger('ajax:success'); // need to force CommentsNotifier to refresh its counter
 
     if (this.initialPage !== 1 && priorState) {
       this.cleanNonFirstPage(priorState);
