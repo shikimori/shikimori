@@ -97,6 +97,9 @@
         .tooltip &
           margin: 5px 0 0 0
 
+      .b-critique_votes
+        line-height: inherit
+
   .review-info
     align-items: flex-end
     display: flex
@@ -238,7 +241,8 @@
     font-size: 12px
 
   .b-new_marker:before
-    margin-top: 6px
+    +iphone
+      margin-top: 6px
 
   footer
     +gte_iphone-landscape
