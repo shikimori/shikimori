@@ -1,5 +1,5 @@
 describe DbImport::ImportBase do
-  class DbImport::Test < DbImport::ImportBase
+  class DbImport::Test < DbImport::ImportBase # rubocop:disable ConstantDefinitionInBlock
     SPECIAL_FIELDS = %i[japanese]
     IGNORED_FIELDS = %i[zzz]
 
@@ -11,12 +11,12 @@ describe DbImport::ImportBase do
       entry.japanese = japanese
     end
 
-    def schedule_fetch_authorized
-      MalParsers::FetchEntryAuthorized.perform_async(
-        entry.mal_id,
-        entry.class.name
-      )
-    end
+    # def schedule_fetch_authorized
+    #   MalParsers::FetchEntryAuthorized.perform_async(
+    #     entry.mal_id,
+    #     entry.class.name
+    #   )
+    # end
   end
   let(:service) { DbImport::Test.new data }
   let(:data) do
@@ -32,7 +32,7 @@ describe DbImport::ImportBase do
 
   include_context :timecop
 
-  before { allow(MalParsers::FetchEntryAuthorized).to receive :perform_async }
+  # before { allow(MalParsers::FetchEntryAuthorized).to receive :perform_async }
   subject(:entry) { service.call }
 
   it do
@@ -47,9 +47,9 @@ describe DbImport::ImportBase do
     it do
       expect { subject }.to change(Anime, :count).by 1
       expect(entry).to be_persisted
-      expect(MalParsers::FetchEntryAuthorized)
-        .to have_received(:perform_async)
-        .with(entry.mal_id, entry.class.name)
+      # expect(MalParsers::FetchEntryAuthorized)
+      #   .to have_received(:perform_async)
+      #   .with(entry.mal_id, entry.class.name)
     end
 
     context 'banned id' do
@@ -57,8 +57,8 @@ describe DbImport::ImportBase do
       it { expect { subject }.to_not change Anime, :count }
       it do
         expect(entry).to be_nil
-        expect(MalParsers::FetchEntryAuthorized)
-          .to_not have_received(:perform_async)
+        # expect(MalParsers::FetchEntryAuthorized)
+        #   .to_not have_received(:perform_async)
       end
     end
   end
@@ -70,8 +70,8 @@ describe DbImport::ImportBase do
       expect { subject }.to_not change Anime, :count
       expect(entry).to be_persisted
       expect(entry).to have_attributes(data.except(:zzz))
-      expect(MalParsers::FetchEntryAuthorized)
-        .to_not have_received(:perform_async)
+      # expect(MalParsers::FetchEntryAuthorized)
+      #   .to_not have_received(:perform_async)
     end
 
     context 'banned id' do

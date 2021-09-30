@@ -73,10 +73,10 @@ private
     end
   end
 
-  def schedule_fetch_authorized
-    MalParsers::FetchEntryAuthorized.perform_async(
-      entry.mal_id,
-      entry.class.name
-    )
-  end
+  # def schedule_fetch_authorized
+  #   MalParsers::FetchEntryAuthorized.perform_async(
+  #     entry.mal_id,
+  #     entry.class.name
+  #   )
+  # end
 end
