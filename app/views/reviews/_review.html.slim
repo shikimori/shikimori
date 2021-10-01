@@ -14,14 +14,15 @@
     data-check_height=(review.persisted? && !local_assigns[:is_show])
   ]
     - if review.persisted?
-      / span.item-mobile title=t('actions.actions')
+      span.item-mobile title=t('actions.actions')
       aside.markers
         .b-new_marker[
           data-appear_url=api_appears_url
           data-text=t('markers.new')
         ]
       aside.moderation-ban
-      / = render 'reviews/buttons', review: review
+
+      = render 'reviews/buttons', review: review
 
     header
       / data-href=(review.respond_to?(:topic_url) ? review.topic_url : profile_url(review.user))

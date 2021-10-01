@@ -1,0 +1,57 @@
+aside.buttons
+  .main-controls
+    span.item-quote.to-process[
+      title=t('actions.quote')
+      data-text=t('actions.quote')
+      data-dynamic='day_registered'
+    ]
+    span.item-reply.to-process[
+      title=t('actions.reply')
+      data-text=t('actions.reply')
+      data-dynamic='day_registered'
+    ]
+    span.item-edit[
+      title=t('actions.edit')
+      data-text=t('actions.edit')
+      data-action=UrlGenerator.instance.edit_review_url(review)
+      data-type='html'
+      data-remote='true'
+    ]
+    span.item-delete[
+      title=t('actions.delete')
+      data-text=t('actions.delete')
+    ]
+    span.item-moderation[
+      title=t('actions.moderate')
+      data-text=t('actions.moderate')
+    ]
+    span.item-cancel[
+      title=t('actions.cancel')
+      data-text=t('actions.cancel')
+    ]
+
+  .delete-controls
+    span.item-delete-confirm[
+      title=t('actions.delete')
+      data-text=t('actions.delete')
+      data-action=review_url(review)
+      data-type='json'
+      data-remote='true'
+      data-method='DELETE'
+    ]
+    span.item-delete-cancel[
+      title=t('actions.cancel')
+      data-text=t('actions.cancel')
+    ]
+
+  .moderation-controls
+    span.item-ban.b-tooltipped.unprocessed[
+      title=t('actions.moderation.ban')
+      data-text=t('actions.moderation.ban')
+      data-action=new_moderations_ban_url(ban: { review_id: review.id, user_id: review.user_id })
+      data-method='get'
+      data-type='html'
+      data-remote='true'
+      data-direction='top'
+    ]
+
