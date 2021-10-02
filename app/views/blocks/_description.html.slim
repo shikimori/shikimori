@@ -1,10 +1,13 @@
-- cache [resource, user_signed_in?, :description, :v2] do
+- cache [resource, user_signed_in?, :description, :v3] do
   - if ru_host?
-    - if user_signed_in?
+    - if user_signed_in? && resource.description_en.text.present?
       .b-lang_trigger: span eng
       .english
         .text
-          = resource.description_html_en
+          - if resource.description_en.text.present?
+            = resource.description_html_en
+          - else
+            .b-nothing_here = t('no_synopsis', locale: :en)
 
         / field 'description' is not used inside forms -
         / can be any name just to distinguish description
@@ -15,7 +18,10 @@
 
     .russian
       .text itemprop='description'
-        = resource.description_html_ru
+        - if resource.description_ru.text.present?
+          = resource.description_html_ru
+        - else
+          .b-nothing_here = t('no_synopsis', locale: :ru)
 
       = render 'blocks/source',
         authors: resource.authors(:description_ru),
@@ -24,7 +30,10 @@
 
   - else
     .text itemprop='description'
-      = resource.description_html_en
+      - if resource.description_en.text.present?
+        = resource.description_html_en
+      - else
+        .b-nothing_here = t('no_synopsis', locale: :en)
 
     = render 'blocks/source',
       authors: resource.authors(:description_en),
