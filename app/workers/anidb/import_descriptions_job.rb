@@ -33,16 +33,14 @@ class Anidb::ImportDescriptionsJob
 
   def update_description_en db_entry
     description_en = anidb_description_en(db_entry)
+    return if description_en.blank?
 
-    if description_en.present?
-      db_entry.update! description_en: description_en
-    end
+    db_entry.update! description_en: description_en
   end
 
   def anidb_description_en db_entry
     anidb_url = db_entry.anidb_external_link.url
     description_en = parse_description(anidb_url)
-
     Anidb::ProcessDescription.call description_en, anidb_url
   end
 
