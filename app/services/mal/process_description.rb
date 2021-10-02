@@ -5,6 +5,8 @@ class Mal::ProcessDescription
     description = DbEntries::Description.from_value(value)
 
     text = description.text
+    return if text.blank?
+
     source = process_source(description.source)
 
     DbEntries::Description.from_text_source(text, source).value

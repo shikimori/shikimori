@@ -4,6 +4,11 @@ describe Mal::ProcessDescription do
   let(:type) { 'anime' }
   let(:id) { 123 }
 
+  context 'no text' do
+    let(:value) { '' }
+    it { is_expected.to be_nil }
+  end
+
   context 'without source' do
     let(:value) { 'foo' }
     it do
