@@ -22,8 +22,6 @@
         ]
       aside.moderation-ban
 
-      = render 'reviews/buttons', review: review
-
     header
       / data-href=(review.respond_to?(:topic_url) ? review.topic_url : profile_url(review.user))
       a.author-link href=profile_url(review.user)
@@ -70,6 +68,8 @@
                     .edit
                     .text
                       .status-name data-text=review.user_rate.status_name
+
+    = render 'reviews/buttons', review: review
 
     - if review.is_written_before_release && !review.db_entry.ongoing?
       .is_written_before_release-container

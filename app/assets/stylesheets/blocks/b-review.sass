@@ -10,6 +10,8 @@
 .b-review
   +block
   +shiki_comment_margins
+  +forum_entry_markers
+  +forum_entry_buttons
   padding-top: 5px
 
   header
@@ -243,6 +245,12 @@
   .b-new_marker:before
     +iphone
       margin-top: 6px
+
+  aside.buttons
+    margin-top: -30px
+    // added in order to move buttons above overlapped header
+    position: relative
+    z-index: 1
 
   footer
     +gte_iphone-landscape

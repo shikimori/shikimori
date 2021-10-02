@@ -21,16 +21,8 @@ $body_phone_left_margin: 40px
   &:after
     content: attr(data-text)
 
-=forum_entry
-  +clearfix
-  padding-top: 5px
-
+=forum_entry_markers
   & > .inner
-    +clearfix
-    position: relative // for absolute positioned item-mobile
-    transition: margin-left 0.25s ease
-    width: 100% // без этого в .aside-expanded режиме не будет смещения контента влево
-
     aside.markers
       +lte_ipad
         padding-right: 38px // offset for item-mobile
@@ -38,6 +30,18 @@ $body_phone_left_margin: 40px
       +gte_laptop
         .b-new_marker.off
           display: none
+
+    +gte_laptop
+      &:hover
+        aside.markers
+          .b-new_marker.off
+            display: block
+
+=forum_entry_buttons
+  & > .inner
+    position: relative // for absolute positioned item-mobile
+    width: 100% // без этого в .aside-expanded режиме не будет смещения контента влево
+    transition: margin-left 0.25s ease
 
     aside.buttons
       display: none
@@ -47,13 +51,109 @@ $body_phone_left_margin: 40px
 
     +gte_laptop
       &:hover
-        aside.markers
-          .b-new_marker.off
-            display: block
+        aside.buttons
+          display: block
 
-        +gte_laptop
-          aside.buttons
-            display: block
+  .item-mobile
+    position: absolute
+    right: 0
+    top: -5px
+
+  .item-quote-mobile
+    position: absolute
+
+    +iphone
+      right: 0
+      top: -5px
+
+    +ipad
+      right: 45px
+      top: -4px
+
+  // expanded menu in mobile version
+  &.aside-expanded
+    +lte_ipad
+      & > .item-mobile
+        display: none
+
+      & > .inner
+        margin-left: -$aside_width
+        overflow: visible
+        position: relative
+
+        aside.buttons
+          display: block
+          margin-top: -5px
+          margin-right: -$aside_width - $block-offset * 1.5
+          width: $aside_width
+
+          .main-controls
+            .item-ignore
+              +icon_expandable
+
+            .item-reply
+              +icon_expandable
+
+            .item-edit
+              +icon_expandable
+
+            .item-delete
+              +icon_expandable
+
+            .item-moderation
+              +icon_expandable
+
+            .item-cancel
+              +icon_expandable
+
+            .item-request-confirm
+              +icon_expandable
+
+            .item-request-reject
+              +icon_expandable
+
+          .delete-controls
+            .item-delete-confirm
+              +icon_expandable
+
+            .item-delete-cancel
+              +icon_expandable
+
+          .moderation-controls
+            .item-ban
+              +icon_expandable
+
+            .item-abuse
+              +icon_expandable
+
+            .item-spoiler
+              +icon_expandable
+
+            .item-summary
+              +icon_expandable
+              &.selected
+                color: $green
+                &:after
+                  content: attr(data-text-alt)
+
+            .item-offtopic
+              +icon_expandable
+              &.selected
+                color: $red
+                &:after
+                  content: attr(data-text-alt)
+
+            .item-moderation-cancel
+              +icon_expandable
+
+=forum_entry
+  +clearfix
+  +forum_entry_markers
+  +forum_entry_buttons
+  padding-top: 5px
+
+  & > .inner
+    +clearfix
 
     header
       margin-bottom: 3px
@@ -141,97 +241,6 @@ $body_phone_left_margin: 40px
         img
           margin-top: 1px
 
-  .item-mobile
-    position: absolute
-    right: 0
-    top: -5px
-
-  .item-quote-mobile
-    position: absolute
-
-    +iphone
-      right: 0
-      top: -5px
-
-    +ipad
-      right: 45px
-      top: -4px
-
-    &.is-active + .item-mobile
-      +iphone
-        display: none
-
-  // expanded menu in mobile version
-  &.aside-expanded
-    +lte_ipad
-      & > .item-mobile
-        display: none
-
-      & > .inner
-        margin-left: -$aside_width
-        overflow: visible
-        position: relative
-
-        aside.buttons
-          display: block
-          margin-top: -5px
-          margin-right: -$aside_width - $block-offset * 1.5
-          width: $aside_width
-
-          .main-controls
-            .item-ignore
-              +icon_expandable
-
-            .item-reply
-              +icon_expandable
-
-            .item-edit
-              +icon_expandable
-
-            .item-delete
-              +icon_expandable
-
-            .item-moderation
-              +icon_expandable
-
-            .item-cancel
-              +icon_expandable
-
-            .item-request-confirm
-              +icon_expandable
-
-            .item-request-reject
-              +icon_expandable
-
-          .delete-controls
-            .item-delete-confirm
-              +icon_expandable
-
-            .item-delete-cancel
-              +icon_expandable
-
-          .moderation-controls
-            .item-ban
-              +icon_expandable
-
-            .item-abuse
-              +icon_expandable
-
-            .item-spoiler
-              +icon_expandable
-
-            .item-summary
-              +icon_expandable
-              &.selected
-                color: $green
-                &:after
-                  content: attr(data-text-alt)
-
-            .item-offtopic
-              +icon_expandable
-              &.selected
-                color: $red
-                &:after
-                  content: attr(data-text-alt)
-            .item-moderation-cancel
-              +icon_expandable
+    // &.is-active + .item-mobile
+    //   +iphone
+    //     display: none
