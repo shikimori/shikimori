@@ -1,5 +1,6 @@
 class CommentsController < ShikimoriController
   include CommentHelper
+  before_action :authenticate_user!, only: %i[edit]
 
   def show # rubocop:disable AbcSize, MethodLength
     og noindex: true, nofollow: true

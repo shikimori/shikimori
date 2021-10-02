@@ -1,5 +1,7 @@
 class ReviewsController < ShikimoriController
-  def show
+  before_action :authenticate_user!, only: %i[edit]
+
+  def show # rubocop:disable AbcSize
     og noindex: true, nofollow: true
     @resource = Review.find_by(id: params[:id]) || NoReview.new(params[:id])
 
@@ -17,5 +19,9 @@ class ReviewsController < ShikimoriController
 
   def tooltip
     show
+  end
+
+  def edit
+    @resource = Review.find(params[:id])
   end
 end

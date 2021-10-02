@@ -767,7 +767,7 @@ Rails.application.routes.draw do
         controller: 'animes/critiques'
       resources :reviews,
         type: kind.singularize.capitalize,
-        only: %i[show new edit],
+        only: %i[show],
         controller: 'animes/reviews' do
           get '(:opinion)(/page/:page)' => :index,
             as: :index,
@@ -781,7 +781,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reviews, only: %i[show] do
+  resources :reviews, only: %i[show edit] do
     get :tooltip, on: :member
   end
   resources :user_rates, only: %i[edit]

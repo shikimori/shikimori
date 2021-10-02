@@ -128,6 +128,7 @@ describe CommentsController do
   end
 
   describe '#edit' do
+    include_context :authenticated, :user
     subject! { get :edit, params: { id: comment.id } }
 
     it do

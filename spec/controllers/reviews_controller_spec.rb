@@ -27,4 +27,13 @@ describe ReviewsController do
     subject! { get :tooltip, params: { id: review.to_param } }
     it { expect(response).to have_http_status :success }
   end
+
+  describe '#edit' do
+    subject! { get :edit, params: { id: review.id } }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'text/html'
+    end
+  end
 end

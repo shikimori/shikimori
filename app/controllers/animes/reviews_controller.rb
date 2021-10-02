@@ -5,7 +5,7 @@ class Animes::ReviewsController < AnimesController
 
   before_action :actualize_resource
   before_action :add_title
-  before_action :add_breadcrumbs
+  before_action :add_breadcrumbs, except: %i[index]
 
   skip_before_action :og_meta
 
@@ -14,6 +14,7 @@ class Animes::ReviewsController < AnimesController
   PER_PREVIEW = 4
 
   def index # rubocop:disable AbcSize
+    breadcrumb i18n_i('Review', :other), nil
     @opinion = (Types::Review::Opinion[params[:opinion]] if params[:opinion])
     @is_preview = !!params[:is_preview]
 
@@ -41,9 +42,16 @@ class Animes::ReviewsController < AnimesController
 
   # def edit
   #   og page_title: i18n_t('edit_review')
+  #   @back_url = UrlGenerator.instance.review_url(@review, is_canonical: true)
+  #   breadcrumb "#{i18n_i 'Review', :one} ##{@review.id}", @back_url
   # end
 
 private
+
+  def add_breadcrumbs
+    @back_url = @resource.reviews_url
+    breadcrumb i18n_i('Review', :other), @back_url
+  end
 
   # тип класса лежит в параметрах
   def resource_klass
@@ -53,15 +61,6 @@ private
   def resource_id
     @resource_id ||= params[:anime_id] || params[:manga_id] ||
       params[:ranobe_id]
-  end
-
-  def add_breadcrumbs
-    if params[:action] == 'show'
-      breadcrumb i18n_i('Review', :other), @resource.reviews_url
-      @back_url = @resource.reviews_url
-    else
-      breadcrumb i18n_i('Review', :other), nil
-    end
   end
 
   def add_title
