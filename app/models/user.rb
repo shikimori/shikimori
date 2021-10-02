@@ -99,6 +99,7 @@ class User < ApplicationRecord
 
   has_many :topic_viewings, dependent: :delete_all
   has_many :comment_viewings, dependent: :delete_all
+  has_many :review_viewings, dependent: :delete_all
 
   has_many :history, class_name: 'UserHistory', dependent: :destroy
 

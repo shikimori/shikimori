@@ -14,6 +14,7 @@ describe User do
 
     it { is_expected.to have_many(:topic_viewings).dependent(:delete_all) }
     it { is_expected.to have_many(:comment_viewings).dependent(:delete_all) }
+    it { is_expected.to have_many(:review_viewings).dependent(:delete_all) }
 
     it { is_expected.to have_many(:history).dependent(:destroy) }
 
