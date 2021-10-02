@@ -1,7 +1,7 @@
 class ReviewsController < ShikimoriController
   before_action :authenticate_user!, only: %i[edit]
 
-  def show # rubocop:disable AbcSize
+  def show
     og noindex: true, nofollow: true
     @resource = Review.find_by(id: params[:id]) || NoReview.new(params[:id])
 
@@ -10,7 +10,7 @@ class ReviewsController < ShikimoriController
     review_url = UrlGenerator.instance.review_url(@resource, is_canonical: true)
     og canonical_url: review_url
 
-    if request.xhr? || params[:action] == 'tooltip'
+    if xhr_or_json? || params[:action] == 'tooltip'
       render :show # have to manually call render otherwise comment display via ajax is broken
     else
       redirect_to review_url
