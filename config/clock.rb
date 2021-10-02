@@ -73,7 +73,7 @@ module Clockwork
     ImportAnimeCalendars.perform_async
     SakuhindbImporter.perform_async with_fail: false
     FinishExpiredAnimes.perform_async
-    MalParsers::ScheduleExpiredAuthorized.perform_async
+    # MalParsers::ScheduleExpiredAuthorized.perform_async
     PgCaches::Cleanup.perform_async
 
     # AnimeLinksVerifier.perform_async

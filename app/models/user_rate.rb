@@ -14,24 +14,47 @@ class UserRate < ApplicationRecord
     dropped: 4
   }
 
+  class << self
+    attr_accessor :is_skip_logging
+
+    def wo_logging
+      old = @is_skip_logging
+      @is_skip_logging = true
+
+      begin
+        yield
+      ensure
+        @is_skip_logging = old
+      end
+    end
+
+    def skip_logging?
+      !!@is_skip_logging
+    end
+  end
+
+  delegate :skip_logging?, to: :class
+
   belongs_to :target, polymorphic: true
   belongs_to :anime,
     class_name: 'Anime',
     foreign_key: :target_id,
+    inverse_of: :rates,
     optional: true
   belongs_to :manga,
     class_name: 'Manga',
     foreign_key: :target_id,
+    inverse_of: :rates,
     optional: true
 
   belongs_to :user,
     touch: Rails.env.test? ? false : :rate_at
 
   before_save :smart_process_changes
-  before_save :log_changed, if: -> { persisted? && changes.any? }
-  after_create :log_created
+  before_save :log_changed, if: -> { !skip_logging? && persisted? && changes.any? }
+  after_create :log_created, unless: :skip_logging?
 
-  after_destroy :log_deleted
+  after_destroy :log_deleted, unless: :skip_logging?
 
   validates :target, :user, :status, presence: true
   validates :user_id, uniqueness: { scope: %i[target_id target_type] }

@@ -10,9 +10,9 @@ class DbImport::ImportBase
     was_new_record = entry.new_record?
     ApplicationRecord.transaction { import }
 
-    if was_new_record && entry.persisted?
-      schedule_fetch_authorized
-    end
+    # if was_new_record && entry.persisted?
+    #   schedule_fetch_authorized
+    # end
 
     entry
   end
@@ -74,6 +74,6 @@ private
     @desynced_fields ||= entry.desynced.map(&:to_sym)
   end
 
-  def schedule_fetch_authorized
-  end
+  # def schedule_fetch_authorized
+  # end
 end

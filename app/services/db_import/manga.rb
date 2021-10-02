@@ -14,10 +14,19 @@ private
   end
 
   def find_or_create_genre data
-    MangaGenresRepository.instance.find_by_mal_id data[:id] # rubocop:disable DynamicFindBy
+    genre = MangaGenresRepository.instance.find_by_mal_id data[:id] # rubocop:disable DynamicFindBy
+    raise ArgumentError, "mismatched genre: #{data.to_json}" unless genre.name == data[:name]
+
+    genre
   rescue ActiveRecord::RecordNotFound
-    Genre.create! mal_id: data[:id], name: data[:name], kind: :manga
+    raise ArgumentError, "unknown genre: #{data.to_json}"
   end
+
+  # def find_or_create_genre data
+  #   MangaGenresRepository.instance.find_by_mal_id data[:id]
+  # rescue ActiveRecord::RecordNotFound
+  #   Genre.create! mal_id: data[:id], name: data[:name], kind: :manga
+  # end
 
   def assign_publishers publishers
     entry.publisher_ids = publishers.map { |v| find_or_create_publisher(v).id }

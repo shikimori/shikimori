@@ -24,10 +24,19 @@ private
   end
 
   def find_or_create_genre data
-    AnimeGenresRepository.instance.find_by_mal_id data[:id]
+    genre = AnimeGenresRepository.instance.find_by_mal_id data[:id] # rubocop:disable DynamicFindBy
+    raise ArgumentError, "mismatched genre: #{data.to_json}" unless genre.name == data[:name]
+
+    genre
   rescue ActiveRecord::RecordNotFound
-    Genre.create! mal_id: data[:id], name: data[:name], kind: :anime
+    raise ArgumentError, "unknown genre: #{data.to_json}"
   end
+
+  # def find_or_create_genre data
+  #   AnimeGenresRepository.instance.find_by_mal_id data[:id]
+  # rescue ActiveRecord::RecordNotFound
+  #   Genre.create! mal_id: data[:id], name: data[:name], kind: :anime
+  # end
 
   def assign_studios studios
     entry.studio_ids = studios.map { |v| sync_studio(v).id }
@@ -36,7 +45,7 @@ private
   def sync_studio data
     studio = StudiosRepository.instance.find data[:id]
 
-    if studio.name != data[:name] && !studio.desynced.include?('name')
+    if studio.name != data[:name] && studio.desynced.exclude?('name')
       studio.update! name: data[:name]
     end
 
@@ -73,10 +82,10 @@ private
     end
   end
 
-  def schedule_fetch_authorized
-    MalParsers::FetchEntryAuthorized.perform_async(
-      entry.mal_id,
-      entry.class.name
-    )
-  end
+  # def schedule_fetch_authorized
+  #   MalParsers::FetchEntryAuthorized.perform_async(
+  #     entry.mal_id,
+  #     entry.class.name
+  #   )
+  # end
 end

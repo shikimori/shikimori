@@ -14,28 +14,67 @@ describe UserRate do
   end
 
   describe 'callbacks' do
+    let!(:user_rate) { nil }
+    before do
+      allow(user_rate).to receive :log_created
+      allow(user_rate).to receive :smart_process_changes
+      allow(user_rate).to receive :log_deleted
+    end
+
     context '#create' do
       let(:user_rate) { build :user_rate, status: 0 }
-      after { user_rate.save }
+      subject! { user_rate.save! }
 
-      it { expect(user_rate).to receive :log_created }
-      it { expect(user_rate).to receive :smart_process_changes }
+      it do
+        expect(user_rate).to have_received :log_created
+        expect(user_rate).to have_received :smart_process_changes
+        expect(user_rate).to_not have_received :log_deleted
+      end
+
+      context '.wo_logging' do
+        around(:each) do |example|
+          UserRate.wo_logging { example.run }
+        end
+
+        it do
+          expect(user_rate).to_not have_received :log_created
+          expect(user_rate).to have_received :smart_process_changes
+        end
+      end
     end
 
     context '#update' do
-      let(:user_rate) { create :user_rate, status: 0 }
-      after { user_rate.update status: 1 }
+      let!(:user_rate) { create :user_rate, status: 0 }
+      subject! { user_rate.update status: 1 }
 
-      it { expect(user_rate).to_not receive :log_created }
-      it { expect(user_rate).to receive :smart_process_changes }
+      it do
+        expect(user_rate).to_not have_received :log_created
+        expect(user_rate).to have_received :smart_process_changes
+        expect(user_rate).to_not have_received :log_deleted
+      end
     end
 
     context '#destroy' do
       let(:user_rate) { create :user_rate, status: 0 }
-      after { user_rate.destroy }
+      subject! { user_rate.destroy }
 
-      it { expect(user_rate).to receive :log_deleted }
-      it { expect(user_rate).to_not receive :smart_process_changes }
+      it do
+        expect(user_rate).to_not have_received :log_created
+        expect(user_rate).to have_received :log_deleted
+        expect(user_rate).to_not have_received :smart_process_changes
+      end
+
+      context '@is_skip_logging' do
+        around(:each) do |example|
+          UserRate.wo_logging { example.run }
+        end
+
+        it do
+          expect(user_rate).to_not have_received :log_created
+          expect(user_rate).to_not have_received :log_deleted
+          expect(user_rate).to_not have_received :smart_process_changes
+        end
+      end
     end
   end
 
