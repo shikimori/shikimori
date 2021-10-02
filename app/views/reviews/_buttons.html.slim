@@ -10,12 +10,10 @@ aside.buttons
       data-text=t('actions.reply')
       data-dynamic='day_registered'
     ]
-    span.item-edit[
+    a.item-edit[
       title=t('actions.edit')
       data-text=t('actions.edit')
-      data-action=UrlGenerator.instance.edit_review_url(review)
-      data-type='html'
-      data-remote='true'
+      href=UrlGenerator.instance.edit_review_url(review)
     ]
     span.item-delete[
       title=t('actions.delete')
