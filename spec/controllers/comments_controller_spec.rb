@@ -127,6 +127,15 @@ describe CommentsController do
     end
   end
 
+  describe '#edit' do
+    subject! { get :edit, params: { id: comment.id } }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'text/html'
+    end
+  end
+
   # describe '#postload' do
     # let(:user) { build_stubbed :user }
     # before do
