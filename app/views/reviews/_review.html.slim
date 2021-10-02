@@ -69,7 +69,8 @@
                     .text
                       .status-name data-text=review.user_rate.status_name
 
-    = render 'reviews/buttons', review: review
+    - if local_assigns[:is_comments]
+      = render 'reviews/buttons', review: review
 
     - if review.is_written_before_release && !review.db_entry.ongoing?
       .is_written_before_release-container

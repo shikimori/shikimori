@@ -89,7 +89,7 @@ export default class Topic extends ShikiEditable {
     this.$inner.one('mouseover', this._deactivateInaccessibleButtons);
     $('.item-mobile', this.$inner).one(this._deactivateInaccessibleButtons);
 
-    if (this.$body.length && (this.isPreview || this.isClubPage)) {
+    if (this.$checkHeightNode.length && (this.isPreview || this.isClubPage)) {
       this._scheduleCheckHeight(true);
     }
 

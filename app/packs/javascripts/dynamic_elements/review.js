@@ -14,18 +14,8 @@ export default class Review extends Topic {
     this.CHECK_HEIGHT_COLLAPSED_HEIGHT = 170 + mobileOffset;
     this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 115 + mobileOffset;
 
-    // data attribute is set in Topics.Tracker
-    this.model = this.$node.data('model') || this._defaultModel();
-
-    this.$body = this.$inner.children('.body');
-
-    if (this.model) { this._actualizeVoting(); }
-    if (this.model && !this.model.is_viewed) { this._activateAppearMarker(); }
-
-    this._bindVotes();
-
+    super.initialize();
     this._scheduleCheckHeight();
-    this.on('appear', this._appear);
   }
 
   @memoize
