@@ -5,7 +5,7 @@ class Anidb::ProcessDescription
     description = DbEntries::Description.from_value(value)
 
     text = description.text
-    return '' unless text.present?
+    return '' if text.blank?
 
     source = process_source(description.source)
 
