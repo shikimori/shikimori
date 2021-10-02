@@ -13,7 +13,9 @@ aside.buttons
     a.item-edit[
       title=t('actions.edit')
       data-text=t('actions.edit')
-      href=UrlGenerator.instance.edit_review_url(review)
+      href=edit_review_url(review)
+      data-type='html'
+      data-remote='true'
     ]
     span.item-delete[
       title=t('actions.delete')

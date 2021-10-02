@@ -110,14 +110,6 @@ module Routing
     end
   end
 
-  def edit_review_url review
-    send(
-      "edit_#{review.anime? ? :anime : :manga}_review_url",
-      review.anime? ? review.anime_id : review.manga_id,
-      review
-    )
-  end
-
   def reply_review_url review
     review_url review, is_reply: true
   end
