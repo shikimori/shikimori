@@ -29,6 +29,7 @@ describe ReviewsController do
   end
 
   describe '#edit' do
+    include_context :authenticated, :user
     subject! { get :edit, params: { id: review.id } }
 
     it do

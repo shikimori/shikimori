@@ -118,6 +118,10 @@ private
     current_user.update_last_online
   end
 
+  def xhr_or_json?
+    request.xhr? || json?
+  end
+
   def json?
     request.format == Mime::Type.lookup_by_extension('json') ||
       params[:format] == 'json'

@@ -38,7 +38,7 @@ class MessagesController < ProfilesController
 
     render :show
   rescue CanCan::AccessDenied
-    render :missing, status: (request.xhr? ? :ok : :not_found)
+    render :missing, status: (xhr_or_json? ? :ok : :not_found)
   end
 
   def tooltip
