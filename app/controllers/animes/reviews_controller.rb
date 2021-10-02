@@ -31,7 +31,6 @@ class Animes::ReviewsController < AnimesController
   end
 
   def show
-    @comments_view = Topics::ProxyComments.new @review, false
     push_js_reply if params[:is_reply]
   end
 
