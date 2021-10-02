@@ -1,4 +1,4 @@
-import { memoize } from 'shiki-decorators';
+import { bind, memoize } from 'shiki-decorators';
 import { isPhone } from 'shiki-utils';
 
 import Topic from './topic';
@@ -21,5 +21,21 @@ export default class Review extends Topic {
   @memoize
   get $checkHeightNode() {
     return this.$inner;
+  }
+
+  @bind
+  _toggleMobileControls() {
+    super._toggleMobileControls();
+
+    const $buttons = this.$inner.children('aside.buttons');
+    const $header = this.$inner.children('header');
+
+    if (this.$node.hasClass('aside-expanded')) {
+      $buttons.detach();
+      $buttons.insertBefore($header);
+    } else {
+      $buttons.detach();
+      $buttons.insertAfter($header);
+    }
   }
 }
