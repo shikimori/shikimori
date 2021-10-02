@@ -49,11 +49,14 @@ private
   def assign_synopsis synopsis
     return if :description_en.in? desynced_fields
 
-    entry.description_en = Mal::ProcessDescription.call(
+    text = Mal::ProcessDescription.call(
       Mal::SanitizeText.call(synopsis),
       klass.name.downcase,
       entry.id
     )
+    return if text.blank?
+
+    entry.description_en = text
   end
 
   def assign_image image
