@@ -7,7 +7,7 @@ class DbImport::ImportBase
   def call
     return if DbImport::BannedIds.instance.banned? @data[:id], klass.name.downcase
 
-    was_new_record = entry.new_record?
+    # was_new_record = entry.new_record?
     ApplicationRecord.transaction { import }
 
     # if was_new_record && entry.persisted?
