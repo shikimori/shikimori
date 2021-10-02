@@ -1,8 +1,5 @@
-- preview_url = defined?(comment) && comment.kind_of?(Message) ? \
-    preview_messages_url : preview_comments_url
-
-- item_type = defined?(comment) && comment.kind_of?(Message) ? \
-    'message' : 'comment'
+- item_type = local_assigns[:f] ? local_assigns[:f].object.class.name.downcase : 'comment'
+- preview_url = send :"preview_#{item_type.pluralize}_url"
 
 .controls
   aside.buttons
@@ -149,7 +146,7 @@
           class: "editor-area",
           placeholder: (browser.ie? ? '' : t('.comment')),
           tabindex: 0,
-          'data-upload_url' => api_user_images_url(linked_type: Comment.name),
+          'data-upload_url' => api_user_images_url(linked_type: item_type.classify),
           'data-item_type' => item_type,
           id: nil\
         }
