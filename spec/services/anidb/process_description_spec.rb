@@ -4,7 +4,7 @@ describe Anidb::ProcessDescription do
 
   context 'empty text' do
     let(:value) { '' }
-    it { is_expected.to eq '' }
+    it { is_expected.to be_nil }
   end
 
   context 'without source' do
