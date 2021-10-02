@@ -42,6 +42,7 @@ class Anidb::ImportDescriptionsJob
   def anidb_description_en db_entry
     anidb_url = db_entry.anidb_external_link.url
     description_en = parse_description(anidb_url)
+
     Anidb::ProcessDescription.call description_en, anidb_url
   end
 

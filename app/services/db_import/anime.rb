@@ -9,7 +9,7 @@ class DbImport::Anime < DbImport::ImportBase
 private
 
   def assign_synopsis synopsis
-    super unless anidb_synopsis?
+    super unless anidb_synopsis? && entry.description_en.present?
   end
 
   def assign_genres genres
