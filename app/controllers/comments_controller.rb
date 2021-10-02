@@ -6,7 +6,7 @@ class CommentsController < ShikimoriController
     comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
     @view = Comments::View.new comment, false
 
-    return render :missing, status: :not_found if comment.is_a? NoComment
+    return render :missing, status: (request.xhr? ? :ok : :not_found) if comment.is_a? NoComment
 
     if comment.commentable.is_a?(Topic) && comment.commentable.linked.is_a?(Club)
       Clubs::RestrictCensored.call(

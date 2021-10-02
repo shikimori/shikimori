@@ -3,7 +3,7 @@ class ReviewsController < ShikimoriController
     og noindex: true, nofollow: true
     @resource = Review.find_by(id: params[:id]) || NoReview.new(params[:id])
 
-    return render :missing, status: :not_found if @resource.is_a? NoReview
+    return render :missing, status: (request.xhr? ? :ok : :not_found) if @resource.is_a? NoReview
 
     review_url = UrlGenerator.instance.review_url(@resource, is_canonical: true)
     og canonical_url: review_url

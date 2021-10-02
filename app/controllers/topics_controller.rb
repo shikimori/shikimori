@@ -31,7 +31,7 @@ class TopicsController < ShikimoriController
 
   def show
     # новости аниме без комментариев поисковым системам не скармливаем
-    return render :missing, status: :not_found if @resource.is_a? NoTopic
+    return render :missing, status: (request.xhr? ? :ok : :not_found) if @resource.is_a? NoTopic
     return redirect_to @forums_view.redirect_url if @forums_view.hidden?
 
     raise AgeRestricted if @resource&.linked.try(:censored?) && censored_forbidden?
@@ -107,7 +107,7 @@ class TopicsController < ShikimoriController
 
   def tooltip
     og noindex: true
-    return render :missing, status: :not_found if @resource.is_a? NoTopic
+    return render :missing, status: (request.xhr? ? :ok : :not_found) if @resource.is_a? NoTopic
 
     @topic_view = Topics::TopicViewFactory.new(true, true).find params[:id]
 
