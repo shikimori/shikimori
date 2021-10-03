@@ -1,10 +1,9 @@
 = simple_form_for [:api, review], remote: true, authenticity_token: true,
   html: { data: { type: :json }, id: nil } do |f|
   input type='hidden' name='frontend' value='true'
+
   = render 'blocks/shiki_editor',
     text: review.body,
     field_name: "#{review.class.name.downcase}[body]",
     f: f,
-    preview_params: local_assigns[:preview_params],
-    cache_key: local_assigns[:cache_key]
-
+    cache_key: review.cache_key

@@ -1,6 +1,14 @@
 = simple_form_for [:api, comment], remote: true, authenticity_token: true,
   html: { data: { type: :json }, id: nil } do |f|
   input type='hidden' name='frontend' value='true'
+
+  - if comment.persisted?
+    = f.input :user_id, as: :hidden, input_html: { id: nil }
+  = f.input :commentable_id, as: :hidden, input_html: { id: nil }
+  = f.input :commentable_type, as: :hidden, input_html: { id: nil }
+  = f.input :is_offtopic, as: :hidden, input_html: { id: nil }
+  = f.input :is_summary, as: :hidden, input_html: { id: nil }
+
   = render 'blocks/shiki_editor',
     text: comment.body,
     field_name: "#{comment.class.name.downcase}[body]",

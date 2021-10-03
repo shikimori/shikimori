@@ -43,11 +43,6 @@
         - else
           .subheadline = t '.your_message'
 
-        = render 'comments/form',
-          comment: @dialog.new_message,
-          preview_params: { \
-            kind: @dialog.new_message.kind,
-            from_id: @dialog.new_message.from_id,
-            to_id: @dialog.new_message.to_id \
-          },
+        = render 'messages/form',
+          message: @dialog.new_message,
           cache_key: "dialogs/#{@dialog.new_message.from_id}/#{@dialog.new_message.to_id}"
