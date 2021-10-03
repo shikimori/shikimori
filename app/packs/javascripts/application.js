@@ -126,7 +126,7 @@ $(document).on('selectionchange', _ => {
 
   if (selection && selection.focusNode) {
     $(selection.focusNode)
-      .closest('.shiki-object')
+      .closest('[data-selection_boundary]')
       .view()
       ?.setSelection();
   }

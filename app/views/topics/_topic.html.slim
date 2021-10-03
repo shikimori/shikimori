@@ -1,4 +1,4 @@
-article.shiki-object.to-process[
+article.to-process[
   id=topic_view.topic.id
   class=topic_view.container_classes.join(' ')
   data-appear_type='topic'
@@ -10,6 +10,7 @@ article.shiki-object.to-process[
   data-url=topic_view.url
   data-user_id=topic_view.user.id
   data-user_nickname=topic_view.user.nickname
+  data-selection_boundary
   itemscope
   itemtype=(topic_view.topic_type_policy.critique_topic? ? 'http://schema.org/Critique' : 'http://schema.org/Article')
 ]

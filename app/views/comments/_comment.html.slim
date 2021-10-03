@@ -1,12 +1,13 @@
 - possibly_long_content = comment.body.size > 500 || comment.body =~ /\[poster/ || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5
 
-.b-comment.shiki-object.to-process[
+.b-comment.to-process[
   class=(:tooltipped if params[:action] == 'tooltip')
   data-appear_type='comment'
   data-dynamic='comment'
   data-track_comment=JsExports::CommentsExport.instance.placeholder(comment)
   data-user_id=comment.user.try(:id)
   data-user_nickname=comment.user.try(:nickname)
+  data-selection_boundary
   id=comment.id
   itemscope
   itemprop='comment'
