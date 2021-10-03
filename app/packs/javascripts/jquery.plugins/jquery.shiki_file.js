@@ -163,7 +163,6 @@ $.fn.extend({
             $node.trigger('upload:success', [response, i]);
           }
         },
-          // $.hideCursorMessage()
 
         progressUpdated(i, file, progress) {
           if ((progress > 85) || (i > 0)) {

@@ -161,7 +161,6 @@ export default class ShikiEditable extends ShikiView {
 
   @bind
   async _submitDelete() {
-    $.hideCursorMessage();
     await animatedCollapse(this.node);
     this.$node.remove();
   }
