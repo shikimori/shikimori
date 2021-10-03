@@ -92,6 +92,7 @@ export default class ShikiEditable extends ShikiView {
   _bindDeleteControls() {
     $('.item-delete', this.$inner).on('click', this._showDeleteControls);
     $('.item-delete-confirm', this.$inner).on('ajax:loading', this._submitDelete);
+    $('.item-delete-confirm', this.$inner).on('ajax:success', this._redirectAfterDeleted);
     $('.item-delete-cancel', this.$inner).on('click', this._hideDeleteControls);
   }
 
@@ -163,6 +164,11 @@ export default class ShikiEditable extends ShikiView {
   async _submitDelete() {
     await animatedCollapse(this.node);
     this.$node.remove();
+  }
+
+  // can be overridden in inherited classes
+  @bind
+  _redirectAfterDeleted() {
   }
 
   @bind

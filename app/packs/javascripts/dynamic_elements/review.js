@@ -2,6 +2,7 @@ import { bind, memoize } from 'shiki-decorators';
 import { isPhone } from 'shiki-utils';
 
 import Topic from './topic';
+import Turbolinks from 'turbolinks';
 
 export default class Review extends Topic {
   _type() { return 'review'; }
@@ -37,5 +38,13 @@ export default class Review extends Topic {
       $buttons.detach();
       $buttons.insertAfter($header);
     }
+  }
+
+  @bind
+  _redirectAfterDeleted(_e, result) {
+    Turbolinks.visit(
+      document.location.href.replace(/\/reviews\/\d+$/, '/reviews'),
+      { action: 'replace' }
+    );
   }
 }
