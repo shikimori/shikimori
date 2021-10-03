@@ -43,11 +43,10 @@ $body_phone_left_margin: 40px
     width: 100% // без этого в .aside-expanded режиме не будет смещения контента влево
     transition: margin-left 0.25s ease
 
-    &.is-editing
-      aside.buttons
-        display: none !important
+    &.is-editing >  aside.buttons
+      display: none !important
 
-    aside.buttons
+    & > aside.buttons
       display: none
 
       .tooltip &
@@ -57,9 +56,8 @@ $body_phone_left_margin: 40px
         display: none
 
     +gte_laptop
-      &:hover
-        aside.buttons
-          display: block
+      &:hover > aside.buttons
+        display: block
 
   .item-mobile
     position: absolute
@@ -88,7 +86,7 @@ $body_phone_left_margin: 40px
         overflow: visible
         position: relative
 
-        aside.buttons
+        & > aside.buttons
           display: block
           margin-top: -5px
           margin-right: -$aside_width - $block-offset * 1.5
