@@ -96,7 +96,7 @@ export default class ShikiEditable extends ShikiView {
   }
 
   _bindEditControls() {
-    this.$('.main-controls .item-edit')
+    $('.main-controls .item-edit', this.$inner)
       .on('ajax:before', this._shade)
       .on('ajax:complete', this._unshade)
       .on('ajax:success', this._edit);
@@ -126,11 +126,11 @@ export default class ShikiEditable extends ShikiView {
   }
 
   @bind
-  _edit(_e, html, _status, _xhr) {
+  _edit(e, html, _status, _xhr) {
     const $form = $(html).process();
 
-    const $initialContent = this.$node.children().detach();
-    $form.appendTo(this.$node);
+    const $initialContent = this.$inner.children().detach();
+    $form.appendTo(this.$inner);
 
     const editor = $form.find('.shiki_editor-selector').view();
     editor.initialization.promise.then(() => editor.focus());
@@ -139,11 +139,11 @@ export default class ShikiEditable extends ShikiView {
     $form.find('.cancel').on('click', () => {
       editor.destroy();
       $form.remove();
-      this.$node.append($initialContent);
+      this.$inner.append($initialContent);
     });
 
     // замена комментария после успешного сохранения
-    $form.on('ajax:success', (e, response) => (
+    $form.on('ajax:success', (_e, response) => (
       this._replace(response.html, response.JS_EXPORTS)
     ));
   }
