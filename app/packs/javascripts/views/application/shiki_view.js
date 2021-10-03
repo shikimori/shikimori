@@ -59,12 +59,12 @@ export default class ShikiView extends View {
 
   @bind
   _shade() {
-    return this.$node.addClass('b-ajax');
+    return this.$inner.addClass('b-ajax');
   }
 
   @bind
   _unshade() {
-    return this.$node.removeClass('b-ajax');
+    return this.$inner.removeClass('b-ajax');
   }
 
   @bind
