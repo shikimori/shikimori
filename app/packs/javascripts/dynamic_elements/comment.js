@@ -61,11 +61,6 @@ export default class Comment extends ShikiEditable {
     this.$node.one('mouseover', this._deactivateInaccessibleButtons);
     this.$('.item-mobile').one(this._deactivateInaccessibleButtons);
 
-    this.$('.main-controls .item-edit')
-      .on('ajax:before', this._shade)
-      .on('ajax:complete', this._unshade)
-      .on('ajax:success', this._edit);
-
     this.$('.item-offtopic, .item-summary').on('click', this._markOfftopicOrSummary);
     this.$('.item-spoiler, .item-abuse').on('ajax:before', this._markSpoilerOrAbuse);
 
@@ -91,29 +86,6 @@ export default class Comment extends ShikiEditable {
 
   _isOfftopic() {
     return this.$('.b-offtopic_marker').css('display') !== 'none';
-  }
-
-  @bind
-  _edit(_e, html, _status, _xhr) {
-    const $form = $(html).process();
-
-    const $initialContent = this.$node.children().detach();
-    $form.appendTo(this.$node);
-
-    const editor = $form.find('.shiki_editor-selector').view();
-    editor.initialization.promise.then(() => editor.focus());
-
-    // отмена редактирования
-    $form.find('.cancel').on('click', () => {
-      editor.destroy();
-      $form.remove();
-      this.$node.append($initialContent);
-    });
-
-    // замена комментария после успешного сохранения
-    $form.on('ajax:success', (e, response) => (
-      this._replace(response.html, response.JS_EXPORTS)
-    ));
   }
 
   @bind

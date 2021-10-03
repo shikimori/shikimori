@@ -30,16 +30,12 @@ export default class ShikiEditable extends ShikiView {
     // по нажатиям на кнопки закрываем меню в мобильной версии
     this.$(BUTTONS.join(','), this.$inner).on('click', this._closeAside);
 
-    $('.item-delete', this.$inner).on('click', this._showDeleteControls);
-    $('.item-delete-confirm', this.$inner).on('ajax:loading', this._submitDelete);
-    $('.item-delete-cancel', this.$inner).on('click', this._hideDeleteControls);
+    this._bindDeleteControls();
+    this._bindEditControls();
+    this._bindFaye();
 
     $('.item-mobile', this.$inner).on('click', this._toggleMobileControls);
-
     $('.b-new_marker', this.$inner).on('click', this._markRead);
-
-    this.on(`faye:${this._type()}:updated`, this._fayeUpdated);
-    this.on(`faye:${this._type()}:deleted`, this._fayeDeleted);
   }
 
   // колбек после инициализации
@@ -93,6 +89,24 @@ export default class ShikiEditable extends ShikiView {
     });
   }
 
+  _bindDeleteControls() {
+    $('.item-delete', this.$inner).on('click', this._showDeleteControls);
+    $('.item-delete-confirm', this.$inner).on('ajax:loading', this._submitDelete);
+    $('.item-delete-cancel', this.$inner).on('click', this._hideDeleteControls);
+  }
+
+  _bindEditControls() {
+    this.$('.main-controls .item-edit')
+      .on('ajax:before', this._shade)
+      .on('ajax:complete', this._unshade)
+      .on('ajax:success', this._edit);
+  }
+
+  _bindFaye() {
+    this.on(`faye:${this._type()}:updated`, this._fayeUpdated);
+    this.on(`faye:${this._type()}:deleted`, this._fayeDeleted);
+  }
+
   _activateAppearMarker() {
     this.$inner.children('.b-appear_marker').addClass('active');
     this.$inner.children('.markers').find('.b-new_marker').addClass('active');
@@ -109,6 +123,29 @@ export default class ShikiEditable extends ShikiView {
     $('.main-controls', this.$inner).show();
     $('.delete-controls', this.$inner).hide();
     $('.moderation-controls', this.$inner).hide();
+  }
+
+  @bind
+  _edit(_e, html, _status, _xhr) {
+    const $form = $(html).process();
+
+    const $initialContent = this.$node.children().detach();
+    $form.appendTo(this.$node);
+
+    const editor = $form.find('.shiki_editor-selector').view();
+    editor.initialization.promise.then(() => editor.focus());
+
+    // отмена редактирования
+    $form.find('.cancel').on('click', () => {
+      editor.destroy();
+      $form.remove();
+      this.$node.append($initialContent);
+    });
+
+    // замена комментария после успешного сохранения
+    $form.on('ajax:success', (e, response) => (
+      this._replace(response.html, response.JS_EXPORTS)
+    ));
   }
 
   @bind
