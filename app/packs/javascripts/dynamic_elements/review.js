@@ -17,6 +17,8 @@ export default class Review extends Topic {
     this.CHECK_HEIGHT_COLLAPSED_HEIGHT = 170 + mobileOffset;
     this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 115 + mobileOffset;
 
+    this.$body = this.$inner.find('.body');
+
     super.initialize();
     this._scheduleCheckHeight();
   }
@@ -24,6 +26,11 @@ export default class Review extends Topic {
   @memoize
   get $checkHeightNode() {
     return this.$inner;
+  }
+
+  @memoize
+  get $editorPlacement() {
+    return this.$body.parent();
   }
 
   @bind

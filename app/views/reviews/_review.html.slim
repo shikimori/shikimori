@@ -80,16 +80,18 @@
           data-direction='right'
         ] = Review.human_attribute_name(:is_written_before_release)
 
-    .body itemprop='text'
-      = review.html_body
+    // .div added in order to make $editorPlacement works in DynamicElements.Review
+    div
+      .body itemprop='text'
+          = review.html_body
 
-    footer
-      = render 'topics/footer/vote',
-        topic_type_policy: Topic::TypePolicy.new(review),
-        votable: review
-      - unless local_assigns[:is_show]
-        a.do-comment.b-link_button.dark-2 href=UrlGenerator.instance.reply_review_url(review)
-          = t 'animes.page.actions.comment'
+      footer
+        = render 'topics/footer/vote',
+          topic_type_policy: Topic::TypePolicy.new(review),
+          votable: review
+        - unless local_assigns[:is_show]
+          a.do-comment.b-link_button.dark-2 href=UrlGenerator.instance.reply_review_url(review)
+            = t 'animes.page.actions.comment'
 
     - if review.persisted?
       .b-appear_marker[

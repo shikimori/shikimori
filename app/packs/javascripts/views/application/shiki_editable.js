@@ -55,6 +55,10 @@ export default class ShikiEditable extends ShikiView {
     return !!this.$node.data('generated');
   }
 
+  get $editorPlacement() {
+    return this.$inner;
+  }
+
   @bind
   setSelection() {
     this.throttledSetSelection();
@@ -130,8 +134,8 @@ export default class ShikiEditable extends ShikiView {
   _edit(e, html, _status, _xhr) {
     const $form = $(html).process();
 
-    const $initialContent = this.$inner.children().detach();
-    $form.appendTo(this.$inner);
+    const $initialContent = this.$editorPlacement.children().detach();
+    $form.appendTo(this.$editorPlacement);
 
     const editor = $form.find('.shiki_editor-selector').view();
     editor.initialization.promise.then(() => editor.focus());
@@ -140,7 +144,7 @@ export default class ShikiEditable extends ShikiView {
     $form.find('.cancel').on('click', () => {
       editor.destroy();
       $form.remove();
-      this.$inner.append($initialContent);
+      this.$editorPlacement.append($initialContent);
     });
 
     // замена комментария после успешного сохранения

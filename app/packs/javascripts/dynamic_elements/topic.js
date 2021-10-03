@@ -59,7 +59,7 @@ export default class Topic extends ShikiEditable {
       }
     }
 
-    this.$body = this.$inner.children('.body');
+    this.$body ||= this.$inner.children('.body');
 
     this.$editorContainer = this.$('.editor-container');
     this.$editor = this.$('.shiki_editor-selector');
