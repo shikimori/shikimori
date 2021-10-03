@@ -100,9 +100,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :messages, only: %i[create] do
-    post :preview, on: :collection
-  end
+  resources :messages, only: %i[create]
 
   resources :emails, only: [] do
     collection do

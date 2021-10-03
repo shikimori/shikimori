@@ -64,22 +64,6 @@ describe MessagesController do
     end
   end
 
-  describe '#preview' do
-    subject! do
-      post :preview,
-        params: {
-          message: {
-            body: 'test',
-            from_id: user.id,
-            to_id: user.id,
-            kind: MessageType::PRIVATE
-          }
-        }
-    end
-
-    it { expect(response).to have_http_status :success }
-  end
-
   describe '#chosen' do
     let!(:message_1) { create :message, to: user, from: user_2, created_at: 1.hour.ago }
     let!(:message_2) { create :message, to: user_2, from: user, created_at: 30.minutes.ago }

@@ -1,5 +1,4 @@
 - item_type = local_assigns[:f] ? local_assigns[:f].object.class.name.downcase : 'comment'
-- preview_url = send :"preview_#{item_type.pluralize}_url"
 
 .controls
   aside.buttons
@@ -166,7 +165,7 @@ footer
       = f.button :magic_submit, id: "submit_#{rand * 1000000}"
       .b-button.preview[
         tabindex='0'
-        data-preview_url=preview_url
+        data-preview_url=preview_comments_url
       ] = t '.preview'
       .unpreview tabindex='0' = t '.back_to_editing'
       .cancel tabindex='0' = t 'actions.cancel'
@@ -176,14 +175,14 @@ footer
       .unpreview tabindex='0' = t '.back_to_editing'
       .b-button.preview[
         tabindex='0'
-        data-preview_url=preview_url
+        data-preview_url=preview_comments_url
       ] = t '.preview'
       .hide = t '.hide'
 
   - else
     .b-button.preview[
       tabindex='0'
-      data-preview_url=preview_url
+      data-preview_url=preview_comments_url
     ] = t '.preview'
     .unpreview tabindex='0' = t '.back_to_editing'
 

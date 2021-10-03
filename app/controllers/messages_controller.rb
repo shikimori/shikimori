@@ -48,11 +48,6 @@ class MessagesController < ProfilesController
   def edit
   end
 
-  def preview
-    message = Message.new(create_params).decorate
-    render message
-  end
-
   def chosen
     @collection = Message
       .where(id: params[:ids].split(',').map(&:to_i))

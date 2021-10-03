@@ -228,19 +228,18 @@ export default class ShikiEditor extends ShikiView {
     this.$('footer .unpreview').on('click', this._hidePreview);
     this.$('footer .preview').on('click', () => {
       // подстановка данных о текущем элементе, если они есть
-      const data = {};
-
-      const itemData = {
-        ...(this.$node.data('preview_params') || {}),
-        body: this.text
+      const params = {
+        comment: {
+          ...(this.$node.data('preview_params') || {}),
+          body: this.text
+        }
       };
-      data[this.type] = itemData;
 
       this._shade();
       axios
         .post(
           $('footer .preview', this.$node).data('preview_url'),
-          data
+          params
         )
         .then(response => this._showPreview(response.data))
         .catch()
