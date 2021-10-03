@@ -28,7 +28,7 @@ export default class ShikiEditable extends ShikiView {
     super._initialize(...args);
 
     // по нажатиям на кнопки закрываем меню в мобильной версии
-    this.$(BUTTONS.join(','), this.$inner).on('click', () => this._closeAside());
+    this.$(BUTTONS.join(','), this.$inner).on('click', this._closeAside);
 
     $('.item-delete', this.$inner).on('click', this._showDeleteControls);
     $('.item-delete-confirm', this.$inner).on('ajax:loading', this._submitDelete);
@@ -99,6 +99,7 @@ export default class ShikiEditable extends ShikiView {
   }
 
   // закрытие кнопок в мобильной версии
+  @bind
   _closeAside() {
     if ($('.item-mobile', this.$inner).is('.selected')) {
       // ">" need because in dialogs we may have nested inner element
