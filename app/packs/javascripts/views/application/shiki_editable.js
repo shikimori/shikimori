@@ -132,6 +132,8 @@ export default class ShikiEditable extends ShikiView {
 
   @bind
   _edit(e, html, _status, _xhr) {
+    this.$inner.addClass('is-editing');
+
     const $form = $(html).process();
 
     const $initialContent = this.$editorPlacement.children().detach();
@@ -145,6 +147,7 @@ export default class ShikiEditable extends ShikiView {
       editor.destroy();
       $form.remove();
       this.$editorPlacement.append($initialContent);
+      this.$inner.removeClass('is-editing');
     });
 
     // замена комментария после успешного сохранения

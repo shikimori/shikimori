@@ -43,6 +43,10 @@ $body_phone_left_margin: 40px
     width: 100% // без этого в .aside-expanded режиме не будет смещения контента влево
     transition: margin-left 0.25s ease
 
+    &.is-editing
+      aside.buttons
+        display: none !important
+
     aside.buttons
       display: none
 
