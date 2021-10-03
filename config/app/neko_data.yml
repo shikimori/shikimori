@@ -8361,6 +8361,7 @@
         - 974
         - 4103
         - 3786
+        - 49357
       :generator:
         person_id: 2349
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -8592,6 +8593,7 @@
         - 13259
         - 13375
         - 13373
+        - 39247
       :generator:
         person_id: 6771
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -9741,6 +9743,7 @@
         - 467
         - 38799
         - 34893
+        - 49357
       :generator:
         person_id: 5348
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -10044,6 +10047,7 @@
         - 3898
         - 2253
         - 2252
+        - 43741
       :generator:
         person_id: 2992
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -34236,6 +34240,7 @@
         - 38555
         - 39535
         - 42571
+        - 40526
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -35303,6 +35308,7 @@
         - 38555
         - 39535
         - 42571
+        - 40526
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -36370,6 +36376,7 @@
         - 38555
         - 39535
         - 42571
+        - 40526
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
