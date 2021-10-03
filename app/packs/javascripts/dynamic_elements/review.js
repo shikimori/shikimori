@@ -1,8 +1,10 @@
 import { bind, memoize } from 'shiki-decorators';
 import { isPhone } from 'shiki-utils';
+import delay from 'delay';
 
 import Topic from './topic';
 import Turbolinks from 'turbolinks';
+import { pushFlash } from '@/utils/flash';
 
 export default class Review extends Topic {
   _type() { return 'review'; }
@@ -41,7 +43,10 @@ export default class Review extends Topic {
   }
 
   @bind
-  _redirectAfterDeleted(_e, result) {
+  async _redirectAfterDeleted(_e, result) {
+    pushFlash(result.notice);
+
+    await delay(150);
     Turbolinks.visit(
       document.location.href.replace(/\/reviews\/\d+$/, '/reviews'),
       { action: 'replace' }

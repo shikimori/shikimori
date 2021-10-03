@@ -2,6 +2,7 @@ import Turbolinks from 'turbolinks';
 // import bowser from 'bowser';
 import cookies from 'js-cookie';
 import { flash } from 'shiki-utils';
+import { popFlash } from '@/utils/flash';
 
 $(document).on('turbolinks:load', () => {
   window.flash = flash;
@@ -19,6 +20,11 @@ $(document).on('turbolinks:load', () => {
       flash.error(v.innerHTML);
     }
   });
+
+  const flashMessage = popFlash();
+  if (flashMessage) {
+    flash.notice(flashMessage);
+  }
 
   $(document.body).process();
 
