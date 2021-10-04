@@ -2,8 +2,11 @@ class DbImport::Refresh
   method_object :klass, :ids, :refresh_interval
 
   def call
-    refresh Character, expired_characters
-    refresh Person, expired_people
+    if klass < AniManga
+      refresh Character, expired_characters
+      refresh Person, expired_people
+    end
+
     refresh @klass, expired_entries
   end
 

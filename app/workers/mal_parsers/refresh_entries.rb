@@ -2,7 +2,8 @@ class MalParsers::RefreshEntries
   include Sidekiq::Worker
   sidekiq_options queue: :mal_parsers
 
-  TYPES = Types::Strict::String.enum('anime', 'manga')
+  TYPES = Types::Strict::String
+    .enum('anime', 'manga', 'character', 'person')
 
   def perform type, status, refresh_interval
     klass = TYPES[type].classify.constantize
@@ -17,6 +18,8 @@ class MalParsers::RefreshEntries
 private
 
   def ids klass, status
+    return klass.all unless status
+
     Animes::Query.new(klass.all)
       .by_status(status)
       .order(:id)
