@@ -26,4 +26,8 @@ class CommentDecorator < BaseDecorator
         commentable.linked_type != Club.name
     ) || commentable_type == Review.name
   end
+
+  def offtopable?
+    commentable_type != Review.name
+  end
 end
