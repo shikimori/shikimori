@@ -7,6 +7,9 @@ export default class View {
     this._afterInitialize();
   }
 
+  destroy() {
+  }
+
   @chain
   on(...args) {
     this.$node.on(...args);

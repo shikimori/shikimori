@@ -21,6 +21,11 @@ export default class ShikiView extends View {
     this.$inner = this.$('>.inner');
   }
 
+  destroy() {
+    this.$node.off();
+    super.destroy();
+  }
+
   @memoize
   get $checkHeightNode() {
     return this.$inner;
@@ -91,15 +96,14 @@ export default class ShikiView extends View {
 
   async _replaceInner(html, JS_EXPORTS) {
     const $replaced = $(html).children('.inner');
+    this.destroy();
     this.$inner.replaceWith($replaced);
 
     this.$node
       .addClass('to-process')
       .process(JS_EXPORTS);
 
-    this.$inner = this.$('>.inner');
-
-    this.$inner.yellowFade();
+    this.$('>.inner').yellowFade();
   }
 
   _replaceNode(html, JS_EXPORTS) {
