@@ -18708,7 +18708,7 @@
         - 37859
         - 37860
         - 39014
-      :threshold: 94.7%
+      :threshold: 88.1%
       :generator:
         ignore_latest_ids:
         - 38400
@@ -26321,6 +26321,35 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :queen_s_blade
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/queen_s_blade.jpg"
+    :border_color:
+    :title_ru: Клинок королевы
+    :text_ru:
+    :title_en: Queen's Blade
+    :text_en:
+    :topic_id: 247360
+    :rule: &467
+      :algo: duration
+      :filters:
+        franchise: queen_s_blade
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :queen_s_blade
+  level: 0
+  image: "/assets/achievements/anime/franchise/queen_s_blade.jpg"
+  border_color:
+  title_ru: Клинок королевы
+  text_ru:
+  title_en: Queen's Blade
+  text_en:
+  topic_id: 247360
+  rule: *467
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :cardfight_vanguard
     :level: 1
     :image: "/assets/achievements/anime/franchise/cardfight_vanguard.jpg"
@@ -26330,7 +26359,7 @@
     :title_en: Cardfight!! Vanguard
     :text_en:
     :topic_id: 247360
-    :rule: &467
+    :rule: &468
       :algo: duration
       :filters:
         franchise: cardfight_vanguard
@@ -26348,7 +26377,7 @@
   title_en: Cardfight!! Vanguard
   text_en:
   topic_id: 247360
-  rule: *467
+  rule: *468
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -26361,7 +26390,7 @@
     :title_en: Cardfight!! Vanguard
     :text_en:
     :topic_id: 247360
-    :rule: &468
+    :rule: &469
       :algo: duration
       :filters:
         franchise: cardfight_vanguard
@@ -26377,35 +26406,6 @@
   title_ru: Карточные бои Авангарда
   text_ru:
   title_en: Cardfight!! Vanguard
-  text_en:
-  topic_id: 247360
-  rule: *468
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :queen_s_blade
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/queen_s_blade.jpg"
-    :border_color:
-    :title_ru: Клинок королевы
-    :text_ru:
-    :title_en: Queen's Blade
-    :text_en:
-    :topic_id: 247360
-    :rule: &469
-      :algo: duration
-      :filters:
-        franchise: queen_s_blade
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :queen_s_blade
-  level: 0
-  image: "/assets/achievements/anime/franchise/queen_s_blade.jpg"
-  border_color:
-  title_ru: Клинок королевы
-  text_ru:
-  title_en: Queen's Blade
   text_en:
   topic_id: 247360
   rule: *469
@@ -29953,6 +29953,35 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :saber_marionette_j
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
+    :border_color:
+    :title_ru: Воины-марионетки Джей
+    :text_ru:
+    :title_en: Saber Marionette J
+    :text_en:
+    :topic_id: 247360
+    :rule: &579
+      :algo: duration
+      :filters:
+        franchise: saber_marionette_j
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :saber_marionette_j
+  level: 0
+  image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
+  border_color:
+  title_ru: Воины-марионетки Джей
+  text_ru:
+  title_en: Saber Marionette J
+  text_en:
+  topic_id: 247360
+  rule: *579
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :jigoku_sensei_nube
     :level: 1
     :image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
@@ -29962,7 +29991,7 @@
     :title_en: Jigoku Sensei Nube
     :text_en:
     :topic_id: 247360
-    :rule: &579
+    :rule: &580
       :algo: duration
       :filters:
         franchise: jigoku_sensei_nube
@@ -29978,7 +30007,7 @@
   title_en: Jigoku Sensei Nube
   text_en:
   topic_id: 247360
-  rule: *579
+  rule: *580
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -29991,7 +30020,7 @@
     :title_en: Jigoku Sensei Nube
     :text_en:
     :topic_id: 247360
-    :rule: &580
+    :rule: &581
       :algo: duration
       :filters:
         franchise: jigoku_sensei_nube
@@ -30005,35 +30034,6 @@
   title_ru: Адский учитель Нубэ
   text_ru:
   title_en: Jigoku Sensei Nube
-  text_en:
-  topic_id: 247360
-  rule: *580
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :saber_marionette_j
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
-    :border_color:
-    :title_ru: Воины-марионетки Джей
-    :text_ru:
-    :title_en: Saber Marionette J
-    :text_en:
-    :topic_id: 247360
-    :rule: &581
-      :algo: duration
-      :filters:
-        franchise: saber_marionette_j
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :saber_marionette_j
-  level: 0
-  image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
-  border_color:
-  title_ru: Воины-марионетки Джей
-  text_ru:
-  title_en: Saber Marionette J
   text_en:
   topic_id: 247360
   rule: *581
