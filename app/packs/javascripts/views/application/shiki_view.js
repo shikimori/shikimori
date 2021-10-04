@@ -71,7 +71,7 @@ export default class ShikiView extends View {
   async _reload() {
     this._shade();
     const { data } = await axios.get(this._reloadUrl());
-    this._replace(data.content, data.JS_EXPORTS);
+    this._replace(data.content, data.JS_EXPORTS, true);
   }
 
   // урл для перезагрузки элемента
@@ -79,12 +79,34 @@ export default class ShikiView extends View {
     return this.$node.data('url');
   }
 
-  _replace(html, JS_EXPORTS) {
+  _replace(html, JS_EXPORTS, isReplaceInner = false) {
+    const htmlWoCheckHeight = html.replace(' data-check_height', '');
+
+    if (isReplaceInner) {
+      this._replaceInner(htmlWoCheckHeight, JS_EXPORTS);
+    } else {
+      this._replaceNode(htmlWoCheckHeight, JS_EXPORTS);
+    }
+  }
+
+  async _replaceInner(html, JS_EXPORTS) {
+    const $replaced = $(html).children('.inner');
+    this.$inner.replaceWith($replaced);
+
+    this.$node
+      .addClass('to-process')
+      .process(JS_EXPORTS);
+
+    this.$inner = this.$('>.inner');
+
+    this.$inner.yellowFade();
+  }
+
+  _replaceNode(html, JS_EXPORTS) {
     const $replaced = $(html);
     this.$node.replaceWith($replaced);
 
-    $replaced
-      .process(JS_EXPORTS)
-      .yellowFade();
+    $replaced.process(JS_EXPORTS);
+    $replaced.yellowFade();
   }
 }
