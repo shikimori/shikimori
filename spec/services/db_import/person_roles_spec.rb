@@ -1,6 +1,7 @@
 describe DbImport::PersonRoles do
   include_context :timecop
 
+  let(:service) { DbImport::PersonRoles.new target, characters, staff }
   let(:target) { create :anime, id: 114 }
   let(:characters) do
     [{
@@ -23,15 +24,14 @@ describe DbImport::PersonRoles do
       roles: %w[Producer]
     }]
   end
-  let!(:person_role) { nil }
+  let!(:person_role) {}
   let(:person_roles) { target.person_roles.order :id }
 
-  let!(:character) { create :character, imported_at: imported_at }
-  let!(:person) { create :person, imported_at: imported_at }
-  let(:imported_at) { described_class::REIMPORT_INTERVAL.ago + 1.day }
+  let!(:character) { create :character }
+  let!(:person) { create :person }
 
   before { allow(MalParsers::FetchEntry).to receive :perform_in }
-  subject! { described_class.call target, characters, staff }
+  subject! { service.call }
 
   it do
     expect(person_roles).to have(4).items
@@ -109,13 +109,6 @@ describe DbImport::PersonRoles do
       expect(MalParsers::FetchEntry)
         .to have_received(:perform_in)
         .with 3.seconds, staff[1][:id], 'person'
-    end
-
-    context 'not fresh entries' do
-      let(:imported_at) { described_class::REIMPORT_INTERVAL.ago - 1.day }
-      it do
-        expect(MalParsers::FetchEntry).to have_received(:perform_in).exactly(4).times
-      end
     end
   end
 end
