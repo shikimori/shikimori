@@ -3,12 +3,12 @@ class DbImport::ImagePolicy
 
   ONGOING_INTERVAL = 2.weeks
   LATEST_INTERVAL = 3.months
-  OLD_INTERVAL = 6.months
+  OLD_INTERVAL = (30 * 4 - 2).days
 
   def need_import?
     return false if bad_image?
     return true if no_image?
-    return true unless ImageChecker.valid?(@target.image.path)
+    return true unless ImageChecker.valid? @target.image.path
 
     file_expired?
   end

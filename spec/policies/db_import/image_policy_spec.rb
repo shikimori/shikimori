@@ -1,5 +1,5 @@
 describe DbImport::ImagePolicy do
-  let(:policy) { DbImport::ImagePolicy.new target, image_url }
+  let(:policy) { described_class.new target, image_url }
   subject { policy.need_import? }
 
   before do
@@ -37,7 +37,7 @@ describe DbImport::ImagePolicy do
     end
 
     describe '#no_image?' do
-      let(:mtime) { DbImport::ImagePolicy::OLD_INTERVAL.ago + 1.day }
+      let(:mtime) { described_class::OLD_INTERVAL.ago + 1.day }
       it { is_expected.to eq false }
 
       context 'new record' do
@@ -52,7 +52,7 @@ describe DbImport::ImagePolicy do
     end
 
     describe 'image checker' do
-      let(:mtime) { DbImport::ImagePolicy::OLD_INTERVAL.ago + 1.day }
+      let(:mtime) { described_class::OLD_INTERVAL.ago + 1.day }
       it { is_expected.to eq false }
 
       context 'invalid image' do
