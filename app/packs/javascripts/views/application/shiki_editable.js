@@ -33,6 +33,7 @@ export default class ShikiEditable extends ShikiView {
     this._bindDeleteControls();
     this._bindEditControls();
     this._bindFaye();
+    this._bindAutoExpand();
 
     $('.item-mobile', this.$inner).on('click', this._toggleMobileControls);
     $('.b-new_marker', this.$inner).on('click', this._markRead);
@@ -110,6 +111,12 @@ export default class ShikiEditable extends ShikiView {
   _bindFaye() {
     this.on(`faye:${this._type()}:updated`, this._fayeUpdated);
     this.on(`faye:${this._type()}:deleted`, this._fayeDeleted);
+  }
+
+  _bindAutoExpand() {
+    this.$inner.on('ajax:before', () => {
+      this.$inner.next('.b-height_shortener').click();
+    });
   }
 
   _activateAppearMarker() {
