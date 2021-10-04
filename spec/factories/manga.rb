@@ -13,6 +13,7 @@ FactoryBot.define do
     imageboard_tag { nil }
     licensors { [] }
     desynced { [] }
+    imported_at { nil }
 
     factory :ranobe, class: 'Ranobe' do
       sequence(:name) { |n| "ranobe_#{n}" }
