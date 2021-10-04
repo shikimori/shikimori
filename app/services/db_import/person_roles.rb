@@ -1,6 +1,11 @@
 class DbImport::PersonRoles
   method_object :target, :characters, :staff
 
+  REIMPORT_FRESH_CONDITION_SQL = <<~SQL.squish
+    imported_at is not null and imported_at >= :interval_ago
+  SQL
+  REIMPORT_INTERVAL = 4.months
+
   def call
     PersonRole.transaction do
       cleanup :character_id if @characters.any?
@@ -23,9 +28,13 @@ class DbImport::PersonRoles
 private
 
   def schedule entries, klass
-    ids = entries.map { |v| v[:id] }
+    ids = entries.pluck(:id)
+    present_fresh_ids = klass
+      .where(id: ids)
+      .where(REIMPORT_FRESH_CONDITION_SQL, interval_ago: REIMPORT_INTERVAL.ago)
+      .pluck(:id)
 
-    (ids - klass.where(id: ids).pluck(:id)).each do |id|
+    (ids - present_fresh_ids).each do |id|
       MalParsers::FetchEntry.perform_in 3.seconds, id, klass.name.downcase
     end
   end
