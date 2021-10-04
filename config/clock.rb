@@ -60,13 +60,24 @@ module Clockwork
     NamedLogger.clockwork.info 'daily.smotret-anime.3/3 finished'
   end
 
-  every 1.day, 'daily.imports', at: '23:30' do
+  every 1.day, 'daily.imports', at: '22:30' do
+    MalParsers::RefreshEntries.perform_async 'anime', nil, 4.months
+    MalParsers::RefreshEntries.perform_async 'manga', nil, 4.months
+    MalParsers::RefreshEntries.perform_async 'character', nil, 4.months
+    MalParsers::RefreshEntries.perform_async 'person', nil, 8.months
+
+    NamedLogger.clockwork.info 'daily.imports finished'
+  end
+
+  every 1.day, 'daily.imports.2', at: '23:30' do
     MalParsers::ScheduleExpired.perform_async 'manga'
     MalParsers::ScheduleExpired.perform_async 'character'
     MalParsers::ScheduleExpired.perform_async 'person'
+
     MalParsers::ScheduleMissingPersonRoles.perform_async 'character'
     MalParsers::ScheduleMissingPersonRoles.perform_async 'person'
-    NamedLogger.clockwork.info 'daily.imports finished'
+
+    NamedLogger.clockwork.info 'daily.imports.2 finished'
   end
 
   every 1.day, 'daily.misc', at: '00:31' do
