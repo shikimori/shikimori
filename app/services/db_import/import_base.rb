@@ -40,7 +40,7 @@ private
   def assign_special_fields
     self.class::SPECIAL_FIELDS.each do |field|
       next if field.in?(desynced_fields)
-      next if @data[field].blank? && field != :image
+      next if @data[field].blank? && %i[image seyu].exclude?(field)
 
       send "assign_#{field}", @data[field]
     end
