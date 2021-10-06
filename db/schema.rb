@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_06_130719) do
+ActiveRecord::Schema.define(version: 2021_10_06_171701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -28,7 +28,14 @@ ActiveRecord::Schema.define(version: 2021_10_06_130719) do
     t.string "state", limit: 255
     t.integer "approver_id"
     t.string "reason", limit: 4096
-    t.index ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, where: "((state)::text = 'pending'::text)"
+    t.integer "topic_id"
+    t.integer "review_id"
+    t.index ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, where: "((comment_id IS NOT NULL) AND ((state)::text = 'pending'::text))"
+    t.index ["comment_id"], name: "index_abuse_requests_on_comment_id"
+    t.index ["review_id", "kind", "value"], name: "index_abuse_requests_on_review_id_and_kind_and_value", unique: true, where: "((review_id IS NOT NULL) AND ((state)::text = 'pending'::text))"
+    t.index ["review_id"], name: "index_abuse_requests_on_review_id"
+    t.index ["topic_id", "kind", "value"], name: "index_abuse_requests_on_topic_id_and_kind_and_value", unique: true, where: "((topic_id IS NOT NULL) AND ((state)::text = 'pending'::text))"
+    t.index ["topic_id"], name: "index_abuse_requests_on_topic_id"
   end
 
   create_table "achievements", id: :serial, force: :cascade do |t|

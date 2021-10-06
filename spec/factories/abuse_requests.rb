@@ -1,7 +1,11 @@
 FactoryBot.define do
   factory :abuse_request do
     user { seed :user }
+
     comment { seed :comment }
+    topic { nil }
+    review { nil }
+
     approver { nil }
     kind { 'offtopic' }
     state { 'pending' }

@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :ban do
-    user { nil }
+    user { seed :user }
 
-    comment { nil }
+    comment { seed :comment }
     topic { nil }
     review { nil }
 
