@@ -54,3 +54,17 @@ aside.buttons
       data-remote='true'
       data-direction='top'
     ]
+    span.item-abuse.b-tooltipped.unprocessed[
+      title=t('actions.moderation.abuse')
+      data-text=t('actions.moderation.abuse')
+      data-action=abuse_api_v2_abuse_requests_url(comment_id: comment.id)
+      data-method='post'
+      data-type='json'
+      data-remote='true'
+      data-reason-prompt=t('actions.moderation.explain.abuse')
+      data-direction='top'
+    ]
+    span.item-moderation-cancel[
+      title=t('actions.cancel')
+      data-text=t('actions.cancel')
+    ]
