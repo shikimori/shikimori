@@ -2,6 +2,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   vattr_initialize :topic, :is_preview, :is_mini
 
   delegate :id,
+    :user_id,
     :persisted?,
     :user,
     :body,
@@ -219,6 +220,10 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def show_source?
     false
+  end
+
+  def moderatable?
+    !user.bot?
   end
 
   def topic_type_policy

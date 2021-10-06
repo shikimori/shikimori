@@ -29,6 +29,11 @@ aside.buttons
       title=t('actions.delete')
       data-text=t('actions.delete')
     ]
+    - if topic_view.moderatable?
+      span.item-moderation[
+        title=t('actions.moderate')
+        data-text=t('actions.moderate')
+      ]
     span.item-cancel[
       title=t('actions.cancel')
       data-text=t('actions.cancel')
@@ -47,3 +52,39 @@ aside.buttons
       title=t('actions.cancel')
       data-text=t('actions.cancel')
     ]
+
+  - if topic_view.moderatable?
+    .moderation-controls
+      span.item-ban.b-tooltipped.unprocessed[
+        title=t('actions.moderation.ban')
+        data-text=t('actions.moderation.ban')
+        data-action=new_moderations_ban_url(ban: { topic_id: topic_view.id, user_id: topic_view.user_id })
+        data-method='get'
+        data-type='html'
+        data-remote='true'
+        data-direction='top'
+      ]
+      span.item-abuse.b-tooltipped.unprocessed[
+        title=t('actions.moderation.abuse')
+        data-text=t('actions.moderation.abuse')
+        data-action=abuse_api_v2_abuse_requests_url(topic_id: topic_view.id)
+        data-method='post'
+        data-type='json'
+        data-remote='true'
+        data-reason-prompt=t('actions.moderation.explain.abuse')
+        data-direction='top'
+      ]
+      span.item-spoiler.b-tooltipped.unprocessed[
+        title=t('actions.moderation.spoiler')
+        data-text=t('actions.moderation.spoiler')
+        data-action=spoiler_api_v2_abuse_requests_url(topic_id: topic_view.id)
+        data-method='post'
+        data-type='json'
+        data-remote='true'
+        data-reason-prompt=t('actions.moderation.explain.spoiler')
+        data-direction='top'
+      ]
+      span.item-moderation-cancel[
+        title=t('actions.cancel')
+        data-text=t('actions.cancel')
+      ]
