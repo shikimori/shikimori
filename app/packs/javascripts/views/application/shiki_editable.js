@@ -220,6 +220,9 @@ export default class ShikiEditable extends ShikiView {
     );
     this.$moderationForm.html(form.$node);
 
+    $('.cancel', this.$moderationForm).on('click', this._hideModerationForm);
+    $('form', this.$moderationForm).on('ajax:success', this._processModerationRequest);
+
     this.$inner.addClass('is-moderating');
     this._closeAside();
 
@@ -234,7 +237,7 @@ export default class ShikiEditable extends ShikiView {
 
   @bind
   _processModerationRequest(_e, response) {
-    this._replace(response.html, true);
+    this._replace(response.html, response.JS_EXPORTS, true);
   }
 
   @bind

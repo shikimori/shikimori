@@ -5,9 +5,13 @@ json.comment_id @resource.comment_id
 json.notice I18n.t "messages.user_#{@resource.warning? ? 'warned' : 'banned'}"
 
 if @resource.comment
-  json.html render(
-    partial: 'comments/comment',
-    layout: false,
-    object: @resource.comment
+  json.html JsExports::Supervisor.instance.sweep(
+    render(
+      partial: 'comments/comment',
+      layout: false,
+      object: @resource.comment.decorate
+    )
   )
 end
+
+json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)
