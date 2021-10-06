@@ -12,16 +12,17 @@ class AbuseRequest < ApplicationRecord
     user_id_key: :user_id
   )
 
-  belongs_to :comment
+  belongs_to :comment, optional: true
+  belongs_to :topic, optional: true
+  belongs_to :review, optional: true
   belongs_to :user
   belongs_to :approver,
     class_name: 'User',
-    foreign_key: :approver_id,
     optional: true
 
   enumerize :kind, in: %i[offtopic summary spoiler abuse], predicates: true
 
-  validates :user, :comment, presence: true
+  validates :user, presence: true
   validates :reason, length: { maximum: 4096 }
 
   scope :pending, -> { where state: 'pending', kind: %w[offtopic summary] }

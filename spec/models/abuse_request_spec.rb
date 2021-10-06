@@ -1,14 +1,14 @@
 describe AbuseRequest do
   describe 'relations' do
-    it { is_expected.to belong_to :comment }
+    it { is_expected.to belong_to(:comment).optional }
+    it { is_expected.to belong_to(:topic).optional }
+    it { is_expected.to belong_to(:review).optional }
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to(:approver).optional }
   end
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :user }
-    it { is_expected.to validate_presence_of :comment }
-    it { is_expected.to validate_presence_of :comment }
     it { is_expected.to validate_length_of(:reason).is_at_most(4096) }
 
     context 'accepted' do
