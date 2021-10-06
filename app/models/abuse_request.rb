@@ -24,6 +24,7 @@ class AbuseRequest < ApplicationRecord
 
   validates :user, presence: true
   validates :reason, length: { maximum: 4096 }
+  validates :comment_id, exclusive_arc: %i[topic_id review_id]
 
   scope :pending, -> { where state: 'pending', kind: %w[offtopic summary] }
   scope :abuses, -> { where state: 'pending', kind: %w[spoiler abuse] }
