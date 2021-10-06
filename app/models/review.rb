@@ -16,6 +16,9 @@ class Review < ApplicationRecord
   belongs_to :anime, optional: true
   belongs_to :manga, optional: true
 
+  has_many :bans, -> { order :id },
+    inverse_of: :topic
+
   enumerize :opinion, in: Types::Review::Opinion.values
 
   MIN_BODY_SIZE = 230

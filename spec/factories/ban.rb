@@ -1,9 +1,13 @@
 FactoryBot.define do
   factory :ban do
     user { nil }
+
     comment { nil }
-    moderator { nil }
+    topic { nil }
+    review { nil }
+
     abuse_request { nil }
+    moderator { nil }
     duration { 180 }
     reason { 'moderator comment' }
 

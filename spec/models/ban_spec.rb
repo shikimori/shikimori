@@ -2,8 +2,10 @@ describe Ban do
   describe 'relations' do
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to :moderator }
-    it { is_expected.to belong_to(:comment).optional }
-    it { is_expected.to belong_to(:abuse_request).optional }
+    it { is_expected.to belong_to(:comment).touch(true).optional }
+    it { is_expected.to belong_to(:topic).touch(true).optional }
+    it { is_expected.to belong_to(:review).touch(true).optional }
+    it { is_expected.to belong_to(:abuse_request).touch(true).optional }
   end
 
   describe 'validations' do

@@ -76,6 +76,9 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
   has_many :topic_ignores,
     dependent: :destroy
 
+  has_many :bans, -> { order :id },
+    inverse_of: :topic
+
   # топики без топиков о выходе эпизодов
   scope :wo_episodes, -> {
     where 'action IS NULL OR action != ?', AnimeHistoryAction::Episode
