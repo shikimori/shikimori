@@ -76,6 +76,9 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
   has_many :topic_ignores,
     dependent: :destroy
 
+  has_many :abuse_requests, -> { order :id },
+    dependent: :destroy,
+    inverse_of: :topic
   has_many :bans, -> { order :id },
     inverse_of: :topic
 

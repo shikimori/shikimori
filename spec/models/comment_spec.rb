@@ -3,9 +3,9 @@ describe Comment do
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to :commentable }
     it { is_expected.to belong_to(:topic).optional }
-    it { is_expected.to have_many :messages }
+    it { is_expected.to have_many(:messages).dependent :destroy }
     it { is_expected.to have_many :viewings }
-    it { is_expected.to have_many :abuse_requests }
+    it { is_expected.to have_many(:abuse_requests).dependent :destroy }
     it { is_expected.to have_many :bans }
   end
 

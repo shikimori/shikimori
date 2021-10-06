@@ -8,6 +8,7 @@ describe Topic do
     it { is_expected.to have_many :messages }
     it { is_expected.to have_many :topic_ignores }
     it { is_expected.to have_many :viewings }
+    it { is_expected.to have_many(:abuse_requests).dependent :destroy }
     it { is_expected.to have_many :bans }
   end
 
