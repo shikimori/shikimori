@@ -362,6 +362,60 @@ describe Comment do
         it { expect(comment.reload).to_not be_summary }
       end
     end
+
+    describe '#moderatable?' do
+      subject { build :comment, commentable: commentable }
+      let(:commentable) { nil }
+
+      it { is_expected.to_not be_moderatable }
+
+      context 'profile comment' do
+        let(:commentable) { user }
+        it { is_expected.to_not be_moderatable }
+      end
+
+      context 'review comment' do
+        let(:commentable) { build :review }
+        it { is_expected.to be_moderatable }
+      end
+
+      context 'topic comment' do
+        let(:commentable) { build :topic, linked: linked }
+        let(:linked) { nil }
+
+        it { is_expected.to be_moderatable }
+
+        context 'critique comment' do
+          let(:linked) { build :critique }
+          it { is_expected.to be_moderatable }
+        end
+
+        context 'contest comment' do
+          let(:linked) { build :contest }
+          it { is_expected.to be_moderatable }
+        end
+
+        context 'collection comment' do
+          let(:linked) { build :collection }
+          it { is_expected.to be_moderatable }
+        end
+
+        context 'anime comment' do
+          let(:linked) { build :anime }
+          it { is_expected.to be_moderatable }
+        end
+
+        context 'club comment' do
+          let(:linked) { build :club }
+          it { is_expected.to_not be_moderatable }
+        end
+
+        context 'club_page comment' do
+          let(:linked) { build :club_page }
+          it { is_expected.to_not be_moderatable }
+        end
+      end
+    end
   end
 
   describe 'permissions' do

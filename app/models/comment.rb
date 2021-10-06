@@ -235,6 +235,14 @@ class Comment < ApplicationRecord
         commentable.instance_of?(Topics::EntryTopics::RanobeTopic)
   end
 
+  def moderatable?
+    (
+      commentable_type == Topic.name &&
+        commentable.linked_type != Club.name &&
+        commentable.linked_type != ClubPage.name
+    ) || commentable_type == Review.name
+  end
+
 private
 
   def offtopic_topic?

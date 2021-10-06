@@ -20,13 +20,6 @@ class CommentDecorator < BaseDecorator
     body.include? Comment::Broadcast::BB_CODE
   end
 
-  def moderatable?
-    (
-      commentable_type == Topic.name &&
-        commentable.linked_type != Club.name
-    ) || commentable_type == Review.name
-  end
-
   def offtopable?
     commentable_type != Review.name
   end
