@@ -1,10 +1,10 @@
 class DbImport::PersonRoles
-  method_object :target, :characters, :staff
+  method_object :target, :characters, :staff, %i[is_clenanup_empty]
 
   def call
     PersonRole.transaction do
-      cleanup :character_id if @characters.any?
-      cleanup :person_id if @staff.any?
+      cleanup :character_id if @characters.any? || @is_clenanup_empty
+      cleanup :person_id if @staff.any? || @is_clenanup_empty
 
       character_roles = cleanup_banned @characters, :character_id
       staff_roles = cleanup_banned @staff, :person_id
@@ -23,7 +23,7 @@ class DbImport::PersonRoles
 private
 
   def schedule entries, klass
-    ids = entries.map { |v| v[:id] }
+    ids = entries.pluck(:id)
 
     (ids - klass.where(id: ids).pluck(:id)).each do |id|
       MalParsers::FetchEntry.perform_in 3.seconds, id, klass.name.downcase

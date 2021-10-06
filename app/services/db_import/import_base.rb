@@ -3,6 +3,7 @@ class DbImport::ImportBase
 
   SPECIAL_FIELDS = %i[]
   IGNORED_FIELDS = %i[]
+  ALLOW_BLANK_FIELDS = %i[image]
 
   def call
     return if DbImport::BannedIds.instance.banned? @data[:id], klass.name.downcase
@@ -40,7 +41,7 @@ private
   def assign_special_fields
     self.class::SPECIAL_FIELDS.each do |field|
       next if field.in?(desynced_fields)
-      next if @data[field].blank? && field != :image
+      next if @data[field].blank? && !field.in?(self.class::ALLOW_BLANK_FIELDS)
 
       send "assign_#{field}", @data[field]
     end

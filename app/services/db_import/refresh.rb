@@ -1,6 +1,8 @@
 class DbImport::Refresh
   method_object :klass, :ids, :refresh_interval
 
+  MAX_UPDATE_ENTRIES_PER_RUN = 1000
+
   def call
     if klass < AniManga
       refresh Character, expired_characters
@@ -13,7 +15,10 @@ class DbImport::Refresh
 private
 
   def refresh klass, scope
-    klass.where(id: scope).update_all imported_at: nil
+    klass
+      .where(id: scope)
+      .limit([scope.size / 30, MAX_UPDATE_ENTRIES_PER_RUN].max)
+      .update_all(imported_at: nil)
   end
 
   def expired_entries
