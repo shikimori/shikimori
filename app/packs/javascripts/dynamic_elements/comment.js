@@ -65,7 +65,6 @@ export default class Comment extends ShikiEditable {
 
     this.$(AJAX_BUTTONS.join(',')).on('ajax:success', this._processAjaxControlRequest);
 
-    this.$('.item-ban').on('ajax:success', this._showModerationForm);
     this.$banForm.on('click', '.cancel', this._hideModerationForm);
     this.$banForm.on('ajax:success', 'form', this._processModerationRequest);
 

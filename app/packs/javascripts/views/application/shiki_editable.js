@@ -31,7 +31,7 @@ export default class ShikiEditable extends ShikiView {
     super._initialize(...args);
 
     // по нажатиям на кнопки закрываем меню в мобильной версии
-    this.$(BUTTONS.join(','), this.$inner).on('click', this._closeAside);
+    $(BUTTONS.join(','), this.$inner).on('click', this._closeAside);
 
     this._bindDeleteControls();
     this._bindEditControls();
@@ -106,16 +106,16 @@ export default class ShikiEditable extends ShikiView {
   }
 
   _bindEditControls() {
-    $('.main-controls .item-edit', this.$inner)
+    $('.item-edit', this.$inner)
       .on('ajax:before', this._shade)
       .on('ajax:complete', this._unshade)
       .on('ajax:success', this._edit);
   }
 
   _bindModerationControls() {
-    this.$('.item-ban').on('ajax:success', this._showModerationForm);
-    this.$('.main-controls .item-moderation').on('click', this._showModrationControls);
-    this.$('.moderation-controls .item-moderation-cancel').on('click', this._hideModerationControls);
+    $('.item-ban', this.$inner).on('ajax:success', this._showModerationForm);
+    $('.item-moderation', this.$inner).on('click', this._showModrationControls);
+    $('.item-moderation-cancel', this.$inner).on('click', this._hideModerationControls);
   }
 
   _bindFaye() {
@@ -197,8 +197,8 @@ export default class ShikiEditable extends ShikiView {
 
   @bind
   _showModrationControls() {
-    this.$('.main-controls').hide();
-    this.$('.moderation-controls').show();
+    $('.main-controls', this.$inner).hide();
+    $('.moderation-controls', this.$inner).show();
   }
 
   @bind
@@ -207,8 +207,7 @@ export default class ShikiEditable extends ShikiView {
   }
 
   @bind
-  async _showModerationForm(e, html) {
-
+  _showModerationForm(e, html) {
     const form = new BanForm(html);
 
     this.$moderationForm.html(form.$root).show();
@@ -254,7 +253,7 @@ export default class ShikiEditable extends ShikiView {
       axios.post($newMarker.data('appear_url'), { ids: this.$node.attr('id') });
     } else {
       // эвент appear обрабатывается в topic
-      const $appears = this.$('.b-appear_marker.active');
+      const $appears = $('.b-appear_marker.active', this.$inner);
       $appears.trigger('appear', [$appears, true]);
     }
   }
