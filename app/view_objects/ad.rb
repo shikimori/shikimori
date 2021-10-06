@@ -207,7 +207,8 @@ private
       # convert -resize 50% app/assets/images/globals/events/special_menu_1@2x.png app/assets/images/globals/events/special_menu_1.png
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://www.hp.com/ru-ru/gaming/omen/15-laptop-intel.html?jumpid=ba_d9c9c5210c&utm_source=Shikimori&utm_medium=display&utm_campaign=RU_Q4_FY21_PS_CPS_CPS%20Gaming_CPS%20Gaming_OMG_Regional__Gaming____&utm_content=billboard',
+        url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=kgouc&pr=[RANDOM]',
+        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
         images: (1..1).map do |i|
           {
             src: "/assets/globals/events/special_menu_#{i}.png",
@@ -218,7 +219,6 @@ private
           cookie: 'i1',
           shows_per_week: 540 # 380
         },
-        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
       },
@@ -226,7 +226,7 @@ private
       # convert -resize 50% app/assets/images/globals/events/special_wide_1@2x.png app/assets/images/globals/events/special_wide_1.png
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://www.hp.com/ru-ru/gaming/omen/15-laptop-intel.html?jumpid=ba_d9c9c5210c&utm_source=Shikimori&utm_medium=display&utm_campaign=RU_Q4_FY21_PS_CPS_CPS%20Gaming_CPS%20Gaming_OMG_Regional__Gaming____&utm_content=billboard',
+        url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=kgouc&pr=[RANDOM]',
         pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
         images: (1..1).map do |i|
           {
@@ -325,7 +325,8 @@ private
       # disable after 2021-10-10 23:55
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://www.hp.com/ru-ru/gaming/omen/15-laptop-intel.html?jumpid=ba_d9c9c5210c&utm_source=Shikimori&utm_medium=display&utm_campaign=RU_Q4_FY21_PS_CPS_CPS%20Gaming_CPS%20Gaming_OMG_Regional__Gaming____&utm_content=billboard',
+        url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=kgouc&pr=[RANDOM]',
+        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
         images: (1..1).map do |i|
           {
             src: "/assets/globals/events/special_menu_#{i}.png",
@@ -336,14 +337,13 @@ private
           cookie: 'i1',
           shows_per_week: 540 # 380
         },
-        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
       },
       # disable after 2021-10-10 23:55
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://www.hp.com/ru-ru/gaming/omen/15-laptop-intel.html?jumpid=ba_d9c9c5210c&utm_source=Shikimori&utm_medium=display&utm_campaign=RU_Q4_FY21_PS_CPS_CPS%20Gaming_CPS%20Gaming_OMG_Regional__Gaming____&utm_content=billboard',
+        url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=kgouc&pr=[RANDOM]',
         pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
         images: (1..1).map do |i|
           {
