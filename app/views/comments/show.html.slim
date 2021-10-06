@@ -9,6 +9,9 @@
     data-dynamic='topic'
     data-faye=@view.faye_channel.to_json
   ]
+    // .inner node must be present here because
+    // otherwise topic buttons events will be binded to each comment buttons too
+    .inner
     .subheadline
       == t '.user_comment',
         id: @view.comment.id,
