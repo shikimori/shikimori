@@ -1,15 +1,20 @@
-# https://github.com/rails/rails/blob/main/activerecord/lib/active_record/validations/uniqueness.rb
-class ExclusiveArcValidator < ActiveModel::EachValidator 
+class ExclusiveArcValidator < ActiveModel::EachValidator
   def initialize options
-    if options[:fields].blank?
-      # raise ArgumentError, "#{options[:conditions]} was passed as :conditions but is not callable. " \
-      #                       "Pass a callable instead: `conditions: -> { where(approved: true) }`"
+    super
+
+    if options.blank?
+      raise ArgumentError, 'options are not specified'
     end
   end
-  
-  def validate(record)
-    if some_complex_logic
-      record.errors[:base] = "This record is invalid"
+
+  def validate_each record, attribute, _value
+    target_fields = [attribute] + options[:in]
+    sum = target_fields.sum { |field| record.send(field).present? ? 1 : 0 }
+
+    if sum.zero?
+      record.errors[:base] << "Must specify one of :#{target_fields.join(', :')}"
+    elsif sum > 1
+      record.errors[:base] << "Must specify only one of :#{target_fields.join(', :')}"
     end
   end
 end
