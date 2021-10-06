@@ -1,6 +1,5 @@
 @import globals
 @import mixins/forum_entry
-@import mixins/frame_form
 @import mixins/responsive
 
 $comment_border: 1px dashed #ddd
@@ -27,27 +26,6 @@ $comment_offset: 15px
 =shiki_comment
   +forum_entry
   +shiki_comment_margins_borders
-
-  aside.moderation-ban
-    +frame_form
-    display: none
-    margin: 20px 0 15px 15px
-    padding-bottom: 10px
-
-    +gte_ipad
-      float: right
-      margin-top: 0
-      margin-top: 0
-
-      .b-input input
-        width: 140px
-
-    +iphone
-      margin-bottom: 30px
-      margin-right: 20px
-
-      .b-input input
-        width: 100%
 
   .b-shiki_editor .body .preview
     background: none

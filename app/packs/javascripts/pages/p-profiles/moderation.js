@@ -2,7 +2,7 @@ import delay from 'delay';
 import Turbolinks from 'turbolinks';
 import { flash } from 'shiki-utils';
 
-import BanForm from '@/views/comments/ban_form';
+import BanForm from '@/views/application/ban_form';
 
 pageLoad('profiles_moderation', () => {
   $('.b-form.new_ban').on('ajax:success', async () => {

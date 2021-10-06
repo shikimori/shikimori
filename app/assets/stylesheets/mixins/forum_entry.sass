@@ -1,6 +1,7 @@
 @import globals
 @import mixins/clearfix
 @import mixins/ellipsis2
+@import mixins/frame_form
 @import mixins/icons
 @import mixins/link
 @import mixins/responsive
@@ -151,10 +152,34 @@ $body_phone_left_margin: 40px
             .item-moderation-cancel
               +icon_expandable
 
+=forum_entry_ban_form
+  & > .inner
+    aside.moderation-ban-form
+      +frame_form
+      display: none
+      margin: 20px 0 15px 15px
+      padding-bottom: 10px
+
+      +gte_ipad
+        float: right
+        margin-top: 0
+        margin-top: 0
+
+        .b-input input
+          width: 140px
+
+      +iphone
+        margin-bottom: 30px
+        margin-right: 20px
+
+        .b-input input
+          width: 100%
+
 =forum_entry
   +clearfix
   +forum_entry_markers
   +forum_entry_buttons
+  +forum_entry_ban_form
   padding-top: 5px
 
   & > .inner

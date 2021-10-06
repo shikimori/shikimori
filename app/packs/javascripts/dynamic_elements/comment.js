@@ -3,7 +3,6 @@ import { flash, isPhone } from 'shiki-utils';
 import { bind } from 'shiki-decorators';
 
 import ShikiEditable from '@/views/application/shiki_editable';
-import BanForm from '@/views/comments/ban_form';
 import { loadImagesFinally, imagePromiseFinally } from '@/utils/load_image';
 
 const I18N_KEY = 'frontend.dynamic_elements.comment';
@@ -50,7 +49,7 @@ export default class Comment extends ShikiEditable {
     }
 
     this.$body = this.$('.body');
-    this.$moderationForm = this.$('.moderation-ban');
+    this.$banForm = this.$('.moderation-ban-form');
 
     if (this.model && !this.model.is_viewed) {
       this._activateAppearMarker();
@@ -66,13 +65,9 @@ export default class Comment extends ShikiEditable {
 
     this.$(AJAX_BUTTONS.join(',')).on('ajax:success', this._processAjaxControlRequest);
 
-    this.$('.main-controls .item-moderation').on('click', this._showModrationControls);
-    this.$('.moderation-controls .item-moderation-cancel')
-      .on('click', this._hideModerationControls);
-
     this.$('.item-ban').on('ajax:success', this._showModerationForm);
-    this.$moderationForm.on('click', '.cancel', this._hideModerationForm);
-    this.$moderationForm.on('ajax:success', 'form', this._processModerationRequest);
+    this.$banForm.on('click', '.cancel', this._hideModerationForm);
+    this.$banForm.on('ajax:success', 'form', this._processModerationRequest);
 
     this.on('faye:comment:set_replies', this._fayeSetReplies);
 
@@ -109,35 +104,6 @@ export default class Comment extends ShikiEditable {
 
     $(currentTarget).data({ form: { reason } });
     return true;
-  }
-
-  @bind
-  _showModrationControls() {
-    this.$('.main-controls').hide();
-    this.$('.moderation-controls').show();
-  }
-
-  @bind
-  _hideModerationControls() {
-    this._closeAside();
-  }
-
-  @bind
-  _showModerationForm(e, html) {
-    const form = new BanForm(html);
-
-    this.$moderationForm.html(form.$root).show();
-    this._closeAside();
-  }
-
-  @bind
-  _hideModerationForm() {
-    this.$moderationForm.hide();
-  }
-
-  @bind
-  _processModerationRequest(_e, response) {
-    this._replace(response.html);
   }
 
   @bind

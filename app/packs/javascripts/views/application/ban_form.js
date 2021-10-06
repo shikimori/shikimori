@@ -1,4 +1,4 @@
-import View from '@/views/application/view';
+import View from './view';
 
 export default class BanForm extends View {
   initialize() {

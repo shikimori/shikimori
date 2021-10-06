@@ -5,6 +5,7 @@ import { getSelectionText, getSelectionHtml } from '@/utils/get_selection';
 import axios from '@/utils/axios';
 import { animatedCollapse } from '@/utils/animated';
 
+import BanForm from '@/views/application/ban_form';
 import ShikiView from '@/views/application/shiki_view';
 
 const BUTTONS = [
@@ -14,7 +15,9 @@ const BUTTONS = [
   '.item-edit',
   '.item-summary',
   '.item-offtopic',
-  '.item-cancel'
+  '.item-cancel',
+  '.item-spoiler',
+  '.item-abuse'
 ];
 const ITEM_QUOTE_SELECTOR = '.item-quote, .item-quote-mobile';
 
@@ -32,6 +35,7 @@ export default class ShikiEditable extends ShikiView {
 
     this._bindDeleteControls();
     this._bindEditControls();
+    this._bindModerationControls();
     this._bindFaye();
     this._bindAutoExpand();
 
@@ -106,6 +110,12 @@ export default class ShikiEditable extends ShikiView {
       .on('ajax:before', this._shade)
       .on('ajax:complete', this._unshade)
       .on('ajax:success', this._edit);
+  }
+
+  _bindModerationControls() {
+    this.$('.item-ban').on('ajax:success', this._showModerationForm);
+    this.$('.main-controls .item-moderation').on('click', this._showModrationControls);
+    this.$('.moderation-controls .item-moderation-cancel').on('click', this._hideModerationControls);
   }
 
   _bindFaye() {
@@ -183,6 +193,36 @@ export default class ShikiEditable extends ShikiView {
   // can be overridden in inherited classes
   @bind
   _redirectAfterDeleted() {
+  }
+
+  @bind
+  _showModrationControls() {
+    this.$('.main-controls').hide();
+    this.$('.moderation-controls').show();
+  }
+
+  @bind
+  _hideModerationControls() {
+    this._closeAside();
+  }
+
+  @bind
+  async _showModerationForm(e, html) {
+
+    const form = new BanForm(html);
+
+    this.$moderationForm.html(form.$root).show();
+    this._closeAside();
+  }
+
+  @bind
+  _hideModerationForm() {
+    this.$moderationForm.hide();
+  }
+
+  @bind
+  _processModerationRequest(_e, response) {
+    this._replace(response.html, true);
   }
 
   @bind
