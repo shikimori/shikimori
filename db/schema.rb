@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2021_10_06_171701) do
 
   create_table "abuse_requests", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "comment_id", null: false
+    t.integer "comment_id"
     t.string "kind", limit: 255
     t.boolean "value"
     t.datetime "created_at", null: false
@@ -1285,7 +1285,6 @@ ActiveRecord::Schema.define(version: 2021_10_06_171701) do
     t.index ["url"], name: "index_webm_videos_on_url", unique: true
   end
 
-  add_foreign_key "abuse_requests", "comments"
   add_foreign_key "abuse_requests", "users"
   add_foreign_key "abuse_requests", "users", column: "approver_id"
   add_foreign_key "bans", "users"

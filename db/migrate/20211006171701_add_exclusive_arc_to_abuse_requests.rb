@@ -4,6 +4,9 @@ class AddExclusiveArcToAbuseRequests < ActiveRecord::Migration[5.2]
     add_column :abuse_requests, :review_id, :integer
 
     remove_index :abuse_requests, name: :index_abuse_requests_on_comment_id_and_kind_and_value
+    remove_foreign_key :abuse_requests, :comments
+
+    change_column :abuse_requests, :comment_id, :integer, null: true
 
     add_index :abuse_requests, :comment_id
     add_index :abuse_requests, :topic_id
@@ -28,6 +31,10 @@ class AddExclusiveArcToAbuseRequests < ActiveRecord::Migration[5.2]
 
     remove_index :abuse_requests, name: :index_abuse_requests_on_comment_id_and_kind_and_value
     remove_index :abuse_requests, :comment_id
+
+    add_foreign_key :abuse_requests, :comments
+    change_column :abuse_requests, :comment_id, :integer, null: false
+
     add_index :abuse_requests, %i[comment_id kind value],
       name: "index_abuse_requests_on_comment_id_and_kind_and_value",
       unique: true,
