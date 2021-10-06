@@ -64,6 +64,10 @@ export default class ShikiEditable extends ShikiView {
     return this.$inner;
   }
 
+  get $moderationForm() {
+    return $('.moderation-ban-form', this.$inner);
+  }
+
   @bind
   setSelection() {
     this.throttledSetSelection();
@@ -207,11 +211,20 @@ export default class ShikiEditable extends ShikiView {
   }
 
   @bind
-  _showModerationForm(e, html) {
+  async _showModerationForm(e, html) {
     const form = new BanForm(html);
 
-    this.$moderationForm.html(form.$root).show();
+    this.$moderationForm.remove();
+    $('<aside class="moderation-ban-form"></aside>').insertBefore(
+      this.$inner.find('aside.buttons')
+    );
+    this.$moderationForm.html(form.$node);
+
+    this.$inner.addClass('is-moderating');
     this._closeAside();
+
+    await delay(250);
+    this.$moderationForm.find('input[type=text]').first().focus();
   }
 
   @bind

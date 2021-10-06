@@ -44,8 +44,11 @@ $body_phone_left_margin: 40px
     width: 100% // без этого в .aside-expanded режиме не будет смещения контента влево
     transition: margin-left 0.25s ease
 
-    &.is-editing >  aside.buttons
-      display: none !important
+    &.is-editing,
+    &.is-moderating
+      & > .item-mobile,
+      & > aside.buttons
+        display: none !important
 
     & > aside.buttons
       display: none
@@ -154,26 +157,23 @@ $body_phone_left_margin: 40px
 
 =forum_entry_ban_form
   & > .inner
+    &.is-moderating aside.moderation-ban-form
+      display: block
+
     aside.moderation-ban-form
       +frame_form
       display: none
-      margin: 20px 0 15px 15px
       padding-bottom: 10px
+      margin-bottom: 30px
+
+      .b-input input
+        width: 100%
 
       +gte_ipad
         float: right
-        margin-top: 0
-        margin-top: 0
-
-        .b-input input
-          width: 140px
+        margin-left: 30px
 
       +iphone
-        margin-bottom: 30px
-        margin-right: 20px
-
-        .b-input input
-          width: 100%
 
 =forum_entry
   +clearfix

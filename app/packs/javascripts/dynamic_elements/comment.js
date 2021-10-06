@@ -49,7 +49,7 @@ export default class Comment extends ShikiEditable {
     }
 
     this.$body = this.$('.body');
-    this.$banForm = this.$('.moderation-ban-form');
+    // this.$moderationForm = this.$('.moderation-ban-form');
 
     if (this.model && !this.model.is_viewed) {
       this._activateAppearMarker();
@@ -65,8 +65,8 @@ export default class Comment extends ShikiEditable {
 
     this.$(AJAX_BUTTONS.join(',')).on('ajax:success', this._processAjaxControlRequest);
 
-    this.$banForm.on('click', '.cancel', this._hideModerationForm);
-    this.$banForm.on('ajax:success', 'form', this._processModerationRequest);
+    // this.$moderationForm.on('click', '.cancel', this._hideModerationForm);
+    // this.$moderationForm.on('ajax:success', 'form', this._processModerationRequest);
 
     this.on('faye:comment:set_replies', this._fayeSetReplies);
 
