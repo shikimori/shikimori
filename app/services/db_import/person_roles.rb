@@ -1,10 +1,10 @@
 class DbImport::PersonRoles
-  method_object :target, :characters, :staff, %i[is_clenanup_empty]
+  method_object :target, :characters, :staff
 
   def call
     PersonRole.transaction do
-      cleanup :character_id if @characters.any? || @is_clenanup_empty
-      cleanup :person_id if @staff.any? || @is_clenanup_empty
+      cleanup :character_id if @characters.any?
+      cleanup :person_id if @staff.any?
 
       character_roles = cleanup_banned @characters, :character_id
       staff_roles = cleanup_banned @staff, :person_id
