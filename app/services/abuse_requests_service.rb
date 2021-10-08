@@ -5,6 +5,8 @@ class AbuseRequestsService
   pattr_initialize %i[comment topic review reporter!]
 
   def offtopic faye_token
+    raise CanCan::AccessDenied if @comment.nil?
+
     if allowed_offtopic_change?
       faye_service(faye_token).offtopic @comment, !@comment.offtopic?
     else
@@ -13,6 +15,8 @@ class AbuseRequestsService
   end
 
   def summary faye_token
+    raise CanCan::AccessDenied if @comment.nil?
+
     if allowed_summary_change?
       faye_service(faye_token).summary @comment, !@comment.summary?
     else

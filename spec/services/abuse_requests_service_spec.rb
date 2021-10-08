@@ -4,14 +4,14 @@ describe AbuseRequestsService do
       comment: comment,
       topic: topic,
       review: review,
-      reporter: reporter
+      reporter: user_reporter
     )
   end
-  let!(:reporter) { create :user, id: 99 }
+  let!(:user_reporter) { create :user, id: 99 }
 
   let(:comment) do
     create :comment, :skip_cancel_summary,
-      user: comment_user,
+      user: user_author,
       is_offtopic: is_offtopic,
       is_summary: is_summary,
       created_at: created_at
@@ -19,8 +19,8 @@ describe AbuseRequestsService do
   let(:is_offtopic) { false }
   let(:is_summary) { false }
   let(:created_at) { Time.zone.now }
-  let(:comment_user) { seed :user }
-  let(:reporter) { comment_user }
+  let(:user_author) { seed :user }
+  let(:user_reporter) { user_author }
 
   let(:topic) { nil }
   let(:review) { nil }
@@ -57,7 +57,7 @@ describe AbuseRequestsService do
 
       context 'moderator' do
         let(:created_at) { 1.month.ago }
-        let(:reporter) { create :user, :forum_moderator }
+        let(:user_reporter) { create :user, :forum_moderator }
         it { expect { act }.to change(AbuseRequest, :count).by 0 }
       end
     end
@@ -97,39 +97,57 @@ describe AbuseRequestsService do
     end
   end
 
+  comment_actions = %i[summary offtopic]
   %i[summary offtopic abuse spoiler].each do |method|
     describe method.to_s do
-      if %i[summary offtopic].include? method # rubocop:disable CollectionLiteralInLoop
+      if comment_actions.include? method
         let(:reason) { nil }
         subject(:act) { service.send method, faye_token }
       else
         let(:reason) { 'zxcvbn' }
         subject(:act) { service.send method, reason }
       end
-      let(:reporter) { create :user, id: 99 }
+      let(:user_reporter) { create :user, id: 99 }
 
-      it do
-        expect { act }.to change(AbuseRequest, :count).by 1
-        is_expected.to eq []
-      end
+      %i[comment topic review].each do |type| # rubocop:disable CollectionLiteralInLoop
+        context type do
+          let(:comment) { create :comment, user: user_author if type == :comment }
+          let(:review) { create :review, user: user_author, anime: anime if type == :review }
+          let(:topic) { create :topic, user: user_author if type == :topic }
+          let(:anime) { create :anime }
 
-      describe 'abuse_request' do
-        before { act }
-        subject { reporter.abuse_requests.last }
+          if type != :comment && comment_actions.include?(method)
+            it do
+              expect { act }.to raise_error CanCan::AccessDenied
+            end
+          else
+            it do
+              expect { act }.to change(AbuseRequest, :count).by 1
+              is_expected.to eq []
+            end
 
-        it do
-          expect(subject).to have_attributes(
-            kind: method.to_s,
-            value: true,
-            comment_id: comment.id,
-            reason: reason
-          )
+            describe 'abuse_request' do
+              before { act }
+              subject { user_reporter.abuse_requests.last }
+
+              it do
+                expect(subject).to have_attributes(
+                  kind: method.to_s,
+                  value: true,
+                  comment_id: (comment.id if type == :comment),
+                  review_id: (review.id if type == :review),
+                  topic_id: (topic.id if type == :topic),
+                  reason: reason
+                )
+              end
+            end
+
+            context 'already acted' do
+              before { act }
+              it { expect { act }.to change(AbuseRequest, :count).by 0 }
+            end
+          end
         end
-      end
-
-      context 'already acted' do
-        before { act }
-        it { expect { act }.to change(AbuseRequest, :count).by 0 }
       end
     end
   end
