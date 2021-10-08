@@ -13,7 +13,7 @@ class Ban < ApplicationRecord
   validates :user, :moderator, presence: true
   validates :duration, :reason, presence: true
   validates :reason, length: { maximum: 4096 }
-  # validates :comment, :abuse_request, presence: true
+  validates :comment_id, exclusive_arc: %i[topic_id review_id]
 
   before_validation :set_user
 
@@ -41,9 +41,9 @@ class Ban < ApplicationRecord
       if bans_count > 15
         '1w 3d 12h'
       elsif bans_count <= 5
-        (30 + 30 * ((bans_count**3) / 2.0 - 1)).to_i
+        (30 + (30 * (((bans_count**3) / 2.0) - 1))).to_i
       else
-        60 * bans_count**2
+        60 * (bans_count**2)
       end
 
     BanDuration.new(duration).to_s
