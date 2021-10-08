@@ -110,7 +110,7 @@ describe AbuseRequestsService do
       let(:user_reporter) { create :user, id: 99 }
 
       %i[comment topic review].each do |type| # rubocop:disable CollectionLiteralInLoop
-        context type do
+        context type.to_s do
           let(:comment) { create :comment, user: user_author if type == :comment }
           let(:review) { create :review, user: user_author, anime: anime if type == :review }
           let(:topic) { create :topic, user: user_author if type == :topic }
