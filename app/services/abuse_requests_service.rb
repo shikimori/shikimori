@@ -2,7 +2,7 @@ class AbuseRequestsService
   SUMMARY_TIMEOUT = 5.minutes
   OFFTOPIC_TIMEOUT = 5.minutes
 
-  pattr_initialize :comment, :reporter
+  pattr_initialize %i[comment topic review reporter!]
 
   def offtopic faye_token
     if allowed_offtopic_change?
@@ -32,7 +32,9 @@ private
 
   def create_abuse_request kind, value, reason
     AbuseRequest.create!(
-      comment_id: @comment.id,
+      comment_id: @comment&.id,
+      review_id: @review&.id,
+      topic_id: @topic&.id,
       user_id: reporter.id,
       kind: kind,
       value: value,
@@ -47,13 +49,13 @@ private
 
   def allowed_summary_change?
     reporter.forum_moderator? || reporter.admin? ||
-      (@comment.user_id == reporter.id &&
+      (@comment && @comment.user_id == reporter.id &&
       @comment.created_at > SUMMARY_TIMEOUT.ago)
   end
 
   def allowed_offtopic_change?
     reporter.forum_moderator? || reporter.admin? ||
-      (@comment.user_id == reporter.id &&
+      (@comment && @comment.user_id == reporter.id &&
       @comment.created_at > OFFTOPIC_TIMEOUT.ago)
   end
 

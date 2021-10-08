@@ -1,7 +1,18 @@
 describe AbuseRequestsService do
-  let(:service) { AbuseRequestsService.new comment, user }
+  let(:service) do
+    AbuseRequestsService.new(
+      comment: comment,
+      topic: topic,
+      review: review,
+      reporter: user
+    )
+  end
   let!(:user) { create :user, id: 99 }
+
   let(:comment) { create :comment }
+  let(:topic) { nil }
+  let(:review) { nil }
+
   let(:faye_token) { 'test' }
 
   describe '#offtopic' do
@@ -74,7 +85,7 @@ describe AbuseRequestsService do
 
   %i[summary offtopic abuse spoiler].each do |method|
     describe method.to_s do
-      if %i[summary offtopic].include? method
+      if %i[summary offtopic].include? method # rubocop:disable CollectionLiteralInLoop
         let(:reason) { nil }
         subject(:act) { service.send method, faye_token }
       else
@@ -83,7 +94,6 @@ describe AbuseRequestsService do
       end
 
       let(:user) { create :user, id: 99 }
-      let(:comment) { create :comment }
 
       it { expect { act }.to change(AbuseRequest, :count).by 1 }
       it { is_expected.to eq [] }
