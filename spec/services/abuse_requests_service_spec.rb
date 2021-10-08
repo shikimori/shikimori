@@ -7,7 +7,7 @@ describe AbuseRequestsService do
       reporter: reporter
     )
   end
-  # let!(:reporter) { create :user, id: 99 }
+  let!(:reporter) { create :user, id: 99 }
 
   let(:comment) do
     create :comment, :skip_cancel_summary,
@@ -97,32 +97,40 @@ describe AbuseRequestsService do
     end
   end
 
-  # %i[summary offtopic abuse spoiler].each do |method|
-  #   describe method.to_s do
-  #     if %i[summary offtopic].include? method # rubocop:disable CollectionLiteralInLoop
-  #       let(:reason) { nil }
-  #       subject(:act) { service.send method, faye_token }
-  #     else
-  #       let(:reason) { 'zxcvbn' }
-  #       subject(:act) { service.send method, reason }
-  #     end
-  # 
-  #     let(:user) { create :user, id: 99 }
-  # 
-  #     it { expect { act }.to change(AbuseRequest, :count).by 1 }
-  #     it { is_expected.to eq [] }
-  # 
-  #     describe 'abuse_request' do
-  #       before { act }
-  #       subject { user.abuse_requests.last }
-  # 
-  #       it { expect(subject).to have_attributes kind: method.to_s, value: true, comment_id: comment.id, reason: reason }
-  #     end
-  # 
-  #     context 'already acted' do
-  #       before { act }
-  #       it { expect { act }.to change(AbuseRequest, :count).by 0 }
-  #     end
-  #   end
-  # end
+  %i[summary offtopic abuse spoiler].each do |method|
+    describe method.to_s do
+      if %i[summary offtopic].include? method # rubocop:disable CollectionLiteralInLoop
+        let(:reason) { nil }
+        subject(:act) { service.send method, faye_token }
+      else
+        let(:reason) { 'zxcvbn' }
+        subject(:act) { service.send method, reason }
+      end
+      let(:reporter) { create :user, id: 99 }
+
+      it do
+        expect { act }.to change(AbuseRequest, :count).by 1
+        is_expected.to eq []
+      end
+
+      describe 'abuse_request' do
+        before { act }
+        subject { reporter.abuse_requests.last }
+
+        it do
+          expect(subject).to have_attributes(
+            kind: method.to_s,
+            value: true,
+            comment_id: comment.id,
+            reason: reason
+          )
+        end
+      end
+
+      context 'already acted' do
+        before { act }
+        it { expect { act }.to change(AbuseRequest, :count).by 0 }
+      end
+    end
+  end
 end
