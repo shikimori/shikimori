@@ -11,7 +11,30 @@ if @resource.comment
     render(
       partial: 'comments/comment',
       layout: false,
-      object: @resource.comment.decorate
+      object: @resource.comment.decorate,
+      formats: :html
+    )
+  )
+elsif @resource.review
+  json.html JsExports::Supervisor.instance.sweep(
+    render(
+      partial: 'reviews/review',
+      locals: {
+        review: @resource.review,
+        is_show: true,
+        is_buttons: true
+      },
+      formats: %i[html]
+    )
+  )
+elsif @resource.topic
+  json.content JsExports::Supervisor.instance.sweep(
+    render(
+      partial: 'topics/topic',
+      locals: {
+        topic_view: Topics::TopicViewFactory.new(false, false).build(@resource.topic)
+      },
+      formats: :html
     )
   )
 end
