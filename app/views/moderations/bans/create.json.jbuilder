@@ -24,7 +24,7 @@ elsif @resource.review
         is_show: true,
         is_buttons: true
       },
-      formats: %i[html]
+      formats: :html
     )
   )
 elsif @resource.topic

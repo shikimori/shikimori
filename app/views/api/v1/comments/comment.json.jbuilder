@@ -3,7 +3,7 @@ json.content JsExports::Supervisor.instance.sweep(
   render(
     partial: 'comments/comment',
     object: @resource.decorate,
-    formats: %i[html]
+    formats: :html
   )
 )
 

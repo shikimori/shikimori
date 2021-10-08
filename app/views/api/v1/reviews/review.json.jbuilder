@@ -7,7 +7,7 @@ json.content JsExports::Supervisor.instance.sweep(
       is_show: true,
       is_buttons: true
     },
-    formats: %i[html]
+    formats: :html
   )
 )
 
