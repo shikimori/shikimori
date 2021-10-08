@@ -173,7 +173,7 @@ export default class ShikiEditable extends ShikiView {
 
     // замена комментария после успешного сохранения
     $form.on('ajax:success', (_e, response) => (
-      this._replace(response.html, response.JS_EXPORTS, true)
+      this._replace(response.content, response.JS_EXPORTS, true)
     ));
   }
 
@@ -237,7 +237,7 @@ export default class ShikiEditable extends ShikiView {
 
   @bind
   _processModerationRequest(_e, response) {
-    this._replace(response.html, response.JS_EXPORTS, true);
+    this._replace(response.content, response.JS_EXPORTS, true);
   }
 
   @bind

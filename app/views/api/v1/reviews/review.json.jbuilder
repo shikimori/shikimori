@@ -1,5 +1,5 @@
 json.id @resource.id
-json.html JsExports::Supervisor.instance.sweep(
+json.content JsExports::Supervisor.instance.sweep(
   render(
     partial: 'reviews/review',
     locals: {

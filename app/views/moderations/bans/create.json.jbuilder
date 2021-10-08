@@ -7,7 +7,7 @@ json.review_id @resource.review_id if @resource.review_id
 json.notice I18n.t "messages.user_#{@resource.warning? ? 'warned' : 'banned'}"
 
 if @resource.comment
-  json.html JsExports::Supervisor.instance.sweep(
+  json.content JsExports::Supervisor.instance.sweep(
     render(
       partial: 'comments/comment',
       layout: false,
@@ -16,7 +16,7 @@ if @resource.comment
     )
   )
 elsif @resource.review
-  json.html JsExports::Supervisor.instance.sweep(
+  json.content JsExports::Supervisor.instance.sweep(
     render(
       partial: 'reviews/review',
       locals: {
