@@ -65,7 +65,7 @@ private
 
   def fetch_entries
     @comment = Comment.find params[:comment_id] if params[:comment_id].present?
-    @review = Review.find params[:review_id] if params[:revie_id].present?
+    @review = Review.find params[:review_id] if params[:review_id].present?
     @topic = Topic.find params[:topic_id] if params[:topic_id].present?
   end
 
