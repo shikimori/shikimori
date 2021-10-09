@@ -115,12 +115,14 @@ describe AbuseRequest do
 
       subject 'review' do
         let(:review) { build :review }
+
         its(:target) { is_expected.to eq review }
         its(:target_type) { is_expected.to eq 'Review' }
       end
 
       subject 'topic' do
         let(:topic) { build :topic }
+
         its(:target) { is_expected.to eq topic }
         its(:target_type) { is_expected.to eq 'Topic' }
       end
