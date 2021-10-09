@@ -102,8 +102,8 @@ a.menu-icon.forum.desktop[
     ]
       a.submenu-triangle href=current_user.url
         img[
-          src=current_user.avatar_url(48)
-          srcset="#{current_user.avatar_url 80} 2x"
+          src=current_user.avatar_url(48, true)
+          srcset="#{current_user.avatar_url 80, true} 2x"
           title=current_user.nickname
           alt=current_user.nickname
         ]
