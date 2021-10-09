@@ -49,24 +49,16 @@ export default class Comment extends ShikiEditable {
     }
 
     this.$body = this.$('.body');
-    // this.$moderationForm = this.$('.moderation-ban-form');
-
     if (this.model && !this.model.is_viewed) {
       this._activateAppearMarker();
     }
 
     this._scheduleCheckHeight();
 
-    this.$node.one('mouseover', this._deactivateInaccessibleButtons);
-    this.$('.item-mobile').one(this._deactivateInaccessibleButtons);
-
     this.$('.item-offtopic, .item-summary').on('click', this._markOfftopicOrSummary);
     this.$('.item-spoiler, .item-abuse').on('ajax:before', this._markSpoilerOrAbuse);
 
     this.$(AJAX_BUTTONS.join(',')).on('ajax:success', this._processAjaxControlRequest);
-
-    // this.$moderationForm.on('click', '.cancel', this._hideModerationForm);
-    // this.$moderationForm.on('ajax:success', 'form', this._processModerationRequest);
 
     this.on('faye:comment:set_replies', this._fayeSetReplies);
 
@@ -123,19 +115,6 @@ export default class Comment extends ShikiEditable {
   _fayeSetReplies(_e, data) {
     this.$('.b-replies').remove();
     $(data.replies_html).appendTo(this.$body).process();
-  }
-
-  @bind
-  _deactivateInaccessibleButtons() {
-    if (!this.model.can_edit) { this.$('.item-edit').addClass('hidden'); }
-    if (!this.model.can_destroy) { this.$('.item-delete').addClass('hidden'); }
-
-    if (window.SHIKI_USER.isModerator) {
-      this.$('.moderation-controls .item-abuse').addClass('hidden');
-      this.$('.moderation-controls .item-spoiler').addClass('hidden');
-    } else {
-      this.$('.moderation-controls .item-ban').addClass('hidden');
-    }
   }
 
   @bind

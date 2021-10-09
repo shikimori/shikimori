@@ -86,9 +86,6 @@ export default class Topic extends ShikiEditable {
     if (this.model && !this.model.is_viewed) { this._activateAppearMarker(); }
     if (this.model) { this._actualizeVoting(); }
 
-    this.$inner.one('mouseover', this._deactivateInaccessibleButtons);
-    $('.item-mobile', this.$inner).one(this._deactivateInaccessibleButtons);
-
     if (this.$checkHeightNode.length && (this.isPreview || this.isClubPage)) {
       this._scheduleCheckHeight(true);
     }
@@ -433,18 +430,6 @@ export default class Topic extends ShikiEditable {
 
     if (this.model.votes_against != null) {
       this.$inner.find('.votes-against').html(`${this.model.votes_against}`);
-    }
-  }
-
-  // скрытие действий, на которые у пользователя нет прав
-  @bind
-  _deactivateInaccessibleButtons() {
-    if (!this.model.can_edit) {
-      this.$inner.find('.item-edit').addClass('hidden');
-    }
-
-    if (!this.model.can_destroy) {
-      this.$inner.find('.item-delete').addClass('hidden');
     }
   }
 

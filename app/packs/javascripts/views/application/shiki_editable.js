@@ -120,6 +120,9 @@ export default class ShikiEditable extends ShikiView {
     $('.item-ban', this.$inner).on('ajax:success', this._showModerationForm);
     $('.item-moderation', this.$inner).on('click', this._showModrationControls);
     $('.item-moderation-cancel', this.$inner).on('click', this._hideModerationControls);
+
+    this.$inner.one('mouseover', this._deactivateInaccessibleButtons);
+    $('.item-mobile', this.$inner).one('click', this._deactivateInaccessibleButtons);
   }
 
   _bindFaye() {
@@ -208,6 +211,19 @@ export default class ShikiEditable extends ShikiView {
   @bind
   _hideModerationControls() {
     this._closeAside();
+  }
+
+  @bind
+  _deactivateInaccessibleButtons() {
+    if (!this.model.can_edit) { $('.item-edit', this.$inner).addClass('hidden'); }
+    if (!this.model.can_destroy) { $('.item-delete', this.$inner).addClass('hidden'); }
+
+    if (window.SHIKI_USER.isModerator) {
+      $('.item-abuse', this.$inner).addClass('hidden');
+      $('.item-spoiler', this.$inner).addClass('hidden');
+    } else {
+      $('.item-ban', this.$inner).addClass('hidden');
+    }
   }
 
   @bind
