@@ -141,6 +141,8 @@ export default class ShikiEditable extends ShikiView {
       .on('ajax:before', this._shade)
       .on('ajax:complete', this._unshade)
       .on('ajax:success', this._processAbuseRequest);
+
+    $('.item-spoiler, .item-abuse', this.$inner).on('ajax:before', this._markSpoilerOrAbuse);
   }
 
   _bindFaye() {
@@ -352,6 +354,17 @@ export default class ShikiEditable extends ShikiView {
       false;
 
     this.$node.trigger('comment:reply', [reply, isOfftopic]);
+  }
+
+  @bind
+  _markSpoilerOrAbuse({ currentTarget }) {
+    const reason = prompt($(currentTarget).data('reason-prompt'));
+
+    // return value grabbed by triggerAndReturn in rauils_ujs
+    if (reason == null) { return false; }
+
+    $(currentTarget).data({ form: { reason } });
+    return true;
   }
 
   @bind

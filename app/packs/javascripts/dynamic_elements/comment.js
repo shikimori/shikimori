@@ -40,18 +40,21 @@ export default class Comment extends ShikiEditable {
     }
 
     this.$body = this.$('.body');
-    if (this.model && !this.model.is_viewed) {
-      this._activateAppearMarker();
-    }
-
+    if (this.model && !this.model.is_viewed) { this._activateAppearMarker(); }
     this._scheduleCheckHeight();
 
+    this.$('.hash').one('mouseover', this._replaceHashWithLink);
+  }
+
+  _bindAbuseRequestControls() {
+    super._bindAbuseRequestControls();
     this.$('.item-offtopic, .item-summary').on('click', this._markOfftopicOrSummary);
     this.$('.item-spoiler, .item-abuse').on('ajax:before', this._markSpoilerOrAbuse);
+  }
 
+  _bindFaye() {
+    super._bindFaye();
     this.on('faye:comment:set_replies', this._fayeSetReplies);
-
-    this.$('.hash').one('mouseover', this._replaceHashWithLink);
   }
 
   mark(kind, value) {
