@@ -166,6 +166,18 @@ describe Messages::GenerateBody do
       let(:kind) { MessageType::WARNED }
 
       context 'no comment' do
+        let(:linked) { build_stubbed :ban, comment: nil }
+        it do
+          is_expected.to eq(
+            <<~HTML.squish
+              Тебе вынесено предупреждение.
+              Причина: "moderator comment".
+            HTML
+          )
+        end
+      end
+
+      context 'missing comment' do
         let(:linked) { build_stubbed :ban, comment: nil, comment_id: 99999 }
         it do
           is_expected.to eq(
@@ -203,6 +215,17 @@ describe Messages::GenerateBody do
           is_expected.to eq(
             <<~HTML.squish
               Ты забанен на 3 часа. Причина: "moderator comment".
+            HTML
+          )
+        end
+      end
+
+      context 'missing comment' do
+        let(:linked) { build_stubbed :ban, comment: nil, comment_id: 99999 }
+        it do
+          is_expected.to eq(
+            <<~HTML.squish
+              Ты забанен на 3 часа за комментарий (удалён). Причина: "moderator comment".
             HTML
           )
         end
