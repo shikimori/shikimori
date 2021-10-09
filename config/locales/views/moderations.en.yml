@@ -66,6 +66,7 @@ en:
           topic: old topic
         club_comment: club comment
         profile_comment: profile comment
+        review_comment: review comment
         offtopic_comment: offtopic comment
         reject: reject
         remove: remove

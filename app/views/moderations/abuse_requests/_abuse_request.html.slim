@@ -50,18 +50,28 @@
   / 
   - if abuse_request.pending? || abuse_request.reason.present?
     - if abuse_request.pending?
-      - if abuse_request.comment.created_at < 1.week.ago
+      - if abuse_request.target.created_at < 1.week.ago
         span.outdated = t ".old.#{abuse_request.target_type.downcase}"
 
-      - if abuse_request.comment.commentable_type == Topic.name
-        - if abuse_request.comment.commentable.linked_type == Club.name
-          span.misc-comment = t '.club_comment'
+      - if abuse_request.comment
+        - if abuse_request.comment.commentable_type == Topic.name
+          - if abuse_request.comment.commentable.linked_type == Club.name
+            span.misc-comment = t '.club_comment'
 
-        - if abuse_request.comment.commentable.forum_id == Forum::OFFTOPIC_ID
-          span.misc-comment = t '.offtopic_comment'
+          - if abuse_request.comment.commentable.forum_id == Forum::OFFTOPIC_ID
+            span.misc-comment = t '.offtopic_comment'
 
-      - if abuse_request.comment.commentable_type == User.name
-        span.misc-comment = t '.profile_comment'
+        - elsif abuse_request.comment.commentable_type == User.name
+          span.misc-comment = t '.profile_comment'
+
+        - elsif abuse_request.comment.commentable_type == Review.name
+          span.misc-comment = t '.review_comment'
+
+      - elsif abuse_request.review
+        span.misc-comment review
+
+      - elsif abuse_request.topic
+        span.misc-comment topic
 
     - if can? :manage, Ban
       .spoiler.collapse: span.action.half-hidden style="display: none;" = t '.show'
@@ -71,14 +81,14 @@
           - if abuse_request.pending?
             - if abuse_request.punishable?
               a.warn[
-                data-action=new_moderations_ban_url(ban: { user_id: abuse_request.comment.user_id, comment_id: abuse_request.comment_id, abuse_request_id: abuse_request.id })
+                data-action=new_moderations_ban_url(ban: { user_id: abuse_request.target.user_id, comment_id: abuse_request.comment_id, review_id: abuse_request.review_id, topic_id: abuse_request.topic_id, abuse_request_id: abuse_request.id })
                 data-method='get'
                 data-type='html'
                 data-remote='true'
               ] = t '.warn'
               - unless abuse_request.spoiler?
                 a.ban[
-                  href=new_moderations_ban_url(ban: { user_id: abuse_request.target.user_id, comment_id: abuse_request.comment_id, abuse_request_id: abuse_request.id })
+                  href=new_moderations_ban_url(ban: { user_id: abuse_request.target.user_id, comment_id: abuse_request.comment_id, review_id: abuse_request.review_id, topic_id: abuse_request.topic_id, abuse_request_id: abuse_request.id })
                   data-method='get'
                   data-type='html'
                   data-remote='true'

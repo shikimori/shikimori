@@ -6,6 +6,7 @@ import BanForm from '@/views/application/ban_form';
 
 export default class LogEntry extends ShikiView {
   initialize() {
+    this.$inner = this.$node;
     this.$moderation = this.$('.moderation');
 
     this.$('.reject[data-reason-prompt]', this.$moderation)
