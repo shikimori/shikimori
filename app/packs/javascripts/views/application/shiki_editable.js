@@ -19,7 +19,16 @@ const BUTTONS = [
   '.item-spoiler',
   '.item-abuse'
 ];
+const ABUSE_REQUEST_BUTTONS = [
+  '.item-summary',
+  '.item-offtopic',
+  '.item-spoiler',
+  '.item-abuse',
+  '.b-offtopic_marker',
+  '.b-summary_marker'
+];
 const ITEM_QUOTE_SELECTOR = '.item-quote, .item-quote-mobile';
+const I18N_KEY = 'frontend.dynamic_elements.shiki_editable';
 
 export default class ShikiEditable extends ShikiView {
   _reloadUrl() {
@@ -36,6 +45,7 @@ export default class ShikiEditable extends ShikiView {
     this._bindDeleteControls();
     this._bindEditControls();
     this._bindModerationControls();
+    this._bindAbuseRequestControls();
     this._bindFaye();
     this._bindAutoExpand();
 
@@ -123,6 +133,10 @@ export default class ShikiEditable extends ShikiView {
 
     this.$inner.one('mouseover', this._deactivateInaccessibleButtons);
     $('.item-mobile', this.$inner).one('click', this._deactivateInaccessibleButtons);
+  }
+
+  _bindAbuseRequestControls() {
+    $(ABUSE_REQUEST_BUTTONS.join(','), this.$inner).on('ajax:success', this._processAbuseRequest);
   }
 
   _bindFaye() {
@@ -224,6 +238,20 @@ export default class ShikiEditable extends ShikiView {
     } else {
       $('.item-ban', this.$inner).addClass('hidden');
     }
+  }
+
+  @bind
+  _processAbuseRequest(_e, data) {
+    if ('affected_ids' in data && data.affected_ids.length) {
+      data.affected_ids.forEach(id => (
+        $(`.b-comment#${id}`).view()?.mark(data.kind, data.value)
+      ));
+      flash.notice(markerMessage(data));
+    } else {
+      flash.notice(I18n.t(`${I18N_KEY}.your_request_will_be_considered`));
+    }
+
+    this._hideModerationControls();
   }
 
   @bind
@@ -369,4 +397,26 @@ export default class ShikiEditable extends ShikiView {
 
     return false; // очень важно! иначе эвенты зациклятся из-за такого же обработчика в родителе
   }
+}
+
+function markerMessage(data) {
+  let messageKey = I18n.t('not_marked_as_summary');
+
+  if (data.value) {
+    if (data.kind === 'offtopic') {
+      if (data.affected_ids.length > 1) {
+        messageKey = 'multiple_marked_as_offtopic';
+      } else {
+        messageKey = 'marked_as_offtopic';
+      }
+    } else {
+      messageKey = 'marked_as_summary';
+    }
+  } else if (data.kind === 'offtopic') {
+    messageKey = 'not_marked_as_offtopic';
+  }
+
+  return flash.notice(
+     I18n.t(`${I18N_KEY}.${messageKey}`)
+  );
 }

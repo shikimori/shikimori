@@ -7,15 +7,6 @@ import { loadImagesFinally, imagePromiseFinally } from '@/utils/load_image';
 
 const I18N_KEY = 'frontend.dynamic_elements.comment';
 
-const AJAX_BUTTONS = [
-  '.item-summary',
-  '.item-offtopic',
-  '.item-spoiler',
-  '.item-abuse',
-  '.b-offtopic_marker',
-  '.b-summary_marker'
-];
-
 export default class Comment extends ShikiEditable {
   _type() { return 'comment'; }
   _typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); }
@@ -58,8 +49,6 @@ export default class Comment extends ShikiEditable {
     this.$('.item-offtopic, .item-summary').on('click', this._markOfftopicOrSummary);
     this.$('.item-spoiler, .item-abuse').on('ajax:before', this._markSpoilerOrAbuse);
 
-    this.$(AJAX_BUTTONS.join(',')).on('ajax:success', this._processAjaxControlRequest);
-
     this.on('faye:comment:set_replies', this._fayeSetReplies);
 
     this.$('.hash').one('mouseover', this._replaceHashWithLink);
@@ -98,20 +87,6 @@ export default class Comment extends ShikiEditable {
   }
 
   @bind
-  _processAjaxControlRequest(_e, data) {
-    if ('affected_ids' in data && data.affected_ids.length) {
-      data.affected_ids.forEach(id => (
-        $(`.b-comment#${id}`).view()?.mark(data.kind, data.value)
-      ));
-      flash.notice(markerMessage(data));
-    } else {
-      flash.notice(I18n.t(`${I18N_KEY}.your_request_will_be_considered`));
-    }
-
-    this._hideModerationControls();
-  }
-
-  @bind
   _fayeSetReplies(_e, data) {
     this.$('.b-replies').remove();
     $(data.replies_html).appendTo(this.$body).process();
@@ -125,20 +100,4 @@ export default class Comment extends ShikiEditable {
       .attr('href', $node.data('url'))
       .changeTag('a');
   }
-}
-
-function markerMessage(data) {
-  if (data.value) {
-    if (data.kind === 'offtopic') {
-      if (data.affected_ids.length > 1) {
-        return flash.notice(I18n.t(`${I18N_KEY}.comments_marked_as_offtopic`));
-      }
-      return flash.notice(I18n.t(`${I18N_KEY}.comment_marked_as_offtopic`));
-    }
-    return flash.notice(I18n.t(`${I18N_KEY}.comment_marked_as_summary`));
-  }
-  if (data.kind === 'offtopic') {
-    return flash.notice(I18n.t(`${I18N_KEY}.comment_not_marked_as_offtopic`));
-  }
-  return flash.notice(I18n.t(`${I18N_KEY}.comment_not_marked_as_summary`));
 }

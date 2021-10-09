@@ -4,6 +4,15 @@ ru:
       check_height:
         expand: развернуть
 
+      shiki_editable:
+        your_request_will_be_considered: >-
+          Твой запрос будет рассмотрен. Домо аригато.
+        marked_as_offtopic: Комментарий помечен оффтопиком
+        multiple_marked_as_offtopic: Комментарии помечены оффтопиком
+        marked_as_summary: Комментарий помечен отзывом
+        not_marked_as_offtopic: Метка оффтопика снята
+        not_marked_as_summary: Метка отзыва снята
+
       topic:
         load_comments: Загрузить ещё %{comment_count} %{of_total_comments} %{comment_word}
         type_label: Топик
@@ -27,13 +36,6 @@ ru:
 
       comment:
         type_label: Комментарий
-        your_request_will_be_considered: >-
-          Твой запрос будет рассмотрен. Домо аригато.
-        comments_marked_as_offtopic: Комментарии помечены оффтопиком
-        comment_marked_as_offtopic: Комментарий помечен оффтопиком
-        comment_marked_as_summary: Комментарий помечен отзывом
-        comment_not_marked_as_offtopic: Метка оффтопика снята
-        comment_not_marked_as_summary: Метка отзыва снята
 
       dialog:
         type_label: Диалог
