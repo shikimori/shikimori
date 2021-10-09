@@ -45,10 +45,10 @@ describe Ban do
       it { expect(ban).to receive :ban_user }
     end
 
-    describe '#mention_in_comment' do
+    describe '#mention_in_target' do
       let(:ban) { build :ban, params }
       after { ban.save }
-      it { expect(ban).to receive :mention_in_comment }
+      it { expect(ban).to receive :mention_in_target }
     end
 
     describe '#notify_user' do
@@ -120,7 +120,7 @@ describe Ban do
       it { expect(user.read_only_at).to eq Time.zone.now }
     end
 
-    describe '#mention_in_comment' do
+    describe '#mention_in_target' do
       subject { comment.reload.body }
       let(:comment) { create :comment, user: user, body: "test\n" }
 
@@ -203,6 +203,33 @@ describe Ban do
 
       it { is_expected.to be_accepted }
       its(:approver_id) { is_expected.to eq ban.moderator_id }
+    end
+
+    describe '#target' do
+      subject(:ban) do
+        build :ban,
+          comment: comment,
+          review: review,
+          topic: topic
+      end
+      let(:comment) { nil }
+      let(:review) { nil }
+      let(:topic) { nil }
+
+      subject 'comment' do
+        let(:comment) { build :comment }
+        its(:target) { is_expected.to eq comment }
+      end
+
+      subject 'review' do
+        let(:review) { build :review }
+        its(:target) { is_expected.to eq review }
+      end
+
+      subject 'topic' do
+        let(:topic) { build :topic }
+        its(:target) { is_expected.to eq topic }
+      end
     end
   end
 

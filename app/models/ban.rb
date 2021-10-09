@@ -19,7 +19,7 @@ class Ban < ApplicationRecord
 
   after_create :ban_user
   after_create :notify_user
-  after_create :mention_in_comment
+  after_create :mention_in_target
   after_create :accept_abuse_request
 
   after_destroy :unban_user
@@ -54,7 +54,7 @@ class Ban < ApplicationRecord
   end
 
   def set_user
-    self.user_id = comment.user_id unless user_id || !comment
+    self.user_id = target.user_id unless user_id || !target
   end
 
   def message
@@ -88,16 +88,20 @@ class Ban < ApplicationRecord
     )
   end
 
-  def mention_in_comment
-    return if comment.nil?
+  def mention_in_target
+    return if target.nil? || target.body.nil?
 
-    comment.body = (comment.body.strip + "\n\n[ban=#{id}]")
+    target.body = (target.body.strip + "\n\n[ban=#{id}]")
       .gsub(/(\[ban=\d+\])\s+(\[ban=\d+\])/, '\1\2')
 
-    comment.save validate: false
+    target.save validate: false
   end
 
   def accept_abuse_request
     abuse_request.take! moderator if abuse_request_id.present?
+  end
+
+  def target
+    comment || review || topic
   end
 end
