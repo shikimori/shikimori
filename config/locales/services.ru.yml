@@ -71,20 +71,20 @@ ru:
     warned:
       target: >-
         Тебе вынесено предупреждение за
-        %{target_type_name} %{linked_name}
+        %{target_type_name} %{linked_name}.
       missing: >-
         Тебе вынесено предупреждение за
-        %{target_type_name} (удалён).
+        %{target_type_name} (<em>удалён</em>).
         Причина: "%{reason}".
       other: >-
         Тебе вынесено предупреждение. Причина: "%{reason}".
     banned:
       target: >-
         Ты @{f:забанена|m:забанен} на %{duration} за
-        %{target_type_name} %{linked_name}
+        %{target_type_name} %{linked_name}.
       missing: >-
         Ты @{f:забанена|m:забанен} на %{duration} за
-        %{target_type_name} (удалён).
+        %{target_type_name} (<em>удалён</em>).
         Причина: "%{reason}".
       other: >-
         Ты @{f:забанена|m:забанен} на %{duration}. Причина: "%{reason}".
@@ -101,7 +101,12 @@ ru:
       [quote=%{moderator}]%{reason}[/quote]
 
   messages/mention_source:
-    texts:
+    simple_mention:
+      nil: <em>удалено</em>
+      topic: <a href="%{url}"%{bubble}>%{name}</a>
+      profile: <a href="%{url}"%{bubble}>%{name}</a>
+      review: <a href="%{url}"%{bubble}>%{name}</a>
+    text_mention:
       nil: в <em>удалено</em>.
       topic: в топике <a href="%{url}"%{bubble}>%{name}</a>.
       profile: в профиле пользователя <a href="%{url}"%{bubble}>%{name}</a>.

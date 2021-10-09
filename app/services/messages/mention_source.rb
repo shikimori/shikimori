@@ -1,7 +1,7 @@
 class Messages::MentionSource
   include Translation
 
-  method_object :linked, %i[comment_id]
+  method_object :linked, %i[comment_id is_simple]
   delegate :mention_url, to: :class
 
   def self.mention_url linked
@@ -22,7 +22,7 @@ class Messages::MentionSource
 
   def call
     i18n_t(
-      "texts.#{i18n_key}",
+      i18n_key,
       name: ERB::Util.h(linked_name),
       url: "#{mention_url @linked}#{comment_hash}",
       bubble: link_bubble
@@ -32,6 +32,14 @@ class Messages::MentionSource
 private
 
   def i18n_key
+    "#{i18n_primary_key}_mention.#{i18n_secondary_key}"
+  end
+
+  def i18n_primary_key
+    is_simple ? :simple : :text
+  end
+
+  def i18n_secondary_key
     case @linked
       when NilClass then :nil
       when Topic then :topic

@@ -71,20 +71,20 @@ en:
     warned:
       target: >-
         You have been warned for
-        posting a %{target_type_name} %{linked_name}
+        posting a %{target_type_name} %{linked_name}.
       missing: >-
         You have been warned for
-        posting a %{target_type_name} (now removed).
+        posting a %{target_type_name} (<em>removed</em>).
         Reason: "%{reason}".
       other: >-
         You have been warned. Reason: "%{reason}".
     banned:
       target: >-
         You have been banned for %{duration} for
-        posting a %{target_type_name} %{linked_name}
+        posting a %{target_type_name} %{linked_name}.
       missing: >-
         You have been banned for %{duration} for
-        posting a %{target_type_name} (now removed).
+        posting a %{target_type_name} (<em>removed</em>).
         Reason: "%{reason}".
       other: >-
         You have been banned for %{duration}. Reason: "%{reason}".
@@ -101,7 +101,12 @@ en:
       [quote=%{moderator}]%{reason}[/quote]
 
   messages/mention_source:
-    texts:
+    simple_mention:
+      nil: <em>deleted</em>
+      topic: <a href="%{url}"%{bubble}>%{name}</a>
+      profile: <a href="%{url}"%{bubble}>%{name}</a>
+      review: <a href="%{url}"%{bubble}>%{name}</a>
+    text_mention:
       nil: in <em>deleted</em>.
       topic: in topic <a href="%{url}"%{bubble}>%{name}</a>.
       profile: in <a href="%{url}"%{bubble}>%{name}</a>'s profile.

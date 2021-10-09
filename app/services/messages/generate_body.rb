@@ -82,7 +82,7 @@ private
     i18n_t "#{is_warn ? :warned : :banned}.#{key}",
       gender: gender,
       duration: linked&.duration&.humanize || '???',
-      linked_name: (linked_name if linked&.target),
+      linked_name: (ban_linked_name if linked&.target),
       target_type_name: (
         linked.target_type.constantize.model_name.human.downcase if linked&.target_type
       ),
@@ -142,6 +142,14 @@ private
     BbCodes::Text.call linked.body
   end
 
+  def ban_linked_name
+    if linked.target.is_a?(Review) || linked.target.is_a?(Topic)
+      Messages::MentionSource.call(linked.target, is_simple: true)
+    else
+      linked_name
+    end
+  end
+
   def linked_name
     case linked
       when Comment
@@ -151,14 +159,10 @@ private
         )
 
       when Ban
-        if linked.target.is_a?(Review) || linked.target.is_a?(Topic)
-          Messages::MentionSource.call linked.target
-        else
-          Messages::MentionSource.call(
-            linked.comment.commentable,
-            comment_id: linked.comment.id
-          )
-        end
+        Messages::MentionSource.call(
+          linked.comment.commentable,
+          comment_id: linked.comment.id
+        ).gsub(/\.\Z/, '')
 
       else
         Messages::MentionSource.call linked
