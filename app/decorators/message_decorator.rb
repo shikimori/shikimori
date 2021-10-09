@@ -86,9 +86,9 @@ class MessageDecorator < BaseDecorator
 
   def generate_body
     Messages::GenerateBody.call object
-  rescue NoMethodError
-    @is_broken = true
-    nil
+  # rescue NoMethodError
+  #   @is_broken = true
+  #   nil
   end
 
   def reply_url

@@ -69,14 +69,23 @@ ru:
     released: Завершён показ аниме %{linked_name}
     subscription_commented: Новые сообщения %{linked_name}
     warned:
-      comment: >-
-        Тебе вынесено предупреждение за комментарий %{linked_name}
-      removed_comment: >-
-        Тебе вынесено предупреждение за удалённый комментарий.
+      target: >-
+        Тебе вынесено предупреждение за
+        %{target_type_name} %{linked_name}
+      missing: >-
+        Тебе вынесено предупреждение за
+        %{target_type_name} (удалён).
         Причина: "%{reason}".
+      other: >-
+        Тебе вынесено предупреждение. Причина: "%{reason}".
     banned:
-      comment: >-
-        Ты @{f:забанена|m:забанен} на %{duration} за комментарий %{linked_name}
+      target: >-
+        Ты @{f:забанена|m:забанен} на %{duration} за
+        %{target_type_name} %{linked_name}
+      missing: >-
+        Ты @{f:забанена|m:забанен} на %{duration} за
+        %{target_type_name} (удалён).
+        Причина: "%{reason}".
       other: >-
         Ты @{f:забанена|m:забанен} на %{duration}. Причина: "%{reason}".
     club_request: Приглашение на вступление в клуб [club]%{club_id}[/club].

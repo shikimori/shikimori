@@ -69,15 +69,23 @@ en:
     released: '%{linked_name} anime released'
     subscription_commented: New messages %{linked_name}
     warned:
-      comment: >-
-        You have been warned for posting a comment %{linked_name}
-      removed_comment: >-
-        You have been warned for posting a comment (now removed).
+      target: >-
+        You have been warned for
+        posting a %{target_type_name} %{linked_name}
+      missing: >-
+        You have been warned for
+        posting a %{target_type_name} (now removed).
         Reason: "%{reason}".
+      other: >-
+        You have been warned. Reason: "%{reason}".
     banned:
-      comment: >-
+      target: >-
         You have been banned for %{duration} for
-        posting a comment %{linked_name}
+        posting a %{target_type_name} %{linked_name}
+      missing: >-
+        You have been banned for %{duration} for
+        posting a %{target_type_name} (now removed).
+        Reason: "%{reason}".
       other: >-
         You have been banned for %{duration}. Reason: "%{reason}".
     club_request: Invitation to join the club [club]%{club_id}[/club].
