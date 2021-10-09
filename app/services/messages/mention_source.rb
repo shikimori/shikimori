@@ -64,11 +64,14 @@ private
   end
 
   def link_bubble
-    if @comment_id
-      url = UrlGenerator.instance.comment_url @comment_id
-    elsif linked.is_a?(Topic) || linked.is_a?(Review)
-      url = "#{mention_url @linked}/tooltip"
-    end
+    url =
+      if @comment_id
+        UrlGenerator.instance.tooltip_comment_url @comment_id
+      elsif linked.is_a? Topic
+        "#{mention_url @linked}/tooltip"
+      elsif linked.is_a? Review
+        UrlGenerator.instance.tooltip_review_url @linked
+      end
 
     " class=\"bubbled b-link\" data-href=\"#{url}\"" if url
   end
