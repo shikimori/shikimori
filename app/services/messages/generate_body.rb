@@ -154,17 +154,17 @@ private
       when Comment
         Messages::MentionSource.call(
           @message.linked.commentable,
-          @message.linked.id
+          comment_id: @message.linked.id
         )
 
       when Ban
         Messages::MentionSource.call(
           @message.linked.comment.commentable,
-          @message.linked.comment.id
+          comment_id: @message.linked.comment.id
         )
 
       else
-        Messages::MentionSource.call @message.linked, nil
+        Messages::MentionSource.call @message.linked
     end
   end
 end

@@ -61,7 +61,10 @@ ru:
         actions: действия
         ban: забанить
         for_reason: по причине
-        old_comment: старый комментарий
+        old:
+          comment: старый комментарий
+          review: старый отзыв
+          topic: старый топик
         club_comment: комментарий клуба
         profile_comment: комментарий профиля
         offtopic_comment: комментарий оффтопика

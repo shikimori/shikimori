@@ -68,4 +68,18 @@ class AbuseRequest < ApplicationRecord
   def punishable?
     abuse? || spoiler?
   end
+
+  def target
+    comment || review || topic
+  end
+
+  def target_type
+    if comment_id
+      Comment.name
+    elsif review_id
+      Review.name
+    elsif topic_id
+      Topic.name
+    end
+  end
 end

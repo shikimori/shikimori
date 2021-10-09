@@ -1,5 +1,5 @@
 describe Messages::MentionSource do
-  let(:service) { Messages::MentionSource.new linked, comment_id }
+  let(:service) { Messages::MentionSource.new linked, comment_id: comment_id }
   let(:comment_id) { nil }
 
   describe '#call' do

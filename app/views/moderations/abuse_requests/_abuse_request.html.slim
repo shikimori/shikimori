@@ -29,7 +29,7 @@
     span = t '.from'
 
   span
-    = render 'users/user_16', user: abuse_request.comment.user
+    = render 'users/user_16', user: abuse_request.target.user
 
   - if abuse_request.reason.present?
     span = t '.for_reason'
@@ -37,18 +37,21 @@
       = h(abuse_request.reason).gsub("\n", '<br>').html_safe
 
   span
-    == Messages::MentionSource.call abuse_request.comment.commentable, abuse_request.comment.id
-  span: a.b-link.comment-hash href=comment_url(abuse_request.comment) #
-
-  - unless abuse_request.pending?
-    span.resolution class=abuse_request.state
-      = abuse_request.human_state_name
-    = render 'users/user_16', user: abuse_request.approver
-
+    - if abuse_request.comment
+      == Messages::MentionSource.call abuse_request.comment.commentable, comment_id: abuse_request.comment.id
+    - else
+      == Messages::MentionSource.call abuse_request.target
+  / span: a.b-link.comment-hash href=comment_url(abuse_request.comment) #
+  / 
+  / - unless abuse_request.pending?
+  /   span.resolution class=abuse_request.state
+  /     = abuse_request.human_state_name
+  /   = render 'users/user_16', user: abuse_request.approver
+  / 
   - if abuse_request.pending? || abuse_request.reason.present?
     - if abuse_request.pending?
       - if abuse_request.comment.created_at < 1.week.ago
-        span.outdated = t '.old_comment'
+        span.outdated = t ".old.#{abuse_request.target_type.downcase}"
 
       - if abuse_request.comment.commentable_type == Topic.name
         - if abuse_request.comment.commentable.linked_type == Club.name
@@ -59,7 +62,6 @@
 
       - if abuse_request.comment.commentable_type == User.name
         span.misc-comment = t '.profile_comment'
-
 
     - if can? :manage, Ban
       .spoiler.collapse: span.action.half-hidden style="display: none;" = t '.show'
@@ -76,7 +78,7 @@
               ] = t '.warn'
               - unless abuse_request.spoiler?
                 a.ban[
-                  href=new_moderations_ban_url(ban: { user_id: abuse_request.comment.user_id, comment_id: abuse_request.comment_id, abuse_request_id: abuse_request.id })
+                  href=new_moderations_ban_url(ban: { user_id: abuse_request.target.user_id, comment_id: abuse_request.comment_id, abuse_request_id: abuse_request.id })
                   data-method='get'
                   data-type='html'
                   data-remote='true'

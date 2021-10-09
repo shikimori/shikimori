@@ -1,7 +1,7 @@
 class Messages::MentionSource
   include Translation
 
-  method_object :linked, :comment_id
+  method_object :linked, %i[comment_id]
 
   def call
     i18n_t(

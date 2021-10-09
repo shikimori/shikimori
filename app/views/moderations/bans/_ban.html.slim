@@ -19,7 +19,7 @@
   span.reason = BbCodes::Text.call(ban.reason)
 
   - if ban.comment_id && ban.comment
-    span == Messages::MentionSource.call ban.comment.commentable, ban.comment.id
+    span == Messages::MentionSource.call ban.comment.commentable, comment_id: ban.comment.id
     span: a.b-link.comment-hash href=comment_url(ban.comment) #
 
   - elsif ban.comment_id
