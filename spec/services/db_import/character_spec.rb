@@ -50,14 +50,18 @@ describe DbImport::Character do
     end
   end
 
-  describe '#assign_seyu' do
+  describe '#assign_seyu', :focus do
     let(:seyu) { [{ id: 61, type: :person, roles: %w[Japanese] }] }
 
+    let!(:anime_role) { create :person_role, anime_id: 9999, character_id: id }
+    let!(:person_role) { create :person_role, person_id: 9999, character_id: id }
+    let(:person_roles) { entry.person_roles.order :id }
+
     describe 'import' do
-      let(:person_roles) { entry.person_roles.order :id }
       it do
-        expect(person_roles).to have(1).item
-        expect(person_roles.first).to have_attributes(
+        expect(person_roles).to have(2).items
+        expect(person_roles.first).to eq anime_role
+        expect(person_roles.last).to have_attributes(
           anime_id: nil,
           manga_id: nil,
           character_id: entry.id,
@@ -76,17 +80,14 @@ describe DbImport::Character do
       end
     end
 
-    describe 'does not clear' do
-      let!(:person_role) do
-        create :person_role,
-          character_id: entry.id,
-          person_id: 51,
-          roles: %w[Test]
-      end
+    describe 'clear people roles' do
       let(:seyu) { [] }
       before { subject }
 
-      it { expect(person_role.reload).to be_persisted }
+      it do
+        expect(person_roles).to eq [anime_role]
+        expect { person_role.reload }.to raise_error ActiveRecord::RecordNotFound
+      end
     end
   end
 end

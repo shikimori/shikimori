@@ -5,6 +5,14 @@ class DbImport::Character < DbImport::ImportBase
 private
 
   def assign_seyu seyu
-    DbImport::PersonRoles.call entry, [], seyu, is_clenanup_empty: true
+    cleanup_people_roles
+    DbImport::PersonRoles.call entry, [], seyu
+  end
+
+  def cleanup_people_roles
+    PersonRole
+      .where(character_id: entry.id)
+      .where.not(person_id: nil)
+      .delete_all
   end
 end
