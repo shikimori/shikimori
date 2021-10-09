@@ -137,7 +137,10 @@ export default class ShikiEditable extends ShikiView {
   }
 
   _bindAbuseRequestControls() {
-    $(ABUSE_REQUEST_BUTTONS.join(','), this.$inner).on('ajax:success', this._processAbuseRequest);
+    $(ABUSE_REQUEST_BUTTONS.join(','), this.$inner)
+      .on('ajax:before', this._shade)
+      .on('ajax:complete', this._unshade)
+      .on('ajax:success', this._processAbuseRequest);
   }
 
   _bindFaye() {
