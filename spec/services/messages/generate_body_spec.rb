@@ -4,8 +4,8 @@ describe Messages::GenerateBody do
 
   let(:user_from) { build_stubbed :user, nickname: 'from' }
   let(:user_to) { build_stubbed :user, nickname: 'to' }
-  let(:linked) {}
-  let(:body) {}
+  let(:linked) { nil }
+  let(:body) { nil }
   let(:read) { false }
   let(:message) do
     build :message,
@@ -113,13 +113,16 @@ describe Messages::GenerateBody do
     context 'quoted_by_user' do
       let(:kind) { MessageType::QUOTED_BY_USER }
       let(:linked) { build_stubbed :topic, id: 1, title: 'test' }
+
       it do
         is_expected.to eq(
           <<~HTML.squish
             Написал <a class="b-link"
             href="#{Shikimori::PROTOCOL}://test.host/comments/1-test">что-то</a>
             тебе в топике
-            <a href="#{UrlGenerator.instance.topic_url linked}">test</a>.
+            <a href="#{UrlGenerator.instance.topic_url linked}"
+            class="bubbled b-link"
+            data-href="#{UrlGenerator.instance.topic_url linked}/tooltip">test</a>.
           HTML
         )
       end
@@ -137,7 +140,7 @@ describe Messages::GenerateBody do
               тебе в топике
               <a href="#{UrlGenerator.instance.topic_url topic}#comment-1"
               class="bubbled b-link"
-              data-href="#{UrlGenerator.instance.comment_url linked}">Обсуждение аниме [anime]1[/anime]</a>.
+              data-href="#{UrlGenerator.instance.comment_url linked}/tooltip">Обсуждение аниме [anime]1[/anime]</a>.
             HTML
           )
         end
@@ -151,7 +154,9 @@ describe Messages::GenerateBody do
         is_expected.to eq(
           <<~HTML.squish
             Новые сообщения в топике
-            <a href="#{UrlGenerator.instance.topic_url linked}">test</a>.
+            <a href="#{UrlGenerator.instance.topic_url linked}"
+            class="bubbled b-link"
+            data-href="#{UrlGenerator.instance.topic_url linked}/tooltip">test</a>.
           HTML
         )
       end
@@ -161,11 +166,11 @@ describe Messages::GenerateBody do
       let(:kind) { MessageType::WARNED }
 
       context 'no comment' do
-        let(:linked) { build_stubbed :ban }
+        let(:linked) { build_stubbed :ban, comment: nil, comment_id: 99999 }
         it do
           is_expected.to eq(
             <<~HTML.squish
-              Тебе вынесено предупреждение за удалённый комментарий.
+              Тебе вынесено предупреждение за комментарий (удалён).
               Причина: "moderator comment".
             HTML
           )
@@ -182,7 +187,7 @@ describe Messages::GenerateBody do
               Тебе вынесено предупреждение за комментарий в топике
               <a href="#{UrlGenerator.instance.topic_url offtopic_topic}#comment-#{comment.id}"
               class="bubbled b-link"
-              data-href="#{UrlGenerator.instance.comment_url comment}">offtopic</a>.
+              data-href="#{UrlGenerator.instance.comment_url comment}/tooltip">offtopic</a>.
             HTML
           )
         end
@@ -193,7 +198,7 @@ describe Messages::GenerateBody do
       let(:kind) { MessageType::BANNED }
 
       context 'no comment' do
-        let(:linked) { build_stubbed :ban }
+        let(:linked) { build_stubbed :ban, comment: nil }
         it do
           is_expected.to eq(
             <<~HTML.squish
@@ -213,7 +218,7 @@ describe Messages::GenerateBody do
               Ты забанен на 3 часа за комментарий в топике
               <a href="#{UrlGenerator.instance.topic_url offtopic_topic}#comment-#{comment.id}"
               class="bubbled b-link"
-              data-href="#{UrlGenerator.instance.comment_url comment}">offtopic</a>.
+              data-href="#{UrlGenerator.instance.comment_url comment}/tooltip">offtopic</a>.
             HTML
           )
         end

@@ -2,7 +2,7 @@ class Messages::GenerateBody < ServiceObjectBase
   include Translation
 
   pattr_initialize :message
-  delegate :linked, to: :message
+  delegate :linked, :linked_id, to: :message
 
   def call
     send(@message.kind.underscore).html_safe
