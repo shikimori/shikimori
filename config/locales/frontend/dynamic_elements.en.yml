@@ -7,11 +7,6 @@ en:
       shiki_editable:
         your_request_will_be_considered: >-
           Your request will be considered. Domo arigato.
-        marked_as_offtopic: Comment has been marked as offtopic
-        multiple_marked_as_offtopic: Comments have been marked as offtopic
-        marked_as_summary: Comment has been marked as summary
-        not_marked_as_offtopic: Removed offtopic marking
-        not_marked_as_summary: Removed summary marking
 
       topic:
         load_comments: Load next %{comment_count} %{of_total_comments} %{comment_word}
@@ -36,6 +31,12 @@ en:
 
       comment:
         type_label: Comment
+        marked_as_offtopic: Comment has been marked as offtopic
+        multiple_marked_as_offtopic: Comments have been marked as offtopic
+        marked_as_summary: Comment has been marked as summary
+        not_marked_as_offtopic: Removed offtopic marking
+        not_marked_as_summary: Removed summary marking
+
       dialog:
         type_label: Dialog
 

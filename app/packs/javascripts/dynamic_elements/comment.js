@@ -64,6 +64,19 @@ export default class Comment extends ShikiEditable {
   }
 
   @bind
+  _processAbuseRequest(e, data) {
+    if ('affected_ids' in data && data.affected_ids.length) {
+      data.affected_ids.forEach(id => (
+        $(`.b-comment#${id}`).view()?.mark(data.kind, data.value)
+      ));
+      flash.notice(markerMessage(data));
+      super._processAbuseRequest(e, data, false)
+    } else {
+      super._processAbuseRequest(e, data)
+    }
+  }
+
+  @bind
   _markOfftopicOrSummary({ currentTarget }) {
     const confirmType = currentTarget.classList.contains('selected') ?
       'remove' :
@@ -100,4 +113,26 @@ export default class Comment extends ShikiEditable {
       .attr('href', $node.data('url'))
       .changeTag('a');
   }
+}
+
+function markerMessage(data) {
+  let messageKey = I18n.t('not_marked_as_summary');
+
+  if (data.value) {
+    if (data.kind === 'offtopic') {
+      if (data.affected_ids.length > 1) {
+        messageKey = 'multiple_marked_as_offtopic';
+      } else {
+        messageKey = 'marked_as_offtopic';
+      }
+    } else {
+      messageKey = 'marked_as_summary';
+    }
+  } else if (data.kind === 'offtopic') {
+    messageKey = 'not_marked_as_offtopic';
+  }
+
+  return flash.notice(
+    I18n.t(`${I18N_KEY}.${messageKey}`)
+  );
 }

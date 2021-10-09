@@ -1,5 +1,6 @@
 import delay from 'delay';
 import { bind, debounce, memoize, throttle } from 'shiki-decorators';
+import { flash } from 'shiki-utils';
 
 import { getSelectionText, getSelectionHtml } from '@/utils/get_selection';
 import axios from '@/utils/axios';
@@ -241,16 +242,10 @@ export default class ShikiEditable extends ShikiView {
   }
 
   @bind
-  _processAbuseRequest(_e, data) {
-    if ('affected_ids' in data && data.affected_ids.length) {
-      data.affected_ids.forEach(id => (
-        $(`.b-comment#${id}`).view()?.mark(data.kind, data.value)
-      ));
-      flash.notice(markerMessage(data));
-    } else {
+  _processAbuseRequest(_e, _data, isShowFlash = true) {
+    if (isShowFlash) {
       flash.notice(I18n.t(`${I18N_KEY}.your_request_will_be_considered`));
     }
-
     this._hideModerationControls();
   }
 
@@ -397,26 +392,4 @@ export default class ShikiEditable extends ShikiView {
 
     return false; // очень важно! иначе эвенты зациклятся из-за такого же обработчика в родителе
   }
-}
-
-function markerMessage(data) {
-  let messageKey = I18n.t('not_marked_as_summary');
-
-  if (data.value) {
-    if (data.kind === 'offtopic') {
-      if (data.affected_ids.length > 1) {
-        messageKey = 'multiple_marked_as_offtopic';
-      } else {
-        messageKey = 'marked_as_offtopic';
-      }
-    } else {
-      messageKey = 'marked_as_summary';
-    }
-  } else if (data.kind === 'offtopic') {
-    messageKey = 'not_marked_as_offtopic';
-  }
-
-  return flash.notice(
-     I18n.t(`${I18N_KEY}.${messageKey}`)
-  );
 }
