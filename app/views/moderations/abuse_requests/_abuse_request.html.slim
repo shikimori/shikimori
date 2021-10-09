@@ -41,7 +41,6 @@
       abuse_request.comment ? abuse_request.comment.commentable : abuse_request.target,
       comment_id: abuse_request.comment_id \
     )
-
   - if abuse_request.target
     span: a.b-link.comment-hash href=Messages::MentionSource.mention_url(abuse_request.target) #
 

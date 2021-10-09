@@ -18,9 +18,14 @@
   span = t '.for'
   span.reason = BbCodes::Text.call(ban.reason)
 
-  - if ban.comment_id && ban.comment
-    span == Messages::MentionSource.call ban.comment.commentable, comment_id: ban.comment.id
-    span: a.b-link.comment-hash href=comment_url(ban.comment) #
+  span
+    == Messages::MentionSource.call( \
+      ban.comment ? ban.comment.commentable : ban.target,
+      comment_id: ban.comment_id \
+    )
+  - if ban.target
+    span: a.b-link.comment-hash href=Messages::MentionSource.mention_url(ban.target) #
+
 
   - elsif ban.comment_id
     span = t '.for_deleted_comment'
