@@ -49,7 +49,6 @@ export default class Comment extends ShikiEditable {
   _bindAbuseRequestControls() {
     super._bindAbuseRequestControls();
     this.$('.item-offtopic, .item-summary').on('click', this._markOfftopicOrSummary);
-    this.$('.item-spoiler, .item-abuse').on('ajax:before', this._markSpoilerOrAbuse);
   }
 
   _bindFaye() {
@@ -89,17 +88,6 @@ export default class Comment extends ShikiEditable {
       'data-confirm',
       $(currentTarget).data(`confirm-${confirmType}`)
     );
-  }
-
-  @bind
-  _markSpoilerOrAbuse({ currentTarget }) {
-    const reason = prompt($(currentTarget).data('reason-prompt'));
-
-    // return value grabbed by triggerAndReturn in rauils_ujs
-    if (reason == null) { return false; }
-
-    $(currentTarget).data({ form: { reason } });
-    return true;
   }
 
   @bind

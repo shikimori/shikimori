@@ -37,17 +37,19 @@
       = h(abuse_request.reason).gsub("\n", '<br>').html_safe
 
   span
-    - if abuse_request.comment
-      == Messages::MentionSource.call abuse_request.comment.commentable, comment_id: abuse_request.comment.id
-    - else
-      == Messages::MentionSource.call abuse_request.target
-  / span: a.b-link.comment-hash href=comment_url(abuse_request.comment) #
-  / 
-  / - unless abuse_request.pending?
-  /   span.resolution class=abuse_request.state
-  /     = abuse_request.human_state_name
-  /   = render 'users/user_16', user: abuse_request.approver
-  / 
+    == Messages::MentionSource.call( \
+      abuse_request.comment ? abuse_request.comment.commentable : abuse_request.target,
+      comment_id: abuse_request.comment_id \
+    )
+
+  - if abuse_request.target
+    span: a.b-link.comment-hash href=Messages::MentionSource.mention_url(abuse_request.target) #
+
+  - unless abuse_request.pending?
+    span.resolution class=abuse_request.state
+      = abuse_request.human_state_name
+    = render 'users/user_16', user: abuse_request.approver
+
   - if abuse_request.pending? || abuse_request.reason.present?
     - if abuse_request.pending?
       - if abuse_request.target.created_at < 1.week.ago
@@ -68,10 +70,10 @@
           span.misc-comment = t '.review_comment'
 
       - elsif abuse_request.review
-        span.misc-comment review
+        span.misc-comment = Review.model_name.human.downcase
 
       - elsif abuse_request.topic
-        span.misc-comment topic
+        span.misc-comment = Topic.model_name.human.downcase
 
     - if can? :manage, Ban
       .spoiler.collapse: span.action.half-hidden style="display: none;" = t '.show'
