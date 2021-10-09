@@ -176,11 +176,25 @@ $body_phone_left_margin: 40px
         float: right
         margin-left: 30px
 
+=forum_entry_ban_message
+  & > .inner .body
+    .ban
+      .b-user16
+        margin-right: 0
+
+      .resolution
+        color: $red
+
+        a
+          color: $red
+          text-decoration: underline
+
 =forum_entry
   +clearfix
   +forum_entry_markers
   +forum_entry_buttons
   +forum_entry_ban_form
+  +forum_entry_ban_message
   padding-top: 5px
 
   & > .inner
