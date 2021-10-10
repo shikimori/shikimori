@@ -30,27 +30,30 @@ describe RepositoryBase do
   end
 
   describe '#find' do
+    let!(:entry) { create :genre, id: entry_id }
     let(:entry_id) { 999_999_999 }
 
-    describe 'array' do
-      let(:entry_id) { 999_999_999 }
-      let!(:entry) { create :genre, id: entry_id }
+    context 'block' do
+      it { expect(query.find { |v| v.id == entry_id }).to eq entry }
+    end
 
+    context 'array' do
       it { expect(query.find([entry_id])).to eq [entry] }
     end
 
     context 'has entry' do
-      let!(:entry) { create :genre, id: entry_id }
       it { expect(query.find(entry_id)).to eq entry }
     end
 
     context 'no entry' do
+      let!(:entry) { nil }
       it do
         expect { query.find entry_id }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
     context 'new entry' do
+      let!(:entry) { nil }
       let(:create_entry) { create :genre, id: entry_id }
 
       it do
