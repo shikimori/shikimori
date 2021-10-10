@@ -12,32 +12,29 @@ private
     super unless anidb_synopsis? && entry.description_en.present?
   end
 
-  def assign_genres genres # rubocop:disable AbcSize
+  def assign_genres genres
     unless :genre_ids.in? desynced_fields
       entry.genre_ids = preprocess_genres(genres)
-        .map { |v| find_or_create_genre(v).id }
+        .map { |v| import_genre(v).id }
     end
 
-    unless :is_censored.in? desynced_fields
-      entry.is_censored = (entry.respond_to?(:rating_rx?) && entry.rating_rx?) ||
-        entry.genres.any?(&:censored?)
-    end
+    assign_is_censored
   end
 
-  def find_or_create_genre data
-    genre = AnimeGenresRepository.instance.find_by_mal_id data[:id] # rubocop:disable DynamicFindBy
+  def assign_is_censored
+    return if :is_censored.in? desynced_fields
+
+    entry.is_censored = entry.rating_rx? || entry.genres.any?(&:censored?)
+  end
+
+  def import_genre data
+    genre = genres_repository.find_by_mal_id data[:id] # rubocop:disable DynamicFindBy
     raise ArgumentError, "mismatched genre: #{data.to_json}" unless genre.name == data[:name]
 
     genre
   rescue ActiveRecord::RecordNotFound
     raise ArgumentError, "unknown genre: #{data.to_json}"
   end
-
-  # def find_or_create_genre data
-  #   AnimeGenresRepository.instance.find_by_mal_id data[:id]
-  # rescue ActiveRecord::RecordNotFound
-  #   Genre.create! mal_id: data[:id], name: data[:name], kind: :anime
-  # end
 
   def assign_studios studios
     entry.studio_ids = studios.map { |v| sync_studio(v).id }
@@ -83,16 +80,45 @@ private
     end
   end
 
-  def preprocess_genres genres
+  def preprocess_genres genres # rubocop:disable all
+    has_erotica = genres.any? { |genre| genre[:name] == 'Erotica' }
+    to_exclude_erotica = false
+
     genres
       .map do |genre|
-        next if genre[:name] == 'Award Winning'
+        case genre[:name]
+          when 'Award Winning' then next
+          when 'Suspense' then genre[:name] = 'Thriller'
+          when 'Avant Garde' then genre[:name] = 'Dementia'
+          when 'Boys Love'
+            if has_erotica
+              replace_genre genre, 'Yaoi'
+              to_exclude_erotica = true
+            else
+              replace_genre genre, 'Shounen Ai'
+            end
+          when 'Girls Love'
+            if has_erotica
+              replace_genre genre, 'Yuri'
+              to_exclude_erotica = true
+            else
+              replace_genre genre, 'Shoujo Ai'
+            end
+        end
 
-        genre[:name] = 'Thriller' if genre[:name] == 'Suspense'
-        genre[:name] = 'Dementia' if genre[:name] == 'Avant Garde'
         genre
       end
       .compact
+      .reject { |genre| to_exclude_erotica && genre[:name] == 'Erotica' }
+  end
+
+  def genres_repository
+    AnimeGenresRepository.instance
+  end
+
+  def replace_genre genre, name
+    genre[:name] = name
+    genre[:id] = genres_repository.find { |v| v.name == name }.mal_id
   end
 
   # def schedule_fetch_authorized
