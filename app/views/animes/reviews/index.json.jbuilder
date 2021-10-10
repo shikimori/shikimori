@@ -3,6 +3,7 @@ json.content JsExports::Supervisor.instance.sweep(
     partial: 'reviews/group',
     locals: {
       collection: @collection,
+      resource: @resource,
       is_preview: @is_preview
     },
     formats: :html

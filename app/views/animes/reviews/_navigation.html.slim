@@ -38,6 +38,7 @@
         - elsif opinion == local_assigns[:opinion] && collection
           = render 'reviews/group',
             collection: collection,
+            resource: resource,
             is_preview: local_assigns[:is_preview]
 
           - if collection.next_page? && !local_assigns[:is_preview]
