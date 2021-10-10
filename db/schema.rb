@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_10_100154) do
+ActiveRecord::Schema.define(version: 2021_10_10_113012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2021_10_10_100154) do
 
   create_table "abuse_requests", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "comment_id", null: false
+    t.integer "comment_id"
     t.string "kind", limit: 255
     t.boolean "value"
     t.datetime "created_at", null: false
@@ -28,7 +28,14 @@ ActiveRecord::Schema.define(version: 2021_10_10_100154) do
     t.string "state", limit: 255
     t.integer "approver_id"
     t.string "reason", limit: 4096
-    t.index ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, where: "((state)::text = 'pending'::text)"
+    t.integer "topic_id"
+    t.integer "review_id"
+    t.index ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, where: "((comment_id IS NOT NULL) AND ((state)::text = 'pending'::text))"
+    t.index ["comment_id"], name: "index_abuse_requests_on_comment_id"
+    t.index ["review_id", "kind", "value"], name: "index_abuse_requests_on_review_id_and_kind_and_value", unique: true, where: "((review_id IS NOT NULL) AND ((state)::text = 'pending'::text))"
+    t.index ["review_id"], name: "index_abuse_requests_on_review_id"
+    t.index ["topic_id", "kind", "value"], name: "index_abuse_requests_on_topic_id_and_kind_and_value", unique: true, where: "((topic_id IS NOT NULL) AND ((state)::text = 'pending'::text))"
+    t.index ["topic_id"], name: "index_abuse_requests_on_topic_id"
   end
 
   create_table "achievements", id: :serial, force: :cascade do |t|
@@ -197,6 +204,11 @@ ActiveRecord::Schema.define(version: 2021_10_10_100154) do
     t.string "reason", limit: 4096
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "topic_id"
+    t.integer "review_id"
+    t.index ["comment_id"], name: "index_bans_on_comment_id"
+    t.index ["review_id"], name: "index_bans_on_review_id"
+    t.index ["topic_id"], name: "index_bans_on_topic_id"
     t.index ["user_id"], name: "index_bans_on_user_id"
   end
 
@@ -881,6 +893,33 @@ ActiveRecord::Schema.define(version: 2021_10_10_100154) do
     t.index ["source_id", "manga_id"], name: "index_related_mangas_on_source_id_and_manga_id"
   end
 
+  create_table "review_viewings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "viewed_id", null: false
+    t.index ["user_id", "viewed_id"], name: "index_review_viewings_on_user_id_and_viewed_id", unique: true
+    t.index ["viewed_id"], name: "index_review_viewings_on_viewed_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "anime_id"
+    t.bigint "manga_id"
+    t.text "body", null: false
+    t.string "opinion", null: false
+    t.boolean "is_written_before_release", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "comments_count", default: 0, null: false
+    t.integer "cached_votes_up", default: 0, null: false
+    t.integer "cached_votes_down", default: 0, null: false
+    t.datetime "changed_at"
+    t.index ["anime_id"], name: "index_reviews_on_anime_id"
+    t.index ["manga_id"], name: "index_reviews_on_manga_id"
+    t.index ["user_id", "anime_id"], name: "index_reviews_on_user_id_and_anime_id", unique: true, where: "(anime_id IS NOT NULL)"
+    t.index ["user_id", "manga_id"], name: "index_reviews_on_user_id_and_manga_id", unique: true, where: "(manga_id IS NOT NULL)"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "screenshots", id: :serial, force: :cascade do |t|
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
@@ -1246,7 +1285,6 @@ ActiveRecord::Schema.define(version: 2021_10_10_100154) do
     t.index ["url"], name: "index_webm_videos_on_url", unique: true
   end
 
-  add_foreign_key "abuse_requests", "comments"
   add_foreign_key "abuse_requests", "users"
   add_foreign_key "abuse_requests", "users", column: "approver_id"
   add_foreign_key "bans", "users"
@@ -1256,9 +1294,9 @@ ActiveRecord::Schema.define(version: 2021_10_10_100154) do
   add_foreign_key "comment_viewings", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
-  add_foreign_key "summaries", "animes"
-  add_foreign_key "summaries", "mangas"
-  add_foreign_key "summaries", "users"
-  add_foreign_key "summary_viewings", "users"
+  add_foreign_key "review_viewings", "users"
+  add_foreign_key "reviews", "animes"
+  add_foreign_key "reviews", "mangas"
+  add_foreign_key "reviews", "users"
   add_foreign_key "topic_viewings", "users"
 end
