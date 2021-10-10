@@ -13,6 +13,7 @@ class AddEroticaGenre < ActiveRecord::Migration[5.2]
         mal_id: 49
       )
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!(:genres)
   end
 
   def down

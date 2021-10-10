@@ -2,6 +2,7 @@ class AddWorkOfLifeGenre < ActiveRecord::Migration[5.2]
   def up
     return if Rails.env.test?
 
+    ActiveRecord::Base.connection.reset_pk_sequence!(:genres)
     %i[anime manga].each_with_index do |kind, index|
       Genre.create!(
         name: 'Work Life',
