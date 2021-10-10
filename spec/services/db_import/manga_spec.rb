@@ -1,5 +1,5 @@
 describe DbImport::Manga do
-  let(:service) { DbImport::Manga.new data }
+  let(:service) { described_class.new data }
   let(:data) do
     {
       id: id,
@@ -49,10 +49,9 @@ describe DbImport::Manga do
 
     context 'new genre' do
       it do
-        expect(entry.reload.genres).to have(1).item
-        expect(entry.genres.first).to have_attributes(
-          mal_id: genres.first[:id],
-          name: genres.first[:name]
+        expect { subject }.to raise_error(
+          ArgumentError,
+          'unknown genre: {"id":1,"name":"test"}'
         )
       end
     end
