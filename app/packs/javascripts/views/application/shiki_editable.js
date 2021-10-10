@@ -128,7 +128,10 @@ export default class ShikiEditable extends ShikiView {
   }
 
   _bindModerationControls() {
-    $('.item-ban', this.$inner).on('ajax:success', this._showModerationForm);
+    $('.item-ban', this.$inner)
+      .on('ajax:before', this._shade)
+      .on('ajax:complete', this._unshade)
+      .on('ajax:success', this._showModerationForm);
     $('.item-moderation', this.$inner).on('click', this._showModrationControls);
     $('.item-moderation-cancel', this.$inner).on('click', this._hideModerationControls);
 
