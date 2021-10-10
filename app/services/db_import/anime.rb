@@ -85,6 +85,8 @@ private
   def preprocess_genres genres
     genres
       .map do |genre|
+        next if genre[:name] == 'Award Winning'
+
         genre[:name] = 'Thriller' if genre[:name] == 'Suspense'
         genre
       end
