@@ -8,6 +8,7 @@ class Genre < ApplicationRecord
 
   DOUJINSHI_IDS = [61]
 
+  EROTICA_IDS = [539, 540]
   HENTAI_IDS = [12, 59] + DOUJINSHI_IDS
   YAOI_IDS = [33, 65]
   YURI_IDS = [34, 75]

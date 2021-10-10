@@ -12,9 +12,10 @@ private
     super unless anidb_synopsis? && entry.description_en.present?
   end
 
-  def assign_genres genres
+  def assign_genres genres # rubocop:disable AbcSize
     unless :genre_ids.in? desynced_fields
-      entry.genre_ids = preprocess_genres(genres).map { |v| find_or_create_genre(v).id }
+      entry.genre_ids = preprocess_genres(genres)
+        .map { |v| find_or_create_genre(v).id }
     end
 
     unless :is_censored.in? desynced_fields
