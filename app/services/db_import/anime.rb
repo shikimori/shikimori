@@ -89,6 +89,7 @@ private
         next if genre[:name] == 'Award Winning'
 
         genre[:name] = 'Thriller' if genre[:name] == 'Suspense'
+        genre[:name] = 'Dementia' if genre[:name] == 'Avant Garde'
         genre
       end
       .compact
