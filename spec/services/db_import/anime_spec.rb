@@ -1,5 +1,5 @@
 describe DbImport::Anime do
-  let(:service) { DbImport::Anime.new data }
+  let(:service) { described_class.new data }
   let(:data) do
     {
       id: id,
@@ -74,10 +74,9 @@ describe DbImport::Anime do
 
     context 'new genre' do
       it do
-        expect(entry.reload.genres).to have(1).item
-        expect(entry.genres.first).to have_attributes(
-          mal_id: genres.first[:id],
-          name: genres.first[:name]
+        expect { subject }.to raise_error(
+          ArgumentError,
+          'unknown genre: {"id":1,"name":"test"}'
         )
       end
     end
@@ -354,7 +353,7 @@ describe DbImport::Anime do
 
   describe 'censored' do
     let(:genres) { [{ id: genre_id, name: 'test' }] }
-    let!(:genre) { create :genre, id: 98765, mal_id: genre_id }
+    let!(:genre) { create :genre, id: 98765, mal_id: genre_id, name: 'test' }
 
     describe 'by rating' do
       let(:genre_id) { 1 }

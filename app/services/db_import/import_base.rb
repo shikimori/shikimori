@@ -21,6 +21,7 @@ class DbImport::ImportBase
 private
 
   def import
+    entry.instance_variable_set :@is_mal_import, true
     entry.assign_attributes data_to_assign
     assign_special_fields
 

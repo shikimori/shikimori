@@ -8,7 +8,8 @@ BAD_ID_ERRORS = [
   'No series found, check the series id and try again'
 ]
 BAN_TEXTS = [
-  'Access has been restricted for this account'
+  'Access has been restricted for this account',
+  'your IP has been banned from our website'
 ]
 
 MalParser.configuration.http_get = lambda do |url|

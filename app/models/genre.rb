@@ -1,9 +1,6 @@
 class Genre < ApplicationRecord
   include Translation
 
-  has_and_belongs_to_many :animes
-  has_and_belongs_to_many :mangas
-
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 4096 }
 
@@ -11,6 +8,7 @@ class Genre < ApplicationRecord
 
   DOUJINSHI_IDS = [61]
 
+  EROTICA_IDS = [539, 540]
   HENTAI_IDS = [12, 59] + DOUJINSHI_IDS
   YAOI_IDS = [33, 65]
   YURI_IDS = [34, 75]
@@ -18,7 +16,7 @@ class Genre < ApplicationRecord
   SHOUNEN_AI_IDS = [28, 55]
   SHOUJO_AI_IDS = [26, 73]
 
-  CENSORED_IDS = HENTAI_IDS + YAOI_IDS + YURI_IDS
+  CENSORED_IDS = EROTICA_IDS + HENTAI_IDS + YAOI_IDS + YURI_IDS
 
   MAIN_GENRES = [
     'Seinen',

@@ -12,12 +12,15 @@ class RepositoryBase
     end
   end
 
-  def find ids
-    if ids.is_a? Array
-      ids.map { |id| find id }
+  def find *args
+    if block_given?
+      super
+
+    elsif args[0].is_a? Array
+      args[0].map { |id| find id }
 
     else
-      id = ids.to_i
+      id = args[0].to_i
 
       collection[id] ||
         (reset && collection[id]) ||
@@ -37,8 +40,6 @@ class RepositoryBase
 private
 
   def collection
-    @collection ||= scope.each_with_object({}) do |entry, memo|
-      memo[entry.id] = entry
-    end
+    @collection ||= scope.index_by(&:id)
   end
 end
