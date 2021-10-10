@@ -1,9 +1,4 @@
 describe Genre do
-  describe 'relations' do
-    it { have_and_belong_to_many :animes }
-    it { have_and_belong_to_many :mangas }
-  end
-
   describe 'validations' do
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_length_of(:name).is_at_most(255) }

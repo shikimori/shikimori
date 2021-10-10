@@ -1,9 +1,6 @@
 class Genre < ApplicationRecord
   include Translation
 
-  has_and_belongs_to_many :animes
-  has_and_belongs_to_many :mangas
-
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 4096 }
 
