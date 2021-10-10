@@ -1,4 +1,4 @@
-class AddWorkGenre < ActiveRecord::Migration[5.2]
+class AddWorkOfLifeGenre < ActiveRecord::Migration[5.2]
   def up
     return if Rails.env.test?
 
