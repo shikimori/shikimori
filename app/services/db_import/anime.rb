@@ -14,7 +14,7 @@ private
 
   def assign_genres genres
     unless :genre_ids.in? desynced_fields
-      entry.genre_ids = genres.map { |v| find_or_create_genre(v).id }
+      entry.genre_ids = preprocess_genres(genres).map { |v| find_or_create_genre(v).id }
     end
 
     unless :is_censored.in? desynced_fields
@@ -80,6 +80,15 @@ private
     entry.all_external_links.any? do |external_link|
       external_link.kind_anime_db? && external_link.imported_at.present?
     end
+  end
+
+  def preprocess_genres genres
+    genres
+      .map do |genre|
+        genre[:name] = 'Thriller' if genre[:name] == 'Suspense'
+        genre
+      end
+      .compact
   end
 
   # def schedule_fetch_authorized
