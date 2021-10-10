@@ -26,6 +26,7 @@ header.head
         hint: 'Приоритет отображения единственного жанра в хлебных крошках на странице аниме или манги',
         input_html: { disabled: cannot?(:update, @resource) }
       = f.input :description,
+        as: :text,
         input_html: { disabled: cannot?(:update, @resource), style: 'height: 196px; width: 600px;' }
     = f.button :magic_submit
     = link_to t('actions.cancel'), moderations_genres_url, class: 'cancel'
