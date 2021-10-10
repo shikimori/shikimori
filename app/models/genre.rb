@@ -16,7 +16,7 @@ class Genre < ApplicationRecord
   SHOUNEN_AI_IDS = [28, 55]
   SHOUJO_AI_IDS = [26, 73]
 
-  CENSORED_IDS = HENTAI_IDS + YAOI_IDS + YURI_IDS
+  CENSORED_IDS = EROTICA_IDS + HENTAI_IDS + YAOI_IDS + YURI_IDS
 
   MAIN_GENRES = [
     'Seinen',
