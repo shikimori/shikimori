@@ -113,12 +113,16 @@ private
   end
 
   # источники проксей
-  def sources
-    @sources ||= Rails.cache.fetch([:proxy, :sources, CACHE_VERSION], expires_in: 1.hour) do
+  def url_sources
+    @url_sources ||= Rails.cache.fetch([:proxy, :sources, CACHE_VERSION], expires_in: 1.hour) do
       SOURCES + webanetlabs + proxy_24
     end
     # + rebro_weebly
     # Nokogiri::HTML(open('http://www.italianhack.org/forum/proxy-list-739/').read).css('h3.threadtitle a').map {|v| v.attr :href }
+  end
+
+  def custom_soruces
+    %i[openproxy_space]
   end
 
   def webanetlabs
@@ -159,12 +163,37 @@ private
     end
   end
 
+  def openproxy_space
+    index_url = "https://api.openproxy.space/list?skip=0&ts=#{Time.zone.now.to_i}000"
+    json = JSON.parse OpenURI.open_uri(index_url).read, symbolize_names: true
+    codes = json.select { |v| v[:title].match? /http/i }.map { |v| v[:code] }
+
+    codes.flat_map do |code|
+      url = "https://api.openproxy.space/list/#{code}"
+      json = JSON.parse OpenURI.open_uri(url).read, symbolize_names: true
+      proxies = json[:data].flat_map do |v|
+        v[:items].map do |vv|
+          data = vv.split(':')
+          { ip: data[0], port: data[1].to_i }
+        end
+      end
+      print "#{url} - #{proxies.size} proxies\n"
+      proxies
+    end
+  end
+
   def parse_proxies
-    sources
+    url_sourced_proxies = url_sources
       .flat_map do |url|
         Rails.cache.fetch([url, :proxies, CACHE_VERSION]) { parse url }
       end
-      .uniq
+
+    custom_sourced_proxies = custom_soruces
+      .flat_map do |method|
+        Rails.cache.fetch([method, :proxies, CACHE_VERSION]) { send method }
+      end
+
+    (url_sourced_proxies + custom_sourced_proxies).uniq
     # source_proxies = sources.map { |url| parse url }.flatten
     # hideme_proxies = JSON.parse(open(HIDEME_URL).read).map do |proxy|
       # { ip: proxy['ip'], port: proxy['port'].to_i }
