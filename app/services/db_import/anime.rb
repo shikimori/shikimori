@@ -82,7 +82,10 @@ private
 
   def preprocess_genres genres # rubocop:disable all
     has_erotica = genres.any? { |genre| genre[:name] == 'Erotica' }
+    has_hentai = genres.any? { |genre| genre[:name] == 'Hentai' }
+
     to_exclude_erotica = false
+    to_exclude_hentai = false
 
     genres
       .map do |genre|
@@ -91,16 +94,18 @@ private
           when 'Suspense' then genre[:name] = 'Thriller'
           when 'Avant Garde' then genre[:name] = 'Dementia'
           when 'Boys Love'
-            if has_erotica
+            if has_erotica || has_hentai
               replace_genre genre, 'Yaoi'
-              to_exclude_erotica = true
+              to_exclude_erotica = true if has_erotica
+              to_exclude_hentai = true if has_hentai
             else
               replace_genre genre, 'Shounen Ai'
             end
           when 'Girls Love'
-            if has_erotica
+            if has_erotica || has_hentai
               replace_genre genre, 'Yuri'
-              to_exclude_erotica = true
+              to_exclude_erotica = true if has_erotica
+              to_exclude_hentai = true if has_hentai
             else
               replace_genre genre, 'Shoujo Ai'
             end
@@ -109,7 +114,10 @@ private
         genre
       end
       .compact
-      .reject { |genre| to_exclude_erotica && genre[:name] == 'Erotica' }
+      .reject do |genre|
+        (to_exclude_erotica && genre[:name] == 'Erotica') ||
+          (to_exclude_hentai && genre[:name] == 'Hentai')
+      end
   end
 
   def genres_repository
