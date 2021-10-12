@@ -15,7 +15,8 @@ class Messages::CheckSpamAbuse
     toptargetseo.com |
     glamourescorts69.com |
     ormworks.com |
-    discord.gg/GzzMYBZK
+    discord.com/invite/GzzMYBZK |
+    discord.com/invite/mhnEZBYBuY
   }mix
 
   SPAM_PHRASES = [

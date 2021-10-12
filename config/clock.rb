@@ -98,7 +98,6 @@ module Clockwork
 
     MalParsers::RefreshEntries.perform_async 'anime', 'latest', 1.week
     # SubtitlesImporter.perform_async :ongoings
-    ImagesVerifier.perform_async
     DbEntries::CleanupMalBanned.perform_async
     Votable::CleanupCheatBotVotes.perform_async
     Users::CleanupDoorkeeperTokens.perform_async
@@ -193,6 +192,14 @@ module Clockwork
 
     NamedLogger.clockwork.info 'monthly.very-very-long-coub finished'
   end
+
+  every 1.day, 'monthly.images-verifier',
+    at: '22:00',
+    if: lambda { |t| t.day == 5 || t.day == 13 || t.day == 20 } do
+      ImagesVerifier.perform_async
+
+      NamedLogger.clockwork.info 'monthly.images-verifier'
+    end
 
   every 1.day, 'monthly.schedule_missing', at: '05:00', if: lambda { |t| t.day == 28 } do
     MalParsers::ScheduleMissing.perform_async 'anime'
