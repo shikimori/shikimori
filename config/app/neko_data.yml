@@ -18433,6 +18433,8 @@
         - 23831
         - 35300
         - 49290
+        - 50029
+        - 49848
       :threshold: 100%
       :generator:
         ignore_latest_ids:
@@ -18472,6 +18474,8 @@
         - 23831
         - 35300
         - 49290
+        - 50029
+        - 49848
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
