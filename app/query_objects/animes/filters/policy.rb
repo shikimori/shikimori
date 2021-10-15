@@ -26,7 +26,7 @@ class Animes::Filters::Policy
     def adult_rating? rating
       rating == Types::Anime::Rating[:rx] ||
         rating == Types::Anime::Rating[:r_plus] ||
-        rating.is_a?(String) && rating.match?(ADULT_RATING_REGEXP)
+        (rating.is_a?(String) && rating.match?(ADULT_RATING_REGEXP))
     end
 
     def hentai_genre? genre
@@ -35,12 +35,12 @@ class Animes::Filters::Policy
 
     def music_kind? kind
       kind == Types::Anime::Kind[:music] ||
-        kind.is_a?(String) && kind.match?(MUSIC_REGEXP)
+        (kind.is_a?(String) && kind.match?(MUSIC_REGEXP))
     end
 
     def doujin_kind? kind
       kind == Types::Manga::Kind[:doujin] ||
-        kind.is_a?(String) && kind.match?(DOUJIN_REGEXP)
+        (kind.is_a?(String) && kind.match?(DOUJIN_REGEXP))
     end
 
     def forbid_filtering? params # rubocop:disable all
