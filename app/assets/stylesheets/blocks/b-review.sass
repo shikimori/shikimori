@@ -131,8 +131,7 @@
     .positive
       color: #549e14
 
-    .neutral,
-    .unknown
+    .neutral
       color: #234
 
     .negative
@@ -157,10 +156,9 @@
         &:before
           content: '\e82f'
 
-      &.neutral,
-      &.unknown
-        color: $gray-4
-        background: lighten($gray-1, 25%)
+      &.neutral
+        color: #66a2b3
+        background: darken(#f6fcfd, 3%)
 
         &:before
           content: '\002d'
