@@ -18,27 +18,12 @@ describe Animes::ReviewsController do
     it { expect(response).to have_http_status :success }
   end
 
-  # describe '#new' do
-  #   include_context :authenticated, :user, :week_registered
+  describe '#new' do
+    include_context :authenticated, :user, :week_registered
+    subject! { get :new, params: { anime_id: anime.to_param } }
 
-  #   let(:params) do
-  #     {
-  #       user_id: user.id,
-  #       target_id: anime.id,
-  #       target_type: anime.class.name
-  #     }
-  #   end
-  #   subject! do
-  #     get :new,
-  #       params: {
-  #         anime_id: anime.to_param,
-  #         type: Anime.name,
-  #         review: params
-  #       }
-  #   end
-
-  #   it { expect(response).to have_http_status :success }
-  # end
+    it { expect(response).to have_http_status :success }
+  end
 
   describe '#edit' do
     include_context :authenticated, :user, :week_registered

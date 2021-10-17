@@ -398,7 +398,7 @@ en:
 
   animes/reviews_controller:
     <<: *animes_controller
-    # new_review: New review
+    new_review: New review
     # edit_review: Edit review
     review_by: Review by %{nickname}
 

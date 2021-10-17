@@ -9,8 +9,9 @@
         href=current_url(page: nil, is_preview: nil)
       ] = t '.to_other_reviews'
 
-      a.b-link_button.dark.create-topic[
+      a.b-link_button.dark.create-topic.to-process[
         href=resource.new_review_url
+        data-dynamic='week_registered'
       ] = t '.new_review'
 
 - if collection.none? && collection.page == 1

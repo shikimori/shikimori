@@ -9,7 +9,7 @@ class Animes::ReviewsController < AnimesController
 
   skip_before_action :og_meta
 
-  # RULES_TOPIC_ID = 299_770
+  RULES_TOPIC_ID = 356_281
   PER_PAGE = 8
   PER_PREVIEW = 4
 
@@ -35,10 +35,10 @@ class Animes::ReviewsController < AnimesController
     push_js_reply if params[:is_reply]
   end
 
-  # def new
-  #   og page_title: i18n_t('new_review')
-  #   @rules_topic = Topics::TopicViewFactory.new(false, false).find_by(id: RULES_TOPIC_ID)
-  # end
+  def new
+    og page_title: i18n_t('new_review')
+    @rules_topic = Topics::TopicViewFactory.new(false, false).find_by(id: RULES_TOPIC_ID)
+  end
 
   # def edit
   #   og page_title: i18n_t('edit_review')

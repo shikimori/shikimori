@@ -1,0 +1,9 @@
+= render layout: 'animes/page' do |f|
+  - if @rules_topic
+    .subheadline
+      a href=@rules_topic.url = @rules_topic.topic_title
+    .block
+      = @rules_topic.html_body
+
+  h2.subheadline = og.page_title.last
+  = render 'reviews/form', review: @review
