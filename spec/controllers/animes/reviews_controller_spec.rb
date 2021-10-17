@@ -19,14 +19,20 @@ describe Animes::ReviewsController do
   end
 
   describe '#new' do
-    include_context :authenticated, :user, :week_registered
-    subject! { get :new, params: { anime_id: anime.to_param } }
+    include_context :authenticated, :user, :day_registered
+    subject! do
+      get :new,
+        params: {
+          anime_id: anime.to_param,
+          type: 'Anime'
+        }
+    end
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do
-    include_context :authenticated, :user, :week_registered
+    include_context :authenticated, :user, :day_registered
     before { Review.delete_all }
 
     subject! do
@@ -73,7 +79,7 @@ describe Animes::ReviewsController do
   end
 
   # describe '#edit' do
-  #   include_context :authenticated, :user, :week_registered
+  #   include_context :authenticated, :user, :day_registered
   #   subject! do
   #     get :edit,
   #       params: {

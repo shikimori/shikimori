@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Animes::ReviewsController < AnimesController
-  load_and_authorize_resource
+  load_and_authorize_resource except: %i[new]
 
   before_action :actualize_resource
   before_action :add_title
@@ -37,13 +37,14 @@ class Animes::ReviewsController < AnimesController
 
   def new
     og page_title: i18n_t('new_review')
+    @review = Review.new
     @rules_topic = Topics::TopicViewFactory
       .new(false, false)
       .find_by(id: RULES_TOPIC_ID)
   end
 
   def create
-    @review = Review::Create.call resource_params
+    @review = Review::Create.call review_params
 
     if @review.errors.blank?
       redirect_to UrlGenerator.instance.review_url(@review)
@@ -61,7 +62,7 @@ class Animes::ReviewsController < AnimesController
 
 private
 
-  def resource_params
+  def review_params
     params
       .require(:review)
       .permit(:body, :anime_id, :manga_id, :opinion)

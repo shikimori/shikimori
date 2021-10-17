@@ -32,7 +32,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
   end
 
   def create
-    @critique = Critique::Create.call resource_params, locale_from_host
+    @critique = Critique::Create.call critique_params, locale_from_host
 
     if @critique.errors.blank?
       topic = @critique.maybe_topic locale_from_host
@@ -47,7 +47,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
   end
 
   def update
-    Critique::Update.call @critique, resource_params
+    Critique::Update.call @critique, critique_params
 
     if @critique.errors.blank?
       topic = @critique.maybe_topic locale_from_host
@@ -68,7 +68,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
 
 private
 
-  def resource_params
+  def critique_params
     params
       .require(:critique)
       .permit(
