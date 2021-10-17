@@ -15,7 +15,7 @@ describe Critique::Update do
         user_id: user.id,
         target_type: anime.class.name,
         target_id: anime.id,
-        text: 'x' * Critique::MINIMUM_LENGTH
+        text: 'x' * Critique::MIN_BODY_SIZE
       }
     end
     it do

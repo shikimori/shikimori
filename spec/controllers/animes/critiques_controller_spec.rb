@@ -49,7 +49,7 @@ describe Animes::CritiquesController do
           user_id: user.id,
           target_type: anime.class.name,
           target_id: anime.id,
-          text: 'x' * Critique::MINIMUM_LENGTH,
+          text: 'x' * Critique::MIN_BODY_SIZE,
           storyline: 1,
           characters: 2,
           animation: 3,
@@ -60,7 +60,7 @@ describe Animes::CritiquesController do
       it do
         expect(assigns(:critique)).to be_persisted
         topic = assigns(:critique).topic(controller.locale_from_host)
-        expect(response).to redirect_to UrlGenerator.instance.topic_url topic
+        expect(response).to redirect_to UrlGenerator.instance.topic_url(topic)
       end
     end
 
@@ -68,7 +68,7 @@ describe Animes::CritiquesController do
       let(:params) do
         {
           user_id: user.id,
-          text: 'x' * Critique::MINIMUM_LENGTH,
+          text: 'x' * Critique::MIN_BODY_SIZE,
           storyline: 1,
           characters: 2,
           animation: 3,
@@ -78,6 +78,7 @@ describe Animes::CritiquesController do
       end
       it do
         expect(assigns(:critique)).to be_new_record
+        expect(response).to render_template :new
         expect(response).to have_http_status :success
       end
     end
@@ -115,7 +116,7 @@ describe Animes::CritiquesController do
           user_id: user.id,
           target_type: anime.class.name,
           target_id: anime.id,
-          text: 'x' * Critique::MINIMUM_LENGTH
+          text: 'x' * Critique::MIN_BODY_SIZE
         }
       end
       it do

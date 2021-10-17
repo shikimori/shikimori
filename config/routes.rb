@@ -765,7 +765,7 @@ Rails.application.routes.draw do
         controller: 'animes/critiques'
       resources :reviews,
         type: kind.singularize.capitalize,
-        only: %i[new show],
+        only: %i[show new create],
         controller: 'animes/reviews' do
           get '(:opinion)(/page/:page)' => :index,
             as: :index,

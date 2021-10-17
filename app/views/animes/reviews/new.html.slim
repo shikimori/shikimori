@@ -6,4 +6,6 @@
       = @rules_topic.html_body
 
   h2.subheadline = og.page_title.last
-  = render 'reviews/form', review: @review
+  = render 'reviews/form',
+    resource: @resource,
+    review: @review

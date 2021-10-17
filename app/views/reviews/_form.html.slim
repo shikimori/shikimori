@@ -1,4 +1,6 @@
-= simple_form_for [:api, review], remote: true, authenticity_token: true,
+= simple_form_for [resource, review],
+  remote: !local_assigns[:resource],
+  authenticity_token: true,
   html: { data: { type: :json }, id: nil } do |f|
   input type='hidden' name='frontend' value='true'
 

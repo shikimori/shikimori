@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :critique do
     association :target, factory: :anime
     user { seed :user }
-    text { 's' * Critique::MINIMUM_LENGTH }
+    text { 's' * Critique::MIN_BODY_SIZE }
     changed_at { nil }
 
     overall { 1 }

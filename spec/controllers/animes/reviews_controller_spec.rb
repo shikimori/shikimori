@@ -25,16 +25,63 @@ describe Animes::ReviewsController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#edit' do
+  describe '#create' do
     include_context :authenticated, :user, :week_registered
+    before { Review.delete_all }
+
     subject! do
-      get :edit,
+      post :create,
         params: {
           anime_id: anime.to_param,
-          type: Anime.name,
-          id: review.id
+          type: 'Anime',
+          review: params
         }
     end
-    it { expect(response).to have_http_status :success }
+
+    context 'valid params' do
+      let(:params) do
+        {
+          anime_id: anime.id,
+          body: 'x' * Review::MIN_BODY_SIZE,
+          opinion: 'positive'
+        }
+      end
+
+      it do
+        expect(assigns(:review)).to be_persisted
+        expect(assigns(:review)).to have_attributes params
+        expect(assigns(:review).user).to eq user
+        expect(response).to redirect_to UrlGenerator.instance.review_url(assigns(:review))
+      end
+    end
+
+    context 'invalid params' do
+      let(:params) do
+        {
+          anime_id: anime.id,
+          body: 'x' * (Review::MIN_BODY_SIZE - 1),
+          opinion: 'positive'
+        }
+      end
+
+      it do
+        expect(assigns(:review)).to be_new_record
+        expect(response).to render_template :new
+        expect(response).to have_http_status :success
+      end
+    end
   end
+
+  # describe '#edit' do
+  #   include_context :authenticated, :user, :week_registered
+  #   subject! do
+  #     get :edit,
+  #       params: {
+  #         anime_id: anime.to_param,
+  #         type: Anime.name,
+  #         id: review.id
+  #       }
+  #   end
+  #   it { expect(response).to have_http_status :success }
+  # end
 end

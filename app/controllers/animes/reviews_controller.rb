@@ -37,7 +37,20 @@ class Animes::ReviewsController < AnimesController
 
   def new
     og page_title: i18n_t('new_review')
-    @rules_topic = Topics::TopicViewFactory.new(false, false).find_by(id: RULES_TOPIC_ID)
+    @rules_topic = Topics::TopicViewFactory
+      .new(false, false)
+      .find_by(id: RULES_TOPIC_ID)
+  end
+
+  def create
+    @review = Review::Create.call resource_params
+
+    if @review.errors.blank?
+      redirect_to UrlGenerator.instance.review_url(@review)
+    else
+      new
+      render :new
+    end
   end
 
   # def edit
@@ -47,6 +60,13 @@ class Animes::ReviewsController < AnimesController
   # end
 
 private
+
+  def resource_params
+    params
+      .require(:review)
+      .permit(:body, :anime_id, :manga_id, :opinion)
+      .merge(user: current_user)
+  end
 
   def add_breadcrumbs
     @back_url = @resource.reviews_url
