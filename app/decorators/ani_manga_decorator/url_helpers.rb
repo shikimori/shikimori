@@ -81,6 +81,13 @@ module AniMangaDecorator::UrlHelpers
     )
   end
 
+  def new_review_url
+    h.send(
+      "new_#{klass_lower}_review_url",
+      object
+    )
+  end
+
   def cosplay_url page = 1
     if page > 1
       h.send "cosplay_#{klass_lower}_url", object, page: page

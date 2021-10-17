@@ -203,13 +203,23 @@
     margin-top: 10px
 
   .review-controls
-    +gte_iphone-landscape
-      display: flex
+    display: flex
+
+    +iphone_portrait
+      flex-direction: column
+
+    .to-other-reviews,
+    .create-topic
+      font-size: 14px
 
     .to-other-reviews
       max-width: 240px
       margin-bottom: 0
-      margin-right: $block-offset
+      margin-right: 24px
 
-    .new-review
+      +iphone_portrait
+        margin-right: 0
+        margin-bottom: 12px
+
+    .create-topic
       max-width: 180px
