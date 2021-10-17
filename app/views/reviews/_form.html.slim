@@ -3,8 +3,19 @@
   input type='hidden' name='frontend' value='true'
 
   = render 'blocks/shiki_editor',
-    text: review.body,
-    field_name: "#{review.class.name.downcase}[body]",
-    f: f,
-    no_preview_avatar: true,
-    cache_key: review.cache_key
+      text: review.body,
+      field_name: 'review[body]',
+      f: f,
+      no_preview_avatar: true,
+      cache_key: review.cache_key do
+    aside.markers
+      - Review.opinion.options.each do |(name, key)|
+        .b-review_opinion_marker[
+          class="is-#{key}"
+        ]
+          input[
+            type='radio'
+            name='opinion'
+            value=key
+          ]
+          span = name

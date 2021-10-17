@@ -601,7 +601,6 @@ ru:
         positive: Положительный
         negative: Отрицательный
         neutral: Нейтральный
-        unknown: Нейтральный
     collection:
       kind:
         anime: Аниме

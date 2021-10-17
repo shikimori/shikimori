@@ -44,6 +44,8 @@
                 class=(:off unless f.object.offtopic?)
                 data-text=t('markers.offtopic')
               ]
+        - if block_given?
+          = yield
 
 - else
   .b-shiki_editor.to-process.shiki_editor-selector[
@@ -55,6 +57,9 @@
     data-field_name=local_assigns[:field_name]
   ]
     = render 'comments/shiki_editor',
-      text: local_assigns[:text],
-      field_name: local_assigns[:field_name],
-      f: local_assigns[:f]
+        text: local_assigns[:text],
+        field_name: local_assigns[:field_name],
+        f: local_assigns[:f] do
+      - if block_given?
+        = yield
+

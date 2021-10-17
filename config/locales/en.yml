@@ -601,7 +601,6 @@ en:
         positive: Positive
         negative: Negative
         neutral: Neutral
-        unknown: Neutral
     collection:
       kind:
         anime: Anime

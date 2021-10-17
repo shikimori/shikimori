@@ -1,0 +1,22 @@
+@import mixins/static_marker
+
+.b-review_opinion_marker
+  align-self: center
+
+  input
+    display: none
+
+  &:not(:last-child)
+    margin-right: 14px
+
+  &.is-positive
+    span
+      +static_marker(#85bd7a, #eff9e6, #bee893)
+
+  &.is-negative
+    span
+      +static_marker(#7aaebd, #f6fcfd, #93c5e8)
+
+  &.is-neutral
+    span
+      +static_marker(#bd857a, #fff1f2, #e8a092)
