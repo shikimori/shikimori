@@ -1,0 +1,39 @@
+@import mixins/responsive
+
+=radio_marker($color, $active_color, $border_color)
+  +gte_laptop
+    span
+      transition: all 0.25s ease
+
+  input
+    display: none
+
+  span
+    border: 1px solid $border_color
+    content: attr(data-text)
+    font-family: var(--font-alt)
+    letter-spacing: var(--font-alt-text-letter-spacing)
+    padding: 0 4px
+    user-select: none
+    font-size: 12px
+
+  input:checked + span
+    border-color: transparent
+    background-color: $color
+    color: #fff
+
+  input:not(:checked) + span
+    background-color: transparent
+    border-color: rgba($active_color, 0.5)
+    color: $gray-3
+    cursor: pointer
+
+    +gte_laptop
+      &:hover
+        color: white
+        background-color: $color
+        border-color: darken($color, 1.5%)
+
+    &:active
+      background-color: $active_color
+      border-color: darken($active_color, 1.5%)

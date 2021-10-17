@@ -10,12 +10,13 @@
       cache_key: review.cache_key do
     aside.markers
       - Review.opinion.options.each do |(name, key)|
-        .b-review_opinion_marker[
+        label.b-review_opinion_marker[
           class="is-#{key}"
         ]
           input[
             type='radio'
             name='opinion'
             value=key
+            checked=(review.opinion == key || (review.opinion.nil? && key == 'neutral'))
           ]
           span = name

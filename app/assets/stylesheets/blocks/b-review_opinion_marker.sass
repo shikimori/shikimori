@@ -1,22 +1,16 @@
-@import mixins/static_marker
+@import mixins/radio_marker
 
 .b-review_opinion_marker
   align-self: center
-
-  input
-    display: none
 
   &:not(:last-child)
     margin-right: 14px
 
   &.is-positive
-    span
-      +static_marker(#85bd7a, #eff9e6, #bee893)
-
-  &.is-negative
-    span
-      +static_marker(#7aaebd, #f6fcfd, #93c5e8)
+    +radio_marker(darken(#85bd7a, 6%), lighten(#85bd7a, 3%), darken(#bee893, 6%))
 
   &.is-neutral
-    span
-      +static_marker(#bd857a, #fff1f2, #e8a092)
+    +radio_marker(darken(#7aaebd, 6%), lighten(#7aaebd, 3%), darken(#93c5e8, 6%))
+
+  &.is-negative
+    +radio_marker(darken(#bd857a, 6%), lighten(#bd857a, 3%), darken(#e8a092, 6%))
