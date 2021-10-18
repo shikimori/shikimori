@@ -106,7 +106,9 @@ class Abilities::User
 
   def review_abilities
     can %i[new create], Review do |review|
-      review.user_id == @user.id && !review.db_entry.anons?
+      review.user_id == @user.id && (
+        review.db_entry_id.nil? || !review.db_entry.anons?
+      )
     end
     can :update, Review do |review|
       can? :create, review

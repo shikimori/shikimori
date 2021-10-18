@@ -75,6 +75,14 @@ class Review < ApplicationRecord
     "#{super}/user/#{user.id}/#{user.rate_at.to_i}"
   end
 
+  def written_before_release?
+    is_written_before_release && (
+      !db_entry.ongoing? || (
+        !db_entry.aired_on || db_entry.aired_on > 1.year.ago
+      )
+    )
+  end
+
   def user_rate
     @user_rate ||=
       if anime?

@@ -73,7 +73,7 @@
     - if local_assigns[:is_buttons]
       = render 'reviews/buttons', review: review
 
-    - if review.is_written_before_release && !review.db_entry.ongoing?
+    - if review.written_before_release?
       .is_written_before_release-container
         .b-anime_status_tag.is_written_before_release.b-tooltipped.unprocessed[
           title=t(".is_written_before_release.#{review.db_entry.class.name.downcase}")

@@ -170,6 +170,50 @@ describe Review do
       end
     end
 
+    describe '#written_before_release?' do
+      let(:review) do
+        build_stubbed :review,
+          manga: manga,
+          is_written_before_release: is_written_before_release
+      end
+      let(:is_written_before_release) { true }
+      let(:manga) do
+        build_stubbed :manga,
+          status: status,
+          aired_on: aired_on,
+          released_on: released_on
+      end
+      let(:aired_on) { nil }
+      let(:released_on) { nil }
+
+      subject { review.written_before_release? }
+
+      context 'ongoing' do
+        let(:status) { :ongoing }
+
+        context 'is_written_before_release' do
+          context 'no aired_on' do
+            it { is_expected.to eq true }
+          end
+
+          context 'aired_on > 1.year.ago' do
+            let(:aired_on) { 13.months.ago }
+            it { is_expected.to eq false }
+          end
+
+          context 'aired_on < 1.year.ago' do
+            let(:aired_on) { 11.months.ago }
+            it { is_expected.to eq true }
+          end
+        end
+      end
+
+      context 'not ongoing' do
+        let(:status) { %i[anons released].sample }
+        it { is_expected.to eq true }
+      end
+    end
+
     describe '#user_rate' do
       let(:review) { build_stubbed :review, anime: anime, manga: manga }
       let(:anime) { nil }
