@@ -401,6 +401,10 @@ ru:
     new_review: Новый отзыв
     # edit_review: Изменение отзыва
     review_by: Отзыв от %{nickname}
+    review_is_already_written:
+      anime: Ты уже @{f:написала|m:написал} отзыв к этому аниме
+      manga: Ты уже @{f:написала|m:написал} отзыв к этой манге
+      ranobe: Ты уже @{f:написала|m:написал} отзыв к этому ранобэ
 
   users_controller:
     similar_users: Похожие пользователи

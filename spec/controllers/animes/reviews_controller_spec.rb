@@ -28,7 +28,16 @@ describe Animes::ReviewsController do
         }
     end
 
-    it { expect(response).to have_http_status :success }
+    context 'no user review' do
+      let(:review) { nil }
+      it { expect(response).to have_http_status :success }
+    end
+
+    context 'has user review' do
+      it do
+        expect(response).to redirect_to UrlGenerator.instance.review_url(review)
+      end
+    end
   end
 
   describe '#create' do

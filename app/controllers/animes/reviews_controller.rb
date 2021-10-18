@@ -6,6 +6,7 @@ class Animes::ReviewsController < AnimesController
   before_action :actualize_resource
   before_action :add_title
   before_action :add_breadcrumbs, except: %i[index]
+  before_action :existence_check, only: %i[new]
 
   skip_before_action :og_meta
 
@@ -114,5 +115,22 @@ private
       text: @review.user.nickname,
       url: UrlGenerator.instance.review_url(@review)
     }
+  end
+
+  def existence_check
+    user_review = Review.find_by(
+      user: current_user,
+      anime: @anime,
+      manga: @manga || @ranobe
+    )
+    return unless user_review
+
+    redirect_to(
+      UrlGenerator.instance.review_url(user_review, is_canonical: true),
+      alert: i18n_t(
+        "review_is_already_written.#{(@anime || @manga || @ranobe).object.class.name.downcase}",
+        gender: current_user.sex
+      )
+    )
   end
 end
