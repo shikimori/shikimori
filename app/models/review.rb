@@ -37,8 +37,7 @@ class Review < ApplicationRecord
     uniqueness: { scope: %i[manga_id] },
     if: :manga?
 
-  validates :anime, presence: true, unless: :manga?
-  validates :manga, presence: true, unless: :anime?
+  validates :anime_id, exclusive_arc: %i[manga_id]
 
   scope :positive, -> { where opinion: Types::Review::Opinion[:positive] }
   scope :neutral, -> { where opinion: Types::Review::Opinion[:neutral] }

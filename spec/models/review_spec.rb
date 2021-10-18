@@ -9,8 +9,8 @@ describe Review do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :body }
-    it { is_expected.to validate_presence_of :anime }
-    it { is_expected.to validate_presence_of :manga }
+    # it { is_expected.to validate_presence_of :anime }
+    # it { is_expected.to validate_presence_of :manga }
     it { is_expected.to validate_length_of(:body).is_at_least(described_class::MIN_BODY_SIZE) }
     # it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:anime_id) }
     # it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:manga_id) }
