@@ -34,12 +34,12 @@ header.head
 
       - unless @resource.rkn_abused?
         - if params[:action] == 'show' && main_resource_controller?
-          / - if @resource.reviews.any?
-          .block
-            = render 'animes/reviews/navigation',
-              resource: @resource,
-              is_preview: true,
-              collection: nil
+          - unless @resource.anons?
+            .block
+              = render 'animes/reviews/navigation',
+                resource: @resource,
+                is_preview: true,
+                collection: nil
           = render 'db_entries/comments', resource: @resource
 
     aside.l-menu
