@@ -279,6 +279,7 @@ en:
         text: Text
         layout: Layout
       review:
+        text: Text
         is_written_before_release: Ongoing review
       topic:
         title: Title

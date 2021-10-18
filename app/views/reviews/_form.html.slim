@@ -1,8 +1,12 @@
-= simple_form_for [resource, review],
+= simple_form_for review.new_record? ? [resource, review] : [:api, review],
   remote: !local_assigns[:resource],
   authenticity_token: true,
-  html: { data: { type: :json }, id: nil } do |f|
+  html: { data: (review.new_record? ? { type: :json } : nil), id: nil } do |f|
   input type='hidden' name='frontend' value='true'
+
+  - if review.new_record?
+    = f.input :anime_id, as: :hidden
+    = f.input :manga_id, as: :hidden
 
   = render 'blocks/shiki_editor',
       text: review.body,

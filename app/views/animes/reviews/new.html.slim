@@ -5,6 +5,12 @@
     .block
       = @rules_topic.html_body
 
+  - if @review.errors.any?
+    .b-errors
+      .subheadline.m5 = i18n_i 'error', :other
+      .block
+        == @review.errors.full_messages.join('<br>')
+
   h2.subheadline = og.page_title.last
   = render 'reviews/form',
     resource: @resource,

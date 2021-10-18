@@ -37,7 +37,12 @@ class Animes::ReviewsController < AnimesController
 
   def new
     og page_title: i18n_t('new_review')
-    @review = Review.new
+
+    @review ||= Review.new do |review|
+      review.anime = @anime
+      review.manga = @manga || @ranobe
+    end
+
     @rules_topic = Topics::TopicViewFactory
       .new(false, false)
       .find_by(id: RULES_TOPIC_ID)
