@@ -37,12 +37,12 @@
             - if f.object.try :allowed_summary?
               .b-summary_marker.active[
                 class=(:off unless f.object.summary?)
-                data-text=t('markers.summary')
+                data-text=t('markers.summary').capitalize
               ]
             - if f.object.respond_to? :offtopic?
               .b-offtopic_marker.active[
                 class=(:off unless f.object.offtopic?)
-                data-text=t('markers.offtopic')
+                data-text=t('markers.offtopic').capitalize
               ]
         - if block_given?
           = yield
