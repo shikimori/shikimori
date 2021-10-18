@@ -33,9 +33,7 @@
         class=('is-active' if opinion == local_assigns[:opinion])
         class=('b-ajax' if counts[index].positive? && !(opinion == local_assigns[:opinion] && collection))
       ]
-        - if counts[index].zero?
-          .b-nothing_here = t 'no_reviews'
-        - elsif opinion == local_assigns[:opinion] && collection
+        - if opinion == local_assigns[:opinion] && collection
           = render 'reviews/group',
             collection: collection,
             resource: resource,

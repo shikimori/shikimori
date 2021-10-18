@@ -3,11 +3,12 @@
     collection: collection,
     cached: ->(entry) { CacheHelper.keys entry }
 
-  - if is_preview && collection.next_page? && collection.page == 1
+  - if is_preview && collection.page == 1
     .review-controls
-      a.b-link_button.dark.arrow-right.to-other-reviews[
-        href=current_url(page: nil, is_preview: nil)
-      ] = t '.to_other_reviews'
+      - if collection.next_page?
+        a.b-link_button.dark.arrow-right.to-other-reviews[
+          href=current_url(page: nil, is_preview: nil)
+        ] = t '.to_other_reviews'
 
       a.b-link_button.dark.create-topic.to-process[
         href=resource.new_review_url
@@ -15,4 +16,10 @@
       ] = t '.new_review'
 
 - if collection.none? && collection.page == 1
-  .b-nothing_here = t 'no_reviews'
+  .b-nothing_here.m10 = t 'no_reviews'
+
+  .review-controls
+    a.b-link_button.dark.create-topic.to-process[
+      href=resource.new_review_url
+      data-dynamic='week_registered'
+    ] = t '.new_review'
