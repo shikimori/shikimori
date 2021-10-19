@@ -5,6 +5,7 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
     user_rates
     topics
     comments
+    reviews
     critiques
     collection_links
     versions
@@ -166,6 +167,16 @@ private
       if @entry_topic.commented_at && @entry_topic.commented_at < @other_topic.commented_at
         @entry_topic.update! commented_at: @other_topic.commented_at
       end
+    end
+  end
+
+  def merge_reviews
+    return unless @entry.respond_to? :reviews
+
+    @entry.reviews.each do |review|
+      review.update(
+        "#{@other.anime? ? :anime : :manga}": @other
+      )
     end
   end
 

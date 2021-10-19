@@ -49,6 +49,7 @@ describe DbEntry::MergeIntoOther do
   let!(:comment_1) { create :comment, :with_increment_comments, commentable: entry.maybe_topic(:ru) }
 
   let!(:critique) { create :critique, target: entry }
+  let!(:review) { create :review, "#{entry.anime? ? :anime : :manga}": entry }
 
   let(:collection) { create :collection }
   let!(:collection_link) { create :collection_link, linked: entry, collection: collection }
@@ -134,6 +135,7 @@ describe DbEntry::MergeIntoOther do
     expect(other.maybe_topic(:ru).comments_count).to eq 1
 
     expect(critique.reload.target).to eq other
+    expect(review.reload.db_entry).to eq other
     expect(collection_link.reload.linked).to eq other
     expect(version.reload.item).to eq other
     expect(club_link.reload.linked).to eq other
