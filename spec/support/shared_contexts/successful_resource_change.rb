@@ -5,8 +5,8 @@ shared_examples_for :successful_resource_change do |type|
     expect(response).to have_http_status :success
 
     case type
-      when :api then expect(json).to_not include :html
-      when :frontend then expect(json).to include :html
+      when :api then expect(json).to_not include :content
+      when :frontend then expect(json).to include :content
       else
         raise ArgumentError, "unknown type #{type} (allowed :api or :frontend)"
     end
