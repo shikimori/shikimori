@@ -75,13 +75,21 @@
                       placeholder=t(:"#{resource.object.class.name.downcase}_#{resource.object.class.in?([Character, Person]) ? 'name' : 'title'}")
                       data-autocomplete=(resource.ranobe? ? autocomplete_ranobe_index_url : send(:"autocomplete_#{resource.object.class.name.downcase.pluralize}_url"))
                     ]
-                  .b-input
-                    label Номер эпизода
-                    input[
-                      type='number'
-                      name='as_episode'
-                      min='0'
-                    ]
+                  .d-flex
+                    .b-input.mr-5
+                      label Номер эпизода
+                      input[
+                        type='number'
+                        name='as_episode'
+                        min='0'
+                      ]
+                    .b-input
+                      label Название эпизода (для комментария)
+                      input[
+                        type='text'
+                        name='episode_label'
+                      ]
+                      .hint Не обязательно
                   - if resource.kinda_manga?
                     .b-input
                       label Тип эпизода
