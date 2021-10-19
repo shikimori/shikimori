@@ -17,26 +17,9 @@ const SHOW_IGNORED_TOPICS_IN = [
 
 // TODO: move code related to comments to separate class
 export default class Topic extends ShikiEditable {
-  _type() { return 'topic'; }
-  _commentType() { return 'comment'; }
-  _typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); } // eslint-disable-line camelcase
-  // similar to hash from JsExports::TopicsExport#serialize
-  _defaultModel() { // eslint-disable-line camelcase
-    return {
-      can_destroy: false,
-      can_edit: false,
-      id: parseInt(this.node.id),
-      is_viewed: true,
-      user_id: this.$node.data('user_id')
-    };
-  }
-  _reloadUrl() { // eslint-disable-line camelcase
-    return `/${this._type()}s/${this.$node.attr('id')}/reload?is_preview=${this.isPreview}`;
-  }
-
   initialize() {
     // data attribute is set in Topics.Tracker
-    this.model = this.$node.data('model') || this._defaultModel();
+    this.model = this.$node.data('model') || this.defaultModel;
 
     if (window.SHIKI_USER.isUserIgnored(this.model.user_id) ||
         window.SHIKI_USER.isTopicIgnored(this.model.id)) {
@@ -187,6 +170,24 @@ export default class Topic extends ShikiEditable {
     });
   }
 
+  // similar to hash from JsExports::TopicsExport#serialize
+  get defaultModel() { // eslint-disable-line camelcase
+    return {
+      can_destroy: false,
+      can_edit: false,
+      id: parseInt(this.node.id),
+      is_viewed: true,
+      user_id: this.$node.data('user_id')
+    };
+  }
+  get type() { return 'topic'; }
+  get commentType() { return 'comment'; }
+  get typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); } // eslint-disable-line camelcase
+
+  get reloadUrl() { // eslint-disable-line camelcase
+    return `/${this.type}s/${this.$node.attr('id')}/reload?is_preview=${this.isPreview}`;
+  }
+
   @memoize
   get isPreview() { return this.$node.hasClass('b-topic-preview'); }
 
@@ -218,9 +219,9 @@ export default class Topic extends ShikiEditable {
 
     this.on(
       [
-        `faye:${this._commentType()}:updated`,
-        `faye:${this._commentType()}:deleted`,
-        `faye:${this._commentType()}:set_replies`
+        `faye:${this.commentType}:updated`,
+        `faye:${this.commentType}:deleted`,
+        `faye:${this.commentType}:set_replies`
       ].join(' '), (e, data) => {
         e.stopImmediatePropagation();
         const trackableType = e.type.match(/comment|message/)[0];
@@ -231,7 +232,7 @@ export default class Topic extends ShikiEditable {
         }
       });
 
-    this.on(`faye:${this._commentType()}:created`, (e, data) => {
+    this.on(`faye:${this.commentType}:created`, (e, data) => {
       e.stopImmediatePropagation();
       const trackableType = e.type.match(/comment|message/)[0];
       const trackableId = data[`${trackableType}_id`];

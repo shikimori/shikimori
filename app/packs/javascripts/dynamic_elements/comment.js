@@ -8,26 +8,12 @@ import { loadImagesFinally, imagePromiseFinally } from '@/utils/load_image';
 const I18N_KEY = 'frontend.dynamic_elements.comment';
 
 export default class Comment extends ShikiEditable {
-  _type() { return 'comment'; }
-  _typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); }
-
-  // similar to hash from JsExports::CommentsExport#serialize
-  _defaultModel() {
-    return {
-      can_destroy: false,
-      can_edit: false,
-      id: parseInt(this.node.id),
-      is_viewed: true,
-      user_id: this.$node.data('user_id')
-    };
-  }
-
   initialize() {
     const mobileOffset = isPhone() ? -25 : 0;
     this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 140 + mobileOffset;
 
     // data attribute is set in Comments.Tracker
-    this.model = this.$node.data('model') || this._defaultModel();
+    this.model = this.$node.data('model') || this.defaultModel;
 
     if (window.SHIKI_USER.isUserIgnored(this.model.user_id)) {
       // node can be not inserted into DOM yet
@@ -45,6 +31,19 @@ export default class Comment extends ShikiEditable {
 
     this.$('.hash').one('mouseover', this._replaceHashWithLink);
   }
+
+  // similar to hash from JsExports::CommentsExport#serialize
+  get defaultModel() {
+    return {
+      can_destroy: false,
+      can_edit: false,
+      id: parseInt(this.node.id),
+      is_viewed: true,
+      user_id: this.$node.data('user_id')
+    };
+  }
+  get type() { return 'comment'; }
+  get typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); }
 
   _bindAbuseRequestControls() {
     super._bindAbuseRequestControls();

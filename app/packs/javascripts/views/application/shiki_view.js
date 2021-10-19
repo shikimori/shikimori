@@ -75,12 +75,12 @@ export default class ShikiView extends View {
   @bind
   async _reload() {
     this._shade();
-    const { data } = await axios.get(this._reloadUrl());
+    const { data } = await axios.get(this.reloadUrl);
     this._replace(data.content, data.JS_EXPORTS, this.$inner !== this.$node);
   }
 
   // урл для перезагрузки элемента
-  _reloadUrl() {
+  get reloadUrl() {
     return this.$node.data('url');
   }
 

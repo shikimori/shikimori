@@ -32,10 +32,6 @@ const ITEM_QUOTE_SELECTOR = '.item-quote, .item-quote-mobile';
 const I18N_KEY = 'frontend.dynamic_elements.shiki_editable';
 
 export default class ShikiEditable extends ShikiView {
-  _reloadUrl() {
-    return `/${this._type()}s/${this.node.id}`;
-  }
-
   // внутренняя инициализация
   _initialize(...args) {
     super._initialize(...args);
@@ -64,6 +60,10 @@ export default class ShikiEditable extends ShikiView {
       $(ITEM_QUOTE_SELECTOR, this.$inner).on('click', this._itemQuote);
       $('.item-reply', this.$inner).on('click', this._itemReply);
     }
+  }
+
+  get reloadUrl() {
+    return `/${this.type}s/${this.node.id}`;
   }
 
   @memoize
@@ -149,8 +149,8 @@ export default class ShikiEditable extends ShikiView {
   }
 
   _bindFaye() {
-    this.on(`faye:${this._type()}:updated`, this._fayeUpdated);
-    this.on(`faye:${this._type()}:deleted`, this._fayeDeleted);
+    this.on(`faye:${this.type}:updated`, this._fayeUpdated);
+    this.on(`faye:${this.type}:deleted`, this._fayeDeleted);
   }
 
   _bindAutoExpand() {
@@ -325,7 +325,7 @@ export default class ShikiEditable extends ShikiView {
   _itemQuote() {
     const quote = {
       id: this.node.id,
-      type: this._type(),
+      type: this.type,
       userId: this.isGenerated ? null : this.$node.data('user_id'),
       nickname: this.isGenerated ? null : String(this.$node.data('user_nickname')),
       text: String(this.$node.data('selected_text')),
@@ -347,10 +347,10 @@ export default class ShikiEditable extends ShikiView {
 
     const reply = {
       id: this.node.id,
-      type: this._type(),
+      type: this.type,
       userId: this.$node.data('user_id'),
       text: String(this.$node.data('user_nickname')),
-      url: this.$node.data('url') || `/${this._type()}s/${this.node.id}`
+      url: this.$node.data('url') || `/${this.type}s/${this.node.id}`
     };
     const isOfftopic = typeof this._isOfftopic === 'function' ?
       this._isOfftopic() :
@@ -374,9 +374,9 @@ export default class ShikiEditable extends ShikiView {
   _fayeUpdated(_e, data) {
     $('.was_updated', this.$inner).remove();
 
-    const message = this._type() === 'message' ?
-      `${this._typeLabel()} ${I18n.t('frontend.shiki_editable.message_changed')}` :
-      `${this._typeLabel()} ${I18n.t('frontend.shiki_editable.changed')}`;
+    const message = this.type === 'message' ?
+      `${this.typeLabel} ${I18n.t('frontend.shiki_editable.message_changed')}` :
+      `${this.typeLabel} ${I18n.t('frontend.shiki_editable.changed')}`;
 
     const $notice = $(
       `<div class='was_updated'><div><span>${message}</span>` +
@@ -399,12 +399,12 @@ export default class ShikiEditable extends ShikiView {
 
   @bind
   _fayeDeleted(_e, data) {
-    const message = this._type() === 'message' ?
-      `${this._typeLabel()} ${I18n.t('frontend.shiki_editable.message_deleted')}` :
-      `${this._typeLabel()} ${I18n.t('frontend.shiki_editable.deleted')}`;
+    const message = this.type === 'message' ?
+      `${this.typeLabel} ${I18n.t('frontend.shiki_editable.message_deleted')}` :
+      `${this.typeLabel} ${I18n.t('frontend.shiki_editable.deleted')}`;
 
     this._replace(
-      `<div class='b-comment-info b-${this._type()}'><span>${message}</span>` +
+      `<div class='b-comment-info b-${this.type}'><span>${message}</span>` +
       `<a class='b-user16' href='/${data.actor}'><img src='${data.actor_avatar}' ` +
       `srcset='${data.actor_avatar_2x} 2x' /><span>${data.actor}</span></a></div>`
     );

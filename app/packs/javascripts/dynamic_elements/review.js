@@ -7,9 +7,6 @@ import Turbolinks from 'turbolinks';
 import { pushFlash } from '@/utils/flash';
 
 export default class Review extends Topic {
-  _type() { return 'review'; }
-  _typeLabel() { return I18n.t('frontend.dynamic_elements.review.type_label'); } // eslint-disable-line camelcase
-
   initialize() {
     const mobileOffset = isPhone() ? 63 : 0;
 
@@ -23,10 +20,9 @@ export default class Review extends Topic {
     this._scheduleCheckHeight();
   }
 
-  @memoize
-  get $checkHeightNode() {
-    return this.$inner;
-  }
+  get type() { return 'review'; }
+  get typeLabel() { return I18n.t('frontend.dynamic_elements.review.type_label'); } // eslint-disable-line camelcase
+  get $checkHeightNode() { return this.$inner; }
 
   @memoize
   get $editorPlacement() {
