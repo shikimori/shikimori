@@ -416,6 +416,10 @@ describe Comment do
         end
       end
     end
+
+    describe '#faye_channel' do
+      it { expect(comment.faye_channel).to eq %W[/comment-#{comment.id}] }
+    end
   end
 
   describe 'permissions' do

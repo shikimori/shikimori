@@ -149,6 +149,10 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
     false
   end
 
+  def faye_channel
+    %W[/topic-#{id}]
+  end
+
 private
 
   def validate_linked

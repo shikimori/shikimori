@@ -18,7 +18,13 @@ class Api::V1::ReviewsController < Api::V1Controller
   end
 
   def update
-    if Review::Update.call(@resource, update_params) && frontent_request?
+    is_updated = Review::Update.call(
+      review: @resource,
+      params: update_params,
+      faye: faye
+    )
+
+    if is_updated && frontent_request?
       render :review
     else
       respond_with @resource
@@ -44,5 +50,9 @@ private
     params
       .require(:review)
       .permit(:body, :is_written_before_release, :opinion)
+  end
+
+  def faye
+    FayeService.new current_user, faye_token
   end
 end

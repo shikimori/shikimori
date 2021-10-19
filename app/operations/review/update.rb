@@ -1,8 +1,8 @@
 class Review::Update
-  method_object :review, :params
+  method_object %i[review! params! faye!]
 
   def call
-    @review.update fixed_params
+    @faye.update @review, fixed_params
   end
 
 private

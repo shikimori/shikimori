@@ -50,7 +50,7 @@ class Comments::View < Topics::FoldedCommentsView
   end
 
   def faye_channel
-    comments.map(&:id).push(@comment.id).map { |id| "comment-#{id}" }
+    comments.map(&:id).push(@comment.id).map { |id| "/comment-#{id}" }
   end
 
 private

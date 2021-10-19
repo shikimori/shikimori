@@ -94,7 +94,7 @@ class Review < ApplicationRecord
   end
 
   def faye_channel
-    %W[review-#{id}]
+    %W[/review-#{id}]
   end
 
 private

@@ -1,6 +1,13 @@
 describe Review::Update do
-  subject { described_class.call review, params }
+  subject do
+    described_class.call(
+      review: review,
+      params: params,
+      faye: faye
+    )
+  end
 
+  let(:faye) { FayeService.new user, nil }
   let(:review) do
     create :review,
       user: user,

@@ -44,6 +44,6 @@ class Dialog
   end
 
   def faye_channel
-    ["dialog-#{[user.id, target_user.id].sort.join '-'}"]
+    %W[/dialog-#{[user.id, target_user.id].sort.join '-'}]
   end
 end

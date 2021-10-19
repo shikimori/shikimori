@@ -12,6 +12,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :tags,
     :created_at,
     :updated_at,
+    :faye_channel,
     to: :topic
 
   delegate :comments_count,
@@ -150,10 +151,6 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def urls
     Topics::Urls.new self
-  end
-
-  def faye_channel
-    ["topic-#{@topic.id}"]
   end
 
   def author_in_header?

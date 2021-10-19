@@ -243,6 +243,10 @@ class Comment < ApplicationRecord
     ) || commentable_type == Review.name
   end
 
+  def faye_channel
+    %W[/comment-#{id}]
+  end
+
 private
 
   def offtopic_topic?

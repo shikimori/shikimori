@@ -38,7 +38,7 @@ export default class FayeLoader {
   @bind
   apply() {
     let $targets = $('.b-forum');
-    if (!$targets.length) { $targets = $('.b-topic, .b-review'); }
+    if (!$targets.length) { $targets = $('[data-faye]'); }
     if (!this.client && ($targets.length || window.FAYE_CHANNEL)) {
       this.connect();
     }
@@ -55,7 +55,7 @@ export default class FayeLoader {
       }
 
       if (fayeChannels) {
-        fayeChannels.forEach(channel => channels[`/${channel}`] = $(node));
+        fayeChannels.forEach(channel => channels[channel] = $(node));
       }
     });
 
