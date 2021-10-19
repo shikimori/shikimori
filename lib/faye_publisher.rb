@@ -133,10 +133,9 @@ private
   end
 
   def comment_channels comment, channels
-    mixed_channels = channels + linked_channels(comment.commentable) + [
-      comment.faye_channel,
-      "/#{comment.commentable_type.downcase}-#{comment.commentable_id}"
-    ]
+    mixed_channels = channels + linked_channels(comment.commentable) +
+      comment.faye_channel +
+      ["/#{comment.commentable_type.downcase}-#{comment.commentable_id}"]
 
     # уведомление в открытые разделы для топиков
     topic = comment.commentable
