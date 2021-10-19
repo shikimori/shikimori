@@ -101,7 +101,7 @@ export default class Topic extends ShikiEditable {
     if (this.$editorForm) {
       this.$editorForm
         .on('ajax:success', (e, response) => {
-          const $newComment = $(response.html).process(response.JS_EXPORTS);
+          const $newComment = $(response.content).process(response.JS_EXPORTS);
 
           this.$('.b-comments').find('.b-nothing_here').remove();
           if (this.$editor.is(':last-child')) {
