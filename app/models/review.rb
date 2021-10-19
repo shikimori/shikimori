@@ -12,7 +12,8 @@ class Review < ApplicationRecord
 
   acts_as_votable cacheable_strategy: :update_columns
 
-  belongs_to :user
+  belongs_to :user,
+    touch: Rails.env.test? ? false : :activity_at
   belongs_to :anime, optional: true
   belongs_to :manga, optional: true
 
