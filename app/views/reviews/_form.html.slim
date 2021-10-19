@@ -8,6 +8,10 @@
     = f.input :anime_id, as: :hidden
     = f.input :manga_id, as: :hidden
 
+  - if review.written_before_release? && review.db_entry_released_before?
+    = f.input :is_written_before_release, as: :boolean
+
+  = f.input :manga_id, as: :hidden
   = render 'blocks/shiki_editor',
       text: review.body,
       field_name: 'review[body]',
