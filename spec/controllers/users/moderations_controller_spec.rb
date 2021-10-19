@@ -106,4 +106,27 @@ describe Users::ModerationsController do
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
+
+  context '#reviews' do
+    let!(:review_1) { create :review, user: target_user, anime: anime }
+    let!(:review_2) { create :review, user: user, anime: anime }
+    let(:anime) { create :anime }
+
+    let(:make_request) { delete :reviews, params: { profile_id: target_user.to_param } }
+
+    context 'has access' do
+      subject! { make_request }
+
+      it do
+        expect { review_1.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(review_2.reload).to be_persisted
+        is_expected.to redirect_to moderation_profile_url(target_user)
+      end
+    end
+
+    context 'no access' do
+      let(:user) { seed :user }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
+    end
+  end
 end
