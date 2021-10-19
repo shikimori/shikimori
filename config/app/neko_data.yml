@@ -8002,6 +8002,9 @@
         - 10588
         - 5343
         - 43767
+        - 18195
+        - 35960
+        - 4012
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
@@ -9010,6 +9013,7 @@
         - 883
         - 903
         - 1278
+        - 44807
       :generator:
         person_id: 5067
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -34328,6 +34332,7 @@
         - 39535
         - 42571
         - 40526
+        - 40787
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -35396,6 +35401,7 @@
         - 39535
         - 42571
         - 40526
+        - 40787
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -36464,6 +36470,7 @@
         - 39535
         - 42571
         - 40526
+        - 40787
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
