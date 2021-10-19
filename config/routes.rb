@@ -115,7 +115,7 @@ Rails.application.routes.draw do
       post :preview
       get 'fetch/:comment_id/:topic_type/:topic_id(/:is_summary)/:skip/:limit' => :fetch,
         as: :fetch,
-        topic_type: /Topic|User/
+        topic_type: /Topic|User|Review/
       get 'replies/:comment_id/:skip/:limit' => :replies, as: :replies
     end
 
