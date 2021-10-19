@@ -5,7 +5,7 @@ class Review < ApplicationRecord
   include Viewable
 
   antispam(
-    interval: 1.minute,
+    per_day: 15,
     disable_if: -> { Rails.env.development? && user&.admin? },
     user_id_key: :user_id
   )
