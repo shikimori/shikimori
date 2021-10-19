@@ -12,6 +12,14 @@ FactoryBot.define do
     cached_votes_up { 0 }
     cached_votes_down { 0 }
 
+    after :build do |model|
+      stub_method model, :antispam_checks
+    end
+
+    trait :with_antispam do
+      after(:build) { |model| unstub_method model, :antispam_checks }
+    end
+
     Types::Review::Opinion.values.each do |value|
       trait(value) { opinion { value } }
     end
