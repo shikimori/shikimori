@@ -991,6 +991,7 @@ Rails.application.routes.draw do
         section: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
 
       get 'critiques(/page/:page)' => :critiques, as: :critiques
+      get 'reviews(/page/:page)' => :reviews, as: :reviews
       get 'collections(/page/:page)' => :collections, as: :collections
       get 'articles(/page/:page)' => :articles, as: :articles
       get 'topics(/page/:page)' => :topics, as: :topics
@@ -1057,6 +1058,7 @@ Rails.application.routes.draw do
         delete :summaries
         delete :topics
         delete :critiques
+        delete :reviews
       end
       resources :nickname_changes, only: %i[index]
     end
