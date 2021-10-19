@@ -4,8 +4,6 @@ class FayePublisher # rubocop:disable ClassLength
   BROADCAST_FEED = 'broadcast'
 
   PROFILE_FAYE_CHANNEL = 'profile'
-  TOPIC_FAYE_CHANNEL = 'topic'
-  REVIEW_FAYE_CHANNEL = 'review'
 
   def self.faye_url
     shiki_domain = UrlGenerator.instance.shiki_domain
@@ -125,7 +123,7 @@ class FayePublisher # rubocop:disable ClassLength
 
     channels.each { |channel| publish_to channel, data }
   rescue RuntimeError => e
-    raise unless e.message.match?(/eventmachine not initialized/)
+    raise unless e.message.include?('eventmachine not initialized')
   end
 
 private
@@ -141,7 +139,7 @@ private
     topic = comment.commentable
     topic_type = comment.commentable_type == User.name ?
       PROFILE_FAYE_CHANNEL :
-      TOPIC_FAYE_CHANNEL
+      comment.commentable_type.downcase
 
     mixed_channels = channels +
       ["/comment-#{comment.id}"] +

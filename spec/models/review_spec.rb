@@ -242,7 +242,7 @@ describe Review do
 
     describe '#faye_channel' do
       let(:review) { build_stubbed :review }
-      it { expect(review.faye_channel).to eq %W[/review-#{review.id}] }
+      it { expect(review.faye_channel).to eq %W[review-#{review.id}] }
     end
   end
 

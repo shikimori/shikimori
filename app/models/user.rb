@@ -417,7 +417,7 @@ class User < ApplicationRecord
   # NOTE: replace id with hashed value of secret token when
   # any private data will be transmitted through the channel
   def faye_channel
-    ["/user-#{id}"]
+    %W[/user-#{id}]
   end
 
 private
@@ -450,7 +450,6 @@ private
     NamedLogger.download_avatar.info "#{gravatar_url} start"
     self.avatar = OpenURI.open_uri(gravatar_url)
     NamedLogger.download_avatar.info "#{gravatar_url} end"
-
   rescue *Network::FaradayGet::NET_ERRORS
     self.avatar = open('app/assets/images/globals/missing_avatar/x160.png')
   end

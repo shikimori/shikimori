@@ -191,46 +191,6 @@ export default class Topic extends ShikiEditable {
         this.$commentsHider.show();
       }
     });
-
-    // realtime обновления
-    // изменение / удаление комментария
-    this.on(FAYE_EVENTS.join(' '), (e, data) => {
-      e.stopImmediatePropagation();
-      const trackableType = e.type.match(/comment|message/)[0];
-      const trackableId = data[`${trackableType}_id`];
-
-      if (e.target === this.$node[0]) {
-        this.$(`.b-${trackableType}#${trackableId}`).trigger(e.type, data);
-      }
-    });
-
-    // добавление комментария
-    this.on('faye:comment:created faye:message:created', (e, data) => {
-      e.stopImmediatePropagation();
-      const trackableType = e.type.match(/comment|message/)[0];
-      const trackableId = data[`${trackableType}_id`];
-
-      if (this.$(`.b-${trackableType}#${trackableId}`).exists()) { return; }
-      const $placeholder = this._fayePlaceholder(trackableId, trackableType);
-
-      // уведомление о добавленном элементе через faye
-      $(document.body).trigger('faye:added');
-
-      if (window.SHIKI_USER.isCommentsAutoLoaded) {
-        if ($placeholder.is(':appeared') && !$('textarea:focus').val()) {
-          $placeholder.click();
-        }
-      }
-    });
-
-    // изменение метки комментария
-    this.on('faye:comment:marked', (e, data) => {
-      e.stopImmediatePropagation();
-
-      $(`.b-comment#${data.comment_id}`)
-        .view()
-        .mark(data.mark_kind, data.mark_value);
-    });
   }
 
   @memoize
@@ -257,6 +217,46 @@ export default class Topic extends ShikiEditable {
   @memoize
   get $checkHeightNode() {
     return this.$body;
+  }
+
+  _bindFaye() {
+    super._bindFaye();
+
+    this.on(FAYE_EVENTS.join(' '), (e, data) => {
+      e.stopImmediatePropagation();
+      const trackableType = e.type.match(/comment|message/)[0];
+      const trackableId = data[`${trackableType}_id`];
+
+      if (e.target === this.$node[0]) {
+        this.$(`.b-${trackableType}#${trackableId}`).trigger(e.type, data);
+      }
+    });
+
+    this.on('faye:comment:created faye:message:created', (e, data) => {
+      e.stopImmediatePropagation();
+      const trackableType = e.type.match(/comment|message/)[0];
+      const trackableId = data[`${trackableType}_id`];
+
+      if (this.$(`.b-${trackableType}#${trackableId}`).exists()) { return; }
+      const $placeholder = this._fayePlaceholder(trackableId, trackableType);
+
+      // уведомление о добавленном элементе через faye
+      $(document.body).trigger('faye:added');
+
+      if (window.SHIKI_USER.isCommentsAutoLoaded) {
+        if ($placeholder.is(':appeared') && !$('textarea:focus').val()) {
+          $placeholder.click();
+        }
+      }
+    });
+
+    this.on('faye:comment:marked', (e, data) => {
+      e.stopImmediatePropagation();
+
+      $(`.b-comment#${data.comment_id}`)
+        .view()
+        .mark(data.mark_kind, data.mark_value);
+    });
   }
 
   // переключение топика в режим игнора/не_игнора
