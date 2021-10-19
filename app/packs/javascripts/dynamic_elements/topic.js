@@ -10,13 +10,6 @@ import { animatedCollapse, animatedExpand } from '@/utils/animated';
 import { loadImagesFinally } from '@/utils/load_image';
 
 const I18N_KEY = 'frontend.dynamic_elements.topic';
-const FAYE_EVENTS = [
-  'faye:comment:updated',
-  'faye:message:updated',
-  'faye:comment:deleted',
-  'faye:message:deleted',
-  'faye:comment:set_replies'
-];
 const SHOW_IGNORED_TOPICS_IN = [
   'topics_show',
   'collections_show'
@@ -25,6 +18,7 @@ const SHOW_IGNORED_TOPICS_IN = [
 // TODO: move code related to comments to separate class
 export default class Topic extends ShikiEditable {
   _type() { return 'topic'; }
+  _commentType() { return 'comment'; }
   _typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); } // eslint-disable-line camelcase
   // similar to hash from JsExports::TopicsExport#serialize
   _defaultModel() { // eslint-disable-line camelcase
@@ -222,17 +216,22 @@ export default class Topic extends ShikiEditable {
   _bindFaye() {
     super._bindFaye();
 
-    this.on(FAYE_EVENTS.join(' '), (e, data) => {
-      e.stopImmediatePropagation();
-      const trackableType = e.type.match(/comment|message/)[0];
-      const trackableId = data[`${trackableType}_id`];
+    this.on(
+      [
+        `faye:${this._commentType()}:updated`,
+        `faye:${this._commentType()}:deleted`,
+        `faye:${this._commentType()}:set_replies`
+      ].join(' '), (e, data) => {
+        e.stopImmediatePropagation();
+        const trackableType = e.type.match(/comment|message/)[0];
+        const trackableId = data[`${trackableType}_id`];
 
-      if (e.target === this.$node[0]) {
-        this.$(`.b-${trackableType}#${trackableId}`).trigger(e.type, data);
-      }
-    });
+        if (e.target === this.$node[0]) {
+          this.$(`.b-${trackableType}#${trackableId}`).trigger(e.type, data);
+        }
+      });
 
-    this.on('faye:comment:created faye:message:created', (e, data) => {
+    this.on(`faye:${this._commentType()}:created`, (e, data) => {
       e.stopImmediatePropagation();
       const trackableType = e.type.match(/comment|message/)[0];
       const trackableId = data[`${trackableType}_id`];
