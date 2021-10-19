@@ -93,6 +93,10 @@ class Review < ApplicationRecord
       end
   end
 
+  def faye_channel
+    ["/review-#{id}"]
+  end
+
 private
 
   def fill_is_written_before_release

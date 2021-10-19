@@ -239,6 +239,11 @@ describe Review do
         it { is_expected.to eq user_rate }
       end
     end
+
+    describe '#faye_channel' do
+      let(:review) { build_stubbed :review }
+      it { expect(review.faye_channel).to eq %W[/review-#{review.id}] }
+    end
   end
 
   describe 'permissions' do
