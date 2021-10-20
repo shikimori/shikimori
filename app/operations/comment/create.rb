@@ -8,8 +8,9 @@ class Comment::Create < ServiceObjectBase
 
     RedisMutex.with_lock(mutex_key, block: 30.seconds, expire: 30.seconds) do
       apply_commentable comment
-      @faye.create comment
     end
+    @faye.create comment
+    if 
 
     comment
   end
