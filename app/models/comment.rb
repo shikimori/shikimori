@@ -58,12 +58,10 @@ class Comment < ApplicationRecord
   before_create :cancel_summary
   before_create :check_spam_abuse, if: -> { commentable_type == User.name }
   after_create :increment_comments
-  after_create :creation_callbacks
 
   before_destroy :decrement_comments
   before_destroy :destroy_images
 
-  after_destroy :destruction_callbacks
   after_destroy :touch_commentable
   after_destroy :remove_notifies
 
@@ -80,34 +78,6 @@ class Comment < ApplicationRecord
     end
   end
 
-  # counter_cache hack
-  def increment_comments
-    if commentable && commentable.attributes['comments_count']
-      commentable.increment!(:comments_count)
-    end
-  end
-
-  def decrement_comments
-    if commentable && commentable.attributes['comments_count']
-      commentable.class.decrement_counter(:comments_count, commentable.id)
-    end
-  end
-
-  def destroy_images
-    Comment::Cleanup.call self, is_cleanup_summaries: true, skip_model_update: true
-  end
-
-  # TODO: get rid of this method
-  # проверка можно ли добавлять комментарий в комментируемый объект
-  def check_access
-    commentable = commentable_klass.find(commentable_id)
-
-    if commentable.respond_to?(:can_be_commented_by?) &&
-        !commentable.can_be_commented_by?(self)
-      throw :abort
-    end
-  end
-
   # отмена метки отзыва для коротких комментариев
   def cancel_summary
     return unless summary?
@@ -120,29 +90,6 @@ class Comment < ApplicationRecord
     unless Users::CheckHacked.call(model: self, text: body, user: user)
       throw :abort
     end
-  end
-
-  # TODO: get rid of this method
-  # для комментируемого объекта вызов колбеков, если они определены
-  def creation_callbacks
-    commentable = commentable_klass.find(commentable_id)
-    self.commentable_type = commentable_klass.base_class.name
-
-    commentable.comment_added(self) if commentable.respond_to?(:comment_added)
-    # commentable.mark_as_viewed(self.user_id, self) if commentable.respond_to?(:mark_as_viewed)
-
-    # save if saved_changes?
-  end
-
-  # TODO: get rid of this method
-  # для комментируемого объекта вызов колбеков, если они определены
-  def destruction_callbacks
-    commentable = commentable_klass.find(commentable_id)
-
-    if commentable.respond_to?(:comment_deleted)
-      commentable.comment_deleted(self)
-    end
-  # rescue ActiveRecord::RecordNotFound
   end
 
   def notify_quoted
@@ -253,6 +200,34 @@ private
     return false if topic.blank?
 
     topic.id == Topic::TOPIC_IDS[:offtopic][topic.locale.to_sym]
+  end
+
+  # counter_cache hack
+  def increment_comments
+    if commentable && commentable.attributes['comments_count']
+      commentable.increment! :comments_count
+    end
+  end
+
+  def decrement_comments
+    if commentable && commentable.attributes['comments_count']
+      commentable.class.decrement_counter :comments_count, commentable.id
+    end
+  end
+
+  def destroy_images
+    Comment::Cleanup.call self, is_cleanup_summaries: true, skip_model_update: true
+  end
+
+  # TODO: get rid of this method
+  # проверка можно ли добавлять комментарий в комментируемый объект
+  def check_access
+    commentable = commentable_klass.find(commentable_id)
+
+    if commentable.respond_to?(:can_be_commented_by?) &&
+        !commentable.can_be_commented_by?(self)
+      throw :abort
+    end
   end
 
   def commentable_klass

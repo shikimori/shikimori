@@ -98,12 +98,6 @@ describe Comment do
       it { expect(comment).to receive :increment_comments }
     end
 
-    describe '#creation_callbacks' do
-      let(:comment) { build :comment }
-      after { comment.save }
-      it { expect(comment).to receive :creation_callbacks }
-    end
-
     describe '#notify_quoted' do
       describe 'after_save' do
         context 'body changed' do
@@ -143,12 +137,6 @@ describe Comment do
           .to have_received(:call)
           .with(comment, is_cleanup_summaries: true, skip_model_update: true)
       end
-    end
-
-    describe '#destruction_callbacks' do
-      let(:comment) { create :comment }
-      after { comment.destroy }
-      it { expect(comment).to receive :destruction_callbacks }
     end
 
     describe '#release_the_banhammer!' do
