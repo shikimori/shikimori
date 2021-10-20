@@ -21,7 +21,6 @@ describe Notifications::SendMessages do
       message_attributes.except('created_at')
     )
     expect(messages.first.created_at).to be_within(0.1).of 1.day.ago
-    expect(messages.first.updated_at).to be_nil
     expect(messages.first.to_id).to eq user_ids.first
     expect(messages.second.to_id).to eq user_ids.second
     expect(messages.third.to_id).to eq user_ids.third
