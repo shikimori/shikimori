@@ -52,7 +52,7 @@ describe Comment::Create do
         let(:is_summary) { false }
         before { allow(User::NotifyProfileCommented).to receive :call }
 
-        it '', :focus do
+        it do
           expect(comment).to have_attributes(
             commentable: user,
             body: 'x' * Comment::MIN_SUMMARY_SIZE,

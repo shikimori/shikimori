@@ -1,7 +1,5 @@
-class Comment::Create < ServiceObjectBase
-  pattr_initialize :faye, :params, :locale
-
-  instance_cache :commentable_object
+class Comment::Create
+  method_object :faye, :params, :locale
 
   def call
     comment = Comment.new @params.except(:commentable_id, :commentable_type)
@@ -50,7 +48,7 @@ private
   end
 
   def commentable_object
-    commentable_klass.find @params[:commentable_id]
+    @commentable_object ||= commentable_klass.find @params[:commentable_id]
   end
 
   def no_topic_generation? commentable_klass
