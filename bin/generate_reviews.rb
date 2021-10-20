@@ -7,13 +7,14 @@ ActiveRecord::Base.logger.level = 3;
 if Rails.env.development?
   # reload!
   puts 'Destroying all reviews...'
-  Review.destroy_all
+  Chewy.strategy(:atomic) { Review.destroy_all }
 else
   raise RuntimeError
 end
 
 def cut_system_bbcodes text
-  text.gsub(/\[(?:replies|ban)=[\d,]+\]/, '').strip
+  # text.gsub(/\[(?:replies|ban)=[\d,]+\]/, '').strip
+  text.gsub(/\[(?:ban)=[\d,]+\]/, '').strip
 end
 
 [Anime, Manga].each do |klass|
@@ -83,7 +84,7 @@ end
       )
       review.instance_variable_set :@is_migration, true
       Review.wo_antispam do
-        review.save!
+        Chewy.strategy(:atomic) { review.save! }
         # ap review
       rescue ActiveRecord::RecordInvalid
         raise unless review.errors[:user_id].present?
