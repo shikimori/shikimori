@@ -4,6 +4,7 @@ describe DbEntry::MergeAsEpisode do
       entry: entry,
       other: other,
       as_episode: as_episode,
+      episode_label: episode_label,
       episode_field: episode_field
     )
   end
@@ -107,6 +108,7 @@ describe DbEntry::MergeAsEpisode do
   let!(:user_rate_other) { nil }
 
   let(:episode_field) { type == :anime ? :episodes : :volumes }
+  let(:episode_label) { ['', nil].sample }
 
   it do
     is_expected.to eq true
@@ -221,6 +223,21 @@ describe DbEntry::MergeAsEpisode do
             episode_field => final_episodes_num,
             text: "✅ #{described_class::EPISODE_LABEL[episode_field]} 1-2 #{entry.name} (#{entry.russian})"
           )
+        end
+
+        context 'episode label' do
+          let(:episode_label) { 'zxc' }
+          it do
+            expect { subject }.to_not change UserRate, :count
+            expect { user_rate_entry.reload }.to raise_error ActiveRecord::RecordNotFound
+            expect(final_episodes_num).to eq 2
+            expect(final_episodes_num).to eq as_episode + user_rate_entry.send(episode_field) - 1
+            expect(new_user_rate).to have_attributes(
+              status: 'watching',
+              episode_field => final_episodes_num,
+              text: "✅ #{episode_label} #{entry.name} (#{entry.russian})"
+            )
+          end
         end
       end
 

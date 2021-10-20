@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_10_113012) do
+ActiveRecord::Schema.define(version: 2021_10_20_155338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -697,7 +697,6 @@ ActiveRecord::Schema.define(version: 2021_10_10_113012) do
     t.string "body", limit: 900000
     t.boolean "read", default: false, null: false
     t.datetime "created_at"
-    t.datetime "updated_at"
     t.boolean "is_deleted_by_to", default: false
     t.boolean "emailed", default: false
     t.integer "linked_id", default: 0, null: false

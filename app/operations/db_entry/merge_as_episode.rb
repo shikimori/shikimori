@@ -1,5 +1,5 @@
 class DbEntry::MergeAsEpisode < DbEntry::MergeIntoOther # rubocop:disable ClassLength
-  method_object %i[entry! other! as_episode! episode_field!]
+  method_object %i[entry! other! as_episode! episode_label episode_field!]
 
   RELATIONS = %i[
     russian
@@ -143,11 +143,12 @@ private
     unless zero_episode?
       episodes = [@as_episode, new_value].uniq.join('-')
       label = EPISODE_LABEL[@episode_field]
-      episodes_text = "#{label} #{episodes} "
+      episodes_text = "#{label} #{episodes}"
     end
     russian_text = " (#{@entry.russian})" if @entry.russian.present?
 
-    "✅ #{episodes_text}" + @entry.name + (russian_text || '')
+    "✅ #{@episode_label.presence || episodes_text}".strip +
+      ' ' + @entry.name + (russian_text || '')
   end
 
   def zero_episode?

@@ -145,6 +145,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
       @resource.id,
       params[:target_id].to_i,
       params[:as_episode].to_i,
+      params[:episode_label],
       params[:episode_field],
       current_user.id
     )
