@@ -10,7 +10,7 @@ class Comment::Create < ServiceObjectBase
       apply_commentable comment
     end
     @faye.create comment
-    if 
+    notify_user comment if profile_comment?
 
     comment
   end
@@ -26,16 +26,20 @@ private
   def apply_commentable comment
     return if commentable_klass == NilClass
 
-    if possibly_generate_topic? commentable_klass
-      comment.commentable = find_or_generate_topic
-    else
+    if no_topic_generation? commentable_klass
       comment.assign_attributes @params.slice(:commentable_id, :commentable_type)
+    else
+      comment.commentable = find_or_generate_topic
     end
   end
 
   def find_or_generate_topic
     commentable_object.topic(@locale) ||
       commentable_object.generate_topics(@locale).first
+  end
+
+  def notify_user comment
+    User::NotifyProfileCommented.call comment
   end
 
   # NOTE: Topic, User, Review or DbEntry
@@ -49,11 +53,13 @@ private
     commentable_klass.find @params[:commentable_id]
   end
 
-  def possibly_generate_topic? commentable_klass
-    !(
-      commentable_klass <= Topic ||
-        commentable_klass <= User ||
-        commentable_klass == Review
-    )
+  def no_topic_generation? commentable_klass
+    commentable_klass <= Topic ||
+      commentable_klass == Review ||
+      profile_comment?
+  end
+
+  def profile_comment?
+    commentable_klass <= User
   end
 end

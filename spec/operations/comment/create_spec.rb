@@ -50,8 +50,9 @@ describe Comment::Create do
         let(:commentable_id) { user.id }
         let(:commentable_type) { User.name }
         let(:is_summary) { false }
+        before { allow(User::NotifyProfileCommented).to receive :call }
 
-        it do
+        it '', :focus do
           expect(comment).to have_attributes(
             commentable: user,
             body: 'x' * Comment::MIN_SUMMARY_SIZE,
@@ -59,6 +60,9 @@ describe Comment::Create do
             is_summary: false,
             user: user
           )
+          expect(User::NotifyProfileCommented)
+            .to have_received(:call)
+            .with comment
         end
       end
 
