@@ -35,8 +35,6 @@ describe Comment::Create do
   end
 
   describe 'topic' do
-    subject { comment.topic }
-
     # TODO: cannot pass arbitrary topic class
     #       because of limit on commentable_type in comments
     describe 'commentable' do
@@ -45,7 +43,7 @@ describe Comment::Create do
         let(:commentable_type) { Topic.name }
 
         it_behaves_like :comment
-        it { is_expected.to eq topic }
+        its(:topic) { is_expected.to eq topic }
       end
 
       context 'commentable is user' do
@@ -88,7 +86,7 @@ describe Comment::Create do
       let(:commentable_type) { Anime.name }
 
       it_behaves_like :comment
-      it { is_expected.to eq topic }
+      its(:topic) { is_expected.to eq topic }
     end
 
     context 'commentable is db entry with topic for different locale' do
@@ -100,7 +98,7 @@ describe Comment::Create do
 
       it_behaves_like :comment
       it 'creates anime topic with specified locale' do
-        is_expected.to have_attributes(
+        expect(subject.topic).to have_attributes(
           type: Topics::EntryTopics::AnimeTopic.name,
           locale: locale.to_s
         )
@@ -114,7 +112,7 @@ describe Comment::Create do
 
       it_behaves_like :comment
       it 'creates anime topic with specified locale' do
-        is_expected.to have_attributes(
+        expect(subject.topic).to have_attributes(
           type: Topics::EntryTopics::AnimeTopic.name,
           locale: locale.to_s
         )
