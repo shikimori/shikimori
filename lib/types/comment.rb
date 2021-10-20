@@ -1,7 +1,5 @@
 module Types
   module Comment
-    CommentableType = Types::Strict::String
-      .constructor(&:to_sym)
-      .enum('Topic', 'User', 'Review')
+    CommentableType = Types::Strict::String.enum('Topic', 'User', 'Review')
   end
 end
