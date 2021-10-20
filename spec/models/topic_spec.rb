@@ -41,21 +41,6 @@ describe Topic do
   end
 
   describe 'instance methods' do
-    describe '#comment_added' do
-      let(:topic) { create :topic }
-
-      it 'updated_at is set to created_at of last comment' do
-        first = second = third = nil
-        Comment.wo_antispam do
-          first = create :comment, commentable: topic, created_at: 2.days.ago, body: 'first'
-          second = create :comment, commentable: topic, created_at: 1.day.ago, body: 'second'
-          third = create :comment, commentable: topic, created_at: 30.minutes.ago, body: 'third'
-        end
-        third.destroy
-        expect(first.commentable.reload.updated_at.to_i).to eq(second.created_at.to_i)
-      end
-    end
-
     describe 'comments selected with viewed flag' do
       subject { topic.comments.with_viewed(another_user).first.viewed? }
 
