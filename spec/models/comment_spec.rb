@@ -1,7 +1,7 @@
 describe Comment do
   describe 'associations' do
     it { is_expected.to belong_to :user }
-    it { is_expected.to belong_to :commentable }
+    it { is_expected.to belong_to(:commentable).touch(true) }
     it { is_expected.to belong_to(:topic).optional }
     it { is_expected.to have_many(:messages).dependent :destroy }
     it { is_expected.to have_many :viewings }
@@ -22,7 +22,7 @@ describe Comment do
   end
 
   describe 'callbacks' do
-    let(:topic) { build_stubbed :anime_topic, user: user }
+    let(:topic) { seed :offtopic_topic }
     let(:comment) { create :comment, user: user, commentable: topic }
 
     describe '#forbid_tag_change' do
@@ -44,6 +44,7 @@ describe Comment do
       before { comment.save }
 
       context 'anime/manga/ranobe topic' do
+        let(:topic) { create :anime_topic, linked: build_stubbed(:anime) }
         let(:commentable) { topic }
 
         context 'long comment' do
@@ -86,7 +87,7 @@ describe Comment do
       end
 
       context 'not profile comment' do
-        let!(:comment) { create :comment, commentable: build_stubbed(:topic) }
+        let!(:comment) { create :comment }
         it { expect(Users::CheckHacked).to_not have_received :call }
       end
     end
@@ -195,7 +196,7 @@ describe Comment do
   end
 
   describe 'instance methods' do
-    let(:topic) { build_stubbed :topic, user: user }
+    let(:topic) { seed :offtopic_topic }
     let(:comment) { create :comment, user: user, commentable: topic }
 
     describe '#html_body' do
