@@ -67,9 +67,21 @@ class Review < ApplicationRecord
     anime_id || manga_id
   end
 
-  def db_entry_released_before?
-    db_entry.released? &&
-      (!db_entry.released_on || db_entry.released_on <= Time.zone.today)
+  def db_entry_released_before? # rubocop:disable all
+    # db_entry.released? &&
+      # (!db_entry.released_on || db_entry.released_on <= Time.zone.today)
+
+    if db_entry.released? && db_entry.released_on?
+      db_entry.released_on <= (@custom_created_at || Time.zone.today)
+    elsif (db_entry.released? && !db_entry.released_on) ||
+        (db_entry.is_a?(Manga) && db_entry.discontinued?)
+      true
+    elsif db_entry.ongoing? || db_entry.anons? ||
+        (db_entry.is_a?(Manga) && db_entry.paused?)
+      false
+    else
+      raise ArgumentErorr, 'unexpected db_entry state'
+    end
   end
 
   def cache_key_with_version

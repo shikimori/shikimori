@@ -42,36 +42,93 @@ describe Review do
       subject { review.is_written_before_release }
 
       let(:review) do
-        Review.create(
+        model = Review.new(
           anime: anime,
+          manga: manga,
           body: 'a' * described_class::MIN_BODY_SIZE,
           user: user,
           opinion: 'positive',
           is_written_before_release: is_written_before_release
         )
+        model.instance_variable_set :@custom_created_at, custom_created_at
+        model.save
+        model
       end
-      let(:anime) { create :anime, status, released_on: released_on }
+      let(:anime) { nil }
+      let(:manga) { nil }
+      let(:is_written_before_release) { nil }
+      let(:custom_created_at) { nil }
 
-      let(:status) { :released }
-      let(:released_on) { nil }
+      context 'anime' do
+        let(:anime) { create :anime, status, released_on: released_on }
+        let(:status) { :released }
+        let(:released_on) { nil }
 
-      context 'is set' do
-        context 'true' do
-          let(:is_written_before_release) { true }
-          it { is_expected.to eq true }
+        context 'is set' do
+          context 'true' do
+            let(:is_written_before_release) { true }
+            it { is_expected.to eq true }
+          end
+
+          context 'false' do
+            let(:is_written_before_release) { false }
+            it { is_expected.to eq false }
+          end
         end
 
-        context 'false' do
-          let(:is_written_before_release) { false }
-          it { is_expected.to eq false }
+        context 'not set' do
+          context 'released' do
+            let(:status) { :released }
+
+            context 'released_on is not set' do
+              let(:released_on) { nil }
+              it { is_expected.to eq false }
+            end
+
+            context 'released_on is set' do
+              context 'released_on > now()' do
+                let(:released_on) { Time.zone.tomorrow }
+                it { is_expected.to eq true }
+
+                context 'custom_created_at' do
+                  context 'before released_on' do
+                    let(:custom_created_at) { released_on - 2.days }
+                    it { is_expected.to eq true }
+                  end
+
+                  context 'after released_on' do
+                    let(:custom_created_at) { released_on + 2.days }
+                    it { is_expected.to eq false }
+                  end
+                end
+              end
+
+              context 'released_on <= now()' do
+                let(:released_on) { Time.zone.today }
+                it { is_expected.to eq false }
+              end
+            end
+          end
+
+          context 'not released' do
+            let(:status) { %i[anons ongoing].sample }
+            it { is_expected.to eq true }
+          end
         end
       end
 
-      context 'not set' do
-        let(:is_written_before_release) { nil }
+      context 'manga' do
+        let(:manga) { create :manga, status, released_on: released_on }
+        let(:status) { :released }
+        let(:released_on) { nil }
 
         context 'released' do
           let(:status) { :released }
+
+          context 'released_on is not set' do
+            let(:released_on) { nil }
+            it { is_expected.to eq false }
+          end
 
           context 'released_on is set' do
             context 'released_on > now()' do
@@ -89,6 +146,11 @@ describe Review do
         context 'not released' do
           let(:status) { %i[anons ongoing].sample }
           it { is_expected.to eq true }
+        end
+
+        context 'discontinued' do
+          let(:status) { :discontinued }
+          it { is_expected.to eq false }
         end
       end
     end
