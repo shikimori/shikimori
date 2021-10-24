@@ -13,7 +13,7 @@ class Ban < ApplicationRecord
   validates :user, :moderator, presence: true
   validates :duration, :reason, presence: true
   validates :reason, length: { maximum: 4096 }
-  validates :comment_id, exclusive_arc: %i[topic_id review_id]
+  # validates :comment_id, exclusive_arc: %i[topic_id review_id]
 
   before_validation :set_user
 
