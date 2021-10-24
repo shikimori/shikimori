@@ -12,7 +12,10 @@
   = f.input :duration,
     as: :string,
     input_html: { value: ban.suggest_duration }
-  = f.input :reason, as: :string, wrapper_html: { class: 'm5' }
+  = f.input :reason,
+    as: :text,
+    wrapper_html: { class: 'm5' },
+    input_html: { rows: 2 }
 
   - if ru_host?
     .reasons.m15
