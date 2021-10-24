@@ -44,10 +44,6 @@ Airbrussh.configure do |config|
   config.truncate = false
 end
 
-# def current_branch
-#   ENV['BRANCH'] || `git rev-parse --abbrev-ref HEAD`.chomp
-# end
-
 def bundle_exec command, witin_path = "#{self.deploy_to}/current"
   execute "cd #{witin_path} && "\
     "RAILS_ENV=#{fetch :rails_env} #{fetch :rbenv_prefix} "\
