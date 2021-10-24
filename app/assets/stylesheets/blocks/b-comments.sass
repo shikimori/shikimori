@@ -5,8 +5,6 @@
 @import mixins/responsive
 
 .b-comments
-  +block
-
   .comments-loader,
   .comments-hider,
   .comments-expander
@@ -50,3 +48,6 @@
   .messages-postloader
     +plashka
     margin-bottom: 5px
+
+  & + .editor-container
+    margin-top: $block-offset
