@@ -11,6 +11,8 @@ export default class ShortDialog extends Topic {
     });
   }
 
+  _deactivateInaccessibleButtons() {}
+
   get type() { return 'dialog'; }
   get commentType() { return 'message'; }
   get typeLabel() { return I18n.t('frontend.dynamic_elements.dialog.type_label'); } // eslint-disable-line camelcase
