@@ -72,10 +72,10 @@ describe Dialog do
     end
   end
 
-  describe '#faye_channel' do
+  describe '#faye_channels' do
     let(:user_1) { build_stubbed :user, id: 2 }
     let(:user_2) { build_stubbed :user, id: 1 }
 
-    its(:faye_channel) { is_expected.to eq ['/dialog-1-2'] }
+    its(:faye_channels) { is_expected.to eq ['/dialog-1-2'] }
   end
 end

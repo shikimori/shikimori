@@ -49,7 +49,7 @@ class Comments::View < Topics::FoldedCommentsView
     reply_ids.size
   end
 
-  def faye_channel
+  def faye_channels
     comments.map(&:id).push(@comment.id).map { |id| "/comment-#{id}" }
   end
 

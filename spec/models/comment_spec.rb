@@ -406,8 +406,8 @@ describe Comment do
       end
     end
 
-    describe '#faye_channel' do
-      it { expect(comment.faye_channel).to eq %W[/comment-#{comment.id}] }
+    describe '#faye_channels' do
+      it { expect(comment.faye_channels).to eq %W[/comment-#{comment.id}] }
     end
   end
 

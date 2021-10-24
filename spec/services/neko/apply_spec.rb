@@ -75,7 +75,7 @@ describe Neko::Apply do
             image: nil,
             event: :gained
           }],
-          user.faye_channel
+          user.faye_channels
         )
     end
   end
@@ -126,7 +126,7 @@ describe Neko::Apply do
             image: '/assets/achievements/anime/animelist_1.png',
             event: :lost
           }],
-          user.faye_channel
+          user.faye_channels
         )
     end
   end

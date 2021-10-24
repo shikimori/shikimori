@@ -26,7 +26,7 @@ header.head.m15
 .subheadline = i18n_i 'Discussion'
 .to-process[
   data-dynamic='topic'
-  data-faye=@topic_view.faye_channel.to_json
+  data-faye=@topic_view.faye_channels.to_json
 ]
   = render 'topics/comments',
     comments_view: @topic_view.comments_view,

@@ -105,7 +105,7 @@ class Review < ApplicationRecord
       end
   end
 
-  def faye_channel
+  def faye_channels
     %W[/review-#{id}]
   end
 

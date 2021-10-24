@@ -43,7 +43,7 @@ class Dialog
     )
   end
 
-  def faye_channel
+  def faye_channels
     %W[/dialog-#{[user.id, target_user.id].sort.join '-'}]
   end
 end

@@ -120,7 +120,7 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
     false
   end
 
-  def faye_channel
+  def faye_channels
     %W[/topic-#{id}]
   end
 

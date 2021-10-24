@@ -64,9 +64,9 @@ describe Topic do
       it { expect(topic.decomposed_body).to be_kind_of Topics::DecomposedBody }
     end
 
-    describe '#faye_channel' do
+    describe '#faye_channels' do
       let(:topic) { build_stubbed :topic }
-      it { expect(topic.faye_channel).to eq %W[/topic-#{topic.id}] }
+      it { expect(topic.faye_channels).to eq %W[/topic-#{topic.id}] }
     end
   end
 

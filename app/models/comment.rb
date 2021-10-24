@@ -190,7 +190,7 @@ class Comment < ApplicationRecord
     ) || commentable_type == Review.name
   end
 
-  def faye_channel
+  def faye_channels
     %W[/comment-#{id}]
   end
 

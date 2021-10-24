@@ -12,7 +12,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :tags,
     :created_at,
     :updated_at,
-    :faye_channel,
+    :faye_channels,
     to: :topic
 
   delegate :comments_count,

@@ -134,7 +134,7 @@ private
 
   def comment_channels comment, channels
     mixed_channels = channels + linked_channels(comment.commentable) +
-      comment.faye_channel +
+      comment.faye_channels +
       ["/#{comment.commentable_type.downcase}-#{comment.commentable_id}"]
 
     # уведомление в открытые разделы для топиков
@@ -149,13 +149,14 @@ private
   end
 
   def review_channels review, channels
-    channels + [review.faye_channel]
+    channels + review.faye_channels
   end
 
   def topic_channels topic, channels
     channels +
+      topic.faye_channels +
       linked_channels(topic) +
-      [forum_channel(topic.forum_id, topic.locale), topic.faye_channel]
+      [forum_channel(topic.forum_id, topic.locale)]
   end
 
   def linked_channels topic

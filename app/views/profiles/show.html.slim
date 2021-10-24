@@ -319,7 +319,7 @@
           = t('profiles_controller.feed')
       .to-process[
         data-dynamic='topic'
-        data-faye=@resource.preview_comments_view.faye_channel.to_json
+        data-faye=@resource.preview_comments_view.faye_channels.to_json
       ]
         = render 'topics/comments',
           comments_view: @resource.preview_comments_view,

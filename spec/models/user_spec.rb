@@ -276,8 +276,8 @@ describe User do
       end
     end
 
-    describe '#faye_channel' do
-      it { expect(user.faye_channel).to eq %W[/private-#{user.id}] }
+    describe '#faye_channels' do
+      it { expect(user.faye_channels).to eq %W[/private-#{user.id}] }
     end
 
     describe '#generated_email?' do
