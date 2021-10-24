@@ -32,7 +32,8 @@ end
         Chewy.strategy(:atomic) do
           Comment::ConvertToReview.call comment,
             normalization: normalization,
-            rates_fetcher: rates_fetcher
+            rates_fetcher: rates_fetcher,
+            is_keep_comment: Rails.env.development?
         end
         # ap review
       rescue ActiveRecord::RecordInvalid

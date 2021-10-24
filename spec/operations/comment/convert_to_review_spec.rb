@@ -3,7 +3,7 @@ describe Comment::ConvertToReview do
   let(:comment) do
     create :comment,
       body: 'x' * Review::MIN_BODY_SIZE,
-      commentable: anime_topic
+      commentable: anim_topic
   end
   let(:anime_topic) { create :topic, linked: anime }
   let(:anime) { create :anime }

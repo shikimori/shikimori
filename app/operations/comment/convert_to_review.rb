@@ -1,5 +1,5 @@
 class Comment::ConvertToReview
-  method_object :comment, %i[normalization rates_fetcher]
+  method_object :comment, %i[normalization rates_fetcher is_keep_comment]
   delegate :user, to: :comment
 
   def call
@@ -7,9 +7,9 @@ class Comment::ConvertToReview
     review.instance_variable_set :@is_migration, true
 
     Review.wo_antispam { review.save! }
-    comment.destroy!
+    comment.destroy! unless @is_keep_comment
 
-    Rails.logger.convert_to_review review.to_json
+    NamedLogger.convert_to_review.info review.to_json
 
     review
   end
