@@ -1,16 +1,7 @@
 = render layout: 'page' do
   .subheadline.m5 = og.headline
-
-  / .b-shiki_editor.to-process.new_broadcast[
-  /   data-next_url=club_url(@resource)
-  /   data-dynamic='shiki_editor'
-  / ]
-  = simple_form_for [:api, @new_comment], remote: true, authenticity_token: true,
-    html: { data: { type: :json, next_url: club_url(@resource) } } do |f|
-    input type='hidden' name='frontend' value='true'
-    input type='hidden' name='broadcast' value='true'
-    = render 'blocks/shiki_editor',
-      text: @new_comment.body,
-      field_name: 'comment[body]',
-      f: f,
-      cache_key: "#{@resource.cache_key}/broadcast"
+  = render 'comments/form',
+    comment: @new_comment,
+    cache_key: "#{@resource.cache_key}/broadcast",
+    is_broadcast: true,
+    next_url: club_url(@resource)

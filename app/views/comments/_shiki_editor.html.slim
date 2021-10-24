@@ -54,7 +54,7 @@
           class=(:off unless f.object.summary?)
           data-text=t('markers.summary')
         ]
-      - if f.object.respond_to? :offtopic?
+      - if f.object.respond_to?(:offtopic?) && (!f.object.respond_to?(:allowed_offtopic?) || f.object.allowed_offtopic?)
         .b-offtopic_marker.active[
           class=(:off unless f.object.offtopic?)
           data-text=t('markers.offtopic')
