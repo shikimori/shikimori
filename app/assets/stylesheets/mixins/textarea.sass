@@ -5,10 +5,12 @@
   -webkit-appearance: none
   line-height: $line_height
   max-height: 417px
-  min-height: 89px
   padding: 3px 7px 5px
   resize: none
   width: 100%
+
+  &:not([rows])
+    min-height: 89px
 
   +placeholder
     line-height: $line_height
