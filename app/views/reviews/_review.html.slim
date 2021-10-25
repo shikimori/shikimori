@@ -17,7 +17,15 @@
   ]
     - if review.persisted?
       - if local_assigns[:is_buttons]
-        span.item-mobile title=t('actions.actions')
+        span.item-quote-mobile.to-process[
+          title=t('actions.quote')
+          data-text=t('actions.quote')
+          data-dynamic='day_registered'
+        ]
+        span.item-mobile.to-process[
+          title=t('actions.actions')
+          data-dynamic='day_registered'
+        ]
       aside.markers
         .b-new_marker[
           data-appear_url=api_appears_url

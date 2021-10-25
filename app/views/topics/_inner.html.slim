@@ -10,7 +10,15 @@
   .inner
     / do not replace to `minified?`, it will show `item-mobile` on dashboards#show for generated news topics
     - unless topic_view.is_mini
-      span.item-mobile title=t('actions.actions')
+      span.item-quote-mobile.to-process[
+        title=t('actions.quote')
+        data-text=t('actions.quote')
+        data-dynamic='day_registered'
+      ]
+      span.item-mobile.to-process[
+        title=t('actions.actions')
+        data-dynamic='day_registered'
+      ]
 
     aside.markers
       p.b-new_marker[
