@@ -7,15 +7,9 @@
 - else
   - content_for :head do
     - if @forums_view.next_page_url
-      link[
-        rel='next'
-        href="#{{@forums_view.next_page_url}}"
-      ]
+      link rel='next' href=@forums_view.next_page_url
     - if @forums_view.prev_page_url
-      link[
-        rel='prev'
-        href="#{{@forums_view.prev_page_url}}"
-      ]
+      link rel='prev' href=@forums_view.prev_page_url
 
     = auto_discovery_link_tag :rss,
       forum_topics_url(forum: @forums_view.forum.try(:permalink), format: :rss),

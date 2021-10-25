@@ -1,5 +1,5 @@
 - if topic_view.author_in_header?
-  span.linkeable data-href="#{topic_view.urls.poster_url}"
+  span.linkeable data-href=topic_view.urls.poster_url
     img[
       src=topic_view.poster(false)
       srcset="#{topic_view.poster true} 2x"
