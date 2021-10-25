@@ -5,9 +5,8 @@ class BbCodes::CleanupHtml
     Nokogiri::XML::Node::SaveOptions::NO_DECLARATION
 
   SMILEY_REGEXP = %r{
-    (<img\ [^>]*?\ class="smiley"\ ?/?>) \s*
-    <img\ [^>]*?\ class="smiley"\ ?/?>
-    (?:\s*<img.*?class="smiley"\ ?/?>)+
+    (<img\ [^>]*?\ class="smiley"\ ?/?> \s*)
+    (?:<img\ [^>]*?\ class="smiley"\ ?/?> \s*){3,}
   }mix
 
   def call
@@ -31,9 +30,8 @@ private
 
   # LoadError: cannot load such file -- enc/trans/single_byte
   rescue StandardError => e
-    if e.message.include? 'cannot load such file'
-      text
-    elsif e.message.include? 'Document tree depth limit exceeded'
+    if e.message.include?('cannot load such file') ||
+        e.message.include?('Document tree depth limit exceeded')
       text
     else
       raise
@@ -41,12 +39,11 @@ private
   end
 
   def fix text
-    text
-      .gsub(/!!!+/, '!')
-      .gsub(/\?\?\?+/, '?')
-      .gsub(/\.\.\.\.+/, '.')
-      .gsub(/\)\)\)+/, ')')
-      .gsub(/\(\(\(+/, '(')
-      .gsub(SMILEY_REGEXP, '\1')
+    text.gsub(SMILEY_REGEXP, '\1')
+      # .gsub(/!!!+/, '!')
+      # .gsub(/\?\?\?+/, '?')
+      # .gsub(/\.\.\.\.+/, '.')
+      # .gsub(/\)\)\)+/, ')')
+      # .gsub(/\(\(\(+/, '(')
   end
 end

@@ -12,15 +12,22 @@ describe BbCodes::CleanupHtml do
     it { is_expected.to eq '<div>a</div>' }
   end
 
-  context 'multiple symbols' do
-    let(:text) { '((((((((((((()))))))))))!!!!!!!!!!!!????????????' }
-    it { is_expected.to eq '()!?' }
-  end
+  # context 'multiple symbols' do
+  #   let(:text) { '((((((((((((()))))))))))!!!!!!!!!!!!????????????' }
+  #   it { is_expected.to eq '()!?' }
+  # end
 
   context 'multiple smileys' do
-    let(:smiley) { '<img src="/images/smileys/:).gif" alt=":)" title=":)" class="smiley" />' }
-    let(:text) { "#{smiley}#{smiley}#{smiley}" }
+    let(:smiley) { '<img src="/images/smileys/:).gif" alt=":)" title=":)" class="smiley">' }
 
-    it { is_expected.to eq '<img src="/images/smileys/:).gif" alt=":)" title=":)" class="smiley">' }
+    context 'lte 3 smileys' do
+      let(:text) { "#{smiley}#{smiley}#{smiley}" }
+      it { is_expected.to eq text }
+    end
+
+    context 'gt 3 smileys' do
+      let(:text) { "#{smiley}#{smiley}#{smiley}#{smiley}" }
+      it { is_expected.to eq smiley }
+    end
   end
 end
