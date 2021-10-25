@@ -47,6 +47,7 @@ $body_phone_left_margin: 40px
     &.is-editing,
     &.is-moderating
       & > .item-mobile,
+      & > .item-quote-mobile,
       & > aside.buttons
         display: none !important
 
@@ -71,11 +72,7 @@ $body_phone_left_margin: 40px
   .item-quote-mobile
     position: absolute
 
-    +iphone
-      right: 0
-      top: -5px
-
-    +ipad
+    +lte_ipad
       right: 45px
       top: -4px
 
