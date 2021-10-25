@@ -279,7 +279,7 @@ ru:
 
   moderations/authors_controller:
     <<: *moderations_controller
-    page_title: Модерация авторов фансаба/фанддаба
+    page_title: Модерация авторов фансаба/фандаба
 
   moderations/forums_controller:
     <<: *moderations_controller
