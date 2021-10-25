@@ -1,5 +1,5 @@
 class JsExports::PollsExport < JsExports::ExportBase
-private
+  private
 
   def fetch_entries _user
     Poll
@@ -8,7 +8,7 @@ private
       .order(:id)
   end
 
-  def serialize poll, user
+  def serialize poll, user, _ability
     PollSerializer.new(poll, scope: user).to_hash
   end
 end

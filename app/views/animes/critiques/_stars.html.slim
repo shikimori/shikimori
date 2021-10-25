@@ -8,35 +8,35 @@
   .critique-stars
     - if defined?(in_edit) || has_storyline
       .star-line
-        p.title = t '.story'
+        .title = t '.story'
         = render partial: 'blocks/rate', locals: { score: critique.storyline || 0, input_selector: ('#critique_storyline' if defined?(in_edit)) }
         - if defined? in_edit
           = hidden_field_tag 'critique[storyline]', critique.storyline
 
     - if defined?(in_edit) || has_characters
       .star-line
-        p.title = t '.characters'
+        .title = t '.characters'
         = render partial: 'blocks/rate', locals: { score: critique.characters || 0, input_selector: ('#critique_characters' if defined?(in_edit)) }
         - if defined? in_edit
           = hidden_field_tag 'critique[characters]', critique.characters
 
     - if defined?(in_edit) || has_animation
       .star-line
-        p.title = t '.art'
+        .title = t '.art'
         = render partial: 'blocks/rate', locals: { score: critique.animation || 0, input_selector: ('#critique_animation' if defined?(in_edit)) }
         - if defined? in_edit
           = hidden_field_tag 'critique[animation]', critique.animation
 
     - if defined?(in_edit) || has_music
       .star-line
-        p.title = t '.sound'
+        .title = t '.sound'
         = render partial: 'blocks/rate', locals: { score: critique.music || 0, input_selector: ('#critique_music' if defined?(in_edit)) }
         - if defined? in_edit
           = hidden_field_tag 'critique[music]', critique.music
 
     - if defined?(in_edit) || has_overall
       .star-line
-        p.title = t '.overall'
+        .title = t '.overall'
         = render partial: 'blocks/rate', locals: { score: critique.overall || 0, input_selector: ('#critique_overall' if defined?(in_edit)) }
         - if defined? in_edit
           = hidden_field_tag 'critique[overall]', critique.overall

@@ -89,6 +89,31 @@ module Routing
     end
   end
 
+  def review_url review, is_reply: false, is_canonical: false
+    # url from constructed object in broken [review] bbcode
+    return super(review) if review.is_a? Integer
+
+    is_db_entry_cached = review.anime? ?
+      review.association_cached?(:anime) :
+      review.association_cached?(:manga)
+
+    prefix = 'reply_' if is_reply
+
+    if is_db_entry_cached || is_reply || is_canonical
+      send(
+        "#{prefix}#{review.db_entry.class.name.downcase}_review_url",
+        review.db_entry,
+        review
+      )
+    else
+      super review
+    end
+  end
+
+  def reply_review_url review
+    review_url review, is_reply: true
+  end
+
   def forum_url forum, linked = nil
     if linked
       forum_topics_url forum,

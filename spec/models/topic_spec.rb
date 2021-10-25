@@ -8,6 +8,8 @@ describe Topic do
     it { is_expected.to have_many :messages }
     it { is_expected.to have_many :topic_ignores }
     it { is_expected.to have_many :viewings }
+    it { is_expected.to have_many(:abuse_requests).dependent :destroy }
+    it { is_expected.to have_many :bans }
   end
 
   describe 'validations' do
@@ -37,22 +39,8 @@ describe Topic do
       end
     end
   end
+
   describe 'instance methods' do
-    describe '#comment_added' do
-      let(:topic) { create :topic }
-
-      it 'updated_at is set to created_at of last comment' do
-        first = second = third = nil
-        Comment.wo_antispam do
-          first = create :comment, commentable: topic, created_at: 2.days.ago, body: 'first'
-          second = create :comment, commentable: topic, created_at: 1.day.ago, body: 'second'
-          third = create :comment, commentable: topic, created_at: 30.minutes.ago, body: 'third'
-        end
-        third.destroy
-        expect(first.commentable.reload.updated_at.to_i).to eq(second.created_at.to_i)
-      end
-    end
-
     describe 'comments selected with viewed flag' do
       subject { topic.comments.with_viewed(another_user).first.viewed? }
 
@@ -74,6 +62,11 @@ describe Topic do
     describe '#decomposed_body' do
       let(:topic) { build :topic }
       it { expect(topic.decomposed_body).to be_kind_of Topics::DecomposedBody }
+    end
+
+    describe '#faye_channels' do
+      let(:topic) { build_stubbed :topic }
+      it { expect(topic.faye_channels).to eq %W[/topic-#{topic.id}] }
     end
   end
 

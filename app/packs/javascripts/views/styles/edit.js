@@ -1,7 +1,7 @@
 import { debounce } from 'throttle-debounce';
 import cookies from 'js-cookie';
 
-import axios from '@/helpers/axios';
+import axios from '@/utils/axios';
 
 import View from '@/views/application/view';
 import { PredefinedCheckbox } from './predefined_checkbox';
@@ -12,9 +12,9 @@ const PAGE_BORDER_REGEXP = /\/\* AUTO=page_border \*\/ .*[\r\n]?/;
 const STICKY_MENU_REGEXP = /\/\* AUTO=sticky_menu \*\/ .*[\r\n]?/;
 
 export class EditStyles extends View {
-  cssCache = {}
-
   async initialize() {
+    this.cssCache = {};
+
     this.$form = this.$('.edit_style');
     this.$preview = this.$('.preview');
 

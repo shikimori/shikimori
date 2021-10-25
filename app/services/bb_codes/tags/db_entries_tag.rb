@@ -83,7 +83,7 @@ private
         cover_notice: cover_notice
       },
       formats: [:html],
-      cache: ->(model, _) { CacheHelper.keys model, cover_title, cover_notice }
+      cached: ->(model) { CacheHelper.keys model, cover_title, cover_notice }
     )
   end
 

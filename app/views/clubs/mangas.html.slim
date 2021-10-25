@@ -14,4 +14,4 @@
       = render partial: 'mangas/manga',
         collection: @resource.mangas,
         locals: { cover_notice: :year_kind },
-        cache: ->(entry, _) { CacheHelper.keys entry, :relation }
+        cached: ->(entry) { CacheHelper.keys entry, :relation }

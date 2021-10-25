@@ -3,7 +3,7 @@ json.content JsExports::Supervisor.instance.sweep(render(
   collection: @collection,
   as: :topic_view,
   formats: :html,
-  cache: true
+  cached: true
 ))
 
 if @collection.next_page?

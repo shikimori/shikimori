@@ -1,11 +1,11 @@
 describe Comment do
   describe 'associations' do
     it { is_expected.to belong_to :user }
-    it { is_expected.to belong_to :commentable }
+    it { is_expected.to belong_to(:commentable).touch(true) }
     it { is_expected.to belong_to(:topic).optional }
-    it { is_expected.to have_many :messages }
+    it { is_expected.to have_many(:messages).dependent :destroy }
     it { is_expected.to have_many :viewings }
-    it { is_expected.to have_many :abuse_requests }
+    it { is_expected.to have_many(:abuse_requests).dependent :destroy }
     it { is_expected.to have_many :bans }
   end
 
@@ -22,7 +22,7 @@ describe Comment do
   end
 
   describe 'callbacks' do
-    let(:topic) { build_stubbed :topic, user: user }
+    let(:topic) { seed :offtopic_topic }
     let(:comment) { create :comment, user: user, commentable: topic }
 
     describe '#forbid_tag_change' do
@@ -38,17 +38,33 @@ describe Comment do
     end
 
     describe '#cancel_summary' do
-      let(:comment) { build :comment, :summary, body: body }
+      let(:comment) do
+        build :comment, :summary, body: body, commentable: commentable
+      end
       before { comment.save }
 
-      context 'long comment' do
-        let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
-        it { expect(comment).to be_summary }
+      context 'anime/manga/ranobe topic' do
+        let(:topic) { create :anime_topic, linked: build_stubbed(:anime) }
+        let(:commentable) { topic }
+
+        context 'long comment' do
+          let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
+          it { expect(comment).to be_summary }
+        end
+
+        context 'short comment' do
+          let(:body) { 'x' * (Comment::MIN_SUMMARY_SIZE - 1) }
+          it { expect(comment).to_not be_summary }
+        end
       end
 
-      context 'short comment' do
-        let(:body) { 'x' * (Comment::MIN_SUMMARY_SIZE - 1) }
-        it { expect(comment).to_not be_summary }
+      context 'other model' do
+        let(:commentable) { user }
+
+        context 'long comment' do
+          let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
+          it { expect(comment).to_not be_summary }
+        end
       end
     end
 
@@ -71,7 +87,7 @@ describe Comment do
       end
 
       context 'not profile comment' do
-        let!(:comment) { create :comment, commentable: build_stubbed(:topic) }
+        let!(:comment) { create :comment }
         it { expect(Users::CheckHacked).to_not have_received :call }
       end
     end
@@ -80,12 +96,6 @@ describe Comment do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :increment_comments }
-    end
-
-    describe '#creation_callbacks' do
-      let(:comment) { build :comment }
-      after { comment.save }
-      it { expect(comment).to receive :creation_callbacks }
     end
 
     describe '#notify_quoted' do
@@ -127,12 +137,6 @@ describe Comment do
           .to have_received(:call)
           .with(comment, is_cleanup_summaries: true, skip_model_update: true)
       end
-    end
-
-    describe '#destruction_callbacks' do
-      let(:comment) { create :comment }
-      after { comment.destroy }
-      it { expect(comment).to receive :destruction_callbacks }
     end
 
     describe '#release_the_banhammer!' do
@@ -180,7 +184,7 @@ describe Comment do
   end
 
   describe 'instance methods' do
-    let(:topic) { build_stubbed :topic, user: user }
+    let(:topic) { seed :offtopic_topic }
     let(:comment) { create :comment, user: user, commentable: topic }
 
     describe '#html_body' do
@@ -346,6 +350,64 @@ describe Comment do
 
         it { expect(comment.reload).to_not be_summary }
       end
+    end
+
+    describe '#moderatable?' do
+      subject { build :comment, commentable: commentable }
+      let(:commentable) { nil }
+
+      it { is_expected.to_not be_moderatable }
+
+      context 'profile comment' do
+        let(:commentable) { user }
+        it { is_expected.to_not be_moderatable }
+      end
+
+      context 'review comment' do
+        let(:commentable) { build :review }
+        it { is_expected.to be_moderatable }
+      end
+
+      context 'topic comment' do
+        let(:commentable) { build :topic, linked: linked }
+        let(:linked) { nil }
+
+        it { is_expected.to be_moderatable }
+
+        context 'critique comment' do
+          let(:linked) { build :critique }
+          it { is_expected.to be_moderatable }
+        end
+
+        context 'contest comment' do
+          let(:linked) { build :contest }
+          it { is_expected.to be_moderatable }
+        end
+
+        context 'collection comment' do
+          let(:linked) { build :collection }
+          it { is_expected.to be_moderatable }
+        end
+
+        context 'anime comment' do
+          let(:linked) { build :anime }
+          it { is_expected.to be_moderatable }
+        end
+
+        context 'club comment' do
+          let(:linked) { build :club }
+          it { is_expected.to_not be_moderatable }
+        end
+
+        context 'club_page comment' do
+          let(:linked) { build :club_page }
+          it { is_expected.to_not be_moderatable }
+        end
+      end
+    end
+
+    describe '#faye_channels' do
+      it { expect(comment.faye_channels).to eq %W[/comment-#{comment.id}] }
     end
   end
 

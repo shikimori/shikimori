@@ -1,5 +1,5 @@
 describe JsExports::CommentsExport do
-  let(:tracker) { JsExports::CommentsExport.instance }
+  let(:tracker) { described_class.instance }
   let(:comment) { build_stubbed :comment }
 
   before { tracker.send :cleanup }
@@ -43,7 +43,7 @@ describe JsExports::CommentsExport do
     end
 
     context 'user 1' do
-      subject { tracker.export user_1 }
+      subject { tracker.export user_1, Ability.new(user_1) }
 
       it do
         is_expected.to eq [{
@@ -63,7 +63,7 @@ describe JsExports::CommentsExport do
     end
 
     context 'user 2' do
-      subject { tracker.export user_2 }
+      subject { tracker.export user_2, Ability.new(user_2) }
 
       it do
         is_expected.to eq [{

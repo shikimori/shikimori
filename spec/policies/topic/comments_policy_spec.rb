@@ -16,8 +16,8 @@ describe Topic::CommentsPolicy do
   describe '#summaries_count' do
     subject { policy.summaries_count }
     before do
-      create :comment, :summary, topic: topic
-      create :comment, :summary, topic: topic
+      create :comment, :summary, :skip_cancel_summary, topic: topic
+      create :comment, :summary, :skip_cancel_summary, topic: topic
       create :comment, topic: topic
     end
 

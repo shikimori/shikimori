@@ -81,15 +81,15 @@ private
     user_clubs = h.current_user.clubs_for_domain
 
     user_forums.map { |id| forum_channel(id) } +
-      user_clubs.map { |club| "club-#{club.id}" }
+      user_clubs.map { |club| "/club-#{club.id}" }
   end
 
   def forum_channel forum_id
-    "forum-#{forum_id}/#{h.locale_from_host}"
+    "/forum-#{forum_id}/#{h.locale_from_host}"
   end
 
   def linked_channel linked
-    "#{linked.class.name.downcase}-#{linked.id}"
+    "/#{linked.class.name.downcase}-#{linked.id}"
   end
 
   def club_topics_url page

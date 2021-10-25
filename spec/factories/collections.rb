@@ -16,7 +16,9 @@ FactoryBot.define do
       trait(value.to_sym) { state { value } }
     end
 
-    Types::Collection::Kind.values.each { |value| trait(value) { kind { value } } }
+    Types::Collection::Kind.values.each do |value|
+      trait(value) { kind { value } }
+    end
 
     after :build do |model|
       stub_method model, :antispam_checks

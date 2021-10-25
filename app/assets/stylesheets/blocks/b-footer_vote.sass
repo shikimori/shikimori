@@ -1,0 +1,83 @@
+@import mixins/font_shikimori
+@import mixins/frame_form
+@import mixins/link
+@import mixins/responsive
+
+.b-footer_vote
+  +frame_form
+  align-items: baseline
+  color: #123
+  display: inline-flex
+  font-size: 13px
+  line-height: 1
+  margin: 10px 0
+  padding-bottom: 10px
+  padding-top: 10px
+
+  .star
+    &:before
+      +font_shikimori('\e819')
+      display: inline-block
+      font-size: 14px
+      padding-right: 6px
+
+  +iphone_portrait
+    & > span
+      display: block
+
+  .notice
+    margin-right: 15px
+
+  .vote-group
+    display: flex
+    white-space: nowrap
+
+    .separator
+      align-self: center
+      margin: 0 15px
+
+      &:before
+        color: $gray-1
+        content: '/'
+
+    .vote
+      +link_color
+      opacity: 0.9
+      transition: opacity 0.2s ease, color 0.2s ease, border-bottom-color 0.2s ease
+
+      &:before
+        +font_shikimori
+        cursor: pointer
+        padding-right: 7px
+
+      span
+        +js-link
+
+      &.yes
+        +iphone_portrait
+          margin-left: 0
+
+        &:before
+          content: '\e82f'
+
+        &.selected,
+        &:hover
+          color: $green
+          opacity: 1
+
+          span
+            color: inherit
+            border-bottom-color: $green
+
+      &.no
+        &:before
+          content: '\e82e'
+
+        &.selected,
+        &:hover
+          color: $red
+          opacity: 1
+
+          span
+            color: inherit
+            border-bottom-color: $red

@@ -284,9 +284,28 @@ describe Topic::TypePolicy do
       end
     end
 
+    context 'review_topic' do
+      let(:topic) { build_stubbed :review }
+      it { is_expected.to eq true }
+    end
+
     context 'other' do
       let(:topic) { forum_topic }
       it { is_expected.to eq false }
+    end
+  end
+
+  describe '#review_topic?' do
+    subject { policy.review_topic? }
+
+    context 'not review' do
+      let(:topic) { forum_topic }
+      it { is_expected.to eq false }
+    end
+
+    context 'review' do
+      let(:topic) { build_stubbed :review }
+      it { is_expected.to eq true }
     end
   end
 end

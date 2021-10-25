@@ -23,7 +23,7 @@
         = render partial: 'topics/topic',
           collection: @club.forum_topics_views,
           as: :topic_view,
-          cache: true
+          cached: true
 
   - if @club.images(12).any?
     .block

@@ -30,6 +30,7 @@ class LayoutView < ViewObjectBase
 
   def custom_styles
     return if blank_layout?
+    return if Rails.env.development? && h.params.key?(:no_menu)
 
     style = custom_style
     style.compile! unless !style || style.compiled?

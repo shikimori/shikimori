@@ -17,6 +17,7 @@ en:
       poll: Poll
       ranobe: Light Novel
       critique: Critique
+      review: Review
       topic: Topic
       topics/news_topic: News Topic
       user: User
@@ -277,6 +278,9 @@ en:
         name: Name
         text: Text
         layout: Layout
+      review:
+        text: Text
+        is_written_before_release: Ongoing review
       topic:
         title: Title
         body: Text
@@ -593,6 +597,11 @@ en:
       layout:
         menu: Menu
         none: Hidden
+    review:
+      opinion:
+        positive: Positive
+        negative: Negative
+        neutral: Neutral
     collection:
       kind:
         anime: Anime

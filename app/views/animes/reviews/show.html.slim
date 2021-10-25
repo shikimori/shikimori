@@ -1,0 +1,8 @@
+= render layout: 'animes/page' do |f|
+  h2.subheadline = i18n_i('Review', :other)
+  .block
+    = render 'reviews/review',
+      review: @review,
+      is_show: true,
+      is_comments: true,
+      is_buttons: true

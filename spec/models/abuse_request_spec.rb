@@ -1,14 +1,14 @@
 describe AbuseRequest do
   describe 'relations' do
-    it { is_expected.to belong_to :comment }
+    it { is_expected.to belong_to(:comment).optional }
+    it { is_expected.to belong_to(:topic).optional }
+    it { is_expected.to belong_to(:review).optional }
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to(:approver).optional }
   end
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :user }
-    it { is_expected.to validate_presence_of :comment }
-    it { is_expected.to validate_presence_of :comment }
     it { is_expected.to validate_length_of(:reason).is_at_most(4096) }
 
     context 'accepted' do
@@ -92,6 +92,39 @@ describe AbuseRequest do
           let(:kind) { 'summary' }
           it { is_expected.to eq false }
         end
+      end
+    end
+
+    describe '#target, #taget_type' do
+      subject(:abuse_request) do
+        build :abuse_request,
+          comment: comment,
+          review: review,
+          topic: topic
+      end
+      let(:comment) { nil }
+      let(:review) { nil }
+      let(:topic) { nil }
+
+      subject 'comment' do
+        let(:comment) { build :comment }
+
+        its(:target) { is_expected.to eq comment }
+        its(:target_type) { is_expected.to eq 'Comment' }
+      end
+
+      subject 'review' do
+        let(:review) { build :review }
+
+        its(:target) { is_expected.to eq review }
+        its(:target_type) { is_expected.to eq 'Review' }
+      end
+
+      subject 'topic' do
+        let(:topic) { build :topic }
+
+        its(:target) { is_expected.to eq topic }
+        its(:target_type) { is_expected.to eq 'Topic' }
       end
     end
   end

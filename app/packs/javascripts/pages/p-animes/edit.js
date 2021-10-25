@@ -1,5 +1,5 @@
 import TinyUri from 'tiny-uri';
-import dayjs from '@/helpers/dayjs';
+import dayjs from '@/utils/dayjs';
 
 const DATE_FORMAT = 'DD.MM.YYYY HH:mm';
 

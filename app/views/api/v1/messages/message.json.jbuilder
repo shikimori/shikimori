@@ -1,9 +1,9 @@
 json.id @resource.id
-json.html JsExports::Supervisor.instance.sweep(
+json.content JsExports::Supervisor.instance.sweep(
   render(
     partial: 'messages/message',
     object: @resource.decorate,
-    formats: %i[html]
+    formats: :html
   )
 )
 json.notice local_assigns[:notice]

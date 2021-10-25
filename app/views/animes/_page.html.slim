@@ -32,8 +32,16 @@ header.head
         - if shikimori?
           = render 'spnsrs/ad', ad: Ad.new(:horizontal_x90)
 
-      - if params[:action] == 'show' && !@resource.rkn_abused?
-        = render 'db_entries/comments', resource: @resource
+      - unless @resource.rkn_abused?
+        - if params[:action] == 'show' && main_resource_controller?
+          - unless @resource.anons?
+            - if current_user&.admin?
+              .block
+                = render 'animes/reviews/navigation',
+                  resource: @resource,
+                  is_preview: true,
+                  collection: nil
+          = render 'db_entries/comments', resource: @resource
 
     aside.l-menu
       = render 'animes/menu', resource: @resource

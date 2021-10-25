@@ -52,7 +52,15 @@ private
   def ban_params
     params
       .require(:ban)
-      .permit(:reason, :duration, :comment_id, :abuse_request_id, :user_id)
+      .permit(
+        :reason,
+        :duration,
+        :comment_id,
+        :review_id,
+        :topic_id,
+        :abuse_request_id,
+        :user_id
+      )
       .merge(moderator_id: current_user&.id)
   end
 

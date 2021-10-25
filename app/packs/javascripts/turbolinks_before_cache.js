@@ -36,7 +36,7 @@ $(document).on('turbolinks:before-cache', () => {
   // height shortener
   $('.b-height_shortener').each((_index, node) => {
     $(node).prev()
-      .removeClass('shortened')
+      .removeClass('b-height_shortened')
       .css('height', '');
     $(node).remove();
   });

@@ -78,6 +78,19 @@ describe BbCodes::Tags::QuoteTag do
     end
   end
 
+  context 'review quote' do
+    let(:text) { '[quote=r1;2;3]test[/quote]' }
+    it do
+      is_expected.to eq(
+        <<~HTML.squish
+          <div class='b-quote' data-attrs='r1;2;3'><div
+            class='quoteable'>[review=1 quote=2]3[/review]</div><div
+            class='quote-content'>test</div></div>
+        HTML
+      )
+    end
+  end
+
   context 'unbalanced quotes' do
     let(:text) { '[quote][quote]test[/quote]' }
     it { is_expected.to eq text }

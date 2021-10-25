@@ -1,15 +1,14 @@
-class Comment::Create < ServiceObjectBase
-  pattr_initialize :faye, :params, :locale
-
-  instance_cache :commentable_object
+class Comment::Create
+  method_object :faye, :params, :locale
 
   def call
     comment = Comment.new @params.except(:commentable_id, :commentable_type)
 
     RedisMutex.with_lock(mutex_key, block: 30.seconds, expire: 30.seconds) do
       apply_commentable comment
-      @faye.create comment
     end
+    @faye.create comment
+    notify_user comment if profile_comment?
 
     comment
   end
@@ -25,7 +24,7 @@ private
   def apply_commentable comment
     return if commentable_klass == NilClass
 
-    if commentable_klass <= Topic || commentable_klass <= User
+    if no_topic_generation? commentable_klass
       comment.assign_attributes @params.slice(:commentable_id, :commentable_type)
     else
       comment.commentable = find_or_generate_topic
@@ -37,7 +36,11 @@ private
       commentable_object.generate_topics(@locale).first
   end
 
-  # NOTE: Topic, User or DbEntry
+  def notify_user comment
+    User::NotifyProfileCommented.call comment
+  end
+
+  # NOTE: Topic, User, Review or DbEntry
   def commentable_klass
     @params[:commentable_type].constantize
   rescue NameError
@@ -45,6 +48,16 @@ private
   end
 
   def commentable_object
-    commentable_klass.find @params[:commentable_id]
+    @commentable_object ||= commentable_klass.find @params[:commentable_id]
+  end
+
+  def no_topic_generation? commentable_klass
+    commentable_klass <= Topic ||
+      commentable_klass == Review ||
+      profile_comment?
+  end
+
+  def profile_comment?
+    commentable_klass <= User
   end
 end

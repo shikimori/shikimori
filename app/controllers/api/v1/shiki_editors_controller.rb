@@ -12,6 +12,7 @@ class Api::V1::ShikiEditorsController < Api::V1Controller # rubocop:disable Clas
     topic
     user
     video
+    review
   ]
   TYPE_INCLUDES = {
     message: :from,
@@ -38,16 +39,11 @@ class Api::V1::ShikiEditorsController < Api::V1Controller # rubocop:disable Clas
         next unless model
 
         case kind
-          when :user_image
-            serialize_user_image model
-          when :user
-            serialize_user model
-          when :topic, :comment
-            serialize_forum_entry model
-          when :message
-            serialize_message model
-          when :video
-            serialize_video model
+          when :user_image then serialize_user_image model
+          when :user then serialize_user model
+          when :topic, :comment, :review then serialize_forum_entry model
+          when :message then serialize_message model
+          when :video then serialize_video model
           else
             serialize_db_entry model
           end
@@ -63,7 +59,7 @@ class Api::V1::ShikiEditorsController < Api::V1Controller # rubocop:disable Clas
     show
   end
 
-  def preview # rubocop:disable AbcSize
+  def preview # rubocop:disable AbcSize, MethodLength
     censored_text = Banhammer.instance.censor params[:text] || '', nil
 
     html =
@@ -156,9 +152,12 @@ private
       id: model.id,
       userId: model.user.id,
       text: model.user.nickname,
-      url: model.is_a?(Comment) ?
-        comment_url(model) :
-        UrlGenerator.instance.topic_url(model)
+      url: case model
+        when Comment then comment_url(model)
+        when Topic then UrlGenerator.instance.topic_url(model)
+        when Review then UrlGenerator.instance.review_url(model)
+        else raise ArgumentError, "#{model.class} #{model.to_param}"
+      end
     }
   end
 

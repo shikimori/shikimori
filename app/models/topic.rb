@@ -76,6 +76,12 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
   has_many :topic_ignores,
     dependent: :destroy
 
+  has_many :abuse_requests, -> { order :id },
+    dependent: :destroy,
+    inverse_of: :topic
+  has_many :bans, -> { order :id },
+    inverse_of: :topic
+
   # топики без топиков о выходе эпизодов
   scope :wo_episodes, -> {
     where 'action IS NULL OR action != ?', AnimeHistoryAction::Episode
@@ -86,6 +92,7 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
 
   before_save :validate_linked
   before_save :check_spam_abuse, if: :will_save_change_to_body?
+  before_save :fill_created_at, if: :will_save_change_to_comments_count?
 
   def title
     return self[:title]&.html_safe if User::BOT_IDS.include? user_id
@@ -108,39 +115,13 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
     title&.permalinked
   end
 
-  # callback when comment is added
-  def comment_added _comment
-    self.updated_at = Time.zone.now
-
-    if comments_count == 1 &&
-        !Topic::TypePolicy.new(self).generated_news_topic?
-      # automatically generated topics have no created_at
-      self.created_at ||= updated_at
-    end
-
-    save
-  end
-
-  # callback when comment is deleted
-  def comment_deleted _comment
-    updated_at =
-      if comments.count.positive?
-        comments.first.created_at
-      else
-        self.created_at
-      end
-
-    self.class.wo_timestamp do
-      update(
-        updated_at: updated_at,
-        comments_count: comments.count
-      )
-    end
-  end
-
   # for compatibily with comments API
   def offtopic?
     false
+  end
+
+  def faye_channels
+    %W[/topic-#{id}]
   end
 
 private
@@ -150,6 +131,12 @@ private
 
     errors.add :linked_type, 'Forbidden Linked Type'
     throw :abort
+  end
+
+  def fill_created_at
+    return if created_at || comments_count.zero?
+
+    self.created_at ||= Time.zone.now
   end
 
   def check_spam_abuse

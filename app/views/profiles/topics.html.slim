@@ -1,5 +1,6 @@
 = render layout: 'page' do
-  h2.subheadline = og.headline
+  .subheadline.m5 = og.headline
+
   .b-forum[
     data-faye='false'
   ]
@@ -7,7 +8,7 @@
       = render partial: 'topics/topic',
         collection: @collection,
         as: :topic_view,
-        cache: true
+        cached: true
 
     - else
       .b-nothing_here = t 'no_topics'

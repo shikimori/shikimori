@@ -41,6 +41,7 @@ class BbCodes::Tags::DivTag
     menu-toggler
     turbolinks-progress-bar
     b-admin_panel
+    ban
   ]
   CLEANUP_CLASSES_REGEXP = /
     #{FORBIDDEN_CLASSES.join '|'} |

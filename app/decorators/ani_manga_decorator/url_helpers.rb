@@ -72,6 +72,22 @@ module AniMangaDecorator::UrlHelpers
     )
   end
 
+  def reviews_url opinion: nil, page: nil
+    h.send(
+      "index_#{klass_lower}_reviews_url",
+      object,
+      opinion: opinion,
+      page: page
+    )
+  end
+
+  def new_review_url
+    h.send(
+      "new_#{klass_lower}_review_url",
+      object
+    )
+  end
+
   def cosplay_url page = 1
     if page > 1
       h.send "cosplay_#{klass_lower}_url", object, page: page
@@ -88,6 +104,21 @@ module AniMangaDecorator::UrlHelpers
     h.send(
       "#{klass_lower.pluralize}_collection_url",
       params
+    )
+  end
+
+  # def summaries_url
+  #   h.send(
+  #     "#{klass_lower.pluralize}_summaries_url",
+  #     params
+  #   )
+  # end
+
+  def summary_url summary
+    h.send(
+      "#{klass_lower}_summary_url",
+      object,
+      summary
     )
   end
 

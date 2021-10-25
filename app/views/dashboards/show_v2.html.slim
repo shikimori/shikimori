@@ -13,7 +13,7 @@
             = render partial: 'animes/anime',
               collection: @view.ongoings,
               locals: { cover_notice: :studio },
-              cache: ->(entry, _) { CacheHelper.keys entry, :studio }
+              cached: ->(entry) { CacheHelper.keys entry, :studio }
 
     / = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
 
@@ -115,7 +115,7 @@
 
     .block2
       .subheadline-buttons
-        a.b-link_button.dark-2.create-topic.to-process[
+        a.b-link_button.dark.create-topic.to-process[
           data-dynamic='week_registered'
           href=@view.new_news_url
           title=t('topics.menu_actions.create_news')
@@ -126,8 +126,8 @@
         = render partial: 'topics/topic',
           collection: @view.news_topic_views[0..2],
           locals: { do_not_track: true },
-          cache: true,
-          as: :topic_view
+          as: :topic_view,
+          cached: ->(entry) { CacheHelper.keys entry, :do_not_track }
 
     = render 'dashboards/v2/content_updates', view: @view
 
@@ -168,8 +168,8 @@
         = render partial: 'topics/topic',
           collection: @view.news_topic_views[2..-1],
           locals: { do_not_track: true },
-          cache: true,
-          as: :topic_view
+          as: :topic_view,
+          cached: ->(entry) { CacheHelper.keys entry, :do_not_track }
 
         - if @view.news_topic_views.next_page
           = render 'blocks/postloader',

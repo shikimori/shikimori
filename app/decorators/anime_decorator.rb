@@ -1,5 +1,5 @@
 class AnimeDecorator < AniMangaDecorator
-  instance_cache :files, :coubs, :next_episode_at
+  instance_cache :files, :coubs, :next_episode_at, :news_topic_views
 
   def news_topic_views
     return [] if rkn_abused?
@@ -10,8 +10,12 @@ class AnimeDecorator < AniMangaDecorator
       .includes(:forum)
       .limit(NEWS_PER_PAGE)
       .order(:created_at)
-      .map { |topic| Topics::TopicViewFactory.new(false, false).build topic }
-      .map { |topic_view| format_menu_topic topic_view, :created_at }
+      .map do |topic|
+        format_menu_topic(
+          Topics::TopicViewFactory.new(false, false).build(topic),
+          :created_at
+        )
+      end
   end
 
   def screenshots limit = nil

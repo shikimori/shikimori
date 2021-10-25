@@ -126,13 +126,15 @@ private
   end
 
   def guest_forums
-    @scope.where(
-      'topics.type not in (?) OR topics.type IS NULL', [
-        Topics::EntryTopics::ClubTopic.name,
-        Topics::ClubUserTopic.name,
-        Topics::EntryTopics::ClubPageTopic.name
-      ]
-    )
+    @scope
+      .where(
+        'topics.type not in (?) OR topics.type IS NULL', [
+          Topics::EntryTopics::ClubTopic.name,
+          Topics::ClubUserTopic.name,
+          Topics::EntryTopics::ClubPageTopic.name
+        ]
+      )
+      .where.not(forum_id: Forum::HIDDEN_ID)
   end
 
   def critiques_forums

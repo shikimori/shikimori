@@ -1,5 +1,5 @@
 import { flash } from 'shiki-utils';
-import inNewTab from '@/helpers/in_new_tab';
+import inNewTab from '@/utils/in_new_tab';
 
 /* eslint-disable */
 $(document).ajaxSend((e, xhr, options) => {

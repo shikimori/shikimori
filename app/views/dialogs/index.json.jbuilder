@@ -2,7 +2,7 @@ json.content JsExports::Supervisor.instance.sweep(
   render(
     partial: 'dialogs/dialog',
     collection: @collection,
-    formats: %i[html]
+    formats: :html
   )
 )
 

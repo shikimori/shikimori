@@ -100,9 +100,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :messages, only: %i[create] do
-    post :preview, on: :collection
-  end
+  resources :messages, only: %i[create]
 
   resources :emails, only: [] do
     collection do
@@ -117,7 +115,7 @@ Rails.application.routes.draw do
       post :preview
       get 'fetch/:comment_id/:topic_type/:topic_id(/:is_summary)/:skip/:limit' => :fetch,
         as: :fetch,
-        topic_type: /Topic|User/
+        topic_type: /Topic|User|Review/
       get 'replies/:comment_id/:skip/:limit' => :replies, as: :replies
     end
 
@@ -310,13 +308,14 @@ Rails.application.routes.draw do
       resources :publishers, only: %i[index]
 
       resources :forums, only: %i[index]
-      resources :topics, only: %i[index show create update destroy] do
+      resources :topics, except: %i[new edit] do
         collection do
           get :updates
           get :hot
         end
       end
-      resources :comments, only: %i[show index create update destroy]
+      resources :comments, except: %i[new edit]
+      resources :reviews, except: %i[new edit show index]
 
       resources :topic_ignores, only: %i[create destroy]
       resources :user_images, only: %i[create]
@@ -447,7 +446,9 @@ Rails.application.routes.draw do
     get 'r/:other' => redirect { |params, request| "/critiques/#{params[:other]}" }
     get 'person/:other' => redirect { |params, request| "/people/#{params[:other]}" }
     get 'seyu/:other' => redirect { |params, request| "/people/#{params[:other]}" }
-    get 'reviews/:other' => redirect { |params, request| "/critiques/#{params[:other]}" }
+    constraints other: /\d+-/ do
+      get 'reviews/:other' => redirect { |params, request| "/critiques/#{params[:other]}" }
+    end
     # TODO: remove type param after 2018-06-01
     %i[animes mangas ranobe].each do |type|
       get "#{type}/type/:other" => redirect { |params, request| "/#{type}/kind/#{params[:other]}" }
@@ -762,9 +763,25 @@ Rails.application.routes.draw do
         type: kind.singularize.capitalize,
         except: [:show],
         controller: 'animes/critiques'
+      resources :reviews,
+        type: kind.singularize.capitalize,
+        only: %i[show new create],
+        controller: 'animes/reviews' do
+          get '(:opinion)(/page/:page)' => :index,
+            as: :index,
+            opinion: /positive|neutral|negative/,
+            on: :collection
+          get 'reply' => :show,
+            as: :reply,
+            on: :member,
+            is_reply: true
+        end
     end
   end
 
+  resources :reviews, only: %i[show edit] do
+    get :tooltip, on: :member
+  end
   resources :user_rates, only: %i[edit]
 
   resources :animes, only: %i[edit update] do
@@ -974,6 +991,7 @@ Rails.application.routes.draw do
         section: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
 
       get 'critiques(/page/:page)' => :critiques, as: :critiques
+      get 'reviews(/page/:page)' => :reviews, as: :reviews
       get 'collections(/page/:page)' => :collections, as: :collections
       get 'articles(/page/:page)' => :articles, as: :articles
       get 'topics(/page/:page)' => :topics, as: :topics
@@ -1040,6 +1058,7 @@ Rails.application.routes.draw do
         delete :summaries
         delete :topics
         delete :critiques
+        delete :reviews
       end
       resources :nickname_changes, only: %i[index]
     end

@@ -19,6 +19,7 @@ ru:
           critique: Эта рецензия полезна?
           cosplay: Тебе нравится?
           collection: Эта коллекция полезна или интересна?
+          review: Этот отзыв полезен?
     comments:
       your_comment: Твой комментарий
     inner:
@@ -52,8 +53,9 @@ ru:
     status_line:
       about: о
       by: от
-      changed_at: Изменено %{date}
-      created_at: Создано %{date}
+      section_dates:
+        changed_at: Изменено %{date}
+        created_at: Создано %{date}
     menu_actions:
       create_topic: Создать топик
       create_news: Написать новость

@@ -1,12 +1,13 @@
 describe CommentsQuery do
-  let(:query) { CommentsQuery.new User.name, user.id, is_summary }
-  let(:user) { build_stubbed :user }
+  let(:query) { described_class.new Topic.name, topic.id, is_summary }
+
   let(:is_summary) { false }
-  let!(:comment1) { create :comment, :summary, user: user, commentable: user }
-  let!(:comment2) { create :comment, user: user, commentable: user }
-  let!(:comment3) { create :comment, :summary, user: user, commentable: user }
-  let!(:comment4) { create :comment, user: user, commentable: user }
-  let!(:comment5) { create :comment, user: user, commentable: build_stubbed(:user) }
+
+  let!(:comment1) { create :comment, :summary, :skip_cancel_summary, commentable: topic }
+  let!(:comment2) { create :comment, commentable: topic }
+  let!(:comment3) { create :comment, :summary, :skip_cancel_summary, commentable: topic }
+  let!(:comment4) { create :comment, commentable: topic }
+  let!(:comment5) { create :comment, commentable: site_rules_topic }
 
   describe '#postload' do
     context 'desc' do

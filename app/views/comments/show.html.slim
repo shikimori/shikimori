@@ -5,10 +5,13 @@
     formats: :html
 
 - else
-  .b-topic.to-process[
+  .to-process[
     data-dynamic='topic'
-    data-faye=@view.faye_channel.to_json
+    data-faye=@view.faye_channels.to_json
   ]
+    // .inner node must be present here because
+    // otherwise topic buttons events will be binded to each comment buttons too
+    .inner
     .subheadline
       == t '.user_comment',
         id: @view.comment.id,
@@ -17,7 +20,10 @@
       - if @view.ignored_user?
         = render 'blocks/ignored', ignored: @view.comment, kind: :ignored_user
       - else
-        = render 'comments/comment', comment: @view.decorated_comment , formats: :html
+        = render partial: 'comments/comment',
+          object: @view.decorated_comment,
+          locals: { is_show: true },
+          formats: :html
 
     - if @view.abuse_requests.any? || @view.bans.any?
       .cc-2
@@ -41,9 +47,7 @@
 
     .block
       / .b-options-floated.count = @view.replies.size
-      .subheadline.m0 = t '.replies'
-      .block
-        .b-topic
-          = render 'topics/comments',
-            comments_view: @view,
-            commentable: @view.comment.commentable
+      .subheadline = t '.replies'
+      = render 'topics/comments',
+        comments_view: @view,
+        commentable: @view.comment.commentable

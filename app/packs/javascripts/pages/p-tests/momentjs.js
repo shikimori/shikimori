@@ -1,4 +1,4 @@
-import dayjs from '@/helpers/dayjs';
+import dayjs from '@/utils/dayjs';
 
 pageLoad('tests_momentjs', () => {
   const { MOMENT_DIFF } = window;

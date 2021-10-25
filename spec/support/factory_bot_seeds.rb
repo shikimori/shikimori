@@ -46,7 +46,8 @@ class FactoryBotSeeds
       let(model) { seed model }
     end
 
-    let(:user_1) { seed(:user) }
+    let(:topic) { seed :offtopic_topic }
+    let(:user_1) { seed :user }
     let(:user_2) { user_day_registered }
     let(:user_3) { user_week_registered }
 

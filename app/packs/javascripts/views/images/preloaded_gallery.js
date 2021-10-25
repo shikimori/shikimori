@@ -2,7 +2,7 @@ import delay from 'delay';
 import { bind } from 'shiki-decorators';
 
 import { ShikiGallery } from '@/views/application/shiki_gallery';
-import JST from '@/helpers/jst';
+import JST from '@/utils/jst';
 
 const TEMPLATE = 'images/image';
 

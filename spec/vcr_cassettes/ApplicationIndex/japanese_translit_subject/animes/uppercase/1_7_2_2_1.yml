@@ -286,4 +286,49 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"shikimori_test_clubs":{"aliases":{}}}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.8; darwin x86_64; Faraday v1.4.2)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '310'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "name" : "imac.local",
+          "cluster_name" : "elasticsearch_brew",
+          "cluster_uuid" : "ivAGlIPoRO2_N3yh-1T6iQ",
+          "version" : {
+            "number" : "7.10.2-SNAPSHOT",
+            "build_flavor" : "oss",
+            "build_type" : "tar",
+            "build_hash" : "unknown",
+            "build_date" : "2021-01-16T01:41:27.115673Z",
+            "build_snapshot" : true,
+            "lucene_version" : "8.7.0",
+            "minimum_wire_compatibility_version" : "6.8.0",
+            "minimum_index_compatibility_version" : "6.0.0-beta1"
+          },
+          "tagline" : "You Know, for Search"
+        }
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.0.0

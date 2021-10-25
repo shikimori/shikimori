@@ -1,5 +1,5 @@
 describe JsExports::TopicsExport do
-  let(:tracker) { JsExports::TopicsExport.instance }
+  let(:tracker) { described_class.instance }
   let(:topic) { build_stubbed :topic }
 
   before { tracker.send :cleanup }
@@ -30,7 +30,7 @@ describe JsExports::TopicsExport do
     before do
       tracker.send :track, topic_1.id
       tracker.send :track, topic_2.id
-      tracker.export user_1
+      tracker.export user_1, Ability.new(user_1)
     end
 
     let(:topic_1) { create :topic }
@@ -46,8 +46,8 @@ describe JsExports::TopicsExport do
       create :topic_viewing, viewed: topic_2, user: user_2
     end
 
-    let(:export_1) { tracker.export user_1 }
-    let(:export_2) { tracker.export user_2 }
+    let(:export_1) { tracker.export user_1, Ability.new(user_1) }
+    let(:export_2) { tracker.export user_2, Ability.new(user_2) }
 
     it do
       expect(export_1).to eq [{

@@ -13,7 +13,7 @@ class Critique < ApplicationRecord
 
   acts_as_votable cacheable_strategy: :update_columns
 
-  MINIMUM_LENGTH = 3000
+  MIN_BODY_SIZE = 3000
 
   belongs_to :user,
     touch: Rails.env.test? ? false : :activity_at
@@ -22,8 +22,8 @@ class Critique < ApplicationRecord
   validates :user, :target, presence: true
   validates :text,
     length: {
-      minimum: MINIMUM_LENGTH,
-      too_short: "too short (#{MINIMUM_LENGTH} symbols minimum)"
+      minimum: MIN_BODY_SIZE,
+      too_short: "too short (#{MIN_BODY_SIZE} symbols minimum)"
     },
     if: -> { changes['text'] }
   validates :locale, presence: true

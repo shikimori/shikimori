@@ -14,7 +14,7 @@ aside.buttons
     span.item-edit[
       title=t('actions.edit')
       data-text=t('actions.edit')
-      data-action=edit_comment_path(comment)
+      data-action=edit_comment_url(comment)
       data-type='html'
       data-remote='true'
     ]
@@ -22,7 +22,7 @@ aside.buttons
       title=t('actions.delete')
       data-text=t('actions.delete')
     ]
-    - if comment.commentable_type == 'Topic' && comment.commentable.linked_type != Club.name
+    - if comment.moderatable?
       span.item-moderation[
         title=t('actions.moderate')
         data-text=t('actions.moderate')
@@ -76,19 +76,20 @@ aside.buttons
       data-reason-prompt=t('actions.moderation.explain.spoiler')
       data-direction='top'
     ]
-    span.item-offtopic.b-tooltipped.unprocessed[
-      class=(:selected if comment.offtopic?)
-      title=t('actions.moderation.offtopic')
-      data-text=t('actions.moderation.offtopic')
-      data-text-alt=t('actions.moderation.not_offtopic')
-      data-confirm-add=t('actions.markers.offtopic.confirm_add')
-      data-confirm-remove=t('actions.markers.offtopic.confirm_remove')
-      data-action=offtopic_api_v2_abuse_requests_url(comment_id: comment.id)
-      data-method='post'
-      data-type='json'
-      data-remote='true'
-      data-direction='top'
-    ]
+    - if comment.offtopable?
+      span.item-offtopic.b-tooltipped.unprocessed[
+        class=(:selected if comment.offtopic?)
+        title=t('actions.moderation.offtopic')
+        data-text=t('actions.moderation.offtopic')
+        data-text-alt=t('actions.moderation.not_offtopic')
+        data-confirm-add=t('actions.markers.offtopic.confirm_add')
+        data-confirm-remove=t('actions.markers.offtopic.confirm_remove')
+        data-action=offtopic_api_v2_abuse_requests_url(comment_id: comment.id)
+        data-method='post'
+        data-type='json'
+        data-remote='true'
+        data-direction='top'
+      ]
 
     - if comment.try :allowed_summary?
       span.item-summary.b-tooltipped.unprocessed[
@@ -105,7 +106,7 @@ aside.buttons
         data-direction='top'
       ]
 
-    - if comment.commentable_type == 'Topic' && comment.commentable.linked_type != Club.name
+    - if comment.moderatable?
       span.item-moderation-cancel[
         title=t('actions.cancel')
         data-text=t('actions.cancel')

@@ -1,4 +1,4 @@
-import { imagePromiseFinally } from '@/helpers/load_image';
+import { imagePromiseFinally } from '@/utils/load_image';
 
 const prepare = (domain, href) => (
   {

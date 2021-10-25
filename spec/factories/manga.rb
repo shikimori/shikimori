@@ -40,5 +40,23 @@ FactoryBot.define do
         kind { kind_type }
       end
     end
+
+    trait :ongoing do
+      status { :ongoing }
+      aired_on { 2.weeks.ago }
+    end
+
+    trait :released do
+      status { :released }
+    end
+
+    trait :discontinued do
+      status { :released }
+    end
+
+    trait :anons do
+      status { :anons }
+      aired_on { 2.weeks.from_now }
+    end
   end
 end

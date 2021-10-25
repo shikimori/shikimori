@@ -50,7 +50,7 @@ describe DbImport::Character do
     end
   end
 
-  describe '#assign_seyu', :focus do
+  describe '#assign_seyu' do
     let(:seyu) { [{ id: 61, type: :person, roles: %w[Japanese] }] }
 
     let!(:anime_role) { create :person_role, anime_id: 9999, character_id: id }

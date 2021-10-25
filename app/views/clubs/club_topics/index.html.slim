@@ -11,7 +11,7 @@
     ]
 
 = render layout: 'clubs/page' do
-  .subheadline = og.headline
+  .subheadline.m5 = og.headline
 
   .b-forum.to-process[
     data-dynamic='forum'
@@ -21,7 +21,7 @@
       = render partial: 'topics/topic',
         collection: @forums_view.topic_views,
         as: :topic_view,
-        cache: true
+        cached: true
 
     - else
       .b-nothing_here = t 'no_topics'

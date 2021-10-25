@@ -1,3 +1,5 @@
+import checkHeight from '@/utils/check_height';
+
 pageLoad(
   'oauth_applications_new',
   'oauth_applications_create',
@@ -10,5 +12,5 @@ pageLoad(
   });
 
 pageLoad('oauth_applications_show', () => {
-  $('.description').checkHeight({ maxHeight: 200 });
+  checkHeight($('.description'), { maxHeight: 200 });
 });

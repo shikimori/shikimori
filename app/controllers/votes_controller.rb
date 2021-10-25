@@ -1,7 +1,6 @@
 class VotesController < ShikimoriController
   before_action :authenticate_user!
 
-  # rubocop:disable AbcSize
   def create
     Votable::Vote.call(
       votable: params[:votable_type].constantize.find(
@@ -13,5 +12,4 @@ class VotesController < ShikimoriController
 
     render json: {}
   end
-  # rubocop:enable AbcSize
 end

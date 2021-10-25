@@ -1,7 +1,3 @@
-= render 'comments/form',
-  comment: @resource,
-  preview_params: { \
-    kind: @resource.kind,
-    from_id: @resource.from_id,
-    to_id: @resource.to_id \
-  }
+= render 'messages/form',
+  message: @resource,
+  cache_key: @resource.cache_key

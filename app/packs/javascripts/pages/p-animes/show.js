@@ -1,8 +1,10 @@
+import checkHeight from '@/utils/check_height';
+
 pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
   $('.b-notice').tipsy({ gravity: 's' });
   $('.c-screenshot').magnificRelGallery();
 
-  $('.text').checkHeight({ maxHeight: 200 });
+  checkHeight($('.text'), { maxHeight: 200 });
 
   const $newCritique = $('.new_critique');
   if (window.SHIKI_USER.isSignedIn) {

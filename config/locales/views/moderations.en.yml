@@ -60,9 +60,13 @@ en:
         actions: actions
         ban: ban
         for_reason: for reason
-        old_comment: old comment
+        old:
+          comment: old comment
+          review: old review
+          topic: old topic
         club_comment: club comment
         profile_comment: profile comment
+        review_comment: review comment
         offtopic_comment: offtopic comment
         reject: reject
         remove: remove

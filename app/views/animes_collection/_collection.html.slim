@@ -21,7 +21,7 @@
               cover_notice: cover_notice,
               is_search_russian: @view.search_russian? \
             },
-            cache: ->(entry, _) { CacheHelper.keys entry, cover_notice }
+            cached: ->(entry) { CacheHelper.keys entry, cover_notice }
       - else
         .m0 class="cc-#{data[:kind] == 'doujin' || data[:kind] == 'one_shot' ? 6 : 'entries'}"
           = render partial: 'animes/anime',
@@ -30,7 +30,7 @@
               cover_notice: cover_notice,
               is_search_russian: @view.search_russian? \
             },
-            cache: ->(entry, _) { CacheHelper.keys entry, cover_notice, @view.search_russian? }
+            cached: ->(entry) { CacheHelper.keys entry, cover_notice, @view.search_russian? }
 
 - else
   .cc-entries
@@ -45,7 +45,7 @@
           cover_notice: cover_notice,
           is_search_russian: @view.search_russian? \
         },
-        cache: ->(entry, _) { CacheHelper.keys entry, cover_notice, @view.search_russian? }
+        cached: ->(entry) { CacheHelper.keys entry, cover_notice, @view.search_russian? }
 
   - if @view.next_page_url
     = render 'blocks/postloader',

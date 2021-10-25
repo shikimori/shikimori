@@ -3,7 +3,7 @@ import delay from 'delay';
 import { memoize } from 'shiki-decorators';
 
 import View from '@/views/application/view';
-import { loadImagesFinally } from '@/helpers/load_image';
+import { loadImagesFinally } from '@/utils/load_image';
 
 export const GLOBAL_SELECTOR = 'd-aligned_posters';
 export const DATA_KEY = 'cutted-covers';

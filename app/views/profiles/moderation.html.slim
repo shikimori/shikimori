@@ -75,6 +75,19 @@
               data-confirm=t('actions.confirm')
             ] = t 'actions.delete_all'
 
+    - if @resource.activity_stats.reviews_count.positive?
+      .c-column
+        .subheadline
+          a href=reviews_profile_url(@resource)
+            = i18n_io 'Review', :few
+        .b-entry-info
+          = info_line t('.moderation.amount'), @resource.activity_stats.reviews_count
+          - if can? :delete_all_reviews, @resource
+            a.b-button[
+              href=reviews_profile_moderation_url(@resource)
+              data-method='delete'
+              data-confirm=t('actions.confirm')
+            ] = t 'actions.delete_all'
 
     - if @resource.activity_stats.collections_count.positive?
       .c-column
@@ -128,21 +141,21 @@
         .b-entry-info
           = info_line t('.moderation.amount'), @resource.activity_stats.versions_count
 
-    - if ru_host? && @resource.activity_stats.video_uploads_count.positive?
+    - if @resource.activity_stats.video_uploads_count.positive?
       .c-column
         .subheadline
           = i18n_io 'Video_upload', :few
         .b-entry-info
           = info_line t('.moderation.amount'), @resource.activity_stats.video_uploads_count
 
-    - if ru_host? && @resource.activity_stats.video_versions_count.positive?
+    - if @resource.activity_stats.video_versions_count.positive?
       .c-column
         .subheadline
           = i18n_io 'Video_change', :few
         .b-entry-info
           = info_line t('.moderation.amount'), @resource.activity_stats.video_versions_count
 
-    - if ru_host? && @resource.activity_stats.video_reports_count.positive?
+    - if @resource.activity_stats.video_reports_count.positive?
       .c-column
         .subheadline
           = i18n_io 'Video_report', :few

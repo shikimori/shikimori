@@ -16,9 +16,10 @@ en:
     footer:
       vote:
         question:
-          critique: Is this critique useful?
+          critique: Is this critique helpful?
           cosplay: Do you like it?
           collection: Is this collection useful or interesting?
+          review: Is this review helpful?
     comments:
       your_comment: Your comment
     inner:
@@ -52,8 +53,9 @@ en:
     status_line:
       about: about
       by: by
-      changed_at: Changed at %{date}
-      created_at: Created at %{date}
+      section_dates:
+        changed_at: Changed at %{date}
+        created_at: Created at %{date}
     menu_actions:
       create_topic: Create a topic
       create_news: Write news

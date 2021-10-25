@@ -1,4 +1,4 @@
-import axios from '@/helpers/axios';
+import axios from '@/utils/axios';
 import Wall from '@/views/wall/view';
 
 let wall;

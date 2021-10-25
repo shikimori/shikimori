@@ -13,6 +13,10 @@ class Users::ActivityStatsQuery
     Comment.where(is_summary: false, user_id: @user.id).count
   end
 
+  def reviews_count
+    Review.where(user_id: @user.id).count
+  end
+
   def topics_count
     Topic
       .where(user_id: @user.id)

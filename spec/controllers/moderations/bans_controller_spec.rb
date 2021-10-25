@@ -2,6 +2,10 @@ describe Moderations::BansController do
   include_context :authenticated, :forum_moderator
 
   let!(:comment) { create :comment }
+  let(:topic) { create :topic }
+  let(:review) { create :review, anime: anime }
+  let(:anime) { create :anime }
+
   let!(:abuse_request) { create :abuse_request, user: user, comment: comment }
 
   describe '#index' do
@@ -23,24 +27,26 @@ describe Moderations::BansController do
   end
 
   describe '#new' do
-    subject! do
-      get :new,
-        params: {
-          ban: {
-            comment_id: comment.id,
-            user_id: comment.user_id,
+    %i[comment review topic].each do |type|
+      context type.to_s do
+        subject! { get :new, params: { ban: ban_params } }
+        let(:ban_params) do
+          {
+            "#{type}_id": send(type).id,
+            user_id: send(type).user_id,
             abuse_request_id: abuse_request&.id
           }
-        }
-    end
+        end
 
-    context 'with abuse_request' do
-      it { expect(response).to have_http_status :success }
-    end
+        context 'with abuse_request' do
+          it { expect(response).to have_http_status :success }
+        end
 
-    context 'w/o abuse_request' do
-      let(:abuse_request) { nil }
-      it { expect(response).to have_http_status :success }
+        context 'w/o abuse_request' do
+          let(:abuse_request) { nil }
+          it { expect(response).to have_http_status :success }
+        end
+      end
     end
   end
 
@@ -59,7 +65,7 @@ describe Moderations::BansController do
 
     it do
       expect(response).to have_http_status :success
-      expect(json.keys).to eq %i[id abuse_request_id comment_id notice html]
+      expect(json.keys).to eq %i[id abuse_request_id comment_id notice content JS_EXPORTS]
       expect(response.content_type).to eq 'application/json'
     end
   end

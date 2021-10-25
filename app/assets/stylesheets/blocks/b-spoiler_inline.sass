@@ -11,20 +11,25 @@
   line-height: initial
 
   &.is-opened
-    // background-color: rgba(84, 84, 82, 0.1)
     background-color: rgba(102, 119, 136, 0.125)
 
+    // +gte_laptop
+      &:hover
+        background-color: darken(rgba(102, 119, 136, 0.125), 6%)
+
+    &:active
+      background-color: rgba(102, 119, 136, 0.25)
+
   &:not(.is-opened)
-    // background-color: #545452
     background-color: #678
     cursor: pointer
 
-    // +gte_laptop
-    //   &:hover
-    //     background-color: lighten(#456, 3%)
-    // 
-    // &:active
-    //   background-color: lighten(#678, 8%)
+    +gte_laptop
+      &:hover
+        background-color: lighten(#678, 6%)
+
+    &:active
+      background-color: lighten(#678, 12%)
 
     & > span
       opacity: 0

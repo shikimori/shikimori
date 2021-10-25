@@ -35,7 +35,7 @@ html[
     data-localized_genres=@layout.localized_genres
     data-faye_url=FayePublisher.faye_url
     data-camo_url=UrlGenerator.instance.camo_root_url(false)
-    data-faye=(current_user.faye_channel.to_json if user_signed_in?)
+    data-faye=(current_user.faye_channels.to_json if user_signed_in?)
     data-js_export_supervisor_keys=JsExports::Supervisor::KEYS.to_json
   ]
     = @layout.custom_styles

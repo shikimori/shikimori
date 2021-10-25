@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :critique do
     association :target, factory: :anime
     user { seed :user }
-    text { 's' * Critique::MINIMUM_LENGTH }
+    text { 's' * Critique::MIN_BODY_SIZE }
     changed_at { nil }
 
     overall { 1 }
@@ -12,6 +12,9 @@ FactoryBot.define do
     animation { 1 }
 
     locale { :ru }
+
+    cached_votes_up { 0 }
+    cached_votes_down { 0 }
 
     after :build do |model|
       stub_method model, :antispam_checks

@@ -2,12 +2,8 @@
 # требуется наличие объекта-топика, но у комментируемой сущности
 # нет топиков, а есть лишь комментарии (например, в модели User)
 class Topics::ProxyComments < Topics::CommentsView
-  def faye_channel
-    channel = model.is_a?(User) ?
-      FayePublisher::PROFILE_FAYE_CHANNEL :
-      model.class.name.underscore
-
-    ["#{channel}-#{model.id}"]
+  def faye_channels
+    %W[/#{model.class.base_class.name.downcase}-#{model.id}]
   end
 
   def comments_limit

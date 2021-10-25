@@ -42,6 +42,16 @@ class Users::ModerationsController < ProfilesController
     redirect_to moderation_profile_url @resource
   end
 
+  def reviews
+    authorize! :delete_all_reviews, @resource
+
+    Review
+      .where(user_id: @resource.id)
+      .each { |review| faye.destroy review }
+
+    redirect_to moderation_profile_url @resource
+  end
+
 private
 
   def faye

@@ -5,11 +5,7 @@ class Topic::Update
 
   def call
     is_updated = update_topic
-
-    if is_updated
-      broadcast @topic if broadcast? @topic
-    end
-
+    broadcast @topic if is_updated && broadcast?(@topic)
     is_updated
   end
 
@@ -17,10 +13,6 @@ private
 
   def update_topic
     @faye.update @topic, @params
-
-    # @topic.class.wo_timestamp do
-    #   @faye.update @topic, @params
-    # end
   end
 
   def broadcast? topic

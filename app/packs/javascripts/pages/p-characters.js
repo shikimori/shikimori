@@ -1,5 +1,7 @@
+import checkHeight from '@/utils/check_height';
+
 pageLoad('characters_show', async () => {
-  $('.text').checkHeight({ maxHeight: 200 });
+  checkHeight($('.text'), { maxHeight: 200 });
 
   $('.b-subposter-actions .new_comment').on('click', () => {
     $('.shiki_editor-selector').view().focus();

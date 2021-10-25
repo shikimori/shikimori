@@ -3,8 +3,8 @@ import pDefer from 'p-defer';
 import { bind } from 'shiki-decorators';
 import { flash } from 'shiki-utils';
 
-import axios from '@/helpers/axios';
-import preventEvent from '@/helpers/prevent_event';
+import axios from '@/utils/axios';
+import preventEvent from '@/utils/prevent_event';
 import ShikiView from '@/views/application/shiki_view';
 
 import { isMobile } from 'shiki-utils';
@@ -228,19 +228,18 @@ export default class ShikiEditor extends ShikiView {
     this.$('footer .unpreview').on('click', this._hidePreview);
     this.$('footer .preview').on('click', () => {
       // подстановка данных о текущем элементе, если они есть
-      const data = {};
-
-      const itemData = {
-        ...(this.$node.data('preview_params') || {}),
-        body: this.text
+      const params = {
+        comment: {
+          ...(this.$node.data('preview_params') || {}),
+          body: this.text
+        }
       };
-      data[this.type] = itemData;
 
       this._shade();
       axios
         .post(
           $('footer .preview', this.$node).data('preview_url'),
-          data
+          params
         )
         .then(response => this._showPreview(response.data))
         .catch()
@@ -306,6 +305,10 @@ export default class ShikiEditor extends ShikiView {
 
   get text() {
     return this.$textarea.val();
+  }
+
+  // does nothing. added for compatibility with shiki-editor-v2
+  reprocessCache() {
   }
 
   _showPreview(previewHtml) {

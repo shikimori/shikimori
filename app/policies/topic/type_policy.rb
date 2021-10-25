@@ -1,48 +1,48 @@
 class Topic::TypePolicy
-  pattr_initialize :topic
+  vattr_initialize :object
 
   def forum_topic?
-    topic.instance_of?(Topic) || club_user_topic?
+    @object.instance_of?(Topic) || club_user_topic?
   end
 
   def news_topic?
-    topic.instance_of? Topics::NewsTopic
+    @object.instance_of? Topics::NewsTopic
   end
 
   def generated_news_topic?
-    news_topic? && topic.generated?
+    news_topic? && @object.generated?
   end
 
   def not_generated_news_topic?
-    news_topic? && !topic.generated?
+    news_topic? && !@object.generated?
   end
 
   def critique_topic?
-    topic.instance_of? Topics::EntryTopics::CritiqueTopic
+    @object.instance_of? Topics::EntryTopics::CritiqueTopic
   end
 
   def cosplay_gallery_topic?
-    topic.instance_of? Topics::EntryTopics::CosplayGalleryTopic
+    @object.instance_of? Topics::EntryTopics::CosplayGalleryTopic
   end
 
   def contest_topic?
-    topic.instance_of? Topics::EntryTopics::ContestTopic
+    @object.instance_of? Topics::EntryTopics::ContestTopic
   end
 
   def contest_status_topic?
-    topic.instance_of? Topics::NewsTopics::ContestStatusTopic
+    @object.instance_of? Topics::NewsTopics::ContestStatusTopic
   end
 
   def club_topic?
-    topic.instance_of? Topics::EntryTopics::ClubTopic
+    @object.instance_of? Topics::EntryTopics::ClubTopic
   end
 
   def club_user_topic?
-    topic.instance_of? Topics::ClubUserTopic
+    @object.instance_of? Topics::ClubUserTopic
   end
 
   def club_page_topic?
-    topic.instance_of? Topics::EntryTopics::ClubPageTopic
+    @object.instance_of? Topics::EntryTopics::ClubPageTopic
   end
 
   def any_club_topic?
@@ -50,20 +50,24 @@ class Topic::TypePolicy
   end
 
   def collection_topic?
-    topic.instance_of? Topics::EntryTopics::CollectionTopic
+    @object.instance_of? Topics::EntryTopics::CollectionTopic
   end
 
   def article_topic?
-    topic.instance_of? Topics::EntryTopics::ArticleTopic
+    @object.instance_of? Topics::EntryTopics::ArticleTopic
   end
 
   def commentable_topic?
-    !collection_topic? || topic.linked.published? || topic.linked.opened?
+    !collection_topic? || @object.linked.published? || @object.linked.opened?
+  end
+
+  def review_topic?
+    @object.is_a? Review
   end
 
   def votable_topic?
     critique_topic? || cosplay_gallery_topic? || (
-      collection_topic? && (topic.linked.published? || topic.linked.opened?)
-    )
+      collection_topic? && (@object.linked.published? || @object.linked.opened?)
+    ) || review_topic?
   end
 end

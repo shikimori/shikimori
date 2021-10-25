@@ -1,6 +1,8 @@
 import Topic from './topic';
 
 export default class FullDialog extends Topic {
+  get commentType() { return 'message'; }
+
   // handlers
   _beforeCommentsClickload() {}
 

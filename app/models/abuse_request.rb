@@ -12,17 +12,19 @@ class AbuseRequest < ApplicationRecord
     user_id_key: :user_id
   )
 
-  belongs_to :comment
+  belongs_to :comment, optional: true
+  belongs_to :topic, optional: true
+  belongs_to :review, optional: true
   belongs_to :user
   belongs_to :approver,
     class_name: 'User',
-    foreign_key: :approver_id,
     optional: true
 
   enumerize :kind, in: %i[offtopic summary spoiler abuse], predicates: true
 
-  validates :user, :comment, presence: true
+  validates :user, presence: true
   validates :reason, length: { maximum: 4096 }
+  validates :comment_id, exclusive_arc: %i[topic_id review_id]
 
   scope :pending, -> { where state: 'pending', kind: %w[offtopic summary] }
   scope :abuses, -> { where state: 'pending', kind: %w[spoiler abuse] }
@@ -65,5 +67,19 @@ class AbuseRequest < ApplicationRecord
 
   def punishable?
     abuse? || spoiler?
+  end
+
+  def target
+    comment || review || topic
+  end
+
+  def target_type
+    if comment_id
+      Comment.name
+    elsif review_id
+      Review.name
+    elsif topic_id
+      Topic.name
+    end
   end
 end

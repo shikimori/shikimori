@@ -2,7 +2,7 @@ class Messages::GenerateBody < ServiceObjectBase
   include Translation
 
   pattr_initialize :message
-  instance_cache :linked
+  delegate :linked, :linked_id, to: :message
 
   def call
     send(@message.kind.underscore).html_safe
@@ -12,10 +12,6 @@ private
 
   def gender
     @gender ||= @message.from.female? ? :female : :male
-  end
-
-  def linked
-    @message.linked
   end
 
   def html_body
@@ -72,33 +68,30 @@ private
   end
 
   def warned
-    if @message.linked&.comment
-      i18n_t 'warned.comment', linked_name: linked_name
-    else
-      i18n_t 'warned.removed_comment', reason: @message.linked&.reason
-    end
+    banned is_warn: true
   end
 
-  def banned
-    duration = @message.linked ? @message.linked.duration.humanize : '???'
+  def banned is_warn: false # rubocop:disable PerceivedComplexity, CyclomaticComplexity, AbcSize
+    key =
+      if linked&.target_type
+        linked.target ? :target : :missing
+      else
+        :other
+      end
 
-    if @message.linked&.comment
-      i18n_t 'banned.comment',
-        gender: gender,
-        duration: duration,
-        linked_name: linked_name
-    else
-      reason = @message.linked ? @message.linked.reason : '???'
-      i18n_t 'banned.other',
-        gender: gender,
-        duration: duration,
-        reason: reason
-    end
+    i18n_t "#{is_warn ? :warned : :banned}.#{key}",
+      gender: gender,
+      duration: linked&.duration&.humanize || '???',
+      linked_name: (ban_linked_name if linked&.target),
+      target_type_name: (
+        linked.target_type.constantize.model_name.human.downcase if linked&.target_type
+      ),
+      reason: linked&.reason ? BbCodes::Text.call(linked.reason) : '???'
   end
 
   def club_request
     BbCodes::Text.call(
-      i18n_t('club_request', club_id: @message.linked&.club_id)
+      i18n_t('club_request', club_id: linked&.club_id)
     )
   end
 
@@ -106,9 +99,9 @@ private
     BbCodes::Text.call(
       i18n_t(
         'version_accepted',
-        version_id: @message.linked.id,
-        item_type: @message.linked.item_type.underscore,
-        item_id: @message.linked.item_id
+        version_id: linked.id,
+        item_type: linked.item_type.underscore,
+        item_id: linked.item_id
       )
     )
   end
@@ -135,36 +128,44 @@ private
 
   def contest_started
     BbCodes::Text.call(
-      "[contest_status=#{@message.linked_id} started]"
+      "[contest_status=#{linked_id} started]"
     )
   end
 
   def contest_finished
     BbCodes::Text.call(
-      "[contest_status=#{@message.linked_id} finished]"
+      "[contest_status=#{linked_id} finished]"
     )
   end
 
   def club_broadcast
-    BbCodes::Text.call @message.linked.body
+    BbCodes::Text.call linked.body
+  end
+
+  def ban_linked_name
+    if linked.target.is_a?(Review) || linked.target.is_a?(Topic)
+      Messages::MentionSource.call(linked.target, is_simple: true)
+    else
+      linked_name
+    end
   end
 
   def linked_name
     case linked
       when Comment
         Messages::MentionSource.call(
-          @message.linked.commentable,
-          @message.linked.id
+          linked.commentable,
+          comment_id: linked.id
         )
 
       when Ban
         Messages::MentionSource.call(
-          @message.linked.comment.commentable,
-          @message.linked.comment.id
-        )
+          linked.comment.commentable,
+          comment_id: linked.comment.id
+        ).gsub(/\.\Z/, '')
 
       else
-        Messages::MentionSource.call @message.linked, nil
+        Messages::MentionSource.call linked
     end
   end
 end

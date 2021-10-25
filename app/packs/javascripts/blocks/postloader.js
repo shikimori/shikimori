@@ -1,4 +1,4 @@
-import axios from '@/helpers/axios';
+import axios from '@/utils/axios';
 
 $(() => {
   $.appear('.b-postloader');

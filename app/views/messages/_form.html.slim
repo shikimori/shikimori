@@ -1,0 +1,19 @@
+= simple_form_for [:api, message], remote: true, authenticity_token: true,
+  html: { data: { type: :json }, id: nil } do |f|
+  input type='hidden' name='frontend' value='true'
+
+  = f.input :kind, as: :hidden, input_html: { id: nil }
+  = f.input :from_id, as: :hidden, input_html: { id: nil }
+  = f.input :to_id, as: :hidden, input_html: { id: nil }
+
+  = render 'blocks/shiki_editor',
+    text: message.body,
+    field_name: "#{message.class.name.downcase}[body]",
+    f: f,
+    preview_params: { \
+      kind: message.kind,
+      from_id: message.from_id,
+      to_id: message.to_id \
+    },
+    cache_key: local_assigns[:cache_key]
+

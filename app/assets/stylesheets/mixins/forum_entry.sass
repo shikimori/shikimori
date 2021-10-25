@@ -1,6 +1,7 @@
 @import globals
 @import mixins/clearfix
 @import mixins/ellipsis2
+@import mixins/frame_form
 @import mixins/icons
 @import mixins/link
 @import mixins/responsive
@@ -21,17 +22,8 @@ $body_phone_left_margin: 40px
   &:after
     content: attr(data-text)
 
-=forum_entry
-  +clearfix
-  // overflow: hidden // fixes overflow bug in chrome 77 https://monosnap.com/file/9YvGTVRfO8UhjZbLK4ysZpIj6GJ97o
-  padding-top: 5px
-
+=forum_entry_markers
   & > .inner
-    +clearfix
-    position: relative // for absolute positioned item-mobile
-    transition: margin-left 0.25s ease
-    width: 100% // без этого в .aside-expanded режиме не будет смещения контента влево
-
     aside.markers
       +lte_ipad
         padding-right: 38px // offset for item-mobile
@@ -40,21 +32,173 @@ $body_phone_left_margin: 40px
         .b-new_marker.off
           display: none
 
-    aside.buttons
-      display: none
-
-      .item-cancel
-        display: none
-
     +gte_laptop
       &:hover
         aside.markers
           .b-new_marker.off
             display: block
 
-        +gte_laptop
-          aside.buttons
-            display: block
+=forum_entry_buttons
+  & > .inner
+    position: relative // for absolute positioned item-mobile
+    width: 100% // без этого в .aside-expanded режиме не будет смещения контента влево
+    transition: margin-left 0.25s ease
+
+    &.is-editing,
+    &.is-moderating
+      & > .item-mobile,
+      & > aside.buttons
+        display: none !important
+
+    & > aside.buttons
+      display: none
+
+      .tooltip &
+        display: none !important
+
+      .item-cancel
+        display: none
+
+    +gte_laptop
+      &:hover > aside.buttons
+        display: block
+
+  .item-mobile
+    position: absolute
+    right: 0
+    top: -5px
+
+  .item-quote-mobile
+    position: absolute
+
+    +iphone
+      right: 0
+      top: -5px
+
+    +ipad
+      right: 45px
+      top: -4px
+
+  // expanded menu in mobile version
+  &.aside-expanded
+    +lte_ipad
+      & > .item-mobile
+        display: none
+
+      & > .inner
+        margin-left: -$aside_width
+        overflow: visible
+        position: relative
+
+        & > aside.buttons
+          display: block
+          margin-top: -5px
+          margin-right: -$aside_width - $block-offset * 1.5
+          width: $aside_width
+
+          .main-controls
+            .item-ignore
+              +icon_expandable
+
+            .item-reply
+              +icon_expandable
+
+            .item-edit
+              +icon_expandable
+
+            .item-delete
+              +icon_expandable
+
+            .item-moderation
+              +icon_expandable
+
+            .item-cancel
+              +icon_expandable
+
+            .item-request-confirm
+              +icon_expandable
+
+            .item-request-reject
+              +icon_expandable
+
+          .delete-controls
+            .item-delete-confirm
+              +icon_expandable
+
+            .item-delete-cancel
+              +icon_expandable
+
+          .moderation-controls
+            .item-ban
+              +icon_expandable
+
+            .item-abuse
+              +icon_expandable
+
+            .item-spoiler
+              +icon_expandable
+
+            .item-summary
+              +icon_expandable
+              &.selected
+                color: $green
+                &:after
+                  content: attr(data-text-alt)
+
+            .item-offtopic
+              +icon_expandable
+              &.selected
+                color: $red
+                &:after
+                  content: attr(data-text-alt)
+
+            .item-moderation-cancel
+              +icon_expandable
+
+=forum_entry_ban_form
+  & > .inner
+    &.is-moderating aside.moderation-ban-form
+      display: block
+
+    aside.moderation-ban-form
+      +frame_form
+      display: none
+      padding-bottom: 10px
+      margin-bottom: 30px
+      // fix issue when ban form's height is greater than forum_entry's height
+      position: relative
+      z-index: 1
+
+      .b-input input
+        width: 100%
+
+      +gte_ipad
+        float: right
+        margin-left: 30px
+
+=forum_entry_ban_message
+  & > .inner .body
+    .ban
+      .b-user16
+        margin-right: 0
+
+      .resolution
+        color: $red
+
+        a
+          color: $red
+          text-decoration: underline
+
+=forum_entry
+  +clearfix
+  +forum_entry_markers
+  +forum_entry_buttons
+  +forum_entry_ban_form
+  +forum_entry_ban_message
+  padding-top: 5px
+
+  & > .inner
+    +clearfix
 
     header
       margin-bottom: 3px
@@ -142,97 +286,6 @@ $body_phone_left_margin: 40px
         img
           margin-top: 1px
 
-  .item-mobile
-    position: absolute
-    right: 0
-    top: -5px
-
-  .item-quote-mobile
-    position: absolute
-
-    +iphone
-      right: 0
-      top: -5px
-
-    +ipad
-      right: 45px
-      top: -4px
-
-    &.is-active + .item-mobile
-      +iphone
-        display: none
-
-  // expanded menu in mobile version
-  &.aside-expanded
-    +lte_ipad
-      & > .item-mobile
-        display: none
-
-      & > .inner
-        margin-left: -$aside_width
-        overflow: visible
-        position: relative
-
-        aside.buttons
-          display: block
-          margin-top: -5px
-          margin-right: -$aside_width - $block-offset * 1.5
-          width: $aside_width
-
-          .main-controls
-            .item-ignore
-              +icon_expandable
-
-            .item-reply
-              +icon_expandable
-
-            .item-edit
-              +icon_expandable
-
-            .item-delete
-              +icon_expandable
-
-            .item-moderation
-              +icon_expandable
-
-            .item-cancel
-              +icon_expandable
-
-            .item-request-confirm
-              +icon_expandable
-
-            .item-request-reject
-              +icon_expandable
-
-          .delete-controls
-            .item-delete-confirm
-              +icon_expandable
-
-            .item-delete-cancel
-              +icon_expandable
-
-          .moderation-controls
-            .item-ban
-              +icon_expandable
-
-            .item-abuse
-              +icon_expandable
-
-            .item-spoiler
-              +icon_expandable
-
-            .item-summary
-              +icon_expandable
-              &.selected
-                color: $green
-                &:after
-                  content: attr(data-text-alt)
-
-            .item-offtopic
-              +icon_expandable
-              &.selected
-                color: $red
-                &:after
-                  content: attr(data-text-alt)
-            .item-moderation-cancel
-              +icon_expandable
+    // &.is-active + .item-mobile
+    //   +iphone
+    //     display: none

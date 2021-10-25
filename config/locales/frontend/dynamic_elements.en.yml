@@ -4,7 +4,10 @@ en:
       check_height:
         expand: expand
 
-      # topic.coffee
+      shiki_editable:
+        your_request_will_be_considered: >-
+          Your request will be considered. Domo arigato.
+
       topic:
         load_comments: Load next %{comment_count} %{of_total_comments} %{comment_word}
         type_label: Topic
@@ -26,38 +29,33 @@ en:
           few: '%{count} new comments added'
           many: '%{count} new comments added'
 
-      # comment.coffee
       comment:
         type_label: Comment
-        your_request_will_be_considered: >-
-          Your request will be considered. Domo arigato.
-        comments_marked_as_offtopic: Comments have been marked as offtopic
-        comment_marked_as_offtopic: Comment has been marked as offtopic
-        comment_marked_as_summary: Comment has been marked as summary
-        comment_not_marked_as_offtopic: Comment is no longer marked as offtopic
-        comment_not_marked_as_summary: Comment is no longer marked as summary
+        marked_as_offtopic: Comment has been marked as offtopic
+        multiple_marked_as_offtopic: Comments have been marked as offtopic
+        marked_as_summary: Comment has been marked as summary
+        not_marked_as_offtopic: Removed offtopic marking
+        not_marked_as_summary: Removed summary marking
 
-      # dialog.coffee
       dialog:
         type_label: Dialog
 
-      # message.coffee
       message:
         type_label: Message
 
-      # authorized_action.coffee
+      review:
+        type_label: Review
+
       authorized_action:
         register_to_complete_action: >-
           Please <a href="/users/sign_up">register</a>
           to complete this action.
 
-      # week_registered_action.coffee
       day_registered_action:
         action_will_be_available: >-
           Action will be available one day after
           <a href="/users/sign_up">registration</a>.
 
-      # week_registered_action.coffee
       week_registered_action:
         action_will_be_available: >-
           Action will be available one day after

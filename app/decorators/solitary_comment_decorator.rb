@@ -1,7 +1,9 @@
 class SolitaryCommentDecorator < CommentDecorator
   def topic_name
-    ("<span class='normal'>#{formatted.match(/^(.*?)</)[1]}" +
-      "</span> #{h.sanitize formatted.match(/>(.*?)</)[1]}").html_safe
+    (
+      "<span class='normal'>#{formatted.match(/^(.*?)</)[1]}" \
+        "</span> #{h.sanitize formatted.match(/>(.*?)</)[1]}"
+    ).html_safe
   end
 
   def topic_url
@@ -11,6 +13,6 @@ class SolitaryCommentDecorator < CommentDecorator
 private
 
   def formatted
-    @formatted ||= Messages::MentionSource.call commentable, id
+    @formatted ||= Messages::MentionSource.call commentable, comment_id: id
   end
 end

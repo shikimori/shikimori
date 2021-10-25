@@ -131,12 +131,11 @@ header.head
 
 = render 'spnsrs/ad', ad: Ad.new(:horizontal_x250)
 
-.subheadline.m0 = i18n_i 'Comment', :other
-div
-  .b-topic.to-process[
-    data-dynamic='topic'
-    data-faye=@topic_view.faye_channel.to_json
-  ]
-    = render 'topics/comments',
-      comments_view: @topic_view.comments_view,
-      commentable: @topic_view.topic
+.subheadline = i18n_i 'Comment', :other
+.to-process[
+  data-dynamic='topic'
+  data-faye=@topic_view.faye_channels.to_json
+]
+  = render 'topics/comments',
+    comments_view: @topic_view.comments_view,
+    commentable: @topic_view.topic

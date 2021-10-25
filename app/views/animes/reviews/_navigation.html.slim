@@ -1,0 +1,47 @@
+- opinions = ([nil] + ::Types::Review::Opinion.values)
+- counts = opinions.map { |opinion| opinion ? resource.reviews.send(opinion).count : resource.reviews.count }
+
+.b-reviews_navigation[
+  data-initial_opinion=(local_assigns[:opinion] || '')
+  data-fetch_url_base=resource.reviews_url
+  data-is_preview=!!local_assigns[:is_preview]
+  data-initial_page=(local_assigns[:page] || 1)
+]
+  .navigation-container
+    - opinions.each_with_index do |opinion, index|
+      *{ \
+        tag: local_assigns[:is_preview] && counts[index].positive? ? 'a' : 'div',
+        href: local_assigns[:is_preview] && counts[index].positive? ? resource.reviews_url(opinion: opinion) : false,
+        class: "navigation-node navigation-node-#{opinion || 'all'}" + \
+          "#{' is-empty' if counts[index].zero?}" + \
+          "#{' is-active' if local_assigns[:is_preview] && !opinion}",
+        'data-opinion': (opinion || ''),
+        'data-ellispsis-allowed': %i[positive negative].include?(opinion) \
+      }
+        .label
+          span
+            - if opinion
+              = t ".opinion.#{opinion}"
+            - else
+              | #{t '.opinion.all'} #{i18n_io 'review', :few}
+        .count = counts[index]
+
+  .content-container
+    - opinions.each_with_index do |opinion, index|
+      .content-node[
+        data-opinion=(opinion || '')
+        class=('is-active' if opinion == local_assigns[:opinion])
+        class=('b-ajax' if counts[index].positive? && !(opinion == local_assigns[:opinion] && collection))
+      ]
+        - if opinion == local_assigns[:opinion] && collection
+          = render 'reviews/group',
+            collection: collection,
+            resource: resource,
+            is_preview: local_assigns[:is_preview]
+
+          - if collection.next_page? && !local_assigns[:is_preview]
+            = render 'blocks/postloader',
+              filter: 'b-review',
+              next_url: current_url(page: collection.next_page),
+              prev_url: (current_url(page: collection.prev_page) if collection.prev_page?),
+              pages_limit: controller.class::PER_PAGE

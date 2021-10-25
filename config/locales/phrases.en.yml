@@ -123,6 +123,7 @@ en:
   no_critiques: No critiques
   no_summaries: No summaries
   no_topics: No topics
+  no_reviews: No reviews
   nothing_found: Nothing found
   nothing_here: Nothing here
   notifications: Notifications
@@ -160,6 +161,6 @@ en:
   date_field: Date
   navigation: Navigation
   form_errors: Errors
-  'yes': Yes
-  'no': No
+  'yes': 'Yes'
+  'no': 'No'
   is_deleted: Deleted

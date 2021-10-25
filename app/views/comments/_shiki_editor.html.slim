@@ -1,8 +1,4 @@
-- preview_url = defined?(comment) && comment.kind_of?(Message) ? \
-    preview_messages_url : preview_comments_url
-
-- item_type = defined?(comment) && comment.kind_of?(Message) ? \
-    'message' : 'comment'
+- item_type = local_assigns[:f] ? local_assigns[:f].object.class.name.downcase : 'comment'
 
 .controls
   aside.buttons
@@ -51,19 +47,20 @@
         data-direction='top'
       ]
 
-  - if local_assigns[:f]
-    - if f.object.new_record? && (f.object.try(:allowed_summary?) || f.object.respond_to?(:offtopic?))
-      aside.markers
-        - if f.object.try :allowed_summary?
-          .b-summary_marker.active[
-            class=(:off unless f.object.summary?)
-            data-text=t('markers.summary')
-          ]
-        - if f.object.respond_to? :offtopic?
-          .b-offtopic_marker.active[
-            class=(:off unless f.object.offtopic?)
-            data-text=t('markers.offtopic')
-          ]
+  - if local_assigns[:f] && f.object.new_record?
+    aside.markers
+      - if f.object.try :allowed_summary?
+        .b-summary_marker.active[
+          class=(:off unless f.object.summary?)
+          data-text=t('markers.summary')
+        ]
+      - if f.object.respond_to?(:offtopic?) && (!f.object.respond_to?(:allowed_offtopic?) || f.object.allowed_offtopic?)
+        .b-offtopic_marker.active[
+          class=(:off unless f.object.offtopic?)
+          data-text=t('markers.offtopic')
+        ]
+  - if block_given?
+    = yield
 
 .smileys.hidden data-href=smileys_comments_url
   .ajax-loading title=t('loading')
@@ -149,7 +146,7 @@
           class: "editor-area",
           placeholder: (browser.ie? ? '' : t('.comment')),
           tabindex: 0,
-          'data-upload_url' => api_user_images_url(linked_type: Comment.name),
+          'data-upload_url' => api_user_images_url(linked_type: item_type.classify),
           'data-item_type' => item_type,
           id: nil\
         }
@@ -169,7 +166,7 @@ footer
       = f.button :magic_submit, id: "submit_#{rand * 1000000}"
       .b-button.preview[
         tabindex='0'
-        data-preview_url=preview_url
+        data-preview_url=preview_comments_url
       ] = t '.preview'
       .unpreview tabindex='0' = t '.back_to_editing'
       .cancel tabindex='0' = t 'actions.cancel'
@@ -179,14 +176,14 @@ footer
       .unpreview tabindex='0' = t '.back_to_editing'
       .b-button.preview[
         tabindex='0'
-        data-preview_url=preview_url
+        data-preview_url=preview_comments_url
       ] = t '.preview'
       .hide = t '.hide'
 
   - else
     .b-button.preview[
       tabindex='0'
-      data-preview_url=preview_url
+      data-preview_url=preview_comments_url
     ] = t '.preview'
     .unpreview tabindex='0' = t '.back_to_editing'
 

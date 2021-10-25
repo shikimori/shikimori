@@ -1,6 +1,6 @@
-import axios from '@/helpers/axios';
+import axios from '@/utils/axios';
 import View from '@/views/application/view';
-import JST from '@/helpers/jst';
+import JST from '@/utils/jst';
 import { bind } from 'shiki-decorators';
 
 const TEMPLATE = 'polls/poll';

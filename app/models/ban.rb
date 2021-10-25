@@ -3,19 +3,23 @@ class Ban < ApplicationRecord
 
   belongs_to :user
   belongs_to :moderator, class_name: 'User'
+
   belongs_to :comment, touch: true, optional: true
+  belongs_to :topic, touch: true, optional: true
+  belongs_to :review, touch: true, optional: true
+
   belongs_to :abuse_request, touch: true, optional: true
 
   validates :user, :moderator, presence: true
   validates :duration, :reason, presence: true
   validates :reason, length: { maximum: 4096 }
-  # validates :comment, :abuse_request, presence: true
+  # validates :comment_id, exclusive_arc: %i[topic_id review_id]
 
   before_validation :set_user
 
   after_create :ban_user
   after_create :notify_user
-  after_create :mention_in_comment
+  after_create :mention_in_target
   after_create :accept_abuse_request
 
   after_destroy :unban_user
@@ -37,9 +41,9 @@ class Ban < ApplicationRecord
       if bans_count > 15
         '1w 3d 12h'
       elsif bans_count <= 5
-        (30 + 30 * ((bans_count**3) / 2.0 - 1)).to_i
+        (30 + (30 * (((bans_count**3) / 2.0) - 1))).to_i
       else
-        60 * bans_count**2
+        60 * (bans_count**2)
       end
 
     BanDuration.new(duration).to_s
@@ -50,7 +54,7 @@ class Ban < ApplicationRecord
   end
 
   def set_user
-    self.user_id = comment.user_id unless user_id || !comment
+    self.user_id = target.user_id unless user_id || !target
   end
 
   def message
@@ -84,16 +88,30 @@ class Ban < ApplicationRecord
     )
   end
 
-  def mention_in_comment
-    return if comment.nil?
+  def mention_in_target
+    return if target.nil? || target.body.nil?
 
-    comment.body = (comment.body.strip + "\n\n[ban=#{id}]")
+    target.body = (target.body.strip + "\n\n[ban=#{id}]")
       .gsub(/(\[ban=\d+\])\s+(\[ban=\d+\])/, '\1\2')
 
-    comment.save validate: false
+    target.save validate: false
   end
 
   def accept_abuse_request
     abuse_request.take! moderator if abuse_request_id.present?
+  end
+
+  def target
+    comment || review || topic
+  end
+
+  def target_type
+    if comment_id
+      Comment.name
+    elsif review_id
+      Review.name
+    elsif topic_id
+      Topic.name
+    end
   end
 end

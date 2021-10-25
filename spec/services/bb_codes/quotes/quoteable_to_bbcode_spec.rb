@@ -54,4 +54,19 @@ describe BbCodes::Quotes::QuoteableToBbcode do
       )
     end
   end
+
+  context 'r1;2;qwe' do
+    let(:meta) do
+      {
+        review_id: 1,
+        user_id: 2,
+        nickname: 'zxc'
+      }
+    end
+    it do
+      is_expected.to eq(
+        "[review=#{meta[:review_id]} quote=2]#{meta[:nickname]}[/review]"
+      )
+    end
+  end
 end

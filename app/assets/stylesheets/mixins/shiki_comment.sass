@@ -1,18 +1,17 @@
 @import globals
 @import mixins/forum_entry
-@import mixins/frame_form
 @import mixins/responsive
 
 $comment_border: 1px dashed #ddd
 $comment_offset: 15px
 
-=shiki_comment
-  +forum_entry
+=shiki_comment_margins_borders
   border-top: $comment_border
   margin-bottom: $comment_offset
 
   &:first-child
     border-top-width: 0
+    padding-top: 0
 
   &:last-child
     margin-bottom: 0
@@ -20,26 +19,13 @@ $comment_offset: 15px
   .comments-loaded &:last-child
     margin-bottom: $comment_offset
 
-  aside.moderation-ban
-    +frame_form
-    display: none
-    margin: 20px 0 15px 15px
-    padding-bottom: 10px
+  .tooltip &
+    border-top-width: 0
+    padding-top: 0
 
-    +gte_ipad
-      float: right
-      margin-top: 0
-      margin-top: 0
-
-      .b-input input
-        width: 140px
-
-    +iphone
-      margin-bottom: 30px
-      margin-right: 20px
-
-      .b-input input
-        width: 100%
+=shiki_comment
+  +forum_entry
+  +shiki_comment_margins_borders
 
   .b-shiki_editor .body .preview
     background: none
@@ -59,20 +45,9 @@ $comment_offset: 15px
           font-size: 13px
           display: inline-block
 
-    .body
+    & > .body
       +gte_ipad
         margin-left: $body_left_margin // it fixes overflow bug in chrome 77 https://monosnap.com/file/JS4AIZJKfDTyQWtETCeifMkm3Man8k
-
-      .ban
-        .b-user16
-          margin-right: 0
-
-        .resolution
-          color: $red
-
-          a
-            color: $red
-            text-decoration: underline
 
   // раскрытое меню в мобильной версии
   &.aside-expanded

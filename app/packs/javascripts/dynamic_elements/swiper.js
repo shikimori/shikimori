@@ -5,7 +5,7 @@ import View from '@/views/application/view';
 import Wall from '@/views/wall/view';
 import WallCluster from '@/views/wall/cluster';
 
-import { loadImages } from '@/helpers/load_image';
+import { loadImages } from '@/utils/load_image';
 
 const GLOBAL_SELECTOR = 'b-shiki_swiper';
 const DATA_KEY = 'swiper';

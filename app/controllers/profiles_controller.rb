@@ -107,6 +107,17 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
 
+  def reviews
+    og noindex: true
+    og page_title: i18n_io('Review', :few)
+
+    scope = @resource.reviews
+      .order(created_at: :desc)
+
+    @collection = QueryObjectBase.new(scope)
+      .paginate(@page, TOPICS_LIMIT)
+  end
+
   def collections
     @state = params[:state] || 'published'
 

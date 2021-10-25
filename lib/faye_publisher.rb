@@ -3,9 +3,6 @@
 class FayePublisher # rubocop:disable ClassLength
   BROADCAST_FEED = 'broadcast'
 
-  PROFILE_FAYE_CHANNEL = 'profile'
-  TOPIC_FAYE_CHANNEL = 'topic'
-
   def self.faye_url
     shiki_domain = UrlGenerator.instance.shiki_domain
     faye_host = Rails.application.secrets[:faye][:host].gsub('%DOMAIN%', shiki_domain)
@@ -20,17 +17,12 @@ class FayePublisher # rubocop:disable ClassLength
   end
 
   def publish trackable, event, channels = []
-    if trackable.is_a? Comment
-      publish_comment trackable, event, channels
-
-    elsif trackable.is_a? Topic
-      publish_topic trackable, event, channels
-
-    elsif trackable.is_a? Message
-      publish_message trackable, event, channels
-
-    else
-      publish_data trackable, channels
+    case trackable
+      when Comment then publish_comment trackable, event, channels
+      when Review then publish_review trackable, event, channels
+      when Topic then publish_topic trackable, event, channels
+      when Message then publish_message trackable, event, channels
+      else publish_data trackable, channels
     end
   end
 
@@ -49,45 +41,39 @@ class FayePublisher # rubocop:disable ClassLength
       comment_id: comment.id,
       replies_html: replies_html
     }
+
     publish_data data, comment_channels(comment, [])
   end
 
   def publish_comment comment, event, channels
-    data = {
-      event: "comment:#{event}",
-      actor: @actor.nickname,
-      actor_avatar: @actor.decorate.avatar_url(16),
-      actor_avatar_2x: @actor.decorate.avatar_url(32),
-      topic_id: comment.commentable_id,
-      comment_id: comment.id,
-      user_id: comment.user_id
-    }
-    publish_data data, comment_channels(comment, channels)
+    publish_data(
+      actor_event_data(:comment, event,
+        topic_id: comment.commentable_id,
+        comment_id: comment.id,
+        user_id: comment.user_id),
+      comment_channels(comment, channels)
+    )
+  end
+
+  def publish_review review, event, channels
+    publish_data(
+      actor_event_data(:review, event, review_id: review.id, user_id: review.user_id),
+      review_channels(review, channels)
+    )
   end
 
   def publish_topic topic, event, channels
-    data = {
-      event: "topic:#{event}",
-      actor: @actor.nickname,
-      actor_avatar: @actor.decorate.avatar_url(16),
-      actor_avatar_2x: @actor.decorate.avatar_url(32),
-      topic_id: topic.id,
-      user_id: topic.user_id
-    }
-
-    publish_data data, topic_channels(topic, channels)
+    publish_data(
+      actor_event_data(:topic, event, topic_id: topic.id, user_id: topic.user_id),
+      topic_channels(topic, channels)
+    )
   end
 
   def publish_message message, event, channels
-    data = {
-      event: "message:#{event}",
-      actor: @actor.nickname,
-      actor_avatar: @actor.decorate.avatar_url(16),
-      actor_avatar_2x: @actor.decorate.avatar_url(32),
-      message_id: message.id
-    }
-
-    publish_data data, dialog_channels(message, channels)
+    publish_data(
+      actor_event_data(:message, event, message_id: message.id),
+      dialog_channels(message, channels)
+    )
   end
 
   def publish_mark comment, mark_kind, mark_value
@@ -124,7 +110,7 @@ class FayePublisher # rubocop:disable ClassLength
 
     channels.each { |channel| publish_to channel, data }
   rescue RuntimeError => e
-    raise unless e.message.match?(/eventmachine not initialized/)
+    raise unless e.message.include?('eventmachine not initialized')
   end
 
 private
@@ -136,18 +122,23 @@ private
     )
   end
 
+  def actor_event_data type, event, data
+    {
+      **data,
+      event: "#{type}:#{event}",
+      actor: @actor.nickname,
+      actor_avatar: @actor.decorate.avatar_url(16),
+      actor_avatar_2x: @actor.decorate.avatar_url(32)
+    }
+  end
+
   def comment_channels comment, channels
+    mixed_channels = channels + linked_channels(comment.commentable) +
+      comment.faye_channels +
+      ["/#{comment.commentable_type.downcase}-#{comment.commentable_id}"]
+
+    # уведомление в открытые разделы для топиков
     topic = comment.commentable
-    topic_type = comment.commentable_type == User.name ?
-      PROFILE_FAYE_CHANNEL :
-      TOPIC_FAYE_CHANNEL
-
-    mixed_channels = channels +
-      ["/comment-#{comment.id}"] +
-      subscribed_channels(topic) + linked_channels(topic) +
-      ["/#{topic_type}-#{topic.id}"]
-
-    # уведомление в открытые разделы
     if topic.is_a? Topics::EntryTopics::ClubTopic
       mixed_channels += ["/club-#{topic.linked_id}"]
     elsif topic.respond_to? :forum_id
@@ -157,10 +148,15 @@ private
     mixed_channels
   end
 
+  def review_channels review, channels
+    channels + review.faye_channels
+  end
+
   def topic_channels topic, channels
     channels +
-      subscribed_channels(topic) + linked_channels(topic) +
-      [forum_channel(topic.forum_id, topic.locale), "/topic-#{topic.id}"]
+      topic.faye_channels +
+      linked_channels(topic) +
+      [forum_channel(topic.forum_id, topic.locale)]
   end
 
   def linked_channels topic
@@ -171,17 +167,6 @@ private
 
   def dialog_channels message, channels
     channels + ["/dialog-#{[message.from_id, message.to_id].sort.join '-'}"]
-  end
-
-  def subscribed_channels _target
-    # Subscription
-      # .where(target_id: target.id)
-      # .where(target_type: target.class.name)
-      # .select(:user_id)
-      # .map do |v|
-        # "/user-#{v.user_id}"
-      # end
-    []
   end
 
   def forum_channel forum_id, locale

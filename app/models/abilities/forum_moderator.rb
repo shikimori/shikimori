@@ -4,10 +4,12 @@ class Abilities::ForumModerator
 
   MAXIMUM_COMMENTS_TO_DELETE = 250
   MAXIMUM_SUMMARIES_TO_DELETE = 25
+  MAXIMUM_REVIEWS_TO_DELETE = 15
   MAXIMUM_TOPIC_COMMENTS_TO_DELETE = 1_000
 
   def initialize _user # rubocop:disable MethodLength, AbcSize
     can :manage, Comment
+    can :manage, Review
 
     can %i[edit update], Topic do |topic|
       !topic.generated? ||
@@ -41,7 +43,9 @@ class Abilities::ForumModerator
     can :delete_all_summaries, User do |user|
       Comment.where(user_id: user.id).where(is_summary: true).count < MAXIMUM_SUMMARIES_TO_DELETE
     end
-
+    can :delete_all_reviews, User do |user|
+      Review.where(user_id: user.id).count < MAXIMUM_REVIEWS_TO_DELETE
+    end
     can :delete_all_topics, User do |user|
       Topic.where(user_id: user.id).sum(:comments_count) < MAXIMUM_TOPIC_COMMENTS_TO_DELETE
     end

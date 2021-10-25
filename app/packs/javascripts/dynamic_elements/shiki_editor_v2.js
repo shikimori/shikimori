@@ -6,23 +6,26 @@ import { flash } from 'shiki-utils';
 
 import View from '@/views/application/view';
 
-import csrf from '@/helpers/csrf';
-import axios from '@/helpers/axios';
+import csrf from '@/utils/csrf';
+import axios from '@/utils/axios';
 
 const VUE_PENDING_CLASS = 'vue-node'
 const VUE_INITIALIZED_CLASS = 'vue-node-initialized'
 
 export default class ShikiEditorV2 extends View {
-  initialization = pDefer()
-  processedInitialContent = null
-  isPendingSubmit = false
-  editorApp = null
-
   async initialize() {
+    this.initialization = pDefer();
+    this.cacheProcessed = pDefer();
+
+    this.processedInitialContent = null;
+    this.isPendingSubmit = false;
+    this.editorApp = null;
+
     await this._buildEditor();
     this.initialization.resolve();
 
-    this._processCache();
+    await this._processCache();
+    this.cacheProcessed.resolve();
   }
 
   @memoize
@@ -32,11 +35,6 @@ export default class ShikiEditorV2 extends View {
 
   @memoize
   get isSessionStorageAvailable() {
-    // if (window.ENV === 'development') {
-    //   console.log(['editor', this, 'key', this.cacheKey, this.node]);
-    // }
-
-    // return window.ENV === 'development' && typeof(sessionStorage) !== 'undefined';
     return typeof(sessionStorage) !== 'undefined';
   }
 
@@ -148,15 +146,27 @@ export default class ShikiEditorV2 extends View {
     return this.input.value;
   }
 
+  // checks cached content and discards it when cached content == current content
+  async reprocessCache() {
+    if ((await this._processCache())) { return; }
+
+    this.editorApp.discardUnsavedContent();
+    this.processedInitialContent = '';
+  }
+
   async _processCache() {
     if (!this.isSessionStorageAvailable) { return; }
 
     await delay(10);
     this.processedInitialContent = this.editorContent;
 
-    const cachedValue = this._readCacheValue()
+    const cachedValue = this._readCacheValue();
+
     if (cachedValue && cachedValue !== this.processedInitialContent) {
       this.editorApp.setUnsavedContent(cachedValue);
+      return true;
+    } else {
+      return false;
     }
   }
 

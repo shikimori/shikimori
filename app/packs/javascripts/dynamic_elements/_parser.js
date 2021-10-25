@@ -1,8 +1,6 @@
-import { AuthorizedAction } from './authorized_action';
 import Clickloaded from './clickloaded';
 import CodeHighlight from './code_highlight';
 import Comment from './comment';
-import { CuttedCovers } from './cutted_covers';
 import DayRegisteredAction from './day_registered_action';
 import DesktopAd from './desktop_ad';
 import Forum from './forum';
@@ -12,19 +10,22 @@ import LogEntry from './log_entry';
 import Message from './message';
 import NotImplementedYetAction from './not_implemented_yet_action';
 import Postloaded from './postloaded';
-import ShortDialog from './short_dialog';
-import Swiper from './swiper';
-import Switcher from './switcher';
+import Review from './review';
 import ShikiEditor from './shiki_editor';
 import ShikiEditorV2 from './shiki_editor_v2';
+import ShortDialog from './short_dialog';
 import SpoilerBlock from './spoiler_block';
 import SpoilerInline from './spoiler_inline';
+import Swiper from './swiper';
+import Switcher from './switcher';
 import Tabs from './tabs';
 import TextAnnotated from './text_annotated';
 import Topic from './topic';
 import UserRateButton from './user_rates/button';
 import UserRateExtended from './user_rates/extended';
 import WallOrSwiper from './wall_or_swiper';
+import { AuthorizedAction } from './authorized_action';
+import { CuttedCovers } from './cutted_covers';
 import WeekRegisteredAction from './week_registered_action';
 
 export default class DynamicParser {
@@ -139,6 +140,10 @@ export default class DynamicParser {
 
   spoilerInline(node) {
     new SpoilerInline(node);
+  }
+
+  review(node) {
+    new Review(node);
   }
 
   tabs(node) {

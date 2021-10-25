@@ -1,8 +1,10 @@
-json.content render(
-  partial: 'users/user',
-  collection: @collection,
-  locals: { content_by: :detailed },
-  formats: :html
+json.content JsExports::Supervisor.instance.sweep(
+  render(
+    partial: 'users/user',
+    collection: @collection,
+    locals: { content_by: :detailed },
+    formats: :html
+  )
 )
 
 if @collection&.next_page?
@@ -16,3 +18,5 @@ if @collection&.next_page?
     pages_limit: 10
   )
 end
+
+json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)

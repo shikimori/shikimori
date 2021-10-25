@@ -103,14 +103,14 @@ describe Forums::View do
 
       context 'no forum' do
         it do
-          expect(view.faye_subscriptions).to eq ["forum-#{offtopic_forum.id}/ru"]
+          expect(view.faye_subscriptions).to eq ["/forum-#{offtopic_forum.id}/ru"]
         end
       end
 
       context 'forum' do
         let(:forum) { 'critiques' }
         it do
-          expect(view.faye_subscriptions).to eq ["forum-#{critiques_forum.id}/ru"]
+          expect(view.faye_subscriptions).to eq ["/forum-#{critiques_forum.id}/ru"]
         end
       end
 
@@ -119,7 +119,7 @@ describe Forums::View do
         let(:options) { { linked: critique, linked_forum: true } }
         let(:critique) { create :critique }
         it do
-          expect(view.faye_subscriptions).to eq ["critique-#{critique.id}"]
+          expect(view.faye_subscriptions).to eq ["/critique-#{critique.id}"]
         end
       end
     end

@@ -99,6 +99,7 @@ class User < ApplicationRecord
 
   has_many :topic_viewings, dependent: :delete_all
   has_many :comment_viewings, dependent: :delete_all
+  has_many :review_viewings, dependent: :delete_all
 
   has_many :history, class_name: 'UserHistory', dependent: :destroy
 
@@ -124,6 +125,7 @@ class User < ApplicationRecord
     dependent: :destroy
 
   has_many :critiques, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   has_many :ignores, dependent: :destroy
   has_many :ignored_users, through: :ignores, source: :target
@@ -333,18 +335,6 @@ class User < ApplicationRecord
     end
   end
 
-  # колбек, который вызовет comments_controller при добавлении комментария в профиле пользователя
-  def comment_added comment
-    return if messages.where(kind: MessageType::PROFILE_COMMENTED).where(read: false).any?
-    return if comment.user_id == comment.commentable_id && comment.commentable_type == User.name
-
-    Message.create(
-      to_id: id,
-      from_id: comment.user_id,
-      kind: MessageType::PROFILE_COMMENTED
-    )
-  end
-
   def ignores? user
     ignores.any? { |v| v.target_id == user.id }
   end
@@ -414,8 +404,8 @@ class User < ApplicationRecord
 
   # NOTE: replace id with hashed value of secret token when
   # any private data will be transmitted through the channel
-  def faye_channel
-    ["/user-#{id}"]
+  def faye_channels
+    %W[/private-#{id}]
   end
 
 private
@@ -448,7 +438,6 @@ private
     NamedLogger.download_avatar.info "#{gravatar_url} start"
     self.avatar = OpenURI.open_uri(gravatar_url)
     NamedLogger.download_avatar.info "#{gravatar_url} end"
-
   rescue *Network::FaradayGet::NET_ERRORS
     self.avatar = open('app/assets/images/globals/missing_avatar/x160.png')
   end

@@ -1,8 +1,8 @@
 describe Comments::Replies do
   subject { described_class.call comment }
 
-  let(:commentable_1) { build_stubbed :topic }
-  let(:commentable_2) { build_stubbed :topic }
+  let(:commentable_1) { site_rules_topic }
+  let(:commentable_2) { offtopic_topic }
   let!(:comment) { create :comment, commentable: commentable_1 }
   let!(:reply_1_1) do
     create :comment, body: "[quote=#{comment.id};", commentable: commentable_1

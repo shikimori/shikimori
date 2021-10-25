@@ -1,4 +1,5 @@
-/* global: IS_FAYE_LOGGING */
+/* eslint no-console: 0 */
+/* global IS_FAYE_LOGGING */
 
 import { bind } from 'shiki-decorators';
 import Faye from 'faye';
@@ -37,7 +38,7 @@ export default class FayeLoader {
   @bind
   apply() {
     let $targets = $('.b-forum');
-    if (!$targets.length) { $targets = $('.b-topic'); }
+    if (!$targets.length) { $targets = $('[data-faye]'); }
     if (!this.client && ($targets.length || window.FAYE_CHANNEL)) {
       this.connect();
     }
@@ -54,7 +55,7 @@ export default class FayeLoader {
       }
 
       if (fayeChannels) {
-        fayeChannels.forEach(channel => channels[`/${channel}`] = $(node));
+        fayeChannels.forEach(channel => channels[channel] = $(node));
       }
     });
 
@@ -64,8 +65,8 @@ export default class FayeLoader {
   }
 
   connect() {
-    const port = ENV === 'development' ? ':9292' : '';
-    const hostname = ENV === 'development' ?
+    const port = window.ENV === 'development' ? ':9292' : '';
+    const hostname = window.ENV === 'development' ?
       location.hostname :
       `faye.${location.hostname}`;
 

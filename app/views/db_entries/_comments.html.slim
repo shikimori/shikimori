@@ -12,11 +12,11 @@
           span.brackets = resource.preview_topic_view.comments_count
 
     - if resource.preview_topic_view.any_comments?
-      .subheadline.m0
+      .subheadline
         = i18n_io resource.preview_topic_view.any_summaries? ? 'Summary' : 'Comment', :few
 
   - else
-    .subheadline.m0
+    .subheadline
       - if resource.preview_topic_view.comments_count > 0
         a[
           href=resource.preview_topic_view.url
@@ -27,11 +27,10 @@
       - else
         = i18n_io 'Comment', :few
 
-  div
-    .b-topic.to-process[
-      data-dynamic='topic'
-      data-faye=resource.preview_topic_view.faye_channel.to_json
-    ]
-      = render 'topics/comments',
-        comments_view: resource.preview_topic_view.comments_view,
-        commentable: resource.preview_topic_view.topic
+  .to-process[
+    data-dynamic='topic'
+    data-faye=resource.preview_topic_view.faye_channels.to_json
+  ]
+    = render 'topics/comments',
+      comments_view: resource.preview_topic_view.comments_view,
+      commentable: resource.preview_topic_view.topic

@@ -4,7 +4,7 @@ import WallCluster from './cluster';
 import WallImage from './image';
 import WallVideo from './video';
 
-import { loadImagesFinally } from '@/helpers/load_image';
+import { loadImagesFinally } from '@/utils/load_image';
 
 const MIN_CLUSTER_WEIGHT = 2.5;
 const MIN_TWO_CLUSTERS_WEIGHT = 5.8;

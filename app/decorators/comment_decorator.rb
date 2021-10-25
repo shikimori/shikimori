@@ -4,21 +4,23 @@ class CommentDecorator < BaseDecorator
   CACHE_VERSION = :v14
 
   def html_body
-    if persisted?
-      text = object.body
-      cache_key = CacheHelper.keys(
-        object.cache_key,
-        XXhash.xxh32(text),
-        CACHE_VERSION
-      )
+    return object.html_body if new_record?
 
-      Rails.cache.fetch(cache_key) { object.html_body }
-    else
-      object.html_body
-    end
+    text = body
+    cache_key = CacheHelper.keys(
+      object.cache_key,
+      XXhash.xxh32(text),
+      CACHE_VERSION
+    )
+
+    Rails.cache.fetch(cache_key) { object.html_body }
   end
 
   def broadcast?
-    object.body.include? Comment::Broadcast::BB_CODE
+    body.include? Comment::Broadcast::BB_CODE
+  end
+
+  def offtopable?
+    commentable_type != Review.name
   end
 end

@@ -1,14 +1,13 @@
 - if request.xhr? || params[:action] == 'tooltip'
   = render @resource
 - else
-  .b-topic.to-process[
+  .subheadline
+    == t '.user_message',
+      id: @resource.id,
+      from: render('users/user_16', user: @resource.from),
+      to: render('users/user_16', user: @resource.to)
+  .to-process[
     data-dynamic='topic'
     data-faye='false'
   ]
-    .subheadline
-      == t '.user_message',
-        id: @resource.id,
-        from: render('users/user_16', user: @resource.from),
-        to: render('users/user_16', user: @resource.to)
-    .block
-      = render @resource
+    = render @resource

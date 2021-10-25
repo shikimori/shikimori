@@ -1,0 +1,54 @@
+@import mixins/responsive
+
+=radio_marker($color, $active_color, $border_color)
+  +gte_laptop
+    span
+      transition: all 0.25s ease
+
+  input
+    display: none
+
+  span
+    border: 1px solid $border_color
+    content: attr(data-text)
+    font-family: var(--font-alt)
+    letter-spacing: var(--font-alt-text-letter-spacing)
+    padding: 0 4px
+    user-select: none
+    font-size: 12px
+
+  input:checked + span
+    border-color: transparent
+    background-color: $color
+    color: #fff
+
+  input:not(:checked) + span
+    background-color: transparent
+    border-color: rgba($active_color, 0.5)
+    color: $gray-3
+    cursor: pointer
+
+    +gte_laptop
+      &:hover
+        color: white
+        background-color: $color
+        border-color: darken($color, 1.5%)
+
+    &:active
+      background-color: $active_color
+      border-color: darken($active_color, 1.5%)
+
+.b-review_opinion_marker
+  align-self: center
+
+  &:not(:last-child)
+    margin-right: 14px
+
+  &.is-positive
+    +radio_marker(#549e14, #bee893, darken(#bee893, 6%))
+
+  &.is-neutral
+    +radio_marker(darken(#7aaebd, 6%), #93c5e8, darken(#93c5e8, 6%))
+
+  &.is-negative
+    +radio_marker(#fc575e, #e8a092, darken(#e8a092, 6%))

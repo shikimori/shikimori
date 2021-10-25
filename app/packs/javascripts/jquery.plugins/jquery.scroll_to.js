@@ -16,6 +16,11 @@ $.extend({
       }
     }
 
+    const $topMenu = $('.l-top_menu-v2');
+    if (top !== 0 && $topMenu.css('position') == 'sticky') {
+      top -= $topMenu.height();
+    }
+
     $('html, body').animate({ scrollTop: top }, 300); // easeInOutCirc // easeOutElastic
 
     if (callback) {

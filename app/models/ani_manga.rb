@@ -62,6 +62,8 @@ module AniManga
   end
 
   def image_file_name
-    rkn_abused? && !@is_mal_import ? nil : super
+    rkn_abused? && !@is_mal_import ?
+      nil :
+      attributes['image_file_name']
   end
 end

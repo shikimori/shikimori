@@ -1,9 +1,17 @@
+import { bind } from 'shiki-decorators';
 import delay from 'delay';
 
-import JST from '@/helpers/jst';
+import JST from '@/utils/jst';
 
 const COMMENT_SELECTOR = 'div.b-appear_marker.active';
 const FAYE_LOADER_SELECTOR = '.faye-loader';
+const TRACK_EVENTS = [
+  'turbolinks:load',
+  'faye:loaded',
+  'ajax:success',
+  'postloader:success',
+  'clickloaded:success'
+];
 
 // уведомлялка о новых комментариях
 // назначение класса - смотреть на странице новые комментаы и отображать информацию об этом
@@ -15,18 +23,15 @@ export default class CommentsNotifier {
   blockTop = 0
 
   constructor() {
-    $(document).on('turbolinks:before-cache', () => this._cleanup());
-    $(document).on('appear', (e, $appeared, byClick) => this._appear(e, $appeared, byClick));
-    $(document).on('faye:added', () => this._incrementCounter());
-    $(document).on(
-      'turbolinks:load faye:loaded ajax:success postloader:success clickloaded:success',
-      () => this._refresh()
-    );
+    $(document).on('turbolinks:before-cache', this._cleanup);
+    $(document).on('appear', this._appear);
+    $(document).on('faye:added', this._incrementCounter);
+    $(document).on(TRACK_EVENTS.join(' '), this._refresh);
 
     // явное указание о скрытии
-    $(document).on('disappear', ({ target }) => this._decrementCounter(target));
+    $(document).on('disappear', this._decrementCounter);
     // при добавление блока о новом комментарии/топике делаем инкремент
-    $(document).on('reappear', () => this._incrementCounter());
+    $(document).on('reappear', this._incrementCounter);
 
     this._refresh();
 
@@ -49,7 +54,9 @@ export default class CommentsNotifier {
         .appendTo(document.body)
         .on('click', () => {
           const $firstUnread = $(`${COMMENT_SELECTOR}, ${FAYE_LOADER_SELECTOR}`).first();
-          $.scrollTo($firstUnread);
+          const firstUnreadNode = $firstUnread.closest('[data-appear_type]');
+
+          $.scrollTo(firstUnreadNode || $firstUnread);
         });
 
       this.scroll = $(window).scrollTop();
@@ -62,6 +69,7 @@ export default class CommentsNotifier {
     return JST['comments/notifier']();
   }
 
+  @bind
   _cleanup() {
     if (this.$container) {
       this.$container.remove();
@@ -69,6 +77,7 @@ export default class CommentsNotifier {
     }
   }
 
+  @bind
   async _refresh() {
     await delay();
 
@@ -80,7 +89,7 @@ export default class CommentsNotifier {
 
     let count = $commentNew.length;
 
-    $fayeLoader.each(function () {
+    $fayeLoader.each(function() {
       count += $(this).data('ids')?.length || 0;
     });
 
@@ -97,21 +106,24 @@ export default class CommentsNotifier {
     }
   }
 
+  @bind
   _appear(e, $appeared, _byClick) {
     const $nodes = $appeared
       .filter(`${COMMENT_SELECTOR}, ${FAYE_LOADER_SELECTOR}`)
-      .not(function () { return $(this).data('disabled'); });
+      .not(function() { return $(this).data('disabled'); });
 
     this._update(this.currentCounter - $nodes.length);
   }
 
-  _decrementCounter(target) {
+  @bind
+  _decrementCounter({ target }) {
     if (target.attributes['data-disabled'] && target.attributes['data-disabled'].value === 'true') {
       return;
     }
     this._update(this.currentCounter - 1);
   }
 
+  @bind
   _incrementCounter() {
     this._update(this.currentCounter + 1);
   }

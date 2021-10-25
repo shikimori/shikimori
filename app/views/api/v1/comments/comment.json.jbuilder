@@ -1,12 +1,9 @@
 json.id @resource.id
-json.html JsExports::Supervisor.instance.sweep(
+json.content JsExports::Supervisor.instance.sweep(
   render(
     partial: 'comments/comment',
-    locals: {
-      comment: @resource,
-      topic: @resource.commentable
-    },
-    formats: %i[html]
+    object: @resource.decorate,
+    formats: :html
   )
 )
 

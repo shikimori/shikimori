@@ -4,10 +4,16 @@ class BbCodes::Quotes::QuoteableToBbcode
   def call meta
     if meta[:comment_id]
       comment_to_html meta
+
     elsif meta[:message_id]
       message_to_html meta
+
     elsif meta[:topic_id]
       topic_to_html meta
+
+    elsif meta[:review_id]
+      review_to_html meta
+
     else
       user_to_html meta
     end
@@ -25,6 +31,10 @@ private
 
   def topic_to_html meta
     "[topic=#{meta[:topic_id]} #{quote meta}]#{meta[:nickname]}[/topic]"
+  end
+
+  def review_to_html meta
+    "[review=#{meta[:review_id]} #{quote meta}]#{meta[:nickname]}[/review]"
   end
 
   def user_to_html meta

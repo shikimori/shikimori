@@ -17,6 +17,7 @@ ru:
       poll: Опрос
       ranobe: Ранобэ
       critique: Рецензия
+      review: Отзыв
       topic: Топик
       topics/news_topic: Новостной топик
       user: Пользователь
@@ -277,6 +278,9 @@ ru:
         name: Название
         text: Текст
         layout: Расположение
+      review:
+        body: Текст
+        is_written_before_release: Отзыв на онгоинг
       topic:
         title: Название
         body: Текст
@@ -593,6 +597,11 @@ ru:
       layout:
         menu: Меню
         none: Скрыто
+    review:
+      opinion:
+        positive: Положительный
+        negative: Отрицательный
+        neutral: Нейтральный
     collection:
       kind:
         anime: Аниме

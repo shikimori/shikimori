@@ -1,12 +1,13 @@
 class CommentsController < ShikimoriController
   include CommentHelper
+  before_action :authenticate_user!, only: %i[edit]
 
   def show # rubocop:disable AbcSize, MethodLength
     og noindex: true, nofollow: true
     comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
     @view = Comments::View.new comment, false
 
-    return render :missing if comment.is_a? NoComment
+    return render :missing, status: (xhr_or_json? ? :ok : :not_found) if comment.is_a? NoComment
 
     if comment.commentable.is_a?(Topic) && comment.commentable.linked.is_a?(Club)
       Clubs::RestrictCensored.call(

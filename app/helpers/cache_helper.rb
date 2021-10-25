@@ -18,12 +18,22 @@ module CacheHelper
 
   class << self
     def keys *args
-      args.compact + [
-        I18n.locale,
-        # I18N_HASH[I18n.locale],
-        CacheHelperInstance.instance.domain,
-        CacheHelperInstance.instance.subdomain
-      ]
+      args
+        .map do |v|
+          if v.respond_to? :cache_key_with_version
+            v.cache_key_with_version
+          elsif v.respond_to? :cache_key
+            v.cache_key
+          else
+            v
+          end
+        end
+        .compact + [
+          I18n.locale,
+          # I18N_HASH[I18n.locale],
+          CacheHelperInstance.instance.domain
+          # CacheHelperInstance.instance.subdomain
+        ]
     end
 
     # def cache_settings

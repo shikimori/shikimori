@@ -17,7 +17,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
     it do
       expect(AbuseRequestsService)
         .to have_received(:new)
-        .with comment, user
+        .with comment: comment, reporter: user
       expect(abuse_requests_service).to have_received(:offtopic).with(nil)
 
       expect(json).to eq(
@@ -43,7 +43,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
     it do
       expect(AbuseRequestsService)
         .to have_received(:new)
-        .with comment, user
+        .with comment: comment, reporter: user
       expect(abuse_requests_service).to have_received(:summary).with(nil)
 
       expect(json).to eq(
@@ -71,7 +71,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
     it do
       expect(AbuseRequestsService)
         .to have_received(:new)
-        .with comment, user
+        .with comment: comment, review: nil, topic: nil, reporter: user
       expect(abuse_requests_service).to have_received(:abuse).with(reason)
 
       expect(json).to eq(
@@ -99,7 +99,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
     it do
       expect(AbuseRequestsService)
         .to have_received(:new)
-        .with comment, user
+        .with comment: comment, review: nil, topic: nil, reporter: user
       expect(abuse_requests_service).to have_received(:spoiler).with(reason)
 
       expect(json).to eq(

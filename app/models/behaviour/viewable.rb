@@ -20,14 +20,16 @@ module Viewable
 
     # f**king gem breaks assigning associations in FactoryBot
     if Rails.env.test?
-      has_many :viewings,
-        class_name: klass::VIEWING_KLASS.name,
-        foreign_key: :viewed_id
+      has_many :viewings, # rubocop:disable HasManyOrHasOneDependent
+        class_name: "#{base_class.name}Viewing",
+        foreign_key: :viewed_id,
+        inverse_of: :viewed
     else
       has_many :viewings,
-        class_name: klass::VIEWING_KLASS.name,
+        class_name: "#{base_class.name}Viewing",
         foreign_key: :viewed_id,
-        dependent: :delete_all
+        dependent: :delete_all,
+        inverse_of: :viewed
     end
 
     # create viewing for the author right after create

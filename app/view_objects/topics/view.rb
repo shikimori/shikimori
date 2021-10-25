@@ -2,6 +2,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   vattr_initialize :topic, :is_preview, :is_mini
 
   delegate :id,
+    :user_id,
     :persisted?,
     :user,
     :body,
@@ -11,6 +12,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :tags,
     :created_at,
     :updated_at,
+    :faye_channels,
     to: :topic
 
   delegate :comments_count,
@@ -19,13 +21,15 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :any_summaries?,
     to: :topic_comments_policy
 
+  delegate :format_date, to: :class
+
   instance_cache :html_body, :html_body_truncated, :html_footer,
     :comments_view, :urls, :action_tag, :topic_ignore,
     :topic_comments_policy, :topic_type_policy
 
   BODY_TRUCATE_SIZE = 500
   TRUNCATE_OMNISSION = '…'
-  CACHE_VERSION = :v22 # rubocop:disable Naming/VariableNumber
+  CACHE_VERSION = :v22
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
@@ -149,10 +153,6 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     Topics::Urls.new self
   end
 
-  def faye_channel
-    ["topic-#{@topic.id}"]
-  end
-
   def author_in_header?
     true
   end
@@ -219,6 +219,10 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     false
   end
 
+  def moderatable?
+    !user.bot?
+  end
+
   def topic_type_policy
     Topic::TypePolicy.new @topic
   end
@@ -250,8 +254,8 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     )
   end
 
-  def format_date datetime
-    h.l datetime, format: '%e %B %Y'
+  def self.format_date datetime
+    I18n.l datetime, format: '%e %B %Y'
   end
 
 private

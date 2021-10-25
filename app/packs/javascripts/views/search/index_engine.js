@@ -5,7 +5,7 @@ import { flash } from 'shiki-utils';
 
 import ajaxCacher from '@/services/ajax_cacher';
 
-import JST from '@/helpers/jst';
+import JST from '@/utils/jst';
 
 export default class IndexEngine {
   constructor() {

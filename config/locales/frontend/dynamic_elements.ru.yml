@@ -4,7 +4,10 @@ ru:
       check_height:
         expand: развернуть
 
-      # topic.coffee
+      shiki_editable:
+        your_request_will_be_considered: >-
+          Твой запрос будет рассмотрен. Домо аригато.
+
       topic:
         load_comments: Загрузить ещё %{comment_count} %{of_total_comments} %{comment_word}
         type_label: Топик
@@ -26,38 +29,33 @@ ru:
           few: Добавлено %{count} новых комментария
           many: Добавлено %{count} новых комментариев
 
-      # comment.coffee
       comment:
         type_label: Комментарий
-        your_request_will_be_considered: >-
-          Ваш запрос будет рассмотрен. Домо аригато.
-        comments_marked_as_offtopic: Комментарии помечены оффтопиком
-        comment_marked_as_offtopic: Комментарий помечен оффтопиком
-        comment_marked_as_summary: Комментарий помечен отзывом
-        comment_not_marked_as_offtopic: Метка оффтопика снята
-        comment_not_marked_as_summary: Метка отзыва снята
+        marked_as_offtopic: Комментарий помечен оффтопиком
+        multiple_marked_as_offtopic: Комментарии помечены оффтопиком
+        marked_as_summary: Комментарий помечен отзывом
+        not_marked_as_offtopic: Метка оффтопика снята
+        not_marked_as_summary: Метка отзыва снята
 
-      # dialog.coffee
       dialog:
         type_label: Диалог
 
-      # message.coffee
       message:
         type_label: Сообщение
 
-      # authorized_action.coffee
+      review:
+        type_label: Отзыв
+
       authorized_action:
         register_to_complete_action: >-
           Для этого действия тебе необходима
           <a href="/users/sign_up">регистрация</a> на сайте.
 
-      # week_registered_action.coffee
       day_registered_action:
         action_will_be_available: >-
           Действие станет доступно через сутки после
           <a href="/users/sign_up">регистрации</a>.
 
-      # week_registered_action.coffee
       week_registered_action:
         action_will_be_available: >-
           Действие станет доступно через неделю после

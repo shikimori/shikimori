@@ -101,6 +101,8 @@ class Anime < DbEntry
     foreign_key: :target_id,
     dependent: :destroy
 
+  has_many :reviews, dependent: :destroy, inverse_of: :anime
+
   has_many :anons_news_topics,
     -> { where(action: AnimeHistoryAction::Anons).order(created_at: :desc) },
     class_name: Topics::NewsTopic.name,

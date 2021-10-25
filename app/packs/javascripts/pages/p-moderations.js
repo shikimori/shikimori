@@ -6,8 +6,10 @@ import delay from 'delay';
 import { initArrayFieldApp } from './p-db_entries/edit_field';
 
 import CollectionSearch from '@/views/search/collection';
+
+import checkHeight from '@/utils/check_height';
 import { DatePicker } from '@/views/application/date_picker';
-import { animatedCollapse } from '@/helpers/animated';
+import { animatedCollapse } from '@/utils/animated';
 
 function datePicker() {
   if (!$('.date-filter').exists()) { return; }
@@ -54,7 +56,7 @@ pageLoad('versions_show', 'user_rate_logs_show', async () => {
 });
 
 pageLoad('.moderations-index', () => {
-  $('.b-brief').checkHeight({ maxHeight: 150 });
+  checkHeight($('.b-brief'), { maxHeight: 150 });
 
   $('.expand-all').on('click', function () {
     $(this).parent().next().next()

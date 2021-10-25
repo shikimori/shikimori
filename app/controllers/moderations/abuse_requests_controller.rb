@@ -57,7 +57,7 @@ private
     end
 
     scope
-      .includes(:user, :approver, comment: :commentable)
+      .includes(:user, :approver, :topic, comment: :commentable, review: %i[anime manga])
       .order(updated_at: :desc)
       .joins(comment: :topic)
       # .where(kind: :abuse) # for test purposes

@@ -66,7 +66,7 @@ private
 
     faye_publisher.publish_achievements(
       faye_data(added, :gained) + faye_data(removed, :lost),
-      user.faye_channel
+      user.faye_channels
     )
   end
 

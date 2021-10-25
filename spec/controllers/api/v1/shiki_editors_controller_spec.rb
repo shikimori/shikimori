@@ -20,7 +20,8 @@ describe Api::V1::ShikiEditorsController do
         comment: comment.id.to_s,
         message: message.id.to_s,
         topic: topic.id.to_s,
-        video: ''
+        video: '',
+        review: review.id.to_s
       }
     end
     let(:anime) { create :anime }
@@ -32,6 +33,7 @@ describe Api::V1::ShikiEditorsController do
     let(:comment) { create :comment, user: user }
     let(:message) { create :message, from: user }
     let(:topic) { create :topic }
+    let(:review) { create :review, anime: anime }
 
     it do
       expect(response).to have_http_status :success
@@ -109,6 +111,14 @@ describe Api::V1::ShikiEditorsController do
             'userId' => comment.user.id,
             'text' => topic.user.nickname,
             'url' => UrlGenerator.instance.topic_url(topic)
+          }
+        },
+        review: {
+          review.id.to_s => {
+            'id' => review.id,
+            'userId' => comment.user.id,
+            'text' => review.user.nickname,
+            'url' => UrlGenerator.instance.review_url(review.reload)
           }
         }
       )

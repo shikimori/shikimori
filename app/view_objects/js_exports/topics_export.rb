@@ -1,5 +1,5 @@
 class JsExports::TopicsExport < JsExports::ExportBase
-  SPECIAL_TYPES = [
+  VOTABLE_TYPES = [
     Critique.name,
     CosplayGallery.name,
     Collection.name
@@ -15,33 +15,30 @@ private
       .order(:id)
   end
 
-  def serialize topic, user
-    ability = Ability.new user
-
+  def serialize topic, user, ability
     {
+      **vote_status(topic, user),
       can_destroy: can_destroy?(ability, topic),
       can_edit: can_edit?(ability, topic),
       id: topic.id,
       is_viewed: topic.viewed?,
       user_id: topic.user_id
-    }.merge(vote_status(topic, user))
+    }
   end
 
   def vote_status topic, user
-    if special? topic
-      {
-        voted_yes: user.liked?(topic.linked),
-        voted_no: user.disliked?(topic.linked),
-        votes_for: topic.linked.cached_votes_up,
-        votes_against: topic.linked.cached_votes_down
-      }
-    else
-      {}
-    end
+    return {} unless votable? topic
+
+    {
+      voted_yes: user.liked?(topic.linked),
+      voted_no: user.disliked?(topic.linked),
+      votes_for: topic.linked.cached_votes_up,
+      votes_against: topic.linked.cached_votes_down
+    }
   end
 
   def can_edit? ability, topic
-    if special? topic
+    if votable? topic
       ability.can? :edit, topic.linked
     else
       ability.can? :edit, topic
@@ -49,14 +46,14 @@ private
   end
 
   def can_destroy? ability, topic
-    if special? topic
+    if votable? topic
       ability.can? :destroy, topic.linked
     else
       ability.can? :destroy, topic
     end
   end
 
-  def special? topic
-    SPECIAL_TYPES.include? topic.linked_type
+  def votable? topic
+    VOTABLE_TYPES.include? topic.linked_type
   end
 end

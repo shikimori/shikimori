@@ -4,7 +4,7 @@ json.content JsExports::Supervisor.instance.sweep(
     collection: @collection,
     formats: :html,
     as: :topic_view,
-    cache: true
+    cached: true
   )
 )
 

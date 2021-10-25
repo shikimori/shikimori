@@ -17,21 +17,20 @@
 
   = render 'dialogs/navigation'
 
-  .subheadline.m0
+  .subheadline
     = og.headline
 
-  .block
-    .b-topic.to-process[
-      data-dynamic='topic'
-      data-faye='false'
-    ]
-      .b-comments
-        - if @collection.any?
-          = render @collection, reply_as_link: @messages_type == :private
+  .to-process[
+    data-dynamic='topic'
+    data-faye='false'
+  ]
+    .b-comments
+      - if @collection.any?
+        = render @collection, reply_as_link: @messages_type == :private
 
-          - if @collection.next_page?
-            = render 'blocks/postloader',
-              filter: 'b-message',
-              next_url: index_profile_messages_url(@resource, messages_type: @messages_type, page: @collection.next_page)
-        - else
-          p.b-nothing_here = t '.no_messages'
+        - if @collection.next_page?
+          = render 'blocks/postloader',
+            filter: 'b-message',
+            next_url: index_profile_messages_url(@resource, messages_type: @messages_type, page: @collection.next_page)
+      - else
+        p.b-nothing_here = t '.no_messages'

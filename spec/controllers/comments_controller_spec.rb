@@ -46,6 +46,11 @@ describe CommentsController do
     end
   end
 
+  describe '#tooltip' do
+    subject! { get :tooltip, params: { id: comment.to_param } }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#fetch' do
     subject do
       get :fetch,
@@ -119,6 +124,16 @@ describe CommentsController do
     describe 'unexisted' do
       subject! { get :chosen, params: { ids: (comment2.id + 1).to_s } }
       it { expect(response).to have_http_status :success }
+    end
+  end
+
+  describe '#edit' do
+    include_context :authenticated, :user
+    subject! { get :edit, params: { id: comment.id } }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'text/html'
     end
   end
 

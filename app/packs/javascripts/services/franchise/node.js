@@ -1,7 +1,7 @@
 import d3 from 'd3';
 import { memoize } from 'shiki-decorators';
 
-import axios from '@/helpers/axios';
+import axios from '@/utils/axios';
 
 const SELECT_SCALE = 2;
 const BORDER_OFFSET = 3;

@@ -1,13 +1,14 @@
 class JsExports::Supervisor
   include Singleton
 
-  KEYS = %i[user_rates topics comments polls]
+  KEYS = %i[user_rates topics reviews comments polls]
 
   def export user
     return unless user
+    ability = Ability.new user
 
     KEYS.each_with_object({}) do |key, memo|
-      memo[key] = instance(key).export user
+      memo[key] = instance(key).export(user, ability)
     end
   end
 

@@ -1,20 +1,15 @@
 import delay from 'delay';
+
 import { bind, memoize } from 'shiki-decorators';
 
 import ShikiEditable from '@/views/application/shiki_editable';
 
-import axios from '@/helpers/axios';
-import { animatedCollapse, animatedExpand } from '@/helpers/animated';
-import { loadImagesFinally } from '@/helpers/load_image';
+import axios from '@/utils/axios';
+import checkHeight from '@/utils/check_height';
+import { animatedCollapse, animatedExpand } from '@/utils/animated';
+import { loadImagesFinally } from '@/utils/load_image';
 
 const I18N_KEY = 'frontend.dynamic_elements.topic';
-const FAYE_EVENTS = [
-  'faye:comment:updated',
-  'faye:message:updated',
-  'faye:comment:deleted',
-  'faye:message:deleted',
-  'faye:comment:set_replies'
-];
 const SHOW_IGNORED_TOPICS_IN = [
   'topics_show',
   'collections_show'
@@ -22,25 +17,9 @@ const SHOW_IGNORED_TOPICS_IN = [
 
 // TODO: move code related to comments to separate class
 export default class Topic extends ShikiEditable {
-  _type() { return 'topic'; }
-  _typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); } // eslint-disable-line camelcase
-  // similar to hash from JsExports::TopicsExport#serialize
-  _defaultModel() { // eslint-disable-line camelcase
-    return {
-      can_destroy: false,
-      can_edit: false,
-      id: parseInt(this.node.id),
-      is_viewed: true,
-      user_id: this.$node.data('user_id')
-    };
-  }
-  _reloadUrl() { // eslint-disable-line camelcase
-    return `/${this._type()}s/${this.$node.attr('id')}/reload?is_preview=${this.isPreview}`;
-  }
-
   initialize() {
     // data attribute is set in Topics.Tracker
-    this.model = this.$node.data('model') || this._defaultModel();
+    this.model = this.$node.data('model') || this.defaultModel;
 
     if (window.SHIKI_USER.isUserIgnored(this.model.user_id) ||
         window.SHIKI_USER.isTopicIgnored(this.model.id)) {
@@ -57,7 +36,7 @@ export default class Topic extends ShikiEditable {
       }
     }
 
-    this.$body = this.$inner.children('.body');
+    this.$body ||= this.$inner.children('.body');
 
     this.$editorContainer = this.$('.editor-container');
     this.$editor = this.$('.shiki_editor-selector');
@@ -84,12 +63,8 @@ export default class Topic extends ShikiEditable {
     if (this.model && !this.model.is_viewed) { this._activateAppearMarker(); }
     if (this.model) { this._actualizeVoting(); }
 
-    this.$inner.one('mouseover', this._deactivateInaccessibleButtons);
-    $('.item-mobile', this.$inner).one(this._deactivateInaccessibleButtons);
-
-    if (this.$body.length && (this.isPreview || this.isClubPage)) {
-      loadImagesFinally(this.$body[0]).then(this._checkHeight);
-      this._checkHeight();
+    if (this.$checkHeightNode.length && (this.isPreview || this.isClubPage)) {
+      this._scheduleCheckHeight(true);
     }
 
     if (this.isCosplay && !this.isPreview) {
@@ -103,7 +78,7 @@ export default class Topic extends ShikiEditable {
     if (this.$editorForm) {
       this.$editorForm
         .on('ajax:success', (e, response) => {
-          const $newComment = $(response.html).process(response.JS_EXPORTS);
+          const $newComment = $(response.content).process(response.JS_EXPORTS);
 
           this.$('.b-comments').find('.b-nothing_here').remove();
           if (this.$editor.is(':last-child')) {
@@ -133,35 +108,7 @@ export default class Topic extends ShikiEditable {
         this._toggleIgnored(result.is_ignored);
       });
 
-    // голосование за/против рецензии
-    this.$('.footer-vote .vote').on('ajax:before', e => {
-      this.$inner.find('.footer-vote').addClass('b-ajax');
-      const isYes = $(e.target).hasClass('yes');
-
-      if (isYes && !this.model.voted_yes) {
-        this.model.votes_for += 1;
-
-        if (this.model.voted_no) {
-          this.model.votes_against -= 1;
-        }
-      } else if (!isYes && !this.model.voted_no) {
-        this.model.votes_against += 1;
-
-        if (this.model.voted_yes) {
-          this.model.votes_for -= 1;
-        }
-      }
-
-      this.model.voted_no = !isYes;
-      this.model.voted_yes = isYes;
-
-      this._actualizeVoting();
-    });
-
-    this.$('.footer-vote .vote').on('ajax:complete', function() {
-      $(this).closest('.footer-vote').removeClass('b-ajax');
-    });
-
+    this._bindVotes();
     // прочтение комментриев
     this.on('appear', this._appear);
 
@@ -221,46 +168,24 @@ export default class Topic extends ShikiEditable {
         this.$commentsHider.show();
       }
     });
+  }
 
-    // realtime обновления
-    // изменение / удаление комментария
-    this.on(FAYE_EVENTS.join(' '), (e, data) => {
-      e.stopImmediatePropagation();
-      const trackableType = e.type.match(/comment|message/)[0];
-      const trackableId = data[`${trackableType}_id`];
+  // similar to hash from JsExports::TopicsExport#serialize
+  get defaultModel() { // eslint-disable-line camelcase
+    return {
+      can_destroy: false,
+      can_edit: false,
+      id: parseInt(this.node.id),
+      is_viewed: true,
+      user_id: this.$node.data('user_id')
+    };
+  }
+  get type() { return 'topic'; }
+  get commentType() { return 'comment'; }
+  get typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); } // eslint-disable-line camelcase
 
-      if (e.target === this.$node[0]) {
-        this.$(`.b-${trackableType}#${trackableId}`).trigger(e.type, data);
-      }
-    });
-
-    // добавление комментария
-    this.on('faye:comment:created faye:message:created', (e, data) => {
-      e.stopImmediatePropagation();
-      const trackableType = e.type.match(/comment|message/)[0];
-      const trackableId = data[`${trackableType}_id`];
-
-      if (this.$(`.b-${trackableType}#${trackableId}`).exists()) { return; }
-      const $placeholder = this._fayePlaceholder(trackableId, trackableType);
-
-      // уведомление о добавленном элементе через faye
-      $(document.body).trigger('faye:added');
-
-      if (window.SHIKI_USER.isCommentsAutoLoaded) {
-        if ($placeholder.is(':appeared') && !$('textarea:focus').val()) {
-          $placeholder.click();
-        }
-      }
-    });
-
-    // изменение метки комментария
-    this.on('faye:comment:marked', (e, data) => {
-      e.stopImmediatePropagation();
-
-      $(`.b-comment#${data.comment_id}`)
-        .view()
-        .mark(data.mark_kind, data.mark_value);
-    });
+  get reloadUrl() { // eslint-disable-line camelcase
+    return `/${this.type}s/${this.$node.attr('id')}/reload?is_preview=${this.isPreview}`;
   }
 
   @memoize
@@ -283,6 +208,56 @@ export default class Topic extends ShikiEditable {
 
   @memoize
   get $commentsExpander() { return this.$('.comments-expander'); }
+
+  @memoize
+  get $checkHeightNode() {
+    return this.$body;
+  }
+
+  _bindFaye() {
+    super._bindFaye();
+
+    this.on(
+      [
+        `faye:${this.commentType}:updated`,
+        `faye:${this.commentType}:deleted`,
+        `faye:${this.commentType}:set_replies`
+      ].join(' '), (e, data) => {
+        e.stopImmediatePropagation();
+        const trackableType = e.type.match(/comment|message/)[0];
+        const trackableId = data[`${trackableType}_id`];
+
+        if (e.target === this.$node[0]) {
+          this.$(`.b-${trackableType}#${trackableId}`).trigger(e.type, data);
+        }
+      });
+
+    this.on(`faye:${this.commentType}:created`, (e, data) => {
+      e.stopImmediatePropagation();
+      const trackableType = e.type.match(/comment|message/)[0];
+      const trackableId = data[`${trackableType}_id`];
+
+      if (this.$(`.b-${trackableType}#${trackableId}`).exists()) { return; }
+      const $placeholder = this._fayePlaceholder(trackableId, trackableType);
+
+      // уведомление о добавленном элементе через faye
+      $(document.body).trigger('faye:added');
+
+      if (window.SHIKI_USER.isCommentsAutoLoaded) {
+        if ($placeholder.is(':appeared') && !$('textarea:focus').val()) {
+          $placeholder.click();
+        }
+      }
+    });
+
+    this.on('faye:comment:marked', (e, data) => {
+      e.stopImmediatePropagation();
+
+      $(`.b-comment#${data.comment_id}`)
+        .view()
+        .mark(data.mark_kind, data.mark_value);
+    });
+  }
 
   // переключение топика в режим игнора/не_игнора
   _toggleIgnored(isIgnored) {
@@ -373,7 +348,7 @@ export default class Topic extends ShikiEditable {
     if (!$filteredAppeared.exists()) { return; }
 
     const interval = byClick ? 1 : 1500;
-    const $objects = $filteredAppeared.closest('.shiki-object');
+    const $objects = $filteredAppeared.closest('[data-appear_type]');
     const $markers = $objects.find('.b-new_marker.active');
     const ids = $objects
       .map(function() {
@@ -426,52 +401,35 @@ export default class Topic extends ShikiEditable {
   // проверка высоты топика. урезание, если текст слишком длинный (точно такой же код в shiki_comment)
   @bind
   _checkHeight() {
-    if (this.isCritique) {
-      const imageHeight = this.$('.critique-entry_cover img').height();
-      const readMoreHeight = 13 + 5; // 5px - read_more offset
+    if (!this.isCritique) { return super._checkHeight(); }
 
-      if (imageHeight > 0) {
-        this.$('.body-truncated-inner').checkHeight({
-          maxHeight: imageHeight - readMoreHeight,
-          collapsedHeight: imageHeight - readMoreHeight,
-          expandHtml: ''
-        });
-      }
-    } else {
-      this.$('.body-inner').checkHeight({
-        maxHeight: this.MAX_PREVIEW_HEIGHT,
-        collapsedHeight: this.COLLAPSED_HEIGHT
+    const imageHeight = this.$('.critique-entry_cover img').height();
+    const readMoreHeight = 13 + 5; // 5px - read_more offset
+
+    if (imageHeight > 0) {
+      checkHeight(this.$('.body-truncated'), {
+        maxHeight: imageHeight - readMoreHeight,
+        collapsedHeight: imageHeight - readMoreHeight,
+        expandHtml: ''
       });
     }
   }
 
   _actualizeVoting() {
     this.$inner
-      .find('.footer-vote .vote.yes, .user-vote .voted-for')
+      .find('.b-footer_vote .vote.yes, .user-vote .voted-for')
       .toggleClass('selected', this.model.voted_yes);
 
     this.$inner
-      .find('.footer-vote .vote.no, .user-vote .voted-against')
+      .find('.b-footer_vote .vote.no, .user-vote .voted-against')
       .toggleClass('selected', this.model.voted_no);
 
-    if (this.model.votes_for) {
+    if (this.model.votes_for != null) {
       this.$inner.find('.votes-for').html(`${this.model.votes_for}`);
     }
 
-    if (this.model.votes_against) {
+    if (this.model.votes_against != null) {
       this.$inner.find('.votes-against').html(`${this.model.votes_against}`);
-    }
-  }
-
-  // скрытие действий, на которые у пользователя нет прав
-  @bind
-  _deactivateInaccessibleButtons() {
-    if (!this.model.can_edit) {
-      this.$inner.find('.item-edit').addClass('hidden');
-    }
-
-    if (!this.model.can_destroy) {
-      this.$inner.find('.item-delete').addClass('hidden');
     }
   }
 
@@ -519,5 +477,36 @@ export default class Topic extends ShikiEditable {
       this.$commentsHider.show();
       this.$commentsCollapser.remove();
     }
+  }
+
+  _bindVotes() {
+    // голосование за/против рецензии
+    this.$('.b-footer_vote .vote').on('ajax:before', e => {
+      this.$inner.find('.b-footer_vote').addClass('b-ajax');
+      const isYes = $(e.target).hasClass('yes');
+
+      if (isYes && !this.model.voted_yes) {
+        this.model.votes_for += 1;
+
+        if (this.model.voted_no) {
+          this.model.votes_against -= 1;
+        }
+      } else if (!isYes && !this.model.voted_no) {
+        this.model.votes_against += 1;
+
+        if (this.model.voted_yes) {
+          this.model.votes_for -= 1;
+        }
+      }
+
+      this.model.voted_no = !isYes;
+      this.model.voted_yes = isYes;
+
+      this._actualizeVoting();
+    });
+
+    this.$('.b-footer_vote .vote').on('ajax:complete', function() {
+      $(this).closest('.b-footer_vote').removeClass('b-ajax');
+    });
   }
 }

@@ -1,7 +1,7 @@
 import delay from 'delay';
 
 import View from '@/views/application/view';
-import { loadImagesFinally } from '@/helpers/load_image';
+import { loadImagesFinally } from '@/utils/load_image';
 
 const DEPLOY_INTERVAL = 50;
 

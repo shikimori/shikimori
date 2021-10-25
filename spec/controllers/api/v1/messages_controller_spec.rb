@@ -20,11 +20,11 @@ describe Api::V1::MessagesController do
   describe '#create' do
     subject! do
       post :create,
-      params: {
-        frontend: is_frontend,
-        message: params
-      },
-      format: :json
+        params: {
+          frontend: is_frontend,
+          message: params
+        },
+        format: :json
     end
     let(:params) do
       {

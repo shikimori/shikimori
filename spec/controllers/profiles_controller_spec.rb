@@ -53,6 +53,13 @@ describe ProfilesController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#reviews' do
+    let!(:review) { create :review, user: user, anime: anime }
+    let(:anime) { create :anime }
+    subject! { get :reviews, params: { id: user.to_param } }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#collections' do
     let!(:collection) { create :collection, :with_topics, user: user }
     subject! { get :collections, params: { id: user.to_param } }

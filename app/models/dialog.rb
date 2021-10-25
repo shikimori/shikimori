@@ -2,12 +2,10 @@ class Dialog
   include ActiveModel::Serialization
   vattr_initialize :user, :message
 
+  delegate :created_at, to: :message
+
   def target_user
     my_message? ? message.to : message.from
-  end
-
-  def created_at
-    message.created_at
   end
 
   def read
@@ -37,19 +35,15 @@ class Dialog
     messages.each { |message| message.delete_by user }
   end
 
-  def new_message replied_message = nil
-    Message.new(
+  def new_message
+    @new_message ||= Message.new(
       from_id: user.id,
       to_id: target_user.id,
-      kind: MessageType::PRIVATE,
-      body: replied_message ?
-        "[message=#{replied_message.id}]" + replied_message.from.nickname +
-        '[/message], ' :
-        ''
+      kind: MessageType::PRIVATE
     )
   end
 
-  def faye_channel
-    ["dialog-#{[user.id, target_user.id].sort.join '-'}"]
+  def faye_channels
+    %W[/dialog-#{[user.id, target_user.id].sort.join '-'}]
   end
 end

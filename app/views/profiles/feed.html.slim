@@ -1,10 +1,9 @@
 = render layout: 'page' do
-  .subheadline.m0 = og.headline
-  div
-    .b-topic.to-process[
-      data-dynamic='topic'
-      data-faye=@resource.main_comments_view.faye_channel.to_json
-    ]
-      = render 'topics/comments',
-        comments_view: @resource.main_comments_view,
-        commentable: @resource
+  .subheadline = og.headline
+  .to-process[
+    data-dynamic='topic'
+    data-faye=@resource.main_comments_view.faye_channels.to_json
+  ]
+    = render 'topics/comments',
+      comments_view: @resource.main_comments_view,
+      commentable: @resource

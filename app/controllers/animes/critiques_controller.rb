@@ -11,13 +11,11 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
   RULES_TOPIC_ID = 299_770
 
   def index
-    query = ::Critiques::Query.new(
-      @resource.object,
-      current_user,
-      locale_from_host,
-      params[:id].to_i
-    )
-    @collection = query.fetch
+    @collection = ::Critiques::Query
+      .call(@resource.object, {
+        locale: locale_from_host,
+        id: params[:id].to_i
+      })
       .map do |critique|
         topic = critique.maybe_topic locale_from_host
         Topics::CritiqueView.new topic, true, true
@@ -34,7 +32,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
   end
 
   def create
-    @critique = Critique::Create.call resource_params, locale_from_host
+    @critique = Critique::Create.call critique_params, locale_from_host
 
     if @critique.errors.blank?
       topic = @critique.maybe_topic locale_from_host
@@ -49,7 +47,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
   end
 
   def update
-    Critique::Update.call @critique, resource_params
+    Critique::Update.call @critique, critique_params
 
     if @critique.errors.blank?
       topic = @critique.maybe_topic locale_from_host
@@ -70,7 +68,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
 
 private
 
-  def resource_params
+  def critique_params
     params
       .require(:critique)
       .permit(
@@ -115,7 +113,9 @@ private
 
   def add_title
     og page_title: i18n_i('Critique', :other)
-    og page_title: i18n_t('critique_by', nickname: @critique.user.nickname) if params[:action] == 'show'
+    if params[:action] == 'show'
+      og page_title: i18n_t('critique_by', nickname: @critique.user.nickname)
+    end
   end
 
   def actualize_resource

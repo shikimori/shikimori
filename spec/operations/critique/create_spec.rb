@@ -12,7 +12,7 @@ describe Critique::Create do
         user_id: user.id,
         target_type: anime.class.name,
         target_id: anime.id,
-        text: 'x' * Critique::MINIMUM_LENGTH,
+        text: 'x' * Critique::MIN_BODY_SIZE,
         storyline: 1,
         characters: 2,
         animation: 3,
@@ -34,7 +34,7 @@ describe Critique::Create do
     let(:params) do
       {
         user_id: user.id,
-        text: 'x' * Critique::MINIMUM_LENGTH,
+        text: 'x' * Critique::MIN_BODY_SIZE,
         storyline: 1,
         characters: 2,
         animation: 3,

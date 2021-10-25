@@ -49,8 +49,8 @@ class Comments::View < Topics::FoldedCommentsView
     reply_ids.size
   end
 
-  def faye_channel
-    comments.map(&:id).push(@comment.id).map { |id| "comment-#{id}" }
+  def faye_channels
+    comments.map(&:id).push(@comment.id).map { |id| "/comment-#{id}" }
   end
 
 private

@@ -4,19 +4,30 @@ describe Users::ActivityStatsQuery do
 
   describe '#call' do
     it do
-      expect(stats.call.to_h).to have(10).items
+      expect(stats.call.to_h).to have(11).items
       expect(stats.call).to be_kind_of Users::ActivityStats
     end
   end
 
   describe '#comments_count, #summaries_count' do
-    let!(:comment_1) { create :comment, is_summary: false, user: user }
-    let!(:comment_2) { create :comment, is_summary: false, user: user }
-    let!(:comment_3) { create :comment, is_summary: true, body: 'x' * 1000, user: user }
-    let!(:comment_4) { create :comment, is_summary: false, user: user_2 }
+    let!(:comment_1) { create :comment, user: user }
+    let!(:comment_2) { create :comment, user: user }
+    let!(:comment_3) { create :comment, :summary, :skip_cancel_summary, body: 'x' * 1000, user: user }
+    let!(:comment_4) { create :comment, user: user_2 }
 
     its(:comments_count) { is_expected.to eq 2 }
     its(:summaries_count) { is_expected.to eq 1 }
+  end
+
+  describe '#reviews_count' do
+    let!(:review_1) { create :review, user: user, anime: anime }
+    let!(:review_2) { create :review, user: user, manga: manga }
+    let!(:review_3) { create :review, user: user_2, anime: anime }
+
+    let(:anime) { create :anime }
+    let(:manga) { create :manga }
+
+    its(:reviews_count) { is_expected.to eq 2 }
   end
 
   describe '#critiques_count' do

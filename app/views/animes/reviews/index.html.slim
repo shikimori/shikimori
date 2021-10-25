@@ -1,0 +1,7 @@
+= render layout: 'animes/page' do |f|
+  = render 'animes/reviews/navigation',
+    resource: @resource,
+    collection: @collection,
+    opinion: @opinion,
+    is_preview: false,
+    page: @page

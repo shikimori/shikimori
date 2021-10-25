@@ -396,6 +396,16 @@ ru:
       removed: Рецензия удалена
     critique_by: Рецензия от %{nickname}
 
+  animes/reviews_controller:
+    <<: *animes_controller
+    new_review: Новый отзыв
+    # edit_review: Изменение отзыва
+    review_by: Отзыв от %{nickname}
+    review_is_already_written:
+      anime: Ты уже @{f:написала|m:написал} отзыв к этому аниме
+      manga: Ты уже @{f:написала|m:написал} отзыв к этой манге
+      ranobe: Ты уже @{f:написала|m:написал} отзыв к этому ранобэ
+
   users_controller:
     similar_users: Похожие пользователи
 
@@ -459,6 +469,10 @@ ru:
   api/v1/comments_controller:
     comment:
       removed: Комментарий удалён
+
+  api/v1/reviews_controller:
+    review:
+      removed: Отзыв удалён
 
   api/v1/messages_controller:
     messages:

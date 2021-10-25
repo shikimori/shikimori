@@ -8,10 +8,10 @@ requireVendor.keys().forEach(requireVendor);
 
 import { throttle, debounce } from 'throttle-debounce';
 
-import pageLoad from '@/helpers/page_load'; // eslint-disable-line import/newline-after-import
+import pageLoad from '@/utils/page_load'; // eslint-disable-line import/newline-after-import
 window.pageLoad = pageLoad;
 
-import pageUnload from '@/helpers/page_unload'; // eslint-disable-line import/newline-after-import
+import pageUnload from '@/utils/page_unload'; // eslint-disable-line import/newline-after-import
 window.pageUnload = pageUnload;
 
 const requireJqueryPlugins = require.context('@/jquery.plugins', true);
@@ -29,12 +29,12 @@ import FayeLoader from '@/services/faye_loader';
 import CommentsNotifier from '@/services/comments_notifier';
 import AchievementsNotifier from '@/services/achievements_notifier';
 
-import bindings from '@/helpers/bindings';
+import bindings from '@/utils/bindings';
 
-import '@/helpers/p';
+import '@/utils/p';
 import '@/i18n/translations';
 
-import dayjs from '@/helpers/dayjs'; // eslint-disable-line import/newline-after-import
+import dayjs from '@/utils/dayjs'; // eslint-disable-line import/newline-after-import
 window.dayjs = dayjs;
 
 $(document).one('turbolinks:load', () => {
@@ -126,7 +126,7 @@ $(document).on('selectionchange', _ => {
 
   if (selection && selection.focusNode) {
     $(selection.focusNode)
-      .closest('.shiki-object')
+      .closest('[data-selection_boundary]')
       .view()
       ?.setSelection();
   }

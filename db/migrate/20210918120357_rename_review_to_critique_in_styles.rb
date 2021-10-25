@@ -3,6 +3,8 @@ class RenameReviewToCritiqueInStyles < ActiveRecord::Migration[5.2]
   PREFIXES = %w[. -]
 
   def up
+    return if Rails.env.development?
+
     FIELDS.each do |field|
       PREFIXES.each do |prefix|
         Style.connection.execute %Q[
@@ -21,6 +23,8 @@ class RenameReviewToCritiqueInStyles < ActiveRecord::Migration[5.2]
   end
 
   def down
+    return if Rails.env.development?
+
     FIELDS.each do |field|
       PREFIXES.each do |prefix|
         Style.connection.execute %Q[

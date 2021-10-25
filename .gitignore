@@ -30,7 +30,7 @@ public/system
 .capistrano
 .byebug_history
 
-app/assets/javascripts/i18n/translations.js
+app/packs/javascripts/i18n/translations.js
 public/javascripts/i18n.js
 spec/test_files/*
 /public/packs

@@ -10,6 +10,8 @@ class JsExports::ExportBase
 
     klass.include Singleton
     klass.const_set 'PLACEHOLDER', /data-track_#{name}="(\d+)"/mix
+
+    super
   end
 
   def placeholder topic
@@ -23,10 +25,10 @@ class JsExports::ExportBase
     end
   end
 
-  def export user
+  def export user, ability
     return [] if tracked_ids.none?
 
-    fetch_entries(user).map { |topic| serialize topic, user }
+    fetch_entries(user).map { |topic| serialize topic, user, ability }
   end
 
 private

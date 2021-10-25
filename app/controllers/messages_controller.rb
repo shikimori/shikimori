@@ -38,7 +38,7 @@ class MessagesController < ProfilesController
 
     render :show
   rescue CanCan::AccessDenied
-    render :missing
+    render :missing, status: (xhr_or_json? ? :ok : :not_found)
   end
 
   def tooltip
@@ -46,11 +46,6 @@ class MessagesController < ProfilesController
   end
 
   def edit
-  end
-
-  def preview
-    message = Message.new(create_params).decorate
-    render message
   end
 
   def chosen

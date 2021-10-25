@@ -1,0 +1,107 @@
+.b-review.to-process[
+  id=review.id
+  data-dynamic='review'
+  data-appear_type='review'
+  data-track_review="#{JsExports::ReviewsExport.instance.placeholder(review) unless local_assigns[:do_not_track]}"
+  data-user_id=review.user.id
+  data-user_nickname=review.user.nickname
+  data-selection_boundary
+  data-faye=review.faye_channels.to_json
+]
+  - if review.persisted?
+    a name="review-#{review.id}"
+
+  / .inner is added for compatibility with topic api
+  .inner[
+    data-check_height=(review.persisted? && !local_assigns[:is_show])
+  ]
+    - if review.persisted?
+      - if local_assigns[:is_buttons]
+        span.item-mobile title=t('actions.actions')
+      aside.markers
+        .b-new_marker[
+          data-appear_url=api_appears_url
+          data-text=t('markers.new')
+        ]
+
+    header
+      / data-href=(review.respond_to?(:topic_url) ? review.topic_url : profile_url(review.user))
+      a.author-link href=profile_url(review.user)
+        img[
+          src=review.user.avatar_url(48)
+          srcset="#{review.user.avatar_url 80} 2x"
+          alt=review.user.nickname
+        ]
+      .review-details
+        .name-url
+          a.name[
+            href=profile_url(review.user)
+            itemprop='creator'
+            tabindex='-1'
+          ]
+            = review.user.nickname
+
+          - unless local_assigns[:is_show]
+            a.to-review href=UrlGenerator.instance.review_url(review, is_canonical: true)
+              | <<< #{t '.go_to_review'}
+
+        - if review.persisted?
+          .b-status-line
+            .section.main
+              = render 'topics/critiques/votes_count', critique: review
+              span.comments == review.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
+            = render 'topics/status_line/section_dates', object: review
+
+        .review-info
+          .opinion class=review.opinion
+          div
+            .label class=review.opinion
+              = review.opinion_text
+            .user-rate-label
+              | #{t '.in_author_list'}:
+              - unless review.user_rate
+                b.missing &nbsp;#{t 'no'}
+          - if review.user_rate
+            .user-rate
+              = render 'blocks/rate', score: review.user_rate.score, is_no_text_score: true
+              .b-add_to_list class=review.user_rate.status
+                .trigger
+                  .edit-trigger
+                    .edit
+                    .text
+                      .status-name data-text=review.user_rate.status_name
+
+    - if local_assigns[:is_buttons]
+      = render 'reviews/buttons', review: review
+
+    - if review.written_before_release?
+      .is_written_before_release-container
+        .b-anime_status_tag.is_written_before_release.b-tooltipped.unprocessed[
+          title=t(".is_written_before_release.#{review.db_entry.class.name.downcase}")
+          data-direction='right'
+        ] = Review.human_attribute_name(:is_written_before_release)
+
+    // .div added in order to make $editorPlacement works in DynamicElements.Review
+    div
+      .body itemprop='text'
+          = review.html_body
+
+      footer
+        = render 'topics/footer/vote',
+          topic_type_policy: Topic::TypePolicy.new(review),
+          votable: review
+        - unless local_assigns[:is_show]
+          a.do-comment.b-link_button.dark-2 href=UrlGenerator.instance.reply_review_url(review)
+            = t 'animes.page.actions.comment'
+
+    - if review.persisted?
+      .b-appear_marker[
+        class="appear-review-#{review.id}"
+      ]
+
+  - if local_assigns[:is_comments]
+    .block
+      .subheadline = i18n_i('Comment', :other)
+      = render 'topics/comments',
+        comments_view: Topics::ProxyComments.new(review, false),
+        commentable: review

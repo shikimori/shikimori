@@ -25,7 +25,7 @@
       = render partial: 'topics/topic',
         collection: @collection,
         as: :topic_view,
-        cache: true
+        cached: true
 
     - else
       p.b-nothing_here = t 'no_collections'

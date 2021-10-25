@@ -20,11 +20,11 @@
           = render partial: 'topics/topic',
             collection: view.first_column_topic_views,
             as: :topic_view,
-            cache: true
+            cached: true
           = render partial: 'topics/topic',
             collection: view.second_column_topic_views,
             as: :topic_view,
-            cache: true
+            cached: true
 
     .f-column
       .headline = t 'application.hot_topics.hot_topics'
@@ -35,4 +35,4 @@
           = render partial: 'topics/topic',
             collection: view.hot_topic_views[0..5],
             as: :topic_view,
-            cache: true
+            cached: true

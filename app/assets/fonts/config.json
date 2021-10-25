@@ -747,6 +747,18 @@
       "src": "typicons"
     },
     {
+      "uid": "53ed8570225581269cd7eff5795e8bea",
+      "css": "emo-unhappy",
+      "code": 59665,
+      "src": "fontelico"
+    },
+    {
+      "uid": "fd59eac4d575b48eb156590b63a355fd",
+      "css": "emo-sleep",
+      "code": 59666,
+      "src": "fontelico"
+    },
+    {
       "uid": "d56a0cd800b7346409f9c15d1dfce123",
       "css": "zoom_out_map",
       "code": 59453,

@@ -23,6 +23,7 @@ class Abilities::Admin
 
     can :manage, Topic
     can :manage, Comment
+    can :manage, Review
     can :manage, Message
     can :manage, Club
     can :manage, ClubPage
@@ -30,8 +31,10 @@ class Abilities::Admin
     can :manage, Poll
 
     can :delete_all_comments, User
+    can :delete_all_summaries, User
     can :delete_all_topics, User
     can :delete_all_critiques, User
+    can :delete_all_reviews, User
 
     can :manage, Style
     can :manage, Version

@@ -1,4 +1,4 @@
-import $with from '@/helpers/with';
+import $with from '@/utils/with';
 
 export default class TrackComment {
   constructor(comment, $root) {

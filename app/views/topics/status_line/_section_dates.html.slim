@@ -1,0 +1,20 @@
+- created_at_text = Topics::View.format_date object.created_at
+- changed_at_text = Topics::View.format_date object.changed_at if object.respond_to?(:changed_at) && object.changed_at
+
+.section.created_at[
+  title=t('.created_at', date: created_at_text)
+]
+  time[
+    datetime=object.created_at.iso8601
+    data-no-tooltip='true'
+  ] = created_at_text
+
+- if changed_at_text && changed_at_text != created_at_text
+  .section.changed_at[
+    title=t('.changed_at', date: changed_at_text)
+  ]
+    time[
+      datetime=object.changed_at.iso8601
+      data-no-tooltip='true'
+    ] = changed_at_text
+
