@@ -16,7 +16,7 @@ class Comment < ApplicationRecord
   # associations
   belongs_to :user,
     touch: Rails.env.test? ? false : :activity_at
-  belongs_to :commentable, polymorphic: true
+  belongs_to :commentable, polymorphic: true, touch: true
   belongs_to :topic,
     optional: true,
     class_name: 'Topic',
