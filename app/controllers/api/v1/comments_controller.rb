@@ -109,7 +109,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   api :DELETE, '/comments/:id', 'Destroy a comment'
   description 'Requires `comments` oauth scope'
   def destroy
-    faye.destroy @resource
+    Comment::Destroy.call @resource, faye
 
     render json: { notice: i18n_t('comment.removed') }
   end

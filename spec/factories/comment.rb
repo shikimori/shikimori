@@ -10,6 +10,7 @@ FactoryBot.define do
       stub_method model, :antispam_checks
       stub_method model, :check_access
       stub_method model, :increment_comments
+      stub_method model, :decrement_comments
       stub_method model, :release_the_banhammer!
       stub_method model, :touch_commentable
       stub_method model, :create_viewing
@@ -42,6 +43,10 @@ FactoryBot.define do
 
     trait :with_increment_comments do
       after(:build) { |model| unstub_method model, :increment_comments }
+    end
+
+    trait :with_decrement_comments do
+      after(:build) { |model| unstub_method model, :decrement_comments }
     end
 
     trait :with_banhammer do
