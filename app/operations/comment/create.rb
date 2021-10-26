@@ -8,7 +8,9 @@ class Comment::Create
       apply_commentable comment
     end
     @faye.create comment
+
     notify_user comment if profile_comment?
+    touch_topic comment if topic_comment?
 
     comment
   end
@@ -40,6 +42,10 @@ private
     User::NotifyProfileCommented.call comment
   end
 
+  def touch_topic comment
+    comment.commentable.touch
+  end
+
   # NOTE: Topic, User, Review or DbEntry
   def commentable_klass
     @params[:commentable_type].constantize
@@ -52,9 +58,11 @@ private
   end
 
   def no_topic_generation? commentable_klass
-    commentable_klass <= Topic ||
-      commentable_klass == Review ||
-      profile_comment?
+    topic_comment? || profile_comment? || commentable_klass == Review
+  end
+
+  def topic_comment?
+    commentable_klass <= Topic
   end
 
   def profile_comment?
