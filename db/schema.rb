@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_20_155338) do
+ActiveRecord::Schema.define(version: 2021_10_29_184011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -531,7 +531,6 @@ ActiveRecord::Schema.define(version: 2021_10_20_155338) do
     t.integer "animation"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "comment_id"
     t.string "source"
     t.string "moderation_state", default: "pending", null: false
     t.integer "approver_id"
@@ -983,26 +982,6 @@ ActiveRecord::Schema.define(version: 2021_10_20_155338) do
     t.text "imports", array: true
   end
 
-  create_table "summaries", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "anime_id"
-    t.bigint "manga_id"
-    t.text "body", null: false
-    t.string "opinion", null: false
-    t.boolean "is_written_before_release", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "comments_count", default: 0, null: false
-    t.integer "cached_votes_up", default: 0, null: false
-    t.integer "cached_votes_down", default: 0, null: false
-    t.datetime "changed_at"
-    t.index ["anime_id"], name: "index_summaries_on_anime_id"
-    t.index ["manga_id"], name: "index_summaries_on_manga_id"
-    t.index ["user_id", "anime_id"], name: "index_summaries_on_user_id_and_anime_id", unique: true, where: "(anime_id IS NOT NULL)"
-    t.index ["user_id", "manga_id"], name: "index_summaries_on_user_id_and_manga_id", unique: true, where: "(manga_id IS NOT NULL)"
-    t.index ["user_id"], name: "index_summaries_on_user_id"
-  end
-
   create_table "summary_viewings", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "viewed_id", null: false
@@ -1297,5 +1276,6 @@ ActiveRecord::Schema.define(version: 2021_10_20_155338) do
   add_foreign_key "reviews", "animes"
   add_foreign_key "reviews", "mangas"
   add_foreign_key "reviews", "users"
+  add_foreign_key "summary_viewings", "users"
   add_foreign_key "topic_viewings", "users"
 end
