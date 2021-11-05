@@ -1,9 +1,17 @@
 describe WebmThumbnail do
-  let(:worker) { WebmThumbnail.new }
-  let(:webm_video) { create :webm_video, :pending }
+  let(:worker) { described_class.new }
+  let(:webm_video) { create :webm_video, :pending, url: 'https://test.com;sudo ls' }
 
-  before { allow(worker).to receive :grab_thumbnail }
-  before { worker.perform webm_video.id }
+  before do
+    allow(worker).to receive(:thumbnail_path).and_return "/tmp/#{rand}"
+    allow(worker).to receive :grab_thumbnail
+  end
+  subject! { worker.perform webm_video.id }
 
-  it { expect(webm_video.reload).to be_failed }
+  it do
+    expect(worker)
+      .to have_received(:grab_thumbnail)
+      .with(Shellwords.shellescape(webm_video.url), any_args)
+    expect(webm_video.reload).to be_failed
+  end
 end

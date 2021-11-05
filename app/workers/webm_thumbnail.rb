@@ -9,9 +9,9 @@ class WebmThumbnail
 
   def perform webm_video_id
     webm_video = WebmVideo.find webm_video_id
-    thumbnail_path = "/tmp/webm_thumbnail_#{webm_video.id}.jpg"
+    thumbnail_path = thumbnail_path webm_video
 
-    grab_thumbnail webm_video.url, thumbnail_path
+    grab_thumbnail! download_url(webm_video), thumbnail_path
 
     if File.exist? thumbnail_path
       webm_video.update thumbnail: File.open(thumbnail_path, 'r')
@@ -23,7 +23,15 @@ class WebmThumbnail
 
 private
 
-  def grab_thumbnail url, path
+  def download_url webm_video
+    Shellwords.shellescape webm_video.url
+  end
+
+  def thumbnail_path webm_video
+    "/tmp/webm_thumbnail_#{webm_video.id}.jpg"
+  end
+
+  def grab_thumbnail! url, path
     `ffmpeg -y -i #{url} -ss 00:00:05 -vframes 1 #{path}`
   end
 end
