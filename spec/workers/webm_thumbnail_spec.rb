@@ -4,13 +4,13 @@ describe WebmThumbnail do
 
   before do
     allow(worker).to receive(:thumbnail_path).and_return "/tmp/#{rand}"
-    allow(worker).to receive :grab_thumbnail
+    allow(worker).to receive :grab_thumbnail!
   end
   subject! { worker.perform webm_video.id }
 
   it do
     expect(worker)
-      .to have_received(:grab_thumbnail)
+      .to have_received(:grab_thumbnail!)
       .with(Shellwords.shellescape(webm_video.url), any_args)
     expect(webm_video.reload).to be_failed
   end
