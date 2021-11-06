@@ -1,8 +1,11 @@
 class AddMentionEventToUserNotificationSettings < ActiveRecord::Migration[5.2]
   def up
-    User.find_each do |user|
-      user.notification_settings << Types::User::NotificationSettings[:mention_event]
-      user.save! validate: false
-    end
+    sql = "UPDATE users SET notification_settings = notification_settings || ARRAY['mention_event'];"
+    ActiveRecord::Base.connection.execute(sql)
+  end
+
+  def down
+    sql = "UPDATE users SET notification_settings = array_remove(notification_settings, 'mention_event');"
+    ActiveRecord::Base.connection.execute(sql)
   end
 end
