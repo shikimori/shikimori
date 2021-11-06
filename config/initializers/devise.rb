@@ -285,9 +285,9 @@ Devise.setup do |config|
       connection_opts: {
         proxy: {
           # linode england
-          uri: 'http://178.79.156.106:3128',
-          user: 'uptimus',
-          password: 'holy_grail'
+          uri: Rails.application.secrets.proxy[:url],
+          user: Rails.application.secrets.proxy[:login],
+          password: Rails.application.secrets.proxy[:login]
         }
       }
     }
