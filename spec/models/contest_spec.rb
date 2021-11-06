@@ -15,7 +15,7 @@ describe Contest do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :title_ru }
-    it { is_expected.to validate_presence_of :title_en }
+    # it { is_expected.to validate_presence_of :title_en }
     it { is_expected.to validate_length_of(:description_ru).is_at_most(32768) }
     it { is_expected.to validate_length_of(:description_en).is_at_most(32768) }
     it { is_expected.to validate_presence_of :user }

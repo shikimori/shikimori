@@ -39,7 +39,7 @@ class Contest < ApplicationRecord
     predicates: true
   enumerize :user_vote_key, in: Types::Contest::UserVoteKey.values
 
-  validates :title_ru, :title_en, presence: true
+  validates :title_ru, presence: true
   validates :description_ru, :description_en, length: { maximum: 32_768 }
   validates :user, :started_on, :user_vote_key, :strategy_type,
     :member_type, presence: true
@@ -87,7 +87,7 @@ class Contest < ApplicationRecord
     if finished?
       rounds.last
     else
-      rounds.select(&:started?).first ||
+      rounds.find(&:started?) ||
         rounds.reject(&:finished?).first ||
         rounds.first
     end
@@ -109,35 +109,32 @@ class Contest < ApplicationRecord
   end
 
   def to_param
-    "#{self.id}-#{name.permalinked}"
+    "#{id}-#{name.permalinked}"
   end
 
   def title
-    I18n.russian? ? title_ru : title_en
+    I18n.russian? ? title_ru : title_en.presence || title_ru
   end
 
-  # for compatibility with forum
   def name
     title
   end
 
-  # стратегия создания раундов
   def strategy
-    @strategy ||= if double_elimination?
-      Contest::DoubleEliminationStrategy.new self
-    elsif play_off?
-      Contest::PlayOffStrategy.new self
-    else
-      Contest::SwissStrategy.new self
-    end
+    @strategy ||=
+      if double_elimination?
+        Contest::DoubleEliminationStrategy.new self
+      elsif play_off?
+        Contest::PlayOffStrategy.new self
+      else
+        Contest::SwissStrategy.new self
+      end
   end
 
-  # участники контеста
   def members
     anime? ? animes : characters
   end
 
-  # класс участника контеста
   def member_klass
     member_type.classify.constantize
   end

@@ -1,9 +1,7 @@
 - comments_count = @resource.maybe_topic(locale_from_host).comments_count
 
 = render layout: 'page' do
-  .contest[
-    class=@resource.state
-  ]
+  .contest class=@resource.state
     - if @resource.showing_results?
       = render 'results', contest: @resource
     - elsif @resource.proposing?

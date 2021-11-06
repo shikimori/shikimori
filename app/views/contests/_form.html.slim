@@ -7,34 +7,43 @@
 
   .subheadline.m5 = t '.common'
   .block
-    .cc-2
-      .c-column
-        = f.input :title_ru
-      .c-column
-        = f.input :title_en
+    = f.input :title_ru
+    / .cc-2
+    /   .c-column
+    /     = f.input :title_ru
+    /   .c-column
+    /     = f.input :title_en
 
-    .cc-2
-      .c-column
-        .b-input.m5
-          label.text for='contest_description_ru'
-            b = Contest.human_attribute_name :description_ru
-        = render 'blocks/shiki_editor',
-          text: f.object.description_ru,
-          field_name: 'contest[description_ru]',
-          no_preview_avatar: true,
-          is_text_with_paragraphs: true,
-          cache_key: f.object.cache_key
-
-      .c-column
-        .b-input.m5
-          label.text for='contest_description_en'
-            b = Contest.human_attribute_name :description_en
-        = render 'blocks/shiki_editor',
-          text: f.object.description_en,
-          field_name: 'contest[description_en]',
-          no_preview_avatar: true,
-          is_text_with_paragraphs: true,
-          cache_key: f.object.cache_key
+    label.text for='contest_description_ru'
+      b = Contest.human_attribute_name :description_ru
+    = render 'blocks/shiki_editor',
+      text: f.object.description_ru,
+      field_name: 'contest[description_ru]',
+      no_preview_avatar: true,
+      is_text_with_paragraphs: true,
+      cache_key: f.object.cache_key
+    / .cc-2
+    /   .c-column
+    /     .b-input.m5
+    /       label.text for='contest_description_ru'
+    /         b = Contest.human_attribute_name :description_ru
+    /     = render 'blocks/shiki_editor',
+    /       text: f.object.description_ru,
+    /       field_name: 'contest[description_ru]',
+    /       no_preview_avatar: true,
+    /       is_text_with_paragraphs: true,
+    /       cache_key: f.object.cache_key
+    / 
+    /   .c-column
+    /     .b-input.m5
+    /       label.text for='contest_description_en'
+    /         b = Contest.human_attribute_name :description_en
+    /     = render 'blocks/shiki_editor',
+    /       text: f.object.description_en,
+    /       field_name: 'contest[description_en]',
+    /       no_preview_avatar: true,
+    /       is_text_with_paragraphs: true,
+    /       cache_key: f.object.cache_key
 
     = f.input :member_type,
         as: :select,
