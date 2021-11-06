@@ -43,7 +43,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
         right_id = ids_by_wins.shift.try(:first)
       end
 
-      match_check_and_update(match, left_id, right_id)
+      match_check_and_update match, left_id, right_id
     end
   end
 

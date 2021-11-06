@@ -196,6 +196,6 @@ private
   end
 
   def show_description_ru?
-    super || object.description_en.blank?
+    true
   end
 end
