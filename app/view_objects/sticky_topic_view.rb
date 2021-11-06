@@ -53,8 +53,6 @@ class StickyTopicView
     end
   end
 
-  private_class_method
-
   def self.title topic_id
     topics[topic_id].title
   end
@@ -66,6 +64,10 @@ class StickyTopicView
   def self.topics
     @topics ||= Hash.new do |cache, topic_id|
       cache[topic_id] = Topic.find topic_id
+    rescue ActiveRecord::RecordNotFound
+      raise if Rails.env.test?
+
+      Topic.new id: topic_id
     end
   end
 end

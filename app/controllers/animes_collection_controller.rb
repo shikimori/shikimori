@@ -43,8 +43,23 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
 
     verify_age_restricted! @view.results.collection
     verify_age_restricted! model[:genre]
+
     if censored_forbidden? && params[:rating]&.split(',')&.include?(Anime::ADULT_RATING.to_s)
       raise AgeRestricted
+    end
+  rescue AgeRestricted
+    if params[:search].present? && json?
+      render(
+        json: {
+          content: render_to_string(
+            partial: 'application/age_restricted',
+            formats: :html
+          )
+        },
+        status: :unavailable_for_legal_reasons
+      )
+    else
+      raise
     end
   end
 

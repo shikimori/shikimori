@@ -194,4 +194,8 @@ private
       .map(&:matches)
       .flatten
   end
+
+  def show_description_ru?
+    super || object.description_en.blank?
+  end
 end

@@ -1,0 +1,27 @@
+.b-age_restricted
+  .dialog
+    p.age-restricted-warning == t 'age_restricted.warning'
+    h1 == t 'age_restricted.title'
+
+    - if cookies[ShikimoriController::COOKIE_AGE_OVER_18] != 'true'
+      == t 'age_restricted.text',
+        cookie: ShikimoriController::COOKIE_AGE_OVER_18,
+        root_url: root_url
+
+    - elsif !user_signed_in?
+      .devise
+        p = t 'age_restricted.authorize'
+        .inner
+          = render 'devise/sessions/form', resource: User.new
+        p style='margin-top: 15px'
+          a href=root_url = t 'actions.cancel'
+
+    - else
+      p = t 'age_restricted.underage'
+      p
+        a href=root_url = t 'actions.cancel'
+
+    img.image[
+      src='/images/static/restricted.jpg'
+      srcset='/images/static/restricted@2x.jpg 2x'
+    ]

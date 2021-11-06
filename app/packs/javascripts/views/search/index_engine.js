@@ -51,7 +51,7 @@ export default class IndexEngine {
   async _search(phrase) {
     const { data, status } = await ajaxCacher.fetch(this._searchUrl(phrase));
 
-    if (status !== 200) {
+    if (status !== 200 && status !== 451) { // 451: age_restricted
       flash.error(I18n.t('frontend.lib.please_try_again_later'));
       this._hideAjax();
       this._resolveSearchPromise();
