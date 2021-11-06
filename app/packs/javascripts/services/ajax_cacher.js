@@ -31,7 +31,7 @@ export default {
       .get(url)
       .catch(({ response }) => {
         delete store[url];
-        return { status: response.status };
+        return { status: response.status, data: response.data };
       });
 
     store[url] = promise;

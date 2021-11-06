@@ -1,7 +1,7 @@
 import cookies from 'js-cookie';
 
 pageLoad('age_restricted', () =>
-  $('.confirm').click(() => {
+  $('.b-age_restricted .confirm').on('click', () => {
     cookies.set(
       $('.confirm').data('cookie'),
       true,
