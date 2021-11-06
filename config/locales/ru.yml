@@ -440,6 +440,7 @@ ru:
         private_message_email: Отсылать личные сообщения мне на e-mail
         friend_nickname_change: Уведомления о смене ников друзей
         contest_event: Уведомления о турнирах
+        mention_event: Уведомления об упоминаниях на форуме
     user_preferences:
       body_width:
         x1200: 1200 пикселей

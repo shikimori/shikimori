@@ -44,6 +44,10 @@ private
       ignores.none? { |ignore| ignore.user_id == user.id } &&
         notifications.none? { |message| message.to_id == user.id }
     end
+
+    users.filter do |user|
+      user.notification_settings_mention_event?
+    end
   end
 
   def messages_to_destroy
