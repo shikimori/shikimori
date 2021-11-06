@@ -1,9 +1,6 @@
 module AgeRestrictionsConcern
   extend ActiveSupport::Concern
 
-  # included do
-  # end
-
   def censored_forbidden?
     @is_censored_forbidden ||= begin
       return false if %w[rss os].include? request.format
@@ -34,7 +31,7 @@ module AgeRestrictionsConcern
     return collection unless collection && censored_forbidden?
 
     if collection.respond_to? :any?
-      raise AgeRestricted if collection.count(&:censored?) > (collection.count * 0.333)
+      raise AgeRestricted if collection.count(&:censored?) > (collection.count * 0.1)
 
     elsif collection.respond_to? :censored?
       raise AgeRestricted if collection.censored?
