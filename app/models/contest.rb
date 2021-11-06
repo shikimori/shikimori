@@ -113,7 +113,8 @@ class Contest < ApplicationRecord
   end
 
   def title
-    I18n.russian? ? title_ru : title_en.presence || title_ru
+    # I18n.russian? ? title_ru : title_en.presence || title_ru
+    title_ru
   end
 
   def name
