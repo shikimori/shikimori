@@ -1,0 +1,12 @@
+.cc-2
+  .c-column
+    = simple_form_for resource.object do |f|
+      = f.input :russia_released_on,
+        start_year: Time.zone.now.year + 3,
+        end_year: 1920,
+        include_blank: true
+      = render 'versions/reason'
+
+      .buttons
+        a.cancel href=resource.edit_url = t 'actions.cancel'
+        = f.button :magic_submit

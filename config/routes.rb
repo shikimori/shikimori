@@ -790,7 +790,7 @@ Rails.application.routes.draw do
       status kind episodes rating duration
       screenshots videos torrents_name imageboard_tag coub_tags aired_on released_on genre_ids
       external_links fansubbers fandubbers desynced options licensors
-      is_censored
+      is_censored digital_released_on russia_released_on
     }.join('|'))
 
     member do
