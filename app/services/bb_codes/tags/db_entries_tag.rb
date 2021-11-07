@@ -12,7 +12,7 @@ class BbCodes::Tags::DbEntriesTag
           |
         \s columns = (?<columns>[0-9]+)
           |
-        \s class = (?<class>[\w_-]+)
+        \s class = (?<css_class>[\w_-]+)
           |
         \s (?<wall>wall)
       )+
@@ -27,7 +27,7 @@ class BbCodes::Tags::DbEntriesTag
 
     text.gsub REGEXP do |_matched|
       ids = $LAST_MATCH_INFO[:ids].split(',').map(&:to_i).select { |v| v < 2_147_483_647 }
-      klass = $LAST_MATCH_INFO[:class]
+      css_class = BbCodes::CleanupCssClass.call $LAST_MATCH_INFO[:css_class]
 
       is_wall = $LAST_MATCH_INFO[:wall].present?
       if is_wall
@@ -52,9 +52,9 @@ class BbCodes::Tags::DbEntriesTag
       end
 
       if is_wall
-        klass ||= "cc-#{columns}-g0"
+        css_class ||= "cc-#{columns}-g0"
 
-        "<div class='#{klass} to-process' data-dynamic='aligned_posters' " \
+        "<div class='#{css_class} to-process' data-dynamic='aligned_posters' " \
           "data-columns='#{columns}'>#{entries_html.join}</div>"
 
       else

@@ -15,9 +15,6 @@ class BbCodes::Tags::SpanTag
     \]
   }mix
 
-  FORBIDDEN_CLASSES = BbCodes::Tags::DivTag::FORBIDDEN_CLASSES
-  CLEANUP_CLASSES_REGEXP = BbCodes::Tags::DivTag::CLEANUP_CLASSES_REGEXP
-
   def format text
     return text unless text.include?('[/span]')
 
@@ -54,7 +51,7 @@ private
 
   def class_html value
     if value.present?
-      " class=\"#{cleanup value}\""
+      " class=\"#{BbCodes::CleanupCssClass.call(value)}\""
     else
       ''
     end
@@ -62,12 +59,5 @@ private
 
   def data_html value
     value.presence || ''
-  end
-
-  def cleanup css_classes
-    css_classes
-      .gsub(CLEANUP_CLASSES_REGEXP, '')
-      .gsub(/\s\s+/, '')
-      .strip
   end
 end
