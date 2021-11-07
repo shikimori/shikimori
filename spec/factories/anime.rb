@@ -22,6 +22,8 @@ FactoryBot.define do
     licensors { [] }
     desynced { [] }
     imported_at { nil }
+    digital_released_on { nil }
+    russia_released_on { nil }
 
     after :build do |model|
       stub_method model, :track_changes

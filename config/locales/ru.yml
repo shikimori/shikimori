@@ -64,6 +64,8 @@ ru:
         licensors: Лицензировано
         is_censored: 18+ контент
         source: Источник
+        digital_released_on: Дата цифрового релиза
+        russia_released_on: Премьера в РФ
       manga: &manga_attributes
         <<: *anime_attributes
         aired_on: Дата начала издания

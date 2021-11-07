@@ -52,6 +52,11 @@
                     data-confirm=t('.confirm_rollback')
                   ] = t 'actions.rollback'
 
+              - %i[digital_released_on russia_released_on].each do |field|
+                = render 'db_entries/edit_field_li',
+                  resource: @resource,
+                  field: field
+
           - %i[episodes volumes chapters].each do |field|
             = render 'db_entries/edit_field_li',
               resource: @resource,
