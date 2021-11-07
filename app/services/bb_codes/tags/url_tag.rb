@@ -16,11 +16,11 @@ class BbCodes::Tags::UrlTag
   }mix
 
   REGEXP = %r{
-    \[ url (?:\ (?<class>[\w_\ -]+))? \]
+    \[ url (?:\ (?<css_class>[\w_\ -]+))? \]
       (?<url> #{URL_SYMBOL_CLASS}*? )
     \[/url\]
       |
-    \[ url=(?<url>#{URL_SYMBOL_CLASS}*? ) (?:\ (?<class>[\w_\ -]+))? \]
+    \[ url=(?<url>#{URL_SYMBOL_CLASS}*? ) (?:\ (?<css_class>[\w_\ -]+))? \]
       (?<text> .*? )
     \[/url\]
       |
@@ -34,7 +34,7 @@ class BbCodes::Tags::UrlTag
       escaped_url, is_shikimori = match_url $LAST_MATCH_INFO[:url]
       url = CGI.unescapeHTML escaped_url
       text = match_text $LAST_MATCH_INFO[:text], url
-      css_class = $LAST_MATCH_INFO[:class]
+      css_class = BbCodes::CleanupCssClass.call $LAST_MATCH_INFO[:css_class]
 
       webm_link?(url) ?
         video_bb_code(escaped_url) :
@@ -53,7 +53,7 @@ private
     end
 
     <<~HTML.squish
-      <a class="#{ERB::Util.h css_classes}"
+      <a class="#{css_classes}"
         href="#{ERB::Util.h url}"#{REL unless is_shikimori}>#{ERB::Util.h link_text}</a>
     HTML
   end

@@ -55,7 +55,7 @@ describe BbCodes::Tags::SpanTag do
 
   context 'cleanup classes' do
     let(:text) do
-      "[span=aaa l-footer #{described_class::FORBIDDEN_CLASSES.sample}]test[/span]"
+      "[span=aaa l-footer #{BbCodes::CleanupCssClass::FORBIDDEN_CSS_CLASSES.sample}]test[/span]"
     end
     it { is_expected.to eq '<span class="aaa" data-span>test</span>' }
   end

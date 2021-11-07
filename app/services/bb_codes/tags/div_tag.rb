@@ -20,34 +20,6 @@ class BbCodes::Tags::DivTag
     ) \n?
   }mix
 
-  FORBIDDEN_CLASSES = %w[
-    l-menu
-    l-page
-    l-footer
-    l-top_menu-v2
-    b-comments-notifier
-    b-achievements_notifier
-    b-fancy_loader
-    b-comments
-    b-feedback
-    b-to-top
-    b-height_shortener
-    b-new_marker
-    b-appear_marker
-    shade
-    expand
-    menu-slide-outer
-    menu-slide-inner
-    menu-toggler
-    turbolinks-progress-bar
-    b-admin_panel
-    ban
-  ]
-  CLEANUP_CLASSES_REGEXP = /
-    #{FORBIDDEN_CLASSES.join '|'} |
-    \bl-(?<css_class>[\w_\-]+)
-  /mix
-
   def format text
     return text unless text.include?('[/div]')
 
@@ -84,7 +56,7 @@ private
 
   def class_html value
     if value.present?
-      " class=\"#{cleanup value}\""
+      " class=\"#{BbCodes::CleanupCssClass.call(value)}\""
     else
       ''
     end
@@ -92,12 +64,5 @@ private
 
   def data_html value
     value.presence || ''
-  end
-
-  def cleanup css_classes
-    css_classes
-      .gsub(CLEANUP_CLASSES_REGEXP, '')
-      .gsub(/\s\s+/, '')
-      .strip
   end
 end
