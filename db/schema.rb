@@ -172,6 +172,8 @@ ActiveRecord::Schema.define(version: 2021_11_06_014838) do
     t.text "fandubbers", default: [], null: false, array: true
     t.string "options", default: [], null: false, array: true
     t.string "licensors", default: [], null: false, array: true
+    t.date "digital_released_on"
+    t.date "russia_released_on"
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["rating"], name: "index_animes_on_rating"
