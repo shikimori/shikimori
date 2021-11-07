@@ -43,10 +43,10 @@ html[
 
     - if defined?(notice) && notice
       p.flash-notice
-        == notice
+        = notice
     - if defined?(alert) && alert
       p.flash-alert
-        == alert
+        = alert
 
     - if @layout.blank_layout?
       = sweep_js_exports do
