@@ -9206,6 +9206,8 @@
         - 9531
         - 13047
         - 6087
+        - 15823
+        - 40367
       :generator:
         person_id: 1938
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -14814,6 +14816,7 @@
       :generator:
         ignore_latest_ids:
         - 42916
+        - 50275
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :sword_art_online
@@ -14860,6 +14863,7 @@
       :generator:
         ignore_latest_ids:
         - 42916
+        - 50275
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :sword_art_online
