@@ -32,18 +32,25 @@ private
     end
   end
 
-  def users_to_notify # rubocop:disable AbcSize
-    users = (new_quoted.users - old_quoted.users)
-      .reject { |user| user.id == @user.id }
-    return [] if users.none?
+  def users_to_notify
+    return [] if quoted_users.none?
+
+    users = quoted_users
 
     ignores = Ignore.where(user_id: users.map(&:id), target: @user)
     notifications = notifications_scope(users).to_a
 
-    users.select do |user|
+    users.filter! do |user|
       ignores.none? { |ignore| ignore.user_id == user.id } &&
         notifications.none? { |message| message.to_id == user.id }
     end
+
+    users.filter(&:notification_settings_mention_event?)
+  end
+
+  def quoted_users
+    (new_quoted.users - old_quoted.users)
+      .reject { |user| user.id == @user.id }
   end
 
   def messages_to_destroy

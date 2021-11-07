@@ -149,6 +149,7 @@ en:
         website: Website
         locale: Language
         notification_settings: Notification Settings
+        mention_event: Forum mention notifications
       user_rate:
         status: Status
         episodes: Episodes

@@ -91,6 +91,22 @@ describe Comments::NotifyQuoted do
     it { expect { subject }.to_not change Message, :count }
   end
 
+  context 'mention to user with disabled mention notifications' do
+    before do
+      quoted_user.update!(
+        notification_settings: quoted_user.notification_settings.values - [
+          Types::User::NotificationSettings[:mention_event].to_s
+        ]
+      )
+    end
+    it { expect { subject }.to_not change Message, :count }
+  end
+
+  context 'mention to user with enabled mention notifications' do
+    before { user.notification_settings << Types::User::NotificationSettings[:mention_event] }
+    it { expect { subject }.to change Message, :count }
+  end
+
   context 'single quote' do
     let(:new_body) do
       <<~TEXT
