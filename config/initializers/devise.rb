@@ -287,7 +287,7 @@ Devise.setup do |config|
           # linode england
           uri: Rails.application.secrets.proxy[:url],
           user: Rails.application.secrets.proxy[:login],
-          password: Rails.application.secrets.proxy[:login]
+          password: Rails.application.secrets.proxy[:password]
         }
       }
     }
