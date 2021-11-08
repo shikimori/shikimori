@@ -207,8 +207,8 @@ private
       # convert -resize 50% app/assets/images/globals/events/special_menu_1@2x.png app/assets/images/globals/events/special_menu_1.png
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://bit.ly/3CV8BeA',
-        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
+        url: 'https://bit.ly/3mU0bP2',
+        # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
         images: (1..2).map do |i|
           {
             src: "/assets/globals/events/special_menu_#{i}.jpg",
@@ -226,8 +226,8 @@ private
       # convert -resize 50% app/assets/images/globals/events/special_wide_1@2x.png app/assets/images/globals/events/special_wide_1.png
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://bit.ly/3CV8BeA',
-        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
+        url: 'https://bit.ly/3mU0bP2',
+        # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
         images: (1..3).map do |i|
           {
             src: "/assets/globals/events/special_wide_#{i}.jpg",
@@ -325,8 +325,8 @@ private
       # disable after 2021-11-30 23:55
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://bit.ly/3CV8BeA',
-        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
+        url: 'https://bit.ly/3mU0bP2',
+        # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
         images: (1..1).map do |i|
           {
             src: "/assets/globals/events/special_menu_#{i}.png",
@@ -343,8 +343,8 @@ private
       # disable after 2021-11-30 23:55
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://bit.ly/3CV8BeA',
-        pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
+        url: 'https://bit.ly/3mU0bP2',
+        # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
         images: (1..1).map do |i|
           {
             src: "/assets/globals/events/special_wide_#{i}.png",
