@@ -35,8 +35,15 @@ pageLoad(
   }
 );
 
+function enableSaveButtons() {
+  $('[id*="submit_collection"]').removeAttr('disabled')
+}
+
 async function initVueApp() {
-  if (!$('#vue_collection_links').exists()) { return; }
+  if (!$('#vue_collection_links').exists()) {
+    enableSaveButtons()
+    return;
+  }
 
   const { createApp } = await import(/* webpackChunkName: "vue" */ 'vue');
   const { createStore } = await import(/* webpackChunkName: "vuex" */ 'vuex');
@@ -55,4 +62,6 @@ async function initVueApp() {
   app.use(store);
   app.config.globalProperties.I18n = I18n;
   app.mount('#vue_collection_links');
+
+  enableSaveButtons()
 }
