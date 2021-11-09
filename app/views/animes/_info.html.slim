@@ -66,11 +66,12 @@
       - if @resource.license_name_ru.present?
         span itemprop="alternativeHeadline" == @resource.license_name_ru
 
-  - if entry.digital_released_on.present?
-    = info_line(Anime.human_attribute_name(:digital_released_on), formatted_date(entry.digital_released_on, true))
+  - if entry.respond_to? :digital_released_on
+    - if entry.digital_released_on
+      = info_line(Anime.human_attribute_name(:digital_released_on), formatted_date(entry.digital_released_on, true))
 
-  - if entry.russia_released_on.present?
-    = info_line(Anime.human_attribute_name(:russia_released_on), formatted_date(entry.russia_released_on, true))
+    - if entry.russia_released_on
+      = info_line(Anime.human_attribute_name(:russia_released_on), formatted_date(entry.russia_released_on, true))
 
   - if entry.japanese.present? || entry.english.present? || entry.synonyms.present?
     = info_line t('.other_names') do

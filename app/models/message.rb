@@ -3,8 +3,8 @@ class Message < ApplicationRecord
   include AntispamConcern
   include Translation
 
-  belongs_to :from, class_name: User.name
-  belongs_to :to, class_name: User.name, touch: true
+  belongs_to :from, class_name: 'User'
+  belongs_to :to, class_name: 'User', touch: true
   belongs_to :linked, polymorphic: true, optional: true
 
   antispam(
@@ -19,10 +19,12 @@ class Message < ApplicationRecord
   validates :body,
     presence: true,
     length: { minimum: 2, maximum: 20_000 },
-    if: -> { kind == MessageType::PRIVATE }
+    if: -> { kind == MessageType::PRIVATE && will_save_change_to_body? }
 
   before_create :check_spam_abuse,
-    if: -> { kind == MessageType::PRIVATE && !from.bot? }
+    if: -> {
+      kind == MessageType::PRIVATE && !from.bot? && will_save_change_to_body?
+    }
   after_create :send_email
 
   def new? params

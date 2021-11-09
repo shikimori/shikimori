@@ -1,5 +1,6 @@
 describe Comment::ConvertToReview do
-  subject { described_class.call comment }
+  subject { described_class.call comment, options }
+  let(:options) { {} }
   let(:comment) do
     create :comment,
       body: 'x' * Review::MIN_BODY_SIZE,
@@ -18,5 +19,14 @@ describe Comment::ConvertToReview do
       is_written_before_release: false
     )
     expect { comment.reload }.to raise_error ActiveRecord::RecordNotFound
+  end
+
+  context 'is_keep_comment' do
+    let(:options) { { is_keep_comment: true } }
+
+    it do
+      is_expected.to be_persisted
+      expect(comment.reload).to be_persisted
+    end
   end
 end

@@ -12,8 +12,11 @@ describe Message do
     it { is_expected.to_not validate_presence_of :body }
 
     context 'private' do
-      before { subject.kind = MessageType::PRIVATE }
-      it { is_expected.to validate_presence_of :body }
+      before do
+        subject.kind = MessageType::PRIVATE
+        subject.body = 'zxc'
+      end
+      # it { is_expected.to validate_presence_of :body }
       it { is_expected.to validate_length_of(:body).is_at_most(20000) }
     end
 
