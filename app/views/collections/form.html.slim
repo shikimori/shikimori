@@ -166,7 +166,7 @@ header.head.misc
     .block2
       .buttons
         a.cancel href=collections_url = t 'actions.cancel'
-        = f.button :magic_submit
+        = f.button :magic_submit, disabled: true
 
       - if @resource.persisted? && can?(:destroy, @resource)
         a.remove[
@@ -183,4 +183,4 @@ header.head.misc
 
       .buttons
         a.cancel href=collections_url = t 'actions.cancel'
-        = f.button :magic_submit
+        = f.button :magic_submit, disabled: true
