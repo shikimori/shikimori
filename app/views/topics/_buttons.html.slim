@@ -9,7 +9,8 @@ aside.buttons
       data-remote='true'
       data-type='json'
     ]
-    - if !topic_view.topic.is_closed? && topic_view.topic_type_policy.commentable_topic?
+    - if !topic_view.topic.is_closed? && topic_view.topic_type_policy.commentable_topic? && \
+         !(params[:forum] == 'critiques' && controller.action_name == 'index')
       span.item-quote.to-process[
         title=t('actions.quote')
         data-text=t('actions.quote')
