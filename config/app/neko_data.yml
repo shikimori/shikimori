@@ -281,6 +281,7 @@
         - 40594
         - 42571
         - 48488
+        - 48926
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: &2
     :neko_id:
@@ -597,6 +598,7 @@
         - 40594
         - 42571
         - 48488
+        - 48926
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -892,6 +894,7 @@
         - 40594
         - 42571
         - 48488
+        - 48926
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -3812,7 +3815,7 @@
   attributes:
     :neko_id: :police
     :level: 4
-    :image: "/assets/achievements/anime/police_4.jpg"
+    :image: "/assets/achievements/anime/police_4.gif"
     :border_color: "#c7d0cc"
     :title_ru: Вершина иерархии
     :text_ru: Как вы себя чувствуете, забравшись так далеко?
@@ -3834,7 +3837,7 @@
   default_values: *2
   neko_id: :police
   level: 4
-  image: "/assets/achievements/anime/police_4.jpg"
+  image: "/assets/achievements/anime/police_4.gif"
   border_color: "#c7d0cc"
   title_ru: Вершина иерархии
   text_ru: Как вы себя чувствуете, забравшись так далеко?
@@ -8544,6 +8547,7 @@
         - 34126
         - 41930
         - 40778
+        - 35960
       :generator:
         person_id: 2885
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -10059,6 +10063,7 @@
         - 2253
         - 2252
         - 43741
+        - 5563
       :generator:
         person_id: 2992
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
