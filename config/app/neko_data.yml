@@ -281,6 +281,7 @@
         - 40594
         - 42571
         - 48488
+        - 48926
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: &2
     :neko_id:
@@ -597,6 +598,7 @@
         - 40594
         - 42571
         - 48488
+        - 48926
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -892,6 +894,7 @@
         - 40594
         - 42571
         - 48488
+        - 48926
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -3812,7 +3815,7 @@
   attributes:
     :neko_id: :police
     :level: 4
-    :image: "/assets/achievements/anime/police_4.jpg"
+    :image: "/assets/achievements/anime/police_4.gif"
     :border_color: "#c7d0cc"
     :title_ru: Вершина иерархии
     :text_ru: Как вы себя чувствуете, забравшись так далеко?
@@ -3834,7 +3837,7 @@
   default_values: *2
   neko_id: :police
   level: 4
-  image: "/assets/achievements/anime/police_4.jpg"
+  image: "/assets/achievements/anime/police_4.gif"
   border_color: "#c7d0cc"
   title_ru: Вершина иерархии
   text_ru: Как вы себя чувствуете, забравшись так далеко?
@@ -8544,6 +8547,7 @@
         - 34126
         - 41930
         - 40778
+        - 35960
       :generator:
         person_id: 2885
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -8859,63 +8863,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :chiaki_kon
-    :level: 1
-    :image: "/assets/achievements/anime/author/chiaki_kon.jpg"
-    :border_color: "#ED8859"
-    :title_ru: Тиаки Кон
-    :text_ru:
-    :title_en: Chiaki Kon
-    :text_en:
-    :topic_id: 276032
-    :rule: &88
-      :algo: count
-      :threshold: 65%
-      :filters:
-        anime_ids:
-        - 934
-        - 1889
-        - 2899
-        - 6064
-        - 4896
-        - 3092
-        - 4814
-        - 25649
-        - 13767
-        - 8063
-        - 9926
-        - 11123
-        - 20371
-        - 4477
-        - 5690
-        - 5835
-        - 8476
-        - 12967
-        - 16890
-        - 21781
-        - 36873
-        - 17895
-        - 31733
-        - 43692
-        - 40024
-        - 48707
-      :generator:
-        person_id: 6831
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :chiaki_kon
-  level: 1
-  image: "/assets/achievements/anime/author/chiaki_kon.jpg"
-  border_color: "#ED8859"
-  title_ru: Тиаки Кон
-  text_ru:
-  title_en: Chiaki Kon
-  text_en:
-  topic_id: 276032
-  rule: *88
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :hideaki_anno
     :level: 1
     :image: "/assets/achievements/anime/author/hideaki_anno.jpg"
@@ -8925,7 +8872,7 @@
     :title_en: Hideaki Anno
     :text_en:
     :topic_id: 276032
-    :rule: &89
+    :rule: &88
       :algo: count
       :threshold: 58%
       :filters:
@@ -8974,6 +8921,63 @@
   title_ru: Хидэаки Анно
   text_ru:
   title_en: Hideaki Anno
+  text_en:
+  topic_id: 276032
+  rule: *88
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :chiaki_kon
+    :level: 1
+    :image: "/assets/achievements/anime/author/chiaki_kon.jpg"
+    :border_color: "#ED8859"
+    :title_ru: Тиаки Кон
+    :text_ru:
+    :title_en: Chiaki Kon
+    :text_en:
+    :topic_id: 276032
+    :rule: &89
+      :algo: count
+      :threshold: 65%
+      :filters:
+        anime_ids:
+        - 934
+        - 1889
+        - 2899
+        - 6064
+        - 4896
+        - 3092
+        - 4814
+        - 25649
+        - 13767
+        - 8063
+        - 9926
+        - 11123
+        - 20371
+        - 4477
+        - 5690
+        - 5835
+        - 8476
+        - 12967
+        - 16890
+        - 21781
+        - 36873
+        - 17895
+        - 31733
+        - 43692
+        - 40024
+        - 48707
+      :generator:
+        person_id: 6831
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :chiaki_kon
+  level: 1
+  image: "/assets/achievements/anime/author/chiaki_kon.jpg"
+  border_color: "#ED8859"
+  title_ru: Тиаки Кон
+  text_ru:
+  title_en: Chiaki Kon
   text_en:
   topic_id: 276032
   rule: *89
@@ -9570,6 +9574,45 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :satoshi_kon
+    :level: 1
+    :image: "/assets/achievements/anime/author/satoshi_kon.png"
+    :border_color: "#FF0000"
+    :title_ru: Сатоси Кон
+    :text_ru:
+    :title_en: Satoshi Kon
+    :text_en:
+    :topic_id: 276032
+    :rule: &99
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 2832
+        - 1943
+        - 323
+        - 759
+        - 1033
+        - 437
+        - 1462
+        - 2000
+      :generator:
+        person_id: 4580
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :satoshi_kon
+  level: 1
+  image: "/assets/achievements/anime/author/satoshi_kon.png"
+  border_color: "#FF0000"
+  title_ru: Сатоси Кон
+  text_ru:
+  title_en: Satoshi Kon
+  text_en:
+  topic_id: 276032
+  rule: *99
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :masamune_shirow
     :level: 1
     :image: "/assets/achievements/anime/author/masamune_shirow.jpg"
@@ -9579,7 +9622,7 @@
     :title_en: Masamune Shirow
     :text_en:
     :topic_id: 276032
-    :rule: &99
+    :rule: &100
       :algo: count
       :threshold: 89%
       :filters:
@@ -9615,45 +9658,6 @@
   title_ru: Масамунэ Сиро
   text_ru:
   title_en: Masamune Shirow
-  text_en:
-  topic_id: 276032
-  rule: *99
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :satoshi_kon
-    :level: 1
-    :image: "/assets/achievements/anime/author/satoshi_kon.png"
-    :border_color: "#FF0000"
-    :title_ru: Сатоси Кон
-    :text_ru:
-    :title_en: Satoshi Kon
-    :text_en:
-    :topic_id: 276032
-    :rule: &100
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 2832
-        - 1943
-        - 323
-        - 759
-        - 1033
-        - 437
-        - 1462
-        - 2000
-      :generator:
-        person_id: 4580
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :satoshi_kon
-  level: 1
-  image: "/assets/achievements/anime/author/satoshi_kon.png"
-  border_color: "#FF0000"
-  title_ru: Сатоси Кон
-  text_ru:
-  title_en: Satoshi Kon
   text_en:
   topic_id: 276032
   rule: *100
@@ -10059,6 +10063,7 @@
         - 2253
         - 2252
         - 43741
+        - 5563
       :generator:
         person_id: 2992
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -14812,7 +14817,7 @@
         - 40489
         - 41341
         - 42128
-      :threshold: 95%
+      :threshold: 93%
       :generator:
         ignore_latest_ids:
         - 42916
@@ -15029,7 +15034,7 @@
         not_anime_ids:
         - 35262
         - 43683
-      :threshold: 94.5%
+      :threshold: 94.7%
       :generator:
         ignore_latest_ids:
         - 39565
@@ -16388,7 +16393,7 @@
         - 40469
         - 40761
         - 49633
-      :threshold: 90%
+      :threshold: 88.9%
       :generator:
         ignore_latest_ids:
         - 33050
@@ -19713,6 +19718,8 @@
         - 41188
         - 41189
         - 41204
+        - 50059
+        - 50066
       :threshold: 95.5%
       :generator:
         not_ignored_ids:
@@ -19777,6 +19784,8 @@
         - 41188
         - 41189
         - 41204
+        - 50059
+        - 50066
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -20489,7 +20498,7 @@
         - 42174
         - 42914
         - 42984
-      :threshold: 92.7%
+      :threshold: 92.6%
       :generator:
         ignore_latest_ids:
         - 37966
@@ -21937,7 +21946,7 @@
         - 38653
         - 42449
         - 48617
-      :threshold: 95.1%
+      :threshold: 95.2%
       :generator:
         ignore_latest_ids:
         - 48903
@@ -22263,6 +22272,7 @@
         - 42439
         - 43204
         - 49941
+        - 50084
       :threshold: 87.3%
       :generator:
         ignore_latest_ids:
@@ -22353,6 +22363,7 @@
         - 42439
         - 43204
         - 49941
+        - 50084
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -22667,7 +22678,7 @@
         - 40348
         - 42476
         - 47413
-      :threshold: 93.8%
+      :threshold: 93.9%
       :generator:
         ignore_latest_ids:
         - 38770
@@ -22993,7 +23004,6 @@
         not_anime_ids:
         - 1631
         - 15979
-        - 36232
       :threshold: 95%
       :generator:
         ignore_latest_ids:
@@ -23029,7 +23039,6 @@
         not_anime_ids:
         - 1631
         - 15979
-        - 36232
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -24596,7 +24605,7 @@
         - 40753
         - 42882
         - 49735
-      :threshold: 88.1%
+      :threshold: 87.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :idolmaster
@@ -25932,7 +25941,7 @@
         - 41377
         - 48772
         - 48773
-      :threshold: 88.5%
+      :threshold: 88.3%
       :generator:
         not_ignored_ids:
         - 38986
@@ -26948,7 +26957,7 @@
         franchise: digimon
         not_anime_ids:
         - 4712
-      :threshold: 93.4%
+      :threshold: 92.7%
       :generator:
         ignore_latest_ids:
         - 38088
@@ -27476,7 +27485,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.2%
+      :threshold: 91.6%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -29237,6 +29246,7 @@
         - 12337
         - 12439
         - 12441
+        - 49936
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -29271,6 +29281,7 @@
         - 12337
         - 12439
         - 12441
+        - 49936
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -30063,35 +30074,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :jigoku_sensei_nube
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
-    :border_color:
-    :title_ru: Адский учитель Нубэ
-    :text_ru:
-    :title_en: Jigoku Sensei Nube
-    :text_en:
-    :topic_id: 247360
-    :rule: &582
-      :algo: duration
-      :filters:
-        franchise: jigoku_sensei_nube
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :jigoku_sensei_nube
-  level: 0
-  image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
-  border_color:
-  title_ru: Адский учитель Нубэ
-  text_ru:
-  title_en: Jigoku Sensei Nube
-  text_en:
-  topic_id: 247360
-  rule: *582
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :saber_marionette_j
     :level: 0
     :image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
@@ -30101,7 +30083,7 @@
     :title_en: Saber Marionette J
     :text_en:
     :topic_id: 247360
-    :rule: &583
+    :rule: &582
       :algo: duration
       :filters:
         franchise: saber_marionette_j
@@ -30115,6 +30097,35 @@
   title_ru: Воины-марионетки Джей
   text_ru:
   title_en: Saber Marionette J
+  text_en:
+  topic_id: 247360
+  rule: *582
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :jigoku_sensei_nube
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+    :border_color:
+    :title_ru: Адский учитель Нубэ
+    :text_ru:
+    :title_en: Jigoku Sensei Nube
+    :text_en:
+    :topic_id: 247360
+    :rule: &583
+      :algo: duration
+      :filters:
+        franchise: jigoku_sensei_nube
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :jigoku_sensei_nube
+  level: 0
+  image: "/assets/achievements/anime/franchise/jigoku_sensei_nube.jpg"
+  border_color:
+  title_ru: Адский учитель Нубэ
+  text_ru:
+  title_en: Jigoku Sensei Nube
   text_en:
   topic_id: 247360
   rule: *583
