@@ -87,7 +87,7 @@ describe BbCodes::Tags::DivTag do
 
   context 'cleanup classes' do
     let(:text) do
-      "[div=aaa l-footer #{described_class::FORBIDDEN_CLASSES.sample}]test[/div]"
+      "[div=aaa l-footer #{BbCodes::CleanupCssClass::FORBIDDEN_CSS_CLASSES.sample}]test[/div]"
     end
     it { is_expected.to eq '<div class="aaa" data-div>test</div>' }
   end

@@ -329,8 +329,8 @@ private
         # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
         images: (1..1).map do |i|
           {
-            src: "/assets/globals/events/special_menu_#{i}.png",
-            src_2x: "/assets/globals/events/special_menu_#{i}@2x.png"
+            src: "/assets/globals/events/special_menu_#{i}.jpg",
+            src_2x: "/assets/globals/events/special_menu_#{i}@2x.jpg"
           }
         end,
         rules: {
@@ -347,8 +347,8 @@ private
         # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
         images: (1..1).map do |i|
           {
-            src: "/assets/globals/events/special_wide_#{i}.png",
-            src_2x: "/assets/globals/events/special_wide_#{i}@2x.png"
+            src: "/assets/globals/events/special_wide_#{i}.jpg",
+            src_2x: "/assets/globals/events/special_wide_#{i}@2x.jpg"
           }
         end,
         # html: (

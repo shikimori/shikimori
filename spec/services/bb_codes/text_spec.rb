@@ -8,8 +8,8 @@ describe BbCodes::Text do
 
     describe '#cleanup' do
       describe 'smileys' do
-        describe 'multiple with spaces' do
-          let(:text) { ':):D:-D' }
+        describe 'w/o spaces' do
+          let(:text) { ':):D:-D:scream:' }
           it do
             is_expected.to eq(
               '<img src="/images/smileys/:).gif" alt=":)" title=":)" class="smiley">'
@@ -26,41 +26,40 @@ describe BbCodes::Text do
           end
         end
 
-        describe 'multiple' do
-          let(:text) { ':):D :-D' }
-          it { is_expected.to eq '<img src="/images/smileys/:).gif" alt=":)" title=":)" class="smiley">' }
+        describe 'with spaces' do
+          let(:text) { ':):D:-D :scream:' }
+          it do
+            is_expected.to eq(
+              '<img src="/images/smileys/:).gif" alt=":)" title=":)" class="smiley">'
+            )
+          end
         end
-
-        describe 'different' do
-          let(:text) { ':D:D:D:D:tea2:' }
-          it { is_expected.to eq '<img src="/images/smileys/:D.gif" alt=":D" title=":D" class="smiley">' }
-        end
       end
 
-      describe '!!!!' do
-        let(:text) { '!!!!' }
-        it { is_expected.to eq '!' }
-      end
+      # describe '!!!!' do
+      #   let(:text) { '!!!!' }
+      #   it { is_expected.to eq '!' }
+      # end
 
-      describe '???' do
-        let(:text) { '???' }
-        it { is_expected.to eq '?' }
-      end
+      # describe '???' do
+      #   let(:text) { '???' }
+      #   it { is_expected.to eq '???' }
+      # end
 
-      describe '.....' do
-        let(:text) { '.....' }
-        it { is_expected.to eq '.' }
-      end
+      # describe '.....' do
+      #   let(:text) { '.....' }
+      #   it { is_expected.to eq text }
+      # end
 
-      describe '))))))' do
-        let(:text) { '))))))' }
-        it { is_expected.to eq ')' }
-      end
+      # describe '))))))' do
+      #   let(:text) { '))))))' }
+      #   it { is_expected.to eq text }
+      # end
 
-      describe '(((' do
-        let(:text) { '(((' }
-        it { is_expected.to eq '(' }
-      end
+      # describe '(((' do
+      #   let(:text) { '(((' }
+      #   it { is_expected.to eq text }
+      # end
 
       describe 'bad html' do
         let(:text) { '[quote][spoiler=qwe]test[/quote][/spoiler]' }

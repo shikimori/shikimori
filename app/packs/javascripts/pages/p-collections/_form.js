@@ -36,12 +36,12 @@ pageLoad(
 );
 
 function enableSaveButtons() {
-  $('[id*="submit_collection"]').removeAttr('disabled')
+  $('[id*="submit_collection"]').removeAttr('disabled');
 }
 
 async function initVueApp() {
   if (!$('#vue_collection_links').exists()) {
-    enableSaveButtons()
+    enableSaveButtons();
     return;
   }
 
@@ -63,5 +63,5 @@ async function initVueApp() {
   app.config.globalProperties.I18n = I18n;
   app.mount('#vue_collection_links');
 
-  enableSaveButtons()
+  enableSaveButtons();
 }
