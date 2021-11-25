@@ -1,8 +1,8 @@
 # TODO: выпилить anime_statuses, :manga_statuses
 class UserProfileSerializer < UserSerializer
   attributes :name, :sex, :full_years, :last_online, :last_online_at,
-    :website, :location, :last_online_at, :banned, :about, :about_html,
-    :common_info, :last_online, :show_comments, :in_friends, :is_ignored,
+    :website, :location, :banned, :about, :about_html,
+    :common_info, :show_comments, :in_friends, :is_ignored,
     :stats, :style_id
 
   delegate :common_info, :full_years, to: :view
@@ -73,3 +73,4 @@ private
     @view ||= Profiles::View.new object
   end
 end
+
