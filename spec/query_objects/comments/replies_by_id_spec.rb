@@ -1,4 +1,4 @@
-describe Comments::Replies do
+describe Comments::RepliesById do
   subject { described_class.call comment }
 
   let(:commentable_1) { site_rules_topic }

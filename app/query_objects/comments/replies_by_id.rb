@@ -1,4 +1,4 @@
-class Comments::Replies
+class Comments::RepliesById
   method_object :comment
 
   def call

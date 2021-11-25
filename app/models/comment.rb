@@ -142,7 +142,7 @@ class Comment < ApplicationRecord
   def mark_offtopic flag
     if flag
       # mark comment thread as offtopic
-      ids = Comments::Replies.call(self).map(&:id) + [id]
+      ids = Comments::RepliesById.call(self).map(&:id) + [id]
       Comment
         .where.not(id: id)
         .where(id: ids)
