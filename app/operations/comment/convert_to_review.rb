@@ -9,11 +9,8 @@ class Comment::ConvertToReview
     Review.wo_antispam { review.save! }
 
     unless @is_keep_comment
-      Comments::Move.call(
-        comment_ids: Comments::RepliesByBbCode.call(@comment).map(&:id),
-        commentable: review
-      )
-      comment.destroy!
+      Comments::Move.call comment_ids: replies_ids, commentable: review
+      @comment.destroy!
     end
 
     NamedLogger.convert_to_review.info review.to_json
@@ -30,13 +27,22 @@ private
       anime: (db_entry if db_entry.anime?),
       manga: (db_entry if db_entry.manga? || db_entry.ranobe?),
       opinion: opinion,
-      created_at: comment.created_at,
-      updated_at: comment.updated_at
+      created_at: @comment.created_at,
+      updated_at: @comment.updated_at
     )
   end
 
   def db_entry
     @comment.commentable.linked
+  end
+
+  def replies_ids
+    Comments::RepliesByBbCode
+      .call(
+        model: @comment,
+        commentable: @comment.commentable
+      )
+      .map(&:id)
   end
 
   def opinion
