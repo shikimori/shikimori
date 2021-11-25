@@ -2,7 +2,7 @@ class Version < ApplicationRecord
   include AntispamConcern
 
   antispam(
-    per_day: 25,
+    per_day: 50,
     disable_if: -> { item_diff['description_ru'].present? || user.staff? },
     scope: -> { where "(item_diff->>'description_ru') is null" },
     user_id_key: :user_id
