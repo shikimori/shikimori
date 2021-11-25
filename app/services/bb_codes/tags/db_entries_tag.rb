@@ -52,18 +52,25 @@ class BbCodes::Tags::DbEntriesTag
       end
 
       if is_wall
-        css_class ||= "cc-#{columns}-g0"
+        css_class = [
+          "cc-#{columns}-g0",
+          css_class
+        ].compact.join(' ')
 
         "<div class='#{css_class} to-process' data-dynamic='aligned_posters' " \
           "data-columns='#{columns}'>#{entries_html.join}</div>"
 
       else
-        klass ||= "cc-#{columns}#{'-g15' if columns >= 6}"
+        css_class = [
+          "cc-#{columns}#{'-g15' if columns >= 6}",
+          css_class
+        ].compact.join(' ')
+
         ratio_type = [Character, Person].include?(type_to_klass($LAST_MATCH_INFO[:type])) ?
           " data-ratio_type='person'" :
           ''
 
-        "<div class='#{klass} m0 to-process' "\
+        "<div class='#{css_class} m0 to-process' "\
           "data-dynamic='cutted_covers'#{ratio_type}>#{entries_html.join}</div>"
       end
     end

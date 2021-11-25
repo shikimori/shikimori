@@ -63,7 +63,7 @@ describe BbCodes::Tags::DbEntriesTag do
     let(:anime) { create :anime }
     let(:text) { "[animes ids=#{anime.id} class=zxc-vb_n]" }
 
-    it { expect(html).to include "<div class='zxc-vb_n " }
+    it { expect(html).to include "<div class='cc-8-g15 zxc-vb_n " }
   end
 
   describe 'cover_notice' do
