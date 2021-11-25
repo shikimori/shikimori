@@ -7,7 +7,14 @@ class Comment::ConvertToReview
     review.instance_variable_set :@is_migration, true
 
     Review.wo_antispam { review.save! }
-    comment.destroy! unless @is_keep_comment
+
+    unless @is_keep_comment
+      Comments::Move.call(
+        comment_ids: Comments::RepliesByBbCode.call(@comment).map(&:id),
+        commentable: review
+      )
+      comment.destroy!
+    end
 
     NamedLogger.convert_to_review.info review.to_json
 
