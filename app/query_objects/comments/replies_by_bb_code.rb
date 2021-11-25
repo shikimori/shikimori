@@ -1,14 +1,14 @@
 class Comments::RepliesByBbCode
-  method_object :comment
+  method_object %i[model! commentable!]
 
   def call
-    fetch @comment, [@comment.id.to_s]
+    fetch @model.body, [@model.id.to_s]
   end
 
 private
 
-  def fetch comment, processed_ids
-    comment.body
+  def fetch text, processed_ids
+    text
       .scan(BbCodes::Tags::RepliesTag::REGEXP)
       .map do |_, _, ids|
         ids.split(',').map { |id| process id, processed_ids }
@@ -22,11 +22,11 @@ private
     processed_ids.push comment_id
     comment = Comment.find_by(
       id: comment_id,
-      commentable_id: @comment.commentable_id,
-      commentable_type: @comment.commentable_type
+      commentable_id: @commentable.id,
+      commentable_type: @commentable.class.base_class.name
     )
     return [] unless comment
 
-    [comment] + fetch(comment, processed_ids)
+    [comment] + fetch(comment.body, processed_ids)
   end
 end

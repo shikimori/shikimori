@@ -1,5 +1,10 @@
 describe Comments::RepliesByBbCode do
-  subject { described_class.call comment }
+  subject do
+    described_class.call(
+      model: comment,
+      commentable: comment.commentable
+    )
+  end
 
   let(:commentable_1) { site_rules_topic }
   let(:commentable_2) { offtopic_topic }

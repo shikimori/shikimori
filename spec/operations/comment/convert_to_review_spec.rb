@@ -6,10 +6,14 @@ describe Comment::ConvertToReview do
       body: ('x' * Review::MIN_BODY_SIZE) + "\n[replies=#{reply_1.id},#{reply_2.id}]",
       commentable: anime_topic
   end
-  let(:anime_topic) { create :topic, linked: anime }
+  let(:anime_topic) { create :anime_topic, linked: anime }
   let(:anime) { create :anime }
 
-  let(:reply_1) { create :comment, body: "zxc [replies=#{reply_3.id}]", commentable: anime_topic }
+  let(:reply_1) do
+    create :comment,
+      body: "zxc [replies=#{reply_3.id}]",
+      commentable: anime_topic
+  end
   let(:reply_2) { create :comment, commentable: anime_topic }
   let(:reply_3) { create :comment, commentable: anime_topic }
 

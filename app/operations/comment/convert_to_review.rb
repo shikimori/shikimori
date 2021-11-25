@@ -30,7 +30,8 @@ private
       anime: (db_entry if db_entry.anime?),
       manga: (db_entry if db_entry.manga? || db_entry.ranobe?),
       opinion: opinion,
-      created_at: comment.created_at
+      created_at: comment.created_at,
+      updated_at: comment.updated_at
     )
   end
 

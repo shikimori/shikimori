@@ -67,6 +67,10 @@ class Review < ApplicationRecord
     anime_id || manga_id
   end
 
+  def locale
+    :ru
+  end
+
   def db_entry_released_before? # rubocop:disable all
     # db_entry.released? &&
       # (!db_entry.released_on || db_entry.released_on <= Time.zone.today)
