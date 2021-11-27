@@ -6,7 +6,7 @@ class Animes::Filters::Policy
     MUSIC_REGEXP = /(?:\A|,)#{Types::Anime::Kind[:music]}\b/
     DOUJIN_REGEXP = /(?:\A|,)#{Types::Manga::Kind[:doujin]}\b/
 
-    HENTAI_GENRES_IDS = Genre::CENSORED_IDS
+    HENTAI_GENRES_IDS = Genre::CENSORED_IDS + Genre::DOUJINSHI_IDS
     HENTAI_GENRES_REGEXP = /(?:\A|,)(?:#{HENTAI_GENRES_IDS.join '|'})\b/
 
     def exclude_hentai? params
