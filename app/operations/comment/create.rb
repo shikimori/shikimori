@@ -10,7 +10,7 @@ class Comment::Create
     @faye.create comment
 
     notify_user comment if profile_comment?
-    touch_topic comment if topic_comment?
+    touch_topic comment if topic_comment? || db_entry_comment?
 
     comment
   end
@@ -63,6 +63,10 @@ private
 
   def topic_comment?
     commentable_klass <= Topic
+  end
+
+  def db_entry_comment?
+    commentable_klass <= DbEntry
   end
 
   def profile_comment?

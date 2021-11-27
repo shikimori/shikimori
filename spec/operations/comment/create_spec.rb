@@ -92,43 +92,52 @@ describe Comment::Create do
         )
       end
     end
-  end
 
-  context 'commentable is db entry with topic' do
-    let(:commentable_id) { anime.id }
-    let(:commentable_type) { Anime.name }
+    context 'commentable is db entry' do
+      context 'with topic' do
+        let(:commentable_id) { anime.id }
+        let(:commentable_type) { Anime.name }
 
-    it_behaves_like :comment
-    its(:topic) { is_expected.to eq topic }
-  end
+        it_behaves_like :comment
+        it do
+          expect(subject.topic).to eq topic
+          expect(subject.updated_at).to be_within(0.1).of Time.zone.now
+        end
+      end
 
-  context 'commentable is db entry with topic for different locale' do
-    let(:commentable_id) { anime.id }
-    let(:commentable_type) { Anime.name }
+      context 'with topic for different locale' do
+        let(:commentable_id) { anime.id }
+        let(:commentable_type) { Anime.name }
 
-    let(:topic_locale) { (Shikimori::DOMAIN_LOCALES - [locale]).sample }
-    let(:topic) { create :anime_topic, user: user, linked: anime, locale: topic_locale }
+        let(:topic_locale) { (Shikimori::DOMAIN_LOCALES - [locale]).sample }
+        let(:topic) { create :anime_topic, user: user, linked: anime, locale: topic_locale }
 
-    it_behaves_like :comment
-    it 'creates anime topic with specified locale' do
-      expect(subject.topic).to have_attributes(
-        type: Topics::EntryTopics::AnimeTopic.name,
-        locale: locale.to_s
-      )
-    end
-  end
+        it_behaves_like :comment
+        it 'creates anime topic with specified locale' do
+          expect(subject.topic).to have_attributes(
+            type: Topics::EntryTopics::AnimeTopic.name,
+            locale: locale.to_s
+          )
+          expect(subject.topic.created_at).to be_within(0.1).of Time.zone.now
+          expect(subject.topic.updated_at).to be_within(0.1).of Time.zone.now
+        end
+      end
 
-  context 'commentable is db entry without topic' do
-    let(:commentable_id) { anime.id }
-    let(:commentable_type) { Anime.name }
-    let(:topic) { nil }
+      context 'without topic' do
+        let(:commentable_id) { anime.id }
+        let(:commentable_type) { Anime.name }
+        let(:topic) { nil }
 
-    it_behaves_like :comment
-    it 'creates anime topic with specified locale' do
-      expect(subject.topic).to have_attributes(
-        type: Topics::EntryTopics::AnimeTopic.name,
-        locale: locale.to_s
-      )
+        # it_behaves_like :comment
+        it 'creates anime topic with specified locale' do
+          expect(subject.topic).to have_attributes(
+            type: Topics::EntryTopics::AnimeTopic.name,
+            locale: locale.to_s
+          )
+          expect(subject.topic.created_at).to be_within(0.1).of Time.zone.now
+          expect(subject.topic.updated_at).to be_within(0.1).of Time.zone.now
+        end
+      end
     end
   end
 end
