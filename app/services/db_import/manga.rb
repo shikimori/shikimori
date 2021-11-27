@@ -8,7 +8,8 @@ private
   def assign_is_censored
     return if :is_censored.in? desynced_fields
 
-    entry.is_censored = entry.kind_doujin? || entry.genres.any?(&:censored?)
+    # entry.is_censored = entry.kind_doujin? || entry.genres.any?(&:censored?)
+    entry.is_censored = entry.genres.any?(&:censored?)
   end
 
   def assign_publishers publishers
