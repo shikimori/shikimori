@@ -43,9 +43,9 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
     end
 
     if search_term.present?
-      new_scope.search(search_term)
+      new_scope.search search_term
     elsif is_apply_order
-      new_scope.order_by(params[:order])
+      new_scope.order_by params[:order]
     else
       new_scope
     end
