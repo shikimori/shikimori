@@ -7,6 +7,10 @@ describe AbuseRequest do
     it { is_expected.to belong_to(:approver).optional }
   end
 
+  describe 'enumerize' do
+    it { is_expected.to enumerize(:kind).in(*Types::AbuseRequest::Kind.values) }
+  end
+
   describe 'validations' do
     it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_length_of(:reason).is_at_most(4096) }

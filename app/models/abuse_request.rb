@@ -20,7 +20,9 @@ class AbuseRequest < ApplicationRecord
     class_name: 'User',
     optional: true
 
-  enumerize :kind, in: %i[offtopic summary spoiler abuse], predicates: true
+  enumerize :kind,
+    in: Types::AbuseRequest::Kind.values,
+    predicates: true
 
   validates :user, presence: true
   validates :reason, length: { maximum: 4096 }
