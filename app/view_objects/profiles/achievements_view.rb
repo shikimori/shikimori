@@ -70,17 +70,16 @@ private
     count + (missing_row_count == ACHIEVEMENTS_PER_ROW ? 0 : missing_row_count)
   end
 
-  def franchise_sort_criteria rule # rubocop:disable AbcSize
-    if h.cookies[:franchises_order] == 'alphabet'
+  def sort_criteria_by_type rule, type # rubocop:disable AbcSize
+    if h.cookies[:"#{type}s_order"] == 'alphabet'
       rule_name = rule.title(h.current_user, h.ru_host?).downcase.gsub(/[^[:alnum:]]+/, '')
-
       [
         Localization::RussianNamesPolicy.call(h.current_user) ?
           Translit.convert(rule_name, :russian) :
           rule_name,
         rule.level
       ]
-    elsif h.cookies[:franchises_order] == 'progress'
+    elsif h.cookies[:"#{type}s_order"] == 'progress'
       [-rule.progress] + rule.sort_criteria
     else
       rule.sort_criteria
@@ -89,8 +88,8 @@ private
 
   def type_achievements type
     user_achievements
-      .select { |v| v.send :"#{type}?" }
-      .sort_by { |rule| [rule.level.zero? ? 1 : 0] + franchise_sort_criteria(rule) }
+      .select { |rule| rule.send :"#{type}?" }
+      .sort_by { |rule| [rule.level.zero? ? 1 : 0] + sort_criteria_by_type(rule, type) }
   end
 
   def type_achievements_size type
@@ -107,9 +106,9 @@ private
       .group_by(&:neko_id)
       .map do |neko_id, rules|
         user_type_achievements
-          .select { |v| v.neko_id == neko_id }
+          .select { |rule| rule.neko_id == neko_id }
           .max_by(&:level) || rules.min_by(&:level)
       end
-      .sort_by { |rule| franchise_sort_criteria rule }
+      .sort_by { |rule| sort_criteria_by_type(rule, type) }
   end
 end
