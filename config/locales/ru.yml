@@ -571,7 +571,8 @@ ru:
     abuse_request:
       kind:
         offtopic: оффтоп
-        critique: отзыв
+        summary: отзыв
+        review: отзыв
         spoiler: спойлер
         abuse: нарушение
     topics/news_topic:

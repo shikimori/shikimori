@@ -30,8 +30,12 @@ class AbuseRequest < ApplicationRecord
 
   attr_accessor :affected_ids # filled during state_machine transition
 
-  scope :pending, -> { where state: 'pending', kind: %w[offtopic summary] }
-  scope :abuses, -> { where state: 'pending', kind: %w[spoiler abuse] }
+  scope :pending, -> {
+    where state: 'pending', kind: %w[offtopic summary]
+  }
+  scope :abuses, -> {
+    where state: 'pending', kind: %w[spoiler abuse]
+  }
 
   state_machine :state, initial: :pending do
     state :pending

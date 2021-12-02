@@ -3,6 +3,7 @@ module Types
     KINDS = %i[
       offtopic
       summary
+      review
       spoiler
       abuse
     ]
