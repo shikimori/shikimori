@@ -26,6 +26,8 @@ class AbuseRequest < ApplicationRecord
   validates :reason, length: { maximum: 4096 }
   validates :comment_id, exclusive_arc: %i[topic_id review_id]
 
+  attr_accessor :affected_ids # filled during state_machine transition
+
   scope :pending, -> { where state: 'pending', kind: %w[offtopic summary] }
   scope :abuses, -> { where state: 'pending', kind: %w[spoiler abuse] }
 
@@ -48,11 +50,13 @@ class AbuseRequest < ApplicationRecord
 
     before_transition pending: :accepted do |abuse_request, transition|
       abuse_request.approver = transition.args.first
-      faye = FayeService.new(abuse_request.approver, '')
+      faye_token = transition.args.second
+
+      faye = FayeService.new abuse_request.approver, faye_token
 
       # process offtopic and summary requests only
       if faye.respond_to? abuse_request.kind
-        faye.public_send(
+        abuse_request.affected_ids = faye.public_send(
           abuse_request.kind,
           abuse_request.comment,
           abuse_request.value

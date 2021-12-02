@@ -31,7 +31,7 @@ describe AbuseRequestsService do
     subject(:act) { service.offtopic faye_token }
 
     it do
-      expect { act }.to_not change AbuseRequest, :count
+      expect { act }.to change(AbuseRequest, :count).by 1
       is_expected.to eq [comment.id]
     end
 
@@ -51,14 +51,16 @@ describe AbuseRequestsService do
         end
 
         context 'new comment' do
-          it { expect { act }.to_not change AbuseRequest, :count }
+          it { expect { act }.to change(AbuseRequest, :count).by 1 }
         end
       end
 
       context 'moderator' do
         let(:created_at) { 1.month.ago }
         let(:user_reporter) { create :user, :forum_moderator }
-        it { expect { act }.to change(AbuseRequest, :count).by 0 }
+        it do
+          expect { act }.to change(AbuseRequest, :count).by 1
+        end
       end
     end
   end
@@ -70,7 +72,7 @@ describe AbuseRequestsService do
       let(:created_at) { 4.minutes.ago }
 
       it do
-        expect { act }.to_not change AbuseRequest, :count
+        expect { act }.to change(AbuseRequest, :count).by 1
         is_expected.to eq [comment.id]
         expect(comment).to be_summary
       end
@@ -79,7 +81,7 @@ describe AbuseRequestsService do
         let(:is_summary) { true }
 
         it do
-          expect { act }.to_not change AbuseRequest, :count
+          expect { act }.to change(AbuseRequest, :count).by 1
           is_expected.to eq [comment.id]
           expect(comment).not_to be_summary
         end

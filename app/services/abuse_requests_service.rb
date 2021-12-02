@@ -7,20 +7,30 @@ class AbuseRequestsService
   def offtopic faye_token
     raise CanCan::AccessDenied if @comment.nil?
 
+    create_abuse_request :offtopic, !@comment.offtopic?, nil
+
     if allowed_offtopic_change?
-      faye_service(faye_token).offtopic @comment, !@comment.offtopic?
+      abuse_request = find_abuse_request :offtopic, !@comment.offtopic?
+      abuse_request&.take! @reporter, faye_token
+      @comment&.reload
+      abuse_request&.affected_ids || []
     else
-      create_abuse_request :offtopic, !@comment.offtopic?, nil
+      []
     end
   end
 
   def summary faye_token
     raise CanCan::AccessDenied if @comment.nil?
 
+    create_abuse_request :summary, !@comment.summary?, nil
+
     if allowed_summary_change?
-      faye_service(faye_token).summary @comment, !@comment.summary?
+      abuse_request = find_abuse_request :summary, !@comment.summary?
+      abuse_request&.take! @reporter, faye_token
+      @comment&.reload
+      abuse_request&.affected_ids || []
     else
-      create_abuse_request :summary, !@comment.summary?, nil
+      []
     end
   end
 
@@ -33,6 +43,17 @@ class AbuseRequestsService
   end
 
 private
+
+  def find_abuse_request kind, value
+    AbuseRequest.find_by(
+      comment_id: @comment&.id,
+      review_id: @review&.id,
+      topic_id: @topic&.id,
+      kind: kind,
+      value: value,
+      state: 'pending'
+    )
+  end
 
   def create_abuse_request kind, value, reason
     AbuseRequest.create!(
@@ -61,9 +82,5 @@ private
     reporter.forum_moderator? || reporter.admin? ||
       (@comment && @comment.user_id == reporter.id &&
       @comment.created_at > OFFTOPIC_TIMEOUT.ago)
-  end
-
-  def faye_service faye_token
-    FayeService.new reporter, faye_token
   end
 end
