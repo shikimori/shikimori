@@ -223,7 +223,6 @@ export default class ShikiEditor extends ShikiView {
     this.$('.smileys').one('click:open', this._loadSmileys);
 
     this.$('.b-offtopic_marker').on('click', this._onMarkOfftopic);
-    this.$('.b-summary_marker').on('click', this._onMarkCritique);
 
     this.$('footer .unpreview').on('click', this._hidePreview);
     this.$('footer .preview').on('click', () => {
@@ -335,13 +334,6 @@ export default class ShikiEditor extends ShikiView {
   }
 
   @bind
-  _onMarkCritique() {
-    this._markCritique(
-      this.$('.b-summary_marker').hasClass('off')
-    );
-  }
-
-  @bind
   _loadSmileys() {
     const $smileys = this.$('.smileys');
 
@@ -389,11 +381,6 @@ export default class ShikiEditor extends ShikiView {
     this.$('.b-offtopic_marker').toggleClass('off', !isOfftopic);
   }
 
-  _markCritique(isCritique) {
-    this.$form.find('input[name="comment[is_summary]"]').val(isCritique ? 'true' : 'false');
-    this.$('.b-summary_marker').toggleClass('off', !isCritique);
-  }
-
   @bind
   focus() {
     this.$textarea.focus();
@@ -402,7 +389,6 @@ export default class ShikiEditor extends ShikiView {
   // очистка редактора
   cleanup() {
     this._markOfftopic(false);
-    this._markCritique(false);
 
     this.$textarea
       .val('')
