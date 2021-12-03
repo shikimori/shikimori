@@ -6,15 +6,20 @@ class AbuseRequestsService
   def offtopic faye_token
     raise CanCan::AccessDenied unless @comment
 
-    create_abuse_request :offtopic, !@comment.offtopic?, nil
+    value_to_change = !@comment.offtopic?
 
-    if allowed_change?
-      abuse_request = find_abuse_request :offtopic, !@comment.offtopic?
-      abuse_request&.take! @reporter, faye_token
-      @comment.reload
-      abuse_request&.affected_ids || []
+    if allowed_direct_change?
+      faye_service(faye_token).offtopic @comment, value_to_change
     else
-      []
+      abuse_request = create_abuse_request :offtopic, value_to_change, nil
+
+      if can_manage? abuse_request
+        abuse_request&.take! @reporter, faye_token
+        @comment.reload
+        abuse_request&.affected_ids || []
+      else
+        []
+      end
     end
   end
 
@@ -28,6 +33,21 @@ class AbuseRequestsService
 
 private
 
+  def create_abuse_request kind, value, reason
+    AbuseRequest.create!(
+      comment_id: @comment&.id,
+      review_id: @review&.id,
+      topic_id: @topic&.id,
+      user_id: @reporter.id,
+      kind: kind,
+      value: value,
+      state: 'pending',
+      reason: reason
+    )
+  rescue ActiveRecord::RecordNotUnique
+    find_abuse_request kind, value
+  end
+
   def find_abuse_request kind, value
     AbuseRequest.find_by(
       comment_id: @comment&.id,
@@ -39,26 +59,19 @@ private
     )
   end
 
-  def create_abuse_request kind, value, reason
-    AbuseRequest.create!(
-      comment_id: @comment&.id,
-      review_id: @review&.id,
-      topic_id: @topic&.id,
-      user_id: reporter.id,
-      kind: kind,
-      value: value,
-      state: 'pending',
-      reason: reason
-    )
-
-    []
-  rescue ActiveRecord::RecordNotUnique
-    []
+  def allowed_direct_change?
+    own_forum_entry? && @comment.created_at > CHANGE_ALLOWED_TIMEOUT.ago
   end
 
-  def allowed_change?
-    reporter.forum_moderator? || reporter.admin? || (
-      @comment.user_id == reporter.id && @comment.created_at > CHANGE_ALLOWED_TIMEOUT.ago
-    )
+  def own_forum_entry?
+    @comment.user_id == @reporter.id
+  end
+
+  def can_manage? abuse_request
+    Ability.new(@reporter).can?(:manage, abuse_request)
+  end
+
+  def faye_service faye_token
+    FayeService.new @reporter, faye_token
   end
 end
