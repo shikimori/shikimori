@@ -45,10 +45,19 @@ class FayeService
     end
   end
 
-  def offtopic comment, flag
-    ids = comment.mark_offtopic flag
-    publisher.publish_marks ids, 'offtopic', flag
+  def offtopic comment, is_offtopic
+    ids = comment.mark_offtopic is_offtopic
+    publisher.publish_marks ids, 'offtopic', is_offtopic
     ids
+  end
+
+  def review forum_entry, is_review
+    if is_review && forum_entry.is_a?(Comment)
+      Comment::ConvertToReview.call forum_entry
+
+    elsif !is_review && forum_entry.is_a?(Review)
+      Review::ConvertToComment.call forum_entry
+    end
   end
 
   def set_replies comment # rubocop:disable AccessorMethodName

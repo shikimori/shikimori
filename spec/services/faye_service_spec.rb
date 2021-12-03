@@ -180,6 +180,46 @@ describe FayeService do
     end
   end
 
+  describe '#review' do
+    subject(:act) { service.review forum_entry, is_review }
+
+    before do
+      allow(Comment::ConvertToReview).to receive(:call).and_call_original
+      allow(Review::ConvertToComment).to receive(:call).and_call_original
+    end
+
+    let!(:anime_topic) { create :anime_topic, linked: anime }
+    let(:anime) { create :anime }
+
+    context 'review' do
+      let(:is_review) { true }
+      let(:forum_entry) { create :comment, commentable: anime_topic }
+
+      it do
+        is_expected.to be_kind_of Review
+        is_expected.to be_persisted
+        expect(Comment::ConvertToReview)
+          .to have_received(:call)
+          .with(forum_entry)
+        expect(Review::ConvertToComment).to_not have_received :call
+      end
+    end
+
+    context 'not review' do
+      let(:is_review) { false }
+      let(:forum_entry) { create :review, anime: anime }
+
+      it do
+        is_expected.to be_kind_of Comment
+        is_expected.to be_persisted
+        expect(Review::ConvertToComment)
+          .to have_received(:call)
+          .with(forum_entry)
+        expect(Comment::ConvertToReview).to_not have_received :call
+      end
+    end
+  end
+
   describe '#set_replies' do
     let(:comment) { create :comment, commentable: topic, user: user }
     let(:replied_comment) { create :comment, commentable: topic, user: user }

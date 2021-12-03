@@ -64,7 +64,7 @@ class AbuseRequest < ApplicationRecord
       if faye.respond_to? abuse_request.kind
         abuse_request.affected_ids = faye.public_send(
           abuse_request.kind,
-          abuse_request.comment,
+          abuse_request.comment || abuse_request.topic || abuse_request.review,
           abuse_request.value
         )
       end
