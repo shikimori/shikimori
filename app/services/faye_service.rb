@@ -31,16 +31,17 @@ class FayeService
   end
 
   def destroy trackable
-    if trackable.is_a? Message
-      trackable.delete_by @actor
+    case trackable
+      when Message
+        trackable.delete_by @actor
 
-    elsif trackable.is_a? Critique
-      publisher.publish trackable.topic(trackable.locale), :deleted
-      trackable.destroy
+      when Critique
+        publisher.publish trackable.topic(trackable.locale), :deleted
+        trackable.destroy
 
-    else
-      publisher.publish trackable, :deleted
-      trackable.destroy
+      else
+        publisher.publish trackable, :deleted
+        trackable.destroy
     end
   end
 
