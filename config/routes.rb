@@ -251,7 +251,6 @@ Rails.application.routes.draw do
           post :abuse
           post :spoiler
           post :offtopic
-          post :summary
           post :review
         end
       end

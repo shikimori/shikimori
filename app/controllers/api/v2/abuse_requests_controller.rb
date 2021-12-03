@@ -16,13 +16,14 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
     render json: e.record.errors.full_messages, status: :unprocessable_entity
   end
 
-  api :POST, '/v2/abuse_requests/summary', 'Mark comment as summary'
-  param :comment_id, :number, required: true
+  api :POST, '/v2/abuse_requests/review', 'Convert comment to review'
+  param :comment_id, :number, required: false
+  param :review_id, :number, required: false
   description 'Request will be sent to moderators.'
-  def summary
+  def review
     ids = AbuseRequestsService
-      .new(comment: @comment, reporter: current_user)
-      .summary(faye_token)
+      .new(comment: @comment, review: @review, reporter: current_user)
+      .review(faye_token)
 
     respond_with result(@comment, ids)
   rescue ActiveRecord::RecordNotSaved => e
