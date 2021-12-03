@@ -104,7 +104,6 @@ export default class ShikiEditable extends ShikiView {
       let markers = $(ITEM_QUOTE_SELECTOR, this.$inner).parent().find("aside.markers").children();
       markers.each(function(i) {
         if ($(this).css("display") == 'block') {
-          console.log($(this));
           $(this).hide();
           $(this).addClass('temporarily-hidden-markers');
         }
