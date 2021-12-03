@@ -102,6 +102,7 @@ class FayePublisher # rubocop:disable ClassLength
   def publish_conversion old_entry, new_entry
     publish_data(
       actor_event_data(old_entry.class.name.downcase, :converted, {
+        "#{old_entry.class.name.downcase}_id": old_entry.id,
         "#{new_entry.class.name.downcase}_id": new_entry.id
       }),
       old_entry.is_a?(Comment) ?
