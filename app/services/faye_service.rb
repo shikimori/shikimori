@@ -50,12 +50,6 @@ class FayeService
     ids
   end
 
-  def summary comment, flag
-    ids = comment.mark_summary flag
-    publisher.publish_marks ids, 'summary', flag
-    ids
-  end
-
   def set_replies comment # rubocop:disable AccessorMethodName
     replies_text =
       if comment.body =~ BbCodes::Tags::RepliesTag::REGEXP

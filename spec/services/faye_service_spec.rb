@@ -180,42 +180,6 @@ describe FayeService do
     end
   end
 
-  describe '#summary' do
-    subject(:act) { service.summary comment, is_summary }
-
-    let(:comment) { create :comment, commentable: topic, is_summary: !is_summary }
-    let(:is_summary) { true }
-
-    let(:publisher) { double publish_marks: nil }
-    before do
-      allow(FayePublisher)
-        .to receive(:new)
-        .with(user, faye)
-        .and_return publisher
-    end
-
-    before { act }
-
-    it do
-      is_expected.to eq [comment.id]
-      expect(publisher)
-        .to have_received(:publish_marks)
-        .with [comment.id], 'summary', is_summary
-    end
-
-    describe 'comment' do
-      context 'summary' do
-        let(:is_summary) { true }
-        it { expect(comment).to be_summary }
-      end
-
-      context 'not summary' do
-        let(:is_summary) { false }
-        it { expect(comment).to_not be_summary }
-      end
-    end
-  end
-
   describe '#set_replies' do
     let(:comment) { create :comment, commentable: topic, user: user }
     let(:replied_comment) { create :comment, commentable: topic, user: user }
