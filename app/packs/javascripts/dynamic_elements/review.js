@@ -55,4 +55,24 @@ export default class Review extends Topic {
       { action: 'replace' }
     );
   }
+
+  _bindFaye() {
+    super._bindFaye();
+    this.on('faye:review:converted', this._fayeConverted);
+  }
+
+  @bind
+  _fayeConverted(_e, data) {
+    const message = I18n.t('frontend.shiki_editable.review_converted', {
+      url: `/comments/${data.comment_id}`
+    });
+
+    this._replace(
+      `<div class='b-comment-info b-${this.type}'><span>${message}</span>` +
+      `<a class='b-user16' href='/${data.actor}'><img src='${data.actor_avatar}' ` +
+      `srcset='${data.actor_avatar_2x} 2x' /><span>${data.actor}</span></a></div>`
+    );
+
+    return false; // очень важно! иначе эвенты зациклятся из-за такого же обработчика в родителе
+  }
 }

@@ -53,6 +53,7 @@ export default class Comment extends ShikiEditable {
   _bindFaye() {
     super._bindFaye();
     this.on('faye:comment:set_replies', this._fayeSetReplies);
+    this.on('faye:comment:converted', this._fayeConverted);
   }
 
   mark(kind, value) {
@@ -93,6 +94,21 @@ export default class Comment extends ShikiEditable {
   _fayeSetReplies(_e, data) {
     this.$('.b-replies').remove();
     $(data.replies_html).appendTo(this.$body).process();
+  }
+
+  @bind
+  _fayeConverted(_e, data) {
+    const message = I18n.t('frontend.shiki_editable.comment_converted', {
+      url: `/reviews/${data.review_id}`
+    });
+
+    this._replace(
+      `<div class='b-comment-info b-${this.type}'><span>${message}</span>` +
+      `<a class='b-user16' href='/${data.actor}'><img src='${data.actor_avatar}' ` +
+      `srcset='${data.actor_avatar_2x} 2x' /><span>${data.actor}</span></a></div>`
+    );
+
+    return false; // очень важно! иначе эвенты зациклятся из-за такого же обработчика в родителе
   }
 
   @bind

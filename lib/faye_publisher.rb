@@ -78,14 +78,11 @@ class FayePublisher # rubocop:disable ClassLength
 
   def publish_mark comment, mark_kind, mark_value
     publish_data(
-      actor_event_data(
-        :comment,
-        :marked,
+      actor_event_data(:comment, :marked,
         topic_id: comment.commentable_id,
         comment_id: comment.id,
         mark_kind: mark_kind,
-        mark_value: mark_value
-      ),
+        mark_value: mark_value),
       comment_channels(comment, [])
     )
   end
@@ -101,10 +98,9 @@ class FayePublisher # rubocop:disable ClassLength
 
   def publish_conversion old_entry, new_entry
     publish_data(
-      actor_event_data(old_entry.class.name.downcase, :converted, {
+      actor_event_data(old_entry.class.name.downcase, :converted,
         "#{old_entry.class.name.downcase}_id": old_entry.id,
-        "#{new_entry.class.name.downcase}_id": new_entry.id
-      }),
+        "#{new_entry.class.name.downcase}_id": new_entry.id),
       old_entry.is_a?(Comment) ?
         comment_channels(old_entry, []) :
         review_channels(old_entry, [])
