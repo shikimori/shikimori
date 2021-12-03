@@ -77,18 +77,17 @@ class FayePublisher # rubocop:disable ClassLength
   end
 
   def publish_mark comment, mark_kind, mark_value
-    data = {
-      event: 'comment:marked',
-      actor: @actor.nickname,
-      actor_avatar: @actor.decorate.avatar_url(16),
-      actor_avatar_2x: @actor.decorate.avatar_url(32),
-      topic_id: comment.commentable_id,
-      comment_id: comment.id,
-      mark_kind: mark_kind,
-      mark_value: mark_value
-    }
-
-    publish_data data, comment_channels(comment, [])
+    publish_data(
+      actor_event_data(
+        :comment,
+        :marked,
+        topic_id: comment.commentable_id,
+        comment_id: comment.id,
+        mark_kind: mark_kind,
+        mark_value: mark_value
+      ),
+      comment_channels(comment, [])
+    )
   end
 
   def publish_achievements achievements_data, channels
@@ -98,6 +97,17 @@ class FayePublisher # rubocop:disable ClassLength
     }
 
     publish_data data, channels
+  end
+
+  def publish_conversion old_entry, new_entry
+    publish_data(
+      actor_event_data(old_entry.class.name.downcase, :converted, {
+        "#{new_entry.class.name.downcase}_id": new_entry.id
+      }),
+      old_entry.is_a?(Comment) ?
+        comment_channels(old_entry, []) :
+        review_channels(old_entry, [])
+    )
   end
 
   def publish_data data, channels

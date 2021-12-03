@@ -52,12 +52,15 @@ class FayeService
   end
 
   def review forum_entry, is_review
-    if is_review && forum_entry.is_a?(Comment)
-      Comment::ConvertToReview.call forum_entry
+    new_entry =
+      if is_review && forum_entry.is_a?(Comment)
+        Comment::ConvertToReview.call forum_entry
+      elsif !is_review && forum_entry.is_a?(Review)
+        Review::ConvertToComment.call forum_entry
+      end
 
-    elsif !is_review && forum_entry.is_a?(Review)
-      Review::ConvertToComment.call forum_entry
-    end
+    publisher.publish_conversion forum_entry, new_entry
+    new_entry
   end
 
   def set_replies comment # rubocop:disable AccessorMethodName
