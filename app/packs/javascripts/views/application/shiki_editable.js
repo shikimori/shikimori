@@ -14,14 +14,14 @@ const BUTTONS = [
   '.item-quote',
   '.item-reply',
   '.item-edit',
-  // '.item-summary',
+  '.item-summary', // aka review_convert
   '.item-offtopic',
   '.item-cancel',
   '.item-spoiler',
   '.item-abuse'
 ];
 const ABUSE_REQUEST_BUTTONS = [
-  // '.item-summary',
+  '.item-summary', // aka review_convert
   '.item-offtopic',
   '.item-spoiler',
   '.item-abuse',
