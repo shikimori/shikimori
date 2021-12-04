@@ -4,18 +4,18 @@ class AbuseRequestsService
   pattr_initialize %i[comment topic review reporter!]
 
   def offtopic faye_token
-    raise CanCan::AccessDenied unless @comment
+    raise CanCan::AccessDenied unless forum_entry.is_a? Comment
 
-    value_to_change = !@comment.offtopic?
+    value_to_change = !forum_entry.offtopic?
 
     if allowed_direct_change?
-      faye_service(faye_token).offtopic @comment, value_to_change
+      faye_service(faye_token).offtopic forum_entry, value_to_change
     else
       abuse_request = create_abuse_request :offtopic, value_to_change, nil
 
       if can_manage? abuse_request
         abuse_request&.take! @reporter, faye_token
-        @comment.reload
+        forum_entry.reload
         abuse_request&.affected_ids || []
       else
         []
@@ -59,12 +59,16 @@ private
     )
   end
 
+  def forum_entry
+    @comment || @topic || @review
+  end
+
   def allowed_direct_change?
-    own_forum_entry? && @comment.created_at > CHANGE_ALLOWED_TIMEOUT.ago
+    own_forum_entry? && forum_entry.created_at > CHANGE_ALLOWED_TIMEOUT.ago
   end
 
   def own_forum_entry?
-    @comment.user_id == @reporter.id
+    forum_entry.user_id == @reporter.id
   end
 
   def can_manage? abuse_request
