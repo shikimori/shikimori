@@ -23,7 +23,7 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
   def convert_review
     AbuseRequestsService
       .new(comment: @comment, review: @review, reporter: current_user)
-      .review(faye_token)
+      .convert_review(faye_token)
 
     head :ok
   rescue ActiveRecord::RecordNotSaved => e

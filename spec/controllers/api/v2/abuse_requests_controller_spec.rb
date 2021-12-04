@@ -42,7 +42,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
         )
     end
     let(:reason) { 'zxcv' }
-    let(:abuse_requests_service) { double review: nil }
+    let(:abuse_requests_service) { double convert_review: nil }
     let(:comment) do
       [
         create(:comment),
@@ -55,7 +55,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
       expect(AbuseRequestsService)
         .to have_received(:new)
         .with comment: comment, review: review, reporter: user
-      expect(abuse_requests_service).to have_received(:review).with(nil)
+      expect(abuse_requests_service).to have_received(:convert_review).with(nil)
       expect(response).to have_http_status :success
     end
   end
