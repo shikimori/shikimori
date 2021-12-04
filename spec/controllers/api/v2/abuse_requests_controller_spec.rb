@@ -34,9 +34,9 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
     end
   end
 
-  describe '#review' do
+  describe '#convert_review' do
     subject! do
-      post :review,
+      post :convert_review,
         params: (
           comment ? { comment_id: comment.id } : { review_id: review.id }
         )

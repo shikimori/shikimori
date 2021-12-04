@@ -20,7 +20,7 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
   param :comment_id, :number, required: false
   param :review_id, :number, required: false
   description 'Request will be sent to moderators.'
-  def review
+  def convert_review
     AbuseRequestsService
       .new(comment: @comment, review: @review, reporter: current_user)
       .review(faye_token)

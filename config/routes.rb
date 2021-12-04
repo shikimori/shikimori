@@ -250,7 +250,7 @@ Rails.application.routes.draw do
           post :abuse
           post :spoiler
           post :offtopic
-          post :review
+          post :convert_review
         end
       end
 

@@ -572,7 +572,7 @@ en:
       kind:
         offtopic: offtopic
         summary: summary
-        review: review
+        convert_review: review
         spoiler: spoiler
         abuse: abuse
     topics/news_topic:

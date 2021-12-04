@@ -145,15 +145,21 @@ describe AbuseRequestsService do
     end
   end
 
-  comment_actions = %i[offtopic]
-  %i[offtopic abuse spoiler].each do |method|
-    describe method.to_s do
-      if comment_actions.include? method
-        let(:reason) { nil }
-        subject(:act) { service.send method, faye_token }
-      else
-        let(:reason) { 'zxcvbn' }
-        subject(:act) { service.send method, reason }
+  allowed_actions = {
+    topic: %i[abuse spoiler],
+    review: %i[convert_review abuse spoiler],
+    comment: %i[offtopic convert_review abuse spoiler]
+  }
+  faye_token_methods = %i[convert_review offtopic]
+
+  %i[offtopic convert_review abuse spoiler].each do |method|
+    describe "##{method}" do
+      let(:reason) { 'zxcvbn' unless faye_token_methods.include? method }
+      subject(:act) do
+        service.send(
+          method,
+          faye_token_methods.include?(method) ? faye_token : reason
+        )
       end
       let(:user_reporter) { create :user, id: 99 }
 
@@ -164,7 +170,7 @@ describe AbuseRequestsService do
           let(:topic) { create :topic, user: user_author if type == :topic }
           let(:anime) { create :anime }
 
-          if type != :comment && comment_actions.include?(method)
+          if allowed_actions[type].exclude? method
             it do
               expect { act }.to raise_error CanCan::AccessDenied
             end
@@ -180,7 +186,7 @@ describe AbuseRequestsService do
               it do
                 expect(subject).to have_attributes(
                   kind: method.to_s,
-                  value: true,
+                  value: (true unless method == :convert_review),
                   comment_id: (comment.id if type == :comment),
                   review_id: (review.id if type == :review),
                   topic_id: (topic.id if type == :topic),

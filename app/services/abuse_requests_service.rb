@@ -24,10 +24,12 @@ class AbuseRequestsService
   end
 
   def convert_review faye_token
+    raise CanCan::AccessDenied unless forum_entry.is_a?(Comment) || forum_entry.is_a?(Review)
+
     if allowed_direct_change?
       faye_service(faye_token).convert_review forum_entry
     else
-      abuse_request = create_abuse_request :review, nil, nil
+      abuse_request = create_abuse_request :convert_review, nil, nil
 
       if can_manage? abuse_request
         abuse_request&.take! @reporter, faye_token
