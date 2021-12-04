@@ -571,7 +571,8 @@ en:
     abuse_request:
       kind:
         offtopic: offtopic
-        critique: summary
+        summary: summary
+        review: review
         spoiler: spoiler
         abuse: abuse
     topics/news_topic:

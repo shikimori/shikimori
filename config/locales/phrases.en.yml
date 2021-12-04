@@ -26,15 +26,20 @@ en:
         remove: Remove offtopic mark
         confirm_add: Add offtopic mark?
         confirm_remove: Remove offtopic mark?
+      review:
+        add: Convert to review
+        remove: Convert to comment
     moderate: Moderate
     moderation:
       abuse: Abuse
       ban: Ban
       not_offtopic: It's not offtopic
       not_summary: It's not summary
+      not_review: It's not review
       offtopic: It's offtopic
       spoiler: It's spoiler
       summary: It's summary
+      review: It's review
       explain:
         abuse: Please describe (optional)
         spoiler: Please describe (optional)

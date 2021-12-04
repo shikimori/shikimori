@@ -31,29 +31,36 @@ class FayeService
   end
 
   def destroy trackable
-    if trackable.is_a? Message
-      trackable.delete_by @actor
+    case trackable
+      when Message
+        trackable.delete_by @actor
 
-    elsif trackable.is_a? Critique
-      publisher.publish trackable.topic(trackable.locale), :deleted
-      trackable.destroy
+      when Critique
+        publisher.publish trackable.topic(trackable.locale), :deleted
+        trackable.destroy
 
-    else
-      publisher.publish trackable, :deleted
-      trackable.destroy
+      else
+        publisher.publish trackable, :deleted
+        trackable.destroy
     end
   end
 
-  def offtopic comment, flag
-    ids = comment.mark_offtopic flag
-    publisher.publish_marks ids, 'offtopic', flag
+  def offtopic comment, is_offtopic
+    ids = comment.mark_offtopic is_offtopic
+    publisher.publish_marks ids, 'offtopic', is_offtopic
     ids
   end
 
-  def summary comment, flag
-    ids = comment.mark_summary flag
-    publisher.publish_marks ids, 'summary', flag
-    ids
+  def review forum_entry, is_review
+    new_entry =
+      if is_review && forum_entry.is_a?(Comment)
+        Comment::ConvertToReview.call forum_entry
+      elsif !is_review && forum_entry.is_a?(Review)
+        Review::ConvertToComment.call forum_entry
+      end
+
+    publisher.publish_conversion forum_entry, new_entry
+    new_entry
   end
 
   def set_replies comment # rubocop:disable AccessorMethodName

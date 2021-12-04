@@ -221,6 +221,7 @@ export default class Topic extends ShikiEditable {
       [
         `faye:${this.commentType}:updated`,
         `faye:${this.commentType}:deleted`,
+        `faye:${this.commentType}:converted`,
         `faye:${this.commentType}:set_replies`
       ].join(' '), (e, data) => {
         e.stopImmediatePropagation();

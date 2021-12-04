@@ -34,11 +34,6 @@
 
         - if f.object.new_record?
           aside.markers
-            - if f.object.try :allowed_summary?
-              .b-summary_marker.active[
-                class=(:off unless f.object.summary?)
-                data-text=t('markers.summary').capitalize
-              ]
             - if f.object.respond_to?(:offtopic?) && (!f.object.respond_to?(:allowed_offtopic?) || f.object.allowed_offtopic?)
               .b-offtopic_marker.active[
                 class=(:off unless f.object.offtopic?)

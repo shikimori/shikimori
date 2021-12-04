@@ -1,6 +1,6 @@
 # TODO: remove `unless params[:user_id]` after 01-09-2017
 class Api::V2::AbuseRequestsController < Api::V2Controller
-  before_action :authenticate_user!, only: %i[offtopic summary spoiler abuse]
+  before_action :authenticate_user!, only: %i[offtopic review spoiler abuse]
   before_action :fetch_entries
 
   api :POST, '/v2/abuse_requests/offtopic', 'Mark comment as offtopic'
@@ -16,18 +16,19 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
     render json: e.record.errors.full_messages, status: :unprocessable_entity
   end
 
-  api :POST, '/v2/abuse_requests/summary', 'Mark comment as summary'
-  param :comment_id, :number, required: true
-  description 'Request will be sent to moderators.'
-  def summary
-    ids = AbuseRequestsService
-      .new(comment: @comment, reporter: current_user)
-      .summary(faye_token)
-
-    respond_with result(@comment, ids)
-  rescue ActiveRecord::RecordNotSaved => e
-    render json: e.record.errors.full_messages, status: :unprocessable_entity
-  end
+  # api :POST, '/v2/abuse_requests/review', 'Convert comment to review'
+  # param :comment_id, :number, required: false
+  # param :review_id, :number, required: false
+  # description 'Request will be sent to moderators.'
+  # def review
+  #   ids = AbuseRequestsService
+  #     .new(comment: @comment, review: @review, reporter: current_user)
+  #     .review(faye_token)
+  #
+  #   respond_with result(@comment, ids)
+  # rescue ActiveRecord::RecordNotSaved => e
+  #   render json: e.record.errors.full_messages, status: :unprocessable_entity
+  # end
 
   api :POST, '/v2/abuse_requests/abuse', 'Create abuse about violation of site rules'
   param :comment_id, :number, required: false
@@ -36,11 +37,11 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
   param :reason, String, required: false
   description 'Request will be sent to moderators.'
   def abuse
-    ids = AbuseRequestsService
+    AbuseRequestsService
       .new(comment: @comment, review: @review, topic: @topic, reporter: current_user)
       .abuse(params[:reason])
 
-    respond_with result(@comment || @review || @topic, ids)
+    head :ok
   rescue ActiveRecord::RecordNotSaved => e
     render json: e.record.errors.full_messages, status: :unprocessable_entity
   end
@@ -52,11 +53,11 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
   param :reason, String, required: false
   description 'Request will be sent to moderators.'
   def spoiler
-    ids = AbuseRequestsService
+    AbuseRequestsService
       .new(comment: @comment, review: @review, topic: @topic, reporter: current_user)
       .spoiler(params[:reason])
 
-    respond_with result(@comment || @review || @topic, ids)
+    head :ok
   rescue ActiveRecord::RecordNotSaved => e
     render json: e.record.errors.full_messages, status: :unprocessable_entity
   end

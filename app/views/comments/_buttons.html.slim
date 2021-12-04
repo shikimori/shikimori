@@ -91,20 +91,20 @@ aside.buttons
         data-direction='top'
       ]
 
-    - if comment.try :allowed_summary?
-      span.item-summary.b-tooltipped.unprocessed[
-        class=(:selected if comment.summary?)
-        title=t('actions.moderation.summary')
-        data-text=t('actions.moderation.summary')
-        data-text-alt=t('actions.moderation.not_summary')
-        data-confirm-add=t('actions.markers.summary.confirm_add')
-        data-confirm-remove=t('actions.markers.summary.confirm_remove')
-        data-action=summary_api_v2_abuse_requests_url(comment_id: comment.id)
-        data-method='post'
-        data-type='json'
-        data-remote='true'
-        data-direction='top'
-      ]
+    / - if comment.try :allowed_summary?
+    /   span.item-summary.b-tooltipped.unprocessed[
+    /     class=(:selected if comment.summary?)
+    /     title=t('actions.moderation.summary')
+    /     data-text=t('actions.moderation.summary')
+    /     data-text-alt=t('actions.moderation.not_summary')
+    /     data-confirm-add=t('actions.markers.summary.confirm_add')
+    /     data-confirm-remove=t('actions.markers.summary.confirm_remove')
+    /     data-action=summary_api_v2_abuse_requests_url(comment_id: comment.id)
+    /     data-method='post'
+    /     data-type='json'
+    /     data-remote='true'
+    /     data-direction='top'
+    /   ]
 
     - if comment.moderatable?
       span.item-moderation-cancel[

@@ -6,3 +6,5 @@ en:
       click_to_reload: Click to reload.
       message_deleted: is deleted by
       deleted: is deleted by
+      review_converted: Review is converted into <a class='b-link' href='%{url}'>comment</a> by
+      comment_converted: Comment is converted into <a class='b-link' href='%{url}'>review</a> by

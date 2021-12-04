@@ -30,75 +30,62 @@ describe AbuseRequestsService do
   describe '#offtopic' do
     subject(:act) { service.offtopic faye_token }
 
-    it do
-      expect { act }.to_not change AbuseRequest, :count
-      is_expected.to eq [comment.id]
+    describe 'add offtopic' do
+      it do
+        expect { act }.to_not change AbuseRequest, :count
+        is_expected.to eq [comment.id]
+        expect(comment).to be_offtopic
+      end
     end
 
-    describe 'offtopic?' do
-      before { act }
-      subject { comment.offtopic? }
-      it { is_expected.to eq true }
-    end
-
-    describe 'cancel' do
+    describe 'remove offtopic' do
       let(:is_offtopic) { true }
 
       context 'user' do
         context 'old comment' do
           let(:created_at) { 1.month.ago }
-          it { expect { act }.to change(AbuseRequest, :count).by 1 }
+          it do
+            expect { act }.to change(AbuseRequest, :count).by 1
+            expect(comment).to be_offtopic
+          end
         end
 
         context 'new comment' do
-          it { expect { act }.to_not change AbuseRequest, :count }
+          it do
+            expect { act }.to_not change AbuseRequest, :count
+            expect(comment).to_not be_offtopic
+          end
         end
       end
 
       context 'moderator' do
-        let(:created_at) { 1.month.ago }
         let(:user_reporter) { create :user, :forum_moderator }
-        it { expect { act }.to change(AbuseRequest, :count).by 0 }
-      end
-    end
-  end
-
-  describe '#summary' do
-    subject(:act) { service.summary faye_token }
-
-    context 'new comment' do
-      let(:created_at) { 4.minutes.ago }
-
-      it do
-        expect { act }.to_not change AbuseRequest, :count
-        is_expected.to eq [comment.id]
-        expect(comment).to be_summary
-      end
-
-      describe 'cancel' do
-        let(:is_summary) { true }
-
         it do
-          expect { act }.to_not change AbuseRequest, :count
-          is_expected.to eq [comment.id]
-          expect(comment).not_to be_summary
+          expect { act }.to change(AbuseRequest, :count).by 1
+          expect(comment).to_not be_offtopic
+        end
+
+        context 'already present abuse_request' do
+          let!(:abuse_request) do
+            create :abuse_request,
+              state: :pending,
+              comment: comment,
+              kind: :offtopic,
+              value: false
+          end
+
+          it do
+            expect { act }.to_not change AbuseRequest, :count
+            expect(comment).to_not be_offtopic
+            expect(abuse_request.reload).to be_accepted
+          end
         end
       end
     end
-
-    context 'old comment' do
-      let(:created_at) { 6.minutes.ago }
-
-      it do
-        expect { act }.to change AbuseRequest, :count
-        is_expected.to eq []
-        expect(comment).to_not be_summary
-      end
-    end
   end
 
-  comment_actions = %i[summary offtopic]
-  %i[summary offtopic abuse spoiler].each do |method|
+  comment_actions = %i[offtopic]
+  %i[offtopic abuse spoiler].each do |method|
     describe method.to_s do
       if comment_actions.include? method
         let(:reason) { nil }
@@ -123,7 +110,6 @@ describe AbuseRequestsService do
           else
             it do
               expect { act }.to change(AbuseRequest, :count).by 1
-              is_expected.to eq []
             end
 
             describe 'abuse_request' do

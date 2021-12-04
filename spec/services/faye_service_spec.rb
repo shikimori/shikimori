@@ -5,17 +5,20 @@ describe FayeService do
   let(:topic) { create :topic, user: user }
   let!(:publisher) { FayePublisher.new user, faye }
 
+  before do
+    allow(FayePublisher)
+      .to receive(:new)
+      .with(user, faye)
+      .and_return publisher
+  end
+
   describe '#create' do
     let(:trackable) { build :comment, commentable: topic, body: body }
     subject(:act) { service.create trackable }
 
     context 'success' do
       before do
-        expect(FayePublisher)
-          .to receive(:new)
-          .with(user, faye)
-          .and_return publisher
-        expect_any_instance_of(FayePublisher)
+        expect(publisher)
           .to receive(:publish)
           .with an_instance_of(trackable.class), :created
       end
@@ -29,7 +32,7 @@ describe FayeService do
     end
 
     context 'failure' do
-      before { expect_any_instance_of(FayePublisher).not_to receive :publish }
+      before { expect(publisher).not_to receive :publish }
       let(:body) { nil }
 
       it { is_expected.to be false }
@@ -46,11 +49,7 @@ describe FayeService do
 
     context 'success' do
       before do
-        expect(FayePublisher)
-          .to receive(:new)
-          .with(user, faye)
-          .and_return publisher
-        expect_any_instance_of(FayePublisher)
+        expect(publisher)
           .to receive(:publish)
           .with an_instance_of(trackable.class), :created
       end
@@ -65,7 +64,7 @@ describe FayeService do
     end
 
     context 'failure' do
-      before { expect_any_instance_of(FayePublisher).not_to receive :publish }
+      before { expect(publisher).not_to receive :publish }
       let(:body) { nil }
 
       it { expect { act }.to raise_error ActiveRecord::RecordInvalid }
@@ -79,11 +78,7 @@ describe FayeService do
 
     context 'success' do
       before do
-        expect(FayePublisher)
-          .to receive(:new)
-          .with(user, faye)
-          .and_return publisher
-        expect_any_instance_of(FayePublisher)
+        expect(publisher)
           .to receive(:publish)
           .with an_instance_of(trackable.class), :updated
       end
@@ -98,7 +93,7 @@ describe FayeService do
     end
 
     context 'failure' do
-      before { expect_any_instance_of(FayePublisher).not_to receive :publish }
+      before { expect(publisher).not_to receive :publish }
       let(:body) { nil }
 
       it { is_expected.to be false }
@@ -115,11 +110,7 @@ describe FayeService do
 
     context 'comment' do
       before do
-        expect(FayePublisher)
-          .to receive(:new)
-          .with(user, faye)
-          .and_return publisher
-        expect_any_instance_of(FayePublisher)
+        expect(publisher)
           .to receive(:publish)
           .with an_instance_of(trackable.class), :deleted
       end
@@ -180,38 +171,46 @@ describe FayeService do
     end
   end
 
-  describe '#summary' do
-    subject(:act) { service.summary comment, is_summary }
+  describe '#review' do
+    subject(:act) { service.review forum_entry, is_review }
 
-    let(:comment) { create :comment, commentable: topic, is_summary: !is_summary }
-    let(:is_summary) { true }
-
-    let(:publisher) { double publish_marks: nil }
     before do
-      allow(FayePublisher)
-        .to receive(:new)
-        .with(user, faye)
-        .and_return publisher
-    end
+      allow(Comment::ConvertToReview).to receive(:call).and_call_original
+      allow(Review::ConvertToComment).to receive(:call).and_call_original
 
-    before { act }
-
-    it do
-      is_expected.to eq [comment.id]
       expect(publisher)
-        .to have_received(:publish_marks)
-        .with [comment.id], 'summary', is_summary
+        .to receive(:publish_conversion)
+        .with forum_entry, anything
     end
 
-    describe 'comment' do
-      context 'summary' do
-        let(:is_summary) { true }
-        it { expect(comment).to be_summary }
-      end
+    let!(:anime_topic) { create :anime_topic, linked: anime }
+    let(:anime) { create :anime }
 
-      context 'not summary' do
-        let(:is_summary) { false }
-        it { expect(comment).to_not be_summary }
+    context 'review' do
+      let(:is_review) { true }
+      let(:forum_entry) { create :comment, commentable: anime_topic }
+
+      it do
+        is_expected.to be_kind_of Review
+        is_expected.to be_persisted
+        expect(Comment::ConvertToReview)
+          .to have_received(:call)
+          .with(forum_entry)
+        expect(Review::ConvertToComment).to_not have_received :call
+      end
+    end
+
+    context 'not review' do
+      let(:is_review) { false }
+      let(:forum_entry) { create :review, anime: anime }
+
+      it do
+        is_expected.to be_kind_of Comment
+        is_expected.to be_persisted
+        expect(Review::ConvertToComment)
+          .to have_received(:call)
+          .with(forum_entry)
+        expect(Comment::ConvertToReview).to_not have_received :call
       end
     end
   end
@@ -220,16 +219,10 @@ describe FayeService do
     let(:comment) { create :comment, commentable: topic, user: user }
     let(:replied_comment) { create :comment, commentable: topic, user: user }
 
-    before do
-      expect(FayePublisher)
-        .to receive(:new)
-        .with(user, faye)
-        .and_return publisher
-    end
     after { service.set_replies comment }
 
     it do
-      expect_any_instance_of(FayePublisher)
+      expect(publisher)
         .to receive(:publish_replies)
         .with comment, anything
     end

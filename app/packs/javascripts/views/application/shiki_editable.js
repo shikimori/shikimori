@@ -14,19 +14,18 @@ const BUTTONS = [
   '.item-quote',
   '.item-reply',
   '.item-edit',
-  '.item-summary',
+  // '.item-summary',
   '.item-offtopic',
   '.item-cancel',
   '.item-spoiler',
   '.item-abuse'
 ];
 const ABUSE_REQUEST_BUTTONS = [
-  '.item-summary',
+  // '.item-summary',
   '.item-offtopic',
   '.item-spoiler',
   '.item-abuse',
-  '.b-offtopic_marker',
-  '.b-summary_marker'
+  '.b-offtopic_marker'
 ];
 const ITEM_QUOTE_SELECTOR = '.item-quote, .item-quote-mobile';
 const I18N_KEY = 'frontend.dynamic_elements.shiki_editable';

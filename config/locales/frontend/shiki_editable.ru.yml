@@ -6,3 +6,5 @@ ru:
       click_to_reload: Кликни для обновления.
       message_deleted: удалено пользователем
       deleted: удалён пользователем
+      review_converted: Отзыв преобразован в <a class='b-link' href='%{url}'>комментарий</a>
+      comment_converted: Комментарий преобразован в <a class='b-link' href='%{url}'>отзыв</a>

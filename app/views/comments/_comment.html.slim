@@ -31,18 +31,6 @@
       ]
 
       aside.markers
-        - if comment.try :allowed_summary?
-          .b-summary_marker[
-            class=(:active if user_signed_in?)
-            style=('display: none;' unless comment.summary?)
-            title=t('actions.markers.summary.remove')
-            data-text=t('markers.summary')
-            data-confirm=t('actions.markers.summary.confirm_remove')
-            data-action=summary_api_v2_abuse_requests_url(comment_id: comment.id)
-            data-method='post'
-            data-remote='true'
-            data-type='json'
-          ]
         .b-offtopic_marker[
           class=(:active if user_signed_in?)
           style=('display: none;' unless comment.offtopic?)

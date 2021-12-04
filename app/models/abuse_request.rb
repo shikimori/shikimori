@@ -20,14 +20,22 @@ class AbuseRequest < ApplicationRecord
     class_name: 'User',
     optional: true
 
-  enumerize :kind, in: %i[offtopic summary spoiler abuse], predicates: true
+  enumerize :kind,
+    in: Types::AbuseRequest::Kind.values,
+    predicates: true
 
   validates :user, presence: true
   validates :reason, length: { maximum: 4096 }
   validates :comment_id, exclusive_arc: %i[topic_id review_id]
 
-  scope :pending, -> { where state: 'pending', kind: %w[offtopic summary] }
-  scope :abuses, -> { where state: 'pending', kind: %w[spoiler abuse] }
+  attr_accessor :affected_ids # filled during state_machine transition
+
+  scope :pending, -> {
+    where state: 'pending', kind: %w[offtopic summary]
+  }
+  scope :abuses, -> {
+    where state: 'pending', kind: %w[spoiler abuse]
+  }
 
   state_machine :state, initial: :pending do
     state :pending
@@ -48,13 +56,15 @@ class AbuseRequest < ApplicationRecord
 
     before_transition pending: :accepted do |abuse_request, transition|
       abuse_request.approver = transition.args.first
-      faye = FayeService.new(abuse_request.approver, '')
+      faye_token = transition.args.second
+
+      faye = FayeService.new abuse_request.approver, faye_token
 
       # process offtopic and summary requests only
       if faye.respond_to? abuse_request.kind
-        faye.public_send(
+        abuse_request.affected_ids = faye.public_send(
           abuse_request.kind,
-          abuse_request.comment,
+          abuse_request.comment || abuse_request.topic || abuse_request.review,
           abuse_request.value
         )
       end
