@@ -186,7 +186,7 @@ describe AbuseRequestsService do
               it do
                 expect(subject).to have_attributes(
                   kind: method.to_s,
-                  value: (true unless method == :convert_review),
+                  value: true,
                   comment_id: (comment.id if type == :comment),
                   review_id: (review.id if type == :review),
                   topic_id: (topic.id if type == :topic),

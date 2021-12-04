@@ -31,7 +31,7 @@ class AbuseRequestsService
     if allowed_direct_change?
       faye_service(faye_token).convert_review forum_entry
     else
-      abuse_request = create_abuse_request :convert_review, nil, nil
+      abuse_request = create_abuse_request :convert_review, true, nil
 
       if can_manage? abuse_request
         abuse_request&.take! @reporter, faye_token
