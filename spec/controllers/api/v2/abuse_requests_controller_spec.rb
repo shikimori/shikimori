@@ -56,6 +56,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
         .to have_received(:new)
         .with comment: comment, review: review, reporter: user
       expect(abuse_requests_service).to have_received(:convert_review).with(nil)
+      expect(response.content_type).to eq 'application/json'
       expect(response).to have_http_status :success
     end
   end
@@ -76,6 +77,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
         .to have_received(:new)
         .with comment: comment, review: nil, topic: nil, reporter: user
       expect(abuse_requests_service).to have_received(:abuse).with(reason)
+      expect(response.content_type).to eq 'application/json'
       expect(response).to have_http_status :success
     end
   end
@@ -96,6 +98,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
         .to have_received(:new)
         .with comment: comment, review: nil, topic: nil, reporter: user
       expect(abuse_requests_service).to have_received(:spoiler).with(reason)
+      expect(response.content_type).to eq 'application/json'
       expect(response).to have_http_status :success
     end
   end

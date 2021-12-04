@@ -25,7 +25,7 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
       .new(comment: @comment, review: @review, reporter: current_user)
       .convert_review(faye_token)
 
-    head :ok
+    render json: {}
   rescue ActiveRecord::RecordNotSaved => e
     render json: e.record.errors.full_messages, status: :unprocessable_entity
   end
@@ -41,7 +41,7 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
       .new(comment: @comment, review: @review, topic: @topic, reporter: current_user)
       .abuse(params[:reason])
 
-    head :ok
+    render json: {}
   rescue ActiveRecord::RecordNotSaved => e
     render json: e.record.errors.full_messages, status: :unprocessable_entity
   end
@@ -57,7 +57,7 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
       .new(comment: @comment, review: @review, topic: @topic, reporter: current_user)
       .spoiler(params[:reason])
 
-    head :ok
+    render json: {}
   rescue ActiveRecord::RecordNotSaved => e
     render json: e.record.errors.full_messages, status: :unprocessable_entity
   end

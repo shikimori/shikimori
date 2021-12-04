@@ -29,7 +29,7 @@ class AbuseRequestsService
     faye_token = nil # token is purposely nullified so current user could receive faye event
 
     if allowed_direct_change?
-      faye_service(jaye_token).convert_review forum_entry, nil
+      faye_service(faye_token).convert_review forum_entry
     else
       abuse_request = create_abuse_request :convert_review, nil, nil
 
