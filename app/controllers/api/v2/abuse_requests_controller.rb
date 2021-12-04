@@ -16,19 +16,19 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
     render json: e.record.errors.full_messages, status: :unprocessable_entity
   end
 
-  # api :POST, '/v2/abuse_requests/review', 'Convert comment to review'
-  # param :comment_id, :number, required: false
-  # param :review_id, :number, required: false
-  # description 'Request will be sent to moderators.'
-  # def review
-  #   ids = AbuseRequestsService
-  #     .new(comment: @comment, review: @review, reporter: current_user)
-  #     .review(faye_token)
-  #
-  #   respond_with result(@comment, ids)
-  # rescue ActiveRecord::RecordNotSaved => e
-  #   render json: e.record.errors.full_messages, status: :unprocessable_entity
-  # end
+  api :POST, '/v2/abuse_requests/review', 'Convert comment to review'
+  param :comment_id, :number, required: false
+  param :review_id, :number, required: false
+  description 'Request will be sent to moderators.'
+  def review
+    AbuseRequestsService
+      .new(comment: @comment, review: @review, reporter: current_user)
+      .review(faye_token)
+
+    head :ok
+  rescue ActiveRecord::RecordNotSaved => e
+    render json: e.record.errors.full_messages, status: :unprocessable_entity
+  end
 
   api :POST, '/v2/abuse_requests/abuse', 'Create abuse about violation of site rules'
   param :comment_id, :number, required: false

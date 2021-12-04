@@ -226,9 +226,8 @@ Rails.application.routes.draw do
 
   # api
   apipie
-  # v2
   namespace :api, defaults: { format: 'json' } do
-
+    # v2
     namespace :v2 do
       resources :user_rates, only: %i[show index create update destroy] do
         post :increment, on: :member

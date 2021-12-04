@@ -1,7 +1,11 @@
 describe Api::V2::AbuseRequestsController, :show_in_doc do
   include_context :authenticated, :user
 
-  before { allow(AbuseRequestsService).to receive(:new).and_return abuse_requests_service }
+  before do
+    allow(AbuseRequestsService)
+      .to receive(:new)
+      .and_return abuse_requests_service
+  end
   let(:comment) { create :comment }
 
   describe '#offtopic' do
@@ -26,6 +30,32 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
         affected_ids: [comment.id]
       )
       expect(response.content_type).to eq 'application/json'
+      expect(response).to have_http_status :success
+    end
+  end
+
+  describe '#review' do
+    subject! do
+      post :review,
+        params: (
+          comment ? { comment_id: comment.id } : { review_id: review.id }
+        )
+    end
+    let(:reason) { 'zxcv' }
+    let(:abuse_requests_service) { double review: nil }
+    let(:comment) do
+      [
+        create(:comment),
+        nil
+      ].sample
+    end
+    let(:review) { create :review, anime: create(:anime) unless comment }
+
+    it do
+      expect(AbuseRequestsService)
+        .to have_received(:new)
+        .with comment: comment, review: review, reporter: user
+      expect(abuse_requests_service).to have_received(:review).with(nil)
       expect(response).to have_http_status :success
     end
   end
