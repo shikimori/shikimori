@@ -51,11 +51,11 @@ class FayeService
     ids
   end
 
-  def convert_review forum_entry, _value = nil
+  def convert_review forum_entry, is_convert_to_review
     new_entry =
-      if forum_entry.is_a? Comment # rubocop:disable CaseLikeIf
+      if is_convert_to_review && forum_entry.is_a?(Comment)
         Comment::ConvertToReview.call forum_entry
-      elsif forum_entry.is_a? Review
+      elsif !is_convert_to_review && forum_entry.is_a?(Review)
         Review::ConvertToComment.call forum_entry
       end
 

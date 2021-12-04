@@ -172,15 +172,20 @@ describe FayeService do
   end
 
   describe '#convert_review' do
-    subject(:act) { service.convert_review forum_entry }
+    subject(:act) { service.convert_review forum_entry, is_convert_to_review }
 
     before do
       allow(Comment::ConvertToReview).to receive(:call).and_call_original
       allow(Review::ConvertToComment).to receive(:call).and_call_original
 
-      expect(publisher)
-        .to receive(:publish_conversion)
-        .with forum_entry, anything
+      if (forum_entry.is_a?(Comment) && is_convert_to_review) ||
+          (forum_entry.is_a?(Review) && !is_convert_to_review)
+        expect(publisher)
+          .to receive(:publish_conversion)
+          .with forum_entry, anything
+      else
+        expect(publisher).to_not receive :publish_conversion
+      end
     end
 
     let!(:anime_topic) { create :anime_topic, linked: anime }
@@ -189,26 +194,54 @@ describe FayeService do
     context 'comment' do
       let(:forum_entry) { create :comment, commentable: anime_topic }
 
-      it do
-        is_expected.to be_kind_of Review
-        is_expected.to be_persisted
-        expect(Comment::ConvertToReview)
-          .to have_received(:call)
-          .with(forum_entry)
-        expect(Review::ConvertToComment).to_not have_received :call
+      context 'is_convert_to_review' do
+        let(:is_convert_to_review) { true }
+
+        it do
+          is_expected.to be_kind_of Review
+          is_expected.to be_persisted
+          expect(Comment::ConvertToReview)
+            .to have_received(:call)
+            .with(forum_entry)
+          expect(Review::ConvertToComment).to_not have_received :call
+        end
+      end
+
+      context '!is_convert_to_review' do
+        let(:is_convert_to_review) { false }
+
+        it do
+          is_expected.to be_nil
+          expect(Comment::ConvertToReview).to_not have_received :call
+          expect(Review::ConvertToComment).to_not have_received :call
+        end
       end
     end
 
     context 'review' do
       let(:forum_entry) { create :review, anime: anime }
 
-      it do
-        is_expected.to be_kind_of Comment
-        is_expected.to be_persisted
-        expect(Review::ConvertToComment)
-          .to have_received(:call)
-          .with(forum_entry)
-        expect(Comment::ConvertToReview).to_not have_received :call
+      context '!is_convert_to_review' do
+        let(:is_convert_to_review) { false }
+
+        it do
+          is_expected.to be_kind_of Comment
+          is_expected.to be_persisted
+          expect(Review::ConvertToComment)
+            .to have_received(:call)
+            .with(forum_entry)
+          expect(Comment::ConvertToReview).to_not have_received :call
+        end
+      end
+
+      context 'is_convert_to_review' do
+        let(:is_convert_to_review) { true }
+
+        it do
+          is_expected.to be_nil
+          expect(Comment::ConvertToReview).to_not have_received :call
+          expect(Review::ConvertToComment).to_not have_received :call
+        end
       end
     end
   end
