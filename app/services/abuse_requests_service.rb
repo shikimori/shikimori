@@ -14,11 +14,23 @@ class AbuseRequestsService
       abuse_request = create_abuse_request :offtopic, value_to_change, nil
 
       if can_manage? abuse_request
-        abuse_request&.take! @reporter, faye_token
+        abuse_request.take! @reporter, faye_token
         forum_entry.reload
-        abuse_request&.affected_ids || []
+        abuse_request.affected_ids
       else
         []
+      end
+    end
+  end
+
+  def convert_review faye_token
+    if allowed_direct_change?
+      faye_service(faye_token).convert_review forum_entry
+    else
+      abuse_request = create_abuse_request :review, nil, nil
+
+      if can_manage? abuse_request
+        abuse_request&.take! @reporter, faye_token
       end
     end
   end
@@ -72,7 +84,7 @@ private
   end
 
   def can_manage? abuse_request
-    Ability.new(@reporter).can?(:manage, abuse_request)
+    abuse_request && Ability.new(@reporter).can?(:manage, abuse_request)
   end
 
   def faye_service faye_token

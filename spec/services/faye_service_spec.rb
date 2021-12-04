@@ -171,8 +171,8 @@ describe FayeService do
     end
   end
 
-  describe '#review' do
-    subject(:act) { service.review forum_entry, is_review }
+  describe '#convert_review' do
+    subject(:act) { service.convert_review forum_entry }
 
     before do
       allow(Comment::ConvertToReview).to receive(:call).and_call_original
@@ -186,8 +186,7 @@ describe FayeService do
     let!(:anime_topic) { create :anime_topic, linked: anime }
     let(:anime) { create :anime }
 
-    context 'review' do
-      let(:is_review) { true }
+    context 'comment' do
       let(:forum_entry) { create :comment, commentable: anime_topic }
 
       it do
@@ -200,8 +199,7 @@ describe FayeService do
       end
     end
 
-    context 'not review' do
-      let(:is_review) { false }
+    context 'review' do
       let(:forum_entry) { create :review, anime: anime }
 
       it do

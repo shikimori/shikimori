@@ -14,11 +14,13 @@ describe AbuseRequestsService do
       user: user_author,
       is_offtopic: is_offtopic,
       is_summary: is_summary,
-      created_at: created_at
+      created_at: created_at,
+      commentable: commentable
   end
   let(:is_offtopic) { false }
   let(:is_summary) { false }
   let(:created_at) { Time.zone.now }
+  let(:commentable) { seed :offtopic_topic }
   let(:user_author) { seed :user }
   let(:user_reporter) { user_author }
 
@@ -31,10 +33,12 @@ describe AbuseRequestsService do
     subject(:act) { service.offtopic faye_token }
 
     describe 'add offtopic' do
-      it do
-        expect { act }.to_not change AbuseRequest, :count
-        is_expected.to eq [comment.id]
-        expect(comment).to be_offtopic
+      context 'allowed direct change' do
+        it do
+          expect { act }.to_not change AbuseRequest, :count
+          is_expected.to eq [comment.id]
+          expect(comment).to be_offtopic
+        end
       end
     end
 
@@ -78,6 +82,63 @@ describe AbuseRequestsService do
             expect { act }.to_not change AbuseRequest, :count
             expect(comment).to_not be_offtopic
             expect(abuse_request.reload).to be_accepted
+          end
+        end
+      end
+    end
+  end
+
+  describe '#convert_review' do
+    subject(:act) { service.convert_review faye_token }
+
+    let!(:anime_topic) { create :anime_topic, linked: anime }
+    let(:anime) { create :anime }
+
+    context 'converting comment' do
+      let(:commentable) { anime_topic }
+
+      context 'allowed direct change' do
+        it do
+          expect { act }.to_not change AbuseRequest, :count
+          expect { comment.reload }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'not allowed direct change' do
+        let(:created_at) { 1.month.ago }
+
+        context 'user' do
+          it do
+            expect { act }.to change(AbuseRequest, :count).by 1
+            expect(comment.reload).to be_persisted
+          end
+        end
+      end
+    end
+
+    context 'converting review' do
+      let(:comment) { nil }
+      let(:review) do
+        create :review,
+          anime: anime,
+          user: user_author,
+          created_at: created_at
+      end
+
+      context 'allowed direct change' do
+        it do
+          expect { act }.to_not change AbuseRequest, :count
+          expect { review.reload }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'not allowed direct change' do
+        let(:created_at) { 1.month.ago }
+
+        context 'user' do
+          it do
+            expect { act }.to change(AbuseRequest, :count).by 1
+            expect(review.reload).to be_persisted
           end
         end
       end
