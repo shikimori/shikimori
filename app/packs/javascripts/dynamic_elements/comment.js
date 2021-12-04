@@ -47,7 +47,7 @@ export default class Comment extends ShikiEditable {
 
   _bindAbuseRequestControls() {
     super._bindAbuseRequestControls();
-    this.$('.item-offtopic, .item-summary').on('click', this._markOfftopicOrSummary);
+    this.$('.item-offtopic').on('click', this._markOfftopic);
   }
 
   _bindFaye() {
@@ -79,7 +79,7 @@ export default class Comment extends ShikiEditable {
   }
 
   @bind
-  _markOfftopicOrSummary({ currentTarget }) {
+  _markOfftopic({ currentTarget }) {
     const confirmType = currentTarget.classList.contains('selected') ?
       'remove' :
       'add';
