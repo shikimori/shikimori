@@ -19,8 +19,8 @@
       = t '.remove'
 
   .marker[
-    class="b-#{abuse_request.kind}_marker"
-    data-text=t("markers.#{abuse_request.kind.sub 'critique', 'summary'}")
+    class="b-#{abuse_request.kind.gsub('convert_review', 'summary')}_marker"
+    data-text=t("markers.#{abuse_request.kind}")
   ]
 
   - if abuse_request.value

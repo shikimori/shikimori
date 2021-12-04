@@ -52,7 +52,7 @@ private
 
     unless can? :manage, AbuseRequest
       scope = scope
-        .where(kind: %i[summary offtopic])
+        .where(kind: %i[summary offtopic convert_review])
         .or(AbuseRequest.where(state: :accepted))
     end
 

@@ -16,6 +16,11 @@ en:
     edit: Edit
     ignore: Ignore
     markers:
+      abuse: abuse
+      new: new
+      offtopic: offtopic
+      spoiler: spoiler
+      summary: summary
       summary:
         add: Add summary mark
         remove: Remove summary mark
@@ -110,12 +115,6 @@ en:
   in_russian: In Russian
   information: Information
   loading: Loading...
-  markers:
-    abuse: abuse
-    new: new
-    offtopic: offtopic
-    spoiler: spoiler
-    summary: summary
   mail: Mail
   male: male
   manga_list: Manga List
