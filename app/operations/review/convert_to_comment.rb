@@ -7,6 +7,8 @@ class Review::ConvertToComment
     Comment.wo_antispam { comment.save! }
 
     Comments::Move.call comment_ids: replies_ids, commentable: commentable
+
+    move_review_relations comment
     @review.destroy!
 
     comment
@@ -22,6 +24,11 @@ private
       created_at: @review.created_at,
       updated_at: @review.updated_at
     )
+  end
+
+  def move_review_relations comment
+    @review.bans.update_all comment_id: comment.id, review_id: nil
+    @review.abuse_requests.update_all comment_id: comment.id, review_id: nil
   end
 
   def replies_ids

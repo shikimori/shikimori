@@ -19,6 +19,9 @@ describe Comment::ConvertToReview do
   let!(:reply_2) { create :comment, commentable: anime_topic }
   let!(:reply_3) { create :comment, commentable: anime_topic }
 
+  let!(:abuse_request) { create :abuse_request, comment: comment }
+  let!(:ban) { create :ban, :no_callbacks, comment: comment, moderator: user }
+
   it do
     is_expected.to be_persisted
     is_expected.to be_kind_of Review
@@ -30,7 +33,16 @@ describe Comment::ConvertToReview do
     )
     expect(subject.created_at).to be_within(0.1).of comment.created_at
     expect(subject.updated_at).to be_within(0.1).of comment.updated_at
+
     expect { comment.reload }.to raise_error ActiveRecord::RecordNotFound
+    expect(abuse_request.reload).to have_attributes(
+      comment_id: nil,
+      review_id: subject.id
+    )
+    expect(ban.reload).to have_attributes(
+      comment_id: nil,
+      review_id: subject.id
+    )
 
     expect(reply_1.reload.commentable_type).to eq Review.name
     expect(reply_1.commentable_id).to eq review.id

@@ -10,6 +10,7 @@ class Comment::ConvertToReview
 
     unless @is_keep_comment
       Comments::Move.call comment_ids: replies_ids, commentable: review
+      move_comment_relations review
       @comment.destroy!
     end
 
@@ -30,6 +31,11 @@ private
       created_at: @comment.created_at,
       updated_at: @comment.updated_at
     )
+  end
+
+  def move_comment_relations review
+    @comment.bans.update_all comment_id: nil, review_id: review.id
+    @comment.abuse_requests.update_all comment_id: nil, review_id: review.id
   end
 
   def db_entry

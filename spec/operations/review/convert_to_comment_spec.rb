@@ -20,6 +20,9 @@ describe Review::ConvertToComment do
   let!(:anime_topic) { create :anime_topic, linked: anime }
   let(:anime) { create :anime }
 
+  let!(:abuse_request) { create :abuse_request, comment_id: nil, review: review }
+  let!(:ban) { create :ban, :no_callbacks, comment_id: nil, review: review, moderator: user }
+
   it do
     is_expected.to be_persisted
     is_expected.to be_kind_of Comment
@@ -32,6 +35,14 @@ describe Review::ConvertToComment do
     expect(subject.updated_at).to be_within(0.1).of comment.updated_at
 
     expect { review.reload }.to raise_error ActiveRecord::RecordNotFound
+    expect(abuse_request.reload).to have_attributes(
+      comment_id: subject.id,
+      review_id: nil
+    )
+    expect(ban.reload).to have_attributes(
+      comment_id: subject.id,
+      review_id: nil
+    )
 
     expect(reply_1.reload.commentable_type).to eq Topic.name
     expect(reply_1.commentable_id).to eq anime_topic.id
