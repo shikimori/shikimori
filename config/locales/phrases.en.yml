@@ -27,8 +27,9 @@ en:
         confirm_add: Add offtopic mark?
         confirm_remove: Remove offtopic mark?
       review:
-        add: Convert to review
-        remove: Convert to comment
+        convert_to_comment: Convert review into comment?
+      comment:
+        convert_to_review: Convert comment into review?
     moderate: Moderate
     moderation:
       abuse: Abuse

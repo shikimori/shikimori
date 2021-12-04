@@ -27,8 +27,9 @@ ru:
         confirm_add: Добавить метку оффтопика?
         confirm_remove: Снять метку оффтопика?
       review:
-        add: Сделать отзывом
-        remove: Сделать комментарием
+        convert_to_comment: Преобразовать отзыв в комментари?
+      comment:
+        convert_to_review: Преобразовать комментарий в отзыв?
     moderate: На модерацию
     moderation:
       abuse: Нарушение правил
