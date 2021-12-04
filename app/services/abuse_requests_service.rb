@@ -27,11 +27,12 @@ class AbuseRequestsService
     raise CanCan::AccessDenied unless forum_entry.is_a?(Comment) || forum_entry.is_a?(Review)
 
     faye_token = nil # token is purposely nullified so current user could receive faye event
+    value_to_change = forum_entry.is_a? Comment
 
     if allowed_direct_change?
       faye_service(faye_token).convert_review forum_entry
     else
-      abuse_request = create_abuse_request :convert_review, true, nil
+      abuse_request = create_abuse_request :convert_review, value_to_change, nil
 
       if can_manage? abuse_request
         abuse_request&.take! @reporter, faye_token
