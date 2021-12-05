@@ -30,7 +30,7 @@ class AbuseRequestsService
     value_to_change = forum_entry.is_a? Comment
 
     if allowed_direct_change?
-      faye_service(faye_token).convert_review forum_entry
+      faye_service(faye_token).convert_review forum_entry, value_to_change
     else
       abuse_request = create_abuse_request :convert_review, value_to_change, nil
 
