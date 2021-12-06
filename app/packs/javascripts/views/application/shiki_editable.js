@@ -1,6 +1,6 @@
 import delay from 'delay';
 import { bind, debounce, memoize, throttle } from 'shiki-decorators';
-import { flash } from 'shiki-utils';
+import { flash, isMobile } from 'shiki-utils';
 
 import { getSelectionText, getSelectionHtml } from '@/utils/get_selection';
 import axios from '@/utils/axios';
@@ -99,12 +99,12 @@ export default class ShikiEditable extends ShikiView {
     const $quote = $(ITEM_QUOTE_SELECTOR, this.$inner).addClass('is-active');
 
     // hide comment markers to prevent overlapping with quote button
-    if (window.innerWidth < 1000) {
-      let markers = $(ITEM_QUOTE_SELECTOR, this.$inner).parent().find("aside.markers").children();
-      markers.each(function(i) {
-        if ($(this).css("display") == 'block') {
-          $(this).hide();
-          $(this).addClass('temporarily-hidden-markers');
+    if (isMobile()) {
+      const markers = $(ITEM_QUOTE_SELECTOR, this.$inner).parent().find('aside.markers').children();
+      markers.each((_, node) => {
+        if ($(node).css('display') == 'block') {
+          $(node).hide();
+          $(node).addClass('temporarily-hidden-markers');
         }
       });
     }

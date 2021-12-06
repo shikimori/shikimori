@@ -65,7 +65,7 @@ private
     ].max
 
     missing_row_count = ACHIEVEMENTS_PER_ROW -
-      (franchise_achievements_size + count) % ACHIEVEMENTS_PER_ROW
+      ((franchise_achievements_size + count) % ACHIEVEMENTS_PER_ROW)
 
     count + (missing_row_count == ACHIEVEMENTS_PER_ROW ? 0 : missing_row_count)
   end
