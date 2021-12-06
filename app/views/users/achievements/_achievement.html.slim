@@ -1,4 +1,3 @@
-/ - is_badge = local_assigns[:badge_only] || achievement.author?
 - is_badge = achievement.franchise? || achievement.author?
 
 - achievement.images.each_with_index do |image, index|
@@ -9,9 +8,12 @@
     data-progress=achievement.progress
     data-title=achievement.title(current_user, ru_host?)
     data-hint=achievement.hint(current_user, ru_host?)
-    class=("#{'is-badge' if is_badge} #{'is-image_index' if index > 0} #{'is-no_label' if achievement.franchise?} #{'is-half_sized' if local_assigns[:is_half_sized]}").strip
+    class=('is-badge' if is_badge)
+    class=('is-image_index' if index > 0)
+    class=('is-no_label' if achievement.franchise?)
+    class=('is-half_sized' if local_assigns[:is_half_sized])
+    class="level-#{achievement.level}"
   ]
-    / class=("#{'is-badge' if is_badge} #{'is-half' if is_badge && !local_assigns[:badge_only]} #{'is-image-index' if index > 0}").strip
     - unless is_badge
       .c-about
         - if local_assigns[:images]
