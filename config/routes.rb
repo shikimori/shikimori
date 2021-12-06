@@ -1042,6 +1042,7 @@ Rails.application.routes.draw do
     scope module: :users do
       resources :achievements, only: %i[index] do
         get :franchise, on: :collection
+        get :author, on: :collection
       end
       resources :polls do
         post :start, on: :member

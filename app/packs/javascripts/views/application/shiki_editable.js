@@ -98,15 +98,28 @@ export default class ShikiEditable extends ShikiView {
     });
     const $quote = $(ITEM_QUOTE_SELECTOR, this.$inner).addClass('is-active');
 
+    // hide comment markers to prevent overlapping with quote button
+    if (window.innerWidth < 1000) {
+      let markers = $(ITEM_QUOTE_SELECTOR, this.$inner).parent().find("aside.markers").children();
+      markers.each(function(i) {
+        if ($(this).css("display") == 'block') {
+          $(this).hide();
+          $(this).addClass('temporarily-hidden-markers');
+        }
+      });
+    }
+
     await delay();
     $(document).one('click', async () => {
       if (!getSelectionText().length) {
         $quote.removeClass('is-active');
+        $('.temporarily-hidden-markers').show().removeClass('temporarily-hidden-markers');
         return;
       }
 
       await delay(250);
       if (!getSelectionText().length) {
+        $('.temporarily-hidden-markers').show().removeClass('temporarily-hidden-markers');
         $quote.removeClass('is-active');
       }
     });
