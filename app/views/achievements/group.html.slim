@@ -32,18 +32,19 @@ header.head
 
     - else
       - @collection.group_by(&:neko_id).each do |neko_id, achievements|
+        - achievement = achievements.find { |v| v.level == 1 }
         .block
           .subheadline
             a[
-              href=achievement_url(achievements.first.group, neko_id)
-            ] = achievements.first.neko_name
+              href=achievement_url(achievement.group, neko_id)
+            ] = achievement.neko_name
 
           .cc-2
             .c-column
               = render 'users/achievements/achievement',
-                achievement: achievements.first,
+                achievement: achievement,
                 images: true,
-                is_half_sized: achievements.first.author?
+                is_half_sized: achievement.author?
             .c-column
               = render 'achievements/info', view: Achievements::InfoView.new(achievements)
 
