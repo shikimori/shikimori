@@ -1,12 +1,10 @@
-
 .b-entry-info
   .m10
     .line
       .key neko_id:&nbsp;
       .value = view.achievement.neko_id
 
-    / - unless view.achievement.franchise_author?
-    - unless view.achievement.franchise?
+    - unless view.achievement.franchise? || view.achievement.author?
       .line.level
         .key #{t '.levels'}:&nbsp;
         .value = view.achievements.size
