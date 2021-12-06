@@ -198,15 +198,15 @@ data
 #     end
 #   end
 
-# puts 'generating 0 levels...'
-# authors_index = data
-#   .map { |rule| rule['neko_id'] }
-#
-# data = data + data.map { |rule| rule.dup.merge('level' => 0, 'threshold' => 0.01) }
-#
-# data = data.sort_by do |rule|
-#   [authors_index.index(rule['neko_id']), -rule['level']]
-# end
+puts 'generating 0 levels...'
+authors_index = data
+  .map { |rule| rule['neko_id'] }
+
+data = data + data.map { |rule| rule.dup.merge('level' => 0, 'threshold' => 0.01) }
+
+data = data.sort_by do |rule|
+  [authors_index.index(rule['neko_id']), -rule['level']]
+end
 
 if data.any? && data.size >= raw_data.size
   File.open(authors_yml, 'w') { |f| f.write data.to_yaml }
