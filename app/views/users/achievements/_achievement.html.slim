@@ -5,7 +5,7 @@
 
   .b-achievement[
     class=(:unavailable if local_assigns[:unavailable])
-    data-progress=achievement.progress
+    data-progress=(achievement.progress unless local_assigns[:status])
     data-title=achievement.title(current_user, ru_host?)
     data-hint=achievement.hint(current_user, ru_host?)
     class=('is-badge' if is_badge)
