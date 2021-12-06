@@ -52,7 +52,7 @@ private
   end
 
   def delete_achievement_sql achievement
-    <<-SQL
+    <<-SQL.squish
       (
         user_id=#{ApplicationRecord.sanitize achievement.user_id}
         and neko_id=#{ApplicationRecord.sanitize achievement.neko_id}
