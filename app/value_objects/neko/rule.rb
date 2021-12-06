@@ -50,10 +50,6 @@ class Neko::Rule
     group == Types::Achievement::NekoGroup[:genre]
   end
 
-  def franchise_author?
-    franchise? || author?
-  end
-
   def franchise?
     group == Types::Achievement::NekoGroup[:franchise]
   end
@@ -82,7 +78,7 @@ class Neko::Rule
   end
 
   def hint user, is_ru_host
-    if franchise_author?
+    if franchise? || author?
       title user, is_ru_host
     else
       I18n.t "achievements.hint.#{neko_id}",

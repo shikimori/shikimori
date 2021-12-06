@@ -35,7 +35,7 @@
   &.is-badge
     overflow: hidden
 
-    &.is-half
+    &.is-half_sized
       +gte_iphone-landscape
         width: 50%
 
@@ -70,7 +70,7 @@
       .inner .border
         border-width: 2px
 
-  &.is-image-index
+  &.is-image_index
     &:last-child
       margin-bottom: 0
 
@@ -78,6 +78,10 @@
       opacity: 0
 
     .about
+      display: none
+
+  &.is-no_label
+    &:before
       display: none
 
   &.unavailable:not(:hover)

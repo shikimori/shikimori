@@ -19,7 +19,7 @@ header.head
                 a[
                   href=achievement_url(group, neko_id)
                 ] = achievements.first.neko_name
-                - unless achievements.first.franchise_author?
+                - unless achievements.first.franchise || achievements.first.author?
                   .level
                     - if achievements.many?
                       | lvl #{achievements.first.level}-#{achievements.last.level}

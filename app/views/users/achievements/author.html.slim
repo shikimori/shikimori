@@ -12,4 +12,7 @@
     - @view.all_author_achievements.each do |achievement|
       = render partial: 'users/achievements/achievement',
         object: @view.author_achievements.find { |v| v.neko_id == achievement.neko_id } || achievement,
-        locals: { badge_only: true, unavailable: @view.author_achievements.none? { |v| v.neko_id == achievement.neko_id } }
+        locals: { \
+          badge_only: true,
+          unavailable: achievement.progress.zero? \
+        }

@@ -22,8 +22,7 @@ header.head
               .cc-2a
                 .c-column
                   = render 'users/achievements/achievement',
-                    achievement: achievement,
-                    no_badge: true
+                    achievement: achievement
                 .c-column
                   = render 'achievements/statistics',
                     achievement: achievement,
@@ -43,7 +42,8 @@ header.head
             .c-column
               = render 'users/achievements/achievement',
                 achievement: achievements.first,
-                images: true
+                images: true,
+                is_half_sized: achievements.first.author?
             .c-column
               = render 'achievements/info', view: Achievements::InfoView.new(achievements)
 

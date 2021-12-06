@@ -60,8 +60,7 @@
     h2.subheadline.green.m10 = t 'achievements.group.author'
     .cc-authors
       = render partial: 'users/achievements/achievement',
-        collection: @view.author_achievements,
-        locals: { badge_only: true }
+        collection: @view.author_achievements
 
       - if @view.author_achievements.none?
         p.b-nothing_here = t '.no_achievements'

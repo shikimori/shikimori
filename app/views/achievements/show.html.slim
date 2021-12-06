@@ -20,7 +20,8 @@ header.head.misc
           = render 'users/achievements/achievement',
             achievement: achievement,
             images: true,
-            status: true
+            status: true,
+            is_half_sized: achievement.author?
 
         .c-column
           .b-entry-info
