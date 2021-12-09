@@ -5,6 +5,7 @@ const FAYE_EVENTS = [
   'faye:comment:created',
   'faye:comment:updated',
   'faye:comment:deleted',
+  'faye:comment:converted',
   'faye:topic:updated',
   'faye:topic:deleted',
   'faye:comment:set_replies'

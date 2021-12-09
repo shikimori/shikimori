@@ -100,7 +100,8 @@ class FayePublisher # rubocop:disable ClassLength
     publish_data(
       actor_event_data(old_entry.class.name.downcase, :converted,
         "#{old_entry.class.name.downcase}_id": old_entry.id,
-        "#{new_entry.class.name.downcase}_id": new_entry.id),
+        "#{new_entry.class.name.downcase}_id": new_entry.id,
+        topic_id: (old_entry.commentable_id if old_entry.is_a?(Comment))),
       old_entry.is_a?(Comment) ?
         comment_channels(old_entry, []) :
         review_channels(old_entry, [])
