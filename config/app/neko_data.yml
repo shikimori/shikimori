@@ -6220,6 +6220,7 @@
         - 1762
         - 28249
         - 31821
+        - 48661
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -6737,6 +6738,7 @@
         - 1762
         - 28249
         - 31821
+        - 48661
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -7254,6 +7256,7 @@
         - 1762
         - 28249
         - 31821
+        - 48661
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
