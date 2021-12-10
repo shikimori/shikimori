@@ -440,12 +440,12 @@ private
         Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # 2021-11-30 23:55
+        Types::Ad::Type[:special_x300], # 2021-11-30 23:55
         Types::Ad::Type[:yd_240x600],
         Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # 2021-11-30 23:55
+        Types::Ad::Type[:special_x300], # 2021-11-30 23:55
         Types::Ad::Type[:yd_300x600],
         Types::Ad::Type[:mt_300x600]
       ],
@@ -473,13 +473,13 @@ private
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # 2021-11-30 23:55
+        Types::Ad::Type[:special_x300], # 2021-11-30 23:55
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # 2021-11-30 23:55
+        Types::Ad::Type[:special_x300], # 2021-11-30 23:55
         # Types::Ad::Type[:mt_300x600],
         # Types::Ad::Type[:yd_300x600],
         # Types::Ad::Type[:advrtr_240x400],
