@@ -13,10 +13,8 @@ class Changelog::LogDestroy < Changelog::LogUpdate
 private
 
   def logger
-    @logger ||= NamedLogger.send(:"changelog_#{kind}")
-  end
-
-  def kind
-    @kind ||= model.class.base_class.name.downcase
+    @logger ||= NamedLogger.send(
+      :"changelog_#{model.class.base_class.name.downcase.pluralize}"
+    )
   end
 end

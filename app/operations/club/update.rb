@@ -8,7 +8,8 @@ class Club::Update
   def call
     kick_users
     Retryable.retryable tries: 2, on: ALLOWED_EXCEPTIONS, sleep: 1 do
-      Changelog::LogUpdate.call @model, @actor if update_club
+      is_updated = update_club
+      Changelog::LogUpdate.call @model, @actor if is_updated
     end
 
     @model
