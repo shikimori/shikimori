@@ -2,12 +2,10 @@
 
 describe Critique::Update do
   include_context :timecop, 'Wed, 16 Sep 2020 16:23:41 MSK +03:00'
-  subject { Critique::Update.call critique, params }
+  subject { Critique::Update.call critique, params, user }
 
   let(:critique) { create :critique }
   let(:anime) { create :anime }
-
-  before { subject }
 
   context 'valid params' do
     let(:params) do
@@ -18,7 +16,9 @@ describe Critique::Update do
         text: 'x' * Critique::MIN_BODY_SIZE
       }
     end
+
     it do
+      is_expected.to eq true
       expect(critique.errors).to be_empty
       expect(critique.changed_at).to be_within(0.1).of Time.zone.now
       expect(critique.reload).to have_attributes params
@@ -31,7 +31,9 @@ describe Critique::Update do
         text: 'too short text'
       }
     end
+
     it do
+      is_expected.to eq false
       expect(critique.errors).to be_present
       expect(critique.reload).not_to have_attributes params
     end

@@ -47,9 +47,9 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
   end
 
   def update
-    Critique::Update.call @critique, critique_params
+    is_updated = Critique::Update.call @critique, critique_params, current_user
 
-    if @critique.errors.blank?
+    if is_updated
       topic = @critique.maybe_topic locale_from_host
       redirect_to(
         UrlGenerator.instance.topic_url(topic),
@@ -62,7 +62,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
   end
 
   def destroy
-    @critique.destroy
+    Critique::Destroy.call @critique, current_user
     render json: { notice: i18n_t('critique.removed') }
   end
 
