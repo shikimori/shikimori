@@ -36,7 +36,7 @@ class ExternalLink < ApplicationRecord
 
   def url= value
     if value.present? && value != NO_URL
-      super Url.new(value).with_protocol.to_s
+      super cleanup_url(value)
     else
       super
     end
@@ -101,5 +101,12 @@ private
         #{source}
       HASH
     )
+  end
+
+  def cleanup_url url
+    fixed_url = Url.new(url).with_protocol.to_s
+    fixed_url = fixed_url.gsub(/\?.*/, '') if fixed_url.include? 'mangalib.me'
+    fixed_url = fixed_url.gsub 'readmanga.io', 'readmanga.live' if fixed_url.include? 'readmanga.io'
+    fixed_url
   end
 end

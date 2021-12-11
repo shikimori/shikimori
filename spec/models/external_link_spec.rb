@@ -30,8 +30,22 @@ describe ExternalLink do
   end
   describe 'instance methods' do
     describe '#url=' do
-      let(:external_link) { build :external_link, url: 'zzz' }
-      it { expect(external_link.url).to eq 'http://zzz' }
+      before { subject.url = url }
+
+      context 'protocal' do
+        let(:url) { 'zzz' }
+        its(:url) { is_expected.to eq 'http://zzz' }
+      end
+
+      context 'mangalib.me' do
+        let(:url) { 'https://mangalib.me/zzz?section=info' }
+        its(:url) { is_expected.to eq 'https://mangalib.me/zzz' }
+      end
+
+      context 'readmanga.io' do
+        let(:url) { 'https://readmanga.io/zzz' }
+        its(:url) { is_expected.to eq 'https://readmanga.live/zzz' }
+      end
     end
 
     describe '#visible?' do
