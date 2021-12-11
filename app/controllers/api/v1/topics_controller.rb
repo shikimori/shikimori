@@ -149,7 +149,8 @@ class Api::V1::TopicsController < Api::V1Controller
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/topics/:id', 'Destroy a topic'
   def destroy
-    faye.destroy @resource
+    Topic::Destroy.call @resource, faye
+
     render json: { notice: i18n_t('topic.deleted') }
   end
 
