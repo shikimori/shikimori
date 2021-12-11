@@ -106,7 +106,6 @@ private
   def cleanup_url url
     fixed_url = Url.new(url).with_protocol.to_s
     fixed_url = fixed_url.gsub(/\?.*/, '') if fixed_url.include? 'mangalib.me'
-    fixed_url = fixed_url.gsub 'readmanga.io', 'readmanga.live' if fixed_url.include? 'readmanga.io'
     fixed_url
   end
 end

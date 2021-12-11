@@ -41,11 +41,6 @@ describe ExternalLink do
         let(:url) { 'https://mangalib.me/zzz?section=info' }
         its(:url) { is_expected.to eq 'https://mangalib.me/zzz' }
       end
-
-      context 'readmanga.io' do
-        let(:url) { 'https://readmanga.io/zzz' }
-        its(:url) { is_expected.to eq 'https://readmanga.live/zzz' }
-      end
     end
 
     describe '#visible?' do
