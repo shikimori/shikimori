@@ -84,12 +84,6 @@ describe ProfilesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#summaries' do
-    let!(:comment) { create :comment, :summary, user: user, commentable: user }
-    subject! { get :summaries, params: { id: user.to_param } }
-    it { expect(response).to have_http_status :success }
-  end
-
   describe '#versions' do
     let(:anime) { create :anime }
     let!(:version) do
