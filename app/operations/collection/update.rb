@@ -4,16 +4,23 @@ class Collection::Update < UserContent::UpdateBase
   klass Collection
   MAX_LINKS = 500
 
-  pattr_initialize :model, %i[params transition]
+  method_object :model, :params, :transition, :actor
 
 private
 
   def update
     if @transition && @model.send(:"can_#{@transition}?")
       @model.send :"#{@transition}!"
+      changelog
     end
 
-    if @params && @model.update(update_params)
+    Collection.transaction { update_model } if @params
+  end
+
+  def update_model
+    is_updated = @model.update update_params
+
+    if is_updated
       CollectionLink.where(collection: @model).delete_all
       CollectionLink.import collection_links
       Collection.reset_counters @model.id, :links_count
@@ -21,6 +28,8 @@ private
       # but collection_links could be changed
       @model.touch
     end
+
+    is_updated
   end
 
   def publish

@@ -100,8 +100,8 @@ class CollectionsController < ShikimoriController
 
 private
 
-  def collection_update update_params
-    Collection::Update.call @resource, update_params
+  def collection_update transition: nil, params: nil
+    Collection::Update.call @resource, params, transition, current_user
 
     if @resource.errors.blank?
       redirect_to edit_collection_url(@resource), notice: t('changes_saved')

@@ -1,23 +1,28 @@
-class UserContent::UpdateBase < ServiceObjectBase
+class UserContent::UpdateBase
   extend DslAttribute
   dsl_attribute :klass
 
-  pattr_initialize :model, :params
+  method_object :model, :params, :actor
 
   def call
+    is_updated = nil
+
     klass.transaction do
-      update
+      is_updated = update
+
       publish if @model.published? && hidden_topic?
       unpublish unless @model.published? || hidden_topic?
     end
 
-    @model
+    is_updated
   end
 
 private
 
   def update
-    @model.update update_params
+    is_updated = @model.update update_params
+    changelog if is_updated
+    is_updated
   end
 
   def update_params
@@ -69,5 +74,14 @@ private
 
   def faye_service
     FayeService.new @model.user, nil
+  end
+
+  def changelog
+    NamedLogger.changelog.info(
+      user_id: @actor.id,
+      action: :update,
+      model.class.name.to_sym => { 'id' => @model.id },
+      changes: @model.saved_changes.except('updated_at', 'changed_at')
+    )
   end
 end

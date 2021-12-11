@@ -27,7 +27,8 @@ class ArticlesController < ShikimoriController
 
   def show
     unless @resource.published?
-      raise ActiveRecord::RecordNotFound unless can?(:edit, @resource)
+      raise ActiveRecord::RecordNotFound unless can? :edit, @resource
+
       breadcrumb @resource.name, edit_collection_url(@resource)
       breadcrumb t('actions.preview'), nil
     end
@@ -61,7 +62,7 @@ class ArticlesController < ShikimoriController
   end
 
   def update
-    Article::Update.call @resource, update_params
+    Article::Update.call @resource, update_params, current_user
 
     if @resource.errors.blank?
       redirect_to edit_article_url(@resource), notice: t('changes_saved')

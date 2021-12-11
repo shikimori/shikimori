@@ -3,9 +3,7 @@
 describe Collection::Update do
   include_context :timecop, 'Wed, 16 Sep 2020 16:23:41 MSK +03:00'
   subject do
-    described_class.call collection,
-      params: params,
-      transition: transition
+    described_class.call collection, params, transition, user
   end
 
   let(:collection) do
@@ -17,7 +15,9 @@ describe Collection::Update do
       created_at: 1.day.ago
   end
   let!(:topic) do
-    create :collection_topic, linked: collection, forum_id: Forum::HIDDEN_ID
+    create :collection_topic,
+      linked: collection,
+      forum_id: Forum::HIDDEN_ID
   end
   let(:type) { %i[anime manga ranobe].sample }
   let(:moderation_state) { %i[accepted pending].sample }
@@ -52,9 +52,8 @@ describe Collection::Update do
     let(:db_entry_2) { create type, updated_at: 1.day.ago }
     let(:db_entry_3) { create type, updated_at: 1.day.ago }
 
-    before { subject }
-
     it do
+      is_expected.to eq true
       expect(collection.errors).to be_empty
       expect(collection.reload).to have_attributes params.except(:links)
       expect(collection.created_at).to be_within(0.1).of 1.day.ago
@@ -86,6 +85,7 @@ describe Collection::Update do
       let(:params) { nil }
 
       it do
+        is_expected.to be_nil
         expect(collection.errors).to be_empty
         expect(collection.reload).to be_published
         expect(collection.published_at).to be_within(0.1).of Time.zone.now
@@ -105,6 +105,7 @@ describe Collection::Update do
         let(:moderation_state) { :rejected }
 
         it do
+          is_expected.to be_nil
           expect(collection.topics.first).to have_attributes(
             forum_id: Forum::OFFTOPIC_ID
           )
@@ -115,9 +116,9 @@ describe Collection::Update do
 
   context 'invalid params' do
     let(:params) { { name: '' } }
-    before { subject }
 
     it do
+      is_expected.to eq false
       expect(collection.errors).to be_present
       expect(collection.reload).not_to have_attributes params
     end

@@ -2,7 +2,7 @@
 
 describe Article::Update do
   include_context :timecop, 'Wed, 16 Sep 2020 16:23:41 MSK +03:00'
-  subject { described_class.call article, params }
+  subject { described_class.call article, params, user }
 
   let(:article) { create :article, user: user, created_at: 1.day.ago }
   let!(:topic) do
@@ -18,9 +18,8 @@ describe Article::Update do
     end
     let(:state) { 'unpublished' }
 
-    before { subject }
-
     it do
+      is_expected.to eq true
       expect(article.errors).to be_empty
       expect(article.reload).to have_attributes params
       expect(article.created_at).to be_within(0.1).of 1.day.ago
@@ -36,6 +35,7 @@ describe Article::Update do
       let(:state) { 'published' }
 
       it do
+        is_expected.to eq true
         expect(article.errors).to be_empty
         expect(article.reload).to have_attributes params
         expect(article.created_at).to be_within(0.1).of Time.zone.now
@@ -56,6 +56,7 @@ describe Article::Update do
     before { subject }
 
     it do
+      is_expected.to eq false
       expect(article.errors).to be_present
       expect(article.reload).not_to have_attributes params
     end
