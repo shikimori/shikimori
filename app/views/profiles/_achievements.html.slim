@@ -9,7 +9,7 @@
         .cc-achievements
           = render partial: 'users/achievements/achievement',
             collection: view.common_achievements,
-            locals: { badge_only: true }
+            locals: { is_badge: true }
       - else
         p.b-nothing_here = t '.no_achievements'
     .c-column
@@ -19,7 +19,7 @@
         .cc-achievements
           = render partial: 'users/achievements/achievement',
             collection: view.genre_achievements,
-            locals: { badge_only: true }
+            locals: { is_badge: true }
       - else
         p.b-nothing_here = t '.no_achievements'
     .c-column

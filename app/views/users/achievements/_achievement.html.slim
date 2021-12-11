@@ -1,4 +1,4 @@
-- is_badge = achievement.franchise? || achievement.author?
+- is_badge = local_assigns[:is_badge] || achievement.franchise? || achievement.author?
 
 - achievement.images.each_with_index do |image, index|
   - break if index > 0 && !local_assigns[:images]
