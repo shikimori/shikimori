@@ -101,7 +101,8 @@ class TopicsController < ShikimoriController
   end
 
   def destroy
-    faye.destroy @resource
+    Topic::Destroy.call @resource, faye
+
     render json: { notice: i18n_t('topic.deleted') }
   end
 

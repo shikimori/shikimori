@@ -99,7 +99,13 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   end
   param :frontend, :bool
   def update
-    if faye.update(@resource, update_params) && frontent_request?
+    is_updated = Comment::Update.call(
+      comment: @resource,
+      params: comment_params,
+      faye: faye
+    )
+
+    if is_updated && frontent_request?
       render :comment
     else
       respond_with @resource

@@ -1,7 +1,7 @@
 # сервис через который должны создаваться/изменяться/удаляться все объекты,
 # отображаемые на форуме и имеющие realtime обновления
 class FayeService
-  pattr_initialize :actor, :publisher_faye_id
+  vattr_initialize :actor, :publisher_faye_id
 
   def create trackable
     was_persisted = trackable.persisted?
