@@ -1,18 +1,8 @@
 class Critique::Destroy
-  method_object :critique, :actor
+  method_object :model, :actor
 
   def call
-    changelog
-    @critique.destroy
-  end
-
-private
-
-  def changelog
-    NamedLogger.changelog.info(
-      user_id: @actor.id,
-      action: :destroy,
-      critique: @critique.attributes
-    )
+    Changelog::LogDestroy.call @model, @actor
+    @model.destroy
   end
 end

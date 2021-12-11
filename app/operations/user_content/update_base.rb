@@ -21,7 +21,7 @@ private
 
   def update
     is_updated = @model.update update_params
-    changelog if is_updated
+    Changelog::LogUpdate.call @model, @actor if is_updated
     is_updated
   end
 
@@ -52,11 +52,7 @@ private
 
   def update_topic params
     @model.topics.each do |topic|
-      Topic::Update.call(
-        topic: topic,
-        params: params,
-        faye: faye_service
-      )
+      Topic::Update.call topic, params, faye_service
     end
   end
 
@@ -74,14 +70,5 @@ private
 
   def faye_service
     FayeService.new @model.user, nil
-  end
-
-  def changelog
-    NamedLogger.changelog.info(
-      user_id: @actor.id,
-      action: :update,
-      model.class.name.downcase.downcase.to_sym => { 'id' => @model.id },
-      changes: @model.saved_changes.except('updated_at', 'changed_at')
-    )
   end
 end

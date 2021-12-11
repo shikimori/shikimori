@@ -1,18 +1,8 @@
 class Review::Destroy
-  method_object :review, :faye
+  method_object :model, :faye
 
   def call
-    changelog
-    @faye.destroy @review
-  end
-
-private
-
-  def changelog
-    NamedLogger.changelog.info(
-      user_id: @faye.actor&.id,
-      action: :destroy,
-      review: @review.attributes
-    )
+    Changelog::LogDestroy.call @model, @faye.actor
+    @faye.destroy @model
   end
 end

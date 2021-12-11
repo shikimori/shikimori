@@ -11,7 +11,7 @@ private
   def update
     if @transition && @model.send(:"can_#{@transition}?")
       @model.send :"#{@transition}!"
-      changelog
+      Changelog::LogUpdate.call @model, @actor
     end
 
     Collection.transaction { update_model } if @params
@@ -21,6 +21,12 @@ private
     is_updated = @model.update update_params
 
     if is_updated
+      Changelog::LogUpdate.call @model, @actor
+      if @params[:links]
+        Changelog::LogUpdate.call @model, @actor,
+          changes: { links: @params[:links].map(&:to_unsafe_h) }
+      end
+
       CollectionLink.where(collection: @model).delete_all
       CollectionLink.import collection_links
       Collection.reset_counters @model.id, :links_count

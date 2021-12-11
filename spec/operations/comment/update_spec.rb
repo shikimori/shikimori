@@ -2,13 +2,7 @@
 
 describe Comment::Update do
   include_context :timecop
-  subject do
-    described_class.call(
-      comment: comment,
-      params: params,
-      faye: faye
-    )
-  end
+  subject { described_class.call comment, params, faye }
 
   let(:faye) { FayeService.new user, nil }
   let(:comment) { create :comment, updated_at: 1.hour.ago }

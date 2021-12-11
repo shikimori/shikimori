@@ -1,18 +1,8 @@
 class Article::Destroy
-  method_object :article, :actor
+  method_object :model, :actor
 
   def call
-    changelog
-    @article.destroy
-  end
-
-private
-
-  def changelog
-    NamedLogger.changelog.info(
-      user_id: @actor.id,
-      action: :destroy,
-      article: @article.attributes
-    )
+    Changelog::LogDestroy.call @model, @actor
+    @model.destroy
   end
 end

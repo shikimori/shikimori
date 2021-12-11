@@ -51,7 +51,7 @@ class Abilities::ForumModerator
     end
 
     can %i[edit update], Collection
-    can %i[edit update], Critiqu
+    can %i[edit update], Critique
     can %i[edit update], Article
 
     can %i[

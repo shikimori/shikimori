@@ -1,11 +1,11 @@
 class Comment::Destroy
-  method_object :comment, :faye
+  method_object :model, :faye
 
   def call
-    topic = @comment.topic if topic_comment?
+    topic = @model.topic if topic_comment?
 
-    changelog
-    @faye.destroy @comment
+    Changelog::LogDestroy.call @model, @faye.actor
+    @faye.destroy @model
 
     touch_topic topic.reload if topic
   end
@@ -21,14 +21,6 @@ private
   end
 
   def topic_comment?
-    @comment.commentable.is_a? Topic
-  end
-
-  def changelog
-    NamedLogger.changelog.info(
-      user_id: @faye.actor&.id,
-      action: :destroy,
-      comment: @comment.attributes
-    )
+    @model.commentable.is_a? Topic
   end
 end

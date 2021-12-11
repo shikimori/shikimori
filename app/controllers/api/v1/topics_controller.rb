@@ -132,11 +132,7 @@ class Api::V1::TopicsController < Api::V1Controller
     param :title, String, required: false
   end
   def update
-    is_updated = Topic::Update.call(
-      topic: @resource,
-      params: topic_params,
-      faye: faye
-    )
+    is_updated = Topic::Update.call @resource, topic_params, faye
 
     if is_updated
       view = Topics::TopicViewFactory.new(false, false).build(@resource)

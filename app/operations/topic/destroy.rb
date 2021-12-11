@@ -1,18 +1,8 @@
 class Topic::Destroy
-  method_object :topic, :faye
+  method_object :model, :faye
 
   def call
-    changelog
-    @faye.destroy @topic
-  end
-
-private
-
-  def changelog
-    NamedLogger.changelog.info(
-      user_id: @faye.actor&.id,
-      action: :destroy,
-      topic: @topic.attributes
-    )
+    Changelog::LogDestroy.call @model, @faye.actor
+    @faye.destroy @model
   end
 end

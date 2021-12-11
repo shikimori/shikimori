@@ -27,19 +27,23 @@ describe Collection::Update do
     let(:params) do
       {
         name: 'test collection',
-        links: [{
-          linked_id: db_entry_1.id,
-          group: 'zz1',
-          text: 'xx1'
-        }, {
-          linked_id: db_entry_2.id,
-          group: 'zz2',
-          text: 'xx2'
-        }, {
-          linked_id: db_entry_3.id,
-          group: 'zz3',
-          text: 'xx3'
-        }]
+        links: [
+          ActionController::Parameters.new(
+            linked_id: db_entry_1.id,
+            group: 'zz1',
+            text: 'xx1'
+          ).permit!,
+          ActionController::Parameters.new(
+            linked_id: db_entry_2.id,
+            group: 'zz2',
+            text: 'xx2'
+          ).permit!,
+          ActionController::Parameters.new(
+            linked_id: db_entry_3.id,
+            group: 'zz3',
+            text: 'xx3'
+          ).permit!
+        ]
       }
     end
     let!(:collection_link_1) do

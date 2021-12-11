@@ -82,11 +82,7 @@ class TopicsController < ShikimoriController
   end
 
   def update
-    is_updated = Topic::Update.call(
-      topic: @resource,
-      params: topic_params,
-      faye: faye
-    )
+    is_updated = Topic::Update.call @resource, topic_params, faye
 
     if is_updated
       redirect_to(
