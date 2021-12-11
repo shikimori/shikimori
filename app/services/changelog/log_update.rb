@@ -18,7 +18,7 @@ private
 
   def logger
     @logger ||= NamedLogger.send(
-      :"changelog_#{model.class.base_class.name.downcase.pluralize}"
+      :"changelog_#{model.class.base_class.name.underscore.pluralize}"
     )
   end
 end
