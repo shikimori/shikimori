@@ -739,7 +739,7 @@ Rails.application.routes.draw do
         get :clubs
         get :collections
 
-        get :summaries
+        get 'summaries' => redirect { |_, request| request.path.gsub('summaries', 'reviews') }
 
         get :other_names # другие названия
         get :resources # подгружаемый центральный блок с персонажами, скриншотами, видео
