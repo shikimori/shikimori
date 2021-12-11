@@ -187,11 +187,11 @@ module Clockwork
     NamedLogger.clockwork.info 'weekly.stuff.cpu_intensive.3 finished'
   end
 
-  every 1.day, 'monthly.very-very-long-coub', at: '22:00', if: lambda { |t| t.day == 10 } do
-    Tags::ImportCoubTagsWorker.perform_async
-
-    NamedLogger.clockwork.info 'monthly.very-very-long-coub finished'
-  end
+  # every 1.day, 'monthly.very-very-long-coub', at: '22:00', if: lambda { |t| t.day == 10 } do
+  #   Tags::ImportCoubTagsWorker.perform_async
+  # 
+  #   NamedLogger.clockwork.info 'monthly.very-very-long-coub finished'
+  # end
 
   every 1.day, 'monthly.images-verifier',
     at: '22:00',
