@@ -43,7 +43,7 @@ class Api::V1::ClubsController < Api::V1Controller
   end
   error code: 422
   def update
-    Club::Update.call @resource, [], update_params, nil
+    Club::Update.call @resource, [], update_params, nil, current_user
 
     if @resource.errors.none?
       respond_with @resource.decorate, serializer: ClubProfileSerializer

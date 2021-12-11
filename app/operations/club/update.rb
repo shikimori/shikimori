@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-class Club::Update < ServiceObjectBase
-  pattr_initialize :model, :kick_ids, :params, :section
+class Club::Update
+  method_object :model, :kick_ids, :params, :section, :actor
 
   ALLOWED_EXCEPTIONS = [PG::UniqueViolation, ActiveRecord::RecordNotUnique]
 
   def call
     kick_users
     Retryable.retryable tries: 2, on: ALLOWED_EXCEPTIONS, sleep: 1 do
-      update_club
+      Changelog::LogUpdate.call @model, @actor if update_club
     end
 
     @model

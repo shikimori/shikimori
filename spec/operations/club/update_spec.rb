@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Club::Update do
-  subject { Club::Update.call club, kick_ids, params, page }
+  subject { described_class.call club, kick_ids, params, page, user }
 
   let(:club) { create :club, :with_topics, owner: user }
   let(:page) { 'account' }
