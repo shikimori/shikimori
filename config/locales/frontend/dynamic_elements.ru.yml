@@ -16,10 +16,6 @@ ru:
           one: комментарий
           few: комментария
           many: комментариев
-        summary:
-          one: отзыв
-          few: отзыва
-          many: отзывов
         new_message_added:
           one: Добавлено %{count} новое сообщение
           few: Добавлено %{count} новых сообщения

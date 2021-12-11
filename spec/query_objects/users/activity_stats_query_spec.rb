@@ -4,7 +4,7 @@ describe Users::ActivityStatsQuery do
 
   describe '#call' do
     it do
-      expect(stats.call.to_h).to have(11).items
+      expect(stats.call.to_h).to have(10).items
       expect(stats.call).to be_kind_of Users::ActivityStats
     end
   end

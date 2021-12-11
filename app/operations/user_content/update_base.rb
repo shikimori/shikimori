@@ -80,7 +80,7 @@ private
     NamedLogger.changelog.info(
       user_id: @actor.id,
       action: :update,
-      model.class.name.downcase.to_sym => { 'id' => @model.id },
+      model.class.name.downcase.downcase.to_sym => { 'id' => @model.id },
       changes: @model.saved_changes.except('updated_at', 'changed_at')
     )
   end

@@ -446,15 +446,11 @@ export default class Topic extends ShikiEditable {
       });
 
       const commentCount = Math.min(limit, count);
-      const commentWord = this.$commentsLoader.data('only-summaries-shown') ?
-        p(commentCount,
-          I18n.t(`${I18N_KEY}.summary.one`),
-          I18n.t(`${I18N_KEY}.summary.few`),
-          I18n.t(`${I18N_KEY}.summary.many`)) :
-        p(commentCount,
-          I18n.t(`${I18N_KEY}.comment.one`),
-          I18n.t(`${I18N_KEY}.comment.few`),
-          I18n.t(`${I18N_KEY}.comment.many`));
+      const commentWord = p(commentCount,
+        I18n.t(`${I18N_KEY}.comment.one`),
+        I18n.t(`${I18N_KEY}.comment.few`),
+        I18n.t(`${I18N_KEY}.comment.many`)
+      );
 
       const ofTotalComments =
         count > limit ?

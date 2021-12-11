@@ -1,21 +1,13 @@
 class Topics::CommentsView < Topics::FoldedCommentsView
   vattr_initialize :topic, :is_preview
 
-  instance_cache :comments,
-    :folded_comments,
-    :only_summaries_shown?,
-    :topic_comments_policy
+  instance_cache :comments, :folded_comments
+  delegate :comments_count, to: :topic
 
   def comments_scope
-    comments = @topic
+    @topic
       .comments
       .includes(:user)
-
-    if only_summaries_shown?
-      comments.summaries
-    else
-      comments
-    end
   end
 
   def fetch_url
@@ -24,18 +16,14 @@ class Topics::CommentsView < Topics::FoldedCommentsView
       topic_type: topic_type,
       topic_id: @topic.id,
       skip: 'SKIP',
-      limit: fold_limit,
-      is_summary: only_summaries_shown? ? 'is_summary' : nil
+      limit: fold_limit
     )
   end
 
   # pass object linked to topic instead of topic
   # because the latter might not exist yet
   def new_comment
-    Comment.new(
-      commentable: new_comment_commentable,
-      is_summary: new_comment_summary?
-    )
+    Comment.new commentable: new_comment_commentable
   end
 
   def cache_key
@@ -44,16 +32,8 @@ class Topics::CommentsView < Topics::FoldedCommentsView
       @topic.is_a?(NoTopic) ? @topic.linked : @topic.id,
       @topic.respond_to?(:commented_at) ? @topic.commented_at : nil,
       comments_limit,
-      page,
-      only_summaries_shown?,
-      new_comment_summary?
+      page
     ]
-  end
-
-  def comments_count
-    only_summaries_shown? ?
-      topic_comments_policy.summaries_count :
-      topic_comments_policy.comments_count
   end
 
 private
@@ -62,30 +42,12 @@ private
     @topic.persisted? ? @topic : @topic.linked
   end
 
-  def only_summaries_shown?
-    return false unless %w[animes mangas ranobe].include? h.params[:controller]
-    return true if h.params[:action] == 'summaries'
-
-    h.params[:action] == 'show' &&
-      topic_comments_policy.summaries_count.positive?
-  end
-
-  def new_comment_summary?
-    %w[animes mangas ranobe].include?(h.params[:controller]) &&
-      h.params[:action] == 'summaries'
-  end
-
   def comment_word number
-    word = only_summaries_shown? ? 'summary' : 'comment'
-    i18n_i word, number, :accusative
+    i18n_i 'comment', number, :accusative
   end
 
   # для адреса подгрузки комментариев
   def topic_type
     Topic.name
-  end
-
-  def topic_comments_policy
-    Topic::CommentsPolicy.new @topic
   end
 end

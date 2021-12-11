@@ -16,10 +16,6 @@ en:
           one: comment
           few: comments
           many: comments
-        summary:
-          one: summary
-          few: summaries
-          many: summaries
         new_message_added:
           one: '%{count} new message added'
           few: '%{count} new messages added'

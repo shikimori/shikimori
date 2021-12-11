@@ -15,17 +15,12 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :faye_channels,
     to: :topic
 
-  delegate :comments_count,
-    :summaries_count,
-    :any_comments?,
-    :any_summaries?,
-    to: :topic_comments_policy
-
+  delegate :comments_count, to: :topic
   delegate :format_date, to: :class
 
   instance_cache :html_body, :html_body_truncated, :html_footer,
     :comments_view, :urls, :action_tag, :topic_ignore,
-    :topic_comments_policy, :topic_type_policy
+    :topic_type_policy
 
   BODY_TRUCATE_SIZE = 500
   TRUNCATE_OMNISSION = '…'
@@ -267,9 +262,5 @@ private
   def linked_in_avatar?
     @topic.linked && preview? &&
       !topic_type_policy.forum_topic?
-  end
-
-  def topic_comments_policy
-    Topic::CommentsPolicy.new @topic
   end
 end

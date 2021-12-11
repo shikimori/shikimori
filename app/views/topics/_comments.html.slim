@@ -10,7 +10,6 @@
         data-skip=comments_view.comments_limit
         data-limit=comments_view.fold_limit
         data-count=comments_view.folded_comments
-        data-only-summaries-shown=(comments_view.only_summaries_shown?.to_json if comments_view.respond_to?(:only_summaries_shown))
       ] = comments_view.load_comments_text
 
     - if comments_view.comments.any?

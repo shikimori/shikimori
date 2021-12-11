@@ -55,8 +55,6 @@ class CommentsController < ShikimoriController
       .offset(from)
       .limit(to)
 
-    query.where! is_summary: true if params[:is_summary]
-
     @collection = query
       .decorate
       .reverse
@@ -123,7 +121,7 @@ private
   def preview_params
     params
       .require(:comment)
-      .permit(:body, :is_summary, :is_offtopic, :commentable_id, :commentable_type, :user_id)
+      .permit(:body, :is_offtopic, :commentable_id, :commentable_type, :user_id)
       .tap do |comment|
         comment[:user_id] ||= current_user&.id # can be no current_user with broken cookies
         comment[:body] = Banhammer.instance.censor comment[:body], nil

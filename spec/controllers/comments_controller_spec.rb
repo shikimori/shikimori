@@ -1,6 +1,6 @@
 describe CommentsController do
   let(:comment) { create :comment, commentable: offtopic_topic, user: user }
-  let(:comment2) { create :comment, commentable: offtopic_topic, user: user }
+  let(:comment_2) { create :comment, commentable: offtopic_topic, user: user }
   before do
     allow(FayePublisher)
       .to receive(:new)
@@ -117,12 +117,12 @@ describe CommentsController do
     end
 
     describe 'multiple' do
-      subject! { get :chosen, params: { ids: "#{comment.id},#{comment2.id}" } }
+      subject! { get :chosen, params: { ids: "#{comment.id},#{comment_2.id}" } }
       it { expect(response).to have_http_status :success }
     end
 
     describe 'unexisted' do
-      subject! { get :chosen, params: { ids: (comment2.id + 1).to_s } }
+      subject! { get :chosen, params: { ids: (comment_2.id + 1).to_s } }
       it { expect(response).to have_http_status :success }
     end
   end
