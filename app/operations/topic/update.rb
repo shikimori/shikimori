@@ -5,6 +5,7 @@ class Topic::Update
 
   def call
     is_updated = update_topic
+    changelog if is_updated
     broadcast @topic if is_updated && broadcast?(@topic)
     is_updated
   end
@@ -21,5 +22,14 @@ private
 
   def broadcast topic
     Notifications::BroadcastTopic.perform_in 10.seconds, topic.id
+  end
+
+  def changelog
+    NamedLogger.changelog.info(
+      user_id: @faye.actor&.id,
+      action: :update,
+      topic: { 'id' => @topic.id },
+      changes: @topic.saved_changes.except('updated_at')
+    )
   end
 end

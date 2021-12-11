@@ -4,11 +4,7 @@ class Comment::Destroy
   def call
     topic = @comment.topic if topic_comment?
 
-    NamedLogger.changelog.info(
-      user_id: @faye.actor&.id,
-      action: :destroy,
-      comment: @comment.attributes
-    )
+    changelog
     @faye.destroy @comment
 
     touch_topic topic.reload if topic
@@ -26,5 +22,13 @@ private
 
   def topic_comment?
     @comment.commentable.is_a? Topic
+  end
+
+  def changelog
+    NamedLogger.changelog.info(
+      user_id: @faye.actor&.id,
+      action: :destroy,
+      comment: @comment.attributes
+    )
   end
 end

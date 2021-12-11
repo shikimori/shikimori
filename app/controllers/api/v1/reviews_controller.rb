@@ -32,7 +32,7 @@ class Api::V1::ReviewsController < Api::V1Controller
   end
 
   def destroy
-    @resource.destroy
+    Review::Destroy.call @resource, faye
 
     render json: { notice: i18n_t('review.removed') }
   end

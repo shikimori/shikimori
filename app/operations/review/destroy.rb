@@ -1,9 +1,9 @@
-class Topic::Destroy
-  method_object :topic, :faye
+class Review::Destroy
+  method_object :review, :faye
 
   def call
     changelog
-    @faye.destroy @topic
+    @faye.destroy @review
   end
 
 private
@@ -12,7 +12,7 @@ private
     NamedLogger.changelog.info(
       user_id: @faye.actor&.id,
       action: :destroy,
-      topic: @topic.attributes
+      review: @review.attributes
     )
   end
 end
