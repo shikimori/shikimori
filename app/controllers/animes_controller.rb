@@ -128,15 +128,6 @@ class AnimesController < DbEntriesController
     @blank_layout = true
   end
 
-  def summaries
-    maybe_topic = @resource.maybe_topic(locale_from_host)
-    unless Topic::CommentsPolicy.new(maybe_topic).any_summaries?
-      return redirect_to @resource.url, status: :moved_permanently
-    end
-
-    og page_title: i18n_t("critiques.#{@resource.object.class.name.downcase}")
-  end
-
   def art
     return redirect_to @resource.url, status: :moved_permanently unless @resource.art?
     raise AgeRestricted if censored_forbidden?

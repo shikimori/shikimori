@@ -160,14 +160,6 @@ describe AnimesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#summaries' do
-    let(:anime) { create :anime, :with_topics }
-    let!(:comment) { create :comment, :summary, commentable: anime.topic(:ru) }
-    subject! { get :summaries, params: { id: anime.to_param } }
-
-    it { expect(response).to have_http_status :success }
-  end
-
   describe '#resources' do
     subject! { get :resources, params: { id: anime.to_param } }
     it { expect(response).to have_http_status :success }
