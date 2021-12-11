@@ -48,7 +48,9 @@ class Clubs::ClubPagesController < ShikimoriController
   end
 
   def update
-    if @resource.update update_params
+    is_updated = ClubPage::Update.call @resource, update_params, current_user
+
+    if is_updated
       redirect_to(
         edit_club_club_page_path(@resource.club, @resource),
         notice: t('changes_saved')
@@ -61,7 +63,8 @@ class Clubs::ClubPagesController < ShikimoriController
   end
 
   def destroy
-    @resource.destroy!
+    ClubPage::Destroy.call @resource, current_user
+
     redirect_to @back_url, notice: i18n_t('destroy.success')
   end
 
