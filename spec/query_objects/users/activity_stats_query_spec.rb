@@ -9,14 +9,12 @@ describe Users::ActivityStatsQuery do
     end
   end
 
-  describe '#comments_count, #summaries_count' do
+  describe '#comments_count' do
     let!(:comment_1) { create :comment, user: user }
     let!(:comment_2) { create :comment, user: user }
-    let!(:comment_3) { create :comment, :summary, :skip_cancel_summary, body: 'x' * 1000, user: user }
     let!(:comment_4) { create :comment, user: user_2 }
 
     its(:comments_count) { is_expected.to eq 2 }
-    its(:summaries_count) { is_expected.to eq 1 }
   end
 
   describe '#reviews_count' do

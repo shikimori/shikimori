@@ -995,9 +995,6 @@ Rails.application.routes.draw do
       get 'articles(/page/:page)' => :articles, as: :articles
       get 'topics(/page/:page)' => :topics, as: :topics
       get 'comments(/page/:page)' => :comments, as: :comments
-      scope 'comments' do
-        get 'summaries(/page/:page)' => :summaries, as: :summaries
-      end
       get 'versions(/page/:page)' => :versions, as: :versions
     end
 

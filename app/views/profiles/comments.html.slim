@@ -1,12 +1,4 @@
 = render layout: 'page' do
-  /.b-options-floated.mobile-phone_portrait
-    a href="#{summaries_profile_url @resource}"
-      = i18n_io('Summary', :few)
-      span.brackets = @resource.activity_stats.summaries_count
-    span.link.selected
-      = i18n_io('Comment', :few)
-      span.brackets = @resource.activity_stats.comments_count
-
   = form_tag '', method: :get, class: 'comments-search' do
     input.subheadline-input.search[
       value=params[:phrase]

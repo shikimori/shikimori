@@ -24,10 +24,6 @@ class Users::ActivityStatsQuery
       .count
   end
 
-  def summaries_count
-    Comment.where(is_summary: true, user_id: @user.id).count
-  end
-
   def critiques_count
     @user.critiques.available.count
   end

@@ -119,20 +119,6 @@
               data-confirm=t('actions.confirm')
             ] = t 'actions.delete_all'
 
-    - if @resource.activity_stats.summaries_count.positive?
-      .c-column
-        .subheadline
-          a href=summaries_profile_url(@resource)
-            = i18n_io 'Summary', :few
-        .b-entry-info
-          = info_line t('.moderation.amount'), @resource.activity_stats.summaries_count
-          - if can? :delete_all_summaries, @resource
-            a.b-button[
-              href=summaries_profile_moderation_url(@resource)
-              data-method='delete'
-              data-confirm=t('actions.confirm')
-            ] = t 'actions.delete_all'
-
     - if @resource.activity_stats.versions_count.positive?
       .c-column
         .subheadline

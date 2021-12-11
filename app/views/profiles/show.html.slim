@@ -183,12 +183,6 @@
               ' #{@resource.activity_stats.reviews_count}
               = i18n_i 'review', @resource.activity_stats.reviews_count
 
-        - if @resource.activity_stats.summaries_count.positive?
-          div data-type='summaries'
-            a href=summaries_profile_url(@resource)
-              ' #{@resource.activity_stats.summaries_count}
-              = i18n_i 'summary', @resource.activity_stats.summaries_count
-
         - if @resource.activity_stats.versions_count.positive?
           div data-type='versions'
             a href=versions_profile_url(@resource)
