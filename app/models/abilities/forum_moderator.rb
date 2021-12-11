@@ -50,6 +50,10 @@ class Abilities::ForumModerator
       Topic.where(user_id: user.id).sum(:comments_count) < MAXIMUM_TOPIC_COMMENTS_TO_DELETE
     end
 
+    can %i[edit update], Collection
+    can %i[edit update], Critiqu
+    can %i[edit update], Article
+
     can %i[
       manage_not_trusted_abuse_reporter_role
     ], User
