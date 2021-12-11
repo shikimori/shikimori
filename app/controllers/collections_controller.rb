@@ -82,7 +82,7 @@ class CollectionsController < ShikimoriController
   end
 
   def destroy
-    @resource.destroy!
+    Collection::Destroy.call @resource, current_user
 
     if request.xhr?
       render json: { notice: i18n_t('collection_deleted') }

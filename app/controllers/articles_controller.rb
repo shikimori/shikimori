@@ -73,7 +73,7 @@ class ArticlesController < ShikimoriController
   end
 
   def destroy
-    @resource.destroy!
+    Article::Destroy.call @resource, current_user
 
     if request.xhr?
       render json: { notice: i18n_t('article_deleted') }
