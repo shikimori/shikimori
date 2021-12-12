@@ -320,3 +320,23 @@ end;
 
 User.find(user_id).update rate_at: Time.zone.now
 ```
+
+### Restore images from backup
+```ruby
+urls = [
+  "/system/user_images/original/6811/971.jpg?1423554170"
+];
+
+processes = 13;
+items = JSON.parse(open('/tmp/urls').read);
+batches = items.each_slice(items.size / processes).to_a;
+
+Parallel.each(batches, in_processes: processes) do |batch|
+  sleep Parallel.worker_number;
+  %w[thumbnail original preview].each do |type|
+    batch.
+      map { |v| v.gsub(/\?.*|\/system\//, '') }.
+      each_with_index {|v, index| puts "#{type} #{index} of #{batch.size} Worker##{Parallel.worker_number}"; `scp /Volumes/backup/shikimori_new/#{v.gsub('original', type)} devops@shiki:/mnt/store/system/#{v.gsub('original', type)}` }
+  end;
+end;
+```
