@@ -7,6 +7,7 @@ class UserImages::CleanupJob
     ClubPage => :text,
     Critique => :text,
     Article => :body,
+    Review => :body,
     Poll => :text,
     User => :about,
     Collection => :text,
