@@ -327,6 +327,7 @@ urls = [
   "/system/user_images/original/6811/971.jpg?1423554170"
 ];
 
+is_validate = false;
 processes = 13;
 items = JSON.parse(open('/tmp/urls').read);
 batches = items.each_slice(items.size / processes).to_a;
@@ -336,7 +337,18 @@ Parallel.each(batches, in_processes: processes) do |batch|
   %w[thumbnail original preview].each do |type|
     batch.
       map { |v| v.gsub(/\?.*|\/system\//, '') }.
-      each_with_index {|v, index| puts "#{type} #{index} of #{batch.size} Worker##{Parallel.worker_number}"; `scp /Volumes/backup/shikimori_new/#{v.gsub('original', type)} devops@shiki:/mnt/store/system/#{v.gsub('original', type)}` }
+      each_with_index do |v, index|
+        puts "#{type} #{index} of #{batch.size} Worker##{Parallel.worker_number}";
+        from_path = "/Volumes/backup/shikimori_new/#{v.gsub('original', type)}"
+        to_path = "/mnt/store/system/#{v.gsub('original', type)}"
+        host = 'devops@shiki'
+
+        if is_validate
+          puts `if [ $(ssh #{host} [[ -f #{to_path} ]];echo $?) -eq 1 ]; then scp #{from_path} #{host}:#{to_path}; echo "uploaed #{to_path} uploaded"; else echo "skipped #{to_path}"; fi`
+        else
+          `scp #{from_path} #{host}:#{to_path}`
+        end
+    end
   end;
 end;
 ```
