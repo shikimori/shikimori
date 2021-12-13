@@ -120,14 +120,18 @@
       +gte_laptop
         padding-top: 2px
 
-      .label
-        span
-          +iphone
+    &:not(.is-active)
+      +iphone
+        .label
+          span
             display: none
 
-      .count
-        +iphone
+        .count
           display: none
+
+        &.is-empty
+          .label:before
+            color: rgba($gray-4, 0.15)
 
     &-all
       +navigation_block_colors(#123, #e8ebef, #d8dde4)
