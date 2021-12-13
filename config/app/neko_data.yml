@@ -20553,8 +20553,9 @@
         franchise: black_clover
         not_anime_ids:
         - 39864
-      :threshold: 99.4%
+      :threshold: 100%
       :generator:
+        threshold: 100%
         ignore_latest_ids:
         - 48585
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -20589,6 +20590,7 @@
         - 39864
       :threshold: 0.01
       :generator:
+        threshold: 100%
         ignore_latest_ids:
         - 48585
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
