@@ -108,7 +108,7 @@
       ]
 
   - if local_assigns[:is_moderation] && (review.abuse_requests.any? || review.bans.any?)
-    div class=('cc-2' if review.abuse_requests.any? && review.bans.any?)
+    div class=(review.abuse_requests.any? && review.bans.any? ? 'cc-2' : 'block')
       - if review.abuse_requests.any?
         .c-column
           .subheadline.h10 = i18n_i 'abuse_request', :other

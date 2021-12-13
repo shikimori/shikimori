@@ -26,7 +26,7 @@
           formats: :html
 
     - if @view.abuse_requests.any? || @view.bans.any?
-      div class=('cc-2' if @view.abuse_requests.any? && @view.bans.any?)
+      div class=(@view.abuse_requests.any? && @view.bans.any? ? 'cc-2' : 'block')
         - if @view.abuse_requests.any?
           .c-column
             .subheadline.h10 = i18n_i 'abuse_request', :other
