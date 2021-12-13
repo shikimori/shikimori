@@ -6,15 +6,17 @@ class Comment::ConvertToReview
     review = build_review
     review.instance_variable_set :@is_migration, true
 
-    Review.wo_antispam { review.save! }
+    ApplicationRecord.transaction do
+      Review.wo_antispam { review.save! }
 
-    unless @is_keep_comment
-      Comments::Move.call comment_ids: replies_ids, commentable: review
-      move_comment_relations review
-      @comment.destroy!
+      unless @is_keep_comment
+        Comments::Move.call comment_ids: replies_ids, commentable: review
+        move_comment_relations review
+        @comment.destroy!
+      end
+
+      NamedLogger.convert_to_review.info review.to_json
     end
-
-    NamedLogger.convert_to_review.info review.to_json
 
     review
   end

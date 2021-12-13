@@ -4,12 +4,14 @@ class Review::ConvertToComment
   def call
     comment = build_comment
 
-    Comment.wo_antispam { comment.save! }
+    ApplicationRecord.transaction do
+      Comment.wo_antispam { comment.save! }
 
-    Comments::Move.call comment_ids: replies_ids, commentable: commentable
+      Comments::Move.call comment_ids: replies_ids, commentable: commentable
 
-    move_review_relations comment
-    @review.destroy!
+      move_review_relations comment
+      @review.destroy!
+    end
 
     comment
   end
