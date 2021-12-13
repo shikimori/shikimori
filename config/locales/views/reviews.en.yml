@@ -10,6 +10,7 @@ en:
         manga: Review written prior to the end of the manga
         ranobe: Review written prior to the end of the light novel
       go_to_review: go to review
+      moderation: Moderation
     group:
       to_other_reviews: To all reviews
       new_review: Write a review

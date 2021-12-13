@@ -107,6 +107,27 @@
         class="appear-review-#{review.id}"
       ]
 
+  - if local_assigns[:is_moderation] && (review.abuse_requests.any? || review.bans.any?)
+    = spoiler t('.moderation') do
+      .cc-2
+        .c-column
+          .subheadline.h10 = i18n_i 'abuse_request', :other
+          .block
+            - if review.abuse_requests.any?
+              = render partial: 'moderations/abuse_requests/abuse_request',
+                collection: review.abuse_requests
+            - else
+              .b-nothing_here = t '.no_abuse_requests'
+
+        .c-column
+          .subheadline.h10 = i18n_i 'ban', :other
+          .block_m
+            - if review.bans.any?
+              = render partial: 'moderations/bans/ban',
+                collection: review.bans
+            - else
+              .b-nothing_here = t '.no_bans'
+
   - if local_assigns[:is_comments]
     .block
       .subheadline = i18n_i('Comment', :other)
