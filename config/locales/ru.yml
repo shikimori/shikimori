@@ -322,8 +322,9 @@ ru:
         abusive: содержит мат
         invalid_transition: cannot transition
       models:
+        base:
+          forbidden_tag_change: '%{tag_error_label} тег изменять нельзя'
         comments:
-          not_a_moderator: '[ban] и [broadcast] теги трогать нельзя'
           not_a_club_member: Комментирование разрешено только членам клуба
           not_a_club_admin: Комментирование разрешено только админам клуба
           in_club_black_list: Тебя внесли в чёрный список клуба. Комментирование невозможно

@@ -323,8 +323,9 @@ en:
         abusive: is abusive
         invalid_transition: cannot transition
       models:
+        base:
+          forbidden_tag_change: 'You cannot change %{tag_error_label} tag'
         comments:
-          not_a_moderator: 'Cannot touch [ban] or [broadcast] tags'
           not_a_club_member: Commenting is allowed to club members only
           not_a_club_admin: Commenting is allowed to club admins only
           in_club_black_list: You're banned in this club. Commenting is disabled

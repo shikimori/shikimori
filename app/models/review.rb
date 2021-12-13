@@ -44,8 +44,11 @@ class Review < ApplicationRecord
   scope :neutral, -> { where opinion: Types::Review::Opinion[:neutral] }
   scope :negative, -> { where opinion: Types::Review::Opinion[:negative] }
 
+  # callbacks
   before_create :fill_is_written_before_release,
     if: -> { is_written_before_release.nil? }
+  before_validation :forbid_tags_change,
+    if: -> { will_save_change_to_body? && !@is_migration }
 
   def html_body
     BbCodes::Text.call body
@@ -117,5 +120,14 @@ private
 
   def fill_is_written_before_release
     self.is_written_before_release = !db_entry_released_before?
+  end
+
+  def forbid_tags_change
+    Comments::ForbidTagChange.call(
+      model: self,
+      field: :body,
+      tag_regexp: /(\[ban=\d+\])/,
+      tag_error_label: '[ban]'
+    )
   end
 end

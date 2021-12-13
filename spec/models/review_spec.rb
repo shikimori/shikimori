@@ -154,6 +154,38 @@ describe Review do
         end
       end
     end
+
+    describe '#forbid_tags_change' do
+      let!(:review) { create :review, anime: anime, body: 'a' * 9999 }
+      let(:anime) { create :anime }
+      before { allow(Comments::ForbidTagChange).to receive :call }
+      subject! do
+        if is_migration
+          review.instance_variable_set :@is_migration, true
+        end
+        review.update body: 'a' * 9998
+      end
+
+      context 'no migration' do
+        let(:is_migration) { false }
+        it do
+          expect(Comments::ForbidTagChange)
+            .to have_received(:call)
+            .with(
+              model: review,
+              field: :body,
+              tag_regexp: /(\[ban=\d+\])/,
+              tag_error_label: '[ban]'
+            )
+            .once
+        end
+      end
+
+      context 'migration' do
+        let(:is_migration) { true }
+        it { expect(Comments::ForbidTagChange).to_not have_received :call }
+      end
+    end
   end
 
   describe 'instance methods' do
@@ -309,6 +341,26 @@ describe Review do
 
     describe '#locale' do
       its(:locale) { is_expected.to eq :ru }
+    end
+
+    describe '#forbid_tags_change' do
+      let(:review) { create :review, body: old_body, anime: anime }
+      let(:anime) { create :anime }
+      subject! { review.update body: new_body }
+
+      let(:old_body) { 'a' * 9999 }
+
+      context 'no forbidden tags' do
+        let(:new_body) { old_body }
+        it { expect(review).to be_valid }
+      end
+
+      context '[ban]' do
+        let(:new_body) { old_body + '[ban=1]' }
+        it do
+          expect(review.errors.messages[:body]).to have(1).item
+        end
+      end
     end
   end
 

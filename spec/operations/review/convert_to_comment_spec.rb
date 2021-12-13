@@ -21,7 +21,7 @@ describe Review::ConvertToComment do
   let(:anime) { create :anime }
 
   let!(:abuse_request) { create :abuse_request, comment_id: nil, review: review }
-  let!(:ban) { create :ban, :no_callbacks, comment_id: nil, review: review, moderator: user }
+  let!(:ban) { create :ban, comment_id: nil, review: review, moderator: user }
 
   it do
     is_expected.to be_persisted

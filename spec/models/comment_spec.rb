@@ -25,10 +25,43 @@ describe Comment do
     let(:topic) { seed :offtopic_topic }
     let(:comment) { create :comment, user: user, commentable: topic }
 
-    describe '#forbid_tag_change' do
-      let(:comment) { create :comment }
-      after { comment.update body: 'test zxc' }
-      it { expect(comment).to receive :forbid_tag_change }
+    describe '#forbid_tags_change' do
+      let!(:comment) { create :comment }
+      before { allow(Comments::ForbidTagChange).to receive :call }
+      subject! do
+        if is_migration
+          comment.instance_variable_set :@is_migration, true
+        end
+        comment.update body: 'test zxc'
+      end
+
+      context 'no migration' do
+        let(:is_migration) { false }
+        it do
+          expect(Comments::ForbidTagChange).to have_received(:call).twice
+          expect(Comments::ForbidTagChange)
+            .to have_received(:call)
+            .with(
+              model: comment,
+              field: :body,
+              tag_regexp: /(\[ban=\d+\])/,
+              tag_error_label: '[ban]'
+            )
+          expect(Comments::ForbidTagChange)
+            .to have_received(:call)
+            .with(
+              model: comment,
+              field: :body,
+              tag_regexp: /(\[broadcast\])/,
+              tag_error_label: '[broadcast]'
+            )
+        end
+      end
+
+      context 'migration' do
+        let(:is_migration) { true }
+        it { expect(Comments::ForbidTagChange).to_not have_received :call }
+      end
     end
 
     describe '#check_access' do
@@ -254,7 +287,7 @@ describe Comment do
       end
     end
 
-    describe '#forbid_tag_change' do
+    describe '#forbid_tags_change' do
       let(:comment) { create :comment, body: old_body }
       subject! { comment.update body: new_body }
 
@@ -268,16 +301,14 @@ describe Comment do
       context '[ban]' do
         let(:new_body) { '[ban=1]' }
         it do
-          expect(comment.errors.messages[:base].first)
-            .to eq I18n.t('activerecord.errors.models.comments.not_a_moderator')
+          expect(comment.errors.messages[:body]).to have(1).item
         end
       end
 
       context '[broadcast]' do
         let(:new_body) { '[broadcast]' }
         it do
-          expect(comment.errors.messages[:base].first)
-            .to eq I18n.t('activerecord.errors.models.comments.not_a_moderator')
+          expect(comment.errors.messages[:body]).to have(1).item
         end
       end
     end

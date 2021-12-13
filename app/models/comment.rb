@@ -52,7 +52,8 @@ class Comment < ApplicationRecord
   scope :summaries, -> { where is_summary: true }
 
   # callbacks
-  before_validation :forbid_tag_change, if: -> { will_save_change_to_body? }
+  before_validation :forbid_tags_change,
+    if: -> { will_save_change_to_body? && !@is_migration }
 
   before_create :check_access
   before_create :cancel_summary
@@ -162,18 +163,20 @@ class Comment < ApplicationRecord
     [id]
   end
 
-  def forbid_tag_change # rubocop:disable all
-    [/(\[ban=\d+\])/, /\[broadcast\]/].each do |tag|
-      prior_ban = (changes_to_save[:body].first || '').match(tag).try :[], 1
-      current_ban = (changes_to_save[:body].last || '').match(tag).try :[], 1
+  def forbid_tags_change
+    Comments::ForbidTagChange.call(
+      model: self,
+      field: :body,
+      tag_regexp: /(\[ban=\d+\])/,
+      tag_error_label: '[ban]'
+    )
 
-      prior_count = (changes_to_save[:body].first || '').scan(tag).size
-      current_count = (changes_to_save[:body].last || '').scan(tag).size
-
-      if prior_ban != current_ban || prior_count != current_count
-        errors[:base] << I18n.t('activerecord.errors.models.comments.not_a_moderator')
-      end
-    end
+    Comments::ForbidTagChange.call(
+      model: self,
+      field: :body,
+      tag_regexp: /(\[broadcast\])/,
+      tag_error_label: '[broadcast]'
+    )
   end
 
   def allowed_summary?
