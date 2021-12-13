@@ -45,10 +45,10 @@ class Review < ApplicationRecord
   scope :negative, -> { where opinion: Types::Review::Opinion[:negative] }
 
   # callbacks
-  before_create :fill_is_written_before_release,
-    if: -> { is_written_before_release.nil? }
   before_validation :forbid_tags_change,
     if: -> { will_save_change_to_body? && !@is_migration }
+  before_create :fill_is_written_before_release,
+    if: -> { is_written_before_release.nil? }
 
   def html_body
     BbCodes::Text.call body
