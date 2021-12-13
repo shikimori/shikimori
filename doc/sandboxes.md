@@ -338,14 +338,15 @@ Parallel.each(batches, in_processes: processes) do |batch|
     batch.
       map { |v| v.gsub(/\?.*|\/system\//, '') }.
       each_with_index do |v, index|
-        puts "#{type} #{index} of #{batch.size} Worker##{Parallel.worker_number}";
+        message = "#{type} #{index} of #{batch.size} Worker##{Parallel.worker_number}";
         from_path = "/Volumes/backup/shikimori_new/#{v.gsub('original', type)}"
         to_path = "/mnt/store/system/#{v.gsub('original', type)}"
         host = 'devops@shiki'
 
         if is_validate
-          puts `if [ $(ssh #{host} [[ -f #{to_path} ]];echo $?) -eq 1 ]; then scp #{from_path} #{host}:#{to_path}; echo "uploaed #{to_path} uploaded"; else echo "skipped #{to_path}"; fi`
+          puts `if [ $(ssh #{host} [[ -f #{to_path} ]];echo $?) -eq 1 ]; then scp #{from_path} #{host}:#{to_path}; echo "#{message} uploaed #{to_path} uploaded"; else echo "#{message} skipped #{to_path}"; fi`
         else
+          puts message
           `scp #{from_path} #{host}:#{to_path}`
         end
     end
