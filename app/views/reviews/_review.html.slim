@@ -98,9 +98,6 @@
         = render 'topics/footer/vote',
           topic_type_policy: Topic::TypePolicy.new(review),
           votable: review
-        - unless local_assigns[:is_show]
-          a.do-comment.b-link_button.dark-2 href=UrlGenerator.instance.reply_review_url(review)
-            = t 'animes.page.actions.comment'
 
     - if review.persisted?
       .b-appear_marker[
