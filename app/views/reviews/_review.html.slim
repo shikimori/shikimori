@@ -108,8 +108,8 @@
       ]
 
   - if local_assigns[:is_moderation] && (review.abuse_requests.any? || review.bans.any?)
-    = spoiler t('.moderation') do
-      .cc-2
+    div class=('cc-2' if review.abuse_requests.any? && review.bans.any?)
+      - if review.abuse_requests.any?
         .c-column
           .subheadline.h10 = i18n_i 'abuse_request', :other
           .block
@@ -119,6 +119,7 @@
             - else
               .b-nothing_here = t '.no_abuse_requests'
 
+      - if review.bans.any?
         .c-column
           .subheadline.h10 = i18n_i 'ban', :other
           .block_m
