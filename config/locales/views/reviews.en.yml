@@ -11,6 +11,7 @@ en:
         ranobe: Review written prior to the end of the light novel
       go_to_review: go to review
       moderation: Moderation
+      'on': 'on'
     group:
       to_other_reviews: To all reviews
       new_review: Write a review
