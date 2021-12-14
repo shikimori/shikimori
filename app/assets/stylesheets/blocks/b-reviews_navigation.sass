@@ -36,18 +36,8 @@
     display: flex
     font-family: var(--font-alt)
     margin-bottom: 10px
-
-    +lte_ipad
-      height: 30px
-      line-height: 30px
-
-    +laptop
-      height: 36px
-      line-height: 36px
-
-    +gte_desktop
-      height: 39px
-      line-height: 39px
+    height: 30px
+    line-height: 30px
 
   a.navigation-node.is-active
     +lte_ipad
@@ -60,22 +50,16 @@
           text-decoration: underline
 
   .navigation-node
+    -webkit-tap-highlight-color: transparent
     align-items: baseline
     border-left: 5px solid
     display: flex
+    font-size: 15px
+    padding: 0 10px
     text-transform: uppercase
     transition: all 0.25s
     user-select: none
     white-space: nowrap
-    -webkit-tap-highlight-color: transparent
-
-    +lte_laptop
-      font-size: 15px
-      padding: 0 10px
-
-    +gte_desktop
-      font-size: 16px
-      padding: 0 13px
 
     .label
       align-items: baseline
@@ -85,13 +69,8 @@
         +iphone
           padding-top: 2px
 
-        +ipad_laptop
-          margin-right: 7px
-          font-size: 15px
-
-        +gte_desktop
-          font-size: 16px
-          margin-right: 9px
+        +gte_ipad
+          margin-right: 6px
 
     .count
       +brackets_surrounded
@@ -106,19 +85,12 @@
         font-size: 13px
         margin-left: 4px
 
-      +ipad_laptop
+      +gte_ipad
         font-size: 14px
         margin-left: 5px
 
-      +gte_desktop
-        font-size: 15px
-        margin-left: 7px
-
     &:not(.is-active):not(.is-empty)
       cursor: pointer
-
-      +gte_laptop
-        padding-top: 2px
 
     &:not(.is-active)
       +iphone
@@ -169,14 +141,9 @@
       +iphone
         +navigation_block_ellipsis
 
-      +laptop
-        font-size: 17px
-
       +gte_laptop
+        font-size: 16px
         padding-top: 1px
-
-      +gte_desktop
-        font-size: 18px
 
       .label:before
         +iphone
