@@ -444,6 +444,7 @@ en:
         private_message_email: Send private messages to e-mail
         friend_nickname_change: "Notifications about friends' nickname change"
         contest_event: Contests notifications
+        mention_event: Forum mentions notifiactions
     user_preferences:
       body_width:
         x1200: 1200 pixels
