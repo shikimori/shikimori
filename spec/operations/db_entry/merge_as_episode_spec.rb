@@ -31,12 +31,14 @@ describe DbEntry::MergeAsEpisode do
         fandubbers: %w[fandubber_2],
         coub_tags: %w[coub_tag_2]
       } : {}),
-      russian: '',
+      russian: other_russian,
       episode_field => other_episodes,
-      synonyms: %w[русское_название_2 русское_название_1 synonym_2]
+      synonyms: other_synonyms
     }
   end
   let(:other_episodes) { 5 }
+  let(:other_russian) { '' }
+  let(:other_synonyms) { %w[русское_название_2 русское_название_1 synonym_2] }
   let(:entry_3) { create type }
 
   let!(:user_1_rate_log_entry) { create :user_rate_log, target: entry, user: user_1 }
@@ -161,6 +163,28 @@ describe DbEntry::MergeAsEpisode do
 
     expect { external_link_1_1.reload }.to raise_error ActiveRecord::RecordNotFound
     expect(external_link_1_2.reload.entry).to eq other
+  end
+
+  context 'russian in synonyms' do
+    let(:other_synonyms) { %w[русское_название_2 русское_название_1 synonym_2] + [entry.russian] }
+
+    it do
+      is_expected.to eq true
+
+      expect(other.russian).to eq ''
+      expect(other.synonyms).to eq other_synonyms
+    end
+  end
+
+  context 'russian in other russian' do
+    let(:other_russian) { entry.russian }
+
+    it do
+      is_expected.to eq true
+
+      expect(other.russian).to eq other_russian
+      expect(other.synonyms).to eq other_synonyms
+    end
   end
 
   context 'user_rates' do

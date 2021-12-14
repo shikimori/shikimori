@@ -25,6 +25,7 @@ private
 
   def merge_russian
     return if @entry.russian.blank?
+    return if @other.synonyms.include?(@entry.russian) || @other.russian == @entry.russian
 
     last_russian_index = @other.synonyms.rindex(&:contains_russian?)
     new_synonyms = @other.synonyms.insert(
