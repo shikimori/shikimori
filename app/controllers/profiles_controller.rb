@@ -112,6 +112,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     og page_title: i18n_io('Review', :few)
 
     scope = @resource.reviews
+      .includes(:anime, :manga)
       .order(created_at: :desc)
 
     @collection = QueryObjectBase.new(scope)
