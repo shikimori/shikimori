@@ -47,7 +47,7 @@ class Person < DbEntry
 
   SEYU_ROLES = %w[
     English Italian Hungarian Japanese German Hebrew Brazilian French
-    Spanish Korean Hebrew
+    Spanish Korean Hebrew Mandarin
   ]
   MANGAKA_ROLES = ['Original Creator', 'Story & Art', 'Story', 'Art']
 
