@@ -26,7 +26,8 @@ class Profiles::View < ViewObjectBase
 
   def show_comments?
     !censored_profile? &&
-      (h.user_signed_in? || @user.comments.any?) &&
+      h.user_signed_in? &&
+      # (h.user_signed_in? || @user.comments.any?) &&
       @user.preferences.comments_in_profile?
   end
 
