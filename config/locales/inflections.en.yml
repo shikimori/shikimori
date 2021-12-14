@@ -40,7 +40,11 @@ en:
         one: publisher
         few: publishers
 
-  i18n:
+    ranobe:
+      zero: light novels
+      one: light novel
+      other: light novels
+
     inflections:
       user_signed_in:
         signed_in: signed in
