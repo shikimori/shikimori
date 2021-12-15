@@ -42,18 +42,19 @@
         ]
       .review-details
         .name-url
-          a.name[
-            href=profile_url(review.user)
-            itemprop='creator'
-            tabindex='-1'
-          ]
-            = review.user.nickname
-
-          - if local_assigns[:is_display_target]
-            | &nbsp;#{Review.model_name.human.downcase} #{t '.on'} #{i18n_i(review.db_entry.class.name.downcase, 1, :dative)}&nbsp;
+          .name-inner
             a.name[
-              href=send(:"#{review.db_entry.class.name.downcase}_url", review.db_entry)
-            ] = localized_name review.db_entry
+              href=profile_url(review.user)
+              itemprop='creator'
+              tabindex='-1'
+            ]
+              = review.user.nickname
+
+            - if local_assigns[:is_display_target]
+              | &nbsp;#{Review.model_name.human.downcase} #{t '.on'} #{i18n_i(review.db_entry.class.name.downcase, 1, :dative)}&nbsp;
+              a.name[
+                href=send(:"#{review.db_entry.class.name.downcase}_url", review.db_entry)
+              ] = localized_name review.db_entry
 
           - unless local_assigns[:is_show]
             a.to-review href=UrlGenerator.instance.review_url(review, is_canonical: true)

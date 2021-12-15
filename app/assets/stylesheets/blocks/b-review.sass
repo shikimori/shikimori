@@ -35,7 +35,7 @@
       line-height: 0
       margin-right: 10px
       width: 48px
-
+ 
       +iphone
         margin-top: 1px
         margin-bottom: 10px
@@ -63,21 +63,32 @@
       display: flex
 
       +iphone
-        margin-bottom: 5px
+        margin-bottom: 3px
+
+      .name-inner
+        margin-right: 10px
+
+        +iphone
+          line-height: 1.3
 
       .name
         font-size: 14px
         font-weight: bold
+        // display: inline-block
+
+        // +iphone
+          +ellipsis2
 
       .to-review
-        +ellipsis2
         +link
         font-size: 11px
 
         +iphone
           margin-left: auto
+          white-space: nowrap
 
         +gte_ipad
+          +ellipsis2
           margin-left: $block-offset
 
     .b-status-line
@@ -87,6 +98,7 @@
 
       +iphone
         flex-wrap: nowrap
+        margin-bottom: 7px
 
         span
           white-space: nowrap
