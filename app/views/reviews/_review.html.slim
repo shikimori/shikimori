@@ -52,8 +52,9 @@
 
             - if local_assigns[:is_display_target]
               | &nbsp;#{Review.model_name.human.downcase} #{t '.on'} #{i18n_i(review.db_entry.class.name.downcase, 1, :dative)}&nbsp;
-              a.name[
+              a.name.bubbled[
                 href=send(:"#{review.db_entry.class.name.downcase}_url", review.db_entry)
+                data-tooltip_url=send(:"tooltip_#{review.db_entry.class.name.downcase}_url", review.db_entry)
               ] = localized_name review.db_entry
 
           - unless local_assigns[:is_show]
