@@ -2,7 +2,8 @@ json.content JsExports::Supervisor.instance.sweep(
   render(
     partial: 'reviews/review',
     collection: @collection,
-    cached: ->(entry) { CacheHelper.keys entry },
+    locals: { is_display_target: true },
+    cached: ->(entry) { CacheHelper.keys entry, :is_display_target },
     formats: :html
   )
 )
