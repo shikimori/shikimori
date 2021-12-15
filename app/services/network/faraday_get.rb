@@ -5,7 +5,7 @@ class Network::FaradayGet
   MAX_DEEP = 5
 
   NET_ERRORS = [
-    Timeout::Error, Net::ReadTimeout, Net::OpenTimeout,
+    Timeout::Error, Net::ReadTimeout, Net::OpenTimeout, Net::HTTPFatalError,
     OpenSSL::SSL::SSLError,
     URI::InvalidURIError, OpenURI::HTTPError,
     SocketError,
