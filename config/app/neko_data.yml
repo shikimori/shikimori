@@ -29129,7 +29129,7 @@
       :algo: duration
       :filters:
         franchise: yao_shen_ji
-      :threshold: 100%
+      :threshold: 99%
       :generator:
         threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -29161,6 +29161,8 @@
       :filters:
         franchise: yao_shen_ji
       :threshold: 0.01
+      :generator:
+        threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :yao_shen_ji
