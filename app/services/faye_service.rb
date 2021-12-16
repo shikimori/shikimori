@@ -63,16 +63,16 @@ class FayeService
     new_entry
   end
 
-  def set_replies comment # rubocop:disable AccessorMethodName
+  def set_replies forum_entry # rubocop:disable AccessorMethodName
     replies_text =
-      if comment.body =~ BbCodes::Tags::RepliesTag::REGEXP
+      if forum_entry.body =~ BbCodes::Tags::RepliesTag::REGEXP
         $LAST_MATCH_INFO[:tag]
       else
         ''
       end
     replies_html = BbCodes::Text.call replies_text
 
-    publisher.publish_replies comment, replies_html
+    publisher.publish_replies forum_entry, replies_html
   end
 
 private

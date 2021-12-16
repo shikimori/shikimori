@@ -34,7 +34,7 @@ class FayePublisher # rubocop:disable ClassLength
       .each { |v| publish_mark v, mark_kind, mark_value }
   end
 
-  def publish_replies comment, replies_html
+  def publish_replies forum_entry, replies_html
     data = {
       event: 'comment:set_replies',
       topic_id: comment.commentable_id,
