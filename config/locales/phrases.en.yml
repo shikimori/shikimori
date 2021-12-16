@@ -116,6 +116,7 @@ en:
     offtopic: offtopic
     spoiler: spoiler
     convert_review: review
+    summary: summary
   mail: Mail
   male: male
   manga_list: Manga List
