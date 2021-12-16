@@ -67,6 +67,7 @@ describe ProfilesController do
   end
 
   describe '#feed' do
+    include_context :authenticated
     let!(:comment) { create :comment, user: user, commentable: user }
     subject! { get :feed, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }

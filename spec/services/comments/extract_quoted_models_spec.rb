@@ -5,7 +5,7 @@ describe Comments::ExtractQuotedModels do
     let(:text) { nil }
     it do
       is_expected.to eq OpenStruct.new(
-        comments: [],
+        models: [],
         users: []
       )
     end
@@ -16,7 +16,7 @@ describe Comments::ExtractQuotedModels do
     let(:text) { "[quote=200778;#{user.id};test2]" }
     it do
       is_expected.to eq OpenStruct.new(
-        comments: [],
+        models: [],
         users: [user]
       )
     end
@@ -27,7 +27,7 @@ describe Comments::ExtractQuotedModels do
     let(:text) { "[user=#{user.id}]" }
     it do
       is_expected.to eq OpenStruct.new(
-        comments: [],
+        models: [],
         users: [user]
       )
     end
@@ -39,33 +39,82 @@ describe Comments::ExtractQuotedModels do
 
     it do
       is_expected.to eq OpenStruct.new(
-        comments: [comment],
+        models: [comment],
         users: [user]
       )
     end
   end
 
-  context 'comment quote' do
-    let(:comment) { create :comment, user: user }
-    let(:text) { "[quote=c#{comment.id};#{user.id};test2]" }
+  context 'quote' do
+    context 'comment' do
+      let(:comment) { create :comment, user: user }
+      let(:text) { "[quote=c#{comment.id};#{user.id};test2]" }
 
-    it do
-      is_expected.to eq OpenStruct.new(
-        comments: [comment],
-        users: [user]
-      )
+      it do
+        is_expected.to eq OpenStruct.new(
+          models: [comment],
+          users: [user]
+        )
+      end
+    end
+
+    context 'review' do
+      let(:review) { create :review, user: user, anime: create(:anime) }
+      let(:text) { "[quote=r#{review.id};#{user.id};test2]" }
+
+      it do
+        is_expected.to eq OpenStruct.new(
+          models: [review],
+          users: [user]
+        )
+      end
+    end
+
+    context 'topic' do
+      let(:topic) { create :topic, user: user }
+      let(:text) { "[quote=t#{topic.id};#{user.id};test2]" }
+
+      it do
+        is_expected.to eq OpenStruct.new(
+          models: [topic],
+          users: [user]
+        )
+      end
     end
   end
 
   context 'markdown quote' do
-    let(:comment) { create :comment, user: user }
-    let(:text) { ">?c#{comment.id};#{user.id};test2" }
+    context 'comment' do
+      let(:comment) { create :comment, user: user }
+      let(:text) { ">?c#{comment.id};#{user.id};test2" }
+      it do
+        is_expected.to eq OpenStruct.new(
+          models: [comment],
+          users: [user]
+        )
+      end
+    end
 
-    it do
-      is_expected.to eq OpenStruct.new(
-        comments: [comment],
-        users: [user]
-      )
+    context 'review' do
+      let(:review) { create :review, user: user, anime: create(:anime) }
+      let(:text) { ">?r#{review.id};#{user.id};test2" }
+      it do
+        is_expected.to eq OpenStruct.new(
+          models: [review],
+          users: [user]
+        )
+      end
+    end
+
+    context 'topic' do
+      let(:topic) { create :topic, user: user }
+      let(:text) { ">?t#{topic.id};#{user.id};test2" }
+      it do
+        is_expected.to eq OpenStruct.new(
+          models: [topic],
+          users: [user]
+        )
+      end
     end
   end
 
@@ -86,7 +135,7 @@ describe Comments::ExtractQuotedModels do
 
         it do
           is_expected.to eq OpenStruct.new(
-            comments: [comment_1, comment_2],
+            models: [comment_1, comment_2],
             users: [user]
           )
         end
@@ -106,7 +155,7 @@ describe Comments::ExtractQuotedModels do
 
         it do
           is_expected.to eq OpenStruct.new(
-            comments: [comment_1, comment_2, comment_3],
+            models: [comment_1, comment_2, comment_3],
             users: [user, user_2]
           )
         end
@@ -129,7 +178,7 @@ describe Comments::ExtractQuotedModels do
 
         it do
           is_expected.to eq OpenStruct.new(
-            comments: [comment_1, comment_2],
+            models: [comment_1, comment_2],
             users: [user]
           )
         end
@@ -154,7 +203,7 @@ describe Comments::ExtractQuotedModels do
 
         it do
           is_expected.to eq OpenStruct.new(
-            comments: [comment_1, comment_2],
+            models: [comment_1, comment_2],
             users: [user, user_2]
           )
         end
