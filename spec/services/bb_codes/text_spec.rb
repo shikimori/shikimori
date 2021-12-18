@@ -535,6 +535,29 @@ describe BbCodes::Text do
         end
       end
     end
+
+    describe '#cleanup_replies' do
+      let(:text) { "zxc меха qw\n\n[replies=#{comment.id}]" }
+      let!(:comment) { create :comment, id: 9999 }
+
+      context 'no object' do
+        it { is_expected.to include 'zxc меха qw<div class="b-replies' }
+      end
+
+      context 'has object' do
+        let(:options) { { object: object } }
+
+        context 'comment/db_entry' do
+          let(:object) { [comment, build_stubbed(:anime)].sample }
+          it { is_expected.to include 'zxc меха qw<div class="b-replies' }
+        end
+
+        context 'topic/review' do
+          let(:object) { [build_stubbed(:topic), build_stubbed(:review)].sample }
+          it { is_expected.to eq 'zxc меха qw' }
+        end
+      end
+    end
   end
 
   describe '#remove_old_tags' do

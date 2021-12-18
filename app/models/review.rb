@@ -51,7 +51,7 @@ class Review < ApplicationRecord
     if: -> { is_written_before_release.nil? }
 
   def html_body
-    BbCodes::Text.call body
+    BbCodes::Text.call body, object: self
   end
 
   def anime?

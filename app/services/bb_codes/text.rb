@@ -104,7 +104,10 @@ class BbCodes::Text # rubocop:disable ClassLength
     text = remove_spam text
 
     text = String.new ERB::Util.h(text)
+
     text = highlight_event text if @object || @is_event
+    text = cleanup_replies text if cleanup_replies?
+
     text = bb_codes text
 
     BbCodes::CleanupHtml.call text
@@ -188,5 +191,15 @@ private
     return text unless now >= EVENT_START_TIME && now <= EVENT_END_TIME
 
     text.gsub EVENT_REGEXP, EVENT_REPLACEMENT
+  end
+
+  def cleanup_replies text
+    text.gsub BbCodes::Tags::RepliesTag::REGEXP, ''
+  end
+
+  def cleanup_replies?
+    @object && (
+      @object.is_a?(Topic) || @object.is_a?(Review)
+    )
   end
 end
