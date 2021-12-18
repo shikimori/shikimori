@@ -3,7 +3,7 @@ ru:
     actions:
       add: Добавить
     lib:
-      please_try_again_later: Ошибка. Попробуй еще раз позже
+      please_try_again_later: Ошибка. Попробуй ещё раз позже
       loading: Загрузка...
       nothing_found: Ничего не найдено
       rails_ujs_modified:

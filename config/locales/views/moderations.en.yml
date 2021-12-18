@@ -30,7 +30,7 @@ en:
       mal_sync: MAL SYNC
       type: Type
       run: Run
-      running: Runnig…
+      running: Running…
       in_progress: Tasks in progress
       queue: Tasks in queue
       proxies_count: Proxies available

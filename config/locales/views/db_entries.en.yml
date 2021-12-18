@@ -36,7 +36,7 @@ en:
         to_change: To edit the link add it into area above.
         to_disable: >-
           To disable the link, add it above and set the value <b>NONE</b> into the url field.<br>
-          To disable particular wikipedia subdomain set the value with that subdomian <b>https://en.wikipedia.org/NONE</b>.
+          To disable particular wikipedia subdomain set the value with that subdomain <b>https://en.wikipedia.org/NONE</b>.
         from: from
     contest_winners:
       top_in: '#%{position} in '
