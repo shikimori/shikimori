@@ -68,7 +68,7 @@ private
 
   def extract_other data, tag
     model = find tag.capitalize.constantize, :id, data
-    return [nil, nil] unless QUOTEABLE_MODELS.include? model.class.base_class
+    return [nil, nil] unless model && QUOTEABLE_MODELS.include?(model.class.base_class)
 
     [model, model.user]
   end

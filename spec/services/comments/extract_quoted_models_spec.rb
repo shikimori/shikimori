@@ -35,14 +35,26 @@ describe Comments::ExtractQuotedModels do
 
   context 'reply' do
     context 'comment' do
-      let(:comment) { create :comment, user: user }
       let(:text) { "[comment=#{comment.id}]" }
 
-      it do
-        is_expected.to eq OpenStruct.new(
-          models: [comment],
-          users: [user]
-        )
+      context 'present entry' do
+        let(:comment) { create :comment, user: user }
+        it do
+          is_expected.to eq OpenStruct.new(
+            models: [comment],
+            users: [user]
+          )
+        end
+      end
+
+      context 'non existing entry' do
+        let(:comment) { build_stubbed :comment, user: user }
+        it do
+          is_expected.to eq OpenStruct.new(
+            models: [],
+            users: []
+          )
+        end
       end
     end
 
