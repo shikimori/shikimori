@@ -35,14 +35,16 @@ class FayePublisher # rubocop:disable ClassLength
   end
 
   def publish_replies forum_entry, replies_html
+    return unless forum_entry.is_a? Comment
+
     data = {
       event: 'comment:set_replies',
-      topic_id: comment.commentable_id,
-      comment_id: comment.id,
+      topic_id: forum_entry.commentable_id,
+      comment_id: forum_entry.id,
       replies_html: replies_html
     }
 
-    publish_data data, comment_channels(comment, [])
+    publish_data data, comment_channels(forum_entry, [])
   end
 
   def publish_comment comment, event, channels
