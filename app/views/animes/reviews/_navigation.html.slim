@@ -1,5 +1,5 @@
 - opinions = ([nil] + ::Types::Review::Opinion.values)
-- counts = opinions.map { |opinion| opinion ? resource.reviews.send(opinion).count : resource.reviews.count }
+- counts = opinions.map { |opinion| opinion ? resource.reviews.send(opinion).count : resource.reviews_count }
 
 .b-reviews_navigation[
   data-initial_opinion=(local_assigns[:opinion] || '')
