@@ -240,6 +240,7 @@ class Anime < DbEntry
       radio
       book
       picture_book
+      mixed_media
       other
       unknown
     ]
