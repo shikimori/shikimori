@@ -16,7 +16,7 @@ class Comments::Reply
         model.body + "\n\n[replies=#{replied_model.id}]"
       end
 
-    update_comment new_body
+    update_model new_body
   end
 
   def remove_reply replied_model
@@ -32,19 +32,19 @@ class Comments::Reply
         (model.body.sub current_tag, '').strip
       end
 
-    update_comment new_body
+    update_model new_body
   end
 
 private
 
-  def update_comment new_body
+  def update_model new_body
     # use update instead of update_column so `commentable` is touched too
     model.instance_variable_set :@skip_banhammer, true
     model.update(
       body: new_body,
       updated_at: model.updated_at + 1.second
     )
-    faye.set_replies model
+    faye.set_replies model if model.is_a? Comment
   end
 
   def extract_replies
