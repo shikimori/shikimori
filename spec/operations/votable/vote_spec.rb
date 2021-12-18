@@ -11,16 +11,29 @@ describe Votable::Vote do
   let(:voter) { seed :user }
 
   context 'critique' do
-    let(:votable) { create :critique }
+    let(:votable) { create :critique, user: critique_user }
 
-    it do
-      expect { subject }.to change(ActsAsVotable::Vote, :count).by 1
-      expect(voter.liked? votable).to eq true
+    context 'own critique/collection/review' do
+      let(:critique_user) { voter }
+
+      it do
+        expect { subject }.to_not change ActsAsVotable::Vote, :count
+        expect(voter.liked? votable).to eq false
+      end
     end
 
-    context 'unknown vote' do
-      let(:vote) { 'zxc' }
-      it { expect { subject }.to raise_error ArgumentError, vote }
+    context "another user's critique" do
+      let(:critique_user) { user_2 }
+
+      it do
+        expect { subject }.to change(ActsAsVotable::Vote, :count).by 1
+        expect(voter.liked? votable).to eq true
+      end
+
+      context 'unknown vote' do
+        let(:vote) { 'zxc' }
+        it { expect { subject }.to raise_error ArgumentError, vote }
+      end
     end
   end
 

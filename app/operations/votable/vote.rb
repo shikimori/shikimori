@@ -7,7 +7,7 @@ class Votable::Vote
     'abstain' => 'abstain'
   }
 
-  CLEANUP_VOTE_SQL = <<-SQL
+  CLEANUP_VOTE_SQL = <<-SQL.squish
     (
       votable_type = '#{Poll.name}' and
       votable_id = :poll_id
@@ -18,12 +18,12 @@ class Votable::Vote
   SQL
 
   def call
-    return unless can_vote? @votable
+    return unless can_vote? @votable, @voter
 
     ActsAsVotable::Vote.transaction do
-      cleanup_votes poll(@votable) if poll?(@votable)
+      cleanup_votes poll(@votable) if poll? @votable
       @votable.vote_by voter: @voter, vote: vote_flag
-      update_user_key @voter, @votable if contest?(@votable)
+      update_user_key @voter, @votable if contest? @votable
     end
   end
 
@@ -60,14 +60,15 @@ private
       .destroy_all
   end
 
-  def can_vote? votable
+  def can_vote? votable, voter
     if poll?(votable)
       poll(votable).started?
 
     elsif contest?(votable)
       votable.started?
+
     else
-      true
+      !(votable.respond_to?(:user_id) && votable.user_id == voter.id)
     end
   end
 
