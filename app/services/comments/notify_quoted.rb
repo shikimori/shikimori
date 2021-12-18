@@ -9,15 +9,15 @@ class Comments::NotifyQuoted
     end
     messages_to_destroy.each(&:destroy)
 
-    reply new_quoted.comments - old_quoted.comments, :append
-    reply old_quoted.comments - new_quoted.comments, :remove
+    reply new_quoted.models - old_quoted.models, :append
+    reply old_quoted.models - new_quoted.models, :remove
   end
 
 private
 
-  def reply comments, action
-    comments.each do |comment|
-      Comments::Reply.new(comment).send :"#{action}_reply", @comment
+  def reply models, action
+    models.each do |model|
+      Comments::Reply.new(model).send :"#{action}_reply", @comment
     end
   end
 

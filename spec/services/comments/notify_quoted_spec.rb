@@ -75,6 +75,12 @@ describe Comments::NotifyQuoted do
       it { expect { subject }.to change(Message, :count).by 1 }
     end
 
+    context 'review' do
+      let(:review) { create :review, user: quoted_user, anime: create(:anime) }
+      let(:new_body) { "[review=#{review.id}]test[/review]" }
+      it { expect { subject }.to change(Message, :count).by 1 }
+    end
+
     context 'mention' do
       let(:new_body) { "[mention=#{quoted_user.id}]test[/mention]" }
       it { expect { subject }.to change(Message, :count).by 1 }
