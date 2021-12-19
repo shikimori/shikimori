@@ -54,6 +54,7 @@ module Shikimori
   IGNORED_EXCEPTIONS = %w[
     AbstractController::ActionNotFound
     ActionController::InvalidAuthenticityToken
+    ActionController::ParameterMissing
     ActionController::RoutingError
     ActionController::UnknownFormat
     ActionController::UnknownHttpMethod
