@@ -30,8 +30,11 @@ class Users::PollsController < ProfilesController
   end
 
   def create
-    @resource.save!
-    redirect_to edit_profile_poll_url(@user, @resource)
+    if @resource.save
+      redirect_to edit_profile_poll_url(@user, @resource)
+    else
+      new
+    end
   end
 
   def edit
@@ -41,20 +44,9 @@ class Users::PollsController < ProfilesController
 
   def update
     if @resource.started?
-      @resource.update(
-        name: update_params[:name],
-        width: update_params[:width],
-        text: update_params[:text]
-      )
-
-      redirect_to profile_poll_url(@user, @resource)
+      update_started_poll
     else
-      Poll.transaction do
-        @resource.variants.delete_all
-        @resource.update! update_params
-      end
-
-      redirect_to edit_profile_poll_url(@user, @resource)
+      update_pending_poll
     end
   end
 
@@ -88,6 +80,37 @@ private
       .require(:poll)
       .permit(*UPDATE_PARAMS)
       .tap { |hash| fix_variants hash }
+  end
+
+  def update_started_poll
+    is_updated = @resource.update(
+      name: update_params[:name],
+      width: update_params[:width],
+      text: update_params[:text]
+    )
+
+    if is_updated
+      redirect_to profile_poll_url(@user, @resource)
+    else
+      edit
+    end
+  end
+
+  def update_pending_poll
+    is_updated =
+      Poll.transaction do
+        @resource.variants.delete_all
+        @resource.update! update_params
+        true
+      rescue ActiveRecord::RecordInvalid
+        false
+      end
+
+    if is_updated
+      redirect_to edit_profile_poll_url(@user, @resource)
+    else
+      edit
+    end
   end
 
   def fix_variants params_hash
