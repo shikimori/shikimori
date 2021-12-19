@@ -12,6 +12,12 @@ class EpisodeNotifications::TrackEpisode
     EpisodeNotification::TrackEpisode.call episode_notification
   rescue MissingEpisodeError => e
     broadcast_to_moderators e.anime_id, e.episode
+  rescue ActiveRecord::RecordNotSaved => e
+    if e.message.include? 'invalid episode number:'
+      NamedLogger.missing_episodes.info e.message
+    else
+      raise
+    end
   end
 
 private
