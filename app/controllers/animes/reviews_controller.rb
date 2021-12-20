@@ -33,6 +33,7 @@ class Animes::ReviewsController < AnimesController
   end
 
   def show
+    ensure_redirect! UrlGenerator.instance.review_url(@review, is_canonical: true)
     push_js_reply if params[:is_reply]
   end
 
@@ -59,12 +60,6 @@ class Animes::ReviewsController < AnimesController
       render :new
     end
   end
-
-  # def edit
-  #   og page_title: i18n_t('edit_review')
-  #   @back_url = UrlGenerator.instance.review_url(@review, is_canonical: true)
-  #   breadcrumb "#{i18n_i 'Review', :one} ##{@review.id}", @back_url
-  # end
 
 private
 
