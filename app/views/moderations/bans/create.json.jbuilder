@@ -21,8 +21,7 @@ elsif @resource.review
       partial: 'reviews/review',
       locals: {
         review: @resource.review,
-        is_show: true,
-        is_buttons: true
+        is_show: true
       },
       formats: :html
     )

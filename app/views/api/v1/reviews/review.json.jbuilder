@@ -4,8 +4,7 @@ json.content JsExports::Supervisor.instance.sweep(
     partial: 'reviews/review',
     locals: {
       review: @resource,
-      is_show: true,
-      is_buttons: true
+      is_show: true
     },
     formats: :html
   )
