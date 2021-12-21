@@ -1,15 +1,23 @@
 aside.buttons
   .main-controls
-    span.item-quote.to-process[
-      title=t('actions.quote')
-      data-text=t('actions.quote')
-      data-dynamic='day_registered'
-    ]
-    span.item-reply.to-process[
-      title=t('actions.reply')
-      data-text=t('actions.reply')
-      data-dynamic='day_registered'
-    ]
+    - if local_assigns[:is_show]
+      span.item-quote.to-process[
+        title=t('actions.quote')
+        data-text=t('actions.quote')
+        data-dynamic='day_registered'
+      ]
+      span.item-reply.to-process[
+        title=t('actions.reply')
+        data-text=t('actions.reply')
+        data-dynamic='day_registered'
+      ]
+    - else
+      a.item-reply.to-process[
+        title=t('actions.reply')
+        data-text=t('actions.reply')
+        data-dynamic='day_registered'
+        href=UrlGenerator.instance.reply_review_url(review)
+      ]
     a.item-edit[
       title=t('actions.edit')
       data-text=t('actions.edit')
