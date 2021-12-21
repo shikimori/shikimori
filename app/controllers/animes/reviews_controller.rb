@@ -33,7 +33,11 @@ class Animes::ReviewsController < AnimesController
   end
 
   def show
-    ensure_redirect! UrlGenerator.instance.review_url(@review, is_canonical: true)
+    ensure_redirect!(
+      params[:is_reply] ?
+        UrlGenerator.instance.reply_review_url(@review) :
+        UrlGenerator.instance.review_url(@review, is_canonical: true)
+    )
     push_js_reply if params[:is_reply]
   end
 
