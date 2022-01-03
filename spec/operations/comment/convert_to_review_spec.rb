@@ -3,6 +3,7 @@ describe Comment::ConvertToReview do
   let(:options) { {} }
   let(:comment) do
     create :comment,
+      id: 99999,
       body: ('x' * Review::MIN_BODY_SIZE) + "\n[replies=#{reply_1.id},#{reply_2.id}]",
       commentable: anime_topic,
       created_at: 1.day.ago,
@@ -16,13 +17,39 @@ describe Comment::ConvertToReview do
       body: "zxc [replies=#{reply_3.id}]",
       commentable: anime_topic
   end
-  let!(:reply_2) { create :comment, commentable: anime_topic }
+  let!(:reply_2) do
+    create :comment,
+      commentable: anime_topic,
+      body: reply_sample
+  end
   let!(:reply_3) { create :comment, commentable: anime_topic }
+
+  let(:reply_samples) do
+    [
+      '[quote=99999]',
+      "[quote=99999;#{user.id};test]",
+      '[quote=c99999]',
+      "[quote=c99999;#{user.id};test]",
+      '[comment=99999]',
+      ">?c99999;#{user.id};test"
+    ]
+  end
+  let(:reply_sample) { reply_samples.sample }
+  let(:reply_converted) do
+    [
+      "[quote=r#{review.id}]",
+      "[quote=r#{review.id};#{review.user_id};test]",
+      "[quote=r#{review.id}]",
+      "[quote=r#{review.id};#{review.user_id};test]",
+      "[review=#{review.id}]",
+      ">?r#{review.id};#{review.user_id};test"
+    ]
+  end
 
   let!(:abuse_request) { create :abuse_request, comment: comment }
   let!(:ban) { create :ban, :no_callbacks, comment: comment, moderator: user }
 
-  it do
+  it '', :focus do
     is_expected.to be_persisted
     is_expected.to be_kind_of Review
     is_expected.to have_attributes(
@@ -47,6 +74,10 @@ describe Comment::ConvertToReview do
     expect(reply_1.reload.commentable_type).to eq Review.name
     expect(reply_1.commentable_id).to eq review.id
     expect(reply_2.reload.commentable_type).to eq Review.name
+    expect(reply_2).to have_attributes(
+      commentable_id: review.id,
+      body: reply_converted[reply_samples.index(reply_sample)]
+    )
     expect(reply_3.reload.commentable_type).to eq Review.name
   end
 
