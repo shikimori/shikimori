@@ -6,9 +6,8 @@ class Comments::Move
 
     Comment
       .where(id: @comment_ids)
-      .update_all(
-        commentable_id: @commentable.id,
-        commentable_type: @commentable.class.base_class.name
-      )
+      .find_each do |comment|
+        Comment::Move.call comment: comment, commentable: @commentable
+      end
   end
 end
