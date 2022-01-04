@@ -2,7 +2,8 @@ describe Comment::Move do
   subject! do
     described_class.call(
       comment: comment,
-      to: site_rules_topic
+      to: site_rules_topic,
+      basis: basis
     )
   end
   let(:comment) do
@@ -10,23 +11,24 @@ describe Comment::Move do
       commentable: offtopic_topic,
       body: reply_sample
   end
+  let(:basis) { build_stubbed :comment }
   let(:reply_samples) do
     [
-      '[quote=99999]',
-      "[quote=99999;#{user.id};test]",
-      "[quote=c99999;#{user.id};test]",
-      '[comment=99999]',
-      ">?c99999;#{user.id};test"
+      "[quote=#{basis.id}]",
+      "[quote=#{basis.id};#{user.id};test]",
+      "[quote=c#{basis.id};#{user.id};test]",
+      # "[comment=#{basis.id}]",
+      # ">?c99999;#{user.id};testb"
     ]
   end
   let(:reply_sample) { reply_samples.sample }
   let(:reply_converted) do
     [
-      '[quote=99999]',
-      "[quote=t#{site_rules_topic.id};#{site_rules_topic.user_id};test]",
-      "[quote=t#{site_rules_topic.id};#{site_rules_topic.user_id};test]",
-      "[topic=#{site_rules_topic.id}]",
-      ">?t#{site_rules_topic.id};#{site_rules_topic.user_id};test"
+      "[quote=#{basis.id}]",
+      "[quote=t#{site_rules_topic.id};#{user.id};test]",
+      "[quote=t#{site_rules_topic.id};#{user.id};test]",
+      # "[topic=#{site_rules_topic.id}]",
+      # ">?t#{site_rules_topic.id};#{user.id};test"
     ]
   end
 
