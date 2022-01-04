@@ -8,7 +8,11 @@ class Review::ConvertToComment
     ApplicationRecord.transaction do
       Comment.wo_antispam { comment.save! }
 
-      Comments::Move.call comment_ids: replies_ids, commentable: commentable
+      Comments::Move.call(
+        comment_ids: replies_ids,
+        to: commentable,
+        basis: @review
+      )
 
       move_review_relations comment
       @review.destroy!

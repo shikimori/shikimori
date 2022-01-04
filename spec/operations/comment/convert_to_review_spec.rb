@@ -28,7 +28,6 @@ describe Comment::ConvertToReview do
     [
       '[quote=99999]',
       "[quote=99999;#{user.id};test]",
-      '[quote=c99999]',
       "[quote=c99999;#{user.id};test]",
       '[comment=99999]',
       ">?c99999;#{user.id};test"
@@ -37,9 +36,8 @@ describe Comment::ConvertToReview do
   let(:reply_sample) { reply_samples.sample }
   let(:reply_converted) do
     [
-      "[quote=r#{review.id}]",
+      '[quote=99999]',
       "[quote=r#{review.id};#{review.user_id};test]",
-      "[quote=r#{review.id}]",
       "[quote=r#{review.id};#{review.user_id};test]",
       "[review=#{review.id}]",
       ">?r#{review.id};#{review.user_id};test"
@@ -49,7 +47,7 @@ describe Comment::ConvertToReview do
   let!(:abuse_request) { create :abuse_request, comment: comment }
   let!(:ban) { create :ban, :no_callbacks, comment: comment, moderator: user }
 
-  it '', :focus do
+  it do
     is_expected.to be_persisted
     is_expected.to be_kind_of Review
     is_expected.to have_attributes(

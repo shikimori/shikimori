@@ -2,7 +2,7 @@ describe Comment::Move do
   subject! do
     described_class.call(
       comment: comment,
-      commentable: site_rules_topic
+      to: site_rules_topic
     )
   end
   let(:comment) do
@@ -14,7 +14,6 @@ describe Comment::Move do
     [
       '[quote=99999]',
       "[quote=99999;#{user.id};test]",
-      '[quote=c99999]',
       "[quote=c99999;#{user.id};test]",
       '[comment=99999]',
       ">?c99999;#{user.id};test"
@@ -23,9 +22,8 @@ describe Comment::Move do
   let(:reply_sample) { reply_samples.sample }
   let(:reply_converted) do
     [
-      "[quote=t#{site_rules_topic.id}]",
+      '[quote=99999]',
       "[quote=t#{site_rules_topic.id};#{site_rules_topic.user_id};test]",
-      "[quote=t#{site_rules_topic.id}]",
       "[quote=t#{site_rules_topic.id};#{site_rules_topic.user_id};test]",
       "[topic=#{site_rules_topic.id}]",
       ">?t#{site_rules_topic.id};#{site_rules_topic.user_id};test"
