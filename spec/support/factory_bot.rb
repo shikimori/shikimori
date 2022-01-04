@@ -13,7 +13,7 @@ module FactoryBot
         original_method = model.instance_variable_get(
           :"@_#{name.to_s.gsub /!/, 'ZZZ'}"
         )
-        model.define_singleton_method(name) { original_method.call }
+        model.define_singleton_method(name) { |*args| original_method.call *args }
       end
     end
   end

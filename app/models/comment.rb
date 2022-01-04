@@ -60,6 +60,8 @@ class Comment < ApplicationRecord
   before_create :check_spam_abuse, if: -> { commentable_type == User.name }
   after_create :increment_comments
 
+  after_update :sync_comments, if: :saved_change_to_commentable_id?
+
   before_destroy :decrement_comments
   before_destroy :destroy_images
 
@@ -69,7 +71,7 @@ class Comment < ApplicationRecord
   after_save :release_the_banhammer!,
     if: -> { saved_change_to_body? && !@skip_banhammer }
   after_save :touch_commentable
-  after_save :notify_quoted, if: -> { saved_change_to_body? }
+  after_save :notify_quoted, if: :saved_change_to_body?
 
   def commentable
     if association(:topic).loaded? && !topic.nil? && commentable_type == 'Topic'
@@ -206,15 +208,24 @@ private
   end
 
   # counter_cache hack
-  def increment_comments
-    if commentable && commentable.attributes['comments_count']
-      commentable.increment! :comments_count
+  def increment_comments target = commentable
+    if target && target.attributes['comments_count']
+      target.increment! :comments_count
     end
   end
 
-  def decrement_comments
-    if commentable && commentable.attributes['comments_count']
-      commentable.class.decrement_counter :comments_count, commentable.id
+  def sync_comments
+    decrement_comments(
+      (saved_changes.dig('commentable_type', 0) || commentable_type)
+      .constantize
+      .find_by(id: saved_changes['commentable_id'][0])
+    )
+    increment_comments commentable
+  end
+
+  def decrement_comments target = commentable
+    if target && target.attributes['comments_count']
+      target.class.decrement_counter :comments_count, target.id
     end
   end
 

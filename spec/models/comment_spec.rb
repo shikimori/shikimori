@@ -131,6 +131,37 @@ describe Comment do
       it { expect(comment).to receive :increment_comments }
     end
 
+    describe '#decrement_comments' do
+      let(:comment) { create :comment }
+      after { comment.destroy }
+      it { expect(comment).to receive :decrement_comments }
+    end
+
+    describe '#sync_comments' do
+      let(:topic_2) do
+        [
+          site_rules_topic,
+          review
+        ].sample
+      end
+      let(:review) { create :review, anime: create(:anime) }
+      let!(:comment) do
+        create :comment,
+          :with_increment_comments,
+          :with_sync_comments,
+          :with_decrement_comments,
+          commentable: topic
+      end
+
+      it do
+        expect(topic.comments_count).to eq 1
+        expect(topic_2.comments_count).to eq 0
+        comment.update! commentable: topic_2
+        expect(topic.reload.comments_count).to eq 0
+        expect(topic_2.reload.comments_count).to eq 1
+      end
+    end
+
     describe '#notify_quoted' do
       describe 'after_save' do
         context 'body changed' do
@@ -153,12 +184,6 @@ describe Comment do
         after { comment.destroy }
         it { expect(comment).to receive :remove_notifies }
       end
-    end
-
-    describe '#decrement_comments' do
-      let(:comment) { create :comment }
-      after { comment.destroy }
-      it { expect(comment).to receive :decrement_comments }
     end
 
     describe '#destroy_images' do
