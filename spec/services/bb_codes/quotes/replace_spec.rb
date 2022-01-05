@@ -37,6 +37,9 @@ describe BbCodes::Quotes::Replace do
       '[comment=99999;1',
       '[topic=88888;1'
     ], [
+      '[comment=99999;1]zxc[/comment]',
+      '[topic=88888;1]zxc[/topic]'
+    ], [
       '>?c99999;11111;test',
       '>?t88888;11111;test'
     ]].each do |(original_text, replaced_text)|
