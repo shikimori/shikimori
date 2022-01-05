@@ -40,6 +40,9 @@ describe BbCodes::Quotes::Replace do
       '[comment=99999;1]zxc[/comment]',
       '[topic=88888;1]zxc[/topic]'
     ], [
+      '[comment=99999;1], [comment=100000;1]zxc[/comment]',
+      '[topic=88888;1], [comment=100000;1]zxc[/comment]'
+    ], [
       '>?c99999;11111;test',
       '>?t88888;11111;test'
     ]].each do |(original_text, replaced_text)|

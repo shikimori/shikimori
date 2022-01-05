@@ -13,7 +13,7 @@ class BbCodes::Tags::CommentTag # rubocop:disable ClassLength
         (?<type>#{name_regexp})=(?<id>\d+)(?:;(?<user_id>\d+))?
           (?<quote>\ quote(?:=(?<quote_user_id>\d+))?)?
       \]
-        (?<text> (?: (?!\[#{name_regexp}).)*? )
+        (?<text> (?: (?!\[#{name_regexp}). )*? )
       \[/#{name_regexp}\]
       |
       \[

@@ -15,7 +15,7 @@ class BbCodes::Quotes::Replace
     finalize_regexp_template: <<~TEMPLATE.squish
       (
         \\[%<to_key>s=%<to_id>i(?:;\\d+)?\\]
-        .*?
+        (?: (?!\\[%<from_key>s).)*?
       )
       \\[/%<from_key>s\\]
     TEMPLATE
