@@ -405,16 +405,14 @@ Review.
     comments.take(1).each do |comment|
       original_comment = Comment.new(id: original_comment_id)
 
-      Comment::Move.
-        new(
-          comment: comment,
-          commentable: review,
+      comment.update_column(
+        :body,
+        BbCodes::Quotes::Replace(
+          text: comment.body,
           from_reply: original_comment,
           to_reply: review
-        ).
-        send(:change_replies)
-
-      comment.update_columns body: comment.body
+        )
+      )
     end
   end;
 ```
