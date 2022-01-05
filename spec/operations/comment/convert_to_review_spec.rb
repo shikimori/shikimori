@@ -20,29 +20,9 @@ describe Comment::ConvertToReview do
   let!(:reply_2) do
     create :comment,
       commentable: anime_topic,
-      body: reply_sample
+      body: "[quote=99999;#{user.id};test]"
   end
   let!(:reply_3) { create :comment, commentable: anime_topic }
-
-  let(:reply_samples) do
-    [
-      '[quote=99999]',
-      "[quote=99999;#{user.id};test]",
-      "[quote=c99999;#{user.id};test]",
-      '[comment=99999]',
-      ">?c99999;#{user.id};test"
-    ]
-  end
-  let(:reply_sample) { reply_samples.sample }
-  let(:reply_converted) do
-    [
-      '[quote=99999]',
-      "[quote=r#{review.id};#{user.id};test]",
-      "[quote=r#{review.id};#{user.id};test]",
-      "[review=#{review.id}]",
-      ">?r#{review.id};#{user.id};test"
-    ]
-  end
 
   let!(:abuse_request) { create :abuse_request, comment: comment }
   let!(:ban) { create :ban, :no_callbacks, comment: comment, moderator: user }
@@ -74,7 +54,7 @@ describe Comment::ConvertToReview do
     expect(reply_2.reload.commentable_type).to eq Review.name
     expect(reply_2).to have_attributes(
       commentable_id: review.id,
-      body: reply_converted[reply_samples.index(reply_sample)]
+      body: "[quote=r#{review.id};#{user.id};test]"
     )
     expect(reply_3.reload.commentable_type).to eq Review.name
   end
