@@ -3,8 +3,8 @@ describe Comment::Move do
     described_class.call(
       comment: comment,
       commentable: site_rules_topic,
-      from_basis: from_basis,
-      to_basis: to_basis
+      from_reply: from_reply,
+      to_reply: to_reply
     )
   end
   let(:comment) do
@@ -13,38 +13,38 @@ describe Comment::Move do
       body: reply_sample
   end
 
-  let(:from_basis) { build_stubbed :comment }
-  let(:to_basis) { offtopic_topic }
+  let(:from_reply) { build_stubbed :comment }
+  let(:to_reply) { offtopic_topic }
 
   let(:reply_samples) do
     [
       # invalid replacement
-      "[quote=#{from_basis.id}]",
-      "[quote=#{from_basis.id + 1};#{user.id};test]",
-      "[comment=#{from_basis.id + 1}]",
-      ">?c#{from_basis.id + 1};#{user.id};test",
+      "[quote=#{from_reply.id}]",
+      "[quote=#{from_reply.id + 1};#{user.id};test]",
+      "[comment=#{from_reply.id + 1}]",
+      ">?c#{from_reply.id + 1};#{user.id};test",
       # valid replacement
-      "[quote=#{from_basis.id};#{user.id};test]",
-      "[quote=c#{from_basis.id};#{user.id};test]",
-      "[comment=#{from_basis.id}]",
-      "[comment=#{from_basis.id};1",
-      ">?c#{from_basis.id};#{user.id};test"
+      "[quote=#{from_reply.id};#{user.id};test]",
+      "[quote=c#{from_reply.id};#{user.id};test]",
+      "[comment=#{from_reply.id}]",
+      "[comment=#{from_reply.id};1",
+      ">?c#{from_reply.id};#{user.id};test"
     ]
   end
   let(:reply_sample) { reply_samples.sample }
   let(:reply_converted) do
     [
       # invalid replacement
-      "[quote=#{from_basis.id}]",
-      "[quote=#{from_basis.id + 1};#{user.id};test]",
-      "[comment=#{from_basis.id + 1}]",
-      ">?c#{from_basis.id + 1};#{user.id};test",
+      "[quote=#{from_reply.id}]",
+      "[quote=#{from_reply.id + 1};#{user.id};test]",
+      "[comment=#{from_reply.id + 1}]",
+      ">?c#{from_reply.id + 1};#{user.id};test",
       # valid replacement
-      "[quote=t#{to_basis.id};#{user.id};test]",
-      "[quote=t#{to_basis.id};#{user.id};test]",
-      "[topic=#{to_basis.id}]",
-      "[topic=#{to_basis.id};1",
-      ">?t#{to_basis.id};#{user.id};test"
+      "[quote=t#{to_reply.id};#{user.id};test]",
+      "[quote=t#{to_reply.id};#{user.id};test]",
+      "[topic=#{to_reply.id}]",
+      "[topic=#{to_reply.id};1",
+      ">?t#{to_reply.id};#{user.id};test"
     ]
   end
 

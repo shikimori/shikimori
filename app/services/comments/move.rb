@@ -1,5 +1,5 @@
 class Comments::Move
-  method_object %i[comment_ids! commentable! from_basis to_basis]
+  method_object %i[comment_ids! commentable! from_reply to_reply]
 
   def call
     return if comment_ids.none?
@@ -10,8 +10,8 @@ class Comments::Move
         Comment::Move.call(
           comment: comment,
           commentable: @commentable,
-          from_basis: @from_basis,
-          to_basis: @to_basis
+          from_reply: @from_reply,
+          to_reply: @to_reply
         )
       end
   end

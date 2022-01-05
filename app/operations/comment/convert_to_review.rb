@@ -13,8 +13,8 @@ class Comment::ConvertToReview
         Comments::Move.call(
           comment_ids: replies_ids,
           commentable: review,
-          from_basis: @comment,
-          to_basis: review
+          from_reply: @comment,
+          to_reply: review
         )
 
         move_comment_relations review
