@@ -19,7 +19,7 @@ describe Comments::Move do
   it do
     expect(comment.reload.commentable).to eq site_rules_topic
     expect(comment.body).to eq(
-      "[quote=t#{site_rules_topic.id};#{site_rules_topic.user.id};#{site_rules_topic.user.nickname}]zxc[/quote]"
+      "[quote=t#{site_rules_topic.id};#{comment_basis.user.id};#{comment_basis.user.nickname}]zxc[/quote]"
     )
   end
 end

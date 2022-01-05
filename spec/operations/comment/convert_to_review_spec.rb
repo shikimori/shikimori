@@ -37,10 +37,10 @@ describe Comment::ConvertToReview do
   let(:reply_converted) do
     [
       '[quote=99999]',
-      "[quote=r#{review.id};#{review.user_id};test]",
-      "[quote=r#{review.id};#{review.user_id};test]",
+      "[quote=r#{review.id};#{user.id};test]",
+      "[quote=r#{review.id};#{user.id};test]",
       "[review=#{review.id}]",
-      ">?r#{review.id};#{review.user_id};test"
+      ">?r#{review.id};#{user.id};test"
     ]
   end
 
