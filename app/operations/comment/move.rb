@@ -1,23 +1,23 @@
 class Comment::Move
-  method_object %i[comment! to! basis]
+  method_object %i[comment! commentable! from_basis to_basis]
 
   QUOTE_REPLACEMENT_TEMPLATES = [
     [
-      '\[quote=(?:%<basis_short_key>s)%<basis_prefix_option>s%<basis_id>s(?<suffix>;|\\])',
+      '\[quote=(?:%<from_short_key>s)%<basis_prefix_option>s%<from_id>s(?<suffix>;|\\])',
       '[quote=%<to_short_key>s%<to_id>i%<suffix>s'
     ],
     [
-      '\[(?:%<basis_key>s)=%<basis_prefix_option>s%<basis_id>s(?<suffix>;|\\])',
+      '\[(?:%<from_key>s)=%<basis_prefix_option>s%<from_id>s(?<suffix>;|\\])',
       '[%<to_key>s=%<to_id>i%<suffix>s'
     ],
     [
-      '(?<=^| )>\?%<basis_short_key>s%<basis_id>s(?<suffix>;)',
+      '(?<=^| )>\?%<from_short_key>s%<from_id>s(?<suffix>;)',
       '>?%<to_short_key>s%<to_id>i%<suffix>s'
     ]
   ]
 
   def call
-    change_replies if @basis
+    change_replies if @from_basis && @to_basis
     change_commentable
 
     @comment.save
@@ -26,23 +26,23 @@ class Comment::Move
 private
 
   def change_replies #  rubocop:disable MethodLength
-    basis_key = key basis
+    from_key = key @from_basis
 
     QUOTE_REPLACEMENT_TEMPLATES.each do |(regexp_template, replacement_template)|
       formatted_template = format regexp_template,
-        basis_id: @basis.id,
-        basis_key: basis_key,
-        basis_short_key: short_key(basis_key),
-        basis_prefix_option: basis_prefix_option(basis_key)
+        from_id: @from_basis.id,
+        from_key: from_key,
+        from_short_key: short_key(from_key),
+        basis_prefix_option: basis_prefix_option(from_key)
       regexp = Regexp.new formatted_template # , Regexp::EXTENDED
 
       @comment.body = @comment.body.gsub(regexp) do
-        to_key = key @to
+        to_key = key @to_basis
 
         format replacement_template,
+          to_id: @to_basis.id,
           to_key: to_key,
           to_short_key: short_key(to_key),
-          to_id: @to.id,
           suffix: $LAST_MATCH_INFO[:suffix]
       end
     end
@@ -50,8 +50,8 @@ private
 
   def change_commentable
     @comment.assign_attributes(
-      commentable_id: @to.id,
-      commentable_type: @to.class.base_class.name
+      commentable_id: @commentable.id,
+      commentable_type: @commentable.class.base_class.name
     )
   end
 

@@ -1,5 +1,5 @@
 class Comments::Move
-  method_object %i[comment_ids! to! basis]
+  method_object %i[comment_ids! commentable! from_basis to_basis]
 
   def call
     return if comment_ids.none?
@@ -9,8 +9,9 @@ class Comments::Move
       .find_each do |comment|
         Comment::Move.call(
           comment: comment,
-          to: @to,
-          basis: @basis
+          commentable: @commentable,
+          from_basis: @from_basis,
+          to_basis: @to_basis
         )
       end
   end
