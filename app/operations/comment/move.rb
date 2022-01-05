@@ -9,6 +9,10 @@ class Comment::Move
     [
       '\[(?:%<basis_key>s)=%<basis_prefix_option>s%<basis_id>s(?<suffix>;|\\])',
       '[%<to_key>s=%<to_id>i%<suffix>s'
+    ],
+    [
+      '(?<=^| )>\?%<basis_short_key>s%<basis_id>s(?<suffix>;)',
+      '>?%<to_short_key>s%<to_id>i%<suffix>s'
     ]
   ]
 
@@ -30,7 +34,7 @@ private
         basis_key: basis_key,
         basis_short_key: short_key(basis_key),
         basis_prefix_option: basis_prefix_option(basis_key)
-      regexp = Regexp.new formatted_template, Regexp::EXTENDED
+      regexp = Regexp.new formatted_template # , Regexp::EXTENDED
 
       @comment.body = @comment.body.gsub(regexp) do
         to_key = key @to
