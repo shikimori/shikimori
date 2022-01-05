@@ -3,12 +3,12 @@ class Comment::Move
 
   QUOTE_REPLACEMENT_TEMPLATES = [
     [
-      (
-        <<-TEMPLATE.squish
-          \\[quote=(?:%<basis_short_key>s)%<basis_prefix_option>s%<basis_id>s;
-        TEMPLATE
-      ),
-      '[quote=%<to_short_key>s%<to_id>i;'
+      '\[quote=(?:%<basis_short_key>s)%<basis_prefix_option>s%<basis_id>s(?<suffix>;|\\])',
+      '[quote=%<to_short_key>s%<to_id>i%<suffix>s'
+    ],
+    [
+      '\[(?:%<basis_key>s)=%<basis_prefix_option>s%<basis_id>s(?<suffix>;|\\])',
+      '[%<to_key>s=%<to_id>i%<suffix>s'
     ]
   ]
 
@@ -38,7 +38,8 @@ private
         format replacement_template,
           to_key: to_key,
           to_short_key: short_key(to_key),
-          to_id: @to.id
+          to_id: @to.id,
+          suffix: $LAST_MATCH_INFO[:suffix]
       end
     end
   end
