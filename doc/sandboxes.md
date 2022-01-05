@@ -353,3 +353,68 @@ Parallel.each(batches, in_processes: processes) do |batch|
   end;
 end;
 ```
+
+### Fix review replies
+```ruby
+def extract tag, data
+  case tag
+    when 'quote', '>?'
+      if data =~ Comments::ExtractQuotedModels::FORUM_ENTRY_QUOTE_REGEXP
+        $LAST_MATCH_INFO[:comment_id]
+      end
+
+    when 'comment'
+      data
+
+    else
+      nil
+  end
+end
+
+Review.
+  where('comments_count > 0').
+  where(id: 61586).
+  find_each do |review|
+    comment_ids = review.
+      body.
+      scan(BbCodes::Tags::RepliesTag::REGEXP).
+      flat_map { |_, _, ids| ids.split(',').map(&:to_i) }
+
+    comments = Comment.where(id: comment_ids).to_a
+    ap comments
+
+    matched_ids = comments.
+      flat_map do |comment|
+        mathed_ids = comment.
+          body.
+          scan(Comments::ExtractQuotedModels::REGEXP).
+          map do |(tag_1, data_1, tag_2, data_2)|
+            extract tag_1 || tag_2, data_1 || data_2
+          end
+      end
+
+    original_comment_id = matched_ids.
+      compact.
+      each_with_object({}) { |id, memo| memo[id] ||= 0; memo[id] += 1 }.
+      select { |id, _count| Comment.find_by(id: id).nil? }.
+      sort_by { |_id, count| -count }.
+      first&.first
+
+    next unless original_comment_id
+
+    comments.take(1).each do |comment|
+      original_comment = Comment.new(id: original_comment_id)
+
+      Comment::Move.
+        new(
+          comment: comment,
+          commentable: review,
+          from_reply: original_comment,
+          to_reply: review
+        ).
+        send(:change_replies)
+
+      comment.update_columns body: comment.body
+    end
+  end;
+```
