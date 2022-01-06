@@ -373,7 +373,6 @@ end
 
 Review.
   where('comments_count > 0').
-  where(id: 61586).
   find_each do |review|
     comment_ids = review.
       body.
@@ -402,12 +401,12 @@ Review.
 
     next unless original_comment_id
 
-    comments.take(1).each do |comment|
+    comments.each do |comment|
       original_comment = Comment.new(id: original_comment_id)
 
       comment.update_column(
         :body,
-        BbCodes::Quotes::Replace(
+        BbCodes::Quotes::Replace.call(
           text: comment.body,
           from_reply: original_comment,
           to_reply: review
