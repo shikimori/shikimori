@@ -33,7 +33,7 @@ describe Topics::DecomposedBody do
     end
   end
 
-  context 'with source' do
+  context 'source' do
     let(:body) do
       <<~TEXT.squish.strip
         test[image=#{image_1.id}]
@@ -52,7 +52,7 @@ describe Topics::DecomposedBody do
     end
   end
 
-  context 'with wall & source' do
+  context 'wall & source' do
     let(:body) do
       <<~TEXT.squish.strip
         test[image=#{image_1.id}]
@@ -72,6 +72,45 @@ describe Topics::DecomposedBody do
     it do
       is_expected.to have_attributes(
         text: "test[image=#{image_1.id}]",
+        wall: (
+          <<~TEXT.squish.strip
+            [wall]
+            [video=#{video.id}]
+            [image=#{image_2.id}]
+            [image=#{image_3.id}]
+            [/wall]
+          TEXT
+        ),
+        source: 'https://zxc.org'
+      )
+      expect(subject.wall_video).to eq video
+      expect(subject.wall_images).to eq [image_2, image_3]
+    end
+  end
+
+  context 'wall & source & replies & bans' do
+    let(:body) do
+      <<~TEXT.squish.strip
+        test[image=#{image_1.id}]
+        [wall]
+        [video=#{video.id}]
+        [image=#{image_2.id}]
+        [image=#{image_3.id}]
+        [/wall]
+        [source]https://zxc.org[/source]
+
+        [replies=123,1234]
+        [ban=1]
+      TEXT
+    end
+
+    let(:image_2) { create :user_image }
+    let(:image_3) { create :user_image }
+    let(:video) { create :video }
+
+    it do
+      is_expected.to have_attributes(
+        text: "test[image=#{image_1.id}] [replies=123,1234] [ban=1]",
         wall: (
           <<~TEXT.squish.strip
             [wall]

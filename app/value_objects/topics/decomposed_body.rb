@@ -13,8 +13,11 @@ class Topics::DecomposedBody
     (?<text>[\s\S]*?)
     [\r\n\s]*
     (?<wall> \[wall\].+\[/wall\])?
-    [\r\n\s]*
-    ( \[source\](?<source>.+)\[/source\])?
+    (?:
+      (?: [\r\n\s]* \[source\](?<source>.+)\[/source\] ) |
+      (?<replies> [\r\n\s]* \[replies=[\d,]+\] ) |
+      (?<bans> [\r\n\s]* \[ban=\d+\] )
+    )*
     \Z
   }mix
 
@@ -40,7 +43,7 @@ class Topics::DecomposedBody
       matches = (value || '').match PARSE_REGEXP
 
       new(
-        text: matches[:text],
+        text: matches[:text] + (matches[:replies] || '') + (matches[:bans] || ''),
         wall: matches[:wall],
         source: matches[:source]
       )
