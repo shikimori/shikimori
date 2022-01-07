@@ -23,6 +23,7 @@ class ExternalLink < ApplicationRecord
   LANG_WIKIPEDIA_REGEXP = %r{/(?<lang>ru|en|ja|zh|ko)\.wikipedia\.org/}
   BAIKE_BAIDU_WIKI_REGEXP = /baike.baidu.com/
   NAMU_WIKI_REGEXP = /namu.wiki/
+  MANGALIB_REGEXP = /(?:mangalib|hentailib).\w+/
 
   WIKIPEDIA_LABELS = {
     ru: 'Википедия',
@@ -105,7 +106,7 @@ private
 
   def cleanup_url url
     fixed_url = Url.new(url).with_protocol.to_s
-    fixed_url = fixed_url.gsub(/\?.*/, '') if fixed_url.include? 'mangalib.me'
+    fixed_url = fixed_url.gsub(/\?.*/, '') if fixed_url.match MANGALIB_REGEXP
     fixed_url
   end
 end
