@@ -21,6 +21,10 @@ class Topic::TypePolicy
     @object.instance_of? Topics::EntryTopics::CritiqueTopic
   end
 
+  def review_topic?
+    @object.instance_of? Topics::EntryTopics::ReviewTopic
+  end
+
   def cosplay_gallery_topic?
     @object.instance_of? Topics::EntryTopics::CosplayGalleryTopic
   end
@@ -61,13 +65,11 @@ class Topic::TypePolicy
     !collection_topic? || @object.linked.published? || @object.linked.opened?
   end
 
-  def review_topic?
-    @object.is_a? Review
-  end
-
   def votable_topic?
-    critique_topic? || cosplay_gallery_topic? || (
-      collection_topic? && (@object.linked.published? || @object.linked.opened?)
-    ) || review_topic?
+    critique_topic? ||
+      cosplay_gallery_topic? ||
+      review_topic? || (
+        collection_topic? && (@object.linked.published? || @object.linked.opened?)
+      )
   end
 end

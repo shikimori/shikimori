@@ -23,7 +23,7 @@ class Topics::CritiqueView < Topics::UserContentView
       critique.target.name
     else
       i18n_t(
-        "title.#{critique.target_type.downcase}",
+        "title.#{critique.target_type.underscore}",
         target_name: h.h(h.localized_name(critique.target))
       ).html_safe
     end

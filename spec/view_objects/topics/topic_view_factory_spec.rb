@@ -66,6 +66,11 @@ describe Topics::TopicViewFactory do
       it { expect(view).to be_a Topics::CritiqueView }
     end
 
+    context 'review' do
+      let(:topic) { build :review_topic }
+      it { expect(view).to be_a Topics::ReviewView }
+    end
+
     context 'cosplay' do
       let(:topic) { build :cosplay_gallery_topic }
       it { expect(view).to be_a Topics::CosplayView }
