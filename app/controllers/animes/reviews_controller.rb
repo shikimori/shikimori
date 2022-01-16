@@ -22,6 +22,11 @@ class Animes::ReviewsController < AnimesController
     query = ::Reviews::Query
       .fetch(@resource.object)
       .by_opinion(@opinion)
+      .transform do |model|
+        Topics::TopicViewFactory
+          .new(true, true)
+          .build(model.maybe_topic(locale_from_host))
+      end
 
     @collection = @is_preview ?
       query.paginate(1, PER_PREVIEW) :

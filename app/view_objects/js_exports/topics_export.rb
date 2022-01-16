@@ -1,6 +1,7 @@
 class JsExports::TopicsExport < JsExports::ExportBase
   VOTABLE_TYPES = [
     Critique.name,
+    Review.name,
     CosplayGallery.name,
     Collection.name
   ]
