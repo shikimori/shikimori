@@ -29,12 +29,9 @@ class Critique < ApplicationRecord
   validates :locale, presence: true
 
   enumerize :locale, in: %i[ru en], predicates: { prefix: true }
+  alias topic_user user
 
   scope :available, -> { visible }
-
-  def topic_user
-    user
-  end
 
   # хз что это за хрень и почему CritiqueComment.first.linked.target
   # возвращает сам обзор. я так и не понял

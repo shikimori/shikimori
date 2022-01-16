@@ -2,7 +2,7 @@ class Review < ApplicationRecord
   include AntispamConcern
   include Commentable
   include Moderatable
-  include Viewable
+  include TopicsConcern
 
   antispam(
     per_day: 15,
@@ -24,6 +24,7 @@ class Review < ApplicationRecord
     inverse_of: :review
 
   enumerize :opinion, in: Types::Review::Opinion.values
+  alias topic_user user
 
   MIN_BODY_SIZE = 230
 
