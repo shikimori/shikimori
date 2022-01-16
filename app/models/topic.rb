@@ -28,7 +28,7 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
     'Critique' => 12,
     'Contest' => Forum::CONTESTS_ID,
     'CosplayGallery' => Forum::COSPLAY_ID,
-    'Collection' => Forum::COLLECTION_ID,
+    'Collection' => Forum::COLLECTIONS_ID,
     'Article' => Forum::ARTICLES_ID
   }
 

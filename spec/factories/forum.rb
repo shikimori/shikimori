@@ -68,6 +68,13 @@ FactoryBot.define do
       name_en { 'Critiques' }
     end
 
+    trait :reviews do
+      id { Topic::FORUM_IDS[Review.name] }
+      permalink { 'reviews' }
+      name_ru { 'Отзывы' }
+      name_en { 'Reviews' }
+    end
+
     trait :premoderation do
       id { Forum::PREMODERATION_ID }
       permalink { 'premoderation' }
@@ -91,6 +98,7 @@ FactoryBot.define do
     factory :news_forum, traits: %i[news]
     factory :offtopic_forum, traits: %i[offtopic]
     factory :critiques_forum, traits: %i[critiques]
+    factory :reviews_forum, traits: %i[reviews]
     factory :premoderation_forum, traits: %i[premoderation]
     factory :hidden_forum, traits: %i[hidden]
   end

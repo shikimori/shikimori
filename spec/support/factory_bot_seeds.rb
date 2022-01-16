@@ -10,6 +10,7 @@ class FactoryBotSeeds
 
     news_forum
     critiques_forum
+    reviews_forum
     animanga_forum
     contests_forum
     clubs_forum
