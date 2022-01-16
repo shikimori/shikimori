@@ -14,7 +14,7 @@ class Animes::ReviewsController < AnimesController
   PER_PAGE = 8
   PER_PREVIEW = 4
 
-  def index # rubocop:disable AbcSize
+  def index # rubocop:disable AbcSize, MethodLength
     breadcrumb i18n_i('Review', :other), nil
     @opinion = (Types::Review::Opinion[params[:opinion]] if params[:opinion])
     @is_preview = !!params[:is_preview]
