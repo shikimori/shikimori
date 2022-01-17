@@ -1,5 +1,5 @@
 class Topics::ReviewView < Topics::UserContentView
-  delegate :db_entry, to: :review
+  delegate :db_entry, :body, to: :review
 
   def container_classes
     super 'b-review-topic'
@@ -44,10 +44,6 @@ class Topics::ReviewView < Topics::UserContentView
   end
 
 private
-
-  def body
-    review.text
-  end
 
   def stars_html
     h.render(
