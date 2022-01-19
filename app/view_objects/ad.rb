@@ -149,7 +149,7 @@ private
           "<img src='#{image[:src]}'>"
         end
 
-      pixel_html = "<img src='#{banner[:pixel]}' width='0' height='0'>" if banner[:pixel]
+      pixel_html = "<img src='#{banner[:pixel]}' border='0' width='1' height='1'>" if banner[:pixel]
 
       "#{pixel_html}<a href='#{banner[:url] || image[:url]}'>#{image_html}</a>"
     elsif html?
@@ -208,7 +208,7 @@ private
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
         url: 'https://bit.ly/3mU0bP2',
-        # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
+        pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
         images: (1..2).map do |i|
           {
             src: "/assets/globals/events/special_menu_#{i}.jpg",
@@ -227,7 +227,7 @@ private
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
         url: 'https://bit.ly/3mU0bP2',
-        # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
+        pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
         images: (1..3).map do |i|
           {
             src: "/assets/globals/events/special_wide_#{i}.jpg",
@@ -326,7 +326,7 @@ private
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
         url: 'https://bit.ly/3mU0bP2',
-        # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
+        pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
         images: (1..1).map do |i|
           {
             src: "/assets/globals/events/special_menu_#{i}.jpg",
@@ -344,7 +344,7 @@ private
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
         url: 'https://bit.ly/3mU0bP2',
-        # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=dtxhs&pfb=kgouc&pr=[RANDOM]&ptrc=b',
+        pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
         images: (1..1).map do |i|
           {
             src: "/assets/globals/events/special_wide_#{i}.jpg",
