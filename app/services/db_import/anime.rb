@@ -22,9 +22,11 @@ private
   end
 
   def assign_is_censored
-    return if :is_censored.in? desynced_fields
+    unless :is_censored.in? desynced_fields
+      entry.is_censored = entry.rating_rx? || entry.genres.any?(&:censored?)
+    end
 
-    entry.is_censored = entry.rating_rx? || entry.genres.any?(&:censored?)
+    entry.ranked = 0 if entry.is_censored
   end
 
   def import_genre data
