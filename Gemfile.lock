@@ -655,11 +655,10 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (4.5.1)
       activesupport (>= 4.2.0)
-    sidekiq (5.2.7)
-      connection_pool (~> 2.2, >= 2.2.2)
-      rack (>= 1.5.0)
-      rack-protection (>= 1.5.0)
-      redis (>= 3.3.5, < 5)
+    sidekiq (6.4.0)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     sidekiq-limit_fetch (3.4.0)
       sidekiq (>= 4)
     sidekiq-unique-jobs (6.0.13)
@@ -875,7 +874,7 @@ DEPENDENCIES
   scout_apm
   shallow_attributes!
   shoulda-matchers
-  sidekiq (= 5.2.7)
+  sidekiq (= 6.4.0)
   sidekiq-limit_fetch
   sidekiq-unique-jobs
   simple_form
