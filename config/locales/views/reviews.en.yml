@@ -4,14 +4,6 @@ en:
       user_review: 'Review #%{id}'
       no_review: Review is either deleted or Never existed on Shikimori
     review:
-      in_author_list: In author's list
-      is_written_before_release:
-        anime: SUmmary written prior to the end of the anime
-        manga: Review written prior to the end of the manga
-        ranobe: Review written prior to the end of the light novel
-      go_to_review: go to review
-      moderation: Moderation
-      'on': 'on'
     group:
       to_other_reviews: To all reviews
       new_review: Write a review

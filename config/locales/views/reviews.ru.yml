@@ -3,15 +3,6 @@ ru:
     missing:
       user_review: 'Отзыв #%{id}'
       no_review: Отзыв или был удалён, или никогда не существовал на сайте
-    review:
-      in_author_list: В списке у автора
-      is_written_before_release:
-        anime: Отзыв написан до завершения показа аниме
-        manga: Отзыв написан до завершения манги
-        ranobe: Отзыв написан до завершения ранобэ
-      go_to_review: к отзыву
-      moderation: Модерация
-      'on': к
     group:
       to_other_reviews: Ко всем отзывам
       new_review: Написать отзыв

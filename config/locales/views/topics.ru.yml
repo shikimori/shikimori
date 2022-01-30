@@ -100,3 +100,13 @@ ru:
     news_line:
       inner:
         by: от
+    reviews:
+      inner:
+        in_author_list: В списке у автора
+        is_written_before_release:
+          anime: Отзыв написан до завершения показа аниме
+          manga: Отзыв написан до завершения манги
+          ranobe: Отзыв написан до завершения ранобэ
+        go_to_review: к отзыву
+        moderation: Модерация
+        'on': к
