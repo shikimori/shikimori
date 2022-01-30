@@ -101,9 +101,20 @@
         .count
           display: none
 
-        &.is-empty
-          .label:before
-            color: rgba($gray-4, 0.15)
+      &.is-empty
+        +iphone
+          .label
+            &:before
+              color: rgba($gray-4, 0.2)
+
+        +gte_laptop
+          .label,
+          .count
+            color: rgba($gray-4, 0.35)
+
+          .count:before,
+          .count:after
+            color: inherit
 
     &-all
       +navigation_block_colors(#123, #e8ebef, #d8dde4)
