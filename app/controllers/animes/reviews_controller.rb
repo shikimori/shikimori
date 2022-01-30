@@ -22,15 +22,16 @@ class Animes::ReviewsController < AnimesController
     query = ::Reviews::Query
       .fetch(@resource.object)
       .by_opinion(@opinion)
-      .transform do |model|
-        Topics::TopicViewFactory
-          .new(true, true)
-          .build(model.maybe_topic(locale_from_host))
-      end
 
-    @collection = @is_preview ?
+    query = @is_preview ?
       query.paginate(1, PER_PREVIEW) :
       query.paginate(@page, PER_PAGE)
+
+    @collection = query.transform do |model|
+      Topics::TopicViewFactory
+        .new(true, true)
+        .build(model.maybe_topic(locale_from_host))
+    end
 
     if @collection.none? && !request.xhr?
       redirect_to @resource.url, status: :moved_permanently

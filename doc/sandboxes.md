@@ -418,15 +418,16 @@ Review.
 
 ### Convert review topics
 ```ruby
-Review.includes(:comments).find_each do |review|
-  review.send :generate_topics, :ru
-
-  Comments::Move.call(
-    comment_ids: review.comments.map(&:id),
-    commentable: review.topics.first,
-    from_reply: review,
-    to_reply: review.topics.first
-  )
-
+Review.
+  # where(id: [71320, 70983]).
+  includes(:comments).
+  find_each do |review|
+    review.send :generate_topics, :ru
+    Comments::Move.call(
+      comment_ids: review.comments.map(&:id),
+      commentable: review.topics.first,
+      from_reply: review,
+      to_reply: review.topics.first
+    )
 end
 ```

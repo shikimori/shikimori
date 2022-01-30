@@ -1,6 +1,7 @@
 - if collection.any?
-  = render partial: 'reviews/review',
+  = render partial: 'topics/topic',
     collection: collection,
+    as: :topic_view,
     cached: ->(entry) { CacheHelper.keys entry }
 
   - if is_preview && collection.page == 1
