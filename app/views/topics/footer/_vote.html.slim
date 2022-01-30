@@ -10,7 +10,7 @@
     - elsif topic_type_policy.review_topic?
       = t '.question.review'
     - else
-      - raise "unexpected type of #{topic_type_policy.objcet.class.name.downcase}.id=#{topic_type_policy.object.id}"
+      - raise "unexpected type of #{topic_type_policy.object.class.name.downcase}.id=#{topic_type_policy.object.id}"
 
   .vote-group
     .vote.yes.to-process[
