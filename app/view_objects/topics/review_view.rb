@@ -47,6 +47,10 @@ class Topics::ReviewView < Topics::UserContentView
     review.votes_count.positive?
   end
 
+  def review
+    @topic.linked
+  end
+
 private
 
   def stars_html
@@ -58,9 +62,5 @@ private
       },
       formats: :html
     )
-  end
-
-  def review
-    @topic.linked
   end
 end

@@ -38,6 +38,8 @@ article.to-process[
     = render 'topics/news_wall/inner', topic_view: topic_view
   - elsif topic_view.is_a? Topics::NewsLineView
     = render 'topics/news_line/inner', topic_view: topic_view
+  - elsif topic_view.is_a? Topics::ReviewView
+    = render 'topics/reviews/inner', topic_view: topic_view
   - elsif topic_view.show_inner?
     = render 'topics/inner', topic_view: topic_view
 
