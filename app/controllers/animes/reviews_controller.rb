@@ -45,6 +45,10 @@ class Animes::ReviewsController < AnimesController
         UrlGenerator.instance.review_url(@review, is_canonical: true)
     )
     push_js_reply if params[:is_reply]
+
+    @topic_view = Topics::TopicViewFactory
+      .new(false, false)
+      .build(@resource.maybe_topic(locale_from_host))
   end
 
   def new
