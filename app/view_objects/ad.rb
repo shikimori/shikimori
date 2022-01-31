@@ -217,7 +217,7 @@ private
         end,
         rules: {
           cookie: 'i1',
-          shows_per_week: 540 # 380
+          shows_per_week: 420 # 380
         },
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
