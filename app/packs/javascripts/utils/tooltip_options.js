@@ -71,5 +71,13 @@ export const ANIME_TOOLTIP_OPTIONS = {
 
       this.getTip().addClass('minified');
     }
+  },
+  // fix stale tooltips in case new page is loaded with turbolinks
+  onShow() {
+    const tooltipPosition = this.getTip().position()
+    
+    if (tooltipPosition.top < 20 && tooltipPosition.left < 20) {
+      this.getTip().remove()
+    }
   }
 };
