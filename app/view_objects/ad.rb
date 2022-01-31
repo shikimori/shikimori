@@ -226,9 +226,16 @@ private
       # convert -resize 50% app/assets/images/globals/events/special_wide_1@2x.png app/assets/images/globals/events/special_wide_1.png
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://bit.ly/3mU0bP2',
-        pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
-        images: (1..3).map do |i|
+        # url: 'https://bit.ly/3mU0bP2',
+        # pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
+        # images: (1..3).map do |i|
+        #   {
+        #     src: "/assets/globals/events/special_wide_#{i}.jpg",
+        #     src_2x: "/assets/globals/events/special_wide_#{i}@2x.jpg"
+        #   }
+        # end,
+        url: 'https://vk.cc/caFHqS',
+        images: (4..4).map do |i|
           {
             src: "/assets/globals/events/special_wide_#{i}.jpg",
             src_2x: "/assets/globals/events/special_wide_#{i}@2x.jpg"
@@ -343,9 +350,16 @@ private
       # disable after 2021-11-30 23:55
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://bit.ly/3mU0bP2',
-        pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
-        images: (1..1).map do |i|
+        # url: 'https://bit.ly/3mU0bP2',
+        # pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
+        # images: (1..1).map do |i|
+        #   {
+        #     src: "/assets/globals/events/special_wide_#{i}.jpg",
+        #     src_2x: "/assets/globals/events/special_wide_#{i}@2x.jpg"
+        #   }
+        # end,
+        url: 'https://vk.cc/caFHqS',
+        images: (4..4).map do |i|
           {
             src: "/assets/globals/events/special_wide_#{i}.jpg",
             src_2x: "/assets/globals/events/special_wide_#{i}@2x.jpg"
