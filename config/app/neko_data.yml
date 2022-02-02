@@ -21970,7 +21970,7 @@
         franchise: natsume_yuujinchou
         not_anime_ids:
         - 19945
-      :threshold: 93.8%
+      :threshold: 95%
       :generator:
         ignore_latest_ids:
         - 36538
@@ -23630,6 +23630,7 @@
         - 821
         - 12725
         - 47410
+        - 50846
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -23663,6 +23664,7 @@
         - 821
         - 12725
         - 47410
+        - 50846
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -25994,6 +25996,7 @@
         - 36371
         - 36370
         - 36369
+        - 42886
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ginga_eiyuu_densetsu
@@ -26028,6 +26031,7 @@
         - 36371
         - 36370
         - 36369
+        - 42886
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ginga_eiyuu_densetsu
@@ -32858,35 +32862,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :el_hazard
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/el_hazard.jpg"
-    :border_color:
-    :title_ru: Эль-Хазард
-    :text_ru:
-    :title_en: El Hazard
-    :text_en:
-    :topic_id: 247360
-    :rule: &623
-      :algo: duration
-      :filters:
-        franchise: el_hazard
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :el_hazard
-  level: 1
-  image: "/assets/achievements/anime/franchise/el_hazard.jpg"
-  border_color:
-  title_ru: Эль-Хазард
-  text_ru:
-  title_en: El Hazard
-  text_en:
-  topic_id: 247360
-  rule: *623
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :dirty_pair
     :level: 0
     :image: "/assets/achievements/anime/franchise/dirty_pair.jpg"
@@ -32896,7 +32871,7 @@
     :title_en: Dirty Pair
     :text_en:
     :topic_id: 247360
-    :rule: &624
+    :rule: &623
       :algo: duration
       :filters:
         franchise: dirty_pair
@@ -32910,6 +32885,35 @@
   title_ru: Грязная парочка
   text_ru:
   title_en: Dirty Pair
+  text_en:
+  topic_id: 247360
+  rule: *623
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :el_hazard
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/el_hazard.jpg"
+    :border_color:
+    :title_ru: Эль-Хазард
+    :text_ru:
+    :title_en: El Hazard
+    :text_en:
+    :topic_id: 247360
+    :rule: &624
+      :algo: duration
+      :filters:
+        franchise: el_hazard
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :el_hazard
+  level: 1
+  image: "/assets/achievements/anime/franchise/el_hazard.jpg"
+  border_color:
+  title_ru: Эль-Хазард
+  text_ru:
+  title_en: El Hazard
   text_en:
   topic_id: 247360
   rule: *624
