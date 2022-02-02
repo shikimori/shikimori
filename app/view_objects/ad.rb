@@ -77,7 +77,7 @@ private
       user: h.current_user,
       ad_provider: provider,
       is_ru_host: h.ru_host?,
-      is_disabled: h.cookies["#{css_class}_disabled"].present?
+      is_disabled: h.cookies["#{css_class}_ad_disabled"].present?
     )
   end
 
