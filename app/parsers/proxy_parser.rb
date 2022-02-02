@@ -164,12 +164,13 @@ private
   end
 
   def openproxy_space
-    index_url = "https://api.openproxy.space/list?skip=0&ts=#{Time.zone.now.to_i}000"
-    json = JSON.parse OpenURI.open_uri(index_url).read, symbolize_names: true
-    codes = json.select { |v| v[:title].match? /http/i }.map { |v| v[:code] }
-
-    codes.flat_map do |code|
-      url = "https://api.openproxy.space/list/#{code}"
+    # index_url = "https://api.openproxy.space/list?skip=0&ts=#{Time.zone.now.to_i}000"
+    # json = JSON.parse OpenURI.open_uri(index_url).read, symbolize_names: true
+    # codes = json.select { |v| v[:title].match? /http/i }.map { |v| v[:code] }
+    # 
+    # codes.flat_map do |code|
+      # url = "https://api.openproxy.space/list/#{code}"
+      url = 'https://api.openproxy.space/lists/http'
       json = JSON.parse OpenURI.open_uri(url).read, symbolize_names: true
       proxies = json[:data].flat_map do |v|
         v[:items].map do |vv|
@@ -179,7 +180,7 @@ private
       end
       print "#{url} - #{proxies.size} proxies\n"
       proxies
-    end
+    # end
   end
 
   def parse_proxies
