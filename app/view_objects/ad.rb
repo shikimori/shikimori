@@ -234,7 +234,7 @@ private
         #     src_2x: "/assets/globals/events/special_wide_#{i}@2x.jpg"
         #   }
         # end,
-        url: 'https://vk.cc/caFHqS',
+        url: 'https://bit.ly/3uiBmjX',
         images: (4..4).map do |i|
           {
             src: "/assets/globals/events/special_wide_#{i}.jpg",
@@ -358,7 +358,7 @@ private
         #     src_2x: "/assets/globals/events/special_wide_#{i}@2x.jpg"
         #   }
         # end,
-        url: 'https://vk.cc/caFHqS',
+        url: 'https://bit.ly/3uiBmjX',
         images: (4..4).map do |i|
           {
             src: "/assets/globals/events/special_wide_#{i}.jpg",
