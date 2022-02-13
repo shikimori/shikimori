@@ -14,7 +14,7 @@ class Animes::ReviewsController < AnimesController
   PER_PAGE = 8
   PER_PREVIEW = 4
 
-  def index # rubocop:disable AbcSize, MethodLength
+  def index # rubocop:disable AbcSize
     breadcrumb i18n_i('Review', :other), nil
     @opinion = (Types::Review::Opinion[params[:opinion]] if params[:opinion])
     @is_preview = !!params[:is_preview]
@@ -28,9 +28,7 @@ class Animes::ReviewsController < AnimesController
       query.paginate(@page, PER_PAGE)
 
     @collection = query.transform do |model|
-      Topics::TopicViewFactory
-        .new(true, true)
-        .build(model.maybe_topic(locale_from_host))
+      Topics::ReviewView.new(model.maybe_topic(locale_from_host), true, true)
     end
 
     if @collection.none? && !request.xhr?

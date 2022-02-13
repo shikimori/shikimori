@@ -15,8 +15,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
         id: params[:id].to_i
       })
       .map do |critique|
-        topic = critique.maybe_topic locale_from_host
-        Topics::CritiqueView.new topic, true, true
+        Topics::CritiqueView.new(critique.maybe_topic(locale_from_host), true, true)
       end
   end
 
