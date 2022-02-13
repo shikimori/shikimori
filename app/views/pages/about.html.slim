@@ -87,10 +87,10 @@ header.head
         = render @statistics.critiqueers, content_by: :avatar
         .clearfix
 
-      .members-block
-        .subheadline.pink.m10 = t '.video_content'
-        = render @statistics.top_video_contributors, content_by: :avatar
-        .clearfix
+      / .members-block
+      /   .subheadline.pink.m10 = t '.video_content'
+      /   = render @statistics.top_video_contributors, content_by: :avatar
+      /   .clearfix
 
       .members-block
         .subheadline.magenta.m10 = t '.achievements'

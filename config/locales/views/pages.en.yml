@@ -21,7 +21,7 @@ en:
       retired_moderators: Retired
       special_thanks: Special thanks to
       total: Total
-      video_content: Video content
+      # video_content: Video content
       website_developer: Website developer
 
     feedback:

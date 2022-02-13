@@ -149,9 +149,9 @@ class SiteStatistics
     User.where(id: newsmarker_ids).sort_by { |v| newsmarker_ids.index(v.id) }
   end
 
-  def top_video_contributors
-    AnimeOnline::Contributors.call limit: USERS_LIMIT * 2
-  end
+  # def top_video_contributors
+  #   AnimeOnline::Contributors.call limit: USERS_LIMIT * 2
+  # end
 
   def cache_key
     [:about_block, CACHE_VERSION, Time.zone.today]

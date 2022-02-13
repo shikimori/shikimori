@@ -21,7 +21,7 @@ ru:
       retired_moderators: В отставке
       special_thanks: Отдельная помощь и идеи
       total: Всего
-      video_content: Видео контент
+      # video_content: Видео контент
       website_developer: Разработчик сайта
 
     feedback:
