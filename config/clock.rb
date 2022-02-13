@@ -201,6 +201,11 @@ module Clockwork
       NamedLogger.clockwork.info 'monthly.images-verifier'
     end
 
+  every 1.week, 'weekly.rebuild-eslastic-indexes', at: 'Friday 03:45' do
+    Elasticsearch::RebuildIndexes.perform_async
+    NamedLogger.clockwork.info 'weekly.rebuild-eslastic-indexes'
+  end
+
   every 1.day, 'monthly.schedule_missing', at: '05:00', if: lambda { |t| t.day == 28 } do
     MalParsers::ScheduleMissing.perform_async 'anime'
     MalParsers::ScheduleMissing.perform_async 'manga'

@@ -128,18 +128,7 @@ OVERMIND_PROCESSES=camo,faye overmind start
 In rails console:
 
 ```
-ClubsIndex.reset!
-CollectionsIndex.reset!
-ArticlesIndex.reset!
-LicensorsIndex.reset!
-FansubbersIndex.reset!
-AnimesIndex.reset!
-MangasIndex.reset!
-RanobeIndex.reset!
-PeopleIndex.reset!
-CharactersIndex.reset!
-TopicsIndex.reset!
-UsersIndex.reset!
+Elasticsearch::RebuildIndexes.new.perform
 ```
 
 
