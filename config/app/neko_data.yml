@@ -11414,6 +11414,7 @@
         - 54
         - 2461
         - 38799
+        - 38749
       :generator:
         person_id: 7454
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -11471,6 +11472,7 @@
         - 54
         - 2461
         - 38799
+        - 38749
       :generator:
         person_id: 7454
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -11526,6 +11528,8 @@
         - 38799
         - 34893
         - 49357
+        - 49532
+        - 38749
       :generator:
         person_id: 5348
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -11581,6 +11585,8 @@
         - 38799
         - 34893
         - 49357
+        - 49532
+        - 38749
       :generator:
         person_id: 5348
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -27018,6 +27024,7 @@
         - 4941
         - 7229
         - 18669
+        - 42400
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -27051,6 +27058,7 @@
         - 4941
         - 7229
         - 18669
+        - 42400
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -35852,6 +35860,9 @@
         - 37735
         - 36654
         - 30296
+        - 45576
+        - 40542
+        - 38610
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
   default_values: *2
   neko_id: :oniichan
