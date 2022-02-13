@@ -7,10 +7,15 @@ ru:
       community: Посещаемость
       content_changes: Правки контента
       moderation: Модерация
-      moderation_content: Контент
+      moderation_collections: Коллекции
       moderation_contests: Турниры
       moderation_cosplay: Косплей
+      moderation_critiques: Рецензии и статьи
       moderation_forum: Форум
+      moderation_main: Основное
+      moderation_news: Новости
+      moderation_statistics: Статистика (ачивки и оценки)
+      moderation_versions: База сайта
       vk: Группа в <a class="b-link" href="%{url}">vk</a>
       discord: Канал в <a class="b-link" href="%{url}">discord</a>
       retired_moderators: В отставке

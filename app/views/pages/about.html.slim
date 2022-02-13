@@ -50,18 +50,10 @@ header.head
     .description
       .members-block
         .subheadline.red.m5 = t '.moderation'
-        .members-block.left
-          p = t '.moderation_forum'
-          = render @statistics.forum_moderators, content_by: :avatar
-
-        .members-block.left
-          p = t '.moderation_content'
-          = render @statistics.version_moderators, content_by: :avatar
-
-        - if @statistics.contest_moderators.any?
+        - %i[main forum versions contests critiques collections news].each do |kind|
           .members-block.left
-            p = t '.moderation_contests'
-            = render @statistics.contest_moderators, content_by: :avatar
+            p = t ".moderation_#{kind}"
+            = render @statistics.send(:"#{kind}_moderators"), content_by: :avatar
 
         - if ru_host?
           .members-block.left

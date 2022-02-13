@@ -16,8 +16,7 @@ class SiteStatistics
   SQL
 
   ACHIEVEMENT_USER_IDS = [3824, 210, 16398, 34807, 29386, 84020, 72620, 50587, 100600, 77362, 7642, 9158] # rubocop:disable all
-
-  CACHE_VERSION = :v3
+  CACHE_VERSION = :v1_3
 
   def traffic
     YandexMetrika.call METRIKA_MONTHS
@@ -42,11 +41,27 @@ class SiteStatistics
     User.last.id
   end
 
-  def contest_moderators
-    User
-      .where("roles && '{#{Types::User::Roles[:contest_moderator]}}'")
-      .where.not(id: User::MORR_ID)
-      .sort_by { |v| v.nickname.downcase }
+  def main_moderators
+    role_moderators Types::User::Roles[:super_moderator]
+  end
+
+  def contests_moderators
+    role_moderators Types::User::Roles[:contest_moderator]
+  end
+
+  def critiques_moderators
+    role_moderators [
+      Types::User::Roles[:critique_moderator],
+      Types::User::Roles[:article_moderator]
+    ]
+  end
+
+  def collections_moderators
+    role_moderators Types::User::Roles[:collection_moderator]
+  end
+
+  def news_moderators
+    role_moderators Types::User::Roles[:news_moderator]
   end
 
   def developers
@@ -54,7 +69,12 @@ class SiteStatistics
   end
 
   def achievements
-    User.where(id: ACHIEVEMENT_USER_IDS).sort_by { |v| ACHIEVEMENT_USER_IDS.index v.id }
+    (
+      User
+        .where(id: ACHIEVEMENT_USER_IDS)
+        .sort_by { |v| ACHIEVEMENT_USER_IDS.index v.id } +
+          role_moderators(Types::User::Roles[:news_moderator])
+    ).uniq
   end
 
   def thanks_to
@@ -63,7 +83,7 @@ class SiteStatistics
       .order(:id)
   end
 
-  def version_moderators
+  def versions_moderators
     User
       .where("roles && '{#{Types::User::Roles[:version_names_moderator]}}'")
       .or(User.where("roles && '{#{Types::User::Roles[:version_texts_moderator]}}'"))
@@ -74,16 +94,11 @@ class SiteStatistics
   end
 
   def retired_moderators
-    User
-      .where("roles && '{#{Types::User::Roles[:retired_moderator]}}'")
-      .order(:id)
+    role_moderators Types::User::Roles[:retired_moderator]
   end
 
   def forum_moderators
-    User
-      .where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
-      .where.not(id: User::MORR_ID)
-      .sort_by { |v| v.nickname.downcase }
+    role_moderators Types::User::Roles[:forum_moderator]
   end
 
   def cosplay_moderators
@@ -91,7 +106,7 @@ class SiteStatistics
   end
 
   def vk_admins
-    User.where(id: [4795, 210_569]) # Harizmath, vibrant
+    User.where(id: [210_569]) # vibrant
   end
 
   def discord_admins
@@ -143,6 +158,13 @@ class SiteStatistics
   end
 
 private
+
+  def role_moderators role
+    User
+      .where("roles && '{#{Array(role).join(',')}}'")
+      .where.not(id: User::MORR_ID)
+      .sort_by { |v| v.nickname.downcase }
+  end
 
   def by_class klass, interval
     start_date = Time.zone.today - interval

@@ -7,11 +7,16 @@ en:
       community: Site visitors
       content_changes: Content changes
       moderation: Moderation
-      moderation_content: Content
+      moderation_collections: Collections
       moderation_contests: Contests
       moderation_cosplay: Cosplay
+      moderation_critiques: Critiques and articles
       moderation_forum: Forum
-      vk: <a class="b-link" href="%{url}">vk</a> group
+      moderation_main: Main
+      moderation_news: News
+      moderation_statistics: Statistics (achievements and scores)
+      moderation_versions: Database
+      vk: <a class="b-link" href="%{url}">VK</a> group
       discord: <a class="b-link" href="%{url}">Discord</a> channel
       retired_moderators: Retired
       special_thanks: Special thanks to
