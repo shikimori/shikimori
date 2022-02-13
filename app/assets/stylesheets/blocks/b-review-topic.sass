@@ -4,7 +4,7 @@
 @import mixins/link
 @import mixins/user_rate-minified
 
-.b-review-topic > .inner
+.b-topic.b-review-topic > .inner
   header
     +clear_left
     margin-bottom: 10px
@@ -19,7 +19,12 @@
       flex-shrink: 0
 
       img
-        margin-bottom: 0
+        +lte_ipad
+          margin-bottom: 10px
+
+        +gte_laptop
+          margin-bottom: 0
+
 
   .review-details
     line-height: 1
@@ -38,7 +43,7 @@
       display: flex
 
       +iphone
-        margin-bottom: 8px
+        margin-bottom: 5px
 
       .name-inner
         margin-right: 10px
@@ -69,7 +74,7 @@
     .b-status-line
       color: #456
       line-height: inherit
-      margin: 0 0 0 auto !important
+      margin: 0 0 0 auto
 
       +iphone
         flex-wrap: nowrap
