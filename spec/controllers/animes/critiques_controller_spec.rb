@@ -9,6 +9,13 @@ describe Animes::CritiquesController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#show' do
+    subject! do
+      get :show, params: { anime_id: anime.to_param, type: 'Anime', id: critique.id }
+    end
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#new' do
     include_context :authenticated, :user, :week_registered
 

@@ -19,6 +19,9 @@ FactoryBot.define do
     trait :with_antispam do
       after(:build) { |model| unstub_method model, :antispam_checks }
     end
+    trait :with_topics do
+      after(:create) { |critique| critique.generate_topics critique.locale }
+    end
 
     Types::Review::Opinion.values.each do |value|
       trait(value) { opinion { value } }

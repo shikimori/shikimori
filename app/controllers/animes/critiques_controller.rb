@@ -125,6 +125,17 @@ private
     end
   end
 
+  def push_js_reply
+    gon.push reply: {
+      id: @critique.maybe_topic(locale_from_host).id,
+      type: :topic,
+      userId: @critique.user_id,
+      nickname: @critique.user.nickname,
+      text: @critique.user.nickname,
+      url: UrlGenerator.instance.critique_url(@critique)
+    }
+  end
+
   def actualize_resource
     if @resource.is_a? Critique
       @critique = @resource.decorate

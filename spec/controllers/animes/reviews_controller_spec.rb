@@ -2,7 +2,7 @@
 
 describe Animes::ReviewsController do
   let(:anime) { create :anime }
-  let!(:review) { create :review, anime: anime, user: user }
+  let!(:review) { create :review, :with_topics, anime: anime, user: user }
 
   describe '#index' do
     subject! do

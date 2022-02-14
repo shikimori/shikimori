@@ -113,8 +113,8 @@ private
 
   def push_js_reply
     gon.push reply: {
-      id: @review.id,
-      type: :review,
+      id: @review.maybe_topic(locale_from_host).id,
+      type: :topic,
       userId: @review.user_id,
       nickname: @review.user.nickname,
       text: @review.user.nickname,

@@ -106,6 +106,10 @@ module Routing
     )
   end
 
+  def reply_critique_url critique
+    critique_url critique, is_reply: true
+  end
+
   def review_url review, is_reply: false, is_canonical: false
     prefix = 'reply_' if is_reply
     db_entry_type = is_canonical ? review.db_entry.class.name : review.optimized_db_entry_type

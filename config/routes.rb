@@ -758,10 +758,11 @@ Rails.application.routes.draw do
       resources :critiques,
         type: kind.singularize.capitalize,
         controller: 'animes/critiques' do
-          get 'reply' => :show,
-            as: :reply,
-            on: :member,
-            is_reply: true
+          member do
+            get 'reply' => :show,
+              as: :reply,
+              is_reply: true
+          end
         end
 
       resources :reviews,
@@ -772,17 +773,15 @@ Rails.application.routes.draw do
             as: :index,
             opinion: /positive|neutral|negative/,
             on: :collection
-          get 'reply' => :show,
-            as: :reply,
-            on: :member,
-            is_reply: true
+          member do
+            get 'reply' => :show,
+              as: :reply,
+              is_reply: true
+          end
         end
     end
   end
 
-  resources :reviews, only: %i[show edit] do
-    get :tooltip, on: :member
-  end
   resources :user_rates, only: %i[edit]
 
   resources :animes, only: %i[edit update] do
