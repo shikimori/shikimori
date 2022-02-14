@@ -32,17 +32,13 @@ class Critique < ApplicationRecord
 
   scope :available, -> { visible }
 
-  # # хз что это за хрень и почему CritiqueComment.first.linked.target
-  # # возвращает сам обзор. я так и не понял
-  # def entry
-  #   @entry ||= target_type.constantize.find(target_id)
-  # end
-
   def body
     text
   end
 
-  def db_entry_type
+  def optimized_db_entry_type
+    return unless target_id
+
     association_cached?(:target) ?
       target.class.name :
       target_type

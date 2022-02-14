@@ -21,6 +21,24 @@ describe Critique do
     end
   end
 
+  describe 'instance methods' do
+    describe '#optimized_db_entry_type' do
+      subject { build :critique, target: target }
+      let(:target) { nil }
+      its(:optimized_db_entry_type) { is_expected.to be_nil }
+
+      context 'anime' do
+        let(:target) { build_stubbed :anime }
+        its(:optimized_db_entry_type) { is_expected.to eq Anime.name }
+      end
+
+      context 'manga' do
+        let(:target) { build_stubbed :manga }
+        its(:optimized_db_entry_type) { is_expected.to eq Manga.name }
+      end
+    end
+  end
+
   context 'scopes' do
     describe 'pending' do
       subject { Critique.pending }

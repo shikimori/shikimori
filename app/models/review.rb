@@ -71,7 +71,7 @@ class Review < ApplicationRecord
     anime_id || manga_id
   end
 
-  def db_entry_type
+  def optimized_db_entry_type
     if anime?
       Anime.name
     elsif manga?

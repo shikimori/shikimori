@@ -99,7 +99,7 @@ module Routing
     prefix = 'reply_' if is_reply
 
     send(
-      "#{prefix}#{critique.db_entry_type.downcase}_critique_url",
+      "#{prefix}#{critique.optimized_db_entry_type.downcase}_critique_url",
       critique.target,
       critique
     )
@@ -109,7 +109,7 @@ module Routing
     prefix = 'reply_' if is_reply
 
     send(
-      "#{prefix}#{review.db_entry_type.downcase}_review_url",
+      "#{prefix}#{review.optimized_db_entry_type.downcase}_review_url",
       review.db_entry,
       review
     )

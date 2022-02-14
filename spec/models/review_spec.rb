@@ -189,7 +189,7 @@ describe Review do
   end
 
   describe 'instance methods' do
-    describe '#anime? & #manga?, #db_entry, #db_entry_id, #db_entry_type' do
+    describe '#anime? & #manga?, #db_entry, #db_entry_id, #optimized_db_entry_type' do
       subject { build :review, anime: anime, manga: manga }
       let(:anime) { nil }
       let(:manga) { nil }
@@ -198,7 +198,7 @@ describe Review do
       its(:manga?) { is_expected.to eq false }
       its(:db_entry) { is_expected.to be_nil }
       its(:db_entry_id) { is_expected.to be_nil }
-      its(:db_entry_type) { is_expected.to be_nil }
+      its(:optimized_db_entry_type) { is_expected.to be_nil }
 
       context 'anime' do
         let(:anime) { build_stubbed :anime }
@@ -207,7 +207,7 @@ describe Review do
         its(:manga?) { is_expected.to eq false }
         its(:db_entry) { is_expected.to eq anime }
         its(:db_entry_id) { is_expected.to eq anime.id }
-        its(:db_entry_type) { is_expected.to eq Anime.name }
+        its(:optimized_db_entry_type) { is_expected.to eq Anime.name }
       end
 
       context 'manga' do
@@ -217,7 +217,7 @@ describe Review do
         its(:manga?) { is_expected.to eq true }
         its(:db_entry) { is_expected.to eq manga }
         its(:db_entry_id) { is_expected.to eq manga.id }
-        its(:db_entry_type) { is_expected.to eq Manga.name }
+        its(:optimized_db_entry_type) { is_expected.to eq Manga.name }
       end
     end
 
