@@ -28,7 +28,7 @@ class BbCodes::Text # rubocop:disable ClassLength
 
     mention
     quote replies
-    user comment topic review message
+    user comment topic message
 
     poster wall_image db_entries
     wall poll
