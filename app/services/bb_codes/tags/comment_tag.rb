@@ -54,14 +54,16 @@ class BbCodes::Tags::CommentTag # rubocop:disable ClassLength
 
 private
 
-  def bbcode_to_html entry:, type:, text:, is_quoted:
+  def bbcode_to_html entry:, type:, text:, is_quoted: # rubocop:disable MethodLength
     user = entry&.send(self.class::USER_FIELD)
 
     author_name = text.presence || user.nickname || NOT_FOUND
     url = entry_url entry
+    tooltip_url = tooltip_url entry
     css_classes = css_classes entry, user, is_quoted
     quoted_safe_html = quoted_html is_quoted, user, author_name
     mention_html = is_quoted ? '' : '<s>@</s>'
+    tooltip_html = " data-tooltip_url='#{tooltip_url(entry)}'" if tooltip_url
 
     attrs = build_attrs(
       id: entry.id,
@@ -70,7 +72,8 @@ private
       text: user&.nickname
     )
 
-    "<a href='#{url}' class='#{css_classes}' data-attrs='#{ERB::Util.h attrs.to_json}'" \
+    "<a href='#{url}' class='#{css_classes}'#{tooltip_html} "\
+      "data-attrs='#{ERB::Util.h attrs.to_json}'" \
       ">#{mention_html}#{quoted_safe_html}</a>"
   end
 
@@ -116,6 +119,10 @@ private
 
   def entry_url entry
     UrlGenerator.instance.send :"#{name}_url", entry
+  end
+
+  def tooltip_url _entry
+    nil
   end
 
   def entry_id_url entry_id
