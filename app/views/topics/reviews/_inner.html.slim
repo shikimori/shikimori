@@ -87,9 +87,10 @@
                     .text
                       .status-name data-text=topic_view.review.user_rate.status_name
 
-    = render 'topics/reviews/buttons',
-      review: topic_view.review,
-      is_show: local_assigns[:is_show]
+    = render 'topics/buttons', topic_view: topic_view
+    / = render 'topics/reviews/buttons',
+    /   review: topic_view.review,
+    /   is_show: local_assigns[:is_show]
 
     - if topic_view.review.written_before_release?
       .is_written_before_release-container
