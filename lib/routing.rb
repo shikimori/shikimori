@@ -93,42 +93,26 @@ module Routing
     end
   end
 
-  def critique_url critique, is_reply: false, is_canonical: false
+  def critique_url critique, is_reply: false
     # url from constructed object in broken [critique] bbcode
-    return super(critique) if critique.is_a? Integer
-
-    is_db_entry_cached = critique.association_cached?(:target)
+    # return super(critique) if critique.is_a? Integer
     prefix = 'reply_' if is_reply
 
-    if is_db_entry_cached || is_reply || is_canonical
-      send(
-        "#{prefix}#{critique.target.class.name.downcase}_critique_url",
-        critique.target,
-        critique
-      )
-    else
-      super critique
-    end
+    send(
+      "#{prefix}#{critique.db_entry_type.downcase}_critique_url",
+      critique.target,
+      critique
+    )
   end
 
-  def review_url review, is_reply: false, is_canonical: false
-    # url from constructed object in broken [review] bbcode
-    return super(review) if review.is_a? Integer
-
-    is_db_entry_cached = review.anime? ?
-      review.association_cached?(:anime) :
-      review.association_cached?(:manga)
+  def review_url review, is_reply: false
     prefix = 'reply_' if is_reply
 
-    if is_db_entry_cached || is_reply || is_canonical
-      send(
-        "#{prefix}#{review.db_entry.class.name.downcase}_review_url",
-        review.db_entry,
-        review
-      )
-    else
-      super review
-    end
+    send(
+      "#{prefix}#{review.db_entry_type.downcase}_review_url",
+      review.db_entry,
+      review
+    )
   end
 
   def reply_review_url review

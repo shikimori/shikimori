@@ -41,4 +41,10 @@ class Critique < ApplicationRecord
   def body
     text
   end
+
+  def db_entry_type
+    association_cached?(:target) ?
+      target.class.name :
+      target_type
+  end
 end

@@ -1,6 +1,5 @@
 require 'sidekiq/web'
 
-
 Rails.application.routes.draw do
   # do not remove atomic grouping
   # w/o it shikimori has huge performance issue with suck nicknames "…...........☭............."
