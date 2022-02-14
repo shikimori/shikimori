@@ -5,7 +5,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
 
   before_action :actualize_resource
   before_action :add_title
-  before_action :add_breadcrumbs, except: [:index]
+  before_action :add_breadcrumbs, except: %i[index]
   skip_before_action :og_meta
 
   def index
@@ -17,6 +17,17 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
       .map do |critique|
         Topics::CritiqueView.new(critique.maybe_topic(locale_from_host), true, true)
       end
+  end
+
+  def show
+    ensure_redirect!(
+      params[:is_reply] ?
+        UrlGenerator.instance.reply_critique_url(@critique) :
+        UrlGenerator.instance.critique_url(@critique, is_canonical: true)
+    )
+    push_js_reply if params[:is_reply]
+
+    @topic_view = Topics::CritiqueView.new(@critique.maybe_topic(locale_from_host), false, false)
   end
 
   def new

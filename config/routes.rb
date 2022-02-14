@@ -758,8 +758,13 @@ Rails.application.routes.draw do
 
       resources :critiques,
         type: kind.singularize.capitalize,
-        except: [:show],
-        controller: 'animes/critiques'
+        controller: 'animes/critiques' do
+          get 'reply' => :show,
+            as: :reply,
+            on: :member,
+            is_reply: true
+        end
+
       resources :reviews,
         type: kind.singularize.capitalize,
         only: %i[show new create],

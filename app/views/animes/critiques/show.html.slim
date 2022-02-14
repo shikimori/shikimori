@@ -1,13 +1,7 @@
 = render layout: 'animes/page' do |f|
-  h2.subheadline = i18n_i('Review', :one)
+  h2.subheadline = i18n_i('Critique', :one)
   .block
     = render partial: 'topics/topic',
       collection: [@topic_view],
       as: :topic_view,
       cached: ->(entry) { CacheHelper.keys entry }
-
-    / = render 'reviews/review',
-    /   review: @review,
-    /   is_show: true,
-    /   is_moderation: true,
-    /   is_comments: true

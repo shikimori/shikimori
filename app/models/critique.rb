@@ -19,7 +19,6 @@ class Critique < ApplicationRecord
     touch: Rails.env.test? ? false : :activity_at
   belongs_to :target, polymorphic: true, touch: true
 
-  validates :user, :target, presence: true
   validates :text,
     length: {
       minimum: MIN_BODY_SIZE,
@@ -33,11 +32,11 @@ class Critique < ApplicationRecord
 
   scope :available, -> { visible }
 
-  # хз что это за хрень и почему CritiqueComment.first.linked.target
-  # возвращает сам обзор. я так и не понял
-  def entry
-    @entry ||= target_type.constantize.find(target_id)
-  end
+  # # хз что это за хрень и почему CritiqueComment.first.linked.target
+  # # возвращает сам обзор. я так и не понял
+  # def entry
+  #   @entry ||= target_type.constantize.find(target_id)
+  # end
 
   def body
     text

@@ -44,9 +44,7 @@ class Animes::ReviewsController < AnimesController
     )
     push_js_reply if params[:is_reply]
 
-    @topic_view = Topics::TopicViewFactory
-      .new(false, false)
-      .build(@resource.maybe_topic(locale_from_host))
+    @topic_view = Topics::ReviewView.new(@review.maybe_topic(locale_from_host), false, false)
   end
 
   def new

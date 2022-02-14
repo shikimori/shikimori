@@ -51,7 +51,7 @@ module Routing
     if topic.instance_of? NoTopic
       db_entry_url topic.linked, options
 
-    elsif topic.is_a?(User)
+    elsif topic.is_a? User
       profile_url topic, options
 
     elsif topic_type_policy.any_club_topic?
@@ -68,16 +68,19 @@ module Routing
         format: format
       )
 
-    elsif topic_type_policy.not_generated_news_topic? ||
-        topic_type_policy.critique_topic? ||
-        topic_type_policy.review_topic?
-
+    elsif topic_type_policy.not_generated_news_topic?
       forum_topic_url options.merge(
         id: topic,
         forum: topic.forum,
         linked: nil,
         format: format
       )
+
+    elsif topic_type_policy.critique_topic?
+      critique_url topic.linked
+
+    elsif topic_type_policy.review_topic?
+      review_url topic.linked
 
     else
       forum_topic_url options.merge(
@@ -90,6 +93,24 @@ module Routing
     end
   end
 
+  def critique_url critique, is_reply: false, is_canonical: false
+    # url from constructed object in broken [critique] bbcode
+    return super(critique) if critique.is_a? Integer
+
+    is_db_entry_cached = critique.association_cached?(:target)
+    prefix = 'reply_' if is_reply
+
+    if is_db_entry_cached || is_reply || is_canonical
+      send(
+        "#{prefix}#{critique.target.class.name.downcase}_critique_url",
+        critique.target,
+        critique
+      )
+    else
+      super critique
+    end
+  end
+
   def review_url review, is_reply: false, is_canonical: false
     # url from constructed object in broken [review] bbcode
     return super(review) if review.is_a? Integer
@@ -97,7 +118,6 @@ module Routing
     is_db_entry_cached = review.anime? ?
       review.association_cached?(:anime) :
       review.association_cached?(:manga)
-
     prefix = 'reply_' if is_reply
 
     if is_db_entry_cached || is_reply || is_canonical
