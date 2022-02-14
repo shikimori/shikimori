@@ -34,7 +34,7 @@
         class=('b-ajax' if counts[index].positive? && !(opinion == local_assigns[:opinion] && collection))
       ]
         - if opinion == local_assigns[:opinion] && collection
-          = render 'reviews/group',
+          = render 'animes/reviews/group',
             collection: collection,
             resource: resource,
             is_preview: local_assigns[:is_preview]

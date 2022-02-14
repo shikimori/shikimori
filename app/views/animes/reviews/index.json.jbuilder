@@ -1,6 +1,6 @@
 json.content JsExports::Supervisor.instance.sweep(
   render(
-    partial: 'reviews/group',
+    partial: 'animes/reviews/group',
     locals: {
       collection: @collection,
       resource: @resource,
