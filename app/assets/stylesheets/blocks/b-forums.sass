@@ -31,27 +31,27 @@
       float: right
       font-size: 11px
       margin-left: 5px
-      margin-top: 2px
+      margin-top: 2pe
+
+  .ajax-loading,
+  .reload
+    display: none
+    margin-top: 5px
 
   .ajax-loading
-    display: none
-    position: absolute
     width: 32px
 
   .reload
-    +js_link
-    display: none
     font-size: 12px
-    margin-top: 5px
-    position: absolute
+    +link_color
 
     &:hover
       &:after
         +font_shikimori('\e801')
-        color: inherit
+        display: inline-block
         font-size: 12px
         margin-left: 7px
-        position: absolute
+        color: inherit
 
     &.active
       font-weight: normal // fix .active from +b-link
@@ -59,3 +59,5 @@
       &:after
         animation: rotating 0.75s linear infinite
 
+    a
+      +js_link

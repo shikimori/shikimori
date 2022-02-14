@@ -49,8 +49,10 @@
                   value=forum.id
                 ]
               a.link href=forum.url = forum.name
+
         .ajax-loading.vk-like
-        a.reload href=forum_url = t '.reload_forum'
+        .reload
+          a href=forum_url = t '.reload_forum'
 
     - else
       - menu.forums.each do |forum|

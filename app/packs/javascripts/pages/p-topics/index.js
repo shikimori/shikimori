@@ -17,12 +17,13 @@ pageLoad(
     if ($('.b-animes-menu').exists()) {
       const { AnimesMenu } =
         await import(/* webpackChunkName: "db_entries_menu" */ '@/views/db_entries/menu');
-      new AnimesMenu('.b-animes-menu')
+      new AnimesMenu('.b-animes-menu');
     }
   });
 
 pageLoad('topics_index', () => {
   const $form = $('form.edit_user_preferences');
+
   $form
     .on('change', 'input', () => $form.submit())
     .on('ajax:before', () => {
