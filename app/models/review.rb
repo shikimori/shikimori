@@ -71,6 +71,16 @@ class Review < ApplicationRecord
     anime_id || manga_id
   end
 
+  def db_entry_type
+    if anime?
+      Anime.name
+    elsif manga?
+      association_cached?(:manga) ?
+        db_entry.class.name :
+        Manga.name
+    end
+  end
+
   def locale
     :ru
   end
