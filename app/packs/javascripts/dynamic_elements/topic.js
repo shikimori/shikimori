@@ -36,8 +36,6 @@ export default class Topic extends ShikiEditable {
       }
     }
 
-    this.$body ||= this.$inner.children('.body');
-
     this.$editorContainer = this.$('.editor-container');
     this.$editor = this.$('.shiki_editor-selector');
     this.$editorForm = this.$editor.closest('form');
@@ -189,6 +187,14 @@ export default class Topic extends ShikiEditable {
   }
 
   @memoize
+  get $body() {
+    if (this.isReview) {
+      return this.$inner.find('.body');
+    }
+    return this.$inner.children('.body');
+  }
+
+  @memoize
   get isPreview() { return this.$node.hasClass('b-topic-preview'); }
 
   @memoize
@@ -199,6 +205,9 @@ export default class Topic extends ShikiEditable {
 
   @memoize
   get isCritique() { return this.$node.hasClass('b-critique-topic'); }
+
+  @memoize
+  get isReview() { return this.$node.hasClass('b-review-topic'); }
 
   @memoize
   get $commentsHider() { return this.$('.comments-hider'); }
@@ -212,6 +221,14 @@ export default class Topic extends ShikiEditable {
   @memoize
   get $checkHeightNode() {
     return this.$body;
+  }
+
+  @memoize
+  get $editorPlacement() {
+    if (this.isReview) {
+      return this.$body.parent();
+    }
+    return super.$editorPlacement;
   }
 
   _bindFaye() {
