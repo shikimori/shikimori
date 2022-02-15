@@ -36,10 +36,10 @@ class Critique < ApplicationRecord
     text
   end
 
-  def optimized_db_entry_type
+  def optimized_db_entry_type force: false
     return unless target_id
 
-    association_cached?(:target) ?
+    force || association_cached?(:target) ?
       target.class.name :
       target_type
   end
