@@ -20,7 +20,6 @@ class Topics::Urls < ViewObjectBase
 
     elsif topic_type_policy.review_topic?
       raise ArgumentErorr
-      # build_review_url :edit
 
     elsif topic_type_policy.collection_topic?
       h.edit_collection_url topic.linked
@@ -41,7 +40,7 @@ class Topics::Urls < ViewObjectBase
       build_critique_url
 
     elsif topic_type_policy.review_topic?
-      build_review_url
+      h.api_review_url topic.linked
 
     elsif topic_type_policy.collection_topic?
       h.collection_url topic.linked
@@ -77,15 +76,6 @@ private
 
     h.send "#{action_path}#{db_entry_type.downcase}_critique_url",
       topic.linked.target,
-      topic.linked
-  end
-
-  def build_review_url action = nil
-    action_path = "#{action}_" if action
-    db_entry_type = topic.linked.optimized_db_entry_type force: true
-
-    h.send "#{action_path}#{db_entry_type.downcase}_review_url",
-      topic.linked.db_entry,
       topic.linked
   end
 end

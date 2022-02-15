@@ -1,4 +1,4 @@
-topic_view = Topics::TopicViewFactory.new(false, false).build(@resource.maybe_topic(locale_from_host))
+topic_view = Topics::ReviewView.new @resource.maybe_topic(locale_from_host), false, false
 
 json.id topic_view.topic.id
 json.content JsExports::Supervisor.instance.sweep(
