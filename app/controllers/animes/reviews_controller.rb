@@ -71,6 +71,16 @@ class Animes::ReviewsController < AnimesController
     end
   end
 
+  def edit
+    render(
+      partial: 'animes/reviews/form',
+      locals: {
+        review: @review,
+        resource: @resource
+      }
+    )
+  end
+
 private
 
   def review_params

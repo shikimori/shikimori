@@ -14,10 +14,13 @@ class Topics::Urls < ViewObjectBase
     h.entry_body_url topic
   end
 
-  def edit_url
+  def edit_url # rubocop:disable AbcSize
     if topic_type_policy.critique_topic?
-      h.send "edit_#{topic.linked.target_type.downcase}_critique_url",
-        topic.linked.target, topic.linked
+      build_critique_url :edit
+
+    elsif topic_type_policy.review_topic?
+      raise ArgumentErorr
+      # build_review_url :edit
 
     elsif topic_type_policy.collection_topic?
       h.edit_collection_url topic.linked
@@ -33,16 +36,21 @@ class Topics::Urls < ViewObjectBase
     end
   end
 
-  def destroy_url
+  def destroy_url # rubocop:disable AbcSize
     if topic_type_policy.critique_topic?
-      h.send "#{topic.linked.target_type.downcase}_critique_url",
-        topic.linked.target, topic.linked
+      build_critique_url
+
+    elsif topic_type_policy.review_topic?
+      build_review_url
 
     elsif topic_type_policy.collection_topic?
       h.collection_url topic.linked
 
     elsif topic_type_policy.article_topic?
       h.article_url topic.linked
+
+    elsif topic_type_policy.club_page_topic?
+      raise ArgumentErorr
 
     else
       h.topic_path topic
@@ -59,5 +67,25 @@ class Topics::Urls < ViewObjectBase
 
   def topic_type_policy
     @topic_type_policy ||= Topic::TypePolicy.new @view.topic
+  end
+
+private
+
+  def build_critique_url action = nil
+    action_path = "#{action}_" if action
+    db_entry_type = topic.linked.optimized_db_entry_type force: true
+
+    h.send "#{action_path}#{db_entry_type.downcase}_critique_url",
+      topic.linked.target,
+      topic.linked
+  end
+
+  def build_review_url action = nil
+    action_path = "#{action}_" if action
+    db_entry_type = topic.linked.optimized_db_entry_type force: true
+
+    h.send "#{action_path}#{db_entry_type.downcase}_review_url",
+      topic.linked.db_entry,
+      topic.linked
   end
 end
