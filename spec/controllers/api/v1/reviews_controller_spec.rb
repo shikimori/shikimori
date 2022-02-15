@@ -24,6 +24,7 @@ describe Api::V1::ReviewsController do
 
     context 'success' do
       let(:body) { 'x' * Review::MIN_BODY_SIZE }
+      it_behaves_like :successful_resource_change, :api
 
       context 'frontend' do
         let(:is_frontend) { true }
@@ -69,6 +70,7 @@ describe Api::V1::ReviewsController do
 
       context 'frontend' do
         let(:is_frontend) { true }
+        let(:review) { create :review, :with_topics, user: user, anime: anime }
         it_behaves_like :successful_resource_change, :frontend
       end
 

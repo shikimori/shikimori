@@ -1,7 +1,7 @@
 = simple_form_for review.new_record? ? [resource, review] : [:api, review],
-  remote: !local_assigns[:resource],
-  authenticity_token: true,
-  html: { data: (review.persisted? ? { type: :json } : nil), id: nil } do |f|
+    remote: review.persisted?,
+    authenticity_token: true,
+    html: { data: (review.persisted? ? { type: :json } : nil), id: nil } do |f|
   input type='hidden' name='frontend' value='true'
 
   - if review.new_record?
