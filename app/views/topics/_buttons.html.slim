@@ -95,6 +95,17 @@ aside.buttons
         data-reason-prompt=t('actions.moderation.explain.spoiler')
         data-direction='top'
       ]
+      - if topic_view.topic_type_policy.review_topic?
+        span.item-summary.b-tooltipped.unprocessed[
+          title=t('actions.moderation.not_review')
+          data-text=t('actions.moderation.not_review')
+          data-confirm=t('actions.markers.review.convert_to_comment')
+          data-action=convert_review_api_v2_abuse_requests_url(review_id: topic_view.review.id)
+          data-method='post'
+          data-type='json'
+          data-remote='true'
+          data-direction='top'
+        ]
       span.item-moderation-cancel[
         title=t('actions.cancel')
         data-text=t('actions.cancel')
