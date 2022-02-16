@@ -33,14 +33,6 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   def canonical_url
   end
 
-  def ignored_topic?
-    h.user_signed_in? && h.current_user.ignored_topics.include?(@topic)
-  end
-
-  def ignored_user?
-    h.user_signed_in? && h.current_user.ignores?(@topic.user)
-  end
-
   def preview?
     @is_preview
   end
@@ -90,7 +82,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     if preview?
       topic_title
     else
-      @topic.user.nickname
+      user.nickname
     end
   end
 
@@ -98,7 +90,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     if preview?
       topic_title_html
     else
-      @topic.user.nickname
+      user.nickname
     end
   end
 
@@ -136,7 +128,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
       ImageUrlGenerator.instance.url linked, is_2x ? :x96 : :x48
     else
-      @topic.user.avatar_url is_2x ? 80 : 48
+      user.avatar_url is_2x ? 80 : 48
     end
   end
 
