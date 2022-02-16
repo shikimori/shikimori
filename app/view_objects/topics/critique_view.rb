@@ -56,7 +56,7 @@ private
       partial: 'animes/critiques/stars',
       locals: {
         critique: critique,
-        with_music: critique.target.is_a?(Anime)
+        is_preview: preview?
       },
       formats: :html
     )

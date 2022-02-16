@@ -14,7 +14,7 @@
 
   .b-critique-topic.m15
     .body
-      = render 'stars', critique: critique, in_edit: true, with_music: resource.anime?
+      = render 'stars', critique: critique, is_edit: true
 
   = render 'blocks/shiki_editor',
     text: critique.text,

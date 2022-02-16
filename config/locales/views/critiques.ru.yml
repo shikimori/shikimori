@@ -66,10 +66,10 @@ ru:
         go_next: Далее
 
       stars:
-        story: Сюжет
+        storyline: Сюжет
         characters: Персонажи
-        art: Рисовка
-        sound: Звуковой ряд
+        animation: Рисовка
+        music: Звуковой ряд
         overall: Итоговая оценка
 
       votes:
