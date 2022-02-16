@@ -72,6 +72,10 @@
       .b-height_shortener .expand
         margin-top: -6px
 
+    // get rid of extra whitespace at the bottom of truncated text
+    .body-truncated-inner > :last-child
+      margin-bottom: 0
+
     .prebody,
     footer
       clear: left // need clearing when text is narrow and avatar is higher than text
