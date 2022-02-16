@@ -3,34 +3,16 @@
 @import mixins/ellipsis2
 @import mixins/link
 @import mixins/responsive
+@import mixins/forum_entry
 
-$body-offset: 130px
+// $body-offset: 130px
 
 .b-critique-topic
   &.b-topic-preview > .inner
     min-height: 45px
 
-    .critique-entry_cover
-      .b-catalog_entry
-        float: left
-        margin-bottom: 20px
-        // margin-top: 5px
-        width: 115px
-
-    .read_more-link,
-    .body-truncated,
-    .b-height_shortener
-      margin-left: $body-offset
-
-  // &:not(.b-topic-preview)
-  //   & > .inner
-  //     // need to compensate fix for chrome77 bug, because preview topics do not have left margin
-  //     & > .body
-  //       overflow: visible
-  //
-  //     & > .body,
-  //     & > header > .name-date
-  //       margin-left: 0 !important
+    .critique-entry_cover-v2 img
+      +forum_entry_poster
 
   .b-critique_votes .warn
     display: inline-block

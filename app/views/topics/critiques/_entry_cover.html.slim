@@ -1,5 +1,16 @@
-.critique-entry_cover
-  .article.b-catalog_entry
+.critique-entry_cover-v2
+  a.cover[
+    href=view.urls.poster_url
+    title=view.poster_title
+  ]
+    img[
+      alt=view.poster_title
+      src=cdn_image(entry, :preview)
+      srcset="#{cdn_image entry, :x96} 2x"
+      title=cdn_image(entry, :x48)
+    ]
+
+  / .article.b-catalog_entry
     a.cover[
       href=view.urls.poster_url
       title=view.poster_title
