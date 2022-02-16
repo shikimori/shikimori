@@ -5,14 +5,21 @@
 @import mixins/responsive
 @import mixins/forum_entry
 
-// $body-offset: 130px
-
 .b-critique-topic
   &.b-topic-preview > .inner
     min-height: 45px
 
     .critique-entry_cover-v2 img
       +forum_entry_poster
+
+    .read_more-link,
+    .body-truncated,
+    .b-height_shortener
+      +gte_ipad
+        margin-left: 58px
+
+      +iphone
+        margin-left: 49px
 
   .b-critique_votes .warn
     display: inline-block
