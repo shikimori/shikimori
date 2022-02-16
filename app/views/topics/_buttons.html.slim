@@ -17,25 +17,25 @@ aside.buttons
         data-text=t('actions.quote')
         data-dynamic='day_registered'
       ]
-      span.item-reply.to-process[
-        title=t('actions.reply')
-        data-text=t('actions.reply')
-        data-dynamic='day_registered'
-      ]
-    - if topic_view.topic_type_policy.review_topic?
-      a.item-edit[
-        title=t('actions.edit')
-        data-text=t('actions.edit')
-        data-action=send(:"edit_#{topic_view.review.optimized_db_entry_type.downcase}_review_url", topic_view.review.db_entry_id, topic_view.review)
-        data-type='html'
-        data-remote='true'
-      ]
-    - else
-      a.item-edit[
-        href=edit_topic_url(topic_view.topic)
-        data-text=t('actions.edit')
-        title=t('actions.edit')
-      ]
+      - if topic_view.is_mini
+        a.item-reply.to-process[
+          title=t('actions.reply')
+          data-text=t('actions.reply')
+          data-dynamic='day_registered'
+        ]
+      - else topic_view.is_mini
+        span.item-reply.to-process[
+          title=t('actions.reply')
+          data-text=t('actions.reply')
+          data-dynamic='day_registered'
+        ]
+    a.item-edit[
+      href=topic_view.urls.edit_url
+      data-text=t('actions.edit')
+      title=t('actions.edit')
+      data-remote=topic_view.topic_type_policy.review_topic?.to_s
+      data-type='html'
+    ]
     span.item-delete[
       title=t('actions.delete')
       data-text=t('actions.delete')

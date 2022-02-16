@@ -22,19 +22,19 @@ describe Critique do
   end
 
   describe 'instance methods' do
-    describe '#optimized_db_entry_type' do
+    describe '#db_entry_type' do
       subject { build :critique, target: target }
       let(:target) { nil }
-      its(:optimized_db_entry_type) { is_expected.to be_nil }
+      its(:db_entry_type) { is_expected.to be_nil }
 
       context 'anime' do
         let(:target) { build_stubbed :anime }
-        its(:optimized_db_entry_type) { is_expected.to eq Anime.name }
+        its(:db_entry_type) { is_expected.to eq Anime.name }
       end
 
       context 'manga' do
         let(:target) { build_stubbed :manga }
-        its(:optimized_db_entry_type) { is_expected.to eq Manga.name }
+        its(:db_entry_type) { is_expected.to eq Manga.name }
       end
     end
   end

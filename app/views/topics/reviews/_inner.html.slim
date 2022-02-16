@@ -57,8 +57,7 @@
               ] = localized_name topic_view.db_entry
 
           - unless local_assigns[:is_show]
-            / a.to-review href=UrlGenerator.instance.review_url(review, is_canonical: true)
-            a.to-review href=UrlGenerator.instance.topic_url(topic_view.topic)
+            a.to-review href=topic_view.url
               | <<< #{t '.go_to_review'}
 
         - if topic_view.review.persisted?

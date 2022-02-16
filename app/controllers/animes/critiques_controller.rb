@@ -23,7 +23,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
     ensure_redirect!(
       params[:is_reply] ?
         UrlGenerator.instance.reply_critique_url(@critique) :
-        UrlGenerator.instance.critique_url(@critique, is_canonical: true)
+        UrlGenerator.instance.critique_url(@critique)
     )
     push_js_reply if params[:is_reply]
 

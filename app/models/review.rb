@@ -71,13 +71,11 @@ class Review < ApplicationRecord
     anime_id || manga_id
   end
 
-  def optimized_db_entry_type force: false
+  def db_entry_type
     if anime?
       Anime.name
     elsif manga?
-      force || association_cached?(:manga) ?
-        db_entry.class.name :
-        Manga.name
+      db_entry.class.name
     end
   end
 

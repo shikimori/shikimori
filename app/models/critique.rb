@@ -36,11 +36,13 @@ class Critique < ApplicationRecord
     text
   end
 
-  def optimized_db_entry_type force: false
+  def db_entry_type
     return unless target_id
 
-    force || association_cached?(:target) ?
-      target.class.name :
+    if target_type == Anime.name
       target_type
+    else
+      target.class.name
+    end
   end
 end

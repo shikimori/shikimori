@@ -93,37 +93,37 @@ module Routing
     end
   end
 
-  def critique_url critique, is_reply: false, is_canonical: false
-    # url from constructed object in broken [critique] bbcode
-    # return super(critique) if critique.is_a? Integer
-    prefix = 'reply_' if is_reply
-    db_entry_type = is_canonical ? critique.target.class.name : critique.optimized_db_entry_type
-
+  def critique_url critique, prefix: nil
     send(
-      "#{prefix}#{db_entry_type.downcase}_critique_url",
+      "#{prefix}#{critique.db_entry_type.downcase}_critique_url",
       critique.target,
       critique
     )
   end
 
-  def reply_critique_url critique
-    critique_url critique, is_reply: true
+  def edit_critique_url critique
+    critique_url critique, prefix: 'edit_'
   end
 
-  def review_url review, is_reply: false, is_canonical: false
-    prefix = 'reply_' if is_reply
-    db_entry_type = is_canonical ? review.db_entry.class.name : review.optimized_db_entry_type
+  # def reply_critique_url critique
+  #   critique_url critique, is_reply: true
+  # end
 
+  def review_url review, prefix: nil
     send(
-      "#{prefix}#{db_entry_type.downcase}_review_url",
+      "#{prefix}#{review.db_entry_type.downcase}_review_url",
       review.db_entry,
       review
     )
   end
 
-  def reply_review_url review
-    review_url review, is_reply: true
+  def edit_review_url review
+    review_url review, prefix: 'edit_'
   end
+
+  # def reply_review_url review
+  #   review_url review, is_reply: true
+  # end
 
   def forum_url forum, linked = nil
     if linked

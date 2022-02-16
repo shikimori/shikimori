@@ -40,7 +40,7 @@ class Animes::ReviewsController < AnimesController
     ensure_redirect!(
       params[:is_reply] ?
         UrlGenerator.instance.reply_review_url(@review) :
-        UrlGenerator.instance.review_url(@review, is_canonical: true)
+        UrlGenerator.instance.review_url(@review)
     )
     push_js_reply if params[:is_reply]
 
@@ -141,7 +141,7 @@ private
     return unless user_review
 
     redirect_to(
-      UrlGenerator.instance.review_url(user_review, is_canonical: true),
+      UrlGenerator.instance.review_url(user_review),
       alert: i18n_t(
         "review_is_already_written.#{(@anime || @manga || @ranobe).object.class.name.downcase}",
         gender: current_user.sex

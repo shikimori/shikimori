@@ -20,10 +20,10 @@ class Topics::Urls < ViewObjectBase
 
   def edit_url # rubocop:disable AbcSize
     if topic_type_policy.critique_topic?
-      build_critique_url :edit
+      UrlGenerator.instance.edit_critique_url topic.linked
 
     elsif topic_type_policy.review_topic?
-      raise ArgumentErorr
+      UrlGenerator.instance.edit_review_url topic.linked
 
     elsif topic_type_policy.collection_topic?
       h.edit_collection_url topic.linked
@@ -41,7 +41,7 @@ class Topics::Urls < ViewObjectBase
 
   def destroy_url # rubocop:disable AbcSize
     if topic_type_policy.critique_topic?
-      build_critique_url
+      UrlGenerator.instance.critique_url topic.linked
 
     elsif topic_type_policy.review_topic?
       h.api_review_url topic.linked
@@ -70,12 +70,11 @@ class Topics::Urls < ViewObjectBase
 
 private
 
-  def build_critique_url action = nil
-    action_path = "#{action}_" if action
-    db_entry_type = topic.linked.optimized_db_entry_type force: true
-
-    h.send "#{action_path}#{db_entry_type.downcase}_critique_url",
-      topic.linked.target,
-      topic.linked
-  end
+  # def build_critique_url action = nil
+  #   action_path = "#{action}_" if action
+  #
+  #   h.send "#{action_path}#{topic.linked.db_entry_type.downcase}_critique_url",
+  #     topic.linked.target,
+  #     topic.linked
+  # end
 end
