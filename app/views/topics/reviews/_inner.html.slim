@@ -65,7 +65,7 @@
           .b-status-line
             .section.main
               = render 'topics/critiques/votes_count', critique: topic_view.review
-              span.comments == topic_view.review.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
+              span.comments == topic_view.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
             = render 'topics/status_line/section_dates', object: topic_view.review
 
         .review-info
