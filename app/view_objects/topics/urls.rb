@@ -2,6 +2,10 @@ class Topics::Urls < ViewObjectBase
   pattr_initialize :view
   delegate :topic, :is_preview, to: :view
 
+  def topic_url options = {}
+    @view.url options
+  end
+
   def poster_url
     if is_preview
       topic_url
@@ -58,10 +62,6 @@ class Topics::Urls < ViewObjectBase
 
   def subscribe_url
     h.subscribe_url type: topic.class.name, id: topic.id
-  end
-
-  def topic_url options = {}
-    @view.url options
   end
 
   def topic_type_policy

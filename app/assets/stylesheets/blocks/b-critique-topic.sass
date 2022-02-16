@@ -10,7 +10,7 @@
     min-height: 45px
 
     .critique-entry_cover-v2 img
-      +forum_entry_poster
+      +forum_entry_poster($margin-top: 4px)
 
     .read_more-link,
     .body-truncated,
@@ -20,6 +20,9 @@
 
       +iphone
         margin-left: 49px
+
+    .b-status-line
+      margin-bottom: 2px
 
   .b-critique_votes .warn
     display: inline-block
