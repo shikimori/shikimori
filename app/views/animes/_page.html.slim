@@ -43,4 +43,5 @@ header.head
           = render 'db_entries/comments', resource: @resource
 
     aside.l-menu
-      = render 'animes/menu', resource: @resource
+      - unless Rails.env.development? && params.key?(:no_menu)
+        = render 'animes/menu', resource: @resource
