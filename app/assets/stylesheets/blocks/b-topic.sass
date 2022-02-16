@@ -3,6 +3,7 @@
 @import mixins/forum_entry
 @import mixins/responsive
 @import mixins/font_shikimori
+@import mixins/shiki_comment
 
 .b-topic
   +block
@@ -28,6 +29,9 @@
 
   & > .inner
     min-height: 80px
+
+    &.is-editing
+      margin-bottom: $comment_offset
 
     header
       .b-anime_status_tag
