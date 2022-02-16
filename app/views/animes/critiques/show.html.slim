@@ -1,5 +1,8 @@
 = render layout: 'animes/page' do |f|
-  h2.subheadline.m5 = i18n_i('Critique', :one)
+  h2.subheadline.m5
+    ' #{i18n_i('Critique', :one)} ##{@critique.id}
+    = render 'users/user_16', user: @critique.user
+
   .block
     = render partial: 'topics/topic',
       collection: [@topic_view],
