@@ -14,10 +14,16 @@ class Animes::ReviewsController < AnimesController
   PER_PAGE = 8
   PER_PREVIEW = 4
 
-  def index # rubocop:disable AbcSize
-    breadcrumb i18n_i('Review', :other), nil
+  def index # rubocop:disable AbcSize, MethodLength
     @opinion = (Types::Review::Opinion[params[:opinion]] if params[:opinion])
     @is_preview = !!params[:is_preview]
+
+    if @opinion
+      breadcrumb i18n_i('Review', :other), @resource.reviews_url
+      breadcrumb t("animes.reviews.navigation.opinion.#{@opinion}"), nil
+    else
+      breadcrumb i18n_i('Review', :other), nil
+    end
 
     query = ::Reviews::Query
       .fetch(@resource.object)

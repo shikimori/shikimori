@@ -9,6 +9,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
   skip_before_action :og_meta
 
   def index
+    breadcrumb i18n_i('Critique', :other), nil
     @collection = ::Critiques::Query
       .call(@resource.object, {
         locale: locale_from_host,
