@@ -3,14 +3,11 @@
 @import mixins/font_shikimori
 
 .b-rate
-  white-space: nowrap
-  min-width: 227px
-  max-width: 240px
+  display: flex
+  align-items: center
 
-  +iphone_portrait
-    max-width: 270px
-
-  div
+  .stars,
+  .text-score
     +gte_ipad
       font-size: 30px
 
@@ -39,7 +36,7 @@
     display: table-cell
     font-family: Tahoma
     text-align: center
-    width: 100%
+    margin-left: 6px
 
     .score-0
       visibility: hidden
