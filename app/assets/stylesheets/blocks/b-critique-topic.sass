@@ -12,28 +12,35 @@
     .critique-entry_cover-v2 img
       +forum_entry_poster($margin-top: 4px)
 
+      +iphone_portrait
+        display: none
+
     .read_more-link,
     .body-truncated,
     .b-height_shortener
       +gte_ipad
         margin-left: 58px
 
-      +iphone
+      +iphone_landscape
         margin-left: 49px
 
     .b-status-line
-      margin-bottom: 2px
+      margin-bottom: 2px !important
 
-    .star-line:last-child
-      margin-bottom: 0
+    .critique-stars
+      +iphone_portrait
+        display: none
 
-    .b-rate
-      .stars,
-      .score-value
-        font-size: 24px
+      .star-line:last-child
+        margin-bottom: 0
 
-      .text-score
-        width: 60px
+      .b-rate
+        .stars,
+        .score-value
+          font-size: 24px
+
+        .text-score
+          width: 60px
 
   .b-critique_votes .warn
     display: inline-block
@@ -59,7 +66,7 @@
 
     .title
       color: #123
-      font-size: 12px
+      font-size: 13px
       font-weight: bold
       line-height: 1
 
