@@ -419,9 +419,11 @@ Review.
 ### Convert review topics
 ```ruby
 Review.
-  # where(id: [71320, 70983]).
+  # where(anime_id: 9253).
   includes(:comments).
   find_each do |review|
+    next unless review.maybe_topic(:ru).is_a?(NoTopic)
+
     review.send :generate_topics, :ru
     Comments::Move.call(
       comment_ids: review.comments.map(&:id),

@@ -1,7 +1,7 @@
 - if collection.any?
   // TODO: remove after reviews are fully migrated
   - if collection.any? { |topic_view| topic_view.topic.is_a? NoTopic }
-    p.b-nothing_here.m10.text-red Отзывы временно недоступны, проводятся технические работы.
+    p.b-nothing_here.m10.text-red Отзывы временно недоступны, на сайте проводятся технические работы.
   - else
     = render partial: 'topics/topic',
       collection: collection,
