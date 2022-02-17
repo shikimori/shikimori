@@ -3,16 +3,17 @@
 
 = render layout: 'animes/page' do |f|
   - if user_signed_in?
-    .subheadline-buttons
-      a.item-new-critique[
+    .critique-controls
+      a.b-link_button.dark.create-critique.to-process[
         href=@resource.new_critique_url
-        title=t('.create_critique')
-      ]
-  h2.subheadline.m5 = og.headline
+        data-dynamic='week_registered'
+      ] = t '.create_critique'
+
   - if @collection.any?
-    .b-forum[
-      data-faye='false'
-    ]
+    / .b-forum[
+    /   data-faye='false'
+    / ]
+    div
       = render partial: 'topics/topic', collection: @collection, as: :topic_view
   - else
     p.b-nothing_here = t 'no_critiques'
