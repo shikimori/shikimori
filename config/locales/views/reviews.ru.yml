@@ -1,8 +1,0 @@
-ru:
-  reviews:
-    missing:
-      user_review: 'Отзыв #%{id}'
-      no_review: Отзыв или был удалён, или никогда не существовал на сайте
-    group:
-      to_other_reviews: Ко всем отзывам
-      new_review: Написать отзыв

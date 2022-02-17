@@ -128,6 +128,9 @@ en:
           positive: Positive
           neutral: Neutral
           negative: Negative
+      group:
+        to_other_reviews: To all reviews
+        new_review: Write a review
 
   mangas:
     <<: *animes

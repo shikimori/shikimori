@@ -1,9 +1,0 @@
-en:
-  reviews:
-    missing:
-      user_review: 'Review #%{id}'
-      no_review: Review is either deleted or Never existed on Shikimori
-    review:
-    group:
-      to_other_reviews: To all reviews
-      new_review: Write a review
