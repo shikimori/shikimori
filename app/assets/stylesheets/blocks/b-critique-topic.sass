@@ -24,6 +24,17 @@
     .b-status-line
       margin-bottom: 2px
 
+    .star-line:last-child
+      margin-bottom: 0
+
+    .b-rate
+      .stars,
+      .score-value
+        font-size: 24px
+
+      .text-score
+        width: 60px
+
   .b-critique_votes .warn
     display: inline-block
 
@@ -32,20 +43,25 @@
 
   .critique-stars
     float: right
-    margin-left: 20px
+    margin-left: $block-offset
     position: relative // без height-shortener для рецензий некорректно отрабатывает
-    width: 227px
 
     +iphone_portrait
+      align-items: center
+      display: flex
+      flex-direction: column
       float: none
       margin-left: 0
-      margin-top: 10px
+      margin-top: 20px
 
-    & > .title
+      .text-score
+        width: 70px
+
+    .title
       color: #123
       font-size: 12px
       font-weight: bold
-      line-height: 0.5
+      line-height: 1
 
     .star-line
       margin-bottom: 10px
