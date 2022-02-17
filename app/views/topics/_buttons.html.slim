@@ -36,10 +36,11 @@ aside.buttons
       data-remote=topic_view.topic_type_policy.review_topic?.to_s
       data-type='html'
     ]
-    span.item-delete[
-      title=t('actions.delete')
-      data-text=t('actions.delete')
-    ]
+    - if topic_view.deletable?
+      span.item-delete[
+        title=t('actions.delete')
+        data-text=t('actions.delete')
+      ]
     - if topic_view.moderatable?
       span.item-moderation[
         title=t('actions.moderate')
@@ -50,19 +51,20 @@ aside.buttons
       data-text=t('actions.cancel')
     ]
 
-  .delete-controls
-    span.item-delete-confirm[
-      title=t('actions.delete')
-      data-text=t('actions.delete')
-      data-action=topic_view.urls.destroy_url
-      data-type='json'
-      data-remote='true'
-      data-method='DELETE'
-    ]
-    span.item-delete-cancel[
-      title=t('actions.cancel')
-      data-text=t('actions.cancel')
-    ]
+  - if topic_view.deletable?
+    .delete-controls
+      span.item-delete-confirm[
+        title=t('actions.delete')
+        data-text=t('actions.delete')
+        data-action=topic_view.urls.destroy_url
+        data-type='json'
+        data-remote='true'
+        data-method='DELETE'
+      ]
+      span.item-delete-cancel[
+        title=t('actions.cancel')
+        data-text=t('actions.cancel')
+      ]
 
   - if topic_view.moderatable?
     .moderation-controls

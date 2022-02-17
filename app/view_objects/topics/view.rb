@@ -210,6 +210,10 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     !user.bot?
   end
 
+  def deletable?
+    true
+  end
+
   def topic_type_policy
     Topic::TypePolicy.new @topic
   end
