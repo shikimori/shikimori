@@ -49,6 +49,7 @@ class Animes::ReviewsController < AnimesController
         UrlGenerator.instance.review_url(@review)
     )
     push_js_reply if params[:is_reply]
+    breadcrumb "#{i18n_i('Review', :one)} ##{@review.id}", nil
 
     @topic_view = Topics::ReviewView.new(@review.maybe_topic(locale_from_host), false, false)
   end

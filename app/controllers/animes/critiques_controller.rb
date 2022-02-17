@@ -27,6 +27,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
         UrlGenerator.instance.critique_url(@critique)
     )
     push_js_reply if params[:is_reply]
+    breadcrumb "#{i18n_i('Critique', :one)} ##{@critique.id}", nil
 
     @topic_view = Topics::CritiqueView.new(@critique.maybe_topic(locale_from_host), false, false)
   end
