@@ -22,9 +22,6 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     user_2
     random
     score_2
-    score_3
-    score_4
-    score_5
   ]
 
   AnimeField = Types::Strict::Symbol
@@ -69,9 +66,6 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
       SQL
     ),
     Field[:score_2] => '%<table_name>s.score_2 desc',
-    Field[:score_3] => '%<table_name>s.score_3 desc',
-    Field[:score_4] => '%<table_name>s.score_4 desc',
-    Field[:score_5] => '%<table_name>s.score_5 desc',
     Field[:ranked] => (
       <<-SQL.squish
         (case

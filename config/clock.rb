@@ -227,10 +227,11 @@ module Clockwork
   #   VacuumDb.perform_async
   # end
 
-  every 1.day, 'daily.update_score', at: '04:30' do
-    Animes::UpdateScoreWorker.perform_async
+  every 1.day, 'daily.schedule_scores_refresh', at: '04:30' do
+    Animes::ScheduleRefreshScoresWorker.perform_async 'anime'
+    Animes::ScheduleRefreshScoresWorker.perform_async 'manga'
 
-    NamedLogger.clockwork.info 'daily.update_score finished'
+    NamedLogger.clockwork.info 'daily.schedule_scores_refresh finished'
   end
 
 end
