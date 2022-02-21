@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2022_02_26_090539) do
     t.string "entry_type", null: false
     t.bigint "entry_id", null: false
     t.date "created_on", null: false
+    t.decimal "score_2", default: "0.0", null: false
     t.index ["entry_id", "entry_type", "created_on"], name: "index_anime_stat_histories_on_e_id_and_e_type_and_created_on", unique: true
     t.index ["entry_type", "entry_id"], name: "index_anime_stat_histories_on_entry_type_and_entry_id"
   end
@@ -84,6 +85,7 @@ ActiveRecord::Schema.define(version: 2022_02_26_090539) do
     t.bigint "entry_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "score_2", default: "0.0", null: false
     t.index ["entry_type", "entry_id"], name: "index_anime_stats_on_entry_type_and_entry_id", unique: true
   end
 

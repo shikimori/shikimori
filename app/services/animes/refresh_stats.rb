@@ -57,7 +57,8 @@ private
         AnimeStat.new(
           entry: entry,
           scores_stats: scores_stats(entry),
-          list_stats: list_stats(entry)
+          list_stats: list_stats(entry),
+          score_2: entry.score_2
         )
       end
   end
@@ -69,7 +70,8 @@ private
         list_stats: anime_stat.list_stats,
         entry_id: anime_stat.entry_id,
         entry_type: anime_stat.entry_type,
-        created_on: today
+        created_on: today,
+        score_2: anime_stat.score_2
       )
     end
   end
