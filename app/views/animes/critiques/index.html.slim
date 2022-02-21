@@ -10,10 +10,7 @@
       ] = t '.create_critique'
 
   - if @collection.any?
-    / .b-forum[
-    /   data-faye='false'
-    / ]
-    div
+    .b-forum data-faye='false'
       = render partial: 'topics/topic', collection: @collection, as: :topic_view
   - else
     p.b-nothing_here = t 'no_critiques'
