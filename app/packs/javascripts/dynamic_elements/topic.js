@@ -3,6 +3,7 @@ import delay from 'delay';
 import { bind, memoize } from 'shiki-decorators';
 
 import ShikiEditable from '@/views/application/shiki_editable';
+import { isPhone } from 'shiki-utils';
 
 import axios from '@/utils/axios';
 import checkHeight from '@/utils/check_height';
@@ -220,6 +221,10 @@ export default class Topic extends ShikiEditable {
 
   @memoize
   get $checkHeightNode() {
+    if (this.isReview) {
+      return this.$inner;
+    }
+
     return this.$body;
   }
 
@@ -228,6 +233,7 @@ export default class Topic extends ShikiEditable {
     if (this.isReview) {
       return this.$body.parent();
     }
+
     return super.$editorPlacement;
   }
 
@@ -526,5 +532,15 @@ export default class Topic extends ShikiEditable {
       .on('ajax:complete', () => {
         this.$inner.find('.b-footer_vote').removeClass('b-ajax');
       });
+  }
+
+  _scheduleCheckHeight(isSkipClassCheck) {
+    const mobileOffset = isPhone() ? 60 : 0;
+
+    this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT = 220 + mobileOffset;
+    this.CHECK_HEIGHT_COLLAPSED_HEIGHT = 170 + mobileOffset;
+    this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 115 + mobileOffset;
+
+    super._scheduleCheckHeight(isSkipClassCheck);
   }
 }
