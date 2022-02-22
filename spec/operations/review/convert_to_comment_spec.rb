@@ -2,20 +2,21 @@ describe Review::ConvertToComment do
   subject(:comment) { described_class.call review }
 
   let(:review) do
-    create :review,
+    create :review, :with_topics,
       body: ('x' * Review::MIN_BODY_SIZE) + "\n[replies=99999999,99999998]",
       anime: anime,
       created_at: 1.day.ago,
       updated_at: 1.hour.ago
   end
+  let(:review_topic) { review.maybe_topic(:ru) }
   let!(:reply_1) do
     create :comment,
       id: 99999999,
       body: "zxc [replies=#{reply_3.id}]",
-      commentable: review
+      commentable: review_topic
   end
-  let!(:reply_2) { create :comment, id: 99999998, commentable: review }
-  let!(:reply_3) { create :comment, id: 99999997, commentable: review }
+  let!(:reply_2) { create :comment, id: 99999998, commentable: review_topic }
+  let!(:reply_3) { create :comment, id: 99999997, commentable: review_topic }
 
   let!(:anime_topic) { create :anime_topic, linked: anime }
   let(:anime) { create :anime }

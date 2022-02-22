@@ -10,8 +10,8 @@ class Review::ConvertToComment
 
       Comments::Move.call(
         comment_ids: replies_ids,
-        commentable: commentable,
-        from_reply: @review,
+        commentable: @review.maybe_topic(@review.locale),
+        from_reply: @review.maybe_topic(@review.locale),
         to_reply: comment
       )
 
@@ -28,7 +28,7 @@ private
     Comment.new(
       user: @review.user,
       body: @review.body,
-      commentable: commentable,
+      commentable: @review.db_entry.topic(@review.locale),
       created_at: @review.created_at,
       updated_at: @review.updated_at
     )
@@ -46,9 +46,5 @@ private
         commentable: @review
       )
       .map(&:id)
-  end
-
-  def commentable
-    @review.db_entry.topic @review.locale
   end
 end
