@@ -21,6 +21,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     user_1
     user_2
     random
+    score
     score_2
   ]
 
@@ -65,6 +66,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
         end)
       SQL
     ),
+    Field[:score] => '%<table_name>s.score_2 desc',
     Field[:score_2] => '%<table_name>s.score_2 desc',
     Field[:ranked] => (
       <<-SQL.squish
