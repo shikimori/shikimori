@@ -8,6 +8,7 @@ class Comment::ConvertToReview
 
     ApplicationRecord.transaction do
       Review.wo_antispam { review.save! }
+      review.generate_topics :ru if review.persisted?
 
       unless @is_keep_comment
         Comments::Move.call(

@@ -39,6 +39,10 @@ describe Comment::ConvertToReview do
     expect(subject.created_at).to be_within(0.1).of comment.created_at
     expect(subject.updated_at).to be_within(0.1).of comment.updated_at
 
+    expect(subject.maybe_topic(:ru)).to be_present
+    expect(subject.maybe_topic(:ru)).to be_persisted
+    expect(subject.maybe_topic(:ru)).to be_kind_of Topics::EntryTopics::ReviewTopic
+
     expect { comment.reload }.to raise_error ActiveRecord::RecordNotFound
     expect(abuse_request.reload).to have_attributes(
       comment_id: nil,
