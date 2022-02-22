@@ -35,22 +35,22 @@ export default class Review extends Topic {
     return this.$body.parent();
   }
 
-  // @bind
-  // _toggleMobileControls() {
-  //   super._toggleMobileControls();
-  //
-  //   const $buttons = this.$inner.children('aside.buttons');
-  //   const $header = this.$inner.children('header');
-  //
-  //   if (this.$node.hasClass('aside-expanded')) {
-  //     $buttons.detach();
-  //     $buttons.insertBefore($header);
-  //   } else {
-  //     $buttons.detach();
-  //     $buttons.insertAfter($header);
-  //   }
-  // }
-  //
+  @bind
+  _toggleMobileControls() {
+    super._toggleMobileControls();
+
+    const $buttons = this.$inner.children('aside.buttons');
+    const $header = this.$inner.children('header');
+
+    if (this.$node.hasClass('aside-expanded')) {
+      $buttons.detach();
+      $buttons.insertBefore($header);
+    } else {
+      $buttons.detach();
+      $buttons.insertAfter($header);
+    }
+  }
+
   // @bind
   // async _redirectAfterDeleted(_e, result) {
   //   pushFlash(result.notice);
