@@ -189,9 +189,6 @@ export default class Topic extends ShikiEditable {
 
   @memoize
   get $body() {
-    if (this.isReview) {
-      return this.$inner.find('.body');
-    }
     return this.$inner.children('.body');
   }
 
@@ -221,20 +218,7 @@ export default class Topic extends ShikiEditable {
 
   @memoize
   get $checkHeightNode() {
-    if (this.isReview) {
-      return this.$inner;
-    }
-
     return this.$body;
-  }
-
-  @memoize
-  get $editorPlacement() {
-    if (this.isReview) {
-      return this.$body.parent();
-    }
-
-    return super.$editorPlacement;
   }
 
   _bindFaye() {
@@ -532,15 +516,5 @@ export default class Topic extends ShikiEditable {
       .on('ajax:complete', () => {
         this.$inner.find('.b-footer_vote').removeClass('b-ajax');
       });
-  }
-
-  _scheduleCheckHeight(isSkipClassCheck) {
-    const mobileOffset = isPhone() ? 60 : 0;
-
-    this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT = 220 + mobileOffset;
-    this.CHECK_HEIGHT_COLLAPSED_HEIGHT = 170 + mobileOffset;
-    this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 115 + mobileOffset;
-
-    super._scheduleCheckHeight(isSkipClassCheck);
   }
 }
