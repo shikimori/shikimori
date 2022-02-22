@@ -205,9 +205,6 @@ export default class Topic extends ShikiEditable {
   get isCritique() { return this.$node.hasClass('b-critique-topic'); }
 
   @memoize
-  get isReview() { return this.$node.hasClass('b-review-topic'); }
-
-  @memoize
   get $commentsHider() { return this.$('.comments-hider'); }
 
   @memoize
