@@ -211,8 +211,8 @@ private
         pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
         images: (1..2).map do |i|
           {
-            src: "/assets/globals/events/special_menu_#{i}.jpg",
-            src_2x: "/assets/globals/events/special_menu_#{i}@2x.jpg"
+            src: "/assets/globals/events/2022-02-24/special_menu_#{i}.jpg",
+            src_2x: "/assets/globals/events/2022-02-24/special_menu_#{i}@2x.jpg"
           }
         end,
         # url: 'https://bit.ly/3uiBmjX',
@@ -237,8 +237,8 @@ private
         pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
         images: (1..3).map do |i|
           {
-            src: "/assets/globals/events/special_wide_#{i}.jpg"
-            # src_2x: "/assets/globals/events/special_wide_#{i}@2x.jpg"
+            src: "/assets/globals/events/2022-02-24/special_wide_#{i}.jpg"
+            # src_2x: "/assets/globals/events/2022-02-24/special_wide_#{i}@2x.jpg"
           }
         end,
         # url: 'https://bit.ly/3uiBmjX',
@@ -343,8 +343,8 @@ private
         pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
         images: (1..2).map do |i|
           {
-            src: "/assets/globals/events/special_menu_#{i}.jpg",
-            src_2x: "/assets/globals/events/special_menu_#{i}@2x.jpg"
+            src: "/assets/globals/events/2022-02-24/special_menu_#{i}.jpg",
+            src_2x: "/assets/globals/events/2022-02-24/special_menu_#{i}@2x.jpg"
           }
         end,
         # url: 'https://bit.ly/3uiBmjX',
@@ -368,8 +368,8 @@ private
         pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
         images: (1..3).map do |i|
           {
-            src: "/assets/globals/events/special_wide_#{i}.jpg",
-            src_2x: "/assets/globals/events/special_wide_#{i}@2x.jpg"
+            src: "/assets/globals/events/2022-02-24/special_wide_#{i}.jpg",
+            # src_2x: "/assets/globals/events/2022-02-24/special_wide_#{i}@2x.jpg"
           }
         end,
         # url: 'https://bit.ly/3uiBmjX',
