@@ -23,13 +23,13 @@ header.head.misc
             as: :string
           #vue_tags_input[
             data-value=f.object.tags
-            data-autocomplete_basic=(can?(:promote, Topic) ? Topics::TagsQuery::BASIC_TAGS_WITH_PROMO : Topics::TagsQuery::BASIC_TAGS)
+            data-autocomplete_basic=(can?(:pin, f.object) ? Topics::TagsQuery::BASIC_TAGS_WITH_PROMO : Topics::TagsQuery::BASIC_TAGS)
             data-autocomplete_other=Topics::TagsQuery.call
           ]
         .f-column
-          = render 'topics/form/video', topic: @resource, f: f
+          = render 'topics/form/video', topic: f.object, f: f
 
-    = render 'topics/form/posters', topic: @resource, f: f
+    = render 'topics/form/posters', topic: f.object, f: f
 
     = render 'blocks/shiki_editor',
       text: @resource.decomposed_body.text,

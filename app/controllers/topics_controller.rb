@@ -144,14 +144,15 @@ private
 
   def topic_params # rubocop:disable all
     allowed_params =
-      if can?(:manage, Topic) || %w[new create].include?(params[:action])
+      if can?(:moderate, @resource || Topic) || %w[new create].include?(params[:action])
         CREATE_PARAMS
       else
         UPDATE_PARAMS
       end
-    allowed_params += [:broadcast] if can? :broadcast, Topic
-    allowed_params += [:is_closed] if can? :close, Topic
-    allowed_params += [:is_pinned] if can? :promote, Topic
+
+    allowed_params += [:broadcast] if can?(:broadcast, @resource || Topic)
+    allowed_params += [:is_closed] if can?(:close, @resource || Topic)
+    allowed_params += [:is_pinned] if can?(:pin, @resource || Topic)
 
     params.require(:topic).permit(*allowed_params).tap do |fixed_params|
       fixed_params[:body] = Topics::ComposeBody.call(params[:topic])
