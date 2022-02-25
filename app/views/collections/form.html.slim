@@ -2,6 +2,8 @@ header.head.misc
   h1 = og.headline
   = render 'application/breadcrumbs'
 
+= render 'application/note_from_club_page', club_page_id: 3018
+
 - if @resource.errors.any?
   .b-errors
     .subheadline.m5 = i18n_i 'error', :other
