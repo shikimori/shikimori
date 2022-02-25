@@ -62,10 +62,6 @@ class Forums::View < ViewObjectBase
     Forums::Menu.new forum, linked
   end
 
-  def form
-    Forums::Form.new
-  end
-
   def redirect_url
     h.url_for linked
   end
