@@ -45,7 +45,7 @@
             - if is_edit_type
               = f.input :type, as: :select, include_blank: false,
                 collection: [Topic, Topics::NewsTopic].map { |v| [v.model_name.human, v.name] },
-                input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
+                input_html: { disabled: !(topic.new_record? || can?(:moderate, f.object)) }
             - else
               = f.input :type, as: :hidden
 
