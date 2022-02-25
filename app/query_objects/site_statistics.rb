@@ -1,4 +1,5 @@
 class SiteStatistics
+  CACHE_VERSION = :v1_4
   METRIKA_MONTHS = 18
   CLASS_MONTHS = 6
 
@@ -16,7 +17,6 @@ class SiteStatistics
   SQL
 
   ACHIEVEMENT_USER_IDS = [3824, 210, 16398, 34807, 29386, 84020, 72620, 50587, 100600, 77362, 7642, 9158] # rubocop:disable all
-  CACHE_VERSION = :v1_3
 
   def traffic
     YandexMetrika.call METRIKA_MONTHS
@@ -73,7 +73,7 @@ class SiteStatistics
       User
         .where(id: ACHIEVEMENT_USER_IDS)
         .sort_by { |v| ACHIEVEMENT_USER_IDS.index v.id } +
-          role_moderators(Types::User::Roles[:news_moderator])
+          role_moderators(Types::User::Roles[:statistics_moderator])
     ).uniq
   end
 
