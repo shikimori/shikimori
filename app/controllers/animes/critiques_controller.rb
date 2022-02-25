@@ -22,10 +22,12 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
 
   def new
     og page_title: i18n_t('new_critique')
+    render :form
   end
 
   def edit
     og page_title: i18n_t('edit_critique')
+    render :form
   end
 
   def create
@@ -39,7 +41,6 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
       )
     else
       new
-      render :new
     end
   end
 
@@ -54,7 +55,6 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
       )
     else
       edit
-      render :edit
     end
   end
 

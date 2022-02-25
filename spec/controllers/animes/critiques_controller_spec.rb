@@ -78,7 +78,7 @@ describe Animes::CritiquesController do
       end
       it do
         expect(assigns(:critique)).to be_new_record
-        expect(response).to render_template :new
+        expect(response).to render_template :form
         expect(response).to have_http_status :success
       end
     end
