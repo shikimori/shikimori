@@ -1,4 +1,4 @@
-= render 'versions/note_from_club_page', club_page_id: 2044
+= render 'application/note_from_club_page', club_page_id: 2044, is_version: true
 
 - if params[:video_id]
   - video = @resource.object.videos.find params[:video_id]

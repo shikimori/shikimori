@@ -1,4 +1,6 @@
-= render 'versions/note_from_club_page', club_page_id: (resource.is_a?(Character) || resource.is_a?(Person) ? 2825 : 2830)
+= render 'application/note_from_club_page',
+  club_page_id: (resource.is_a?(Character) || resource.is_a?(Person) ? 2825 : 2830),
+  is_version: true
 
 = simple_form_for resource.object do |f|
   .m15

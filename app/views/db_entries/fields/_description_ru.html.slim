@@ -1,7 +1,7 @@
 / - is_overload = Rails.cache.fetch(:texts_versions_count, expires_in: 1.hour) { ModerationPolicy.new(nil, nil, nil).texts_versions_count > 200 }
 
 / - if current_user&.staff? || !is_overload
-= render 'versions/note_from_club_page', club_id: 2052
+= render 'application/note_from_club_page', club_id: 2052, is_version: true
 
 = simple_form_for resource.object do |f|
   = f.input :description_ru, as: :hidden
