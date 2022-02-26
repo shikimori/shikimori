@@ -1,0 +1,7 @@
+header.head
+  h1 class=(:censored if @club && @club.name.present? && @club.censored?)
+    = @club.name
+  = render 'application/breadcrumbs'
+
+.subheadline = t '.private_club'
+p.b-nothing_here.text-red = t '.access_denied'

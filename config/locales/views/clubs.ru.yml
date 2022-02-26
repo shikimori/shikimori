@@ -52,3 +52,7 @@ ru:
         confirm: Вы уверены?
       menu_pages:
         other_pages: Другие страницы
+
+    private_access:
+      private_club: Это закрытый клуб
+      access_denied: Доступ только по приглашению участников

@@ -10,6 +10,7 @@ class ClubsController < ShikimoriController
   before_action :restrict_domain, if: :resource_id
 
   before_action :set_breadcrumbs
+  before_action :restrict_private, if: :resource_id
 
   UPDATE_PARAMS = [
     :name,
@@ -169,6 +170,19 @@ private
 
   def restrict_domain
     raise ActiveRecord::RecordNotFound if @resource.locale != locale_from_host
+  end
+
+  def restrict_private
+    is_private = @club.censored? && !@club.join_policy_free? && !@club.comment_policy_free?
+    return unless is_private
+
+    is_access_allowed = user_signed_in? && (
+      @resource.member?(current_user) ||
+      current_user.forum_moderator? ||
+      can?(:manage, @resource)
+    )
+
+    render :private_access unless is_access_allowed
   end
 
   def restrict_censored

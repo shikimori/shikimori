@@ -52,3 +52,7 @@ en:
         confirm: Are you sure?
       menu_pages:
         other_pages: Other pages
+
+    private_access:
+      private_club: This is the private club
+      access_denied: Access by invitation only
