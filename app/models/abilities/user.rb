@@ -246,9 +246,14 @@ class Abilities::User
       (club.image_upload_policy_members? && club.member?(@user)) ||
         (club.image_upload_policy_admins? && club.admin?(@user))
     end
+    can :edit_pages, Club do |club|
+      can?(:update, club) || (
+        club.topic_policy_members? && club.member?(@user)
+      )
+    end
 
     can %i[new create update destroy up down], ClubPage do |club_page|
-      can?(:update, club_page.club) && (
+      can?(:edit_pages, club_page.club) && (
         club_page.parent_page_id.nil? ||
         club_page.parent_page.club_id == club_page.club_id
       )

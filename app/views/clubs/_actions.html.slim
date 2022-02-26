@@ -19,6 +19,13 @@
           data-direction='top'
           data-text=t('.edit_club')
         ]
+      - elsif can? :edit_pages, club
+        a.b-subposter-action.edit-alt.b-tooltipped.unprocessed[
+          href=edit_club_url(club, section: :pages)
+          title=t('.edit_club')
+          data-direction='top'
+          data-text=t('.edit_club')
+        ]
 
       - if can? :broadcast, club
         a.b-subposter-action.broadcast.b-tooltipped.unprocessed[

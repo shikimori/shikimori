@@ -1,5 +1,6 @@
 class ClubsController < ShikimoriController
-  load_and_authorize_resource :club, except: %i[index autocomplete]
+  load_and_authorize_resource :club, except: %i[index autocomplete edit]
+  load_resource :club, only: %i[edit]
 
   before_action { og page_title: i18n_i('Club', :other) }
 
@@ -72,9 +73,15 @@ class ClubsController < ShikimoriController
   end
 
   def edit
-    og page_title: t(:settings)
-    og page_title: t("clubs.page.pages.#{params[:section]}")
     @section = params[:section]
+    if @section == 'pages'
+      authorize! :edit_pages, @resource
+    else
+      authorize! :edit, @resource
+    end
+
+    og page_title: t(:settings)
+    og page_title: t("clubs.page.pages.#{@section}")
   end
 
   def update
