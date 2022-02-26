@@ -250,6 +250,7 @@ ru:
         comment_policy: Возможность комментирования
         topic_policy: Возможность создания топиков
         image_upload_policy: Возможность загрузки картинок
+        page_policy: Возможность создания страниц
         is_censored: Содержит материалы для взрослых (18+)
         logo: Логотип
       collection:
@@ -593,6 +594,9 @@ ru:
         members: Только члены клуба
         admins: Только администрация клуба
       topic_policy:
+        members: Только для участников клуба
+        admins: Только для администрации клуба
+      page_policy:
         members: Только для участников клуба
         admins: Только для администрации клуба
       image_upload_policy:

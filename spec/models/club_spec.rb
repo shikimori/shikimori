@@ -53,6 +53,9 @@ describe Club do
         .to enumerize(:topic_policy)
         .in(*Types::Club::TopicPolicy.values)
       is_expected
+        .to enumerize(:page_policy)
+        .in(*Types::Club::PagePolicy.values)
+      is_expected
         .to enumerize(:image_upload_policy)
         .in(*Types::Club::ImageUploadPolicy.values)
       is_expected.to enumerize(:locale).in(*Types::Locale.values)

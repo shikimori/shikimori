@@ -251,6 +251,7 @@ en:
         comment_policy: Comments Policy
         topic_policy: Topics Policy
         image_upload_policy: Image Upload Policy
+        page_policy: Pages Policy
         is_censored: Contains adult content (18+)
         logo: Logo
       collection:
@@ -597,6 +598,9 @@ en:
         members: Club members only
         admins: Club admins only
       image_upload_policy:
+        members: Club members only
+        admins: Club admins only
+      page_policy:
         members: Club members only
         admins: Club admins only
     club_page:

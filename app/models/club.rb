@@ -96,6 +96,11 @@ class Club < ApplicationRecord
     predicates: { prefix: true },
     default: Types::Club::TopicPolicy[:members]
 
+  enumerize :page_policy,
+    in: Types::Club::PagePolicy.values,
+    predicates: { prefix: true },
+    default: Types::Club::TopicPolicy[:admins]
+
   enumerize :image_upload_policy,
     in: Types::Club::ImageUploadPolicy.values,
     predicates: { prefix: true },

@@ -15,5 +15,9 @@ module Types
     TopicPolicy = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(:members, :admins)
+
+    PagePolicy = Types::Strict::Symbol
+      .constructor(&:to_sym)
+      .enum(:members, :admins)
   end
 end

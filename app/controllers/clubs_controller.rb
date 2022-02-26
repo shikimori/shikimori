@@ -17,6 +17,7 @@ class ClubsController < ShikimoriController
     :display_images,
     :comment_policy,
     :topic_policy,
+    :page_policy,
     :image_upload_policy,
     :logo,
     :is_censored,
