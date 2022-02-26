@@ -61,7 +61,7 @@ class Forums::Menu < ViewObjectBase
       linked_id: h.params[:linked_id],
       linked_type: h.params[:linked_type],
       'topic[user_id]' => h.current_user&.id,
-      'topic[forum_id]' => forum ? forum.id : nil,
+      'topic[forum_id]' => forum ? forum.id : Forum::NEWS_ID,
       'topic[linked_id]' => linked ? linked.id : nil,
       'topic[linked_type]' => linked ? linked.class.name : nil,
       'topic[type]' => Topics::NewsTopic.name
