@@ -1,5 +1,6 @@
 describe Animes::RefreshStats do
   subject { described_class.call scope }
+
   let(:scope) { Anime.all }
 
   let(:anime_1) { create :anime }
@@ -8,6 +9,7 @@ describe Animes::RefreshStats do
   let(:user_4) { create :user }
 
   before { user_3.update roles: %i[cheat_bot] }
+
   let!(:anime_1_rate_1) do
     create :user_rate,
       target: anime_1,
@@ -93,7 +95,8 @@ describe Animes::RefreshStats do
             'key' => 'watching',
             'value' => 1
           }],
-          created_on: Time.zone.today
+          created_on: Time.zone.today,
+          score_2: anime_1.score_2
         )
         expect(anime_2.anime_stat_histories.first).to have_attributes(
           scores_stats: [{
@@ -104,7 +107,8 @@ describe Animes::RefreshStats do
             'key' => 'completed',
             'value' => 1
           }],
-          created_on: Time.zone.today
+          created_on: Time.zone.today,
+          score_2: anime_2.score_2
         )
       end
     end
