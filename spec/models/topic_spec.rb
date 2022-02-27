@@ -229,25 +229,30 @@ describe Topic do
       let(:topic) { build_stubbed :topic }
 
       context 'common topic' do
-        it { is_expected.to_not be_able_to :edit, topic }
-        it { is_expected.to_not be_able_to :update, topic }
-        it { is_expected.to_not be_able_to :manage, topic }
-        it { is_expected.not_to be_able_to :moderate, topic }
+        Abilities::NewsModerator::NEWS_MODERATOR_ACTIONS.each do |action|
+          it { is_expected.to_not be_able_to action, topic }
+        end
       end
 
       context 'generated topic' do
         let(:topic) { build_stubbed :club_topic }
-        it { is_expected.to_not be_able_to :manage, topic }
+        Abilities::NewsModerator::NEWS_MODERATOR_ACTIONS.each do |action|
+          it { is_expected.to_not be_able_to action, topic }
+        end
       end
 
       context 'generated critique topic' do
         let(:topic) { build_stubbed :critique_topic }
-        it { is_expected.to_not be_able_to :manage, topic }
+        Abilities::NewsModerator::NEWS_MODERATOR_ACTIONS.each do |action|
+          it { is_expected.to_not be_able_to action, topic }
+        end
       end
 
       context 'news topic' do
         let(:topic) { build_stubbed :news_topic }
-        it { is_expected.to be_able_to :manage, topic }
+        Abilities::NewsModerator::NEWS_MODERATOR_ACTIONS.each do |action|
+          it { is_expected.to be_able_to action, topic }
+        end
       end
     end
 

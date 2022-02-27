@@ -2,10 +2,9 @@ class Abilities::NewsModerator
   include CanCan::Ability
   prepend Draper::CanCanCan
 
+  NEWS_MODERATOR_ACTIONS = %i[edit update destroy moderate pin close]
+
   def initialize _user
-    can %i[edit update destroy], Topics::NewsTopic
-    can :moderate, Topics::NewsTopic
-    can :pin, Topics::NewsTopic
-    can :close, Topics::NewsTopic
+    can NEWS_MODERATOR_ACTIONS, Topics::NewsTopic
   end
 end
