@@ -14,6 +14,8 @@ class Animes::ReviewsController < AnimesController
   PER_PAGE = 8
   PER_PREVIEW = 4
 
+  rescue_from ActiveRecord::RecordNotFound, with: :missing
+
   def index # rubocop:disable AbcSize, MethodLength
     @opinion = (Types::Review::Opinion[params[:opinion]] if params[:opinion])
     @is_preview = !!params[:is_preview]
@@ -52,6 +54,14 @@ class Animes::ReviewsController < AnimesController
     breadcrumb "#{i18n_i('Review', :one)} ##{@review.id}", nil
 
     @topic_view = Topics::ReviewView.new(@review.maybe_topic(locale_from_host), false, false)
+  end
+
+  def missing exception
+    raise exception if params[:action] != 'show'
+
+    breadcrumb "#{i18n_i('Review', :one)} ##{params[:id].to_i}", nil
+    og noindex: true, nofollow: true
+    render :missing
   end
 
   def new

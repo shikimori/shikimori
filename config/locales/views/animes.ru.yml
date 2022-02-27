@@ -131,6 +131,8 @@ ru:
       group:
         to_other_reviews: Ко всем отзывам
         new_review: Написать отзыв
+      missing:
+        no_review: Отзыв или был удалён, или никогда не существовал на сайте
 
   mangas: &animes
     <<: *animes
