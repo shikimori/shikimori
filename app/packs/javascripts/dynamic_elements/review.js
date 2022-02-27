@@ -17,7 +17,6 @@ export default class Review extends Topic {
     super.initialize();
   }
 
-  get type() { return 'review'; }
   get typeLabel() { return I18n.t('frontend.dynamic_elements.review.type_label'); } // eslint-disable-line camelcase
 
   @memoize

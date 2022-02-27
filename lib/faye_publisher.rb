@@ -19,7 +19,7 @@ class FayePublisher # rubocop:disable ClassLength
   def publish trackable, event, channels = []
     case trackable
       when Comment then publish_comment trackable, event, channels
-      when Review then publish_review trackable, event, channels
+      when Review then publish_topic trackable.maybe_topic(:ru), event, channels
       when Topic then publish_topic trackable, event, channels
       when Message then publish_message trackable, event, channels
       else publish_data trackable, channels
