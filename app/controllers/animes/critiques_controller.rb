@@ -21,11 +21,11 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
   end
 
   def show
-    ensure_redirect!(
-      params[:is_reply] ?
-        UrlGenerator.instance.reply_critique_url(@critique) :
-        UrlGenerator.instance.critique_url(@critique)
-    )
+    if params[:is_reply]
+      og noindex: true, nofollow: true
+    else
+      ensure_redirect! UrlGenerator.instance.critique_url(@critique)
+    end
     push_js_reply if params[:is_reply]
     breadcrumb "#{i18n_i('Critique', :one)} ##{@critique.id}", nil
 

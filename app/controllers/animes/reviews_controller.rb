@@ -43,11 +43,11 @@ class Animes::ReviewsController < AnimesController
   end
 
   def show
-    ensure_redirect!(
-      params[:is_reply] ?
-        UrlGenerator.instance.reply_review_url(@review) :
-        UrlGenerator.instance.review_url(@review)
-    )
+    if params[:is_reply]
+      og noindex: true, nofollow: true
+    else
+      ensure_redirect! UrlGenerator.instance.review_url(@review)
+    end
     push_js_reply if params[:is_reply]
     breadcrumb "#{i18n_i('Review', :one)} ##{@review.id}", nil
 
