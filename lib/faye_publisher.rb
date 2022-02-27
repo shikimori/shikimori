@@ -2,6 +2,7 @@
 # Examples:
 #   FayePublisher.new(User.first, nil).publish_data({ topic_id: 367377, comment_id: 8069086, user_id: 1, event: 'comment:created', actor: 'morr', actor_avatar: 'https://kawai.shikimori.one/system/users/x16/1.png?1595714910', actor_avatar_2x: 'https://kawai.shikimori.one/system/users/x32/1.png?1595714910' }, ['/critique-1629', '/comment-8069086', '/topic-367377', '/forum-12/ru', '/forum-20/ru'])
 #   FayeService.new(User.find(1), nil).convert_review(Comment.find(8069088), true)
+#   FayeService.new(User.find(1), nil).convert_review(Review.find(81859), false)
 class FayePublisher # rubocop:disable ClassLength
   BROADCAST_FEED = 'broadcast'
 
@@ -97,12 +98,15 @@ class FayePublisher # rubocop:disable ClassLength
     publish_data data, channels
   end
 
-  def publish_conversion old_entry, new_entry
+  def publish_conversion event_type, old_entry, new_entry
+    old_entry_klass = old_entry.class.base_class
+    new_entry_klass = new_entry.class.base_class
+
     publish_data(
-      actor_event_data(old_entry.class.name.downcase, :converted,
-        "#{old_entry.class.name.downcase}_id": old_entry.id,
-        "#{new_entry.class.name.downcase}_id": new_entry.id,
-        topic_id: (old_entry.commentable_id if old_entry.is_a?(Comment))),
+      actor_event_data(event_type, :converted,
+        topic_id: (old_entry.commentable_id if old_entry.is_a?(Comment)),
+        "#{old_entry_klass.name.downcase}_id": old_entry.id,
+        "#{new_entry_klass.name.downcase}_id": new_entry.id),
       old_entry.is_a?(Comment) ?
         comment_channels(old_entry, []) :
         review_channels(old_entry, [])
