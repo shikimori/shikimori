@@ -99,7 +99,8 @@ export default class Comment extends ShikiEditable {
   @bind
   _fayeConverted(_e, data) {
     const message = I18n.t('frontend.shiki_editable.comment_converted', {
-      url: `/reviews/${data.review_id}`
+      // anime_id does not matter, user will be redirected to proper url
+      url: `/animes/1/reviews/${data.review_id}`
     });
 
     this._replace(

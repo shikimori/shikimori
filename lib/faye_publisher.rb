@@ -1,5 +1,7 @@
-# Публикация различных уведомлений через Faye
-# FayePublisher.new(User.first, nil).publish({ data: { comment_id: 999999999, topic_id: 79981 } }, ['/topic-79981'])
+# The clas real-time publishes data via faye
+# Examples:
+#   FayePublisher.new(User.first, nil).publish_data({ topic_id: 367377, comment_id: 8069086, user_id: 1, event: 'comment:created', actor: 'morr', actor_avatar: 'https://kawai.shikimori.one/system/users/x16/1.png?1595714910', actor_avatar_2x: 'https://kawai.shikimori.one/system/users/x32/1.png?1595714910' }, ['/critique-1629', '/comment-8069086', '/topic-367377', '/forum-12/ru', '/forum-20/ru'])
+#   FayeService.new(User.find(1), nil).convert_review(Comment.find(8069088), true)
 class FayePublisher # rubocop:disable ClassLength
   BROADCAST_FEED = 'broadcast'
 
