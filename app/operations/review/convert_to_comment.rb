@@ -10,7 +10,7 @@ class Review::ConvertToComment
 
       Comments::Move.call(
         comment_ids: replies_ids,
-        commentable: @review.maybe_topic(@review.locale),
+        commentable: @review.db_entry.topic(@review.locale),
         from_reply: @review.maybe_topic(@review.locale),
         to_reply: comment
       )
@@ -43,7 +43,7 @@ private
     Comments::RepliesByBbCode
       .call(
         model: @review,
-        commentable: @review
+        commentable: @review.maybe_topic(@review.locale)
       )
       .map(&:id)
   end
