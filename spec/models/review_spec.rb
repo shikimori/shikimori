@@ -337,11 +337,6 @@ describe Review do
       end
     end
 
-    describe '#faye_channels' do
-      let(:review) { build_stubbed :review }
-      it { expect(review.faye_channels).to eq %W[/review-#{review.id}] }
-    end
-
     describe '#locale' do
       its(:locale) { is_expected.to eq :ru }
     end

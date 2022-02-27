@@ -121,10 +121,6 @@ class Review < ApplicationRecord
       end
   end
 
-  def faye_channels
-    %W[/review-#{id}]
-  end
-
 private
 
   def fill_is_written_before_release
