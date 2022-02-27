@@ -22,12 +22,16 @@ class FayeService
   end
 
   def update trackable, params
-    if trackable.update params
-      publisher.publish trackable, :updated
-      true
-    else
-      false
+    return false unless trackable.update params
+
+    case trackable
+      when Review
+        publisher.publish trackable.maybe_topic(:ru), :updated
+      else
+        publisher.publish trackable, :updated
     end
+
+    true
   end
 
   def destroy trackable
