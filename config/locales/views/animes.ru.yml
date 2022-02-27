@@ -133,8 +133,11 @@ ru:
         new_review: Написать отзыв
       missing:
         no_review: Отзыв или был удалён, или никогда не существовал на сайте
+    critiques:
+      missing:
+        no_critique: Рецензия или была удалена, или никогда не существовала на сайте
 
-  mangas: &animes
+  mangas:
     <<: *animes
     publishers_info:
       publisher_mangas: Манга издателя %{publisher_name}

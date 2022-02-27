@@ -133,6 +133,9 @@ en:
         new_review: Write a review
       missing:
         no_review: Review is either deleted or never existed on Shikimori
+    critiques:
+      missing:
+        no_critique: Critique is either deleted or never existed on Shikimori
 
   mangas:
     <<: *animes

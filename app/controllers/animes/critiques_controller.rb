@@ -8,6 +8,8 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
   before_action :add_breadcrumbs, except: %i[index]
   skip_before_action :og_meta
 
+  rescue_from ActiveRecord::RecordNotFound, with: :missing
+
   def index
     breadcrumb i18n_i('Critique', :other), nil
     @collection = ::Critiques::Query
@@ -68,6 +70,15 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
     else
       edit
     end
+  end
+
+  def missing exception
+    raise exception if params[:action] != 'show'
+
+    add_breadcrumbs
+    breadcrumb "#{i18n_i('Critique', :one)} ##{params[:id].to_i}", nil
+    og noindex: true, nofollow: true
+    render :missing
   end
 
   def destroy

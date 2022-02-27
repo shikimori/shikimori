@@ -59,6 +59,7 @@ class Animes::ReviewsController < AnimesController
   def missing exception
     raise exception if params[:action] != 'show'
 
+    add_breadcrumbs
     breadcrumb "#{i18n_i('Review', :one)} ##{params[:id].to_i}", nil
     og noindex: true, nofollow: true
     render :missing
