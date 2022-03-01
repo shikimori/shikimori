@@ -191,6 +191,9 @@ private
   end
 
   def test_preview_request?
-    Rails.env.development? && params[:test]
+    params[:test] && (
+      Rails.env.development? ||
+        request.referer == 'http://localhost:8088/' # shiki-editor local development
+    )
   end
 end
