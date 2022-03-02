@@ -35,7 +35,6 @@ describe Club do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :name }
-    it { is_expected.to validate_presence_of :owner }
     it { is_expected.to have_attached_file :logo }
     it { is_expected.to validate_presence_of :locale }
     it { is_expected.to validate_length_of(:description).is_at_most(150_000) }

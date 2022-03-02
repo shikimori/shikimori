@@ -120,7 +120,6 @@ class Club < ApplicationRecord
     default_url: '/assets/globals/missing_:style_:style.png'
 
   validates :name, presence: true, name: true
-  validates :owner, presence: true
   validates :logo, attachment_content_type: { content_type: /\Aimage/ }
   validates :locale, presence: true
   validates :description, length: { maximum: 150_000 }, unless: :special_club?
