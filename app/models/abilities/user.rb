@@ -248,7 +248,7 @@ class Abilities::User
     end
     can :edit_pages, Club do |club|
       can?(:update, club) || (
-        club.topic_policy_members? && club.member?(@user)
+        club.page_policy_members? && club.member?(@user)
       )
     end
 
