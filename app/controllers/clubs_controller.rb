@@ -173,8 +173,7 @@ private
   end
 
   def restrict_private
-    is_private = @club.censored? && !@club.join_policy_free? && !@club.comment_policy_free?
-    return unless is_private
+    return unless @club.private?
 
     is_access_allowed = user_signed_in? && (
       @resource.member?(current_user) ||

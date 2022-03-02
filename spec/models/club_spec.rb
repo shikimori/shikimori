@@ -109,44 +109,32 @@ describe Club do
       it { expect(club.name).to eq FixName.call(name, false) }
     end
 
-    describe '#ban' do
-      let(:user) { create :user }
-      before { club.ban user }
+    describe '#private?' do
+      before do
+        subject.is_censored = is_censored
+        subject.join_policy = join_policy
+        subject.comment_policy = comment_policy
+      end
+      let(:is_censored) { true }
+      let(:join_policy) { (Types::Club::JoinPolicy.values - %i[free]).sample }
+      let(:comment_policy) { (Types::Club::CommentPolicy.values - %i[free]).sample }
 
-      it { expect(club.banned? user).to be true }
-    end
+      it { is_expected.to be_private }
 
-    describe '#join' do
-      let(:user) { create :user }
-      before { club.join user }
-
-      it { expect(club.reload.club_roles_count).to eq 1 }
-      it { expect(club.member? user).to be true }
-
-      context 'user' do
-        it { expect(club.admin? user).to eq false }
+      context 'not censored' do
+        let(:is_censored) { false }
+        it { is_expected.to_not be_private }
       end
 
-      context 'club_owner' do
-        let(:club) { create :club, owner: user }
-        it { expect(club.admin? user).to eq true }
+      context 'free join_policy' do
+        let(:join_policy) { Types::Club::JoinPolicy[:free] }
+        it { is_expected.to_not be_private }
       end
 
-      describe '#leave' do
-        before { club.reload.leave user }
-
-        it { expect(club.member? user).to be false }
-        it { expect(club.reload.club_roles_count).to be_zero }
+      context 'not censored' do
+        let(:comment_policy) { Types::Club::JoinPolicy[:free] }
+        it { is_expected.to_not be_private }
       end
-    end
-
-    describe '#member_role' do
-      let(:user) { build_stubbed :user }
-      let(:club) { build_stubbed :club, member_roles: [club_role] }
-      let(:club_role) { build_stubbed :club_role, user: user }
-      subject { club.member_role user }
-
-      it { is_expected.to eq club_role }
     end
 
     describe '#member?' do
@@ -225,6 +213,46 @@ describe Club do
 
       context 'not invited' do
         it { is_expected.to be false }
+      end
+    end
+
+    describe '#member_role' do
+      let(:user) { build_stubbed :user }
+      let(:club) { build_stubbed :club, member_roles: [club_role] }
+      let(:club_role) { build_stubbed :club_role, user: user }
+      subject { club.member_role user }
+
+      it { is_expected.to eq club_role }
+    end
+
+    describe '#ban' do
+      let(:user) { create :user }
+      before { club.ban user }
+
+      it { expect(club.banned? user).to be true }
+    end
+
+    describe '#join' do
+      let(:user) { create :user }
+      before { club.join user }
+
+      it { expect(club.reload.club_roles_count).to eq 1 }
+      it { expect(club.member? user).to be true }
+
+      context 'user' do
+        it { expect(club.admin? user).to eq false }
+      end
+
+      context 'club_owner' do
+        let(:club) { create :club, owner: user }
+        it { expect(club.admin? user).to eq true }
+      end
+
+      describe '#leave' do
+        before { club.reload.leave user }
+
+        it { expect(club.member? user).to be false }
+        it { expect(club.reload.club_roles_count).to be_zero }
       end
     end
   end

@@ -137,6 +137,10 @@ class Club < ApplicationRecord
     super FixName.call(value, false)
   end
 
+  def private?
+    censored? && !join_policy_free? && !comment_policy_free?
+  end
+
   def member? user
     member_role(user).present?
   end
