@@ -178,7 +178,11 @@ private
     if @resource.object.respond_to?(:description_ru)
       og description: @resource.description_meta
     end
-    og image: ImageUrlGenerator.instance.url(@resource, :original)
+    if @resource.anime? && @resource.id <= 1000
+      og image: "http://cdn.anime-recommend.ru/previews/#{@resource.id}.jpg"
+    else
+      og image: ImageUrlGenerator.instance.url(@resource, :original)
+    end
   end
 
   def restricted_fields
