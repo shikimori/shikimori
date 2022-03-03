@@ -180,6 +180,10 @@ private
     end
     if @resource.anime? && @resource.id <= 1000
       og image: "http://cdn.anime-recommend.ru/previews/#{@resource.id}.jpg"
+      og image_width: 1200
+      og image_height: 630
+      og image_type: 'image/jpeg'
+      og twitter_card: 'summary_large_image'
     else
       og image: ImageUrlGenerator.instance.url(@resource, :original)
     end

@@ -40,3 +40,5 @@ yarn-debug.log*
 yarn-error.log
 .yarn-integrity
 package-lock.json
+
+.idea
