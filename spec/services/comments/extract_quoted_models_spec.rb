@@ -58,18 +58,6 @@ describe Comments::ExtractQuotedModels do
       end
     end
 
-    context 'review' do
-      let(:review) { create :review, user: user, anime: create(:anime) }
-      let(:text) { "[review=#{review.id}]" }
-
-      it do
-        is_expected.to eq OpenStruct.new(
-          models: [review],
-          users: [user]
-        )
-      end
-    end
-
     context 'topic' do
       let(:topic) { create :topic, user: user }
       let(:text) { "[topic=#{topic.id}]" }

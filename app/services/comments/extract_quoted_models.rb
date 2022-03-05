@@ -1,13 +1,12 @@
 class Comments::ExtractQuotedModels
   REGEXP = /
-    \[(quote|comment|review|topic|mention|user)=([^\]]+)\]
+    \[(quote|comment|topic|mention|user)=([^\]]+)\]
       |
     (>\?)([^\n]+) (?:\n|\Z)
   /mx
   USER_QUOTE_REGEXP = /\d+;(?<user_id>\d+);.*/
   FORUM_ENTRY_QUOTE_REGEXP = /(?:
     t(?<topic_id>\d+) |
-    r(?<review_id>\d+) |
     c?(?<comment_id>\d+)
   );\d+;.*/x
 
