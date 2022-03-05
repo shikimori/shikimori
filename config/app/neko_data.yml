@@ -20536,7 +20536,7 @@
         - 38419
         - 40181
         - 46171
-      :threshold: 95.5%
+      :threshold: 95.6%
       :generator:
         ignore_latest_ids:
         - 38234
@@ -23356,7 +23356,7 @@
         - 42174
         - 42914
         - 42984
-      :threshold: 92.6%
+      :threshold: 92.7%
       :generator:
         ignore_latest_ids:
         - 37966
@@ -25663,7 +25663,7 @@
         franchise: inuyasha
         not_anime_ids:
         - 31133
-      :threshold: 93%
+      :threshold: 93.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :inuyasha
@@ -25724,10 +25724,12 @@
       :filters:
         franchise: detective_conan
         not_anime_ids:
+        - 1369
         - 6115
         - 7303
         - 7305
         - 7471
+        - 9785
         - 9786
         - 9839
         - 10766
@@ -25744,9 +25746,7 @@
         - 40348
         - 42476
         - 47413
-        - 1369
-        - 9785
-      :threshold: 93.9%
+      :threshold: 93.7%
       :generator:
         ignore_latest_ids:
         - 38770
@@ -25782,10 +25782,12 @@
       :filters:
         franchise: detective_conan
         not_anime_ids:
+        - 1369
         - 6115
         - 7303
         - 7305
         - 7471
+        - 9785
         - 9786
         - 9839
         - 10766
@@ -25802,8 +25804,6 @@
         - 40348
         - 42476
         - 47413
-        - 1369
-        - 9785
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -28401,7 +28401,7 @@
         franchise: aria
         not_anime_ids:
         - 5196
-      :threshold: 89.3%
+      :threshold: 89.7%
       :generator:
         ignore_latest_ids:
         - 41674
@@ -28877,7 +28877,7 @@
         - 41377
         - 48772
         - 48773
-      :threshold: 88.7%
+      :threshold: 85.2%
       :generator:
         not_ignored_ids:
         - 38986
@@ -29002,7 +29002,7 @@
         not_anime_ids:
         - 37710
         - 49442
-      :threshold: 97.6%
+      :threshold: 97.7%
       :generator:
         not_ignored_ids:
         - 32446
@@ -30027,7 +30027,7 @@
         franchise: digimon
         not_anime_ids:
         - 4712
-      :threshold: 92.8%
+      :threshold: 92.9%
       :generator:
         ignore_latest_ids:
         - 38088
@@ -30495,7 +30495,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.7%
+      :threshold: 90.8%
       :generator:
         ignore_latest_ids:
         - 38850
