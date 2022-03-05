@@ -68,6 +68,19 @@ describe Comments::ExtractQuotedModels do
           users: [user]
         )
       end
+
+      context 'Topics::EntryTopics::ReviewTopic' do
+        let(:topic) { create :review_topic, user: user, linked: review }
+        let(:review) { create :review, user: user, anime: create(:anime) }
+        let(:text) { "[topic=#{topic.id}]" }
+
+        it do
+          is_expected.to eq OpenStruct.new(
+            models: [review],
+            users: [user]
+          )
+        end
+      end
     end
   end
 
@@ -79,18 +92,6 @@ describe Comments::ExtractQuotedModels do
       it do
         is_expected.to eq OpenStruct.new(
           models: [comment],
-          users: [user]
-        )
-      end
-    end
-
-    context 'review' do
-      let(:review) { create :review, user: user, anime: create(:anime) }
-      let(:text) { "[quote=r#{review.id};#{user.id};test2]" }
-
-      it do
-        is_expected.to eq OpenStruct.new(
-          models: [review],
           users: [user]
         )
       end
@@ -116,17 +117,6 @@ describe Comments::ExtractQuotedModels do
       it do
         is_expected.to eq OpenStruct.new(
           models: [comment],
-          users: [user]
-        )
-      end
-    end
-
-    context 'review' do
-      let(:review) { create :review, user: user, anime: create(:anime) }
-      let(:text) { ">?r#{review.id};#{user.id};test2" }
-      it do
-        is_expected.to eq OpenStruct.new(
-          models: [review],
           users: [user]
         )
       end

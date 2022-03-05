@@ -51,12 +51,11 @@ private
     if data =~ FORUM_ENTRY_QUOTE_REGEXP
       model = find_forum_entry(
         comment_id: $LAST_MATCH_INFO[:comment_id],
-        topic_id: $LAST_MATCH_INFO[:topic_id],
-        review_id: $LAST_MATCH_INFO[:review_id]
+        topic_id: $LAST_MATCH_INFO[:topic_id]
       )
     end
 
-    [model, user]
+    [review_fix(model), user]
   end
 
   def extract_mention data
@@ -69,18 +68,15 @@ private
     model = find tag.capitalize.constantize, :id, data
     return [nil, nil] unless model && QUOTEABLE_MODELS.include?(model.class.base_class)
 
-    [model, model.user]
+    [review_fix(model), model.user]
   end
 
-  def find_forum_entry comment_id:, topic_id:, review_id:
+  def find_forum_entry comment_id:, topic_id:
     if comment_id
       find Comment, :id, comment_id
 
     elsif topic_id
       find Topic, :id, topic_id
-
-    elsif review_id
-      find Review, :id, review_id
     end
   end
 
@@ -89,5 +85,13 @@ private
     @cache[klass] ||= {}
     @cache[klass][field] ||= {}
     @cache[klass][field][value] ||= klass.find_by field => value
+  end
+
+  def review_fix model
+    if model.is_a? Topics::EntryTopics::ReviewTopic
+      model.linked
+    else
+      model
+    end
   end
 end
