@@ -1,11 +1,14 @@
 class OpenGraphView < ViewObjectBase
   attr_reader :page_title
   attr_writer :description, :canonical_url
-  attr_accessor :type, :image,
-    :video_duration, :video_release_date, :video_tags,
-    :book_release_date, :book_tags,
-    :notice,
-    :keywords, :noindex, :nofollow
+  attr_accessor :type, :image, :image_type,
+                :image_width,
+                :image_height,
+                :twitter_card,
+                :video_duration, :video_release_date, :video_tags,
+                :book_release_date, :book_tags,
+                :notice,
+                :keywords, :noindex, :nofollow
 
   PAGE_TITLE_SEPARATOR = ' / '
 
