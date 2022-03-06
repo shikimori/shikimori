@@ -36,3 +36,14 @@ en:
         draft: Draft
         'yes': Yes
         'no': No
+      colors:
+        yellow: Yellow
+        orange: Orange
+        red: Red
+        pink: Pink
+        violet: Violet
+        blue: Blue
+        green: Green
+        brown: Brown
+        gray: Gray
+        black: Black
