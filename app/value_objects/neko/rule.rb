@@ -34,7 +34,8 @@ class Neko::Rule
     )
   SQL
 
-  CACHE_VERSION = :v3 # rubocop:disable VariableNumber
+  CACHE_VERSION = :v4
+  CLOUDFLARE_CACHING_FIX = "?#{CACHE_VERSION}"
 
   def group
     Types::Achievement::INVERTED_NEKO_IDS[
@@ -97,7 +98,7 @@ class Neko::Rule
   end
 
   def image
-    images.first
+    "#{images.first}#{CLOUDFLARE_CACHING_FIX}" if images.first.present?
   end
 
   def border_color
@@ -105,7 +106,9 @@ class Neko::Rule
   end
 
   def images
-    Array(attributes[:image]&.split(',') || [nil])
+    Array(attributes[:image]&.split(',') || [nil]).map do |image_path|
+      "#{image_path}#{CLOUDFLARE_CACHING_FIX}" if image_path
+    end
   end
 
   def border_colors
