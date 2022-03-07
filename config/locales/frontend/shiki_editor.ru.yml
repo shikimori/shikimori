@@ -36,6 +36,7 @@ ru:
         draft: Текст
         'yes': Да
         'no': Нет
+      color: Цвет
       colors:
         yellow: Жёлтый
         orange: Оранжевый
