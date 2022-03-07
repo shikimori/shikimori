@@ -178,7 +178,7 @@ private
     if @resource.object.respond_to?(:description_ru)
       og description: @resource.description_meta
     end
-    if @resource.anime? && @resource.id <= 1000
+    if @resource.anime? && @resource.id <= 51153
       og image: "http://cdn.anime-recommend.ru/previews/#{@resource.id}.jpg"
       og image_width: 1200
       og image_height: 630
