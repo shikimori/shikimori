@@ -36,6 +36,7 @@ en:
         draft: Draft
         'yes': Yes
         'no': No
+      color: Color
       colors:
         yellow: Yellow
         orange: Orange
