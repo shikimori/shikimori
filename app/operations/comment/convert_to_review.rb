@@ -2,7 +2,7 @@ class Comment::ConvertToReview
   method_object :comment, %i[normalization rates_fetcher is_keep_comment]
   delegate :user, to: :comment
 
-  def call # rubocop:disable MethodLength
+  def call # rubocop:disable MethodLength, AbcSize
     review = build_review
     review.instance_variable_set :@is_migration, true
 
@@ -13,9 +13,9 @@ class Comment::ConvertToReview
       unless @is_keep_comment
         Comments::Move.call(
           comment_ids: replies_ids,
-          commentable: review,
+          commentable: review.maybe_topic(review.locale),
           from_reply: @comment,
-          to_reply: review
+          to_reply: review.maybe_topic(review.locale)
         )
 
         move_comment_relations review
