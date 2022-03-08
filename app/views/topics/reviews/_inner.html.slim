@@ -56,6 +56,14 @@
                 data-tooltip_url=send(:"tooltip_#{topic_view.db_entry.class.name.downcase}_url", topic_view.db_entry)
               ] = localized_name topic_view.db_entry
 
+          - if topic_view.closed?
+            .b-anime_status_tag.other[
+              data-text=t('.review_closed')
+            ]
+            .b-anime_status_tag.ignored.hidden[
+              data-text=t('.review_ignored')
+            ]
+
           - unless local_assigns[:is_show]
             a.to-review href=topic_view.url
               | <<< #{t '.go_to_review'}

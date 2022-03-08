@@ -7,7 +7,7 @@ ru:
       no_topic: Топик или был удалён, или никогда не существовал на сайте
     header:
       mini: &header_mini
-        topic_ignored: в игноре
+        topic_ignored: &ignored в игноре
         topic_closed: закрыт
       common:
         <<: *header_mini
@@ -110,3 +110,5 @@ ru:
         go_to_review: к отзыву
         moderation: Модерация
         'on': к
+        review_ignored: *ignored
+        review_closed: закрыто

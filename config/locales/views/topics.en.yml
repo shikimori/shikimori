@@ -7,7 +7,7 @@ en:
       no_topic: Topic is either deleted or never existed on Shikimori
     header:
       mini: &header_mini
-        topic_ignored: ignored
+        topic_ignored: &ignored ignored
         topic_closed: closed
       common:
         <<: *header_mini
@@ -110,3 +110,5 @@ en:
         go_to_review: go to review
         moderation: Moderation
         'on': 'on'
+        review_ignored: *ignored
+        review_closed: closed

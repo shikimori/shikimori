@@ -19,10 +19,9 @@
       .b-anime_status_tag.other[
         data-text=t('.topic_closed')
       ]
-    - if user_signed_in?
-      .b-anime_status_tag.ignored.hidden[
-        data-text=t('.topic_ignored')
-      ]
+    .b-anime_status_tag.ignored.hidden[
+      data-text=t('.topic_ignored')
+    ]
 
   a.name[
     href=topic_view.urls.poster_url
