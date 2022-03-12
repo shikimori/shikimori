@@ -18,10 +18,16 @@ class Topics::ReviewView < Topics::UserContentView
   # end
 
   def action_tag
-    OpenStruct.new(
-      type: 'review',
-      text: i18n_i('review', :one)
-    )
+    [
+      OpenStruct.new(
+        type: 'review',
+        text: i18n_i('review', :one)
+      ),
+      OpenStruct.new(
+        type: "review-#{review.opinion}",
+        text: review.opinion_text.downcase
+      )
+    ]
   end
 
   def topic_title

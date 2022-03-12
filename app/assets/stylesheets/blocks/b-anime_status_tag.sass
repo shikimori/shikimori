@@ -27,7 +27,15 @@
 
   &.episode,
   &.studio,
+  &.review,
     +static_marker(#123, #e8ebf0)
+  // copied from b-review_opinion_marker
+  &.review-positive
+    +static_marker(#fff, #549e14, #bee893, darken(#bee893, 6%))
+  &.review-neutral
+    +static_marker(#fff, darken(#7aaebd, 6%), #93c5e8, darken(#93c5e8, 6%))
+  &.review-negative
+    +static_marker(#fff, #fc575e, #e8a092, darken(#e8a092, 6%))
 
   &.other,
     +static_marker(#fff, #678)
@@ -41,8 +49,7 @@
   &.critique
     +static_marker(#fff, #f477ad)
 
-  &.review
-    +static_marker(#fff, #81c548)
+    +static_marker(#123, #e8ebf0)
 
   &.collection
     +static_marker(#fff, #48cb53)
