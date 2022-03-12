@@ -10,7 +10,6 @@ class Animes::ReviewsController < AnimesController
 
   skip_before_action :og_meta
 
-  RULES_TOPIC_ID = 356_281
   PER_PAGE = 8
   PER_PREVIEW = 4
 
@@ -73,9 +72,23 @@ class Animes::ReviewsController < AnimesController
       review.manga = @manga || @ranobe
     end
 
-    @rules_topic = Topics::TopicViewFactory
-      .new(false, false)
-      .find_by(id: RULES_TOPIC_ID)
+    render :form
+  end
+
+  def edit
+    og page_title: i18n_t('edit_review')
+
+    if request.xhr?
+      render(
+        partial: 'animes/reviews/form',
+        locals: {
+          review: @review,
+          resource: @resource
+        }
+      )
+    else
+      render :form
+    end
   end
 
   def create
@@ -85,18 +98,7 @@ class Animes::ReviewsController < AnimesController
       redirect_to UrlGenerator.instance.review_url(@review)
     else
       new
-      render :new
     end
-  end
-
-  def edit
-    render(
-      partial: 'animes/reviews/form',
-      locals: {
-        review: @review,
-        resource: @resource
-      }
-    )
   end
 
 private

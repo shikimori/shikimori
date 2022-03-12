@@ -399,7 +399,7 @@ ru:
   animes/reviews_controller:
     <<: *animes_controller
     new_review: Новый отзыв
-    # edit_review: Изменение отзыва
+    edit_review: Изменение отзыва
     review_by: Отзыв от %{nickname}
     review_is_already_written:
       anime: Ты уже @{f:написала|m:написал} отзыв к этому аниме

@@ -35,7 +35,7 @@ aside.buttons
       href=topic_view.urls.edit_url
       data-text=t('actions.edit')
       title=t('actions.edit')
-      data-remote=topic_view.topic_type_policy.review_topic?.to_s
+      data-remote=(topic_view.topic_type_policy.review_topic? && topic_view.author_details?).to_s
       data-type='html'
     ]
     - if topic_view.deletable?

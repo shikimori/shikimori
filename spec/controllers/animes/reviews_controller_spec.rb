@@ -81,22 +81,44 @@ describe Animes::ReviewsController do
 
       it do
         expect(assigns(:review)).to be_new_record
-        expect(response).to render_template :new
+        expect(response).to render_template :form
         expect(response).to have_http_status :success
       end
     end
   end
 
-  # describe '#edit' do
-  #   include_context :authenticated, :user, :day_registered
-  #   subject! do
-  #     get :edit,
-  #       params: {
-  #         anime_id: anime.to_param,
-  #         type: Anime.name,
-  #         id: review.id
-  #       }
-  #   end
-  #   it { expect(response).to have_http_status :success }
-  # end
+  describe '#edit' do
+    include_context :authenticated, :user, :day_registered
+
+    context 'xhr' do
+      subject! do
+        get :edit,
+          params: {
+            anime_id: anime.to_param,
+            type: Anime.name,
+            id: review.id
+          },
+          xhr: true
+      end
+      it do
+        expect(response).to_not render_template :form
+        expect(response).to have_http_status :success
+      end
+    end
+
+    context 'html' do
+      subject! do
+        get :edit,
+          params: {
+            anime_id: anime.to_param,
+            type: Anime.name,
+            id: review.id
+          }
+      end
+      it do
+        expect(response).to render_template :form
+        expect(response).to have_http_status :success
+      end
+    end
+  end
 end

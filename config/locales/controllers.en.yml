@@ -399,7 +399,7 @@ en:
   animes/reviews_controller:
     <<: *animes_controller
     new_review: New review
-    # edit_review: Edit review
+    edit_review: Edit review
     review_by: Review by %{nickname}
     review_is_already_written:
       anime: You have already written a review for this anime
