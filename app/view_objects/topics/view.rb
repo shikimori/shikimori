@@ -224,7 +224,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :topic
   end
 
-  def cache_key
+  def cache_key *additionals
     CacheHelper.keys(
       self.class.name,
       @topic,
@@ -238,7 +238,8 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       skip_body?,
       closed?, # not sure whether it is necessary
       h.current_user&.preferences&.is_shiki_editor?,
-      CACHE_VERSION
+      CACHE_VERSION,
+      *additionals
     )
   end
 

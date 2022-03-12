@@ -2,20 +2,20 @@ class Topics::ReviewView < Topics::UserContentView
   delegate :db_entry, :body, to: :review
 
   def container_classes
-    super 'b-review-topic'
+    if author_details?
+      super %w[b-review-topic is-review_author_details]
+    else
+      super 'b-review-topic'
+    end
   end
 
   def need_trucation?
     preview? || minified?
   end
 
-  def minified?
-    is_preview || is_mini
+  def author_details?
+    (preview? && minified?) || !preview?
   end
-
-  # def poster is_2x
-  #   @topic.user.avatar_url is_2x ? 80 : 48
-  # end
 
   def action_tag
     [
@@ -58,7 +58,11 @@ class Topics::ReviewView < Topics::UserContentView
   end
 
   def dynamic_type
-    preview? && !minified? ? :review : super
+    author_details? ? :review : super
+  end
+
+  def cache_key
+    super author_details?
   end
 
 private
