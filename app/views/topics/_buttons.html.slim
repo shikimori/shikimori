@@ -23,8 +23,9 @@ aside.buttons
           title=t('actions.reply')
           data-text=t('actions.reply')
           data-dynamic='day_registered'
+          href=topic_view.urls.reply_url
         ]
-      - else topic_view.is_mini
+      - else
         span.item-reply.to-process[
           title=t('actions.reply')
           data-text=t('actions.reply')

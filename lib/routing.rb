@@ -93,37 +93,21 @@ module Routing
     end
   end
 
-  def critique_url critique, prefix: nil
+  def critique_url critique, action: nil
     send(
-      "#{prefix}#{critique.db_entry_type.downcase}_critique_url",
+      "#{"#{action}_" if action}#{critique.db_entry_type.downcase}_critique_url",
       critique.target,
       critique
     )
   end
 
-  def edit_critique_url critique
-    critique_url critique, prefix: 'edit_'
-  end
-
-  # def reply_critique_url critique
-  #   critique_url critique, is_reply: true
-  # end
-
-  def review_url review, prefix: nil
+  def review_url review, action: nil
     send(
-      "#{prefix}#{review.db_entry_type.downcase}_review_url",
+      "#{"#{action}_" if action}#{review.db_entry_type.downcase}_review_url",
       review.db_entry,
       review
     )
   end
-
-  def edit_review_url review
-    review_url review, prefix: 'edit_'
-  end
-
-  # def reply_review_url review
-  #   review_url review, is_reply: true
-  # end
 
   def forum_url forum, linked = nil
     if linked

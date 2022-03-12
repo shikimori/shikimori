@@ -20,10 +20,10 @@ class Topics::Urls < ViewObjectBase
 
   def edit_url # rubocop:disable AbcSize
     if topic_type_policy.critique_topic?
-      UrlGenerator.instance.edit_critique_url topic.linked
+      UrlGenerator.instance.critique_url topic.linked, action: :edit
 
     elsif topic_type_policy.review_topic?
-      UrlGenerator.instance.edit_review_url topic.linked
+      UrlGenerator.instance.review_url topic.linked, action: :edit
 
     elsif topic_type_policy.collection_topic?
       h.edit_collection_url topic.linked
@@ -36,6 +36,18 @@ class Topics::Urls < ViewObjectBase
 
     else
       h.edit_topic_url topic
+    end
+  end
+
+  def reply_url
+    if topic_type_policy.critique_topic?
+      UrlGenerator.instance.critique_url topic.linked, action: :reply
+
+    elsif topic_type_policy.review_topic?
+      UrlGenerator.instance.review_url topic.linked, action: :reply
+
+    else
+      raise ArgumentErorr
     end
   end
 
