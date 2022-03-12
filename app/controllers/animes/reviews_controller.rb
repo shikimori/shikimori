@@ -83,7 +83,8 @@ class Animes::ReviewsController < AnimesController
         partial: 'animes/reviews/form',
         locals: {
           review: @review,
-          resource: @resource
+          resource: @resource,
+          is_remote: true
         }
       )
     else

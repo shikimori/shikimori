@@ -1,7 +1,7 @@
 = simple_form_for review.new_record? ? [resource, review] : [:api, review],
     remote: local_assigns[:is_remote],
     authenticity_token: true,
-    html: { data: (review.persisted? ? { type: :json } : nil), id: nil } do |f|
+    html: { data: (local_assigns[:is_remote] ? { type: :json } : nil), id: nil } do |f|
   input type='hidden' name='frontend' value='true'
 
   - if review.new_record?
@@ -17,6 +17,7 @@
       field_name: 'review[body]',
       f: f,
       no_preview_avatar: true,
+      cancel_url: (UrlGenerator.instance.review_url(review) if review.persisted? && !local_assigns[:is_remote]),
       cache_key: review.cache_key do
     aside.markers
       - Review.opinion.options.each do |(name, key)|
