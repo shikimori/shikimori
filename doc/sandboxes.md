@@ -321,6 +321,53 @@ end;
 User.find(user_id).update rate_at: Time.zone.now
 ```
 
+#### Move manga data from development to production
+```ruby
+manga = Manga.find(93281);
+
+File.open('/tmp/z.json', 'w') do |f|
+  f.write({
+    user_history: UserHistory.where(target: manga),
+    user_rate_logs: UserRateLog.where(target: manga),
+    user_rates: UserRate.where(target: manga),
+    favorites: Favourite.where(linked: manga),
+    club_links: ClubLink.where(linked: manga)
+  }.to_json);
+end;
+```
+
+```sh
+scp /tmp/z.json devops@shiki:/tmp/
+ssh shiki
+rc
+```
+
+```ruby
+manga = Manga.find(93281);
+json = JSON.parse(open('/tmp/z.json').read).symbolize_keys;
+
+class UserRate < ApplicationRecord
+  def log_created; end
+  def log_deleted; end
+end
+
+ApplicationRecord.transaction do
+  {
+    user_history: UserHistory,
+    user_rate_logs: UserRateLog,
+    user_rates: UserRate,
+    favorites: Favourite,
+    club_links: ClubLink,
+  }.each do |key, klass|
+    klass.wo_timestamp do
+      klass.import(json[key].map {|v| klass.new v }, on_duplicate_key_ignore: true);
+    end;
+  end
+end;
+
+manga.touch
+```
+
 ### Restore images from backup
 ```ruby
 urls = [
