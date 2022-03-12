@@ -8,6 +8,12 @@
     = f.input :anime_id, as: :hidden
     = f.input :manga_id, as: :hidden
 
+  - if review.errors.any?
+    .b-errors
+      .subheadline.m5 = i18n_i 'error', :other
+      .block
+        == review.errors.full_messages.join('<br>')
+
   - if review.written_before_release? && review.db_entry_released_before?
     = f.input :is_written_before_release, as: :boolean
 
