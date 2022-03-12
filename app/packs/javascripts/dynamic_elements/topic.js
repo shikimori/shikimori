@@ -405,24 +405,6 @@ export default class Topic extends ShikiEditable {
     this._updateCommentsLoader(data);
   }
 
-  // private functions
-  // проверка высоты топика. урезание, если текст слишком длинный (точно такой же код в shiki_comment)
-  @bind
-  _checkHeight() {
-    if (!this.isCritique) { return super._checkHeight(); }
-
-    const imageHeight = this.$('.critique-entry_cover img').height();
-    const readMoreHeight = 13 + 5; // 5px - read_more offset
-
-    if (imageHeight > 0) {
-      checkHeight(this.$('.body-truncated'), {
-        maxHeight: imageHeight - readMoreHeight,
-        collapsedHeight: imageHeight - readMoreHeight,
-        expandHtml: ''
-      });
-    }
-  }
-
   _actualizeVoting() {
     this.$inner
       .find('.b-footer_vote .vote.yes, .user-vote .voted-for')
