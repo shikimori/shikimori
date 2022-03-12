@@ -37,7 +37,7 @@ class Topics::GeneratedNewsView < Topics::View
     h.content_tag :div, render_linked, class: 'b-catalog-entry-embedded'
   end
 
-  def author_in_header?
+  def poster_in_header?
     false
   end
 

@@ -30,6 +30,14 @@
 
     /= cache [topic.object, topic.linked ? topic.linked : nil, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
     header
+      - if topic_view.poster_in_header?
+        span.linkeable.poster data-href=topic_view.urls.poster_url
+          img[
+            src=topic_view.poster(false)
+            srcset="#{topic_view.poster true} 2x"
+            alt=topic_view.poster_title
+          ]
+
       - if topic_view.minified?
         = render 'topics/header/mini', topic_view: topic_view
       - else
@@ -55,7 +63,7 @@
     - unless topic_view.skip_body?
       .body.b-text_with_paragraphs
         - if topic_view.minified?
-          - if topic_view.topic_type_policy.critique_topic?
+          / - if topic_view.topic_type_policy.critique_topic?
             = render 'topics/critiques/entry_cover', view: topic_view,
               entry: topic_view.topic.linked.target.decorate
 

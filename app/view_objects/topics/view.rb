@@ -140,7 +140,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     Topics::Urls.new self
   end
 
-  def author_in_header?
+  def poster_in_header?
     true
   end
 
