@@ -26,10 +26,10 @@ class Topics::GeneratedNewsView < Topics::View
   end
 
   def topic_title
-    if !is_preview
-      i18n_t "titles.#{topic.action}", value: topic.value
-    else
+    if is_preview
       super
+    else
+      i18n_t "titles.#{topic.action}", value: topic.value
     end
   end
 

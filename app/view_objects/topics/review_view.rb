@@ -13,9 +13,9 @@ class Topics::ReviewView < Topics::UserContentView
     is_preview || is_mini
   end
 
-  def poster is_2x
-    @topic.user.avatar_url is_2x ? 80 : 48
-  end
+  # def poster is_2x
+  #   @topic.user.avatar_url is_2x ? 80 : 48
+  # end
 
   def action_tag
     OpenStruct.new(
@@ -49,6 +49,10 @@ class Topics::ReviewView < Topics::UserContentView
 
   def review
     @topic.linked
+  end
+
+  def dynamic_type
+    preview? && !minified? ? :review : super
   end
 
 private

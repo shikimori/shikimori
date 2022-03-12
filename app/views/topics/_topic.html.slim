@@ -3,7 +3,7 @@ article.to-process[
   class=topic_view.container_classes.join(' ')
   data-appear_type='topic'
   data-appear_url=api_appears_url
-  data-dynamic=(topic_view.is_a?(Topics::ReviewView) ? :review : :topic)
+  data-dynamic=topic_view.dynamic_type
   data-faye=(topic_view.is_mini ? false : topic_view.faye_channels).to_json
   data-generated=topic_view.generated?.to_json
   data-track_topic="#{JsExports::TopicsExport.instance.placeholder(topic_view.topic) unless local_assigns[:do_not_track]}"
@@ -38,7 +38,7 @@ article.to-process[
     = render 'topics/news_wall/inner', topic_view: topic_view
   - elsif topic_view.is_a? Topics::NewsLineView
     = render 'topics/news_line/inner', topic_view: topic_view
-  - elsif topic_view.is_a? Topics::ReviewView
+  - elsif topic_view.is_a?(Topics::ReviewView) && topic_view.preview? && !topic_view.minified?
     = render 'topics/reviews/inner', topic_view: topic_view
   - elsif topic_view.show_inner?
     = render 'topics/inner', topic_view: topic_view

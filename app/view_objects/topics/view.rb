@@ -120,6 +120,8 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       linked =
         if topic_type_policy.critique_topic?
           @topic.linked.target
+        elsif topic_type_policy.review_topic?
+          @topic.linked.db_entry
         elsif topic_type_policy.club_page_topic?
           @topic.linked.club
         else
@@ -216,6 +218,10 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def topic_type_policy
     Topic::TypePolicy.new @topic
+  end
+
+  def dynamic_type
+    :topic
   end
 
   def cache_key
