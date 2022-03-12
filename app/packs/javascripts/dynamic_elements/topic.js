@@ -221,6 +221,16 @@ export default class Topic extends ShikiEditable {
     return this.$body;
   }
 
+  _assignCheckHeightLimits() {
+    if (this.isReview || this.isCritique) {
+      this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT = 220;
+      this.CHECK_HEIGHT_COLLAPSED_HEIGHT = 120;
+      this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 120;
+    } else {
+      super._assignCheckHeightLimits();
+    }
+  }
+
   _bindFaye() {
     super._bindFaye();
 
@@ -498,17 +508,5 @@ export default class Topic extends ShikiEditable {
       .on('ajax:complete', () => {
         this.$inner.find('.b-footer_vote').removeClass('b-ajax');
       });
-  }
-
-  _scheduleCheckHeight(isSkipClassCheck) {
-    if (this.isReview || this.isCritique) {
-      const mobileOffset = isPhone() ? 63 : 0;
-
-      this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT = 220 + mobileOffset;
-      this.CHECK_HEIGHT_COLLAPSED_HEIGHT = 120 + mobileOffset;
-      this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = this.CHECK_HEIGHT_COLLAPSED_HEIGHT;
-    }
-
-    super._scheduleCheckHeight(isSkipClassCheck);
   }
 }

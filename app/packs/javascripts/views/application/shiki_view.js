@@ -13,12 +13,10 @@ export default class ShikiView extends View {
   _initialize(...args) {
     super._initialize(...args);
 
-    this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT = 450;
-    this.CHECK_HEIGHT_COLLAPSED_HEIGHT = 150;
-    this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 0;
-
     this.$node.removeClass('unprocessed');
     this.$inner = this.$('>.inner');
+
+    this._assignCheckHeightLimits();
   }
 
   destroy() {
@@ -49,6 +47,12 @@ export default class ShikiView extends View {
     }
     await delay(10);
     this._checkHeight();
+  }
+
+  _assignCheckHeightLimits() {
+    this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT = 450;
+    this.CHECK_HEIGHT_COLLAPSED_HEIGHT = 150;
+    this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 0;
   }
 
   @bind
