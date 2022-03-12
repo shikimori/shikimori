@@ -47,7 +47,7 @@ class Topics::Urls < ViewObjectBase
       UrlGenerator.instance.review_url topic.linked, action: :reply
 
     else
-      raise ArgumentErorr
+      topic_url
     end
   end
 
