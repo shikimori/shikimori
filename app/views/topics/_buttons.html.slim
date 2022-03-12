@@ -1,14 +1,15 @@
 aside.buttons
   .main-controls
-    span.item-ignore.to-process[
-      title=t('actions.ignore')
-      data-text=t('actions.ignore')
-      data-action=api_v2_topics_ignore_url(topic_view.id)
-      data-dynamic='authorized'
-      data-method='POST'
-      data-remote='true'
-      data-type='json'
-    ]
+    - unless topic_view.topic_type_policy.review_topic? || topic_view.topic_type_policy.critique_topic?
+      span.item-ignore.to-process[
+        title=t('actions.ignore')
+        data-text=t('actions.ignore')
+        data-action=api_v2_topics_ignore_url(topic_view.id)
+        data-dynamic='authorized'
+        data-method='POST'
+        data-remote='true'
+        data-type='json'
+      ]
     / - if !topic_view.topic.is_closed? && topic_view.topic_type_policy.commentable_topic? && \
          !(params[:forum] == 'critiques' && controller.action_name == 'index')
     - if !topic_view.topic.is_closed? && topic_view.topic_type_policy.commentable_topic?
