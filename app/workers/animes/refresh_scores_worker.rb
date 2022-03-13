@@ -1,5 +1,6 @@
 class Animes::RefreshScoresWorker
   include Sidekiq::Worker
+  sidekiq_options queue: :scores_jobs
 
   Type = Types::Coercible::String.enum(Anime.name, Manga.name)
 
