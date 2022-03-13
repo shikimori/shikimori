@@ -4,11 +4,11 @@ describe Anime::RefreshScores do
   let(:anime) { create :anime }
   let(:global_average) { 8.0 }
 
-  Anime::RefreshScores::MIN_RATES.times do |i|
+  Animes::WeightedScore::MIN_SCORES.times do |i|
     let(:"user_#{i + 1}") { create :user }
   end
 
-  Anime::RefreshScores::MIN_RATES.times do |i|
+  Animes::WeightedScore::MIN_SCORES.times do |i|
     let!(:"anime_rate_#{i + 1}".to_sym) do
       create :user_rate,
         target: anime,
