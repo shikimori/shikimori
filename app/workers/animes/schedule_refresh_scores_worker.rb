@@ -3,14 +3,12 @@ class Animes::ScheduleRefreshScoresWorker
 
   sidekiq_options queue: :cpu_intensive
 
-  Kind = Types::Strict::String
-    .constructor(&:to_s)
-    .enum('anime', 'manga')
+  Type = Types::Coercible::String.enum(Anime.name, Manga.name)
 
   def perform kind
     @entry_class = Kind[kind].classify.constantize
     ids_to_update.each do |entry_id|
-      RefreshScoresWorker.perform_async(@entry_class, entry_id, global_average)
+      Animes::RefreshScoresWorker.perform_async(@entry_class.name, entry_id, global_average)
     end
   end
 
