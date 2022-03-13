@@ -174,14 +174,16 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
 
 private
 
-  def og_db_entry_meta
+  def og_db_entry_meta # rubocop:disable MethodLength
     if @resource.object.respond_to?(:description_ru)
       og description: @resource.description_meta
     end
-    if (@resource.anime? && @resource.id <= 51153) || (@resource.kinda_manga? && @resource.id <= 144556)
+
+    if (@resource.anime? && @resource.id <= 51_153) ||
+        (@resource.kinda_manga? && @resource.id <= 144_556)
       og(
-        image: 'http://cdn.anime-recommend.ru/previews' +
-          "#{"/manga" if @resource.kinda_manga?}/#{@resource.id}.jpg",
+        image: 'http://cdn.anime-recommend.ru/previews' \
+          "#{'/manga' if @resource.kinda_manga?}/#{@resource.id}.jpg",
         image_width: 1200,
         image_height: 630,
         image_type: 'image/jpeg',
