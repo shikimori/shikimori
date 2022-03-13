@@ -228,10 +228,9 @@ module Clockwork
   # end
 
   every 1.day, 'daily.schedule_scores_refresh', at: '04:30' do
-    Animes::ScheduleRefreshScoresWorker.perform_async 'anime'
-    Animes::ScheduleRefreshScoresWorker.perform_async 'manga'
+    Animes::ScheduleRefreshScoresWorker.perform_async Anime.name
+    Animes::ScheduleRefreshScoresWorker.perform_async Manga.name
 
     NamedLogger.clockwork.info 'daily.schedule_scores_refresh finished'
   end
-
 end
