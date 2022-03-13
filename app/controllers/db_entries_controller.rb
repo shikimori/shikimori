@@ -178,12 +178,15 @@ private
     if @resource.object.respond_to?(:description_ru)
       og description: @resource.description_meta
     end
-    if @resource.anime? && @resource.id <= 51153
-      og image: "http://cdn.anime-recommend.ru/previews/#{@resource.id}.jpg"
-      og image_width: 1200
-      og image_height: 630
-      og image_type: 'image/jpeg'
-      og twitter_card: 'summary_large_image'
+    if (@resource.anime? && @resource.id <= 51153) || (@resource.kinda_manga? && @resource.id <= 144556)
+      og(
+        image: 'http://cdn.anime-recommend.ru/previews' +
+          "#{"/manga" if @resource.kind_manga?}/#{@resource.id}.jpg",
+        image_width: 1200,
+        image_height: 630,
+        image_type: 'image/jpeg',
+        twitter_card: 'summary_large_image'
+      )
     else
       og image: ImageUrlGenerator.instance.url(@resource, :original)
     end
