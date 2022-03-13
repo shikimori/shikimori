@@ -45,6 +45,6 @@ class Animes::ScheduleRefreshScoresWorker
     UserRate
       .where(target_type: @entry_class.to_s)
       .where('score > 0')
-      .average(:score) / 10
+      .average(:score)
   end
 end

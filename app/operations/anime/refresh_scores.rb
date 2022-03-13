@@ -11,7 +11,7 @@ class Anime::RefreshScores
       .where.not(user_id: User.excluded_from_statistics)
 
     unless rates.length < MIN_RATES
-      average = rates.average(:score) / 10
+      average = rates.average(:score)
       number_of_scores = rates.length
 
       weighted_score = ((number_of_scores.to_f / (number_of_scores + MIN_RATES)) * average) +

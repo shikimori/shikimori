@@ -2,7 +2,7 @@ describe Anime::RefreshScores do
   subject { described_class.call anime, global_average }
 
   let(:anime) { create :anime }
-  let(:global_average) { 0.8 }
+  let(:global_average) { 8.0 }
 
   Anime::RefreshScores::MIN_RATES.times do |i|
     let(:"user_#{i + 1}") { create :user }
@@ -20,7 +20,7 @@ describe Anime::RefreshScores do
 
   context 'anime score_2 changed' do
     it do
-      expect { subject }.to change(anime, :score_2)
+      expect { subject }.to change(anime, :score_2).to 8.5
     end
   end
 end
