@@ -5,14 +5,14 @@ describe Animes::RefreshScoresWorker do
   end
   let(:type) { anime.class.name }
   let(:entry_id) { anime.id }
-  let(:global_average) { 9.9 }
+  let(:global_average) { '9.9' }
 
   context 'found entry' do
     let(:anime) { create :anime }
     it do
       expect(Anime::RefreshScore)
         .to have_received(:call)
-        .with(anime, global_average)
+        .with(anime, global_average.to_f)
     end
   end
 

@@ -9,6 +9,6 @@ class Animes::RefreshScoresWorker
     entry = klass.find_by id: entry_id
     return unless entry
 
-    Anime::RefreshScore.call entry, global_average
+    Anime::RefreshScore.call entry, global_average.to_f
   end
 end
