@@ -226,4 +226,11 @@ module Clockwork
   # every 1.day, 'monthly.vacuum', at: '05:00', if: lambda { |t| t.day == 28 } do
   #   VacuumDb.perform_async
   # end
+
+  every 1.day, 'daily.schedule_scores_refresh', at: '04:30' do
+    Animes::ScheduleRefreshScoresWorker.perform_async Anime.name
+    Animes::ScheduleRefreshScoresWorker.perform_async Manga.name
+
+    NamedLogger.clockwork.info 'daily.schedule_scores_refresh finished'
+  end
 end

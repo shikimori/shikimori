@@ -69,7 +69,8 @@ private
         list_stats: anime_stat.list_stats,
         entry_id: anime_stat.entry_id,
         entry_type: anime_stat.entry_type,
-        created_on: today
+        created_on: today,
+        score_2: anime_stat.entry.score_2
       )
     end
   end

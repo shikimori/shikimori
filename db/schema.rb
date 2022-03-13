@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2022_02_26_090539) do
     t.string "entry_type", null: false
     t.bigint "entry_id", null: false
     t.date "created_on", null: false
+    t.decimal "score_2", default: "0.0", null: false
     t.index ["entry_id", "entry_type", "created_on"], name: "index_anime_stat_histories_on_e_id_and_e_type_and_created_on", unique: true
     t.index ["entry_type", "entry_id"], name: "index_anime_stat_histories_on_entry_type_and_entry_id"
   end
@@ -174,6 +175,7 @@ ActiveRecord::Schema.define(version: 2022_02_26_090539) do
     t.string "licensors", default: [], null: false, array: true
     t.date "digital_released_on"
     t.date "russia_released_on"
+    t.decimal "score_2", default: "0.0", null: false
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["rating"], name: "index_animes_on_rating"
@@ -687,6 +689,7 @@ ActiveRecord::Schema.define(version: 2022_02_26_090539) do
     t.string "franchise", limit: 255
     t.string "license_name_ru"
     t.string "licensors", default: [], null: false, array: true
+    t.decimal "score_2", default: "0.0", null: false
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"
