@@ -181,7 +181,7 @@ private
     if (@resource.anime? && @resource.id <= 51153) || (@resource.kinda_manga? && @resource.id <= 144556)
       og(
         image: 'http://cdn.anime-recommend.ru/previews' +
-          "#{"/manga" if @resource.kind_manga?}/#{@resource.id}.jpg",
+          "#{"/manga" if @resource.kinda_manga?}/#{@resource.id}.jpg",
         image_width: 1200,
         image_height: 630,
         image_type: 'image/jpeg',
