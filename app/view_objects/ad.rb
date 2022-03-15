@@ -242,12 +242,12 @@ private
       # convert -resize 50% app/assets/images/globals/events/special_wide_1@2x.png app/assets/images/globals/events/special_wide_1.png
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        # PUBG - remove 2022-03-15 00:00
-        url: 'https://bit.ly/3C8T7UU',
+        # imba.shop - remove 2022-04-01 00:00
+        url: 'https://bit.ly/3IgnSbP',
         images: (1..1).map do |i|
           {
-            src: "/assets/globals/events/2022-03-01/wide_#{i}.jpg",
-            src_2x: "/assets/globals/events/2022-03-01/wide_#{i}@2x.jpg"
+            src: "/assets/globals/events/2022-03-15/wide_#{i}.jpg",
+            src_2x: "/assets/globals/events/2022-03-15/wide_#{i}@2x.jpg"
           }
         end,
         # PUBG END
@@ -391,12 +391,12 @@ private
       # disable after 2021-11-30 23:55
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        # PUBG - remove 2022-03-15 00:00
-        url: 'https://bit.ly/3C8T7UU',
+        # imba.shop - remove 2022-04-01 00:00
+        url: 'https://bit.ly/3IgnSbP',
         images: (1..1).map do |i|
           {
-            src: "/assets/globals/events/2022-03-01/wide_#{i}.jpg",
-            src_2x: "/assets/globals/events/2022-03-01/wide_#{i}@2x.jpg"
+            src: "/assets/globals/events/2022-03-15/wide_#{i}.jpg",
+            src_2x: "/assets/globals/events/2022-03-15/wide_#{i}@2x.jpg"
           }
         end,
         # PUBG END
@@ -504,12 +504,12 @@ private
         Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        Types::Ad::Type[:special_x300], # PUBG - remove 2022-03-15 00:00
+        # Types::Ad::Type[:special_x300], # PUBG - remove 2022-03-15 00:00
         Types::Ad::Type[:yd_240x600],
         Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        Types::Ad::Type[:special_x300], # PUBG - remove 2022-03-15 00:00
+        # Types::Ad::Type[:special_x300], # PUBG - remove 2022-03-15 00:00
         Types::Ad::Type[:yd_300x600],
         Types::Ad::Type[:mt_300x600]
       ],
@@ -525,7 +525,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        Types::Ad::Type[:special_x1170], # PUBG - remove 2022-03-15 00:00
+        Types::Ad::Type[:special_x1170], # imba.shop - remove 2022-04-01 00:00
         Types::Ad::Type[:yd_970x250],
         Types::Ad::Type[:mt_970x250]
       ]
@@ -537,7 +537,7 @@ private
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        Types::Ad::Type[:special_x300], # PUBG - remove 2022-03-15 00:00
+        # Types::Ad::Type[:special_x300], # PUBG - remove 2022-03-15 00:00
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
         Types::Ad::Type[:advrtr_240x400]
@@ -560,7 +560,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        Types::Ad::Type[:special_x1170] # PUBG - remove 2022-03-15 00:00
+        Types::Ad::Type[:special_x1170] # imba.shop - remove 2022-04-01 00:00
       ]
     }
   }
