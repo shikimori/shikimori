@@ -147,10 +147,10 @@ describe Animes::ReviewsController do
       end
     end
 
-    context 'invalid params', :focus do
+    context 'invalid params' do
       let(:params) do
         {
-          text: 'too short text'
+          body: 'too short text'
         }
       end
       it do

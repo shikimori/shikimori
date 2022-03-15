@@ -1,4 +1,4 @@
-= simple_form_for review.new_record? ? [resource, review] : [:api, review],
+= simple_form_for review.new_record? || !local_assigns[:is_remote] ? [resource, review] : [:api, review],
     remote: local_assigns[:is_remote],
     authenticity_token: true,
     html: { data: (local_assigns[:is_remote] ? { type: :json } : nil), id: nil } do |f|
