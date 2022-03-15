@@ -115,17 +115,18 @@ function simpleBar($chart, options) {
         options.xAxis(entry, index, stats, options) :
         entry.name;
 
+    const trimmedValue = String(entry[field]).replace(/\.0+$/, '');
     const title =
       options.title ?
         options.title(entry, percent) :
-        entry[field];
+        trimmedValue;
 
-    const value =
+    const valueText =
       (percent > 25) ||
           ((percent > 17) && (entry[field] < 1000)) ||
           ((percent > 10) && (entry[field] < 100)) ||
           ((percent > 5) && (entry[field] < 10)) ?
-        entry[field] :
+        trimmedValue :
         '';
 
     const cssStyles =
@@ -144,8 +145,8 @@ function simpleBar($chart, options) {
         `<div class="x_label">${xAxis}</div>` +
         '<div class="bar-container">' +
           `<div class="bar ${color}${percent > 0 ? ' min' : ''}"` +
-            ` style="${dimension}: ${percent}%" title="${title || entry[field]}">` +
-            `<div class="${cssClasses.join(' ')}">${value}</div>` +
+            ` style="${dimension}: ${percent}%" title="${title}">` +
+            `<div class="${cssClasses.join(' ')}">${valueText}</div>` +
           '</div>' +
         '</div>' +
       '</div>'
