@@ -93,22 +93,48 @@ class Animes::ReviewsController < AnimesController
   end
 
   def create
-    @review = Review::Create.call review_params
+    @review = Review::Create.call create_params
 
     if @review.errors.blank?
-      redirect_to UrlGenerator.instance.review_url(@review)
+      redirect_to(
+        UrlGenerator.instance.review_url(@review),
+        notice: i18n_t('review.created')
+      )
     else
       new
     end
   end
 
+  def update
+    is_updated = Review::Update.call(
+      review: @review,
+      params: update_params,
+      faye: FayeService.new(current_user, faye_token)
+    )
+
+    if is_updated
+      redirect_to(
+        UrlGenerator.instance.review_url(@review),
+        notice: i18n_t('review.updated')
+      )
+    else
+      edit
+    end
+  end
+
 private
 
-  def review_params
+  def create_params
     params
       .require(:review)
-      .permit(:body, :anime_id, :manga_id, :opinion)
+      .permit(*Api::V1::ReviewsController::CREATE_PARAMS)
       .merge(user: current_user)
+  end
+
+  def update_params
+    params
+      .require(:review)
+      .permit(*Api::V1::ReviewsController::UPDATE_PARAMS)
   end
 
   def add_breadcrumbs

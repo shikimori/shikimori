@@ -48,9 +48,8 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
     @critique = Critique::Create.call critique_params, locale_from_host
 
     if @critique.errors.blank?
-      topic = @critique.maybe_topic locale_from_host
       redirect_to(
-        UrlGenerator.instance.topic_url(topic),
+        UrlGenerator.instance.critique_url(@critique),
         notice: i18n_t('critique.created')
       )
     else
@@ -62,9 +61,8 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
     is_updated = Critique::Update.call @critique, critique_params, current_user
 
     if is_updated
-      topic = @critique.maybe_topic locale_from_host
       redirect_to(
-        UrlGenerator.instance.topic_url(topic),
+        UrlGenerator.instance.critique_url(@critique),
         notice: i18n_t('critique.updated')
       )
     else

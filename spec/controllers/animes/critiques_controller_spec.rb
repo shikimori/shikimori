@@ -66,8 +66,7 @@ describe Animes::CritiquesController do
       end
       it do
         expect(assigns(:critique)).to be_persisted
-        topic = assigns(:critique).topic(controller.locale_from_host)
-        expect(response).to redirect_to UrlGenerator.instance.topic_url(topic)
+        expect(response).to redirect_to UrlGenerator.instance.critique_url(assigns(:critique))
       end
     end
 
@@ -128,8 +127,7 @@ describe Animes::CritiquesController do
       end
       it do
         expect(assigns(:critique).errors).to be_empty
-        topic = assigns(:critique).topic(controller.locale_from_host)
-        expect(response).to redirect_to UrlGenerator.instance.topic_url topic
+        expect(response).to redirect_to UrlGenerator.instance.critique_url(assigns(:critique))
       end
     end
 

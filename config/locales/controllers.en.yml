@@ -405,6 +405,10 @@ en:
       anime: You have already written a review for this anime
       manga: You have already written a review for this manga
       ranobe: You have already written a review for this light novel
+    review:
+      created: Review created
+      updated: Review updated
+      removed: Review removed
 
   users_controller:
     similar_users: Similar users

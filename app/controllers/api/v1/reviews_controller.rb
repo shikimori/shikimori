@@ -7,6 +7,9 @@ class Api::V1::ReviewsController < Api::V1Controller
     doorkeeper_authorize! :comments if doorkeeper_token.present?
   end
 
+  CREATE_PARAMS = %i[body anime_id manga_id opinion]
+  UPDATE_PARAMS = %i[body is_written_before_release opinion]
+
   def create
     @resource = Review::Create.call create_params
 
@@ -42,14 +45,14 @@ private
   def create_params
     params
       .require(:review)
-      .permit(:body, :anime_id, :manga_id, :opinion)
+      .permit(*CREATE_PARAMS)
       .merge(user: current_user)
   end
 
   def update_params
     params
       .require(:review)
-      .permit(:body, :is_written_before_release, :opinion)
+      .permit(*UPDATE_PARAMS)
   end
 
   def faye
