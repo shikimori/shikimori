@@ -23015,7 +23015,7 @@
       :algo: duration
       :filters:
         franchise: fruits_basket
-      :threshold: 100%
+      :threshold: 95%
       :generator:
         ignore_latest_ids:
         - 49310
