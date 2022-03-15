@@ -66,6 +66,7 @@ class Animes::ReviewsController < AnimesController
 
   def new
     og page_title: i18n_t('new_review')
+    breadcrumb i18n_t('new_review'), nil
 
     @review ||= Review.new do |review|
       review.anime = @anime
@@ -77,6 +78,7 @@ class Animes::ReviewsController < AnimesController
 
   def edit
     og page_title: i18n_t('edit_review')
+    breadcrumb i18n_t('edit_review'), nil
 
     if request.xhr?
       render(

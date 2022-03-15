@@ -36,11 +36,13 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
 
   def new
     og page_title: i18n_t('new_critique')
+    breadcrumb i18n_t('new_critique'), nil
     render :form
   end
 
   def edit
     og page_title: i18n_t('edit_critique')
+    breadcrumb i18n_t('edit_critique'), nil
     render :form
   end
 
