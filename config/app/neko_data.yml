@@ -17452,6 +17452,7 @@
         - 39477
         - 39478
         - 42091
+        - 49627
         - 49739
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -17493,6 +17494,7 @@
         - 39477
         - 39478
         - 42091
+        - 49627
         - 49739
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -18599,7 +18601,7 @@
         - 43745
         - 43751
         - 47307
-      :threshold: 81.7%
+      :threshold: 94.2%
       :generator:
         ignore_latest_ids:
         - 3786
@@ -20664,7 +20666,10 @@
         - 38419
         - 40181
         - 46171
-      :threshold: 95.6%
+        - 50696
+        - 51162
+        - 51163
+      :threshold: 95.7%
       :generator:
         ignore_latest_ids:
         - 38234
@@ -20718,6 +20723,9 @@
         - 38419
         - 40181
         - 46171
+        - 50696
+        - 51162
+        - 51163
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -21911,6 +21919,8 @@
       :algo: duration
       :filters:
         franchise: to_love_ru
+        not_anime_ids:
+        - 51193
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -21940,6 +21950,8 @@
       :algo: duration
       :filters:
         franchise: to_love_ru
+        not_anime_ids:
+        - 51193
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -23004,6 +23016,9 @@
       :filters:
         franchise: fruits_basket
       :threshold: 100%
+      :generator:
+        ignore_latest_ids:
+        - 49310
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :fruits_basket
@@ -23033,6 +23048,9 @@
       :filters:
         franchise: fruits_basket
       :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 49310
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :fruits_basket
@@ -23414,6 +23432,8 @@
         - 42174
         - 42914
         - 42984
+        - 50840
+        - 51150
       :threshold: 92.7%
       :generator:
         ignore_latest_ids:
@@ -23463,6 +23483,8 @@
         - 42174
         - 42914
         - 42984
+        - 50840
+        - 51150
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -28320,6 +28342,7 @@
         - 16964
         - 24347
         - 36913
+        - 51221
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -28354,6 +28377,7 @@
         - 16964
         - 24347
         - 36913
+        - 51221
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -28387,7 +28411,8 @@
         - 711
         - 7122
         - 23931
-      :threshold: 95%
+        - 40554
+      :threshold: 93%
       :generator:
         ignore_latest_ids:
         - 40389
@@ -28424,6 +28449,7 @@
         - 711
         - 7122
         - 23931
+        - 40554
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -28655,6 +28681,8 @@
       :algo: duration
       :filters:
         franchise: huyao_xiao_hongniang
+        not_anime_ids:
+        - 51194
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -28684,6 +28712,8 @@
       :algo: duration
       :filters:
         franchise: huyao_xiao_hongniang
+        not_anime_ids:
+        - 51194
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -30481,7 +30511,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 90.8%
+      :threshold: 90.9%
       :generator:
         ignore_latest_ids:
         - 38850
