@@ -7,10 +7,6 @@ class Topics::CritiqueView < Topics::UserContentView
     preview? || minified?
   end
 
-  def minified?
-    is_preview || is_mini
-  end
-
   def action_tag
     OpenStruct.new(
       type: 'critique',

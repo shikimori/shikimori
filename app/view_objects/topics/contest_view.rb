@@ -14,7 +14,7 @@ class Topics::ContestView < Topics::View
     )
   end
 
-  def linked_in_avatar?
+  def linked_in_poster?
     false
   end
 end

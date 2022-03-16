@@ -32,7 +32,7 @@ class Topics::ArticleView < Topics::UserContentView
     preview? && html_footer.present?
   end
 
-  def linked_in_avatar?
+  def linked_in_poster?
     false
   end
 

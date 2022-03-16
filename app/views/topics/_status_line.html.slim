@@ -1,7 +1,7 @@
 - topic_type_policy = topic_view.topic_type_policy
 
 .b-status-line
-  - if topic_view.minified?
+  - if topic_view.linked_in_poster? && !topic_view.generated?
     .section.about
       span = t '.by'
       span.author

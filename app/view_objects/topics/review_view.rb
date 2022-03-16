@@ -2,8 +2,8 @@ class Topics::ReviewView < Topics::UserContentView
   delegate :db_entry, :body, to: :review
 
   def container_classes
-    if author_details?
-      super %w[b-review-topic is-review_author_details]
+    if review_author_details?
+      super %w[b-review-topic is-review_review_author_details]
     else
       super 'b-review-topic'
     end
@@ -13,7 +13,7 @@ class Topics::ReviewView < Topics::UserContentView
     preview? || minified?
   end
 
-  def author_details?
+  def review_author_details?
     (preview? && minified?) || !preview?
   end
 
@@ -58,11 +58,11 @@ class Topics::ReviewView < Topics::UserContentView
   end
 
   def dynamic_type
-    author_details? ? :review : super
+    review_author_details? ? :review : super
   end
 
   def cache_key
-    super author_details?
+    super review_author_details?
   end
 
 private

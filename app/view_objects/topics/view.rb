@@ -24,7 +24,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   BODY_TRUCATE_SIZE = 500
   TRUNCATE_OMNISSION = '…'
-  CACHE_VERSION = :v22
+  CACHE_VERSION = :v23
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
@@ -116,7 +116,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def poster is_2x
     # last condition is for user topics about anime
-    if linked_in_avatar?
+    if linked_in_poster?
       linked =
         if topic_type_policy.critique_topic?
           @topic.linked.target
@@ -256,14 +256,14 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     I18n.l datetime, format: '%e %B %Y'
   end
 
+  def linked_in_poster?
+    @topic.linked && preview? &&
+      !topic_type_policy.forum_topic?
+  end
+
 private
 
   def body
     @topic.decomposed_body.text
-  end
-
-  def linked_in_avatar?
-    @topic.linked && preview? &&
-      !topic_type_policy.forum_topic?
   end
 end
