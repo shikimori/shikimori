@@ -54,7 +54,7 @@ describe ProfilesController do
   end
 
   describe '#reviews' do
-    let!(:review) { create :review, user: user, anime: anime }
+    let!(:review) { create :review, :with_topics, user: user, anime: anime }
     let(:anime) { create :anime }
     subject! { get :reviews, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
