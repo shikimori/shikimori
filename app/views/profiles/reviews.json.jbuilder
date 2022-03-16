@@ -2,8 +2,8 @@ json.content JsExports::Supervisor.instance.sweep(
   render(
     partial: 'topics/topic',
     collection: @collection,
-    locals: { is_display_target: true },
-    cached: ->(entry) { CacheHelper.keys entry, :is_display_target },
+    as: :topic_view,
+    cached: ->(entry) { CacheHelper.keys entry },
     formats: :html
   )
 )
