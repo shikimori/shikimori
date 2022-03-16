@@ -5,10 +5,6 @@ class Topics::CollectionView < Topics::UserContentView
     super 'b-collection-topic'
   end
 
-  def minified?
-    is_preview || is_mini
-  end
-
   def url options = {}
     if is_mini
       canonical_url

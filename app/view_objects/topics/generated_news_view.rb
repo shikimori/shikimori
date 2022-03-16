@@ -5,10 +5,6 @@ class Topics::GeneratedNewsView < Topics::View
     super 'b-generated_news-topic'
   end
 
-  def minified?
-    false
-  end
-
   def status_line?
     false
   end
