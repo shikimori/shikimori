@@ -112,11 +112,18 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     og page_title: i18n_io('Review', :few)
 
     scope = @resource.reviews
-      .includes(:anime, :manga)
+      .includes(:user, :topics, :anime, :manga)
       .order(created_at: :desc)
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, TOPICS_LIMIT)
+      .transform do |model|
+        Topics::ReviewView.new(
+          model.maybe_topic(locale_from_host),
+          true,
+          false
+        )
+      end
   end
 
   def collections

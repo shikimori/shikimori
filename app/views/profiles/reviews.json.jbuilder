@@ -1,6 +1,6 @@
 json.content JsExports::Supervisor.instance.sweep(
   render(
-    partial: 'reviews/review',
+    partial: 'topics/topic',
     collection: @collection,
     locals: { is_display_target: true },
     cached: ->(entry) { CacheHelper.keys entry, :is_display_target },
@@ -11,7 +11,7 @@ json.content JsExports::Supervisor.instance.sweep(
 if @collection.size == controller.class::TOPICS_LIMIT
   json.postloader render(
     'blocks/postloader',
-    filter: 'b-review',
+    filter: 'b-topic',
     next_url: current_url(page: @page + 1),
     prev_url: @page > 1 ? current_url(page: @page - 1) : nil
   )

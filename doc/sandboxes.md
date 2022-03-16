@@ -467,6 +467,7 @@ Review.
 ```ruby
 Review.
   # where(anime_id: 9253).
+  # where(user_id: 1).
   includes(:comments).
   find_each do |review|
     next unless review.maybe_topic(:ru).is_a?(NoTopic)
