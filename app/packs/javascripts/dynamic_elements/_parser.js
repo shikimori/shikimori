@@ -10,6 +10,7 @@ import LogEntry from './log_entry';
 import Message from './message';
 import NotImplementedYetAction from './not_implemented_yet_action';
 import Postloaded from './postloaded';
+import Critique from './critique';
 import Review from './review';
 import ShikiEditor from './shiki_editor';
 import ShikiEditorV2 from './shiki_editor_v2';
@@ -144,6 +145,10 @@ export default class DynamicParser {
 
   review(node) {
     new Review(node);
+  }
+
+  critique(node) {
+    new Critique(node);
   }
 
   tabs(node) {

@@ -45,6 +45,10 @@ class Topics::CritiqueView < Topics::UserContentView
     !preview?
   end
 
+  def dynamic_type
+    poster_in_header? ? super : :critique
+  end
+
 private
 
   def body
