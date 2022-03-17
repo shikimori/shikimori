@@ -3,19 +3,17 @@ class Api::V1::MangasController < Api::V1Controller
 
   LIMIT = 50
   ORDERS = %w[
-    id ranked kind popularity name aired_on volumes chapters status random
+    id id_desc ranked kind popularity name aired_on volumes chapters status random created_at_desc
   ]
+  TRANSLATED_ORDERS = I18n.t('by').keys.map(&:to_s)
   ORDERS_DESC = ORDERS.inject('') do |memo, order|
-    memo +
-      if order == 'random'
-        '<p><code>random</code> &ndash; in random order</p>'
-      else
-        <<~DOC
-          <p><code>#{order}</code> &ndash;
-          #{I18n.t("by.#{order}", locale: :en).downcase}
-          </p>
-        DOC
-      end
+    memo + <<~DOC
+      <p><code>#{order}</code> &ndash;
+      #{I18n.t("by.#{order}", locale: :en).downcase}
+      </p>
+    DOC
+  rescue I18n::NoTranslation
+    memo + "<p><code>#{order}</code></p>"
   end
 
   api :GET, '/mangas', 'List mangas'

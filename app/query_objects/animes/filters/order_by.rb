@@ -23,6 +23,8 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     random
     score
     score_2
+    created_at
+    created_at_desc
   ]
 
   AnimeField = Types::Strict::Symbol
@@ -89,6 +91,8 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     Field[:aired_on] => '%<table_name>s.aired_on desc',
     Field[:id] => '%<table_name>s.id',
     Field[:id_desc] => '%<table_name>s.id desc',
+    Field[:created_at] => '%<table_name>s.created_at',
+    Field[:created_at_desc] => '%<table_name>s.created_at desc',
     Field[:rate_id] => 'user_rates.id',
     Field[:rate_status] => 'user_rates.status',
     Field[:rate_updated] => 'user_rates.updated_at desc, user_rates.id',

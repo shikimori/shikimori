@@ -13,19 +13,16 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
 
   LIMIT = 50
   ORDERS = %w[
-    id ranked kind popularity name aired_on episodes status random
+    id id_desc ranked kind popularity name aired_on episodes status random created_at_desc
   ]
   ORDERS_DESC = ORDERS.inject('') do |memo, order|
-    memo +
-      if order == 'random'
-        '<p><code>random</code> &ndash; in random order</p>'
-      else
-        <<~DOC
-          <p><code>#{order}</code> &ndash;
-          #{I18n.t("by.#{order}", locale: :en).downcase}
-          </p>
-        DOC
-      end
+    memo + <<~DOC
+      <p><code>#{order}</code> &ndash;
+      #{I18n.t("by.#{order}", locale: :en).downcase}
+      </p>
+    DOC
+  rescue I18n::NoTranslation
+    memo + "<p><code>#{order}</code></p>"
   end
   DURATIONS = I18n.t('animes_collection.menu.anime.duration', locale: :en)
   DURATIONS_DESC = DURATIONS
