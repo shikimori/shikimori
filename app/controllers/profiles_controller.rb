@@ -120,7 +120,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       .order(created_at: :desc)
 
     @collection = QueryObjectBase.new(scope)
-      .paginate(@page, 3)
+      .paginate(@page, 5)
       .transform do |model|
         view = Topics::ReviewView.new model.maybe_topic(locale_from_host), true, false
         view.instance_variable_set :@is_show_comments, false
