@@ -3,7 +3,8 @@ class Api::V1::MangasController < Api::V1Controller
 
   LIMIT = 50
   ORDERS = %w[
-    id id_desc ranked kind popularity name aired_on volumes chapters status random created_at_desc
+    id id_desc ranked kind popularity name aired_on volumes chapters status
+    created_at created_at_desc random
   ]
   TRANSLATED_ORDERS = I18n.t('by').keys.map(&:to_s)
   ORDERS_DESC = ORDERS.inject('') do |memo, order|
@@ -13,7 +14,7 @@ class Api::V1::MangasController < Api::V1Controller
       </p>
     DOC
   rescue I18n::NoTranslation
-    memo + "<p><code>#{order}</code></p>"
+    memo
   end
 
   api :GET, '/mangas', 'List mangas'

@@ -13,7 +13,8 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
 
   LIMIT = 50
   ORDERS = %w[
-    id id_desc ranked kind popularity name aired_on episodes status random created_at_desc
+    id id_desc ranked kind popularity name aired_on episodes status
+    created_at created_at_desc random
   ]
   ORDERS_DESC = ORDERS.inject('') do |memo, order|
     memo + <<~DOC
@@ -22,7 +23,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
       </p>
     DOC
   rescue I18n::NoTranslation
-    memo + "<p><code>#{order}</code></p>"
+    memo
   end
   DURATIONS = I18n.t('animes_collection.menu.anime.duration', locale: :en)
   DURATIONS_DESC = DURATIONS
