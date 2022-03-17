@@ -70,14 +70,6 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   def action_tag
   end
 
-  def show_inner?
-    preview? || !@topic.generated?
-  end
-
-  def footer_vote?
-    !preview? && !minified? && topic_type_policy.votable_topic?
-  end
-
   def poster_title
     if preview?
       topic_title
@@ -142,10 +134,6 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     Topics::Urls.new self
   end
 
-  def poster_in_header?
-    true
-  end
-
   def html_body text = body
     return '' if text.blank?
 
@@ -174,12 +162,35 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       .html_safe
   end
 
+  def show_inner?
+    preview? || !@topic.generated?
+  end
+
+  def poster_in_header?
+    true
+  end
+
+  def footer_vote?
+    !preview? && !minified? && topic_type_policy.votable_topic?
+  end
+
   def need_trucation?
     (preview? || minified?) && html_body.size > BODY_TRUCATE_SIZE
   end
 
   def read_more_link?
     need_trucation? && html_body_truncated != html_body
+  end
+
+  def linked_in_poster?
+    @topic.linked && preview? &&
+      !topic_type_policy.forum_topic?
+  end
+
+  def show_comments?
+    return false if @is_show_comments == false
+
+    !minified? && topic_type_policy.commentable_topic?
   end
 
   def html_footer
@@ -237,6 +248,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       @is_mini,
       @is_show_comments,
       skip_body?,
+      poster_in_header?,
       closed?, # not sure whether it is necessary
       h.current_user&.preferences&.is_shiki_editor?,
       CACHE_VERSION,
@@ -255,17 +267,6 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def self.format_date datetime
     I18n.l datetime, format: '%e %B %Y'
-  end
-
-  def linked_in_poster?
-    @topic.linked && preview? &&
-      !topic_type_policy.forum_topic?
-  end
-
-  def show_comments?
-    return false if @is_show_comments == false
-
-    !minified? && topic_type_policy.commentable_topic?
   end
 
 private

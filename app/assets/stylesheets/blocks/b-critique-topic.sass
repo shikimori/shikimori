@@ -9,15 +9,24 @@
   &.b-topic-preview > .inner
     min-height: 45px
 
+    // .body,
+    // .b-height_shortener,
+    .name-date,
+    .b-status-line
+      margin-left: 0
+
     .b-status-line
       margin-bottom: 2px !important
 
-    & > .b-height_shortener
-      +gte_ipad
-        margin-left: 58px
+    .critique-entry_cover
+      .b-catalog_entry
+        margin-top: 3px
+        float: left
+        width: 115px
 
-      +iphone_landscape
-        margin-left: 49px
+    .body,
+    .b-height_shortener
+      margin-left: 130px
 
     .critique-stars
       +iphone_portrait

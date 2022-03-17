@@ -41,6 +41,10 @@ class Topics::CritiqueView < Topics::UserContentView
     critique.votes_count.positive?
   end
 
+  def poster_in_header?
+    !preview?
+  end
+
 private
 
   def body
