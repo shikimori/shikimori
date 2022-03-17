@@ -235,6 +235,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       # т.к. эти методы могут быть переопределены в наследниках
       @is_preview,
       @is_mini,
+      @is_show_comments,
       skip_body?,
       closed?, # not sure whether it is necessary
       h.current_user&.preferences&.is_shiki_editor?,
@@ -259,6 +260,12 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   def linked_in_poster?
     @topic.linked && preview? &&
       !topic_type_policy.forum_topic?
+  end
+
+  def show_comments?
+    return false if @is_show_comments == false
+
+    !minified? && topic_type_policy.commentable_topic?
   end
 
 private

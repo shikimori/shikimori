@@ -43,7 +43,7 @@ article.to-process[
   - elsif topic_view.show_inner?
     = render 'topics/inner', topic_view: topic_view
 
-  - unless topic_view.minified? || !topic_view.topic_type_policy.commentable_topic?
+  - if topic_view.show_comments?
     = render 'topics/comments',
       comments_view: topic_view.comments_view,
       commentable: topic_view.topic
