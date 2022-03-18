@@ -74,12 +74,10 @@ describe Contest::DoubleEliminationStrategy do
 
     context 'I -> II' do
       before do
-        1.times do |i|
-          contest.rounds[i].matches.each do |contest_match|
-            contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
-          end
+        contest.rounds[0].matches.each do |contest_match|
+          contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
         end
-        1.times { ContestRound::Finish.call contest.current_round }
+        ContestRound::Finish.call contest.current_round
       end
 
       it 'winners&losers' do
@@ -166,13 +164,18 @@ describe Contest::DoubleEliminationStrategy do
 
   describe '#create_matches' do
     let(:strategy) { round.contest.strategy }
-    let(:round) { create :contest_round, contest: create(:contest, matches_per_round: 4, match_duration: 4) }
+    let(:round) do
+      create :contest_round,
+        contest: create(:contest, matches_per_round: 4, match_duration: 4)
+    end
     let(:animes) { 1.upto(11).map { create :anime } }
 
+    subject(:create_matches) { strategy.create_matches round, animes, group: ContestRound::W }
+
     it 'creates animes/2 matches' do
-      expect(proc do
-        strategy.create_matches round, animes, group: ContestRound::W
-      end).to change(ContestMatch, :count).by((animes.size.to_f / 2).ceil)
+      expect { subject }
+        .to change(ContestMatch, :count)
+        .by((animes.size.to_f / 2).ceil)
     end
 
     it 'create_matchess left&right correctly' do

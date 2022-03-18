@@ -119,7 +119,7 @@ describe AbuseRequestsService do
     context 'converting review' do
       let(:comment) { nil }
       let(:review) do
-        create :review,
+        create :review, :with_topics,
           anime: anime,
           user: user_author,
           created_at: created_at

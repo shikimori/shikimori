@@ -7,13 +7,17 @@ describe ClubRole do
   describe 'validations' do
     it { is_expected.to validate_presence_of :role }
 
-    it 'uniq index on user_id+club_id is_expected.to work' do
-      expect(proc do
-        expect(proc do
-          club.members << user
-          club.members << user
-        end).to raise_error(ActiveRecord::RecordNotUnique)
-      end).to change(ClubRole, :count).by 1
+    context 'uniq index on user_id+club_id (twice added the same user)' do
+      subject(:add_user_twice) do
+        club.members << user
+        club.members << user
+      end
+
+      it do
+        expect { add_user_twice }
+          .to raise_error(ActiveRecord::RecordNotUnique)
+          .and change(ClubRole, :count).by(1)
+      end
     end
   end
 
