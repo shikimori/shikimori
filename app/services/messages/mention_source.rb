@@ -10,12 +10,6 @@ class Messages::MentionSource
       when Comment then UrlGenerator.instance.comment_url linked
       when Topic, ClubPage then UrlGenerator.instance.topic_url linked
       when User then UrlGenerator.instance.profile_url linked
-      when Review
-        UrlGenerator.instance.send(
-          "#{linked.db_entry.class.name.downcase}_review_url",
-          linked.db_entry,
-          linked
-        )
       else raise ArgumentError, "#{linked.class} #{linked.to_param}"
     end
   end
@@ -44,7 +38,6 @@ private
       when NilClass then :nil
       when Topic then :topic
       when User then :profile
-      when Review then :review
       else raise ArgumentError, "#{@linked.class} #{@linked.to_param}"
     end
   end
@@ -58,9 +51,6 @@ private
 
       when User
         linked.nickname
-
-      when Review
-        linked.db_entry.name
     end
   end
 
@@ -77,8 +67,6 @@ private
         UrlGenerator.instance.tooltip_comment_url @comment_id
       elsif linked.is_a? Topic
         "#{mention_url @linked}/tooltip"
-      elsif linked.is_a? Review
-        UrlGenerator.instance.tooltip_review_url @linked
       end
 
     " class=\"bubbled b-link\" data-href=\"#{url}\"" if url
