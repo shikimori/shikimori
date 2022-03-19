@@ -18,7 +18,7 @@ aside.buttons
         data-text=t('actions.quote')
         data-dynamic='day_registered'
       ]
-      - if topic_view.is_mini
+      - if topic_view.is_mini || !topic_view.show_comments?
         a.item-reply.to-process[
           title=t('actions.reply')
           data-text=t('actions.reply')
