@@ -29,7 +29,7 @@ class ArticlesController < ShikimoriController
     unless @resource.published?
       raise ActiveRecord::RecordNotFound unless can? :edit, @resource
 
-      breadcrumb @resource.name, edit_collection_url(@resource)
+      breadcrumb @resource.name, edit_article_url(@resource)
       breadcrumb t('actions.preview'), nil
     end
 
