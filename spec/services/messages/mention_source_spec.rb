@@ -63,6 +63,33 @@ describe Messages::MentionSource do
     end
   end
 
+  context 'Review' do
+    let(:linked) { build_stubbed :review, id: 1, anime: anime }
+    let(:anime) { build_stubbed :anime, id: 1, name: 'anime_1' }
+    it do
+      is_expected.to eq(
+        <<~HTML.squish
+          в отзыве к <a href=\"#{Shikimori::PROTOCOL}://test.host/animes/1-anime-1/reviews/1\"
+            class=\"bubbled b-link\"
+            data-href=\"#{Shikimori::PROTOCOL}://test.host/reviews/1/tooltip\">anime_1</a>.
+        HTML
+      )
+    end
+
+    context 'simple' do
+      let(:is_simple) { true }
+      it do
+        is_expected.to eq(
+          <<~HTML.squish
+            <a href=\"#{Shikimori::PROTOCOL}://test.host/animes/1-anime-1/reviews/1\"
+              class=\"bubbled b-link\"
+              data-href=\"#{Shikimori::PROTOCOL}://test.host/reviews/1/tooltip\">anime_1</a>
+          HTML
+        )
+      end
+    end
+  end
+
   context 'other linked' do
     let(:linked) { build_stubbed :anime, id: 1, name: 'cc' }
     it { expect { subject }.to raise_error ArgumentError, 'Anime 1-cc' }
