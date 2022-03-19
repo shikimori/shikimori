@@ -4,6 +4,13 @@ class Messages::GenerateBody < ServiceObjectBase
   pattr_initialize :message
   delegate :linked, :linked_id, to: :message
 
+  SPECIAL_MENTION_TOPIC_LINKED_TYPES = [
+    Review.name,
+    Critique.name,
+    Collection.name,
+    Article.name
+  ]
+
   def call
     send(@message.kind.underscore).html_safe
   end
@@ -143,8 +150,20 @@ private
   end
 
   def ban_linked_name
-    if linked.target.is_a?(Review) || linked.target.is_a?(Topic)
-      Messages::MentionSource.call(linked.target, is_simple: true)
+    ## rubocop:disable AbcSize
+    # mention_target =
+    #   if linked.target.is_a?(Topic) &&
+    #       linked.target.linked_type.in?(SPECIAL_MENTION_TOPIC_LINKED_TYPES)
+    #     linked.target.linked
+    #   elsif linked.target.is_a?(Review) || linked.target.is_a?(Topic)
+    #     linked.target
+    #   end
+    # 
+    # if mention_target
+    #   Messages::MentionSource.call mention_target, is_simple: true
+
+    if linked.target.is_a? Topic
+      Messages::MentionSource.call linked_target_or_topic_linked, is_simple: true
     else
       linked_name
     end
@@ -164,8 +183,19 @@ private
           comment_id: linked.comment.id
         ).gsub(/\.\Z/, '')
 
+      # when Topic
+
       else
         Messages::MentionSource.call linked
+    end
+  end
+
+  def linked_target_or_topic_linked
+    if linked.target.is_a?(Topic) &&
+        linked.target.linked_type.in?(SPECIAL_MENTION_TOPIC_LINKED_TYPES)
+      linked.target.linked
+    else
+      linked.target
     end
   end
 end
