@@ -762,6 +762,7 @@ Rails.application.routes.draw do
             get 'reply' => :show,
               as: :reply,
               is_reply: true
+            get :tooltip
           end
         end
 

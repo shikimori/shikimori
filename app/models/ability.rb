@@ -113,7 +113,7 @@ class Ability
     can %i[read preview], Style
 
     can %i[read tooltip], Review
-    can :read, Critique
+    can %i[read tooltip], Critique
     can :read, Topic
     can :read, Collection, state: %i[published opened]
     can :read, Collection do |collection|

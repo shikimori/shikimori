@@ -81,6 +81,26 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
     render :missing
   end
 
+  # it is used in ban messages at least
+  def tooltip
+    og noindex: true
+    return render :missing, status: (xhr_or_json? ? :ok : :not_found) if @resource.is_a? NoTopic
+
+    @topic_view = Topics::CritiqueView.new(@critique.maybe_topic(locale_from_host), true, true)
+
+    if request.xhr?
+      render(
+        partial: 'topics/topic',
+        object: @topic_view,
+        as: :topic_view,
+        layout: false,
+        formats: :html
+      )
+    else
+      render :show
+    end
+  end
+
   def destroy
     Critique::Destroy.call @critique, current_user
     render json: { notice: i18n_t('critique.removed') }
