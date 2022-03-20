@@ -4,7 +4,7 @@ class Messages::MentionSource
   method_object :linked, %i[comment_id is_simple]
   delegate :mention_url, to: :class
 
-  SUPPORTED_MENTION_TYPES = {
+  MENTION_TYPES = {
     Article => :article,
     ClubPage => :topic,
     Collection => :collection,
@@ -14,11 +14,18 @@ class Messages::MentionSource
     Topic => :topic,
     User => :profile
   }
+  BUBBLED_TYPES = [
+    Topic,
+    Review,
+    Collection,
+    Critique,
+    Article
+  ]
 
   def self.mention_url linked
     return unless linked
 
-    method_name = SUPPORTED_MENTION_TYPES[linked.class.base_class] ||
+    method_name = MENTION_TYPES[linked.class.base_class] ||
       raise(ArgumentError, "#{linked.class} #{linked.to_param}")
 
     UrlGenerator.instance.send :"#{method_name}_url", linked
@@ -46,7 +53,7 @@ private
   def i18n_secondary_key
     return :nil unless @linked
 
-    SUPPORTED_MENTION_TYPES[@linked.class.base_class] ||
+    MENTION_TYPES[@linked.class.base_class] ||
       raise(ArgumentError, "#{@linked.class} #{@linked.to_param}")
   end
 
@@ -57,17 +64,10 @@ private
           @linked.full_title :
           @linked.title
 
-      when User
-        @linked.nickname
-
-      when Critique
-        @linked.target.name
-
-      when Review
-        @linked.db_entry.name
-
-      when Article
-        @linked.name
+      when User then @linked.nickname
+      when Critique then @linked.target.name
+      when Review then @linked.db_entry.name
+      when Article, Collection then @linked.name
     end
   end
 
@@ -76,10 +76,12 @@ private
   end
 
   def link_bubble
+    return unless @linked
+
     url =
       if @comment_id
         UrlGenerator.instance.tooltip_comment_url @comment_id
-      elsif @linked.is_a?(Topic) || @linked.is_a?(Review) || @linked.is_a?(Critique)
+      elsif BUBBLED_TYPES.include? @linked.class.base_class
         "#{mention_url @linked}/tooltip"
       end
 
