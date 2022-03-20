@@ -21,7 +21,7 @@ class Collection < ApplicationRecord
   has_many :collection_roles, dependent: :destroy
   has_many :coauthors, through: :collection_roles, source: :user
 
-  validates :name, :user, :kind, presence: true
+  validates :name, :kind, presence: true
   validates :name, length: { maximum: 255 }
   validates :text, length: { maximum: 400_000 }
   validates :locale, presence: true
