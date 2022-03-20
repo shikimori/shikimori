@@ -182,7 +182,7 @@ describe FayeService do
           (forum_entry.is_a?(Review) && !is_convert_to_review)
         expect(publisher)
           .to receive(:publish_conversion)
-          .with forum_entry, anything
+          .with forum_entry, anything, anything
       else
         expect(publisher).to_not receive :publish_conversion
       end

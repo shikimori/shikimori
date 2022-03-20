@@ -103,7 +103,7 @@ describe DbEntry::MergeIntoOther do
 
   subject { described_class.call entry: entry, other: other }
 
-  it '', :focus do
+  it do
     is_expected.to eq true
 
     expect(other.russian).to eq entry.russian
