@@ -18,9 +18,20 @@ describe Animes::CritiquesController do
 
   describe '#tooltip' do
     subject! do
-      get :tooltip, params: { anime_id: anime.to_param, type: 'Anime', id: critique.id }
+      get :tooltip,
+        params: { anime_id: anime.to_param, type: 'Anime', id: critique.id },
+        xhr: is_xhr
     end
-    it { expect(response).to have_http_status :success }
+
+    context 'html' do
+      let(:is_xhr) { false }
+      it { expect(response).to have_http_status :success }
+    end
+
+    context 'xhr' do
+      let(:is_xhr) { true }
+      it { expect(response).to have_http_status :success }
+    end
   end
 
   describe '#new' do

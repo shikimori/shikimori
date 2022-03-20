@@ -1,9 +1,29 @@
 describe ArticlesController do
   include_context :authenticated, :user, :week_registered
+  let(:article) { create :article, :published, :with_topics }
 
   describe '#index' do
     before { get :index }
     it { expect(response).to have_http_status :success }
+  end
+
+  describe '#show' do
+    subject! { get :show, params: { id: article.to_param } }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#tooltip' do
+    subject! { get :tooltip, params: { id: article.to_param }, xhr: is_xhr }
+
+    context 'xhr' do
+      let(:is_xhr) { true }
+      it { expect(response).to have_http_status :success }
+    end
+
+    context 'html' do
+      let(:is_xhr) { false }
+      it { expect(response).to have_http_status :success }
+    end
   end
 
   describe '#new' do

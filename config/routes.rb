@@ -561,6 +561,7 @@ Rails.application.routes.draw do
 
   resources :collections, concerns: %i[autocompletable] do
     member do
+      get :tooltip
       post :to_published
       post :to_private
       post :to_opened
@@ -572,7 +573,12 @@ Rails.application.routes.draw do
   end
 
   resources :articles do
-    get '(/p-:page)' => 'articles#index', as: '', on: :collection
+    member do
+      get :tooltip
+    end
+    collection do
+      get '(/p-:page)' => 'articles#index', as: ''
+    end
   end
 
   resources :club_invites, only: [] do

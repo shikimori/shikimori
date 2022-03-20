@@ -43,6 +43,25 @@ class CollectionsController < ShikimoriController
       .build(@resource.maybe_topic(locale_from_host))
   end
 
+  def tooltip
+    og noindex: true
+    @topic_view = Topics::TopicViewFactory
+      .new(true, true)
+      .build(@resource.maybe_topic(locale_from_host))
+
+    if request.xhr?
+      render(
+        partial: 'topics/topic',
+        object: @topic_view,
+        as: :topic_view,
+        layout: false,
+        formats: :html
+      )
+    else
+      render :show
+    end
+  end
+
   def new
     og page_title: i18n_t('new_collection')
     render :form

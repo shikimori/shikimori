@@ -114,12 +114,12 @@ class Ability
 
     can %i[read tooltip], Review
     can %i[read tooltip], Critique
-    can :read, Topic
-    can :read, Collection, state: %i[published opened]
-    can :read, Collection do |collection|
+    can %i[read tooltip], Topic
+    can %i[read tooltip], Collection, state: %i[published opened]
+    can %i[read tooltip], Collection do |collection|
       collection.published? || collection.opened?
     end
-    can :read, Article
+    can %i[read tooltip], Article
     can :read, OauthApplication
     can :read, Ban
     can :read, AbuseRequest

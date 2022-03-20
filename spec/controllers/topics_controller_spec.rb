@@ -185,6 +185,24 @@ describe TopicsController do
     end
   end
 
+  describe '#tooltip' do
+    subject! do
+      get :tooltip,
+        params: { id: topic.to_param },
+        xhr: is_xhr
+    end
+
+    context 'xhr' do
+      let(:is_xhr) { true }
+      it { expect(response).to have_http_status :success }
+    end
+
+    context 'html' do
+      let(:is_xhr) { false }
+      it { expect(response).to have_http_status :success }
+    end
+  end
+
   describe '#new' do
     let(:topic_params) do
       {
@@ -381,11 +399,6 @@ describe TopicsController do
         expect(response).to have_http_status :success
       end
     end
-  end
-
-  describe '#tooltip' do
-    before { get :tooltip, params: { id: topic.to_param } }
-    it { expect(response).to have_http_status :success }
   end
 
   describe '#chosen' do
