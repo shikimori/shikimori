@@ -1,10 +1,16 @@
-= render layout: 'animes/page' do |f|
-  h2.subheadline.m5
-    ' #{page_breadcrumbs.keys.last}
-    = render 'users/user_16', user: @critique.user
+- if params[:action] != 'tooltip'
+  = render layout: 'animes/page' do |f|
+    h2.subheadline.m5
+      ' #{page_breadcrumbs.keys.last}
+      = render 'users/user_16', user: @critique.user
 
-  .block
-    = render partial: 'topics/topic',
-      collection: [@topic_view],
-      as: :topic_view,
-      cached: ->(entry) { CacheHelper.keys entry }
+    .block
+      = render partial: 'topics/topic',
+        collection: [@topic_view],
+        as: :topic_view,
+        cached: ->(entry) { CacheHelper.keys entry }
+- else
+  = render partial: 'topics/topic',
+    collection: [@topic_view],
+    as: :topic_view,
+    cached: ->(entry) { CacheHelper.keys entry }
