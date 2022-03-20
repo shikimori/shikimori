@@ -123,7 +123,7 @@ describe Neko::Apply do
             label: 'Добро пожаловать!',
             neko_id: :animelist,
             level: 1,
-            image: '/assets/achievements/anime/animelist_1.png',
+            image: "/assets/achievements/anime/animelist_1.png#{Neko::Rule::CLOUDFLARE_CACHING_FIX}",
             event: :lost
           }],
           user.faye_channels

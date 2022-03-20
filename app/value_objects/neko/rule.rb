@@ -106,9 +106,7 @@ class Neko::Rule
   end
 
   def images
-    Array(attributes[:image]&.split(',') || [nil]).map do |image_path|
-      "#{image_path}#{CLOUDFLARE_CACHING_FIX}" if image_path
-    end
+    Array(attributes[:image]&.split(',') || [nil]).compact
   end
 
   def border_colors
