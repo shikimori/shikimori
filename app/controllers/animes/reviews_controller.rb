@@ -64,6 +64,26 @@ class Animes::ReviewsController < AnimesController
     render :missing
   end
 
+  # it is used in ban messages at least
+  def tooltip
+    og noindex: true
+    return render :missing, status: (xhr_or_json? ? :ok : :not_found) if @resource.is_a? NoTopic
+
+    @topic_view = Topics::ReviewView.new(@review.maybe_topic(locale_from_host), true, true)
+
+    if request.xhr?
+      render(
+        partial: 'topics/topic',
+        object: @topic_view,
+        as: :topic_view,
+        layout: false,
+        formats: :html
+      )
+    else
+      render :show
+    end
+  end
+
   def new
     og page_title: i18n_t('new_review')
     breadcrumb i18n_t('new_review'), nil

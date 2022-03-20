@@ -112,7 +112,7 @@ class Ability
 
     can %i[read preview], Style
 
-    can :read, Review
+    can %i[read tooltip], Review
     can :read, Critique
     can :read, Topic
     can :read, Collection, state: %i[published opened]

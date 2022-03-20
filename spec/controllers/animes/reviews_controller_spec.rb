@@ -18,6 +18,13 @@ describe Animes::ReviewsController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#tooltip' do
+    subject! do
+      get :tooltip, params: { anime_id: anime.to_param, type: 'Anime', id: review.id }
+    end
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#new' do
     include_context :authenticated, :user, :day_registered
     subject! do
