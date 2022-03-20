@@ -78,7 +78,7 @@ private
     banned is_warn: true
   end
 
-  def banned is_warn: false # rubocop:disable PerceivedComplexity, CyclomaticComplexity, AbcSize
+  def banned is_warn: false # rubocop:disable PerceivedComplexity, CyclomaticComplexity
     key =
       if linked&.target_type
         linked.target ? :target : :missing
@@ -89,10 +89,8 @@ private
     i18n_t "#{is_warn ? :warned : :banned}.#{key}",
       gender: gender,
       duration: linked&.duration&.humanize || '???',
-      linked_name: (ban_linked_name if linked&.target),
-      target_type_name: (
-        linked.target_type.constantize.model_name.human.downcase if linked&.target_type
-      ),
+      target_type_name: ban_target_type_name,
+      linked_name: ban_linked_name,
       reason: linked&.reason ? BbCodes::Text.call(linked.reason) : '???'
   end
 
@@ -149,18 +147,19 @@ private
     BbCodes::Text.call linked.body
   end
 
+  def ban_target_type_name
+    linked_class =
+      if linked&.target
+        linked_target_or_topic_linked.class
+      elsif linked&.target_type
+        linked.target_type.constantize
+      end
+
+    linked_class.model_name.human.downcase if linked_class
+  end
+
   def ban_linked_name
-    ## rubocop:disable AbcSize
-    # mention_target =
-    #   if linked.target.is_a?(Topic) &&
-    #       linked.target.linked_type.in?(SPECIAL_MENTION_TOPIC_LINKED_TYPES)
-    #     linked.target.linked
-    #   elsif linked.target.is_a?(Review) || linked.target.is_a?(Topic)
-    #     linked.target
-    #   end
-    # 
-    # if mention_target
-    #   Messages::MentionSource.call mention_target, is_simple: true
+    return unless linked&.target
 
     if linked.target.is_a? Topic
       Messages::MentionSource.call linked_target_or_topic_linked, is_simple: true

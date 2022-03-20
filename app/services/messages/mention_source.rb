@@ -58,16 +58,16 @@ private
           @linked.title
 
       when User
-        linked.nickname
+        @linked.nickname
 
       when Critique
-        linked.target.name
+        @linked.target.name
 
       when Review
-        linked.db_entry.name
+        @linked.db_entry.name
 
       when Article
-        linked.name
+        @linked.name
     end
   end
 
@@ -82,7 +82,7 @@ private
     url =
       if @comment_id
         UrlGenerator.instance.tooltip_comment_url @comment_id
-      elsif linked.is_a? Topic
+      elsif @linked.is_a?(Topic) || @linked.is_a?(Review) || @linked.is_a?(Critique)
         "#{mention_url @linked}/tooltip"
       end
 
