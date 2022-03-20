@@ -1,4 +1,4 @@
-class Messages::GenerateBody < ServiceObjectBase
+class Messages::GenerateBody < ServiceObjectBase # rubocop:disable ClassLength
   include Translation
 
   pattr_initialize :message
@@ -181,8 +181,6 @@ private
           linked.comment.commentable,
           comment_id: linked.comment.id
         ).gsub(/\.\Z/, '')
-
-      # when Topic
 
       else
         Messages::MentionSource.call linked

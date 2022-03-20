@@ -4,18 +4,24 @@ class Messages::MentionSource
   method_object :linked, %i[comment_id is_simple]
   delegate :mention_url, to: :class
 
+  SUPPORTED_MENTION_TYPES = {
+    Article => :article,
+    ClubPage => :topic,
+    Collection => :collection,
+    Comment => :comment,
+    Critique => :critique,
+    Review => :review,
+    Topic => :topic,
+    User => :profile
+  }
+
   def self.mention_url linked
-    case linked
-      when NilClass then nil
-      when Comment then UrlGenerator.instance.comment_url linked
-      when Topic, ClubPage then UrlGenerator.instance.topic_url linked
-      when User then UrlGenerator.instance.profile_url linked
-      when Review then UrlGenerator.instance.review_url linked
-      when Critique then UrlGenerator.instance.critique_url linked
-      when Article then UrlGenerator.instance.article_url linked
-      when Collection then UrlGenerator.instance.collection_url linked
-      else raise ArgumentError, "#{linked.class} #{linked.to_param}"
-    end
+    return unless linked
+
+    method_name = SUPPORTED_MENTION_TYPES[linked.class.base_class] ||
+      raise(ArgumentError, "#{linked.class} #{linked.to_param}")
+
+    UrlGenerator.instance.send :"#{method_name}_url", linked
   end
 
   def call
@@ -38,16 +44,10 @@ private
   end
 
   def i18n_secondary_key
-    case @linked
-      when NilClass then :nil
-      when Topic then :topic
-      when User then :profile
-      when Review then :review
-      when Critique then :critique
-      when Article then :article
-      when Collection then :collection
-      else raise ArgumentError, "#{@linked.class} #{@linked.to_param}"
-    end
+    return :nil unless @linked
+
+    SUPPORTED_MENTION_TYPES[@linked.class.base_class] ||
+      raise(ArgumentError, "#{@linked.class} #{@linked.to_param}")
   end
 
   def linked_name
@@ -69,9 +69,6 @@ private
       when Article
         @linked.name
     end
-  end
-
-  def linked_url
   end
 
   def comment_hash
