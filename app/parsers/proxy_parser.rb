@@ -28,11 +28,7 @@ class ProxyParser
       .map { |proxy_hash| Proxy.new proxy_hash }
     print format("%<size>i after merge with previously parsed\n", size: proxies.size)
 
-    print 'getting own ip... '
-    ip = OpenURI.open_uri(WHAT_IS_MY_IP_URL).read.strip
-    print "#{ip}\n"
-
-    verified_proxies = test(proxies, ip)
+    verified_proxies = test proxies, Proxies::WhatIsMyIps.call
     print(
       format(
         "%<verified_size>i of %<total_size>i proxies were tested for anonymity\n",
@@ -91,7 +87,7 @@ private
         current_index = index.increment
         puts "testing #{current_index}/#{proxies.size} proxy #{proxy}"
 
-        verified_proxies << proxy if anonymouse?(proxy, ip)
+        verified_proxies << proxy if anonymouse?(proxy, ips)
       end
     end
 
