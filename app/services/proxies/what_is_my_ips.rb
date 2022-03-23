@@ -1,8 +1,9 @@
+require Rails.root.join('config/middleware/proxy_test')
+
 class Proxies::WhatIsMyIps
   method_object
 
-  WHAT_IS_MY_IP_PATH = '/what_is_my_ip'
-  WHAT_IS_MY_IP_URL = "https://#{Shikimori::DOMAINS[:production]}#{WHAT_IS_MY_IP_PATH}"
+  WHAT_IS_MY_IP_URL = "https://#{Shikimori::DOMAINS[:production]}#{ProxyTest::WHAT_IS_MY_IP_PATH}"
 
   def call
     @@ips ||= begin # rubocop:disable ClassVars MissingCop
@@ -16,6 +17,6 @@ class Proxies::WhatIsMyIps
 private
 
   def log text
-    print text # rubocop:disable Rails/Output
+    print text unless Rails.env.test? # rubocop:disable Rails/Output
   end
 end
