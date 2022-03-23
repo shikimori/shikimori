@@ -221,10 +221,6 @@ private
     # (source_proxies + hideme_proxies).uniq
   end
 
-  # Proxies24Url = 'http://www.proxies24.org/'
-  # Proxies24Url = 'http://proxy-server-free.blogspot.ru/'
-
-  # http://forum.antichat.ru/thread59009.html
   URL_SOURCES = %w[
     http://proxysearcher.sourceforge.net/Proxy%20List.php?type=http&filtered=true
     https://free-proxy-list.net/
