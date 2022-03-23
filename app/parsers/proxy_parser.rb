@@ -1,12 +1,14 @@
 # rubocop:disable all
 
 # http://pastebin.com/r2Xz6i0M
+# https://www.google.com/search?q=free+proxy+blogspot&rlz=1C5CHFA_enRU910RU910&sxsrf=APq-WBvtLh2iPJ7rqyTXESAfXnHGffsZ0Q%3A1648065445172&ei=pXs7Yo6FCsmEwPAPx4uM0A4&ved=0ahUKEwjO67Obgt32AhVJAhAIHccFA-oQ4dUDCA4&uact=5&oq=free+proxy+blogspot&gs_lcp=Cgdnd3Mtd2l6EAMyBggAEAcQHjIGCAAQCBAeOgcIABBHELADOgcIIxCwAhAnOggIABAHEB4QEzoKCAAQCBAHEB4QEzoICAAQDRAeEBM6CggAEA0QBRAeEBM6CggAEAgQDRAeEBM6DAgAEAgQDRAKEB4QEzoICAAQCBAHEB5KBAhBGABKBAhGGABQoQVYrApgmgtoAXABeACAAWOIAa0DkgEBNZgBAKABAcgBCMABAQ&sclient=gws-wiz
 class ProxyParser
-  CACHE_VERSION = :v6
-
   IS_DB_SOURCES = true
   IS_URL_SOURCES = true
+  IS_OTHER_SOURCES = true
   IS_CUSTOM_SOURCES = true
+
+  CACHE_VERSION = :v7
 
   # импорт проксей
   def import
@@ -18,6 +20,7 @@ class ProxyParser
   def fetch
     parsed_proxies = parse_proxies(
       is_url_sources: IS_URL_SOURCES,
+      is_other_sources: IS_OTHER_SOURCES,
       is_custom_sources: IS_CUSTOM_SOURCES
     )
     db_proxies = IS_DB_SOURCES ? Proxy.all.map { |v| { ip: v.ip, port: v.port } } : []
@@ -60,9 +63,9 @@ private
     sleep 1
     proxies = OpenURI.open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
       .read
-      .gsub(/\d+\.\d+\.\d+\.\d+:\d+/)
+      .gsub(/\d+\.\d+\.\d+\.\d+[:\t\n]\d+/)
       .map do |v|
-        data = v.split(':')
+        data = v.split(/[:\t\n]/)
 
         { ip: data[0], port: data[1].to_i }
       end
@@ -103,16 +106,17 @@ private
     verified_proxies
   end
 
-  # источники проксей
-  def url_sources
-    @url_sources ||= Rails.cache.fetch([:proxy, :sources, CACHE_VERSION], expires_in: 1.hour) do
-      SOURCES + webanetlabs # + proxy_24
+  def other_sources
+    Rails.cache.fetch([:proxy, :other_sources, CACHE_VERSION], expires_in: 1.hour) do
+      getfreeproxylists + webanetlabs # + proxy_24
     end
   end
 
   def custom_soruces
-    []
-    # %i[openproxy_space]
+    [
+      :online_proxy_ru
+      # :openproxy_space,
+    ]
   end
 
   def webanetlabs
@@ -129,6 +133,24 @@ private
     []
   end
 
+  def online_proxy_ru url = 'http://online-proxy.ru'
+    proxies = Nokogiri::HTML(OpenURI.open_uri(url).read)
+      .text
+      .gsub(/\d+\.\d+\.\d+\.\d+[:\t\n]\d+/)
+      .map do |v|
+        data = v.split(/[:\t\n]/)
+
+        { ip: data[0], port: data[1].to_i }
+      end
+
+    print "#{url} - #{proxies.size} proxies\n"
+    proxies
+
+  rescue StandardError => e
+    print "online_proxy_ru: #{e.message}\n"
+    []
+  end
+
   # def proxy_24 url = 'http://www.proxyserverlist24.top', nesting = 0
   #   return [] unless url
   #
@@ -142,6 +164,13 @@ private
   #     links + proxy_24(html.css('.blog-pager-older-link').first&.attr(:href), nesting + 1)
   #   end
   # end
+
+  def getfreeproxylists url = 'https://getfreeproxylists.blogspot.com/'
+    html = Nokogiri::HTML(OpenURI.open_uri(url).read)
+    links = html.css('ul.posts a').map { |v| v.attr :href }
+
+    [url] + links
+  end
 
   # all proxies are broken
   # def openproxy_space
@@ -164,18 +193,26 @@ private
   #   # end
   # end
 
-  def parse_proxies is_url_sources:, is_custom_sources:
-    url_sourced_proxies = is_url_sources ?
-      url_sources.flat_map do |url|
+  def parse_proxies is_url_sources:, is_other_sources:, is_custom_sources:
+    url_sourced_proxies = is_url_sources ? (
+      URL_SOURCES.flat_map do |url|
         Rails.cache.fetch([url, :proxies, CACHE_VERSION]) { parse url }
-      end : []
+      end
+    ) : []
 
-    custom_sourced_proxies = is_custom_sources ?
+    other_sourced_proxies = is_other_sources ? (
+      other_sources.flat_map do |url|
+        Rails.cache.fetch([url, :proxies, CACHE_VERSION]) { parse url }
+      end 
+    ) : []
+
+    custom_sourced_proxies = is_custom_sources ? (
       custom_soruces.flat_map do |method|
         Rails.cache.fetch([method, :proxies, CACHE_VERSION]) { send method }
-      end : []
+      end
+    ) : []
 
-    (url_sourced_proxies + custom_sourced_proxies).uniq
+    (url_sourced_proxies + other_sourced_proxies + custom_sourced_proxies).uniq
     # source_proxies = sources.map { |url| parse url }.flatten
     # hideme_proxies = JSON.parse(open(HIDEME_URL).read).map do |proxy|
       # { ip: proxy['ip'], port: proxy['port'].to_i }
@@ -188,9 +225,11 @@ private
   # Proxies24Url = 'http://proxy-server-free.blogspot.ru/'
 
   # http://forum.antichat.ru/thread59009.html
-  SOURCES = %w[
+  URL_SOURCES = %w[
+    http://proxysearcher.sourceforge.net/Proxy%20List.php?type=http&filtered=true
+    https://free-proxy-list.net/
+    https://rootjazz.com/proxies/proxies.txt
     http://www.megaproxylist.net/
-    http://fineproxy.org/eng/fresh-proxies/
     http://sslproxies24.blogspot.com/feeds/posts/default
     http://proxylists.net/
     http://my-proxy.com/free-proxy-list-10.html
