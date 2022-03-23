@@ -2,10 +2,11 @@
 
 # http://pastebin.com/r2Xz6i0M
 class ProxyParser
-  TEST_URL = "https://shikimori.one#{ProxyTest::TEST_PAGE_PATH}"
-  CACHE_VERSION = :v5
+  CACHE_VERSION = :v6
 
-  # HIDEME_URL = "http://hideme.ru/api/proxylist.php?out=js&code=253879821"
+  IS_DB_SOURCES = true
+  IS_URL_SOURCES = true
+  IS_CUSTOM_SOURCES = true
 
   # импорт проксей
   def import
@@ -15,10 +16,11 @@ class ProxyParser
 
   # парсинг проксей из внешних источников
   def fetch
-    parsed_proxies = parse_proxies is_url_sources: true, is_custom_sources: true
-    db_proxies = Proxy.all.map { |v| { ip: v.ip, port: v.port } }
-
-    # parsed_proxies.each {|v| puts "#{v[:ip]}:#{v[:port]}" }
+    parsed_proxies = parse_proxies(
+      is_url_sources: IS_URL_SOURCES,
+      is_custom_sources: IS_CUSTOM_SOURCES
+    )
+    db_proxies = IS_DB_SOURCES ? Proxy.all.map { |v| { ip: v.ip, port: v.port } } : []
 
     print format("found %<size>i proxies\n", size: parsed_proxies.size)
     print format("fetched %<size>i proxies\n", size: db_proxies.size)
@@ -73,9 +75,10 @@ private
   end
 
   # проверка проксей на работоспособность
-  def test proxies, ip
+  def test proxies, ips
     proxies = proxies
     verified_proxies = Concurrent::Array.new
+    proxies_count = proxies.size
 
     print "testing #{proxies.size} proxies\n"
 
@@ -85,9 +88,9 @@ private
     proxies.each do |proxy|
       pool.post do
         current_index = index.increment
-        puts "testing #{current_index}/#{proxies.size} proxy #{proxy}"
+        puts "testing #{current_index + 1}/#{proxies_count} proxy #{proxy}"
 
-        verified_proxies << proxy if anonymouse?(proxy, ips)
+        verified_proxies << proxy if Proxies::Check.call(proxy: proxy, ips: ips)
       end
     end
 
@@ -98,15 +101,6 @@ private
     pool.kill
 
     verified_proxies
-  end
-
-  # анонимна ли прокся?
-  def anonymouse? proxy, ip
-    content = Proxy.get(TEST_URL, timeout: 10, proxy: proxy)
-    content&.include?(ProxyTest::SUCCESS_CONFIRMATION_MESSAGE) &&
-      ips.none? { |ip| content.include? ip }
-  rescue *::Network::FaradayGet::NET_ERRORS
-    false
   end
 
   # источники проксей
@@ -194,23 +188,59 @@ private
   # Proxies24Url = 'http://proxy-server-free.blogspot.ru/'
 
   # http://forum.antichat.ru/thread59009.html
-  SOURCES = [
-    # 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite&simplified=true&limit=300'
-    # 'http://alexa.lr2b.com/proxylist.txt',
-    # 'http://multiproxy.org/txt_all/proxy.txt', # 0 of 1526
-    # 'http://txt.proxyspy.net/proxy.txt', # 53 of 202
-    # 'http://rebro.weebly.com/proxy-list.html', # 1 of 22
-    # 'http://www.prime-speed.ru/proxy/free-proxy-list/elite-proxy.php', # 1 of 157
-    # 'http://www.prime-speed.ru/proxy/free-proxy-list/all-working-proxies.php', # 1 of 958
-    # 'http://www.prime-speed.ru/proxy/free-proxy-list/anon-elite-proxy.php', # 0 of 354
-    # 'http://www.cybersyndrome.net/pla.html',
-
-    # 'http://www.freeproxy.ch/proxy.txt',
-    # 'http://elite-proxies.blogspot.com/',
-    # 'http://eliteanonymous.blogspot.ru/',
-    # 'http://goodhack.ru/index.php?/topic/1504-fresh-proxy-by-anonymouse/',
-
-    # 'http://feeds2.feedburner.com/Socks5UsLive',
-    # 'http://proxy-heaven.blogspot.com/',
+  SOURCES = %w[
+    http://www.megaproxylist.net/
+    http://fineproxy.org/eng/fresh-proxies/
+    http://sslproxies24.blogspot.com/feeds/posts/default
+    http://proxylists.net/
+    http://my-proxy.com/free-proxy-list-10.html
+    http://my-proxy.com/free-proxy-list-2.html
+    http://my-proxy.com/free-proxy-list-3.html
+    http://my-proxy.com/free-proxy-list-4.html
+    http://my-proxy.com/free-proxy-list-5.html
+    http://my-proxy.com/free-proxy-list-6.html
+    http://my-proxy.com/free-proxy-list-7.html
+    http://my-proxy.com/free-proxy-list-8.html
+    http://my-proxy.com/free-proxy-list-9.html
+    http://my-proxy.com/free-proxy-list.html
+    http://atomintersoft.com/anonymous_proxy_list
+    http://atomintersoft.com/high_anonymity_elite_proxy_list
+    http://atomintersoft.com/index.php?q=proxy_list_domain&domain=com
+    http://atomintersoft.com/products/alive-proxy/proxy-list
+    http://atomintersoft.com/products/alive-proxy/proxy-list/3128
+    http://atomintersoft.com/products/alive-proxy/proxy-list/high-anonymity
+    http://atomintersoft.com/products/alive-proxy/socks5-list
+    http://atomintersoft.com/proxy_list_domain
+    http://atomintersoft.com/proxy_list_domain_com
+    http://atomintersoft.com/proxy_list_domain_edu
+    http://atomintersoft.com/proxy_list_domain_net
+    http://atomintersoft.com/proxy_list_domain_org
+    http://atomintersoft.com/proxy_list_port
+    http://atomintersoft.com/proxy_list_port_3128
+    http://atomintersoft.com/proxy_list_port_80
+    http://atomintersoft.com/proxy_list_port_8000
+    http://atomintersoft.com/proxy_list_port_81
+    http://atomintersoft.com/transparent_proxy_list
+    https://proxylistdaily4you.blogspot.com/p/l1l2l3-proxy-server-list-1167.html
+    https://www.newproxys.com/free-proxy-lists/
+    http://cyber-gateway.net/get-proxy/free-proxy
+    http://proxyserverlist-24.blogspot.com/feeds/posts/default
   ]
+    # https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite&simplified=true&limit=300'
+    # http://alexa.lr2b.com/proxylist.txt
+    # http://multiproxy.org/txt_all/proxy.txt # 0 of 1526
+    # http://txt.proxyspy.net/proxy.txt # 53 of 202
+    # http://rebro.weebly.com/proxy-list.html # 1 of 22
+    # http://www.prime-speed.ru/proxy/free-proxy-list/elite-proxy.php # 1 of 157
+    # http://www.prime-speed.ru/proxy/free-proxy-list/all-working-proxies.php # 1 of 958
+    # http://www.prime-speed.ru/proxy/free-proxy-list/anon-elite-proxy.php # 0 of 354
+    # http://www.cybersyndrome.net/pla.html
+
+    # http://www.freeproxy.ch/proxy.txt
+    # http://elite-proxies.blogspot.com/
+    # http://eliteanonymous.blogspot.ru/
+    # http://goodhack.ru/index.php?/topic/1504-fresh-proxy-by-anonymouse/
+
+    # http://feeds2.feedburner.com/Socks5UsLive
+    # http://proxy-heaven.blogspot.com/
 end
