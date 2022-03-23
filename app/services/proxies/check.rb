@@ -3,7 +3,7 @@ require Rails.root.join('config/middleware/proxy_test')
 class Proxies::Check
   method_object %i[proxy! ips]
 
-  TEST_URL = "https://shikimori.one#{ProxyTest::TEST_PAGE_PATH}"
+  TEST_URL = "https://shikimori.org#{ProxyTest::TEST_PAGE_PATH}"
 
   def call
     content = Proxy.get(TEST_URL, timeout: 10, proxy: @proxy)

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://shikimori.one/proxy_test
+    uri: https://shikimori.org/proxy_test
     body:
       encoding: US-ASCII
       string: ''
