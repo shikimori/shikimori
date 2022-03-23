@@ -49,6 +49,8 @@ class MalParsers::FetchEntry
     end
   rescue *Network::FaradayGet::NET_ERRORS
     self.class.perform_in 5.minutes, id, type
+  rescue NoProxies
+    self.class.perform_in 6.hours, id, type
   end
 
 private
