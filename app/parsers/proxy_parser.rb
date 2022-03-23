@@ -264,22 +264,9 @@ private
     https://www.newproxys.com/free-proxy-lists/
     http://cyber-gateway.net/get-proxy/free-proxy
     http://proxyserverlist-24.blogspot.com/feeds/posts/default
+    http://alexa.lr2b.com/proxylist.txt
+    https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite&simplified=true&limit=300
+    http://multiproxy.org/txt_all/proxy.txt # 0 of 1526
+    http://www.cybersyndrome.net/pla6.html
   ]
-    # https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite&simplified=true&limit=300'
-    # http://alexa.lr2b.com/proxylist.txt
-    # http://multiproxy.org/txt_all/proxy.txt # 0 of 1526
-    # http://txt.proxyspy.net/proxy.txt # 53 of 202
-    # http://rebro.weebly.com/proxy-list.html # 1 of 22
-    # http://www.prime-speed.ru/proxy/free-proxy-list/elite-proxy.php # 1 of 157
-    # http://www.prime-speed.ru/proxy/free-proxy-list/all-working-proxies.php # 1 of 958
-    # http://www.prime-speed.ru/proxy/free-proxy-list/anon-elite-proxy.php # 0 of 354
-    # http://www.cybersyndrome.net/pla.html
-
-    # http://www.freeproxy.ch/proxy.txt
-    # http://elite-proxies.blogspot.com/
-    # http://eliteanonymous.blogspot.ru/
-    # http://goodhack.ru/index.php?/topic/1504-fresh-proxy-by-anonymouse/
-
-    # http://feeds2.feedburner.com/Socks5UsLive
-    # http://proxy-heaven.blogspot.com/
 end
