@@ -97,7 +97,7 @@ class Proxy < ApplicationRecord
     # выполнение запроса
     def do_request url, options
       preload if (options[:proxy].nil? && @@proxies.nil?) || (@@proxies && @@proxies.size < @@proxies_initial_size / 7)
-      raise NoProxies, url if options[:proxy].nil? && @@proxies.empty?
+      # raise NoProxies, url if options[:proxy].nil? && @@proxies.empty?
 
       content = nil
       proxy = options[:proxy] # прокси может быть передана в параметрах, тогда использоваться будет лишь она
@@ -168,6 +168,8 @@ class Proxy < ApplicationRecord
           @@proxies.push(proxy) unless options[:proxy]
 
           attempts += 1
+        rescue ThreadError => e
+          raise NoProxies, url
         rescue StandardError => e
           raise if defined?(VCR) && e.is_a?(VCR::Errors::UnhandledHTTPRequestError)
 
