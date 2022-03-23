@@ -3,8 +3,7 @@
 # http://pastebin.com/r2Xz6i0M
 class ProxyParser
   TEST_URL = "https://shikimori.one#{ProxyTest::TEST_PAGE_PATH}"
-  WHAT_IS_MY_IP_URL = "https://#{Shikimori::DOMAINS[:production]}#{ProxyTest::WHAT_IS_MY_IP_PATH}"
-  CACHE_VERSION = :v2
+  CACHE_VERSION = :v5
 
   # HIDEME_URL = "http://hideme.ru/api/proxylist.php?out=js&code=253879821"
 
@@ -16,9 +15,10 @@ class ProxyParser
 
   # парсинг проксей из внешних источников
   def fetch
-    parsed_proxies = parse_proxies
+    parsed_proxies = parse_proxies is_url_sources: true, is_custom_sources: true
     db_proxies = Proxy.all.map { |v| { ip: v.ip, port: v.port } }
-    # raise "only #{parsed_proxies.size} were found" if parsed_proxies.size < 2000
+
+    # parsed_proxies.each {|v| puts "#{v[:ip]}:#{v[:port]}" }
 
     print format("found %<size>i proxies\n", size: parsed_proxies.size)
     print format("fetched %<size>i proxies\n", size: db_proxies.size)
@@ -107,7 +107,8 @@ private
   # анонимна ли прокся?
   def anonymouse? proxy, ip
     content = Proxy.get(TEST_URL, timeout: 10, proxy: proxy)
-    content&.include?(ProxyTest::SUCCESS_CONFIRMATION_MESSAGE) && !content.include?(ip)
+    content&.include?(ProxyTest::SUCCESS_CONFIRMATION_MESSAGE) &&
+      ips.none? { |ip| content.include? ip }
   rescue *::Network::FaradayGet::NET_ERRORS
     false
   end
@@ -115,14 +116,13 @@ private
   # источники проксей
   def url_sources
     @url_sources ||= Rails.cache.fetch([:proxy, :sources, CACHE_VERSION], expires_in: 1.hour) do
-      SOURCES + webanetlabs + proxy_24
+      SOURCES + webanetlabs # + proxy_24
     end
-    # + rebro_weebly
-    # Nokogiri::HTML(open('http://www.italianhack.org/forum/proxy-list-739/').read).css('h3.threadtitle a').map {|v| v.attr :href }
   end
 
   def custom_soruces
-    %i[openproxy_space]
+    []
+    # %i[openproxy_space]
   end
 
   def webanetlabs
@@ -139,60 +139,51 @@ private
     []
   end
 
-  # def rebro_weebly
-  #   # 20 proxies
-  #   Nokogiri::HTML(open('http://rebro.weebly.com/txt-lists.html').read)
-  #     .css('a')
-  #     .map { |v| v.attr :href }
-  #     .uniq
-  #     .select { |v| v =~ /\.txt$/ }
-  #     .map { |v| 'http://rebro.weebly.com' + v }
+  # def proxy_24 url = 'http://www.proxyserverlist24.top', nesting = 0
+  #   return [] unless url
+  #
+  #   html = Nokogiri::HTML(OpenURI.open_uri(url).read)
+  #
+  #   links = html.css('.post-title.entry-title a').map { |v| v.attr :href }
+  #
+  #   if nesting > 20
+  #     links
+  #   else
+  #     links + proxy_24(html.css('.blog-pager-older-link').first&.attr(:href), nesting + 1)
+  #   end
   # end
 
-  def proxy_24 url = 'http://www.proxyserverlist24.top', nesting = 0
-    return [] unless url
+  # all proxies are broken
+  # def openproxy_space
+  #   # index_url = "https://api.openproxy.space/list?skip=0&ts=#{Time.zone.now.to_i}000"
+  #   # json = JSON.parse OpenURI.open_uri(index_url).read, symbolize_names: true
+  #   # codes = json.select { |v| v[:title].match? /http/i }.map { |v| v[:code] }
+  #   #
+  #   # codes.flat_map do |code|
+  #     # url = "https://api.openproxy.space/list/#{code}"
+  #     url = 'https://api.openproxy.space/lists/http'
+  #     json = JSON.parse OpenURI.open_uri(url).read, symbolize_names: true
+  #     proxies = json[:data].flat_map do |v|
+  #       v[:items].map do |vv|
+  #         data = vv.split(':')
+  #         { ip: data[0], port: data[1].to_i }
+  #       end
+  #     end
+  #     print "#{url} - #{proxies.size} proxies\n"
+  #     proxies
+  #   # end
+  # end
 
-    html = Nokogiri::HTML(OpenURI.open_uri(url).read)
-
-    links = html.css('.post-title.entry-title a').map { |v| v.attr :href }
-
-    if nesting > 20
-      links
-    else
-      links + proxy_24(html.css('.blog-pager-older-link').first&.attr(:href), nesting + 1)
-    end
-  end
-
-  def openproxy_space
-    # index_url = "https://api.openproxy.space/list?skip=0&ts=#{Time.zone.now.to_i}000"
-    # json = JSON.parse OpenURI.open_uri(index_url).read, symbolize_names: true
-    # codes = json.select { |v| v[:title].match? /http/i }.map { |v| v[:code] }
-    # 
-    # codes.flat_map do |code|
-      # url = "https://api.openproxy.space/list/#{code}"
-      url = 'https://api.openproxy.space/lists/http'
-      json = JSON.parse OpenURI.open_uri(url).read, symbolize_names: true
-      proxies = json[:data].flat_map do |v|
-        v[:items].map do |vv|
-          data = vv.split(':')
-          { ip: data[0], port: data[1].to_i }
-        end
-      end
-      print "#{url} - #{proxies.size} proxies\n"
-      proxies
-    # end
-  end
-
-  def parse_proxies
-    url_sourced_proxies = url_sources
-      .flat_map do |url|
+  def parse_proxies is_url_sources:, is_custom_sources:
+    url_sourced_proxies = is_url_sources ?
+      url_sources.flat_map do |url|
         Rails.cache.fetch([url, :proxies, CACHE_VERSION]) { parse url }
-      end
+      end : []
 
-    custom_sourced_proxies = custom_soruces
-      .flat_map do |method|
+    custom_sourced_proxies = is_custom_sources ?
+      custom_soruces.flat_map do |method|
         Rails.cache.fetch([method, :proxies, CACHE_VERSION]) { send method }
-      end
+      end : []
 
     (url_sourced_proxies + custom_sourced_proxies).uniq
     # source_proxies = sources.map { |url| parse url }.flatten
@@ -208,6 +199,7 @@ private
 
   # http://forum.antichat.ru/thread59009.html
   SOURCES = [
+    # 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite&simplified=true&limit=300'
     # 'http://alexa.lr2b.com/proxylist.txt',
     # 'http://multiproxy.org/txt_all/proxy.txt', # 0 of 1526
     # 'http://txt.proxyspy.net/proxy.txt', # 53 of 202
@@ -224,32 +216,5 @@ private
 
     # 'http://feeds2.feedburner.com/Socks5UsLive',
     # 'http://proxy-heaven.blogspot.com/',
-    # 'http://socks.biz.ua/?action=proxylist',
-
-    # 0 / 220
-    # 'http://bestproxy.narod.ru/proxy1.html',
-    # 'http://bestproxy.narod.ru/proxy2.html',
-    # 'http://bestproxy.narod.ru/proxy3.html',
-
-    # 'http://utenti.multimania.it/rjezyd/',
-    # 'http://j-s.narod.ru/proxy.htm', 0!
-
-    # 'http://www.proxy-faq.de/80.html',
-    # 'http://proxyleecher.tripod.com/',
-
-    # 'http://proxylist.h12.ru/azia.htm',
-    # 'http://proxylist.h12.ru/america.htm',
-
-    # 14 / 1000
-    # 'http://notan.h1.ru/hack/xwww/proxy1.html',
-    # 'http://notan.h1.ru/hack/xwww/proxy2.html',
-    # 'http://notan.h1.ru/hack/xwww/proxy3.html',
-    # 'http://notan.h1.ru/hack/xwww/proxy4.html',
-    # 'http://notan.h1.ru/hack/xwww/proxy5.html',
-    # 'http://notan.h1.ru/hack/xwww/proxy6.html',
-    # 'http://notan.h1.ru/hack/xwww/proxy7.html',
-    # 'http://notan.h1.ru/hack/xwww/proxy8.html',
-    # 'http://notan.h1.ru/hack/xwww/proxy9.html',
-    # 'http://notan.h1.ru/hack/xwww/proxy10.html'
   ]
 end
