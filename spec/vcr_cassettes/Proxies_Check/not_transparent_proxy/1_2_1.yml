@@ -1,0 +1,101 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://shikimori.one/proxy_test
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+        Gecko) Chrome/74.0.3729.169 Safari/537.36
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 23 Mar 2022 20:38:13 GMT
+      Content-Type:
+      - text/plain
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Origin
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=mGPmDDdcfobDtLJKcbL55SyPixpTGGYnIHT%2BVYoHYeOXNLpgty8TjrjvsSLLqwdNuk28ig1Q0s08fUMAWfA%2FjG9XZpDXvvVAY3yfAOkd6PXt8nVJfigdN95nslyHnQb5bUtAE6knhx0RjliM"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 6f09f82f0c1e0c09-AMS
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: 127.0.0.1 | GET | /proxy_test | /proxy_test | /proxy_test | HTTP/1.0
+        | HTTP/1.0 | https | 123.345.789.123, 234.456.678.189 | shikimori.one
+        | 141.101.77.55 | close | 2001:bc8:182c:1f0f::1 | cloudflare | gzip | NL |
+        6f09f82f0c1e0c09-AMS | {"scheme":"https"} | Mozilla/5.0 (Windows NT 10.0;
+        Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36
+        | */* | shikimori.one | 443 |  |  | Unicorn 6.0.0 | /proxy_test |  test_passed
+  recorded_at: Wed, 23 Mar 2022 20:38:13 GMT
+- request:
+    method: get
+    uri: https://shikimori.one/what_is_my_ip
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 23 Mar 2022 20:38:13 GMT
+      Content-Type:
+      - text/plain
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Origin
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=Vxm26xuCbFI9U6LaKNP9mpmT4Sqgk19M82PEudi%2FEnotJUv%2BxKuIZywS9%2BwDnShexUuKQlkTRRNQCJyqSU88xPb5XY5uLBLPlsMlJhaeEp4Z1IpMCArnmz3o%2B0ub6O3K"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 6f09f8304e8495fa-ARN
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: 123.345.789.123, 234.456.678.189
+  recorded_at: Wed, 23 Mar 2022 20:38:13 GMT
+recorded_with: VCR 6.1.0
