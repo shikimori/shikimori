@@ -466,18 +466,26 @@ Review.
 ### Convert review topics
 ```ruby
 Review.
+  # where(id: 81558).
   # where(anime_id: 9253).
   # where(user_id: 1).
   includes(:comments).
   find_each do |review|
     next unless review.maybe_topic(:ru).is_a?(NoTopic)
 
-    review.send :generate_topics, :ru
-    Comments::Move.call(
-      comment_ids: review.comments.map(&:id),
-      commentable: review.topics.first,
-      from_reply: review,
-      to_reply: review.topics.first
-    )
+    Review.transaction do
+      review.send :generate_topics, review.locale
+      review_topic = review.maybe_topic review.locale
+
+      AbuseRequest.where(review_id: review.id).update_all review_id: nil, topic_id: review_topic.id
+      Ban.where(review_id: review.id).update_all review_id: nil, topic_id: review_topic.id
+
+      Comments::Move.call(
+        comment_ids: review.comments.map(&:id),
+        commentable: review.topics.first,
+        from_reply: review,
+        to_reply: review.topics.first
+      )
+    end
 end
 ```
