@@ -3,8 +3,8 @@ describe Review do
     it { is_expected.to belong_to :user }
     # it { is_expected.to belong_to(:anime).optional }
     # it { is_expected.to belong_to(:manga).optional }
-    it { is_expected.to have_many(:abuse_requests).dependent :destroy }
-    it { is_expected.to have_many :bans }
+    # it { is_expected.to have_many(:abuse_requests).dependent :destroy }
+    # it { is_expected.to have_many :bans }
   end
 
   describe 'validations' do

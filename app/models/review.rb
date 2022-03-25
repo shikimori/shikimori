@@ -17,11 +17,11 @@ class Review < ApplicationRecord
   belongs_to :anime, optional: true
   belongs_to :manga, optional: true
 
-  has_many :abuse_requests, -> { order :id },
-    dependent: :destroy,
-    inverse_of: :review
-  has_many :bans, -> { order :id },
-    inverse_of: :review
+  # has_many :abuse_requests, -> { order :id },
+  #   dependent: :destroy,
+  #   inverse_of: :review
+  # has_many :bans, -> { order :id },
+  #   inverse_of: :review
 
   enumerize :opinion, in: Types::Review::Opinion.values
   alias topic_user user
