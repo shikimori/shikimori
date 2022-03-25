@@ -11,7 +11,8 @@ module Clockwork
     NamedLogger.clockwork.info 'toshokan finished'
   end
 
-  every 30.minutes, 'half-hourly.import', at: ['**:15', '**:45'] do
+  every 8.hours, 'half-hourly.import' do
+  # every 30.minutes, 'half-hourly.import', at: ['**:15', '**:45'] do
     MalParsers::FetchPage.perform_async 'anime', 'updated_at', 0, 3
     MalParsers::FetchPage.perform_async 'manga', 'updated_at', 0, 5
 
@@ -60,14 +61,14 @@ module Clockwork
     NamedLogger.clockwork.info 'daily.smotret-anime.3/3 finished'
   end
 
-  every 1.day, 'daily.imports', at: '22:30' do
-    MalParsers::RefreshEntries.perform_async 'anime', nil, 4.months
-    MalParsers::RefreshEntries.perform_async 'manga', nil, 4.months
-    MalParsers::RefreshEntries.perform_async 'character', nil, 4.months
-    MalParsers::RefreshEntries.perform_async 'person', nil, 8.months
-
-    NamedLogger.clockwork.info 'daily.imports finished'
-  end
+  # every 1.day, 'daily.imports', at: '22:30' do
+  #   MalParsers::RefreshEntries.perform_async 'anime', nil, 4.months
+  #   MalParsers::RefreshEntries.perform_async 'manga', nil, 4.months
+  #   MalParsers::RefreshEntries.perform_async 'character', nil, 4.months
+  #   MalParsers::RefreshEntries.perform_async 'person', nil, 8.months
+  # 
+  #   NamedLogger.clockwork.info 'daily.imports finished'
+  # end
 
   every 1.day, 'daily.imports.2', at: '23:30' do
     MalParsers::ScheduleExpired.perform_async 'manga'
@@ -96,7 +97,7 @@ module Clockwork
   every 1.day, 'daily.misc.2', at: '04:15' do
     ImportToshokanTorrents.perform_async false
 
-    MalParsers::RefreshEntries.perform_async 'anime', 'latest', 1.week
+    # MalParsers::RefreshEntries.perform_async 'anime', 'latest', 1.week
     # SubtitlesImporter.perform_async :ongoings
     DbEntries::CleanupMalBanned.perform_async
     Votable::CleanupCheatBotVotes.perform_async
