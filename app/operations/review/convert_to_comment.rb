@@ -10,8 +10,8 @@ class Review::ConvertToComment
 
       Comments::Move.call(
         comment_ids: replies_ids,
-        commentable: @review.db_entry.topic(@review.locale),
-        from_reply: @review.maybe_topic(@review.locale),
+        commentable: db_entry_topic,
+        from_reply: review_topic,
         to_reply: comment
       )
 
@@ -35,8 +35,16 @@ private
   end
 
   def move_review_relations comment
-    @review.bans.update_all comment_id: comment.id, review_id: nil
-    @review.abuse_requests.update_all comment_id: comment.id, review_id: nil
+    review_topic.bans.update_all comment_id: comment.id, topic_id: nil
+    review_topic.abuse_requests.update_all comment_id: comment.id, topic_id: nil
+  end
+
+  def review_topic
+    @review.maybe_topic @review.locale
+  end
+
+  def db_entry_topic
+    @review.db_entry.topic @review.locale
   end
 
   def replies_ids

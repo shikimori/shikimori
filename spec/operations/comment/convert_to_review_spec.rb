@@ -47,11 +47,13 @@ describe Comment::ConvertToReview do
     expect { comment.reload }.to raise_error ActiveRecord::RecordNotFound
     expect(abuse_request.reload).to have_attributes(
       comment_id: nil,
-      review_id: subject.id
+      review_id: nil,
+      topic_id: review_topic.id
     )
     expect(ban.reload).to have_attributes(
       comment_id: nil,
-      review_id: subject.id
+      review_id: nil,
+      topic_id: review_topic.id
     )
 
     expect(reply_1.reload.commentable_id).to eq review_topic.id
