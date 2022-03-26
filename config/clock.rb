@@ -12,8 +12,8 @@ module Clockwork
   end
 
   every 30.minutes, 'half-hourly.import', at: ['**:15', '**:45'] do
-    MalParsers::FetchPage.perform_async 'anime', 'updated_at', 0, 3
-    MalParsers::FetchPage.perform_async 'manga', 'updated_at', 0, 5
+    # MalParsers::FetchPage.perform_async 'anime', 'updated_at', 0, 3
+    # MalParsers::FetchPage.perform_async 'manga', 'updated_at', 0, 5
 
     MalParsers::RefreshEntries.perform_async 'anime', 'anons', 12.hours
     MalParsers::RefreshEntries.perform_async 'anime', 'ongoing', 8.hours
@@ -150,8 +150,8 @@ module Clockwork
     # BadVideosCleaner.perform_async
     Screenshots::Cleanup.perform_async
 
-    MalParsers::FetchPage.perform_async 'anime', 'updated_at', 0, 100
-    MalParsers::FetchPage.perform_async 'manga', 'updated_at', 0, 100
+    # MalParsers::FetchPage.perform_async 'anime', 'updated_at', 0, 100
+    # MalParsers::FetchPage.perform_async 'manga', 'updated_at', 0, 100
 
     Users::MarkForeverBannedAsCheatBots.perform_async
     AnimesVerifier.perform_async
@@ -215,13 +215,13 @@ module Clockwork
     NamedLogger.clockwork.info 'monthly.schedule_missing finished'
   end
 
-  every 1.day, 'quarter.animes', at: '05:00', if: lambda { |t| t.day == 1 && (t.month % 4) == 0 } do
-    MalParsers::FetchPage.perform_async 'anime', 'name', 0, 99999
-  end
-
-  every 1.day, 'quarter.mangas', at: '05:00', if: lambda { |t| t.day == 10 && (t.month % 4) == 0 } do
-    MalParsers::FetchPage.perform_async 'manga', 'name', 0, 99999
-  end
+  # every 1.day, 'quarter.animes', at: '05:00', if: lambda { |t| t.day == 1 && (t.month % 4) == 0 } do
+  #   MalParsers::FetchPage.perform_async 'anime', 'name', 0, 99999
+  # end
+  # 
+  # every 1.day, 'quarter.mangas', at: '05:00', if: lambda { |t| t.day == 10 && (t.month % 4) == 0 } do
+  #   MalParsers::FetchPage.perform_async 'manga', 'name', 0, 99999
+  # end
 
   # every 1.day, 'monthly.vacuum', at: '05:00', if: lambda { |t| t.day == 28 } do
   #   VacuumDb.perform_async
