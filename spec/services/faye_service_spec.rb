@@ -1,14 +1,14 @@
 describe FayeService do
-  let(:service) { FayeService.new user, faye }
+  let(:service) { FayeService.new user, publisher_faye_id }
 
-  let(:faye) { 'test' }
+  let(:publisher_faye_id) { 'ZZZXXXCCC' }
   let(:topic) { create :topic, user: user }
-  let!(:publisher) { FayePublisher.new user, faye }
+  let!(:publisher) { FayePublisher.new user, publisher_faye_id }
 
   before do
     allow(FayePublisher)
       .to receive(:new)
-      .with(user, faye)
+      .with(user, publisher_faye_id)
       .and_return publisher
   end
 
@@ -145,7 +145,7 @@ describe FayeService do
     before do
       allow(FayePublisher)
         .to receive(:new)
-        .with(user, faye)
+        .with(user, publisher_faye_id)
         .and_return publisher
     end
 
@@ -173,6 +173,7 @@ describe FayeService do
 
   describe '#convert_review' do
     subject(:act) { service.convert_review forum_entry, is_convert_to_review }
+    let(:publisher_faye_id) { nil }
 
     before do
       allow(Comment::ConvertToReview).to receive(:call).and_call_original
@@ -182,7 +183,11 @@ describe FayeService do
           (forum_entry.is_a?(Review) && !is_convert_to_review)
         expect(publisher)
           .to receive(:publish_conversion)
-          .with forum_entry, anything, anything
+          .with(
+            is_convert_to_review ? :comment : :review,
+            forum_entry_to_faye,
+            anything
+          )
       else
         expect(publisher).to_not receive :publish_conversion
       end
@@ -193,6 +198,7 @@ describe FayeService do
 
     context 'comment' do
       let(:forum_entry) { create :comment, commentable: anime_topic }
+      let(:forum_entry_to_faye) { forum_entry }
 
       context 'is_convert_to_review' do
         let(:is_convert_to_review) { true }
@@ -219,7 +225,8 @@ describe FayeService do
     end
 
     context 'review' do
-      let(:forum_entry) { create :review, anime: anime }
+      let(:forum_entry) { create :review, :with_topics, anime: anime }
+      let(:forum_entry_to_faye) { forum_entry.maybe_topic forum_entry.locale }
 
       context '!is_convert_to_review' do
         let(:is_convert_to_review) { false }
