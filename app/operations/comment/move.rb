@@ -23,5 +23,6 @@ private
       commentable_id: @commentable.id,
       commentable_type: @commentable.class.base_class.name
     )
+    @comment.instance_variable_set :@skip_notify_quoted, true
   end
 end

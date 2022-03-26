@@ -71,7 +71,8 @@ class Comment < ApplicationRecord
   after_save :release_the_banhammer!,
     if: -> { saved_change_to_body? && !@skip_banhammer }
   after_save :touch_commentable
-  after_save :notify_quoted, if: :saved_change_to_body?
+  after_save :notify_quoted,
+    if: -> { saved_change_to_body? && !@skip_notify_quoted }
 
   def commentable
     if association(:topic).loaded? && !topic.nil? && commentable_type == 'Topic'

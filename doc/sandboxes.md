@@ -469,8 +469,9 @@ Review.
   # where(id: 81558).
   # where(anime_id: 9253).
   # where(user_id: 1).
-  includes(:comments).
+  includes(:comments, :topics).
   find_each do |review|
+    puts review.id
     next unless review.maybe_topic(:ru).is_a?(NoTopic)
 
     Review.transaction do
