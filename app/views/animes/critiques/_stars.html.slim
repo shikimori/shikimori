@@ -20,7 +20,7 @@
               score: critique.send(kind) || 0,
               input_selector: ("#critique_#{kind}" if local_assigns[:is_edit]) \
             }
-          - if defined? in_edit
+          - if local_assigns[:is_edit]
             = hidden_field_tag "critique[#{kind}]", critique.send(kind)
 
 - if stars_by_kind[:overall]

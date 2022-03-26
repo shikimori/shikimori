@@ -65,8 +65,12 @@
       margin-left: 0
       margin-top: 20px
 
-      .text-score
+    .text-score
+      +iphone_portrait
         width: 70px
+
+      +gte_iphone-landscape
+        flex-grow: 1
 
     .title
       color: #123

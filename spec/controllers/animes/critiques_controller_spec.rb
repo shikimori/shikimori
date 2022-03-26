@@ -140,11 +140,13 @@ describe Animes::CritiquesController do
           user_id: user.id,
           target_type: anime.class.name,
           target_id: anime.id,
-          text: 'x' * Critique::MIN_BODY_SIZE
+          text: 'x' * Critique::MIN_BODY_SIZE,
+          storyline: 1
         }
       end
       it do
         expect(assigns(:critique).errors).to be_empty
+        expect(assigns(:critique)).to have_attributes params
         expect(response).to redirect_to UrlGenerator.instance.critique_url(assigns(:critique))
       end
     end
