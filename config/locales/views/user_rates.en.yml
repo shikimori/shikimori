@@ -19,7 +19,7 @@ en:
     lines:
       <<: *list_page
 
-    stats:
+    list_stats:
       insufficient_data: Insufficient data
 
     user_rates:

@@ -19,7 +19,7 @@ ru:
     lines:
       <<: *list_page
 
-    stats:
+    list_stats:
       insufficient_data: Недостаточно данных
 
     user_rates:
