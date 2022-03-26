@@ -134,19 +134,10 @@
       border-color: darken($link-4, 2%)
       color: #fff
 
-  &.maxi
-    font-size: 18px
-    letter-spacing: 0.33px
-    padding: 9px 20px
-
-  &.mini
-    font-size: 11px
-    padding: 5px 14px
-    // font-weight: normal
-
   // forum
   &.create-topic
     +link_button_icon('\002b')
+
     &:before
       font-weight: bold
 
@@ -164,6 +155,15 @@
 
   &.arrow-right
     +link_button_icon('\E850', false)
+
+  &.maxi
+    font-size: 18px
+    letter-spacing: 0.33px
+    padding: 9px 20px
+
+  &.mini
+    font-size: 13px
+    padding: 5px 10px
 
   &.dark
     background-color: #456

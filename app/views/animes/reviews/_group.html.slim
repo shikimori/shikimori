@@ -11,7 +11,7 @@
   - if is_preview && collection.page == 1
     .review-controls
       - if collection.next_page?
-        a.b-link_button.arrow-right.mini.to-other-reviews[
+        a.b-link_button.blue.arrow-right.mini.to-other-reviews[
           href=current_url(page: nil, is_preview: nil)
         ] = t '.to_other_reviews'
 
