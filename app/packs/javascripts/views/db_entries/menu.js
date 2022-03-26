@@ -48,7 +48,7 @@ export class AnimesMenu extends View {
     $bar
       .empty()
       .bar({
-        title: (entry, percent)  => percent > 15 ? entry.value : '',
+        // title: (entry, percent)  => percent > 15 ? entry.value : '',
         map: entry => ({
           name: I18n.t(`${STATUS_I18N_KEY}.${entryType}.${entry.key}`),
           value: entry.value
