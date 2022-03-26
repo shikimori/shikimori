@@ -153,7 +153,10 @@ class TestsController < ShikimoriController
   def ip
     render json: {
       ip: request.ip,
-      remote_ip: request.remote_ip
+      remote_ip: request.remote_ip,
+      HTTP_X_FORWARDED_FOR: request.env['HTTP_X_FORWARDED_FOR'],
+      HTTP_X_REAL_IP: request.env['HTTP_X_REAL_IP'],
+      REMOTE_ADDR: request.env['REMOTE_ADDR']
     }
   end
 
