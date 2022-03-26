@@ -2,13 +2,16 @@ class Anime::RefreshScore
   method_object :entry, :global_average
 
   def call
-    new_score = Animes::WeightedScore.call(
-      number_of_scores: user_rates_scope.size,
-      average_user_score: user_rates_scope.average(:score),
-      global_average: @global_average
-    )
-
-    @entry.update score_2: new_score unless @entry.score_2 == new_score
+    if @entry.status == 'anons'
+      @entry.update score_2: 0 unless @entry.score_2.zero?
+    else
+      new_score = Animes::WeightedScore.call(
+        number_of_scores: user_rates_scope.size,
+        average_user_score: user_rates_scope.average(:score),
+        global_average: @global_average
+      )
+      @entry.update score_2: new_score unless @entry.score_2 == new_score
+    end
   end
 
 private
