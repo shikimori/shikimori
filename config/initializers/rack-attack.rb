@@ -11,26 +11,27 @@ Rack::Attack::Request.send :include, Rack::Attack::Request::RealIpFix
 NEKO_IP = '135.181.210.175'
 SMOTRET_ANIME_USER_AGENT = 'Anime 365 (https://smotretanime.ru/; info@smotretanime.ru)'
 
-Rack::Attack.safelist('neko') do |req|
-  req.real_ip == NEKO_IP
-end
-
-Rack::Attack.safelist('screenshots_upload') do |req|
-  req.post? && req.path.ends_with?('/screenshots')
-end
-
-Rack::Attack.safelist('autocomplete_and_search_and_shiki_editor') do |req|
-  req.get? && (
-    req.path.ends_with?('/autocomplete') ||
-    req.env['REQUEST_URI']&.starts_with?('/api/users?search=') ||
-    req.path.starts_with?('/api/shiki_editor')
+Rack::Attack.safelist('everything') do |req|
+  (
+    # neko
+    req.real_ip == NEKO_IP
+  ) || (
+    # screenshots_upload
+    req.post? && req.path.ends_with?('/screenshots')
+  # ) || (
+  #   # cloudflare
+  #   req.host == 'shikimori.one'
+  ) || (
+    # autocomplete, search and shiki editor
+    req.get? && (
+      req.path.ends_with?('/autocomplete') ||
+      req.env['REQUEST_URI']&.starts_with?('/api/users?search=') ||
+      req.path.starts_with?('/api/shiki_editor')
+    )
+  ) || (
+    # development
+    Rails.env.development? && req.real_ip == '127.0.0.1'
   )
-end
-
-if Rails.env.development?
-  Rack::Attack.safelist('localhost') do |req|
-    req.real_ip == '127.0.0.1'
-  end
 end
 
 MODIFIER = 1
