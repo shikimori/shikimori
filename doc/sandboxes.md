@@ -321,6 +321,53 @@ end;
 User.find(user_id).update rate_at: Time.zone.now
 ```
 
+#### Move manga data from development to production
+```ruby
+manga = Manga.find(93281);
+
+File.open('/tmp/z.json', 'w') do |f|
+  f.write({
+    user_history: UserHistory.where(target: manga),
+    user_rate_logs: UserRateLog.where(target: manga),
+    user_rates: UserRate.where(target: manga),
+    favorites: Favourite.where(linked: manga),
+    club_links: ClubLink.where(linked: manga)
+  }.to_json);
+end;
+```
+
+```sh
+scp /tmp/z.json devops@shiki:/tmp/
+ssh shiki
+rc
+```
+
+```ruby
+manga = Manga.find(93281);
+json = JSON.parse(open('/tmp/z.json').read).symbolize_keys;
+
+class UserRate < ApplicationRecord
+  def log_created; end
+  def log_deleted; end
+end
+
+ApplicationRecord.transaction do
+  {
+    user_history: UserHistory,
+    user_rate_logs: UserRateLog,
+    user_rates: UserRate,
+    favorites: Favourite,
+    club_links: ClubLink,
+  }.each do |key, klass|
+    klass.wo_timestamp do
+      klass.import(json[key].map {|v| klass.new v }, on_duplicate_key_ignore: true);
+    end;
+  end
+end;
+
+manga.touch
+```
+
 ### Restore images from backup
 ```ruby
 urls = [
@@ -414,4 +461,31 @@ Review.
       )
     end
   end;
+```
+
+### Convert review topics
+```ruby
+Review.
+  # where(id: 81558).
+  # where(anime_id: 9253).
+  # where(user_id: 1).
+  includes(:comments).
+  find_each do |review|
+    next unless review.maybe_topic(:ru).is_a?(NoTopic)
+
+    Review.transaction do
+      review.send :generate_topics, review.locale
+      review_topic = review.maybe_topic review.locale
+
+      AbuseRequest.where(review_id: review.id).update_all review_id: nil, topic_id: review_topic.id
+      Ban.where(review_id: review.id).update_all review_id: nil, topic_id: review_topic.id
+
+      Comments::Move.call(
+        comment_ids: review.comments.map(&:id),
+        commentable: review.topics.first,
+        from_reply: review,
+        to_reply: review.topics.first
+      )
+    end
+end
 ```

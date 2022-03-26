@@ -10,7 +10,6 @@ describe Collection do
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_length_of(:name).is_at_most(255) }
     it { is_expected.to validate_length_of(:text).is_at_most(400000) }
-    it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_presence_of :kind }
     it { is_expected.to validate_presence_of :locale }
   end

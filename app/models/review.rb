@@ -2,7 +2,7 @@ class Review < ApplicationRecord
   include AntispamConcern
   include Commentable
   include Moderatable
-  include Viewable
+  include TopicsConcern
 
   antispam(
     per_day: 15,
@@ -17,13 +17,14 @@ class Review < ApplicationRecord
   belongs_to :anime, optional: true
   belongs_to :manga, optional: true
 
-  has_many :abuse_requests, -> { order :id },
-    dependent: :destroy,
-    inverse_of: :review
-  has_many :bans, -> { order :id },
-    inverse_of: :review
+  # has_many :abuse_requests, -> { order :id },
+  #   dependent: :destroy,
+  #   inverse_of: :review
+  # has_many :bans, -> { order :id },
+  #   inverse_of: :review
 
   enumerize :opinion, in: Types::Review::Opinion.values
+  alias topic_user user
 
   MIN_BODY_SIZE = 230
 
@@ -70,6 +71,14 @@ class Review < ApplicationRecord
     anime_id || manga_id
   end
 
+  def db_entry_type
+    if anime?
+      Anime.name
+    elsif manga?
+      db_entry.class.name
+    end
+  end
+
   def locale
     :ru
   end
@@ -110,10 +119,6 @@ class Review < ApplicationRecord
       else
         UserRate.find_by user_id: user_id, target_type: 'Manga', target_id: manga_id
       end
-  end
-
-  def faye_channels
-    %W[/review-#{id}]
   end
 
 private

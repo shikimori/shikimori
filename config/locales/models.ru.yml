@@ -112,17 +112,18 @@ ru:
       default: Топик
     body:
       anime: Топик обсуждения [anime=%{id}]аниме[/anime].
-      manga: Топик обсуждения [manga=%{id}]манги[/manga].
-      ranobe: Топик обсуждения [ranobe=%{id}]ранобэ[/ranobe].
+      article: Топик обсуждения [article=%{id}]статьи[/article].
       character: Топик обсуждения [character=%{id}]персонажа[/character].
-      person: Топик обсуждения [person=%{id}]человека[/person].
-      critique: Топик обсуждения [critique=%{id}]рецензии[/critique].
-      contest: Топик обсуждения [contest=%{id}]турнира[/contest].
       club: Топик обсуждения [club=%{id}]клуба[/club].
       club_page: Топик обсуждения [club_page=%{club_page_id}]страницы[/club_page] [club=%{club_id}]клуба[/club].
-      cosplay_gallery: Топик обсуждения косплея.
       collection: Топик обсуждения [collection=%{id}]коллекции[/collection].
-      article: Топик обсуждения [article=%{id}]статьи[/article].
+      contest: Топик обсуждения [contest=%{id}]турнира[/contest].
+      cosplay_gallery: Топик обсуждения косплея.
+      critique: Топик обсуждения [critique=%{id}]рецензии[/critique].
+      manga: Топик обсуждения [manga=%{id}]манги[/manga].
+      person: Топик обсуждения [person=%{id}]человека[/person].
+      ranobe: Топик обсуждения [ranobe=%{id}]ранобэ[/ranobe].
+      review: Топик обсуждения [review=%{id}]отзыва[/review].
 
     full_title:
       anime: Обсуждение аниме [anime]%{id}[/anime]
@@ -134,6 +135,10 @@ ru:
         anime: Обсуждение рецензии аниме %{target_name} от %{author}
         manga: Обсуждение рецензии манги %{target_name} от %{author}
         ranobe: Обсуждение рецензии ранобэ %{target_name} от %{author}
+      review:
+        anime: Обсуждение отзыва аниме %{target_name} от %{author}
+        manga: Обсуждение отзыва манги %{target_name} от %{author}
+        ranobe: Обсуждение отзыва ранобэ %{target_name} от %{author}
       contest: Обсуждение турнира [contest]%{id}[/contest]
       club: Обсуждение клуба [club]%{id}[/club]
       club_page: Страница [club_page]%{club_page_id}[/club_page] клуба [club]%{club_id}[/club]

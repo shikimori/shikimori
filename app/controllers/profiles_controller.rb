@@ -104,7 +104,11 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, TOPICS_LIMIT)
-      .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
+      .transform do |topic|
+        view = Topics::CritiqueView.new topic, true, false
+        view.instance_variable_set :@is_show_comments, false
+        view
+      end
   end
 
   def reviews
@@ -112,11 +116,16 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     og page_title: i18n_io('Review', :few)
 
     scope = @resource.reviews
-      .includes(:anime, :manga)
+      .includes(:user, :topics, :anime, :manga)
       .order(created_at: :desc)
 
     @collection = QueryObjectBase.new(scope)
-      .paginate(@page, TOPICS_LIMIT)
+      .paginate(@page, 5)
+      .transform do |model|
+        view = Topics::ReviewView.new model.maybe_topic(locale_from_host), true, false
+        view.instance_variable_set :@is_show_comments, false
+        view
+      end
   end
 
   def collections

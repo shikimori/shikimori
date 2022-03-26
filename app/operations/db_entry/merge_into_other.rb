@@ -161,7 +161,6 @@ private
         .includes(:commentable)
         .find_each do |comment|
           comment.update commentable: @other_topic
-          comment.send :increment_comments
         end
 
       if @entry_topic.commented_at && @entry_topic.commented_at < @other_topic.commented_at

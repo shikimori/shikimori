@@ -8,8 +8,6 @@ describe Critique do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :user }
-    it { is_expected.to validate_presence_of :target }
     it { is_expected.to validate_presence_of :locale }
 
     context 'accepted' do
@@ -20,6 +18,24 @@ describe Critique do
     context 'rejected' do
       subject { build :critique, :rejected }
       it { is_expected.to validate_presence_of :approver }
+    end
+  end
+
+  describe 'instance methods' do
+    describe '#db_entry_type' do
+      subject { build :critique, target: target }
+      let(:target) { nil }
+      its(:db_entry_type) { is_expected.to be_nil }
+
+      context 'anime' do
+        let(:target) { build_stubbed :anime }
+        its(:db_entry_type) { is_expected.to eq Anime.name }
+      end
+
+      context 'manga' do
+        let(:target) { build_stubbed :manga }
+        its(:db_entry_type) { is_expected.to eq Manga.name }
+      end
     end
   end
 

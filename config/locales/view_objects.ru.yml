@@ -38,6 +38,12 @@ ru:
       manga: Рецензия на мангу &laquo;%{target_name}&raquo;
       ranobe: Рецензия на ранобэ &laquo;%{target_name}&raquo;
 
+  topics/review_view:
+    title:
+      anime: Отзыв на аниме &laquo;%{target_name}&raquo;
+      manga: Отзыв на мангу &laquo;%{target_name}&raquo;
+      ranobe: Отзыв на ранобэ &laquo;%{target_name}&raquo;
+
   comments/view: &comments
     show_comments: Показать %{comment_count} %{comment_word}
     hide_comments: Скрыть %{comment_count} %{comment_word}

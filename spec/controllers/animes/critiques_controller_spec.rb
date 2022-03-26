@@ -9,6 +9,31 @@ describe Animes::CritiquesController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#show' do
+    subject! do
+      get :show, params: { anime_id: anime.to_param, type: 'Anime', id: critique.id }
+    end
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#tooltip' do
+    subject! do
+      get :tooltip,
+        params: { anime_id: anime.to_param, type: 'Anime', id: critique.id },
+        xhr: is_xhr
+    end
+
+    context 'html' do
+      let(:is_xhr) { false }
+      it { expect(response).to have_http_status :success }
+    end
+
+    context 'xhr' do
+      let(:is_xhr) { true }
+      it { expect(response).to have_http_status :success }
+    end
+  end
+
   describe '#new' do
     include_context :authenticated, :user, :week_registered
 
@@ -59,8 +84,7 @@ describe Animes::CritiquesController do
       end
       it do
         expect(assigns(:critique)).to be_persisted
-        topic = assigns(:critique).topic(controller.locale_from_host)
-        expect(response).to redirect_to UrlGenerator.instance.topic_url(topic)
+        expect(response).to redirect_to UrlGenerator.instance.critique_url(assigns(:critique))
       end
     end
 
@@ -116,13 +140,14 @@ describe Animes::CritiquesController do
           user_id: user.id,
           target_type: anime.class.name,
           target_id: anime.id,
-          text: 'x' * Critique::MIN_BODY_SIZE
+          text: 'x' * Critique::MIN_BODY_SIZE,
+          storyline: 1
         }
       end
       it do
         expect(assigns(:critique).errors).to be_empty
-        topic = assigns(:critique).topic(controller.locale_from_host)
-        expect(response).to redirect_to UrlGenerator.instance.topic_url topic
+        expect(assigns(:critique)).to have_attributes params
+        expect(response).to redirect_to UrlGenerator.instance.critique_url(assigns(:critique))
       end
     end
 

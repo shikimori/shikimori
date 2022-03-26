@@ -3,34 +3,48 @@
 @import mixins/ellipsis2
 @import mixins/link
 @import mixins/responsive
-
-$body-offset: 130px
+@import mixins/forum_entry
 
 .b-critique-topic
   &.b-topic-preview > .inner
     min-height: 45px
 
+    // .body,
+    // .b-height_shortener,
+    .name-date,
+    .b-status-line
+      margin-left: 0
+
+    .b-status-line
+      margin-bottom: 2px !important
+
     .critique-entry_cover
+      .tooltip &
+        display: none
+
       .b-catalog_entry
+        margin-top: 3px
         float: left
-        margin-bottom: 20px
-        // margin-top: 5px
         width: 115px
 
-    .read_more-link,
-    .body-truncated,
+    .body,
     .b-height_shortener
-      margin-left: $body-offset
+      margin-left: 130px
 
-  // &:not(.b-topic-preview)
-  //   & > .inner
-  //     // need to compensate fix for chrome77 bug, because preview topics do not have left margin
-  //     & > .body
-  //       overflow: visible
-  //
-  //     & > .body,
-  //     & > header > .name-date
-  //       margin-left: 0 !important
+    .critique-stars
+      +iphone_portrait
+        display: none
+
+      .star-line:last-child
+        margin-bottom: 0
+
+      .b-rate
+        .stars,
+        .score-value
+          font-size: 24px
+
+        .text-score
+          width: 60px
 
   .b-critique_votes .warn
     display: inline-block
@@ -40,20 +54,29 @@ $body-offset: 130px
 
   .critique-stars
     float: right
-    margin-left: 20px
+    margin-left: $block-offset
     position: relative // без height-shortener для рецензий некорректно отрабатывает
-    width: 227px
 
     +iphone_portrait
+      align-items: center
+      display: flex
+      flex-direction: column
       float: none
       margin-left: 0
-      margin-top: 10px
+      margin-top: 20px
 
-    & > .title
+    .text-score
+      +iphone_portrait
+        width: 70px
+
+      +gte_iphone-landscape
+        flex-grow: 1
+
+    .title
       color: #123
-      font-size: 12px
+      font-size: 13px
       font-weight: bold
-      line-height: 0.5
+      line-height: 1
 
     .star-line
       margin-bottom: 10px

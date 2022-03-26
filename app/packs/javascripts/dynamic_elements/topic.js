@@ -3,6 +3,7 @@ import delay from 'delay';
 import { bind, memoize } from 'shiki-decorators';
 
 import ShikiEditable from '@/views/application/shiki_editable';
+import { isPhone } from 'shiki-utils';
 
 import axios from '@/utils/axios';
 import checkHeight from '@/utils/check_height';
@@ -35,8 +36,6 @@ export default class Topic extends ShikiEditable {
         return;
       }
     }
-
-    this.$body ||= this.$inner.children('.body');
 
     this.$editorContainer = this.$('.editor-container');
     this.$editor = this.$('.shiki_editor-selector');
@@ -189,6 +188,11 @@ export default class Topic extends ShikiEditable {
   }
 
   @memoize
+  get $body() {
+    return this.$inner.children('.body');
+  }
+
+  @memoize
   get isPreview() { return this.$node.hasClass('b-topic-preview'); }
 
   @memoize
@@ -199,6 +203,9 @@ export default class Topic extends ShikiEditable {
 
   @memoize
   get isCritique() { return this.$node.hasClass('b-critique-topic'); }
+
+  @memoize
+  get isReview() { return this.$node.hasClass('b-review-topic'); }
 
   @memoize
   get $commentsHider() { return this.$('.comments-hider'); }
@@ -212,6 +219,16 @@ export default class Topic extends ShikiEditable {
   @memoize
   get $checkHeightNode() {
     return this.$body;
+  }
+
+  _assignCheckHeightLimits() {
+    if (this.isReview || this.isCritique) {
+      this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT = 220;
+      this.CHECK_HEIGHT_COLLAPSED_HEIGHT = 120;
+      this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 120;
+    } else {
+      super._assignCheckHeightLimits();
+    }
   }
 
   _bindFaye() {
@@ -396,24 +413,6 @@ export default class Topic extends ShikiEditable {
     animatedExpand($newComments[0]);
 
     this._updateCommentsLoader(data);
-  }
-
-  // private functions
-  // проверка высоты топика. урезание, если текст слишком длинный (точно такой же код в shiki_comment)
-  @bind
-  _checkHeight() {
-    if (!this.isCritique) { return super._checkHeight(); }
-
-    const imageHeight = this.$('.critique-entry_cover img').height();
-    const readMoreHeight = 13 + 5; // 5px - read_more offset
-
-    if (imageHeight > 0) {
-      checkHeight(this.$('.body-truncated'), {
-        maxHeight: imageHeight - readMoreHeight,
-        collapsedHeight: imageHeight - readMoreHeight,
-        expandHtml: ''
-      });
-    }
   }
 
   _actualizeVoting() {

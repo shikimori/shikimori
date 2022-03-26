@@ -4,10 +4,10 @@
     data-faye='false'
   ]
     - if @collection.any?
-      = render partial: 'reviews/review',
+      = render partial: 'topics/topic',
         collection: @collection,
-        locals: { is_display_target: true },
-        cached: ->(entry) { CacheHelper.keys entry, :is_display_target }
+        as: :topic_view,
+        cached: ->(entry) { CacheHelper.keys entry }
 
     - else
       p.b-nothing_here = t 'no_reviews'

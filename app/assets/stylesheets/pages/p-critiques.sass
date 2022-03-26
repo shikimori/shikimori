@@ -1,0 +1,21 @@
+@import mixins/responsive
+
+.p-critiques-index
+  .critique-controls
+    margin-bottom: 5px
+
+    +gte_laptop
+      display: flex
+
+    .create-critique
+      font-size: 14px
+
+      +gte_laptop
+        max-width: 240px
+
+  .b-topic-minified > .inner
+    .poster
+      display: none
+
+    .b-height_shortener
+      margin-left: 0

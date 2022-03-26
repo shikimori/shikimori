@@ -5,14 +5,6 @@ class Topics::CollectionView < Topics::UserContentView
     super 'b-collection-topic'
   end
 
-  def minified?
-    is_preview || is_mini
-  end
-
-  def poster is_2x
-    @topic.user.avatar_url is_2x ? 80 : 48
-  end
-
   def url options = {}
     if is_mini
       canonical_url
@@ -61,6 +53,10 @@ class Topics::CollectionView < Topics::UserContentView
 
   def prebody?
     tags.any?
+  end
+
+  def linked_in_poster?
+    false
   end
 
 private

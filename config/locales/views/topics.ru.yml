@@ -7,7 +7,7 @@ ru:
       no_topic: Топик или был удалён, или никогда не существовал на сайте
     header:
       mini: &header_mini
-        topic_ignored: в игноре
+        topic_ignored: &ignored в игноре
         topic_closed: закрыт
       common:
         <<: *header_mini
@@ -100,3 +100,15 @@ ru:
     news_line:
       inner:
         by: от
+    reviews:
+      inner:
+        in_author_list: В списке у автора
+        is_written_before_release:
+          anime: Отзыв написан до завершения показа аниме
+          manga: Отзыв написан до завершения манги
+          ranobe: Отзыв написан до завершения ранобэ
+        go_to_review: к отзыву
+        moderation: Модерация
+        'on': к
+        review_ignored: *ignored
+        review_closed: закрыто

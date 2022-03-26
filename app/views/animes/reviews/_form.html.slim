@@ -1,12 +1,18 @@
-= simple_form_for review.new_record? ? [resource, review] : [:api, review],
-  remote: !local_assigns[:resource],
-  authenticity_token: true,
-  html: { data: (review.persisted? ? { type: :json } : nil), id: nil } do |f|
+= simple_form_for review.new_record? || !local_assigns[:is_remote] ? [resource, review] : [:api, review],
+    remote: local_assigns[:is_remote],
+    authenticity_token: true,
+    html: { data: (local_assigns[:is_remote] ? { type: :json } : nil), id: nil } do |f|
   input type='hidden' name='frontend' value='true'
 
   - if review.new_record?
     = f.input :anime_id, as: :hidden
     = f.input :manga_id, as: :hidden
+
+  - if review.errors.any?
+    .b-errors
+      .subheadline.m5 = i18n_i 'error', :other
+      .block
+        == review.errors.full_messages.join('<br>')
 
   - if review.written_before_release? && review.db_entry_released_before?
     = f.input :is_written_before_release, as: :boolean
@@ -17,6 +23,7 @@
       field_name: 'review[body]',
       f: f,
       no_preview_avatar: true,
+      cancel_url: (UrlGenerator.instance.review_url(review) if review.persisted? && !local_assigns[:is_remote]),
       cache_key: review.cache_key do
     aside.markers
       - Review.opinion.options.each do |(name, key)|

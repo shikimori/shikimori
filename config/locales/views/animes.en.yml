@@ -36,8 +36,9 @@ en:
   animes: &animes
     page:
       actions:
-        comment: Comment
-        critique: Write critique
+        comment: Write a comment
+        review: Write a review
+        critique: Write a critique
         add_to_favorites: Add to Favorite
         remove_from_favorites: Remove from Favorite
         edit: Edit
@@ -128,6 +129,14 @@ en:
           positive: Positive
           neutral: Neutral
           negative: Negative
+      group:
+        to_other_reviews: To all reviews
+        new_review: Write a review
+      missing:
+        no_review: Review is either deleted or never existed on Shikimori
+    critiques:
+      missing:
+        no_critique: Critique is either deleted or never existed on Shikimori
 
   mangas:
     <<: *animes

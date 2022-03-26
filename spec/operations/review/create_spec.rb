@@ -28,5 +28,7 @@ describe Review::Create do
       user: user,
       is_written_before_release: released_on > Time.zone.now
     )
+    expect(review.topics).to have(1).item
+    expect(review.topics.first.locale).to eq :ru
   end
 end

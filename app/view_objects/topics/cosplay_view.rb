@@ -9,10 +9,6 @@ class Topics::CosplayView < Topics::UserContentView
     preview?
   end
 
-  def poster is_2x
-    topic.user.avatar_url is_2x ? 80 : 48
-  end
-
   def html_body
     h.render(
       partial: 'topics/cosplay/info',
@@ -50,5 +46,9 @@ class Topics::CosplayView < Topics::UserContentView
           "#{ImageUrlGenerator.instance.url image, :preview}[/img][/url]"
       end
       .join
+  end
+
+  def poster_in_header?
+    false
   end
 end

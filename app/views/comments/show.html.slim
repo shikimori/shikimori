@@ -12,10 +12,13 @@
     // .inner node must be present here because
     // otherwise topic buttons events will be binded to each comment buttons too
     .inner
-    .subheadline
-      == t '.user_comment',
-        id: @view.comment.id,
-        user: render('users/user_16', user: @view.user)
+    h2.subheadline
+      ' #{i18n_i('Comment', :one)} ##{@view.comment.id}
+      = render 'users/user_16', user: @view.user
+    / .subheadline
+    /   == t '.user_comment',
+    /     id: @view.comment.id,
+    /     user: render('users/user_16', user: @view.user)
     .block
       - if @view.ignored_user?
         = render 'blocks/ignored', ignored: @view.comment, kind: :ignored_user

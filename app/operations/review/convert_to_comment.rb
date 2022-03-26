@@ -10,8 +10,8 @@ class Review::ConvertToComment
 
       Comments::Move.call(
         comment_ids: replies_ids,
-        commentable: commentable,
-        from_reply: @review,
+        commentable: db_entry_topic,
+        from_reply: review_topic,
         to_reply: comment
       )
 
@@ -28,27 +28,31 @@ private
     Comment.new(
       user: @review.user,
       body: @review.body,
-      commentable: commentable,
+      commentable: @review.db_entry.topic(@review.locale),
       created_at: @review.created_at,
       updated_at: @review.updated_at
     )
   end
 
   def move_review_relations comment
-    @review.bans.update_all comment_id: comment.id, review_id: nil
-    @review.abuse_requests.update_all comment_id: comment.id, review_id: nil
+    review_topic.bans.update_all comment_id: comment.id, topic_id: nil
+    review_topic.abuse_requests.update_all comment_id: comment.id, topic_id: nil
+  end
+
+  def review_topic
+    @review.maybe_topic @review.locale
+  end
+
+  def db_entry_topic
+    @review.db_entry.topic @review.locale
   end
 
   def replies_ids
     Comments::RepliesByBbCode
       .call(
         model: @review,
-        commentable: @review
+        commentable: @review.maybe_topic(@review.locale)
       )
       .map(&:id)
-  end
-
-  def commentable
-    @review.db_entry.topic @review.locale
   end
 end

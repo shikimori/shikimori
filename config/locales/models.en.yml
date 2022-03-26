@@ -112,17 +112,18 @@ en:
       default: Thread
     body:
       anime: '[anime=%{id}]Anime[/anime] discussion thread.'
-      manga: '[manga=%{id}]Manga[/manga] discussion thread.'
-      ranobe: '[ranobe=%{id}]Light novel[/ranobe] discussion thread.'
+      article: '[article=%{id}]Article[/article] discussion thread.'
       character: '[character=%{id}]Character[/character] discussion thread.'
-      person: '[person=%{id}]Person[/person] discussion thread.'
-      critique: '[critique=%{id}]Critique[/critique] discussion thread.'
-      contest: '[contest=%{id}]Contest[/contest] discussion thread.'
       club: '[club=%{id}]Club[/club] discussion thread.'
       club_page: '[club=%{club_id}]Club[/club] [club_page=%{club_page_id}]page[/club_page] discussion thread.'
-      cosplay_gallery: 'Cosplay discussion thread.'
       collection: '[collection=%{id}]Collection[/collection] discussion thread.'
-      article: '[article=%{id}]Article[/article] discussion thread.'
+      contest: '[contest=%{id}]Contest[/contest] discussion thread.'
+      cosplay_gallery: 'Cosplay discussion thread.'
+      critique: '[critique=%{id}]Critique[/critique] discussion thread.'
+      manga: '[manga=%{id}]Manga[/manga] discussion thread.'
+      person: '[person=%{id}]Person[/person] discussion thread.'
+      ranobe: '[ranobe=%{id}]Light novel[/ranobe] discussion thread.'
+      review: '[review=%{id}]Review[/review] discussion thread.'
 
     full_title:
       anime: Anime [anime]%{id}[/anime] discussion
@@ -134,6 +135,10 @@ en:
         anime: Anime %{target_name} critique by %{author} discussion
         manga: Manga %{target_name} critique by %{author} discussion
         ranobe: Light novel %{target_name} critique by %{author} discussion
+      review:
+        anime: Anime %{target_name} review by %{author} discussion
+        manga: Manga %{target_name} review by %{author} discussion
+        ranobe: Light novel %{target_name} review by %{author} discussion
       contest: Contest [contest]%{id}[/contest] discussion
       club: Club [club]%{id}[/club] discussion
       club_page: Club [club_page]%{club_id}[/club_page] page [club_page]%{club_page_id}[/club_page] discussion

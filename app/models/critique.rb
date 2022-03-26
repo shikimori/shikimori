@@ -19,7 +19,6 @@ class Critique < ApplicationRecord
     touch: Rails.env.test? ? false : :activity_at
   belongs_to :target, polymorphic: true, touch: true
 
-  validates :user, :target, presence: true
   validates :text,
     length: {
       minimum: MIN_BODY_SIZE,
@@ -29,20 +28,21 @@ class Critique < ApplicationRecord
   validates :locale, presence: true
 
   enumerize :locale, in: %i[ru en], predicates: { prefix: true }
+  alias topic_user user
 
   scope :available, -> { visible }
 
-  def topic_user
-    user
-  end
-
-  # хз что это за хрень и почему CritiqueComment.first.linked.target
-  # возвращает сам обзор. я так и не понял
-  def entry
-    @entry ||= target_type.constantize.find(target_id)
-  end
-
   def body
     text
+  end
+
+  def db_entry_type
+    return unless target_id
+
+    if target_type == Anime.name
+      target_type
+    else
+      target.class.name
+    end
   end
 end

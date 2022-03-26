@@ -8,16 +8,18 @@ class Comment::ConvertToReview
 
     ApplicationRecord.transaction do
       Review.wo_antispam { review.save! }
+      review.generate_topics(@comment.commentable.locale) if review.persisted?
+      review_topic = review.maybe_topic review.locale
 
       unless @is_keep_comment
         Comments::Move.call(
           comment_ids: replies_ids,
-          commentable: review,
+          commentable: review_topic,
           from_reply: @comment,
-          to_reply: review
+          to_reply: review_topic
         )
 
-        move_comment_relations review
+        move_comment_relations review_topic
         @comment.destroy!
       end
 
@@ -41,9 +43,9 @@ private
     )
   end
 
-  def move_comment_relations review
-    @comment.bans.update_all comment_id: nil, review_id: review.id
-    @comment.abuse_requests.update_all comment_id: nil, review_id: review.id
+  def move_comment_relations review_topic
+    @comment.bans.update_all comment_id: nil, topic_id: review_topic.id
+    @comment.abuse_requests.update_all comment_id: nil, topic_id: review_topic.id
   end
 
   def db_entry

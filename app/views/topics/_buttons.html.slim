@@ -1,35 +1,48 @@
 aside.buttons
   .main-controls
-    span.item-ignore.to-process[
-      title=t('actions.ignore')
-      data-text=t('actions.ignore')
-      data-action=api_v2_topics_ignore_url(topic_view.id)
-      data-dynamic='authorized'
-      data-method='POST'
-      data-remote='true'
-      data-type='json'
-    ]
-    - if !topic_view.topic.is_closed? && topic_view.topic_type_policy.commentable_topic? && \
+    - unless topic_view.topic_type_policy.review_topic? || topic_view.topic_type_policy.critique_topic?
+      span.item-ignore.to-process[
+        title=t('actions.ignore')
+        data-text=t('actions.ignore')
+        data-action=api_v2_topics_ignore_url(topic_view.id)
+        data-dynamic='authorized'
+        data-method='POST'
+        data-remote='true'
+        data-type='json'
+      ]
+    / - if !topic_view.topic.is_closed? && topic_view.topic_type_policy.commentable_topic? && \
          !(params[:forum] == 'critiques' && controller.action_name == 'index')
+    - if !topic_view.topic.is_closed? && topic_view.topic_type_policy.commentable_topic?
       span.item-quote.to-process[
         title=t('actions.quote')
         data-text=t('actions.quote')
         data-dynamic='day_registered'
       ]
-      span.item-reply.to-process[
-        title=t('actions.reply')
-        data-text=t('actions.reply')
-        data-dynamic='day_registered'
-      ]
+      - if topic_view.is_mini || !topic_view.show_comments?
+        a.item-reply.to-process[
+          title=t('actions.reply')
+          data-text=t('actions.reply')
+          data-dynamic='day_registered'
+          href=topic_view.urls.reply_url
+        ]
+      - else
+        span.item-reply.to-process[
+          title=t('actions.reply')
+          data-text=t('actions.reply')
+          data-dynamic='day_registered'
+        ]
     a.item-edit[
-      href=edit_topic_url(topic_view.topic)
+      href=topic_view.urls.edit_url
       data-text=t('actions.edit')
       title=t('actions.edit')
+      data-remote=(topic_view.topic_type_policy.review_topic? && topic_view.review_author_details?).to_s
+      data-type='html'
     ]
-    span.item-delete[
-      title=t('actions.delete')
-      data-text=t('actions.delete')
-    ]
+    - if topic_view.deletable?
+      span.item-delete[
+        title=t('actions.delete')
+        data-text=t('actions.delete')
+      ]
     - if topic_view.moderatable?
       span.item-moderation[
         title=t('actions.moderate')
@@ -40,19 +53,20 @@ aside.buttons
       data-text=t('actions.cancel')
     ]
 
-  .delete-controls
-    span.item-delete-confirm[
-      title=t('actions.delete')
-      data-text=t('actions.delete')
-      data-action=topic_view.urls.destroy_url
-      data-type='json'
-      data-remote='true'
-      data-method='DELETE'
-    ]
-    span.item-delete-cancel[
-      title=t('actions.cancel')
-      data-text=t('actions.cancel')
-    ]
+  - if topic_view.deletable?
+    .delete-controls
+      span.item-delete-confirm[
+        title=t('actions.delete')
+        data-text=t('actions.delete')
+        data-action=topic_view.urls.destroy_url
+        data-type='json'
+        data-remote='true'
+        data-method='DELETE'
+      ]
+      span.item-delete-cancel[
+        title=t('actions.cancel')
+        data-text=t('actions.cancel')
+      ]
 
   - if topic_view.moderatable?
     .moderation-controls
@@ -85,6 +99,17 @@ aside.buttons
         data-reason-prompt=t('actions.moderation.explain.spoiler')
         data-direction='top'
       ]
+      - if topic_view.topic_type_policy.review_topic?
+        span.item-summary.b-tooltipped.unprocessed[
+          title=t('actions.moderation.not_review')
+          data-text=t('actions.moderation.not_review')
+          data-confirm=t('actions.markers.review.convert_to_comment')
+          data-action=convert_review_api_v2_abuse_requests_url(review_id: topic_view.review.id)
+          data-method='post'
+          data-type='json'
+          data-remote='true'
+          data-direction='top'
+        ]
       span.item-moderation-cancel[
         title=t('actions.cancel')
         data-text=t('actions.cancel')

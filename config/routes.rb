@@ -1,6 +1,5 @@
 require 'sidekiq/web'
 
-
 Rails.application.routes.draw do
   # do not remove atomic grouping
   # w/o it shikimori has huge performance issue with suck nicknames "…...........☭............."
@@ -115,7 +114,7 @@ Rails.application.routes.draw do
       post :preview
       get 'fetch/:comment_id/:topic_type/:topic_id(/:is_summary)/:skip/:limit' => :fetch,
         as: :fetch,
-        topic_type: /Topic|User|Review/
+        topic_type: /Topic|User/
       get 'replies/:comment_id/:skip/:limit' => :replies, as: :replies
     end
 
@@ -458,8 +457,6 @@ Rails.application.routes.draw do
     get ':forum(/s-:linked)(/p-:page)' => redirect { |_, request| "/forum#{request.path}" }
     get ':forum(/s-:linked)/:id' => redirect { |_, request| "/forum#{request.path}" }
   end
-  get 'forum/reviews' => redirect('/forum/critiques')
-  get 'forum/reviews/:other' => redirect { |params, request| "/forum/critiques/#{params[:other]}" }
   {
     o: %i[offtopic s],
     s: %i[site s],
@@ -492,7 +489,7 @@ Rails.application.routes.draw do
     get '/' => 'topics#index',  as: :forum
     scope(
       '(/:forum)(/:linked_type-:linked_id)',
-      forum: /animanga|site|offtopic|clubs|my_clubs|critiques|cosplay|contests|news|updates|games|vn|collections|articles|premoderation|hidden/,
+      forum: /animanga|site|offtopic|clubs|my_clubs|critiques|reviews|cosplay|contests|news|updates|games|vn|collections|articles|premoderation|hidden/,
       linked_type: /anime|manga|ranobe|character|person|club|contest|collection|article|cosplay_gallery/,
       format: /html|json|rss/
     ) do
@@ -564,6 +561,7 @@ Rails.application.routes.draw do
 
   resources :collections, concerns: %i[autocompletable] do
     member do
+      get :tooltip
       post :to_published
       post :to_private
       post :to_opened
@@ -575,7 +573,12 @@ Rails.application.routes.draw do
   end
 
   resources :articles do
-    get '(/p-:page)' => 'articles#index', as: '', on: :collection
+    member do
+      get :tooltip
+    end
+    collection do
+      get '(/p-:page)' => 'articles#index', as: ''
+    end
   end
 
   resources :club_invites, only: [] do
@@ -760,27 +763,33 @@ Rails.application.routes.draw do
 
       resources :critiques,
         type: kind.singularize.capitalize,
-        except: [:show],
-        controller: 'animes/critiques'
+        controller: 'animes/critiques' do
+          member do
+            get 'reply' => :show,
+              as: :reply,
+              is_reply: true
+            get :tooltip
+          end
+        end
+
       resources :reviews,
         type: kind.singularize.capitalize,
-        only: %i[show new create],
+        only: %i[show new create edit update],
         controller: 'animes/reviews' do
           get '(:opinion)(/page/:page)' => :index,
             as: :index,
             opinion: /positive|neutral|negative/,
             on: :collection
-          get 'reply' => :show,
-            as: :reply,
-            on: :member,
-            is_reply: true
+          member do
+            get 'reply' => :show,
+              as: :reply,
+              is_reply: true
+            get :tooltip
+          end
         end
     end
   end
 
-  resources :reviews, only: %i[show edit] do
-    get :tooltip, on: :member
-  end
   resources :user_rates, only: %i[edit]
 
   resources :animes, only: %i[edit update] do

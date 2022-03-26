@@ -2,7 +2,7 @@
 
 describe Animes::ReviewsController do
   let(:anime) { create :anime }
-  let!(:review) { create :review, anime: anime, user: user }
+  let!(:review) { create :review, :with_topics, anime: anime, user: user }
 
   describe '#index' do
     subject! do
@@ -16,6 +16,24 @@ describe Animes::ReviewsController do
       get :show, params: { anime_id: anime.to_param, type: 'Anime', id: review.id }
     end
     it { expect(response).to have_http_status :success }
+  end
+
+  describe '#tooltip' do
+    subject! do
+      get :tooltip,
+        params: { anime_id: anime.to_param, type: 'Anime', id: review.id },
+        xhr: is_xhr
+    end
+
+    context 'xhr' do
+      let(:is_xhr) { true }
+      it { expect(response).to have_http_status :success }
+    end
+
+    context 'html' do
+      let(:is_xhr) { false }
+      it { expect(response).to have_http_status :success }
+    end
   end
 
   describe '#new' do
@@ -36,6 +54,41 @@ describe Animes::ReviewsController do
     context 'has user review' do
       it do
         expect(response).to redirect_to UrlGenerator.instance.review_url(review)
+      end
+    end
+  end
+
+  describe '#edit' do
+    include_context :authenticated, :user, :day_registered
+
+    context 'xhr' do
+      subject! do
+        get :edit,
+          params: {
+            anime_id: anime.to_param,
+            type: Anime.name,
+            id: review.id
+          },
+          xhr: true
+      end
+      it do
+        expect(response).to_not render_template :form
+        expect(response).to have_http_status :success
+      end
+    end
+
+    context 'html' do
+      subject! do
+        get :edit,
+          params: {
+            anime_id: anime.to_param,
+            type: Anime.name,
+            id: review.id
+          }
+      end
+      it do
+        expect(response).to render_template :form
+        expect(response).to have_http_status :success
       end
     end
   end
@@ -81,22 +134,47 @@ describe Animes::ReviewsController do
 
       it do
         expect(assigns(:review)).to be_new_record
-        expect(response).to render_template :new
+        expect(response).to render_template :form
         expect(response).to have_http_status :success
       end
     end
   end
 
-  # describe '#edit' do
-  #   include_context :authenticated, :user, :day_registered
-  #   subject! do
-  #     get :edit,
-  #       params: {
-  #         anime_id: anime.to_param,
-  #         type: Anime.name,
-  #         id: review.id
-  #       }
-  #   end
-  #   it { expect(response).to have_http_status :success }
-  # end
+  describe '#update' do
+    include_context :authenticated, :user, :week_registered
+
+    subject! do
+      patch :update,
+        params: {
+          id: review.id,
+          review: params,
+          anime_id: anime.to_param,
+          type: 'Anime'
+        }
+    end
+
+    context 'valid params' do
+      let(:params) do
+        {
+          body: 'x' * Review::MIN_BODY_SIZE
+        }
+      end
+      it do
+        expect(assigns(:review).errors).to be_empty
+        expect(response).to redirect_to UrlGenerator.instance.review_url(assigns(:review))
+      end
+    end
+
+    context 'invalid params' do
+      let(:params) do
+        {
+          body: 'too short text'
+        }
+      end
+      it do
+        expect(assigns(:review).errors).to have(1).item
+        expect(response).to have_http_status :success
+      end
+    end
+  end
 end

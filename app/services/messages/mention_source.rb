@@ -4,20 +4,31 @@ class Messages::MentionSource
   method_object :linked, %i[comment_id is_simple]
   delegate :mention_url, to: :class
 
+  MENTION_TYPES = {
+    Article => :article,
+    ClubPage => :topic,
+    Collection => :collection,
+    Comment => :comment,
+    Critique => :critique,
+    Review => :review,
+    Topic => :topic,
+    User => :profile
+  }
+  BUBBLED_TYPES = [
+    Topic,
+    Review,
+    Collection,
+    Critique,
+    Article
+  ]
+
   def self.mention_url linked
-    case linked
-      when NilClass then nil
-      when Comment then UrlGenerator.instance.comment_url linked
-      when Topic, ClubPage then UrlGenerator.instance.topic_url linked
-      when User then UrlGenerator.instance.profile_url linked
-      when Review
-        UrlGenerator.instance.send(
-          "#{linked.db_entry.class.name.downcase}_review_url",
-          linked.db_entry,
-          linked
-        )
-      else raise ArgumentError, "#{linked.class} #{linked.to_param}"
-    end
+    return unless linked
+
+    method_name = MENTION_TYPES[linked.class.base_class] ||
+      raise(ArgumentError, "#{linked.class} #{linked.to_param}")
+
+    UrlGenerator.instance.send :"#{method_name}_url", linked
   end
 
   def call
@@ -40,13 +51,10 @@ private
   end
 
   def i18n_secondary_key
-    case @linked
-      when NilClass then :nil
-      when Topic then :topic
-      when User then :profile
-      when Review then :review
-      else raise ArgumentError, "#{@linked.class} #{@linked.to_param}"
-    end
+    return :nil unless @linked
+
+    MENTION_TYPES[@linked.class.base_class] ||
+      raise(ArgumentError, "#{@linked.class} #{@linked.to_param}")
   end
 
   def linked_name
@@ -56,15 +64,11 @@ private
           @linked.full_title :
           @linked.title
 
-      when User
-        linked.nickname
-
-      when Review
-        linked.db_entry.name
+      when User then @linked.nickname
+      when Critique then @linked.target.name
+      when Review then @linked.db_entry.name
+      when Article, Collection then @linked.name
     end
-  end
-
-  def linked_url
   end
 
   def comment_hash
@@ -72,13 +76,13 @@ private
   end
 
   def link_bubble
+    return unless @linked
+
     url =
       if @comment_id
         UrlGenerator.instance.tooltip_comment_url @comment_id
-      elsif linked.is_a? Topic
+      elsif BUBBLED_TYPES.include? @linked.class.base_class
         "#{mention_url @linked}/tooltip"
-      elsif linked.is_a? Review
-        UrlGenerator.instance.tooltip_review_url @linked
       end
 
     " class=\"bubbled b-link\" data-href=\"#{url}\"" if url

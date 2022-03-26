@@ -1,0 +1,144 @@
+/ .b-review.to-process[
+/   id=review.id
+/   data-dynamic='review'
+/   data-appear_type='review'
+/   data-user_id=review.user.id
+/   data-user_nickname=review.user.nickname
+/   data-selection_boundary
+/   data-faye=review.faye_channels.to_json
+/ ]
+/   - if review.persisted?
+/     a name="review-#{review.id}"
+
+- cache topic_view.cache_key do
+  / .inner is added for compatibility with topic api
+  .inner[
+    data-check_height=(topic_view.review.persisted? && !local_assigns[:is_show])
+  ]
+    - if topic_view.review.persisted?
+      span.item-quote-mobile.to-process[
+        title=t('actions.quote')
+        data-text=t('actions.quote')
+        data-dynamic='day_registered'
+      ]
+      span.item-mobile.to-process[
+        title=t('actions.actions')
+        data-dynamic='day_registered'
+      ]
+    aside.markers
+      .b-new_marker[
+        data-appear_url=api_appears_url
+        data-text=t('markers.new')
+      ]
+
+    header
+      / data-href=(topic_view.review.respond_to?(:topic_url) ? topic_view.review.topic_url : profile_url(topic_view.review.user))
+      a.author-link href=profile_url(topic_view.review.user)
+        img[
+          src=topic_view.review.user.avatar_url(48)
+          srcset="#{topic_view.review.user.avatar_url 80} 2x"
+          alt=topic_view.review.user.nickname
+        ]
+      .review-details
+        .name-url
+          .name-inner
+            a.name[
+              href=profile_url(topic_view.review.user)
+              itemprop='creator'
+              tabindex='-1'
+            ]
+              = topic_view.review.user.nickname
+
+            - if local_assigns[:is_display_target]
+              | &nbsp;#{Review.model_name.human.downcase} #{t '.on'} #{i18n_i(topic_view.db_entry.class.name.downcase, 1, :dative)}&nbsp;
+              a.name.bubbled[
+                href=send(:"#{topic_view.db_entry.class.name.downcase}_url", topic_view.db_entry)
+                data-tooltip_url=send(:"tooltip_#{topic_view.db_entry.class.name.downcase}_url", topic_view.db_entry)
+              ] = localized_name topic_view.db_entry
+
+          - if topic_view.closed?
+            .b-anime_status_tag.other[
+              data-text=t('.review_closed')
+            ]
+          .b-anime_status_tag.ignored.hidden[
+            data-text=t('.review_ignored')
+          ]
+
+          - unless local_assigns[:is_show]
+            a.to-review href=topic_view.url
+              | <<< #{t '.go_to_review'}
+
+        - if topic_view.review.persisted?
+          .b-status-line
+            .section.main
+              = render 'topics/critiques/votes_count', critique: topic_view.review
+              span.comments == topic_view.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
+            = render 'topics/status_line/section_dates', object: topic_view.review
+
+        .review-info
+          .opinion class=topic_view.review.opinion
+          div
+            .label class=topic_view.review.opinion
+              = topic_view.review.opinion_text
+            .user-rate-label
+              | #{t '.in_author_list'}:
+              - unless topic_view.review.user_rate
+                b.missing &nbsp;#{t 'no'}
+          - if topic_view.review.user_rate
+            .user-rate
+              = render 'blocks/rate', score: topic_view.review.user_rate.score, is_no_text_score: true
+              .b-add_to_list class=topic_view.review.user_rate.status
+                .trigger
+                  .edit-trigger
+                    .edit
+                    .text
+                      .status-name data-text=topic_view.review.user_rate.status_name
+
+    = render 'topics/buttons', topic_view: topic_view
+    / = render 'topics/reviews/buttons',
+    /   review: topic_view.review,
+    /   is_show: local_assigns[:is_show]
+
+    - if topic_view.review.written_before_release?
+      .is_written_before_release-container
+        .b-anime_status_tag.is_written_before_release.b-tooltipped.unprocessed[
+          title=t(".is_written_before_release.#{topic_view.db_entry.class.name.downcase}")
+          data-direction='right'
+        ] = Review.human_attribute_name(:is_written_before_release)
+
+    // .div added in order to make $editorPlacement works in DynamicElements.Review
+    div
+      .body itemprop='text'
+          = topic_view.review.html_body
+
+      footer
+        = render 'topics/footer/vote',
+          topic_type_policy: topic_view.topic_type_policy,
+          votable: topic_view.review
+
+    - if topic_view.review.persisted?
+      .b-appear_marker[
+        class="appear-review-#{topic_view.review.id}"
+      ]
+
+  - if local_assigns[:is_moderation] && (topic_view.review.abuse_requests.any? || topic_view.review.bans.any?)
+    div class=(topic_view.review.abuse_requests.any? && topic_view.review.bans.any? ? 'cc-2' : 'block')
+      - if topic_view.review.abuse_requests.any?
+        .c-column
+          .subheadline.h10 = i18n_i 'abuse_request', :other
+          .block
+            - if topic_view.review.abuse_requests.any?
+              = render partial: 'moderations/abuse_requests/abuse_request',
+                collection: topic_view.review.abuse_requests
+            - else
+              .b-nothing_here = t '.no_abuse_requests'
+
+      - if topic_view.review.bans.any?
+        .c-column
+          .subheadline.h10 = i18n_i 'ban', :other
+          .block_m
+            - if topic_view.review.bans.any?
+              = render partial: 'moderations/bans/ban',
+                collection: topic_view.review.bans
+            - else
+              .b-nothing_here = t '.no_bans'

@@ -5,10 +5,6 @@ class Topics::GeneratedNewsView < Topics::View
     super 'b-generated_news-topic'
   end
 
-  def minified?
-    false
-  end
-
   def status_line?
     false
   end
@@ -26,10 +22,10 @@ class Topics::GeneratedNewsView < Topics::View
   end
 
   def topic_title
-    if !is_preview
-      i18n_t "titles.#{topic.action}", value: topic.value
-    else
+    if is_preview
       super
+    else
+      i18n_t "titles.#{topic.action}", value: topic.value
     end
   end
 
@@ -37,7 +33,7 @@ class Topics::GeneratedNewsView < Topics::View
     h.content_tag :div, render_linked, class: 'b-catalog-entry-embedded'
   end
 
-  def author_in_header?
+  def poster_in_header?
     false
   end
 

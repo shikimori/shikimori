@@ -1,4 +1,10 @@
 = render layout: 'animes/page' do |f|
+  .review-controls
+    a.b-link_button.dark.create-review.to-process[
+      href=@resource.new_review_url
+      data-dynamic='week_registered'
+    ] = t '.create_review'
+
   = render 'animes/reviews/navigation',
     resource: @resource,
     collection: @collection,

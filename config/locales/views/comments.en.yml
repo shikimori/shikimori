@@ -5,10 +5,8 @@ en:
     show:
       no_bans: No bans
       no_abuse_requests: No abuse requests
-      user_comment: '%{user}comment #%{id}'
       replies: Replies
     missing:
-      user_comment: 'Comment #%{id}'
       no_comment: Comment is either deleted or never existed on Shikimori
     shiki_editor:
       back_to_editing: Back to Editing

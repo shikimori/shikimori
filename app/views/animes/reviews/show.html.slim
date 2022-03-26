@@ -1,8 +1,16 @@
-= render layout: 'animes/page' do |f|
-  h2.subheadline = i18n_i('Review', :one)
-  .block
-    = render 'reviews/review',
-      review: @review,
-      is_show: true,
-      is_moderation: true,
-      is_comments: true
+- if params[:action] != 'tooltip'
+  = render layout: 'animes/page' do |f|
+    h2.subheadline.m5
+      ' #{page_breadcrumbs.keys.last}
+      = render 'users/user_16', user: @review.user
+
+    .block
+      = render partial: 'topics/topic',
+        collection: [@topic_view],
+        as: :topic_view,
+        cached: ->(entry) { CacheHelper.keys entry }
+- else
+  = render partial: 'topics/topic',
+    collection: [@topic_view],
+    as: :topic_view,
+    cached: ->(entry) { CacheHelper.keys entry }

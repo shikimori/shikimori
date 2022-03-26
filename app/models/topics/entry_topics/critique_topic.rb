@@ -4,8 +4,6 @@ class Topics::EntryTopics::CritiqueTopic < Topics::EntryTopic
   end
 
   def full_title
-    return title unless generated?
-
     first_key = linked_type.underscore
     second_key = linked.target_type.underscore
 

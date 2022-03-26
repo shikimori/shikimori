@@ -3,6 +3,7 @@
 @import mixins/forum_entry
 @import mixins/responsive
 @import mixins/font_shikimori
+@import mixins/shiki_comment
 
 .b-topic
   +block
@@ -29,11 +30,10 @@
   & > .inner
     min-height: 80px
 
-    header
-      a img
-        +iphone
-          width: 42px
+    &.is-editing
+      margin-bottom: $comment_offset
 
+    header
       .b-anime_status_tag
         margin-right: 10px
 
@@ -59,18 +59,14 @@
 
     .b-status-line
       +iphone
+        margin-bottom: 2px
         margin-left: 49px
+
+      +gte_ipad
+        margin-bottom: 5px
 
     .body
       clear: left
-
-    .body-truncated
-      max-height: 172px
-      overflow: hidden
-      position: relative
-
-      .b-height_shortener .expand
-        margin-top: -6px
 
     .prebody,
     footer

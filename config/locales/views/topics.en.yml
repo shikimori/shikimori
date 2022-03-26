@@ -7,7 +7,7 @@ en:
       no_topic: Topic is either deleted or never existed on Shikimori
     header:
       mini: &header_mini
-        topic_ignored: ignored
+        topic_ignored: &ignored ignored
         topic_closed: closed
       common:
         <<: *header_mini
@@ -100,3 +100,15 @@ en:
     news_line:
       inner:
         by: by
+    reviews:
+      inner:
+        in_author_list: In author's list
+        is_written_before_release:
+          anime: SUmmary written prior to the end of the anime
+          manga: Review written prior to the end of the manga
+          ranobe: Review written prior to the end of the light novel
+        go_to_review: go to review
+        moderation: Moderation
+        'on': 'on'
+        review_ignored: *ignored
+        review_closed: closed

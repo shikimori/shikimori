@@ -11,6 +11,10 @@ class Topics::ClubPageView < Topics::View
     true
   end
 
+  def deletable?
+    false
+  end
+
   def html_body
     return super if preview?
 

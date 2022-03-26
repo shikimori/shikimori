@@ -7,10 +7,6 @@ class Topics::ContestStatusView < Topics::NewsView
     preview?
   end
 
-  def minified?
-    true
-  end
-
   def show_inner?
     true
   end

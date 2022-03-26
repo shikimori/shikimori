@@ -40,6 +40,9 @@ header.head
           - elsif linked.kind_of? Critique
             = render 'animes/menu', resource: linked.target.decorate
 
+          - elsif linked.kind_of? Review
+            = render 'animes/menu', resource: linked.db_entry.decorate
+
           - elsif linked.kind_of? Character
             = render 'characters/menu', resource: linked.decorate
 

@@ -2,7 +2,7 @@ describe CollectionsController do
   include_context :authenticated, :user, :week_registered
 
   let(:collection) do
-    create :collection, :with_topics,
+    create :collection, :published, :with_topics,
       kind: Types::Collection::Kind[type],
       user: user
   end
@@ -16,6 +16,25 @@ describe CollectionsController do
   describe '#new' do
     subject! { get :new, params: { collection: { user_id: user.id } } }
     it { expect(response).to have_http_status :success }
+  end
+
+  describe '#show' do
+    subject! { get :show, params: { id: collection.to_param } }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#tooltip' do
+    subject! { get :tooltip, params: { id: collection.to_param }, xhr: is_xhr }
+
+    context 'xhr' do
+      let(:is_xhr) { true }
+      it { expect(response).to have_http_status :success }
+    end
+
+    context 'html' do
+      let(:is_xhr) { false }
+      it { expect(response).to have_http_status :success }
+    end
   end
 
   describe '#create' do

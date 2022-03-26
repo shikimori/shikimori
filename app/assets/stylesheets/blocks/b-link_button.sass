@@ -134,20 +134,21 @@
       border-color: darken($link-4, 2%)
       color: #fff
 
-  &.maxi
-    font-size: 18px
-    // font-family: var(--font-main)
-    padding: 9px 20px
-    letter-spacing: 0.33px
-
   // forum
   &.create-topic
     +link_button_icon('\002b')
+
     &:before
       font-weight: bold
 
   &.create-critique
     +link_button_icon('\e820')
+
+    &:before
+      font-size: 15px
+
+  &.create-review
+    +link_button_icon('\e837')
 
   &.create-article
     +link_button_icon('\e830')
@@ -160,6 +161,15 @@
 
   &.arrow-right
     +link_button_icon('\E850', false)
+
+  &.maxi
+    font-size: 18px
+    letter-spacing: 0.33px
+    padding: 9px 20px
+
+  &.mini
+    font-size: 13px
+    padding: 5px 10px
 
   &.dark
     background-color: #456

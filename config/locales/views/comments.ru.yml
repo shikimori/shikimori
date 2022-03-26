@@ -5,10 +5,8 @@ ru:
     show:
       no_bans: Нет банов
       no_abuse_requests: Нет жалоб
-      user_comment: 'Комментарий #%{id} %{user}'
       replies: Ответы
     missing:
-      user_comment: 'Комментарий #%{id}'
       no_comment: Комментарий или был удалён, или никогда не существовал на сайте
     shiki_editor:
       back_to_editing: Вернуться к редактированию

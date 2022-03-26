@@ -22,9 +22,15 @@
 
     .cancel,
     .hide
-      +js-link
       font-size: 13px
       margin-left: 20px
+
+      &:not(a)
+        +js-link
+
+    a.cancel,
+    a.hide
+      +link
 
     .hide
       display: none

@@ -1,0 +1,18 @@
+@import mixins/responsive
+
+.p-reviews-index
+  .review-controls
+    margin-bottom: 15px
+
+    +gte_laptop
+      display: flex
+
+    .create-critique
+      font-size: 14px
+
+      +gte_laptop
+        max-width: 240px
+
+.p-reviews-show
+  .b-review-topic .to-review
+    display: none

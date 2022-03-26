@@ -1,6 +1,6 @@
 import delay from 'delay';
 
-pageLoad('reviews_show', async () => {
+pageLoad('reviews_show', 'critiques_show', async () => {
   await delay(25);
   const editor = $('.shiki_editor-selector').view();
   await editor.initialization.promise;

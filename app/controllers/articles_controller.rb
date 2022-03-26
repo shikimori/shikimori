@@ -29,7 +29,7 @@ class ArticlesController < ShikimoriController
     unless @resource.published?
       raise ActiveRecord::RecordNotFound unless can? :edit, @resource
 
-      breadcrumb @resource.name, edit_collection_url(@resource)
+      breadcrumb @resource.name, edit_article_url(@resource)
       breadcrumb t('actions.preview'), nil
     end
 
@@ -37,6 +37,25 @@ class ArticlesController < ShikimoriController
     @topic_view = Topics::TopicViewFactory
       .new(false, false)
       .build(@resource.maybe_topic(locale_from_host))
+  end
+
+  def tooltip
+    og noindex: true
+    @topic_view = Topics::TopicViewFactory
+      .new(true, true)
+      .build(@resource.maybe_topic(locale_from_host))
+
+    if request.xhr?
+      render(
+        partial: 'topics/topic',
+        object: @topic_view,
+        as: :topic_view,
+        layout: false,
+        formats: :html
+      )
+    else
+      render :show
+    end
   end
 
   def new

@@ -105,7 +105,8 @@ environment.plugins.append(
   'some_definitions',
   new webpack.DefinePlugin({
     IS_LOCAL_SHIKI_PACKAGES,
-    IS_FAYE_LOGGING: true, // process.env.NODE_ENV === 'production'
+    IS_FAYE_LOGGING: process.env.NODE_ENV === 'production',
+    // IS_FAYE_LOGGING: true, // process.env.NODE_ENV === 'production'
     __VUE_OPTIONS_API__: true,
     __VUE_PROD_DEVTOOLS__: false
   })

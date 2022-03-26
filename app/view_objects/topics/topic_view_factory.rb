@@ -16,6 +16,9 @@ class Topics::TopicViewFactory
     if topic_type_policy.critique_topic?
       critique_topic topic
 
+    elsif topic_type_policy.review_topic?
+      review_topic topic
+
     elsif topic_type_policy.contest_topic?
       contest_topic topic
 
@@ -49,6 +52,10 @@ private
 
   def critique_topic topic
     Topics::CritiqueView.new topic, is_preview, is_mini
+  end
+
+  def review_topic topic
+    Topics::ReviewView.new topic, is_preview, is_mini
   end
 
   def contest_topic topic

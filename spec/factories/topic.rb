@@ -62,6 +62,12 @@ FactoryBot.define do
       generated { true }
     end
 
+    factory :review_topic, class: 'Topics::EntryTopics::ReviewTopic' do
+      type { 'Topics::EntryTopics::ReviewTopic' }
+      forum { seed :reviews_forum }
+      generated { true }
+    end
+
     factory :cosplay_gallery_topic, class: 'Topics::EntryTopics::CosplayGalleryTopic' do
       type { 'Topics::EntryTopics::CosplayGalleryTopic' }
       generated { true }

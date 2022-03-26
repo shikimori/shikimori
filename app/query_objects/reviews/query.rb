@@ -4,7 +4,11 @@ class Reviews::Query < QueryObjectBase
   def self.fetch db_entry
     new db_entry
       .reviews
-      .includes(:user, db_entry.anime? ? :anime : :manga)
+      .includes(
+        :user,
+        db_entry.anime? ? :anime : :manga,
+        :topics
+      )
       .order(id: :desc)
   end
 

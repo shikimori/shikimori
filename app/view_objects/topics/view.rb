@@ -24,21 +24,13 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   BODY_TRUCATE_SIZE = 500
   TRUNCATE_OMNISSION = '…'
-  CACHE_VERSION = :v22
+  CACHE_VERSION = :v23
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
   end
 
   def canonical_url
-  end
-
-  def ignored_topic?
-    h.user_signed_in? && h.current_user.ignored_topics.include?(@topic)
-  end
-
-  def ignored_user?
-    h.user_signed_in? && h.current_user.ignores?(@topic.user)
   end
 
   def preview?
@@ -78,19 +70,11 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   def action_tag
   end
 
-  def show_inner?
-    preview? || !@topic.generated?
-  end
-
-  def footer_vote?
-    !preview? && !minified? && topic_type_policy.votable_topic?
-  end
-
   def poster_title
     if preview?
       topic_title
     else
-      @topic.user.nickname
+      user.nickname
     end
   end
 
@@ -98,7 +82,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     if preview?
       topic_title_html
     else
-      @topic.user.nickname
+      user.nickname
     end
   end
 
@@ -124,10 +108,12 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def poster is_2x
     # last condition is for user topics about anime
-    if linked_in_avatar?
+    if linked_in_poster?
       linked =
         if topic_type_policy.critique_topic?
           @topic.linked.target
+        elsif topic_type_policy.review_topic?
+          @topic.linked.db_entry
         elsif topic_type_policy.club_page_topic?
           @topic.linked.club
         else
@@ -136,7 +122,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
       ImageUrlGenerator.instance.url linked, is_2x ? :x96 : :x48
     else
-      @topic.user.avatar_url is_2x ? 80 : 48
+      user.avatar_url is_2x ? 80 : 48
     end
   end
 
@@ -146,10 +132,6 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def urls
     Topics::Urls.new self
-  end
-
-  def author_in_header?
-    true
   end
 
   def html_body text = body
@@ -180,12 +162,35 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       .html_safe
   end
 
+  def show_inner?
+    preview? || !@topic.generated?
+  end
+
+  def poster_in_header?
+    true
+  end
+
+  def footer_vote?
+    !preview? && !minified? && topic_type_policy.votable_topic?
+  end
+
   def need_trucation?
     (preview? || minified?) && html_body.size > BODY_TRUCATE_SIZE
   end
 
   def read_more_link?
     need_trucation? && html_body_truncated != html_body
+  end
+
+  def linked_in_poster?
+    @topic.linked && preview? &&
+      !topic_type_policy.forum_topic?
+  end
+
+  def show_comments?
+    return false if @is_show_comments == false
+
+    !minified? && topic_type_policy.commentable_topic?
   end
 
   def html_footer
@@ -218,11 +223,19 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     !user.bot?
   end
 
+  def deletable?
+    true
+  end
+
   def topic_type_policy
     Topic::TypePolicy.new @topic
   end
 
-  def cache_key
+  def dynamic_type
+    :topic
+  end
+
+  def cache_key *additionals
     CacheHelper.keys(
       self.class.name,
       @topic,
@@ -233,10 +246,13 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       # т.к. эти методы могут быть переопределены в наследниках
       @is_preview,
       @is_mini,
+      @is_show_comments,
       skip_body?,
+      poster_in_header?,
       closed?, # not sure whether it is necessary
       h.current_user&.preferences&.is_shiki_editor?,
-      CACHE_VERSION
+      CACHE_VERSION,
+      *additionals
     )
   end
 
@@ -257,10 +273,5 @@ private
 
   def body
     @topic.decomposed_body.text
-  end
-
-  def linked_in_avatar?
-    @topic.linked && preview? &&
-      !topic_type_policy.forum_topic?
   end
 end

@@ -37,6 +37,7 @@ ru:
     page:
       actions:
         comment: Комментировать
+        review: Написать отзыв
         critique: Написать рецензию
         add_to_favorites: Добавить в избранное
         remove_from_favorites: Удалить из избранного
@@ -128,8 +129,16 @@ ru:
           positive: Положительные
           neutral: Нейтральные
           negative: Отрицательные
+      group:
+        to_other_reviews: Ко всем отзывам
+        new_review: Написать отзыв
+      missing:
+        no_review: Отзыв или был удалён, или никогда не существовал на сайте
+    critiques:
+      missing:
+        no_critique: Рецензия или была удалена, или никогда не существовала на сайте
 
-  mangas: &animes
+  mangas:
     <<: *animes
     publishers_info:
       publisher_mangas: Манга издателя %{publisher_name}

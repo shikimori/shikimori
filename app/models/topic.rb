@@ -25,10 +25,11 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
     'Person' => 1,
     'Club' => Forum::CLUBS_ID,
     'ClubPage' => Forum::CLUBS_ID,
-    'Critique' => 12,
+    'Critique' => Forum::CRITIQUES_ID,
+    'Review' => Forum::REVIEWS_ID,
     'Contest' => Forum::CONTESTS_ID,
     'CosplayGallery' => Forum::COSPLAY_ID,
-    'Collection' => Forum::COLLECTION_ID,
+    'Collection' => Forum::COLLECTIONS_ID,
     'Article' => Forum::ARTICLES_ID
   }
 
@@ -43,20 +44,21 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
     socials: { ru: 270_099 }
   }
 
-  LINKED_TYPES = [
-    Anime,
-    Manga,
-    Ranobe,
-    Character,
-    Person,
-    Club,
-    ClubPage,
-    Critique,
-    Contest,
-    CosplayGallery,
-    Collection,
+  LINKED_TYPES = %w[
+    Anime
+    Manga
+    Ranobe
+    Character
+    Person
+    Club
+    ClubPage
+    Critique
+    Review
+    Contest
+    CosplayGallery
+    Collection
     Article
-  ].map(&:name)
+  ]
 
   belongs_to :forum
   belongs_to :linked, polymorphic: true, optional: true

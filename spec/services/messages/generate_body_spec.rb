@@ -21,6 +21,7 @@ describe Messages::GenerateBody do
     context 'private' do
       let(:kind) { MessageType::PRIVATE }
       let(:body) { '[b]test[/b]' }
+
       it { is_expected.to eq '<strong>test</strong>' }
       it { is_expected.to be_html_safe }
     end
@@ -205,34 +206,55 @@ describe Messages::GenerateBody do
         end
       end
 
-      context 'review' do
-        let(:linked) { build_stubbed :ban, comment: nil, review: review }
-        let(:review) { build_stubbed :review, id: 1, manga: manga }
-        let(:manga) { build_stubbed :manga, id: 1, name: 'manga_1' }
-        it do
-          is_expected.to eq(
-            <<~HTML.squish
-              Тебе вынесено предупреждение за отзыв
-              <a href=\"http://test.host/mangas/1-manga-1/reviews/1\"
-              class=\"bubbled b-link\"
-              data-href=\"http://test.host/reviews/1/tooltip\">manga_1</a>.
-            HTML
-          )
-        end
-      end
+      # context 'review' do
+      #   let(:linked) { build_stubbed :ban, comment: nil, review: review }
+      #   let(:review) { build_stubbed :review, id: 1, manga: manga }
+      #   let(:manga) { build_stubbed :manga, id: 1, name: 'manga_1' }
+      #   it do
+      #     is_expected.to eq(
+      #       <<~HTML.squish
+      #         Тебе вынесено предупреждение за отзыв
+      #         <a href=\"http://test.host/mangas/1-manga-1/reviews/1\"
+      #         class=\"bubbled b-link\"
+      #         data-href=\"http://test.host/reviews/1/tooltip\">manga_1</a>.
+      #       HTML
+      #     )
+      #   end
+      # end
 
       context 'topic' do
         let(:linked) { build_stubbed :ban, comment: nil, topic: topic }
-        let(:topic) { build_stubbed :topic, id: 1, title: 'topic_1' }
-        it do
-          is_expected.to eq(
-            <<~HTML.squish
-              Тебе вынесено предупреждение за топик
-              <a href=\"http://test.host/forum/offtopic/1-topic-1\"
-              class=\"bubbled b-link\"
-              data-href=\"http://test.host/forum/offtopic/1-topic-1/tooltip\">topic_1</a>.
-            HTML
-          )
+
+        context 'common topic' do
+          let(:topic) { build_stubbed :topic, id: 1, title: 'topic_1' }
+          it do
+            is_expected.to eq(
+              <<~HTML.squish
+                Тебе вынесено предупреждение за топик
+                <a href=\"http://test.host/forum/offtopic/1-topic-1\"
+                class=\"bubbled b-link\"
+                data-href=\"http://test.host/forum/offtopic/1-topic-1/tooltip\">topic_1</a>.
+              HTML
+            )
+          end
+        end
+
+        context 'review topic' do
+          let(:topic) { build_stubbed :review_topic, linked: review }
+          let(:review) { build_stubbed :review, id: 1, manga: manga }
+          let(:manga) { build_stubbed :manga, id: 1, name: 'manga_1' }
+          let(:review_url) do
+            "#{Shikimori::PROTOCOL}://test.host/mangas/1-manga-1/reviews/1"
+          end
+          it do
+            is_expected.to eq(
+              <<~HTML.squish
+                Тебе вынесено предупреждение за отзыв
+                <a href=\"#{review_url}\" class=\"bubbled b-link\"
+                data-href=\"#{review_url}/tooltip\">manga_1</a>.
+              HTML
+            )
+          end
         end
       end
     end
@@ -278,21 +300,21 @@ describe Messages::GenerateBody do
         end
       end
 
-      context 'review' do
-        let(:linked) { build_stubbed :ban, comment: nil, review: review }
-        let(:review) { build_stubbed :review, id: 1, manga: manga }
-        let(:manga) { build_stubbed :manga, id: 1, name: 'manga_1' }
-        it do
-          is_expected.to eq(
-            <<~HTML.squish
-              Ты забанен на 3 часа за отзыв
-              <a href=\"http://test.host/mangas/1-manga-1/reviews/1\"
-              class=\"bubbled b-link\"
-              data-href=\"http://test.host/reviews/1/tooltip\">manga_1</a>.
-            HTML
-          )
-        end
-      end
+      # context 'review' do
+      #   let(:linked) { build_stubbed :ban, comment: nil, review: review }
+      #   let(:review) { build_stubbed :review, id: 1, manga: manga }
+      #   let(:manga) { build_stubbed :manga, id: 1, name: 'manga_1' }
+      #   it do
+      #     is_expected.to eq(
+      #       <<~HTML.squish
+      #         Ты забанен на 3 часа за отзыв
+      #         <a href=\"http://test.host/mangas/1-manga-1/reviews/1\"
+      #         class=\"bubbled b-link\"
+      #         data-href=\"http://test.host/reviews/1/tooltip\">manga_1</a>.
+      #       HTML
+      #     )
+      #   end
+      # end
 
       context 'topic' do
         let(:linked) { build_stubbed :ban, comment: nil, topic: topic }

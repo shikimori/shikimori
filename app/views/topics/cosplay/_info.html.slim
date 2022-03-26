@@ -1,4 +1,4 @@
-- cache [cosplay_view.topic, cosplay_view.is_preview, gallery] do
+- cache [cosplay_view.topic, cosplay_view.is_preview, cosplay_view.minified?, gallery] do
   .b-entry-info
     = info_line t('.cosplayer', count: gallery.cosplayers.size) do
       - gallery.cosplayers.each do |cosplayer|
@@ -27,8 +27,5 @@
         | #{gallery.images.size} #{Russian.p gallery.images.size, 'кадр', 'кадра', 'кадров'}
 
   - unless cosplay_view.minified?
-    /# Template Dependency: animes/anime
-    /# Template Dependency: mangas/manga
-    /# Template Dependency: characters/character
-    /# Template Dependency: people/person
-    = render cosplay_view.topic.linked
+    = render partial: 'cosplay_galleries/cosplay_gallery',
+      object: cosplay_view.topic.linked

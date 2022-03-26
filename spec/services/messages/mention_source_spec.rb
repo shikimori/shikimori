@@ -66,12 +66,14 @@ describe Messages::MentionSource do
   context 'Review' do
     let(:linked) { build_stubbed :review, id: 1, anime: anime }
     let(:anime) { build_stubbed :anime, id: 1, name: 'anime_1' }
+    let(:review_url) do
+      "#{Shikimori::PROTOCOL}://test.host/animes/1-anime-1/reviews/1"
+    end
     it do
       is_expected.to eq(
         <<~HTML.squish
-          в отзыве к <a href=\"#{Shikimori::PROTOCOL}://test.host/animes/1-anime-1/reviews/1\"
-            class=\"bubbled b-link\"
-            data-href=\"#{Shikimori::PROTOCOL}://test.host/reviews/1/tooltip\">anime_1</a>.
+          в отзыве к <a href=\"#{review_url}\" class=\"bubbled b-link\"
+            data-href=\"#{review_url}/tooltip\">anime_1</a>.
         HTML
       )
     end
@@ -81,9 +83,8 @@ describe Messages::MentionSource do
       it do
         is_expected.to eq(
           <<~HTML.squish
-            <a href=\"#{Shikimori::PROTOCOL}://test.host/animes/1-anime-1/reviews/1\"
-              class=\"bubbled b-link\"
-              data-href=\"#{Shikimori::PROTOCOL}://test.host/reviews/1/tooltip\">anime_1</a>
+            <a href=\"#{review_url}\" class=\"bubbled b-link\"
+              data-href=\"#{review_url}/tooltip\">anime_1</a>
           HTML
         )
       end

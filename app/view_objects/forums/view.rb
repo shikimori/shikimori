@@ -24,7 +24,7 @@ class Forums::View < ViewObjectBase
       .by_linked(linked)
       .search(h.params[:search], forum, h.current_user, h.locale_from_host)
       .paginate(page, limit)
-      .as_views(true, forum&.permalink == 'critiques')
+      .as_views(true, false)
   end
 
   def page_url page

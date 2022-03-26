@@ -3,8 +3,8 @@ describe Review do
     it { is_expected.to belong_to :user }
     # it { is_expected.to belong_to(:anime).optional }
     # it { is_expected.to belong_to(:manga).optional }
-    it { is_expected.to have_many(:abuse_requests).dependent :destroy }
-    it { is_expected.to have_many :bans }
+    # it { is_expected.to have_many(:abuse_requests).dependent :destroy }
+    # it { is_expected.to have_many :bans }
   end
 
   describe 'validations' do
@@ -189,7 +189,7 @@ describe Review do
   end
 
   describe 'instance methods' do
-    describe '#anime? & #manga?, #db_entry, #db_entry_id' do
+    describe '#anime? & #manga?, #db_entry, #db_entry_id, #db_entry_type' do
       subject { build :review, anime: anime, manga: manga }
       let(:anime) { nil }
       let(:manga) { nil }
@@ -198,6 +198,7 @@ describe Review do
       its(:manga?) { is_expected.to eq false }
       its(:db_entry) { is_expected.to be_nil }
       its(:db_entry_id) { is_expected.to be_nil }
+      its(:db_entry_type) { is_expected.to be_nil }
 
       context 'anime' do
         let(:anime) { build_stubbed :anime }
@@ -206,6 +207,7 @@ describe Review do
         its(:manga?) { is_expected.to eq false }
         its(:db_entry) { is_expected.to eq anime }
         its(:db_entry_id) { is_expected.to eq anime.id }
+        its(:db_entry_type) { is_expected.to eq Anime.name }
       end
 
       context 'manga' do
@@ -215,6 +217,7 @@ describe Review do
         its(:manga?) { is_expected.to eq true }
         its(:db_entry) { is_expected.to eq manga }
         its(:db_entry_id) { is_expected.to eq manga.id }
+        its(:db_entry_type) { is_expected.to eq Manga.name }
       end
     end
 
@@ -332,11 +335,6 @@ describe Review do
 
         it { is_expected.to eq user_rate }
       end
-    end
-
-    describe '#faye_channels' do
-      let(:review) { build_stubbed :review }
-      it { expect(review.faye_channels).to eq %W[/review-#{review.id}] }
     end
 
     describe '#locale' do

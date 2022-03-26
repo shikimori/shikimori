@@ -22,12 +22,16 @@ class FayeService
   end
 
   def update trackable, params
-    if trackable.update params
-      publisher.publish trackable, :updated
-      true
-    else
-      false
+    return false unless trackable.update params
+
+    case trackable
+      when Review
+        publisher.publish trackable.maybe_topic(:ru), :updated
+      else
+        publisher.publish trackable, :updated
     end
+
+    true
   end
 
   def destroy trackable
@@ -51,7 +55,7 @@ class FayeService
     ids
   end
 
-  def convert_review forum_entry, is_convert_to_review
+  def convert_review forum_entry, is_convert_to_review # rubocop:disable all
     new_entry =
       if is_convert_to_review && forum_entry.is_a?(Comment)
         Comment::ConvertToReview.call forum_entry
@@ -59,7 +63,16 @@ class FayeService
         Review::ConvertToComment.call forum_entry
       end
 
-    publisher.publish_conversion forum_entry, new_entry if new_entry
+    if new_entry
+      publisher.publish_conversion(
+        is_convert_to_review ? :comment : :review,
+        forum_entry.is_a?(Review) ?
+          forum_entry.maybe_topic(forum_entry.locale) :
+          forum_entry,
+        new_entry
+      )
+    end
+
     new_entry
   end
 

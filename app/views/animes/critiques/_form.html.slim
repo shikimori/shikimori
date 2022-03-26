@@ -12,9 +12,9 @@
 
   .subheadline = og.headline
 
-  .b-critique-topic.m15
+  .b-critique-topic
     .body
-      = render 'stars', critique: critique, in_edit: true, with_music: resource.anime?
+      = render 'stars', critique: critique, is_edit: true
 
   = render 'blocks/shiki_editor',
     text: critique.text,

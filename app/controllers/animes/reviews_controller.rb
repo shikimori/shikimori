@@ -10,22 +10,33 @@ class Animes::ReviewsController < AnimesController
 
   skip_before_action :og_meta
 
-  RULES_TOPIC_ID = 356_281
   PER_PAGE = 8
   PER_PREVIEW = 4
 
-  def index # rubocop:disable AbcSize
-    breadcrumb i18n_i('Review', :other), nil
+  rescue_from ActiveRecord::RecordNotFound, with: :missing
+
+  def index # rubocop:disable AbcSize, MethodLength
     @opinion = (Types::Review::Opinion[params[:opinion]] if params[:opinion])
     @is_preview = !!params[:is_preview]
+
+    if @opinion
+      breadcrumb i18n_i('Review', :other), @resource.reviews_url
+      breadcrumb t("animes.reviews.navigation.opinion.#{@opinion}"), nil
+    else
+      breadcrumb i18n_i('Review', :other), nil
+    end
 
     query = ::Reviews::Query
       .fetch(@resource.object)
       .by_opinion(@opinion)
 
-    @collection = @is_preview ?
+    query = @is_preview ?
       query.paginate(1, PER_PREVIEW) :
       query.paginate(@page, PER_PAGE)
+
+    @collection = query.transform do |model|
+      Topics::ReviewView.new(model.maybe_topic(locale_from_host), true, true)
+    end
 
     if @collection.none? && !request.xhr?
       redirect_to @resource.url, status: :moved_permanently
@@ -33,45 +44,119 @@ class Animes::ReviewsController < AnimesController
   end
 
   def show
-    ensure_redirect!(
-      params[:is_reply] ?
-        UrlGenerator.instance.reply_review_url(@review) :
-        UrlGenerator.instance.review_url(@review, is_canonical: true)
-    )
+    if params[:is_reply]
+      og noindex: true, nofollow: true
+    else
+      ensure_redirect! UrlGenerator.instance.review_url(@review)
+    end
     push_js_reply if params[:is_reply]
+    breadcrumb "#{i18n_i('Review', :one)} ##{@review.id}", nil
+
+    @topic_view = Topics::ReviewView.new(@review.maybe_topic(locale_from_host), false, false)
+  end
+
+  def missing exception
+    raise exception if params[:action] != 'show'
+
+    add_breadcrumbs
+    breadcrumb "#{i18n_i('Review', :one)} ##{params[:id].to_i}", nil
+    og noindex: true, nofollow: true
+    render :missing
+  end
+
+  # it is used in ban messages at least
+  def tooltip
+    og noindex: true
+    return render :missing, status: (xhr_or_json? ? :ok : :not_found) if @resource.is_a? NoTopic
+
+    @topic_view = Topics::ReviewView.new(@review.maybe_topic(locale_from_host), true, true)
+
+    if request.xhr?
+      render(
+        partial: 'topics/topic',
+        object: @topic_view,
+        as: :topic_view,
+        layout: false,
+        formats: :html
+      )
+    else
+      render :show
+    end
   end
 
   def new
     og page_title: i18n_t('new_review')
+    breadcrumb i18n_t('new_review'), nil
 
     @review ||= Review.new do |review|
       review.anime = @anime
       review.manga = @manga || @ranobe
     end
 
-    @rules_topic = Topics::TopicViewFactory
-      .new(false, false)
-      .find_by(id: RULES_TOPIC_ID)
+    render :form
+  end
+
+  def edit
+    og page_title: i18n_t('edit_review')
+    breadcrumb i18n_t('edit_review'), nil
+
+    if request.xhr?
+      render(
+        partial: 'animes/reviews/form',
+        locals: {
+          review: @review,
+          resource: @resource,
+          is_remote: true
+        }
+      )
+    else
+      render :form
+    end
   end
 
   def create
-    @review = Review::Create.call review_params
+    @review = Review::Create.call create_params
 
     if @review.errors.blank?
-      redirect_to UrlGenerator.instance.review_url(@review)
+      redirect_to(
+        UrlGenerator.instance.review_url(@review),
+        notice: i18n_t('review.created')
+      )
     else
       new
-      render :new
+    end
+  end
+
+  def update
+    is_updated = Review::Update.call(
+      review: @review,
+      params: update_params,
+      faye: FayeService.new(current_user, faye_token)
+    )
+
+    if is_updated
+      redirect_to(
+        UrlGenerator.instance.review_url(@review),
+        notice: i18n_t('review.updated')
+      )
+    else
+      edit
     end
   end
 
 private
 
-  def review_params
+  def create_params
     params
       .require(:review)
-      .permit(:body, :anime_id, :manga_id, :opinion)
+      .permit(*Api::V1::ReviewsController::CREATE_PARAMS)
       .merge(user: current_user)
+  end
+
+  def update_params
+    params
+      .require(:review)
+      .permit(*Api::V1::ReviewsController::UPDATE_PARAMS)
   end
 
   def add_breadcrumbs
@@ -107,8 +192,8 @@ private
 
   def push_js_reply
     gon.push reply: {
-      id: @review.id,
-      type: :review,
+      id: @review.maybe_topic(locale_from_host).id,
+      type: :topic,
       userId: @review.user_id,
       nickname: @review.user.nickname,
       text: @review.user.nickname,
@@ -125,7 +210,7 @@ private
     return unless user_review
 
     redirect_to(
-      UrlGenerator.instance.review_url(user_review, is_canonical: true),
+      UrlGenerator.instance.review_url(user_review),
       alert: i18n_t(
         "review_is_already_written.#{(@anime || @manga || @ranobe).object.class.name.downcase}",
         gender: current_user.sex

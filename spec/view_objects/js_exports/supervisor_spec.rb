@@ -4,7 +4,6 @@ describe JsExports::Supervisor do
 
   let(:user_rates_export) { JsExports::UserRatesExport.instance }
   let(:topics_export) { JsExports::TopicsExport.instance }
-  let(:reviews_export) { JsExports::ReviewsExport.instance }
   let(:comments_export) { JsExports::CommentsExport.instance }
   let(:polls_export) { JsExports::PollsExport.instance }
 

@@ -7,22 +7,17 @@ import Turbolinks from 'turbolinks';
 import { pushFlash } from '@/utils/flash';
 
 export default class Review extends Topic {
-  initialize() {
-    const mobileOffset = isPhone() ? 63 : 0;
+  get typeLabel() { return I18n.t('frontend.dynamic_elements.review.type_label'); } // eslint-disable-line camelcase
 
-    this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT = 220 + mobileOffset;
-    this.CHECK_HEIGHT_COLLAPSED_HEIGHT = 170 + mobileOffset;
-    this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 115 + mobileOffset;
-
-    this.$body = this.$inner.find('.body');
-
-    super.initialize();
-    this._scheduleCheckHeight();
+  @memoize
+  get $checkHeightNode() {
+    return this.$inner;
   }
 
-  get type() { return 'review'; }
-  get typeLabel() { return I18n.t('frontend.dynamic_elements.review.type_label'); } // eslint-disable-line camelcase
-  get $checkHeightNode() { return this.$inner; }
+  @memoize
+  get $body() {
+    return this.$inner.find('.body');
+  }
 
   @memoize
   get $editorPlacement() {
@@ -54,6 +49,14 @@ export default class Review extends Topic {
       document.location.href.replace(/\/reviews\/\d+$/, '/reviews'),
       { action: 'replace' }
     );
+  }
+
+  _assignCheckHeightLimits() {
+    const mobileOffset = isPhone() ? 63 : 0;
+
+    this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT = 220 + mobileOffset;
+    this.CHECK_HEIGHT_COLLAPSED_HEIGHT = 170 + mobileOffset;
+    this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT = 115 + mobileOffset;
   }
 
   _bindFaye() {

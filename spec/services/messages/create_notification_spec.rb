@@ -95,11 +95,15 @@ describe Messages::CreateNotification do
         )
       end
 
-      it 'ignores antispam' do
-        expect(proc do
+      context 'antispam ignored' do
+        subject(:notify_twice) do
           service.nickname_changed friend, old_nickname, new_nickname
           service.nickname_changed friend, old_nickname, new_nickname
-        end).to change(Message, :count).by 2
+        end
+
+        it do
+          expect { notify_twice }.to change(Message, :count).by 2
+        end
       end
     end
   end

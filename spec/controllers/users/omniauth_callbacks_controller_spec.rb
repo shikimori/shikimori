@@ -32,9 +32,9 @@ describe Users::OmniauthCallbacksController do
     %i[facebook twitter vkontakte].each do |provider|
       describe "##{provider}" do
         it do
-          expect(proc do
-            expect { make_request }.to change(User, :count).by 1
-          end).to change(UserToken, :count).by 1
+          expect { make_request }
+            .to change(User, :count).by(1)
+            .and change(UserToken, :count).by(1)
           expect(response).to redirect_to root_path
         end
       end
@@ -54,9 +54,9 @@ describe Users::OmniauthCallbacksController do
     let(:make_request) { get provider }
 
     it do
-      expect(-> {
-        expect { make_request }.to_not change User, :count
-      }).to_not change UserToken, :count
+      expect { make_request }
+        .to change(User, :count).by(0)
+        .and change(UserToken, :count).by(0)
       expect(response).to redirect_to root_path
     end
   end

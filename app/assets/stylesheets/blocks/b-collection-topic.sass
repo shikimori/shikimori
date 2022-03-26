@@ -6,7 +6,6 @@
 
 .b-collection-topic
   & > .inner
-
     .collection-row
       +clear_left
 
@@ -93,6 +92,11 @@
 .b-collection-topic.b-topic > .inner .prebody .additionals
   justify-content: flex-start
 
-.b-collection-topic.b-topic-preview > .inner .prebody .additionals
-  margin-top: -2px
-  margin-bottom: 9px
+.b-collection-topic.b-topic-preview > .inner
+  .body
+    clear: left
+    margin-left: 0
+
+  .prebody .additionals
+    margin-top: -2px
+    margin-bottom: 9px

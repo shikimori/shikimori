@@ -7,10 +7,6 @@ class Topics::CritiqueView < Topics::UserContentView
     preview? || minified?
   end
 
-  def minified?
-    is_preview || is_mini
-  end
-
   def action_tag
     OpenStruct.new(
       type: 'critique',
@@ -23,7 +19,7 @@ class Topics::CritiqueView < Topics::UserContentView
       critique.target.name
     else
       i18n_t(
-        "title.#{critique.target_type.downcase}",
+        "title.#{critique.target_type.underscore}",
         target_name: h.h(h.localized_name(critique.target))
       ).html_safe
     end
@@ -45,6 +41,14 @@ class Topics::CritiqueView < Topics::UserContentView
     critique.votes_count.positive?
   end
 
+  def poster_in_header?
+    !preview?
+  end
+
+  def dynamic_type
+    poster_in_header? ? super : :critique
+  end
+
 private
 
   def body
@@ -56,7 +60,7 @@ private
       partial: 'animes/critiques/stars',
       locals: {
         critique: critique,
-        with_music: critique.entry.is_a?(Anime)
+        is_preview: preview?
       },
       formats: :html
     )

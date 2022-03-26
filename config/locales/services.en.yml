@@ -103,9 +103,12 @@ en:
   messages/mention_source:
     simple_mention:
       nil: <em>deleted</em>
-      topic: <a href="%{url}"%{bubble}>%{name}</a>
-      profile: <a href="%{url}"%{bubble}>%{name}</a>
-      review: <a href="%{url}"%{bubble}>%{name}</a>
+      topic: &default_simple_mention <a href="%{url}"%{bubble}>%{name}</a>
+      profile: *default_simple_mention
+      review: *default_simple_mention
+      critique: *default_simple_mention
+      article: *default_simple_mention
+      collection: *default_simple_mention
     text_mention:
       nil: in <em>deleted</em>.
       topic: in topic <a href="%{url}"%{bubble}>%{name}</a>.

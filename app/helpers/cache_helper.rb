@@ -65,15 +65,13 @@ class CacheHelperInstance
   include Singleton
   include Draper::ViewHelpers
 
+  delegate :ru_host?, to: :h
+
   def domain
     h.request.domain
   end
 
   def subdomain
     h.request.subdomain
-  end
-
-  def ru_host?
-    h.ru_host?
   end
 end
