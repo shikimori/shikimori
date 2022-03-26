@@ -36,8 +36,9 @@ en:
   animes: &animes
     page:
       actions:
-        comment: Comment
-        critique: Write critique
+        comment: Write a comment
+        review: Write a review
+        critique: Write a critique
         add_to_favorites: Add to Favorite
         remove_from_favorites: Remove from Favorite
         edit: Edit
