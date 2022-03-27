@@ -24,5 +24,6 @@ private
       commentable_type: @commentable.class.base_class.name
     )
     @comment.instance_variable_set :@skip_notify_quoted, true
+    @comment.instance_variable_set :@skip_banhammer, true
   end
 end

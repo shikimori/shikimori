@@ -19,5 +19,7 @@ describe Comment::Move do
   it do
     expect(comment.reload.commentable).to eq site_rules_topic
     expect(comment.body).to eq "[quote=t#{to_reply.id};#{user.id};test]"
+    expect(comment.instance_variable_get :@skip_notify_quoted).to eq true
+    expect(comment.instance_variable_get :@skip_banhammer).to eq true
   end
 end
