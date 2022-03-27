@@ -12,7 +12,7 @@
     - else
       p.b-nothing_here = t 'no_reviews'
 
-    - if @collection.size == controller.class::TOPICS_LIMIT
+    - if @collection.size == controller.class::REVIEWS_LIMIT
       = render 'blocks/postloader',
         filter: 'b-review',
         next_url: current_url(page: @page + 1)

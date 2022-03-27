@@ -8,7 +8,7 @@ json.content JsExports::Supervisor.instance.sweep(
   )
 )
 
-if @collection.size == controller.class::TOPICS_LIMIT
+if @collection.size == controller.class::REVIEWS_LIMIT
   json.postloader render(
     'blocks/postloader',
     filter: 'b-topic',

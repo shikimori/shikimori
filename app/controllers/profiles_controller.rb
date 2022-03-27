@@ -20,6 +20,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   }
 
   TOPICS_LIMIT = 8
+  REVIEWS_LIMIT = 5
   COMMENTS_LIMIT = 20
   VERSIONS_PER_PAGE = 30
 
@@ -120,7 +121,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       .order(created_at: :desc)
 
     @collection = QueryObjectBase.new(scope)
-      .paginate(@page, 5)
+      .paginate(@page, REVIEWS_LIMIT)
       .transform do |model|
         view = Topics::ReviewView.new model.maybe_topic(locale_from_host), true, false
         view.instance_variable_set :@is_show_comments, false
