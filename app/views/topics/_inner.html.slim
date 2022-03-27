@@ -68,12 +68,15 @@
 
       .body.b-text_with_paragraphs
         - if topic_view.minified?
-          - if topic_view.need_trucation?
-            = topic_view.html_body_truncated
-          - else
-            = topic_view.html_body
+          // body-inner used in checkHeight
+          .body-inner
+            - if topic_view.need_trucation?
+              = topic_view.html_body_truncated
+            - else
+              = topic_view.html_body
 
         - else
+          // body-inner used in checkHeight
           .body-inner itemprop='articleBody'
             = topic_view.render_body
 

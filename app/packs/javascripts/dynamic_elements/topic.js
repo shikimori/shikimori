@@ -6,7 +6,6 @@ import ShikiEditable from '@/views/application/shiki_editable';
 import { isPhone } from 'shiki-utils';
 
 import axios from '@/utils/axios';
-import checkHeight from '@/utils/check_height';
 import { animatedCollapse, animatedExpand } from '@/utils/animated';
 import { loadImagesFinally } from '@/utils/load_image';
 
