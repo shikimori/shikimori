@@ -29,7 +29,7 @@ class Topics::GeneratedNewsView < Topics::View
     end
   end
 
-  def render_body
+  def html_body
     h.content_tag :div, render_linked, class: 'b-catalog-entry-embedded'
   end
 

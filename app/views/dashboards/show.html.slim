@@ -186,16 +186,15 @@
                 collection: @view.critique_topic_views,
                 as: :topic_view
 
-      - if ru_host?
-        .subheadline.yellow = t '.our_projects'
-        / #vk_groups
-        center.block
-          a href=StickyTopicView.socials(locale_from_host).object.url
-            img[
-              style="max-width: 100%"
-              src="/assets/globals/socials.png?v3"
-              srcset="/assets/globals/socials@2x.png?v3 2x"
-            ]
+      .subheadline.yellow = t '.our_projects'
+      / #vk_groups
+      center.block
+        a href=StickyTopicView.socials(locale_from_host).object.url
+          img[
+            style="max-width: 100%"
+            src="/assets/globals/socials.png?v3"
+            srcset="/assets/globals/socials@2x.png?v3 2x"
+          ]
 
         / center.block
         /   a href='/forum/site/278111-shikikast'
