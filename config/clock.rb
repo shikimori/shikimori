@@ -17,7 +17,7 @@ module Clockwork
 
     MalParsers::RefreshEntries.perform_async 'anime', 'anons', 12.hours
     MalParsers::RefreshEntries.perform_async 'anime', 'ongoing', 8.hours
-    MalParsers::ScheduleExpired.perform_async 'anime'
+    # MalParsers::ScheduleExpired.perform_async 'anime'
 
     NamedLogger.clockwork.info 'half-hourly.import finished'
   end
@@ -70,9 +70,9 @@ module Clockwork
   end
 
   every 1.day, 'daily.imports.2', at: '23:30' do
-    MalParsers::ScheduleExpired.perform_async 'manga'
-    MalParsers::ScheduleExpired.perform_async 'character'
-    MalParsers::ScheduleExpired.perform_async 'person'
+    # MalParsers::ScheduleExpired.perform_async 'manga'
+    # MalParsers::ScheduleExpired.perform_async 'character'
+    # MalParsers::ScheduleExpired.perform_async 'person'
 
     MalParsers::ScheduleMissingPersonRoles.perform_async 'character'
     MalParsers::ScheduleMissingPersonRoles.perform_async 'person'
