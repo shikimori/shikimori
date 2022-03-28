@@ -103,9 +103,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def render_body
-    preview? ?
-      html_body_truncated :
-      html_body
+    preview? ? html_body_truncated : html_body
   end
 
   def poster is_2x
