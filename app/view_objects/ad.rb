@@ -201,97 +201,82 @@ private
     :"@is_#{placement}_ad_shown"
   end
 
+  # convert -resize 50% app/assets/images/globals/events/2022-03-28/menu_1@2x.jpg app/assets/images/globals/events/2022-03-28/menu_1.jpg
+  SPECIAL_X300 = {
+    provider: Types::Ad::Provider[:special],
+    # AD START: NARUTO - remove 2022-04-12 80:00
+    # url: 'https://bit.ly/36u087n'
+    # pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
+    # images: (1..1).map do |i|
+    #   {
+    #     src: "/assets/globals/events/2022-03-28/menua_#{i}.jpg",
+    #     src_2x: "/assets/globals/events/2022-03-28/menu_#{i}@2x.jpg"
+    #   }
+    # end,
+    images: [{
+      src: '/assets/globals/events/2022-03-28/menu_1.jpg',
+      src_2x: '/assets/globals/events/2022-03-28/menu_1@2x.jpg',
+      url: 'https://bit.ly/36u087n'
+    }, {
+      src: '/assets/globals/events/2022-03-28/menu_2.jpg',
+      src_2x: '/assets/globals/events/2022-03-28/menu_2@2x.jpg',
+      url: 'https://bit.ly/3JQ4p3f'
+    }, {
+      src: '/assets/globals/events/2022-03-28/menu_3.jpg',
+      src_2x: '/assets/globals/events/2022-03-28/menu_3@2x.jpg',
+      url: 'https://bit.ly/3wKfKhK'
+    }],
+    # AND END
+    rules: {
+      cookie: 'i5',
+      shows_per_week: 480 # 380 # 420 # 540
+    },
+    placement: Types::Ad::Placement[:menu],
+    platform: Types::Ad::Platform[:desktop]
+  }
+  SPECIAL_X1170 = {
+    provider: Types::Ad::Provider[:special],
+    # AD START: NARUTO - remove 2022-04-12 80:00
+    url: 'https://bit.ly/3LpIfWa',
+    # pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
+    images: (1..1).map do |i|
+      {
+        src: "/assets/globals/events/2022-03-28/wide_#{i}.jpg",
+        src_2x: "/assets/globals/events/2022-03-28/wide_#{i}@2x.jpg"
+      }
+    end,
+    # AD END
+    # html: (
+    #   <<~HTML
+    #     <style>
+    #       #iframe_special_x1170 {
+    #         max-width: 1150px;
+    #         width: 100%;
+    #         height: 180px;
+    #         margin: 0 auto;
+    #         overflow: hidden;
+    #       }
+    #       .spns_special_x1170 {
+    #         max-width: 1150px;
+    #         margin: 0 auto;
+    #         overflow: hidden;
+    #       }
+    #       .b-spns-special_x1170 {
+    #         margin: 0 auto 45px;
+    #         overflow: hidden;
+    #       }
+    #     </style>
+    #     <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
+    #   HTML
+    # ),
+    placement: Types::Ad::Placement[:content],
+    platform: Types::Ad::Platform[:desktop]
+  }
+
   BANNERS = {
     true => {
-      # disable after 2021-11-30 23:55
-      # convert -resize 50% app/assets/images/globals/events/special_menu_1@2x.png app/assets/images/globals/events/special_menu_1.png
-      Types::Ad::Type[:special_x300] => {
-        provider: Types::Ad::Provider[:special],
-        # url: 'https://bit.ly/3vf1Y5O',
-        # pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
-        # images: (1..2).map do |i|
-        #   {
-        #     src: "/assets/globals/events/2022-02-24/special_menu_#{i}.jpg",
-        #     src_2x: "/assets/globals/events/2022-02-24/special_menu_#{i}@2x.jpg"
-        #   }
-        # end,
-        # url: 'https://bit.ly/3uiBmjX',
-        # images: (3..3).map do |i|
-        #   {
-        #     src: "/assets/globals/events/special_menu_#{i}.jpg",
-        #     src_2x: "/assets/globals/events/special_menu_#{i}@2x.jpg"
-        #   }
-        # end,
-        # PUBG - remove 2022-03-15 00:00
-        url: 'https://bit.ly/3C8T7UU',
-        images: (1..1).map do |i|
-          {
-            src: "/assets/globals/events/2022-03-01/menu_#{i}.jpg",
-            src_2x: "/assets/globals/events/2022-03-01/menu_#{i}@2x.jpg"
-          }
-        end,
-        # PUBG END
-        rules: {
-          cookie: 'i1',
-          shows_per_week: 480 # 380 # 420 # 540
-        },
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      # disable after 2021-11-30 23:55
-      # convert -resize 50% app/assets/images/globals/events/special_wide_1@2x.png app/assets/images/globals/events/special_wide_1.png
-      Types::Ad::Type[:special_x1170] => {
-        provider: Types::Ad::Provider[:special],
-        # imba.shop - remove 2022-04-01 00:00
-        url: 'https://bit.ly/3IgnSbP',
-        images: (1..1).map do |i|
-          {
-            src: "/assets/globals/events/2022-03-15/wide_#{i}.jpg",
-            src_2x: "/assets/globals/events/2022-03-15/wide_#{i}@2x.jpg"
-          }
-        end,
-        # PUBG END
-        # url: 'https://bit.ly/3vf1Y5O',
-        # pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
-        # images: (1..3).map do |i|
-        #   {
-        #     src: "/assets/globals/events/2022-02-24/special_wide_#{i}.jpg"
-        #     # src_2x: "/assets/globals/events/2022-02-24/special_wide_#{i}@2x.jpg"
-        #   }
-        # end,
-        # url: 'https://bit.ly/3uiBmjX',
-        # images: (4..4).map do |i|
-        #   {
-        #     src: "/assets/globals/events/special_wide_#{i}.jpg",
-        #     src_2x: "/assets/globals/events/special_wide_#{i}@2x.jpg"
-        #   }
-        # end,
-        # html: (
-        #   <<~HTML
-        #     <style>
-        #       #iframe_special_x1170 {
-        #         max-width: 1150px;
-        #         width: 100%;
-        #         height: 180px;
-        #         margin: 0 auto;
-        #         overflow: hidden;
-        #       }
-        #       .spns_special_x1170 {
-        #         max-width: 1150px;
-        #         margin: 0 auto;
-        #         overflow: hidden;
-        #       }
-        #       .b-spns-special_x1170 {
-        #         margin: 0 auto 45px;
-        #         overflow: hidden;
-        #       }
-        #     </style>
-        #     <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
-        #   HTML
-        # ),
-        placement: Types::Ad::Placement[:content],
-        platform: Types::Ad::Platform[:desktop]
-      },
+      Types::Ad::Type[:special_x300] => SPECIAL_X300,
+      Types::Ad::Type[:special_x1170] => SPECIAL_X1170,
       Types::Ad::Type[:mt_300x250] => {
         provider: Types::Ad::Provider[:mytarget],
         mytarget_id: '491744',
@@ -354,93 +339,8 @@ private
       }
     },
     false => {
-      # disable after 2021-11-30 23:55
-      Types::Ad::Type[:special_x300] => {
-        provider: Types::Ad::Provider[:special],
-        # url: 'https://bit.ly/3vf1Y5O',
-        # pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
-        # images: (1..2).map do |i|
-        #   {
-        #     src: "/assets/globals/events/2022-02-24/special_menu_#{i}.jpg",
-        #     src_2x: "/assets/globals/events/2022-02-24/special_menu_#{i}@2x.jpg"
-        #   }
-        # end,
-        # url: 'https://bit.ly/3uiBmjX',
-        # images: (3..3).map do |i|
-        #   {
-        #     src: "/assets/globals/events/special_menu_#{i}.jpg",
-        #     src_2x: "/assets/globals/events/special_menu_#{i}@2x.jpg"
-        #   }
-        # end,
-        # PUBG - remove 2022-03-15 00:00
-        url: 'https://bit.ly/3C8T7UU',
-        images: (1..1).map do |i|
-          {
-            src: "/assets/globals/events/2022-03-01/menu_#{i}.jpg",
-            src_2x: "/assets/globals/events/2022-03-01/menu_#{i}@2x.jpg"
-          }
-        end,
-        # PUBG END
-        rules: {
-          cookie: 'i4',
-          shows_per_week: 480 # 380 # 420 # 540
-        },
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      # disable after 2021-11-30 23:55
-      Types::Ad::Type[:special_x1170] => {
-        provider: Types::Ad::Provider[:special],
-        # imba.shop - remove 2022-04-01 00:00
-        url: 'https://bit.ly/3IgnSbP',
-        images: (1..1).map do |i|
-          {
-            src: "/assets/globals/events/2022-03-15/wide_#{i}.jpg",
-            src_2x: "/assets/globals/events/2022-03-15/wide_#{i}@2x.jpg"
-          }
-        end,
-        # PUBG END
-        # url: 'https://bit.ly/3vf1Y5O',
-        # pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
-        # images: (1..3).map do |i|
-        #   {
-        #     src: "/assets/globals/events/2022-02-24/special_wide_#{i}.jpg",
-        #     # src_2x: "/assets/globals/events/2022-02-24/special_wide_#{i}@2x.jpg"
-        #   }
-        # end,
-        # url: 'https://bit.ly/3uiBmjX',
-        # images: (4..4).map do |i|
-        #   {
-        #     src: "/assets/globals/events/special_wide_#{i}.jpg",
-        #     src_2x: "/assets/globals/events/special_wide_#{i}@2x.jpg"
-        #   }
-        # end,
-        # html: (
-        #   <<~HTML
-        #     <style>
-        #       #iframe_special_x1170 {
-        #         max-width: 1150px;
-        #         width: 100%;
-        #         height: 180px;
-        #         margin: 0 auto;
-        #         overflow: hidden;
-        #       }
-        #       .spns_special_x1170 {
-        #         max-width: 1150px;
-        #         margin: 0 auto;
-        #         overflow: hidden;
-        #       }
-        #       .b-spns-special_x1170 {
-        #         margin: 0 auto 45px;
-        #         overflow: hidden;
-        #       }
-        #     </style>
-        #     <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
-        #   HTML
-        # ),
-        placement: Types::Ad::Placement[:content],
-        platform: Types::Ad::Platform[:desktop]
-      },
+      Types::Ad::Type[:special_x300] => SPECIAL_X300,
+      Types::Ad::Type[:special_x1170] => SPECIAL_X1170,
       Types::Ad::Type[:advrtr_x728] => {
         provider: Types::Ad::Provider[:advertur],
         advertur_id: 92_445,
@@ -504,12 +404,12 @@ private
         Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # PUBG - remove 2022-03-15 00:00
+        Types::Ad::Type[:special_x300], # NARUTO - remove 2022-04-12 80:00
         Types::Ad::Type[:yd_240x600],
         Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # PUBG - remove 2022-03-15 00:00
+        Types::Ad::Type[:special_x300], # NARUTO - remove 2022-04-12 80:00
         Types::Ad::Type[:yd_300x600],
         Types::Ad::Type[:mt_300x600]
       ],
@@ -525,7 +425,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        Types::Ad::Type[:special_x1170], # imba.shop - remove 2022-04-01 00:00
+        Types::Ad::Type[:special_x1170], # NARUTO - remove 2022-04-12 80:00
         Types::Ad::Type[:yd_970x250],
         Types::Ad::Type[:mt_970x250]
       ]
@@ -537,13 +437,13 @@ private
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # PUBG - remove 2022-03-15 00:00
+        Types::Ad::Type[:special_x300], # NARUTO - remove 2022-04-12 80:00
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        Types::Ad::Type[:special_x300], # PUBG - remove 2022-03-15 00:00
+        Types::Ad::Type[:special_x300], # NARUTO - remove 2022-04-12 80:00
         # Types::Ad::Type[:mt_300x600],
         # Types::Ad::Type[:yd_300x600],
         # Types::Ad::Type[:advrtr_240x400],
@@ -560,7 +460,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        Types::Ad::Type[:special_x1170] # imba.shop - remove 2022-04-01 00:00
+        Types::Ad::Type[:special_x1170] # NARUTO - remove 2022-04-12 80:00
       ]
     }
   }
