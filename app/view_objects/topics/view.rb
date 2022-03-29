@@ -103,7 +103,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def render_body
-    preview? ?
+    preview? && need_trucation? ?
       html_body_truncated :
       html_body
   end
@@ -249,8 +249,10 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       @is_preview,
       @is_mini,
       @is_show_comments,
+      need_trucation?,
       skip_body?,
       poster_in_header?,
+      footer_vote?,
       closed?, # not sure whether it is necessary
       h.current_user&.preferences&.is_shiki_editor?,
       CACHE_VERSION,

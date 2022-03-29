@@ -10,7 +10,7 @@ class Topics::ReviewView < Topics::UserContentView
   end
 
   def need_trucation?
-    preview? || minified?
+    minified?
   end
 
   def review_author_details?
@@ -59,6 +59,10 @@ class Topics::ReviewView < Topics::UserContentView
 
   def dynamic_type
     review_author_details? ? :review : super
+  end
+
+  def footer_vote?
+    !minified?
   end
 
   def cache_key
