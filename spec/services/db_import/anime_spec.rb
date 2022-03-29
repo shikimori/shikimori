@@ -69,47 +69,47 @@ describe DbImport::Anime do
     end
   end
 
-  describe '#assign_genres' do
-    let(:genres) { [{ id: 1, name: 'test' }] }
-
-    context 'new genre' do
-      it do
-        expect { subject }.to raise_error(
-          ArgumentError,
-          'unknown genre: {"id":1,"name":"test"}'
-        )
-      end
-    end
-
-    context 'present genre' do
-      let!(:genre) { create :genre, :anime, name: genres.first[:name], mal_id: genres.first[:id] }
-
-      describe 'imported' do
-        let!(:anime) { create :anime, id: 987_654_321, description_en: 'old' }
-        before { anime.genres << genre }
-
-        it do
-          expect(entry.genres).to have(1).item
-          expect(entry.genres.first).to have_attributes(
-            id: genre.id,
-            mal_id: genre.mal_id,
-            name: genre.name
-          )
-        end
-      end
-
-      context 'not imported' do
-        it do
-          expect(entry.genres).to have(1).item
-          expect(entry.genres.first).to have_attributes(
-            id: genre.id,
-            mal_id: genre.mal_id,
-            name: genre.name
-          )
-        end
-      end
-    end
-  end
+  # describe '#assign_genres' do
+  #   let(:genres) { [{ id: 1, name: 'test' }] }
+  #
+  #   context 'new genre' do
+  #     it do
+  #       expect { subject }.to raise_error(
+  #         ArgumentError,
+  #         'unknown genre: {"id":1,"name":"test"}'
+  #       )
+  #     end
+  #   end
+  #
+  #   context 'present genre' do
+  #     let!(:genre) { create :genre, :anime, name: genres.first[:name], mal_id: genres.first[:id] }
+  #
+  #     describe 'imported' do
+  #       let!(:anime) { create :anime, id: 987_654_321, description_en: 'old' }
+  #       before { anime.genres << genre }
+  #
+  #       it do
+  #         expect(entry.genres).to have(1).item
+  #         expect(entry.genres.first).to have_attributes(
+  #           id: genre.id,
+  #           mal_id: genre.mal_id,
+  #           name: genre.name
+  #         )
+  #       end
+  #     end
+  #
+  #     context 'not imported' do
+  #       it do
+  #         expect(entry.genres).to have(1).item
+  #         expect(entry.genres.first).to have_attributes(
+  #           id: genre.id,
+  #           mal_id: genre.mal_id,
+  #           name: genre.name
+  #         )
+  #       end
+  #     end
+  #   end
+  # end
 
   describe '#assign_studios' do
     let(:studios) { [{ id: 1, name: 'test' }] }
@@ -375,17 +375,17 @@ describe DbImport::Anime do
       end
     end
 
-    context 'by genre' do
-      context 'not hentai' do
-        let(:genre_id) { 1 }
-        it { expect(entry.is_censored).to eq false }
-      end
-
-      context 'hentai' do
-        let(:genre_id) { Genre::CENSORED_IDS.sample }
-        before { allow_any_instance_of(Genre).to receive(:id).and_return genre_id }
-        it { expect(entry.is_censored).to eq true }
-      end
-    end
+    # context 'by genre' do
+    #   context 'not hentai' do
+    #     let(:genre_id) { 1 }
+    #     it { expect(entry.is_censored).to eq false }
+    #   end
+    #
+    #   context 'hentai' do
+    #     let(:genre_id) { Genre::CENSORED_IDS.sample }
+    #     before { allow_any_instance_of(Genre).to receive(:id).and_return genre_id }
+    #     it { expect(entry.is_censored).to eq true }
+    #   end
+    # end
   end
 end

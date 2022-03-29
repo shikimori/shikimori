@@ -13,12 +13,12 @@ private
   end
 
   def assign_genres genres
-    unless :genre_ids.in? desynced_fields
-      entry.genre_ids = preprocess_genres(genres)
-        .map { |v| import_genre(v).id }
-    end
-
-    assign_is_censored
+    # unless :genre_ids.in? desynced_fields
+    #   entry.genre_ids = preprocess_genres(genres)
+    #     .map { |v| import_genre(v).id }
+    # end
+    #
+    # assign_is_censored
   end
 
   def assign_is_censored
