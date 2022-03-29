@@ -21,7 +21,7 @@ ru:
     social:
       social_networks: Вход через соц. сети
       twitter: Вход через Twitter
-      facebook: Вход через Facebook
+      facebook: Вход через Facebook*
       vkontakte: Вход через Вконтакте
 
   users:

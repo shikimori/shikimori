@@ -2,11 +2,14 @@
   p.m5 = t '.social_networks'
 
   div
-    - (I18n.russian? ? [:vkontakte, :facebook, :twitter] : [:facebook, :twitter, :vkontakte]).each do |network|
-      a.b-oauth_token[
+    - %i[vkontakte twitter facebook].each do |network|
+      a.b-oauth_token.b-tooltipped.unprocessed[
         class=network
         href=send(:"user_#{network}_omniauth_authorize_url")
-        title=t(".#{network}")
+        title=(network == :facebook && local_assigns[:is_compact] ? "#{t(".#{network}")}. #{t('facebook')}" : t(".#{network}"))
         data-turbolinks='false'
         data-method='post'
+        data-direction='top'
       ]
+  - unless local_assigns[:is_compact]
+    small == t 'facebook_html'

@@ -294,16 +294,16 @@ Devise.setup do |config|
   )
 
   config.omniauth(
+    :twitter,
+    Rails.application.secrets.oauth[:twitter][:consumer_key],
+    Rails.application.secrets.oauth[:twitter][:secret_key]
+  )
+
+  config.omniauth(
     :facebook,
     Rails.application.secrets.oauth[:facebook][:app_id],
     Rails.application.secrets.oauth[:facebook][:app_secret],
     scope: Rails.application.secrets.oauth[:facebook][:app_permissions]
     #client_options: { ssl: { ca_path: '/etc/ssl/certs' } }
-  )
-
-  config.omniauth(
-    :twitter,
-    Rails.application.secrets.oauth[:twitter][:consumer_key],
-    Rails.application.secrets.oauth[:twitter][:secret_key]
   )
 end

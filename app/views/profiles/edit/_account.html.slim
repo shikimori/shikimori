@@ -54,25 +54,31 @@
           .subheadline.m5 = t '.connected_accounts'
           .value.oauth.remove
             - @resource.user_tokens.each do |token|
-              a.b-oauth_token[
+              a.b-oauth_token.b-tooltipped.unprocessed[
                 class=token.provider
                 href=user_token_url(token)
-                title=t('.disable_authentication', provider: token.provider.to_s.titleize)
-                data-confirm="#{t('.disable_authentication', provider: token.provider.to_s.titleize)}?"
+                title=t('.disable_authentication', provider: "#{token.provider.to_s.titleize}#{'*' if token.provider == 'facebook'}")
+                data-confirm="#{t('.disable_authentication', provider: token.provider.to_s.titleize)}#{'*' if token.provider == 'facebook'}?"
                 data-method='delete'
+                data-direction='top'
               ]
+          - if @resource.unconnected_providers.exclude? :facebook
+            small == t 'facebook_html'
 
       - if @resource.unconnected_providers.any?
         .block
           .subheadline.m5 = t '.not_connected_accounts'
           .value.oauth.add
             - @resource.unconnected_providers.each do |provider|
-              a.b-oauth_token[
+              a.b-oauth_token.b-tooltipped.unprocessed[
                 class=provider
                 href=send(:"user_#{provider}_omniauth_authorize_url")
-                title=t('.enable_authentication', provider: provider.to_s.titleize)
+                title=t('.enable_authentication', provider: "#{provider.to_s.titleize}#{'*' if provider == :facebool}")
                 data-method='post'
+                data-direction='top'
               ]
+          - if @resource.unconnected_providers.include? :facebook
+            small == t 'facebook_html'
 
       - if @resource.access_grants.any?
         .block

@@ -11,12 +11,15 @@
       color: darken(#587a9e, 9%)
 
   &.facebook
-    +icon_button('F')
+    // +icon_button('F')
     color: #3a5795
     &:hover
       color: lighten(#3a5795, 9%)
     &:active
       color: darken(#3a5795, 9%)
+
+    &:before
+      content: 'Fb*'
 
   &.twitter
     +icon_button('T')
@@ -39,3 +42,5 @@
       line-height: 30px
       width: 30px
 
+    // &.facebook:before
+    //   font-size: 15px

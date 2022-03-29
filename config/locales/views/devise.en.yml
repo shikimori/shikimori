@@ -21,7 +21,7 @@ en:
     social:
       social_networks: Sign in through socials
       twitter: Sign in with Twitter
-      facebook: Sign in with Facebook
+      facebook: Sign in with Facebook*
       vkontakte: Sign in with vk.com
 
   users:
