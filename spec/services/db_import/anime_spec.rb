@@ -351,41 +351,41 @@ describe DbImport::Anime do
     end
   end
 
-  describe 'censored' do
-    let(:genres) { [{ id: genre_id, name: 'test' }] }
-    let!(:genre) { create :genre, id: 98765, mal_id: genre_id, name: 'test' }
-
-    describe 'by rating' do
-      let(:genre_id) { 1 }
-
-      context 'not rx' do
-        let(:rating) { 'pg' }
-        it do
-          expect(entry.rating).to eq 'pg'
-          expect(entry.is_censored).to eq false
-        end
-      end
-
-      context 'rx' do
-        let(:rating) { 'rx' }
-        it do
-          expect(entry.rating).to eq 'rx'
-          expect(entry.is_censored).to eq true
-        end
-      end
-    end
-
-    # context 'by genre' do
-    #   context 'not hentai' do
-    #     let(:genre_id) { 1 }
-    #     it { expect(entry.is_censored).to eq false }
-    #   end
-    #
-    #   context 'hentai' do
-    #     let(:genre_id) { Genre::CENSORED_IDS.sample }
-    #     before { allow_any_instance_of(Genre).to receive(:id).and_return genre_id }
-    #     it { expect(entry.is_censored).to eq true }
-    #   end
-    # end
-  end
+  # describe 'censored' do
+  #   let(:genres) { [{ id: genre_id, name: 'test' }] }
+  #   let!(:genre) { create :genre, id: 98765, mal_id: genre_id, name: 'test' }
+  #
+  #   describe 'by rating' do
+  #     let(:genre_id) { 1 }
+  #
+  #     context 'not rx' do
+  #       let(:rating) { 'pg' }
+  #       it do
+  #         expect(entry.rating).to eq 'pg'
+  #         expect(entry.is_censored).to eq false
+  #       end
+  #     end
+  #
+  #     context 'rx' do
+  #       let(:rating) { 'rx' }
+  #       it do
+  #         expect(entry.rating).to eq 'rx'
+  #         expect(entry.is_censored).to eq true
+  #       end
+  #     end
+  #   end
+  #
+  #   context 'by genre' do
+  #     context 'not hentai' do
+  #       let(:genre_id) { 1 }
+  #       it { expect(entry.is_censored).to eq false }
+  #     end
+  #
+  #     context 'hentai' do
+  #       let(:genre_id) { Genre::CENSORED_IDS.sample }
+  #       before { allow_any_instance_of(Genre).to receive(:id).and_return genre_id }
+  #       it { expect(entry.is_censored).to eq true }
+  #     end
+  #   end
+  # end
 end

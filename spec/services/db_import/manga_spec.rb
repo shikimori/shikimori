@@ -44,47 +44,47 @@ describe DbImport::Manga do
     it { expect(entry.description_en).to eq synopsis_with_source }
   end
 
-  describe '#assign_genres' do
-    let(:genres) { [{ id: 1, name: 'test' }] }
-
-    context 'new genre' do
-      it do
-        expect { subject }.to raise_error(
-          ArgumentError,
-          'unknown genre: {"id":1,"name":"test"}'
-        )
-      end
-    end
-
-    context 'present genre' do
-      let!(:genre) { create :genre, :manga, name: genres.first[:name], mal_id: genres.first[:id] }
-
-      describe 'imported' do
-        let!(:manga) { create :manga, id: 987_654_321, description_en: 'old' }
-        before { manga.genres << genre }
-
-        it do
-          expect(entry.genres).to have(1).item
-          expect(entry.genres.first).to have_attributes(
-            id: genre.id,
-            mal_id: genre.mal_id,
-            name: genre.name
-          )
-        end
-      end
-
-      context 'not imported' do
-        it do
-          expect(entry.genres).to have(1).item
-          expect(entry.genres.first).to have_attributes(
-            id: genre.id,
-            mal_id: genre.mal_id,
-            name: genre.name
-          )
-        end
-      end
-    end
-  end
+  # describe '#assign_genres' do
+  #   let(:genres) { [{ id: 1, name: 'test' }] }
+  #
+  #   context 'new genre' do
+  #     it do
+  #       expect { subject }.to raise_error(
+  #         ArgumentError,
+  #         'unknown genre: {"id":1,"name":"test"}'
+  #       )
+  #     end
+  #   end
+  #
+  #   context 'present genre' do
+  #     let!(:genre) { create :genre, :manga, name: genres.first[:name], mal_id: genres.first[:id] }
+  #
+  #     describe 'imported' do
+  #       let!(:manga) { create :manga, id: 987_654_321, description_en: 'old' }
+  #       before { manga.genres << genre }
+  #
+  #       it do
+  #         expect(entry.genres).to have(1).item
+  #         expect(entry.genres.first).to have_attributes(
+  #           id: genre.id,
+  #           mal_id: genre.mal_id,
+  #           name: genre.name
+  #         )
+  #       end
+  #     end
+  #
+  #     context 'not imported' do
+  #       it do
+  #         expect(entry.genres).to have(1).item
+  #         expect(entry.genres.first).to have_attributes(
+  #           id: genre.id,
+  #           mal_id: genre.mal_id,
+  #           name: genre.name
+  #         )
+  #       end
+  #     end
+  #   end
+  # end
 
   describe '#assign_publishers' do
     let(:publishers) { [{ id: 1, name: 'test' }] }
