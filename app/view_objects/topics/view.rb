@@ -24,7 +24,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   BODY_TRUCATE_SIZE = 500
   TRUNCATE_OMNISSION = '…'
-  CACHE_VERSION = :v23
+  CACHE_VERSION = :v24
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
@@ -140,7 +140,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     return '' if text.blank?
 
     Rails.cache.fetch body_cache_key(text) do
-      if preview? || minified?
+      if cleanup_body_tags?
         text = text
           .gsub(%r{\[/?center\]}, '')
           .gsub(%r{\[poster.*?\].*?\[/poster\]|\[poster=.*?\]}, '')
@@ -170,6 +170,10 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def poster_in_header?
     true
+  end
+
+  def cleanup_body_tags?
+    preview? || minified?
   end
 
   def footer_vote?

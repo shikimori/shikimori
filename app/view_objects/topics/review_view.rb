@@ -17,6 +17,10 @@ class Topics::ReviewView < Topics::UserContentView
     (preview? && minified?) || !preview?
   end
 
+  def cleanup_body_tags?
+    minified?
+  end
+
   def action_tag
     [
       OpenStruct.new(
