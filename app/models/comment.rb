@@ -2,8 +2,8 @@
 # TODO: refactor fat model
 class Comment < ApplicationRecord
   include AntispamConcern
-  include Moderatable
-  include Viewable
+  include Behaviour::Moderatable
+  include Behaviour::Viewable
 
   antispam(
     interval: 3.seconds,

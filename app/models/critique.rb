@@ -2,7 +2,7 @@
 
 class Critique < ApplicationRecord
   include AntispamConcern
-  include Moderatable
+  include Behaviour::Moderatable
   include TopicsConcern
   include ModeratableConcern
 

@@ -1,7 +1,7 @@
 class Review < ApplicationRecord
   include AntispamConcern
-  include Commentable
-  include Moderatable
+  include Behaviour::Commentable
+  include Behaviour::Moderatable
   include TopicsConcern
 
   antispam(

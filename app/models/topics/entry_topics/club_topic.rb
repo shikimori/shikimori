@@ -1,5 +1,5 @@
 class Topics::EntryTopics::ClubTopic < Topics::EntryTopic
-  # include PermissionsPolicy
+  include PermissionsPolicy
 
   def club
     linked

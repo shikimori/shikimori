@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Viewable
+module Behaviour::Viewable
   extend ActiveSupport::Concern
 
   MAX_NOT_VIEWED_INTERVAL = 1.week
