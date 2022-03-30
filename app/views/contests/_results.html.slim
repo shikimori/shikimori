@@ -11,13 +11,13 @@
             = render partial: 'animes/anime',
               collection: [entry],
               locals: { cover_notice: :studio, content_by: :block },
-              cached: ->(entry) { CacheHelper.keys entry, :studio, :block }
+              cached: ->(entry) { cache_keys entry, :studio, :block }
 
           - else
             = render partial: 'characters/character',
               collection: [entry],
               locals: { content_by: :block },
-              cached: ->(entry) { CacheHelper.keys entry, :block }
+              cached: ->(entry) { cache_keys entry, :block }
 
         .c-rounds
           .label = "#{t '.competitors'}:"

@@ -29,7 +29,7 @@ class Profiles::HistoryView < ViewObjectBase
 private
 
   def formatted
-    @formatted ||= Rails.cache.fetch CacheHelper.keys(:history, @user, CACHE_VERSION) do
+    @formatted ||= Rails.cache.fetch CacheHelperInstance.cache_keys(:history, @user, CACHE_VERSION) do
       grouped_history.map { |_, entries| format entries }.compact
     end
   end

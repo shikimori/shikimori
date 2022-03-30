@@ -247,7 +247,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def cache_key *additionals
-    CacheHelper.keys(
+    CacheHelperInstance.cache_keys(
       self.class.name,
       @topic,
       @topic.respond_to?(:commented_at) ? @topic.commented_at : nil,
@@ -270,7 +270,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def body_cache_key text
-    CacheHelper.keys(
+    CacheHelperInstance.cache_keys(
       :body,
       XXhash.xxh32(text),
       preview? || minified?,

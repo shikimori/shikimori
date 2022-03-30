@@ -67,7 +67,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def description_html_ru
     text = description_ru.text
-    cache_key = CacheHelper.keys(
+    cache_key = CacheHelperInstance.cache_keys(
       object.cache_key,
       XXhash.xxh32(text),
       CACHE_VERSION
@@ -82,7 +82,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def description_html_en
     text = description_en.text
-    cache_key = CacheHelper.keys(
+    cache_key = CacheHelperInstance.cache_keys(
       object.cache_key,
       XXhash.xxh32(text),
       CACHE_VERSION

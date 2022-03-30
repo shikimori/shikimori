@@ -39,7 +39,7 @@ class Comments::View < Topics::FoldedCommentsView
   end
 
   def cache_key
-    CacheHelper.keys(
+    CacheHelperInstance.cache_keys(
       @comment.cache_key,
       *comments.map(&:cache_key_with_version)
     )

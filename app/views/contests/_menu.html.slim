@@ -39,12 +39,12 @@
             = render partial: 'animes/anime',
               collection: resource.members,
               locals: { cover_by: :image_link },
-              cached: ->(entry) { CacheHelper.keys entry, :image_link }
+              cached: ->(entry) { cache_keys entry, :image_link }
           - else
             = render partial: 'characters/character',
               collection: resource.members,
               locals: { cover_by: :image_link },
-              cached: ->(entry) { CacheHelper.keys entry, :image_link }
+              cached: ->(entry) { cache_keys entry, :image_link }
 
     - unless resource.proposing? || resource.swiss?
       .block.grid

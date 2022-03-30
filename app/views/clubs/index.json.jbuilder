@@ -11,7 +11,7 @@ else
       partial: 'clubs/club',
       collection: @collection,
       locals: { content_by: :detailed },
-      cached: ->(entry) { CacheHelper.keys entry, :detailed },
+      cached: ->(entry) { cache_keys entry, :detailed },
       formats: :html
     )
   )

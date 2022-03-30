@@ -4,7 +4,7 @@ json.content JsExports::Supervisor.instance.sweep(
     collection: @forums_view.topic_views,
     as: :topic_view,
     formats: :html,
-    cached: ->(entry) { CacheHelper.keys entry }
+    cached: ->(entry) { cache_keys entry }
   )
 )
 

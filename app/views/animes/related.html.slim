@@ -18,7 +18,7 @@
         = render partial: 'animes/anime',
           collection: @resource.related.related,
           locals: { cover_notice: :relation },
-          cached: ->(entry) { CacheHelper.keys entry, :relation }
+          cached: ->(entry) { cache_keys entry, :relation }
     - else
       .block
         = render partial: 'animes/variants/list_item',

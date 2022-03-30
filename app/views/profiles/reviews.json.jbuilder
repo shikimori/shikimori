@@ -3,7 +3,7 @@ json.content JsExports::Supervisor.instance.sweep(
     partial: 'topics/topic',
     collection: @collection,
     as: :topic_view,
-    cached: ->(entry) { CacheHelper.keys entry },
+    cached: ->(entry) { cache_keys entry },
     formats: :html
   )
 )

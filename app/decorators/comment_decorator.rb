@@ -7,7 +7,7 @@ class CommentDecorator < BaseDecorator
     return object.html_body if new_record?
 
     text = body
-    cache_key = CacheHelper.keys(
+    cache_key = CacheHelperInstance.cache_keys(
       object.cache_key,
       XXhash.xxh32(text),
       CACHE_VERSION

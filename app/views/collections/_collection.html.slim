@@ -23,4 +23,4 @@
       = render partial: "#{collection.kind.pluralize}/#{collection.kind}",
         collection: entries,
         locals: { cover_notice: :none },
-        cached: ->(entry) { CacheHelper.keys entry, :none }
+        cached: ->(entry) { cache_keys entry, :none }
