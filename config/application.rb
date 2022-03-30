@@ -91,12 +91,37 @@ module Shikimori
       Rails.application.config.redis
     end
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 6.0
+
+    # Settings in config/environments/* take precedence over those specified here.
+    # Application configuration can go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded after loading
+    # the framework and any gems in your application.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += Dir["#{config.root}/app/models"]
-    config.autoload_paths += Dir["#{config.root}/app/**/"]
-    config.paths.add 'lib', eager_load: true
+    # config.autoload_paths += Dir["#{config.root}/app/models"]
+    # config.autoload_paths += Dir["#{config.root}/app/**/"]
+    # config.paths.add 'lib', eager_load: true
+
+    %w[
+      chewy
+      decorators
+      errors
+      null_objects
+      operations
+      parsers
+      policies
+      query_objects
+      repositories
+      services
+      validators
+      view_objects
+      workers
+    ].each do |ordered_dir|
+      config.autoload_paths << "#{config.root}/app/#{ordered_dir}"
+    end
+    config.autoload_paths << "#{Rails.root}/lib"
+    config.eager_load_paths << "#{Rails.root}/lib"
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -111,62 +136,25 @@ module Shikimori
     config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.yml')]
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
-
-    if defined?(Redirecter) && !ENV['NO_REDIRECTER'] # not defined for clockwork
-      config.middleware.use Redirecter
-    end
-
-    config.middleware.insert 0, Rack::UTF8Sanitizer
-    if defined?(ProxyTest) # not defined for clockwork
-      config.middleware.insert 0, ProxyTest
-    end
-
-    config.middleware.use Rack::Attack
-    # config.middleware.use LogBeforeTimeout
-
-    config.middleware.insert_before 0, Rack::Cors do
-      if Rails.env.development?
-        allow do
-          origins '*'
-          resource '*', headers: :any, methods: %i[get options post put patch]
-        end
-      else
-        allow do
-          origins do |source, env|
-            ALLOWED_DOMAINS.include?(Url.new(source).domain.to_s) &&
-              Url.new(source).protocol.to_s == PROTOCOL
-          end
-          resource '*', headers: :any, methods: %i[get options]
-        end
-
-        allow do
-          origins '*'
-          resource '/comments/smileys', headers: :any, methods: %i[get options]
-        end
-
-        allow do
-          origins '*'
-          resource '/api/*', headers: :any, methods: %i[get options post put patch]
-          resource '/oauth/token', headers: :any, methods: %i[post]
-        end
-      end
-    end
-
+    # RAILS 6.0 UPGRADE
+    # config.filter_parameters += [:password]
     Paperclip.logger.level = 2
 
     # Enable the asset pipeline
-    config.assets.enabled = true
+    # RAILS 6.0 UPGRADE
+    # config.assets.enabled = true
 
-    ActiveRecord::Base.include_root_in_json = false
+    # RAILS 6.0 UPGRADE
+    # ActiveRecord::Base.include_root_in_json = false
 
-    config.active_record.cache_versioning = true
+    # RAILS 6.0 UPGRADE
+    # config.active_record.cache_versioning = true
 
     config.redis_host = 'localhost'
     config.redis_db = 2
 
     # достали эксепшены с ханибаджера
-    config.action_dispatch.ip_spoofing_check = false
+    # config.action_dispatch.ip_spoofing_check = false
 
     config.action_dispatch.trusted_proxies = %w(
       139.162.130.157
