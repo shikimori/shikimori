@@ -1,6 +1,6 @@
 # TODO: refactor UserNotifications module inclusion
 class User < ApplicationRecord
-  include PermissionsPolicy
+  # include PermissionsPolicy
   include Commentable
   include User::NotificationsConcern
   include StylesConcern
