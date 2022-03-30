@@ -3,7 +3,9 @@ json.notice og.notice
 
 json.content JsExports::Supervisor.instance.sweep(render(
   partial: 'animes_collection/cached_collection',
-  locals: { view: @view },
+  locals: {
+    view: @view
+  },
   formats: :html
 ))
 json.page @view.page

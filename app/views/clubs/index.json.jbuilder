@@ -10,7 +10,9 @@ else
     render(
       partial: 'clubs/club',
       collection: @collection,
-      locals: { content_by: :detailed },
+      locals: {
+        content_by: :detailed
+      },
       cached: ->(entry) { cache_keys entry, :detailed },
       formats: :html
     )
@@ -18,10 +20,13 @@ else
 
   if @collection.next_page?
     json.postloader render(
-      'blocks/postloader',
-      filter: 'b-club',
-      next_url: clubs_url(page: @collection.next_page, search: params[:search]),
-      prev_url: (clubs_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?) # rubocop:disable LineLength
+      partial: 'blocks/postloader',
+      locals: {
+        filter: 'b-club',
+        next_url: clubs_url(page: @collection.next_page, search: params[:search]),
+        prev_url: (clubs_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?) # rubocop:disable LineLength
+      },
+      formats: :html
     )
   end
 end

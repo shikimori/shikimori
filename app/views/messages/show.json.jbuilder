@@ -1,7 +1,9 @@
 json.content JsExports::Supervisor.instance.sweep(
   render(
     partial: 'messages/message',
-    locals: { message: @resource },
+    locals: {
+      message: @resource
+    },
     formats: :html
   )
 )

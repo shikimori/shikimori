@@ -6,8 +6,11 @@ json.content render(
 
 if @collection.size == controller.class::LIMIT
   json.postloader render(
-    'blocks/postloader',
-    next_url: current_url(page: @page + 1),
-    prev_url: @page > 1 ? current_url(page: @page - 1) : nil
+    partial: 'blocks/postloader',
+    locals: {
+      next_url: current_url(page: @page + 1),
+      prev_url: @page > 1 ? current_url(page: @page - 1) : nil
+    },
+    formats: :html
   )
 end
