@@ -279,7 +279,7 @@ class Proxy < ApplicationRecord
 
     def get_open_uri url, params = {}
       if /\.(jpe?g|png)$/.match?(url)
-        open_image url, open_params(url, params)
+        OpenURI.open_image url, open_params(url, params)
       else
         OpenURI.open_uri url, open_params(url, params)
       end

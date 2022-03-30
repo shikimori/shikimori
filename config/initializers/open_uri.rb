@@ -1,4 +1,4 @@
-module Kernel
+module OpenURI::OpenImage
   def open_image url, options = {}
     io = OpenURI.open_uri(
       URI.encode(url),
@@ -13,3 +13,5 @@ module Kernel
     io.original_filename.blank? ? nil : io
   end
 end
+
+OpenURI.send :extend, OpenURI::OpenImage

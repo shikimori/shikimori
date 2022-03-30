@@ -172,7 +172,7 @@ class CosplayController < ShikimoriController
 #         File.delete(dir+image_file_name)
 #         print "deleted image %s\n" % [dir+image_file_name]
 #       end
-#       image.image = open_image(image.url)
+#       image.image = OpenURI.open_image(image.url)
 #       image.cosplay_gallery_id = gallery.id
 #       image.position = pos
 #       image.save

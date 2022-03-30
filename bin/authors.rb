@@ -73,7 +73,7 @@ data
     image_url = CGI.unescape(Array(rule['metadata']['image']).first)
     puts "downloading #{image_url}"
 
-    image_io = open_image(image_url)
+    image_io = OpenURI.open_image(image_url)
     neko_id = rule['neko_id']
 
     extension = image_io.original_filename.split('.').last
