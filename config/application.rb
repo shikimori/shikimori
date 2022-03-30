@@ -11,8 +11,6 @@ require_relative '../lib/string'
 require_relative '../lib/responders/json_responder'
 require_relative '../lib/named_logger'
 require_relative '../lib/log_before_timeout'
-require_relative '../lib/mail_logger_interceptor'
-# require_relative '../config/initializers/log_before_timeout'
 
 unless Rails.env.test?
   Dir['config/middleware/*'].each { |file| require_relative "../#{file}" }
