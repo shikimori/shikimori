@@ -8,8 +8,6 @@ Bundler.require(*Rails.groups)
 
 require_relative '../lib/shikimori_domain'
 require_relative '../lib/string'
-require_relative '../lib/i18n_hack'
-require_relative '../lib/open_image'
 require_relative '../lib/responders/json_responder'
 require_relative '../lib/named_logger'
 require_relative '../lib/log_before_timeout'
@@ -103,24 +101,9 @@ module Shikimori
     # config.autoload_paths += Dir["#{config.root}/app/**/"]
     # config.paths.add 'lib', eager_load: true
 
-    %w[
-      chewy
-      decorators
-      errors
-      null_objects
-      operations
-      parsers
-      policies
-      query_objects
-      repositories
-      services
-      validators
-      view_objects
-      workers
-    ].each do |ordered_dir|
-      config.autoload_paths << "#{config.root}/app/#{ordered_dir}"
-    end
+    config.autoload_paths << "#{config.root}/app/*"
     config.autoload_paths << "#{Rails.root}/lib"
+    config.eager_load_paths << "#{Rails.root}/lib"
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
