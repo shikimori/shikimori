@@ -1,12 +1,7 @@
-module I18n::RussianHack
-  LOCALES = {
-    'russian' => :ru,
-    'english' => :en
-  }
-
-  def self.russian?
+module I18n::RussianCheck
+  def russian?
     I18n.locale == :ru
   end
 end
 
-I18n.send :prepend, I18n::RussianHack
+I18n.send :extend, I18n::RussianCheck
