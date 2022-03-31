@@ -14,7 +14,6 @@ class AbuseRequest < ApplicationRecord
 
   belongs_to :comment, optional: true
   belongs_to :topic, optional: true
-  belongs_to :review, optional: true
   belongs_to :user
   belongs_to :approver,
     class_name: 'User',
@@ -26,7 +25,7 @@ class AbuseRequest < ApplicationRecord
 
   validates :user, presence: true
   validates :reason, length: { maximum: 4096 }
-  validates :comment_id, exclusive_arc: %i[topic_id review_id]
+  validates :comment_id, exclusive_arc: %i[topic_id]
 
   attr_accessor :affected_ids # filled during state_machine transition
 

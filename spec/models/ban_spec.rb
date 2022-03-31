@@ -4,13 +4,10 @@ describe Ban do
     it { is_expected.to belong_to :moderator }
     it { is_expected.to belong_to(:comment).touch(true).optional }
     it { is_expected.to belong_to(:topic).touch(true).optional }
-    it { is_expected.to belong_to(:review).touch(true).optional }
     it { is_expected.to belong_to(:abuse_request).touch(true).optional }
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :user }
-    it { is_expected.to validate_presence_of :moderator }
     # it { is_expected.to validate_presence_of :duration }
     it { is_expected.to validate_presence_of :reason }
     it { is_expected.to validate_length_of(:reason).is_at_most(4096) }
@@ -209,11 +206,9 @@ describe Ban do
       subject(:ban) do
         build :ban,
           comment: comment,
-          review: review,
           topic: topic
       end
       let(:comment) { nil }
-      let(:review) { nil }
       let(:topic) { nil }
 
       subject 'comment' do
@@ -221,13 +216,6 @@ describe Ban do
 
         its(:target) { is_expected.to eq comment }
         its(:target_type) { is_expected.to eq 'Comment' }
-      end
-
-      subject 'review' do
-        let(:review) { build :review }
-
-        its(:target) { is_expected.to eq review }
-        its(:target_type) { is_expected.to eq 'Review' }
       end
 
       subject 'topic' do

@@ -6,11 +6,9 @@ class Ban < ApplicationRecord
 
   belongs_to :comment, touch: true, optional: true
   belongs_to :topic, touch: true, optional: true
-  belongs_to :review, touch: true, optional: true
 
   belongs_to :abuse_request, touch: true, optional: true
 
-  validates :user, :moderator, presence: true
   validates :duration, :reason, presence: true
   validates :reason, length: { maximum: 4096 }
   # validates :comment_id, exclusive_arc: %i[topic_id review_id]
@@ -102,14 +100,12 @@ class Ban < ApplicationRecord
   end
 
   def target
-    comment || review || topic
+    comment || topic
   end
 
   def target_type
     if comment_id
       Comment.name
-    elsif review_id
-      Review.name
     elsif topic_id
       Topic.name
     end

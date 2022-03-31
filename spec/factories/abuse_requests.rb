@@ -4,7 +4,6 @@ FactoryBot.define do
 
     comment { seed :comment }
     topic { nil }
-    review { nil }
 
     approver { nil }
     kind { 'offtopic' }

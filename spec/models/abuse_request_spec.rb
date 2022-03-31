@@ -2,7 +2,6 @@ describe AbuseRequest do
   describe 'relations' do
     it { is_expected.to belong_to(:comment).optional }
     it { is_expected.to belong_to(:topic).optional }
-    it { is_expected.to belong_to(:review).optional }
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to(:approver).optional }
   end
@@ -103,11 +102,9 @@ describe AbuseRequest do
       subject(:abuse_request) do
         build :abuse_request,
           comment: comment,
-          review: review,
           topic: topic
       end
       let(:comment) { nil }
-      let(:review) { nil }
       let(:topic) { nil }
 
       subject 'comment' do
@@ -115,13 +112,6 @@ describe AbuseRequest do
 
         its(:target) { is_expected.to eq comment }
         its(:target_type) { is_expected.to eq 'Comment' }
-      end
-
-      subject 'review' do
-        let(:review) { build :review }
-
-        its(:target) { is_expected.to eq review }
-        its(:target_type) { is_expected.to eq 'Review' }
       end
 
       subject 'topic' do
