@@ -90,6 +90,10 @@ module Shikimori
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+    # This option is not backwards compatible with earlier Rails versions.
+    # It's best enabled when your entire app is migrated and stable on 6.0.
+    # NOTE: enabling it logouts all users from their accounts
+    config.action_dispatch.use_cookies_with_metadata = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
