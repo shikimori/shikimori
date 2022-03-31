@@ -1,4 +1,5 @@
 - is_licensor = params[:licensor].present? && params[:licensor].match?(Animes::Filters::ByLicensor::ANYTHING)
+- score_order_type = params[:order] if ['score', 'score_2'].include? params[:order]
 
 - if view.season_page?
   / специальная вёрстка отображения отдельного сезона:
@@ -19,6 +20,7 @@
             collection: @view.collection[data[:kind]],
             locals: { \
               cover_notice: cover_notice,
+              score_order_type: score_order_type,
               is_search_russian: @view.search_russian? \
             },
             cached: ->(entry) { CacheHelper.keys entry, cover_notice }
@@ -28,6 +30,7 @@
             collection: @view.collection[data[:kind]],
             locals: { \
               cover_notice: cover_notice,
+              score_order_type: score_order_type,
               is_search_russian: @view.search_russian? \
             },
             cached: ->(entry) { CacheHelper.keys entry, cover_notice, @view.search_russian? }
@@ -43,6 +46,7 @@
         collection: @view.collection,
         locals: { \
           cover_notice: cover_notice,
+          score_order_type: score_order_type,
           is_search_russian: @view.search_russian? \
         },
         cached: ->(entry) { CacheHelper.keys entry, cover_notice, @view.search_russian? }

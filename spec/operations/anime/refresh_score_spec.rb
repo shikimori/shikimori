@@ -3,10 +3,11 @@ describe Anime::RefreshScore do
   subject { described_class.call anime, global_average }
 
   let(:anime) do
-    create :anime,
+    create :anime, status,
       score_2: current_score,
       updated_at: 10.minutes.ago
   end
+  let(:status) { %i[released ongoing].sample }
   let(:current_score) { 5.0 }
   let(:global_average) { 8.0 }
 
@@ -43,6 +44,13 @@ describe Anime::RefreshScore do
           average_user_score: 9,
           global_average: global_average
         )
+    end
+
+    context 'anons' do
+      let(:status) { :anons }
+      it do
+        expect { subject }.to change(anime, :score_2).to 0
+      end
     end
   end
 
