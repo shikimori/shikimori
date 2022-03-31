@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_22_172546) do
+ActiveRecord::Schema.define(version: 2022_03_31_163207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -897,13 +897,6 @@ ActiveRecord::Schema.define(version: 2022_03_22_172546) do
     t.index ["source_id", "manga_id"], name: "index_related_mangas_on_source_id_and_manga_id"
   end
 
-  create_table "review_viewings", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.integer "viewed_id", null: false
-    t.index ["user_id", "viewed_id"], name: "index_review_viewings_on_user_id_and_viewed_id", unique: true
-    t.index ["viewed_id"], name: "index_review_viewings_on_viewed_id"
-  end
-
   create_table "reviews", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "anime_id"
@@ -1278,7 +1271,6 @@ ActiveRecord::Schema.define(version: 2022_03_22_172546) do
   add_foreign_key "comment_viewings", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
-  add_foreign_key "review_viewings", "users"
   add_foreign_key "reviews", "animes"
   add_foreign_key "reviews", "mangas"
   add_foreign_key "reviews", "users"
