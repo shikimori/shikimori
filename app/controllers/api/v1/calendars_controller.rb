@@ -12,6 +12,8 @@ class Api::V1::CalendarsController < Api::V1Controller
       end
     @collection = CalendarsQuery.new(scope).fetch
 
-    respond_with @collection, each_serializer: CalendarEntrySerializer
+    respond_with @collection,
+      each_serializer: CalendarEntrySerializer,
+      root: true
   end
 end
