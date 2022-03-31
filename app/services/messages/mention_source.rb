@@ -59,15 +59,15 @@ private
 
   def linked_name
     case @linked
-      when User then @linked.nickname
-      when Critique then @linked.target.name
-      when Review then @linked.db_entry.name
-      # when Topics::EntryTopics::ReviewTopic then @linked.linked.db_entry.name
-      when Article, Collection then @linked.name
       when Topic
         @linked.respond_to?(:full_title) ?
           @linked.full_title :
           @linked.title
+
+      when User then @linked.nickname
+      when Critique then @linked.target.name
+      when Review then @linked.db_entry.name
+      when Article, Collection then @linked.name
     end
   end
 
