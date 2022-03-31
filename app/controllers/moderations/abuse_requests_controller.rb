@@ -60,9 +60,8 @@ private
       .includes(
         :user,
         :approver,
-        :topic,
-        comment: :commentable,
-        review: %i[anime manga]
+        topic: :linked,
+        comment: :commentable
       )
       .order(updated_at: :desc)
       # .joins(comment: :topic)

@@ -69,6 +69,37 @@ describe Messages::MentionSource do
     let(:review_url) do
       "#{Shikimori::PROTOCOL}://test.host/animes/1-anime-1/reviews/1"
     end
+
+    it do
+      is_expected.to eq(
+        <<~HTML.squish
+          в отзыве к <a href=\"#{review_url}\" class=\"bubbled b-link\"
+            data-href=\"#{review_url}/tooltip\">anime_1</a>.
+        HTML
+      )
+    end
+
+    context 'simple' do
+      let(:is_simple) { true }
+      it do
+        is_expected.to eq(
+          <<~HTML.squish
+            <a href=\"#{review_url}\" class=\"bubbled b-link\"
+              data-href=\"#{review_url}/tooltip\">anime_1</a>
+          HTML
+        )
+      end
+    end
+  end
+
+  context 'Topics::EntryTopics::ReviewTopic' do
+    let(:linked) { build_stubbed :review_topic, linked: review }
+    let(:review) { build_stubbed :review, id: 1, anime: anime }
+    let(:anime) { build_stubbed :anime, id: 1, name: 'anime_1' }
+    let(:review_url) do
+      "#{Shikimori::PROTOCOL}://test.host/animes/1-anime-1/reviews/1"
+    end
+
     it do
       is_expected.to eq(
         <<~HTML.squish

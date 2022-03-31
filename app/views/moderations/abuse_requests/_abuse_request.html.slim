@@ -65,10 +65,10 @@
         - elsif abuse_request.comment.commentable_type == User.name
           span.misc-comment = t '.profile_comment'
 
-        - elsif abuse_request.comment.commentable_type == Review.name
-          span.misc-comment = t '.review_comment'
+        / - elsif abuse_request.comment.commentable_type == Review.name
+        /   span.misc-comment = t '.review_comment'
 
-      - elsif abuse_request.review
+      - elsif abuse_request.topic.is_a? Topics::EntryTopics::ReviewTopic
         span.misc-comment = Review.model_name.human.downcase
 
       - elsif abuse_request.topic

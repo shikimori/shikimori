@@ -56,7 +56,6 @@ private
         :reason,
         :duration,
         :comment_id,
-        :review_id,
         :topic_id,
         :abuse_request_id,
         :user_id
