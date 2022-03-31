@@ -58,7 +58,17 @@ class Topics::ForumQuery # rubocop:disable ClassLength
   )
   SQL
 
-  def call # rubocop:disable all
+  def call
+    if @is_censored_forbidden
+      Topics::ExceptHentaiQuery.call scope_by_forum
+    else
+      scope_by_forum
+    end
+  end
+
+private
+
+  def scope_by_forum # rubocop:disable all
     case @forum&.permalink
       when nil
         if @user
@@ -107,8 +117,6 @@ class Topics::ForumQuery # rubocop:disable ClassLength
           .where(forum_id: @forum.id)
     end
   end
-
-private
 
   def user_forums
     if @user.preferences.forums.include? Forum::MY_CLUBS_FORUM.permalink

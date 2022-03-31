@@ -19,7 +19,7 @@ class Topics::Query < QueryObjectBase
 
     # .except_ignored(user)
     if is_censored_forbidden
-      query.except_hentai
+      Topics::ExceptHentaiQuery.call query
     else
       query
     end
@@ -65,18 +65,6 @@ class Topics::Query < QueryObjectBase
       user: user,
       locale: locale
     )
-  end
-
-  def except_hentai
-    chain @scope
-      .joins("left join animes on animes.id=linked_id and linked_type='Anime'")
-      .joins("left join mangas on mangas.id=linked_id and linked_type='Manga'")
-      .where(
-        <<~SQL.squish
-          (animes.id is null or animes.is_censored=false) and
-            (mangas.id is null or mangas.is_censored=false)
-        SQL
-      )
   end
 
   def as_views is_preview, is_mini

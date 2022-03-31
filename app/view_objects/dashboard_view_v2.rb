@@ -241,9 +241,14 @@ private
 
   def db_updates_scope
     Topics::Query
-      .fetch(h.locale_from_host, h.censored_forbidden?)
-      .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
+      .fetch(h.locale_from_host, true) # always hide hentai on the main page
+      .by_forum(Forum::UPDATES_FORUM, h.current_user, true) # always hide hentai on the main page
       .where(TOPICS_EXCEPT_EXCLUDED_SQL)
+
+    # Topics::Query
+    #   .fetch(h.locale_from_host, h.censored_forbidden?)
+    #   .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
+    #   .where(TOPICS_EXCEPT_EXCLUDED_SQL)
   end
 
   def critiques_forum
