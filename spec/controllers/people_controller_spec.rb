@@ -64,7 +64,12 @@ describe PeopleController do
     let(:kind) { 'mangaka' }
 
     before { allow(Autocomplete::Person).to receive(:call).and_return [person] }
-    subject! { get :autocomplete, params: { search: 'Fff', kind: kind }, xhr: true }
+    subject! do
+      get :autocomplete,
+        params: { search: 'Fff', kind: kind },
+        xhr: true,
+        format: :json
+    end
 
     it do
       expect(collection).to eq [person]

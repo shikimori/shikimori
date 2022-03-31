@@ -46,7 +46,8 @@ describe ClubRolesController do
           club_id: club.to_param,
           search: user.nickname
         },
-        xhr: true
+        xhr: true,
+        format: :json
     end
 
     it do

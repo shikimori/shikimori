@@ -9,6 +9,7 @@ json.array! @collection.reverse do |entry|
       entry: entry,
       entry_name: name,
       url_builder: "#{params[:kind]}_url"
-    }
+    },
+    formats: :html
   )
 end

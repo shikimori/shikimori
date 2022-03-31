@@ -167,7 +167,12 @@ describe CollectionsController do
         collection_2.id => 654
       )
     end
-    subject! { get :autocomplete, params: { search: phrase }, xhr: true }
+    subject! do
+      get :autocomplete,
+        params: { search: phrase },
+        xhr: true,
+        format: :json
+    end
 
     it do
       expect(assigns(:collection)).to eq [collection_2, collection_1]

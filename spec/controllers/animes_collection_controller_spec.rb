@@ -61,7 +61,12 @@ describe AnimesCollectionController do
             .to receive(:call)
             .and_return [entry]
         end
-        subject! { get :autocomplete, params: { search: 'Fff', klass: kind }, xhr: true }
+        subject! do
+          get :autocomplete,
+            params: { search: 'Fff', klass: kind },
+            xhr: true,
+            format: :json
+        end
 
         it do
           expect(collection).to eq [entry]

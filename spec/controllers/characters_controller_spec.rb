@@ -107,7 +107,12 @@ describe CharactersController do
     let(:phrase) { 'qqq' }
 
     before { allow(Autocomplete::Character).to receive(:call).and_return [character] }
-    subject! { get :autocomplete, params: { search: 'Fff' }, xhr: true }
+    subject! do
+      get :autocomplete,
+        params: { search: 'Fff' },
+        xhr: true,
+        format: :json
+    end
 
     it do
       expect(collection).to eq [character]

@@ -198,7 +198,8 @@ describe Moderations::VersionsController do
         params: {
           search: 'user_'
         },
-        xhr: true
+        xhr: true,
+        format: :json
     end
 
     it do
@@ -214,7 +215,8 @@ describe Moderations::VersionsController do
         params: {
           search: moderator.nickname
         },
-        xhr: true
+        xhr: true,
+        format: :json
     end
     let(:state) { 'accepted' }
     let(:moderator) { user }
