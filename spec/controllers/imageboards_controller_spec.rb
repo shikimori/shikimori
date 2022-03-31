@@ -24,7 +24,7 @@ describe ImageboardsController do
     end
   end
 
-  describe '#autocomplete', xhr: true do
+  describe '#autocomplete' do
     let!(:tag_1) { create :danbooru_tag, name: 'ffff' }
     let!(:tag_2) { create :danbooru_tag, name: 'testt' }
     let!(:tag_3) { create :danbooru_tag, name: 'zula zula' }

@@ -36,12 +36,13 @@ describe VideosController do
 
     describe 'xhr request' do
       let(:anime_id) { anime.id }
-      let!(:video) {}
+      let!(:video) { nil }
 
       subject! do
         post :create,
           params: { anime_id: anime_id, video: video_params },
-          xhr: true
+          xhr: true,
+          format: :json
       end
 
       context 'new video' do
@@ -88,7 +89,8 @@ describe VideosController do
         subject! do
           post :create,
             params: { anime_id: anime.id, video: video_params },
-            xhr: true
+            xhr: true,
+            format: :json
         end
 
         it do
