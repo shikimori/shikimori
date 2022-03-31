@@ -1,7 +1,7 @@
 class AbuseRequestsService
   CHANGE_ALLOWED_TIMEOUT = 5.minutes
 
-  pattr_initialize %i[comment topic review reporter!]
+  pattr_initialize %i[comment topic reporter!]
 
   def offtopic faye_token
     raise CanCan::AccessDenied unless forum_entry.is_a? Comment
@@ -24,7 +24,9 @@ class AbuseRequestsService
   end
 
   def convert_review _faye_token
-    raise CanCan::AccessDenied unless forum_entry.is_a?(Comment) || forum_entry.is_a?(Review)
+    unless forum_entry.is_a?(Comment) || forum_entry.is_a?(Topics::EntryTopics::ReviewTopic)
+      raise CanCan::AccessDenied
+    end
 
     faye_token = nil # token is purposely nullified so current user could receive faye event
     value_to_change = forum_entry.is_a? Comment
@@ -53,7 +55,6 @@ private
   def create_abuse_request kind, value, reason
     AbuseRequest.create!(
       comment_id: @comment&.id,
-      review_id: @review&.id,
       topic_id: @topic&.id,
       user_id: @reporter.id,
       kind: kind,
@@ -68,7 +69,6 @@ private
   def find_abuse_request kind, value
     AbuseRequest.find_by(
       comment_id: @comment&.id,
-      review_id: @review&.id,
       topic_id: @topic&.id,
       kind: kind,
       value: value,
@@ -77,7 +77,7 @@ private
   end
 
   def forum_entry
-    @comment || @topic || @review
+    @comment || @topic
   end
 
   def allowed_direct_change?

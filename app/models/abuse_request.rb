@@ -23,7 +23,6 @@ class AbuseRequest < ApplicationRecord
     in: Types::AbuseRequest::Kind.values,
     predicates: true
 
-  validates :user, presence: true
   validates :reason, length: { maximum: 4096 }
   validates :comment_id, exclusive_arc: %i[topic_id]
 
@@ -63,7 +62,7 @@ class AbuseRequest < ApplicationRecord
       if faye.respond_to? abuse_request.kind
         abuse_request.affected_ids = faye.public_send(
           abuse_request.kind,
-          abuse_request.comment || abuse_request.topic || abuse_request.review,
+          abuse_request.comment || abuse_request.topic,
           abuse_request.value
         )
       end
@@ -79,14 +78,12 @@ class AbuseRequest < ApplicationRecord
   end
 
   def target
-    comment || review || topic
+    comment || topic
   end
 
   def target_type
     if comment_id
       Comment.name
-    elsif review_id
-      Review.name
     elsif topic_id
       Topic.name
     end

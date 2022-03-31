@@ -55,20 +55,18 @@ class FayeService
     ids
   end
 
-  def convert_review forum_entry, is_convert_to_review # rubocop:disable all
+  def convert_review forum_entry, is_convert_to_review
     new_entry =
       if is_convert_to_review && forum_entry.is_a?(Comment)
         Comment::ConvertToReview.call forum_entry
-      elsif !is_convert_to_review && forum_entry.is_a?(Review)
-        Review::ConvertToComment.call forum_entry
+      elsif !is_convert_to_review && forum_entry.is_a?(Topic)
+        Review::ConvertToComment.call forum_entry.linked
       end
 
     if new_entry
       publisher.publish_conversion(
         is_convert_to_review ? :comment : :review,
-        forum_entry.is_a?(Review) ?
-          forum_entry.maybe_topic(forum_entry.locale) :
-          forum_entry,
+        forum_entry,
         new_entry
       )
     end

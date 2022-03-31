@@ -3,7 +3,6 @@ describe AbuseRequestsService do
     AbuseRequestsService.new(
       comment: comment,
       topic: topic,
-      review: review,
       reporter: user_reporter
     )
   end
@@ -25,7 +24,6 @@ describe AbuseRequestsService do
   let(:user_reporter) { user_author }
 
   let(:topic) { nil }
-  let(:review) { nil }
 
   let(:faye_token) { 'test' }
 
@@ -118,9 +116,10 @@ describe AbuseRequestsService do
 
     context 'converting review' do
       let(:comment) { nil }
-      let(:review) do
-        create :review, :with_topics,
-          anime: anime,
+      let(:review) { create :review, anime: anime, user: user_author }
+      let(:topic) do
+        create :review_topic,
+          linked: review,
           user: user_author,
           created_at: created_at
       end
@@ -163,11 +162,18 @@ describe AbuseRequestsService do
       end
       let(:user_reporter) { create :user, id: 99 }
 
-      %i[comment topic review].each do |type| # rubocop:disable CollectionLiteralInLoop
+      %i[comment topic].each do |type| # rubocop:disable CollectionLiteralInLoop
         context type.to_s do
           let(:comment) { create :comment, user: user_author if type == :comment }
-          let(:review) { create :review, user: user_author, anime: anime if type == :review }
-          let(:topic) { create :topic, user: user_author if type == :topic }
+          let(:review) { create :review, user: user_author, anime: anime }
+          let(:topic) do
+            case type
+              when :topic
+                create :topic, user: user_author
+              when :review
+                create :review_topic, user: user_author, linked: review
+            end
+          end
           let(:anime) { create :anime }
 
           if allowed_actions[type].exclude? method
@@ -188,8 +194,7 @@ describe AbuseRequestsService do
                   kind: method.to_s,
                   value: method != :convert_review || type == :comment,
                   comment_id: (comment.id if type == :comment),
-                  review_id: (review.id if type == :review),
-                  topic_id: (topic.id if type == :topic),
+                  topic_id: (topic.id if type.in? %i[topic review]),
                   reason: reason
                 )
               end

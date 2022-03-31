@@ -180,12 +180,12 @@ describe FayeService do
       allow(Review::ConvertToComment).to receive(:call).and_call_original
 
       if (forum_entry.is_a?(Comment) && is_convert_to_review) ||
-          (forum_entry.is_a?(Review) && !is_convert_to_review)
+          (forum_entry.is_a?(Topic) && !is_convert_to_review)
         expect(publisher)
           .to receive(:publish_conversion)
           .with(
             is_convert_to_review ? :comment : :review,
-            forum_entry_to_faye,
+            forum_entry,
             anything
           )
       else
@@ -198,7 +198,6 @@ describe FayeService do
 
     context 'comment' do
       let(:forum_entry) { create :comment, commentable: anime_topic }
-      let(:forum_entry_to_faye) { forum_entry }
 
       context 'is_convert_to_review' do
         let(:is_convert_to_review) { true }
@@ -224,9 +223,9 @@ describe FayeService do
       end
     end
 
-    context 'review' do
-      let(:forum_entry) { create :review, :with_topics, anime: anime }
-      let(:forum_entry_to_faye) { forum_entry.maybe_topic forum_entry.locale }
+    context 'topic' do
+      let(:review) { create :review, anime: anime }
+      let(:forum_entry) { create :review_topic, linked: review }
 
       context '!is_convert_to_review' do
         let(:is_convert_to_review) { false }
@@ -236,7 +235,7 @@ describe FayeService do
           is_expected.to be_persisted
           expect(Review::ConvertToComment)
             .to have_received(:call)
-            .with(forum_entry)
+            .with review
           expect(Comment::ConvertToReview).to_not have_received :call
         end
       end

@@ -18,11 +18,11 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
 
   api :POST, '/v2/abuse_requests/review', 'Convert comment to review'
   param :comment_id, :number, required: false
-  param :review_id, :number, required: false
+  param :topic_id, :number, required: false
   description 'Request will be sent to moderators.'
   def convert_review
     AbuseRequestsService
-      .new(comment: @comment, review: @review, reporter: current_user)
+      .new(comment: @comment, topic: @topic, reporter: current_user)
       .convert_review(faye_token)
 
     render json: {}
@@ -33,12 +33,11 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
   api :POST, '/v2/abuse_requests/abuse', 'Create abuse about violation of site rules'
   param :comment_id, :number, required: false
   param :topic_id, :number, required: false
-  param :review_id, :number, required: false
   param :reason, String, required: false
   description 'Request will be sent to moderators.'
   def abuse
     AbuseRequestsService
-      .new(comment: @comment, review: @review, topic: @topic, reporter: current_user)
+      .new(comment: @comment, topic: @topic, reporter: current_user)
       .abuse(params[:reason])
 
     render json: {}
@@ -49,12 +48,11 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
   api :POST, '/v2/abuse_requests/spoiler', 'Create abuse about spoiler in content'
   param :comment_id, :number, required: false
   param :topic_id, :number, required: false
-  param :review_id, :number, required: false
   param :reason, String, required: false
   description 'Request will be sent to moderators.'
   def spoiler
     AbuseRequestsService
-      .new(comment: @comment, review: @review, topic: @topic, reporter: current_user)
+      .new(comment: @comment, topic: @topic, reporter: current_user)
       .spoiler(params[:reason])
 
     render json: {}
@@ -66,7 +64,6 @@ private
 
   def fetch_entries
     @comment = Comment.find params[:comment_id] if params[:comment_id].present?
-    @review = Review.find params[:review_id] if params[:review_id].present?
     @topic = Topic.find params[:topic_id] if params[:topic_id].present?
   end
 

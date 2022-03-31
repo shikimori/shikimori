@@ -38,7 +38,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
     subject! do
       post :convert_review,
         params: (
-          comment ? { comment_id: comment.id } : { review_id: review.id }
+          comment ? { comment_id: comment.id } : { topic_id: topic.id }
         )
     end
     let(:reason) { 'zxcv' }
@@ -49,12 +49,12 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
         nil
       ].sample
     end
-    let(:review) { create :review, anime: create(:anime) unless comment }
+    let(:topic) { create :topic unless comment }
 
     it do
       expect(AbuseRequestsService)
         .to have_received(:new)
-        .with comment: comment, review: review, reporter: user
+        .with comment: comment, topic: topic, reporter: user
       expect(abuse_requests_service).to have_received(:convert_review).with(nil)
       expect(response.content_type).to eq 'application/json'
       expect(response).to have_http_status :success
@@ -75,7 +75,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
     it do
       expect(AbuseRequestsService)
         .to have_received(:new)
-        .with comment: comment, review: nil, topic: nil, reporter: user
+        .with comment: comment, topic: nil, reporter: user
       expect(abuse_requests_service).to have_received(:abuse).with(reason)
       expect(response.content_type).to eq 'application/json'
       expect(response).to have_http_status :success
@@ -96,7 +96,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
     it do
       expect(AbuseRequestsService)
         .to have_received(:new)
-        .with comment: comment, review: nil, topic: nil, reporter: user
+        .with comment: comment, topic: nil, reporter: user
       expect(abuse_requests_service).to have_received(:spoiler).with(reason)
       expect(response.content_type).to eq 'application/json'
       expect(response).to have_http_status :success

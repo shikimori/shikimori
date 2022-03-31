@@ -11,7 +11,6 @@ describe AbuseRequest do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_length_of(:reason).is_at_most(4096) }
 
     context 'accepted' do
