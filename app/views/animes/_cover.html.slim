@@ -23,19 +23,19 @@ span.image-decor
     ]
       = localization_span anime, is_search_russian: local_assigns[:is_search_russian]
 
-- if controller_name == 'animes_collection' && params[:order].present?
+- if score_order_type.present?
   span.collection_score
-    - case params[:order]
-    - when 'score'
-      - if anime.score.present? && anime.score > 0
-        span.collection_score_marker
-          span.score_marker_star ★
-          = anime.score
-    - when 'score_2'
-      - if anime.score_2.present? && anime.score_2 > 0
-        span.collection_score_marker
-          span.score_marker_star ★
-          = anime.score_2
+    - case score_order_type
+      - when 'score'
+        - if anime.score.present? && anime.score > 0
+          span.collection_score_marker
+            span.score_marker_star ★
+            = anime.score
+      - when 'score_2'
+        - if anime.score_2.present? && anime.score_2 > 0
+          span.collection_score_marker
+            span.score_marker_star ★
+            = anime.score_2
 
 span.misc
   - if cover_notice == :studio
