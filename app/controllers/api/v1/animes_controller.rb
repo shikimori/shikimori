@@ -7,7 +7,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
       params[:controller],
       params[:action],
       Anime.count,
-      :v9
+      :v10
     ).to_json
   }
 
