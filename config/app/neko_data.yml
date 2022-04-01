@@ -284,6 +284,9 @@
         - 48926
         - 40750
         - 10721
+        - 43690
+        - 48556
+        - 42670
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: &2
     :neko_id:
@@ -603,6 +606,9 @@
         - 48926
         - 40750
         - 10721
+        - 43690
+        - 48556
+        - 42670
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -901,6 +907,9 @@
         - 48926
         - 40750
         - 10721
+        - 43690
+        - 48556
+        - 42670
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -2127,6 +2136,16 @@
         - 42422
         - 42587
         - 44191
+        - 49426
+        - 50239
+        - 48343
+        - 42482
+        - 40756
+        - 40755
+        - 40249
+        - 16648
+        - 44273
+        - 42030
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -2611,6 +2630,16 @@
         - 42422
         - 42587
         - 44191
+        - 49426
+        - 50239
+        - 48343
+        - 42482
+        - 40756
+        - 40755
+        - 40249
+        - 16648
+        - 44273
+        - 42030
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3094,6 +3123,16 @@
         - 42422
         - 42587
         - 44191
+        - 49426
+        - 50239
+        - 48343
+        - 42482
+        - 40756
+        - 40755
+        - 40249
+        - 16648
+        - 44273
+        - 42030
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3575,6 +3614,16 @@
         - 42422
         - 42587
         - 44191
+        - 49426
+        - 50239
+        - 48343
+        - 42482
+        - 40756
+        - 40755
+        - 40249
+        - 16648
+        - 44273
+        - 42030
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -4408,7 +4457,6 @@
         - 34257
         - 34973
         - 3652
-        - 3958
         - 4472
         - 477
         - 4772
@@ -4504,7 +4552,6 @@
         - 11079
         - 20039
         - 21511
-        - 31418
         - 30455
         - 37027
         - 16199
@@ -4765,6 +4812,12 @@
         - 41471
         - 40960
         - 48804
+        - 45425
+        - 49521
+        - 35145
+        - 48590
+        - 49483
+        - 49893
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -4899,7 +4952,6 @@
         - 34257
         - 34973
         - 3652
-        - 3958
         - 4472
         - 477
         - 4772
@@ -4995,7 +5047,6 @@
         - 11079
         - 20039
         - 21511
-        - 31418
         - 30455
         - 37027
         - 16199
@@ -5256,6 +5307,12 @@
         - 41471
         - 40960
         - 48804
+        - 45425
+        - 49521
+        - 35145
+        - 48590
+        - 49483
+        - 49893
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5391,7 +5448,6 @@
         - 34257
         - 34973
         - 3652
-        - 3958
         - 4472
         - 477
         - 4772
@@ -5487,7 +5543,6 @@
         - 11079
         - 20039
         - 21511
-        - 31418
         - 30455
         - 37027
         - 16199
@@ -5748,6 +5803,12 @@
         - 41471
         - 40960
         - 48804
+        - 45425
+        - 49521
+        - 35145
+        - 48590
+        - 49483
+        - 49893
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -14963,6 +15024,30 @@
         - 39292
         - 49263
         - 42568
+        - 39792
+        - 48736
+        - 42670
+        - 38555
+        - 42282
+        - 49457
+        - 45425
+        - 42822
+        - 45665
+        - 41521
+        - 32979
+        - 33206
+        - 39247
+        - 35145
+        - 35363
+        - 48590
+        - 49483
+        - 49893
+        - 40486
+        - 40485
+        - 38256
+        - 41530
+        - 33161
+        - 39547
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -16188,6 +16273,30 @@
         - 39292
         - 49263
         - 42568
+        - 39792
+        - 48736
+        - 42670
+        - 38555
+        - 42282
+        - 49457
+        - 45425
+        - 42822
+        - 45665
+        - 41521
+        - 32979
+        - 33206
+        - 39247
+        - 35145
+        - 35363
+        - 48590
+        - 49483
+        - 49893
+        - 40486
+        - 40485
+        - 38256
+        - 41530
+        - 33161
+        - 39547
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -17413,6 +17522,30 @@
         - 39292
         - 49263
         - 42568
+        - 39792
+        - 48736
+        - 42670
+        - 38555
+        - 42282
+        - 49457
+        - 45425
+        - 42822
+        - 45665
+        - 41521
+        - 32979
+        - 33206
+        - 39247
+        - 35145
+        - 35363
+        - 48590
+        - 49483
+        - 49893
+        - 40486
+        - 40485
+        - 38256
+        - 41530
+        - 33161
+        - 39547
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -17745,7 +17878,7 @@
         franchise: naruto
         not_anime_ids:
         - 40971
-      :threshold: 96.9%
+      :threshold: 97%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :naruto
@@ -18461,8 +18594,6 @@
       :algo: duration
       :filters:
         franchise: ansatsu_kyoushitsu
-        not_anime_ids:
-        - 33511
       :threshold: 94.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -18492,8 +18623,6 @@
       :algo: duration
       :filters:
         franchise: ansatsu_kyoushitsu
-        not_anime_ids:
-        - 33511
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -18596,7 +18725,6 @@
         - 32311
         - 32739
         - 34085
-        - 38055
         - 41030
         - 43745
         - 43751
@@ -18640,7 +18768,6 @@
         - 32311
         - 32739
         - 34085
-        - 38055
         - 41030
         - 43745
         - 43751
@@ -21658,7 +21785,7 @@
         - 37859
         - 37860
         - 39014
-      :threshold: 88.1%
+      :threshold: 88.2%
       :generator:
         ignore_latest_ids:
         - 38400
@@ -22957,7 +23084,7 @@
       :algo: duration
       :filters:
         franchise: non_non_biyori
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :non_non_biyori
@@ -23428,6 +23555,7 @@
         - 35552
         - 36835
         - 37865
+        - 41612
         - 42136
         - 42174
         - 42914
@@ -23479,6 +23607,7 @@
         - 35552
         - 36835
         - 37865
+        - 41612
         - 42136
         - 42174
         - 42914
@@ -25743,7 +25872,7 @@
         franchise: inuyasha
         not_anime_ids:
         - 31133
-      :threshold: 93.2%
+      :threshold: 93.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :inuyasha
@@ -25811,7 +25940,6 @@
         - 7471
         - 9785
         - 9786
-        - 9839
         - 10766
         - 18429
         - 33145
@@ -25869,7 +25997,6 @@
         - 7471
         - 9785
         - 9786
-        - 9839
         - 10766
         - 18429
         - 33145
@@ -26081,7 +26208,7 @@
       :algo: duration
       :filters:
         franchise: ginga_eiyuu_densetsu
-      :threshold: 91.8%
+      :threshold: 90%
       :generator:
         ignore_latest_ids:
         - 36371
@@ -28681,8 +28808,6 @@
       :algo: duration
       :filters:
         franchise: huyao_xiao_hongniang
-        not_anime_ids:
-        - 51194
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -28712,8 +28837,6 @@
       :algo: duration
       :filters:
         franchise: huyao_xiao_hongniang
-        not_anime_ids:
-        - 51194
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -28899,7 +29022,7 @@
         - 41377
         - 48772
         - 48773
-      :threshold: 85.2%
+      :threshold: 85.3%
       :generator:
         not_ignored_ids:
         - 38986
@@ -30511,7 +30634,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 90.9%
+      :threshold: 91.2%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -30792,7 +30915,7 @@
         - 10370
         - 13231
         - 21479
-      :threshold: 90%
+      :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :beyblade
@@ -31539,7 +31662,7 @@
         - 38647
         - 38648
         - 40543
-      :threshold: 93.2%
+      :threshold: 90.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pripara
@@ -34969,6 +35092,30 @@
         - 438
         - 11769
         - 10737
+        - 45665
+        - 23623
+        - 32547
+        - 36990
+        - 39808
+        - 49521
+        - 40507
+        - 40485
+        - 40486
+        - 41468
+        - 33206
+        - 39247
+        - 35145
+        - 35363
+        - 48590
+        - 49483
+        - 49893
+        - 41457
+        - 48569
+        - 43690
+        - 48556
+        - 32093
+        - 38256
+        - 41530
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -35387,6 +35534,30 @@
         - 438
         - 11769
         - 10737
+        - 45665
+        - 23623
+        - 32547
+        - 36990
+        - 39808
+        - 49521
+        - 40507
+        - 40485
+        - 40486
+        - 41468
+        - 33206
+        - 39247
+        - 35145
+        - 35363
+        - 48590
+        - 49483
+        - 49893
+        - 41457
+        - 48569
+        - 43690
+        - 48556
+        - 32093
+        - 38256
+        - 41530
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -35809,6 +35980,30 @@
         - 438
         - 11769
         - 10737
+        - 45665
+        - 23623
+        - 32547
+        - 36990
+        - 39808
+        - 49521
+        - 40507
+        - 40485
+        - 40486
+        - 41468
+        - 33206
+        - 39247
+        - 35145
+        - 35363
+        - 48590
+        - 49483
+        - 49893
+        - 41457
+        - 48569
+        - 43690
+        - 48556
+        - 32093
+        - 38256
+        - 41530
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -37521,6 +37716,26 @@
         - 40526
         - 40787
         - 45576
+        - 42670
+        - 42282
+        - 49457
+        - 45055
+        - 45665
+        - 50360
+        - 48736
+        - 40486
+        - 40485
+        - 41468
+        - 33206
+        - 39247
+        - 35145
+        - 35363
+        - 48590
+        - 49483
+        - 49893
+        - 48556
+        - 38256
+        - 41530
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -38591,6 +38806,26 @@
         - 40526
         - 40787
         - 45576
+        - 42670
+        - 42282
+        - 49457
+        - 45055
+        - 45665
+        - 50360
+        - 48736
+        - 40486
+        - 40485
+        - 41468
+        - 33206
+        - 39247
+        - 35145
+        - 35363
+        - 48590
+        - 49483
+        - 49893
+        - 48556
+        - 38256
+        - 41530
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -39661,6 +39896,26 @@
         - 40526
         - 40787
         - 45576
+        - 42670
+        - 42282
+        - 49457
+        - 45055
+        - 45665
+        - 50360
+        - 48736
+        - 40486
+        - 40485
+        - 41468
+        - 33206
+        - 39247
+        - 35145
+        - 35363
+        - 48590
+        - 49483
+        - 49893
+        - 48556
+        - 38256
+        - 41530
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
