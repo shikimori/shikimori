@@ -49,6 +49,6 @@ class Topics::CosplayView < Topics::UserContentView
   end
 
   def poster_in_header?
-    false
+    !preview? && !minified?
   end
 end
