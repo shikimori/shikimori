@@ -34,7 +34,7 @@ class Neko::Rule
     )
   SQL
 
-  CACHE_VERSION = :v4
+  CACHE_VERSION = :v5
   CLOUDFLARE_CACHING_FIX = "?#{CACHE_VERSION}"
 
   def group
