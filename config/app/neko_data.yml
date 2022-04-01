@@ -8526,6 +8526,106 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :makoto_shinkai
+    :level: 1
+    :image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
+    :border_color: "#ABCDEF"
+    :title_ru: Макото Синкай
+    :text_ru:
+    :title_en: Makoto Shinkai
+    :text_en:
+    :topic_id: 276032
+    :rule: &81
+      :algo: count
+      :threshold: 70%
+      :filters:
+        anime_ids:
+        - 13675
+        - 21441
+        - 25271
+        - 2832
+        - 1689
+        - 433
+        - 2953
+        - 1004
+        - 256
+        - 2210
+        - 32491
+        - 38826
+        - 32281
+        - 16782
+        - 17121
+        - 9760
+        - 22839
+        - 38065
+        - 25883
+      :generator:
+        person_id: 1117
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :makoto_shinkai
+  level: 1
+  image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
+  border_color: "#ABCDEF"
+  title_ru: Макото Синкай
+  text_ru:
+  title_en: Makoto Shinkai
+  text_en:
+  topic_id: 276032
+  rule: *81
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :makoto_shinkai
+    :level: 0
+    :image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
+    :border_color: "#ABCDEF"
+    :title_ru: Макото Синкай
+    :text_ru:
+    :title_en: Makoto Shinkai
+    :text_en:
+    :topic_id: 276032
+    :rule: &82
+      :algo: count
+      :threshold: 0.01
+      :filters:
+        anime_ids:
+        - 13675
+        - 21441
+        - 25271
+        - 2832
+        - 1689
+        - 433
+        - 2953
+        - 1004
+        - 256
+        - 2210
+        - 32491
+        - 38826
+        - 32281
+        - 16782
+        - 17121
+        - 9760
+        - 22839
+        - 38065
+        - 25883
+      :generator:
+        person_id: 1117
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :makoto_shinkai
+  level: 0
+  image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
+  border_color: "#ABCDEF"
+  title_ru: Макото Синкай
+  text_ru:
+  title_en: Makoto Shinkai
+  text_en:
+  topic_id: 276032
+  rule: *82
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :hayao_miyazaki
     :level: 1
     :image: "/assets/achievements/anime/author/hayao_miyazaki.jpg"
@@ -8535,7 +8635,7 @@
     :title_en: Hayao Miyazaki
     :text_en:
     :topic_id: 276032
-    :rule: &81
+    :rule: &83
       :algo: count
       :threshold: 55%
       :filters:
@@ -8589,7 +8689,7 @@
   title_en: Hayao Miyazaki
   text_en:
   topic_id: 276032
-  rule: *81
+  rule: *83
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8602,7 +8702,7 @@
     :title_en: Hayao Miyazaki
     :text_en:
     :topic_id: 276032
-    :rule: &82
+    :rule: &84
       :algo: count
       :threshold: 0.01
       :filters:
@@ -8654,106 +8754,6 @@
   title_ru: Хаяо Миядзаки
   text_ru:
   title_en: Hayao Miyazaki
-  text_en:
-  topic_id: 276032
-  rule: *82
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :makoto_shinkai
-    :level: 1
-    :image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
-    :border_color: "#ABCDEF"
-    :title_ru: Макото Синкай
-    :text_ru:
-    :title_en: Makoto Shinkai
-    :text_en:
-    :topic_id: 276032
-    :rule: &83
-      :algo: count
-      :threshold: 70%
-      :filters:
-        anime_ids:
-        - 13675
-        - 21441
-        - 25271
-        - 2832
-        - 1689
-        - 433
-        - 2953
-        - 1004
-        - 256
-        - 2210
-        - 32491
-        - 38826
-        - 32281
-        - 16782
-        - 17121
-        - 9760
-        - 22839
-        - 38065
-        - 25883
-      :generator:
-        person_id: 1117
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :makoto_shinkai
-  level: 1
-  image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
-  border_color: "#ABCDEF"
-  title_ru: Макото Синкай
-  text_ru:
-  title_en: Makoto Shinkai
-  text_en:
-  topic_id: 276032
-  rule: *83
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :makoto_shinkai
-    :level: 0
-    :image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
-    :border_color: "#ABCDEF"
-    :title_ru: Макото Синкай
-    :text_ru:
-    :title_en: Makoto Shinkai
-    :text_en:
-    :topic_id: 276032
-    :rule: &84
-      :algo: count
-      :threshold: 0.01
-      :filters:
-        anime_ids:
-        - 13675
-        - 21441
-        - 25271
-        - 2832
-        - 1689
-        - 433
-        - 2953
-        - 1004
-        - 256
-        - 2210
-        - 32491
-        - 38826
-        - 32281
-        - 16782
-        - 17121
-        - 9760
-        - 22839
-        - 38065
-        - 25883
-      :generator:
-        person_id: 1117
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :makoto_shinkai
-  level: 0
-  image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
-  border_color: "#ABCDEF"
-  title_ru: Макото Синкай
-  text_ru:
-  title_en: Makoto Shinkai
   text_en:
   topic_id: 276032
   rule: *84
@@ -8886,6 +8886,102 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :shinichiro_watanabe
+    :level: 1
+    :image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
+    :border_color: "#000000"
+    :title_ru: Синъитиро Ватанабэ
+    :text_ru:
+    :title_en: Shinichiro Watanabe
+    :text_en:
+    :topic_id: 276032
+    :rule: &87
+      :algo: count
+      :threshold: 62%
+      :filters:
+        anime_ids:
+        - 2053
+        - 474
+        - 1
+        - 5
+        - 1303
+        - 3508
+        - 205
+        - 12531
+        - 20057
+        - 23327
+        - 23283
+        - 36308
+        - 37435
+        - 875
+        - 4087
+        - 13203
+        - 39815
+      :generator:
+        person_id: 2009
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :shinichiro_watanabe
+  level: 1
+  image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
+  border_color: "#000000"
+  title_ru: Синъитиро Ватанабэ
+  text_ru:
+  title_en: Shinichiro Watanabe
+  text_en:
+  topic_id: 276032
+  rule: *87
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :shinichiro_watanabe
+    :level: 0
+    :image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
+    :border_color: "#000000"
+    :title_ru: Синъитиро Ватанабэ
+    :text_ru:
+    :title_en: Shinichiro Watanabe
+    :text_en:
+    :topic_id: 276032
+    :rule: &88
+      :algo: count
+      :threshold: 0.01
+      :filters:
+        anime_ids:
+        - 2053
+        - 474
+        - 1
+        - 5
+        - 1303
+        - 3508
+        - 205
+        - 12531
+        - 20057
+        - 23327
+        - 23283
+        - 36308
+        - 37435
+        - 875
+        - 4087
+        - 13203
+        - 39815
+      :generator:
+        person_id: 2009
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :shinichiro_watanabe
+  level: 0
+  image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
+  border_color: "#000000"
+  title_ru: Синъитиро Ватанабэ
+  text_ru:
+  title_en: Shinichiro Watanabe
+  text_en:
+  topic_id: 276032
+  rule: *88
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :hiroshi_hamasaki
     :level: 1
     :image: "/assets/achievements/anime/author/hiroshi_hamasaki.jpg"
@@ -8895,7 +8991,7 @@
     :title_en: Hiroshi Hamasaki
     :text_en:
     :topic_id: 276032
-    :rule: &87
+    :rule: &89
       :algo: count
       :threshold: 42%
       :filters:
@@ -8945,7 +9041,7 @@
   title_en: Hiroshi Hamasaki
   text_en:
   topic_id: 276032
-  rule: *87
+  rule: *89
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8958,7 +9054,7 @@
     :title_en: Hiroshi Hamasaki
     :text_en:
     :topic_id: 276032
-    :rule: &88
+    :rule: &90
       :algo: count
       :threshold: 0.01
       :filters:
@@ -9006,102 +9102,6 @@
   title_ru: Хироси Хамасаки
   text_ru:
   title_en: Hiroshi Hamasaki
-  text_en:
-  topic_id: 276032
-  rule: *88
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :shinichiro_watanabe
-    :level: 1
-    :image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
-    :border_color: "#000000"
-    :title_ru: Синъитиро Ватанабэ
-    :text_ru:
-    :title_en: Shinichiro Watanabe
-    :text_en:
-    :topic_id: 276032
-    :rule: &89
-      :algo: count
-      :threshold: 62%
-      :filters:
-        anime_ids:
-        - 2053
-        - 474
-        - 1
-        - 5
-        - 1303
-        - 3508
-        - 205
-        - 12531
-        - 20057
-        - 23327
-        - 23283
-        - 36308
-        - 37435
-        - 875
-        - 4087
-        - 13203
-        - 39815
-      :generator:
-        person_id: 2009
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :shinichiro_watanabe
-  level: 1
-  image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
-  border_color: "#000000"
-  title_ru: Синъитиро Ватанабэ
-  text_ru:
-  title_en: Shinichiro Watanabe
-  text_en:
-  topic_id: 276032
-  rule: *89
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :shinichiro_watanabe
-    :level: 0
-    :image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
-    :border_color: "#000000"
-    :title_ru: Синъитиро Ватанабэ
-    :text_ru:
-    :title_en: Shinichiro Watanabe
-    :text_en:
-    :topic_id: 276032
-    :rule: &90
-      :algo: count
-      :threshold: 0.01
-      :filters:
-        anime_ids:
-        - 2053
-        - 474
-        - 1
-        - 5
-        - 1303
-        - 3508
-        - 205
-        - 12531
-        - 20057
-        - 23327
-        - 23283
-        - 36308
-        - 37435
-        - 875
-        - 4087
-        - 13203
-        - 39815
-      :generator:
-        person_id: 2009
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :shinichiro_watanabe
-  level: 0
-  image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
-  border_color: "#000000"
-  title_ru: Синъитиро Ватанабэ
-  text_ru:
-  title_en: Shinichiro Watanabe
   text_en:
   topic_id: 276032
   rule: *90
@@ -11798,142 +11798,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :clamp
-    :level: 1
-    :image: "/assets/achievements/anime/author/clamp.jpg"
-    :border_color: "#007276"
-    :title_ru: CLAMP
-    :text_ru:
-    :title_en: CLAMP
-    :text_en:
-    :topic_id: 276032
-    :rule: &133
-      :algo: count
-      :threshold: 54%
-      :filters:
-        anime_ids:
-        - 52
-        - 59
-        - 155
-        - 156
-        - 177
-        - 232
-        - 371
-        - 372
-        - 435
-        - 439
-        - 595
-        - 596
-        - 793
-        - 807
-        - 861
-        - 969
-        - 1043
-        - 1078
-        - 1496
-        - 1563
-        - 1844
-        - 1954
-        - 2424
-        - 2685
-        - 3091
-        - 4918
-        - 4938
-        - 5678
-        - 6864
-        - 10490
-        - 10681
-        - 33354
-        - 35320
-        - 1958
-        - 2274
-        - 2768
-        - 1890
-      :generator:
-        person_id: 1877
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :clamp
-  level: 1
-  image: "/assets/achievements/anime/author/clamp.jpg"
-  border_color: "#007276"
-  title_ru: CLAMP
-  text_ru:
-  title_en: CLAMP
-  text_en:
-  topic_id: 276032
-  rule: *133
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :clamp
-    :level: 0
-    :image: "/assets/achievements/anime/author/clamp.jpg"
-    :border_color: "#007276"
-    :title_ru: CLAMP
-    :text_ru:
-    :title_en: CLAMP
-    :text_en:
-    :topic_id: 276032
-    :rule: &134
-      :algo: count
-      :threshold: 0.01
-      :filters:
-        anime_ids:
-        - 52
-        - 59
-        - 155
-        - 156
-        - 177
-        - 232
-        - 371
-        - 372
-        - 435
-        - 439
-        - 595
-        - 596
-        - 793
-        - 807
-        - 861
-        - 969
-        - 1043
-        - 1078
-        - 1496
-        - 1563
-        - 1844
-        - 1954
-        - 2424
-        - 2685
-        - 3091
-        - 4918
-        - 4938
-        - 5678
-        - 6864
-        - 10490
-        - 10681
-        - 33354
-        - 35320
-        - 1958
-        - 2274
-        - 2768
-        - 1890
-      :generator:
-        person_id: 1877
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :clamp
-  level: 0
-  image: "/assets/achievements/anime/author/clamp.jpg"
-  border_color: "#007276"
-  title_ru: CLAMP
-  text_ru:
-  title_en: CLAMP
-  text_en:
-  topic_id: 276032
-  rule: *134
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :junichi_satou
     :level: 1
     :image: "/assets/achievements/anime/author/junichi_satou.jpg"
@@ -11943,7 +11807,7 @@
     :title_en: Junichi Satou
     :text_en:
     :topic_id: 276032
-    :rule: &135
+    :rule: &133
       :algo: count
       :threshold: 51%
       :filters:
@@ -12006,7 +11870,7 @@
   title_en: Junichi Satou
   text_en:
   topic_id: 276032
-  rule: *135
+  rule: *133
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -12019,7 +11883,7 @@
     :title_en: Junichi Satou
     :text_en:
     :topic_id: 276032
-    :rule: &136
+    :rule: &134
       :algo: count
       :threshold: 0.01
       :filters:
@@ -12080,6 +11944,142 @@
   title_ru: Дзюнъити Сато
   text_ru:
   title_en: Junichi Satou
+  text_en:
+  topic_id: 276032
+  rule: *134
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :clamp
+    :level: 1
+    :image: "/assets/achievements/anime/author/clamp.jpg"
+    :border_color: "#007276"
+    :title_ru: CLAMP
+    :text_ru:
+    :title_en: CLAMP
+    :text_en:
+    :topic_id: 276032
+    :rule: &135
+      :algo: count
+      :threshold: 54%
+      :filters:
+        anime_ids:
+        - 52
+        - 59
+        - 155
+        - 156
+        - 177
+        - 232
+        - 371
+        - 372
+        - 435
+        - 439
+        - 595
+        - 596
+        - 793
+        - 807
+        - 861
+        - 969
+        - 1043
+        - 1078
+        - 1496
+        - 1563
+        - 1844
+        - 1954
+        - 2424
+        - 2685
+        - 3091
+        - 4918
+        - 4938
+        - 5678
+        - 6864
+        - 10490
+        - 10681
+        - 33354
+        - 35320
+        - 1958
+        - 2274
+        - 2768
+        - 1890
+      :generator:
+        person_id: 1877
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :clamp
+  level: 1
+  image: "/assets/achievements/anime/author/clamp.jpg"
+  border_color: "#007276"
+  title_ru: CLAMP
+  text_ru:
+  title_en: CLAMP
+  text_en:
+  topic_id: 276032
+  rule: *135
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :clamp
+    :level: 0
+    :image: "/assets/achievements/anime/author/clamp.jpg"
+    :border_color: "#007276"
+    :title_ru: CLAMP
+    :text_ru:
+    :title_en: CLAMP
+    :text_en:
+    :topic_id: 276032
+    :rule: &136
+      :algo: count
+      :threshold: 0.01
+      :filters:
+        anime_ids:
+        - 52
+        - 59
+        - 155
+        - 156
+        - 177
+        - 232
+        - 371
+        - 372
+        - 435
+        - 439
+        - 595
+        - 596
+        - 793
+        - 807
+        - 861
+        - 969
+        - 1043
+        - 1078
+        - 1496
+        - 1563
+        - 1844
+        - 1954
+        - 2424
+        - 2685
+        - 3091
+        - 4918
+        - 4938
+        - 5678
+        - 6864
+        - 10490
+        - 10681
+        - 33354
+        - 35320
+        - 1958
+        - 2274
+        - 2768
+        - 1890
+      :generator:
+        person_id: 1877
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :clamp
+  level: 0
+  image: "/assets/achievements/anime/author/clamp.jpg"
+  border_color: "#007276"
+  title_ru: CLAMP
+  text_ru:
+  title_en: CLAMP
   text_en:
   topic_id: 276032
   rule: *136
