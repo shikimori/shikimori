@@ -23562,6 +23562,7 @@
         - 42984
         - 50840
         - 51150
+        - 51424
       :threshold: 92.7%
       :generator:
         ignore_latest_ids:
@@ -23614,6 +23615,7 @@
         - 42984
         - 50840
         - 51150
+        - 51424
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -25340,6 +25342,8 @@
         - 42432
         - 42439
         - 43204
+        - 43205
+        - 43206
         - 49941
         - 50084
       :threshold: 87.1%
@@ -25431,6 +25435,8 @@
         - 42432
         - 42439
         - 43204
+        - 43205
+        - 43206
         - 49941
         - 50084
       :threshold: 0.01
@@ -26901,6 +26907,7 @@
         - 38087
         - 39339
         - 48409
+        - 51266
       :threshold: 95%
       :generator:
         ignore_latest_ids:
@@ -26962,6 +26969,7 @@
         - 38087
         - 39339
         - 48409
+        - 51266
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -29053,6 +29061,7 @@
         - 41782
         - 45731
         - 49471
+        - 45731
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :bang_dream
@@ -29116,6 +29125,7 @@
         - 41782
         - 45731
         - 49471
+        - 45731
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :bang_dream
@@ -33533,6 +33543,70 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :karakai_jouzu_no_takagi_san
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/karakai_jouzu_no_takagi_san.jpg"
+    :border_color:
+    :title_ru: Озорная Такаги
+    :text_ru:
+    :title_en: Karakai Jouzu no Takagi-san
+    :text_en:
+    :topic_id: 247360
+    :rule: &640
+      :algo: duration
+      :filters:
+        franchise: karakai_jouzu_no_takagi_san
+      :threshold: 100%
+      :generator:
+        ignore_latest_ids:
+        - 49722
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :karakai_jouzu_no_takagi_san
+  level: 1
+  image: "/assets/achievements/anime/franchise/karakai_jouzu_no_takagi_san.jpg"
+  border_color:
+  title_ru: Озорная Такаги
+  text_ru:
+  title_en: Karakai Jouzu no Takagi-san
+  text_en:
+  topic_id: 247360
+  rule: *640
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :karakai_jouzu_no_takagi_san
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/karakai_jouzu_no_takagi_san.jpg"
+    :border_color:
+    :title_ru: Озорная Такаги
+    :text_ru:
+    :title_en: Karakai Jouzu no Takagi-san
+    :text_en:
+    :topic_id: 247360
+    :rule: &641
+      :algo: duration
+      :filters:
+        franchise: karakai_jouzu_no_takagi_san
+      :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 49722
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :karakai_jouzu_no_takagi_san
+  level: 0
+  image: "/assets/achievements/anime/franchise/karakai_jouzu_no_takagi_san.jpg"
+  border_color:
+  title_ru: Озорная Такаги
+  text_ru:
+  title_en: Karakai Jouzu no Takagi-san
+  text_en:
+  topic_id: 247360
+  rule: *641
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :yuuri
     :level: 1
     :image: "/assets/achievements/anime/yuuri_1.jpg"
@@ -33542,7 +33616,7 @@
     :title_en: Female friendship
     :text_en: Just innocent flirtations, that's all.
     :topic_id: 227432
-    :rule: &640
+    :rule: &642
       :algo: count
       :threshold: 20%
       :filters:
@@ -33572,7 +33646,7 @@
   title_en: Female friendship
   text_en: Just innocent flirtations, that's all.
   topic_id: 227432
-  rule: *640
+  rule: *642
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -33585,7 +33659,7 @@
     :title_en: First feelings
     :text_en: Maybe this is wrong. But who cares?
     :topic_id: 0
-    :rule: &641
+    :rule: &643
       :algo: count
       :threshold: 35%
       :filters:
@@ -33615,7 +33689,7 @@
   title_en: First feelings
   text_en: Maybe this is wrong. But who cares?
   topic_id: 0
-  rule: *641
+  rule: *643
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -33628,7 +33702,7 @@
     :title_en: I kissed a girl...
     :text_en: "...and I liked it!"
     :topic_id: 0
-    :rule: &642
+    :rule: &644
       :algo: count
       :threshold: 50%
       :filters:
@@ -33658,7 +33732,7 @@
   title_en: I kissed a girl...
   text_en: "...and I liked it!"
   topic_id: 0
-  rule: *642
+  rule: *644
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -33671,7 +33745,7 @@
     :title_en: Happy family life
     :text_en: Lilies are blooming in your house.
     :topic_id: 0
-    :rule: &643
+    :rule: &645
       :algo: count
       :threshold: 70%
       :filters:
@@ -33701,7 +33775,7 @@
   title_en: Happy family life
   text_en: Lilies are blooming in your house.
   topic_id: 0
-  rule: *643
+  rule: *645
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -33716,7 +33790,7 @@
     :text_en: It wasn't easy, but you managed to catch your first offender. Congratulations,
       keep up the good work!
     :topic_id: 222047
-    :rule: &644
+    :rule: &646
       :algo: count
       :threshold: 40
       :filters:
@@ -33735,7 +33809,7 @@
   text_en: It wasn't easy, but you managed to catch your first offender. Congratulations,
     keep up the good work!
   topic_id: 222047
-  rule: *644
+  rule: *646
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -33748,7 +33822,7 @@
     :title_en: The murderer is a butler!
     :text_en: You are no stranger to deduction. You have no equal among young detectives.
     :topic_id: 0
-    :rule: &645
+    :rule: &647
       :algo: count
       :threshold: 60
       :filters:
@@ -33765,7 +33839,7 @@
   title_en: The murderer is a butler!
   text_en: You are no stranger to deduction. You have no equal among young detectives.
   topic_id: 0
-  rule: *645
+  rule: *647
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -33778,7 +33852,7 @@
     :title_en: Behind the Seven Seals
     :text_en: The masters of detective work turn to you for advice.
     :topic_id: 0
-    :rule: &646
+    :rule: &648
       :algo: count
       :threshold: 90
       :filters:
@@ -33795,7 +33869,7 @@
   title_en: Behind the Seven Seals
   text_en: The masters of detective work turn to you for advice.
   topic_id: 0
-  rule: *646
+  rule: *648
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -33810,7 +33884,7 @@
     :text_en: Interesting cases are disastrously few! In the field of detective you
       have achieved everything.
     :topic_id: 0
-    :rule: &647
+    :rule: &649
       :algo: count
       :threshold: 150
       :filters:
@@ -33828,7 +33902,7 @@
   text_en: Interesting cases are disastrously few! In the field of detective you have
     achieved everything.
   topic_id: 0
-  rule: *647
+  rule: *649
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -33842,7 +33916,7 @@
     :title_en: History Lessons
     :text_en: A history can be fascinating... But don't learn it from an anime.
     :topic_id: 222065
-    :rule: &648
+    :rule: &650
       :algo: count
       :threshold: 25
       :filters:
@@ -33859,7 +33933,7 @@
   title_en: History Lessons
   text_en: A history can be fascinating... But don't learn it from an anime.
   topic_id: 222065
-  rule: *648
+  rule: *650
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -33872,7 +33946,7 @@
     :title_en: In hindsight
     :text_en: Who does not know his past has no future
     :topic_id: 0
-    :rule: &649
+    :rule: &651
       :algo: count
       :threshold: 40
       :filters:
@@ -33889,7 +33963,7 @@
   title_en: In hindsight
   text_en: Who does not know his past has no future
   topic_id: 0
-  rule: *649
+  rule: *651
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -33902,7 +33976,7 @@
     :title_en: Archaeologist
     :text_en: Broken crockery brings happiness only to archaeologists.
     :topic_id: 0
-    :rule: &650
+    :rule: &652
       :algo: count
       :threshold: 60
       :filters:
@@ -33919,7 +33993,7 @@
   title_en: Archaeologist
   text_en: Broken crockery brings happiness only to archaeologists.
   topic_id: 0
-  rule: *650
+  rule: *652
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -33934,7 +34008,7 @@
     :text_en: Everyone has a time machine. There are memories for traveling to the
       past and dreams for traveling to the future.
     :topic_id: 0
-    :rule: &651
+    :rule: &653
       :algo: count
       :threshold: 100
       :filters:
@@ -33953,7 +34027,7 @@
   text_en: Everyone has a time machine. There are memories for traveling to the past
     and dreams for traveling to the future.
   topic_id: 0
-  rule: *651
+  rule: *653
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -33966,7 +34040,7 @@
     :title_en: From childhood
     :text_en: Anime is one small chance to go back to childhood.
     :topic_id: 245150
-    :rule: &652
+    :rule: &654
       :algo: count
       :threshold: 40
       :filters:
@@ -33987,7 +34061,7 @@
   title_en: From childhood
   text_en: Anime is one small chance to go back to childhood.
   topic_id: 245150
-  rule: *652
+  rule: *654
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34000,7 +34074,7 @@
     :title_en: It does exist
     :text_en: You have discovered a new and strange world. Keep watching.
     :topic_id: 227417
-    :rule: &653
+    :rule: &655
       :algo: count
       :threshold: 25
       :filters:
@@ -34018,7 +34092,7 @@
   title_en: It does exist
   text_en: You have discovered a new and strange world. Keep watching.
   topic_id: 227417
-  rule: *653
+  rule: *655
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34033,7 +34107,7 @@
     :text_en: Orientation in space was disturbed. It became difficult to distinguish
       between reality and fiction.
     :topic_id: 0
-    :rule: &654
+    :rule: &656
       :algo: count
       :threshold: 40
       :filters:
@@ -34053,7 +34127,7 @@
   text_en: Orientation in space was disturbed. It became difficult to distinguish
     between reality and fiction.
   topic_id: 0
-  rule: *654
+  rule: *656
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34066,7 +34140,7 @@
     :title_en: Blew my mind.
     :text_en: "*fatal error."
     :topic_id: 0
-    :rule: &655
+    :rule: &657
       :algo: count
       :threshold: 60
       :filters:
@@ -34084,7 +34158,7 @@
   title_en: Blew my mind.
   text_en: "*fatal error."
   topic_id: 0
-  rule: *655
+  rule: *657
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34098,7 +34172,7 @@
     :text_en: You have surpassed your nature and are now on a completely different
       level.
     :topic_id: 0
-    :rule: &656
+    :rule: &658
       :algo: count
       :threshold: 100
       :filters:
@@ -34116,7 +34190,7 @@
   title_en: You have seen too much
   text_en: You have surpassed your nature and are now on a completely different level.
   topic_id: 0
-  rule: *656
+  rule: *658
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34129,7 +34203,7 @@
     :title_en: Sounds of music
     :text_en: They bring brightness to our lives.
     :topic_id: 222061
-    :rule: &657
+    :rule: &659
       :algo: count
       :threshold: 20
       :filters:
@@ -34146,7 +34220,7 @@
   title_en: Sounds of music
   text_en: They bring brightness to our lives.
   topic_id: 222061
-  rule: *657
+  rule: *659
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34161,7 +34235,7 @@
     :text_en: Music is a language in which the soul communicates with the soul, erasing
       the boundaries of convention.
     :topic_id: 0
-    :rule: &658
+    :rule: &660
       :algo: count
       :threshold: 40
       :filters:
@@ -34179,7 +34253,7 @@
   text_en: Music is a language in which the soul communicates with the soul, erasing
     the boundaries of convention.
   topic_id: 0
-  rule: *658
+  rule: *660
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34194,7 +34268,7 @@
     :text_en: In the storm of passion and the sea of emotion, compositions capable
       of changing the world are born.
     :topic_id: 0
-    :rule: &659
+    :rule: &661
       :algo: count
       :threshold: 60
       :filters:
@@ -34213,7 +34287,7 @@
   text_en: In the storm of passion and the sea of emotion, compositions capable of
     changing the world are born.
   topic_id: 0
-  rule: *659
+  rule: *661
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34228,7 +34302,7 @@
     :text_en: Music is not just beautiful melodies; without it, life itself would
       be a mistake.
     :topic_id: 0
-    :rule: &660
+    :rule: &662
       :algo: count
       :threshold: 100
       :filters:
@@ -34246,7 +34320,7 @@
   text_en: Music is not just beautiful melodies; without it, life itself would be
     a mistake.
   topic_id: 0
-  rule: *660
+  rule: *662
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34263,7 +34337,7 @@
       The classics of Western literature through the eyes of the East.
       Meet your favorite book twice - in paper and on screen.
     :topic_id: 248176
-    :rule: &661
+    :rule: &663
       :algo: count
       :threshold: 10
       :filters:
@@ -34309,7 +34383,7 @@
     The classics of Western literature through the eyes of the East.
     Meet your favorite book twice - in paper and on screen.
   topic_id: 248176
-  rule: *661
+  rule: *663
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34322,7 +34396,7 @@
     :title_en: But then I lol'd
     :text_en: Did you really enjoy Japanese humor?
     :topic_id: 222035
-    :rule: &662
+    :rule: &664
       :algo: count
       :threshold: 70
       :filters:
@@ -34339,7 +34413,7 @@
   title_en: But then I lol'd
   text_en: Did you really enjoy Japanese humor?
   topic_id: 222035
-  rule: *662
+  rule: *664
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34352,7 +34426,7 @@
     :title_en: Comedian
     :text_en: Now you know the basics of comedy.
     :topic_id: 0
-    :rule: &663
+    :rule: &665
       :algo: count
       :threshold: 150
       :filters:
@@ -34369,7 +34443,7 @@
   title_en: Comedian
   text_en: Now you know the basics of comedy.
   topic_id: 0
-  rule: *663
+  rule: *665
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34384,7 +34458,7 @@
     :text_en: Parody, puns, irony, sarcasm, grotesque - from now on no joke will slip
       past you.
     :topic_id: 0
-    :rule: &664
+    :rule: &666
       :algo: count
       :threshold: 250
       :filters:
@@ -34403,7 +34477,7 @@
   text_en: Parody, puns, irony, sarcasm, grotesque - from now on no joke will slip
     past you.
   topic_id: 0
-  rule: *664
+  rule: *666
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34416,7 +34490,7 @@
     :title_en: A celebration without end
     :text_en: Life is always serious, but living always seriously is impossible!
     :topic_id: 0
-    :rule: &665
+    :rule: &667
       :algo: count
       :threshold: 400
       :filters:
@@ -34433,7 +34507,7 @@
   title_en: A celebration without end
   text_en: Life is always serious, but living always seriously is impossible!
   topic_id: 0
-  rule: *665
+  rule: *667
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34448,7 +34522,7 @@
     :text_en: Once you take the first step along the Dark Path, you cannot turn away
       from it.
     :topic_id: 222059
-    :rule: &666
+    :rule: &668
       :algo: count
       :threshold: 40
       :filters:
@@ -34467,7 +34541,7 @@
   text_en: Once you take the first step along the Dark Path, you cannot turn away
     from it.
   topic_id: 222059
-  rule: *666
+  rule: *668
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34482,7 +34556,7 @@
     :text_en: You are probably able to make usable even what is a pile of garbage
       in the eyes of others.
     :topic_id: 0
-    :rule: &667
+    :rule: &669
       :algo: count
       :threshold: 80
       :filters:
@@ -34501,7 +34575,7 @@
   text_en: You are probably able to make usable even what is a pile of garbage in
     the eyes of others.
   topic_id: 0
-  rule: *667
+  rule: *669
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34516,7 +34590,7 @@
     :text_en: In your hands, a harmony between fiction, scientific fact and mysticism
       is born.
     :topic_id: 0
-    :rule: &668
+    :rule: &670
       :algo: count
       :threshold: 120
       :filters:
@@ -34535,7 +34609,7 @@
   text_en: In your hands, a harmony between fiction, scientific fact and mysticism
     is born.
   topic_id: 0
-  rule: *668
+  rule: *670
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34548,7 +34622,7 @@
     :title_en: Great Intelligence
     :text_en: Fiction is reality. Everything you thought about is happening.
     :topic_id: 0
-    :rule: &669
+    :rule: &671
       :algo: count
       :threshold: 220
       :filters:
@@ -34565,7 +34639,7 @@
   title_en: Great Intelligence
   text_en: Fiction is reality. Everything you thought about is happening.
   topic_id: 0
-  rule: *669
+  rule: *671
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34578,7 +34652,7 @@
     :title_en: First race
     :text_en: The starting whistle is blown - go!
     :topic_id: 227429
-    :rule: &670
+    :rule: &672
       :algo: count
       :threshold: 25
       :filters:
@@ -34595,7 +34669,7 @@
   title_en: First race
   text_en: The starting whistle is blown - go!
   topic_id: 227429
-  rule: *670
+  rule: *672
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34608,7 +34682,7 @@
     :title_en: Got into the game
     :text_en: The fight is in full swing, it's time to enter the Zone.
     :topic_id: 0
-    :rule: &671
+    :rule: &673
       :algo: count
       :threshold: 40
       :filters:
@@ -34625,7 +34699,7 @@
   title_en: Got into the game
   text_en: The fight is in full swing, it's time to enter the Zone.
   topic_id: 0
-  rule: *671
+  rule: *673
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34638,7 +34712,7 @@
     :title_en: Welcome to the Major League
     :text_en: One last push to win!
     :topic_id: 0
-    :rule: &672
+    :rule: &674
       :algo: count
       :threshold: 60
       :filters:
@@ -34655,7 +34729,7 @@
   title_en: Welcome to the Major League
   text_en: One last push to win!
   topic_id: 0
-  rule: *672
+  rule: *674
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34668,7 +34742,7 @@
     :title_en: Olympic champion
     :text_en: On top of the pedestal. Great job!
     :topic_id: 0
-    :rule: &673
+    :rule: &675
       :algo: count
       :threshold: 100
       :filters:
@@ -34685,7 +34759,7 @@
   title_en: Olympic champion
   text_en: On top of the pedestal. Great job!
   topic_id: 0
-  rule: *673
+  rule: *675
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -34698,7 +34772,7 @@
     :title_en: Silence
     :text_en: Kudere is silent only because she wants.
     :topic_id: 227421
-    :rule: &674
+    :rule: &676
       :algo: count
       :threshold: 15%
       :filters:
@@ -35127,7 +35201,7 @@
   title_en: Silence
   text_en: Kudere is silent only because she wants.
   topic_id: 227421
-  rule: *674
+  rule: *676
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -35140,7 +35214,7 @@
     :title_en: Wisdom
     :text_en: The clever one is least alone when he is alone.
     :topic_id: 0
-    :rule: &675
+    :rule: &677
       :algo: count
       :threshold: 20%
       :filters:
@@ -35569,7 +35643,7 @@
   title_en: Wisdom
   text_en: The clever one is least alone when he is alone.
   topic_id: 0
-  rule: *675
+  rule: *677
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -35586,7 +35660,7 @@
       - How can you stay so cold?
       - Practice.
     :topic_id: 0
-    :rule: &676
+    :rule: &678
       :algo: count
       :threshold: 28%
       :filters:
@@ -36019,7 +36093,7 @@
     - How can you stay so cold?
     - Practice.
   topic_id: 0
-  rule: *676
+  rule: *678
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36032,7 +36106,7 @@
     :title_en: Onii-chan~~
     :text_en: You know how to live happily ever after with a sissy.
     :topic_id: 227425
-    :rule: &677
+    :rule: &679
       :algo: count
       :threshold: 50
       :filters:
@@ -36164,7 +36238,7 @@
   title_en: Onii-chan~~
   text_en: You know how to live happily ever after with a sissy.
   topic_id: 227425
-  rule: *677
+  rule: *679
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36177,7 +36251,7 @@
     :title_en: Where am I?
     :text_en: First step in a new world.
     :topic_id: 222041
-    :rule: &678
+    :rule: &680
       :algo: count
       :threshold: 50
       :filters:
@@ -36194,7 +36268,7 @@
   title_en: Where am I?
   text_en: First step in a new world.
   topic_id: 222041
-  rule: *678
+  rule: *680
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36207,7 +36281,7 @@
     :title_en: Adventurer
     :text_en: Outlandish things, loyal friends, and great accomplishments await you!
     :topic_id: 0
-    :rule: &679
+    :rule: &681
       :algo: count
       :threshold: 100
       :filters:
@@ -36224,7 +36298,7 @@
   title_en: Adventurer
   text_en: Outlandish things, loyal friends, and great accomplishments await you!
   topic_id: 0
-  rule: *679
+  rule: *681
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36237,7 +36311,7 @@
     :title_en: The Hero
     :text_en: Your exploits will go down in history.
     :topic_id: 0
-    :rule: &680
+    :rule: &682
       :algo: count
       :threshold: 150
       :filters:
@@ -36254,7 +36328,7 @@
   title_en: The Hero
   text_en: Your exploits will go down in history.
   topic_id: 0
-  rule: *680
+  rule: *682
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36267,7 +36341,7 @@
     :title_en: Hooded Justice
     :text_en: You hold the life, death and destinies of nations in your hands.
     :topic_id: 0
-    :rule: &681
+    :rule: &683
       :algo: count
       :threshold: 250
       :filters:
@@ -36284,7 +36358,7 @@
   title_en: Hooded Justice
   text_en: You hold the life, death and destinies of nations in your hands.
   topic_id: 0
-  rule: *681
+  rule: *683
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36297,7 +36371,7 @@
     :title_en: A moment, and you lost it.
     :text_en: It was over before it started, leaving only pleasant memories.
     :topic_id: 245151
-    :rule: &682
+    :rule: &684
       :algo: count
       :threshold: 65
       :filters:
@@ -36313,7 +36387,7 @@
   title_en: A moment, and you lost it.
   text_en: It was over before it started, leaving only pleasant memories.
   topic_id: 245151
-  rule: *682
+  rule: *684
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36326,7 +36400,7 @@
     :title_en: Dependence
     :text_en: How many times have you said "one more" in the last nine hours?
     :topic_id: 0
-    :rule: &683
+    :rule: &685
       :algo: count
       :threshold: 150
       :filters:
@@ -36342,7 +36416,7 @@
   title_en: Dependence
   text_en: How many times have you said "one more" in the last nine hours?
   topic_id: 0
-  rule: *683
+  rule: *685
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36355,7 +36429,7 @@
     :title_en: Block by block
     :text_en: You, as in a game of tetris, build the grandiose out of small pieces.
     :topic_id: 0
-    :rule: &684
+    :rule: &686
       :algo: count
       :threshold: 250
       :filters:
@@ -36371,7 +36445,7 @@
   title_en: Block by block
   text_en: You, as in a game of tetris, build the grandiose out of small pieces.
   topic_id: 0
-  rule: *684
+  rule: *686
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36385,7 +36459,7 @@
     :text_en: You've learned that some of the best anime are coming out in a short
       format.
     :topic_id: 0
-    :rule: &685
+    :rule: &687
       :algo: count
       :threshold: 400
       :filters:
@@ -36401,7 +36475,7 @@
   title_en: The Greatness in Smallness
   text_en: You've learned that some of the best anime are coming out in a short format.
   topic_id: 0
-  rule: *685
+  rule: *687
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36414,7 +36488,7 @@
     :title_en: Amateur Voyeurist
     :text_en: Congratulations! The inner fujoshi has awakened in you!
     :topic_id: 227418
-    :rule: &686
+    :rule: &688
       :algo: count
       :threshold: 20%
       :filters:
@@ -36432,7 +36506,7 @@
   title_en: Amateur Voyeurist
   text_en: Congratulations! The inner fujoshi has awakened in you!
   topic_id: 227418
-  rule: *686
+  rule: *688
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36447,7 +36521,7 @@
     :text_en: It's too late to turn back now. It's time to make a cameo and finally
       admit your love for "not so traditional" stories.
     :topic_id: 0
-    :rule: &687
+    :rule: &689
       :algo: count
       :threshold: 30%
       :filters:
@@ -36467,7 +36541,7 @@
   text_en: It's too late to turn back now. It's time to make a cameo and finally admit
     your love for "not so traditional" stories.
   topic_id: 0
-  rule: *687
+  rule: *689
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36480,7 +36554,7 @@
     :title_en: Shipper
     :text_en: Male friendship? No, you haven't.
     :topic_id: 0
-    :rule: &688
+    :rule: &690
       :algo: count
       :threshold: 45%
       :filters:
@@ -36498,7 +36572,7 @@
   title_en: Shipper
   text_en: Male friendship? No, you haven't.
   topic_id: 0
-  rule: *688
+  rule: *690
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36511,7 +36585,7 @@
     :title_en: Yaoi God
     :text_en: Yaoi is not a genre. Yaoi is a way of life.
     :topic_id: 0
-    :rule: &689
+    :rule: &691
       :algo: count
       :threshold: 60%
       :filters:
@@ -36529,7 +36603,7 @@
   title_en: Yaoi God
   text_en: Yaoi is not a genre. Yaoi is a way of life.
   topic_id: 0
-  rule: *689
+  rule: *691
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36542,7 +36616,7 @@
     :title_en: 3-2-1... Launch!
     :text_en: That's one small step for man, one giant leap for mankind
     :topic_id: 227428
-    :rule: &690
+    :rule: &692
       :algo: count
       :threshold: 25
       :filters:
@@ -36559,7 +36633,7 @@
   title_en: 3-2-1... Launch!
   text_en: That's one small step for man, one giant leap for mankind
   topic_id: 227428
-  rule: *690
+  rule: *692
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36574,7 +36648,7 @@
     :text_en: From this distant vantage point, the Earth might not seem of particular
       interest. But for us, it's different.
     :topic_id: 0
-    :rule: &691
+    :rule: &693
       :algo: count
       :threshold: 40
       :filters:
@@ -36593,7 +36667,7 @@
   text_en: From this distant vantage point, the Earth might not seem of particular
     interest. But for us, it's different.
   topic_id: 0
-  rule: *691
+  rule: *693
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36606,7 +36680,7 @@
     :title_en: Interstellar Wanderer
     :text_en: Space. It is so empty, but at the same time full of life.
     :topic_id: 0
-    :rule: &692
+    :rule: &694
       :algo: count
       :threshold: 60
       :filters:
@@ -36623,7 +36697,7 @@
   title_en: Interstellar Wanderer
   text_en: Space. It is so empty, but at the same time full of life.
   topic_id: 0
-  rule: *692
+  rule: *694
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36638,7 +36712,7 @@
     :text_en: You are the ruler of the entire universe. Unchanging and victorious.
       There is no one with more power than you.
     :topic_id: 0
-    :rule: &693
+    :rule: &695
       :algo: count
       :threshold: 100
       :filters:
@@ -36657,7 +36731,7 @@
   text_en: You are the ruler of the entire universe. Unchanging and victorious. There
     is no one with more power than you.
   topic_id: 0
-  rule: *693
+  rule: *695
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -36670,7 +36744,7 @@
     :title_en: It's not what you think.
     :text_en: N-not that I'm worried about you, o-okay?
     :topic_id: 227430
-    :rule: &694
+    :rule: &696
       :algo: count
       :threshold: 10%
       :filters:
@@ -37747,7 +37821,7 @@
   title_en: It's not what you think.
   text_en: N-not that I'm worried about you, o-okay?
   topic_id: 227430
-  rule: *694
+  rule: *696
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -37760,7 +37834,7 @@
     :title_en: Baka!
     :text_en: Shut up! Shut up! Shut up!
     :topic_id: 0
-    :rule: &695
+    :rule: &697
       :algo: count
       :threshold: 15%
       :filters:
@@ -38837,7 +38911,7 @@
   title_en: Baka!
   text_en: Shut up! Shut up! Shut up!
   topic_id: 0
-  rule: *695
+  rule: *697
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -38850,7 +38924,7 @@
     :title_en: I'm not interested in tsundere at all!
     :text_en: Well, if only just a little bit...
     :topic_id: 0
-    :rule: &696
+    :rule: &698
       :algo: count
       :threshold: 25%
       :filters:
@@ -39927,7 +40001,7 @@
   title_en: I'm not interested in tsundere at all!
   text_en: Well, if only just a little bit...
   topic_id: 0
-  rule: *696
+  rule: *698
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -39940,7 +40014,7 @@
     :title_en: Youth That Can Bloom
     :text_en: No longer a girl, but not yet a woman. What's happening to me?!
     :topic_id: 222645
-    :rule: &697
+    :rule: &699
       :algo: count
       :threshold: 15
       :filters:
@@ -39957,7 +40031,7 @@
   title_en: Youth That Can Bloom
   text_en: No longer a girl, but not yet a woman. What's happening to me?!
   topic_id: 222645
-  rule: *697
+  rule: *699
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -39971,7 +40045,7 @@
     :title_en: I do what I like to do!
     :text_en: We don't learn to be artists, painters or writers - we learn to be.
     :topic_id: 0
-    :rule: &698
+    :rule: &700
       :algo: count
       :threshold: 25
       :filters:
@@ -39988,7 +40062,7 @@
   title_en: I do what I like to do!
   text_en: We don't learn to be artists, painters or writers - we learn to be.
   topic_id: 0
-  rule: *698
+  rule: *700
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -40002,7 +40076,7 @@
     :title_en: We are our actions
     :text_en: To be human is to take some responsibility, not just to fill up space.
     :topic_id: 0
-    :rule: &699
+    :rule: &701
       :algo: count
       :threshold: 40
       :filters:
@@ -40020,7 +40094,7 @@
   title_en: We are our actions
   text_en: To be human is to take some responsibility, not just to fill up space.
   topic_id: 0
-  rule: *699
+  rule: *701
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -40034,7 +40108,7 @@
     :text_en: No matter how many stories there are, the best one is the one written
       together.
     :topic_id: 0
-    :rule: &700
+    :rule: &702
       :algo: count
       :threshold: 60
       :filters:
@@ -40051,5 +40125,5 @@
   title_en: Memoirs of a Geisha
   text_en: No matter how many stories there are, the best one is the one written together.
   topic_id: 0
-  rule: *700
+  rule: *702
   mandatory_attributes: *4
