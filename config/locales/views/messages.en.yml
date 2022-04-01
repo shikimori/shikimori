@@ -16,7 +16,7 @@ en:
       to_topic: to topic→
       broadcast_by: from
       broken:
-        header: This news was deleted
+        header: This news or message was deleted
         body: Please ignore this message.
 
     unsubscribe:

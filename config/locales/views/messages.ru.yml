@@ -16,7 +16,7 @@ ru:
       to_topic: к новости→
       broadcast_by: от
       broken:
-        header: Новость удалена
+        header: Сообщение или новость удалены
         body: Не обращай внимание на это сообщение.
 
     unsubscribe:
