@@ -28,7 +28,9 @@ private
 
   def api_error exception
     render(
-      json: [exception.message],
+      json: request.get? ?
+        [exception.message] :
+        { errors: [exception.message] },
       status: :unprocessable_entity
     )
   end
