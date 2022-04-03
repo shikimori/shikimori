@@ -1,6 +1,6 @@
 class Api::V1::CharactersController < Api::V1Controller
   include SearchPhraseConcern
-  before_action :fetch_resource, except: [:search]
+  before_action :fetch_resource, except: %i[search]
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/characters/:id', 'Show a character'
@@ -11,7 +11,9 @@ class Api::V1::CharactersController < Api::V1Controller
   end
 
   api :GET, '/characters/search', 'Search characters'
-  param :search, String, required: false, allow_blank: true
+  param :search, String,
+    required: false,
+    allow_blank: true
   def search
     @collection = Autocomplete::Character.call(
       scope: Character.all,
