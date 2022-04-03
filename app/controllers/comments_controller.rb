@@ -109,7 +109,7 @@ class CommentsController < ShikimoriController
   end
 
   def smileys
-    render partial: 'comments/smileys'
+    render partial: 'comments/smileys', formats: :html
   end
 
 private

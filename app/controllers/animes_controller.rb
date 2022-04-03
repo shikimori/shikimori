@@ -177,11 +177,11 @@ class AnimesController < DbEntriesController
   end
 
   def resources
-    render partial: 'resources'
+    render partial: 'resources', formats: :html
   end
 
   def watch_online
-    render partial: 'watch_online'
+    render partial: 'watch_online', formats: :html
   end
 
   def other_names
