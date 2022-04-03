@@ -3,9 +3,6 @@ describe Message do
     it { is_expected.to belong_to :from }
     it { is_expected.to belong_to :to }
     it { is_expected.to belong_to(:linked).optional }
-
-    it { is_expected.to validate_presence_of :from }
-    it { is_expected.to validate_presence_of :to }
   end
 
   describe 'validations' do
@@ -19,9 +16,6 @@ describe Message do
       # it { is_expected.to validate_presence_of :body }
       it { is_expected.to validate_length_of(:body).is_at_most(20000) }
     end
-
-    it { is_expected.to validate_presence_of :from }
-    it { is_expected.to validate_presence_of :to }
   end
 
   describe 'callbacks' do
