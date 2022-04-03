@@ -39,6 +39,7 @@ export default class Topic extends ShikiEditable {
     this.$editorContainer = this.$('.editor-container');
     this.$editor = this.$('.shiki_editor-selector');
     this.$editorForm = this.$editor.closest('form');
+    this.$footerVote = this.$inner.find('.b-footer_vote');
 
     // do not move to getter. it is redefined in FullDialog
     this.$commentsLoader = this.$('.comments-loader');
@@ -59,7 +60,7 @@ export default class Topic extends ShikiEditable {
     }
 
     if (this.model && !this.model.is_viewed) { this._activateAppearMarker(); }
-    if (this.model) { this._actualizeVoting(); }
+    if (this.model && this.$footerVote.length) { this._actualizeVoting(); }
 
     if (this.$checkHeightNode.length && (this.isPreview || this.isClubPage)) {
       this._scheduleCheckHeight(true);
@@ -106,7 +107,9 @@ export default class Topic extends ShikiEditable {
         this._toggleIgnored(result.is_ignored);
       });
 
-    this._bindVotes();
+    if (this.$footerVote.length) {
+      this._bindVotes();
+    }
     // прочтение комментриев
     this.on('appear', this._appear);
 
@@ -175,7 +178,9 @@ export default class Topic extends ShikiEditable {
       can_edit: false,
       id: parseInt(this.node.id),
       is_viewed: true,
-      user_id: this.$node.data('user_id')
+      user_id: this.$node.data('user_id'),
+      voted_yes: false,
+      voted_no: false
     };
   }
   get type() { return 'topic'; }
@@ -476,13 +481,13 @@ export default class Topic extends ShikiEditable {
 
   _bindVotes() {
     if (window.SHIKI_USER?.id === this.model.user_id) {
-      this.$inner.find('.b-footer_vote').remove();
+      this.$footerVote.remove();
     }
 
-    const $vote = this.$inner.find('.b-footer_vote .vote');
+    const $vote = this.$footerVote.find('.vote');
     $vote
       .on('ajax:before', e => {
-        this.$inner.find('.b-footer_vote').addClass('b-ajax');
+        this.$footerVote.addClass('b-ajax');
         const isYes = $(e.target).hasClass('yes');
 
         if (isYes && !this.model.voted_yes) {
@@ -505,7 +510,7 @@ export default class Topic extends ShikiEditable {
         this._actualizeVoting();
       })
       .on('ajax:complete', () => {
-        this.$inner.find('.b-footer_vote').removeClass('b-ajax');
+        this.$footerVote.removeClass('b-ajax');
       });
   }
 }
