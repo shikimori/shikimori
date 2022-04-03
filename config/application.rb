@@ -127,6 +127,46 @@ module Shikimori
     # config.filter_parameters += [:password]
     Paperclip.logger.level = 2
 
+    if defined?(Redirecter) && !ENV['NO_REDIRECTER'] # not defined for clockwork
+      config.middleware.use Redirecter
+    end
+
+    config.middleware.insert 0, Rack::UTF8Sanitizer
+    if defined?(ProxyTest) # not defined for clockwork
+      config.middleware.insert 0, ProxyTest
+    end
+
+    config.middleware.use Rack::Attack
+    # config.middleware.use LogBeforeTimeout
+
+    config.middleware.insert_before 0, Rack::Cors do
+      if Rails.env.development?
+        allow do
+          origins '*'
+          resource '*', headers: :any, methods: %i[get options post put patch]
+        end
+      else
+        allow do
+          origins do |source, env|
+            ALLOWED_DOMAINS.include?(Url.new(source).domain.to_s) &&
+              Url.new(source).protocol.to_s == PROTOCOL
+          end
+          resource '*', headers: :any, methods: %i[get options]
+        end
+
+        allow do
+          origins '*'
+          resource '/comments/smileys', headers: :any, methods: %i[get options]
+        end
+
+        allow do
+          origins '*'
+          resource '/api/*', headers: :any, methods: %i[get options post put patch]
+          resource '/oauth/token', headers: :any, methods: %i[post]
+        end
+      end
+    end
+
     # Enable the asset pipeline
     # RAILS 6.0 UPGRADE
     # config.assets.enabled = true
