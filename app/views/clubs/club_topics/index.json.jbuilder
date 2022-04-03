@@ -17,6 +17,7 @@ if @forums_view.next_page_url
       prev_url: @forums_view.prev_page_url
     },
     formats: :html
+  )
 end
 
 json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)
