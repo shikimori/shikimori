@@ -49,7 +49,7 @@ describe Api::V1::ClubsController, :show_in_doc do
     end
 
     context 'invalid params' do
-      before do
+      subject! do
         patch 'update',
           params: {
             id: club.id,
@@ -59,11 +59,7 @@ describe Api::V1::ClubsController, :show_in_doc do
       end
       let(:params) { { name: '' } }
 
-      it do
-        expect(resource.errors).to be_present
-        expect(response.content_type).to eq 'application/json; charset=utf-8'
-        expect(response).to have_http_status 422
-      end
+      it_behaves_like :failed_resource_change, true
     end
   end
 

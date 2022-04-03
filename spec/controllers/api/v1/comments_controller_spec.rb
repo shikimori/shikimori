@@ -52,6 +52,7 @@ describe Api::V1::CommentsController do
     end
     let(:commentable_id) { topic.id }
     let(:commentable_type) { Topic.name }
+    let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
     let(:is_broadcast) { false }
     let(:is_summary) { false }
     before { allow(Comment::Broadcast).to receive :call }
@@ -67,8 +68,6 @@ describe Api::V1::CommentsController do
     end
 
     context 'success' do
-      let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
-
       context 'frontend' do
         let(:is_frontend) { true }
         it_behaves_like :successful_resource_change, :frontend
@@ -113,7 +112,7 @@ describe Api::V1::CommentsController do
     end
 
     context 'failure' do
-      let(:body) { '' }
+      let(:commentable_id) { 0 }
 
       context 'frontend' do
         let(:is_frontend) { true }
@@ -159,12 +158,12 @@ describe Api::V1::CommentsController do
 
       context 'frontend' do
         let(:is_frontend) { true }
-        it_behaves_like :failed_resource_change
+        it_behaves_like :failed_resource_change, true
       end
 
       context 'api' do
         let(:is_frontend) { false }
-        it_behaves_like :failed_resource_change
+        it_behaves_like :failed_resource_change, true
       end
     end
   end

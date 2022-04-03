@@ -11,7 +11,7 @@ class Api::V1::CharactersController < Api::V1Controller
   end
 
   api :GET, '/characters/search', 'Search characters'
-  param :search, String, required: false
+  param :search, String, required: false, allow_blank: true
   def search
     @collection = Autocomplete::Character.call(
       scope: Character.all,

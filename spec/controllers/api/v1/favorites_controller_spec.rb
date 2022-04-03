@@ -83,16 +83,16 @@ describe Api::V1::FavoritesController do
             }
         end
 
-        if klass != Person
-          context 'without kind' do
-            let(:kind) { nil }
+        if klass == Person
+          context 'with kind' do
             it do
               expect { make_request }.to change(Favourite, :count).by(1)
               expect(user.favourites.map(&:linked)).to include(entry)
             end
           end
         else
-          context 'with kind' do
+          context 'without kind' do
+            let(:kind) { nil }
             it do
               expect { make_request }.to change(Favourite, :count).by(1)
               expect(user.favourites.map(&:linked)).to include(entry)

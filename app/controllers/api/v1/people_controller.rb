@@ -10,7 +10,7 @@ class Api::V1::PeopleController < Api::V1Controller
   end
 
   api :GET, '/people/search', 'Search people'
-  param :search, String, required: false
+  param :search, String, required: false, allow_blank: true
   param :kind, %w[seyu mangaka producer], required: false
   def search
     @collection = Autocomplete::Person.call(

@@ -1,7 +1,9 @@
-shared_examples_for :failed_resource_change do
+shared_examples_for :failed_resource_change do |is_ignore_model_check|
   it do
-    expect(resource).to_not be_valid
-    expect(resource.changes).to_not be_empty
+    unless is_ignore_model_check
+      expect(resource).to_not be_valid
+      expect(resource.changes).to_not be_empty
+    end
 
     expect(json).to include :errors
     expect(json[:errors]).to be_kind_of Array

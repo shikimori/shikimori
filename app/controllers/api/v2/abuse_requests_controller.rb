@@ -33,7 +33,7 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
   api :POST, '/v2/abuse_requests/abuse', 'Create abuse about violation of site rules'
   param :comment_id, :number, required: false
   param :topic_id, :number, required: false
-  param :reason, String, required: false
+  param :reason, String, required: false, allow_blank: true
   description 'Request will be sent to moderators.'
   def abuse
     AbuseRequestsService
@@ -48,7 +48,7 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
   api :POST, '/v2/abuse_requests/spoiler', 'Create abuse about spoiler in content'
   param :comment_id, :number, required: false
   param :topic_id, :number, required: false
-  param :reason, String, required: false
+  param :reason, String, required: false, allow_blank: true
   description 'Request will be sent to moderators.'
   def spoiler
     AbuseRequestsService

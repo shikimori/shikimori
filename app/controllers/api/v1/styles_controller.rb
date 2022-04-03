@@ -32,8 +32,8 @@ class Api::V1::StylesController < Api::V1Controller
   api :PATCH, '/styles/:id', 'Update a style'
   api :PUT, '/styles/:id', 'Update a style'
   param :style, Hash do
-    param :css, String, required: false
-    param :name, String, required: false
+    param :css, String, required: false, allow_blank: true
+    param :name, String, required: false, allow_blank: true
   end
   def update
     @resource.update update_params

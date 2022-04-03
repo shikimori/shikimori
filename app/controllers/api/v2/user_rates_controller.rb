@@ -76,7 +76,7 @@ class Api::V2::UserRatesController < Api::V2Controller
     param :episodes, :undef, required: false
     param :volumes, :undef, required: false
     param :rewatches, :undef, required: false
-    param :text, String, required: false
+    param :text, String, required: false, allow_blank: true
   end
   def create
     Retryable.retryable tries: 2, on: UNIQ_EXCEPTIONS, sleep: 1 do
@@ -107,7 +107,7 @@ class Api::V2::UserRatesController < Api::V2Controller
     param :episodes, :undef, required: false
     param :volumes, :undef, required: false
     param :rewatches, :undef, required: false
-    param :text, String, required: false
+    param :text, String, required: false, allow_blank: true
   end
   def update
     update_rate @resource
