@@ -55,6 +55,7 @@ module Shikimori
     ActionController::RoutingError
     ActionController::UnknownFormat
     ActionController::UnknownHttpMethod
+    ActionController::BadRequest
     ActionDispatch::RemoteIp::IpSpoofAttackError
     ActiveRecord::PreparedStatementCacheExpired
     ActiveRecord::RecordNotFound
