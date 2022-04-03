@@ -82,6 +82,12 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
     @collection = @collection.map(&:decorate)
   end
 
+  def menu
+    render partial: 'animes_collection/menu',
+      locals: { menu: @menu },
+      formats: :html
+  end
+
 private
 
   def prepare_model
