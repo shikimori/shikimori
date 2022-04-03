@@ -6,7 +6,7 @@ class ImageReloader < ServiceObjectBase
     return unless parsed_data && parsed_data[:image]
 
     @entry.update(
-      image: open_image(parsed_data[:image], 'User-Agent' => Proxy::USER_AGENT)
+      image: OpenURI.open_image(parsed_data[:image], 'User-Agent' => Proxy::USER_AGENT)
     )
   end
 

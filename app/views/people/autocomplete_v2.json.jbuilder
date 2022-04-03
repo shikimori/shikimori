@@ -8,7 +8,12 @@ json.content render(
   formats: :html
 )
 
-# json.postloader render 'blocks/postloader',
-#   filter: 'b-topic',
-#   next_url: @forums_view.next_page_url,
-#   prev_url: @forums_view.prev_page_url
+# json.postloader render(
+#   partial: 'blocks/postloader',
+#   locals: {
+#     filter: 'b-topic',
+#     next_url: @forums_view.next_page_url,
+#     prev_url: @forums_view.prev_page_url
+#   },
+#   formats: :html
+# )

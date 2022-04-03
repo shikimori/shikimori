@@ -8,8 +8,11 @@ json.content render(
 
 if collection.next_page?
   json.postloader render(
-    'blocks/postloader',
-    filter: 'b-log_entry',
-    next_url: @view.next_page_url(params[:is_pending] == '1')
+    partial: 'blocks/postloader',
+    locals: {
+      filter: 'b-log_entry',
+      next_url: @view.next_page_url(params[:is_pending] == '1')
+    },
+    formats: :html
   )
 end

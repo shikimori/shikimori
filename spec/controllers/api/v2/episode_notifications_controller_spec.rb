@@ -29,7 +29,7 @@ describe Api::V2::EpisodeNotificationsController, :show_in_doc do
     end
 
     context 'invalid token' do
-      let(:token) { nil }
+      let(:token) { 'zxc' }
       it do
         expect { subject }.to raise_error CanCan::AccessDenied
         expect(EpisodeNotification::Track).to_not have_received(:call)

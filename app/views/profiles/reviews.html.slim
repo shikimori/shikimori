@@ -7,7 +7,7 @@
       = render partial: 'topics/topic',
         collection: @collection,
         as: :topic_view,
-        cached: ->(entry) { CacheHelper.keys entry }
+        cached: ->(entry) { cache_keys entry }
 
     - else
       p.b-nothing_here = t 'no_reviews'

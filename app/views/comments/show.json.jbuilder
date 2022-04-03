@@ -1,7 +1,9 @@
 json.content JsExports::Supervisor.instance.sweep(
   render(
     partial: 'comments/comment',
-    locals: { comment: @view.comment.decorate },
+    locals: {
+      comment: @view.comment.decorate
+    },
     formats: :html
   )
 )

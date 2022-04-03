@@ -1,9 +1,20 @@
 require 'digest/md5'
 
 module ApplicationHelper
+  def cache name = {}, *args
+    super cache_keys(*Array(name)), *args
+  end
+
+  def cache_keys *args
+    CacheHelperInstance.cache_keys(*args)
+  end
+
   def itemprop
-    if @itemtype
-      { itemscope: '', itemtype: @itemtype.html_safe }
+    if controller.instance_variable_get :@itemtype
+      {
+        itemscope: '',
+        itemtype: controller.instance_variable_get(:@itemtype).html_safe
+      }
     else
       {}
     end
@@ -14,7 +25,6 @@ module ApplicationHelper
   end
 
   def show_social?
-    #!is_mobile_request? && (!user_signed_in? || current_user.preferences.show_social_buttons?)
     false
   end
 
@@ -31,7 +41,7 @@ module ApplicationHelper
 
     if fix_1_day
       if fix_1_month && date.day == 1 && date.month == 1
-        "#{date.year}"
+        date.year.to_s
       elsif fix_1_day && date.day == 1
         I18n.l date, format: :month_year_human
       else
@@ -94,11 +104,11 @@ module ApplicationHelper
   end
 
   # костыли для совместимости старого Devise с Rails 3.2
-  def password_path resource_name
+  def password_path _resource_name
     user_password_path
   end
 
-  def new_session_path resource_name
+  def new_session_path _resource_name
     new_user_session_path
   end
 

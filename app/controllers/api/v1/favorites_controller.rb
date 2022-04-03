@@ -17,6 +17,7 @@ class Api::V1::FavoritesController < Api::V1Controller
     DOC
   param :kind, :undef,
     required: false,
+    allow_blank: true,
     desc: <<~DOC
       <p>Required when <code>linked_type</code> is <code>Person</code></p>
       <p><strong>Validations:</strong></p>

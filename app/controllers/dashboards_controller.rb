@@ -8,11 +8,13 @@ class DashboardsController < ShikimoriController
   end
 
   def show
-    og type: 'website'
-    og page_title: i18n_t('page_title')
-    og description: i18n_t('description')
-    og image: "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}" \
-      '/favicons/opera-icon-228x228.png'
+    og(
+      type: 'website',
+      page_title: i18n_t('page_title'),
+      description: i18n_t('description'),
+      image: "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}" \
+        '/favicons/opera-icon-228x228.png'
+    )
 
     if @view.is_a? DashboardViewV2
       render :show_v2
@@ -22,6 +24,7 @@ class DashboardsController < ShikimoriController
   end
 
   def dynamic
+    render :dynamic, formats: :html
   end
 
   def data_deletion

@@ -24,7 +24,7 @@ describe PagesController do
     it do
       expect(assigns :collection).to have(1).item
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/rss+xml'
+      expect(response.content_type).to eq 'application/rss+xml; charset=utf-8'
     end
   end
 
@@ -92,7 +92,7 @@ describe PagesController do
     subject! { get :tableau }
 
     it do
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end

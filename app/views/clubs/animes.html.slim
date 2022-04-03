@@ -14,4 +14,4 @@
       = render partial: 'animes/anime',
         collection: @resource.animes,
         locals: { cover_notice: :year_kind },
-        cached: ->(entry) { CacheHelper.keys entry, :relation }
+        cached: ->(entry) { cache_keys entry, :relation }

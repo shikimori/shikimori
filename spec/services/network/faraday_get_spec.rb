@@ -12,4 +12,14 @@ describe Network::FaradayGet, :vcr do
     let(:url) { 'http://www.tbs.co.jp/anime/drivehead' }
     it { expect(response.status).to eq 200 }
   end
+
+  context 'no url' do
+    let(:url) { '' }
+    it { expect(response).to be_nil }
+  end
+
+  context 'incorrect domain name' do
+    let(:url) { '.vk.com/' }
+    it { expect(response).to be_nil }
+  end
 end

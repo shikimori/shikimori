@@ -1,7 +1,9 @@
 json.content JsExports::Supervisor.instance.sweep(
   render(
     partial: 'topics/topic',
-    locals: { topic_view: @topic_view },
+    locals: {
+      topic_view: @topic_view
+    },
     formats: :html
   )
 )

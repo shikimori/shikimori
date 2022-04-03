@@ -8,11 +8,16 @@ json.content JsExports::Supervisor.instance.sweep(
 )
 
 if @view.news_topic_views.next_page
-  json.postloader render 'blocks/postloader',
-    filter: 'b-topic',
-    next_url: root_page_url(page: @view.news_topic_views.next_page),
-    prev_url: @view.news_topic_views.prev_page ?
-      root_page_url(page: @view.news_topic_views.prev_page) : nil
+  json.postloader render(
+    partial: 'blocks/postloader',
+    locals: {
+      filter: 'b-topic',
+      next_url: root_page_url(page: @view.news_topic_views.next_page),
+      prev_url: @view.news_topic_views.prev_page ?
+        root_page_url(page: @view.news_topic_views.prev_page) : nil
+    },
+    formats: :html
+  )
 end
 
 json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)

@@ -395,7 +395,7 @@ describe TopicsController do
       subject! { post :destroy, params: { id: topic.id } }
 
       it do
-        expect(response.content_type).to eq 'application/json'
+        expect(response.content_type).to eq 'application/json; charset=utf-8'
         expect(response).to have_http_status :success
       end
     end

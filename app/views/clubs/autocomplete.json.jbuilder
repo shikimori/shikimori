@@ -3,7 +3,9 @@ json.array! @collection.reverse do |club|
   json.value club.name
   json.label render(
     partial: 'suggest',
-    locals: { club: club },
+    locals: {
+      club: club
+    },
     formats: :html
   )
   json.url club_url(club)

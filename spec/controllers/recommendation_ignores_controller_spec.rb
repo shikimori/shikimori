@@ -23,7 +23,7 @@ describe RecommendationIgnoresController do
 
       expect(json).to eq [anime.id]
 
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end

@@ -5,7 +5,7 @@ describe Api::V1::StudiosController, :show_in_doc do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 end

@@ -1,4 +1,4 @@
-# class Api::V2::Users::SignupController < Api::V2Controller
+class Api::V2::Users::SignupController < Api::V2Controller
 #   before_action :doorkeeper_authorize!
 #   before_action :check_application_oauth_token
 #
@@ -85,4 +85,4 @@
 #   def create_params
 #     params.require(:user).permit(:email, :nickname, :password)
 #   end
-# end
+end

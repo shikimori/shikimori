@@ -9,7 +9,7 @@
   = render partial: "#{collection.kind.pluralize}/#{collection.kind}",
     collection: collection.entries_sample,
     locals: { cover_notice: :none },
-    cached: ->(entry) { CacheHelper.keys entry, :none }
+    cached: ->(entry) { cache_keys entry, :none }
 
   - if collection.entries_sample.size < collection.size
     .c-column.b-catalog_entry

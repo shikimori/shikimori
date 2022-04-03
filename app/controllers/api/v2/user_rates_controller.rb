@@ -16,11 +16,18 @@ class Api::V2::UserRatesController < Api::V2Controller
   end
 
   api :GET, '/v2/user_rates', 'List user rates'
-  param :user_id, :number, required: false
-  param :target_id, :number, required: false
-  param :target_type, %w[Anime Manga], required: false
+  param :user_id, :number,
+    required: false,
+    allow_blank: true
+  param :target_id, :number,
+    required: false,
+    allow_blank: true
+  param :target_type, %w[Anime Manga],
+    required: false,
+    allow_blank: true
   param :status, :undef,
     required: false,
+    allow_blank: true,
     desc: I18n.t('activerecord.attributes.user_rate.statuses.anime', locale: :en)
       .map { |(k, v)| "<p><code>#{k}</code> &ndash; #{ERB::Util.h v}</p>" }
       .join('') + <<~DOC
@@ -71,12 +78,12 @@ class Api::V2::UserRatesController < Api::V2Controller
     param :target_type, %w[Anime Manga], required: true
     param :status, :undef, required: false
     # param :status, UserRate.statuses.keys, required: true
-    param :score, :undef, required: false
-    param :chapters, :undef, required: false
-    param :episodes, :undef, required: false
-    param :volumes, :undef, required: false
-    param :rewatches, :undef, required: false
-    param :text, String, required: false
+    param :score, :undef, required: false, allow_blank: true
+    param :chapters, :undef, required: false, allow_blank: true
+    param :episodes, :undef, required: false, allow_blank: true
+    param :volumes, :undef, required: false, allow_blank: true
+    param :rewatches, :undef, required: false, allow_blank: true
+    param :text, String, required: false, allow_blank: true
   end
   def create
     Retryable.retryable tries: 2, on: UNIQ_EXCEPTIONS, sleep: 1 do
@@ -102,12 +109,12 @@ class Api::V2::UserRatesController < Api::V2Controller
   param :user_rate, Hash do
     param :status, :undef, required: false
     # param :status, UserRate.statuses.keys, required: false
-    param :score, :undef, required: false
-    param :chapters, :undef, required: false
-    param :episodes, :undef, required: false
-    param :volumes, :undef, required: false
-    param :rewatches, :undef, required: false
-    param :text, String, required: false
+    param :score, :undef, required: false, allow_blank: true
+    param :chapters, :undef, required: false, allow_blank: true
+    param :episodes, :undef, required: false, allow_blank: true
+    param :volumes, :undef, required: false, allow_blank: true
+    param :rewatches, :undef, required: false, allow_blank: true
+    param :text, String, required: false, allow_blank: true
   end
   def update
     update_rate @resource
@@ -144,7 +151,7 @@ class Api::V2::UserRatesController < Api::V2Controller
       )
     end
 
-    head 204
+    head :no_content # 204
   end
 
 private

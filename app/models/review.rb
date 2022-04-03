@@ -1,7 +1,7 @@
 class Review < ApplicationRecord
   include AntispamConcern
-  include Commentable
-  include Moderatable
+  include Behaviour::Commentable
+  include Behaviour::Moderatable
   include TopicsConcern
 
   antispam(
@@ -31,7 +31,7 @@ class Review < ApplicationRecord
   validates :body,
     presence: true,
     length: { minimum: MIN_BODY_SIZE },
-    unless: -> { @is_migration }
+    if: -> { !@is_migration || will_save_change_to_body? }
   validates :user_id,
     uniqueness: { scope: %i[anime_id] },
     if: :anime?

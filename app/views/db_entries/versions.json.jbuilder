@@ -8,9 +8,12 @@ json.content render(
 
 if collection.next_page?
   json.postloader render(
-    'blocks/postloader',
-    filter: 'b-log_entry',
-    next_url: current_url(page: collection.next_page),
-    prev_url: (current_url(page: collection.prev_page) if collection.prev_page?)
+    partial: 'blocks/postloader',
+    locals: {
+      filter: 'b-log_entry',
+      next_url: current_url(page: collection.next_page),
+      prev_url: (current_url(page: collection.prev_page) if collection.prev_page?)
+    },
+    formats: :html
   )
 end

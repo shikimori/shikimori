@@ -18,7 +18,9 @@ class Api::V1::ClubsController < Api::V1Controller
   api :GET, '/clubs', 'List clubs'
   param :page, :pagination, required: false
   param :limit, :number, required: false, desc: "#{LIMIT} maximum"
-  param :search, String, required: false
+  param :search, String,
+    required: false,
+    allow_blank: true
   def index
     page = [params[:page].to_i, 1].max
     limit = [[params[:limit].to_i, 1].max, LIMIT].min

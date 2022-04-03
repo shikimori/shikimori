@@ -10,10 +10,13 @@ json.content JsExports::Supervisor.instance.sweep(
 
 if @collection.next_page?
   json.postloader render(
-    'blocks/postloader',
-    filter: 'b-collection-topic',
-    next_url: collections_club_url(@resource, page: @collection.next_page),
-    prev_url: (collections_club_url(@resource, page: @collection.prev_page) if @collection.prev_page?) # rubocop:disable LineLength
+    partial: 'blocks/postloader',
+    locals: {
+      filter: 'b-collection-topic',
+      next_url: collections_club_url(@resource, page: @collection.next_page),
+      prev_url: (collections_club_url(@resource, page: @collection.prev_page) if @collection.prev_page?) # rubocop:disable LineLength
+    },
+    formats: :html
   )
 end
 

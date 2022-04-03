@@ -29,7 +29,7 @@ describe Api::V1::UsersController, :show_in_doc do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(collection).to eq [user_1, user_2]
     end
   end
@@ -40,7 +40,7 @@ describe Api::V1::UsersController, :show_in_doc do
     it do
       expect(json).to_not have_key :email
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 
@@ -49,7 +49,7 @@ describe Api::V1::UsersController, :show_in_doc do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 

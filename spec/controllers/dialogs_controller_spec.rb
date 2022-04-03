@@ -26,7 +26,7 @@ describe DialogsController do
     before { delete :destroy, params: { profile_id: user.to_param, id: message } }
 
     it do
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect { message.reload }.to raise_error ActiveRecord::RecordNotFound
       expect(response).to have_http_status :success
     end

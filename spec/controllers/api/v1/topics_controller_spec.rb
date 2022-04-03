@@ -21,7 +21,7 @@ describe Api::V1::TopicsController do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 
@@ -52,7 +52,7 @@ describe Api::V1::TopicsController do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 
@@ -71,7 +71,7 @@ describe Api::V1::TopicsController do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 
@@ -82,7 +82,7 @@ describe Api::V1::TopicsController do
     let(:params) do
       {
         user_id: user.id,
-        forum_id: animanga_forum.id,
+        forum_id: forum_id,
         title: title,
         body: 'text',
         type: Topic.name,
@@ -90,15 +90,23 @@ describe Api::V1::TopicsController do
         linked_type: Anime.name
       }
     end
+    let(:forum_id) { animanga_forum.id }
+    let(:title) { 'zxc' }
 
     context 'success', :show_in_doc do
-      let(:title) { 'zxc' }
       it_behaves_like :successful_resource_change, :api
     end
 
     context 'failure' do
-      let(:title) { '' }
-      it_behaves_like :failed_resource_change
+      context 'title change' do
+        let(:title) { '' }
+        it_behaves_like :failed_resource_change, true
+      end
+
+      context 'forum_id change' do
+        let(:forum_id) { 0 }
+        it_behaves_like :failed_resource_change
+      end
     end
   end
 
@@ -128,7 +136,7 @@ describe Api::V1::TopicsController do
 
       it do
         expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'application/json'
+        expect(response.content_type).to eq 'application/json; charset=utf-8'
         expect(json[:notice]).to eq 'Топик удалён'
       end
     end

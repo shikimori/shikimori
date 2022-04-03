@@ -64,11 +64,16 @@ describe PeopleController do
     let(:kind) { 'mangaka' }
 
     before { allow(Autocomplete::Person).to receive(:call).and_return [person] }
-    subject! { get :autocomplete, params: { search: 'Fff', kind: kind }, xhr: true }
+    subject! do
+      get :autocomplete,
+        params: { search: 'Fff', kind: kind },
+        xhr: true,
+        format: :json
+    end
 
     it do
       expect(collection).to eq [person]
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -86,7 +91,7 @@ describe PeopleController do
 
     it do
       expect(collection).to eq [entry]
-      expect(response.content_type).to eq 'text/html'
+      expect(response.content_type).to eq 'text/html; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end

@@ -8,9 +8,12 @@ json.content JsExports::Supervisor.instance.sweep(
 
 if @add_postloader
   json.postloader render(
-    'blocks/postloader',
-    filter: 'b-dialog',
-    next_url: index_profile_dialogs_url(@resource, page: @page + 1)
+    partial: 'blocks/postloader',
+    locals: {
+      filter: 'b-dialog',
+      next_url: index_profile_dialogs_url(@resource, page: @page + 1)
+    },
+    formats: :html
   )
 end
 

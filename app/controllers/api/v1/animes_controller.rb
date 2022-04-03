@@ -94,10 +94,17 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
   DOC
   param :page, :pagination, required: false
   param :limit, :number, required: false, desc: "#{LIMIT} maximum"
-  param :order, ORDERS, required: false, desc: ORDERS_DESC
-  param :type, :undef, required: false, desc: 'Deprecated'
+  param :order, ORDERS,
+    required: false,
+    allow_blank: true,
+    desc: ORDERS_DESC
+  param :type, :undef,
+    required: false,
+    allow_blank: true,
+    desc: 'Deprecated'
   param :kind, :undef,
     required: false,
+    allow_blank: true,
     desc: <<~DOC
       <p><strong>Validations:</strong></p>
       <ul>
@@ -109,6 +116,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     DOC
   param :status, :undef,
     required: false,
+    allow_blank: true,
     desc: <<~DOC
       <p><strong>Validations:</strong></p>
       <ul>
@@ -120,6 +128,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     DOC
   param :season, :undef,
     required: false,
+    allow_blank: true,
     desc: <<~DOC
       <p><strong>Examples:</strong></p>
       <p><code>summer_2017</code></p>
@@ -127,23 +136,37 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
       <p><code>2014_2016</code></p>
       <p><code>199x</code></p>
     DOC
-  param :score, :number, required: false, desc: 'Minimal anime score'
-  param :duration, :undef, required: false, desc: DURATIONS_DESC
-  param :rating, :undef, required: false, desc: RATINGS_DESC
+  param :score, :number,
+    required: false,
+    allow_blank: true,
+    desc: 'Minimal anime score'
+  param :duration, :undef,
+    required: false,
+    allow_blank: true,
+    desc: DURATIONS_DESC
+  param :rating, :undef,
+    required: false,
+    allow_blank: true,
+    desc: RATINGS_DESC
   param :genre, :undef,
     required: false,
+    allow_blank: true,
     desc: 'List of genre ids separated by comma'
   param :studio, :undef,
     required: false,
+    allow_blank: true,
     desc: 'List of studio ids separated by comma'
   param :franchise, :undef,
     required: false,
+    allow_blank: true,
     desc: 'List of franchises separated by comma'
   param :censored, %w[true false],
     required: false,
+    allow_blank: true,
     desc: 'Set to `false` to allow hentai, yaoi and yuri'
   param :mylist, :undef,
     required: false,
+    allow_blank: true,
     desc: <<~DOC
       <p>Status of manga in current user list</p>
       <p><strong>Validations:</strong></p>
@@ -156,12 +179,15 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     DOC
   param :ids, :undef,
     required: false,
+    allow_blank: true,
     desc: 'List of anime ids separated by comma'
   param :exclude_ids, :undef,
     required: false,
+    allow_blank: true,
     desc: 'List of anime ids separated by comma'
   param :search, String,
     required: false,
+    allow_blank: true,
     desc: 'Search phrase to filter animes by `name`'
   def index
     limit = [[params[:limit].to_i, 1].max, LIMIT].min

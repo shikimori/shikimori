@@ -1,7 +1,7 @@
 if @favourites&.any?
   json.content JsExports::Supervisor.instance.sweep(
     render(
-      'clubs/collection',
+      partial: 'clubs/collection',
       formats: :html
     )
   )
@@ -10,18 +10,23 @@ else
     render(
       partial: 'clubs/club',
       collection: @collection,
-      locals: { content_by: :detailed },
-      cached: ->(entry) { CacheHelper.keys entry, :detailed },
+      locals: {
+        content_by: :detailed
+      },
+      cached: ->(entry) { cache_keys entry, :detailed },
       formats: :html
     )
   )
 
   if @collection.next_page?
     json.postloader render(
-      'blocks/postloader',
-      filter: 'b-club',
-      next_url: clubs_url(page: @collection.next_page, search: params[:search]),
-      prev_url: (clubs_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?) # rubocop:disable LineLength
+      partial: 'blocks/postloader',
+      locals: {
+        filter: 'b-club',
+        next_url: clubs_url(page: @collection.next_page, search: params[:search]),
+        prev_url: (clubs_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?) # rubocop:disable LineLength
+      },
+      formats: :html
     )
   end
 end

@@ -25,6 +25,83 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ''
-    http_version: 
   recorded_at: Mon, 11 Dec 2017 14:20:43 GMT
-recorded_with: VCR 4.0.0
+- request:
+    method: get
+    uri: https://www.gravatar.com/avatar/9b9475217da7067487a956381c3da802?d=identicon&s=160
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Thu, 31 Mar 2022 21:14:22 GMT
+      Content-Type:
+      - image/png
+      Content-Length:
+      - '2164'
+      Connection:
+      - keep-alive
+      Last-Modified:
+      - Wed, 11 Jan 1984 08:00:00 GMT
+      Link:
+      - <https://www.gravatar.com/avatar/9b9475217da7067487a956381c3da802?s=160&d=identicon>;
+        rel="canonical"
+      Access-Control-Allow-Origin:
+      - "*"
+      Expires:
+      - Thu, 31 Mar 2022 21:19:22 GMT
+      Cache-Control:
+      - max-age=300
+      X-Nc:
+      - MISS arn 4
+      Accept-Ranges:
+      - bytes
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        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
+  recorded_at: Thu, 31 Mar 2022 21:14:22 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_users/user/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":23456806}}
+        {"nickname":"testzxc123gmail.com","weight":0.9768637532133676}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.9; darwin x86_64; Faraday v1.8.0)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '209'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":289,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23456806","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":11,"_primary_term":13,"status":201}}]}'
+  recorded_at: Thu, 31 Mar 2022 21:14:23 GMT
+recorded_with: VCR 6.1.0

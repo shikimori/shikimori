@@ -18,7 +18,8 @@ private
     Message.where(to_id: id)
       .where(kind: MessageType::PRIVATE)
       .where(read: false)
-      .where.not(from_id: ignored_user_ids, to_id: ignored_user_ids)
+      .where.not(from_id: ignored_user_ids)
+      .where.not(to_id: ignored_user_ids)
       .count
   end
 
@@ -27,7 +28,8 @@ private
     Message.where(to_id: id)
       .where(kind: Messages::Query::NEWS_KINDS)
       .where(read: false)
-      .where.not(from_id: ignored_user_ids, to_id: ignored_user_ids)
+      .where.not(from_id: ignored_user_ids)
+      .where.not(to_id: ignored_user_ids)
       .count
   end
 
@@ -36,7 +38,8 @@ private
     Message.where(to_id: id)
       .where(kind: Messages::Query::NOTIFICATION_KINDS)
       .where(read: false)
-      .where.not(from_id: ignored_user_ids, to_id: ignored_user_ids)
+      .where.not(from_id: ignored_user_ids)
+      .where.not(to_id: ignored_user_ids)
       .count
   end
 

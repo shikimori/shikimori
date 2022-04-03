@@ -2,10 +2,10 @@
 
 class Topic < ApplicationRecord # rubocop:disable ClassLength
   include AntispamConcern
-  include Commentable
+  include Behaviour::Commentable
   include DecomposableBodyConcern
-  include Moderatable
-  include Viewable
+  include Behaviour::Moderatable
+  include Behaviour::Viewable
 
   antispam(
     interval: 1.minute,

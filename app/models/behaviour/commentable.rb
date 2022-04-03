@@ -1,5 +1,5 @@
 # refactor to models/concerns
-module Commentable
+module Behaviour::Commentable
   extend ActiveSupport::Concern
 
   included do

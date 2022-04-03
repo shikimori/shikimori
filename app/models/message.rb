@@ -15,7 +15,6 @@ class Message < ApplicationRecord
     user_id_key: :from_id
   )
 
-  validates :from, :to, presence: true
   validates :body,
     presence: true,
     length: { minimum: 2, maximum: 20_000 },

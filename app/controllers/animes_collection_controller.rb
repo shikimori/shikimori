@@ -75,11 +75,17 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
       .map(&:decorate)
   end
 
-  def autocomplete_v2 # rubocop:disable Naming/VariableNumber
+  def autocomplete_v2
     og noindex: true, nofollow: true
 
     autocomplete
     @collection = @collection.map(&:decorate)
+  end
+
+  def menu
+    render partial: 'animes_collection/menu',
+      locals: { menu: @menu },
+      formats: :html
   end
 
 private

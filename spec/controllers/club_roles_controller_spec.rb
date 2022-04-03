@@ -46,13 +46,14 @@ describe ClubRolesController do
           club_id: club.to_param,
           search: user.nickname
         },
-        xhr: true
+        xhr: true,
+        format: :json
     end
 
     it do
       expect(collection).to eq [user]
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 end

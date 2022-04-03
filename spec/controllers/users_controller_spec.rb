@@ -33,12 +33,17 @@ describe UsersController do
         user_2.id => 111
       )
     end
-    subject! { get :autocomplete, params: { search: phrase }, xhr: true }
+    subject! do
+      get :autocomplete,
+        params: { search: phrase },
+        xhr: true,
+        format: :json
+    end
 
     it do
       expect(collection).to eq [user_1, user_2]
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 end

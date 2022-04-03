@@ -97,7 +97,7 @@ describe Moderations::VersionsController do
 
     it do
       expect(resource).to be_accepted
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -107,7 +107,7 @@ describe Moderations::VersionsController do
 
     it do
       expect(resource).to be_taken
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -117,7 +117,7 @@ describe Moderations::VersionsController do
 
     it do
       expect(resource).to be_rejected
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -133,7 +133,7 @@ describe Moderations::VersionsController do
 
     it do
       expect(resource).to be_accepted
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -149,7 +149,7 @@ describe Moderations::VersionsController do
 
     it do
       expect(resource).to be_taken
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -161,7 +161,7 @@ describe Moderations::VersionsController do
       subject! { make_request }
       it do
         expect(resource).to be_deleted
-        expect(response.content_type).to eq 'application/json'
+        expect(response.content_type).to eq 'application/json; charset=utf-8'
         expect(response).to have_http_status :success
       end
     end
@@ -172,7 +172,7 @@ describe Moderations::VersionsController do
 
       it do
         expect(resource).to be_deleted
-        expect(response.content_type).to eq 'application/json'
+        expect(response.content_type).to eq 'application/json; charset=utf-8'
         expect(response).to have_http_status :success
       end
     end
@@ -198,13 +198,14 @@ describe Moderations::VersionsController do
         params: {
           search: 'user_'
         },
-        xhr: true
+        xhr: true,
+        format: :json
     end
 
     it do
       expect(collection).to eq [user, user_2]
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 
@@ -214,7 +215,8 @@ describe Moderations::VersionsController do
         params: {
           search: moderator.nickname
         },
-        xhr: true
+        xhr: true,
+        format: :json
     end
     let(:state) { 'accepted' }
     let(:moderator) { user }
@@ -222,7 +224,7 @@ describe Moderations::VersionsController do
     it do
       expect(collection).to eq [author]
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 end

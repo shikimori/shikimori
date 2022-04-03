@@ -73,7 +73,7 @@
               a.b-oauth_token.b-tooltipped.unprocessed[
                 class=provider
                 href=send(:"user_#{provider}_omniauth_authorize_url")
-                title=t('.enable_authentication', provider: "#{provider.to_s.titleize}#{'*' if provider == :facebool}")
+                title=t('.enable_authentication', provider: "#{provider.to_s.titleize}#{'*' if provider == :facebook}")
                 data-method='post'
                 data-direction='top'
               ]

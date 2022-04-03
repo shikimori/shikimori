@@ -1,1 +1,4 @@
-json.content render(partial: 'table', formats: :html)
+json.content render(
+  partial: 'table',
+  formats: :html
+)

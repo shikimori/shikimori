@@ -30,14 +30,14 @@ describe Api::V1::MessagesController do
       {
         kind: MessageType::PRIVATE,
         from_id: user.id,
-        to_id: user.id,
+        to_id: to_id,
         body: body
       }
     end
+    let(:to_id) { user.id }
+    let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
 
     context 'success' do
-      let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
-
       context 'frontend' do
         let(:is_frontend) { true }
         it_behaves_like :successful_resource_change, :frontend
@@ -50,7 +50,7 @@ describe Api::V1::MessagesController do
     end
 
     context 'failure' do
-      let(:body) { '' }
+      let(:to_id) { 0 }
 
       context 'frontend' do
         let(:is_frontend) { true }
@@ -96,12 +96,12 @@ describe Api::V1::MessagesController do
 
       context 'frontend' do
         let(:is_frontend) { true }
-        it_behaves_like :failed_resource_change
+        it_behaves_like :failed_resource_change, true
       end
 
       context 'api' do
         let(:is_frontend) { false }
-        it_behaves_like :failed_resource_change
+        it_behaves_like :failed_resource_change, true
       end
     end
   end

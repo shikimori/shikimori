@@ -14,7 +14,7 @@ describe CommentsController do
 
       it do
         expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'text/html'
+        expect(response.content_type).to eq 'text/html; charset=utf-8'
       end
     end
 
@@ -23,7 +23,7 @@ describe CommentsController do
 
       it do
         expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'application/json'
+        expect(response.content_type).to eq 'application/json; charset=utf-8'
       end
     end
 
@@ -133,7 +133,7 @@ describe CommentsController do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'text/html'
+      expect(response.content_type).to eq 'text/html; charset=utf-8'
     end
   end
 

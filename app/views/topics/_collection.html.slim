@@ -2,7 +2,7 @@
   = render partial: 'topics/topic',
     collection: forums_view.topic_views,
     as: :topic_view,
-    cached: ->(entry) { CacheHelper.keys entry }
+    cached: ->(entry) { cache_keys entry }
 
 - else
   .b-nothing_here = t 'no_topics'

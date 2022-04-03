@@ -4,7 +4,7 @@
     = render partial: 'clubs/club',
       collection: @favourites,
       locals: { content_by: :detailed },
-      cached: ->(entry) { CacheHelper.keys entry, :detailed, entry.maybe_topic(locale_from_host) }
+      cached: ->(entry) { cache_keys entry, :detailed, entry.maybe_topic(locale_from_host) }
 
   .subheadline = t '.all_clubs'
 
@@ -12,7 +12,7 @@
   = render partial: 'clubs/club',
     collection: @collection,
     locals: { content_by: :detailed },
-    cached: ->(entry) { CacheHelper.keys entry, :detailed, entry.maybe_topic(locale_from_host) }
+    cached: ->(entry) { cache_keys entry, :detailed, entry.maybe_topic(locale_from_host) }
 
   - if @collection.next_page?
     = render 'blocks/postloader', filter: 'b-club',

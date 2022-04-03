@@ -31,12 +31,12 @@ class Api::V1::UserRatesController < Api::V1Controller
     param :target_type, %w[Anime Manga], required: true
     param :status, :undef, required: true
     # param :status, UserRate.statuses.keys, required: true
-    param :score, :undef, required: false
-    param :chapters, :undef, required: false
-    param :episodes, :undef, required: false
-    param :volumes, :undef, required: false
-    param :rewatches, :undef, required: false
-    param :text, String, required: false
+    param :score, :undef, required: false, allow_blank: true
+    param :chapters, :undef, required: false, allow_blank: true
+    param :episodes, :undef, required: false, allow_blank: true
+    param :volumes, :undef, required: false, allow_blank: true
+    param :rewatches, :undef, required: false, allow_blank: true
+    param :text, String, required: false, allow_blank: true
   end
   def create
     Retryable.retryable tries: 2, on: UNIQ_EXCEPTIONS, sleep: 1 do
@@ -62,12 +62,12 @@ class Api::V1::UserRatesController < Api::V1Controller
   param :user_rate, Hash do
     param :status, :undef, required: false
     # param :status, UserRate.statuses.keys, required: true
-    param :score, :undef, required: false
-    param :chapters, :undef, required: false
-    param :episodes, :undef, required: false
-    param :volumes, :undef, required: false
-    param :rewatches, :undef, required: false
-    param :text, String, required: false
+    param :score, :undef, required: false, allow_blank: true
+    param :chapters, :undef, required: false, allow_blank: true
+    param :episodes, :undef, required: false, allow_blank: true
+    param :volumes, :undef, required: false, allow_blank: true
+    param :rewatches, :undef, required: false, allow_blank: true
+    param :text, String, required: false, allow_blank: true
   end
   def update
     update_rate @resource

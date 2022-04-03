@@ -19,7 +19,7 @@ describe Api::V1::CalendarsController, :show_in_doc do
       expect(collection).to have(4).items
 
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 end

@@ -14,7 +14,7 @@ describe DashboardsController do
   end
 
   describe '#dynamic' do
-    subject! { get :dynamic }
+    subject! { get :dynamic, xhr: true }
     it { expect(response).to have_http_status :success }
   end
 

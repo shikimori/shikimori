@@ -3,6 +3,6 @@ FactoryBot.define do
     source { nil }
     anime { nil }
     manga { nil }
-    relation { 'test' }
+    relation { 'Other' }
   end
 end

@@ -47,7 +47,7 @@ class Profiles::View < ViewObjectBase
     return if censored_profile?
 
     text = @user.about || ''
-    cache_key = CacheHelper.keys(
+    cache_key = CacheHelperInstance.cache_keys(
       @user.cache_key,
       XXhash.xxh32(text),
       CACHE_VERSION

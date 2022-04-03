@@ -10,7 +10,7 @@ class Network::FaradayGet
     URI::InvalidURIError, OpenURI::HTTPError,
     SocketError,
     Errno::ECONNRESET, Errno::ETIMEDOUT, Errno::EMFILE, Errno::EADDRNOTAVAIL, Errno::EINVAL,
-    Faraday::ConnectionFailed, Faraday::TimeoutError,
+    Faraday::ConnectionFailed, Faraday::TimeoutError, FaradayMiddleware::RedirectLimitReached,
     (Addressable::URI::InvalidURIError if defined? Addressable)
   ].compact
 
@@ -20,6 +20,8 @@ class Network::FaradayGet
     nil
   rescue NoMethodError => error # thrown when @url == ''
     raise unless error.message == "undefined method `include?' for nil:NilClass"
+  rescue ArgumentError => error
+    raise unless error.message.starts_with? 'domain name must not start with a dot'
   end
 
 private
