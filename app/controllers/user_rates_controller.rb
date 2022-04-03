@@ -27,6 +27,7 @@ class UserRatesController < ProfilesController
   end
 
   def edit
+    render :edit, formats: :html
   end
 
 private
