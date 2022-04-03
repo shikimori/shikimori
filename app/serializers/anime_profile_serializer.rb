@@ -12,14 +12,14 @@ class AnimeProfileSerializer < AnimeSerializer
   has_many :videos
   has_many :screenshots
 
-  has_one :user_rate
+  has_one :user_rate, serializer: UserRateFullSerializer
 
   def description
     object.description.text
   end
 
   def user_rate
-    UserRateFullSerializer.new(object.current_rate) if object.current_rate
+    object.current_rate
   end
 
   # TODO: deprecated
