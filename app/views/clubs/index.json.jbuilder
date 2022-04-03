@@ -1,7 +1,7 @@
 if @favourites&.any?
   json.content JsExports::Supervisor.instance.sweep(
     render(
-      'clubs/collection',
+      partial: 'clubs/collection',
       formats: :html
     )
   )
