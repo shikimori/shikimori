@@ -9,8 +9,10 @@ class Comment::Create
     end
     @faye.create comment
 
-    notify_user comment if profile_comment?
-    touch_topic comment if topic_comment? || db_entry_comment?
+    if comment.persisted?
+      notify_user comment if profile_comment?
+      touch_topic comment if topic_comment? || db_entry_comment?
+    end
 
     comment
   end
