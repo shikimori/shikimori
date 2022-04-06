@@ -186,6 +186,7 @@ class AnimesController < DbEntriesController
 
   def other_names
     og noindex: true
+    render formats: :html
   end
 
   def episode_torrents
@@ -216,6 +217,10 @@ class AnimesController < DbEntriesController
       user: current_user
     )
     redirect_back fallback_location: @resource.edit_url
+  end
+
+  def tooltip
+    render formats: :html
   end
 
 private

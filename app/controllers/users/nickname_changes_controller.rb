@@ -6,5 +6,6 @@ class Users::NicknameChangesController < ProfilesController
   def index
     og noindex: true, nofollow: true
     @collection = Users::NicknameChangesQuery.call(@user, can?(:manage, Ban))
+    render formats: :html
   end
 end
