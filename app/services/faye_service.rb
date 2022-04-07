@@ -58,7 +58,7 @@ class FayeService
   def convert_review forum_entry, is_convert_to_review
     new_entry =
       if is_convert_to_review && forum_entry.is_a?(Comment)
-        Comment::ConvertToReview.call forum_entry
+        Comment::ConvertToReview.call comment: forum_entry, actor: @actor
       elsif !is_convert_to_review && forum_entry.is_a?(Topic)
         Review::ConvertToComment.call forum_entry.linked
       end

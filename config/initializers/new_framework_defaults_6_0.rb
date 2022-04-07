@@ -43,3 +43,8 @@
 # `ActiveRecord::Relation` changes by moving the volatile information (max updated at and count)
 # of the relation's cache key into the cache version to support recycling cache key.
 # Rails.application.config.active_record.collection_cache_versioning = true
+
+# TODO: remove and replace .cache_key with .cache_key_with_version
+# after upgrade to rails 6.1 https://apidock.com/rails/v6.0.0/ActiveRecord/Relation/cache_key
+ActiveRecord::Base.collection_cache_versioning = false
+Rails.application.config.active_record.collection_cache_versioning = false

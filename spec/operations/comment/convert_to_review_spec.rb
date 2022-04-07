@@ -1,6 +1,11 @@
 describe Comment::ConvertToReview do
-  subject(:review) { described_class.call comment, options }
-  let(:options) { {} }
+  subject(:review) do
+    described_class.call(
+      comment: comment,
+      actor: actor,
+      is_keep_comment: is_keep_comment
+    )
+  end
   let(:comment) do
     create :comment,
       id: 99999,
@@ -9,6 +14,9 @@ describe Comment::ConvertToReview do
       created_at: 1.day.ago,
       updated_at: 1.hour.ago
   end
+  let(:is_keep_comment) { nil }
+  let(:actor) { user_3 }
+
   let(:anime_topic) { create :anime_topic, linked: anime }
   let(:anime) { create :anime }
 
@@ -24,7 +32,15 @@ describe Comment::ConvertToReview do
   end
   let!(:reply_3) { create :comment, commentable: anime_topic }
 
-  let!(:abuse_request) { create :abuse_request, comment: comment }
+  let!(:other_abuse_request) do
+    create :abuse_request, :summary, comment: comment
+  end
+  let!(:offtopic_abuse_request) do
+    create :abuse_request, :offtopic, comment: comment
+  end
+  let!(:convert_review_abuse_request) do
+    create :abuse_request, :convert_review, comment: comment
+  end
   let!(:ban) { create :ban, :no_callbacks, comment: comment, moderator: user }
 
   it do
@@ -45,9 +61,23 @@ describe Comment::ConvertToReview do
     expect(review_topic).to be_kind_of Topics::EntryTopics::ReviewTopic
 
     expect { comment.reload }.to raise_error ActiveRecord::RecordNotFound
-    expect(abuse_request.reload).to have_attributes(
+    expect(other_abuse_request.reload).to have_attributes(
+      state: 'pending',
       comment_id: nil,
-      topic_id: review_topic.id
+      topic_id: review_topic.id,
+      approver_id: nil
+    )
+    expect(offtopic_abuse_request.reload).to have_attributes(
+      state: 'rejected',
+      comment_id: nil,
+      topic_id: review_topic.id,
+      approver_id: actor.id
+    )
+    expect(convert_review_abuse_request.reload).to have_attributes(
+      state: 'accepted',
+      comment_id: nil,
+      topic_id: review_topic.id,
+      approver_id: actor.id
     )
     expect(ban.reload).to have_attributes(
       comment_id: nil,
@@ -62,7 +92,7 @@ describe Comment::ConvertToReview do
   end
 
   context 'is_keep_comment' do
-    let(:options) { { is_keep_comment: true } }
+    let(:is_keep_comment) { true }
 
     it do
       is_expected.to be_persisted

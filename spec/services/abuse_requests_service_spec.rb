@@ -95,7 +95,7 @@ describe AbuseRequestsService do
     context 'converting comment' do
       let(:commentable) { anime_topic }
 
-      context 'allowed direct change' do
+      context 'allowed direct change', :focus do
         it do
           expect { act }.to_not change AbuseRequest, :count
           expect { comment.reload }.to raise_error ActiveRecord::RecordNotFound

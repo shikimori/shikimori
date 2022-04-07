@@ -10,6 +10,12 @@ FactoryBot.define do
     state { 'pending' }
     value { true }
 
+    AbuseRequest.kind.values.each do |kind_type|
+      trait kind_type do
+        kind { kind_type }
+      end
+    end
+
     factory :accepted_abuse_request do
       state { 'accepted' }
       approver { seed :user }

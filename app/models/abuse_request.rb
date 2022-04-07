@@ -55,16 +55,19 @@ class AbuseRequest < ApplicationRecord
     before_transition pending: :accepted do |abuse_request, transition|
       abuse_request.approver = transition.args.first
       faye_token = transition.args.second
+      assign_approver_option = transition.args.third
 
-      faye = FayeService.new abuse_request.approver, faye_token
+      unless assign_approver_option == :skip
+        faye = FayeService.new abuse_request.approver, faye_token
 
-      # process offtopic and summary requests only
-      if faye.respond_to? abuse_request.kind
-        abuse_request.affected_ids = faye.public_send(
-          abuse_request.kind,
-          abuse_request.comment || abuse_request.topic,
-          abuse_request.value
-        )
+        # process offtopic and summary requests only
+        if faye.respond_to? abuse_request.kind
+          abuse_request.affected_ids = faye.public_send(
+            abuse_request.kind,
+            abuse_request.comment || abuse_request.topic,
+            abuse_request.value
+          )
+        end
       end
     end
 

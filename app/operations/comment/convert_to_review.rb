@@ -1,5 +1,11 @@
 class Comment::ConvertToReview
-  method_object :comment, %i[normalization rates_fetcher is_keep_comment]
+  method_object %i[
+    comment
+    actor
+    normalization
+    rates_fetcher
+    is_keep_comment
+  ]
   delegate :user, to: :comment
 
   def call # rubocop:disable MethodLength
@@ -19,7 +25,9 @@ class Comment::ConvertToReview
           to_reply: review_topic
         )
 
-        move_comment_relations review_topic
+        close_offtopic_abuse_requests
+        accept_convert_to_review_abuse_requests
+        move_abuse_requests_and_bans review_topic
         @comment.destroy!
       end
 
@@ -43,9 +51,23 @@ private
     )
   end
 
-  def move_comment_relations review_topic
-    @comment.bans.update_all comment_id: nil, topic_id: review_topic.id
+  def close_offtopic_abuse_requests
+    @comment.abuse_requests
+      .where(state: :pending)
+      .where(kind: Types::AbuseRequest::Kind[:offtopic])
+      .each { |abuse_request| abuse_request.reject @actor }
+  end
+
+  def accept_convert_to_review_abuse_requests
+    @comment.abuse_requests
+      .where(state: :pending)
+      .where(kind: Types::AbuseRequest::Kind[:convert_review])
+      .each { |abuse_request| abuse_request.take @actor, nil, :skip }
+  end
+
+  def move_abuse_requests_and_bans review_topic
     @comment.abuse_requests.update_all comment_id: nil, topic_id: review_topic.id
+    @comment.bans.update_all comment_id: nil, topic_id: review_topic.id
   end
 
   def db_entry

@@ -24,7 +24,8 @@ class AbuseRequestsService
   end
 
   def convert_review _faye_token
-    unless forum_entry.is_a?(Comment) || forum_entry.is_a?(Topics::EntryTopics::ReviewTopic)
+    unless forum_entry.is_a?(Comment) ||
+        forum_entry.is_a?(Topics::EntryTopics::ReviewTopic)
       raise CanCan::AccessDenied
     end
 

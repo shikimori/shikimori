@@ -471,8 +471,8 @@ Review.
   # where(user_id: 1).
   includes(:comments, :topics).
   find_each do |review|
-    puts review.id
     next unless review.maybe_topic(:ru).is_a?(NoTopic)
+    puts review.id
 
     Review.transaction do
       review.send :generate_topics, review.locale

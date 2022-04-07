@@ -197,7 +197,11 @@ describe FayeService do
     let(:anime) { create :anime }
 
     context 'comment' do
-      let(:forum_entry) { create :comment, commentable: anime_topic }
+      let(:forum_entry) do
+        create :comment,
+          commentable: anime_topic,
+          body: 'z' * Review::MIN_BODY_SIZE
+      end
 
       context 'is_convert_to_review' do
         let(:is_convert_to_review) { true }
@@ -207,7 +211,7 @@ describe FayeService do
           is_expected.to be_persisted
           expect(Comment::ConvertToReview)
             .to have_received(:call)
-            .with(forum_entry)
+            .with(comment: forum_entry, actor: user)
           expect(Review::ConvertToComment).to_not have_received :call
         end
       end
