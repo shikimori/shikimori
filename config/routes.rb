@@ -112,7 +112,7 @@ Rails.application.routes.draw do
     collection do
       get :smileys
       post :preview
-      get 'fetch/:comment_id/:topic_type/:topic_id(/:is_summary)/:skip/:limit' => :fetch,
+      get 'fetch/:comment_id/:topic_type/:topic_id/:skip/:limit' => :fetch,
         as: :fetch,
         topic_type: /Topic|User/
       get 'replies/:comment_id/:skip/:limit' => :replies, as: :replies

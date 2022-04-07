@@ -305,30 +305,6 @@ describe Comment do
       end
     end
 
-    describe '#allowed_summary?' do
-      let(:comment) { build :comment, commentable: commentable }
-
-      context 'Topic commentable' do
-        let(:commentable) { build :topic }
-        it { expect(comment).to_not be_allowed_summary }
-      end
-
-      context 'Topics::EntryTopics::AnimeTopic commentable' do
-        let(:commentable) { build :anime_topic }
-        it { expect(comment).to be_allowed_summary }
-      end
-
-      context 'Topics::EntryTopics::MangaTopic commentable' do
-        let(:commentable) { build :manga_topic }
-        it { expect(comment).to be_allowed_summary }
-      end
-
-      context 'Topics::EntryTopics::RanobeTopic commentable' do
-        let(:commentable) { build :ranobe_topic }
-        it { expect(comment).to be_allowed_summary }
-      end
-    end
-
     describe '#mark_offtopic' do
       let!(:comment) { create :comment, is_offtopic: offtopic }
       let!(:inner_comment) do
@@ -353,25 +329,6 @@ describe Comment do
 
         it { expect(comment.reload).to_not be_offtopic }
         it { expect(inner_comment.reload).to be_offtopic }
-      end
-    end
-
-    describe '#mark_summary' do
-      let!(:comment) { create :comment, is_summary: is_summary }
-      before { comment.mark_summary flag }
-
-      context 'mark summary' do
-        let(:is_summary) { false }
-        let(:flag) { true }
-
-        it { expect(comment.reload).to be_summary }
-      end
-
-      context 'mark not summary' do
-        let(:is_summary) { true }
-        let(:flag) { false }
-
-        it { expect(comment.reload).to_not be_summary }
       end
     end
 

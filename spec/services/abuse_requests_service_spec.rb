@@ -12,12 +12,10 @@ describe AbuseRequestsService do
     create :comment,
       user: user_author,
       is_offtopic: is_offtopic,
-      is_summary: is_summary,
       created_at: created_at,
       commentable: commentable
   end
   let(:is_offtopic) { false }
-  let(:is_summary) { false }
   let(:created_at) { Time.zone.now }
   let(:commentable) { seed :offtopic_topic }
   let(:user_author) { seed :user }

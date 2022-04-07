@@ -4,7 +4,6 @@ FactoryBot.define do
     commentable { seed :offtopic_topic }
     sequence(:body) { |n| "comment_body_#{n}" }
     is_offtopic { false }
-    is_summary { false }
 
     after :build do |model|
       stub_method model, :antispam_checks

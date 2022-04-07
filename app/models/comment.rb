@@ -46,9 +46,6 @@ class Comment < ApplicationRecord
     length: { minimum: 2, maximum: 10_000 },
     if: -> { will_save_change_to_body? && !summary? }
 
-  # scopes
-  scope :summaries, -> { where is_summary: true }
-
   # callbacks
   before_validation :forbid_tags_change,
     if: -> { will_save_change_to_body? && !@is_migration }
@@ -150,11 +147,6 @@ class Comment < ApplicationRecord
     end
   end
 
-  def mark_summary flag
-    update is_summary: flag
-    [id]
-  end
-
   def forbid_tags_change
     Comments::ForbidTagChange.call(
       model: self,
@@ -169,12 +161,6 @@ class Comment < ApplicationRecord
       tag_regexp: /(\[broadcast\])/,
       tag_error_label: '[broadcast]'
     )
-  end
-
-  def allowed_summary?
-    commentable.instance_of?(Topics::EntryTopics::AnimeTopic) ||
-      commentable.instance_of?(Topics::EntryTopics::MangaTopic) ||
-        commentable.instance_of?(Topics::EntryTopics::RanobeTopic)
   end
 
   def moderatable?

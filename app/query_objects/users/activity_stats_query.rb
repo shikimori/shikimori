@@ -10,7 +10,7 @@ class Users::ActivityStatsQuery
   end
 
   def comments_count
-    Comment.where(is_summary: false, user_id: @user.id).count
+    Comment.where(user_id: @user.id).count
   end
 
   def reviews_count

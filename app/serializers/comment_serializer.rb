@@ -13,4 +13,8 @@ class CommentSerializer < ActiveModel::Serializer
   def can_be_edited
     view_context.can? :edit, object
   end
+
+  def is_summary
+    false
+  end
 end

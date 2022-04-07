@@ -32,8 +32,6 @@ describe Topic::Cleanup do
       id: 9999993
   end
 
-  let(:comment_1_is_summary) { false }
-
   let(:old_created_at) { described_class::COMMENT_LIVE_TIME.ago - 1.day }
   let(:fresh_created_at) { described_class::COMMENT_LIVE_TIME.ago + 1.day }
 
@@ -44,10 +42,6 @@ describe Topic::Cleanup do
 
   before do
     stub_const 'Topic::Cleanup::COMMENTS_OFFSET', comments_offset
-    if comment_1_is_summary
-      comment_1.update_column :is_summary, true
-    end
-
     allow(Comment::Cleanup).to receive :call
   end
   let(:comments_offset) { 1 }

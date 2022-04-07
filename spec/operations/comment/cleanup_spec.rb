@@ -17,88 +17,37 @@ describe Comment::Cleanup do
     let(:user_image_2) { create :user_image, user: user }
     let(:user_image_3) { create :user_image, user: user }
 
-    before do
-      comment.update_column :is_summary, true if is_summary
-    end
-
     before { allow(UserImages::CleanupJob).to receive :perform_in }
     subject! { described_class.call comment, options }
     let(:options) { {} }
 
-    context 'not summary' do
-      let(:is_summary) { false }
+    it do
+      expect(UserImages::CleanupJob).to have_received(:perform_in).once
+      expect(UserImages::CleanupJob)
+        .to have_received(:perform_in)
+        .with(1.minute, user_image_1.id)
+
+      expect(comment.body).to eq(
+        "[image=deleted]\n> > [image=#{user_image_2.id}]\n\n`[image=#{user_image_3.id}]`"
+      )
+    end
+
+    context 'skip_model_update' do
+      let(:options) { { skip_model_update: true } }
       it do
         expect(UserImages::CleanupJob).to have_received(:perform_in).once
         expect(UserImages::CleanupJob)
           .to have_received(:perform_in)
           .with(1.minute, user_image_1.id)
-
-        expect(comment.body).to eq(
-          "[image=deleted]\n> > [image=#{user_image_2.id}]\n\n`[image=#{user_image_3.id}]`"
-        )
-      end
-
-      context 'skip_model_update' do
-        let(:options) { { skip_model_update: true } }
-        it do
-          expect(UserImages::CleanupJob).to have_received(:perform_in).once
-          expect(UserImages::CleanupJob)
-            .to have_received(:perform_in)
-            .with(1.minute, user_image_1.id)
-          expect(comment.body).to eq comment_body
-        end
-      end
-
-      context 'do not destroy images of other users' do
-        let(:user_image_1) { create :user_image, user: user_2 }
-        it do
-          expect(UserImages::CleanupJob).to_not have_received :perform_in
-          expect(comment.body).to eq comment_body
-        end
+        expect(comment.body).to eq comment_body
       end
     end
 
-    context 'summary' do
-      let(:is_summary) { true }
-
+    context 'do not destroy images of other users' do
+      let(:user_image_1) { create :user_image, user: user_2 }
       it do
         expect(UserImages::CleanupJob).to_not have_received :perform_in
         expect(comment.body).to eq comment_body
-      end
-
-      context 'is_cleanup_summaries' do
-        let(:options) { { is_cleanup_summaries: true } }
-        it do
-          expect(UserImages::CleanupJob).to have_received(:perform_in).once
-          expect(UserImages::CleanupJob)
-            .to have_received(:perform_in)
-            .with(1.minute, user_image_1.id)
-
-          expect(comment.body).to eq(
-            "[image=deleted]\n> > [image=#{user_image_2.id}]\n\n`[image=#{user_image_3.id}]`"
-          )
-        end
-      end
-
-      context 'is_cleanup_quotes' do
-        let(:is_summary) { false }
-        let(:options) { { is_cleanup_quotes: true } }
-        it do
-          expect(UserImages::CleanupJob).to have_received(:perform_in).thrice
-          expect(UserImages::CleanupJob)
-            .to have_received(:perform_in)
-            .with(1.minute, user_image_1.id)
-          expect(UserImages::CleanupJob)
-            .to have_received(:perform_in)
-            .with(1.minute, user_image_2.id)
-          expect(UserImages::CleanupJob)
-            .to have_received(:perform_in)
-            .with(1.minute, user_image_3.id)
-
-          expect(comment.body).to eq(
-            "[image=deleted]\n> > [image=deleted]\n\n`[image=deleted]`"
-          )
-        end
       end
     end
   end

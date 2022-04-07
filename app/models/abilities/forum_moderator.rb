@@ -36,10 +36,10 @@ class Abilities::ForumModerator
     ], User
 
     can :delete_all_comments, User do |user|
-      Comment.where(user_id: user.id).where(is_summary: false).count < MAXIMUM_COMMENTS_TO_DELETE
+      Comment.where(user_id: user.id).count < MAXIMUM_COMMENTS_TO_DELETE
     end
     can :delete_all_summaries, User do |user|
-      Comment.where(user_id: user.id).where(is_summary: true).count < MAXIMUM_SUMMARIES_TO_DELETE
+      Comment.where(user_id: user.id).count < MAXIMUM_SUMMARIES_TO_DELETE
     end
     can :delete_all_reviews, User do |user|
       Review.where(user_id: user.id).count < MAXIMUM_REVIEWS_TO_DELETE

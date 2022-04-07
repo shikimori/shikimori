@@ -12,7 +12,7 @@ class AniMangaDecorator < DbEntryDecorator
     :roles, :related, :friend_rates, :recent_rates, :chronology,
     :external_links, :available_external_links,
     :watch_online_external_links, :menu_external_links,
-    :topic_views, :summary_views
+    :topic_views
 
   def topic_views
     object
@@ -28,10 +28,6 @@ class AniMangaDecorator < DbEntryDecorator
           :updated_at
         )
       end
-  end
-
-  def summary_views
-    object.summaries.includes(:user).order(:id).take(20)
   end
 
   def critiques_count
