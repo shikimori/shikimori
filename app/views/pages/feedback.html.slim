@@ -15,6 +15,9 @@
         data-token="antispam-#{Api::V1::MessagesController::ANTISPAM_TOKEN_VALUE}"
         data-antispam
       ]
+      input type='hidden' name='message[from_id]' value=User::GUEST_ID
+      input type='hidden' name='message[to_id]' value=User::MORR_ID
+      input type='hidden' name='message[kind]' value=MessageType::PRIVATE
       .m10
         = f.input :feedback_address, label: 'E-mail', hint: 'Сюда может прийти ответ'
     = f.input :location, as: :hidden
