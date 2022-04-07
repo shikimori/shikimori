@@ -8,7 +8,7 @@
     "@babel/plugin-proposal-partial-application": "^7.16.7",
     "@babel/plugin-proposal-pipeline-operator": "^7.17.6",
     "@morr/user-idle": "^2.0.0",
-    "@rails/webpacker": "5.4.0",
+    "@rails/webpacker": "5.4.3",
     "@sipec/vue3-tags-input": "^3.0.4",
     "@vue/compiler-sfc": "^3.2.12",
     "autosize": "^5.0.1",
