@@ -11,7 +11,7 @@ class Abilities::ForumModerator
     can :manage, Comment
     can :manage, Review
 
-    can %i[edit update], Topic do |topic|
+    can %i[edit update full_update], Topic do |topic|
       !topic.generated? ||
         Abilities::User::GENERATED_USER_TOPICS.include?(topic.type)
     end

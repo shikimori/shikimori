@@ -144,7 +144,9 @@ private
 
   def topic_params # rubocop:disable all
     allowed_params =
-      if can?(:moderate, @resource || Topic) || %w[new create].include?(params[:action])
+      if can?(:moderate, @resource || Topic) ||
+          can?(:full_update, @resource || Topic) ||
+          %w[new create].include?(params[:action])
         CREATE_PARAMS
       else
         UPDATE_PARAMS
