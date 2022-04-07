@@ -8522,7 +8522,7 @@ shiki-decorators@^1.0.1:
     bind-decorator "1.0.11"
     memoize-decorator "^1.0.2"
 
-shiki-editor@^2.4.0:
+shiki-editor@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-2.4.2.tgz#da45f8c5175caba45182c13aaa18bd1eb5df0fda"
   integrity sha512-8T4R7Nk7qSRQwWZAXbYxelsclmsuEn9Lk8fG3n0DsNVCC2KyiWjEoWgjQ69foYotilyODCaJhMXEp0R57eOM5g==

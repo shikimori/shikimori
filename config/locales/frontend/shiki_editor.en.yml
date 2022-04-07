@@ -8,6 +8,7 @@ en:
       italic: Italic
       underline: Underlined
       strike: Deleted
+      color: Color
       undo: Undo last change
       redo: Redo last change
       spoiler: Spoiler
@@ -36,7 +37,6 @@ en:
         draft: Draft
         'yes': Yes
         'no': No
-      color: Color
       colors:
         yellow: Yellow
         orange: Orange

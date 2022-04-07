@@ -8,6 +8,7 @@ ru:
       italic: Курсив
       underline: Подчёркнутый
       strike: Зачёркнутый
+      color: Цвет
       undo: Отменить последнее изменение
       redo: Повторить последнее изменение
       spoiler: Спойлер
@@ -36,7 +37,6 @@ ru:
         draft: Текст
         'yes': Да
         'no': Нет
-      color: Цвет
       colors:
         yellow: Жёлтый
         orange: Оранжевый
