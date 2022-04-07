@@ -31,7 +31,7 @@ class Review < ApplicationRecord
   validates :body,
     presence: true,
     length: { minimum: MIN_BODY_SIZE },
-    if: -> { !@is_migration || will_save_change_to_body? }
+    if: -> { !@is_migration && will_save_change_to_body? }
   validates :user_id,
     uniqueness: { scope: %i[anime_id] },
     if: :anime?
