@@ -8,8 +8,6 @@ class Comment::Cleanup
   delegate :scan_user_image_ids, to: :class
 
   def call
-    return if @comment.is_summary && !@is_cleanup_summaries
-
     new_body = cleanup(
       text: @comment.body,
       skip_ids: extract_quoted_images,

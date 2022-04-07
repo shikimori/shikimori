@@ -32,7 +32,7 @@ class Comment < ApplicationRecord
     dependent: :destroy,
     inverse_of: :linked
 
-  boolean_attributes :offtopic
+  boolean_attributes :summary, :offtopic
 
   # validations
   validates :body, presence: true
@@ -236,13 +236,5 @@ private
 
   def commentable_klass
     @commentable_klass ||= Object.const_get commentable_type.to_sym
-  end
-
-  def is_summary
-    false
-  end
-
-  def summary?
-    false
   end
 end

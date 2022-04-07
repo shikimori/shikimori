@@ -11,7 +11,6 @@
   = f.input :commentable_id, as: :hidden, input_html: { id: nil }
   = f.input :commentable_type, as: :hidden, input_html: { id: nil }
   = f.input :is_offtopic, as: :hidden, input_html: { id: nil }
-  = f.input :is_summary, as: :hidden, input_html: { id: nil }
 
   = render 'blocks/shiki_editor',
     text: comment.body,
