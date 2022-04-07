@@ -36,3 +36,15 @@ ru:
         draft: Текст
         'yes': Да
         'no': Нет
+      color: Цвет
+      colors:
+        yellow: Жёлтый
+        orange: Оранжевый
+        red: Красный
+        pink: Розовый
+        violet: Фиолетовый
+        blue: Синий
+        green: Зелёный
+        brown: Коричневый
+        gray: Серый
+        black: Чёрный
