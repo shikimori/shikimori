@@ -77,62 +77,59 @@ describe Topic do
       let(:user) { nil }
       let(:topic) { build_stubbed :topic }
 
-      it do
-        is_expected.not_to be_able_to :new, topic
-        is_expected.not_to be_able_to :create, topic
-        is_expected.not_to be_able_to :edit, topic
-        is_expected.not_to be_able_to :update, topic
-        is_expected.not_to be_able_to :destroy, topic
-        is_expected.not_to be_able_to :moderate, topic
-      end
+      it { is_expected.to_not be_able_to :new, topic }
+      it { is_expected.to_not be_able_to :create, topic }
+      it { is_expected.to_not be_able_to :edit, topic }
+      it { is_expected.to_not be_able_to :update, topic }
+      it { is_expected.to_not be_able_to :full_update, topic }
+      it { is_expected.to_not be_able_to :destroy, topic }
+      it { is_expected.to_not be_able_to :moderate, topic }
     end
 
     context 'not topic owner' do
       let(:user) { build_stubbed :user, :user, :week_registered }
       let(:topic) { build_stubbed :topic, user: build_stubbed(:user, :user) }
 
-      it do
-        is_expected.not_to be_able_to :new, topic
-        is_expected.not_to be_able_to :create, topic
-        is_expected.not_to be_able_to :edit, topic
-        is_expected.not_to be_able_to :update, topic
-        is_expected.not_to be_able_to :destroy, topic
-        is_expected.not_to be_able_to :moderate, topic
-      end
+      it { is_expected.to_not be_able_to :new, topic }
+      it { is_expected.to_not be_able_to :create, topic }
+      it { is_expected.to_not be_able_to :edit, topic }
+      it { is_expected.to_not be_able_to :update, topic }
+      it { is_expected.to_not be_able_to :full_update, topic }
+      it { is_expected.to_not be_able_to :destroy, topic }
+      it { is_expected.to_not be_able_to :moderate, topic }
     end
 
     context 'topic owner' do
       let(:user) { build_stubbed :user, :user, :week_registered }
       let(:topic) { build_stubbed :topic, user: user }
 
-      it do
-        is_expected.to be_able_to :new, topic
-        is_expected.to be_able_to :create, topic
-        is_expected.to be_able_to :edit, topic
-        is_expected.to be_able_to :update, topic
-        is_expected.not_to be_able_to :moderate, topic
-      end
+      it { is_expected.to be_able_to :new, topic }
+      it { is_expected.to be_able_to :create, topic }
+      it { is_expected.to be_able_to :edit, topic }
+      it { is_expected.to be_able_to :update, topic }
+      it { is_expected.to_not be_able_to :full_update, topic }
+      it { is_expected.to_not be_able_to :moderate, topic }
 
       context 'user is registered < 1 week ago' do
         let(:user) { build_stubbed :user, :user, :day_registered }
-        it do
-          is_expected.not_to be_able_to :new, topic
-          is_expected.not_to be_able_to :create, topic
-          is_expected.not_to be_able_to :edit, topic
-          is_expected.to_not be_able_to :update, topic
-          is_expected.not_to be_able_to :moderate, topic
-        end
+
+        it { is_expected.to_not be_able_to :new, topic }
+        it { is_expected.to_not be_able_to :create, topic }
+        it { is_expected.to_not be_able_to :edit, topic }
+        it { is_expected.to_not be_able_to :update, topic }
+        it { is_expected.to_not be_able_to :full_update, topic }
+        it { is_expected.to_not be_able_to :moderate, topic }
       end
 
       context 'banned user' do
         let(:user) { build_stubbed :user, :banned, :week_registered }
-        it do
-          is_expected.not_to be_able_to :new, topic
-          is_expected.not_to be_able_to :create, topic
-          is_expected.not_to be_able_to :edit, topic
-          is_expected.not_to be_able_to :update, topic
-          is_expected.not_to be_able_to :moderate, topic
-        end
+
+        it { is_expected.to_not be_able_to :new, topic }
+        it { is_expected.to_not be_able_to :create, topic }
+        it { is_expected.to_not be_able_to :edit, topic }
+        it { is_expected.to_not be_able_to :update, topic }
+        it { is_expected.to_not be_able_to :full_update, topic }
+        it { is_expected.to_not be_able_to :moderate, topic }
       end
 
       describe 'permissions based on topic creation date' do
@@ -145,7 +142,7 @@ describe Topic do
 
         context 'topic created >= 4 hours ago' do
           let(:created_at) { 1.day.ago - 1.minute }
-          it { is_expected.not_to be_able_to :destroy, topic }
+          it { is_expected.to_not be_able_to :destroy, topic }
         end
       end
 
@@ -170,6 +167,7 @@ describe Topic do
         context 'own topic' do
           it { is_expected.to be_able_to :edit, topic }
           it { is_expected.to be_able_to :update, topic }
+          it { is_expected.to_not be_able_to :full_update, topic }
 
           context 'comments_count < 2000' do
             let(:comments_count) { 1_999 }
@@ -210,14 +208,17 @@ describe Topic do
 
           context 'admin' do
             let(:member_role) { :admin }
+
             it { is_expected.to be_able_to :edit, topic }
             it { is_expected.to be_able_to :update, topic }
+            it { is_expected.to_not be_able_to :full_update, topic }
             it { is_expected.to be_able_to :destroy, topic }
           end
 
           context 'not admin' do
             it { is_expected.to_not be_able_to :edit, topic }
             it { is_expected.to_not be_able_to :update, topic }
+            it { is_expected.to_not be_able_to :full_update, topic }
             it { is_expected.to_not be_able_to :destroy, topic }
           end
         end
@@ -269,16 +270,18 @@ describe Topic do
         context 'comments_count < 2000' do
           it { is_expected.to be_able_to :edit, topic }
           it { is_expected.to be_able_to :update, topic }
+          it { is_expected.to be_able_to :full_update, topic }
           it { is_expected.to be_able_to :manage, topic }
-          it { is_expected.not_to be_able_to :moderate, topic }
+          it { is_expected.to_not be_able_to :moderate, topic }
         end
 
         context 'comments_count >= 2000' do
           let(:comments_count) { 2000 }
           it { is_expected.to be_able_to :edit, topic }
           it { is_expected.to be_able_to :update, topic }
+          it { is_expected.to be_able_to :full_update, topic }
           it { is_expected.to_not be_able_to :manage, topic }
-          it { is_expected.not_to be_able_to :moderate, topic }
+          it { is_expected.to_not be_able_to :moderate, topic }
         end
       end
 
@@ -328,9 +331,9 @@ describe Topic do
         it { is_expected.to_not be_able_to :new, topic }
         it { is_expected.to_not be_able_to :edit, topic }
         it { is_expected.to_not be_able_to :update, topic }
+        it { is_expected.to_not be_able_to :full_update, topic }
         it { is_expected.to_not be_able_to :create, topic }
-        it { is_expected.to_not be_able_to :update, topic }
-        it { is_expected.not_to be_able_to :moderate, topic }
+        it { is_expected.to_not be_able_to :moderate, topic }
       end
 
       context 'critique owner' do
@@ -339,9 +342,9 @@ describe Topic do
         it { is_expected.to be_able_to :new, topic }
         it { is_expected.to be_able_to :edit, topic }
         it { is_expected.to be_able_to :update, topic }
+        it { is_expected.to_not be_able_to :full_update, topic }
         it { is_expected.to be_able_to :create, topic }
-        it { is_expected.to be_able_to :update, topic }
-        it { is_expected.not_to be_able_to :moderate, topic }
+        it { is_expected.to_not be_able_to :moderate, topic }
       end
     end
 
@@ -355,9 +358,9 @@ describe Topic do
         it { is_expected.to_not be_able_to :new, topic }
         it { is_expected.to_not be_able_to :edit, topic }
         it { is_expected.to_not be_able_to :update, topic }
+        it { is_expected.to_not be_able_to :full_update, topic }
         it { is_expected.to_not be_able_to :create, topic }
-        it { is_expected.to_not be_able_to :update, topic }
-        it { is_expected.not_to be_able_to :moderate, topic }
+        it { is_expected.to_not be_able_to :moderate, topic }
       end
 
       context 'critique owner' do
@@ -366,9 +369,9 @@ describe Topic do
         it { is_expected.to be_able_to :new, topic }
         it { is_expected.to be_able_to :edit, topic }
         it { is_expected.to be_able_to :update, topic }
+        it { is_expected.to_not be_able_to :full_update, topic }
         it { is_expected.to be_able_to :create, topic }
-        it { is_expected.to be_able_to :update, topic }
-        it { is_expected.not_to be_able_to :moderate, topic }
+        it { is_expected.to_not be_able_to :moderate, topic }
       end
     end
   end
