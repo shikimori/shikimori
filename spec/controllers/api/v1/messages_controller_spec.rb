@@ -35,7 +35,7 @@ describe Api::V1::MessagesController do
       }
     end
     let(:to_id) { user.id }
-    let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
+    let(:body) { 'xx' }
 
     context 'success' do
       context 'frontend' do

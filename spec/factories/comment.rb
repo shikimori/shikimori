@@ -22,26 +22,15 @@ FactoryBot.define do
       after(:build) { |model| unstub_method model, :create_viewing }
     end
 
-    trait :skip_cancel_summary do
-      after :build do |model|
-        stub_method model, :cancel_summary
-      end
-    end
-
     trait :skip_forbid_tags_change do
       after :build do |model|
         stub_method model, :forbid_tags_change
       end
     end
 
-    trait :summary do
-      is_summary { true }
-      body { 'x' * Comment::MIN_SUMMARY_SIZE }
-    end
-
     trait :offtopic do
       is_offtopic { true }
-      body { 'x' * Comment::MIN_SUMMARY_SIZE }
+      body { 'xx' }
     end
 
     trait :with_antispam do

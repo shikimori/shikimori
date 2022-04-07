@@ -16,14 +16,12 @@ describe Comment::Create do
     {
       commentable_id: commentable_id,
       commentable_type: commentable_type,
-      body: 'x' * Comment::MIN_SUMMARY_SIZE,
+      body: 'xx',
       is_offtopic: is_offtopic,
-      is_summary: is_summary,
       user: user
     }
   end
   let(:is_offtopic) { [true, false].sample }
-  let(:is_summary) { true }
   let(:locale) { :en }
 
   before { allow_any_instance_of(FayePublisher).to receive :publish }
@@ -33,9 +31,8 @@ describe Comment::Create do
       expect(comment).to be_persisted
       expect(comment).to have_attributes(
         commentable_type: Topic.name,
-        body: 'x' * Comment::MIN_SUMMARY_SIZE,
+        body: 'xx',
         is_offtopic: is_offtopic,
-        is_summary: is_summary,
         user: user
       )
     end
@@ -58,15 +55,13 @@ describe Comment::Create do
     context 'commentable is user' do
       let(:commentable_id) { user.id }
       let(:commentable_type) { User.name }
-      let(:is_summary) { false }
       before { allow(User::NotifyProfileCommented).to receive :call }
 
       it do
         expect(comment).to have_attributes(
           commentable: user,
-          body: 'x' * Comment::MIN_SUMMARY_SIZE,
+          body: 'xx',
           is_offtopic: is_offtopic,
-          is_summary: false,
           user: user
         )
         expect(User::NotifyProfileCommented)
@@ -80,14 +75,12 @@ describe Comment::Create do
       let(:anime) { create :anime }
       let(:commentable_id) { review.id }
       let(:commentable_type) { Review.name }
-      let(:is_summary) { false }
 
       it do
         expect(comment).to have_attributes(
           commentable: review,
-          body: 'x' * Comment::MIN_SUMMARY_SIZE,
+          body: 'xx',
           is_offtopic: is_offtopic,
-          is_summary: false,
           user: user
         )
       end

@@ -5,17 +5,7 @@ class Users::ModerationsController < ProfilesController
     authorize! :delete_all_comments, @resource
 
     Comment
-      .where(is_summary: false, user_id: @resource.id)
-      .each { |comment| faye.destroy comment }
-
-    redirect_to moderation_profile_url @resource
-  end
-
-  def summaries
-    authorize! :delete_all_summaries, @resource
-
-    Comment
-      .where(is_summary: true, user_id: @resource.id)
+      .where(user_id: @resource.id)
       .each { |comment| faye.destroy comment }
 
     redirect_to moderation_profile_url @resource

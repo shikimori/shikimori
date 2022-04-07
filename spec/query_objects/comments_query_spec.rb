@@ -1,11 +1,9 @@
 describe CommentsQuery do
-  let(:query) { described_class.new Topic.name, topic.id, is_summary }
+  let(:query) { described_class.new Topic.name, topic.id }
 
-  let(:is_summary) { false }
-
-  let!(:comment1) { create :comment, :summary, :skip_cancel_summary, commentable: topic }
+  let!(:comment1) { create :comment, commentable: topic }
   let!(:comment2) { create :comment, commentable: topic }
-  let!(:comment3) { create :comment, :summary, :skip_cancel_summary, commentable: topic }
+  let!(:comment3) { create :comment, commentable: topic }
   let!(:comment4) { create :comment, commentable: topic }
   let!(:comment5) { create :comment, commentable: site_rules_topic }
 
@@ -44,12 +42,6 @@ describe CommentsQuery do
     context 'asc' do
       subject { query.fetch 1, 2, false }
       it { should eq [comment1, comment2, comment3] }
-    end
-
-    context 'summary' do
-      let(:is_summary) { true }
-      subject { query.fetch 1, 2, false }
-      it { should eq [comment1, comment3] }
     end
   end
 end

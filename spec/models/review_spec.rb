@@ -8,7 +8,13 @@ describe Review do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :body }
+    it { is_expected.to_not validate_presence_of :body }
+
+    # context 'body change' do
+    #   before { subject.body = 'zxc' }
+    #   it { is_expected.to validate_presence_of :body }
+    # end
+
     # it { is_expected.to validate_presence_of :anime }
     # it { is_expected.to validate_presence_of :manga }
     it { is_expected.to validate_length_of(:body).is_at_least(described_class::MIN_BODY_SIZE) }

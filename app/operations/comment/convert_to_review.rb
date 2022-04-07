@@ -8,7 +8,7 @@ class Comment::ConvertToReview
   ]
   delegate :user, to: :comment
 
-  def call # rubocop:disable MethodLength
+  def call # rubocop:disable MethodLength, AbcSize
     review = build_review
     review.instance_variable_set :@is_migration, true
 

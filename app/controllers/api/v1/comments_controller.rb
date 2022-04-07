@@ -23,7 +23,6 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
     desc: <<~DOC.strip
       Must be one of: `#{Types::Comment::CommentableType.values.join('`, `')}`
     DOC
-  param :is_summary, :boolean, required: false
   param :page, :pagination, required: false
   param :limit, :number, required: false, desc: "#{LIMIT} maximum"
   param :desc, %w[1 0], required: false
@@ -35,7 +34,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
     commentable_id = params[:commentable_id]
 
     @collection = CommentsQuery
-      .new(commentable_type, commentable_id, params[:is_summary])
+      .new(commentable_type, commentable_id)
       .fetch(@page, @limit, @desc)
       .decorate
 
@@ -68,7 +67,6 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
         </p>
       DOC
     param :is_offtopic, :bool, required: false
-    param :is_summary, :bool, required: false
   end
   param :frontend, :bool, 'Used by shikimori frontend code. Ignore it.'
   param :broadcast,
@@ -92,7 +90,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   api :PUT, '/comments/:id', 'Update a comment'
   description [
     'Requires `comments` oauth scope.',
-    'Use `/api/v2/abuse_requests` to change `is_offtopic` and `is_summary` fields.'
+    'Use `/api/v2/abuse_requests` to change `is_offtopic` field.'
   ].join(' ')
   param :comment, Hash do
     param :body, String, required: true
@@ -122,7 +120,7 @@ private
     comment_params = params
       .require(:comment)
       .permit(
-        :body, :offtopic, :is_summary, :is_offtopic,
+        :body, :offtopic, :is_offtopic,
         :commentable_id, :commentable_type, :user_id
       )
 

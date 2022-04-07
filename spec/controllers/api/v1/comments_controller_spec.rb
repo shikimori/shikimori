@@ -46,15 +46,13 @@ describe Api::V1::CommentsController do
         commentable_id: commentable_id,
         commentable_type: commentable_type,
         body: body,
-        is_offtopic: true,
-        is_summary: is_summary
+        is_offtopic: true
       }
     end
     let(:commentable_id) { topic.id }
     let(:commentable_type) { Topic.name }
-    let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
+    let(:body) { 'xx' }
     let(:is_broadcast) { false }
-    let(:is_summary) { false }
     before { allow(Comment::Broadcast).to receive :call }
 
     subject! do

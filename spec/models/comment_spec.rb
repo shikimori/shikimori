@@ -12,8 +12,6 @@ describe Comment do
   describe 'validations' do
     it { is_expected.to validate_presence_of :body }
     it { is_expected.to validate_length_of(:body).is_at_most(10000) }
-    it { is_expected.to validate_presence_of :user }
-    it { is_expected.to validate_presence_of :commentable }
     it do
       is_expected
         .to validate_inclusion_of(:commentable_type)
@@ -68,37 +66,6 @@ describe Comment do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :check_access }
-    end
-
-    describe '#cancel_summary' do
-      let(:comment) do
-        build :comment, :summary, body: body, commentable: commentable
-      end
-      before { comment.save }
-
-      context 'anime/manga/ranobe topic' do
-        let(:topic) { create :anime_topic, linked: build_stubbed(:anime) }
-        let(:commentable) { topic }
-
-        context 'long comment' do
-          let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
-          it { expect(comment).to be_summary }
-        end
-
-        context 'short comment' do
-          let(:body) { 'x' * (Comment::MIN_SUMMARY_SIZE - 1) }
-          it { expect(comment).to_not be_summary }
-        end
-      end
-
-      context 'other model' do
-        let(:commentable) { user }
-
-        context 'long comment' do
-          let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
-          it { expect(comment).to_not be_summary }
-        end
-      end
     end
 
     describe '#check_spam_abuse' do

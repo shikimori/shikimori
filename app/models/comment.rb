@@ -11,8 +11,6 @@ class Comment < ApplicationRecord
     user_id_key: :user_id
   )
 
-  MIN_SUMMARY_SIZE = 230
-
   # associations
   belongs_to :user,
     touch: Rails.env.test? ? false : :activity_at
@@ -37,7 +35,7 @@ class Comment < ApplicationRecord
   boolean_attributes :summary, :offtopic
 
   # validations
-  validates :user, :body, :commentable, presence: true
+  validates :body, presence: true
   validates :commentable_type,
     inclusion: { in: Types::Comment::CommentableType.values }
   validates :body,
@@ -56,7 +54,6 @@ class Comment < ApplicationRecord
     if: -> { will_save_change_to_body? && !@is_migration }
 
   before_create :check_access
-  before_create :cancel_summary
   before_create :check_spam_abuse, if: -> { commentable_type == User.name }
   after_create :increment_comments
 
@@ -80,14 +77,6 @@ class Comment < ApplicationRecord
     else
       super
     end
-  end
-
-  # отмена метки отзыва для коротких комментариев
-  def cancel_summary
-    return unless summary?
-    return if body.size >= MIN_SUMMARY_SIZE && allowed_summary?
-
-    self.is_summary = false
   end
 
   def check_spam_abuse

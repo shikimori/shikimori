@@ -1061,7 +1061,6 @@ Rails.application.routes.draw do
       end
       resource :moderation, only: [] do
         delete :comments
-        delete :summaries
         delete :topics
         delete :critiques
         delete :reviews

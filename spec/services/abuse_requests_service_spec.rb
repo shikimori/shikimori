@@ -9,7 +9,7 @@ describe AbuseRequestsService do
   let!(:user_reporter) { create :user, id: 99 }
 
   let(:comment) do
-    create :comment, :skip_cancel_summary,
+    create :comment,
       user: user_author,
       is_offtopic: is_offtopic,
       is_summary: is_summary,
@@ -95,7 +95,7 @@ describe AbuseRequestsService do
     context 'converting comment' do
       let(:commentable) { anime_topic }
 
-      context 'allowed direct change', :focus do
+      context 'allowed direct change' do
         it do
           expect { act }.to_not change AbuseRequest, :count
           expect { comment.reload }.to raise_error ActiveRecord::RecordNotFound
