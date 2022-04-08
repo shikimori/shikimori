@@ -5,7 +5,3 @@
 
 # open search
 Mime::Type.register_alias 'application/json', :os
-
-# https://stackoverflow.com/questions/67072249/why-does-rails-6-0-x-respond-with-html-when-a-json-view-is-available
-# TODO: remove in rails 6.1
-Mime::Type.register "*/*", :all
