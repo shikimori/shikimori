@@ -136,7 +136,8 @@ group :beta, :production do
 end
 
 group :development do
-  gem 'meta_request'
+  # gem 'meta_request'
+  # gem 'rails_panel'
 
   gem 'spring'
   gem 'spring-watcher-listen'
