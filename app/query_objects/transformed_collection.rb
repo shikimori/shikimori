@@ -11,6 +11,6 @@ class TransformedCollection < SimpleDelegator
   end
 
   def to_a
-    __getobj__.map { |item| @transformation.call(item) }
+    @transformed ||= __getobj__.map { |item| @transformation.call(item) }
   end
 end
