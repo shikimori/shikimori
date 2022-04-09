@@ -167,7 +167,7 @@ group :development do
   gem 'active_record_query_trace'
 end
 
-gem 'amazing_print', github: 'amazing-print/amazing_print', branch: 'master'
+gem 'amazing_print'
 # gem 'awesome_print', github: 'edipofederle/awesome_print', branch: 'fix-marshal-dump' # https://github.com/awesome-print/awesome_print/pull/415 https://github.com/awesome-print/awesome_print/issues/413
 gem 'colorize'
 gem 'pry-byebug'

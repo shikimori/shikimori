@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/amazing-print/amazing_print.git
-  revision: 30a79bee3b9febacd618941fa8891899192c727e
-  branch: master
-  specs:
-    amazing_print (1.4.1.pre)
-
-GIT
   remote: https://github.com/flori/amatch.git
   revision: 351285f667573340ed14e976e2b0984daca4b0e4
   specs:
@@ -186,6 +179,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
+    amazing_print (1.4.0)
     apipie-rails (0.7.0)
       actionpack (>= 5.0)
       activesupport (>= 5.0)
@@ -784,7 +778,7 @@ DEPENDENCIES
   acts_as_votable
   airbrussh
   amatch!
-  amazing_print!
+  amazing_print
   apipie-rails
   attr_extras
   autoprefixer-rails
