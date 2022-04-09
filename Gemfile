@@ -116,7 +116,7 @@ gem 'gcm'
 gem 'maruku'
 gem 'open_uri_redirections' # for http->https redirects. for example for loading videos fom vimeo (http://vimeo.com/113998423)
 
-gem 'i18n', '< 1.9.0'
+gem 'i18n', '< 1.9.0' # update only with chewy - otherwise get error of missing module
 gem 'i18n-inflector', github: 'morr/i18n-inflector', branch: :master # fork fixes regular expression for parsing @ inflections
 gem 'i18n-js'
 gem 'rails-i18n'
