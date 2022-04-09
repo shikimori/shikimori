@@ -9,10 +9,6 @@ FactoryBot.define do
       trait(report_kind.to_sym) { kind { report_kind } }
     end
 
-    AnimeVideoReport.state_machine.states.map(&:value).each do |report_state|
-      trait(report_state.to_sym) { state { report_state } }
-    end
-
     after :build do |v|
       v.anime_video = FactoryBot.build_stubbed(:anime_video) unless v.anime_video_id
       v.approver = FactoryBot.build_stubbed(:user, :user) unless v.user_id && v.pending?
