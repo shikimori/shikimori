@@ -66,7 +66,7 @@ gem 'actionpack-action_caching'
 gem 'attr_extras'
 gem 'paperclip'
 gem 'paperclip-i18n'
-gem 'rs_russian'
+gem 'rs_russian', github: 'morr/rs_russian', branch: 'master'
 gem 'translit'
 gem 'sixarm_ruby_unaccent' # adds method `unaccent`. it is used in Tags::GenerateNames
 gem 'simple_form'
@@ -116,6 +116,7 @@ gem 'gcm'
 gem 'maruku'
 gem 'open_uri_redirections' # for http->https redirects. for example for loading videos fom vimeo (http://vimeo.com/113998423)
 
+gem 'i18n', '< 1.9.0'
 gem 'i18n-inflector', github: 'morr/i18n-inflector', branch: :master # fork fixes regular expression for parsing @ inflections
 gem 'i18n-js'
 gem 'rails-i18n'
@@ -166,7 +167,7 @@ group :development do
   gem 'active_record_query_trace'
 end
 
-gem 'amazing_print'
+gem 'amazing_print', github: 'amazing-print/amazing_print', branch: 'master'
 # gem 'awesome_print', github: 'edipofederle/awesome_print', branch: 'fix-marshal-dump' # https://github.com/awesome-print/awesome_print/pull/415 https://github.com/awesome-print/awesome_print/issues/413
 gem 'colorize'
 gem 'pry-byebug'

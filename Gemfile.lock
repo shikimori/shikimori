@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/amazing-print/amazing_print.git
+  revision: 30a79bee3b9febacd618941fa8891899192c727e
+  branch: master
+  specs:
+    amazing_print (1.4.1.pre)
+
+GIT
   remote: https://github.com/flori/amatch.git
   revision: 351285f667573340ed14e976e2b0984daca4b0e4
   specs:
@@ -46,6 +53,16 @@ GIT
   specs:
     i18n-inflector (2.6.7)
       i18n (>= 0.4.1)
+
+GIT
+  remote: https://github.com/morr/rs_russian.git
+  revision: cce1516fb73d789e01d24e6b2b6222806d7484ee
+  branch: master
+  specs:
+    rs_russian (0.20.0)
+      activesupport (>= 6.1.0)
+      i18n (~> 1.8)
+      unicode (~> 0.4.4)
 
 GIT
   remote: https://github.com/morr/shallow_attributes.git
@@ -169,7 +186,6 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
-    amazing_print (1.4.0)
     apipie-rails (0.7.0)
       actionpack (>= 5.0)
       activesupport (>= 5.0)
@@ -406,7 +422,7 @@ GEM
     httparty (0.18.1)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
-    i18n (1.10.0)
+    i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     i18n-js (3.9.0)
       i18n (>= 0.6.6)
@@ -602,10 +618,6 @@ GEM
       railties (>= 5.0)
     retryable (3.0.5)
     rexml (3.2.5)
-    rs_russian (0.20.0)
-      activesupport (>= 6.1.0)
-      i18n (~> 1.8)
-      unicode (~> 0.4.4)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
       rspec-expectations (~> 3.11.0)
@@ -772,7 +784,7 @@ DEPENDENCIES
   acts_as_votable
   airbrussh
   amatch!
-  amazing_print
+  amazing_print!
   apipie-rails
   attr_extras
   autoprefixer-rails
@@ -822,6 +834,7 @@ DEPENDENCIES
   guard-spring
   htmldiff-lcs!
   htmlentities
+  i18n (< 1.9.0)
   i18n-inflector!
   i18n-js
   icalendar
@@ -866,7 +879,7 @@ DEPENDENCIES
   redis-namespace
   responders
   retryable
-  rs_russian
+  rs_russian!
   rspec
   rspec-collection_matchers
   rspec-core
