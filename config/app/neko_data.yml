@@ -20847,11 +20847,11 @@
         - 37902
         - 38419
         - 40181
+        - 40970
         - 46171
         - 50696
         - 51162
         - 51163
-        - 40970
       :threshold: 95.7%
       :generator:
         ignore_latest_ids:
@@ -20905,11 +20905,11 @@
         - 37902
         - 38419
         - 40181
+        - 40970
         - 46171
         - 50696
         - 51162
         - 51163
-        - 40970
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -23613,18 +23613,18 @@
         - 36835
         - 37865
         - 41612
+        - 42135
         - 42136
+        - 42137
+        - 42138
+        - 42139
         - 42174
         - 42914
         - 42984
+        - 49321
         - 50840
         - 51150
         - 51424
-        - 42137
-        - 42139
-        - 42138
-        - 42135
-        - 49321
       :threshold: 92.7%
       :generator:
         ignore_latest_ids:
@@ -23671,18 +23671,18 @@
         - 36835
         - 37865
         - 41612
+        - 42135
         - 42136
+        - 42137
+        - 42138
+        - 42139
         - 42174
         - 42914
         - 42984
+        - 49321
         - 50840
         - 51150
         - 51424
-        - 42137
-        - 42139
-        - 42138
-        - 42135
-        - 49321
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -27903,38 +27903,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :slam_dunk
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/slam_dunk.jpg"
-    :border_color:
-    :title_ru: Слэм-данк
-    :text_ru:
-    :title_en: Slam Dunk
-    :text_en:
-    :topic_id: 247360
-    :rule: &467
-      :algo: duration
-      :filters:
-        franchise: slam_dunk
-      :threshold: 98.7%
-      :generator:
-        ignore_latest_ids:
-        - 45649
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :slam_dunk
-  level: 1
-  image: "/assets/achievements/anime/franchise/slam_dunk.jpg"
-  border_color:
-  title_ru: Слэм-данк
-  text_ru:
-  title_en: Slam Dunk
-  text_en:
-  topic_id: 247360
-  rule: *467
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :idolmaster
     :level: 0
     :image: "/assets/achievements/anime/franchise/idolmaster.jpg"
@@ -27944,7 +27912,7 @@
     :title_en: The iDOLM@STER
     :text_en:
     :topic_id: 247360
-    :rule: &468
+    :rule: &467
       :algo: duration
       :filters:
         franchise: idolmaster
@@ -27976,6 +27944,38 @@
   title_ru: Идолмастер
   text_ru:
   title_en: The iDOLM@STER
+  text_en:
+  topic_id: 247360
+  rule: *467
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :slam_dunk
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/slam_dunk.jpg"
+    :border_color:
+    :title_ru: Слэм-данк
+    :text_ru:
+    :title_en: Slam Dunk
+    :text_en:
+    :topic_id: 247360
+    :rule: &468
+      :algo: duration
+      :filters:
+        franchise: slam_dunk
+      :threshold: 98.7%
+      :generator:
+        ignore_latest_ids:
+        - 45649
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :slam_dunk
+  level: 1
+  image: "/assets/achievements/anime/franchise/slam_dunk.jpg"
+  border_color:
+  title_ru: Слэм-данк
+  text_ru:
+  title_en: Slam Dunk
   text_en:
   topic_id: 247360
   rule: *468
@@ -30937,6 +30937,7 @@
       :generator:
         ignore_latest_ids:
         - 37516
+        - 51585
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :city_hunter
@@ -30969,6 +30970,7 @@
       :generator:
         ignore_latest_ids:
         - 37516
+        - 51585
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :city_hunter
@@ -35287,6 +35289,7 @@
         - 48375
         - 39783
         - 48583
+        - 47250
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -35749,6 +35752,7 @@
         - 48375
         - 39783
         - 48583
+        - 47250
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -36215,6 +36219,7 @@
         - 48375
         - 39783
         - 48583
+        - 47250
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
