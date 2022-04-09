@@ -87,6 +87,8 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (5.2.0)
+      concurrent-ruby (~> 1.0)
     actioncable (6.0.4.7)
       actionpack (= 6.0.4.7)
       nio4r (~> 2.0)
@@ -705,11 +707,6 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     stackprof (0.2.17)
-    state_machine (1.2.0)
-    state_machine_rspec (0.2.0)
-      activesupport
-      rspec (>= 3.0.0.rc1)
-      state_machine (>= 1.1.0)
     sync (0.5.0)
     temple (0.8.2)
     terrapin (0.6.0)
@@ -765,6 +762,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   actionpack-action_caching
   active_model_serializers
   active_record_query_trace
@@ -895,8 +893,6 @@ DEPENDENCIES
   spring-commands-rspec
   spring-watcher-listen
   stackprof
-  state_machine
-  state_machine_rspec
   thin
   timecop
   translit

@@ -71,7 +71,7 @@ gem 'translit'
 gem 'sixarm_ruby_unaccent' # adds method `unaccent`. it is used in Tags::GenerateNames
 gem 'simple_form'
 gem 'simple_form-magic_submit', github: 'morr/simple_form-magic_submit', branch: 'master'
-gem 'state_machine'
+gem 'aasm'
 gem 'active_model_serializers'
 gem 'concurrent-ruby-edge'
 
@@ -213,7 +213,7 @@ group :test do
   gem 'fuubar'
 
   gem 'shoulda-matchers'
-  gem 'state_machine_rspec'
+  # gem 'state_machine_rspec'
   gem 'timecop'
   gem 'vcr'
   gem 'webmock', require: false
