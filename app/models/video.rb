@@ -39,18 +39,18 @@ class Video < ApplicationRecord
   YOUTUBE_PARAM_REGEXP = /(?:&|\?)v=(.*?)(?:&|$)/
   VK_PARAM_REGEXP = %r{https?://vk.com/video-?(\d+)_(\d+)}
 
-  state_machine :state, initial: :uploaded do
-    state :uploaded
-    state :confirmed
-    state :deleted
-
-    event :confirm do
-      transition %i[uploaded deleted] => :confirmed
-    end
-    event :del do
-      transition %i[uploaded confirmed] => :deleted
-    end
-  end
+  # state_machine :state, initial: :uploaded do
+  #   state :uploaded
+  #   state :confirmed
+  #   state :deleted
+  # 
+  #   event :confirm do
+  #     transition %i[uploaded deleted] => :confirmed
+  #   end
+  #   event :del do
+  #     transition %i[uploaded confirmed] => :deleted
+  #   end
+  # end
 
   def url= url
     return if url.blank?

@@ -60,27 +60,27 @@ class Contest < ApplicationRecord
     class_name: 'ContestSuggestion',
     dependent: :destroy
 
-  state_machine :state, initial: :created do
-    state :created, :proposing
-
-    state :proposing
-    state :started
-    state :finished
-
-    event(:propose) { transition created: :proposing }
-    event(:stop_propose) { transition proposing: :created }
-    event :start do
-      transition %i[created proposing] => :started, if: lambda { |contest|
-        contest.links.count >= MINIMUM_MEMBERS &&
-          contest.links.count <= MAXIMUM_MEMBERS
-      } # && Contest.all.none?(&:started?)
-    end
-    event(:finish) { transition started: :finished }
-
-    after_transition :created => %i[proposing started] do |contest, transition|
-      contest.generate_topics Shikimori::DOMAIN_LOCALES
-    end
-  end
+  # state_machine :state, initial: :created do
+  #   state :created, :proposing
+  # 
+  #   state :proposing
+  #   state :started
+  #   state :finished
+  # 
+  #   event(:propose) { transition created: :proposing }
+  #   event(:stop_propose) { transition proposing: :created }
+  #   event :start do
+  #     transition %i[created proposing] => :started, if: lambda { |contest|
+  #       contest.links.count >= MINIMUM_MEMBERS &&
+  #         contest.links.count <= MAXIMUM_MEMBERS
+  #     } # && Contest.all.none?(&:started?)
+  #   end
+  #   event(:finish) { transition started: :finished }
+  # 
+  #   after_transition :created => %i[proposing started] do |contest, transition|
+  #     contest.generate_topics Shikimori::DOMAIN_LOCALES
+  #   end
+  # end
 
   # текущий раунд
   def current_round

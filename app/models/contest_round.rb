@@ -19,18 +19,18 @@ class ContestRound < ApplicationRecord
 
   delegate :strategy, to: :contest
 
-  state_machine :state, initial: :created do
-    state :started
-    state :finished
-
-    event :start do
-      transition :created => :started, if: ->(round) { round.matches.any? }
-    end
-    event :finish do
-      transition :started => :finished,
-        if: ->(round) { round.matches.all? { |v| v.finished? || v.can_finish? } }
-    end
-  end
+  # state_machine :state, initial: :created do
+  #   state :started
+  #   state :finished
+  # 
+  #   event :start do
+  #     transition :created => :started, if: ->(round) { round.matches.any? }
+  #   end
+  #   event :finish do
+  #     transition :started => :finished,
+  #       if: ->(round) { round.matches.all? { |v| v.finished? || v.can_finish? } }
+  #   end
+  # end
 
   def title_ru is_short = false
     title is_short, Types::Locale[:ru]

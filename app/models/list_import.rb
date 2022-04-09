@@ -20,14 +20,14 @@ class ListImport < ApplicationRecord
     in: Types::ListImport::DuplicatePolicy.values,
     predicates: { prefix: true }
 
-  state_machine :state, initial: :pending do
-    state :pending
-    state :finished
-    state :failed
-
-    event(:finish) { transition pending: :finished }
-    event(:to_failed) { transition pending: :failed }
-  end
+  # state_machine :state, initial: :pending do
+  #   state :pending
+  #   state :finished
+  #   state :failed
+  #
+  #   event(:finish) { transition pending: :finished }
+  #   event(:to_failed) { transition pending: :failed }
+  # end
 
   has_attached_file :list
 

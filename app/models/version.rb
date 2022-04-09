@@ -25,98 +25,98 @@ class Version < ApplicationRecord
 
   scope :pending, -> { where state: :pending }
 
-  state_machine :state, initial: :pending do
-    state :accepted
-    state :auto_accepted
-    state :rejected
-
-    state :taken
-    state :deleted
-
-    event(:accept) { transition pending: :accepted }
-    event(:auto_accept) { transition pending: :auto_accepted, unless: :takeable? }
-    event(:take) { transition pending: :taken }
-    event(:reject) { transition %i[pending auto_accepted] => :rejected }
-    event(:to_deleted) { transition pending: :deleted, if: :deleteable? }
-
-    event(:accept_taken) do
-      transition taken: :accepted, if: ->(version) {
-        version.takeable? || version.optionally_takeable?
-      }
-    end
-    event(:take_accepted) do
-      transition accepted: :taken, if: ->(version) {
-        version.takeable? || version.optionally_takeable?
-      }
-    end
-
-    before_transition(
-      pending: %i[accepted auto_accepted taken]
-    ) do |version, transition|
-      version.apply_changes || raise(
-        StateMachine::InvalidTransition.new(
-          version,
-          transition.machine,
-          transition.event
-        )
-      )
-      version.update moderator: version.user if transition.event
-    end
-    before_transition pending: %i[auto_accepted] do |version, _transition|
-      version.moderator = version.user
-    end
-
-    before_transition pending: :rejected do |version, transition|
-      version.reject_changes || raise(
-        StateMachine::InvalidTransition.new(
-          version,
-          transition.machine,
-          transition.event
-        )
-      )
-    end
-
-    before_transition auto_accepted: :rejected do |version, transition|
-      version.rollback_changes || raise(
-        StateMachine::InvalidTransition.new(
-          version,
-          transition.machine,
-          transition.event
-        )
-      )
-    end
-
-    before_transition(
-      %i[pending auto_accepted] => %i[rejected deleted]
-    ) do |version, transition|
-      version.update moderator: transition.args.first if transition.args.first
-    end
-
-    before_transition(
-      %i[pending auto_accepted] => %i[accepted taken rejected deleted]
-    ) do |version, transition|
-      version.update moderator: transition.args.first if transition.args.first
-    end
-
-    after_transition pending: %i[auto_accepted] do |version, _transition|
-      version.fix_state if version.respond_to? :fix_state
-    end
-
-    after_transition pending: %i[accepted taken] do |version, _transition|
-      version.fix_state if version.respond_to? :fix_state
-      version.notify_acceptance
-    end
-
-    after_transition(
-      %i[pending auto_accepted] => %i[rejected]
-    ) do |version, transition|
-      version.notify_rejection transition.args.second
-    end
-
-    after_transition pending: :deleted do |version, _transition|
-      version.cleanup if version.respond_to? :cleanup
-    end
-  end
+  # state_machine :state, initial: :pending do
+  #   state :accepted
+  #   state :auto_accepted
+  #   state :rejected
+  # 
+  #   state :taken
+  #   state :deleted
+  # 
+  #   event(:accept) { transition pending: :accepted }
+  #   event(:auto_accept) { transition pending: :auto_accepted, unless: :takeable? }
+  #   event(:take) { transition pending: :taken }
+  #   event(:reject) { transition %i[pending auto_accepted] => :rejected }
+  #   event(:to_deleted) { transition pending: :deleted, if: :deleteable? }
+  # 
+  #   event(:accept_taken) do
+  #     transition taken: :accepted, if: ->(version) {
+  #       version.takeable? || version.optionally_takeable?
+  #     }
+  #   end
+  #   event(:take_accepted) do
+  #     transition accepted: :taken, if: ->(version) {
+  #       version.takeable? || version.optionally_takeable?
+  #     }
+  #   end
+  # 
+  #   before_transition(
+  #     pending: %i[accepted auto_accepted taken]
+  #   ) do |version, transition|
+  #     version.apply_changes || raise(
+  #       StateMachine::InvalidTransition.new(
+  #         version,
+  #         transition.machine,
+  #         transition.event
+  #       )
+  #     )
+  #     version.update moderator: version.user if transition.event
+  #   end
+  #   before_transition pending: %i[auto_accepted] do |version, _transition|
+  #     version.moderator = version.user
+  #   end
+  # 
+  #   before_transition pending: :rejected do |version, transition|
+  #     version.reject_changes || raise(
+  #       StateMachine::InvalidTransition.new(
+  #         version,
+  #         transition.machine,
+  #         transition.event
+  #       )
+  #     )
+  #   end
+  # 
+  #   before_transition auto_accepted: :rejected do |version, transition|
+  #     version.rollback_changes || raise(
+  #       StateMachine::InvalidTransition.new(
+  #         version,
+  #         transition.machine,
+  #         transition.event
+  #       )
+  #     )
+  #   end
+  # 
+  #   before_transition(
+  #     %i[pending auto_accepted] => %i[rejected deleted]
+  #   ) do |version, transition|
+  #     version.update moderator: transition.args.first if transition.args.first
+  #   end
+  # 
+  #   before_transition(
+  #     %i[pending auto_accepted] => %i[accepted taken rejected deleted]
+  #   ) do |version, transition|
+  #     version.update moderator: transition.args.first if transition.args.first
+  #   end
+  # 
+  #   after_transition pending: %i[auto_accepted] do |version, _transition|
+  #     version.fix_state if version.respond_to? :fix_state
+  #   end
+  # 
+  #   after_transition pending: %i[accepted taken] do |version, _transition|
+  #     version.fix_state if version.respond_to? :fix_state
+  #     version.notify_acceptance
+  #   end
+  # 
+  #   after_transition(
+  #     %i[pending auto_accepted] => %i[rejected]
+  #   ) do |version, transition|
+  #     version.notify_rejection transition.args.second
+  #   end
+  # 
+  #   after_transition pending: :deleted do |version, _transition|
+  #     version.cleanup if version.respond_to? :cleanup
+  #   end
+  # end
 
   def apply_changes
     item.class.transaction do

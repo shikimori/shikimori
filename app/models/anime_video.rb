@@ -50,34 +50,34 @@ class AnimeVideo < ApplicationRecord # rubocop:disable all
   # before_save :check_copyrighted_authors,
   #   if: :anime_video_author_id_changed?
 
-  state_machine :state, initial: :working do
-    state :working
-    state :uploaded
-    state :rejected
-    state :broken
-    state :wrong
-    state :copyrighted
-    state :banned_hosting
-
-    event :broken do
-      transition %i[working uploaded broken rejected] => :broken
-    end
-    event :wrong do
-      transition %i[working uploaded wrong rejected] => :wrong
-    end
-    event :ban do
-      transition %i[working uploaded] => :banned_hosting
-    end
-    event :reject do
-      transition %i[uploaded wrong broken banned_hosting] => :rejected
-    end
-    event :work do
-      transition %i[uploaded broken wrong banned_hosting] => :working
-    end
-    event :uploaded do
-      transition %i[working uploaded] => :working
-    end
-  end
+  # state_machine :state, initial: :working do
+  #   state :working
+  #   state :uploaded
+  #   state :rejected
+  #   state :broken
+  #   state :wrong
+  #   state :copyrighted
+  #   state :banned_hosting
+  # 
+  #   event :broken do
+  #     transition %i[working uploaded broken rejected] => :broken
+  #   end
+  #   event :wrong do
+  #     transition %i[working uploaded wrong rejected] => :wrong
+  #   end
+  #   event :ban do
+  #     transition %i[working uploaded] => :banned_hosting
+  #   end
+  #   event :reject do
+  #     transition %i[uploaded wrong broken banned_hosting] => :rejected
+  #   end
+  #   event :work do
+  #     transition %i[uploaded broken wrong banned_hosting] => :working
+  #   end
+  #   event :uploaded do
+  #     transition %i[working uploaded] => :working
+  #   end
+  # end
 
   def hosting
     VideoExtractor::ExtractHosting.call url

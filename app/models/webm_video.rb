@@ -13,14 +13,14 @@ class WebmVideo < ApplicationRecord
 
   after_create :schedule_thumbnail
 
-  state_machine :state, initial: :pending do
-    state :pending
-    state :processed
-    state :failed
-
-    event(:process) { transition %i[pending processed failed] => :processed }
-    event(:to_failed) { transition %i[pending processed failed] => :failed }
-  end
+  # state_machine :state, initial: :pending do
+  #   state :pending
+  #   state :processed
+  #   state :failed
+  # 
+  #   event(:process) { transition %i[pending processed failed] => :processed }
+  #   event(:to_failed) { transition %i[pending processed failed] => :failed }
+  # end
 
   def schedule_thumbnail
     WebmThumbnail.perform_async id

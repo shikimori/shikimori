@@ -38,29 +38,29 @@ class Collection < ApplicationRecord
     available.or(where(state: Types::Collection::State[:opened]))
   }
 
-  state_machine :state, initial: :unpublished do
-    state Types::Collection::State[:published]
-    state Types::Collection::State[:private]
-    state Types::Collection::State[:opened]
-    state Types::Collection::State[:unpublished]
-
-    event :to_published do
-      transition %i[unpublished private opened] =>
-        Types::Collection::State[:published]
-    end
-    event :to_private do
-      transition %i[unpublished published opened] =>
-        Types::Collection::State[:private]
-    end
-    event :to_opened do
-      transition %i[unpublished published private] =>
-        Types::Collection::State[:opened]
-    end
-
-    # before_transition %i[unpublished private opened] => :published do |collection, _transition|
-    #   collection.published_at ||= Time.zone.now
-    # end
-  end
+  # state_machine :state, initial: :unpublished do
+  #   state Types::Collection::State[:published]
+  #   state Types::Collection::State[:private]
+  #   state Types::Collection::State[:opened]
+  #   state Types::Collection::State[:unpublished]
+  #
+  #   event :to_published do
+  #     transition %i[unpublished private opened] =>
+  #       Types::Collection::State[:published]
+  #   end
+  #   event :to_private do
+  #     transition %i[unpublished published opened] =>
+  #       Types::Collection::State[:private]
+  #   end
+  #   event :to_opened do
+  #     transition %i[unpublished published private] =>
+  #       Types::Collection::State[:opened]
+  #   end
+  #
+  #   # before_transition %i[unpublished private opened] => :published do |collection, _transition|
+  #   #   collection.published_at ||= Time.zone.now
+  #   # end
+  # end
 
   def to_param
     "#{id}-#{name.permalinked}"

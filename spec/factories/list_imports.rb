@@ -24,9 +24,9 @@ FactoryBot.define do
       trait(value) { list_type { value } }
     end
 
-    ListImport.state_machine.states.map(&:value).each do |contest_state|
-      trait(contest_state.to_sym) { state { contest_state } }
-    end
+    # ListImport.state_machine.states.map(&:value).each do |contest_state|
+    #   trait(contest_state.to_sym) { state { contest_state } }
+    # end
 
     trait :mal_xml do
       list { File.new "#{Rails.root}/spec/files/list.xml" }
