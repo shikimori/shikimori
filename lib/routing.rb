@@ -13,6 +13,8 @@ module Routing
     )
     \Z
   /mix
+  BANNED_DOMAINS = /piccy.info/
+  EMPTY_TRANSPARENT_PNG_PATH = '/assets/globals/1px_transparent.png'
   # FORCE_CAMO_DOMAIN = /imgur.com/i
 
   included do
@@ -164,7 +166,10 @@ private
     end
 
     url = Url.new(image_url)
-    return url.without_protocol.to_s if url.domain.to_s.match? NON_CAMO_DOMAINS
+    domain = url.domain.to_s
+
+    return url.without_protocol.to_s if domain.match? NON_CAMO_DOMAINS
+    return EMPTY_TRANSPARENT_PNG_PATH if domain.match? BANNED_DOMAINS
 
     fixed_url = image_url.starts_with?('//') ? url.with_protocol.to_s : image_url
 
