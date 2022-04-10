@@ -43,6 +43,8 @@ private
       aired_at: episode[:aired_at],
       is_anime365: true
     )
+  rescue ActiveRecord::RecordNotSaved => e
+    NamedLogger.episode_worker.info e.message
   end
 
   def extract episodes, kind, episodes_aired
