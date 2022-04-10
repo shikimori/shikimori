@@ -20,17 +20,13 @@ FactoryBot.define do
     Types::Contest::StrategyType.values.each { |value| trait(value) { strategy_type { value } } }
     Types::Contest::UserVoteKey.values.each { |value| trait(value) { user_vote_key { value } } }
 
-    # Contest.aasm.states.map(&:name).each do |value|
-    #   trait(value.to_sym) { state { value } }
-    # end
-
-    # trait(:created) { state :created }
-    # trait(:proposing) { state :proposing }
-    # trait :started do
-      # state :started
-      # after(:create) { |contest| Contest::Start.call contest }
-    # end
-    # trait(:finished) { state :finished }
+    Contest.aasm.states.map(&:name).each do |value|
+      trait(value.to_sym) { state { value } }
+    end
+    trait :started_with_action do
+      state { :started }
+      after(:create) { |contest| Contest::Start.call contest }
+    end
 
     trait :with_topics do
       after(:create) { |contest| contest.generate_topics %i[en ru] }

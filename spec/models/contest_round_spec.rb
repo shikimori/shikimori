@@ -4,7 +4,7 @@ describe ContestRound do
     it { is_expected.to have_many :matches }
   end
 
-  describe 'aasm', :focus do
+  describe 'aasm' do
     subject { build :contest_round, state, matches: matches }
     let(:matches) { [] }
     let(:contest_match_created) { build :contest_match, :created }

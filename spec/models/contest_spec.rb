@@ -18,7 +18,6 @@ describe Contest do
     # it { is_expected.to validate_presence_of :title_en }
     it { is_expected.to validate_length_of(:description_ru).is_at_most(32768) }
     it { is_expected.to validate_length_of(:description_en).is_at_most(32768) }
-    it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_presence_of :strategy_type }
     it { is_expected.to validate_presence_of :member_type }
     it { is_expected.to validate_presence_of :started_on }
@@ -39,41 +38,41 @@ describe Contest do
     end
   end
 
-  describe 'state machine' do
-    let(:contest) { create :contest, :with_5_members, :created }
-
-    describe 'can_propose?' do
-      subject { contest.can_propose? }
-      it { is_expected.to eq true }
-    end
-
-    describe '#can_start?' do
-      subject { contest.can_start? }
-
-      context 'normal count' do
-        before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS + 1 }
-        it { is_expected.to eq true }
-      end
-
-      context 'Contest::MINIMUM_MEMBERS' do
-        before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS - 1 }
-        it { is_expected.to eq false }
-      end
-
-      context 'Contest::MAXIMUM_MEMBERS' do
-        before { allow(contest.links).to receive(:count).and_return Contest::MAXIMUM_MEMBERS + 1 }
-        it { is_expected.to eq false }
-      end
-    end
-
-    context 'after propose' do
-      subject! { contest.propose! }
-
-      it 'creates 2 topics' do
-        expect(contest.topics).to have(2).items
-      end
-    end
-  end
+  # describe 'state machine' do
+  #   let(:contest) { create :contest, :with_5_members, :created }
+  #
+  #   describe 'can_propose?' do
+  #     subject { contest.can_propose? }
+  #     it { is_expected.to eq true }
+  #   end
+  #
+  #   describe '#can_start?' do
+  #     subject { contest.can_start? }
+  #
+  #     context 'normal count' do
+  #       before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS + 1 }
+  #       it { is_expected.to eq true }
+  #     end
+  #
+  #     context 'Contest::MINIMUM_MEMBERS' do
+  #       before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS - 1 }
+  #       it { is_expected.to eq false }
+  #     end
+  #
+  #     context 'Contest::MAXIMUM_MEMBERS' do
+  #       before { allow(contest.links).to receive(:count).and_return Contest::MAXIMUM_MEMBERS + 1 }
+  #       it { is_expected.to eq false }
+  #     end
+  #   end
+  #
+  #   context 'after propose' do
+  #     subject! { contest.propose! }
+  #
+  #     it 'creates 2 topics' do
+  #       expect(contest.topics).to have(2).items
+  #     end
+  #   end
+  # end
 
   describe 'instance methods' do
     describe '#current_round' do
