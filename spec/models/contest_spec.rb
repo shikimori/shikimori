@@ -40,16 +40,30 @@ describe Contest do
 
   describe 'aasm' do
     subject { build :contest, state, rounds: rounds }
+
     let(:rounds) { [] }
     let(:contest_round_created) { build :contest_round, :created }
     let(:contest_round_started) { build :contest_round, :started }
     let(:contest_round_finished) { build :contest_round, :finished }
 
+    before { allow(subject).to receive :generate_missing_topics }
+
     context 'created' do
       let(:state) { :created }
 
       it { is_expected.to have_state state }
-      it { is_expected.to transition_from(state).to(:proposing).on_event(:propose) }
+
+      describe 'transition to proposing' do
+        it { is_expected.to transition_from(state).to(:proposing).on_event(:propose) }
+
+        context 'generate_missing_topics callback' do
+          before { subject.propose! }
+          it do
+            is_expected.to have_state :proposing
+            expect(subject).to have_received :generate_missing_topics
+          end
+        end
+      end
 
       describe 'transition to started' do
         before { allow(subject.links).to receive(:count).and_return links_count }
@@ -66,6 +80,14 @@ describe Contest do
 
           it { is_expected.to allow_transition_to :started }
           it { is_expected.to transition_from(state).to(:started).on_event(:start) }
+
+          context 'generate_missing_topics callback' do
+            before { subject.start! }
+            it do
+              is_expected.to have_state :started
+              expect(subject).to have_received :generate_missing_topics
+            end
+          end
         end
 
         context 'less than MINIMUM_MEMBERS' do
@@ -260,6 +282,28 @@ describe Contest do
       context Character do
         let(:member_type) { :character }
         it { is_expected.to eq Character }
+      end
+    end
+
+    describe '#generate_missing_topics' do
+      before do
+        allow(subject.topics).to receive(:none?).and_return is_none
+        allow(subject).to receive :generate_topics
+        subject.send :generate_missing_topics
+      end
+
+      context 'no topics' do
+        let(:is_none) { true }
+        it do
+          expect(subject)
+            .to have_received(:generate_topics)
+            .with Shikimori::DOMAIN_LOCALES
+        end
+      end
+
+      context 'has topics' do
+        let(:is_none) { false }
+        it { expect(subject).to_not have_received :generate_topics }
       end
     end
   end

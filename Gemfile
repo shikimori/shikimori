@@ -71,9 +71,13 @@ gem 'translit'
 gem 'sixarm_ruby_unaccent' # adds method `unaccent`. it is used in Tags::GenerateNames
 gem 'simple_form'
 gem 'simple_form-magic_submit', github: 'morr/simple_form-magic_submit', branch: 'master'
-gem 'aasm'
 gem 'active_model_serializers'
 gem 'concurrent-ruby-edge'
+
+gem 'aasm'
+# [DEPRECATION] :after_commit AASM callback is not safe in terms of race conditions and redundant calls.
+# Please add `gem 'after_commit_everywhere', '~> 1.0'` to your Gemfile in order to fix that.
+gem 'after_commit_everywhere'
 
 gem 'nokogiri'
 # gem 'sanitize'

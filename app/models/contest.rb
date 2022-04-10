@@ -67,7 +67,9 @@ class Contest < ApplicationRecord
     state :finished
 
     event :propose do
-      transitions from: :created, to: :proposing
+      transitions from: :created,
+        to: :proposing,
+        success: :generate_missing_topics
     end
     event :stop_propose do
       transitions from: :proposing, to: :created
@@ -75,6 +77,7 @@ class Contest < ApplicationRecord
     event :start do
       transitions from: %i[created proposing],
         to: :started,
+        success: :generate_missing_topics,
         if: -> { links.count.between? MINIMUM_MEMBERS, MAXIMUM_MEMBERS }
     end
     event :finish do
@@ -82,10 +85,6 @@ class Contest < ApplicationRecord
         to: :finished,
         if: -> { rounds.any? && rounds.all?(&:finished?) }
     end
-
-  #   after_transition :created => %i[proposing started] do |contest, transition|
-  #     contest.generate_topics Shikimori::DOMAIN_LOCALES
-  #   end
   end
 
   def current_round
@@ -146,5 +145,11 @@ class Contest < ApplicationRecord
 
   def topic_user
     user
+  end
+
+private
+
+  def generate_missing_topics
+    generate_topics Shikimori::DOMAIN_LOCALES if topics.none?
   end
 end
