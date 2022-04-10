@@ -163,9 +163,6 @@ GEM
     acts_as_votable (0.13.1)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
-    after_commit_everywhere (1.2.0)
-      activerecord (>= 4.2)
-      activesupport
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
     apipie-rails (0.7.0)
@@ -772,7 +769,6 @@ DEPENDENCIES
   activerecord-import
   acts_as_list
   acts_as_votable
-  after_commit_everywhere
   airbrussh
   amatch!
   apipie-rails

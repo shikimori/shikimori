@@ -77,7 +77,7 @@ gem 'concurrent-ruby-edge'
 gem 'aasm'
 # [DEPRECATION] :after_commit AASM callback is not safe in terms of race conditions and redundant calls.
 # Please add `gem 'after_commit_everywhere', '~> 1.0'` to your Gemfile in order to fix that.
-gem 'after_commit_everywhere'
+# gem 'after_commit_everywhere'
 
 gem 'nokogiri'
 # gem 'sanitize'
