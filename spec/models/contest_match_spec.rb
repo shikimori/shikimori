@@ -6,17 +6,27 @@ describe ContestMatch do
   end
 
   describe 'aasm' do
+    subject do
+      build :contest_match, state,
+        started_on: started_on,
+        finished_on: finished_on
+    end
+    let(:started_on) { nil }
+    let(:finished_on) { nil }
+
     context 'created' do
-      it { is_expected.to have_state :created }
+      let(:state) { :created }
+
+      it { is_expected.to have_state state }
 
       context 'started_on <= Time.zone.today' do
-        before { subject.started_on = Time.zone.yesterday }
+        let(:started_on) { Time.zone.yesterday }
         it { is_expected.to allow_transition_to :started }
         it { is_expected.to transition_from(:created).to(:started).on_event(:start) }
       end
 
       context 'started_on < Time.zone.today' do
-        before { subject.started_on = Time.zone.tomorrow }
+        let(:started_on) {  Time.zone.tomorrow }
         it { is_expected.to_not allow_transition_to :started }
       end
 
@@ -24,25 +34,27 @@ describe ContestMatch do
     end
 
     context 'started' do
-      before { subject.state = :started }
-      it { is_expected.to have_state :started }
+      let(:state) { :started }
+
+      it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :created }
 
       context 'finished_on < Time.zone.today' do
-        before { subject.finished_on = Time.zone.yesterday }
+        let(:finished_on) { Time.zone.yesterday }
         it { is_expected.to allow_transition_to :finished }
         it { is_expected.to transition_from(:started).to(:finished).on_event(:finish) }
       end
 
       context 'finished_on >= Time.zone.today' do
-        before { subject.finished_on = Time.zone.today }
+        let(:finished_on) { Time.zone.today }
         it { is_expected.to_not allow_transition_to :finished }
       end
     end
 
     context 'finished' do
-      before { subject.state = :finished }
-      it { is_expected.to have_state :finished }
+      let(:state) { :finished }
+
+      it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :created }
       it { is_expected.to_not allow_transition_to :started }
     end
