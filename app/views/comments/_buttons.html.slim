@@ -22,7 +22,7 @@ aside.buttons
       title=t('actions.delete')
       data-text=t('actions.delete')
     ]
-    - if comment.moderatable? && current_user.can_post?
+    - if comment.moderatable?
       span.item-moderation[
         title=t('actions.moderate')
         data-text=t('actions.moderate')
@@ -58,8 +58,8 @@ aside.buttons
     ]
 
     span.item-abuse.b-tooltipped.unprocessed[
-      title=(comment.not_from_club? ? t('actions.moderation.abuse') : t('actions.moderation.laws_abuse'))
-      data-text=(comment.not_from_club? ? t('actions.moderation.abuse') : t('actions.moderation.laws_abuse'))
+      title=(comment.topic_outside_clubs? ? t('actions.moderation.abuse') : t('actions.moderation.laws_abuse'))
+      data-text=(comment.topic_outside_clubs? ? t('actions.moderation.abuse') : t('actions.moderation.laws_abuse'))
       data-action=abuse_api_v2_abuse_requests_url(comment_id: comment.id)
       data-method='post'
       data-type='json'
@@ -67,7 +67,7 @@ aside.buttons
       data-reason-prompt=t('actions.moderation.explain.abuse')
       data-direction='top'
     ]
-    - if comment.not_from_club?
+    - if comment.topic_outside_clubs?
       span.item-spoiler.b-tooltipped.unprocessed[
         title=t('actions.moderation.spoiler')
         data-text=t('actions.moderation.spoiler')
