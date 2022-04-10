@@ -6,9 +6,9 @@ FactoryBot.define do
     kind { :op }
     uploader { seed :user }
 
-    # Video.aasm.states.map(&:name).each do |value|
-    #   trait(value.to_sym) { state { value } }
-    # end
+    Video.aasm.states.map(&:name).each do |value|
+      trait(value.to_sym) { state { value } }
+    end
 
     # trait :with_http_request do
       # after(:build) do |v|

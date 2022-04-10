@@ -5,7 +5,6 @@ describe Video do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :uploader_id }
     it { is_expected.to validate_presence_of :url }
     it { is_expected.to validate_presence_of :kind }
     # it { is_expected.to validate_presence_of :hosting }
@@ -14,6 +13,37 @@ describe Video do
   describe 'enumerize' do
     it { is_expected.to enumerize(:hosting).in(*Types::Video::Hosting.values) }
     it { is_expected.to enumerize(:kind).in(*Types::Video::Kind.values) }
+  end
+
+  describe 'aasm' do
+    subject { build :video, state }
+
+    context 'uploaded' do
+      let(:state) { :uploaded }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to allow_transition_to :confirmed }
+      it { is_expected.to transition_from(state).to(:confirmed).on_event(:confirm) }
+      it { is_expected.to allow_transition_to :deleted }
+      it { is_expected.to transition_from(state).to(:deleted).on_event(:del) }
+    end
+
+    context 'confirmed' do
+      let(:state) { :confirmed }
+
+      it { is_expected.to_not allow_transition_to :uploaded }
+      it { is_expected.to allow_transition_to :deleted }
+      it { is_expected.to transition_from(state).to(:deleted).on_event(:del) }
+    end
+
+    context 'deleted' do
+      let(:state) { :deleted }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to_not allow_transition_to :uploaded }
+      it { is_expected.to allow_transition_to :confirmed }
+      it { is_expected.to transition_from(state).to(:confirmed).on_event(:confirm) }
+    end
   end
 
   describe 'validations' do

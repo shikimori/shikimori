@@ -1,4 +1,6 @@
 class Video < ApplicationRecord
+  include AASM
+
   ALLOWED_HOSTINGS = %i[youtube vk rutube sibnet smotret_anime vimeo] # dailymotion
 
   belongs_to :anime, optional: true
@@ -11,8 +13,8 @@ class Video < ApplicationRecord
     in: Types::Video::Kind.values,
     predicates: true
 
-  validates :uploader_id, :url, :kind, presence: true
-  validates :url, uniqueness: {
+  validates :url, :kind, presence: true
+  validates :url, uniqueness: { # rubocop:disable UniqueValidationWithoutIndex
     case_sensitive: true,
     scope: [:anime_id],
     conditions: -> { where.not state: :deleted }
@@ -39,18 +41,18 @@ class Video < ApplicationRecord
   YOUTUBE_PARAM_REGEXP = /(?:&|\?)v=(.*?)(?:&|$)/
   VK_PARAM_REGEXP = %r{https?://vk.com/video-?(\d+)_(\d+)}
 
-  # state_machine :state, initial: :uploaded do
-  #   state :uploaded
-  #   state :confirmed
-  #   state :deleted
-  #
-  #   event :confirm do
-  #     transition %i[uploaded deleted] => :confirmed
-  #   end
-  #   event :del do
-  #     transition %i[uploaded confirmed] => :deleted
-  #   end
-  # end
+  aasm column: 'state' do
+    state :uploaded, initial: true
+    state :confirmed
+    state :deleted
+
+    event :confirm do
+      transitions from: %i[uploaded deleted], to: :confirmed
+    end
+    event :del do
+      transitions from: %i[uploaded confirmed], to: :deleted
+    end
+  end
 
   def url= url
     return if url.blank?
