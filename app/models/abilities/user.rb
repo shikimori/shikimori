@@ -331,11 +331,11 @@ class Abilities::User
     end
 
     can %i[start], Poll do |poll|
-      can?(:read, poll) && poll.can_start?
+      can?(:read, poll) && poll.may_start?
     end
 
     can %i[stop], Poll do |poll|
-      can?(:read, poll) && poll.can_stop?
+      can?(:read, poll) && poll.may_stop?
     end
   end
 

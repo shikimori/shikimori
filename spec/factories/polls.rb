@@ -6,9 +6,9 @@ FactoryBot.define do
     text { 'poll text' }
     width { Types::Poll::Width[:limited] }
 
-    # Poll.aasm.states.map(&:name).each do |value|
-    #   trait(value.to_sym) { state { value } }
-    # end
+    Poll.aasm.states.map(&:name).each do |value|
+      trait(value.to_sym) { state { value } }
+    end
 
     trait :with_variants do
       after :build do |model|

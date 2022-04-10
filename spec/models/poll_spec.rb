@@ -5,7 +5,6 @@ describe Poll do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_length_of(:name).is_at_most(255) }
     it { is_expected.to validate_length_of(:text).is_at_most(10000) }
@@ -20,14 +19,54 @@ describe Poll do
   end
 
   describe 'aasm' do
-    it { is_expected.to have_states :pending, :started, :stopped }
-    # context 'persisted, with variants' do
-      # it { is_expected.to allow_event :start, wnen: :pending }
-    # end
-    it { is_expected.to_not allow_event :stop, on: :pending }
-    # it { is_expected.to_not allow_event :start, wnen: :started }
-    it { is_expected.to allow_event :stop, on: :started }
-    it { is_expected.to_not allow_event :start, :stop, on: :stopped }
+    subject { build :poll, state }
+
+    context 'pending' do
+      let(:state) { :pending }
+
+      it { is_expected.to have_state state }
+
+      describe 'transition to started' do
+        before do
+          allow(subject).to receive(:persisted?).and_return is_persisted
+          allow(subject.variants).to receive(:many?).and_return is_many
+        end
+        let(:is_persisted) { true }
+        let(:is_many) { true }
+
+        it { is_expected.to allow_transition_to :started }
+        it { is_expected.to transition_from(state).to(:started).on_event(:start) }
+
+        context 'not persisted' do
+          let(:is_persisted) { false }
+          it { is_expected.to_not allow_transition_to :started }
+        end
+
+        context 'not many variants' do
+          let(:is_many) { false }
+          it { is_expected.to_not allow_transition_to :started }
+        end
+      end
+
+      it { is_expected.to_not allow_transition_to :stopped }
+    end
+
+    context 'started' do
+      let(:state) { :started }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to_not allow_transition_to :pending }
+      it { is_expected.to allow_transition_to :stopped }
+      it { is_expected.to transition_from(state).to(:stopped).on_event(:stop) }
+    end
+
+    context 'stopped' do
+      let(:state) { :stopped }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to_not allow_transition_to :pending }
+      it { is_expected.to_not allow_transition_to :started }
+    end
   end
 
   describe 'instance methods' do
