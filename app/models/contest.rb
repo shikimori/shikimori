@@ -62,11 +62,11 @@ class Contest < ApplicationRecord
 
   # state_machine :state, initial: :created do
   #   state :created, :proposing
-  # 
+  #
   #   state :proposing
   #   state :started
   #   state :finished
-  # 
+  #
   #   event(:propose) { transition created: :proposing }
   #   event(:stop_propose) { transition proposing: :created }
   #   event :start do
@@ -76,7 +76,7 @@ class Contest < ApplicationRecord
   #     } # && Contest.all.none?(&:started?)
   #   end
   #   event(:finish) { transition started: :finished }
-  # 
+  #
   #   after_transition :created => %i[proposing started] do |contest, transition|
   #     contest.generate_topics Shikimori::DOMAIN_LOCALES
   #   end

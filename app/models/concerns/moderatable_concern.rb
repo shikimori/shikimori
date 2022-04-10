@@ -17,19 +17,19 @@ module ModeratableConcern
     #   state :rejected do
     #     validates :approver, presence: true
     #   end
-    # 
+    #
     #   event(:accept) { transition pending: :accepted }
     #   event(:reject) { transition pending: :rejected }
     #   event(:cancel) { transition accepted: :pending }
-    # 
+    #
     #   before_transition pending: :accepted do |critique, transition|
     #     critique.approver = transition.args.first
     #   end
-    # 
+    #
     #   before_transition pending: :rejected do |critique, transition|
     #     critique.approver = transition.args.first
     #     critique.to_offtopic!
-    # 
+    #
     #     Messages::CreateNotification.new(critique)
     #       .moderatable_banned(transition.args.second)
     #   end

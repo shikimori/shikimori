@@ -6,8 +6,8 @@ FactoryBot.define do
     text { 'poll text' }
     width { Types::Poll::Width[:limited] }
 
-    # Poll.state_machine.states.map(&:value).each do |poll_state|
-    #   trait(poll_state.to_sym) { state { poll_state } }
+    # Poll.aasm.states.map(&:name).each do |value|
+    #   trait(value.to_sym) { state { value } }
     # end
 
     trait :with_variants do

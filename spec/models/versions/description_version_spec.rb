@@ -1,5 +1,5 @@
 describe Versions::DescriptionVersion do
-  describe 'state_machine' do
+  describe 'aasm' do
     let(:version) { build_stubbed :description_version, state }
 
     describe '#accept_taken' do

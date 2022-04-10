@@ -19,18 +19,15 @@ describe Poll do
     end
   end
 
-  describe 'state_machine' do
+  describe 'aasm' do
     it { is_expected.to have_states :pending, :started, :stopped }
-
     # context 'persisted, with variants' do
-      # it { is_expected.to handle_events :start, wnen: :pending }
+      # it { is_expected.to allow_event :start, wnen: :pending }
     # end
-    it { is_expected.to reject_events :stop, when: :pending }
-
-    # it { is_expected.to reject_events :start, wnen: :started }
-    it { is_expected.to handle_events :stop, when: :started }
-
-    it { is_expected.to reject_events :start, :stop, when: :stopped }
+    it { is_expected.to_not allow_event :stop, on: :pending }
+    # it { is_expected.to_not allow_event :start, wnen: :started }
+    it { is_expected.to allow_event :stop, on: :started }
+    it { is_expected.to_not allow_event :start, :stop, on: :stopped }
   end
 
   describe 'instance methods' do

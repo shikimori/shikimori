@@ -43,7 +43,7 @@ describe AbuseRequest do
     end
   end
 
-  describe 'state_machine' do
+  describe 'aasm' do
     subject(:abuse_request) { create :abuse_request, user: user }
 
     describe '#take' do

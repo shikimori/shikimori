@@ -4,12 +4,12 @@ describe ContestRound do
     it { is_expected.to have_many :matches }
   end
 
-  describe 'state_machine' do
+  describe 'aasm' do
     it { is_expected.to have_states :created, :started, :finished }
 
-    it { is_expected.to reject_events :finish, when: :created }
-    it { is_expected.to reject_events :start, when: :started }
-    it { is_expected.to reject_events :start, :finish, when: :finished }
+    it { is_expected.to_not allow_event :finish, on: :created }
+    it { is_expected.to_not allow_event :start, on: :started }
+    it { is_expected.to_not allow_event :start, :finish, on: :finished }
 
     # let(:contest) { create :contest, :with_5_members, state: 'started' }
     # let(:round) { create :contest_round, contest: contest }

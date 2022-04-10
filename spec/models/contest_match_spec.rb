@@ -5,64 +5,46 @@ describe ContestMatch do
     it { is_expected.to belong_to(:right).optional }
   end
 
-  describe 'state_machine' do
-    it { is_expected.to have_states :created, :started, :finished }
+  describe 'aasm' do
+    context 'created' do
+      it { is_expected.to have_state :created }
 
-    it { is_expected.to reject_events :finish, when: :created }
-    it { is_expected.to reject_events :start, when: :started }
-    it { is_expected.to reject_events :start, :finish, when: :finished }
-
-    context 'match.started_on <= Time.zone.today' do
-      before { subject.started_on = Time.zone.yesterday }
-      it { is_expected.to handle_events :start, when: :created }
-    end
-    context 'match.started_on < Time.zone.today' do
-      before { subject.started_on = Time.zone.tomorrow }
-      it { is_expected.to reject_events :start, when: :created }
-    end
-
-    context 'match.finished_on < Time.zone.today' do
-      before { subject.finished_on = Time.zone.yesterday }
-      it { is_expected.to handle_events :finish, when: :started }
-    end
-    context 'match.finished_on >= Time.zone.today' do
-      before { subject.finished_on = Time.zone.today }
-      it { is_expected.to reject_events :finish, when: :started }
-    end
-
-    let(:match) do
-      create :contest_match,
-        started_on: Time.zone.yesterday,
-        finished_on: Time.zone.yesterday
-    end
-
-    describe 'can_finish?' do
-      subject { match.can_finish? }
-      before { match.start! }
-
-      context 'true' do
-        before { match.finished_on = Time.zone.yesterday }
-        it { is_expected.to eq true }
+      context 'started_on <= Time.zone.today' do
+        before { subject.started_on = Time.zone.yesterday }
+        it { is_expected.to allow_transition_to :started }
+        it { is_expected.to transition_from(:created).to(:started).on_event(:start) }
       end
 
-      context 'false' do
-        before { match.finished_on = Time.zone.today }
-        it { is_expected.to eq false }
+      context 'started_on < Time.zone.today' do
+        before { subject.started_on = Time.zone.tomorrow }
+        it { is_expected.to_not allow_transition_to :started }
+      end
+
+      it { is_expected.to_not allow_transition_to :finished }
+    end
+
+    context 'started' do
+      before { subject.state = :started }
+      it { is_expected.to have_state :started }
+      it { is_expected.to_not allow_transition_to :created }
+
+      context 'finished_on < Time.zone.today' do
+        before { subject.finished_on = Time.zone.yesterday }
+        it { is_expected.to allow_transition_to :finished }
+        it { is_expected.to transition_from(:started).to(:finished).on_event(:finish) }
+      end
+
+      context 'finished_on >= Time.zone.today' do
+        before { subject.finished_on = Time.zone.today }
+        it { is_expected.to_not allow_transition_to :finished }
       end
     end
 
-    context 'can_start?' do
-      subject { match.can_start? }
-
-      context 'true' do
-        before { match.started_on = Time.zone.today }
-        it { is_expected.to eq true }
-      end
-
-      context 'false' do
-        before { match.started_on = Time.zone.tomorrow }
-        it { is_expected.to eq false }
-      end
+    context 'finished' do
+      before { subject.state = :finished }
+      it { is_expected.to have_state :finished }
+      it { is_expected.to_not allow_transition_to :created }
+      it { is_expected.to_not allow_transition_to :started }
     end
   end
 

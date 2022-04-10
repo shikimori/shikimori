@@ -4,9 +4,9 @@ FactoryBot.define do
     right factory: :anime
     round factory: :contest_round
 
-    # ContestMatch.state_machine.states.map(&:value).each do |contest_match_state|
-    #   trait(contest_match_state.to_sym) { state { contest_match_state } }
-    # end
+    ContestMatch.aasm.states.map(&:name).each do |value|
+      trait(value.to_sym) { state { value } }
+    end
 
     trait :no_round do
       round { nil }

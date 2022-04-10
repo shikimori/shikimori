@@ -12,7 +12,7 @@ class ContestRound < ApplicationRecord
 
   belongs_to :contest, touch: true
   has_many :matches, -> { order :id },
-    class_name: ContestMatch.name,
+    class_name: 'ContestMatch',
     inverse_of: :round,
     foreign_key: :round_id,
     dependent: :destroy

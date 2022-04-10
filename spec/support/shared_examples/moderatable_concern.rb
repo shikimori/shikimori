@@ -2,7 +2,7 @@ shared_examples :moderatable_concern do |type|
   describe 'moderatable concern' do
     let(:model) { create type, :with_topics, user: user }
 
-    describe 'state_machine' do
+    describe 'aasm' do
       # does not work with renamed state field
       # it { is_expected.to have_states :pending, :accepted, :rejected }
       # it { is_expected.to handle_events :accept, :reject, when: :pending }

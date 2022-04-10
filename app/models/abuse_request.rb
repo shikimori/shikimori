@@ -43,23 +43,23 @@ class AbuseRequest < ApplicationRecord
   #   state :rejected do
   #     validates :approver, presence: true
   #   end
-  # 
+  #
   #   event :take do
   #     transition pending: :accepted
   #   end
-  # 
+  #
   #   event :reject do
   #     transition pending: :rejected
   #   end
-  # 
+  #
   #   before_transition pending: :accepted do |abuse_request, transition|
   #     abuse_request.approver = transition.args.first
   #     faye_token = transition.args.second
   #     assign_approver_option = transition.args.third
-  # 
+  #
   #     unless assign_approver_option == :skip
   #       faye = FayeService.new abuse_request.approver, faye_token
-  # 
+  #
   #       # process offtopic and summary requests only
   #       if faye.respond_to? abuse_request.kind
   #         abuse_request.affected_ids = faye.public_send(
@@ -70,7 +70,7 @@ class AbuseRequest < ApplicationRecord
   #       end
   #     end
   #   end
-  # 
+  #
   #   before_transition pending: :rejected do |abuse_request, transition|
   #     abuse_request.approver = transition.args.first
   #   end

@@ -19,22 +19,22 @@ class ContestMatch < ApplicationRecord
     nil => 'abstain'
   }
 
-  # state_machine :state, initial: :created do
-  #   state :created
-  #   state :started
-  #   state :finished
-  #
-  #   event :start do
-  #     transition created: :started, if: ->(match) {
-  #       match.started_on && match.started_on <= Time.zone.today
-  #     }
-  #   end
-  #   event :finish do
-  #     transition started: :finished, if: ->(match) {
-  #       match.finished_on && match.finished_on < Time.zone.today
-  #     }
-  #   end
-  # end
+  aasm column: 'state' do
+    state :created, initial: true
+    state :started
+    state :finished
+
+    event :start do
+      transitions from: :created,
+        to: :started,
+        if: -> { started_on && started_on <= Time.zone.today }
+    end
+    event :finish do
+      transitions from: :started,
+        to: :finished,
+        if: -> { finished_on && finished_on < Time.zone.today }
+    end
+  end
 
   alias can_vote? started?
 

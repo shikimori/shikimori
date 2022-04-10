@@ -18,12 +18,12 @@ describe ListImport do
     end
   end
 
-  describe 'state_machine' do
+  describe 'aasm' do
     it { is_expected.to have_states :pending, :finished, :failed }
 
-    it { is_expected.to handle_events :finish, :to_failed, wnen: :pending }
-    it { is_expected.to reject_events :finish, :to_failed, when: :finished }
-    it { is_expected.to reject_events :finish, :to_failed, when: :failed }
+    it { is_expected.to allow_event :finish, :to_failed, wnen: :pending }
+    it { is_expected.to_not allow_event :finish, :to_failed, on: :finished }
+    it { is_expected.to_not allow_event :finish, :to_failed, on: :failed }
   end
 
   describe 'callbacks' do

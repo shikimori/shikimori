@@ -20,7 +20,7 @@ FactoryBot.define do
     Types::Contest::StrategyType.values.each { |value| trait(value) { strategy_type { value } } }
     Types::Contest::UserVoteKey.values.each { |value| trait(value) { user_vote_key { value } } }
 
-    # Contest.state_machine.states.map(&:value).each do |value|
+    # Contest.aasm.states.map(&:name).each do |value|
     #   trait(value.to_sym) { state { value } }
     # end
 

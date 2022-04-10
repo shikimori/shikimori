@@ -12,7 +12,7 @@ FactoryBot.define do
     changed_at { nil }
     links_count { 0 }
 
-    # Collection.state_machine.states.map(&:value).each do |value|
+    # Collection.aasm.states.map(&:name).each do |value|
     #   trait(value.to_sym) { state { value } }
     # end
 

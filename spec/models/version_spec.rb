@@ -20,7 +20,7 @@ describe Version do
     end
   end
 
-  describe 'state_machine' do
+  describe 'aasm' do
     let(:anime) { build_stubbed :anime }
     let(:video) { create :anime_video, anime: anime, episode: 2 }
     let(:moderator) { build_stubbed :user }

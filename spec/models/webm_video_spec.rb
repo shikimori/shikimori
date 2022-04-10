@@ -16,7 +16,7 @@ describe WebmVideo do
     it { expect(video).to have_received :schedule_thumbnail }
   end
 
-  describe 'state_machine' do
+  describe 'aasm' do
     describe 'pending' do
       let(:video) { build :webm_video, :pending }
       it { expect(video).to be_can_process }
