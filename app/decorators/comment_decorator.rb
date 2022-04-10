@@ -21,6 +21,11 @@ class CommentDecorator < BaseDecorator
   end
 
   def offtopable?
-    commentable_type != Review.name
+    commentable_type != Review.name && not_from_club?
+  end
+
+  def not_from_club?
+    commentable.linked_type != Club.name &&
+    commentable.linked_type != ClubPage.name
   end
 end

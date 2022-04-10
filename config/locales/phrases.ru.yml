@@ -33,6 +33,7 @@ ru:
     moderate: На модерацию
     moderation:
       abuse: Нарушение правил
+      laws_abuse: Нарушение законодательства РФ
       ban: Забанить
       not_offtopic: Это не оффтопик
       not_summary: Это не отзыв

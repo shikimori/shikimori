@@ -164,11 +164,7 @@ class Comment < ApplicationRecord
   end
 
   def moderatable?
-    (
-      commentable_type == Topic.name &&
-        commentable.linked_type != Club.name &&
-        commentable.linked_type != ClubPage.name
-    ) || commentable_type == Review.name
+    commentable_type == Topic.name || commentable_type == Review.name
   end
 
   def faye_channels
