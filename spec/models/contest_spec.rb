@@ -52,15 +52,31 @@ describe Contest do
       it { is_expected.to transition_from(state).to(:proposing).on_event(:propose) }
 
       describe 'transition to started' do
-        # context 'has matches' do
-        #   let(:matches) { [contest_match_created] }
-        #   it { is_expected.to allow_transition_to :started }
-        #   it { is_expected.to transition_from(state).to(:started).on_event(:start) }
-        # end
-        #
-        # context 'no matches' do
-        #   it { is_expected.to_not allow_transition_to :started }
-        # end
+        before { allow(subject.links).to receive(:count).and_return links_count }
+
+        context 'allowed count' do
+          let(:links_count) do
+            [
+              Contest::MINIMUM_MEMBERS,
+              Contest::MINIMUM_MEMBERS + 1,
+              Contest::MAXIMUM_MEMBERS - 1,
+              Contest::MAXIMUM_MEMBERS
+            ].sample
+          end
+
+          it { is_expected.to allow_transition_to :started }
+          it { is_expected.to transition_from(state).to(:started).on_event(:start) }
+        end
+
+        context 'less than MINIMUM_MEMBERS' do
+          let(:links_count) { Contest::MINIMUM_MEMBERS - 1 }
+          it { is_expected.to_not allow_transition_to :started }
+        end
+
+        context 'Contest::MAXIMUM_MEMBERS' do
+          let(:links_count) { Contest::MAXIMUM_MEMBERS + 1 }
+          it { is_expected.to_not allow_transition_to :started }
+        end
       end
 
       it { is_expected.to_not allow_transition_to :finished }

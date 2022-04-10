@@ -72,18 +72,17 @@ class Contest < ApplicationRecord
     event :stop_propose do
       transitions from: :proposing, to: :created
     end
-  #   event :start do
-  #     transition %i[created proposing] => :started, if: lambda { |contest|
-  #       contest.links.count >= MINIMUM_MEMBERS &&
-  #         contest.links.count <= MAXIMUM_MEMBERS
-  #     } # && Contest.all.none?(&:started?)
-  #   end
+    event :start do
+      transitions from: %i[created proposing],
+        to: :started,
+        if: -> { links.count.between? MINIMUM_MEMBERS, MAXIMUM_MEMBERS }
+    end
     event :finish do
       transitions from: :started,
         to: :finished,
         if: -> { rounds.any? && rounds.all?(&:finished?) }
     end
-  #
+
   #   after_transition :created => %i[proposing started] do |contest, transition|
   #     contest.generate_topics Shikimori::DOMAIN_LOCALES
   #   end
