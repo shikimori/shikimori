@@ -3,10 +3,6 @@ describe ListImport do
     it { is_expected.to belong_to :user }
   end
 
-  describe 'validations' do
-    it { is_expected.to validate_presence_of :user }
-  end
-
   describe 'enumerize' do
     it do
       is_expected
@@ -19,11 +15,32 @@ describe ListImport do
   end
 
   describe 'aasm' do
-    it { is_expected.to have_states :pending, :finished, :failed }
+    subject { build :list_import, state }
 
-    it { is_expected.to allow_event :finish, :to_failed, wnen: :pending }
-    it { is_expected.to_not allow_event :finish, :to_failed, on: :finished }
-    it { is_expected.to_not allow_event :finish, :to_failed, on: :failed }
+    context 'pending' do
+      let(:state) { :pending }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to allow_transition_to :finished }
+      it { is_expected.to transition_from(state).to(:finished).on_event(:finish) }
+      it { is_expected.to allow_transition_to :failed }
+      it { is_expected.to transition_from(state).to(:failed).on_event(:to_failed) }
+    end
+
+    context 'finished' do
+      let(:state) { :finished }
+
+      it { is_expected.to_not allow_transition_to :pending }
+      it { is_expected.to_not allow_transition_to :failed }
+    end
+
+    context 'failed' do
+      let(:state) { :failed }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to_not allow_transition_to :pending }
+      it { is_expected.to_not allow_transition_to :finished }
+    end
   end
 
   describe 'callbacks' do

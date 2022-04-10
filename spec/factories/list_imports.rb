@@ -24,9 +24,9 @@ FactoryBot.define do
       trait(value) { list_type { value } }
     end
 
-    # ListImport.aasm.states.map(&:name).each do |value|
-    #   trait(value.to_sym) { state { value } }
-    # end
+    ListImport.aasm.states.map(&:name).each do |value|
+      trait(value.to_sym) { state { value } }
+    end
 
     trait :mal_xml do
       list { File.new "#{Rails.root}/spec/files/list.xml" }
