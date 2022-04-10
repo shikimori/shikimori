@@ -22,7 +22,7 @@ aside.buttons
       title=t('actions.delete')
       data-text=t('actions.delete')
     ]
-    - if comment.moderatable?
+    - if comment.moderatable? && current_user.can_post?
       span.item-moderation[
         title=t('actions.moderate')
         data-text=t('actions.moderate')
@@ -56,6 +56,7 @@ aside.buttons
       data-remote='true'
       data-direction='top'
     ]
+
     span.item-abuse.b-tooltipped.unprocessed[
       title=(comment.not_from_club? ? t('actions.moderation.abuse') : t('actions.moderation.laws_abuse'))
       data-text=(comment.not_from_club? ? t('actions.moderation.abuse') : t('actions.moderation.laws_abuse'))
