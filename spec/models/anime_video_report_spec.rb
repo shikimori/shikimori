@@ -6,8 +6,6 @@ describe AnimeVideoReport do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :user }
-    it { is_expected.to validate_presence_of :anime_video }
     it { is_expected.to validate_presence_of :kind }
 
     describe 'accepted' do
