@@ -12,9 +12,9 @@ class ExclusiveArcValidator < ActiveModel::EachValidator
     sum = target_fields.sum { |field| record.send(field).present? ? 1 : 0 }
 
     if sum.zero?
-      record.errors[:base] << "Must specify one of :#{target_fields.join(', :')}"
+      record.errors.add :base, "Must specify one of :#{target_fields.join(', :')}"
     elsif sum > 1
-      record.errors[:base] << "Must specify only one of :#{target_fields.join(', :')}"
+      record.errors.add :base, "Must specify only one of :#{target_fields.join(', :')}"
     end
   end
 end

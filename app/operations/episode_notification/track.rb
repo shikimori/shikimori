@@ -42,7 +42,7 @@ private
       .find_or_initialize_by(episode: @episode)
   end
 
-  def assign model # rubocop:disable all
+  def assign model
     model.is_raw = true if @is_raw
     model.is_subtitles = true if @is_subtitles
     model.is_fandub = true if @is_fandub
@@ -53,9 +53,9 @@ private
     end
   end
 
-  def validate model # rubocop:disable MethodLength, AbcSize
+  def validate model # rubocop:disable MethodLength
     if episodes_overflow?(model)
-      model.errors[:base] << format(
+      model.errors.add :base, format(
         EPISODES_MESSAGE,
         episode: model.episode,
         anime_id: model.anime.id,
@@ -63,7 +63,7 @@ private
       )
     end
     if episodes_aired_overflow?(model)
-      model.errors[:base] << format(
+      model.errors.add :base, format(
         EPISODES_AIRED_MESSAGE,
         episode: model.episode,
         anime_id: model.anime.id,

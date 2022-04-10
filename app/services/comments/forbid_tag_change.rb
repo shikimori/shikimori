@@ -16,7 +16,7 @@ class Comments::ForbidTagChange
 private
 
   def add_error
-    @model.errors[field] << I18n.t(
+    @model.errors.add field, I18n.t(
       'activerecord.errors.models.base.forbidden_tag_change',
       tag_error_label: @tag_error_label
     )
