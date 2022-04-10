@@ -253,7 +253,13 @@ export default class ShikiEditable extends ShikiView {
     if (!this.model.can_edit) { $('.item-edit', this.$inner).addClass('hidden'); }
     if (!this.model.can_destroy) { $('.item-delete', this.$inner).addClass('hidden'); }
 
-    if (window.SHIKI_USER.isModerator) {
+    if (!this.model.can_create_abuse_request) {
+      $('.item-abuse', this.$inner).addClass('hidden');
+      $('.item-offtopic', this.$inner).addClass('hidden');
+      $('.item-spoiler', this.$inner).addClass('hidden');
+    }
+
+    if (window.SHIKI_USER.isModerator && !this.model.is_own_comment) {
       $('.item-abuse', this.$inner).addClass('hidden');
       $('.item-spoiler', this.$inner).addClass('hidden');
     } else {
