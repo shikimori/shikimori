@@ -19,15 +19,17 @@ describe ContestMatch do
 
       it { is_expected.to have_state state }
 
-      context 'started_on <= Time.zone.today' do
-        let(:started_on) { Time.zone.yesterday }
-        it { is_expected.to allow_transition_to :started }
-        it { is_expected.to transition_from(:created).to(:started).on_event(:start) }
-      end
+      describe 'transition to started' do
+        context 'started_on <= Time.zone.today' do
+          let(:started_on) { Time.zone.yesterday }
+          it { is_expected.to allow_transition_to :started }
+          it { is_expected.to transition_from(state).to(:started).on_event(:start) }
+        end
 
-      context 'started_on < Time.zone.today' do
-        let(:started_on) {  Time.zone.tomorrow }
-        it { is_expected.to_not allow_transition_to :started }
+        context 'started_on < Time.zone.today' do
+          let(:started_on) {  Time.zone.tomorrow }
+          it { is_expected.to_not allow_transition_to :started }
+        end
       end
 
       it { is_expected.to_not allow_transition_to :finished }
@@ -39,15 +41,17 @@ describe ContestMatch do
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :created }
 
-      context 'finished_on < Time.zone.today' do
-        let(:finished_on) { Time.zone.yesterday }
-        it { is_expected.to allow_transition_to :finished }
-        it { is_expected.to transition_from(:started).to(:finished).on_event(:finish) }
-      end
+      describe 'transition to finished' do
+        context 'finished_on < Time.zone.today' do
+          let(:finished_on) { Time.zone.yesterday }
+          it { is_expected.to allow_transition_to :finished }
+          it { is_expected.to transition_from(state).to(:finished).on_event(:finish) }
+        end
 
-      context 'finished_on >= Time.zone.today' do
-        let(:finished_on) { Time.zone.today }
-        it { is_expected.to_not allow_transition_to :finished }
+        context 'finished_on >= Time.zone.today' do
+          let(:finished_on) { Time.zone.today }
+          it { is_expected.to_not allow_transition_to :finished }
+        end
       end
     end
 

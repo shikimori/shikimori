@@ -38,6 +38,79 @@ describe Contest do
     end
   end
 
+  describe 'aasm' do
+    subject { build :contest, state, rounds: rounds }
+    let(:rounds) { [] }
+    let(:contest_round_created) { build :contest_round, :created }
+    let(:contest_round_started) { build :contest_round, :started }
+    let(:contest_round_finished) { build :contest_round, :finished }
+
+    context 'created' do
+      let(:state) { :created }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to transition_from(state).to(:proposing).on_event(:propose) }
+
+      describe 'transition to started' do
+        # context 'has matches' do
+        #   let(:matches) { [contest_match_created] }
+        #   it { is_expected.to allow_transition_to :started }
+        #   it { is_expected.to transition_from(state).to(:started).on_event(:start) }
+        # end
+        #
+        # context 'no matches' do
+        #   it { is_expected.to_not allow_transition_to :started }
+        # end
+      end
+
+      it { is_expected.to_not allow_transition_to :finished }
+    end
+
+    context 'proposing' do
+      let(:state) { :proposing }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to transition_from(state).to(:created).on_event(:stop_propose) }
+      it { is_expected.to_not allow_transition_to :started }
+      it { is_expected.to_not allow_transition_to :finished }
+    end
+
+    context 'started' do
+      let(:state) { :started }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to_not allow_transition_to :created }
+      it { is_expected.to_not allow_transition_to :proposing }
+
+      describe 'transition to finished' do
+        context 'all rounds are finished' do
+          let(:rounds) { [contest_round_finished] }
+          it { is_expected.to allow_transition_to :finished }
+          it { is_expected.to transition_from(state).to(:finished).on_event(:finish) }
+        end
+
+        context 'not all rounds are finished' do
+          let(:rounds) do
+            [
+              contest_round_finished,
+              [contest_round_created, contest_round_started].sample
+            ]
+          end
+          it { is_expected.to_not allow_transition_to :finished }
+        end
+      end
+    end
+
+    context 'finished' do
+      let(:state) { :finished }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to_not allow_transition_to :created }
+      it { is_expected.to_not allow_transition_to :proposing }
+      it { is_expected.to_not allow_transition_to :started }
+    end
+  end
+
   # describe 'state machine' do
   #   let(:contest) { create :contest, :with_5_members, :created }
   #
