@@ -14,9 +14,5 @@ FactoryBot.define do
     AnimeVideo.language.values.each do |video_language|
       trait(video_language.to_sym) { language { video_language } }
     end
-
-    # AnimeVideo.aasm.states.map(&:name).each do |value|
-    #   trait(value.to_sym) { state { value } }
-    # end
   end
 end
