@@ -1,6 +1,6 @@
 class TransformedCollection
   include Enumerable
-  delegate :==, :eql?, :equal?, to: :mappings
+  delegate :==, :eql?, :equal?, to: :mapped
 
   def initialize collection, mapper = nil, &block
     @collection = collection
@@ -8,31 +8,39 @@ class TransformedCollection
   end
 
   def each
-    mappings.each { |map| yield map }
+    mapped.each { |map| yield map }
   end
 
-  def mappings
-    @mappings ||= @collection.map do |item|
+  def mapped
+    @mapped ||= @collection.map do |item|
       @mapper.call item
     end
   end
-  alias to_a mappings
+  alias to_a mapped
 
-  def respond_to? *args
-    super(*args) || mappings.respond_to?(*args) || @collection.respond_to?(*args)
+  def respond_to? method, *args
+    # rails 6.1 fix to prevent usage of PreloadCollectionIterator in actionview/lib/action_view/renderer/collection_renderer.rb:107
+    return false if method == :preload_associations && mapped.present?
+
+    super(method, *args) ||
+      mapped.respond_to?(method, *args) ||
+      @collection.respond_to?(method, *args)
   end
 
   def method_missing method, *args, &block
-    target = mappings.respond_to?(method) ? mappings : @collection
+    target = mapped.respond_to?(method) ? mapped : @collection
     target.send method, *args, &block
   end
 
 private
 
-  def respond_to_missing? *args
-    super(*args) ||
-      mappings.send(:respond_to_missing?, *args) ||
-      @collection.send(:respond_to_missing?, *args)
+  def respond_to_missing? method, *args
+    # rails 6.1 fix to prevent usage of PreloadCollectionIterator in actionview/lib/action_view/renderer/collection_renderer.rb:107
+    return false if method == :preload_associations && mapped.present?
+
+    super(method, *args) ||
+      mapped.send(:respond_to_missing?, method, *args) ||
+      @collection.send(:respond_to_missing?, method, *args)
   end
 end
 
