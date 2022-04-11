@@ -25,9 +25,8 @@ class CommentDecorator < BaseDecorator
   end
 
   def topic_outside_clubs?
-    (commentable_type == Topic.name &&
+    commentable_type == Topic.name &&
       commentable.linked_type != Club.name &&
       commentable.linked_type != ClubPage.name
-    )
   end
 end
