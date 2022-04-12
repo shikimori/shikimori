@@ -16,7 +16,7 @@ class ContestRound < ApplicationRecord
 
   delegate :strategy, to: :contest
 
-  aasm column: 'state' do
+  aasm column: 'state', create_scopes: false do
     state :created, initial: true
     state :started
     state :finished

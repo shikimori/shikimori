@@ -21,7 +21,7 @@ class ListImport < ApplicationRecord
     in: Types::ListImport::DuplicatePolicy.values,
     predicates: { prefix: true }
 
-  aasm column: 'state' do
+  aasm column: 'state', create_scopes: false do
     state :pending, initial: true
     state :finished
     state :failed

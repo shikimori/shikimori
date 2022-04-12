@@ -60,7 +60,7 @@ class Contest < ApplicationRecord
   validates :matches_interval, :match_duration, :matches_per_round,
     numericality: { greater_than: 0 }, presence: true
 
-  aasm column: 'state' do
+  aasm column: 'state', create_scopes: false do
     state :created, initial: true
     state :proposing
     state :started

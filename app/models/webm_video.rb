@@ -15,7 +15,7 @@ class WebmVideo < ApplicationRecord
 
   after_create :schedule_thumbnail
 
-  aasm column: 'state' do
+  aasm column: 'state', create_scopes: false do
     state :pending, initial: true
     state :processed
     state :failed

@@ -17,7 +17,7 @@ class Poll < ApplicationRecord
   validates :name, presence: true, length: { maximum: 255 }
   validates :text, length: { maximum: 10_000 }
 
-  aasm column: 'state' do
+  aasm column: 'state', create_scopes: false do
     state :pending, initial: true
     state :started
     state :stopped

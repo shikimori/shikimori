@@ -19,7 +19,7 @@ class ContestMatch < ApplicationRecord
     nil => 'abstain'
   }
 
-  aasm column: 'state' do
+  aasm column: 'state', create_scopes: false do
     state :created, initial: true
     state :started
     state :finished

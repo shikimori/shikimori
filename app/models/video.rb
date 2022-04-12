@@ -41,7 +41,7 @@ class Video < ApplicationRecord
   YOUTUBE_PARAM_REGEXP = /(?:&|\?)v=(.*?)(?:&|$)/
   VK_PARAM_REGEXP = %r{https?://vk.com/video-?(\d+)_(\d+)}
 
-  aasm column: 'state' do
+  aasm column: 'state', create_scopes: false do
     state :uploaded, initial: true
     state :confirmed
     state :deleted
