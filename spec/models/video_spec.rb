@@ -19,7 +19,7 @@ describe Video do
     subject { build :video, state }
 
     context 'uploaded' do
-      let(:state) { :uploaded }
+      let(:state) { Types::Video::State[:uploaded] }
 
       it { is_expected.to have_state state }
       it { is_expected.to allow_transition_to :confirmed }
@@ -29,7 +29,7 @@ describe Video do
     end
 
     context 'confirmed' do
-      let(:state) { :confirmed }
+      let(:state) { Types::Video::State[:confirmed] }
 
       it { is_expected.to_not allow_transition_to :uploaded }
       it { is_expected.to allow_transition_to :deleted }
@@ -37,7 +37,7 @@ describe Video do
     end
 
     context 'deleted' do
-      let(:state) { :deleted }
+      let(:state) { Types::Video::State[:deleted] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :uploaded }

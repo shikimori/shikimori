@@ -60,29 +60,33 @@ class Contest < ApplicationRecord
   validates :matches_interval, :match_duration, :matches_per_round,
     numericality: { greater_than: 0 }, presence: true
 
-  aasm column: 'state', create_scopes: false do
-    state :created, initial: true
-    state :proposing
-    state :started
-    state :finished
+  aasm column: 'state', create_scopes: false do # rubocop:disable BlockLength
+    state Types::Contest::State[:created], initial: true
+    state Types::Contest::State[:proposing]
+    state Types::Contest::State[:started]
+    state Types::Contest::State[:finished]
 
     event :propose do
-      transitions from: :created,
-        to: :proposing,
+      transitions to: Types::Contest::State[:proposing],
+        from: Types::Contest::State[:created],
         success: :generate_missing_topics
     end
     event :stop_propose do
-      transitions from: :proposing, to: :created
+      transitions to: Types::Contest::State[:created],
+        from: Types::Contest::State[:proposing]
     end
     event :start do
-      transitions from: %i[created proposing],
-        to: :started,
+      transitions to: Types::Contest::State[:started],
+        from: [
+          Types::Contest::State[:created],
+          Types::Contest::State[:proposing]
+        ],
         success: :generate_missing_topics,
         if: -> { links.count.between? MINIMUM_MEMBERS, MAXIMUM_MEMBERS }
     end
     event :finish do
-      transitions from: :started,
-        to: :finished,
+      transitions to: Types::Contest::State[:finished],
+        from: Types::Contest::State[:started],
         if: -> { rounds.any? && rounds.all?(&:finished?) }
     end
   end

@@ -22,7 +22,7 @@ describe Poll do
     subject { build :poll, state }
 
     context 'pending' do
-      let(:state) { :pending }
+      let(:state) { Types::Poll::State[:pending] }
 
       it { is_expected.to have_state state }
 
@@ -52,7 +52,7 @@ describe Poll do
     end
 
     context 'started' do
-      let(:state) { :started }
+      let(:state) { Types::Poll::State[:started] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :pending }
@@ -61,7 +61,7 @@ describe Poll do
     end
 
     context 'stopped' do
-      let(:state) { :stopped }
+      let(:state) { Types::Poll::State[:stopped] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :pending }

@@ -42,15 +42,23 @@ class Video < ApplicationRecord
   VK_PARAM_REGEXP = %r{https?://vk.com/video-?(\d+)_(\d+)}
 
   aasm column: 'state', create_scopes: false do
-    state :uploaded, initial: true
-    state :confirmed
-    state :deleted
+    state Types::Video::State[:uploaded], initial: true
+    state Types::Video::State[:confirmed]
+    state Types::Video::State[:deleted]
 
     event :confirm do
-      transitions from: %i[uploaded deleted], to: :confirmed
+      transitions to: Types::Video::State[:confirmed],
+        from: [
+          Types::Video::State[:uploaded],
+          Types::Video::State[:deleted]
+        ]
     end
     event :del do
-      transitions from: %i[uploaded confirmed], to: :deleted
+      transitions to: Types::Video::State[:deleted],
+        from: [
+          Types::Video::State[:uploaded],
+          Types::Video::State[:confirmed]
+        ]
     end
   end
 

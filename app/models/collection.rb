@@ -39,24 +39,36 @@ class Collection < ApplicationRecord
     available.or(where(state: Types::Collection::State[:opened]))
   }
 
-  aasm column: 'state', create_scopes: false do
+  aasm column: 'state', create_scopes: false do # rubocop:disable BlockLength
     state Types::Collection::State[:unpublished], initial: true
     state Types::Collection::State[:published]
     state Types::Collection::State[:private]
     state Types::Collection::State[:opened]
 
     event :to_published do
-      transitions from: %i[unpublished private opened],
-        to: Types::Collection::State[:published],
+      transitions to: Types::Collection::State[:published],
+        from: [
+          Types::Collection::State[:unpublished],
+          Types::Collection::State[:private],
+          Types::Collection::State[:opened]
+        ],
         after: :fill_published_at
     end
     event :to_private do
-      transitions from: %i[unpublished published opened],
-        to: Types::Collection::State[:private]
+      transitions to: Types::Collection::State[:private],
+        from: [
+          Types::Collection::State[:unpublished],
+          Types::Collection::State[:published],
+          Types::Collection::State[:opened]
+        ]
     end
     event :to_opened do
-      transitions from: %i[unpublished published private],
-        to: Types::Collection::State[:opened]
+      transitions to: Types::Collection::State[:opened],
+        from: [
+          Types::Collection::State[:unpublished],
+          Types::Collection::State[:published],
+          Types::Collection::State[:private]
+        ]
     end
   end
 

@@ -18,17 +18,18 @@ class Poll < ApplicationRecord
   validates :text, length: { maximum: 10_000 }
 
   aasm column: 'state', create_scopes: false do
-    state :pending, initial: true
-    state :started
-    state :stopped
+    state Types::Poll::State[:pending], initial: true
+    state Types::Poll::State[:started]
+    state Types::Poll::State[:stopped]
 
     event :start do
-      transitions from: :pending,
-        to: :started,
+      transitions to: Types::Poll::State[:started],
+        from: Types::Poll::State[:pending],
         if: -> { persisted? && variants.many? }
     end
     event :stop do
-      transitions from: :started, to: :stopped
+      transitions to: Types::Poll::State[:stopped],
+        from: Types::Poll::State[:started]
     end
   end
 

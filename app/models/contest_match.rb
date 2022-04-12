@@ -20,18 +20,18 @@ class ContestMatch < ApplicationRecord
   }
 
   aasm column: 'state', create_scopes: false do
-    state :created, initial: true
-    state :started
-    state :finished
+    state Types::ContestMatch::State[:created], initial: true
+    state Types::ContestMatch::State[:started]
+    state Types::ContestMatch::State[:finished]
 
     event :start do
-      transitions from: :created,
-        to: :started,
+      transitions to: Types::ContestMatch::State[:started],
+        from: Types::ContestMatch::State[:created],
         if: -> { started_on && started_on <= Time.zone.today }
     end
     event :finish do
-      transitions from: :started,
-        to: :finished,
+      transitions to: Types::ContestMatch::State[:finished],
+        from: Types::ContestMatch::State[:started],
         if: -> { finished_on && finished_on < Time.zone.today }
     end
   end

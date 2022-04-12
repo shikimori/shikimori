@@ -18,7 +18,7 @@ describe ListImport do
     subject { build :list_import, state }
 
     context 'pending' do
-      let(:state) { :pending }
+      let(:state) { Types::ListImport::State[:pending] }
 
       it { is_expected.to have_state state }
       it { is_expected.to allow_transition_to :finished }
@@ -28,14 +28,14 @@ describe ListImport do
     end
 
     context 'finished' do
-      let(:state) { :finished }
+      let(:state) { Types::ListImport::State[:finished] }
 
       it { is_expected.to_not allow_transition_to :pending }
       it { is_expected.to_not allow_transition_to :failed }
     end
 
     context 'failed' do
-      let(:state) { :failed }
+      let(:state) { Types::ListImport::State[:failed] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :pending }

@@ -11,5 +11,9 @@ module Types
     MemberType = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(:anime, :character)
+
+    State = Types::Strict::Symbol
+      .constructor(&:to_sym)
+      .enum(:created, :proposing, :started, :finished)
   end
 end

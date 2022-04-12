@@ -24,7 +24,7 @@ describe Collection do
     subject { build :collection, state }
 
     context 'unpublished' do
-      let(:state) { :unpublished }
+      let(:state) { Types::Collection::State[:unpublished] }
 
       it { is_expected.to have_state state }
       it { is_expected.to allow_transition_to :published }
@@ -36,7 +36,7 @@ describe Collection do
     end
 
     context 'published' do
-      let(:state) { :published }
+      let(:state) { Types::Collection::State[:published] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :unpublished }
@@ -47,7 +47,7 @@ describe Collection do
     end
 
     context 'private' do
-      let(:state) { :private }
+      let(:state) { Types::Collection::State[:private] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :unpublished }
@@ -58,7 +58,7 @@ describe Collection do
     end
 
     context 'opened' do
-      let(:state) { :opened }
+      let(:state) { Types::Collection::State[:opened] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :unpublished }

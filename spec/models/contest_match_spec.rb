@@ -15,7 +15,7 @@ describe ContestMatch do
     let(:finished_on) { nil }
 
     context 'created' do
-      let(:state) { :created }
+      let(:state) { Types::ContestMatch::State[:created] }
 
       it { is_expected.to have_state state }
 
@@ -36,7 +36,7 @@ describe ContestMatch do
     end
 
     context 'started' do
-      let(:state) { :started }
+      let(:state) { Types::ContestMatch::State[:started] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :created }
@@ -56,7 +56,7 @@ describe ContestMatch do
     end
 
     context 'finished' do
-      let(:state) { :finished }
+      let(:state) { Types::ContestMatch::State[:finished] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :created }

@@ -15,16 +15,24 @@ class WebmVideo < ApplicationRecord
 
   after_create :schedule_thumbnail
 
-  aasm column: 'state', create_scopes: false do
-    state :pending, initial: true
-    state :processed
-    state :failed
+  aasm column: 'state' do
+    state Types::WebmVideo::State[:pending], initial: true
+    state Types::WebmVideo::State[:processed]
+    state Types::WebmVideo::State[:failed]
 
     event :process do
-      transitions from: %i[pending failed], to: :processed
+      transitions to: Types::WebmVideo::State[:processed],
+        from: [
+          Types::WebmVideo::State[:pending],
+          Types::WebmVideo::State[:failed]
+        ]
     end
     event :to_failed do
-      transitions from: %i[pending processed], to: :failed
+      transitions to: Types::WebmVideo::State[:failed],
+        from: [
+          Types::WebmVideo::State[:pending],
+          Types::WebmVideo::State[:processed]
+        ]
     end
   end
 

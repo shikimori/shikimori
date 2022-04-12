@@ -49,7 +49,7 @@ describe Contest do
     before { allow(subject).to receive :generate_missing_topics }
 
     context 'created' do
-      let(:state) { :created }
+      let(:state) { Types::Contest::State[:created] }
 
       it { is_expected.to have_state state }
 
@@ -105,7 +105,7 @@ describe Contest do
     end
 
     context 'proposing' do
-      let(:state) { :proposing }
+      let(:state) { Types::Contest::State[:proposing] }
 
       it { is_expected.to have_state state }
       it { is_expected.to transition_from(state).to(:created).on_event(:stop_propose) }
@@ -114,7 +114,7 @@ describe Contest do
     end
 
     context 'started' do
-      let(:state) { :started }
+      let(:state) { Types::Contest::State[:started] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :created }
@@ -140,7 +140,7 @@ describe Contest do
     end
 
     context 'finished' do
-      let(:state) { :finished }
+      let(:state) { Types::Contest::State[:finished] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :created }
@@ -148,42 +148,6 @@ describe Contest do
       it { is_expected.to_not allow_transition_to :started }
     end
   end
-
-  # describe 'state machine' do
-  #   let(:contest) { create :contest, :with_5_members, :created }
-  #
-  #   describe 'can_propose?' do
-  #     subject { contest.can_propose? }
-  #     it { is_expected.to eq true }
-  #   end
-  #
-  #   describe '#can_start?' do
-  #     subject { contest.can_start? }
-  #
-  #     context 'normal count' do
-  #       before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS + 1 }
-  #       it { is_expected.to eq true }
-  #     end
-  #
-  #     context 'Contest::MINIMUM_MEMBERS' do
-  #       before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS - 1 }
-  #       it { is_expected.to eq false }
-  #     end
-  #
-  #     context 'Contest::MAXIMUM_MEMBERS' do
-  #       before { allow(contest.links).to receive(:count).and_return Contest::MAXIMUM_MEMBERS + 1 }
-  #       it { is_expected.to eq false }
-  #     end
-  #   end
-  #
-  #   context 'after propose' do
-  #     subject! { contest.propose! }
-  #
-  #     it 'creates 2 topics' do
-  #       expect(contest.topics).to have(2).items
-  #     end
-  #   end
-  # end
 
   describe 'instance methods' do
     describe '#current_round' do

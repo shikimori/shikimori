@@ -17,18 +17,18 @@ class ContestRound < ApplicationRecord
   delegate :strategy, to: :contest
 
   aasm column: 'state', create_scopes: false do
-    state :created, initial: true
-    state :started
-    state :finished
+    state Types::ContestRound::State[:created], initial: true
+    state Types::ContestRound::State[:started]
+    state Types::ContestRound::State[:finished]
 
     event :start do
-      transitions from: :created,
-        to: :started,
+      transitions to: Types::ContestRound::State[:started],
+        from: Types::ContestRound::State[:created],
         if: -> { matches.any? }
     end
     event :finish do
-      transitions form: :started,
-        to: :finished,
+      transitions to: Types::ContestRound::State[:finished],
+        form: Types::ContestRound::State[:started],
         if: -> {
           matches.any? && matches.all? { |v| v.finished? || v.may_finish? }
         }

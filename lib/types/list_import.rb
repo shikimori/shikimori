@@ -7,5 +7,9 @@ module Types
     ListType = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(:anime, :manga)
+
+    State = Types::Strict::Symbol
+      .constructor(&:to_sym)
+      .enum(:pending, :finished, :failed)
   end
 end

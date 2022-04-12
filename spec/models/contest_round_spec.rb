@@ -17,7 +17,7 @@ describe ContestRound do
     end
 
     context 'created' do
-      let(:state) { :created }
+      let(:state) { Types::ContestRound::State[:created] }
 
       it { is_expected.to have_state state }
 
@@ -37,7 +37,7 @@ describe ContestRound do
     end
 
     context 'started' do
-      let(:state) { :started }
+      let(:state) { Types::ContestRound::State[:started] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :created }
@@ -63,7 +63,7 @@ describe ContestRound do
     end
 
     context 'finished' do
-      let(:state) { :finished }
+      let(:state) { Types::ContestRound::State[:finished] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :created }

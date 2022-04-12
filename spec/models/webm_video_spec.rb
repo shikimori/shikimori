@@ -12,7 +12,7 @@ describe WebmVideo do
     subject { build :webm_video, state }
 
     context 'pending' do
-      let(:state) { :pending }
+      let(:state) { Types::WebmVideo::State[:pending] }
 
       it { is_expected.to have_state state }
       it { is_expected.to allow_transition_to :processed }
@@ -22,7 +22,7 @@ describe WebmVideo do
     end
 
     context 'processed' do
-      let(:state) { :processed }
+      let(:state) { Types::WebmVideo::State[:processed] }
 
       it { is_expected.to_not allow_transition_to :pending }
       it { is_expected.to allow_transition_to :failed }
@@ -30,7 +30,7 @@ describe WebmVideo do
     end
 
     context 'failed' do
-      let(:state) { :failed }
+      let(:state) { Types::WebmVideo::State[:failed] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :pending }

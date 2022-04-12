@@ -22,15 +22,17 @@ class ListImport < ApplicationRecord
     predicates: { prefix: true }
 
   aasm column: 'state', create_scopes: false do
-    state :pending, initial: true
-    state :finished
-    state :failed
+    state Types::ListImport::State[:pending], initial: true
+    state Types::ListImport::State[:finished]
+    state Types::ListImport::State[:failed]
 
     event :finish do
-      transitions from: :pending, to: :finished
+      transitions to: Types::ListImport::State[:finished],
+        from: Types::ListImport::State[:pending]
     end
     event :to_failed do
-      transitions from: :pending, to: :failed
+      transitions to: Types::ListImport::State[:failed],
+        from: Types::ListImport::State[:pending]
     end
   end
 
