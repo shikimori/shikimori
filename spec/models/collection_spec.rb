@@ -20,6 +20,55 @@ describe Collection do
     it { is_expected.to enumerize(:locale).in(*Types::Locale.values) }
   end
 
+  describe 'aasm' do
+    subject { build :collection, state }
+
+    context 'unpublished' do
+      let(:state) { :unpublished }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to allow_transition_to :published }
+      it { is_expected.to transition_from(state).to(:published).on_event(:to_published) }
+      it { is_expected.to allow_transition_to :private }
+      it { is_expected.to transition_from(state).to(:private).on_event(:to_private) }
+      it { is_expected.to allow_transition_to :opened }
+      it { is_expected.to transition_from(state).to(:opened).on_event(:to_opened) }
+    end
+
+    context 'published' do
+      let(:state) { :published }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to_not allow_transition_to :unpublished }
+      it { is_expected.to allow_transition_to :private }
+      it { is_expected.to transition_from(state).to(:private).on_event(:to_private) }
+      it { is_expected.to allow_transition_to :opened }
+      it { is_expected.to transition_from(state).to(:opened).on_event(:to_opened) }
+    end
+
+    context 'private' do
+      let(:state) { :private }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to_not allow_transition_to :unpublished }
+      it { is_expected.to allow_transition_to :published }
+      it { is_expected.to transition_from(state).to(:published).on_event(:to_published) }
+      it { is_expected.to allow_transition_to :opened }
+      it { is_expected.to transition_from(state).to(:opened).on_event(:to_opened) }
+    end
+
+    context 'opened' do
+      let(:state) { :opened }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to_not allow_transition_to :unpublished }
+      it { is_expected.to allow_transition_to :published }
+      it { is_expected.to transition_from(state).to(:published).on_event(:to_published) }
+      it { is_expected.to allow_transition_to :private }
+      it { is_expected.to transition_from(state).to(:private).on_event(:to_private) }
+    end
+  end
+
   describe 'instance methods' do
     describe '#collection_role' do
       let(:user) { build_stubbed :user }

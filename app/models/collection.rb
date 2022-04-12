@@ -1,4 +1,5 @@
 class Collection < ApplicationRecord
+  include AASM
   include ClubsConcern
   include AntispamConcern
   include TopicsConcern
@@ -38,29 +39,29 @@ class Collection < ApplicationRecord
     available.or(where(state: Types::Collection::State[:opened]))
   }
 
-  # state_machine :state, initial: :unpublished do
-  #   state Types::Collection::State[:published]
-  #   state Types::Collection::State[:private]
-  #   state Types::Collection::State[:opened]
-  #   state Types::Collection::State[:unpublished]
-  #
-  #   event :to_published do
-  #     transition %i[unpublished private opened] =>
-  #       Types::Collection::State[:published]
-  #   end
-  #   event :to_private do
-  #     transition %i[unpublished published opened] =>
-  #       Types::Collection::State[:private]
-  #   end
-  #   event :to_opened do
-  #     transition %i[unpublished published private] =>
-  #       Types::Collection::State[:opened]
-  #   end
-  #
+  aasm column: 'state', create_scopes: false do
+    state Types::Collection::State[:unpublished], initial: true
+    state Types::Collection::State[:published]
+    state Types::Collection::State[:private]
+    state Types::Collection::State[:opened]
+
+    event :to_published do
+      transitions from: %i[unpublished private opened],
+        to: Types::Collection::State[:published]
+    end
+    event :to_private do
+      transitions from: %i[unpublished published opened],
+        to: Types::Collection::State[:private]
+    end
+    event :to_opened do
+      transitions from: %i[unpublished published private],
+        to: Types::Collection::State[:opened]
+    end
+
   #   # before_transition %i[unpublished private opened] => :published do |collection, _transition|
   #   #   collection.published_at ||= Time.zone.now
   #   # end
-  # end
+  end
 
   def to_param
     "#{id}-#{name.permalinked}"

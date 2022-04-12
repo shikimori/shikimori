@@ -12,9 +12,9 @@ FactoryBot.define do
     changed_at { nil }
     links_count { 0 }
 
-    # Collection.aasm.states.map(&:name).each do |value|
-    #   trait(value.to_sym) { state { value } }
-    # end
+    Collection.aasm.states.map(&:name).each do |value|
+      trait(value.to_sym) { state { value } }
+    end
 
     Types::Collection::Kind.values.each do |value|
       trait(value) { kind { value } }
