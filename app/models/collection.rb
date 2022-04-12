@@ -47,7 +47,8 @@ class Collection < ApplicationRecord
 
     event :to_published do
       transitions from: %i[unpublished private opened],
-        to: Types::Collection::State[:published]
+        to: Types::Collection::State[:published],
+        after: :fill_published_at
     end
     event :to_private do
       transitions from: %i[unpublished published opened],
@@ -57,10 +58,6 @@ class Collection < ApplicationRecord
       transitions from: %i[unpublished published private],
         to: Types::Collection::State[:opened]
     end
-
-  #   # before_transition %i[unpublished private opened] => :published do |collection, _transition|
-  #   #   collection.published_at ||= Time.zone.now
-  #   # end
   end
 
   def to_param
@@ -94,5 +91,11 @@ class Collection < ApplicationRecord
 
   def collection_role user
     collection_roles.find { |v| v.user_id == user.id }
+  end
+
+private
+
+  def fill_published_at
+    self.published_at ||= Time.zone.now
   end
 end
