@@ -32,6 +32,7 @@ en:
         convert_to_review: Convert comment into review?
     moderate: Moderate
     moderation:
+      non_strict_moderation: This comment must be moderated only in case of laws violence
       abuse: Abuse
       laws_abuse: Russian law abuse
       ban: Ban

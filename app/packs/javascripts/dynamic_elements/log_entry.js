@@ -14,6 +14,7 @@ export default class LogEntry extends ShikiView {
 
     this.$('.ajax-action', this.$moderation)
       .on('ajax:before', this._shade)
+      .on('ajax:complete', this._unshade)
       .on('ajax:success', this._reload);
 
     this.$('.delete', this.$moderation)

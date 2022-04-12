@@ -211,6 +211,7 @@ ru:
     title: Модерация и контент
     missing_screenshots_title: Аниме без кадров
     no_changes: &no_changes Нет изменений
+    self_moderation_alert: Нельзя модерировать свои комментарии
 
   moderations/abuse_requests_controller:
     <<: *moderations_controller

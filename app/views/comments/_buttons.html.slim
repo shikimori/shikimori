@@ -58,8 +58,8 @@ aside.buttons
     ]
 
     span.item-abuse.b-tooltipped.unprocessed[
-      title=(comment.topic_outside_clubs? ? t('actions.moderation.abuse') : t('actions.moderation.laws_abuse'))
-      data-text=(comment.topic_outside_clubs? ? t('actions.moderation.abuse') : t('actions.moderation.laws_abuse'))
+      title=(comment.strict_moderatable? ? t('actions.moderation.abuse') : t('actions.moderation.laws_abuse'))
+      data-text=(comment.strict_moderatable? ? t('actions.moderation.abuse') : t('actions.moderation.laws_abuse'))
       data-action=abuse_api_v2_abuse_requests_url(comment_id: comment.id)
       data-method='post'
       data-type='json'
@@ -67,7 +67,7 @@ aside.buttons
       data-reason-prompt=t('actions.moderation.explain.abuse')
       data-direction='top'
     ]
-    - if comment.topic_outside_clubs?
+    - if comment.strict_moderatable?
       span.item-spoiler.b-tooltipped.unprocessed[
         title=t('actions.moderation.spoiler')
         data-text=t('actions.moderation.spoiler')

@@ -56,17 +56,14 @@
 
       - if abuse_request.comment
         - if abuse_request.comment.commentable_type == Topic.name
-          - if abuse_request.comment.commentable.linked_type == Club.name
+          - if abuse_request.comment.from_club?
             span.misc-comment = t '.club_comment'
 
           - if abuse_request.comment.commentable.forum_id == Forum::OFFTOPIC_ID
             span.misc-comment = t '.offtopic_comment'
 
-        - elsif abuse_request.comment.commentable_type == User.name
+        - elsif abuse_request.comment.from_user_profile?
           span.misc-comment = t '.profile_comment'
-
-        / - elsif abuse_request.comment.commentable_type == Review.name
-        /   span.misc-comment = t '.review_comment'
 
       - elsif abuse_request.topic.is_a? Topics::EntryTopics::ReviewTopic
         span.misc-comment = Review.model_name.human.downcase
@@ -79,6 +76,9 @@
       .collapsed.spoiler: span = t '.actions'
       .spoiler.target style="display: none;"
         .moderation
+          - if !abuse_request.comment.strict_moderatable?
+            span.abuse-type-alert =t('actions.moderation.non_strict_moderation')
+
           - if abuse_request.pending?
             - if abuse_request.punishable?
               a.warn[

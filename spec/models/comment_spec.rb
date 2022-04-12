@@ -340,12 +340,12 @@ describe Comment do
 
       context 'profile comment' do
         let(:commentable) { user }
-        it { is_expected.to_not be_moderatable }
+        it { is_expected.to be_moderatable }
       end
 
       context 'review comment' do
         let(:commentable) { build :review }
-        it { is_expected.to be_moderatable }
+        it { is_expected.to_not be_moderatable }
       end
 
       context 'topic comment' do
@@ -376,12 +376,12 @@ describe Comment do
 
         context 'club comment' do
           let(:linked) { build :club }
-          it { is_expected.to_not be_moderatable }
+          it { is_expected.to be_moderatable }
         end
 
         context 'club_page comment' do
           let(:linked) { build :club_page }
-          it { is_expected.to_not be_moderatable }
+          it { is_expected.to be_moderatable }
         end
       end
     end

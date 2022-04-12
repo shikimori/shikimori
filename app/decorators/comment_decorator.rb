@@ -21,12 +21,6 @@ class CommentDecorator < BaseDecorator
   end
 
   def offtopable?
-    topic_outside_clubs?
-  end
-
-  def topic_outside_clubs?
-    commentable_type == Topic.name &&
-      commentable.linked_type != Club.name &&
-      commentable.linked_type != ClubPage.name
+    strict_moderatable?
   end
 end

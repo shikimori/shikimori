@@ -34,7 +34,13 @@ class Moderations::BansController < ModerationsController
   end
 
   def create
-    if @resource.save
+    self_moderation = current_user.id == @resource.user_id
+
+    if self_moderation
+      @resource.errors.add(:base, i18n_t('self_moderation_alert'))
+    end
+
+    if !self_moderation && @resource.save
       render :create, formats: :json
     else
       render json: @resource.errors.full_messages, status: :unprocessable_entity
