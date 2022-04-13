@@ -22,6 +22,8 @@ class Ban < ApplicationRecord
 
   after_destroy :unban_user
 
+  attr_accessor :hide_to_spoiler
+
   ACTIVE_DURATION = 60.days
 
   def duration= value

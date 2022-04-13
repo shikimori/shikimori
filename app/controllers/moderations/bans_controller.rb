@@ -41,6 +41,7 @@ class Moderations::BansController < ModerationsController
     end
 
     if !self_moderation && @resource.save
+      @resource.comment.wrap_in_spoiler!
       render :create, formats: :json
     else
       render json: @resource.errors.full_messages, status: :unprocessable_entity
@@ -61,6 +62,7 @@ private
       .permit(
         :reason,
         :duration,
+        :hide_to_spoiler,
         :comment_id,
         :topic_id,
         :abuse_request_id,

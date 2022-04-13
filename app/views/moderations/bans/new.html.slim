@@ -11,6 +11,11 @@
   = f.input :duration,
     as: :string,
     input_html: { value: ban.suggest_duration }
+
+  label class='hide-to-spoiler-label'
+    = f.check_box :hide_to_spoiler, label: false, class: 'hide-to-spoiler'
+    = t "actions.moderation.hide_to_spoiler"
+
   = f.input :reason,
     as: :text,
     wrapper_html: { class: 'm5' },
@@ -19,14 +24,17 @@
   - if ru_host?
     .reasons.m15
       div: .b-js-action[
+        data-spoilered-reason='true'
         data-reason="п.1 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], переход на личности"
       ] п.1 правил сайта, переход на личности
 
       div: .b-js-action[
+        data-spoilered-reason='true'
         data-reason="п.3 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], мат"
       ] п.3 правил сайта, мат
 
       div: .b-js-action[
+        data-spoilered-reason='true'
         data-reason="п.4 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], троллинг"
       ] п.4 правил сайта, троллинг
 
@@ -39,6 +47,12 @@
       ] п.4 правил сайта, мультипостинг
 
       div: .b-js-action[
+        data-spoilered-reason='true'
+        data-reason="п.4 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], политота"
+      ] п.4 правил сайта, политота
+
+      div: .b-js-action[
+        data-spoilered-reason='true'
         data-reason="п.7 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], спойлеры"
       ] п.7 правил сайта, спойлеры
 
