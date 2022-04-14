@@ -41,7 +41,7 @@ class Moderations::BansController < ModerationsController
     end
 
     if !self_moderation && @resource.save
-      @resource.comment.wrap_in_spoiler! if ban_params[:hide_to_spoiler] == '1'
+      Comment::WrapInSpoiler.call @resource.comment if ban_params[:hide_to_spoiler] == '1'
       render :create, formats: :json
     else
       render json: @resource.errors.full_messages, status: :unprocessable_entity

@@ -8,10 +8,6 @@ class Abilities::ForumModerator
   MAXIMUM_TOPIC_COMMENTS_TO_DELETE = 1_000
 
   def initialize _user # rubocop:disable MethodLength, AbcSize
-    can :manage, Comment do |comment|
-      comment.user_id != _user.id
-    end
-
     can :manage, Review
 
     can %i[edit update full_update], Topic do |topic|
@@ -32,7 +28,11 @@ class Abilities::ForumModerator
     can :manage, Ban
     cannot :destroy, Ban
 
-    can :manage, AbuseRequest
+    can :manage, AbuseRequest do |abuse_request|
+      abuse_request.comment&.user_id != _user.id &&
+        abuse_request.topic&.user_id != _user.id
+    end
+
     can %i[
       manage_censored_avatar_role
       manage_censored_profile_role

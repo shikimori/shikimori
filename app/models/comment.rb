@@ -129,10 +129,6 @@ class Comment < ApplicationRecord
     BbCodes::Text.call fixed_body, object: self
   end
 
-  def wrap_in_spoiler!
-    update(body: "[spoiler_v1=Скрыто модератором]#{body}[/spoiler_v1]")
-  end
-
   def mark_offtopic flag
     if flag
       # mark comment thread as offtopic

@@ -71,7 +71,7 @@
       - elsif abuse_request.topic
         span.misc-comment = Topic.model_name.human.downcase
 
-    - if can? :manage, Ban
+    - if can?(:manage, Ban) && can?(:manage, abuse_request)
       .spoiler.collapse: span.action.half-hidden style="display: none;" = t '.show'
       .collapsed.spoiler: span = t '.actions'
       .spoiler.target style="display: none;"
