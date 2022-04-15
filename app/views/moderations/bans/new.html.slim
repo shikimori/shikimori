@@ -13,9 +13,10 @@ div.b-ban-form
       as: :string,
       input_html: { value: ban.suggest_duration }
 
-    label class='hide-to-spoiler-label'
-      = f.check_box :hide_to_spoiler, label: false, class: 'hide-to-spoiler'
-      = t "actions.moderation.hide_to_spoiler"
+    - if ban.comment.present?
+      label class='hide-to-spoiler-label'
+        = f.check_box :hide_to_spoiler, label: false, class: 'hide-to-spoiler'
+        = t "actions.moderation.hide_to_spoiler"
 
     = f.input :reason,
       as: :text,
