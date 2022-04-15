@@ -33,12 +33,12 @@ jobs:
           - "5432:5432"
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ''
+          POSTGRES_PASSWORD: postgres
     env:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ''
-      RAILS_ENV: test
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: github-actions
+      RAILS_ENV: test
     steps:
       - name: Start Redis
         uses: supercharge/redis-github-action@1.4.0
