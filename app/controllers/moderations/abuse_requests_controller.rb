@@ -30,21 +30,8 @@ class Moderations::AbuseRequestsController < ModerationsController
   end
 
   def deny
-    self_moderation = current_user.id == @resource.comment.user_id
-
-    if self_moderation
-      @resource.errors.add(:base, i18n_t('self_moderation_alert'))
-    end
-
-    if !self_moderation && @resource.reject!(current_user)
-      render :deny, formats: :json
-    else
-      render :deny,
-        formats: :json,
-        status: :unprocessable_entity,
-        errors: @resource.errors.full_messages
-    end
-  rescue StateMachine::InvalidTransition
+    @resource.reject! current_user rescue StateMachine::InvalidTransition
+    render json: {}
   end
 
   def cleanup
