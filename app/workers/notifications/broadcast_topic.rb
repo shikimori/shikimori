@@ -70,7 +70,7 @@ private
         from: topic.user,
         kind: message_type(topic),
         linked: linked(topic),
-        # `usec` is used to fix unstable specs in CIRCLE_CI
+        # `usec` is used to fix unstable specs in CI_SERVER
         created_at: topic.created_at.change(usec: 0)
       )
       .attributes
