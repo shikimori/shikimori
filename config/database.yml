@@ -1,10 +1,10 @@
 development: &defaults
   adapter: postgresql
   encoding: utf8
-  database: <%= ENV['PGDATABASE'] || 'shikimori_production' %>
-  username: <%= ENV['PGUSER'] || 'shikimori_production' %>
-  password: <%= ENV['PGPASSWORD'] %>
-  host: <%= ENV['PGHOST'] || 'localhost' %>
+  database: <%= ENV['POSTGRES_DB'] || 'shikimori_production' %>
+  username: <%= ENV['POSTGRES_USER'] || 'shikimori_production' %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: <%= ENV['POSTGRES_HOST'] || 'localhost' %>
   pool: 100
   timeout: 5000
   encoding: utf8

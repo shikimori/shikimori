@@ -1,0 +1,54 @@
+name: "RSpec CI"
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+jobs:
+  # rubocop:
+  #   name: Rubocop
+  #   runs-on: 'ubuntu-20.04'
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: ruby/setup-ruby@v1
+  #       with:
+  #         ruby-version: '3.0'
+  #     - run: script/update_rubygems_and_install_bundler
+  #     - run: bundle install --standalone
+  #     - run: bundle binstubs --all
+  #     - run: script/run_rubocop
+
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:10.5-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ''
+    env:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ''
+      RAILS_ENV: test
+      POSTGRES_DB: github-actions
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Bundle install
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+      - name: Set up database schema
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:schema
+      - name: Run tests
+        run: CI=1 bundle exec rspec
