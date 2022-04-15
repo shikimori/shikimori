@@ -7676,7 +7676,7 @@ prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0:
   dependencies:
     prosemirror-model "^1.0.0"
 
-"prosemirror-utils@github:atlassian/prosemirror-utils#remove-prosemirror-tables":
+prosemirror-utils@atlassian/prosemirror-utils#remove-prosemirror-tables:
   version "0.9.6"
   resolved "https://codeload.github.com/atlassian/prosemirror-utils/tar.gz/9e2db389d408f376e0fc1f8bdffd95063e8d00af"
 
@@ -9193,10 +9193,10 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-throttle-debounce@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-3.0.1.tgz#32f94d84dfa894f786c9a1f290e7a645b6a19abb"
-  integrity sha512-dTEWWNu6JmeVXY0ZYoPuH5cRIwc0MeGbJwah9KUNYSJwommQpCzTySTpEe8Gs1J23aeWEuAobe4Ag7EHVt/LOg==
+throttle-debounce@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-4.0.0.tgz#ec763b1c050c3a8f73eddd2e853a720893102a40"
+  integrity sha512-bO2OiH++k8Z3cTNZccOJRlxY5Sk3Tx3Kz6cQl3VY5pTRcEgqbPxwEKtrC00whFAo2jIBQlaH1ZG5mtfrBef3qw==
 
 through2@^2.0.0:
   version "2.0.5"
@@ -9620,7 +9620,7 @@ vue3-keypress@^4.0.1:
   resolved "https://registry.yarnpkg.com/vue3-keypress/-/vue3-keypress-4.0.1.tgz#161959779dda7a0bb86902fac594c75117a0dca4"
   integrity sha512-oKxLpVsQq1iosuwi38fbH+K2NL2HqbFT8U7yE1fzxcUB0Mup1vS7OcnNMqkgv+FHFJTNvlYAOwLctVK/ahz6Ng==
 
-"vue3-perfect-scrollbar@github:morr/vue3-perfect-scrollbar#master":
+vue3-perfect-scrollbar@morr/vue3-perfect-scrollbar#master:
   version "1.5.5"
   resolved "https://codeload.github.com/morr/vue3-perfect-scrollbar/tar.gz/04340756fd75f245e25042003b9c4a6ced343381"
 

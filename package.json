@@ -47,7 +47,7 @@
     "shiki-uploader": "^1.1.1",
     "shiki-utils": "^1.0.1",
     "swiper": "^6.8.4",
-    "throttle-debounce": "^3.0.1",
+    "throttle-debounce": "^4.0.0",
     "tiny-uri": "^9.1.3",
     "turbolinks": "^5.2.0",
     "uevent": "^2.0.1",
