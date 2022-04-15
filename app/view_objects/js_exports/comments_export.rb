@@ -14,7 +14,6 @@ class JsExports::CommentsExport < JsExports::ExportBase
 
   def serialize comment, _user, ability
     {
-      can_create_abuse_request: _user.can_post?,
       can_destroy: ability.can?(:destroy, comment),
       can_edit: ability.can?(:edit, comment),
       id: comment.id,

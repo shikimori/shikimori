@@ -253,10 +253,6 @@ export default class ShikiEditable extends ShikiView {
     if (!this.model.can_edit) { $('.item-edit', this.$inner).addClass('hidden'); }
     if (!this.model.can_destroy) { $('.item-delete', this.$inner).addClass('hidden'); }
 
-    if (!this.model.can_create_abuse_request) {
-      $('.item-moderation', this.$inner).addClass('hidden');
-    }
-
     if (window.SHIKI_USER.isModerator) {
       $('.item-abuse', this.$inner).addClass('hidden');
       $('.item-spoiler', this.$inner).addClass('hidden');
