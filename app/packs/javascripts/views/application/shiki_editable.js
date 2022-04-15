@@ -257,7 +257,7 @@ export default class ShikiEditable extends ShikiView {
       $('.item-moderation', this.$inner).addClass('hidden');
     }
 
-    if (window.SHIKI_USER.isModerator && !this.model.is_own_comment) {
+    if (window.SHIKI_USER.isModerator) {
       $('.item-abuse', this.$inner).addClass('hidden');
       $('.item-spoiler', this.$inner).addClass('hidden');
     } else {
