@@ -150,7 +150,6 @@ group :development do
   # gem 'rack-mini-profiler', require: false
   # gem 'flamegraph', require: false # for flame graph in rack-mini-profiler
   gem 'stackprof', require: false # for flamegraph
-  gem 'scout_apm'
 
   gem 'airbrussh', require: false
   gem 'capistrano'
