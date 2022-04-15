@@ -1,13 +1,33 @@
 class Comment::WrapInSpoiler
   method_object :comment
 
+  SPOILER_START = "[spoiler=Скрыто модератором]\n"
+  SPOILER_END = "\n[/spoiler]"
+
+  REGEXP = /
+    \A
+    (?<text>[\s\S]*?)
+    (?<stuff>
+      #{Topics::DecomposedBody::SYSTEM_STUFF_REGEXP}
+    )
+    \Z
+  /mix
+
   def call
-    decomposed_body = @comment.body.match Topics::DecomposedBody::PARSE_REGEXP
-    body_witout_stuff = decomposed_body[:text]
-    stuff = (decomposed_body[:replies] || '') + (decomposed_body[:bans] || '')
-    unless body_witout_stuff.starts_with?("[spoiler=Скрыто модератором]") &&
-            body_witout_stuff.ends_with?("[/spoiler]")
-      @comment.update(body: "[spoiler=Скрыто модератором]#{body_witout_stuff}[/spoiler]#{stuff}")
-    end
+    return if already_wrapped?
+
+    @comment.update body: wrapped_body
+  end
+
+private
+
+  def already_wrapped?
+    @comment.body.starts_with? SPOILER_START
+  end
+
+  def wrapped_body
+    match = @comment.body.match REGEXP
+
+    "#{SPOILER_START}#{match[:text]}#{SPOILER_END}#{match[:stuff]}"
   end
 end

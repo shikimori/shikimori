@@ -8,16 +8,20 @@ class Topics::DecomposedBody
 
   instance_cache :wall_video, :wall_images
 
-  PARSE_REGEXP = %r{
-    \A
-    (?<text>[\s\S]*?)
-    [\r\n\s]*
-    (?<wall> \[wall\].+\[/wall\])?
+  SYSTEM_STUFF_REGEXP = %r{
     (?:
       (?: [\r\n\s]* \[source\](?<source>.+)\[/source\] ) |
       (?<replies> [\r\n\s]* \[replies=[\d,]+\] ) |
       (?<bans> [\r\n\s]* \[ban=\d+\] )
     )*
+  }mix
+
+  PARSE_REGEXP = %r{
+    \A
+    (?<text>[\s\S]*?)
+    [\r\n\s]*
+    (?<wall> \[wall\].+\[/wall\])?
+    #{SYSTEM_STUFF_REGEXP.source}
     \Z
   }mix
 

@@ -1,51 +1,53 @@
 describe Comment::WrapInSpoiler do
-  let!(:comment1) { create :comment, :skip_forbid_tags_change, body: comment_body1, user: user }
-  let!(:comment2) { create :comment, :skip_forbid_tags_change, body: comment_body2, user: user }
-  let!(:comment3) { create :comment, :skip_forbid_tags_change, body: comment_body3, user: user }
-  let!(:comment4) { create :comment, :skip_forbid_tags_change, body: comment_body4, user: user }
+  subject! { described_class.call comment }
 
-  let(:comment_body1) do
-    'хоро любит яблоки'
+  let(:comment) do
+    create :comment, :skip_forbid_tags_change,
+      body: body,
+      user: user
   end
+  let(:sample) { 'хоро любит яблоки' }
+  let(:prefix) { described_class::SPOILER_START }
+  let(:suffix) { described_class::SPOILER_END }
 
-  let(:comment_body2) do
-    'хоро не мяукает потому что она волкодевушка\n\n[replies=73691156,736156]'
-  end
+  context 'common text' do
+    let(:body) { sample }
 
-  let(:comment_body3) do
-    '[comment=1974;206], мяу это способ выявлять унылых собеседников\n\n[ban=40518]'
-  end
-
-  let(:comment_body4) do
-    'коната изуми\n\n[ban=40505]\n\n[replies=7369154,7369155]'
-  end
-
-  context 'wrap in spoiler simple text' do
     it do
-      Comment::WrapInSpoiler.call(comment1)
-      expect(comment1.body).to eq "[spoiler=Скрыто модератором]#{comment_body1}[/spoiler]"
+      expect(comment).to_not be_changed
+      expect(comment.body).to eq "#{prefix}#{sample}#{suffix}"
     end
   end
 
-  context 'wrap in spoiler text with replies' do
+  context 'with replies' do
+    let(:body) { "#{sample}\n\n[replies=73691156,736156]" }
+
     it do
-      Comment::WrapInSpoiler.call(comment2)
-      expect(comment2.body).to eq "[spoiler=Скрыто модератором]хоро не мяукает потому что она волкодевушка[/spoiler]\n\n[replies=73691156,736156]"
+      expect(comment.body).to eq(
+        "#{prefix}#{sample}#{suffix}\n\n[replies=73691156,736156]"
+      )
     end
   end
 
-  context 'wrap in spoiler text with bans' do
+  context 'with bans' do
+    let(:body) { "#{sample}\n\n[ban=40518]" }
+
     it do
-      Comment::WrapInSpoiler.call(comment3)
-      expect(comment3.body).to eq "[spoiler=Скрыто модератором][comment=1974;206], мяу это способ выявлять унылых собеседников[/spoiler]\n\n[ban=40518]"
+      expect(comment.body).to eq(
+        "#{prefix}#{sample}#{suffix}\n\n[ban=40518]"
+      )
     end
   end
 
-  context 'wrap in spoiler text with replies and bans' do
+  context 'all together' do
+    let(:body) do
+      "#{sample}\n\n[ban=40505]\n\n[replies=7369154,7369155]"
+    end
+
     it do
-      Comment::WrapInSpoiler.call(comment4)
-      expect(comment4.body).to eq "[spoiler=Скрыто модератором]коната изуми[/spoiler]\n\n[ban=40505]\n\n[replies=7369154,7369155]"
+      expect(comment.body).to eq(
+        "#{prefix}#{sample}#{suffix}\n\n[ban=40505]\n\n[replies=7369154,7369155]"
+      )
     end
   end
-
 end
