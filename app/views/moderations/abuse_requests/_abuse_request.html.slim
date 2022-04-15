@@ -76,8 +76,8 @@
       .collapsed.spoiler: span = t '.actions'
       .spoiler.target style="display: none;"
         .moderation
-          - if !abuse_request.comment.strict_moderatable?
-            span.abuse-type-alert =t('actions.moderation.non_strict_moderation')
+          - if abuse_request.comment && !abuse_request.comment.strict_moderatable?
+            span.abuse-type-alert = t 'actions.moderation.non_strict_moderation'
 
           - if abuse_request.pending?
             - if abuse_request.punishable?

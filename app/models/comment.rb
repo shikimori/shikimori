@@ -176,10 +176,10 @@ class Comment < ApplicationRecord
   end
 
   def from_club?
-    commentable_type == Topic.name &&
-      (commentable.linked_type == Club.name ||
+    commentable_type == Topic.name && (
+      commentable.linked_type == Club.name ||
         commentable.linked_type == ClubPage.name
-      )
+    )
   end
 
   def faye_channels
