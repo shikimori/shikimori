@@ -21,10 +21,10 @@ jobs:
   #     - run: script/run_rubocop
 
   test:
-    strategy:
-      matrix:
-        node-version: [14.x]
-        redis-version: [6]
+    # strategy:
+    #   matrix:
+    #     node-version: [14.x]
+    #     redis-version: [6]
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -43,11 +43,13 @@ jobs:
       - name: Start Redis
         uses: supercharge/redis-github-action@1.4.0
         with:
-          redis-version: ${{ matrix.redis-version }}
-      - name: Use Node.js ${{ matrix.node-version }}
+          redis-version: 6
+          # redis-version: ${{ matrix.redis-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 14.x
+          # node-version: ${{ matrix.node-version }}
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Install Ruby and gems
