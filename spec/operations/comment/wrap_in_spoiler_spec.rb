@@ -1,10 +1,12 @@
 describe Comment::WrapInSpoiler do
+  include_context :timecop
   subject! { described_class.call comment }
 
   let(:comment) do
     create :comment, :skip_forbid_tags_change,
       body: body,
-      user: user
+      user: user,
+      updated_at: 1.day.ago
   end
   let(:sample) { 'хоро любит яблоки' }
   let(:prefix) { described_class::SPOILER_START }
@@ -16,6 +18,7 @@ describe Comment::WrapInSpoiler do
     it do
       expect(comment).to_not be_changed
       expect(comment.body).to eq "#{prefix}#{sample}#{suffix}"
+      expect(comment.updated_at).to be_within(0.1).of Time.zone.now
     end
   end
 
@@ -39,7 +42,7 @@ describe Comment::WrapInSpoiler do
     end
   end
 
-  context 'all together' do
+  context 'bans and replies' do
     let(:body) do
       "#{sample}\n\n[ban=40505]\n\n[replies=7369154,7369155]"
     end
@@ -48,6 +51,15 @@ describe Comment::WrapInSpoiler do
       expect(comment.body).to eq(
         "#{prefix}#{sample}#{suffix}\n\n[ban=40505]\n\n[replies=7369154,7369155]"
       )
+    end
+  end
+
+  context 'wrapped in spoiler' do
+    let(:body) { "#{prefix}#{sample}#{suffix}" }
+
+    it do
+      expect(comment.body).to eq body
+      expect(comment.updated_at).to be_within(0.1).of 1.day.ago
     end
   end
 end
