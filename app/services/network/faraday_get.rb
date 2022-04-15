@@ -15,6 +15,8 @@ class Network::FaradayGet
   ].compact
 
   def call
+    return if @url.blank?
+
     process fixed_url(@url)
   rescue *NET_ERRORS
     nil

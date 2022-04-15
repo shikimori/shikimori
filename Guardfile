@@ -18,7 +18,7 @@ group :specs, halt_on_fail: true do
   #  * 'just' rspec: 'rspec'
   # guard :rspec, cmd: 'bundle exec spring rspec --color --format documentation', all_after_pass: false, all_on_start: false, failed_mode: :keep do
   guard :rspec, cmd: 'bundle exec rspec --color --format documentation', all_after_pass: false, all_on_start: false, failed_mode: :keep do
-    require "guard/rspec/dsl"
+    require 'guard/rspec/dsl'
     dsl = Guard::RSpec::Dsl.new(self)
 
     # Feel free to open issues for suggestions and improvements
