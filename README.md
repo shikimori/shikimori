@@ -1,4 +1,4 @@
-![RSpec CI](https://github.com/shikimori/shikimori/actions/workflows/rspec.yml/badge.svg)
+[![RSpec CI](https://github.com/shikimori/shikimori/actions/workflows/rspec.yml/badge.svg?branch=master)](https://github.com/shikimori/shikimori/actions/workflows/rspec.yml)
 
 ## Contributing
 Feel free to open tickets or send pull requests with improvements. Thanks in advance for your help!
