@@ -1,6 +1,7 @@
 # TODO: remove `unless params[:user_id]` after 01-09-2017
 class Api::V2::AbuseRequestsController < Api::V2Controller
-  before_action :authenticate_user!, only: %i[offtopic review spoiler abuse]
+  before_action :authenticate_user!
+  before_action :check_post_permission
   before_action :fetch_entries
 
   api :POST, '/v2/abuse_requests/offtopic', 'Mark comment as offtopic'
