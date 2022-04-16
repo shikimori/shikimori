@@ -1,18 +1,11 @@
 shared_examples :moderatable_concern do |type|
   describe 'moderatable concern' do
-    let(:model) do
-      create type, :with_topics,
-        moderation_state: moderation_state,
-        user: user
-    end
+    subject(:model) { build type, moderation_state: moderation_state }
     let(:moderation_state) { Types::Moderatable::State[:pending] }
 
     describe 'validations' do
-      let(:model) { build type, moderation_state: moderation_state }
-
       context 'pending' do
-        let(:moderation_state) { Types::Moderatable::State[:pending] }
-        it { expect(model).to_not validate_presence_of :approver }
+        it { is_expected.to_not validate_presence_of :approver }
       end
 
       [
@@ -21,7 +14,7 @@ shared_examples :moderatable_concern do |type|
       ].each do |state|
         context state do
           let(:moderation_state) { state }
-          it { expect(model).to validate_presence_of :approver }
+          it { is_expected.to validate_presence_of :approver }
         end
       end
     end
@@ -56,7 +49,23 @@ shared_examples :moderatable_concern do |type|
         it { is_expected.to_not allow_transition_to(:accepted).on(:moderation_state) }
       end
 
-      #
+      context 'transitions' do
+        subject { create type, :with_topics, :pending, user: user }
+
+        context 'transition to accepted' do
+          let(:state) { Types::Moderatable::State[:pending] }
+          include_context :timecop
+          before { allow(subject).to receive(:fill_approver).and_call_original }
+          before { subject.accept! user }
+          it do
+            expect(subject).to have_received :fill_approver
+            # expect(subject.published_at).to be_within(0.1).of Time.zone.now
+            expect(subject).to be_moderation_accepted
+            expect(subject).to_not be_changed
+          end
+        end
+      end
+
       # context 'opened' do
       #   let(:state) { Types::Moderatable::State[:opened] }
       #
@@ -89,6 +98,8 @@ shared_examples :moderatable_concern do |type|
     end
 
     describe 'instance methods' do
+      let(:model) { create type, :with_topics }
+
       describe '#to_offtopic' do
         subject! { model.to_offtopic! }
 

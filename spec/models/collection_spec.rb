@@ -68,22 +68,24 @@ describe Collection do
       it { is_expected.to transition_from(state).to(:private).on_event(:to_private) }
     end
 
-    context 'transition to published' do
-      let(:state) do
-        [
-          Types::Collection::State[:unpublished],
-          Types::Collection::State[:private],
-          Types::Collection::State[:opened]
-        ].sample
-      end
-      include_context :timecop
-      before { allow(subject).to receive(:fill_published_at).and_call_original }
-      before { subject.to_published! }
-      it do
-        expect(subject).to have_received :fill_published_at
-        expect(subject.published_at).to be_within(0.1).of Time.zone.now
-        expect(subject).to be_persisted
-        expect(subject).to_not be_changed
+    context 'transitions' do
+      context 'to_published' do
+        let(:state) do
+          [
+            Types::Collection::State[:unpublished],
+            Types::Collection::State[:private],
+            Types::Collection::State[:opened]
+          ].sample
+        end
+        include_context :timecop
+        before { allow(subject).to receive(:fill_published_at).and_call_original }
+        before { subject.to_published! }
+        it do
+          expect(subject).to have_received :fill_published_at
+          expect(subject.published_at).to be_within(0.1).of Time.zone.now
+          expect(subject).to be_persisted
+          expect(subject).to_not be_changed
+        end
       end
     end
   end
@@ -257,6 +259,6 @@ describe Collection do
 
   it_behaves_like :antispam_concern, :collection
   it_behaves_like :clubs_concern, :collection
-  # it_behaves_like :moderatable_concern, :collection
+  it_behaves_like :moderatable_concern, :collection
   it_behaves_like :topics_concern, :collection
 end
