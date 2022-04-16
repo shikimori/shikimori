@@ -25,12 +25,12 @@ class Moderations::AbuseRequestsController < ModerationsController
   end
 
   def accept
-    @resource.accept! current_user
+    @resource.accept! approver: current_user, faye_token: faye_token
     render json: {}
   end
 
   def reject
-    @resource.reject! current_user
+    @resource.reject! approver: current_user
     render json: {}
   end
 
