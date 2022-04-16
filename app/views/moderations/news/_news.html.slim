@@ -22,7 +22,7 @@
     = t "activerecord.state_machines.topics/news_topic.states.#{news.moderation_state}"
 
   - if can? :moderate, news
-    - if news.may_accept? || news.may_reject? || news.can_cancel?
+    - if news.may_accept? || news.may_reject? || news.may_cancel?
       .moderation.inline
         - if news.may_accept?
           a.link.accept[

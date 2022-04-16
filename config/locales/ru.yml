@@ -23,6 +23,13 @@ ru:
       user: Пользователь
       video: Видео
 
+    moderatable: &moderation_states
+      moderation_state/pending: ожидает модерации
+      moderation_state/accepted: принято
+      moderation_state/rejected: отклонено
+      # events:
+      #   publish: Опубликовать
+      #   unpublish: Отменить публикацию
     attributes:
       anime: &anime_attributes
         aired_on: Дата начала показа
@@ -211,6 +218,7 @@ ru:
         music: Звуковой ряд
         overall: Итоговая оценка
         state: Статус
+        <<: *moderation_states
       user_preferences:
         about_on_top: Отображать над статистикой
         anime_in_profile: Отображать аниме в профиле
@@ -280,6 +288,7 @@ ru:
         state/opened: Открытая
         user: Создатель
         tags: Теги
+        <<: *moderation_states
       collection_link:
         group: Группа
         text: Комментарий
@@ -288,6 +297,7 @@ ru:
         body: Текст
         state: Статус
         tags: Теги
+        <<: *moderation_states
       poll:
         name: Название
         text: Текст
@@ -318,6 +328,8 @@ ru:
         is_pinned: Закреплён
         is_closed: Закрыт
         broadcast: Массовая рассылка
+      topics/news_topic:
+        <<: *moderation_states
       version:
         user_id: Автор
         moderator_id: Модератор
@@ -388,21 +400,6 @@ ru:
           attributes:
             linked:
               censored: хентай/яой запрещён
-
-    state_machines:
-      critique: &critique_states
-        state/pending: ожидает модерации
-        state/accepted: принято
-        state/rejected: отклонено
-        events:
-          publish: Опубликовать
-          unpublish: Отменить публикацию
-      collection:
-        <<: *critique_states
-      article:
-        <<: *critique_states
-      topics/news_topic:
-        <<: *critique_states
 
   activemodel:
     errors:

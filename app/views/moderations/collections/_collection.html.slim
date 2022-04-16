@@ -28,7 +28,7 @@
       = render 'users/user_16', user: collection.approver
 
   - if can? :manage, Collection
-    - if collection.may_accept? || collection.may_reject? || collection.can_cancel?
+    - if collection.may_accept? || collection.may_reject? || collection.may_cancel?
       .moderation.inline
         - if collection.may_accept?
           a.link.accept[
@@ -40,7 +40,7 @@
             href=reject_moderations_collection_path(collection)
             data-method='post'
           ] = t '.move_to_offtopic'
-        - if collection.can_cancel?
+        - if collection.may_cancel?
           a.link.cancel[
             href=cancel_moderations_collection_path(collection)
             data-method='post'

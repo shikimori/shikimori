@@ -23,6 +23,13 @@ en:
       user: User
       video: Video
 
+    moderatable: &moderation_states
+      moderation_state/pending: pending approval
+      moderation_state/accepted: accepted
+      moderation_state/rejected: rejected
+      # events:
+      #   publish: Publish
+      #   unpublish: Unpublish
     attributes:
       anime: &anime_attributes
         aired_on: Start date
@@ -211,6 +218,7 @@ en:
         music: Sound
         overall: Overall
         state: State
+        <<: *moderation_states
       user_preferences:
         about_on_top: Show Above Stats
         anime_in_profile: Show Anime List in Profile
@@ -280,11 +288,13 @@ en:
         state/opened: Opened
         user: Creator
         tags: Tags
+        <<: *moderation_states
       article:
         name: Name
         body: Text
         state: State
         tags: Tags
+        <<: *moderation_states
       collection_link:
         group: Group
         text: Comment
@@ -318,6 +328,8 @@ en:
         is_pinned: Pinned
         is_closed: Closed
         broadcast: Broadcast
+      topics/news_topic:
+        <<: *moderation_states
       version:
         user_id: Author
         moderator_id: Moderator
@@ -388,21 +400,6 @@ en:
           attributes:
             linked:
               censored: hentai/yaoi is forbidden
-
-    state_machines:
-      critique: &critique_states
-        state/pending: pending approval
-        state/accepted: accepted
-        state/rejected: rejected
-        events:
-          publish: Publish
-          unpublish: Unpublish
-      collection:
-        <<: *critique_states
-      article:
-        <<: *critique_states
-      topics/news_topic:
-        <<: *critique_states
 
   activemodel:
     errors:
