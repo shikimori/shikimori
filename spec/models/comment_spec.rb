@@ -343,11 +343,6 @@ describe Comment do
         it { is_expected.to be_moderatable }
       end
 
-      context 'review comment' do
-        let(:commentable) { build :review }
-        it { is_expected.to_not be_moderatable }
-      end
-
       context 'topic comment' do
         let(:commentable) { build :topic, linked: linked }
         let(:linked) { nil }
@@ -382,6 +377,153 @@ describe Comment do
         context 'club_page comment' do
           let(:linked) { build :club_page }
           it { is_expected.to be_moderatable }
+        end
+      end
+    end
+
+    describe '#strict_moderatable?' do
+      subject { build :comment, commentable: commentable }
+      let(:commentable) { nil }
+
+      it { is_expected.to_not be_strict_moderatable }
+
+      context 'profile comment' do
+        let(:commentable) { user }
+        it { is_expected.to_not be_strict_moderatable }
+      end
+
+      context 'topic comment' do
+        let(:commentable) { build :topic, linked: linked }
+        let(:linked) { nil }
+
+        it { is_expected.to be_strict_moderatable }
+
+        context 'critique comment' do
+          let(:linked) { build :critique }
+          it { is_expected.to be_strict_moderatable }
+        end
+
+        context 'contest comment' do
+          let(:linked) { build :contest }
+          it { is_expected.to be_strict_moderatable }
+        end
+
+        context 'collection comment' do
+          let(:linked) { build :collection }
+          it { is_expected.to be_strict_moderatable }
+        end
+
+        context 'anime comment' do
+          let(:linked) { build :anime }
+          it { is_expected.to be_strict_moderatable }
+        end
+
+        context 'club comment' do
+          let(:linked) { build :club }
+          it { is_expected.to_not be_strict_moderatable }
+        end
+
+        context 'club_page comment' do
+          let(:linked) { build :club_page }
+          it { is_expected.to_not be_strict_moderatable }
+        end
+      end
+    end
+
+    describe '#from_user_profile?' do
+      subject { build :comment, commentable: commentable }
+      let(:commentable) { nil }
+
+      it { is_expected.to_not be_from_user_profile }
+
+      context 'profile comment' do
+        let(:commentable) { user }
+        it { is_expected.to be_from_user_profile }
+      end
+
+      context 'topic comment' do
+        let(:commentable) { build :topic, linked: linked }
+        let(:linked) { nil }
+
+        it { is_expected.to_not be_from_user_profile }
+
+        context 'critique comment' do
+          let(:linked) { build :critique }
+          it { is_expected.to_not be_from_user_profile }
+        end
+
+        context 'contest comment' do
+          let(:linked) { build :contest }
+          it { is_expected.to_not be_from_user_profile }
+        end
+
+        context 'collection comment' do
+          let(:linked) { build :collection }
+          it { is_expected.to_not be_from_user_profile }
+        end
+
+        context 'anime comment' do
+          let(:linked) { build :anime }
+          it { is_expected.to_not be_from_user_profile }
+        end
+
+        context 'club comment' do
+          let(:linked) { build :club }
+          it { is_expected.to_not be_from_user_profile }
+        end
+
+        context 'club_page comment' do
+          let(:linked) { build :club_page }
+          it { is_expected.to_not be_from_user_profile }
+        end
+      end
+    end
+
+    describe '#from_club?' do
+      subject { build :comment, commentable: commentable }
+      let(:commentable) { nil }
+
+      it { is_expected.to_not be_from_club }
+
+      context 'profile comment' do
+        let(:commentable) { user }
+        it { is_expected.to_not be_from_club }
+      end
+
+      context 'topic comment' do
+        let(:commentable) { build :topic, linked: linked }
+        let(:linked) { nil }
+
+        it { is_expected.to_not be_from_club }
+
+        context 'critique comment' do
+          let(:linked) { build :critique }
+          it { is_expected.to_not be_from_club }
+        end
+
+        context 'contest comment' do
+          let(:linked) { build :contest }
+          it { is_expected.to_not be_from_club }
+        end
+
+        context 'collection comment' do
+          let(:linked) { build :collection }
+          it { is_expected.to_not be_from_club }
+        end
+
+        context 'anime comment' do
+          let(:linked) { build :anime }
+          it { is_expected.to_not be_from_club }
+        end
+
+        context 'club comment' do
+          let(:linked) { build :club }
+          it { is_expected.to be_from_club }
+        end
+
+        context 'club_page comment' do
+          let(:linked) { build :club_page }
+          it { is_expected.to be_from_club }
         end
       end
     end

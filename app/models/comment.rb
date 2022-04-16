@@ -164,11 +164,11 @@ class Comment < ApplicationRecord
   end
 
   def moderatable?
-    commentable_type == Topic.name || commentable_type == User.name
+    commentable_type == Topic.name || from_user_profile?
   end
 
   def strict_moderatable?
-    !from_user_profile? && !from_club?
+    commentable_type == Topic.name && !from_user_profile? && !from_club?
   end
 
   def from_user_profile?
