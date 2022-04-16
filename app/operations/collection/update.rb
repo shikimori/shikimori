@@ -9,7 +9,7 @@ class Collection::Update < UserContent::UpdateBase
 private
 
   def update
-    if @transition && @model.send(:"can_#{@transition}?")
+    if @transition && @model.send(:"may_#{@transition}?")
       @model.send :"#{@transition}!"
       Changelog::LogUpdate.call @model, @actor
     end
@@ -63,7 +63,7 @@ private
   end
 
   def publish_forum_id
-    if @model.rejected?
+    if @model.moderation_rejected?
       Forum::OFFTOPIC_ID
     else
       super
