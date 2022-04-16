@@ -122,7 +122,7 @@ class ContestDecorator < DbEntryDecorator
   end
 
   # может ли текущий пользователь предлагать ещё варианты
-  def can_propose?
+  def can_propose_candidates?
     user_suggestions.size < suggestions_per_user
   end
 

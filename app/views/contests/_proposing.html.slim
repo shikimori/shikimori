@@ -7,7 +7,7 @@
         = f.hidden_field :item_type
         = f.hidden_field :item_id
 
-        - if contest.can_propose?
+        - if contest.can_propose_candidates?
           input.item-suggest.suggest.subheadline-input.common[
             type='text'
             data-member_type=contest.member_type
@@ -17,7 +17,7 @@
 
         .block
           .subheadline
-            - if contest.can_propose?
+            - if contest.can_propose_candidates?
               = t '.your_candidates_more', proposals_left: contest.proposals_left
             - else
               = t '.your_candidates'
