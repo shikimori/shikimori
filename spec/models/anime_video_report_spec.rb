@@ -7,15 +7,5 @@ describe AnimeVideoReport do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :kind }
-
-    describe 'accepted' do
-      subject { build :anime_video_report, state: 'accepted' }
-      it { is_expected.to validate_presence_of :approver }
-    end
-
-    describe 'rejected' do
-      subject { build :anime_video_report, state: 'rejected' }
-      it { is_expected.to validate_presence_of :approver }
-    end
   end
 end
