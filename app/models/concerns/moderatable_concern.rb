@@ -1,18 +1,18 @@
 module ModeratableConcern
   extend ActiveSupport::Concern
 
-  included do # rubocop:disable BlockLength
+  included do
     include AASM
     belongs_to :approver,
       class_name: 'User',
       optional: true
 
-    scope :pending, -> { where moderation_state: %w[pending] }
-    scope :visible, -> { where moderation_state: %w[pending accepted] }
+    scope :pending, -> { where moderation_state: %i[pending] }
+    scope :visible, -> { where moderation_state: %i[pending accepted] }
 
     validates :approver, presence: true, unless: :pending?
 
-    aasm column: 'moderation_state', create_scopes: false do # rubocop:disable BlockLength
+    aasm :moderation_state, column: 'moderation_state', create_scopes: false do
       state Types::Moderatable::State[:pending], initial: true
       state Types::Moderatable::State[:accepted]
       state Types::Moderatable::State[:rejected]

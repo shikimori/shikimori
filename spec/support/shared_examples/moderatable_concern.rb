@@ -15,19 +15,14 @@ shared_examples :moderatable_concern do |type|
         it { expect(model).to_not validate_presence_of :approver }
       end
 
-      context 'accepted/rejected' do
-        let(:moderation_state) do
-          [
-            Types::Moderatable::State[:accepted],
-            Types::Moderatable::State[:rejected]
-          ].sample
+      [
+        Types::Moderatable::State[:accepted],
+        Types::Moderatable::State[:rejected]
+      ].each do |state|
+        context state do
+          let(:moderation_state) { state }
+          it { expect(model).to validate_presence_of :approver }
         end
-        it { expect(model).to validate_presence_of :approver }
-      end
-
-      context 'accepted' do
-        let(:moderation_state) { :pending }
-        it { expect(model).to validate_presence_of :approver }
       end
     end
 
@@ -37,28 +32,28 @@ shared_examples :moderatable_concern do |type|
       context 'pending' do
         let(:state) { Types::Moderatable::State[:pending] }
 
-        it { is_expected.to have_state state }
-        it { is_expected.to allow_transition_to :accepted }
-        it { is_expected.to transition_from(state).to(:accepted).on_event(:accept) }
-        it { is_expected.to allow_transition_to :rejected }
-        it { is_expected.to transition_from(state).to(:rejected).on_event(:reject) }
+        it { is_expected.to have_state(state).on(:moderation_state) }
+        it { is_expected.to allow_transition_to(:accepted).on(:moderation_state) }
+        it { is_expected.to transition_from(state).to(:accepted).on_event(:accept).on(:moderation_state) }
+        it { is_expected.to allow_transition_to(:rejected).on(:moderation_state) }
+        it { is_expected.to transition_from(state).to(:rejected).on_event(:reject).on(:moderation_state) }
       end
 
       context 'accepted' do
         let(:state) { Types::Moderatable::State[:accepted] }
 
-        it { is_expected.to have_state state }
-        it { is_expected.to allow_transition_to :pending }
-        it { is_expected.to transition_from(state).to(:pending).on_event(:cancel) }
-        it { is_expected.to_not allow_transition_to :rejected }
+        it { is_expected.to have_state(state).on(:moderation_state) }
+        it { is_expected.to allow_transition_to(:pending).on(:moderation_state) }
+        it { is_expected.to transition_from(state).to(:pending).on_event(:cancel).on(:moderation_state) }
+        it { is_expected.to_not allow_transition_to(:rejected).on(:moderation_state) }
       end
 
       context 'rejected' do
         let(:state) { Types::Moderatable::State[:rejected] }
 
-        it { is_expected.to have_state state }
-        it { is_expected.to_not allow_transition_to :pending }
-        it { is_expected.to_not allow_transition_to :accepted }
+        it { is_expected.to have_state(state).on(:moderation_state) }
+        it { is_expected.to_not allow_transition_to(:pending).on(:moderation_state) }
+        it { is_expected.to_not allow_transition_to(:accepted).on(:moderation_state) }
       end
 
       #
@@ -95,7 +90,7 @@ shared_examples :moderatable_concern do |type|
 
     describe 'instance methods' do
       describe '#to_offtopic' do
-        subject! { model.reject! user }
+        subject! { model.to_offtopic! }
 
         it do
           expect(model).to_not be_changed

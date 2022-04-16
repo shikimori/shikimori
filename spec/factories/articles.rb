@@ -10,7 +10,13 @@ FactoryBot.define do
     locale { :ru }
     changed_at { nil }
 
-    Types::Article::State.values.each { |value| trait(value) { state { value } } }
+    Types::Article::State.values.each do |value|
+      trait(value) { state { value } }
+    end
+
+    Article.aasm(:moderation_state).states.map(&:name).each do |value|
+      trait(value.to_sym) { moderation_state { value } }
+    end
 
     after :build do |model|
       stub_method model, :antispam_checks

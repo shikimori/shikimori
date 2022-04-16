@@ -16,6 +16,14 @@ FactoryBot.define do
       trait(value.to_sym) { state { value } }
     end
 
+    Collection.aasm(:moderation_state).states.map(&:name).each do |value|
+      trait(value.to_sym) { moderation_state { value } }
+    end
+
+    Types::Collection::Kind.values.each do |value|
+      trait(value) { kind { value } }
+    end
+
     Types::Collection::Kind.values.each do |value|
       trait(value) { kind { value } }
     end

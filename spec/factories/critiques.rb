@@ -24,9 +24,9 @@ FactoryBot.define do
     trait(:accepted) { moderation_state { :accepted } }
     trait(:rejected) { moderation_state { :rejected } }
 
-    # Critique.state_machine.states.map(&:value).each do |critique_state|
-      # trait(critique_state.to_sym) { moderation_state critique_state }
-    # end
+    Critique.aasm(:moderation_state).states.map(&:name).each do |value|
+      trait(value.to_sym) { moderation_state { value } }
+    end
 
     trait :with_antispam do
       after(:build) { |model| unstub_method model, :antispam_checks }
