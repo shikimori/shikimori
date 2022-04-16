@@ -28,12 +28,12 @@ class ClubInvite < ApplicationRecord
   CLUB_INVITES_PER_DAY = 200
   INVITES_LIMIT_EXPIRATION = 1.day
 
-  def accept
-    close
+  def accept!
+    close!
     club.join dst unless club.member?(dst) || club.banned?(dst)
   end
 
-  def close
+  def close!
     update status: Types::ClubInvite::Status[:closed]
     message&.update read: true
   end

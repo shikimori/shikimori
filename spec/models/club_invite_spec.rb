@@ -11,10 +11,6 @@ describe ClubInvite do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :src }
-    it { is_expected.to validate_presence_of :dst }
-    it { is_expected.to validate_presence_of :club }
-
     describe 'uniqueness validation' do
       let(:club_invite) { build :club_invite, dst: to, club: club }
       let(:to) { user }
@@ -173,9 +169,6 @@ describe ClubInvite do
         it { expect(club_invite_2).to be_persisted }
       end
     end
-
-    describe 'check_club_invites' do
-    end
   end
 
   describe 'instance methods' do
@@ -184,8 +177,8 @@ describe ClubInvite do
     let(:invite) { create :club_invite, status, src: from, dst: to }
     let(:status) { Types::ClubInvite::Status[:pending] }
 
-    describe '#accept' do
-      before { invite.accept }
+    describe '#accept!' do
+      subject! { invite.accept! }
 
       it do
         expect(invite).to be_closed
@@ -194,8 +187,8 @@ describe ClubInvite do
       end
     end
 
-    describe '#close' do
-      before { invite.close }
+    describe '#close!' do
+      subject! { invite.close! }
 
       let(:status) { Types::ClubInvite::Status[:pending] }
       it do

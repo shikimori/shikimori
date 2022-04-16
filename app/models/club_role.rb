@@ -12,7 +12,7 @@ class ClubRole < ApplicationRecord
 private
 
   def accept_invites
-    club_invites.each(&:close)
+    club_invites.each(&:close!)
   end
 
   def destroy_invites
