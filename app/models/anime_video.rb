@@ -80,7 +80,7 @@ class AnimeVideo < ApplicationRecord # rubocop:disable all
   end
 
   def hosting
-    AnimeOnline::ExtractHosting.call url
+    VideoExtractor::ExtractHosting.call url
   end
 
   def vk?

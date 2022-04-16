@@ -1,4 +1,4 @@
-class AnimeOnline::ExtractHosting < ServiceObjectBase
+class VideoExtractor::ExtractHosting < ServiceObjectBase
   pattr_initialize :url
   instance_cache :domain
 

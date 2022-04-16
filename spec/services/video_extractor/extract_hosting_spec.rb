@@ -1,5 +1,5 @@
-describe AnimeOnline::ExtractHosting do
-  let(:service) { AnimeOnline::ExtractHosting.new url }
+describe VideoExtractor::ExtractHosting do
+  let(:service) { VideoExtractor::ExtractHosting.new url }
 
   subject! { service.call }
 
