@@ -1,9 +1,9 @@
-# TODO: переделать авторизацию на cancancan
 class Moderations::AbuseRequestsController < ModerationsController
   load_and_authorize_resource only: %i[show]
 
-  before_action :authenticate_user!, only: %i[index show take deny]
-  before_action :check_access, only: %i[take deny cleanup]
+  before_action :authenticate_user!, only: %i[index show accept reject]
+  before_action :fetch_resource, only: %i[accept reject cleanup]
+  before_action :check_access, only: %i[accept reject cleanup]
 
   LIMIT = 25
 
@@ -24,13 +24,13 @@ class Moderations::AbuseRequestsController < ModerationsController
     breadcrumb i18n_t('page_title.index'), moderations_abuse_requests_url
   end
 
-  def take
-    @resource.take! current_user rescue StateMachine::InvalidTransition
+  def accept
+    @resource.accept! current_user
     render json: {}
   end
 
-  def deny
-    @resource.reject! current_user rescue StateMachine::InvalidTransition
+  def reject
+    @resource.reject! current_user
     render json: {}
   end
 
@@ -41,10 +41,12 @@ class Moderations::AbuseRequestsController < ModerationsController
 
 private
 
-  def check_access
-    raise CanCan::AccessDenied unless can? :manage, AbuseRequest
-
+  def fetch_resource
     @resource = AbuseRequest.find params[:id]
+  end
+
+  def check_access
+    raise CanCan::AccessDenied unless can? :manage, @resource
   end
 
   def processed_scope
