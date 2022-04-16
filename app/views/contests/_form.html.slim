@@ -89,7 +89,7 @@
       - if contest.persisted?
         .subheadline.m5 = t '.status'
         .block
-          p.m5 = contest.human_state_name.capitalize
+          p.m5 = contest.aasm.human_state.capitalize
 
         - if contest.object.can_propose? || contest.can_start? || contest.can_stop_propose?
           .subheadline.m5 = t '.actions'

@@ -21,7 +21,7 @@
     = render 'animes/critiques/votes', critique: collection
 
   span.state.inline class=collection.moderation_state
-    = collection.human_moderation_state_name
+    = collection.aasm(:moderation_state).human_state
 
   - if collection.approver.present?
     .moderator

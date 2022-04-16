@@ -41,12 +41,12 @@ header.head.misc
             is_text_with_paragraphs: true
 
         / .b-input
-          label #{Poll.human_attribute_name :state}: #{@resource.human_state_name.downcase}
+          label #{Poll.human_attribute_name :state}: #{@resource.aasm.human_state.downcase}
 
         .b-input
           label = Poll.human_attribute_name :state
           div
-            = @resource.human_state_name
+            = @resource.aasm.human_state
           - unless @resource.can_start?
             .hint = t 'polls.form.start_hint'
 

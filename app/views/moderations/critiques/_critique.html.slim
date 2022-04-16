@@ -23,7 +23,7 @@
   = render 'animes/critiques/votes', critique: critique
 
   span.state.inline class=critique.moderation_state
-    = critique.human_moderation_state_name
+    = critique.aasm(:moderation_state).human_state
 
   - if critique.approver.present?
     .moderator

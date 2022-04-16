@@ -81,9 +81,9 @@ class ContestDecorator < DbEntryDecorator
   # текущий статус опроса
   def status
     if object.started?
-      "#{object.human_state_name.capitalize} (#{object.current_round.title})"
+      "#{object.aasm.human_state.capitalize} (#{object.current_round.title})"
     else
-      object.human_state_name.capitalize
+      object.aasm.human_state.capitalize
     end
   end
 

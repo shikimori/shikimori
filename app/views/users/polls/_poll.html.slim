@@ -10,7 +10,7 @@
   span = poll.name
 
   span.state class="#{poll.state.downcase}"
-    = poll.human_state_name
+    = poll.aasm.human_state
 
   - if poll.bb_code
     span
