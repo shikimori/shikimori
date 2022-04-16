@@ -60,7 +60,7 @@ en:
         fandubbers: Dubbing
         options: Options
         imported_at: Synchronized
-        desynced: Not synchronized
+        desynced: &desynced Not synchronized
         licensors: Licensed by
         is_censored: 18+ content
         source: Source
@@ -72,8 +72,6 @@ en:
 
         volumes: Volumes
         chapters: Chapters
-
-
       ranobe:
         <<: &manga_attributes
       character: &character_attributes
@@ -88,7 +86,7 @@ en:
         russian: Russian name
         imageboard_tag: Imageboards tag
         imported_at: Synchronized
-        desynced: Not synchronized
+        desynced: *desynced
         source: Source
       person:
         <<: *character_attributes
@@ -114,6 +112,11 @@ en:
         member_type: Member type
         started_on: Started on
         suggestions_per_user: Number of candidates from one user
+        state: State
+        state/created: being prepared
+        state/proposing: proposing candidates
+        state/started: active
+        state/finished: finished
       ban:
         reason: Reason
         duration: Duration
@@ -134,9 +137,11 @@ en:
         is_visible: Studio
         is_publisher: Publisher
         is_verified: Verified
+        desynced: *desynced
       publisher:
         id: ID
         name: Title
+        desynced: *desynced
       user:
         avatar: Avatar
         birth_on: Birthday
@@ -195,6 +200,9 @@ en:
         list_type: List Type
         list: List File
         state: State
+        state/pending: importing
+        state/finished: imported
+        state/failed: failed
       critique:
         text: Text
         storyline: Story
@@ -202,7 +210,7 @@ en:
         characters: Characters
         music: Sound
         overall: Overall
-
+        state: State
       user_preferences:
         about_on_top: Show Above Stats
         anime_in_profile: Show Anime List in Profile
@@ -231,6 +239,13 @@ en:
         language: Video dub/sub language
         quality: Video quality
         state: Status
+        state/working: working
+        state/uploaded: uploaded but needs approval
+        state/rejected: rejected
+        state/broken: broken
+        state/wrong: wrong anime
+        state/copyrighted: copyrighted
+        state/banned_hosting: banned hosting
         author_name: Author
         anime_video_author_id: Author
         is_first: Display first among similar videos
@@ -259,6 +274,10 @@ en:
         kind: Type
         text: Description
         state: State
+        state/unpublished: Not published
+        state/published: Published
+        state/private: Private
+        state/opened: Opened
         user: Creator
         tags: Tags
       article:
@@ -273,6 +292,9 @@ en:
         name: Name
         text: Text
         state: State
+        state/pending: Pending
+        state/started: Started
+        state/stopped: Stopped
         width: Block width
       club_invite:
         dst: User
@@ -301,6 +323,16 @@ en:
         moderator_id: Moderator
         reason: Change reason
         changes: Changes list
+        state/pending: awaiting moderation
+        state/accepted: accepted
+        state/auto_accepted: accepted automatically
+        state/taken: taken
+        state/rejected: rejected
+        state/deleted: deleted
+      abuse_request:
+        state/pending: awaiting moderation
+        state/accepted: accepted
+        state/rejected: rejected
       anime_video_report:
         kind: Reason
         message: Message to moderators
@@ -358,17 +390,10 @@ en:
               censored: hentai/yaoi is forbidden
 
     state_machines:
-      contest:
-        states:
-          created: being prepared
-          proposing: proposing candidates
-          started: active
-          finished: finished
       critique: &critique_states
-        states:
-          pending: pending approval
-          accepted: accepted
-          rejected: rejected
+        state/pending: pending approval
+        state/accepted: accepted
+        state/rejected: rejected
         events:
           publish: Publish
           unpublish: Unpublish
@@ -378,52 +403,6 @@ en:
         <<: *critique_states
       topics/news_topic:
         <<: *critique_states
-      poll:
-        states:
-          pending: Pending
-          started: Started
-          stopped: Stopped
-      anime_video:
-        states:
-          working: working
-          uploaded: uploaded but needs approval
-          rejected: rejected
-          broken: broken
-          wrong: wrong anime
-          copyrighted: copyrighted
-          banned_hosting: banned hosting
-      version:
-        states:
-          pending: awaiting moderation
-          accepted: accepted
-          auto_accepted: accepted automatically
-          taken: taken
-          rejected: rejected
-          deleted: deleted
-      abuse_request:
-        states:
-          pending: awaiting moderation
-          accepted: accepted
-          rejected: rejected
-      anime_video_report:
-        states:
-          pending: awaiting moderation
-          accepted: accepted
-          taken: taken
-          rejected: rejected
-          post_rejected: rejected
-          deleted: deleted
-      list_import:
-        states:
-          pending: importing
-          finished: imported
-          failed: failed
-      collection:
-        states:
-          unpublished: Not published
-          published: Published
-          private: Private
-          opened: Opened
 
   activemodel:
     errors:
