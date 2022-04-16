@@ -8,7 +8,7 @@ class Contest::Progress
     matches_to_finish = finish_matches
 
     Contest.transaction do
-      if current_round.can_finish?
+      if current_round.may_finish?
         round_to_finish = ContestRound::Finish.call current_round
       end
 
@@ -22,13 +22,13 @@ private
 
   def start_matches
     matches
-      .select(&:can_start?)
+      .select(&:may_start?)
       .each { |match| ContestMatch::Start.call match }
   end
 
   def finish_matches
     matches
-      .select(&:can_finish?)
+      .select(&:may_finish?)
       .each { |match| ContestMatch::Finish.call match }
   end
 
