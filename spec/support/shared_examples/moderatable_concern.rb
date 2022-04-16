@@ -25,7 +25,7 @@ shared_examples :moderatable_concern do |type|
         let(:state) { Types::Moderatable::State[:pending] }
         before do
           allow(subject).to receive :fill_approver
-          allow(subject).to receive :handle_rejection
+          allow(subject).to receive :postprocess_rejection
         end
 
         it { is_expected.to have_state(state).on(:moderation_state) }
@@ -88,12 +88,9 @@ shared_examples :moderatable_concern do |type|
           let(:state) { Types::Moderatable::State[:pending] }
           before do
             allow(subject).to receive(:fill_approver).and_call_original
-            allow(subject).to receive(:handle_rejection).and_call_original
-            allow(subject).to receive(:to_offtopic!)
-            allow(Messages::CreateNotification).to receive(:new).and_return notification_service
+            allow(subject).to receive :postprocess_rejection
           end
           before { subject.reject! approver: user_2 }
-          let(:notification_service) { double moderatable_banned: nil }
 
           it do
             is_expected.to be_moderation_rejected
@@ -101,9 +98,7 @@ shared_examples :moderatable_concern do |type|
             expect(subject.approver).to eq user_2
 
             is_expected.to have_received(:fill_approver).with approver: user_2
-            is_expected.to have_received(:handle_rejection).with approver: user_2
-            is_expected.to have_received :to_offtopic!
-            expect(notification_service).to have_received(:moderatable_banned).with nil
+            is_expected.to have_received :postprocess_rejection
           end
         end
       end
@@ -118,6 +113,29 @@ shared_examples :moderatable_concern do |type|
         it do
           expect(model).to_not be_changed
           expect(model.topic(model.locale).forum_id).to eq Forum::OFFTOPIC_ID
+        end
+      end
+
+      describe '#fill_approver' do
+        subject! { model.send :fill_approver, approver: approver }
+        let(:approver) { user_2 }
+        it do
+          expect(model.approver).to eq approver
+          expect(model).to be_changed
+        end
+      end
+
+      describe '#postprocess_rejection' do
+        before do
+          allow(Messages::CreateNotification).to receive(:new).and_return notification_service
+          allow(model).to receive(:to_offtopic!)
+        end
+        subject! { model.send :postprocess_rejection }
+        let(:notification_service) { double moderatable_banned: nil }
+
+        it do
+          expect(model).to have_received :to_offtopic!
+          expect(notification_service).to have_received(:moderatable_banned).with nil
         end
       end
     end

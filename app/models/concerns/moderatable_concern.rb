@@ -29,7 +29,7 @@ module ModeratableConcern
         transitions to: Types::Moderatable::State[:rejected],
           from: Types::Moderatable::State[:pending],
           after: :fill_approver,
-          success: :handle_rejection
+          success: :postprocess_rejection
       end
       event :cancel do
         transitions to: Types::Moderatable::State[:pending],
@@ -48,7 +48,7 @@ private
     self.approver = approver
   end
 
-  def handle_rejection **args # rubocop:disable Lint/UnusedMethodArgument
+  def postprocess_rejection **args # rubocop:disable Lint/UnusedMethodArgument
     to_offtopic!
 
     Messages::CreateNotification
