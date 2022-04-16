@@ -1,5 +1,4 @@
 class Collection < ApplicationRecord
-  include AASM
   include ClubsConcern
   include AntispamConcern
   include TopicsConcern
