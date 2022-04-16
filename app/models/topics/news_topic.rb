@@ -51,11 +51,11 @@ class Topics::NewsTopic < Topic
 
   def moderation_state
     if may_accept? && may_reject?
-      'pending'
+      Types::Moderatable::State[:pending]
     elsif may_accept?
-      'rejected'
+      Types::Moderatable::State[:rejected]
     elsif may_reject?
-      'accepted'
+      Types::Moderatable::State[:accepted]
     end
   end
 end

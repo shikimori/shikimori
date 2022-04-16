@@ -81,7 +81,7 @@ describe Topics::NewsTopic do
         it do
           expect(topic).to be_may_accept
           expect(topic).to be_may_reject
-          expect(topic.moderation_state).to eq 'pending'
+          expect(topic.moderation_state).to eq Types::Moderatable::State[:pending]
         end
       end
 
@@ -90,7 +90,7 @@ describe Topics::NewsTopic do
         it do
           expect(topic).to_not be_may_accept
           expect(topic).to be_may_reject
-          expect(topic.moderation_state).to eq 'accepted'
+          expect(topic.moderation_state).to eq Types::Moderatable::State[:accepted]
         end
       end
 
@@ -99,7 +99,7 @@ describe Topics::NewsTopic do
         it do
           expect(topic).to be_may_accept
           expect(topic).to_not be_may_reject
-          expect(topic.moderation_state).to eq 'rejected'
+          expect(topic.moderation_state).to eq Types::Moderatable::State[:rejected]
         end
       end
     end
