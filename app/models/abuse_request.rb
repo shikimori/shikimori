@@ -50,32 +50,10 @@ class AbuseRequest < ApplicationRecord
     event :reject do
       transitions to: Types::AbuseRequest::State[:rejected],
         from: Types::AbuseRequest::State[:pending],
-        after: :fill_approver
+        after: :fill_approver,
+        success: :postprocess_acception
     end
   end
-
-  #   before_transition pending: :accepted do |abuse_request, transition|
-  #     abuse_request.approver = transition.args.first
-  #     faye_token = transition.args.second
-  #     assign_approver_option = transition.args.third
-  #
-  #     unless assign_approver_option == :skip
-  #       faye = FayeService.new abuse_request.approver, faye_token
-  #
-  #       # process offtopic and summary requests only
-  #       if faye.respond_to? abuse_request.kind
-  #         abuse_request.affected_ids = faye.public_send(
-  #           abuse_request.kind,
-  #           abuse_request.comment || abuse_request.topic,
-  #           abuse_request.value
-  #         )
-  #       end
-  #     end
-  #   end
-  #
-  #   before_transition pending: :rejected do |abuse_request, transition|
-  #     abuse_request.approver = transition.args.first
-  #   end
 
   def punishable?
     abuse? || spoiler?
@@ -93,7 +71,20 @@ class AbuseRequest < ApplicationRecord
     end
   end
 
-  def fill_approver approver:
+private
+
+  def fill_approver approver:, **_args
     self.approver = approver
+  end
+
+  def postprocess_acception faye_token:, assign_affected_ids: true, **_args
+    return unless assign_affected_ids
+
+    faye = FayeService.new approver, faye_token
+
+    # process offtopic and summary requests only
+    if faye.respond_to? kind
+      self.affected_ids = faye.public_send kind, comment || topic, value
+    end
   end
 end

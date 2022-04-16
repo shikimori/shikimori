@@ -49,14 +49,14 @@ describe AbuseRequest do
     end
   end
 
-  describe 'aasm', :focus do
+  describe 'aasm' do
     subject { build :abuse_request, state }
 
     context 'pending' do
       let(:state) { Types::AbuseRequest::State[:pending] }
       before do
         allow(subject).to receive :fill_approver
-        # allow(subject).to receive :handle_rejection
+        allow(subject).to receive :postprocess_acception
       end
 
       it { is_expected.to have_state state }
@@ -69,39 +69,25 @@ describe AbuseRequest do
       it do
         is_expected.to transition_from(state)
           .to(:rejected)
-          .on_event(:reject, approver: user_2)
+          .on_event(:reject, approver: user_2, faye_token: nil)
       end
-
-      # it do
-      #   is_expected.to transition_from(state)
-      #     .to(:accepted)
-      #     .on_event(:accept, approver: user_2)
-      #
-      # end
-      # it { is_expected.to allow_transition_to(:rejected) }
-      # it do
-      #   is_expected.to transition_from(state)
-      #     .to(:rejected)
-      #     .on_event(:reject, approver: user_2, reason: 'zxc')
-      # end
     end
 
-    # context 'accepted' do
-    #   let(:state) { Types::AbuseRequest::State[:accepted] }
-    #
-    #   it { is_expected.to have_state(state) }
-    #   it { is_expected.to allow_transition_to(:pending) }
-    #   it { is_expected.to transition_from(state).to(:pending).on_event(:cancel) }
-    #   it { is_expected.to_not allow_transition_to :rejected }
-    # end
-    #
-    # context 'rejected' do
-    #   let(:state) { Types::AbuseRequest::State[:rejected] }
-    #
-    #   it { is_expected.to have_state(state) }
-    #   it { is_expected.to_not allow_transition_to :pending }
-    #   it { is_expected.to_not allow_transition_to :accepted }
-    # end
+    context 'accepted' do
+      let(:state) { Types::AbuseRequest::State[:accepted] }
+
+      it { is_expected.to have_state(state) }
+      it { is_expected.to_not allow_transition_to :pending }
+      it { is_expected.to_not allow_transition_to :rejected }
+    end
+
+    context 'rejected' do
+      let(:state) { Types::AbuseRequest::State[:rejected] }
+
+      it { is_expected.to have_state(state) }
+      it { is_expected.to_not allow_transition_to :pending }
+      it { is_expected.to_not allow_transition_to :accepted }
+    end
 
       # context 'transitions' do
       #   subject { create type, :with_topics, state, approver: user }
@@ -218,6 +204,17 @@ describe AbuseRequest do
 
         its(:target) { is_expected.to eq topic }
         its(:target_type) { is_expected.to eq 'Topic' }
+      end
+    end
+
+    describe '#fill_approver' do
+      let(:abuse_request) { build :abuse_request }
+      subject! { abuse_request.send :fill_approver, approver: approver }
+      let(:approver) { user_2 }
+
+      it do
+        expect(abuse_request.approver).to eq approver
+        expect(abuse_request).to be_changed
       end
     end
   end

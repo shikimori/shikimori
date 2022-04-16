@@ -40,7 +40,7 @@ shared_examples :moderatable_concern do |type|
         it do
           is_expected.to transition_from(state)
             .to(:rejected)
-            .on_event(:reject, approver: user_2, reason: 'zxc')
+            .on_event(:reject, approver: user_2)
             .on(:moderation_state)
         end
       end
