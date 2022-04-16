@@ -458,7 +458,7 @@ GEM
     net-ssh (6.1.0)
     newrelic_rpm (8.5.0)
     nio4r (2.5.8)
-    nokogiri (1.13.3)
+    nokogiri (1.13.4)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     non-stupid-digest-assets (1.0.9)
@@ -661,8 +661,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    scout_apm (5.1.1)
-      parser
     semantic_range (3.0.0)
     sexp_processor (4.16.0)
     shellany (0.0.1)
@@ -884,7 +882,6 @@ DEPENDENCIES
   rubocop-rails
   ruby-esvidi!
   sassc-rails
-  scout_apm
   shallow_attributes!
   shoulda-matchers
   sidekiq (= 5.2.7)

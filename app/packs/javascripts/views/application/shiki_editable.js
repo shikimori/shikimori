@@ -1,5 +1,5 @@
 import delay from 'delay';
-import { bind, debounce, memoize, throttle } from 'shiki-decorators';
+import { bind, debounce, memoize } from 'shiki-decorators';
 import { flash, isMobile } from 'shiki-utils';
 
 import { getSelectionText, getSelectionHtml } from '@/utils/get_selection';
