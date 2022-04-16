@@ -1,7 +1,7 @@
 class ClubInvite < ApplicationRecord
   belongs_to :club
-  belongs_to :src, class_name: User.name, foreign_key: :src_id
-  belongs_to :dst, class_name: User.name, foreign_key: :dst_id
+  belongs_to :src, class_name: 'User'
+  belongs_to :dst, class_name: 'User'
   # invite messages
   belongs_to :message, optional: true, dependent: :destroy
 
@@ -10,7 +10,6 @@ class ClubInvite < ApplicationRecord
     predicates: true,
     default: Types::ClubInvite::Status[:pending]
 
-  validates :club, :src, :dst, presence: true
   validates :dst_id, uniqueness: {
     scope: %i[club_id status],
     message: ->(key, _model) { I18n.t key }
@@ -22,8 +21,8 @@ class ClubInvite < ApplicationRecord
   before_create :check_user_invites_limit
   before_create :check_club_invites_limit
 
-  after_create :create_message
   before_create :cleanup_invites
+  after_create :create_message
 
   USER_INVITES_PER_DAY = 30
   CLUB_INVITES_PER_DAY = 200
