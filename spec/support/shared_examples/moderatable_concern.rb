@@ -70,9 +70,13 @@ shared_examples :moderatable_concern do |type|
       context 'transitions' do
         subject { create type, :with_topics, state, approver: user }
 
+        before do
+          allow(subject).to receive(:fill_approver).and_call_original
+          allow(subject).to receive :postprocess_rejection
+        end
+
         context 'transition to accepted' do
           let(:state) { Types::Moderatable::State[:pending] }
-          before { allow(subject).to receive(:fill_approver).and_call_original }
           before { subject.accept! approver: user_2 }
 
           it do
@@ -81,15 +85,12 @@ shared_examples :moderatable_concern do |type|
             expect(subject.approver).to eq user_2
 
             is_expected.to have_received(:fill_approver).with approver: user_2
+            is_expected.to_not have_received :postprocess_rejection
           end
         end
 
         context 'transition to rejected' do
           let(:state) { Types::Moderatable::State[:pending] }
-          before do
-            allow(subject).to receive(:fill_approver).and_call_original
-            allow(subject).to receive :postprocess_rejection
-          end
           before { subject.reject! approver: user_2 }
 
           it do

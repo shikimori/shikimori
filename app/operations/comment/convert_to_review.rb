@@ -65,7 +65,7 @@ private
       .where(state: :pending)
       .where(kind: Types::AbuseRequest::Kind[:convert_review])
       .each do |abuse_request|
-        abuse_request.take! approver: @actor, faye_token: nil, assign_affected_ids: false
+        abuse_request.accept! approver: @actor, is_process_in_faye: false
       end
   end
 

@@ -14,7 +14,7 @@ class Moderations::AbuseRequestsService
       abuse_request = create_abuse_request :offtopic, value_to_change, nil
 
       if can_manage? abuse_request
-        abuse_request.take! @reporter, faye_token
+        abuse_request.accept! approver: @reporter, faye_token: faye_token
         forum_entry.reload
         abuse_request.affected_ids
       else
@@ -38,7 +38,7 @@ class Moderations::AbuseRequestsService
       abuse_request = create_abuse_request :convert_review, value_to_change, nil
 
       if can_manage? abuse_request
-        abuse_request&.take! @reporter, faye_token
+        abuse_request&.accept! approver: @reporter, faye_token: faye_token
       end
     end
   end

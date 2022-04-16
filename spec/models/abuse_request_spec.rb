@@ -64,7 +64,7 @@ describe AbuseRequest do
       it do
         is_expected.to transition_from(state)
           .to(:accepted)
-          .on_event(:take, approver: user_2)
+          .on_event(:accept, approver: user_2)
       end
       it do
         is_expected.to transition_from(state)
@@ -76,7 +76,7 @@ describe AbuseRequest do
     context 'accepted' do
       let(:state) { Types::AbuseRequest::State[:accepted] }
 
-      it { is_expected.to have_state(state) }
+      it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :pending }
       it { is_expected.to_not allow_transition_to :rejected }
     end
@@ -84,52 +84,60 @@ describe AbuseRequest do
     context 'rejected' do
       let(:state) { Types::AbuseRequest::State[:rejected] }
 
-      it { is_expected.to have_state(state) }
+      it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :pending }
       it { is_expected.to_not allow_transition_to :accepted }
     end
 
-      # context 'transitions' do
-      #   subject { create type, :with_topics, state, approver: user }
-      #
-      #   context 'transition to accepted' do
-      #     let(:state) { Types::AbuseRequest::State[:pending] }
-      #     before { allow(subject).to receive(:fill_approver).and_call_original }
-      #     before { subject.accept! approver: user_2 }
-      #
-      #     it do
-      #       is_expected.to be_moderation_accepted
-      #       is_expected.to_not be_changed
-      #       expect(subject.approver).to eq user_2
-      #
-      #       is_expected.to have_received(:fill_approver).with approver: user_2
-      #     end
-      #   end
-      #
-      #   context 'transition to rejected' do
-      #     let(:state) { Types::AbuseRequest::State[:pending] }
-      #     before do
-      #       allow(subject).to receive(:fill_approver).and_call_original
-      #       allow(subject).to receive(:handle_rejection).and_call_original
-      #       allow(subject).to receive(:to_offtopic!)
-      #       allow(Messages::CreateNotification).to receive(:new).and_return notification_service
-      #     end
-      #     before { subject.reject! approver: user_2, reason: reason }
-      #     let(:reason) { 'zxc' }
-      #     let(:notification_service) { double moderatable_banned: nil }
-      #
-      #     it do
-      #       is_expected.to be_moderation_rejected
-      #       is_expected.to_not be_changed
-      #       expect(subject.approver).to eq user_2
-      #
-      #       is_expected.to have_received(:fill_approver).with approver: user_2, reason: reason
-      #       is_expected.to have_received(:handle_rejection).with approver: user_2, reason: reason
-      #       is_expected.to have_received :to_offtopic!
-      #       expect(notification_service).to have_received(:moderatable_banned).with reason
-      #     end
-      #   end
-      # end
+    context 'transitions' do
+      subject { create :abuse_request, :pending }
+      before do
+        allow(subject).to receive(:fill_approver).and_call_original
+        allow(subject).to receive :postprocess_acception
+      end
+
+      context 'transition to accepted' do
+        before do
+          subject.accept!(
+            approver: user_2,
+            is_process_in_faye: is_process_in_faye,
+            faye_token: faye_token
+          )
+        end
+        let(:faye_token) { 'faye_token' }
+        let(:is_process_in_faye) { [true, false].sample }
+
+        it do
+          is_expected.to be_accepted
+          is_expected.to_not be_changed
+          expect(subject.approver).to eq user_2
+
+          is_expected.to have_received(:fill_approver).with(
+            approver: user_2,
+            is_process_in_faye: is_process_in_faye,
+            faye_token: faye_token
+          )
+          is_expected.to have_received(:postprocess_acception).with(
+            approver: user_2,
+            is_process_in_faye: is_process_in_faye,
+            faye_token: faye_token
+          )
+        end
+      end
+
+      context 'transition to rejected' do
+        before { subject.reject! approver: user_2 }
+
+        it do
+          is_expected.to be_rejected
+          is_expected.to_not be_changed
+          expect(subject.approver).to eq user_2
+
+          is_expected.to have_received(:fill_approver).with approver: user_2
+          is_expected.to_not have_received :postprocess_acception
+        end
+      end
+    end
     # subject(:abuse_request) { create :abuse_request, user: user }
     #
     # describe '#take' do
@@ -215,6 +223,44 @@ describe AbuseRequest do
       it do
         expect(abuse_request.approver).to eq approver
         expect(abuse_request).to be_changed
+      end
+    end
+
+    describe '#postprocess_acception' do
+      let(:abuse_request) { create :abuse_request, :offtopic, comment: comment }
+      let(:comment) { create :comment, user: user_3 }
+
+      let(:faye_service) { FayeService.new approver, faye_token }
+      before do
+        allow(faye_service).to receive(:offtopic).and_call_original
+        allow(FayeService).to receive(:new).and_return faye_service
+      end
+
+      subject! do
+        abuse_request.send :postprocess_acception,
+          approver: approver,
+          is_process_in_faye: is_process_in_faye,
+          faye_token: faye_token
+      end
+      let(:approver) { user_2 }
+      let(:faye_token) { [nil, 'zxc'].sample }
+
+      context 'apply to target' do
+        let(:is_process_in_faye) { true }
+        it do
+          expect(comment).to_not be_changed
+          expect(comment).to be_offtopic
+          expect(faye_service).to have_received(:offtopic)
+            .with(comment, abuse_request.value)
+        end
+      end
+
+      context 'not apply to target' do
+        let(:is_process_in_faye) { false }
+        it do
+          expect(comment).to_not be_offtopic
+          expect(faye_service).to_not have_received :offtopic
+        end
       end
     end
   end

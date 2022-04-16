@@ -42,16 +42,16 @@ class AbuseRequest < ApplicationRecord
     state Types::AbuseRequest::State[:accepted]
     state Types::AbuseRequest::State[:rejected]
 
-    event :take do
+    event :accept do
       transitions to: Types::AbuseRequest::State[:accepted],
         from: Types::AbuseRequest::State[:pending],
-        after: :fill_approver
+        after: :fill_approver,
+        success: :postprocess_acception
     end
     event :reject do
       transitions to: Types::AbuseRequest::State[:rejected],
         from: Types::AbuseRequest::State[:pending],
-        after: :fill_approver,
-        success: :postprocess_acception
+        after: :fill_approver
     end
   end
 
@@ -77,8 +77,8 @@ private
     self.approver = approver
   end
 
-  def postprocess_acception faye_token:, assign_affected_ids: true, **_args
-    return unless assign_affected_ids
+  def postprocess_acception approver:, is_process_in_faye: true, faye_token: nil
+    return unless is_process_in_faye
 
     faye = FayeService.new approver, faye_token
 
