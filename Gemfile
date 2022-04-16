@@ -163,14 +163,12 @@ group :development do
   gem 'capistrano-rbenv', require: false
 
   gem 'active_record_query_trace'
-  # gem 'foreman'
 end
 
 gem 'awesome_print'
 gem 'colorize'
 gem 'pry-byebug'
 gem 'pry-rails'
-# gem 'pry-stack_explorer'
 
 group :development, :test do
   gem 'dotenv-rails'
@@ -195,7 +193,6 @@ group :development, :test do
   gem 'rubocop-rails', require: false
 
   gem 'parallel_tests'
-  # gem 'guard-webpack', github: 'imarcelolz/guard-webpack', branch: 'master'
 end
 
 group :test do
@@ -217,7 +214,6 @@ group :test do
   gem 'fuubar'
 
   gem 'shoulda-matchers'
-  # gem 'state_machine_rspec'
   gem 'timecop'
   gem 'vcr'
   gem 'webmock', require: false
