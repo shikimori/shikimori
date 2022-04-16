@@ -14,6 +14,7 @@ describe Moderations::CritiquesController do
 
     it do
       expect(resource).to be_moderation_accepted
+      expect(resource).to_not be_changed
       expect(response).to redirect_to moderations_critiques_url
     end
   end
@@ -25,6 +26,7 @@ describe Moderations::CritiquesController do
 
     it do
       expect(resource).to be_moderation_rejected
+      expect(resource).to_not be_changed
       expect(response).to redirect_to moderations_critiques_url
     end
   end
@@ -36,6 +38,7 @@ describe Moderations::CritiquesController do
 
     it do
       expect(resource).to be_moderation_pending
+      expect(resource).to_not be_changed
       expect(response).to redirect_to moderations_critiques_url
     end
   end
