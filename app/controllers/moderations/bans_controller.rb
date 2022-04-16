@@ -1,4 +1,3 @@
-# TODO: переделать авторизацию на cancancan
 class Moderations::BansController < ModerationsController
   load_and_authorize_resource except: %i[index]
   before_action :authenticate_user!, except: %i[index]
