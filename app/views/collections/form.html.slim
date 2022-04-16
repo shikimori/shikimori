@@ -76,7 +76,7 @@ header.head.misc
 
       - if @resource.persisted? && can?(:create, @resource)
         .cc-3
-          - if @resource.can_to_published?
+          - if @resource.may_to_published?
             .c-column.b-input
               a.b-button.m3[
                 href=to_published_collection_url(@resource)
@@ -99,7 +99,7 @@ header.head.misc
               .collection-state-hint
                 == t '.hint.published'
 
-          - if @resource.can_to_opened?
+          - if @resource.may_to_opened?
             .c-column.b-input
               a.b-button.m3[
                 href=to_opened_collection_url(@resource)
@@ -122,7 +122,7 @@ header.head.misc
               .collection-state-hint
                 = t '.hint.opened'
 
-          - if @resource.can_to_private?
+          - if @resource.may_to_private?
             .c-column.b-input
               a.b-button.m3[
                 href=to_private_collection_url(@resource)
