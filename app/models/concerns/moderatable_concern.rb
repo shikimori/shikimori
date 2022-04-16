@@ -23,31 +23,18 @@ module ModeratableConcern
       event :accept do
         transitions to: Types::Moderatable::State[:accepted],
           from: Types::Moderatable::State[:pending],
-          after: :fill_approver
+          after: :fill_accept_approver
       end
       event :reject do
         transitions to: Types::Moderatable::State[:rejected],
-          from: Types::Moderatable::State[:pending]
+          from: Types::Moderatable::State[:pending],
+          after: :fill_reject_approver
       end
       event :cancel do
         transitions to: Types::Moderatable::State[:pending],
           from: Types::Moderatable::State[:accepted]
       end
     end
-
-    # state_machine :moderation_state, initial: :pending do
-    #   before_transition pending: :accepted do |critique, transition|
-    #     critique.approver = transition.args.first
-    #   end
-    #
-    #   before_transition pending: :rejected do |critique, transition|
-    #     critique.approver = transition.args.first
-    #     critique.to_offtopic!
-    #
-    #     Messages::CreateNotification.new(critique)
-    #       .moderatable_banned(transition.args.second)
-    #   end
-    # end
   end
 
   def to_offtopic!
@@ -56,7 +43,14 @@ module ModeratableConcern
 
 private
 
-  def fill_approver user
-    self.approver = user
+  def fill_accept_approver approver
+    self.approver = approver
+  end
+
+  def fill_reject_approver approver, reason
+    self.approver = approver
+    to_offtopic!
+
+    Messages::CreateNotification.new(self).moderatable_banned(reason)
   end
 end

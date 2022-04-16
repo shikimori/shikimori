@@ -24,12 +24,26 @@ shared_examples :moderatable_concern do |type|
 
       context 'pending' do
         let(:state) { Types::Moderatable::State[:pending] }
+        before do
+          allow(subject).to receive :fill_accept_approver
+          allow(subject).to receive :fill_reject_approver
+        end
 
         it { is_expected.to have_state(state).on(:moderation_state) }
         it { is_expected.to allow_transition_to(:accepted).on(:moderation_state) }
-        it { is_expected.to transition_from(state).to(:accepted).on_event(:accept).on(:moderation_state) }
+        it do
+          is_expected.to transition_from(state)
+            .to(:accepted)
+            .on_event(:accept, user_2)
+            .on(:moderation_state)
+        end
         it { is_expected.to allow_transition_to(:rejected).on(:moderation_state) }
-        it { is_expected.to transition_from(state).to(:rejected).on_event(:reject).on(:moderation_state) }
+        it do
+          is_expected.to transition_from(state)
+            .to(:rejected)
+            .on_event(:reject, user_2, 'zxc')
+            .on(:moderation_state)
+        end
       end
 
       context 'accepted' do
@@ -37,7 +51,12 @@ shared_examples :moderatable_concern do |type|
 
         it { is_expected.to have_state(state).on(:moderation_state) }
         it { is_expected.to allow_transition_to(:pending).on(:moderation_state) }
-        it { is_expected.to transition_from(state).to(:pending).on_event(:cancel).on(:moderation_state) }
+        it do
+          is_expected.to transition_from(state)
+            .to(:pending)
+            .on_event(:cancel)
+            .on(:moderation_state)
+        end
         it { is_expected.to_not allow_transition_to(:rejected).on(:moderation_state) }
       end
 
@@ -50,51 +69,35 @@ shared_examples :moderatable_concern do |type|
       end
 
       context 'transitions' do
-        subject { create type, :with_topics, :pending, user: user }
+        subject { create type, :with_topics, state, user: user }
 
         context 'transition to accepted' do
           let(:state) { Types::Moderatable::State[:pending] }
-          include_context :timecop
-          before { allow(subject).to receive(:fill_approver).and_call_original }
-          before { subject.accept! user }
+          before { allow(subject).to receive(:fill_accept_approver).and_call_original }
+          before { subject.accept! user_2 }
+
           it do
-            expect(subject).to have_received :fill_approver
-            # expect(subject.published_at).to be_within(0.1).of Time.zone.now
-            expect(subject).to be_moderation_accepted
-            expect(subject).to_not be_changed
+            is_expected.to have_received(:fill_accept_approver).with user_2
+            is_expected.to be_moderation_accepted
+            expect(subject.approver).to eq user_2
+            is_expected.to_not be_changed
+          end
+        end
+
+        context 'transition to rejected' do
+          let(:state) { Types::Moderatable::State[:pending] }
+          before { allow(subject).to receive(:fill_reject_approver).and_call_original }
+          before { subject.reject! user_2, reason }
+          let(:reason) { 'zxc' }
+
+          it do
+            is_expected.to have_received(:fill_reject_approver).with user_2, reason
+            is_expected.to be_moderation_rejected
+            expect(subject.approver).to eq user_2
+            is_expected.to_not be_changed
           end
         end
       end
-
-      # context 'opened' do
-      #   let(:state) { Types::Moderatable::State[:opened] }
-      #
-      #   it { is_expected.to have_state state }
-      #   it { is_expected.to_not allow_transition_to :pending }
-      #   it { is_expected.to allow_transition_to :accepted }
-      #   it { is_expected.to transition_from(state).to(:accepted).on_event(:accept) }
-      #   it { is_expected.to allow_transition_to :rejected }
-      #   it { is_expected.to transition_from(state).to(:rejected).on_event(:reject) }
-      # end
-      #
-      # context 'transition to accepted' do
-      #   let(:state) do
-      #     [
-      #       Types::Moderatable::State[:pending],
-      #       Types::Moderatable::State[:rejected],
-      #       Types::Moderatable::State[:opened]
-      #     ].sample
-      #   end
-      #   include_context :timecop
-      #   before { allow(subject).to receive(:fill_accepted_at).and_call_original }
-      #   before { subject.accept! }
-      #   it do
-      #     expect(subject).to have_received :fill_accepted_at
-      #     expect(subject.accepted_at).to be_within(0.1).of Time.zone.now
-      #     expect(subject).to be_persisted
-      #     expect(subject).to_not be_changed
-      #   end
-      # end
     end
 
     describe 'instance methods' do
