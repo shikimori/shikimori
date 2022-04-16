@@ -44,39 +44,16 @@ class AbuseRequest < ApplicationRecord
 
     event :take do
       transitions to: Types::AbuseRequest::State[:accepted],
-        from: Types::AbuseRequest::State[:pending]
+        from: Types::AbuseRequest::State[:pending],
+        after: :fill_approver
     end
     event :reject do
       transitions to: Types::AbuseRequest::State[:rejected],
-        from: Types::AbuseRequest::State[:pending]
+        from: Types::AbuseRequest::State[:pending],
+        after: :fill_approver
     end
-
-    # event :accept do
-    #   transitions to: Types::AbuseRequest::State[:accepted],
-    #     from: Types::AbuseRequest::State[:pending],
-    #     after: :fill_approver
-    # end
-    # event :reject do
-    #   transitions to: Types::AbuseRequest::State[:rejected],
-    #     from: Types::AbuseRequest::State[:pending],
-    #     after: :fill_approver,
-    #     success: :handle_rejection
-    # end
-    # event :cancel do
-    #   transitions to: Types::AbuseRequest::State[:pending],
-    #     from: Types::AbuseRequest::State[:accepted]
-    # end
   end
 
-  # state_machine :state, initial: :pending do
-  #   event :take do
-  #     transition pending: :accepted
-  #   end
-  #
-  #   event :reject do
-  #     transition pending: :rejected
-  #   end
-  #
   #   before_transition pending: :accepted do |abuse_request, transition|
   #     abuse_request.approver = transition.args.first
   #     faye_token = transition.args.second
@@ -99,7 +76,6 @@ class AbuseRequest < ApplicationRecord
   #   before_transition pending: :rejected do |abuse_request, transition|
   #     abuse_request.approver = transition.args.first
   #   end
-  # end
 
   def punishable?
     abuse? || spoiler?
@@ -115,5 +91,9 @@ class AbuseRequest < ApplicationRecord
     elsif topic_id
       Topic.name
     end
+  end
+
+  def fill_approver approver:
+    self.approver = approver
   end
 end

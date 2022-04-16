@@ -44,11 +44,11 @@ module ModeratableConcern
 
 private
 
-  def fill_approver approver:, reason: nil # rubocop:disable Lint/UnusedMethodArgument
+  def fill_approver approver:, **args # rubocop:disable Lint/UnusedMethodArgument
     self.approver = approver
   end
 
-  def handle_rejection approver:, reason: # rubocop:disable Lint/UnusedMethodArgument
+  def handle_rejection reason:, **args # rubocop:disable Lint/UnusedMethodArgument
     to_offtopic!
 
     Messages::CreateNotification

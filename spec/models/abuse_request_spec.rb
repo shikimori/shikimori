@@ -54,21 +54,29 @@ describe AbuseRequest do
 
     context 'pending' do
       let(:state) { Types::AbuseRequest::State[:pending] }
-      # before do
-      #   allow(subject).to receive :fill_approver
-      #   allow(subject).to receive :handle_rejection
-      # end
+      before do
+        allow(subject).to receive :fill_approver
+        # allow(subject).to receive :handle_rejection
+      end
 
       it { is_expected.to have_state state }
       it { is_expected.to allow_transition_to :accepted }
-      it { is_expected.to transition_from(state).to(:accepted).on_event(:take) }
-      it { is_expected.to transition_from(state).to(:rejected).on_event(:reject) }
+      it do
+        is_expected.to transition_from(state)
+          .to(:accepted)
+          .on_event(:take, approver: user_2)
+      end
+      it do
+        is_expected.to transition_from(state)
+          .to(:rejected)
+          .on_event(:reject, approver: user_2)
+      end
 
       # it do
       #   is_expected.to transition_from(state)
       #     .to(:accepted)
       #     .on_event(:accept, approver: user_2)
-      #     
+      #
       # end
       # it { is_expected.to allow_transition_to(:rejected) }
       # it do
@@ -80,16 +88,16 @@ describe AbuseRequest do
 
     # context 'accepted' do
     #   let(:state) { Types::AbuseRequest::State[:accepted] }
-    # 
+    #
     #   it { is_expected.to have_state(state) }
     #   it { is_expected.to allow_transition_to(:pending) }
     #   it { is_expected.to transition_from(state).to(:pending).on_event(:cancel) }
     #   it { is_expected.to_not allow_transition_to :rejected }
     # end
-    # 
+    #
     # context 'rejected' do
     #   let(:state) { Types::AbuseRequest::State[:rejected] }
-    # 
+    #
     #   it { is_expected.to have_state(state) }
     #   it { is_expected.to_not allow_transition_to :pending }
     #   it { is_expected.to_not allow_transition_to :accepted }
@@ -97,21 +105,21 @@ describe AbuseRequest do
 
       # context 'transitions' do
       #   subject { create type, :with_topics, state, approver: user }
-      # 
+      #
       #   context 'transition to accepted' do
       #     let(:state) { Types::AbuseRequest::State[:pending] }
       #     before { allow(subject).to receive(:fill_approver).and_call_original }
       #     before { subject.accept! approver: user_2 }
-      # 
+      #
       #     it do
       #       is_expected.to be_moderation_accepted
       #       is_expected.to_not be_changed
       #       expect(subject.approver).to eq user_2
-      # 
+      #
       #       is_expected.to have_received(:fill_approver).with approver: user_2
       #     end
       #   end
-      # 
+      #
       #   context 'transition to rejected' do
       #     let(:state) { Types::AbuseRequest::State[:pending] }
       #     before do
@@ -123,12 +131,12 @@ describe AbuseRequest do
       #     before { subject.reject! approver: user_2, reason: reason }
       #     let(:reason) { 'zxc' }
       #     let(:notification_service) { double moderatable_banned: nil }
-      # 
+      #
       #     it do
       #       is_expected.to be_moderation_rejected
       #       is_expected.to_not be_changed
       #       expect(subject.approver).to eq user_2
-      # 
+      #
       #       is_expected.to have_received(:fill_approver).with approver: user_2, reason: reason
       #       is_expected.to have_received(:handle_rejection).with approver: user_2, reason: reason
       #       is_expected.to have_received :to_offtopic!
