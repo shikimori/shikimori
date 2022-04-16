@@ -23,12 +23,13 @@ module ModeratableConcern
       event :accept do
         transitions to: Types::Moderatable::State[:accepted],
           from: Types::Moderatable::State[:pending],
-          after: :fill_accept_approver
+          after: :fill_approver
       end
       event :reject do
         transitions to: Types::Moderatable::State[:rejected],
           from: Types::Moderatable::State[:pending],
-          after: :fill_reject_approver
+          after: :fill_approver,
+          success: :handle_rejection
       end
       event :cancel do
         transitions to: Types::Moderatable::State[:pending],
@@ -43,14 +44,15 @@ module ModeratableConcern
 
 private
 
-  def fill_accept_approver approver
+  def fill_approver approver:, reason: nil # rubocop:disable Lint/UnusedMethodArgument
     self.approver = approver
   end
 
-  def fill_reject_approver approver, reason
-    self.approver = approver
+  def handle_rejection approver:, reason: # rubocop:disable Lint/UnusedMethodArgument
     to_offtopic!
 
-    Messages::CreateNotification.new(self).moderatable_banned(reason)
+    Messages::CreateNotification
+      .new(self)
+      .moderatable_banned(reason)
   end
 end

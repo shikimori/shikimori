@@ -25,8 +25,8 @@ shared_examples :moderatable_concern do |type|
       context 'pending' do
         let(:state) { Types::Moderatable::State[:pending] }
         before do
-          allow(subject).to receive :fill_accept_approver
-          allow(subject).to receive :fill_reject_approver
+          allow(subject).to receive :fill_approver
+          allow(subject).to receive :handle_rejection
         end
 
         it { is_expected.to have_state(state).on(:moderation_state) }
@@ -34,14 +34,14 @@ shared_examples :moderatable_concern do |type|
         it do
           is_expected.to transition_from(state)
             .to(:accepted)
-            .on_event(:accept, user_2)
+            .on_event(:accept, approver: user_2)
             .on(:moderation_state)
         end
         it { is_expected.to allow_transition_to(:rejected).on(:moderation_state) }
         it do
           is_expected.to transition_from(state)
             .to(:rejected)
-            .on_event(:reject, user_2, 'zxc')
+            .on_event(:reject, approver: user_2, reason: 'zxc')
             .on(:moderation_state)
         end
       end
@@ -69,32 +69,43 @@ shared_examples :moderatable_concern do |type|
       end
 
       context 'transitions' do
-        subject { create type, :with_topics, state, user: user }
+        subject { create type, :with_topics, state, approver: user }
 
         context 'transition to accepted' do
           let(:state) { Types::Moderatable::State[:pending] }
-          before { allow(subject).to receive(:fill_accept_approver).and_call_original }
-          before { subject.accept! user_2 }
+          before { allow(subject).to receive(:fill_approver).and_call_original }
+          before { subject.accept! approver: user_2 }
 
           it do
-            is_expected.to have_received(:fill_accept_approver).with user_2
             is_expected.to be_moderation_accepted
-            expect(subject.approver).to eq user_2
             is_expected.to_not be_changed
+            expect(subject.approver).to eq user_2
+
+            is_expected.to have_received(:fill_approver).with approver: user_2
           end
         end
 
         context 'transition to rejected' do
           let(:state) { Types::Moderatable::State[:pending] }
-          before { allow(subject).to receive(:fill_reject_approver).and_call_original }
-          before { subject.reject! user_2, reason }
+          before do
+            allow(subject).to receive(:fill_approver).and_call_original
+            allow(subject).to receive(:handle_rejection).and_call_original
+            allow(subject).to receive(:to_offtopic!)
+            allow(Messages::CreateNotification).to receive(:new).and_return notification_service
+          end
+          before { subject.reject! approver: user_2, reason: reason }
           let(:reason) { 'zxc' }
+          let(:notification_service) { double moderatable_banned: nil }
 
           it do
-            is_expected.to have_received(:fill_reject_approver).with user_2, reason
             is_expected.to be_moderation_rejected
-            expect(subject.approver).to eq user_2
             is_expected.to_not be_changed
+            expect(subject.approver).to eq user_2
+
+            is_expected.to have_received(:fill_approver).with approver: user_2, reason: reason
+            is_expected.to have_received(:handle_rejection).with approver: user_2, reason: reason
+            is_expected.to have_received :to_offtopic!
+            expect(notification_service).to have_received(:moderatable_banned).with reason
           end
         end
       end
