@@ -21,12 +21,12 @@ class Moderations::CritiquesController < ModerationsController
   end
 
   def accept
-    @resource.accept current_user
+    @resource.accept approver: current_user
     redirect_back fallback_location: moderations_critiques_url
   end
 
   def reject
-    @resource.reject current_user
+    @resource.reject approver: current_user
     redirect_back fallback_location: moderations_critiques_url
   end
 

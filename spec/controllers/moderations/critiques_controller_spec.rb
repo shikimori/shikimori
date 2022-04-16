@@ -13,7 +13,7 @@ describe Moderations::CritiquesController do
     let(:critique) { create :critique }
 
     it do
-      expect(resource).to be_accepted
+      expect(resource).to be_moderation_accepted
       expect(response).to redirect_to moderations_critiques_url
     end
   end
@@ -24,7 +24,7 @@ describe Moderations::CritiquesController do
     let(:critique) { create :critique, :with_topics }
 
     it do
-      expect(resource).to be_rejected
+      expect(resource).to be_moderation_rejected
       expect(response).to redirect_to moderations_critiques_url
     end
   end
@@ -35,7 +35,7 @@ describe Moderations::CritiquesController do
     let(:critique) { create :critique, :accepted, approver: user }
 
     it do
-      expect(resource).to be_pending
+      expect(resource).to be_moderation_pending
       expect(response).to redirect_to moderations_critiques_url
     end
   end
