@@ -28,14 +28,14 @@
       = render 'users/user_16', user: collection.approver
 
   - if can? :manage, Collection
-    - if collection.can_accept? || collection.can_reject? || collection.can_cancel?
+    - if collection.may_accept? || collection.may_reject? || collection.can_cancel?
       .moderation.inline
-        - if collection.can_accept?
+        - if collection.may_accept?
           a.link.accept[
             href=accept_moderations_collection_path(collection)
             data-method='post'
           ] = t '.accept'
-        - if collection.can_reject?
+        - if collection.may_reject?
           a.link.reject[
             href=reject_moderations_collection_path(collection)
             data-method='post'

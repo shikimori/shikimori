@@ -18,7 +18,7 @@ class Moderations::NewsController < ModerationsController
 
   def accept
     authorize! :moderate, @resource
-    @resource.accept if @resource.can_accept?
+    @resource.accept if @resource.may_accept?
 
     redirect_back fallback_location: moderations_news_index_url
   end
@@ -26,7 +26,7 @@ class Moderations::NewsController < ModerationsController
   def reject
     authorize! :moderate, @resource
 
-    @resource.reject if @resource.can_reject?
+    @resource.reject if @resource.may_reject?
     redirect_back fallback_location: moderations_news_index_url
   end
 

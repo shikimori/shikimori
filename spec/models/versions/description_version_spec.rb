@@ -4,7 +4,7 @@ describe Versions::DescriptionVersion do
 
     describe '#accept_taken' do
       let(:state) { :taken }
-      it { expect(version).to be_can_accept_taken }
+      it { expect(version).to be_may_accept_taken }
     end
 
     describe '#take_accepted' do

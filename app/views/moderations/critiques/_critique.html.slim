@@ -30,14 +30,14 @@
       = render 'users/user_16', user: critique.approver
 
   - if can? :manage, Critique
-    - if critique.can_accept? || critique.can_reject? || critique.can_cancel?
+    - if critique.may_accept? || critique.may_reject? || critique.can_cancel?
       .moderation.inline
-        - if critique.can_accept?
+        - if critique.may_accept?
           a.link.accept[
             href=accept_moderations_critique_path(critique)
             data-method='post'
           ] = t '.accept'
-        - if critique.can_reject?
+        - if critique.may_reject?
           a.link.reject[
             href=reject_moderations_critique_path(critique)
             data-method='post'

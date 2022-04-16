@@ -22,14 +22,14 @@
     = t "activerecord.state_machines.topics/news_topic.states.#{news.moderation_state}"
 
   - if can? :moderate, news
-    - if news.can_accept? || news.can_reject? || news.can_cancel?
+    - if news.may_accept? || news.may_reject? || news.can_cancel?
       .moderation.inline
-        - if news.can_accept?
+        - if news.may_accept?
           a.link.accept[
             href=accept_moderations_news_path(news)
             data-method='post'
           ] = t '.accept'
-        - if news.can_reject?
+        - if news.may_reject?
           a.link.reject[
             href=reject_moderations_news_path(news)
             data-method='post'
