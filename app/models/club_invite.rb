@@ -60,12 +60,14 @@ private
 
   def check_banned
     return unless club.banned? dst
+
     errors.add :base, :banned
     throw :abort
   end
 
   def check_joined
     return unless club.member? dst
+
     errors.add :base, :joined
     throw :abort
   end
