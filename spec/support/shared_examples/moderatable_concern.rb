@@ -92,8 +92,7 @@ shared_examples :moderatable_concern do |type|
             allow(subject).to receive(:to_offtopic!)
             allow(Messages::CreateNotification).to receive(:new).and_return notification_service
           end
-          before { subject.reject! approver: user_2, reason: reason }
-          let(:reason) { 'zxc' }
+          before { subject.reject! approver: user_2 }
           let(:notification_service) { double moderatable_banned: nil }
 
           it do
@@ -101,10 +100,10 @@ shared_examples :moderatable_concern do |type|
             is_expected.to_not be_changed
             expect(subject.approver).to eq user_2
 
-            is_expected.to have_received(:fill_approver).with approver: user_2, reason: reason
-            is_expected.to have_received(:handle_rejection).with approver: user_2, reason: reason
+            is_expected.to have_received(:fill_approver).with approver: user_2
+            is_expected.to have_received(:handle_rejection).with approver: user_2
             is_expected.to have_received :to_offtopic!
-            expect(notification_service).to have_received(:moderatable_banned).with reason
+            expect(notification_service).to have_received(:moderatable_banned).with nil
           end
         end
       end

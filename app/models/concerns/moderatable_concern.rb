@@ -48,11 +48,11 @@ private
     self.approver = approver
   end
 
-  def handle_rejection reason:, **args # rubocop:disable Lint/UnusedMethodArgument
+  def handle_rejection **args # rubocop:disable Lint/UnusedMethodArgument
     to_offtopic!
 
     Messages::CreateNotification
       .new(self)
-      .moderatable_banned(reason)
+      .moderatable_banned(nil)
   end
 end
