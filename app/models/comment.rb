@@ -101,7 +101,7 @@ class Comment < ApplicationRecord
   end
 
   def release_the_banhammer!
-    Banhammer.instance.release! self
+    Moderations::Banhammer.instance.release! self
   end
 
   def touch_commentable

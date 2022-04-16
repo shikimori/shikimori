@@ -1,6 +1,6 @@
-describe AbuseRequestsService do
+describe Moderations::AbuseRequestsService do
   let(:service) do
-    AbuseRequestsService.new(
+    described_class.new(
       comment: comment,
       topic: topic,
       reporter: user_reporter

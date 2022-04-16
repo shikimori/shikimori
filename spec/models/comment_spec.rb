@@ -167,7 +167,7 @@ describe Comment do
     describe '#release_the_banhammer!' do
       let(:comment) { build :comment, :with_banhammer }
       after { comment.save }
-      it { expect(Banhammer.instance).to receive :release! }
+      it { expect(Moderations::Banhammer.instance).to receive :release! }
     end
 
     describe '#touch_commentable' do

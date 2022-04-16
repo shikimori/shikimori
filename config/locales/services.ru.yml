@@ -127,5 +127,5 @@ ru:
       Чтобы в дальнейшем избежать подобных ситуаций,
       рекомендуем не использовать простые пароли вроде "123", "qwerty", "anime", "naruto" и т.п.
 
-  banhammer:
+  moderations/banhammer:
     ban_reason: п.3 [url=%{url}]правил сайта[/url]

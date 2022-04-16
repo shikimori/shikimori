@@ -60,7 +60,7 @@ class Api::V1::ShikiEditorsController < Api::V1Controller # rubocop:disable Clas
   end
 
   def preview # rubocop:disable AbcSize, MethodLength
-    censored_text = Banhammer.instance.censor params[:text] || '', nil
+    censored_text = Moderations::Banhammer.instance.censor params[:text] || '', nil
 
     html =
       if params[:target_type] && params[:target_id]

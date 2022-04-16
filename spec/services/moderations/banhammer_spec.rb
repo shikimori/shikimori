@@ -1,5 +1,5 @@
-describe Banhammer do
-  let(:banhammer) { Banhammer.instance }
+describe Moderations::Banhammer do
+  let(:banhammer) { described_class.instance }
   let(:comment) do
     build_stubbed :comment,
       user: user,

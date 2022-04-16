@@ -127,5 +127,5 @@ en:
       In order to avoid such situations in the future,
       we recommend that you do not use simple passwords like "123", "qwerty", "anime", "naruto", etc.
 
-  banhammer:
+  moderations/banhammer:
     ban_reason: '[url=%{url}]site rule #3[/url]'

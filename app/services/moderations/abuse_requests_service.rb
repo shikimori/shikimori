@@ -1,4 +1,4 @@
-class AbuseRequestsService
+class Moderations::AbuseRequestsService
   CHANGE_ALLOWED_TIMEOUT = 5.minutes
 
   pattr_initialize %i[comment topic reporter!]

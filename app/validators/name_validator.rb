@@ -59,7 +59,7 @@ class NameValidator < ActiveModel::EachValidator
       record.errors[attribute] << message
     end
 
-    if Banhammer.instance.abusive? value
+    if Moderations::Banhammer.instance.abusive? value
       message = options[:message] ||
         I18n.t('activerecord.errors.messages.abusive')
       record.errors[attribute] << message

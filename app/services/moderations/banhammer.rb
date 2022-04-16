@@ -1,4 +1,4 @@
-class Banhammer # rubocop:disable ClassLength
+class Moderations::Banhammer # rubocop:disable ClassLength
   include Translation
   include Singleton
 

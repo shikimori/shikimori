@@ -7,7 +7,7 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
   param :comment_id, :number, required: true
   description 'Request will be sent to moderators.'
   def offtopic
-    ids = AbuseRequestsService
+    ids = Moderations::AbuseRequestsService
       .new(comment: @comment, reporter: current_user)
       .offtopic(faye_token)
 
@@ -25,7 +25,7 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
     allow_blank: true
   description 'Request will be sent to moderators.'
   def convert_review
-    AbuseRequestsService
+    Moderations::AbuseRequestsService
       .new(comment: @comment, topic: @topic, reporter: current_user)
       .convert_review(faye_token)
 
@@ -46,7 +46,7 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
     allow_blank: true
   description 'Request will be sent to moderators.'
   def abuse
-    AbuseRequestsService
+    Moderations::AbuseRequestsService
       .new(comment: @comment, topic: @topic, reporter: current_user)
       .abuse(params[:reason])
 
@@ -67,7 +67,7 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
     allow_blank: true
   description 'Request will be sent to moderators.'
   def spoiler
-    AbuseRequestsService
+    Moderations::AbuseRequestsService
       .new(comment: @comment, topic: @topic, reporter: current_user)
       .spoiler(params[:reason])
 

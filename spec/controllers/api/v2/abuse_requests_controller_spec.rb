@@ -2,7 +2,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
   include_context :authenticated, :user
 
   before do
-    allow(AbuseRequestsService)
+    allow(Moderations::AbuseRequestsService)
       .to receive(:new)
       .and_return abuse_requests_service
   end
@@ -19,7 +19,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
     let(:abuse_requests_service) { double offtopic: [comment.id] }
 
     it do
-      expect(AbuseRequestsService)
+      expect(Moderations::AbuseRequestsService)
         .to have_received(:new)
         .with comment: comment, reporter: user
       expect(abuse_requests_service).to have_received(:offtopic).with(nil)
@@ -52,7 +52,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
     let(:topic) { create :topic unless comment }
 
     it do
-      expect(AbuseRequestsService)
+      expect(Moderations::AbuseRequestsService)
         .to have_received(:new)
         .with comment: comment, topic: topic, reporter: user
       expect(abuse_requests_service).to have_received(:convert_review).with(nil)
@@ -73,7 +73,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
     let(:abuse_requests_service) { double abuse: [comment.id] }
 
     it do
-      expect(AbuseRequestsService)
+      expect(Moderations::AbuseRequestsService)
         .to have_received(:new)
         .with comment: comment, topic: nil, reporter: user
       expect(abuse_requests_service).to have_received(:abuse).with(reason)
@@ -94,7 +94,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
     let(:abuse_requests_service) { double spoiler: [comment.id] }
 
     it do
-      expect(AbuseRequestsService)
+      expect(Moderations::AbuseRequestsService)
         .to have_received(:new)
         .with comment: comment, topic: nil, reporter: user
       expect(abuse_requests_service).to have_received(:spoiler).with(reason)

@@ -19,7 +19,7 @@ class FixName < ServiceObjectBase
 private
 
   def censor name
-    Banhammer.instance.censor name, 'x'
+    Moderations::Banhammer.instance.censor name, 'x'
   end
 
   def remove_spam name
