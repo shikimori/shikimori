@@ -4,17 +4,16 @@ shared_examples :moderatable_concern do |type|
     let(:moderation_state) { Types::Moderatable::State[:pending] }
 
     describe 'validations' do
-      context 'pending' do
-        it { is_expected.to_not validate_presence_of :approver }
-      end
+      describe 'approver' do
+        context 'pending' do
+          it { is_expected.to_not validate_presence_of :approver }
+        end
 
-      [
-        Types::Moderatable::State[:accepted],
-        Types::Moderatable::State[:rejected]
-      ].each do |state|
-        context state do
-          let(:moderation_state) { state }
-          it { is_expected.to validate_presence_of :approver }
+        [Types::Moderatable::State[:accepted], Types::Moderatable::State[:rejected]].each do |state|
+          context state do
+            let(:moderation_state) { state }
+            it { is_expected.to validate_presence_of :approver }
+          end
         end
       end
     end

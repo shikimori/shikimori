@@ -13,14 +13,20 @@ describe AbuseRequest do
   describe 'validations' do
     it { is_expected.to validate_length_of(:reason).is_at_most(4096) }
 
-    context 'accepted' do
-      subject { build :abuse_request, state: 'accepted' }
-      it { is_expected.to validate_presence_of :approver }
-    end
+    describe 'approver' do
+      subject { build :abuse_request, state: state }
 
-    context 'rejected' do
-      subject { build :abuse_request, state: 'rejected' }
-      it { is_expected.to validate_presence_of :approver }
+      context 'pending' do
+        let(:state) { Types::AbuseRequest::State[:pending] }
+        it { is_expected.to_not validate_presence_of :approver }
+      end
+
+      [Types::AbuseRequest::State[:accepted], Types::AbuseRequest::State[:rejected]].each do |state|
+        context state do
+          let(:state) { state }
+          it { is_expected.to validate_presence_of :approver }
+        end
+      end
     end
   end
 
@@ -43,28 +49,114 @@ describe AbuseRequest do
     end
   end
 
-  describe 'aasm' do
-    subject(:abuse_request) { create :abuse_request, user: user }
+  describe 'aasm', :focus do
+    subject { build :abuse_request, state }
 
-    describe '#take' do
-      before { abuse_request.take user }
-      its(:approver) { is_expected.to eq user }
+    context 'pending' do
+      let(:state) { Types::AbuseRequest::State[:pending] }
+      # before do
+      #   allow(subject).to receive :fill_approver
+      #   allow(subject).to receive :handle_rejection
+      # end
 
-      context 'comment' do
-        subject { abuse_request.comment }
-        its(:is_offtopic) { is_expected.to eq true }
-      end
+      it { is_expected.to have_state state }
+      it { is_expected.to allow_transition_to :accepted }
+      it { is_expected.to transition_from(state).to(:accepted).on_event(:take) }
+      it { is_expected.to transition_from(state).to(:rejected).on_event(:reject) }
+
+      # it do
+      #   is_expected.to transition_from(state)
+      #     .to(:accepted)
+      #     .on_event(:accept, approver: user_2)
+      #     
+      # end
+      # it { is_expected.to allow_transition_to(:rejected) }
+      # it do
+      #   is_expected.to transition_from(state)
+      #     .to(:rejected)
+      #     .on_event(:reject, approver: user_2, reason: 'zxc')
+      # end
     end
 
-    describe '#reject' do
-      before { abuse_request.reject user }
-      its(:approver) { is_expected.to eq user }
+    # context 'accepted' do
+    #   let(:state) { Types::AbuseRequest::State[:accepted] }
+    # 
+    #   it { is_expected.to have_state(state) }
+    #   it { is_expected.to allow_transition_to(:pending) }
+    #   it { is_expected.to transition_from(state).to(:pending).on_event(:cancel) }
+    #   it { is_expected.to_not allow_transition_to :rejected }
+    # end
+    # 
+    # context 'rejected' do
+    #   let(:state) { Types::AbuseRequest::State[:rejected] }
+    # 
+    #   it { is_expected.to have_state(state) }
+    #   it { is_expected.to_not allow_transition_to :pending }
+    #   it { is_expected.to_not allow_transition_to :accepted }
+    # end
 
-      context 'comment' do
-        subject { abuse_request.comment }
-        its(:is_offtopic) { is_expected.to eq false }
-      end
-    end
+      # context 'transitions' do
+      #   subject { create type, :with_topics, state, approver: user }
+      # 
+      #   context 'transition to accepted' do
+      #     let(:state) { Types::AbuseRequest::State[:pending] }
+      #     before { allow(subject).to receive(:fill_approver).and_call_original }
+      #     before { subject.accept! approver: user_2 }
+      # 
+      #     it do
+      #       is_expected.to be_moderation_accepted
+      #       is_expected.to_not be_changed
+      #       expect(subject.approver).to eq user_2
+      # 
+      #       is_expected.to have_received(:fill_approver).with approver: user_2
+      #     end
+      #   end
+      # 
+      #   context 'transition to rejected' do
+      #     let(:state) { Types::AbuseRequest::State[:pending] }
+      #     before do
+      #       allow(subject).to receive(:fill_approver).and_call_original
+      #       allow(subject).to receive(:handle_rejection).and_call_original
+      #       allow(subject).to receive(:to_offtopic!)
+      #       allow(Messages::CreateNotification).to receive(:new).and_return notification_service
+      #     end
+      #     before { subject.reject! approver: user_2, reason: reason }
+      #     let(:reason) { 'zxc' }
+      #     let(:notification_service) { double moderatable_banned: nil }
+      # 
+      #     it do
+      #       is_expected.to be_moderation_rejected
+      #       is_expected.to_not be_changed
+      #       expect(subject.approver).to eq user_2
+      # 
+      #       is_expected.to have_received(:fill_approver).with approver: user_2, reason: reason
+      #       is_expected.to have_received(:handle_rejection).with approver: user_2, reason: reason
+      #       is_expected.to have_received :to_offtopic!
+      #       expect(notification_service).to have_received(:moderatable_banned).with reason
+      #     end
+      #   end
+      # end
+    # subject(:abuse_request) { create :abuse_request, user: user }
+    #
+    # describe '#take' do
+    #   before { abuse_request.take user }
+    #   its(:approver) { is_expected.to eq user }
+    #
+    #   context 'comment' do
+    #     subject { abuse_request.comment }
+    #     its(:is_offtopic) { is_expected.to eq true }
+    #   end
+    # end
+    #
+    # describe '#reject' do
+    #   before { abuse_request.reject user }
+    #   its(:approver) { is_expected.to eq user }
+    #
+    #   context 'comment' do
+    #     subject { abuse_request.comment }
+    #     its(:is_offtopic) { is_expected.to eq false }
+    #   end
+    # end
   end
 
   describe 'instance methods' do

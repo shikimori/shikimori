@@ -1,4 +1,5 @@
 class AbuseRequest < ApplicationRecord
+  include AASM
   include AntispamConcern
 
   antispam(
@@ -25,6 +26,7 @@ class AbuseRequest < ApplicationRecord
 
   validates :reason, length: { maximum: 4096 }
   validates :comment_id, exclusive_arc: %i[topic_id]
+  validates :approver, presence: true, unless: :pending?
 
   attr_accessor :affected_ids # filled during state_machine transition
 
@@ -35,15 +37,38 @@ class AbuseRequest < ApplicationRecord
     where state: :pending, kind: %i[spoiler abuse]
   }
 
+  aasm column: 'state', create_scopes: false do
+    state Types::AbuseRequest::State[:pending], initial: true
+    state Types::AbuseRequest::State[:accepted]
+    state Types::AbuseRequest::State[:rejected]
+
+    event :take do
+      transitions to: Types::AbuseRequest::State[:accepted],
+        from: Types::AbuseRequest::State[:pending]
+    end
+    event :reject do
+      transitions to: Types::AbuseRequest::State[:rejected],
+        from: Types::AbuseRequest::State[:pending]
+    end
+
+    # event :accept do
+    #   transitions to: Types::AbuseRequest::State[:accepted],
+    #     from: Types::AbuseRequest::State[:pending],
+    #     after: :fill_approver
+    # end
+    # event :reject do
+    #   transitions to: Types::AbuseRequest::State[:rejected],
+    #     from: Types::AbuseRequest::State[:pending],
+    #     after: :fill_approver,
+    #     success: :handle_rejection
+    # end
+    # event :cancel do
+    #   transitions to: Types::AbuseRequest::State[:pending],
+    #     from: Types::AbuseRequest::State[:accepted]
+    # end
+  end
+
   # state_machine :state, initial: :pending do
-  #   state :pending
-  #   state :accepted do
-  #     validates :approver, presence: true
-  #   end
-  #   state :rejected do
-  #     validates :approver, presence: true
-  #   end
-  #
   #   event :take do
   #     transition pending: :accepted
   #   end
