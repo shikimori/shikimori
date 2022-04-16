@@ -50,8 +50,8 @@ class Collection < ApplicationRecord
           Types::Collection::State[:unpublished],
           Types::Collection::State[:private],
           Types::Collection::State[:opened]
-        ],
-        after: :fill_published_at
+        ]
+        # after: :fill_published_at
     end
     event :to_private do
       transitions to: Types::Collection::State[:private],
@@ -104,9 +104,9 @@ class Collection < ApplicationRecord
     collection_roles.find { |v| v.user_id == user.id }
   end
 
-private
+# private
 
-  def fill_published_at
-    self.published_at ||= Time.zone.now
-  end
+  # def fill_published_at
+  #   self.published_at ||= Time.zone.now
+  # end
 end
