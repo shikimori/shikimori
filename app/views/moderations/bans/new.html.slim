@@ -1,59 +1,75 @@
-- ban = local_assigns[:ban] || @resource
+div.b-ban-form
+  - ban = local_assigns[:ban] || @resource
 
-= simple_form_for [:moderations, ban],
-    remote: true,
-    html: { 'data-type' => :json } do |f|
-  = f.input :user_id, as: :hidden
-  = f.input :comment_id, as: :hidden
-  = f.input :topic_id, as: :hidden
-  = f.input :abuse_request_id, as: :hidden
+  = simple_form_for [:moderations, ban],
+      remote: true,
+      html: { 'data-type' => :json } do |f|
+    = f.input :user_id, as: :hidden
+    = f.input :comment_id, as: :hidden
+    = f.input :topic_id, as: :hidden
+    = f.input :abuse_request_id, as: :hidden
 
-  = f.input :duration,
-    as: :string,
-    input_html: { value: ban.suggest_duration }
-  = f.input :reason,
-    as: :text,
-    wrapper_html: { class: 'm5' },
-    input_html: { rows: 2 }
+    = f.input :duration,
+      as: :string,
+      input_html: { value: ban.suggest_duration }
 
-  - if ru_host?
-    .reasons.m15
-      div: .b-js-action[
-        data-reason="п.1 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], переход на личности"
-      ] п.1 правил сайта, переход на личности
+    - if ban.comment.present?
+      label class='hide-to-spoiler-label'
+        = f.check_box :hide_to_spoiler, label: false, class: 'hide-to-spoiler'
+        = t "actions.moderation.hide_to_spoiler"
 
-      div: .b-js-action[
-        data-reason="п.3 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], мат"
-      ] п.3 правил сайта, мат
+    = f.input :reason,
+      as: :text,
+      wrapper_html: { class: 'm5' },
+      input_html: { rows: 2 }
 
-      div: .b-js-action[
-        data-reason="п.4 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], троллинг"
-      ] п.4 правил сайта, троллинг
+    - if ru_host?
+      .reasons.m15
+        div: .b-js-action[
+          data-spoilered-reason='true'
+          data-reason="п.1 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], переход на личности"
+        ] п.1 правил сайта, переход на личности
 
-      div: .b-js-action[
-        data-reason="п.4 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], флуд"
-      ] п.4 правил сайта, флуд
+        div: .b-js-action[
+          data-spoilered-reason='true'
+          data-reason="п.3 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], мат"
+        ] п.3 правил сайта, мат
 
-      div: .b-js-action[
-        data-reason="п.4 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], мультипостинг"
-      ] п.4 правил сайта, мультипостинг
+        div: .b-js-action[
+          data-spoilered-reason='true'
+          data-reason="п.4 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], троллинг"
+        ] п.4 правил сайта, троллинг
 
-      div: .b-js-action[
-        data-reason="п.7 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], спойлеры"
-      ] п.7 правил сайта, спойлеры
+        div: .b-js-action[
+          data-reason="п.4 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], флуд"
+        ] п.4 правил сайта, флуд
 
-      div: .b-js-action[
-        data-reason="п.8 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], оффтоп"
-      ] п.8 правил сайта, оффтоп
+        div: .b-js-action[
+          data-reason="п.4 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], мультипостинг"
+        ] п.4 правил сайта, мультипостинг
 
-      div: .b-js-action[
-        data-reason="обход бана"
-      ] обход бана
+        div: .b-js-action[
+          data-spoilered-reason='true'
+          data-reason="п.4 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], политота"
+        ] п.4 правил сайта, политота
 
-  = f.submit t('actions.moderation.ban'), class: 'b-button submit'
-  - if defined? ban_in_profile
-    a.cancel[
-      href=profile_url(ban.user)
-    ] = t 'actions.cancel'
-  - else
-    .cancel = t 'actions.cancel'
+        div: .b-js-action[
+          data-spoilered-reason='true'
+          data-reason="п.7 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], спойлеры"
+        ] п.7 правил сайта, спойлеры
+
+        div: .b-js-action[
+          data-reason="п.8 [url=/forum/site/79042-pravila-sayta]правил сайта[/url], оффтоп"
+        ] п.8 правил сайта, оффтоп
+
+        div: .b-js-action[
+          data-reason="обход бана"
+        ] обход бана
+
+    = f.submit t('actions.moderation.ban'), class: 'b-button submit'
+    - if defined? ban_in_profile
+      a.cancel[
+        href=profile_url(ban.user)
+      ] = t 'actions.cancel'
+    - else
+      .cancel = t 'actions.cancel'

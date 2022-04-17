@@ -211,6 +211,7 @@ en:
     title: Moderation and content
     missing_screenshots_title: Missing screenshots
     no_changes: &no_changes No changes
+    self_moderation_alert: You cant moderate yourself
 
   moderations/abuse_requests_controller:
     <<: *moderations_controller

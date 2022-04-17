@@ -21,6 +21,6 @@ class CommentDecorator < BaseDecorator
   end
 
   def offtopable?
-    commentable_type != Review.name
+    strict_moderatable?
   end
 end

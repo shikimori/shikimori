@@ -56,9 +56,10 @@ aside.buttons
       data-remote='true'
       data-direction='top'
     ]
+
     span.item-abuse.b-tooltipped.unprocessed[
-      title=t('actions.moderation.abuse')
-      data-text=t('actions.moderation.abuse')
+      title=(comment.strict_moderatable? ? t('actions.moderation.abuse') : t('actions.moderation.laws_abuse'))
+      data-text=(comment.strict_moderatable? ? t('actions.moderation.abuse') : t('actions.moderation.laws_abuse'))
       data-action=abuse_api_v2_abuse_requests_url(comment_id: comment.id)
       data-method='post'
       data-type='json'
@@ -66,16 +67,17 @@ aside.buttons
       data-reason-prompt=t('actions.moderation.explain.abuse')
       data-direction='top'
     ]
-    span.item-spoiler.b-tooltipped.unprocessed[
-      title=t('actions.moderation.spoiler')
-      data-text=t('actions.moderation.spoiler')
-      data-action=spoiler_api_v2_abuse_requests_url(comment_id: comment.id)
-      data-method='post'
-      data-type='json'
-      data-remote='true'
-      data-reason-prompt=t('actions.moderation.explain.spoiler')
-      data-direction='top'
-    ]
+    - if comment.strict_moderatable?
+      span.item-spoiler.b-tooltipped.unprocessed[
+        title=t('actions.moderation.spoiler')
+        data-text=t('actions.moderation.spoiler')
+        data-action=spoiler_api_v2_abuse_requests_url(comment_id: comment.id)
+        data-method='post'
+        data-type='json'
+        data-remote='true'
+        data-reason-prompt=t('actions.moderation.explain.spoiler')
+        data-direction='top'
+      ]
     - if comment.offtopable?
       span.item-offtopic.b-tooltipped.unprocessed[
         class=(:selected if comment.offtopic?)
