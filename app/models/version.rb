@@ -1,4 +1,5 @@
 class Version < ApplicationRecord
+  include AASM
   include AntispamConcern
 
   antispam(
@@ -25,20 +26,29 @@ class Version < ApplicationRecord
 
   scope :pending, -> { where state: :pending }
 
-  # state_machine :state, initial: :pending do
-  #   state :accepted
-  #   state :auto_accepted
-  #   state :rejected
-  # 
-  #   state :taken
-  #   state :deleted
-  # 
+  aasm column: 'state' do
+    state Types::Version::State[:pending], initial: true
+    state Types::Version::State[:accepted]
+    state Types::Version::State[:auto_accepted]
+    state Types::Version::State[:rejected]
+    state Types::Version::State[:taken]
+    state Types::Version::State[:deleted]
+
+    event :accept do
+      transitions to: Types::Version::State[:accepted],
+        from: Types::Version::State[:pending]
+    end
+    event :auto_accept do
+      transitions to: Types::Version::State[:auto_accepted],
+        from: Types::Version::State[:pending]
+    end
+
   #   event(:accept) { transition pending: :accepted }
   #   event(:auto_accept) { transition pending: :auto_accepted, unless: :takeable? }
   #   event(:take) { transition pending: :taken }
   #   event(:reject) { transition %i[pending auto_accepted] => :rejected }
   #   event(:to_deleted) { transition pending: :deleted, if: :deleteable? }
-  # 
+  #
   #   event(:accept_taken) do
   #     transition taken: :accepted, if: ->(version) {
   #       version.takeable? || version.optionally_takeable?
@@ -49,7 +59,7 @@ class Version < ApplicationRecord
   #       version.takeable? || version.optionally_takeable?
   #     }
   #   end
-  # 
+  #
   #   before_transition(
   #     pending: %i[accepted auto_accepted taken]
   #   ) do |version, transition|
@@ -65,7 +75,7 @@ class Version < ApplicationRecord
   #   before_transition pending: %i[auto_accepted] do |version, _transition|
   #     version.moderator = version.user
   #   end
-  # 
+  #
   #   before_transition pending: :rejected do |version, transition|
   #     version.reject_changes || raise(
   #       StateMachine::InvalidTransition.new(
@@ -75,7 +85,7 @@ class Version < ApplicationRecord
   #       )
   #     )
   #   end
-  # 
+  #
   #   before_transition auto_accepted: :rejected do |version, transition|
   #     version.rollback_changes || raise(
   #       StateMachine::InvalidTransition.new(
@@ -85,38 +95,38 @@ class Version < ApplicationRecord
   #       )
   #     )
   #   end
-  # 
+  #
   #   before_transition(
   #     %i[pending auto_accepted] => %i[rejected deleted]
   #   ) do |version, transition|
   #     version.update moderator: transition.args.first if transition.args.first
   #   end
-  # 
+  #
   #   before_transition(
   #     %i[pending auto_accepted] => %i[accepted taken rejected deleted]
   #   ) do |version, transition|
   #     version.update moderator: transition.args.first if transition.args.first
   #   end
-  # 
+  #
   #   after_transition pending: %i[auto_accepted] do |version, _transition|
   #     version.fix_state if version.respond_to? :fix_state
   #   end
-  # 
+  #
   #   after_transition pending: %i[accepted taken] do |version, _transition|
   #     version.fix_state if version.respond_to? :fix_state
   #     version.notify_acceptance
   #   end
-  # 
+  #
   #   after_transition(
   #     %i[pending auto_accepted] => %i[rejected]
   #   ) do |version, transition|
   #     version.notify_rejection transition.args.second
   #   end
-  # 
+  #
   #   after_transition pending: :deleted do |version, _transition|
   #     version.cleanup if version.respond_to? :cleanup
   #   end
-  # end
+  end
 
   def apply_changes
     item.class.transaction do
