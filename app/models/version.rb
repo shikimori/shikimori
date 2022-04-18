@@ -40,13 +40,21 @@ class Version < ApplicationRecord
     end
     event :auto_accept do
       transitions to: Types::Version::State[:auto_accepted],
+        from: Types::Version::State[:pending],
+        unless: :takeable?
+    end
+    event :take do
+      transitions to: Types::Version::State[:taken],
         from: Types::Version::State[:pending]
     end
+    event :reject do
+      transitions to: Types::Version::State[:rejected],
+        from: [
+          Types::Version::State[:pending],
+          Types::Version::State[:auto_accepted]
+        ]
+    end
 
-  #   event(:accept) { transition pending: :accepted }
-  #   event(:auto_accept) { transition pending: :auto_accepted, unless: :takeable? }
-  #   event(:take) { transition pending: :taken }
-  #   event(:reject) { transition %i[pending auto_accepted] => :rejected }
   #   event(:to_deleted) { transition pending: :deleted, if: :deleteable? }
   #
   #   event(:accept_taken) do
