@@ -67,27 +67,35 @@ class Contest < ApplicationRecord
     state Types::Contest::State[:finished]
 
     event :propose do
-      transitions to: Types::Contest::State[:proposing],
+      transitions(
         from: Types::Contest::State[:created],
+        to: Types::Contest::State[:proposing],
         success: :generate_missing_topics
+      )
     end
     event :stop_propose do
-      transitions to: Types::Contest::State[:created],
-        from: Types::Contest::State[:proposing]
+      transitions(
+        from: Types::Contest::State[:proposing],
+        to: Types::Contest::State[:created]
+      )
     end
     event :start do
-      transitions to: Types::Contest::State[:started],
+      transitions(
         from: [
           Types::Contest::State[:created],
           Types::Contest::State[:proposing]
         ],
+        to: Types::Contest::State[:started],
         success: :generate_missing_topics,
         if: -> { links.count.between? MINIMUM_MEMBERS, MAXIMUM_MEMBERS }
+      )
     end
     event :finish do
-      transitions to: Types::Contest::State[:finished],
+      transitions(
         from: Types::Contest::State[:started],
+        to: Types::Contest::State[:finished],
         if: -> { rounds.any? && rounds.all?(&:finished?) }
+      )
     end
   end
 

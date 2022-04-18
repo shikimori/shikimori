@@ -47,18 +47,22 @@ class Video < ApplicationRecord
     state Types::Video::State[:deleted]
 
     event :confirm do
-      transitions to: Types::Video::State[:confirmed],
+      transitions(
         from: [
           Types::Video::State[:uploaded],
           Types::Video::State[:deleted]
-        ]
+        ],
+        to: Types::Video::State[:confirmed]
+      )
     end
     event :del do
-      transitions to: Types::Video::State[:deleted],
+      transitions(
         from: [
           Types::Video::State[:uploaded],
           Types::Video::State[:confirmed]
-        ]
+        ],
+        to: Types::Video::State[:deleted]
+      )
     end
   end
 

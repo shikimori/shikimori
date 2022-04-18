@@ -22,16 +22,20 @@ class ContestRound < ApplicationRecord
     state Types::ContestRound::State[:finished]
 
     event :start do
-      transitions to: Types::ContestRound::State[:started],
+      transitions(
         from: Types::ContestRound::State[:created],
+        to: Types::ContestRound::State[:started],
         if: -> { matches.any? }
+      )
     end
     event :finish do
-      transitions to: Types::ContestRound::State[:finished],
+      transitions(
         form: Types::ContestRound::State[:started],
+        to: Types::ContestRound::State[:finished],
         if: -> {
           matches.any? && matches.all? { |v| v.finished? || v.may_finish? }
         }
+      )
     end
   end
 

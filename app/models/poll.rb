@@ -23,13 +23,17 @@ class Poll < ApplicationRecord
     state Types::Poll::State[:stopped]
 
     event :start do
-      transitions to: Types::Poll::State[:started],
+      transitions(
         from: Types::Poll::State[:pending],
+        to: Types::Poll::State[:started],
         if: -> { persisted? && variants.many? }
+      )
     end
     event :stop do
-      transitions to: Types::Poll::State[:stopped],
-        from: Types::Poll::State[:started]
+      transitions(
+        from: Types::Poll::State[:started],
+        to: Types::Poll::State[:stopped]
+      )
     end
   end
 

@@ -21,19 +21,25 @@ module ModeratableConcern
       state Types::Moderatable::State[:rejected]
 
       event :accept do
-        transitions to: Types::Moderatable::State[:accepted],
+        transitions(
           from: Types::Moderatable::State[:pending],
+          to: Types::Moderatable::State[:accepted],
           after: :assign_approver
+        )
       end
       event :reject do
-        transitions to: Types::Moderatable::State[:rejected],
+        transitions(
           from: Types::Moderatable::State[:pending],
+          to: Types::Moderatable::State[:rejected],
           after: :assign_approver,
           success: :postprocess_rejection
+        )
       end
       event :cancel do
-        transitions to: Types::Moderatable::State[:pending],
-          from: Types::Moderatable::State[:accepted]
+        transitions(
+          from: Types::Moderatable::State[:accepted],
+          to: Types::Moderatable::State[:pending]
+        )
       end
     end
   end

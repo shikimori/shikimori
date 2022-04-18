@@ -27,12 +27,16 @@ class ListImport < ApplicationRecord
     state Types::ListImport::State[:failed]
 
     event :finish do
-      transitions to: Types::ListImport::State[:finished],
-        from: Types::ListImport::State[:pending]
+      transitions(
+        from: Types::ListImport::State[:pending],
+        to: Types::ListImport::State[:finished]
+      )
     end
     event :to_failed do
-      transitions to: Types::ListImport::State[:failed],
-        from: Types::ListImport::State[:pending]
+      transitions(
+        from: Types::ListImport::State[:pending],
+        to: Types::ListImport::State[:failed]
+      )
     end
   end
 

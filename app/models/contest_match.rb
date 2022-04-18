@@ -25,14 +25,18 @@ class ContestMatch < ApplicationRecord
     state Types::ContestMatch::State[:finished]
 
     event :start do
-      transitions to: Types::ContestMatch::State[:started],
+      transitions(
         from: Types::ContestMatch::State[:created],
+        to: Types::ContestMatch::State[:started],
         if: -> { started_on && started_on <= Time.zone.today }
+      )
     end
     event :finish do
-      transitions to: Types::ContestMatch::State[:finished],
+      transitions(
         from: Types::ContestMatch::State[:started],
+        to: Types::ContestMatch::State[:finished],
         if: -> { finished_on && finished_on < Time.zone.today }
+      )
     end
   end
 

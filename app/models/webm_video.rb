@@ -21,18 +21,22 @@ class WebmVideo < ApplicationRecord
     state Types::WebmVideo::State[:failed]
 
     event :process do
-      transitions to: Types::WebmVideo::State[:processed],
+      transitions(
         from: [
           Types::WebmVideo::State[:pending],
           Types::WebmVideo::State[:failed]
-        ]
+        ],
+        to: Types::WebmVideo::State[:processed]
+      )
     end
     event :to_failed do
-      transitions to: Types::WebmVideo::State[:failed],
+      transitions(
         from: [
           Types::WebmVideo::State[:pending],
           Types::WebmVideo::State[:processed]
-        ]
+        ],
+        to: Types::WebmVideo::State[:failed]
+      )
     end
   end
 

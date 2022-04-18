@@ -35,40 +35,54 @@ class Version < ApplicationRecord
     state Types::Version::State[:deleted]
 
     event :accept do
-      transitions to: Types::Version::State[:accepted],
-        from: Types::Version::State[:pending]
+      transitions(
+        from: Types::Version::State[:pending],
+        to: Types::Version::State[:accepted]
+      )
     end
     event :auto_accept do
-      transitions to: Types::Version::State[:auto_accepted],
+      transitions(
         from: Types::Version::State[:pending],
+        to: Types::Version::State[:auto_accepted],
         unless: :takeable?
         # after: :assign_moderator
+      )
     end
     event :reject do
-      transitions to: Types::Version::State[:rejected],
+      transitions(
         from: [
           Types::Version::State[:pending],
           Types::Version::State[:auto_accepted]
-        ]
+        ],
+        to: Types::Version::State[:rejected]
+      )
     end
     event :take do
-      transitions to: Types::Version::State[:taken],
-        from: Types::Version::State[:pending]
+      transitions(
+        from: Types::Version::State[:pending],
+        to: Types::Version::State[:taken]
+      )
     end
     event :to_deleted do
-      transitions to: Types::Version::State[:deleted],
+      transitions(
         from: Types::Version::State[:pending],
+        to: Types::Version::State[:deleted],
         if: :deleteable?
+      )
     end
     event :accept_taken do
-      transitions to: Types::Version::State[:accepted],
+      transitions(
         from: Types::Version::State[:taken],
+        to: Types::Version::State[:accepted],
         if: -> { takeable? || optionally_takeable? }
+      )
     end
     event :take_accepted do
-      transitions to: Types::Version::State[:taken],
+      transitions(
         from: Types::Version::State[:accepted],
+        to: Types::Version::State[:taken],
         if: -> { takeable? || optionally_takeable? }
+      )
     end
 
   #   before_transition(

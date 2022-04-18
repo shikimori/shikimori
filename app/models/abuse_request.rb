@@ -43,15 +43,19 @@ class AbuseRequest < ApplicationRecord
     state Types::AbuseRequest::State[:rejected]
 
     event :accept do
-      transitions to: Types::AbuseRequest::State[:accepted],
+      transitions(
         from: Types::AbuseRequest::State[:pending],
+        to: Types::AbuseRequest::State[:accepted],
         after: :assign_approver,
         success: :postprocess_acception
+      )
     end
     event :reject do
-      transitions to: Types::AbuseRequest::State[:rejected],
+      transitions(
         from: Types::AbuseRequest::State[:pending],
+        to: Types::AbuseRequest::State[:rejected],
         after: :assign_approver
+      )
     end
   end
 

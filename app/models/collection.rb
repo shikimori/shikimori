@@ -45,29 +45,35 @@ class Collection < ApplicationRecord
     state Types::Collection::State[:opened]
 
     event :to_published do
-      transitions to: Types::Collection::State[:published],
+      transitions(
         from: [
           Types::Collection::State[:unpublished],
           Types::Collection::State[:private],
           Types::Collection::State[:opened]
-        ]
+        ],
+        to: Types::Collection::State[:published]
         # after: :fill_published_at
+      )
     end
     event :to_private do
-      transitions to: Types::Collection::State[:private],
+      transitions(
         from: [
           Types::Collection::State[:unpublished],
           Types::Collection::State[:published],
           Types::Collection::State[:opened]
-        ]
+        ],
+        to: Types::Collection::State[:private]
+      )
     end
     event :to_opened do
-      transitions to: Types::Collection::State[:opened],
+      transitions(
         from: [
           Types::Collection::State[:unpublished],
           Types::Collection::State[:published],
           Types::Collection::State[:private]
-        ]
+        ],
+        to: Types::Collection::State[:opened]
+      )
     end
   end
 
