@@ -68,7 +68,7 @@ describe Collection do
       it { is_expected.to transition_from(state).to(:private).on_event(:to_private) }
     end
 
-    # context 'transitions' do
+    # decribe 'transitions' do
     #   context 'to_published' do
     #     let(:state) do
     #       [

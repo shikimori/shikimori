@@ -42,6 +42,7 @@ class Version < ApplicationRecord
       transitions to: Types::Version::State[:auto_accepted],
         from: Types::Version::State[:pending],
         unless: :takeable?
+        # after: :assign_moderator
     end
     event :reject do
       transitions to: Types::Version::State[:rejected],
@@ -82,9 +83,10 @@ class Version < ApplicationRecord
   #     )
   #     version.update moderator: version.user if transition.event
   #   end
-  #   before_transition pending: %i[auto_accepted] do |version, _transition|
-  #     version.moderator = version.user
-  #   end
+  #
+  # #   before_transition pending: %i[auto_accepted] do |version, _transition|
+  # #     version.moderator = version.user
+  # #   end
   #
   #   before_transition pending: :rejected do |version, transition|
   #     version.reject_changes || raise(
@@ -195,6 +197,10 @@ class Version < ApplicationRecord
   end
 
 private
+
+  def assign_moderator moderator:, **_args
+    self.moderator = moderator
+  end
 
   def apply_change field, changes
     changes[0] = current_value field

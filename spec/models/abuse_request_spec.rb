@@ -50,49 +50,51 @@ describe AbuseRequest do
   end
 
   describe 'aasm' do
-    subject { build :abuse_request, state }
+    describe 'states' do
+      subject { build :abuse_request, state }
 
-    context 'pending' do
-      let(:state) { Types::AbuseRequest::State[:pending] }
-      before do
-        allow(subject).to receive :fill_approver
-        allow(subject).to receive :postprocess_acception
+      context 'pending' do
+        let(:state) { Types::AbuseRequest::State[:pending] }
+        before do
+          allow(subject).to receive :assign_approver
+          allow(subject).to receive :postprocess_acception
+        end
+
+        it { is_expected.to have_state state }
+        it { is_expected.to allow_transition_to :accepted }
+        it do
+          is_expected.to transition_from(state)
+            .to(:accepted)
+            .on_event(:accept, approver: user_2)
+        end
+        it do
+          is_expected.to transition_from(state)
+            .to(:rejected)
+            .on_event(:reject, approver: user_2, faye_token: nil)
+        end
       end
 
-      it { is_expected.to have_state state }
-      it { is_expected.to allow_transition_to :accepted }
-      it do
-        is_expected.to transition_from(state)
-          .to(:accepted)
-          .on_event(:accept, approver: user_2)
+      context 'accepted' do
+        let(:state) { Types::AbuseRequest::State[:accepted] }
+
+        it { is_expected.to have_state state }
+        it { is_expected.to_not allow_transition_to :pending }
+        it { is_expected.to_not allow_transition_to :rejected }
       end
-      it do
-        is_expected.to transition_from(state)
-          .to(:rejected)
-          .on_event(:reject, approver: user_2, faye_token: nil)
+
+      context 'rejected' do
+        let(:state) { Types::AbuseRequest::State[:rejected] }
+
+        it { is_expected.to have_state state }
+        it { is_expected.to_not allow_transition_to :pending }
+        it { is_expected.to_not allow_transition_to :accepted }
       end
     end
 
-    context 'accepted' do
-      let(:state) { Types::AbuseRequest::State[:accepted] }
-
-      it { is_expected.to have_state state }
-      it { is_expected.to_not allow_transition_to :pending }
-      it { is_expected.to_not allow_transition_to :rejected }
-    end
-
-    context 'rejected' do
-      let(:state) { Types::AbuseRequest::State[:rejected] }
-
-      it { is_expected.to have_state state }
-      it { is_expected.to_not allow_transition_to :pending }
-      it { is_expected.to_not allow_transition_to :accepted }
-    end
-
-    context 'transitions' do
+    describe 'transitions' do
       subject { create :abuse_request, :pending }
       before do
-        allow(subject).to receive(:fill_approver).and_call_original
+        allow(subject).to receive(:assign_approver).and_call_original
         allow(subject).to receive :postprocess_acception
       end
 
@@ -112,7 +114,7 @@ describe AbuseRequest do
           is_expected.to_not be_changed
           expect(subject.approver).to eq user_2
 
-          is_expected.to have_received(:fill_approver).with(
+          is_expected.to have_received(:assign_approver).with(
             approver: user_2,
             is_process_in_faye: is_process_in_faye,
             faye_token: faye_token
@@ -133,7 +135,7 @@ describe AbuseRequest do
           is_expected.to_not be_changed
           expect(subject.approver).to eq user_2
 
-          is_expected.to have_received(:fill_approver).with approver: user_2
+          is_expected.to have_received(:assign_approver).with approver: user_2
           is_expected.to_not have_received :postprocess_acception
         end
       end
@@ -215,9 +217,9 @@ describe AbuseRequest do
       end
     end
 
-    describe '#fill_approver' do
+    describe '#assign_approver' do
       let(:abuse_request) { build :abuse_request }
-      subject! { abuse_request.send :fill_approver, approver: approver }
+      subject! { abuse_request.send :assign_approver, approver: approver }
       let(:approver) { user_2 }
 
       it do

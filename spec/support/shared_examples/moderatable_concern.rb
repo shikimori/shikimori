@@ -19,59 +19,61 @@ shared_examples :moderatable_concern do |type|
     end
 
     describe 'aasm' do
-      subject { build :collection, state }
+      describe 'states' do
+        subject { build :collection, state }
 
-      context 'pending' do
-        let(:state) { Types::Moderatable::State[:pending] }
-        before do
-          allow(subject).to receive :fill_approver
-          allow(subject).to receive :postprocess_rejection
+        context 'pending' do
+          let(:state) { Types::Moderatable::State[:pending] }
+          before do
+            allow(subject).to receive :assign_approver
+            allow(subject).to receive :postprocess_rejection
+          end
+
+          it { is_expected.to have_state(state).on(:moderation_state) }
+          it { is_expected.to allow_transition_to(:accepted).on(:moderation_state) }
+          it do
+            is_expected.to transition_from(state)
+              .to(:accepted)
+              .on_event(:accept, approver: user_2)
+              .on(:moderation_state)
+          end
+          it { is_expected.to allow_transition_to(:rejected).on(:moderation_state) }
+          it do
+            is_expected.to transition_from(state)
+              .to(:rejected)
+              .on_event(:reject, approver: user_2)
+              .on(:moderation_state)
+          end
         end
 
-        it { is_expected.to have_state(state).on(:moderation_state) }
-        it { is_expected.to allow_transition_to(:accepted).on(:moderation_state) }
-        it do
-          is_expected.to transition_from(state)
-            .to(:accepted)
-            .on_event(:accept, approver: user_2)
-            .on(:moderation_state)
+        context 'accepted' do
+          let(:state) { Types::Moderatable::State[:accepted] }
+
+          it { is_expected.to have_state(state).on(:moderation_state) }
+          it { is_expected.to allow_transition_to(:pending).on(:moderation_state) }
+          it do
+            is_expected.to transition_from(state)
+              .to(:pending)
+              .on_event(:cancel)
+              .on(:moderation_state)
+          end
+          it { is_expected.to_not allow_transition_to(:rejected).on(:moderation_state) }
         end
-        it { is_expected.to allow_transition_to(:rejected).on(:moderation_state) }
-        it do
-          is_expected.to transition_from(state)
-            .to(:rejected)
-            .on_event(:reject, approver: user_2)
-            .on(:moderation_state)
+
+        context 'rejected' do
+          let(:state) { Types::Moderatable::State[:rejected] }
+
+          it { is_expected.to have_state(state).on(:moderation_state) }
+          it { is_expected.to_not allow_transition_to(:pending).on(:moderation_state) }
+          it { is_expected.to_not allow_transition_to(:accepted).on(:moderation_state) }
         end
       end
 
-      context 'accepted' do
-        let(:state) { Types::Moderatable::State[:accepted] }
-
-        it { is_expected.to have_state(state).on(:moderation_state) }
-        it { is_expected.to allow_transition_to(:pending).on(:moderation_state) }
-        it do
-          is_expected.to transition_from(state)
-            .to(:pending)
-            .on_event(:cancel)
-            .on(:moderation_state)
-        end
-        it { is_expected.to_not allow_transition_to(:rejected).on(:moderation_state) }
-      end
-
-      context 'rejected' do
-        let(:state) { Types::Moderatable::State[:rejected] }
-
-        it { is_expected.to have_state(state).on(:moderation_state) }
-        it { is_expected.to_not allow_transition_to(:pending).on(:moderation_state) }
-        it { is_expected.to_not allow_transition_to(:accepted).on(:moderation_state) }
-      end
-
-      context 'transitions' do
+      describe 'transitions' do
         subject { create type, :with_topics, state, approver: user }
 
         before do
-          allow(subject).to receive(:fill_approver).and_call_original
+          allow(subject).to receive(:assign_approver).and_call_original
           allow(subject).to receive :postprocess_rejection
         end
 
@@ -84,7 +86,7 @@ shared_examples :moderatable_concern do |type|
             is_expected.to_not be_changed
             expect(subject.approver).to eq user_2
 
-            is_expected.to have_received(:fill_approver).with approver: user_2
+            is_expected.to have_received(:assign_approver).with approver: user_2
             is_expected.to_not have_received :postprocess_rejection
           end
         end
@@ -98,7 +100,7 @@ shared_examples :moderatable_concern do |type|
             is_expected.to_not be_changed
             expect(subject.approver).to eq user_2
 
-            is_expected.to have_received(:fill_approver).with approver: user_2
+            is_expected.to have_received(:assign_approver).with approver: user_2
             is_expected.to have_received :postprocess_rejection
           end
         end
@@ -117,8 +119,8 @@ shared_examples :moderatable_concern do |type|
         end
       end
 
-      describe '#fill_approver' do
-        subject! { model.send :fill_approver, approver: approver }
+      describe '#assign_approver' do
+        subject! { model.send :assign_approver, approver: approver }
         let(:approver) { user_2 }
         it do
           expect(model.approver).to eq approver

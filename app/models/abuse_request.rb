@@ -45,13 +45,13 @@ class AbuseRequest < ApplicationRecord
     event :accept do
       transitions to: Types::AbuseRequest::State[:accepted],
         from: Types::AbuseRequest::State[:pending],
-        after: :fill_approver,
+        after: :assign_approver,
         success: :postprocess_acception
     end
     event :reject do
       transitions to: Types::AbuseRequest::State[:rejected],
         from: Types::AbuseRequest::State[:pending],
-        after: :fill_approver
+        after: :assign_approver
     end
   end
 
@@ -73,7 +73,7 @@ class AbuseRequest < ApplicationRecord
 
 private
 
-  def fill_approver approver:, **_args
+  def assign_approver approver:, **_args
     self.approver = approver
   end
 

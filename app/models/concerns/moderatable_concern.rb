@@ -23,12 +23,12 @@ module ModeratableConcern
       event :accept do
         transitions to: Types::Moderatable::State[:accepted],
           from: Types::Moderatable::State[:pending],
-          after: :fill_approver
+          after: :assign_approver
       end
       event :reject do
         transitions to: Types::Moderatable::State[:rejected],
           from: Types::Moderatable::State[:pending],
-          after: :fill_approver,
+          after: :assign_approver,
           success: :postprocess_rejection
       end
       event :cancel do
@@ -44,7 +44,7 @@ module ModeratableConcern
 
 private
 
-  def fill_approver approver:
+  def assign_approver approver:
     self.approver = approver
   end
 
