@@ -20,7 +20,7 @@ describe Version do
     end
   end
 
-  describe 'aasm', :focus do
+  describe 'aasm' do
     subject { build :version, state }
 
     context 'pending' do
@@ -35,22 +35,35 @@ describe Version do
 
         context 'takeable' do
           let(:is_takeable) { true }
-
           it { is_expected.to_not allow_transition_to :auto_accepted }
         end
 
         context 'not takeable' do
           let(:is_takeable) { false }
-
           it { is_expected.to allow_transition_to :auto_accepted }
           it { is_expected.to transition_from(state).to(:auto_accepted).on_event :auto_accept }
         end
       end
 
-      it { is_expected.to allow_transition_to :taken }
-      it { is_expected.to transition_from(state).to(:taken).on_event :take }
       it { is_expected.to allow_transition_to :rejected }
       it { is_expected.to transition_from(state).to(:rejected).on_event :reject }
+      it { is_expected.to allow_transition_to :taken }
+      it { is_expected.to transition_from(state).to(:taken).on_event :take }
+
+      describe 'deleteable?' do
+        before { allow(subject).to receive(:deleteable?).and_return is_deleteable }
+
+        context 'deleteable' do
+          let(:is_deleteable) { true }
+          it { is_expected.to allow_transition_to :deleted }
+          it { is_expected.to transition_from(state).to(:deleted).on_event :to_deleted }
+        end
+
+        context 'not deleteable' do
+          let(:is_deleteable) { false }
+          it { is_expected.to_not allow_transition_to :deleted }
+        end
+      end
     end
 
     context 'accepted' do
@@ -61,7 +74,37 @@ describe Version do
       it { is_expected.to_not allow_transition_to :accepted }
       it { is_expected.to_not allow_transition_to :auto_accepted }
       it { is_expected.to_not allow_transition_to :rejected }
-      it { is_expected.to_not allow_transition_to :taken }
+
+      describe 'takeable?' do
+        before { allow(subject).to receive(:takeable?).and_return is_takeable }
+
+        context 'takeable' do
+          let(:is_takeable) { true }
+          it { is_expected.to allow_transition_to :taken }
+          it { is_expected.to transition_from(state).to(:taken).on_event :take_accepted }
+        end
+
+        context 'not takeable' do
+          let(:is_takeable) { false }
+          it { is_expected.to_not allow_transition_to :taken }
+        end
+      end
+
+      describe 'optionally_takeable?' do
+        before { allow(subject).to receive(:optionally_takeable?).and_return is_optionally_takeable }
+
+        context 'optionally_takeable' do
+          let(:is_optionally_takeable) { true }
+          it { is_expected.to allow_transition_to :taken }
+          it { is_expected.to transition_from(state).to(:taken).on_event :take_accepted }
+        end
+
+        context 'not optionally_takeable' do
+          let(:is_optionally_takeable) { false }
+          it { is_expected.to_not allow_transition_to :taken }
+        end
+      end
+
       it { is_expected.to_not allow_transition_to :deleted }
     end
 
@@ -72,7 +115,8 @@ describe Version do
       it { is_expected.to_not allow_transition_to :pending }
       it { is_expected.to_not allow_transition_to :accepted }
       it { is_expected.to_not allow_transition_to :auto_accepted }
-      it { is_expected.to_not allow_transition_to :rejected }
+      it { is_expected.to allow_transition_to :rejected }
+      it { is_expected.to transition_from(state).to(:rejected).on_event :reject }
       it { is_expected.to_not allow_transition_to :taken }
       it { is_expected.to_not allow_transition_to :deleted }
     end
@@ -94,7 +138,39 @@ describe Version do
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :pending }
-      it { is_expected.to_not allow_transition_to :accepted }
+
+      describe 'takeable?' do
+        before { allow(subject).to receive(:takeable?).and_return is_takeable }
+
+        context 'takeable' do
+          let(:is_takeable) { true }
+          it { is_expected.to allow_transition_to :accepted }
+          it { is_expected.to transition_from(state).to(:accepted).on_event :accept_taken }
+        end
+
+        context 'not takeable' do
+          let(:is_takeable) { false }
+          it { is_expected.to_not allow_transition_to :accepted }
+        end
+      end
+
+      describe 'optionally_takeable?' do
+        before { allow(subject).to receive(:optionally_takeable?).and_return is_optionally_takeable }
+
+        context 'optionally_takeable' do
+          let(:is_optionally_takeable) { true }
+          it { is_expected.to allow_transition_to :accepted }
+          it { is_expected.to transition_from(state).to(:accepted).on_event :accept_taken }
+        end
+
+        context 'not optionally_takeable' do
+          let(:is_optionally_takeable) { false }
+          it { is_expected.to_not allow_transition_to :accepted }
+        end
+      end
+
+      # it { is_expected.to_not allow_transition_to :accepted }
+
       it { is_expected.to_not allow_transition_to :auto_accepted }
       it { is_expected.to_not allow_transition_to :rejected }
       it { is_expected.to_not allow_transition_to :taken }

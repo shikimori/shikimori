@@ -26,7 +26,7 @@ class Version < ApplicationRecord
 
   scope :pending, -> { where state: :pending }
 
-  aasm column: 'state' do
+  aasm column: 'state' do # rubocop:disable BlockLength
     state Types::Version::State[:pending], initial: true
     state Types::Version::State[:accepted]
     state Types::Version::State[:auto_accepted]
@@ -43,10 +43,6 @@ class Version < ApplicationRecord
         from: Types::Version::State[:pending],
         unless: :takeable?
     end
-    event :take do
-      transitions to: Types::Version::State[:taken],
-        from: Types::Version::State[:pending]
-    end
     event :reject do
       transitions to: Types::Version::State[:rejected],
         from: [
@@ -54,20 +50,26 @@ class Version < ApplicationRecord
           Types::Version::State[:auto_accepted]
         ]
     end
+    event :take do
+      transitions to: Types::Version::State[:taken],
+        from: Types::Version::State[:pending]
+    end
+    event :to_deleted do
+      transitions to: Types::Version::State[:deleted],
+        from: Types::Version::State[:pending],
+        if: :deleteable?
+    end
+    event :accept_taken do
+      transitions to: Types::Version::State[:accepted],
+        from: Types::Version::State[:taken],
+        if: -> { takeable? || optionally_takeable? }
+    end
+    event :take_accepted do
+      transitions to: Types::Version::State[:taken],
+        from: Types::Version::State[:accepted],
+        if: -> { takeable? || optionally_takeable? }
+    end
 
-  #   event(:to_deleted) { transition pending: :deleted, if: :deleteable? }
-  #
-  #   event(:accept_taken) do
-  #     transition taken: :accepted, if: ->(version) {
-  #       version.takeable? || version.optionally_takeable?
-  #     }
-  #   end
-  #   event(:take_accepted) do
-  #     transition accepted: :taken, if: ->(version) {
-  #       version.takeable? || version.optionally_takeable?
-  #     }
-  #   end
-  #
   #   before_transition(
   #     pending: %i[accepted auto_accepted taken]
   #   ) do |version, transition|
