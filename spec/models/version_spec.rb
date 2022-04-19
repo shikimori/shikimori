@@ -55,7 +55,11 @@ describe Version do
         end
 
         it { is_expected.to allow_transition_to :rejected }
-        it { is_expected.to transition_from(state).to(:rejected).on_event :reject }
+        it do
+          is_expected.to transition_from(state)
+            .to(:rejected)
+            .on_event(:reject, moderator: user, reason: 'reason')
+        end
         it { is_expected.to allow_transition_to :taken }
         it do
           is_expected.to transition_from(state)
@@ -129,7 +133,11 @@ describe Version do
         it { is_expected.to_not allow_transition_to :accepted }
         it { is_expected.to_not allow_transition_to :auto_accepted }
         it { is_expected.to allow_transition_to :rejected }
-        it { is_expected.to transition_from(state).to(:rejected).on_event :reject }
+        it do
+          is_expected.to transition_from(state)
+            .to(:rejected)
+            .on_event(:reject, moderator: user, reason: 'reason')
+        end
         it { is_expected.to_not allow_transition_to :taken }
         it { is_expected.to_not allow_transition_to :deleted }
       end
@@ -274,18 +282,21 @@ describe Version do
       end
 
       describe '#reject' do
-        before { version.reject! moderator: moderator, reason: 'reason' }
+        before { version.reject! moderator: moderator, reason: reason }
+        let(:reason) { 'rejection reason' }
 
         describe 'from auto_accepted' do
           let(:state) { :auto_accepted }
 
           it do
             expect(version).to be_rejected
+            expect(version.moderator).to eq moderator
             expect(version).to_not have_received :apply_changes
             expect(version).to_not have_received :reject_changes
             expect(version).to have_received :rollback_changes
             expect(version).to_not have_received :notify_acceptance
-            expect(version).to have_received :notify_rejection
+            expect(version).to have_received(:notify_rejection)
+              .with(moderator: moderator, reason: reason)
           end
         end
 
@@ -299,20 +310,65 @@ describe Version do
             expect(version).to have_received :reject_changes
             expect(version).to_not have_received :rollback_changes
             expect(version).to_not have_received :notify_acceptance
-            expect(version).to have_received(:notify_rejection).with 'reason'
+            expect(version).to have_received(:notify_rejection)
+              .with(moderator: moderator, reason: reason)
           end
         end
       end
-      #
-      # describe '#accept_taken' do
-      #   let(:state) { :taken }
-      #   it { expect(version).to_not be_may_accept_taken }
-      # end
-      #
-      # describe '#take_accepted' do
-      #   let(:state) { :accepted }
-      #   it { expect(version).to_not be_may_take_accepted }
-      # end
+
+      describe '#to_deleted' do
+        before { version.to_deleted! moderator: moderator }
+
+        describe 'from pending' do
+          let(:state) { Types::Version::State[:pending] }
+
+          it do
+            expect(version).to be_deleted
+            expect(version.moderator).to eq moderator
+            expect(version).to_not have_received :apply_changes
+            expect(version).to_not have_received :reject_changes
+            expect(version).to_not have_received :rollback_changes
+            expect(version).to_not have_received :notify_acceptance
+            expect(version).to_not have_received :notify_rejection
+          end
+        end
+      end
+
+      describe '#accept_taken' do
+        before { allow(version).to receive(:takeable?).and_return true }
+        before { version.accept_taken! }
+
+        describe 'from pending' do
+          let(:state) { Types::Version::State[:taken] }
+
+          it do
+            expect(version).to be_accepted
+            expect(version).to_not have_received :apply_changes
+            expect(version).to_not have_received :reject_changes
+            expect(version).to_not have_received :rollback_changes
+            expect(version).to_not have_received :notify_acceptance
+            expect(version).to_not have_received :notify_rejection
+          end
+        end
+      end
+
+      describe '#take_accepted' do
+        before { allow(version).to receive(:takeable?).and_return true }
+        before { version.take_accepted! }
+
+        describe 'from pending' do
+          let(:state) { Types::Version::State[:accepted] }
+
+          it do
+            expect(version).to be_taken
+            expect(version).to_not have_received :apply_changes
+            expect(version).to_not have_received :reject_changes
+            expect(version).to_not have_received :rollback_changes
+            expect(version).to_not have_received :notify_acceptance
+            expect(version).to_not have_received :notify_rejection
+          end
+        end
+      end
     end
   end
 
@@ -373,17 +429,16 @@ describe Version do
           user: user,
           moderator: moderator
       end
+      subject { version.notify_rejection reason: 'z' }
 
       context 'user == moderator' do
         let(:moderator) { user }
-        it { expect { version.notify_rejection 'z' }.to_not change(user.messages, :count) }
+        it { expect { subject }.to_not change(user.messages, :count) }
       end
 
       context 'user != moderator' do
         let(:moderator) { create :user }
-        it do
-          expect { version.notify_rejection 'z' }.to change(user.messages, :count).by 1
-        end
+        it { expect { subject }.to change(user.messages, :count).by 1 }
       end
     end
 

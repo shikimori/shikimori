@@ -51,18 +51,26 @@ class Version < ApplicationRecord
         unless: :takeable?
       ) do
         after :apply_version
-        after :selfassign_moderator
+        after :assign_moderator
       end
     end
     event :reject do
       transitions(
-        from: [
-          Types::Version::State[:pending],
-          Types::Version::State[:auto_accepted]
-        ],
+        from: Types::Version::State[:pending],
         to: Types::Version::State[:rejected]
-        # after: :assign_moderator
-      )
+      ) do
+        after :reject_version
+        after :assign_moderator
+        after :notify_rejection
+      end
+      transitions(
+        from: Types::Version::State[:auto_accepted],
+        to: Types::Version::State[:rejected]
+      ) do
+        after :rollback_version
+        after :assign_moderator
+        after :notify_rejection
+      end
     end
     event :take do
       transitions(
@@ -78,7 +86,8 @@ class Version < ApplicationRecord
       transitions(
         from: Types::Version::State[:pending],
         to: Types::Version::State[:deleted],
-        if: :deleteable?
+        if: :deleteable?,
+        after: :assign_moderator
       )
     end
     event :accept_taken do
@@ -96,54 +105,6 @@ class Version < ApplicationRecord
       )
     end
 
-  # #   before_transition(
-  # #     pending: %i[accepted auto_accepted taken]
-  # #   ) do |version, transition|
-  # #     version.apply_changes || raise(
-  # #       StateMachine::InvalidTransition.new(
-  # #         version,
-  # #         transition.machine,
-  # #         transition.event
-  # #       )
-  # #     )
-  # #     version.update moderator: version.user if transition.event
-  # #   end
-  # #   before_transition pending: %i[auto_accepted] do |version, _transition|
-  # #     version.moderator = version.user
-  # #   end
-  #
-  #   before_transition pending: :rejected do |version, transition|
-  #     version.reject_changes || raise(
-  #       StateMachine::InvalidTransition.new(
-  #         version,
-  #         transition.machine,
-  #         transition.event
-  #       )
-  #     )
-  #   end
-  #
-  #   before_transition auto_accepted: :rejected do |version, transition|
-  #     version.rollback_changes || raise(
-  #       StateMachine::InvalidTransition.new(
-  #         version,
-  #         transition.machine,
-  #         transition.event
-  #       )
-  #     )
-  #   end
-  #
-  #   before_transition(
-  #     %i[pending auto_accepted] => %i[rejected deleted]
-  #   ) do |version, transition|
-  #     version.update moderator: transition.args.first if transition.args.first
-  #   end
-  #
-  #   before_transition(
-  #     %i[pending auto_accepted] => %i[accepted taken rejected deleted]
-  #   ) do |version, transition|
-  #     version.update moderator: transition.args.first if transition.args.first
-  #   end
-
   #   after_transition pending: %i[auto_accepted] do |version, _transition|
   #     version.fix_state if version.respond_to? :fix_state
   #   end
@@ -152,12 +113,6 @@ class Version < ApplicationRecord
   # #     version.notify_acceptance
   # #   end
 
-  #   after_transition(
-  #     %i[pending auto_accepted] => %i[rejected]
-  #   ) do |version, transition|
-  #     version.notify_rejection transition.args.second
-  #   end
-  #
   #   after_transition pending: :deleted do |version, _transition|
   #     version.cleanup if version.respond_to? :cleanup
   #   end
@@ -195,16 +150,16 @@ class Version < ApplicationRecord
     end
   end
 
-  def notify_rejection reason
-    unless user_id == moderator_id
-      Message.create_wo_antispam!(
-        from_id: moderator_id,
-        to_id: user_id,
-        kind: MessageType::VERSION_REJECTED,
-        linked: self,
-        body: reason
-      )
-    end
+  def notify_rejection reason:, **_args
+    return if user_id == moderator_id
+
+    Message.create_wo_antispam!(
+      from_id: moderator_id,
+      to_id: user_id,
+      kind: MessageType::VERSION_REJECTED,
+      linked: self,
+      body: reason
+    )
   end
 
   def takeable? **_args
@@ -233,12 +188,8 @@ private
     rollback_changes || raise(StateMachineRollbackError.new(self, :rollback))
   end
 
-  def assign_moderator moderator:, **_args
+  def assign_moderator moderator: user, **_args
     self.moderator = moderator
-  end
-
-  def selfassign_moderator **_args
-    self.moderator = user
   end
 
   def apply_change field, changes
