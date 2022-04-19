@@ -29,7 +29,8 @@ class Moderations::VersionsController < ModerationsController
 
   def create
     if @resource.save
-      @resource.accept current_user if can? :accept, @resource
+      @resource.accept! moderator: current_user if can? :accept, @resource
+
       redirect_back(
         fallback_location: @resource.item.decorate.url,
         notice: i18n_t("version_#{@resource.state}")
