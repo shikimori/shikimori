@@ -19,7 +19,7 @@
     = news.title
 
   span.state.inline class=news.moderation_state
-    = t "activerecord.state_machines.topics/news_topic.states.#{news.moderation_state}"
+    = t "activerecord.attributes.topics/news_topic.moderation_state/#{news.moderation_state}"
 
   - if can? :moderate, news
     - if news.may_accept? || news.may_reject? || news.may_cancel?
