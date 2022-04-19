@@ -45,7 +45,7 @@ class Moderations::BansController < ModerationsController
     else
       render json: @resource.errors.full_messages, status: :unprocessable_entity
     end
-  rescue StateMachine::InvalidTransition
+  # rescue AASM::InvalidTransition
   end
 
   def destroy

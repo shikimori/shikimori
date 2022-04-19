@@ -237,6 +237,24 @@ describe Version do
         end
       end
 
+      describe '#auto_accept' do
+        before { version.auto_accept! }
+
+        describe 'from pending' do
+          let(:state) { :pending }
+
+          it do
+            expect(version).to be_auto_accepted
+            expect(version.moderator).to eq version.user
+            expect(version).to have_received :apply_changes
+            expect(version).to_not have_received :reject_changes
+            expect(version).to_not have_received :rollback_changes
+            expect(version).to_not have_received :notify_acceptance
+            expect(version).to_not have_received :notify_rejection
+          end
+        end
+      end
+
       describe '#take' do
         before { version.take! moderator: moderator }
 
@@ -254,37 +272,37 @@ describe Version do
           end
         end
       end
-      #
-      # describe '#reject' do
-      #   before { version.reject! moderator, 'reason' }
-      #
-      #   describe 'from auto_accepted' do
-      #     let(:state) { :auto_accepted }
-      #
-      #     it do
-      #       expect(version).to be_rejected
-      #       expect(version).to_not have_received :apply_changes
-      #       expect(version).to_not have_received :reject_changes
-      #       expect(version).to have_received :rollback_changes
-      #       expect(version).to_not have_received :notify_acceptance
-      #       expect(version).to have_received :notify_rejection
-      #     end
-      #   end
-      #
-      #   describe 'from pending' do
-      #     let(:state) { :pending }
-      #
-      #     it do
-      #       expect(version).to be_rejected
-      #       expect(version.moderator).to eq moderator
-      #       expect(version).to_not have_received :apply_changes
-      #       expect(version).to have_received :reject_changes
-      #       expect(version).to_not have_received :rollback_changes
-      #       expect(version).to_not have_received :notify_acceptance
-      #       expect(version).to have_received(:notify_rejection).with 'reason'
-      #     end
-      #   end
-      # end
+
+      describe '#reject' do
+        before { version.reject! moderator: moderator, reason: 'reason' }
+
+        describe 'from auto_accepted' do
+          let(:state) { :auto_accepted }
+
+          it do
+            expect(version).to be_rejected
+            expect(version).to_not have_received :apply_changes
+            expect(version).to_not have_received :reject_changes
+            expect(version).to have_received :rollback_changes
+            expect(version).to_not have_received :notify_acceptance
+            expect(version).to have_received :notify_rejection
+          end
+        end
+
+        describe 'from pending' do
+          let(:state) { :pending }
+
+          it do
+            expect(version).to be_rejected
+            expect(version.moderator).to eq moderator
+            expect(version).to_not have_received :apply_changes
+            expect(version).to have_received :reject_changes
+            expect(version).to_not have_received :rollback_changes
+            expect(version).to_not have_received :notify_acceptance
+            expect(version).to have_received(:notify_rejection).with 'reason'
+          end
+        end
+      end
       #
       # describe '#accept_taken' do
       #   let(:state) { :taken }

@@ -39,7 +39,7 @@ class Version < ApplicationRecord
         from: Types::Version::State[:pending],
         to: Types::Version::State[:accepted]
       ) do
-        after :apply_transaction
+        after :apply_version
         after :assign_moderator
         after :notify_acceptance
       end
@@ -50,8 +50,8 @@ class Version < ApplicationRecord
         to: Types::Version::State[:auto_accepted],
         unless: :takeable?
       ) do
-        after :apply_transaction
-        after :assign_moderator
+        after :apply_version
+        after :selfassign_moderator
       end
     end
     event :reject do
@@ -69,7 +69,7 @@ class Version < ApplicationRecord
         from: Types::Version::State[:pending],
         to: Types::Version::State[:taken]
       ) do
-        after :apply_transaction
+        after :apply_version
         after :assign_moderator
         after :notify_acceptance
       end
@@ -96,19 +96,18 @@ class Version < ApplicationRecord
       )
     end
 
-  #   before_transition(
-  #     pending: %i[accepted auto_accepted taken]
-  #   ) do |version, transition|
-  #     version.apply_changes || raise(
-  #       StateMachine::InvalidTransition.new(
-  #         version,
-  #         transition.machine,
-  #         transition.event
-  #       )
-  #     )
-  #     version.update moderator: version.user if transition.event
-  #   end
-  #
+  # #   before_transition(
+  # #     pending: %i[accepted auto_accepted taken]
+  # #   ) do |version, transition|
+  # #     version.apply_changes || raise(
+  # #       StateMachine::InvalidTransition.new(
+  # #         version,
+  # #         transition.machine,
+  # #         transition.event
+  # #       )
+  # #     )
+  # #     version.update moderator: version.user if transition.event
+  # #   end
   # #   before_transition pending: %i[auto_accepted] do |version, _transition|
   # #     version.moderator = version.user
   # #   end
@@ -144,16 +143,15 @@ class Version < ApplicationRecord
   #   ) do |version, transition|
   #     version.update moderator: transition.args.first if transition.args.first
   #   end
-  #
+
   #   after_transition pending: %i[auto_accepted] do |version, _transition|
   #     version.fix_state if version.respond_to? :fix_state
   #   end
-  #
   # #   after_transition pending: %i[accepted taken] do |version, _transition|
-  # #     version.fix_state if version.respond_to? :fix_state
+  #     version.fix_state if version.respond_to? :fix_state
   # #     version.notify_acceptance
   # #   end
-  #
+
   #   after_transition(
   #     %i[pending auto_accepted] => %i[rejected]
   #   ) do |version, transition|
@@ -223,18 +221,24 @@ class Version < ApplicationRecord
 
 private
 
-  def apply_transaction moderator:, **_args
-    apply_changes || raise(
-      AASM::InvalidTransition.new(
-        self,
-        transition.machine,
-        transition.event
-      )
-    )
+  def apply_version **_args
+    apply_changes || raise(StateMachineRollbackError.new(self, :apply))
+  end
+
+  def reject_version **_args
+    reject_changes || raise(StateMachineRollbackError.new(self, :reject))
+  end
+
+  def rollback_version **_args
+    rollback_changes || raise(StateMachineRollbackError.new(self, :rollback))
   end
 
   def assign_moderator moderator:, **_args
     self.moderator = moderator
+  end
+
+  def selfassign_moderator **_args
+    self.moderator = user
   end
 
   def apply_change field, changes

@@ -106,10 +106,10 @@ private
 
   def transition action, success_message
     @resource.send(
-      action,
-      current_user,
-      params[:reason]
-    ) rescue StateMachine::InvalidTransition
+      :"#{action}!",
+      moderator: current_user,
+      reason: params[:reason]
+    ) # rescue AASM::InvalidTransition
 
     render json: { notice: i18n_t(success_message) }
   end
