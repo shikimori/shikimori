@@ -105,14 +105,9 @@ class Version < ApplicationRecord
       )
     end
 
-  #   after_transition pending: %i[auto_accepted] do |version, _transition|
+  #   after_transition pending: %i[accepted taken auto_accepted] do |version, _transition|
   #     version.fix_state if version.respond_to? :fix_state
   #   end
-  # #   after_transition pending: %i[accepted taken] do |version, _transition|
-  #     version.fix_state if version.respond_to? :fix_state
-  # #     version.notify_acceptance
-  # #   end
-
   #   after_transition pending: :deleted do |version, _transition|
   #     version.cleanup if version.respond_to? :cleanup
   #   end

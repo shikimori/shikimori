@@ -43,7 +43,7 @@ header.head.misc
             .b-input
               label = Collection.human_attribute_name :state
               div: b = @resource.aasm.human_state
-              .collection-state-hint == t ".hint.#{@resource.state_name}"
+              .collection-state-hint == t ".hint.#{@resource.state}"
         .c-column
           - if @resource.persisted?
             .m5

@@ -1,6 +1,4 @@
 describe Contest::Finish do
-  let(:operation) { Contest::Finish.new contest }
-
   include_context :timecop
 
   let(:contest) { create :contest, :started, user_vote_key: 'can_vote_1' }
@@ -8,6 +6,7 @@ describe Contest::Finish do
   let(:notifications) { double contest_finished: nil }
   let(:uniq_voters_count) { 100 }
   let(:votes_scope) { double delete_all: nil }
+  let!(:contest_round) { create :contest_round, :finished, contest: contest }
 
   before do
     allow(Messages::CreateNotification)
@@ -24,7 +23,7 @@ describe Contest::Finish do
       .with(contest)
       .and_return(votes_scope)
   end
-  subject! { operation.call }
+  subject! { described_class.call contest }
 
   it do
     expect(contest.reload).to be_finished

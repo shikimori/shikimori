@@ -30,7 +30,7 @@ class Topics::CollectionView < Topics::UserContentView
 
     unless collection.published?
       tags << OpenStruct.new(
-        type: "#{collection.state_name}-collection",
+        type: "#{collection.state}-collection",
         text: collection.aasm.human_state.downcase
       )
     end
