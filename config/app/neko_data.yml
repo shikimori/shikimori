@@ -4825,12 +4825,15 @@
         - 41471
         - 40960
         - 48804
-        - 45425
         - 49521
         - 35145
         - 48590
         - 49483
         - 49893
+        - 35960
+        - 42745
+        - 49160
+        - 50338
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5320,12 +5323,15 @@
         - 41471
         - 40960
         - 48804
-        - 45425
         - 49521
         - 35145
         - 48590
         - 49483
         - 49893
+        - 35960
+        - 42745
+        - 49160
+        - 50338
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5816,12 +5822,15 @@
         - 41471
         - 40960
         - 48804
-        - 45425
         - 49521
         - 35145
         - 48590
         - 49483
         - 49893
+        - 35960
+        - 42745
+        - 49160
+        - 50338
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -36754,9 +36763,9 @@
     :level: 1
     :image: "/assets/achievements/anime/space_1.png"
     :border_color: "#172d91"
-    :title_ru: 3–2–1... Пуск!
+    :title_ru: 3–2–1... Поехали!
     :text_ru: Маленький шаг для одного человека, но гигантский скачок для всего человечества.
-    :title_en: 3-2-1... Launch!
+    :title_en: 3-2-1... Poyekhali!
     :text_en: That's one small step for man, one giant leap for mankind
     :topic_id: 227428
     :rule: &692
@@ -36771,9 +36780,9 @@
   level: 1
   image: "/assets/achievements/anime/space_1.png"
   border_color: "#172d91"
-  title_ru: 3–2–1... Пуск!
+  title_ru: 3–2–1... Поехали!
   text_ru: Маленький шаг для одного человека, но гигантский скачок для всего человечества.
-  title_en: 3-2-1... Launch!
+  title_en: 3-2-1... Poyekhali!
   text_en: That's one small step for man, one giant leap for mankind
   topic_id: 227428
   rule: *692
