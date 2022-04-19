@@ -23,6 +23,10 @@ class BbCodes::CleanupCssClass
     turbolinks-progress-bar
     b-admin_panel
     ban
+    mfp-wrap
+    mfp-container
+    mfp-webm-holder
+    mfp-coub
   ]
 
   CLEANUP_REGEXP = /
