@@ -1,4 +1,4 @@
-class Version < ApplicationRecord
+class Version < ApplicationRecord # rubocop:disable ClassLength
   include AASM
   include AntispamConcern
 
@@ -114,7 +114,7 @@ class Version < ApplicationRecord
     item.class.transaction do
       item_diff
         .sort_by { |(field, _changes)| field == 'desynced' ? 1 : 0 }
-        .each { |(field, changes)| apply_change field, changes }
+        .all? { |(field, changes)| apply_change field, changes }
     end
   end
 
@@ -169,15 +169,18 @@ class Version < ApplicationRecord
 private
 
   def apply_version **_args
-    apply_changes || raise(StateMachineRollbackError.new(self, :apply))
+    item.class.transaction { apply_changes } ||
+      raise(StateMachineRollbackError.new(self, :apply))
   end
 
   def reject_version **_args
-    reject_changes || raise(StateMachineRollbackError.new(self, :reject))
+    item.class.transaction { reject_changes } ||
+      raise(StateMachineRollbackError.new(self, :reject))
   end
 
   def rollback_version **_args
-    rollback_changes || raise(StateMachineRollbackError.new(self, :rollback))
+    item.class.transaction { rollback_changes } ||
+      raise(StateMachineRollbackError.new(self, :rollback))
   end
 
   def assign_moderator moderator: user, **_args
