@@ -9,7 +9,7 @@ describe Versions::DescriptionVersion do
 
     describe '#take_accepted' do
       let(:state) { :accepted }
-      it { expect(version).to be_can_take_accepted }
+      it { expect(version).to be_may_take_accepted }
     end
   end
 

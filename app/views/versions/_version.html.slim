@@ -76,7 +76,7 @@
                   data-type='json'
                 ] = t '.taken_to_accepted'
 
-            - if version.can_take_accepted?
+            - if version.may_take_accepted?
                 a.ajax-action.b-tooltipped.unprocessed[
                   href=take_accepted_moderations_version_url(version)
                   data-method='POST'
@@ -84,7 +84,7 @@
                   data-type='json'
                 ] = t '.accepted_to_taken'
 
-          - if can?(:destroy, version) && version.can_to_deleted?
+          - if can?(:destroy, version) && version.may_to_deleted?
             a.delete[
               href=moderations_version_url(version)
               title=t('.delete_changes')

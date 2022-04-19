@@ -37,18 +37,22 @@ class Version < ApplicationRecord
     event :accept do
       transitions(
         from: Types::Version::State[:pending],
-        to: Types::Version::State[:accepted],
-        after: :apply_transaction
-      )
+        to: Types::Version::State[:accepted]
+      ) do
+        after :apply_transaction
+        after :assign_moderator
+        after :notify_acceptance
+      end
     end
     event :auto_accept do
       transitions(
         from: Types::Version::State[:pending],
         to: Types::Version::State[:auto_accepted],
-        unless: :takeable?,
-        after: :apply_transaction
-        # after: :assign_moderator
-      )
+        unless: :takeable?
+      ) do
+        after :apply_transaction
+        after :assign_moderator
+      end
     end
     event :reject do
       transitions(
@@ -57,14 +61,18 @@ class Version < ApplicationRecord
           Types::Version::State[:auto_accepted]
         ],
         to: Types::Version::State[:rejected]
+        # after: :assign_moderator
       )
     end
     event :take do
       transitions(
         from: Types::Version::State[:pending],
-        to: Types::Version::State[:taken],
-        after: :apply_transaction
-      )
+        to: Types::Version::State[:taken]
+      ) do
+        after :apply_transaction
+        after :assign_moderator
+        after :notify_acceptance
+      end
     end
     event :to_deleted do
       transitions(
@@ -141,10 +149,10 @@ class Version < ApplicationRecord
   #     version.fix_state if version.respond_to? :fix_state
   #   end
   #
-  #   after_transition pending: %i[accepted taken] do |version, _transition|
-  #     version.fix_state if version.respond_to? :fix_state
-  #     version.notify_acceptance
-  #   end
+  # #   after_transition pending: %i[accepted taken] do |version, _transition|
+  # #     version.fix_state if version.respond_to? :fix_state
+  # #     version.notify_acceptance
+  # #   end
   #
   #   after_transition(
   #     %i[pending auto_accepted] => %i[rejected]
@@ -178,7 +186,7 @@ class Version < ApplicationRecord
   rescue NoMethodError
   end
 
-  def notify_acceptance
+  def notify_acceptance **_args
     unless user_id == moderator_id
       Message.create_wo_antispam!(
         from_id: moderator_id,
@@ -201,7 +209,7 @@ class Version < ApplicationRecord
     end
   end
 
-  def takeable?
+  def takeable? **_args
     false
   end
 
@@ -223,7 +231,6 @@ private
         transition.event
       )
     )
-    assign_moderator moderator: moderator
   end
 
   def assign_moderator moderator:, **_args
