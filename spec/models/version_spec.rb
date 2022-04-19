@@ -29,7 +29,11 @@ describe Version do
 
         it { is_expected.to have_state state }
         it { is_expected.to allow_transition_to :accepted }
-        it { is_expected.to transition_from(state).to(:accepted).on_event :accept }
+        it do
+          is_expected.to transition_from(state)
+            .to(:accepted)
+            .on_event(:accept, moderator: user)
+        end
 
         describe 'takeable?' do
           before { allow(subject).to receive(:takeable?).and_return is_takeable }
@@ -39,7 +43,7 @@ describe Version do
             it { is_expected.to_not allow_transition_to :auto_accepted }
           end
 
-          context 'not takeable' do
+          context 'not takeable', :focus do
             let(:is_takeable) { false }
             it { is_expected.to allow_transition_to :auto_accepted }
             it do
@@ -53,7 +57,11 @@ describe Version do
         it { is_expected.to allow_transition_to :rejected }
         it { is_expected.to transition_from(state).to(:rejected).on_event :reject }
         it { is_expected.to allow_transition_to :taken }
-        it { is_expected.to transition_from(state).to(:taken).on_event :take }
+        it do
+          is_expected.to transition_from(state)
+            .to(:taken)
+            .on_event(:take, moderator: user)
+        end
 
         describe 'deleteable?' do
           before { allow(subject).to receive(:deleteable?).and_return is_deleteable }
@@ -216,7 +224,7 @@ describe Version do
       describe '#accept' do
         before { version.accept! moderator: moderator }
 
-        describe 'from pending', :focus do
+        describe 'from pending' do
           let(:state) { Types::Version::State[:pending] }
 
           it do

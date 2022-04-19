@@ -37,14 +37,16 @@ class Version < ApplicationRecord
     event :accept do
       transitions(
         from: Types::Version::State[:pending],
-        to: Types::Version::State[:accepted]
+        to: Types::Version::State[:accepted],
+        after: :apply_transaction
       )
     end
     event :auto_accept do
       transitions(
         from: Types::Version::State[:pending],
         to: Types::Version::State[:auto_accepted],
-        unless: :takeable?
+        unless: :takeable?,
+        after: :apply_transaction
         # after: :assign_moderator
       )
     end
@@ -60,7 +62,8 @@ class Version < ApplicationRecord
     event :take do
       transitions(
         from: Types::Version::State[:pending],
-        to: Types::Version::State[:taken]
+        to: Types::Version::State[:taken],
+        after: :apply_transaction
       )
     end
     event :to_deleted do
@@ -211,6 +214,17 @@ class Version < ApplicationRecord
   end
 
 private
+
+  def apply_transaction moderator:, **_args
+    apply_changes || raise(
+      AASM::InvalidTransition.new(
+        self,
+        transition.machine,
+        transition.event
+      )
+    )
+    assign_moderator moderator: moderator
+  end
 
   def assign_moderator moderator:, **_args
     self.moderator = moderator
