@@ -160,7 +160,7 @@ describe Versions::ScreenshotsVersion do
     end
   end
 
-  describe '#cleanup' do
+  describe '#sweep_deleted' do
     let(:screenshot) { create :screenshot }
     let(:version) do
       build :screenshots_version,
@@ -170,7 +170,7 @@ describe Versions::ScreenshotsVersion do
         }
     end
 
-    before { version.cleanup }
+    subject! { version.sweep_deleted }
 
     context 'upload' do
       let(:action) { Versions::ScreenshotsVersion::Actions[:upload] }

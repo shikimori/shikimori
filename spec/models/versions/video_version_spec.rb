@@ -76,7 +76,7 @@ describe Versions::VideoVersion do
     end
   end
 
-  describe '#cleanup' do
+  describe '#sweep_deleted' do
     let(:video) { create :video }
     let(:version) do
       build :video_version,
@@ -86,7 +86,7 @@ describe Versions::VideoVersion do
         }
     end
 
-    subject! { version.cleanup }
+    subject! { version.sweep_deleted }
 
     context 'upload' do
       let(:action) { Versions::VideoVersion::Actions[:upload] }

@@ -13,11 +13,11 @@ describe Versions::DescriptionVersion do
     end
   end
 
-  describe '#fix_state' do
+  describe '#reevaluate_state' do
     let(:version) do
       create :description_version, state: state, item_diff: item_diff
     end
-    before { version.fix_state }
+    before { version.reevaluate_state }
 
     context 'description_ru' do
       let(:item_diff) do

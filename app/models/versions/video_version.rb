@@ -34,7 +34,7 @@ class Versions::VideoVersion < Version
     end
   end
 
-  def cleanup
+  def sweep_deleted **_args
     video.destroy if Actions[action] == Actions[:upload]
   end
 

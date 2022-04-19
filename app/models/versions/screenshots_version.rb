@@ -36,7 +36,7 @@ class Versions::ScreenshotsVersion < Version
     end
   end
 
-  def cleanup
+  def sweep_deleted **_args
     screenshots.each(&:destroy) if action == Actions[:upload]
   end
 

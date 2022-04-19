@@ -41,8 +41,9 @@ class Version < ApplicationRecord
       ) do
         after :apply_version
         after :assign_moderator
-        after :notify_acceptance
+        success :notify_acceptance
       end
+      after :reevaluate_state
     end
     event :auto_accept do
       transitions(
@@ -53,24 +54,7 @@ class Version < ApplicationRecord
         after :apply_version
         after :assign_moderator
       end
-    end
-    event :reject do
-      transitions(
-        from: Types::Version::State[:pending],
-        to: Types::Version::State[:rejected]
-      ) do
-        after :reject_version
-        after :assign_moderator
-        after :notify_rejection
-      end
-      transitions(
-        from: Types::Version::State[:auto_accepted],
-        to: Types::Version::State[:rejected]
-      ) do
-        after :rollback_version
-        after :assign_moderator
-        after :notify_rejection
-      end
+      after :reevaluate_state
     end
     event :take do
       transitions(
@@ -79,7 +63,26 @@ class Version < ApplicationRecord
       ) do
         after :apply_version
         after :assign_moderator
-        after :notify_acceptance
+        success :notify_acceptance
+      end
+      after :reevaluate_state
+    end
+    event :reject do
+      transitions(
+        from: Types::Version::State[:pending],
+        to: Types::Version::State[:rejected]
+      ) do
+        after :reject_version
+        after :assign_moderator
+        success :notify_rejection
+      end
+      transitions(
+        from: Types::Version::State[:auto_accepted],
+        to: Types::Version::State[:rejected]
+      ) do
+        after :rollback_version
+        after :assign_moderator
+        success :notify_rejection
       end
     end
     event :to_deleted do
@@ -89,6 +92,7 @@ class Version < ApplicationRecord
         if: :deleteable?,
         after: :assign_moderator
       )
+      after :sweep_deleted
     end
     event :accept_taken do
       transitions(
@@ -104,13 +108,6 @@ class Version < ApplicationRecord
         if: -> { takeable? || optionally_takeable? }
       )
     end
-
-  #   after_transition pending: %i[accepted taken auto_accepted] do |version, _transition|
-  #     version.fix_state if version.respond_to? :fix_state
-  #   end
-  #   after_transition pending: :deleted do |version, _transition|
-  #     version.cleanup if version.respond_to? :cleanup
-  #   end
   end
 
   def apply_changes
@@ -185,6 +182,15 @@ private
 
   def assign_moderator moderator: user, **_args
     self.moderator = moderator
+  end
+
+  def reevaluate_state **_args
+    # implemented in inherited classes
+  end
+
+  # sweep resources of deleted version
+  def sweep_deleted **_args
+    # implemented in inherited classes
   end
 
   def apply_change field, changes

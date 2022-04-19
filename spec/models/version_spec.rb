@@ -90,7 +90,6 @@ describe Version do
         it { is_expected.to_not allow_transition_to :pending }
         it { is_expected.to_not allow_transition_to :accepted }
         it { is_expected.to_not allow_transition_to :auto_accepted }
-        it { is_expected.to_not allow_transition_to :rejected }
 
         describe 'takeable?' do
           before { allow(subject).to receive(:takeable?).and_return is_takeable }
@@ -122,6 +121,7 @@ describe Version do
           end
         end
 
+        it { is_expected.to_not allow_transition_to :rejected }
         it { is_expected.to_not allow_transition_to :deleted }
       end
 
@@ -132,25 +132,13 @@ describe Version do
         it { is_expected.to_not allow_transition_to :pending }
         it { is_expected.to_not allow_transition_to :accepted }
         it { is_expected.to_not allow_transition_to :auto_accepted }
+        it { is_expected.to_not allow_transition_to :taken }
         it { is_expected.to allow_transition_to :rejected }
         it do
           is_expected.to transition_from(state)
             .to(:rejected)
             .on_event(:reject, moderator: user, reason: 'reason')
         end
-        it { is_expected.to_not allow_transition_to :taken }
-        it { is_expected.to_not allow_transition_to :deleted }
-      end
-
-      context 'rejected' do
-        let(:state) { Types::Version::State[:rejected] }
-
-        it { is_expected.to have_state state }
-        it { is_expected.to_not allow_transition_to :pending }
-        it { is_expected.to_not allow_transition_to :accepted }
-        it { is_expected.to_not allow_transition_to :auto_accepted }
-        it { is_expected.to_not allow_transition_to :rejected }
-        it { is_expected.to_not allow_transition_to :taken }
         it { is_expected.to_not allow_transition_to :deleted }
       end
 
@@ -196,8 +184,8 @@ describe Version do
         it { is_expected.to_not allow_transition_to :deleted }
       end
 
-      context 'deleted' do
-        let(:state) { Types::Version::State[:deleted] }
+      context 'rejected' do
+        let(:state) { Types::Version::State[:rejected] }
 
         it { is_expected.to have_state state }
         it { is_expected.to_not allow_transition_to :pending }
@@ -205,6 +193,18 @@ describe Version do
         it { is_expected.to_not allow_transition_to :auto_accepted }
         it { is_expected.to_not allow_transition_to :rejected }
         it { is_expected.to_not allow_transition_to :taken }
+        it { is_expected.to_not allow_transition_to :deleted }
+      end
+
+      context 'deleted' do
+        let(:state) { Types::Version::State[:deleted] }
+
+        it { is_expected.to have_state state }
+        it { is_expected.to_not allow_transition_to :pending }
+        it { is_expected.to_not allow_transition_to :accepted }
+        it { is_expected.to_not allow_transition_to :auto_accepted }
+        it { is_expected.to_not allow_transition_to :taken }
+        it { is_expected.to_not allow_transition_to :rejected }
         it { is_expected.to_not allow_transition_to :deleted }
       end
     end
@@ -225,6 +225,8 @@ describe Version do
         allow(version).to receive(:rollback_changes).and_return true
         allow(version).to receive :notify_acceptance
         allow(version).to receive :notify_rejection
+        allow(version).to receive :reevaluate_state
+        allow(version).to receive :sweep_deleted
       end
 
       describe '#accept' do
@@ -241,6 +243,7 @@ describe Version do
             expect(version).to_not have_received :rollback_changes
             expect(version).to have_received :notify_acceptance
             expect(version).to_not have_received :notify_rejection
+            expect(version).to_not have_received :sweep_deleted
           end
         end
       end
@@ -259,6 +262,7 @@ describe Version do
             expect(version).to_not have_received :rollback_changes
             expect(version).to_not have_received :notify_acceptance
             expect(version).to_not have_received :notify_rejection
+            expect(version).to_not have_received :sweep_deleted
           end
         end
       end
@@ -277,6 +281,7 @@ describe Version do
             expect(version).to_not have_received :rollback_changes
             expect(version).to have_received :notify_acceptance
             expect(version).to_not have_received :notify_rejection
+            expect(version).to_not have_received :sweep_deleted
           end
         end
       end
@@ -297,6 +302,7 @@ describe Version do
             expect(version).to_not have_received :notify_acceptance
             expect(version).to have_received(:notify_rejection)
               .with(moderator: moderator, reason: reason)
+            expect(version).to_not have_received :sweep_deleted
           end
         end
 
@@ -312,6 +318,7 @@ describe Version do
             expect(version).to_not have_received :notify_acceptance
             expect(version).to have_received(:notify_rejection)
               .with(moderator: moderator, reason: reason)
+            expect(version).to_not have_received :sweep_deleted
           end
         end
       end
@@ -330,6 +337,7 @@ describe Version do
             expect(version).to_not have_received :rollback_changes
             expect(version).to_not have_received :notify_acceptance
             expect(version).to_not have_received :notify_rejection
+            expect(version).to have_received :sweep_deleted
           end
         end
       end
@@ -348,6 +356,7 @@ describe Version do
             expect(version).to_not have_received :rollback_changes
             expect(version).to_not have_received :notify_acceptance
             expect(version).to_not have_received :notify_rejection
+            expect(version).to_not have_received :sweep_deleted
           end
         end
       end
@@ -366,6 +375,7 @@ describe Version do
             expect(version).to_not have_received :rollback_changes
             expect(version).to_not have_received :notify_acceptance
             expect(version).to_not have_received :notify_rejection
+            expect(version).to_not have_received :sweep_deleted
           end
         end
       end
