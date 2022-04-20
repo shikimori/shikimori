@@ -104,9 +104,7 @@ unzip -d db/ db/dump.sql.zip
 psql -U shikimori_production -d shikimori_production -f db/dump.sql
 rm db/dump.sql
 RAILS_ENV=test rails db:schema:load
-# run three times because there will be error you can avoid with new run
-rails db:migrate
-rails db:migrate
+# migrate dump to latest schema
 rails db:migrate
 ```
 
