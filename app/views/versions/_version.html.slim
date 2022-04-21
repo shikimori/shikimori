@@ -30,7 +30,7 @@
         - else
           = render 'versions/db_entry', version: version
       - else
-        = t("deleted.#{version.item_type.underscore}").downcase
+        i = t("deleted.#{version.item_type.underscore}").downcase
 
     span.state[
       class=version.state.downcase
