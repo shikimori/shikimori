@@ -222,7 +222,7 @@ private
       params[:reason]
     )
 
-    version.auto_accept if version.persisted? && can?(:auto_accept, version)
+    version.auto_accept! if version.persisted? && can?(:auto_accept, version)
     version
   end
 
@@ -235,7 +235,7 @@ private
         params[:reason]
       )
 
-    version.auto_accept if version.persisted? && can?(:auto_accept, version)
+    version.auto_accept! if version.persisted? && can?(:auto_accept, version)
     version
   end
 

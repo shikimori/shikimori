@@ -111,7 +111,7 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
   end
 
   def apply_changes
-    item.class.transaction do
+    ApplicationRecord.transaction do
       item_diff
         .sort_by { |(field, _changes)| field == 'desynced' ? 1 : 0 }
         .all? { |(field, changes)| apply_change field, changes }
@@ -169,17 +169,17 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
 private
 
   def apply_version **_args
-    item.class.transaction { apply_changes } ||
+    ApplicationRecord.transaction { apply_changes } ||
       raise(StateMachineRollbackError.new(self, :apply))
   end
 
   def reject_version **_args
-    item.class.transaction { reject_changes } ||
+    ApplicationRecord.transaction { reject_changes } ||
       raise(StateMachineRollbackError.new(self, :reject))
   end
 
   def rollback_version **_args
-    item.class.transaction { rollback_changes } ||
+    ApplicationRecord.transaction { rollback_changes } ||
       raise(StateMachineRollbackError.new(self, :rollback))
   end
 
