@@ -44,7 +44,11 @@ private
       is_anime365: true
     )
   rescue ActiveRecord::RecordNotSaved => e
-    NamedLogger.episode_worker.info e.message
+    if e.message.starts_with? EpisodeNotification::Track::ERROR_MESSAGE_PREFIX
+      NamedLogger.missing_episodes.info e.message
+    else
+      raise
+    end
   end
 
   def extract episodes, kind, episodes_aired

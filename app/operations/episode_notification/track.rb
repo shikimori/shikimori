@@ -9,11 +9,12 @@ class EpisodeNotification::Track
     is_anime365
   ]
 
+  ERROR_MESSAGE_PREFIX = 'invalid episode number:'
   EPISODES_MESSAGE = <<~MESSAGE.squish
-    invalid episode number: episode(%<episode>d) > anime(%<anime_id>d).episodes(%<episodes>d)
+    #{ERROR_MESSAGE_PREFIX} episode(%<episode>d) > anime(%<anime_id>d).episodes(%<episodes>d)
   MESSAGE
   EPISODES_AIRED_MESSAGE = <<~MESSAGE.squish
-    invalid episode number: episode (%<episode>d) >>
+    #{ERROR_MESSAGE_PREFIX} episode (%<episode>d) >>
       anime(%<anime_id>d).episodes_aired(%<episodes_aired>d)
   MESSAGE
 
