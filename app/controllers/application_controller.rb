@@ -58,6 +58,8 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @decorated_current_user ||= super.try :decorate
+  rescue ActionDispatch::Http::Parameters::ParseError
+    nil
   end
 
   def sign_out *args
