@@ -9,7 +9,7 @@ class ViewObjectBase
     if Rails.env.test?
       h.page
     else
-      h.controller.instance_variable_get(:'@page')
+      h.controller.instance_variable_get(:@page)
     end
   end
 

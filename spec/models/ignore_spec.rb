@@ -5,8 +5,6 @@ describe Ignore do
   end
 
   describe '#validations' do
-    it { is_expected.to validate_presence_of :user }
-    it { is_expected.to validate_presence_of :target }
     it { is_expected.to validate_uniqueness_of(:target_id).scoped_to :user_id }
   end
 end

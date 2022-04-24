@@ -90,7 +90,7 @@ module Shikimori
     end
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 6.1
     # This option is not backwards compatible with earlier Rails versions.
     # It's best enabled when your entire app is migrated and stable on 6.0.
     # NOTE: enabling it logouts all users from their accounts
@@ -161,7 +161,7 @@ module Shikimori
 
         allow do
           origins '*'
-          resource '/api/*', headers: :any, methods: %i[get options post put patch]
+          resource '/api/*', headers: :any, methods: %i[get options post put patch delete]
           resource '/oauth/token', headers: :any, methods: %i[post]
         end
       end

@@ -23,7 +23,7 @@ class AdminLogInController < ShikimoriController
         )
       end
     else
-      render 'pages/page404.html', layout: set_layout, status: :not_found
+      render 'pages/page404', layout: false, status: :not_found
     end
   end
 
@@ -34,7 +34,7 @@ class AdminLogInController < ShikimoriController
 
       sign_in_and_redirect @user
     else
-      render 'pages/page404.html', layout: set_layout, status: :not_found
+      render 'pages/page404', layout: false, status: :not_found
     end
   end
 

@@ -8,7 +8,8 @@ class UrlValidator < ActiveModel::EachValidator
     end
 
     unless resp == true
-      record.errors[attribute] << (
+      record.errors.add(
+        attribute,
         options[:message] || I18n.t('activerecord.errors.messages.invalid')
       )
     end

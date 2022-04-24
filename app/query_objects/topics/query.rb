@@ -68,11 +68,9 @@ class Topics::Query < QueryObjectBase
   end
 
   def as_views is_preview, is_mini
-    mapped_scope = MappedCollection.new @scope do |topic|
+    transform do |topic|
       Topics::TopicViewFactory.new(is_preview, is_mini).build topic
     end
-
-    chain mapped_scope
   end
 
 private

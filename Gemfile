@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '6.0.4.7'
+gem 'rails', '6.1.5'
 gem 'bootsnap', require: false
 
 # database & cache
@@ -66,7 +66,7 @@ gem 'actionpack-action_caching'
 gem 'attr_extras'
 gem 'paperclip'
 gem 'paperclip-i18n'
-gem 'rs_russian'
+gem 'rs_russian', github: 'morr/rs_russian', branch: 'master'
 gem 'translit'
 gem 'sixarm_ruby_unaccent' # adds method `unaccent`. it is used in Tags::GenerateNames
 gem 'simple_form'
@@ -116,6 +116,7 @@ gem 'gcm'
 gem 'maruku'
 gem 'open_uri_redirections' # for http->https redirects. for example for loading videos fom vimeo (http://vimeo.com/113998423)
 
+gem 'i18n', '< 1.9.0' # update only with chewy - otherwise get error of missing module
 gem 'i18n-inflector', github: 'morr/i18n-inflector', branch: :master # fork fixes regular expression for parsing @ inflections
 gem 'i18n-js'
 gem 'rails-i18n'
@@ -136,7 +137,8 @@ group :beta, :production do
 end
 
 group :development do
-  gem 'meta_request'
+  # gem 'meta_request'
+  # gem 'rails_panel'
 
   gem 'spring'
   gem 'spring-watcher-listen'
@@ -165,7 +167,8 @@ group :development do
   gem 'active_record_query_trace'
 end
 
-gem 'awesome_print'
+gem 'amazing_print'
+# gem 'awesome_print', github: 'edipofederle/awesome_print', branch: 'fix-marshal-dump' # https://github.com/awesome-print/awesome_print/pull/415 https://github.com/awesome-print/awesome_print/issues/413
 gem 'colorize'
 gem 'pry-byebug'
 gem 'pry-rails'
