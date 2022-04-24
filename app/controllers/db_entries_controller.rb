@@ -252,7 +252,7 @@ private
         current_user,
         'refresh_poster'
       )
-      .accept!(current_user)
+      .accept!(moderator: current_user)
 
     # additional desynced update becase desynced bould be nil before
     resource.update desynced: resource.desynced - %w[image]
