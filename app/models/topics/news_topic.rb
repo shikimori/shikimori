@@ -41,21 +41,21 @@ class Topics::NewsTopic < Topic
     update forum_id: Forum::OFFTOPIC_ID # , created_at: Time.zone.now
   end
 
-  def can_accept?
+  def may_accept?
     forum_id != Forum::NEWS_ID
   end
 
-  def can_reject?
+  def may_reject?
     forum_id != Forum::OFFTOPIC_ID
   end
 
   def moderation_state
-    if can_accept? && can_reject?
-      'pending'
-    elsif can_accept?
-      'rejected'
-    elsif can_reject?
-      'accepted'
+    if may_accept? && may_reject?
+      Types::Moderatable::State[:pending]
+    elsif may_accept?
+      Types::Moderatable::State[:rejected]
+    elsif may_reject?
+      Types::Moderatable::State[:accepted]
     end
   end
 end

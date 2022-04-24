@@ -56,13 +56,13 @@ class NameValidator < ActiveModel::EachValidator
     if is_taken
       message = options[:message] ||
         I18n.t('activerecord.errors.messages.taken')
-      record.errors[attribute] << message
+      record.errors.add attribute, message
     end
 
     if Moderations::Banhammer.instance.abusive? value
       message = options[:message] ||
         I18n.t('activerecord.errors.messages.abusive')
-      record.errors[attribute] << message
+      record.errors.add attribute, message
     end
   end
 

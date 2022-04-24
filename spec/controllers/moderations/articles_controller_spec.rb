@@ -13,7 +13,8 @@ describe Moderations::ArticlesController do
     let(:article) { create :article }
 
     it do
-      expect(resource).to be_accepted
+      expect(resource).to be_moderation_accepted
+      expect(resource).to_not be_changed
       expect(response).to redirect_to moderations_articles_url
     end
   end
@@ -24,7 +25,8 @@ describe Moderations::ArticlesController do
     let(:article) { create :article, :with_topics }
 
     it do
-      expect(resource).to be_rejected
+      expect(resource).to be_moderation_rejected
+      expect(resource).to_not be_changed
       expect(response).to redirect_to moderations_articles_url
     end
   end
@@ -35,7 +37,8 @@ describe Moderations::ArticlesController do
     let(:article) { create :article, :accepted, approver: user }
 
     it do
-      expect(resource).to be_pending
+      expect(resource).to be_moderation_pending
+      expect(resource).to_not be_changed
       expect(response).to redirect_to moderations_articles_url
     end
   end

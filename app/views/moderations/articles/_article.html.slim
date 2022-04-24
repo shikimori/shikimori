@@ -21,26 +21,26 @@
     = render 'animes/critiques/votes', critique: article
 
   span.state.inline class=article.moderation_state
-    = article.human_moderation_state_name
+    = article.aasm(:moderation_state).human_state
 
   - if article.approver.present?
     .moderator
       = render 'users/user_16', user: article.approver
 
   - if can? :manage, Article
-    - if article.can_accept? || article.can_reject? || article.can_cancel?
+    - if article.may_accept? || article.may_reject? || article.may_cancel?
       .moderation.inline
-        - if article.can_accept?
+        - if article.may_accept?
           a.link.accept[
             href=accept_moderations_article_path(article)
             data-method='post'
           ] = t '.accept'
-        - if article.can_reject?
+        - if article.may_reject?
           a.link.reject[
             href=reject_moderations_article_path(article)
             data-method='post'
           ] = t '.move_to_offtopic'
-        - if article.can_cancel?
+        - if article.may_cancel?
           a.link.cancel[
             href=cancel_moderations_article_path(article)
             data-method='post'

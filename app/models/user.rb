@@ -87,12 +87,10 @@ class User < ApplicationRecord
 
   has_many :anime_rates, -> { where target_type: Anime.name },
     class_name: 'UserRate',
-    source: :target_id,
     dependent: :destroy
 
   has_many :manga_rates, -> { where target_type: Manga.name },
     class_name: 'UserRate',
-    source: :target_id,
     dependent: :destroy
 
   has_many :user_rate_logs, dependent: :destroy

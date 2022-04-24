@@ -1,34 +1,41 @@
 class ContestRound < ApplicationRecord
+  include AASM
   include Translation
 
-  # стартовая группа
-  S = 'S'
-  # ни разу не проигравшая группа
-  W = 'W'
-  # один раз проигравшая группа
-  L = 'L'
-  # финальная группа
-  F = 'F'
+  S = 'S' # staring group
+  W = 'W' # winners group
+  L = 'L' # losers group
+  F = 'F' # final group
 
   belongs_to :contest, touch: true
   has_many :matches, -> { order :id },
-    class_name: ContestMatch.name,
+    class_name: 'ContestMatch',
     inverse_of: :round,
     foreign_key: :round_id,
     dependent: :destroy
 
   delegate :strategy, to: :contest
 
-  state_machine :state, initial: :created do
-    state :started
-    state :finished
+  aasm column: 'state', create_scopes: false do
+    state Types::ContestRound::State[:created], initial: true
+    state Types::ContestRound::State[:started]
+    state Types::ContestRound::State[:finished]
 
     event :start do
-      transition :created => :started, if: ->(round) { round.matches.any? }
+      transitions(
+        from: Types::ContestRound::State[:created],
+        to: Types::ContestRound::State[:started],
+        if: -> { matches.any? }
+      )
     end
     event :finish do
-      transition :started => :finished,
-        if: ->(round) { round.matches.all? { |v| v.finished? || v.can_finish? } }
+      transitions(
+        form: Types::ContestRound::State[:started],
+        to: Types::ContestRound::State[:finished],
+        if: -> {
+          matches.any? && matches.all? { |v| v.finished? || v.may_finish? }
+        }
+      )
     end
   end
 
@@ -40,7 +47,6 @@ class ContestRound < ApplicationRecord
     title is_short, Types::Locale[:en]
   end
 
-  # название раунда
   def title is_short = false, locale = nil
     return "#{number}#{'a' if additional}" if is_short
 
@@ -56,7 +62,6 @@ class ContestRound < ApplicationRecord
     "#{number}#{'a' if additional}"
   end
 
-  # предыдущий раунд
   def prior_round
     @prior_round ||= begin
       index = contest.rounds.index self
@@ -69,7 +74,6 @@ class ContestRound < ApplicationRecord
     end
   end
 
-  # следующий раунд
   def next_round
     @next_round ||= begin
       index = contest.rounds.index self
@@ -82,12 +86,10 @@ class ContestRound < ApplicationRecord
     end
   end
 
-  # первый ли это раунд?
   def first?
     prior_round.nil?
   end
 
-  # последний ли это раунд?
   def last?
     next_round.nil?
   end

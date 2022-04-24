@@ -11,4 +11,4 @@
     = l list_import.created_at, format: :full
   span.column = list_import.list_file_name
   span.state class=list_import.state.downcase
-    = list_import.human_state_name
+    = list_import.aasm.human_state

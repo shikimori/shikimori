@@ -23,6 +23,13 @@ ru:
       user: Пользователь
       video: Видео
 
+    moderatable: &moderation_states
+      moderation_state/pending: ожидает модерации
+      moderation_state/accepted: принято
+      moderation_state/rejected: отклонено
+      # events:
+      #   publish: Опубликовать
+      #   unpublish: Отменить публикацию
     attributes:
       anime: &anime_attributes
         aired_on: Дата начала показа
@@ -86,7 +93,7 @@ ru:
         russian: Русское имя
         imageboard_tag: Тег имиджборд
         imported_at: Синхронизировано
-        desynced: Не синхронизируются
+        desynced: *desynced
         source: Источник
       person:
         <<: *character_attributes
@@ -112,6 +119,11 @@ ru:
         member_type: Тип участника
         started_on: Дата старта
         suggestions_per_user: Число вариантов номинаций от одного пользователя
+        state: Статус
+        state/created: подготавливается
+        state/proposing: сбор номинантов
+        state/started: активно
+        state/finished: завершено
       ban:
         reason: Причина
         duration: Срок
@@ -151,6 +163,7 @@ ru:
         website: Сайт
         locale: Язык интерфейса
         notification_settings: Настройки уведомлений
+        mention_event: Уведомления об упоминаниях на форуме
       user_rate:
         status: Статус
         episodes: Эпизоды
@@ -194,6 +207,9 @@ ru:
         list: Файл списка
         list_type: Тип списка
         state: Статус
+        state/pending: импортируется
+        state/finished: импортировано
+        state/failed: ошибка
       critique:
         text: Текст
         storyline: Сюжет
@@ -201,7 +217,8 @@ ru:
         characters: Персонажи
         music: Звуковой ряд
         overall: Итоговая оценка
-
+        state: Статус
+        <<: *moderation_states
       user_preferences:
         about_on_top: Отображать над статистикой
         anime_in_profile: Отображать аниме в профиле
@@ -230,6 +247,13 @@ ru:
         language: Язык перевода
         quality: Качество видео
         state: Статус
+        state/working: работает
+        state/uploaded: загружено, требует проверки
+        state/rejected: отказано
+        state/broken: сломано
+        state/wrong: не к этому аниме
+        state/copyrighted: copyrighted
+        state/banned_hosting: хостинг забанен
         author_name: Автор
         anime_video_author_id: Автор
         is_first: Отображать первым среди таких же
@@ -258,8 +282,13 @@ ru:
         kind: Тип
         text: Описание
         state: Статус
+        state/unpublished: Не опубликованная
+        state/published: Опубликованная
+        state/private: Приватная
+        state/opened: Открытая
         user: Создатель
         tags: Теги
+        <<: *moderation_states
       collection_link:
         group: Группа
         text: Комментарий
@@ -268,10 +297,14 @@ ru:
         body: Текст
         state: Статус
         tags: Теги
+        <<: *moderation_states
       poll:
         name: Название
         text: Текст
         state: Статус
+        state/pending: Создаётся
+        state/started: Запущен
+        state/stopped: Остановлен
         width: Ширина блока
       club_invite:
         dst: Пользователь
@@ -295,11 +328,23 @@ ru:
         is_pinned: Закреплён
         is_closed: Закрыт
         broadcast: Массовая рассылка
+      topics/news_topic:
+        <<: *moderation_states
       version:
         user_id: Автор
         moderator_id: Модератор
         reason: Причина правки
         item_diff: Список изменений
+        state/pending: ожидает модерации
+        state/accepted: принято
+        state/auto_accepted: принято автоматически
+        state/taken: взято
+        state/rejected: отклонено
+        state/deleted: удалено
+      abuse_request:
+        state/pending: ожидает модерации
+        state/accepted: принято
+        state/rejected: отклонено
       anime_video_report:
         kind: Причина
         message: Сообщение модератору
@@ -355,74 +400,6 @@ ru:
           attributes:
             linked:
               censored: хентай/яой запрещён
-
-    state_machines:
-      contest:
-        states:
-          created: подготавливается
-          proposing: сбор номинантов
-          started: активно
-          finished: завершено
-      critique: &critique_states
-        states:
-          pending: ожидает модерации
-          accepted: принято
-          rejected: отклонено
-        events:
-          publish: Опубликовать
-          unpublish: Отменить публикацию
-      collection:
-        <<: *critique_states
-      article:
-        <<: *critique_states
-      topics/news_topic:
-        <<: *critique_states
-      poll:
-        states:
-          pending: Создаётся
-          started: Запущен
-          stopped: Остановлен
-      anime_video:
-        states:
-          working: работает
-          uploaded: загружено, требует проверки
-          rejected: отказано
-          broken: сломано
-          wrong: не к этому аниме
-          copyrighted: copyrighted
-          banned_hosting: хостинг забанен
-      version:
-        states:
-          pending: ожидает модерации
-          accepted: принято
-          auto_accepted: принято автоматически
-          taken: взято
-          rejected: отклонено
-          deleted: удалено
-      abuse_request:
-        states:
-          pending: ожидает модерации
-          accepted: принято
-          rejected: отклонено
-      anime_video_report:
-        states:
-          pending: ожидает модерации
-          accepted: принято
-          taken: взято
-          rejected: отклонено
-          post_rejected: отклонено
-          deleted: удалено
-      list_import:
-        states:
-          pending: импортируется
-          finished: импортировано
-          failed: ошибка
-      collection:
-        states:
-          unpublished: Не опубликованная
-          published: Опубликованная
-          private: Приватная
-          opened: Открытая
 
   activemodel:
     errors:

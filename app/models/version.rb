@@ -1,4 +1,5 @@
-class Version < ApplicationRecord
+class Version < ApplicationRecord # rubocop:disable ClassLength
+  include AASM
   include AntispamConcern
 
   antispam(
@@ -25,104 +26,95 @@ class Version < ApplicationRecord
 
   scope :pending, -> { where state: :pending }
 
-  state_machine :state, initial: :pending do
-    state :accepted
-    state :auto_accepted
-    state :rejected
+  aasm column: 'state' do # rubocop:disable BlockLength
+    state Types::Version::State[:pending], initial: true
+    state Types::Version::State[:accepted]
+    state Types::Version::State[:auto_accepted]
+    state Types::Version::State[:rejected]
+    state Types::Version::State[:taken]
+    state Types::Version::State[:deleted]
 
-    state :taken
-    state :deleted
-
-    event(:accept) { transition pending: :accepted }
-    event(:auto_accept) { transition pending: :auto_accepted, unless: :takeable? }
-    event(:take) { transition pending: :taken }
-    event(:reject) { transition %i[pending auto_accepted] => :rejected }
-    event(:to_deleted) { transition pending: :deleted, if: :deleteable? }
-
-    event(:accept_taken) do
-      transition taken: :accepted, if: ->(version) {
-        version.takeable? || version.optionally_takeable?
-      }
+    event :accept do
+      transitions(
+        from: Types::Version::State[:pending],
+        to: Types::Version::State[:accepted]
+      ) do
+        after :apply_version
+        after :assign_moderator
+        success :notify_acceptance
+      end
+      after :reevaluate_state
     end
-    event(:take_accepted) do
-      transition accepted: :taken, if: ->(version) {
-        version.takeable? || version.optionally_takeable?
-      }
+    event :auto_accept do
+      transitions(
+        from: Types::Version::State[:pending],
+        to: Types::Version::State[:auto_accepted],
+        unless: :takeable?
+      ) do
+        after :apply_version
+        after :assign_moderator
+      end
+      after :reevaluate_state
     end
-
-    before_transition(
-      pending: %i[accepted auto_accepted taken]
-    ) do |version, transition|
-      version.apply_changes || raise(
-        StateMachine::InvalidTransition.new(
-          version,
-          transition.machine,
-          transition.event
-        )
+    event :take do
+      transitions(
+        from: Types::Version::State[:pending],
+        to: Types::Version::State[:taken]
+      ) do
+        after :apply_version
+        after :assign_moderator
+        success :notify_acceptance
+      end
+      after :reevaluate_state
+    end
+    event :reject do
+      transitions(
+        from: Types::Version::State[:pending],
+        to: Types::Version::State[:rejected]
+      ) do
+        after :reject_version
+        after :assign_moderator
+        success :notify_rejection
+      end
+      transitions(
+        from: Types::Version::State[:auto_accepted],
+        to: Types::Version::State[:rejected]
+      ) do
+        after :rollback_version
+        after :assign_moderator
+        success :notify_rejection
+      end
+    end
+    event :to_deleted do
+      transitions(
+        from: Types::Version::State[:pending],
+        to: Types::Version::State[:deleted],
+        if: :deleteable?,
+        after: :assign_moderator
       )
-      version.update moderator: version.user if transition.event
+      after :sweep_deleted
     end
-    before_transition pending: %i[auto_accepted] do |version, _transition|
-      version.moderator = version.user
-    end
-
-    before_transition pending: :rejected do |version, transition|
-      version.reject_changes || raise(
-        StateMachine::InvalidTransition.new(
-          version,
-          transition.machine,
-          transition.event
-        )
+    event :accept_taken do
+      transitions(
+        from: Types::Version::State[:taken],
+        to: Types::Version::State[:accepted],
+        if: -> { takeable? || optionally_takeable? }
       )
     end
-
-    before_transition auto_accepted: :rejected do |version, transition|
-      version.rollback_changes || raise(
-        StateMachine::InvalidTransition.new(
-          version,
-          transition.machine,
-          transition.event
-        )
+    event :take_accepted do
+      transitions(
+        from: Types::Version::State[:accepted],
+        to: Types::Version::State[:taken],
+        if: -> { takeable? || optionally_takeable? }
       )
-    end
-
-    before_transition(
-      %i[pending auto_accepted] => %i[rejected deleted]
-    ) do |version, transition|
-      version.update moderator: transition.args.first if transition.args.first
-    end
-
-    before_transition(
-      %i[pending auto_accepted] => %i[accepted taken rejected deleted]
-    ) do |version, transition|
-      version.update moderator: transition.args.first if transition.args.first
-    end
-
-    after_transition pending: %i[auto_accepted] do |version, _transition|
-      version.fix_state if version.respond_to? :fix_state
-    end
-
-    after_transition pending: %i[accepted taken] do |version, _transition|
-      version.fix_state if version.respond_to? :fix_state
-      version.notify_acceptance
-    end
-
-    after_transition(
-      %i[pending auto_accepted] => %i[rejected]
-    ) do |version, transition|
-      version.notify_rejection transition.args.second
-    end
-
-    after_transition pending: :deleted do |version, _transition|
-      version.cleanup if version.respond_to? :cleanup
     end
   end
 
   def apply_changes
-    item.class.transaction do
+    ApplicationRecord.transaction do
       item_diff
         .sort_by { |(field, _changes)| field == 'desynced' ? 1 : 0 }
-        .each { |(field, changes)| apply_change field, changes }
+        .all? { |(field, changes)| apply_change field, changes }
     end
   end
 
@@ -139,7 +131,7 @@ class Version < ApplicationRecord
   rescue NoMethodError
   end
 
-  def notify_acceptance
+  def notify_acceptance **_args
     unless user_id == moderator_id
       Message.create_wo_antispam!(
         from_id: moderator_id,
@@ -150,19 +142,19 @@ class Version < ApplicationRecord
     end
   end
 
-  def notify_rejection reason
-    unless user_id == moderator_id
-      Message.create_wo_antispam!(
-        from_id: moderator_id,
-        to_id: user_id,
-        kind: MessageType::VERSION_REJECTED,
-        linked: self,
-        body: reason
-      )
-    end
+  def notify_rejection reason:, **_args
+    return if user_id == moderator_id
+
+    Message.create_wo_antispam!(
+      from_id: moderator_id,
+      to_id: user_id,
+      kind: MessageType::VERSION_REJECTED,
+      linked: self,
+      body: reason
+    )
   end
 
-  def takeable?
+  def takeable? **_args
     false
   end
 
@@ -175,6 +167,34 @@ class Version < ApplicationRecord
   end
 
 private
+
+  def apply_version **_args
+    ApplicationRecord.transaction { apply_changes } ||
+      raise(StateMachineRollbackError.new(self, :apply))
+  end
+
+  def reject_version **_args
+    ApplicationRecord.transaction { reject_changes } ||
+      raise(StateMachineRollbackError.new(self, :reject))
+  end
+
+  def rollback_version **_args
+    ApplicationRecord.transaction { rollback_changes } ||
+      raise(StateMachineRollbackError.new(self, :rollback))
+  end
+
+  def assign_moderator moderator: user, **_args
+    self.moderator = moderator
+  end
+
+  def reevaluate_state **_args
+    # implemented in inherited classes
+  end
+
+  # sweep resources of deleted version
+  def sweep_deleted **_args
+    # implemented in inherited classes
+  end
 
   def apply_change field, changes
     changes[0] = current_value field

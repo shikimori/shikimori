@@ -1,7 +1,8 @@
 class Poll < ApplicationRecord
-  acts_as_votable
-
+  include AASM
   include Translation
+
+  acts_as_votable
 
   belongs_to :user
   has_many :variants, -> { order :id },
@@ -13,22 +14,27 @@ class Poll < ApplicationRecord
     in: Types::Poll::Width.values,
     predicates: true
 
-  validates :user, presence: true
   validates :name, presence: true, length: { maximum: 255 }
   validates :text, length: { maximum: 10_000 }
 
-  state_machine :state, initial: :pending do
-    state :pending
-    state :started
-    state :stopped
+  aasm column: 'state', create_scopes: false do
+    state Types::Poll::State[:pending], initial: true
+    state Types::Poll::State[:started]
+    state Types::Poll::State[:stopped]
 
-    event(:start) do
-      transition(
-        pending: :started,
-        if: ->(poll) { poll.persisted? && poll.variants.size > 1 }
+    event :start do
+      transitions(
+        from: Types::Poll::State[:pending],
+        to: Types::Poll::State[:started],
+        if: -> { persisted? && variants.many? }
       )
     end
-    event(:stop) { transition started: :stopped }
+    event :stop do
+      transitions(
+        from: Types::Poll::State[:started],
+        to: Types::Poll::State[:stopped]
+      )
+    end
   end
 
   accepts_nested_attributes_for :variants

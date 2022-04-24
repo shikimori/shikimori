@@ -1,4 +1,5 @@
 class ListImport < ApplicationRecord
+  include AASM
   include AntispamConcern
   include Translation
 
@@ -20,18 +21,27 @@ class ListImport < ApplicationRecord
     in: Types::ListImport::DuplicatePolicy.values,
     predicates: { prefix: true }
 
-  state_machine :state, initial: :pending do
-    state :pending
-    state :finished
-    state :failed
+  aasm column: 'state', create_scopes: false do
+    state Types::ListImport::State[:pending], initial: true
+    state Types::ListImport::State[:finished]
+    state Types::ListImport::State[:failed]
 
-    event(:finish) { transition pending: :finished }
-    event(:to_failed) { transition pending: :failed }
+    event :finish do
+      transitions(
+        from: Types::ListImport::State[:pending],
+        to: Types::ListImport::State[:finished]
+      )
+    end
+    event :to_failed do
+      transitions(
+        from: Types::ListImport::State[:pending],
+        to: Types::ListImport::State[:failed]
+      )
+    end
   end
 
   has_attached_file :list
 
-  validates :user, presence: true
   validates_attachment :list,
     presence: true,
     content_type: {

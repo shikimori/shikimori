@@ -6,8 +6,8 @@ FactoryBot.define do
     state { :pending }
     item_diff { { russian: ['a', 'b'] } }
 
-    Version.state_machine.states.map(&:value).each do |version_state|
-      trait(version_state.to_sym) { state { version_state } }
+    Version.aasm.states.map(&:name).each do |value|
+      trait(value.to_sym) { state { value } }
     end
 
     factory :description_version, class: 'Versions::DescriptionVersion'

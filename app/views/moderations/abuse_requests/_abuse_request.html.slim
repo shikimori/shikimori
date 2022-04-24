@@ -46,7 +46,7 @@
 
   - unless abuse_request.pending?
     span.resolution class=abuse_request.state
-      = abuse_request.human_state_name
+      = abuse_request.aasm.human_state
     = render 'users/user_16', user: abuse_request.approver
 
   - if abuse_request.pending? || abuse_request.reason.present?
@@ -94,7 +94,7 @@
                 data-remote='true'
               ] = t '.ban'
               a.ajax-action[
-                href=deny_moderations_abuse_request_url(abuse_request)
+                href=reject_moderations_abuse_request_url(abuse_request)
                 data-method='post'
                 data-remote='true'
                 data-type='json'
@@ -102,12 +102,12 @@
               .ban-form
             - else
               a.ajax-action[
-                href=take_moderations_abuse_request_url(abuse_request)
+                href=accept_moderations_abuse_request_url(abuse_request)
                 method='post'
                 data-remote='true'
               ] = t '.accept'
               a.ajax-action[
-                href=deny_moderations_abuse_request_url(abuse_request)
+                href=reject_moderations_abuse_request_url(abuse_request)
                 method='post'
                 data-remote='true'
                 data-type='json'

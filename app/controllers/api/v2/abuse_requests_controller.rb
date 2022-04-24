@@ -1,4 +1,3 @@
-# TODO: remove `unless params[:user_id]` after 01-09-2017
 class Api::V2::AbuseRequestsController < Api::V2Controller
   before_action :authenticate_user!
   before_action :check_post_permission

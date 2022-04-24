@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Collection::Update do
-  include_context :timecop, 'Wed, 16 Sep 2020 16:23:41 MSK +03:00'
+  include_context :timecop
   subject do
     described_class.call collection, params, transition, user
   end
@@ -59,6 +59,7 @@ describe Collection::Update do
     it do
       is_expected.to eq true
       expect(collection.errors).to be_empty
+      expect(collection).to_not be_changed
       expect(collection.reload).to have_attributes params.except(:links)
       expect(collection.created_at).to be_within(0.1).of 1.day.ago
       expect(collection.changed_at).to be_within(0.1).of Time.zone.now
@@ -91,10 +92,10 @@ describe Collection::Update do
       it do
         is_expected.to be_nil
         expect(collection.errors).to be_empty
+        expect(collection).to_not be_changed
         expect(collection.reload).to be_published
         expect(collection.published_at).to be_within(0.1).of Time.zone.now
         expect(collection.created_at).to be_within(0.1).of Time.zone.now
-        expect(collection.changed_at).to be_within(0.1).of Time.zone.now
         expect(collection.changed_at).to be_within(0.1).of Time.zone.now
 
         expect(collection.topics).to have(1).item

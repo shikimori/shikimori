@@ -11,5 +11,9 @@ module Types
     Kind = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(*KINDS)
+
+    State = Types::Strict::Symbol
+      .constructor(&:to_sym)
+      .enum(:pending, :accepted, :rejected)
   end
 end

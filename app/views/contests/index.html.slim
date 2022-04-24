@@ -20,7 +20,7 @@ header.head.misc
         - if state == :scheduled
           = t '.scheduled'
         - else
-          = t("activerecord.state_machines.contest.states.#{state}").capitalize
+          = t("activerecord.attributes.contest.state/#{state}").capitalize
       ol
         = render partial: 'contests/contest', collection: contests
 

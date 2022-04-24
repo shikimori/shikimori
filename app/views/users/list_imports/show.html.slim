@@ -12,7 +12,7 @@
     = info_line ListImport.human_attribute_name(:duplicate_policy), @resource.duplicate_policy_text
     = info_line ListImport.human_attribute_name(:state) do
       span.state class=@resource.state
-        = @resource.human_state_name.capitalize
+        = @resource.aasm.human_state.capitalize
         - if @resource.failed? && @resource.output
           span.error-info
             | .&nbsp;

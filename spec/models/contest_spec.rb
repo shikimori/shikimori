@@ -18,7 +18,6 @@ describe Contest do
     # it { is_expected.to validate_presence_of :title_en }
     it { is_expected.to validate_length_of(:description_ru).is_at_most(32768) }
     it { is_expected.to validate_length_of(:description_en).is_at_most(32768) }
-    it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_presence_of :strategy_type }
     it { is_expected.to validate_presence_of :member_type }
     it { is_expected.to validate_presence_of :started_on }
@@ -39,39 +38,114 @@ describe Contest do
     end
   end
 
-  describe 'state machine' do
-    let(:contest) { create :contest, :with_5_members, :created }
+  describe 'aasm' do
+    subject { build :contest, state, rounds: rounds }
 
-    describe 'can_propose?' do
-      subject { contest.can_propose? }
-      it { is_expected.to eq true }
+    let(:rounds) { [] }
+    let(:contest_round_created) { build :contest_round, :created }
+    let(:contest_round_started) { build :contest_round, :started }
+    let(:contest_round_finished) { build :contest_round, :finished }
+
+    before { allow(subject).to receive :generate_missing_topics }
+
+    context 'created' do
+      let(:state) { Types::Contest::State[:created] }
+
+      it { is_expected.to have_state state }
+
+      describe 'transition to proposing' do
+        it { is_expected.to transition_from(state).to(:proposing).on_event(:propose) }
+
+        context 'generate_missing_topics callback' do
+          before { subject.propose! }
+          it do
+            is_expected.to have_state :proposing
+            expect(subject).to have_received :generate_missing_topics
+          end
+        end
+      end
+
+      describe 'transition to started' do
+        before { allow(subject.links).to receive(:count).and_return links_count }
+
+        context 'allowed count' do
+          let(:links_count) do
+            [
+              Contest::MINIMUM_MEMBERS,
+              Contest::MINIMUM_MEMBERS + 1,
+              Contest::MAXIMUM_MEMBERS - 1,
+              Contest::MAXIMUM_MEMBERS
+            ].sample
+          end
+
+          it { is_expected.to allow_transition_to :started }
+          it { is_expected.to transition_from(state).to(:started).on_event(:start) }
+
+          context 'generate_missing_topics callback' do
+            before { subject.start! }
+            it do
+              is_expected.to have_state :started
+              expect(subject).to have_received :generate_missing_topics
+            end
+          end
+        end
+
+        context 'less than MINIMUM_MEMBERS' do
+          let(:links_count) { Contest::MINIMUM_MEMBERS - 1 }
+          it { is_expected.to_not allow_transition_to :started }
+        end
+
+        context 'Contest::MAXIMUM_MEMBERS' do
+          let(:links_count) { Contest::MAXIMUM_MEMBERS + 1 }
+          it { is_expected.to_not allow_transition_to :started }
+        end
+      end
+
+      it { is_expected.to_not allow_transition_to :finished }
     end
 
-    describe '#can_start?' do
-      subject { contest.can_start? }
+    context 'proposing' do
+      let(:state) { Types::Contest::State[:proposing] }
 
-      context 'normal count' do
-        before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS + 1 }
-        it { is_expected.to eq true }
-      end
+      it { is_expected.to have_state state }
+      it { is_expected.to transition_from(state).to(:created).on_event(:stop_propose) }
+      it { is_expected.to_not allow_transition_to :started }
+      it { is_expected.to_not allow_transition_to :finished }
+    end
 
-      context 'Contest::MINIMUM_MEMBERS' do
-        before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS - 1 }
-        it { is_expected.to eq false }
-      end
+    context 'started' do
+      let(:state) { Types::Contest::State[:started] }
 
-      context 'Contest::MAXIMUM_MEMBERS' do
-        before { allow(contest.links).to receive(:count).and_return Contest::MAXIMUM_MEMBERS + 1 }
-        it { is_expected.to eq false }
+      it { is_expected.to have_state state }
+      it { is_expected.to_not allow_transition_to :created }
+      it { is_expected.to_not allow_transition_to :proposing }
+
+      describe 'transition to finished' do
+        context 'all rounds are finished' do
+          let(:rounds) { [contest_round_finished] }
+          it { is_expected.to allow_transition_to :finished }
+          it { is_expected.to transition_from(state).to(:finished).on_event(:finish) }
+        end
+
+        context 'not all rounds are finished' do
+          let(:rounds) do
+            [
+              contest_round_finished,
+              [contest_round_created, contest_round_started].sample
+            ]
+          end
+          it { is_expected.to_not allow_transition_to :finished }
+        end
       end
     end
 
-    context 'after propose' do
-      subject! { contest.propose! }
+    context 'finished' do
+      let(:state) { Types::Contest::State[:finished] }
 
-      it 'creates 2 topics' do
-        expect(contest.topics).to have(2).items
-      end
+      it { is_expected.to have_state state }
+      it { is_expected.to_not allow_transition_to :created }
+      it { is_expected.to_not allow_transition_to :proposing }
+      it { is_expected.to_not allow_transition_to :started }
     end
   end
 
@@ -172,6 +246,28 @@ describe Contest do
       context Character do
         let(:member_type) { :character }
         it { is_expected.to eq Character }
+      end
+    end
+
+    describe '#generate_missing_topics' do
+      before do
+        allow(subject.topics).to receive(:none?).and_return is_none
+        allow(subject).to receive :generate_topics
+        subject.send :generate_missing_topics
+      end
+
+      context 'no topics' do
+        let(:is_none) { true }
+        it do
+          expect(subject)
+            .to have_received(:generate_topics)
+            .with Shikimori::DOMAIN_LOCALES
+        end
+      end
+
+      context 'has topics' do
+        let(:is_none) { false }
+        it { expect(subject).to_not have_received :generate_topics }
       end
     end
   end

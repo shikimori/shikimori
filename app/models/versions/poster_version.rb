@@ -8,25 +8,10 @@ class Versions::PosterVersion < Version
     item.save
   end
 
-  def reject *args
-    Version.transaction do
-      super
-      rollback_changes
-    end
-  end
-
   def reject! *args
     Version.transaction do
       super
       rollback_changes
-    end
-  end
-
-  def to_deleted *args
-    was_pending = pending?
-    Version.transaction do
-      super
-      rollback_changes if was_pending
     end
   end
 

@@ -1,7 +1,7 @@
 class ClubInvite < ApplicationRecord
   belongs_to :club
-  belongs_to :src, class_name: User.name, foreign_key: :src_id
-  belongs_to :dst, class_name: User.name, foreign_key: :dst_id
+  belongs_to :src, class_name: 'User'
+  belongs_to :dst, class_name: 'User'
   # invite messages
   belongs_to :message, optional: true, dependent: :destroy
 
@@ -10,7 +10,6 @@ class ClubInvite < ApplicationRecord
     predicates: true,
     default: Types::ClubInvite::Status[:pending]
 
-  validates :club, :src, :dst, presence: true
   validates :dst_id, uniqueness: {
     scope: %i[club_id status],
     message: ->(key, _model) { I18n.t key }
@@ -22,19 +21,19 @@ class ClubInvite < ApplicationRecord
   before_create :check_user_invites_limit
   before_create :check_club_invites_limit
 
-  after_create :create_message
   before_create :cleanup_invites
+  after_create :create_message
 
   USER_INVITES_PER_DAY = 30
   CLUB_INVITES_PER_DAY = 200
   INVITES_LIMIT_EXPIRATION = 1.day
 
-  def accept
-    close
+  def accept!
+    close!
     club.join dst unless club.member?(dst) || club.banned?(dst)
   end
 
-  def close
+  def close!
     update status: Types::ClubInvite::Status[:closed]
     message&.update read: true
   end
@@ -61,12 +60,14 @@ private
 
   def check_banned
     return unless club.banned? dst
+
     errors.add :base, :banned
     throw :abort
   end
 
   def check_joined
     return unless club.member? dst
+
     errors.add :base, :joined
     throw :abort
   end

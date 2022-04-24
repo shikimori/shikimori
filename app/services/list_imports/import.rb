@@ -18,7 +18,7 @@ class ListImports::Import
 private
 
   def do_import
-    list = ListImports::ParseFile.call(File.open(@list_import.list.path))
+    list = ListImports::ParseFile.call File.open(@list_import.list.path)
 
     return specific_error EMPTY_LIST_ERROR_OUTPUT if list.empty?
     return missing_fields_error(list) if missing_fields? list

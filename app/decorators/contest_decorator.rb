@@ -81,9 +81,9 @@ class ContestDecorator < DbEntryDecorator
   # текущий статус опроса
   def status
     if object.started?
-      "#{object.human_state_name.capitalize} (#{object.current_round.title})"
+      "#{object.aasm.human_state.capitalize} (#{object.current_round.title})"
     else
-      object.human_state_name.capitalize
+      object.aasm.human_state.capitalize
     end
   end
 
@@ -122,7 +122,7 @@ class ContestDecorator < DbEntryDecorator
   end
 
   # может ли текущий пользователь предлагать ещё варианты
-  def can_propose?
+  def can_propose_candidates?
     user_suggestions.size < suggestions_per_user
   end
 

@@ -5,7 +5,6 @@ describe AnimeVideo do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :anime }
     it { is_expected.to validate_presence_of :url }
     it { is_expected.to validate_presence_of :source }
     it { is_expected.to validate_presence_of :kind }
@@ -26,36 +25,6 @@ describe AnimeVideo do
 
       let(:url) { 'http://www.vk.com?id=1' }
       it { is_expected.to eq 'vk.com' }
-    end
-
-    describe '#vk?, #smotret_anime?' do
-      let(:video) { build :anime_video, url: url }
-
-      context 'vk' do
-        let(:url) { attributes_for(:anime_video)[:url] }
-        it { expect(video).to be_vk }
-        it { expect(video).to_not be_smotret_anime }
-      end
-
-      context 'smotret_anime' do
-        let(:url) { 'http://smotretanime.ru/translations/embed/960633' }
-        it { expect(video).to_not be_vk }
-        it { expect(video).to be_smotret_anime }
-      end
-    end
-
-    describe '#allowed?' do
-      context 'true' do
-        %w[working uploaded].each do |state|
-          it { expect(build(:anime_video, state: state).allowed?).to eq true }
-        end
-      end
-
-      context 'false' do
-        %w[broken wrong banned_hosting].each do |state|
-          it { expect(build(:anime_video, state: state).allowed?).to eq false }
-        end
-      end
     end
   end
 end

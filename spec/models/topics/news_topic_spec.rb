@@ -73,33 +73,33 @@ describe Topics::NewsTopic do
       end
     end
 
-    describe '#moderation_state, #can_accept?, #can_reject?' do
+    describe '#moderation_state, #may_accept?, #may_reject?' do
       let(:topic) { build :news_topic, forum_id: forum_id }
 
       context 'Forum::PREMODERATION_ID' do
         let(:forum_id) { Forum::PREMODERATION_ID }
         it do
-          expect(topic).to be_can_accept
-          expect(topic).to be_can_reject
-          expect(topic.moderation_state).to eq 'pending'
+          expect(topic).to be_may_accept
+          expect(topic).to be_may_reject
+          expect(topic.moderation_state).to eq Types::Moderatable::State[:pending]
         end
       end
 
       context 'Forum::NEWS_ID' do
         let(:forum_id) { Forum::NEWS_ID }
         it do
-          expect(topic).to_not be_can_accept
-          expect(topic).to be_can_reject
-          expect(topic.moderation_state).to eq 'accepted'
+          expect(topic).to_not be_may_accept
+          expect(topic).to be_may_reject
+          expect(topic.moderation_state).to eq Types::Moderatable::State[:accepted]
         end
       end
 
       context 'Forum::OFFTOPIC_ID' do
         let(:forum_id) { Forum::OFFTOPIC_ID }
         it do
-          expect(topic).to be_can_accept
-          expect(topic).to_not be_can_reject
-          expect(topic.moderation_state).to eq 'rejected'
+          expect(topic).to be_may_accept
+          expect(topic).to_not be_may_reject
+          expect(topic.moderation_state).to eq Types::Moderatable::State[:rejected]
         end
       end
     end

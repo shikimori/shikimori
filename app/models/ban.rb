@@ -98,7 +98,7 @@ class Ban < ApplicationRecord
   end
 
   def accept_abuse_request
-    abuse_request.take! moderator if abuse_request_id.present?
+    abuse_request.accept! approver: moderator if abuse_request_id.present?
   end
 
   def target

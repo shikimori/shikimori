@@ -24,11 +24,18 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   BODY_TRUCATE_SIZE = 500
   TRUNCATE_OMNISSION = '…'
-  CACHE_VERSION = :v24
+  CACHE_VERSION = :v25
 
-  # to fix work of TopicSerializer
-  def self.model_name
-    ActiveModel::Name.new(Topic)
+  class << self
+    # to fix work of TopicSerializer
+    def model_name
+      ActiveModel::Name.new(Topic)
+    end
+
+    # fix for usage in ActiveRecord::Associations::Preloader
+    # def _reflect_on_association association
+    #   Topic._reflect_on_association(association)
+    # end
   end
 
   def url options = {}

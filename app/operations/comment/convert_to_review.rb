@@ -55,14 +55,18 @@ private
     @comment.abuse_requests
       .where(state: :pending)
       .where(kind: Types::AbuseRequest::Kind[:offtopic])
-      .each { |abuse_request| abuse_request.reject @actor }
+      .each do |abuse_request|
+        abuse_request.reject! approver: @actor
+      end
   end
 
   def accept_convert_to_review_abuse_requests
     @comment.abuse_requests
       .where(state: :pending)
       .where(kind: Types::AbuseRequest::Kind[:convert_review])
-      .each { |abuse_request| abuse_request.take @actor, nil, :skip }
+      .each do |abuse_request|
+        abuse_request.accept! approver: @actor, is_process_in_faye: false
+      end
   end
 
   def move_abuse_requests_and_bans review_topic

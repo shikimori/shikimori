@@ -24,5 +24,9 @@ module Types
     Kind = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(*KINDS)
+
+    State = Types::Strict::Symbol
+      .constructor(&:to_sym)
+      .enum(:uploaded, :confirmed, :deleted)
   end
 end

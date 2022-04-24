@@ -8,33 +8,29 @@ class Versions::CollectionVersion < Version
   end
 
   def apply_changes
-    item.class.transaction do
-      item_diff.each do |(association, (_old_collection, new_collection))|
-        # will fail with "delete_all" on apply of external_link version
-        item.send(association).destroy_all
-        import_collection association, new_collection
+    item_diff.each do |(association, (_old_collection, new_collection))|
+      # will fail with "delete_all" on apply of external_link version
+      item.send(association).destroy_all
+      import_collection association, new_collection
 
-        # no need to add external_links into desynced
-        # add_desynced association
-      end
+      # no need to add external_links into desynced
+      # add_desynced association
+    end
 
-      if item.changed?
-        item.save
-      else
-        item.touch
-      end
+    if item.changed?
+      item.save
+    else
+      item.touch
     end
   end
 
   def rollback_changes
-    item.class.transaction do
-      item_diff.each do |(association, (old_collection, _new_collection))|
-        # will fail with "delete_all" on rollback of external_link version
-        item.send(association).destroy_all
-        import_collection association, old_collection
-      end
-      item.touch
+    item_diff.each do |(association, (old_collection, _new_collection))|
+      # will fail with "delete_all" on rollback of external_link version
+      item.send(association).destroy_all
+      import_collection association, old_collection
     end
+    item.touch
   end
 
 private

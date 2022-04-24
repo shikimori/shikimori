@@ -4,53 +4,71 @@ describe ContestRound do
     it { is_expected.to have_many :matches }
   end
 
-  describe 'state_machine' do
-    it { is_expected.to have_states :created, :started, :finished }
+  describe 'aasm' do
+    subject { build :contest_round, state, matches: matches }
+    let(:matches) { [] }
+    let(:contest_match_created) { build :contest_match, :created }
+    let(:contest_match_finished) { build :contest_match, :finished }
+    let(:contest_match_may_finish) do
+      build :contest_match, :started, finished_on: Time.zone.yesterday
+    end
+    let(:contest_match_may_not_finish) do
+      build :contest_match, :started, finished_on: Time.zone.today
+    end
 
-    it { is_expected.to reject_events :finish, when: :created }
-    it { is_expected.to reject_events :start, when: :started }
-    it { is_expected.to reject_events :start, :finish, when: :finished }
+    context 'created' do
+      let(:state) { Types::ContestRound::State[:created] }
 
-    # let(:contest) { create :contest, :with_5_members, state: 'started' }
-    # let(:round) { create :contest_round, contest: contest }
+      it { is_expected.to have_state state }
 
-    # describe '#can_start?' do
-      # subject { round.can_start? }
+      describe 'transition to created' do
+        context 'has matches' do
+          let(:matches) { [contest_match_created] }
+          it { is_expected.to allow_transition_to :started }
+          it { is_expected.to transition_from(state).to(:started).on_event(:start) }
+        end
 
-      # context 'no matches' do
-        # it { is_expected.to eq false }
-      # end
+        context 'no matches' do
+          it { is_expected.to_not allow_transition_to :started }
+        end
+      end
 
-      # context 'has matches' do
-        # before { allow(round.matches).to receive(:any?).and_return true }
-        # it { is_expected.to eq true }
-      # end
-    # end
+      it { is_expected.to_not allow_transition_to :finished }
+    end
 
-    # describe '#can_finish?' do
-      # subject { round.can_finish? }
+    context 'started' do
+      let(:state) { Types::ContestRound::State[:started] }
 
-      # context 'not finished matches' do
-        # before do
-          # contest.strategy.fill_round_with_matches round
-          # ContestRound::Start.call round
-        # end
+      it { is_expected.to have_state state }
+      it { is_expected.to_not allow_transition_to :created }
 
-        # it { is_expected.to eq false }
+      describe 'transition to finished' do
+        context 'all matches may be finished' do
+          let(:matches) { [contest_match_finished, contest_match_may_finish] }
+          it { is_expected.to allow_transition_to :finished }
+          it { is_expected.to transition_from(state).to(:finished).on_event(:finish) }
+        end
 
-        # context 'finished matches' do
-          # context 'all finished' do
-            # before { round.matches.each {|v| v.state = 'finished' } }
-            # it { is_expected.to eq true }
-          # end
+        context 'not all matches may be finished' do
+          let(:matches) do
+            [
+              contest_match_finished,
+              [contest_match_created, contest_match_may_not_finish].sample
+            ]
+          end
+          let(:finished_on) { Time.zone.today }
+          it { is_expected.to_not allow_transition_to :finished }
+        end
+      end
+    end
 
-          # context 'all can_finish' do
-            # before { round.matches.each {|v| allow(v).to receive(:can_finish?).and_return true } }
-            # it { is_expected.to eq true }
-          # end
-        # end
-      # end
-    # end
+    context 'finished' do
+      let(:state) { Types::ContestRound::State[:finished] }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to_not allow_transition_to :created }
+      it { is_expected.to_not allow_transition_to :started }
+    end
   end
 
   describe 'instance methods' do

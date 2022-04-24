@@ -4,7 +4,7 @@ class ScreenshotsController < ShikimoriController
 
   def create # rubocop:disable all
     @screenshot, @version = versioneer.upload params[:image], current_user
-    @version.auto_accept if @version&.persisted? && can?(:auto_accept, @version)
+    @version.auto_accept! if may_accept? @version
 
     @screenshot.destroy! if @screenshot.persisted? && !@version.persisted?
 
@@ -26,7 +26,7 @@ class ScreenshotsController < ShikimoriController
       render json: { notice: i18n_t('screenshot_deleted') }
     else
       @version = versioneer.delete @screenshot.id, current_user
-      @version.auto_accept if @version&.persisted? && can?(:auto_accept, @version)
+      @version.auto_accept! if may_accept? @version
 
       if @version.persisted?
         render json: { notice: i18n_t('pending_version') }
@@ -38,7 +38,7 @@ class ScreenshotsController < ShikimoriController
 
   def reposition
     @version = versioneer.reposition params[:ids].split(','), current_user
-    @version.auto_accept if @version&.persisted? && can?(:auto_accept, @version)
+    @version.auto_accept! if may_accept? @version
 
     redirect_back(
       fallback_location: @anime.decorate.edit_field_url(:screenshots),
@@ -56,5 +56,10 @@ private
     @anime = Anime.find(
       CopyrightedIds.instance.restore(params[:anime_id], 'anime')
     )
+  end
+
+  def may_accept? version
+    version&.persisted? && version&.may_auto_accept? &&
+      can?(:auto_accept, version)
   end
 end

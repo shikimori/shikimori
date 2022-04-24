@@ -26,7 +26,7 @@ class AnimeVideo < ApplicationRecord # rubocop:disable all
   # COPYRIGHTED_AUTHORS = /wakanim/i # |crunchyroll|crunchy|FreakCrSuBuS
 
   belongs_to :anime
-  has_many :reports, class_name: AnimeVideoReport.name, dependent: :destroy
+  has_many :reports, class_name: 'AnimeVideoReport', dependent: :destroy
 
   enumerize :kind,
     in: %i[fandub unknown subtitles raw],
@@ -41,57 +41,13 @@ class AnimeVideo < ApplicationRecord # rubocop:disable all
     default: :unknown,
     predicates: { prefix: true }
 
-  validates :anime, :source, :kind, presence: true
+  validates :source, :kind, presence: true
   validates :url,
     presence: true,
     if: -> { new_record? || changes['url'] }
   validates :episode, numericality: { greater_than_or_equal_to: 0 }
 
-  # before_save :check_copyrighted_authors,
-  #   if: :anime_video_author_id_changed?
-
-  state_machine :state, initial: :working do
-    state :working
-    state :uploaded
-    state :rejected
-    state :broken
-    state :wrong
-    state :copyrighted
-    state :banned_hosting
-
-    event :broken do
-      transition %i[working uploaded broken rejected] => :broken
-    end
-    event :wrong do
-      transition %i[working uploaded wrong rejected] => :wrong
-    end
-    event :ban do
-      transition %i[working uploaded] => :banned_hosting
-    end
-    event :reject do
-      transition %i[uploaded wrong broken banned_hosting] => :rejected
-    end
-    event :work do
-      transition %i[uploaded broken wrong banned_hosting] => :working
-    end
-    event :uploaded do
-      transition %i[working uploaded] => :working
-    end
-  end
-
   def hosting
     VideoExtractor::ExtractHosting.call url
-  end
-
-  def vk?
-    hosting == 'vk.com'
-  end
-
-  def smotret_anime?
-    hosting == 'smotretanime.ru'
-  end
-
-  def allowed?
-    working? || uploaded?
   end
 end

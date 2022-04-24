@@ -11,12 +11,12 @@ class ClubInvitesController < ShikimoriController
   end
 
   def accept
-    @resource.accept
+    @resource.accept!
     render json: { notice: i18n_t('invitation_accepted') }
   end
 
   def reject
-    @resource.close
+    @resource.close!
     render json: { notice: i18n_t('invitation_rejected') }
   end
 

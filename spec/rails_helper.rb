@@ -12,6 +12,7 @@ require 'shoulda/matchers'
 require 'sidekiq/testing'
 require 'cancan/matchers'
 require 'chewy/rspec'
+require 'aasm/rspec'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -72,7 +73,6 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include JsonResponse, type: :controller
   config.include ControllerResource, type: :controller
-  config.include StateMachineRspec::Matchers, type: :model
   config.include ActionView::TestCase::Behavior, type: :decorator
   config.include Paperclip::Shoulda::Matchers
   config.include Shoulda::Matchers::ActiveModel, type: :validator

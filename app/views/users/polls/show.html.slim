@@ -11,7 +11,7 @@ header.head.misc
 
       = BbCodes::Text.call @resource.bb_code
 
-    - if @resource.can_stop?
+    - if @resource.may_stop?
       a.stop.b-button[
         href="#{stop_profile_poll_url @user, @resource}"
         title="#{t 'actions.stop'}"
@@ -19,7 +19,7 @@ header.head.misc
         data-confirm="#{t 'actions.confirm'}"
       ] = t 'actions.stop'
 
-  - if @resource.can_stop?
+  - if @resource.may_stop?
     .c-column
       = simple_form_for @resource,
           url: profile_poll_url(@user, @resource),

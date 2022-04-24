@@ -1,4 +1,6 @@
 class WebmVideo < ApplicationRecord
+  include AASM
+
   has_attached_file :thumbnail,
     styles: {
       normal: ['235x132#', :jpg],
@@ -13,14 +15,32 @@ class WebmVideo < ApplicationRecord
 
   after_create :schedule_thumbnail
 
-  state_machine :state, initial: :pending do
-    state :pending
-    state :processed
-    state :failed
+  aasm column: 'state' do
+    state Types::WebmVideo::State[:pending], initial: true
+    state Types::WebmVideo::State[:processed]
+    state Types::WebmVideo::State[:failed]
 
-    event(:process) { transition %i[pending processed failed] => :processed }
-    event(:to_failed) { transition %i[pending processed failed] => :failed }
+    event :process do
+      transitions(
+        from: [
+          Types::WebmVideo::State[:pending],
+          Types::WebmVideo::State[:failed]
+        ],
+        to: Types::WebmVideo::State[:processed]
+      )
+    end
+    event :to_failed do
+      transitions(
+        from: [
+          Types::WebmVideo::State[:pending],
+          Types::WebmVideo::State[:processed]
+        ],
+        to: Types::WebmVideo::State[:failed]
+      )
+    end
   end
+
+private
 
   def schedule_thumbnail
     WebmThumbnail.perform_async id

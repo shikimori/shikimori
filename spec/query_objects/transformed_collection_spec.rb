@@ -1,13 +1,13 @@
-describe MappedCollection do
+describe TransformedCollection do
   subject(:mapping) do
-    MappedCollection.new collection do |value|
+    TransformedCollection.new collection do |value|
       value * 2
     end
   end
-  let(:collection) { PaginatedCollection.new([1,2], 1, 2) }
+  let(:collection) { PaginatedCollection.new([1, 2], 1, 2) }
 
   describe 'collection' do
-    it { is_expected.to eq [2,4] }
+    it { is_expected.to eq [2, 4] }
   end
 
   describe 'respond_to original collection methods' do

@@ -20,100 +20,365 @@ describe Version do
     end
   end
 
-  describe 'state_machine' do
-    let(:anime) { build_stubbed :anime }
-    let(:video) { create :anime_video, anime: anime, episode: 2 }
-    let(:moderator) { build_stubbed :user }
-    subject(:version) do
-      create :version_anime_video,
-        item_id: video.id,
-        item_diff: { episode: [1, 2] },
-        state: state
-    end
+  describe 'aasm' do
+    describe 'states' do
+      subject { build :version, state }
 
-    before do
-      allow(version).to receive(:apply_changes).and_return true
-      allow(version).to receive(:reject_changes).and_return true
-      allow(version).to receive(:rollback_changes).and_return true
-      allow(version).to receive :notify_acceptance
-      allow(version).to receive :notify_rejection
-    end
+      context 'pending' do
+        let(:state) { Types::Version::State[:pending] }
 
-    describe '#accept' do
-      before { version.accept! moderator }
-
-      describe 'from pending' do
-        let(:state) { :pending }
-
+        it { is_expected.to have_state state }
+        it { is_expected.to allow_transition_to :accepted }
         it do
-          expect(version).to be_accepted
-          expect(version.moderator).to eq moderator
-          expect(version).to have_received :apply_changes
-          expect(version).to_not have_received :reject_changes
-          expect(version).to_not have_received :rollback_changes
-          expect(version).to have_received :notify_acceptance
-          expect(version).to_not have_received :notify_rejection
+          is_expected.to transition_from(state)
+            .to(:accepted)
+            .on_event(:accept, moderator: user)
         end
-      end
-    end
 
-    describe '#take' do
-      before { version.take! moderator }
+        describe 'takeable?' do
+          before { allow(subject).to receive(:takeable?).and_return is_takeable }
 
-      describe 'from pending' do
-        let(:state) { :pending }
+          context 'takeable' do
+            let(:is_takeable) { true }
+            it { is_expected.to_not allow_transition_to :auto_accepted }
+          end
 
-        it do
-          expect(version).to be_taken
-          expect(version.moderator).to eq moderator
-          expect(version).to have_received :apply_changes
-          expect(version).to_not have_received :reject_changes
-          expect(version).to_not have_received :rollback_changes
-          expect(version).to have_received :notify_acceptance
-          expect(version).to_not have_received :notify_rejection
+          context 'not takeable' do
+            let(:is_takeable) { false }
+            it { is_expected.to allow_transition_to :auto_accepted }
+            it do
+              is_expected.to transition_from(state)
+                .to(:auto_accepted)
+                .on_event(:auto_accept, moderator: user)
+            end
+          end
         end
-      end
-    end
 
-    describe '#reject' do
-      before { version.reject! moderator, 'reason' }
-
-      describe 'from auto_accepted' do
-        let(:state) { :auto_accepted }
-
+        it { is_expected.to allow_transition_to :rejected }
         it do
-          expect(version).to be_rejected
-          expect(version).to_not have_received :apply_changes
-          expect(version).to_not have_received :reject_changes
-          expect(version).to have_received :rollback_changes
-          expect(version).to_not have_received :notify_acceptance
-          expect(version).to have_received :notify_rejection
+          is_expected.to transition_from(state)
+            .to(:rejected)
+            .on_event(:reject, moderator: user, reason: 'reason')
+        end
+        it { is_expected.to allow_transition_to :taken }
+        it do
+          is_expected.to transition_from(state)
+            .to(:taken)
+            .on_event(:take, moderator: user)
+        end
+
+        describe 'deleteable?' do
+          before { allow(subject).to receive(:deleteable?).and_return is_deleteable }
+
+          context 'deleteable' do
+            let(:is_deleteable) { true }
+            it { is_expected.to allow_transition_to :deleted }
+            it { is_expected.to transition_from(state).to(:deleted).on_event :to_deleted }
+          end
+
+          context 'not deleteable' do
+            let(:is_deleteable) { false }
+            it { is_expected.to_not allow_transition_to :deleted }
+          end
         end
       end
 
-      describe 'from pending' do
-        let(:state) { :pending }
+      context 'accepted' do
+        let(:state) { Types::Version::State[:accepted] }
 
-        it do
-          expect(version).to be_rejected
-          expect(version.moderator).to eq moderator
-          expect(version).to_not have_received :apply_changes
-          expect(version).to have_received :reject_changes
-          expect(version).to_not have_received :rollback_changes
-          expect(version).to_not have_received :notify_acceptance
-          expect(version).to have_received(:notify_rejection).with 'reason'
+        it { is_expected.to have_state state }
+        it { is_expected.to_not allow_transition_to :pending }
+        it { is_expected.to_not allow_transition_to :accepted }
+        it { is_expected.to_not allow_transition_to :auto_accepted }
+
+        describe 'takeable?' do
+          before { allow(subject).to receive(:takeable?).and_return is_takeable }
+
+          context 'takeable' do
+            let(:is_takeable) { true }
+            it { is_expected.to allow_transition_to :taken }
+            it { is_expected.to transition_from(state).to(:taken).on_event :take_accepted }
+          end
+
+          context 'not takeable' do
+            let(:is_takeable) { false }
+            it { is_expected.to_not allow_transition_to :taken }
+          end
         end
+
+        describe 'optionally_takeable?' do
+          before { allow(subject).to receive(:optionally_takeable?).and_return is_optionally_takeable }
+
+          context 'optionally_takeable' do
+            let(:is_optionally_takeable) { true }
+            it { is_expected.to allow_transition_to :taken }
+            it { is_expected.to transition_from(state).to(:taken).on_event :take_accepted }
+          end
+
+          context 'not optionally_takeable' do
+            let(:is_optionally_takeable) { false }
+            it { is_expected.to_not allow_transition_to :taken }
+          end
+        end
+
+        it { is_expected.to_not allow_transition_to :rejected }
+        it { is_expected.to_not allow_transition_to :deleted }
+      end
+
+      context 'auto_accepted' do
+        let(:state) { Types::Version::State[:auto_accepted] }
+
+        it { is_expected.to have_state state }
+        it { is_expected.to_not allow_transition_to :pending }
+        it { is_expected.to_not allow_transition_to :accepted }
+        it { is_expected.to_not allow_transition_to :auto_accepted }
+        it { is_expected.to_not allow_transition_to :taken }
+        it { is_expected.to allow_transition_to :rejected }
+        it do
+          is_expected.to transition_from(state)
+            .to(:rejected)
+            .on_event(:reject, moderator: user, reason: 'reason')
+        end
+        it { is_expected.to_not allow_transition_to :deleted }
+      end
+
+      context 'taken' do
+        let(:state) { Types::Version::State[:taken] }
+
+        it { is_expected.to have_state state }
+        it { is_expected.to_not allow_transition_to :pending }
+
+        describe 'takeable?' do
+          before { allow(subject).to receive(:takeable?).and_return is_takeable }
+
+          context 'takeable' do
+            let(:is_takeable) { true }
+            it { is_expected.to allow_transition_to :accepted }
+            it { is_expected.to transition_from(state).to(:accepted).on_event :accept_taken }
+          end
+
+          context 'not takeable' do
+            let(:is_takeable) { false }
+            it { is_expected.to_not allow_transition_to :accepted }
+          end
+        end
+
+        describe 'optionally_takeable?' do
+          before { allow(subject).to receive(:optionally_takeable?).and_return is_optionally_takeable }
+
+          context 'optionally_takeable' do
+            let(:is_optionally_takeable) { true }
+            it { is_expected.to allow_transition_to :accepted }
+            it { is_expected.to transition_from(state).to(:accepted).on_event :accept_taken }
+          end
+
+          context 'not optionally_takeable' do
+            let(:is_optionally_takeable) { false }
+            it { is_expected.to_not allow_transition_to :accepted }
+          end
+        end
+
+        it { is_expected.to_not allow_transition_to :auto_accepted }
+        it { is_expected.to_not allow_transition_to :rejected }
+        it { is_expected.to_not allow_transition_to :taken }
+        it { is_expected.to_not allow_transition_to :deleted }
+      end
+
+      context 'rejected' do
+        let(:state) { Types::Version::State[:rejected] }
+
+        it { is_expected.to have_state state }
+        it { is_expected.to_not allow_transition_to :pending }
+        it { is_expected.to_not allow_transition_to :accepted }
+        it { is_expected.to_not allow_transition_to :auto_accepted }
+        it { is_expected.to_not allow_transition_to :rejected }
+        it { is_expected.to_not allow_transition_to :taken }
+        it { is_expected.to_not allow_transition_to :deleted }
+      end
+
+      context 'deleted' do
+        let(:state) { Types::Version::State[:deleted] }
+
+        it { is_expected.to have_state state }
+        it { is_expected.to_not allow_transition_to :pending }
+        it { is_expected.to_not allow_transition_to :accepted }
+        it { is_expected.to_not allow_transition_to :auto_accepted }
+        it { is_expected.to_not allow_transition_to :taken }
+        it { is_expected.to_not allow_transition_to :rejected }
+        it { is_expected.to_not allow_transition_to :deleted }
       end
     end
 
-    describe '#accept_taken' do
-      let(:state) { :taken }
-      it { expect(version).to_not be_can_accept_taken }
-    end
+    describe 'transitions' do
+      let(:anime) { build_stubbed :anime }
+      let(:video) { create :anime_video, anime: anime, episode: 2 }
+      let(:moderator) { build_stubbed :user }
+      subject(:version) do
+        create :version_anime_video,
+          state: state,
+          item_id: video.id,
+          item_diff: { episode: [1, 2] }
+      end
+      before do
+        allow(version).to receive(:apply_changes).and_return true
+        allow(version).to receive(:reject_changes).and_return true
+        allow(version).to receive(:rollback_changes).and_return true
+        allow(version).to receive :notify_acceptance
+        allow(version).to receive :notify_rejection
+        allow(version).to receive :reevaluate_state
+        allow(version).to receive :sweep_deleted
+      end
 
-    describe '#take_accepted' do
-      let(:state) { :accepted }
-      it { expect(version).to_not be_can_take_accepted }
+      describe '#accept' do
+        before { version.accept! moderator: moderator }
+
+        describe 'from pending' do
+          let(:state) { Types::Version::State[:pending] }
+
+          it do
+            expect(version).to be_accepted
+            expect(version.moderator).to eq moderator
+            expect(version).to have_received :apply_changes
+            expect(version).to_not have_received :reject_changes
+            expect(version).to_not have_received :rollback_changes
+            expect(version).to have_received :notify_acceptance
+            expect(version).to_not have_received :notify_rejection
+            expect(version).to_not have_received :sweep_deleted
+          end
+        end
+      end
+
+      describe '#auto_accept' do
+        before { version.auto_accept! }
+
+        describe 'from pending' do
+          let(:state) { :pending }
+
+          it do
+            expect(version).to be_auto_accepted
+            expect(version.moderator).to eq version.user
+            expect(version).to have_received :apply_changes
+            expect(version).to_not have_received :reject_changes
+            expect(version).to_not have_received :rollback_changes
+            expect(version).to_not have_received :notify_acceptance
+            expect(version).to_not have_received :notify_rejection
+            expect(version).to_not have_received :sweep_deleted
+          end
+        end
+      end
+
+      describe '#take' do
+        before { version.take! moderator: moderator }
+
+        describe 'from pending' do
+          let(:state) { :pending }
+
+          it do
+            expect(version).to be_taken
+            expect(version.moderator).to eq moderator
+            expect(version).to have_received :apply_changes
+            expect(version).to_not have_received :reject_changes
+            expect(version).to_not have_received :rollback_changes
+            expect(version).to have_received :notify_acceptance
+            expect(version).to_not have_received :notify_rejection
+            expect(version).to_not have_received :sweep_deleted
+          end
+        end
+      end
+
+      describe '#reject' do
+        before { version.reject! moderator: moderator, reason: reason }
+        let(:reason) { 'rejection reason' }
+
+        describe 'from auto_accepted' do
+          let(:state) { :auto_accepted }
+
+          it do
+            expect(version).to be_rejected
+            expect(version.moderator).to eq moderator
+            expect(version).to_not have_received :apply_changes
+            expect(version).to_not have_received :reject_changes
+            expect(version).to have_received :rollback_changes
+            expect(version).to_not have_received :notify_acceptance
+            expect(version).to have_received(:notify_rejection)
+              .with(moderator: moderator, reason: reason)
+            expect(version).to_not have_received :sweep_deleted
+          end
+        end
+
+        describe 'from pending' do
+          let(:state) { :pending }
+
+          it do
+            expect(version).to be_rejected
+            expect(version.moderator).to eq moderator
+            expect(version).to_not have_received :apply_changes
+            expect(version).to have_received :reject_changes
+            expect(version).to_not have_received :rollback_changes
+            expect(version).to_not have_received :notify_acceptance
+            expect(version).to have_received(:notify_rejection)
+              .with(moderator: moderator, reason: reason)
+            expect(version).to_not have_received :sweep_deleted
+          end
+        end
+      end
+
+      describe '#to_deleted' do
+        before { version.to_deleted! moderator: moderator }
+
+        describe 'from pending' do
+          let(:state) { Types::Version::State[:pending] }
+
+          it do
+            expect(version).to be_deleted
+            expect(version.moderator).to eq moderator
+            expect(version).to_not have_received :apply_changes
+            expect(version).to_not have_received :reject_changes
+            expect(version).to_not have_received :rollback_changes
+            expect(version).to_not have_received :notify_acceptance
+            expect(version).to_not have_received :notify_rejection
+            expect(version).to have_received :sweep_deleted
+          end
+        end
+      end
+
+      describe '#accept_taken' do
+        before { allow(version).to receive(:takeable?).and_return true }
+        before { version.accept_taken! }
+
+        describe 'from pending' do
+          let(:state) { Types::Version::State[:taken] }
+
+          it do
+            expect(version).to be_accepted
+            expect(version).to_not have_received :apply_changes
+            expect(version).to_not have_received :reject_changes
+            expect(version).to_not have_received :rollback_changes
+            expect(version).to_not have_received :notify_acceptance
+            expect(version).to_not have_received :notify_rejection
+            expect(version).to_not have_received :sweep_deleted
+          end
+        end
+      end
+
+      describe '#take_accepted' do
+        before { allow(version).to receive(:takeable?).and_return true }
+        before { version.take_accepted! }
+
+        describe 'from pending' do
+          let(:state) { Types::Version::State[:accepted] }
+
+          it do
+            expect(version).to be_taken
+            expect(version).to_not have_received :apply_changes
+            expect(version).to_not have_received :reject_changes
+            expect(version).to_not have_received :rollback_changes
+            expect(version).to_not have_received :notify_acceptance
+            expect(version).to_not have_received :notify_rejection
+            expect(version).to_not have_received :sweep_deleted
+          end
+        end
+      end
     end
   end
 
@@ -174,17 +439,16 @@ describe Version do
           user: user,
           moderator: moderator
       end
+      subject { version.notify_rejection reason: 'z' }
 
       context 'user == moderator' do
         let(:moderator) { user }
-        it { expect { version.notify_rejection 'z' }.to_not change(user.messages, :count) }
+        it { expect { subject }.to_not change(user.messages, :count) }
       end
 
       context 'user != moderator' do
         let(:moderator) { create :user }
-        it do
-          expect { version.notify_rejection 'z' }.to change(user.messages, :count).by 1
-        end
+        it { expect { subject }.to change(user.messages, :count).by 1 }
       end
     end
 

@@ -1,4 +1,5 @@
 class AbuseRequest < ApplicationRecord
+  include AASM
   include AntispamConcern
 
   antispam(
@@ -25,6 +26,7 @@ class AbuseRequest < ApplicationRecord
 
   validates :reason, length: { maximum: 4096 }
   validates :comment_id, exclusive_arc: %i[topic_id]
+  validates :approver, presence: true, unless: :pending?
 
   attr_accessor :affected_ids # filled during state_machine transition
 
@@ -35,44 +37,25 @@ class AbuseRequest < ApplicationRecord
     where state: :pending, kind: %i[spoiler abuse]
   }
 
-  state_machine :state, initial: :pending do
-    state :pending
-    state :accepted do
-      validates :approver, presence: true
-    end
-    state :rejected do
-      validates :approver, presence: true
-    end
+  aasm column: 'state', create_scopes: false do
+    state Types::AbuseRequest::State[:pending], initial: true
+    state Types::AbuseRequest::State[:accepted]
+    state Types::AbuseRequest::State[:rejected]
 
-    event :take do
-      transition pending: :accepted
+    event :accept do
+      transitions(
+        from: Types::AbuseRequest::State[:pending],
+        to: Types::AbuseRequest::State[:accepted],
+        after: :assign_approver,
+        success: :postprocess_acception
+      )
     end
-
     event :reject do
-      transition pending: :rejected
-    end
-
-    before_transition pending: :accepted do |abuse_request, transition|
-      abuse_request.approver = transition.args.first
-      faye_token = transition.args.second
-      assign_approver_option = transition.args.third
-
-      unless assign_approver_option == :skip
-        faye = FayeService.new abuse_request.approver, faye_token
-
-        # process offtopic and summary requests only
-        if faye.respond_to? abuse_request.kind
-          abuse_request.affected_ids = faye.public_send(
-            abuse_request.kind,
-            abuse_request.comment || abuse_request.topic,
-            abuse_request.value
-          )
-        end
-      end
-    end
-
-    before_transition pending: :rejected do |abuse_request, transition|
-      abuse_request.approver = transition.args.first
+      transitions(
+        from: Types::AbuseRequest::State[:pending],
+        to: Types::AbuseRequest::State[:rejected],
+        after: :assign_approver
+      )
     end
   end
 
@@ -89,6 +72,23 @@ class AbuseRequest < ApplicationRecord
       Comment.name
     elsif topic_id
       Topic.name
+    end
+  end
+
+private
+
+  def assign_approver approver:, **_args
+    self.approver = approver
+  end
+
+  def postprocess_acception approver:, is_process_in_faye: true, faye_token: nil
+    return unless is_process_in_faye
+
+    faye = FayeService.new approver, faye_token
+
+    # process offtopic and summary requests only
+    if faye.respond_to? kind
+      self.affected_ids = faye.public_send kind, comment || topic, value
     end
   end
 end

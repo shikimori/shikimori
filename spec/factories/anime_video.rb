@@ -14,9 +14,5 @@ FactoryBot.define do
     AnimeVideo.language.values.each do |video_language|
       trait(video_language.to_sym) { language { video_language } }
     end
-
-    AnimeVideo.state_machine.states.map(&:value).each do |video_state|
-      trait(video_state.to_sym) { state { video_state } }
-    end
   end
 end

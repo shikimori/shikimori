@@ -164,8 +164,8 @@ Rails.application.routes.draw do
       get '(/page/:page)' => :index, as: '', on: :collection
 
       member do
-        post :take
-        post :deny
+        post :accept
+        post :reject
         post :cleanup
       end
     end

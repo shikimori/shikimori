@@ -38,28 +38,43 @@ class Collection < ApplicationRecord
     available.or(where(state: Types::Collection::State[:opened]))
   }
 
-  state_machine :state, initial: :unpublished do
+  aasm column: 'state', create_scopes: false do # rubocop:disable BlockLength
+    state Types::Collection::State[:unpublished], initial: true
     state Types::Collection::State[:published]
     state Types::Collection::State[:private]
     state Types::Collection::State[:opened]
-    state Types::Collection::State[:unpublished]
 
     event :to_published do
-      transition %i[unpublished private opened] =>
-        Types::Collection::State[:published]
+      transitions(
+        from: [
+          Types::Collection::State[:unpublished],
+          Types::Collection::State[:private],
+          Types::Collection::State[:opened]
+        ],
+        to: Types::Collection::State[:published]
+        # after: :fill_published_at
+      )
     end
     event :to_private do
-      transition %i[unpublished published opened] =>
-        Types::Collection::State[:private]
+      transitions(
+        from: [
+          Types::Collection::State[:unpublished],
+          Types::Collection::State[:published],
+          Types::Collection::State[:opened]
+        ],
+        to: Types::Collection::State[:private]
+      )
     end
     event :to_opened do
-      transition %i[unpublished published private] =>
-        Types::Collection::State[:opened]
+      transitions(
+        from: [
+          Types::Collection::State[:unpublished],
+          Types::Collection::State[:published],
+          Types::Collection::State[:private]
+        ],
+        to: Types::Collection::State[:opened]
+      )
     end
-
-    # before_transition %i[unpublished private opened] => :published do |collection, _transition|
-    #   collection.published_at ||= Time.zone.now
-    # end
   end
 
   def to_param
@@ -94,4 +109,10 @@ class Collection < ApplicationRecord
   def collection_role user
     collection_roles.find { |v| v.user_id == user.id }
   end
+
+# private
+
+  # def fill_published_at
+  #   self.published_at ||= Time.zone.now
+  # end
 end

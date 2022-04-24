@@ -14,10 +14,7 @@ class ContestMatch::Finish
 private
 
   def obtain_winner_id
-    if @contest_match.right_id.nil?
-      @contest_match.left_id
-
-    elsif left_votes?
+    if @contest_match.right_id.nil? || left_votes?
       @contest_match.left_id
 
     elsif right_votes?

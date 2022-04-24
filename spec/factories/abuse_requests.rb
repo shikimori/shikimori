@@ -6,8 +6,8 @@ FactoryBot.define do
     topic { nil }
 
     approver { nil }
-    kind { 'offtopic' }
-    state { 'pending' }
+    kind { Types::AbuseRequest::Kind[:offtopic] }
+    state { Types::AbuseRequest::State[:pending] }
     value { true }
 
     AbuseRequest.kind.values.each do |kind_type|
@@ -16,13 +16,17 @@ FactoryBot.define do
       end
     end
 
+    AbuseRequest.aasm.states.map(&:name).each do |value|
+      trait(value.to_sym) { state { value } }
+    end
+
     factory :accepted_abuse_request do
-      state { 'accepted' }
+      state { Types::AbuseRequest::State[:accepted] }
       approver { seed :user }
     end
 
     factory :rejected_abuse_request do
-      state { 'rejected' }
+      state { Types::AbuseRequest::State[:rejected] }
       approver { seed :user }
     end
   end

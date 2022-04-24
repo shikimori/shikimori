@@ -14,13 +14,13 @@ header.head.misc
       url: @resource.persisted? ? profile_poll_url(@user, @resource) : profile_polls_url(@user),
       html: { class: 'b-form bold-labels' } do |f|
 
-    div class=(@resource.can_start? ? 'cc-3_2' : 'cc-2_3')
-      - if @resource.can_start?
+    div class=(@resource.may_start? ? 'cc-3_2' : 'cc-2_3')
+      - if @resource.may_start?
         .c-column.block
           .block
             = BbCodes::Text.call @resource.bb_code
 
-          - if @resource.can_start?
+          - if @resource.may_start?
             a.b-button[
               href=start_profile_poll_url(@user, @resource)
               title=t('actions.start')
@@ -41,13 +41,13 @@ header.head.misc
             is_text_with_paragraphs: true
 
         / .b-input
-          label #{Poll.human_attribute_name :state}: #{@resource.human_state_name.downcase}
+          label #{Poll.human_attribute_name :state}: #{@resource.aasm.human_state.downcase}
 
         .b-input
           label = Poll.human_attribute_name :state
           div
-            = @resource.human_state_name
-          - unless @resource.can_start?
+            = @resource.aasm.human_state
+          - unless @resource.may_start?
             .hint = t 'polls.form.start_hint'
 
         .b-input.m5

@@ -89,18 +89,18 @@
       - if contest.persisted?
         .subheadline.m5 = t '.status'
         .block
-          p.m5 = contest.human_state_name.capitalize
+          p.m5 = contest.aasm.human_state.capitalize
 
-        - if contest.object.can_propose? || contest.can_start? || contest.can_stop_propose?
+        - if contest.may_propose? || contest.may_start? || contest.may_stop_propose?
           .subheadline.m5 = t '.actions'
           .contest_actions
-            - if contest.object.can_propose?
+            - if contest.may_propose?
               div: a.b-js-link[
                 href=propose_contest_url(contest)
                 data-method='post'
               ] = t '.accept_candidates'
 
-            - if contest.can_stop_propose?
+            - if contest.may_stop_propose?
               div: a.b-js-link[
                 href=cleanup_suggestions_contest_url(contest)
                 data-method='post'
@@ -110,7 +110,7 @@
                 data-method='post'
               ] = t '.stop_accepting_candidates'
 
-            - if contest.can_start?
+            - if contest.may_start?
               div: a.b-js-link[
                 href=build_contest_url(contest)
                 data-method='post'
@@ -119,7 +119,7 @@
                   = t '.generate_polls'
                 - else
                   = t '.shuffle_polls'
-              - if contest.can_start? & contest.rounds.any?
+              - if contest.may_start? & contest.rounds.any?
                 div: a.b-js-link[
                   href=start_contest_url(contest)
                   data-method='post'
@@ -138,7 +138,7 @@
 
               span.action-misc.warn = t '.you_cannot_change_anything_after_start'
 
-            /- if contest.can_finish?
+            /- if contest.may_finish?
               /a.action href="#{finish_contest_url(contest)}" data-confirm="Вы уверены?" Остановить
               /span.action-misc действие перезагрузит страницу без сохранения прочих изменений
 

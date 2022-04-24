@@ -30,12 +30,12 @@
         - else
           = render 'versions/db_entry', version: version
       - else
-        = t("deleted.#{version.item_type.underscore}").downcase
+        i = t("deleted.#{version.item_type.underscore}").downcase
 
     span.state[
       class=version.state.downcase
     ]
-      = version.human_state_name
+      = version.aasm.human_state
 
     - if !version.auto_accepted? && version.moderator.present?
       span
@@ -48,7 +48,7 @@
       - if can?(:manage, version) || can?(:destroy, version)
         .moderation
           - if can? :manage, version
-            - if version.can_accept?
+            - if version.may_accept?
               a.ajax-action[
                 href=accept_moderations_version_url(version)
                 title=t('.accept_changes')
@@ -57,7 +57,7 @@
                 data-type='json'
               ] = t '.accept'
 
-            - if version.can_reject?
+            - if version.may_reject?
               a.ajax-action.reject[
                 title=t('.reject_changes')
                 data-href=reject_moderations_version_url(version)
@@ -67,7 +67,7 @@
                 data-type='json'
               ] = t '.reject'
 
-            - if version.can_accept_taken?
+            - if version.may_accept_taken?
                 a.ajax-action[
                   href=accept_taken_moderations_version_url(version)
                   data-direction='top'
@@ -76,7 +76,7 @@
                   data-type='json'
                 ] = t '.taken_to_accepted'
 
-            - if version.can_take_accepted?
+            - if version.may_take_accepted?
                 a.ajax-action.b-tooltipped.unprocessed[
                   href=take_accepted_moderations_version_url(version)
                   data-method='POST'
@@ -84,7 +84,7 @@
                   data-type='json'
                 ] = t '.accepted_to_taken'
 
-          - if can?(:destroy, version) && version.can_to_deleted?
+          - if can?(:destroy, version) && version.may_to_deleted?
             a.delete[
               href=moderations_version_url(version)
               title=t('.delete_changes')

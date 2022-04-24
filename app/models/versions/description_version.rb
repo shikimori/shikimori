@@ -1,5 +1,5 @@
 class Versions::DescriptionVersion < Version
-  def fix_state
+  def reevaluate_state **_args
     self.state = measure_changes.enough? ? 'accepted' : 'taken'
     save if changed?
   end
