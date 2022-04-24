@@ -45,7 +45,7 @@ class Topics::UserContentView < Topics::View
   end
 
   def offtopic_tag
-    if @topic.linked.respond_to?(:rejected?) && @topic.linked.rejected?
+    if @topic.linked.respond_to?(:moderation_rejected?) && @topic.linked.moderation_rejected?
       I18n.t 'markers.offtopic'
     end
   end
