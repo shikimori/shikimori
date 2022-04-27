@@ -9,6 +9,7 @@ FactoryBot.define do
 
     locale { 'ru' }
     is_pinned { false }
+    is_censored { false }
 
     after :build do |model|
       stub_method model, :antispam_checks
