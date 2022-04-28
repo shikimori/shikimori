@@ -13,15 +13,16 @@ class Video < ApplicationRecord
     in: Types::Video::Kind.values,
     predicates: true
 
-  validates :url, :kind, presence: true
+  validates :url, :kind, # :image_url, :player_url, :hosting,
+    presence: true
   validates :url, uniqueness: { # rubocop:disable UniqueValidationWithoutIndex
     case_sensitive: true,
     scope: [:anime_id],
     conditions: -> { where.not state: :deleted }
   }
 
-  before_create :check_url
-  before_create :check_hosting
+  validate :check_url, if: :will_save_change_to_url?
+  validate :check_hosting, if: :will_save_change_to_url?
 
   scope :youtube, -> { where hosting: :youtube }
   scope :ordered, -> {
@@ -72,11 +73,10 @@ class Video < ApplicationRecord
     self[:url] = "https:#{Url.new(super).cut_www.without_protocol}"
 
     data = VideoExtractor.fetch self[:url]
-    if data
-      self.hosting = data.hosting
-      self.image_url = data.image_url
-      self.player_url = data.player_url
-    end
+
+    self.hosting = data&.hosting
+    self.image_url = data&.image_url
+    self.player_url = data&.player_url
 
     self[:url]
   end

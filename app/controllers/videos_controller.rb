@@ -100,5 +100,8 @@ private
 
     version.auto_accept! if version.persisted? && can?(:auto_accept, version)
     version
+  rescue StateMachineRollbackError
+    version.destroy
+    version
   end
 end
