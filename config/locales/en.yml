@@ -392,7 +392,7 @@ en:
         videos:
           attributes:
             url:
-              incorrect: incorrect. Video hosting is not supported or video is not available for embedding
+              incorrect: incorrect. Video is not supported or video is not available for embedding.
               taken: the video you've uploaded already exists within our system
             hosting:
               incorrect: unsupported video hosting
