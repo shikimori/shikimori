@@ -110,9 +110,11 @@ private
       :"#{action}!",
       moderator: current_user,
       reason: params[:reason]
-    ) # rescue AASM::InvalidTransition
+    )
 
     render json: { notice: i18n_t(success_message) }
+  rescue StateMachineRollbackError
+    render json: @version.errors[:base], status: :unprocessable_entity
   end
 
   def build_item_diff
