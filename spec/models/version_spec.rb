@@ -388,20 +388,32 @@ describe Version do
     let(:item_diff) { { episodes: [1, 2] } }
 
     describe '#apply_changes' do
-      before { version.apply_changes }
+      subject { version.apply_changes }
 
-      it do
-        expect(anime.reload.episodes).to eq 2
-        expect(anime.desynced).to eq %w[episodes]
-        expect(version.reload.item_diff['episodes'].first).to eq 10
+      context 'valid changes' do
+        it do
+          is_expected.to eq true
+          expect(anime.reload.episodes).to eq 2
+          expect(anime.desynced).to eq %w[episodes]
+          expect(version.reload.item_diff['episodes'].first).to eq 10
+        end
+
+        context 'does not add descyned when descyned is among fields' do
+          let(:item_diff) { { desynced: [%w[a], %w[z]], episodes: [1, 2] } }
+
+          it do
+            is_expected.to eq true
+            expect(anime.reload.episodes).to eq 2
+            expect(anime.desynced).to eq %w[z]
+          end
+        end
       end
 
-      context 'does not add descyned when descyned is among fields' do
-        let(:item_diff) { { desynced: [%w[a], %w[z]], episodes: [1, 2] } }
-
+      context 'invalid changes' do
+        let(:item_diff) { { name: ['zxc', ''] } }
         it do
-          expect(anime.reload.episodes).to eq 2
-          expect(anime.desynced).to eq %w[z]
+          is_expected.to eq false
+          expect(version.errors[:base]).to eq ['Английское название не может быть пустым']
         end
       end
     end

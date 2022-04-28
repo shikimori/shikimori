@@ -202,7 +202,12 @@ private
 
     add_desynced field
 
-    item.save && save
+    if item.save
+      save
+    else
+      item.errors.full_messages.each { |message| errors.add :base, message }
+      false
+    end
   end
 
   def add_desynced field
