@@ -8240,6 +8240,7 @@
         - 25777
         - 35760
         - 38524
+        - 50549
       :generator:
         person_id: 5088
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -8286,6 +8287,7 @@
         - 25777
         - 35760
         - 38524
+        - 50549
       :generator:
         person_id: 5088
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -10297,6 +10299,7 @@
         - 49361
         - 38086
         - 41497
+        - 42030
       :generator:
         person_id: 2582
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -10386,6 +10389,7 @@
         - 49361
         - 38086
         - 41497
+        - 42030
       :generator:
         person_id: 2582
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -13014,6 +13018,7 @@
         - 34106
         - 41911
         - 5493
+        - 48505
       :generator:
         person_id: 1891
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -13084,6 +13089,7 @@
         - 34106
         - 41911
         - 5493
+        - 48505
       :generator:
         person_id: 1891
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -23476,6 +23482,7 @@
         ignore_latest_ids:
         - 40024
         - 40429
+        - 51716
         not_ignored_ids:
         - 1240
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -23516,6 +23523,7 @@
         ignore_latest_ids:
         - 40024
         - 40429
+        - 51716
         not_ignored_ids:
         - 1240
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
