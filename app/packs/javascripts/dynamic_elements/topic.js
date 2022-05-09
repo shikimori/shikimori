@@ -12,7 +12,9 @@ import { loadImagesFinally } from '@/utils/load_image';
 const I18N_KEY = 'frontend.dynamic_elements.topic';
 const SHOW_IGNORED_TOPICS_IN = [
   'topics_show',
-  'collections_show'
+  'collections_show',
+  'critiques_show',
+  'reviews_show'
 ];
 
 // TODO: move code related to comments to separate class
