@@ -129,9 +129,9 @@ group :beta, :production do
   # gem 'airbrake'
   # gem 'sentry-raven'
   # gem 'honeybadger'
-  # gem 'appsignal'
+  gem 'appsignal'
   # gem 'sentry-raven'
-  gem 'bugsnag'
+  # gem 'bugsnag'
   gem 'lograge'
   # gem 'newrelic_rpm'
 end
