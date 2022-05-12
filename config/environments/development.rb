@@ -22,7 +22,7 @@ Rails.application.configure do
 
     # config.cache_store = :memory_store
     config.cache_store = :mem_cache_store, 'localhost', {
-      namespace: 'shikimori_development_v3',
+      namespace: 'shiki',
       compress: true,
       value_max_bytes: 1024 * 1024 * 32
     }
