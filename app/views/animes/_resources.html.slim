@@ -68,7 +68,10 @@
     - if @resource.screenshots(5).any?
       .c-screenshots
         .subheadline
-          span.linkeable data-href=@resource.screenshots_url
+          - if user_signed_in?
+            span.linkeable data-href=@resource.screenshots_url
+              = t '.screenshots'
+          - else
             = t '.screenshots'
         .cc
           = render @resource.screenshots(5)
@@ -76,7 +79,10 @@
     - if @resource.videos(4).any?
       .c-videos
         .subheadline
-          span.linkeable data-href=@resource.videos_url = t '.videos'
+          - if user_signed_in?
+            span.linkeable data-href=@resource.videos_url = t '.videos'
+          - else
+            = t '.videos'
         .cc
           = render @resource.videos(4)
 
