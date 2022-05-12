@@ -5,6 +5,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
     :hot_topic_views,
     :db_updates,
     :news_topic_views,
+    :cache_variant,
     :cache_keys,
     :critiques_views,
     :articles_views,
@@ -130,9 +131,13 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
       contests: [contests_scope.cache_key, CACHE_VERSION],
       news: [news_scope.cache_key, page, CACHE_VERSION],
       db_updates: [db_updates_scope.cache_key, page, CACHE_VERSION],
-      version: [Time.zone.today, :"variant-#{rand(5)}", CACHE_VERSION],
+      version: [Time.zone.today, cache_variant, CACHE_VERSION],
       migration: h.domain_migration_note
     }
+  end
+
+  def cache_variant
+    :"variant-#{rand(5)}"
   end
 
   def new_news_url
@@ -147,7 +152,7 @@ private
 
   def all_ongoings
     if new_ongoings.size < ONGOINGS_TAKE * 1.5
-      new_ongoings + old_ongoings.take(ONGOINGS_TAKE * 1.5 - new_ongoings.size)
+      new_ongoings + old_ongoings.take((ONGOINGS_TAKE * 1.5) - new_ongoings.size)
     else
       new_ongoings
     end
