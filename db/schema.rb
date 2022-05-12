@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_27_190446) do
+ActiveRecord::Schema.define(version: 2022_05_13_110020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1210,6 +1210,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_190446) do
     t.index ["associated_id", "associated_type"], name: "index_versions_on_associated_id_and_associated_type"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
     t.index ["state"], name: "index_versions_on_state"
+    t.index ["updated_at"], name: "index_versions_on_updated_at", order: :desc
     t.index ["user_id", "state"], name: "index_versions_on_user_id_and_state"
   end
 
