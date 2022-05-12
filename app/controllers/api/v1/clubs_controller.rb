@@ -39,9 +39,9 @@ class Api::V1::ClubsController < Api::V1Controller
     param :name, String
     param :description, String
     param :display_images, :boolean
-    param :comment_policy, Types::Club::CommentPolicy.values
-    param :topic_policy, Types::Club::TopicPolicy.values
-    param :image_upload_policy, Types::Club::ImageUploadPolicy.values
+    param :comment_policy, Types::Club::CommentPolicy.values.map(&:to_s)
+    param :topic_policy, Types::Club::TopicPolicy.values.map(&:to_s)
+    param :image_upload_policy, Types::Club::ImageUploadPolicy.values.map(&:to_s)
   end
   error code: 422
   def update
