@@ -38,7 +38,7 @@ class Api::V1::ClubsController < Api::V1Controller
   param :club, Hash do
     param :name, String
     param :description, String
-    param :display_images, [true, false]
+    param :display_images, :boolean
     param :comment_policy, Types::Club::CommentPolicy.values
     param :topic_policy, Types::Club::TopicPolicy.values
     param :image_upload_policy, Types::Club::ImageUploadPolicy.values
