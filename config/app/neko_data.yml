@@ -26497,6 +26497,7 @@
         - 36370
         - 36369
         - 42886
+        - 51805
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ginga_eiyuu_densetsu
@@ -26532,6 +26533,7 @@
         - 36370
         - 36369
         - 42886
+        - 51805
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ginga_eiyuu_densetsu
@@ -30108,39 +30110,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :doupo_cangqiong
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/doupo_cangqiong.jpg"
-    :border_color:
-    :title_ru: Расколотая битвой синева небес
-    :text_ru:
-    :title_en: Doupo Cangqiong
-    :text_en:
-    :topic_id: 247360
-    :rule: &527
-      :algo: duration
-      :filters:
-        franchise: doupo_cangqiong
-        not_anime_ids:
-        - 47548
-      :threshold: 97%
-      :generator:
-        threshold: 97%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :doupo_cangqiong
-  level: 1
-  image: "/assets/achievements/anime/franchise/doupo_cangqiong.jpg"
-  border_color:
-  title_ru: Расколотая битвой синева небес
-  text_ru:
-  title_en: Doupo Cangqiong
-  text_en:
-  topic_id: 247360
-  rule: *527
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :yuki_yuna_is_a_hero
     :level: 0
     :image: "/assets/achievements/anime/franchise/yuki_yuna_is_a_hero.jpg"
@@ -30150,7 +30119,7 @@
     :title_en: Yuuki Yuuna wa Yuusha de Aru
     :text_en:
     :topic_id: 247360
-    :rule: &528
+    :rule: &527
       :algo: duration
       :filters:
         franchise: yuki_yuna_is_a_hero
@@ -30168,6 +30137,39 @@
   title_ru: Герой Юки Юна
   text_ru:
   title_en: Yuuki Yuuna wa Yuusha de Aru
+  text_en:
+  topic_id: 247360
+  rule: *527
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :doupo_cangqiong
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/doupo_cangqiong.jpg"
+    :border_color:
+    :title_ru: Расколотая битвой синева небес
+    :text_ru:
+    :title_en: Doupo Cangqiong
+    :text_en:
+    :topic_id: 247360
+    :rule: &528
+      :algo: duration
+      :filters:
+        franchise: doupo_cangqiong
+        not_anime_ids:
+        - 47548
+      :threshold: 97%
+      :generator:
+        threshold: 97%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :doupo_cangqiong
+  level: 1
+  image: "/assets/achievements/anime/franchise/doupo_cangqiong.jpg"
+  border_color:
+  title_ru: Расколотая битвой синева небес
+  text_ru:
+  title_en: Doupo Cangqiong
   text_en:
   topic_id: 247360
   rule: *528
@@ -33036,6 +33038,35 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :ling_yu
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/ling_yu.jpg"
+    :border_color:
+    :title_ru: Край основателей
+    :text_ru:
+    :title_en: Ling Yu
+    :text_en:
+    :topic_id: 247360
+    :rule: &617
+      :algo: duration
+      :filters:
+        franchise: ling_yu
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :ling_yu
+  level: 0
+  image: "/assets/achievements/anime/franchise/ling_yu.jpg"
+  border_color:
+  title_ru: Край основателей
+  text_ru:
+  title_en: Ling Yu
+  text_en:
+  topic_id: 247360
+  rule: *617
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :cyborg
     :level: 1
     :image: "/assets/achievements/anime/franchise/cyborg.jpg"
@@ -33045,7 +33076,7 @@
     :title_en: Cyborg 009
     :text_en:
     :topic_id: 247360
-    :rule: &617
+    :rule: &618
       :algo: duration
       :filters:
         franchise: cyborg
@@ -33066,35 +33097,6 @@
   title_ru: Киборг 009
   text_ru:
   title_en: Cyborg 009
-  text_en:
-  topic_id: 247360
-  rule: *617
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :ling_yu
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/ling_yu.jpg"
-    :border_color:
-    :title_ru: Край основателей
-    :text_ru:
-    :title_en: Ling Yu
-    :text_en:
-    :topic_id: 247360
-    :rule: &618
-      :algo: duration
-      :filters:
-        franchise: ling_yu
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :ling_yu
-  level: 0
-  image: "/assets/achievements/anime/franchise/ling_yu.jpg"
-  border_color:
-  title_ru: Край основателей
-  text_ru:
-  title_en: Ling Yu
   text_en:
   topic_id: 247360
   rule: *618
@@ -33442,6 +33444,35 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :konjiki_no_gash_bell
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/konjiki_no_gash_bell.jpg"
+    :border_color:
+    :title_ru: Златовласый Гаш Белл
+    :text_ru:
+    :title_en: Konjiki no Gash Bell
+    :text_en:
+    :topic_id: 247360
+    :rule: &629
+      :algo: duration
+      :filters:
+        franchise: konjiki_no_gash_bell
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :konjiki_no_gash_bell
+  level: 0
+  image: "/assets/achievements/anime/franchise/konjiki_no_gash_bell.jpg"
+  border_color:
+  title_ru: Златовласый Гаш Белл
+  text_ru:
+  title_en: Konjiki no Gash Bell
+  text_en:
+  topic_id: 247360
+  rule: *629
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :to_heart
     :level: 1
     :image: "/assets/achievements/anime/franchise/to_heart.jpg"
@@ -33451,7 +33482,7 @@
     :title_en: To Heart
     :text_en:
     :topic_id: 247360
-    :rule: &629
+    :rule: &630
       :algo: duration
       :filters:
         franchise: to_heart
@@ -33468,35 +33499,6 @@
   title_ru: Для сердца
   text_ru:
   title_en: To Heart
-  text_en:
-  topic_id: 247360
-  rule: *629
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :konjiki_no_gash_bell
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/konjiki_no_gash_bell.jpg"
-    :border_color:
-    :title_ru: Златовласый Гаш Белл
-    :text_ru:
-    :title_en: Konjiki no Gash Bell
-    :text_en:
-    :topic_id: 247360
-    :rule: &630
-      :algo: duration
-      :filters:
-        franchise: konjiki_no_gash_bell
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :konjiki_no_gash_bell
-  level: 0
-  image: "/assets/achievements/anime/franchise/konjiki_no_gash_bell.jpg"
-  border_color:
-  title_ru: Златовласый Гаш Белл
-  text_ru:
-  title_en: Konjiki no Gash Bell
   text_en:
   topic_id: 247360
   rule: *630
@@ -37125,8 +37127,8 @@
     :image: "/assets/achievements/anime/space_4.gif"
     :border_color: "#e4bd3d"
     :title_ru: Император галактики
-    :text_ru: Вы правитель всей Вселенной. Неизменный и победоносный. Нет никого с
-      большей силой, чем у вас.
+    :text_ru: Вы правитель Вселенной. Неизменный и победоносный. Нет никого с большей
+      силой, чем у вас.
     :title_en: Emperor of the Galaxy
     :text_en: You are the ruler of the entire universe. Unchanging and victorious.
       There is no one with more power than you.
@@ -37144,7 +37146,7 @@
   image: "/assets/achievements/anime/space_4.gif"
   border_color: "#e4bd3d"
   title_ru: Император галактики
-  text_ru: Вы правитель всей Вселенной. Неизменный и победоносный. Нет никого с большей
+  text_ru: Вы правитель Вселенной. Неизменный и победоносный. Нет никого с большей
     силой, чем у вас.
   title_en: Emperor of the Galaxy
   text_en: You are the ruler of the entire universe. Unchanging and victorious. There
