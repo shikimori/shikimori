@@ -9,7 +9,7 @@ class Api::V1::UserImagesController < Api::V1Controller
   api :POST, '/user_images', 'Create an user image'
   description 'Requires `comments` oauth scope'
   param :image, :undef, required: true
-  param :linked_type, String, required: true
+  param :linked_type, String, required: false
   def create # rubocop:disable all
     dev_user = User.find params[:test] if test_upload_request?
 
