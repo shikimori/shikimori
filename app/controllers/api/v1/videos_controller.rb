@@ -16,7 +16,7 @@ class Api::V1::VideosController < Api::V1Controller
   api :POST, '/animes/:anime_id/videos', 'Create a video'
   description 'Requires `content` oauth scope'
   param :video, Hash do
-    param :kind, Video.kind.values, required: true
+    param :kind, Video.kind.values.map(&:to_s), required: true
     param :name, String, required: true
     param :url, String,
       required: true,

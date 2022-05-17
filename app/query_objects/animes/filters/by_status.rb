@@ -1,28 +1,35 @@
 class Animes::Filters::ByStatus < Animes::Filters::FilterBase
-  STATUSES_EXTENDED = (
-    Types::Anime::STATUSES +
-    Types::Manga::STATUSES +
-    %i[latest]
-  ).uniq
-
-  StatusExtended = Types::Strict::Symbol
+  AnimeStatus = Types::Anime::Status
+  AnimeStatusExtended = Types::Strict::Symbol
     .constructor(&:to_sym)
-    .enum(*STATUSES_EXTENDED)
+    .enum(*(AnimeStatus.values + %i[latest]))
 
-  dry_type StatusExtended
+  MangaStatus = Types::Manga::Status
+  MangaStatusExtended = Types::Strict::Symbol
+    .constructor(&:to_sym)
+    .enum(*(MangaStatus.values + %i[latest]))
+
+  STATUSES_EXTENDED = {
+    Anime.table_name => AnimeStatusExtended,
+    Manga.table_name => MangaStatusExtended
+  }
+
+  def dry_type
+    STATUSES_EXTENDED[@scope.table_name]
+  end
   field :status
 
   LATEST_INTERVAL = 3.months
 
   SQL_QUERIES = {
-    StatusExtended[:anons] => "%<table_name>s.status = '#{Types::Anime::Status[:anons]}'",
-    StatusExtended[:ongoing] => "%<table_name>s.status = '#{Types::Anime::Status[:ongoing]}'",
-    StatusExtended[:released] => "%<table_name>s.status = '#{Types::Anime::Status[:released]}'",
-    StatusExtended[:paused] => "%<table_name>s.status = '#{Types::Manga::Status[:paused]}'",
-    StatusExtended[:discontinued] =>
-      "%<table_name>s.status = '#{Types::Manga::Status[:discontinued]}'",
-    StatusExtended[:latest] => <<~SQL.squish
-      %<table_name>s.status = '#{Types::Anime::Status[:released]}'
+    AnimeStatusExtended[:anons] => "%<table_name>s.status = '#{AnimeStatus[:anons]}'",
+    AnimeStatusExtended[:ongoing] => "%<table_name>s.status = '#{AnimeStatus[:ongoing]}'",
+    AnimeStatusExtended[:released] => "%<table_name>s.status = '#{AnimeStatus[:released]}'",
+    MangaStatusExtended[:paused] => "%<table_name>s.status = '#{MangaStatus[:paused]}'",
+    MangaStatusExtended[:discontinued] =>
+      "%<table_name>s.status = '#{MangaStatus[:discontinued]}'",
+    AnimeStatusExtended[:latest] => <<~SQL.squish
+      %<table_name>s.status = '#{AnimeStatus[:released]}'
         and released_on is not null
         and released_on >= %<date>s
     SQL

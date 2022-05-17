@@ -138,6 +138,7 @@ module Clockwork
     # Anidb::ImportDescriptionsJob.perform_async
     Tags::CleanupImageboardsCacheJob.perform_async
     Tags::CleanupCoubCacheJob.perform_async
+    Users::CleanupStyles.perform_async
 
     NamedLogger.clockwork.info 'weekly.stuff.1 finished'
   end

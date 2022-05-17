@@ -1,177 +1,178 @@
-.v2
-  = cache @view.cache_keys.values do
-    - cache @view.cache_keys[:ongoings], expires_in: 1.day do
+= cache @view.cache_variant, expires_in: 1.minute do
+  .v2
+    = cache @view.cache_keys.values do
+      - cache @view.cache_keys[:ongoings], expires_in: 1.day do
+        .block2
+          .subheadline.linkheadline
+            a href=animes_collection_url(status: :ongoing)
+              = t '.currently_airing'
+
+          .fc-ongoings.to-process data-dynamic='cutted_covers'
+            .mobile-slider-prev.bright
+            .mobile-slider-next.bright
+            .inner
+              = render partial: 'animes/anime',
+                collection: @view.ongoings,
+                locals: { cover_notice: :studio },
+                cached: ->(entry) { cache_keys entry, :studio }
+
+      / = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
+
       .block2
-        .subheadline.linkheadline
-          a href=animes_collection_url(status: :ongoing)
-            = t '.currently_airing'
+        .fc-user-sections
+          .f-user.to-process.b-ajax[
+            data-dynamic='postloaded'
+            data-postloaded-url=dashboards_dynamic_url
+          ]
 
-        .fc-ongoings.to-process data-dynamic='cutted_covers'
-          .mobile-slider-prev.bright
-          .mobile-slider-next.bright
-          .inner
-            = render partial: 'animes/anime',
-              collection: @view.ongoings,
-              locals: { cover_notice: :studio },
-              cached: ->(entry) { cache_keys entry, :studio }
+          .f-sections
+            .fc-headlines
+              .f-headline
+                .midheadline.red.linkheadline
+                  a[
+                    href=animes_collection_url
+                    title=Anime.model_name.human
+                  ] = Anime.model_name.human
+              .f-headline
+                .midheadline.blue.linkheadline
+                  a[
+                    href=mangas_collection_url
+                    title=Manga.model_name.human
+                  ] = Manga.model_name.human
+              .f-headline
+                .midheadline.green.linkheadline
+                  a[
+                    href=ranobe_collection_url
+                    title=Ranobe.model_name.human
+                  ] = Ranobe.model_name.human
 
-    / = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
-
-    .block2
-      .fc-user-sections
-        .f-user.to-process.b-ajax[
-          data-dynamic='postloaded'
-          data-postloaded-url=dashboards_dynamic_url
-        ]
-
-        .f-sections
-          .fc-headlines
-            .f-headline
-              .midheadline.red.linkheadline
-                a[
-                  href=animes_collection_url
-                  title=Anime.model_name.human
-                ] = Anime.model_name.human
-            .f-headline
-              .midheadline.blue.linkheadline
-                a[
-                  href=mangas_collection_url
-                  title=Manga.model_name.human
-                ] = Manga.model_name.human
-            .f-headline
-              .midheadline.green.linkheadline
-                a[
-                  href=ranobe_collection_url
-                  title=Ranobe.model_name.human
-                ] = Ranobe.model_name.human
-
-          .fc-tags
-            .f-tags.anime-tags
-              .tags
-                - @view.anime_seasons.each do |season|
+            .fc-tags
+              .f-tags.anime-tags
+                .tags
+                  - @view.anime_seasons.each do |season|
+                    a.tag-link.anime-tag[
+                      href=animes_collection_url(season.url_params)
+                      title=season.catalog_title
+                    ] = season.catalog_title
                   a.tag-link.anime-tag[
-                    href=animes_collection_url(season.url_params)
-                    title=season.catalog_title
-                  ] = season.catalog_title
-                a.tag-link.anime-tag[
-                  href=animes_collection_url(season: Time.zone.today.year)
-                  title="#{Anime.model_name.human} #{Time.zone.today.year}"
-                ] = Time.zone.today.year
-                a.tag-link.anime-tag[
-                  href=animes_collection_url(season: Time.zone.today.year - 1)
-                  title="#{Anime.model_name.human} #{Time.zone.today.year - 1}"
-                ] = Time.zone.today.year - 1
-                a.tag-link.anime-tag[
-                  href=animes_collection_url(status: :ongoing)
-                  title=i18n_i('Ongoing', :other)
-                ] = i18n_i 'Ongoing', :other
-                a.tag-link.anime-tag[
-                  href=recommendations_favourites_anime_url
-                  title=t('.recommended.favourite')
-                ] = t '.recommended.favourite'
-                a.tag-link.anime-tag[
-                  href=recommendations_url(klass: 'anime')
-                  title=t('.recommended.personalized')
-                ] = t '.recommended.personalized'
+                    href=animes_collection_url(season: Time.zone.today.year)
+                    title="#{Anime.model_name.human} #{Time.zone.today.year}"
+                  ] = Time.zone.today.year
+                  a.tag-link.anime-tag[
+                    href=animes_collection_url(season: Time.zone.today.year - 1)
+                    title="#{Anime.model_name.human} #{Time.zone.today.year - 1}"
+                  ] = Time.zone.today.year - 1
+                  a.tag-link.anime-tag[
+                    href=animes_collection_url(status: :ongoing)
+                    title=i18n_i('Ongoing', :other)
+                  ] = i18n_i 'Ongoing', :other
+                  a.tag-link.anime-tag[
+                    href=recommendations_favourites_anime_url
+                    title=t('.recommended.favourite')
+                  ] = t '.recommended.favourite'
+                  a.tag-link.anime-tag[
+                    href=recommendations_url(klass: 'anime')
+                    title=t('.recommended.personalized')
+                  ] = t '.recommended.personalized'
 
-            .f-tags.manga-tags
-              .tags
-                - @view.manga_kinds.each do |season|
+              .f-tags.manga-tags
+                .tags
+                  - @view.manga_kinds.each do |season|
+                    a.tag-link.manga-tag[
+                      href=mangas_collection_url(season.url_params)
+                      title=season.title
+                      class=(:doujin if season.kind == 'doujin')
+                      class=(:one_shot if season.kind == 'one_shot')
+                    ] = season.title
                   a.tag-link.manga-tag[
-                    href=mangas_collection_url(season.url_params)
-                    title=season.title
-                    class=(:doujin if season.kind == 'doujin')
-                    class=(:one_shot if season.kind == 'one_shot')
-                  ] = season.title
-                a.tag-link.manga-tag[
-                  href=recommendations_favourites_manga_url
-                  title=t('.recommended.favourite')
-                ] = t '.recommended.favourite'
-                a.tag-link.manga-tag[
-                  href=recommendations_url(klass: 'manga')
-                  title=t('.recommended.personalized')
-                ] = t '.recommended.personalized'
+                    href=recommendations_favourites_manga_url
+                    title=t('.recommended.favourite')
+                  ] = t '.recommended.favourite'
+                  a.tag-link.manga-tag[
+                    href=recommendations_url(klass: 'manga')
+                    title=t('.recommended.personalized')
+                  ] = t '.recommended.personalized'
 
-            .f-tags.ranobe-tags
-              .tags
-                a.tag-link.ranobe-tag[
-                  href=recommendations_favourites_ranobe_url
-                  title=t('.recommended.favourite')
-                ] = t '.recommended.favourite'
+              .f-tags.ranobe-tags
+                .tags
+                  a.tag-link.ranobe-tag[
+                    href=recommendations_favourites_ranobe_url
+                    title=t('.recommended.favourite')
+                  ] = t '.recommended.favourite'
 
-              .forum-container
-                a.b-link_button.dark.arrow-right[
-                  href=forum_url
-                ] = t 'forum'
+                .forum-container
+                  a.b-link_button.dark.arrow-right[
+                    href=forum_url
+                  ] = t 'forum'
 
-    - if domain_migration_note
+      - if domain_migration_note
+        .block2
+          .headline.purple.linkheadline
+            a href="#{Shikimori::PROTOCOLS[:production]}://#{Shikimori::DOMAINS[:production]}" = Shikimori::DOMAINS[:production]
+          p Сайт уже больше два года как обзавёлся новым доменом. Некоторый функционал на
+            старом shikimori.org работает некорректно, а часть ссылок сломаны и ведут на новый домен.<br>
+            В недалеком будущем со старого домена shikimori.org сайт будет автоматически редиректить на
+            новый домен shikimori.one.
+
       .block2
-        .headline.purple.linkheadline
-          a href="#{Shikimori::PROTOCOLS[:production]}://#{Shikimori::DOMAINS[:production]}" = Shikimori::DOMAINS[:production]
-        p Сайт уже больше два года как обзавёлся новым доменом. Некоторый функционал на
-          старом shikimori.org работает некорректно, а часть ссылок сломаны и ведут на новый домен.<br>
-          В недалеком будущем со старого домена shikimori.org сайт будет автоматически редиректить на
-          новый домен shikimori.one.
-
-    .block2
-      .subheadline-buttons
-        a.b-link_button.dark.mini.create-topic.to-process[
-          data-dynamic='week_registered'
-          href=@view.new_news_url
-          title=t('topics.menu_actions.create_news')
-        ]
-          span = t 'topics.menu_actions.create_news'
-      .headline.orange.m15 = t '.latest_news'
-      .news_wall.latest-news
-        = render partial: 'topics/topic',
-          collection: @view.news_topic_views[0..2],
-          locals: { do_not_track: true },
-          as: :topic_view,
-          cached: ->(entry) { cache_keys entry, :do_not_track }
-
-    = render 'dashboards/v2/content_updates', view: @view
-
-    = cache @view.cache_keys[:db_updates] do
-      .block2
-        .headline.magenta.m15
-          a.to-process[
-            href=forum_topics_url(:updates)
-            title=t('.generated_news')
+        .subheadline-buttons
+          a.b-link_button.dark.mini.create-topic.to-process[
             data-dynamic='week_registered'
-          ] = t '.generated_news'
-        .db-updates
-          .mobile-slider-prev
-          .mobile-slider-next
-          .inner
-            = render partial: 'dashboards/v2/db_update',
-              collection: @view.db_updates,
-              as: :topic_view
+            href=@view.new_news_url
+            title=t('topics.menu_actions.create_news')
+          ]
+            span = t 'topics.menu_actions.create_news'
+        .headline.orange.m15 = t '.latest_news'
+        .news_wall.latest-news
+          = render partial: 'topics/topic',
+            collection: @view.news_topic_views[0..2],
+            locals: { do_not_track: true },
+            as: :topic_view,
+            cached: ->(entry) { cache_keys entry, :do_not_track }
 
-    / - if @view.admin_area?
-    /   javascript:
-    /     $(document.body).on('click', '.b-admin_panel .reload', function() {
-    /       var $panel = $('.b-admin_panel').addClass('b-ajax');
-    /       $(this).addClass('active');
-    /       $panel.load($panel.data('postloaded-url'), () => (
-    /         $panel.removeClass('b-ajax')
-    /       ));
-    /     });
-    /   .b-admin_panel.to-process[
-    /     data-dynamic='postloaded'
-    /     data-postloaded-url='/apanel'
-    /   ]
-    /     .ajax-loading.vk-like
+      = render 'dashboards/v2/content_updates', view: @view
 
-    .block2
-      .headline.skyblue.m15 = t '.more_news'
-      .news_wall.other-news
-        = render partial: 'topics/topic',
-          collection: @view.news_topic_views[2..-1],
-          locals: { do_not_track: true },
-          as: :topic_view,
-          cached: ->(entry) { cache_keys entry, :do_not_track }
+      = cache @view.cache_keys[:db_updates] do
+        .block2
+          .headline.magenta.m15
+            a.to-process[
+              href=forum_topics_url(:updates)
+              title=t('.generated_news')
+              data-dynamic='week_registered'
+            ] = t '.generated_news'
+          .db-updates
+            .mobile-slider-prev
+            .mobile-slider-next
+            .inner
+              = render partial: 'dashboards/v2/db_update',
+                collection: @view.db_updates,
+                as: :topic_view
 
-        - if @view.news_topic_views.next_page
-          = render 'blocks/postloader',
-            filter: 'b-topic',
-            next_url: root_page_url(page: @view.news_topic_views.next_page)
+      / - if @view.admin_area?
+      /   javascript:
+      /     $(document.body).on('click', '.b-admin_panel .reload', function() {
+      /       var $panel = $('.b-admin_panel').addClass('b-ajax');
+      /       $(this).addClass('active');
+      /       $panel.load($panel.data('postloaded-url'), () => (
+      /         $panel.removeClass('b-ajax')
+      /       ));
+      /     });
+      /   .b-admin_panel.to-process[
+      /     data-dynamic='postloaded'
+      /     data-postloaded-url='/apanel'
+      /   ]
+      /     .ajax-loading.vk-like
+
+      .block2
+        .headline.skyblue.m15 = t '.more_news'
+        .news_wall.other-news
+          = render partial: 'topics/topic',
+            collection: @view.news_topic_views[2..-1],
+            locals: { do_not_track: true },
+            as: :topic_view,
+            cached: ->(entry) { cache_keys entry, :do_not_track }
+
+          - if @view.news_topic_views.next_page
+            = render 'blocks/postloader',
+              filter: 'b-topic',
+              next_url: root_page_url(page: @view.news_topic_views.next_page)

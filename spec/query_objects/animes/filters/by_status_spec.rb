@@ -1,7 +1,8 @@
 describe Animes::Filters::ByStatus do
-  subject { described_class.call Anime.order(:id), terms }
+  subject { described_class.call scope, terms }
 
-  let!(:anime_1) { create :anime, :ongoing, aired_on: Time.zone.now - 1.month }
+  let(:scope) { Anime.order(:id) }
+  let!(:anime_1) { create :anime, :ongoing, aired_on: 1.month.ago }
 
   let!(:anime_2) { create :anime, :anons }
   let!(:anime_3) { create :anime, :anons }
@@ -58,6 +59,19 @@ describe Animes::Filters::ByStatus do
     context 'released,!latest' do
       let(:terms) { 'released,!latest' }
       it { is_expected.to eq [anime_4, anime_5] }
+    end
+  end
+
+  context 'anime/manga specific status' do
+    let(:terms) { 'paused' }
+
+    context 'anime' do
+      it { expect { subject }.to raise_error InvalidParameterError }
+    end
+
+    context 'manga' do
+      let(:scope) { Manga.all }
+      it { is_expected.to eq [] }
     end
   end
 end
