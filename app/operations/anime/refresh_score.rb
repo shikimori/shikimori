@@ -33,16 +33,15 @@ private
 
   def filtered_user_rates_scope
     @rates = all_user_rates_scope
-    filter_options.each { |option| filter_rates_by_option(option) }
+    filter_options.each { |option| filter_rates_by(option) }
     return @rates
   end
 
-  # e.g. score_filter_10_50
   def filter_options
     @entry.options.filter { |option| option.include? 'score_filter_' }
   end
 
-  def filter_rates_by_option(option)
+  def filter_rates_by(option)
     score_to_filter = option.gsub('score_filter_', '').split('_').first.to_i
     filter_percentage = option.gsub('score_filter_', '').split('_').second.to_i
     rates_to_filter = @rates.where(score: score_to_filter)

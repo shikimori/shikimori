@@ -15,7 +15,7 @@ module Types
       .constructor(&:to_sym)
       .enum(:none, :g, :pg, :pg_13, :r, :r_plus, :rx)
 
-    options = %i[
+    options_list = %i[
       strict_torrent_name_match
       disabled_torrents_sync
       disabled_anime365_sync
@@ -25,12 +25,12 @@ module Types
     (1..10).each do |score|
       # possible percentages to filter
       (1..100).each do |percent|
-        options << "score_filter_#{score}_#{percent}"
+        options_list << "score_filter_#{score}_#{percent}"
       end
     end
 
     Options = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(*options)
+      .enum(*options_list)
   end
 end
