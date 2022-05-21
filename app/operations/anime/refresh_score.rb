@@ -34,7 +34,7 @@ private
   def filtered_user_rates_scope
     @rates = all_user_rates_scope
     filter_options.each { |option| filter_rates_by(option) }
-    return @rates
+    @rates
   end
 
   def filter_options
