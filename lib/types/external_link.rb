@@ -36,6 +36,7 @@ module Types
       mangafox
       mangachan
       mangahub
+      mangaovh
     ]
     RANOBE_READ_ONLINE_KINDS = %i[
       novel_tl
