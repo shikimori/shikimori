@@ -201,31 +201,23 @@ private
     :"@is_#{placement}_ad_shown"
   end
 
-  # convert -resize 50% app/assets/images/globals/events/2022-03-28/menu_1@2x.jpg app/assets/images/globals/events/2022-03-28/menu_1.jpg
+  # convert -resize 50% app/assets/images/globals/events/2022-05-24/menu_1@2x.jpg app/assets/images/globals/events/2022-05-24/menu_1.jpg
   SPECIAL_X300 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: NARUTO - remove 2022-04-12 80:00
-    # url: 'https://bit.ly/36u087n'
-    # pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
-    # images: (1..1).map do |i|
-    #   {
-    #     src: "/assets/globals/events/2022-03-28/menua_#{i}.jpg",
-    #     src_2x: "/assets/globals/events/2022-03-28/menu_#{i}@2x.jpg"
-    #   }
-    # end,
-    images: [{
-      src: '/assets/globals/events/2022-03-28/menu_1.jpg',
-      src_2x: '/assets/globals/events/2022-03-28/menu_1@2x.jpg',
-      url: 'https://bit.ly/36u087n'
-    }, {
-      src: '/assets/globals/events/2022-03-28/menu_2.jpg',
-      src_2x: '/assets/globals/events/2022-03-28/menu_2@2x.jpg',
-      url: 'https://bit.ly/3JQ4p3f'
-    }, {
-      src: '/assets/globals/events/2022-03-28/menu_3.jpg',
-      src_2x: '/assets/globals/events/2022-03-28/menu_3@2x.jpg',
-      url: 'https://bit.ly/3wKfKhK'
-    }],
+    # AD START: LOSTARK - remove 2022-05-28 23:59
+    url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=lozyl&pr=[RANDOM]',
+    pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=eevvx&pfb=lozyl&pr=[RANDOM]&pe=b',
+    images: (1..1).map do |i|
+      {
+        src: "/assets/globals/events/2022-05-24/menu_#{i}.jpg",
+        src_2x: "/assets/globals/events/2022-05-24/menu_#{i}@2x.jpg"
+      }
+    end,
+    # images: [{
+    #   src: '/assets/globals/events/2022-05-24/menu_1.jpg',
+    #   src_2x: '/assets/globals/events/2022-05-24/menu_1@2x.jpg',
+    #   url: 'https://bit.ly/36u087n'
+    # }],
     # AND END
     rules: {
       cookie: 'i5',
@@ -236,13 +228,13 @@ private
   }
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: NARUTO - remove 2022-04-12 80:00
-    url: 'https://bit.ly/3LpIfWa',
-    # pixel: 'https://ad.doubleclick.net/ddm/trackimp/N1048042.4028720SHIKIMORIRU/B26884341.320451527;dc_trk_aid=513143428;dc_trk_cid=161518733;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ltd=?',
+    # AD START: LOSTARK - remove 2022-05-28 23:59
+    url: 'https://ads.adfox.ru/211055/goLink?p1=coadb&p2=frfe&p5=lozyl&pr=[RANDOM]',
+    pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=eevvx&pfb=lozyl&pr=[RANDOM]&pe=b',
     images: (1..1).map do |i|
       {
-        src: "/assets/globals/events/2022-03-28/wide_#{i}.jpg",
-        src_2x: "/assets/globals/events/2022-03-28/wide_#{i}@2x.jpg"
+        src: "/assets/globals/events/2022-05-24/wide_#{i}.jpg"
+        # src_2x: "/assets/globals/events/2022-05-24/wide_#{i}@2x.jpg"
       }
     end,
     # AD END
@@ -404,12 +396,12 @@ private
         Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # NARUTO - remove 2022-04-12 80:00
+        Types::Ad::Type[:special_x300], # LOSTARK - remove 2022-05-28 23:59
         Types::Ad::Type[:yd_240x600],
         Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # NARUTO - remove 2022-04-12 80:00
+        Types::Ad::Type[:special_x300], # LOSTARK - remove 2022-05-28 23:59
         Types::Ad::Type[:yd_300x600],
         Types::Ad::Type[:mt_300x600]
       ],
@@ -425,7 +417,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170], # NARUTO - remove 2022-04-12 80:00
+        Types::Ad::Type[:special_x1170], # LOSTARK - remove 2022-05-28 23:59
         Types::Ad::Type[:yd_970x250],
         Types::Ad::Type[:mt_970x250]
       ]
@@ -437,13 +429,13 @@ private
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # NARUTO - remove 2022-04-12 80:00
+        Types::Ad::Type[:special_x300], # LOSTARK - remove 2022-05-28 23:59
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # NARUTO - remove 2022-04-12 80:00
+        Types::Ad::Type[:special_x300], # LOSTARK - remove 2022-05-28 23:59
         # Types::Ad::Type[:mt_300x600],
         # Types::Ad::Type[:yd_300x600],
         # Types::Ad::Type[:advrtr_240x400],
@@ -460,7 +452,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170] # NARUTO - remove 2022-04-12 80:00
+        Types::Ad::Type[:special_x1170] # LOSTARK - remove 2022-05-28 23:59
       ]
     }
   }
