@@ -88,7 +88,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
 
   api :POST, '/messages/read_all', 'Mark all messages as read'
   description 'Requires `messages` oauth scope'
-  param :type, %w[news notifications]
+  param :type, %w[news notifications], required: true
   def read_all
     MessagesService
       .new(current_user)
@@ -110,7 +110,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
   api :POST, '/messages/delete_all', 'Delete all messages'
   description 'Requires `messages` oauth scope'
   param :frontend, :bool, 'Used by shikimori frontend code. Ignore it.'
-  param :type, %w[news notifications]
+  param :type, %w[news notifications], required: true
   error code: 302
   def delete_all
     MessagesService.new(current_user).delete_by type: @messages_type
