@@ -1,10 +1,9 @@
 describe ExternalLink do
   describe 'associations' do
-    it { is_expected.to belong_to :entry }
+    it { is_expected.to belong_to(:entry).touch }
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :entry }
     it { is_expected.to validate_presence_of :kind }
     it { is_expected.to validate_presence_of :source }
     it { is_expected.to validate_presence_of :url }
@@ -28,6 +27,7 @@ describe ExternalLink do
       it { expect(external_link.checksum).to eq '85050d13de8bb1bb9083fbb810a0e338' }
     end
   end
+
   describe 'instance methods' do
     describe '#url=' do
       before { subject.url = url }
@@ -67,13 +67,19 @@ describe ExternalLink do
     end
 
     describe '#disabled?' do
-      let(:external_link) { build :external_link, url: url }
+      let(:external_link) { build :external_link, kind, url: url }
       let(:url) { 'https://ya.ru' }
+      let(:kind) { :wikipedia }
 
       it { expect(external_link).to_not be_disabled }
 
       context 'NONE url' do
         let(:url) { ['http://NONE', 'https://NONE', 'NONE'].sample }
+        it { expect(external_link).to be_disabled }
+      end
+
+      context 'NOT_AVAILABLE_IN_RUSSIA_KINDS' do
+        let(:kind) { Types::ExternalLink::NOT_AVAILABLE_IN_RUSSIA_KINDS.sample }
         it { expect(external_link).to be_disabled }
       end
     end

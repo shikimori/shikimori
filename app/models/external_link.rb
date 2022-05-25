@@ -1,6 +1,6 @@
 class ExternalLink < ApplicationRecord
   belongs_to :entry, polymorphic: true, touch: true
-  validates :entry, :source, :kind, :url, presence: true
+  validates :source, :kind, :url, presence: true
 
   validates :checksum, uniqueness: true, if: -> { url != NO_URL }
 
@@ -49,7 +49,8 @@ class ExternalLink < ApplicationRecord
   end
 
   def disabled?
-    url&.ends_with? NO_URL
+    url&.ends_with?(NO_URL) ||
+      Types::ExternalLink::NOT_AVAILABLE_IN_RUSSIA_KINDS.include?(kind.to_sym)
   end
 
   def watch_online?
