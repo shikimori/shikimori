@@ -16,10 +16,8 @@ class Anime::RefreshScore
 private
 
   def user_rates_scope
-    if filter_options.any?
-      filtered_user_rates_scope
-    else
-      all_user_rates_scope
+    filter_options.inject(all_user_rates_scope) do |scope, option|
+      filter_rates_by option, scope
     end
   end
 
@@ -31,22 +29,19 @@ private
       .where.not(user_id: User.excluded_from_statistics)
   end
 
-  def filtered_user_rates_scope
-    @rates = all_user_rates_scope
-    filter_options.each { |option| filter_rates_by(option) }
-    @rates
-  end
-
   def filter_options
     @entry.options.filter { |option| option.include? 'score_filter_' }
   end
 
-  def filter_rates_by(option)
+  def filter_rates_by option, scope
     score_to_filter = option.gsub('score_filter_', '').split('_').first.to_i
     filter_percentage = option.gsub('score_filter_', '').split('_').second.to_i
-    rates_to_filter = @rates.where(score: score_to_filter)
+
+    rates_to_filter = scope.where(score: score_to_filter)
+
     filtered_rates_count = (rates_to_filter.count * filter_percentage / 100).to_i
     filtered_rates = rates_to_filter.limit(filtered_rates_count)
-    @rates = @rates.where.not(id: filtered_rates.select(:id)) if filtered_rates.any?
+
+    scope.where.not(id: filtered_rates.select(:id)) if filtered_rates.any?
   end
 end
