@@ -16,11 +16,11 @@ describe Anime::RefreshScore do
   let(:scores_count) { 2 }
 
   before do
-    scores_count.times do
+    scores_count.times do |i|
       create :user_rate,
         target: anime,
         status: :completed,
-        score: 9,
+        score: i.odd? ? 9 : 5,
         user: create(:user)
     end
 
@@ -28,7 +28,7 @@ describe Anime::RefreshScore do
       .to receive(:call)
       .and_return new_score
   end
-  let(:new_score) { 1.3 }
+  let(:new_score) { 7.3 }
 
   context 'score has changed' do
     it do
@@ -39,7 +39,7 @@ describe Anime::RefreshScore do
         .to have_received(:call)
         .with(
           number_of_scores: scores_count,
-          average_user_score: 9,
+          average_user_score: 7,
           global_average: global_average
         )
     end
@@ -62,17 +62,31 @@ describe Anime::RefreshScore do
         .to have_received(:call)
         .with(
           number_of_scores: scores_count,
-          average_user_score: 9,
+          average_user_score: 7,
           global_average: global_average
         )
     end
   end
 
-  describe 'anicheat filter' do
-    let(:scores_count) { 4 }
+  describe 'anicheat score filter' do
+    context 'filtered score 9 by 75%' do
+      let(:options) { ['score_filter_9_75'] }
+      let(:scores_count) { 8 }
 
-    context 'filtered score 9 by 50%' do
-      let(:options) { ['score_filter_9_50'] }
+      it do
+        expect { subject }.to change(anime, :score_2).to new_score
+        expect(Animes::WeightedScore)
+          .to have_received(:call)
+          .with(
+            number_of_scores: (scores_count / 2) + ((scores_count / 2) * (1 - 0.75)),
+            average_user_score: 5.8,
+            global_average: global_average
+          )
+      end
+    end
+
+    context 'filter out all scores' do
+      let(:options) { ['score_filter_9_100'] }
 
       it do
         expect { subject }.to change(anime, :score_2).to new_score
@@ -80,33 +94,9 @@ describe Anime::RefreshScore do
           .to have_received(:call)
           .with(
             number_of_scores: scores_count / 2,
-            average_user_score: 9,
+            average_user_score: 5,
             global_average: global_average
           )
-      end
-    end
-
-    context 'filtered score 9 by 75%' do
-      let(:options) { ['score_filter_9_75'] }
-
-      it do
-        expect { subject }.to change(anime, :score_2).to new_score
-        expect(Animes::WeightedScore)
-          .to have_received(:call)
-          .with(
-            number_of_scores: scores_count / 4,
-            average_user_score: 9,
-            global_average: global_average
-          )
-      end
-    end
-
-    context 'filter out all scores' do
-      before { anime.update(options: ['score_filter_9_100']) }
-      let(:new_score) { current_score }
-
-      it do
-        expect { subject }.to_not change(anime, :score_2)
       end
     end
   end
