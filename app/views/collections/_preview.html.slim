@@ -6,19 +6,21 @@
   /# Template Dependency: mangas/manga
   /# Template Dependency: characters/character
   /# Template Dependency: people/person
-  = render partial: "#{collection.kind.pluralize}/#{collection.kind}",
-    collection: collection.entries_sample,
-    locals: { cover_notice: :none },
-    cached: ->(entry) { cache_keys entry, :none }
 
-  - if collection.entries_sample.size < collection.size
-    .c-column.b-catalog_entry
-      .cover
-        .image-decor
-          a.image-cutter.see-more[
-            href=topic_view.url
-          ]
-            .text
-              .inner
-                .dots ...
-                = t '.more', count: collection.size - collection.entries_sample.size
+  = unless collection.has_spoilers? 
+    = render partial: "#{collection.kind.pluralize}/#{collection.kind}",
+      collection: collection.entries_sample,
+      locals: { cover_notice: :none },
+      cached: ->(entry) { cache_keys entry, :none }
+
+    - if collection.entries_sample.size < collection.size
+      .c-column.b-catalog_entry
+        .cover
+          .image-decor
+            a.image-cutter.see-more[
+              href=topic_view.url
+            ]
+              .text
+                .inner
+                  .dots ...
+                  = t '.more', count: collection.size - collection.entries_sample.size

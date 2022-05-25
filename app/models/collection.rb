@@ -110,6 +110,10 @@ class Collection < ApplicationRecord
     collection_roles.find { |v| v.user_id == user.id }
   end
 
+  def has_spoilers?
+    has_spoilers
+  end
+
 # private
 
   # def fill_published_at
