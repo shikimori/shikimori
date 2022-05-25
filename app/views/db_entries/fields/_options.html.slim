@@ -15,10 +15,9 @@
 
   .block
     - Anime.options.options.each do |(name, value)|
-      - unless (value.starts_with?('score_filter') && value != 'score_filter_9_84')
-        p.m5
-          .b-tag = value
-          | &ndash;&nbsp;&nbsp;#{name}
+      p.m5
+        .b-tag = value
+        | &ndash;&nbsp;&nbsp;#{name}
 
   .cc-2
     .c-column
