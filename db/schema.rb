@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_25_153844) do
+ActiveRecord::Schema.define(version: 2022_05_25_184034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2022_05_25_153844) do
     t.string "entry_type", null: false
     t.bigint "entry_id", null: false
     t.date "created_on", null: false
-    t.decimal "score_2", null: false
+    t.decimal "score_2"
     t.index ["entry_id", "entry_type", "created_on"], name: "index_anime_stat_histories_on_e_id_and_e_type_and_created_on", unique: true
     t.index ["entry_type", "entry_id"], name: "index_anime_stat_histories_on_entry_type_and_entry_id"
   end
