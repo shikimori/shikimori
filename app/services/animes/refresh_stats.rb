@@ -79,9 +79,31 @@ private
     10.downto(1)
       .map do |i|
         key = :"score_#{i}"
-        { key: i.to_s, value: entry.send(key).to_i } if entry.send(key).positive?
+        filter_score_data(entry, { key: i.to_s, value: entry.send(key).to_i }) if entry.send(key).positive?
       end
       .compact
+  end
+
+  def filter_score_data(entry, score_data)
+    filter_options.each do |option|
+      score_to_filter = option.gsub('score_filter_', '').split('_').first.to_i
+      filter_count = option.gsub('score_filter_', '').split('_').second.to_i
+
+      if score_data[:key] == score_to_filter
+        new_count_value = score_data[:value] - filter_count
+        if new_count_value.positive?
+          score_data[:value] = new_count_value
+        else
+          score_data[:value] = 0
+        end
+      end
+    end
+
+    score_data
+  end
+
+  def filter_options
+    @entry.options.filter { |option| option.include? 'score_filter_' }
   end
 
   def list_stats entry
