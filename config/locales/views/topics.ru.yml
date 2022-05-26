@@ -22,6 +22,7 @@ ru:
           review: Этот отзыв полезен?
     comments:
       your_comment: Твой комментарий
+      return_to_reply: ↑ Назад
     inner:
       read_more_link: Читать дальше →
       source: Источник

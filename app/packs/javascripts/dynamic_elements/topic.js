@@ -171,6 +171,56 @@ export default class Topic extends ShikiEditable {
         this.$commentsHider.show();
       }
     });
+
+    this._bindReturnClick();
+  }
+
+  _showReturnButton() {
+    if ($('.b-comments').height() > $(window).height()) {
+      $('#return-to-reply').show();
+    }
+  }
+
+  _saveRepliablePosition(commentId) {
+    const repliablePositionKey = 'repliableId_' + window.location.pathname;
+    window.sessionStorage.setItem(repliablePositionKey, commentId);
+  }
+
+  _returnToReplyComment() {
+    const repliablePositionKey = 'repliableId_' + window.location.pathname;
+    const savedId = window.sessionStorage.getItem(repliablePositionKey);
+    if (savedId.length) {
+      $(window).scrollTop(100);
+      $('html, body').animate({
+        scrollTop: $(`#${savedId}`).offset().top
+      }, 0);
+    }
+    $('span#return-to-reply').hide();
+    window.sessionStorage.removeItem(repliablePositionKey);
+  }
+
+  _bindReturnClick() {
+    $('span.item-reply').on('click', (e) => {
+      const commentId = $(e.target).closest('div.b-comment').attr('id');
+      this._saveRepliablePosition(commentId);
+      this._showReturnButton();
+    });
+
+    $('span.item-quote').on('click', (e) => {
+      const commentId = $(e.target).closest('div.b-comment').attr('id');
+      this._saveRepliablePosition(commentId);
+      this._showReturnButton();
+    });
+
+    $('span.item-quote-mobile').on('click', (e) => {
+      const commentId = $(e.target).closest('div.b-comment').attr('id');
+      this._saveRepliablePosition(commentId);
+      this._showReturnButton();
+    });
+
+    $('span#return-to-reply').on('click', () => {
+      this._returnToReplyComment();
+    });
   }
 
   // similar to hash from JsExports::TopicsExport#serialize
@@ -479,6 +529,8 @@ export default class Topic extends ShikiEditable {
       this.$commentsHider.show();
       this.$commentsCollapser.remove();
     }
+
+    this._bindReturnClick()
   }
 
   _bindVotes() {
