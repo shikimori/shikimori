@@ -1,7 +1,6 @@
 json.content render(
   partial: 'moderations/abuse_requests/abuse_request',
   collection: @processed,
-  cached: true,
   formats: :html
 )
 

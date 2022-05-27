@@ -36,8 +36,7 @@
             .block
               - if @view.abuse_requests.any?
                 = render partial: 'moderations/abuse_requests/abuse_request',
-                  collection: @view.abuse_requests,
-                  cached: true
+                  collection: @view.abuse_requests
               - else
                 .b-nothing_here = t '.no_abuse_requests'
 
@@ -47,8 +46,7 @@
             .block_m
               - if @view.bans.any?
                 = render partial: 'moderations/bans/ban',
-                  collection: @view.bans,
-                  cached: true
+                  collection: @view.bans
               - else
                 .b-nothing_here = t '.no_bans'
 

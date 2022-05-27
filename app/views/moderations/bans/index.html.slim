@@ -35,8 +35,7 @@
       div
         - if @pending.any?
           = render partial: 'moderations/abuse_requests/abuse_request',
-            collection: @pending,
-            cached: true
+            collection: @pending
         - else
           .b-nothing_here = t '.queue_empty'
 
@@ -45,8 +44,7 @@
     .block
       = spoiler '...' do
         = render partial: 'moderations/abuse_requests/abuse_request',
-          collection: @declined,
-          cached: true
+          collection: @declined
 
 .block
   .b-options-floated
@@ -54,8 +52,7 @@
   .subheadline.m5 = t '.history'
   .block
     = render partial: 'moderations/bans/ban',
-      collection: @collection,
-      cached: true
+      collection: @collection
     - if @collection.size == controller.class::PER_PAGE
       = render partial: 'blocks/postloader',
         locals: { next_url: moderations_bans_url(page: @page+1) }

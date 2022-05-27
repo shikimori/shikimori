@@ -43,8 +43,7 @@
     .bans
       - if @resource.bans.any?
         = render partial: 'moderations/bans/ban',
-          collection: @resource.bans.order(id: :desc),
-          cached: true
+          collection: @resource.bans.order(id: :desc)
       - else
         p.b-nothing_here = t('answers.no').capitalize
 

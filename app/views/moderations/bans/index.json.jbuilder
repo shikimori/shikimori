@@ -1,7 +1,6 @@
 json.content render(
   partial: 'moderations/bans/ban',
   collection: @collection,
-  cached: true,
   formats: :html
 )
 
