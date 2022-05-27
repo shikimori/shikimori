@@ -3,4 +3,6 @@ header.head
     = og.headline
   = render 'application/breadcrumbs'
 
-= render @resource
+= render partial: 'moderations/bans/ban',
+  collection: [@resource],
+  cached: true

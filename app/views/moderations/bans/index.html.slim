@@ -1,29 +1,30 @@
-header.head
-  h1 = og.headline
-  p.notice = t '.notice'
-  = render 'application/breadcrumbs'
+= cache expires_in: 1.day do
+  header.head
+    h1 = og.headline
+    p.notice = t '.notice'
+    = render 'application/breadcrumbs'
 
-.block
-  .subheadline = t '.instruction'
-  .b-brief
-    .moderators
-      = render partial: 'users/user',
-        collection: @moderators, locals: { content_by: :named_avatar }
+  .block
+    .subheadline = t '.instruction'
+    .b-brief
+      .moderators
+        = render partial: 'users/user',
+          collection: @moderators, locals: { content_by: :named_avatar }
 
-    ul.b-list.is-wide
-      li: p
-        a.b-link href=@site_rules.object.url = @site_rules.title
+      ul.b-list.is-wide
+        li: p
+          a.b-link href=@site_rules.object.url = @site_rules.title
+
+        - if @club
+            li
+              a.b-link href=@club.url
+                = "#{Club.model_name.human} \"#{@club.name}\""
+        / - elsif !ru_host?
+        /   - t('.instructions').each do |instruction|
+        /     li: p == instruction
 
       - if @club
-          li
-            a.b-link href=@club.url
-              = "#{Club.model_name.human} \"#{@club.name}\""
-      - elsif !ru_host?
-        - t('.instructions').each do |instruction|
-          li: p == instruction
-
-    - if @club
-      = @club.description_html
+        = @club.description_html
 
 - if can? :manage, Ban
   - if @pending && @pending.any?
@@ -33,7 +34,9 @@ header.head
       .subheadline.m5 = t '.queue'
       div
         - if @pending.any?
-          = render @pending
+          = render partial: 'moderations/abuse_requests/abuse_request',
+            collection: @pending,
+            cached: true
         - else
           .b-nothing_here = t '.queue_empty'
 
@@ -41,14 +44,18 @@ header.head
     .subheadline.m5 = t '.declined'
     .block
       = spoiler '...' do
-        = render @declined
+        = render partial: 'moderations/abuse_requests/abuse_request',
+          collection: @declined,
+          cached: true
 
 .block
   .b-options-floated
     a href=moderations_abuse_requests_url = t '.offtopic_plus_summaries'
   .subheadline.m5 = t '.history'
   .block
-    = render @collection
-    - if @collection.size == controller.class::LIMIT
+    = render partial: 'moderations/bans/ban',
+      collection: @collection,
+      cached: true
+    - if @collection.size == controller.class::PER_PAGE
       = render partial: 'blocks/postloader',
         locals: { next_url: moderations_bans_url(page: @page+1) }

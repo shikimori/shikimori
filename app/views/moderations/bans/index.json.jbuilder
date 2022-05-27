@@ -1,10 +1,11 @@
 json.content render(
   partial: 'moderations/bans/ban',
   collection: @collection,
+  cached: true,
   formats: :html
 )
 
-if @collection.size == controller.class::LIMIT
+if @collection.size == controller.class::PER_PAGE
   json.postloader render(
     partial: 'blocks/postloader',
     locals: {
