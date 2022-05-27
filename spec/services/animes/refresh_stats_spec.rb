@@ -144,4 +144,28 @@ describe Animes::RefreshStats do
       end
     end
   end
+
+  context 'has filtered 10 scores' do
+    before { anime_1.update(options: ['score_filter_10_2']) } # * multiplier
+
+    it do
+      expect { subject }.to change(AnimeStat, :count).by 2
+      expect(anime_1.stats).to have_attributes(
+        scores_stats: [{
+          'key' => '10',
+          'value' => 0
+        }, {
+          'key' => '8',
+          'value' => 1
+        }],
+        list_stats: [{
+          'key' => 'completed',
+          'value' => 2
+        }, {
+          'key' => 'watching',
+          'value' => 1
+        }]
+      )
+    end
+  end
 end

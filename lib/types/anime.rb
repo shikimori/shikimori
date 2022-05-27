@@ -23,8 +23,8 @@ module Types
 
     # entry rates from 1 to 10
     (1..10).each do |score|
-      # possible percentages to filter
-      (1..100).each do |percent|
+      # possible absolute values to filter, will be * FILTER_MULTIPLIER in refresh_stats.rb
+      (1..1000).each do |percent|
         options_list << "score_filter_#{score}_#{percent}"
       end
     end

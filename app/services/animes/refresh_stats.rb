@@ -1,6 +1,8 @@
 class Animes::RefreshStats
   method_object :scope
 
+  FILTER_MULTIPLIER = 50
+
   SELECT_SQL = <<~SQL.squish
     %<table_name>s.id as id,
       sum(case when user_rates.score = 10 then 1 else 0 end) as score_10,
@@ -79,31 +81,36 @@ private
     10.downto(1)
       .map do |i|
         key = :"score_#{i}"
-        filter_score_data(entry, { key: i.to_s, value: entry.send(key).to_i }) if entry.send(key).positive?
+        value = entry.send(key)
+        filter_score_data(entry, { key: i.to_s, value: value.to_i }) if value.positive?
       end
       .compact
   end
 
   def filter_score_data(entry, score_data)
-    filter_options.each do |option|
-      score_to_filter = option.gsub('score_filter_', '').split('_').first.to_i
-      filter_count = option.gsub('score_filter_', '').split('_').second.to_i
+    filter_options(entry).inject(score_data) do |data, option|
+      filter_data_by(data, option)
+    end
+  end
 
-      if score_data[:key] == score_to_filter
-        new_count_value = score_data[:value] - filter_count
-        if new_count_value.positive?
-          score_data[:value] = new_count_value
-        else
-          score_data[:value] = 0
-        end
+  def filter_data_by(score_data, option)
+    score_to_filter = option.gsub('score_filter_', '').split('_').first.to_i
+    filter_count = option.gsub('score_filter_', '').split('_').second.to_i
+
+    if score_data[:key].to_i == score_to_filter
+      new_count_value = score_data[:value] - (filter_count * FILTER_MULTIPLIER)
+      if new_count_value.positive?
+        score_data[:value] = new_count_value
+      else
+        score_data[:value] = 0
       end
     end
 
     score_data
   end
 
-  def filter_options
-    @entry.options.filter { |option| option.include? 'score_filter_' }
+  def filter_options entry
+    @scope.find(entry.id).options.filter { |option| option.include? 'score_filter_' }
   end
 
   def list_stats entry

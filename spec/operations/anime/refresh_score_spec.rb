@@ -12,7 +12,7 @@ describe Anime::RefreshScore do
   let(:current_score) { 5.0 }
   let(:global_average) { 8.0 }
   let(:options) { [] }
-
+  let(:new_score) { 7.3 }
   let(:scores_count) { 2 }
 
   before do
@@ -24,11 +24,12 @@ describe Anime::RefreshScore do
         user: create(:user)
     end
 
+    Animes::RefreshStats.call Anime
+
     allow(Animes::WeightedScore)
       .to receive(:call)
       .and_return new_score
   end
-  let(:new_score) { 7.3 }
 
   context 'score has changed' do
     it do
