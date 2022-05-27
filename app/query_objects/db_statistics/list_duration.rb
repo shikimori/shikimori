@@ -1,4 +1,4 @@
-class DbStatistics::ListDuration
+class DbStatistics::ListDuration # rubocop:disable ClassLength
   method_object :scope, :type
 
   CACHE_VERSION = :v11
@@ -143,9 +143,7 @@ private
   end
 
   def intervals_hash intervals
-    intervals.each_with_object({}) do |interval, memo|
-      memo[interval] = 0
-    end
+    intervals.index_with { 0 }
   end
 
   def round_up number
@@ -166,7 +164,7 @@ private
   end
 
   def max_id
-    User.order(id: :desc).limit(1).pluck(:id).first
+    User.order(id: :desc).limit(1).pick(:id)
   end
 
   def cache_key iteration
