@@ -1,7 +1,7 @@
 class DbStatistics::ListDuration # rubocop:disable ClassLength
   method_object :scope, :type
 
-  CACHE_VERSION = :v13
+  CACHE_VERSION = :v14
 
   Type = Types::Strict::Symbol
     .constructor(&:to_sym)
