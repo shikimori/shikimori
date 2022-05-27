@@ -1,7 +1,7 @@
 class DbStatistics::ListDuration # rubocop:disable ClassLength
   method_object :scope, :type
 
-  CACHE_VERSION = :v12
+  CACHE_VERSION = :v13
 
   Type = Types::Strict::Symbol
     .constructor(&:to_sym)
@@ -9,6 +9,12 @@ class DbStatistics::ListDuration # rubocop:disable ClassLength
 
   CHAPTER_DURATION = Manga::CHAPTER_DURATION
   VOLUME_DURATION = Manga::VOLUME_DURATION
+  USER_RATE_STATUSES = [
+    Types::UserRate::Status[:completed],
+    Types::UserRate::Status[:rewatching],
+    Types::UserRate::Status[:watching],
+    Types::UserRate::Status[:on_hold]
+  ]
 
   SELECT_SQL = {
     anime: (
@@ -16,10 +22,7 @@ class DbStatistics::ListDuration # rubocop:disable ClassLength
         sum(
           (case
             when user_rates.status in (
-              #{UserRate.status_id :completed},
-              #{UserRate.status_id :rewatching},
-              #{UserRate.status_id :watching},
-              #{UserRate.status_id :on_hold}
+              #{USER_RATE_STATUSES.map { |v| UserRate.status_id v }.join(',')}
             ) then
               greatest(animes.episodes, animes.episodes_aired)
             else
@@ -33,10 +36,7 @@ class DbStatistics::ListDuration # rubocop:disable ClassLength
         sum(
           (case
             when user_rates.status in (
-              #{UserRate.status_id :completed},
-              #{UserRate.status_id :rewatching},
-              #{UserRate.status_id :watching},
-              #{UserRate.status_id :on_hold}
+              #{USER_RATE_STATUSES.map { |v| UserRate.status_id v }.join(',')}
             ) then
               mangas.volumes
             else
@@ -46,10 +46,7 @@ class DbStatistics::ListDuration # rubocop:disable ClassLength
         sum(
           (case
             when user_rates.status in (
-              #{UserRate.status_id :completed},
-              #{UserRate.status_id :rewatching},
-              #{UserRate.status_id :watching},
-              #{UserRate.status_id :on_hold}
+              #{USER_RATE_STATUSES.map { |v| UserRate.status_id v }.join(',')}
             ) then
               mangas.chapters
             else

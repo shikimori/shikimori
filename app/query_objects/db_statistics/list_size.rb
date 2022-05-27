@@ -19,7 +19,7 @@ class DbStatistics::ListSize
 
   def call
     scope = @scope
-      .where(status: %i[completed rewatching])
+      .where(status: DbStatistics::ListDuration::USER_RATE_STATUSES)
       .where.not(user_id: User.excluded_from_statistics.select('id'))
       .group(:user_id)
 
