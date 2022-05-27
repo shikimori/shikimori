@@ -34,7 +34,7 @@ header.head
     .block
       = render @processed
 
-      - if @processed.size == controller.class::LIMIT
+      - if @processed.size == controller.class::PER_PAGE
         = render 'blocks/postloader',
           filter: 'b-log_entry',
           next_url: current_url(page: @page + 1)

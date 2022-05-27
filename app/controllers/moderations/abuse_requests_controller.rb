@@ -5,12 +5,12 @@ class Moderations::AbuseRequestsController < ModerationsController
   before_action :fetch_resource, only: %i[accept reject cleanup]
   before_action :check_access, only: %i[accept reject cleanup]
 
-  LIMIT = 25
+  PER_PAGE = 25
 
   def index
     og page_title: i18n_t('page_title.index')
 
-    @processed = QueryObjectBase.new(processed_scope).paginate(@page, LIMIT)
+    @processed = QueryObjectBase.new(processed_scope).paginate(@page, PER_PAGE)
 
     unless request.xhr?
       @moderators = moderators_scope
@@ -62,8 +62,8 @@ private
       .includes(
         :user,
         :approver,
-        topic: :linked,
-        comment: :commentable
+        topic: %i[linked user forum],
+        comment: %i[commentable user]
       )
       .order(updated_at: :desc)
       # .joins(comment: :topic)
