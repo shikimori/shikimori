@@ -129,7 +129,8 @@
           .block
             - if topic_view.review.abuse_requests.any?
               = render partial: 'moderations/abuse_requests/abuse_request',
-                collection: topic_view.review.abuse_requests
+                collection: topic_view.review.abuse_requests,
+                cached: true
             - else
               .b-nothing_here = t '.no_abuse_requests'
 
