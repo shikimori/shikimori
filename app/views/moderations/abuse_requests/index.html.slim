@@ -1,21 +1,22 @@
-header.head
-  h1 = og.headline
-  p.notice = t '.notice'
-  = render 'application/breadcrumbs'
+= cache expires_in: 1.day do
+  header.head
+    h1 = og.headline
+    p.notice = t '.notice'
+    = render 'application/breadcrumbs'
 
-.block
-  .subheadline = t '.instruction'
-  .b-brief
-    .moderators
-      = render partial: 'users/user',
-        collection: @moderators,
-        locals: { content_by: :named_avatar }
+  .block
+    .subheadline = t '.instruction'
+    .b-brief
+      .moderators
+        = render partial: 'users/user',
+          collection: @moderators,
+          locals: { content_by: :named_avatar }
 
-    ul.b-list.is-wide
-      - t('.instructions').each do |instruction|
-        li: p = instruction
+      ul.b-list.is-wide
+        - t('.instructions').each do |instruction|
+          li: p = instruction
 
-    p = t '.to_your_discretion'
+      p = t '.to_your_discretion'
 
 - if @pending&.any?
   .block
@@ -23,7 +24,9 @@ header.head
       a.expand-all.b-js-link = t '.expand_all'
     .subheadline.m5 = t '.queue'
     div
-      = render @pending
+      = render partial: 'moderations/abuse_requests/abuse_request',
+        collection: @pending,
+        cached: true
 
 - if @processed&.any?
   .block
@@ -32,7 +35,9 @@ header.head
         a href=moderations_bans_url = t '.bans_plus_warnings'
     .subheadline.m5 = t '.history'
     .block
-      = render @processed
+      = render partial: 'moderations/abuse_requests/abuse_request',
+        collection: @processed,
+        cached: true
 
       - if @processed.size == controller.class::PER_PAGE
         = render 'blocks/postloader',

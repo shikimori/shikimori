@@ -3,4 +3,6 @@ header.head
     = og.headline
   = render 'application/breadcrumbs'
 
-= render @resource
+= render partial: 'moderations/abuse_requests/abuse_request',
+  collection: [@resource],
+  cached: true
