@@ -7,7 +7,7 @@ class Api::V1::StylesController < Api::V1Controller
     respond_with @resource
   end
 
-  api :POST, '/styles', 'Preview a style'
+  api :POST, '/styles/preview', 'Preview a style'
   param :style, Hash do
     param :css, String, required: true
   end
