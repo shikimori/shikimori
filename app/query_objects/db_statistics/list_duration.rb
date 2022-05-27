@@ -1,7 +1,7 @@
 class DbStatistics::ListDuration # rubocop:disable ClassLength
   method_object :scope, :type
 
-  CACHE_VERSION = :v11
+  CACHE_VERSION = :v12
 
   Type = Types::Strict::Symbol
     .constructor(&:to_sym)
@@ -16,7 +16,10 @@ class DbStatistics::ListDuration # rubocop:disable ClassLength
         sum(
           (case
             when user_rates.status in (
-              #{UserRate.status_id :completed}, #{UserRate.status_id :rewatching}
+              #{UserRate.status_id :completed},
+              #{UserRate.status_id :rewatching},
+              #{UserRate.status_id :watching},
+              #{UserRate.status_id :on_hold}
             ) then
               greatest(animes.episodes, animes.episodes_aired)
             else
@@ -30,7 +33,10 @@ class DbStatistics::ListDuration # rubocop:disable ClassLength
         sum(
           (case
             when user_rates.status in (
-              #{UserRate.status_id :completed}, #{UserRate.status_id :rewatching}
+              #{UserRate.status_id :completed},
+              #{UserRate.status_id :rewatching},
+              #{UserRate.status_id :watching},
+              #{UserRate.status_id :on_hold}
             ) then
               mangas.volumes
             else
@@ -40,7 +46,10 @@ class DbStatistics::ListDuration # rubocop:disable ClassLength
         sum(
           (case
             when user_rates.status in (
-              #{UserRate.status_id :completed}, #{UserRate.status_id :rewatching}
+              #{UserRate.status_id :completed},
+              #{UserRate.status_id :rewatching},
+              #{UserRate.status_id :watching},
+              #{UserRate.status_id :on_hold}
             ) then
               mangas.chapters
             else
