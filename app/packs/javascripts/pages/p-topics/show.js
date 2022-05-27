@@ -1,15 +1,16 @@
-import { loadImagesFinally } from '@/utils/load_image';
+import { loadImageFinally } from '@/utils/load_image';
 
-pageLoad('topics_show', async () => {
+pageLoad('critiques_show', async () => {
   const $stars = $('.body-inner .critique-stars');
 
   if ($stars.length) {
-    const $firstImage = $('.body-inner img.b-poster').first();
+    const $firstImage = $('.body-inner .b-poster').first();
+    if (!$firstImage.length) { return; }
 
-    await loadImagesFinally('.body-inner');
+    await loadImageFinally($firstImage[0]);
     const imageOffset = $firstImage.offset();
 
-    if (imageOffset && imageOffset.top === ($stars.offset().top + $stars.outerHeight())) {
+    if (imageOffset && (imageOffset.top - ($stars.offset().top + $stars.outerHeight())) < 15) {
       $firstImage.addClass('critique-poster');
     }
   }
