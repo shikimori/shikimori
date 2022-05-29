@@ -157,7 +157,7 @@ class TorrentsParser
         TorrentsMatcher.new(anime).matches_for(
           v[:title],
           only_name: ANIME_WITH_NAME_MATCH_ONLY.include?(anime.id),
-          exact_name: anime.strict_torrent_name_match?
+          exact_name: anime.options.include?(Types::Anime::Options[:strict_torrent_name_match])
         )
       end
 
@@ -194,7 +194,9 @@ class TorrentsParser
       .to_a
 
     (ongoings + anons + released).select do |anime|
-      !anime.kind_special? && !anime.disabled_torrents_sync? # && !Anime::EXCLUDED_ONGOINGS.include?(v.id)
+      !anime.kind_special? &&
+        anime.options.exclude?(Types::Anime::Options[:disabled_torrents_sync])
+        # && !Anime::EXCLUDED_ONGOINGS.include?(v.id)
     end
   end
 

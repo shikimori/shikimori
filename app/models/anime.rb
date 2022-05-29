@@ -251,10 +251,11 @@ class Anime < DbEntry
     in: Types::Anime::Rating.values,
     predicates: { prefix: true }
 
-  enumerize :options,
-    in: Types::Anime::Options.values,
-    predicates: true,
-    multiple: true
+  # enumerize :options,
+  #   in: Types::Anime::Options.values,
+  #   predicates: true,
+  #   multiple: true,
+  #   skip_validations: true
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
   validates :season, length: { maximum: 255 }

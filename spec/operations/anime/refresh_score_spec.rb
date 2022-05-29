@@ -5,34 +5,33 @@ describe Anime::RefreshScore do
   let(:anime) do
     create :anime, status,
       score_2: current_score,
-      updated_at: 10.minutes.ago
+      updated_at: 10.minutes.ago,
+      options: options
   end
   let(:status) { %i[released ongoing].sample }
   let(:current_score) { 5.0 }
   let(:global_average) { 8.0 }
+  let(:options) { [] }
+  let(:new_score) { 7.3 }
+  let(:scores_count) { 2 }
 
-  Animes::WeightedScore::MIN_SCORES.times do |i|
-    let(:"user_#{i + 1}") { create :user }
-  end
-
-  Animes::WeightedScore::MIN_SCORES.times do |i|
-    let!(:"anime_rate_#{i + 1}".to_sym) do
+  before do
+    scores_count.times do |i|
       create :user_rate,
         target: anime,
         status: :completed,
-        score: 9,
-        user: send(:"user_#{i + 1}") # user_1
+        score: i.odd? ? 9 : 5,
+        user: create(:user)
     end
-  end
 
-  before do
+    Animes::RefreshStats.call Anime
+
     allow(Animes::WeightedScore)
       .to receive(:call)
       .and_return new_score
   end
 
   context 'score has changed' do
-    let(:new_score) { 1.3 }
     it do
       expect { subject }.to change(anime, :score_2).to new_score
 
@@ -40,8 +39,8 @@ describe Anime::RefreshScore do
       expect(Animes::WeightedScore)
         .to have_received(:call)
         .with(
-          number_of_scores: Animes::WeightedScore::MIN_SCORES,
-          average_user_score: 9,
+          number_of_scores: scores_count,
+          average_user_score: 7,
           global_average: global_average
         )
     end
@@ -63,8 +62,8 @@ describe Anime::RefreshScore do
       expect(Animes::WeightedScore)
         .to have_received(:call)
         .with(
-          number_of_scores: Animes::WeightedScore::MIN_SCORES,
-          average_user_score: 9,
+          number_of_scores: scores_count,
+          average_user_score: 7,
           global_average: global_average
         )
     end

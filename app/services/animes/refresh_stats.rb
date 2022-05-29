@@ -1,8 +1,10 @@
-class Animes::RefreshStats
+class Animes::RefreshStats # rubocop:disable ClassLength
   method_object :scope
 
+  STATUSES = %i[planned completed watching dropped on_hold]
   SELECT_SQL = <<~SQL.squish
-    %<table_name>s.id as id,
+    %<table_name>s.id,
+    %<table_name>s.options,
       sum(case when user_rates.score = 10 then 1 else 0 end) as score_10,
       sum(case when user_rates.score = 9 then 1 else 0 end) as score_9,
       sum(case when user_rates.score = 8 then 1 else 0 end) as score_8,
@@ -77,18 +79,26 @@ private
 
   def scores_stats entry
     10.downto(1)
-      .map do |i|
-        key = :"score_#{i}"
-        { key: i.to_s, value: entry.send(key).to_i } if entry.send(key).positive?
+      .map do |score|
+        key = :"score_#{score}"
+        filtered_amount = Animes::RefreshStats::FilterScores.call(
+          score: score,
+          amount: entry.send(key).to_i,
+          options: entry.options
+        )
+
+        { key: score.to_s, value: filtered_amount } if filtered_amount.positive?
       end
       .compact
   end
 
   def list_stats entry
-    %i[planned completed watching dropped on_hold]
+    STATUSES
       .map do |status|
         key = :"status_#{status}"
-        { key: status, value: entry.send(key).to_i } if entry.send(key).positive?
+        amount = entry.send(key).to_i
+
+        { key: status, value: amount } if amount.positive?
       end
       .compact
   end

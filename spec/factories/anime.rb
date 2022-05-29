@@ -70,7 +70,7 @@ FactoryBot.define do
       end
     end
 
-    Anime.options.values.each do |option_type|
+    Types::Anime::Options.values.each do |option_type|
       trait option_type do
         options { [option_type] }
       end
