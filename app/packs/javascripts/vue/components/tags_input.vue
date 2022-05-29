@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { defineProps, ref, computed } from 'vue';
+import { ref, computed } from 'vue';
 
 import VueTagsInput from '@sipec/vue3-tags-input';
 
