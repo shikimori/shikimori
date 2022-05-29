@@ -2,6 +2,8 @@ class Anime::RefreshScore
   method_object :entry, :global_average
 
   def call
+    return unless @entry.stats
+
     new_score = @entry.anons? ?
       0 :
       Animes::WeightedScore.call(
