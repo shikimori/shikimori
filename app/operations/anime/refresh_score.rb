@@ -21,7 +21,7 @@ private
 
   def average_user_score
     @entry.stats.scores_stats.sum do |stat|
-      (stat['key'].to_f * stat['value'] / number_of_scores)
+      stat['key'].to_f * stat['value'] / number_of_scores
     end
   end
 end

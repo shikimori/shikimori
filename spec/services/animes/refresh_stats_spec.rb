@@ -3,11 +3,12 @@ describe Animes::RefreshStats do
 
   let(:scope) { Anime.all }
 
-  let(:anime_1) { create :anime }
+  let(:anime_1) { create :anime, options: anime_1_options }
   let(:anime_2) { create :anime }
 
   let(:user_4) { create :user }
 
+  let(:anime_1_options) { [] }
   before { user_3.update roles: %i[cheat_bot] }
 
   let!(:anime_1_rate_1) do
@@ -145,15 +146,15 @@ describe Animes::RefreshStats do
     end
   end
 
-  context 'has filtered 10 scores' do
-    before { anime_1.update(options: ['score_filter_10_2']) } # * multiplier
+  context 'score_filter' do
+    let(:anime_1_options) { ['score_filter_10_1'] }
 
     it do
       expect { subject }.to change(AnimeStat, :count).by 2
       expect(anime_1.stats).to have_attributes(
         scores_stats: [{
           'key' => '10',
-          'value' => 0
+          'value' => 1
         }, {
           'key' => '8',
           'value' => 1

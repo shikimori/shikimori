@@ -1,8 +1,10 @@
-class Animes::RefreshStats
+class Animes::RefreshStats # rubocop:disable ClassLength
   method_object :scope
 
+  STATUSES = %i[planned completed watching dropped on_hold]
   SELECT_SQL = <<~SQL.squish
-    %<table_name>s.id as id,
+    %<table_name>s.id,
+    %<table_name>s.options,
       sum(case when user_rates.score = 10 then 1 else 0 end) as score_10,
       sum(case when user_rates.score = 9 then 1 else 0 end) as score_9,
       sum(case when user_rates.score = 8 then 1 else 0 end) as score_8,
@@ -77,41 +79,26 @@ private
 
   def scores_stats entry
     10.downto(1)
-      .map do |i|
-        key = :"score_#{i}"
-        value = entry.send(key)
-        filter_score_data(entry, { key: i.to_s, value: value.to_i }) if value.positive?
+      .map do |score|
+        key = :"score_#{score}"
+        filtered_amount = Animes::RefreshStats::FilterScores.call(
+          score: score,
+          amount: entry.send(key).to_i,
+          options: entry.options
+        )
+
+        { key: score.to_s, value: filtered_amount } if filtered_amount.positive?
       end
       .compact
   end
 
-  def filter_score_data(entry, score_data)
-    filter_options(entry).inject(score_data) do |data, option|
-      filter_data_by(data, option)
-    end
-  end
-
-  def filter_data_by(score_data, option)
-    score_to_filter = option.gsub('score_filter_', '').split('_').first.to_i
-    filter_count = option.gsub('score_filter_', '').split('_').second.to_i
-
-    if score_data[:key].to_i == score_to_filter
-      new_count_value = score_data[:value] - filter_count
-      score_data[:value] = new_count_value.positive? ? new_count_value : 0
-    end
-
-    score_data
-  end
-
-  def filter_options entry
-    @scope.find(entry.id).options.filter { |option| option.include? 'score_filter_' }
-  end
-
   def list_stats entry
-    %i[planned completed watching dropped on_hold]
+    STATUSES
       .map do |status|
         key = :"status_#{status}"
-        { key: status, value: entry.send(key).to_i } if entry.send(key).positive?
+        amount = entry.send(key).to_i
+
+        { key: status, value: amount } if amount.positive?
       end
       .compact
   end
