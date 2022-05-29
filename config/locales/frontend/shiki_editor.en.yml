@@ -48,3 +48,6 @@ en:
         brown: Brown
         gray: Gray
         black: Black
+      headlines:
+        headline: Headline
+        midheadline: Mid-Headline

@@ -48,3 +48,6 @@ ru:
         brown: Коричневый
         gray: Серый
         black: Чёрный
+      headlines:
+        headline: Заголовок
+        midheadline: Подзаголовок
