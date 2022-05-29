@@ -31,7 +31,7 @@ Layout/LineLength:
   Max: 100
   AllowURI: true
   IgnoreCopDirectives: true
-  IgnoredPatterns: ['\A\ *#']
+  AllowedPatterns: ['\A\ *#']
   Exclude:
     - spec/**/*
 Metrics/BlockLength:
