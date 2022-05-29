@@ -1,8 +1,6 @@
 class Animes::RefreshStats
   method_object :scope
 
-  FILTER_MULTIPLIER = 50
-
   SELECT_SQL = <<~SQL.squish
     %<table_name>s.id as id,
       sum(case when user_rates.score = 10 then 1 else 0 end) as score_10,
@@ -98,12 +96,8 @@ private
     filter_count = option.gsub('score_filter_', '').split('_').second.to_i
 
     if score_data[:key].to_i == score_to_filter
-      new_count_value = score_data[:value] - (filter_count * FILTER_MULTIPLIER)
-      if new_count_value.positive?
-        score_data[:value] = new_count_value
-      else
-        score_data[:value] = 0
-      end
+      new_count_value = score_data[:value] - filter_count
+      score_data[:value] = new_count_value.positive? ? new_count_value : 0
     end
 
     score_data
