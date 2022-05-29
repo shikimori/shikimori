@@ -15,22 +15,14 @@ module Types
       .constructor(&:to_sym)
       .enum(:none, :g, :pg, :pg_13, :r, :r_plus, :rx)
 
-    options_list = %i[
+    OPTIONS = %w[
       strict_torrent_name_match
       disabled_torrents_sync
       disabled_anime365_sync
     ]
 
-    # entry rates from 1 to 10
-    (1..10).each do |score|
-      # possible absolute values to filter, will be * FILTER_MULTIPLIER in refresh_stats.rb
-      (1..1000).each do |percent|
-        options_list << "score_filter_#{score}_#{percent}"
-      end
-    end
-
-    Options = Types::Strict::Symbol
-      .constructor(&:to_sym)
-      .enum(*options_list)
+    Options = Types::Strict::String
+      .constructor(&:to_s)
+      .enum(*OPTIONS)
   end
 end

@@ -14,11 +14,10 @@
       = render 'versions/reason'
 
   .block
-    - Anime.options.options.each do |(name, value)|
-      - unless (value.starts_with?('score_filter') && value != 'score_filter_9_84')
-        p.m5
-          .b-tag = value
-          | &ndash;&nbsp;&nbsp;#{name}
+    - I18n.t('enumerize.anime.options').each do |(field, text)|
+      p.m5
+        .b-tag = field
+        | &ndash;&nbsp;&nbsp;#{text}
 
   .cc-2
     .c-column
