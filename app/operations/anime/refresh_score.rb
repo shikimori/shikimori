@@ -16,12 +16,12 @@ class Anime::RefreshScore
 private
 
   def number_of_scores
-    @entry.stats.scores_stats.inject(0) { |sum, stat| sum + stat['value'] }
+    @entry.stats.scores_stats.sum { |stat| stat['value'] }
   end
 
   def average_user_score
-    @entry.stats.scores_stats.inject(0) do |sum, stat|
-      sum + stat['key'].to_f * stat['value'] / number_of_scores
+    @entry.stats.scores_stats.sum do |stat|
+      (stat['key'].to_f * stat['value'] / number_of_scores)
     end
   end
 end
