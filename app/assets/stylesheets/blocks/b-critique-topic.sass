@@ -50,8 +50,13 @@
     display: inline-block
 
   .critique-poster
-    max-width: calc(100% - 247px)
+    max-width: calc(100% - 264px)
 
+  @media screen and (max-width: 480px)
+    .critique-poster
+      max-width: 100%
+
+  // changing margin-left property may break poster shortening
   .critique-stars
     float: right
     margin-left: $block-offset

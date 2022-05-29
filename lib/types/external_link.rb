@@ -61,6 +61,7 @@ module Types
     }
 
     INVISIBLE_KINDS = %i[myanimelist smotret_anime mangachan]
+    NOT_AVAILABLE_IN_RUSSIA_KINDS = %i[wakanim crunchyroll subs_com_ru]
 
     Kind = Types::Strict::Symbol
       .constructor(&:to_sym)
