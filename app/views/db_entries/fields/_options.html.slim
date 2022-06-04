@@ -14,7 +14,7 @@
       = render 'versions/reason'
 
   .block
-    - I18n.t('enumerize.anime.options').each do |(field, text)|
+    - I18n.t("enumerize.#{@resource.object.class.base_class.name.downcase}.options").each do |(field, text)|
       p.m5
         .b-tag = field
         | &ndash;&nbsp;&nbsp;#{text}

@@ -98,16 +98,15 @@
           - else
             .b-js-action = t 'moderators_only'
 
-      - if @resource.anime?
-        li
-          .field = @resource.class.human_attribute_name(:options)
-          .value
-            span = @resource.options.join(', ')
-            - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { options: [] })
-              a.b-js-action href=@resource.edit_field_url(:options)
-                = t 'moderators_only'
-            - else
-              .b-js-action = t 'moderators_only'
+      li
+        .field = @resource.class.human_attribute_name(:options)
+        .value
+          span = @resource.options.join(', ')
+          - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { options: [] })
+            a.b-js-action href=@resource.edit_field_url(:options)
+              = t 'moderators_only'
+          - else
+            .b-js-action = t 'moderators_only'
 
   = render 'db_entries/synchronization', resource: @resource
 

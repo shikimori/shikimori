@@ -479,7 +479,7 @@ en:
           (for cases with a long name, when the parser alone cannot find the episodes)
         disabled_torrents_sync: disable of searching of new episodes on torrents
         disabled_anime365_sync: disable of searching of new episodes on anime365
-        score_filter_9_8000: удаление накрученных оценок. Первое число это оценка, а второе - количество голосов с оценкой, которые нужно удалить. Например, score_filter_9_8000 уменьшит количество девяток на 8000 штук, score_filter_10_20 уменьшит десятки на 20 штук.
+        score_filter_9_8000: &score_filter_9_8000 удаление накрученных оценок. Первое число это оценка, а второе - количество голосов с оценкой, которые нужно удалить. Например, score_filter_9_8000 уменьшит количество девяток на 8000 штук, score_filter_10_20 уменьшит десятки на 20 штук.
     manga: &manga_enumerize
       status:
         anons: Planned
@@ -503,6 +503,8 @@ en:
           novel: Novel
           light_novel: Light Novel
           one_shot: One Shot
+      options:
+        score_filter_9_8000: *score_filter_9_8000
     ranobe:
       <<: *manga_enumerize
     genre:
