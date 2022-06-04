@@ -31,24 +31,20 @@ class Animes::RefreshStats # rubocop:disable ClassLength
   def call
     anime_stats = build_stats
 
-    AnimeStat.transaction do
-      AnimeStat
-        .where(entry_type: anime_stats.first.entry_type)
-        .where(entry_id: @scope.select(:id))
-        .delete_all
-      AnimeStat.import anime_stats
-    end
+    AnimeStat.transaction { import_stats anime_stats: anime_stats }
 
     today = Time.zone.today
-    anime_stat_history = build_history anime_stats, today
+    anime_stat_history = build_history(
+      anime_stats: anime_stats,
+      today: today
+    )
 
     AnimeStatHistory.transaction do
-      AnimeStatHistory
-        .where(created_on: today)
-        .where(entry_type: anime_stats.first.entry_type)
-        .where(entry_id: @scope.select(:id))
-        .delete_all
-      AnimeStatHistory.import anime_stat_history
+      import_history(
+        anime_stat_history: anime_stat_history,
+        anime_stats: anime_stats,
+        today: today
+      )
     end
   end
 
@@ -69,7 +65,15 @@ private
       end
   end
 
-  def build_history anime_stats, today
+  def import_stats anime_stats:
+    AnimeStat
+      .where(entry_type: anime_stats.first.entry_type)
+      .where(entry_id: @scope.select(:id))
+      .delete_all
+    AnimeStat.import anime_stats
+  end
+
+  def build_history anime_stats:, today:
     anime_stats.map do |anime_stat|
       AnimeStatHistory.new(
         scores_stats: anime_stat.scores_stats,
@@ -80,6 +84,15 @@ private
         score_2: anime_stat.entry.score_2
       )
     end
+  end
+
+  def import_history anime_stat_history:, anime_stats:, today:
+    AnimeStatHistory
+      .where(created_on: today)
+      .where(entry_type: anime_stats.first.entry_type)
+      .where(entry_id: @scope.select(:id))
+      .delete_all
+    AnimeStatHistory.import anime_stat_history
   end
 
   def scores_stats entry
