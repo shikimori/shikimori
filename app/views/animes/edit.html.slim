@@ -96,18 +96,18 @@
             a.b-js-action href=@resource.edit_field_url(:is_censored)
               = t 'moderators_only'
           - else
-            .b-js-action.is-disabled = t 'moderators_only'
+            a.b-js-action.is-disabled = t 'moderators_only'
 
       li
         .field = @resource.class.human_attribute_name(:options)
         .value
-          span = @resource.options.join(', ')
           - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { options: [] })
+            span = @resource.options.join(', ')
             a.b-js-action href=@resource.edit_field_url(:options)
               = t 'moderators_only'
           - else
             span
-            .b-js-action.is-disabled = t 'moderators_only'
+            a.b-js-action.is-disabled = t 'moderators_only'
 
   = render 'db_entries/synchronization', resource: @resource
 
