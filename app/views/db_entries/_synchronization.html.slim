@@ -59,6 +59,16 @@
                   data-confirm=t('actions.confirm_sync')
                 ] = t '.refresh'
 
+        - if can?(:sync, resource) && (resource.anime? || resource.kinda_manga?)
+          li
+            .field = t '.stats'
+            .value
+              a.b-button.run-poster-updater[
+                href=resource.refresh_stats_url
+                data-method='post'
+                data-confirm=t('actions.confirm')
+              ] = t '.refresh'
+
     - if can? :restricted_update, Version
       .f-column
         ul.b-list.is-wide

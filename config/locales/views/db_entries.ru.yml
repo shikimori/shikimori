@@ -47,6 +47,7 @@ ru:
       sync: синхронизировать
       syncing: Запущена синхронизация
       refresh: обновить
+      stats: Статистика оценок
     dangerous_actions:
       index:
         dangerous_actions: Опасные действия

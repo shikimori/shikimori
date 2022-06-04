@@ -119,6 +119,19 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
     )
   end
 
+  def refresh_stats
+    Animes::RefreshStats.call resource_klass.where(id: @resource.id)
+    Anime::RefreshScore.call(
+      @resource,
+      Animes::GlobalAverage.call(@resource.class.base_class.name)
+    )
+
+    redirect_back(
+      fallback_location: @resource ? @resource.edit_url : moderations_url,
+      notice: i18n_t('refresh_completed')
+    )
+  end
+
   def merge_into_other
     authorize! :merge, resource_klass
 

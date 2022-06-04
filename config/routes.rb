@@ -805,6 +805,7 @@ Rails.application.routes.draw do
       get 'edit/videos/:video_id' => :edit_field, as: :edit_video, field: :videos
       get :watch_online
       post 'torrent' => 'torrents#create'
+      post :refresh_stats
     end
 
     resources :screenshots, only: %i[create destroy] do
@@ -822,6 +823,9 @@ Rails.application.routes.draw do
         external_links desynced licensors
         is_censored
       }.join('|'))
+      member do
+        post :refresh_stats
+      end
     end
   end
 
