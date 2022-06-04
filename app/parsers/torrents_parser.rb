@@ -170,7 +170,7 @@ class TorrentsParser
     if errors.none?
       result
     else
-      raise MissingEpisodeError anime_id, errors
+      raise ::MissingEpisodeError anime_id, errors
     end
   end
 
