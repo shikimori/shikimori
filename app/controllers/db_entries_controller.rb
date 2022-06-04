@@ -120,6 +120,10 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def refresh_stats
+    NamedLogger.refresh_stats.info(
+      "#{resource_klass.name}##{@resource.id} User##{current_user.id}"
+    )
+
     Animes::RefreshStats.call resource_klass.where(id: @resource.id)
     Anime::RefreshScore.call(
       @resource,
