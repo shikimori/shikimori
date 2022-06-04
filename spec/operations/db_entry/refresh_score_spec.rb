@@ -1,6 +1,11 @@
-describe Anime::RefreshScore do
+describe DbEntry::RefreshScore do
   include_context :timecop
-  subject { described_class.call anime, global_average }
+  subject do
+    described_class.call(
+      entry: anime,
+      global_average: global_average
+    )
+  end
 
   let(:anime) do
     create :anime, status,

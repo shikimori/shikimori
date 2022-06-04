@@ -124,10 +124,10 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
       "#{resource_klass.name}##{@resource.id} User##{current_user.id}"
     )
 
-    Animes::RefreshStats.call resource_klass.where(id: @resource.id)
-    Anime::RefreshScore.call(
-      @resource,
-      Animes::GlobalAverage.call(@resource.class.base_class.name)
+    Animes::RefreshStats.call resource_klass.all
+    DbEntry::RefreshScore.call(
+      entry: @resource,
+      global_average: Animes::GlobalAverage.call(@resource.class.base_class.name)
     )
 
     redirect_back(

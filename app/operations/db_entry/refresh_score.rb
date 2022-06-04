@@ -1,5 +1,5 @@
-class Anime::RefreshScore
-  method_object :entry, :global_average
+class DbEntry::RefreshScore
+  method_object %i[entry! global_average!]
 
   def call
     return unless @entry.stats
