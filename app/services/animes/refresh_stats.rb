@@ -32,7 +32,10 @@ class Animes::RefreshStats # rubocop:disable ClassLength
     anime_stats = build_stats
 
     AnimeStat.transaction do
-      AnimeStat.where(entry_type: anime_stats.first.entry_type).delete_all
+      AnimeStat
+        .where(entry_type: anime_stats.first.entry_type)
+        .where(entry_id: @scope.select(:id))
+        .delete_all
       AnimeStat.import anime_stats
     end
 
@@ -41,7 +44,9 @@ class Animes::RefreshStats # rubocop:disable ClassLength
 
     AnimeStatHistory.transaction do
       AnimeStatHistory
-        .where(created_on: today, entry_type: anime_stats.first.entry_type)
+        .where(created_on: today)
+        .where(entry_type: anime_stats.first.entry_type)
+        .where(entry_id: @scope.select(:id))
         .delete_all
       AnimeStatHistory.import anime_stat_history
     end

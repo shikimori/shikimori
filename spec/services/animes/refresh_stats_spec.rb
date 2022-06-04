@@ -144,6 +144,27 @@ describe Animes::RefreshStats do
         expect(manga_stat).to be_persisted
       end
     end
+
+    describe 'it does not delete stats outside of requested scope' do
+      let(:scope) { Anime.where(id: anime_1.id) }
+      let!(:anime_stat_1) { create :anime_stat, entry: anime_1 }
+      let!(:anime_stat_history_1) do
+        create :anime_stat_history, entry: anime_1, created_on: Time.zone.today
+      end
+      let!(:anime_stat_2) { create :anime_stat, entry: anime_2 }
+      let!(:anime_stat_history_2) do
+        create :anime_stat_history, entry: anime_2, created_on: Time.zone.today
+      end
+
+      it do
+        expect { subject }.to_not change AnimeStat, :count
+        expect { anime_stat_1.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect { anime_stat_history_1.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(anime_stat_2.reload).to be_persisted
+        expect(anime_stat_history_2.reload).to be_persisted
+        expect(manga_stat).to be_persisted
+      end
+    end
   end
 
   context 'score_filter' do
