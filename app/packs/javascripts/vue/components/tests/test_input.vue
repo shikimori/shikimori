@@ -23,12 +23,12 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
-
 defineProps({
   modelValue: { type: [String, Number], required: false, default: '' },
   name: { type: String, required: true },
   error: { type: String, required: false, default: '' },
   placeholder: { type: String, required: false, default: '' }
 });
+
+defineEmits(['update:modelValue']);
 </script>

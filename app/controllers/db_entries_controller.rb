@@ -119,6 +119,27 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
     )
   end
 
+  def refresh_stats
+    authorize! :refresh_stats, resource_klass
+
+    # TODO: extract into sidekiq task? 
+    # not important right now since access to this method is restricted
+    NamedLogger.refresh_stats.info(
+      "#{resource_klass.name}##{@resource.id} User##{current_user.id}"
+    )
+
+    Animes::RefreshStats.call resource_klass.where(id: @resource.id)
+    DbEntry::RefreshScore.call(
+      entry: @resource,
+      global_average: Animes::GlobalAverage.call(@resource.class.base_class.name)
+    )
+
+    redirect_back(
+      fallback_location: @resource ? @resource.edit_url : moderations_url,
+      notice: i18n_t('refresh_completed')
+    )
+  end
+
   def merge_into_other
     authorize! :merge, resource_klass
 

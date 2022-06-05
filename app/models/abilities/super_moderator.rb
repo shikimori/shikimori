@@ -13,6 +13,8 @@ class Abilities::SuperModerator
     can %i[merge destroy], Character
     can %i[merge destroy], Person
 
+    can :refresh_stats, [Anime, Manga]
+
     can :manage, Club
     can :manage, ClubPage
     can :manage, ClubImage

@@ -42,7 +42,8 @@
     .subheadline.m5 = t 'profiles.show.ban_history'
     .bans
       - if @resource.bans.any?
-        = render partial: 'moderations/bans/ban', collection: @resource.bans.order(id: :desc)
+        = render partial: 'moderations/bans/ban',
+          collection: @resource.bans.order(id: :desc)
       - else
         p.b-nothing_here = t('answers.no').capitalize
 

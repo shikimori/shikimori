@@ -14,10 +14,10 @@
       = render 'versions/reason'
 
   .block
-    - Anime.options.options.each do |(name, value)|
+    - I18n.t("enumerize.#{@resource.object.class.base_class.name.downcase}.options").each do |(field, text)|
       p.m5
-        .b-tag = value
-        | &ndash;&nbsp;&nbsp;#{name}
+        .b-tag = field
+        | &ndash;&nbsp;&nbsp;#{text}
 
   .cc-2
     .c-column

@@ -9,6 +9,7 @@ class Abilities::Admin
     can :sync, [Anime, Manga, Person, Character] do |entry|
       entry.mal_id.present?
     end
+    can :refresh_stats, [Anime, Manga]
 
     can %i[
       manage_super_moderator_role

@@ -3,7 +3,7 @@ class Moderations::BansController < ModerationsController
   before_action :authenticate_user!, except: %i[index]
   layout false, only: %i[new]
 
-  LIMIT = 25
+  PER_PAGE = 25
 
   def index
     og noindex: true, nofollow: true
@@ -12,7 +12,7 @@ class Moderations::BansController < ModerationsController
     @moderators = moderators_scope
 
     scope = Ban.includes(:comment).order(created_at: :desc)
-    @collection = QueryObjectBase.new(scope).paginate(@page, LIMIT)
+    @collection = QueryObjectBase.new(scope).paginate(@page, PER_PAGE)
 
     @site_rules = StickyTopicView.site_rules(locale_from_host)
     @club = Club.find_by(id: 917)&.decorate if ru_host?

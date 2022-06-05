@@ -1,5 +1,5 @@
 describe Animes::RefreshScoresWorker do
-  before { allow(Anime::RefreshScore).to receive :call }
+  before { allow(DbEntry::RefreshScore).to receive :call }
   subject! do
     described_class.new.perform type, entry_id, global_average
   end
@@ -10,14 +10,14 @@ describe Animes::RefreshScoresWorker do
   context 'found entry' do
     let(:anime) { create :anime }
     it do
-      expect(Anime::RefreshScore)
+      expect(DbEntry::RefreshScore)
         .to have_received(:call)
-        .with(anime, global_average.to_f)
+        .with(entry: anime, global_average: global_average.to_f)
     end
   end
 
   context 'not found entry' do
     let(:anime) { build_stubbed :anime }
-    it { expect(Anime::RefreshScore).to_not have_received :call }
+    it { expect(DbEntry::RefreshScore).to_not have_received :call }
   end
 end

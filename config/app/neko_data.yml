@@ -17787,6 +17787,7 @@
         - 42091
         - 49627
         - 49739
+        - 51618
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -17829,6 +17830,7 @@
         - 42091
         - 49627
         - 49739
+        - 51618
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -23778,6 +23780,7 @@
         - 51424
         - 51889
         - 51870
+        - 51887
       :threshold: 92.7%
       :generator:
         ignore_latest_ids:
@@ -23838,6 +23841,7 @@
         - 51424
         - 51889
         - 51870
+        - 51887
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -29471,6 +29475,7 @@
         - 40967
         - 41099
         - 41167
+        - 51741
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :idolish7
@@ -29518,6 +29523,7 @@
         - 40967
         - 41099
         - 41167
+        - 51741
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :idolish7
@@ -31232,7 +31238,6 @@
         franchise: saki
         not_anime_ids:
         - 7759
-        - 30292
       :threshold: 91%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -31264,7 +31269,6 @@
         franchise: saki
         not_anime_ids:
         - 7759
-        - 30292
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
