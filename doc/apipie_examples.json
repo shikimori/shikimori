@@ -4299,7 +4299,7 @@
   ],
   "styles#show": [
     {
-      "verb": "PATCH",
+      "verb": "GET",
       "path": "/api/styles/1",
       "versions": [
         "1.0"

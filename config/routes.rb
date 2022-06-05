@@ -805,6 +805,7 @@ Rails.application.routes.draw do
       get 'edit/videos/:video_id' => :edit_field, as: :edit_video, field: :videos
       get :watch_online
       post 'torrent' => 'torrents#create'
+      post :refresh_stats
     end
 
     resources :screenshots, only: %i[create destroy] do
@@ -819,9 +820,12 @@ Rails.application.routes.draw do
         name russian synonyms japanese license_name_ru description_ru description_en image
         status kind rating volumes chapters
         imageboard_tag aired_on released_on genre_ids
-        external_links desynced licensors
+        external_links desynced options licensors
         is_censored
       }.join('|'))
+      member do
+        post :refresh_stats
+      end
     end
   end
 

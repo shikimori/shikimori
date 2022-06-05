@@ -14,12 +14,16 @@ class DbStatistics::ListSize
       120, 140, 160, 180, 200, 230, 260, 300, 350, 400
     ]
   }
+  USER_RATE_STATUSES = [
+    Types::UserRate::Status[:completed],
+    Types::UserRate::Status[:rewatching]
+  ]
 
   method_object :scope, :interval
 
   def call
     scope = @scope
-      .where(status: %i[completed rewatching])
+      .where(status: USER_RATE_STATUSES)
       .where.not(user_id: User.excluded_from_statistics.select('id'))
       .group(:user_id)
 

@@ -1,7 +1,7 @@
-class DbStatistics::ListDuration
+class DbStatistics::ListDuration # rubocop:disable ClassLength
   method_object :scope, :type
 
-  CACHE_VERSION = :v11
+  CACHE_VERSION = :v14
 
   Type = Types::Strict::Symbol
     .constructor(&:to_sym)
@@ -9,6 +9,12 @@ class DbStatistics::ListDuration
 
   CHAPTER_DURATION = Manga::CHAPTER_DURATION
   VOLUME_DURATION = Manga::VOLUME_DURATION
+  USER_RATE_STATUSES = [
+    Types::UserRate::Status[:completed],
+    Types::UserRate::Status[:rewatching],
+    Types::UserRate::Status[:watching],
+    Types::UserRate::Status[:on_hold]
+  ]
 
   SELECT_SQL = {
     anime: (
@@ -16,7 +22,7 @@ class DbStatistics::ListDuration
         sum(
           (case
             when user_rates.status in (
-              #{UserRate.status_id :completed}, #{UserRate.status_id :rewatching}
+              #{USER_RATE_STATUSES.map { |v| UserRate.status_id v }.join(',')}
             ) then
               greatest(animes.episodes, animes.episodes_aired)
             else
@@ -30,7 +36,7 @@ class DbStatistics::ListDuration
         sum(
           (case
             when user_rates.status in (
-              #{UserRate.status_id :completed}, #{UserRate.status_id :rewatching}
+              #{USER_RATE_STATUSES.map { |v| UserRate.status_id v }.join(',')}
             ) then
               mangas.volumes
             else
@@ -40,7 +46,7 @@ class DbStatistics::ListDuration
         sum(
           (case
             when user_rates.status in (
-              #{UserRate.status_id :completed}, #{UserRate.status_id :rewatching}
+              #{USER_RATE_STATUSES.map { |v| UserRate.status_id v }.join(',')}
             ) then
               mangas.chapters
             else
@@ -143,9 +149,7 @@ private
   end
 
   def intervals_hash intervals
-    intervals.each_with_object({}) do |interval, memo|
-      memo[interval] = 0
-    end
+    intervals.index_with { 0 }
   end
 
   def round_up number
@@ -166,7 +170,7 @@ private
   end
 
   def max_id
-    User.order(id: :desc).limit(1).pluck(:id).first
+    User.order(id: :desc).limit(1).pick(:id)
   end
 
   def cache_key iteration

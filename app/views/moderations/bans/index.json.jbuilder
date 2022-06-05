@@ -4,7 +4,7 @@ json.content render(
   formats: :html
 )
 
-if @collection.size == controller.class::LIMIT
+if @collection.size == controller.class::PER_PAGE
   json.postloader render(
     partial: 'blocks/postloader',
     locals: {

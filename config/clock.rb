@@ -126,14 +126,6 @@ module Clockwork
     NamedLogger.clockwork.info 'daily.cleanups finished'
   end
 
-  every 1.day, 'daily.statistics', at: '06:00' do
-    Animes::RefreshStatsWorker.perform_async 'anime'
-    Animes::RefreshStatsWorker.perform_async 'manga'
-    Achievements::UpdateStatistics.perform_async
-
-    NamedLogger.clockwork.info 'daily.statistics finished'
-  end
-
   every 1.week, 'weekly.stuff.1', at: 'Monday 00:45' do
     # Anidb::ImportDescriptionsJob.perform_async
     Tags::CleanupImageboardsCacheJob.perform_async
@@ -228,7 +220,15 @@ module Clockwork
   #   VacuumDb.perform_async
   # end
 
-  every 1.day, 'daily.schedule_scores_refresh', at: '04:30' do
+  every 1.day, 'daily.statistics', at: '04:30' do
+    Animes::RefreshStatsWorker.perform_async 'anime'
+    Animes::RefreshStatsWorker.perform_async 'manga'
+    Achievements::UpdateStatistics.perform_async
+
+    NamedLogger.clockwork.info 'daily.statistics finished'
+  end
+
+  every 1.day, 'daily.schedule_scores_refresh', at: '08:00' do
     Animes::ScheduleRefreshScoresWorker.perform_async Anime.name
     Animes::ScheduleRefreshScoresWorker.perform_async Manga.name
 

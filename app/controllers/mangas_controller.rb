@@ -11,6 +11,7 @@ class MangasController < AnimesController
     external_links: [EXTERNAL_LINK_PARAMS],
     licensors: [],
     synonyms: [],
+    options: [],
     desynced: []
   ]
 

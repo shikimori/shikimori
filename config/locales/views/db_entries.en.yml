@@ -47,6 +47,10 @@ en:
       sync: sync
       syncing: Syncing
       refresh: update
+    scores:
+      scores: Scores
+      stats: Stats
+      refresh: update
     dangerous_actions:
       index:
         dangerous_actions: Dangerous actions

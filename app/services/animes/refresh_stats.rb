@@ -1,8 +1,10 @@
-class Animes::RefreshStats
+class Animes::RefreshStats # rubocop:disable ClassLength
   method_object :scope
 
+  STATUSES = %i[planned completed watching dropped on_hold]
   SELECT_SQL = <<~SQL.squish
-    %<table_name>s.id as id,
+    %<table_name>s.id,
+    %<table_name>s.options,
       sum(case when user_rates.score = 10 then 1 else 0 end) as score_10,
       sum(case when user_rates.score = 9 then 1 else 0 end) as score_9,
       sum(case when user_rates.score = 8 then 1 else 0 end) as score_8,
@@ -29,19 +31,20 @@ class Animes::RefreshStats
   def call
     anime_stats = build_stats
 
-    AnimeStat.transaction do
-      AnimeStat.where(entry_type: anime_stats.first.entry_type).delete_all
-      AnimeStat.import anime_stats
-    end
+    AnimeStat.transaction { import_stats anime_stats: anime_stats }
 
     today = Time.zone.today
-    anime_stat_history = build_history anime_stats, today
+    anime_stat_history = build_history(
+      anime_stats: anime_stats,
+      today: today
+    )
 
     AnimeStatHistory.transaction do
-      AnimeStatHistory
-        .where(created_on: today, entry_type: anime_stats.first.entry_type)
-        .delete_all
-      AnimeStatHistory.import anime_stat_history
+      import_history(
+        anime_stat_history: anime_stat_history,
+        anime_stats: anime_stats,
+        today: today
+      )
     end
   end
 
@@ -62,7 +65,15 @@ private
       end
   end
 
-  def build_history anime_stats, today
+  def import_stats anime_stats:
+    AnimeStat
+      .where(entry_type: anime_stats.first.entry_type)
+      .where(entry_id: @scope.select(:id))
+      .delete_all
+    AnimeStat.import anime_stats
+  end
+
+  def build_history anime_stats:, today:
     anime_stats.map do |anime_stat|
       AnimeStatHistory.new(
         scores_stats: anime_stat.scores_stats,
@@ -75,20 +86,37 @@ private
     end
   end
 
+  def import_history anime_stat_history:, anime_stats:, today:
+    AnimeStatHistory
+      .where(created_on: today)
+      .where(entry_type: anime_stats.first.entry_type)
+      .where(entry_id: @scope.select(:id))
+      .delete_all
+    AnimeStatHistory.import anime_stat_history
+  end
+
   def scores_stats entry
     10.downto(1)
-      .map do |i|
-        key = :"score_#{i}"
-        { key: i.to_s, value: entry.send(key).to_i } if entry.send(key).positive?
+      .map do |score|
+        key = :"score_#{score}"
+        filtered_amount = Animes::RefreshStats::FilterScores.call(
+          score: score,
+          amount: entry.send(key).to_i,
+          options: entry.options
+        )
+
+        { key: score.to_s, value: filtered_amount } if filtered_amount.positive?
       end
       .compact
   end
 
   def list_stats entry
-    %i[planned completed watching dropped on_hold]
+    STATUSES
       .map do |status|
         key = :"status_#{status}"
-        { key: status, value: entry.send(key).to_i } if entry.send(key).positive?
+        amount = entry.send(key).to_i
+
+        { key: status, value: amount } if amount.positive?
       end
       .compact
   end

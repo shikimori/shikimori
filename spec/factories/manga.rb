@@ -14,6 +14,7 @@ FactoryBot.define do
     licensors { [] }
     desynced { [] }
     imported_at { nil }
+    options { [] }
 
     factory :ranobe, class: 'Ranobe' do
       sequence(:name) { |n| "ranobe_#{n}" }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_25_184034) do
+ActiveRecord::Schema.define(version: 2022_06_01_082939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -685,6 +685,7 @@ ActiveRecord::Schema.define(version: 2022_05_25_184034) do
     t.string "license_name_ru"
     t.string "licensors", default: [], null: false, array: true
     t.decimal "score_2", default: "0.0", null: false
+    t.string "options", default: [], null: false, array: true
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"

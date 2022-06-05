@@ -4,7 +4,7 @@ class Animes::ScheduleRefreshScoresWorker
 
   def perform type
     klass = Type[type].constantize
-    global_average = global_average klass
+    global_average = Animes::GlobalAverage.call Type[type]
 
     ids_to_update(klass).each do |entry_id|
       Animes::RefreshScoresWorker.perform_async type, entry_id, global_average
@@ -36,12 +36,5 @@ class Animes::ScheduleRefreshScoresWorker
       .select(:target_id)
       .distinct(:target_id)
       .pluck(:target_id)
-  end
-
-  def global_average klass
-    UserRate
-      .where(target_type: klass.name)
-      .where('score > 0')
-      .average(:score)
   end
 end
