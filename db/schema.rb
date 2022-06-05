@@ -356,7 +356,6 @@ ActiveRecord::Schema.define(version: 2022_06_01_082939) do
     t.datetime "changed_at"
     t.text "tags", default: [], null: false, array: true
     t.integer "links_count", default: 0, null: false
-    t.boolean "has_spoilers"
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
