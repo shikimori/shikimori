@@ -1,5 +1,3 @@
-- possibly_long_content = comment.body.size > 500 || comment.body =~ /\[poster/ || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5
-
 .b-comment.to-process[
   class=(:tooltipped if params[:action] == 'tooltip')
   data-appear_type='comment'
@@ -17,7 +15,7 @@
     a name="comment-#{comment.id}"
 
   .inner[
-    data-check_height=(comment.persisted? && !local_assigns[:is_show] && possibly_long_content)
+    data-check_height=(comment.persisted? && !local_assigns[:is_show] && Comments::HasLongContent.call(comment))
   ]
     - if comment.persisted?
       span.item-quote-mobile.to-process[
