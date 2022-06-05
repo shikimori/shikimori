@@ -64,3 +64,10 @@ img
 
   &.normalized_height
     max-height: $media_width !important
+
+@media screen and (min-width: $ipad_max)
+  .b-image .marker
+    display: none
+
+  .b-image:hover .marker
+    display: inline-block
