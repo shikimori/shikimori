@@ -40,3 +40,4 @@ en:
       no_coauthors: No coauthors
     preview:
       more: +%{count} more
+      spoilers_description: This collection has spoilers, to watch it's contents please go to the show page.

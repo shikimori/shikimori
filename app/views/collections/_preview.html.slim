@@ -7,7 +7,9 @@
   /# Template Dependency: characters/character
   /# Template Dependency: people/person
 
-  = unless collection.has_spoilers? 
+  - if collection.has_spoilers?
+    span = t '.spoilers_description'
+  - else
     = render partial: "#{collection.kind.pluralize}/#{collection.kind}",
       collection: collection.entries_sample,
       locals: { cover_notice: :none },
