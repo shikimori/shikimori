@@ -7,7 +7,7 @@ class Animes::GlobalAverage
   def call
     UserRate
       .where(target_type: TargetType[target_type])
-      .where('score > 0')
+      .where.not(score: 0)
       .average(:score)
   end
 end
