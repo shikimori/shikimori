@@ -9,6 +9,7 @@ class Abilities::VersionNamesModerator
     license_name_ru
     synonyms
     japanese
+    desynced
   ]
   MANAGED_MODELS = Abilities::VersionTextsModerator::MANAGED_MODELS
 
