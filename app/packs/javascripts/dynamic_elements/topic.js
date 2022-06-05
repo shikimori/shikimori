@@ -200,19 +200,7 @@ export default class Topic extends ShikiEditable {
   }
 
   _bindReturnClick() {
-    $('span.item-reply').on('click', (e) => {
-      const commentId = $(e.target).closest('div.b-comment').attr('id');
-      this._saveRepliablePosition(commentId);
-      this._showReturnButton();
-    });
-
-    $('span.item-quote').on('click', (e) => {
-      const commentId = $(e.target).closest('div.b-comment').attr('id');
-      this._saveRepliablePosition(commentId);
-      this._showReturnButton();
-    });
-
-    $('span.item-quote-mobile').on('click', (e) => {
+    $('span.item-reply, span.item-quote, span.item-quote-mobile').on('click', (e) => {
       const commentId = $(e.target).closest('div.b-comment').attr('id');
       this._saveRepliablePosition(commentId);
       this._showReturnButton();
