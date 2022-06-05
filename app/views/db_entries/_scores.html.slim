@@ -1,0 +1,35 @@
+- if can?(:refresh_stats, resource) && (resource.anime? || resource.kinda_manga?)
+  .block
+    .subheadline = t '.scores'
+
+    .fc-2
+      .f-column
+        ul.b-list.is-wide
+          li
+            .field = @resource.class.human_attribute_name(:options)
+            .value
+              - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { options: [] })
+                span = @resource.options.join(', ')
+                a.b-js-action href=@resource.edit_field_url(:options)
+                  = t 'moderators_only'
+              - else
+                span
+                a.b-js-action.is-disabled = t 'moderators_only'
+
+          li
+            .field = t '.stats'
+            .value
+              a.b-button.run-poster-updater[
+                href=resource.refresh_stats_url
+                data-method='post'
+                data-confirm=t('actions.confirm_simple')
+              ] = t '.refresh'
+              .hint
+                ' Запускает немедленный пересчёт статистики ОЦЕНКИ ЛЮДЕЙ.
+                ' Эту кнопку имеет смысл использовать только при удалении
+                ' фейковых оценок через добавление настройки
+                code.b-code_inline score_filter_<оценка>_<количество>
+                | .
+              .hint
+                ' Сайт сам раз в сутки пересчитывает статистику, поэтому ни в каких других
+                ' случаях эта кнопка не нужна.
