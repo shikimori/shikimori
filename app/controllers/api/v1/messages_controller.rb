@@ -78,7 +78,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
   api :POST, '/messages/mark_read', 'Mark messages as read or unread'
   description 'Requires `messages` oauth scope'
   param :ids, :undef
-  param :is_read, [0, 1]
+  param :is_read, %w[0 1]
   def mark_read
     ids = (params[:ids] || '').split(',').map { |v| v.sub(/message-/, '').to_i }
 
