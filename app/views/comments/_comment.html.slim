@@ -15,7 +15,7 @@
     a name="comment-#{comment.id}"
 
   .inner[
-    data-check_height=(comment.persisted? && !local_assigns[:is_show] && Comments::HasLongContent.call(comment))
+    data-check_height=(!local_assigns[:is_show] && Comment::ContentPolicy.check_height?(comment))
   ]
     - if comment.persisted?
       span.item-quote-mobile.to-process[
