@@ -674,14 +674,14 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
-    sidekiq (5.2.7)
-      connection_pool (~> 2.2, >= 2.2.2)
-      rack (>= 1.5.0)
-      rack-protection (>= 1.5.0)
-      redis (>= 3.3.5, < 5)
-    sidekiq-limit_fetch (3.4.0)
+    sidekiq (6.5.0)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
+    sidekiq-limit_fetch (4.2.0)
+      redis (>= 4.6.0)
       sidekiq (>= 4)
-    sidekiq-unique-jobs (7.1.18)
+    sidekiq-unique-jobs (7.1.25)
       brpoplpush-redis_script (> 0.1.1, <= 2.0.0)
       concurrent-ruby (~> 1.0, >= 1.0.5)
       sidekiq (>= 5.0, < 8.0)
@@ -886,7 +886,7 @@ DEPENDENCIES
   sassc-rails
   shallow_attributes!
   shoulda-matchers
-  sidekiq (= 5.2.7)
+  sidekiq
   sidekiq-limit_fetch
   sidekiq-unique-jobs
   simple_form

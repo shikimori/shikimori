@@ -1,7 +1,7 @@
 class SvdWorker
   include Sidekiq::Worker
   sidekiq_options(
-    unique: :until_executed,
+    lock: :until_executed,
     dead: false,
     queue: :cpu_intensive
   )

@@ -3,8 +3,8 @@
 class SubtitlesImporter
   include Sidekiq::Worker
   sidekiq_options(
-    unique: :until_executed,
-    unique_args: ->(args) { args },
+    lock: :until_executed,
+    lock_args: ->(args) { args },
     retry: 1
   )
 

@@ -1,6 +1,6 @@
 class BadCritiquesCleaner
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed
+  sidekiq_options lock: :until_executed
 
   MINIMUM_VOTES = 35
 

@@ -2,8 +2,8 @@ class Notifications::SendMessages
   include Sidekiq::Worker
 
   sidekiq_options(
-    unique: :until_executed,
-    unique_args: ->(args) { args.to_json },
+    lock: :until_executed,
+    lock_args: ->(args) { args.to_json },
     queue: :history_jobs
   )
 
