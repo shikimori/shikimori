@@ -43,7 +43,7 @@ Sidekiq.configure_server do |config|
   config.redis = REDIS_OPTIONS
   # config.error_handlers << Proc.new {|e,ctx_hash| NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{ctx_hash.to_json}\n#{e.backtrace.join("\n")}" }
 
-  Rails.logger = Sidekiq::Logging.logger
+  Rails.logger = Sidekiq.logger
   config.average_scheduled_poll_interval = 5
 
   config.client_middleware do |chain|
