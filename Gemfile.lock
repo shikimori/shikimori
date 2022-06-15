@@ -183,8 +183,6 @@ GEM
     apipie-rails (0.7.1)
       actionpack (>= 5.0)
       activesupport (>= 5.0)
-    appsignal (3.0.26)
-      rack
     ast (2.4.2)
     attr_extras (6.2.5)
     autoprefixer-rails (10.4.2.0)
@@ -462,7 +460,7 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
-    minitest (5.15.0)
+    minitest (5.16.0)
     mize (0.3.5)
       protocol
     msgpack (1.5.1)
@@ -605,7 +603,7 @@ GEM
       redis-classy (~> 2.0)
     redis-namespace (1.8.2)
       redis (>= 3.0.4)
-    regexp_parser (2.4.0)
+    regexp_parser (2.5.0)
     request_store (1.5.1)
       rack (>= 1.4)
     responders (3.0.1)
@@ -661,7 +659,7 @@ GEM
       rubocop (>= 1.7.0, < 2.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    ruby_parser (3.18.1)
+    ruby_parser (3.19.1)
       sexp_processor (~> 4.16)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -672,10 +670,10 @@ GEM
       sprockets-rails
       tilt
     semantic_range (3.0.0)
-    sexp_processor (4.16.0)
+    sexp_processor (4.16.1)
     shellany (0.0.1)
-    shoulda-matchers (4.5.1)
-      activesupport (>= 4.2.0)
+    shoulda-matchers (5.1.0)
+      activesupport (>= 5.2.0)
     sidekiq (5.2.7)
       connection_pool (~> 2.2, >= 2.2.2)
       rack (>= 1.5.0)
@@ -715,7 +713,7 @@ GEM
     sshkit (1.21.2)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    stackprof (0.2.17)
+    stackprof (0.2.19)
     sync (0.5.0)
     temple (0.8.2)
     terrapin (0.6.0)
@@ -764,7 +762,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     xxhash (0.4.0)
-    zeitwerk (2.5.4)
+    zeitwerk (2.6.0)
 
 PLATFORMS
   ruby
@@ -781,7 +779,6 @@ DEPENDENCIES
   amatch!
   amazing_print
   apipie-rails
-  appsignal
   attr_extras
   autoprefixer-rails
   better_errors
@@ -914,4 +911,4 @@ DEPENDENCIES
   xxhash
 
 BUNDLED WITH
-   2.3.7
+   2.3.15
