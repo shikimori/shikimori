@@ -41,12 +41,14 @@ export default class ShikiView extends View {
       imageNodes = imageNodes.subtract($spoilers.find('img').toArray());
     }
 
+    await delay(10);
+    this._checkHeight();
+
     if (imageNodes.length) {
       // картинки могут быть уменьшены image_normalizer'ом, поэтому делаем с задержкой
       await imagePromiseFinally(imageNodes);
+      this._checkHeight();
     }
-    await delay(10);
-    this._checkHeight();
   }
 
   _assignCheckHeightLimits() {
