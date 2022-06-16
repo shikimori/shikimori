@@ -105,6 +105,20 @@ describe Manga do
         its(:rkn_abused?) { is_expected.to eq false }
       end
     end
+
+    describe '#rkn_banned?' do
+      before { subject.id = id }
+
+      context 'matched id' do
+        let(:id) { Copyright::BANNED_BY_RKN_MANGA_IDS.sample }
+        its(:rkn_abused?) { is_expected.to eq true }
+      end
+
+      context 'not matched id' do
+        let(:id) { 9999999 }
+        its(:rkn_abused?) { is_expected.to eq false }
+      end
+    end
   end
 
   it_behaves_like :touch_related_in_db_entry, :manga
