@@ -3,7 +3,7 @@ class Notifications::BroadcastTopic
 
   sidekiq_options(
     lock: :until_executed,
-    lock_args: ->(args) { args.first },
+    lock_args_method: ->(args) { args.first },
     queue: :history_jobs
   )
 

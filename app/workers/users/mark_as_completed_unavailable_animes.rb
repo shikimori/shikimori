@@ -2,7 +2,7 @@ class Users::MarkAsCompletedUnavailableAnimes
   include Sidekiq::Worker
   sidekiq_options(
     lock: :until_executed,
-    lock_args: ->(args) { args.first },
+    lock_args_method: ->(args) { args.first },
     queue: :cpu_intensive
   )
 

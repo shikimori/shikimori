@@ -3,7 +3,7 @@ class Notifications::SendMessages
 
   sidekiq_options(
     lock: :until_executed,
-    lock_args: ->(args) { args.to_json },
+    lock_args_method: ->(args) { args.to_json },
     queue: :history_jobs
   )
 
