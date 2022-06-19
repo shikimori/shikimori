@@ -166,14 +166,14 @@ describe Review do
       let(:anime) { create :anime }
       before { allow(Comments::ForbidTagChange).to receive :call }
       subject! do
-        if is_migration
-          review.instance_variable_set :@is_migration, true
+        if is_conversion
+          review.instance_variable_set :@is_conversion, true
         end
         review.update body: 'a' * 9998
       end
 
       context 'no migration' do
-        let(:is_migration) { false }
+        let(:is_conversion) { false }
         it do
           expect(Comments::ForbidTagChange)
             .to have_received(:call)
@@ -188,7 +188,7 @@ describe Review do
       end
 
       context 'migration' do
-        let(:is_migration) { true }
+        let(:is_conversion) { true }
         it { expect(Comments::ForbidTagChange).to_not have_received :call }
       end
     end

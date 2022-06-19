@@ -10,7 +10,7 @@ class Comment::ConvertToReview
 
   def call # rubocop:disable MethodLength, AbcSize
     review = build_review
-    review.instance_variable_set :@is_migration, true
+    review.instance_variable_set :@is_conversion, true
 
     ApplicationRecord.transaction do
       Review.wo_antispam { review.save! }
