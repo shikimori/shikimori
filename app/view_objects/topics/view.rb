@@ -211,6 +211,14 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     !minified? && topic_type_policy.commentable_topic?
   end
 
+  def show_comments_headline?
+    !preview? && !minified?
+  end
+
+  def show_moderation?
+    !preview? && !minified?
+  end
+
   def html_footer
     BbCodes::Text.call @topic.decomposed_body.wall
   end
@@ -265,6 +273,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       @is_preview,
       @is_mini,
       @is_show_comments,
+      show_comments?,
       need_trucation?,
       skip_body?,
       poster_in_header?,

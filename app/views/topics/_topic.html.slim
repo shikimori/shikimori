@@ -43,7 +43,11 @@ article.to-process[
   - elsif topic_view.show_inner?
     = render 'topics/inner', topic_view: topic_view
 
+  - if topic_view.show_moderation?
+    = render 'topics/moderation', topic: topic_view.topic
+
   - if topic_view.show_comments?
     = render 'topics/comments',
       comments_view: topic_view.comments_view,
-      commentable: topic_view.topic
+      commentable: topic_view.topic,
+      headline: (i18n_io('Comment', :few) if topic_view.show_comments_headline?)

@@ -1,3 +1,6 @@
+- if local_assigns[:headline]
+  .subheadline = local_assigns[:headline]
+
 .b-comments
   - cache comments_view do
     - if comments_view.folded?
