@@ -1,21 +1,21 @@
-- if topic.abuse_requests.any? || topic.bans.any?
-  div class=(topic.abuse_requests.any? && topic.bans.any? ? 'cc-2' : 'block')
-    - if topic.abuse_requests.any?
+- if moderatable.abuse_requests.any? || moderatable.bans.any?
+  div class=(moderatable.abuse_requests.any? && moderatable.bans.any? ? 'cc-2' : 'block')
+    - if moderatable.abuse_requests.any?
       .c-column
         .subheadline.h10 = i18n_i 'abuse_request', :other
         .block
-          - if topic.abuse_requests.any?
+          - if moderatable.abuse_requests.any?
             = render partial: 'moderations/abuse_requests/abuse_request',
-              collection: topic.abuse_requests
+              collection: moderatable.abuse_requests
           - else
-            .b-nothing_here = t 'comments.show.no_abuse_requests'
+            .b-nothing_here = t '.no_abuse_requests'
 
-    - if topic.bans.any?
+    - if moderatable.bans.any?
       .c-column
         .subheadline.h10 = i18n_i 'ban', :other
         .block_m
-          - if topic.bans.any?
+          - if moderatable.bans.any?
             = render partial: 'moderations/bans/ban',
-              collection: topic.bans
+              collection: moderatable.bans
           - else
-            .b-nothing_here = t 'comments.show.no_bans'
+            .b-nothing_here = t '.no_bans'

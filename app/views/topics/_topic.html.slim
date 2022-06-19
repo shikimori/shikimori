@@ -44,7 +44,7 @@ article.to-process[
     = render 'topics/inner', topic_view: topic_view
 
   - if topic_view.show_moderation?
-    = render 'topics/moderation', topic: topic_view.topic
+    = render 'topics/moderation', moderatable: topic_view.topic
 
   - if topic_view.show_comments?
     = render 'topics/comments',
