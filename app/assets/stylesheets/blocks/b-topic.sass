@@ -107,10 +107,11 @@
     transition: margin-left 0.25s ease
     width: 100% // без этого в .aside-expanded режиме не будет смещение контента влево
 
-    .b-comment:first-child,
-    .b-message:first-child
-      border-top-width: 1px
-      padding-top: 5px
+    &:not(.is-headline)
+      .b-comment:first-child,
+      .b-message:first-child
+        border-top-width: 1px
+        padding-top: 5px
 
   &.aside-expanded
     & > .b-comments
