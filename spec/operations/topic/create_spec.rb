@@ -56,12 +56,26 @@ describe Topic::Create do
     describe 'premoderation' do
       let(:type) { Topics::NewsTopic.name }
 
-      it do
-        is_expected.to be_persisted
-        is_expected.to have_attributes(
-          **params.merge(locale: locale.to_s),
-          forum_id: Forum::PREMODERATION_ID
-        )
+      context 'trusted_newsmaker' do
+        let(:user) { create :user, :trusted_newsmaker }
+
+        it do
+          is_expected.to be_persisted
+          is_expected.to have_attributes(
+            **params.merge(locale: locale.to_s),
+            forum_id: animanga_forum.id
+          )
+        end
+      end
+
+      context 'not trusted_newsmaker' do
+        it do
+          is_expected.to be_persisted
+          is_expected.to have_attributes(
+            **params.merge(locale: locale.to_s),
+            forum_id: Forum::PREMODERATION_ID
+          )
+        end
       end
     end
   end

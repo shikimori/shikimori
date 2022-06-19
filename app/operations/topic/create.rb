@@ -3,16 +3,13 @@
 class Topic::Create
   method_object %i[params! locale! faye!]
 
-  IS_NEWS_PREMODERATION = !Rails.env.production?
+  # IS_NEWS_PREMODERATION = !Rails.env.production?
 
   def call
     topic = build_topic
 
     premoderate topic if premoderation? topic
-
-    if @faye.create topic
-      broadcast topic if broadcast? topic
-    end
+    broadcast topic if @faye.create(topic) && broadcast?(topic)
 
     topic
   end
@@ -32,7 +29,8 @@ private
   end
 
   def premoderation? topic
-    IS_NEWS_PREMODERATION && topic.is_a?(Topics::NewsTopic)
+    # IS_NEWS_PREMODERATION &&
+    topic.is_a?(Topics::NewsTopic) && !topic.user.trusted_newsmaker?
   end
 
   def premoderate topic
