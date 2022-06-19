@@ -33,13 +33,7 @@ class Moderations::BansController < ModerationsController
   end
 
   def create
-    self_moderation = current_user.id == @resource.user_id
-
-    if self_moderation
-      @resource.errors.add(:base, i18n_t('self_moderation_alert'))
-    end
-
-    if !self_moderation && @resource.save
+    if @resource.save
       Comment::WrapInSpoiler.call @resource.comment if ban_params[:hide_to_spoiler] == '1'
       render :create, formats: :json
     else
