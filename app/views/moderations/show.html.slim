@@ -31,16 +31,16 @@ header.head
             title=t('moderations/bans_controller.page_title.index')
           ]
             = t 'moderations/bans_controller.page_title.index'
-            - if @moderation_policy.abuses_abuses_count.positive?
-              span.size = @moderation_policy.abuses_abuses_count
+            - if @moderation_policy.abuse_requests_bannable_count.positive?
+              span.size = @moderation_policy.abuse_requests_bannable_count
         li
           a.b-link[
             href=moderations_abuse_requests_url
             title=t('moderations/abuse_requests_controller.page_title.index')
           ]
             = t 'moderations/abuse_requests_controller.page_title.index'
-            - if @moderation_policy.abuses_pending_count.positive?
-              span.size = @moderation_policy.abuses_pending_count
+            - if @moderation_policy.abuse_requests_not_bannable_count.positive?
+              span.size = @moderation_policy.abuse_requests_not_bannable_count
 
         li
           a.b-link[

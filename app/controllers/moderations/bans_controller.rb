@@ -79,14 +79,16 @@ private
 
   def declined_scope
     AbuseRequest
-      .where(state: 'rejected', kind: %i[spoiler abuse])
+      .bannable
+      .where(state: :rejected)
       .order(id: :desc)
       .limit(15)
   end
 
   def pending_scope
     AbuseRequest
-      .where(state: 'pending')
+      .bannable
+      .where(state: :pending)
       .includes(:user, :approver, comment: :commentable)
       .order(:created_at)
   end
