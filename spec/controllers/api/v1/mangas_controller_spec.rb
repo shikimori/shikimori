@@ -157,4 +157,18 @@ describe Api::V1::MangasController, :show_in_doc do
       expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
+
+  describe '#neko', show_in_doc: false do
+    let!(:manga_1) { create :manga, name: 'asdf', genre_ids: [genre.id] }
+    let!(:manga_2) { create :manga, name: 'zxcv' }
+    let(:genre) { create :genre }
+
+    subject! { get :neko }
+
+    it do
+      expect(json).to have(2).items
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
+    end
+  end
 end

@@ -180,6 +180,19 @@ describe Api::V1::AnimesController, :show_in_doc do
     end
   end
 
+  describe '#topics' do
+    let!(:topic) { create :topic, linked: anime, locale: 'ru' }
+    let(:anime) { create :anime }
+
+    subject! { get :topics, params: { id: anime.id }, format: :json }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(collection).to have(1).item
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
+    end
+  end
+
   describe '#neko', show_in_doc: false do
     let!(:anime_1) { create :anime, name: 'asdf', genre_ids: [genre.id] }
     let!(:anime_2) { create :anime, name: 'zxcv' }
@@ -190,19 +203,6 @@ describe Api::V1::AnimesController, :show_in_doc do
     it do
       expect(json).to have(2).items
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json; charset=utf-8'
-    end
-  end
-
-  describe '#topics' do
-    let!(:topic) { create :topic, linked: anime, locale: 'ru' }
-    let(:anime) { create :anime }
-
-    subject! { get :topics, params: { id: anime.id }, format: :json }
-
-    it do
-      expect(response).to have_http_status :success
-      expect(collection).to have(1).item
       expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end

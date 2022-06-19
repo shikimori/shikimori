@@ -290,7 +290,10 @@ Rails.application.routes.draw do
             get :external_links
             get :topics
           end
-          get :search, on: :collection
+          collection do
+            get :neko
+            get :search
+          end
         end
       end
 

@@ -1,5 +1,14 @@
 class Api::V1::MangasController < Api::V1Controller
-  before_action :fetch_resource, except: %i[index search]
+  before_action :fetch_resource, except: %i[index search neko]
+
+  caches_action :neko, expires_in: 1.week, cache_path: -> {
+    NekoRepository.instance.cache_key(
+      params[:controller],
+      params[:action],
+      Manga.count,
+      :v1
+    ).to_json
+  }
 
   LIMIT = 50
   ORDERS = %w[
@@ -227,6 +236,25 @@ class Api::V1::MangasController < Api::V1Controller
       .as_views(true, false)
 
     respond_with @collection, each_serializer: TopicSerializer
+  end
+
+  def neko
+    scope = Mangas::NekoScope.call
+      .select(
+        :id,
+        :aired_on,
+        :genre_ids
+      )
+
+    data = scope.map do |manga|
+      {
+        id: manga.id,
+        genre_ids: manga.genre_ids.map(&:to_i),
+        year: manga.year
+      }
+    end
+
+    render json: data
   end
 
 private
