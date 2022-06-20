@@ -32,6 +32,7 @@ en:
       form:
         topic_text: Topic text
         news_text: News text
+        premoderation: Topic is under moderation
         edit:
           title: Edit topic
         new:

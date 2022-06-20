@@ -22,6 +22,9 @@
   .subheadline
     = t topic.persisted? ? '.edit.title' : '.new.title'
 
+  - if topic.persisted? && topic_type_policy.premoderated_news_topic?
+    .premoderation-note = t '.premoderation'
+
   = f.input :user_id, as: :hidden
   = f.input :linked_id, as: :hidden
   = f.input :linked_type, as: :hidden

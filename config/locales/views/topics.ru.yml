@@ -32,6 +32,7 @@ ru:
       form:
         topic_text: Текст топика
         news_text: Текст новости
+        premoderation: Топик находится на модерации
         edit:
           title: Редактирование топика
         new:
