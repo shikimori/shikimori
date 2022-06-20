@@ -53,7 +53,7 @@ describe Topic::Create do
       end
     end
 
-    describe 'premoderation' do
+    describe 'NewsTopic & premoderation' do
       let(:type) { Topics::NewsTopic.name }
 
       context 'trusted_newsmaker' do
@@ -63,7 +63,7 @@ describe Topic::Create do
           is_expected.to be_persisted
           is_expected.to have_attributes(
             **params.merge(locale: locale.to_s),
-            forum_id: animanga_forum.id
+            forum_id: Forum::NEWS_ID
           )
         end
       end
