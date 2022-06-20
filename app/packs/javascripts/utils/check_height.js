@@ -10,7 +10,8 @@ export default function checkHeight(
   }
 ) {
   const $node = $(node);
-  if ($node.hasClass('b-height_shortened') || $node.height() <= options.maxHeight) { return; }
+  if ($node.hasClass('b-height_shortened')) { return false; }
+  if ($node.height() <= options.maxHeight) { return false; }
 
   const collapsedHeight = options.collapsedHeight ||
     Math.round((options.maxHeight * 2.0) / 3);
@@ -44,4 +45,6 @@ export default function checkHeight(
 
       $(e.currentTarget).remove();
     });
+
+  return true;
 }

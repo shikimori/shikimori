@@ -42,7 +42,7 @@ export default class ShikiView extends View {
     }
 
     await delay(10);
-    this._checkHeight();
+    if (this._checkHeight()) { return; };
 
     if (imageNodes.length) {
       // картинки могут быть уменьшены image_normalizer'ом, поэтому делаем с задержкой
@@ -59,9 +59,9 @@ export default class ShikiView extends View {
 
   @bind
   _checkHeight() {
-    if (!window.SHIKI_USER.isCommentsAutoCollapsed) { return; }
+    if (!window.SHIKI_USER.isCommentsAutoCollapsed) { return false; }
 
-    checkHeight(this.$checkHeightNode, {
+    return checkHeight(this.$checkHeightNode, {
       maxHeight: this.CHECK_HEIGHT_MAX_PREVIEW_HEIGHT,
       collapsedHeight: this.CHECK_HEIGHT_COLLAPSED_HEIGHT,
       placeholderHeight: this.CHECK_HEIGHT_PLACEHOLDER_HEIGHT
