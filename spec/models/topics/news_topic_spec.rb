@@ -73,7 +73,7 @@ describe Topics::NewsTopic do
       end
     end
 
-    describe '#moderation_state, #may_accept?, #may_reject?, #accepted?' do
+    describe '#moderation_state, #may_accept?, #may_reject?, #moderation_accepted?' do
       let(:topic) { build :news_topic, forum_id: forum_id }
 
       context 'Forum::PREMODERATION_ID' do
@@ -81,7 +81,7 @@ describe Topics::NewsTopic do
         it do
           expect(topic).to be_may_accept
           expect(topic).to be_may_reject
-          expect(topic).to_not be_accepted
+          expect(topic).to_not be_moderation_accepted
           expect(topic.moderation_state).to eq Types::Moderatable::State[:pending]
         end
       end
@@ -91,7 +91,7 @@ describe Topics::NewsTopic do
         it do
           expect(topic).to_not be_may_accept
           expect(topic).to be_may_reject
-          expect(topic).to be_accepted
+          expect(topic).to be_moderation_accepted
           expect(topic.moderation_state).to eq Types::Moderatable::State[:accepted]
         end
       end
@@ -101,7 +101,7 @@ describe Topics::NewsTopic do
         it do
           expect(topic).to be_may_accept
           expect(topic).to_not be_may_reject
-          expect(topic).to_not be_accepted
+          expect(topic).to_not be_moderation_accepted
           expect(topic.moderation_state).to eq Types::Moderatable::State[:rejected]
         end
       end
