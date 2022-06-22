@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_05_155125) do
+ActiveRecord::Schema.define(version: 2022_06_22_172609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -356,7 +356,7 @@ ActiveRecord::Schema.define(version: 2022_06_05_155125) do
     t.datetime "changed_at"
     t.text "tags", default: [], null: false, array: true
     t.integer "links_count", default: 0, null: false
-    t.boolean "has_spoilers"
+    t.boolean "is_spoilers", default: false, null: false
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
