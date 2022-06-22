@@ -43,7 +43,7 @@ class Topics::CollectionView < Topics::UserContentView
     tags << OpenStruct.new(
       type: 'spoilers',
       text: h.t('.spoilers').downcase
-    ) if collection.has_spoilers?
+    ) if collection.is_spoilers?
 
     tags
   end

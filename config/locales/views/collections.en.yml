@@ -2,7 +2,7 @@ en:
   collections:
     index:
       new: Create a new collection
-      notice: List of all collections sorted by their rating
+      notice: List of all collections sorted by their creation time
       nothing_here: No collections
       my_unpublished_collections: My unpublished collections
     form:
@@ -31,7 +31,7 @@ en:
       to_opened: Make opened
       to_collection: To collection
       coauthors: Coauthors
-      has_spoilers: Contains spoilers
+      is_spoilers: Contains spoilers
       confirm_status_change: >-
         Confirm status change. It will cause page reload,
         make sure the collection is saved before changing.
@@ -40,4 +40,3 @@ en:
       no_coauthors: No coauthors
     preview:
       more: +%{count} more
-      spoilers_description: This collection has spoilers, to watch it's contents please go to the show page.

@@ -33,8 +33,8 @@ header.head.misc
 
           .b-input
             label.checkbox
-              = f.check_box :has_spoilers, checked: @resource.has_spoilers?, value: @resource.has_spoilers?
-              = t('.has_spoilers')
+              = f.check_box :is_spoilers, checked: @resource.is_spoilers?, value: @resource.is_spoilers?
+              = t('.is_spoilers')
 
           = f.input :tags,
             input_html: { value: f.object.tags&.join(','), class: 'w-100' },

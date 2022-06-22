@@ -5,7 +5,7 @@ class CollectionsController < ShikimoriController
   before_action :set_breadcrumbs, except: %i[index autocomplete]
   before_action :resource_redirect, if: :resource_id
 
-  UPDATE_PARAMS = %i[name text tags has_spoilers] + [
+  UPDATE_PARAMS = %i[name text tags is_spoilers] + [
     links: %w[linked_id group text]
   ]
   CREATE_PARAMS = %i[user_id kind] + UPDATE_PARAMS

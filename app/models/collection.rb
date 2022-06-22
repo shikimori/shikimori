@@ -4,6 +4,8 @@ class Collection < ApplicationRecord
   include TopicsConcern
   include ModeratableConcern
 
+  boolean_attributes :spoilers
+
   antispam(
     per_day: 5,
     user_id_key: :user_id
@@ -108,10 +110,6 @@ class Collection < ApplicationRecord
 
   def collection_role user
     collection_roles.find { |v| v.user_id == user.id }
-  end
-
-  def has_spoilers?
-    has_spoilers
   end
 
 # private
