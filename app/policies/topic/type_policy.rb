@@ -9,6 +9,10 @@ class Topic::TypePolicy
     @object.instance_of? Topics::NewsTopic
   end
 
+  def premoderated_news_topic?
+    news_topic? && !@object.moderation_accepted?
+  end
+
   def generated_news_topic?
     news_topic? && @object.generated?
   end

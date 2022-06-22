@@ -2,6 +2,9 @@ en:
   topics:
     show:
       rss_title: Topic comments
+    moderation:
+      no_bans: No bans
+      no_abuse_requests: No abuse requests
     missing:
       user_topic: 'Topic #%{id}'
       no_topic: Topic is either deleted or never existed on Shikimori
@@ -31,6 +34,7 @@ en:
       form:
         topic_text: Topic text
         news_text: News text
+        premoderation: Topic is under moderation
         edit:
           title: Edit topic
         new:

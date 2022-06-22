@@ -44,16 +44,16 @@
       ]
         = "#{t '.content'}: #{layout.moderation_policy.content_versions_count}"
 
-  - unless layout.moderation_policy.abuses_total_count.zero?
+  - unless layout.moderation_policy.abuse_requests_total_count.zero?
     // TODO: uncomment when new moderators are found
-    // - unless (current_user.admin? && layout.moderation_policy.abuses_total_count < 100) || (current_user.super_moderator? && layout.moderation_policy.abuses_total_count < 30)
-    - unless current_user.admin? && layout.moderation_policy.abuses_total_count < 100
+    // - unless (current_user.admin? && layout.moderation_policy.abuse_requests_total_count < 100) || (current_user.super_moderator? && layout.moderation_policy.abuse_requests_total_count < 30)
+    - unless current_user.admin? && layout.moderation_policy.abuse_requests_total_count < 100
       a.b-link.b-tooltipped.unprocessed.moderation[
         href=moderations_bans_url
         data-direction='bottom'
         class=(:misc if current_user.super_moderator?)
       ]
-        = "#{i18n_i 'Forum'}: #{layout.moderation_policy.abuses_total_count}"
+        = "#{i18n_i 'Forum'}: #{layout.moderation_policy.abuse_requests_total_count}"
 
   - cache :hot_topics, expires_in: 10.minutes do
     - layout.hot_topics.each do |topic_view|

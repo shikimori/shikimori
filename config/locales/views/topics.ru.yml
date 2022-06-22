@@ -2,6 +2,9 @@ ru:
   topics:
     show:
       rss_title: Комментарии топика
+    moderation:
+      no_bans: Нет банов
+      no_abuse_requests: Нет жалоб
     missing:
       user_topic: 'Топик #%{id}'
       no_topic: Топик или был удалён, или никогда не существовал на сайте
@@ -31,6 +34,7 @@ ru:
       form:
         topic_text: Текст топика
         news_text: Текст новости
+        premoderation: Топик находится на модерации
         edit:
           title: Редактирование топика
         new:

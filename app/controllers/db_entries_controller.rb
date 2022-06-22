@@ -122,7 +122,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
   def refresh_stats
     authorize! :refresh_stats, resource_klass
 
-    # TODO: extract into sidekiq task? 
+    # TODO: extract into sidekiq task?
     # not important right now since access to this method is restricted
     NamedLogger.refresh_stats.info(
       "#{resource_klass.name}##{@resource.id} User##{current_user.id}"

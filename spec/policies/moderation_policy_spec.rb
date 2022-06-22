@@ -146,41 +146,41 @@ describe ModerationPolicy do
     end
   end
 
-  describe '#abuses_total_count, #abuses_abuses_count, #abuses_pending_count' do
+  describe '#abuse_requests_total_count, #abuse_requests_bannable_count, #abuse_requests_not_bannable_count' do
     before do
       allow(AbuseRequest)
-        .to receive_message_chain(:abuses, :size)
-        .and_return(abuse_abuses_count)
+        .to receive_message_chain(:pending, :bannable, :size)
+        .and_return(abuse_requests_bannable_count)
 
       allow(AbuseRequest)
-        .to receive_message_chain(:pending, :size)
-        .and_return(abuses_pending_count)
+        .to receive_message_chain(:pending, :not_bannable, :size)
+        .and_return(abuse_requests_not_bannable_count)
     end
-    let(:abuse_abuses_count) { 1 }
-    let(:abuses_pending_count) { 2 }
+    let(:abuse_requests_bannable_count) { 1 }
+    let(:abuse_requests_not_bannable_count) { 2 }
     let(:user) { build :user, :forum_moderator }
 
     it do
-      expect(policy.abuses_total_count).to eq 3
-      expect(policy.abuses_abuses_count).to eq 1
-      expect(policy.abuses_pending_count).to eq 2
+      expect(policy.abuse_requests_total_count).to eq 3
+      expect(policy.abuse_requests_bannable_count).to eq 1
+      expect(policy.abuse_requests_not_bannable_count).to eq 2
     end
 
     context 'not moderator' do
       let(:user) { build :user, :user }
       it do
-        expect(policy.abuses_total_count).to eq 0
-        expect(policy.abuses_abuses_count).to eq 0
-        expect(policy.abuses_pending_count).to eq 0
+        expect(policy.abuse_requests_total_count).to eq 0
+        expect(policy.abuse_requests_bannable_count).to eq 0
+        expect(policy.abuse_requests_not_bannable_count).to eq 0
       end
     end
 
     context 'no user' do
       let(:user) { nil }
       it do
-        expect(policy.abuses_total_count).to eq 0
-        expect(policy.abuses_abuses_count).to eq 0
-        expect(policy.abuses_pending_count).to eq 0
+        expect(policy.abuse_requests_total_count).to eq 0
+        expect(policy.abuse_requests_bannable_count).to eq 0
+        expect(policy.abuse_requests_not_bannable_count).to eq 0
       end
     end
   end

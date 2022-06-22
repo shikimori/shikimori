@@ -76,6 +76,10 @@ module Copyright
   ]
 
   ABUSED_BY_RKN_MANGA_IDS = [
-    5467 # Boku no Pico
+    5467, # Boku no Pico
+    124272 # Suicide Boy
+  ]
+  BANNED_BY_RKN_MANGA_IDS = [
+    124272 # Suicide Boy
   ]
 end

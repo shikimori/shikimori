@@ -13,6 +13,7 @@
 - cache topic_view.cache_key do
   / .inner is added for compatibility with topic api
   .inner[
+    class=(:block if !topic_view.preview? && !topic_view.minified?)
     data-check_height=(topic_view.review.persisted? && !local_assigns[:is_show])
   ]
     - if topic_view.review.persisted?

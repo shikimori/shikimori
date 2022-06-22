@@ -7,7 +7,7 @@
   /# Helper Dependency Updated: May 6, 2017 at 6pm
 
   / класс нужен из-за проверки высоты и для отображения кнопок по hover
-  .inner
+  .inner class=(:block if !topic_view.preview? && !topic_view.minified?)
     / do not replace to `minified?`, it will show `item-mobile` on dashboards#show for generated news topics
     - unless topic_view.is_mini
       span.item-quote-mobile.to-process[

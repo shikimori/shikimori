@@ -1,11 +1,11 @@
 - topic_type_policy = Topic::TypePolicy.new topic
 - submit_url = topic.persisted? ? topic_url(topic) : topics_url
-- is_edit_type = topic.persisted? && can?(:moderate, topic) && !topic_type_policy.any_club_topic?
+- is_edit_type = topic.persisted? && can?(:moderate, topic) && !topic_type_policy.any_club_topic? && !topic_type_policy.premoderated_news_topic?
 - is_show_broadcast = can?(:broadcast, topic) && !topic_type_policy.any_club_topic?
 - is_show_closed = topic.persisted? && can?(:close, topic) && !topic_type_policy.any_club_topic?
 - is_show_pinned = can?(:pin, topic) && !topic_type_policy.any_club_topic?
 - is_forum_id_hidden = topic_type_policy.any_club_topic? || (topic_type_policy.news_topic? && topic.new_record?)
-- is_show_forum = !topic_type_policy.any_club_topic? && ((!is_forum_id_hidden && !topic_type_policy.news_topic?) || (topic.persisted? && can?(:manage, Topic)))
+- is_show_forum = !topic_type_policy.any_club_topic? && !topic_type_policy.premoderated_news_topic? && ((!is_forum_id_hidden && !topic_type_policy.news_topic?) || (topic.persisted? && can?(:manage, Topic)))
 
 - if topic_type_policy.news_topic?
   = render 'application/note_from_club_page', club_page_id: 3017
@@ -21,6 +21,9 @@
 
   .subheadline
     = t topic.persisted? ? '.edit.title' : '.new.title'
+
+  - if topic.persisted? && topic_type_policy.premoderated_news_topic?
+    .premoderation-note = t '.premoderation'
 
   = f.input :user_id, as: :hidden
   = f.input :linked_id, as: :hidden

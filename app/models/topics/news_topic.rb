@@ -37,6 +37,10 @@ class Topics::NewsTopic < Topic
     update forum_id: Forum::NEWS_ID, created_at: Time.zone.now
   end
 
+  def moderation_accepted?
+    moderation_state == Types::Moderatable::State[:accepted]
+  end
+
   def reject
     update forum_id: Forum::OFFTOPIC_ID # , created_at: Time.zone.now
   end

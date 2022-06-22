@@ -1,7 +1,8 @@
 class VersionsView < ViewObjectBase
   instance_cache :moderators, :pending, :processed
 
-  PER_PAGE = 25
+  PER_PAGE = 26
+  IGNORED_FIELDS = %w[source action]
 
   def processed_scope
     Moderation::ProcessedVersionsQuery
@@ -115,7 +116,7 @@ class VersionsView < ViewObjectBase
             .pluck(Arel.sql('jsonb_object_keys(item_diff)'))
             .sort_by { |field| sorting_order.index(field) || 9999 }
 
-          memo[klass] = fields - ['source']
+          memo[klass] = fields - IGNORED_FIELDS
         end
       end
     end

@@ -4,17 +4,18 @@
   .cc-2.block
     .c-column
       #vue_app[
-        data-resource_type=@resource.object.class.name
-        data-entry_id=@resource.id
-        data-entry_type=@resource.object.class.base_class.name
-        data-values=@resource.options.to_json
+        data-resource_type=resource.object.class.name
+        data-entry_id=resource.id
+        data-entry_type=resource.object.class.base_class.name
+        data-values=resource.options.to_json
         data-field='options'
       ]
         .block_m.b-nothing_here = t 'loading'
       = render 'versions/reason'
 
   .block
-    - I18n.t("enumerize.#{@resource.object.class.base_class.name.downcase}.options").each do |(field, text)|
+    - I18n.t("enumerize.#{resource.object.class.base_class.name.downcase}.options").each do |(field, text)|
+      - next if field.starts_with?('score_filter_') && cannot?(:refresh_stats, resource)
       p.m5
         .b-tag = field
         | &ndash;&nbsp;&nbsp;#{text}

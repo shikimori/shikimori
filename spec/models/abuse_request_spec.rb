@@ -33,19 +33,20 @@ describe AbuseRequest do
   context 'scopes' do
     let(:comment) { create :comment, user: user }
 
-    describe 'pending' do
-      let!(:offtop) { create :abuse_request, kind: :offtopic, comment: comment }
-      let!(:abuse) { create :abuse_request, kind: :abuse, comment: comment }
-      let!(:accepted) { create :accepted_abuse_request, kind: :offtopic, approver: user }
+    let!(:offtop) { create :abuse_request, kind: :offtopic, comment: comment }
+    let!(:abuse) { create :abuse_request, kind: :abuse, comment: comment }
+    let!(:offtop_accepted) { create :accepted_abuse_request, kind: :offtopic, approver: user }
 
-      it { expect(AbuseRequest.pending).to eq [offtop] }
+    describe 'pending' do
+      it { expect(described_class.pending.order(:id)).to eq [offtop, abuse] }
     end
 
-    describe 'abuses' do
-      let!(:offtop) { create :abuse_request, kind: :offtopic, comment: comment }
-      let!(:abuse) { create :abuse_request, kind: :abuse, comment: comment }
+    describe 'bannable' do
+      it { expect(described_class.bannable).to eq [abuse] }
+    end
 
-      it { expect(AbuseRequest.abuses).to eq [abuse] }
+    describe 'not_bannable' do
+      it { expect(described_class.not_bannable.order(:id)).to eq [offtop, offtop_accepted] }
     end
   end
 

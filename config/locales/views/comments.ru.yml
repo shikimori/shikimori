@@ -3,8 +3,6 @@ ru:
     comment:
       broadcast: рассылка
     show:
-      no_bans: Нет банов
-      no_abuse_requests: Нет жалоб
       replies: Ответы
     missing:
       no_comment: Комментарий или был удалён, или никогда не существовал на сайте

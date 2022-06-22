@@ -19,6 +19,7 @@ class Abilities::NewsSuperModerator
       manage_news_moderator_role
       manage_article_moderator_role
       manage_collection_moderator_role
+      manage_trusted_newsmaker_role
 
       manage_censored_avatar_role
       manage_censored_profile_role

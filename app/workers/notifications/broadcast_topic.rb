@@ -2,8 +2,8 @@ class Notifications::BroadcastTopic
   include Sidekiq::Worker
 
   sidekiq_options(
-    unique: :until_executed,
-    unique_args: ->(args) { args.first },
+    lock: :until_executed,
+    lock_args_method: ->(args) { args.first },
     queue: :history_jobs
   )
 

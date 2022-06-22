@@ -64,6 +64,7 @@ module Shikimori
     Unicorn::ClientShutdown
     Unauthorized
     AgeRestricted
+    RknBanned
     MismatchedEntries
     InvalidEpisodesError
     CopyrightedResource

@@ -196,6 +196,10 @@ class Manga < DbEntry
     Copyright::ABUSED_BY_RKN_MANGA_IDS.include? id
   end
 
+  def rkn_banned?
+    Copyright::BANNED_BY_RKN_MANGA_IDS.include? id
+  end
+
 private
 
   def set_type

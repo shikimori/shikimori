@@ -30,6 +30,7 @@ class Abilities::SuperModerator
       manage_version_moderator_role
       manage_version_fansub_moderator_role
       manage_trusted_version_changer_role
+      manage_trusted_newsmaker_role
       manage_not_trusted_version_changer_role
       manage_not_trusted_names_changer_role
       manage_not_trusted_texts_changer_role

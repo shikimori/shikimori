@@ -1,4 +1,6 @@
 class MangasController < AnimesController
+  before_action :verify_not_rkn_banned, if: :resource_id
+
   UPDATE_PARAMS = %i[
     russian
     license_name_ru
@@ -41,5 +43,9 @@ private
       .permit(UPDATE_PARAMS)
   rescue ActionController::ParameterMissing
     {}
+  end
+
+  def verify_not_rkn_banned
+    raise RknBanned if @resource.rkn_banned?
   end
 end
