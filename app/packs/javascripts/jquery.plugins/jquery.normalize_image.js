@@ -20,8 +20,8 @@ function checkImage(image, options) {
   if (options.appendMarker &&
     $link.attr('href') && !$link.children('.marker').exists() &&
     ((imageWidth > 300) && (imageHeight > 300))
-  ) {
-    $link.append(`<span class='marker'>${imageWidth}x${imageHeight}</span>`);
+  ) {z
+    $link.append(`<span class='marker'><span class='marker-text'>${imageWidth}x${imageHeight}</span></span>`);
   }
 
   if (((imageWidth < 300) && (imageHeight < 300)) && ($link.tagName() === 'a') &&

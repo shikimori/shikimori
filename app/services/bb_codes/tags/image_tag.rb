@@ -151,7 +151,7 @@ private
     return if small_image?(user_image) || is_no_zoom
 
     <<-HTML.squish.strip
-      <span class='marker'>#{user_image.width}x#{user_image.height}</span>
+      <span class='marker'><span class='marker-text'>#{user_image.width}x#{user_image.height}</span></span>
     HTML
   end
 end

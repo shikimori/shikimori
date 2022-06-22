@@ -66,8 +66,10 @@ img
     max-height: $media_width !important
 
 @media screen and (min-width: $ipad_max)
-  .b-image .marker
+  .b-image .marker .marker-text
     display: none
+  .b-image .marker:before
+    padding: 0
 
-  .b-image:hover .marker
+  .b-image:hover .marker .marker-text
     display: inline-block
