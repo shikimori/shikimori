@@ -13,7 +13,7 @@ BAN_TEXTS = [
 ]
 
 MalParser.configuration.http_get = lambda do |url|
-  expires_in = url =~ /(?:anime|manga)\.php\?/ ? 1.hour : 8.hours
+  expires_in = url =~ /\/(?:anime|manga)\/\d+/ ? 1.hour : 8.hours
   html = Rails.cache.fetch([url, :v4], expires_in: expires_in) do
     content =
       begin
