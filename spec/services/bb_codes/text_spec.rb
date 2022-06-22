@@ -210,7 +210,7 @@ describe BbCodes::Text do
                 src="#{user_image.image.url :thumbnail, false}"
                 data-width="#{user_image.width}"
                 data-height="#{user_image.height}"
-                loading="lazy"><span class="marker">1000x1000</span></a>
+                loading="lazy"><span class="marker"><span class="marker-text">1000x1000</span></span></a>
           HTML
         )
       end
