@@ -272,6 +272,20 @@ describe Anime do
         it { expect(anime.broadcast_at).to be_nil }
       end
     end
+
+    describe '#rkn_abused?' do
+      before { subject.id = id }
+
+      context 'matched id' do
+        let(:id) { Copyright::ABUSED_BY_RKN_ANIME_IDS.sample }
+        its(:rkn_abused?) { is_expected.to eq true }
+      end
+
+      context 'not matched id' do
+        let(:id) { 9999999 }
+        its(:rkn_abused?) { is_expected.to eq false }
+      end
+    end
   end
 
   it_behaves_like :touch_related_in_db_entry, :anime

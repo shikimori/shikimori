@@ -1,7 +1,7 @@
 class ImagesVerifier
   include Sidekiq::Worker
   sidekiq_options(
-    unique: :until_executed,
+    lock: :until_executed,
     queue: :slow_parsers,
     retry: false
   )

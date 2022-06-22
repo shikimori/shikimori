@@ -30,11 +30,18 @@ class AbuseRequest < ApplicationRecord
 
   attr_accessor :affected_ids # filled during state_machine transition
 
-  scope :pending, -> {
-    where state: :pending, kind: %i[offtopic summary convert_review]
+  scope :pending, -> { where state: :pending }
+  scope :bannable, -> {
+    where kind: [
+      Types::AbuseRequest::Kind[:spoiler],
+      Types::AbuseRequest::Kind[:abuse]
+    ]
   }
-  scope :abuses, -> {
-    where state: :pending, kind: %i[spoiler abuse]
+  scope :not_bannable, -> {
+    where.not kind: [
+      Types::AbuseRequest::Kind[:spoiler],
+      Types::AbuseRequest::Kind[:abuse]
+    ]
   }
 
   aasm column: 'state', create_scopes: false do

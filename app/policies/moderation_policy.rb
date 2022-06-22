@@ -4,9 +4,9 @@ class ModerationPolicy
   pattr_initialize :user, :locale, :moderation_filter
 
   instance_cache :critiques_count, :collections_count,
-    :abuses_total_count,
-    :abuses_abuses_count,
-    :abuses_pending_count,
+    :abuse_requests_total_count,
+    :abuse_requests_bannable_count,
+    :abuse_requests_not_bannable_count,
     :all_content_versions_count,
     :names_versions_count, :texts_versions_count, :content_versions_count, :fansub_versions_count
 
@@ -34,20 +34,20 @@ class ModerationPolicy
     Article.pending.where(locale: @locale).size
   end
 
-  def abuses_total_count
-    abuses_abuses_count + abuses_pending_count
+  def abuse_requests_total_count
+    abuse_requests_bannable_count + abuse_requests_not_bannable_count
   end
 
-  def abuses_abuses_count
+  def abuse_requests_bannable_count
     return 0 unless !@moderation_filter || @user&.forum_moderator?
 
-    AbuseRequest.abuses.size
+    AbuseRequest.pending.bannable.size
   end
 
-  def abuses_pending_count
+  def abuse_requests_not_bannable_count
     return 0 unless !@moderation_filter || @user&.forum_moderator?
 
-    AbuseRequest.pending.size
+    AbuseRequest.pending.not_bannable.size
   end
 
   def all_content_versions_count

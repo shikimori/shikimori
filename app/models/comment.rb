@@ -40,15 +40,15 @@ class Comment < ApplicationRecord
     inclusion: { in: Types::Comment::CommentableType.values }
   validates :body,
     length: { minimum: 2, maximum: 32_000 },
-    if: :will_save_change_to_body?
+    if: -> { will_save_change_to_body? && !@is_conversion }
 
   validates :body,
     length: { minimum: 2, maximum: 10_000 },
-    if: :will_save_change_to_body?
+    if: -> { will_save_change_to_body? && !@is_conversion }
 
   # callbacks
   before_validation :forbid_tags_change,
-    if: -> { will_save_change_to_body? && !@is_migration }
+    if: -> { will_save_change_to_body? && !@is_conversion }
 
   before_create :check_access
   before_create :check_spam_abuse, if: -> { commentable_type == User.name }

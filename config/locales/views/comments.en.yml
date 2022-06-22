@@ -3,8 +3,6 @@ en:
     comment:
       broadcast: broadcast
     show:
-      no_bans: No bans
-      no_abuse_requests: No abuse requests
       replies: Replies
     missing:
       no_comment: Comment is either deleted or never existed on Shikimori

@@ -14,8 +14,8 @@ header.head
             title=t('moderations/versions_controller.content_changes.all_content')
           ]
             = t 'moderations/versions_controller.content_changes.all_content'
-            - if @moderation_policy.all_content_versions_count.positive?
-              span.size = @moderation_policy.all_content_versions_count
+            - if moderation_policy.all_content_versions_count.positive?
+              span.size = moderation_policy.all_content_versions_count
         - %i[names texts content fansub].each do |type|
           li.offset
             a.b-link[
@@ -23,24 +23,24 @@ header.head
               title=t("moderations/versions_controller.content_changes.#{type}")
             ]
               = t "moderations/versions_controller.content_changes.#{type}"
-              - if @moderation_policy.send(:"#{type}_versions_count").positive?
-                span.size = @moderation_policy.send(:"#{type}_versions_count")
+              - if moderation_policy.send(:"#{type}_versions_count").positive?
+                span.size = moderation_policy.send(:"#{type}_versions_count")
         li
           a.b-link[
             href=moderations_bans_url
             title=t('moderations/bans_controller.page_title.index')
           ]
             = t 'moderations/bans_controller.page_title.index'
-            - if @moderation_policy.abuses_abuses_count.positive?
-              span.size = @moderation_policy.abuses_abuses_count
+            - if moderation_policy.abuse_requests_bannable_count.positive?
+              span.size = moderation_policy.abuse_requests_bannable_count
         li
           a.b-link[
             href=moderations_abuse_requests_url
             title=t('moderations/abuse_requests_controller.page_title.index')
           ]
             = t 'moderations/abuse_requests_controller.page_title.index'
-            - if @moderation_policy.abuses_pending_count.positive?
-              span.size = @moderation_policy.abuses_pending_count
+            - if moderation_policy.abuse_requests_not_bannable_count.positive?
+              span.size = moderation_policy.abuse_requests_not_bannable_count
 
         li
           a.b-link[
@@ -48,8 +48,8 @@ header.head
             title=t('.critiques_journal')
           ]
             = t '.critiques_journal'
-            - if @moderation_policy.critiques_count.positive?
-              span.size = @moderation_policy.critiques_count
+            - if moderation_policy.critiques_count.positive?
+              span.size = moderation_policy.critiques_count
 
         li
           a.b-link[
@@ -57,8 +57,8 @@ header.head
             title=t('.collections_journal')
           ]
             = t '.collections_journal'
-            - if @moderation_policy.collections_count.positive?
-              span.size = @moderation_policy.collections_count
+            - if moderation_policy.collections_count.positive?
+              span.size = moderation_policy.collections_count
 
         li
           a.b-link[
@@ -66,8 +66,8 @@ header.head
             title=t('.news_journal')
           ]
             = t '.news_journal'
-            - if @moderation_policy.news_count.positive?
-              span.size = @moderation_policy.news_count
+            - if moderation_policy.news_count.positive?
+              span.size = moderation_policy.news_count
 
         li
           a.b-link[
@@ -75,8 +75,8 @@ header.head
             title=t('.articles_journal')
           ]
             = t '.articles_journal'
-            - if @moderation_policy.articles_count.positive?
-              span.size = @moderation_policy.articles_count
+            - if moderation_policy.articles_count.positive?
+              span.size = moderation_policy.articles_count
 
     .f-column
       .subheadline = t '.content'

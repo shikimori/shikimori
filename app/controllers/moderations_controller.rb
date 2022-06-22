@@ -1,6 +1,7 @@
 class ModerationsController < ShikimoriController # rubocop:disable ClassLength
   include SidekiqPaginatorConcern
   before_action :authenticate_user!
+  helper_method :moderation_policy
 
   before_action do
     breadcrumb i18n_t('title'), moderations_url
@@ -8,12 +9,6 @@ class ModerationsController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def show # rubocop:disable all
-    @moderation_policy = ModerationPolicy.new(
-      current_user,
-      locale_from_host,
-      false
-    )
-
     @clubs = [
       (StickyClubView.content_moderation(locale_from_host) unless Rails.env.test?),
       (StickyClubView.forum_moderation(locale_from_host) unless Rails.env.test?)
@@ -170,5 +165,13 @@ private
         .sort_by(&:count)
         .reverse
     end
+  end
+
+  def moderation_policy
+    @moderation_policy ||= ModerationPolicy.new(
+      current_user,
+      locale_from_host,
+      false
+    )
   end
 end

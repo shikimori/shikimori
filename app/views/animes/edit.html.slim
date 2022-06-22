@@ -98,6 +98,18 @@
           - else
             a.b-js-action.is-disabled = t 'moderators_only'
 
+      - unless can? :refresh_stats, @resource
+        li
+          .field = @resource.class.human_attribute_name(:options)
+          .value
+            - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { options: [] })
+              span = @resource.options.join(', ')
+              a.b-js-action href=@resource.edit_field_url(:options)
+                = t 'moderators_only'
+            - else
+              span
+              a.b-js-action.is-disabled = t 'moderators_only'
+
   = render 'db_entries/synchronization', resource: @resource
   = render 'db_entries/scores', resource: @resource
 
