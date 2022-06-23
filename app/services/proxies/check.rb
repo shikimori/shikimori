@@ -8,7 +8,7 @@ class Proxies::Check
 
   def call
     Rails.cache
-      .fetch(@proxy.to_s, expires_in: expires_in) { !!do_check.to_s }
+      .fetch(@proxy.to_s, expires_in: expires_in) { (!!do_check).to_s }
       .in?(SUCCESSFULL_RESULTS)
   end
 
