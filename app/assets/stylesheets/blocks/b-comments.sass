@@ -52,7 +52,11 @@
   & + .editor-container
     margin-top: $block-offset
 
-    #return-to-reply
-      display: none
+    .return-to-reply
+      display: inline-block
+      visibility: hidden
 
-
+    .return-to-reply:before
+      color: var(--link-color)
+      content: '↑'
+      margin-right: 3px
