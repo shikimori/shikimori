@@ -16,11 +16,10 @@ class Proxy < ApplicationRecord
   enumerize :protocol,
     in: Types::Proxy::Protocol.values
 
-  cattr_accessor :use_proxy, :use_cache, :show_log
+  cattr_accessor :use_proxy, :show_log
 
   @@proxies = nil
   @@proxies_initial_size = 0
-  @@use_cache = false # Rails.env == 'test'
   @@show_log = false
   @@use_proxy = true
 
@@ -50,26 +49,14 @@ class Proxy < ApplicationRecord
     end
 
     def get url, options = {}
-      if @@use_cache && File.exist?(cache_path(url, options)) && (1.month.ago < File.ctime(cache_path(url, options)))
-        NamedLogger.proxy.info "CACHE #{url} (#{cache_path(url, options)})"
-        return File.open(cache_path(url, options), 'r', &:read)
-      end
-
-      # получаем контент
       content =
-        if options[:no_proxy] || @@use_cache || !@@use_proxy
+        if options[:no_proxy] || !@@use_proxy
           no_proxy_get url, options
         else
           do_request url, options
         end
 
-      # фиксим кодировки
       content = content.fix_encoding(options[:encoding]) if content && url !~ /\.(jpg|gif|png|jpeg)/i
-
-      # кешируем
-      if content&.present? && (options[:test] || @@use_cache)
-        File.open(cache_path(url, options), 'w') { |h| h.write(content) }
-      end
 
       content
     end
