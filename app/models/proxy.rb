@@ -73,7 +73,7 @@ class Proxy < ApplicationRecord
       # content
     end
 
-    def do_request url, options 
+    def do_request url, options
       if (options[:proxy].nil? && @@proxies.nil?) ||
           (@@proxies && @@proxies.size < @@proxies_initial_size / 7)
         preload

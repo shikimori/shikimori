@@ -80,10 +80,10 @@ private
   def parse url, protocol
     # задержка, чтобы не нас не банили
     sleep 1
-    proxies = parse_text(
-      OpenURI.open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read,
-      protocol
-    )
+    content = OpenURI.open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
+    content = Nokogiri::HTML(content).text if content.starts_with?('<!')
+
+    proxies = parse_text content, protocol
     print "#{url} - #{proxies.size} proxies\n"
 
     proxies
@@ -290,16 +290,6 @@ private
     socks4: %w[
       https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks4.txt
       https://www.my-proxy.com/free-socks-4-proxy.html
-      https://premproxy.com/socks-list/01.htm
-      https://premproxy.com/socks-list/02.htm
-      https://premproxy.com/socks-list/03.htm
-      https://premproxy.com/socks-list/04.htm
-      https://premproxy.com/socks-list/05.htm
-      https://premproxy.com/socks-list/06.htm
-      https://premproxy.com/socks-list/07.htm
-      https://premproxy.com/socks-list/08.htm
-      https://premproxy.com/socks-list/09.htm
-      https://premproxy.com/socks-list/10.htm
     ]
   }
   URL_SOURCES[:socks5] = %w[
