@@ -124,14 +124,13 @@ private
 
   def other_sources
     Rails.cache.fetch([:proxy, :other_sources, CACHE_VERSION], expires_in: 1.hour) do
-      getfreeproxylists + webanetlabs # + proxy_24
+      getfreeproxylists + webanetlabs
     end
   end
 
   def custom_soruces
     [
       :online_proxy_ru
-      # :openproxy_space,
     ]
   end
 
@@ -167,47 +166,12 @@ private
     []
   end
 
-  # def proxy_24 url = 'http://www.proxyserverlist24.top', nesting = 0
-  #   return [] unless url
-  #
-  #   html = Nokogiri::HTML(OpenURI.open_uri(url).read)
-  #
-  #   links = html.css('.post-title.entry-title a').map { |v| v.attr :href }
-  #
-  #   if nesting > 20
-  #     links
-  #   else
-  #     links + proxy_24(html.css('.blog-pager-older-link').first&.attr(:href), nesting + 1)
-  #   end
-  # end
-
   def getfreeproxylists url = 'https://getfreeproxylists.blogspot.com/'
     html = Nokogiri::HTML(OpenURI.open_uri(url).read)
     links = html.css('ul.posts a').map { |v| v.attr :href }
 
     [url] + links
   end
-
-  # all proxies are broken
-  # def openproxy_space
-  #   # index_url = "https://api.openproxy.space/list?skip=0&ts=#{Time.zone.now.to_i}000"
-  #   # json = JSON.parse OpenURI.open_uri(index_url).read, symbolize_names: true
-  #   # codes = json.select { |v| v[:title].match? /http/i }.map { |v| v[:code] }
-  #   #
-  #   # codes.flat_map do |code|
-  #     # url = "https://api.openproxy.space/list/#{code}"
-  #     url = 'https://api.openproxy.space/lists/http'
-  #     json = JSON.parse OpenURI.open_uri(url).read, symbolize_names: true
-  #     proxies = json[:data].flat_map do |v|
-  #       v[:items].map do |vv|
-  #         data = vv.split(':')
-  #         { ip: data[0], port: data[1].to_i }
-  #       end
-  #     end
-  #     print "#{url} - #{proxies.size} proxies\n"
-  #     proxies
-  #   # end
-  # end
 
   def parse_proxies(
     is_url_sources:,
@@ -244,12 +208,6 @@ private
         custom_sourced_proxies + 
         parse_text(additional_text)
     ).uniq
-    # source_proxies = sources.map { |url| parse url }.flatten
-    # hideme_proxies = JSON.parse(open(HIDEME_URL).read).map do |proxy|
-      # { ip: proxy['ip'], port: proxy['port'].to_i }
-    # end
-
-    # (source_proxies + hideme_proxies).uniq
   end
 
   URL_SOURCES = %w[

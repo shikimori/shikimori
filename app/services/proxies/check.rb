@@ -7,7 +7,6 @@ class Proxies::Check
 
   def call
     content = Proxy.get(TEST_URL, timeout: 10, proxy: @proxy)
-    binding.pry
     content&.include?(ProxyTest::SUCCESS_CONFIRMATION_MESSAGE) &&
       ips.none? { |ip| content.include? ip }
   rescue *::Network::FaradayGet::NET_ERRORS

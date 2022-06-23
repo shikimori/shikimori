@@ -21,6 +21,6 @@ private
 
   def second_check
     image = Magick::Image.read(@path).first
-    !image.export_pixels(0, image.rows - 1, 1).all? { |v| v == 32_896 }
+    !image.export_pixels(0, image.rows - 1, 1).all?(32_896)
   end
 end
