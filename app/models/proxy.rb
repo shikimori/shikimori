@@ -11,7 +11,8 @@ class Proxy < ApplicationRecord
     end \s of \s file \s reached |
     404 \s Not \s Found
   /mix
-  USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'
+  USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 ' \
+    '(KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'
 
   enumerize :protocol,
     in: Types::Proxy::Protocol.values
@@ -61,9 +62,11 @@ class Proxy < ApplicationRecord
       content
     end
 
-    # выполнение запроса
     def do_request url, options
-      preload if (options[:proxy].nil? && @@proxies.nil?) || (@@proxies && @@proxies.size < @@proxies_initial_size / 7)
+      if (options[:proxy].nil? && @@proxies.nil?) ||
+          (@@proxies && @@proxies.size < @@proxies_initial_size / 7)
+        preload
+      end
       # raise NoProxies, url if options[:proxy].nil? && @@proxies.empty?
 
       content = nil
@@ -91,7 +94,6 @@ class Proxy < ApplicationRecord
           content = content.fix_encoding(options[:encoding]) if content && url !~ /\.(jpg|gif|png|jpeg)/i
           raise "#{proxy} banned" if content.blank?
 
-          # проверка валидности jpg
           if options[:validate_jpg]
             tmpfile = Tempfile.new 'jpg'
             File.open(tmpfile.path, 'wb') { |f| f.write content }
@@ -117,12 +119,16 @@ class Proxy < ApplicationRecord
               end
 
             stripped_content = content.gsub(/[ \n\r]+/, '').downcase
-            raise "#{proxy} banned" unless requires.all? { |text| stripped_content.include?(text.gsub(/[ \n\r]+/, '').downcase) }
+            unless requires.all? { |text| stripped_content.include?(text.gsub(/[ \n\r]+/, '').downcase) }
+              raise "#{proxy} banned"
+            end
           end
 
           # проверка на забаненны тексты
           options[:ban_texts]&.each do |text|
-            raise "#{proxy} banned" if text.is_a?(Regexp) ? content.match(text) : content.include?(text)
+            if text.is_a?(Regexp) ? content.match(text) : content.include?(text)
+              raise "#{proxy} banned"
+            end
           end
 
           # и надо не забыть вернуть проксю назад
@@ -134,12 +140,12 @@ class Proxy < ApplicationRecord
         rescue StandardError => e
           raise if defined?(VCR) && e.is_a?(VCR::Errors::UnhandledHTTPRequestError)
 
-          if /404 Not Found/.match?(e.message)
+          if /404 Not Found/.match? e.message
             @@proxies.push(proxy) unless options[:proxy]
             raise
           end
 
-          if SAFE_ERRORS.match?(e.message)
+          if SAFE_ERRORS.match? e.message
             log e.message.to_s, options
           else
             log "#{e.message}\n#{e.backtrace.join("\n")}", options
@@ -148,7 +154,7 @@ class Proxy < ApplicationRecord
           proxy = nil
           content = nil
 
-          exit if e.class == Interrupt
+          exit if e.instance_of? Interrupt # rubocop:disable Rails/Exit
           break if options[:proxy] # при указании прокси делаем лишь одну попытку
         end
       end
@@ -162,7 +168,6 @@ class Proxy < ApplicationRecord
       end
     end
 
-    # выполнение get запроса без прокси
     def no_proxy_get url, options
       NamedLogger.proxy.info "GET #{url}"
 
@@ -184,17 +189,10 @@ class Proxy < ApplicationRecord
         log "#{e.class.name} #{e.message}\n#{e.backtrace.join("\n")}", options
       end
 
-      exit if e.class == Interrupt
+      exit if e.instance_of? Interrupt # rubocop:disable Rails/Exit
       nil
     end
 
-    # адрес страницы в кеше
-    def cache_path url, options
-      Dir.mkdir('tmp/cache/pages') unless Rails.env.test? || File.exist?('tmp/cache/pages')
-      (Rails.env.test? ? 'spec/pages/%s' : 'tmp/cache/pages/%s') % Digest::MD5.hexdigest(options[:data] ? "#{url}_data:#{options[:data].map { |k, v| "#{k}=#{v}" }.join('&')}" : url)
-    end
-
-    # логирование
     def log message, options
       print "[Proxy]: #{message}\n" if options[:log] || @@show_log
     end
