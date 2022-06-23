@@ -97,7 +97,6 @@ module Clockwork
     ImportToshokanTorrents.perform_async false
 
     MalParsers::RefreshEntries.perform_async 'anime', 'latest', 1.week
-    # SubtitlesImporter.perform_async :ongoings
     DbEntries::CleanupMalBanned.perform_async
     Votable::CleanupCheatBotVotes.perform_async
     Users::CleanupDoorkeeperTokens.perform_async
@@ -139,7 +138,6 @@ module Clockwork
     Messages::CleanupOutdated.perform_async
     UserImagesCleaner.perform_async
     SakuhindbImporter.perform_async with_fail: true
-    # SubtitlesImporter.perform_async :latest
     # BadVideosCleaner.perform_async
     Screenshots::Cleanup.perform_async
 
