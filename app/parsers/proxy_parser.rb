@@ -39,7 +39,7 @@ class ProxyParser
       additional_url_sources: additional_url_sources,
       additional_text: additional_text
     )
-    db_proxies = is_db_sources ? Proxy.all.map { |v| { ip: v.ip, port: v.port } } : []
+    db_proxies = is_db_sources ? Proxy.all.to_a : []
 
     print format("found %<size>i proxies\n", size: parsed_proxies.size)
     print format("fetched %<size>i proxies\n", size: db_proxies.size)
