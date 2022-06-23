@@ -16,6 +16,6 @@ class Proxies::Check
 private
 
   def ips
-    @ips || Proxies::WhatIsMyIps.call
+    @ips ||= Proxies::WhatIsMyIps.call
   end
 end

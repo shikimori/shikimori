@@ -8,8 +8,9 @@ class ProxyParser
   IS_OTHER_SOURCES = true
   IS_CUSTOM_SOURCES = true
 
-  CACHE_VERSION = :v7
-  CUSTOM_SORUCES = %i[online_proxy_ru]
+  CACHE_VERSION = :v3
+
+  CUSTOM_SOURCES = %i[hidemyname proxylist_geonode_com]
 
   def import
     proxies = fetch(
@@ -20,7 +21,7 @@ class ProxyParser
       additional_url_sources: [],
       additional_text: ''
     )
-    save proxies
+    import proxies
   end
 
   def fetch(
@@ -58,16 +59,16 @@ class ProxyParser
     verified_proxies
   end
 
-  def save proxies
+private
+
+  def import proxies
+    return if proxies.none?
+
     ApplicationRecord.transaction do
-      if proxies.any?
-        Proxy.delete_all
-        Proxy.import proxies
-      end
+      Proxy.delete_all
+      Proxy.import proxies
     end
   end
-
-private
 
   def parse url, protocol
     # задержка, чтобы не нас не банили
@@ -141,20 +142,6 @@ private
     []
   end
 
-  def online_proxy_ru url = 'http://online-proxy.ru'
-    proxies = parse_text(
-      Nokogiri::HTML(OpenURI.open_uri(url).read).text,
-      :http
-    )
-
-    print "#{url} - #{proxies.size} proxies\n"
-    proxies
-
-  rescue StandardError => e
-    print "online_proxy_ru: #{e.message}\n"
-    []
-  end
-
   def getfreeproxylists url = 'https://getfreeproxylists.blogspot.com/'
     html = Nokogiri::HTML(OpenURI.open_uri(url).read)
     links = html.css('ul.posts a').map { |v| v.attr :href }
@@ -169,11 +156,6 @@ private
     additional_url_sources:,
     additional_text: ''
   )
-    url_sourced_proxies = is_url_sources ? (
-      URL_SOURCES.flat_map do |url|
-        Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) { parse url, :http }
-      end
-    ) : []
     additional_url_sources_proxies = additional_url_sources.flat_map do |url|
       Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) { parse url, :http }
     end
@@ -184,63 +166,129 @@ private
       end 
     ) : []
 
-    custom_sourced_proxies = is_custom_sources ? (
-      CUSTOM_SORUCES.flat_map do |method|
-        Rails.cache.fetch([method, :proxies, CACHE_VERSION], expires_in: 1.hour) { send method }
-      end
-    ) : []
-
     (
-      url_sourced_proxies +
+      (is_url_sources ? url_sourced_proxies : []) +
         additional_url_sources_proxies +
         other_sourced_proxies +
-        custom_sourced_proxies + 
+        (is_custom_sources ? custom_sourced_proxies : []) +
         parse_text(additional_text, :http)
     ).uniq
   end
 
-  URL_SOURCES = %w[
-    http://proxysearcher.sourceforge.net/Proxy%20List.php?type=http&filtered=true
-    https://free-proxy-list.net/
-    https://rootjazz.com/proxies/proxies.txt
-    http://www.megaproxylist.net/
-    http://sslproxies24.blogspot.com/feeds/posts/default
-    http://proxylists.net/
-    http://my-proxy.com/free-proxy-list-10.html
-    http://my-proxy.com/free-proxy-list-2.html
-    http://my-proxy.com/free-proxy-list-3.html
-    http://my-proxy.com/free-proxy-list-4.html
-    http://my-proxy.com/free-proxy-list-5.html
-    http://my-proxy.com/free-proxy-list-6.html
-    http://my-proxy.com/free-proxy-list-7.html
-    http://my-proxy.com/free-proxy-list-8.html
-    http://my-proxy.com/free-proxy-list-9.html
-    http://my-proxy.com/free-proxy-list.html
-    http://atomintersoft.com/anonymous_proxy_list
-    http://atomintersoft.com/high_anonymity_elite_proxy_list
-    http://atomintersoft.com/index.php?q=proxy_list_domain&domain=com
-    http://atomintersoft.com/products/alive-proxy/proxy-list
-    http://atomintersoft.com/products/alive-proxy/proxy-list/3128
-    http://atomintersoft.com/products/alive-proxy/proxy-list/high-anonymity
-    http://atomintersoft.com/products/alive-proxy/socks5-list
-    http://atomintersoft.com/proxy_list_domain
-    http://atomintersoft.com/proxy_list_domain_com
-    http://atomintersoft.com/proxy_list_domain_edu
-    http://atomintersoft.com/proxy_list_domain_net
-    http://atomintersoft.com/proxy_list_domain_org
-    http://atomintersoft.com/proxy_list_port
-    http://atomintersoft.com/proxy_list_port_3128
-    http://atomintersoft.com/proxy_list_port_80
-    http://atomintersoft.com/proxy_list_port_8000
-    http://atomintersoft.com/proxy_list_port_81
-    http://atomintersoft.com/transparent_proxy_list
-    https://proxylistdaily4you.blogspot.com/p/l1l2l3-proxy-server-list-1167.html
-    https://www.newproxys.com/free-proxy-lists/
-    http://cyber-gateway.net/get-proxy/free-proxy
-    http://proxyserverlist-24.blogspot.com/feeds/posts/default
-    http://alexa.lr2b.com/proxylist.txt
-    https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite&simplified=true&limit=300
-    http://multiproxy.org/txt_all/proxy.txt # 0 of 1526
-    http://www.cybersyndrome.net/pla6.html
-  ]
+  def url_sourced_proxies
+    URL_SOURCES.flat_map do |(protocol, urls)|
+      urls.flat_map do |url|
+        Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) do
+          parse url, protocol
+        end
+      end
+    end
+  end
+
+  def custom_sourced_proxies
+    CUSTOM_SOURCES.flat_map { |method| send method }
+  end
+
+  def hidemyname
+    return []
+    url = 'https://hidemy.name/api/proxylist.txt?code=634357385849580&type=hs45&out=js'
+
+    data =
+      Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) do
+        HTTPX.get(url).read
+      end
+
+    JSON.parse(data, symbolize_names: true).map do |entry|
+      Proxy.new(
+        ip: entry[:ip],
+        port: entry[:port],
+        protocol: (
+          if entry[:http] == '1'
+            :http
+          elsif entry[:ssl] == '1'
+            :https
+          elsif entry[:socks4] == '1'
+            :socks4
+          elsif entry[:socks5] == '1'
+            :socks5
+          else
+            raise "unknown protocol: #{entry.to_json}"
+          end
+        )
+      )
+    end
+  end
+
+  def proxylist_geonode_com
+    url = 'https://proxylist.geonode.com/api/proxy-list?limit=5000&page=1&sort_by=lastChecked&sort_type=desc&protocols=http%2Chttps%2Csocks4%2Csocks5'
+    data =
+      Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) do
+        HTTPX.get(url).read
+      end
+
+    JSON.parse(data, symbolize_names: true)[:data].map do |entry|
+      Proxy.new(
+        ip: entry[:ip],
+        port: entry[:port].to_i,
+        protocol: entry[:protocols][0]
+      )
+    end
+  end
+
+  URL_SOURCES = {
+    http: %w[
+      http://proxysearcher.sourceforge.net/Proxy%20List.php?type=http&filtered=true
+      https://free-proxy-list.net/
+      https://rootjazz.com/proxies/proxies.txt
+      http://www.megaproxylist.net/
+      http://sslproxies24.blogspot.com/feeds/posts/default
+      http://proxylists.net/
+      http://my-proxy.com/free-proxy-list-10.html
+      http://my-proxy.com/free-proxy-list-2.html
+      http://my-proxy.com/free-proxy-list-3.html
+      http://my-proxy.com/free-proxy-list-4.html
+      http://my-proxy.com/free-proxy-list-5.html
+      http://my-proxy.com/free-proxy-list-6.html
+      http://my-proxy.com/free-proxy-list-7.html
+      http://my-proxy.com/free-proxy-list-8.html
+      http://my-proxy.com/free-proxy-list-9.html
+      http://my-proxy.com/free-proxy-list.html
+      http://atomintersoft.com/anonymous_proxy_list
+      http://atomintersoft.com/high_anonymity_elite_proxy_list
+      http://atomintersoft.com/index.php?q=proxy_list_domain&domain=com
+      http://atomintersoft.com/products/alive-proxy/proxy-list
+      http://atomintersoft.com/products/alive-proxy/proxy-list/3128
+      http://atomintersoft.com/products/alive-proxy/proxy-list/high-anonymity
+      http://atomintersoft.com/products/alive-proxy/socks5-list
+      http://atomintersoft.com/proxy_list_domain
+      http://atomintersoft.com/proxy_list_domain_com
+      http://atomintersoft.com/proxy_list_domain_edu
+      http://atomintersoft.com/proxy_list_domain_net
+      http://atomintersoft.com/proxy_list_domain_org
+      http://atomintersoft.com/proxy_list_port
+      http://atomintersoft.com/proxy_list_port_3128
+      http://atomintersoft.com/proxy_list_port_80
+      http://atomintersoft.com/proxy_list_port_8000
+      http://atomintersoft.com/proxy_list_port_81
+      http://atomintersoft.com/transparent_proxy_list
+      https://proxylistdaily4you.blogspot.com/p/l1l2l3-proxy-server-list-1167.html
+      https://www.newproxys.com/free-proxy-lists/
+      http://cyber-gateway.net/get-proxy/free-proxy
+      http://proxyserverlist-24.blogspot.com/feeds/posts/default
+      http://alexa.lr2b.com/proxylist.txt
+      https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite&simplified=true&limit=300
+      http://multiproxy.org/txt_all/proxy.txt # 0 of 1526
+      http://www.cybersyndrome.net/pla6.html
+    ],
+    https: %w[
+      https://spys.one/sslproxy/
+    ],
+    socks4: %w[
+      https://www.my-proxy.com/free-socks-4-proxy.html
+    ],
+    socks5: %w[
+      https://www.my-proxy.com/free-socks-5-proxy.html
+      https://spys.one/socks/
+    ]
+  }
 end
