@@ -5,13 +5,12 @@ class Proxies::Check
 
   TEST_URL = "https://shikimori.one#{ProxyTest::TEST_PAGE_PATH}"
   IS_CACHING = false
-  CACHE_VERSION = :v10
+  CACHE_VERSION = :v11
 
   def call
     (@is_caching.nil? || @is_caching) && IS_CACHING ?
       cached_check == 'true' :
       do_check
-    # print "#{proxy} #{is_checked ? '✅' : '❌'}\n" if Rails.env.development?
   end
 
 private
@@ -22,14 +21,16 @@ private
 
   def cached_check
     Rails.cache.fetch([@proxy.to_s, CACHE_VERSION], expires_in: expires_in) do
-      (!!do_check).to_s
+      do_check.to_s
     end
   end
 
   def do_check
     content = Proxy.get(TEST_URL, timeout: 10, proxy: @proxy)
-    content&.include?(ProxyTest::SUCCESS_CONFIRMATION_MESSAGE) &&
-      ips.none? { |ip| content.include? ip }
+    !!(
+      content&.include?(ProxyTest::SUCCESS_CONFIRMATION_MESSAGE) &&
+        ips.none? { |ip| content.include? ip }
+    )
   rescue *::Network::FaradayGet::NET_ERRORS
     false
   end

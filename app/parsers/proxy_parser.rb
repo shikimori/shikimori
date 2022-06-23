@@ -110,12 +110,10 @@ private
 
     print "testing #{proxies.size} proxies\n"
 
-    # pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 20)
-    # pool = Concurrent::FixedThreadPool.new(30)
-    pool = Concurrent::CachedThreadPool.new
+    pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 4)
+    # pool = Concurrent::FixedThreadPool.new(5)
+    # pool = Concurrent::CachedThreadPool.new
     index = Concurrent::AtomicFixnum.new(-1)
-
-    error = nil
 
     proxies.each do |proxy|
       pool.post do
@@ -125,9 +123,6 @@ private
         print "tested #{current_index + 1}/#{proxies_count} proxy #{is_verified  ? '✅' : '❌'} #{proxy}\n"
 
         verified_proxies << proxy if is_verified
-      rescue StandardError => e
-        ap error
-        error = e
       end
     end
 
@@ -136,7 +131,6 @@ private
       break if pool.queue_length.zero?
     end
     pool.kill
-    raise error if error
 
     print "testing complete\n"
 
