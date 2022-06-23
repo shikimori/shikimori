@@ -56,7 +56,7 @@ class Proxy < ApplicationRecord
 
     def preload
       queue = Queue.new
-      Proxy.all.shuffle.each { |v| queue.push v }
+      Proxy.alive.shuffle.each { |v| queue.push v }
 
       @@proxies_initial_size = queue.size
       @@proxies = queue
