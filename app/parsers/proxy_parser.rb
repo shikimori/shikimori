@@ -54,7 +54,7 @@ class ProxyParser
     print format("fetched %<size>i proxies\n", size: db_proxies.size)
 
     proxies = (db_proxies + parsed_proxies).uniq(&:to_s)
-    print format("%<size>i after merge with previously parsed\n", size: proxies.size)
+    print format("%<size>i after uniq&merge with previously parsed\n", size: proxies.size)
 
     verified_proxies = test_concurrently proxies, Proxies::WhatIsMyIps.call
 
@@ -108,7 +108,8 @@ private
 
     print "testing #{proxies.size} proxies\n"
 
-    pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 30)
+    # pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 30)
+    pool = Concurrent::CachedThreadPool.new
     index = Concurrent::AtomicFixnum.new(-1)
 
     proxies.each do |proxy|
@@ -285,7 +286,6 @@ private
       http://www.cybersyndrome.net/pla6.html
     ],
     https: %w[
-      https://spys.one/sslproxy/
     ],
     socks4: %w[
       https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks4.txt
@@ -294,7 +294,8 @@ private
     socks5: %w[
       https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt
       https://www.my-proxy.com/free-socks-5-proxy.html
-      https://spys.one/socks/
+      https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks4.txt
+      https://www.my-proxy.com/free-socks-4-proxy.html
     ]
   }
 end
