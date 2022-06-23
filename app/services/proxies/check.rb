@@ -1,18 +1,17 @@
 require Rails.root.join('config/middleware/proxy_test')
 
 class Proxies::Check
-  method_object %i[proxy! ips]
+  method_object %i[proxy! ips is_caching]
 
-  TEST_URL = "https://shikimori.org#{ProxyTest::TEST_PAGE_PATH}"
-  IS_CACHING = true
+  TEST_URL = "https://shikimori.one#{ProxyTest::TEST_PAGE_PATH}"
+  IS_CACHING = false
   CACHE_VERSION = :v10
 
   def call
-    if IS_CACHING
-      cached_check == 'true'
-    else
+    (@is_caching.nil? || @is_caching) && IS_CACHING ?
+      cached_check == 'true' :
       do_check
-    end
+    # print "#{proxy} #{is_checked ? '✅' : '❌'}\n" if Rails.env.development?
   end
 
 private

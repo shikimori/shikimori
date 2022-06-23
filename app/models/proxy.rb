@@ -91,9 +91,9 @@ class Proxy < ApplicationRecord
           log "#{url}#{options[:data] ? ' ' + options[:data].map { |k, v| "#{k}=#{v}" }.join('&') : ''} via #{proxy}", options
 
           # timeout does not with Curl library
-          # Timeout.timeout(options[:timeout]) do
+          Timeout.timeout(options[:timeout]) do
             content = get_via_proxy url, proxy, options[:timeout]
-          # end
+          end
           # raise "#{proxy} banned" if content.nil?
 
           # content = content.fix_encoding(options[:encoding]) if content && !url.match?(/\.(jpe?g|gif|png)/i)
@@ -204,18 +204,34 @@ class Proxy < ApplicationRecord
 
     def get_via_proxy url, proxy, timeout
       # https://github.com/taf2/curb
-      Curl
-        .get(url) do |curl|
-          curl.verbose = true if @show_log
-          curl.ssl_verify_peer = false
-          curl.follow_location = true
-          curl.proxy_url = proxy.to_s
-          curl.headers['User-Agent'] = user_agent(url)
-          curl.dns_cache_timeout = 3
-          curl.connect_timeout = 8
-          curl.timeout = timeout
-        end
-        .body
+      # Curl
+      #   .get(url) do |curl|
+      #     curl.verbose = true if @show_log
+      #     curl.ssl_verify_peer = false
+      #     curl.follow_location = true
+      #     curl.proxy_url = proxy.to_s
+      #     curl.headers['User-Agent'] = user_agent(url)
+      #     curl.dns_cache_timeout = 3
+      #     curl.connect_timeout = 8
+      #     curl.timeout = timeout
+      #   end
+      #   .body
+
+      # proxy = Proxy.new ip: '195.2.71.201', port: 16072, protocol: :socks5
+      curl_commands = %W[
+        curl
+        --insecure
+        -H "User-Agent: #{user_agent(url)}"
+        -x "#{proxy}"
+        --connect-timeout 5
+        --max-time #{timeout}
+        "#{Shellwords.escape url}"
+      ]
+      Open3.popen3(curl_commands.join(' ')) do |_stdin, stdout, _stderr|
+        stdout.read
+      end
+
+      # curl -x socks5://195.2.71.201:16072 https://shikimori.one/what_is_my_ip
 
       # if proxy.http?
       #   get_open_uri(url, proxy: proxy.to_s, read_timeout: timeout).read

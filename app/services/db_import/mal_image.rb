@@ -13,7 +13,7 @@ class DbImport::MalImage
       io = download_image
       @entry.image = io if io
     end
-  rescue *Network::FaradayGet::NET_ERRORS
+  rescue *::Network::FaradayGet::NET_ERRORS
   end
 
 private

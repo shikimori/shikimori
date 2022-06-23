@@ -8,7 +8,7 @@ class ProxyParser
   IS_OTHER_SOURCES = true
   IS_CUSTOM_SOURCES = true
 
-  CACHE_VERSION = :v6
+  CACHE_VERSION = :v10
 
   CUSTOM_SOURCES = %i[hidemyname proxylist_geonode_com]
 
@@ -84,6 +84,9 @@ private
     content = Nokogiri::HTML(content).text if content.starts_with?('<!')
 
     proxies = parse_text content, protocol
+    if proxies.none? && content.starts_with?('<!')
+      proxies = parse_text Nokogiri::HTML(content).text, protocol
+    end
     print "#{url} - #{proxies.size} proxies\n"
 
     proxies
@@ -93,11 +96,10 @@ private
   end
 
   def parse_text text, protocol
-    text
-      .gsub(/\d+\.\d+\.\d+\.\d+[:\t\n\s]+\d+/)
+    text.gsub(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}[:\t\n\s]+\d+/)
       .map do |v|
         data = v.split(/[:\t\n\s]+/)
-        Proxy.new ip: data[0], port: data[1].to_i, protocol: protocol
+        build_proxy ip: data[0], port: data[1], protocol: protocol
       end
   end
 
@@ -108,9 +110,9 @@ private
 
     print "testing #{proxies.size} proxies\n"
 
-    pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 20)
+    # pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 20)
     # pool = Concurrent::FixedThreadPool.new(30)
-    # pool = Concurrent::CachedThreadPool.new
+    pool = Concurrent::CachedThreadPool.new
     index = Concurrent::AtomicFixnum.new(-1)
 
     error = nil
@@ -118,9 +120,11 @@ private
     proxies.each do |proxy|
       pool.post do
         current_index = index.increment
-        puts "testing #{current_index + 1}/#{proxies_count} proxy #{proxy}"
+        is_verified = Proxies::Check.call proxy: proxy, ips: ips
 
-        verified_proxies << proxy if Proxies::Check.call(proxy: proxy, ips: ips)
+        print "tested #{current_index + 1}/#{proxies_count} proxy #{is_verified  ? '✅' : '❌'} #{proxy}\n"
+
+        verified_proxies << proxy if is_verified
       rescue StandardError => e
         ap error
         error = e
@@ -140,7 +144,7 @@ private
   end
 
   def other_sources
-    Rails.cache.fetch([:proxy, :other_sources, CACHE_VERSION], expires_in: 1.hour) do
+    Rails.cache.fetch([:proxy, :other_sources, CACHE_VERSION], expires_in: 6.hours) do
       getfreeproxylists + webanetlabs
     end
   end
@@ -175,7 +179,7 @@ private
   )
     other_sourced_proxies = is_other_sources ? (
       other_sources.flat_map do |url|
-        Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) { parse url, :http }
+        Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) { parse url, :http }
       end 
     ) : []
 
@@ -191,7 +195,7 @@ private
   def url_sourced_proxies url_sources
     url_sources.flat_map do |(protocol, urls)|
       urls.flat_map do |url|
-        Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) do
+        Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
           parse url, protocol
         end
       end
@@ -207,12 +211,12 @@ private
     url = 'https://hidemy.name/api/proxylist.txt?code=634357385849580&type=hs45&out=js'
 
     data =
-      Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) do
+      Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
         OpenURI.open_uri(url).read
       end
 
     JSON.parse(data, symbolize_names: true).map do |entry|
-      Proxy.new(
+      build_proxy(
         ip: entry[:ip],
         port: entry[:port],
         protocol: (
@@ -235,17 +239,21 @@ private
   def proxylist_geonode_com
     url = 'https://proxylist.geonode.com/api/proxy-list?limit=5000&page=1&sort_by=lastChecked&sort_type=desc&protocols=http%2Chttps%2Csocks4%2Csocks5'
     data =
-      Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) do
+      Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
         OpenURI.open_uri(url).read
       end
 
     JSON.parse(data, symbolize_names: true)[:data].map do |entry|
-      Proxy.new(
+      build_proxy(
         ip: entry[:ip],
-        port: entry[:port].to_i,
+        port: entry[:port],
         protocol: entry[:protocols][0]
       )
     end
+  end
+
+  def build_proxy ip:, port:, protocol:
+    Proxy.new ip: ip, port: port.to_i, protocol: protocol
   end
 
   URL_SOURCES = {
