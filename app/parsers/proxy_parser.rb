@@ -110,7 +110,7 @@ private
 
     print "testing #{proxies.size} proxies\n"
 
-    pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 4)
+    pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 8)
     # pool = Concurrent::FixedThreadPool.new(5)
     # pool = Concurrent::CachedThreadPool.new
     index = Concurrent::AtomicFixnum.new(-1)

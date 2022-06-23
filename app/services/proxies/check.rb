@@ -4,8 +4,8 @@ class Proxies::Check
   method_object %i[proxy! ips is_caching]
 
   TEST_URL = "https://shikimori.one#{ProxyTest::TEST_PAGE_PATH}"
-  IS_CACHING = false
-  CACHE_VERSION = :v11
+  IS_CACHING = true
+  CACHE_VERSION = :v20
 
   def call
     (@is_caching.nil? || @is_caching) && IS_CACHING ?
