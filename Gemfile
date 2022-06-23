@@ -109,7 +109,7 @@ gem 'xxhash' # очень быстрый несекьюрный алгоритм
 gem 'faraday'
 gem 'faraday-cookie_jar'
 gem 'faraday_middleware'
-gem 'httpx' # http client with socks proxy support
+gem 'curb' # curl client with socks proxy support
 
 gem 'responders' # для json responder'а, который нужен для рендеринга контента на patch и put запросы
 

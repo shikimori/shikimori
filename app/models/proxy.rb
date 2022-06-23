@@ -1,11 +1,3 @@
-# monkey patch because of stupid direct status code check in follow_redirect plugin
-class HTTPX::ErrorResponse
-  def status
-    # warn ":#{__method__} is deprecated, use :error.message instead"
-    @error.message
-  end
-end
-
 # TODO: refactor
 # sudo apt-get install libjpeg-progs
 class Proxy < ApplicationRecord
@@ -206,28 +198,23 @@ class Proxy < ApplicationRecord
     end
 
     def get_via_proxy url, proxy, timeout
-      if proxy.http?
-        get_open_uri(url, proxy: proxy.to_s, read_timeout: timeout).read
-      else
-        get_httpx(url, proxy, timeout).read
-      end
-    end
+      # https://github.com/taf2/curb
+      Curl
+        .get(url) do |curl|
+          curl.verbose = true if @show_log
+          curl.ssl_verify_peer = false
+          curl.follow_location = true
+          curl.proxy_url = proxy.to_s
+          curl.headers['User-Agent'] = user_agent(url)
+          curl.timeout = timeout
+        end
+        .body
 
-    def get_httpx url, proxy, timeout
-      response = HTTPX
-        .plugin(:follow_redirects)
-        .plugin(:proxy)
-        .with(timeout: { total_timeout: timeout })
-        .with_proxy(uri: proxy.to_s)
-        .get(url)
-
-      if response.error
-        raise response.error.message
-      end
-
-      response
-    rescue StandardError => e
-      raise e
+      # if proxy.http?
+      #   get_open_uri(url, proxy: proxy.to_s, read_timeout: timeout).read
+      # else
+      #   get_httpx(url, proxy, timeout).read
+      # end
     end
 
     def log message, options

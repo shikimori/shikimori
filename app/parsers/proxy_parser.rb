@@ -8,7 +8,7 @@ class ProxyParser
   IS_OTHER_SOURCES = true
   IS_CUSTOM_SOURCES = true
 
-  CACHE_VERSION = :v3
+  CACHE_VERSION = :v6
 
   CUSTOM_SOURCES = %i[hidemyname proxylist_geonode_com]
 
@@ -54,7 +54,7 @@ class ProxyParser
     print format("fetched %<size>i proxies\n", size: db_proxies.size)
 
     proxies = (db_proxies + parsed_proxies).uniq(&:to_s)
-    print format("%<size>i after uniq&merge with previously parsed\n", size: proxies.size)
+    print format("%<size>i after uniq & merge with previously parsed\n", size: proxies.size)
 
     verified_proxies = test_concurrently proxies, Proxies::WhatIsMyIps.call
 
@@ -94,9 +94,9 @@ private
 
   def parse_text text, protocol
     text
-      .gsub(/\d+\.\d+\.\d+\.\d+[:\t\n]\d+/)
+      .gsub(/\d+\.\d+\.\d+\.\d+[:\t\n\s]+\d+/)
       .map do |v|
-        data = v.split(/[:\t\n]/)
+        data = v.split(/[:\t\n\s]+/)
         Proxy.new ip: data[0], port: data[1].to_i, protocol: protocol
       end
   end
@@ -295,5 +295,7 @@ private
   URL_SOURCES[:socks5] = %w[
     https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt
     https://www.my-proxy.com/free-socks-5-proxy.html
+    https://list.proxylistplus.com/Socks-List-1
+    https://list.proxylistplus.com/Socks-List-2
   ] + URL_SOURCES[:socks4]
 end
