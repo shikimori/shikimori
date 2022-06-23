@@ -101,13 +101,15 @@ gem 'enumerize' # , '2.0.1' # в 2.1.0 Sidekiq::Extensions::DelayedMailer пад
 
 gem 'activerecord-import' # для быстрого импорта тегов
 gem 'amatch', github: 'flori/amatch' # для поиска русских имён из википедии
-gem 'faraday'
-gem 'faraday-cookie_jar'
-gem 'faraday_middleware'
 gem 'icalendar' # for anime calendar
 gem 'ruby-esvidi', github: 'shikimori/ruby-esvidi'
 gem 'unicode' # to downcase russian words
 gem 'xxhash' # очень быстрый несекьюрный алгоритм хеширования (для comments_helper)
+
+gem 'faraday'
+gem 'faraday-cookie_jar'
+gem 'faraday_middleware'
+gem 'httpx' # http client with socks proxy support
 
 gem 'responders' # для json responder'а, который нужен для рендеринга контента на patch и put запросы
 
