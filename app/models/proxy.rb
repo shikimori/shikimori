@@ -1,3 +1,11 @@
+# monkey patch because of stupid direct status code check in follow_redirect plugin
+class HTTPX::ErrorResponse
+  def status
+    # warn ":#{__method__} is deprecated, use :error.message instead"
+    @error.message
+  end
+end
+
 # TODO: refactor
 # sudo apt-get install libjpeg-progs
 class Proxy < ApplicationRecord
@@ -9,7 +17,9 @@ class Proxy < ApplicationRecord
     connection \s reset \s by \s peer |
     no \s route \s to \s host |
     end \s of \s file \s reached |
-    404 \s Not \s Found
+    404 \s Not \s Found |
+    socks \s error |
+    Failed \s to \s connect \s to \s proxy
   /mix
   USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 ' \
     '(KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'
@@ -60,7 +70,7 @@ class Proxy < ApplicationRecord
       # content
     end
 
-    def do_request url, options
+    def do_request url, options 
       if (options[:proxy].nil? && @@proxies.nil?) ||
           (@@proxies && @@proxies.size < @@proxies_initial_size / 7)
         preload
@@ -83,7 +93,7 @@ class Proxy < ApplicationRecord
           log "#{url}#{options[:data] ? ' ' + options[:data].map { |k, v| "#{k}=#{v}" }.join('&') : ''} via #{proxy}", options
 
           Timeout.timeout(options[:timeout]) do
-            content = get_open_uri(url, proxy: proxy.to_s).read
+            content = get_httpx url, proxy, options[:timeout]
           end
           raise "#{proxy} banned" if content.nil?
 
@@ -115,7 +125,7 @@ class Proxy < ApplicationRecord
               end
 
             stripped_content = content.gsub(/[ \n\r]+/, '').downcase
-            unless requires.all? { |text| stripped_content.include?(text.gsub(/[ \n\r]+/, '').downcase) }
+            unless requires.all? { |v| stripped_content.include?(v.gsub(/[ \n\r]+/, '').downcase) }
               raise "#{proxy} banned"
             end
           end
@@ -144,7 +154,7 @@ class Proxy < ApplicationRecord
           if SAFE_ERRORS.match? e.message
             log e.message.to_s, options
           else
-            log "#{e.message}\n#{e.backtrace.join("\n")}", options
+            raise
           end
 
           proxy = nil
@@ -182,11 +192,28 @@ class Proxy < ApplicationRecord
       if SAFE_ERRORS.match?(e.message)
         log "#{e.class.name} #{e.message}", options
       else
-        log "#{e.class.name} #{e.message}\n#{e.backtrace.join("\n")}", options
+        raise
       end
 
       exit if e.instance_of? Interrupt # rubocop:disable Rails/Exit
       nil
+    end
+
+    def get_httpx url, proxy, timeout
+      response = HTTPX
+        .plugin(:follow_redirects)
+        .plugin(:proxy)
+        .with(timeout: { total_timeout: timeout })
+        .with_proxy(uri: proxy.to_s)
+        .get(url)
+
+      if response.error
+        raise response.error.message
+      end
+
+      response.read
+    rescue StandardError => e
+      raise e
     end
 
     def log message, options
@@ -203,27 +230,19 @@ class Proxy < ApplicationRecord
 
     def get_open_uri url, params = {}
       if /\.(jpe?g|png)$/.match?(url)
-        OpenURI.open_image url, open_params(url, params)
+        OpenURI.open_image url, open_uri_paid_proxy_params(url, params)
       else
-        OpenURI.open_uri url, open_params(url, params)
+        OpenURI.open_uri url, open_uri_paid_proxy_params(url, params)
       end
     end
 
-    def open_params url, params
-      if params[:proxy]
-        params.merge(
-          'User-Agent' => user_agent(url),
-          ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
-          allow_redirections: :all
-        )
-      else
-        params.merge(
-          'User-Agent' => user_agent(url),
-          ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
-          allow_redirections: :all,
-          **Proxy.prepaid_proxy
-        )
-      end
+    def open_uri_paid_proxy_params url, params
+      params.merge(
+        'User-Agent' => user_agent(url),
+        ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
+        allow_redirections: :all,
+        **Proxy.prepaid_proxy
+      )
     end
 
     def user_agent _url
