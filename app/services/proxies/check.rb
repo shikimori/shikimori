@@ -6,7 +6,9 @@ class Proxies::Check
   TEST_URL = "https://shikimori.org#{ProxyTest::TEST_PAGE_PATH}"
 
   def call
-    Rails.cache.fetch(@proxy.to_s, expires_in: 2.hours) { !!do_check }
+    Rails
+      .cache
+      .fetch(@proxy.to_s, expires_in: 2.hours) { !!do_check.to_s } == 'true'
   end
 
 private
