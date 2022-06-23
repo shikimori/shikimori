@@ -47,7 +47,8 @@ class ProxyParser
     proxies = (db_proxies + parsed_proxies).uniq(&:to_s)
     print format("%<size>i after merge with previously parsed\n", size: proxies.size)
 
-    verified_proxies = test proxies, Proxies::WhatIsMyIps.call
+    verified_proxies = test_concurrently proxies, Proxies::WhatIsMyIps.call
+    # verified_proxies = test_parallel proxies, Proxies::WhatIsMyIps.call
     print(
       format(
         "%<verified_size>i of %<total_size>i proxies were tested for anonymity\n",
@@ -94,14 +95,14 @@ private
       end
   end
 
-  def test proxies, ips
+  def test_concurrently proxies, ips
     proxies = proxies
     verified_proxies = Concurrent::Array.new
     proxies_count = proxies.size
 
     print "testing #{proxies.size} proxies\n"
 
-    pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 20)
+    pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 40)
     index = Concurrent::AtomicFixnum.new(-1)
 
     proxies.each do |proxy|

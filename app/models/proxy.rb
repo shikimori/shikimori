@@ -25,7 +25,8 @@ class Proxy < ApplicationRecord
     '(KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'
 
   enumerize :protocol,
-    in: Types::Proxy::Protocol.values
+    in: Types::Proxy::Protocol.values,
+    predicates: true
 
   cattr_accessor :use_proxy, :show_log
 
@@ -93,7 +94,7 @@ class Proxy < ApplicationRecord
           log "#{url}#{options[:data] ? ' ' + options[:data].map { |k, v| "#{k}=#{v}" }.join('&') : ''} via #{proxy}", options
 
           Timeout.timeout(options[:timeout]) do
-            content = get_httpx url, proxy, options[:timeout]
+            content = get_via_proxy url, proxy, options[:timeout]
           end
           raise "#{proxy} banned" if content.nil?
 
@@ -199,6 +200,14 @@ class Proxy < ApplicationRecord
       nil
     end
 
+    def get_via_proxy url, proxy, timeout
+      if proxy.http?
+        get_open_uri(url, proxy: proxy.to_s, read_timeout: timeout).read
+      else
+        get_httpx(url, proxy, timeout).read
+      end
+    end
+
     def get_httpx url, proxy, timeout
       response = HTTPX
         .plugin(:follow_redirects)
@@ -211,7 +220,7 @@ class Proxy < ApplicationRecord
         raise response.error.message
       end
 
-      response.read
+      response
     rescue StandardError => e
       raise e
     end
@@ -230,19 +239,27 @@ class Proxy < ApplicationRecord
 
     def get_open_uri url, params = {}
       if /\.(jpe?g|png)$/.match?(url)
-        OpenURI.open_image url, open_uri_paid_proxy_params(url, params)
+        OpenURI.open_image url, open_uri_proxy_params(url, params)
       else
-        OpenURI.open_uri url, open_uri_paid_proxy_params(url, params)
+        OpenURI.open_uri url, open_uri_proxy_params(url, params)
       end
     end
 
-    def open_uri_paid_proxy_params url, params
-      params.merge(
-        'User-Agent' => user_agent(url),
-        ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
-        allow_redirections: :all,
-        **Proxy.prepaid_proxy
-      )
+    def open_uri_proxy_params url, params
+      if params[:proxy]
+        params.merge(
+          'User-Agent' => user_agent(url),
+          ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
+          allow_redirections: :all
+        )
+      else
+        params.merge(
+          'User-Agent' => user_agent(url),
+          ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
+          allow_redirections: :all,
+          **Proxy.prepaid_proxy
+        )
+      end
     end
 
     def user_agent _url
