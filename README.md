@@ -129,6 +129,26 @@ In rails console:
 Elasticsearch::RebuildIndexes.new.perform
 ```
 
+## Elasticsearch fix on OSX
+https://github.com/Homebrew/homebrew-core/issues/100260#issuecomment-1137067501
+```
+I've finally made it work, but I'm not sure this is the right call:
+
+I've edited the service plist at /usr/local/Cellar/elasticsearch@6/6.8.23/homebrew.mxcl.elasticsearch@6.plist:
+
+     <key>ProgramArguments</key>
+     <array>
+       <string>/usr/local/opt/elasticsearch@6/bin/elasticsearch</string>
+     </array>
+     <key>EnvironmentVariables</key>
+     <dict>
++      <key>JAVA_HOME</key>
++      <string>'/usr/libexec/java_home -v 17'</string>
+     </dict>
+I had to edit the plist in the Cellar folder instead of the one in ~/Library/LaunchAgents because brew services is overwriting it at every start.
+
+```
+
 
 ## Update neko rules
 ```sh

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# NOTE: call in before_save callback
+# NOTE: called in before_save callback
 class Animes::TrackStatusChanges < ServiceObjectBase
   pattr_initialize :anime
 
@@ -27,10 +27,10 @@ private
     return unless status_changed? 'ongoing' => 'released'
     # when ancient anime without released_on is marked released
     return unless @anime.released_on
-    return if released_in_past_or_today?
+    return if released_in_past_or_today? || all_episodes_aired?
 
     @anime.status = :ongoing
-    @anime.released_on = nil
+    @anime.released_on = nil if released_in_past_or_today?
   end
 
   def aired_not_in_future?
@@ -39,6 +39,10 @@ private
 
   def released_in_past_or_today?
     @anime.released_on <= Time.zone.today
+  end
+
+  def all_episodes_aired?
+    @anime.episodes_aired.positive? && @anime.episodes_aired == @anime.episodes
   end
 
   def status_changed? change

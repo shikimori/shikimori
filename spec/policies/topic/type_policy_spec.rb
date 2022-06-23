@@ -2,7 +2,8 @@ describe Topic::TypePolicy do
   let(:policy) { described_class.new topic }
 
   let(:forum_topic) { build_stubbed :forum_topic }
-  let(:news_topic) { build_stubbed :news_topic }
+  let(:news_topic) { build_stubbed :news_topic, forum_id: Forum::NEWS_ID }
+  let(:premoderated_news_topic) { build_stubbed :news_topic, forum_id: Forum::PREMODERATION_ID }
   let(:generated_news_topic) { build_stubbed :news_topic, generated: true }
   let(:not_generated_news_topic) { build_stubbed :news_topic, generated: false }
   let(:critique_topic) { build_stubbed :critique_topic }
@@ -47,6 +48,20 @@ describe Topic::TypePolicy do
 
     context 'not news topic' do
       let(:topic) { forum_topic }
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe '#premoderated_news_topic?' do
+    subject { policy.premoderated_news_topic? }
+
+    context 'in premoderation forum' do
+      let(:topic) { premoderated_news_topic }
+      it { is_expected.to eq true }
+    end
+
+    context 'not in premoderation forum' do
+      let(:topic) { news_topic }
       it { is_expected.to eq false }
     end
   end

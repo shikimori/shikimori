@@ -2,8 +2,8 @@
 require 'sidekiq/middleware/i18n'
 require 'sidekiq/web'
 
-Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
-Sidekiq::Web.set :sessions, Rails.application.config.session_options
+# Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
+# Sidekiq::Web.set :sessions, Rails.application.config.session_options
 
 ENV['REDIS_NAMESPACE_QUIET'] = 'true' # Disable deprecation warning
 
@@ -16,13 +16,6 @@ ENV['REDIS_NAMESPACE_QUIET'] = 'true' # Disable deprecation warning
 # Add this line to your initializer to re-enable them and get the old behavior:
 Sidekiq::Extensions.enable_delay!
 
-REDIS_OPTIONS = {
-  namespace: "shiki_#{Rails.env}",
-  url: "redis://#{Rails.application.config.redis_host}:6379/#{Rails.application.config.redis_db}"
-}
-Sidekiq.configure_client do |config|
-  config.redis = REDIS_OPTIONS
-end
 
 class ChewyMiddleware
   def initialize options = nil
@@ -33,18 +26,31 @@ class ChewyMiddleware
   end
 end
 
-Sidekiq.configure_server do |config|
-  Rails.logger = Sidekiq::Logging.logger
-  config.average_scheduled_poll_interval = 5
+REDIS_OPTIONS = {
+  namespace: "shiki_#{Rails.env}",
+  url: "redis://#{Rails.application.config.redis_host}:6379/#{Rails.application.config.redis_db}"
+}
 
+Sidekiq.configure_client do |config|
   config.redis = REDIS_OPTIONS
-  # config.error_handlers << Proc.new {|e,ctx_hash| NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{ctx_hash.to_json}\n#{e.backtrace.join("\n")}" }
 
-  config.server_middleware do |chain|
-    chain.add ChewyMiddleware
+  config.client_middleware do |chain|
+    chain.add SidekiqUniqueJobs::Middleware::Client
   end
 end
 
-if Rails.env.development? && Time.zone.today < Time.zone.parse('2021-06-01')
-  Redis.exists_returns_integer =  true
+Sidekiq.configure_server do |config|
+  config.redis = REDIS_OPTIONS
+  # config.error_handlers << Proc.new {|e,ctx_hash| NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{ctx_hash.to_json}\n#{e.backtrace.join("\n")}" }
+
+  Rails.logger = Sidekiq.logger
+  config.average_scheduled_poll_interval = 5
+
+  config.client_middleware do |chain|
+    chain.add SidekiqUniqueJobs::Middleware::Client
+  end
+  config.server_middleware do |chain|
+    chain.add ChewyMiddleware
+    chain.add SidekiqUniqueJobs::Middleware::Server
+  end
 end

@@ -3,7 +3,7 @@ class Review::ConvertToComment
 
   def call
     comment = build_comment
-    comment.instance_variable_set :@is_migration, true
+    comment.instance_variable_set :@is_conversion, true
 
     ApplicationRecord.transaction do
       Comment.wo_antispam { comment.save! }

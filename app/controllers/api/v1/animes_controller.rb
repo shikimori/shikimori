@@ -7,7 +7,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
       params[:controller],
       params[:action],
       Anime.count,
-      :v10
+      :v1
     ).to_json
   }
 
@@ -290,7 +290,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
   end
 
   def neko # rubocop:disable MethodLength
-    animes = Animes::NekoScope.call
+    scope = Animes::NekoScope.call
       .select(
         :id,
         :aired_on,
@@ -302,7 +302,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
         :franchise
       )
 
-    data = animes.map do |anime|
+    data = scope.map do |anime|
       {
         id: anime.id,
         genre_ids: anime.genre_ids.map(&:to_i),

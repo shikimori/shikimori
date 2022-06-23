@@ -19,6 +19,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
 
   api :POST, '/messages', 'Create a message'
   description 'Requires `messages` oauth scope'
+  param :frontend, :bool, 'Used by shikimori frontend code. Ignore it.'
   param :message, Hash do
     param :body, String, required: true
     param :from_id, :number, required: true
@@ -43,6 +44,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
   api :PATCH, '/messages/:id', 'Update a message'
   api :PUT, '/messages/:id', 'Update a message'
   description 'Requires `messages` oauth scope'
+  param :frontend, :bool, 'Used by shikimori frontend code. Ignore it.'
   param :message, Hash, required: true do
     param :body, String, required: true
   end
@@ -76,6 +78,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
   api :POST, '/messages/mark_read', 'Mark messages as read or unread'
   description 'Requires `messages` oauth scope'
   param :ids, :undef
+  param :is_read, %w[0 1]
   def mark_read
     ids = (params[:ids] || '').split(',').map { |v| v.sub(/message-/, '').to_i }
 
@@ -88,6 +91,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
 
   api :POST, '/messages/read_all', 'Mark all messages as read'
   description 'Requires `messages` oauth scope'
+  param :frontend, :bool, 'Used by shikimori frontend code. Ignore it.'
   param :type, %w[news notifications], required: true
   def read_all
     MessagesService

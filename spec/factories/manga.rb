@@ -7,6 +7,7 @@ FactoryBot.define do
     description_en { '' }
     score { 1 }
     kind { :manga }
+    status { :released }
     franchise { nil }
     is_censored { false }
     type { Manga.name }

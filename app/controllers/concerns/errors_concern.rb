@@ -35,12 +35,16 @@ module ErrorsConcern
 
     raise error if (request.ip == '127.0.0.1' || request.ip == '::1') && (
       !error.is_a?(AgeRestricted) &&
-      !error.is_a?(CopyrightedResource) &&
-      !error.is_a?(CanCan::AccessDenied)
+        !error.is_a?(RknBanned) &&
+        !error.is_a?(CopyrightedResource) &&
+        !error.is_a?(CanCan::AccessDenied)
     )
 
     if NOT_FOUND_ERRORS.include? error.class
       not_found_error error
+
+    elsif error.is_a? RknBanned
+      rkn_banned_error error
 
     elsif error.is_a? AgeRestricted
       age_restricted_error error
@@ -69,6 +73,14 @@ private
       render json: { message: t('page_not_found'), code: 404 }, status: :not_found
     else
       render 'pages/page404', layout: false, status: :not_found, formats: :html
+    end
+  end
+
+  def rkn_banned_error _error
+    if error_json_response?
+      render plain: 'rkn_banned', status: :unavailable_for_legal_reasons
+    else
+      render 'pages/rkn_banned', layout: false, formats: :html
     end
   end
 

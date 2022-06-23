@@ -10,20 +10,34 @@ class ProxyParser
 
   CACHE_VERSION = :v7
 
-  # импорт проксей
   def import
-    proxies = fetch
+    proxies = fetch(
+      is_db_sources: IS_DB_SOURCES,
+      is_url_sources: IS_URL_SOURCES,
+      is_other_sources: IS_OTHER_SOURCES,
+      is_custom_sources: IS_CUSTOM_SOURCES,
+      additional_url_sources: [],
+      additional_text: ''
+    )
     save proxies
   end
 
-  # парсинг проксей из внешних источников
-  def fetch
+  def fetch(
+    is_db_sources: IS_DB_SOURCES,
+    is_url_sources: IS_URL_SOURCES,
+    is_other_sources: IS_OTHER_SOURCES,
+    is_custom_sources: IS_CUSTOM_SOURCES,
+    additional_url_sources: [],
+    additional_text: ''
+  )
     parsed_proxies = parse_proxies(
-      is_url_sources: IS_URL_SOURCES,
-      is_other_sources: IS_OTHER_SOURCES,
-      is_custom_sources: IS_CUSTOM_SOURCES
+      is_url_sources: is_url_sources,
+      is_other_sources: is_other_sources,
+      is_custom_sources: is_custom_sources,
+      additional_url_sources: additional_url_sources,
+      additional_text: additional_text
     )
-    db_proxies = IS_DB_SOURCES ? Proxy.all.map { |v| { ip: v.ip, port: v.port } } : []
+    db_proxies = is_db_sources ? Proxy.all.map { |v| { ip: v.ip, port: v.port } } : []
 
     print format("found %<size>i proxies\n", size: parsed_proxies.size)
     print format("fetched %<size>i proxies\n", size: db_proxies.size)
@@ -45,7 +59,6 @@ class ProxyParser
     verified_proxies
   end
 
-  # сохранение проксей в базу
   def save proxies
     ApplicationRecord.transaction do
       if proxies.any?
@@ -57,18 +70,12 @@ class ProxyParser
 
 private
 
-  # парсинг проксей со страницы
   def parse url
     # задержка, чтобы не нас не банили
     sleep 1
-    proxies = OpenURI.open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
-      .read
-      .gsub(/\d+\.\d+\.\d+\.\d+[:\t\n]\d+/)
-      .map do |v|
-        data = v.split(/[:\t\n]/)
-
-        { ip: data[0], port: data[1].to_i }
-      end
+    proxies = parse_text(
+      OpenURI.open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
+    )
     print "#{url} - #{proxies.size} proxies\n"
 
     proxies
@@ -77,7 +84,16 @@ private
     []
   end
 
-  # проверка проксей на работоспособность
+  def parse_text text
+    text
+      .gsub(/\d+\.\d+\.\d+\.\d+[:\t\n]\d+/)
+      .map do |v|
+        data = v.split(/[:\t\n]/)
+
+        { ip: data[0], port: data[1].to_i }
+      end
+  end
+
   def test proxies, ips
     proxies = proxies
     verified_proxies = Concurrent::Array.new
@@ -193,26 +209,41 @@ private
   #   # end
   # end
 
-  def parse_proxies is_url_sources:, is_other_sources:, is_custom_sources:
+  def parse_proxies(
+    is_url_sources:,
+    is_other_sources:,
+    is_custom_sources:,
+    additional_url_sources:,
+    additional_text: ''
+  )
     url_sourced_proxies = is_url_sources ? (
       URL_SOURCES.flat_map do |url|
-        Rails.cache.fetch([url, :proxies, CACHE_VERSION]) { parse url }
+        Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) { parse url }
       end
     ) : []
+    additional_url_sources_proxies = additional_url_sources.flat_map do |url|
+      Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) { parse url }
+    end
 
     other_sourced_proxies = is_other_sources ? (
       other_sources.flat_map do |url|
-        Rails.cache.fetch([url, :proxies, CACHE_VERSION]) { parse url }
+        Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) { parse url }
       end 
     ) : []
 
     custom_sourced_proxies = is_custom_sources ? (
       custom_soruces.flat_map do |method|
-        Rails.cache.fetch([method, :proxies, CACHE_VERSION]) { send method }
+        Rails.cache.fetch([method, :proxies, CACHE_VERSION], expires_in: 1.hour) { send method }
       end
     ) : []
 
-    (url_sourced_proxies + other_sourced_proxies + custom_sourced_proxies).uniq
+    (
+      url_sourced_proxies +
+        additional_url_sources_proxies +
+        other_sourced_proxies +
+        custom_sourced_proxies + 
+        parse_text(additional_text)
+    ).uniq
     # source_proxies = sources.map { |url| parse url }.flatten
     # hideme_proxies = JSON.parse(open(HIDEME_URL).read).map do |proxy|
       # { ip: proxy['ip'], port: proxy['port'].to_i }

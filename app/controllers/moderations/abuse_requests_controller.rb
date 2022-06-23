@@ -50,7 +50,9 @@ private
   end
 
   def processed_scope
-    scope = AbuseRequest.where.not(state: :pending)
+    scope = AbuseRequest
+      .not_bannable
+      .where.not(state: :pending)
 
     unless can? :manage, AbuseRequest
       scope = scope
@@ -73,7 +75,8 @@ private
 
   def pending_scope
     AbuseRequest
-      .pending
+      .not_bannable
+      .where(state: :pending)
       .includes(:user, :approver, comment: :commentable)
       .order(:created_at)
   end

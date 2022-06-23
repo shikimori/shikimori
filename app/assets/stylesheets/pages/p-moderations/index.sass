@@ -1,9 +1,17 @@
 @import mixins/responsive
 @import mixins/font_shikimori
+@import mixins/brackets_surrounded
 
 .p-moderations-index
   .date-filter
     max-width: 97px
+
+.p-moderations-index.p-abuse_requests-index,
+.p-moderations-index.p-bans-index
+  .queue-misc-links > a
+    span
+      +brackets_surrounded
+      margin-left: 4px
 
 .p-moderations-index.p-users-index,
 .p-moderations-show.p-roles-show

@@ -31,7 +31,7 @@ class Review < ApplicationRecord
   validates :body,
     presence: true,
     length: { minimum: MIN_BODY_SIZE },
-    if: -> { !@is_migration && will_save_change_to_body? }
+    if: -> { !@is_conversion && will_save_change_to_body? }
   validates :user_id,
     uniqueness: { scope: %i[anime_id] },
     if: :anime?
@@ -47,7 +47,7 @@ class Review < ApplicationRecord
 
   # callbacks
   before_validation :forbid_tags_change,
-    if: -> { will_save_change_to_body? && !@is_migration }
+    if: -> { will_save_change_to_body? && !@is_conversion }
   before_create :fill_is_written_before_release,
     if: -> { is_written_before_release.nil? }
 

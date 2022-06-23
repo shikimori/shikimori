@@ -27,14 +27,14 @@ describe Comment do
       let!(:comment) { create :comment }
       before { allow(Comments::ForbidTagChange).to receive :call }
       subject! do
-        if is_migration
-          comment.instance_variable_set :@is_migration, true
+        if is_conversion
+          comment.instance_variable_set :@is_conversion, true
         end
         comment.update body: 'test zxc'
       end
 
       context 'no migration' do
-        let(:is_migration) { false }
+        let(:is_conversion) { false }
         it do
           expect(Comments::ForbidTagChange).to have_received(:call).twice
           expect(Comments::ForbidTagChange)
@@ -57,7 +57,7 @@ describe Comment do
       end
 
       context 'migration' do
-        let(:is_migration) { true }
+        let(:is_conversion) { true }
         it { expect(Comments::ForbidTagChange).to_not have_received :call }
       end
     end
