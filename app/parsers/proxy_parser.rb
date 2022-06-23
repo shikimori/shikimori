@@ -290,12 +290,20 @@ private
     socks4: %w[
       https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks4.txt
       https://www.my-proxy.com/free-socks-4-proxy.html
-    ],
-    socks5: %w[
-      https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt
-      https://www.my-proxy.com/free-socks-5-proxy.html
-      https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks4.txt
-      https://www.my-proxy.com/free-socks-4-proxy.html
+      https://premproxy.com/socks-list/01.htm
+      https://premproxy.com/socks-list/02.htm
+      https://premproxy.com/socks-list/03.htm
+      https://premproxy.com/socks-list/04.htm
+      https://premproxy.com/socks-list/05.htm
+      https://premproxy.com/socks-list/06.htm
+      https://premproxy.com/socks-list/07.htm
+      https://premproxy.com/socks-list/08.htm
+      https://premproxy.com/socks-list/09.htm
+      https://premproxy.com/socks-list/10.htm
     ]
   }
+  URL_SOURCES[:socks5] = %w[
+    https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt
+    https://www.my-proxy.com/free-socks-5-proxy.html
+  ] + URL_SOURCES[:socks4]
 end

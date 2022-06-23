@@ -8,7 +8,7 @@ class Proxies::Check
 
   def call
     Rails.cache
-      .fetch(@proxy.to_s, expires_in: 2.hours) { !!do_check.to_s }
+      .fetch(@proxy.to_s, expires_in: expires_in) { !!do_check.to_s }
       .in?(SUCCESSFULL_RESULTS)
   end
 
@@ -24,5 +24,9 @@ private
       ips.none? { |ip| content.include? ip }
   rescue *::Network::FaradayGet::NET_ERRORS
     false
+  end
+
+  def expires_in
+    proxy.socks4? || proxy.socks5? ? 30.minutes : 2.hours
   end
 end
