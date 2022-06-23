@@ -108,9 +108,12 @@ private
 
     print "testing #{proxies.size} proxies\n"
 
-    # pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 30)
-    pool = Concurrent::CachedThreadPool.new
+    pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 20)
+    # pool = Concurrent::FixedThreadPool.new(30)
+    # pool = Concurrent::CachedThreadPool.new
     index = Concurrent::AtomicFixnum.new(-1)
+
+    error = nil
 
     proxies.each do |proxy|
       pool.post do
@@ -118,6 +121,9 @@ private
         puts "testing #{current_index + 1}/#{proxies_count} proxy #{proxy}"
 
         verified_proxies << proxy if Proxies::Check.call(proxy: proxy, ips: ips)
+      rescue StandardError => e
+        ap error
+        error = e
       end
     end
 
@@ -126,6 +132,9 @@ private
       break if pool.queue_length.zero?
     end
     pool.kill
+    raise error if error
+
+    print "testing complete\n"
 
     verified_proxies
   end
@@ -199,7 +208,7 @@ private
 
     data =
       Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) do
-        HTTPX.get(url).read
+        OpenURI.open_uri(url).read
       end
 
     JSON.parse(data, symbolize_names: true).map do |entry|
@@ -227,7 +236,7 @@ private
     url = 'https://proxylist.geonode.com/api/proxy-list?limit=5000&page=1&sort_by=lastChecked&sort_type=desc&protocols=http%2Chttps%2Csocks4%2Csocks5'
     data =
       Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) do
-        HTTPX.get(url).read
+        OpenURI.open_uri(url).read
       end
 
     JSON.parse(data, symbolize_names: true)[:data].map do |entry|

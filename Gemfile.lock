@@ -412,15 +412,12 @@ GEM
     hashdiff (1.0.1)
     hashie (4.1.0)
     htmlentities (4.3.4)
-    http-2-next (0.5.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http_parser.rb (0.6.0)
     httparty (0.18.1)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
-    httpx (0.20.2)
-      http-2-next (>= 0.4.1)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     i18n-js (3.9.0)
@@ -834,7 +831,6 @@ DEPENDENCIES
   guard-spring
   htmldiff-lcs!
   htmlentities
-  httpx
   i18n (< 1.9.0)
   i18n-inflector!
   i18n-js

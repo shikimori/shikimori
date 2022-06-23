@@ -90,9 +90,10 @@ class Proxy < ApplicationRecord
           proxy ||= @@proxies.pop(true) # кидает "ThreadError: queue empty" при пустой очереди
           log "#{url}#{options[:data] ? ' ' + options[:data].map { |k, v| "#{k}=#{v}" }.join('&') : ''} via #{proxy}", options
 
-          Timeout.timeout(options[:timeout]) do
+          # timeout does not with Curl library
+          # Timeout.timeout(options[:timeout]) do
             content = get_via_proxy url, proxy, options[:timeout]
-          end
+          # end
           # raise "#{proxy} banned" if content.nil?
 
           # content = content.fix_encoding(options[:encoding]) if content && !url.match?(/\.(jpe?g|gif|png)/i)
@@ -141,6 +142,10 @@ class Proxy < ApplicationRecord
           attempts += 1
         rescue ThreadError => e
           raise NoProxies, url
+        rescue Curl::Err::CurlError => _e
+          proxy = nil
+          content = nil
+          break if options[:proxy] # при указании прокси делаем лишь одну попытку
         rescue StandardError => e
           raise if defined?(VCR) && e.is_a?(VCR::Errors::UnhandledHTTPRequestError)
 
@@ -206,6 +211,8 @@ class Proxy < ApplicationRecord
           curl.follow_location = true
           curl.proxy_url = proxy.to_s
           curl.headers['User-Agent'] = user_agent(url)
+          curl.dns_cache_timeout = 3
+          curl.connect_timeout = 8
           curl.timeout = timeout
         end
         .body

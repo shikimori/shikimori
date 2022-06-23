@@ -4,19 +4,27 @@ class Proxies::Check
   method_object %i[proxy! ips]
 
   TEST_URL = "https://shikimori.org#{ProxyTest::TEST_PAGE_PATH}"
-  SUCCESSFULL_RESULTS = ['true', true]
-  CACHE_VERSION = :v3
+  IS_CACHING = true
+  CACHE_VERSION = :v10
 
   def call
-    Rails.cache
-      .fetch([@proxy.to_s, CACHE_VERSION], expires_in: expires_in) { (!!do_check).to_s }
-      .in?(SUCCESSFULL_RESULTS)
+    if IS_CACHING
+      cached_check == 'true'
+    else
+      do_check
+    end
   end
 
 private
 
   def ips
     @ips ||= Proxies::WhatIsMyIps.call
+  end
+
+  def cached_check
+    Rails.cache.fetch([@proxy.to_s, CACHE_VERSION], expires_in: expires_in) do
+      (!!do_check).to_s
+    end
   end
 
   def do_check
