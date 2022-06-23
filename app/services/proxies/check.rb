@@ -4,11 +4,12 @@ class Proxies::Check
   method_object %i[proxy! ips]
 
   TEST_URL = "https://shikimori.org#{ProxyTest::TEST_PAGE_PATH}"
+  SUCCESSFULL_RESULTS = ['true', true]
 
   def call
-    Rails
-      .cache
-      .fetch(@proxy.to_s, expires_in: 2.hours) { !!do_check.to_s } == 'true'
+    Rails.cache
+      .fetch(@proxy.to_s, expires_in: 2.hours) { !!do_check.to_s }
+      .in?(SUCCESSFULL_RESULTS)
   end
 
 private
