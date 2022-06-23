@@ -1,3 +1,4 @@
+# TODO: refactor
 # sudo apt-get install libjpeg-progs
 class Proxy < ApplicationRecord
   SAFE_ERRORS = /
@@ -10,22 +11,17 @@ class Proxy < ApplicationRecord
     end \s of \s file \s reached |
     404 \s Not \s Found
   /mix
-  USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
+  USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'
+
+  enumerize :protocol,
+    in: Types::Proxy::Protocol.values
 
   cattr_accessor :use_proxy, :use_cache, :show_log
 
-  # список проксей
   @@proxies = nil
-  # изначальное число проксей
   @@proxies_initial_size = 0
-
-  # использовать ли кеш
   @@use_cache = false # Rails.env == 'test'
-
-  # показывать ли логи
   @@show_log = false
-
-  # использовать ли прокси
   @@use_proxy = true
 
   class << self
@@ -45,7 +41,6 @@ class Proxy < ApplicationRecord
         end
     end
 
-    # загрузка проксей из базы
     def preload
       queue = Queue.new
       Proxy.all.shuffle.each { |v| queue.push v }
@@ -54,12 +49,10 @@ class Proxy < ApplicationRecord
       @@proxies = queue
     end
 
-    # гет запрос через прокси
     def get url, options = {}
       process url, options, :get
     end
 
-    # пост запрос через прокси
     def post url, options = {}
       process url, options, :post
     end
@@ -118,7 +111,7 @@ class Proxy < ApplicationRecord
           Timeout.timeout(options[:timeout]) do
             content =
               if options[:method] == :get
-              # Net::HTTP::Proxy(proxy.ip, proxy.port).get(uri) # Net::HTTP не следует редиректам, в топку его
+                # Net::HTTP::Proxy(proxy.ip, proxy.port).get(uri) # Net::HTTP не следует редиректам, в топку его
                 get_open_uri(url, proxy: proxy.to_s(true)).read
               else
                 Net::HTTP::Proxy(proxy.ip, proxy.port).post_form(URI.parse(url), options[:data]).body
@@ -161,7 +154,7 @@ class Proxy < ApplicationRecord
 
           # проверка на забаненны тексты
           options[:ban_texts]&.each do |text|
-            raise "#{proxy} banned" if text.class == Regexp ? content.match(text) : content.include?(text)
+            raise "#{proxy} banned" if text.is_a?(Regexp) ? content.match(text) : content.include?(text)
           end
 
           # и надо не забыть вернуть проксю назад
@@ -228,7 +221,7 @@ class Proxy < ApplicationRecord
     end
 
     # выполнение post запроса без прокси
-    def no_proxy_post(url, options)
+    def no_proxy_post url, options
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       path = uri.path
@@ -254,14 +247,14 @@ class Proxy < ApplicationRecord
         log "#{e.class.name} #{e.message}\n#{e.backtrace.join("\n")}", options
       end
 
-      exit if e.class == Interrupt
+      exit if e.is_a?(Interrupt) # rubocop:disable Rails/Exit
       nil
     end
 
     # адрес страницы в кеше
     def cache_path url, options
       Dir.mkdir('tmp/cache/pages') unless Rails.env.test? || File.exist?('tmp/cache/pages')
-      (Rails.env == 'test' ? 'spec/pages/%s' : 'tmp/cache/pages/%s') % Digest::MD5.hexdigest(options[:data] ? "#{url}_data:#{options[:data].map { |k, v| "#{k}=#{v}" }.join('&')}" : url)
+      (Rails.env.test? ? 'spec/pages/%s' : 'tmp/cache/pages/%s') % Digest::MD5.hexdigest(options[:data] ? "#{url}_data:#{options[:data].map { |k, v| "#{k}=#{v}" }.join('&')}" : url)
     end
 
     # логирование

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_01_082939) do
+ActiveRecord::Schema.define(version: 2022_06_23_060301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -856,6 +856,7 @@ ActiveRecord::Schema.define(version: 2022_06_01_082939) do
   create_table "proxies", id: false, force: :cascade do |t|
     t.string "ip", limit: 255
     t.integer "port"
+    t.string "protocol", null: false
   end
 
   create_table "publishers", id: :serial, force: :cascade do |t|
