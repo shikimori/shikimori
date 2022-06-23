@@ -50,16 +50,14 @@ class Proxy < ApplicationRecord
     end
 
     def get url, options = {}
-      content =
-        if options[:no_proxy] || !@@use_proxy
-          no_proxy_get url, options
-        else
-          do_request url, options
-        end
+      if options[:no_proxy] || !@@use_proxy
+        no_proxy_get url, options
+      else
+        do_request url, options
+      end
 
-      content = content.fix_encoding(options[:encoding]) if content && url !~ /\.(jpg|gif|png|jpeg)/i
-
-      content
+      # content = content.fix_encoding(options[:encoding]) if content && !url.match?(/\.(jpe?g|gif|png)/i)
+      # content
     end
 
     def do_request url, options
@@ -67,7 +65,6 @@ class Proxy < ApplicationRecord
           (@@proxies && @@proxies.size < @@proxies_initial_size / 7)
         preload
       end
-      # raise NoProxies, url if options[:proxy].nil? && @@proxies.empty?
 
       content = nil
       proxy = options[:proxy] # прокси может быть передана в параметрах, тогда использоваться будет лишь она
@@ -86,12 +83,11 @@ class Proxy < ApplicationRecord
           log "#{url}#{options[:data] ? ' ' + options[:data].map { |k, v| "#{k}=#{v}" }.join('&') : ''} via #{proxy}", options
 
           Timeout.timeout(options[:timeout]) do
-            content = get_open_uri(url, proxy: proxy.to_s(true)).read
+            content = get_open_uri(url, proxy: proxy.to_s).read
           end
           raise "#{proxy} banned" if content.nil?
 
-          # фикс кодировок перед проверкой текста
-          content = content.fix_encoding(options[:encoding]) if content && url !~ /\.(jpg|gif|png|jpeg)/i
+          # content = content.fix_encoding(options[:encoding]) if content && !url.match?(/\.(jpe?g|gif|png)/i)
           raise "#{proxy} banned" if content.blank?
 
           if options[:validate_jpg]
@@ -235,7 +231,7 @@ class Proxy < ApplicationRecord
     end
   end
 
-  def to_s with_http = false
-    with_http ? "http://#{ip}:#{port}" : "#{ip}:#{port}"
+  def to_s
+    "#{protocol}://#{ip}:#{port}"
   end
 end

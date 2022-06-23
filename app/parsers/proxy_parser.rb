@@ -9,6 +9,7 @@ class ProxyParser
   IS_CUSTOM_SOURCES = true
 
   CACHE_VERSION = :v7
+  CUSTOM_SORUCES = %i[online_proxy_ru]
 
   def import
     proxies = fetch(
@@ -42,9 +43,7 @@ class ProxyParser
     print format("found %<size>i proxies\n", size: parsed_proxies.size)
     print format("fetched %<size>i proxies\n", size: db_proxies.size)
 
-    proxies = (db_proxies + parsed_proxies)
-      .uniq
-      .map { |proxy_hash| Proxy.new proxy_hash }
+    proxies = (db_proxies + parsed_proxies).uniq(&:to_s)
     print format("%<size>i after merge with previously parsed\n", size: proxies.size)
 
     verified_proxies = test proxies, Proxies::WhatIsMyIps.call
@@ -70,11 +69,12 @@ class ProxyParser
 
 private
 
-  def parse url
+  def parse url, protocol
     # задержка, чтобы не нас не банили
     sleep 1
     proxies = parse_text(
-      OpenURI.open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
+      OpenURI.open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read,
+      protocol
     )
     print "#{url} - #{proxies.size} proxies\n"
 
@@ -84,13 +84,12 @@ private
     []
   end
 
-  def parse_text text
+  def parse_text text, protocol
     text
       .gsub(/\d+\.\d+\.\d+\.\d+[:\t\n]\d+/)
       .map do |v|
         data = v.split(/[:\t\n]/)
-
-        { ip: data[0], port: data[1].to_i }
+        Proxy.new ip: data[0], port: data[1].to_i, protocol: protocol
       end
   end
 
@@ -128,12 +127,6 @@ private
     end
   end
 
-  def custom_soruces
-    [
-      :online_proxy_ru
-    ]
-  end
-
   def webanetlabs
     Nokogiri::HTML(
       OpenURI.open_uri(
@@ -149,14 +142,10 @@ private
   end
 
   def online_proxy_ru url = 'http://online-proxy.ru'
-    proxies = Nokogiri::HTML(OpenURI.open_uri(url).read)
-      .text
-      .gsub(/\d+\.\d+\.\d+\.\d+[:\t\n]\d+/)
-      .map do |v|
-        data = v.split(/[:\t\n]/)
-
-        { ip: data[0], port: data[1].to_i }
-      end
+    proxies = parse_text(
+      Nokogiri::HTML(OpenURI.open_uri(url).read).text,
+      :http
+    )
 
     print "#{url} - #{proxies.size} proxies\n"
     proxies
@@ -182,21 +171,21 @@ private
   )
     url_sourced_proxies = is_url_sources ? (
       URL_SOURCES.flat_map do |url|
-        Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) { parse url }
+        Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) { parse url, :http }
       end
     ) : []
     additional_url_sources_proxies = additional_url_sources.flat_map do |url|
-      Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) { parse url }
+      Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) { parse url, :http }
     end
 
     other_sourced_proxies = is_other_sources ? (
       other_sources.flat_map do |url|
-        Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) { parse url }
+        Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) { parse url, :http }
       end 
     ) : []
 
     custom_sourced_proxies = is_custom_sources ? (
-      custom_soruces.flat_map do |method|
+      CUSTOM_SORUCES.flat_map do |method|
         Rails.cache.fetch([method, :proxies, CACHE_VERSION], expires_in: 1.hour) { send method }
       end
     ) : []
@@ -206,7 +195,7 @@ private
         additional_url_sources_proxies +
         other_sourced_proxies +
         custom_sourced_proxies + 
-        parse_text(additional_text)
+        parse_text(additional_text, :http)
     ).uniq
   end
 
