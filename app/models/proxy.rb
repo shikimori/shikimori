@@ -28,6 +28,8 @@ class Proxy < ApplicationRecord
     in: Types::Proxy::Protocol.values,
     predicates: true
 
+  scope :alive, -> { where dead: 0 }
+
   cattr_accessor :use_proxy, :show_log
 
   @@proxies = nil
@@ -86,7 +88,10 @@ class Proxy < ApplicationRecord
       attempts = 0 # число попыток
       freeze_count = 50 # число переборов проксей
 
-      until content || attempts == max_attempts || freeze_count <= 0 || attempts > 0 && options[:proxy]
+      until content ||
+          attempts == max_attempts ||
+          freeze_count <= 0 ||
+          (attempts.positive? && options[:proxy])
         freeze_count -= 1
 
         begin

@@ -27,7 +27,8 @@ class ProxyParser
       additional_url_sources: additional_url_sources,
       additional_text: additional_text
     )
-    import proxies
+    sync_db proxies
+    Proxy.alive
   end
 
   def fetch(
@@ -46,7 +47,7 @@ class ProxyParser
       additional_text: additional_text
     )
     db_proxies = is_db_sources ?
-      Proxy.all.map { |v| Proxy.new ip: v.ip, port: v.port, protocol: v.protocol } :
+      Proxy.all.to_a :
       []
 
     print format("found %<size>i proxies\n", size: parsed_proxies.size)
@@ -56,7 +57,7 @@ class ProxyParser
     print format("%<size>i after merge with previously parsed\n", size: proxies.size)
 
     verified_proxies = test_concurrently proxies, Proxies::WhatIsMyIps.call
-    # verified_proxies = test_parallel proxies, Proxies::WhatIsMyIps.call
+
     print(
       format(
         "%<verified_size>i of %<total_size>i proxies were tested for anonymity\n",
@@ -70,13 +71,10 @@ class ProxyParser
 
 private
 
-  def import proxies
-    return if proxies.none?
-
-    ApplicationRecord.transaction do
-      Proxy.delete_all
-      Proxy.import proxies
-    end
+  def sync_db proxies
+    Proxy.update_all('dead = dead +1')
+    Proxy.where(id: proxies.select(&:persisted?).map(&:id)).update_all dead: 0
+    Proxy.import proxies.select(&:new_record?)
   end
 
   def parse url, protocol
