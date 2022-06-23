@@ -50,15 +50,6 @@ class Proxy < ApplicationRecord
     end
 
     def get url, options = {}
-      process url, options, :get
-    end
-
-    def post url, options = {}
-      process url, options, :post
-    end
-
-    # выполнение запроса через прокси или из кеша
-    def process url, options, method
       if @@use_cache && File.exist?(cache_path(url, options)) && (1.month.ago < File.ctime(cache_path(url, options)))
         NamedLogger.proxy.info "CACHE #{url} (#{cache_path(url, options)})"
         return File.open(cache_path(url, options), 'r', &:read)
@@ -67,13 +58,9 @@ class Proxy < ApplicationRecord
       # получаем контент
       content =
         if options[:no_proxy] || @@use_cache || !@@use_proxy
-          if method == :get
-            no_proxy_get url, options
-          else
-            no_proxy_post url, options
-          end
+          no_proxy_get url, options
         else
-          do_request url, options.merge(method: method)
+          do_request url, options
         end
 
       # фиксим кодировки
@@ -106,16 +93,10 @@ class Proxy < ApplicationRecord
 
         begin
           proxy ||= @@proxies.pop(true) # кидает "ThreadError: queue empty" при пустой очереди
-          log "#{options[:method].to_s.upcase} #{url}#{options[:data] ? ' ' + options[:data].map { |k, v| "#{k}=#{v}" }.join('&') : ''} via #{proxy}", options
+          log "#{url}#{options[:data] ? ' ' + options[:data].map { |k, v| "#{k}=#{v}" }.join('&') : ''} via #{proxy}", options
 
           Timeout.timeout(options[:timeout]) do
-            content =
-              if options[:method] == :get
-                # Net::HTTP::Proxy(proxy.ip, proxy.port).get(uri) # Net::HTTP не следует редиректам, в топку его
-                get_open_uri(url, proxy: proxy.to_s(true)).read
-              else
-                Net::HTTP::Proxy(proxy.ip, proxy.port).post_form(URI.parse(url), options[:data]).body
-              end
+            content = get_open_uri(url, proxy: proxy.to_s(true)).read
           end
           raise "#{proxy} banned" if content.nil?
 
@@ -217,37 +198,6 @@ class Proxy < ApplicationRecord
       end
 
       exit if e.class == Interrupt
-      nil
-    end
-
-    # выполнение post запроса без прокси
-    def no_proxy_post url, options
-      uri = URI.parse(url)
-      http = Net::HTTP.new(uri.host, uri.port)
-      path = uri.path
-      # cookie = resp.response['set-cookie']
-
-      # POST request -> getting data
-      data = options[:data].map { |k, v| "#{k}=#{v}" }.join('&')
-      headers = {
-        # 'Cookie' => cookie,
-        'Referer' => url,
-        'Content-Type' => 'application/x-www-form-urlencoded'
-      }
-
-      NamedLogger.proxy.info "POST #{url} #{data}"
-      resp = http.post(path, data, headers)
-      resp.body
-    rescue StandardError => e
-      raise if defined?(VCR) && e.is_a?(VCR::Errors::UnhandledHTTPRequestError)
-
-      if SAFE_ERRORS.match?(e.message)
-        log "#{e.class.name} #{e.message}", options
-      else
-        log "#{e.class.name} #{e.message}\n#{e.backtrace.join("\n")}", options
-      end
-
-      exit if e.is_a?(Interrupt) # rubocop:disable Rails/Exit
       nil
     end
 
