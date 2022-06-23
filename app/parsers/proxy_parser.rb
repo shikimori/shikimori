@@ -17,7 +17,7 @@ class ProxyParser
     is_url_sources: IS_URL_SOURCES,
     is_other_sources: IS_OTHER_SOURCES,
     is_custom_sources: IS_CUSTOM_SOURCES,
-    additional_url_sources: [],
+    additional_url_sources: {},
     additional_text: ''
   )
     proxies = fetch(
@@ -35,7 +35,7 @@ class ProxyParser
     is_url_sources: IS_URL_SOURCES,
     is_other_sources: IS_OTHER_SOURCES,
     is_custom_sources: IS_CUSTOM_SOURCES,
-    additional_url_sources: [],
+    additional_url_sources: {},
     additional_text: ''
   )
     parsed_proxies = parse_proxies(
@@ -165,10 +165,6 @@ private
     additional_url_sources:,
     additional_text: ''
   )
-    additional_url_sources_proxies = additional_url_sources.flat_map do |url|
-      Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) { parse url, :http }
-    end
-
     other_sourced_proxies = is_other_sources ? (
       other_sources.flat_map do |url|
         Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) { parse url, :http }
@@ -176,16 +172,16 @@ private
     ) : []
 
     (
-      (is_url_sources ? url_sourced_proxies : []) +
-        additional_url_sources_proxies +
+      (is_url_sources ? url_sourced_proxies(URL_SOURCES) : []) +
+        url_sourced_proxies(additional_url_sources) +
         other_sourced_proxies +
         (is_custom_sources ? custom_sourced_proxies : []) +
         parse_text(additional_text, :http)
     ).uniq
   end
 
-  def url_sourced_proxies
-    URL_SOURCES.flat_map do |(protocol, urls)|
+  def url_sourced_proxies url_sources
+    url_sources.flat_map do |(protocol, urls)|
       urls.flat_map do |url|
         Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 1.hour) do
           parse url, protocol
@@ -246,6 +242,7 @@ private
 
   URL_SOURCES = {
     http: %w[
+      https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt
       http://proxysearcher.sourceforge.net/Proxy%20List.php?type=http&filtered=true
       https://free-proxy-list.net/
       https://rootjazz.com/proxies/proxies.txt
@@ -286,16 +283,18 @@ private
       http://proxyserverlist-24.blogspot.com/feeds/posts/default
       http://alexa.lr2b.com/proxylist.txt
       https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite&simplified=true&limit=300
-      http://multiproxy.org/txt_all/proxy.txt # 0 of 1526
+      http://multiproxy.org/txt_all/proxy.txt
       http://www.cybersyndrome.net/pla6.html
     ],
     https: %w[
       https://spys.one/sslproxy/
     ],
     socks4: %w[
+      https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks4.txt
       https://www.my-proxy.com/free-socks-4-proxy.html
     ],
     socks5: %w[
+      https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt
       https://www.my-proxy.com/free-socks-5-proxy.html
       https://spys.one/socks/
     ]

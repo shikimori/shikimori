@@ -86,7 +86,7 @@ class Proxy < ApplicationRecord
       attempts = 0 # число попыток
       freeze_count = 50 # число переборов проксей
 
-      until content || attempts == max_attempts || freeze_count <= 0
+      until content || attempts == max_attempts || freeze_count <= 0 || attempts > 0 && options[:proxy]
         freeze_count -= 1
 
         begin
@@ -96,7 +96,7 @@ class Proxy < ApplicationRecord
           Timeout.timeout(options[:timeout]) do
             content = get_via_proxy url, proxy, options[:timeout]
           end
-          raise "#{proxy} banned" if content.nil?
+          # raise "#{proxy} banned" if content.nil?
 
           # content = content.fix_encoding(options[:encoding]) if content && !url.match?(/\.(jpe?g|gif|png)/i)
           raise "#{proxy} banned" if content.blank?
