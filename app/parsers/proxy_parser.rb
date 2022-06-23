@@ -12,14 +12,20 @@ class ProxyParser
 
   CUSTOM_SOURCES = %i[hidemyname proxylist_geonode_com]
 
-  def import
+  def import(
+    is_db_sources: IS_DB_SOURCES,
+    is_url_sources: IS_URL_SOURCES,
+    is_other_sources: IS_OTHER_SOURCES,
+    is_custom_sources: IS_CUSTOM_SOURCES,
+    additional_url_sources: [],
+    additional_text: ''
+  )
     proxies = fetch(
-      is_db_sources: IS_DB_SOURCES,
-      is_url_sources: IS_URL_SOURCES,
-      is_other_sources: IS_OTHER_SOURCES,
-      is_custom_sources: IS_CUSTOM_SOURCES,
-      additional_url_sources: [],
-      additional_text: ''
+      is_url_sources: is_url_sources,
+      is_other_sources: is_other_sources,
+      is_custom_sources: is_custom_sources,
+      additional_url_sources: additional_url_sources,
+      additional_text: additional_text
     )
     import proxies
   end
@@ -39,7 +45,9 @@ class ProxyParser
       additional_url_sources: additional_url_sources,
       additional_text: additional_text
     )
-    db_proxies = is_db_sources ? Proxy.all.to_a : []
+    db_proxies = is_db_sources ?
+      Proxy.all.map { |v| Proxy.new ip: v.ip, port: v.port, protocol: v.protocol } :
+      []
 
     print format("found %<size>i proxies\n", size: parsed_proxies.size)
     print format("fetched %<size>i proxies\n", size: db_proxies.size)
@@ -102,7 +110,7 @@ private
 
     print "testing #{proxies.size} proxies\n"
 
-    pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 40)
+    pool = Concurrent::FixedThreadPool.new(Concurrent.processor_count * 30)
     index = Concurrent::AtomicFixnum.new(-1)
 
     proxies.each do |proxy|
