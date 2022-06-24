@@ -31,7 +31,7 @@ class Proxy < ApplicationRecord
   @@use_proxy = true
 
   class << self
-    def parse url
+    def from_url url
       parts = url.split(URL_REGEXP)
       Proxy.new ip: parts[1], port: parts[2].to_i, protocol: parts[0]
     end
