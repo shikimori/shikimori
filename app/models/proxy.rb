@@ -15,6 +15,7 @@ class Proxy < ApplicationRecord
   /mix
   USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 ' \
     '(KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'
+  URL_REGEXP = %r{://|:}
 
   enumerize :protocol,
     in: Types::Proxy::Protocol.values,
@@ -30,6 +31,11 @@ class Proxy < ApplicationRecord
   @@use_proxy = true
 
   class << self
+    def parse url
+      parts = url.split(URL_REGEXP)
+      Proxy.new ip: parts[1], port: parts[2].to_i, protocol: parts[0]
+    end
+
     # https://proxy6.net/user/proxy
     def prepaid_proxy
       @prepaid_proxy ||=
