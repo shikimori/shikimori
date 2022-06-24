@@ -102,8 +102,8 @@ class Proxy < ApplicationRecord
           # end
           # raise "#{proxy} banned" if content.nil?
 
-          # content = content.fix_encoding(options[:encoding]) if content && !url.match?(/\.(jpe?g|gif|png)/i)
-          raise "#{proxy} banned" if content.blank?
+          # do not check for .blank? since may download a binary data
+          raise "#{proxy} banned or broken" if content&.size&.zero?
 
           if options[:validate_jpg]
             tmpfile = Tempfile.new 'jpg'
@@ -131,7 +131,7 @@ class Proxy < ApplicationRecord
 
             stripped_content = content.gsub(/[ \n\r]+/, '').downcase
             unless requires.all? { |v| stripped_content.include?(v.gsub(/[ \n\r]+/, '').downcase) }
-              raise "#{proxy} banned"
+              raise "#{proxy} banned or broken"
             end
           end
 
@@ -212,7 +212,7 @@ class Proxy < ApplicationRecord
         -x "#{proxy}"
         --connect-timeout 5
         --max-time #{timeout}
-        "#{Shellwords.escape url}"
+        #{Shellwords.escape(url)}
       ].join(' ')
       # puts "#{curl_command} START"
       Open3.popen3(curl_command) do |_stdin, stdout, _stderr|
