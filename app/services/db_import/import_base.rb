@@ -61,8 +61,8 @@ private
     entry.description_en = text
   end
 
-  def assign_image image
-    DbImport::MalImage.call entry, image
+  def assign_image image_url
+    DbImport::MalImage.call entry: entry, image_url: image_url
   end
 
   def data_to_assign
