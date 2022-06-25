@@ -88,11 +88,14 @@
     color: $gray-2
 
   .moderation
+    align-items: flex-start
     display: flex
     font-size: 12px
     justify-content: flex-end
-    align-items: flex-start
     margin: 15px 0 15px 0
+
+    +iphone
+      flex-wrap: wrap
 
     &:empty
       display: none
@@ -119,13 +122,3 @@
 
       &:hover
         text-decoration: none
-
-  @media screen and (max-width: 480px)
-    .moderation .warn
-      margin-left: 4px !important
-
-    .b-log_entry .moderation
-      font-size: 10px !important
-
-    .moderation a
-      font-size: 11px !important
