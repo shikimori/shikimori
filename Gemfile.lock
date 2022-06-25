@@ -249,7 +249,6 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
-    curb (1.0.1)
     daemons (1.4.0)
     dalli (2.7.11)
     database_cleaner (2.0.1)
@@ -800,7 +799,6 @@ DEPENDENCIES
   clockwork
   colorize
   concurrent-ruby-edge
-  curb
   dalli
   database_cleaner
   devise
