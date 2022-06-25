@@ -12,10 +12,12 @@ ru:
       mini: &header_mini
         topic_ignored: &ignored в игноре
         topic_closed: закрыт
+        spoilers: Спойлеры
       common:
         <<: *header_mini
         about: о
         in: в
+        spoilers: Спойлеры
     footer:
       vote:
         question:

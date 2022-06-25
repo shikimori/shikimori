@@ -12,10 +12,12 @@ en:
       mini: &header_mini
         topic_ignored: &ignored ignored
         topic_closed: closed
+        spoilers: Spoilers
       common:
         <<: *header_mini
         about: about
         in: in
+        spoilers: Spoilers
     footer:
       vote:
         question:
