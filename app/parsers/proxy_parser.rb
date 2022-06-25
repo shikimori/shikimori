@@ -235,7 +235,7 @@ private
     data =
       Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
         OpenURI.open_uri(url).read
-      rescue *Network::FaradayGet
+      rescue *Network::FaradayGet::NET_ERRORS
         nil
       end
 
