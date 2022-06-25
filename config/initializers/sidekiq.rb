@@ -14,8 +14,11 @@ ENV['REDIS_NAMESPACE_QUIET'] = 'true' # Disable deprecation warning
 # other problems. As noted in the Best Practices wiki page,
 # Sidekiq is designed for jobs with small, simple arguments.
 # Add this line to your initializer to re-enable them and get the old behavior:
-Sidekiq::Extensions.enable_delay!
+Sidekiq::DelayExtensions.enable_delay!
 
+Sidekiq::Extensions::DelayedClass = Sidekiq::DelayExtensions::DelayedClass
+Sidekiq::Extensions::DelayedModel = Sidekiq::DelayExtensions::DelayedModel
+Sidekiq::Extensions::DelayedMailer = Sidekiq::DelayExtensions::DelayedMailer
 
 class ChewyMiddleware
   def initialize options = nil

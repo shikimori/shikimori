@@ -680,6 +680,8 @@ GEM
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
+    sidekiq-delay_extensions (6.4.1)
+      sidekiq (>= 6.4.1)
     sidekiq-limit_fetch (4.2.0)
       redis (>= 4.6.0)
       sidekiq (>= 4)
@@ -890,6 +892,7 @@ DEPENDENCIES
   shallow_attributes!
   shoulda-matchers
   sidekiq
+  sidekiq-delay_extensions
   sidekiq-limit_fetch
   sidekiq-unique-jobs
   simple_form

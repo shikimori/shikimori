@@ -41,6 +41,7 @@ gem 'sidekiq'
 gem 'sidekiq-limit_fetch'
 # gem 'sidekiq-limit_fetch', github: 'brainopia/sidekiq-limit_fetch', branch: 'master' # <- for sidekiq 6
 gem 'sidekiq-unique-jobs'
+gem 'sidekiq-delay_extensions'
 
 # auth
 gem 'devise'
