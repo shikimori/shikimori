@@ -4,6 +4,8 @@ class Proxies::Check
   method_object %i[proxy! ips is_caching]
 
   TEST_URL = "https://shikimori.one#{ProxyTest::TEST_PAGE_PATH}"
+  TEST_TIMEOUT = 10
+
   IS_CACHING = true
   CACHE_VERSION = :v20
 
@@ -26,7 +28,7 @@ private
   end
 
   def do_check
-    content = Proxy.get(TEST_URL, timeout: 10, proxy: @proxy)
+    content = Proxy.get(TEST_URL, timeout: TEST_TIMEOUT, proxy: @proxy)
     !!(
       content&.include?(ProxyTest::SUCCESS_CONFIRMATION_MESSAGE) &&
         ips.none? { |ip| content.include? ip }

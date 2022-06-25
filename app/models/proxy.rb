@@ -205,6 +205,8 @@ class Proxy < ApplicationRecord
     end
 
     def get_via_proxy url, proxy, timeout
+      raise "shouldn't curl in test environment" if Rails.env.test?
+
       curl_command = %W[
         curl
         --insecure
@@ -215,17 +217,10 @@ class Proxy < ApplicationRecord
         --max-time #{timeout}
         #{Shellwords.escape(url)}
       ].join(' ')
-      # puts "#{curl_command} START"
+
       Open3.popen3(curl_command) do |_stdin, stdout, _stderr|
         stdout.read
       end
-      # puts "#{curl_command} END" 
-
-      # if proxy.http?
-      #   get_open_uri(url, proxy: proxy.to_s, read_timeout: timeout).read
-      # else
-      #   get_httpx(url, proxy, timeout).read
-      # end
     end
 
     def log message, options
