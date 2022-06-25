@@ -28,6 +28,7 @@ module Types
         world_masterpiece_theater
         oldfag
         sovietanime
+        stop_motion
       ],
       NekoGroup[:genre] => %i[
         comedy
