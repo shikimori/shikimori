@@ -54,6 +54,17 @@
       line-height: 20px
       padding: 0 5px 0 1px
 
+  +gte_laptop
+    .marker
+      .marker-text
+        display: none
+
+    &:not(:hover) .marker:before
+      padding: 0
+
+    &:hover .marker .marker-text
+      display: inline-block
+
 img
   &.check-width
     max-width: $media_width !important
@@ -64,12 +75,3 @@ img
 
   &.normalized_height
     max-height: $media_width !important
-
-@media screen and (min-width: $ipad_max)
-  .b-image .marker .marker-text
-    display: none
-  .b-image .marker:before
-    padding: 0
-
-  .b-image:hover .marker .marker-text
-    display: inline-block
