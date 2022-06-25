@@ -208,6 +208,7 @@ class Proxy < ApplicationRecord
       curl_command = %W[
         curl
         --insecure
+        --fail
         -H "User-Agent: #{user_agent(url)}"
         -x "#{proxy}"
         --connect-timeout 5
