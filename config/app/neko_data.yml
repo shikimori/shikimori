@@ -21584,7 +21584,7 @@
         - 31617
         - 38600
         - 49402
-      :threshold: 91.5%
+      :threshold: 92.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ghost_in_the_shell
@@ -22406,6 +22406,7 @@
         - 37858
         - 37859
         - 37860
+        - 39014
       :threshold: 88.2%
       :generator:
         ignore_latest_ids:
@@ -22445,6 +22446,7 @@
         - 37858
         - 37859
         - 37860
+        - 39014
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -23460,7 +23462,7 @@
         - 49189
         - 50059
         - 50066
-      :threshold: 95.4%
+      :threshold: 95.7%
       :generator:
         not_ignored_ids:
         - 14951
@@ -24192,10 +24194,10 @@
         - 50840
         - 51150
         - 51424
-        - 51889
         - 51870
         - 51887
-      :threshold: 92.7%
+        - 51889
+      :threshold: 92.8%
       :generator:
         ignore_latest_ids:
         - 37966
@@ -24253,9 +24255,9 @@
         - 50840
         - 51150
         - 51424
-        - 51889
         - 51870
         - 51887
+        - 51889
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -24354,7 +24356,7 @@
       :algo: duration
       :filters:
         franchise: karakai_jouzu_no_takagi_san
-      :threshold: 100%
+      :threshold: 92.2%
       :generator:
         ignore_latest_ids:
         - 49722
@@ -26051,7 +26053,7 @@
         - 49941
         - 50084
         - 50473
-      :threshold: 87.1%
+      :threshold: 87.4%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -26666,7 +26668,7 @@
         - 40348
         - 42476
         - 47413
-      :threshold: 93.9%
+      :threshold: 93.8%
       :generator:
         ignore_latest_ids:
         - 38770
@@ -28526,6 +28528,7 @@
         - 40753
         - 42882
         - 49735
+        - 51842
       :threshold: 87.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -28573,6 +28576,7 @@
         - 40753
         - 42882
         - 49735
+        - 51842
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -29256,7 +29260,7 @@
         - 23931
         - 40554
         - 49311
-      :threshold: 93%
+      :threshold: 93.1%
       :generator:
         ignore_latest_ids:
         - 40389
@@ -29664,7 +29668,7 @@
         - 41377
         - 48772
         - 48773
-      :threshold: 89.5%
+      :threshold: 93.3%
       :generator:
         not_ignored_ids:
         - 38986
@@ -31163,7 +31167,7 @@
         not_anime_ids:
         - 673
         - 8518
-      :threshold: 97.6%
+      :threshold: 97.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :mai_hime
@@ -31654,7 +31658,7 @@
         franchise: saki
         not_anime_ids:
         - 7759
-      :threshold: 91%
+      :threshold: 90.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :saki
