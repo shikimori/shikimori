@@ -21,7 +21,7 @@ function checkImage(image, options) {
     $link.attr('href') && !$link.children('.marker').exists() &&
     ((imageWidth > 300) && (imageHeight > 300))
   ) {
-    $link.append(`<span class='marker'>${imageWidth}x${imageHeight}</span>`);
+    $link.append(`<span class='marker'><span class='marker-text'>${imageWidth}x${imageHeight}</span></span>`);
   }
 
   if (((imageWidth < 300) && (imageHeight < 300)) && ($link.tagName() === 'a') &&

@@ -12,6 +12,7 @@ ru:
       mini: &header_mini
         topic_ignored: &ignored в игноре
         topic_closed: закрыт
+        spoilers: Спойлеры
       common:
         <<: *header_mini
         about: о
@@ -104,6 +105,7 @@ ru:
         winners: Победители
     news_line:
       inner:
+        <<: *header_mini
         by: от
     reviews:
       inner:

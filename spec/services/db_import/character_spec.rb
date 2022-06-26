@@ -45,7 +45,7 @@ describe DbImport::Character do
       it do
         expect(DbImport::MalImage)
           .to have_received(:call)
-          .with entry, image
+          .with entry: entry, image_url: image
       end
     end
   end

@@ -12,6 +12,7 @@ en:
       mini: &header_mini
         topic_ignored: &ignored ignored
         topic_closed: closed
+        spoilers: Spoilers
       common:
         <<: *header_mini
         about: about
@@ -104,6 +105,7 @@ en:
         winners: Winners
     news_line:
       inner:
+        <<: *header_mini
         by: by
     reviews:
       inner:

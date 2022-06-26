@@ -222,9 +222,9 @@ header.head
 
       .f-column
         .block
-          .b-options-floated = @proxies_count
+          .b-options-floated #{@proxies_alive_count} / #{@proxies_total_count}
           .subheadline[
-            class=(:red if @proxies_count < 100)
+            class=(:red if @proxies_alive_count < 100)
           ] = t '.proxies_count'
 
         .block

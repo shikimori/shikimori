@@ -1,8 +1,6 @@
 = render layout: 'clubs/page' do
   / .subheadline.m5 = @topic_view.topic.title
-
   div
     = render partial: 'topics/topic',
-      collection: [@topic_view],
-      as: :topic_view,
-      cached: true
+      object: @topic_view,
+      as: :topic_view

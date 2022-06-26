@@ -36,7 +36,8 @@ class ModerationsController < ShikimoriController # rubocop:disable ClassLength
     end
 
     if can? :sync, Anime
-      @proxies_count = Proxy.count
+      @proxies_alive_count = Proxy.alive.count
+      @proxies_total_count = Proxy.count
 
       @enqueued_limit = 100
       @sidkiq_enqueued = Sidekiq::Queue

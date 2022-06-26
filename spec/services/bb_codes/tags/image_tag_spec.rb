@@ -29,7 +29,7 @@ describe BbCodes::Tags::ImageTag do
                 data-width='#{user_image.width}'
                 data-height='#{user_image.height}'
                 loading='lazy'
-                /><span class='marker'>400x500</span></a>
+                /><span class='marker'><span class='marker-text'>400x500</span></span></a>
         HTML
       )
     end
@@ -68,7 +68,7 @@ describe BbCodes::Tags::ImageTag do
               data-width='#{user_image.width}'
               data-height='#{user_image.height}'
               loading='lazy'
-              /><span class='marker'>400x500</span></a>
+              /><span class='marker'><span class='marker-text'>400x500</span></span></a>
           <a
             href='#{user_image_2.image.url :original, false}'
             rel='#{text_hash}'
@@ -78,7 +78,7 @@ describe BbCodes::Tags::ImageTag do
               data-width='#{user_image_2.width}'
               data-height='#{user_image_2.height}'
               loading='lazy'
-              /><span class='marker'>1000x1000</span></a>
+              /><span class='marker'><span class='marker-text'>1000x1000</span></span></a>
         HTML
       )
     end
@@ -157,7 +157,7 @@ describe BbCodes::Tags::ImageTag do
               data-width='#{user_image.width}'
               data-height='#{user_image.height}'
               loading='lazy'
-              /><span class='marker'>400x400</span></a>
+              /><span class='marker'><span class='marker-text'>400x400</span></span></a>
         HTML
       )
     end
@@ -179,7 +179,7 @@ describe BbCodes::Tags::ImageTag do
                 data-width='#{user_image.width}'
                 data-height='#{user_image.height}'
                 loading='lazy'
-                /><span class='marker'>400x400</span></a>
+                /><span class='marker'><span class='marker-text'>400x400</span></span></a>
           HTML
         )
       end
@@ -203,7 +203,7 @@ describe BbCodes::Tags::ImageTag do
               data-width='#{user_image.width}'
               data-height='#{user_image.height}'
               loading='lazy'
-              /><span class='marker'>400x500</span></a>
+              /><span class='marker'><span class='marker-text'>400x500</span></span></a>
         HTML
       )
     end
@@ -225,7 +225,7 @@ describe BbCodes::Tags::ImageTag do
               data-width='#{user_image.width}'
               data-height='#{user_image.height}'
               loading='lazy'
-              /><span class='marker'>400x500</span></a>
+              /><span class='marker'><span class='marker-text'>400x500</span></span></a>
         HTML
       )
     end
@@ -250,7 +250,7 @@ describe BbCodes::Tags::ImageTag do
               data-width='#{user_image.width}'
               data-height='#{user_image.height}'
               loading='lazy'
-              /><span class='marker'>400x500</span></a>
+              /><span class='marker'><span class='marker-text'>400x500</span></span></a>
         HTML
       )
     end
@@ -276,7 +276,7 @@ describe BbCodes::Tags::ImageTag do
               data-width='#{user_image.width}'
               data-height='#{user_image.height}'
               loading='lazy'
-              /><span class='marker'>400x500</span></a>
+              /><span class='marker'><span class='marker-text'>400x500</span></span></a>
         HTML
       )
     end

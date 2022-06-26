@@ -88,10 +88,14 @@
     color: $gray-2
 
   .moderation
+    align-items: flex-start
     display: flex
     font-size: 12px
     justify-content: flex-end
     margin: 15px 0 15px 0
+
+    +iphone
+      flex-wrap: wrap
 
     &:empty
       display: none

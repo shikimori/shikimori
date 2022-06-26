@@ -4,6 +4,8 @@ class Collection < ApplicationRecord
   include TopicsConcern
   include ModeratableConcern
 
+  boolean_attributes :spoilers
+
   antispam(
     per_day: 5,
     user_id_key: :user_id

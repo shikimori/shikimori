@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_01_082939) do
+ActiveRecord::Schema.define(version: 2022_06_23_133550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -356,6 +356,7 @@ ActiveRecord::Schema.define(version: 2022_06_01_082939) do
     t.datetime "changed_at"
     t.text "tags", default: [], null: false, array: true
     t.integer "links_count", default: 0, null: false
+    t.boolean "is_spoilers", default: false, null: false
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
@@ -853,9 +854,11 @@ ActiveRecord::Schema.define(version: 2022_06_01_082939) do
     t.index ["user_id"], name: "index_polls_on_user_id"
   end
 
-  create_table "proxies", id: false, force: :cascade do |t|
+  create_table "proxies", force: :cascade do |t|
     t.string "ip", limit: 255
     t.integer "port"
+    t.string "protocol", null: false
+    t.integer "dead", default: 0, null: false
   end
 
   create_table "publishers", id: :serial, force: :cascade do |t|
