@@ -153,6 +153,15 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
       .sort_by(&:name)
   end
 
+  def menu_collections_without_spoilers
+    collections_scope
+      .where(is_spoilers: false)
+      .uniq
+      .shuffle
+      .take(MAX_COLLECTIONS)
+      .sort_by(&:name)
+  end
+
   def collections_size
     collection_links
       .joins(:collection)

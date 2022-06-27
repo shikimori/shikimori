@@ -112,7 +112,7 @@
             .count = resource.collections_size
 
         .block
-          - resource.menu_collections.each do |collection|
+          - resource.menu_collections_without_spoilers.each do |collection|
             .b-menu-line
               a.b-link href=collection_url(collection)
                 = collection.name
