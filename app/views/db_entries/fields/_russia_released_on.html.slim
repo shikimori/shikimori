@@ -10,7 +10,7 @@
 
       = render 'versions/reason'
 
-      span = "Предыдущее значение: #{resource.object.russia_released_on}"
+      span = "#{t('previous_value')}: #{resource.object.russia_released_on}"
 
       .buttons
         a.cancel href=resource.edit_url = t 'actions.cancel'
