@@ -5,6 +5,9 @@
         start_year: Time.zone.now.year + 3,
         end_year: 1920,
         include_blank: true
+
+      = f.input :russia_released_on_hint
+
       = render 'versions/reason'
 
       span = "Предыдущее значение: #{resource.object.russia_released_on}"

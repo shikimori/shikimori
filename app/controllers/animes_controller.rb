@@ -21,6 +21,7 @@ class AnimesController < DbEntriesController
     is_censored
     digital_released_on
     russia_released_on
+    russia_released_on_hint
   ] + [
     *Anime::DESYNCABLE,
     external_links: [EXTERNAL_LINK_PARAMS],
