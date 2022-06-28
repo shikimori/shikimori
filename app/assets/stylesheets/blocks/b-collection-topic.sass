@@ -25,6 +25,30 @@
           &:nth-child(5), &:nth-child(6), &:nth-child(7)
             display: none
 
+      &.is-spoilers
+        .cover
+          .title
+            filter: blur(2px)
+            transition: filter 0.5s
+
+          .image-cutter
+            border: 1px solid #acb1b4
+            transition: border-color 0.5s
+
+            img
+              filter: blur(10px) grayscale(0.75)
+              transition: filter 0.5s
+
+          &:hover
+            .title
+              filter: none
+
+            .image-cutter
+              border-color: transparent
+
+            img
+              filter: none
+
     $border-color: $gray-1
     .see-more
       border: 1px solid $border-color
