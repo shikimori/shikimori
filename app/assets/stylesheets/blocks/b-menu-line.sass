@@ -3,3 +3,21 @@
 .b-menu-line
   +ellipsis2
   line-height: 23px
+
+  &.is-spoilers
+    .blurred
+      filter: blur(2.5px)
+      transition: filter 0.5s
+
+    .b-anime_status_tag.spoilers
+      margin-right: 5px
+      font-size: 11px
+
+    &:hover .blurred
+      filter: none
+
+    // &:before
+    //   color: #d5655e
+    //   content: attr(data-spoilers)
+    //   font-size: 11px
+    //   letter-spacing: 0.3px
