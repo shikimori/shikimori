@@ -7,6 +7,8 @@
         include_blank: true
       = render 'versions/reason'
 
+      span = "Предыдущее значение: #{resource.object.russia_released_on}"
+
       .buttons
         a.cancel href=resource.edit_url = t 'actions.cancel'
         = f.button :magic_submit

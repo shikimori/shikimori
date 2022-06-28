@@ -12,7 +12,7 @@
       - elsif value.is_a? Array
         span = value.join(', ')
       - elsif value.is_a? Date
-        span = formatted_date value, true
+        span = formatted_date value, false
       - elsif value.present?
         span = value
 
