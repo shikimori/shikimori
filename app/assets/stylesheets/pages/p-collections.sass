@@ -40,3 +40,13 @@
 
     &-not_available
       color: #ca4929
+
+.p-animes-collections,
+.p-mangas-collections,
+.p-characters-collections
+  .b-collection-topic.is-spoilers > .inner header .name
+    filter: blur(3px)
+    transition: filter 0.5s
+
+    &:hover
+      filter: none
