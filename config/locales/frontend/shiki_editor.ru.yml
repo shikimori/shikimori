@@ -49,5 +49,8 @@ ru:
         gray: Серый
         black: Чёрный
       headlines:
-        headline: Заголовок
-        midheadline: Подзаголовок
+        header_1': '# Большой заголовок'
+        header_2': '## Средний заголовок'
+        header_3': '### Малый заголовок'
+        headline': '#### Заголовок'
+        midheadline': '##### Подзаголовок'
