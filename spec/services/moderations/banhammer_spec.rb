@@ -66,7 +66,7 @@ describe Moderations::Banhammer do
     end
 
     context 'heavy abusiveness with special tags' do
-      let(:text) { 'test хуй test хуй хуй хуй хуй хуй хуй хуй хуй хуй' }
+      let(:text) { 'test ||хуй|| test `хуй` хуй ||хуй|| х[size=0]хуй[/size]уй `хуй` хуй хуй хуй хуй' }
       it do
         expect(ban.duration).to eql BanDuration.new('150m')
         expect(comment.body).to eq(
