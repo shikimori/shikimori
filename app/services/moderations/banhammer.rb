@@ -6,7 +6,7 @@ class Moderations::Banhammer # rubocop:disable ClassLength
   X = '[\s.,:?!)(\]\[\'"«»-]'
   TAG = '(?: \[ [^\]]+ \] )*'
   TAG_REGEXP = /#{TAG}/mix
-  SPECIAL_TAG_REGEXP = /([|][|]|`|((\[size=0\]).+(\[\/size\])))/mix
+  SPECIAL_TAG_REGEXP = /([|][|]|`|((\[size=\d\]).+(\[\/size\])))/mix
 
   INVISIBLE_SYMBOLS = '[­]*'
 
