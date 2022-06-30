@@ -24,8 +24,7 @@
 - unless commentable.respond_to?(:is_closed) && commentable.is_closed
   .editor-container
     div.b-options-floated
-      span.return-to-reply
-        span.action
+      span.action.return-to-reply
           = t('.return_to_reply').downcase
     .subheadline = t '.your_comment'
     = render 'comments/form',

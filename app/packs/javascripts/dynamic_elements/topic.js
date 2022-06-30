@@ -197,8 +197,9 @@ export default class Topic extends ShikiEditable {
   }
 
   _bindReturnClick() {
-    this.on('click', 'span.item-reply, span.item-quote, span.item-quote-mobile', (e) => {
+    this.on('click', 'span.item-reply, span.item-quote, span.item-quote-mobile', e => {
       const repliable = $(e.target).closest('.inner');
+
       this._saveRepliablePosition(repliable);
       this._showReturnButton();
     });
