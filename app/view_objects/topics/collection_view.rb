@@ -2,7 +2,7 @@ class Topics::CollectionView < Topics::UserContentView
   instance_cache :collection
 
   def container_classes
-    super 'b-collection-topic'
+    super "b-collection-topic#{' is-spoilers' if collection.is_spoilers?}".strip
   end
 
   def url options = {}
