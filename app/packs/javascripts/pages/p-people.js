@@ -1,7 +1,8 @@
 import checkHeight from '@/utils/check_height';
 
 pageLoad('people_show', async () => {
-  checkHeight($('.b-entry-info'), { maxHeight: 101, isNoShade: true });
+  checkHeight($('.c-info-left .b-entry-info'), { maxHeight: 101, isNoShade: true });
+  checkHeight($('.c-info-right .b-entry-info'), { maxHeight: 101, isNoShade: true });
 
   // комментировать
   $('.b-subposter-actions .new_comment').on('click', () => {
