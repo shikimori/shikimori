@@ -176,7 +176,7 @@ export default class Topic extends ShikiEditable {
   }
 
   async _showReturnButton() {
-    await(300); // нужно подождать, пока страница проскролится до редактора
+    await delay(300); // нужно подождать, пока страница проскролится до редактора
 
     if (!$(this.repliedNode).is(':appeared')) {
       $('span.return-to-reply').css('visibility', 'visible');
