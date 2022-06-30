@@ -26,6 +26,7 @@ en:
           review: Is this review helpful?
     comments:
       your_comment: Your comment
+      return_to_reply: Return
     inner:
       read_more_link: Read more →
       source: Source
