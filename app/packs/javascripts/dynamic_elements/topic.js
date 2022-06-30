@@ -178,9 +178,10 @@ export default class Topic extends ShikiEditable {
   async _showReturnButton() {
     await delay(300); // нужно подождать, пока страница проскролится до редактора
 
-    if (!$(this.repliedNode).is(':appeared')) {
-      $('span.return-to-reply').css('visibility', 'visible');
-    }
+    $('span.return-to-reply').css(
+      'visibility',
+      $(this.repliedNode).is(':appeared') ? 'hidden' : 'visible'
+    );
   }
 
   _saveRepliablePosition(repliedNode) {
@@ -188,9 +189,8 @@ export default class Topic extends ShikiEditable {
   }
 
   _returnToReplyComment() {
-    const savedId = this.repliedNode;
-    if (savedId.length) {
-      $.scrollTo($(savedId));
+    if (this.repliedNode) {
+      $.scrollTo($(this.repliedNode));
     }
     $('span.return-to-reply').css('visibility', 'hidden');
     this.repliedNode = null;
