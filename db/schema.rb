@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_23_133550) do
+ActiveRecord::Schema.define(version: 2022_06_30_002003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(version: 2022_06_23_133550) do
     t.date "digital_released_on"
     t.date "russia_released_on"
     t.decimal "score_2", default: "0.0", null: false
+    t.text "russia_released_on_hint"
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["rating"], name: "index_animes_on_rating"
@@ -788,6 +789,7 @@ ActiveRecord::Schema.define(version: 2022_06_23_133550) do
     t.text "desynced", default: [], null: false, array: true
     t.string "russian", default: "", null: false
     t.integer "mal_id"
+    t.date "date_of_death"
     t.index ["name"], name: "index_people_on_name"
   end
 

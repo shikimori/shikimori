@@ -1,0 +1,9 @@
+.cc-2
+  .c-column
+    = simple_form_for resource.object do |f|
+      = f.input :date_of_death, start_year: 1800, end_year: Time.zone.now.year
+      = render 'versions/reason'
+
+      .buttons
+        a.cancel href=resource.edit_url = t 'actions.cancel'
+        = f.button :magic_submit

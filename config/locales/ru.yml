@@ -98,6 +98,7 @@ ru:
       person:
         <<: *character_attributes
         birthday: Дата рождения
+        date_of_death: Дата смерти
         website: Сайт
       external_link:
         url: Ссылка

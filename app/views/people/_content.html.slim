@@ -31,6 +31,8 @@
         = info_line t('in_japanese'), @resource.japanese
       - if @resource.birthday
         = info_line Person.human_attribute_name(:birthday), @resource.formatted_birthday
+      - if @resource.date_of_death
+        = info_line Person.human_attribute_name(:date_of_death), @resource.formatted_date_of_death
       - if @resource.website.present?
         = info_line Person.human_attribute_name(:website), @resource.website_html
 

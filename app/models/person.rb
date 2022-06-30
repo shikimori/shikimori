@@ -8,7 +8,7 @@ class Person < DbEntry
   include TopicsConcern
   include VersionsConcern
 
-  DESYNCABLE = %w[name japanese website birthday image]
+  DESYNCABLE = %w[name japanese website birthday date_of_death image]
 
   update_index('people#person') do
     if saved_change_to_name? || saved_change_to_russian? ||
