@@ -173,7 +173,7 @@ ActiveRecord::Schema.define(version: 2022_06_28_214505) do
     t.date "digital_released_on"
     t.date "russia_released_on"
     t.decimal "score_2", default: "0.0", null: false
-    t.text "russia_released_on_hint"
+    t.text "russia_released_on_hint", default: "", null: false
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["rating"], name: "index_animes_on_rating"
