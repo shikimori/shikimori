@@ -73,9 +73,9 @@
     - if entry.russia_released_on
       = info_line Anime.human_attribute_name(:russia_released_on) do
         span[
-          class=('b-tooltipped dotted mobile unprocessed' unless entry.russia_released_on_hint.blank?)
-          title=entry.russia_released_on_hint
-          data-direction='right'
+          class=('b-tooltipped dotted mobile unprocessed' if entry.russia_released_on_hint.present?)
+          title=(entry.russia_released_on_hint if entry.russia_released_on_hint.present?)
+          data-direction=('right' if entry.russia_released_on_hint.present?)
         ] = formatted_date entry.russia_released_on, false
 
   - if entry.japanese.present? || entry.english.present? || entry.synonyms.present?
