@@ -71,7 +71,12 @@
       = info_line(Anime.human_attribute_name(:digital_released_on), formatted_date(entry.digital_released_on, true))
 
     - if entry.russia_released_on
-      = info_line(Anime.human_attribute_name(:russia_released_on), formatted_date(entry.russia_released_on, true))
+      = info_line Anime.human_attribute_name(:russia_released_on) do
+        span[
+          class=('b-tooltipped dotted mobile unprocessed' unless entry.russia_released_on_hint.blank?)
+          title=entry.russia_released_on_hint
+          data-direction='right'
+        ] = formatted_date entry.russia_released_on, false
 
   - if entry.japanese.present? || entry.english.present? || entry.synonyms.present?
     = info_line t('.other_names') do

@@ -73,6 +73,7 @@ ru:
         source: Источник
         digital_released_on: Дата цифрового релиза
         russia_released_on: Премьера в РФ
+        russia_released_on_hint: Премьера в РФ - подсказка при наведении
       manga: &manga_attributes
         <<: *anime_attributes
         aired_on: Дата начала издания
