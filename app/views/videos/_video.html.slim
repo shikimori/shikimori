@@ -19,7 +19,7 @@
       .cancel title=t('actions.cancel_delete')
 
   a.video-link[
-    href=video.url.gsub(/\s+/, '')
+    href=video.url
     data-href=Url.new(video.player_url).without_protocol.to_s
   ]
     img[
