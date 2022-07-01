@@ -1,7 +1,7 @@
 class VersionsView < ViewObjectBase
   instance_cache :moderators, :pending, :processed
 
-  PER_PAGE = 26
+  PER_PAGE = 25
   IGNORED_FIELDS = %w[source action]
 
   def processed_scope
