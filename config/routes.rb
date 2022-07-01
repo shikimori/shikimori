@@ -819,7 +819,7 @@ Rails.application.routes.draw do
     resources type, only: %i[edit update] do
       concerns :db_entry, fields: Regexp.new(%w{
         name russian synonyms japanese license_name_ru description_ru description_en image
-        status kind rating volumes chapters
+        status kind volumes chapters
         imageboard_tag aired_on released_on genre_ids
         external_links desynced options licensors
         is_censored
