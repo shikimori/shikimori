@@ -54,9 +54,9 @@
                   ] = t 'actions.rollback'
 
               - %i[digital_released_on russia_released_on].each do |field|
-                = render 'db_entries/edit_field_li',
-                  resource: @resource,
-                  field: field
+                = render 'db_entries/edit_field_li', resource: @resource, field: field do
+                  - if @resource.respond_to? :"#{field}_hint"
+                    .hint = @resource.send :"#{field}_hint"
 
           - %i[episodes volumes chapters].each do |field|
             = render 'db_entries/edit_field_li',
