@@ -25,6 +25,7 @@
               field: :torrents_name
 
           - %i[licensors kind rating genres status aired_on released_on duration].each do |field|
+            - next if field == :rating && @resource.kinda_manga?
             = render 'db_entries/edit_field_li',
               resource: @resource,
               field: field,

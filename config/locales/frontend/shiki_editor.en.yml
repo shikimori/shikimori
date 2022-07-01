@@ -48,3 +48,9 @@ en:
         brown: Brown
         gray: Gray
         black: Black
+      headlines:
+        header_1: '# Large header'
+        header_2: '## Medium header'
+        header_3: '### Small header'
+        headline: '#### Headline'
+        midheadline: '##### Subheadline'
