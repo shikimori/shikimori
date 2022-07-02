@@ -1,6 +1,7 @@
 class Animes::Filters::Policy
   class << self
     FALSY = [false, 'false', 0, '0']
+    TRULY = [true, 'true', 1, '1']
     ADULT_RATING_REGEXP =
       /(?:\A|,)(?:#{Types::Anime::Rating[:rx]}|#{Types::Anime::Rating[:r_plus]})\b/
     MUSIC_REGEXP = /(?:\A|,)#{Types::Anime::Kind[:music]}\b/
@@ -44,6 +45,8 @@ class Animes::Filters::Policy
     end
 
     def forbid_filtering? params # rubocop:disable all
+      return false if TRULY.include?(params[:censored])
+
       FALSY.include?(params[:censored]) ||
         params[:achievement].present? ||
         params[:ids].present? ||
