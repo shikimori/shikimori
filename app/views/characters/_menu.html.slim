@@ -37,8 +37,11 @@
 
       .block
         - resource.menu_collections.each do |collection|
-          .b-menu-line
-            a.b-link href=collection_url(collection) = collection.name
+          .b-menu-line class=('is-spoilers' if collection.is_spoilers)
+            - if collection.is_spoilers
+              .b-anime_status_tag.spoilers = t('topics.header.mini.spoilers').downcase
+            span class=(:blurred if collection.is_spoilers)
+              a.b-link href=collection_url(collection) = collection.name
 
 - unless @itemtype
   = render 'spnsrs/ad', ad: Ad.new(:menu_240x400)

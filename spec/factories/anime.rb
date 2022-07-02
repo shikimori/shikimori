@@ -24,6 +24,7 @@ FactoryBot.define do
     imported_at { nil }
     digital_released_on { nil }
     russia_released_on { nil }
+    russia_released_on_hint { '' }
 
     after :build do |model|
       stub_method model, :track_changes

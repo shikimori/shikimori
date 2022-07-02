@@ -1,44 +1,26 @@
 .collection-row.to-process[
   data-dynamic='cutted_covers'
   data-ratio_type=collection.kind
+  class=('is-spoilers' if collection.spoilers?)
 ]
   /# Template Dependency: animes/anime
   /# Template Dependency: mangas/manga
   /# Template Dependency: characters/character
   /# Template Dependency: people/person
 
-  - if collection.spoilers?
-    div.collection-blur
-      = render partial: "#{collection.kind.pluralize}/#{collection.kind}",
-        collection: collection.entries_sample,
-        locals: { cover_notice: :none },
-        cached: ->(entry) { cache_keys entry, :none }
+  = render partial: "#{collection.kind.pluralize}/#{collection.kind}",
+    collection: collection.entries_sample,
+    locals: { cover_notice: :none },
+    cached: ->(entry) { cache_keys entry, :none }
 
-      - if collection.entries_sample.size < collection.size
-        .c-column.b-catalog_entry
-          .cover
-            .image-decor
-              a.image-cutter.see-more[
-                href=topic_view.url
-              ]
-                .text
-                  .inner
-                    .dots ...
-                    = t '.more', count: collection.size - collection.entries_sample.size
-  - else
-    = render partial: "#{collection.kind.pluralize}/#{collection.kind}",
-      collection: collection.entries_sample,
-      locals: { cover_notice: :none },
-      cached: ->(entry) { cache_keys entry, :none }
-
-    - if collection.entries_sample.size < collection.size
-      .c-column.b-catalog_entry
-        .cover
-          .image-decor
-            a.image-cutter.see-more[
-              href=topic_view.url
-            ]
-              .text
-                .inner
-                  .dots ...
-                  = t '.more', count: collection.size - collection.entries_sample.size
+  - if collection.entries_sample.size < collection.size
+    .c-column.b-catalog_entry
+      .cover
+        .image-decor
+          a.image-cutter.see-more[
+            href=topic_view.url
+          ]
+            .text
+              .inner
+                .dots ...
+                = t '.more', count: collection.size - collection.entries_sample.size

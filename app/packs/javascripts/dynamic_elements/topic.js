@@ -171,6 +171,42 @@ export default class Topic extends ShikiEditable {
         this.$commentsHider.show();
       }
     });
+
+    this._bindReturnClick();
+  }
+
+  async _showReturnButton() {
+    await delay(300); // нужно подождать, пока страница проскролится до редактора
+
+    $('span.return-to-reply').css(
+      'visibility',
+      $(this.repliedNode).is(':appeared') ? 'hidden' : 'visible'
+    );
+  }
+
+  _saveRepliablePosition(repliedNode) {
+    this.repliedNode = repliedNode;
+  }
+
+  _returnToReplyComment() {
+    if (this.repliedNode) {
+      $.scrollTo($(this.repliedNode));
+    }
+    $('span.return-to-reply').css('visibility', 'hidden');
+    this.repliedNode = null;
+  }
+
+  _bindReturnClick() {
+    this.on('click', 'span.item-reply, span.item-quote, span.item-quote-mobile', e => {
+      const repliable = $(e.target).closest('.inner');
+
+      this._saveRepliablePosition(repliable);
+      this._showReturnButton();
+    });
+
+    this.$('span.return-to-reply').on('click', () => {
+      this._returnToReplyComment();
+    });
   }
 
   // similar to hash from JsExports::TopicsExport#serialize
