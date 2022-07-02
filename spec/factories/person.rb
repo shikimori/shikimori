@@ -3,7 +3,10 @@ FactoryBot.define do
     sequence(:name) { |n| "person_#{n}" }
     sequence(:russian) { |n| "человек_#{n}" }
     desynced { [] }
+    birthday { nil }
     imported_at { nil }
+
+    deceased_on { nil }
 
     after :build do |model|
       stub_method model, :touch_related
