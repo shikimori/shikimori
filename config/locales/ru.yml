@@ -99,6 +99,7 @@ ru:
       person:
         <<: *character_attributes
         birthday: Дата рождения
+        deceased_on: Дата смерти
         website: Сайт
       external_link:
         url: Ссылка

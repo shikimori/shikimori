@@ -72,7 +72,7 @@
 
       .c-about
         .cc
-          - if @resource.japanese.present? || @resource.name.present? || @resource.birthday || @resource.website.present?
+          - if @resource.japanese.present? || @resource.name.present? || @resource.birthday || @resource.deceased_on || @resource.website.present?
             .c-info-left
               .subheadline = t 'information'
               .b-entry-info
@@ -82,6 +82,8 @@
                   = info_line t('in_japanese'), @resource.japanese
                 - if @resource.birthday
                   = info_line Person.human_attribute_name(:birthday), @resource.formatted_birthday
+                - if @resource.deceased_on
+                  = info_line Person.human_attribute_name(:deceased_on), @resource.formatted_deceased_on
                 - if @resource.website.present?
                   = info_line Person.human_attribute_name(:website), @resource.website_html
 

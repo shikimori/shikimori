@@ -1,5 +1,5 @@
 class PersonProfileSerializer < PersonSerializer
-  attributes :japanese, :job_title, :birthday, :website, :groupped_roles,
+  attributes :japanese, :job_title, :birthday, :deceased_on, :website, :groupped_roles,
     :roles, :works, :thread_id, :topic_id,
     :person_favoured, :producer, :producer_favoured,
     :mangaka, :mangaka_favoured, :seyu, :seyu_favoured,
