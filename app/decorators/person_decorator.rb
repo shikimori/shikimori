@@ -289,8 +289,8 @@ class PersonDecorator < DbEntryDecorator
     I18n.l(birthday, format: :human).gsub('1901', '').strip
   end
 
-  def formatted_date_of_death
-    I18n.l(date_of_death, format: :human).gsub('1901', '').strip
+  def formatted_deceased_on
+    I18n.l(deceased_on, format: :human).gsub('1901', '').strip
   end
 
 private

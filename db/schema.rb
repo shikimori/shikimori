@@ -788,7 +788,7 @@ ActiveRecord::Schema.define(version: 2022_06_30_002003) do
     t.text "desynced", default: [], null: false, array: true
     t.string "russian", default: "", null: false
     t.integer "mal_id"
-    t.date "date_of_death"
+    t.date "deceased_on"
     t.index ["name"], name: "index_people_on_name"
   end
 
