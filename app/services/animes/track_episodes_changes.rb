@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # NOTE: call in before_save callback
-class Animes::TrackEpisodesChanges < ServiceObjectBase
-  pattr_initialize :anime
+class Animes::TrackEpisodesChanges
+  method_object :anime
 
   def call
     return unless @anime.episodes_aired_changed?

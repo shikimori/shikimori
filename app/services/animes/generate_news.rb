@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # NOTE: call in before_save callback
-class Animes::GenerateNews < ServiceObjectBase
-  pattr_initialize :anime, :old_status, :new_status
+class Animes::GenerateNews
+  method_object :anime, :old_status, :new_status
 
   delegate :aired_on, :released_on, to: :anime
   delegate :status_change, to: :anime
