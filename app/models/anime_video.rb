@@ -10,12 +10,12 @@ class AnimeVideo < ApplicationRecord # rubocop:disable all
     )
   SQL
   PLAY_CONDITION = <<-SQL.squish
-    animes.rating != '#{Anime::ADULT_RATING}' and
+    animes.rating != '#{DbEntry::CensoredPolicy::ADULT_RATING}' and
     animes.is_censored = false and
     not #{ADULT_OVA_CONDITION}
   SQL
   XPLAY_CONDITION = <<-SQL.squish
-    animes.rating = '#{Anime::ADULT_RATING}' or
+    animes.rating = '#{DbEntry::CensoredPolicy::ADULT_RATING}' or
     animes.is_censored = true or
     #{ADULT_OVA_CONDITION}
   SQL

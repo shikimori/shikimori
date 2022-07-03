@@ -23,7 +23,7 @@ private
 
   def assign_is_censored
     unless :is_censored.in? desynced_fields
-      entry.is_censored = entry.rating_rx? || entry.genres.any?(&:censored?)
+      entry.is_censored = DbEntry::CensoredPolicy.censored? entry
     end
 
     entry.ranked = 0 if entry.is_censored
