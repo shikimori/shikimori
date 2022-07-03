@@ -2,7 +2,7 @@ class AnimeVideo < ApplicationRecord # rubocop:disable all
   R_OVA_EPISODES = 2
   ADULT_OVA_CONDITION = <<-SQL.squish
     (
-      animes.rating = '#{Anime::SUB_ADULT_RATING}' and
+      animes.rating = '#{DbEntry::CensoredPolicy::SUB_ADULT_RATING}' and
       (
         (animes.kind = 'ova' and animes.episodes <= #{R_OVA_EPISODES}) or
         animes.kind = 'Special'

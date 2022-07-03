@@ -207,11 +207,11 @@ describe Animes::Filters::Policy do
       let(:rating) do
         [
           DbEntry::CensoredPolicy::ADULT_RATING,
-          Anime::SUB_ADULT_RATING,
+          DbEntry::CensoredPolicy::SUB_ADULT_RATING,
           DbEntry::CensoredPolicy::ADULT_RATING.to_s,
-          "#{DbEntry::CensoredPolicy::ADULT_RATING},#{Anime::SUB_ADULT_RATING}",
-          "#{DbEntry::CensoredPolicy::ADULT_RATING},!#{Anime::SUB_ADULT_RATING}",
-          "!#{DbEntry::CensoredPolicy::ADULT_RATING},#{Anime::SUB_ADULT_RATING}",
+          "#{DbEntry::CensoredPolicy::ADULT_RATING},#{DbEntry::CensoredPolicy::SUB_ADULT_RATING}",
+          "#{DbEntry::CensoredPolicy::ADULT_RATING},!#{DbEntry::CensoredPolicy::SUB_ADULT_RATING}",
+          "!#{DbEntry::CensoredPolicy::ADULT_RATING},#{DbEntry::CensoredPolicy::SUB_ADULT_RATING}",
           "#{Types::Anime::Rating[:g]},#{DbEntry::CensoredPolicy::ADULT_RATING},",
           "#{DbEntry::CensoredPolicy::ADULT_RATING},#{Types::Anime::Rating[:g]}"
         ].sample
@@ -224,7 +224,7 @@ describe Animes::Filters::Policy do
     context 'other' do
       let(:rating) do
         [
-          "!#{Anime::SUB_ADULT_RATING}",
+          "!#{DbEntry::CensoredPolicy::SUB_ADULT_RATING}",
           "#{Types::Anime::Rating[:g]},!#{DbEntry::CensoredPolicy::ADULT_RATING}",
           "!#{DbEntry::CensoredPolicy::ADULT_RATING},#{Types::Anime::Rating[:g]}",
           Types::Anime::Rating[:g],
