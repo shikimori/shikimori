@@ -7,8 +7,8 @@ class Animes::GenerateNews
   delegate :aired_on, :released_on, to: :anime
   delegate :status_change, to: :anime
 
-  NEW_RELEASE_DATE_FOR_RELEASED_ON = 2.weeks.ago.to_date
-  NEW_RELEASE_DATE_FOR_AIRED_ON = 15.months.ago.to_date
+  NEW_RELEASE_INTERVAL_FOR_RELEASED_ON = 2.weeks
+  NEW_RELEASE_INTERVAL_FOR_AIRED_ON = 15.months
 
   def call
     raise ArgumentError, 'status not changed' if @old_status == @new_status
@@ -60,9 +60,9 @@ private
   end
 
   def new_release?
-    return false if released_on.try :<, NEW_RELEASE_DATE_FOR_RELEASED_ON
-    return true if released_on.try :>=, NEW_RELEASE_DATE_FOR_RELEASED_ON
-    return true if aired_on.try :>=, NEW_RELEASE_DATE_FOR_AIRED_ON
+    return false if released_on.try :<, NEW_RELEASE_INTERVAL_FOR_RELEASED_ON.ago
+    return true if released_on.try :>=, NEW_RELEASE_INTERVAL_FOR_RELEASED_ON.ago
+    return true if aired_on.try :>=, NEW_RELEASE_INTERVAL_FOR_AIRED_ON.ago
 
     false
   end
