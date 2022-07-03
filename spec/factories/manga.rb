@@ -9,6 +9,7 @@ FactoryBot.define do
     kind { :manga }
     status { :released }
     franchise { nil }
+    publisher_ids { [] }
     is_censored { false }
     type { Manga.name }
     imageboard_tag { nil }
