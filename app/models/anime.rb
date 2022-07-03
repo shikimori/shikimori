@@ -272,13 +272,6 @@ class Anime < DbEntry
     ongoing? || anons? || (aired_on && aired_on > 1.year.ago)
   end
 
-  # def adult?
-    # censored || ADULT_RATING == rating# || (
-      # # SUB_ADULT_RATING == rating &&
-      # # ((kind_ova? && episodes <= AnimeVideo::R_OVA_EPISODES) || kind_special?)
-    # # )
-  # end
-
   def name
     if self[:name].present?
       self[:name].gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip
@@ -307,7 +300,7 @@ class Anime < DbEntry
   end
 
   def censored?
-    is_censored || ADULT_RATING == rating || rkn_abused?
+    is_censored || rkn_abused?
     # || (kind_ova? && SUB_ADULT_RATING == rating)
   end
 

@@ -193,66 +193,6 @@ describe Anime do
       it { expect(anime.studios).to eq [studio] }
     end
 
-    # describe '#adult?' do
-      # context 'by_rating' do
-        # let(:anime) { build :anime, rating: rating, episodes: episodes, kind: kind }
-        # let(:episodes) { 1 }
-        # let(:kind) { :ova }
-
-        # context 'G - All Ages' do
-          # let(:rating) { :g }
-          # it { expect(anime).to_not be_adult }
-        # end
-
-        # context 'R+ - Mild Nudity' do
-          # let(:rating) { :r_plus }
-
-          # context 'TV' do
-            # let(:kind) { :tv }
-            # it { expect(anime).to_not be_adult }
-          # end
-
-          # context 'OVA' do
-            # let(:kind) { :ova }
-
-            # context '1 episode' do
-              # let(:episodes) { 1 }
-              # it { expect(anime).to_not be_adult }
-            # end
-
-            # context '2 episodes' do
-              # let(:episodes) { 2 }
-              # it { expect(anime).to_not be_adult }
-            # end
-
-            # context '3 episodes' do
-              # let(:episodes) { 3 }
-              # it { expect(anime).to_not be_adult }
-            # end
-          # end
-
-          # context 'Special' do
-            # let(:kind) { :special }
-            # it { expect(anime).to_not be_adult }
-          # end
-        # end
-      # end
-
-      # context 'censored' do
-        # let(:anime) { build :anime, censored: censored }
-
-        # context 'false' do
-          # let(:censored) { false }
-          # it { expect(anime).to_not be_adult }
-        # end
-
-        # context 'true' do
-          # let(:censored) { true }
-          # it { expect(anime).to be_adult }
-        # end
-      # end
-    # end
-
     describe '#broadcast_at' do
       include_context :timecop, '06-04-2016'
 
