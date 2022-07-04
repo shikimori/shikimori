@@ -22,19 +22,24 @@ describe Critique do
   end
 
   describe 'instance methods' do
-    describe '#db_entry_type' do
+    describe '#db_entry_type, #censored?' do
       subject { build :critique, target: target }
       let(:target) { nil }
+      let(:is_censored) { [true, false].sample }
+
       its(:db_entry_type) { is_expected.to be_nil }
+      its(:censored?) { is_expected.to be_nil }
 
       context 'anime' do
-        let(:target) { build_stubbed :anime }
+        let(:target) { build_stubbed :anime, is_censored: is_censored }
         its(:db_entry_type) { is_expected.to eq Anime.name }
+        its(:censored?) { is_expected.to eq is_censored }
       end
 
       context 'manga' do
-        let(:target) { build_stubbed :manga }
+        let(:target) { build_stubbed :manga, is_censored: is_censored }
         its(:db_entry_type) { is_expected.to eq Manga.name }
+        its(:censored?) { is_expected.to eq is_censored }
       end
     end
   end

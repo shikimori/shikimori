@@ -29,7 +29,8 @@ describe Topics::Generate::Topic do
           generated: true,
           linked: model,
           user: user,
-          locale: locale
+          locale: locale,
+          is_censored: model.try(:is_censored) || false
         )
 
         if is_broadcast_required
@@ -82,7 +83,7 @@ describe Topics::Generate::Topic do
   end
 
   context 'club' do
-    let(:model) { create :club }
+    let(:model) { create :club, is_censored: [true, false].sample }
     let(:user) { model.owner }
     it_behaves_like :topic
   end

@@ -1,8 +1,13 @@
 describe Review::Create do
   subject(:review) { described_class.call params }
 
-  let(:anime) { create :anime, :released, released_on: released_on }
+  let(:anime) do
+    create :anime, :released,
+      released_on: released_on,
+      is_censored: is_censored
+  end
   let(:released_on) { nil }
+  let(:is_censored) { [true, false].sample }
   let(:params) do
     {
       anime_id: anime.id,
@@ -30,5 +35,6 @@ describe Review::Create do
     )
     expect(review.topics).to have(1).item
     expect(review.topics.first.locale).to eq :ru
+    expect(review.topics.first.is_censored).to eq is_censored
   end
 end

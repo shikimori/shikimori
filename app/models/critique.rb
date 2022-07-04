@@ -29,6 +29,7 @@ class Critique < ApplicationRecord
 
   enumerize :locale, in: %i[ru en], predicates: { prefix: true }
   alias topic_user user
+  delegate :censored?, to: :target, allow_nil: true
 
   scope :available, -> { visible }
 

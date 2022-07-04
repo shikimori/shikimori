@@ -21,7 +21,8 @@ describe Topics::Generate::EntryTopic do
           generated: true,
           linked: model,
           user: user,
-          locale: locale
+          locale: locale,
+          is_censored: model.try(:is_censored) || false
         )
 
         expect(subject.created_at.to_i).to eq model.created_at.to_i
@@ -55,12 +56,12 @@ describe Topics::Generate::EntryTopic do
   end
 
   context 'anime' do
-    let(:model) { create :anime }
+    let(:model) { create :anime, is_censored: [true, false].sample }
     it_behaves_like :topic
   end
 
   context 'manga' do
-    let(:model) { create :manga }
+    let(:model) { create :manga, is_censored: [true, false].sample }
     it_behaves_like :topic
   end
 

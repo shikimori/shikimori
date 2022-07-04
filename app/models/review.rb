@@ -39,17 +39,18 @@ class Review < ApplicationRecord
     uniqueness: { scope: %i[manga_id] },
     if: :manga?
 
-  validates :anime_id, exclusive_arc: %i[manga_id]
-
-  scope :positive, -> { where opinion: Types::Review::Opinion[:positive] }
-  scope :neutral, -> { where opinion: Types::Review::Opinion[:neutral] }
-  scope :negative, -> { where opinion: Types::Review::Opinion[:negative] }
-
   # callbacks
   before_validation :forbid_tags_change,
     if: -> { will_save_change_to_body? && !@is_conversion }
   before_create :fill_is_written_before_release,
     if: -> { is_written_before_release.nil? }
+
+  validates :anime_id, exclusive_arc: %i[manga_id]
+  delegate :censored?, to: :db_entry, allow_nil: true
+
+  scope :positive, -> { where opinion: Types::Review::Opinion[:positive] }
+  scope :neutral, -> { where opinion: Types::Review::Opinion[:neutral] }
+  scope :negative, -> { where opinion: Types::Review::Opinion[:negative] }
 
   def html_body
     BbCodes::Text.call body, object: self

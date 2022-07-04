@@ -23,25 +23,26 @@ class Topics::Generate::Topic
 private
 
   def build_topic
-    if model.respond_to? :topics
-      model.topics.find_by(attributes_of_find_by) ||
-        model.topics.build(topic_attributes)
+    if @model.respond_to? :topics
+      @model.topics.find_by(attributes_of_find_by) ||
+        @model.topics.build(topic_attributes)
     else
-      model.build_topic topic_attributes
+      @model.build_topic topic_attributes
     end
   end
 
   def topic_klass
-    "Topics::EntryTopics::#{model.class.name}Topic".constantize
+    "Topics::EntryTopics::#{@model.class.name}Topic".constantize
   end
 
   def topic_attributes
     {
       forum_id: forum_id,
       generated: true,
-      user: user,
+      user: @user,
       type: topic_klass.name,
-      locale: locale,
+      locale: @locale,
+      is_censored: is_censored,
       created_at: created_at,
       updated_at: updated_at
     }
@@ -61,19 +62,25 @@ private
 
   def forum_id
     @forum_id ||
-      Topic::FORUM_IDS[model.class.name] ||
-      raise(ArgumentError, model.class.name)
+      Topic::FORUM_IDS[@model.class.name] ||
+      raise(ArgumentError, @model.class.name)
+  end
+
+  def is_censored
+    @model.respond_to?(:is_censored) ?
+      @model.is_censored :
+      false
   end
 
   def created_at
-    model.created_at
+    @model.created_at
   end
 
   def updated_at
-    model.updated_at
+    @model.updated_at
   end
 
   def faye_service
-    FayeService.new user, nil
+    FayeService.new @user, nil
   end
 end
