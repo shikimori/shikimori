@@ -75,6 +75,7 @@ ru:
     ranked: По рейтингу
     score: По оценке
     status: По статусу
+    random: Случайно
   answers:
     'no': нет
     'yes': да

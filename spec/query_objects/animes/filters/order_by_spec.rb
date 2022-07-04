@@ -1,6 +1,6 @@
 describe Animes::Filters::OrderBy do
   describe '#call' do
-    subject { described_class.call scope, terms }
+    subject { described_class.call scope, terms, nil }
 
     let(:scope) { Anime.all }
 

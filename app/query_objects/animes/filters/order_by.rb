@@ -1,5 +1,5 @@
 class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable ClassLength
-  method_object :scope, :value
+  method_object :scope, :value, :seed
 
   COMMON_FIELDS = %i[
     name
@@ -127,7 +127,23 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     fail_with_negative! if negatives.any?
     fail_with_scope! if user_rates_sortings? && scope_missing_user_rates?
 
-    @scope.order(self.class.arel_sql(terms: positives, scope: @scope))
+    if @seed.present?
+      # escape bad seed values
+      @seed = rand unless @seed.to_f.between?(0, 1)
+
+      # set deterministic random state
+      ActiveRecord::Base.connection.execute "select setseed(#{@seed.to_f})"
+
+      # query with pseudo random order based on seed value
+      result = @scope.order(self.class.arel_sql(terms: positives, scope: @scope))
+
+      # return to non deterministic state
+      # ActiveRecord::Base.connection.execute "select setseed(#{rand})"
+
+      return result
+    else
+      @scope.order(self.class.arel_sql(terms: positives, scope: @scope))
+    end
   end
 
   def self.arel_sql scope:, term: nil, terms: nil

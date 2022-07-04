@@ -288,7 +288,7 @@ describe Animes::Query do
       before do
         allow(Animes::Filters::OrderBy)
           .to receive(:call)
-          .with(any_args, 'zzz')
+          .with(any_args, 'zzz', nil)
           .and_return animes_scope
       end
 

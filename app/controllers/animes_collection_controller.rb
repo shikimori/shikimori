@@ -178,6 +178,8 @@ private
         i18n_t 'order.by_add_date'
       when 'ranked'
         i18n_t 'order.by_ranking'
+      when 'random'
+        i18n_t 'order.random'
       else
         i18n_t 'order.by_ranking'
     end

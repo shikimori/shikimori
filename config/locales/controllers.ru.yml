@@ -115,6 +115,7 @@ ru:
       by_ranking: по рейтингу
       by_released_date: по дате выхода
       by_add_date: по дате добавления
+      random: случайно
     notice:
       manga: |
         На данной странице отображена %{title}, отсортированная %{order_name}

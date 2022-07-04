@@ -45,7 +45,7 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
     if search_term.present?
       new_scope.search search_term
     elsif is_apply_order
-      new_scope.order_by params[:order]
+      new_scope.order_by params[:order], params[:seed]
     else
       new_scope
     end
@@ -147,10 +147,10 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
     chain Animes::Filters::ByGenre.call(@scope, "!#{excludes.join ',!'}")
   end
 
-  def order_by value
+  def order_by value, seed
     return self if value.blank?
 
-    chain Animes::Filters::OrderBy.call(@scope, value)
+    chain Animes::Filters::OrderBy.call(@scope, value, seed)
   end
 
   def search value

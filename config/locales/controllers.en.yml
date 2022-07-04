@@ -115,6 +115,7 @@ en:
       by_ranking: by ranking
       by_released_date: by release date
       by_add_date: by date when added on site
+      random: random
     notice:
       manga: &manga_variant |
         This page contains search results for %{title} sorted %{order_name}

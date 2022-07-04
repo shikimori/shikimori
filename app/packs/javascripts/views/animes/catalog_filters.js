@@ -231,6 +231,8 @@ export default function(basePath, currentUrl, changeCallback) {
       let path_filters = '';
       const location_filters = urlParse(window.location.href, true).query;
 
+      let should_set_seed = false
+
       Object.forEach(this.params, function(values, field) {
         if (GET_FILTERS.includes(field)) {
           if ((values != null ? values.length : undefined)) {
@@ -245,6 +247,11 @@ export default function(basePath, currentUrl, changeCallback) {
             return;
           }
 
+          if ((field === 'order-by') && (values[0] === 'random')) {
+            console.log(values[0])
+            should_set_seed = true
+          }
+
           return path_filters += `/${field}/${values.join(',')}`;
         }
       });
@@ -253,9 +260,19 @@ export default function(basePath, currentUrl, changeCallback) {
         path_filters += `/page/${page}`;
       }
 
-      return this.last_compiled = new TinyUri(basePath + path_filters)
+      this.last_compiled = new TinyUri(basePath + path_filters)
         .query.set(location_filters)
         .toString();
+
+      if (should_set_seed && !this.last_compiled.includes('?seed=')) {
+        this.last_compiled += `?seed=${Math.random()}`;
+      } else {
+        if (!should_set_seed && this.last_compiled.includes('?seed=')) {
+          this.last_compiled = this.last_compiled.replace(/\?seed=\d+.\d+/, '');          
+        }
+      }
+
+      return this.last_compiled;
     },
 
     last_compiled: null,

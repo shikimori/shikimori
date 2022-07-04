@@ -75,6 +75,7 @@ en:
     ranked: By rank
     score: By score
     status: By status
+    random: By random
   answers:
     'no': 'no'
     'yes': 'yes'
