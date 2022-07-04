@@ -3,7 +3,8 @@
 describe Critique::Create do
   subject(:critique) { Critique::Create.call params, locale }
 
-  let(:anime) { create :anime }
+  let(:anime) { create :anime, is_censored: is_censored }
+  let(:is_censored) { [true, false].sample }
   let(:locale) { :en }
 
   context 'valid params' do
@@ -27,6 +28,7 @@ describe Critique::Create do
 
       expect(critique.topics).to have(1).item
       expect(critique.topics.first.locale).to eq locale.to_s
+      expect(critique.topics.first.is_censored).to eq is_censored
     end
   end
 

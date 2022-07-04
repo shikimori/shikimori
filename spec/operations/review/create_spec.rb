@@ -2,9 +2,7 @@ describe Review::Create do
   subject(:review) { described_class.call params }
 
   let(:anime) do
-    create :anime, :released,
-      released_on: released_on,
-      is_censored: is_censored
+    create :anime, :released, released_on: released_on, is_censored: is_censored
   end
   let(:released_on) { nil }
   let(:is_censored) { [true, false].sample }

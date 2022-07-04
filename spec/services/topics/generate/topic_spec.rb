@@ -30,7 +30,7 @@ describe Topics::Generate::Topic do
           linked: model,
           user: user,
           locale: locale,
-          is_censored: model.try(:is_censored) || false
+          is_censored: model.try(:censored?) || false
         )
 
         if is_broadcast_required
@@ -89,7 +89,8 @@ describe Topics::Generate::Topic do
   end
 
   context 'critique' do
-    let(:model) { create :critique }
+    let(:model) { create :critique, target: anime }
+    let(:anime) { create :anime, is_censored: [true, false].sample }
     let(:user) { model.user }
     it_behaves_like :topic
   end

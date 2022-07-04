@@ -42,7 +42,7 @@ private
       user: @user,
       type: topic_klass.name,
       locale: @locale,
-      is_censored: is_censored,
+      is_censored: censored?,
       created_at: created_at,
       updated_at: updated_at
     }
@@ -66,10 +66,8 @@ private
       raise(ArgumentError, @model.class.name)
   end
 
-  def is_censored
-    @model.respond_to?(:is_censored) ?
-      @model.is_censored :
-      false
+  def censored?
+    @model.respond_to?(:censored?) ? @model.censored? : false
   end
 
   def created_at

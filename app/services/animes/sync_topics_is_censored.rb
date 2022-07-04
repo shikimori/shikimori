@@ -2,10 +2,10 @@ class Animes::SyncTopicsIsCensored
   method_object :entry
 
   def call
-    @entry.all_topics.update_all is_censored: @entry.is_censored
+    @entry.all_topics.update_all is_censored: @entry.censored?
     critiques_scope
       .or(reviews_scope)
-      .update_all is_censored: @entry.is_censored
+      .update_all is_censored: @entry.censored?
   end
 
 private
