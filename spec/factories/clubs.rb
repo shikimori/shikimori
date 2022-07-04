@@ -15,17 +15,25 @@ FactoryBot.define do
       stub_method model, :add_to_index
       stub_method model, :join_owner
       stub_method model, :assign_style
+      stub_method model, :sync_topics_is_censored
     end
 
     trait :with_antispam do
       after(:build) { |model| unstub_method model, :antispam_checks }
     end
+
     trait :with_owner_join do
       after(:build) { |model| unstub_method model, :join_owner }
     end
+
     trait :with_assign_style do
       after(:build) { |model| unstub_method model, :assign_style }
     end
+
+    trait :with_sync_topics_is_censored do
+      after(:build) { |model| unstub_method model, :sync_topics_is_censored }
+    end
+
     trait :with_topics do
       after(:create) { |model| model.generate_topics model.locale }
     end

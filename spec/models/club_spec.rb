@@ -621,6 +621,20 @@ describe Club do
       describe '#topic_user' do
         it { expect(model.topic_user).to eq model.owner }
       end
+
+      describe '#sync_topics_is_censored' do
+        let(:club) { create :club, :with_sync_topics_is_censored }
+        before do
+          allow(Clubs::SyncTopicsIsCensored).to receive :call
+          club.update is_censored: !club.is_censored
+        end
+
+        it do
+          expect(Clubs::SyncTopicsIsCensored)
+            .to have_received(:call)
+            .with club
+        end
+      end
     end
   end
 

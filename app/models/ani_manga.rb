@@ -20,10 +20,7 @@ module AniManga
     validates :name, :english, :russian, :japanese, :franchise, :license_name_ru,
       length: { maximum: 255 }
 
-    after_save :sync_topics_is_censored, if: -> {
-      saved_change_to_is_censored? &&
-        !saved_change_to_id?
-    }
+    after_update :sync_topics_is_censored, if: :saved_change_to_is_censored?
   end
 
   def year

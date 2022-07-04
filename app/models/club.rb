@@ -128,6 +128,7 @@ class Club < ApplicationRecord
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
 
   after_create :join_owner
+  after_update :sync_topics_is_censored, if: :saved_change_to_is_censored?
 
   def to_param
     "#{id}-#{name.permalinked}"
@@ -223,5 +224,9 @@ private
 
   def special_club?
     SPECIAL_CLUB_IDS.include? id
+  end
+
+  def sync_topics_is_censored
+    Clubs::SyncTopicsIsCensored.call self
   end
 end
