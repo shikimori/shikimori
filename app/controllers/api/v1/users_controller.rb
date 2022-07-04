@@ -128,6 +128,7 @@ class Api::V1::UsersController < Api::V1Controller
     respond_with(
       animes: view.animes.map { |v| FavouriteSerializer.new v },
       mangas: view.mangas.map { |v| FavouriteSerializer.new v },
+      ranobe: view.ranobe.map { |v| FavouriteSerializer.new v },
       characters: view.characters.map { |v| FavouriteSerializer.new v },
       people: view.people.map { |v| FavouriteSerializer.new v },
       mangakas: view.mangakas.map { |v| FavouriteSerializer.new v },
