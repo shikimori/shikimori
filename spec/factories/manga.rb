@@ -32,10 +32,15 @@ FactoryBot.define do
     after :build do |model|
       stub_method model, :generate_name_matches
       stub_method model, :touch_related
+      stub_method model, :sync_topics_is_censored
     end
 
     trait :with_topics do
       after(:create) { |model| model.generate_topics :ru }
+    end
+
+    trait :with_sync_topics_is_censored do
+      after(:build) { |model| unstub_method model, :sync_topics_is_censored }
     end
 
     Manga.kind.values.each do |kind_type|

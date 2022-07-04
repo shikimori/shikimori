@@ -75,6 +75,20 @@ describe Manga do
         it { expect(manga.type).to eq Ranobe.name }
       end
     end
+
+    describe '#sync_topics_is_censored' do
+      let(:entry) { create :manga, :with_sync_topics_is_censored }
+      before do
+        allow(Animes::SyncTopicsIsCensored).to receive :call
+        entry.update is_censored: !entry.is_censored
+      end
+
+      it do
+        expect(Animes::SyncTopicsIsCensored)
+          .to have_received(:call)
+          .with entry
+      end
+    end
   end
 
   describe 'instance methods' do

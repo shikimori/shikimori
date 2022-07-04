@@ -19,6 +19,11 @@ module AniManga
     validates :description_ru, :description_en, length: { maximum: 16_384 }
     validates :name, :english, :russian, :japanese, :franchise, :license_name_ru,
       length: { maximum: 255 }
+
+    after_save :sync_topics_is_censored, if: -> {
+      saved_change_to_is_censored? &&
+        !saved_change_to_id?
+    }
   end
 
   def year
@@ -65,5 +70,11 @@ module AniManga
     rkn_abused? && !@is_mal_import ?
       nil :
       attributes['image_file_name']
+  end
+
+private
+
+  def sync_topics_is_censored
+    Animes::SyncTopicsIsCensored.call self
   end
 end

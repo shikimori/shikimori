@@ -177,17 +177,17 @@ describe Anime do
       end
     end
 
-    describe 'sync_topics_is_censored' do
-      let(:anime) { create :anime, :with_sync_topics_is_censored }
+    describe '#sync_topics_is_censored' do
+      let(:entry) { create :anime, :with_sync_topics_is_censored }
       before do
         allow(Animes::SyncTopicsIsCensored).to receive :call
-        anime.update is_censored: !anime.is_censored
+        entry.update is_censored: !entry.is_censored
       end
 
       it do
         expect(Animes::SyncTopicsIsCensored)
           .to have_received(:call)
-          .with anime
+          .with entry
       end
     end
   end
