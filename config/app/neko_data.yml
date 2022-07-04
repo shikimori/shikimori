@@ -5273,6 +5273,9 @@
         - 36827
         - 38540
         - 33308
+        - 48363
+        - 48916
+        - 40879
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5776,6 +5779,9 @@
         - 36827
         - 38540
         - 33308
+        - 48363
+        - 48916
+        - 40879
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -6280,6 +6286,9 @@
         - 36827
         - 38540
         - 33308
+        - 48363
+        - 48916
+        - 40879
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -38938,6 +38947,8 @@
         - 43608
         - 36885
         - 44037
+        - 39071
+        - 42745
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -40052,6 +40063,8 @@
         - 43608
         - 36885
         - 44037
+        - 39071
+        - 42745
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -41166,6 +41179,8 @@
         - 43608
         - 36885
         - 44037
+        - 39071
+        - 42745
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
