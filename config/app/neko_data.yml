@@ -4466,6 +4466,8 @@
         - 7446
         - 51595
         - 51248
+        - 52230
+        - 52235
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
