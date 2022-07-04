@@ -60,9 +60,9 @@ private
   end
 
   def new_release?
-    return false if released_on.try :<, NEW_RELEASE_INTERVAL_FOR_RELEASED_ON.ago
-    return true if released_on.try :>=, NEW_RELEASE_INTERVAL_FOR_RELEASED_ON.ago
-    return true if aired_on.try :>=, NEW_RELEASE_INTERVAL_FOR_AIRED_ON.ago
+    return false if released_on.try :<, NEW_RELEASE_INTERVAL_FOR_RELEASED_ON.ago.to_date
+    return true if released_on.try :>=, NEW_RELEASE_INTERVAL_FOR_RELEASED_ON.ago.to_date
+    return true if aired_on.try :>=, NEW_RELEASE_INTERVAL_FOR_AIRED_ON.ago.to_date
 
     false
   end

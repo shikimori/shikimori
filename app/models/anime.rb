@@ -260,7 +260,11 @@ class Anime < DbEntry
 
   before_save :track_changes
   after_create :generate_name_matches
-  after_save :generate_news, if: -> { saved_change_to_status? }
+  after_save :generate_news, if: :saved_change_to_status?
+  after_save :sync_topics_is_censored, if: -> {
+    saved_change_to_is_censored? &&
+      !saved_change_to_id?
+  }
 
   def episodes= value
     value.blank? ? super(0) : super(value)
@@ -315,5 +319,9 @@ private
 
   def generate_news
     Animes::GenerateNews.call self, *saved_changes[:status]
+  end
+
+  def sync_topics_is_censored
+    Animes::SyncTopicsIsCensored.call self
   end
 end

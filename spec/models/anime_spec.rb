@@ -79,7 +79,7 @@ describe Anime do
   end
 
   describe 'callbacks' do
-    describe 'news topics generation' do
+    describe '#generate_news' do
       context 'news topics already generated' do
         let(:anime) { create :anime, :with_callbacks, status: :ongoing }
 
@@ -174,6 +174,20 @@ describe Anime do
             expect(anime.released_news_topics).to have(2).items
           end
         end
+      end
+    end
+
+    describe 'sync_topics_is_censored' do
+      let(:anime) { create :anime, :with_sync_topics_is_censored }
+      before do
+        allow(Animes::SyncTopicsIsCensored).to receive :call
+        anime.update is_censored: !anime.is_censored
+      end
+
+      it do
+        expect(Animes::SyncTopicsIsCensored)
+          .to have_received(:call)
+          .with anime
       end
     end
   end

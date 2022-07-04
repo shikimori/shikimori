@@ -32,6 +32,7 @@ FactoryBot.define do
       stub_method model, :track_changes
       stub_method model, :generate_news
       stub_method model, :generate_name_matches
+      stub_method model, :sync_topics_is_censored
 
       stub_method model, :touch_related
     end
@@ -45,6 +46,10 @@ FactoryBot.define do
         unstub_method model, :track_changes
         unstub_method model, :generate_news
       end
+    end
+
+    trait :with_sync_topics_is_censored do
+      after(:build) { |model| unstub_method model, :sync_topics_is_censored }
     end
 
     trait :with_topics do
