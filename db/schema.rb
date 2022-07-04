@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_30_002003) do
+ActiveRecord::Schema.define(version: 2022_07_03_225015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -173,7 +173,7 @@ ActiveRecord::Schema.define(version: 2022_06_30_002003) do
     t.date "digital_released_on"
     t.date "russia_released_on"
     t.decimal "score_2", default: "0.0", null: false
-    t.text "russia_released_on_hint", default: "", null: false
+    t.text "russia_released_on_hint"
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["rating"], name: "index_animes_on_rating"
@@ -358,6 +358,7 @@ ActiveRecord::Schema.define(version: 2022_06_30_002003) do
     t.text "tags", default: [], null: false, array: true
     t.integer "links_count", default: 0, null: false
     t.boolean "is_spoilers", default: false, null: false
+    t.boolean "is_adult", default: false, null: false
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
@@ -789,7 +790,7 @@ ActiveRecord::Schema.define(version: 2022_06_30_002003) do
     t.text "desynced", default: [], null: false, array: true
     t.string "russian", default: "", null: false
     t.integer "mal_id"
-    t.date "deceased_on"
+    t.date "date_of_death"
     t.index ["name"], name: "index_people_on_name"
   end
 

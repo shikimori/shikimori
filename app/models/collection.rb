@@ -4,7 +4,7 @@ class Collection < ApplicationRecord
   include TopicsConcern
   include ModeratableConcern
 
-  boolean_attributes :spoilers
+  boolean_attributes :spoilers, :adult
 
   antispam(
     per_day: 5,

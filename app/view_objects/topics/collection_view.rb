@@ -45,6 +45,11 @@ class Topics::CollectionView < Topics::UserContentView
       text: h.t('.spoilers').downcase
     ) if collection.is_spoilers?
 
+    tags << OpenStruct.new(
+      type: 'is_adult',
+      text: h.t('.is_adult').downcase
+    ) if collection.is_adult?
+
     tags
   end
 

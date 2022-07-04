@@ -13,6 +13,7 @@ ru:
         topic_ignored: &ignored в игноре
         topic_closed: закрыт
         spoilers: Спойлеры
+        is_adult: 18+
       common:
         <<: *header_mini
         about: о
