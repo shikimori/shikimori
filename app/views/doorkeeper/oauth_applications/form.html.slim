@@ -45,7 +45,6 @@ header.head.misc
           p = @resource.secret
 
   = f.input :redirect_uri,
-    as: :string,
     hint: "Set <span class='b-js-link sample'>#{Doorkeeper.configuration.native_redirect_uri}</span> for mobile and standalone apps".html_safe
 
   .cc-2
