@@ -358,7 +358,7 @@ ActiveRecord::Schema.define(version: 2022_07_03_225015) do
     t.text "tags", default: [], null: false, array: true
     t.integer "links_count", default: 0, null: false
     t.boolean "is_spoilers", default: false, null: false
-    t.boolean "is_adult", default: false, null: false
+    t.boolean "is_censored", default: false, null: false
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 

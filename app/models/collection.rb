@@ -4,7 +4,7 @@ class Collection < ApplicationRecord
   include TopicsConcern
   include ModeratableConcern
 
-  boolean_attributes :spoilers, :adult
+  boolean_attributes :spoilers, :censored
 
   antispam(
     per_day: 5,
@@ -13,6 +13,8 @@ class Collection < ApplicationRecord
 
   acts_as_votable cacheable_strategy: :update_columns
   update_index('collections#collection') { self if saved_change_to_name? }
+
+  after_update :sync_topics_is_censored, if: :saved_change_to_is_censored?
 
   belongs_to :user,
     touch: Rails.env.test? ? false : :activity_at
@@ -110,6 +112,10 @@ class Collection < ApplicationRecord
 
   def collection_role user
     collection_roles.find { |v| v.user_id == user.id }
+  end
+
+  def sync_topics_is_censored
+    Collections::SyncTopicsIsCensored.call self
   end
 
 # private

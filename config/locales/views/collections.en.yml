@@ -32,7 +32,7 @@ en:
       to_collection: To collection
       coauthors: Coauthors
       is_spoilers: Contains spoilers
-      is_adult: 18+
+      is_censored: 18+
       confirm_status_change: >-
         Confirm status change. It will cause page reload,
         make sure the collection is saved before changing.

@@ -33,13 +33,13 @@ header.head.misc
 
           .b-input
             label.checkbox
-              = f.check_box :is_spoilers, checked: @resource.is_spoilers?, value: @resource.is_spoilers?
+              = f.check_box :is_spoilers, checked: @resource.spoilers?, value: @resource.spoilers?
               = t('.is_spoilers')
 
           .b-input
             label.checkbox
-              = f.check_box :is_adult, checked: @resource.is_adult?, value: @resource.is_adult?
-              = t('.is_adult')
+              = f.check_box :is_censored, checked: @resource.censored?, value: @resource.censored?
+              = t('.is_censored')
 
           = f.input :tags,
             input_html: { value: f.object.tags&.join(','), class: 'w-100' },

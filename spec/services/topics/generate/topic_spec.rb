@@ -88,6 +88,12 @@ describe Topics::Generate::Topic do
     it_behaves_like :topic
   end
 
+  context 'collection' do
+    let(:model) { create :collection, is_censored: [true, false].sample }
+    let(:user) { model.user }
+    it_behaves_like :topic
+  end
+
   context 'critique' do
     let(:model) { create :critique, target: anime }
     let(:anime) { create :anime, is_censored: [true, false].sample }
