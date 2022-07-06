@@ -353,15 +353,20 @@ class User < ApplicationRecord
   end
 
   def avatar_url size, ignore_censored = false
+    url = ImageUrlGenerator.instance.url self, "x#{size}".to_sym
+
     if !ignore_censored && (censored_avatar? || forever_banned?)
-      format(
-        '//www.gravatar.com/avatar/%<email_hash>s?s=%<size>i&d=identicon',
-        email_hash: Digest::MD5.hexdigest('takandar+censored@gmail.com'),
-        size: size
-      )
-    else
-      ImageUrlGenerator.instance.url self, "x#{size}".to_sym
+      # format(
+      #   '//www.gravatar.com/avatar/%<email_hash>s?s=%<size>i&d=identicon',
+      #   email_hash: Digest::MD5.hexdigest('takandar+censored@gmail.com'),
+      #   size: size
+      # )
+      url = url.gsub("/#{id}.png", '/3.png')
+    # else
+    #   ImageUrlGenerator.instance.url self, "x#{size}".to_sym
     end
+
+    url
   end
 
   def forever_banned?
