@@ -26,7 +26,12 @@ class Topics::CollectionView < Topics::UserContentView
   end
 
   def action_tag
-    tags = super
+    tags = []
+
+    tags << OpenStruct.new(
+      type: 'collection',
+      text: Collection.model_name.human.downcase
+    )
 
     unless collection.published?
       tags << OpenStruct.new(
@@ -35,17 +40,14 @@ class Topics::CollectionView < Topics::UserContentView
       )
     end
 
-    tags << OpenStruct.new(
-      type: 'collection',
-      text: Collection.model_name.human.downcase
-    )
+    if collection.spoilers?
+      tags << OpenStruct.new(
+        type: 'spoilers',
+        text: h.t('.spoilers').downcase
+      )
+    end
 
-    tags << OpenStruct.new(
-      type: 'spoilers',
-      text: h.t('.spoilers').downcase
-    ) if collection.spoilers?
-
-    tags
+    super tags
   end
 
   def offtopic_tag

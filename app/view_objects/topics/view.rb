@@ -79,7 +79,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     ).compact
   end
 
-  def action_tag
+  def action_tag additional = []
     tags = []
 
     tags << OpenStruct.new(
@@ -87,7 +87,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       text: h.t('.censored').downcase
     ) if @topic.censored?
 
-    tags
+    (Array(additional) + tags).compact
   end
 
   def poster_title

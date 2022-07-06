@@ -22,7 +22,7 @@ class Topics::ReviewView < Topics::UserContentView
   end
 
   def action_tag
-    [
+    super [
       OpenStruct.new(
         type: 'review',
         text: i18n_i('review', :one)
