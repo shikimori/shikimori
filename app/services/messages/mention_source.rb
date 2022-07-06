@@ -34,7 +34,7 @@ class Messages::MentionSource
   def call
     i18n_t(
       i18n_key,
-      name: linked_name.html_safe ? linked_name : ERB::Util.h(linked_name),
+      name: linked_name&.html_safe? ? linked_name : ERB::Util.h(linked_name),
       url: "#{mention_url @linked}#{comment_hash}",
       bubble: link_bubble
     ).html_safe
