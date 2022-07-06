@@ -73,6 +73,8 @@ ru:
     volumes: По числу томов
     popularity: По популярности
     ranked: По рейтингу
+    ranked_random: Случайно
+    ranked_shiki: По рейтингу Шикимори
     score: По оценке
     status: По статусу
   answers:

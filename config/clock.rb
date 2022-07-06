@@ -232,4 +232,14 @@ module Clockwork
 
     NamedLogger.clockwork.info 'daily.schedule_scores_refresh finished'
   end
+
+  every 1.day, 'daily.ranked_recalculation', at: '23:55' do
+    DbEntries::RecalculateRanked.perform_async Anime.name, :random
+    DbEntries::RecalculateRanked.perform_async Anime.name, :shiki
+    
+    DbEntries::RecalculateRanked.perform_async Manga.name, :random
+    DbEntries::RecalculateRanked.perform_async Manga.name, :shiki
+
+    NamedLogger.clockwork.info 'daily.ranked_recalculation finished'
+  end
 end

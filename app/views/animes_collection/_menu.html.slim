@@ -102,6 +102,14 @@
           data-field='order-by'
           data-value='aired_on'
         ] = t 'by.aired_on'
+        li[
+          data-field='order-by'
+          data-value='ranked_random'
+        ] = t 'by.ranked_random'
+        /li[
+          data-field='order-by'
+          data-value='ranked_shiki'
+        /] = t 'by.ranked_shiki'
 
         - if local_assigns[:in_user_profile]
           li[

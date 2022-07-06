@@ -2,6 +2,8 @@ FactoryBot.define do
   factory :manga do
     sequence(:name) { |n| "manga_#{n}" }
     sequence(:ranked)
+    sequence(:ranked_shiki)
+    sequence(:ranked_random)
     sequence(:russian) { |n| "манга_#{n}" }
     description_ru { '' }
     description_en { '' }
