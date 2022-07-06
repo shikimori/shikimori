@@ -7,18 +7,18 @@ class UserSerializer < ActiveModel::Serializer
     :url
 
   def avatar
-    ImageUrlGenerator.instance.url object, :x48
+    object.avatar_url(48)
   end
 
   def image
     {
-      x160: ImageUrlGenerator.instance.url(object, :x160),
-      x148: ImageUrlGenerator.instance.url(object, :x148),
-      x80: ImageUrlGenerator.instance.url(object, :x80),
-      x64: ImageUrlGenerator.instance.url(object, :x64),
-      x48: ImageUrlGenerator.instance.url(object, :x48),
-      x32: ImageUrlGenerator.instance.url(object, :x32),
-      x16: ImageUrlGenerator.instance.url(object, :x16)
+      x160: object.avatar_url(160),
+      x148: object.avatar_url(148),
+      x80: object.avatar_url(80),
+      x64: object.avatar_url(64),
+      x48: object.avatar_url(48),
+      x32: object.avatar_url(32),
+      x16: object.avatar_url(16)
     }
   end
 
