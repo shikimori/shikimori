@@ -255,6 +255,20 @@ describe Collection do
     describe '#topic_user' do
       it { expect(model.topic_user).to eq model.user }
     end
+
+    describe '#sync_topics_is_censored' do
+      let(:collection) { create :collection, :with_sync_topics_is_censored }
+      before do
+        allow(Collections::SyncTopicsIsCensored).to receive :call
+        collection.update is_censored: !collection.is_censored
+      end
+
+      it do
+        expect(Collections::SyncTopicsIsCensored)
+          .to have_received(:call)
+          .with collection
+      end
+    end
   end
 
   it_behaves_like :antispam_concern, :collection
