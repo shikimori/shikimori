@@ -7,18 +7,18 @@ class UserSerializer < ActiveModel::Serializer
     :url
 
   def avatar
-    object.avatar_url(48)
+    object.avatar_url(48, own_profile?)
   end
 
   def image
     {
-      x160: object.avatar_url(160),
-      x148: object.avatar_url(148),
-      x80: object.avatar_url(80),
-      x64: object.avatar_url(64),
-      x48: object.avatar_url(48),
-      x32: object.avatar_url(32),
-      x16: object.avatar_url(16)
+      x160: object.avatar_url(160, own_profile?),
+      x148: object.avatar_url(148, own_profile?),
+      x80: object.avatar_url(80, own_profile?),
+      x64: object.avatar_url(64, own_profile?),
+      x48: object.avatar_url(48, own_profile?),
+      x32: object.avatar_url(32, own_profile?),
+      x16: object.avatar_url(16, own_profile?)
     }
   end
 
@@ -28,5 +28,13 @@ class UserSerializer < ActiveModel::Serializer
 
   def url
     UrlGenerator.instance.profile_url(object)
+  end
+
+private
+
+  def own_profile?
+    scope.respond_to?(:user_signed_in?) &&
+      scope.user_signed_in? &&
+      scope.current_user.id == object.id
   end
 end
