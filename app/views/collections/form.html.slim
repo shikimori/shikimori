@@ -31,7 +31,8 @@ header.head.misc
             include_blank: false,
             disabled: @resource.persisted?
           = f.input :is_spoilers
-          = f.input :is_censored
+          .hidden
+            = f.input :is_censored
 
           = f.input :tags,
             input_html: { value: f.object.tags&.join(','), class: 'w-100' },
