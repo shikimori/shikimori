@@ -26,7 +26,7 @@ class Topics::CollectionView < Topics::UserContentView
   end
 
   def action_tag
-    tags = Array(super)
+    tags = super
 
     unless collection.published?
       tags << OpenStruct.new(
@@ -43,7 +43,7 @@ class Topics::CollectionView < Topics::UserContentView
     tags << OpenStruct.new(
       type: 'spoilers',
       text: h.t('.spoilers').downcase
-    ) if collection.is_spoilers?
+    ) if collection.spoilers?
 
     tags
   end

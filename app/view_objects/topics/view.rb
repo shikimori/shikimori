@@ -80,6 +80,14 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def action_tag
+    tags = []
+
+    tags << OpenStruct.new(
+      type: 'censored',
+      text: h.t('.censored').downcase
+    ) if @topic.censored?
+
+    tags
   end
 
   def poster_title

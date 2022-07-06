@@ -69,6 +69,8 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
 
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
 
+  boolean_attribute :censored
+
   has_many :messages,
     -> { where linked_type: Topic.name },
     inverse_of: :linked,
