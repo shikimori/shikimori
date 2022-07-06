@@ -1,4 +1,6 @@
 class Topics::NewsView < Topics::View
+  delegate :title, to: :topic
+
   def container_classes additional = []
     super(
       ['b-news-topic', *additional]
@@ -9,18 +11,14 @@ class Topics::NewsView < Topics::View
     decomposed_body.source.present?
   end
 
-  def topic_title
-    topic.title
-  end
-
   def topic_title_html
     topic_title
   end
 
-  def action_tag
-    super OpenStruct.new(
-      type: 'news',
-      text: i18n_i('news', :one)
+  def action_tag additional = []
+    super(
+      [OpenStruct.new(type: 'news', text: i18n_i('news', :one))] +
+        Array(additional)
     )
   end
 end
