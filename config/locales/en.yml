@@ -290,6 +290,8 @@ en:
         state/opened: Opened
         user: Creator
         tags: Tags
+        is_spoilers: Contains spoilers
+        is_censored: 18+
         <<: *moderation_states
       article:
         name: Name

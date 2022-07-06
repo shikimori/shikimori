@@ -290,6 +290,8 @@ ru:
         state/opened: Открытая
         user: Создатель
         tags: Теги
+        is_spoilers: Содержит спойлеры
+        is_censored: 18+
         <<: *moderation_states
       collection_link:
         group: Группа
