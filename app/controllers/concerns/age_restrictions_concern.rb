@@ -13,18 +13,7 @@ module AgeRestrictionsConcern
   end
 
   def age_below_18?
-    censored_full_years && censored_full_years < 18
-  end
-
-  def censored_full_years
-    return unless current_user&.birth_on
-
-    @censored_full_years ||= begin
-      years = DateTime.now.year - current_user.birth_on.year
-      Date.parse(DateTime.now.to_s) - years.years + 1.day > current_user.birth_on ?
-        years :
-        years - 1
-    end
+    current_user.age && current_user.age < 18
   end
 
   def verify_age_restricted! collection # rubocop:disable PerceivedComplexity, CyclomaticComplexity

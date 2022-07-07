@@ -75,7 +75,7 @@ describe User do
   let(:user_2) { create :user }
   let(:topic) { create :topic }
 
-  describe 'cllbacks' do
+  describe 'callbacks' do
     describe '#fill_notification_settings' do
       let(:user) { User.new }
       it { expect(user.notification_settings).to eq Types::User::NotificationSettings.values }
@@ -308,6 +308,14 @@ describe User do
           ]
         end
         its(:excluded_from_statistics?) { is_expected.to eq true }
+      end
+    end
+
+    describe '#age' do
+      let(:user) { build :user, birth_on: Time.zone.today - 18.years }
+
+      context 'correctly calculated with birth_on' do
+        it { expect(user.age).to eq 18 }
       end
     end
   end

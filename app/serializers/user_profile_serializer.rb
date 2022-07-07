@@ -5,7 +5,11 @@ class UserProfileSerializer < UserSerializer
     :common_info, :show_comments, :in_friends, :is_ignored,
     :stats, :style_id
 
-  delegate :common_info, :full_years, to: :view
+  delegate :common_info, to: :view
+
+  def full_years
+    object.age if object.preferences.show_age?
+  end
 
   def name
     nil

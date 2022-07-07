@@ -242,6 +242,7 @@ en:
         show_social_buttons: Show Social Media Icons
         volumes_in_manga: Show Manga Volumes
         is_shiki_editor: New WYSIWYG Text Editor
+        is_censored_topics: Show 18+ topics
       anime_video:
         url: Video Link
         episode: Episode

@@ -180,6 +180,7 @@ en:
         ignored_topics: Ignored topics
         ignored_users: Ignored users
         show_list_of_ignored: See list
+        is_censored_topics_hint: Set your birthday in account settings
 
       ignored_topics:
         topic_name: Topic name
