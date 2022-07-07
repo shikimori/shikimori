@@ -37,11 +37,9 @@ class BbCodes::CleanupCssClass
   def call
     return @value if @value.blank?
 
-    ERB::Util.h(
-      @value
-        .gsub(CLEANUP_REGEXP, '')
-        .gsub(/\s\s+/, ' ')
-        .strip
-    )
+    result = @value.gsub(CLEANUP_REGEXP, '').gsub(/\s\s+/, ' ').strip
+    return '' if result.match? CLEANUP_REGEXP
+
+    ERB::Util.h result
   end
 end
