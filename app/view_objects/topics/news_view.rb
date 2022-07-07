@@ -1,6 +1,4 @@
 class Topics::NewsView < Topics::View
-  delegate :title, to: :topic
-
   def container_classes additional = []
     super(
       ['b-news-topic', *additional]
@@ -9,6 +7,10 @@ class Topics::NewsView < Topics::View
 
   def show_source?
     decomposed_body.source.present?
+  end
+
+  def topic_title
+    topic.title
   end
 
   def topic_title_html
