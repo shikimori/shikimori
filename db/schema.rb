@@ -1113,7 +1113,11 @@ ActiveRecord::Schema.define(version: 2022_07_07_131139) do
     t.boolean "achievements_in_profile", default: true, null: false
     t.string "dashboard_type", default: "new", null: false
     t.boolean "is_shiki_editor", default: false, null: false
+<<<<<<< HEAD
     t.boolean "is_censored_topics", default: false, null: false
+=======
+    t.boolean "is_show_age", default: true, null: false
+>>>>>>> 38f0468628a76e24360c473892fd369a4c270fce
     t.index ["user_id"], name: "index_profile_settings_on_user_id"
   end
 

@@ -67,9 +67,11 @@ class Profiles::View < ViewObjectBase
         info << i18n_t('male') if @user.male?
         info << i18n_t('female') if @user.female?
       end
-      if @user.birth_on.present? && @user.age > 12
+
+      if @user.birth_on.present? && full_years > 12 && @user.preferences.show_age?
         info << "#{@user.age} #{i18n_i 'years_old', @user.age}"
       end
+
       # info << @user.location
       info << @user.website
 

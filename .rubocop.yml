@@ -128,6 +128,8 @@ Rails/OutputSafety:
   Enabled: false
 Rails/SkipsModelValidations:
   Enabled: false
+Rails/Delegate:
+  EnforceForPrefixed: false
 
 Style/StringLiterals:
   Description: Checks if uses of quotes match the configured preference.
