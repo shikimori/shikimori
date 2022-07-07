@@ -30,7 +30,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   ] + [{
     ignored_user_ids: [],
     notification_settings: [],
-    preferences_attributes: %i[id russian_names russian_genres]
+    preferences_attributes: %i[id russian_names russian_genres is_show_age]
   }]
 
   def show

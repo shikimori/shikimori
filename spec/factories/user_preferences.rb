@@ -13,5 +13,6 @@ FactoryBot.define do
         Topic::FORUM_IDS['CosplayGallery']
       ]
     end
+    is_show_age { true }
   end
 end
