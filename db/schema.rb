@@ -688,8 +688,6 @@ ActiveRecord::Schema.define(version: 2022_07_06_223016) do
     t.string "licensors", default: [], null: false, array: true
     t.decimal "score_2", default: "0.0", null: false
     t.string "options", default: [], null: false, array: true
-    t.integer "ranked_random"
-    t.integer "ranked_shiki"
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"
