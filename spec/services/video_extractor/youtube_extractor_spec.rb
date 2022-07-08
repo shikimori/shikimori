@@ -118,8 +118,15 @@ describe VideoExtractor::YoutubeExtractor do
     end
 
     context 'invalid url' do
-      let(:url) { 'http://vk.com/video98023184_165811692zzz' }
-      it { is_expected.to be_nil }
+      context 'sample' do
+        let(:url) { 'https//youtube.com/ //?v=_' }
+        it { is_expected.to be_nil }
+      end
+
+      context 'sample' do
+        let(:url) { 'http://vk.com/video98023184_165811692zzz' }
+        it { is_expected.to be_nil }
+      end
     end
   end
 

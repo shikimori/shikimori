@@ -30,6 +30,9 @@
           start_year: Time.zone.today.year - 90,
           end_year: Time.zone.today.year - 8
 
+        = f.simple_fields_for :preferences do |fp|
+          = fp.input :is_show_age
+
     .c-column.block_m
       .block
         = f.input :locale, include_blank: false

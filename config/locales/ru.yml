@@ -231,6 +231,7 @@ ru:
         comment_policy: Могут комментировать мой профиль
         comments_in_profile: Отображать комментарии в профиле
         achievements_in_profile: Отображать ачивки в профиле
+        is_show_age: Отображать возраст в профиле
         is_comments_auto_collapsed: Сворачивать длинные комментарии
         is_comments_auto_loaded: Автоподгрузка новых комментариев
         list_privacy: Могут видеть мой список
@@ -290,6 +291,8 @@ ru:
         state/opened: Открытая
         user: Создатель
         tags: Теги
+        is_spoilers: Содержит спойлеры
+        is_censored: 18+
         <<: *moderation_states
       collection_link:
         group: Группа

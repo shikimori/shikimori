@@ -5,6 +5,11 @@ describe BbCodes::CleanupCssClass do
     let(:value) { ' test b-feedback  "zxc ' }
     it { is_expected.to eq 'test &quot;zxc' }
     it { is_expected.to be_html_safe }
+
+    context 'nested value' do
+      let(:value) { ' test bshade-feedback  "zxc ' }
+      it { is_expected.to eq '' }
+    end
   end
 
   context 'no value' do

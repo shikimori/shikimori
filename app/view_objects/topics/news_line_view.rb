@@ -27,9 +27,11 @@ class Topics::NewsLineView < Topics::View
   end
 
   def action_tag
-    view.action_tag || OpenStruct.new(
-      type: 'other',
-      text: db_entry_topic? ? @topic.title.downcase : i18n_i('topic', :one)
+    view.action_tag.presence || super(
+      OpenStruct.new(
+        type: 'other',
+        text: db_entry_topic? ? @topic.title.downcase : i18n_i('topic', :one)
+      )
     )
   end
 

@@ -28,9 +28,9 @@ class Topics::CosplayView < Topics::UserContentView
   end
 
   def action_tag
-    return unless minified?
+    return super unless minified?
 
-    OpenStruct.new(
+    super OpenStruct.new(
       type: 'cosplay',
       text: h.t('cosplay').downcase
     )

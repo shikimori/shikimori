@@ -6,7 +6,7 @@ class Changelog::LogDestroy < Changelog::LogUpdate
       user_id: @actor.id,
       action: :destroy,
       id: @model.id,
-      model: @model
+      model: @model.to_json
     )
   end
 

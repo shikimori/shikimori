@@ -1,5 +1,5 @@
 <template lang='pug'>
-.b-input
+.b-input.m20
   label
     | {{ label }}
     VueTagsInput(

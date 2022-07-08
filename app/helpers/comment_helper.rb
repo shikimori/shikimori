@@ -24,7 +24,7 @@ module CommentHelper
     text.gsub(/\[(anime|manga)_poster=(\d+)\]/) do
       entry = (Regexp.last_match(1) == 'anime' ? Anime : Manga).find_by_id(Regexp.last_match(2))
       if entry
-        "<a href=\"#{url_for entry}\" title=\"#{entry.name}\"><img class=\"poster-image\" src=\"#{ImageUrlGenerator.instance.url entry, :preview}\" srcset=\"#{ImageUrlGenerator.instance.url entry, :original} 2x\" title=\"#{entry.name}\" alt=\"#{entry.name}\"/></a>"
+        "<a href=\"#{url_for entry}\" title=\"#{ERB::Util.h entry.name}\"><img class=\"poster-image\" src=\"#{ImageUrlGenerator.instance.url entry, :preview}\" srcset=\"#{ImageUrlGenerator.instance.url entry, :original} 2x\" title=\"#{ERB::Util.h entry.name}\" alt=\"#{ERB::Util.h entry.name}\"/></a>"
       else
         ''
       end
@@ -49,7 +49,13 @@ module CommentHelper
         if klass == Critique
           begin
             critique = Critique.find($2)
-            text.gsub!($1, "<a class=\"b-link\" href=\"#{url_for [critique.target, critique]}\" title=\"Обзор #{critique.target.name} от #{critique.user.nickname}\">#{$3}</a>")
+            text.gsub!(
+              $1,
+              "<a class=\"b-link\" " \
+                "href=\"#{url_for [critique.target, critique]}\" " \
+                "title=\"Обзор #{ERB::Util.h critique.target.name} " \
+                "от #{ERB::Util.h critique.user.nickname}\">#{$3}</a>"
+            )
           rescue
             text.gsub! $1, "<b>#{$3}</b>"
           end
@@ -65,7 +71,11 @@ module CommentHelper
 
             text.gsub!(
               $1,
-              "<a href=\"#{profile_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{ImageUrlGenerator.instance.url user, :x16}\" srcset=\"#{ImageUrlGenerator.instance.url user, :x32} 2x\" alt=\"#{$4}\" /><span>#{$4}</span></a>" # +
+              "<a href=\"#{profile_url user}\" class=\"b-user16\" " \
+                "title=\"#{$4}\"><img " \
+                "src=\"#{ImageUrlGenerator.instance.url user, :x16}\" " \
+                "srcset=\"#{ImageUrlGenerator.instance.url user, :x32} 2x\" " \
+                "alt=\"#{$4}\" /><span>#{$4}</span></a>"
             )
           rescue
             text.gsub! $1, $4
@@ -75,9 +85,18 @@ module CommentHelper
           begin
             ban = Ban.find $2
 
-            moderator_html = "<div class=\"b-user16\"><a href=\"#{profile_url ban.moderator}\" title=\"#{ERB::Util.h ban.moderator.nickname}\">\
-<img src=\"#{ImageUrlGenerator.instance.url ban.moderator, :x16}\" srcset=\"#{ImageUrlGenerator.instance.url ban.moderator, :x32} 2x\" alt=\"#{ERB::Util.h ban.moderator.nickname}\" /><span>#{ERB::Util.h ban.moderator.nickname}</span></a></div>"
-            text.gsub! $1, "<br /><div class=\"ban\">#{moderator_html}: <span class=\"resolution\">#{ban.message}</span></div>"
+            moderator_html = "<div class=\"b-user16\"><a " \
+              "href=\"#{profile_url ban.moderator}\" " \
+              "title=\"#{ERB::Util.h ban.moderator.nickname}\"><img " \
+              "src=\"#{ImageUrlGenerator.instance.url ban.moderator, :x16}\" " \
+              "srcset=\"#{ImageUrlGenerator.instance.url ban.moderator, :x32} " \
+              "2x\" alt=\"#{ERB::Util.h ban.moderator.nickname}\" " \
+              "/><span>#{ERB::Util.h ban.moderator.nickname}</span></a></div>"
+            text.gsub!(
+              $1,
+              "<br /><div class=\"ban\">#{moderator_html}: " \
+                "<span class=\"resolution\">#{ban.message}</span></div>"
+            )
           rescue ActiveRecord::RecordNotFound
             text.gsub! $1, ''
             text.strip!
@@ -88,7 +107,8 @@ module CommentHelper
             id = $2.nil? ? $3.to_i : $2.to_i
             entry = klass.find(id)
             entry = entry.decorate unless entry.respond_to?(:name)
-            title = $2.nil? ? entry.name : $3
+            entry_safe_name = ERB::Util.h(entry.name) if entry.respond_to?(:name)
+            title = $2.nil? ? entry_safe_name : $3
 
             additional = if preloader
               preloader_url = send preloader, entry
@@ -109,7 +129,7 @@ module CommentHelper
               end
 
             if url
-              text.gsub! $1, "<a href=\"#{url}\" title=\"#{entry.respond_to?(:name) ? entry.name : title}\"#{additional}>#{title}</a>"
+              text.gsub! $1, "<a href=\"#{url}\" title=\"#{entry_safe_name || title}\"#{additional}>#{title.presence || entry_safe_name}</a>"
             else
               text.gsub! $1, title
             end

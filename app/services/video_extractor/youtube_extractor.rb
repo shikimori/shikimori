@@ -3,7 +3,7 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
     (?:https?:)? // (?:www\.)?
     (?:
       youtube\.com/
-      .*? (?: &(?:amp;)? | \? )
+      \S*? (?: &(?:amp;)? | \? )
       v=(?<key>[\w_-]+)
       [^\ $#<\[\]\r\n]*
       (?:\#(?:t|at)=(?<time>\d+))?

@@ -30,16 +30,9 @@ header.head.misc
           = f.input :kind,
             include_blank: false,
             disabled: @resource.persisted?
-
-          .b-input
-            label.checkbox
-              = f.check_box :is_spoilers, checked: @resource.spoilers?, value: @resource.spoilers?
-              = t('.is_spoilers')
-
-          .b-input
-            label.checkbox
-              = f.check_box :is_censored, checked: @resource.censored?, value: @resource.censored?
-              = t('.is_censored')
+          = f.input :is_spoilers
+          .hidden
+            = f.input :is_censored
 
           = f.input :tags,
             input_html: { value: f.object.tags&.join(','), class: 'w-100' },

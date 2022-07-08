@@ -230,6 +230,7 @@ en:
         favorites_in_profile: Number of Favorites in Profile
         comment_policy: Can Comment My Profile
         comments_in_profile: Show Comments in Profile
+        is_show_age: Show age in profile
         achievements_in_profile: Show Achievements in Profile
         is_comments_auto_collapsed: Collapse Long Comments
         is_comments_auto_loaded: Load New Comments Automatically
@@ -290,6 +291,8 @@ en:
         state/opened: Opened
         user: Creator
         tags: Tags
+        is_spoilers: Contains spoilers
+        is_censored: 18+
         <<: *moderation_states
       article:
         name: Name

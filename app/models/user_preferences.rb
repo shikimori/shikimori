@@ -20,8 +20,9 @@ class UserPreferences < ApplicationRecord
   enumerize :default_sort,
     in: Animes::Filters::OrderBy::Field.values
 
-  boolean_attribute :comments_auto_collapsed
-  boolean_attribute :comments_auto_loaded
+  boolean_attributes :comments_auto_collapsed,
+                     :comments_auto_loaded,
+                     :show_age
 
   validates :default_sort,
     length: { maximum: 255 },

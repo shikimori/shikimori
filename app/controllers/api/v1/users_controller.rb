@@ -28,13 +28,15 @@ class Api::V1::UsersController < Api::V1Controller
       .search(params[:search])
       .paginate_n1(@page, @limit)
 
-    respond_with @collection
+    respond_with @collection, scope: view_context
   end
 
   api :GET, '/users/:id', 'Show an user'
   param :is_nickname, %w[1], desc: '`1` if you want to get user by its nickname'
   def show
-    respond_with UserProfileDecorator.new(user), serializer: UserProfileSerializer
+    respond_with UserProfileDecorator.new(user),
+      serializer: UserProfileSerializer,
+      scope: view_context
   end
 
   api :GET, '/users/:id/info', "Show user's brief info"
