@@ -9,6 +9,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     ranked
     ranked_shiki
     ranked_random
+    random
     released_on
     aired_on
     id
@@ -80,15 +81,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
         end), %<table_name>s.score desc
       SQL
     ),
-    Field[:ranked_shiki] => (
-      <<-SQL.squish
-        (case
-          when %<table_name>s.ranked_shiki = 0
-          then 999999
-          else %<table_name>s.ranked_shiki
-        end), %<table_name>s.score_2 desc
-      SQL
-    ),
+    Field[:ranked_shiki] => '%<table_name>s.ranked_shiki, %<table_name>s.score_2 desc',
     Field[:released_on] => (
       <<-SQL.squish
         (case
@@ -116,7 +109,8 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     Field[:site_score] => '%<table_name>s.site_score desc',
     Field[:kind] => '%<table_name>s.kind',
     Field[:licensor] => '%<table_name>s.licensor',
-    Field[:ranked_random] => '%<table_name>s.ranked_random'
+    Field[:ranked_random] => '%<table_name>s.ranked_random',
+    Field[:random] => 'random()'
   }
 
   CUSTOM_SORTINGS = [
