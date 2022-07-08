@@ -47,14 +47,14 @@ describe Animes::Filters::Policy do
 
   describe 'censored' do
     context 'true' do
-      let(:censored) { [true, 'true', 1, '1'].sample }
+      let(:censored) { ['true', 1, '1'].sample }
 
       it { expect(no_hentai).to eq true }
       it { expect(no_music).to eq true }
     end
 
     context 'false' do
-      let(:censored) { [false, 'false', 0, '0'].sample }
+      let(:censored) { ['false', 0, '0'].sample }
 
       it { expect(no_hentai).to eq false }
       it { expect(no_music).to eq false }
