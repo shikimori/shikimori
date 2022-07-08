@@ -1,4 +1,4 @@
-describe Users::SyncIsCensoredTopics do
+describe Users::SyncIsViewCensored do
   let(:user) { create :user, birth_on: birth_on, preferences: preferences }
   let(:preferences) { create :user_preferences, is_view_censored: is_view_censored }
 

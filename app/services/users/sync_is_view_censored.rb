@@ -1,4 +1,4 @@
-class Users::SyncIsCensoredTopics
+class Users::SyncIsViewCensored
   method_object :entry
 
   def call
