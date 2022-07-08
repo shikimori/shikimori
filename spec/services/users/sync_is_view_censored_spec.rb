@@ -2,7 +2,7 @@ describe Users::SyncIsViewCensored do
   let(:user) { create :user, birth_on: birth_on, preferences: preferences }
   let(:preferences) { create :user_preferences, is_view_censored: is_view_censored }
 
-  subject! { Users::SyncIsCensoredTopics.call user }
+  subject! { Users::SyncIsViewCensored.call user }
 
   context 'censored topics shown' do
     let(:is_view_censored) { true }
