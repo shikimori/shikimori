@@ -54,10 +54,70 @@ describe Animes::Filters::Policy do
     end
 
     context 'false' do
-      let(:censored) { ['false', 0, '0'].sample }
+      let(:censored) { [:auto_false, 'false', 0, '0'].sample }
 
       it { expect(no_hentai).to eq false }
       it { expect(no_music).to eq false }
+    end
+
+    context 'auto defined true bypass by whitelisted params' do
+      let(:censored) { :auto_true }
+
+      describe 'achievement' do
+        let(:achievement) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
+
+      describe 'studio' do
+        let(:studio) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
+
+      describe 'search' do
+        let(:search) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
+
+      describe 'q' do
+        let(:q) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
+
+      describe 'phrase' do
+        let(:search) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
+
+      describe 'ids' do
+        let(:ids) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
+
+      describe 'mylist' do
+        let(:mylist) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
+
+      describe 'publisher' do
+        let(:publisher) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
     end
   end
 
