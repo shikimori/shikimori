@@ -9,7 +9,7 @@ class UserPreferencesController < ProfilesController
     list_privacy comment_policy volumes_in_manga
     is_comments_auto_collapsed is_comments_auto_loaded body_width dashboard_type
     is_shiki_editor
-    is_censored_topics
+    is_view_censored
   ] + [
     forums: []
   ]

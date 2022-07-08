@@ -23,7 +23,7 @@ class UserPreferences < ApplicationRecord
   boolean_attributes :comments_auto_collapsed,
     :comments_auto_loaded,
     :show_age,
-    :censored_topics
+    :view_censored
 
   validates :default_sort,
     length: { maximum: 255 },

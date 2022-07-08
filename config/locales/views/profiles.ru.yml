@@ -180,7 +180,7 @@ ru:
         ignored_topics: Игнорируемые топики
         ignored_users: Игнорируемые пользователи
         show_list_of_ignored: Посмотреть список
-        is_censored_topics_hint: Укажи дату рождения в профиле
+        is_view_censored_hint: Укажи дату рождения в профиле
 
       ignored_topics:
         topic_name: Название топика
