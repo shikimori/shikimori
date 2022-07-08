@@ -8,9 +8,9 @@
       = f.input :is_comments_auto_loaded
       = f.input :is_shiki_editor
       = f.input :is_censored_topics,
-                hint: @resource.age ? '' : t('.is_censored_topics_hint'),
-                wrapper_html: { class: (:hidden if @resource.age && @resource.age < 18) },
-                disabled: !@resource.age
+        hint: @resource.age ? '' : t('.is_censored_topics_hint'),
+        wrapper_html: { class: (:hidden if @resource.age && @resource.age < 18) },
+        disabled: !@resource.age
 
     .block
       = f.button :magic_submit

@@ -14,5 +14,6 @@ FactoryBot.define do
       ]
     end
     is_show_age { true }
+    is_censored_topics { false }
   end
 end
