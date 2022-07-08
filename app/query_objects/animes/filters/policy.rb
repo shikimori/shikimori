@@ -15,8 +15,7 @@ class Animes::Filters::Policy
 
       !adult_rating?(params[:rating]) &&
         !hentai_genre?(params[:genre]) &&
-        !doujin_kind?(params[:kind]) &&
-        !params[:studio].present?
+        !doujin_kind?(params[:kind])
     end
 
     def exclude_music? params
