@@ -183,6 +183,18 @@
               ' #{@resource.activity_stats.reviews_count}
               = i18n_i 'review', @resource.activity_stats.reviews_count
 
+        - if @resource.activity_stats.collections_count.positive?
+          div data-type='collections'
+            a href=collections_profile_url(@resource)
+              ' #{@resource.activity_stats.collections_count}
+              = i18n_i 'collection', @resource.activity_stats.collections_count
+
+        - if @resource.activity_stats.articles_count.positive?
+          div data-type='articles'
+            a href=articles_profile_url(@resource)
+              ' #{@resource.activity_stats.articles_count}
+              = i18n_i 'article', @resource.activity_stats.articles_count
+
         - if @resource.activity_stats.versions_count.positive?
           div data-type='versions'
             a href=versions_profile_url(@resource)
