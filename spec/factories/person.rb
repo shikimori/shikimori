@@ -4,13 +4,13 @@ FactoryBot.define do
     sequence(:russian) { |n| "человек_#{n}" }
     website { '' }
     desynced { [] }
-
-    birthday { nil }
-    deceased_on { nil }
-    imported_at { nil }
     producer { false }
     mangaka { false }
     seyu { false }
+    birthday { nil }
+    deceased_on { nil }
+    mal_id { nil }
+    imported_at { nil }
 
     after :build do |model|
       stub_method model, :touch_related

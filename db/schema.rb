@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_09_060927) do
+ActiveRecord::Schema.define(version: 2022_07_09_062319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -773,8 +773,8 @@ ActiveRecord::Schema.define(version: 2022_07_09_060927) do
   end
 
   create_table "people", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "japanese", limit: 255
+    t.string "name", limit: 255, default: "", null: false
+    t.string "japanese", limit: 255, default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "image_file_name", limit: 255
@@ -782,7 +782,7 @@ ActiveRecord::Schema.define(version: 2022_07_09_060927) do
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.date "birthday"
-    t.string "website", limit: 255
+    t.string "website", limit: 255, default: "", null: false
     t.datetime "imported_at"
     t.boolean "producer", default: false
     t.boolean "mangaka", default: false

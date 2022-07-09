@@ -12,6 +12,7 @@ FactoryBot.define do
     is_manga { false }
     is_ranobe { false }
     mal_id { nil }
+    imported_at { nil }
 
     after :build do |model|
       stub_method model, :touch_related
