@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_06_223016) do
+ActiveRecord::Schema.define(version: 2022_07_09_060927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -213,11 +213,11 @@ ActiveRecord::Schema.define(version: 2022_07_06_223016) do
   end
 
   create_table "characters", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "japanese", limit: 255
-    t.string "fullname", limit: 255
-    t.string "description_ru", limit: 32768
-    t.string "description_en", limit: 32768
+    t.string "name", limit: 255, default: ""
+    t.string "japanese", limit: 255, default: ""
+    t.string "fullname", limit: 255, default: ""
+    t.string "description_ru", limit: 32768, default: ""
+    t.string "description_en", limit: 32768, default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "image_file_name", limit: 255
@@ -225,8 +225,8 @@ ActiveRecord::Schema.define(version: 2022_07_06_223016) do
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "imported_at"
-    t.string "imageboard_tag", limit: 255
-    t.string "russian", default: "", null: false
+    t.string "imageboard_tag", limit: 255, default: ""
+    t.string "russian", default: ""
     t.text "desynced", default: [], null: false, array: true
     t.integer "mal_id"
     t.boolean "is_anime", default: false, null: false
