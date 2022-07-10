@@ -63,7 +63,7 @@ class Topics::NewsTopic < Topic
     end
   end
 
-  def offtop?
+  def offtopic?
     forum_id == Forum::OFFTOPIC_ID
   end
 end

@@ -25,6 +25,6 @@ class Topics::NewsView < Topics::View
   end
 
   def offtopic_tag
-    I18n.t 'markers.offtopic' if topic.offtop?
+    I18n.t 'markers.offtopic' if topic.offtopic?
   end
 end
