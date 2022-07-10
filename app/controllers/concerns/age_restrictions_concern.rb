@@ -2,18 +2,16 @@ module AgeRestrictionsConcern
   extend ActiveSupport::Concern
 
   def censored_forbidden?
-    @is_censored_forbidden ||= begin
-      return false if %w[rss os].include? request.format
-      return false if params[:action] == 'tooltip' && request.xhr?
+    return false if %w[rss os].include? request.format
+    return false if params[:action] == 'tooltip' && request.xhr?
 
-      cookies[ShikimoriController::COOKIE_AGE_OVER_18] != 'true' ||
-        !user_signed_in? ||
-        age_below_18?
-    end
+    cookies[ShikimoriController::COOKIE_AGE_OVER_18] != 'true' ||
+      !user_signed_in? ||
+      age_below_18?
   end
 
   def age_below_18?
-    current_user.age && current_user.age < 18
+    current_user.age.present? && current_user.age < 18
   end
 
   def verify_age_restricted! collection # rubocop:disable PerceivedComplexity, CyclomaticComplexity
