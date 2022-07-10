@@ -23,4 +23,8 @@ class Topics::NewsView < Topics::View
         Array(additional)
     )
   end
+
+  def offtopic_tag
+    I18n.t 'markers.offtopic' if topic.offtop?
+  end
 end
