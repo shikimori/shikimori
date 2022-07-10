@@ -413,7 +413,7 @@ class User < ApplicationRecord
   end
 
   def age
-    return false unless birth_on
+    return unless birth_on
 
     @age ||= begin
       years_passed = Time.zone.today.year - birth_on.year

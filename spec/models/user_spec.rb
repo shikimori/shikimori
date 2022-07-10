@@ -312,10 +312,21 @@ describe User do
     end
 
     describe '#age' do
-      let(:user) { build :user, birth_on: Time.zone.today - 18.years }
+      subject { build :user, birth_on: birth_on }
 
-      context 'correctly calculated with birth_on' do
-        it { expect(user.age).to eq 18 }
+      context 'no age' do
+        let(:birth_on) { nil }
+        its(:age) { is_expected.to be_nil }
+      end
+
+      context '= age - 1' do
+        let(:birth_on) { Time.zone.tomorrow - 18.years }
+        its(:age) { is_expected.to eq 17 }
+      end
+
+      context '= age' do
+        let(:birth_on) { Time.zone.today - 18.years }
+        its(:age) { is_expected.to eq 18 }
       end
     end
   end
