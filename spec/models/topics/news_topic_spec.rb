@@ -6,7 +6,7 @@ describe Topics::NewsTopic do
   describe 'instance methods' do
     describe '#title' do
       let(:topic) { build :news_topic, generated: generated, action: action, title: '123', value: '1' }
-      let(:action) {}
+      let(:action) { nil }
       subject { topic.title }
 
       context 'generated' do
@@ -104,6 +104,27 @@ describe Topics::NewsTopic do
           expect(topic).to_not be_moderation_accepted
           expect(topic.moderation_state).to eq Types::Moderatable::State[:rejected]
         end
+      end
+    end
+
+    describe '#offtopic?' do
+      subject { build :news_topic, forum_id: forum_id }
+
+      context 'Forum::OFFTOPIC_ID' do
+        let(:forum_id) { Forum::OFFTOPIC_ID }
+        it { is_expected.to be_offtopic }
+      end
+
+      context 'other forums' do
+        let(:forum_id) do
+          [
+            Forum::ANIME_NEWS_ID,
+            Forum::ANIME_NEWS_ID,
+            Forum::CLUBS_ID,
+            Forum::REVIEWS_ID
+          ].sample
+        end
+        it { is_expected.to_not be_offtopic }
       end
     end
   end
