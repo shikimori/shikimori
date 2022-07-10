@@ -108,9 +108,23 @@ describe Topics::NewsTopic do
     end
 
     describe '#offtopic?' do
-      let(:topic) { create :news_topic, forum_id: Forum::OFFTOPIC_ID }
-      it do
-        expect(topic.offtopic?).to eq true
+      subject { build :news_topic, forum_id: forum_id }
+
+      context 'Forum::OFFTOPIC_ID' do
+        let(:forum_id) { Forum::OFFTOPIC_ID }
+        it { is_expected.to be_offtopic }
+      end
+
+      context 'other forums' do
+        let(:forum_id) do
+          [
+            Forum::ANIME_NEWS_ID,
+            Forum::ANIME_NEWS_ID,
+            Forum::CLUBS_ID,
+            Forum::REVIEWS_ID
+          ].sample
+        end
+        it { is_expected.to_not be_offtopic }
       end
     end
   end
