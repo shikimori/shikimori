@@ -8,7 +8,7 @@
       = f.input :is_comments_auto_loaded
       = f.input :is_shiki_editor
       = f.input :is_view_censored,
-        hint: @resource.age ? '' : t('.is_view_censored_hint'),
+        hint: ("<span class='text-red'>#{t('.is_view_censored_hint')}</span>".html_safe unless @resource.age),
         wrapper_html: { class: (:hidden if @resource.age && @resource.age < 18) },
         disabled: !@resource.age
 
