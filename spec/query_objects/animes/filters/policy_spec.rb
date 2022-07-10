@@ -46,22 +46,30 @@ describe Animes::Filters::Policy do
   end
 
   describe 'censored' do
-    context 'true' do
-      let(:censored) { ['true', 1, '1'].sample }
+    context 'truthy except of TRUE_CONDITIONAL' do
+      let(:censored) do
+        (
+          Animes::Filters::Policy::TRUTHY -
+            [Animes::Filters::Policy::TRUE_CONDITIONAL]
+        ).sample
+      end
 
       it { expect(no_hentai).to eq true }
       it { expect(no_music).to eq true }
     end
 
-    context 'false' do
-      let(:censored) { [:auto_false, 'false', 0, '0'].sample }
+    context 'falsy' do
+      let(:censored) { described_class::FALSY.sample }
 
       it { expect(no_hentai).to eq false }
       it { expect(no_music).to eq false }
     end
 
-    context 'auto defined true bypass by whitelisted params' do
-      let(:censored) { :auto_true }
+    context 'TRUE_CONDITIONAL' do
+      let(:censored) { Animes::Filters::Policy::TRUE_CONDITIONAL }
+
+      it { expect(no_hentai).to eq true }
+      it { expect(no_music).to eq true }
 
       describe 'achievement' do
         let(:achievement) { 'zzzz' }

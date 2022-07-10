@@ -1,21 +1,22 @@
 class Animes::Filters::Policy
+  TRUE_CONDITIONAL = :auto_true
+  FALSY = ['false', 0, '0']
+  TRUTHY = ['true', 1, '1', TRUE_CONDITIONAL]
+  ALLOWED_CENSORED_VALUES = TRUTHY + FALSY
+
+  ADULT_RATING_REGEXP =
+    /(?:\A|,)(?:#{Types::Anime::Rating[:rx]}|#{Types::Anime::Rating[:r_plus]})\b/
+  MUSIC_REGEXP = /(?:\A|,)#{Types::Anime::Kind[:music]}\b/
+  DOUJIN_REGEXP = /(?:\A|,)#{Types::Manga::Kind[:doujin]}\b/
+
+  HENTAI_GENRES_IDS = Genre::CENSORED_IDS + Genre::DOUJINSHI_IDS
+  HENTAI_GENRES_REGEXP = /(?:\A|,)(?:#{HENTAI_GENRES_IDS.join '|'})\b/
+
   class << self
-    FALSY = ['false', 0, '0', :auto_false]
-    TRULY = ['true', 1, '1', :auto_true]
-    ALLOWED_CENSORED_VALUES = TRULY + FALSY
-
-    ADULT_RATING_REGEXP =
-      /(?:\A|,)(?:#{Types::Anime::Rating[:rx]}|#{Types::Anime::Rating[:r_plus]})\b/
-    MUSIC_REGEXP = /(?:\A|,)#{Types::Anime::Kind[:music]}\b/
-    DOUJIN_REGEXP = /(?:\A|,)#{Types::Manga::Kind[:doujin]}\b/
-
-    HENTAI_GENRES_IDS = Genre::CENSORED_IDS + Genre::DOUJINSHI_IDS
-    HENTAI_GENRES_REGEXP = /(?:\A|,)(?:#{HENTAI_GENRES_IDS.join '|'})\b/
-
     def exclude_hentai? params
       # TODO: удалить после 2023-01-01
       if params[:censored].present? && !params[:censored].in?(ALLOWED_CENSORED_VALUES)
-        raise ArgumentError.new 'unexpected boolean value in string and symbols only field'
+        raise ArgumentError, 'unexpected boolean value in string and symbols only field'
       end
 
       return false if forbid_filtering? params
@@ -60,7 +61,7 @@ class Animes::Filters::Policy
     end
 
     def user_censored? params
-      TRULY.include?(params[:censored]) && params[:censored] != :auto_true
+      TRUTHY.include?(params[:censored]) && params[:censored] != TRUE_CONDITIONAL
     end
 
     def whitelist_by? params # rubocop:disable all
