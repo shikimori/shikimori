@@ -1,7 +1,6 @@
 class CharacterDecorator < PersonDecorator
   instance_cache :changes, :all_animes, :all_mangas, :cosplay?,
-    :limited_animes, :limited_mangas, :top_seyu, :all_seyu#,
-   # :news_topic_views
+    :limited_animes, :limited_mangas, :top_seyu, :all_seyu
 
   ROLES_PRIORITY = %w[Japanese English Other]
 
@@ -68,13 +67,7 @@ class CharacterDecorator < PersonDecorator
   def cosplay?
     CosplayGalleriesQuery.new(object).fetch(1, 1).any?
   end
-=begin
-  # side menu news block
-  def news_topic_views
-    return [] if rkn_abused?
-    super
-  end
-=end
+
 private
 
   def map_roles person_roles_scope

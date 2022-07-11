@@ -6,7 +6,8 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     :contest_winners,
     :favoured, :favoured?, :all_favoured, :favoured_size,
     :main_topic_view, :preview_topic_view,
-    :parameterized_versions
+    :parameterized_versions,
+    :news_topic_views
 
   MAX_CLUBS = 4
   MAX_COLLECTIONS = 3
@@ -168,6 +169,12 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def favourites_scope
     favourites_query.scope object
+  end
+
+  def news_topic_scope
+    object
+      .news_topics
+      .where(locale: h.locale_from_host)
   end
 
   def news_topic_views

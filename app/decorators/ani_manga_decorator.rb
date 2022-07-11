@@ -4,7 +4,6 @@ class AniMangaDecorator < DbEntryDecorator
   include AniMangaDecorator::SeoHelpers
 
   TOPICS_PER_PAGE = 4
-#  NEWS_PER_PAGE = 12
   VISIBLE_RELATED = 7
 
   instance_cache :news_topics, :critiques_count, :reviews_count, :cosplay?,
@@ -12,7 +11,7 @@ class AniMangaDecorator < DbEntryDecorator
     :roles, :related, :friend_rates, :recent_rates, :chronology,
     :external_links, :available_external_links,
     :watch_online_external_links, :menu_external_links,
-    :topic_views#, :news_topic_views
+    :topic_views
 
   def topic_views
     object
@@ -29,24 +28,7 @@ class AniMangaDecorator < DbEntryDecorator
         )
       end
   end
-=begin
-  def news_topic_views
-    return [] if rkn_abused?
 
-    object
-      .news_topics
-      .where(locale: h.locale_from_host)
-      .includes(:forum)
-      .limit(NEWS_PER_PAGE)
-      .order(:created_at)
-      .map do |topic|
-        format_menu_topic(
-          Topics::TopicViewFactory.new(false, false).build(topic),
-          :created_at
-        )
-      end
-  end
-=end
   def critiques_count
     object.critiques.visible.count
   end
