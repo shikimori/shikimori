@@ -12,9 +12,9 @@ describe People::Query do
 
   include_context :timecop
 
-  let!(:person_1) { create :person, id: 1, producer: true }
-  let!(:person_2) { create :person, id: 2, mangaka: true }
-  let!(:person_3) { create :person, id: 3, seyu: true }
+  let!(:person_1) { create :person, id: 1, is_producer: true }
+  let!(:person_2) { create :person, id: 2, is_mangaka: true }
+  let!(:person_3) { create :person, id: 3, is_seyu: true }
 
   describe '.fetch' do
     subject { query }
