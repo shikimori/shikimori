@@ -178,9 +178,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def news_topic_views
-    object
-      .news_topics
-      .where(locale: h.locale_from_host)
+    news_topic_scope
       .includes(:forum)
       .limit(MAX_NEWS)
       .order(:created_at)
