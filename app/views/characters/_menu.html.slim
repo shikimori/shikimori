@@ -8,7 +8,7 @@
         alt=resource.name
       ]
 
-= cache resource do
+- cache [resource, resource.clubs_scope, resource.collections_scope, resource.favourites_scope] do
   = render 'blocks/favoured',
     resource: resource,
     url: favoured_character_url(resource)

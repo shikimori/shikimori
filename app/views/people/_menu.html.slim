@@ -8,13 +8,10 @@
         alt=localized_name(resource)
       ]
 
-= cache resource do
+- cache [resource, resource.collections_scope, resource.favourites_scope] do
   = render 'blocks/favoured',
     resource: resource,
     url: favoured_person_url(resource)
-  = render 'blocks/clubs',
-    resource: resource,
-    url: clubs_person_url(resource)
   = render 'blocks/collections',
     resource: resource,
     url: collections_person_url(resource)

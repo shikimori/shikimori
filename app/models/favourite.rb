@@ -1,7 +1,7 @@
 class Favourite < ApplicationRecord
   acts_as_list scope: %i[user_id linked_type kind]
 
-  belongs_to :linked, polymorphic: true, touch: true
+  belongs_to :linked, polymorphic: true
   belongs_to :user, touch: true
 
   enumerize :kind,

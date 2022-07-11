@@ -86,7 +86,7 @@
               .hide-more
                 | &mdash; #{t '.hide'}
 
-  - cache [resource, :v4] do
+  - cache [resource, resource.clubs_scope, resource.collections_scope, resource.favourites_scope] do
     = render 'blocks/favoured', resource: resource
     = render 'blocks/clubs', resource: resource
     = render 'blocks/collections', resource: resource

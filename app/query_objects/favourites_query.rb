@@ -35,27 +35,31 @@ class FavouritesQuery
       .sort_by { |v| global_top_favored_ids.index v.id }
   end
 
-private
-
   def scope entry
     Favourite.where(linked_id: entry.id, linked_type: entry.class.name)
   end
+
+private
 
   def user_exclude_ids user, klass
     user_in_list_ids(user, klass) + user_ignored_ids(user, klass)
   end
 
   def user_in_list_ids user, klass
-    !user ? [] : user
-      .send("#{klass.base_class.name.downcase}_rates")
-      .where.not(status: UserRate.statuses['planned'])
-      .pluck(:target_id)
+    user ?
+      user
+        .send("#{klass.base_class.name.downcase}_rates")
+        .where.not(status: UserRate.statuses['planned'])
+        .pluck(:target_id) :
+      []
   end
 
   def user_ignored_ids user, klass
-    !user ? [] : user
-      .recommendation_ignores
-      .where(target_type: klass.name)
-      .pluck(:target_id)
+    user ?
+      user
+        .recommendation_ignores
+        .where(target_type: klass.name)
+        .pluck(:target_id) :
+      []
   end
 end
