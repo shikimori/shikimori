@@ -4,8 +4,7 @@ class PersonDecorator < DbEntryDecorator
   decorates_finders
 
   WORK_GROUP_SIZE = 5
-#  BEST_ROLES_SIZE = 6
-  NEWS_PER_PAGE = 12
+  BEST_ROLES_SIZE = 6
 
   instance_cache :website,
     :flatten_roles, :all_roles, :grouped_roles, :roles_names,

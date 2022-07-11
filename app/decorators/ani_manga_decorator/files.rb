@@ -69,7 +69,7 @@ class AniMangaDecorator::Files
     topics = entry
       .news_topics
       .where(locale: :ru)
-      .limit AnimeDecorator::NEWS_PER_PAGE
+      .limit AnimeDecorator::MAX_NEWS
 
     topics.each_with_object({}) do |entry, memo|
       memo[entry.id] = torrents
