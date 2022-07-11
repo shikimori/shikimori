@@ -4,9 +4,9 @@ FactoryBot.define do
     sequence(:russian) { |n| "человек_#{n}" }
     website { '' }
     desynced { [] }
-    producer { false }
-    mangaka { false }
-    seyu { false }
+    is_producer { false }
+    is_mangaka { false }
+    is_seyu { false }
     birthday { nil }
     deceased_on { nil }
     mal_id { nil }
