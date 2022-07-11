@@ -9,40 +9,16 @@
           alt=resource.name
         ]
 
-  = cache resource do
+  - cache [resource, resource.clubs_scope, resource.collections_scope, resource.favourites_scope] do
     = render 'blocks/favoured',
       resource: resource,
       url: favoured_character_url(resource)
-
-    - if resource.menu_clubs.any?
-      .block
-        .subheadline
-          - if resource.menu_clubs.size == DbEntryDecorator::MAX_CLUBS
-            .linkeable data-href=clubs_character_url(resource)
-              = t 'in_clubs'
-              .count = resource.clubs_scope.size
-          - else
-            = t 'in_clubs'
-
-        .b-clubs.one-line
-          = render partial: 'clubs/club',
-            collection: resource.menu_clubs,
-            locals: { content_by: :avatar }
-
-    - if resource.menu_collections.any?
-      .block
-        .subheadline.m5
-          .linkeable data-href=collections_character_url(resource)
-            = t 'in_collections'
-            .count = resource.collections_size
-
-        .block
-          - resource.menu_collections.each do |collection|
-            .b-menu-line class=('is-spoilers' if collection.is_spoilers)
-              - if collection.is_spoilers
-                .b-anime_status_tag.spoilers = t('topics.header.mini.spoilers').downcase
-              span class=(:blurred if collection.is_spoilers)
-                a.b-link href=collection_url(collection) = collection.name
+    = render 'blocks/clubs',
+      resource: resource,
+      url: clubs_character_url(resource)
+    = render 'blocks/collections',
+      resource: resource,
+      url: collections_character_url(resource)
 
     - if resource.news_topic_views.any?
       .b-menu-links.menu-topics-block.history.m30
@@ -53,5 +29,5 @@
             as: :topic_view,
             locals: { with_tooltip: true }
 
-  - unless @itemtype
-    = render 'spnsrs/ad', ad: Ad.new(:menu_240x400)
+    - unless @itemtype
+      = render 'spnsrs/ad', ad: Ad.new(:menu_240x400)

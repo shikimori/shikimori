@@ -15,7 +15,7 @@ describe Tags::MatchDanbooruTags do
     let!(:anime) { create :anime, name: character_tag_1.name }
     subject! { service.call }
 
-    it { expect(anime.reload.imageboard_tag).to be_nil }
+    it { expect(anime.reload.imageboard_tag).to eq '' }
   end
 
   context 'charcter_tag for character' do
@@ -23,7 +23,7 @@ describe Tags::MatchDanbooruTags do
 
     context 'ambiguous' do
       let!(:character) { create :character, name: character_tag_2.name }
-      it { expect(character.reload.imageboard_tag).to be_nil }
+      it { expect(character.reload.imageboard_tag).to eq '' }
     end
 
     context 'not ambiguous' do
@@ -52,6 +52,6 @@ describe Tags::MatchDanbooruTags do
     let!(:character) { create :character, name: anime_tag.name }
     subject! { service.call }
 
-    it { expect(character.reload.imageboard_tag).to be_nil }
+    it { expect(character.reload.imageboard_tag).to eq '' }
   end
 end

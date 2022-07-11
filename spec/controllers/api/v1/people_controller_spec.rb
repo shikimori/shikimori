@@ -11,7 +11,7 @@ describe Api::V1::PeopleController, :show_in_doc do
     end
 
     context 'seyu' do
-      let(:person) { create :person, seyu: true }
+      let(:person) { create :person, is_seyu: true }
       it do
         expect(response).to have_http_status :success
         expect(response.content_type).to eq 'application/json; charset=utf-8'

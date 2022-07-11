@@ -257,6 +257,45 @@ describe Topic do
       end
     end
 
+    context 'article_moderator' do
+      let(:user) { build_stubbed :user, :article_moderator }
+      let(:topic) { build_stubbed :topic }
+
+      context 'common topic' do
+        Abilities::ArticleModerator::ARTICLE_MODERATOR_ACTIONS.each do |action|
+          it { is_expected.to_not be_able_to action, topic }
+        end
+      end
+
+      context 'generated topic' do
+        let(:topic) { build_stubbed :club_topic }
+        Abilities::ArticleModerator::ARTICLE_MODERATOR_ACTIONS.each do |action|
+          it { is_expected.to_not be_able_to action, topic }
+        end
+      end
+
+      context 'generated critique topic' do
+        let(:topic) { build_stubbed :critique_topic }
+        Abilities::ArticleModerator::ARTICLE_MODERATOR_ACTIONS.each do |action|
+          it { is_expected.to_not be_able_to action, topic }
+        end
+      end
+
+      context 'news topic' do
+        let(:topic) { build_stubbed :news_topic }
+        Abilities::ArticleModerator::ARTICLE_MODERATOR_ACTIONS.each do |action|
+          it { is_expected.to_not be_able_to action, topic }
+        end
+      end
+
+      context 'article topic' do
+        let(:topic) { build_stubbed :article_topic }
+        Abilities::ArticleModerator::ARTICLE_MODERATOR_ACTIONS.each do |action|
+          it { is_expected.to be_able_to action, topic }
+        end
+      end
+    end
+
     context 'forum_moderator' do
       let(:user) { build_stubbed :user, :forum_moderator }
       let(:topic) do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_06_223016) do
+ActiveRecord::Schema.define(version: 2022_07_11_164746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -213,11 +213,11 @@ ActiveRecord::Schema.define(version: 2022_07_06_223016) do
   end
 
   create_table "characters", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "japanese", limit: 255
-    t.string "fullname", limit: 255
-    t.string "description_ru", limit: 32768
-    t.string "description_en", limit: 32768
+    t.string "name", limit: 255, default: "", null: false
+    t.string "japanese", limit: 255, default: "", null: false
+    t.string "fullname", limit: 255, default: "", null: false
+    t.string "description_ru", limit: 32768, default: "", null: false
+    t.string "description_en", limit: 32768, default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "image_file_name", limit: 255
@@ -225,7 +225,7 @@ ActiveRecord::Schema.define(version: 2022_07_06_223016) do
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "imported_at"
-    t.string "imageboard_tag", limit: 255
+    t.string "imageboard_tag", limit: 255, default: "", null: false
     t.string "russian", default: "", null: false
     t.text "desynced", default: [], null: false, array: true
     t.integer "mal_id"
@@ -773,20 +773,20 @@ ActiveRecord::Schema.define(version: 2022_07_06_223016) do
   end
 
   create_table "people", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "japanese", limit: 255
+    t.string "name", limit: 255, default: "", null: false
+    t.string "japanese", limit: 255, default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
     t.datetime "image_updated_at"
-    t.date "birthday"
-    t.string "website", limit: 255
+    t.date "birth_on"
+    t.string "website", limit: 255, default: "", null: false
     t.datetime "imported_at"
-    t.boolean "producer", default: false
-    t.boolean "mangaka", default: false
-    t.boolean "seyu", default: false
+    t.boolean "is_producer", default: false, null: false
+    t.boolean "is_mangaka", default: false, null: false
+    t.boolean "is_seyu", default: false, null: false
     t.text "desynced", default: [], null: false, array: true
     t.string "russian", default: "", null: false
     t.integer "mal_id"

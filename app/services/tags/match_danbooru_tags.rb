@@ -28,7 +28,7 @@ private
     end
   end
 
-  def match_characters tags_variants, scope # rubocop:disable MethodLength
+  def match_characters tags_variants, scope # rubocop:disable MethodLength, AbcSize
     scope.find_each do |model|
       names = character_names model
 
@@ -61,17 +61,17 @@ private
 
   def animes_scope
     Anime
-      .where(imageboard_tag: nil)
+      .where(imageboard_tag: '')
   end
 
   def mangas_scope
     Manga
-      .where(imageboard_tag: nil)
+      .where(imageboard_tag: '')
   end
 
   def characters_scope
     Character
-      .where(imageboard_tag: nil)
+      .where(imageboard_tag: '')
       .includes(:animes)
       .includes(:mangas)
   end
@@ -92,7 +92,7 @@ private
 
   def character_names model
     (
-      [model.name] + [model.name.split(' ').reverse.join(' ')]
+      [model.name] + [model.name.split.reverse.join(' ')]
     ).uniq
   end
 

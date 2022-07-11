@@ -2,9 +2,17 @@ FactoryBot.define do
   factory :character do
     sequence(:name) { |n| "character_#{n}" }
     sequence(:russian) { |n| "персонаж_#{n}" }
+    japanese { '' }
+    fullname { '' }
     description_ru { '' }
     description_en { '' }
     desynced { [] }
+    imageboard_tag { '' }
+    is_anime { false }
+    is_manga { false }
+    is_ranobe { false }
+    mal_id { nil }
+    imported_at { nil }
 
     after :build do |model|
       stub_method model, :touch_related

@@ -16,7 +16,7 @@ FactoryBot.define do
     studio_ids { [] }
     is_censored { false }
     next_episode_at { nil }
-    imageboard_tag { nil }
+    imageboard_tag { '' }
     coub_tags { [] }
     fansubbers { [] }
     fandubbers { [] }

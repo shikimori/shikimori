@@ -4,7 +4,7 @@ class PersonDecorator < DbEntryDecorator
   decorates_finders
 
   WORK_GROUP_SIZE = 5
-  BEST_ROLES_SIZE = 6
+#  BEST_ROLES_SIZE = 6
   NEWS_PER_PAGE = 12
 
   instance_cache :website,
@@ -12,8 +12,8 @@ class PersonDecorator < DbEntryDecorator
     :works, :works_texts, :work_types, :character_works,
     :best_works, :best_roles,
     :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?,
-    :seyu_counts, :composer_counts, :producer_counts, :mangaka_counts,
-    :news_topic_views
+    :seyu_counts, :composer_counts, :producer_counts, :mangaka_counts#,
+    #:news_topic_views
 
   ROLES = {
     seyu: Person::SEYU_ROLES,
@@ -287,14 +287,15 @@ class PersonDecorator < DbEntryDecorator
     all_roles.any? { |v| !v.manga_id.nil? }
   end
 
-  def formatted_birthday
-    I18n.l(birthday, format: :human).gsub('1901', '').strip
+  def formatted_birth_on
+    I18n.l(birth_on, format: :human).gsub('1901', '').strip
   end
 
   def formatted_deceased_on
     I18n.l(deceased_on, format: :human).gsub('1901', '').strip
   end
 
+=begin
   def news_topic_views
     object
       .news_topics
@@ -322,6 +323,7 @@ class PersonDecorator < DbEntryDecorator
       url: topic_view.urls.topic_url
     }
   end
+=end
 
 private
 

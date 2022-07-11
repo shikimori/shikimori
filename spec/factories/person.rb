@@ -2,11 +2,15 @@ FactoryBot.define do
   factory :person do
     sequence(:name) { |n| "person_#{n}" }
     sequence(:russian) { |n| "человек_#{n}" }
+    website { '' }
     desynced { [] }
-    birthday { nil }
-    imported_at { nil }
-
+    is_producer { false }
+    is_mangaka { false }
+    is_seyu { false }
+    birth_on { nil }
     deceased_on { nil }
+    mal_id { nil }
+    imported_at { nil }
 
     after :build do |model|
       stub_method model, :touch_related

@@ -863,7 +863,7 @@ Rails.application.routes.draw do
     end
 
     concerns :db_entry, fields: Regexp.new(%w{
-      name russian japanese image website birthday deceased_on desynced
+      name russian japanese image website birth_on deceased_on desynced
     }.join('|'))
 
     member do

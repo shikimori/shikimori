@@ -4480,6 +4480,8 @@
         - 51248
         - 52230
         - 52235
+        - 52271
+        - 42027
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -8637,6 +8639,7 @@
         - 6872
         - 9989
         - 15039
+        - 52060
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
@@ -12371,6 +12374,7 @@
         - 41168
         - 39585
         - 41674
+        - 19627
       :generator:
         person_id: 4002
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -12447,6 +12451,7 @@
         - 41168
         - 39585
         - 41674
+        - 19627
       :generator:
         person_id: 4002
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -19599,6 +19604,7 @@
         franchise: danmachi
         not_anime_ids:
         - 40064
+        - 52357
       :threshold: 95%
       :generator:
         threshold: 95%
@@ -19632,6 +19638,7 @@
         franchise: danmachi
         not_anime_ids:
         - 40064
+        - 52357
       :threshold: 0.01
       :generator:
         threshold: 95%
@@ -23581,6 +23588,8 @@
         - 49189
         - 50059
         - 50066
+        - 52011
+        - 52010
       :threshold: 95.7%
       :generator:
         not_ignored_ids:
@@ -23648,6 +23657,8 @@
         - 49189
         - 50059
         - 50066
+        - 52011
+        - 52010
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -25838,6 +25849,7 @@
         - 38653
         - 42449
         - 48617
+        - 52282
       :threshold: 95.2%
       :generator:
         ignore_latest_ids:
@@ -25885,6 +25897,7 @@
         - 38653
         - 42449
         - 48617
+        - 52282
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -28561,6 +28574,8 @@
       :algo: duration
       :filters:
         franchise: slam_dunk
+        not_anime_ids:
+        - 52159
       :threshold: 98.7%
       :generator:
         ignore_latest_ids:
@@ -28593,6 +28608,8 @@
       :algo: duration
       :filters:
         franchise: slam_dunk
+        not_anime_ids:
+        - 52159
       :threshold: 0.01
       :generator:
         ignore_latest_ids:

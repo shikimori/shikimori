@@ -12,7 +12,7 @@ FactoryBot.define do
     publisher_ids { [] }
     is_censored { false }
     type { Manga.name }
-    imageboard_tag { nil }
+    imageboard_tag { '' }
     licensors { [] }
     desynced { [] }
     imported_at { nil }

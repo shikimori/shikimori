@@ -347,4 +347,69 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"shikimori_test_characters":{"aliases":{}}}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
-recorded_with: VCR 6.0.0
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":1}}
+        {"name":"test","japanese":"","fullname":"","russian":"аа"}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.10; darwin x86_64; Faraday v1.8.0)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Warning:
+      - 299 Elasticsearch-6.8.23-4f67856 "the default number of shards will change
+        from [5] to [1] in 7.0.0; if you wish to continue using the default of [5]
+        shards, you must manage this on the create index request or with an index
+        template"
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '205'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":1678,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":2}}
+        {"name":"test zxct","japanese":"","fullname":"","russian":"аа"}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.10; darwin x86_64; Faraday v1.8.0)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '201'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":121,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+recorded_with: VCR 6.1.0

@@ -11,6 +11,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   MAX_CLUBS = 4
   MAX_COLLECTIONS = 3
   MAX_FAVOURITES = 12
+  MAX_NEWS = 12
 
   CACHE_VERSION = :v1
 
@@ -165,20 +166,52 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
       .where(locale: h.locale_from_host)
   end
 
+  def favourites_scope
+    favourites_query.scope object
+  end
+
+  def news_topic_views
+    object
+      .news_topics
+      .where(locale: h.locale_from_host)
+      .includes(:forum)
+      .limit(MAX_NEWS)
+      .order(:created_at)
+      .map do |topic|
+        format_menu_topic(
+          Topics::TopicViewFactory.new(false, false).build(topic),
+          :created_at
+        )
+      end
+  end
+
+  def format_menu_topic topic_view, order
+    {
+      time: (
+        topic_view.send(order) || topic_view.created_at || topic_view.updated_at
+      ),
+      id: topic_view.id,
+      name: topic_view.topic_title,
+      title: topic_view.topic_title,
+      tooltip: topic_view.topic.action == AnimeHistoryAction::Episode,
+      url: topic_view.urls.topic_url
+    }
+  end
+
   def favoured?
     h.user_signed_in? && h.current_user.favoured?(object)
   end
 
   def favoured
-    FavouritesQuery.new.favoured_by object, MAX_FAVOURITES
+    favourites_query.favoured_by object, MAX_FAVOURITES
   end
 
   def all_favoured
-    FavouritesQuery.new.favoured_by object, 816
+    favourites_query.favoured_by object, 816
   end
 
   def favoured_size
-    FavouritesQuery.new.favoured_size object
+    favourites_query.favoured_size object
   end
 
   def authors field
@@ -287,5 +320,9 @@ private
       I18n.russian? &&
       h.current_user.preferences.russian_names?
     )
+  end
+
+  def favourites_query
+    @favouries_query ||= FavouritesQuery.new
   end
 end

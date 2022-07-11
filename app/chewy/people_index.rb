@@ -17,8 +17,8 @@ class PeopleIndex < ApplicationIndex
           ngram: NGRAM_FIELD
         }
     end
-    field :is_seyu, type: :boolean, value: -> { seyu? }
-    field :is_producer, type: :boolean, value: -> { producer? }
-    field :is_mangaka, type: :boolean, value: -> { mangaka? }
+    field :is_seyu, type: :boolean
+    field :is_producer, type: :boolean
+    field :is_mangaka, type: :boolean
   end
 end

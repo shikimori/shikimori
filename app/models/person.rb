@@ -8,12 +8,12 @@ class Person < DbEntry
   include TopicsConcern
   include VersionsConcern
 
-  DESYNCABLE = %w[name japanese website birthday image]
+  DESYNCABLE = %w[name japanese website birth_on image]
 
   update_index('people#person') do
     if saved_change_to_name? || saved_change_to_russian? ||
-        saved_change_to_japanese? || saved_change_to_seyu? ||
-        saved_change_to_producer? || saved_change_to_mangaka?
+        saved_change_to_japanese? || saved_change_to_is_seyu? ||
+        saved_change_to_is_producer? || saved_change_to_is_mangaka?
       self
     end
   end
@@ -41,6 +41,8 @@ class Person < DbEntry
     default_url: '/assets/globals/missing_:style.jpg'
 
   before_post_process { translit_paperclip_file_name :image }
+
+  boolean_attributes :producer, :mangaka, :seyu
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
   validates :name, :japanese, length: { maximum: 255 }
