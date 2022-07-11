@@ -36,7 +36,7 @@ class PersonProfileSerializer < PersonSerializer
 
   # TODO: deprecated
   def birthday
-    birth_on
+    object.birth_on
   end
 
   def topic_id
