@@ -346,7 +346,7 @@ describe AnimesCollection::View do
   describe '#compiled_filters' do
     it do
       expect(view.compiled_filters).to eq view_context_params.merge(
-        censored: true,
+        censored: :auto_true,
         order: :ranked
       )
     end

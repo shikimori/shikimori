@@ -62,4 +62,8 @@ class Topics::NewsTopic < Topic
       Types::Moderatable::State[:accepted]
     end
   end
+
+  def offtopic?
+    forum_id == Forum::OFFTOPIC_ID
+  end
 end

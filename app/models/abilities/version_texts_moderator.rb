@@ -5,6 +5,7 @@ class Abilities::VersionTextsModerator
   MANAGED_FIELDS = %w[
     description_ru
     description_en
+    desynced
   ]
   MANAGED_MODELS = [
     Anime.name,

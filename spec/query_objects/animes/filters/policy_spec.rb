@@ -46,18 +46,86 @@ describe Animes::Filters::Policy do
   end
 
   describe 'censored' do
-    context 'true' do
-      let(:censored) { [true, 'true', 1, '1'].sample }
+    context 'truthy except of TRUE_CONDITIONAL' do
+      let(:censored) do
+        (
+          Animes::Filters::Policy::TRUTHY -
+            [Animes::Filters::Policy::TRUE_CONDITIONAL]
+        ).sample
+      end
 
       it { expect(no_hentai).to eq true }
       it { expect(no_music).to eq true }
     end
 
-    context 'false' do
-      let(:censored) { [false, 'false', 0, '0'].sample }
+    context 'falsy' do
+      let(:censored) { described_class::FALSY.sample }
 
       it { expect(no_hentai).to eq false }
       it { expect(no_music).to eq false }
+    end
+
+    context 'TRUE_CONDITIONAL' do
+      let(:censored) { Animes::Filters::Policy::TRUE_CONDITIONAL }
+
+      it { expect(no_hentai).to eq true }
+      it { expect(no_music).to eq true }
+
+      describe 'achievement' do
+        let(:achievement) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
+
+      describe 'studio' do
+        let(:studio) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
+
+      describe 'search' do
+        let(:search) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
+
+      describe 'q' do
+        let(:q) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
+
+      describe 'phrase' do
+        let(:search) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
+
+      describe 'ids' do
+        let(:ids) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
+
+      describe 'mylist' do
+        let(:mylist) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
+
+      describe 'publisher' do
+        let(:publisher) { 'zzzz' }
+
+        it { expect(no_hentai).to eq false }
+        it { expect(no_music).to eq false }
+      end
     end
   end
 

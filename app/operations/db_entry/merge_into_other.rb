@@ -37,7 +37,8 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
     source
     stuio_ids
 
-    birthday
+    birth_on
+    deceased_on
     website
   ]
 

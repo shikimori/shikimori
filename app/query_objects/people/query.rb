@@ -4,9 +4,9 @@ class People::Query < QueryObjectBase
   def self.fetch is_producer:, is_mangaka:, is_seyu:
     scope = Person.order(:id)
 
-    scope.where! producer: is_producer if is_producer
-    scope.where! mangaka: is_mangaka if is_mangaka
-    scope.where! seyu: is_seyu if is_seyu
+    scope.where! is_producer: is_producer if is_producer
+    scope.where! is_mangaka: is_mangaka if is_mangaka
+    scope.where! is_seyu: is_seyu if is_seyu
 
     new scope
   end

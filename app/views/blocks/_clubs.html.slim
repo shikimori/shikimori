@@ -1,0 +1,14 @@
+- if resource.menu_clubs.any?
+  .block
+    .subheadline
+      - if resource.menu_clubs.size == DbEntryDecorator::MAX_CLUBS
+        .linkeable data-href=(local_assigns[:url] || resource.clubs_url)
+          = t 'in_clubs'
+          .count = resource.clubs_scope.size
+      - else
+        = t 'in_clubs'
+
+    .b-clubs.one-line
+      = render partial: 'clubs/club',
+        collection: resource.menu_clubs,
+        locals: { content_by: :avatar }

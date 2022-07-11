@@ -98,7 +98,7 @@ ru:
         source: Источник
       person:
         <<: *character_attributes
-        birthday: Дата рождения
+        birth_on: Дата рождения
         deceased_on: Дата смерти
         website: Сайт
       external_link:

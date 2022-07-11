@@ -98,7 +98,7 @@ en:
         source: Source
       person:
         <<: *character_attributes
-        birthday: Birthday
+        birth_on: Birthday
         deceased_on: Date of death
         website: Website
       external_link:

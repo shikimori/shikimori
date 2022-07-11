@@ -4,7 +4,7 @@
     .fc-2
       .f-column
         ul.b-list.is-wide
-          - %i[name russian japanese birthday deceased_on website].each do |field|
+          - %i[name russian japanese birth_on deceased_on website].each do |field|
             = render 'db_entries/edit_field_li',
               resource: @resource,
               field: field,

@@ -2,7 +2,7 @@
   .b-favoured
     .subheadline
       - if resource.favoured.size == DbEntryDecorator::MAX_FAVOURITES
-        .linkeable data-href="#{local_assigns[:url] || resource.favoured_url}"
+        .linkeable data-href=(local_assigns[:url] || resource.favoured_url)
           = t 'in_favorites'
           .count
             = resource.favoured_size

@@ -90,7 +90,7 @@ class AnimesCollection::View < ViewObjectBase # rubocop:disable ClassLength
   def compiled_filters
     h.params.to_unsafe_h.symbolize_keys.merge(
       order: Animes::SortField.new(DEFAULT_ORDER, h).field,
-      censored: true
+      censored: h.params[:censored].presence || Animes::Filters::Policy::TRUE_CONDITIONAL
     )
   end
 

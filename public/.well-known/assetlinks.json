@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "org.shikimori.c7j.rec",
+    "sha256_cert_fingerprints":
+    ["76:0B:52:6A:6B:CB:5E:AC:D3:0E:12:04:37:44:96:C5:55:8A:00:DB:3A:27:E2:7A:EC:BB:BB:E2:76:62:3E:1F"]
+  }
+}]

@@ -1,5 +1,5 @@
 describe FavouritesQuery do
-  let!(:person) { create :person, name: 'test', mangaka: true }
+  let!(:person) { create :person, name: 'test', is_mangaka: true }
 
   let!(:user_1) do
     create :user, favourite_persons: [create(:favourite, linked: person, kind: :person)]
@@ -24,8 +24,8 @@ describe FavouritesQuery do
   end
 
   describe 'top_favourite_ids' do
-    let!(:person_2) { create :person, name: 'test', mangaka: true }
-    let!(:person_3) { create :person, name: 'test', mangaka: true }
+    let!(:person_2) { create :person, name: 'test', is_mangaka: true }
+    let!(:person_3) { create :person, name: 'test', is_mangaka: true }
 
     let!(:user_5) do
       create :user, favourite_persons: [create(:favourite, linked: person_2, kind: :person)]

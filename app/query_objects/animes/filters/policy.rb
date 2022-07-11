@@ -1,16 +1,24 @@
 class Animes::Filters::Policy
+  TRUE_CONDITIONAL = :auto_true
+  FALSY = ['false', 0, '0']
+  TRUTHY = ['true', 1, '1', TRUE_CONDITIONAL]
+  ALLOWED_CENSORED_VALUES = TRUTHY + FALSY
+
+  ADULT_RATING_REGEXP =
+    /(?:\A|,)(?:#{Types::Anime::Rating[:rx]}|#{Types::Anime::Rating[:r_plus]})\b/
+  MUSIC_REGEXP = /(?:\A|,)#{Types::Anime::Kind[:music]}\b/
+  DOUJIN_REGEXP = /(?:\A|,)#{Types::Manga::Kind[:doujin]}\b/
+
+  HENTAI_GENRES_IDS = Genre::CENSORED_IDS + Genre::DOUJINSHI_IDS
+  HENTAI_GENRES_REGEXP = /(?:\A|,)(?:#{HENTAI_GENRES_IDS.join '|'})\b/
+
   class << self
-    FALSY = [false, 'false', 0, '0']
-    TRULY = [true, 'true', 1, '1']
-    ADULT_RATING_REGEXP =
-      /(?:\A|,)(?:#{Types::Anime::Rating[:rx]}|#{Types::Anime::Rating[:r_plus]})\b/
-    MUSIC_REGEXP = /(?:\A|,)#{Types::Anime::Kind[:music]}\b/
-    DOUJIN_REGEXP = /(?:\A|,)#{Types::Manga::Kind[:doujin]}\b/
-
-    HENTAI_GENRES_IDS = Genre::CENSORED_IDS + Genre::DOUJINSHI_IDS
-    HENTAI_GENRES_REGEXP = /(?:\A|,)(?:#{HENTAI_GENRES_IDS.join '|'})\b/
-
     def exclude_hentai? params
+      # TODO: удалить после 2023-01-01
+      if params[:censored].present? && !params[:censored].in?(ALLOWED_CENSORED_VALUES)
+        raise ArgumentError, 'unexpected boolean value in string and symbols only field'
+      end
+
       return false if forbid_filtering? params
 
       !adult_rating?(params[:rating]) &&
@@ -44,9 +52,19 @@ class Animes::Filters::Policy
         (kind.is_a?(String) && kind.match?(DOUJIN_REGEXP))
     end
 
-    def forbid_filtering? params # rubocop:disable all
-      return false if TRULY.include?(params[:censored])
+    def forbid_filtering? params
+      if user_censored? params
+        false
+      else
+        whitelist_by? params
+      end
+    end
 
+    def user_censored? params
+      TRUTHY.include?(params[:censored]) && params[:censored] != TRUE_CONDITIONAL
+    end
+
+    def whitelist_by? params # rubocop:disable all
       FALSY.include?(params[:censored]) ||
         params[:achievement].present? ||
         params[:ids].present? ||

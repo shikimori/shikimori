@@ -2,7 +2,10 @@ class Abilities::VersionModerator
   include CanCan::Ability
   prepend Draper::CanCanCan
 
-  MANAGED_FIELDS = %w[image desynced]
+  MANAGED_FIELDS = %w[
+    image
+    desynced
+  ]
 
   NOT_MANAGED_FIELDS = Abilities::VersionTextsModerator::MANAGED_FIELDS +
     Abilities::VersionNamesModerator::MANAGED_FIELDS +

@@ -165,20 +165,24 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
       .where(locale: h.locale_from_host)
   end
 
+  def favourites_scope
+    favourites_query.scope object
+  end
+
   def favoured?
     h.user_signed_in? && h.current_user.favoured?(object)
   end
 
   def favoured
-    FavouritesQuery.new.favoured_by object, MAX_FAVOURITES
+    favourites_query.favoured_by object, MAX_FAVOURITES
   end
 
   def all_favoured
-    FavouritesQuery.new.favoured_by object, 816
+    favourites_query.favoured_by object, 816
   end
 
   def favoured_size
-    FavouritesQuery.new.favoured_size object
+    favourites_query.favoured_size object
   end
 
   def authors field
@@ -287,5 +291,9 @@ private
       I18n.russian? &&
       h.current_user.preferences.russian_names?
     )
+  end
+
+  def favourites_query
+    @favouries_query ||= FavouritesQuery.new
   end
 end
