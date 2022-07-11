@@ -178,6 +178,8 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def news_topic_views
+    return [] if respond_to?(:rkn_abused?) && rkn_abused?
+
     news_topic_scope
       .includes(:forum)
       .limit(MAX_NEWS)
