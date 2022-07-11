@@ -157,7 +157,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {"index":{"_id":1}}
-        {"name":"test","japanese":null,"russian":"аа","is_seyu":false,"is_producer":true,"is_mangaka":false}
+        {"name":"test","japanese":"","russian":"аа","is_seyu":false,"is_producer":true,"is_mangaka":false}
     headers:
       User-Agent:
       - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
@@ -216,7 +216,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {"index":{"_id":2}}
-        {"name":"test zxct","japanese":null,"russian":"аа","is_seyu":false,"is_producer":false,"is_mangaka":false}
+        {"name":"test zxct","japanese":"","russian":"аа","is_seyu":false,"is_producer":false,"is_mangaka":false}
     headers:
       User-Agent:
       - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
@@ -302,4 +302,4 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"shikimori_test_people":{"aliases":{}}}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
-recorded_with: VCR 6.0.0
+recorded_with: VCR 6.1.0
