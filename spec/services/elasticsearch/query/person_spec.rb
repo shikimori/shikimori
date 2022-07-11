@@ -18,9 +18,9 @@ describe Elasticsearch::Query::Person, :vcr do
     create :person,
       name: 'test',
       russian: 'аа',
-      mangaka: is_mangaka,
-      seyu: is_seyu,
-      producer: is_producer
+      is_mangaka: is_mangaka,
+      is_seyu: is_seyu,
+      is_producer: is_producer
   end
   let!(:person_2) { create :person, name: 'test zxct', russian: 'аа' }
 

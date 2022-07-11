@@ -5,11 +5,11 @@ class People::JobsWorker
 
   def perform
     Person.transaction do
-      scope.update_all producer: false, mangaka: false, seyu: false
+      scope.update_all is_producer: false, is_mangaka: false, is_seyu: false
 
-      scope.where(id: producer_ids).update_all producer: true
-      scope.where(id: mangaka_ids).update_all mangaka: true
-      scope.where(id: seyu_ids).update_all seyu: true
+      scope.where(id: producer_ids).update_all is_producer: true
+      scope.where(id: mangaka_ids).update_all is_mangaka: true
+      scope.where(id: seyu_ids).update_all is_seyu: true
     end
   end
 

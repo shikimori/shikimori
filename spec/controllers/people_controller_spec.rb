@@ -19,7 +19,7 @@ describe PeopleController do
   end
 
   describe '#show' do
-    let!(:person) { create :person, :with_topics, mangaka: true }
+    let!(:person) { create :person, :with_topics, is_mangaka: true }
     subject! { get :show, params: { id: person.to_param } }
     it { expect(response).to have_http_status :success }
   end

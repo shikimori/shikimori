@@ -12,19 +12,19 @@ describe People::JobsWorker do
 
   it do
     expect(person_1.reload).to have_attributes(
-      producer: true,
-      mangaka: true,
-      seyu: true
+      is_producer: true,
+      is_mangaka: true,
+      is_seyu: true
     )
     expect(person_2.reload).to have_attributes(
-      producer: true,
-      mangaka: false,
-      seyu: false
+      is_producer: true,
+      is_mangaka: false,
+      is_seyu: false
     )
     expect(person_3.reload).to have_attributes(
-      producer: false,
-      mangaka: false,
-      seyu: false
+      is_producer: false,
+      is_mangaka: false,
+      is_seyu: false
     )
   end
 end
