@@ -285,8 +285,8 @@ class PersonDecorator < DbEntryDecorator
     all_roles.any? { |v| !v.manga_id.nil? }
   end
 
-  def formatted_birthday
-    I18n.l(birthday, format: :human).gsub('1901', '').strip
+  def formatted_birth_on
+    I18n.l(birth_on, format: :human).gsub('1901', '').strip
   end
 
   def formatted_deceased_on

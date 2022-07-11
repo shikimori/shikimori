@@ -7,7 +7,7 @@ describe DbImport::Person do
       image: image,
       japanese: '戦場ヶ原 ひたぎ',
       website: 'http://lenta.ru',
-      birthday: Date.parse('Wed, 04 Apr 1984'),
+      birth_on: Date.parse('Wed, 04 Apr 1984'),
       deceased_on: Date.parse('Wed, 04 Apr 1984')
     }
   end

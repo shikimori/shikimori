@@ -29,8 +29,8 @@
     .text itemprop='description'
       - if @resource.japanese.present?
         = info_line t('in_japanese'), @resource.japanese
-      - if @resource.birthday
-        = info_line Person.human_attribute_name(:birthday), @resource.formatted_birthday
+      - if @resource.birth_on
+        = info_line Person.human_attribute_name(:birth_on), @resource.formatted_birth_on
       - if @resource.deceased_on
         = info_line Person.human_attribute_name(:deceased_on), @resource.formatted_deceased_on
       - if @resource.website.present?

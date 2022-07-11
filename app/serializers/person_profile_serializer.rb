@@ -1,9 +1,10 @@
 class PersonProfileSerializer < PersonSerializer
-  attributes :japanese, :job_title, :birthday, :deceased_on, :website, :groupped_roles,
-    :roles, :works, :thread_id, :topic_id,
+  attributes :japanese, :job_title, :birth_on, :deceased_on, :website, :groupped_roles,
+    :roles, :works, :topic_id,
     :person_favoured, :producer, :producer_favoured,
     :mangaka, :mangaka_favoured, :seyu, :seyu_favoured,
-    :updated_at
+    :updated_at,
+    :thread_id, :birthday
 
   def roles
     object.character_works.map do |work|
@@ -17,8 +18,8 @@ class PersonProfileSerializer < PersonSerializer
   def works
     object.works.map do |work|
       {
-        anime: work.object.kind_of?(Anime) ? AnimeSerializer.new(work) : nil,
-        manga: work.object.kind_of?(Manga) ? MangaSerializer.new(work) : nil,
+        anime: work.object.is_a?(Anime) ? AnimeSerializer.new(work) : nil,
+        manga: work.object.is_a?(Manga) ? MangaSerializer.new(work) : nil,
         role: work.formatted_role
       }
     end
@@ -31,6 +32,11 @@ class PersonProfileSerializer < PersonSerializer
   # TODO: deprecated
   def thread_id
     object.maybe_topic(scope.locale_from_host).id
+  end
+
+  # TODO: deprecated
+  def birthday
+    birth_on
   end
 
   def topic_id

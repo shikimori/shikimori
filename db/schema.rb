@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_09_072206) do
+ActiveRecord::Schema.define(version: 2022_07_11_163909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -781,7 +781,7 @@ ActiveRecord::Schema.define(version: 2022_07_09_072206) do
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
     t.datetime "image_updated_at"
-    t.date "birthday"
+    t.date "birth_on"
     t.string "website", limit: 255, default: "", null: false
     t.datetime "imported_at"
     t.boolean "is_producer", default: false, null: false

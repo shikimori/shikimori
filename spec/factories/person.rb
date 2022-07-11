@@ -7,7 +7,7 @@ FactoryBot.define do
     is_producer { false }
     is_mangaka { false }
     is_seyu { false }
-    birthday { nil }
+    birth_on { nil }
     deceased_on { nil }
     mal_id { nil }
     imported_at { nil }
