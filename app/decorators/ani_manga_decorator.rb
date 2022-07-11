@@ -12,7 +12,7 @@ class AniMangaDecorator < DbEntryDecorator
     :roles, :related, :friend_rates, :recent_rates, :chronology,
     :external_links, :available_external_links,
     :watch_online_external_links, :menu_external_links,
-    :topic_views
+    :topic_views, :news_topic_views
 
   def topic_views
     object
@@ -26,6 +26,23 @@ class AniMangaDecorator < DbEntryDecorator
         format_menu_topic(
           Topics::TopicViewFactory.new(false, false).build(topic),
           :updated_at
+        )
+      end
+  end
+
+  def news_topic_views
+    return [] if rkn_abused?
+
+    object
+      .news_topics
+      .where(locale: h.locale_from_host)
+      .includes(:forum)
+      .limit(NEWS_PER_PAGE)
+      .order(:created_at)
+      .map do |topic|
+        format_menu_topic(
+          Topics::TopicViewFactory.new(false, false).build(topic),
+          :created_at
         )
       end
   end

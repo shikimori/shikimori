@@ -1,22 +1,5 @@
 class AnimeDecorator < AniMangaDecorator
-  instance_cache :files, :coubs, :next_episode_at, :news_topic_views
-
-  def news_topic_views
-    return [] if rkn_abused?
-
-    object
-      .news_topics
-      .where(locale: h.locale_from_host)
-      .includes(:forum)
-      .limit(NEWS_PER_PAGE)
-      .order(:created_at)
-      .map do |topic|
-        format_menu_topic(
-          Topics::TopicViewFactory.new(false, false).build(topic),
-          :created_at
-        )
-      end
-  end
+  instance_cache :files, :coubs, :next_episode_at
 
   def screenshots limit = nil
     return [] unless screenshots_allowed?
