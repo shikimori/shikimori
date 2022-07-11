@@ -88,36 +88,8 @@
 
   - cache [resource, :v4] do
     = render 'blocks/favoured', resource: resource
-
-    - if resource.menu_clubs.any?
-      .block
-        .subheadline
-          - if resource.menu_clubs.size == DbEntryDecorator::MAX_CLUBS
-            .linkeable data-href=resource.clubs_url
-              = t 'in_clubs'
-              .count = resource.clubs_scope.size
-          - else
-            = t 'in_clubs'
-
-        .b-clubs.one-line
-          = render partial: 'clubs/club',
-            collection: resource.menu_clubs,
-            locals: { content_by: :avatar }
-
-    - if resource.menu_collections.any?
-      .block
-        .subheadline.m5
-          .linkeable data-href=resource.collections_url
-            = t 'in_collections'
-            .count = resource.collections_size
-
-        .block
-          - resource.menu_collections.each do |collection|
-            .b-menu-line class=('is-spoilers' if collection.is_spoilers)
-              - if collection.is_spoilers
-                .b-anime_status_tag.spoilers = t('topics.header.mini.spoilers').downcase
-              span class=(:blurred if collection.is_spoilers)
-                a.b-link href=collection_url(collection) = collection.name
+    = render 'blocks/clubs', resource: resource
+    = render 'blocks/collections', resource: resource
 
     / - if resource.topic_views.any?
       .block.menu-topics-block
