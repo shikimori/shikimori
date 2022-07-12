@@ -10,16 +10,16 @@
         ]
 
   - cache [resource, resource.clubs_scope, resource.collections_scope, resource.favourites_scope, resource.news_topic_scope] do
-    = render 'blocks/favoured',
+    = render 'db_entries/menu/favoured',
       resource: resource,
       url: favoured_character_url(resource)
-    = render 'blocks/clubs',
+    = render 'db_entries/menu/clubs',
       resource: resource,
       url: clubs_character_url(resource)
-    = render 'blocks/collections',
+    = render 'db_entries/menu/collections',
       resource: resource,
       url: collections_character_url(resource)
-    = render 'blocks/news_topics',
+    = render 'db_entries/menu/news_topics',
       resource: resource
 
 

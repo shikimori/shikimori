@@ -10,13 +10,13 @@
         ]
 
   - cache [resource, resource.collections_scope, resource.favourites_scope, resource.news_topic_scope] do
-    = render 'blocks/favoured',
+    = render 'db_entries/menu/favoured',
       resource: resource,
       url: favoured_person_url(resource)
-    = render 'blocks/collections',
+    = render 'db_entries/menu/collections',
       resource: resource,
       url: collections_person_url(resource)
-    = render 'blocks/news_topics',
+    = render 'db_entries/menu/news_topics',
       resource: resource
 
     - unless @itemtype
