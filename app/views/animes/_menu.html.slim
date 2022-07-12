@@ -86,7 +86,7 @@
               .hide-more
                 | &mdash; #{t '.hide'}
 
-  - cache [resource, resource.clubs_scope, resource.collections_scope, resource.favourites_scope] do
+  - cache [resource, resource.clubs_scope, resource.collections_scope, resource.favourites_scope, resource.news_topic_scope] do
     = render 'db_entries/menu/favoured', resource: resource
     = render 'db_entries/menu/clubs', resource: resource
     = render 'db_entries/menu/collections', resource: resource
