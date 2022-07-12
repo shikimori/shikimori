@@ -1,4 +1,3 @@
-import cookies from 'js-cookie';
 import PaginatedCatalog from '@/views/animes/paginated_catalog';
 
 pageLoad('animes_collection_index', 'recommendations_index', 'userlist_comparer_show', () => {
@@ -7,16 +6,6 @@ pageLoad('animes_collection_index', 'recommendations_index', 'userlist_comparer_
   } else {
     initCatalog();
   }
-
-  $('.b-search-results').on('click', '.b-age_restricted .confirm', () => {
-    cookies.set(
-      $('.confirm').data('cookie'),
-      true,
-      { expires: 9999, path: '/' }
-    );
-
-    window.location.reload();
-  });
 });
 
 function initCatalog() {

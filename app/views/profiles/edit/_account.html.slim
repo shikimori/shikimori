@@ -27,8 +27,8 @@
         = f.input :sex, as: :select, collection: [:male, :female]
         = f.input :birth_on,
           include_blank: true,
-          start_year: Time.zone.today.year - 90,
-          end_year: Time.zone.today.year - 8
+          end_year: Time.zone.today.year - 90,
+          start_year: Time.zone.today.year - 8
 
         = f.simple_fields_for :preferences do |fp|
           = fp.input :is_show_age

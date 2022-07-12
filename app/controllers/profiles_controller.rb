@@ -239,8 +239,16 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       bypass_sign_in @resource if params[:user][:password].present?
 
       params[:section] = 'account' if params[:section] == 'password'
-      redirect_to @resource.edit_url(section: params[:section]),
-        notice: t('changes_saved')
+
+      if params[:age_restricted_path].present? &&
+        Rails.application.routes.recognize_path(params[:age_restricted_path])
+
+        redirect_to params[:age_restricted_path],
+          notice: t('changes_saved')
+      else
+        redirect_to @resource.edit_url(section: params[:section]),
+          notice: t('changes_saved')
+      end
     else
       flash[:alert] = t('changes_not_saved')
       edit
