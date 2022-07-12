@@ -1,4 +1,4 @@
-# touches all related db_entires in order to invalidate their cach
+# touches all related db_entries in order to invalidate their cach
 class Animes::TouchRelated
   include Sidekiq::Worker
   sidekiq_options queue: :low_priority

@@ -1,0 +1,8 @@
+- if resource.news_topic_views.any?
+  .menu-topics-block
+    .subheadline.m5 = t 'news'
+    .block
+      = render partial: 'animes/menu_topic',
+        collection: resource.news_topic_views,
+        as: :topic_view,
+        locals: { with_tooltip: true }

@@ -3,12 +3,6 @@ class MangaDecorator < AniMangaDecorator
     false
   end
 
-  def news_topic_views
-    return [] if rkn_abused?
-
-    []
-  end
-
   def screenshots _limit = nil
     []
   end

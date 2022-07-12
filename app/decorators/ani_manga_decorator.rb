@@ -4,7 +4,6 @@ class AniMangaDecorator < DbEntryDecorator
   include AniMangaDecorator::SeoHelpers
 
   TOPICS_PER_PAGE = 4
-  NEWS_PER_PAGE = 12
   VISIBLE_RELATED = 7
 
   instance_cache :news_topics, :critiques_count, :reviews_count, :cosplay?,

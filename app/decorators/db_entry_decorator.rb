@@ -6,11 +6,13 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     :contest_winners,
     :favoured, :favoured?, :all_favoured, :favoured_size,
     :main_topic_view, :preview_topic_view,
-    :parameterized_versions
+    :parameterized_versions,
+    :news_topic_views
 
   MAX_CLUBS = 4
   MAX_COLLECTIONS = 3
   MAX_FAVOURITES = 12
+  MAX_NEWS = 12
 
   CACHE_VERSION = :v1
 
@@ -167,6 +169,40 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def favourites_scope
     favourites_query.scope object
+  end
+
+  def news_topic_scope
+    object
+      .news_topics
+      .where(locale: h.locale_from_host)
+  end
+
+  def news_topic_views
+    return [] if respond_to?(:rkn_abused?) && rkn_abused?
+
+    news_topic_scope
+      .includes(:forum)
+      .limit(MAX_NEWS)
+      .order(:created_at)
+      .map do |topic|
+        format_menu_topic(
+          Topics::TopicViewFactory.new(false, false).build(topic),
+          :created_at
+        )
+      end
+  end
+
+  def format_menu_topic topic_view, order
+    {
+      time: (
+        topic_view.send(order) || topic_view.created_at || topic_view.updated_at
+      ),
+      id: topic_view.id,
+      name: topic_view.topic_title,
+      title: topic_view.topic_title,
+      tooltip: topic_view.topic.action == AnimeHistoryAction::Episode,
+      url: topic_view.urls.topic_url
+    }
   end
 
   def favoured?

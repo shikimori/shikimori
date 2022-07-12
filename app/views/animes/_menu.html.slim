@@ -86,10 +86,10 @@
               .hide-more
                 | &mdash; #{t '.hide'}
 
-  - cache [resource, resource.clubs_scope, resource.collections_scope, resource.favourites_scope] do
-    = render 'blocks/favoured', resource: resource
-    = render 'blocks/clubs', resource: resource
-    = render 'blocks/collections', resource: resource
+  - cache [resource, resource.clubs_scope, resource.collections_scope, resource.favourites_scope, resource.news_topic_scope] do
+    = render 'db_entries/menu/favoured', resource: resource
+    = render 'db_entries/menu/clubs', resource: resource
+    = render 'db_entries/menu/collections', resource: resource
 
     / - if resource.topic_views.any?
       .block.menu-topics-block

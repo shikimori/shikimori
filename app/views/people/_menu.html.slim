@@ -1,20 +1,23 @@
-- if @itemtype
-  = render 'spnsrs/ad', ad: Ad.new(:menu_240x400)
-- else
-  .b-menu_logo
-    center: a href=resource.url title=localized_name(resource)
-      img[
-        src=cdn_image(resource, :original)
-        alt=localized_name(resource)
-      ]
+.b-animes-menu
+  - if @itemtype
+    = render 'spnsrs/ad', ad: Ad.new(:menu_240x400)
+  - else
+    .b-menu_logo
+      center: a href=resource.url title=localized_name(resource)
+        img[
+          src=cdn_image(resource, :original)
+          alt=localized_name(resource)
+        ]
 
-- cache [resource, resource.collections_scope, resource.favourites_scope] do
-  = render 'blocks/favoured',
-    resource: resource,
-    url: favoured_person_url(resource)
-  = render 'blocks/collections',
-    resource: resource,
-    url: collections_person_url(resource)
+  - cache [resource, resource.collections_scope, resource.favourites_scope, resource.news_topic_scope] do
+    = render 'db_entries/menu/favoured',
+      resource: resource,
+      url: favoured_person_url(resource)
+    = render 'db_entries/menu/collections',
+      resource: resource,
+      url: collections_person_url(resource)
+    = render 'db_entries/menu/news_topics',
+      resource: resource
 
-- unless @itemtype
-  = render 'spnsrs/ad', ad: Ad.new(:menu_240x400)
+    - unless @itemtype
+      = render 'spnsrs/ad', ad: Ad.new(:menu_240x400)
