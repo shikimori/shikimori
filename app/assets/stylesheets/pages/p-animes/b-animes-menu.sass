@@ -19,19 +19,6 @@
     font-size: 12px
     margin-top: 10px
 
-  .right
-    margin: 0px
-
-  .site-icon
-    float: left
-    margin-right: 5px
-    margin-top: 1px
-    height: 16px
-
-  //.addthis_toolbox
-    margin-top: -5px
-    width: 220px
-
   .friend-rate
     .status
       float: right
@@ -44,6 +31,8 @@
       position: static // otherwise avatar will be not visible
 
   .menu-topics-block
+    +block
+
     .entry
       display: block
 
@@ -51,6 +40,9 @@
         &:hover .name
           color: var(--link-hover-color)
           text-decoration: underline
+
+      &:active .name
+        color: var(--link-hover-active)
 
       .name
         +ellipsis2
@@ -62,14 +54,6 @@
         float: right
         font-size: 10px
         padding-left: 4px
-
-    .history-avatar
-      float: right
-      margin-left: 5px
-      margin-top: 1px
-
-    .history li
-      cursor: default
 
     .history-entry-tooltip
       display: none
