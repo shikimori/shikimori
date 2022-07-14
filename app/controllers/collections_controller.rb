@@ -41,6 +41,8 @@ class CollectionsController < ShikimoriController
     @topic_view = Topics::TopicViewFactory
       .new(false, false)
       .build(@resource.maybe_topic(locale_from_host))
+
+    raise AgeRestricted if censored_forbidden?
   end
 
   def tooltip
