@@ -115,6 +115,8 @@ ru:
       by_ranking: по рейтингу
       by_released_date: по дате выхода
       by_add_date: по дате добавления
+      by_random_ranking: случайно
+      by_shiki_ranking: по рейтингу Шикимори
     notice:
       manga: |
         На данной странице отображена %{title}, отсортированная %{order_name}

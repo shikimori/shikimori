@@ -113,6 +113,8 @@ en:
       in_alphabetical_order: in alphabetical order
       by_popularity: by popularity
       by_ranking: by ranking
+      by_random_ranking: by random
+      by_shiki_ranking: by shikimori ranking
       by_released_date: by release date
       by_add_date: by date when added on site
     notice:

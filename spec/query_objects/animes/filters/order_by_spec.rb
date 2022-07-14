@@ -4,9 +4,31 @@ describe Animes::Filters::OrderBy do
 
     let(:scope) { Anime.all }
 
-    let!(:anime_1) { create :anime, ranked: 10, name: 'AAA', episodes: 10 }
-    let!(:anime_2) { create :anime, ranked: 5, name: 'CCC', episodes: 20 }
-    let!(:anime_3) { create :anime, ranked: 5, name: 'BBB', episodes: 0, episodes_aired: 15 }
+    let!(:anime_1) do
+      create :anime,
+        ranked: 10,
+        ranked_shiki: 1,
+        ranked_random: 45,
+        name: 'AAA',
+        episodes: 10
+    end
+    let!(:anime_2) do
+      create :anime,
+        ranked: 5,
+        ranked_shiki: 34,
+        ranked_random: 6,
+        name: 'CCC',
+        episodes: 20
+    end
+    let!(:anime_3) do
+      create :anime,
+        ranked: 5,
+        ranked_shiki: 124,
+        ranked_random: 43,
+        name: 'BBB',
+        episodes: 0,
+        episodes_aired: 15
+    end
 
     context 'id' do
       let(:terms) { 'id' }
@@ -20,6 +42,16 @@ describe Animes::Filters::OrderBy do
 
     context 'ranked' do
       let(:terms) { 'ranked' }
+      it { is_expected.to eq [anime_2, anime_3, anime_1] }
+    end
+
+    context 'ranked_shiki' do
+      let(:terms) { 'ranked_shiki' }
+      it { is_expected.to eq [anime_1, anime_2, anime_3] }
+    end
+
+    context 'ranked_random' do
+      let(:terms) { %w[ranked_random random].sample }
       it { is_expected.to eq [anime_2, anime_3, anime_1] }
     end
 

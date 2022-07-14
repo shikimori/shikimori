@@ -178,6 +178,10 @@ private
         i18n_t 'order.by_add_date'
       when 'ranked'
         i18n_t 'order.by_ranking'
+      when 'ranked_random'
+        i18n_t 'order.by_random_ranking'
+      when 'ranked_shiki'
+        i18n_t 'order.by_shiki_ranking'
       else
         i18n_t 'order.by_ranking'
     end
