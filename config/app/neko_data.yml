@@ -28942,6 +28942,7 @@
         - 24457
         - 29697
         - 36952
+        - 42602
       :threshold: 90%
       :generator:
         ignore_latest_ids:
@@ -28984,6 +28985,7 @@
         - 24457
         - 29697
         - 36952
+        - 42602
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -38980,6 +38982,7 @@
         - 44037
         - 39071
         - 42745
+        - 42916
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -40096,6 +40099,7 @@
         - 44037
         - 39071
         - 42745
+        - 42916
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -41212,6 +41216,7 @@
         - 44037
         - 39071
         - 42745
+        - 42916
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
