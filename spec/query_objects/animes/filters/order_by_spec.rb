@@ -29,7 +29,7 @@ describe Animes::Filters::OrderBy do
     end
 
     context 'ranked_random' do
-      let(:terms) { 'ranked_random' }
+      let(:terms) { %w[ranked_random random].sample }
       it { is_expected.to eq [anime_2, anime_3, anime_1] }
     end
 

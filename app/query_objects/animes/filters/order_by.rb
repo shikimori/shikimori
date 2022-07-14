@@ -110,7 +110,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     Field[:kind] => '%<table_name>s.kind',
     Field[:licensor] => '%<table_name>s.licensor',
     Field[:ranked_random] => '%<table_name>s.ranked_random',
-    Field[:random] => 'random()'
+    Field[:random] => '%<table_name>s.ranked_random'
   }
 
   CUSTOM_SORTINGS = [
