@@ -28,6 +28,8 @@ class CollectionsController < ShikimoriController
   end
 
   def show
+    raise AgeRestricted if @resource.censored? && censored_forbidden?
+
     if @resource.unpublished? && cannot?(:edit, @resource)
       raise ActiveRecord::RecordNotFound
     end
@@ -41,8 +43,6 @@ class CollectionsController < ShikimoriController
     @topic_view = Topics::TopicViewFactory
       .new(false, false)
       .build(@resource.maybe_topic(locale_from_host))
-
-    raise AgeRestricted if censored_forbidden?
   end
 
   def tooltip

@@ -1,8 +1,34 @@
+=begin
+describe AgeRestrictionsConcern, type: :controller do
+  describe AnimesCollectionController do
+    include AgeRestrictionsConcern
+
+    describe 'anime' do
+      # before { allow(controller).to receive(:verify_age_restricted!).with([entry_1, entry_2]) }
+
+      let!(:entry_1) { create :anime, is_censored: true }
+      let!(:entry_2) { create :anime, is_censored: true }
+      let(:make_request) { get :index, params: { klass: 'anime' } }
+
+      describe '#index' do
+        it do
+          bypass_rescue
+          expect{ make_request }.to raise_error AgeRestricted
+        end
+      end
+    end
+  end
+end
+=end
+
 CONTROLLER_NAMES = %w[
   AnimesController
   MangasController
   TopicsController
+  AnimesCollectionController
 ]
+
+COLLECTION_TYPES = %i[anime manga ranobe]
 
 describe AgeRestrictionsConcern, type: :controller do
   CONTROLLER_NAMES.each do |controller|
@@ -15,7 +41,7 @@ describe AgeRestrictionsConcern, type: :controller do
 
   let(:current_user) { nil }
 
-  %w[anime manga topic].each do |entry|
+  %w[anime manga topic collection].each do |entry|
     describe "#{entry.pluralize.humanize}Controller".constantize do
       include AgeRestrictionsConcern
 
@@ -34,19 +60,24 @@ describe AgeRestrictionsConcern, type: :controller do
                   linked_id: anime.to_param
                 }
             end
+            let(:make_rss_request) { nil }
+            let(:make_xhr_request) { nil }
           when 'collection'
             let(:collection) do
               create :collection, :published, :with_topics,
-                kind: Types::Collection::Kind[type],
+                kind: Types::Collection::Kind[COLLECTION_TYPES.sample],
                 user: user,
-                is_censored: is_censored # почему-то не обновляется, надо чинить
+                is_censored: is_censored
             end
 
-            let(:type) { %i[anime manga ranobe].sample }
             let(:make_request) { get :show, params: { id: collection.to_param } }
+            let(:make_rss_request) { nil }
+            let(:make_xhr_request) { nil }
           else
             let(entry.to_sym) { create entry.to_sym, is_censored: is_censored }
             let(:make_request) { get :show, params: { id: send(entry).id } }
+            let(:make_rss_request) { get :show, format: :rss, params: { id: send(entry).id } }
+            let(:make_xhr_request) { get :tooltip, xhr: true, params: { id: send(entry).id } }
           end
 
         context 'guest user' do
@@ -56,9 +87,13 @@ describe AgeRestrictionsConcern, type: :controller do
             it do
               bypass_rescue
               expect { make_request }.to raise_error AgeRestricted
+              expect { make_rss_request }.to_not raise_error
+              expect { make_xhr_request }.to_not raise_error
             end
 
             it { expect(make_request).to render_template 'pages/age_restricted' }
+            it { expect(make_rss_request).to_not render_template 'pages/age_restricted' }
+            it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
 
             it do
               make_request
@@ -70,10 +105,14 @@ describe AgeRestrictionsConcern, type: :controller do
             let(:is_censored) { false }
 
             it { expect(make_request).to_not render_template 'pages/age_restricted' }
+            it { expect(make_rss_request).to_not render_template 'pages/age_restricted' }
+            it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
 
             it do
               bypass_rescue
               expect { make_request }.to_not raise_error
+              expect { make_rss_request }.to_not raise_error
+              expect { make_xhr_request }.to_not raise_error
             end
           end
         end
@@ -97,6 +136,8 @@ describe AgeRestrictionsConcern, type: :controller do
               it do
                 bypass_rescue
                 expect { make_request }.to raise_error AgeRestricted
+                expect { make_rss_request }.to_not raise_error
+                expect { make_xhr_request }.to_not raise_error
               end
 
               it do
@@ -105,16 +146,22 @@ describe AgeRestrictionsConcern, type: :controller do
               end
 
               it { expect(make_request).to render_template 'pages/age_restricted' }
+              it { expect(make_rss_request).to_not render_template 'pages/age_restricted' }
+              it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
             end
 
             context 'not censored' do
               let(:is_censored) { false }
 
               it { expect(make_request).to_not render_template 'pages/age_restricted' }
+              it { expect(make_rss_request).to_not render_template 'pages/age_restricted' }
+              it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
 
               it do
                 bypass_rescue
                 expect { make_request }.to_not raise_error
+                expect { make_rss_request }.to_not raise_error
+                expect { make_xhr_request }.to_not raise_error
               end
             end
           end
@@ -128,6 +175,8 @@ describe AgeRestrictionsConcern, type: :controller do
               it do
                 bypass_rescue
                 expect { make_request }.to raise_error AgeRestricted
+                expect { make_rss_request }.to_not raise_error
+                expect { make_xhr_request }.to_not raise_error
               end
 
               it do
@@ -136,16 +185,22 @@ describe AgeRestrictionsConcern, type: :controller do
               end
 
               it { expect(make_request).to render_template 'pages/age_restricted' }
+              it { expect(make_rss_request).to_not render_template 'pages/age_restricted' }
+              it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
             end
 
             context 'not censored' do
               let(:is_censored) { false }
 
               it { expect(make_request).to_not render_template 'pages/age_restricted' }
+              it { expect(make_rss_request).to_not render_template 'pages/age_restricted' }
+              it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
 
               it do
                 bypass_rescue
                 expect { make_request }.to_not raise_error
+                expect { make_rss_request }.to_not raise_error
+                expect { make_xhr_request }.to_not raise_error
               end
             end
           end
@@ -159,6 +214,8 @@ describe AgeRestrictionsConcern, type: :controller do
               it do
                 bypass_rescue
                 expect { make_request }.to raise_error AgeRestricted
+                expect { make_rss_request }.to_not raise_error
+                expect { make_xhr_request }.to_not raise_error
               end
 
               it do
@@ -167,16 +224,22 @@ describe AgeRestrictionsConcern, type: :controller do
               end
 
               it { expect(make_request).to render_template 'pages/age_restricted' }
+              it { expect(make_rss_request).to_not render_template 'pages/age_restricted' }
+              it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
             end
 
             context 'not censored' do
               let(:is_censored) { false }
 
               it { expect(make_request).to_not render_template 'pages/age_restricted' }
+              it { expect(make_rss_request).to_not render_template 'pages/age_restricted' }
+              it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
 
               it do
                 bypass_rescue
                 expect { make_request }.to_not raise_error
+                expect { make_rss_request }.to_not raise_error
+                expect { make_xhr_request }.to_not raise_error
               end
             end
 
@@ -189,19 +252,27 @@ describe AgeRestrictionsConcern, type: :controller do
                 it do
                   bypass_rescue
                   expect { make_request }.to_not raise_error
+                  expect { make_rss_request }.to_not raise_error
+                  expect { make_xhr_request }.to_not raise_error
                 end
 
                 it { expect(make_request).to_not render_template 'pages/age_restricted' }
+                it { expect(make_rss_request).to_not render_template 'pages/age_restricted' }
+                it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
               end
 
               context 'not censored' do
                 let(:is_censored) { false }
 
                 it { expect(make_request).to_not render_template 'pages/age_restricted' }
+                it { expect(make_rss_request).to_not render_template 'pages/age_restricted' }
+                it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
 
                 it do
                   bypass_rescue
                   expect { make_request }.to_not raise_error
+                  expect { make_rss_request }.to_not raise_error
+                  expect { make_xhr_request }.to_not raise_error
                 end
               end
             end

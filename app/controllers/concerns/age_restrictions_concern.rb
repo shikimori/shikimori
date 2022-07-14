@@ -15,7 +15,7 @@ module AgeRestrictionsConcern
     return collection unless collection && censored_forbidden?
 
     if collection.respond_to? :any?
-      raise AgeRestricted if collection.count(&:censored?) >= (collection.count * 0.1)
+      raise AgeRestricted if collection.count(&:censored?) > (collection.count * 0.1)
     elsif collection.respond_to? :censored?
       raise AgeRestricted if collection.censored?
     else
