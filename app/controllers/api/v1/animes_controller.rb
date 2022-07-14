@@ -323,7 +323,7 @@ private
       request.path,
       params.to_json,
       params[:mylist].present? ? current_user.try(:cache_key) : nil,
-      ((rand * 1000).to_i if params[:order] == 'random'),
+      (Time.zone.today if params[:order] == 'random'),
       :v2
     ].join('|'))
   end
