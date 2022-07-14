@@ -22,7 +22,6 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-
 import VueTagsInput from '@sipec/vue3-tags-input';
 
 const props = defineProps({

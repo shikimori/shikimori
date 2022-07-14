@@ -83,10 +83,7 @@ module.exports = function(api) {
       // ['module:fast-async', { spec: true }],
       '@babel/plugin-proposal-optional-chaining',
       '@babel/plugin-proposal-logical-assignment-operators',
-      [
-        '@babel/plugin-proposal-pipeline-operator',
-        { proposal: 'minimal' }
-      ],
+      ['@babel/plugin-proposal-pipeline-operator', { proposal: 'minimal' }],
       '@babel/plugin-proposal-partial-application'
     ].filter(Boolean)
   };
