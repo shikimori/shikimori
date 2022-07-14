@@ -5,19 +5,20 @@ class DbEntries::RecalculateRanked
   Ranked = Types::Coercible::Symbol.enum(:random, :shiki)
 
   def perform type, ranked
-    send(Ranked[ranked], Type[type].constantize)
+    klass = Type[type].constantize
+    klass.transaction { send Ranked[ranked], klass }
   end
 
 private
 
-  def random type
-    type.select(:id).shuffle.each_with_index do |entry, index|
+  def random klass
+    klass.select(:id).shuffle.each_with_index do |entry, index|
       entry.update_column(:ranked_random, index + 1)
     end
   end
 
-  def shiki type
-    type.order(score_2: :desc).select(:id).each_with_index do |entry, index|
+  def shiki klass
+    klass.order(score_2: :desc).select(:id).each_with_index do |entry, index|
       entry.update_column(:ranked_shiki, index + 1)
     end
   end
