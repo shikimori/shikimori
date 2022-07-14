@@ -1,6 +1,7 @@
 CONTROLLER_NAMES = %w[
   AnimesController
   MangasController
+  TopicsController
 ]
 
 describe AgeRestrictionsConcern, type: :controller do
@@ -14,16 +15,39 @@ describe AgeRestrictionsConcern, type: :controller do
 
   let(:current_user) { nil }
 
-  %w[
-    anime
-    manga
-  ].each do |entry|
+  %w[anime manga topic].each do |entry|
     describe "#{entry.pluralize.humanize}Controller".constantize do
       include AgeRestrictionsConcern
 
-      describe "#{entry.pluralize}#show" do
-        let(entry.to_sym) { create entry.to_sym, is_censored: is_censored }
-        let(:make_request) { get :show, params: { id: send(entry).id } }
+      context "#{entry} show page" do
+        case entry
+          when 'topic'
+            let(:anime) { create :anime, is_censored: is_censored }
+            let(:anime_topic) { create :topic, forum: animanga_forum, linked: anime, is_censored: is_censored }
+
+            let(:make_request) do
+              get :show,
+                params: {
+                  id: anime_topic.to_param,
+                  forum: animanga_forum.to_param,
+                  linked_type: 'anime',
+                  linked_id: anime.to_param
+                }
+            end
+          when 'collection'
+            let(:collection) do
+              create :collection, :published, :with_topics,
+                kind: Types::Collection::Kind[type],
+                user: user,
+                is_censored: is_censored # почему-то не обновляется, надо чинить
+            end
+
+            let(:type) { %i[anime manga ranobe].sample }
+            let(:make_request) { get :show, params: { id: collection.to_param } }
+          else
+            let(entry.to_sym) { create entry.to_sym, is_censored: is_censored }
+            let(:make_request) { get :show, params: { id: send(entry).id } }
+          end
 
         context 'guest user' do
           context 'censored' do
@@ -44,7 +68,6 @@ describe AgeRestrictionsConcern, type: :controller do
 
           context 'not censored' do
             let(:is_censored) { false }
-            before { make_request }
 
             it { expect(make_request).to_not render_template 'pages/age_restricted' }
 
@@ -56,10 +79,13 @@ describe AgeRestrictionsConcern, type: :controller do
         end
 
         context 'logged in user' do
-          let(:user) { create :user, birth_on: birth_on, preferences: preferences }
-          before { allow(controller).to receive(:current_user) { user } }
+          let(:user_stub) { create :user, birth_on: birth_on, preferences: preferences }
+          before { allow(controller).to receive(:current_user) { user_stub } }
           before { allow(controller).to receive(:user_signed_in?) { true } }
-          before { user.define_singleton_method(:url) { '' } }
+          before { user_stub.define_singleton_method(:url) { '' } }
+          before { user_stub.define_singleton_method(:unread_messages_url) { '' } }
+          before { user_stub.define_singleton_method(:show_contest_link?) { '' } }
+          before { user_stub.define_singleton_method(:unvoted_contests) { '' } }
 
           let(:birth_on) { nil }
           let(:preferences) { nil }
