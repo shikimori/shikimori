@@ -21,7 +21,7 @@
         = f.input :birth_on,
           include_blank: true,
           end_year: Time.zone.today.year - 90,
-          start_year: Time.zone.today.year - 8
+          start_year: Time.zone.today.year
         = f.simple_fields_for :preferences do |fp|
           = fp.hidden_field :is_view_censored, value: true
         = f.submit t('age_restricted.submit'), class: 'b-button'
