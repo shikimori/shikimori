@@ -1,8 +1,6 @@
 class UserInfoSerializer < UserSerializer
   attributes :name, :sex, :website, :birth_on, :full_years, :locale
 
-  delegate :full_years, to: :view
-
   def name
     nil
   end
@@ -11,9 +9,7 @@ class UserInfoSerializer < UserSerializer
     nil
   end
 
-private
-
-  def view
-    @view ||= Profiles::View.new object
+  def full_years
+    object.age if object.preferences.show_age?
   end
 end

@@ -207,6 +207,8 @@ class User < ApplicationRecord
     if: -> { new_record? && notification_settings.none? }
   after_update :log_nickname_change, if: -> { saved_change_to_nickname? }
 
+  after_update :sync_is_view_censored, if: :saved_change_to_birth_on?
+
   # из-за этого хука падают спеки user_history_rate. хз почему. надо копаться.
   after_create :create_history_entry
   after_create :create_preferences!, unless: :preferences
@@ -410,6 +412,17 @@ class User < ApplicationRecord
     %W[/private-#{id}]
   end
 
+  def age
+    return unless birth_on
+
+    @age ||= begin
+      years_passed = Time.zone.today.year - birth_on.year
+      Time.zone.tomorrow - years_passed.years > birth_on ?
+        years_passed :
+        years_passed - 1
+    end
+  end
+
 private
 
   def fill_notification_settings
@@ -451,5 +464,11 @@ private
   def add_to_index
     UsersIndex.import self
   rescue StandardError => _e
+  end
+
+private
+
+  def sync_is_view_censored
+    Users::SyncIsViewCensored.call self
   end
 end

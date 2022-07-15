@@ -135,6 +135,7 @@ en:
         username: Username
         disable_authentication: Disable authentication with %{provider}
         enable_authentication: Enable authentication with %{provider}
+        is_view_censored_hint: Set your birthday in account settings
 
       profile:
         display_activity_graph_since: Display activity graph since

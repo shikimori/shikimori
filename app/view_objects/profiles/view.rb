@@ -67,9 +67,11 @@ class Profiles::View < ViewObjectBase
         info << i18n_t('male') if @user.male?
         info << i18n_t('female') if @user.female?
       end
-      if @user.birth_on.present? && full_years > 12 && @user.preferences.is_show_age?
-        info << "#{full_years} #{i18n_i 'years_old', full_years}"
+
+      if @user.age && @user.age > 12 && @user.preferences.show_age?
+        info << "#{@user.age} #{i18n_i 'years_old', @user.age}"
       end
+
       # info << @user.location
       info << @user.website
 
@@ -100,15 +102,5 @@ class Profiles::View < ViewObjectBase
     else
       h.l @user.created_at, format: i18n_t('registration_formats.year')
     end
-  end
-
-  def full_years
-    return unless @user.birth_on
-
-    years_passed = Time.zone.today.year - @user.birth_on.year
-
-    Time.zone.tomorrow - years_passed.years > @user.birth_on ?
-      years_passed :
-      years_passed - 1
   end
 end

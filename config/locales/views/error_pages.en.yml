@@ -27,14 +27,10 @@ en:
     warning: Warning!<br>Adult content
     title:
       This page contains adult material not intended to be
-      viewed by persons under the age of 18<br>(21 in some areas) .
-    text: |
-      <p>Are you over 18?</p>
-      <p>
-        <span class='confirm' data-cookie="%{cookie}">Yes</span>
-        &nbsp;&nbsp;&nbsp;
-        <a href='%{root_url}'>No</a>
-      </p>
+      viewed by persons under the age of 18<br>(21 in some areas).
+    enable_view_censored: Enable 18+ content display?
+    ask_age: Please specify your birth date
+    submit: Submit
     authorize: Log in to confirm your age
-    underage: The profile indicates that you are under 18
+    underage: The profile indicates that you are under 18 years old
     cancel: To the main page

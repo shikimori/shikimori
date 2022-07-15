@@ -30,7 +30,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   ] + [{
     ignored_user_ids: [],
     notification_settings: [],
-    preferences_attributes: %i[id russian_names russian_genres is_show_age]
+    preferences_attributes: %i[id russian_names russian_genres is_show_age is_view_censored]
   }]
 
   def show
@@ -238,9 +238,11 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     if update_profile
       bypass_sign_in @resource if params[:user][:password].present?
 
-      params[:section] = 'account' if params[:section] == 'password'
-      redirect_to @resource.edit_url(section: params[:section]),
+      params[:section] = 'account' if params[:section] == 'password' || params[:section].blank?
+      redirect_back(
+        fallback_location: @resource.edit_url(section: params[:section]),
         notice: t('changes_saved')
+      )
     else
       flash[:alert] = t('changes_not_saved')
       edit

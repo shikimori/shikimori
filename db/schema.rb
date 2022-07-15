@@ -1116,6 +1116,7 @@ ActiveRecord::Schema.define(version: 2022_07_11_164746) do
     t.string "dashboard_type", default: "new", null: false
     t.boolean "is_shiki_editor", default: false, null: false
     t.boolean "is_show_age", default: true, null: false
+    t.boolean "is_view_censored", default: false, null: false
     t.index ["user_id"], name: "index_profile_settings_on_user_id"
   end
 

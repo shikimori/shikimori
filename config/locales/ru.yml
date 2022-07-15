@@ -243,6 +243,7 @@ ru:
         show_social_buttons: Отображать кнопки соц сетей
         volumes_in_manga: Отображать тома у манги
         is_shiki_editor: Новый WYSIWYG текстовый редактор
+        is_view_censored: Отображать 18+ контент
       anime_video:
         url: Url
         episode: Эпизод

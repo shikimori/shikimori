@@ -2,7 +2,6 @@
 # TODO: extract related methods into concerns
 class ShikimoriController < ApplicationController
   before_action { og noindex: true, nofollow: true unless shikimori? }
-  COOKIE_AGE_OVER_18 = :confirmed_age_over_18
 
   helper_method :censored_forbidden?
   helper_method :domain_migration_note

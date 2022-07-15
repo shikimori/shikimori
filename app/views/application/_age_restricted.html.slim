@@ -3,12 +3,8 @@
     p.age-restricted-warning == t 'age_restricted.warning'
     h1 == t 'age_restricted.title'
 
-    - if cookies[ShikimoriController::COOKIE_AGE_OVER_18] != 'true'
-      == t 'age_restricted.text',
-        cookie: ShikimoriController::COOKIE_AGE_OVER_18,
-        root_url: root_url
-
-    - elsif !user_signed_in?
+    / not logged in
+    - if !user_signed_in?
       .devise
         p = t 'age_restricted.authorize'
         .inner
@@ -16,6 +12,46 @@
         p style='margin-top: 15px'
           a href=root_url = t 'actions.cancel'
 
+    / without birthday set
+    - elsif current_user.age.blank?
+      p = t 'age_restricted.ask_age'
+
+      = simple_form_for current_user, url: current_user.url do |f|
+        = f.input :birth_on,
+          include_blank: true,
+          label: false,
+          end_year: Time.zone.today.year - 90,
+          start_year: Time.zone.today.year
+        = f.simple_fields_for :preferences do |fp|
+          = fp.hidden_field :is_view_censored, value: true
+        = f.button :magic_submit
+      br
+      p
+        a href=root_url = t 'age_restricted.cancel'
+
+    / underage
+    - elsif current_user.age < 18
+      p = t 'age_restricted.underage'
+      p
+        a href=root_url = t 'age_restricted.cancel'
+
+    / enable view censored
+    - elsif !current_user.preferences.view_censored?
+      p = t 'age_restricted.enable_view_censored'
+
+      = simple_form_for current_user, url: current_user.url do |f|
+        = f.simple_fields_for :preferences do |fp|
+          = fp.hidden_field :is_view_censored, value: true
+        div
+          = f.submit t('yes'), class: 'b-button'
+          | &nbsp;&nbsp;&nbsp;&nbsp;
+          a.b-button href=root_url = t 'no'
+        / = f.button :magic_submit
+      / br
+      / p
+      /   a href=root_url = t 'age_restricted.cancel'
+
+    / if I forgot somethng
     - else
       p = t 'age_restricted.underage'
       p

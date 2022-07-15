@@ -135,6 +135,7 @@ ru:
         username: Имя пользователя
         disable_authentication: Отключить авторизацию через %{provider}
         enable_authentication: Подключить авторизацию через %{provider}
+        is_view_censored_hint: Укажи дату рождения в настройках аккаунта
 
       profile:
         display_activity_graph_since: Отображать график активности начиная с даты

@@ -21,8 +21,9 @@ class UserPreferences < ApplicationRecord
     in: Animes::Filters::OrderBy::Field.values
 
   boolean_attributes :comments_auto_collapsed,
-                     :comments_auto_loaded,
-                     :show_age
+    :comments_auto_loaded,
+    :show_age,
+    :view_censored
 
   validates :default_sort,
     length: { maximum: 255 },

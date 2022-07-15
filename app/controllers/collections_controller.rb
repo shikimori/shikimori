@@ -28,6 +28,8 @@ class CollectionsController < ShikimoriController
   end
 
   def show
+    raise AgeRestricted if @resource.censored? && censored_forbidden?
+
     if @resource.unpublished? && cannot?(:edit, @resource)
       raise ActiveRecord::RecordNotFound
     end

@@ -1,3 +1,5 @@
+@import mixins/link
+
 .b-age_restricted
   background: #fff
   font-family: 'PT Sans', sans-serif
@@ -44,7 +46,7 @@
     .tooltip &
       font-size: 14px
 
-  a
+  a:not(.b-button)
     color: #176093
     cursor: pointer
     text-decoration: underline
@@ -54,13 +56,12 @@
       cursor: pointer
       text-decoration: underline
 
-  span.confirm
-    color: #176093
-    cursor: pointer
-    text-decoration: underline
+    +gte_laptop
+      &:hover
+        color: #dd5202
 
-  a:hover, span.confirm:hover
-    color: #1d78b7
+    &:active
+      color: #ff0202
 
   .image
     margin-top: 40px
@@ -83,7 +84,7 @@
       background: #e9f7fb
       border: 1px solid rgba(144, 213, 236, 0.45)
       padding: 15px 10px 18px
-      max-width: 280px
+      max-width: 324px
       width: 100%
 
       input[type=submit]
