@@ -98,14 +98,9 @@ describe AgeRestrictionsConcern, type: :controller do
         end
 
         context 'logged in user' do
-          let(:user_stub) { create :user, birth_on: birth_on, preferences: preferences }
-          before { allow(controller).to receive(:current_user) { user_stub } }
-          before { allow(controller).to receive(:user_signed_in?) { true } }
-          before { user_stub.define_singleton_method(:url) { '' } }
-          before { user_stub.define_singleton_method(:unread_messages_url) { '' } }
-          before { user_stub.define_singleton_method(:show_contest_link?) { '' } }
-          before { user_stub.define_singleton_method(:unvoted_contests) { '' } }
+          include_context :authenticated
 
+          let(:user) { create :user, birth_on: birth_on, preferences: preferences }
           let(:birth_on) { nil }
           let(:preferences) { nil }
 
