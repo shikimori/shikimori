@@ -17,14 +17,14 @@
       p = t 'age_restricted.ask_age'
 
       = simple_form_for current_user, url: current_user.url do |f|
-        input type='hidden' name='age_restricted_path' value=request.path
         = f.input :birth_on,
           include_blank: true,
+          label: false,
           end_year: Time.zone.today.year - 90,
           start_year: Time.zone.today.year
         = f.simple_fields_for :preferences do |fp|
           = fp.hidden_field :is_view_censored, value: true
-        = f.submit t('age_restricted.submit'), class: 'b-button'
+        = f.button :magic_submit
       br
       p
         a href=root_url = t 'age_restricted.cancel'
@@ -39,14 +39,17 @@
     - elsif !current_user.preferences.view_censored?
       p = t 'age_restricted.enable_view_censored'
 
-      = form_for current_user, url: current_user.url do |f|
-        input type='hidden' name='age_restricted_path' value=request.fullpath
+      = simple_form_for current_user, url: current_user.url do |f|
         = f.simple_fields_for :preferences do |fp|
           = fp.hidden_field :is_view_censored, value: true
-        = f.submit t('age_restricted.submit'), class: 'b-button'
-      br
-      p
-        a href=root_url = t 'age_restricted.cancel'
+        div
+          = f.submit t('yes'), class: 'b-button'
+          | &nbsp;&nbsp;&nbsp;&nbsp;
+          a.b-button href=root_url = t 'no'
+        / = f.button :magic_submit
+      / br
+      / p
+      /   a href=root_url = t 'age_restricted.cancel'
 
     / if I forgot somethng
     - else
