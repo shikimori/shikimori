@@ -1,21 +1,16 @@
 describe AgeRestrictionsConcern, type: :controller do
   kind = %w[anime topic collection].sample
+  # kind = 'topic'
 
   describe "#{kind.pluralize.humanize}Controller".constantize do
     case kind
       when 'topic'
-        let(:entry) { create :anime, is_censored: is_censored }
-        let(:anime_topic) do
-          create :topic, forum: animanga_forum, linked: entry, is_censored: is_censored
-        end
-
+        let(:entry) { create :topic, forum: offtopic_forum, is_censored: is_censored }
         let(:make_request) do
           get :show,
             params: {
-              id: anime_topic.to_param,
-              forum: animanga_forum.to_param,
-              linked_type: 'anime',
-              linked_id: entry.to_param
+              id: entry.to_param,
+              forum: offtopic_forum.to_param
             }
         end
         let(:make_rss_request) { nil }
