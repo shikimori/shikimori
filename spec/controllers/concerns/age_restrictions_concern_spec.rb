@@ -26,8 +26,6 @@ describe AgeRestrictionsConcern, type: :controller do
 
   %w[anime topic collection].each do |entry|
     describe "#{entry.pluralize.humanize}Controller".constantize do
-      include AgeRestrictionsConcern
-
       context "#{entry} show page" do
         case entry
           when 'topic'
