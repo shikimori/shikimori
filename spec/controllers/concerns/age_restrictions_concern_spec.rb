@@ -23,12 +23,9 @@ end
 
 CONTROLLER_NAMES = %w[
   AnimesController
-  MangasController
   TopicsController
   AnimesCollectionController
 ]
-
-COLLECTION_TYPES = %i[anime manga ranobe]
 
 describe AgeRestrictionsConcern, type: :controller do
   CONTROLLER_NAMES.each do |controller|
@@ -41,7 +38,7 @@ describe AgeRestrictionsConcern, type: :controller do
 
   let(:current_user) { nil }
 
-  %w[anime manga topic collection].each do |entry|
+  %w[anime topic collection].each do |entry|
     describe "#{entry.pluralize.humanize}Controller".constantize do
       include AgeRestrictionsConcern
 
@@ -65,7 +62,6 @@ describe AgeRestrictionsConcern, type: :controller do
           when 'collection'
             let(:collection) do
               create :collection, :published, :with_topics,
-                kind: Types::Collection::Kind[COLLECTION_TYPES.sample],
                 user: user,
                 is_censored: is_censored
             end
