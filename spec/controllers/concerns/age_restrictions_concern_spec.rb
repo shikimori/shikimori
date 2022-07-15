@@ -1,240 +1,131 @@
-=begin
 describe AgeRestrictionsConcern, type: :controller do
-  describe AnimesCollectionController do
-    include AgeRestrictionsConcern
+  kind = %w[anime topic collection].sample
 
-    describe 'anime' do
-      # before { allow(controller).to receive(:verify_age_restricted!).with([entry_1, entry_2]) }
+  describe "#{kind.pluralize.humanize}Controller".constantize do
+    case kind
+      when 'topic'
+        let(:entry) { create :anime, is_censored: is_censored }
+        let(:anime_topic) do
+          create :topic, forum: animanga_forum, linked: entry, is_censored: is_censored
+        end
 
-      let!(:entry_1) { create :anime, is_censored: true }
-      let!(:entry_2) { create :anime, is_censored: true }
-      let(:make_request) { get :index, params: { klass: 'anime' } }
+        let(:make_request) do
+          get :show,
+            params: {
+              id: anime_topic.to_param,
+              forum: animanga_forum.to_param,
+              linked_type: 'anime',
+              linked_id: entry.to_param
+            }
+        end
+        let(:make_rss_request) { nil }
+        let(:make_xhr_request) { nil }
+      when 'collection'
+        let(:entry) do
+          create :collection, :published, :with_topics,
+            user: user,
+            is_censored: is_censored
+        end
 
-      describe '#index' do
-        it do
-          bypass_rescue
-          expect{ make_request }.to raise_error AgeRestricted
+        let(:make_request) { get :show, params: { id: entry.to_param } }
+        let(:make_rss_request) { nil }
+        let(:make_xhr_request) { nil }
+      else
+        let(:entry) { create kind.to_sym, is_censored: is_censored }
+        let(:make_request) { get :show, params: { id: entry.id } }
+        let(:make_rss_request) { get :show, format: :rss, params: { id: entry.id } }
+        let(:make_xhr_request) { get :tooltip, xhr: true, params: { id: entry.id } }
+      end
+
+    context 'guest' do
+      context 'censored' do
+        let(:is_censored) { true }
+
+        it { expect(make_request).to render_template 'pages/age_restricted' }
+        it { expect(make_rss_request).to_not render_template 'pages/age_restricted' }
+        it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
+
+        describe 'AgeRestricted exception' do
+          before { bypass_rescue }
+          it { expect { make_request }.to raise_error AgeRestricted }
+          it { expect { make_rss_request }.to_not raise_error }
+          it { expect { make_xhr_request }.to_not raise_error }
+        end
+      end
+
+      context 'not censored' do
+        let(:is_censored) { false }
+
+        it { expect(make_request).to_not render_template 'pages/age_restricted' }
+        it { expect(make_rss_request).to_not render_template 'pages/age_restricted' }
+        it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
+
+        describe 'AgeRestricted exception' do
+          before { bypass_rescue }
+          it { expect { make_request }.to_not raise_error }
+          it { expect { make_rss_request }.to_not raise_error }
+          it { expect { make_xhr_request }.to_not raise_error }
         end
       end
     end
-  end
-end
-=end
 
-describe AgeRestrictionsConcern, type: :controller do
-  let(:current_user) { nil }
+    context 'authenticated' do
+      include_context :authenticated
 
-  %w[anime topic collection].each do |entry|
-    describe "#{entry.pluralize.humanize}Controller".constantize do
-      context "#{entry} show page" do
-        case entry
-          when 'topic'
-            let(:anime) { create :anime, is_censored: is_censored }
-            let(:anime_topic) { create :topic, forum: animanga_forum, linked: anime, is_censored: is_censored }
+      let(:user) { create :user, birth_on: birth_on, preferences: preferences }
+      let(:birth_on) { nil }
+      let(:preferences) { nil }
 
-            let(:make_request) do
-              get :show,
-                params: {
-                  id: anime_topic.to_param,
-                  forum: animanga_forum.to_param,
-                  linked_type: 'anime',
-                  linked_id: anime.to_param
-                }
-            end
-            let(:make_rss_request) { nil }
-            let(:make_xhr_request) { nil }
-          when 'collection'
-            let(:collection) do
-              create :collection, :published, :with_topics,
-                user: user,
-                is_censored: is_censored
-            end
+      context 'birth_on not set' do
+        context 'censored' do
+          let(:is_censored) { true }
+          it { expect(make_request).to render_template 'pages/age_restricted' }
+        end
 
-            let(:make_request) { get :show, params: { id: collection.to_param } }
-            let(:make_rss_request) { nil }
-            let(:make_xhr_request) { nil }
-          else
-            let(entry.to_sym) { create entry.to_sym, is_censored: is_censored }
-            let(:make_request) { get :show, params: { id: send(entry).id } }
-            let(:make_rss_request) { get :show, format: :rss, params: { id: send(entry).id } }
-            let(:make_xhr_request) { get :tooltip, xhr: true, params: { id: send(entry).id } }
-          end
+        context 'not censored' do
+          let(:is_censored) { false }
+          it { expect(make_request).to_not render_template 'pages/age_restricted' }
+        end
+      end
 
-        context 'guest user' do
+      context 'age below 18' do
+        let(:birth_on) { 18.years.ago + 1.day }
+
+        context 'censored' do
+          let(:is_censored) { true }
+          it { expect(make_request).to render_template 'pages/age_restricted' }
+        end
+
+        context 'not censored' do
+          let(:is_censored) { false }
+          it { expect(make_request).to_not render_template 'pages/age_restricted' }
+        end
+      end
+
+      context 'age above 18' do
+        let(:birth_on) { 18.years.ago - 1.day }
+
+        context 'censored' do
+          let(:is_censored) { true }
+          it { expect(make_request).to render_template 'pages/age_restricted' }
+        end
+
+        context 'not censored' do
+          let(:is_censored) { false }
+          it { expect(make_request).to_not render_template 'pages/age_restricted' }
+        end
+
+        context 'view censored preference set' do
+          let(:preferences) { create :user_preferences, is_view_censored: true }
+
           context 'censored' do
             let(:is_censored) { true }
-
-            it do
-              bypass_rescue
-              expect { make_request }.to raise_error AgeRestricted
-              expect { make_rss_request }.to_not raise_error
-              expect { make_xhr_request }.to_not raise_error
-            end
-
-            it { expect(make_request).to render_template 'pages/age_restricted' }
-            it { expect(make_rss_request).to_not render_template 'pages/age_restricted' }
-            it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
-
-            it do
-              make_request
-              expect(response.body).to include('Авторизуйся')
-            end
+            it { expect(make_request).to_not render_template 'pages/age_restricted' }
           end
 
           context 'not censored' do
             let(:is_censored) { false }
-
             it { expect(make_request).to_not render_template 'pages/age_restricted' }
-            it { expect(make_rss_request).to_not render_template 'pages/age_restricted' }
-            it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
-
-            it do
-              bypass_rescue
-              expect { make_request }.to_not raise_error
-              expect { make_rss_request }.to_not raise_error
-              expect { make_xhr_request }.to_not raise_error
-            end
-          end
-        end
-
-        context 'logged in user' do
-          include_context :authenticated
-
-          let(:user) { create :user, birth_on: birth_on, preferences: preferences }
-          let(:birth_on) { nil }
-          let(:preferences) { nil }
-
-          context 'without age' do
-            context 'censored' do
-              let(:is_censored) { true }
-
-              it do
-                bypass_rescue
-                expect { make_request }.to raise_error AgeRestricted
-                expect { make_xhr_request }.to_not raise_error
-              end
-
-              it do
-                make_request
-                expect(response.body).to include('Пожалуйста, укажи свою дату рождения')
-              end
-
-              it { expect(make_request).to render_template 'pages/age_restricted' }
-              it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
-            end
-
-            context 'not censored' do
-              let(:is_censored) { false }
-
-              it { expect(make_request).to_not render_template 'pages/age_restricted' }
-              it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
-
-              it do
-                bypass_rescue
-                expect { make_request }.to_not raise_error
-                expect { make_xhr_request }.to_not raise_error
-              end
-            end
-          end
-
-          context 'underage' do
-            let(:birth_on) { Time.zone.today - 10.years }
-
-            context 'censored' do
-              let(:is_censored) { true }
-
-              it do
-                bypass_rescue
-                expect { make_request }.to raise_error AgeRestricted
-                expect { make_xhr_request }.to_not raise_error
-              end
-
-              it do
-                make_request
-                expect(response.body).to include('меньше 18')
-              end
-
-              it { expect(make_request).to render_template 'pages/age_restricted' }
-              it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
-            end
-
-            context 'not censored' do
-              let(:is_censored) { false }
-
-              it { expect(make_request).to_not render_template 'pages/age_restricted' }
-              it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
-
-              it do
-                bypass_rescue
-                expect { make_request }.to_not raise_error
-                expect { make_xhr_request }.to_not raise_error
-              end
-            end
-          end
-
-          context 'age above 18' do
-            let(:birth_on) { Time.zone.today - 18.years }
-
-            context 'censored' do
-              let(:is_censored) { true }
-
-              it do
-                bypass_rescue
-                expect { make_request }.to raise_error AgeRestricted
-                expect { make_xhr_request }.to_not raise_error
-              end
-
-              it do
-                make_request
-                expect(response.body).to include('Включить отображение 18+ контента?')
-              end
-
-              it { expect(make_request).to render_template 'pages/age_restricted' }
-              it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
-            end
-
-            context 'not censored' do
-              let(:is_censored) { false }
-
-              it { expect(make_request).to_not render_template 'pages/age_restricted' }
-              it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
-
-              it do
-                bypass_rescue
-                expect { make_request }.to_not raise_error
-                expect { make_xhr_request }.to_not raise_error
-              end
-            end
-
-            context 'view censored preference set' do
-              let(:preferences) { create :user_preferences, is_view_censored: true }
-
-              context 'censored' do
-                let(:is_censored) { true }
-
-                it do
-                  bypass_rescue
-                  expect { make_request }.to_not raise_error
-                  expect { make_xhr_request }.to_not raise_error
-                end
-
-                it { expect(make_request).to_not render_template 'pages/age_restricted' }
-                it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
-              end
-
-              context 'not censored' do
-                let(:is_censored) { false }
-
-                it { expect(make_request).to_not render_template 'pages/age_restricted' }
-                it { expect(make_xhr_request).to_not render_template 'pages/age_restricted' }
-
-                it do
-                  bypass_rescue
-                  expect { make_request }.to_not raise_error
-                  expect { make_xhr_request }.to_not raise_error
-                end
-              end
-            end
           end
         end
       end
