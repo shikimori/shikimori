@@ -34,8 +34,6 @@ class TopicsController < ShikimoriController
     return render :missing, status: (xhr_or_json? ? :ok : :not_found) if @resource.is_a? NoTopic
     return redirect_to @forums_view.redirect_url if @forums_view.hidden?
 
-    raise AgeRestricted if @resource&.linked.try(:censored?) && censored_forbidden?
-
     ensure_redirect! UrlGenerator.instance.topic_url(@resource)
   end
 
@@ -221,6 +219,11 @@ private
     raise ActiveRecord::RecordNotFound if request.format.rss?
 
     @resource = topic || NoTopic.new(id: params[:id].to_i)
+
+    if (@resource&.try(:censored?) || @resource&.linked.try(:censored?)) &&
+        censored_forbidden?
+      raise AgeRestricted
+    end
   end
 
   def set_canonical

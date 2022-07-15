@@ -1,6 +1,5 @@
 describe AgeRestrictionsConcern, type: :controller do
   kind = %w[anime topic collection].sample
-  # kind = 'topic'
 
   describe "#{kind.pluralize.humanize}Controller".constantize do
     case kind
