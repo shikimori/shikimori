@@ -21,21 +21,7 @@ describe AgeRestrictionsConcern, type: :controller do
 end
 =end
 
-CONTROLLER_NAMES = %w[
-  AnimesController
-  TopicsController
-  AnimesCollectionController
-]
-
 describe AgeRestrictionsConcern, type: :controller do
-  CONTROLLER_NAMES.each do |controller|
-    describe controller.constantize do
-      it 'includes AgeRestrictionsConcern' do
-        expect(controller.constantize.ancestors.include? AgeRestrictionsConcern).to be(true)
-      end
-    end
-  end
-
   let(:current_user) { nil }
 
   %w[anime topic collection].each do |entry|
