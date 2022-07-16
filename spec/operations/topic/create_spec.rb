@@ -29,16 +29,20 @@ describe Topic::Create do
         body: 'text',
         broadcast: broadcast,
         type: type,
-        generated: generated
+        generated: generated,
+        linked_id: linked_id,
+        linked_type: linked_type
       }
     end
     let(:broadcast) { nil }
     let(:type) { Topic.name }
     let(:generated) { nil }
+    let(:linked_id) { nil }
+    let(:linked_type) { nil }
 
     it do
       is_expected.to be_persisted
-      is_expected.to have_attributes params.merge(locale: locale.to_s)
+      is_expected.to have_attributes params.merge(locale: locale.to_s, is_censored: false)
       expect(Notifications::BroadcastTopic).to_not have_received :perform_in
     end
 
@@ -77,6 +81,14 @@ describe Topic::Create do
           )
         end
       end
+    end
+
+    describe 'is_censored from linked' do
+      let(:anime) { create :anime, is_censored: is_censored }
+      let(:is_censored) { [true, false].sample }
+      let(:linked_id) { anime.id }
+      let(:linked_type) { anime.class.name }
+      it { expect(subject.is_censored).to eq is_censored }
     end
   end
 

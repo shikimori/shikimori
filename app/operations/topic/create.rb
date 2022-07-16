@@ -17,7 +17,11 @@ class Topic::Create
 private
 
   def build_topic
-    Topic.new @params.merge(locale: @locale)
+    topic = Topic.new @params.merge(locale: @locale)
+    topic.is_censored = topic.linked.respond_to?(:censored?) ?
+      topic.linked.censored? :
+      false
+    topic
   end
 
   def assign_forum topic
