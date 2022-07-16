@@ -254,8 +254,15 @@ class Abilities::User
       )
     end
 
-    can %i[new create update destroy up down], ClubPage do |club_page|
+    can %i[new create], ClubPage do |club_page|
       can?(:edit_pages, club_page.club) && club_page.user_id == @user.id && (
+        club_page.parent_page_id.nil? ||
+        club_page.parent_page.club_id == club_page.club_id
+      )
+    end
+
+    can %i[update destroy up down], ClubPage do |club_page|
+      can?(:edit_pages, club_page.club) && (
         club_page.parent_page_id.nil? ||
         club_page.parent_page.club_id == club_page.club_id
       )
