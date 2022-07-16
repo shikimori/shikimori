@@ -1,14 +1,4 @@
 class Topics::Query < QueryObjectBase
-  BY_LINKED_CLUB_SQL = <<-SQL.squish
-    (#{Topics::ForumQuery::CLUBS_QUERY}) and (
-      topics.type not in (
-        #{ApplicationRecord.sanitize Topics::ClubUserTopic.name},
-        #{ApplicationRecord.sanitize Topics::EntryTopics::ClubTopic.name},
-        #{ApplicationRecord.sanitize Topics::EntryTopics::ClubPageTopic.name}
-      ) or comments_count != 0
-    )
-  SQL
-
   def self.fetch locale, is_censored_forbidden
     query = new Topic
       .includes(:forum, :user, :linked)
@@ -36,7 +26,7 @@ class Topics::Query < QueryObjectBase
     if linked.is_a? Club
       chain @scope
         .where(
-          BY_LINKED_CLUB_SQL,
+          Topics::ForumQuery::SPECIFIC_CLUBS_QUERY,
           club_ids: linked.id,
           club_page_ids: linked.pages.pluck(:id)
         )
@@ -46,14 +36,6 @@ class Topics::Query < QueryObjectBase
       self
     end
   end
-
-  # def except_ignored user
-    # if user
-      # chain @scope.where.not id: user.topic_ignores.map(&:topic_id)
-    # else
-      # self
-    # end
-  # end
 
   def search phrase, forum, user, locale
     chain Topics::SearchQuery.call(

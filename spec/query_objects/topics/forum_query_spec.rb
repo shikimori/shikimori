@@ -59,8 +59,10 @@ describe Topics::ForumQuery do
       linked: joined_censored_club_page,
       forum_id: Topic::FORUM_IDS[ClubPage.name],
       updated_at: 9.days.ago,
+      comments_count: joined_censored_club_page_topic_comments_count,
       is_censored: true
   end
+  let(:joined_censored_club_page_topic_comments_count) { 0 }
 
   let!(:another_censored_club) do
     create :club, :with_topics,
@@ -87,6 +89,7 @@ describe Topics::ForumQuery do
       linked: another_censored_club_page,
       forum_id: Topic::FORUM_IDS[ClubPage.name],
       updated_at: 19.days.ago,
+      comments_count: 1,
       is_censored: true
   end
 
@@ -119,7 +122,6 @@ describe Topics::ForumQuery do
       it do
         is_expected.to eq [
           joined_censored_club_user_topic,
-          joined_censored_club_page_topic,
           joined_censored_club.topic(locale)
         ]
       end
@@ -190,10 +192,21 @@ describe Topics::ForumQuery do
     it do
       is_expected.to eq [
         joined_censored_club_user_topic,
-        joined_censored_club_page_topic,
         joined_censored_club.topic(locale),
         joined_censored_club_2.topic(locale)
       ]
+    end
+
+    context 'club page topic with comments' do
+      let(:joined_censored_club_page_topic_comments_count) { 1 }
+      it do
+        is_expected.to eq [
+          joined_censored_club_user_topic,
+          joined_censored_club_page_topic,
+          joined_censored_club.topic(locale),
+          joined_censored_club_2.topic(locale)
+        ]
+      end
     end
   end
 
@@ -217,7 +230,6 @@ describe Topics::ForumQuery do
       it do
         is_expected.to eq [
           joined_censored_club_user_topic,
-          joined_censored_club_page_topic,
           joined_censored_club.topic(locale),
           another_censored_club_user_topic,
           another_censored_club_page_topic,

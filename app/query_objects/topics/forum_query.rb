@@ -20,16 +20,31 @@ class Topics::ForumQuery # rubocop:disable ClassLength
       generated = true
     )
   SQL
-  CLUBS_QUERY = <<-SQL.squish
+  ALL_CLUBS_QUERY = <<-SQL.squish
+    (
+      #{Topic.table_name}.type in (
+        #{ApplicationRecord.sanitize Topics::EntryTopics::ClubTopic.name},
+        #{ApplicationRecord.sanitize Topics::ClubUserTopic.name}
+      )
+    ) or (
+      #{Topic.table_name}.type in (
+        #{ApplicationRecord.sanitize Topics::EntryTopics::ClubPageTopic.name}
+      )
+        and comments_count != 0
+    )
+  SQL
+  SPECIFIC_CLUBS_QUERY = <<-SQL.squish
     (
       #{Topic.table_name}.type in (
         #{ApplicationRecord.sanitize Topics::EntryTopics::ClubTopic.name},
         #{ApplicationRecord.sanitize Topics::ClubUserTopic.name}
       ) and #{Topic.table_name}.linked_id in (:club_ids)
     ) or (
-      #{Topic.table_name}.type =
+      #{Topic.table_name}.type in (
         #{ApplicationRecord.sanitize Topics::EntryTopics::ClubPageTopic.name}
+      )
         and #{Topic.table_name}.linked_id in (:club_page_ids)
+        and comments_count != 0
     )
   SQL
 
@@ -101,7 +116,7 @@ private
     if @user.preferences.forums.include? Forum::MY_CLUBS_FORUM.permalink
       @scope
         .where(
-          "#{FORUMS_QUERY} or #{CLUBS_QUERY}",
+          "#{FORUMS_QUERY} or #{SPECIFIC_CLUBS_QUERY}",
           user_forums: @user.preferences.forums.map(&:to_i),
           club_ids: user_club_ids,
           club_page_ids: user_club_page_ids
@@ -134,7 +149,7 @@ private
   def clubs_forums
     @scope
       .where(forum_id: @forum.id)
-      .where(linked_type: [Club.name, ClubPage.name])
+      .where(ALL_CLUBS_QUERY)
   end
 
   def news_forums
@@ -153,7 +168,7 @@ private
 
   def my_clubs_forums
     @scope.where(
-      CLUBS_QUERY,
+      SPECIFIC_CLUBS_QUERY,
       club_ids: user_club_ids,
       club_page_ids: user_club_page_ids
     )
