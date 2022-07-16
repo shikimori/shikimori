@@ -19,7 +19,7 @@ class Topics::Query < QueryObjectBase
 
     # .except_ignored(user)
     if is_censored_forbidden
-      Topics::ExceptHentaiQuery.call query
+      query.where is_censored: false
     else
       query
     end
