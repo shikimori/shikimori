@@ -8,11 +8,15 @@ describe Clubs::SyncTopicsIsCensored do
   let!(:club_page_topic) do
     create :club_page_topic, linked: club_page, is_censored: !is_censored
   end
+  let!(:club_user_topic) do
+    create :club_user_topic, linked: entry, is_censored: !is_censored
+  end
 
   subject! { Clubs::SyncTopicsIsCensored.call entry }
 
   it do
     expect(club_topic.reload.is_censored).to eq is_censored
     expect(club_page_topic.reload.is_censored).to eq is_censored
+    expect(club_user_topic.reload.is_censored).to eq is_censored
   end
 end
