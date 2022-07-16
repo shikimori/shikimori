@@ -51,7 +51,6 @@ describe Topics::Query do
         create :club_page_topic,
           linked: club_page,
           updated_at: 9.days.ago,
-          comments_count: club_page_topic_comments_count,
           is_censored: true
       end
       let!(:club_user_topic) do
@@ -61,26 +60,12 @@ describe Topics::Query do
           is_censored: true
       end
 
-      context 'wo comments' do
-        let(:club_page_topic_comments_count) { 0 }
-        it { is_expected.to eq [linked.topic(locale), club_user_topic] }
-      end
-
-      context 'with comments' do
-        let(:club_page_topic_comments_count) { 1 }
-        before do
-          linked
-            .topic(locale)
-            .update_columns(comments_count: 1, updated_at: 15.days.ago)
-        end
-
-        it do
-          is_expected.to eq [
-            club_user_topic,
-            club_page_topic,
-            linked.topic(locale)
-          ]
-        end
+      it do
+        is_expected.to eq [
+          linked.topic(locale),
+          club_user_topic,
+          club_page_topic
+        ]
       end
     end
   end

@@ -21,16 +21,10 @@ class Topics::ForumQuery # rubocop:disable ClassLength
     )
   SQL
   ALL_CLUBS_QUERY = <<-SQL.squish
-    (
-      #{Topic.table_name}.type in (
-        #{ApplicationRecord.sanitize Topics::EntryTopics::ClubTopic.name},
-        #{ApplicationRecord.sanitize Topics::ClubUserTopic.name}
-      )
-    ) or (
-      #{Topic.table_name}.type in (
-        #{ApplicationRecord.sanitize Topics::EntryTopics::ClubPageTopic.name}
-      )
-        and comments_count != 0
+    #{Topic.table_name}.type in (
+      #{ApplicationRecord.sanitize Topics::EntryTopics::ClubTopic.name},
+      #{ApplicationRecord.sanitize Topics::ClubUserTopic.name},
+      #{ApplicationRecord.sanitize Topics::EntryTopics::ClubPageTopic.name}
     )
   SQL
   SPECIFIC_CLUBS_QUERY = <<-SQL.squish
@@ -44,7 +38,6 @@ class Topics::ForumQuery # rubocop:disable ClassLength
         #{ApplicationRecord.sanitize Topics::EntryTopics::ClubPageTopic.name}
       )
         and #{Topic.table_name}.linked_id in (:club_page_ids)
-        and comments_count != 0
     )
   SQL
 
