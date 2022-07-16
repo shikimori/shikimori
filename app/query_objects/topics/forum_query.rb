@@ -9,46 +9,27 @@ class Topics::ForumQuery # rubocop:disable ClassLength
   FORUMS_QUERY = 'forum_id in (:user_forums)'
   NEWS_QUERY = <<-SQL.squish
     (
-      topics.type = '#{Topics::NewsTopic.name}' and
+      #{Topic.table_name}.type = '#{Topics::NewsTopic.name}' and
       forum_id = #{Forum::NEWS_ID} and
       generated = false
     ) or (
-      topics.type in (
+      #{Topic.table_name}.type in (
         '#{Topics::EntryTopics::CosplayGalleryTopic.name}',
         '#{Topics::NewsTopics::ContestStatusTopic.name}'
       ) and
       generated = true
     )
   SQL
-
-  CLUBS_JOIN = <<-SQL.squish
-    left join clubs as clubs_1 on
-      clubs_1.id = linked_id and linked_type = '#{Club.name}'
-
-    left join club_pages on
-      club_pages.id = linked_id and linked_type = '#{ClubPage.name}'
-
-    left join clubs as clubs_2 on
-      club_pages.club_id = clubs_2.id
-  SQL
-  CLUBS_WHERE = <<-SQL.squish
-    (linked_type = '#{Club.name}' and linked_id in (:user_club_ids)) or
-    (linked_type = '#{ClubPage.name}' and linked_id in (:user_club_page_ids)) or
-      clubs_1.is_censored = false or
-      clubs_2.is_censored = false
-  SQL
-
-  MY_CLUBS_QUERY = <<-SQL.squish
+  CLUBS_QUERY = <<-SQL.squish
     (
-      topics.type in (
+      #{Topic.table_name}.type in (
         #{ApplicationRecord.sanitize Topics::EntryTopics::ClubTopic.name},
         #{ApplicationRecord.sanitize Topics::ClubUserTopic.name}
-      ) and #{Topic.table_name}.linked_id in (:user_club_ids)
-    ) or
-    (
-      topics.type =
+      ) and #{Topic.table_name}.linked_id in (:club_ids)
+    ) or (
+      #{Topic.table_name}.type =
         #{ApplicationRecord.sanitize Topics::EntryTopics::ClubPageTopic.name}
-        and #{Topic.table_name}.linked_id in (:user_club_page_ids)
+        and #{Topic.table_name}.linked_id in (:club_page_ids)
     )
   SQL
 
@@ -59,11 +40,9 @@ class Topics::ForumQuery # rubocop:disable ClassLength
   SQL
 
   def call
-    if @is_censored_forbidden
-      Topics::ExceptHentaiQuery.call scope_by_forum
-    else
-      scope_by_forum
-    end
+    scope = scope_by_forum
+    scope.where! is_censored: false if @is_censored_forbidden
+    scope
   end
 
 private
@@ -122,10 +101,10 @@ private
     if @user.preferences.forums.include? Forum::MY_CLUBS_FORUM.permalink
       @scope
         .where(
-          "#{FORUMS_QUERY} or #{MY_CLUBS_QUERY}",
+          "#{FORUMS_QUERY} or #{CLUBS_QUERY}",
           user_forums: @user.preferences.forums.map(&:to_i),
-          user_club_ids: user_club_ids,
-          user_club_page_ids: user_club_page_ids
+          club_ids: user_club_ids,
+          club_page_ids: user_club_page_ids
         )
     else
       @scope
@@ -136,7 +115,7 @@ private
   def guest_forums
     @scope
       .where(
-        'topics.type not in (?) OR topics.type IS NULL', [
+        "#{Topic.table_name}.type not in (?) OR #{Topic.table_name}.type IS NULL", [
           Topics::EntryTopics::ClubTopic.name,
           Topics::ClubUserTopic.name,
           Topics::EntryTopics::ClubPageTopic.name
@@ -153,21 +132,9 @@ private
   end
 
   def clubs_forums
-    new_scope = @scope
+    @scope
       .where(forum_id: @forum.id)
       .where(linked_type: [Club.name, ClubPage.name])
-
-    if @is_censored_forbidden
-      new_scope
-        .joins(CLUBS_JOIN)
-        .where(
-          CLUBS_WHERE,
-          user_club_ids: user_club_ids,
-          user_club_page_ids: user_club_page_ids
-        )
-    else
-      new_scope
-    end
   end
 
   def news_forums
@@ -186,9 +153,9 @@ private
 
   def my_clubs_forums
     @scope.where(
-      MY_CLUBS_QUERY,
-      user_club_ids: user_club_ids,
-      user_club_page_ids: user_club_page_ids
+      CLUBS_QUERY,
+      club_ids: user_club_ids,
+      club_page_ids: user_club_page_ids
     )
   end
 

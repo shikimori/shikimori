@@ -1,12 +1,10 @@
 class Topics::Query < QueryObjectBase
   BY_LINKED_CLUB_SQL = <<-SQL.squish
-    (
-      (linked_id = :club_id and linked_type = '#{Club.name}') or
-      (linked_id in (:club_page_ids) and linked_type = '#{ClubPage.name}')
-    ) and (
+    (#{Topics::ForumQuery::CLUBS_QUERY}) and (
       topics.type not in (
-        '#{Topics::EntryTopics::ClubTopic.name}',
-        '#{Topics::EntryTopics::ClubPageTopic.name}'
+        #{ApplicationRecord.sanitize Topics::ClubUserTopic.name},
+        #{ApplicationRecord.sanitize Topics::EntryTopics::ClubTopic.name},
+        #{ApplicationRecord.sanitize Topics::EntryTopics::ClubPageTopic.name}
       ) or comments_count != 0
     )
   SQL
@@ -39,7 +37,7 @@ class Topics::Query < QueryObjectBase
       chain @scope
         .where(
           BY_LINKED_CLUB_SQL,
-          club_id: linked.id,
+          club_ids: linked.id,
           club_page_ids: linked.pages.pluck(:id)
         )
     elsif linked

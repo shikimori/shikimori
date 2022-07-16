@@ -51,15 +51,17 @@ describe Topics::Query do
         create :club_page_topic,
           linked: club_page,
           updated_at: 9.days.ago,
-          comments_count: club_page_topic_comments_count
+          comments_count: club_page_topic_comments_count,
+          is_censored: true
       end
       let!(:club_user_topic) do
         create :club_user_topic,
           linked: club_page,
-          updated_at: 8.days.ago
+          updated_at: 8.days.ago,
+          is_censored: true
       end
 
-      context 'wo comments' do
+      context 'wo comments', :focus do
         let(:club_page_topic_comments_count) { 0 }
         it { is_expected.to eq [club_user_topic] }
       end
