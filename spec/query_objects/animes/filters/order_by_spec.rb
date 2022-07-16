@@ -31,7 +31,7 @@ describe Animes::Filters::OrderBy do
     end
 
     context 'id' do
-      let(:terms) { 'id' }
+      let(:terms) { Animes::Filters::OrderBy::Field[:id] }
       it { is_expected.to eq [anime_1, anime_2, anime_3] }
     end
 
@@ -41,34 +41,39 @@ describe Animes::Filters::OrderBy do
     end
 
     context 'ranked' do
-      let(:terms) { 'ranked' }
+      let(:terms) { Animes::Filters::OrderBy::Field[:ranked] }
       it { is_expected.to eq [anime_2, anime_3, anime_1] }
     end
 
     context 'ranked_shiki' do
-      let(:terms) { 'ranked_shiki' }
+      let(:terms) { Animes::Filters::OrderBy::Field[:ranked_shiki] }
       it { is_expected.to eq [anime_1, anime_2, anime_3] }
     end
 
     context 'ranked_random' do
-      let(:terms) { %w[ranked_random random].sample }
+      let(:terms) { Animes::Filters::OrderBy::Field[:ranked_random] }
       it { is_expected.to eq [anime_2, anime_3, anime_1] }
     end
 
     context 'ranked,name' do
-      let(:terms) { 'ranked,name' }
+      let(:terms) do
+        [
+          Animes::Filters::OrderBy::Field[:ranked],
+          Animes::Filters::OrderBy::Field[:name]
+        ].join(',')
+      end
       it { is_expected.to eq [anime_3, anime_2, anime_1] }
     end
 
     context 'custom surtings' do
       context 'user_1' do
-        let(:terms) { 'user_1' }
+        let(:terms) { Animes::Filters::OrderBy::Field[:user_1] }
         let(:scope) { Anime.order(:id) }
         it { is_expected.to eq [anime_1, anime_2, anime_3] }
       end
 
       context 'user_2' do
-        let(:terms) { 'user_2' }
+        let(:terms) { Animes::Filters::OrderBy::Field[:user_2] }
         let(:scope) { Anime.order(id: :desc) }
         it { is_expected.to eq [anime_3, anime_2, anime_1] }
       end
