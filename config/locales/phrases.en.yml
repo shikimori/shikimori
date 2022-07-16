@@ -73,6 +73,7 @@ en:
     volumes: By number of volumes
     popularity: By popularity
     ranked: By rank
+    random: By random
     ranked_random: By random
     ranked_shiki: By Shikimori ranking
     score: By score
