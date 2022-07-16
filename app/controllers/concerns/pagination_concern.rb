@@ -25,9 +25,9 @@ module PaginationConcern
   end
 
   def verify_page
-    return unless request.get? && !json?
+    return unless request.get?
 
-    if params[:page] == '1' || (params[:page].present? && @page <= 0)
+    if (params[:page] == '1' && !json?) || (params[:page].present? && @page <= 0)
       redirect_to current_url page: nil
     end
   end
