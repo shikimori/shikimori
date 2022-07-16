@@ -1,6 +1,7 @@
 describe ClubPage do
   describe 'relations' do
-    it { is_expected.to belong_to :club }
+    it { is_expected.to belong_to(:club).touch }
+    it { is_expected.to belong_to :user }
     it { is_expected.to belong_to(:parent_page).optional }
     it { is_expected.to have_many(:child_pages).dependent(:destroy) }
     it { is_expected.to have_one(:topic).dependent(:destroy) }
@@ -111,4 +112,6 @@ describe ClubPage do
       it { is_expected.to be_able_to :read, club_page }
     end
   end
+
+  it_behaves_like :topics_concern, :club_page
 end

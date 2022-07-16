@@ -1,17 +1,14 @@
 class ClubPage < ApplicationRecord
+  include TopicsConcern
+
   acts_as_list scope: %i[club_id parent_page_id]
 
   belongs_to :club, touch: true
+  belongs_to :user
   belongs_to :parent_page, class_name: 'ClubPage', optional: true
   has_many :child_pages, -> { ordered },
     class_name: 'ClubPage',
     foreign_key: :parent_page_id,
-    dependent: :destroy
-
-  has_one :topic,
-    class_name: 'Topics::EntryTopics::ClubPageTopic',
-    as: :linked,
-    inverse_of: :linked, # topic always load know its linked
     dependent: :destroy
 
   enumerize :layout,
@@ -19,12 +16,13 @@ class ClubPage < ApplicationRecord
     predicates: { prefix: true },
     default: Types::ClubPage::Layout[:menu]
 
-  validates :club, :name, presence: true
+  validates :name, presence: true
   validates :name, length: { maximum: 255 }
   validates :text, length: { maximum: 150_000 }, unless: :special_club?
   validates :text, length: { maximum: 450_000 }, if: :special_club?
 
   delegate :censored?, to: :club, allow_nil: true
+  alias topic_user user
 
   scope :ordered, -> { order :position, :id }
 
