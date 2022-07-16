@@ -1,11 +1,18 @@
 describe Clubs::ClubPagesController do
   include_context :authenticated, :user
   let(:club) { create :club, owner: user }
-  let(:club_page) { create :club_page, club: club }
+  let(:club_page) { create :club_page, user: user, club: club }
 
   describe '#new' do
     subject! do
-      get :new, params: { club_id: club.id, club_page: { club_id: club.id } }
+      get :new,
+        params: {
+          club_id: club.id,
+          club_page: {
+            user_id: user.id,
+            club_id: club.id
+          }
+        }
     end
     it { expect(response).to have_http_status :success }
   end
@@ -20,7 +27,8 @@ describe Clubs::ClubPagesController do
           parent_page_id: nil,
           name: 'test',
           text: 'zxc',
-          layout: 'menu'
+          layout: 'menu',
+          user_id: user.id
         }
       end
 
@@ -37,7 +45,9 @@ describe Clubs::ClubPagesController do
     end
 
     context 'failure' do
-      let(:params) { { club_id: club.id, name: '', text: '' } }
+      let(:params) do
+        { user_id: user.id, club_id: club.id, name: '', text: '' }
+      end
 
       it do
         expect(resource).to_not be_persisted

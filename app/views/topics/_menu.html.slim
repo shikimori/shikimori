@@ -64,28 +64,28 @@
     - cache menu.club_topics do
       - menu.club_topics.each do |club_topic|
         - cache club_topic do
-            - topic_url = club_topic.is_a?(Topics::EntryTopics::ClubPageTopic) ? club_club_page_url(club_topic.club, club_topic.linked) : (club_topic.is_a?(Topics::ClubUserTopic) ? club_club_topic_url(club_topic.club, club_topic) : club_url(club_topic.linked))
-            li.entry
-              a[
-                href=topic_url
-                title=club_topic.club.name
-              ]
-                .image-name
-                  img[
-                    src=(club_topic.comments.first ? club_topic.comments.first.user.avatar_url(48) : club_topic.user.avatar_url(48))
-                    alt=club_topic.club.name
-                  ]
-                  span.title
-                    = club_topic.club.name
-                - if club_topic.comments.first
-                  span.misc title=truncate(club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' ')
-                    == truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
-                - elsif club_topic.is_a? Topics::ClubUserTopic
-                  span.misc = t '.new_club_topic'
-                - elsif club_topic.is_a? Topics::EntryTopics::ClubPageTopic
-                  span.misc = t '.new_club_page'
-                - else
-                  span.misc = t '.new_club'
+          - topic_url = club_topic.is_a?(Topics::EntryTopics::ClubPageTopic) ? club_club_page_url(club_topic.club, club_topic.linked) : (club_topic.is_a?(Topics::ClubUserTopic) ? club_club_topic_url(club_topic.club, club_topic) : club_url(club_topic.linked))
+          li.entry
+            a[
+              href=topic_url
+              title=club_topic.club.name
+            ]
+              .image-name
+                img[
+                  src=(club_topic.comments.first ? club_topic.comments.first.user.avatar_url(48) : club_topic.user.avatar_url(48))
+                  alt=club_topic.club.name
+                ]
+                span.title
+                  = club_topic.club.name
+              - if club_topic.comments.first
+                span.misc title=truncate(club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' ')
+                  == truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
+              - elsif club_topic.is_a? Topics::ClubUserTopic
+                span.misc = t '.new_club_topic'
+              - elsif club_topic.is_a? Topics::EntryTopics::ClubPageTopic
+                span.misc = t '.new_club_page'
+              - else
+                span.misc = t '.new_club'
 
 - cache %i[sticky_topics v2] do
   .block2.sticky-topics

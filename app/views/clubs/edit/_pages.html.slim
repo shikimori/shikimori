@@ -10,6 +10,6 @@
 
 .block
   a.b-button[
-    href=new_club_club_page_path(@resource, club_page: { club_id: @resource.id })
+    href=new_club_club_page_path(@resource, club_page: { user_id: current_user.id, club_id: @resource.id })
   ] = t 'clubs.club_pages.form.add_page'
   a.cancel href="#{club_url @resource}" = t 'actions.cancel'

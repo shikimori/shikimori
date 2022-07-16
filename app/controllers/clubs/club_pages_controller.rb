@@ -2,8 +2,8 @@ class Clubs::ClubPagesController < ShikimoriController
   load_and_authorize_resource :club
   load_and_authorize_resource
 
-  CREATE_PARAMS = %i[club_id parent_page_id name layout text]
-  UPDATE_PARAMS = CREATE_PARAMS - [:club_id]
+  CREATE_PARAMS = %i[user_id club_id parent_page_id name layout text]
+  UPDATE_PARAMS = CREATE_PARAMS - %i[user_id club_id]
 
   before_action { og page_title: i18n_i('Club', :other) }
   before_action :prepare_club
@@ -29,7 +29,7 @@ class Clubs::ClubPagesController < ShikimoriController
   end
 
   def create
-    @resource = ClubPage::Create.call create_params, current_user
+    @resource = ClubPage::Create.call create_params
 
     if @resource.errors.blank?
       redirect_to(

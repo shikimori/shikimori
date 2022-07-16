@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe ClubPage::Create do
-  subject(:club_page) { ClubPage::Create.call params, user }
+  subject(:club_page) { ClubPage::Create.call params }
 
   let(:club) { create :club, owner: user, locale: locale, is_censored: is_censored }
   let(:is_censored) { [true, false].sample }
@@ -14,7 +14,8 @@ describe ClubPage::Create do
         parent_page_id: nil,
         name: 'test',
         text: 'zxc',
-        layout: 'menu'
+        layout: 'menu',
+        user_id: user.id
       }
     end
 

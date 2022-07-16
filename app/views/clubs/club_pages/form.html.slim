@@ -13,7 +13,9 @@
       = og.headline
 
   = simple_form_for [@club, @resource] do |f|
-    = f.input :club_id, as: :hidden
+    - if @resource.new_record?
+      = f.input :user_id, as: :hidden
+      = f.input :club_id, as: :hidden
 
     .cc-2a.m15
       .c-column.m0
