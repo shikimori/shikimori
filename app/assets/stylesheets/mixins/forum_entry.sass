@@ -186,15 +186,15 @@ $body_phone_left_margin: 40px
           color: $red
           text-decoration: underline
 
-=forum_entry_poster($margin-top)
+=forum_entry_poster
   float: left
 
   +gte_ipad
-    margin: $margin-top 10px 7px 0
+    margin: 2px 10px 7px 0
     width: 48px
 
   +iphone
-    margin: $margin-top 10px 4px 0
+    margin: 2px 10px 4px 0
     width: 42px
 
 =forum_entry
@@ -212,7 +212,7 @@ $body_phone_left_margin: 40px
       margin-bottom: 3px
 
       img
-        +forum_entry_poster($margin-top: 1px)
+        +forum_entry_poster
 
     .name-date
       +ellipsis2
