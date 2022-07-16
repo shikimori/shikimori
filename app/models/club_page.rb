@@ -24,6 +24,8 @@ class ClubPage < ApplicationRecord
   validates :text, length: { maximum: 150_000 }, unless: :special_club?
   validates :text, length: { maximum: 450_000 }, if: :special_club?
 
+  delegate :censored?, to: :club, allow_nil: true
+
   scope :ordered, -> { order :position, :id }
 
   def to_param

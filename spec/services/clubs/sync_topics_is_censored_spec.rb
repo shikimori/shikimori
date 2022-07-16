@@ -12,7 +12,7 @@ describe Clubs::SyncTopicsIsCensored do
     create :club_user_topic, linked: entry, is_censored: !is_censored
   end
 
-  subject! { Clubs::SyncTopicsIsCensored.call entry }
+  subject! { described_class.call entry }
 
   it do
     expect(club_topic.reload.is_censored).to eq is_censored

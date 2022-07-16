@@ -3,7 +3,8 @@
 describe ClubPage::Create do
   subject(:club_page) { ClubPage::Create.call params, user }
 
-  let(:club) { create :club, owner: user, locale: locale }
+  let(:club) { create :club, owner: user, locale: locale, is_censored: is_censored }
+  let(:is_censored) { [true, false].sample }
   let(:locale) { :en }
 
   context 'valid params' do
@@ -21,6 +22,7 @@ describe ClubPage::Create do
       expect(club_page).to be_persisted
       expect(club_page).to have_attributes params
       expect(club_page.topic).to be_persisted
+      expect(club_page.topic.is_censored).to eq is_censored
     end
   end
 
