@@ -1,7 +1,13 @@
 class ClubPage < ApplicationRecord
+  include AntispamConcern
   include TopicsConcern
 
   acts_as_list scope: %i[club_id parent_page_id]
+
+  antispam(
+    per_day: 30,
+    user_id_key: :user_id
+  )
 
   belongs_to :club, touch: true
   belongs_to :user

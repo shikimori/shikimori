@@ -4,11 +4,9 @@ describe ClubPage do
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to(:parent_page).optional }
     it { is_expected.to have_many(:child_pages).dependent(:destroy) }
-    it { is_expected.to have_one(:topic).dependent(:destroy) }
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :club }
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_length_of(:name).is_at_most(255) }
     it { is_expected.to validate_length_of(:text).is_at_most(150000) }
@@ -114,4 +112,5 @@ describe ClubPage do
   end
 
   it_behaves_like :topics_concern, :club_page
+  it_behaves_like :antispam_concern, :club_page
 end
