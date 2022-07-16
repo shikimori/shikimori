@@ -24,11 +24,11 @@ module PaginationConcern
     ].min
   end
 
-  def verify_page # rubocop:disable all
-    return unless request.get? && !json?
+  def verify_page
+    return unless request.get? # && !json?
 
     if params[:page] == '1' || (params[:page].present? && @page <= 0)
-      redirect_to current_url page: nil if params[:page] == '1' || params[:page].present?
+      redirect_to current_url page: nil
     end
   end
 end
