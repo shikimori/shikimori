@@ -30,7 +30,7 @@ class Api::V2::UserRatesController < Api::V2Controller
     allow_blank: true,
     desc: I18n.t('activerecord.attributes.user_rate.statuses.anime', locale: :en)
       .map { |(k, v)| "<p><code>#{k}</code> &ndash; #{ERB::Util.h v}</p>" }
-      .join('') + <<~DOC
+      .join + <<~DOC
         <p><strong>Validations:</strong></p>
         <ul>
           <li>

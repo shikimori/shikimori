@@ -31,6 +31,6 @@ private
   end
 
   def images image_ids
-    image_ids&.map { |v| "[wall_image=#{v}]" }&.join('')
+    image_ids&.map { |v| "[wall_image=#{v}]" }&.join
   end
 end

@@ -2,7 +2,7 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
   pattr_initialize :css
 
   def self.w word
-    word.split(//).map { |symbol| "\\\\?#{symbol}" }.join('')
+    word.split(//).map { |symbol| "\\\\?#{symbol}" }.join
   end
 
   COMMENTS_REGEXP = %r{

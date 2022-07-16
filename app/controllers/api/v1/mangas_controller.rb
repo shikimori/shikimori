@@ -21,7 +21,7 @@ class Api::V1::MangasController < Api::V1Controller # rubocop:disable ClassLengt
   ORDERS_DESC = ORDERS.inject('') do |memo, order|
     memo + <<~DOC
       <p><code>#{order}</code> &ndash;
-      #{I18n.t("by.#{order}", locale: :en).downcase}#{'. <b>Will be removed. Do not use it.</b>' if order =~ /ranked_/}
+      #{I18n.t("by.#{order}", locale: :en).downcase}#{'. <b>Will be removed. Do not use it.</b>' if order.include? 'ranked_'}
       </p>
     DOC
   rescue I18n::NoTranslation

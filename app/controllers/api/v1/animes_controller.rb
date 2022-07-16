@@ -20,7 +20,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
   ORDERS_DESC = ORDERS.inject('') do |memo, order|
     memo + <<~DOC
       <p><code>#{order}</code> &ndash;
-      #{I18n.t("by.#{order}", locale: :en).downcase}#{'. <b>Will be removed. Do not use it.</b>' if order =~ /ranked_/}
+      #{I18n.t("by.#{order}", locale: :en).downcase}#{'. <b>Will be removed. Do not use it.</b>' if order.include? 'ranked_'}
       </p>
     DOC
   rescue I18n::NoTranslation
@@ -29,7 +29,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
   DURATIONS = I18n.t('animes_collection.menu.anime.duration', locale: :en)
   DURATIONS_DESC = DURATIONS
     .map { |(k, v)| "<p><code>#{k}</code> &ndash; #{v.downcase}</p>" }
-    .join('') + <<~DOC
+    .join + <<~DOC
       <p><strong>Validations:</strong></p>
       <ul>
         <li>
@@ -41,7 +41,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
   RATINGS = I18n.t('enumerize.anime.rating.hint', locale: :en)
   RATINGS_DESC = RATINGS
     .map { |(k, v)| "<p><code>#{k}</code> &ndash; #{ERB::Util.h v}</p>" }
-    .join('') + <<~DOC
+    .join + <<~DOC
       <p><strong>Validations:</strong></p>
       <ul>
         <li>

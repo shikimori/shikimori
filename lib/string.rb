@@ -74,7 +74,7 @@ class String
     each_char do |v|
       result << (BROKEN_TRANSLIT.include?(v.downcase) ? BROKEN_TRANSLIT[v.downcase] : v)
     end
-    result.join('')
+    result.join
   end
 
   # привод кривой строки в валидное состояние

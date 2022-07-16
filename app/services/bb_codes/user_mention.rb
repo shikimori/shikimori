@@ -29,7 +29,7 @@ private
       text << Regexp.last_match(2)
     end
 
-    [user, text.reverse.join('')]
+    [user, text.reverse.join]
   end
 
   def find_user nickname
