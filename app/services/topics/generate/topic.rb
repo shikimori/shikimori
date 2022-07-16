@@ -67,7 +67,7 @@ private
   end
 
   def censored?
-    @model.respond_to?(:censored?) ? @model.censored? : false
+    @model.try(:censored?) || false
   end
 
   def created_at

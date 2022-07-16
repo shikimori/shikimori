@@ -5,7 +5,6 @@ class Topics::Query < QueryObjectBase
       .order(updated_at: :desc)
       .where(locale: locale)
 
-    # .except_ignored(user)
     if is_censored_forbidden
       query.where is_censored: false
     else

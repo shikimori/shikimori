@@ -21,8 +21,7 @@ describe ClubPage::Create do
     it do
       expect(club_page).to be_persisted
       expect(club_page).to have_attributes params
-      expect(club_page.topic).to be_persisted
-      expect(club_page.topic.is_censored).to eq is_censored
+      expect(club_page.all_topics).to be_empty
     end
   end
 
@@ -39,7 +38,6 @@ describe ClubPage::Create do
     it do
       expect(club_page).to be_new_record
       expect(club_page.errors).to be_present
-      expect(club_page.topic).to be_nil
     end
   end
 end

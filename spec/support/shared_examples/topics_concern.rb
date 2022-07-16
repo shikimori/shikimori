@@ -61,10 +61,10 @@ shared_examples :topics_concern do |db_entry|
 
       describe '#topic_user' do
         let(:poster) do
-          if model.is_a? DbEntry
-            BotsService.get_poster
-          else
-            model.user
+          case model
+            when DbEntry then BotsService.get_poster
+            when Club then model.owner
+            else model.user
           end
         end
         it { expect(model.topic_user).to eq poster }

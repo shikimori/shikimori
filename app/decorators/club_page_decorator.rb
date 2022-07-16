@@ -4,6 +4,8 @@ class ClubPageDecorator < BaseDecorator
   CACHE_VERSION = :v3
 
   def preview_topic_view
-    Topics::TopicViewFactory.new(true, false).build object.topic
+    Topics::TopicViewFactory.new(true, false).build(
+      object.maybe_topic(h.locale_from_host)
+    )
   end
 end

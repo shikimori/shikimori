@@ -49,7 +49,7 @@ private
   end
 
   def censored? topic
-    topic.linked.respond_to?(:censored?) && topic.linked&.censored?
+    topic.linked.try(:censored?) || false
   end
 
   def expired? topic

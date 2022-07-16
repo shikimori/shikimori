@@ -18,9 +18,7 @@ private
 
   def build_topic
     topic = Topic.new @params.merge(locale: @locale)
-    topic.is_censored = topic.linked.respond_to?(:censored?) ?
-      topic.linked.censored? :
-      false
+    topic.is_censored = topic.linked.try(:censored?) || false
     topic
   end
 

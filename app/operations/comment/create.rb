@@ -20,8 +20,8 @@ class Comment::Create
 private
 
   def mutex_key
-    'comment_'\
-      "#{@params[:commentable_id]}_"\
+    'comment_' \
+      "#{@params[:commentable_id]}_" \
       "#{@params[:commentable_type]}"
   end
 

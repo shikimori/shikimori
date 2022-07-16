@@ -126,6 +126,7 @@ class Club < ApplicationRecord
   validates :description, length: { maximum: 300_000 }, if: :special_club?
 
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
+  alias topic_user owner
 
   after_create :join_owner
   after_update :sync_topics_is_censored, if: :saved_change_to_is_censored?
@@ -196,10 +197,6 @@ class Club < ApplicationRecord
 
   def leave user
     member_roles.where(user: user).destroy_all
-  end
-
-  def topic_user
-    owner
   end
 
 private
