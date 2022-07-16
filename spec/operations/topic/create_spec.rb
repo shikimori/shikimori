@@ -33,7 +33,7 @@ describe Topic::Create do
       }
     end
     let(:broadcast) { nil }
-    let(:type) { nil }
+    let(:type) { Topic.name }
     let(:generated) { nil }
 
     it do

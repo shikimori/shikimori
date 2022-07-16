@@ -29,7 +29,7 @@ describe Users::ModerationsController do
   end
 
   context '#topics' do
-    let!(:topic_1) { create :topic, type: nil, user: target_user }
+    let!(:topic_1) { create :topic, user: target_user }
     let!(:topic_2) { create :topic, user: target_user }
     let!(:topic_3) { create :news_topic, user: target_user }
 

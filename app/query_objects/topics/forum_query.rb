@@ -129,8 +129,8 @@ private
 
   def guest_forums
     @scope
-      .where(
-        "#{Topic.table_name}.type not in (?) OR #{Topic.table_name}.type IS NULL", [
+      .where.not(
+        type: [
           Topics::EntryTopics::ClubTopic.name,
           Topics::ClubUserTopic.name,
           Topics::EntryTopics::ClubPageTopic.name

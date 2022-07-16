@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_11_164746) do
+ActiveRecord::Schema.define(version: 2022_07_16_131104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1026,7 +1026,7 @@ ActiveRecord::Schema.define(version: 2022_07_11_164746) do
     t.integer "forum_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "type", limit: 255
+    t.string "type", limit: 255, null: false
     t.text "body"
     t.boolean "generated", default: false
     t.integer "linked_id"
