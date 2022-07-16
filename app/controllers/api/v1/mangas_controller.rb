@@ -1,4 +1,5 @@
-class Api::V1::MangasController < Api::V1Controller
+# TODO: remove type param after 2018-06-01
+class Api::V1::MangasController < Api::V1Controller # rubocop:disable ClassLength
   before_action :fetch_resource, except: %i[index search neko]
 
   caches_action :neko, expires_in: 1.week, cache_path: -> {
@@ -13,7 +14,8 @@ class Api::V1::MangasController < Api::V1Controller
   LIMIT = 50
   ORDERS = %w[
     id id_desc ranked kind popularity name aired_on volumes chapters status
-    created_at created_at_desc random
+    random ranked_random ranked_shiki
+    created_at created_at_desc
   ]
   TRANSLATED_ORDERS = I18n.t('by').keys.map(&:to_s)
   ORDERS_DESC = ORDERS.inject('') do |memo, order|
@@ -259,13 +261,13 @@ class Api::V1::MangasController < Api::V1Controller
 
 private
 
-  def cache_key
+  def cache_key # rubocop:disable AbcSize
     XXhash.xxh32([
       request.path,
       params.to_json,
       params[:mylist].present? ? current_user.try(:cache_key) : nil,
-      (Time.zone.today if params[:order] == 'random'),
-      :v4
+      ((rand * 1000).to_i if params[:order] == 'random'),
+      (Time.zone.today if params[:order] == 'ranked_random')
     ].join('|'))
   end
 
