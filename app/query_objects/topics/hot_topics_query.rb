@@ -1,10 +1,10 @@
 class Topics::HotTopicsQuery
-  SELECT_SQL = <<-SQL
+  SELECT_SQL = <<-SQL.squish
     commentable_id,
     max(commentable_type) as commentable_type,
     count(*) as comments_count
   SQL
-  JOIN_SQL = <<-SQL
+  JOIN_SQL = <<-SQL.squish
     inner join topics on
       topics.id = commentable_id
       and topics.type not in (
@@ -21,6 +21,7 @@ class Topics::HotTopicsQuery
   def call
     topic_comments
       .limit(@limit)
+      .includes(:topic)
       .map(&:commentable)
   end
 
