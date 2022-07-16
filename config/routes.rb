@@ -625,7 +625,7 @@ Rails.application.routes.draw do
     get :echo
     post :echo
 
-    get 'd3/:anime_id' => :d3, as: :d3
+    # get 'd3/:anime_id' => :d3, as: :d3
     %i[
       achievements_notification
       ajax

@@ -198,10 +198,10 @@ class TestsController < ShikimoriController
     render json: params
   end
 
-  def d3
-    @anime = Anime.find params[:anime_id]
-    render :d3, layout: false
-  end
+  # def d3
+  #   @anime = Anime.find params[:anime_id]
+  #   render :d3, layout: false
+  # end
 
   def votes
     raise CanCan::AccessDenied unless current_user&.admin?
