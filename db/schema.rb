@@ -287,7 +287,7 @@ ActiveRecord::Schema.define(version: 2022_07_16_142815) do
     t.datetime "updated_at", null: false
     t.integer "position", null: false
     t.string "layout", default: "---\n:default: :content\n", null: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.index ["club_id"], name: "index_club_pages_on_club_id"
     t.index ["user_id"], name: "index_club_pages_on_user_id"
   end
