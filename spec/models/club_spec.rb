@@ -638,5 +638,6 @@ describe Club do
     end
   end
 
+  it_behaves_like :topics_concern, :club
   it_behaves_like :antispam_concern, :club
 end
