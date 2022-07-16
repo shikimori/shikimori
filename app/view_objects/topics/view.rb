@@ -84,7 +84,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
     tags << OpenStruct.new(
       type: 'censored',
-      text: h.t('.censored').downcase
+      text: I18n.t('topics.header.mini.censored').downcase
     ) if @topic.censored?
 
     (Array(additional) + tags).compact
