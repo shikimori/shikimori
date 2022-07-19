@@ -42,7 +42,7 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
   def names
     chain @scope
       .where(
-        Abilities::VersionNamesModerator::MANAGED_FIELDS
+        (Abilities::VersionNamesModerator::MANAGED_FIELDS - %w[desynced])
           .map { |v| "(item_diff->>'#{v}') is not null" }
           .join(' or ')
       )
@@ -52,7 +52,7 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
   def texts
     chain @scope
       .where(
-        Abilities::VersionTextsModerator::MANAGED_FIELDS
+        (Abilities::VersionTextsModerator::MANAGED_FIELDS - %w[desynced])
           .map { |v| "(item_diff->>'#{v}') is not null" }
           .join(' or ')
       )
@@ -68,7 +68,7 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
 
   def fansub
     chain @scope.where(
-      Abilities::VersionFansubModerator::MANAGED_FIELDS
+      (Abilities::VersionFansubModerator::MANAGED_FIELDS - %w[desynced])
         .map { |v| "(item_diff->>'#{v}') is not null" }
         .join(' or ')
     )
