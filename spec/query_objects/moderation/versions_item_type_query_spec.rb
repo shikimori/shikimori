@@ -7,7 +7,15 @@ describe Moderation::VersionsItemTypeQuery do
 
   let!(:version_1) { create :version, item: anime, item_diff: { russian: %w[a b] } }
   let!(:version_2) { create :version, item: manga, item_diff: { description_ru: ['1', '2'] } }
-  let!(:version_3) { create :version, item: anime, item_diff: { episodes: [1, 2], desynced: ['', 'episodes'] } }
+  let!(:version_3) do
+    create :version,
+      item: anime,
+      item_diff: {
+        episodes: [1, 2],
+        desynced: [1, 2],
+        image: [1, 2]
+      }
+  end
   let!(:version_4) { create :version, item: manga, item_diff: { fansubbers: %w[a b] } }
   let!(:version_5) { create :role_version, item: user }
   let!(:version_6) { create :version, item: video, item_diff: { name: %w[a b] } }

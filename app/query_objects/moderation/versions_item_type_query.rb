@@ -6,6 +6,7 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
   VERSION_NOT_MANAGED_FIELDS_SQL = Abilities::VersionModerator::NOT_MANAGED_FIELDS
     .map { |v| "(item_diff->>'#{v}') is null" }
     .join(' and ')
+  CONTENT_ONLY_FIELDS = %w[desynced image]
 
   def self.fetch type
     scope = new Version.all
@@ -42,7 +43,7 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
   def names
     chain @scope
       .where(
-        (Abilities::VersionNamesModerator::MANAGED_FIELDS - %w[desynced])
+        (Abilities::VersionNamesModerator::MANAGED_FIELDS - CONTENT_ONLY_FIELDS)
           .map { |v| "(item_diff->>'#{v}') is not null" }
           .join(' or ')
       )
@@ -52,7 +53,7 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
   def texts
     chain @scope
       .where(
-        (Abilities::VersionTextsModerator::MANAGED_FIELDS - %w[desynced])
+        (Abilities::VersionTextsModerator::MANAGED_FIELDS - CONTENT_ONLY_FIELDS)
           .map { |v| "(item_diff->>'#{v}') is not null" }
           .join(' or ')
       )
@@ -68,7 +69,7 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
 
   def fansub
     chain @scope.where(
-      (Abilities::VersionFansubModerator::MANAGED_FIELDS - %w[desynced])
+      (Abilities::VersionFansubModerator::MANAGED_FIELDS - CONTENT_ONLY_FIELDS)
         .map { |v| "(item_diff->>'#{v}') is not null" }
         .join(' or ')
     )
