@@ -44,7 +44,8 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
     verify_age_restricted! @view.results.collection
     verify_age_restricted! model[:genre]
 
-    if censored_forbidden? && params[:rating]&.split(',')&.include?(DbEntry::CensoredPolicy::ADULT_RATING.to_s)
+    if censored_forbidden? &&
+        params[:rating]&.split(',')&.include?(DbEntry::CensoredPolicy::ADULT_RATING.to_s)
       raise AgeRestricted
     end
   rescue AgeRestricted
@@ -64,7 +65,10 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
   end
 
   def autocomplete
-    scope = @view.klass == Manga ? Manga.where.not(kind: Ranobe::KINDS) : @view.klass.all
+    scope = @view.klass == Manga ?
+      Manga.where.not(kind: Ranobe::KINDS) :
+      @view.klass.all
+
     scope.where! is_censored: false if params[:censored] == 'false'
 
     @collection = "Autocomplete::#{@view.klass.name}".constantize

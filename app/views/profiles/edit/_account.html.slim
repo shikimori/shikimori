@@ -37,7 +37,7 @@
             wrapper_html: { class: (:hidden if @resource.age && @resource.age < 18) },
             disabled: !@resource.age
 
-          - if censored_forbidden? && cookies[AgeRestrictionsConcern::COOKIE_CENSORED_REJECTED] == 'true'
+          - if @resource.id == current_user.id && censored_forbidden? && cookies[AgeRestrictionsConcern::COOKIE_CENSORED_REJECTED] == 'true'
             .censored-rejected-container
               p = t '.censored_rejected'
               button.b-link_button.mini.blue.censored-rejected[
