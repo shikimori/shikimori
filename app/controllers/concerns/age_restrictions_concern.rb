@@ -14,7 +14,7 @@ module AgeRestrictionsConcern
 
   def censored_rejected?
     censored_forbidden? && (
-      (current_user.age && current_user.age < 18) ||
+      (current_user&.age && current_user.age < 18) ||
         cookies[COOKIE_CENSORED_REJECTED] == 'true'
     )
   end
