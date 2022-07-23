@@ -1,10 +1,14 @@
+import cookies from 'js-cookie';
+
 pageLoad('profiles_edit', () => {
-  // styles page
+  if ($('.edit-page.account').exists()) {
+    pageAccount();
+  }
+
   if ($('.edit-page.styles').exists()) {
     pageStyles();
   }
 
-  // list & misc page
   if ($('.edit-page.list, .edit-page.misc').exists()) {
     pageListAndMisc();
   }
@@ -13,6 +17,15 @@ pageLoad('profiles_edit', () => {
     pageIgnores();
   }
 });
+
+function pageAccount() {
+  $('.censored-rejected').on('click', ({ currentTarget }) => {
+    $('.censored-rejected-container').remove();
+    cookies.remove(
+      currentTarget.getAttribute('data-cookie')
+    );
+  });
+}
 
 async function pageStyles() {
   $('#user_preferences_body_width').on('change', ({ currentTarget }) => {

@@ -37,6 +37,14 @@
             wrapper_html: { class: (:hidden if @resource.age && @resource.age < 18) },
             disabled: !@resource.age
 
+          - if censored_forbidden? && cookies[AgeRestrictionsConcern::COOKIE_CENSORED_REJECTED] == 'true'
+            .censored-rejected-container
+              p = t '.censored_rejected'
+              button.b-link_button.mini.blue.censored-rejected[
+                data-cookie=AgeRestrictionsConcern::COOKIE_CENSORED_REJECTED
+              ]
+                = t '.censored_restore'
+
     .c-column.block_m
       .block
         = f.input :locale, include_blank: false
