@@ -249,6 +249,7 @@ private
   end
 
   def build_proxy ip:, port:, protocol:
+    raise port.to_s if port.to_s.size > 5
     Proxy.new ip: ip, port: port.to_i, protocol: protocol
   end
 

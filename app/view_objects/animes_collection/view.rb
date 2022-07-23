@@ -35,14 +35,22 @@ class AnimesCollection::View < ViewObjectBase # rubocop:disable ClassLength
     !recommendations?
   end
 
+  def search_query?
+    (h.params[:search].presence || h.params[:q].presence).present?
+  end
+
   def search_russian?
     h.controller.search_russian?
+  end
+
+  def censored_rejected?
+    h.controller.censored_rejected? && search_query?
   end
 
   def cache_key # rubocop:disable AbcSize, MethodLength
     user_key = user if h.params[:mylist]
 
-    if h.params[:search] || h.params[:q]
+    if search_query?
       last_created_at = klass
         .select('max(created_at) as created_at')
         .to_a
@@ -55,6 +63,7 @@ class AnimesCollection::View < ViewObjectBase # rubocop:disable ClassLength
       user_key,
       last_created_at,
       search_russian?,
+      censored_rejected?,
       CACHE_VERSION.to_s
     ]
 
@@ -90,7 +99,9 @@ class AnimesCollection::View < ViewObjectBase # rubocop:disable ClassLength
   def compiled_filters
     h.params.to_unsafe_h.symbolize_keys.merge(
       order: Animes::SortField.new(DEFAULT_ORDER, h).field,
-      censored: h.params[:censored].presence || Animes::Filters::Policy::TRUE_CONDITIONAL
+      censored: h.params[:censored].presence ||
+        (Animes::Filters::Policy::TRUE_STRICT if censored_rejected?) ||
+        Animes::Filters::Policy::TRUE_CONDITIONAL
     )
   end
 

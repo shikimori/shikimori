@@ -1,5 +1,6 @@
 module AgeRestrictionsConcern
   extend ActiveSupport::Concern
+  COOKIE_CENSORED_REJECTED = :censored_rejected
 
   def censored_forbidden?
     return false if %w[rss os].include? request.format
@@ -9,6 +10,13 @@ module AgeRestrictionsConcern
       current_user.age.blank? ||
       current_user.age < 18 ||
       !current_user.preferences.view_censored?
+  end
+
+  def censored_rejected?
+    censored_forbidden? && (
+      (current_user.age && current_user.age < 18) ||
+        cookies[COOKIE_CENSORED_REJECTED] == 'true'
+    )
   end
 
   def verify_age_restricted! collection # rubocop:disable PerceivedComplexity, CyclomaticComplexity
