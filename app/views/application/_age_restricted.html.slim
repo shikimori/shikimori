@@ -45,7 +45,10 @@
         div
           = f.submit t('yes'), class: 'b-button'
           | &nbsp;&nbsp;&nbsp;&nbsp;
-          a.b-button href=root_url = t 'no'
+          a.b-button.censored-rejected[
+            href=root_url
+            data-cookie=AgeRestrictionsConcern::COOKIE_CENSORED_REJECTED
+          ] = t 'no'
 
     / if I forgot somethng
     - else

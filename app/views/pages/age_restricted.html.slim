@@ -17,10 +17,14 @@ html
       = javascript_pack_tag 'application', data: { 'turbolinks-track' => 'reload' }
       = javascript_pack_tag 'vendors', data: { 'turbolinks-track' => 'reload' }
 
-  body.p-age_restricted#age_restricted[
+  body.p-age_restricted[
+    id=@layout.body_id
+    class=@layout.body_class
     data-env=Rails.env
     data-user=@layout.user_data.to_json
     data-locale=I18n.locale
     data-server_time=Time.zone.now.iso8601
   ]
-    = render 'application/age_restricted'
+    // .b-search-results used in anime collections
+    .b-search-results
+      = render 'application/age_restricted'
