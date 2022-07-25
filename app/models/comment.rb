@@ -217,7 +217,7 @@ private
   end
 
   def destroy_images
-    Comment::Cleanup.call self, is_cleanup_summaries: true, skip_model_update: true
+    Comment::Cleanup.call self, skip_model_update: true
   end
 
   # TODO: get rid of this method

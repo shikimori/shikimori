@@ -180,7 +180,7 @@ module Clockwork
 
   # every 1.day, 'monthly.very-very-long-coub', at: '22:00', if: lambda { |t| t.day == 10 } do
   #   Tags::ImportCoubTagsWorker.perform_async
-  # 
+  #
   #   NamedLogger.clockwork.info 'monthly.very-very-long-coub finished'
   # end
 
@@ -209,7 +209,7 @@ module Clockwork
   # every 1.day, 'quarter.animes', at: '05:00', if: lambda { |t| t.day == 1 && (t.month % 4) == 0 } do
   #   MalParsers::FetchPage.perform_async 'anime', 'name', 0, 99999
   # end
-  # 
+  #
   # every 1.day, 'quarter.mangas', at: '05:00', if: lambda { |t| t.day == 10 && (t.month % 4) == 0 } do
   #   MalParsers::FetchPage.perform_async 'manga', 'name', 0, 99999
   # end
@@ -236,7 +236,7 @@ module Clockwork
   every 1.day, 'daily.ranked_recalculation', at: '23:55' do
     DbEntries::RecalculateRanked.perform_async Anime.name, :random
     DbEntries::RecalculateRanked.perform_async Anime.name, :shiki
-    
+
     DbEntries::RecalculateRanked.perform_async Manga.name, :random
     DbEntries::RecalculateRanked.perform_async Manga.name, :shiki
 

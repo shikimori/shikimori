@@ -1,5 +1,5 @@
 class Comment::Cleanup
-  method_object :comment, %i[is_cleanup_summaries is_cleanup_quotes skip_model_update]
+  method_object :comment, %i[is_cleanup_quotes skip_model_update]
 
   IMAGES_SCAN_REGEXP = /\[(?:image|poster)=(\d+)/mix
   IMAGES_REPLACEMENT_REGEXP = /\[(?<type>image|poster)=(?<user_image_id>\d+)/mix
