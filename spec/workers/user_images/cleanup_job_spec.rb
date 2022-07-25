@@ -17,4 +17,20 @@ describe UserImages::CleanupJob do
       expect(user_image.reload).to be_persisted
     end
   end
+
+  context 'used in some comment' do
+    let!(:some_model) do
+      create :comment,
+        body: [
+          "[image=#{user_image.id}]",
+          "[poster=#{user_image.id}]",
+          "[image=#{user_image.id} ",
+          "[poster=#{user_image.id} "
+        ].sample
+    end
+
+    it do
+      expect(user_image.reload).to be_persisted
+    end
+  end
 end
