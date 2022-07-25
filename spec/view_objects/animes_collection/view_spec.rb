@@ -234,7 +234,7 @@ describe AnimesCollection::View do
 
     it do
       is_expected.to eq(
-        %W[Anime #{AnimesCollection::View::CACHE_VERSION} page:1 status:ongoing]
+        ['Anime', false] + %W[#{AnimesCollection::View::CACHE_VERSION} page:1 status:ongoing]
       )
     end
   end
