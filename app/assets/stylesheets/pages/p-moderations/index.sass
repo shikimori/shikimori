@@ -1,10 +1,17 @@
-@import mixins/responsive
-@import mixins/font_shikimori
 @import mixins/brackets_surrounded
+@import mixins/font_shikimori
+@import mixins/icons
+@import mixins/responsive
 
 .p-moderations-index
   .date-filter
     max-width: 97px
+
+  .sort-asc:before
+    +font_shikimori('\f160')
+
+  .sort-desc:before
+    +font_shikimori('\f161')
 
 .p-moderations-index.p-abuse_requests-index,
 .p-moderations-index.p-bans-index

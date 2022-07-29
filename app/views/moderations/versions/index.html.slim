@@ -103,7 +103,13 @@ header.head
   .block
     .b-options-floated
       a.expand-all.b-js-link = t '.expand_all'
-    .subheadline.m5 = t '.queue'
+    .subheadline.m5
+      = t '.queue'
+      .misc-links
+        a[
+          class="sort-#{@view.sort_order}"
+          href=current_url(order: @view.sort_order == :asc ? nil : :asc)
+        ]
     .block
       - if @view.pending.any?
         = render partial: 'versions/version', collection: @view.pending

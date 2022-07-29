@@ -50,7 +50,7 @@ class VersionsView < ViewObjectBase
     scope
       .includes(:user, :moderator)
       .where(state: :pending)
-      .order(:created_at)
+      .order(created_at: sort_order)
       .paginate(page, PER_PAGE)
       .transform(&:decorate)
   end
@@ -59,6 +59,7 @@ class VersionsView < ViewObjectBase
     h.current_url(
       page: page + 1,
       type: h.params[:type],
+      order: sort_order,
       created_on: h.params[:created_on],
       is_pending: is_pending ? '1' : '0'
     )
@@ -120,6 +121,10 @@ class VersionsView < ViewObjectBase
         end
       end
     end
+  end
+
+  def sort_order
+    h.params[:order] == 'asc' ? :asc : :desc
   end
 
 private
