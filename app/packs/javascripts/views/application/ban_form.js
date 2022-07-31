@@ -11,10 +11,8 @@ export default class BanForm extends View {
       .find('[name="ban[reason]"]')
       .val($(currentTarget).data('reason'));
 
-    if ($(currentTarget).data('spoilered-reason')) {
-      $('.hide-to-spoiler').prop('checked', true).trigger('change');
-    } else {
-      $('.hide-to-spoiler').prop('checked', false).trigger('change');
-    }
+    $('.hide-to-spoiler')
+      .prop('checked', !!$(currentTarget).data('spoilered-reason'))
+      .trigger('change');
   }
 }
