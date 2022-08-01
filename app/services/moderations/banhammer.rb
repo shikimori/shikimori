@@ -86,8 +86,8 @@ private
 
   def ban comment
     abusiveness = general_abusiveness comment.body
-    new_body_value = replace_abusiveness(comment.body, abusiveness >= HEAVY_ABUVENESS ? '#' : nil)
-    comment.update_column(:body, new_body_value)
+    censored_body = replace_abusiveness(comment.body, abusiveness >= HEAVY_ABUVENESS ? '#' : nil)
+    comment.update_column(:body, censored_body)
     duration = ban_duration comment, abusiveness
 
     Ban.create!(
