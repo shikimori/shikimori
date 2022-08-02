@@ -9,6 +9,7 @@ class RolesPolicy
     not_trusted_abuse_reporter
     censored_avatar
     censored_profile
+    censored_nickname
     cheat_bot
     completed_announced_animes
     ignored_in_achievement_statistics
