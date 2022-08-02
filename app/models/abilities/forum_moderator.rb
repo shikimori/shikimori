@@ -39,6 +39,7 @@ class Abilities::ForumModerator
     can %i[
       manage_censored_avatar_role
       manage_censored_profile_role
+      manage_censored_nickname_role
     ], User
 
     can :delete_all_comments, User do |model|

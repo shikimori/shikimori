@@ -107,6 +107,7 @@ describe Versions::RoleVersion do
       describe 'forum_moderator roles' do
         it { is_expected.to be_able_to :manage_censored_avatar_role, user }
         it { is_expected.to be_able_to :manage_censored_profile_role, user }
+        it { is_expected.to be_able_to :manage_censored_nickname_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_abuse_reporter_role, user }
       end
 
@@ -156,6 +157,7 @@ describe Versions::RoleVersion do
       describe 'forum_moderator roles' do
         it { is_expected.to be_able_to :manage_censored_avatar_role, user }
         it { is_expected.to be_able_to :manage_censored_profile_role, user }
+        it { is_expected.to be_able_to :manage_censored_nickname_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_abuse_reporter_role, user }
       end
 
@@ -205,6 +207,7 @@ describe Versions::RoleVersion do
       describe 'forum_moderator roles' do
         it { is_expected.to be_able_to :manage_censored_avatar_role, user }
         it { is_expected.to be_able_to :manage_censored_profile_role, user }
+        it { is_expected.to be_able_to :manage_censored_nickname_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_abuse_reporter_role, user }
       end
 
@@ -254,6 +257,7 @@ describe Versions::RoleVersion do
       describe 'forum_moderator roles' do
         it { is_expected.to be_able_to :manage_censored_avatar_role, user }
         it { is_expected.to be_able_to :manage_censored_profile_role, user }
+        it { is_expected.to be_able_to :manage_censored_nickname_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_abuse_reporter_role, user }
       end
 
@@ -291,6 +295,7 @@ describe Versions::RoleVersion do
       describe 'forum_moderator roles' do
         it { is_expected.to_not be_able_to :manage_censored_avatar_role, user }
         it { is_expected.to_not be_able_to :manage_censored_profile_role, user }
+        it { is_expected.to_not be_able_to :manage_censored_nickname_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_abuse_reporter_role, user }
       end
     end
@@ -323,6 +328,7 @@ describe Versions::RoleVersion do
       describe 'forum_moderator roles' do
         it { is_expected.to_not be_able_to :manage_censored_avatar_role, user }
         it { is_expected.to_not be_able_to :manage_censored_profile_role, user }
+        it { is_expected.to_not be_able_to :manage_censored_nickname_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_abuse_reporter_role, user }
       end
     end
@@ -355,6 +361,7 @@ describe Versions::RoleVersion do
       describe 'forum_moderator roles' do
         it { is_expected.to_not be_able_to :manage_censored_avatar_role, user }
         it { is_expected.to_not be_able_to :manage_censored_profile_role, user }
+        it { is_expected.to_not be_able_to :manage_censored_nickname_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_abuse_reporter_role, user }
       end
     end
@@ -375,6 +382,7 @@ describe Versions::RoleVersion do
       describe 'forum_moderator roles' do
         it { is_expected.to_not be_able_to :manage_censored_avatar_role, user }
         it { is_expected.to_not be_able_to :manage_censored_profile_role, user }
+        it { is_expected.to_not be_able_to :manage_censored_nickname_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_abuse_reporter_role, user }
       end
     end
@@ -391,6 +399,7 @@ describe Versions::RoleVersion do
       describe 'forum_moderator roles' do
         it { is_expected.to_not be_able_to :manage_censored_avatar_role, user }
         it { is_expected.to_not be_able_to :manage_censored_profile_role, user }
+        it { is_expected.to_not be_able_to :manage_censored_nickname_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_abuse_reporter_role, user }
       end
     end
@@ -430,6 +439,7 @@ describe Versions::RoleVersion do
       describe 'forum_moderator roles' do
         it { is_expected.to_not be_able_to :manage_censored_avatar_role, user }
         it { is_expected.to_not be_able_to :manage_censored_profile_role, user }
+        it { is_expected.to_not be_able_to :manage_censored_nickname_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_abuse_reporter_role, user }
       end
     end
