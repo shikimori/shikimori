@@ -12,7 +12,8 @@ class UsersIndex < ApplicationIndex
         edge_phrase: EDGE_PHRASE_FIELD,
         edge_word: EDGE_WORD_FIELD,
         ngram: NGRAM_FIELD
-      }
+      },
+      value: ->(model) { model.nickname true }
 
     field :weight,
       type: 'half_float',
