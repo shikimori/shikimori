@@ -12,10 +12,10 @@
           = t "Name.#{params[:list_type].downcase.capitalize}"
         - if type == :both || type == :user_1_only
           th.num
-            = @user_1.nickname
+            = @user_1.nickname(true)
         - if type == :both || type == :user_2_only
           th.num
-            = @user_2.nickname
+            = @user_2.nickname(true)
       tr.border
         th colspan="4"
 

@@ -30,6 +30,6 @@ header.head
         = render 'animes_collection/menu',
           menu: @menu,
           custom_sorts: [\
-            [:user_1, t('.by_user_score', user: @user_1.nickname)],
-            [:user_2, t('.by_user_score', user: @user_2.nickname)]\
+            [:user_1, t('.by_user_score', user: @user_1.nickname(true))],
+            [:user_2, t('.by_user_score', user: @user_2.nickname(true))]\
           ]

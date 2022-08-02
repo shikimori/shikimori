@@ -44,12 +44,12 @@
   - elsif content_by == :avatar || content_by == :avatar_fixed_margin
     a.avatar[
       href=profile_url(user)
-      title=user.nickname
+      title=user.nickname(true)
     ]
       img[
         src=user.avatar_url(32)
         srcset="#{user.avatar_url 64} 2x"
-        alt=user.nickname
+        alt=user.nickname(true)
       ]
 
   - elsif content_by == :named_avatar

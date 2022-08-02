@@ -99,10 +99,10 @@ private
         i18n_t 'group_by_key.both'
 
       when :user_1_only
-        i18n_t 'group_by_key.user_only', nickname: @user_1.nickname
+        i18n_t 'group_by_key.user_only', nickname: @user_1.nickname(true)
 
       when :user_2_only
-        i18n_t 'group_by_key.user_only', nickname: @user_2.nickname
+        i18n_t 'group_by_key.user_only', nickname: @user_2.nickname(true)
     end
   end
 
