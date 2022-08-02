@@ -99,10 +99,10 @@
         - if params[:action] != 'show'
           a.back[
             href=@resource.url
-            title="#{t 'actions.back_to_page'} #{@resource.name}"
+            title=t('actions.back_to_page')
             data-text=t('actions.back')
           ]
-        = @resource.nickname
+        = @resource.nickname @view.own_profile?
 
       = render 'profiles/status', view: @view
 

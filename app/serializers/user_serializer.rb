@@ -26,6 +26,10 @@ class UserSerializer < ActiveModel::Serializer
     object[:last_online_at]
   end
 
+  def nickname
+    object.nickname own_profile?
+  end
+
   def url
     UrlGenerator.instance.profile_url(object)
   end

@@ -270,7 +270,7 @@ class User < ApplicationRecord
       .includes(:anime, :manga)
   end
 
-  def to_param nickname = self.nickname
+  def to_param nickname = self.nickname(true)
     nickname.tr(' ', '+')
   end
 
@@ -283,7 +283,7 @@ class User < ApplicationRecord
   end
 
   def female?
-    sex && sex == 'female' ? true : false
+    sex.present? && sex == 'female'
   end
 
   # updates user's last online date
@@ -352,6 +352,12 @@ class User < ApplicationRecord
         self[:last_online_at] &&
         self[:last_online_at] > ACTIVE_SITE_USER_INTERVAL.ago
       )
+  end
+
+  def nickname ignore_censored = false
+    censored_nickname? && !ignore_censored ?
+      "user##{id}" :
+      super()
   end
 
   def avatar_url size, ignore_censored = false

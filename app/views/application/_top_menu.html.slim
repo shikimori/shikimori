@@ -104,11 +104,11 @@ a.menu-icon.forum.desktop[
         img[
           src=current_user.avatar_url(48, true)
           srcset="#{current_user.avatar_url 80, true} 2x"
-          title=current_user.nickname
-          alt=current_user.nickname
+          title=current_user.nickname(true)
+          alt=current_user.nickname(true)
         ]
         span.nickname
-          = current_user.nickname
+          = current_user.nickname(true)
 
     .submenu
       - @top_menu.groups(:profile ).each do |group|

@@ -14,7 +14,7 @@ header.head.misc[
     - if @user.will_save_change_to_nickname?
       = @user.changes['nickname'][0]
     - else
-      = @user.nickname
+      = @user.nickname(current_user&.id == @user.id)
     = render 'profiles/status', view: @view
     = yield :head_misc
   - if og.notice.present?
