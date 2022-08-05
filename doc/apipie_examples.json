@@ -5229,7 +5229,7 @@
   ],
   "user_rates#reset": [
     {
-      "verb": "POST",
+      "verb": "DELETE",
       "path": "/api/user_rates/anime/reset",
       "versions": [
         "1.0"
