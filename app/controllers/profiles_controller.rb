@@ -305,7 +305,7 @@ private
     else
       @resource.update(
         update_params[:nickname].blank? ?
-          update_params.merge(nickname: @resource.nickname) :
+          update_params.merge(nickname: @resource.nickname(true)) :
           update_params
       )
     end
