@@ -6,6 +6,7 @@
       .block
         = f.input :nickname,
           input_html: {\
+            value: f.object.nickname(true),
             autocorrect: 'none',
             autocapitalize: 'none',
             spellcheck: false\
