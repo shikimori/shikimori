@@ -198,7 +198,7 @@ describe Api::V1::UserRatesController do
 
       context 'anime', :show_in_doc do
         let(:entry) { create :anime }
-        before { post :reset, params: { type: :anime } }
+        before { delete :reset, params: { type: :anime } }
 
         it do
           expect(user_rate.reload.score).to be_zero
@@ -214,7 +214,7 @@ describe Api::V1::UserRatesController do
 
       context 'manga' do
         let(:entry) { create :manga }
-        before { post :reset, params: { type: :manga } }
+        before { delete :reset, params: { type: :manga } }
 
         it do
           expect(user_rate.reload.score).to be_zero
