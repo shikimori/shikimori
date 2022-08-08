@@ -3,11 +3,11 @@ class Moderations::Banhammer # rubocop:disable ClassLength
   include Singleton
 
   Z = '[@#$%&*^]'
-  X = '[\s.,:?!)(\]\[\'"«»-]'
-  TAG = '(?: \[ [^\]]+ \] )*'
+  X = '[\s.,:?!)(\]\[\'"`«»|-]'
+  TAG = '(?: \[ [^\]]++ \] )*'
   TAG_REGEXP = /#{TAG}/mix
 
-  INVISIBLE_SYMBOLS = '[­]*'
+  INVISIBLE_SYMBOLS = '(?:­|\[size=0\][^\]]*\[\/size\])*'
 
   SYNONYMS = {
     а: %w[a а],
@@ -85,12 +85,10 @@ private
 
   def ban comment
     abusiveness = abusiveness comment.body
-    duration = ban_duration comment, abusiveness
+    censored_body = replace_abusiveness comment.body, abusiveness >= HEAVY_ABUVENESS ? '#' : nil
 
-    comment.update_column(
-      :body,
-      replace_abusiveness(comment.body, abusiveness >= HEAVY_ABUVENESS ? '#' : nil)
-    )
+    comment.update_column :body, censored_body
+    duration = ban_duration comment, abusiveness
 
     Ban.create!(
       user: comment.user,
@@ -128,7 +126,7 @@ private
 
   def replace_abusiveness text, replacement
     text.gsub ABUSE do |match|
-      next match unless valid_match?(match)
+      next match unless valid_match? match
 
       mached_text = match.size
         .times

@@ -64,6 +64,16 @@ describe Moderations::Banhammer do
         )
       end
     end
+
+    context 'heavy abusiveness with special tags' do
+      let(:text) { 'test ||хуй|| test `хуй` хуй ||хуй|| х[size=0]хуй[/size]уй `хуй` хуй хуй хуй хуй' }
+      it do
+        expect(ban.duration).to eql BanDuration.new('150m')
+        expect(comment.body).to eq(
+          "test ||###|| test `###` ### ||###|| ##################### `###` ### ### ### ###\n\n[ban=#{ban.id}]"
+        )
+      end
+    end
   end
 
   describe '#abusive?' do
@@ -118,6 +128,18 @@ describe Moderations::Banhammer do
     it { expect(banhammer.abusive? 'пиздец').to eq true }
     it { expect(banhammer.abusive? 'н[size=15]а[/size]х').to eq true }
     it { expect(banhammer.abusive? 'х[b][/b][b][/b]ер').to eq true }
+    it { expect(banhammer.abusive? '||хуй||').to eq true }
+    it { expect(banhammer.abusive? '`хуй`').to eq true }
+
+    it { expect(banhammer.abusive? '`пиздец` тут мата').to eq true }
+    it { expect(banhammer.abusive? '`  пиздец    ` тут мата').to eq true }
+    it { expect(banhammer.abusive? 'спойлеры тоже ||захуярить||').to eq true }
+    it { expect(banhammer.abusive? 'спойлеры тоже ||   захуярить  ||').to eq true }
+    it { expect(banhammer.abusive? 'ху[size=0]лала[/size]й невидимый блок').to eq true }
+
+    it { expect(banhammer.abusive? 'одинарные |не| трогать|').to eq false }
+    it { expect(banhammer.abusive? 'обычное `использование` кода').to eq false }
+    it { expect(banhammer.abusive? 'обычное [size=0]использование[/size] size').to eq false }
 
     context 'soft hypen' do # http://www.fileformat.info/info/unicode/char/00AD/index.htm
       it { expect(banhammer.abusive? 'н­ах').to eq true }
@@ -138,6 +160,34 @@ describe Moderations::Banhammer do
 
     context 'abusive thrice' do
       let(:text) { 'хуй бля нахер' }
+      it { is_expected.to eq 3 }
+    end
+  end
+
+  describe '#abusiveness' do
+    subject { banhammer.send :abusiveness, text }
+
+    context 'not abusive' do
+      let(:text) { 'test' }
+      it { is_expected.to eq 0 }
+    end
+
+    context 'abusive' do
+      it { is_expected.to eq 1 }
+    end
+
+    context 'abusive with code' do
+      let(:text) { '`хуй`' }
+      it { is_expected.to eq 1 }
+    end
+
+    context 'abusive thrice' do
+      let(:text) { 'хуй бля нахер' }
+      it { is_expected.to eq 3 }
+    end
+
+    context 'abusive thrice with code and spoiler' do
+      let(:text) { 'хуй `бля` ||нахер||' }
       it { is_expected.to eq 3 }
     end
   end
