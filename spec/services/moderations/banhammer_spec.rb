@@ -70,7 +70,7 @@ describe Moderations::Banhammer do
       it do
         expect(ban.duration).to eql BanDuration.new('150m')
         expect(comment.body).to eq(
-          "test ### test ### ### ### ### ### ### ### ### ###\n\n[ban=#{ban.id}]"
+          "test ||###|| test `###` ### ||###|| ##################### `###` ### ### ### ###\n\n[ban=#{ban.id}]"
         )
       end
     end
@@ -128,6 +128,8 @@ describe Moderations::Banhammer do
     it { expect(banhammer.abusive? 'пиздец').to eq true }
     it { expect(banhammer.abusive? 'н[size=15]а[/size]х').to eq true }
     it { expect(banhammer.abusive? 'х[b][/b][b][/b]ер').to eq true }
+    it { expect(banhammer.abusive? '||хуй||').to eq true }
+    it { expect(banhammer.abusive? '`хуй`').to eq true }
 
     it { expect(banhammer.abusive? '`пиздец` тут мата').to eq true }
     it { expect(banhammer.abusive? '`  пиздец    ` тут мата').to eq true }
@@ -162,11 +164,11 @@ describe Moderations::Banhammer do
     end
   end
 
-  describe '#general_abusiveness' do
-    subject { banhammer.send :general_abusiveness, text }
+  describe '#abusiveness' do
+    subject { banhammer.send :abusiveness, text }
 
     context 'not abusive' do
-      let(:text) { '`test`' }
+      let(:text) { 'test' }
       it { is_expected.to eq 0 }
     end
 

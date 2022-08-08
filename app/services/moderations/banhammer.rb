@@ -3,18 +3,11 @@ class Moderations::Banhammer # rubocop:disable ClassLength
   include Singleton
 
   Z = '[@#$%&*^]'
-  X = '[\s.,:?!)(\]\[\'"«»-]'
-  TAG = '(?: \[ [^\]]+ \] )*'
+  X = '[\s.,:?!)(\]\[\'"`«»|-]'
+  TAG = '(?: \[ [^\]]++ \] )*'
   TAG_REGEXP = /#{TAG}/mix
-  SPECIAL_TAG_REGEXP = %r{
-    \|\|
-      |
-    `
-      |
-    \[size=\d+\] .+ \[/size\]
-  }mix
 
-  INVISIBLE_SYMBOLS = '[­]*'
+  INVISIBLE_SYMBOLS = '(?:­|\[size=0\][^\]]*\[\/size\])*'
 
   SYNONYMS = {
     а: %w[a а],
@@ -81,7 +74,7 @@ class Moderations::Banhammer # rubocop:disable ClassLength
   end
 
   def abusive? text
-    general_abusiveness(text).positive?
+    abusiveness(text).positive?
   end
 
   def censor text, replacement = DEFAULT_REPLACEMENT
@@ -91,9 +84,10 @@ class Moderations::Banhammer # rubocop:disable ClassLength
 private
 
   def ban comment
-    abusiveness = general_abusiveness comment.body
-    censored_body = replace_abusiveness(comment.body, abusiveness >= HEAVY_ABUVENESS ? '#' : nil)
-    comment.update_column(:body, censored_body)
+    abusiveness = abusiveness comment.body
+    censored_body = replace_abusiveness comment.body, abusiveness >= HEAVY_ABUVENESS ? '#' : nil
+
+    comment.update_column :body, censored_body
     duration = ban_duration comment, abusiveness
 
     Ban.create!(
@@ -131,12 +125,8 @@ private
   end
 
   def replace_abusiveness text, replacement
-    if general_abusiveness(text) > abusiveness(text)
-      text = text.gsub SPECIAL_TAG_REGEXP, ''
-    end
-
     text.gsub ABUSE do |match|
-      next match unless valid_match?(match)
+      next match unless valid_match? match
 
       mached_text = match.size
         .times
@@ -144,12 +134,6 @@ private
 
       replacement ? mached_text : "[color=#ff4136]#{mached_text}[/color]"
     end
-  end
-
-  def general_abusiveness text
-    nornal_abusiveness = abusiveness(text)
-    special_tags_abusiveness = abusiveness(text.gsub(SPECIAL_TAG_REGEXP, ''))
-    [special_tags_abusiveness, nornal_abusiveness].max
   end
 
   def abusiveness text
