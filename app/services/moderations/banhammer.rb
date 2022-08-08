@@ -6,7 +6,13 @@ class Moderations::Banhammer # rubocop:disable ClassLength
   X = '[\s.,:?!)(\]\[\'"«»-]'
   TAG = '(?: \[ [^\]]+ \] )*'
   TAG_REGEXP = /#{TAG}/mix
-  SPECIAL_TAG_REGEXP = /([|][|]|`|((\[size=\d\]).+(\[\/size\])))/mix
+  SPECIAL_TAG_REGEXP = %r{
+    \|\|
+      |
+    `
+      |
+    \[size=\d+\] .+ \[/size\]
+  }mix
 
   INVISIBLE_SYMBOLS = '[­]*'
 
@@ -126,7 +132,7 @@ private
 
   def replace_abusiveness text, replacement
     if general_abusiveness(text) > abusiveness(text)
-      text.gsub!(SPECIAL_TAG_REGEXP, '')
+      text = text.gsub SPECIAL_TAG_REGEXP, ''
     end
 
     text.gsub ABUSE do |match|
