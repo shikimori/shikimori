@@ -3,15 +3,18 @@ class Comment::Create
     params!
     faye!
     locale
+    is_conversion
+    is_forced
   ]
 
   def call
     comment = Comment.new @params.except(:commentable_id, :commentable_type)
+    comment.instance_variable_set :@is_conversion, @is_conversion
 
     RedisMutex.with_lock(mutex_key, block: 30.seconds, expire: 30.seconds) do
       apply_commentable comment
     end
-    @faye.create comment
+    @faye.send @is_forced ? :create! : :create, comment
 
     if comment.persisted?
       notify_user comment if profile_comment?

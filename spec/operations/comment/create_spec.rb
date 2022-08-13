@@ -4,7 +4,9 @@ describe Comment::Create do
     described_class.call(
       params: params,
       faye: faye,
-      locale: locale
+      locale: locale,
+      is_conversion: is_conversion,
+      is_forced: is_forced
     )
   end
 
@@ -29,6 +31,8 @@ describe Comment::Create do
   end
   let(:is_offtopic) { [true, false].sample }
   let(:locale) { :en }
+  let(:is_conversion) { nil }
+  let(:is_forced) { nil }
 
   before { allow_any_instance_of(FayePublisher).to receive :publish }
 
@@ -93,10 +97,10 @@ describe Comment::Create do
     end
 
     context 'commentable is db entry' do
-      context 'with topic' do
-        let(:commentable_id) { anime.id }
-        let(:commentable_type) { Anime.name }
+      let(:commentable_id) { anime.id }
+      let(:commentable_type) { Anime.name }
 
+      context 'with topic' do
         it_behaves_like :comment
         it do
           expect(subject.topic).to eq topic
@@ -105,9 +109,6 @@ describe Comment::Create do
       end
 
       context 'with topic for different locale' do
-        let(:commentable_id) { anime.id }
-        let(:commentable_type) { Anime.name }
-
         let(:topic_locale) { (Shikimori::DOMAIN_LOCALES - [locale]).sample }
         let(:topic) { create :anime_topic, user: user, linked: anime, locale: topic_locale }
 
@@ -123,8 +124,6 @@ describe Comment::Create do
       end
 
       context 'without topic' do
-        let(:commentable_id) { anime.id }
-        let(:commentable_type) { Anime.name }
         let(:topic) { nil }
 
         # it_behaves_like :comment
@@ -136,6 +135,29 @@ describe Comment::Create do
           expect(subject.topic.created_at).to be_within(0.1).of Time.zone.now
           expect(subject.topic.updated_at).to be_within(0.1).of Time.zone.now
         end
+      end
+
+      describe 'is_forced' do
+        context 'invalid params' do
+          let(:commentable_type) { nil }
+
+          context 'not forced' do
+            it do
+              is_expected.to be_new_record
+              is_expected.to_not be_valid
+            end
+          end
+
+          context 'forced' do
+            let(:is_forced) { true }
+            it { expect { subject }.to raise_error ActiveRecord::RecordInvalid }
+          end
+        end
+      end
+
+      describe 'is_conversion' do
+        let(:is_conversion) { [true, false].sample }
+        it { expect(subject.instance_variable_get(:@is_conversion)).to eq is_conversion }
       end
     end
   end
