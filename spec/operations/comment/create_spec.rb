@@ -1,6 +1,12 @@
 describe Comment::Create do
   include_context :timecop
-  subject(:comment) { described_class.call faye, params, locale }
+  subject(:comment) do
+    described_class.call(
+      params: params,
+      faye: faye,
+      locale: locale
+    )
+  end
 
   let(:anime) { create :anime }
   let!(:topic) do

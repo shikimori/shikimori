@@ -73,7 +73,11 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
     :bool,
     "Used to broadcast comment in club's topic. Only club admins can broadcast."
   def create
-    @resource = Comment::Create.call faye, create_params, locale_from_host
+    @resource = Comment::Create.call(
+      params: create_params,
+      faye: faye,
+      locale: locale_from_host
+    )
 
     if params[:broadcast] && @resource.persisted? && can?(:broadcast, @resource)
       Comment::Broadcast.call @resource

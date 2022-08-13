@@ -1,5 +1,9 @@
 class Comment::Create
-  method_object :faye, :params, :locale
+  method_object %i[
+    params!
+    faye!
+    locale
+  ]
 
   def call
     comment = Comment.new @params.except(:commentable_id, :commentable_type)

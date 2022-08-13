@@ -147,7 +147,11 @@ private
     }
 
     Comment.wo_antispam do
-      Comment::Create.call faye(user), create_params, nil
+      Comment::Create.call(
+        faye: faye(user),
+        params: create_params,
+        locale: nil
+      )
     end
   end
 

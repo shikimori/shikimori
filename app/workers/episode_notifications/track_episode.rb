@@ -28,14 +28,14 @@ private
 
   def broadcast_to_moderators anime_id, episode
     comment = Comment::Create.call(
-      faye,
-      {
+      params: {
         body: generate_report(anime_id, episode),
         commentable_id: VIDEO_MODERATION_TOPIC_ID,
         commentable_type: Topic.name,
         user: reporter
       },
-      'ru'
+      faye: faye,
+      locale: 'ru'
     )
     Comment::Broadcast.call comment
 
