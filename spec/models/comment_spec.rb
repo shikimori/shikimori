@@ -528,6 +528,30 @@ describe Comment do
       end
     end
 
+    describe '#allowed_summary?' do
+      let(:comment) { build :comment, commentable: commentable }
+
+      context 'Topic commentable' do
+        let(:commentable) { build :topic }
+        it { expect(comment).to_not be_allowed_summary }
+      end
+
+      context 'Topics::EntryTopics::AnimeTopic commentable' do
+        let(:commentable) { build :anime_topic }
+        it { expect(comment).to be_allowed_summary }
+      end
+
+      context 'Topics::EntryTopics::MangaTopic commentable' do
+        let(:commentable) { build :manga_topic }
+        it { expect(comment).to be_allowed_summary }
+      end
+
+      context 'Topics::EntryTopics::RanobeTopic commentable' do
+        let(:commentable) { build :ranobe_topic }
+        it { expect(comment).to be_allowed_summary }
+      end
+    end
+
     describe '#faye_channels' do
       it { expect(comment.faye_channels).to eq %W[/comment-#{comment.id}] }
     end
