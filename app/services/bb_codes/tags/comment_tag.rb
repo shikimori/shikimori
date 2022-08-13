@@ -7,6 +7,8 @@ class BbCodes::Tags::CommentTag # rubocop:disable ClassLength
   dsl_attribute :includes_scope, true
   dsl_attribute :is_bubbled, true
 
+  NOT_FOUND = 'DELETED'
+
   def bbcode_regexp
     @bbcode_regexp ||= %r{
       \[
@@ -57,7 +59,7 @@ private
   def bbcode_to_html entry:, type:, text:, is_quoted: # rubocop:disable MethodLength
     user = entry&.send(self.class::USER_FIELD)
 
-    author_name = text.presence || user.nickname || NOT_FOUND
+    author_name = text.presence || user&.nickname || NOT_FOUND
     url = entry_url entry
     tooltip_url = tooltip_url entry
     css_classes = css_classes entry, user, is_quoted

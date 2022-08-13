@@ -150,8 +150,8 @@ private
   def serialize_forum_entry model
     {
       id: model.id,
-      userId: model.user.id,
-      text: model.user.nickname,
+      userId: model.user_id,
+      text: model.user&.nickname || BbCodes::Tags::CommentTag::NOT_FOUND,
       url: case model
         when Comment then comment_url(model)
         when Topic then UrlGenerator.instance.topic_url(model)
