@@ -2,11 +2,8 @@ class Review::ConvertToComment
   method_object :review
 
   def call
-    comment = build_comment
-    comment.instance_variable_set :@is_conversion, true
-
     ApplicationRecord.transaction do
-      Comment.wo_antispam { comment.save! }
+      comment = Comment.wo_antispam { create_comment }
 
       Comments::Move.call(
         comment_ids: replies_ids,
@@ -17,20 +14,26 @@ class Review::ConvertToComment
 
       move_review_relations comment
       @review.destroy!
+      comment
     end
-
-    comment
   end
 
 private
 
-  def build_comment
-    Comment.new(
-      user: @review.user,
-      body: @review.body,
-      commentable: @review.db_entry.topic(@review.locale),
-      created_at: @review.created_at,
-      updated_at: @review.updated_at
+  def create_comment
+    Comment::Create.call(
+      params: {
+        user: @review.user,
+        body: @review.body,
+        commentable_id: @review.db_entry_id,
+        commentable_type: @review.anime? ? Anime.name : Manga.name,
+        created_at: @review.created_at,
+        updated_at: @review.updated_at
+      },
+      locale: @review.locale,
+      faye: FayeService.new(@review.user, nil),
+      is_forced: true,
+      is_conversion: true
     )
   end
 

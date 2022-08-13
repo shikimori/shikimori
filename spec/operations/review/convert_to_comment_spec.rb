@@ -50,4 +50,20 @@ describe Review::ConvertToComment do
     expect(reply_2.reload.commentable_type).to eq Topic.name
     expect(reply_3.reload.commentable_type).to eq Topic.name
   end
+
+  context 'no anime topic' do
+    let(:anime_topic) { nil }
+
+    it do
+      is_expected.to be_persisted
+      is_expected.to be_kind_of Comment
+      is_expected.to have_attributes(
+        user: review.user,
+        commentable_type: 'Topic',
+        body: review.body
+      )
+      expect(subject.commentable_id).to be_present
+      expect(subject.commentable.comments_count).to eq 1
+    end
+  end
 end
