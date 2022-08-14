@@ -1,5 +1,6 @@
 class Topics::ReviewView < Topics::UserContentView
   delegate :db_entry, :body, to: :review
+  delegate :faye_channels, to: :topic
 
   def container_classes
     if review_author_details?

@@ -12,7 +12,6 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :tags,
     :created_at,
     :updated_at,
-    :faye_channels,
     to: :topic
 
   delegate :comments_count, to: :topic
@@ -300,6 +299,10 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       preview? || minified?,
       CACHE_VERSION
     )
+  end
+
+  def faye_channels
+    minified? ? false : topic.faye_channels
   end
 
   def self.format_date datetime
