@@ -76,6 +76,7 @@
                       data-autocomplete=(resource.ranobe? ? autocomplete_ranobe_index_url : send(:"autocomplete_#{resource.object.class.name.downcase.pluralize}_url"))
                     ]
                   .d-flex
+                    input type='hidden' name='episode_field' value='episodes'
                     .b-input.mr-5
                       label Номер эпизода
                       input[
