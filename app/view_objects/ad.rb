@@ -204,8 +204,8 @@ private
   # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
   SPECIAL_X300 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: IMBA - remove 2022-07-30 23:59
-    url: 'https://bit.ly/3OaIPJa',
+    # AD START: IMBA - remove 2022-08-29 23:59
+    url: 'https://bit.ly/3zYB034',
     # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=eevvx&pfb=lozyl&pr=[RANDOM]&pe=b',
     images: (1..1).map do |i|
       {
@@ -228,7 +228,7 @@ private
   }
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: IMBA - remove 2022-07-30 23:59
+    # AD START: IMBA - remove 2022-08-29 23:59
     url: 'https://bit.ly/3IFd74K',
     # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=eevvx&pfb=lozyl&pr=[RANDOM]&pe=b',
     images: (1..1).map do |i|
@@ -396,12 +396,12 @@ private
         Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # IMBA - remove 2022-07-30 23:59
+        # Types::Ad::Type[:special_x300], # IMBA - remove 2022-08-29 23:59
         Types::Ad::Type[:yd_240x600],
         Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # IMBA - remove 2022-07-30 23:59
+        # Types::Ad::Type[:special_x300], # IMBA - remove 2022-08-29 23:59
         Types::Ad::Type[:yd_300x600],
         Types::Ad::Type[:mt_300x600]
       ],
@@ -417,7 +417,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        Types::Ad::Type[:special_x1170], # IMBA - remove 2022-07-30 23:59
+        Types::Ad::Type[:special_x1170], # IMBA - remove 2022-08-29 23:59
         Types::Ad::Type[:yd_970x250],
         Types::Ad::Type[:mt_970x250]
       ]
@@ -429,13 +429,13 @@ private
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # IMBA - remove 2022-07-30 23:59
+        # Types::Ad::Type[:special_x300], # IMBA - remove 2022-08-29 23:59
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # IMBA - remove 2022-07-30 23:59
+        # Types::Ad::Type[:special_x300], # IMBA - remove 2022-08-29 23:59
         # Types::Ad::Type[:mt_300x600],
         # Types::Ad::Type[:yd_300x600],
         # Types::Ad::Type[:advrtr_240x400],
@@ -452,7 +452,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        Types::Ad::Type[:special_x1170] # IMBA - remove 2022-07-30 23:59
+        Types::Ad::Type[:special_x1170] # IMBA - remove 2022-08-29 23:59
       ]
     }
   }
