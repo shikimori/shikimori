@@ -1,4 +1,4 @@
-class IncompleteDateType < ActiveModel::Type::Value
+class Types::IncompleteDateType < ActiveModel::Type::Value
   def cast_value value
     value.is_a?(String) ? IncompleteDate.new(JSON.parse(value)) : value
   end

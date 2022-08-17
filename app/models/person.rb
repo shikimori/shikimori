@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Person < DbEntry
   include ClubsConcern
   include CollectionsConcern
@@ -47,7 +45,7 @@ class Person < DbEntry
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
   validates :name, :japanese, length: { maximum: 255 }
 
-  attribute :birth_on_v2, IncompleteDateType.new
+  attribute :birth_on_v2, Types::IncompleteDateType.new
 
   SEYU_ROLES = %w[
     English Italian Hungarian Japanese German Hebrew Brazilian French

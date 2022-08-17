@@ -1,5 +1,6 @@
 class IncompleteDate
   include ShallowAttributes
+  include Types::JsonbActiveModel
 
   attribute :year, Integer, allow_nil: true
   attribute :month, Integer, allow_nil: true
@@ -15,10 +16,10 @@ end
 #     # raw date value in the database.
 #     #
 #     class_methods do
-# 
+#
 #       def incomplete_date_attr(attr_name, raw_name)
 #         instance_var = "@#{attr_name}"
-# 
+#
 #         # getter
 #         define_method "#{attr_name}" do
 #           value = instance_variable_get(instance_var)
@@ -26,7 +27,7 @@ end
 #           instance_variable_set(instance_var, value)
 #           value
 #         end
-# 
+#
 #         # setter
 #         define_method "#{attr_name}=" do |value|
 #           #begin
@@ -38,7 +39,7 @@ end
 #           #end
 #         end
 #       end
-# 
+#
 #       #
 #       # Defines several virtual attributes at once for raw real attributes
 #       #
@@ -50,8 +51,8 @@ end
 #           incomplete_date_attr name, raw_name
 #         end
 #       end
-# 
+#
 #     end
-# 
+#
 #   end
 # end
