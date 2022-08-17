@@ -47,6 +47,8 @@ class Person < DbEntry
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
   validates :name, :japanese, length: { maximum: 255 }
 
+  attribute :birth_on_v2, IncompleteDateType.new
+
   SEYU_ROLES = %w[
     English Italian Hungarian Japanese German Hebrew Brazilian French
     Spanish Korean Hebrew Mandarin
