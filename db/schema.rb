@@ -540,6 +540,7 @@ ActiveRecord::Schema.define(version: 2022_09_19_184130) do
     t.integer "animation"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "comment_id"
     t.string "source"
     t.string "moderation_state", default: "pending", null: false
     t.integer "approver_id"
@@ -1248,47 +1249,3 @@ ActiveRecord::Schema.define(version: 2022_09_19_184130) do
     t.index ["anime_id"], name: "index_videos_on_anime_id"
   end
 
-  create_table "votes", force: :cascade do |t|
-    t.string "votable_type", null: false
-    t.bigint "votable_id", null: false
-    t.string "voter_type", null: false
-    t.bigint "voter_id", null: false
-    t.boolean "vote_flag"
-    t.string "vote_scope"
-    t.integer "vote_weight"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
-    t.index ["votable_type", "votable_id"], name: "index_votes_on_votable_type_and_votable_id"
-    t.index ["voter_id", "votable_id"], name: "index_votes_on_voter_id_and_votable_id"
-    t.index ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
-    t.index ["voter_type", "voter_id"], name: "index_votes_on_voter_type_and_voter_id"
-  end
-
-  create_table "webm_videos", id: :serial, force: :cascade do |t|
-    t.string "url", null: false
-    t.string "state", null: false
-    t.string "thumbnail_file_name"
-    t.string "thumbnail_content_type"
-    t.integer "thumbnail_file_size"
-    t.datetime "thumbnail_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["url"], name: "index_webm_videos_on_url", unique: true
-  end
-
-  add_foreign_key "abuse_requests", "users"
-  add_foreign_key "abuse_requests", "users", column: "approver_id"
-  add_foreign_key "bans", "users"
-  add_foreign_key "bans", "users", column: "moderator_id"
-  add_foreign_key "collection_roles", "collections"
-  add_foreign_key "collection_roles", "users"
-  add_foreign_key "comment_viewings", "users"
-  add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
-  add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
-  add_foreign_key "reviews", "animes"
-  add_foreign_key "reviews", "mangas"
-  add_foreign_key "reviews", "users"
-  add_foreign_key "summary_viewings", "users"
-  add_foreign_key "topic_viewings", "users"
-end

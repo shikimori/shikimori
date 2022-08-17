@@ -38,7 +38,8 @@ module Types::JsonbActiveModel
   # https://github.com/rails/rails/blob/master/activerecord/lib/active_record/type/json.rb
   class_methods do # rubocop:disable Metrics/BlockLength
     def type
-      self
+      # self
+      name.underscore.to_sym
     end
 
     def deserialize value
@@ -53,7 +54,11 @@ module Types::JsonbActiveModel
       deserialize(raw_old_value) != new_value
     end
 
-    def assert_valid_value value
+    def assert_valid_value _value
+    end
+
+    def force_equality? _value
+      false
     end
 
     def cast value
