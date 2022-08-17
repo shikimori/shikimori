@@ -791,7 +791,6 @@ ActiveRecord::Schema.define(version: 2022_09_19_184130) do
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
     t.datetime "image_updated_at"
-    t.date "birth_on"
     t.string "website", limit: 255, default: "", null: false
     t.datetime "imported_at"
     t.boolean "is_producer", default: false, null: false
@@ -800,8 +799,8 @@ ActiveRecord::Schema.define(version: 2022_09_19_184130) do
     t.text "desynced", default: [], null: false, array: true
     t.string "russian", default: "", null: false
     t.integer "mal_id"
-    t.date "deceased_on"
-    t.jsonb "birth_on_v2"
+    t.jsonb "birth_on"
+    t.jsonb "deceased_on"
     t.index ["name"], name: "index_people_on_name"
   end
 
@@ -1248,4 +1247,4 @@ ActiveRecord::Schema.define(version: 2022_09_19_184130) do
     t.string "hosting", null: false
     t.index ["anime_id"], name: "index_videos_on_anime_id"
   end
-
+end
