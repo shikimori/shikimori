@@ -800,7 +800,7 @@ ActiveRecord::Schema.define(version: 2022_09_19_184130) do
     t.string "russian", default: "", null: false
     t.integer "mal_id"
     t.date "deceased_on"
-    t.jsonb "birth_on_v2", default: {}, null: false
+    t.jsonb "birth_on_v2"
     t.index ["name"], name: "index_people_on_name"
   end
 

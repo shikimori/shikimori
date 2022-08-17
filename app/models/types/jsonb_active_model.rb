@@ -62,12 +62,12 @@ module Types::JsonbActiveModel
       elsif value
         new value
       end
-    rescue ArgumentError => e
-      if e.message == 'invalid value for Float(): ""'
-        new nil
-      else
-        raise
-      end
+    # rescue ArgumentError => e
+    #   if e.message == 'invalid value for Float(): ""'
+    #     new nil
+    #   else
+    #     raise
+    #   end
     end
 
     def changed? original_value, value, _value_before_type_cast
