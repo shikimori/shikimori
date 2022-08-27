@@ -276,6 +276,7 @@ describe Club do
       end
 
       it { is_expected.to be_able_to :see_club, club }
+      it { is_expected.to_not be_able_to :manage_restrictions, club }
 
       context 'newly registered' do
         let(:user) { build_stubbed :user, :user }
@@ -380,6 +381,7 @@ describe Club do
       end
 
       it { is_expected.to be_able_to :see_club, club }
+      it { is_expected.to_not be_able_to :manage_restrictions, club }
 
       context 'not banned' do
         it { is_expected.to be_able_to :update, club }
@@ -442,6 +444,7 @@ describe Club do
 
       it { is_expected.to be_able_to :leave, club }
       it { is_expected.to_not be_able_to :broadcast, club }
+      it { is_expected.to_not be_able_to :manage_restrictions, club }
 
       describe 'upload' do
         context 'members' do

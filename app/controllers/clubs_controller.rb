@@ -32,6 +32,7 @@ class ClubsController < ShikimoriController
     collection_ids: [],
     banned_user_ids: []
   ]
+  RESTRICTED_PARAMS = %i[is_thematic]
   CREATE_PARAMS = %i[owner_id] + UPDATE_PARAMS
 
   MEMBERS_LIMIT = 48
@@ -215,6 +216,10 @@ private
   alias new_params create_params
 
   def update_params
-    params[:club] ? params.require(:club).permit(*UPDATE_PARAMS) : {}
+    params
+      .require(:club)
+      .permit(*(UPDATE_PARAMS + (can?(:manage_restrictions, Club) ? RESTRICTED_PARAMS : [])))
+  rescue ActionController::ParameterMissing
+    {}
   end
 end
