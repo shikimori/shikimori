@@ -106,7 +106,7 @@ class Club < ApplicationRecord
     predicates: { prefix: true },
     default: Types::Club::ImageUploadPolicy[:members]
 
-  boolean_attribute :censored
+  boolean_attributes :censored, :thematic
 
   has_attached_file :logo,
     styles: {

@@ -9,6 +9,8 @@ FactoryBot.define do
     image_upload_policy { Types::Club::ImageUploadPolicy[:members] }
 
     locale { :ru }
+    is_censored { false }
+    is_thematic { true }
 
     after :build do |model|
       stub_method model, :antispam_checks
