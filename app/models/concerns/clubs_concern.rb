@@ -3,9 +3,11 @@ module ClubsConcern
 
   included do |klass|
     has_many :club_links, -> { where linked_type: klass.name },
+      inverse_of: :linked,
       foreign_key: :linked_id,
       dependent: :destroy
 
-    has_many :clubs, through: :club_links
+    has_many :clubs, -> { where is_thematic: true },
+      through: :club_links
   end
 end
