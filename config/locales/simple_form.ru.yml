@@ -55,7 +55,6 @@ ru:
           Чувствителен к регистру<br>
           Письма на<span class="b-tag narrow">@mail.ru</span><span class="b-tag narrow">@inbox.ru</span><span class="b-tag narrow">@list.ru</span><span class="b-tag narrow">@bk.ru</span>
           могут попадать в спам, проверяй в этой папке тоже.
-
       user_preferences:
         apply_user_styles: >-
           Другие пользователи сайта могут задавать собственные стили
@@ -80,6 +79,9 @@ ru:
           Формат записи: Название_проекта/студии (Ник_даббера1 & Ник_даббера2)
       list_import:
         list: Поддерживает Shikimori JSON и MyAnimeList XML списки (до 15mb)
+      club:
+        is_thematic: Не тематические клубы не отображаются на страницах аниме и манги
+        is_shadowbanned: Скрывает клуб для всех, кроме его участников
       club_page:
         parent_page_id: Внутри какой страницы отображается страница
 

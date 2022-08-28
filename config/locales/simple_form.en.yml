@@ -55,7 +55,6 @@ en:
 
 
 
-
       user_preferences:
         apply_user_styles: >-
           Other site users can define their own styles
@@ -80,6 +79,9 @@ en:
           Формат записи: Название_проекта/студии (Ник_даббера1 & Ник_даббера2)
       list_import:
         list: Import supports Shikimori JSON and MyAnimeList XML lists (15mb max)
+      club:
+        is_thematic: Non thematic clubs are not displayed on anime and manga pages
+        is_shadowbanned: Hides the club from everyone except its members
       club_page:
         parent_page_id: Inside which page the page is displayed
 

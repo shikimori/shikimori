@@ -281,6 +281,7 @@ en:
         page_policy: Pages Policy
         is_censored: Contains adult content (18+)
         is_thematic: Thematic
+        is_shadowbanned: Shadowban
         logo: Logo
       collection:
         name: Name

@@ -32,7 +32,7 @@ class ClubsController < ShikimoriController
     collection_ids: [],
     banned_user_ids: []
   ]
-  RESTRICTED_PARAMS = %i[is_thematic]
+  RESTRICTED_PARAMS = %i[is_thematic is_shadowbanned]
   CREATE_PARAMS = %i[owner_id] + UPDATE_PARAMS
 
   MEMBERS_LIMIT = 48
