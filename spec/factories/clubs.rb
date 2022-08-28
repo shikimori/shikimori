@@ -10,7 +10,7 @@ FactoryBot.define do
 
     locale { :ru }
     is_censored { false }
-    is_thematic { true }
+    is_non_thematic { true }
     is_shadowbanned { true }
 
     after :build do |model|

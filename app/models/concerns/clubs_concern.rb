@@ -7,7 +7,7 @@ module ClubsConcern
       foreign_key: :linked_id,
       dependent: :destroy
 
-    has_many :clubs, -> { where is_thematic: true },
+    has_many :clubs, -> { where is_non_thematic: false },
       through: :club_links
   end
 end

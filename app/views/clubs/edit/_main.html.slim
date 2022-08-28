@@ -25,7 +25,7 @@
       - if can? :manage_restrictions, Club
         .block
           .subheadline.red = t 'application.top_menu.items.moderation'
-          = f.input :is_thematic
+          = f.input :is_non_thematic
           = f.input :is_shadowbanned
 
     .c-column.block_m

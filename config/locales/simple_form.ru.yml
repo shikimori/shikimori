@@ -80,7 +80,7 @@ ru:
       list_import:
         list: Поддерживает Shikimori JSON и MyAnimeList XML списки (до 15mb)
       club:
-        is_thematic: Не тематические клубы не отображаются на страницах аниме и манги
+        is_non_thematic: Не тематические клубы не отображаются на страницах аниме и манги
         is_shadowbanned: Скрывает клуб для всех, кроме его участников
       club_page:
         parent_page_id: Внутри какой страницы отображается страница
