@@ -5,7 +5,7 @@ ru:
       notice: Список всех клубов сайта в порядке активности участников
 
     collection:
-      favourites: Избранное
+      favourites: Избранные
       all_clubs: Все клубы
 
     page:
@@ -22,7 +22,8 @@ ru:
 
     edit:
       main:
-        required_option_for_adult_clubs: Обязательная опция для клубов со "взрослыми" картинками и текстами
+        required_option_for_adult_clubs: >-
+          Обязательная опция для клубов со "взрослыми" картинками и текстами
       members:
         remove_users: Удаление пользователей
 
