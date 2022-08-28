@@ -14,18 +14,20 @@ header.head
       = @club.name
       - if @club.censored?
         span.censored
-          | [18+]
+          | &nbsp;&nbsp;[18+]
       - if can? :manage_restrictions, Club
         - if @club.non_thematic?
           span.b-tooltipped.unprocessed.non-thematic[
             title=Club.human_attribute_name(:is_non_thematic)
             data-direction='top'
-          ] [NT]
+          ]
+            | &nbsp;&nbsp;[NT]
         - if @club.shadowbanned?
           span.b-tooltipped.unprocessed.shadowbanned[
             title=Club.human_attribute_name(:is_shadowbanned)
             data-direction='top'
-          ] [SB]
+          ]
+            | &nbsp;&nbsp;[SB]
     - else
       = t '.new_club'
 
