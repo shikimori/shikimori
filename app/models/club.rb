@@ -119,7 +119,9 @@ class Club < ApplicationRecord
     path: ':rails_root/public/system/clubs/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style_:style.png'
 
-  validates :name, presence: true, name: true
+  validates :name, presence: true
+  validates :name, name: true,
+    if: -> { new_record? || will_save_change_to_name? }
   validates :logo, attachment_content_type: { content_type: /\Aimage/ }
   validates :locale, presence: true
   validates :description, length: { maximum: 150_000 }, unless: :special_club?
