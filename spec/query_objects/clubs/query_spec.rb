@@ -1,15 +1,15 @@
 describe Clubs::Query do
   include_context :timecop
 
-  let(:query) { described_class.fetch is_user_signed_in, locale }
-  let(:is_user_signed_in) { true }
+  let(:query) { described_class.fetch user, locale }
   let(:locale) { :ru }
 
-  let!(:club_1) { create :club, :with_topics, id: 1 }
-  let!(:club_2) { create :club, :with_topics, id: 2 }
-  let!(:club_censored) { create :club, :with_topics, id: 3, is_censored: true }
-  let!(:club_en) { create :club, :with_topics, id: 4, locale: :en }
+  let!(:club_1) { create :club, :with_topics }
+  let!(:club_2) { create :club, :with_topics }
+  let!(:club_censored) { create :club, :with_topics, :censored }
+  let!(:club_en) { create :club, :with_topics, locale: :en }
   let!(:club_favoured) { create :club, :with_topics, id: Clubs::Query::FAVOURED_IDS.max }
+  let!(:club_shadowbanned) { create :club, :with_topics, :shadowbanned }
 
   describe '.fetch' do
     subject { query }
@@ -17,7 +17,7 @@ describe Clubs::Query do
     it { is_expected.to eq [club_1, club_2, club_censored, club_favoured] }
 
     context 'user not signed in' do
-      let(:is_user_signed_in) { false }
+      let(:user) { nil }
       it { is_expected.to eq [club_1, club_2, club_favoured] }
     end
 
@@ -34,6 +34,11 @@ describe Clubs::Query do
     describe '#without_censored' do
       subject { query.without_censored }
       it { is_expected.to eq [club_1, club_2, club_favoured] }
+    end
+
+    describe '#without_shadowbanned' do
+      subject { query.without_shadowbanned }
+      it { is_expected.to eq [club_1, club_2, club_censored, club_favoured] }
     end
 
     describe '#search' do
