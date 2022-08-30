@@ -8,8 +8,8 @@ describe Clubs::Query do
   let!(:club_2) { create :club, :with_topics }
   let!(:club_censored) { create :club, :with_topics, :censored }
   let!(:club_en) { create :club, :with_topics, locale: :en }
-  let!(:club_favoured) { create :club, :with_topics, id: Clubs::Query::FAVOURED_IDS.max }
   let!(:club_shadowbanned) { create :club, :with_topics, :shadowbanned }
+  let!(:club_favoured) { create :club, :with_topics, id: Clubs::Query::FAVOURED_IDS.max }
 
   describe '.fetch' do
     subject { query }
@@ -19,6 +19,19 @@ describe Clubs::Query do
     context 'user not signed in' do
       let(:user) { nil }
       it { is_expected.to eq [club_1, club_2, club_favoured] }
+    end
+
+    context 'signed in member of shadowbanned club' do
+      before { club_shadowbanned.members << user }
+      it do
+        is_expected.to eq [
+          club_1,
+          club_2,
+          club_censored,
+          club_shadowbanned,
+          club_favoured
+        ]
+      end
     end
 
     describe '#favourites' do

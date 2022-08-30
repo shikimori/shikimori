@@ -10,8 +10,7 @@ class Clubs::Query < QueryObjectBase
       .order(Arel.sql('topics.updated_at desc, id'))
 
     if user
-      scope
-        .without_shadowbanned
+      scope.without_shadowbanned(user)
     else
       scope
         .without_censored
@@ -31,8 +30,15 @@ class Clubs::Query < QueryObjectBase
     chain @scope.where(is_censored: false)
   end
 
-  def without_shadowbanned
-    chain @scope.where(is_shadowbanned: false)
+  def without_shadowbanned user = nil
+    chain(
+      user ?
+        @scope.where(
+          'is_shadowbanned = false or clubs.id in (?)',
+          user.club_roles.pluck(:club_id)
+        ) :
+        @scope.where(is_shadowbanned: false)
+    )
   end
 
   def search phrase, locale
