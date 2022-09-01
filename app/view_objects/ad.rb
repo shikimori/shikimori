@@ -228,8 +228,8 @@ private
   }
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: IMBA - remove 2022-08-29 23:59
-    url: 'https://bit.ly/3zYB034',
+    # AD START: IMBA - remove 2022-09-30 23:59
+    url: 'https://bit.ly/3ehG2R1',
     # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=eevvx&pfb=lozyl&pr=[RANDOM]&pe=b',
     # convert -resize 50% app/assets/images/globals/events/2022-07-16/wide_1@2x.jpg app/assets/images/globals/events/2022-07-16/wide_1.jpg
     images: (1..1).map do |i|
