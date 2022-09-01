@@ -407,17 +407,6 @@ class User < ApplicationRecord
       ignored_in_achievement_statistics?
   end
 
-  # for async mails for Devise 4
-  def send_devise_notification notification, *args
-    ShikiMailer.delay_for(0.seconds).send(notification, self, *args)
-  end
-
-  # NOTE: replace id with hashed value of secret token when
-  # any private data will be transmitted through the channel
-  def faye_channels
-    %W[/private-#{id}]
-  end
-
   def age
     return unless birth_on
 
@@ -427,6 +416,17 @@ class User < ApplicationRecord
         years_passed :
         years_passed - 1
     end
+  end
+
+  # for async mails for Devise 4
+  def send_devise_notification notification, *args
+    ShikiMailer.delay_for(0.seconds).send(notification, self, *args)
+  end
+
+  # NOTE: replace id with hashed value of secret token when
+  # any private data will be transmitted through the channel
+  def faye_channels
+    %W[/private-#{id}]
   end
 
 private

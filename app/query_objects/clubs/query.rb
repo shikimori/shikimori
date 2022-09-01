@@ -10,7 +10,8 @@ class Clubs::Query < QueryObjectBase
       .order(Arel.sql('topics.updated_at desc, id'))
 
     if user
-      scope.without_shadowbanned(user)
+      scope
+        .without_shadowbanned(user)
     else
       scope
         .without_censored
@@ -30,12 +31,12 @@ class Clubs::Query < QueryObjectBase
     chain @scope.where(is_censored: false)
   end
 
-  def without_shadowbanned user = nil
+  def without_shadowbanned decorated_user = nil
     chain(
-      user ?
+      decorated_user ?
         @scope.where(
           'is_shadowbanned = false or clubs.id in (?)',
-          user.club_roles.pluck(:club_id)
+          decorated_user.club_ids
         ) :
         @scope.where(is_shadowbanned: false)
     )

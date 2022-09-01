@@ -1,6 +1,6 @@
 class UserDecorator < BaseDecorator
-  instance_cache :clubs_for_domain, :exact_last_online_at,
-    :is_friended?, :mutual_friended?, :list_stats, :activity_stats
+  instance_cache :clubs_wo_shadowbanned, :exact_last_online_at,
+    :is_friended?, :mutual_friended?, :list_stats, :activity_stats, :club_ids
 
   CACHE_VERSION = :v2
 
@@ -8,10 +8,10 @@ class UserDecorator < BaseDecorator
     User.model_name
   end
 
-  def clubs_for_domain
-    object
-      .clubs
-      .where(locale: h.locale_from_host)
+  def clubs_wo_shadowbanned
+    Clubs::Query
+      .new(object.clubs)
+      .without_shadowbanned(h.current_user)
       .decorate
       .sort_by(&:name)
   end
@@ -30,7 +30,8 @@ class UserDecorator < BaseDecorator
   end
 
   def show_contest_link?
-    (can_vote_1? || can_vote_2? || can_vote_3?) && notification_settings_contest_event?
+    (can_vote_1? || can_vote_2? || can_vote_3?) &&
+      notification_settings_contest_event?
   end
 
   def unvoted_contests
@@ -102,6 +103,10 @@ class UserDecorator < BaseDecorator
     else
       h.index_profile_messages_url object, messages_type: :notifications
     end
+  end
+
+  def club_ids
+    @club_ids ||= club_roles.pluck(:club_id)
   end
 
   # def avatar_url size, ignore_censored = false
