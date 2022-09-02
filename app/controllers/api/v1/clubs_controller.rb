@@ -2,7 +2,6 @@ class Api::V1::ClubsController < Api::V1Controller
   load_and_authorize_resource :club, only: %i[update]
 
   before_action :fetch_club, except: %i[index]
-  before_action :restrict_domain, except: %i[index]
 
   LIMIT = 30
 
@@ -136,10 +135,6 @@ private
       .limit(LIMIT)
       .decorate
       .select { |club| can? :see_club, club }
-  end
-
-  def restrict_domain
-    raise ActiveRecord::RecordNotFound if @club.locale != locale_from_host
   end
 
   def update_params

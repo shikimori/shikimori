@@ -2,7 +2,6 @@ describe Api::V1::ClubsController, :show_in_doc do
   describe '#index' do
     include_context :timecop
 
-    let!(:club_en) { create :club, :with_topics, locale: :en, id: 1 }
     let!(:club_1) { create :club, :with_topics, id: 2 }
     let!(:club_2) { create :club, :with_topics, id: 3 }
     let!(:club_3) { create :club, :with_topics, id: 4 }
@@ -76,15 +75,9 @@ describe Api::V1::ClubsController, :show_in_doc do
     end
     let(:make_request) { get :show, params: { id: club.id }, format: :json }
 
-    context 'club locale == locale from domain' do
-      before { make_request }
-      it { expect(response).to have_http_status :success }
-    end
+    before { make_request }
 
-    context 'club locale != locale from domain' do
-      before { allow(controller).to receive(:ru_host?).and_return false }
-      it { expect { make_request }.to raise_error ActiveRecord::RecordNotFound }
-    end
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#animes' do
