@@ -86,7 +86,7 @@
   - A14663 # Queens Blade Rebellion vs. Hagure Yuusha no Aesthetica
 -
   - A1241 # Mobile Suit Gundam SEED Destiny Final Plus: The Chosen Future
-  - A46089 # Tales Of Crestoria Off Shot Movie
+  - A46089 # Tales of Crestoria Off Shot Movie
 -
   - A1276 # Ys
   - A21427 # Minna Atsumare! Falcom Gakuen
@@ -138,7 +138,7 @@
   - A13677 # Ao no Exorcist Movie Special
   - A9627 # Kakko Kawaii Sengen!
 -
-  - A1369 # Detective Conan OVA 01: Conan vs. Kid vs. Yaiba
+  - A1369 # Detective Conan OVA 01: Conan vs. Kid vs. Yaiba - Houtou Soud
   - A2335 # Kenyuu Densetsu Yaiba
 -
   - A1371 # Hi no Tori
@@ -515,9 +515,6 @@
   - A3785 # Evangelion: 3.0 You Can (Not) Redo
 -
   - A28149 # Nihon Animator Mihonichi
-  - A38055 # Evangelion: Another Impact (VR)
--
-  - A28149 # Nihon Animator Mihonichi
   - A80 # Mobile Suit Gundam
   - A9170 # Kimi ga Nozomu Eien: Gundam Parody
 -
@@ -546,7 +543,7 @@
   - A39993 # Isekai Quartet Relay PV
 -
   - A29803 # Overlord
-  - A41567 # Isekai Quartet 3
+  - A41567 # Isekai Quartet Movie: Another World
 -
   - A29820 # Channel 5.5 4th Season
   - A338 # Versailles no Bara
@@ -608,7 +605,7 @@
   - A39993 # Isekai Quartet Relay PV
 -
   - A30831 # Kono Subarashii Sekai ni Shukufuku wo!
-  - A41567 # Isekai Quartet 3
+  - A41567 # Isekai Quartet Movie: Another World
 -
   - A30851 # Q Transformers: Saranaru Ninki Mono e no Michi
   - A5355 # Sengoku Basara
@@ -632,7 +629,7 @@
   - A39993 # Isekai Quartet Relay PV
 -
   - A31240 # Re:Zero kara Hajimeru Isekai Seikatsu
-  - A41567 # Isekai Quartet 3
+  - A41567 # Isekai Quartet Movie: Another World
 -
   - A3154 # Gatchaman
   - A39249 # Pandora to Akubi
@@ -668,7 +665,7 @@
   - A39993 # Isekai Quartet Relay PV
 -
   - A32615 # Youjo Senki
-  - A41567 # Isekai Quartet 3
+  - A41567 # Isekai Quartet Movie: Another World
 -
   - A32681 # Uchuu Patrol Luluco
   - A33934 # Trigger-chan
@@ -774,7 +771,10 @@
   - A4385 # Great Mazinger tai Getter Robo
 -
   - A35790 # Tate no Yuusha no Nariagari
-  - A41567 # Isekai Quartet 3
+  - A39988 # Isekai Quartet 2
+-
+  - A35790 # Tate no Yuusha no Nariagari
+  - A41567 # Isekai Quartet Movie: Another World
 -
   - A35843 # Gintama.: Porori-hen
   - A36553 # Yinhun x He Wei Dao
@@ -812,7 +812,10 @@
   - A40711 # Gantz x Senran Kagura New Link
 -
   - A38659 # Shinchou Yuusha: Kono Yuusha ga Ore Tueee Kuse ni Shinchou Su
-  - A41567 # Isekai Quartet 3
+  - A39988 # Isekai Quartet 2
+-
+  - A38659 # Shinchou Yuusha: Kono Yuusha ga Ore Tueee Kuse ni Shinchou Su
+  - A41567 # Isekai Quartet Movie: Another World
 -
   - A39721 # Fairy Tail x Mameshiba
   - A6702 # Fairy Tail
@@ -829,7 +832,7 @@
   - A4896 # Umineko no Naku Koro ni
   - A934 # Higurashi no Naku Koro ni
 -
-  - A4918 # xxxHOLiC Shunmuki
+  - A4918 # xxxHOLiC: Shunmuki
   - A4938 # Tsubasa: Shunraiki
 -
   - A4941 # Tezuka Osamu ga Kieta?! 20 Seiki Saigo no Kaijiken
@@ -960,12 +963,6 @@
   - M16816 # Durarara!!
   - M21135 # Etsusa Oohashi Gaiden: 5656! Knights Strange Night
 -
-  - M20548 # Fate/stay night x Mahou Shoujo Lyrical Nanoha
-  - M3236 # Mahou Shoujo Lyrical Nanoha As
--
-  - M20548 # Fate/stay night x Mahou Shoujo Lyrical Nanoha
-  - M715 # Fate/stay night
--
   - M20870 # Slayers VS Orphen
   - M39745 # Majutsushi Orphen Hagure Tabi
 -
@@ -1007,7 +1004,6 @@
 -
   - M31499 # Nisekoi
   - M35243 # Haikyuu!!
-  - M47000 # Nisekyuu!!
 -
   - M31499 # Nisekoi
   - M36933 # Ore Monogatari!!
@@ -1017,7 +1013,6 @@
   - M58193 # Ore Koi!!
 -
   - M31499 # Nisekoi
-  - M47000 # Nisekyuu!!
   - M58193 # Ore Koi!!
 -
   - M35003 # Yamada-kun to 7-nin no Majo
@@ -1031,9 +1026,6 @@
   - M67019 # Fuuka
   - M8300 # Baby Steps
   - M88032 # Magazine Ohanami!!
--
-  - M35243 # Haikyuu!!
-  - M47000 # Nisekyuu!!
 -
   - M36933 # Ore Monogatari!!
   - M52389 # Ore Ride!!
