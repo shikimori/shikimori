@@ -109,7 +109,9 @@ class Ability
     can :see_club, Club do |club|
       !club.shadowbanned?
     end
-    can :read, ClubPage
+    can :read, ClubPage do |club_page|
+      can? :see_club, club_page.club
+    end
     can :read, UserRate
 
     can %i[read preview], Style
