@@ -35,7 +35,11 @@ class UserDecorator < BaseDecorator
   end
 
   def unvoted_contests
-    [can_vote_1?, can_vote_2?, can_vote_3?].count { |v| v }
+    [
+      can_vote_1?,
+      can_vote_2?,
+      can_vote_3?
+    ].count { |v| v }
   end
 
   def is_friended?
@@ -76,9 +80,15 @@ class UserDecorator < BaseDecorator
   def exact_last_online_at
     return Time.zone.now if new_record?
 
-    cached = ::Rails.cache.read(last_online_cache_key)
-    cached = Time.zone.parse(cached) if cached
-    [cached, last_online_at, current_sign_in_at, created_at].compact.max
+    cached = ::Rails.cache.read last_online_cache_key
+    cached = Time.zone.parse cached if cached
+
+    [
+      cached,
+      last_online_at,
+      current_sign_in_at,
+      created_at
+    ].compact.max
   end
 
   def last_online
@@ -96,7 +106,8 @@ class UserDecorator < BaseDecorator
   end
 
   def unread_messages_url
-    if unread.messages.positive? || (unread.news.zero? && unread.notifications.zero?)
+    if unread.messages.positive? ||
+        (unread.news.zero? && unread.notifications.zero?)
       h.profile_dialogs_url object
     elsif unread.news.positive?
       h.index_profile_messages_url object, messages_type: :news
@@ -106,7 +117,9 @@ class UserDecorator < BaseDecorator
   end
 
   def club_ids
-    @club_ids ||= club_roles.pluck(:club_id)
+    @club_ids ||= association_cached?(:club_roles) ?
+      club_roles.map(&:club_id) :
+      club_roles.pluck(:club_id)
   end
 
   # def avatar_url size, ignore_censored = false
