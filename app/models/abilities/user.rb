@@ -214,6 +214,9 @@ class Abilities::User
   end
 
   def club_abilities
+    can :see_club, Club do |club|
+      !club.shadowbanned? || @user.club_ids.include?(club.id)
+    end
     can %i[new create], Club do |club|
       @user.week_registered? && club.owner?(@user)
     end
