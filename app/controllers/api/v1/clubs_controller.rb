@@ -1,8 +1,8 @@
 class Api::V1::ClubsController < Api::V1Controller
   load_and_authorize_resource :club, only: %i[update]
 
-  before_action :fetch_club, except: :index
-  before_action :restrict_domain, except: %i[index create new]
+  before_action :fetch_club, except: %i[index]
+  before_action :restrict_domain, except: %i[index]
 
   LIMIT = 30
 
@@ -99,7 +99,7 @@ class Api::V1::ClubsController < Api::V1Controller
   def join
     authorize! :join, @club
     @club.join current_user
-    head 200
+    head :ok
   end
 
   api :POST, '/clubs/:id/leave', 'Leave a club'
@@ -107,7 +107,7 @@ class Api::V1::ClubsController < Api::V1Controller
   def leave
     authorize! :leave, @club
     @club.leave current_user
-    head 200
+    head :ok
   end
 
 private
@@ -116,10 +116,26 @@ private
     ids = params[:id].split(',')
 
     if ids.one?
-      @club = Club.find(params[:id]).decorate
+      fetch_single ids[0]
     else
-      @collection = Club.where(id: ids).limit(LIMIT).decorate
+      fetch_collection ids
     end
+  end
+
+  def fetch_single id
+    @club = Club
+      .find(id)
+      .decorate
+
+    raise ActiveRecord::RecordNotFound unless can? :see_club, @club
+  end
+
+  def fetch_collection ids
+    @collection = Club
+      .where(id: ids)
+      .limit(LIMIT)
+      .decorate
+      .select { |club| can? :see_club, club }
   end
 
   def restrict_domain
@@ -127,6 +143,8 @@ private
   end
 
   def update_params
-    params.require(:club).permit(*::ClubsController::UPDATE_PARAMS)
+    params
+      .require(:club)
+      .permit(*::ClubsController::UPDATE_PARAMS)
   end
 end
