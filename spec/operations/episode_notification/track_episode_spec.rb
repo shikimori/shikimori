@@ -45,17 +45,16 @@ describe EpisodeNotification::TrackEpisode do
       let(:episode) { anime.episodes_aired + 1 }
       it do
         expect(Topics::Generate::News::EpisodeTopic).to have_received(:call).twice
-        Shikimori::DOMAIN_LOCALES.each do |locale|
-          expect(Topics::Generate::News::EpisodeTopic)
-            .to have_received(:call)
-            .with(
-              model: episode_notification.anime,
-              user: episode_notification.anime.topic_user,
-              locale: locale,
-              aired_at: episode_notification.created_at,
-              episode: episode_notification.episode
-            )
-        end
+
+        expect(Topics::Generate::News::EpisodeTopic)
+          .to have_received(:call)
+          .with(
+            model: episode_notification.anime,
+            user: episode_notification.anime.topic_user,
+            aired_at: episode_notification.created_at,
+            episode: episode_notification.episode
+          )
+
         expect(anime.reload.episodes_aired).to eq 3
       end
 

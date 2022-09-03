@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Topics::Generate::News::EpisodeTopic < Topics::Generate::News::BaseTopic
-  method_object %i[model! user! locale! aired_at! episode!]
+  method_object %i[model! user! aired_at! episode!]
 
 private
 

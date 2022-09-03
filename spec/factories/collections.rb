@@ -7,7 +7,6 @@ FactoryBot.define do
     moderation_state { :pending }
     text { '' }
     tags { [] }
-    locale { :ru }
     published_at { nil }
     changed_at { nil }
     links_count { 0 }
@@ -44,9 +43,6 @@ FactoryBot.define do
 
     trait :with_antispam do
       after(:build) { |model| unstub_method model, :antispam_checks }
-    end
-    trait :with_topics do
-      after(:create) { |model| model.generate_topics model.locale }
     end
   end
 end

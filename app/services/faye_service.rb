@@ -40,7 +40,7 @@ class FayeService
         trackable.delete_by @actor
 
       when Critique
-        publisher.publish trackable.topic(trackable.locale), :deleted
+        publisher.publish trackable.topic, :deleted
         trackable.destroy
 
       else

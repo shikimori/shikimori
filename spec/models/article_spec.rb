@@ -9,11 +9,9 @@ describe Article do
     it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_presence_of :body }
     it { is_expected.to validate_length_of(:body).is_at_most(140000) }
-    it { is_expected.to validate_presence_of :locale }
   end
 
   describe 'enumerize' do
-    it { is_expected.to enumerize(:locale).in(*Types::Locale.values) }
     it { is_expected.to enumerize(:state).in(*Types::Article::State.values) }
   end
 

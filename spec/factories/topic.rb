@@ -7,7 +7,6 @@ FactoryBot.define do
     type { Topic.name }
     tags { [] }
 
-    locale { 'ru' }
     is_pinned { false }
     is_censored { false }
 

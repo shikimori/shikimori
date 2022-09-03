@@ -1,13 +1,13 @@
 describe Clubs::Query do
   include_context :timecop
 
-  let(:query) { described_class.fetch user, locale }
+  let(:query) { described_class.fetch user }
   let(:locale) { :ru }
 
   let!(:club_1) { create :club, :with_topics }
   let!(:club_2) { create :club, :with_topics }
   let!(:club_censored) { create :club, :with_topics, :censored }
-  let!(:club_en) { create :club, :with_topics, locale: :en }
+  let!(:club_en) { create :club, :with_topics }
   let!(:club_shadowbanned) { create :club, :with_topics, :shadowbanned }
   let!(:club_favoured) { create :club, :with_topics, id: Clubs::Query::FAVOURED_IDS.max }
 

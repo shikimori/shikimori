@@ -24,39 +24,30 @@ private
     return unless anime.anons?
     return if status_changed? 'ongoing', 'anons'
 
-    Shikimori::DOMAIN_LOCALES.each do |locale|
-      Topics::Generate::News::AnonsTopic.call(
-        model: anime,
-        user: anime.topic_user,
-        locale: locale
-      )
-    end
+    Topics::Generate::News::AnonsTopic.call(
+      model: anime,
+      user: anime.topic_user
+    )
   end
 
   def generate_ongoing_topics
     return unless anime.ongoing?
     return if status_changed? 'released', 'ongoing'
 
-    Shikimori::DOMAIN_LOCALES.each do |locale|
-      Topics::Generate::News::OngoingTopic.call(
-        model: anime,
-        user: anime.topic_user,
-        locale: locale
-      )
-    end
+    Topics::Generate::News::OngoingTopic.call(
+      model: anime,
+      user: anime.topic_user
+    )
   end
 
   def generate_release_topics
     return unless anime.released?
     return unless new_release?
 
-    Shikimori::DOMAIN_LOCALES.each do |locale|
-      Topics::Generate::News::ReleasedTopic.call(
-        model: anime,
-        user: anime.topic_user,
-        locale: locale
-      )
-    end
+    Topics::Generate::News::ReleasedTopic.call(
+      model: anime,
+      user: anime.topic_user
+    )
   end
 
   def new_release?

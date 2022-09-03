@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Club::Create do
-  subject(:club) { Club::Create.call params, locale }
+  subject(:club) { Club::Create.call params }
 
   before { allow_any_instance_of(Club).to receive :add_to_index }
   let(:locale) { :en }
@@ -10,11 +10,9 @@ describe Club::Create do
     let(:params) { { name: 'Test Club', owner_id: user.id } }
     it do
       expect(club).to be_persisted
-      expect(club).to have_attributes params.merge(locale: locale.to_s)
       expect(club.errors).to be_empty
 
       expect(club.topics).to have(1).item
-      expect(club.topics.first.locale).to eq locale.to_s
     end
   end
 

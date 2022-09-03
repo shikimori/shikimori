@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 describe Collection::Create do
-  subject(:collection) { Collection::Create.call params, locale }
-
-  let(:locale) { :en }
+  subject(:collection) { Collection::Create.call params }
 
   context 'valid params' do
     let(:params) do
@@ -18,7 +16,6 @@ describe Collection::Create do
     it do
       expect(collection).to be_persisted
       expect(collection).to have_attributes params.merge(
-        locale: locale.to_s,
         state: 'unpublished'
       )
       expect(collection.errors).to be_empty

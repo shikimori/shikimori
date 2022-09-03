@@ -87,15 +87,13 @@ describe Anime do
           create :news_topic,
             linked: anime,
             action: AnimeHistoryAction::Anons,
-            value: nil,
-            locale: :ru
+            value: nil
         end
         let!(:en_news_topic) do
           create :news_topic,
             linked: anime,
             action: AnimeHistoryAction::Anons,
-            value: nil,
-            locale: :en
+            value: nil
         end
 
         before { anime.update status: :anons }

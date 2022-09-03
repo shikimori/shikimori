@@ -4,7 +4,6 @@ describe Comment::Create do
     described_class.call(
       params: params,
       faye: faye,
-      locale: locale,
       is_conversion: is_conversion,
       is_forced: is_forced
     )
@@ -15,7 +14,6 @@ describe Comment::Create do
     create :anime_topic,
       user: user,
       linked: anime,
-      locale: locale,
       updated_at: 1.hour.ago
   end
 
@@ -30,7 +28,6 @@ describe Comment::Create do
     }
   end
   let(:is_offtopic) { [true, false].sample }
-  let(:locale) { :en }
   let(:is_conversion) { nil }
   let(:is_forced) { nil }
 
@@ -108,29 +105,13 @@ describe Comment::Create do
         end
       end
 
-      context 'with topic for different locale' do
-        let(:topic_locale) { (Shikimori::DOMAIN_LOCALES - [locale]).sample }
-        let(:topic) { create :anime_topic, user: user, linked: anime, locale: topic_locale }
-
-        it_behaves_like :comment
-        it 'creates anime topic with specified locale' do
-          expect(subject.topic).to have_attributes(
-            type: Topics::EntryTopics::AnimeTopic.name,
-            locale: locale.to_s
-          )
-          expect(subject.topic.created_at).to be_within(0.1).of Time.zone.now
-          expect(subject.topic.updated_at).to be_within(0.1).of Time.zone.now
-        end
-      end
-
       context 'without topic' do
         let(:topic) { nil }
 
         # it_behaves_like :comment
         it 'creates anime topic with specified locale' do
           expect(subject.topic).to have_attributes(
-            type: Topics::EntryTopics::AnimeTopic.name,
-            locale: locale.to_s
+            type: Topics::EntryTopics::AnimeTopic.name
           )
           expect(subject.topic.created_at).to be_within(0.1).of Time.zone.now
           expect(subject.topic.updated_at).to be_within(0.1).of Time.zone.now

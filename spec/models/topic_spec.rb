@@ -13,12 +13,7 @@ describe Topic do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :locale }
     it { is_expected.to validate_presence_of :title }
-  end
-
-  describe 'enumerize' do
-    it { is_expected.to enumerize(:locale).in(*Types::Locale.values) }
   end
 
   describe 'callbacks' do

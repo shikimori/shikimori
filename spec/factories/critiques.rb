@@ -11,8 +11,6 @@ FactoryBot.define do
     characters { 1 }
     animation { 1 }
 
-    locale { :ru }
-
     cached_votes_up { 0 }
     cached_votes_down { 0 }
 
@@ -30,9 +28,6 @@ FactoryBot.define do
 
     trait :with_antispam do
       after(:build) { |model| unstub_method model, :antispam_checks }
-    end
-    trait :with_topics do
-      after(:create) { |critique| critique.generate_topics critique.locale }
     end
   end
 end

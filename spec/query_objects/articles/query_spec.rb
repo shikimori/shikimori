@@ -7,8 +7,8 @@ describe Articles::Query do
   let!(:article_2) { create :article, :published, id: 2 }
   let!(:article_3) { create :article, :published, id: 3 }
   let!(:article_4) { create :article, :unpublished, id: 4 }
-  let!(:article_en_1) { create :article, :published, id: 5, locale: :en }
-  let!(:article_en_2) { create :article, :unpublished, id: 6, locale: :en }
+  let!(:article_en_1) { create :article, :published, id: 5 }
+  let!(:article_en_2) { create :article, :unpublished, id: 6 }
 
   describe '.fetch' do
     subject { query }

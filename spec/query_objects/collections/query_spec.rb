@@ -7,8 +7,8 @@ describe Collections::Query do
   let!(:collection_2) { create :collection, :published, id: 2 }
   let!(:collection_3) { create :collection, :published, id: 3 }
   let!(:collection_4) { create :collection, :unpublished, id: 4 }
-  let!(:collection_en_1) { create :collection, :published, id: 5, locale: :en }
-  let!(:collection_en_2) { create :collection, :unpublished, id: 6, locale: :en }
+  let!(:collection_en_1) { create :collection, :published, id: 5 }
+  let!(:collection_en_2) { create :collection, :unpublished, id: 6 }
 
   describe '.fetch' do
     subject { query }

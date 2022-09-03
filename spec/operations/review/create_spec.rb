@@ -32,7 +32,6 @@ describe Review::Create do
       is_written_before_release: released_on > Time.zone.now
     )
     expect(review.topics).to have(1).item
-    expect(review.topics.first.locale).to eq :ru
     expect(review.topics.first.is_censored).to eq is_censored
   end
 end

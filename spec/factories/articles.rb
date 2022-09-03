@@ -7,7 +7,6 @@ FactoryBot.define do
     moderation_state { 'pending' }
     approver_id { nil }
     tags { [] }
-    locale { :ru }
     changed_at { nil }
 
     Types::Article::State.values.each do |value|
@@ -28,9 +27,6 @@ FactoryBot.define do
 
     trait :with_antispam do
       after(:build) { |model| unstub_method model, :antispam_checks }
-    end
-    trait :with_topics do
-      after(:create) { |model| model.generate_topics model.locale }
     end
   end
 end

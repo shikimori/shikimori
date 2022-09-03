@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 describe Article::Create do
-  subject(:article) { Article::Create.call params, locale }
-
-  let(:locale) { :en }
+  subject(:article) { Article::Create.call params }
 
   context 'valid params' do
     let(:params) do
@@ -17,7 +15,6 @@ describe Article::Create do
     it do
       expect(article).to be_persisted
       expect(article).to have_attributes params.merge(
-        locale: locale.to_s,
         state: 'unpublished'
       )
       expect(article.errors).to be_empty

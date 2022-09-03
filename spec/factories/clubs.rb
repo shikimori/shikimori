@@ -8,7 +8,6 @@ FactoryBot.define do
     comment_policy { Types::Club::CommentPolicy[:free] }
     image_upload_policy { Types::Club::ImageUploadPolicy[:members] }
 
-    locale { :ru }
     is_censored { false }
     is_non_thematic { false }
     is_shadowbanned { false }
@@ -39,10 +38,6 @@ FactoryBot.define do
 
     trait :with_sync_topics_is_censored do
       after(:build) { |model| unstub_method model, :sync_topics_is_censored }
-    end
-
-    trait :with_topics do
-      after(:create) { |model| model.generate_topics model.locale }
     end
 
     trait :linked_anime do
