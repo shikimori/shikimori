@@ -42,7 +42,7 @@ class Api::V1::TopicsController < Api::V1Controller
   def index # rubocop:disable all
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
-    topics_scope = Topics::Query.fetch locale_from_host, censored_forbidden?
+    topics_scope = Topics::Query.fetch censored_forbidden?
 
     if params[:forum]
       forum = Forum.find_by_permalink params[:forum]
@@ -83,7 +83,7 @@ class Api::V1::TopicsController < Api::V1Controller
     @limit = [[params[:limit].to_i, 1].max, 10].min
 
     @collection = Topics::HotTopicsQuery
-      .call(limit: @limit, locale: locale_from_host)
+      .call(limit: @limit)
       .map { |topic| Topics::TopicViewFactory.new(true, true).build topic }
 
     respond_with @collection, each_serializer: TopicSerializer
@@ -112,8 +112,7 @@ class Api::V1::TopicsController < Api::V1Controller
   def create
     @resource = Topic::Create.call(
       faye: faye,
-      params: topic_params,
-      locale: locale_from_host
+      params: topic_params
     )
 
     if @resource.persisted?
@@ -184,7 +183,6 @@ private
   def updates_scope
     Topic
       .where(
-        locale: locale_from_host,
         generated: true,
         linked_type: [Anime.name, Manga.name, Ranobe.name]
       )

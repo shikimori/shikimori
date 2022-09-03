@@ -11,7 +11,6 @@ FactoryBot.define do
     can_vote_3 { false }
 
     locale { 'ru' }
-    locale_from_host { 'ru' }
 
     about { '' }
 

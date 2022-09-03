@@ -15,9 +15,7 @@ class Article < ApplicationRecord
   validates :name, :user, :body, presence: true
   validates :name, length: { maximum: 255 }
   validates :body, length: { maximum: 140_000 }
-  validates :locale, presence: true
 
-  enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
   enumerize :state, in: Types::Article::State.values, predicates: true
 
   scope :unpublished, -> { where state: Types::Article::State[:unpublished] }

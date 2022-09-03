@@ -162,6 +162,6 @@ class Contest < ApplicationRecord
 private
 
   def generate_missing_topics
-    generate_topics Shikimori::DOMAIN_LOCALES if topics.none?
+    generate_topics if topics.none?
   end
 end

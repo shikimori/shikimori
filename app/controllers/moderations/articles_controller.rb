@@ -37,7 +37,6 @@ private
     Article
       .where(moderation_state: %i[accepted rejected])
       .where(state: :published)
-      .where(locale: locale_from_host)
       .includes(:user, :approver, :topics)
       .order(created_at: :desc)
   end
@@ -46,7 +45,6 @@ private
     Article
       .where(moderation_state: :pending)
       .where(state: :published)
-      .where(locale: locale_from_host)
       .includes(:user, :approver, :topics)
       .order(created_at: :desc)
       .limit(PENDING_PER_PAGE)

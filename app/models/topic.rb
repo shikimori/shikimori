@@ -34,12 +34,12 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
   }
 
   TOPIC_IDS = {
-    offtopic: { ru: 82_468, en: 210_000 },
-    site_rules: { ru: 79_042, en: 220_000 },
-    description_of_genres: { ru: 103_553, en: nil },
-    ideas_and_suggestions: { ru: 10_586, en: 230_000 },
-    site_problems: { ru: 102, en: 240_000 },
-    anime_industry: { ru: 81_906, en: 250_000 },
+    offtopic: { ru: 82_468 },
+    site_rules: { ru: 79_042 },
+    description_of_genres: { ru: 103_553 },
+    ideas_and_suggestions: { ru: 10_586 },
+    site_problems: { ru: 102 },
+    anime_industry: { ru: 81_906 },
     contests_proposals: { ru: 212_657 },
     socials: { ru: 270_099 }
   }
@@ -64,10 +64,8 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
   belongs_to :linked, polymorphic: true, optional: true
   belongs_to :user
 
-  validates :forum, :user, :locale, presence: true
+  validates :forum, :user, presence: true
   validates :title, :body, presence: true, unless: :generated?
-
-  enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
 
   boolean_attribute :censored
 

@@ -123,7 +123,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, REVIEWS_LIMIT)
       .transform do |model|
-        view = Topics::ReviewView.new model.maybe_topic(locale_from_host), true, false
+        view = Topics::ReviewView.new model.maybe_topic, true, false
         view.instance_variable_set :@is_show_comments, false
         view
       end

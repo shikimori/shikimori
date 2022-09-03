@@ -155,7 +155,7 @@ private
     if topic.is_a? Topics::EntryTopics::ClubTopic
       mixed_channels += ["/club-#{topic.linked_id}"]
     elsif topic.respond_to? :forum_id
-      mixed_channels += [forum_channel(topic.forum_id, topic.locale)]
+      mixed_channels += [forum_channel(topic.forum_id)]
     end
 
     mixed_channels
@@ -169,7 +169,7 @@ private
     channels +
       topic.faye_channels +
       linked_channels(topic) +
-      [forum_channel(topic.forum_id, topic.locale)]
+      [forum_channel(topic.forum_id)]
   end
 
   def linked_channels topic
@@ -182,8 +182,8 @@ private
     channels + ["/dialog-#{[message.from_id, message.to_id].sort.join '-'}"]
   end
 
-  def forum_channel forum_id, locale
-    "/forum-#{forum_id}/#{locale}"
+  def forum_channel forum_id
+    "/forum-#{forum_id}/ru"
   end
 
   def faye_client

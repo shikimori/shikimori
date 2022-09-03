@@ -1,5 +1,5 @@
 class Topics::SearchQuery
-  method_object %i[scope phrase forum user locale]
+  method_object %i[scope phrase forum user]
 
   SEARCH_LIMIT = 999
 
@@ -10,7 +10,6 @@ class Topics::SearchQuery
       scope: @scope,
       phrase: @phrase,
       forum_id: forum_id,
-      locale: @locale,
       ids_limit: SEARCH_LIMIT
     )
   end

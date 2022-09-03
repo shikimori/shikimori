@@ -2,7 +2,6 @@ class Api::V1::ClubsController < Api::V1Controller
   load_and_authorize_resource :club, only: %i[update]
 
   before_action :fetch_club, except: :index
-  before_action :restrict_domain, except: %i[index create new]
 
   LIMIT = 30
 
@@ -25,8 +24,8 @@ class Api::V1::ClubsController < Api::V1Controller
     page = [params[:page].to_i, 1].max
     limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
-    @collection = Clubs::Query.fetch(user_signed_in?, locale_from_host)
-      .search(params[:search], locale_from_host)
+    @collection = Clubs::Query.fetch(user_signed_in?)
+      .search(params[:search])
       .paginate_n1(page, limit)
 
     respond_with @collection
@@ -120,10 +119,6 @@ private
     else
       @collection = Club.where(id: ids).limit(LIMIT).decorate
     end
-  end
-
-  def restrict_domain
-    raise ActiveRecord::RecordNotFound if @club.locale != locale_from_host
   end
 
   def update_params

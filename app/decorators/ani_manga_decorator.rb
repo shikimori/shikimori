@@ -16,7 +16,6 @@ class AniMangaDecorator < DbEntryDecorator
   def topic_views
     object
       .topics
-      .where(locale: h.locale_from_host)
       .where.not(updated_at: nil)
       .includes(:forum)
       .limit(TOPICS_PER_PAGE)

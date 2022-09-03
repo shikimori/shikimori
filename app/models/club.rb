@@ -121,11 +121,9 @@ class Club < ApplicationRecord
 
   validates :name, presence: true, name: true
   validates :logo, attachment_content_type: { content_type: /\Aimage/ }
-  validates :locale, presence: true
   validates :description, length: { maximum: 150_000 }, unless: :special_club?
   validates :description, length: { maximum: 300_000 }, if: :special_club?
 
-  enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
   alias topic_user owner
 
   after_create :join_owner

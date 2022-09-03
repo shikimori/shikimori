@@ -15,6 +15,5 @@ class ArticlesIndex < ApplicationIndex
           ngram: NGRAM_FIELD
         }
     end
-    field :locale, type: 'keyword'
   end
 end

@@ -30,11 +30,11 @@ class MangaProfileSerializer < MangaSerializer
 
   # TODO: deprecated
   def thread_id
-    object.maybe_topic(scope.locale_from_host).id
+    object.maybe_topic.id
   end
 
   def topic_id
-    object.maybe_topic(scope.locale_from_host).id
+    object.maybe_topic.id
   end
 
   def myanimelist_id

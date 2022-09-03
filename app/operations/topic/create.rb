@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Topic::Create
-  method_object %i[params! locale! faye!]
+  method_object %i[params! faye!]
 
   # IS_NEWS_PREMODERATION = !Rails.env.production?
 
@@ -17,7 +17,7 @@ class Topic::Create
 private
 
   def build_topic
-    topic = Topic.new @params.merge(locale: @locale)
+    topic = Topic.new @params
     topic.is_censored = topic.linked.try(:censored?) || false
     topic
   end

@@ -63,7 +63,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   def contest_topic_views
     contests_scope
       .map do |contest|
-        Topics::NewsLineView.new contest.maybe_topic(h.locale_from_host), true, true
+        Topics::NewsLineView.new contest.maybe_topic, true, true
       end
   end
 
@@ -72,7 +72,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
       .map(&:id)
 
     Topics::HotTopicsQuery
-      .call(limit: 12, locale: h.locale_from_host)
+      .call(limit: 12)
       .reject { |v| displayed_ids.include? v.id }
       .map { |topic| Topics::NewsLineView.new topic, true, true }
   end
@@ -206,25 +206,25 @@ private
 
   def collections_scope
     Collections::Query
-      .fetch(h.locale_from_host)
+      .fetch
       .limit(16)
       .transform do |collection|
-        Topics::NewsLineView.new collection.maybe_topic(h.locale_from_host), true, true
+        Topics::NewsLineView.new collection.maybe_topic, true, true
       end
   end
 
   def articles_scope
     Articles::Query
-      .fetch(h.locale_from_host)
+      .fetch
       .limit(6)
       .transform do |article|
-        Topics::NewsLineView.new article.maybe_topic(h.locale_from_host), true, true
+        Topics::NewsLineView.new article.maybe_topic, true, true
       end
   end
 
   def critiques_scope
     Topics::Query
-      .fetch(h.locale_from_host, h.censored_forbidden?)
+      .fetch(h.censored_forbidden?)
       .by_forum(critiques_forum, h.current_user, h.censored_forbidden?)
       .limit(6)
       .transform do |topic|
@@ -238,7 +238,7 @@ private
 
   def news_scope
     Topics::Query
-      .fetch(h.locale_from_host, h.censored_forbidden?)
+      .fetch(h.censored_forbidden?)
       .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
       .except(:order)
       .order(is_pinned: :desc, created_at: :desc)
@@ -246,12 +246,12 @@ private
 
   def db_updates_scope
     Topics::Query
-      .fetch(h.locale_from_host, true) # always hide hentai on the main page
+      .fetch(true) # always hide hentai on the main page
       .by_forum(Forum::UPDATES_FORUM, h.current_user, true) # always hide hentai on the main page
       .where(TOPICS_EXCEPT_EXCLUDED_SQL)
 
     # Topics::Query
-    #   .fetch(h.locale_from_host, h.censored_forbidden?)
+    #   .fetch(h.censored_forbidden?)
     #   .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
     #   .where(TOPICS_EXCEPT_EXCLUDED_SQL)
   end

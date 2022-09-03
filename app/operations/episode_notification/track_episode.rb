@@ -6,8 +6,8 @@ class EpisodeNotification::TrackEpisode
   def call
     raise missing_episode_error(@notification) if missing_episode? @notification
 
-    Shikimori::DOMAIN_LOCALES.each do |locale|
-      generate_topic @notification, locale
+    Shikimori::DOMAIN_LOCALES.each do
+      generate_topic @notification
     end
 
     return if present_episode? @notification
@@ -18,11 +18,10 @@ class EpisodeNotification::TrackEpisode
 
 private
 
-  def generate_topic episode_notification, locale
+  def generate_topic episode_notification
     Topics::Generate::News::EpisodeTopic.call(
       model: episode_notification.anime,
       user: episode_notification.anime.topic_user,
-      locale: locale,
       aired_at: episode_notification.created_at,
       episode: episode_notification.episode
     )

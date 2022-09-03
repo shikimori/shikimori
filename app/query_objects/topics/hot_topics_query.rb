@@ -16,7 +16,7 @@ class Topics::HotTopicsQuery
 
   INTERVAL = Rails.env.development? ? 1.month : 1.day
 
-  method_object %i[locale limit]
+  method_object %i[limit]
 
   def call
     topic_comments
@@ -31,7 +31,6 @@ private
     Comment
       .where(commentable_type: Topic.name)
       .where('comments.created_at > ?', INTERVAL.ago)
-      .where(topics: { locale: @locale })
       .where.not(topics: { id: offtopic_id })
       .joins(JOIN_SQL)
       .group(:commentable_id)
@@ -40,6 +39,6 @@ private
   end
 
   def offtopic_id
-    Topic::TOPIC_IDS[:offtopic][@locale.to_sym]
+    Topic::TOPIC_IDS[:offtopic][:ru]
   end
 end

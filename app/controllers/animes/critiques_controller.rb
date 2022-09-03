@@ -14,11 +14,10 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
     breadcrumb i18n_i('Critique', :other), nil
     @collection = ::Critiques::Query
       .call(@resource.object, {
-        locale: locale_from_host,
         id: params[:id].to_i
       })
       .map do |critique|
-        Topics::CritiqueView.new(critique.maybe_topic(locale_from_host), true, true)
+        Topics::CritiqueView.new(critique.maybe_topic, true, true)
       end
   end
 
@@ -31,7 +30,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
     push_js_reply if params[:is_reply]
     breadcrumb "#{i18n_i('Critique', :one)} ##{@critique.id}", nil
 
-    @topic_view = Topics::CritiqueView.new(@critique.maybe_topic(locale_from_host), false, false)
+    @topic_view = Topics::CritiqueView.new(@critique.maybe_topic, false, false)
   end
 
   def new
@@ -47,7 +46,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
   end
 
   def create
-    @critique = Critique::Create.call critique_params, locale_from_host
+    @critique = Critique::Create.call critique_params
 
     if @critique.errors.blank?
       redirect_to(
@@ -86,7 +85,7 @@ class Animes::CritiquesController < AnimesController # rubocop:disable ClassLeng
     og noindex: true
     return render :missing, status: (xhr_or_json? ? :ok : :not_found) if @resource.is_a? NoTopic
 
-    @topic_view = Topics::CritiqueView.new(@critique.maybe_topic(locale_from_host), true, true)
+    @topic_view = Topics::CritiqueView.new(@critique.maybe_topic, true, true)
 
     if request.xhr?
       render(
@@ -160,7 +159,7 @@ private
 
   def push_js_reply
     gon.push reply: {
-      id: @critique.maybe_topic(locale_from_host).id,
+      id: @critique.maybe_topic.id,
       type: :topic,
       userId: @critique.user_id,
       nickname: @critique.user.nickname,

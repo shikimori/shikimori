@@ -197,7 +197,7 @@ private
   def offtopic_topic?
     return false if topic.blank?
 
-    topic.id == Topic::TOPIC_IDS[:offtopic][topic.locale.to_sym]
+    topic.id == Topic::TOPIC_IDS[:offtopic][:ru]
   end
 
   # counter_cache hack

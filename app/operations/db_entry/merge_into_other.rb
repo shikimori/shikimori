@@ -147,14 +147,14 @@ private
   end
 
   def merge_comments # rubocop:disable MethodLength
-    Shikimori::DOMAIN_LOCALES.each do |locale|
-      @entry_topic = @entry.maybe_topic(locale)
+    Shikimori::DOMAIN_LOCALES.each do
+      @entry_topic = @entry.maybe_topic
       next if @entry_topic.comments_count.zero?
 
-      @other_topic = @other.maybe_topic(locale)
+      @other_topic = @other.maybe_topic
 
       unless @other_topic.persisted?
-        @other_topic = @other.generate_topics(locale).first
+        @other_topic = @other.generate_topics.first
       end
 
       @entry_topic

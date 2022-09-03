@@ -12,7 +12,6 @@ class Forums::Menu < ViewObjectBase
           Topics::EntryTopics::ClubPageTopic.name
         ]
       )
-      .where(locale: h.locale_from_host)
       .order(updated_at: :desc)
       .limit(3)
   end
@@ -28,7 +27,6 @@ class Forums::Menu < ViewObjectBase
   def critiques
     @critiques ||= Critique
       .where('created_at >= ?', 2.weeks.ago)
-      .where(locale: h.locale_from_host)
       .visible
       .includes(:user, :target, topics: [:forum])
       .order(created_at: :desc)
@@ -36,11 +34,7 @@ class Forums::Menu < ViewObjectBase
   end
 
   def sticky_topics
-    if h.ru_host?
-      ru_sticky_topics
-    else
-      en_sticky_topics
-    end
+    ru_sticky_topics
   end
 
   def new_topic_url # rubocop:disable AbcSize
@@ -88,20 +82,12 @@ private
 
   def ru_sticky_topics
     [
-      StickyTopicView.site_rules(h.locale_from_host),
-      StickyClubView.faq(h.locale_from_host),
-      StickyTopicView.contests_proposals(h.locale_from_host),
-      StickyTopicView.description_of_genres(h.locale_from_host),
-      StickyTopicView.ideas_and_suggestions(h.locale_from_host),
-      StickyTopicView.site_problems(h.locale_from_host)
-    ]
-  end
-
-  def en_sticky_topics
-    [
-      StickyTopicView.site_rules(h.locale_from_host),
-      StickyTopicView.ideas_and_suggestions(h.locale_from_host),
-      StickyTopicView.site_problems(h.locale_from_host)
+      StickyTopicView.site_rules,
+      StickyClubView.faq,
+      StickyTopicView.contests_proposals,
+      StickyTopicView.description_of_genres,
+      StickyTopicView.ideas_and_suggestions,
+      StickyTopicView.site_problems
     ]
   end
 end

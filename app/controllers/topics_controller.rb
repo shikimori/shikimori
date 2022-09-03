@@ -63,8 +63,7 @@ class TopicsController < ShikimoriController
   def create
     @resource = Topic::Create.call(
       faye: faye,
-      params: topic_params,
-      locale: locale_from_host
+      params: topic_params
     )
 
     if @resource.persisted?

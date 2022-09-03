@@ -61,8 +61,7 @@ private
       .all_topics
       .where(
         action: Types::Topic::NewsTopic::Action[:episode],
-        value: episode_notification.episode,
-        locale: locale_from_host
+        value: episode_notification.episode
       )
       .first
       &.id

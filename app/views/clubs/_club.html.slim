@@ -3,7 +3,7 @@
   class="#{content_by} #{:censored if club.censored?}"
 ]
   - if content_by == :detailed
-    - comments_count = club.maybe_topic(locale_from_host).comments_count
+    - comments_count = club.maybe_topic.comments_count
     a.name-logo[
       href=club_url(club)
       title=club.name

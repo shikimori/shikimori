@@ -74,7 +74,6 @@ private
 
   def users_scope
     User
-      .where(locale_from_host: @topic.locale)
       .where('last_online_at > ?', ACTIVITY_INTERVAL.ago)
   end
 

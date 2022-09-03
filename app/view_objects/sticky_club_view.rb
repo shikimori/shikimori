@@ -11,23 +11,23 @@ class StickyClubView
   attribute :description, String
 
   CLUB_IDS = {
-    faq: { ru: 1_093, en: nil },
-    content_moderation: { ru: 2052, en: nil },
-    forum_moderation: { ru: 917, en: nil }
+    faq: 1_093,
+    content_moderation: 2052,
+    forum_moderation: 917
   }
 
   CLUB_IDS.keys.each do |club_name|
-    define_singleton_method club_name do |locale|
-      club_id = CLUB_IDS[club_name][locale.to_sym]
+    define_singleton_method club_name do
+      club_id = CLUB_IDS[club_name]
       next unless club_id.present?
 
-      instance_variable_get(:"@#{club_name}_#{locale}") ||
+      instance_variable_get(:"@#{club_name}") ||
         instance_variable_set(
-          :"@#{club_name}_#{locale}",
+          :"@#{club_name}",
           new(
             object: clubs[club_id],
             title: club_name(club_id),
-            description: description(club_name, locale)
+            description: description(club_name)
           )
         )
     end
@@ -37,8 +37,8 @@ class StickyClubView
     clubs[club_id].name
   end
 
-  def self.description club_name, locale
-    i18n_t "#{club_name}.description", locale: locale
+  def self.description club_name
+    i18n_t "#{club_name}.description"
   end
 
   def self.clubs
