@@ -1,4 +1,5 @@
 class ClubsController < ShikimoriController
+  include CanCanGet404Concern
   load_and_authorize_resource :club, except: %i[index autocomplete edit]
   load_resource :club, only: %i[edit]
 
@@ -31,6 +32,7 @@ class ClubsController < ShikimoriController
     collection_ids: [],
     banned_user_ids: []
   ]
+  RESTRICTED_PARAMS = %i[is_non_thematic is_shadowbanned]
   CREATE_PARAMS = %i[owner_id] + UPDATE_PARAMS
 
   MEMBERS_LIMIT = 48
@@ -39,7 +41,11 @@ class ClubsController < ShikimoriController
     og noindex: true
     @limit = [[params[:limit].to_i, 24].max, 48].min
 
+<<<<<<< HEAD
     scope = Clubs::Query.fetch user_signed_in?
+=======
+    scope = Clubs::Query.fetch current_user, locale_from_host
+>>>>>>> 48d31ed7419f0610bb1e09cb1634117fbb804666
 
     if params[:search].blank?
       @favourites = scope.favourites if @page == 1
@@ -159,8 +165,13 @@ class ClubsController < ShikimoriController
   end
 
   def autocomplete
+<<<<<<< HEAD
     @collection = Clubs::Query.fetch(user_signed_in?)
       .search(params[:search])
+=======
+    @collection = Clubs::Query.fetch(current_user, locale_from_host)
+      .search(params[:search], locale_from_host)
+>>>>>>> 48d31ed7419f0610bb1e09cb1634117fbb804666
       .paginate(1, CompleteQuery::AUTOCOMPLETE_LIMIT)
       .reverse
   end
@@ -210,6 +221,10 @@ private
   alias new_params create_params
 
   def update_params
-    params[:club] ? params.require(:club).permit(*UPDATE_PARAMS) : {}
+    params
+      .require(:club)
+      .permit(*(UPDATE_PARAMS + (can?(:manage_restrictions, Club) ? RESTRICTED_PARAMS : [])))
+  rescue ActionController::ParameterMissing
+    {}
   end
 end

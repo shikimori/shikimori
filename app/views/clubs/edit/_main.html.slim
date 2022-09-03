@@ -8,7 +8,7 @@
     .c-column.block_m
       .block
         = f.input :name
-        = f.input :is_censored, hint: t('.required_option_for_adult_clubs')
+        = f.input :is_censored, hint: t('.required_option_for_adult_clubs').html_safe
 
       .block
         = f.input :join_policy, include_blank: false
@@ -21,6 +21,12 @@
           a href="#{images_club_url @resource}" = t 'clubs_controller.club_images'
         = f.input :image_upload_policy, include_blank: false
         = f.input :display_images
+
+      - if can? :manage_restrictions, Club
+        .block
+          .subheadline.red = t 'application.top_menu.items.moderation'
+          = f.input :is_non_thematic
+          = f.input :is_shadowbanned
 
     .c-column.block_m
       = f.input :logo

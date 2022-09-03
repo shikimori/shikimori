@@ -106,8 +106,12 @@ class Ability
     can %i[read tooltip], Version
     can %i[read tooltip], Genre
     can :see_contest, Contest
-    can :see_club, Club
-    can :read, ClubPage
+    can :see_club, Club do |club|
+      !club.shadowbanned?
+    end
+    can :read, ClubPage do |club_page|
+      can? :see_club, club_page.club
+    end
     can :read, UserRate
 
     can %i[read preview], Style

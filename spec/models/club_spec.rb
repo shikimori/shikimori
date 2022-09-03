@@ -140,6 +140,7 @@ describe Club do
     describe '#member?' do
       let(:club) { build_stubbed :club }
       let(:user) { build_stubbed :user }
+
       subject { club.member? user }
 
       context 'owner' do
@@ -163,6 +164,7 @@ describe Club do
     describe '#admin?' do
       let(:club) { build_stubbed :club }
       let(:user) { build_stubbed :user }
+
       subject { club.admin? user }
 
       context 'just owner' do
@@ -186,6 +188,7 @@ describe Club do
     describe '#owner?' do
       let(:club) { build_stubbed :club }
       let(:user) { build_stubbed :user }
+
       subject { club.owner? user }
 
       context 'is owner' do
@@ -201,6 +204,7 @@ describe Club do
     describe '#invited?' do
       let(:club) { build_stubbed :club }
       let(:user) { build_stubbed :user }
+
       subject { club.invited? user }
 
       context 'invited' do
@@ -220,6 +224,7 @@ describe Club do
       let(:user) { build_stubbed :user }
       let(:club) { build_stubbed :club, member_roles: [club_role] }
       let(:club_role) { build_stubbed :club_role, user: user }
+
       subject { club.member_role user }
 
       it { is_expected.to eq club_role }
@@ -258,33 +263,56 @@ describe Club do
   end
 
   describe 'permissions' do
-    let(:club) { build_stubbed :club, join_policy: join_policy }
+    let(:club) do
+      build_stubbed :club,
+        owner: owner,
+        join_policy: join_policy,
+        topic_policy: topic_policy,
+        image_upload_policy: image_upload_policy,
+        display_images: display_images,
+        is_shadowbanned: is_shadowbanned,
+        member_roles: club_role ? [club_role] : [],
+        bans: club_ban ? [club_ban] : []
+    end
     let(:user) { build_stubbed :user, :user, :week_registered }
+    let(:owner) { user_2 }
+
     let(:join_policy) { Types::Club::JoinPolicy[:free] }
     let(:topic_policy) { Types::Club::TopicPolicy[:members] }
+    let(:member_roles) { [] }
+    let(:image_upload_policy) { Types::Club::ImageUploadPolicy[:members] }
+    let(:display_images) { true }
+    let(:is_shadowbanned) { false }
+    let(:club_role) { nil }
+    let(:club_ban) { nil }
 
     subject { Ability.new user }
 
     context 'club owner' do
       let(:club_role) { build_stubbed :club_role, :admin, user: user }
-      let(:club) do
-        build_stubbed :club,
-          owner: user,
-          join_policy: join_policy,
-          topic_policy: topic_policy,
-          member_roles: [club_role]
-      end
+      let(:owner) { user }
 
       it { is_expected.to be_able_to :see_club, club }
 
+      context 'shadowbanned' do
+        let(:is_shadowbanned) { true }
+        before { allow(user).to receive(:club_ids).and_return [club.id] }
+
+        it { is_expected.to be_able_to :see_club, club }
+      end
+
+      it { is_expected.to_not be_able_to :manage_restrictions, club }
+
       context 'newly registered' do
         let(:user) { build_stubbed :user, :user }
+
         it { is_expected.to_not be_able_to :new, club }
         it { is_expected.to_not be_able_to :create, club }
       end
 
       context 'day registered' do
         let(:user) { build_stubbed :user, :user, :day_registered }
+
         it { is_expected.to_not be_able_to :new, club }
         it { is_expected.to_not be_able_to :create, club }
       end
@@ -298,6 +326,7 @@ describe Club do
 
       context 'banned' do
         let(:user) { build_stubbed :user, :user, :banned }
+
         it { is_expected.to_not be_able_to :update, club }
         it { is_expected.to_not be_able_to :new, club }
         it { is_expected.to_not be_able_to :create, club }
@@ -339,12 +368,7 @@ describe Club do
       end
 
       context 'not club member' do
-        let(:club) do
-          build_stubbed :club,
-            owner: user,
-            join_policy: join_policy,
-            topic_policy: topic_policy
-        end
+        let(:club_role) { build_stubbed :club_role, :admin, user: user_2 }
 
         describe 'join' do
           context 'free_join' do
@@ -372,14 +396,17 @@ describe Club do
 
     context 'club administrator' do
       let(:club_role) { build_stubbed :club_role, :admin, user: user }
-      let(:club) do
-        build_stubbed :club,
-          member_roles: [club_role],
-          join_policy: join_policy,
-          topic_policy: topic_policy
-      end
 
       it { is_expected.to be_able_to :see_club, club }
+
+      context 'shadowbanned' do
+        let(:is_shadowbanned) { true }
+        before { allow(user).to receive(:club_ids).and_return [club.id] }
+
+        it { is_expected.to be_able_to :see_club, club }
+      end
+
+      it { is_expected.to_not be_able_to :manage_restrictions, club }
 
       context 'not banned' do
         it { is_expected.to be_able_to :update, club }
@@ -388,6 +415,7 @@ describe Club do
 
       context 'banned' do
         let(:user) { build_stubbed :user, :user, :banned }
+
         it { is_expected.to_not be_able_to :update, club }
         it { is_expected.to_not be_able_to :broadcast, club }
       end
@@ -428,20 +456,20 @@ describe Club do
     end
 
     context 'club member' do
-      let(:club) do
-        build_stubbed :club,
-          member_roles: [club_role].compact,
-          join_policy: join_policy,
-          topic_policy: topic_policy,
-          image_upload_policy: image_upload_policy,
-          display_images: display_images
-      end
       let(:club_role) { build_stubbed :club_role, :member, user: user }
-      let(:image_upload_policy) { Types::Club::ImageUploadPolicy[:members] }
-      let(:display_images) { true }
+
+      it { is_expected.to be_able_to :see_club, club }
+
+      context 'shadowbanned' do
+        let(:is_shadowbanned) { true }
+        before { allow(user).to receive(:club_ids).and_return [club.id] }
+
+        it { is_expected.to be_able_to :see_club, club }
+      end
 
       it { is_expected.to be_able_to :leave, club }
       it { is_expected.to_not be_able_to :broadcast, club }
+      it { is_expected.to_not be_able_to :manage_restrictions, club }
 
       describe 'upload' do
         context 'members' do
@@ -511,19 +539,16 @@ describe Club do
       end
     end
 
-    context 'guest' do
-      let(:user) { nil }
+    context 'not club member' do
       it { is_expected.to be_able_to :see_club, club }
-      it { is_expected.to_not be_able_to :new, club }
-      it { is_expected.to_not be_able_to :update, club }
-      it { is_expected.to_not be_able_to :invite, club }
-      it { is_expected.to_not be_able_to :upload_image, club }
-      it { is_expected.to_not be_able_to :create_topic, club }
-      it { is_expected.to_not be_able_to :broadcast, club }
-    end
 
-    context 'user' do
-      it { is_expected.to be_able_to :see_club, club }
+      context 'shadowbanned' do
+        let(:is_shadowbanned) { true }
+        before { allow(user).to receive(:club_ids).and_return [] }
+
+        it { is_expected.to_not be_able_to :see_club, club }
+      end
+
       it { is_expected.to_not be_able_to :new, club }
       it { is_expected.to_not be_able_to :update, club }
       it { is_expected.to_not be_able_to :invite, club }
@@ -531,12 +556,6 @@ describe Club do
       it { is_expected.to_not be_able_to :create_topic, club }
 
       context 'banned in club' do
-        let(:club) do
-          build_stubbed :club,
-            join_policy: join_policy,
-            topic_policy: topic_policy,
-            bans: [club_ban]
-        end
         let(:club_ban) { build_stubbed :club_ban, user: user }
         it { is_expected.to_not be_able_to :join, club }
       end
@@ -557,6 +576,24 @@ describe Club do
           it { is_expected.to_not be_able_to :join, club }
         end
       end
+    end
+
+    context 'guest' do
+      let(:user) { nil }
+
+      it { is_expected.to be_able_to :see_club, club }
+
+      context 'shadowbanned' do
+        let(:is_shadowbanned) { true }
+        it { is_expected.to_not be_able_to :see_club, club }
+      end
+
+      it { is_expected.to_not be_able_to :new, club }
+      it { is_expected.to_not be_able_to :update, club }
+      it { is_expected.to_not be_able_to :invite, club }
+      it { is_expected.to_not be_able_to :upload_image, club }
+      it { is_expected.to_not be_able_to :create_topic, club }
+      it { is_expected.to_not be_able_to :broadcast, club }
     end
   end
 

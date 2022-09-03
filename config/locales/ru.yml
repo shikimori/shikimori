@@ -280,6 +280,8 @@ ru:
         image_upload_policy: Возможность загрузки картинок
         page_policy: Возможность создания страниц
         is_censored: Содержит материалы для взрослых (18+)
+        is_non_thematic: Не тематический
+        is_shadowbanned: Теневой бан
         logo: Логотип
       collection:
         name: Название

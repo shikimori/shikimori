@@ -5,7 +5,7 @@ en:
       notice: List of all clubs sorted by their members' activity
 
     collection:
-      favourites: Favourite
+      favourites: Favourites
       all_clubs: All clubs
 
     page:
@@ -22,7 +22,8 @@ en:
 
     edit:
       main:
-        required_option_for_adult_clubs: Required option for clubs with "adult" images and texts
+        required_option_for_adult_clubs: >-
+          Required option for clubs with "adult" images and texts
       members:
         remove_users: Remove users
 

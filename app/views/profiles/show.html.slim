@@ -272,14 +272,14 @@
 
         .c-column.m0
           .subheadline
-            - if @resource.clubs_for_domain.any? && @resource.clubs_for_domain.size > @resource.clubs_to_display
+            - if @resource.clubs_wo_shadowbanned.any? && @resource.clubs_wo_shadowbanned.size > @resource.clubs_to_display
               a href=clubs_profile_url(@resource) title=i18n_i('Club', :other)
                 = i18n_i 'Club', :other
             - else
               = i18n_i 'Club', :other
 
           .b-clubs.one-line
-            - if @resource.clubs_for_domain.any?
+            - if @resource.clubs_wo_shadowbanned.any?
               = render partial: 'clubs/club',
                 collection: @resource.random_clubs,
                 locals: { content_by: :avatar }

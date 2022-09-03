@@ -74,7 +74,7 @@ private
 
   def user_subscriptions
     user_forums = h.current_user.preferences.forums.select(&:present?)
-    user_clubs = h.current_user.clubs_for_domain
+    user_clubs = h.current_user.clubs_wo_shadowbanned
 
     user_forums.map { |id| forum_channel(id) } +
       user_clubs.map { |club| "/club-#{club.id}" }
