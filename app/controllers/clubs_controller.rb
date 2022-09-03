@@ -41,11 +41,7 @@ class ClubsController < ShikimoriController
     og noindex: true
     @limit = [[params[:limit].to_i, 24].max, 48].min
 
-<<<<<<< HEAD
-    scope = Clubs::Query.fetch user_signed_in?
-=======
-    scope = Clubs::Query.fetch current_user, locale_from_host
->>>>>>> 48d31ed7419f0610bb1e09cb1634117fbb804666
+    scope = Clubs::Query.fetch current_user
 
     if params[:search].blank?
       @favourites = scope.favourites if @page == 1
@@ -165,13 +161,8 @@ class ClubsController < ShikimoriController
   end
 
   def autocomplete
-<<<<<<< HEAD
-    @collection = Clubs::Query.fetch(user_signed_in?)
+    @collection = Clubs::Query.fetch(current_user)
       .search(params[:search])
-=======
-    @collection = Clubs::Query.fetch(current_user, locale_from_host)
-      .search(params[:search], locale_from_host)
->>>>>>> 48d31ed7419f0610bb1e09cb1634117fbb804666
       .paginate(1, CompleteQuery::AUTOCOMPLETE_LIMIT)
       .reverse
   end

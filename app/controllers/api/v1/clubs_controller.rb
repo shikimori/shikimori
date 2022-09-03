@@ -1,7 +1,7 @@
 class Api::V1::ClubsController < Api::V1Controller
   load_and_authorize_resource :club, only: %i[update]
 
-  before_action :fetch_club, except: :index
+  before_action :fetch_club, except: %i[index]
 
   LIMIT = 30
 
@@ -24,13 +24,8 @@ class Api::V1::ClubsController < Api::V1Controller
     page = [params[:page].to_i, 1].max
     limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
-<<<<<<< HEAD
-    @collection = Clubs::Query.fetch(user_signed_in?)
+    @collection = Clubs::Query.fetch(current_user)
       .search(params[:search])
-=======
-    @collection = Clubs::Query.fetch(current_user, locale_from_host)
-      .search(params[:search], locale_from_host)
->>>>>>> 48d31ed7419f0610bb1e09cb1634117fbb804666
       .paginate_n1(page, limit)
 
     respond_with @collection
@@ -126,8 +121,6 @@ private
     end
   end
 
-<<<<<<< HEAD
-=======
   def fetch_single id
     @club = Club
       .find(id)
@@ -144,7 +137,6 @@ private
       .select { |club| can? :see_club, club }
   end
 
->>>>>>> 48d31ed7419f0610bb1e09cb1634117fbb804666
   def update_params
     params
       .require(:club)
