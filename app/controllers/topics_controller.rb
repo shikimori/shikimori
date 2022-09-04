@@ -132,7 +132,7 @@ class TopicsController < ShikimoriController
   def reload
     topic = Topic.find params[:id]
     @topic_view = Topics::TopicViewFactory
-      .new(params[:is_preview] == 'true', false)
+      .new(params[:is_preview] == 'true', params[:is_mini] == 'true')
       .build(topic)
 
     render :show, formats: :json
