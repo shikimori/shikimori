@@ -1,10 +1,12 @@
 - cover_by ||= (json? || user_signed_in?) ? :link : :linkeable
 - content_by ||= :tooltip
 - cover_notice ||= :none
+- cover_title ||= :present
 
 = render partial: 'animes/anime',
   object: manga,
   locals: {\
+    cover_title: cover_title,
     cover_by: cover_by,
     content_by: content_by,
     cover_notice: cover_notice,
