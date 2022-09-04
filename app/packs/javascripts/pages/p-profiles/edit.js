@@ -30,8 +30,7 @@ function pageAccount() {
 async function pageStyles() {
   $('#user_preferences_body_width').on('change', ({ currentTarget }) => {
     $(document.body)
-      .removeClass('x1000')
-      .removeClass('x1200')
+      .removeClass('x1000 x1200')
       .addClass(currentTarget.value);
   });
 
