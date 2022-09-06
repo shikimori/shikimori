@@ -10,7 +10,13 @@ describe Comment::AccessPolicy do
   before do
     allow(decorated_user).to receive(:club_ids).and_return [club.id] if is_club_member
   end
-  let(:club) { build_stubbed :club, is_shadowbanned: is_shadowbanned }
+  let(:club) do
+    build_stubbed :club,
+      is_shadowbanned: is_shadowbanned,
+      is_censored: is_censored
+  end
+  let(:is_shadowbanned) { false }
+  let(:is_censored) { false }
   let(:club_page) { build_stubbed :club_page, club: club }
 
   context 'no linked club' do
@@ -18,57 +24,130 @@ describe Comment::AccessPolicy do
   end
 
   context 'linked club' do
-    let(:is_shadowbanned) { true }
+    describe 'shadow ban check' do
+      let(:is_shadowbanned) { true }
 
-    context 'Topics::EntryTopics::ClubTopic' do
-      let(:topic) { build_stubbed :club_topic, linked: club }
+      context 'Topics::EntryTopics::ClubTopic' do
+        let(:topic) { build_stubbed :club_topic, linked: club }
 
-      context 'club member' do
-        let(:is_club_member) { true }
-        it { is_expected.to eq true }
+        context 'club member' do
+          let(:is_club_member) { true }
+          it { is_expected.to eq true }
+        end
+
+        context 'not club member' do
+          it { is_expected.to eq false }
+
+          context 'not shadowbanned' do
+            let(:is_shadowbanned) { false }
+            it { is_expected.to eq true }
+          end
+        end
       end
 
-      context 'not club member' do
-        it { is_expected.to eq false }
+      context 'Topics::EntryTopics::ClubPageTopic' do
+        let(:topic) { build_stubbed :club_page_topic, linked: club_page }
 
-        context 'not shadowbanned' do
-          let(:is_shadowbanned) { false }
+        context 'club member' do
+          let(:is_club_member) { true }
           it { is_expected.to eq true }
+        end
+
+        context 'not club member' do
+          it { is_expected.to eq false }
+
+          context 'not shadowbanned' do
+            let(:is_shadowbanned) { false }
+            it { is_expected.to eq true }
+          end
+        end
+      end
+
+      context 'Topics::ClubUserTopic' do
+        let(:topic) { build_stubbed :club_user_topic, linked: club }
+
+        context 'club member' do
+          let(:is_club_member) { true }
+          it { is_expected.to eq true }
+        end
+
+        context 'not club member' do
+          it { is_expected.to eq false }
+
+          context 'not shadowbanned' do
+            let(:is_shadowbanned) { false }
+            it { is_expected.to eq true }
+          end
         end
       end
     end
 
-    context 'Topics::EntryTopics::ClubPageTopic' do
-      let(:topic) { build_stubbed :club_page_topic, linked: club_page }
+    describe 'censored check' do
+      let(:is_censored) { true }
+      let(:decorated_user) { nil }
 
-      context 'club member' do
-        let(:is_club_member) { true }
-        it { is_expected.to eq true }
-      end
+      context 'Topics::EntryTopics::ClubTopic' do
+        let(:topic) { build_stubbed :club_topic, linked: club }
 
-      context 'not club member' do
-        it { is_expected.to eq false }
+        context 'censored' do
+          let(:is_censored) { true }
 
-        context 'not shadowbanned' do
-          let(:is_shadowbanned) { false }
+          context 'guest' do
+            it { is_expected.to eq false }
+          end
+
+          context 'user' do
+            let(:decorated_user) { user.decorate }
+            it { is_expected.to eq true }
+          end
+        end
+
+        context 'not censored' do
+          let(:is_censored) { false }
           it { is_expected.to eq true }
         end
       end
-    end
 
-    context 'Topics::ClubUserTopic' do
-      let(:topic) { build_stubbed :club_user_topic, linked: club }
+      context 'Topics::EntryTopics::ClubPageTopic' do
+        let(:topic) { build_stubbed :club_page_topic, linked: club_page }
 
-      context 'club member' do
-        let(:is_club_member) { true }
-        it { is_expected.to eq true }
+        context 'censored' do
+          let(:is_censored) { true }
+
+          context 'guest' do
+            it { is_expected.to eq false }
+          end
+
+          context 'user' do
+            let(:decorated_user) { user.decorate }
+            it { is_expected.to eq true }
+          end
+        end
+
+        context 'not censored' do
+          let(:is_censored) { false }
+          it { is_expected.to eq true }
+        end
       end
 
-      context 'not club member' do
-        it { is_expected.to eq false }
+      context 'Topics::ClubUserTopic' do
+        let(:topic) { build_stubbed :club_user_topic, linked: club }
 
-        context 'not shadowbanned' do
-          let(:is_shadowbanned) { false }
+        context 'censored' do
+          let(:is_censored) { true }
+
+          context 'guest' do
+            it { is_expected.to eq false }
+          end
+
+          context 'user' do
+            let(:decorated_user) { user.decorate }
+            it { is_expected.to eq true }
+          end
+        end
+
+        context 'not censored' do
+          let(:is_censored) { false }
           it { is_expected.to eq true }
         end
       end
