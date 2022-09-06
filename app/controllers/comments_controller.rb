@@ -66,6 +66,7 @@ class CommentsController < ShikimoriController
       .limit(to)
       .decorate
       .reverse
+      .select { |comment| can? :read, comment }
 
     render :collection, formats: :json
   end
@@ -77,6 +78,7 @@ class CommentsController < ShikimoriController
       .includes(:user, :commentable)
       .limit(100)
       .decorate
+      .select { |comment| can? :read, comment }
 
     @collection = params[:order] ? comments.reverse : comments
 
