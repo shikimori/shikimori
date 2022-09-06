@@ -83,10 +83,6 @@ class Ability
 
   def define_abilities
     alias_action(
-      :show, :tooltip, :reply,
-      to: :see_comment
-    )
-    alias_action(
       :current, :read, :users, :comments, :grid,
       to: :see_contest
     )
@@ -114,7 +110,7 @@ class Ability
 
     can %i[read tooltip], Version
     can %i[read tooltip], Genre
-    can :see_comment, Comment do |comment|
+    can :read, Comment do |comment|
       Comment::AccessPolicy.allowed? comment, @user
     end
     can :see_contest, Contest

@@ -1,9 +1,8 @@
 class CommentsController < ShikimoriController
   include CanCanGet404Concern
   include CommentHelper
-  before_action :authenticate_user!, only: %i[edit]
 
-  load_and_authorize_resource only: %i[reply edit]
+  load_and_authorize_resource only: %i[edit]
 
   def show # rubocop:disable AbcSize
     @resource ||= Comment.find_by(id: params[:id]) || nil_object
@@ -11,7 +10,7 @@ class CommentsController < ShikimoriController
     authorize_access! unless nil_object?
     restrict_censored! unless nil_object?
 
-    @view = Comments::View.new @resource, false
+    @view = Comments::View.new @resource, params[:action] == 'reply'
 
     og noindex: true, nofollow: true
     return render :missing, status: (xhr_or_json? ? :ok : :not_found) if nil_object?
@@ -25,11 +24,7 @@ class CommentsController < ShikimoriController
     render :show # have to manually call render otherwise comment display via ajax is broken
   end
   alias tooltip show
-
-  def reply
-    @view = Comments::View.new @resource, true
-    render :show
-  end
+  alias reply show
 
   def edit
   end
@@ -124,7 +119,7 @@ private
   end
 
   def authorize_access!
-    authorize! :show, @resource
+    authorize! :read, @resource
   rescue CanCan::AccessDenied
     @resource = nil_object
   end

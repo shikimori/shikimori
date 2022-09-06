@@ -45,7 +45,7 @@ class Abilities::SuperModerator
   end
 
   def comment_abilities
-    can :see_comment, Comment
+    can :read, Comment
   end
 
   def clubs_abilities

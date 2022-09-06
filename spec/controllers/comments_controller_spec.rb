@@ -136,16 +136,4 @@ describe CommentsController do
       expect(response.content_type).to eq 'text/html; charset=utf-8'
     end
   end
-
-  # describe '#postload' do
-    # let(:user) { build_stubbed :user }
-    # before do
-      # get :postloader,
-        # commentable_type: offtopic_topic.class.name,
-        # commentable_id: offtopic_topic.id,
-        # offset: 0,
-        # limit: 1
-    # end
-    # it { expect(response).to have_http_status :success }
-  # end
 end
