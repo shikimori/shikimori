@@ -14,14 +14,11 @@ private
 
   def linked_club
     case @comment.commentable
-      when Topics::EntryTopics::ClubTopic
+      when Topics::EntryTopics::ClubTopic, Topics::ClubUserTopic
         @comment.commentable.linked
 
       when Topics::EntryTopics::ClubPageTopic
         @comment.commentable.linked.club
-
-      when Topics::ClubUserTopic
-        @comment.commentable.linked.linked
     end
   end
 end
