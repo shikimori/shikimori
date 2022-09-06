@@ -37,7 +37,7 @@ Layout/LineLength:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
-  IgnoredMethods:
+  AllowedMethods:
     - state_machine
 Style/NestedParenthesizedCalls:
   Exclude:
