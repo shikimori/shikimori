@@ -42,7 +42,7 @@ class Abilities::ForumModerator
       manage_censored_nickname_role
     ], User
 
-    can %i[manage_restrictions], Club
+    can %i[see_club manage_restrictions], Club
 
     can :delete_all_comments, User do |model|
       Comment.where(user_id: model.id).count < MAXIMUM_COMMENTS_TO_DELETE

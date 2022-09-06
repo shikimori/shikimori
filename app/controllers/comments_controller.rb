@@ -1,42 +1,37 @@
 class CommentsController < ShikimoriController
+  include CanCanGet404Concern
   include CommentHelper
   before_action :authenticate_user!, only: %i[edit]
 
-  def show # rubocop:disable AbcSize, MethodLength
+  load_and_authorize_resource only: %i[reply edit]
+
+  def show # rubocop:disable AbcSize
+    @resource ||= Comment.find_by(id: params[:id]) || nil_object
+
+    authorize_access! unless nil_object?
+    restrict_censored! unless nil_object?
+
+    @view = Comments::View.new @resource, false
+
     og noindex: true, nofollow: true
-    comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
-    @view = Comments::View.new comment, false
-
-    return render :missing, status: (xhr_or_json? ? :ok : :not_found) if comment.is_a? NoComment
-
-    if comment.commentable.is_a?(Topic) && comment.commentable.linked.is_a?(Club)
-      Clubs::RestrictCensored.call(
-        club: comment.commentable.linked,
-        current_user: current_user
-      )
-    end
+    return render :missing, status: (xhr_or_json? ? :ok : :not_found) if nil_object?
 
     og(
-      image: comment.user.avatar_url(160),
-      page_title: i18n_t('comment_by', nickname: comment.user.nickname),
-      description: comment.body.gsub(%r{\[[/\w_ =-]+\]}, '')
+      image: @resource.user.avatar_url(160),
+      page_title: i18n_t('comment_by', nickname: @resource.user.nickname),
+      description: @resource.body.gsub(%r{\[[/\w_ =-]+\]}, '')
     )
 
     render :show # have to manually call render otherwise comment display via ajax is broken
   end
-
-  def tooltip
-    show
-  end
+  alias tooltip show
 
   def reply
-    comment = Comment.find params[:id]
-    @view = Comments::View.new comment, true
+    @view = Comments::View.new @resource, true
     render :show
   end
 
   def edit
-    @comment = Comment.find params[:id]
   end
 
   # все комментарии сущности до определённого коммента
@@ -126,5 +121,29 @@ private
         comment[:user_id] ||= current_user&.id # can be no current_user with broken cookies
         comment[:body] = Moderations::Banhammer.instance.censor comment[:body], nil
       end
+  end
+
+  def authorize_access!
+    authorize! :show, @resource
+  rescue CanCan::AccessDenied
+    @resource = nil_object
+  end
+
+  def restrict_censored!
+    if @resource.commentable.is_a?(Topic) &&
+        @resource.commentable.linked.is_a?(Club)
+      Clubs::RestrictCensored.call(
+        club: @resource.commentable.linked,
+        current_user: current_user
+      )
+    end
+  end
+
+  def nil_object
+    NoComment.new params[:id]
+  end
+
+  def nil_object?
+    @resource.is_a? NoComment
   end
 end
