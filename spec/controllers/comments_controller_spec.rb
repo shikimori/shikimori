@@ -35,13 +35,20 @@ describe CommentsController do
       subject { get :show, params: { id: comment.id } }
 
       context 'guest' do
-        it { expect { subject }.to raise_error ActiveRecord::RecordNotFound }
+        before { subject }
+        it do
+          expect(resource).to_not be NoComment
+          expect(response).to have_http_status :success
+        end
       end
 
       context 'user' do
         include_context :authenticated, :user
         before { subject }
-        it { expect(response).to have_http_status :success }
+        it do
+          expect(resource).to_not be NoComment
+          expect(response).to have_http_status :success
+        end
       end
     end
   end

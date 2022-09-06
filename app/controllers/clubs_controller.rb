@@ -7,7 +7,6 @@ class ClubsController < ShikimoriController
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
-  before_action :restrict_censored, if: :resource_id
   before_action :restrict_domain, if: :resource_id
 
   before_action :set_breadcrumbs
@@ -184,17 +183,6 @@ private
     )
 
     render :private_access unless is_access_allowed
-  end
-
-  def restrict_censored
-    Clubs::RestrictCensored.call club: @resource, current_user: current_user
-  end
-
-  # censored check for guests performed in #restrict_censored
-  def censored_forbidden?
-    return false unless user_signed_in?
-
-    super
   end
 
   def resource_klass

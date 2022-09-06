@@ -115,7 +115,8 @@ class Ability
     end
     can :see_contest, Contest
     can :see_club, Club do |club|
-      !club.shadowbanned?
+      !club.shadowbanned? &&
+        (@user || (!@user && !club.censored?))
     end
     can :read, ClubPage do |club_page|
       can? :see_club, club_page.club

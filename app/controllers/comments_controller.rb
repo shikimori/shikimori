@@ -8,7 +8,6 @@ class CommentsController < ShikimoriController
     @resource ||= Comment.find_by(id: params[:id]) || nil_object
 
     authorize_access! unless nil_object?
-    restrict_censored! unless nil_object?
 
     @view = Comments::View.new @resource, params[:action] == 'reply'
 
@@ -71,7 +70,6 @@ class CommentsController < ShikimoriController
     render :collection, formats: :json
   end
 
-  # список комментариев по запросу
   def chosen
     comments = Comment
       .where(id: params[:ids].split(',').map(&:to_i))
@@ -124,16 +122,6 @@ private
     authorize! :read, @resource
   rescue CanCan::AccessDenied
     @resource = nil_object
-  end
-
-  def restrict_censored!
-    if @resource.commentable.is_a?(Topic) &&
-        @resource.commentable.linked.is_a?(Club)
-      Clubs::RestrictCensored.call(
-        club: @resource.commentable.linked,
-        current_user: current_user
-      )
-    end
   end
 
   def nil_object

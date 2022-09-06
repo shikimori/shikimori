@@ -271,6 +271,7 @@ describe Club do
         image_upload_policy: image_upload_policy,
         display_images: display_images,
         is_shadowbanned: is_shadowbanned,
+        is_censored: is_censored,
         member_roles: club_role ? [club_role] : [],
         bans: club_ban ? [club_ban] : []
     end
@@ -283,6 +284,7 @@ describe Club do
     let(:image_upload_policy) { Types::Club::ImageUploadPolicy[:members] }
     let(:display_images) { true }
     let(:is_shadowbanned) { false }
+    let(:is_censored) { [true, false].sample }
     let(:club_role) { nil }
     let(:club_ban) { nil }
 
@@ -580,11 +582,17 @@ describe Club do
 
     context 'guest' do
       let(:user) { nil }
+      let(:is_censored) { false }
 
       it { is_expected.to be_able_to :see_club, club }
 
       context 'shadowbanned' do
         let(:is_shadowbanned) { true }
+        it { is_expected.to_not be_able_to :see_club, club }
+      end
+
+      context 'censored' do
+        let(:is_censored) { true }
         it { is_expected.to_not be_able_to :see_club, club }
       end
 
