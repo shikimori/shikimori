@@ -99,8 +99,6 @@ class Ability
         message.from_id == User::GUEST_ID &&
         message.to_id == User::MORR_ID
     end
-
-    # can %i[new create], AnimeVideo, &:uploaded?
   end
 
   def guest_allowances
@@ -113,13 +111,12 @@ class Ability
     can :read, Comment do |comment|
       Comment::AccessPolicy.allowed? comment, @user
     end
-    can :see_contest, Contest
     can :see_club, Club do |club|
-      !club.shadowbanned? &&
-        (@user || (!@user && !club.censored?))
+      Club::AccessPolicy.allowed? club, @user
     end
+    can :see_contest, Contest
     can :read, ClubPage do |club_page|
-      can? :see_club, club_page.club
+      can? :read, club_page.club
     end
     can :read, UserRate
 
