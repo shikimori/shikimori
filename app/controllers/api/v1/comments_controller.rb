@@ -29,8 +29,11 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
     @desc = params[:desc].nil? || params[:desc] == '1'
 
-    commentable_type = params[:commentable_type].gsub('Entry', Topic.name)
+    commentable_type = params[:commentable_type]
     commentable_id = params[:commentable_id]
+    commentable = Types::Comment::CommentableType[commentable_type]
+      .constantize
+      .find(commentable_id)
 
     @collection = CommentsQuery
       .new(commentable_type, commentable_id)
@@ -120,19 +123,13 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
 private
 
   def comment_params
-    comment_params = params
+    params
       .require(:comment)
       .permit(
         :body, :offtopic, :is_offtopic,
         :commentable_id, :commentable_type, :user_id
       )
-
-    if comment_params[:commentable_type].present?
-      comment_params[:commentable_type] =
-        comment_params[:commentable_type].gsub('Entry', Topic.name)
-    end
-
-    comment_params.except(:offtopic)
+      .except(:offtopic)
   end
 
   def create_params
