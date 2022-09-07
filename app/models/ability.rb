@@ -102,6 +102,7 @@ class Ability
   end
 
   def guest_allowances
+    can :read, User
     can :access_list, User do |user|
       user.preferences.list_privacy_public?
     end
