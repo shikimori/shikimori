@@ -125,7 +125,7 @@ private
   end
 
   def nil_object
-    NoComment.new params[:id]
+    NoComment.new params[:id].to_i
   end
 
   def nil_object?
