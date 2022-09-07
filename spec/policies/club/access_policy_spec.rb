@@ -1,5 +1,5 @@
 describe Club::AccessPolicy do
-  subject { Club::AccessPolicy.allowed? club, decorated_user }
+  subject { described_class.allowed? club, decorated_user }
 
   let(:club) do
     build_stubbed :club,

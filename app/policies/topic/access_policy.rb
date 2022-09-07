@@ -3,10 +3,9 @@ class Topic::AccessPolicy
 
   def allowed?
     club = linked_club @topic
+    return true unless club
 
-    club ?
-      Club::AccessPolicy.allowed?(club, current_user) :
-      true
+    Club::AccessPolicy.allowed? club, @current_user
   end
 
 private
