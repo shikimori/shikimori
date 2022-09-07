@@ -55,7 +55,7 @@ class TopicsController < ShikimoriController
   def chosen
     @collection = Topic
       .where(id: params[:ids].split(',').map(&:to_i))
-      .select { |topic| can? :read, topic }
+      .filter { |topic| can? :read, topic }
       .map { |topic| Topics::TopicViewFactory.new(true, false).build topic }
 
     render :collection, formats: :json

@@ -1,4 +1,5 @@
 class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLength
+  include CanCanGet404Concern
   before_action :check_post_permission, only: %i[create update destroy]
   load_and_authorize_resource only: %i[show create update destroy]
 
@@ -11,8 +12,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/comments/:id', 'Show a comment'
   def show
-    @resource = Comment.find(params[:id]).decorate
-    respond_with @resource
+    respond_with @resource.decorate
   end
 
   api :GET, '/comments', 'List comments'

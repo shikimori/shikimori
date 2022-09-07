@@ -1,5 +1,6 @@
 class Api::V1::TopicsController < Api::V1Controller
-  load_and_authorize_resource only: %i[create update destroy]
+  include CanCanGet404Concern
+  load_and_authorize_resource only: %i[show create update destroy]
 
   LIMIT = 30
 
@@ -45,7 +46,7 @@ class Api::V1::TopicsController < Api::V1Controller
     topics_scope = Topics::Query.fetch locale_from_host, censored_forbidden?
 
     if params[:forum]
-      forum = Forum.find_by_permalink params[:forum]
+      forum = Forum.find_by_permalink params[:forum] # rubocop:disable Rails/DynamicFindBy
       topics_scope = topics_scope.by_forum forum, current_user, censored_forbidden?
     end
 
@@ -63,7 +64,8 @@ class Api::V1::TopicsController < Api::V1Controller
       .includes(:forum, :user)
       .offset(@limit * (@page - 1))
       .limit(@limit + 1)
-      .as_views(true, false)
+      .filter { |topic| can? :read, topic }
+      .map { |topic| Topics::TopicViewFactory.new(true, false).build topic }
 
     respond_with @collection, each_serializer: TopicSerializer
   end
@@ -84,6 +86,7 @@ class Api::V1::TopicsController < Api::V1Controller
 
     @collection = Topics::HotTopicsQuery
       .call(limit: @limit, locale: locale_from_host)
+      .filter { |topic| can? :read, topic }
       .map { |topic| Topics::TopicViewFactory.new(true, true).build topic }
 
     respond_with @collection, each_serializer: TopicSerializer
@@ -92,9 +95,9 @@ class Api::V1::TopicsController < Api::V1Controller
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/topics/:id', 'Show a topic'
   def show
-    @topic = Topics::TopicViewFactory.new(false, false).find params[:id]
-    respond_with @topic,
-      serializer: TopicSerializer
+    @topic_view = Topics::TopicViewFactory.new(false, false).build @resource
+
+    respond_with @topic_view, serializer: TopicSerializer
   end
 
   api :POST, '/topics', 'Create a topic'

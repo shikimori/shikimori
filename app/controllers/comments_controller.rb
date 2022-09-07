@@ -33,6 +33,7 @@ class CommentsController < ShikimoriController
     comment = Comment.find params[:comment_id]
     topic = params[:topic_type].constantize.find params[:topic_id]
 
+    authorize! :read, topic
     raise CanCan::AccessDenied unless comment.commentable == topic
 
     from = params[:skip].to_i
@@ -65,7 +66,7 @@ class CommentsController < ShikimoriController
       .limit(to)
       .decorate
       .reverse
-      .select { |comment| can? :read, comment }
+      .filter { |comment| can? :read, comment }
 
     render :collection, formats: :json
   end
@@ -76,7 +77,7 @@ class CommentsController < ShikimoriController
       .includes(:user, :commentable)
       .limit(100)
       .decorate
-      .select { |comment| can? :read, comment }
+      .filter { |comment| can? :read, comment }
 
     @collection = params[:order] ? comments.reverse : comments
 
