@@ -35,6 +35,8 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
       .constantize
       .find(commentable_id)
 
+    authorize! :read, commentable
+
     @collection = CommentsQuery
       .new(commentable_type, commentable_id)
       .fetch(@page, @limit, @desc)
