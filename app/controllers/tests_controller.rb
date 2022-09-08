@@ -220,7 +220,7 @@ class TestsController < ShikimoriController
     @collection = QueryObjectBase
       .new(@scope)
       .paginate(@page, USERS_PER_PAGE)
-      .transform(&:voter)
+      .lazy_map(&:voter)
   end
 
   def vue

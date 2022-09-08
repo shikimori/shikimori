@@ -16,7 +16,7 @@ class CollectionsController < ShikimoriController
     @collection = Collections::Query.fetch(locale_from_host)
       .search(params[:search], locale_from_host)
       .paginate(@page, @limit)
-      .transform do |collection|
+      .lazy_map do |collection|
         Topics::TopicViewFactory
           .new(true, true)
           .build(collection.maybe_topic(locale_from_host))

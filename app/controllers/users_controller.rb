@@ -16,7 +16,7 @@ class UsersController < ShikimoriController
 
     @collection = scope
       .paginate(@page, LIMIT)
-      .transform(&:decorate)
+      .lazy_map(&:decorate)
   end
 
   def similar # rubocop:disable all
@@ -40,7 +40,7 @@ class UsersController < ShikimoriController
         .where(id: @similar_ids)
         .order_by_ids(@similar_ids)
         .paginate(@page, LIMIT)
-        .transform(&:decorate)
+        .lazy_map(&:decorate)
     end
 
     render :index if json?

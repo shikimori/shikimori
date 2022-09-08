@@ -92,7 +92,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, TOPICS_LIMIT)
-      .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
+      .lazy_map { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
 
   def critiques
@@ -105,7 +105,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, TOPICS_LIMIT)
-      .transform do |topic|
+      .lazy_map do |topic|
         view = Topics::CritiqueView.new topic, true, false
         view.instance_variable_set :@is_show_comments, false
         view
@@ -122,7 +122,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, REVIEWS_LIMIT)
-      .transform do |model|
+      .lazy_map do |model|
         view = Topics::ReviewView.new model.maybe_topic(locale_from_host), true, false
         view.instance_variable_set :@is_show_comments, false
         view
@@ -156,7 +156,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, TOPICS_LIMIT)
-      .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
+      .lazy_map { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
 
   def articles
@@ -169,7 +169,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, TOPICS_LIMIT)
-      .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
+      .lazy_map { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
 
   def comments
@@ -185,7 +185,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, COMMENTS_LIMIT)
-      .transform { |comment| SolitaryCommentDecorator.new comment }
+      .lazy_map { |comment| SolitaryCommentDecorator.new comment }
   end
 
   def versions
@@ -198,7 +198,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, VERSIONS_PER_PAGE)
-      .transform(&:decorate)
+      .lazy_map(&:decorate)
   end
 
   def moderation

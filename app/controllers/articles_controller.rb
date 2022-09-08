@@ -14,7 +14,7 @@ class ArticlesController < ShikimoriController
     @collection = Articles::Query.fetch(locale_from_host)
       .search(params[:search], locale_from_host)
       .paginate(@page, @limit)
-      .transform do |article|
+      .lazy_map do |article|
         Topics::TopicViewFactory
           .new(true, true)
           .build(article.maybe_topic(locale_from_host))

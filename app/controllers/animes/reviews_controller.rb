@@ -34,7 +34,7 @@ class Animes::ReviewsController < AnimesController
       query.paginate(1, PER_PREVIEW) :
       query.paginate(@page, PER_PAGE)
 
-    @collection = query.transform do |model|
+    @collection = query.lazy_map do |model|
       Topics::ReviewView.new(model.maybe_topic(locale_from_host), true, true)
     end
 

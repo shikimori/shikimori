@@ -113,7 +113,7 @@ class ClubsController < ShikimoriController
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, MEMBERS_LIMIT)
-      .transform(&:user)
+      .lazy_map(&:user)
   end
 
   def animes
@@ -154,7 +154,7 @@ class ClubsController < ShikimoriController
     @collection = Collections::Query.fetch(locale_from_host)
       .where(id: @resource.collections)
       .paginate(@page, DbEntriesController::COLLETIONS_PER_PAGE)
-      .transform do |collection|
+      .lazy_map do |collection|
         Topics::TopicViewFactory
           .new(true, true)
           .build(collection.maybe_topic(locale_from_host))

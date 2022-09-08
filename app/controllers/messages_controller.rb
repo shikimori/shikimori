@@ -28,7 +28,7 @@ class MessagesController < ProfilesController
     @collection = Messages::Query
       .fetch(@resource, @messages_type)
       .paginate(@page, @limit)
-      .transform(&:decorate)
+      .lazy_map(&:decorate)
   end
 
   def show

@@ -62,7 +62,7 @@ class QueryObjectBase
     end
   end
 
-  def transform &block
+  def lazy_map &block
     chain TransformedCollection.new(@scope, block)
   end
 

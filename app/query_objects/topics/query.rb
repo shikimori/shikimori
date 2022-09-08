@@ -45,7 +45,7 @@ class Topics::Query < QueryObjectBase
   end
 
   def as_views is_preview, is_mini
-    transform do |topic|
+    lazy_map do |topic|
       Topics::TopicViewFactory.new(is_preview, is_mini).build topic
     end
   end
