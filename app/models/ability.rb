@@ -83,10 +83,6 @@ class Ability
 
   def define_abilities
     alias_action(
-      :current, :read, :users, :comments, :grid,
-      to: :see_contest
-    )
-    alias_action(
       :index, :show, :comments,
       :animes, :mangas, :ranobe, :characters, :members, :clubs, :collections, :images,
       to: :see_club
@@ -118,7 +114,7 @@ class Ability
     can :see_club, Club do |club|
       Club::AccessPolicy.allowed? club, @user
     end
-    can :see_contest, Contest
+    can :read, Contest
     can :read, ClubPage do |club_page|
       can? :see_club, club_page.club
     end
