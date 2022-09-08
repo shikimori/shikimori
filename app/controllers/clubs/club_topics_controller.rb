@@ -1,5 +1,7 @@
 class Clubs::ClubTopicsController < ClubsController
-  load_and_authorize_resource class: Topic.name
+  load_and_authorize_resource class: Topic.name, except: %i[index]
+  # because it is disabled for index action in clubs controller
+  authorize_resource :club, only: %i[club]
 
   before_action { og page_title: i18n_i('Club', :other) }
   before_action :prepare_club
