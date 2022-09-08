@@ -1,9 +1,9 @@
 describe TransformedCollection do
   subject(:mapping) do
-    described_class.new collection, transformation_method, action
+    described_class.new collection, transformation, action
   end
   let(:collection) { PaginatedCollection.new([1, 2], 1, 2) }
-  let(:transformation_method) { :map }
+  let(:transformation) { :map }
   let(:action) { ->(value) { value * 2 } }
 
   describe 'collection' do
@@ -12,7 +12,7 @@ describe TransformedCollection do
     end
 
     context 'filter' do
-      let(:transformation_method) { :filter }
+      let(:transformation) { :filter }
       let(:action) { ->(value) { value == 1 } }
       it { is_expected.to eq [1] }
     end
