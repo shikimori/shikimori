@@ -1,15 +1,13 @@
 class Topics::Query < QueryObjectBase
   def self.fetch locale, is_censored_forbidden
-    query = new Topic
+    scope = Topic
       .includes(:forum, :user, :linked)
       .order(updated_at: :desc)
       .where(locale: locale)
 
-    if is_censored_forbidden
-      query.where is_censored: false
-    else
-      query
-    end
+    new is_censored_forbidden ?
+      scope.where(is_censored: false) :
+      scope
   end
 
   def by_forum forum, user, is_censored_forbidden

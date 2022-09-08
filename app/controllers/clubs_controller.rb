@@ -1,6 +1,7 @@
 class ClubsController < ShikimoriController
   include CanCanGet404Concern
-  authorize_resource :club, except: %i[index autocomplete]
+  load_and_authorize_resource only: %i[new create]
+  authorize_resource :club, except: %i[index autocomplete new create]
 
   before_action { og page_title: i18n_i('Club', :other) }
 

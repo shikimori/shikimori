@@ -4,7 +4,7 @@ class TopicsController < ShikimoriController
 
   load_and_authorize_resource class: Topic, only: %i[new create edit update destroy]
 
-  before_action :fetch_topic, only: %i[show tooltip reload]
+  before_action :fetch_resource, only: %i[show tooltip reload]
   before_action :set_view
   before_action :set_breadcrumbs
 
@@ -205,7 +205,7 @@ private
     end
   end
 
-  def fetch_topic
+  def fetch_resource
     @resource = Topic.find_by(id: params[:id]) || nil_object
     raise ActiveRecord::RecordNotFound if request.format.rss?
 

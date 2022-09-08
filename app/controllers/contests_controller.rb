@@ -1,7 +1,8 @@
 class ContestsController < ShikimoriController
   before_action :fetch_resource, if: :resource_id
 
-  authorize_resource except: %i[current index grid]
+  load_and_authorize_resource only: %i[new create]
+  authorize_resource except: %i[current index grid new create]
   before_action :authorize_read!, only: %i[grid]
 
   before_action :resource_redirect, if: -> { @resource }
