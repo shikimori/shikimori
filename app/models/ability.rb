@@ -120,7 +120,7 @@ class Ability
     end
     can :see_contest, Contest
     can :read, ClubPage do |club_page|
-      can? :read, club_page.club
+      can? :see_club, club_page.club
     end
     can :read, UserRate
 
