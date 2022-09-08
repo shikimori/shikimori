@@ -224,7 +224,7 @@ private
 
   def critiques_scope
     Topics::Query
-      .fetch(h.locale_from_host, h.censored_forbidden?)
+      .fetch(h.current_user, h.locale_from_host, h.censored_forbidden?)
       .by_forum(critiques_forum, h.current_user, h.censored_forbidden?)
       .limit(6)
       .lazy_map do |topic|

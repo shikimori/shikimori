@@ -43,7 +43,7 @@ class Api::V1::TopicsController < Api::V1Controller
   def index # rubocop:disable all
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
-    topics_scope = Topics::Query.fetch locale_from_host, censored_forbidden?
+    topics_scope = Topics::Query.fetch current_user, locale_from_host, censored_forbidden?
 
     if params[:forum]
       forum = Forum.find_by_permalink params[:forum] # rubocop:disable Rails/DynamicFindBy

@@ -1,13 +1,15 @@
 class Topics::Query < QueryObjectBase
-  def self.fetch locale, is_censored_forbidden
+  def self.fetch user, locale, is_censored_forbidden
     scope = Topic
       .includes(:forum, :user, :linked)
       .order(updated_at: :desc)
       .where(locale: locale)
 
-    new is_censored_forbidden ?
-      scope.where(is_censored: false) :
-      scope
+    new(
+      is_censored_forbidden ?
+        scope.where(is_censored: false) :
+        scope
+    ).lazy_filter { |topic| Topic::AccessPolicy.allowed? topic, user }
   end
 
   def by_forum forum, user, is_censored_forbidden
