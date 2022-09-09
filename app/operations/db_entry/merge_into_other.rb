@@ -147,26 +147,24 @@ private
   end
 
   def merge_comments # rubocop:disable MethodLength
-    Shikimori::DOMAIN_LOCALES.each do
-      @entry_topic = @entry.maybe_topic
-      next if @entry_topic.comments_count.zero?
+    @entry_topic = @entry.maybe_topic
+    next if @entry_topic.comments_count.zero?
 
-      @other_topic = @other.maybe_topic
+    @other_topic = @other.maybe_topic
 
-      unless @other_topic.persisted?
-        @other_topic = @other.generate_topics.first
+    unless @other_topic.persisted?
+      @other_topic = @other.generate_topics.first
+    end
+
+    @entry_topic
+      .comments
+      .includes(:commentable)
+      .find_each do |comment|
+        comment.update commentable: @other_topic
       end
 
-      @entry_topic
-        .comments
-        .includes(:commentable)
-        .find_each do |comment|
-          comment.update commentable: @other_topic
-        end
-
-      if @entry_topic.commented_at && @entry_topic.commented_at < @other_topic.commented_at
-        @entry_topic.update! commented_at: @other_topic.commented_at
-      end
+    if @entry_topic.commented_at && @entry_topic.commented_at < @other_topic.commented_at
+      @entry_topic.update! commented_at: @other_topic.commented_at
     end
   end
 

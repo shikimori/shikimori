@@ -6,9 +6,7 @@ class EpisodeNotification::TrackEpisode
   def call
     raise missing_episode_error(@notification) if missing_episode? @notification
 
-    Shikimori::DOMAIN_LOCALES.each do
-      generate_topic @notification
-    end
+    generate_topic @notification
 
     return if present_episode? @notification
     return if old_released_anime? @notification

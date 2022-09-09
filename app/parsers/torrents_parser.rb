@@ -280,15 +280,6 @@ class TorrentsParser
           new_episodes << entry
 
           aired_at = (entry[:pubDate] || Time.zone.now) + episode.seconds
-          # Shikimori::DOMAIN_LOCALES.each do |locale|
-          #   Topics::Generate::News::EpisodeTopic.call(
-          #     model: anime,
-          #     user: anime.topic_user,
-          #     locale: locale,
-          #     aired_at: aired_at,
-          #     episode: episode
-          #   )
-          # end
 
           EpisodeNotification::Track.call(
             anime: anime,
