@@ -1,5 +1,5 @@
 describe QueryObjectBase do
-  subject(:query) { QueryObjectBase.new collection }
+  subject(:query) { described_class.new collection }
   let(:collection) { %i[zz xx] }
 
   it { is_expected.to eq collection }
@@ -7,6 +7,16 @@ describe QueryObjectBase do
   describe 'scope method' do
     subject { query.slice(1, 1) }
     it { is_expected.to eq collection[1, 1] }
+  end
+
+  describe '#lazy_map' do
+    subject { query.lazy_map { |v| v.to_s * 2 } }
+    it { is_expected.to eq %w[zzzz xxxx] }
+  end
+
+  describe '#lazy_filter' do
+    subject { query.lazy_filter { |v| v == :zz } }
+    it { is_expected.to eq %i[zz] }
   end
 
   describe '#paginate' do

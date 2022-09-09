@@ -1,6 +1,6 @@
 describe Topics::ForumQuery do
   subject do
-    Topics::ForumQuery.call(
+    described_class.call(
       scope: scope,
       forum: forum,
       user: user,
@@ -8,7 +8,7 @@ describe Topics::ForumQuery do
     )
   end
 
-  let(:scope) { Topics::Query.fetch locale, is_censored_forbidden }
+  let(:scope) { Topics::Query.fetch user, locale, is_censored_forbidden }
   let(:forum) { nil }
   let(:is_censored_forbidden) { false }
 

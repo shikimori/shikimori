@@ -226,7 +226,7 @@ export default class Topic extends ShikiEditable {
   get typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); } // eslint-disable-line camelcase
 
   get reloadUrl() { // eslint-disable-line camelcase
-    return `/${this.type}s/${this.$node.attr('id')}/reload?is_preview=${this.isPreview}`;
+    return `/${this.type}s/${this.$node.attr('id')}/reload?is_preview=${this.isPreview}&is_mini=${this.isMini}`;
   }
 
   @memoize
@@ -236,6 +236,9 @@ export default class Topic extends ShikiEditable {
 
   @memoize
   get isPreview() { return this.$node.hasClass('b-topic-preview'); }
+
+  @memoize
+  get isMini() { return this.$node.hasClass('b-topic-minified'); }
 
   @memoize
   get isCosplay() { return this.$node.hasClass('b-cosplay-topic'); }

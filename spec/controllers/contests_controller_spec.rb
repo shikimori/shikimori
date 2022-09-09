@@ -53,7 +53,12 @@ describe ContestsController do
       before do
         Contest::Start.call contest
         contest.rounds.each do
-          contest.current_round.matches.each { |v| v.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday }
+          contest.current_round.matches.each do |contest_match|
+            contest_match.update(
+              started_on: Time.zone.yesterday,
+              finished_on: Time.zone.yesterday
+            )
+          end
           Contest::Progress.call contest
           contest.reload
         end

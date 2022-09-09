@@ -6,7 +6,7 @@ module VersionedConcern
   def parameterized_versions
     versions_scope
       .paginate(h.page, VERSIONS_PER_PAGE)
-      .transform(&:decorate)
+      .lazy_map(&:decorate)
   end
 
 private

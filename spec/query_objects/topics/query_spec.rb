@@ -1,5 +1,5 @@
 describe Topics::Query do
-  subject(:query) { Topics::Query.fetch locale, is_censored_forbidden }
+  subject(:query) { described_class.fetch user, locale, is_censored_forbidden }
 
   let(:locale) { :ru }
   let(:is_censored_forbidden) { false }
@@ -24,6 +24,15 @@ describe Topics::Query do
     context 'domain does not match topic locale' do
       let(:locale) { :en }
       it { is_expected.to be_empty }
+    end
+
+    context 'filtered by access policy' do
+      before do
+        allow(Topic::AccessPolicy).to receive(:allowed?) do |topic, _user|
+          topic == socials_topic
+        end
+      end
+      it { is_expected.to eq [socials_topic] }
     end
   end
 

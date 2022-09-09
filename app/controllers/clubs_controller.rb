@@ -1,13 +1,14 @@
 class ClubsController < ShikimoriController
   include CanCanGet404Concern
-  load_and_authorize_resource :club, except: %i[index autocomplete edit]
-  load_resource :club, only: %i[edit]
+  load_and_authorize_resource :club, only: %i[new create]
+  authorize_resource :club, except: %i[index autocomplete new create]
 
   before_action { og page_title: i18n_i('Club', :other) }
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
-  before_action :restrict_censored, if: :resource_id
+
+  before_action :restrict_domain, if: :resource_id
 
   before_action :set_breadcrumbs
   before_action :restrict_private, if: :resource_id
@@ -87,7 +88,13 @@ class ClubsController < ShikimoriController
   end
 
   def update
-    Club::Update.call @resource, params[:kick_ids], update_params, params[:section], current_user
+    Club::Update.call(
+      @resource,
+      params[:kick_ids],
+      update_params,
+      params[:section],
+      current_user
+    )
 
     if @resource.errors.blank?
       redirect_to edit_club_url(@resource, section: params[:section]),
@@ -107,7 +114,7 @@ class ClubsController < ShikimoriController
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, MEMBERS_LIMIT)
-      .transform(&:user)
+      .lazy_map(&:user)
   end
 
   def animes
@@ -148,7 +155,7 @@ class ClubsController < ShikimoriController
     @collection = Collections::Query.fetch
       .where(id: @resource.collections)
       .paginate(@page, DbEntriesController::COLLETIONS_PER_PAGE)
-      .transform do |collection|
+      .lazy_map do |collection|
         Topics::TopicViewFactory
           .new(true, true)
           .build(collection.maybe_topic)
@@ -179,17 +186,6 @@ private
     )
 
     render :private_access unless is_access_allowed
-  end
-
-  def restrict_censored
-    Clubs::RestrictCensored.call club: @resource, current_user: current_user
-  end
-
-  # censored check for guests performed in #restrict_censored
-  def censored_forbidden?
-    return false unless user_signed_in?
-
-    super
   end
 
   def resource_klass

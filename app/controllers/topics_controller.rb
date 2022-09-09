@@ -2,13 +2,11 @@
 class TopicsController < ShikimoriController
   before_action :check_post_permission, only: %i[create update destroy]
 
-  load_and_authorize_resource class: Topic, only: %i[new create update destroy]
-  load_resource class: Topic, only: %i[edit]
+  load_and_authorize_resource class: Topic, only: %i[new create edit update destroy]
 
-  before_action :fetch_topic, only: %i[show tooltip]
+  before_action :fetch_resource, only: %i[show tooltip reload]
   before_action :set_view
   before_action :set_breadcrumbs
-  before_action :set_canonical, only: %i[show]
 
   UPDATE_PARAMS = %i[body title linked_id linked_type tags]
   CREATE_PARAMS = UPDATE_PARAMS + %i[user_id forum_id type]
@@ -30,11 +28,45 @@ class TopicsController < ShikimoriController
   end
 
   def show
-    # новости аниме без комментариев поисковым системам не скармливаем
-    return render :missing, status: (xhr_or_json? ? :ok : :not_found) if @resource.is_a? NoTopic
     return redirect_to @forums_view.redirect_url if @forums_view.hidden?
 
     ensure_redirect! UrlGenerator.instance.topic_url(@resource)
+    og noindex: true if noindex?
+    og canonical_url: @topic_view&.canonical_url
+  end
+
+  def tooltip
+    @topic_view = Topics::TopicViewFactory.new(true, true).build @resource
+
+    if request.xhr?
+      render(
+        partial: 'topics/topic',
+        object: @topic_view,
+        as: :topic_view,
+        layout: false,
+        formats: :html
+      )
+    else
+      og noindex: true
+      render :show
+    end
+  end
+
+  def chosen
+    @collection = Topic
+      .where(id: params[:ids].split(',').map(&:to_i))
+      .filter { |topic| can? :read, topic }
+      .map { |topic| Topics::TopicViewFactory.new(true, false).build topic }
+
+    render :collection, formats: :json
+  end
+
+  def reload
+    @topic_view = Topics::TopicViewFactory
+      .new(params[:is_preview] == 'true', params[:is_mini] == 'true')
+      .build(@resource)
+
+    render :show, formats: :json
   end
 
   def new
@@ -50,14 +82,11 @@ class TopicsController < ShikimoriController
         :topic
       end
 
-    og(
-      page_title: i18n_t("new_#{topic_type}")
-    )
+    og page_title: i18n_t("new_#{topic_type}")
   end
 
   def edit
     ensure_redirect! @topic_view.urls.edit_url if params[:action] == 'edit'
-    authorize! :edit, @resource
   end
 
   def create
@@ -97,44 +126,6 @@ class TopicsController < ShikimoriController
     Topic::Destroy.call @resource, faye
 
     render json: { notice: i18n_t('topic.deleted') }
-  end
-
-  def tooltip
-    og noindex: true
-    return render :missing, status: (xhr_or_json? ? :ok : :not_found) if @resource.is_a? NoTopic
-
-    @topic_view = Topics::TopicViewFactory.new(true, true).find params[:id]
-
-    if request.xhr?
-      render(
-        partial: 'topics/topic',
-        object: @topic_view,
-        as: :topic_view,
-        layout: false,
-        formats: :html
-      )
-    else
-      render :show
-    end
-  end
-
-  # выбранные топики
-  def chosen
-    @collection = Topic
-      .where(id: params[:ids].split(',').map(&:to_i))
-      .map { |topic| Topics::TopicViewFactory.new(true, false).build topic }
-
-    render :collection, formats: :json
-  end
-
-  # подгружаемое через ajax тело топика
-  def reload
-    topic = Topic.find params[:id]
-    @topic_view = Topics::TopicViewFactory
-      .new(params[:is_preview] == 'true', false)
-      .build(topic)
-
-    render :show, formats: :json
   end
 
 private
@@ -213,20 +204,35 @@ private
     end
   end
 
-  def fetch_topic
-    topic = Topic.find_by(id: params[:id])
+  def fetch_resource
+    @resource = Topic.find_by(id: params[:id]) || nil_object
     raise ActiveRecord::RecordNotFound if request.format.rss?
 
-    @resource = topic || NoTopic.new(id: params[:id].to_i)
+    authorize_access! unless nil_object?
+    check_censored! unless nil_object?
 
+    render :missing, status: (xhr_or_json? ? :ok : :not_found) if nil_object?
+  end
+
+  def authorize_access!
+    authorize! :read, @resource
+  rescue CanCan::AccessDenied
+    @resource = nil_object
+  end
+
+  def check_censored!
     if (@resource&.try(:censored?) || @resource&.linked.try(:censored?)) &&
         censored_forbidden?
       raise AgeRestricted
     end
   end
 
-  def set_canonical
-    og canonical_url: @topic_view&.canonical_url
+  def nil_object
+    NoTopic.new id: params[:id].to_i
+  end
+
+  def nil_object?
+    @resource.is_a? NoTopic
   end
 
   def faye
@@ -234,8 +240,7 @@ private
   end
 
   def noindex?
-    @resource.is_a?(NoTopic) ||
-      (@resource.generated? && @resource.comments_count.zero?)
+    nil_object? || (@resource.generated? && @resource.comments_count.zero?)
   end
 
   def copyrighted_resource_id_key

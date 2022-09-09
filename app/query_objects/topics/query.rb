@@ -1,14 +1,14 @@
 class Topics::Query < QueryObjectBase
-  def self.fetch is_censored_forbidden
-    query = new Topic
+  def self.fetch user, is_censored_forbidden
+    scope = Topic
       .includes(:forum, :user, :linked)
       .order(updated_at: :desc)
 
-    if is_censored_forbidden
-      query.where is_censored: false
-    else
-      query
-    end
+    new(
+      is_censored_forbidden ?
+        scope.where(is_censored: false) :
+        scope
+    ).lazy_filter { |topic| Topic::AccessPolicy.allowed? topic, user }
   end
 
   def by_forum forum, user, is_censored_forbidden
@@ -45,7 +45,7 @@ class Topics::Query < QueryObjectBase
   end
 
   def as_views is_preview, is_mini
-    transform do |topic|
+    lazy_map do |topic|
       Topics::TopicViewFactory.new(is_preview, is_mini).build topic
     end
   end

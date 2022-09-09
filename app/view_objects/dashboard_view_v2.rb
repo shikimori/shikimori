@@ -84,7 +84,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
         page == 1 ? NEWS_FIRST_PAGE_LIMIT : NEWS_OTHER_PAGES_LIMIT,
         page == 1 ? 0 : NEWS_FIRST_PAGE_LIMIT - NEWS_OTHER_PAGES_LIMIT
       )
-      .transform do |topic|
+      .lazy_map do |topic|
         Topics::NewsWallView.new topic, true, true
       end
   end
@@ -208,7 +208,7 @@ private
     Collections::Query
       .fetch
       .limit(16)
-      .transform do |collection|
+      .lazy_map do |collection|
         Topics::NewsLineView.new collection.maybe_topic, true, true
       end
   end
@@ -217,17 +217,17 @@ private
     Articles::Query
       .fetch
       .limit(6)
-      .transform do |article|
+      .lazy_map do |article|
         Topics::NewsLineView.new article.maybe_topic, true, true
       end
   end
 
   def critiques_scope
     Topics::Query
-      .fetch(h.censored_forbidden?)
+      .fetch(h.current_user, h.censored_forbidden?)
       .by_forum(critiques_forum, h.current_user, h.censored_forbidden?)
       .limit(6)
-      .transform do |topic|
+      .lazy_map do |topic|
         Topics::NewsLineView.new topic, true, true
       end
   end

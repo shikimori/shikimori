@@ -24,7 +24,7 @@ class Moderations::RolesController < ModerationsController
 
     @collection = role_users_scope
     @searched_collection = search_users_scope
-    @versions = versions_scope.paginate(page, VERSIONS_PER_PAGE).transform(&:decorate)
+    @versions = versions_scope.paginate(page, VERSIONS_PER_PAGE).lazy_map(&:decorate)
   end
 
   def search
@@ -81,7 +81,7 @@ private
     QueryObjectBase
       .new(User.where("roles && '{#{Types::User::Roles[@role]}}'").order(:nickname))
       .paginate(page, USERS_PER_PAGE)
-      .transform(&:decorate)
+      .lazy_map(&:decorate)
   rescue Dry::Types::ConstraintError
     redirect_to moderations_roles_url
   end
@@ -91,7 +91,7 @@ private
     scope = params[:phrase].present? ? scope.search(params[:phrase]) : scope.none
     scope
       .paginate(params[:action] == 'search' ? page : 1, USERS_PER_PAGE)
-      .transform(&:decorate)
+      .lazy_map(&:decorate)
   end
 
   def versions_scope
@@ -99,7 +99,7 @@ private
       .fetch(Moderation::VersionsItemTypeQuery::Types[:role], nil)
       .where("item_diff->>'role' = ?", @role)
       .paginate(params[:action] == 'versions' ? page : 1, VERSIONS_PER_PAGE)
-      .transform(&:decorate)
+      .lazy_map(&:decorate)
   end
 
   def page

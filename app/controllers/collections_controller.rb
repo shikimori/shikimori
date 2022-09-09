@@ -16,7 +16,7 @@ class CollectionsController < ShikimoriController
     @collection = Collections::Query.fetch
       .search(params[:search])
       .paginate(@page, @limit)
-      .transform do |collection|
+      .lazy_map do |collection|
         Topics::TopicViewFactory
           .new(true, true)
           .build(collection.maybe_topic)

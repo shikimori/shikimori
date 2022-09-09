@@ -35,13 +35,20 @@ describe CommentsController do
       subject { get :show, params: { id: comment.id } }
 
       context 'guest' do
-        it { expect { subject }.to raise_error ActiveRecord::RecordNotFound }
+        before { subject }
+        it do
+          expect(resource).to_not be NoComment
+          expect(response).to have_http_status :success
+        end
       end
 
       context 'user' do
         include_context :authenticated, :user
         before { subject }
-        it { expect(response).to have_http_status :success }
+        it do
+          expect(resource).to_not be NoComment
+          expect(response).to have_http_status :success
+        end
       end
     end
   end
@@ -128,7 +135,7 @@ describe CommentsController do
   end
 
   describe '#edit' do
-    include_context :authenticated, :user
+    include_context :authenticated, :forum_moderator
     subject! { get :edit, params: { id: comment.id } }
 
     it do
@@ -136,16 +143,4 @@ describe CommentsController do
       expect(response.content_type).to eq 'text/html; charset=utf-8'
     end
   end
-
-  # describe '#postload' do
-    # let(:user) { build_stubbed :user }
-    # before do
-      # get :postloader,
-        # commentable_type: offtopic_topic.class.name,
-        # commentable_id: offtopic_topic.id,
-        # offset: 0,
-        # limit: 1
-    # end
-    # it { expect(response).to have_http_status :success }
-  # end
 end

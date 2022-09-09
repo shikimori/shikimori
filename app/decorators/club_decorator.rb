@@ -98,7 +98,7 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
   end
 
   def forum_topics_query
-    Topics::Query.fetch(h.censored_forbidden?)
+    Topics::Query.fetch(h.current_user, h.censored_forbidden?)
       .by_forum(Forum.find_by_permalink('clubs'), h.current_user, false) # rubocop:disable DynamicFindBy
       .by_linked(object)
       .where("topics.type != '#{Topics::EntryTopics::ClubTopic.name}'")

@@ -26,7 +26,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
     @collection = Collections::Query.fetch
       .where(id: @resource.collections_scope)
       .paginate(@page, COLLETIONS_PER_PAGE)
-      .transform do |collection|
+      .lazy_map do |collection|
         Topics::TopicViewFactory
           .new(true, true)
           .build(collection.maybe_topic)

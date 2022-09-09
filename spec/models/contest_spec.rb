@@ -282,13 +282,13 @@ describe Contest do
 
     context 'guest' do
       subject { Ability.new nil }
-      it { is_expected.to be_able_to :see_contest, contest }
+      it { is_expected.to be_able_to :read, contest }
       it { is_expected.to_not be_able_to :manage, contest }
     end
 
     context 'user' do
       subject { Ability.new build_stubbed(:user, :user) }
-      it { is_expected.to be_able_to :see_contest, contest }
+      it { is_expected.to be_able_to :read, contest }
       it { is_expected.to_not be_able_to :manage, contest }
     end
   end

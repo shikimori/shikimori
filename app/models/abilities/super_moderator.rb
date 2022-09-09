@@ -15,6 +15,7 @@ class Abilities::SuperModerator
 
     can :refresh_stats, [Anime, Manga]
 
+    comment_abilities
     clubs_abilities
     genres_studios_publishers_abilities
   end
@@ -41,6 +42,10 @@ class Abilities::SuperModerator
       manage_cheat_bot_role
       manage_ignored_in_achievement_statistics_role
     ], User
+  end
+
+  def comment_abilities
+    can :read, Comment
   end
 
   def clubs_abilities

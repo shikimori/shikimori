@@ -28,7 +28,7 @@ class MessagesController < ProfilesController
     @collection = Messages::Query
       .fetch(@resource, @messages_type)
       .paginate(@page, @limit)
-      .transform(&:decorate)
+      .lazy_map(&:decorate)
   end
 
   def show
@@ -54,7 +54,7 @@ class MessagesController < ProfilesController
       .includes(:from, :to, :linked)
       .order(:id)
       .limit(100)
-      .select { |message| can? :read, message }
+      .filter { |message| can? :read, message }
       .map(&:decorate)
 
     render :index, formats: :json
