@@ -261,7 +261,6 @@ describe Contest do
         it do
           expect(subject)
             .to have_received(:generate_topics)
-            .with Shikimori::DOMAIN_LOCALES
         end
       end
 
