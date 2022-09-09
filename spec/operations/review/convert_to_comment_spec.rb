@@ -8,7 +8,7 @@ describe Review::ConvertToComment do
       created_at: 1.day.ago,
       updated_at: 1.hour.ago
   end
-  let(:review_topic) { review.maybe_topic(:ru) }
+  let(:review_topic) { review.maybe_topic }
   let!(:reply_1) do
     create :comment,
       id: 99999999,

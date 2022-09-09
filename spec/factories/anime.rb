@@ -55,7 +55,7 @@ FactoryBot.define do
     end
 
     trait :with_topics do
-      after(:create) { |model| model.generate_topics :ru }
+      after(:create) { |model| model.generate_topics }
     end
 
     trait :with_character do

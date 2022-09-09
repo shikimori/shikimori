@@ -11,7 +11,7 @@ shared_examples :topics_concern do |db_entry|
 
       describe '#generate_topics' do
         let(:topics) { model.topics }
-        before { model.generate_topics :en }
+        before { model.generate_topics }
 
         it do
           expect(topics).to have(1).item
@@ -21,7 +21,7 @@ shared_examples :topics_concern do |db_entry|
 
       describe '#topic' do
         let(:topic) { model.topic locale }
-        before { model.generate_topics :ru }
+        before { model.generate_topics }
 
         context 'with topic for locale' do
           let(:locale) { :ru }
@@ -38,8 +38,8 @@ shared_examples :topics_concern do |db_entry|
       end
 
       describe '#maybe_topic' do
-        let(:topic) { model.maybe_topic locale }
-        before { model.generate_topics :ru }
+        let(:topic) { model.maybe_topic }
+        before { model.generate_topics }
 
         context 'with topic for locale' do
           let(:locale) { :ru }
