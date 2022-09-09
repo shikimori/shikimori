@@ -4,13 +4,12 @@ class Messages::CreateNotification # rubocop:disable ClassLength
   pattr_initialize :target
 
   def user_registered
-    locale = @target.locale
     body = i18n_t(
       'user_registered_message',
-      faq_url: StickyClubView.faq(locale).object.url,
-      site_rules_url: StickyTopicView.site_rules(locale).object.url,
+      faq_url: StickyClubView.faq.object.url,
+      site_rules_url: StickyTopicView.site_rules.object.url,
       settings_path: @target.to_param,
-      locale: locale
+      locale: @target.locale
     )
 
     Message.create_wo_antispam!(
@@ -22,15 +21,14 @@ class Messages::CreateNotification # rubocop:disable ClassLength
   end
 
   def moderatable_banned reason # rubocop:disable MethodLength, AbcSize
-    locale = @target.locale
     body = i18n_t(
       'moderatable_banned.without_reason',
-      topic_id: @target.topic(@target.locale).id,
+      topic_id: @target.topic.id,
       entry_name: I18n.t(
         "activerecord.models.#{@target.class.name.downcase}",
         locale: @target.locale.to_sym
       ).downcase,
-      locale: locale
+      locale: @target.locale
     )
 
     body +=
@@ -110,14 +108,11 @@ class Messages::CreateNotification # rubocop:disable ClassLength
       )
     end
 
-    Shikimori::DOMAIN_LOCALES.each do |locale|
-      Topics::Generate::News::ContestStatusTopic.call(
-        model: @target,
-        user: @target.user,
-        action: Types::Topic::ContestStatusTopic::Action[:finished],
-        locale: locale
-      )
-    end
+    Topics::Generate::News::ContestStatusTopic.call(
+      model: @target,
+      user: @target.user,
+      action: Types::Topic::ContestStatusTopic::Action[:finished],
+    )
   end
 
   def bad_email
@@ -149,8 +144,7 @@ private
     Comment.wo_antispam do
       Comment::Create.call(
         faye: faye(user),
-        params: create_params,
-        locale: nil
+        params: create_params
       )
     end
   end

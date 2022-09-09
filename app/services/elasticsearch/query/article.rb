@@ -1,21 +1,13 @@
 class Elasticsearch::Query::Article < Elasticsearch::Query::QueryBase
-  method_object %i[phrase! limit! locale!]
+  method_object %i[phrase! limit!]
 
 private
 
   def query
     {
       bool: {
-        must: [super, locale_query]
+        must: [super]
       }
     }
   end
-
-  def locale_query
-    { term: { locale: @locale } }
-  end
-
-  # def cache_key
-  #   super + [@locale]
-  # end
 end
