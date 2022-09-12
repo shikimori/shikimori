@@ -229,13 +229,13 @@ private
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
     # AD START: IMBA - remove 2022-09-30 23:59
-    url: 'https://bit.ly/3wZaje8',
+    url: 'https://bit.ly/3RFxUZy',
     # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=eevvx&pfb=lozyl&pr=[RANDOM]&pe=b',
     # convert -resize 50% app/assets/images/globals/events/2022-07-16/wide_1@2x.jpg app/assets/images/globals/events/2022-07-16/wide_1.jpg
     images: (1..1).map do |i|
       {
-        src: "/assets/globals/events/2022-07-16/wide_#{i}.jpg?v=3",
-        src_2x: "/assets/globals/events/2022-07-16/wide_#{i}@2x.jpg?v=3"
+        src: "/assets/globals/events/2022-07-16/wide_#{i}.jpg?v=4",
+        src_2x: "/assets/globals/events/2022-07-16/wide_#{i}@2x.jpg?v=4"
       }
     end,
     # AD END
