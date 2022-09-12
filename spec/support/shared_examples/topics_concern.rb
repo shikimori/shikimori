@@ -9,48 +9,38 @@ shared_examples :topics_concern do |db_entry|
     describe 'instance methods' do
       let(:model) { build_stubbed db_entry }
 
-      describe '#generate_topics' do
+      describe '#generate_topic' do
         let(:topics) { model.topics }
-        before { model.generate_topics }
+        before { model.generate_topic }
 
         it do
           expect(topics).to have(1).item
-          expect(topics.first.locale).to eq 'en'
+          expect(topics.first).to eq 'en'
         end
       end
 
       describe '#topic' do
-        let(:topic) { model.topic locale }
-        before { model.generate_topics }
+        let(:topic) { model.topic }
+        before { model.generate_topic }
 
-        context 'with topic for locale' do
-          let(:locale) { :ru }
+        context 'with topic' do
           it do
             expect(topic).to be_present
-            expect(topic.locale).to eq locale
           end
-        end
-
-        context 'without topic for locale' do
-          let(:locale) { :en }
-          it { expect(topic).to be_nil }
         end
       end
 
       describe '#maybe_topic' do
         let(:topic) { model.maybe_topic }
-        before { model.generate_topics }
+        before { model.generate_topic }
 
-        context 'with topic for locale' do
-          let(:locale) { :ru }
+        context 'with topic ' do
           it do
             expect(topic).to be_present
-            expect(topic.locale).to eq locale
           end
         end
 
-        context 'without topic for locale' do
-          let(:locale) { :en }
+        context 'without topic' do
           it do
             expect(topic).to be_present
             expect(topic).to be_instance_of NoTopic

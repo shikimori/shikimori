@@ -42,7 +42,7 @@ FactoryBot.define do
     end
 
     trait :with_topics do
-      after(:create) { |model| model.generate_topics }
+      after(:create) { |model| model.generate_topic }
     end
 
     Manga.kind.values.each do |kind_type|

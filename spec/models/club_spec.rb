@@ -611,9 +611,9 @@ describe Club do
     describe 'instance methods' do
       let(:model) { build_stubbed :club }
 
-      describe '#generate_topics' do
+      describe '#generate_topic' do
         let(:topics) { model.topics }
-        before { model.generate_topics }
+        before { model.generate_topic }
 
         it do
           expect(topics).to have(1).item
@@ -622,7 +622,7 @@ describe Club do
 
       describe '#topic' do
         let(:topic) { model.topic }
-        before { model.generate_topics }
+        before { model.generate_topic }
 
         context 'locale from model' do
           it do
@@ -633,7 +633,7 @@ describe Club do
 
       describe '#maybe_topic' do
         let(:topic) { model.maybe_topic }
-        before { model.generate_topics }
+        before { model.generate_topic }
 
         context 'locale from model' do
           it do

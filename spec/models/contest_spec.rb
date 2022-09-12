@@ -252,7 +252,7 @@ describe Contest do
     describe '#generate_missing_topics' do
       before do
         allow(subject.topics).to receive(:none?).and_return is_none
-        allow(subject).to receive :generate_topics
+        allow(subject).to receive :generate_topic
         subject.send :generate_missing_topics
       end
 
@@ -260,13 +260,13 @@ describe Contest do
         let(:is_none) { true }
         it do
           expect(subject)
-            .to have_received(:generate_topics)
+            .to have_received(:generate_topic)
         end
       end
 
       context 'has topics' do
         let(:is_none) { false }
-        it { expect(subject).to_not have_received :generate_topics }
+        it { expect(subject).to_not have_received :generate_topic }
       end
     end
   end

@@ -87,7 +87,7 @@ FactoryBot.define do
     end
 
     trait :faq do
-      id { StickyClubView::CLUB_IDS[:faq][:ru] }
+      id { StickyClubView::CLUB_IDS[:faq] }
       name { 'faq' }
       created_at { 3.days.ago }
       updated_at { 3.days.ago }

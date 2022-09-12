@@ -25,7 +25,7 @@ FactoryBot.define do
     end
 
     trait :with_topics do
-      after(:create) { |character| character.generate_topics }
+      after(:create) { |character| character.generate_topic }
     end
   end
 end
