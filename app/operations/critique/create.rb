@@ -6,7 +6,7 @@ class Critique::Create < ServiceObjectBase
   def call
     Critique.transaction do
       critique = Critique.new @params
-      critique.generate_topics if critique.save
+      critique.generate_topic if critique.save
       critique
     end
   end

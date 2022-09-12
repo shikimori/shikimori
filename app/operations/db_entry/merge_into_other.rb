@@ -153,7 +153,7 @@ private
     @other_topic = @other.maybe_topic
 
     unless @other_topic.persisted?
-      @other_topic = @other.generate_topics.first
+      @other_topic = @other.generate_topic.first
     end
 
     @entry_topic

@@ -43,7 +43,7 @@ private
 
   def find_or_generate_topic
     commentable_object.topic ||
-      commentable_object.generate_topics.first
+      commentable_object.generate_topic.first
   end
 
   def notify_user comment

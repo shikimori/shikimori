@@ -39,6 +39,6 @@ private
   end
 
   def offtopic_id
-    Topic::TOPIC_IDS[:offtopic][:ru]
+    Topic::TOPIC_IDS[:offtopic]
   end
 end

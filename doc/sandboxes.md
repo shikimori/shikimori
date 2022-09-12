@@ -475,7 +475,7 @@ Review.
     puts review.id
 
     Review.transaction do
-      review.send :generate_topics, review.locale
+      review.send :generate_topic, review.locale
       review_topic = review.maybe_topic review.locale
 
       AbuseRequest.where(review_id: review.id).update_all review_id: nil, topic_id: review_topic.id

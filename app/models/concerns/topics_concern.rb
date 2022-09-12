@@ -21,7 +21,7 @@ module TopicsConcern
     attr_implement :topic_user
   end
 
-  def generate_topics forum_id: nil
+  def generate_topic forum_id: nil
     if self.class < DbEntry
       generate_entry_topics forum_id
     else

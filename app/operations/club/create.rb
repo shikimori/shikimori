@@ -6,7 +6,7 @@ class Club::Create < ServiceObjectBase
   def call
     Club.transaction do
       club = Club.new @params
-      club.generate_topics if club.save
+      club.generate_topic if club.save
       club
     end
   end

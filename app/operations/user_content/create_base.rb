@@ -11,7 +11,7 @@ class UserContent::CreateBase < ServiceObjectBase
       model = klass.create params
 
       if model.persisted?
-        model.generate_topics forum_id: Forum::HIDDEN_ID
+        model.generate_topic forum_id: Forum::HIDDEN_ID
       end
 
       model

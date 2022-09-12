@@ -34,14 +34,14 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
   }
 
   TOPIC_IDS = {
-    offtopic: { ru: 82_468 },
-    site_rules: { ru: 79_042 },
-    description_of_genres: { ru: 103_553 },
-    ideas_and_suggestions: { ru: 10_586 },
-    site_problems: { ru: 102 },
-    anime_industry: { ru: 81_906 },
-    contests_proposals: { ru: 212_657 },
-    socials: { ru: 270_099 }
+    offtopic: 82_468,
+    site_rules: 79_042,
+    description_of_genres: 103_553,
+    ideas_and_suggestions: 10_586,
+    site_problems: 102,
+    anime_industry: 81_906,
+    contests_proposals: 212_657,
+    socials: 270_099
   }
 
   LINKED_TYPES = %w[

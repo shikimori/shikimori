@@ -22,7 +22,7 @@ class StickyTopicView
   ]
   (STICKY_TOPICS + GLOBAL_TOPICS).each do |topic_name|
     define_singleton_method topic_name do
-      topic_id = Topic::TOPIC_IDS[topic_name][:ru]
+      topic_id = Topic::TOPIC_IDS[topic_name]
       next unless topic_id.present?
 
       instance_variable_get(:"@#{topic_name}") ||
@@ -38,7 +38,7 @@ class StickyTopicView
   end
   GLOBAL_TOPICS.each do |topic_name|
     define_singleton_method topic_name do
-      topic_id = Topic::TOPIC_IDS[topic_name][:ru]
+      topic_id = Topic::TOPIC_IDS[topic_name]
       next unless topic_id.present?
 
       instance_variable_get(:"@#{topic_name}") ||

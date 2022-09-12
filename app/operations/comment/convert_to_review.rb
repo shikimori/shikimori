@@ -14,7 +14,7 @@ class Comment::ConvertToReview
 
     ApplicationRecord.transaction do
       Review.wo_antispam { review.save! }
-      review.generate_topics if review.persisted?
+      review.generate_topic if review.persisted?
       review_topic = review.maybe_topic
 
       unless @is_keep_comment
