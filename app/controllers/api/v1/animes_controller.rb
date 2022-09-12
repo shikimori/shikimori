@@ -275,7 +275,8 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
   def topics # rubocop:disable AbcSize
     @limit = [[params[:limit].to_i, 1].max, Api::V1::TopicsController::LIMIT].min
 
-    scope = Topics::Query.new(@resource.all_topics)
+    scope = Topics::Query
+      .new(@resource.all_topics)
       .where(locale: locale_from_host)
 
     scope = scope.where action: params[:kind] if params[:kind].present?
