@@ -81,7 +81,7 @@ private
   end
 
   def forum_channel forum_id
-    "/forum-#{forum_id}/ru"
+    "/forum-#{forum_id}"
   end
 
   def linked_channel linked

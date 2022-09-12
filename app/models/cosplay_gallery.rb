@@ -97,7 +97,7 @@ class CosplayGallery < ApplicationRecord
 
   def self.without_topics
     visible
-      .includes(:animes, :mangas, :characters, :topics)
+      .includes(:animes, :mangas, :characters, :topic)
       .reject { |v| v.topics.present? }
       .select { |v| v.animes.any? || v.mangas.any? || v.characters.any? }
   end

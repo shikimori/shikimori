@@ -4,7 +4,7 @@ class Articles::Query < QueryObjectBase
   def self.fetch
     new Article
       .available
-      .includes(:topics)
+      .includes(:topic)
       .order(id: :desc)
   end
 

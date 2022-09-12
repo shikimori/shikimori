@@ -7,7 +7,7 @@ class Reviews::Query < QueryObjectBase
       .includes(
         :user,
         db_entry.anime? ? :anime : :manga,
-        :topics
+        :topic
       )
       .order(id: :desc)
   end

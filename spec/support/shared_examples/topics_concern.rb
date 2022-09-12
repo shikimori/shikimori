@@ -2,7 +2,7 @@ shared_examples :topics_concern do |db_entry|
   describe 'topics concern' do
     describe 'associations' do
       it { is_expected.to have_many(:all_topics).dependent :destroy }
-      it { is_expected.to have_many :topics }
+      it { is_expected.to have_one :topic }
       it { is_expected.to have_many :news_topics }
     end
 

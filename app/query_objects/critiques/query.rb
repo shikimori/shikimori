@@ -4,7 +4,7 @@ class Critiques::Query
 
   def call
     scope = @db_entry.critiques
-      .includes(:user, :topics)
+      .includes(:user, :topic)
 
     if @id.present? && @id != 0
       scope.where(id: @id)

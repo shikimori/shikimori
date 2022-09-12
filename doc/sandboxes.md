@@ -469,7 +469,7 @@ Review.
   # where(id: 81558).
   # where(anime_id: 9253).
   # where(user_id: 1).
-  includes(:comments, :topics).
+  includes(:comments, :topic).
   find_each do |review|
     next unless review.maybe_topic(:ru).is_a?(NoTopic)
     puts review.id

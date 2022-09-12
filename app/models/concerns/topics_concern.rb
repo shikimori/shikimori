@@ -8,7 +8,7 @@ module TopicsConcern
       as: :linked,
       dependent: :destroy
 
-    has_many :topics, -> { order updated_at: :desc },
+    has_one :topic,
       class_name: "Topics::EntryTopics::#{name}Topic",
       as: :linked,
       inverse_of: :linked # topic always load know its linked
@@ -23,14 +23,10 @@ module TopicsConcern
 
   def generate_topic forum_id: nil
     if self.class < DbEntry
-      generate_entry_topics forum_id
+      generate_entry_topic forum_id
     else
-      generate_user_topics forum_id
+      generate_user_topic forum_id
     end
-  end
-
-  def topic
-    topics.first if topics.any?
   end
 
   def maybe_topic
@@ -39,7 +35,7 @@ module TopicsConcern
 
 private
 
-  def generate_entry_topics forum_id
+  def generate_entry_topic forum_id
     Topics::Generate::EntryTopic.call(
       model: self,
       user: topic_user,
@@ -47,7 +43,7 @@ private
     )
   end
 
-  def generate_user_topics forum_id
+  def generate_user_topic forum_id
     Topics::Generate::Topic.call(
       model: self,
       user: topic_user,

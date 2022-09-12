@@ -605,7 +605,7 @@ describe Club do
 
   describe 'topics concern' do
     describe 'associations' do
-      it { is_expected.to have_many :topics }
+      it { is_expected.to have_one :topic }
     end
 
     describe 'instance methods' do

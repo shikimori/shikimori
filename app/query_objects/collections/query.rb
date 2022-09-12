@@ -4,7 +4,7 @@ class Collections::Query < QueryObjectBase
   def self.fetch
     new Collection
       .available
-      .includes(:topics)
+      .includes(:topic)
       .order(id: :desc)
   end
 

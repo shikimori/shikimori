@@ -34,7 +34,14 @@ class Forums::Menu < ViewObjectBase
   end
 
   def sticky_topics
-    ru_sticky_topics
+    [
+      StickyTopicView.site_rules,
+      StickyClubView.faq,
+      StickyTopicView.contests_proposals,
+      StickyTopicView.description_of_genres,
+      StickyTopicView.ideas_and_suggestions,
+      StickyTopicView.site_problems
+    ]
   end
 
   def new_topic_url # rubocop:disable AbcSize
@@ -76,18 +83,5 @@ class Forums::Menu < ViewObjectBase
 
   def new_collection_url
     h.new_collection_url(collection: { user_id: h.current_user&.id })
-  end
-
-private
-
-  def ru_sticky_topics
-    [
-      StickyTopicView.site_rules,
-      StickyClubView.faq,
-      StickyTopicView.contests_proposals,
-      StickyTopicView.description_of_genres,
-      StickyTopicView.ideas_and_suggestions,
-      StickyTopicView.site_problems
-    ]
   end
 end
