@@ -187,6 +187,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, COMMENTS_LIMIT)
+      .lazy_filter { |comment| can? :read, comment }
       .lazy_map { |comment| SolitaryCommentDecorator.new comment }
   end
 
