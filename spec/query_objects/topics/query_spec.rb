@@ -1,5 +1,5 @@
 describe Topics::Query do
-  subject(:query) { described_class.fetch user, locale, is_censored_forbidden }
+  subject(:query) { described_class.fetch locale, is_censored_forbidden }
 
   let(:locale) { :ru }
   let(:is_censored_forbidden) { false }
@@ -25,15 +25,16 @@ describe Topics::Query do
       let(:locale) { :en }
       it { is_expected.to be_empty }
     end
+  end
 
-    context 'filtered by access policy' do
-      before do
-        allow(Topic::AccessPolicy).to receive(:allowed?) do |topic, _user|
-          topic == socials_topic
-        end
+  context '#filter_by_policy' do
+    subject { query.filter_by_policy user }
+    before do
+      allow(Topic::AccessPolicy).to receive(:allowed?) do |topic, _user|
+        topic == socials_topic
       end
-      it { is_expected.to eq [socials_topic] }
     end
+    it { is_expected.to eq [socials_topic] }
   end
 
   describe '#by_forum' do

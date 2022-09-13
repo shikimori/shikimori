@@ -97,8 +97,7 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def news_topic_views
-    Topics::Query
-      .fetch(h.current_user, h.locale_from_host, h.censored_forbidden?)
+    Topics::Query.fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
       .limit(NEWS_LIMIT)
       .paginate(page, NEWS_LIMIT)
@@ -106,22 +105,11 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def generated_news_topic_views
-    Topics::Query
-      .fetch(h.current_user, h.locale_from_host, true) # always hide hentai on the main page
+    Topics::Query.fetch(h.locale_from_host, true) # always hide hentai on the main page
       .by_forum(Forum::UPDATES_FORUM, h.current_user, true) # always hide hentai on the main page
       .limit(15)
       .as_views(true, true)
-
-    # Topics::Query
-    #   .fetch(h.locale_from_host, h.censored_forbidden?)
-    #   .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
-    #   .limit(15)
-    #   .as_views(true, true)
   end
-
-  # def favourites
-    # all_favourites.take(ONGOINGS_TAKE / 2).sort_by(&:ranked)
-  # end
 
   def contests
     Contests::CurrentQuery.call
@@ -140,13 +128,11 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def cache_keys
-    news_key = Topics::Query
-      .new(Topic)
+    news_key = Topics::Query.new(Topic)
       .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
       .first
 
-    updates_key = Topics::Query
-      .new(Topic)
+    updates_key = Topics::Query.new(Topic)
       .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
       .first
 
@@ -189,19 +175,11 @@ private
   end
 
   def all_critique_topic_views
-    Topics::Query
-      .fetch(h.current_user, h.locale_from_host, h.censored_forbidden?)
+    Topics::Query.fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(critiques_forum, h.current_user, h.censored_forbidden?)
       .limit(REVIEWS_FETCH)
       .as_views(true, true)
   end
-
-  # def all_favourites
-    # Anime
-      # .where(id: FavouritesQuery.new.top_favourite_ids(Anime, FETCH_LIMIT))
-      # .decorate
-      # .shuffle
-  # end
 
   def critiques_forum
     Forum.find_by_permalink('critiques') # rubocop:disable DynamicFindBy

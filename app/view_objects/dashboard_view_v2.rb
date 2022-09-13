@@ -223,8 +223,7 @@ private
   end
 
   def critiques_scope
-    Topics::Query
-      .fetch(h.current_user, h.locale_from_host, h.censored_forbidden?)
+    Topics::Query.fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(critiques_forum, h.current_user, h.censored_forbidden?)
       .limit(6)
       .lazy_map do |topic|
@@ -237,23 +236,16 @@ private
   end
 
   def news_scope
-    Topics::Query
-      .fetch(h.current_user, h.locale_from_host, h.censored_forbidden?)
+    Topics::Query.fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
       .except(:order)
       .order(is_pinned: :desc, created_at: :desc)
   end
 
   def db_updates_scope
-    Topics::Query
-      .fetch(h.current_user, h.locale_from_host, true) # always hide hentai on the main page
+    Topics::Query.fetch(h.locale_from_host, true) # always hide hentai on the main page
       .by_forum(Forum::UPDATES_FORUM, h.current_user, true) # always hide hentai on the main page
       .where(TOPICS_EXCEPT_EXCLUDED_SQL)
-
-    # Topics::Query
-    #   .fetch(h.locale_from_host, h.censored_forbidden?)
-    #   .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
-    #   .where(TOPICS_EXCEPT_EXCLUDED_SQL)
   end
 
   def critiques_forum

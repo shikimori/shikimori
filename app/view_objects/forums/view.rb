@@ -19,12 +19,12 @@ class Forums::View < ViewObjectBase
   end
 
   def topic_views # rubocop:disable Metrics/AbcSize
-    Topics::Query
-      .fetch(h.current_user, h.locale_from_host, h.censored_forbidden?)
+    Topics::Query.fetch(h.locale_from_host, h.censored_forbidden?)
       .by_forum(forum, h.current_user, h.censored_forbidden?)
       .by_linked(linked)
       .search(h.params[:search], forum, h.current_user, h.locale_from_host)
       .paginate(page, limit)
+      .filter_by_policy(h.current_user)
       .as_views(true, false)
   end
 

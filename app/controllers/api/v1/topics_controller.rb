@@ -43,29 +43,29 @@ class Api::V1::TopicsController < Api::V1Controller
   def index # rubocop:disable all
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
-    topics_scope = Topics::Query.fetch current_user, locale_from_host, censored_forbidden?
+    query = Topics::Query.fetch locale_from_host, censored_forbidden?
 
     if params[:forum]
       forum = Forum.find_by_permalink params[:forum] # rubocop:disable Rails/DynamicFindBy
-      topics_scope = topics_scope.by_forum forum, current_user, censored_forbidden?
+      query = query.by_forum forum, current_user, censored_forbidden?
     end
 
     if params[:linked_id] && params[:linked_type]
       linked = params[:linked_type].constantize.find_by(id: params[:linked_id])
-      topics_scope = topics_scope.by_linked linked
+      query = query.by_linked linked
     else
-      topics_scope = topics_scope.where linked_id: params[:linked_id] if params[:linked_id]
-      topics_scope = topics_scope.where linked_type: params[:linked_type] if params[:linked_type]
+      query = query.where linked_id: params[:linked_id] if params[:linked_id]
+      query = query.where linked_type: params[:linked_type] if params[:linked_type]
     end
 
-    topics_scope = topics_scope.where type: params[:type] if params[:type]
+    query = query.where type: params[:type] if params[:type]
 
-    @collection = topics_scope
+    @collection = query
       .includes(:forum, :user)
       .offset(@limit * (@page - 1))
       .limit(@limit + 1)
-      .filter { |topic| can? :read, topic }
-      .map { |topic| Topics::TopicViewFactory.new(true, false).build topic }
+      .filter_by_policy(current_user)
+      .as_views(true, false)
 
     respond_with @collection, each_serializer: TopicSerializer
   end

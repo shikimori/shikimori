@@ -230,8 +230,7 @@ class Api::V1::MangasController < Api::V1Controller # rubocop:disable ClassLengt
   def topics
     @limit = [[params[:limit].to_i, 1].max, Api::V1::TopicsController::LIMIT].min
 
-    @collection = Topics::Query
-      .new(@resource.all_topics)
+    @collection = Topics::Query.new(@resource.all_topics)
       .where(locale: locale_from_host)
       .includes(:forum, :user)
       .offset(@limit * (@page - 1))
