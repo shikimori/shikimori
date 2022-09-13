@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe ClubsController do
   describe '#index' do
     let!(:club) { create :club, :with_topics, id: 999_999 }

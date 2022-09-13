@@ -1,16 +1,16 @@
 class ClubsController < ShikimoriController
   include CanCanGet404Concern
+
   load_and_authorize_resource :club, only: %i[new create]
+  before_action :fetch_resource, if: :resource_id
   authorize_resource :club, except: %i[index autocomplete new create]
 
-  before_action { og page_title: i18n_i('Club', :other) }
-
-  before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
   before_action :restrict_domain, if: :resource_id
 
   before_action :set_breadcrumbs
   before_action :restrict_private, if: :resource_id
+  before_action { og page_title: i18n_i('Club', :other) }
 
   UPDATE_PARAMS = [
     :name,
@@ -54,6 +54,9 @@ class ClubsController < ShikimoriController
   end
 
   def show
+    ap 'SHOW ACTION'
+    ap current_user
+    binding.pry
     og noindex: true
   end
 
