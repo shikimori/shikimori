@@ -115,9 +115,7 @@ describe Messages::CreateNotification do
     subject! { service.round_finished }
 
     it do
-      contest.topics.each do |topic|
-        expect(topic.comments).to have(1).item
-      end
+      expect(contest.topi.comments).to have(1).item
     end
   end
 
@@ -127,9 +125,8 @@ describe Messages::CreateNotification do
     subject! { service.contest_started }
 
     it do
-      target.topics.each do |topic|
-        expect(topic.comments).to have(1).item
-      end
+      expect(target.topic.comments).to have(1).item
+
       target.news_topics.each do |topic|
         expect(topic).to have_attributes(
           linked: target,
@@ -148,9 +145,8 @@ describe Messages::CreateNotification do
     subject! { service.contest_finished }
 
     it do
-      target.topics.each do |topic|
-        expect(topic.comments).to have(1).item
-      end
+      expect(target.topic.comments).to have(1).item
+      
       target.news_topics.each do |topic|
         expect(topic).to have_attributes(
           linked: target,

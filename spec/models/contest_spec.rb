@@ -251,7 +251,7 @@ describe Contest do
 
     describe '#generate_missing_topics' do
       before do
-        allow(subject.topics).to receive(:none?).and_return is_none
+        allow(subject.topic).to receive(:none?).and_return is_none
         allow(subject).to receive :generate_topic
         subject.send :generate_missing_topics
       end

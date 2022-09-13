@@ -76,7 +76,7 @@ describe Collection::Update do
         text: 'xx3'
       )
 
-      expect(collection.topics.first).to have_attributes(
+      expect(collection.topic).to have_attributes(
         id: topic.id,
         forum_id: Forum::HIDDEN_ID
       )
@@ -98,12 +98,12 @@ describe Collection::Update do
         expect(collection.created_at).to be_within(0.1).of Time.zone.now
         expect(collection.changed_at).to be_within(0.1).of Time.zone.now
 
-        expect(collection.topics).to have(1).item
-        expect(collection.topics.first).to have_attributes(
+        expect(collection.topic).to be_present
+        expect(collection.topic).to have_attributes(
           id: topic.id,
           forum_id: Topic::FORUM_IDS['Collection']
         )
-        expect(collection.topics.first.created_at).to be_within(0.1).of Time.zone.now
+        expect(collection.topic.created_at).to be_within(0.1).of Time.zone.now
       end
 
       context 'rejected collection' do
@@ -111,7 +111,7 @@ describe Collection::Update do
 
         it do
           is_expected.to be_nil
-          expect(collection.topics.first).to have_attributes(
+          expect(collection.topic).to have_attributes(
             forum_id: Forum::OFFTOPIC_ID
           )
         end

@@ -115,7 +115,7 @@ shared_examples :moderatable_concern do |type|
 
         it do
           expect(model).to_not be_changed
-          expect(model.topic(model.locale).forum_id).to eq Forum::OFFTOPIC_ID
+          expect(model.topic.forum_id).to eq Forum::OFFTOPIC_ID
         end
       end
 

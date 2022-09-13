@@ -2,15 +2,14 @@ describe Search::Collection do
   before do
     allow(Elasticsearch::Query::Collection)
       .to receive(:call)
-      .with(phrase: phrase, limit: ids_limit, locale: locale)
+      .with(phrase: phrase, limit: ids_limit)
       .and_return results
   end
   subject do
     described_class.call(
       scope: scope,
       phrase: phrase,
-      ids_limit: ids_limit,
-      locale: locale
+      ids_limit: ids_limit
     )
   end
 
@@ -18,7 +17,6 @@ describe Search::Collection do
     let(:scope) { Collection.all }
     let(:phrase) { 'zxct' }
     let(:ids_limit) { 2 }
-    let(:locale) { 'ru' }
 
     let(:results) { { collection_1.id => 0.123123 } }
 

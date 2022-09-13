@@ -211,7 +211,6 @@ describe ClubsController do
 
     before do
       allow(Elasticsearch::Query::Club).to receive(:call).with(
-        locale: :ru,
         phrase: phrase,
         limit: Collections::Query::SEARCH_LIMIT
       ).and_return(

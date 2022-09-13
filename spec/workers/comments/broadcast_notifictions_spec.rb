@@ -6,7 +6,7 @@ describe Comments::BroadcastNotifications do
     let!(:comment) do
       create :comment,
         user: user_1,
-        commentable: club.topics.first
+        commentable: club.topic
     end
 
     let!(:user_1) { create :user }

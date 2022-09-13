@@ -17,6 +17,10 @@ FactoryBot.define do
       trait(value.to_sym) { moderation_state { value } }
     end
 
+    trait :with_topics do
+      after(:create) { |model| model.generate_topic }
+    end
+
     after :build do |model|
       stub_method model, :antispam_checks
     end

@@ -24,8 +24,8 @@ describe Critique::Create do
       expect(critique).to be_persisted
       expect(critique.errors).to be_empty
 
-      expect(critique.topics).to have(1).item
-      expect(critique.topics.first.is_censored).to eq is_censored
+      expect(critique.topic).to be_present
+      expect(critique.topic.is_censored).to eq is_censored
     end
   end
 
@@ -44,7 +44,7 @@ describe Critique::Create do
     it do
       expect(critique).to be_new_record
       expect(critique.errors).to be_present
-      expect(critique.topics).to be_empty
+      expect(critique.topic).to_not be_present
     end
   end
 end

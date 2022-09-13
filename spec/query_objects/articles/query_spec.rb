@@ -21,7 +21,6 @@ describe Articles::Query do
         before do
           allow(Elasticsearch::Query::Article).to receive(:call).with(
             phrase: phrase,
-            locale: 'ru',
             limit: Articles::Query::SEARCH_LIMIT
           ).and_return(
             article_3.id => 987,

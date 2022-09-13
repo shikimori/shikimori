@@ -1,5 +1,5 @@
 describe Topics::HotTopicsQuery do
-  subject { Topics::HotTopicsQuery.call limit: 8, locale: 'ru' }
+  subject { Topics::HotTopicsQuery.call limit: 8 }
 
   describe '#call' do
     describe 'order by comments count' do
@@ -23,7 +23,7 @@ describe Topics::HotTopicsQuery do
     end
 
     describe 'filter by topic locale' do
-      let!(:en_topic) { create :topic, locale: :en }
+      let!(:en_topic) { create :topic }
 
       let!(:comment_1) do
         create :comment,
@@ -39,7 +39,7 @@ describe Topics::HotTopicsQuery do
 
       let!(:comment_1) do
         create :comment,
-          commentable: club.topics.first,
+          commentable: club.topic,
           created_at: (Topics::HotTopicsQuery::INTERVAL - 1.minute).ago
       end
       let!(:comment_2) do

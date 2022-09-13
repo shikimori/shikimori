@@ -4,11 +4,11 @@ describe Elasticsearch::Query::Collection, :vcr do
   include_context :chewy_indexes, %i[collections]
   # include_context :chewy_logger
 
-  subject { described_class.call phrase: phrase, limit: ids_limit, locale: locale }
+  subject { described_class.call phrase: phrase, limit: ids_limit }
 
-  let!(:collection_1) { create :collection, name: 'test', locale: 'ru' }
-  let!(:collection_2) { create :collection, name: 'test zxct', locale: 'ru' }
-  let!(:collection_3) { create :collection, name: 'test 2', locale: 'en' }
+  let!(:collection_1) { create :collection, name: 'test' }
+  let!(:collection_2) { create :collection, name: 'test zxct' }
+  let!(:collection_3) { create :collection, name: 'test 2' }
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }

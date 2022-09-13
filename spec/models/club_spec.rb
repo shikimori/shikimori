@@ -612,7 +612,7 @@ describe Club do
       let(:model) { build_stubbed :club }
 
       describe '#generate_topic' do
-        let(:topics) { model.topics }
+        let(:topics) { model.topic }
         before { model.generate_topic }
 
         it do

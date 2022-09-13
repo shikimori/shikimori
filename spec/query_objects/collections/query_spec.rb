@@ -21,7 +21,6 @@ describe Collections::Query do
         before do
           allow(Elasticsearch::Query::Collection).to receive(:call).with(
             phrase: phrase,
-            locale: 'ru',
             limit: Collections::Query::SEARCH_LIMIT
           ).and_return(
             collection_3.id => 987,

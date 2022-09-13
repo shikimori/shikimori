@@ -13,8 +13,7 @@ describe Critiques::Query do
   end
 
   describe '#call' do
-    subject { described_class.call db_entry, locale: locale, id: id }
-    let(:locale) { :ru }
+    subject { described_class.call db_entry, id: id }
 
     describe 'with_id' do
       let(:id) { @critiques[0].id }

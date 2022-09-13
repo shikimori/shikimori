@@ -5,7 +5,7 @@ describe Forums::Menu do
 
   describe '#club_topics' do
     let!(:club_topic) { create :club_topic, linked: create(:club) }
-    let!(:club_topic_en) { create :club_topic, linked: create(:club), locale: :en }
+    let!(:club_topic_en) { create :club_topic, linked: create(:club) }
 
     it { expect(view.club_topics).to eq [club_topic] }
   end
@@ -22,7 +22,7 @@ describe Forums::Menu do
     let(:user_en) { build_stubbed :user }
 
     let!(:critique) { create :critique }
-    let!(:critique_en) { create :critique, user: user_en, locale: :en }
+    let!(:critique_en) { create :critique, user: user_en }
 
     it { expect(view.critiques).to eq [critique] }
   end

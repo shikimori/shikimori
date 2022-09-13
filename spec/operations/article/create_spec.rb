@@ -18,7 +18,7 @@ describe Article::Create do
         state: 'unpublished'
       )
       expect(article.errors).to be_empty
-      expect(article.topics.first).to have_attributes(
+      expect(article.topic).to have_attributes(
         linked: article,
         type: Topics::EntryTopics::ArticleTopic.name,
         forum_id: Forum::HIDDEN_ID
@@ -31,7 +31,7 @@ describe Article::Create do
     it do
       expect(article).to be_new_record
       expect(article).to_not be_valid
-      expect(article.topics).to be_empty
+      expect(article.topic).to_not be_present
     end
   end
 end

@@ -10,6 +10,10 @@ FactoryBot.define do
       stub_method model, :antispam_checks
     end
 
+    trait :with_topics do
+      after(:create) { |model| model.generate_topic }
+    end
+
     trait :with_antispam do
       after(:build) { |model| unstub_method model, :antispam_checks }
     end

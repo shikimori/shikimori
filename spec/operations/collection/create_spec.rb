@@ -19,8 +19,8 @@ describe Collection::Create do
         state: 'unpublished'
       )
       expect(collection.errors).to be_empty
-      expect(collection.topics).to have(1).item
-      expect(collection.topics.first).to have_attributes(
+      expect(collection.topic).to be_present
+      expect(collection.topic).to have_attributes(
         linked: collection,
         type: Topics::EntryTopics::CollectionTopic.name,
         forum_id: Forum::HIDDEN_ID
@@ -33,7 +33,7 @@ describe Collection::Create do
     it do
       expect(collection).to be_new_record
       expect(collection).to_not be_valid
-      expect(collection.topics).to be_empty
+      expect(collection.topic).to_not be_present
     end
   end
 end

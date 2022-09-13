@@ -2,7 +2,6 @@ describe Clubs::Query do
   include_context :timecop
 
   let(:query) { described_class.fetch user }
-  let(:locale) { :ru }
 
   let!(:club_1) { create :club, :with_topics }
   let!(:club_2) { create :club, :with_topics }
@@ -61,7 +60,6 @@ describe Clubs::Query do
         before do
           allow(Elasticsearch::Query::Club).to receive(:call).with(
             phrase: phrase,
-            locale: 'ru',
             limit: Clubs::Query::SEARCH_LIMIT
           ).and_return(
             club_censored.id => 987,

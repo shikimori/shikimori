@@ -33,6 +33,10 @@ FactoryBot.define do
       stub_method model, :sync_topics_is_censored
     end
 
+    trait :with_topics do
+      after(:create) { |model| model.generate_topic }
+    end
+
     trait :with_sync_topics_is_censored do
       after(:build) { |model| unstub_method model, :sync_topics_is_censored }
     end

@@ -10,7 +10,7 @@ shared_examples :topics_concern do |db_entry|
       let(:model) { build_stubbed db_entry }
 
       describe '#generate_topic' do
-        let(:topics) { model.topics }
+        let(:topics) { model.topic }
         before { model.generate_topic }
 
         it do

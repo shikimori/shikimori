@@ -8,11 +8,9 @@ describe Topics::ForumQuery do
     )
   end
 
-  let(:scope) { Topics::Query.fetch user, locale, is_censored_forbidden }
+  let(:scope) { Topics::Query.fetch user, is_censored_forbidden }
   let(:forum) { nil }
   let(:is_censored_forbidden) { false }
-
-  let(:locale) { :ru }
 
   let(:all_sticky_topics) do
     [
@@ -95,7 +93,7 @@ describe Topics::ForumQuery do
   context 'user defined forums' do
     before do
       user.preferences.forums = forums if user
-      critique.topic(locale).update_column :updated_at, critique.updated_at
+      critique.topic.update_column :updated_at, critique.updated_at
     end
 
     context 'no user' do
@@ -104,7 +102,7 @@ describe Topics::ForumQuery do
         is_expected.to eq(
           [anime_topic] +
             all_sticky_topics +
-            [critique.topic(locale)]
+            [critique.topic]
         )
       end
     end
@@ -120,7 +118,7 @@ describe Topics::ForumQuery do
         is_expected.to eq [
           joined_censored_club_user_topic,
           joined_censored_club_page_topic,
-          joined_censored_club.topic(locale)
+          joined_censored_club.topic
         ]
       end
     end
@@ -143,7 +141,7 @@ describe Topics::ForumQuery do
 
   context 'critiques' do
     let(:forum) { critiques_forum }
-    it { is_expected.to eq [critique.topic(locale)] }
+    it { is_expected.to eq [critique.topic] }
   end
 
   context 'news' do
@@ -191,8 +189,8 @@ describe Topics::ForumQuery do
       is_expected.to eq [
         joined_censored_club_user_topic,
         joined_censored_club_page_topic,
-        joined_censored_club.topic(locale),
-        joined_censored_club_2.topic(locale)
+        joined_censored_club.topic,
+        joined_censored_club_2.topic
       ]
     end
 
@@ -201,8 +199,8 @@ describe Topics::ForumQuery do
         is_expected.to eq [
           joined_censored_club_user_topic,
           joined_censored_club_page_topic,
-          joined_censored_club.topic(locale),
-          joined_censored_club_2.topic(locale)
+          joined_censored_club.topic,
+          joined_censored_club_2.topic
         ]
       end
     end
@@ -229,12 +227,12 @@ describe Topics::ForumQuery do
         is_expected.to eq [
           joined_censored_club_user_topic,
           joined_censored_club_page_topic,
-          joined_censored_club.topic(locale),
+          joined_censored_club.topic,
           another_censored_club_user_topic,
           another_censored_club_page_topic,
-          another_censored_club.topic(locale),
-          joined_censored_club_2.topic(locale),
-          another_club_2.topic(locale)
+          another_censored_club.topic,
+          joined_censored_club_2.topic,
+          another_club_2.topic
         ]
       end
     end
@@ -242,7 +240,7 @@ describe Topics::ForumQuery do
     context 'censored forbidden' do
       let(:is_censored_forbidden) { true }
       it do
-        is_expected.to eq [another_club_2.topic(locale)]
+        is_expected.to eq [another_club_2.topic]
       end
     end
   end
