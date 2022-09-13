@@ -178,9 +178,11 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
 
     scope = Comment
       .where(user: @resource.object)
-      .where(params[:phrase].present? ?
-        "body ilike #{ApplicationRecord.sanitize "%#{params[:phrase]}%"}" :
-        nil)
+      .where(
+        params[:phrase].present? ?
+          "body ilike #{ApplicationRecord.sanitize "%#{params[:phrase]}%"}" :
+          nil
+      )
       .order(id: :desc)
 
     @collection = QueryObjectBase.new(scope)

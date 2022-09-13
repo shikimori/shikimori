@@ -124,7 +124,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   def cache_keys # rubocop:disable AbcSize
     {
       admin: [admin_area?, CACHE_VERSION],
-      ongoings: [:ongoings, rand(5), CACHE_VERSION],
+      ongoings: [:ongoings, cache_variant, CACHE_VERSION],
       collections: [collections_scope.cache_key, CACHE_VERSION],
       articles: [articles_scope.cache_key, CACHE_VERSION],
       critiques: [critiques_scope.cache_key, CACHE_VERSION],

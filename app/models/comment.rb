@@ -15,6 +15,8 @@ class Comment < ApplicationRecord
   belongs_to :user,
     touch: Rails.env.test? ? false : :activity_at
   belongs_to :commentable, polymorphic: true
+  # TODO: delete since rails supports now include of polymorphic associations
+  # TODO: Also replace `Comment.includes(:topic)` with `Comment.includes(:commentable)` in code
   belongs_to :topic,
     optional: true,
     class_name: 'Topic',
@@ -22,15 +24,15 @@ class Comment < ApplicationRecord
     inverse_of: :comments
 
   has_many :abuse_requests, -> { order :id },
-    dependent: :destroy,
-    inverse_of: :comment
-  has_many :bans, -> { order :id },
+    inverse_of: :comment,
+    dependent: :destroy
+  has_many :bans, -> { order :id }, # rubocop:disable Rails/HasManyOrHasOneDependent
     inverse_of: :comment
 
   has_many :messages, -> { where linked_type: Comment.name },
     foreign_key: :linked_id,
-    dependent: :destroy,
-    inverse_of: :linked
+    inverse_of: :linked,
+    dependent: :destroy
 
   boolean_attributes :summary, :offtopic
 
