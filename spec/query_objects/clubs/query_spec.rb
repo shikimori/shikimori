@@ -54,7 +54,7 @@ describe Clubs::Query do
     end
 
     describe '#search' do
-      subject { query.search phrase, 'ru' }
+      subject { query.search phrase }
 
       context 'present search phrase' do
         before do

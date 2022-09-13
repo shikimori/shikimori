@@ -48,13 +48,6 @@ describe Topics::Generate::Topic do
         create :"#{model.class.name.underscore}_topic",
           linked: model
       end
-
-      context 'for the same locale' do
-        it 'does not generate new topic' do
-          expect { subject }.not_to change(Topic, :count)
-          is_expected.to eq topic
-        end
-      end
     end
   end
 

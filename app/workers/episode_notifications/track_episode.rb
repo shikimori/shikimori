@@ -34,8 +34,7 @@ private
         commentable_type: Topic.name,
         user: reporter
       },
-      faye: faye,
-      locale: 'ru'
+      faye: faye
     )
     Comment::Broadcast.call comment
 

@@ -31,7 +31,7 @@ describe Messages::CreateNotification do
           kind: MessageType::NOTIFICATION,
           linked: target,
           body: <<-BODY.squish.strip
-            Твоя [entry=#{target.topic(:ru).id}]рецензия[/entry]
+            Твоя [entry=#{target.topic.id}]рецензия[/entry]
             перенесена в оффтоп по причине
             [quote=#{approver.nickname}]#{reason}[/quote]
           BODY
@@ -51,7 +51,7 @@ describe Messages::CreateNotification do
           kind: MessageType::NOTIFICATION,
           linked: target,
           body: <<-BODY.squish.strip
-            Твоя [entry=#{target.topic(:ru).id}]рецензия[/entry]
+            Твоя [entry=#{target.topic.id}]рецензия[/entry]
             перенесена в оффтоп.
           BODY
         )
@@ -115,7 +115,7 @@ describe Messages::CreateNotification do
     subject! { service.round_finished }
 
     it do
-      expect(contest.topi.comments).to have(1).item
+      expect(contest.topic.comments).to have(1).item
     end
   end
 

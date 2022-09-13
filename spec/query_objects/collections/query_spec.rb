@@ -1,5 +1,5 @@
 describe Collections::Query do
-  let(:query) { Collections::Query.fetch(:ru) }
+  let(:query) { Collections::Query.fetch }
 
   include_context :timecop
 
@@ -15,7 +15,7 @@ describe Collections::Query do
     it { is_expected.to eq [collection_3, collection_2, collection_1] }
 
     describe '#search' do
-      subject { query.search phrase, 'ru' }
+      subject { query.search phrase }
 
       context 'present search phrase' do
         before do

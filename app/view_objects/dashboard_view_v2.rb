@@ -238,7 +238,7 @@ private
 
   def news_scope
     Topics::Query
-      .fetch(h.censored_forbidden?)
+      .fetch(h.current_user, h.censored_forbidden?)
       .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
       .except(:order)
       .order(is_pinned: :desc, created_at: :desc)
@@ -246,7 +246,7 @@ private
 
   def db_updates_scope
     Topics::Query
-      .fetch(true) # always hide hentai on the main page
+      .fetch(h.current_user, true) # always hide hentai on the main page
       .by_forum(Forum::UPDATES_FORUM, h.current_user, true) # always hide hentai on the main page
       .where(TOPICS_EXCEPT_EXCLUDED_SQL)
 

@@ -15,7 +15,7 @@ describe Articles::Query do
     it { is_expected.to eq [article_3, article_2, article_1] }
 
     describe '#search' do
-      subject { query.search phrase, 'ru' }
+      subject { query.search phrase }
 
       context 'present search phrase' do
         before do

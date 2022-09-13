@@ -36,12 +36,5 @@ describe Topics::Generate::News::AnonsTopic do
         action: AnimeHistoryAction::Anons,
         value: nil
     end
-
-    context 'for the same locale' do
-      it do
-        expect { subject }.not_to change(Topic, :count)
-        is_expected.to eq topic
-      end
-    end
   end
 end

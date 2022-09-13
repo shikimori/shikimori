@@ -25,10 +25,8 @@ class Messages::CreateNotification # rubocop:disable ClassLength
       'moderatable_banned.without_reason',
       topic_id: @target.topic.id,
       entry_name: I18n.t(
-        "activerecord.models.#{@target.class.name.downcase}",
-        locale: @target.locale.to_sym
-      ).downcase,
-      locale: @target.locale
+        "activerecord.models.#{@target.class.name.downcase}"
+      ).downcase
     )
 
     body +=
@@ -71,23 +69,19 @@ class Messages::CreateNotification # rubocop:disable ClassLength
   end
 
   def round_finished
-    @target.contest.topics.each do |topic|
-      create_comment(
-        @target.contest.user,
-        topic,
-        "[contest_round_status=#{@target.id} finished]"
-      )
-    end
+    create_comment(
+      @target.contest.user,
+      @target.contest.topic,
+      "[contest_round_status=#{@target.id} finished]"
+    )
   end
 
   def contest_started
-    @target.topics.each do |topic|
-      create_comment(
-        @target.user,
-        topic,
-        "[contest_status=#{@target.id} started]"
-      )
-    end
+    create_comment(
+      @target.user,
+      @target.topic,
+      "[contest_status=#{@target.id} started]"
+    )
 
     Topics::Generate::News::ContestStatusTopic.call(
       model: @target,
@@ -97,13 +91,11 @@ class Messages::CreateNotification # rubocop:disable ClassLength
   end
 
   def contest_finished
-    @target.topics.each do |topic|
-      create_comment(
-        @target.user,
-        topic,
-        "[contest_status=#{@target.id} finished]"
-      )
-    end
+    create_comment(
+      @target.user,
+      @target.topic,
+      "[contest_status=#{@target.id} finished]"
+    )
 
     Topics::Generate::News::ContestStatusTopic.call(
       model: @target,

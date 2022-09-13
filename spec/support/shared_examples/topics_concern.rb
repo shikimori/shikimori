@@ -10,12 +10,11 @@ shared_examples :topics_concern do |db_entry|
       let(:model) { build_stubbed db_entry }
 
       describe '#generate_topic' do
-        let(:topics) { model.topic }
+        let(:topic) { model.topic }
         before { model.generate_topic }
 
         it do
-          expect(topics).to have(1).item
-          expect(topics.first).to eq 'en'
+          expect(topic).to be_present
         end
       end
 
@@ -34,16 +33,9 @@ shared_examples :topics_concern do |db_entry|
         let(:topic) { model.maybe_topic }
         before { model.generate_topic }
 
-        context 'with topic ' do
+        context 'with topic' do
           it do
             expect(topic).to be_present
-          end
-        end
-
-        context 'without topic' do
-          it do
-            expect(topic).to be_present
-            expect(topic).to be_instance_of NoTopic
             expect(topic.linked).to eq model
           end
         end

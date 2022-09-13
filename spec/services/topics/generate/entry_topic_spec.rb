@@ -8,7 +8,6 @@ describe Topics::Generate::EntryTopic do
     )
   end
 
-  let(:locale) { 'ru' }
   let(:user) { BotsService.get_poster }
 
   shared_examples_for :topic do
@@ -32,14 +31,6 @@ describe Topics::Generate::EntryTopic do
       let!(:topic) do
         create :"#{model.class.name.underscore}_topic",
           linked: model
-      end
-
-      context 'for the same locale' do
-        let(:topic_locale) { 'ru' }
-        it 'does not generate new topic' do
-          expect { subject }.not_to change(Topic, :count)
-          is_expected.to eq topic
-        end
       end
     end
   end

@@ -148,12 +148,10 @@ private
 
   def merge_comments # rubocop:disable MethodLength
     @entry_topic = @entry.maybe_topic
-    next if @entry_topic.comments_count.zero?
-
     @other_topic = @other.maybe_topic
 
     unless @other_topic.persisted?
-      @other_topic = @other.generate_topic.first
+      @other_topic = @other.generate_topic
     end
 
     @entry_topic

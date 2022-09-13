@@ -612,11 +612,11 @@ describe Club do
       let(:model) { build_stubbed :club }
 
       describe '#generate_topic' do
-        let(:topics) { model.topic }
+        let(:topic) { model.topic }
         before { model.generate_topic }
 
         it do
-          expect(topics).to have(1).item
+          expect(topic).to be_present
         end
       end
 

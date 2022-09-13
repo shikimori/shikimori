@@ -1,5 +1,5 @@
 describe ModerationPolicy do
-  let(:policy) { ModerationPolicy.new user, :ru, moderation_filter }
+  let(:policy) { ModerationPolicy.new user, moderation_filter }
   let(:moderation_filter) { true }
 
   describe '#critiques_count' do
@@ -77,7 +77,7 @@ describe ModerationPolicy do
   describe '#news_count' do
     before do
       allow(Topics::NewsTopic)
-        .to receive_message_chain(:pending, :where, :size)
+        .to receive_message_chain(:pending, :where)
         .and_return(news_count)
     end
     let(:news_count) { 1 }

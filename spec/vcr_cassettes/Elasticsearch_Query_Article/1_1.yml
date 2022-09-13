@@ -483,4 +483,124 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_articles"}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_articles/article/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":1}}
+        {"name":"test"}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.3; linux x86_64; Faraday v1.8.0)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '202'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":540,"errors":false,"items":[{"index":{"_index":"shikimori_test_articles","_type":"article","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":2,"status":201}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_articles/article/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":2}}
+        {"name":"test zxct"}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.3; linux x86_64; Faraday v1.8.0)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '201'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":323,"errors":false,"items":[{"index":{"_index":"shikimori_test_articles","_type":"article","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":2,"status":201}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_articles/article/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":3}}
+        {"name":"test 2"}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.3; linux x86_64; Faraday v1.8.0)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '203'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":463,"errors":false,"items":[{"index":{"_index":"shikimori_test_articles","_type":"article","_id":"3","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":2,"_primary_term":2,"status":201}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/shikimori_test_articles/article/_search?rest_total_hits_as_int=true
+    body:
+      encoding: UTF-8
+      string: '{"size":10,"query":{"dis_max":{"queries":[{"match":{"name.original":{"query":"test","boost":400}}},{"match":{"name.edge_phrase":{"query":"test","boost":50}}},{"match":{"name.edge_word":{"query":"test","boost":20}}},{"match":{"name.ngram":{"query":"test"}}}],"tie_breaker":0,"boost":1}}}'
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.3; linux x86_64; Faraday v1.8.0)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '219'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":7,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":3,"max_score":444.44446,"hits":[{"_index":"shikimori_test_articles","_type":"article","_id":"1","_score":444.44446,"_source":{"name":"test"}},{"_index":"shikimori_test_articles","_type":"article","_id":"2","_score":55.555557,"_source":{"name":"test
+        zxct"}},{"_index":"shikimori_test_articles","_type":"article","_id":"3","_score":55.555557,"_source":{"name":"test
+        2"}}]}}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.1.0

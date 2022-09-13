@@ -8,8 +8,6 @@ class ClubsController < ShikimoriController
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
 
-  before_action :restrict_domain, if: :resource_id
-
   before_action :set_breadcrumbs
   before_action :restrict_private, if: :resource_id
 

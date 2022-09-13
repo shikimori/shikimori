@@ -190,7 +190,7 @@ private
 
   def all_critique_topic_views
     Topics::Query
-      .fetch(h.censored_forbidden?)
+      .fetch(h.current_user, h.censored_forbidden?)
       .by_forum(critiques_forum, h.current_user, h.censored_forbidden?)
       .limit(REVIEWS_FETCH)
       .as_views(true, true)

@@ -40,23 +40,5 @@ describe Topics::Generate::News::EpisodeTopic do
         action: AnimeHistoryAction::Episode,
         value: topic_episodes_aired
     end
-
-    context 'for the same locale' do
-      context 'for prior episode' do
-        let(:topic_episodes_aired) { episode - 1 }
-        it 'generates topic' do
-          is_expected.not_to eq topic
-          is_expected.to be_persisted
-        end
-      end
-
-      context 'for current episode' do
-        let(:topic_episodes_aired) { episode }
-        it 'does not generate topic' do
-          expect { subject }.not_to change(Topic, :count)
-          is_expected.to eq topic
-        end
-      end
-    end
   end
 end

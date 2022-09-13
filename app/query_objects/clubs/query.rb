@@ -4,8 +4,8 @@ class Clubs::Query < QueryObjectBase
 
   def self.fetch user
     scope = new Club
-      .joins(:topics)
-      .preload(:owner, :topics)
+      .joins(:topic)
+      .preload(:owner, :topic)
       .order(Arel.sql('topics.updated_at desc, id'))
 
     if user
