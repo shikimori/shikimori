@@ -22,13 +22,13 @@ describe ClubsController, type: :controller do
   context 'shadowbanned club' do
     let(:is_shadowbanned) { true }
 
-    context 'guest', :focus do
-      include_examples :has_no_access_got_404
+    context 'guest' do
+      include_examples :has_no_access
     end
 
     context 'user' do
       include_context :authenticated, :user
-      include_examples :has_no_access_got_404
+      include_examples :has_no_access
     end
 
     context 'club member' do

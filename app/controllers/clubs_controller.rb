@@ -54,9 +54,6 @@ class ClubsController < ShikimoriController
   end
 
   def show
-    ap 'SHOW ACTION'
-    ap current_user
-    binding.pry
     og noindex: true
   end
 

@@ -6,8 +6,8 @@ shared_examples :has_access do
   end
 end
 
-shared_examples :has_no_access_got_404 do
-  it 'has_no_access_got_404' do
-    expect { subject }.to raise_error ActiveRecord::RecordNotFound
+shared_examples :has_no_access do
+  it 'has_no_access' do
+    expect { subject }.to raise_error CanCan::AccessDenied
   end
 end
