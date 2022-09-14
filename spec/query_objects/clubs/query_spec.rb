@@ -10,6 +10,7 @@ describe Clubs::Query do
   let!(:club_en) { create :club, :with_topics, locale: :en }
   let!(:club_shadowbanned) { create :club, :with_topics, :shadowbanned }
   let!(:club_favoured) { create :club, :with_topics, id: Clubs::Query::FAVOURED_IDS.max }
+  let!(:club_private) { create :club, :with_topics, :private }
 
   describe '.fetch' do
     subject { query }

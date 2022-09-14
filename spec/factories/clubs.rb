@@ -17,6 +17,7 @@ FactoryBot.define do
     trait(:censored) { is_censored { true } }
     trait(:non_thematic) { is_non_thematic { true } }
     trait(:shadowbanned) { is_shadowbanned { true } }
+    trait(:private) { is_private { true } }
 
     after :build do |model|
       stub_method model, :antispam_checks
