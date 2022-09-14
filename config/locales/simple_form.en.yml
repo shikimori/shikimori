@@ -80,6 +80,8 @@ en:
       list_import:
         list: Import supports Shikimori JSON and MyAnimeList XML lists (15mb max)
       club:
+        is_censored: Required option for clubs with "adult" images and texts
+        is_private: Club content is only visible to club members and moderators
         is_non_thematic: Non thematic clubs are not displayed on anime and manga pages
         is_shadowbanned: Hides the club from everyone except its members
       club_page:

@@ -21,9 +21,6 @@ ru:
         pages: Страницы
 
     edit:
-      main:
-        required_option_for_adult_clubs: >-
-          Обязательная опция для клубов со "взрослыми" картинками и текстами
       members:
         remove_users: Удаление пользователей
 

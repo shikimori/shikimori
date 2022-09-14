@@ -23,6 +23,7 @@ class ClubsController < ShikimoriController
     :image_upload_policy,
     :logo,
     :is_censored,
+    :is_private,
     anime_ids: [],
     manga_ids: [],
     ranobe_ids: [],

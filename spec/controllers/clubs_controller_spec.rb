@@ -86,7 +86,13 @@ describe ClubsController do
             section: 'description'
           }
       end
-      let(:params) { { name: 'test club' } }
+      let(:params) do
+        {
+          name: 'test club',
+          is_censored: [true, false].sample,
+          is_private: [true, false].sample
+        }
+      end
 
       it do
         expect(resource.errors).to be_empty

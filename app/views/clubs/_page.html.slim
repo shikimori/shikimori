@@ -16,7 +16,7 @@ header.head
         span.censored
           | &nbsp;&nbsp;[18+]
       - if can? :manage_restrictions, Club
-        - if @club.private?
+        - if @club.is_private
           span.b-tooltipped.unprocessed.private[
             title=Club.human_attribute_name(:is_private)
             data-direction='top'

@@ -21,9 +21,6 @@ en:
         pages: Pages
 
     edit:
-      main:
-        required_option_for_adult_clubs: >-
-          Required option for clubs with "adult" images and texts
       members:
         remove_users: Remove users
 
