@@ -66,7 +66,7 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def cache_variant
-    rand(4).to_i
+    rand(6).to_i
   end
 
   def db_others klass

@@ -248,6 +248,14 @@ private
       src: '/assets/globals/events/2022-09-14/wide_4.jpg',
       src_2x: '/assets/globals/events/2022-09-14/wide_4@2x.jpg',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner4&utm_campaign=14_09'
+    }, {
+      src: '/assets/globals/events/2022-09-14/wide_5.jpg',
+      src_2x: '/assets/globals/events/2022-09-14/wide_5@2x.jpg',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner5&utm_campaign=14_09'
+    }, {
+      src: '/assets/globals/events/2022-09-14/wide_6.jpg',
+      src_2x: '/assets/globals/events/2022-09-14/wide_6@2x.jpg',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner6&utm_campaign=14_09'
     }],
     # images: (1..1).map do |i|
     #   {
