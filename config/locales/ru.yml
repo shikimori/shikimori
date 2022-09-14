@@ -282,6 +282,7 @@ ru:
         is_censored: Содержит материалы для взрослых (18+)
         is_non_thematic: Не тематический
         is_shadowbanned: Теневой бан
+        is_private: Приватный
         logo: Логотип
       collection:
         name: Название

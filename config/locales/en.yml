@@ -282,6 +282,7 @@ en:
         is_censored: Contains adult content (18+)
         is_non_thematic: Non thematic
         is_shadowbanned: Shadowban
+        is_private: Приватный
         logo: Logo
       collection:
         name: Name
