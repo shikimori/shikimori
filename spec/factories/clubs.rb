@@ -12,6 +12,7 @@ FactoryBot.define do
     is_censored { false }
     is_non_thematic { false }
     is_shadowbanned { false }
+    is_private { false }
 
     trait(:censored) { is_censored { true } }
     trait(:non_thematic) { is_non_thematic { true } }
