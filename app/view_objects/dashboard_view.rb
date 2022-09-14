@@ -1,4 +1,6 @@
 class DashboardView < ViewObjectBase # rubocop:disable ClassLength
+  instance_cache :cache_variant
+
   CACHE_VERSION = :v8
 
   ONGOINGS_FETCH = 24
@@ -61,6 +63,10 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
     (Manga.kind.values - Ranobe::KINDS).map do |kind|
       Titles::KindTitle.new kind, Manga
     end
+  end
+
+  def cache_variant
+    rand(4).to_i
   end
 
   def db_others klass
@@ -137,7 +143,7 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
       .first
 
     {
-      ongoings: [:ongoings, rand(5), CACHE_VERSION],
+      ongoings: [:ongoings, rand(10), CACHE_VERSION],
       critiques: [Critique.order(id: :desc).first, CACHE_VERSION],
       critiques_index: rand(REVIEWS_FETCH), # to randomize critiques output
       news: [:news, news_key, CACHE_VERSION],
