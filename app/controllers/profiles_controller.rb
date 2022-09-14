@@ -176,19 +176,11 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     og noindex: true
     og page_title: i18n_io('Comment', :few)
 
-    scope = Comment
-      .where(user: @resource.object)
-      .where(
-        params[:phrase].present? ?
-          "body ilike #{ApplicationRecord.sanitize "%#{params[:phrase]}%"}" :
-          nil
-      )
-      .order(id: :desc)
-
-    @collection = QueryObjectBase.new(scope)
+    @collection = Comments::UserQuery.fetch(@resource)
+      .search(params[:search])
       .paginate(@page, COMMENTS_LIMIT)
-      .lazy_filter { |comment| can? :read, comment }
       .lazy_map { |comment| SolitaryCommentDecorator.new comment }
+      .filter_by_policy(current_user)
   end
 
   def versions

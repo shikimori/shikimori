@@ -37,6 +37,8 @@ class Topics::Query < QueryObjectBase
   end
 
   def search phrase, forum, user, locale
+    return self if phrase.blank?
+
     chain Topics::SearchQuery.call(
       scope: @scope,
       phrase: phrase,
