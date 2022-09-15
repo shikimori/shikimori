@@ -2,16 +2,27 @@ class Comment::AccessPolicy
   static_facade :allowed?, :comment, :current_user
 
   def allowed?
-    topic = @comment.commentable
+    commentable = @comment.commentable
     return true if own_comment?
-    return true unless topic.is_a? Topic
 
-    Topic::AccessPolicy.allowed? topic, @current_user
+    case commentable
+      when Topic
+        Topic::AccessPolicy.allowed? commentable, @current_user
+
+      when User
+        profile_access? commentable
+    end
   end
 
 private
 
   def own_comment?
     @current_user && @comment.user_id == @current_user.id
+  end
+
+  def profile_access? user
+    !!(
+      user&.preferences&.comments_in_profile? && !user.censored_profile?
+    )
   end
 end

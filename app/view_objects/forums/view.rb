@@ -3,7 +3,7 @@ class Forums::View < ViewObjectBase
   instance_cache :forum, :linked, :topic_views, :menu
 
   def forum
-    Forum.find_by_permalink @forum
+    Forum.find_by_permalink @forum # rubocop:disable Rails/DynamicFindBy
   end
 
   def linked
