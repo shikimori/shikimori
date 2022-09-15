@@ -192,6 +192,14 @@ private
     render :private_access unless is_access_allowed
   end
 
+  def not_found_error error
+    if error.is_a?(CanCan::AccessDenied) && (@club || @resource)&.is_private
+      render :private
+    else
+      super
+    end
+  end
+
   def resource_klass
     Club
   end

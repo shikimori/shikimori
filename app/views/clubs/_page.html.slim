@@ -53,4 +53,4 @@ header.head
 
     aside.l-menu
       - if @club.persisted?
-        = render 'clubs/menu', club: @club
+        = render 'clubs/menu', club: @club, is_restricted_access: local_assigns[:is_restricted_access]

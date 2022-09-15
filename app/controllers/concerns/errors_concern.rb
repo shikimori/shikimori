@@ -40,9 +40,7 @@ module ErrorsConcern
         !error.is_a?(CanCan::AccessDenied)
     )
 
-    if NOT_FOUND_ERRORS.include?(error.class) || (
-      respond_to?(:cancan_get_404?) && cancan_get_404?(error)
-    )
+    if NOT_FOUND_ERRORS.include?(error.class)
       not_found_error error
 
     elsif error.is_a? RknBanned

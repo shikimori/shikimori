@@ -12,7 +12,9 @@ ru:
       back_to_clubs_page: Назад на страницу клуба
       new_club: Новый клуб
       edit_club: &edit_club Настройки
-      pages:
+      private_club: Закрытый клуб
+      access_denied: Доступ запрещён
+      pages :
         main: Основное
         description: Описание
         links: Ссылки
