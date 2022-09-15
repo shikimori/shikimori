@@ -1,4 +1,4 @@
-describe CommentsQuery do
+describe Comments::ApiQuery do
   let(:query) { described_class.new Topic.name, topic.id }
 
   let!(:comment1) { create :comment, commentable: topic }
