@@ -135,7 +135,9 @@ private
   end
 
   def all_clubs
-    object.clubs.order(:name)
+    Clubs::Query
+      .new(object.clubs)
+      .without_shadowbanned(h.current_user)
   end
 
   def all_collections
