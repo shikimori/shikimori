@@ -13,7 +13,7 @@
     - else
       .b-nothing_here = t 'no_topics'
 
-    - if @collection.size == controller.class::TOPICS_LIMIT
+    - if @collection.next_page?
       = render 'blocks/postloader',
         filter: 'b-topic',
         next_url: current_url(page: @page + 1)

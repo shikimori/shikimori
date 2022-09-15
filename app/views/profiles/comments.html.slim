@@ -13,7 +13,7 @@
     - else
       p.b-nothing_here = t 'no_comments'
 
-    - if @collection.size == controller.class::COMMENTS_LIMIT
+    - if @collection.next_page?
       = render 'blocks/postloader',
         filter: 'b-comment',
         next_url: current_url(page: @page + 1)
