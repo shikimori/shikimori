@@ -5,9 +5,8 @@ module CanCanGet404Concern
     prepend FetchResouceOverride
   end
 
-  # this method is checked in error handler of errors concern
-  def cancan_get_404? error
-    request.get? && error.is_a?(CanCan::AccessDenied)
+  def forbidden_error error
+    not_found_error error if request.get?
   end
 
   module FetchResouceOverride
