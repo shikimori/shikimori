@@ -177,6 +177,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     og page_title: i18n_io('Comment', :few)
 
     @collection = Comments::UserQuery.fetch(@resource)
+      .restrictions_scope(current_user)
       .search(params[:search])
       .paginate(@page, COMMENTS_LIMIT)
       .lazy_map { |comment| SolitaryCommentDecorator.new comment }
