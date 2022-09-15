@@ -4,6 +4,7 @@ describe Club::AccessPolicy do
   let(:club) do
     build_stubbed :club,
       is_shadowbanned: is_shadowbanned,
+      is_private: is_private,
       is_censored: is_censored
   end
   let(:decorated_user) do
@@ -16,9 +17,10 @@ describe Club::AccessPolicy do
     allow(decorated_user).to receive(:club_ids).and_return [club.id] if is_club_member
   end
   let(:is_shadowbanned) { false }
+  let(:is_private) { false }
   let(:is_censored) { false }
 
-  describe 'shadow ban check' do
+  describe 'shadowbanned check' do
     let(:is_shadowbanned) { true }
 
     context 'club member' do
@@ -31,6 +33,24 @@ describe Club::AccessPolicy do
 
       context 'not shadowbanned' do
         let(:is_shadowbanned) { false }
+        it { is_expected.to eq true }
+      end
+    end
+  end
+
+  describe 'private check' do
+    let(:is_private) { true }
+
+    context 'club member' do
+      let(:is_club_member) { true }
+      it { is_expected.to eq true }
+    end
+
+    context 'not club member' do
+      it { is_expected.to eq false }
+
+      context 'not private' do
+        let(:is_private) { false }
         it { is_expected.to eq true }
       end
     end
