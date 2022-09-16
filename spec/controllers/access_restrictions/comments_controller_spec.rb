@@ -22,4 +22,10 @@ describe CommentsController, type: :controller do
     let(:commentable) { create :club_topic, linked: club }
     include_context :club_access_check, true
   end
+
+  context 'club_page comment' do
+    let(:commentable) { create :club_page_topic, linked: club_page }
+    let(:club_page) { create :club_page, club: club }
+    include_context :club_access_check, true
+  end
 end
