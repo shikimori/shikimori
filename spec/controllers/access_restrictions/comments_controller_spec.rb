@@ -1,5 +1,5 @@
 describe CommentsController, type: :controller do
-  let!(:comment) { create :comment, commentable: commentable }
+  let!(:comment) { create :comment, commentable: commentable, user: user_2 }
 
   subject do
     get :show, params: { id: comment.id }
