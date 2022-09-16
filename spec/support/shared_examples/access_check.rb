@@ -8,11 +8,15 @@ shared_examples :has_access do
 end
 
 shared_examples :has_no_access do |is_nil_object_when_no_access|
-  it 'has_no_access' do
-    if is_nil_object_when_no_access
-      expect(response).to have_http_status :success
+  if is_nil_object_when_no_access
+    before { subject }
+
+    it 'has_no_access (nil object page)' do
+      expect(response).to have_http_status :not_found
       expect(resource).to be_kind_of NullObject
-    else
+    end
+  else
+    it 'has_no_access' do
       expect { subject }.to raise_error CanCan::AccessDenied
     end
   end

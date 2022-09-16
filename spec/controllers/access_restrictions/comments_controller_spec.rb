@@ -2,7 +2,7 @@ describe CommentsController, type: :controller do
   let!(:comment) { create :comment, commentable: commentable }
 
   subject do
-    get :show, params: { id: comment.to_param }
+    get :show, params: { id: comment.id }
   end
 
   context 'regular comment' do
