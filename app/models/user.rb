@@ -13,6 +13,7 @@ class User < ApplicationRecord
   ACTIVE_SITE_USER_INTERVAL = 1.month
 
   MORR_ID = 1
+  NEYOKI_ID = 50_685
   GUEST_ID = 5
   BANHAMMER_ID = 6_942
   MESSANGER_ID = Rails.env.test? ? MORR_ID : 1_680
