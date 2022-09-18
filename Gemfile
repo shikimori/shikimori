@@ -133,8 +133,8 @@ group :beta, :production do
   # gem 'sentry-raven'
   # gem 'honeybadger'
   # gem 'appsignal'
-  # gem 'sentry-raven'
-  gem 'bugsnag'
+  gem 'sentry-rails'
+  # gem 'bugsnag'
   gem 'lograge'
   # gem 'newrelic_rpm'
 end
