@@ -45,7 +45,9 @@ private
         notifications.none? { |message| message.to_id == user.id }
     end
 
-    users.filter(&:notification_settings_mention_event?)
+    users
+      .filter(&:notification_settings_mention_event?)
+      .filter { |user| Comment::AccessPolicy.allowed? @comment, user }
   end
 
   def quoted_users
