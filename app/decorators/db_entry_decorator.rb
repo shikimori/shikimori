@@ -134,7 +134,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def all_clubs
-    Clubs::Query.fetch(h.current_user, h.locale_from_host)
+    Clubs::Query.fetch(h.current_user, h.locale_from_host, false)
       .where(id: clubs_scope)
       .decorate
   end

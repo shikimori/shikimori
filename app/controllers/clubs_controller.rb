@@ -177,7 +177,7 @@ class ClubsController < ShikimoriController
   end
 
   def autocomplete
-    @collection = Clubs::Query.fetch(current_user, locale_from_host)
+    @collection = Clubs::Query.fetch(current_user, locale_from_host, false)
       .search(params[:search], locale_from_host)
       .paginate(1, CompleteQuery::AUTOCOMPLETE_LIMIT)
       .reverse

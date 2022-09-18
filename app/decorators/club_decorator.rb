@@ -135,8 +135,7 @@ private
   end
 
   def all_clubs
-    Clubs::Query
-      .new(object.clubs)
+    Clubs::Query.new(object.clubs)
       .without_shadowbanned(h.current_user)
   end
 

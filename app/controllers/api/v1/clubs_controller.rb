@@ -24,7 +24,7 @@ class Api::V1::ClubsController < Api::V1Controller
     page = [params[:page].to_i, 1].max
     limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
-    @collection = Clubs::Query.fetch(current_user, locale_from_host)
+    @collection = Clubs::Query.fetch(current_user, locale_from_host, false)
       .search(params[:search], locale_from_host)
       .paginate_n1(page, limit)
 
