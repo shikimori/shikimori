@@ -1,8 +1,9 @@
 describe Clubs::Query do
   include_context :timecop
 
-  let(:query) { described_class.fetch user, locale }
+  let(:query) { described_class.fetch user, locale, is_skip_restrictions }
   let(:locale) { :ru }
+  let(:is_skip_restrictions) { false }
 
   let!(:club_1) { create :club, :with_topics, name: 'club_1' }
   let!(:club_censored) do
@@ -25,6 +26,20 @@ describe Clubs::Query do
     subject { query }
 
     it { is_expected.to eq [club_1, club_censored, club_private, club_favoured] }
+
+    context 'is_skip_restrictions' do
+      let(:is_skip_restrictions) { true }
+
+      it do
+        is_expected.to eq [
+          club_1,
+          club_censored,
+          club_shadowbanned,
+          club_private,
+          club_favoured
+        ]
+      end
+    end
 
     context 'user not signed in' do
       let(:user) { nil }
