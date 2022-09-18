@@ -2,12 +2,14 @@ class Clubs::Query < QueryObjectBase
   FAVOURED_IDS = [72, 315, 2046]
   SEARCH_LIMIT = 999
 
-  def self.fetch user, locale
+  def self.fetch user, locale, is_applly_restrictions = true
     scope = new Club
       .joins(:topics)
       .preload(:owner, :topics)
       .where(locale: locale)
       .order(Arel.sql('topics.updated_at desc, id'))
+
+    return scope unless is_applly_restrictions
 
     if user
       scope
@@ -16,6 +18,7 @@ class Clubs::Query < QueryObjectBase
       scope
         .without_censored
         .without_shadowbanned
+        .without_private
     end
   end
 
@@ -29,6 +32,10 @@ class Clubs::Query < QueryObjectBase
 
   def without_censored
     chain @scope.where(is_censored: false)
+  end
+
+  def without_private
+    chain @scope.where(is_private: false)
   end
 
   def without_shadowbanned decorated_user = nil
