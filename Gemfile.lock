@@ -674,6 +674,9 @@ GEM
     sentry-rails (5.3.1)
       railties (>= 5.0)
       sentry-ruby-core (~> 5.3.1)
+    sentry-ruby (5.3.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      sentry-ruby-core (= 5.3.1)
     sentry-ruby-core (5.3.1)
       concurrent-ruby
     sexp_processor (4.16.1)
@@ -893,6 +896,7 @@ DEPENDENCIES
   ruby-esvidi!
   sassc-rails
   sentry-rails
+  sentry-ruby
   shallow_attributes!
   shoulda-matchers
   sidekiq
