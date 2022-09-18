@@ -193,7 +193,9 @@ private
   end
 
   def not_found_error error
-    if error.is_a?(CanCan::AccessDenied) && (@club || @resource)&.is_private
+    club = @club || @resource
+
+    if club && error.is_a?(CanCan::AccessDenied) && club.is_private && !club.shadowbanned?
       render :private
     else
       super
