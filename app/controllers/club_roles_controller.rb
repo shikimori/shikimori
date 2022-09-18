@@ -1,5 +1,5 @@
 class ClubRolesController < ShikimoriController
-  load_and_authorize_resource except: [:autocomplete]
+  load_and_authorize_resource except: %i[autocomplete]
 
   # join club
   def create

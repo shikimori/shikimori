@@ -1,6 +1,8 @@
 class Comment::AccessPolicy
   static_facade :allowed?, :comment, :current_user
 
+  # CENSORED_CLUB_COMMENT_EXPIRATION_INTERVAL = 6.months
+
   def allowed?
     commentable = @comment.commentable
     return true if own_comment?
