@@ -7,7 +7,6 @@ class Clubs::Query < QueryObjectBase
       .joins(:topics)
       .preload(:owner, :topics)
       .where(locale: locale)
-      .where(is_private: false)
       .order(Arel.sql('topics.updated_at desc, id'))
 
     if user
