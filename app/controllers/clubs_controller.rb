@@ -36,17 +36,26 @@ class ClubsController < ShikimoriController
   RESTRICTED_PARAMS = %i[is_non_thematic is_shadowbanned]
   CREATE_PARAMS = %i[owner_id] + UPDATE_PARAMS
 
+  RESTRICTED_FILTERS = %i[is_censored is_private is_non_thematic is_shadowbanned]
   MEMBERS_LIMIT = 48
 
   def index
     og noindex: true
     @limit = [[params[:limit].to_i, 24].max, 48].min
 
-    scope = Clubs::Query.fetch current_user, locale_from_host
+    is_skip_restrictions = can?(:manage_restrictions, Club) &&
+      RESTRICTED_FILTERS.any? { |field| params[field].blank? }
+    scope = Clubs::Query.fetch current_user, locale_from_host, is_skip_restrictions
 
     if params[:search].blank?
       @favourites = scope.favourites if @page == 1
       scope = scope.without_favourites
+    end
+
+    if is_skip_restrictions
+      RESTRICTED_FILTERS.each do |field|
+        scope = scope.where(field => true) if params[field].present?
+      end
     end
 
     @collection = scope
