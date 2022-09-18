@@ -26,6 +26,7 @@ module ErrorsConcern
     Honeybadger.notify error if defined? Honeybadger
     Appsignal.set_error error if defined? Appsignal
     Bugsnag.notify error if defined? Bugsnag
+    capture_raven error if defined? Raven
     capture_sentry error if defined? Sentry
 
     NamedLogger
@@ -144,12 +145,16 @@ private
     json? || (is_a?(Api::V1Controller) && !params[:frontend])
   end
 
-  def capture_sentry error
+  def capture_raven error
     if current_user.present?
-      Sentry.user_context id: current_user.id
-      Sentry.extra_context params: params.to_unsafe_h, url: request.url
+      Raven.user_context id: current_user.id
+      Raven.extra_context params: params.to_unsafe_h, url: request.url
     end
 
+    Raven.capture_exception error
+  end
+
+  def capture_sentry error
     Sentry.capture_exception error
   end
 end
