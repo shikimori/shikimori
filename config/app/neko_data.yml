@@ -5293,6 +5293,14 @@
         - 48363
         - 48916
         - 40879
+        - 41520
+        - 40763
+        - 29123
+        - 50203
+        - 50917
+        - 50760
+        - 40085
+        - 51923
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5799,6 +5807,14 @@
         - 48363
         - 48916
         - 40879
+        - 41520
+        - 40763
+        - 29123
+        - 50203
+        - 50917
+        - 50760
+        - 40085
+        - 51923
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -6306,6 +6322,14 @@
         - 48363
         - 48916
         - 40879
+        - 41520
+        - 40763
+        - 29123
+        - 50203
+        - 50917
+        - 50760
+        - 40085
+        - 51923
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -11569,6 +11593,7 @@
         - 8664
         - 25029
         - 8359
+        - 51092
       :generator:
         person_id: 5068
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -11631,6 +11656,7 @@
         - 8664
         - 25029
         - 8359
+        - 51092
       :generator:
         person_id: 5068
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -22633,7 +22659,7 @@
         - 37859
         - 37860
         - 39014
-      :threshold: 88.2%
+      :threshold: 95%
       :generator:
         ignore_latest_ids:
         - 38400
@@ -28934,6 +28960,39 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :gatchaman
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/gatchaman.jpg"
+    :border_color:
+    :title_ru: Гатчамен
+    :text_ru:
+    :title_en: Gatchaman
+    :text_en:
+    :topic_id: 247360
+    :rule: &478
+      :algo: duration
+      :filters:
+        franchise: gatchaman
+        not_anime_ids:
+        - 3153
+        - 31517
+        - 38705
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :gatchaman
+  level: 0
+  image: "/assets/achievements/anime/franchise/gatchaman.jpg"
+  border_color:
+  title_ru: Гатчамен
+  text_ru:
+  title_en: Gatchaman
+  text_en:
+  topic_id: 247360
+  rule: *478
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :tennis_no_ouji_sama
     :level: 1
     :image: "/assets/achievements/anime/franchise/tennis_no_ouji_sama.jpg"
@@ -28943,7 +29002,7 @@
     :title_en: Tennis no Ouji-sama
     :text_en:
     :topic_id: 247360
-    :rule: &478
+    :rule: &479
       :algo: duration
       :filters:
         franchise: tennis_no_ouji_sama
@@ -28971,39 +29030,6 @@
   title_ru: Принц тенниса
   text_ru:
   title_en: Tennis no Ouji-sama
-  text_en:
-  topic_id: 247360
-  rule: *478
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :gatchaman
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/gatchaman.jpg"
-    :border_color:
-    :title_ru: Гатчамен
-    :text_ru:
-    :title_en: Gatchaman
-    :text_en:
-    :topic_id: 247360
-    :rule: &479
-      :algo: duration
-      :filters:
-        franchise: gatchaman
-        not_anime_ids:
-        - 3153
-        - 31517
-        - 38705
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :gatchaman
-  level: 0
-  image: "/assets/achievements/anime/franchise/gatchaman.jpg"
-  border_color:
-  title_ru: Гатчамен
-  text_ru:
-  title_en: Gatchaman
   text_en:
   topic_id: 247360
   rule: *479
@@ -30018,6 +30044,11 @@
         - 51741
         - 52042
         - 43601
+        - 43601
+        - 53071
+        - 52948
+        - 52042
+        - 51741
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :idolish7
@@ -30068,6 +30099,11 @@
         - 51741
         - 52042
         - 43601
+        - 43601
+        - 53071
+        - 52948
+        - 52042
+        - 51741
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :idolish7
@@ -32556,6 +32592,8 @@
       :algo: duration
       :filters:
         franchise: tsukipro_the_animation
+        not_anime_ids:
+        - 43288
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -32585,6 +32623,8 @@
       :algo: duration
       :filters:
         franchise: tsukipro_the_animation
+        not_anime_ids:
+        - 43288
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -32622,9 +32662,14 @@
         - 17963
         - 17965
         - 18637
+        - 39358
+        - 39359
         - 39360
+        - 39361
+        - 39362
+        - 39363
         - 40377
-      :threshold: 97.9%
+      :threshold: 99.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :atom
@@ -32661,7 +32706,12 @@
         - 17963
         - 17965
         - 18637
+        - 39358
+        - 39359
         - 39360
+        - 39361
+        - 39362
+        - 39363
         - 40377
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
