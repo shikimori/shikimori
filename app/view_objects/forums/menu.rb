@@ -2,6 +2,14 @@ class Forums::Menu < ViewObjectBase
   pattr_initialize :forum, :linked
   instance_cache :club_topics, :critiques
 
+  CLUBS_JOIN_SQL = <<~SQL.squish
+    left join clubs on
+      topics.linked_type='Club' and topics.linked_id=clubs.id
+  SQL
+  CLUBS_WHERE_SQL = <<~SQL.squish
+    clubs.id is null or (clubs.is_shadowbanned = false and clubs.is_private = false)
+  SQL
+
   def club_topics
     Topic
       .includes(:linked)
@@ -12,9 +20,12 @@ class Forums::Menu < ViewObjectBase
           Topics::EntryTopics::ClubPageTopic.name
         ]
       )
+      .joins(CLUBS_JOIN_SQL)
+      .where(CLUBS_WHERE_SQL)
       .where(locale: h.locale_from_host)
       .order(updated_at: :desc)
       .limit(3)
+      .filter { |topic| Ability.new(nil).can? :read, topic }
   end
 
   def changeable_forums?
