@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_14_183429) do
+ActiveRecord::Schema.define(version: 2022_09_23_164430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1277,13 +1277,18 @@ ActiveRecord::Schema.define(version: 2022_09_14_183429) do
     t.index ["url"], name: "index_webm_videos_on_url", unique: true
   end
 
+  add_foreign_key "abuse_requests", "users"
   add_foreign_key "abuse_requests", "users", column: "approver_id"
+  add_foreign_key "bans", "users"
   add_foreign_key "bans", "users", column: "moderator_id"
   add_foreign_key "collection_roles", "collections"
   add_foreign_key "collection_roles", "users"
+  add_foreign_key "comment_viewings", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "reviews", "animes"
   add_foreign_key "reviews", "mangas"
+  add_foreign_key "reviews", "users"
   add_foreign_key "summary_viewings", "users"
+  add_foreign_key "topic_viewings", "users"
 end

@@ -2,45 +2,38 @@ require Rails.root.join('db/migrate/20220923164130_add_incomplete_date_fields_to
 
 class MigrateIncompleteDatesInModels < ActiveRecord::Migration[6.1]
   MODELS = AddIncompleteDateFieldsToModels::MODELS
+  NO_YEAR = IncompleteDate::NO_YEAR
 
-  def up
+  def change
     MODELS.each do |klass, fields|
       puts "migrating #{klass.name}"
 
-      klass.find_each do |model|
-        puts "#{klass.name} #{model.id}" if Rails.env.development?
+      fields.each do |field|
+        reversible do |dir|
+          dir.up do
+            execute %Q[
+              update people
+                set #{field}_v2 = jsonb_build_object(
+                  'year', case when date_part('year', birth_on) = #{NO_YEAR} then null else date_part('year', birth_on) end,
+                  'month', date_part('month', birth_on),
+                  'day', date_part('day', birth_on)
+                )
+                where #{field} is not null
+            ]
+          end
 
-        fields.each do |field|
-          value = model.send field
-          next if value.nil?
-
-          model.send :"#{field}_v2=", IncompleteDate.new(
-            year: (value.year unless value.year == 1901),
-            month: value.month,
-            day: value.day
-          )
+          dir.down do
+            execute %Q[
+              update people
+                set #{field} = make_date(
+                  (case when #{field}_v2->>'year' is null then '#{NO_YEAR}' else #{field}_v2->>'year' end)::int,
+                  (#{field}_v2->>'month')::int,
+                  (#{field}_v2->>'day')::int
+                )
+                where #{field}_v2 is not null
+            ]
+          end
         end
-
-        model.save!
-      end
-    end
-  end
-
-  def down
-    MODELS.each do |klass, fields|
-      puts "rolling back #{klass.name}"
-
-      klass.find_each do |model|
-        puts "#{klass.name} #{model.id}" if Rails.env.development?
-
-        fields.each do |field|
-          value = model.send :"#{field}_v2"
-          next if value.nil?
-
-          model.send :"#{field}=", Date.new(value.year || 1901, value.month, value.day)
-        end
-
-        model.save!
       end
     end
   end
