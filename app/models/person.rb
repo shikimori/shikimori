@@ -46,6 +46,7 @@ class Person < DbEntry
   validates :name, :japanese, length: { maximum: 255 }
 
   attribute :birth_on_v2, IncompleteDate
+  attribute :deceased_on_v2, IncompleteDate
 
   SEYU_ROLES = %w[
     English Italian Hungarian Japanese German Hebrew Brazilian French
