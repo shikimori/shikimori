@@ -1,33 +1,36 @@
 class IncompleteDate
   include ShallowAttributes
   include Types::JsonbActiveModel
-  # include ActiveModel::Validations
-
-  NO_YEAR = 1901
 
   attribute :year, Integer, allow_nil: true
   attribute :month, Integer, allow_nil: true
   attribute :day, Integer, allow_nil: true
 
-  def human
-    return unless date
+  SPACES_CLEANUP_REGEXP = /  /
 
-    @human ||= (
-      year ?
-        localized_date :
-        localized_date.gsub(" #{NO_YEAR}", '')
-    ).strip
+  def human
+    return unless year || month || day
+
+    I18n.l(date, format: date_format)
+      .strip
+      .gsub(SPACES_CLEANUP_REGEXP, ' ')
   end
 
 private
 
   def date
-    return unless year || month
-
-    @date ||= Date.new year || NO_YEAR, month, day
+    Date.new year || 1901, month || 1, day || 1
   end
 
-  def localized_date
-    I18n.l date, format: :human
+  def date_format # rubocop:disable all
+    if year && month && day
+      :human
+    elsif year && month
+      :human_month_year
+    elsif month && day
+      :human_day_month
+    else
+      '%Y'
+    end
   end
 end
