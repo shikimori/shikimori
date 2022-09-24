@@ -2,9 +2,15 @@ class IncompleteDate
   include ShallowAttributes
   include Types::JsonbActiveModel
 
-  attribute :year, Integer, allow_nil: true
-  attribute :month, Integer, allow_nil: true
-  attribute :day, Integer, allow_nil: true
+  class NilInteger
+    def coerce value, _options = {}
+      value.to_i if value.present?
+    end
+  end
+
+  attribute :year, NilInteger, allow_nil: true
+  attribute :month, NilInteger, allow_nil: true
+  attribute :day, NilInteger, allow_nil: true
 
   SPACES_CLEANUP_REGEXP = /  /
 
