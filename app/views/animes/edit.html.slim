@@ -32,8 +32,10 @@
               class: ('m15' if %i[licensors genres].include? field),
               formatter: {\
                 genres: ->(value) { value.map { |v| v.is_a?(Genre) ? localization_span(v) : v }.join(', ').html_safe },
-                duration: ->(value) { humanize_minutes value }\
+                duration: ->(value) { humanize_minutes value } \
               }[field]
+                / aired_on: ->(_value) { @resource.aired_on&.human },
+                / released_on: ->(_value) { @resource.released_on&.human } \
 
           - if @resource.anime?
             li
