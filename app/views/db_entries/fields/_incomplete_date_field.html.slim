@@ -1,0 +1,11 @@
+- resource = local_assigns[:f].object
+.b-input
+  label = resource.class.human_attribute_name local_assigns[:field]
+  = select_day resource.send(local_assigns[:field])&.day, include_blank: true
+  = select_month resource.send(local_assigns[:field])&.month,
+    include_blank: true,
+    use_month_names: (t('date.common_month_names') if I18n.russian?)
+  = select_year resource.send(local_assigns[:field])&.year,
+    include_blank: true,
+    start_year: local_assigns[:start_year],
+    end_year: local_assigns[:end_year]
