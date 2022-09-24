@@ -14,7 +14,9 @@ describe IncompleteDate do
       let(:month) { nil }
       let(:year) { nil }
       let(:locale) { %i[ru en].sample }
+
       it { is_expected.to eq nil }
+      it { expect(date).to be_blank }
     end
 
     context 'full date' do

@@ -15,11 +15,15 @@ class IncompleteDate
   SPACES_CLEANUP_REGEXP = /  /
 
   def human
-    return unless year || month || day
+    return if blank?
 
     I18n.l(date, format: date_format)
       .strip
       .gsub(SPACES_CLEANUP_REGEXP, ' ')
+  end
+
+  def blank?
+    !(year || month || day)
   end
 
 private
