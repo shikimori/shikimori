@@ -249,6 +249,11 @@ class Anime < DbEntry
     in: Types::Anime::Rating.values,
     predicates: { prefix: true }
 
+  attribute :aired_on, IncompleteDate
+  attribute :released_on, IncompleteDate
+  attribute :digital_released_on, IncompleteDate
+  attribute :russia_released_on, IncompleteDate
+
   # enumerize :options,
   #   in: Types::Anime::Options.values,
   #   predicates: true,

@@ -26,8 +26,10 @@ FactoryBot.define do
     licensors { [] }
     desynced { [] }
     imported_at { nil }
-    digital_released_on { nil }
-    russia_released_on { nil }
+    aired_on { {} }
+    released_on { {} }
+    digital_released_on { {} }
+    russia_released_on { {} }
     russia_released_on_hint { '' }
 
     after :build do |model|

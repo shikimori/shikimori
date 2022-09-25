@@ -19,6 +19,8 @@ FactoryBot.define do
     desynced { [] }
     imported_at { nil }
     options { [] }
+    aired_on { {} }
+    released_on { {} }
 
     factory :ranobe, class: 'Ranobe' do
       sequence(:name) { |n| "ranobe_#{n}" }

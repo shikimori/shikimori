@@ -139,8 +139,6 @@ ActiveRecord::Schema.define(version: 2022_09_23_164430) do
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
     t.datetime "image_updated_at"
-    t.date "aired_on"
-    t.date "released_on"
     t.string "status", limit: 255
     t.string "rating", limit: 255
     t.integer "episodes_aired", default: 0, null: false
@@ -170,12 +168,14 @@ ActiveRecord::Schema.define(version: 2022_09_23_164430) do
     t.text "fandubbers", default: [], null: false, array: true
     t.string "options", default: [], null: false, array: true
     t.string "licensors", default: [], null: false, array: true
-    t.date "digital_released_on"
-    t.date "russia_released_on"
     t.decimal "score_2", default: "0.0", null: false
     t.text "russia_released_on_hint", default: "", null: false
     t.integer "ranked_shiki", default: 999999, null: false
     t.integer "ranked_random", default: 999999, null: false
+    t.jsonb "aired_on", default: {}, null: false
+    t.jsonb "released_on", default: {}, null: false
+    t.jsonb "digital_released_on", default: {}, null: false
+    t.jsonb "russia_released_on", default: {}, null: false
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["rating"], name: "index_animes_on_rating"
@@ -668,8 +668,6 @@ ActiveRecord::Schema.define(version: 2022_09_23_164430) do
     t.integer "ranked"
     t.integer "popularity"
     t.string "rating", limit: 255
-    t.date "aired_on"
-    t.date "released_on"
     t.datetime "imported_at"
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
@@ -698,6 +696,8 @@ ActiveRecord::Schema.define(version: 2022_09_23_164430) do
     t.string "options", default: [], null: false, array: true
     t.integer "ranked_shiki", default: 999999, null: false
     t.integer "ranked_random", default: 999999, null: false
+    t.jsonb "aired_on", default: {}, null: false
+    t.jsonb "released_on", default: {}, null: false
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"

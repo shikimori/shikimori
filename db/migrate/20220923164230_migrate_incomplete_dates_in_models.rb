@@ -12,11 +12,11 @@ class MigrateIncompleteDatesInModels < ActiveRecord::Migration[6.1]
         reversible do |dir|
           dir.up do
             execute %Q[
-              update people
+              update #{klass.table_name}
                 set #{field}_v2 = jsonb_build_object(
-                  'year', case when date_part('year', birth_on) = #{NO_YEAR} then null else date_part('year', birth_on) end,
-                  'month', date_part('month', birth_on),
-                  'day', date_part('day', birth_on)
+                  'year', case when date_part('year', #{field}) = #{NO_YEAR} then null else date_part('year', #{field}) end,
+                  'month', date_part('month', #{field}),
+                  'day', date_part('day', #{field})
                 )
                 where #{field} is not null
             ]
@@ -24,7 +24,7 @@ class MigrateIncompleteDatesInModels < ActiveRecord::Migration[6.1]
 
           dir.down do
             execute %Q[
-              update people
+              update #{klass.table_name}
                 set #{field} = make_date(
                   (case when #{field}_v2->>'year' is null then '#{NO_YEAR}' else #{field}_v2->>'year' end)::int,
                   (#{field}_v2->>'month')::int,
