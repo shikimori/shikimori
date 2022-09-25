@@ -83,17 +83,24 @@ describe IncompleteDate do
     end
   end
 
-  describe '.from_string' do
-    subject { described_class.from_string string }
+  describe '.parse' do
+    subject { described_class.parse object }
 
-    context 'has date' do
-      let(:string) { '1992-08-25' }
-      it { is_expected.to eq IncompleteDate.new(year: 1992, month: 8, day: 25) }
+    context 'string' do
+      context 'has date' do
+        let(:object) { '1992-08-25' }
+        it { is_expected.to eq IncompleteDate.new(year: 1992, month: 8, day: 25) }
+      end
+
+      context 'no date' do
+        let(:object) { ['', nil].sample }
+        it { is_expected.to eq IncompleteDate.new }
+      end
     end
 
-    context 'no date' do
-      let(:string) { '' }
-      it { is_expected.to eq IncompleteDate.new }
+    context 'hash' do
+      let(:object) { { 'year' => 1992, 'month' => 8, 'day' => 25 } }
+      it { is_expected.to eq IncompleteDate.new(year: 1992, month: 8, day: 25) }
     end
   end
 end

@@ -30,11 +30,17 @@ class IncompleteDate
     Date.new year || 1901, month || 1, day || 1
   end
 
-  def self.from_string string
-    return new if string.blank?
+  def self.parse object
+    return new if object.blank?
 
-    date = Date.parse string
-    new year: date.year, month: date.month, day: date.day
+    case object
+      when String
+        date = Date.parse object
+        new year: date.year, month: date.month, day: date.day
+
+      else
+        new object
+    end
   end
 
 private
