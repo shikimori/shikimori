@@ -8,7 +8,6 @@ class AddIncompleteDateFieldsToModels < ActiveRecord::Migration[6.1]
   def change
     MODELS.each do |klass, fields|
       fields.each do |field|
-        ap "#{klass.table_name} #{field}_v2"
         add_column klass.table_name, :"#{field}_v2", :jsonb,
           null: false,
           default: {}
