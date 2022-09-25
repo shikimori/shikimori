@@ -799,8 +799,8 @@ ActiveRecord::Schema.define(version: 2022_09_23_164430) do
     t.text "desynced", default: [], null: false, array: true
     t.string "russian", default: "", null: false
     t.integer "mal_id"
-    t.jsonb "birth_on"
-    t.jsonb "deceased_on"
+    t.jsonb "birth_on", default: {}, null: false
+    t.jsonb "deceased_on", default: {}, null: false
     t.index ["name"], name: "index_people_on_name"
   end
 
