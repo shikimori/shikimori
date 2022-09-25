@@ -1,5 +1,6 @@
 describe IncompleteDate do
-  let(:date) { IncompleteDate.new day: day, month: month, year: year }
+  let(:date) { described_class.new day: day, month: month, year: year }
+
   let(:day) { 8 }
   let(:month) { 9 }
   let(:year) { 1972 }
@@ -63,6 +64,36 @@ describe IncompleteDate do
         let(:locale) { :en }
         it { is_expected.to eq 'September 1972' }
       end
+    end
+  end
+
+  describe '#date' do
+    subject { date.date }
+
+    context 'has date' do
+      it { is_expected.to eq Date.new(year, month, day) }
+    end
+
+    context 'no date' do
+      let(:day) { nil }
+      let(:month) { nil }
+      let(:year) { nil }
+
+      it { is_expected.to eq Date.new(1901, 1, 1) }
+    end
+  end
+
+  describe '.from_string' do
+    subject { described_class.from_string string }
+
+    context 'has date' do
+      let(:string) { '1992-08-25' }
+      it { is_expected.to eq IncompleteDate.new(year: 1992, month: 8, day: 25) }
+    end
+
+    context 'no date' do
+      let(:string) { '' }
+      it { is_expected.to eq IncompleteDate.new }
     end
   end
 end

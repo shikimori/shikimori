@@ -26,11 +26,18 @@ class IncompleteDate
     !(year || month || day)
   end
 
-private
-
   def date
     Date.new year || 1901, month || 1, day || 1
   end
+
+  def self.from_string string
+    return new if string.blank?
+
+    date = Date.parse string
+    new year: date.year, month: date.month, day: date.day
+  end
+
+private
 
   def date_format # rubocop:disable all
     if year && month && day
