@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_12_153042) do
+ActiveRecord::Schema.define(version: 2022_09_19_184130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -321,6 +321,7 @@ ActiveRecord::Schema.define(version: 2022_09_12_153042) do
     t.string "page_policy", null: false
     t.boolean "is_non_thematic", default: false, null: false
     t.boolean "is_shadowbanned", default: false, null: false
+    t.boolean "is_private", default: false, null: false
   end
 
   create_table "collection_links", id: :serial, force: :cascade do |t|

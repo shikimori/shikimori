@@ -11,10 +11,12 @@ FactoryBot.define do
     is_censored { false }
     is_non_thematic { false }
     is_shadowbanned { false }
+    is_private { false }
 
     trait(:censored) { is_censored { true } }
     trait(:non_thematic) { is_non_thematic { true } }
     trait(:shadowbanned) { is_shadowbanned { true } }
+    trait(:private) { is_private { true } }
 
     after :build do |model|
       stub_method model, :antispam_checks

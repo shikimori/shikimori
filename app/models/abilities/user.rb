@@ -32,10 +32,6 @@ class Abilities::User
       poll_abilities
     end
 
-    can :see_club, Club do |club|
-      !club.shadowbanned? || @user.club_ids.include?(club.id)
-    end
-
     topic_ignores_abilities
     message_abilities
     user_abilities

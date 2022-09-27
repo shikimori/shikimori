@@ -1,23 +1,49 @@
 describe Clubs::Query do
   include_context :timecop
 
-  let(:query) { described_class.fetch user }
+  let(:query) { described_class.fetch user, locale, is_skip_restrictions }
+  let(:locale) { :ru }
+  let(:is_skip_restrictions) { false }
 
-  let!(:club_1) { create :club, :with_topics }
-  let!(:club_2) { create :club, :with_topics }
-  let!(:club_censored) { create :club, :with_topics, :censored }
-  let!(:club_en) { create :club, :with_topics }
-  let!(:club_shadowbanned) { create :club, :with_topics, :shadowbanned }
-  let!(:club_favoured) { create :club, :with_topics, id: Clubs::Query::FAVOURED_IDS.max }
+  let!(:club_1) { create :club, :with_topics, name: 'club_1' }
+  let!(:club_censored) do
+    create :club, :with_topics, :censored, name: 'club_censored'
+  end
+  let!(:club_en) { create :club, :with_topics, locale: :en, name: 'club_en' }
+  let!(:club_shadowbanned) do
+    create :club, :with_topics, :shadowbanned, name: 'club_shadowbanned'
+  end
+  let!(:club_private) do
+    create :club, :with_topics, :private, name: 'club_private'
+  end
+  let!(:club_favoured) do
+    create :club, :with_topics,
+      id: Clubs::Query::FAVOURED_IDS.max,
+      name: 'club_favoured'
+  end
 
   describe '.fetch' do
     subject { query }
 
-    it { is_expected.to eq [club_1, club_2, club_censored, club_favoured] }
+    it { is_expected.to eq [club_1, club_censored, club_private, club_favoured] }
+
+    context 'is_skip_restrictions' do
+      let(:is_skip_restrictions) { true }
+
+      it do
+        is_expected.to eq [
+          club_1,
+          club_censored,
+          club_shadowbanned,
+          club_private,
+          club_favoured
+        ]
+      end
+    end
 
     context 'user not signed in' do
       let(:user) { nil }
-      it { is_expected.to eq [club_1, club_2, club_favoured] }
+      it { is_expected.to eq [club_1, club_favoured] }
     end
 
     context 'signed in member of shadowbanned club' do
@@ -25,9 +51,9 @@ describe Clubs::Query do
       it do
         is_expected.to eq [
           club_1,
-          club_2,
           club_censored,
           club_shadowbanned,
+          club_private,
           club_favoured
         ]
       end
@@ -40,17 +66,22 @@ describe Clubs::Query do
 
     describe '#without_favourites' do
       subject { query.without_favourites }
-      it { is_expected.to eq [club_1, club_2, club_censored] }
+      it { is_expected.to eq [club_1, club_censored, club_private] }
     end
 
     describe '#without_censored' do
       subject { query.without_censored }
-      it { is_expected.to eq [club_1, club_2, club_favoured] }
+      it { is_expected.to eq [club_1, club_private, club_favoured] }
+    end
+
+    describe '#without_private' do
+      subject { query.without_private }
+      it { is_expected.to eq [club_1, club_censored, club_favoured] }
     end
 
     describe '#without_shadowbanned' do
       subject { query.without_shadowbanned }
-      it { is_expected.to eq [club_1, club_2, club_censored, club_favoured] }
+      it { is_expected.to eq [club_1, club_censored, club_private, club_favoured] }
     end
 
     describe '#search' do
@@ -63,14 +94,14 @@ describe Clubs::Query do
             limit: Clubs::Query::SEARCH_LIMIT
           ).and_return(
             club_censored.id => 987,
-            club_2.id => 765,
+            club_1.id => 765,
             club_en.id => 654
           )
         end
         let(:phrase) { 'test' }
 
         it do
-          is_expected.to eq [club_censored, club_2]
+          is_expected.to eq [club_censored, club_1]
           expect(Elasticsearch::Query::Club).to have_received(:call).once
         end
       end
@@ -80,7 +111,7 @@ describe Clubs::Query do
         let(:phrase) { '' }
 
         it do
-          is_expected.to eq [club_1, club_2, club_censored, club_favoured]
+          is_expected.to eq [club_1, club_censored, club_private, club_favoured]
           expect(Elasticsearch::Query::Club).to_not have_received :call
         end
       end

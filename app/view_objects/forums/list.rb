@@ -48,7 +48,7 @@ private
   end
 
   def forum_size forum
-    Topics::Query.fetch(h.current_user, h.censored_forbidden?)
+    Topics::Query.fetch(h.censored_forbidden?)
       .by_forum(forum, current_user, censored_forbidden?)
       .where('generated = false or (generated = true and comments_count > 0)')
       .size

@@ -5,13 +5,11 @@ class CommentsController < ShikimoriController
   load_and_authorize_resource only: %i[edit]
 
   def show # rubocop:disable AbcSize
-    @resource ||= Comment.find_by(id: params[:id]) || nil_object
-
-    authorize_access! unless nil_object?
-
-    @view = Comments::View.new @resource, params[:action] == 'reply'
-
     og noindex: true, nofollow: true
+    @resource ||= Comment.find_by(id: params[:id]) || nil_object
+    @view = Comments::View.new @resource, params[:action] == 'reply'
+    authorize_access!
+
     return render :missing, status: (xhr_or_json? ? :ok : :not_found) if nil_object?
 
     og(

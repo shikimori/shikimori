@@ -8,7 +8,8 @@ describe Topics::ForumQuery do
     )
   end
 
-  let(:scope) { Topics::Query.fetch user, is_censored_forbidden }
+  let(:scope) { Topics::Query.fetch is_censored_forbidden }
+
   let(:forum) { nil }
   let(:is_censored_forbidden) { false }
 

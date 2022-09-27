@@ -1,5 +1,5 @@
 class Topics::Query < QueryObjectBase
-  def self.fetch user, is_censored_forbidden
+  def self.fetch is_censored_forbidden
     scope = Topic
       .includes(:forum, :user, :linked)
       .order(updated_at: :desc)
@@ -8,7 +8,7 @@ class Topics::Query < QueryObjectBase
       is_censored_forbidden ?
         scope.where(is_censored: false) :
         scope
-    ).lazy_filter { |topic| Topic::AccessPolicy.allowed? topic, user }
+    )
   end
 
   def by_forum forum, user, is_censored_forbidden
@@ -36,12 +36,20 @@ class Topics::Query < QueryObjectBase
   end
 
   def search phrase, forum, user
+    return self if phrase.blank?
+
     chain Topics::SearchQuery.call(
       scope: @scope,
       phrase: phrase,
       forum: forum,
       user: user
     )
+  end
+
+  def filter_by_policy user
+    lazy_filter do |topic|
+      Topic::AccessPolicy.allowed? topic, user
+    end
   end
 
   def as_views is_preview, is_mini

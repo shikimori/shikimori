@@ -3,7 +3,7 @@ class Forums::View < ViewObjectBase
   instance_cache :forum, :linked, :topic_views, :menu
 
   def forum
-    Forum.find_by_permalink @forum
+    Forum.find_by_permalink @forum # rubocop:disable Rails/DynamicFindBy
   end
 
   def linked
@@ -19,11 +19,12 @@ class Forums::View < ViewObjectBase
   end
 
   def topic_views # rubocop:disable Metrics/AbcSize
-    Topics::Query.fetch(h.current_user, h.censored_forbidden?)
+    Topics::Query.fetch(h.censored_forbidden?)
       .by_forum(forum, h.current_user, h.censored_forbidden?)
       .by_linked(linked)
       .search(h.params[:search], forum, h.current_user)
       .paginate(page, limit)
+      .filter_by_policy(h.current_user)
       .as_views(true, false)
   end
 

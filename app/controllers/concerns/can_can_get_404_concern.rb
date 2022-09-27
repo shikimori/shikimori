@@ -1,8 +1,20 @@
 module CanCanGet404Concern
   extend ActiveSupport::Concern
 
-  # this method is checked in error handler of errors concern
-  def cancan_get_404? error
-    request.get? && error.is_a?(CanCan::AccessDenied)
+  included do
+    prepend FetchResouceOverride
+  end
+
+  def forbidden_error error
+    not_found_error error if request.get?
+  end
+
+  module FetchResouceOverride
+    def fetch_resource
+      super
+    rescue AgeRestricted
+      authorize! :read, @resource
+      raise
+    end
   end
 end

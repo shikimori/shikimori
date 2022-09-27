@@ -124,7 +124,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   def cache_keys # rubocop:disable AbcSize
     {
       admin: [admin_area?, CACHE_VERSION],
-      ongoings: [:ongoings, rand(5), CACHE_VERSION],
+      ongoings: [:ongoings, cache_variant, CACHE_VERSION],
       collections: [collections_scope.cache_key, CACHE_VERSION],
       articles: [articles_scope.cache_key, CACHE_VERSION],
       critiques: [critiques_scope.cache_key, CACHE_VERSION],
@@ -137,7 +137,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def cache_variant
-    :"variant-#{rand(5)}"
+    rand(6).to_i
   end
 
   def new_news_url
@@ -223,8 +223,7 @@ private
   end
 
   def critiques_scope
-    Topics::Query
-      .fetch(h.current_user, h.censored_forbidden?)
+    Topics::Query.fetch(h.censored_forbidden?)
       .by_forum(critiques_forum, h.current_user, h.censored_forbidden?)
       .limit(6)
       .lazy_map do |topic|
@@ -237,23 +236,16 @@ private
   end
 
   def news_scope
-    Topics::Query
-      .fetch(h.current_user, h.censored_forbidden?)
+    Topics::Query.fetch(h.censored_forbidden?)
       .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
       .except(:order)
       .order(is_pinned: :desc, created_at: :desc)
   end
 
   def db_updates_scope
-    Topics::Query
-      .fetch(h.current_user, true) # always hide hentai on the main page
+    Topics::Query.fetch(h.locale_from_host, true) # always hide hentai on the main page
       .by_forum(Forum::UPDATES_FORUM, h.current_user, true) # always hide hentai on the main page
       .where(TOPICS_EXCEPT_EXCLUDED_SQL)
-
-    # Topics::Query
-    #   .fetch(h.censored_forbidden?)
-    #   .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
-    #   .where(TOPICS_EXCEPT_EXCLUDED_SQL)
   end
 
   def critiques_forum

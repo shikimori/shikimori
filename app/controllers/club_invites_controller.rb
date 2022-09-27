@@ -3,11 +3,8 @@ class ClubInvitesController < ShikimoriController
   load_and_authorize_resource
 
   def create
-    if @resource.save
-      render json: { notice: i18n_t('invitation_sent') }
-    else
-      render json: @resource.errors.full_messages, status: :unprocessable_entity
-    end
+    @resource.destroy! if @resource.save && @resource.club.shadowbanned?
+    render json: { notice: i18n_t('invitation_sent') }
   end
 
   def accept

@@ -23,8 +23,8 @@ else
       partial: 'blocks/postloader',
       locals: {
         filter: 'b-club',
-        next_url: clubs_url(page: @collection.next_page, search: params[:search]),
-        prev_url: (clubs_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?) # rubocop:disable LineLength
+        next_url: current_url(page: @collection.next_page),
+        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?) # rubocop:disable LineLength
       },
       formats: :html
     )

@@ -22,6 +22,10 @@ class Abilities::ForumModerator
       )
     end
 
+    can :read, Comment
+    can :read, Topic
+    can :see_club, Club
+
     cannot :broadcast, Topic
     cannot :moderate, Topic
     cannot :pin, Topic

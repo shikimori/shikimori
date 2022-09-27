@@ -9,8 +9,7 @@ class UserDecorator < BaseDecorator
   end
 
   def clubs_wo_shadowbanned
-    Clubs::Query
-      .new(object.clubs)
+    Clubs::Query.new(object.clubs)
       .without_shadowbanned(h.current_user)
       .decorate
       .sort_by(&:name)

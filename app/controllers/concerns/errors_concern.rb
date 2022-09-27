@@ -26,7 +26,8 @@ module ErrorsConcern
     Honeybadger.notify error if defined? Honeybadger
     Appsignal.set_error error if defined? Appsignal
     Bugsnag.notify error if defined? Bugsnag
-    capture_sentry error if defined? Raven
+    capture_raven error if defined? Raven
+    capture_sentry error if defined? Sentry
 
     NamedLogger
       .send("#{Rails.env}_errors")
@@ -40,9 +41,7 @@ module ErrorsConcern
         !error.is_a?(CanCan::AccessDenied)
     )
 
-    if NOT_FOUND_ERRORS.include?(error.class) || (
-      respond_to?(:cancan_get_404?) && cancan_get_404?(error)
-    )
+    if NOT_FOUND_ERRORS.include?(error.class)
       not_found_error error
 
     elsif error.is_a? RknBanned
@@ -146,12 +145,16 @@ private
     json? || (is_a?(Api::V1Controller) && !params[:frontend])
   end
 
-  def capture_sentry error
+  def capture_raven error
     if current_user.present?
       Raven.user_context id: current_user.id
       Raven.extra_context params: params.to_unsafe_h, url: request.url
     end
 
     Raven.capture_exception error
+  end
+
+  def capture_sentry error
+    Sentry.capture_exception error
   end
 end

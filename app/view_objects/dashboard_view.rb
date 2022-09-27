@@ -1,4 +1,6 @@
 class DashboardView < ViewObjectBase # rubocop:disable ClassLength
+  instance_cache :cache_variant
+
   CACHE_VERSION = :v8
 
   ONGOINGS_FETCH = 24
@@ -63,6 +65,10 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
     end
   end
 
+  def cache_variant
+    rand(6).to_i
+  end
+
   def db_others klass
     month = Time.zone.now.beginning_of_month
     # + 1.month since 12th month belongs to the next year in Titles::SeasonTitle
@@ -97,8 +103,7 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def news_topic_views
-    Topics::Query
-      .fetch(h.current_user, h.censored_forbidden?)
+    Topics::Query.fetch(h.censored_forbidden?)
       .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
       .limit(NEWS_LIMIT)
       .paginate(page, NEWS_LIMIT)
@@ -106,22 +111,11 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def generated_news_topic_views
-    Topics::Query
-      .fetch(h.current_user, true) # always hide hentai on the main page
+    Topics::Query.fetch(true) # always hide hentai on the main page
       .by_forum(Forum::UPDATES_FORUM, h.current_user, true) # always hide hentai on the main page
       .limit(15)
       .as_views(true, true)
-
-    # Topics::Query
-    #   .fetch(h.censored_forbidden?)
-    #   .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
-    #   .limit(15)
-    #   .as_views(true, true)
   end
-
-  # def favourites
-    # all_favourites.take(ONGOINGS_TAKE / 2).sort_by(&:ranked)
-  # end
 
   def contests
     Contests::CurrentQuery.call
@@ -140,18 +134,16 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def cache_keys
-    news_key = Topics::Query
-      .new(Topic)
+    news_key = Topics::Query.new(Topic)
       .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
       .first
 
-    updates_key = Topics::Query
-      .new(Topic)
+    updates_key = Topics::Query.new(Topic)
       .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
       .first
 
     {
-      ongoings: [:ongoings, rand(5), CACHE_VERSION],
+      ongoings: [:ongoings, rand(10), CACHE_VERSION],
       critiques: [Critique.order(id: :desc).first, CACHE_VERSION],
       critiques_index: rand(REVIEWS_FETCH), # to randomize critiques output
       news: [:news, news_key, CACHE_VERSION],
@@ -189,19 +181,11 @@ private
   end
 
   def all_critique_topic_views
-    Topics::Query
-      .fetch(h.current_user, h.censored_forbidden?)
+    Topics::Query.fetch(h.censored_forbidden?)
       .by_forum(critiques_forum, h.current_user, h.censored_forbidden?)
       .limit(REVIEWS_FETCH)
       .as_views(true, true)
   end
-
-  # def all_favourites
-    # Anime
-      # .where(id: FavouritesQuery.new.top_favourite_ids(Anime, FETCH_LIMIT))
-      # .decorate
-      # .shuffle
-  # end
 
   def critiques_forum
     Forum.find_by_permalink('critiques') # rubocop:disable DynamicFindBy

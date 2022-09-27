@@ -1,5 +1,9 @@
 describe Topics::Query do
+<<<<<<< HEAD
   subject(:query) { described_class.fetch user, is_censored_forbidden }
+=======
+  subject(:query) { described_class.fetch locale, is_censored_forbidden }
+>>>>>>> e5edef361bf10254ecef00f9a08c72af09ad402d
 
   let(:is_censored_forbidden) { false }
 
@@ -20,14 +24,20 @@ describe Topics::Query do
       it { is_expected.to eq all_sticky_topics }
     end
 
-    context 'filtered by access policy' do
-      before do
-        allow(Topic::AccessPolicy).to receive(:allowed?) do |topic, _user|
-          topic == socials_topic
-        end
-      end
-      it { is_expected.to eq [socials_topic] }
+    context 'domain does not match topic locale' do
+      let(:locale) { :en }
+      it { is_expected.to be_empty }
     end
+  end
+
+  context '#filter_by_policy' do
+    subject { query.filter_by_policy user }
+    before do
+      allow(Topic::AccessPolicy).to receive(:allowed?) do |topic, _user|
+        topic == socials_topic
+      end
+    end
+    it { is_expected.to eq [socials_topic] }
   end
 
   describe '#by_forum' do

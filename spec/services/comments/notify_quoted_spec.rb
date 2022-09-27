@@ -97,6 +97,16 @@ describe Comments::NotifyQuoted do
     it { expect { subject }.to_not change Message, :count }
   end
 
+  context 'quote in inacessible comment', :focus do
+    before do
+      allow(Comment::AccessPolicy)
+        .to receive(:allowed?)
+        .with(comment, quoted_user)
+        .and_return false
+    end
+    it { expect { subject }.to_not change Message, :count }
+  end
+
   context 'mention to user with disabled mention notifications' do
     before do
       quoted_user.update!(

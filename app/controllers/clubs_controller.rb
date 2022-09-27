@@ -1,15 +1,15 @@
 class ClubsController < ShikimoriController
   include CanCanGet404Concern
+
   load_and_authorize_resource :club, only: %i[new create]
+  before_action :fetch_resource, if: :resource_id
   authorize_resource :club, except: %i[index autocomplete new create]
 
-  before_action { og page_title: i18n_i('Club', :other) }
-
-  before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
 
   before_action :set_breadcrumbs
   before_action :restrict_private, if: :resource_id
+  before_action { og page_title: i18n_i('Club', :other) }
 
   UPDATE_PARAMS = [
     :name,
@@ -22,6 +22,7 @@ class ClubsController < ShikimoriController
     :image_upload_policy,
     :logo,
     :is_censored,
+    :is_private,
     anime_ids: [],
     manga_ids: [],
     ranobe_ids: [],
@@ -34,17 +35,26 @@ class ClubsController < ShikimoriController
   RESTRICTED_PARAMS = %i[is_non_thematic is_shadowbanned]
   CREATE_PARAMS = %i[owner_id] + UPDATE_PARAMS
 
+  RESTRICTED_FILTERS = %i[is_censored is_private is_non_thematic is_shadowbanned]
   MEMBERS_LIMIT = 48
 
   def index
     og noindex: true
     @limit = [[params[:limit].to_i, 24].max, 48].min
 
-    scope = Clubs::Query.fetch current_user
+    is_skip_restrictions = can?(:manage_restrictions, Club) &&
+      RESTRICTED_FILTERS.any? { |field| params[field].blank? }
+    scope = Clubs::Query.fetch current_user, is_skip_restrictions
 
     if params[:search].blank?
       @favourites = scope.favourites if @page == 1
       scope = scope.without_favourites
+    end
+
+    if is_skip_restrictions
+      RESTRICTED_FILTERS.each do |field|
+        scope = scope.where(field => true) if params[field].present?
+      end
     end
 
     @collection = scope
@@ -166,7 +176,7 @@ class ClubsController < ShikimoriController
   end
 
   def autocomplete
-    @collection = Clubs::Query.fetch(current_user)
+    @collection = Clubs::Query.fetch(current_user, false)
       .search(params[:search])
       .paginate(1, CompleteQuery::AUTOCOMPLETE_LIMIT)
       .reverse
@@ -184,6 +194,16 @@ private
     )
 
     render :private_access unless is_access_allowed
+  end
+
+  def not_found_error error
+    club = @club || @resource
+
+    if club && error.is_a?(CanCan::AccessDenied) && club.is_private && !club.shadowbanned?
+      render :private
+    else
+      super
+    end
   end
 
   def resource_klass

@@ -4,8 +4,7 @@ class Club::AccessPolicy
   def allowed?
     return false if @club.censored? && !@current_user
 
-    !@club.shadowbanned? || (
-      @club.shadowbanned? && !!@current_user&.club_ids&.include?(@club.id)
-    )
+    !(@club.shadowbanned? || @club.is_private) ||
+      !!@current_user&.club_ids&.include?(@club.id)
   end
 end

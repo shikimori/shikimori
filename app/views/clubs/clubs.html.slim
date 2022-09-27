@@ -1,8 +1,9 @@
 = render layout: 'page' do
+  .b-options-floated.count = @resource.all_clubs.size
   h2.subheadline = og.headline
 
   .b-clubs.index
     = render partial: 'clubs/club',
-      collection: @resource.clubs,
+      collection: @resource.all_clubs,
       locals: { content_by: :detailed },
       cached: ->(entry) { cache_keys entry, :detailed }

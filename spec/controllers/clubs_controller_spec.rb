@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe ClubsController do
   describe '#index' do
     let!(:club) { create :club, :with_topics, id: 999_999 }
@@ -82,7 +80,13 @@ describe ClubsController do
             section: 'description'
           }
       end
-      let(:params) { { name: 'test club' } }
+      let(:params) do
+        {
+          name: 'test club',
+          is_censored: [true, false].sample,
+          is_private: [true, false].sample
+        }
+      end
 
       it do
         expect(resource.errors).to be_empty
