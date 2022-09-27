@@ -153,6 +153,7 @@ class Manga < DbEntry
     predicates: true
 
   attribute :aired_on, IncompleteDate
+  include IncompleteDate::ComputedField[:aired_on]
   attribute :released_on, IncompleteDate
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }

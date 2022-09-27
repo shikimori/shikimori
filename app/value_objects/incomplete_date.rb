@@ -8,6 +8,18 @@ class IncompleteDate
     end
   end
 
+  module ComputedField
+    def self.[] field
+      ::Module.new do
+        define_method :"#{field}=" do |value|
+          super value
+          send(:"#{field}_computed=", (send(field).date if send(field).present?))
+          send field
+        end
+      end.freeze
+    end
+  end
+
   attribute :year, NilInteger, allow_nil: true
   attribute :month, NilInteger, allow_nil: true
   attribute :day, NilInteger, allow_nil: true

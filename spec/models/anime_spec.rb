@@ -249,4 +249,5 @@ describe Anime do
   it_behaves_like :clubs_concern, :anime
   it_behaves_like :contests_concern
   it_behaves_like :favourites_concern
+  it_behaves_like :computed_incomplete_date_field, :anime, :aired_on
 end

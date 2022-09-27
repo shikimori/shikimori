@@ -250,6 +250,7 @@ class Anime < DbEntry
     predicates: { prefix: true }
 
   attribute :aired_on, IncompleteDate
+  include IncompleteDate::ComputedField[:aired_on]
   attribute :released_on, IncompleteDate
   attribute :digital_released_on, IncompleteDate
   attribute :russia_released_on, IncompleteDate

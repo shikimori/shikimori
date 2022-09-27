@@ -29,7 +29,7 @@ FactoryBot.define do
     aired_on { {} }
     aired_on_computed { nil }
     released_on { {} }
-    figital_released_on { {} }
+    digital_released_on { {} }
     russia_released_on { {} }
     russia_released_on_hint { '' }
 
