@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_25_140906) do
+ActiveRecord::Schema.define(version: 2022_09_27_155810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 2022_09_25_140906) do
     t.jsonb "released_on", default: {}, null: false
     t.jsonb "digital_released_on", default: {}, null: false
     t.jsonb "russia_released_on", default: {}, null: false
+    t.date "aired_on_computed"
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["rating"], name: "index_animes_on_rating"
@@ -698,6 +699,7 @@ ActiveRecord::Schema.define(version: 2022_09_25_140906) do
     t.integer "ranked_random", default: 999999, null: false
     t.jsonb "aired_on", default: {}, null: false
     t.jsonb "released_on", default: {}, null: false
+    t.date "aired_on_computed"
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"

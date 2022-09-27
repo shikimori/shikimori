@@ -20,6 +20,7 @@ FactoryBot.define do
     imported_at { nil }
     options { [] }
     aired_on { {} }
+    aired_on_computed { nil }
     released_on { {} }
 
     factory :ranobe, class: 'Ranobe' do

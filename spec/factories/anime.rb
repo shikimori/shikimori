@@ -27,8 +27,9 @@ FactoryBot.define do
     desynced { [] }
     imported_at { nil }
     aired_on { {} }
+    aired_on_computed { nil }
     released_on { {} }
-    digital_released_on { {} }
+    figital_released_on { {} }
     russia_released_on { {} }
     russia_released_on_hint { '' }
 
