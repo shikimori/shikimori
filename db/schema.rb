@@ -1027,7 +1027,7 @@ ActiveRecord::Schema.define(version: 2022_09_19_184130) do
     t.integer "forum_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "type", limit: 255
+    t.string "type", limit: 255, null: false
     t.text "body"
     t.boolean "generated", default: false
     t.integer "linked_id"

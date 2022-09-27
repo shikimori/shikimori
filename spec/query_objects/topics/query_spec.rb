@@ -1,9 +1,5 @@
 describe Topics::Query do
-<<<<<<< HEAD
-  subject(:query) { described_class.fetch user, is_censored_forbidden }
-=======
-  subject(:query) { described_class.fetch locale, is_censored_forbidden }
->>>>>>> e5edef361bf10254ecef00f9a08c72af09ad402d
+  subject(:query) { described_class.fetch is_censored_forbidden }
 
   let(:is_censored_forbidden) { false }
 
