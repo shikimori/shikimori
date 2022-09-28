@@ -12,7 +12,6 @@ describe Elasticsearch::Query::Collection, :vcr do
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }
-  let(:locale) { 'ru' }
 
   it { is_expected.to have_keys [collection_1.id, collection_2.id] }
 end

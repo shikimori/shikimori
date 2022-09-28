@@ -12,7 +12,6 @@ describe Elasticsearch::Query::Club, :vcr do
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }
-  let(:locale) { 'ru' }
 
   it { is_expected.to have_keys [club_1.id, club_2.id] }
 end

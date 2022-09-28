@@ -12,7 +12,6 @@ describe Elasticsearch::Query::Article, :vcr do
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }
-  let(:locale) { 'ru' }
 
   it { is_expected.to have_keys [article_1.id, article_2.id] }
 end

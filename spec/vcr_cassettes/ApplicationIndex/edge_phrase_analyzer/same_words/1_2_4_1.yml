@@ -326,7 +326,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"error":{"root_cause":[{"type":"resource_already_exists_exception","reason":"index
-        [shikimori_test_clubs/zlGsqYwWRZSdvNlZa4MCUg] already exists","index_uuid":"zlGsqYwWRZSdvNlZa4MCUg","index":"shikimori_test_clubs"}],"type":"resource_already_exists_exception","reason":"index
-        [shikimori_test_clubs/zlGsqYwWRZSdvNlZa4MCUg] already exists","index_uuid":"zlGsqYwWRZSdvNlZa4MCUg","index":"shikimori_test_clubs"},"status":400}'
+        [shikimori_test_clubs/T6zwCvUGQX6Brum3OFX88w] already exists","index_uuid":"T6zwCvUGQX6Brum3OFX88w","index":"shikimori_test_clubs"}],"type":"resource_already_exists_exception","reason":"index
+        [shikimori_test_clubs/T6zwCvUGQX6Brum3OFX88w] already exists","index_uuid":"T6zwCvUGQX6Brum3OFX88w","index":"shikimori_test_clubs"},"status":400}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.1.0
