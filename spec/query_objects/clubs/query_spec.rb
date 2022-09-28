@@ -1,15 +1,13 @@
 describe Clubs::Query do
   include_context :timecop
 
-  let(:query) { described_class.fetch user, locale, is_skip_restrictions }
-  let(:locale) { :ru }
+  let(:query) { described_class.fetch user, is_skip_restrictions }
   let(:is_skip_restrictions) { false }
 
   let!(:club_1) { create :club, :with_topics, name: 'club_1' }
   let!(:club_censored) do
     create :club, :with_topics, :censored, name: 'club_censored'
   end
-  let!(:club_en) { create :club, :with_topics, locale: :en, name: 'club_en' }
   let!(:club_shadowbanned) do
     create :club, :with_topics, :shadowbanned, name: 'club_shadowbanned'
   end
@@ -94,8 +92,7 @@ describe Clubs::Query do
             limit: Clubs::Query::SEARCH_LIMIT
           ).and_return(
             club_censored.id => 987,
-            club_1.id => 765,
-            club_en.id => 654
+            club_1.id => 765
           )
         end
         let(:phrase) { 'test' }

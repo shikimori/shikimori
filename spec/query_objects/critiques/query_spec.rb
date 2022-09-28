@@ -6,7 +6,6 @@ describe Critiques::Query do
       @critiques = [
         create(:critique, target: db_entry, user: user),
         create(:critique, target: db_entry, user: user, created_at: Critiques::Query::NEW_REVIEW_BUBBLE_INTERVAL.ago),
-        create(:critique, target: db_entry, user: user),
         create(:critique, target: db_entry, user: user)
       ]
     end

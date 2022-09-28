@@ -251,21 +251,18 @@ describe Contest do
 
     describe '#generate_missing_topics' do
       before do
-        allow(subject.topic).to receive(:none?).and_return is_none
+        allow(subject.topic).to receive(:present?).and_return is_present
         allow(subject).to receive :generate_topic
         subject.send :generate_missing_topics
       end
 
       context 'no topics' do
-        let(:is_none) { true }
-        it do
-          expect(subject)
-            .to have_received(:generate_topic)
-        end
+        let(:is_present) { false }
+        it { expect(subject).to have_received(:generate_topic) }
       end
 
       context 'has topics' do
-        let(:is_none) { false }
+        let(:is_present) { true }
         it { expect(subject).to_not have_received :generate_topic }
       end
     end

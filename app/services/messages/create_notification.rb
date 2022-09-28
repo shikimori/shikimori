@@ -8,8 +8,7 @@ class Messages::CreateNotification # rubocop:disable ClassLength
       'user_registered_message',
       faq_url: StickyClubView.faq.object.url,
       site_rules_url: StickyTopicView.site_rules.object.url,
-      settings_path: @target.to_param,
-      locale: @target.locale
+      settings_path: @target.to_param
     )
 
     Message.create_wo_antispam!(
@@ -56,8 +55,7 @@ class Messages::CreateNotification # rubocop:disable ClassLength
       'nickname_changed',
       gender: friend.sex,
       old_nickname: "[profile=#{@target.id}]#{old_nickname}[/profile]",
-      new_nickname: "[profile=#{@target.id}]#{new_nickname}[/profile]",
-      locale: friend.locale.to_sym
+      new_nickname: "[profile=#{@target.id}]#{new_nickname}[/profile]"
     )
 
     Message.create_wo_antispam!(
@@ -108,8 +106,7 @@ class Messages::CreateNotification # rubocop:disable ClassLength
     body = i18n_t(
       'bad_email_message',
       gender: @target.sex,
-      email: @target.email,
-      locale: @target.locale.to_sym
+      email: @target.email
     )
 
     Message.create_wo_antispam!(

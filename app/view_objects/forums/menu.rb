@@ -39,7 +39,7 @@ class Forums::Menu < ViewObjectBase
     @critiques ||= Critique
       .where('created_at >= ?', 2.weeks.ago)
       .visible
-      .includes(:user, :target, topics: [:forum])
+      .includes(:user, :target, topic: [:forum])
       .order(created_at: :desc)
       .limit(3)
   end

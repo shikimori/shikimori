@@ -162,6 +162,6 @@ class Contest < ApplicationRecord
 private
 
   def generate_missing_topics
-    generate_topic unless topic
+    generate_topic unless topic.present?
   end
 end

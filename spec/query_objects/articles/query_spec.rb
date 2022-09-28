@@ -1,5 +1,5 @@
 describe Articles::Query do
-  let(:query) { Articles::Query.fetch(:ru) }
+  let(:query) { Articles::Query.fetch }
 
   include_context :timecop
 
@@ -7,8 +7,6 @@ describe Articles::Query do
   let!(:article_2) { create :article, :published, id: 2 }
   let!(:article_3) { create :article, :published, id: 3 }
   let!(:article_4) { create :article, :unpublished, id: 4 }
-  let!(:article_en_1) { create :article, :published, id: 5 }
-  let!(:article_en_2) { create :article, :unpublished, id: 6 }
 
   describe '.fetch' do
     subject { query }
@@ -24,8 +22,7 @@ describe Articles::Query do
             limit: Articles::Query::SEARCH_LIMIT
           ).and_return(
             article_3.id => 987,
-            article_2.id => 654,
-            article_en_1.id => 321
+            article_2.id => 654
           )
         end
         let(:phrase) { 'test' }

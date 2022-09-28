@@ -243,7 +243,7 @@ private
   end
 
   def db_updates_scope
-    Topics::Query.fetch(h.locale_from_host, true) # always hide hentai on the main page
+    Topics::Query.fetch(true) # always hide hentai on the main page
       .by_forum(Forum::UPDATES_FORUM, h.current_user, true) # always hide hentai on the main page
       .where(TOPICS_EXCEPT_EXCLUDED_SQL)
   end

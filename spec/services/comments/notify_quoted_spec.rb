@@ -97,7 +97,7 @@ describe Comments::NotifyQuoted do
     it { expect { subject }.to_not change Message, :count }
   end
 
-  context 'quote in inacessible comment', :focus do
+  context 'quote in inacessible comment' do
     before do
       allow(Comment::AccessPolicy)
         .to receive(:allowed?)

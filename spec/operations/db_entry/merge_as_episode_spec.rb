@@ -52,7 +52,7 @@ describe DbEntry::MergeAsEpisode do
   let!(:topic_1) { create :topic, linked: entry }
   let!(:topic_2) { create :topic, linked: entry, generated: true }
 
-  let!(:comment_1) { create :comment, :with_increment_comments, commentable: entry.maybe_topic(:ru) }
+  let!(:comment_1) { create :comment, :with_increment_comments, commentable: entry.maybe_topic }
 
   let!(:critique) { create :critique, target: entry }
 
@@ -138,7 +138,7 @@ describe DbEntry::MergeAsEpisode do
     expect { topic_2.reload }.to raise_error ActiveRecord::RecordNotFound
 
     expect { comment_1.reload.reload }.to raise_error ActiveRecord::RecordNotFound
-    expect(other.maybe_topic(:ru).comments_count).to eq 0
+    expect(other.maybe_topic.comments_count).to eq 0
 
     expect(critique.reload.target).to eq other
     expect { collection_link.reload }.to raise_error ActiveRecord::RecordNotFound
@@ -323,7 +323,7 @@ describe DbEntry::MergeAsEpisode do
     context 'as_episode = 4' do
       let(:as_episode) { 4 }
       let(:merge_text) do
-        "✅ #{described_class::EPISODE_LABEL[episode_field]} "\
+        "✅ #{described_class::EPISODE_LABEL[episode_field]} " \
           "#{merge_text_episodes} #{entry.name} (#{entry.russian})"
       end
       let(:merge_text_episodes) { '4' }

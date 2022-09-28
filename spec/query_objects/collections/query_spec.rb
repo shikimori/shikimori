@@ -7,8 +7,6 @@ describe Collections::Query do
   let!(:collection_2) { create :collection, :published, id: 2 }
   let!(:collection_3) { create :collection, :published, id: 3 }
   let!(:collection_4) { create :collection, :unpublished, id: 4 }
-  let!(:collection_en_1) { create :collection, :published, id: 5 }
-  let!(:collection_en_2) { create :collection, :unpublished, id: 6 }
 
   describe '.fetch' do
     subject { query }
@@ -24,8 +22,7 @@ describe Collections::Query do
             limit: Collections::Query::SEARCH_LIMIT
           ).and_return(
             collection_3.id => 987,
-            collection_2.id => 654,
-            collection_en_1.id => 321
+            collection_2.id => 654
           )
         end
         let(:phrase) { 'test' }

@@ -19,11 +19,6 @@ describe Topics::Query do
     context 'domain matches topic locale' do
       it { is_expected.to eq all_sticky_topics }
     end
-
-    context 'domain does not match topic locale' do
-      let(:locale) { :en }
-      it { is_expected.to be_empty }
-    end
   end
 
   context '#filter_by_policy' do
