@@ -55,7 +55,7 @@ class IncompleteDate
   end
 
   def date
-    Date.new year || 1901, month || 1, day || 1
+    @date ||= Date.new year || 1901, month || 1, day || 1
   end
 
 private
