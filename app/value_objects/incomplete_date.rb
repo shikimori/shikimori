@@ -15,7 +15,6 @@ class IncompleteDate
         define_method :"#{field}=" do |value|
           super value
           send(:"#{field}_computed=", (send(field).date if send(field).present?))
-          binding.pry
           send field
         end
       end.freeze

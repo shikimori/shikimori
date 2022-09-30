@@ -7,8 +7,7 @@ describe Animes::Filters::BySeason do
   let!(:anime_4) { create :anime, aired_on: '1979-02-01' }
 
   context 'positive' do
-    context 'year', :focus do
-      before { binding.pry;ap anime_1.reload }
+    context 'year' do
       let(:terms) { '2010' }
       it { is_expected.to eq [anime_1, anime_2] }
     end

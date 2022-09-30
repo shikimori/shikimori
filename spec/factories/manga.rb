@@ -35,6 +35,10 @@ FactoryBot.define do
     end
 
     after :build do |model|
+      # for some reasons "aired_on=" from IncompleteDate::ComputedField is
+      # not evoked when attributes are set as factory attributes
+      model.aired_on_computed = model.aired_on.date if model.aired_on.present?
+
       stub_method model, :generate_name_matches
       stub_method model, :touch_related
       stub_method model, :sync_topics_is_censored
