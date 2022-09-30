@@ -102,6 +102,8 @@ describe IncompleteDate do
         it { expect(object).to_not eq date }
         it { expect(date > object).to eq true }
         it { expect(date < object).to eq false }
+        it { expect(object > date).to eq false }
+        it { expect(object < date).to eq true }
       end
 
       context 'date less than object' do
@@ -111,6 +113,8 @@ describe IncompleteDate do
         it { expect(object).to_not eq date }
         it { expect(date < object).to eq true }
         it { expect(date > object).to eq false }
+        it { expect(object > date).to eq true }
+        it { expect(object < date).to eq false }
       end
     end
 

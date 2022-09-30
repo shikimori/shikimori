@@ -1,6 +1,7 @@
 class IncompleteDate
   include ShallowAttributes
   include Types::JsonbActiveModel
+  include Comparable
 
   class NilInteger
     def coerce value, _options = {}
@@ -66,7 +67,7 @@ class IncompleteDate
       super other
     end
   end
-
+  delegate :<=>, to: :date
   def coerce value
     [
       value.respond_to?(:to_date) ? value.to_date : value,
