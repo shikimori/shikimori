@@ -69,7 +69,7 @@ describe Animes::TrackStatusChanges do
       let(:released_on) { Time.zone.yesterday }
       let(:episodes) { [0, 10].sample }
 
-      it 'does not rollback released status', :focus do
+      it 'does not rollback released status' do
         expect(anime).to be_released
         expect(anime.released_on).to eq released_on
       end
