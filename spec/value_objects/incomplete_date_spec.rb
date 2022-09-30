@@ -83,21 +83,34 @@ describe IncompleteDate do
     end
   end
 
-  describe '==' do
+  describe 'comparison logic' do
     context 'date vs incomplete_date' do
       let(:date) { [Date, DateTime, Time.zone].sample.parse string }
       let(:object) { IncompleteDate.new year: 1992, month: 8, day: 25 }
 
-      context 'matched' do
-        let(:string) { '1992-08-25 15:0' }
+      context 'date equal to object' do
+        let(:string) { '1992-08-25 15:00' }
+
         it { expect(date).to eq object }
-        # it { expect(object).to eq date }
+        it { expect(object).to eq date }
       end
 
-      context 'not matched' do
-        let(:string) { '1992-08-24' }
+      context 'date greater than object' do
+        let(:string) { '1992-08-26 15:00' }
+
         it { expect(date).to_not eq object }
         it { expect(object).to_not eq date }
+        it { expect(date > object).to eq true }
+        it { expect(date < object).to eq false }
+      end
+
+      context 'date less than object' do
+        let(:string) { '1992-08-24 15:00' }
+
+        it { expect(date).to_not eq object }
+        it { expect(object).to_not eq date }
+        it { expect(date < object).to eq true }
+        it { expect(date > object).to eq false }
       end
     end
 

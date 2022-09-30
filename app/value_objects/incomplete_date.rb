@@ -60,15 +60,18 @@ class IncompleteDate
 
   # make it comparable to dates
   def == other
-    if other.respond_to? :strftime
-      other == date
+    if other.respond_to? :to_date
+      other.to_date == date
     else
       super other
     end
   end
 
   def coerce value
-    [date, value.respond_to?(:to_date) ? value.to_date : value]
+    [
+      value.respond_to?(:to_date) ? value.to_date : value,
+      date
+    ]
   end
 
 private
