@@ -83,8 +83,8 @@ describe IncompleteDate do
     end
   end
 
-  describe '.parse' do
-    subject { described_class.parse object }
+  describe '.new' do
+    subject { described_class.new object }
 
     context 'string' do
       context 'has date' do

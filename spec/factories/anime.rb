@@ -105,7 +105,7 @@ FactoryBot.define do
 
     trait :ongoing do
       status { :ongoing }
-      aired_on { IncompleteDate.parse 2.weeks.ago }
+      aired_on { 2.weeks.ago }
       duration { 0 }
     end
 
@@ -115,7 +115,7 @@ FactoryBot.define do
 
     trait :anons do
       status { :anons }
-      aired_on { IncompleteDate.parse 2.weeks.from_now }
+      aired_on { 2.weeks.from_now }
       episodes_aired { 0 }
 
       # after :create do |anime|

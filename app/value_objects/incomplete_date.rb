@@ -26,19 +26,19 @@ class IncompleteDate
 
   SPACES_CLEANUP_REGEXP = /  /
 
-  def self.parse object
-    return new if object.blank?
+  def self.new object = nil
+    return super({}) if object.blank?
 
     case object
       when String
         date = Date.parse object
-        new year: date.year, month: date.month, day: date.day
+        super year: date.year, month: date.month, day: date.day
 
       when Date, Time, DateTime, ActiveSupport::TimeWithZone
-        new year: object.year, month: object.month, day: object.day
+        super year: object.year, month: object.month, day: object.day
 
       else
-        new object
+        super object
     end
   end
 
