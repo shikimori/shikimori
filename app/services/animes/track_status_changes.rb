@@ -17,7 +17,7 @@ private
 
   def try_rollback_anons_to_ongoing_change
     return unless status_changed? 'anons' => 'ongoing'
-    return unless @anime.aired_on
+    return if @anime.aired_on.blank?
     return if aired_not_in_future?
 
     @anime.status = :anons
@@ -26,7 +26,7 @@ private
   def try_rollback_ongoing_to_released_change
     return unless status_changed? 'ongoing' => 'released'
     # when ancient anime without released_on is marked released
-    return unless @anime.released_on
+    return if @anime.released_on.blank?
     return if released_in_past_or_today? || all_episodes_aired?
 
     @anime.status = :ongoing
@@ -34,11 +34,11 @@ private
   end
 
   def aired_not_in_future?
-    @anime.aired_on <= Time.zone.today
+    @anime.aired_on.date <= Time.zone.today
   end
 
   def released_in_past_or_today?
-    @anime.released_on <= Time.zone.today
+    @anime.released_on.date <= Time.zone.today
   end
 
   def all_episodes_aired?

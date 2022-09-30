@@ -1,5 +1,5 @@
 module ShallowAttributes::InstanceMethods::CompareFix
-  def ==(object)
+  def == object
     return false unless object.respond_to? :to_h
     to_h == object.to_h
   end

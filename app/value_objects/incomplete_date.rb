@@ -58,6 +58,19 @@ class IncompleteDate
     @date ||= Date.new year || 1901, month || 1, day || 1
   end
 
+  # make it comparable to dates
+  def == other
+    if other.respond_to? :strftime
+      other == date
+    else
+      super other
+    end
+  end
+
+  def coerce value
+    [date, value.respond_to?(:to_date) ? value.to_date : value]
+  end
+
 private
 
   def date_format # rubocop:disable all

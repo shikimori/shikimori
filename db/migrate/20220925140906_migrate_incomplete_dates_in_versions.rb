@@ -13,14 +13,14 @@ class MigrateIncompleteDatesInVersions < ActiveRecord::Migration[6.1]
           dir.up do
             scope.each do |version|
               version.update_column :item_diff, {
-                field => version.item_diff[field.to_s].map { |date| IncompleteDate.parse(date).to_h }
+                field => version.item_diff[field.to_s].map { |date| IncompleteDate.new(date).to_h }
               }
             end
           end
           dir.down do
             scope.each do |version|
               version.update_column :item_diff, {
-                field => version.item_diff[field.to_s].map { |date| IncompleteDate.parse(date).date.to_s }
+                field => version.item_diff[field.to_s].map { |date| IncompleteDate.new(date).date.to_s }
               }
             end
           end

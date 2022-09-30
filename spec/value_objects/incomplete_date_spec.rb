@@ -83,6 +83,30 @@ describe IncompleteDate do
     end
   end
 
+  describe '==' do
+    context 'date vs incomplete_date' do
+      let(:date) { [Date, DateTime, Time.zone].sample.parse string }
+      let(:object) { IncompleteDate.new year: 1992, month: 8, day: 25 }
+
+      context 'matched' do
+        let(:string) { '1992-08-25 15:0' }
+        it { expect(date).to eq object }
+        # it { expect(object).to eq date }
+      end
+
+      context 'not matched' do
+        let(:string) { '1992-08-24' }
+        it { expect(date).to_not eq object }
+        it { expect(object).to_not eq date }
+      end
+    end
+
+    context 'incomplete_date vs incomplete_date' do
+      let(:object) { IncompleteDate.new(year: 1992, month: 8, day: 25) }
+      it { expect(object).to eq IncompleteDate.new(year: 1992, month: 8, day: 25) }
+    end
+  end
+
   describe '.new' do
     subject { described_class.new object }
 
@@ -104,7 +128,7 @@ describe IncompleteDate do
     end
 
     context 'date' do
-      let(:object) { [Date, DateTime, Time.zone].sample.parse '1992-08-25' }
+      let(:object) { [Date, DateTime, Time.zone].sample.parse '1992-08-25 15:00' }
       it { is_expected.to eq IncompleteDate.new(year: 1992, month: 8, day: 25) }
     end
   end
