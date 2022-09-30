@@ -34,11 +34,11 @@ private
   end
 
   def aired_not_in_future?
-    @anime.aired_on.date <= Time.zone.today
+    @anime.aired_on <= Time.zone.today
   end
 
   def released_in_past_or_today?
-    @anime.released_on.date <= Time.zone.today
+    @anime.released_on <= Time.zone.today
   end
 
   def all_episodes_aired?
