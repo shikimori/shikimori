@@ -61,8 +61,8 @@ describe Animes::GenerateNews do
       let(:anime) do
         create :anime,
           status: new_status,
-          released_on: released_on,
-          aired_on: aired_on
+          released_on: IncompleteDate.new(released_on),
+          aired_on: IncompleteDate.new(aired_on)
       end
 
       let(:old_status) { :ongoing }
