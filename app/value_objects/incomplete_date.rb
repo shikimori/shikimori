@@ -26,6 +26,22 @@ class IncompleteDate
 
   SPACES_CLEANUP_REGEXP = /  /
 
+  def self.parse object
+    return new if object.blank?
+
+    case object
+      when String
+        date = Date.parse object
+        new year: date.year, month: date.month, day: date.day
+
+      when Date, Time, DateTime, ActiveSupport::TimeWithZone
+        new year: object.year, month: object.month, day: object.day
+
+      else
+        new object
+    end
+  end
+
   def human
     return if blank?
 
@@ -40,19 +56,6 @@ class IncompleteDate
 
   def date
     Date.new year || 1901, month || 1, day || 1
-  end
-
-  def self.parse object
-    return new if object.blank?
-
-    case object
-      when String
-        date = Date.parse object
-        new year: date.year, month: date.month, day: date.day
-
-      else
-        new object
-    end
   end
 
 private

@@ -56,7 +56,7 @@ FactoryBot.define do
 
     trait :ongoing do
       status { :ongoing }
-      aired_on { 2.weeks.ago }
+      aired_on { IncompleteDate.parse 2.weeks.ago }
     end
 
     trait :released do
@@ -69,7 +69,7 @@ FactoryBot.define do
 
     trait :anons do
       status { :anons }
-      aired_on { 2.weeks.from_now }
+      aired_on { IncompleteDate.parse 2.weeks.from_now }
     end
   end
 end
