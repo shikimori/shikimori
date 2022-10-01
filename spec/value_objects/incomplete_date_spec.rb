@@ -67,6 +67,53 @@ describe IncompleteDate do
     end
   end
 
+  describe '#blank?, #uncertain?' do
+    subject { IncompleteDate.new year: year, month: month, day: day }
+    let(:year) { 1992 }
+    let(:month) { 10 }
+    let(:day) { 21 }
+
+    context 'has date' do
+      its(:blank?) { is_expected.to eq false }
+      its(:present?) { is_expected.to eq true }
+      its(:uncertain?) { is_expected.to eq false }
+    end
+
+    context 'no year' do
+      let(:year) { nil }
+
+      its(:blank?) { is_expected.to eq false }
+      its(:present?) { is_expected.to eq true }
+      its(:uncertain?) { is_expected.to eq true }
+    end
+
+    context 'no month' do
+      let(:month) { nil }
+
+      its(:blank?) { is_expected.to eq false }
+      its(:present?) { is_expected.to eq true }
+      its(:uncertain?) { is_expected.to eq true }
+    end
+
+    context 'no day' do
+      let(:day) { nil }
+
+      its(:blank?) { is_expected.to eq false }
+      its(:present?) { is_expected.to eq true }
+      its(:uncertain?) { is_expected.to eq true }
+    end
+
+    context 'nothing' do
+      let(:year) { nil }
+      let(:month) { nil }
+      let(:day) { nil }
+
+      its(:blank?) { is_expected.to eq true }
+      its(:present?) { is_expected.to eq false }
+      its(:uncertain?) { is_expected.to eq true }
+    end
+  end
+
   describe '#date' do
     subject { date.date }
 
@@ -79,7 +126,7 @@ describe IncompleteDate do
       let(:month) { nil }
       let(:year) { nil }
 
-      it { is_expected.to eq Date.new(1901, 1, 1) }
+      it { is_expected.to be_nil }
     end
   end
 

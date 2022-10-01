@@ -55,6 +55,10 @@ class IncompleteDate
     !(year || month || day)
   end
 
+  def uncertain?
+    !year || !month || !day
+  end
+
   def date
     if blank?
       nil
@@ -63,10 +67,12 @@ class IncompleteDate
     end
   end
 
-  # make it comparable to dates
+  # make it comparable to other dates
   def == other
     if other.respond_to? :to_date
       other.to_date == date
+    elsif other.is_a? IncompleteDate
+      year == other.year && month == other.month && day == other.day
     else
       super other
     end
