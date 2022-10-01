@@ -19191,7 +19191,7 @@
         - 36683
         - 37264
         - 51168
-      :threshold: 91.5%
+      :threshold: 91.3%
       :generator:
         ignore_latest_ids:
         - 48896
@@ -26837,7 +26837,7 @@
         - 6226
         - 6743
         - 33208
-      :threshold: 95.9%
+      :threshold: 96%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :utawarerumono
@@ -31325,6 +31325,7 @@
         franchise: digimon
         not_anime_ids:
         - 4712
+        - 51780
       :threshold: 93.2%
       :generator:
         ignore_latest_ids:
@@ -31359,6 +31360,7 @@
         franchise: digimon
         not_anime_ids:
         - 4712
+        - 51780
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -31787,7 +31789,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.3%
+      :threshold: 91.7%
       :generator:
         ignore_latest_ids:
         - 38850
