@@ -28,8 +28,6 @@ describe AniMangaDecorator do
         let(:aired_on) { { day: 2, month: 2, year: 2011 } }
 
         context 'different years' do
-
-
           let(:released_on) { { day: 3, month: 3, year: 2012 } }
 
           its(:release_date_text) { is_expected.to eq 'в 2011-2012 гг.' }
@@ -94,17 +92,19 @@ describe AniMangaDecorator do
       context 'aired_on wo month' do
         let(:aired_on) { { year: 2012 } }
 
-        context 'w/o season' do
-          its(:release_date_text) { is_expected.to eq 'на 2012 г.' }
-          its(:release_date_tooltip) { is_expected.to be_nil }
-        end
-
-        context 'with season' do
-          let(:season) { 'winter_2012' }
-
-          its(:release_date_text) { is_expected.to eq 'на январь 2012 г.' }
-          its(:release_date_tooltip) { is_expected.to be_nil }
-        end
+        its(:release_date_text) { is_expected.to eq 'на 2012 г.' }
+        its(:release_date_tooltip) { is_expected.to be_nil }
+        # context 'w/o season' do
+        #   its(:release_date_text) { is_expected.to eq 'на 2012 г.' }
+        #   its(:release_date_tooltip) { is_expected.to be_nil }
+        # end
+        #
+        # context 'with season' do
+        #   let(:season) { 'winter_2012' }
+        #
+        #   its(:release_date_text) { is_expected.to eq 'на январь 2012 г.' }
+        #   its(:release_date_tooltip) { is_expected.to be_nil }
+        # end
       end
     end
 
