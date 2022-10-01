@@ -88,9 +88,9 @@ class Review < ApplicationRecord
     # db_entry.released? &&
       # (!db_entry.released_on || db_entry.released_on <= Time.zone.today)
 
-    if db_entry.released? && db_entry.released_on?
+    if db_entry.released? && db_entry.released_on.present?
       db_entry.released_on <= (@custom_created_at || Time.zone.today)
-    elsif (db_entry.released? && !db_entry.released_on) ||
+    elsif (db_entry.released? && db_entry.released_on.blank?) ||
         (db_entry.is_a?(Manga) && db_entry.discontinued?)
       true
     elsif db_entry.ongoing? || db_entry.anons? ||

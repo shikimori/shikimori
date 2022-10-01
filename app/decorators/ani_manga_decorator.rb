@@ -217,8 +217,4 @@ private
       url: object.mal_url
     )
   end
-
-  def date_uncertain? date
-    !date || (date.day == 1 && date.month == 1)
-  end
 end
