@@ -27,9 +27,11 @@ class Relevance::EntryWeight
 
   def call
     (
-      1 +
-        Math.log10(score_value(@entry)) * Math.log10(kind_value(@entry)) *
-        censored_value(@entry)
+      1 + (
+        Math.log10(score_value(@entry)) *
+          Math.log10(kind_value(@entry)) *
+          censored_value(@entry)
+      )
     ).round(3)
   end
 

@@ -5,12 +5,12 @@ class Animes::ChronologyQuery
     anime: [],
     manga: [81_927]
   }
-  FUTURE_DATE = 50.years.from_now
+  FUTURE_DATE = 50.years.from_now # rubocop:disable Rails/relativeDataConstant
 
   def fetch
     @entry.class
       .where(id: chronology_ids)
-      .sort_by { |v| [v.aired_on || FUTURE_DATE, v.id] }
+      .sort_by { |v| [v.aired_on.date || FUTURE_DATE, v.id] }
       .reverse
   end
 

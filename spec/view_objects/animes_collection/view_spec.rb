@@ -23,7 +23,7 @@ describe AnimesCollection::View do
     let(:collection) { view.collection }
 
     context 'season page' do
-      let!(:anime_1) { create :anime, :tv, aired_on: Date.parse('10-10-2016') }
+      let!(:anime_1) { create :anime, :tv, aired_on: '10-10-2016' }
       let(:view_context_params) do
         {
           controller: 'animes_collection',
@@ -40,7 +40,7 @@ describe AnimesCollection::View do
     end
 
     context 'common page' do
-      let!(:anime_1) { create :anime, :tv, aired_on: Date.parse('10-10-2016') }
+      let!(:anime_1) { create :anime, :tv, aired_on: '10-10-2016' }
       it do
         expect(collection).to have(1).item
         expect(collection.first).to be_kind_of AnimeDecorator

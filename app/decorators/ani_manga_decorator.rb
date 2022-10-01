@@ -92,52 +92,52 @@ class AniMangaDecorator < DbEntryDecorator
 
     if released?
       parts <<
-        if released_on && aired_on && released_on.year != aired_on.year
+        if released_on.present? && aired_on.present? && released_on.year != aired_on.year
           # в 2011-2012 гг.
           i18n_t(
             'datetime.release_dates.in_years',
             from_date: aired_on.year,
             to_date: released_on.year
           )
-        elsif released_on && aired_on
+        elsif released_on.present? && aired_on.present?
           i18n_t(
             'datetime.release_dates.since_till_date',
-            from_date: h.formatted_date(aired_on, true),
-            to_date: h.formatted_date(released_on, true)
+            from_date: aired_on.human,
+            to_date: released_on.human
           )
         else
           i18n_t(
             'datetime.release_dates.date',
-            date: h.formatted_date(released_on || aired_on, true)
+            date: released_on.human
           )
         end
 
     elsif anons?
-      if aired_on
+      if aired_on.present?
         no_fix_month = anime? && season == "winter_#{aired_on.year}"
         parts << i18n_t(
           'datetime.release_dates.for_date',
-          date: h.formatted_date(aired_on, true, true, !no_fix_month)
+          date: aired_on.human
         )
       end
 
-    elsif aired_on && released_on # ongoings
+    elsif aired_on.present? && released_on.present? # ongoings
       parts << i18n_t(
         'datetime.release_dates.since_till_date',
-        from_date: h.formatted_date(aired_on, true),
-        to_date: h.formatted_date(released_on, true)
+        from_date: aired_on.human,
+        to_date: released_on.human
       )
     else
-      if aired_on
+      if aired_on.present?
         parts << i18n_t(
           'datetime.release_dates.since_date',
-          date: h.formatted_date(aired_on, true)
+          date: aired_on.human
         )
       end
-      if released_on
+      if released_on.present?
         parts << i18n_t(
           'datetime.release_dates.till_date',
-          date: h.formatted_date(released_on, true)
+          date: released_on.human
         )
       end
     end
