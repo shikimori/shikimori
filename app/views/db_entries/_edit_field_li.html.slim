@@ -7,14 +7,18 @@
     .value
       - value = resource.respond_to?(:"#{field}_text") ? resource.send(:"#{field}_text") : resource.send(field)
 
-      - if local_assigns[:formatter]
-        span = local_assigns[:formatter].(value)
-      - elsif value.is_a? Array
-        span = value.join(', ')
-      - elsif value.is_a? Date
-        span = formatted_date value, false
-      - elsif value.present?
-        span = value
+      - if value.present?
+        span
+          - if local_assigns[:formatter]
+            = local_assigns[:formatter].(value)
+          - elsif value.is_a? Array
+            = value.join(', ')
+          - elsif value.is_a? Date
+            = l(value, format: :human).strip
+          - elsif value.is_a? IncompleteDate
+            = value&.human false
+          - else
+            = value
 
       - if policy.restricted_fields.include?(field.to_s)
         - if policy.change_allowed?

@@ -3,7 +3,7 @@ class DbImport::ImagePolicy
 
   ONGOING_INTERVAL = 2.weeks
   LATEST_INTERVAL = 3.months
-  OLD_INTERVAL = (30 * 4 - 2).days
+  OLD_INTERVAL = ((30 * 4) - 2).days
 
   def need_import?
     return false if bad_image?

@@ -8,7 +8,7 @@ describe Api::V1::RanobeController, :show_in_doc do
     let(:ranobe) do
       create :ranobe,
         name: 'Test',
-        aired_on: Date.parse('2014-01-01'),
+        aired_on: '2014-01-01',
         publisher_ids: [publisher.id],
         genre_ids: [genre.id],
         franchise: 'zxc'

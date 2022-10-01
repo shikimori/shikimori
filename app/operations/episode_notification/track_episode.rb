@@ -43,7 +43,7 @@ private
 
   def old_released_anime? episode_notification
     episode_notification.anime.released? &&
-      episode_notification.anime.released_on &&
+      episode_notification.anime.released_on.present? &&
       episode_notification.anime.released_on < RELEASE_EXPIRATION_INTERVAL.ago
   end
 end

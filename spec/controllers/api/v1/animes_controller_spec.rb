@@ -9,7 +9,7 @@ describe Api::V1::AnimesController, :show_in_doc do
       create :anime,
         :released,
         name: 'Test',
-        aired_on: Date.parse('2014-01-01'),
+        aired_on: '2014-01-01',
         studio_ids: [studio.id],
         genre_ids: [genre.id],
         duration: 90,

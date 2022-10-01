@@ -4,6 +4,8 @@ en:
       full: '%d.%m.%Y %H:%M'
       human: '%B %e, %Y'
       human_short: '%b %e, %Y'
+      human_day_month: '%B %e'
+      human_month_year: '%B %Y'
       short: '%d.%m.%Y'
       day_month_human: '%B %e'
       month_year_human: '%B %Y'

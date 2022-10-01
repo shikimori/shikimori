@@ -84,6 +84,6 @@ private
   def decorated_entries query
     query
       .decorate
-      .sort_by { |v| v.aired_on || v.released_on || Date.new(2001) }
+      .sort_by { |v| v.aired_on.presence || v.released_on.presence || Date.new(2001) }
   end
 end

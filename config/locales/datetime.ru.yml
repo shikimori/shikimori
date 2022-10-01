@@ -4,6 +4,8 @@ ru:
       full: '%H:%M %d.%m.%Y'
       human: '%e %B %Y'
       human_short: '%e %b %Y'
+      human_day_month: '%e %B'
+      human_month_year: '%B %Y'
       short: '%d.%m.%Y'
       day_month_human: '%e %B'
       month_year_human: '%B %Y'

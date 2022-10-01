@@ -152,6 +152,11 @@ class Manga < DbEntry
     in: Types::Manga::Status.values,
     predicates: true
 
+  attribute :aired_on, IncompleteDate
+  include IncompleteDate::ComputedField[:aired_on]
+  attribute :released_on, IncompleteDate
+  include IncompleteDate::ComputedField[:released_on]
+
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   before_save :set_type, if: -> { kind_changed? }

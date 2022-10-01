@@ -75,5 +75,5 @@ article.c-column.b-catalog_entry[
     itemprop='thumbnailUrl'
     content="#{{meta_image_url anime.image, :x48, false}}"
   ]
-  - if anime.aired_on
-    meta itemprop='dateCreated' content=anime.aired_on.iso8601
+  - if anime.aired_on.present?
+    meta itemprop='dateCreated' content=anime.aired_on.date.iso8601

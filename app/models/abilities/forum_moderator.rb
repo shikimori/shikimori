@@ -24,7 +24,7 @@ class Abilities::ForumModerator
 
     can :read, Comment
     can :read, Topic
-    can :see_club, Club
+    can %i[see_club manage_restrictions], Club
 
     cannot :broadcast, Topic
     cannot :moderate, Topic
@@ -45,8 +45,6 @@ class Abilities::ForumModerator
       manage_censored_profile_role
       manage_censored_nickname_role
     ], User
-
-    can %i[see_club manage_restrictions], Club
 
     can :delete_all_comments, User do |model|
       Comment.where(user_id: model.id).count < MAXIMUM_COMMENTS_TO_DELETE

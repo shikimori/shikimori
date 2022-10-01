@@ -71,7 +71,7 @@ describe Animes::GenerateNews do
       context 'new release' do
         context 'released >= 2 weeks ago' do
           let(:released_on) { 2.weeks.ago.to_date }
-          let(:aired_on) { nil }
+          let(:aired_on) { '' }
 
           it 'generates released news topic' do
             expect(anime.released_news_topics).to_not be_empty
@@ -79,7 +79,7 @@ describe Animes::GenerateNews do
         end
 
         context 'released_on is nil but aired >= 15 months ago' do
-          let(:released_on) { nil }
+          let(:released_on) { '' }
           let(:aired_on) { 15.months.ago.to_date }
 
           it 'generates released news topic' do
@@ -91,7 +91,7 @@ describe Animes::GenerateNews do
       context 'old release' do
         context 'released < 2 weeks ago' do
           let(:released_on) { 2.weeks.ago.to_date - 1.day }
-          let(:aired_on) { nil }
+          let(:aired_on) { '' }
 
           it 'does not generate released news topics' do
             expect(anime.released_news_topics).to be_empty
@@ -99,7 +99,7 @@ describe Animes::GenerateNews do
         end
 
         context 'released_on is nil and aired_on < 15 months ago' do
-          let(:released_on) { nil }
+          let(:released_on) { '' }
           let(:aired_on) { 15.months.ago.to_date - 1.day }
 
           it 'does not generate released news topics' do
@@ -108,8 +108,8 @@ describe Animes::GenerateNews do
         end
 
         context 'released_on and aired_on are both nil' do
-          let(:released_on) { nil }
-          let(:aired_on) { nil }
+          let(:released_on) { '' }
+          let(:aired_on) { '' }
 
           it 'does not generate released news topics' do
             expect(anime.released_news_topics).to be_empty

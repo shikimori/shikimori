@@ -52,7 +52,7 @@ private
 
   def give_up? anime
     (anime.ongoing? || anime.released?) &&
-      anime.aired_on && anime.aired_on < GIVE_UP_INTERVAL.ago
+      anime.aired_on.present? && anime.aired_on < GIVE_UP_INTERVAL.ago
   end
 
   def give_up anime

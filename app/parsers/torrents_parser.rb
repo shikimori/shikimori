@@ -189,7 +189,7 @@ class TorrentsParser
     anons.delete_if { |v| v.kind_ona? && v.anime_calendars.empty? }
 
     released = Anime
-      .where('released_on >= ?', 2.weeks.ago)
+      .where('released_on_computed >= ?', 2.weeks.ago)
       .where('episodes_aired >= 5')
       .to_a
 
