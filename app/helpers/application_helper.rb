@@ -36,23 +36,6 @@ module ApplicationHelper
     "#{request.protocol}#{request.host_with_port}#{file.url style, with_timestamp}"
   end
 
-  # TODO: remove
-  def formatted_date date, fix_1_day = false, short_month = true, fix_1_month = true
-    return unless date
-
-    if fix_1_day
-      if fix_1_month && date.day == 1 && date.month == 1
-        date.year.to_s
-      elsif fix_1_day && date.day == 1
-        I18n.l date, format: :month_year_human
-      else
-        I18n.l(date, format: short_month ? :human_short : :human).strip
-      end
-    else
-      I18n.l(date, format: :human).strip
-    end
-  end
-
   def info_line title = nil, value = nil, &block
     value = capture(&block) if value.nil? && block_given?
 

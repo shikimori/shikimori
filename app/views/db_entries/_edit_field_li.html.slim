@@ -14,7 +14,7 @@
           - elsif value.is_a? Array
             = value.join(', ')
           - elsif value.is_a? Date
-            = formatted_date value, false
+            = l(value, format: :human).strip
           - elsif value.is_a? IncompleteDate
             = value&.human false
           - else

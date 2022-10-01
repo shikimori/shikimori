@@ -67,16 +67,16 @@
         span itemprop="alternativeHeadline" == @resource.license_name_ru
 
   - if entry.respond_to? :digital_released_on
-    - if entry.digital_released_on
-      = info_line(Anime.human_attribute_name(:digital_released_on), formatted_date(entry.digital_released_on, true))
+    - if entry.digital_released_on.present?
+      = info_line Anime.human_attribute_name(:digital_released_on), entry.digital_released_on.human
 
-    - if entry.russia_released_on
+    - if entry.russia_released_on.present?
       = info_line Anime.human_attribute_name(:russia_released_on) do
         span[
           class=('b-tooltipped dotted mobile unprocessed' if entry.russia_released_on_hint.present?)
           title=(entry.russia_released_on_hint if entry.russia_released_on_hint.present?)
           data-direction=('right' if entry.russia_released_on_hint.present?)
-        ] = formatted_date entry.russia_released_on, false
+        ] = entry.russia_released_on.human
 
   - if entry.japanese.present? || entry.english.present? || entry.synonyms.present?
     = info_line t('.other_names') do
