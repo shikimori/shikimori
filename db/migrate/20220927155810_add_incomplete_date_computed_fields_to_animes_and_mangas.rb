@@ -1,18 +1,20 @@
 class AddIncompleteDateComputedFieldsToAnimesAndMangas < ActiveRecord::Migration[6.1]
   def change
     %i[animes mangas].each do |table_name|
-      add_column table_name, :aired_on_computed, :date
-      reversible do |dir|
-        dir.up do
-          execute %Q[
-            update #{table_name}
-              set aired_on_computed = make_date(
-                (case when aired_on->>'year' is null then '1901' else aired_on->>'year' end)::int,
-                (case when aired_on->>'month' is null then '1' else aired_on->>'month' end)::int,
-                (case when aired_on->>'day' is null then '1' else aired_on->>'day' end)::int
-              )
-              where aired_on != '{}'
-          ]
+      %i[aired_on released_on].each do |field|
+        add_column table_name, :"#{field}_computed", :date
+        reversible do |dir|
+          dir.up do
+            execute %Q[
+              update #{table_name}
+                set #{field}_computed = make_date(
+                  (case when #{field}->>'year' is null then '1901' else #{field}->>'year' end)::int,
+                  (case when #{field}->>'month' is null then '1' else #{field}->>'month' end)::int,
+                  (case when #{field}->>'day' is null then '1' else #{field}->>'day' end)::int
+                )
+                where #{field} != '{}'
+            ]
+          end
         end
       end
     end

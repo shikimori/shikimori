@@ -22,6 +22,7 @@ FactoryBot.define do
     aired_on { {} }
     aired_on_computed { nil }
     released_on { {} }
+    released_on_computed { nil }
 
     factory :ranobe, class: 'Ranobe' do
       sequence(:name) { |n| "ranobe_#{n}" }
@@ -38,6 +39,7 @@ FactoryBot.define do
       # for some reasons "aired_on=" from IncompleteDate::ComputedField is
       # not evoked when attributes are set as factory attributes
       model.aired_on_computed = model.aired_on.date if model.aired_on.present?
+      model.released_on_computed = model.released_on.date if model.released_on.present?
 
       stub_method model, :generate_name_matches
       stub_method model, :touch_related

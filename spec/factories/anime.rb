@@ -29,6 +29,7 @@ FactoryBot.define do
     aired_on { {} }
     aired_on_computed { nil }
     released_on { {} }
+    released_on_computed { nil }
     digital_released_on { {} }
     russia_released_on { {} }
     russia_released_on_hint { '' }
@@ -37,6 +38,7 @@ FactoryBot.define do
       # for some reasons "aired_on=" from IncompleteDate::ComputedField is
       # not evoked when attributes are set as factory attributes
       model.aired_on_computed = model.aired_on.date if model.aired_on.present?
+      model.released_on_computed = model.released_on.date if model.released_on.present?
 
       stub_method model, :track_changes
       stub_method model, :generate_news

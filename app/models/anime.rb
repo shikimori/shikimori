@@ -252,6 +252,7 @@ class Anime < DbEntry
   attribute :aired_on, IncompleteDate
   include IncompleteDate::ComputedField[:aired_on]
   attribute :released_on, IncompleteDate
+  include IncompleteDate::ComputedField[:released_on]
   attribute :digital_released_on, IncompleteDate
   attribute :russia_released_on, IncompleteDate
 

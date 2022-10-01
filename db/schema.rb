@@ -177,6 +177,7 @@ ActiveRecord::Schema.define(version: 2022_09_27_155810) do
     t.jsonb "digital_released_on", default: {}, null: false
     t.jsonb "russia_released_on", default: {}, null: false
     t.date "aired_on_computed"
+    t.date "released_on_computed"
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["rating"], name: "index_animes_on_rating"
@@ -700,6 +701,7 @@ ActiveRecord::Schema.define(version: 2022_09_27_155810) do
     t.jsonb "aired_on", default: {}, null: false
     t.jsonb "released_on", default: {}, null: false
     t.date "aired_on_computed"
+    t.date "released_on_computed"
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"
