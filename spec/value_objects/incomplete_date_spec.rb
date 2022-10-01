@@ -67,7 +67,7 @@ describe IncompleteDate do
     end
   end
 
-  describe '#blank?, #uncertain?' do
+  describe '#blank?, #present?, #uncertain?, #presence' do
     subject { IncompleteDate.new year: year, month: month, day: day }
     let(:year) { 1992 }
     let(:month) { 10 }
@@ -76,6 +76,7 @@ describe IncompleteDate do
     context 'has date' do
       its(:blank?) { is_expected.to eq false }
       its(:present?) { is_expected.to eq true }
+      its(:presence) { is_expected.to eq subject }
       its(:uncertain?) { is_expected.to eq false }
     end
 
@@ -84,6 +85,7 @@ describe IncompleteDate do
 
       its(:blank?) { is_expected.to eq false }
       its(:present?) { is_expected.to eq true }
+      its(:presence) { is_expected.to eq subject }
       its(:uncertain?) { is_expected.to eq true }
     end
 
@@ -92,6 +94,7 @@ describe IncompleteDate do
 
       its(:blank?) { is_expected.to eq false }
       its(:present?) { is_expected.to eq true }
+      its(:presence) { is_expected.to eq subject }
       its(:uncertain?) { is_expected.to eq true }
     end
 
@@ -100,6 +103,7 @@ describe IncompleteDate do
 
       its(:blank?) { is_expected.to eq false }
       its(:present?) { is_expected.to eq true }
+      its(:presence) { is_expected.to eq subject }
       its(:uncertain?) { is_expected.to eq true }
     end
 
@@ -110,6 +114,7 @@ describe IncompleteDate do
 
       its(:blank?) { is_expected.to eq true }
       its(:present?) { is_expected.to eq false }
+      its(:presence) { is_expected.to eq nil }
       its(:uncertain?) { is_expected.to eq true }
     end
   end
