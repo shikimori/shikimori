@@ -9,9 +9,7 @@
               resource: @resource,
               field: field,
               formatter: {\
-                website: ->(_value) { @resource.website_html },
-                birth_on: ->(_value) { @resource.birth_on&.human },
-                deceased_on: ->(_value) { @resource.deceased_on&.human } \
+                website: ->(_value) { @resource.website_html } \
               }[field]
 
       .f-column
