@@ -7,8 +7,9 @@ describe IncompleteDate do
 
   describe '#human' do
     subject do
-      I18n.with_locale(locale) { date.human }
+      I18n.with_locale(locale) { date.human is_short_month }
     end
+    let(:is_short_month) { false }
 
     context 'no date' do
       let(:day) { nil }
@@ -24,11 +25,21 @@ describe IncompleteDate do
       context 'ru' do
         let(:locale) { :ru }
         it { is_expected.to eq '8 сентября 1972' }
+
+        context 'is_short_month' do
+          let(:is_short_month) { true }
+          it { is_expected.to eq '8 сент. 1972' }
+        end
       end
 
       context 'en' do
         let(:locale) { :en }
         it { is_expected.to eq 'September 8, 1972' }
+
+        context 'is_short_month' do
+          let(:is_short_month) { true }
+          it { is_expected.to eq 'Sep 8, 1972' }
+        end
       end
     end
 

@@ -81,9 +81,9 @@
                 - if @resource.name.present?
                   = info_line t('in_japanese'), @resource.japanese
                 - if @resource.birth_on
-                  = info_line Person.human_attribute_name(:birth_on), @resource.birth_on.human
+                  = info_line Person.human_attribute_name(:birth_on), @resource.birth_on.human(false)
                 - if @resource.deceased_on
-                  = info_line Person.human_attribute_name(:deceased_on), @resource.deceased_on.human
+                  = info_line Person.human_attribute_name(:deceased_on), @resource.deceased_on.human(false)
                 - if @resource.website.present?
                   = info_line Person.human_attribute_name(:website), @resource.website_html
 

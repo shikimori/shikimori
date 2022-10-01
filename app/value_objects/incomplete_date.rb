@@ -43,10 +43,10 @@ class IncompleteDate
     end
   end
 
-  def human
+  def human is_short_month
     return if blank?
 
-    I18n.l(date, format: date_format)
+    I18n.l(date, format: date_format(is_short_month))
       .strip
       .gsub(SPACES_CLEANUP_REGEXP, ' ')
   end
@@ -87,9 +87,9 @@ class IncompleteDate
 
 private
 
-  def date_format # rubocop:disable all
+  def date_format is_short_month # rubocop:disable all
     if year && month && day
-      :human
+      is_short_month ? :human_short : :human
     elsif year && month
       :human_month_year
     elsif month && day

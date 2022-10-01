@@ -102,13 +102,13 @@ class AniMangaDecorator < DbEntryDecorator
         elsif released_on.present? && aired_on.present?
           i18n_t(
             'datetime.release_dates.since_till_date',
-            from_date: aired_on.human,
-            to_date: released_on.human
+            from_date: aired_on.human(true),
+            to_date: released_on.human(true)
           )
         else
           i18n_t(
             'datetime.release_dates.date',
-            date: (released_on.presence || aired_on).human
+            date: (released_on.presence || aired_on).human(true)
           )
         end
 
@@ -116,27 +116,27 @@ class AniMangaDecorator < DbEntryDecorator
       if aired_on.present?
         parts << i18n_t(
           'datetime.release_dates.for_date',
-          date: aired_on.human
+          date: aired_on.human(true)
         )
       end
 
     elsif aired_on.present? && released_on.present? # ongoings
       parts << i18n_t(
         'datetime.release_dates.since_till_date',
-        from_date: aired_on.human,
-        to_date: released_on.human
+        from_date: aired_on.human(true),
+        to_date: released_on.human(true)
       )
     else
       if aired_on.present?
         parts << i18n_t(
           'datetime.release_dates.since_date',
-          date: aired_on.human
+          date: aired_on.human(true)
         )
       end
       if released_on.present?
         parts << i18n_t(
           'datetime.release_dates.till_date',
-          date: released_on.human
+          date: released_on.human(true)
         )
       end
     end
@@ -153,8 +153,8 @@ class AniMangaDecorator < DbEntryDecorator
     return if aired_on.uncertain? && released_on.uncertain?
 
     text = i18n_t 'datetime.release_dates.since_till_date',
-      from_date: aired_on.human,
-      to_date: released_on.human
+      from_date: aired_on.human(false),
+      to_date: released_on.human(false)
 
     I18n.russian? ? text.capitalize : text
   end

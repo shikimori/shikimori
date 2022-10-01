@@ -16,7 +16,7 @@
           - elsif value.is_a? Date
             = formatted_date value, false
           - elsif value.is_a? IncompleteDate
-            = value&.human
+            = value&.human false
           - else
             = value
 
