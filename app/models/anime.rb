@@ -274,7 +274,7 @@ class Anime < DbEntry
   end
 
   def latest?
-    ongoing? || anons? || (aired_on && aired_on > 1.year.ago)
+    ongoing? || anons? || (aired_on.present? && aired_on > 1.year.ago)
   end
 
   def name
