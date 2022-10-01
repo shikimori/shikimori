@@ -1,10 +1,10 @@
 describe FinishExpiredAnimes do
-  let(:job) { FinishExpiredAnimes.new }
+  let(:job) { described_class.new }
 
   include_context :timecop, '2015-06-18'
 
   describe '#perform' do
-    let(:interval) { FinishExpiredAnimes::EXPIRE_INTERVAL.ago }
+    let(:interval) { described_class::EXPIRE_INTERVAL.ago }
 
     let!(:anons) { create :anime, :anons, aired_on: interval + 1.day }
     let!(:expired_anons) { create :anime, :anons, aired_on: interval - 1.day }

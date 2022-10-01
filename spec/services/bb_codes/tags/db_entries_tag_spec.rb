@@ -67,7 +67,7 @@ describe BbCodes::Tags::DbEntriesTag do
   end
 
   describe 'cover_notice' do
-    let(:anime) { create :anime, aired_on: Time.zone.parse('1987-01-01') }
+    let(:anime) { create :anime, aired_on: '1987-01-01' }
     let(:text) { "[animes ids=#{anime.id} cover_notice=year_kind]" }
 
     it('has entry') { expect(html).to include 'b-catalog_entry' }
@@ -75,7 +75,7 @@ describe BbCodes::Tags::DbEntriesTag do
   end
 
   describe 'wall' do
-    let(:anime) { create :anime, aired_on: Time.zone.parse('1987-01-01') }
+    let(:anime) { create :anime, aired_on: '1987-01-01' }
     let(:text) { "[animes ids=#{anime.id} wall columns=8]" }
 
     it('has entry') { expect(html).to include 'b-catalog_entry' }

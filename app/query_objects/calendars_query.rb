@@ -76,8 +76,8 @@ private
       .where.not(id: Anime::EXCLUDED_ONGOINGS + [15_547])
       .where(Arel.sql(ONGOINGS_SQL))
       .where(
-        'episodes_aired != 0 or (aired_on is not null and aired_on > ?)',
-        Time.zone.now - 1.months
+        'episodes_aired != 0 or (aired_on_computed is not null and aired_on_computed > ?)',
+        1.month.ago
       )
       .order(Arel.sql('animes.id'))
   end
@@ -95,19 +95,19 @@ private
             start_at >= :from and
             start_at <= :to
         ) or (
-          aired_on >= :from and
-            aired_on <= :to and aired_on != :new_year
+          aired_on_computed >= :from and
+            aired_on_computed <= :to and aired_on_computed != :new_year
         )",
         from: ANNOUNCED_FROM.ago.to_date,
         to: ANNOUNCED_UNTIL.from_now.to_date,
         new_year: Time.zone.today.beginning_of_year.to_date
       )
       .where.not(
-        Arel.sql(
-          "anime_calendars.episode is null
-          and date_part('day', aired_on) = 1
-          and date_part('month', aired_on) = 1"
-        )
+        Arel.sql("
+          anime_calendars.episode is null
+            and aired_on->>'day' is null
+            and aired_on->>'month' is null
+        ")
       )
       .order(Arel.sql('animes.id'))
       # .where(Arel.sql("kind != 'ona' or anime_calendars.episode is not null"))
@@ -115,7 +115,7 @@ private
 
   def exclude_overdue entries
     entries.select do |v|
-      (v.next_episode_start_at && v.next_episode_start_at > Time.zone.now - 1.week) ||
+      (v.next_episode_start_at && v.next_episode_start_at > 1.week.ago) ||
         v.anons?
     end
   end

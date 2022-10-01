@@ -241,7 +241,7 @@ private
 
     og type: video_type
     og video_duration: @resource.duration * 60 if @resource.duration.positive?
-    og video_release_date: @resource.released_on if @resource.released_on
+    og video_release_date: @resource.released_on.date if @resource.released_on.present?
     og video_tags: video_tags
   end
 
