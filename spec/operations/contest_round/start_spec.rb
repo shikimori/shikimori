@@ -3,7 +3,7 @@ describe ContestRound::Start do
 
   let(:operation) { ContestRound::Start.new contest_round }
 
-  let(:contest) { create :contest, :with_5_members, state: 'started' }
+  let(:contest) { create :contest, :with_topics, :with_5_members, state: 'started' }
   let(:contest_round) { create :contest_round, contest: contest }
 
   before do

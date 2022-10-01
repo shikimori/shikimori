@@ -231,13 +231,6 @@ class User < ApplicationRecord
     where "roles && '{#{Types::User::ROLES_EXCLUDED_FROM_STATISTICS.join ','}}'"
   }
 
-  enumerize :locale,
-    in: Types::Locale.values,
-    default: Types::Locale[:ru]
-  enumerize :locale_from_host,
-    in: Types::Locale.values,
-    default: Types::Locale[:ru]
-
   accepts_nested_attributes_for :preferences
 
   # allows for account creation from twitter & fb

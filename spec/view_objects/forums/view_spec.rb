@@ -103,14 +103,14 @@ describe Forums::View do
 
       context 'no forum' do
         it do
-          expect(view.faye_subscriptions).to eq ["/forum-#{offtopic_forum.id}/ru"]
+          expect(view.faye_subscriptions).to eq ["/forum-#{offtopic_forum.id}"]
         end
       end
 
       context 'forum' do
         let(:forum) { 'critiques' }
         it do
-          expect(view.faye_subscriptions).to eq ["/forum-#{critiques_forum.id}/ru"]
+          expect(view.faye_subscriptions).to eq ["/forum-#{critiques_forum.id}"]
         end
       end
 

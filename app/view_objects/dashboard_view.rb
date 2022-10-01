@@ -103,7 +103,7 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def news_topic_views
-    Topics::Query.fetch(h.locale_from_host, h.censored_forbidden?)
+    Topics::Query.fetch(h.censored_forbidden?)
       .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
       .limit(NEWS_LIMIT)
       .paginate(page, NEWS_LIMIT)
@@ -111,7 +111,7 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def generated_news_topic_views
-    Topics::Query.fetch(h.locale_from_host, true) # always hide hentai on the main page
+    Topics::Query.fetch(true) # always hide hentai on the main page
       .by_forum(Forum::UPDATES_FORUM, h.current_user, true) # always hide hentai on the main page
       .limit(15)
       .as_views(true, true)
@@ -181,7 +181,7 @@ private
   end
 
   def all_critique_topic_views
-    Topics::Query.fetch(h.locale_from_host, h.censored_forbidden?)
+    Topics::Query.fetch(h.censored_forbidden?)
       .by_forum(critiques_forum, h.current_user, h.censored_forbidden?)
       .limit(REVIEWS_FETCH)
       .as_views(true, true)

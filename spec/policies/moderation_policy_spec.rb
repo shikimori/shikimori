@@ -1,11 +1,11 @@
 describe ModerationPolicy do
-  let(:policy) { ModerationPolicy.new user, :ru, moderation_filter }
+  let(:policy) { ModerationPolicy.new user, moderation_filter }
   let(:moderation_filter) { true }
 
   describe '#critiques_count' do
     before do
       allow(Critique)
-        .to receive_message_chain(:pending, :where, :size)
+        .to receive_message_chain(:pending, :size)
         .and_return(critiques_count)
     end
     let(:critiques_count) { 1 }
@@ -41,7 +41,7 @@ describe ModerationPolicy do
   describe '#collections_count' do
     before do
       allow(Collection)
-        .to receive_message_chain(:pending, :published, :where, :size)
+        .to receive_message_chain(:pending, :published, :size)
         .and_return(collections_count)
     end
     let(:collections_count) { 1 }
@@ -77,7 +77,7 @@ describe ModerationPolicy do
   describe '#news_count' do
     before do
       allow(Topics::NewsTopic)
-        .to receive_message_chain(:pending, :where, :size)
+        .to receive_message_chain(:pending, :size)
         .and_return(news_count)
     end
     let(:news_count) { 1 }
@@ -113,7 +113,7 @@ describe ModerationPolicy do
   describe '#articles_count' do
     before do
       allow(Article)
-        .to receive_message_chain(:pending, :where, :size)
+        .to receive_message_chain(:pending, :size)
         .and_return(articles_count)
     end
     let(:articles_count) { 1 }

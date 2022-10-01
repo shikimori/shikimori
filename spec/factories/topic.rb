@@ -7,7 +7,6 @@ FactoryBot.define do
     type { Topic.name }
     tags { [] }
 
-    locale { 'ru' }
     is_pinned { false }
     is_censored { false }
 
@@ -125,49 +124,49 @@ FactoryBot.define do
     end
 
     trait :offtopic do
-      id { Topic::TOPIC_IDS[:offtopic][:ru] }
+      id { Topic::TOPIC_IDS[:offtopic] }
       title { 'offtopic' }
       body { 'offtopic' }
       created_at { 1.day.ago }
       updated_at { 1.day.ago }
     end
     trait :site_rules do
-      id { Topic::TOPIC_IDS[:site_rules][:ru] }
+      id { Topic::TOPIC_IDS[:site_rules] }
       title { 'site rules' }
       body { 'site rules' }
       created_at { 2.days.ago }
       updated_at { 2.days.ago }
     end
     trait :description_of_genres do
-      id { Topic::TOPIC_IDS[:description_of_genres][:ru] }
+      id { Topic::TOPIC_IDS[:description_of_genres] }
       title { 'description of genres' }
       body { 'description of genres' }
       created_at { 4.days.ago }
       updated_at { 4.days.ago }
     end
     trait :ideas_and_suggestions do
-      id { Topic::TOPIC_IDS[:ideas_and_suggestions][:ru] }
+      id { Topic::TOPIC_IDS[:ideas_and_suggestions] }
       title { 'ideas and suggestions' }
       body { 'ideas and suggestions' }
       created_at { 5.days.ago }
       updated_at { 5.days.ago }
     end
     trait :site_problems do
-      id { Topic::TOPIC_IDS[:site_problems][:ru] }
+      id { Topic::TOPIC_IDS[:site_problems] }
       title { 'site problems' }
       body { 'site problems' }
       created_at { 6.days.ago }
       updated_at { 6.days.ago }
     end
     trait :contests_proposals do
-      id { Topic::TOPIC_IDS[:contests_proposals][:ru] }
+      id { Topic::TOPIC_IDS[:contests_proposals] }
       title { 'contests_proposals' }
       body { 'contests_proposals' }
       created_at { 7.days.ago }
       updated_at { 7.days.ago }
     end
     trait :socials do
-      id { Topic::TOPIC_IDS[:socials][:ru] }
+      id { Topic::TOPIC_IDS[:socials] }
       title { 'socials' }
       body { 'socials' }
       created_at { 8.days.ago }

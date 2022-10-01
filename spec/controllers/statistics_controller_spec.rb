@@ -1,7 +1,7 @@
 describe StatisticsController do
   describe '#index' do
     subject { get :index }
-    let!(:topic) { create :topic, id: Topic::TOPIC_IDS[:anime_industry][:ru] }
+    let!(:topic) { create :topic, id: Topic::TOPIC_IDS[:anime_industry] }
     it { is_expected.to have_http_status :success }
   end
 

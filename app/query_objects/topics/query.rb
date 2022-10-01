@@ -1,9 +1,8 @@
 class Topics::Query < QueryObjectBase
-  def self.fetch locale, is_censored_forbidden
+  def self.fetch is_censored_forbidden
     scope = Topic
       .includes(:forum, :user, :linked)
       .order(updated_at: :desc)
-      .where(locale: locale)
 
     new(
       is_censored_forbidden ?
@@ -36,15 +35,14 @@ class Topics::Query < QueryObjectBase
     end
   end
 
-  def search phrase, forum, user, locale
+  def search phrase, forum, user
     return self if phrase.blank?
 
     chain Topics::SearchQuery.call(
       scope: @scope,
       phrase: phrase,
       forum: forum,
-      user: user,
-      locale: locale
+      user: user
     )
   end
 

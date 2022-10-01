@@ -79,8 +79,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   def create
     @resource = Comment::Create.call(
       params: create_params,
-      faye: faye,
-      locale: locale_from_host
+      faye: faye
     )
 
     if params[:broadcast] && @resource.persisted? && can?(:broadcast, @resource)

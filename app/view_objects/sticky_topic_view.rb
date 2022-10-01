@@ -21,29 +21,29 @@ class StickyTopicView
     socials
   ]
   (STICKY_TOPICS + GLOBAL_TOPICS).each do |topic_name|
-    define_singleton_method topic_name do |locale|
-      topic_id = Topic::TOPIC_IDS[topic_name][locale.to_sym]
+    define_singleton_method topic_name do
+      topic_id = Topic::TOPIC_IDS[topic_name]
       next unless topic_id.present?
 
-      instance_variable_get(:"@#{topic_name}_#{locale}") ||
+      instance_variable_get(:"@#{topic_name}") ||
         instance_variable_set(
-          :"@#{topic_name}_#{locale}",
+          :"@#{topic_name}",
           new(
             object: Topics::TopicViewFactory.new(true, true).build(topics[topic_id]),
             title: (title(topic_id) if STICKY_TOPICS.include?(topic_name)),
-            description: (description(topic_name, locale) if STICKY_TOPICS.include?(topic_name))
+            description: (description(topic_name) if STICKY_TOPICS.include?(topic_name))
           )
         )
     end
   end
   GLOBAL_TOPICS.each do |topic_name|
-    define_singleton_method topic_name do |locale|
-      topic_id = Topic::TOPIC_IDS[topic_name][locale.to_sym]
+    define_singleton_method topic_name do
+      topic_id = Topic::TOPIC_IDS[topic_name]
       next unless topic_id.present?
 
-      instance_variable_get(:"@#{topic_name}_#{locale}") ||
+      instance_variable_get(:"@#{topic_name}") ||
         instance_variable_set(
-          :"@#{topic_name}_#{locale}",
+          :"@#{topic_name}",
           new(
             object: Topics::TopicViewFactory.new(true, true).build(topics[topic_id]),
             title: '',
@@ -57,8 +57,8 @@ class StickyTopicView
     topics[topic_id].title
   end
 
-  def self.description topic_name, locale
-    i18n_t "#{topic_name}.description", locale: locale
+  def self.description topic_name
+    i18n_t "#{topic_name}.description"
   end
 
   def self.topics

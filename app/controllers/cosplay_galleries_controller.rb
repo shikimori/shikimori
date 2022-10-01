@@ -8,10 +8,10 @@ class CosplayGalleriesController < ShikimoriController
 
   def publish
     gallery = CosplayGallery.find(params[:id])
-    gallery.generate_topics Shikimori::DOMAIN_LOCALES
+    gallery.generate_topic
 
     redirect_to UrlGenerator.instance.topic_url(
-      gallery.maybe_topic(locale_from_host)
+      gallery.maybe_topic
     )
   end
 

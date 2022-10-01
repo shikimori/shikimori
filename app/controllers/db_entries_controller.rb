@@ -23,13 +23,13 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
 
     og noindex: true, page_title: t('in_collections')
 
-    @collection = Collections::Query.fetch(locale_from_host)
+    @collection = Collections::Query.fetch
       .where(id: @resource.collections_scope)
       .paginate(@page, COLLETIONS_PER_PAGE)
       .lazy_map do |collection|
         Topics::TopicViewFactory
           .new(true, true)
-          .build(collection.maybe_topic(locale_from_host))
+          .build(collection.maybe_topic)
       end
   end
 

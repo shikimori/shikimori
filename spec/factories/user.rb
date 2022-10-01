@@ -10,9 +10,6 @@ FactoryBot.define do
     can_vote_2 { false }
     can_vote_3 { false }
 
-    locale { 'ru' }
-    locale_from_host { 'ru' }
-
     about { '' }
 
     activity_at { nil }

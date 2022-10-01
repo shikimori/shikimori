@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Topics::Generate::Topic
-  method_object %i[model! user! locale! forum_id]
+  method_object %i[model! user! forum_id]
 
   def call
     topic = build_topic
@@ -41,7 +41,6 @@ private
       generated: true,
       user: @user,
       type: topic_klass.name,
-      locale: @locale,
       is_censored: censored?,
       created_at: created_at,
       updated_at: updated_at
@@ -49,7 +48,7 @@ private
   end
 
   def attributes_of_find_by
-    topic_attributes.slice(:type, :locale)
+    topic_attributes.slice(:type)
   end
 
   def broadcast? topic

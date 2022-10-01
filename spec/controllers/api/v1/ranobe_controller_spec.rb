@@ -127,7 +127,7 @@ describe Api::V1::RanobeController, :show_in_doc do
   end
 
   describe '#topics' do
-    let!(:topic) { create :topic, linked: ranobe, locale: 'ru' }
+    let!(:topic) { create :topic, linked: ranobe }
     let(:ranobe) { create :ranobe }
 
     subject! { get :topics, params: { id: ranobe.id }, format: :json }

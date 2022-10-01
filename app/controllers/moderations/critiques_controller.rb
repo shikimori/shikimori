@@ -40,16 +40,14 @@ private
   def processed_scope
     Critique
       .where(moderation_state: %i[accepted rejected])
-      .where(locale: locale_from_host)
-      .includes(:user, :approver, :target, :topics)
+      .includes(:user, :approver, :target, :topic)
       .order(created_at: :desc)
   end
 
   def pending_scope
     Critique
       .where(moderation_state: :pending)
-      .where(locale: locale_from_host)
-      .includes(:user, :approver, :target, :topics)
+      .includes(:user, :approver, :target, :topic)
       .order(created_at: :desc)
       .limit(PENDING_PER_PAGE)
   end

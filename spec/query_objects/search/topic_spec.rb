@@ -2,7 +2,7 @@ describe Search::Topic do
   before do
     allow(Elasticsearch::Query::Topic)
       .to receive(:call)
-      .with(phrase: phrase, limit: ids_limit, forum_id: forum_id, locale: locale)
+      .with(phrase: phrase, limit: ids_limit, forum_id: forum_id)
       .and_return results
   end
 
@@ -11,15 +11,13 @@ describe Search::Topic do
       scope: scope,
       phrase: phrase,
       forum_id: forum_id,
-      ids_limit: ids_limit,
-      locale: locale
+      ids_limit: ids_limit
     )
   end
 
   let(:scope) { Topic.all }
   let(:phrase) { 'zxct' }
   let(:ids_limit) { 2 }
-  let(:locale) { 'ru' }
   let(:forum_id) { Topic::FORUM_IDS[Anime.name] }
 
   let(:results) { { topic_1.id => 0.123123 } }

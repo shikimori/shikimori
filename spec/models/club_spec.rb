@@ -36,7 +36,6 @@ describe Club do
   describe 'validations' do
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to have_attached_file :logo }
-    it { is_expected.to validate_presence_of :locale }
     it { is_expected.to validate_length_of(:description).is_at_most(150_000) }
   end
 
@@ -57,7 +56,6 @@ describe Club do
       is_expected
         .to enumerize(:image_upload_policy)
         .in(*Types::Club::ImageUploadPolicy.values)
-      is_expected.to enumerize(:locale).in(*Types::Locale.values)
     end
   end
 
@@ -607,58 +605,39 @@ describe Club do
 
   describe 'topics concern' do
     describe 'associations' do
-      it { is_expected.to have_many :topics }
+      it { is_expected.to have_one :topic }
     end
 
     describe 'instance methods' do
       let(:model) { build_stubbed :club }
 
-      describe '#generate_topics' do
-        let(:topics) { model.topics }
-        before { model.generate_topics model.locale }
+      describe '#generate_topic' do
+        let(:topic) { model.topic }
+        before { model.generate_topic }
 
         it do
-          expect(topics).to have(1).item
-          expect(topics.first.locale).to eq model.locale
+          expect(topic).to be_present
         end
       end
 
       describe '#topic' do
-        let(:topic) { model.topic locale }
-        before { model.generate_topics model.locale }
+        let(:topic) { model.topic }
+        before { model.generate_topic }
 
         context 'locale from model' do
-          let(:locale) { model.locale }
           it do
             expect(topic).to be_present
-            expect(topic.locale).to eq locale.to_s
           end
-        end
-
-        context 'locale not from model' do
-          let(:locale) { (Shikimori::DOMAIN_LOCALES - [model.locale.to_sym]).sample }
-          it { expect(topic).to be_nil }
         end
       end
 
       describe '#maybe_topic' do
-        let(:topic) { model.maybe_topic locale }
-        before { model.generate_topics model.locale }
+        let(:topic) { model.maybe_topic }
+        before { model.generate_topic }
 
         context 'locale from model' do
-          let(:locale) { model.locale }
           it do
             expect(topic).to be_present
-            expect(topic.locale).to eq locale.to_s
-          end
-        end
-
-        context 'locale not from model' do
-          let(:locale) { (Shikimori::DOMAIN_LOCALES - [model.locale.to_sym]).sample }
-          it do
-            expect(topic).to be_present
-            expect(topic).to be_instance_of NoTopic
-            expect(topic.linked).to eq model
           end
         end
       end

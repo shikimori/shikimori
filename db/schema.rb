@@ -193,7 +193,6 @@ ActiveRecord::Schema.define(version: 2022_09_27_155810) do
     t.string "moderation_state", limit: 255, default: "pending"
     t.integer "approver_id"
     t.text "tags", default: [], null: false, array: true
-    t.string "locale", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "state", null: false
@@ -316,7 +315,6 @@ ActiveRecord::Schema.define(version: 2022_09_27_155810) do
     t.integer "club_roles_count", default: 0
     t.boolean "display_images", default: true
     t.boolean "is_censored", default: false, null: false
-    t.string "locale", null: false
     t.integer "style_id"
     t.string "image_upload_policy", null: false
     t.string "join_policy", null: false
@@ -354,7 +352,6 @@ ActiveRecord::Schema.define(version: 2022_09_27_155810) do
     t.integer "user_id", null: false
     t.string "kind", null: false
     t.string "text", limit: 400000, null: false
-    t.string "locale", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "state", null: false
@@ -546,7 +543,6 @@ ActiveRecord::Schema.define(version: 2022_09_27_155810) do
     t.string "source"
     t.string "moderation_state", default: "pending", null: false
     t.integer "approver_id"
-    t.string "locale", null: false
     t.integer "cached_votes_up", default: 0
     t.integer "cached_votes_down", default: 0
     t.datetime "changed_at"
@@ -1046,7 +1042,6 @@ ActiveRecord::Schema.define(version: 2022_09_27_155810) do
     t.string "value", limit: 255
     t.integer "comments_count", default: 0
     t.boolean "broadcast", default: false
-    t.string "locale", null: false
     t.datetime "commented_at"
     t.text "tags", default: [], null: false, array: true
     t.boolean "is_closed", default: false, null: false
@@ -1205,7 +1200,6 @@ ActiveRecord::Schema.define(version: 2022_09_27_155810) do
     t.datetime "reset_password_sent_at"
     t.string "remember_token", limit: 255
     t.string "locale", default: "ru", null: false
-    t.string "locale_from_host", default: "ru", null: false
     t.integer "style_id"
     t.string "roles", limit: 4096, default: [], null: false, array: true
     t.text "notification_settings", default: [], null: false, array: true

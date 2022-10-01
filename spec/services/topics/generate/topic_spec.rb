@@ -5,11 +5,9 @@ describe Topics::Generate::Topic do
     described_class.call(
       model: model,
       user: user,
-      locale: locale,
       forum_id: forum_id
     )
   end
-  let(:locale) { 'ru' }
   let(:forum_id) { [news_forum.id, nil].sample }
 
   shared_examples_for :topic do
@@ -29,7 +27,6 @@ describe Topics::Generate::Topic do
           generated: true,
           linked: model,
           user: user,
-          locale: locale,
           is_censored: model.try(:censored?) || false
         )
 
@@ -49,24 +46,7 @@ describe Topics::Generate::Topic do
     context 'with existing topic' do
       let!(:topic) do
         create :"#{model.class.name.underscore}_topic",
-          linked: model,
-          locale: topic_locale
-      end
-
-      context 'for the same locale' do
-        let(:topic_locale) { 'ru' }
-        it 'does not generate new topic' do
-          expect { subject }.not_to change(Topic, :count)
-          is_expected.to eq topic
-        end
-      end
-
-      context 'for different locale' do
-        let(:topic_locale) { 'en' }
-        it 'generates topic for new locale' do
-          expect { subject }.to change(Topic, :count).by 1
-          is_expected.not_to eq topic
-        end
+          linked: model
       end
     end
   end

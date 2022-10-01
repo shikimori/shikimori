@@ -78,7 +78,7 @@ private
 
         {
           neko_id: neko.neko_id,
-          label: neko.title(@user, @user.locale_from_host == 'ru'),
+          label: neko.title(@user, @user.locale == 'ru'),
           level: (neko.level unless neko.franchise? || neko.author?),
           image: neko.image,
           event: event

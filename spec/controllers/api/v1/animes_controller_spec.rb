@@ -181,7 +181,7 @@ describe Api::V1::AnimesController, :show_in_doc do
   end
 
   describe '#topics' do
-    let!(:topic) { create :topic, linked: anime, locale: 'ru' }
+    let!(:topic) { create :topic, linked: anime }
     let(:anime) { create :anime }
 
     subject! { get :topics, params: { id: anime.id }, format: :json }

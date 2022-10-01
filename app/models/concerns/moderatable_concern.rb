@@ -45,7 +45,7 @@ module ModeratableConcern
   end
 
   def to_offtopic!
-    topic(locale).update_column :forum_id, Forum::OFFTOPIC_ID
+    topic.update_column :forum_id, Forum::OFFTOPIC_ID
   end
 
 private

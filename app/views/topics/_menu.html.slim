@@ -33,7 +33,7 @@
       ] = t '.critiques'
     ul
       - menu.critiques.each do |critique|
-        - critique_topic = critique.topic(locale_from_host)
+        - critique_topic = critique.topic
 
         li.entry
           a[

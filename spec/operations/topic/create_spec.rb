@@ -4,13 +4,11 @@ describe Topic::Create do
   subject(:topic) do
     described_class.call(
       faye: faye,
-      params: params,
-      locale: locale
+      params: params
     )
   end
 
   let(:faye) { FayeService.new user, nil }
-  let(:locale) { :en }
   let(:is_broadcast_required) { false }
 
   before do
@@ -42,7 +40,7 @@ describe Topic::Create do
 
     it do
       is_expected.to be_persisted
-      is_expected.to have_attributes params.merge(locale: locale.to_s, is_censored: false)
+      is_expected.to have_attributes params.merge(is_censored: false)
       expect(Notifications::BroadcastTopic).to_not have_received :perform_in
     end
 
@@ -66,7 +64,6 @@ describe Topic::Create do
         it do
           is_expected.to be_persisted
           is_expected.to have_attributes(
-            **params.merge(locale: locale.to_s),
             forum_id: Forum::NEWS_ID
           )
         end
@@ -76,7 +73,6 @@ describe Topic::Create do
         it do
           is_expected.to be_persisted
           is_expected.to have_attributes(
-            **params.merge(locale: locale.to_s),
             forum_id: Forum::PREMODERATION_ID
           )
         end
@@ -103,7 +99,6 @@ describe Topic::Create do
 
     it do
       is_expected.to be_new_record
-      is_expected.to have_attributes params.merge(locale: locale.to_s)
       expect(topic.errors).to be_present
       expect(Notifications::BroadcastTopic).to_not have_received :perform_in
     end

@@ -2,7 +2,6 @@ class Comment::Create
   method_object %i[
     params!
     faye!
-    locale
     is_conversion
     is_forced
   ]
@@ -43,8 +42,7 @@ private
   end
 
   def find_or_generate_topic
-    commentable_object.topic(@locale) ||
-      commentable_object.generate_topics(@locale).first
+    commentable_object.topic || commentable_object.generate_topic
   end
 
   def notify_user comment

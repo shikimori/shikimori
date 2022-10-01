@@ -19,7 +19,7 @@ class StatisticsController < ShikimoriController
         [total_stats, stats_by_kind, stats_by_rating, stats_by_genre, stats_by_studio]
       end
 
-    topic = Topic.find Topic::TOPIC_IDS[:anime_industry][locale_from_host]
+    topic = Topic.find Topic::TOPIC_IDS[:anime_industry]
     @topic_view = Topics::TopicViewFactory.new(false, false).build topic
   end
 

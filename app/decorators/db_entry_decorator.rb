@@ -119,13 +119,13 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def main_topic_view
     Topics::TopicViewFactory.new(false, false).build(
-      object.maybe_topic(h.locale_from_host)
+      object.maybe_topic
     )
   end
 
   def preview_topic_view
     Topics::TopicViewFactory.new(true, false).build(
-      object.maybe_topic(h.locale_from_host)
+      object.maybe_topic
     )
   end
 
@@ -134,7 +134,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def all_clubs
-    Clubs::Query.fetch(h.current_user, h.locale_from_host, false)
+    Clubs::Query.fetch(h.current_user, false)
       .where(id: clubs_scope)
       .decorate
   end
@@ -142,7 +142,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   def clubs_scope
     return Club.none if respond_to?(:rkn_abused?) && rkn_abused?
 
-    scope = object.clubs.where(locale: h.locale_from_host)
+    scope = object.clubs
     scope.where! is_censored: false if !object.try(:censored?) && h.censored_forbidden?
     scope
   end
@@ -164,7 +164,6 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def collections_scope
     object.collections.available
-      .where(locale: h.locale_from_host)
   end
 
   def favourites_scope
@@ -172,9 +171,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def news_topic_scope
-    object
-      .news_topics
-      .where(locale: h.locale_from_host)
+    object.news_topics
   end
 
   def news_topic_views

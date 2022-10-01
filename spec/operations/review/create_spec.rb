@@ -31,8 +31,7 @@ describe Review::Create do
       user: user,
       is_written_before_release: released_on > Time.zone.now
     )
-    expect(review.topics).to have(1).item
-    expect(review.topics.first.locale).to eq :ru
-    expect(review.topics.first.is_censored).to eq is_censored
+    expect(review.topic).to be_present
+    expect(review.topic.is_censored).to eq is_censored
   end
 end

@@ -46,7 +46,7 @@ describe Contest do
     let(:contest_round_started) { build :contest_round, :started }
     let(:contest_round_finished) { build :contest_round, :finished }
 
-    before { allow(subject).to receive :generate_missing_topics }
+    before { allow(subject).to receive :generate_missing_topic }
 
     context 'created' do
       let(:state) { Types::Contest::State[:created] }
@@ -56,11 +56,11 @@ describe Contest do
       describe 'transition to proposing' do
         it { is_expected.to transition_from(state).to(:proposing).on_event(:propose) }
 
-        context 'generate_missing_topics callback' do
+        context 'generate_missing_topic callback' do
           before { subject.propose! }
           it do
             is_expected.to have_state :proposing
-            expect(subject).to have_received :generate_missing_topics
+            expect(subject).to have_received :generate_missing_topic
           end
         end
       end
@@ -81,11 +81,11 @@ describe Contest do
           it { is_expected.to allow_transition_to :started }
           it { is_expected.to transition_from(state).to(:started).on_event(:start) }
 
-          context 'generate_missing_topics callback' do
+          context 'generate_missing_topic callback' do
             before { subject.start! }
             it do
               is_expected.to have_state :started
-              expect(subject).to have_received :generate_missing_topics
+              expect(subject).to have_received :generate_missing_topic
             end
           end
         end
@@ -249,25 +249,21 @@ describe Contest do
       end
     end
 
-    describe '#generate_missing_topics' do
+    describe '#generate_missing_topic' do
       before do
-        allow(subject.topics).to receive(:none?).and_return is_none
-        allow(subject).to receive :generate_topics
-        subject.send :generate_missing_topics
+        allow(subject).to receive(:topic).and_return topic
+        allow(subject).to receive :generate_topic
+        subject.send :generate_missing_topic
       end
 
-      context 'no topics' do
-        let(:is_none) { true }
-        it do
-          expect(subject)
-            .to have_received(:generate_topics)
-            .with Shikimori::DOMAIN_LOCALES
-        end
+      context 'no topic' do
+        let(:topic) { nil }
+        it { expect(subject).to have_received(:generate_topic) }
       end
 
-      context 'has topics' do
-        let(:is_none) { false }
-        it { expect(subject).to_not have_received :generate_topics }
+      context 'has topic' do
+        let(:topic) { double }
+        it { expect(subject).to_not have_received :generate_topic }
       end
     end
   end

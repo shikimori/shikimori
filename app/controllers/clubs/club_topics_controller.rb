@@ -28,8 +28,7 @@ class Clubs::ClubTopicsController < ClubsController
   def create
     @resource = Topic::Create.call(
       faye: faye,
-      params: create_params,
-      locale: locale_from_host
+      params: create_params
     )
 
     if @resource.persisted?

@@ -2,7 +2,7 @@
 
 describe StickyClubView do
   describe 'sample sticky topic' do
-    let(:sticky_topic) { StickyClubView.faq :ru }
+    let(:sticky_topic) { StickyClubView.faq }
     it do
       expect(sticky_topic).to have_attributes(
         object: faq_club,

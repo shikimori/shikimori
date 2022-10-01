@@ -11,11 +11,11 @@ header.head.misc
 .contests
   - @collection.group_by { |v| v.started? && v.started_on > Time.zone.today ? :scheduled : v.state }.each do |state, contests|
     .block
-      - if contests.first == @collection.first && StickyTopicView.contests_proposals(locale_from_host)
+      - if contests.first == @collection.first && StickyTopicView.contests_proposals
         .b-options-floated
           a.b-link[
-            href=StickyTopicView.contests_proposals(locale_from_host).object.url
-          ] = StickyTopicView.contests_proposals(locale_from_host).title
+            href=StickyTopicView.contests_proposals.object.url
+          ] = StickyTopicView.contests_proposals.title
       .subheadline
         - if state == :scheduled
           = t '.scheduled'

@@ -13,13 +13,13 @@ class CollectionsController < ShikimoriController
   def index # rubocop:disable AbcSize
     @limit = [[params[:limit].to_i, 4].max, 8].min
 
-    @collection = Collections::Query.fetch(locale_from_host)
-      .search(params[:search], locale_from_host)
+    @collection = Collections::Query.fetch
+      .search(params[:search])
       .paginate(@page, @limit)
       .lazy_map do |collection|
         Topics::TopicViewFactory
           .new(true, true)
-          .build(collection.maybe_topic(locale_from_host))
+          .build(collection.maybe_topic)
       end
 
     if @page == 1 && params[:search].blank? && user_signed_in?
@@ -42,14 +42,14 @@ class CollectionsController < ShikimoriController
     og page_title: @resource.name
     @topic_view = Topics::TopicViewFactory
       .new(false, false)
-      .build(@resource.maybe_topic(locale_from_host))
+      .build(@resource.maybe_topic)
   end
 
   def tooltip
     og noindex: true
     @topic_view = Topics::TopicViewFactory
       .new(true, true)
-      .build(@resource.maybe_topic(locale_from_host))
+      .build(@resource.maybe_topic)
 
     if request.xhr?
       render(
@@ -70,7 +70,7 @@ class CollectionsController < ShikimoriController
   end
 
   def create
-    @resource = Collection::Create.call create_params, locale_from_host
+    @resource = Collection::Create.call create_params
 
     if @resource.errors.blank?
       redirect_to edit_collection_url(@resource),
@@ -113,8 +113,8 @@ class CollectionsController < ShikimoriController
   end
 
   def autocomplete
-    @collection = Collections::Query.fetch(locale_from_host)
-      .search(params[:search], locale_from_host)
+    @collection = Collections::Query.fetch
+      .search(params[:search])
       .paginate(1, CompleteQuery::AUTOCOMPLETE_LIMIT)
       .reverse
   end

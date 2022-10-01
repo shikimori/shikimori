@@ -1,5 +1,5 @@
 describe Collections::Query do
-  let(:query) { Collections::Query.fetch(:ru) }
+  let(:query) { Collections::Query.fetch }
 
   include_context :timecop
 
@@ -7,26 +7,22 @@ describe Collections::Query do
   let!(:collection_2) { create :collection, :published, id: 2 }
   let!(:collection_3) { create :collection, :published, id: 3 }
   let!(:collection_4) { create :collection, :unpublished, id: 4 }
-  let!(:collection_en_1) { create :collection, :published, id: 5, locale: :en }
-  let!(:collection_en_2) { create :collection, :unpublished, id: 6, locale: :en }
 
   describe '.fetch' do
     subject { query }
     it { is_expected.to eq [collection_3, collection_2, collection_1] }
 
     describe '#search' do
-      subject { query.search phrase, 'ru' }
+      subject { query.search phrase }
 
       context 'present search phrase' do
         before do
           allow(Elasticsearch::Query::Collection).to receive(:call).with(
             phrase: phrase,
-            locale: 'ru',
             limit: Collections::Query::SEARCH_LIMIT
           ).and_return(
             collection_3.id => 987,
-            collection_2.id => 654,
-            collection_en_1.id => 321
+            collection_2.id => 654
           )
         end
         let(:phrase) { 'test' }

@@ -2,11 +2,10 @@ class Clubs::Query < QueryObjectBase
   FAVOURED_IDS = [72, 315, 2046]
   SEARCH_LIMIT = 999
 
-  def self.fetch user, locale, is_skip_restrictions
+  def self.fetch user, is_skip_restrictions
     scope = new Club
-      .joins(:topics)
-      .preload(:owner, :topics)
-      .where(locale: locale)
+      .joins(:topic)
+      .preload(:owner, :topic)
       .order(Arel.sql('topics.updated_at desc, id'))
 
     return scope if is_skip_restrictions
@@ -49,13 +48,12 @@ class Clubs::Query < QueryObjectBase
     )
   end
 
-  def search phrase, locale
+  def search phrase
     return self if phrase.blank?
 
     chain Search::Club.call(
       scope: @scope,
       phrase: phrase,
-      locale: locale,
       ids_limit: SEARCH_LIMIT
     )
   end

@@ -1,11 +1,10 @@
 class Critiques::Query
   NEW_REVIEW_BUBBLE_INTERVAL = 2.days
-  method_object :db_entry, %i[locale! id]
+  method_object :db_entry, %i[id]
 
   def call
     scope = @db_entry.critiques
-      .includes(:user, :topics)
-      .where(locale: @locale)
+      .includes(:user, :topic)
 
     if @id.present? && @id != 0
       scope.where(id: @id)

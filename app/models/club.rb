@@ -123,11 +123,8 @@ class Club < ApplicationRecord
   validates :name, name: true,
     if: -> { new_record? || will_save_change_to_name? }
   validates :logo, attachment_content_type: { content_type: /\Aimage/ }
-  validates :locale, presence: true
   validates :description, length: { maximum: 150_000 }, unless: :special_club?
   validates :description, length: { maximum: 300_000 }, if: :special_club?
-
-  enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
 
   after_create :join_owner
   after_update :sync_topics_is_censored, if: :saved_change_to_is_censored?

@@ -46,7 +46,7 @@ describe DbEntry::MergeIntoOther do
   let!(:topic_1) { create :topic, linked: entry }
   let!(:topic_2) { create :topic, linked: entry, generated: true }
 
-  let!(:comment_1) { create :comment, :with_increment_comments, commentable: entry.maybe_topic(:ru) }
+  let!(:comment_1) { create :comment, :with_increment_comments, commentable: entry.maybe_topic }
 
   let!(:critique) { create :critique, target: entry }
   let!(:review) { create :review, "#{entry.anime? ? :anime : :manga}": entry }
@@ -131,8 +131,8 @@ describe DbEntry::MergeIntoOther do
     expect(topic_1.reload.linked).to eq other
     expect { topic_2.reload }.to raise_error ActiveRecord::RecordNotFound
 
-    expect(comment_1.reload.commentable).to eq other.maybe_topic(:ru)
-    expect(other.maybe_topic(:ru).comments_count).to eq 1
+    expect(comment_1.reload.commentable).to eq other.maybe_topic
+    expect(other.maybe_topic.comments_count).to eq 1
 
     expect(critique.reload.target).to eq other
     expect(review.reload.db_entry).to eq other

@@ -22,8 +22,8 @@ describe Animes::GenerateNews do
         let(:old_status) { nil }
         let(:new_status) { :anons }
 
-        it 'generates 2 anons news topics for both locales' do
-          expect(anime.anons_news_topics).to have(2).items
+        it 'generates anons news topic' do
+          expect(anime.anons_news_topics).to_not be_empty
         end
       end
 
@@ -42,8 +42,8 @@ describe Animes::GenerateNews do
         let(:old_status) { :anons }
         let(:new_status) { :ongoing }
 
-        it 'generates 2 ongoing news topics for both locales' do
-          expect(anime.ongoing_news_topics).to have(2).items
+        it 'generates ongoing news topic' do
+          expect(anime.ongoing_news_topics).to_not be_empty
         end
       end
 
@@ -73,8 +73,8 @@ describe Animes::GenerateNews do
           let(:released_on) { 2.weeks.ago.to_date }
           let(:aired_on) { '' }
 
-          it 'generates 2 released news topics for both locales' do
-            expect(anime.released_news_topics).to have(2).items
+          it 'generates released news topic' do
+            expect(anime.released_news_topics).to_not be_empty
           end
         end
 
@@ -82,8 +82,8 @@ describe Animes::GenerateNews do
           let(:released_on) { '' }
           let(:aired_on) { 15.months.ago.to_date }
 
-          it 'generates 2 released news topics for both locales' do
-            expect(anime.released_news_topics).to have(2).items
+          it 'generates released news topic' do
+            expect(anime.released_news_topics).to_not be_empty
           end
         end
       end

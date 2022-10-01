@@ -6,7 +6,6 @@ class ClubsController < ShikimoriController
   authorize_resource :club, except: %i[index autocomplete new create]
 
   before_action :resource_redirect, if: :resource_id
-  before_action :restrict_domain, if: :resource_id
 
   before_action :set_breadcrumbs
   before_action :restrict_private, if: :resource_id
@@ -45,7 +44,7 @@ class ClubsController < ShikimoriController
 
     is_skip_restrictions = can?(:manage_restrictions, Club) &&
       RESTRICTED_FILTERS.any? { |field| params[field].blank? }
-    scope = Clubs::Query.fetch current_user, locale_from_host, is_skip_restrictions
+    scope = Clubs::Query.fetch current_user, is_skip_restrictions
 
     if params[:search].blank?
       @favourites = scope.favourites if @page == 1
@@ -59,7 +58,7 @@ class ClubsController < ShikimoriController
     end
 
     @collection = scope
-      .search(params[:search], locale_from_host)
+      .search(params[:search])
       .paginate(@page, @limit)
   end
 
@@ -73,7 +72,7 @@ class ClubsController < ShikimoriController
   end
 
   def create
-    @resource = Club::Create.call create_params, locale_from_host
+    @resource = Club::Create.call create_params
 
     if @resource.errors.blank?
       redirect_to edit_club_url(@resource, section: 'main'),
@@ -161,13 +160,13 @@ class ClubsController < ShikimoriController
     redirect_to club_url(@resource) if @resource.collections.none?
     og page_title: i18n_t('club_collections')
 
-    @collection = Collections::Query.fetch(locale_from_host)
+    @collection = Collections::Query.fetch
       .where(id: @resource.collections)
       .paginate(@page, DbEntriesController::COLLETIONS_PER_PAGE)
       .lazy_map do |collection|
         Topics::TopicViewFactory
           .new(true, true)
-          .build(collection.maybe_topic(locale_from_host))
+          .build(collection.maybe_topic)
       end
   end
 
@@ -177,17 +176,13 @@ class ClubsController < ShikimoriController
   end
 
   def autocomplete
-    @collection = Clubs::Query.fetch(current_user, locale_from_host, false)
-      .search(params[:search], locale_from_host)
+    @collection = Clubs::Query.fetch(current_user, false)
+      .search(params[:search])
       .paginate(1, CompleteQuery::AUTOCOMPLETE_LIMIT)
       .reverse
   end
 
 private
-
-  def restrict_domain
-    raise ActiveRecord::RecordNotFound if @resource.locale != locale_from_host
-  end
 
   def restrict_private
     return unless @club.private?

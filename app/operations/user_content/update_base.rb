@@ -51,9 +51,7 @@ private
   end
 
   def update_topic params
-    @model.topics.each do |topic|
-      Topic::Update.call topic, params, faye_service
-    end
+    Topic::Update.call @model.topic, params, faye_service
   end
 
   def touch_creation_date
@@ -61,7 +59,7 @@ private
   end
 
   def hidden_topic?
-    @model.topics.first.forum_id == Forum::HIDDEN_ID
+    @model.topic.forum_id == Forum::HIDDEN_ID
   end
 
   def publish_forum_id

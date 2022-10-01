@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 describe Critique::Create do
-  subject(:critique) { Critique::Create.call params, locale }
+  subject(:critique) { Critique::Create.call params }
 
   let(:anime) { create :anime, is_censored: is_censored }
   let(:is_censored) { [true, false].sample }
-  let(:locale) { :en }
 
   context 'valid params' do
     let(:params) do
@@ -23,12 +22,10 @@ describe Critique::Create do
     end
     it do
       expect(critique).to be_persisted
-      expect(critique).to have_attributes params.merge(locale: locale.to_s)
       expect(critique.errors).to be_empty
 
-      expect(critique.topics).to have(1).item
-      expect(critique.topics.first.locale).to eq locale.to_s
-      expect(critique.topics.first.is_censored).to eq is_censored
+      expect(critique.topic).to be_present
+      expect(critique.topic.is_censored).to eq is_censored
     end
   end
 
@@ -47,7 +44,7 @@ describe Critique::Create do
     it do
       expect(critique).to be_new_record
       expect(critique.errors).to be_present
-      expect(critique.topics).to be_empty
+      expect(critique.topic).to_not be_present
     end
   end
 end

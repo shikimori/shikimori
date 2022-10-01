@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 describe Article::Create do
-  subject(:article) { Article::Create.call params, locale }
-
-  let(:locale) { :en }
+  subject(:article) { Article::Create.call params }
 
   context 'valid params' do
     let(:params) do
@@ -17,11 +15,10 @@ describe Article::Create do
     it do
       expect(article).to be_persisted
       expect(article).to have_attributes params.merge(
-        locale: locale.to_s,
         state: 'unpublished'
       )
       expect(article.errors).to be_empty
-      expect(article.topics.first).to have_attributes(
+      expect(article.topic).to have_attributes(
         linked: article,
         type: Topics::EntryTopics::ArticleTopic.name,
         forum_id: Forum::HIDDEN_ID
@@ -34,7 +31,7 @@ describe Article::Create do
     it do
       expect(article).to be_new_record
       expect(article).to_not be_valid
-      expect(article.topics).to be_empty
+      expect(article.topic).to_not be_present
     end
   end
 end

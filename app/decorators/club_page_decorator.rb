@@ -5,7 +5,7 @@ class ClubPageDecorator < BaseDecorator
 
   def preview_topic_view
     Topics::TopicViewFactory.new(true, false).build(
-      object.maybe_topic(h.locale_from_host)
+      object.maybe_topic
     )
   end
 end

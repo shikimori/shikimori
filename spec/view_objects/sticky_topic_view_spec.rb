@@ -2,7 +2,7 @@
 
 describe StickyTopicView do
   describe 'sample sticky topic' do
-    let(:sticky_topic) { StickyTopicView.site_problems :ru }
+    let(:sticky_topic) { StickyTopicView.site_problems }
     it do
       expect(sticky_topic).to have_attributes(
         object: Topics::TopicViewFactory.new(true, true).build(site_problems_topic),

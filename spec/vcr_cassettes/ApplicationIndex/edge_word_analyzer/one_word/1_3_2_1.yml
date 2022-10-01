@@ -1,6 +1,79 @@
 ---
 http_interactions:
 - request:
+    method: get
+    uri: http://localhost:9200/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '310'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "name" : "mbp13",
+          "cluster_name" : "elasticsearch_brew",
+          "cluster_uuid" : "zsI_nPsHSduJqorx30dxkQ",
+          "version" : {
+            "number" : "7.9.3-SNAPSHOT",
+            "build_flavor" : "oss",
+            "build_type" : "tar",
+            "build_hash" : "unknown",
+            "build_date" : "2020-10-22T16:26:49.195652Z",
+            "build_snapshot" : true,
+            "lucene_version" : "8.6.2",
+            "minimum_wire_compatibility_version" : "6.8.0",
+            "minimum_index_compatibility_version" : "6.0.0-beta1"
+          },
+          "tagline" : "You Know, for Search"
+        }
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/shikimori_test_animes/_alias
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.10; darwin x86_64; Faraday v1.8.0)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '63'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"shikimori_test_animes":{"aliases":{}}}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
     method: delete
     uri: http://localhost:9200/shikimori_test_animes
     body:
@@ -8,7 +81,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.10; darwin x86_64; Faraday v1.8.0)'
       Content-Type:
       - application/json
       Accept-Encoding:
@@ -91,7 +164,7 @@ http_interactions:
         JA","ZYO =\u003e JO","ZYU =\u003e JU","ZZU =\u003e DZU"]}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings","japanese_translit_char_mappings"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter","unique_words_filter"],"char_filter":["default_char_mappings","japanese_translit_char_mappings"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter"],"char_filter":["default_char_mappings","japanese_translit_char_mappings"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","nGram_filter","distinct_words_filter"],"char_filter":["default_char_mappings","japanese_translit_char_mappings"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings","japanese_translit_char_mappings"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings","japanese_translit_char_mappings"]}}}},"mappings":{"anime":{"properties":{"name":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"russian":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"english":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"japanese":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"synonyms_0":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"synonyms_1":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"synonyms_2":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"synonyms_3":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"synonyms_4":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"synonyms_5":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"synonyms_6":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"synonyms_7":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"synonyms_8":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"license_name_ru":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}}}}}}'
     headers:
       User-Agent:
-      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.10; darwin x86_64; Faraday v1.8.0)'
       Content-Type:
       - application/json
       Accept-Encoding:
@@ -103,19 +176,6 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Warning:
-      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "The [edgeNGram] token filter name
-        is deprecated and will be removed in a future version. Please change the filter
-        name to [edge_ngram] instead."
-      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "The [edgeNGram] tokenizer name is
-        deprecated and will be removed in a future version. Please change the tokenizer
-        name to [edge_ngram] instead."
-      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "The [nGram] token filter name is
-        deprecated and will be removed in a future version. Please change the filter
-        name to [ngram] instead."
-      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "[types removal] Using include_type_name
-        in create index requests is deprecated. The parameter will be removed in the
-        next major version."
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
@@ -125,6 +185,34 @@ http_interactions:
       string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_animes"}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
+    method: get
+    uri: http://localhost:9200/shikimori_test_clubs/_alias
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.10; darwin x86_64; Faraday v1.8.0)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '63'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"shikimori_test_clubs":{"aliases":{}}}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
     method: delete
     uri: http://localhost:9200/shikimori_test_clubs
     body:
@@ -132,7 +220,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.10; darwin x86_64; Faraday v1.8.0)'
       Content-Type:
       - application/json
       Accept-Encoding:
@@ -166,10 +254,10 @@ http_interactions:
         s1, 1","ii, s2, 2, Ⅱ","iii, s3, 3, Ⅲ","iv, s4, 4, Ⅳ","v, s5, 5, Ⅴ","vi, s6,
         6, Ⅵ","vii, s7, 7, Ⅶ","viii, s8, 8, Ⅷ","ix, s9, 9, Ⅸ","x, s10, 10, Ⅹ"]}},"char_filter":{"default_char_mappings":{"type":"mapping","mappings":["Ё
         =\u003e Е","ё =\u003e е",". =\u003e \\u0020","_ =\u003e \\u0020","- =\u003e
-        \\u0020"]}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter","unique_words_filter"],"char_filter":["default_char_mappings"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter"],"char_filter":["default_char_mappings"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","nGram_filter","distinct_words_filter"],"char_filter":["default_char_mappings"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings"]}}}},"mappings":{"club":{"properties":{"name":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}},"locale":{"type":"keyword"}}}}}'
+        \\u0020"]}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter","unique_words_filter"],"char_filter":["default_char_mappings"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter"],"char_filter":["default_char_mappings"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","nGram_filter","distinct_words_filter"],"char_filter":["default_char_mappings"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter"],"char_filter":["default_char_mappings"]}}}},"mappings":{"club":{"properties":{"name":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","similarity":"scripted_tfidf"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","similarity":"scripted_tfidf"}}}}}}}'
     headers:
       User-Agent:
-      - 'elasticsearch-ruby/7.5.0 (RUBY_VERSION: 2.6.6; darwin x86_64; Faraday v0.17.3)'
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.10; darwin x86_64; Faraday v1.8.0)'
       Content-Type:
       - application/json
       Accept-Encoding:
@@ -181,19 +269,6 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Warning:
-      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "The [edgeNGram] token filter name
-        is deprecated and will be removed in a future version. Please change the filter
-        name to [edge_ngram] instead."
-      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "The [edgeNGram] tokenizer name is
-        deprecated and will be removed in a future version. Please change the tokenizer
-        name to [edge_ngram] instead."
-      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "The [nGram] token filter name is
-        deprecated and will be removed in a future version. Please change the filter
-        name to [ngram] instead."
-      - 299 Elasticsearch-7.9.3-SNAPSHOT-unknown "[types removal] Using include_type_name
-        in create index requests is deprecated. The parameter will be removed in the
-        next major version."
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
@@ -210,7 +285,7 @@ http_interactions:
       string: '{"analyzer":"edge_word_analyzer","text":"test"}'
     headers:
       User-Agent:
-      - Faraday v0.17.3
+      - Faraday v1.8.0
       Content-Type:
       - application/json
       Accept-Encoding:
@@ -230,60 +305,4 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"tokens":[{"token":"t","start_offset":0,"end_offset":4,"type":"<ALPHANUM>","position":0},{"token":"te","start_offset":0,"end_offset":4,"type":"<ALPHANUM>","position":0},{"token":"tes","start_offset":0,"end_offset":4,"type":"<ALPHANUM>","position":0},{"token":"test","start_offset":0,"end_offset":4,"type":"<ALPHANUM>","position":0}]}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
-- request:
-    method: get
-    uri: http://localhost:9200/shikimori_test_animes/_alias
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.7; darwin x86_64; Faraday v1.4.2)'
-      Content-Type:
-      - application/json
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '63'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"shikimori_test_animes":{"aliases":{}}}'
-  recorded_at: Thu, 10 May 2018 16:00:00 GMT
-- request:
-    method: get
-    uri: http://localhost:9200/shikimori_test_clubs/_alias
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.7; darwin x86_64; Faraday v1.4.2)'
-      Content-Type:
-      - application/json
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '63'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"shikimori_test_clubs":{"aliases":{}}}'
-  recorded_at: Thu, 10 May 2018 16:00:00 GMT
-recorded_with: VCR 6.0.0
+recorded_with: VCR 6.1.0

@@ -117,13 +117,13 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     og page_title: i18n_io('Review', :few)
 
     scope = @resource.reviews
-      .includes(:user, :topics, :anime, :manga)
+      .includes(:user, :topic, :anime, :manga)
       .order(created_at: :desc)
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, REVIEWS_LIMIT)
       .lazy_map do |model|
-        view = Topics::ReviewView.new model.maybe_topic(locale_from_host), true, false
+        view = Topics::ReviewView.new model.maybe_topic, true, false
         view.instance_variable_set :@is_show_comments, false
         view
       end

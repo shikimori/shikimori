@@ -11,13 +11,11 @@ describe Collection do
     it { is_expected.to validate_length_of(:name).is_at_most(255) }
     it { is_expected.to validate_length_of(:text).is_at_most(400000) }
     it { is_expected.to validate_presence_of :kind }
-    it { is_expected.to validate_presence_of :locale }
   end
 
   describe 'enumerize' do
     it { is_expected.to enumerize(:kind).in(*Types::Collection::Kind.values) }
     # it { is_expected.to enumerize(:state).in(*Types::Collection::State.values) }
-    it { is_expected.to enumerize(:locale).in(*Types::Locale.values) }
   end
 
   describe 'aasm' do
