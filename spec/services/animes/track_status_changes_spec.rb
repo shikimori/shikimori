@@ -21,7 +21,7 @@ describe Animes::TrackStatusChanges do
     let(:new_status) { :ongoing }
 
     context 'without aired_on' do
-      let(:aired_on) { nil }
+      let(:aired_on) { '' }
       it 'does not rollback ongoing status' do
         expect(anime).to be_ongoing
       end
@@ -57,7 +57,7 @@ describe Animes::TrackStatusChanges do
     let(:episodes_aired) { 0 }
 
     context 'without released_on' do
-      let(:released_on) { nil }
+      let(:released_on) { '' }
 
       it 'does not rollback released status' do
         expect(anime).to be_released

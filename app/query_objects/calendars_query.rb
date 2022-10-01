@@ -45,9 +45,9 @@ private
     entries = entries.group_by do |anime|
       # key_date = if anime.ongoing?
         # anime.next_episode_at || anime.episode_end_at ||
-          # (anime.last_episode_date || anime.aired_on.to_datetime) + anime.average_interval
+        # (anime.last_episode_date || anime.aired_on.date.to_datetime) + anime.average_interval
       # else
-        # (anime.episode_end_at || anime.aired_on).to_datetime
+      # (anime.episode_end_at || anime.aired_on.date).to_datetime
       # end
       key_date = anime.next_episode_start_at
 

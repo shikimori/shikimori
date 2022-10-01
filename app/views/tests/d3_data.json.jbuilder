@@ -1,7 +1,7 @@
 json.nodes(@entries.map { |entry|
   {
     id: entry.id,
-    date: (entry.aired_on || Time.zone.now).to_time.to_i,
+    date: (entry.aired_on.date || Time.zone.now).to_time.to_i,
     name: localized_name(entry),
     image_url: cdn_image(entry, :x96),
     url: url_for(entry),

@@ -6,14 +6,14 @@
     - if @resource.russian
       meta itemprop='alternativeHeadline' content=@resource.russian
 
-    - if @resource.anime? && @resource.kind_movie? && (@resource.aired_on || @resource.released_on)
+    - if @resource.anime? && @resource.kind_movie? && (@resource.aired_on.present? || @resource.released_on.present?)
       meta[
         itemprop='datePublished'
-        content=(@resource.aired_on.to_s || @resource.released_on.to_s)
+        content=(@resource.aired_on.presence || @resource.released_on).date.to_s
       ]
     - elsif @resource.anime?
-      - if @resource.aired_on
-        meta itemprop='dateCreated' content=@resource.aired_on.iso8601
+      - if @resource.aired_on.present?
+        meta itemprop='dateCreated' content=@resource.aired_on.date.iso8601
         / meta itemprop='startDate' content=@resource.aired_on
       / - if @resource.released_on
         / meta itemprop='endDate' content=@resource.released_on

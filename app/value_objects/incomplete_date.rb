@@ -56,7 +56,11 @@ class IncompleteDate
   end
 
   def date
-    @date ||= Date.new year || 1901, month || 1, day || 1
+    if blank?
+      nil
+    else
+      @date ||= Date.new year || 1901, month || 1, day || 1
+    end
   end
 
   # make it comparable to dates

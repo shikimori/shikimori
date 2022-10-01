@@ -1,9 +1,9 @@
 class StudiosController < ShikimoriController
-  SELECT_SQL = <<-SQL
+  SELECT_SQL = <<-SQL.squish
     studios.*,
     count(animes.id) as animes_count,
-    max(animes.aired_on) as max_year,
-    min(animes.aired_on) as min_year
+    max(animes.aired_on_computed) as max_year,
+    min(animes.aired_on_computed) as min_year
   SQL
 
   def index

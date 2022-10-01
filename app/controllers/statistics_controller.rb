@@ -205,13 +205,13 @@ private
       entry.mapped_genres = entry.genres.map do |genre|
         {
           genre: UsersHelper.localized_name(genre, current_user),
-          aired_on: entry.aired_on
+          aired_on: entry.aired_on.date
         }
       end
       entry.mapped_studios = entry.real_studios.map do |studio|
         {
           studio: Studio::MERGED.include?(studio.id) ? @studios_by_id[Studio::MERGED[studio.id]].filtered_name : studio.filtered_name,
-          aired_on: entry.aired_on
+          aired_on: entry.aired_on.date
         }
       end
     end

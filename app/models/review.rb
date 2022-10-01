@@ -108,7 +108,7 @@ class Review < ApplicationRecord
   def written_before_release?
     is_written_before_release && (
       !db_entry.ongoing? || (
-        !db_entry.aired_on || db_entry.aired_on > 1.year.ago
+        db_entry.aired_on.blank? || db_entry.aired_on > 1.year.ago
       )
     )
   end
