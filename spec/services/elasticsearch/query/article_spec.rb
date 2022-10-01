@@ -8,7 +8,6 @@ describe Elasticsearch::Query::Article, :vcr do
 
   let!(:article_1) { create :article, name: 'test' }
   let!(:article_2) { create :article, name: 'test zxct' }
-  let!(:article_3) { create :article, name: 'test 2' }
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }

@@ -8,7 +8,6 @@ describe Elasticsearch::Query::Collection, :vcr do
 
   let!(:collection_1) { create :collection, name: 'test' }
   let!(:collection_2) { create :collection, name: 'test zxct' }
-  let!(:collection_3) { create :collection, name: 'test 2' }
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }

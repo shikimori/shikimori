@@ -18,9 +18,6 @@ describe Elasticsearch::Query::Topic, :vcr do
   let!(:topic_2) do
     create :topic, title: 'test zxct', forum_id: forum_id
   end
-  let!(:topic_3) do
-    create :topic, title: 'test 2', forum_id: forum_id
-  end
   let!(:topic_4) do
     create :topic,
       title: 'test',

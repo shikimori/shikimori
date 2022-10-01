@@ -8,7 +8,6 @@ describe Elasticsearch::Query::Club, :vcr do
 
   let!(:club_1) { create :club, name: 'test' }
   let!(:club_2) { create :club, name: 'test zxct' }
-  let!(:club_3) { create :club, name: 'test 2' }
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }
