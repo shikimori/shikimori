@@ -1,8 +1,6 @@
-# require "#{Rails.root}/lib/types"
-# require "#{Rails.root}/lib/types/achievement/neko_id"
 GITHUB_URL = 'https://github.com/shikimori/neko-achievements/tree/master/'
 NEKO_RULES_FILE = "#{Rails.root}/../neko-achievements/priv/rules/*"
-NEKO_IDS_FILE = "#{Rails.root}/lib/types/achievement.rb"
+NEKO_IDS_FILE = "#{Rails.root}/app/models/types/achievement.rb"
 
 namespace :neko do
   desc "generate achievements.yml"
