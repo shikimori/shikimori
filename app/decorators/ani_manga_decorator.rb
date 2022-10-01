@@ -86,7 +86,7 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def release_date_text # rubocop:disable all
-    return unless released_on || aired_on
+    return unless released_on.present? || aired_on.present?
 
     parts = []
 
@@ -108,13 +108,12 @@ class AniMangaDecorator < DbEntryDecorator
         else
           i18n_t(
             'datetime.release_dates.date',
-            date: released_on.human
+            date: (released_on.presence || aired_on).human
           )
         end
 
     elsif anons?
       if aired_on.present?
-        no_fix_month = anime? && season == "winter_#{aired_on.year}"
         parts << i18n_t(
           'datetime.release_dates.for_date',
           date: aired_on.human
@@ -150,13 +149,13 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def release_date_tooltip
-    return unless released_on && aired_on && released?
+    return unless released_on.present? && aired_on.present? && released?
+    return if aired_on.uncertain? && released_on.uncertain?
 
-    return if date_uncertain?(aired_on) && date_uncertain?(released_on)
+    text = i18n_t 'datetime.release_dates.since_till_date',
+      from_date: aired_on.human,
+      to_date: released_on.human
 
-    text = i18n_t('datetime.release_dates.since_till_date',
-      from_date: h.formatted_date(aired_on, true, false),
-      to_date: h.formatted_date(released_on, true, false))
     I18n.russian? ? text.capitalize : text
   end
 

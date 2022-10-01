@@ -5,17 +5,14 @@ describe AniMangaDecorator do
     let(:anime) do
       build :anime,
         status: status,
-        aired_on: aired_date,
-        released_on: released_date,
+        aired_on: aired_on,
+        released_on: released_on,
         season: season
     end
 
     let(:aired_on) { nil }
     let(:released_on) { nil }
     let(:season) { nil }
-
-    let(:aired_date) { aired_on ? Time.zone.parse(aired_on) : nil }
-    let(:released_date) { released_on ? Time.zone.parse(released_on) : nil }
 
     context 'no dates' do
       let(:status) { :released }
