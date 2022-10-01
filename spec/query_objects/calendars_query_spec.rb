@@ -16,7 +16,7 @@ describe CalendarsQuery do
       create :anime, :ongoing,
         name: '5',
         episodes_aired: 0,
-        aired_on: Time.zone.now - 1.day - 1.month
+        aired_on: (1.day + 1.month).ago
     end
 
     let!(:anime_6) { create :anime, :anons, name: '6', aired_on: 1.day.from_now }
@@ -66,7 +66,7 @@ describe CalendarsQuery do
   end
 
   context 'before new year' do
-    let!(:anime_1) { create :anime, :anons, aired_on: '01-01-2016' }
+    let!(:anime_1) { create :anime, :anons, aired_on: { year: 2016 } }
     let!(:anime_2) { create :anime, :anons, aired_on: '02-01-2016' }
 
     it { is_expected.to eq [anime_2] }

@@ -86,58 +86,57 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def release_date_text # rubocop:disable all
-    return unless released_on || aired_on
+    return unless released_on.present? || aired_on.present?
 
     parts = []
 
     if released?
       parts <<
-        if released_on && aired_on && released_on.year != aired_on.year
+        if released_on.present? && aired_on.present? && released_on.year != aired_on.year
           # в 2011-2012 гг.
           i18n_t(
             'datetime.release_dates.in_years',
             from_date: aired_on.year,
             to_date: released_on.year
           )
-        elsif released_on && aired_on
+        elsif released_on.present? && aired_on.present?
           i18n_t(
             'datetime.release_dates.since_till_date',
-            from_date: h.formatted_date(aired_on, true),
-            to_date: h.formatted_date(released_on, true)
+            from_date: aired_on.human(true),
+            to_date: released_on.human(true)
           )
         else
           i18n_t(
             'datetime.release_dates.date',
-            date: h.formatted_date(released_on || aired_on, true)
+            date: (released_on.presence || aired_on).human(true)
           )
         end
 
     elsif anons?
-      if aired_on
-        no_fix_month = anime? && season == "winter_#{aired_on.year}"
+      if aired_on.present?
         parts << i18n_t(
           'datetime.release_dates.for_date',
-          date: h.formatted_date(aired_on, true, true, !no_fix_month)
+          date: aired_on.human(true)
         )
       end
 
-    elsif aired_on && released_on # ongoings
+    elsif aired_on.present? && released_on.present? # ongoings
       parts << i18n_t(
         'datetime.release_dates.since_till_date',
-        from_date: h.formatted_date(aired_on, true),
-        to_date: h.formatted_date(released_on, true)
+        from_date: aired_on.human(true),
+        to_date: released_on.human(true)
       )
     else
-      if aired_on
+      if aired_on.present?
         parts << i18n_t(
           'datetime.release_dates.since_date',
-          date: h.formatted_date(aired_on, true)
+          date: aired_on.human(true)
         )
       end
-      if released_on
+      if released_on.present?
         parts << i18n_t(
           'datetime.release_dates.till_date',
-          date: h.formatted_date(released_on, true)
+          date: released_on.human(true)
         )
       end
     end
@@ -150,13 +149,13 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def release_date_tooltip
-    return unless released_on && aired_on && released?
+    return unless released_on.present? && aired_on.present? && released?
+    return if aired_on.uncertain? && released_on.uncertain?
 
-    return if date_uncertain?(aired_on) && date_uncertain?(released_on)
+    text = i18n_t 'datetime.release_dates.since_till_date',
+      from_date: aired_on.human(false),
+      to_date: released_on.human(false)
 
-    text = i18n_t('datetime.release_dates.since_till_date',
-      from_date: h.formatted_date(aired_on, true, false),
-      to_date: h.formatted_date(released_on, true, false))
     I18n.russian? ? text.capitalize : text
   end
 
@@ -217,9 +216,5 @@ private
       source: :myanimelist,
       url: object.mal_url
     )
-  end
-
-  def date_uncertain? date
-    !date || (date.day == 1 && date.month == 1)
   end
 end

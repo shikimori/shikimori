@@ -152,7 +152,9 @@ private
 
   # статистика по студиям
   def stats_by_studio
-    animes_10 = @tv.select { |v| v.aired_on >= Time.zone.parse("#{Time.zone.now.year}-01-01") - 10.years }
+    animes_10 = @tv.select do |v|
+      v.aired_on_computed >= Time.zone.parse("#{Time.zone.now.year}-01-01") - 10.years
+    end
     # top_studios = normalize(stats_data(animes_10.map { |v| v[:mapped_studios] }.flatten, :studio, @studios), 0.75)[:series].map { |v| v[:name] }
 
     data = stats_data(animes_10.map(&:mapped_studios).flatten, :studio, @studios + [i18n_t('other')])
@@ -189,12 +191,12 @@ private
     finish_on = Time.zone.parse("#{Time.zone.now.year}-01-01") - 1.day + 1.year
 
     @animes = Anime
-      .where.not(aired_on: nil)
-      .where('aired_on >= ?', start_on)
-      .where('aired_on <= ?', finish_on)
+      .where.not(aired_on_computed: nil)
+      .where('aired_on_computed >= ?', start_on)
+      .where('aired_on_computed <= ?', finish_on)
       .where(kind: @kinds)
-      .select(%i[id aired_on kind rating score genre_ids studio_ids])
-      .order(:aired_on)
+      .select(%i[id aired_on_computed kind rating score genre_ids studio_ids])
+      .order(:aired_on_computed)
       .each do |anime|
         anime.singleton_class.class_eval do
           attr_accessor :mapped_genres, :mapped_studios
@@ -205,13 +207,13 @@ private
       entry.mapped_genres = entry.genres.map do |genre|
         {
           genre: UsersHelper.localized_name(genre, current_user),
-          aired_on: entry.aired_on
+          aired_on_computed: entry.aired_on_computed
         }
       end
       entry.mapped_studios = entry.real_studios.map do |studio|
         {
           studio: Studio::MERGED.include?(studio.id) ? @studios_by_id[Studio::MERGED[studio.id]].filtered_name : studio.filtered_name,
-          aired_on: entry.aired_on
+          aired_on_computed: entry.aired_on_computed
         }
       end
     end
@@ -219,7 +221,7 @@ private
   end
 
   def stats_data animes, grouping, categories
-    years = animes.group_by { |v| v[:aired_on].strftime('%Y') }.keys
+    years = animes.group_by { |v| v[:aired_on_computed].strftime('%Y') }.keys
 
     groups = categories.each_with_object({}) do |group, memo|
       memo[group] = nil
@@ -232,7 +234,7 @@ private
 
         data[entry[0]] = years.each_with_object({}) { |v, memo| memo[v] = 0 }
 
-        entry[1].group_by { |v| v[:aired_on].strftime('%Y') }.each do |k, v|
+        entry[1].group_by { |v| v[:aired_on_computed].strftime('%Y') }.each do |k, v|
           data[entry[0]][k] = v.size
         end
       end

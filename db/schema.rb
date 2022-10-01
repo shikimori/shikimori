@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_19_184130) do
+ActiveRecord::Schema.define(version: 2022_09_27_155810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -139,8 +139,6 @@ ActiveRecord::Schema.define(version: 2022_09_19_184130) do
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
     t.datetime "image_updated_at"
-    t.date "aired_on"
-    t.date "released_on"
     t.string "status", limit: 255
     t.string "rating", limit: 255
     t.integer "episodes_aired", default: 0, null: false
@@ -170,12 +168,16 @@ ActiveRecord::Schema.define(version: 2022_09_19_184130) do
     t.text "fandubbers", default: [], null: false, array: true
     t.string "options", default: [], null: false, array: true
     t.string "licensors", default: [], null: false, array: true
-    t.date "digital_released_on"
-    t.date "russia_released_on"
     t.decimal "score_2", default: "0.0", null: false
     t.text "russia_released_on_hint", default: "", null: false
     t.integer "ranked_shiki", default: 999999, null: false
     t.integer "ranked_random", default: 999999, null: false
+    t.jsonb "aired_on", default: {}, null: false
+    t.jsonb "released_on", default: {}, null: false
+    t.jsonb "digital_released_on", default: {}, null: false
+    t.jsonb "russia_released_on", default: {}, null: false
+    t.date "aired_on_computed"
+    t.date "released_on_computed"
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["rating"], name: "index_animes_on_rating"
@@ -540,6 +542,7 @@ ActiveRecord::Schema.define(version: 2022_09_19_184130) do
     t.integer "animation"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "comment_id"
     t.string "source"
     t.string "moderation_state", default: "pending", null: false
     t.integer "approver_id"
@@ -667,8 +670,6 @@ ActiveRecord::Schema.define(version: 2022_09_19_184130) do
     t.integer "ranked"
     t.integer "popularity"
     t.string "rating", limit: 255
-    t.date "aired_on"
-    t.date "released_on"
     t.datetime "imported_at"
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
@@ -697,6 +698,10 @@ ActiveRecord::Schema.define(version: 2022_09_19_184130) do
     t.string "options", default: [], null: false, array: true
     t.integer "ranked_shiki", default: 999999, null: false
     t.integer "ranked_random", default: 999999, null: false
+    t.jsonb "aired_on", default: {}, null: false
+    t.jsonb "released_on", default: {}, null: false
+    t.date "aired_on_computed"
+    t.date "released_on_computed"
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"
@@ -790,7 +795,6 @@ ActiveRecord::Schema.define(version: 2022_09_19_184130) do
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
     t.datetime "image_updated_at"
-    t.date "birth_on"
     t.string "website", limit: 255, default: "", null: false
     t.datetime "imported_at"
     t.boolean "is_producer", default: false, null: false
@@ -799,7 +803,8 @@ ActiveRecord::Schema.define(version: 2022_09_19_184130) do
     t.text "desynced", default: [], null: false, array: true
     t.string "russian", default: "", null: false
     t.integer "mal_id"
-    t.date "deceased_on"
+    t.jsonb "birth_on", default: {}, null: false
+    t.jsonb "deceased_on", default: {}, null: false
     t.index ["name"], name: "index_people_on_name"
   end
 

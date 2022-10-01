@@ -24,8 +24,8 @@ private
 
   def old_released_anime?
     anime.released? && (
-      (anime.aired_on && anime.aired_on < 10.years.ago) ||
-        (anime.released_on && anime.released_on < 1.week.ago)
+      (anime.aired_on.present? && anime.aired_on < 10.years.ago) ||
+        (anime.released_on.present? && anime.released_on < 1.week.ago)
     )
   end
 

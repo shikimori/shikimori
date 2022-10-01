@@ -142,4 +142,5 @@ describe Manga do
   it_behaves_like :clubs_concern, :manga
   it_behaves_like :contests_concern
   it_behaves_like :favourites_concern
+  it_behaves_like :computed_incomplete_date_field, :manga, :aired_on
 end
