@@ -1,5 +1,5 @@
 class Topics::Generate::News::ContestStatusTopic < Topics::Generate::News::BaseTopic
-  method_object %i[model! user! action! locale!]
+  method_object %i[model! user! action!]
 
   def topic_klass
     Topics::NewsTopics::ContestStatusTopic

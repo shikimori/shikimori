@@ -11,7 +11,6 @@ class Studio < ApplicationRecord
     436 => 48,
     805 => 48,
     141 => 18,
-    94 => 73
   }
   DESYNCABLE = %w[
     name

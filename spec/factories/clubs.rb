@@ -8,7 +8,15 @@ FactoryBot.define do
     comment_policy { Types::Club::CommentPolicy[:free] }
     image_upload_policy { Types::Club::ImageUploadPolicy[:members] }
 
-    locale { :ru }
+    is_censored { false }
+    is_non_thematic { false }
+    is_shadowbanned { false }
+    is_private { false }
+
+    trait(:censored) { is_censored { true } }
+    trait(:non_thematic) { is_non_thematic { true } }
+    trait(:shadowbanned) { is_shadowbanned { true } }
+    trait(:private) { is_private { true } }
 
     after :build do |model|
       stub_method model, :antispam_checks
@@ -16,6 +24,10 @@ FactoryBot.define do
       stub_method model, :join_owner
       stub_method model, :assign_style
       stub_method model, :sync_topics_is_censored
+    end
+
+    trait :with_topics do
+      after(:create) { |model| model.generate_topic }
     end
 
     trait :with_antispam do
@@ -32,10 +44,6 @@ FactoryBot.define do
 
     trait :with_sync_topics_is_censored do
       after(:build) { |model| unstub_method model, :sync_topics_is_censored }
-    end
-
-    trait :with_topics do
-      after(:create) { |model| model.generate_topics model.locale }
     end
 
     trait :linked_anime do
@@ -85,7 +93,7 @@ FactoryBot.define do
     end
 
     trait :faq do
-      id { StickyClubView::CLUB_IDS[:faq][:ru] }
+      id { StickyClubView::CLUB_IDS[:faq] }
       name { 'faq' }
       created_at { 3.days.ago }
       updated_at { 3.days.ago }

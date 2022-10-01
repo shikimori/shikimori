@@ -13,6 +13,7 @@ class User < ApplicationRecord
   ACTIVE_SITE_USER_INTERVAL = 1.month
 
   MORR_ID = 1
+  NEYOKI_ID = 50_685
   GUEST_ID = 5
   BANHAMMER_ID = 6_942
   MESSANGER_ID = Rails.env.test? ? MORR_ID : 1_680
@@ -230,13 +231,6 @@ class User < ApplicationRecord
     where "roles && '{#{Types::User::ROLES_EXCLUDED_FROM_STATISTICS.join ','}}'"
   }
 
-  enumerize :locale,
-    in: Types::Locale.values,
-    default: Types::Locale[:ru]
-  enumerize :locale_from_host,
-    in: Types::Locale.values,
-    default: Types::Locale[:ru]
-
   accepts_nested_attributes_for :preferences
 
   # allows for account creation from twitter & fb
@@ -407,17 +401,6 @@ class User < ApplicationRecord
       ignored_in_achievement_statistics?
   end
 
-  # for async mails for Devise 4
-  def send_devise_notification notification, *args
-    ShikiMailer.delay_for(0.seconds).send(notification, self, *args)
-  end
-
-  # NOTE: replace id with hashed value of secret token when
-  # any private data will be transmitted through the channel
-  def faye_channels
-    %W[/private-#{id}]
-  end
-
   def age
     return unless birth_on
 
@@ -427,6 +410,17 @@ class User < ApplicationRecord
         years_passed :
         years_passed - 1
     end
+  end
+
+  # for async mails for Devise 4
+  def send_devise_notification notification, *args
+    ShikiMailer.delay_for(0.seconds).send(notification, self, *args)
+  end
+
+  # NOTE: replace id with hashed value of secret token when
+  # any private data will be transmitted through the channel
+  def faye_channels
+    %W[/private-#{id}]
   end
 
 private

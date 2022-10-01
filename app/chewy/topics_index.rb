@@ -54,7 +54,6 @@ class TopicsIndex < ApplicationIndex
           ngram: NGRAM_FIELD
         }
     end
-    field :locale, type: 'keyword'
     field :forum_id, type: :integer
   end
 end

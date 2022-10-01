@@ -33,7 +33,7 @@ describe DashboardViewV2 do
     let!(:contest_2) { create :contest, :started, :with_topics }
     let!(:contest_3) { create :contest, :finished, :with_topics }
 
-    it { expect(view.contest_topic_views.map(&:topic)).to eq [contest_2.maybe_topic(:ru)] }
+    it { expect(view.contest_topic_views.map(&:topic)).to eq [contest_2.maybe_topic] }
   end
 
   describe '#news_topic_views' do

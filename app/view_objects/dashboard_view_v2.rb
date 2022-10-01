@@ -63,7 +63,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   def contest_topic_views
     contests_scope
       .map do |contest|
-        Topics::NewsLineView.new contest.maybe_topic(h.locale_from_host), true, true
+        Topics::NewsLineView.new contest.maybe_topic, true, true
       end
   end
 
@@ -72,7 +72,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
       .map(&:id)
 
     Topics::HotTopicsQuery
-      .call(limit: 12, locale: h.locale_from_host)
+      .call(limit: 12)
       .reject { |v| displayed_ids.include? v.id }
       .map { |topic| Topics::NewsLineView.new topic, true, true }
   end
@@ -84,7 +84,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
         page == 1 ? NEWS_FIRST_PAGE_LIMIT : NEWS_OTHER_PAGES_LIMIT,
         page == 1 ? 0 : NEWS_FIRST_PAGE_LIMIT - NEWS_OTHER_PAGES_LIMIT
       )
-      .transform do |topic|
+      .lazy_map do |topic|
         Topics::NewsWallView.new topic, true, true
       end
   end
@@ -124,7 +124,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   def cache_keys # rubocop:disable AbcSize
     {
       admin: [admin_area?, CACHE_VERSION],
-      ongoings: [:ongoings, rand(5), CACHE_VERSION],
+      ongoings: [:ongoings, cache_variant, CACHE_VERSION],
       collections: [collections_scope.cache_key, CACHE_VERSION],
       articles: [articles_scope.cache_key, CACHE_VERSION],
       critiques: [critiques_scope.cache_key, CACHE_VERSION],
@@ -137,7 +137,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def cache_variant
-    :"variant-#{rand(5)}"
+    rand(6).to_i
   end
 
   def new_news_url
@@ -206,28 +206,27 @@ private
 
   def collections_scope
     Collections::Query
-      .fetch(h.locale_from_host)
+      .fetch
       .limit(16)
-      .transform do |collection|
-        Topics::NewsLineView.new collection.maybe_topic(h.locale_from_host), true, true
+      .lazy_map do |collection|
+        Topics::NewsLineView.new collection.maybe_topic, true, true
       end
   end
 
   def articles_scope
     Articles::Query
-      .fetch(h.locale_from_host)
+      .fetch
       .limit(6)
-      .transform do |article|
-        Topics::NewsLineView.new article.maybe_topic(h.locale_from_host), true, true
+      .lazy_map do |article|
+        Topics::NewsLineView.new article.maybe_topic, true, true
       end
   end
 
   def critiques_scope
-    Topics::Query
-      .fetch(h.locale_from_host, h.censored_forbidden?)
+    Topics::Query.fetch(h.censored_forbidden?)
       .by_forum(critiques_forum, h.current_user, h.censored_forbidden?)
       .limit(6)
-      .transform do |topic|
+      .lazy_map do |topic|
         Topics::NewsLineView.new topic, true, true
       end
   end
@@ -237,23 +236,16 @@ private
   end
 
   def news_scope
-    Topics::Query
-      .fetch(h.locale_from_host, h.censored_forbidden?)
+    Topics::Query.fetch(h.censored_forbidden?)
       .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
       .except(:order)
       .order(is_pinned: :desc, created_at: :desc)
   end
 
   def db_updates_scope
-    Topics::Query
-      .fetch(h.locale_from_host, true) # always hide hentai on the main page
+    Topics::Query.fetch(true) # always hide hentai on the main page
       .by_forum(Forum::UPDATES_FORUM, h.current_user, true) # always hide hentai on the main page
       .where(TOPICS_EXCEPT_EXCLUDED_SQL)
-
-    # Topics::Query
-    #   .fetch(h.locale_from_host, h.censored_forbidden?)
-    #   .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
-    #   .where(TOPICS_EXCEPT_EXCLUDED_SQL)
   end
 
   def critiques_forum

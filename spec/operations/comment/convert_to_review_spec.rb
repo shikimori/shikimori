@@ -55,7 +55,7 @@ describe Comment::ConvertToReview do
     expect(subject.created_at).to be_within(0.1).of comment.created_at
     expect(subject.updated_at).to be_within(0.1).of comment.updated_at
 
-    review_topic = subject.maybe_topic(:ru)
+    review_topic = subject.maybe_topic
     expect(review_topic).to be_present
     expect(review_topic).to be_persisted
     expect(review_topic).to be_kind_of Topics::EntryTopics::ReviewTopic

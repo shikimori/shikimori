@@ -26,7 +26,7 @@ class FayeService
 
     case trackable
       when Review
-        publisher.publish trackable.maybe_topic(:ru), :updated
+        publisher.publish trackable.maybe_topic, :updated
       else
         publisher.publish trackable, :updated
     end
@@ -40,7 +40,7 @@ class FayeService
         trackable.delete_by @actor
 
       when Critique
-        publisher.publish trackable.topic(trackable.locale), :deleted
+        publisher.publish trackable.topic, :deleted
         trackable.destroy
 
       else

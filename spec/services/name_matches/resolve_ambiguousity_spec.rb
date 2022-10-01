@@ -1,5 +1,5 @@
 describe NameMatches::ResolveAmbiguousity do
-  let(:service) { NameMatches::ResolveAmbiguousity.new animes, options }
+  let(:service) { described_class.new animes, options }
   let(:anime_1) { build_stubbed :anime, name: ['test'] }
   let(:anime_2) { build_stubbed :anime, name: ['test'] }
   let(:animes) { [anime_1, anime_2] }
@@ -20,7 +20,7 @@ describe NameMatches::ResolveAmbiguousity do
       end
 
       describe 'exact match by year' do
-        let(:anime_1) { build_stubbed :anime, name: ['test'], aired_on: DateTime.parse('2000-01-01') }
+        let(:anime_1) { build_stubbed :anime, name: ['test'], aired_on: '2000-01-01' }
         it { should eq [anime_1] }
       end
     end

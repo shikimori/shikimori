@@ -2,8 +2,8 @@
 module AnimeHelper
   # время выхода следующей серии
   def time_of_next_episode anime
-    episode_start = anime.next_episode_start_at# || (last_news&.created_at || anime.aired_on) + anime.average_interval
-    episode_end = anime.next_episode_end_at# || (last_news&.created_at || anime.aired_on) + anime.average_interval
+    episode_start = anime.next_episode_start_at# || (last_news&.created_at || anime.aired_on.date) + anime.average_interval
+    episode_end = anime.next_episode_end_at# || (last_news&.created_at || anime.aired_on.date) + anime.average_interval
 
     # идёт ли показ прямо сейчас?
     if episode_start <= Time.zone.now && episode_end >= Time.zone.now

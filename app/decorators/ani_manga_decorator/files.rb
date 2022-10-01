@@ -20,9 +20,9 @@ class AniMangaDecorator::Files
 
   def rutracker_search
     ([
-      (entry.aired_on && entry.russian.present? ? "#{entry.russian} #{(entry.aired_on+1.month).year}" : nil),
-      (entry.aired_on ? "#{entry.name} #{(entry.aired_on+1.month).year}" : nil),
-      (entry.aired_on && entry.torrents_name.present? ? "#{entry.torrents_name} #{(entry.aired_on+1.month).year}" : nil),
+      (entry.aired_on.present? && entry.russian.present? ? "#{entry.russian} #{(entry.aired_on.date + 1.month).year}" : nil),
+      (entry.aired_on.present? ? "#{entry.name} #{(entry.aired_on.date + 1.month).year}" : nil),
+      (entry.aired_on.present? && entry.torrents_name.present? ? "#{entry.torrents_name} #{(entry.aired_on.date + 1.month).year}" : nil),
       entry.russian,
       (entry.russian || '').sub(/:.*/, ''),
       (entry.russian || '').sub(/\(.*\)/, ''),
@@ -68,7 +68,6 @@ class AniMangaDecorator::Files
     torrents = significant_torrents
     topics = entry
       .news_topics
-      .where(locale: :ru)
       .limit AnimeDecorator::MAX_NEWS
 
     topics.each_with_object({}) do |entry, memo|

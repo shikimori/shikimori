@@ -34,8 +34,8 @@ class Animes::ReviewsController < AnimesController
       query.paginate(1, PER_PREVIEW) :
       query.paginate(@page, PER_PAGE)
 
-    @collection = query.transform do |model|
-      Topics::ReviewView.new(model.maybe_topic(locale_from_host), true, true)
+    @collection = query.lazy_map do |model|
+      Topics::ReviewView.new(model.maybe_topic, true, true)
     end
 
     if @collection.none? && !request.xhr?
@@ -52,7 +52,7 @@ class Animes::ReviewsController < AnimesController
     push_js_reply if params[:is_reply]
     breadcrumb "#{i18n_i('Review', :one)} ##{@review.id}", nil
 
-    @topic_view = Topics::ReviewView.new(@review.maybe_topic(locale_from_host), false, false)
+    @topic_view = Topics::ReviewView.new(@review.maybe_topic, false, false)
   end
 
   def missing exception
@@ -69,7 +69,7 @@ class Animes::ReviewsController < AnimesController
     og noindex: true
     return render :missing, status: (xhr_or_json? ? :ok : :not_found) if @resource.is_a? NoTopic
 
-    @topic_view = Topics::ReviewView.new(@review.maybe_topic(locale_from_host), true, true)
+    @topic_view = Topics::ReviewView.new(@review.maybe_topic, true, true)
 
     if request.xhr?
       render(
@@ -192,7 +192,7 @@ private
 
   def push_js_reply
     gon.push reply: {
-      id: @review.maybe_topic(locale_from_host).id,
+      id: @review.maybe_topic.id,
       type: :topic,
       userId: @review.user_id,
       nickname: @review.user.nickname,

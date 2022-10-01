@@ -87,15 +87,13 @@ describe Anime do
           create :news_topic,
             linked: anime,
             action: AnimeHistoryAction::Anons,
-            value: nil,
-            locale: :ru
+            value: nil
         end
         let!(:en_news_topic) do
           create :news_topic,
             linked: anime,
             action: AnimeHistoryAction::Anons,
-            value: nil,
-            locale: :en
+            value: nil
         end
 
         before { anime.update status: :anons }
@@ -109,8 +107,8 @@ describe Anime do
         context 'to anons (anime just created)' do
           let!(:anime) { create :anime, :with_callbacks, status: :anons }
 
-          it 'generates 2 anons news topics' do
-            expect(anime.anons_news_topics).to have(2).items
+          it 'generates anons news topic' do
+            expect(anime.anons_news_topics).to_not be_empty
           end
         end
 
@@ -119,7 +117,7 @@ describe Anime do
           before { anime.update status: :ongoing }
 
           it 'generates 2 ongoing news topics' do
-            expect(anime.ongoing_news_topics).to have(2).items
+            expect(anime.ongoing_news_topics).to_not be_empty
           end
         end
       end
@@ -161,7 +159,7 @@ describe Anime do
 
           it 'changes status to ongoing and generates 2 ongoing news topics' do
             expect(anime.status).to be_ongoing
-            expect(anime.ongoing_news_topics).to have(2).items
+            expect(anime.ongoing_news_topics).to_not be_empty
           end
         end
 
@@ -171,7 +169,7 @@ describe Anime do
 
           it 'changes status to released and generates 2 released news topics' do
             expect(anime.status).to be_released
-            expect(anime.released_news_topics).to have(2).items
+            expect(anime.released_news_topics).to_not be_empty
           end
         end
       end
@@ -249,4 +247,5 @@ describe Anime do
   it_behaves_like :clubs_concern, :anime
   it_behaves_like :contests_concern
   it_behaves_like :favourites_concern
+  it_behaves_like :computed_incomplete_date_field, :anime, :aired_on
 end

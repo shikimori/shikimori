@@ -22,7 +22,6 @@ describe Topics::SubscribedUsersQuery do
     it do
       is_expected.to eq(
         User
-          .where(locale_from_host: topic.locale)
           .where('last_online_at > ?', Topics::SubscribedUsersQuery::ACTIVITY_INTERVAL.ago)
           .order(:id)
           .to_a

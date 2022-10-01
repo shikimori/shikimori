@@ -37,8 +37,7 @@ private
     Collection
       .where(moderation_state: %i[accepted rejected])
       .where(state: :published)
-      .where(locale: locale_from_host)
-      .includes(:user, :approver, :topics)
+      .includes(:user, :approver, :topic)
       .order(created_at: :desc)
   end
 
@@ -46,8 +45,7 @@ private
     Collection
       .where(moderation_state: :pending)
       .where(state: :published)
-      .where(locale: locale_from_host)
-      .includes(:user, :approver, :topics)
+      .includes(:user, :approver, :topic)
       .order(created_at: :desc)
       .limit(PENDING_PER_PAGE)
   end

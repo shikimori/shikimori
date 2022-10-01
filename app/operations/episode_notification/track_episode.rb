@@ -6,9 +6,7 @@ class EpisodeNotification::TrackEpisode
   def call
     raise missing_episode_error(@notification) if missing_episode? @notification
 
-    Shikimori::DOMAIN_LOCALES.each do |locale|
-      generate_topic @notification, locale
-    end
+    generate_topic @notification
 
     return if present_episode? @notification
     return if old_released_anime? @notification
@@ -18,11 +16,10 @@ class EpisodeNotification::TrackEpisode
 
 private
 
-  def generate_topic episode_notification, locale
+  def generate_topic episode_notification
     Topics::Generate::News::EpisodeTopic.call(
       model: episode_notification.anime,
       user: episode_notification.anime.topic_user,
-      locale: locale,
       aired_at: episode_notification.created_at,
       episode: episode_notification.episode
     )
@@ -46,7 +43,7 @@ private
 
   def old_released_anime? episode_notification
     episode_notification.anime.released? &&
-      episode_notification.anime.released_on &&
+      episode_notification.anime.released_on.present? &&
       episode_notification.anime.released_on < RELEASE_EXPIRATION_INTERVAL.ago
   end
 end

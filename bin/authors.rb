@@ -132,7 +132,7 @@ data
 #     ignored_latest_duration = Anime
 #       .where(id: rule.dig('generator', 'ignore_latest_ids') || [])
 #       .where(
-#         'released_on is not null and released_on > ? or aired_on > ?',
+#         '(released_on_computed is not null and released_on_computed > ?) or (aired_on_computed is not null and aired_on_computed > ?)',
 #         1.year.ago,
 #         1.year.ago
 #       )

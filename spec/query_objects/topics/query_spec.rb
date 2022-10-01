@@ -1,7 +1,6 @@
 describe Topics::Query do
-  subject(:query) { Topics::Query.fetch locale, is_censored_forbidden }
+  subject(:query) { described_class.fetch is_censored_forbidden }
 
-  let(:locale) { :ru }
   let(:is_censored_forbidden) { false }
 
   let(:all_sticky_topics) do
@@ -20,18 +19,23 @@ describe Topics::Query do
     context 'domain matches topic locale' do
       it { is_expected.to eq all_sticky_topics }
     end
+  end
 
-    context 'domain does not match topic locale' do
-      let(:locale) { :en }
-      it { is_expected.to be_empty }
+  context '#filter_by_policy' do
+    subject { query.filter_by_policy user }
+    before do
+      allow(Topic::AccessPolicy).to receive(:allowed?) do |topic, _user|
+        topic == socials_topic
+      end
     end
+    it { is_expected.to eq [socials_topic] }
   end
 
   describe '#by_forum' do
     subject { query.by_forum critiques_forum, user, is_censored_forbidden }
     let!(:critique) { create :critique, :with_topics }
 
-    it { is_expected.to eq [critique.topic(locale)] }
+    it { is_expected.to eq [critique.topic] }
   end
 
   describe '#by_linked' do
@@ -62,7 +66,7 @@ describe Topics::Query do
 
       it do
         is_expected.to eq [
-          linked.topic(locale),
+          linked.topic,
           club_user_topic,
           club_page_topic
         ]
@@ -74,14 +78,13 @@ describe Topics::Query do
     let!(:topic_1) { create :topic, id: 1 }
     let!(:topic_2) { create :topic, id: 2 }
     let!(:topic_3) { create :topic, id: 3 }
-    let!(:topic_en) { create :topic, id: 4, locale: :en }
+    let!(:topic_en) { create :topic, id: 4 }
 
-    subject { query.search phrase, forum, user, locale }
+    subject { query.search phrase, forum, user }
 
     let(:phrase) { 'test' }
     let(:forum) { seed :animanga_forum }
     let(:user) { nil }
-    let(:locale) { 'ru' }
     let(:topics) { [topic_1, topic_2] }
 
     before do
@@ -89,8 +92,7 @@ describe Topics::Query do
         scope: anything,
         phrase: phrase,
         forum: forum,
-        user: user,
-        locale: locale
+        user: user
       ).and_return(topics)
     end
 

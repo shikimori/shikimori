@@ -1,6 +1,7 @@
 = render layout: 'page' do
+  .b-options-floated.count = @resource.clubs_wo_shadowbanned.size
   h2.subheadline = og.headline
   .b-clubs.index
     = render partial: 'clubs/club',
-      collection: @resource.clubs_for_domain,
+      collection: @resource.clubs_wo_shadowbanned,
       locals: { content_by: :detailed }

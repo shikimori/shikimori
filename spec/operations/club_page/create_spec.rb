@@ -3,9 +3,8 @@
 describe ClubPage::Create do
   subject(:club_page) { ClubPage::Create.call params }
 
-  let(:club) { create :club, owner: user, locale: locale, is_censored: is_censored }
+  let(:club) { create :club, owner: user, is_censored: is_censored }
   let(:is_censored) { [true, false].sample }
-  let(:locale) { :en }
 
   context 'valid params' do
     let(:params) do

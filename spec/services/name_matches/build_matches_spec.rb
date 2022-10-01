@@ -6,7 +6,7 @@ describe NameMatches::BuildMatches do
       kind: kind,
       name: 'Ootnik z Ootnik!',
       russian: 'Охотник!',
-      aired_on: Date.parse('2000-01-01'),
+      aired_on: '2000-01-01',
       synonyms: [
         'Hunter x Hunter',
         'Hunters'

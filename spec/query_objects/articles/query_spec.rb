@@ -1,5 +1,5 @@
 describe Articles::Query do
-  let(:query) { Articles::Query.fetch(:ru) }
+  let(:query) { Articles::Query.fetch }
 
   include_context :timecop
 
@@ -7,26 +7,22 @@ describe Articles::Query do
   let!(:article_2) { create :article, :published, id: 2 }
   let!(:article_3) { create :article, :published, id: 3 }
   let!(:article_4) { create :article, :unpublished, id: 4 }
-  let!(:article_en_1) { create :article, :published, id: 5, locale: :en }
-  let!(:article_en_2) { create :article, :unpublished, id: 6, locale: :en }
 
   describe '.fetch' do
     subject { query }
     it { is_expected.to eq [article_3, article_2, article_1] }
 
     describe '#search' do
-      subject { query.search phrase, 'ru' }
+      subject { query.search phrase }
 
       context 'present search phrase' do
         before do
           allow(Elasticsearch::Query::Article).to receive(:call).with(
             phrase: phrase,
-            locale: 'ru',
             limit: Articles::Query::SEARCH_LIMIT
           ).and_return(
             article_3.id => 987,
-            article_2.id => 654,
-            article_en_1.id => 321
+            article_2.id => 654
           )
         end
         let(:phrase) { 'test' }

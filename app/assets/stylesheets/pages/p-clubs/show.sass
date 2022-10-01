@@ -2,6 +2,22 @@
 @import mixins/block
 @import mixins/responsive
 
+.p-clubs
+  header.head
+    .censored,
+    .non-thematic,
+    .private,
+    .shadowbanned
+      color: $red
+      cursor: default
+      font-size: 13px
+
+    .private
+      color: $blue
+
+    .censored
+      color: $purple
+
 .p-clubs-show
   header.head h1.censored::before
     content: '[18+] '

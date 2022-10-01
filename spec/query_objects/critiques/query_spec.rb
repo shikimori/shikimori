@@ -6,15 +6,13 @@ describe Critiques::Query do
       @critiques = [
         create(:critique, target: db_entry, user: user),
         create(:critique, target: db_entry, user: user, created_at: Critiques::Query::NEW_REVIEW_BUBBLE_INTERVAL.ago),
-        create(:critique, target: db_entry, user: user),
-        create(:critique, target: db_entry, user: user, locale: :en)
+        create(:critique, target: db_entry, user: user)
       ]
     end
   end
 
   describe '#call' do
-    subject { described_class.call db_entry, locale: locale, id: id }
-    let(:locale) { :ru }
+    subject { described_class.call db_entry, id: id }
 
     describe 'with_id' do
       let(:id) { @critiques[0].id }

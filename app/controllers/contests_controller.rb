@@ -1,11 +1,13 @@
 class ContestsController < ShikimoriController
-  load_and_authorize_resource
-
-  before_action { og page_title: i18n_t(:contests) }
-
   before_action :fetch_resource, if: :resource_id
+
+  load_and_authorize_resource only: %i[new create]
+  authorize_resource except: %i[current index grid new create]
+  before_action :authorize_read!, only: %i[grid]
+
   before_action :resource_redirect, if: -> { @resource }
 
+  before_action { og page_title: i18n_t(:contests) }
   before_action :set_breadcrumbs
   before_action :js_export, only: %i[show]
 
@@ -31,7 +33,7 @@ class ContestsController < ShikimoriController
     contests = Contests::CurrentQuery.call
 
     if user_signed_in?
-      not_voted = contests.select { |v| current_user.can_vote?(v) }.first
+      not_voted = contests.find { |contest| current_user.can_vote? contest }
       return redirect_to(not_voted) if not_voted
     end
 
@@ -46,12 +48,12 @@ class ContestsController < ShikimoriController
   end
 
   def show
-    og noindex: true if params[:round] || params[:vote]
     return redirect_to edit_contest_url(@resource) if @resource.created?
     if params[:round] && !@resource.displayed_round
       return redirect_to contest_url(@resource)
     end
 
+    og noindex: true if params[:round] || params[:vote]
     og keywords: i18n_t(:show_keywords, title: @resource.title)
     og description: i18n_t(
       :show_description,
@@ -167,6 +169,10 @@ private
     if params[:round].present?
       breadcrumb @resource.title, contest_url(@resource)
     end
+  end
+
+  def authorize_read!
+    authorize! :read, @resource
   end
 
   def contest_params

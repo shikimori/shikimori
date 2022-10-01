@@ -2,7 +2,7 @@ describe Search::Club do
   before do
     allow(Elasticsearch::Query::Club)
       .to receive(:call)
-      .with(phrase: phrase, limit: ids_limit, locale: locale)
+      .with(phrase: phrase, limit: ids_limit)
       .and_return results
   end
 
@@ -10,15 +10,13 @@ describe Search::Club do
     described_class.call(
       scope: scope,
       phrase: phrase,
-      ids_limit: ids_limit,
-      locale: locale
+      ids_limit: ids_limit
     )
   end
 
   let(:scope) { Club.all }
   let(:phrase) { 'zxct' }
   let(:ids_limit) { 2 }
-  let(:locale) { 'ru' }
 
   let(:results) { { club_1.id => 0.123123 } }
 

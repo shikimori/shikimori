@@ -25,9 +25,7 @@ class Critique < ApplicationRecord
       too_short: "too short (#{MIN_BODY_SIZE} symbols minimum)"
     },
     if: -> { changes['text'] }
-  validates :locale, presence: true
 
-  enumerize :locale, in: %i[ru en], predicates: { prefix: true }
   alias topic_user user
   delegate :censored?, to: :target, allow_nil: true
 

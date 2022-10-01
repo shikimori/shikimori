@@ -1,4 +1,5 @@
 class Clubs::ClubImagesController < ShikimoriController
+  include CanCanGet404Concern
   load_and_authorize_resource :club
   load_and_authorize_resource only: [:destroy]
 

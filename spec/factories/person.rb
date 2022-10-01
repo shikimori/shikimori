@@ -7,8 +7,8 @@ FactoryBot.define do
     is_producer { false }
     is_mangaka { false }
     is_seyu { false }
-    birth_on { nil }
-    deceased_on { nil }
+    birth_on { {} }
+    deceased_on { {} }
     mal_id { nil }
     imported_at { nil }
 
@@ -25,7 +25,7 @@ FactoryBot.define do
     end
 
     trait :with_topics do
-      after(:create) { |model| model.generate_topics :ru }
+      after(:create) { |model| model.generate_topic }
     end
   end
 end

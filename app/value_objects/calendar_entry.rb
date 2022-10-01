@@ -37,10 +37,10 @@ class CalendarEntry < SimpleDelegator
 
   def next_episode_start_at
     # it is important to take aired_on from orignal anime object, not from decoated one
-    can_use_aired_on = object.aired_on && (anons? || (ongoing? && episodes_aired.zero?))
+    can_use_aired_on = object.aired_on.present? && (anons? || (ongoing? && episodes_aired.zero?))
 
     next_episode_at(true) || (
-      object.aired_on.in_time_zone + ANNOUNCE_DATE_OFFSET if can_use_aired_on
+      object.aired_on.date.in_time_zone + ANNOUNCE_DATE_OFFSET if can_use_aired_on
     )
   end
 

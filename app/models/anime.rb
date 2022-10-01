@@ -249,6 +249,13 @@ class Anime < DbEntry
     in: Types::Anime::Rating.values,
     predicates: { prefix: true }
 
+  attribute :aired_on, IncompleteDate
+  include IncompleteDate::ComputedField[:aired_on]
+  attribute :released_on, IncompleteDate
+  include IncompleteDate::ComputedField[:released_on]
+  attribute :digital_released_on, IncompleteDate
+  attribute :russia_released_on, IncompleteDate
+
   # enumerize :options,
   #   in: Types::Anime::Options.values,
   #   predicates: true,
@@ -267,7 +274,7 @@ class Anime < DbEntry
   end
 
   def latest?
-    ongoing? || anons? || (aired_on && aired_on > 1.year.ago)
+    ongoing? || anons? || (aired_on.present? && aired_on > 1.year.ago)
   end
 
   def name

@@ -1,4 +1,4 @@
-class CommentsQuery
+class Comments::ApiQuery
   LIMIT = 100
 
   def initialize commentable_type, commentable_id

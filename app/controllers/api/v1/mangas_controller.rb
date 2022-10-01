@@ -162,7 +162,7 @@ class Api::V1::MangasController < Api::V1Controller # rubocop:disable ClassLengt
     allow_blank: true,
     desc: 'Search phrase to filter mangas by `name`'
   def index
-    limit = [[params[:limit].to_i, 1].max, 30].min
+    limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
     @collection = Rails.cache.fetch cache_key, expires_in: 2.days do
       AnimesCollection::PageQuery.call(
@@ -231,7 +231,6 @@ class Api::V1::MangasController < Api::V1Controller # rubocop:disable ClassLengt
     @limit = [[params[:limit].to_i, 1].max, Api::V1::TopicsController::LIMIT].min
 
     @collection = Topics::Query.new(@resource.all_topics)
-      .where(locale: locale_from_host)
       .includes(:forum, :user)
       .offset(@limit * (@page - 1))
       .limit(@limit + 1)

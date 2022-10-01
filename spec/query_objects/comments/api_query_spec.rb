@@ -1,4 +1,4 @@
-describe CommentsQuery do
+describe Comments::ApiQuery do
   let(:query) { described_class.new Topic.name, topic.id }
 
   let!(:comment1) { create :comment, commentable: topic }
@@ -11,18 +11,18 @@ describe CommentsQuery do
     context 'desc' do
       context 'page_1' do
         subject { query.postload 1, 2, true }
-        it { should eq [[comment4, comment3], true] }
+        it { is_expected.to eq [[comment4, comment3], true] }
       end
 
       context 'page_2' do
         subject { query.postload 2, 2, true }
-        it { should eq [[comment2, comment1], false] }
+        it { is_expected.to eq [[comment2, comment1], false] }
       end
     end
 
     context 'asc' do
       subject { query.postload 1, 2, false }
-      it { should eq [[comment1, comment2], true] }
+      it { is_expected.to eq [[comment1, comment2], true] }
     end
   end
 
@@ -30,18 +30,18 @@ describe CommentsQuery do
     context 'desc' do
       context 'page_1' do
         subject { query.fetch 1, 2, true }
-        it { should eq [comment4, comment3, comment2] }
+        it { is_expected.to eq [comment4, comment3, comment2] }
       end
 
       context 'page_2' do
         subject { query.fetch 2, 2, true }
-        it { should eq [comment2, comment1] }
+        it { is_expected.to eq [comment2, comment1] }
       end
     end
 
     context 'asc' do
       subject { query.fetch 1, 2, false }
-      it { should eq [comment1, comment2, comment3] }
+      it { is_expected.to eq [comment1, comment2, comment3] }
     end
   end
 end

@@ -55,54 +55,54 @@ describe Versioneers::FieldsVersioneer do
       end
     end
 
-    describe 'date change' do
-      let(:anime) { create :anime, aired_on: '2007-03-02' }
-      let(:changes) do
-        {
-          'aired_on(3i)' => '5',
-          'aired_on(2i)' => '4',
-          'aired_on(1i)' => '2008'
-        }
-      end
-
-      it do
-        expect(version).to be_persisted
-        expect(version).to be_pending
-        expect(version.item_diff).to eq 'aired_on' => ['2007-03-02', '2008-04-05']
-      end
-
-      context 'partial date' do
-        let(:changes) do
-          {
-            'aired_on(3i)' => '',
-            'aired_on(2i)' => '',
-            'aired_on(1i)' => '1920'
-          }
-        end
-
-        it do
-          expect(version).to be_persisted
-          expect(version).to be_pending
-          expect(version.item_diff).to eq 'aired_on' => ['2007-03-02', '1920-01-01']
-        end
-      end
-
-      context 'no date' do
-        let(:changes) do
-          {
-            'aired_on(3i)' => '',
-            'aired_on(2i)' => '',
-            'aired_on(1i)' => ''
-          }
-        end
-
-        it do
-          expect(version).to be_persisted
-          expect(version).to be_pending
-          expect(version.item_diff).to eq 'aired_on' => ['2007-03-02', nil]
-        end
-      end
-    end
+    # describe 'date change' do
+    #   let(:anime) { create :anime, aired_on: '2007-03-02' }
+    #   let(:changes) do
+    #     {
+    #       'aired_on(3i)' => '5',
+    #       'aired_on(2i)' => '4',
+    #       'aired_on(1i)' => '2008'
+    #     }
+    #   end
+    #
+    #   it do
+    #     expect(version).to be_persisted
+    #     expect(version).to be_pending
+    #     expect(version.item_diff).to eq 'aired_on' => ['2007-03-02', '2008-04-05']
+    #   end
+    #
+    #   context 'partial date' do
+    #     let(:changes) do
+    #       {
+    #         'aired_on(3i)' => '',
+    #         'aired_on(2i)' => '',
+    #         'aired_on(1i)' => '1920'
+    #       }
+    #     end
+    #
+    #     it do
+    #       expect(version).to be_persisted
+    #       expect(version).to be_pending
+    #       expect(version.item_diff).to eq 'aired_on' => ['2007-03-02', '1920-01-01']
+    #     end
+    #   end
+    #
+    #   context 'no date' do
+    #     let(:changes) do
+    #       {
+    #         'aired_on(3i)' => '',
+    #         'aired_on(2i)' => '',
+    #         'aired_on(1i)' => ''
+    #       }
+    #     end
+    #
+    #     it do
+    #       expect(version).to be_persisted
+    #       expect(version).to be_pending
+    #       expect(version.item_diff).to eq 'aired_on' => ['2007-03-02', nil]
+    #     end
+    #   end
+    # end
   end
 
   describe '#postmoderate' do

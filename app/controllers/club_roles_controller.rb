@@ -1,32 +1,37 @@
 class ClubRolesController < ShikimoriController
-  load_and_authorize_resource except: [:autocomplete]
+  load_and_authorize_resource except: %i[autocomplete]
+  load_resource :club
 
   # join club
   def create
-    @resource.club.join current_user
+    authorize! :see_club, @club if @club.shadowbanned?
+    @club.join current_user
 
-    redirect_to club_url(@resource.club),
+    redirect_to club_url(@club),
       notice: i18n_t(
         '.you_have_joined_club',
-        club_name: @resource.club.name,
+        club_name: @club.name,
         gender: current_user.sex
       )
   end
 
   # leave club
   def destroy
-    @resource.club.leave current_user
-    redirect_to club_url(@resource.club),
+    @club.leave current_user
+
+    redirect_to club_url(@club),
       notice: i18n_t(
         '.you_have_left_club',
-        club_name: @resource.club.name,
+        club_name: @club.name,
         gender: current_user.sex
       )
   end
 
   def autocomplete
+    authorize! :see_club, @club
+
     @collection = ClubRolesQuery
-      .new(Club.find(params[:club_id]))
+      .new(@club)
       .complete(params[:search])
   end
 

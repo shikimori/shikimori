@@ -4,14 +4,14 @@ class UserContent::CreateBase < ServiceObjectBase
   extend DslAttribute
   dsl_attribute :klass
 
-  pattr_initialize :params, :locale
+  pattr_initialize :params
 
   def call
     klass.transaction do
       model = klass.create params
 
       if model.persisted?
-        model.generate_topics model.locale, forum_id: Forum::HIDDEN_ID
+        model.generate_topic forum_id: Forum::HIDDEN_ID
       end
 
       model
@@ -22,11 +22,10 @@ private
 
   def params
     @params.merge(
-      state: "Types::#{klass}::State".constantize[:unpublished],
-      locale: @locale
+      state: "Types::#{klass}::State".constantize[:unpublished]
     )
   rescue NameError
-    @params.merge locale: @locale
+    @params
   end
 
   def state

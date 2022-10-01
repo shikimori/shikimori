@@ -8,7 +8,7 @@ describe Api::V1::MangasController, :show_in_doc do
     let(:manga) do
       create :manga,
         name: 'Test',
-        aired_on: Date.parse('2014-01-01'),
+        aired_on: '2014-01-01',
         publisher_ids: [publisher.id],
         genre_ids: [genre.id],
         franchise: 'zxc'
@@ -146,7 +146,7 @@ describe Api::V1::MangasController, :show_in_doc do
   end
 
   describe '#topics' do
-    let!(:topic) { create :topic, linked: manga, locale: 'ru' }
+    let!(:topic) { create :topic, linked: manga }
     let(:manga) { create :manga }
 
     subject! { get :topics, params: { id: manga.id }, format: :json }

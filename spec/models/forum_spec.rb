@@ -13,13 +13,7 @@ describe Forum do
       let(:forum) { build :forum }
 
       context 'ru' do
-        include_context :stub_locale, :ru
         it { is_expected.to match(/форум/) }
-      end
-
-      context 'en' do
-        include_context :stub_locale, :en
-        it { is_expected.to match(/forum/) }
       end
     end
   end

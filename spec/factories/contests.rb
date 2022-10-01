@@ -29,7 +29,7 @@ FactoryBot.define do
     end
 
     trait :with_topics do
-      after(:create) { |contest| contest.generate_topics %i[en ru] }
+      after(:create) { |contest| contest.generate_topic }
     end
 
     [3, 5, 6, 8, 19].each do |members|

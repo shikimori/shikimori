@@ -84,7 +84,7 @@ class Abilities::User
       comment.user_id == @user.id &&
         !(comment.commentable.is_a?(Topic) && comment.commentable.is_closed)
     end
-    can :update, Comment do |comment|
+    can %i[edit update], Comment do |comment|
       (
         can?(:create, comment) && comment.created_at + 1.day > Time.zone.now
       ) || (
@@ -93,13 +93,13 @@ class Abilities::User
         comment.user_id == @user.id
       ) || can_update_club_comment?(comment, @user)
     end
-    can [:destroy], Comment do |comment|
+    can %i[destroy], Comment do |comment|
       can?(:update, comment) || (
         comment.commentable_type == User.name &&
         comment.commentable_id == @user.id
       ) || can_destroy_club_comment?(comment, @user)
     end
-    can [:broadcast], Comment do |comment|
+    can %i[broadcast], Comment do |comment|
       can_broadcast_in_club_topic?(comment.commentable, @user)
     end
   end

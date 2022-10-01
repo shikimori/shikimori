@@ -4,8 +4,7 @@ describe Topics::SearchQuery do
       scope: scope,
       phrase: phrase,
       forum: forum,
-      user: user,
-      locale: locale
+      user: user
     )
   end
 
@@ -14,8 +13,6 @@ describe Topics::SearchQuery do
   let!(:topic_2) { create :topic, id: 2 }
   let!(:topic_3) { create :topic, id: 3 }
   let!(:topic_4) { create :topic, id: 4 }
-
-  let(:locale) { 'ru' }
 
   describe '#search' do
     subject { query.call }
@@ -28,7 +25,6 @@ describe Topics::SearchQuery do
       before do
         allow(Elasticsearch::Query::Topic).to receive(:call).with(
           phrase: phrase,
-          locale: 'ru',
           forum_id: forum_id,
           limit: Topics::SearchQuery::SEARCH_LIMIT
         ).and_return(

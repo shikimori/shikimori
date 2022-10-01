@@ -1,7 +1,7 @@
 class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLength
+  include CanCanGet404Concern
   before_action :check_post_permission, only: %i[create update destroy]
-  load_and_authorize_resource only: %i[create update destroy]
-  before_action :authenticate_user!, only: %i[create update destroy]
+  load_and_authorize_resource only: %i[show create update destroy]
 
   LIMIT = 30
 
@@ -12,8 +12,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/comments/:id', 'Show a comment'
   def show
-    @resource = Comment.find(params[:id]).decorate
-    respond_with @resource
+    respond_with @resource.decorate
   end
 
   api :GET, '/comments', 'List comments'
@@ -30,10 +29,15 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
     @desc = params[:desc].nil? || params[:desc] == '1'
 
-    commentable_type = params[:commentable_type].gsub('Entry', Topic.name)
+    commentable_type = params[:commentable_type]
     commentable_id = params[:commentable_id]
+    commentable = Types::Comment::CommentableType[commentable_type]
+      .constantize
+      .find(commentable_id)
 
-    @collection = CommentsQuery
+    authorize! :read, commentable
+
+    @collection = Comments::ApiQuery
       .new(commentable_type, commentable_id)
       .fetch(@page, @limit, @desc)
       .decorate
@@ -75,8 +79,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   def create
     @resource = Comment::Create.call(
       params: create_params,
-      faye: faye,
-      locale: locale_from_host
+      faye: faye
     )
 
     if params[:broadcast] && @resource.persisted? && can?(:broadcast, @resource)
@@ -121,19 +124,13 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
 private
 
   def comment_params
-    comment_params = params
+    params
       .require(:comment)
       .permit(
         :body, :offtopic, :is_offtopic,
         :commentable_id, :commentable_type, :user_id
       )
-
-    if comment_params[:commentable_type].present?
-      comment_params[:commentable_type] =
-        comment_params[:commentable_type].gsub('Entry', Topic.name)
-    end
-
-    comment_params.except(:offtopic)
+      .except(:offtopic)
   end
 
   def create_params

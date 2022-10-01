@@ -5,14 +5,16 @@ ru:
       notice: Список всех клубов сайта в порядке активности участников
 
     collection:
-      favourites: Избранное
+      favourites: Избранные
       all_clubs: Все клубы
 
     page:
       back_to_clubs_page: Назад на страницу клуба
       new_club: Новый клуб
       edit_club: &edit_club Настройки
-      pages:
+      private_club: Закрытый клуб
+      access_denied: Доступ запрещён
+      pages :
         main: Основное
         description: Описание
         links: Ссылки
@@ -21,8 +23,6 @@ ru:
         pages: Страницы
 
     edit:
-      main:
-        required_option_for_adult_clubs: Обязательная опция для клубов со "взрослыми" картинками и текстами
       members:
         remove_users: Удаление пользователей
 

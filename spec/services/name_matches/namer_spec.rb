@@ -1,5 +1,5 @@
 describe NameMatches::Namer do
-  let(:service) { NameMatches::Namer.instance }
+  let(:service) { described_class.instance }
 
   let(:entry) do
     build :anime,
@@ -19,7 +19,7 @@ describe NameMatches::Namer do
   let(:id) { 99_999_999_999 }
   let(:kind) { :tv }
   let(:russian) { 'Охотник!' }
-  let(:aired_on) { Date.parse '2000-01-01' }
+  let(:aired_on) { '2000-01-01' }
 
   describe '#predefined' do
     context 'matched' do
@@ -37,18 +37,18 @@ describe NameMatches::Namer do
     context 'with aired_on' do
       let(:aired_on) { Date.parse '2005-01-01' }
       it do
-        expect(service.name entry).to eq %w(
+        expect(service.name entry).to eq %w[
           ootnikzootnik! ootnikzootnik!tv ootnikzootnik!2005
-        )
+        ]
       end
     end
 
     context 'wo aired_on' do
       let(:aired_on) { nil }
       it do
-        expect(service.name entry).to eq %w(
+        expect(service.name entry).to eq %w[
           ootnikzootnik! ootnikzootnik!tv
-        )
+        ]
       end
     end
   end
@@ -56,40 +56,40 @@ describe NameMatches::Namer do
   describe '#alt' do
     context 'without suffix' do
       it do
-        expect(service.alt entry).to eq %w(
+        expect(service.alt entry).to eq %w[
           hunterxhunter hunters englishunter ハンターxハンター
           hunterxhuntertv hunterxhunter2000 hunterstv hunters2000
           englishuntertv englishunter2000
           ハンターxハンターtv ハンターxハンター2000
           ootnikzootnik
-        )
+        ]
       end
     end
 
     context 'with suffix' do
       let(:entry) { build :anime, :tv, name: 'JoJo no Kimyou na Bouken (2000)' }
       it do
-        expect(service.alt entry).to eq %w(
+        expect(service.alt entry).to eq %w[
           jojonokimyonaboken
-        )
+        ]
       end
     end
   end
 
   describe '#alt2' do
     it do
-      expect(service.alt2 entry).to eq %w(
+      expect(service.alt2 entry).to eq %w[
         hunterxhunter hunters englishunter ハンターxハンター
-      )
+      ]
     end
   end
 
   describe '#alt3' do
     it do
-      expect(service.alt3 entry).to eq %w(
+      expect(service.alt3 entry).to eq %w[
         englisunter englisuntertv englisunter2000
         ootnikzootniktv ootnikzootnik2000
-      )
+      ]
     end
   end
 
@@ -97,9 +97,9 @@ describe NameMatches::Namer do
     context 'with russian' do
       let(:russian) { 'Охотник!' }
       it do
-        expect(service.russian entry).to eq %w(
+        expect(service.russian entry).to eq %w[
           охотник! охотник!tv охотник!2000
-        )
+        ]
       end
     end
 
@@ -111,9 +111,9 @@ describe NameMatches::Namer do
 
   describe '#russian_alt' do
     it do
-      expect(service.russian_alt entry).to eq %w(
+      expect(service.russian_alt entry).to eq %w[
         охотник охотникtv охотник2000
-      )
+      ]
     end
   end
 end

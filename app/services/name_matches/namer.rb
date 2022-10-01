@@ -73,7 +73,7 @@ private
   end
 
   def with_year name, entry
-    "#{name} #{entry.aired_on.year}" if name.present? && entry.aired_on
+    "#{name} #{entry.aired_on.year}" if name.present? && entry.aired_on.present?
   end
 
   def without_suffix name

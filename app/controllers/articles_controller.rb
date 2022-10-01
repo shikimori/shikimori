@@ -11,13 +11,13 @@ class ArticlesController < ShikimoriController
   def index # rubocop:disable AbcSize
     @limit = [[params[:limit].to_i, 4].max, 8].min
 
-    @collection = Articles::Query.fetch(locale_from_host)
-      .search(params[:search], locale_from_host)
+    @collection = Articles::Query.fetch
+      .search(params[:search])
       .paginate(@page, @limit)
-      .transform do |article|
+      .lazy_map do |article|
         Topics::TopicViewFactory
           .new(true, true)
-          .build(article.maybe_topic(locale_from_host))
+          .build(article.maybe_topic)
       end
 
     if @page == 1 && params[:search].blank? && user_signed_in?
@@ -36,14 +36,14 @@ class ArticlesController < ShikimoriController
     og page_title: @resource.name
     @topic_view = Topics::TopicViewFactory
       .new(false, false)
-      .build(@resource.maybe_topic(locale_from_host))
+      .build(@resource.maybe_topic)
   end
 
   def tooltip
     og noindex: true
     @topic_view = Topics::TopicViewFactory
       .new(true, true)
-      .build(@resource.maybe_topic(locale_from_host))
+      .build(@resource.maybe_topic)
 
     if request.xhr?
       render(
@@ -64,7 +64,7 @@ class ArticlesController < ShikimoriController
   end
 
   def create
-    @resource = Article::Create.call create_params, locale_from_host
+    @resource = Article::Create.call create_params
 
     if @resource.errors.blank?
       redirect_to edit_article_url(@resource),

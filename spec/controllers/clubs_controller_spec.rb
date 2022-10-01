@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe ClubsController do
   describe '#index' do
     let!(:club) { create :club, :with_topics, id: 999_999 }
@@ -24,15 +22,9 @@ describe ClubsController do
     let(:club) { create :club, :with_topics }
     let(:make_request) { get :show, params: { id: club.to_param } }
 
-    context 'club locale == locale from domain' do
+    context 'shown' do
       subject! { make_request }
       it { expect(response).to have_http_status :success }
-    end
-
-    context 'club locale != locale from domain' do
-      before { allow(controller).to receive(:ru_host?).and_return false }
-      after { I18n.locale = :ru }
-      it { expect { make_request }.to raise_error ActiveRecord::RecordNotFound }
     end
   end
 
@@ -88,7 +80,13 @@ describe ClubsController do
             section: 'description'
           }
       end
-      let(:params) { { name: 'test club' } }
+      let(:params) do
+        {
+          name: 'test club',
+          is_censored: [true, false].sample,
+          is_private: [true, false].sample
+        }
+      end
 
       it do
         expect(resource.errors).to be_empty
@@ -211,7 +209,6 @@ describe ClubsController do
 
     before do
       allow(Elasticsearch::Query::Club).to receive(:call).with(
-        locale: :ru,
         phrase: phrase,
         limit: Collections::Query::SEARCH_LIMIT
       ).and_return(

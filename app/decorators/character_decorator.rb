@@ -2,18 +2,15 @@ class CharacterDecorator < PersonDecorator
   instance_cache :changes, :all_animes, :all_mangas, :cosplay?,
     :limited_animes, :limited_mangas, :top_seyu, :all_seyu
 
-  ROLES_PRIORITY = %w[Japanese English Other]
+  DISPLAYED_SEYU_ROLES = %w[Japanese Mandarin English]
+  ROLES_PRIORITY = %w[Japanese Mandarin English Other]
 
   def url
     h.character_url object
   end
 
   def top_seyu
-    map_roles(
-      person_roles
-        .where(roles: %w[Japanese])
-        .or(person_roles.where(roles: %w[English]))
-    )
+    map_roles person_roles.where('roles && ARRAY[?]', DISPLAYED_SEYU_ROLES)
   end
 
   def all_seyu
@@ -87,6 +84,6 @@ private
   def decorated_entries query
     query
       .decorate
-      .sort_by { |v| v.aired_on || v.released_on || Date.new(2001) }
+      .sort_by { |v| v.aired_on.presence || v.released_on.presence || Date.new(2001) }
   end
 end

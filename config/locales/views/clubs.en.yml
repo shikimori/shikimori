@@ -5,13 +5,15 @@ en:
       notice: List of all clubs sorted by their members' activity
 
     collection:
-      favourites: Favourite
+      favourites: Favourites
       all_clubs: All clubs
 
     page:
       back_to_clubs_page: Back to clubs page
       new_club: New club
       edit_club: &edit_club Settings
+      private_club: Private club
+      access_denied: Access denied
       pages:
         main: Main
         description: Description
@@ -21,8 +23,6 @@ en:
         pages: Pages
 
     edit:
-      main:
-        required_option_for_adult_clubs: Required option for clubs with "adult" images and texts
       members:
         remove_users: Remove users
 

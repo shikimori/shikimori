@@ -61,7 +61,9 @@ class AnimeDecorator < AniMangaDecorator
   def aired_on
     return super unless anons?
 
-    (next_episode_at(false) if super && super < Time.zone.now) || super
+    (
+      IncompleteDate.new(next_episode_at(false)) if super.present? && super < Time.zone.now
+    ).presence || super
   end
 
   # for schema.org
@@ -103,7 +105,7 @@ class AnimeDecorator < AniMangaDecorator
 private
 
   def next_broadcast_at
-    return if anons? || date_uncertain?(aired_on)
+    return if anons? || aired_on.uncertain?
     return unless broadcast_at && broadcast_at > 1.week.ago
 
     broadcast_at < 1.hour.ago ? broadcast_at + 1.week : broadcast_at

@@ -31,7 +31,7 @@ class PersonProfileSerializer < PersonSerializer
 
   # TODO: deprecated
   def thread_id
-    object.maybe_topic(scope.locale_from_host).id
+    object.maybe_topic.id
   end
 
   # TODO: deprecated
@@ -40,7 +40,7 @@ class PersonProfileSerializer < PersonSerializer
   end
 
   def topic_id
-    object.maybe_topic(scope.locale_from_host).id
+    object.maybe_topic.id
   end
 
   def person_favoured

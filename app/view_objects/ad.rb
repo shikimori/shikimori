@@ -52,13 +52,13 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
     "spns_#{@banner_type}"
   end
 
-  def to_html
+  def to_html cache_variant = nil
     finalize
 
     <<-HTML.gsub(/\n|^\ +/, '')
       <div class="b-spns-#{@banner_type}">
         <center>
-          #{ad_html}
+          #{ad_html cache_variant}
         </center>
       </div>
     HTML
@@ -115,7 +115,7 @@ private
     provider == Types::Ad::Provider[:advertur]
   end
 
-  def ad_html # rubocop:disable all
+  def ad_html cache_variant # rubocop:disable all
     if placeholder?
       width, height =
         if @banner_type =~ /(?<width>\d+)x(?<height>\d+)/
@@ -140,7 +140,7 @@ private
       HTML
 
     elsif banner?
-      image = banner[:images].sample
+      image = cache_variant ? banner[:images][cache_variant] : banner[:images].sample
 
       image_html =
         if image[:src_2x]
@@ -228,16 +228,41 @@ private
   }
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: IMBA - remove 2022-08-29 23:59
-    url: 'https://bit.ly/3zYB034',
+    # AD START: IMBA - remove 2022-09-30 23:59
+    # url: 'https://bit.ly/3RFxUZy',
     # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=eevvx&pfb=lozyl&pr=[RANDOM]&pe=b',
     # convert -resize 50% app/assets/images/globals/events/2022-07-16/wide_1@2x.jpg app/assets/images/globals/events/2022-07-16/wide_1.jpg
-    images: (1..1).map do |i|
-      {
-        src: "/assets/globals/events/2022-07-16/wide_#{i}.jpg",
-        src_2x: "/assets/globals/events/2022-07-16/wide_#{i}@2x.jpg"
-      }
-    end,
+    images: [{
+      src: '/assets/globals/events/2022-09-14/wide_1.jpg',
+      src_2x: '/assets/globals/events/2022-09-14/wide_1@2x.jpg',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=14_09'
+    }, {
+      src: '/assets/globals/events/2022-09-14/wide_2.jpg',
+      src_2x: '/assets/globals/events/2022-09-14/wide_2@2x.jpg',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner2&utm_campaign=14_09'
+    }, {
+      src: '/assets/globals/events/2022-09-14/wide_3.jpg',
+      src_2x: '/assets/globals/events/2022-09-14/wide_3@2x.jpg',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=14_09'
+    }, {
+      src: '/assets/globals/events/2022-09-14/wide_4.jpg',
+      src_2x: '/assets/globals/events/2022-09-14/wide_4@2x.jpg',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner4&utm_campaign=14_09'
+    }, {
+      src: '/assets/globals/events/2022-09-14/wide_5.jpg',
+      src_2x: '/assets/globals/events/2022-09-14/wide_5@2x.jpg',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner5&utm_campaign=14_09'
+    }, {
+      src: '/assets/globals/events/2022-09-14/wide_6.jpg',
+      src_2x: '/assets/globals/events/2022-09-14/wide_6@2x.jpg',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner6&utm_campaign=14_09'
+    }],
+    # images: (1..1).map do |i|
+    #   {
+    #     src: "/assets/globals/events/2022-07-16/wide_#{i}.jpg?v=4",
+    #     src_2x: "/assets/globals/events/2022-07-16/wide_#{i}@2x.jpg?v=4"
+    #   }
+    # end,
     # AD END
     # html: (
     #   <<~HTML

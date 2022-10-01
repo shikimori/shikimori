@@ -100,8 +100,8 @@ private
   end
 
   def ban_reason comment
-    locale = comment.user.locale_from_host
-    i18n_t('ban_reason', url: StickyTopicView.site_rules(locale).object.url)
+    locale = comment.user.locale
+    i18n_t('ban_reason', url: StickyTopicView.site_rules.object.url)
   end
 
   def ban_duration comment, abusiveness

@@ -25,7 +25,7 @@ describe Article::Update do
       expect(article.created_at).to be_within(0.1).of 1.day.ago
       expect(article.changed_at).to be_within(0.1).of Time.zone.now
 
-      expect(article.topics.first).to have_attributes(
+      expect(article.topic).to have_attributes(
         id: topic.id,
         forum_id: Forum::HIDDEN_ID
       )
@@ -41,12 +41,12 @@ describe Article::Update do
         expect(article.created_at).to be_within(0.1).of Time.zone.now
         expect(article.changed_at).to be_within(0.1).of Time.zone.now
 
-        expect(article.topics).to have(1).item
-        expect(article.topics.first).to have_attributes(
+        expect(article.topic).to be_present
+        expect(article.topic).to have_attributes(
           id: topic.id,
           forum_id: Topic::FORUM_IDS['Article']
         )
-        expect(article.topics.first.created_at).to be_within(0.1).of Time.zone.now
+        expect(article.topic.created_at).to be_within(0.1).of Time.zone.now
       end
     end
   end

@@ -1,15 +1,14 @@
 class Topics::Query < QueryObjectBase
-  def self.fetch locale, is_censored_forbidden
-    query = new Topic
+  def self.fetch is_censored_forbidden
+    scope = Topic
       .includes(:forum, :user, :linked)
       .order(updated_at: :desc)
-      .where(locale: locale)
 
-    if is_censored_forbidden
-      query.where is_censored: false
-    else
-      query
-    end
+    new(
+      is_censored_forbidden ?
+        scope.where(is_censored: false) :
+        scope
+    )
   end
 
   def by_forum forum, user, is_censored_forbidden
@@ -36,18 +35,25 @@ class Topics::Query < QueryObjectBase
     end
   end
 
-  def search phrase, forum, user, locale
+  def search phrase, forum, user
+    return self if phrase.blank?
+
     chain Topics::SearchQuery.call(
       scope: @scope,
       phrase: phrase,
       forum: forum,
-      user: user,
-      locale: locale
+      user: user
     )
   end
 
+  def filter_by_policy user
+    lazy_filter do |topic|
+      Topic::AccessPolicy.allowed? topic, user
+    end
+  end
+
   def as_views is_preview, is_mini
-    transform do |topic|
+    lazy_map do |topic|
       Topics::TopicViewFactory.new(is_preview, is_mini).build topic
     end
   end

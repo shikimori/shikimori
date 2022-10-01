@@ -1,5 +1,6 @@
 class Api::V1::TopicsController < Api::V1Controller
-  load_and_authorize_resource only: %i[create update destroy]
+  include CanCanGet404Concern
+  load_and_authorize_resource only: %i[show create update destroy]
 
   LIMIT = 30
 
@@ -42,27 +43,28 @@ class Api::V1::TopicsController < Api::V1Controller
   def index # rubocop:disable all
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
-    topics_scope = Topics::Query.fetch locale_from_host, censored_forbidden?
+    query = Topics::Query.fetch censored_forbidden?
 
     if params[:forum]
-      forum = Forum.find_by_permalink params[:forum]
-      topics_scope = topics_scope.by_forum forum, current_user, censored_forbidden?
+      forum = Forum.find_by_permalink params[:forum] # rubocop:disable Rails/DynamicFindBy
+      query = query.by_forum forum, current_user, censored_forbidden?
     end
 
     if params[:linked_id] && params[:linked_type]
       linked = params[:linked_type].constantize.find_by(id: params[:linked_id])
-      topics_scope = topics_scope.by_linked linked
+      query = query.by_linked linked
     else
-      topics_scope = topics_scope.where linked_id: params[:linked_id] if params[:linked_id]
-      topics_scope = topics_scope.where linked_type: params[:linked_type] if params[:linked_type]
+      query = query.where linked_id: params[:linked_id] if params[:linked_id]
+      query = query.where linked_type: params[:linked_type] if params[:linked_type]
     end
 
-    topics_scope = topics_scope.where type: params[:type] if params[:type]
+    query = query.where type: params[:type] if params[:type]
 
-    @collection = topics_scope
+    @collection = query
       .includes(:forum, :user)
       .offset(@limit * (@page - 1))
       .limit(@limit + 1)
+      .filter_by_policy(current_user)
       .as_views(true, false)
 
     respond_with @collection, each_serializer: TopicSerializer
@@ -83,7 +85,8 @@ class Api::V1::TopicsController < Api::V1Controller
     @limit = [[params[:limit].to_i, 1].max, 10].min
 
     @collection = Topics::HotTopicsQuery
-      .call(limit: @limit, locale: locale_from_host)
+      .call(limit: @limit)
+      .filter { |topic| can? :read, topic }
       .map { |topic| Topics::TopicViewFactory.new(true, true).build topic }
 
     respond_with @collection, each_serializer: TopicSerializer
@@ -92,9 +95,9 @@ class Api::V1::TopicsController < Api::V1Controller
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/topics/:id', 'Show a topic'
   def show
-    @topic = Topics::TopicViewFactory.new(false, false).find params[:id]
-    respond_with @topic,
-      serializer: TopicSerializer
+    @topic_view = Topics::TopicViewFactory.new(false, false).build @resource
+
+    respond_with @topic_view, serializer: TopicSerializer
   end
 
   api :POST, '/topics', 'Create a topic'
@@ -112,8 +115,7 @@ class Api::V1::TopicsController < Api::V1Controller
   def create
     @resource = Topic::Create.call(
       faye: faye,
-      params: topic_params,
-      locale: locale_from_host
+      params: topic_params
     )
 
     if @resource.persisted?
@@ -184,7 +186,6 @@ private
   def updates_scope
     Topic
       .where(
-        locale: locale_from_host,
         generated: true,
         linked_type: [Anime.name, Manga.name, Ranobe.name]
       )

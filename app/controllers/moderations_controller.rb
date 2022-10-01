@@ -10,8 +10,8 @@ class ModerationsController < ShikimoriController # rubocop:disable ClassLength
 
   def show # rubocop:disable all
     @clubs = [
-      (StickyClubView.content_moderation(locale_from_host) unless Rails.env.test?),
-      (StickyClubView.forum_moderation(locale_from_host) unless Rails.env.test?)
+      (StickyClubView.content_moderation unless Rails.env.test?),
+      (StickyClubView.forum_moderation unless Rails.env.test?)
     ].compact
 
     if can? :manage_forum_moderator_role, User
@@ -171,7 +171,6 @@ private
   def moderation_policy
     @moderation_policy ||= ModerationPolicy.new(
       current_user,
-      locale_from_host,
       false
     )
   end

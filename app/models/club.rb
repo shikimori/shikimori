@@ -106,7 +106,7 @@ class Club < ApplicationRecord
     predicates: { prefix: true },
     default: Types::Club::ImageUploadPolicy[:members]
 
-  boolean_attribute :censored
+  boolean_attributes :censored, :non_thematic, :shadowbanned
 
   has_attached_file :logo,
     styles: {
@@ -119,17 +119,17 @@ class Club < ApplicationRecord
     path: ':rails_root/public/system/clubs/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style_:style.png'
 
-  validates :name, presence: true, name: true
+  validates :name, presence: true
+  validates :name, name: true,
+    if: -> { new_record? || will_save_change_to_name? }
   validates :logo, attachment_content_type: { content_type: /\Aimage/ }
-  validates :locale, presence: true
   validates :description, length: { maximum: 150_000 }, unless: :special_club?
   validates :description, length: { maximum: 300_000 }, if: :special_club?
 
-  enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
-  alias topic_user owner
-
   after_create :join_owner
   after_update :sync_topics_is_censored, if: :saved_change_to_is_censored?
+
+  alias topic_user owner
 
   def to_param
     "#{id}-#{name.permalinked}"

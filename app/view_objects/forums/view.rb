@@ -3,7 +3,7 @@ class Forums::View < ViewObjectBase
   instance_cache :forum, :linked, :topic_views, :menu
 
   def forum
-    Forum.find_by_permalink @forum
+    Forum.find_by_permalink @forum # rubocop:disable Rails/DynamicFindBy
   end
 
   def linked
@@ -19,11 +19,12 @@ class Forums::View < ViewObjectBase
   end
 
   def topic_views # rubocop:disable Metrics/AbcSize
-    Topics::Query.fetch(h.locale_from_host, h.censored_forbidden?)
+    Topics::Query.fetch(h.censored_forbidden?)
       .by_forum(forum, h.current_user, h.censored_forbidden?)
       .by_linked(linked)
-      .search(h.params[:search], forum, h.current_user, h.locale_from_host)
+      .search(h.params[:search], forum, h.current_user)
       .paginate(page, limit)
+      .filter_by_policy(h.current_user)
       .as_views(true, false)
   end
 
@@ -74,14 +75,14 @@ private
 
   def user_subscriptions
     user_forums = h.current_user.preferences.forums.select(&:present?)
-    user_clubs = h.current_user.clubs_for_domain
+    user_clubs = h.current_user.clubs_wo_shadowbanned
 
     user_forums.map { |id| forum_channel(id) } +
       user_clubs.map { |club| "/club-#{club.id}" }
   end
 
   def forum_channel forum_id
-    "/forum-#{forum_id}/#{h.locale_from_host}"
+    "/forum-#{forum_id}"
   end
 
   def linked_channel linked

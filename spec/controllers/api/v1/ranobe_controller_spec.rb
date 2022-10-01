@@ -8,7 +8,7 @@ describe Api::V1::RanobeController, :show_in_doc do
     let(:ranobe) do
       create :ranobe,
         name: 'Test',
-        aired_on: Date.parse('2014-01-01'),
+        aired_on: '2014-01-01',
         publisher_ids: [publisher.id],
         genre_ids: [genre.id],
         franchise: 'zxc'
@@ -127,7 +127,7 @@ describe Api::V1::RanobeController, :show_in_doc do
   end
 
   describe '#topics' do
-    let!(:topic) { create :topic, linked: ranobe, locale: 'ru' }
+    let!(:topic) { create :topic, linked: ranobe }
     let(:ranobe) { create :ranobe }
 
     subject! { get :topics, params: { id: ranobe.id }, format: :json }

@@ -347,10 +347,6 @@ describe Review do
       end
     end
 
-    describe '#locale' do
-      its(:locale) { is_expected.to eq :ru }
-    end
-
     describe '#forbid_tags_change' do
       let(:review) { create :review, body: old_body, anime: anime }
       let(:anime) { create :anime }

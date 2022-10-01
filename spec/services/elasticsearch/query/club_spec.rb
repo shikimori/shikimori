@@ -4,15 +4,13 @@ describe Elasticsearch::Query::Club, :vcr do
   include_context :chewy_indexes, %i[clubs]
   # include_context :chewy_logger
 
-  subject { described_class.call phrase: phrase, limit: ids_limit, locale: locale }
+  subject { described_class.call phrase: phrase, limit: ids_limit }
 
-  let!(:club_1) { create :club, name: 'test', locale: 'ru' }
-  let!(:club_2) { create :club, name: 'test zxct', locale: 'ru' }
-  let!(:club_3) { create :club, name: 'test 2', locale: 'en' }
+  let!(:club_1) { create :club, name: 'test' }
+  let!(:club_2) { create :club, name: 'test zxct' }
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }
-  let(:locale) { 'ru' }
 
   it { is_expected.to have_keys [club_1.id, club_2.id] }
 end

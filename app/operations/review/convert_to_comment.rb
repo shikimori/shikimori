@@ -30,7 +30,6 @@ private
         created_at: @review.created_at,
         updated_at: @review.updated_at
       },
-      locale: @review.locale,
       faye: FayeService.new(@review.user, nil),
       is_forced: true,
       is_conversion: true
@@ -43,18 +42,18 @@ private
   end
 
   def review_topic
-    @review.maybe_topic @review.locale
+    @review.maybe_topic
   end
 
   def db_entry_topic
-    @review.db_entry.topic @review.locale
+    @review.db_entry.topic
   end
 
   def replies_ids
     Comments::RepliesByBbCode
       .call(
         model: @review,
-        commentable: @review.maybe_topic(@review.locale)
+        commentable: @review.maybe_topic
       )
       .map(&:id)
   end

@@ -3,7 +3,7 @@ describe ContestRound::Finish do
 
   let(:operation) { ContestRound::Finish.new round }
 
-  let(:contest) { create :contest, :with_5_members, state: 'started' }
+  let(:contest) { create :contest, :with_topics, :with_5_members, state: 'started' }
   let(:round) { create :contest_round, contest: contest }
   let(:next_round) { nil }
 

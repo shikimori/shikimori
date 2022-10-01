@@ -159,7 +159,6 @@ describe CollectionsController do
 
     before do
       allow(Elasticsearch::Query::Collection).to receive(:call).with(
-        locale: :ru,
         phrase: phrase,
         limit: Collections::Query::SEARCH_LIMIT
       ).and_return(

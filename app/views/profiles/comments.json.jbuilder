@@ -6,7 +6,7 @@ json.content JsExports::Supervisor.instance.sweep(
   )
 )
 
-if @collection.size == controller.class::COMMENTS_LIMIT
+if @collection.next_page?
   json.postloader render(
     partial: 'blocks/postloader',
     locals: {

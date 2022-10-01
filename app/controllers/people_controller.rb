@@ -9,9 +9,10 @@ class PeopleController < DbEntriesController # rubocop:disable ClassLength
   PER_PAGE = 48
   UPDATE_PARAMS = [
     :russian,
-    :deceased_on,
-    *Person::DESYNCABLE,
-    desynced: []
+    *Person::DESYNCABLE - %i[birth_on],
+    desynced: [],
+    deceased_on: %w[day month year],
+    birth_on: %w[day month year]
   ]
 
   def index

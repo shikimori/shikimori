@@ -1,42 +1,29 @@
 class CommentsController < ShikimoriController
+  include CanCanGet404Concern
   include CommentHelper
-  before_action :authenticate_user!, only: %i[edit]
 
-  def show # rubocop:disable AbcSize, MethodLength
+  load_and_authorize_resource only: %i[edit]
+
+  def show # rubocop:disable AbcSize
     og noindex: true, nofollow: true
-    comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
-    @view = Comments::View.new comment, false
+    @resource ||= Comment.find_by(id: params[:id]) || nil_object
+    @view = Comments::View.new @resource, params[:action] == 'reply'
+    authorize_access!
 
-    return render :missing, status: (xhr_or_json? ? :ok : :not_found) if comment.is_a? NoComment
-
-    if comment.commentable.is_a?(Topic) && comment.commentable.linked.is_a?(Club)
-      Clubs::RestrictCensored.call(
-        club: comment.commentable.linked,
-        current_user: current_user
-      )
-    end
+    return render :missing, status: (xhr_or_json? ? :ok : :not_found) if nil_object?
 
     og(
-      image: comment.user.avatar_url(160),
-      page_title: i18n_t('comment_by', nickname: comment.user.nickname),
-      description: comment.body.gsub(%r{\[[/\w_ =-]+\]}, '')
+      image: @resource.user.avatar_url(160),
+      page_title: i18n_t('comment_by', nickname: @resource.user.nickname),
+      description: @resource.body.gsub(%r{\[[/\w_ =-]+\]}, '')
     )
 
     render :show # have to manually call render otherwise comment display via ajax is broken
   end
-
-  def tooltip
-    show
-  end
-
-  def reply
-    comment = Comment.find params[:id]
-    @view = Comments::View.new comment, true
-    render :show
-  end
+  alias tooltip show
+  alias reply show
 
   def edit
-    @comment = Comment.find params[:id]
   end
 
   # все комментарии сущности до определённого коммента
@@ -44,6 +31,7 @@ class CommentsController < ShikimoriController
     comment = Comment.find params[:comment_id]
     topic = params[:topic_type].constantize.find params[:topic_id]
 
+    authorize! :read, topic
     raise CanCan::AccessDenied unless comment.commentable == topic
 
     from = params[:skip].to_i
@@ -76,17 +64,18 @@ class CommentsController < ShikimoriController
       .limit(to)
       .decorate
       .reverse
+      .filter { |comment| can? :read, comment }
 
     render :collection, formats: :json
   end
 
-  # список комментариев по запросу
   def chosen
     comments = Comment
       .where(id: params[:ids].split(',').map(&:to_i))
       .includes(:user, :commentable)
       .limit(100)
       .decorate
+      .filter { |comment| can? :read, comment }
 
     @collection = params[:order] ? comments.reverse : comments
 
@@ -126,5 +115,19 @@ private
         comment[:user_id] ||= current_user&.id # can be no current_user with broken cookies
         comment[:body] = Moderations::Banhammer.instance.censor comment[:body], nil
       end
+  end
+
+  def authorize_access!
+    authorize! :read, @resource
+  rescue CanCan::AccessDenied
+    @resource = nil_object
+  end
+
+  def nil_object
+    NoComment.new params[:id].to_i
+  end
+
+  def nil_object?
+    @resource.is_a? NoComment
   end
 end

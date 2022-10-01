@@ -38,11 +38,11 @@ class FranchiseSerializer < ActiveModel::Serializer
     all_entries.map do |entry|
       {
         id: entry.id,
-        date: (entry.aired_on || Time.zone.now).to_time.to_i,
+        date: (entry.aired_on.date || Time.zone.now).to_time.to_i,
         name: UsersHelper.localized_name(entry, scope.current_user),
         image_url: ImageUrlGenerator.instance.url(entry, :x96),
         url: view_context.url_for(entry),
-        year: entry.aired_on.try(:year),
+        year: entry.aired_on.year,
         kind: entry.kind_text,
         weight: all_links.count { |v| v.source_id == entry.id }
       }

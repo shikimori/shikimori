@@ -42,7 +42,6 @@ private
 
   def scope
     Topics::NewsTopic
-      .where(locale: locale_from_host)
       .where.not(generated: true)
       .includes(:user)
       .order(created_at: :desc)

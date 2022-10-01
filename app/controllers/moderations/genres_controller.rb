@@ -16,7 +16,7 @@ class Moderations::GenresController < ModerationsController
   def index
     @versions = VersionsQuery.by_type(type.capitalize)
       .paginate(@page, VERSIONS_PER_PAGE)
-      .transform(&:decorate)
+      .lazy_map(&:decorate)
 
     if json?
       render 'db_entries/versions', locals: { collection: @versions }
@@ -30,7 +30,7 @@ class Moderations::GenresController < ModerationsController
   def edit
     @versions = VersionsQuery.by_item(@resource)
       .paginate(@page, VERSIONS_PER_PAGE)
-      .transform(&:decorate)
+      .lazy_map(&:decorate)
 
     render 'db_entries/versions', locals: { collection: @versions } if json?
   end

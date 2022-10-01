@@ -13,10 +13,10 @@ class TestsController < ShikimoriController
   USERS_PER_PAGE = 72
 
   def show
-    @traffic = Rails.cache.fetch("traffic_#{Time.zone.today}") do
-      YandexMetrika.call 18
-    end
-  rescue Faraday::ConnectionFailed
+  #   @traffic = Rails.cache.fetch("traffic_#{Time.zone.today}") do
+  #     YandexMetrika.call 18
+  #   end
+  # rescue Faraday::ConnectionFailed
   end
 
   def achievements_notification
@@ -220,7 +220,7 @@ class TestsController < ShikimoriController
     @collection = QueryObjectBase
       .new(@scope)
       .paginate(@page, USERS_PER_PAGE)
-      .transform(&:voter)
+      .lazy_map(&:voter)
   end
 
   def vue

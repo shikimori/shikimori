@@ -31,7 +31,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def random_clubs
-    clubs_for_domain
+    clubs_wo_shadowbanned
       .sort_by { rand }
       .take(clubs_to_display)
       .sort_by(&:name)

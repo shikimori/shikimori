@@ -24,45 +24,35 @@ private
     return unless anime.anons?
     return if status_changed? 'ongoing', 'anons'
 
-    Shikimori::DOMAIN_LOCALES.each do |locale|
-      Topics::Generate::News::AnonsTopic.call(
-        model: anime,
-        user: anime.topic_user,
-        locale: locale
-      )
-    end
+    Topics::Generate::News::AnonsTopic.call(
+      model: anime,
+      user: anime.topic_user
+    )
   end
 
   def generate_ongoing_topics
     return unless anime.ongoing?
     return if status_changed? 'released', 'ongoing'
 
-    Shikimori::DOMAIN_LOCALES.each do |locale|
-      Topics::Generate::News::OngoingTopic.call(
-        model: anime,
-        user: anime.topic_user,
-        locale: locale
-      )
-    end
+    Topics::Generate::News::OngoingTopic.call(
+      model: anime,
+      user: anime.topic_user
+    )
   end
 
   def generate_release_topics
     return unless anime.released?
     return unless new_release?
 
-    Shikimori::DOMAIN_LOCALES.each do |locale|
-      Topics::Generate::News::ReleasedTopic.call(
-        model: anime,
-        user: anime.topic_user,
-        locale: locale
-      )
-    end
+    Topics::Generate::News::ReleasedTopic.call(
+      model: anime,
+      user: anime.topic_user
+    )
   end
 
   def new_release?
-    return false if released_on.try :<, NEW_RELEASE_INTERVAL_FOR_RELEASED_ON.ago.to_date
-    return true if released_on.try :>=, NEW_RELEASE_INTERVAL_FOR_RELEASED_ON.ago.to_date
-    return true if aired_on.try :>=, NEW_RELEASE_INTERVAL_FOR_AIRED_ON.ago.to_date
+    return released_on >= NEW_RELEASE_INTERVAL_FOR_RELEASED_ON.ago.to_date if released_on.present?
+    return aired_on >= NEW_RELEASE_INTERVAL_FOR_AIRED_ON.ago.to_date if aired_on.present?
 
     false
   end

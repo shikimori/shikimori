@@ -30,8 +30,8 @@ class Animes::Filters::ByStatus < Animes::Filters::FilterBase
       "%<table_name>s.status = '#{MangaStatus[:discontinued]}'",
     AnimeStatusExtended[:latest] => <<~SQL.squish
       %<table_name>s.status = '#{AnimeStatus[:released]}'
-        and released_on is not null
-        and released_on >= %<date>s
+        and released_on_computed is not null
+        and released_on_computed >= %<date>s
     SQL
   }
 

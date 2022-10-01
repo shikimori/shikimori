@@ -65,7 +65,7 @@ class SiteStatistics
   end
 
   def developers
-    User.where(id: User::MORR_ID)
+    User.where(id: [User::MORR_ID, User::NEYOKI_ID])
   end
 
   def achievements

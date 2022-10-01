@@ -14,8 +14,8 @@
       .c-column.block_m
         = f.input :owner_id, as: :hidden
         = f.input :name
-        = f.input :is_censored,
-          hint: t('clubs.edit.main.required_option_for_adult_clubs')
+        = f.input :is_censored
+        = f.input :is_private
 
       .c-column.block_m
           = f.input :logo

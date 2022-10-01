@@ -41,7 +41,7 @@ class VersionsView < ViewObjectBase
     scope = apply_filtering scope
     scope
       .paginate(page, PER_PAGE)
-      .transform(&:decorate)
+      .lazy_map(&:decorate)
   end
 
   def pending
@@ -52,7 +52,7 @@ class VersionsView < ViewObjectBase
       .where(state: :pending)
       .order(created_at: sort_order)
       .paginate(page, PER_PAGE)
-      .transform(&:decorate)
+      .lazy_map(&:decorate)
   end
 
   def next_page_url is_pending

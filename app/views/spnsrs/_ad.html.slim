@@ -2,7 +2,7 @@
   .to-process[
     data-dynamic='desktop_ad'
     data-ad_css_class=ad.css_class
-    data-ad_html=ad.to_html
+    data-ad_html=ad.to_html(local_assigns[:cache_variant])
     data-ad_provider=(ad.placeholder? ? 'placeholder' : ad.provider)
     data-ad_params=ad.ad_params.to_json
     data-platform=ad.platform

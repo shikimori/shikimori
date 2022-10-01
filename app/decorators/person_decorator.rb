@@ -173,7 +173,7 @@ class PersonDecorator < DbEntryDecorator
         .map(&:second)
         .sort_by { |anime| sort_criteria anime }.reverse
         .take(animes_limit)
-        .sort_by { |anime| anime.aired_on || anime.released_on || 30.years.ago }
+        .sort_by { |anime| sort_date anime }
     end
 
     @characters = @characters
@@ -285,14 +285,6 @@ class PersonDecorator < DbEntryDecorator
     all_roles.any? { |v| !v.manga_id.nil? }
   end
 
-  def formatted_birth_on
-    I18n.l(birth_on, format: :human).gsub('1901', '').strip
-  end
-
-  def formatted_deceased_on
-    I18n.l(deceased_on, format: :human).gsub('1901', '').strip
-  end
-
 private
 
   def all_roles
@@ -330,10 +322,14 @@ private
 
   def sort_criteria anime
     if sort_by_date?
-      anime.aired_on || anime.released_on || 30.years.ago
+      sort_date anime
     else
       anime.score && anime.score < 9.9 ? anime.score : -999
     end
+  end
+
+  def sort_date anime
+    anime.aired_on.presence || anime.released_on.presence || 30.years.ago
   end
 
   def sort_by_date?

@@ -55,9 +55,9 @@ private
         date_to = Date.new(year, 4) - 9.days
         additionals =
           if @klass == Anime
-            "aired_on != '#{year}-01-01' or season = 'winter_#{year}'"
+            "aired_on_computed != '#{year}-01-01' or season = 'winter_#{year}'"
           else
-            "aired_on != '#{year}-01-01'"
+            "aired_on_computed != '#{year}-01-01'"
           end
         additional = " and (#{additionals})"
 
@@ -78,33 +78,33 @@ private
     end
 
     <<~SQL.squish
-      aired_on >= '#{date_from}' and aired_on < '#{date_to}'#{additional}
+      aired_on_computed >= '#{date_from}' and aired_on_computed < '#{date_to}'#{additional}
     SQL
   end
 
   def year_sql year
     <<~SQL.squish
-      aired_on >= '#{Date.new year}' and aired_on < '#{Date.new(year + 1)}'
+      aired_on_computed >= '#{Date.new year}' and aired_on_computed < '#{Date.new(year + 1)}'
     SQL
   end
 
   def years_sql year_from, year_to
     <<~SQL.squish
-      aired_on >= '#{Date.new year_from}' and
-        aired_on < '#{Date.new(year_to + 1)}'
+      aired_on_computed >= '#{Date.new year_from}' and
+        aired_on_computed < '#{Date.new(year_to + 1)}'
     SQL
   end
 
   def decade_sql decade
     <<~SQL.squish
-      aired_on >= '#{Date.new(decade * 10)}' and
-        aired_on < '#{Date.new((decade + 1) * 10)}'
+      aired_on_computed >= '#{Date.new(decade * 10)}' and
+        aired_on_computed < '#{Date.new((decade + 1) * 10)}'
     SQL
   end
 
   def ancient_sql
     <<~SQL.squish
-      aired_on <= '#{Date.new 1980}'
+      aired_on_computed <= '#{Date.new 1980}'
     SQL
   end
 end

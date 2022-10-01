@@ -469,13 +469,13 @@ Review.
   # where(id: 81558).
   # where(anime_id: 9253).
   # where(user_id: 1).
-  includes(:comments, :topics).
+  includes(:comments, :topic).
   find_each do |review|
     next unless review.maybe_topic(:ru).is_a?(NoTopic)
     puts review.id
 
     Review.transaction do
-      review.send :generate_topics, review.locale
+      review.send :generate_topic, review.locale
       review_topic = review.maybe_topic review.locale
 
       AbuseRequest.where(review_id: review.id).update_all review_id: nil, topic_id: review_topic.id

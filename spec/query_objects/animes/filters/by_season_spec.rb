@@ -1,10 +1,10 @@
 describe Animes::Filters::BySeason do
   subject { described_class.call Anime.order(:id), terms }
 
-  let!(:anime_1) { create :anime, aired_on: Date.parse('2010-02-01') }
-  let!(:anime_2) { create :anime, aired_on: Date.parse('2010-06-01').end_of_year }
-  let!(:anime_3) { create :anime, aired_on: Date.parse('2009-02-01') }
-  let!(:anime_4) { create :anime, aired_on: Date.parse('1979-02-01') }
+  let!(:anime_1) { create :anime, aired_on: '2010-02-01' }
+  let!(:anime_2) { create :anime, aired_on: '2010-12-31' }
+  let!(:anime_3) { create :anime, aired_on: '2009-02-01' }
+  let!(:anime_4) { create :anime, aired_on: '1979-02-01' }
 
   context 'positive' do
     context 'year' do

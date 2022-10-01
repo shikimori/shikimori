@@ -17,8 +17,8 @@ describe MalParsers::MangaAuthorized do
         volumes: 2,
         chapters: 16,
         status: :released,
-        aired_on: Date.parse('Tue, 17 Jun 2003'),
-        released_on: Date.parse('Sat, 17 Sep 2005'),
+        aired_on: { year: 2003, month: 6, day: 17 },
+        released_on: { year: 2005, month: 9, day: 17 },
         publishers: [{ id: 404, name: 'Comic Megastore' }],
         genres: [
           {

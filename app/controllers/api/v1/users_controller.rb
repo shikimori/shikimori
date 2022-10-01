@@ -150,7 +150,7 @@ class Api::V1::UsersController < Api::V1Controller
     messages = ::Messages::Query
       .fetch(current_user, params[:type].try(:to_sym) || '')
       .paginate_n1(@page, @limit)
-      .transform(&:decorate)
+      .lazy_map(&:decorate)
 
     respond_with messages
   end

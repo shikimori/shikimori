@@ -49,7 +49,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
   ORDER_SQL = {
     Field[:name] => '%<table_name>s.name',
     Field[:russian] => '%<table_name>s.russian, %<table_name>s.name',
-    Field[:episodes] => (
+    Field[:episodes] => ( # rubocop:disable Style/RedundantParentheses
       <<-SQL.squish
         (case
           when %<table_name>s.episodes = 0
@@ -61,7 +61,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     Field[:chapters] => '%<table_name>s.chapters desc',
     Field[:volumes] => '%<table_name>s.volumes desc',
     Field[:status] => '%<table_name>s.status',
-    Field[:popularity] => (
+    Field[:popularity] => ( # rubocop:disable Style/RedundantParentheses
       <<-SQL.squish
         (case
           when %<table_name>s.popularity = 0
@@ -72,7 +72,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     ),
     Field[:score] => '%<table_name>s.score desc',
     Field[:score_2] => '%<table_name>s.score_2 desc',
-    Field[:ranked] => (
+    Field[:ranked] => ( # rubocop:disable Style/RedundantParentheses
       <<-SQL.squish
         (case
           when %<table_name>s.ranked = 0
@@ -82,16 +82,16 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
       SQL
     ),
     Field[:ranked_shiki] => '%<table_name>s.ranked_shiki, %<table_name>s.score_2 desc',
-    Field[:released_on] => (
+    Field[:released_on] => ( # rubocop:disable Style/RedundantParentheses
       <<-SQL.squish
         (case
-          when %<table_name>s.released_on is null
-          then %<table_name>s.aired_on
-          else %<table_name>s.released_on
+          when %<table_name>s.released_on_computed is null
+          then %<table_name>s.aired_on_computed
+          else %<table_name>s.released_on_computed
         end) desc
       SQL
     ),
-    Field[:aired_on] => '%<table_name>s.aired_on desc',
+    Field[:aired_on] => '%<table_name>s.aired_on_computed desc',
     Field[:id] => '%<table_name>s.id',
     Field[:id_desc] => '%<table_name>s.id desc',
     Field[:created_at] => '%<table_name>s.created_at',
@@ -99,7 +99,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     Field[:rate_id] => 'user_rates.id',
     Field[:rate_status] => 'user_rates.status',
     Field[:rate_updated] => 'user_rates.updated_at desc, user_rates.id',
-    Field[:rate_score] => (
+    Field[:rate_score] => ( # rubocop:disable Style/RedundantParentheses
       <<-SQL.squish
         user_rates.score desc,
         %<table_name>s.name,

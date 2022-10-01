@@ -1,6 +1,6 @@
 class UserDecorator < BaseDecorator
-  instance_cache :clubs_for_domain, :exact_last_online_at,
-    :is_friended?, :mutual_friended?, :list_stats, :activity_stats
+  instance_cache :clubs_wo_shadowbanned, :exact_last_online_at,
+    :is_friended?, :mutual_friended?, :list_stats, :activity_stats, :club_ids
 
   CACHE_VERSION = :v2
 
@@ -8,10 +8,9 @@ class UserDecorator < BaseDecorator
     User.model_name
   end
 
-  def clubs_for_domain
-    object
-      .clubs
-      .where(locale: h.locale_from_host)
+  def clubs_wo_shadowbanned
+    Clubs::Query.new(object.clubs)
+      .without_shadowbanned(h.current_user)
       .decorate
       .sort_by(&:name)
   end
@@ -30,11 +29,16 @@ class UserDecorator < BaseDecorator
   end
 
   def show_contest_link?
-    (can_vote_1? || can_vote_2? || can_vote_3?) && notification_settings_contest_event?
+    (can_vote_1? || can_vote_2? || can_vote_3?) &&
+      notification_settings_contest_event?
   end
 
   def unvoted_contests
-    [can_vote_1?, can_vote_2?, can_vote_3?].count { |v| v }
+    [
+      can_vote_1?,
+      can_vote_2?,
+      can_vote_3?
+    ].count { |v| v }
   end
 
   def is_friended?
@@ -75,9 +79,15 @@ class UserDecorator < BaseDecorator
   def exact_last_online_at
     return Time.zone.now if new_record?
 
-    cached = ::Rails.cache.read(last_online_cache_key)
-    cached = Time.zone.parse(cached) if cached
-    [cached, last_online_at, current_sign_in_at, created_at].compact.max
+    cached = ::Rails.cache.read last_online_cache_key
+    cached = Time.zone.parse cached if cached
+
+    [
+      cached,
+      last_online_at,
+      current_sign_in_at,
+      created_at
+    ].compact.max
   end
 
   def last_online
@@ -95,13 +105,20 @@ class UserDecorator < BaseDecorator
   end
 
   def unread_messages_url
-    if unread.messages.positive? || (unread.news.zero? && unread.notifications.zero?)
+    if unread.messages.positive? ||
+        (unread.news.zero? && unread.notifications.zero?)
       h.profile_dialogs_url object
     elsif unread.news.positive?
       h.index_profile_messages_url object, messages_type: :news
     else
       h.index_profile_messages_url object, messages_type: :notifications
     end
+  end
+
+  def club_ids
+    @club_ids ||= association_cached?(:club_roles) ?
+      club_roles.map(&:club_id) :
+      club_roles.pluck(:club_id)
   end
 
   # def avatar_url size, ignore_censored = false

@@ -1,7 +1,7 @@
 class ModerationPolicy
   prepend ActiveCacher.instance
 
-  pattr_initialize :user, :locale, :moderation_filter
+  pattr_initialize :user, :moderation_filter
 
   instance_cache :critiques_count, :collections_count,
     :abuse_requests_total_count,
@@ -13,25 +13,25 @@ class ModerationPolicy
   def critiques_count
     return 0 unless !@moderation_filter || @user&.critique_moderator?
 
-    Critique.pending.where(locale: @locale).size
+    Critique.pending.size
   end
 
   def collections_count
     return 0 unless !@moderation_filter || @user&.collection_moderator?
 
-    Collection.pending.published.where(locale: @locale).size
+    Collection.pending.published.size
   end
 
   def news_count
     return 0 unless !@moderation_filter || @user&.news_moderator?
 
-    Topics::NewsTopic.pending.where(locale: @locale).size
+    Topics::NewsTopic.pending.size
   end
 
   def articles_count
     return 0 unless !@moderation_filter || @user&.article_moderator?
 
-    Article.pending.where(locale: @locale).size
+    Article.pending.size
   end
 
   def abuse_requests_total_count

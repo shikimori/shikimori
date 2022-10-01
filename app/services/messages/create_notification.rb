@@ -4,13 +4,11 @@ class Messages::CreateNotification # rubocop:disable ClassLength
   pattr_initialize :target
 
   def user_registered
-    locale = @target.locale
     body = i18n_t(
       'user_registered_message',
-      faq_url: StickyClubView.faq(locale).object.url,
-      site_rules_url: StickyTopicView.site_rules(locale).object.url,
-      settings_path: @target.to_param,
-      locale: locale
+      faq_url: StickyClubView.faq.object.url,
+      site_rules_url: StickyTopicView.site_rules.object.url,
+      settings_path: @target.to_param
     )
 
     Message.create_wo_antispam!(
@@ -22,15 +20,12 @@ class Messages::CreateNotification # rubocop:disable ClassLength
   end
 
   def moderatable_banned reason # rubocop:disable MethodLength, AbcSize
-    locale = @target.locale
     body = i18n_t(
       'moderatable_banned.without_reason',
-      topic_id: @target.topic(@target.locale).id,
+      topic_id: @target.topic.id,
       entry_name: I18n.t(
-        "activerecord.models.#{@target.class.name.downcase}",
-        locale: @target.locale.to_sym
-      ).downcase,
-      locale: locale
+        "activerecord.models.#{@target.class.name.downcase}"
+      ).downcase
     )
 
     body +=
@@ -60,8 +55,7 @@ class Messages::CreateNotification # rubocop:disable ClassLength
       'nickname_changed',
       gender: friend.sex,
       old_nickname: "[profile=#{@target.id}]#{old_nickname}[/profile]",
-      new_nickname: "[profile=#{@target.id}]#{new_nickname}[/profile]",
-      locale: friend.locale.to_sym
+      new_nickname: "[profile=#{@target.id}]#{new_nickname}[/profile]"
     )
 
     Message.create_wo_antispam!(
@@ -73,59 +67,46 @@ class Messages::CreateNotification # rubocop:disable ClassLength
   end
 
   def round_finished
-    @target.contest.topics.each do |topic|
-      create_comment(
-        @target.contest.user,
-        topic,
-        "[contest_round_status=#{@target.id} finished]"
-      )
-    end
+    create_comment(
+      @target.contest.user,
+      @target.contest.topic,
+      "[contest_round_status=#{@target.id} finished]"
+    )
   end
 
   def contest_started
-    @target.topics.each do |topic|
-      create_comment(
-        @target.user,
-        topic,
-        "[contest_status=#{@target.id} started]"
-      )
-    end
+    create_comment(
+      @target.user,
+      @target.topic,
+      "[contest_status=#{@target.id} started]"
+    )
 
-    Shikimori::DOMAIN_LOCALES.each do |locale|
-      Topics::Generate::News::ContestStatusTopic.call(
-        model: @target,
-        user: @target.user,
-        action: Types::Topic::ContestStatusTopic::Action[:started],
-        locale: locale
-      )
-    end
+    Topics::Generate::News::ContestStatusTopic.call(
+      model: @target,
+      user: @target.user,
+      action: Types::Topic::ContestStatusTopic::Action[:started]
+    )
   end
 
   def contest_finished
-    @target.topics.each do |topic|
-      create_comment(
-        @target.user,
-        topic,
-        "[contest_status=#{@target.id} finished]"
-      )
-    end
+    create_comment(
+      @target.user,
+      @target.topic,
+      "[contest_status=#{@target.id} finished]"
+    )
 
-    Shikimori::DOMAIN_LOCALES.each do |locale|
-      Topics::Generate::News::ContestStatusTopic.call(
-        model: @target,
-        user: @target.user,
-        action: Types::Topic::ContestStatusTopic::Action[:finished],
-        locale: locale
-      )
-    end
+    Topics::Generate::News::ContestStatusTopic.call(
+      model: @target,
+      user: @target.user,
+      action: Types::Topic::ContestStatusTopic::Action[:finished],
+    )
   end
 
   def bad_email
     body = i18n_t(
       'bad_email_message',
       gender: @target.sex,
-      email: @target.email,
-      locale: @target.locale.to_sym
+      email: @target.email
     )
 
     Message.create_wo_antispam!(
@@ -149,8 +130,7 @@ private
     Comment.wo_antispam do
       Comment::Create.call(
         faye: faye(user),
-        params: create_params,
-        locale: nil
+        params: create_params
       )
     end
   end

@@ -4,7 +4,7 @@ describe Comments::BroadcastNotifications do
   let(:comment) do
     create :comment,
       user: user_2,
-      commentable: club.decorate.maybe_topic(:ru)
+      commentable: club.decorate.maybe_topic
   end
   let!(:club_member) { create :club_role, club: club, user: user_3 }
 

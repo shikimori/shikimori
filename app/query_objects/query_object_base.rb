@@ -62,8 +62,12 @@ class QueryObjectBase
     end
   end
 
-  def transform &block
-    chain TransformedCollection.new(@scope, block)
+  def lazy_map &block
+    chain TransformedCollection.new(@scope, :map, block)
+  end
+
+  def lazy_filter &block
+    chain TransformedCollection.new(@scope, :filter, block)
   end
 
   def respond_to? *args

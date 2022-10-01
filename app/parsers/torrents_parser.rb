@@ -189,7 +189,7 @@ class TorrentsParser
     anons.delete_if { |v| v.kind_ona? && v.anime_calendars.empty? }
 
     released = Anime
-      .where('released_on >= ?', 2.weeks.ago)
+      .where('released_on_computed >= ?', 2.weeks.ago)
       .where('episodes_aired >= 5')
       .to_a
 
@@ -280,15 +280,6 @@ class TorrentsParser
           new_episodes << entry
 
           aired_at = (entry[:pubDate] || Time.zone.now) + episode.seconds
-          # Shikimori::DOMAIN_LOCALES.each do |locale|
-          #   Topics::Generate::News::EpisodeTopic.call(
-          #     model: anime,
-          #     user: anime.topic_user,
-          #     locale: locale,
-          #     aired_at: aired_at,
-          #     episode: episode
-          #   )
-          # end
 
           EpisodeNotification::Track.call(
             anime: anime,

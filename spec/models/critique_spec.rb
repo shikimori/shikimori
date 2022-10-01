@@ -8,8 +8,6 @@ describe Critique do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :locale }
-
     context 'accepted' do
       subject { build :critique, :accepted }
       it { is_expected.to validate_presence_of :approver }
