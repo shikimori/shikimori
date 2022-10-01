@@ -55,24 +55,6 @@ module ApplicationHelper
     value.to_s.gsub(/\.0+$/, '') + '%'
   end
 
-  # форматирование html текста для вывода в шаблон
-  # TODO: выпилить
-  def format_html_text text
-    raise 'deprecated. use decorator instead'
-    text
-      .gsub(/\[spoiler\](?:<br ?\/?>|\n)?(.*?)(?:<br ?\/?>|\n)?\[\/spoiler\](?:<br ?\/?>|\n)?/mi,
-            '<div class="collapse"><span class="action half-hidden" style="display: none;">развернуть</span></div><div class="collapsed spoiler">спойлер</div><div class="target spoiler" style="display: none;">\1<span class="closing"></span></div>')
-      .html_safe
-  end
-
-  # удаление спойлеров и дополнений в скобочках в из текста
-  def remove_misc_data text
-    text
-      .gsub(/\[spoiler\][\s\S]*?\[\/spoiler\]|\]\]|\[\[|\([\s\S]*?\)|\[[\s\S]*?\]/, '')
-      .gsub(/<(?!br).*?>/, '')
-      .gsub(/<br *\/?>/, '')
-  end
-
   def format_rss_urls text
     text
       .gsub(%r{href="/(?!/)}, "href=\"https://#{Shikimori::DOMAIN}/")
