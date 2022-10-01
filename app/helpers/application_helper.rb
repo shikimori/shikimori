@@ -36,6 +36,7 @@ module ApplicationHelper
     "#{request.protocol}#{request.host_with_port}#{file.url style, with_timestamp}"
   end
 
+  # TODO: remove
   def formatted_date date, fix_1_day = false, short_month = true, fix_1_month = true
     return unless date
 
