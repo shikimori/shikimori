@@ -70,7 +70,7 @@ class Contest < ApplicationRecord
       transitions(
         from: Types::Contest::State[:created],
         to: Types::Contest::State[:proposing],
-        success: :generate_missing_topics
+        success: :generate_missing_topic
       )
     end
     event :stop_propose do
@@ -86,7 +86,7 @@ class Contest < ApplicationRecord
           Types::Contest::State[:proposing]
         ],
         to: Types::Contest::State[:started],
-        success: :generate_missing_topics,
+        success: :generate_missing_topic,
         if: -> { links.count.between? MINIMUM_MEMBERS, MAXIMUM_MEMBERS }
       )
     end
@@ -161,7 +161,7 @@ class Contest < ApplicationRecord
 
 private
 
-  def generate_missing_topics
-    generate_topic unless topic.present?
+  def generate_missing_topic
+    generate_topic unless topic
   end
 end
