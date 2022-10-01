@@ -46,3 +46,14 @@
             data-method='post'
             data-confirm=t('actions.confirm_simple')
           ] = t('actions.cancel').downcase
+        - if article.moderation_state != 'accepted'
+          a.link.destroy[
+            title=t('actions.delete')
+            data-text=t('actions.delete')
+            data-action=article_url(article)
+            data-confirm=t('actions.confirm_delete')
+            data-type='json'
+            data-remote='true'
+            data-method='DELETE'
+          ] = t('actions.delete').downcase
+
