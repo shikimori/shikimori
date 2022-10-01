@@ -38,7 +38,7 @@ class FranchiseSerializer < ActiveModel::Serializer
     all_entries.map do |entry|
       {
         id: entry.id,
-        date: (entry.aired_on.presence || Time.zone.now).to_time.to_i,
+        date: (entry.aired_on.date || Time.zone.now).to_time.to_i,
         name: UsersHelper.localized_name(entry, scope.current_user),
         image_url: ImageUrlGenerator.instance.url(entry, :x96),
         url: view_context.url_for(entry),
