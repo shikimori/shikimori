@@ -34,7 +34,7 @@ class Comments::UserQuery < QueryObjectBase
   def search phrase
     return self if phrase.blank?
 
-    chain @scope.where("body ilike #{ApplicationRecord.sanitize "%#{phrase}%"}")
+    chain @scope.where("comments.body ilike #{ApplicationRecord.sanitize "%#{phrase}%"}")
   end
 
   def filter_by_policy user
