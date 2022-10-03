@@ -23,9 +23,9 @@ class BroadcastDate
   end
 
   def to_datetime
-    return unless schedule && schedule =~ DATE
+    return unless @schedule && @schedule =~ DATE
 
-    start_on.beginning_of_week +
+    @start_on.beginning_of_week +
       DAYS.index($LAST_MATCH_INFO[:day]).days +
       $LAST_MATCH_INFO[:hours].to_i.hours +
       $LAST_MATCH_INFO[:minutes].to_i.minutes +
