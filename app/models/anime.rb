@@ -296,7 +296,7 @@ class Anime < DbEntry
   end
 
   def broadcast_at
-    BroadcastDate.parse broadcast, aired_on if broadcast && (ongoing? || anons?)
+    BroadcastDate.parse broadcast, aired_on.date if broadcast && (ongoing? || anons?)
   end
 
   # banned by roskomnadzor
