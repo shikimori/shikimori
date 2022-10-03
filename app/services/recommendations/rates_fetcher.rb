@@ -1,7 +1,8 @@
 class Recommendations::RatesFetcher
   attr_writer :user_ids, :target_ids, :by_user, :with_deletion, :user_cache_key
 
-  MINIMUM_SCORES = 100
+  MINIMUM_SCORES = 150
+  MAXIMUM_SCORES = 1000
 
   USER_RATES_SQL = <<~SQL.squish
     user_rates.status != '#{UserRate.status_id :planned}'
@@ -16,7 +17,7 @@ class Recommendations::RatesFetcher
         inner join user_rates
           on user_rates.user_id = users.id and #{USER_RATES_SQL}
         group by users.id
-        having count(*) >= %<minimum_scores>i
+        having count(*) >= %<minimum_scores>i and count(*) < %<maximum_scores>i
     )
   SQL
 
@@ -82,9 +83,11 @@ private
       .select(:user_id, :target_id, :score)
       .where(target_type: klass.name)
       .where(USER_RATES_SQL)
-      .where((
-        format(LIST_SIZE_SQL, minimum_scores: MINIMUM_SCORES) if is_list_size_sql
-      ))
+      .where(
+        is_list_size_sql ?
+          format(LIST_SIZE_SQL, minimum_scores: MINIMUM_SCORES, maximum_scores: MAXIMUM_SCORES) :
+          nil
+      )
       .joins(format(DB_ENTRY_JOINS_SQL, table_name: klass.table_name))
       .order(:id)
 

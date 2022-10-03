@@ -17,7 +17,6 @@ class RecommendationsController < AnimesCollectionController
   TOPIC_URL = '//shikimori.one/s/104346-spisok-otbornyh-i-vkusnyh-animeh'
 
   def index
-    return render plain: 'рекомендации временно не работают по техническим причинам'
     @threshold = params[:threshold].to_i
     @metric = params[:metric]
 
