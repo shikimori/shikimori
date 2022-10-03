@@ -1,7 +1,7 @@
 class Recommendations::RatesFetcher
   attr_writer :user_ids, :target_ids, :by_user, :with_deletion, :user_cache_key
 
-  MINIMUM_SCORES = 150
+  MINIMUM_SCORES = 300
   MAXIMUM_SCORES = 1000
 
   USER_RATES_SQL = <<~SQL.squish
