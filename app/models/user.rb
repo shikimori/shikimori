@@ -174,6 +174,10 @@ class User < ApplicationRecord
     predicates: { prefix: true },
     multiple: true
 
+  enumerize :locale,
+    in: Types::Locale.values,
+    default: Types::Locale[:ru]
+
   has_attached_file :avatar,
     styles: {
       # original: ['300x300>', :png],

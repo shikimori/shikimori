@@ -11,6 +11,7 @@ FactoryBot.define do
     can_vote_3 { false }
 
     about { '' }
+    locale { Types::Locale[:ru] }
 
     activity_at { nil }
     rate_at { nil }

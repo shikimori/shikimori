@@ -67,6 +67,7 @@ describe User do
 
   describe 'enumerize' do
     it { is_expected.to enumerize(:roles).in(*Types::User::Roles.values) }
+    it { is_expected.to enumerize(:locale).in(*Types::Locale.values).with_default(:ru) }
     it { is_expected.to enumerize(:notification_settings).in(*Types::User::NotificationSettings.values) }
   end
 
