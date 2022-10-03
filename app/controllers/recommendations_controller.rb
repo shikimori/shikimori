@@ -7,7 +7,7 @@ class RecommendationsController < AnimesCollectionController
   COOKIE_NAME = 'recommendations_url'
   THRESHOLDS = {
     Anime => {
-      'pearson_z' => [1000, 4000, 9_000, 12_500, 20_000],
+      'pearson_z' => [2_000, 6_000, 9_000, 12_500, 15_000],
       'svd' => [150, 1250, 2000, 3000, 5000]
     },
     Manga => {
