@@ -30637,6 +30637,7 @@
         franchise: doupo_cangqiong
         not_anime_ids:
         - 47548
+        - 52479
       :threshold: 97%
       :generator:
         threshold: 97%
@@ -30670,6 +30671,7 @@
         franchise: doupo_cangqiong
         not_anime_ids:
         - 47548
+        - 52479
       :threshold: 0.01
       :generator:
         threshold: 97%
