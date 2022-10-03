@@ -8,7 +8,7 @@ class RecommendationsController < AnimesCollectionController
   THRESHOLDS = {
     Anime => {
       'pearson_z' => [2_000, 6_000, 9_000, 12_500, 15_000],
-      'svd' => [150, 1250, 2000, 3000, 5000]
+      'svd' => [250, 1000, 1500, 2000, 2500]
     },
     Manga => {
       'pearson_z' => [30, 200, 500, 1000, 1500]
