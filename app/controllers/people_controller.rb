@@ -11,8 +11,8 @@ class PeopleController < DbEntriesController # rubocop:disable ClassLength
     :russian,
     *Person::DESYNCABLE - %i[birth_on],
     desynced: [],
-    deceased_on: %w[day month year],
-    birth_on: %w[day month year]
+    deceased_on: IncompleteDate.attributes,
+    birth_on: IncompleteDate.attributes
   ]
 
   def index

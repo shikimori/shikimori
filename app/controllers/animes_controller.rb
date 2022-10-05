@@ -23,8 +23,12 @@ class AnimesController < DbEntriesController
     russia_released_on
     russia_released_on_hint
   ] + [
-    *Anime::DESYNCABLE,
+    *Anime::DESYNCABLE - %i[aired_on released_on digital_released_on russia_released_on],
     external_links: [EXTERNAL_LINK_PARAMS],
+    aired_on: IncompleteDate.attributes,
+    released_on: IncompleteDate.attributes,
+    digital_released_on: IncompleteDate.attributes,
+    russia_released_on: IncompleteDate.attributes,
     synonyms: [],
     licensors: [],
     coub_tags: [],

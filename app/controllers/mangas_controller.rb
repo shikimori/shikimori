@@ -9,7 +9,9 @@ class MangasController < AnimesController
     description_en
     is_censored
   ] + [
-    *Manga::DESYNCABLE,
+    *Manga::DESYNCABLE - %i[aired_on released_on],
+    aired_on: IncompleteDate.attributes,
+    released_on: IncompleteDate.attributes,
     external_links: [EXTERNAL_LINK_PARAMS],
     licensors: [],
     synonyms: [],
