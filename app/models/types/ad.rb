@@ -24,6 +24,7 @@ module Types
       .constructor(&:to_sym)
       .enum(
         :special_x300,
+        :special_x894,
         :special_x1170,
         :advrtr_x728,
         :advrtr_240x400,

@@ -214,8 +214,8 @@ private
       }
     end,
     # images: [{
-    #   src: '/assets/globals/events/2022-05-24/menu_1.jpg',
-    #   src_2x: '/assets/globals/events/2022-05-24/menu_1@2x.jpg',
+    #   src: '/assets/globals/events/2022-10-05/menu_1.jpg',
+    #   src_2x: '/assets/globals/events/2022-10-05/menu_1@2x.jpg',
     #   url: 'https://bit.ly/36u087n'
     # }],
     # AND END
@@ -228,7 +228,7 @@ private
   }
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: IMBA - remove 2022-09-30 23:59
+    # AD START: HZ - remove 2022-10-19 23:59
     url: 'https://bit.ly/3fJ6svK',
     # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=eevvx&pfb=lozyl&pr=[RANDOM]&pe=b',
     # convert -resize 50% app/assets/images/globals/events/2022-07-16/wide_1@2x.jpg app/assets/images/globals/events/2022-07-16/wide_1.jpg
@@ -269,11 +269,32 @@ private
     placement: Types::Ad::Placement[:content],
     platform: Types::Ad::Platform[:desktop]
   }
+  SPECIAL_X894 = {
+    provider: Types::Ad::Provider[:special],
+    # AD START: IMBA - remove 2022-10-19 23:59
+    images: [{
+      src: '/assets/globals/events/2022-10-05/inner_1.jpg',
+      url: 'https://bit.ly/3yhwf4L' # https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=05_10
+    }, {
+      src: '/assets/globals/events/2022-10-05/inner_2.jpg',
+      url: 'https://bit.ly/3SJHmvt' # https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner2&utm_campaign=05_10
+    }, {
+      src: '/assets/globals/events/2022-10-05/inner_3.jpg',
+      url: 'https://bit.ly/3EjiR3L' # https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=05_10
+    }, {
+      src: '/assets/globals/events/2022-10-05/inner_4.jpg',
+      url: 'https://bit.ly/3TfM18v' # https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner4&utm_campaign=05_10
+    }],
+    # AD END
+    placement: Types::Ad::Placement[:content],
+    platform: Types::Ad::Platform[:desktop]
+  }
 
   BANNERS = {
     true => {
       Types::Ad::Type[:special_x300] => SPECIAL_X300,
       Types::Ad::Type[:special_x1170] => SPECIAL_X1170,
+      Types::Ad::Type[:special_x894] => SPECIAL_X894,
       Types::Ad::Type[:mt_300x250] => {
         provider: Types::Ad::Provider[:mytarget],
         mytarget_id: '491744',
@@ -338,6 +359,7 @@ private
     false => {
       Types::Ad::Type[:special_x300] => SPECIAL_X300,
       Types::Ad::Type[:special_x1170] => SPECIAL_X1170,
+      Types::Ad::Type[:special_x894] => SPECIAL_X894,
       Types::Ad::Type[:advrtr_x728] => {
         provider: Types::Ad::Provider[:advertur],
         advertur_id: 92_445,
@@ -415,6 +437,7 @@ private
         Types::Ad::Type[:mt_970x250]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
+        Types::Ad::Type[:special_x894], # IMBA - remove 2022-10-19 23:59
         Types::Ad::Type[:yd_970x90],
         Types::Ad::Type[:mt_728x90]
       ],
@@ -450,6 +473,7 @@ private
         Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
+        Types::Ad::Type[:special_x894], # IMBA - remove 2022-10-19 23:59
         # Types::Ad::Type[:mt_728x90],
         Types::Ad::Type[:advrtr_x728]
       ],
