@@ -18782,6 +18782,7 @@
         - 39921
         - 41590
         - 42364
+        - 42776
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -18818,6 +18819,7 @@
         - 39921
         - 41590
         - 42364
+        - 42776
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -19059,6 +19061,7 @@
         - 36923
         - 42490
         - 45567
+        - 41059
       :threshold: 95%
       :generator:
         ignore_latest_ids:
@@ -19095,6 +19098,7 @@
         - 36923
         - 42490
         - 45567
+        - 41059
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -19463,6 +19467,8 @@
       :algo: duration
       :filters:
         franchise: mob_psycho
+        not_anime_ids:
+        - 52134
       :threshold: 100%
       :generator:
         threshold: 100%
@@ -19496,6 +19502,8 @@
       :algo: duration
       :filters:
         franchise: mob_psycho
+        not_anime_ids:
+        - 52134
       :threshold: 0.01
       :generator:
         threshold: 100%
@@ -20884,6 +20892,7 @@
         not_anime_ids:
         - 35009
         - 35676
+        - 52976
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -20916,6 +20925,7 @@
         not_anime_ids:
         - 35009
         - 35676
+        - 52976
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -24677,7 +24687,7 @@
         franchise: golden_kamuy
       :threshold: 100%
       :generator:
-        not_ignored_ids:
+        ignore_latest_ids:
         - 37755
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -24709,7 +24719,7 @@
         franchise: golden_kamuy
       :threshold: 0.01
       :generator:
-        not_ignored_ids:
+        ignore_latest_ids:
         - 37755
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
