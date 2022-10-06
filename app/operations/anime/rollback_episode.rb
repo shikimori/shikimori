@@ -2,7 +2,7 @@ class Anime::RollbackEpisode
   method_object %i[anime! episode! user]
 
   def call
-    return if @anime.episodes_aired < @episode
+    return if @anime.episodes_aired < @episode || @anime.episodes_aired.zero?
 
     @anime
       .episode_notifications

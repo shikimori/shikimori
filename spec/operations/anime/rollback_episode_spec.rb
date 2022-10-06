@@ -21,6 +21,22 @@ describe Anime::RollbackEpisode do
   context 'no user' do
     let(:user) { nil }
 
+    context 'episodes_aired == 0' do
+      let(:episodes_aired) { 0 }
+      let(:episode) { 0 }
+      let(:notification_9) { nil }
+      let(:notification_10) { nil }
+      let(:notification_11) { nil }
+      let(:status) { :ongoing }
+
+      it do
+        expect { subject }.to_not change Version, :count
+
+        expect(anime).to_not be_changed
+        expect(anime.episodes_aired).to eq 0
+      end
+    end
+
     context 'episode == episodes_aired' do
       let(:episode) { 10 }
 
