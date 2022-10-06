@@ -211,5 +211,10 @@ describe IncompleteDate do
       let(:object) { [Date, DateTime, Time.zone].sample.parse '1992-08-25 15:00' }
       it { is_expected.to eq IncompleteDate.new(year: 1992, month: 8, day: 25) }
     end
+
+    context 'incomplete date' do
+      let(:object) { IncompleteDate.new year: 1992, month: 8, day: 25 }
+      it { is_expected.to eq IncompleteDate.new(year: 1992, month: 8, day: 25) }
+    end
   end
 end

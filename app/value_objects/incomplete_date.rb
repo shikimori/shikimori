@@ -35,7 +35,7 @@ class IncompleteDate
         date = Date.parse object
         super year: date.year, month: date.month, day: date.day
 
-      when Date, Time, DateTime, ActiveSupport::TimeWithZone
+      when Date, Time, DateTime, ActiveSupport::TimeWithZone, IncompleteDate
         super year: object.year, month: object.month, day: object.day
 
       else
