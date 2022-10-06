@@ -18656,8 +18656,10 @@
       :filters:
         franchise: naruto
         not_anime_ids:
+        - 10075
         - 40971
-      :threshold: 97%
+        - 53236
+      :threshold: 96.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :naruto
@@ -18687,7 +18689,9 @@
       :filters:
         franchise: naruto
         not_anime_ids:
+        - 10075
         - 40971
+        - 53236
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -18717,7 +18721,9 @@
       :algo: duration
       :filters:
         franchise: demon_slayer
-      :threshold: 99.3%
+      :threshold: 99%
+      :generator:
+        threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :demon_slayer
@@ -18747,6 +18753,8 @@
       :filters:
         franchise: demon_slayer
       :threshold: 0.01
+      :generator:
+        threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :demon_slayer
@@ -19059,9 +19067,9 @@
         franchise: nanatsu_no_taizai
         not_anime_ids:
         - 36923
+        - 41059
         - 42490
         - 45567
-        - 41059
       :threshold: 95%
       :generator:
         ignore_latest_ids:
@@ -19096,9 +19104,9 @@
         franchise: nanatsu_no_taizai
         not_anime_ids:
         - 36923
+        - 41059
         - 42490
         - 45567
-        - 41059
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -19396,6 +19404,7 @@
       :generator:
         ignore_latest_ids:
         - 3786
+        - 53246
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :evangelion
@@ -19439,6 +19448,7 @@
       :generator:
         ignore_latest_ids:
         - 3786
+        - 53246
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :evangelion
@@ -21557,6 +21567,7 @@
         - 51163
         - 52199
         - 52921
+        - 53235
       :threshold: 95.3%
       :generator:
         ignore_latest_ids:
@@ -21616,6 +21627,7 @@
         - 51163
         - 52199
         - 52921
+        - 53235
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
