@@ -123,11 +123,18 @@
 
         - else
           - version.item_diff.each do |field, (old_value, new_value)|
+            / - if field.to_sym.in? controller.class::INCOMPLETE_DATE_FIELDS
+            /   = render 'versions/changes/incomplete_date',
+            /     version: version,
+            /     field: field,
+            /     old_value: old_value,
+            /     new_value: new_value,
+            /     only_one: version.item_diff.keys.one?
+            / - else
             = render 'versions/changes/text_diff',
               version: version,
               field: field,
               only_one: version.item_diff.keys.one?
-
       span[
         prevent-last-child-style-for-previous-element
       ]

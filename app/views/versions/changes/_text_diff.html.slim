@@ -1,3 +1,6 @@
+- is_incomplete_date = field.in? Moderations::VersionsController::INCOMPLETE_DATE_FIELDS
+- old_value = is_incomplete_date ? IncompleteDate.new(version.old_value(field)).human(false) || '' : version.old_value(field)
+- new_value = is_incomplete_date ? IncompleteDate.new(version.new_value(field)).human(false) || '' : version.new_value(field)
 .field-changes class=field
   - unless local_assigns[:only_one]
     .field-name
@@ -6,19 +9,22 @@
   .changes
     .change
       .label #{t '.before'}:
-      - if field == 'image'
-        code.b-code_inline image
+      - if is_incomplete_date
+        = old_value
       - else
-        == h(version.old_value(field)).gsub("\n", "<br>")
+        == h(old_value).gsub("\n", "<br>")
 
     .change
       .label #{t '.after'}:
-      == h(version.new_value(field)).gsub("\n", "<br>")
+      - if is_incomplete_date
+        = new_value
+      - else
+        == h(new_value).gsub("\n", "<br>")
 
   - if version.old_value(field).present? && version.new_value(field).present?
     .diff
       .label Diff:
       .value[
-        data-old_value=version.old_value(field)
-        data-new_value=version.new_value(field)
+        data-old_value=old_value
+        data-new_value=new_value
       ]

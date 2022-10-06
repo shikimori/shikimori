@@ -3,6 +3,9 @@ class Moderations::VersionsController < ModerationsController
   before_action :set_view, only: %i[index autocomplete_user autocomplete_moderator]
 
   AUTOCOMPLETE_LIMIT = 10
+  INCOMPLETE_DATE_FIELDS = [Anime, Manga, Character, Person]
+    .flat_map { |klass| klass.attribute_types.filter { |_k, v| v == IncompleteDate }.keys }
+    .uniq
 
   def index
     og page_title: i18n_t("content_changes.#{@view.type_param}")
