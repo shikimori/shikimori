@@ -15,8 +15,10 @@ describe SmotretAnime::ScheduleLinkWorkers do
       source: :smotret_anime,
       kind: :smotret_anime,
       entry: animes[1],
-      url: format(SmotretAnime::LinkWorker::SMOTRET_ANIME_URL, smotret_anime_id: 1)
+      url: format(SmotretAnime::LinkWorker::SMOTRET_ANIME_URL, smotret_anime_id: 1),
+      created_at: external_link_2_created_at
   end
+  let(:external_link_2_created_at) { (described_class::LINK_EXPIRE_INTERVAL - 1.day).ago }
 
   subject! { described_class.new.perform }
 
@@ -30,5 +32,24 @@ describe SmotretAnime::ScheduleLinkWorkers do
     expect(SmotretAnime::LinkWorker)
       .to have_received(:perform_async)
       .with animes[3].id
+  end
+
+  context 'expired link' do
+    let(:external_link_2_created_at) { (described_class::LINK_EXPIRE_INTERVAL + 1.day).ago }
+
+    it do
+      expect(SmotretAnime::LinkWorker)
+        .to have_received(:perform_async)
+        .thrice
+      expect(SmotretAnime::LinkWorker)
+        .to have_received(:perform_async)
+        .with animes[1].id
+      expect(SmotretAnime::LinkWorker)
+        .to have_received(:perform_async)
+        .with animes[2].id
+      expect(SmotretAnime::LinkWorker)
+        .to have_received(:perform_async)
+        .with animes[3].id
+    end
   end
 end
