@@ -9,7 +9,9 @@
   .changes
     .change
       .label #{t '.before'}:
-      - if is_incomplete_date
+      - if field == 'image'
+        code.b-code_inline image
+      - elsif is_incomplete_date
         = old_value
       - else
         == h(old_value).gsub("\n", "<br>")
