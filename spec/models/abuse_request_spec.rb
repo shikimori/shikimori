@@ -1,5 +1,6 @@
 describe AbuseRequest do
   describe 'relations' do
+    it { is_expected.to have_one(:ban).dependent :nullify }
     it { is_expected.to belong_to(:comment).optional }
     it { is_expected.to belong_to(:topic).optional }
     it { is_expected.to belong_to :user }

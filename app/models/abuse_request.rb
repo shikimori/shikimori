@@ -13,6 +13,7 @@ class AbuseRequest < ApplicationRecord
     user_id_key: :user_id
   )
 
+  has_one :ban, dependent: :nullify
   belongs_to :comment, optional: true
   belongs_to :topic, optional: true
   belongs_to :user
