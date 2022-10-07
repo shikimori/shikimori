@@ -23822,6 +23822,9 @@
         - 48378
         - 47635
         - 49880
+        - 50059
+        - 49189
+        - 50066
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :love_live
@@ -23891,6 +23894,9 @@
         - 48378
         - 47635
         - 49880
+        - 50059
+        - 49189
+        - 50066
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :love_live
