@@ -2,8 +2,8 @@ class Clubs::Query < QueryObjectBase
   FAVOURED_IDS = [72, 315, 2046]
   SEARCH_LIMIT = 999
 
-  def self.fetch user, is_skip_restrictions
-    scope = new Club
+  def self.fetch user, is_skip_restrictions, initial_scope = Club
+    scope = new initial_scope
       .joins(:topic)
       .preload(:owner, :topic)
       .order(Arel.sql('topics.updated_at desc, id'))

@@ -292,7 +292,7 @@ rc
 
 ```ruby
 user_id = 794365;
-json = JSON.parse(open('/tmp/x.json').read).symbolize_keys;
+json = JSON.parse(open('/tmp/z.json').read).symbolize_keys;
 
 class UserRate < ApplicationRecord
   def log_created; end

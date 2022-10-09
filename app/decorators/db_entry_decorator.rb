@@ -134,16 +134,14 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def all_clubs
-    Clubs::Query.fetch(h.current_user, false)
-      .where(id: clubs_scope)
-      .decorate
+    clubs_scope.decorate
   end
 
   def clubs_scope
     return Club.none if respond_to?(:rkn_abused?) && rkn_abused?
 
-    scope = object.clubs
-    scope.where! is_censored: false if !object.try(:censored?) && h.censored_forbidden?
+    scope = Clubs::Query.fetch(h.current_user, false, object.clubs)
+    scope = scope.where is_censored: false if !object.try(:censored?) && h.censored_forbidden?
     scope
   end
 
