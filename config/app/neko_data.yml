@@ -19207,7 +19207,7 @@
         - 36683
         - 37264
         - 51168
-      :threshold: 91.3%
+      :threshold: 94.4%
       :generator:
         ignore_latest_ids:
         - 48896
@@ -19479,7 +19479,7 @@
         franchise: mob_psycho
         not_anime_ids:
         - 52134
-      :threshold: 100%
+      :threshold: 96.93%
       :generator:
         threshold: 96.93%
         not_ignored_ids:
@@ -23799,7 +23799,8 @@
         - 50066
         - 52010
         - 52011
-      :threshold: 96%
+        - 52745
+      :threshold: 95.9%
       :generator:
         not_ignored_ids:
         - 14951
@@ -23871,6 +23872,7 @@
         - 50066
         - 52010
         - 52011
+        - 52745
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -24703,7 +24705,7 @@
       :algo: duration
       :filters:
         franchise: golden_kamuy
-      :threshold: 100%
+      :threshold: 95.2%
       :generator:
         ignore_latest_ids:
         - 37755
@@ -26336,7 +26338,7 @@
         - 49941
         - 50084
         - 50473
-      :threshold: 87.4%
+      :threshold: 87.3%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -26869,7 +26871,7 @@
         - 6226
         - 6743
         - 33208
-      :threshold: 96%
+      :threshold: 96.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :utawarerumono
@@ -27823,7 +27825,7 @@
         franchise: tiger_bunny
         not_anime_ids:
         - 30178
-      :threshold: 93.9%
+      :threshold: 94.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :tiger_bunny
@@ -34961,7 +34963,7 @@
         franchise: jashin_chan_dropkick
         not_anime_ids:
         - 52006
-      :threshold: 100%
+      :threshold: 97.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :jashin_chan_dropkick
