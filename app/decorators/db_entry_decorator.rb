@@ -145,6 +145,13 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     scope
   end
 
+  def clubs_scope_cache_key
+    clubs_scope
+      .except(:order)
+      .pick(Arel.sql('count(*), max(clubs.updated_at)'))
+      .join('/')
+  end
+
   def menu_collections
     collections_scope
       .uniq

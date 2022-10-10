@@ -9,7 +9,7 @@
           alt=resource.name
         ]
 
-  - cache [resource, resource.clubs_scope, resource.collections_scope, resource.favourites_scope, resource.news_topic_scope] do
+  - cache [resource, resource.clubs_scope_cache_key, resource.collections_scope, resource.favourites_scope, resource.news_topic_scope] do
     = render 'db_entries/menu/favoured',
       resource: resource,
       url: favoured_character_url(resource)
