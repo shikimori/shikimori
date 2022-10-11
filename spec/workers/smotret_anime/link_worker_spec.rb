@@ -66,7 +66,7 @@ describe SmotretAnime::LinkWorker, :vcr do
           source: :smotret_anime,
           kind: :smotret_anime,
           entry: anime,
-          url: described_class::ANIME365_MISSING_URL
+          url: Animes::SmotretAnimeId::NO_ID
       end
       it { expect(anime.all_external_links).to have(4).items }
     end
@@ -84,7 +84,7 @@ describe SmotretAnime::LinkWorker, :vcr do
         expect(anime.all_external_links[3]).to have_attributes(
           source: 'smotret_anime',
           kind: 'smotret_anime',
-          url: format(described_class::ANIME365_URL, smotret_anime_id: -1)
+          url: Animes::SmotretAnimeId::NO_ID
         )
         expect(anime.all_external_links[3].imported_at).to be_within(0.1).of Time.zone.now
       end

@@ -1,7 +1,7 @@
 class Animes::SmotretAnimeId
   method_object :anime
 
-  NO_ID = -1
+  NO_ID = 'NONE'
 
   def call
     if anime.association_cached? :all_external_links
@@ -14,9 +14,8 @@ class Animes::SmotretAnimeId
 private
 
   def extract_id external_link
-    return unless external_link
+    return if !external_link || external_link.url == NO_ID
 
-    id = external_link.url.split('/').last.to_i
-    id if id != NO_ID
+    external_link.url.split('/').last.to_i
   end
 end

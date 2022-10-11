@@ -7,7 +7,6 @@ class SmotretAnime::LinkWorker
   API_HENTAI365_URL =
     'https://hentai365.ru/api/series/?myAnimeListId=%<mal_id>i&fields=id,title,links'
   ANIME365_URL = 'https://smotret-anime.online/catalog/%<smotret_anime_id>i'
-  ANIME365_MISSING_URL = format ANIME365_URL, smotret_anime_id: Animes::SmotretAnimeId::NO_ID
 
   GIVE_UP_INTERVAL = 1.month
 
@@ -64,7 +63,7 @@ private
     create_link anime,
       kind: Types::ExternalLink::Kind[:smotret_anime],
       source: Types::ExternalLink::Kind[:smotret_anime],
-      url: ANIME365_MISSING_URL
+      url: Animes::SmotretAnimeId::NO_ID
   end
 
   def valuable_links links
