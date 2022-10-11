@@ -10,6 +10,7 @@ $image-path: 'blocks/b-external_links'
 
 =external_link_icon
   .linkeable:before,
+  .none:before,
   a:before,
   span:before
     content: ''
@@ -21,8 +22,9 @@ $image-path: 'blocks/b-external_links'
 
 .b-external_link
   .linkeable,
+  .none,
   a,
-  span
+  span,
     display: flex
     align-items: center
 
@@ -37,3 +39,6 @@ $image-path: 'blocks/b-external_links'
         background: asset_url('#{$image-path}/#{$kind}.svg')
         background-size: contain
         background-repeat: no-repeat
+
+  .none
+    text-decoration: line-through
