@@ -11,6 +11,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
 
   COLLETIONS_PER_PAGE = 4
   DANGEROUS_ACTION_DELAY_INTERVAL = 30.minutes
+  SYNC_EXPIRATION = 1.hour
 
   def tooltip
     og noindex: true
@@ -94,7 +95,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
     NamedLogger.sync.info "#{type}##{id} User##{current_user.id}"
 
     MalParsers::FetchEntry.perform_async id, type
-    Rails.cache.write [type, :sync, id], true, expires_in: 1.hour
+    Rails.cache.write [type, :sync, id], true, expires_in: SYNC_EXPIRATION
 
     redirect_back(
       fallback_location: @resource ? @resource.edit_url : moderations_url,
