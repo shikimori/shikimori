@@ -39,6 +39,7 @@ class MalParsers::FetchEntry
     data = parse(id, type)
 
     IMPORTS[type.to_sym].call data
+    cleanup_sync_cache
   rescue InvalidIdError
     entry = Type[type].classify.constantize.find_by id: id
 
@@ -67,5 +68,9 @@ private
 
   def parsers type
     PARSERS[Type[type].to_sym]
+  end
+
+  def cleanup_sync_cache
+    Rails.cache.delete [type, :sync, id]
   end
 end
