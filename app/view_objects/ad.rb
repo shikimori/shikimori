@@ -209,8 +209,8 @@ private
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
     images: (1..2).map do |i|
       {
-        src: "/assets/globals/events/2022-10-05/menu_#{i}.jpg",
-        src_2x: "/assets/globals/events/2022-10-05/menu_#{i}@2x.jpg"
+        src: "/assets/globals/events/2022-10-05/menu_#{i}.jpg?v2",
+        src_2x: "/assets/globals/events/2022-10-05/menu_#{i}@2x.jpg?v2"
       }
     end,
     # images: [{
@@ -238,8 +238,8 @@ private
     # }],
     images: (1..1).map do |i|
       {
-        src: "/assets/globals/events/2022-10-05/wide_#{i}.jpg?v=5",
-        src_2x: "/assets/globals/events/2022-10-05/wide_#{i}@2x.jpg?v=5"
+        src: "/assets/globals/events/2022-10-05/wide_#{i}.jpg?v2",
+        src_2x: "/assets/globals/events/2022-10-05/wide_#{i}@2x.jpg?v2"
       }
     end,
     # AD END
