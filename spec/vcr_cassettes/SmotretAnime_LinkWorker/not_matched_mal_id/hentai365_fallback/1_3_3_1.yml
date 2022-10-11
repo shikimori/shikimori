@@ -1,0 +1,112 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://smotret-anime.online/api/series/?fields=id,title,links&myAnimeListId=51722
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - shikimori
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 11 Oct 2022 18:03:09 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '11'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Pragma:
+      - no-cache
+      Set-Cookie:
+      - PHPSESSID=tlflj1a209g1vd98m47u3s6mj8; path=/; secure; HttpOnly
+      - csrf=bFR6R2RuZWs5UFQ1eUpGS0ZGZTZxYkxsU2lwWFgwcXZjd9i8HQ9sfnIU2fIzAnMnjpcu-MljdOKznYgkFLPlCQ%3D%3D;
+        expires=Fri, 08-Oct-2032 18:03:09 GMT; Max-Age=315360000; path=/; secure
+      - guestId=cdfdb04fe2f2d9c0132cf68dc7e1a086afc387985140c5d87e7ee2b018af975d;
+        expires=Sun, 10-Oct-2027 18:03:09 GMT; Max-Age=157680000; path=/; secure
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=e%2FTSJhZggUW0aEhhbK1u7xpVrVyVvxuoVn9a9npBkwySDzrQPvVX6nEySPW8NafoGdccacG3rMcj8a8O3qQ0On0imfK5n9eGXew0Rfz%2BoEJF8WnRY9meUh3LOoHerY4Qdh%2Bavt%2BiUg%3D%3D"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 758982c79ed5fe54-HEL
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: '{"data":[]}'
+  recorded_at: Tue, 11 Oct 2022 18:03:09 GMT
+- request:
+    method: get
+    uri: https://hentai365.ru/api/series/?fields=id,title,links&myAnimeListId=51722
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - shikimori
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 11 Oct 2022 18:03:09 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Pragma:
+      - no-cache
+      Set-Cookie:
+      - PHPSESSID=d7fsnqdchbj4haqmv1fuj8dt3j; path=/; secure; HttpOnly
+      - csrf=UUxrR1dDU0o3NlRSeEZKN0xJcklUNWFlRGNVUkRvU1_AbIjlJ9OIeV-Iux1VvDVlnGYkC6SJZsJ1YiPdb2xLOA%3D%3D;
+        expires=Fri, 08-Oct-2032 18:03:09 GMT; Max-Age=315360000; path=/; secure
+      - guestId=ec1b23a59052f0a80feef63811a6409bc0e7bf40ec106e9d8056cd6995a8254e;
+        expires=Sun, 10-Oct-2027 18:03:09 GMT; Max-Age=157680000; path=/; secure
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=CN68cnZMECL1K8sO9H2cmgd3H8WdsE4D83CNH%2FPdL7XdRv%2BUZcFpvdmROvnvROAVI1M7QtK6EkLxE%2BhCbrrYViLAfVfrutakSuS%2FTtrbQrxtA3ULAcjtR2pnE3EomCI%3D"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 758982c98a36d96f-HEL
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJkYXRhIjpbeyJpZCI6MjYxNTIsImxpbmtzIjpbeyJ0aXRsZSI6IldvcmxkIEFydCIsInVybCI6Imh0dHA6Ly93d3cud29ybGQtYXJ0LnJ1L2FuaW1hdGlvbi9hbmltYXRpb24ucGhwP2lkPTExMzI3In0seyJ0aXRsZSI6ItCo0LjQutC40LzQvtGA0LgiLCJ1cmwiOiJodHRwczovL3NoaWtpbW9yaS5vbmUvYW5pbWVzLzUxNzIyIn0seyJ0aXRsZSI6Ik15QW5pbWVMaXN0IiwidXJsIjoiaHR0cHM6Ly9teWFuaW1lbGlzdC5uZXQvYW5pbWUvNTE3MjIifSx7InRpdGxlIjoiQW5pRGIgIiwidXJsIjoiaHR0cHM6Ly9hbmlkYi5uZXQvcGVybC1iaW4vYW5pbWVkYi5wbD9zaG93PWFuaW1lJmFpZD0xNzM0NCJ9LHsidXJsIjoiaHR0cDovL3d3dy5nZXRjaHUuY29tL3NvZnQucGh0bWw/aWQ9MTE3ODc2NiIsInRpdGxlIjoiZ2V0Y2h1In1dLCJ0aXRsZSI6ItCR0LXRgdGB0L7QvdC90LjRhtCwOiDQodC+0L0g0LIg0LvQtdGC0L3RjtGOINC90L7Rh9GMIC8gU2xlZXBsZXNzOiBBIE1pZHN1bW1lciBOaWdodCdzIERyZWFtIC0gVGhlIEFuaW1hdGlvbiJ9XX0=
+  recorded_at: Tue, 11 Oct 2022 18:03:09 GMT
+recorded_with: VCR 6.1.0

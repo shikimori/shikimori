@@ -8,7 +8,7 @@ describe Animes::SmotretAnimeId do
         source: :smotret_anime,
         kind: :smotret_anime,
         entry: anime,
-        url: format(SmotretAnime::LinkWorker::SMOTRET_ANIME_URL, smotret_anime_id: smotret_anime_id)
+        url: format(SmotretAnime::LinkWorker::ANIME365_URL, smotret_anime_id: smotret_anime_id)
     end
 
     context 'has id' do

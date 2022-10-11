@@ -2,8 +2,12 @@ class SmotretAnime::LinkWorker
   include Sidekiq::Worker
   sidekiq_options queue: :anime365_parsers
 
-  API_URL = 'https://smotret-anime.online/api/series/?myAnimeListId=%<mal_id>i&fields=id,title,links'
-  SMOTRET_ANIME_URL = 'https://smotret-anime.online/catalog/%<smotret_anime_id>i'
+  API_ANIME365_URL =
+    'https://smotret-anime.online/api/series/?myAnimeListId=%<mal_id>i&fields=id,title,links'
+  API_HENTAI365_URL =
+    'https://hentai365.ru/api/series/?myAnimeListId=%<mal_id>i&fields=id,title,links'
+  ANIME365_URL = 'https://smotret-anime.online/catalog/%<smotret_anime_id>i'
+  ANIME365_MISSING_URL = format ANIME365_URL, smotret_anime_id: Animes::SmotretAnimeId::NO_ID
 
   GIVE_UP_INTERVAL = 1.month
 
@@ -12,7 +16,8 @@ class SmotretAnime::LinkWorker
     return unless anime&.mal_id
     return if disabled? anime
 
-    data = fetch format(API_URL, mal_id: anime.mal_id)
+    data = fetch(format(API_ANIME365_URL, mal_id: anime.mal_id)) ||
+      fetch(format(API_HENTAI365_URL, mal_id: anime.mal_id))
 
     if data
       cleanup anime
@@ -29,7 +34,7 @@ private
     create_link anime,
       kind: Types::ExternalLink::Kind[:smotret_anime],
       source: Types::ExternalLink::Kind[:smotret_anime],
-      url: format(SMOTRET_ANIME_URL, smotret_anime_id: data[:id])
+      url: format(ANIME365_URL, smotret_anime_id: data[:id])
 
     valuable_links(data[:links]).each do |link|
       next if present? anime, link[:url]
@@ -59,7 +64,7 @@ private
     create_link anime,
       kind: Types::ExternalLink::Kind[:smotret_anime],
       source: Types::ExternalLink::Kind[:smotret_anime],
-      url: format(SMOTRET_ANIME_URL, smotret_anime_id: Animes::SmotretAnimeId::NO_ID)
+      url: ANIME365_MISSING_URL
   end
 
   def valuable_links links

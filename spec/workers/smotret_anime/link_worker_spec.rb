@@ -17,7 +17,7 @@ describe SmotretAnime::LinkWorker, :vcr do
       entry: anime,
       url: 'http://fansubs.ru/base.php?id=5387'
   end
-  let!(:external_link_4) {}
+  let!(:external_link_4) { nil }
 
   subject! { described_class.new.perform anime.id }
 
@@ -66,14 +66,14 @@ describe SmotretAnime::LinkWorker, :vcr do
           source: :smotret_anime,
           kind: :smotret_anime,
           entry: anime,
-          url: format(described_class::SMOTRET_ANIME_URL, smotret_anime_id: -1)
+          url: described_class::ANIME365_MISSING_URL
       end
       it { expect(anime.all_external_links).to have(4).items }
     end
   end
 
   context 'not matched mal_id' do
-    let(:mal_id) { 999999 }
+    let(:mal_id) { 999_999 }
 
     context 'ongoing/released && aired_on < 1.month.ago' do
       let(:aired_on) { described_class::GIVE_UP_INTERVAL.ago - 1.day }
@@ -84,7 +84,7 @@ describe SmotretAnime::LinkWorker, :vcr do
         expect(anime.all_external_links[3]).to have_attributes(
           source: 'smotret_anime',
           kind: 'smotret_anime',
-          url: format(described_class::SMOTRET_ANIME_URL, smotret_anime_id: -1)
+          url: format(described_class::ANIME365_URL, smotret_anime_id: -1)
         )
         expect(anime.all_external_links[3].imported_at).to be_within(0.1).of Time.zone.now
       end
@@ -98,6 +98,18 @@ describe SmotretAnime::LinkWorker, :vcr do
           described_class::GIVE_UP_INTERVAL.ago + 1.day
       end
       it { expect(anime.all_external_links).to have(3).items }
+    end
+
+    context 'hentai365 fallback' do
+      let(:mal_id) { 51_722 }
+      it do
+        expect(anime.all_external_links).to have(4).items
+        expect(anime.all_external_links[2]).to have_attributes(
+          kind: 'smotret_anime',
+          url: 'https://smotret-anime.online/catalog/26152',
+          source: 'smotret_anime'
+        )
+      end
     end
   end
 end

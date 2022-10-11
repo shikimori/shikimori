@@ -8,14 +8,14 @@ describe SmotretAnime::ScheduleLinkWorkers do
       source: :smotret_anime,
       kind: :smotret_anime,
       entry: animes[0],
-      url: format(SmotretAnime::LinkWorker::SMOTRET_ANIME_URL, smotret_anime_id: -1)
+      url: format(SmotretAnime::LinkWorker::ANIME365_URL, smotret_anime_id: -1)
   end
   let!(:external_link_2) do
     create :external_link,
       source: :smotret_anime,
       kind: :smotret_anime,
       entry: animes[1],
-      url: format(SmotretAnime::LinkWorker::SMOTRET_ANIME_URL, smotret_anime_id: 1),
+      url: format(SmotretAnime::LinkWorker::ANIME365_URL, smotret_anime_id: 1),
       created_at: external_link_2_created_at
   end
   let(:external_link_2_created_at) { (described_class::LINK_EXPIRE_INTERVAL - 1.day).ago }

@@ -12,35 +12,35 @@ describe SmotretAnime::ScheduleEpisodeWorkers do
       source: :smotret_anime,
       kind: :smotret_anime,
       entry: anime_1,
-      url: format(SmotretAnime::LinkWorker::SMOTRET_ANIME_URL, smotret_anime_id: -1)
+      url: format(SmotretAnime::LinkWorker::ANIME365_URL, smotret_anime_id: -1)
   end
   let!(:external_link_2) do
     create :external_link,
       source: :smotret_anime,
       kind: :smotret_anime,
       entry: anime_2,
-      url: format(SmotretAnime::LinkWorker::SMOTRET_ANIME_URL, smotret_anime_id: 12)
+      url: format(SmotretAnime::LinkWorker::ANIME365_URL, smotret_anime_id: 12)
   end
   let!(:external_link_3) do
     create :external_link,
       source: :smotret_anime,
       kind: :smotret_anime,
       entry: anime_3,
-      url: format(SmotretAnime::LinkWorker::SMOTRET_ANIME_URL, smotret_anime_id: 23)
+      url: format(SmotretAnime::LinkWorker::ANIME365_URL, smotret_anime_id: 23)
   end
   let!(:external_link_4) do
     create :external_link,
       source: :smotret_anime,
       kind: :smotret_anime,
       entry: anime_4,
-      url: format(SmotretAnime::LinkWorker::SMOTRET_ANIME_URL, smotret_anime_id: 34)
+      url: format(SmotretAnime::LinkWorker::ANIME365_URL, smotret_anime_id: 34)
   end
   let!(:external_link_5) do
     create :external_link,
       source: :smotret_anime,
       kind: :smotret_anime,
       entry: anime_5,
-      url: format(SmotretAnime::LinkWorker::SMOTRET_ANIME_URL, smotret_anime_id: 45)
+      url: format(SmotretAnime::LinkWorker::ANIME365_URL, smotret_anime_id: 45)
   end
 
   subject! { described_class.new.perform group }

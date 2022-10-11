@@ -47,6 +47,59 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"data":[]}'
-    http_version: 
   recorded_at: Mon, 03 Jun 2019 23:56:26 GMT
-recorded_with: VCR 4.0.0
+- request:
+    method: get
+    uri: https://hentai365.ru/api/series/?fields=id,title,links&myAnimeListId=999999
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - shikimori
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 11 Oct 2022 17:59:56 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '11'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Pragma:
+      - no-cache
+      Set-Cookie:
+      - PHPSESSID=khcoa67p27fe2ckk9hnkrmhlfs; path=/; secure; HttpOnly
+      - csrf=SEdxeUM5b1NQdUExczJFVmRqaU8zYU5LN3RZVkh3STOaYJ7QwgF-pBPMjQmK5hbkYaxs1xZrBpCMNT2r9ZqxVw%3D%3D;
+        expires=Fri, 08-Oct-2032 17:59:56 GMT; Max-Age=315360000; path=/; secure
+      - guestId=1a482c92af2dfc5fd14a1c25e5830fbe66ab25177ba3c11c03cf44cb8f2a40b2;
+        expires=Sun, 10-Oct-2027 17:59:56 GMT; Max-Age=157680000; path=/; secure
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=EgQzgsZ%2F1q8KgOghWG0lJgKj%2BbiPjNz2YXaGPUhKOkcfQNV1T77Rj6M5RpXbvEPdh9ajmqzY6d%2BckMQGUkQC3QdcWfZmEKvhVlYuZQp1Hem6LmynFj2DLb2Y%2F9TdUQc%3D"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 75897e0f49197887-VIE
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: '{"data":[]}'
+  recorded_at: Tue, 11 Oct 2022 17:59:54 GMT
+recorded_with: VCR 6.1.0
