@@ -12,7 +12,7 @@ describe SmotretAnime::ScheduleEpisodeWorkers do
       source: :smotret_anime,
       kind: :smotret_anime,
       entry: anime_1,
-      url: Animes::SmotretAnimeId::NO_ID
+      url: ExternalLink::NO_URL
   end
   let!(:external_link_2) do
     create :external_link,

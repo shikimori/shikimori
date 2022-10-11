@@ -63,7 +63,7 @@ private
     create_link anime,
       kind: Types::ExternalLink::Kind[:smotret_anime],
       source: Types::ExternalLink::Kind[:smotret_anime],
-      url: Animes::SmotretAnimeId::NO_ID
+      url: ExternalLink::NO_URL
   end
 
   def valuable_links links
