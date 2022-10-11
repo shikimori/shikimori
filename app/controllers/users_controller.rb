@@ -21,6 +21,7 @@ class UsersController < ShikimoriController
 
   def similar # rubocop:disable all
     return render plain: 'рекомендации временно не работают по техническим причинам'
+
     og noindex: true
     @threshold = params[:threshold].to_i
     @klass = params[:klass] == Manga.name.downcase ? Manga : Anime

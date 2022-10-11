@@ -7,20 +7,20 @@ describe UsersController do
     end
   end
 
-  describe '#similar' do
-    include_context :authenticated, :user
-    subject! do
-      get :similar,
-        params: {
-          klass: 'anime',
-          threshold: UsersController::THRESHOLDS[2]
-        }
-    end
-    it do
-      expect(collection).to be_empty
-      expect(response).to have_http_status :success
-    end
-  end
+  # describe '#similar' do
+  #   include_context :authenticated, :user
+  #   subject! do
+  #     get :similar,
+  #       params: {
+  #         klass: 'anime',
+  #         threshold: UsersController::THRESHOLDS[2]
+  #       }
+  #   end
+  #   it do
+  #     expect(collection).to be_empty
+  #     expect(response).to have_http_status :success
+  #   end
+  # end
 
   describe '#autocomplete' do
     let(:phrase) { 'Fff' }
