@@ -31,7 +31,7 @@
   span
     = render 'users/user_16', user: abuse_request.target.user
 
-  - if abuse_request.reason.present?
+  - if abuse_request.reason.present? && can?(:manage, Ban)
     span = t '.for_reason'
     span.reason
       = h(abuse_request.reason).gsub("\n", '<br>').html_safe
