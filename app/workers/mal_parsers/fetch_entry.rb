@@ -35,13 +35,14 @@ class MalParsers::FetchEntry
 
   Type = Types::Coercible::String.enum(*PARSERS.keys.map(&:to_s))
 
-  def perform id, type
+  def perform id, type # rubocop:disable AbcSize
     data = parse(id, type)
 
     IMPORTS[type.to_sym].call data
-    cleanup_sync_cache
+    cleanup_sync_cache id, type
   rescue InvalidIdError
     entry = Type[type].classify.constantize.find_by id: id
+    cleanup_sync_cache id, type
 
     if entry
       entry.update mal_id: nil, imported_at: Time.zone.now
@@ -70,7 +71,7 @@ private
     PARSERS[Type[type].to_sym]
   end
 
-  def cleanup_sync_cache
+  def cleanup_sync_cache id, type
     Rails.cache.delete [type, :sync, id]
   end
 end
