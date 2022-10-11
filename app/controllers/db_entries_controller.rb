@@ -11,7 +11,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
 
   COLLETIONS_PER_PAGE = 4
   DANGEROUS_ACTION_DELAY_INTERVAL = 30.minutes
-  SYNC_EXPIRATION = 1.hour
+  SYNC_EXPIRATION = 4.hours
 
   def tooltip
     og noindex: true
