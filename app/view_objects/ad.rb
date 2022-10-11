@@ -204,13 +204,13 @@ private
   SPECIAL_X300 = {
     provider: Types::Ad::Provider[:special],
     # AD START: HZ - remove 2022-10-19 23:59
-    url: 'https://bit.ly/3fFvZWL',
+    url: 'https://bit.ly/3fJ6svK',
     # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=eevvx&pfb=lozyl&pr=[RANDOM]&pe=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
-    images: (1..1).map do |i|
+    images: (1..2).map do |i|
       {
-        src: "/assets/globals/events/2022-10-05/menu_#{i}.jpg",
-        src_2x: "/assets/globals/events/2022-10-05/menu_#{i}@2x.jpg"
+        src: "/assets/globals/events/2022-10-05/menu_#{i}.jpg?v2",
+        src_2x: "/assets/globals/events/2022-10-05/menu_#{i}@2x.jpg?v2"
       }
     end,
     # images: [{
@@ -229,7 +229,7 @@ private
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
     # AD START: HZ - remove 2022-10-19 23:59
-    url: 'https://bit.ly/3fJ6svK',
+    url: 'https://bit.ly/3fFvZWL',
     # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=eevvx&pfb=lozyl&pr=[RANDOM]&pe=b',
     # convert -resize 50% app/assets/images/globals/events/2022-07-16/wide_1@2x.jpg app/assets/images/globals/events/2022-07-16/wide_1.jpg
     # images: [{
@@ -238,8 +238,8 @@ private
     # }],
     images: (1..1).map do |i|
       {
-        src: "/assets/globals/events/2022-10-05/wide_#{i}.jpg?v=4",
-        src_2x: "/assets/globals/events/2022-10-05/wide_#{i}@2x.jpg?v=4"
+        src: "/assets/globals/events/2022-10-05/wide_#{i}.jpg?v2",
+        src_2x: "/assets/globals/events/2022-10-05/wide_#{i}@2x.jpg?v2"
       }
     end,
     # AD END
