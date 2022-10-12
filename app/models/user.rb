@@ -31,6 +31,7 @@ class User < ApplicationRecord
 
   STAFF_ROLES = %w[
     admin
+    news_super_moderator
     super_moderator
     forum_moderator
     version_names_moderator
@@ -45,6 +46,12 @@ class User < ApplicationRecord
     cosplay_moderator
     contest_moderator
     statistics_moderator
+  ]
+  MODERATION_STAFF_ROLES = %w[
+    admin
+    super_moderator
+    news_super_moderator
+    forum_moderator
   ]
 
   devise(
@@ -393,6 +400,10 @@ class User < ApplicationRecord
 
   def staff?
     (roles.to_a & STAFF_ROLES).any?
+  end
+
+  def moderation_staff?
+    (roles.to_a & MODERATION_STAFF_ROLES).any?
   end
 
   def generated_email?
