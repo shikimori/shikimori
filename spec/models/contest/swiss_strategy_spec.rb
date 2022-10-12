@@ -7,7 +7,7 @@ describe Contest::SwissStrategy do
       it "#{members} -> #{rounds}" do
         allow(contest.members).to receive(:count).and_return members
         allow(strategy).to receive :fill_round_with_matches
-        expect(strategy.total_rounds).to eq rounds
+        expect(strategy.total_rounds).to eq rounds + 1
       end
     end
   end
@@ -17,7 +17,7 @@ describe Contest::SwissStrategy do
       it "#{members} -> #{rounds}" do
         allow(contest.members).to receive(:count).and_return members
         allow(strategy).to receive :fill_round_with_matches
-        expect { strategy.create_rounds }.to change(ContestRound, :count).by rounds
+        expect { strategy.create_rounds }.to change(ContestRound, :count).by rounds + 1
       end
     end
 

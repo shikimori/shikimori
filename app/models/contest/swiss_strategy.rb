@@ -8,7 +8,11 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
   end
 
   def total_rounds
-    @total_rounds ||= Math.log(@contest.members.count, 2).ceil + 2
+    n = @contest.members.count
+    a = 3
+    @total_rounds ||= [Math.log(n, 2).ceil + a, n - 1].min
+
+    # @total_rounds ||= Math.log(@contest.members.count, 2).ceil + 2
   end
 
   def fill_round_with_matches round
