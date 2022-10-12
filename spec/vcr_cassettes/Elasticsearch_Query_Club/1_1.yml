@@ -234,4 +234,49 @@ http_interactions:
       string: '{"took":2,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":2,"max_score":444.44446,"hits":[{"_index":"shikimori_test_clubs","_type":"club","_id":"1094","_score":444.44446,"_source":{"name":"test"}},{"_index":"shikimori_test_clubs","_type":"club","_id":"1095","_score":55.555557,"_source":{"name":"test
         zxct"}}]}}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 2.6.10; darwin x86_64; Faraday v1.8.0)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '301'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "name" : "Rj_pnNy",
+          "cluster_name" : "elasticsearch_brew",
+          "cluster_uuid" : "lICrgIBtSguiaLh8k2dj_Q",
+          "version" : {
+            "number" : "6.8.23",
+            "build_flavor" : "oss",
+            "build_type" : "tar",
+            "build_hash" : "4f67856",
+            "build_date" : "2022-01-06T21:30:50.087716Z",
+            "build_snapshot" : false,
+            "lucene_version" : "7.7.3",
+            "minimum_wire_compatibility_version" : "5.6.0",
+            "minimum_index_compatibility_version" : "5.0.0"
+          },
+          "tagline" : "You Know, for Search"
+        }
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 6.1.0
