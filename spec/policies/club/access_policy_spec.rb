@@ -35,6 +35,11 @@ describe Club::AccessPolicy do
         let(:is_shadowbanned) { false }
         it { is_expected.to eq true }
       end
+
+      context 'moderator' do
+        before { allow(decorated_user).to receive(:moderation_staff?).and_return true }
+        it { is_expected.to eq true }
+      end
     end
   end
 

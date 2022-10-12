@@ -22,6 +22,8 @@ class Comments::UserQuery < QueryObjectBase
   end
 
   def restrictions_scope decorated_user
+    return self if decorated_user&.moderation_staff?
+
     scope = @scope.joins(CLUBS_JOIN_SQL)
 
     chain(

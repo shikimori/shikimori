@@ -5,7 +5,7 @@ class Comment::AccessPolicy
 
   def allowed?
     commentable = @comment.commentable
-    return true if own_comment?
+    return true if own_comment? || moderator?
 
     case commentable
       when Topic
@@ -26,5 +26,9 @@ private
     !!(
       user&.preferences&.comments_in_profile? && !user.censored_profile?
     )
+  end
+
+  def moderator?
+    @current_user&.moderation_staff?
   end
 end

@@ -33,19 +33,29 @@ describe Comments::UserQuery do
 
     context 'user' do
       let(:decorated_user) { user.decorate }
+      before { allow(decorated_user).to receive(:moderation_staff?).and_return is_moderator }
 
-      context 'not club member' do
-        it { is_expected.to eq [comment_1] }
+      context 'not moderator' do
+        let(:is_moderator) { false }
+
+        context 'not club member' do
+          it { is_expected.to eq [comment_1] }
+        end
+
+        context 'private club member' do
+          before { user.clubs << private_club }
+          it { is_expected.to eq [comment_2, comment_1] }
+        end
+
+        context 'shadowbanned club member' do
+          before { user.clubs << shadowbanned_club }
+          it { is_expected.to eq [comment_3, comment_1] }
+        end
       end
 
-      context 'private club member' do
-        before { user.clubs << private_club }
-        it { is_expected.to eq [comment_2, comment_1] }
-      end
-
-      context 'shadowbanned club member' do
-        before { user.clubs << shadowbanned_club }
-        it { is_expected.to eq [comment_3, comment_1] }
+      context 'moderator' do
+        let(:is_moderator) { true }
+        it { is_expected.to eq [comment_3, comment_2, comment_1] }
       end
     end
   end
