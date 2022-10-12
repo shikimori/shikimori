@@ -128,12 +128,12 @@ describe User do
       end
 
       context 'expired ban' do
-        let(:read_only_at) { Time.zone.now - 1.second }
+        let(:read_only_at) { 1.second.ago }
         it { is_expected.to eq true }
       end
 
       context 'valid ban' do
-        let(:read_only_at) { Time.zone.now + 1.seconds }
+        let(:read_only_at) { 1.second.from_now }
         it { is_expected.to eq false }
       end
     end
@@ -156,12 +156,12 @@ describe User do
       it { is_expected.to_not be_banned }
 
       describe 'true' do
-        let(:read_only_at) { Time.zone.now + 1.hour }
+        let(:read_only_at) { 1.hour.from_now }
         it { is_expected.to be_banned }
       end
 
       describe 'false' do
-        let(:read_only_at) { Time.zone.now - 1.second }
+        let(:read_only_at) { 1.second.ago }
         it { is_expected.to_not be_banned }
       end
     end
@@ -217,7 +217,7 @@ describe User do
       let(:user) { build :user, read_only_at: read_only_at }
 
       context 'banned not long ago' do
-        let(:read_only_at) { 11.month.from_now }
+        let(:read_only_at) { 11.months.from_now }
         it { expect(user.forever_banned?).to be false }
       end
 
@@ -227,7 +227,7 @@ describe User do
       end
 
       context 'banned long ago' do
-        let(:read_only_at) { 13.month.from_now }
+        let(:read_only_at) { 13.months.from_now }
         it { expect(user.forever_banned?).to be true }
       end
     end
