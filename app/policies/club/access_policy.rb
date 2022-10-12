@@ -1,7 +1,7 @@
 class Club::AccessPolicy
   static_facade :allowed?, :club, :current_user
 
-  def allowed?
+  def allowed? # rubocop:disable Metrics/CyclomaticComplexity
     return false if @club.censored? && !@current_user
     return true if moderator?
 
