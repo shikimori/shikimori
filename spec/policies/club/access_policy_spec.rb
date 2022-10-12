@@ -37,6 +37,7 @@ describe Club::AccessPolicy do
       end
 
       context 'moderator' do
+        let(:decorated_user) { user.decorate }
         before { allow(decorated_user).to receive(:moderation_staff?).and_return true }
         it { is_expected.to eq true }
       end
