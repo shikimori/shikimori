@@ -2569,15 +2569,10 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001254:
-  version "1.0.30001317"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001317.tgz"
-  integrity sha512-xIZLh8gBm4dqNX0gkzrBeyI86J2eCjWzYAs40q88smG844YIrN4tVQl/RhquHvKEKImWWFIVh1Lxe5n1G/N+GQ==
-
-caniuse-lite@^1.0.30001317:
-  version "1.0.30001325"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001325.tgz#2b4ad19b77aa36f61f2eaf72e636d7481d55e606"
-  integrity sha512-sB1bZHjseSjDtijV1Hb7PB2Zd58Kyx+n/9EotvZ4Qcz2K3d0lWB8dB4nb8wN/TsOGFq3UuAm0zQZNQ4SoR7TrQ==
+caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001254, caniuse-lite@^1.0.30001317:
+  version "1.0.30001418"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001418.tgz"
+  integrity sha512-oIs7+JL3K9JRQ3jPZjlH6qyYDp+nBTCais7hjh0s+fuBwufc7uZ7hPYMXrDOJhV360KGMTcczMRObk0/iMqZRg==
 
 caporal@^1.4.0:
   version "1.4.0"
@@ -7683,7 +7678,6 @@ prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0:
 
 prosemirror-utils@atlassian/prosemirror-utils#remove-prosemirror-tables:
   version "0.9.6"
-  uid "9e2db389d408f376e0fc1f8bdffd95063e8d00af"
   resolved "https://codeload.github.com/atlassian/prosemirror-utils/tar.gz/9e2db389d408f376e0fc1f8bdffd95063e8d00af"
 
 prosemirror-view@^1.0.0, prosemirror-view@^1.1.0, prosemirror-view@^1.18.4:
@@ -9650,7 +9644,6 @@ vue3-keypress@^4.0.1:
 
 vue3-perfect-scrollbar@morr/vue3-perfect-scrollbar#master:
   version "1.5.5"
-  uid "04340756fd75f245e25042003b9c4a6ced343381"
   resolved "https://codeload.github.com/morr/vue3-perfect-scrollbar/tar.gz/04340756fd75f245e25042003b9c4a6ced343381"
 
 vue@^3.0.0-beta.1, vue@^3.2.12:
