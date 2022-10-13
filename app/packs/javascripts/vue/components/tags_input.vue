@@ -22,7 +22,7 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import VueTagsInput from '@sipec/vue3-tags-input';
+import VueTagsInput from '@savingsunited/vue3-tags-input';
 
 const props = defineProps({
   label: { type: String, required: true },
@@ -92,10 +92,14 @@ function syncToInput(newTags) {
     .ti-autocomplete
       display: block
 
+  ::v-deep(.ti-tags)
+    width: auto
+
   ::v-deep(.ti-input)
     +input
-    padding: 0 1px
+    display: flex
     max-width: 100% !important
+    padding: 0 1px
 
     input
       width: 100% !important
