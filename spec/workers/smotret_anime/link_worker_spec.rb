@@ -60,16 +60,16 @@ describe SmotretAnime::LinkWorker, :vcr do
       expect(anime.all_external_links[4].imported_at).to be_within(0.1).of Time.zone.now
     end
 
-    context 'disabled smotret_anime parsing' do
-      let!(:external_link_4) do
-        create :external_link,
-          source: :smotret_anime,
-          kind: :smotret_anime,
-          entry: anime,
-          url: ExternalLink::NO_URL
-      end
-      it { expect(anime.all_external_links).to have(4).items }
-    end
+    # context 'disabled smotret_anime parsing' do
+    #   let!(:external_link_4) do
+    #     create :external_link,
+    #       source: :smotret_anime,
+    #       kind: :smotret_anime,
+    #       entry: anime,
+    #       url: ExternalLink::NO_URL
+    #   end
+    #   it { expect(anime.all_external_links).to have(4).items }
+    # end
   end
 
   context 'not matched mal_id' do

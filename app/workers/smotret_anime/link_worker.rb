@@ -13,7 +13,8 @@ class SmotretAnime::LinkWorker
   def perform anime_id
     anime = Anime.find_by id: anime_id
     return unless anime&.mal_id
-    return if disabled? anime
+
+    # return if disabled? anime
 
     data = fetch(format(API_ANIME365_URL, mal_id: anime.mal_id)) ||
       fetch(format(API_HENTAI365_URL, mal_id: anime.mal_id))
@@ -86,10 +87,10 @@ private
     anime.all_external_links.create! attributes.merge(imported_at: Time.zone.now)
   end
 
-  def disabled? anime
-    anime.all_external_links.any?(&:kind_smotret_anime?) &&
-      !Animes::SmotretAnimeId.call(anime)
-  end
+  # def disabled? anime
+  #   anime.all_external_links.any?(&:kind_smotret_anime?) &&
+  #     !Animes::SmotretAnimeId.call(anime)
+  # end
 
   def present? anime, url
     anime.all_external_links.any? do |external_link|
