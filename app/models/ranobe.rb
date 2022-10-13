@@ -13,6 +13,7 @@ class Ranobe < Manga
     end
   end
 
+  # redefine ClubsConcern relation because it must be Ranobe linked_type here
   has_many :club_links, -> { where linked_type: 'Ranobe' },
     inverse_of: :linked,
     foreign_key: :linked_id,
