@@ -4,9 +4,9 @@ class Clubs::Query < QueryObjectBase
 
   def self.fetch user, is_skip_restrictions, initial_scope = Club
     scope = new initial_scope
-      .joins(:topic)
+      .eager_load(:topic) # association must be preloaded because it is used in clubs/club
       .preload(:owner, :topic)
-      .order(Arel.sql('topics.updated_at desc, id'))
+      .order(Arel.sql('topics.updated_at desc, clubs.id'))
 
     return scope if is_skip_restrictions
 
