@@ -118,15 +118,15 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   #----------------------------------------------------------------------------
 
   def main_topic_view
-    Topics::TopicViewFactory.new(false, false).build(
-      object.maybe_topic
-    )
+    Topics::TopicViewFactory
+      .new(false, false)
+      .build(object.maybe_topic)
   end
 
   def preview_topic_view
-    Topics::TopicViewFactory.new(true, false).build(
-      object.maybe_topic
-    )
+    Topics::TopicViewFactory
+      .new(true, false)
+      .build(object.maybe_topic)
   end
 
   def menu_clubs
