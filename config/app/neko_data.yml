@@ -2196,6 +2196,7 @@
         - 38006
         - 51923
         - 10628
+        - 49285
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -2698,6 +2699,7 @@
         - 38006
         - 51923
         - 10628
+        - 49285
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3199,6 +3201,7 @@
         - 38006
         - 51923
         - 10628
+        - 49285
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3698,6 +3701,7 @@
         - 38006
         - 51923
         - 10628
+        - 49285
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -8700,6 +8704,7 @@
         - 42310
         - 42205
         - 154
+        - 40571
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
@@ -12441,6 +12446,8 @@
         - 39585
         - 41674
         - 19627
+        - 49285
+        - 21749
       :generator:
         person_id: 4002
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -12518,6 +12525,8 @@
         - 39585
         - 41674
         - 19627
+        - 49285
+        - 21749
       :generator:
         person_id: 4002
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -13270,6 +13279,7 @@
         - 5819
         - 885
         - 40074
+        - 49163
       :generator:
         person_id: 2967
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -13318,6 +13328,7 @@
         - 5819
         - 885
         - 40074
+        - 49163
       :generator:
         person_id: 2967
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
