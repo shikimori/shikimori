@@ -1,7 +1,10 @@
 class OptimizeAnimeStatHistoryV1 < ActiveRecord::Migration[6.1]
   def change
-    add_column :anime_stat_histories, :anime_id, :bigint, foreign_key: true
-    add_column :anime_stat_histories, :manga_id, :bigint, foreign_key: true
+    add_column :anime_stat_histories, :anime_id, :bigint
+    add_column :anime_stat_histories, :manga_id, :bigint
+
+    add_foreign_key :anime_stat_histories, :animes
+    add_foreign_key :anime_stat_histories, :mangas
 
     reversible do |dir|
       dir.up do

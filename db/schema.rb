@@ -1277,6 +1277,8 @@ ActiveRecord::Schema.define(version: 2022_10_17_171752) do
   add_foreign_key "abuse_requests", "topics"
   add_foreign_key "abuse_requests", "users"
   add_foreign_key "abuse_requests", "users", column: "approver_id"
+  add_foreign_key "anime_stat_histories", "animes"
+  add_foreign_key "anime_stat_histories", "mangas"
   add_foreign_key "bans", "abuse_requests"
   add_foreign_key "bans", "users"
   add_foreign_key "bans", "users", column: "moderator_id"
