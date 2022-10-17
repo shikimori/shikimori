@@ -149,7 +149,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     clubs_scope
       .except(:order)
       .pick(Arel.sql('count(*), max(clubs.updated_at)'))
-      .join('/')
+      &.join('/')
   end
 
   def menu_collections
