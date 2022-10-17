@@ -1,7 +1,4 @@
 class AnimeStatHistory < ApplicationRecord
-  belongs_to :entry, polymorphic: true
-
-  enumerize :entry_type,
-    in: Types::AnimeStat::EntryType.values,
-    predicates: true
+  belongs_to :anime, optional: true
+  belongs_to :manga, optional: true
 end

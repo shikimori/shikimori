@@ -195,6 +195,10 @@ class Anime < DbEntry
     as: :entry,
     inverse_of: :entry
 
+  has_many :anime_stat_histories,
+    inverse_of: :anime,
+    dependent: :destroy
+
   has_attached_file :image,
     styles: {
       original: ['225x350>', :jpg],

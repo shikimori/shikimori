@@ -78,7 +78,7 @@ describe Animes::RefreshStats do
       )
     end
 
-    context 'anime_state_history entry' do
+    context 'anime_stat_history entry' do
       it do
         expect { subject }.to change(AnimeStatHistory, :count).by 2
         expect(anime_1.anime_stat_histories.first).to have_attributes(
@@ -128,13 +128,13 @@ describe Animes::RefreshStats do
 
     context 'anime_state_history entry' do
       let!(:anime_stat_history_1) do
-        create :anime_stat_history, entry: anime_2, created_on: Time.zone.today
+        create :anime_stat_history, anime: anime_2, created_on: Time.zone.today
       end
       let!(:anime_stat_history_2) do
-        create :anime_stat_history, entry: anime_2, created_on: Time.zone.yesterday
+        create :anime_stat_history, anime: anime_2, created_on: Time.zone.yesterday
       end
       let!(:manga_stat_history) do
-        create :anime_stat_history, entry: manga, created_on: Time.zone.today
+        create :anime_stat_history, manga: manga, created_on: Time.zone.today
       end
 
       it do
@@ -149,11 +149,11 @@ describe Animes::RefreshStats do
       let(:scope) { Anime.where(id: anime_1.id) }
       let!(:anime_stat_1) { create :anime_stat, entry: anime_1 }
       let!(:anime_stat_history_1) do
-        create :anime_stat_history, entry: anime_1, created_on: Time.zone.today
+        create :anime_stat_history, anime: anime_1, created_on: Time.zone.today
       end
       let!(:anime_stat_2) { create :anime_stat, entry: anime_2 }
       let!(:anime_stat_history_2) do
-        create :anime_stat_history, entry: anime_2, created_on: Time.zone.today
+        create :anime_stat_history, anime: anime_2, created_on: Time.zone.today
       end
 
       it do

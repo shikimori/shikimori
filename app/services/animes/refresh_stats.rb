@@ -27,6 +27,9 @@ class Animes::RefreshStats # rubocop:disable ClassLength
       sum(case when user_rates.status = %<dropped>i then 1 else 0 end)
         as status_dropped
   SQL
+  EntryType = Types::Strict::String
+    .constructor { |v| v.singularize.capitalize }
+    .enum('Anime', 'Manga')
 
   def call
     anime_stats = build_stats
@@ -40,11 +43,7 @@ class Animes::RefreshStats # rubocop:disable ClassLength
     )
 
     AnimeStatHistory.transaction do
-      import_history(
-        anime_stat_history: anime_stat_history,
-        anime_stats: anime_stats,
-        today: today
-      )
+      import_history anime_stat_history: anime_stat_history, today: today
     end
   end
 
@@ -67,7 +66,7 @@ private
 
   def import_stats anime_stats:
     AnimeStat
-      .where(entry_type: anime_stats.first.entry_type)
+      .where(entry_type: EntryType[@scope.table_name])
       .where(entry_id: @scope.select(:id))
       .delete_all
     AnimeStat.import anime_stats
@@ -78,20 +77,20 @@ private
       AnimeStatHistory.new(
         scores_stats: anime_stat.scores_stats,
         list_stats: anime_stat.list_stats,
-        entry_id: anime_stat.entry_id,
-        entry_type: anime_stat.entry_type,
-        created_on: today,
-        score_2: anime_stat.entry.score_2
+        score_2: anime_stat.entry.score_2,
+        anime_id: (anime_stat.entry_id if anime_stat.Anime?),
+        manga_id: (anime_stat.entry_id if anime_stat.Manga?),
+        created_on: today
       )
     end
   end
 
-  def import_history anime_stat_history:, anime_stats:, today:
+  def import_history anime_stat_history:, today:
     AnimeStatHistory
       .where(created_on: today)
-      .where(entry_type: anime_stats.first.entry_type)
-      .where(entry_id: @scope.select(:id))
+      .where("#{EntryType[@scope.table_name].downcase}_id" => @scope.select(:id))
       .delete_all
+
     AnimeStatHistory.import anime_stat_history
   end
 

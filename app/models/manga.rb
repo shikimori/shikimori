@@ -144,6 +144,10 @@ class Manga < DbEntry
     as: :entry,
     inverse_of: :entry
 
+  has_many :anime_stat_histories,
+    inverse_of: :manga,
+    dependent: :destroy
+
   enumerize :type, in: %i[Manga Ranobe]
   enumerize :kind,
     in: Types::Manga::Kind.values,
