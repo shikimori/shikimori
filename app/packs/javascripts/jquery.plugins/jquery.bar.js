@@ -33,6 +33,9 @@ function simpleBar($chart, options) {
   const field = options.field || 'value';
   let stats = $chart.data('stats');
 
+  if (options.map) {
+    stats = stats.map(entry => options.map(entry));
+  }
   if (!stats || !stats.length) {
     if (options.noData) {
       options.noData($chart);
@@ -78,10 +81,6 @@ function simpleBar($chart, options) {
     }
 
     $chart.append(html.join(''));
-  }
-
-  if (options.map) {
-    stats = stats.map(entry => options.map(entry));
   }
 
   if (options.filter) {

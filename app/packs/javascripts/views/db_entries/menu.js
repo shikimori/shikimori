@@ -32,8 +32,8 @@ export class AnimesMenu extends View {
       .bar({
         filter: (_entry, percent) => percent >= 2,
         map: entry => ({
-          name: entry.key,
-          value: entry.value
+          name: entry[0],
+          value: entry[1]
         }),
         noData: $chart => (
           $chart.html(`<p class='b-nothing_here'>${I18n.t(NO_DATA_I18N_KEY)}</p>`)
@@ -50,8 +50,8 @@ export class AnimesMenu extends View {
       .bar({
         // title: (entry, percent)  => percent > 15 ? entry.value : '',
         map: entry => ({
-          name: I18n.t(`${STATUS_I18N_KEY}.${entryType}.${entry.key}`),
-          value: entry.value
+          name: I18n.t(`${STATUS_I18N_KEY}.${entryType}.${entry[0]}`),
+          value: entry[1]
         }),
         noData: $chart => (
           $chart.html(`<p class='b-nothing_here'>${I18n.t(NO_DATA_I18N_KEY)}</p>`)

@@ -26,7 +26,7 @@
       data-bar='horizontal'
       data-entry_type=resource.stats&.entry_type&.downcase
     ]
-    - rates_count = resource.stats&.list_stats&.sum { |v| v['value'] } || 0
+    - rates_count = resource.stats&.list_stats&.sum(&:second)
     - if rates_count > 0
       .total-rates
         - if rates_count > 1
