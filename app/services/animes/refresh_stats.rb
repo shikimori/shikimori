@@ -104,7 +104,7 @@ private
           options: entry.options
         )
 
-        { key: score.to_s, value: filtered_amount } if filtered_amount.positive?
+        [score.to_s, filtered_amount] if filtered_amount.positive?
       end
       .compact
   end
@@ -115,7 +115,7 @@ private
         key = :"status_#{status}"
         amount = entry.send(key).to_i
 
-        { key: status, value: amount } if amount.positive?
+        [status, amount] if amount.positive?
       end
       .compact
   end

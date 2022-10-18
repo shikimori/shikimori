@@ -51,30 +51,12 @@ describe Animes::RefreshStats do
     it do
       expect { subject }.to change(AnimeStat, :count).by 2
       expect(anime_1.stats).to have_attributes(
-        scores_stats: [{
-          'key' => '10',
-          'value' => 2
-        }, {
-          'key' => '8',
-          'value' => 1
-        }],
-        list_stats: [{
-          'key' => 'completed',
-          'value' => 2
-        }, {
-          'key' => 'watching',
-          'value' => 1
-        }]
+        scores_stats: [['10', 2], ['8', 1]],
+        list_stats: [['completed', 2], ['watching', 1]]
       )
       expect(anime_2.stats).to have_attributes(
-        scores_stats: [{
-          'key' => '10',
-          'value' => 1
-        }],
-        list_stats: [{
-          'key' => 'completed',
-          'value' => 1
-        }]
+        scores_stats: [['10', 1]],
+        list_stats: [['completed', 1]]
       )
     end
 
@@ -82,32 +64,14 @@ describe Animes::RefreshStats do
       it do
         expect { subject }.to change(AnimeStatHistory, :count).by 2
         expect(anime_1.anime_stat_histories.first).to have_attributes(
-          scores_stats: [{
-            'key' => '10',
-            'value' => 2
-          }, {
-            'key' => '8',
-            'value' => 1
-          }],
-          list_stats: [{
-            'key' => 'completed',
-            'value' => 2
-          }, {
-            'key' => 'watching',
-            'value' => 1
-          }],
+          scores_stats: [['10', 2], ['8', 1]],
+          list_stats: [['completed', 2], ['watching', 1]],
           created_on: Time.zone.today,
           score_2: anime_1.score_2
         )
         expect(anime_2.anime_stat_histories.first).to have_attributes(
-          scores_stats: [{
-            'key' => '10',
-            'value' => 1
-          }],
-          list_stats: [{
-            'key' => 'completed',
-            'value' => 1
-          }],
+          scores_stats: [['10', 1]],
+          list_stats: [['completed', 1]],
           created_on: Time.zone.today,
           score_2: anime_2.score_2
         )
@@ -173,20 +137,8 @@ describe Animes::RefreshStats do
     it do
       expect { subject }.to change(AnimeStat, :count).by 2
       expect(anime_1.stats).to have_attributes(
-        scores_stats: [{
-          'key' => '10',
-          'value' => 1
-        }, {
-          'key' => '8',
-          'value' => 1
-        }],
-        list_stats: [{
-          'key' => 'completed',
-          'value' => 2
-        }, {
-          'key' => 'watching',
-          'value' => 1
-        }]
+        scores_stats: [['10', 1], ['8', 1]],
+        list_stats: [['completed', 2], ['watching', 1]]
       )
     end
   end
