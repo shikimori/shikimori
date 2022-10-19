@@ -247,4 +247,16 @@ class UserHistory < ApplicationRecord
       end
     end
   end
+
+  def target_id
+    anime_id || manga_id
+  end
+
+  def target_type
+    if anime_id
+      Anime.name
+    elsif manga_id
+      Manga.name
+    end
+  end
 end
