@@ -3,6 +3,7 @@ class UserHistoryController < ProfilesController
   before_action :check_access, only: %i[index logs]
 
   LOGS_LIMIT = 45
+  TYPES = Types::Strict::String.enum('anime', 'manga')
 
   def index
     redirect_to @resource.url if @resource.history.none?
@@ -34,7 +35,7 @@ class UserHistoryController < ProfilesController
   def reset # rubocop:disable MethodLength, AbcSize
     authorize! :edit, @resource
 
-    @resource.object.history.where(target_type: params[:type].capitalize).delete_all
+    @resource.object.history.where.not("#{TYPES[params[:type]]}_id": nil).delete_all
     @resource.object.history
       .where(
         action: [
@@ -48,14 +49,14 @@ class UserHistoryController < ProfilesController
     @resource.touch :rate_at
 
     render json: {
-      notice: "Выполнена очистка вашей истории по #{anime? ? 'аниме' : 'манге'}"
+      notice: "Выполнена очистка твоей истории по #{anime? ? 'аниме' : 'манге'}"
     }
   end
 
 private
 
   def anime?
-    params[:type] == 'anime'
+    TYPES[params[:type]] == TYPES['anime']
   end
 
   def clear_action

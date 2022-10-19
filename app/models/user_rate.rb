@@ -203,7 +203,6 @@ private
     end
   end
 
-  # запись в историю о занесении в список
   def log_created
     UserHistory.add user, target, UserHistoryAction::ADD
 
@@ -226,7 +225,6 @@ private
     end
   end
 
-  # запись в историю об изменении стутса
   def log_changed
     if changes['status']
       UserHistory.add(
@@ -273,7 +271,6 @@ private
     end
   end
 
-  # запись в историю об удалении из списка
   def log_deleted
     UserHistory.add user, target, UserHistoryAction::DELETE
   end

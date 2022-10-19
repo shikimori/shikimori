@@ -223,7 +223,7 @@ describe Api::V1::UsersController, :show_in_doc do
 
   describe '#history' do
     let!(:entry_1) { create :user_history, user: user, action: 'mal_anime_import', value: '522' }
-    let!(:entry_2) { create :user_history, target: create(:anime), user: user, action: 'status' }
+    let!(:entry_2) { create :user_history, anime: create(:anime), user: user, action: 'status' }
 
     subject! do
       get :history,
