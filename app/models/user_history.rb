@@ -1,9 +1,8 @@
 class UserHistory < ApplicationRecord
   belongs_to :user
-  belongs_to :target, polymorphic: true, optional: true
 
-  belongs_to :anime, foreign_key: :target_id, optional: true
-  belongs_to :manga, foreign_key: :target_id, optional: true
+  belongs_to :anime, optional: true
+  belongs_to :manga, optional: true
 
   BACKWARD_CHECK_INTERVAL = 30.minutes
   DELETE_BACKWARD_CHECK_INTERVAL = 60.minutes

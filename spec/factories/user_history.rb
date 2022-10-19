@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :user_history do
     user { seed :user }
-    target { nil }
+    anime { nil }
+    manga { nil }
     action { nil }
     value { nil }
   end
