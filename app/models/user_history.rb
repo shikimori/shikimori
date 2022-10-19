@@ -19,9 +19,10 @@ class UserHistory < ApplicationRecord
   )
     # при изменении на тоже самое значение ничего не делаем
     return if value && value == prior_value
+
     last_entry = UserHistory
       .where(user_id: user.is_a?(Integer) ? user : user.id)
-      .where(target_type: item.class.base_class.name)
+      .where.not((item.anime? ? :anime_id : :manga_id) => nil)
       .order(id: :desc)
       .first
 
@@ -55,7 +56,7 @@ class UserHistory < ApplicationRecord
       when UserHistoryAction::ADD
         last_delete = UserHistory
           .where(user_id: user.is_a?(Integer) ? user : user.id)
-          .where(target: item)
+          .where((item.anime? ? :anime_id : :manga_id) => item.id)
           .where(action: UserHistoryAction::DELETE)
           .where('updated_at > ?', DELETE_BACKWARD_CHECK_INTERVAL.ago)
           .order(:id)
@@ -66,7 +67,7 @@ class UserHistory < ApplicationRecord
       when UserHistoryAction::DELETE
         prior_entries = UserHistory
           .where(user_id: user.is_a?(Integer) ? user : user.id)
-          .where(target: item)
+          .where((item.anime? ? :anime_id : :manga_id) => item.id)
           .where('updated_at > ?', DELETE_BACKWARD_CHECK_INTERVAL.ago)
           .order(:id)
           .to_a
@@ -75,11 +76,10 @@ class UserHistory < ApplicationRecord
           last_entry.destroy
           return
         end
+
+        prior_entries.each(&:destroy)
         if !prior_entries.empty? && prior_entries.first.action == UserHistoryAction::ADD
-          prior_entries.each(&:destroy)
           return
-        else
-          prior_entries.each(&:destroy)
         end
 
       when UserHistoryAction::RATE
@@ -124,7 +124,7 @@ class UserHistory < ApplicationRecord
 
         prior_entries = UserHistory
           .where(user_id: user.is_a?(Integer) ? user : user.id)
-          .where(target: item)
+          .where((item.anime? ? :anime_id : :manga_id) => item.id)
           .where(action: action)
           .where('updated_at > ?', EPISODE_BACKWARD_CHECK_INTERVAL.ago)
           .order(:id)
@@ -172,7 +172,7 @@ class UserHistory < ApplicationRecord
       entry = UserHistory
         .where('updated_at > ?', BACKWARD_CHECK_INTERVAL.ago)
         .where(user_id: user.is_a?(Integer) ? user : user.id)
-        .where(target: item)
+        .where((item.anime? ? :anime_id : :manga_id) => item.id)
         .where(action: action)
         .first
 
@@ -191,7 +191,7 @@ class UserHistory < ApplicationRecord
 
     entry ||= UserHistory.new(
       user_id: user.is_a?(Integer) ? user : user.id,
-      target: item,
+      (item.anime? ? :anime : :manga) => item,
       action: action
     )
 
@@ -246,6 +246,10 @@ class UserHistory < ApplicationRecord
         e_start.upto(e_end).inject([]) { |all, v| all << v }
       end
     end
+  end
+
+  def target
+    anime || manga
   end
 
   def target_id
