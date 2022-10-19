@@ -18,12 +18,12 @@ class DbEntry::RefreshScore
 private
 
   def number_of_scores
-    @entry.stats.scores_stats.sum { |stat| stat['value'] }
+    @entry.stats.scores_stats.sum(&:second)
   end
 
   def average_user_score
     @entry.stats.scores_stats.sum do |stat|
-      stat['key'].to_f * stat['value'] / number_of_scores
+      stat[0].to_f * stat[1] / number_of_scores
     end
   end
 end
