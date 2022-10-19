@@ -26,7 +26,7 @@ header.head
       = yield
 
       / - unless %w[edit edit_field].include?(params[:action]) && user_signed_in?
-      - unless %w[show edit edit_field].include?(params[:action]) && user_signed_in?
+      - unless %w[edit edit_field].include?(params[:action])
         = render 'spnsrs/ad', ad: Ad.new(:horizontal_x90)
       - if params[:action] == 'show'
         = render 'db_entries/comments', resource: @resource
