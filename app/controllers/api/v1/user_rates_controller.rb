@@ -104,15 +104,19 @@ class Api::V1::UserRatesController < Api::V1Controller
         Types::Neko::Action[:delete]
       )
     end
-    head 204
+
+    head :no_content
   end
 
   api :DELETE, '/user_rates/:type/cleanup', 'Delete entire user rates and history'
   description 'Requires `user_rates` oauth scope'
-  def cleanup # rubocop:disable AbcSize
+  param :type, %w[anime manga], required: true
+  def cleanup # rubocop:disable AbcSize, MethodLength
     user = current_user.object
 
-    user.history.where(target_type: params[:type].capitalize).delete_all
+    user.history
+      .where.not((params[:type].capitalize == 'Anime' ? :anime_id : :manga_id) => nil)
+      .delete_all
     user.history.where(action: "#{params[:type]}_import").delete_all
     user.history.where(action: "mal_#{params[:type]}_import").delete_all
     user.history.where(action: "ap_#{params[:type]}_import").delete_all
@@ -132,6 +136,7 @@ class Api::V1::UserRatesController < Api::V1Controller
 
   api :DELETE, '/user_rates/:type/reset', 'Reset all user scores to 0'
   description 'Requires `user_rates` oauth scope'
+  param :type, %w[anime manga], required: true
   def reset
     user = current_user.object
 
@@ -152,11 +157,15 @@ class Api::V1::UserRatesController < Api::V1Controller
 private
 
   def create_params
-    params.require(:user_rate).permit(*CREATE_PARAMS)
+    params
+      .require(:user_rate)
+      .permit(*CREATE_PARAMS)
   end
 
   def update_params
-    params.require(:user_rate).permit(*UPDATE_PARAMS)
+    params
+      .require(:user_rate)
+      .permit(*UPDATE_PARAMS)
   end
 
   def increment_params

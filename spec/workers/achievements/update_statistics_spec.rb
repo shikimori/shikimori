@@ -19,9 +19,9 @@ describe Achievements::UpdateStatistics do
   let(:user_1) { seed :user }
   let(:user_2) { create :user }
 
-  let!(:user_rate_1) { create :user_rate, :completed, target: anime, user: user_1 }
-  let!(:user_rate_2) { create :user_rate, :completed, target: anime, user: user_2 }
-  let(:anime) { build_stubbed :anime }
+  let!(:user_rate_1) { create :user_rate, :completed, anime: anime, user: user_1 }
+  let!(:user_rate_2) { create :user_rate, :completed, anime: anime, user: user_2 }
+  let(:anime) { create :anime }
 
   let(:statistics) do
     {
