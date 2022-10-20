@@ -122,8 +122,8 @@ private
   def update_user_history user_id
     UserHistory
       .where(user_id: user_id)
-      .where(target: @entry)
-      .update_all target_id: @other.id, target_type: @other.class.base_class.name
+      .where(user_history_key => @entry.id)
+      .update_all user_history_key => @other.id
   end
 
   def cleanup_user_rate user_rate
@@ -136,7 +136,7 @@ private
 
     UserHistory
       .where(user_id: user_rate.user_id)
-      .where(target: @other)
+      .where(user_history_key => @other.id)
       .destroy_all
   end
 
@@ -146,7 +146,7 @@ private
       .each { |v| v.update linked: @other }
   end
 
-  def merge_comments # rubocop:disable MethodLength
+  def merge_comments
     @entry_topic = @entry.maybe_topic
     @other_topic = @other.maybe_topic
 
@@ -237,5 +237,9 @@ private
     return unless @entry.respond_to? :external_links
 
     @entry.external_links.each { |v| v.update entry: @other }
+  end
+
+  def user_history_key
+    @entry.anime? ? :anime_id : :manga_id
   end
 end

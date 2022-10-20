@@ -65,7 +65,7 @@ describe DashboardViewV2 do
   end
 
   describe '#history' do
-    let!(:user_history) { create :user_history, user: user, target: create(:anime) }
+    let!(:user_history) { create :user_history, user: user, anime: create(:anime) }
     its(:history) do
       is_expected.to be_present
       is_expected.to be_kind_of Users::UserRateHistory

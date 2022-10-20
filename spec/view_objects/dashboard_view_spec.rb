@@ -58,7 +58,7 @@ describe DashboardView do
   end
 
   describe '#history' do
-    let!(:user_history) { create :user_history, user: user, target: create(:anime) }
+    let!(:user_history) { create :user_history, user: user, anime: create(:anime) }
     it { expect(view.history).to have(1).item }
   end
 
