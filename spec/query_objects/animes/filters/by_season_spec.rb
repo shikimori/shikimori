@@ -1,10 +1,10 @@
 describe Animes::Filters::BySeason do
   subject { described_class.call Anime.order(:id), terms }
 
-  let!(:anime_1) { create :anime, aired_on: '2010-02-01' }
-  let!(:anime_2) { create :anime, aired_on: '2010-12-31' }
-  let!(:anime_3) { create :anime, aired_on: '2009-02-01' }
-  let!(:anime_4) { create :anime, aired_on: '1979-02-01' }
+  let!(:anime_1) { create :anime, aired_on: { year: 2010, month: 2 } }
+  let!(:anime_2) { create :anime, aired_on: { year: 2010, month: 12, day: 31 } }
+  let!(:anime_3) { create :anime, aired_on: { year: 2009, month: 2 } }
+  let!(:anime_4) { create :anime, aired_on: { year: 1979, month: 2 } }
 
   context 'positive' do
     context 'year' do
@@ -28,8 +28,10 @@ describe Animes::Filters::BySeason do
     end
 
     context 'season_year' do
+      let!(:anime_5) { create :anime, aired_on: { year: 2010 } }
+      let!(:anime_6) { create :anime, aired_on: { year: 2010, month: 1 } }
       let(:terms) { 'winter_2010' }
-      it { is_expected.to eq [anime_1] }
+      it { is_expected.to eq [anime_1, anime_6] }
     end
 
     context 'decade' do

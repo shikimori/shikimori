@@ -26,6 +26,7 @@ FactoryBot.define do
     licensors { [] }
     desynced { [] }
     imported_at { nil }
+    season { nil }
     aired_on { {} }
     aired_on_computed { nil }
     released_on { {} }

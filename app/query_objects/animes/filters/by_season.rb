@@ -53,13 +53,7 @@ private
       when 'winter'
         date_from = Date.new(year, 1) - 9.days
         date_to = Date.new(year, 4) - 9.days
-        additionals =
-          if @klass == Anime
-            "aired_on_computed != '#{year}-01-01' or season = 'winter_#{year}'"
-          else
-            "aired_on_computed != '#{year}-01-01'"
-          end
-        additional = " and (#{additionals})"
+        additional = " and aired_on->'month' is not null"
 
       when 'spring'
         date_from = Date.new(year, 4) - 9.days
