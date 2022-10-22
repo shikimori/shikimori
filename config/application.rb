@@ -123,6 +123,8 @@ module Shikimori
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.yml')]
 
+    config.active_job.queue_adapter = :sidekiq
+
     # Configure sensitive parameters which will be filtered from the log file.
     # RAILS 6.0 UPGRADE
     # config.filter_parameters += [:password]
