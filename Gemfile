@@ -57,16 +57,19 @@ gem 'recaptcha'
 # application
 gem 'mal_parser', github: 'shikimori/mal_parser'
 gem 'chewy'
-gem 'mini_magick' # dependence: sudo apt-get install libmagickwand-dev
-gem 'mimemagic' # deploy broken w/o the dependency updated
 gem 'rack-attack'
 gem 'rack-cors'
 gem 'rack-utf8_sanitizer'
 
-gem 'actionpack-action_caching'
-gem 'attr_extras'
+# image processing
+gem 'mini_magick' # dependence: sudo apt-get install libmagickwand-dev
+gem 'mimemagic' # deploy broken w/o the dependency updated
+gem 'image_processing'
 gem 'paperclip'
 gem 'paperclip-i18n'
+
+gem 'actionpack-action_caching'
+gem 'attr_extras'
 gem 'rs_russian', github: 'morr/rs_russian', branch: 'master'
 gem 'translit'
 gem 'sixarm_ruby_unaccent' # adds method `unaccent`. it is used in Tags::GenerateNames
