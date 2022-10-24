@@ -1,3 +1,10 @@
+br
+br
+br
+div = @resource.poster.blob.to_s
+br
+br
+br
 = render layout: 'page' do
   = cache [@resource, user_signed_in?, :v9] do
     meta itemprop='url' content="#{{@resource.url}}"

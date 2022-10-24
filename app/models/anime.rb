@@ -218,6 +218,23 @@ class Anime < DbEntry
     path: ':rails_root/public/system/animes/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style.jpg'
 
+  # has_one_attached :poster, variants: {
+  #   x1: { resize_to_fit: [225, 350] },
+  #   x2: { resize_to_fit: [450, 700] },
+  #   x4: { resize_to_fit: [900, 1400] },
+  #   x1_webp: { resize_to_fit: [225, 350], convert: 'webp' },
+  #   x2_webp: { resize_to_fit: [450, 700], convert: 'webp' },
+  #   x4_webp: { resize_to_fit: [900, 1400], convert: 'webp' }
+  # }
+  has_one_attached :poster do |attachable|
+    attachable.variant :x1, resize_to_fit: [225, 350]
+    attachable.variant :x2, resize_to_fit: [450, 700]
+    attachable.variant :x4, resize_to_fit: [900, 1400]
+
+    attachable.variant :x1_webp, resize_to_fit: [225, 350], convert: 'webp'
+    attachable.variant :x2_webp, resize_to_fit: [450, 700], convert: 'webp'
+    attachable.variant :x4_webp, resize_to_fit: [900, 1400], convert: 'webp'
+  end
   before_post_process { translit_paperclip_file_name :image }
 
   enumerize :kind,
