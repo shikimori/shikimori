@@ -179,11 +179,15 @@ class Api::V1::UsersController < Api::V1Controller
       .offset(@limit * (@page - 1))
       .limit(@limit + 1)
 
-    if params[:target_id]
-      @collection.where! target_id: params[:target_id]
+    if params[:target_id] && params[:target_type]
+      @collection.where!(
+       ( params[:target_type] == 'Anime' ? :anime_id : :manga_id) => params[:target_id]
+      )
     end
     if params[:target_type]
-      @collection.where! target_type: params[:target_type]
+      @collection = @collection.where.not(
+        (params[:target_type] == 'Anime' ? :anime_id : :manga_id) => nil
+      )
     end
     if params[:updated_at_gte]
       @collection.where! 'updated_at >= ?', Time.zone.parse(params[:updated_at_gte])
