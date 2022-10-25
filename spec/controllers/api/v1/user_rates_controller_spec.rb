@@ -9,7 +9,7 @@ describe Api::V1::UserRatesController do
 
     describe '#show', :show_in_doc do
       let(:user_rate) { create :user_rate, user: user }
-      before { get :show, params: { id: user_rate.id }, format: :json }
+      subject! { get :show, params: { id: user_rate.id }, format: :json }
 
       it { expect(response).to have_http_status :success }
     end
@@ -30,10 +30,16 @@ describe Api::V1::UserRatesController do
           rewatches: 5
         }
       end
-      let(:make_request) { post :create, params: { user_rate: create_params }, format: :json }
+      let(:make_request) do
+        post :create,
+          params: {
+            user_rate: create_params
+          },
+          format: :json
+      end
 
       context 'new user_rate', :show_in_doc do
-        before { make_request }
+        subject! { make_request }
 
         it do
           expect(resource).to be_persisted
@@ -58,7 +64,7 @@ describe Api::V1::UserRatesController do
 
       context 'present user_rate' do
         let!(:user_rate) { create :user_rate, user: user, target: target }
-        before { make_request }
+        subject! { make_request }
 
         it do
           expect(resource).to have_attributes create_params
@@ -86,7 +92,14 @@ describe Api::V1::UserRatesController do
           rewatches: 5
         }
       end
-      before { patch :update, params: { id: user_rate.id, user_rate: update_params }, format: :json }
+      subject! do
+        patch :update,
+          params: {
+            id: user_rate.id,
+            user_rate: update_params
+          },
+          format: :json
+      end
 
       it do
         expect(resource).to have_attributes update_params
@@ -110,7 +123,7 @@ describe Api::V1::UserRatesController do
 
     describe '#increment', :show_in_doc do
       let(:user_rate) { create :user_rate, user: user, episodes: 1 }
-      before { post :increment, params: { id: user_rate.id }, format: :json }
+      subject! { post :increment, params: { id: user_rate.id }, format: :json }
 
       it do
         expect(resource.episodes).to eq user_rate.episodes + 1
@@ -134,7 +147,7 @@ describe Api::V1::UserRatesController do
 
     describe '#destroy', :show_in_doc do
       let(:user_rate) { create :user_rate, %i[planned completed].sample, user: user }
-      before { delete :destroy, params: { id: user_rate.id }, format: :json }
+      subject! { delete :destroy, params: { id: user_rate.id }, format: :json }
 
       it do
         expect(resource).to be_destroyed
@@ -158,11 +171,11 @@ describe Api::V1::UserRatesController do
 
     describe '#cleanup' do
       let!(:user_rate) { create :user_rate, user: user, target: entry }
-      let!(:user_history) { create :user_history, user: user, target: entry }
+      let!(:user_history) { create :user_history, user: user, (entry.anime? ? :anime : :manga) => entry }
 
       context 'anime', :show_in_doc do
         let(:entry) { create :anime }
-        before { delete :cleanup, params: { type: :anime } }
+        subject! { delete :cleanup, params: { type: :anime } }
 
         it do
           expect(user.anime_rates).to be_empty
@@ -179,7 +192,7 @@ describe Api::V1::UserRatesController do
 
       context 'manga' do
         let(:entry) { create :manga }
-        before { delete :cleanup, params: { type: :manga } }
+        subject! { delete :cleanup, params: { type: :manga } }
 
         it do
           expect(user.manga_rates).to be_empty
@@ -198,7 +211,7 @@ describe Api::V1::UserRatesController do
 
       context 'anime', :show_in_doc do
         let(:entry) { create :anime }
-        before { delete :reset, params: { type: :anime } }
+        subject! { delete :reset, params: { type: :anime } }
 
         it do
           expect(user_rate.reload.score).to be_zero
@@ -214,7 +227,7 @@ describe Api::V1::UserRatesController do
 
       context 'manga' do
         let(:entry) { create :manga }
-        before { delete :reset, params: { type: :manga } }
+        subject! { delete :reset, params: { type: :manga } }
 
         it do
           expect(user_rate.reload.score).to be_zero

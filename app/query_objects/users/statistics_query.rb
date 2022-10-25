@@ -25,7 +25,7 @@ class Users::StatisticsQuery
     @anime_valuable_rates = @anime_rates.reject { |v| v.dropped? || v.planned? }
     @anime_history = @user
       .history
-      .where(target_type: Anime.name)
+      .where.not(anime_id: nil)
       .where(
         'action in (?) or (action = ? and value in (?))',
         [
@@ -53,7 +53,7 @@ class Users::StatisticsQuery
     @manga_valuable_rates = @manga_rates.reject { |v| v.dropped? || v.planned? }
     @manga_history = @user
       .history
-      .where(target_type: Manga.name)
+      .where.not(manga_id: nil)
       .where('action in (?) or (action = ? and value in (?))',
         [
           UserHistoryAction::CHAPTERS,

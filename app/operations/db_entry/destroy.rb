@@ -34,6 +34,6 @@ private
   end
 
   def user_history
-    UserHistory.where(target: @entry)
+    UserHistory.where((@entry.anime? ? :anime_id : :manga_id) => @entry.id)
   end
 end

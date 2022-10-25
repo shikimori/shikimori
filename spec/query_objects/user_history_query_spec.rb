@@ -8,7 +8,7 @@ describe UserHistoryQuery do
   subject { query.postload page, limit }
 
   describe '#postload' do
-    let!(:history) { create :user_history, user: user, target: anime }
+    let!(:history) { create :user_history, user: user, anime: anime }
 
     context 'one page' do
       its(:first) { should eq(today: [history]) }
@@ -16,7 +16,9 @@ describe UserHistoryQuery do
     end
 
     context 'two pages' do
-      let!(:history_2) { create :user_history, user: user, target: anime, updated_at: 2.days.ago }
+      let!(:history_2) do
+        create :user_history, user: user, anime: anime, updated_at: 2.days.ago
+      end
 
       context 'first page' do
         its(:first) { should eq(today: [history]) }

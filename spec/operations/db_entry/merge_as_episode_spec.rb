@@ -45,9 +45,15 @@ describe DbEntry::MergeAsEpisode do
   let!(:user_1_rate_log_other) { create :user_rate_log, target: other, user: user_1 }
   let!(:user_2_rate_log_entry) { create :user_rate_log, target: entry, user: user_2 }
 
-  let!(:user_1_history_entry) { create :user_history, target: entry, user: user_1 }
-  let!(:user_1_history_other) { create :user_history, target: other, user: user_1 }
-  let!(:user_2_history_entry) { create :user_history, target: entry, user: user_2 }
+  let!(:user_1_history_entry) do
+    create :user_history, (entry.anime? ? :anime : :manga) => entry, user: user_1
+  end
+  let!(:user_1_history_other) do
+    create :user_history, (other.anime? ? :anime : :manga) => other, user: user_1
+  end
+  let!(:user_2_history_entry) do
+    create :user_history, (entry.anime? ? :anime : :manga) => entry, user: user_2
+  end
 
   let!(:topic_1) { create :topic, linked: entry }
   let!(:topic_2) { create :topic, linked: entry, generated: true }

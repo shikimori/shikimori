@@ -3,7 +3,7 @@ describe UserHistoryView do
   let(:view) { UserHistoryView.new user }
 
   let(:anime) { create :anime }
-  let!(:history) { create :user_history, user: user, target: anime }
+  let!(:history) { create :user_history, user: user, anime: anime }
 
   describe '#page' do
     it { expect(view.page).to eq 1 }

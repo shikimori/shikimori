@@ -1,7 +1,6 @@
 describe UserHistoryDecorator do
   let(:user_history) do
     build :user_history,
-      target: target,
       anime: (target if target&.anime?),
       manga: (target if target&.kinda_manga?),
       action: action,
@@ -10,10 +9,10 @@ describe UserHistoryDecorator do
   end
   let(:decorator) { user_history.decorate }
 
-  let(:action) { }
-  let(:target) { }
-  let(:value) { }
-  let(:prior_value) { }
+  let(:action) { nil }
+  let(:target) { nil }
+  let(:value) { nil }
+  let(:prior_value) { nil }
 
   describe '#target' do
     it { expect(decorator.target).to be_nil }
@@ -225,23 +224,23 @@ describe UserHistoryDecorator do
     end
 
     context 'watched two episodes' do
-      let(:value) { [7,8] }
+      let(:value) { [7, 8] }
       it { is_expected.to eq 'Просмотрены 7-й и 8-й эпизоды' }
     end
 
     context 'watched three episodes' do
-      let(:value) { [7,8,9] }
+      let(:value) { [7, 8, 9] }
       it { is_expected.to eq 'Просмотрены 7-й, 8-й и 9-й эпизоды' }
     end
 
     context 'watched few first episodes' do
       let(:prior_value) { 0 }
-      let(:value) { [1,2,3,4] }
+      let(:value) { [1, 2, 3, 4] }
       it { is_expected.to eq 'Просмотрены 4 эпизода' }
     end
 
     context 'watched a few episodes' do
-      let(:value) { [7,8,9,10] }
+      let(:value) { [7, 8, 9, 10] }
       it { is_expected.to eq 'Просмотрены с 7-го по 10-й эпизоды' }
     end
   end

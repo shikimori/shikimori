@@ -5,7 +5,7 @@ describe DbEntry::Destroy do
   let!(:db_entry) { create type }
   let!(:user_rate) { create :user_rate, target: db_entry }
   let!(:user_rate_log) { create :user_rate_log, target: db_entry }
-  let!(:user_history) { create :user_history, target: db_entry }
+  let!(:user_history) { create :user_history, (db_entry.anime? ? :anime : :manga) => db_entry }
 
   subject! { described_class.call db_entry }
 

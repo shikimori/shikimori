@@ -53,11 +53,15 @@ private
   end
 
   def delete_user_rate_logs
-    UserRateLog.where(target: @entry).delete_all
+    UserRateLog
+      .where(target: @entry)
+      .delete_all
   end
 
   def delete_user_histories
-    UserHistory.where(target: @entry).delete_all
+    UserHistory
+      .where((@entry.anime? ? :anime_id : :manga_id) => @entry.id)
+      .delete_all
   end
 
   def merge_rate entry_rate, other_rates

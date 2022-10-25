@@ -51,8 +51,7 @@ private
         UserHistoryAction::ANIME_IMPORT :
         UserHistoryAction::MANGA_IMPORT,
       value: @list_import.output[ListImports::ImportList::ADDED].size +
-        @list_import.output[ListImports::ImportList::UPDATED].size,
-      target: @list_import
+        @list_import.output[ListImports::ImportList::UPDATED].size
     )
   end
 

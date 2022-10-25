@@ -118,45 +118,55 @@ describe UserRate do
 
     describe '#smart_process_changes' do
       context 'onhold with episode' do
-        subject(:user_rate) { create :user_rate, :on_hold, target: build_stubbed(:anime, episodes: 99), episodes: 6 }
+        subject(:user_rate) do
+          create :user_rate, :on_hold, target: create(:anime, episodes: 99), episodes: 6
+        end
         it { is_expected.to be_on_hold }
         its(:episodes) { is_expected.to eq 6 }
       end
 
       context 'dropped with full episode' do
-        subject(:user_rate) { create :user_rate, :dropped, target: build_stubbed(:anime, episodes: 3), episodes: 3 }
+        subject(:user_rate) do
+          create :user_rate, :dropped, target: create(:anime, episodes: 3), episodes: 3
+        end
         it { is_expected.to be_dropped }
         its(:episodes) { is_expected.to eq 3 }
       end
 
       context 'dropped with parital episode' do
-        subject(:user_rate) { create :user_rate, :dropped, target: build_stubbed(:anime, episodes: 3), episodes: 2 }
+        subject(:user_rate) do
+          create :user_rate, :dropped, target: create(:anime, episodes: 3), episodes: 2
+        end
         it { is_expected.to be_dropped }
         its(:episodes) { is_expected.to eq 2 }
       end
 
       context 'planned with full episode' do
-        subject { create :user_rate, :planned, target: build_stubbed(:anime, episodes: 3), episodes: 3 }
+        subject do
+          create :user_rate, :planned, target: create(:anime, episodes: 3), episodes: 3
+        end
         it { is_expected.to be_completed }
         its(:episodes) { is_expected.to eq 3 }
       end
 
       describe 'status change' do
         context 'anime' do
-          let(:user_rate) { build :user_rate, :watching, target: build_stubbed(:anime) }
+          let(:user_rate) { build :user_rate, :watching, target: create(:anime) }
           after { user_rate.save }
           it { expect(user_rate).to receive :anime_status_changed }
         end
 
         context 'manga' do
-          let(:user_rate) { build :user_rate, :watching, target: build_stubbed(:manga) }
+          let(:user_rate) { build :user_rate, :watching, target: create(:manga) }
           after { user_rate.save }
           it { expect(user_rate).to receive :manga_status_changed }
         end
       end
 
       describe 'nil rewatches' do
-        let(:user_rate) { build :user_rate, :watching, target: build_stubbed(:anime), rewatches: nil }
+        let(:user_rate) do
+          build :user_rate, :watching, target: create(:anime), rewatches: nil
+        end
         before { user_rate.save }
         its(:rewatches) { is_expected.to be_zero }
       end
@@ -224,7 +234,7 @@ describe UserRate do
         let(:new_status) { :planned }
 
         context 'anime' do
-          let(:target) { build_stubbed :anime, episodes: 20 }
+          let(:target) { create :anime, episodes: 20 }
 
           context 'completed' do
             let(:old_status) { :completed }
@@ -238,7 +248,7 @@ describe UserRate do
         end
 
         context 'manga' do
-          let(:target) { build_stubbed :manga, volumes: 20, chapters: 25 }
+          let(:target) { create :manga, volumes: 20, chapters: 25 }
 
           context 'completed' do
             let(:old_status) { :completed }
@@ -259,19 +269,19 @@ describe UserRate do
         let(:new_status) { :rewatching }
 
         context 'anime' do
-          let(:target) { build_stubbed :anime, episodes: 20 }
+          let(:target) { create :anime, episodes: 20 }
           its(:episodes) { is_expected.to eq 0 }
         end
 
         context 'manga' do
-          let(:target) { build_stubbed :manga, volumes: 20, chapters: 20 }
+          let(:target) { create :manga, volumes: 20, chapters: 20 }
           its(:volumes) { is_expected.to eq 0 }
           its(:chapters) { is_expected.to eq 0 }
         end
       end
 
       context 'to rewatching with episodes' do
-        let(:target) { build_stubbed :anime, episodes: 20 }
+        let(:target) { create :anime, episodes: 20 }
         let(:old_status) { :completed }
         let(:new_status) { :rewatching }
         let(:new_episodes) { 10 }
@@ -281,7 +291,7 @@ describe UserRate do
       end
 
       context 'to onhold with 0 episodes from completed' do
-        let(:target) { build_stubbed :anime, episodes: 20 }
+        let(:target) { create :anime, episodes: 20 }
         let(:old_status) { :completed }
         let(:new_status) { :on_hold }
         let(:new_episodes) { 0 }
@@ -293,7 +303,7 @@ describe UserRate do
 
       context 'to completed for ongoing w/o episodes' do
         subject(:user_rate) { create :user_rate, old_status, episodes: old_episodes, target: target }
-        let(:target) { build_stubbed :anime, :ongoing, episodes: 0 }
+        let(:target) { create :anime, :ongoing, episodes: 0 }
 
         let(:old_episodes) { 3 }
         let(:old_status) { :watching }
@@ -322,7 +332,11 @@ describe UserRate do
       context 'regular change' do
         let(:new_value) { 8 }
 
-        before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::RATE, new_value, old_value }
+        before do
+          expect(UserHistory)
+            .to receive(:add)
+            .with user_rate.user, user_rate.target, UserHistoryAction::RATE, new_value, old_value
+        end
         before { user_rate.update score: new_value }
 
         its(:score) { is_expected.to eq new_value }
@@ -362,11 +376,15 @@ describe UserRate do
       let(:target_value) { 99 }
 
       context 'anime' do
-        let(:target) { build_stubbed :anime, episodes: target_value }
+        let(:target) { create :anime, episodes: target_value }
         before { user_rate.update episodes: new_value }
 
         context 'regular_change' do
-          before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::EPISODES, newest_value, new_value }
+          before do
+            expect(UserHistory)
+              .to receive(:add)
+              .with user_rate.user, user_rate.target, UserHistoryAction::EPISODES, newest_value, new_value
+          end
           before { user_rate.update episodes: 7 }
 
           let(:old_value) { 3 }
@@ -460,7 +478,7 @@ describe UserRate do
         let(:other_value) { 200 }
 
         describe 'volumes' do
-          let(:target) { build_stubbed :manga, volumes: target_value, chapters: other_value }
+          let(:target) { create :manga, volumes: target_value, chapters: other_value }
           before { user_rate.update volumes: new_value }
 
           context 'full read' do
@@ -478,7 +496,7 @@ describe UserRate do
         end
 
         describe 'chapters' do
-          let(:target) { build_stubbed :manga, volumes: other_value, chapters: target_value }
+          let(:target) { create :manga, volumes: other_value, chapters: target_value }
           before { user_rate.update chapters: new_value }
 
           context 'full read' do
@@ -500,7 +518,7 @@ describe UserRate do
     describe '#log_created' do
       subject(:user_rate) do
         build :user_rate,
-          target: build_stubbed(:anime),
+          target: create(:anime),
           user: seed(:user),
           status: status,
           score: score

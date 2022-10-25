@@ -1,7 +1,6 @@
 describe UserHistory do
   describe 'relations' do
     it { is_expected.to belong_to :user }
-    it { is_expected.to belong_to(:target).optional }
     it { is_expected.to belong_to(:anime).optional }
     it { is_expected.to belong_to(:manga).optional }
   end
@@ -18,8 +17,8 @@ describe UserHistory do
       let(:user_2) { create :user, id: 2 }
 
       let(:kind) { %i[anime manga ranobe].sample }
-      let(:anime) { build_stubbed kind, id: 1 }
-      let(:anime_2) { build_stubbed kind, id: 2 }
+      let(:anime) { create kind, id: 1 }
+      let(:anime_2) { create kind, id: 2 }
 
       context 'added anime successfully' do
         subject { UserHistory.add user, anime, UserHistoryAction::ADD }

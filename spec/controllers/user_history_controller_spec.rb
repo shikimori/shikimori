@@ -2,7 +2,7 @@ describe UserHistoryController do
   let!(:user) { create :user }
 
   describe '#index' do
-    let!(:history) { create :user_history, user: user, target: create(:anime) }
+    let!(:history) { create :user_history, user: user, anime: create(:anime) }
     let(:make_request) { get :index, params: { profile_id: user.to_param } }
 
     context 'has access to list' do
@@ -69,7 +69,9 @@ describe UserHistoryController do
   end
 
   describe '#reset' do
-    let!(:user_history) { create :user_history, user: user, target: entry }
+    let!(:user_history) do
+      create :user_history, user: user, (entry.anime? ? :anime : :manga) => entry
+    end
     let(:type) { entry.class.name.downcase }
     let(:make_request) { delete :reset, params: { profile_id: user.to_param, type: type } }
 

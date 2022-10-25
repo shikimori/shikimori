@@ -95,9 +95,7 @@ class Anime < DbEntry
     foreign_key: :target_id,
     dependent: :destroy
 
-  has_many :user_histories, -> { where target_type: Anime.name },
-    foreign_key: :target_id,
-    dependent: :destroy
+  has_many :user_histories, dependent: :destroy
 
   has_many :reviews, dependent: :destroy, inverse_of: :anime
 

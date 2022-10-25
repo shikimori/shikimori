@@ -82,9 +82,7 @@ class Manga < DbEntry
     through: :similar,
     source: :dst
 
-  has_many :user_histories, -> { where target_type: Manga.name },
-    foreign_key: :target_id,
-    dependent: :destroy
+  has_many :user_histories, dependent: :destroy
 
   has_many :reviews, dependent: :destroy, inverse_of: :manga
 
