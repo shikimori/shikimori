@@ -15,7 +15,8 @@
       - if content_title != :none
         .line.name itemprop='name'
           - if Rails.env.development?
-            ' [#{anime.id}]
+            code.b-code_inline style='margin-right: 5px'
+              | [#{anime.id}]
           - if !defined?(cover_by) || cover_by != :link
             a.data.name[
               href=anime.url
