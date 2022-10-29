@@ -1,7 +1,10 @@
 /* global importScripts */
 import View from '@/views/application/view';
+import shikiMarkdown from 'shiki-editor/src/utils/lowlight/shiki_markdown';
+import JSONfn from 'json-fn';
 
 const NO_HIGHLIGHT = 'nohighlight';
+let shikiMarkdownJSONfn = null;
 
 export default class CodeHighlight extends View {
   initialize() {
@@ -24,11 +27,13 @@ export default class CodeHighlight extends View {
 
     node.id = `code_${this.klass.lastId}`;
     this.klass.lastId += 1;
+    shikiMarkdownJSONfn ||= JSONfn.stringify(shikiMarkdown);
 
     this.klass.worker.postMessage({
       node_id: node.id,
       code: node.textContent,
-      language
+      language,
+      shikiMarkdownJSONfn
     });
   }
 
@@ -40,10 +45,51 @@ export default class CodeHighlight extends View {
 
     this.worker = this.buildWorker(function() {
       importScripts(
-        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js'
+        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'
+        // requested them to add json-fn https://github.com/cdnjs/packages/issues/1380
+        // 'https://cdnjs.cloudflare.com/ajax/libs/json-fn/1.1.1/jsonfn.js'
       );
 
+      // https://raw.githubusercontent.com/vkiryukhin/jsonfn/master/jsonfn.js
+      const parseJSONfn = function(str, date2obj) {
+        var iso8061 = date2obj ?
+          /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)Z$/ :
+          false;
+
+        return JSON.parse(str, function(key, value) {
+          var prefix;
+
+          if (typeof value != 'string') {
+            return value;
+          }
+          if (value.length < 8) {
+            return value;
+          }
+
+          prefix = value.substring(0, 8);
+
+          if (iso8061 && value.match(iso8061)) {
+            return new Date(value);
+          }
+          if (prefix === 'function') {
+            return eval('(' + value + ')');
+          }
+          if (prefix === '_PxEgEr_') {
+            return eval(value.slice(8));
+          }
+          if (prefix === '_NuFrRa_') {
+            return eval(value.slice(8));
+          }
+
+          return value;
+        });
+      };
+
       this.onmessage = function(event) {
+        if (!self.hljs.listLanguages().includes('shiki')) {
+          self.hljs.registerLanguage('shiki', parseJSONfn(event.data.shikiMarkdownJSONfn));
+        }
+
         const result = self // eslint-disable-line no-restricted-globals
           .hljs
           .highlight(event.data.language, event.data.code, true);
