@@ -14,6 +14,8 @@
     .inner class=(:offset if local_assigns[:with_image])
       - if content_title != :none
         .line.name itemprop='name'
+          / - if Rails.env.development?
+          /   ' [#{anime.id}]
           - if !defined?(cover_by) || cover_by != :link
             a.data.name[
               href=anime.url

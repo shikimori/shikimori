@@ -2,7 +2,7 @@
 ---
 -
   - A10012 # Carnival Phantasm
-  - A2593 # Kara no Kyoukai 1: Fukan Fuukei
+  - A2593 # Kara no Kyoukai Movie 1: Fukan Fuukei
 -
   - A10033 # Toriko
   - A21 # One Piece
@@ -170,8 +170,14 @@
   - A144 # Kanon
   - A48775 # Kaginado
 -
+  - A1445 # Mach GoGoGo
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
+-
   - A1458 # Uchuu no Kishi Tekkaman
   - A33027 # Infini-T Force
+-
+  - A1458 # Uchuu no Kishi Tekkaman
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
 -
   - A1459 # Uchuu no Kishi Tekkaman Blade
   - A33027 # Infini-T Force
@@ -202,6 +208,9 @@
 -
   - A15911 # Yuyushiki
   - A36805 # Kirara Fantasia
+-
+  - A15957 # Dokachin
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
 -
   - A1598 # Casshern: Robot Hunter
   - A33027 # Infini-T Force
@@ -331,6 +340,9 @@
   - A21493 # Ninja Hattori-kun: Nin Nin Ninpo Enikki no Maki
   - A2671 # Doraemon Movie 03: Nobita no Daimakyou
 -
+  - A21539 # Oraa Guzura Dado
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
+-
   - A2165 # Gegege no Kitarou (2007)
   - A34471 # Youkai Watch Movie 4: Shadow Side - Oni-ou no Fukkatsu
 -
@@ -424,6 +436,9 @@
   - A2389 # Kagaku Ninja-tai Gatchaman
   - A34844 # Ponkotsu Quest x Gatchaman Special
 -
+  - A2389 # Kagaku Ninja-tai Gatchaman
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
+-
   - A23933 # Kyutai Panic Adventure!
   - A971 # Astro Boy: Tetsuwan Atom
 -
@@ -453,6 +468,9 @@
 -
   - A2553 # Flanders no Inu
   - A37423 # Shiawase Pasta Story
+-
+  - A2574 # Kashi no Ki Mokku
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
 -
   - A2576 # Araiguma Rascal
   - A37423 # Shiawase Pasta Story
@@ -488,6 +506,8 @@
   - A6213 # Toaru Kagaku no Railgun
 -
   - A28149 # Nihon Animator Mihonichi
+-
+  - A28149 # Nihon Animator Mihonichi
   - A30 # Neon Genesis Evangelion
 -
   - A28149 # Nihon Animator Mihonichi
@@ -513,6 +533,8 @@
 -
   - A28149 # Nihon Animator Mihonichi
   - A3785 # Evangelion: 3.0 You Can (Not) Redo
+-
+  - A28149 # Nihon Animator Mihonichi
 -
   - A28149 # Nihon Animator Mihonichi
   - A80 # Mobile Suit Gundam
@@ -588,6 +610,9 @@
   - A33512 # Animegatari x Koukaku Kidoutai Collab Eizou
 -
   - A30617 # Animegatari
+-
+  - A307 # Kerokko Demetan
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
 -
   - A30757 # Monster Strike
   - A40323 # Gintama: Monster Strike-hen
@@ -796,6 +821,9 @@
   - A36805 # Kirara Fantasia
   - A9776 # A-Channel
 -
+  - A3683 # Kabatotto
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
+-
   - A37487 # Muhyo to Rouji no Mahouritsu Soudan Jimusho
   - A38106 # Hotohashiru
 -
@@ -811,14 +839,23 @@
   - A384 # Gantz
   - A40711 # Gantz x Senran Kagura New Link
 -
+  - A3858 # Konchuu Monogatari Minashigo Hutch
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
+-
   - A38659 # Shinchou Yuusha: Kono Yuusha ga Ore Tueee Kuse ni Shinchou Su
   - A39988 # Isekai Quartet 2
 -
   - A38659 # Shinchou Yuusha: Kono Yuusha ga Ore Tueee Kuse ni Shinchou Su
   - A41567 # Isekai Quartet Movie: Another World
 -
+  - A3915 # Time Bokan
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
+-
   - A39721 # Fairy Tail x Mameshiba
   - A6702 # Fairy Tail
+-
+  - A4013 # Paul no Miracle Daisakusen
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
 -
   - A41059 # Mameshiba x Nanatsu no Taizai Collab CM
   - A7261 # Mameshiba
@@ -832,6 +869,12 @@
   - A4578 # Time Bokan Oudou Fukko
   - A4810 # Shinzou Ningen Casshern
 -
+  - A4808 # Hurricane Polymar
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
+-
+  - A4810 # Shinzou Ningen Casshern
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
+-
   - A4896 # Umineko no Naku Koro ni
   - A934 # Higurashi no Naku Koro ni
 -
@@ -840,6 +883,15 @@
 -
   - A4941 # Tezuka Osamu ga Kieta?! 20 Seiki Saigo no Kaijiken
   - A5249 # Mitsume ga Tooru
+-
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
+  - A5287 # Ippatsu Kanta-kun
+-
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
+  - A6989 # Uchuu Ace
+-
+  - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
+  - A7551 # Gowapper 5 Gordam
 -
   - A6511 # Chou Seimeitai Transformers Beast Wars Neo
 -

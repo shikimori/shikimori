@@ -136,10 +136,12 @@ export class FranchiseGraph {
 
   _check_non_symmetrical_links() {
     return this.links_data.forEach(entry_1 => {
-      const symmetrical_link = this.links_data.find(entry_2 => (entry_2.source_id === entry_1.target_id) && (entry_2.target_id === entry_1.source_id));
+      const symmetrical_link = this.links_data
+        .find(entry_2 => (entry_2.source_id === entry_1.target_id) && (entry_2.target_id === entry_1.source_id));
 
       if (!symmetrical_link) {
-        return console.warn('non symmetical link', entry_1);
+        console.warn(`non symmetical link [${entry_1.source_id}, ${entry_1.target_id}]`, entry_1);
+        return ;
       }
     });
   }
