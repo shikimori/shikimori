@@ -4514,6 +4514,7 @@
         - 52270
         - 43694
         - 53316
+        - 53245
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -9711,6 +9712,7 @@
         - 35960
         - 48775
         - 50685
+        - 50917
       :generator:
         person_id: 2885
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -9771,6 +9773,7 @@
         - 35960
         - 48775
         - 50685
+        - 50917
       :generator:
         person_id: 2885
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -31962,7 +31965,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.7%
+      :threshold: 92%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -32569,6 +32572,9 @@
         not_anime_ids:
         - 28723
       :threshold: 94.3%
+      :generator:
+        ignore_latest_ids:
+        - 52992
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
@@ -32600,6 +32606,9 @@
         not_anime_ids:
         - 28723
       :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 52992
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
@@ -32694,6 +32703,7 @@
         franchise: urusei_yatsura
         not_anime_ids:
         - 1481
+        - 53402
       :threshold: 93.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -32725,6 +32735,7 @@
         franchise: urusei_yatsura
         not_anime_ids:
         - 1481
+        - 53402
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
