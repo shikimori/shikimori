@@ -39,7 +39,7 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
   def author_achievements
     completed_authors = level_achievements all_author_achievements, 1
 
-    return [] if completed_authors.none?
+    # return [] if completed_authors.none?
 
     sort_combined_achievements(
       completed_authors +
@@ -61,7 +61,7 @@ private
 
   def sort_combined_achievements achievements
     achievements.sort_by do |rule|
-      [rule.level.zero? ? 1 : 0, -rule.progress]
+      [rule.level.zero? ? 1 : 0, -rule.progress] + rule.sort_criteria
     end
   end
 end
