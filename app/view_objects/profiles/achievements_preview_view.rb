@@ -44,7 +44,7 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
     sort_combined_achievements(
       completed_authors +
         level_achievements(all_author_achievements, 0)
-    ).take(4)
+    ).take(5)
   end
 
 private
