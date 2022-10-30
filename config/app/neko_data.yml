@@ -18591,7 +18591,7 @@
         - 40489
         - 41341
         - 42128
-      :threshold: 93%
+      :threshold: 95%
       :generator:
         ignore_latest_ids:
         - 42916
@@ -21581,7 +21581,15 @@
         - 50696
         - 51162
         - 51163
+        - 52139
         - 52199
+        - 52832
+        - 52846
+        - 52847
+        - 52871
+        - 52872
+        - 52873
+        - 52893
         - 52921
         - 53235
       :threshold: 95.3%
@@ -21641,7 +21649,15 @@
         - 50696
         - 51162
         - 51163
+        - 52139
         - 52199
+        - 52832
+        - 52846
+        - 52847
+        - 52871
+        - 52872
+        - 52873
+        - 52893
         - 52921
         - 53235
       :threshold: 0.01
@@ -23810,6 +23826,8 @@
         - 41188
         - 41189
         - 41204
+        - 49882
+        - 49988
         - 52010
         - 52011
         - 52745
@@ -23880,6 +23898,8 @@
         - 41188
         - 41189
         - 41204
+        - 49882
+        - 49988
         - 52010
         - 52011
         - 52745
@@ -24414,13 +24434,16 @@
         - 42914
         - 42984
         - 49321
+        - 50815
         - 50840
+        - 51015
         - 51150
         - 51424
         - 51870
         - 51887
         - 51889
-      :threshold: 92.7%
+        - 52897
+      :threshold: 93.9%
       :generator:
         ignore_latest_ids:
         - 37966
@@ -24475,12 +24498,15 @@
         - 42914
         - 42984
         - 49321
+        - 50815
         - 50840
+        - 51015
         - 51150
         - 51424
         - 51870
         - 51887
         - 51889
+        - 52897
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -24965,7 +24991,7 @@
       :algo: duration
       :filters:
         franchise: uta_no_prince_sama
-      :threshold: 95%
+      :threshold: 88.8%
       :generator:
         ignore_latest_ids:
         - 35645
@@ -27027,7 +27053,7 @@
         - 42476
         - 47413
         - 51782
-      :threshold: 93.2%
+      :threshold: 93.4%
       :generator:
         ignore_latest_ids:
         - 38770
@@ -28879,6 +28905,7 @@
         franchise: jashin_chan_dropkick
         not_anime_ids:
         - 52006
+        - 52649
       :threshold: 97.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -28910,6 +28937,7 @@
         franchise: jashin_chan_dropkick
         not_anime_ids:
         - 52006
+        - 52649
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -29023,8 +29051,9 @@
         - 40753
         - 42882
         - 49735
+        - 51509
         - 51842
-      :threshold: 87.8%
+      :threshold: 86.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :idolmaster
@@ -29071,6 +29100,7 @@
         - 40753
         - 42882
         - 49735
+        - 51509
         - 51842
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -29573,7 +29603,7 @@
         - 24347
         - 36913
         - 51221
-      :threshold: 90%
+      :threshold: 96%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :inazuma_eleven
@@ -30038,7 +30068,11 @@
         - 41377
         - 48772
         - 48773
-      :threshold: 93.5%
+        - 50563
+        - 50735
+        - 51087
+        - 51478
+      :threshold: 91.4%
       :generator:
         not_ignored_ids:
         - 38986
@@ -30106,6 +30140,10 @@
         - 41377
         - 48772
         - 48773
+        - 50563
+        - 50735
+        - 51087
+        - 51478
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -30172,7 +30210,7 @@
         not_anime_ids:
         - 37710
         - 49442
-      :threshold: 97.7%
+      :threshold: 97.8%
       :generator:
         not_ignored_ids:
         - 32446
@@ -32571,7 +32609,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 94.3%
+      :threshold: 95.9%
       :generator:
         ignore_latest_ids:
         - 52992
