@@ -18591,7 +18591,7 @@
         - 40489
         - 41341
         - 42128
-      :threshold: 95%
+      :threshold: 93.1%
       :generator:
         ignore_latest_ids:
         - 42916
