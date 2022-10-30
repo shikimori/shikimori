@@ -16,7 +16,8 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
 
     achievements_view.franchise_achievements_size.positive? ||
       achievements_view.common_achievements.size.positive? ||
-      achievements_view.genre_achievements.size.positive?
+      achievements_view.genre_achievements.size.positive? ||
+      achievements_view.author_achievements.size.positive?
   end
 
   def common_achievements
@@ -37,12 +38,8 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
   end
 
   def author_achievements
-    completed_authors = level_achievements all_author_achievements, 1
-
-    # return [] if completed_authors.none?
-
     sort_combined_achievements(
-      completed_authors +
+      level_achievements(all_author_achievements, 1) +
         level_achievements(all_author_achievements, 0)
     ).take(5)
   end

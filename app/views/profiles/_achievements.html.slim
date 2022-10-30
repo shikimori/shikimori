@@ -37,7 +37,7 @@
       - else
         p.b-nothing_here = t '.no_achievements'
 
-  - if view.author_achievements.any?
+  - if view.author_achievements[0].progress > 0
     .authors
       .header
         .title = t 'achievements.group.author'
