@@ -37,14 +37,16 @@
       - else
         p.b-nothing_here = t '.no_achievements'
 
-  - if view.author_achievements[0].progress > 0
-    .authors
-      .header
-        .title = t 'achievements.group.author'
-        a.size[
-          href=author_profile_achievements_url(view.user)
-        ] #{view.author_achievements_size} / #{view.all_author_achievements.size}
+  .authors
+    .header
+      .title = t 'achievements.group.author'
+      a.size[
+        href=author_profile_achievements_url(view.user)
+      ] #{view.author_achievements_size} / #{view.all_author_achievements.size}
+    - if view.author_achievements.any? { |v| v.level == 1 } || view.author_achievements.all? { |v| v.progress > 0 }
       .cc-authors
         = render partial: 'users/achievements/achievement',
           collection: view.author_achievements,
           locals: { is_badge: true }
+    - else
+      p.b-nothing_here = t '.no_achievements'
