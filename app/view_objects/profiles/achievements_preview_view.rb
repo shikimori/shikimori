@@ -2,8 +2,11 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
   vattr_initialize :user, :is_own_profile
   instance_cache :achievements_view
 
-  delegate :franchise_achievements_size, to: :achievements_view
-  delegate :all_franchise_achievements, to: :achievements_view
+  delegate :franchise_achievements_size,
+    :all_franchise_achievements,
+    :author_achievements,
+    :all_author_achievements,
+    to: :achievements_view
 
   def available?
     return false unless @user.preferences.achievements_in_profile?
@@ -26,15 +29,36 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
   def franchise_achievements
     all_franchise_achievements = achievements_view.user_achievements.select(&:franchise?)
 
-    (
-      all_franchise_achievements.select { |v| v.level == 1 }.shuffle +
-        all_franchise_achievements.select { |v| v.level.zero? }.shuffle
-    ).take(12).sort_by { |rule| [rule.level.zero? ? 1 : 0] + rule.sort_criteria }
+    sort_combined_achievements(
+      level_achievements(all_franchise_achievements, 1) +
+        level_achievements(all_franchise_achievements, 0)
+    ).take(12)
+  end
+
+  def author_achievements
+    completed_authors = level_achievements all_author_achievements, 1
+
+    return [] if completed_authors.none?
+
+    sort_combined_achievements(
+      completed_authors +
+        level_achievements(all_author_achievements, 0)
+    ).take(4)
   end
 
 private
 
   def achievements_view
     Profiles::AchievementsView.new @user
+  end
+
+  def level_achievements achievements, level
+    achievements
+      .select { |v| v.level == level }
+      .shuffle
+  end
+
+  def sort_combined_achievements achievements
+    achievements.sort_by { |rule| [rule.level.zero? ? 1 : 0] + rule.sort_criteria }
   end
 end

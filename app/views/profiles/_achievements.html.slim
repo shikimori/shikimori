@@ -36,3 +36,11 @@
             as: :achievement
       - else
         p.b-nothing_here = t '.no_achievements'
+
+  - if view.author_achievements.any?
+    .header
+      .title = t 'achievements.group.author'
+    .cc-authors
+      = render partial: 'users/achievements/achievement',
+        collection: view.author_achievements,
+        locals: { is_badge: true }
