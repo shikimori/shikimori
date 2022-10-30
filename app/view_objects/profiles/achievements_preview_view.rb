@@ -61,7 +61,7 @@ private
 
   def sort_combined_achievements achievements
     achievements.sort_by do |rule|
-      [rule.level.zero? ? 1 : 0] + rule.progress
+      [rule.level.zero? ? 1 : 0, -rule.progress]
     end
   end
 end
