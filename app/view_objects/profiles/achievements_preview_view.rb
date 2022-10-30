@@ -4,6 +4,7 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
 
   delegate :franchise_achievements_size,
     :all_franchise_achievements,
+    :author_achievements_size,
     :author_achievements,
     :all_author_achievements,
     to: :achievements_view
@@ -59,6 +60,8 @@ private
   end
 
   def sort_combined_achievements achievements
-    achievements.sort_by { |rule| [rule.level.zero? ? 1 : 0] + rule.sort_criteria }
+    achievements.sort_by do |rule|
+      [rule.level.zero? ? 1 : 0] + rule.progress
+    end
   end
 end

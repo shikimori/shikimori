@@ -40,6 +40,9 @@
   - if view.author_achievements.any?
     .header
       .title = t 'achievements.group.author'
+      a.size[
+        href=author_profile_achievements_url(view.user)
+      ] #{view.author_achievements_size} / #{view.all_author_achievements.size}
     .cc-authors
       = render partial: 'users/achievements/achievement',
         collection: view.author_achievements,
