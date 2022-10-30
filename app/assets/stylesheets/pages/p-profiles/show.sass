@@ -199,12 +199,20 @@
           line-height: 18px
           width: 30px
 
+    .authors
+      +iphone
+        margin-top: $block-offset
+
     .cc-authors
       +clear_left
 
       .b-achievement
         +iphone
           +column(2, 1/2, 1.5%)
+          margin-bottom: 5px
+
+          &:nth-child(5n)
+            display: none
 
         +gte_ipad
           +column(5, 1/5, 1.5%)
