@@ -280,7 +280,7 @@ private
     # AD START: IMBA - remove 2022-10-19 23:59
     images: [{
       src: '/assets/globals/events/2022-10-05/inner_1.jpg',
-      url: 'https://bit.ly/3yhwf4L?marker=2VtzqutjgDE' # https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=05_10
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=05_10&marker=2VtzqutjgDE' # https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=05_10
     }, {
       src: '/assets/globals/events/2022-10-05/inner_2.jpg',
       url: 'https://bit.ly/3SJHmvt' # https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner2&utm_campaign=05_10
