@@ -443,7 +443,7 @@ private
         Types::Ad::Type[:mt_970x250]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894], # IMBA - remove 2022-10-19 23:59
+        # Types::Ad::Type[:special_x894], # IMBA - remove 2022-10-19 23:59
         Types::Ad::Type[:yd_970x90],
         Types::Ad::Type[:mt_728x90]
       ],
@@ -479,7 +479,7 @@ private
         Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894], # IMBA - remove 2022-10-19 23:59
+        # Types::Ad::Type[:special_x894], # IMBA - remove 2022-10-19 23:59
         # Types::Ad::Type[:mt_728x90],
         Types::Ad::Type[:advrtr_x728]
       ],

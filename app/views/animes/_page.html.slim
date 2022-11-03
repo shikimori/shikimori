@@ -28,8 +28,8 @@ header.head
       .block
         = yield
 
-      / - unless %w[show edit edit_field].include?(params[:action]) && user_signed_in?
-      - unless %w[edit edit_field].include?(params[:action])
+      / - unless %w[edit edit_field].include?(params[:action])
+      - unless %w[show edit edit_field].include?(params[:action]) && user_signed_in?
         = render 'spnsrs/ad', ad: Ad.new(:horizontal_x90)
 
       - unless @resource.rkn_abused?
