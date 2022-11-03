@@ -113,7 +113,7 @@ class Users::StatisticsQuery
         # аниме может быть запланированным с указанным числом эпизодов.
         # такое не надо учитывать
         if rate && !rate.planned?
-          history.value = rate.episodes > 0 ? rate.episodes : rate.chapters
+          history.value = rate.episodes.positive? ? rate.episodes : rate.chapters
         end
       end
       .select { |history| history.value.to_i.positive? }
@@ -138,7 +138,7 @@ class Users::StatisticsQuery
         duration: v[:duration],
         completed: 0,
         episodes: (
-          v[:entry_episodes] > 0 ? v[:entry_episodes] : v[:entry_episodes_aired]
+          v[:entry_episodes].positive? ? v[:entry_episodes] : v[:entry_episodes_aired]
         )
       }
     end
@@ -217,11 +217,14 @@ class Users::StatisticsQuery
 
             completed = cached[:completed]
 
+            ap episodes
             # откусываем с конца элементы, т.к. могут задать меньшее число эпизодов после большего
             episodes.pop while episodes.length > 1 && episodes.last < episodes.first
+            ap episodes
 
             if episodes.size == 1
               cached[:completed] = episodes.first
+
               if completed > episodes.first
                 0
               else
@@ -240,6 +243,7 @@ class Users::StatisticsQuery
             end
           end
 
+        ap [entry, entry_time]
         spent_time += entry_time
       end
 

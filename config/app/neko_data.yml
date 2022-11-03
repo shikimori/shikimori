@@ -18877,6 +18877,7 @@
         - 35262
         - 43683
         - 52930
+        - 52946
       :threshold: 95%
       :generator:
         ignore_latest_ids:
@@ -18914,6 +18915,7 @@
         - 35262
         - 43683
         - 52930
+        - 52946
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -20607,7 +20609,7 @@
       :algo: duration
       :filters:
         franchise: bleach
-      :threshold: 97.5%
+      :threshold: 96.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :bleach
@@ -21944,7 +21946,6 @@
         - 19193
         - 19195
         - 22013
-        - 31617
         - 38600
         - 49402
       :threshold: 92.4%
@@ -21987,7 +21988,6 @@
         - 19193
         - 19195
         - 22013
-        - 31617
         - 38600
         - 49402
       :threshold: 0.01
@@ -23831,7 +23831,7 @@
         - 52010
         - 52011
         - 52745
-      :threshold: 95.9%
+      :threshold: 96%
       :generator:
         not_ignored_ids:
         - 14951
@@ -24677,7 +24677,7 @@
       :algo: duration
       :filters:
         franchise: golden_kamuy
-      :threshold: 95.2%
+      :threshold: 95%
       :generator:
         ignore_latest_ids:
         - 37755
@@ -26374,7 +26374,7 @@
         - 49941
         - 50084
         - 50473
-      :threshold: 87.3%
+      :threshold: 86.8%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -26907,7 +26907,7 @@
         - 6226
         - 6743
         - 33208
-      :threshold: 96.1%
+      :threshold: 96.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :utawarerumono
@@ -28064,7 +28064,6 @@
         - 36890
         - 37818
         - 38001
-        - 38056
         - 38087
         - 39339
         - 48409
@@ -28126,7 +28125,6 @@
         - 36890
         - 37818
         - 38001
-        - 38056
         - 38087
         - 39339
         - 48409
@@ -30066,12 +30064,16 @@
         not_anime_ids:
         - 40838
         - 41377
+        - 45108
+        - 45109
         - 48772
         - 48773
+        - 49669
         - 50563
         - 50735
         - 51087
         - 51478
+        - 53330
       :threshold: 91.4%
       :generator:
         not_ignored_ids:
@@ -30138,12 +30140,16 @@
         not_anime_ids:
         - 40838
         - 41377
+        - 45108
+        - 45109
         - 48772
         - 48773
+        - 49669
         - 50563
         - 50735
         - 51087
         - 51478
+        - 53330
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -30210,7 +30216,8 @@
         not_anime_ids:
         - 37710
         - 49442
-      :threshold: 97.8%
+        - 53396
+      :threshold: 97.6%
       :generator:
         not_ignored_ids:
         - 32446
@@ -30268,6 +30275,7 @@
         not_anime_ids:
         - 37710
         - 49442
+        - 53396
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -31540,7 +31548,8 @@
         not_anime_ids:
         - 4712
         - 51780
-      :threshold: 93.2%
+        - 53265
+      :threshold: 93.3%
       :generator:
         ignore_latest_ids:
         - 38088
@@ -31575,6 +31584,7 @@
         not_anime_ids:
         - 4712
         - 51780
+        - 53265
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -32003,7 +32013,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 92%
+      :threshold: 91.4%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -32609,7 +32619,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 95.9%
+      :threshold: 94.7%
       :generator:
         ignore_latest_ids:
         - 52992
@@ -32742,7 +32752,7 @@
         not_anime_ids:
         - 1481
         - 53402
-      :threshold: 93.4%
+      :threshold: 94%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :urusei_yatsura
@@ -34909,7 +34919,7 @@
       :algo: duration
       :filters:
         franchise: di_gi_charat
-      :threshold: 92.6%
+      :threshold: 92.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :di_gi_charat
