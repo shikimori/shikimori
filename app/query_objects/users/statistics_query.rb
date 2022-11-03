@@ -217,10 +217,10 @@ class Users::StatisticsQuery
 
             completed = cached[:completed]
 
-            ap episodes
+            # ap episodes
             # откусываем с конца элементы, т.к. могут задать меньшее число эпизодов после большего
             episodes.pop while episodes.length > 1 && episodes.last < episodes.first
-            ap episodes
+            # ap episodes
 
             if episodes.size == 1
               cached[:completed] = episodes.first
@@ -243,7 +243,7 @@ class Users::StatisticsQuery
             end
           end
 
-        ap [entry, entry_time]
+        # ap [entry, entry_time]
         spent_time += entry_time
       end
 
