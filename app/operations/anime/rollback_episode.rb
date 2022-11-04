@@ -10,11 +10,25 @@ class Anime::RollbackEpisode
       .destroy_all
 
     if user
-      Versioneers::FieldsVersioneer
-        .new(@anime)
-        .postmoderate({ episodes_aired: @episode - 1 }, @user)
+      create_version
     else
-      @anime.update episodes_aired: @episode - 1
+      update_anime
     end
+  end
+
+private
+
+  def create_version
+    Versioneers::FieldsVersioneer
+      .new(@anime)
+      .postmoderate({ episodes_aired: @episode - 1 }, @user)
+  end
+
+  def update_anime
+    @anime.update episodes_aired: new_episodes_aired
+  end
+
+  def new_episodes_aired
+    [@episode - 1, 0].max
   end
 end

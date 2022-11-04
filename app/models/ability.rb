@@ -75,6 +75,10 @@ class Ability
         merge Abilities::TrustedVersionChanger.new(@user)
       end
 
+      if @user.trusted_episodes_changer?
+        merge Abilities::TrustedEpisodesChanger.new(@user)
+      end
+
       merge Abilities::Admin.new(@user) if @user.admin?
     end
 
