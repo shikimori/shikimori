@@ -2,8 +2,12 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
   vattr_initialize :user, :is_own_profile
   instance_cache :achievements_view
 
-  delegate :franchise_achievements_size, to: :achievements_view
-  delegate :all_franchise_achievements, to: :achievements_view
+  delegate :franchise_achievements_size,
+    :all_franchise_achievements,
+    :author_achievements_size,
+    :author_achievements,
+    :all_author_achievements,
+    to: :achievements_view
 
   def available?
     return false unless @user.preferences.achievements_in_profile?
@@ -12,7 +16,8 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
 
     achievements_view.franchise_achievements_size.positive? ||
       achievements_view.common_achievements.size.positive? ||
-      achievements_view.genre_achievements.size.positive?
+      achievements_view.genre_achievements.size.positive? ||
+      achievements_view.author_achievements.size.positive?
   end
 
   def common_achievements
@@ -26,15 +31,34 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
   def franchise_achievements
     all_franchise_achievements = achievements_view.user_achievements.select(&:franchise?)
 
-    (
-      all_franchise_achievements.select { |v| v.level == 1 }.shuffle +
-        all_franchise_achievements.select { |v| v.level.zero? }.shuffle
-    ).take(12).sort_by { |rule| [rule.level.zero? ? 1 : 0] + rule.sort_criteria }
+    sort_combined_achievements(
+      level_achievements(all_franchise_achievements, 1) +
+        level_achievements(all_franchise_achievements, 0)
+    ).take(12)
+  end
+
+  def author_achievements
+    sort_combined_achievements(
+      level_achievements(all_author_achievements, 1) +
+        level_achievements(all_author_achievements, 0)
+    ).take(5)
   end
 
 private
 
   def achievements_view
     Profiles::AchievementsView.new @user
+  end
+
+  def level_achievements achievements, level
+    achievements
+      .select { |v| v.level == level }
+      .shuffle
+  end
+
+  def sort_combined_achievements achievements
+    achievements.sort_by do |rule|
+      [rule.level.zero? ? 1 : 0, -rule.progress] + rule.sort_criteria
+    end
   end
 end
