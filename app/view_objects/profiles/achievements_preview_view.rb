@@ -32,16 +32,20 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
     all_franchise_achievements = achievements_view.user_achievements.select(&:franchise?)
 
     sort_combined_achievements(
-      level_achievements(all_franchise_achievements, 1) +
-        level_achievements(all_franchise_achievements, 0)
-    ).take(12)
+      (
+        level_achievements(all_franchise_achievements, 1) +
+          level_achievements(all_franchise_achievements, 0)
+      ).take(12)
+    )
   end
 
   def author_achievements
     sort_combined_achievements(
-      level_achievements(all_author_achievements, 1) +
-        level_achievements(all_author_achievements, 0)
-    ).take(5)
+      (
+        level_achievements(all_author_achievements, 1) +
+          level_achievements(all_author_achievements, 0)
+      ).take(5)
+    )
   end
 
 private
