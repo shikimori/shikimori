@@ -20551,7 +20551,7 @@
       :algo: duration
       :filters:
         franchise: bleach
-      :threshold: 96.7%
+      :threshold: 97.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :bleach
@@ -24755,38 +24755,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :karakai_jouzu_no_takagi_san
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/karakai_jouzu_no_takagi_san.jpg"
-    :border_color:
-    :title_ru: Озорная Такаги
-    :text_ru:
-    :title_en: Karakai Jouzu no Takagi-san
-    :text_en:
-    :topic_id: 247360
-    :rule: &354
-      :algo: duration
-      :filters:
-        franchise: karakai_jouzu_no_takagi_san
-      :threshold: 92.2%
-      :generator:
-        ignore_latest_ids:
-        - 49722
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :karakai_jouzu_no_takagi_san
-  level: 1
-  image: "/assets/achievements/anime/franchise/karakai_jouzu_no_takagi_san.jpg"
-  border_color:
-  title_ru: Озорная Такаги
-  text_ru:
-  title_en: Karakai Jouzu no Takagi-san
-  text_en:
-  topic_id: 247360
-  rule: *354
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :baka_to_test_to_shoukanjuu
     :level: 0
     :image: "/assets/achievements/anime/franchise/baka_to_test_to_shoukanjuu.jpg"
@@ -24796,7 +24764,7 @@
     :title_en: Baka to Test to Shoukanjuu
     :text_en:
     :topic_id: 247360
-    :rule: &355
+    :rule: &354
       :algo: duration
       :filters:
         franchise: baka_to_test_to_shoukanjuu
@@ -24816,6 +24784,38 @@
   title_ru: Дурни, тесты, аватары
   text_ru:
   title_en: Baka to Test to Shoukanjuu
+  text_en:
+  topic_id: 247360
+  rule: *354
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :karakai_jouzu_no_takagi_san
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/karakai_jouzu_no_takagi_san.jpg"
+    :border_color:
+    :title_ru: Озорная Такаги
+    :text_ru:
+    :title_en: Karakai Jouzu no Takagi-san
+    :text_en:
+    :topic_id: 247360
+    :rule: &355
+      :algo: duration
+      :filters:
+        franchise: karakai_jouzu_no_takagi_san
+      :threshold: 92.2%
+      :generator:
+        ignore_latest_ids:
+        - 49722
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :karakai_jouzu_no_takagi_san
+  level: 1
+  image: "/assets/achievements/anime/franchise/karakai_jouzu_no_takagi_san.jpg"
+  border_color:
+  title_ru: Озорная Такаги
+  text_ru:
+  title_en: Karakai Jouzu no Takagi-san
   text_en:
   topic_id: 247360
   rule: *355
