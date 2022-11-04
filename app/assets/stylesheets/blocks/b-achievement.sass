@@ -55,27 +55,27 @@
       width: 100%
       z-index: 1
 
+    &:hover:after
+      opacity: 1
+
     &:not([data-progress]):after,
     &[data-progress="0"]:after,
     &[data-progress="100"]:after,
-      display: none
       opacity: 0
-
-    &:hover:after
-      display: block
 
     &:after
       background: rgba(#123, 0.7)
       color: #fff
       content: attr(data-progress) '%'
-      display: none
       font-size: 12px
       height: 20px
       line-height: 20px
+      opacity: 0
       position: absolute
       right: 3px
       text-align: center
       top: 3px
+      transition: opacity 0.25s
       width: 34px
       z-index: 1
 
@@ -108,17 +108,19 @@
     &:before
       display: none
 
+  transition: filter 0.25s
+  img
+    transition: opacity 0.25s
+
   &.level-0:not(:hover),
   &.unavailable:not(:hover)
     filter: grayscale(88%)
-    filter: gray // IE 6-9
 
     img
       opacity: 0.5
 
   &.level-0.unavailable:not(:hover)
     filter: grayscale(100%)
-    filter: gray // IE 6-9
 
     img
       opacity: 0.2
