@@ -12,6 +12,7 @@ module Types
       version_fansub_moderator
 
       trusted_version_changer
+      trusted_episodes_changer
       trusted_newsmaker
 
       not_trusted_version_changer
