@@ -4,13 +4,17 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
 
   antispam(
     per_day: 50,
-    disable_if: -> { item_diff['description_ru'].present? || user.staff? },
+    disable_if: -> {
+      item_diff['description_ru'].present? || user.staff? || user.trusted_version_changer?
+    },
     scope: -> { where "(item_diff->>'description_ru') is null" },
     user_id_key: :user_id
   )
   antispam(
     per_day: 10,
-    disable_if: -> { item_diff['description_ru'].blank? || user.staff? },
+    disable_if: -> {
+      item_diff['description_ru'].blank? || user.staff? || user.trusted_version_changer?
+    },
     scope: -> { where "(item_diff->>'description_ru') is not null" },
     user_id_key: :user_id
   )
