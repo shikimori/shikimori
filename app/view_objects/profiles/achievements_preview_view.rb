@@ -35,7 +35,7 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
       (
         level_achievements(all_franchise_achievements, 1) +
           level_achievements(all_franchise_achievements, 0).sort_by { |v| v.progress.zero? ? 1 : 0 }
-      ).take(12)
+      ).take(8)
     )
   end
 
@@ -44,7 +44,7 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
       (
         level_achievements(all_author_achievements, 1) +
           level_achievements(all_author_achievements, 0).sort_by { |v| v.progress.zero? ? 1 : 0 }
-      ).take(5)
+      ).take(6)
     )
   end
 
