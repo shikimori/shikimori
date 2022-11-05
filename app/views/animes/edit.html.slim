@@ -29,11 +29,17 @@
             = render 'db_entries/edit_field_li',
               resource: @resource,
               field: field,
-              class: ('m15' if %i[licensors genres].include? field),
+              class: ('m15' if %i[licensors genres released_on].include? field),
               formatter: {\
                 genres: ->(value) { value.map { |v| v.is_a?(Genre) ? localization_span(v) : v }.join(', ').html_safe },
                 duration: ->(value) { humanize_minutes value } \
               }[field]
+
+          - %i[episodes volumes chapters].each do |field|
+            = render 'db_entries/edit_field_li',
+              resource: @resource,
+              field: field,
+              class: ('m15' if %i[chapters].include? field)
 
           - if @resource.anime?
             li
@@ -54,15 +60,12 @@
                   ] = t 'actions.rollback'
 
               - %i[digital_released_on russia_released_on].each do |field|
-                = render 'db_entries/edit_field_li', resource: @resource, field: field do
+                = render 'db_entries/edit_field_li',
+                    resource: @resource,
+                    field: field,
+                    class: ('m15' if %i[russia_released_on].include? field) do
                   - if @resource.respond_to? :"#{field}_hint"
                     .hint = @resource.send :"#{field}_hint"
-
-          - %i[episodes volumes chapters].each do |field|
-            = render 'db_entries/edit_field_li',
-              resource: @resource,
-              field: field,
-              class: ('m15' if %i[episodes chapters].include? field)
 
       .f-column
         ul.b-list.is-wide
