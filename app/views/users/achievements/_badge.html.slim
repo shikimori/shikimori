@@ -9,6 +9,6 @@ a.b-badge[
   data-progress=achievement.progress
 ]
   - if achievement.image.present?
-    = image_tag achievement.image
+    img src=achievement.image loading='lazy'
   - else
     .no-image

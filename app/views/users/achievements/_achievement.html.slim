@@ -43,6 +43,6 @@
             ]
 
           - if image.present?
-            = image_tag image
+            img src=image loading='lazy'
           - else
             .no-image
