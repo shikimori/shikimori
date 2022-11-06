@@ -866,10 +866,10 @@ ActiveRecord::Schema.define(version: 2022_11_06_140826) do
   end
 
   create_table "posters", force: :cascade do |t|
-    t.bigint "anime_id", null: false
-    t.bigint "manga_id", null: false
-    t.bigint "character_id", null: false
-    t.bigint "person_id", null: false
+    t.bigint "anime_id"
+    t.bigint "manga_id"
+    t.bigint "character_id"
+    t.bigint "person_id"
     t.jsonb "image_data", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
