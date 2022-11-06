@@ -57,11 +57,14 @@ gem 'recaptcha'
 # application
 gem 'mal_parser', github: 'shikimori/mal_parser'
 gem 'chewy'
-gem 'mini_magick' # dependence: sudo apt-get install libmagickwand-dev
-gem 'mimemagic' # deploy broken w/o the dependency updated
 gem 'rack-attack'
 gem 'rack-cors'
 gem 'rack-utf8_sanitizer'
+
+# images processing
+gem 'mini_magick' # dependence: sudo apt-get install libmagickwand-dev
+gem 'mimemagic' # deploy broken w/o the dependency updated
+gem 'shrine'
 
 gem 'actionpack-action_caching'
 gem 'attr_extras'
