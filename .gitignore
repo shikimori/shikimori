@@ -24,6 +24,8 @@
 config/database.yml
 
 public/system
+public/storage
+public/uploads
 
 *.swp
 .powenv
