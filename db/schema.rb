@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_04_100007) do
+ActiveRecord::Schema.define(version: 2022_11_06_140826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -865,6 +865,20 @@ ActiveRecord::Schema.define(version: 2022_11_04_100007) do
     t.index ["user_id"], name: "index_polls_on_user_id"
   end
 
+  create_table "posters", force: :cascade do |t|
+    t.bigint "anime_id", null: false
+    t.bigint "manga_id", null: false
+    t.bigint "character_id", null: false
+    t.bigint "person_id", null: false
+    t.jsonb "image_data", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["anime_id"], name: "index_posters_on_anime_id"
+    t.index ["character_id"], name: "index_posters_on_character_id"
+    t.index ["manga_id"], name: "index_posters_on_manga_id"
+    t.index ["person_id"], name: "index_posters_on_person_id"
+  end
+
   create_table "proxies", force: :cascade do |t|
     t.string "ip", limit: 255
     t.integer "port"
@@ -1286,6 +1300,10 @@ ActiveRecord::Schema.define(version: 2022_11_04_100007) do
   add_foreign_key "comment_viewings", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "posters", "animes"
+  add_foreign_key "posters", "characters"
+  add_foreign_key "posters", "mangas"
+  add_foreign_key "posters", "people"
   add_foreign_key "reviews", "animes"
   add_foreign_key "reviews", "mangas"
   add_foreign_key "reviews", "users"

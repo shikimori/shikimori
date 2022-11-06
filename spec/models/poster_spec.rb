@@ -1,0 +1,2 @@
+describe Poster do
+end
