@@ -1,20 +1,54 @@
 class Uploaders::PosterUploader < Shrine
   include ImageProcessing::MiniMagick
 
+  plugin :pretty_location
+  plugin :derivatives, create_on_promote: true
+  plugin :determine_mime_type
+  plugin :validation_helpers
+
   Attacher.derivatives do |original|
     magick = ImageProcessing::MiniMagick.source(original)
 
     {
-      large: magick.resize_to_limit!(900, 1400),
-      medium: magick.resize_to_limit!(450, 700),
-      small: magick.resize_to_limit!(225, 350)
+      large: magick.resize_to_limit(900, 1400).convert!('webp'),
+      medium: magick.resize_to_limit(450, 700).convert!('webp'),
+      small: magick.resize_to_limit(225, 350).convert!('webp')
     }
+  end
+
+  Attacher.validate do
+    validate_max_size(
+      15.megabytes,
+      message: 'is too large (max is 15 MB)'
+    )
+    validate_mime_type_inclusion(
+      %w[image/jpg image/jpeg image/png image/webp],
+      message: 'must be JPEG, PNG or WEBP'
+    )
+  end
+
+  def generate_location io, record: nil, **context # rubocop:disable PerceivedComplexity, CyclomaticComplexity, MethodLength
+    pretty_location io,
+      **context,
+      record: record,
+      identifier: (
+        if record.anime_id
+          'animes'
+        elsif record.manga_id
+          'mangas'
+        elsif record.character_id
+          'characters'
+        elsif record.person_id
+          'people'
+        end
+      ),
+      name: record.anime_id || record.manga_id || record.character_id || record.person_id ||
+        context[:name]
   end
 
   # plugin :processing
   # plugin :versions
   # plugin :delete_raw
-  # plugin :validation_helpers
   # plugin :determine_mime_type
   # plugin :presign_endpoint
   # plugin :delete_promoted
@@ -26,17 +60,6 @@ class Uploaders::PosterUploader < Shrine
   #       filename: io.original_filename
   #     )
   #   }
-  # end
-  #
-  # Attacher.validate do
-  #   validate_max_size(
-  #     15.megabytes,
-  #     message: 'is too large (max is 15 MB)'
-  #   )
-  #   validate_mime_type_inclusion(
-  #     %w[image/jpg image/jpeg image/png],
-  #     message: 'must be JPEG or PNG'
-  #   )
   # end
   #
   # process(:store) do |io, _context|
@@ -61,23 +84,4 @@ class Uploaders::PosterUploader < Shrine
   #     x444: size_444
   #   }
   # end
-
-  def generate_location io, record: nil, **context # rubocop:disable PerceivedComplexity, CyclomaticComplexity, MethodLength
-    pretty_location io,
-      **context,
-      record: record,
-      identifier: (
-        if record.anime_id
-          'animes'
-        elsif record.manga_id
-          'mangas'
-        elsif record.character_id
-          'characters'
-        elsif record.person_id
-          'people'
-        end
-      ),
-      name: record.anime_id || record.manga_id || record.character_id || record.person_id ||
-        context[:name]
-  end
 end
