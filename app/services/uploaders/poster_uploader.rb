@@ -62,24 +62,22 @@ class Uploaders::PosterUploader < Shrine
   #   }
   # end
 
-  def generate_location _io, context # rubocop:disable PerceivedComplexity, CyclomaticComplexity, MethodLength
-    record = context[:record]
-
-    key =
-      if record.anime_id
-        'animes'
-      elsif record.manga_id
-        'mangas'
-      elsif record.character_id
-        'characters'
-      elsif record.person_id
-        'people'
-      end
-
-    [
-      key,
-      record.anime_id || record.manga_id || record.character_id || record.person_id,
-      super
-    ].compact.join('/')
+  def generate_location io, record: nil, **context # rubocop:disable PerceivedComplexity, CyclomaticComplexity, MethodLength
+    pretty_location io,
+      **context,
+      record: record,
+      identifier: (
+        if record.anime_id
+          'animes'
+        elsif record.manga_id
+          'mangas'
+        elsif record.character_id
+          'characters'
+        elsif record.person_id
+          'people'
+        end
+      ),
+      name: record.anime_id || record.manga_id || record.character_id || record.person_id ||
+        context[:name]
   end
 end
