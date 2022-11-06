@@ -3,7 +3,7 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
   include AntispamConcern
 
   antispam(
-    per_day: 5,
+    per_day: 50,
     disable_if: -> {
       item_diff['description_ru'].present? || user.staff? || user.trusted_version_changer? ||
         (item_diff['episodes_aired'].present? && user.trusted_episodes_changer?)
