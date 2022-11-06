@@ -1,10 +1,12 @@
-class CleanupShrineCache < ApplicationJob
+class CleanupShrineCache
+  include Sidekiq::Worker
+
   EXPIRE_INTERVAL = 1.day
 
-  def perform
+  def perform expire_interval = EXPIRE_INTERVAL
     storage = Shrine.storages[:cache]
     storage.clear! do |object|
-      File.mtime(object) < EXPIRE_INTERVAL.ago
+      File.mtime(object) < expire_interval.ago
     end
   end
 end

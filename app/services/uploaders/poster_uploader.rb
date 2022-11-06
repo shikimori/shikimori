@@ -1,5 +1,15 @@
 class Uploaders::PosterUploader < Shrine
-  # include ImageProcessing::MiniMagick
+  include ImageProcessing::MiniMagick
+
+  Attacher.derivatives do |original|
+    magick = ImageProcessing::MiniMagick.source(original)
+
+    {
+      large: magick.resize_to_limit!(900, 1400),
+      medium: magick.resize_to_limit!(450, 700),
+      small: magick.resize_to_limit!(225, 350)
+    }
+  end
 
   # plugin :processing
   # plugin :versions
@@ -51,9 +61,25 @@ class Uploaders::PosterUploader < Shrine
   #     x444: size_444
   #   }
   # end
-  #
-  # def generate_location(io, context)
-  #   box_image = context[:record]
-  #   ['box_images', box_image.box_id.to_s, super].compact.join('/')
-  # end
+
+  def generate_location _io, context # rubocop:disable PerceivedComplexity, CyclomaticComplexity, MethodLength
+    record = context[:record]
+
+    key =
+      if record.anime_id
+        'animes'
+      elsif record.manga_id
+        'mangas'
+      elsif record.character_id
+        'characters'
+      elsif record.person_id
+        'people'
+      end
+
+    [
+      key,
+      record.anime_id || record.manga_id || record.character_id || record.person_id,
+      super
+    ].compact.join('/')
+  end
 end

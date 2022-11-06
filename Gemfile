@@ -65,6 +65,7 @@ gem 'rack-utf8_sanitizer'
 gem 'mini_magick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'mimemagic' # deploy broken w/o the dependency updated
 gem 'shrine'
+gem 'image_processing'
 
 gem 'actionpack-action_caching'
 gem 'attr_extras'
