@@ -8706,6 +8706,9 @@
         - 42205
         - 154
         - 40571
+        - 48702
+        - 52193
+        - 50549
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
@@ -20551,7 +20554,7 @@
       :algo: duration
       :filters:
         franchise: bleach
-      :threshold: 97.4%
+      :threshold: 97.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :bleach
@@ -32619,6 +32622,7 @@
       :generator:
         ignore_latest_ids:
         - 52992
+        - 53499
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
@@ -32653,6 +32657,7 @@
       :generator:
         ignore_latest_ids:
         - 52992
+        - 53499
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
@@ -37939,6 +37944,8 @@
         - 40542
         - 38610
         - 104
+        - 40004
+        - 38186
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
   default_values: *2
   neko_id: :oniichan
