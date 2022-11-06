@@ -5,4 +5,6 @@ class Poster < ApplicationRecord
   belongs_to :manga, optional: true
   belongs_to :character, optional: true
   belongs_to :person, optional: true
+
+  validates :anime_id, exclusive_arc: %i[manga_id character_id person_id]
 end
