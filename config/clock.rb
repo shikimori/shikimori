@@ -89,6 +89,7 @@ module Clockwork
 
     # AnimeLinksVerifier.perform_async
     # AutobanFix.perform_async
+     CleanupShrineCache.perform_later
 
     NamedLogger.clockwork.info 'daily.misc finished'
   end
