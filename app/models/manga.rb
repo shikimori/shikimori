@@ -51,6 +51,7 @@ class Manga < DbEntry
   attr_accessor :in_list
 
   # relations
+  has_one :poster, dependent: :destroy
   has_many :person_roles, dependent: :destroy
   has_many :characters, through: :person_roles
   has_many :people, through: :person_roles

@@ -16,6 +16,7 @@ class Person < DbEntry
     end
   end
 
+  has_one :poster, dependent: :destroy
   has_many :person_roles, dependent: :destroy
   has_many :animes, -> { order :id }, through: :person_roles
   has_many :mangas, -> { order :id }, through: :person_roles

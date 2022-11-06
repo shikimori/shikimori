@@ -2,6 +2,7 @@
 
 describe Person do
   describe 'relations' do
+    it { is_expected.to have_one :poster }
     it { is_expected.to have_many :person_roles }
     it { is_expected.to have_many :animes }
     it { is_expected.to have_many :mangas }
