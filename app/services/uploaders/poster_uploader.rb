@@ -1,18 +1,30 @@
 class Uploaders::PosterUploader < Shrine
   include ImageProcessing::MiniMagick
 
+  # https://shrinerb.com/docs/plugins/activerecord
   plugin :pretty_location
   plugin :derivatives, create_on_promote: true
   plugin :determine_mime_type
   plugin :validation_helpers
+  plugin :remove_invalid
+  plugin :infer_extension, force: true
+  # plugin :metadata_attributes
+  plugin :store_dimensions, analyzer: :mini_magick
 
   Attacher.derivatives do |original|
-    magick = ImageProcessing::MiniMagick.source(original)
+    magick = ImageProcessing::Vips.source(original)
+
+    large = magick.resize_to_limit(900, 1400)
+    medium = magick.resize_to_limit(450, 700)
+    small = magick.resize_to_limit(225, 350)
 
     {
-      large: magick.resize_to_limit(900, 1400).convert!('webp'),
-      medium: magick.resize_to_limit(450, 700).convert!('webp'),
-      small: magick.resize_to_limit(225, 350).convert!('webp')
+      large: large.convert!('webp'),
+      large_legacy: large.call!,
+      medium: medium.convert!('webp'),
+      medium_legacy: medium.call!,
+      small: small.convert!('webp'),
+      small_legacy: small.call!
     }
   end
 
