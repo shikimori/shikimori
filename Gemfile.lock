@@ -377,7 +377,7 @@ GEM
       i18n (>= 0.7)
       multi_json
       request_store (>= 1.0)
-    google-protobuf (3.21.7)
+    google-protobuf (3.21.9)
     guard (2.18.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -529,7 +529,7 @@ GEM
     parser (3.1.2.1)
       ast (~> 2.4.1)
     pg (1.4.3)
-    pg_query (2.1.4)
+    pg_query (2.2.0)
       google-protobuf (>= 3.19.2)
     pghero (2.8.3)
       activerecord (>= 5)
