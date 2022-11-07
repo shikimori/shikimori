@@ -22,6 +22,7 @@ ru:
       spoiler_block: Блок спойлера
       code_block: Блок кода
       bullet_list: Список
+      headline: Заголовок
       blockquote: Цитата
       prompt:
         image_url: URL картинки
