@@ -262,7 +262,9 @@ async function initEditPosterApp() {
   const { createApp } = await import(/* webpackChunkName: "vue" */ 'vue');
   const { default: PosterField } = await import('@/vue/components/poster_field');
 
+  const $app = $('#vue_app');
   const app = createApp(PosterField, {
+    src: $app.data('src')
     // resourceType: $app.data('resource_type'),
     // field: $app.data('field'),
     // autocompleteUrl: $app.data('autocomplete_url'),

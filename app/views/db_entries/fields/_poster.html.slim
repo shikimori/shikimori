@@ -9,7 +9,9 @@
       /   alt=localized_name(resource)
       / ]
 
-      #vue_app
+      #vue_app[
+        data-src=resource.poster&.image&.url
+      ]
         .block_m.b-nothing_here = t 'loading'
       /   data-resource_type=resource.object.class.name
       /   data-entry_id=resource.id
