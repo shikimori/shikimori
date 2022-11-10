@@ -67,11 +67,20 @@
     img
       max-width: 100%
 
+    .c-poster
+      display: flex
+      justify-content: center
+
+      +gte_ipad
+        margin-bottom: 8px
+
     +iphone-portrait
       & > .cc
         display: flex
 
       .c-poster
+        // display: flex
+        // justify-content: center
         // +column(2, 0.7, 7%)
 
       .c-actions
