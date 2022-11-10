@@ -59,43 +59,4 @@ class Uploaders::PosterUploader < Shrine
       name: record.anime_id || record.manga_id || record.character_id || record.person_id ||
         context[:name]
   end
-
-  # plugin :processing
-  # plugin :versions
-  # plugin :delete_raw
-  # plugin :determine_mime_type
-  # plugin :presign_endpoint
-  # plugin :delete_promoted
-  #
-  # plugin :default_url_options, store: ->(io, **_options) do
-  #   {
-  #     response_content_disposition: ContentDisposition.format(
-  #       disposition: 'inline',
-  #       filename: io.original_filename
-  #     )
-  #   }
-  # end
-  #
-  # process(:store) do |io, _context|
-  #   original = io.download
-  #
-  #   pipeline = ImageProcessing::MiniMagick
-  #     .source(original)
-  #     .sampling_factor('4:2:0')
-  #     .strip
-  #     .quality(85)
-  #     .interlace('JPEG')
-  #
-  #   size_256 = pipeline.resize_to_fill!(256, 364)
-  #   size_444 = pipeline.resize_to_fill!(444, 508)
-  #   size_1200 = pipeline.resize_to_limit(1200, nil).convert!('jpg')
-  #
-  #   original.close
-  #
-  #   {
-  #     original: size_1200,
-  #     x256: size_256,
-  #     x444: size_444
-  #   }
-  # end
 end
