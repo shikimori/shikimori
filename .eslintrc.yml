@@ -121,9 +121,9 @@ rules:
   vue/max-attributes-per-line:
     - error
     - singleline: 3
-      multiline:
-        max: 1
-        allowFirstLine: false
+      # multiline:
+      #   max: 1
+      #   allowFirstLine: false
   vue/singleline-html-element-content-newline: 0
   vue/html-quotes: 0
     # - 1
