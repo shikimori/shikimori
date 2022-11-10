@@ -7,6 +7,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.16.7",
     "@babel/plugin-proposal-partial-application": "^7.16.7",
     "@babel/plugin-proposal-pipeline-operator": "^7.17.6",
+    "@ballcat/vue-cropper": "^1.0.4",
     "@morr/user-idle": "^2.0.0",
     "@rails/webpacker": "5.4.3",
     "@savingsunited/vue3-tags-input": "^3.0.14",

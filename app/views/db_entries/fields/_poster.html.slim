@@ -1,0 +1,41 @@
+/ = render 'application/note_from_club_page', club_page_id: 2285, is_version: true
+
+.cc-2
+  .c-column
+    = simple_form_for resource.object do |f|
+      / img.m5[
+      /   src=cdn_image(resource, :original)
+      /   title=localized_name(resource)
+      /   alt=localized_name(resource)
+      / ]
+
+      #vue_app
+        .block_m.b-nothing_here = t 'loading'
+      /   data-resource_type=resource.object.class.name
+      /   data-entry_id=resource.id
+      /   data-entry_type=resource.object.class.base_class.name
+      /   data-external_links=ActiveModel::Serializer::CollectionSerializer.new(resource.external_links).to_json
+      /   data-kind_options=kind_options.to_json
+      /   data-watch_online_kinds=::Types::ExternalLink::WATCH_ONLINE_KINDS.to_json
+      / ]
+
+
+      = f.input :poster, as: :file
+      / 
+      / // use resource.object! becase in person decorator these methods are redefined
+      / - unless resource.object.anime? || resource.object.manga? || resource.object.ranobe?
+      /   p: b #{t '.image_size', size: '225x350'}
+      / .b-warning
+      /   div
+      /     span.warning = t '.warning'
+      /   / p.hint TODO: пришлите, пожалуйста, @morr в личку текст, который сюда вставить.<br>
+      /     Когда и в каких случаях менять картинки?<br>
+      /     Не нужно менять постеры анонсам, для них на MAL поставят картинку.<br>
+      /     Картинки хентая должны быть зацензурены белыми квадратиками.<br>
+      / 
+      = render 'versions/reason'
+
+      .buttons
+        a.cancel href=resource.edit_url = t 'actions.cancel'
+        = f.button :magic_submit
+

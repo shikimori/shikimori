@@ -795,7 +795,7 @@ Rails.application.routes.draw do
 
   resources :animes, only: %i[edit update] do
     concerns :db_entry, fields: Regexp.new(%w{
-      name russian synonyms japanese license_name_ru description_ru description_en image
+      name russian synonyms japanese license_name_ru description_ru description_en image poster
       status kind episodes rating duration
       screenshots videos torrents_name imageboard_tag coub_tags aired_on released_on genre_ids
       external_links fansubbers fandubbers desynced options licensors
@@ -818,7 +818,7 @@ Rails.application.routes.draw do
   %i[mangas ranobe].each do |type|
     resources type, only: %i[edit update] do
       concerns :db_entry, fields: Regexp.new(%w{
-        name russian synonyms japanese license_name_ru description_ru description_en image
+        name russian synonyms japanese license_name_ru description_ru description_en image poster
         status kind volumes chapters
         imageboard_tag aired_on released_on genre_ids
         external_links desynced options licensors

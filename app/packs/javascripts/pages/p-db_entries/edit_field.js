@@ -147,6 +147,10 @@ pageLoad('.db_entries-edit_field', () => {
     initExternalLinksApp();
   }
 
+  if ($('.edit-page.poster').exists()) {
+    initEditPosterApp();
+  }
+
   const ARRAY_FIELDS = [
     'synonyms',
     'licensors',
@@ -252,4 +256,19 @@ async function initUploaderApp($node) {
     .on('upload:complete', () => (
       $node.find('.thank-you').show()
     ));
+}
+
+async function initEditPosterApp() {
+  const { createApp } = await import(/* webpackChunkName: "vue" */ 'vue');
+  const { default: PosterField } = await import('@/vue/components/poster_field');
+
+  const app = createApp(PosterField, {
+    // resourceType: $app.data('resource_type'),
+    // field: $app.data('field'),
+    // autocompleteUrl: $app.data('autocomplete_url'),
+    // autocompleteType: $app.data('autocomplete_type')
+  });
+  // app.use(store);
+  app.config.globalProperties.I18n = I18n;
+  app.mount('#vue_app');
 }

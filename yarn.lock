@@ -1270,6 +1270,13 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@ballcat/vue-cropper@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@ballcat/vue-cropper/-/vue-cropper-1.0.4.tgz#e6d436aa5198c0b59ca755c14df60950632c20e1"
+  integrity sha512-2cx6DJe00fRtNXcPRYEmFaWTEDJvdMroZuT7gyGpJZKEMwi1085cTdW45RM0XunNEgAjgiYXNPyW5OIa9nfEeA==
+  dependencies:
+    cropperjs "^1.5.12"
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
@@ -3050,6 +3057,11 @@ create-hmac@^1.1.0, create-hmac@^1.1.4, create-hmac@^1.1.7:
     ripemd160 "^2.0.0"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+cropperjs@^1.5.12:
+  version "1.5.12"
+  resolved "https://registry.yarnpkg.com/cropperjs/-/cropperjs-1.5.12.tgz#d9c0db2bfb8c0d769d51739e8f916bbc44e10f50"
+  integrity sha512-re7UdjE5UnwdrovyhNzZ6gathI4Rs3KGCBSc8HCIjUo5hO42CtzyblmWLj6QWVw7huHyDMfpKxhiO2II77nhDw==
 
 cross-spawn@^6.0.0, cross-spawn@^6.0.5:
   version "6.0.5"
@@ -7609,7 +7621,7 @@ prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0:
   dependencies:
     prosemirror-model "^1.0.0"
 
-"prosemirror-utils@github:atlassian/prosemirror-utils#remove-prosemirror-tables":
+prosemirror-utils@atlassian/prosemirror-utils#remove-prosemirror-tables:
   version "0.9.6"
   resolved "https://codeload.github.com/atlassian/prosemirror-utils/tar.gz/9e2db389d408f376e0fc1f8bdffd95063e8d00af"
 
@@ -9570,7 +9582,7 @@ vue3-keypress@^4.0.1:
   resolved "https://registry.yarnpkg.com/vue3-keypress/-/vue3-keypress-4.0.1.tgz#161959779dda7a0bb86902fac594c75117a0dca4"
   integrity sha512-oKxLpVsQq1iosuwi38fbH+K2NL2HqbFT8U7yE1fzxcUB0Mup1vS7OcnNMqkgv+FHFJTNvlYAOwLctVK/ahz6Ng==
 
-"vue3-perfect-scrollbar@github:morr/vue3-perfect-scrollbar#master":
+vue3-perfect-scrollbar@morr/vue3-perfect-scrollbar#master:
   version "1.5.5"
   resolved "https://codeload.github.com/morr/vue3-perfect-scrollbar/tar.gz/04340756fd75f245e25042003b9c4a6ced343381"
 
