@@ -1,4 +1,4 @@
-class Versions::PosterVersion < Version
+class Versions::PosterOldVersion < Version
   FIELD = 'image'
 
   def apply_changes

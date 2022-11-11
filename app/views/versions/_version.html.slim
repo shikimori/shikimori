@@ -109,7 +109,7 @@
           /# Template Dependency: versions/changes/screenshots_upload
           = render "versions/changes/screenshots_#{version.action}", version: version
 
-        - elsif version.is_a? Versions::PosterVersion
+        - elsif version.is_a? Versions::PosterOldVersion
           = render 'versions/changes/poster', version: version
 
         - elsif version.is_a? Versions::CollectionVersion

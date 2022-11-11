@@ -1,8 +1,8 @@
-class Versioneers::PostersVersioneer < Versioneers::FieldsVersioneer
+class Versioneers::PostersOldVersioneer < Versioneers::FieldsVersioneer
   pattr_initialize :item
 
   def premoderate image, author = nil, reason = nil
-    Versions::PosterVersion.transaction do
+    Versions::PosterOldVersion.transaction do
       version = create_version image, author, reason
       @item.update! image: image if version.persisted?
       version
@@ -16,7 +16,7 @@ class Versioneers::PostersVersioneer < Versioneers::FieldsVersioneer
 private
 
   def version_klass _params
-    Versions::PosterVersion
+    Versions::PosterOldVersion
   end
 
   def changes image, _version

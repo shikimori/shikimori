@@ -14,7 +14,7 @@ FactoryBot.define do
     factory :screenshots_version, class: 'Versions::ScreenshotsVersion'
     factory :video_version, class: 'Versions::VideoVersion'
     factory :genres_version, class: 'Versions::GenresVersion'
-    factory :poster_version, class: 'Versions::PosterVersion'
+    factory :poster_version, class: 'Versions::PosterOldVersion'
     factory :collection_version, class: 'Versions::CollectionVersion'
     factory :version_anime_video do
       item_type { AnimeVideo.name }

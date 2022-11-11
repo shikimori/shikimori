@@ -62,8 +62,10 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
   def update
     Version.transaction do
       @version =
-        if update_params[:image]
-          update_image
+        if update_params[:poster]
+          update_poster
+        elsif update_params[:image]
+          update_poster_old
         elsif update_params[:external_links]
           update_external_links
         else
@@ -235,8 +237,12 @@ private
     version
   end
 
-  def update_image
-    versioneer = Versioneers::PostersVersioneer.new(@resource.object)
+  def update_poster
+    raise 'not implemented'
+  end
+
+  def update_poster_old
+    versioneer = Versioneers::PostersOldVersioneer.new(@resource.object)
 
     version = versioneer.premoderate(
       update_params[:image],

@@ -46,7 +46,7 @@ class Moderations::GenresController < ModerationsController
 
     if update_params[:image]
       versions.push(
-        Versioneers::PostersVersioneer
+        Versioneers::PostersOldVersioneer
           .new(@resource)
           .postmoderate(update_params[:image], current_user)
       )

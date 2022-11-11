@@ -1,4 +1,4 @@
-describe Versioneers::PostersVersioneer do
+describe Versioneers::PostersOldVersioneer do
   let(:service) { described_class.new anime }
   let(:anime) { create :anime }
   let(:image) do
@@ -17,7 +17,7 @@ describe Versioneers::PostersVersioneer do
 
       expect(version).to be_persisted
       expect(version).to be_pending
-      expect(version).to be_instance_of Versions::PosterVersion
+      expect(version).to be_instance_of Versions::PosterOldVersion
       expect(version).to have_attributes(
         user: author,
         reason: reason,
@@ -39,7 +39,7 @@ describe Versioneers::PostersVersioneer do
 
         expect(version).to be_persisted
         expect(version).to be_auto_accepted
-        expect(version).to be_instance_of Versions::PosterVersion
+        expect(version).to be_instance_of Versions::PosterOldVersion
         expect(version).to have_attributes(
           user: author,
           reason: reason,
@@ -57,7 +57,7 @@ describe Versioneers::PostersVersioneer do
 
         expect(version).to be_persisted
         expect(version).to be_pending
-        expect(version).to be_instance_of Versions::PosterVersion
+        expect(version).to be_instance_of Versions::PosterOldVersion
         expect(version).to have_attributes(
           user: author,
           reason: reason,
