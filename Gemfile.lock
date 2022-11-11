@@ -242,7 +242,7 @@ GEM
     concurrent-ruby (1.1.10)
     concurrent-ruby-edge (0.6.0)
       concurrent-ruby (~> 1.1.6)
-    connection_pool (2.2.5)
+    connection_pool (2.3.0)
     content_disposition (1.0.0)
     cookiejar (0.3.3)
     crack (0.4.5)
