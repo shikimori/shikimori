@@ -7,4 +7,6 @@ class Poster < ApplicationRecord
   belongs_to :person, optional: true
 
   validates :anime_id, exclusive_arc: %i[manga_id character_id person_id]
+
+  default_scope { where is_approved: true }
 end
