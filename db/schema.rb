@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_06_140826) do
+ActiveRecord::Schema.define(version: 2022_11_11_201549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -873,6 +873,7 @@ ActiveRecord::Schema.define(version: 2022_11_06_140826) do
     t.jsonb "image_data", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_approved", default: true, null: false
     t.index ["anime_id"], name: "index_posters_on_anime_id"
     t.index ["character_id"], name: "index_posters_on_character_id"
     t.index ["manga_id"], name: "index_posters_on_manga_id"

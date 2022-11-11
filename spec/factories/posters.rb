@@ -5,5 +5,6 @@ FactoryBot.define do
     character { nil }
     person { nil }
     image_data { File.new "#{Rails.root}/spec/files/poster.jpg" }
+    is_approved { true }
   end
 end
