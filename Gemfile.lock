@@ -198,9 +198,9 @@ GEM
       msgpack (~> 1.2)
     brakeman (5.3.1)
     browser (5.3.1)
-    brpoplpush-redis_script (0.1.2)
+    brpoplpush-redis_script (0.1.3)
       concurrent-ruby (~> 1.0, >= 1.0.5)
-      redis (>= 1.0, <= 5.0)
+      redis (>= 1.0, < 6)
     builder (3.2.4)
     byebug (11.1.3)
     capistrano (3.17.1)
@@ -528,7 +528,7 @@ GEM
       parallel
     parser (3.1.2.1)
       ast (~> 2.4.1)
-    pg (1.4.3)
+    pg (1.4.4)
     pg_query (2.2.0)
       google-protobuf (>= 3.19.2)
     pghero (2.8.3)
@@ -603,8 +603,8 @@ GEM
       ffi (~> 1.0)
     recaptcha (5.8.1)
       json
-    redis (5.0.0)
-      redis-client (~> 0.7)
+    redis (5.0.5)
+      redis-client (>= 0.9.0)
     redis-classy (2.4.1)
       redis-namespace (~> 1.0)
     redis-client (0.11.1)
@@ -695,16 +695,16 @@ GEM
     shrine (3.4.0)
       content_disposition (~> 1.0)
       down (~> 5.1)
-    sidekiq (6.5.0)
+    sidekiq (6.5.5)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
-      redis (>= 4.2.0)
+      redis (>= 4.5.0)
     sidekiq-delay_extensions (6.4.1)
       sidekiq (>= 6.4.1)
-    sidekiq-limit_fetch (4.2.0)
+    sidekiq-limit_fetch (4.3.2)
       redis (>= 4.6.0)
       sidekiq (>= 4)
-    sidekiq-unique-jobs (7.1.25)
+    sidekiq-unique-jobs (7.1.27)
       brpoplpush-redis_script (> 0.1.1, <= 2.0.0)
       concurrent-ruby (~> 1.0, >= 1.0.5)
       sidekiq (>= 5.0, < 8.0)
@@ -785,7 +785,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     xxhash (0.4.0)
-    zeitwerk (2.6.5)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby
@@ -892,7 +892,6 @@ DEPENDENCIES
   recaptcha
   redis
   redis-mutex
-  redis-namespace
   responders
   retryable
   rs_russian!

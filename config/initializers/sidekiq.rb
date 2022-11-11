@@ -5,8 +5,6 @@ require 'sidekiq/web'
 # Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 # Sidekiq::Web.set :sessions, Rails.application.config.session_options
 
-ENV['REDIS_NAMESPACE_QUIET'] = 'true' # Disable deprecation warning
-
 # The Delayed Extensions delay, delay_in and delay_until APIs are no longer
 # available by default. The extensions allow you to marshal job
 # arguments as YAML, leading to cases where job payloads could be many 100s
@@ -30,7 +28,6 @@ class ChewyMiddleware
 end
 
 REDIS_OPTIONS = {
-  namespace: "shiki_#{Rails.env}",
   url: "redis://#{Rails.application.config.redis_host}:6379/#{Rails.application.config.redis_db}"
 }
 
