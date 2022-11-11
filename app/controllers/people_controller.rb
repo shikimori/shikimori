@@ -7,8 +7,10 @@ class PeopleController < DbEntriesController # rubocop:disable ClassLength
   # caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
 
   PER_PAGE = 48
-  UPDATE_PARAMS = [
-    :russian,
+  UPDATE_PARAMS = %i[
+    russian
+    poster
+  ] + [
     *Person::DESYNCABLE - %i[birth_on],
     desynced: [],
     deceased_on: IncompleteDate.attributes,

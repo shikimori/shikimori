@@ -21,8 +21,8 @@ const vueCropperRef = ref(null);
 // vueCropperRef.value.getCroppedCanvas().toBlob()
 
 defineExpose({
-  exportDataURI() {
-    return vueCropperRef.value.getCroppedCanvas().toDataURI();
+  exportDataURL() {
+    return vueCropperRef.value.getCroppedCanvas().toDataURL();
   }
 });
 </script>

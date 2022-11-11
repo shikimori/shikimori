@@ -3,6 +3,8 @@
 .cc-2
   .c-column
     = simple_form_for resource.object do |f|
+      = f.input :poster, as: :hidden, input_html: { value: '' }
+
       / img.m5[
       /   src=cdn_image(resource, :original)
       /   title=localized_name(resource)
@@ -15,8 +17,7 @@
         ]
           .block_m.b-nothing_here = t 'loading'
 
-      = f.input :poster, as: :hidden
-      / 
+
       / // use resource.object! becase in person decorator these methods are redefined
       / - unless resource.object.anime? || resource.object.manga? || resource.object.ranobe?
       /   p: b #{t '.image_size', size: '225x350'}

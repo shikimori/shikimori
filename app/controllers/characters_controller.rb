@@ -10,12 +10,14 @@ class CharactersController < PeopleController
   #   unless: proc { user_signed_in? },
   #   expires_in: 2.days
 
-  UPDATE_PARAMS = [
-    :russian,
-    :tags,
-    :imageboard_tag,
-    :description_ru,
-    :description_en,
+  UPDATE_PARAMS = %i[
+    russian
+    tags
+    imageboard_tag
+    description_ru
+    description_en
+    poster
+  ] + [
     *Character::DESYNCABLE,
     desynced: []
   ]

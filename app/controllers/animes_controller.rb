@@ -22,6 +22,7 @@ class AnimesController < DbEntriesController
     digital_released_on
     russia_released_on
     russia_released_on_hint
+    poster
   ] + [
     *Anime::DESYNCABLE - %i[aired_on released_on digital_released_on russia_released_on],
     external_links: [EXTERNAL_LINK_PARAMS],
