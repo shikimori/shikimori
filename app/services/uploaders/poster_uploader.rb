@@ -12,6 +12,7 @@ class Uploaders::PosterUploader < Shrine
   plugin :infer_extension, force: true
   # plugin :metadata_attributes
   plugin :store_dimensions, analyzer: :mini_magick
+  plugin :data_uri
 
   Attacher.derivatives do |original|
     magick = ImageProcessing::Vips.source(original)

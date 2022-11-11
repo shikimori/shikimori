@@ -16,12 +16,15 @@ const props = defineProps({
   src: { type: String, required: false, default: null }
 });
 const vueCropperRef = ref(null);
-window.cropper = vueCropperRef;
 
-// onMounted(() => {
-//   // vueCropperRef.value.setAspectRatio)
-// //   console.log(vueCropperRef.value.getData());
-// });
+// vueCropperRef.value.getCroppedCanvas().toDataURL()
+// vueCropperRef.value.getCroppedCanvas().toBlob()
+
+defineExpose({
+  exportDataURI() {
+    return vueCropperRef.value.getCroppedCanvas().toDataURI();
+  }
+});
 </script>
 
 <style scoped lang='sass'>

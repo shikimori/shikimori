@@ -265,12 +265,11 @@ async function initEditPosterApp() {
   const $app = $('#vue_app');
   const app = createApp(PosterField, {
     src: $app.data('src')
-    // resourceType: $app.data('resource_type'),
-    // field: $app.data('field'),
-    // autocompleteUrl: $app.data('autocomplete_url'),
-    // autocompleteType: $app.data('autocomplete_type')
   });
-  // app.use(store);
   app.config.globalProperties.I18n = I18n;
   app.mount('#vue_app');
+
+  $app.closest('form').on('submit', ({ currentTarget }) => {
+    $(currentTarget).find('input[id$=_poster]').val(app._instance.exposed.exportDataURI());
+  });
 }

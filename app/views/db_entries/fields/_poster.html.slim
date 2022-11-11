@@ -9,20 +9,13 @@
       /   alt=localized_name(resource)
       / ]
 
-      #vue_app[
-        data-src=resource.poster&.image&.url
-      ]
-        .block_m.b-nothing_here = t 'loading'
-      /   data-resource_type=resource.object.class.name
-      /   data-entry_id=resource.id
-      /   data-entry_type=resource.object.class.base_class.name
-      /   data-external_links=ActiveModel::Serializer::CollectionSerializer.new(resource.external_links).to_json
-      /   data-kind_options=kind_options.to_json
-      /   data-watch_online_kinds=::Types::ExternalLink::WATCH_ONLINE_KINDS.to_json
-      / ]
+      .block
+        #vue_app[
+          data-src=resource.poster&.image&.url
+        ]
+          .block_m.b-nothing_here = t 'loading'
 
-
-      = f.input :poster, as: :file
+      = f.input :poster, as: :hidden
       / 
       / // use resource.object! becase in person decorator these methods are redefined
       / - unless resource.object.anime? || resource.object.manga? || resource.object.ranobe?
