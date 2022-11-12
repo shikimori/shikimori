@@ -238,7 +238,16 @@ private
   end
 
   def update_poster
-    raise 'not implemented'
+    versioneer = Versioneers::PostersVersioneer.new(@resource.object)
+
+    version = versioneer.premoderate(
+      update_params[:poster],
+      current_user,
+      params[:reason]
+    )
+
+    version.auto_accept! if version.persisted? && can?(:auto_accept, version)
+    version
   end
 
   def update_poster_old

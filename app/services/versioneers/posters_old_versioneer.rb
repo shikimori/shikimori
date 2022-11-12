@@ -9,10 +9,6 @@ class Versioneers::PostersOldVersioneer < Versioneers::FieldsVersioneer
     end
   end
 
-  def postmoderate _image, _author = nil, _reason = nil
-    super
-  end
-
 private
 
   def version_klass _params
