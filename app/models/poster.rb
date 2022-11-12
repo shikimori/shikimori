@@ -8,5 +8,5 @@ class Poster < ApplicationRecord
 
   validates :anime_id, exclusive_arc: %i[manga_id character_id person_id]
 
-  scope :active, -> { where is_approved: true }
+  scope :active, -> { where is_approved: true, deleted_at: nil }
 end
