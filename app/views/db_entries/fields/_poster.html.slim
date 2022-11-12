@@ -1,37 +1,38 @@
 / = render 'application/note_from_club_page', club_page_id: 2285, is_version: true
 
-.cc-2
-  .c-column
-    = simple_form_for resource.object do |f|
-      = f.input :poster_data_uri, as: :hidden, input_html: { value: '' }
+= simple_form_for resource.object do |f|
+  = f.input :poster_data_uri, as: :hidden, input_html: { value: '' }
 
-      / img.m5[
-      /   src=cdn_image(resource, :original)
-      /   title=localized_name(resource)
-      /   alt=localized_name(resource)
-      / ]
+  / img.m5[
+  /   src=cdn_image(resource, :original)
+  /   title=localized_name(resource)
+  /   alt=localized_name(resource)
+  / ]
+  / p = t '.image_size'
 
-      .block
-        #vue_app[
-          data-src=resource.poster&.image&.url
-        ]
-          .block_m.b-nothing_here = t 'loading'
+  .block
+    #vue_app[
+      data-src=resource.poster&.image&.url
+    ]
+      .block_m.b-nothing_here = t 'loading'
 
 
-      / // use resource.object! becase in person decorator these methods are redefined
-      / - unless resource.object.anime? || resource.object.manga? || resource.object.ranobe?
-      /   p: b #{t '.image_size', size: '225x350'}
-      / .b-warning
-      /   div
-      /     span.warning = t '.warning'
-      /   / p.hint TODO: пришлите, пожалуйста, @morr в личку текст, который сюда вставить.<br>
-      /     Когда и в каких случаях менять картинки?<br>
-      /     Не нужно менять постеры анонсам, для них на MAL поставят картинку.<br>
-      /     Картинки хентая должны быть зацензурены белыми квадратиками.<br>
-      / 
+  / // use resource.object! becase in person decorator these methods are redefined
+  / - unless resource.object.anime? || resource.object.manga? || resource.object.ranobe?
+  /   p: b #{t '.image_size', size: '225x350'}
+  / .b-warning
+  /   div
+  /     span.warning = t '.warning'
+  /   / p.hint TODO: пришлите, пожалуйста, @morr в личку текст, который сюда вставить.<br>
+  /     Когда и в каких случаях менять картинки?<br>
+  /     Не нужно менять постеры анонсам, для них на MAL поставят картинку.<br>
+  /     Картинки хентая должны быть зацензурены белыми квадратиками.<br>
+  / 
+
+  .cc-2
+    .c-column
       = render 'versions/reason'
 
       .buttons
         a.cancel href=resource.edit_url = t 'actions.cancel'
         = f.button :magic_submit
-

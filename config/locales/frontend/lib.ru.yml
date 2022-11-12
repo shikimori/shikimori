@@ -41,6 +41,7 @@ ru:
       file_uploader:
         uploading_file: загрузка файла %{filename} (%{filesize} kb)
         uploading_files: загрузка файлов %{uploadedCount} из %{totalCount} (%{kbUploaded} / %{kbTotal} kb)
+        drop_picture_here: Перетаскивай сюда картинку
         drop_pictures_here: Перетаскивай сюда картинки
         file_type_not_allowed: Файл не является изображением
 

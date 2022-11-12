@@ -16,6 +16,8 @@ en:
       image:
         warning: The current picture will be permanently deleted.
         image_size: 'Image size: %{size}'
+      poster:
+        image_size: 'Image size: %{size}'
       videos:
         videos: Edit videos
         videos: Edit video

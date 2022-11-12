@@ -41,6 +41,7 @@ en:
       file_uploader:
         uploading_file: uploading file %{filename} (%{filesize} kb)...
         uploading_files: uploading files %{uploadedCount} of %{totalCount} (%{kbUploaded} / %{kbTotal} kb)
+        drop_picture_here: Drop picture here
         drop_pictures_here: Drop pictures here
         file_type_not_allowed: The file is not an image
 
