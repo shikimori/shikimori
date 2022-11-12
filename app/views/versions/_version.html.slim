@@ -23,12 +23,14 @@
           = render 'versions/anime_video', version: version
         - elsif version.item_type == Video.name
           = render 'versions/video', version: version
+          '  #{t 'of'}
+          = render 'versions/db_entry', version: version, field: :associated
         - elsif [Genre.name, Studio.name, Publisher.name].include?(version.item_type)
           = render 'versions/genre_studio_publisher', version: version
         - elsif version.is_a? Versions::RoleVersion
           = render 'users/user_16', user: version.item
         - else
-          = render 'versions/db_entry', version: version
+          = render 'versions/db_entry', version: version, field: :item
       - else
         i = t("deleted.#{version.item_type.underscore}").downcase
 

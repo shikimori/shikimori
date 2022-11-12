@@ -1,2 +1,2 @@
-a.bubbled href=url_for(version.item)
-  = truncate version.item.name, length: 36
+a.bubbled href=url_for(version.send(field))
+  = truncate version.send(field).name, length: 36
