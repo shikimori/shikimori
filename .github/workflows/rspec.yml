@@ -41,6 +41,8 @@ jobs:
       RAILS_ENV: test
       CI_SERVER: yes
     steps:
+      - name: Install libvips
+        run: sudo apt-get install -y libvips
       - name: Start Redis
         uses: supercharge/redis-github-action@1.4.0
         with:
