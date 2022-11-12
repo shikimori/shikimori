@@ -1,23 +1,20 @@
 class VersionsQuery < QueryObjectBase
+  def self.scope
+    Version
+      .where.not(state: :deleted)
+      .includes(:user, :moderator, :item, :associated)
+      .order(created_at: :desc, id: :desc)
+  end
+
   def self.by_item item
     new(
-      Version
-        .where(item: item)
-        .or(Version.where(associated: item))
-        .where.not(state: :deleted)
-        .includes(:user, :moderator, :item)
-        .order(created_at: :desc, id: :desc)
+      scope.where(item: item).or(scope.where(associated: item))
     )
   end
 
   def self.by_type type
     new(
-      Version
-        .where(item_type: type)
-        .or(Version.where(associated_type: type))
-        .where.not(state: :deleted)
-        .includes(:user, :moderator, :item)
-        .order(created_at: :desc, id: :desc)
+      scope.where(item_type: type).or(scope.where(associated_type: type))
     )
   end
 
