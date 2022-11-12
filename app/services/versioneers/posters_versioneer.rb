@@ -15,7 +15,8 @@ private
   def create_poster poster_data_uri
     Poster.create(
       image_data_uri: poster_data_uri,
-      item_key => @item.id
+      item_key => @item.id,
+      is_approved: false
     )
   end
 

@@ -26,7 +26,13 @@ describe Versioneers::PostersVersioneer do
       )
       expect(version.item).to be_kind_of Poster
       expect(version.item).to be_persisted
-      expect(version.item.anime_id).to eq anime.id
+      expect(version.item).to have_attributes(
+        anime_id: anime.id,
+        manga_id: nil,
+        character_id: nil,
+        person_id: nil,
+        is_approved: false
+      )
     end
   end
 end
