@@ -7,13 +7,18 @@ label.b-dropzone.block(
     type='file'
   )
 
-.sizes.block
+.sizes.block(
+  v-if='currentSrc'
+)
   p(
     v-if='sizes.naturalWidth'
   ) Размер: {{ sizes.naturalWidth }}x{{ sizes.naturalHeight }}
   p(
     v-if='sizes.naturalWidth !== sizes.width'
   ) Кроп: {{ sizes.width }}x{{ sizes.height }}
+  .b-button(
+    @click='clear'
+  ) Очистить
 
 .cropper-container(
   v-show='currentSrc'
@@ -24,6 +29,12 @@ label.b-dropzone.block(
     :aspect-ratio='225/350'
     :auto-crop-area='1.0'
     @crop='onCrop'
+  )
+.no-image(
+  v-if='!currentSrc'
+)
+  img(
+    src='/assets/globals/missing_main@2x.png'
   )
 </template>
 
@@ -78,6 +89,10 @@ function onFileAdded(uploader, uppyFile) {
   currentSrc.value = URL.createObjectURL(uppyFile.data);
   uploader.uppy.reset();
 }
+
+function clear() {
+  currentSrc.value = '';
+}
 </script>
 
 <style scoped lang='sass'>
@@ -85,5 +100,5 @@ function onFileAdded(uploader, uppyFile) {
   font-size: 14px
 
 .cropper-container
-  width: 450px
+  max-width: 100%
 </style>
