@@ -17,13 +17,13 @@ class Uploaders::PosterUploader < Shrine
   Attacher.derivatives do |original|
     magick = ImageProcessing::Vips.source(original)
 
-    large = magick.resize_to_limit(900, 1400)
+    # large = magick.resize_to_limit(900, 1400)
     medium = magick.resize_to_limit(450, 700)
     small = magick.resize_to_limit(225, 350)
 
     {
-      large: large.convert!('webp'),
-      large_legacy: large.call!,
+      # large: large.convert!('webp'),
+      # large_legacy: large.call!,
       medium: medium.convert!('webp'),
       medium_legacy: medium.call!,
       small: small.convert!('webp'),
