@@ -1,0 +1,18 @@
+.field-changes.poster
+  / old poster versions does not have image item_diff
+  - if version.item_diff['image']
+    .changes
+      .change
+        .label #{t '.before'}:
+        = version.item_diff['image'][0]
+
+      .change
+        .label #{t '.after'}:
+        = version.item_diff['image'][1]
+
+    - if version.latest_image?
+      .diff
+        img[
+          src=cdn_image(version.item, :original)
+          style='max-width: 100%'
+        ]

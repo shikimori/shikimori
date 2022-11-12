@@ -22,6 +22,7 @@ en:
       topics/news_topic: News Topic
       user: User
       video: Video
+      poster: Poster
 
     moderatable: &moderation_states
       moderation_state/pending: pending approval

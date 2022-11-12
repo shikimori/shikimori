@@ -10,6 +10,9 @@ class VersionDecorator < BaseDecorator
     elsif is_a? Versions::ScreenshotsVersion
       [i18n_t("field_name.screenshots_#{action}")]
 
+    elsif is_a? Versions::PosterVersion
+      [i18n_t("field_name.poster_#{action}")]
+
     elsif is_a? Versions::RoleVersion
       [i18n_t("field_name.role_#{action}")]
 

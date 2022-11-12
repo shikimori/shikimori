@@ -143,6 +143,7 @@ ru:
   nothing_here: Ничего нет
   notifications: Уведомления
   of: из
+  for: для
   page: Страница %{page}
   page_not_found: Страница не найдена
   pagination:

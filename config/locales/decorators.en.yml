@@ -93,6 +93,8 @@ en:
       screenshots_upload: Screenshots upload
       screenshots_delete: Screenshots delete
       screenshots_reposition: Screenshots order
+      poster_upload: Poster upload
+      poster_delete: Poster delete
       video_upload: Video upload
       video_delete: Video delete
       role_add: Role add

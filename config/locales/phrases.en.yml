@@ -143,6 +143,7 @@ en:
   nothing_here: Nothing here
   notifications: Notifications
   of: of
+  for: for
   page: Page %{page}
   page_not_found: Page not found
   pagination:

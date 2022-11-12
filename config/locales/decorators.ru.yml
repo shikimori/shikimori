@@ -93,6 +93,8 @@ ru:
       screenshots_upload: Загрузка кадров
       screenshots_delete: Удаление кадров
       screenshots_reposition: Порядок кадров
+      poster_upload: Загрузка постера
+      poster_delete: Удаление постера
       video_upload: Загрузка видео
       video_delete: Удаление видео
       role_add: Добавление роли

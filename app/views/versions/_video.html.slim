@@ -1,3 +1,5 @@
 a[
   href=anime_videos_url(CopyrightedIds.instance.change(version.associated_id, 'anime'), video_id: version.item_id)
 ] #{Video.model_name.human} ##{version.item.id}
+'  #{t 'for'}
+= render 'versions/db_entry', version: version, field: :associated
