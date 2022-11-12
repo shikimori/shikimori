@@ -1,19 +1,22 @@
 .field-changes.poster
-  - has_poster = version.associated.poster.present?
-
-  .changes
-    - if has_poster
-      .change
-        .label #{t '.before'}:
-        div
-          = render 'db_entries/poster',
-            db_entry: version.associated,
-            poster: version.associated.poster
-
-    .change
-      - if has_poster
-        .label #{t '.after'}:
-      div
-        = render 'db_entries/poster',
-          db_entry: version.associated,
-          poster: version.item
+  = render 'db_entries/poster',
+    db_entry: version.associated,
+    poster: version.item
+  / - has_poster = version.associated.poster.present?
+  / 
+  / .changes
+  /   - if has_poster
+  /     .change
+  /       .label #{t '.before'}:
+  /       div
+  /         = render 'db_entries/poster',
+  /           db_entry: version.associated,
+  /           poster: version.associated.poster
+  / 
+  /   .change
+  /     - if has_poster
+  /       .label #{t '.after'}:
+  /     div
+  /       = render 'db_entries/poster',
+  /         db_entry: version.associated,
+  /         poster: version.item
