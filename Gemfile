@@ -36,7 +36,7 @@ gem 'pg_query' # for suggested indexes in pghero
 gem 'pghero'
 
 # background jobs
-gem 'sidekiq'
+gem 'sidekiq', '~> 6.5.5' # sidekiq 7 and redis 5 do not work properly https://stackoverflow.com/questions/74314906/heartbeat-unsupported-command-argument-type-falseclass-redis
 gem 'sidekiq-limit_fetch'
 # gem 'sidekiq-limit_fetch', github: 'brainopia/sidekiq-limit_fetch', branch: 'master' # <- for sidekiq 6
 gem 'sidekiq-unique-jobs'
