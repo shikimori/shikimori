@@ -69,7 +69,7 @@ const onCrop = e => {
 
 defineExpose({
   toDataURI() {
-    return vueCropperRef.value?.getCroppedCanvas()?.toDataURL();
+    return vueCropperRef.value?.getCroppedCanvas()?.toDataURL() || '';
   }
 });
 
@@ -101,4 +101,5 @@ function clear() {
 
 .cropper-container
   max-width: 100%
+  width: 450px
 </style>
