@@ -25,9 +25,9 @@ class Uploaders::PosterUploader < Shrine
       # large: large.convert!('webp'),
       # large_legacy: large.call!,
       medium: medium.convert!('webp'),
-      medium_legacy: medium.call!,
+      medium_alt: medium.call!,
       small: small.convert!('webp'),
-      small_legacy: small.call!
+      small_alt: small.call!
     }
   end
 

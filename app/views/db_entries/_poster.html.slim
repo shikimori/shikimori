@@ -1,0 +1,14 @@
+picture
+  source[
+    src=poster.image(:small).url
+    srcset='#{poster.image(:medium).url} 2x'
+    type='image/webp'
+  ]
+  img[
+    alt=(local_assigns[:db_entry] || poster.target).name
+    src=poster.image(:small_alt).url
+    srcset='#{poster.image(:medium_alt).url} 2x'
+    loading='lazy'
+  ]
+  / src=cdn_image(anime, :preview)
+  / srcset="#{cdn_image anime, :original} 2x"

@@ -61,7 +61,7 @@ module ApplicationHelper
       .gsub(%r{src="/(?!/)}, "src=\"https://#{Shikimori::DOMAIN}/")
   end
 
-  def time_ago_in_words date, format_string=nil, original=false
+  def time_ago_in_words date, format_string = nil, original = false
     if original || date > 1.day.ago
       format_string ? format_string % super(date) : super(date)
     else
