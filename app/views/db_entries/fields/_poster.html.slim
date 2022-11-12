@@ -3,7 +3,7 @@
 .cc-2
   .c-column
     = simple_form_for resource.object do |f|
-      = f.input :poster, as: :hidden, input_html: { value: '' }
+      = f.input :poster_data_uri, input_html: { value: '' }
 
       / img.m5[
       /   src=cdn_image(resource, :original)

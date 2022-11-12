@@ -270,6 +270,6 @@ async function initEditPosterApp() {
   app.mount('#vue_app');
 
   $app.closest('form').on('submit', ({ currentTarget }) => {
-    $(currentTarget).find('input[id$=_poster]').val(app._instance.exposed.exportDataURL());
+    $(currentTarget).find('input[id$=_poster_data_uri]').val(app._instance.exposed.toDataURI());
   });
 }
