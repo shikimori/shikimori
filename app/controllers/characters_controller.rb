@@ -16,7 +16,7 @@ class CharactersController < PeopleController
     imageboard_tag
     description_ru
     description_en
-    poster
+    poster_data_uri
   ] + [
     *Character::DESYNCABLE,
     desynced: []

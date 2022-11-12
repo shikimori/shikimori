@@ -8,7 +8,7 @@ class MangasController < AnimesController
     description_ru
     description_en
     is_censored
-    poster
+    poster_data_uri
   ] + [
     *Manga::DESYNCABLE - %i[aired_on released_on],
     aired_on: IncompleteDate.attributes,

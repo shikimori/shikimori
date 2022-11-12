@@ -9,7 +9,7 @@ class PeopleController < DbEntriesController # rubocop:disable ClassLength
   PER_PAGE = 48
   UPDATE_PARAMS = %i[
     russian
-    poster
+    poster_data_uri
   ] + [
     *Person::DESYNCABLE - %i[birth_on],
     desynced: [],
