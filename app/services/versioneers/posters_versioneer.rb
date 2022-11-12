@@ -1,9 +1,36 @@
 class Versioneers::PostersVersioneer < Versioneers::FieldsVersioneer
   pattr_initialize :item
 
+  Actions = Types::Strict::Symbol
+    .constructor(&:to_sym)
+    .enum(:upload, :delete)
+
+  def premoderate poster_data_uri, author = nil, reason = nil
+    poster = create_poster poster_data_uri
+    create_version poster, author, reason
+  end
+
 private
 
-  def version_klass _params
-    Versions::PosterVersion
+  def create_poster poster_data_uri
+    Poster.create(
+      image_data_uri: poster_data_uri,
+      item_key => @item.id
+    )
+  end
+
+  def create_version poster, user, reason
+    Versions::PosterVersion.create(
+      item: poster,
+      user: user,
+      reason: reason,
+      state: 'pending',
+      associated: @item,
+      item_diff: { 'action' => Actions[:upload] }
+    )
+  end
+
+  def item_key
+    :"#{@item.class.base_class.name.downcase}_id"
   end
 end
