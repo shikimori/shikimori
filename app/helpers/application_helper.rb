@@ -29,7 +29,7 @@ module ApplicationHelper
   end
 
   def cdn_image_url entry, image_size
-    ImageUrlGenerator.instance.url entry, image_size
+    ImageUrlGenerator.instance.cdn_image_url entry, image_size
   end
 
   def meta_image_url file, style = :original, with_timestamp = true

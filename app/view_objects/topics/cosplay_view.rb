@@ -42,8 +42,8 @@ class Topics::CosplayView < Topics::UserContentView
       .images
       .limit(IMAGES_IN_PREVIEW)
       .map do |image|
-        "[url=#{ImageUrlGenerator.instance.url image, :original}][img]"\
-          "#{ImageUrlGenerator.instance.url image, :preview}[/img][/url]"
+        "[url=#{ImageUrlGenerator.instance.cdn_image_url image, :original}][img]"\
+          "#{ImageUrlGenerator.instance.cdn_image_url image, :preview}[/img][/url]"
       end
       .join
   end

@@ -130,7 +130,7 @@ class UserDecorator < BaseDecorator
   #     )
   #   else
   #     # "https://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest(email.downcase), size]
-  #     ImageUrlGenerator.instance.url object, "x#{size}".to_sym
+  #     ImageUrlGenerator.instance.cdn_image_url object, "x#{size}".to_sym
   #   end
   # end
 end

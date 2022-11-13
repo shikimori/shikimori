@@ -154,8 +154,8 @@ describe BbCodes::Tags::CommentTag do
             <a href='#{url}'
               class='b-mention bubbled b-user16'
               data-attrs='#{ERB::Util.h attrs.to_json}'><img
-              src="#{ImageUrlGenerator.instance.url user, :x16}"
-              srcset="#{ImageUrlGenerator.instance.url user, :x32} 2x"
+              src="#{ImageUrlGenerator.instance.cdn_image_url user, :x16}"
+              srcset="#{ImageUrlGenerator.instance.cdn_image_url user, :x32} 2x"
               alt="#{ERB::Util.h user.nickname}" /><span>#{ERB::Util.h user.nickname}</span></a>, test
           HTML
         )

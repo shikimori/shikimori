@@ -9,7 +9,7 @@ class ImageUrlGenerator
     UserImage => false
   }
 
-  def url entry, image_size # rubocop:disable all
+  def cdn_image_url entry, image_size # rubocop:disable all
     image_method = IMAGE_METHODS
       .find { |klass, _method| entry.is_a? klass }
       &.second || :image

@@ -49,7 +49,7 @@ private
   end
 
   def html_for_image user_image
-    url = ImageUrlGenerator.instance.url user_image, :original
+    url = ImageUrlGenerator.instance.cdn_image_url user_image, :original
     attrs = { id: user_image.id }
 
     <<~HTML.squish

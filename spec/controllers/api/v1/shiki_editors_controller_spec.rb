@@ -74,7 +74,7 @@ describe Api::V1::ShikiEditorsController do
         user_image: {
           user_image.id.to_s => {
             'id' => user_image.id,
-            'url' => ImageUrlGenerator.instance.url(user_image, :original)
+            'url' => ImageUrlGenerator.instance.cdn_image_url(user_image, :original)
             # 'original_url' => user_image.image.url(:original),
             # 'preview_url' => user_image.image.url(:preview),
             # 'width' => user_image.width,
@@ -85,7 +85,7 @@ describe Api::V1::ShikiEditorsController do
           user.id.to_s => {
             'id' => user.id,
             'text' => user.nickname,
-            'avatar' => ImageUrlGenerator.instance.url(user, :x32),
+            'avatar' => ImageUrlGenerator.instance.cdn_image_url(user, :x32),
             'url' => profile_url(user)
           }
         },

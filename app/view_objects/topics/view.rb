@@ -141,7 +141,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
           @topic.linked
         end
 
-      ImageUrlGenerator.instance.url linked, is_2x ? :x96 : :x48
+      ImageUrlGenerator.instance.cdn_image_url linked, is_2x ? :x96 : :x48
     else
       user.avatar_url is_2x ? 80 : 48
     end

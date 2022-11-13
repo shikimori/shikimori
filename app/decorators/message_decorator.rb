@@ -12,9 +12,9 @@ class MessageDecorator < BaseDecorator
 
   def image
     if anime_related?
-      ImageUrlGenerator.instance.url anime, :x48
+      ImageUrlGenerator.instance.cdn_image_url anime, :x48
     elsif club_broadcast?
-      ImageUrlGenerator.instance.url linked.commentable.linked, :x48
+      ImageUrlGenerator.instance.cdn_image_url linked.commentable.linked, :x48
     else
       from.avatar_url 48
     end
@@ -22,9 +22,9 @@ class MessageDecorator < BaseDecorator
 
   def image_2x
     if anime_related?
-      ImageUrlGenerator.instance.url anime, :x96
+      ImageUrlGenerator.instance.cdn_image_url anime, :x96
     elsif club_broadcast?
-      ImageUrlGenerator.instance.url linked.commentable.linked, :x96
+      ImageUrlGenerator.instance.cdn_image_url linked.commentable.linked, :x96
     else
       from.avatar_url 80
     end

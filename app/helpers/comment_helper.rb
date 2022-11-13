@@ -24,7 +24,7 @@ module CommentHelper
     text.gsub(/\[(anime|manga)_poster=(\d+)\]/) do
       entry = (Regexp.last_match(1) == 'anime' ? Anime : Manga).find_by_id(Regexp.last_match(2))
       if entry
-        "<a href=\"#{url_for entry}\" title=\"#{ERB::Util.h entry.name}\"><img class=\"poster-image\" src=\"#{ImageUrlGenerator.instance.url entry, :preview}\" srcset=\"#{ImageUrlGenerator.instance.url entry, :original} 2x\" title=\"#{ERB::Util.h entry.name}\" alt=\"#{ERB::Util.h entry.name}\"/></a>"
+        "<a href=\"#{url_for entry}\" title=\"#{ERB::Util.h entry.name}\"><img class=\"poster-image\" src=\"#{ImageUrlGenerator.instance.cdn_image_url entry, :preview}\" srcset=\"#{ImageUrlGenerator.instance.cdn_image_url entry, :original} 2x\" title=\"#{ERB::Util.h entry.name}\" alt=\"#{ERB::Util.h entry.name}\"/></a>"
       else
         ''
       end
@@ -73,8 +73,8 @@ module CommentHelper
               $1,
               "<a href=\"#{profile_url user}\" class=\"b-user16\" " \
                 "title=\"#{$4}\"><img " \
-                "src=\"#{ImageUrlGenerator.instance.url user, :x16}\" " \
-                "srcset=\"#{ImageUrlGenerator.instance.url user, :x32} 2x\" " \
+                "src=\"#{ImageUrlGenerator.instance.cdn_image_url user, :x16}\" " \
+                "srcset=\"#{ImageUrlGenerator.instance.cdn_image_url user, :x32} 2x\" " \
                 "alt=\"#{$4}\" /><span>#{$4}</span></a>"
             )
           rescue
@@ -88,8 +88,8 @@ module CommentHelper
             moderator_html = "<div class=\"b-user16\"><a " \
               "href=\"#{profile_url ban.moderator}\" " \
               "title=\"#{ERB::Util.h ban.moderator.nickname}\"><img " \
-              "src=\"#{ImageUrlGenerator.instance.url ban.moderator, :x16}\" " \
-              "srcset=\"#{ImageUrlGenerator.instance.url ban.moderator, :x32} " \
+              "src=\"#{ImageUrlGenerator.instance.cdn_image_url ban.moderator, :x16}\" " \
+              "srcset=\"#{ImageUrlGenerator.instance.cdn_image_url ban.moderator, :x32} " \
               "2x\" alt=\"#{ERB::Util.h ban.moderator.nickname}\" " \
               "/><span>#{ERB::Util.h ban.moderator.nickname}</span></a></div>"
             text.gsub!(

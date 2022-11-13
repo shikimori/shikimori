@@ -214,7 +214,7 @@ private
         twitter_card: 'summary_large_image'
       )
     else
-      og image: ImageUrlGenerator.instance.url(@resource, :original)
+      og image: ImageUrlGenerator.instance.cdn_image_url(@resource, :original)
     end
   end
 

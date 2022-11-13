@@ -365,7 +365,7 @@ class User < ApplicationRecord
   end
 
   def avatar_url size, ignore_censored = false
-    url = ImageUrlGenerator.instance.url self, "x#{size}".to_sym
+    url = ImageUrlGenerator.instance.cdn_image_url self, "x#{size}".to_sym
 
     if !ignore_censored && (censored_avatar? || forever_banned?)
       # format(
@@ -375,7 +375,7 @@ class User < ApplicationRecord
       # )
       url = url.gsub("/#{id}.png", '/3.png')
     # else
-    #   ImageUrlGenerator.instance.url self, "x#{size}".to_sym
+    #   ImageUrlGenerator.instance.cdn_image_url self, "x#{size}".to_sym
     end
 
     url

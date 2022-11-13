@@ -15,9 +15,9 @@ private
 
   def html_for user_image
     <<~HTML.squish
-      <a href="#{ImageUrlGenerator.instance.url user_image, :original}"
+      <a href="#{ImageUrlGenerator.instance.cdn_image_url user_image, :original}"
       class="b-image unprocessed"><img
-      src="#{ImageUrlGenerator.instance.url user_image, :preview}"/></a>
+      src="#{ImageUrlGenerator.instance.cdn_image_url user_image, :preview}"/></a>
     HTML
   end
 end

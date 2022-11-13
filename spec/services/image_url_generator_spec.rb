@@ -4,8 +4,8 @@ describe ImageUrlGenerator do
   let(:timestamp) { '1425232393' }
   include_context :timecop, '2015-03-01T20:53:13.183710+03:00'
 
-  describe '#url' do
-    subject { service.url entry, image_size }
+  describe '#cdn_image_url' do
+    subject { service.cdn_image_url entry, image_size }
 
     context 'production environment' do
       before do

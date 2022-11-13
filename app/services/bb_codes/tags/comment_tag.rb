@@ -152,8 +152,8 @@ private
 
     <<-HTML.squish
       <img
-        src="#{ImageUrlGenerator.instance.url user, :x16}"
-        srcset="#{ImageUrlGenerator.instance.url user, :x32} 2x"
+        src="#{ImageUrlGenerator.instance.cdn_image_url user, :x16}"
+        srcset="#{ImageUrlGenerator.instance.cdn_image_url user, :x32} 2x"
         alt="#{ERB::Util.h quoted_name}"
       /><span>#{ERB::Util.h quoted_name}</span>
     HTML

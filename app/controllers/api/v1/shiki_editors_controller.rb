@@ -130,7 +130,7 @@ private
   def serialize_user_image model
     {
       id: model.id,
-      url: ImageUrlGenerator.instance.url(model, :original)
+      url: ImageUrlGenerator.instance.cdn_image_url(model, :original)
       # original_url: model.image.url(:original),
       # preview_url: model.image.url(:preview),
       # width: model.width,
@@ -142,7 +142,7 @@ private
     {
       id: model.id,
       text: model.nickname,
-      avatar: ImageUrlGenerator.instance.url(model, :x32),
+      avatar: ImageUrlGenerator.instance.cdn_image_url(model, :x32),
       url: profile_url(model)
     }
   end

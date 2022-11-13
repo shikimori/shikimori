@@ -68,7 +68,7 @@ private
   end
 
   def small_image_html user_image:, attrs:, marker_html:
-    original_url = ImageUrlGenerator.instance.url user_image, :original
+    original_url = ImageUrlGenerator.instance.cdn_image_url user_image, :original
     sizes_html = sizes_html attrs
 
     <<-HTML.squish.strip
@@ -81,8 +81,8 @@ private
   end
 
   def large_image_html user_image:, attrs:, marker_html:, text_hash:
-    original_url = ImageUrlGenerator.instance.url user_image, :original
-    preview_url = ImageUrlGenerator.instance.url(
+    original_url = ImageUrlGenerator.instance.cdn_image_url user_image, :original
+    preview_url = ImageUrlGenerator.instance.cdn_image_url(
       user_image,
       attrs[:width] || attrs[:height] ? :preview : :thumbnail
     )
