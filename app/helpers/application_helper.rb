@@ -32,6 +32,14 @@ module ApplicationHelper
     ImageUrlGenerator.instance.cdn_image_url entry, image_size
   end
 
+  def cdn_poster_url db_entry:, poster:, derivative:
+    ImageUrlGenerator.instance.cdn_poster_url(
+      db_entry: db_entry,
+      poster: poster,
+      derivative: derivative
+    )
+  end
+
   def meta_image_url file, style = :original, with_timestamp = true
     "#{request.protocol}#{request.host_with_port}#{file.url style, with_timestamp}"
   end
