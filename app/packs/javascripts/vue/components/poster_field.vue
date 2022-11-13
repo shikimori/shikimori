@@ -12,7 +12,7 @@ label.b-dropzone.block(
 )
   p(
     v-if='sizes.naturalWidth'
-  ) Размер: {{ sizes.naturalWidth }}x{{ sizes.naturalHeight }}
+  ) Картинка: {{ sizes.naturalWidth }}x{{ sizes.naturalHeight }}
   p(
     v-if='sizes.naturalWidth !== sizes.width'
   ) Кроп: {{ sizes.width }}x{{ sizes.height }}
