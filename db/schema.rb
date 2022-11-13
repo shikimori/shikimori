@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_12_125854) do
+ActiveRecord::Schema.define(version: 2022_11_13_215113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -875,10 +875,10 @@ ActiveRecord::Schema.define(version: 2022_11_12_125854) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_approved", default: true, null: false
     t.datetime "deleted_at"
-    t.index ["anime_id"], name: "index_posters_on_anime_id"
-    t.index ["character_id"], name: "index_posters_on_character_id"
-    t.index ["manga_id"], name: "index_posters_on_manga_id"
-    t.index ["person_id"], name: "index_posters_on_person_id"
+    t.index ["anime_id"], name: "index_posters_on_anime_id", unique: true, where: "((anime_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"
+    t.index ["character_id"], name: "index_posters_on_character_id", unique: true, where: "((character_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"
+    t.index ["manga_id"], name: "index_posters_on_manga_id", unique: true, where: "((manga_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"
+    t.index ["person_id"], name: "index_posters_on_person_id", unique: true, where: "((person_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"
   end
 
   create_table "proxies", force: :cascade do |t|
