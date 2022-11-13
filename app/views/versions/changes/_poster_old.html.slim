@@ -13,6 +13,6 @@
     - if version.latest_image?
       .diff
         img[
-          src=cdn_image(version.item, :original)
+          src=cdn_image_url(version.item, :original)
           style='max-width: 100%'
         ]

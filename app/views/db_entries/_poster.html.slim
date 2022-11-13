@@ -5,8 +5,8 @@
       srcset='#{poster.image(:medium).url} 2x'
       type='image/webp'
     ]
-      / src=cdn_image(anime, :preview)
-      / srcset="#{cdn_image anime, :original} 2x"
+      / src=cdn_image_url(anime, :preview)
+      / srcset="#{cdn_image_url anime, :original} 2x"
       / alt=(local_assigns[:db_entry] || poster.target).name
     img[
       alt=db_entry.name

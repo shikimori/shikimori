@@ -3,13 +3,13 @@
     .grid_sizer
     - version.screenshots.each do |image|
       a.b-image.unprocessed[
-        href=cdn_image(image, :original)
+        href=cdn_image_url(image, :original)
         id=image.id
         rel="version_#{version.id}"
       ]
         - if image.width && image.height
           span.marker #{image.width}x#{image.height}
         img[
-          src=cdn_image(image, :x166)
-          srcset=cdn_image(image, :x332)
+          src=cdn_image_url(image, :x166)
+          srcset=cdn_image_url(image, :x332)
         ]

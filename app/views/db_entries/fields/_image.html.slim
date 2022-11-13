@@ -4,7 +4,7 @@
   .c-column
     = simple_form_for resource.object do |f|
       img.m5[
-        src=cdn_image(resource, :original)
+        src=cdn_image_url(resource, :original)
         title=localized_name(resource)
         alt=localized_name(resource)
       ]

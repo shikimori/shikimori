@@ -6,8 +6,8 @@
     - if local_assigns[:with_image]
       a.image-link href=anime.url title=anime.name
         img.image[
-          src=cdn_image(anime, :preview)
-          srcset="#{cdn_image anime, :original} 2x"
+          src=cdn_image_url(anime, :preview)
+          srcset="#{cdn_image_url anime, :original} 2x"
           alt=anime.name
         ]
 

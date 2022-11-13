@@ -5,7 +5,7 @@
       title=t('.studio_animes', studio_name: studio.filtered_name)
     ]
       img.studio-logo[
-        src=cdn_image(studio, :original)
+        src=cdn_image_url(studio, :original)
         alt=t('.studio_animes', studio_name: studio.filtered_name)
       ]
   - else

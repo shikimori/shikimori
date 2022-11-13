@@ -20,7 +20,7 @@ header.head
       = f.input :image, input_html: { disabled: cannot?(:update, @resource) }
       - if @resource.image_file_name
         img[
-          src=cdn_image(@resource, :original)
+          src=cdn_image_url(@resource, :original)
           style='width: 200px'
         ]
 

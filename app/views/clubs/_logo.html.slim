@@ -1,7 +1,7 @@
 - if resource.logo.exists?
   .block.logo
     center: img[
-      src=cdn_image(resource, :main)
+      src=cdn_image_url(resource, :main)
       alt=resource.name
       title=resource.name
     ]

@@ -27,8 +27,8 @@ header.head.misc
         - if @resource.persisted?
           div
             img[
-              src=cdn_image(@resource, :x160)
-              srcset="#{cdn_image @resource, :x320} 2x"
+              src=cdn_image_url(@resource, :x160)
+              srcset="#{cdn_image_url @resource, :x320} 2x"
               alt=@resource.name
               title=@resource.name
             ]

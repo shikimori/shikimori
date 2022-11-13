@@ -2,8 +2,8 @@
   - if defined?(with_image) && with_image
     a href=person_url(person) title=localized_name(person)
       img.image[
-        src=cdn_image(person, :preview)
-        srcset="#{cdn_image person, :original} 2x"
+        src=cdn_image_url(person, :preview)
+        srcset="#{cdn_image_url person, :original} 2x"
         alt=person.name
       ]
 

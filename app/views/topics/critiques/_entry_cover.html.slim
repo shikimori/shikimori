@@ -8,7 +8,7 @@
         span.image-cutter
           img[
             alt=view.poster_title
-            src=cdn_image(entry, :preview)
-            srcset="#{cdn_image entry, :original} 2x"
+            src=cdn_image_url(entry, :preview)
+            srcset="#{cdn_image_url entry, :original} 2x"
             title=view.poster_title
           ]

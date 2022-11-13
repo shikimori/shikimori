@@ -6,8 +6,8 @@
     title=oauth_application.name
   ]
     img.logo[
-      src=cdn_image(oauth_application, local_assigns[:content_by] == :mini ? :x48 : :x160)
-      srcset="#{cdn_image oauth_application, local_assigns[:content_by] == :mini ? :x96 : :x320} 2x"
+      src=cdn_image_url(oauth_application, local_assigns[:content_by] == :mini ? :x48 : :x160)
+      srcset="#{cdn_image_url oauth_application, local_assigns[:content_by] == :mini ? :x96 : :x320} 2x"
       alt=oauth_application.name
     ]
     .name

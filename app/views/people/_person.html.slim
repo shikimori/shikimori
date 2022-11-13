@@ -27,8 +27,8 @@ article.c-column.b-catalog_entry.c-person[
     span.image-decor
       span.image-cutter
         img[
-          src=cdn_image(person, :preview)
-          srcset="#{cdn_image person, :original} 2x"
+          src=cdn_image_url(person, :preview)
+          srcset="#{cdn_image_url person, :original} 2x"
           alt=person.name
         ]
 

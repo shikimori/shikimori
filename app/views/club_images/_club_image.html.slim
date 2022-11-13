@@ -1,5 +1,5 @@
 a.b-image[
-  href=cdn_image(club_image, :original)
+  href=cdn_image_url(club_image, :original)
   id=club_image.id
   rel=(rel if defined? rel)
 ]
@@ -18,4 +18,4 @@ a.b-image[
           data-type="json"
         ]
       .cancel title=t('frontend.images.cancel')
-  img src=cdn_image(club_image, :preview)
+  img src=cdn_image_url(club_image, :preview)

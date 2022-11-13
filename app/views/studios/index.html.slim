@@ -12,7 +12,7 @@ header.head
           - if user_signed_in?
             a href=animes_collection_url(studio: studio) title=studio.name
               img.logo[
-                src=cdn_image(studio, :original)
+                src=cdn_image_url(studio, :original)
                 alt=studio.name
                 title=studio.name
               ]

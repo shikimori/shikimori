@@ -2,8 +2,8 @@
   - if defined?(with_image) && with_image
     a href=character_url(character) title=character.name
       img.image[
-        src=cdn_image(character, :preview)
-        srcset="#{cdn_image character, :original} 2x"
+        src=cdn_image_url(character, :preview)
+        srcset="#{cdn_image_url character, :original} 2x"
         alt=character.name
       ]
 
@@ -31,8 +31,8 @@
             title=character.best_works.first.name
           ]
             img[
-              src=cdn_image(character.best_works.first, :x48)
-              srcset="#{cdn_image character.best_works.first, :x96} 2x"
+              src=cdn_image_url(character.best_works.first, :x48)
+              srcset="#{cdn_image_url character.best_works.first, :x96} 2x"
             ]
 
         - if character.top_seyu.any?
@@ -43,8 +43,8 @@
               title=character.top_seyu.first.name
             ]
               img[
-                src=cdn_image(character.top_seyu.first, :x48)
-                srcset="#{cdn_image character.top_seyu.first, :x96} 2x"
+                src=cdn_image_url(character.top_seyu.first, :x48)
+                srcset="#{cdn_image_url character.top_seyu.first, :x96} 2x"
               ]
 
     .text itemprop="description"

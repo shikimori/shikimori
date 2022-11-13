@@ -28,7 +28,7 @@ module ApplicationHelper
     false
   end
 
-  def cdn_image entry, image_size
+  def cdn_image_url entry, image_size
     ImageUrlGenerator.instance.url entry, image_size
   end
 

@@ -1,7 +1,7 @@
 a.c-screenshot.b-image[
   class=("entry-#{screenshot_counter+1}" if defined? screenshot_counter)
   class=('unprocessed' if local_assigns[:gallery])
-  href=cdn_image(screenshot, :original)
+  href=cdn_image_url(screenshot, :original)
   title="#{t '.screenshot'} #{screenshot_counter+1 if defined? screenshot_counter} #{t '.of'} #{localized_name screenshot.anime}"
   rel=(local_assigns[:gallery] ? "gallery-#{local_assigns[:gallery]}" : 'screenshot')
 ]
@@ -23,8 +23,8 @@ a.c-screenshot.b-image[
       .move-left title=t('.move_left')
       .move-right title=t('.move_right')
   img[
-    src=cdn_image(screenshot, :x166)
-    srcset=cdn_image(screenshot, :x332)
+    src=cdn_image_url(screenshot, :x166)
+    srcset=cdn_image_url(screenshot, :x332)
     data-id=screenshot.id
     title="#{t '.screenshot'} #{screenshot_counter+1 if defined? screenshot_counter} #{t '.of'} #{localized_name screenshot.anime}" alt="Кадр #{screenshot_counter+1 if defined? screenshot_counter} #{t '.of'} #{screenshot.anime.kind_text}"
   ]

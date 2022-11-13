@@ -42,8 +42,8 @@
           ]
             .image-name
               img[
-                src=cdn_image(critique.target, :x48)
-                srcset="#{cdn_image critique.target, :x96} 2x"
+                src=cdn_image_url(critique.target, :x48)
+                srcset="#{cdn_image_url critique.target, :x96} 2x"
                 alt=localized_name(critique.target)
               ]
               span.title
