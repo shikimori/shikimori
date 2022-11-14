@@ -280,16 +280,16 @@ private
     # AD START: IMBA - remove 2022-11-28 23:59
     images: [{
       src: '/assets/globals/events/2022-11-14/inner_1.png',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=14_11'
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=14_11&marker=2VtzqwMWApG'
     }, {
       src: '/assets/globals/events/2022-11-14/inner_2.png',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=14_11'
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=14_11&marker=2VtzqwpCxLG'
     }, {
       src: '/assets/globals/events/2022-11-14/inner_3.png',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=14_11'
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=14_11&marker=2Vtzqwqid2G'
     }, {
       src: '/assets/globals/events/2022-11-14/inner_4.png',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=14_11'
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=14_11&marker=2VtzqvVAd1i'
     }],
     # AD END
     placement: Types::Ad::Placement[:content],
