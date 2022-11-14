@@ -25,8 +25,8 @@ header.head
     .l-content
       = yield
 
-      / - unless %w[edit edit_field].include?(params[:action])
-      - unless %w[show edit edit_field].include?(params[:action]) && user_signed_in?
+      / - unless %w[show edit edit_field].include?(params[:action]) && user_signed_in?
+      - unless %w[edit edit_field].include?(params[:action])
         - if shikimori?
           = render 'spnsrs/ad', ad: Ad.new(:horizontal_x90)
 
