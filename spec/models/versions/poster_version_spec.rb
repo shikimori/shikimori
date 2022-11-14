@@ -8,7 +8,7 @@ describe Versions::PosterVersion do
     include_context :timecop
 
     let(:poster) { create :poster, is_approved: false, anime: anime }
-    let(:active_poster) { nil }
+    let!(:active_poster) { nil }
     let(:anime) { create :anime }
 
     subject! { version.apply_changes }
@@ -32,7 +32,7 @@ describe Versions::PosterVersion do
           expect(active_poster.reload.deleted_at).to be_within(0.1).of Time.zone.now
           expect(version.reload.item_diff).to eq(
             'action' => 'upload',
-            'replaced_poster_id' => active_poster.id
+            'prev_poster_id' => active_poster.id
           )
         end
       end

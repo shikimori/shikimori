@@ -27,10 +27,17 @@ class Versions::PosterVersion < Version
 
 private
 
+  # no need to wrap in transaction because it is already wrapped in transaction in version.rb
   def upload_poster
-    ApplicationRecord.transition do
-      item.update! is_approved: true
+    prev_poster = associated.poster
+
+    if prev_poster
+      item_diff['prev_poster_id'] = prev_poster.id
+      save!
+      prev_poster.update! deleted_at: Time.zone.now
     end
+
+    item.update! is_approved: true
   end
 
   def delete_poster
