@@ -277,19 +277,19 @@ private
   }
   SPECIAL_X894 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: IMBA - remove 2022-10-19 23:59
+    # AD START: IMBA - remove 2022-11-28 23:59
     images: [{
-      src: '/assets/globals/events/2022-10-05/inner_1.jpg',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=05_10&marker=2VtzqutjgDE' # https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=05_10
+      src: '/assets/globals/events/2022-10-05/inner_1.png',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=14_11'
     }, {
-      src: '/assets/globals/events/2022-10-05/inner_2.jpg',
-      url: 'https://bit.ly/3SJHmvt' # https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner2&utm_campaign=05_10
+      src: '/assets/globals/events/2022-10-05/inner_2.png',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=14_11'
     }, {
-      src: '/assets/globals/events/2022-10-05/inner_3.jpg',
-      url: 'https://bit.ly/3EjiR3L' # https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=05_10
+      src: '/assets/globals/events/2022-10-05/inner_3.png',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=14_11'
     }, {
-      src: '/assets/globals/events/2022-10-05/inner_4.jpg',
-      url: 'https://bit.ly/3TfM18v' # https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner4&utm_campaign=05_10
+      src: '/assets/globals/events/2022-10-05/inner_4.png',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=14_11'
     }],
     # AD END
     placement: Types::Ad::Placement[:content],
@@ -443,7 +443,7 @@ private
         Types::Ad::Type[:mt_970x250]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894], # IMBA - remove 2022-10-19 23:59
+        Types::Ad::Type[:special_x894], # IMBA - remove 2022-11-28 23:59
         Types::Ad::Type[:yd_970x90],
         Types::Ad::Type[:mt_728x90]
       ],
@@ -479,7 +479,7 @@ private
         Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894], # IMBA - remove 2022-10-19 23:59
+        Types::Ad::Type[:special_x894], # IMBA - remove 2022-11-28 23:59
         # Types::Ad::Type[:mt_728x90],
         Types::Ad::Type[:advrtr_x728]
       ],
