@@ -1,7 +1,7 @@
 <template lang='pug'>
 label.b-dropzone.block(
   ref='uploaderRef'
-  data-hint='Перетаскивай сюда картинку размером от 450x700 до 900x1400 пикселей;'
+  data-hint='Перетаскивай сюда картинку размером от 450x700 пикселей;'
 )
   input.hidden(
     type='file'
