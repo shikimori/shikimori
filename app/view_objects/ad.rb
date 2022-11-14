@@ -279,16 +279,16 @@ private
     provider: Types::Ad::Provider[:special],
     # AD START: IMBA - remove 2022-11-28 23:59
     images: [{
-      src: '/assets/globals/events/2022-10-05/inner_1.png',
+      src: '/assets/globals/events/2022-11-14/inner_1.png',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=14_11'
     }, {
-      src: '/assets/globals/events/2022-10-05/inner_2.png',
+      src: '/assets/globals/events/2022-11-14/inner_2.png',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=14_11'
     }, {
-      src: '/assets/globals/events/2022-10-05/inner_3.png',
+      src: '/assets/globals/events/2022-11-14/inner_3.png',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=14_11'
     }, {
-      src: '/assets/globals/events/2022-10-05/inner_4.png',
+      src: '/assets/globals/events/2022-11-14/inner_4.png',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=14_11'
     }],
     # AD END
