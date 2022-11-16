@@ -53,7 +53,13 @@ describe Versions::PosterVersion do
   describe '#rollback_changes' do
     include_context :timecop
 
-    let(:poster) { create :poster, is_approved: true, anime: anime }
+    let(:poster) do
+      create :poster,
+        is_approved: true,
+        anime: anime,
+        deleted_at: poster_deleted_at
+    end
+    let(:poster_deleted_at) { nil }
     let!(:prev_poster) { nil }
     let(:anime) { create :anime }
     let(:version) do
@@ -94,7 +100,11 @@ describe Versions::PosterVersion do
 
     context 'delete' do
       let(:action) { Versions::PosterVersion::Actions[:delete] }
-      pending
+      let(:poster_deleted_at) { 1.day.ago }
+
+      it do
+        expect(poster.reload.deleted_at).to be_nil
+      end
     end
   end
 
