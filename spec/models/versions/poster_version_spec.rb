@@ -130,4 +130,16 @@ describe Versions::PosterVersion do
       it { expect(poster.reload).to be_persisted }
     end
   end
+
+  describe '#prev_poster' do
+    let(:version) do
+      build :poster_version,
+        item_diff: { described_class::PREV_POSTER_ID => poster.id }
+    end
+    let(:poster) { create :poster, anime: anime }
+    let(:anime) { create :anime }
+    subject! { version.prev_poster }
+
+    it { is_expected.to eq poster }
+  end
 end

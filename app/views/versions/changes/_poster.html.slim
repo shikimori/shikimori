@@ -1,17 +1,17 @@
 .field-changes.poster
-  - is_before_state = version.pending? && version.associated.poster.present?
+  - prev_poster = version.prev_poster || (version.pending? && version.associated.poster)
 
   .changes
-    - if is_before_state
+    - if prev_poster
       .change
         .label #{t '.before'}:
         div
           = render 'db_entries/poster',
             db_entry: version.associated,
-            poster: version.associated.poster
+            poster: prev_poster
 
     .change
-      - if is_before_state
+      - if prev_poster
         .label #{t '.after'}:
       div
         = render 'db_entries/poster',

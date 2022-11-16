@@ -3,6 +3,8 @@ class Versions::PosterVersion < Version
     .constructor(&:to_sym)
     .enum(:upload, :delete)
 
+  PREV_POSTER_ID = 'prev_poster_id'
+
   alias poster item
 
   def action
@@ -27,6 +29,12 @@ class Versions::PosterVersion < Version
     poster.destroy if action == Actions[:upload]
   end
 
+  def prev_poster
+    return unless item_diff[PREV_POSTER_ID]
+
+    Poster.find_by id: item_diff[PREV_POSTER_ID]
+  end
+
 private
 
   # no need to wrap in transaction because it is already wrapped in transaction in version.rb
@@ -34,7 +42,7 @@ private
     prev_poster = associated.poster
 
     if prev_poster
-      item_diff['prev_poster_id'] = prev_poster.id
+      item_diff[PREV_POSTER_ID] = prev_poster.id
       save!
       prev_poster.update! deleted_at: Time.zone.now
     end
@@ -44,12 +52,6 @@ private
 
   def delete_poster
     poster.update! deleted_at: Time.zone.now
-  end
-
-  def prev_poster
-    return unless item_diff['prev_poster_id']
-
-    Poster.find_by id: item_diff['prev_poster_id']
   end
 
   def restore_poster poster
