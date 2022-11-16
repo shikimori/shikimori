@@ -7,7 +7,7 @@
     .value
       - value = resource.respond_to?(:"#{field}_text") ? resource.send(:"#{field}_text") : resource.send(field)
 
-      - if value.present?
+      - if value.present? || local_assigns[:is_force_value]
         span
           - if local_assigns[:formatter]
             = local_assigns[:formatter].(value)
