@@ -3,6 +3,8 @@ class Versions::PosterVersion < Version
     .constructor(&:to_sym)
     .enum(:upload, :delete)
 
+  alias poster item
+
   def action
     Actions[item_diff['action']]
   end
@@ -22,7 +24,7 @@ class Versions::PosterVersion < Version
   end
 
   def sweep_deleted **_args
-    item.destroy if action == Actions[:upload]
+    poster.destroy if action == Actions[:upload]
   end
 
 private
@@ -37,10 +39,10 @@ private
       prev_poster.update! deleted_at: Time.zone.now
     end
 
-    item.update! is_approved: true
+    poster.update! is_approved: true
   end
 
   def delete_poster
-    raise NotImplementedError
+    poster.update! deleted_at: Time.zone.now
   end
 end

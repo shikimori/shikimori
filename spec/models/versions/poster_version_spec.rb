@@ -41,7 +41,12 @@ describe Versions::PosterVersion do
     end
 
     context 'delete' do
-      pending
+      let(:action) { Versions::PosterVersion::Actions[:delete] }
+
+      it do
+        expect(poster.reload).to_not be_is_approved
+        expect(poster.deleted_at).to be_within(0.1).of Time.zone.now
+      end
     end
   end
 
