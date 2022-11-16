@@ -3,11 +3,26 @@
     = render 'spnsrs/ad', ad: Ad.new(:menu_240x400)
   - else
     .b-menu_logo
-      a href=resource.url title=localized_name(resource)
-        img[
-          src=cdn_image_url(resource, :original)
-          alt=localized_name(resource)
+      - if current_user&.staff? && resource.poster
+        a[
+          href=resource.url
+          title=localized_name(resource)
         ]
+          = render 'db_entries/poster',
+            db_entry: resource,
+            poster: resource.poster
+        div style='color: #acb1b4; font-size: 11px; line-height: 1; margin-top: 5px'
+          ' это новый вид постера, пока отображается только у модераторов
+          a href=resource.edit_field_url(:poster) изменить
+      - else
+        a[
+          href=resource.url
+          title=localized_name(resource)
+        ]
+          img[
+            src=cdn_image_url(resource, :original)
+            alt=localized_name(resource)
+          ]
 
   - cache [resource, resource.collections_scope, resource.favourites_scope, resource.news_topic_scope] do
     = render 'db_entries/menu/favoured',

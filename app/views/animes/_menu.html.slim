@@ -6,22 +6,22 @@
       - if current_user&.staff? && resource.poster
         a[
           href=resource.url(params[:action] != 'index')
-          title=resource.name
+          title=localized_name(resource)
         ]
           = render 'db_entries/poster',
             db_entry: resource,
             poster: resource.poster
         div style='color: #acb1b4; font-size: 11px; line-height: 1; margin-top: 5px'
           ' это новый вид постера, пока отображается только у модераторов
-          a href=resource.decorate.edit_field_url(:poster) изменить
+          a href=resource.edit_field_url(:poster) изменить
       - else
         a[
           href=resource.url(params[:action] != 'index')
-          title=resource.name
+          title=localized_name(resource)
         ]
           img[
             src=cdn_image_url(resource, :original)
-            alt=resource.name
+            alt=localized_name(resource)
           ]
 
   .block
