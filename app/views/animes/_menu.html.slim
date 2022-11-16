@@ -3,14 +3,26 @@
 ]
   - if !@itemtype
     .b-menu_logo
-      a[
-        href=resource.url(params[:action] != 'index')
-        title=resource.name
-      ]
-        img[
-          src=cdn_image_url(resource, :original)
-          alt=resource.name
+      - if current_user&.staff? && resource.poster
+        a[
+          href=resource.url(params[:action] != 'index')
+          title=resource.name
         ]
+          = render 'db_entries/poster',
+            db_entry: resource,
+            poster: resource.poster
+        div style='color: #acb1b4; font-size: 11px; line-height: 1; margin-top: 5px'
+          ' это новый вид постера, пока отображается только у модераторов
+          a href=resource.decorate.edit_field_url(:poster) изменить
+      - else
+        a[
+          href=resource.url(params[:action] != 'index')
+          title=resource.name
+        ]
+          img[
+            src=cdn_image_url(resource, :original)
+            alt=resource.name
+          ]
 
   .block
     .subheadline = t '.scores'

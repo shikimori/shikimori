@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  = cache [@resource, user_signed_in?, :v9] do
+  = cache [@resource, user_signed_in?, :v9, current_user&.staff?] do
     meta itemprop='url' content="#{{@resource.url}}"
     meta itemprop='headline' content=@resource.name
 
@@ -19,11 +19,19 @@
       .c-image
         .cc.block
           .c-poster
-            img[
-              src=cdn_image_url(@resource, :original)
-              title=@resource.name
-              alt=@resource.name
-            ]
+            - if current_user&.staff? && @resource.poster
+              = render 'db_entries/poster',
+                db_entry: @resource,
+                poster: @resource.poster
+              div style='color: #acb1b4; font-size: 11px; line-height: 1; margin-top: 5px'
+                ' это новый вид постера, пока отображается только у модераторов
+                a href=@resource.decorate.edit_field_url(:poster) изменить
+            - else
+              img[
+                src=cdn_image_url(@resource, :original)
+                title=@resource.name
+                alt=@resource.name
+              ]
 
           .c-actions
             .b-subposter-actions
