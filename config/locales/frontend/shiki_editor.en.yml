@@ -22,6 +22,7 @@ en:
       spoiler_block: Spoiler block
       code_block: Code block
       bullet_list: List
+      headline: Headline
       blockquote: Quote
       prompt:
         image_url: Image URL
