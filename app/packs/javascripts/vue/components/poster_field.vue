@@ -15,8 +15,20 @@ label.b-dropzone.block(
   ) Картинка: {{ sizes.naturalWidth }}x{{ sizes.naturalHeight }}
   p(
     v-if='sizes.naturalWidth !== sizes.width'
-  ) Кроп: {{ sizes.width }}x{{ sizes.height }}
-  .b-button(
+  )
+    | Кроп: {{ sizes.width }}x{{ sizes.height }}
+    .b-button.disable-crop(
+      @click='disableCrop'
+    ) Отключить
+  p(
+    v-if='isDisabled'
+  )
+    | Кроп: отключено
+    .b-button.enable-crop(
+      @click='enableCrop'
+    ) Включить
+
+  .b-button.clear(
     @click='clear'
   ) Очистить
 
@@ -26,7 +38,7 @@ label.b-dropzone.block(
   VueCropper(
     ref='vueCropperRef'
     :src='currentSrc'
-    :aspect-ratio='225/350'
+    :aspect-ratio='DEFAULT_ASPECT_RATIO'
     :auto-crop-area='1.0'
     @crop='onCrop'
   )
@@ -39,7 +51,7 @@ label.b-dropzone.block(
 </template>
 
 <script setup>
-import { ref, reactive, watch, onMounted } from 'vue';
+import { ref, reactive, watch, onMounted, nextTick } from 'vue';
 import VueCropper from '@ballcat/vue-cropper';
 import 'cropperjs/dist/cropper.css';
 
@@ -47,9 +59,12 @@ const props = defineProps({
   src: { type: String, required: false, default: '' }
 });
 
+const DEFAULT_ASPECT_RATIO = 225/350;
+
 const currentSrc = ref(props.src);
 const vueCropperRef = ref(null);
 const uploaderRef = ref(null);
+const isDisabled = ref(false);
 
 const sizes = reactive({
   naturalWidth: 0,
@@ -93,13 +108,44 @@ function onFileAdded(uploader, uppyFile) {
 function clear() {
   currentSrc.value = '';
 }
+
+function disableCrop() {
+  isDisabled.value = true;
+
+  vueCropperRef.value.setAspectRatio(0);
+  vueCropperRef.value.disable();
+}
+
+function enableCrop() {
+  isDisabled.value = false;
+
+  vueCropperRef.value.enable();
+  vueCropperRef.value.setAspectRatio(DEFAULT_ASPECT_RATIO);
+}
 </script>
 
 <style scoped lang='sass'>
 .sizes
   font-size: 14px
 
+.clear
+  margin-top: 8px
+
+.enable-crop,
+.disable-crop
+  margin-left: 8px
+
 .cropper-container
   max-width: 100%
   width: 450px
+
+::v-deep(.cropper-disabled)
+  .cropper-view-box
+    outline-color: rgba(#a630ff, 0.75)
+
+  .cropper-line
+    background-color: #a630ff
+
+  .cropper-point
+    background-color: #8e00fa
 </style>
