@@ -4515,6 +4515,7 @@
         - 43694
         - 53316
         - 53245
+        - 53601
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -11951,6 +11952,7 @@
         - 32214
         - 38799
         - 41750
+        - 29325
       :generator:
         person_id: 2609
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -12003,6 +12005,7 @@
         - 32214
         - 38799
         - 41750
+        - 29325
       :generator:
         person_id: 2609
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -18599,6 +18602,7 @@
         ignore_latest_ids:
         - 42916
         - 50275
+        - 53529
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :sword_art_online
@@ -18646,6 +18650,7 @@
         ignore_latest_ids:
         - 42916
         - 50275
+        - 53529
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :sword_art_online
@@ -26307,7 +26312,9 @@
         - 49941
         - 50084
         - 50473
-      :threshold: 86.8%
+        - 51569
+        - 53603
+      :threshold: 87.3%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -26401,6 +26408,8 @@
         - 49941
         - 50084
         - 50473
+        - 51569
+        - 53603
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -27061,6 +27070,7 @@
         ignore_latest_ids:
         - 38770
         - 49320
+        - 53540
         not_ignored_ids:
         - 1365
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -27118,6 +27128,7 @@
         ignore_latest_ids:
         - 38770
         - 49320
+        - 53540
         not_ignored_ids:
         - 1365
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -29732,6 +29743,7 @@
         - 23931
         - 40554
         - 49311
+        - 53604
       :threshold: 93.1%
       :generator:
         ignore_latest_ids:
@@ -29771,6 +29783,7 @@
         - 23931
         - 40554
         - 49311
+        - 53604
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
