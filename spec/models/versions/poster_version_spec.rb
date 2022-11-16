@@ -51,13 +51,49 @@ describe Versions::PosterVersion do
   end
 
   describe '#rollback_changes' do
+    include_context :timecop
+
+    let(:poster) { create :poster, is_approved: true, anime: anime }
+    let!(:prev_poster) { nil }
+    let(:anime) { create :anime }
+    let(:version) do
+      create :poster_version,
+        item: poster,
+        item_diff: {
+          'action' => action,
+          'prev_poster_id' => prev_poster&.id
+        },
+        associated: anime
+    end
+
     subject! { version.rollback_changes }
 
     context 'upload' do
-      pending
+      let(:action) { Versions::PosterVersion::Actions[:upload] }
+
+      context 'had no poster before' do
+        it do
+          expect(poster.reload.deleted_at).to be_within(0.1).of Time.zone.now
+        end
+      end
+
+      context 'had poster before' do
+        let!(:prev_poster) do
+          create :poster,
+            is_approved: true,
+            anime: anime,
+            deleted_at: 1.day.ago
+        end
+
+        it do
+          expect(poster.reload.deleted_at).to be_within(0.1).of Time.zone.now
+          expect(prev_poster.reload.deleted_at).to be_nil
+        end
+      end
     end
 
     context 'delete' do
+      let(:action) { Versions::PosterVersion::Actions[:delete] }
       pending
     end
   end

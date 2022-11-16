@@ -18,7 +18,7 @@ class Versions::PosterVersion < Version
 
   def rollback_changes
     case action
-      when Actions[:upload] then delete_poster
+      when Actions[:upload] then delete_poster && restore_prev_poster
       when Actions[:delete] then upload_poster
     end
   end
@@ -44,5 +44,11 @@ private
 
   def delete_poster
     poster.update! deleted_at: Time.zone.now
+  end
+
+  def restore_prev_poster
+    return unless item_diff['prev_poster_id']
+
+    Poster.find_by(id: item_diff['prev_poster_id'])&.update! deleted_at: nil
   end
 end
