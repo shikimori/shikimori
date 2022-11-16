@@ -14,7 +14,7 @@ label.b-dropzone.block(
     v-if='sizes.naturalWidth'
   ) Картинка: {{ sizes.naturalWidth }}x{{ sizes.naturalHeight }}
   p(
-    v-if='sizes.naturalWidth !== sizes.width'
+    v-if='sizes.naturalWidth !== sizes.width || sizes.naturalHeight !== sizes.height'
   )
     | Кроп: {{ sizes.width }}x{{ sizes.height }}
     .b-button.disable-crop(
@@ -98,6 +98,7 @@ onMounted(async () => {
     maxFileSize: 1024 * 1024 * 15
   })
     .on('upload:file:added', ({ target }, file) => onFileAdded(target, file));
+  window.z = vueCropperRef
 });
 
 function onFileAdded(uploader, uppyFile) {
@@ -108,7 +109,6 @@ function onFileAdded(uploader, uppyFile) {
 function clear() {
   currentSrc.value = '';
 }
-
 function disableCrop() {
   isDisabled.value = true;
 
