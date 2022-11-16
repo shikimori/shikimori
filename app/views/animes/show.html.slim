@@ -22,7 +22,8 @@
             - if current_user&.staff? && @resource.poster
               = render 'db_entries/poster',
                 db_entry: @resource,
-                poster: @resource.poster
+                poster: @resource.poster,
+                is_magnificable: @resource.poster.magnificable?
               div style='color: #acb1b4; font-size: 11px; line-height: 1; margin-top: 5px'
                 ' это новый вид постера, пока отображается только у модераторов
                 a href=@resource.decorate.edit_field_url(:poster) изменить

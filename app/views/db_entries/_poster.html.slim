@@ -1,5 +1,8 @@
 - if poster
-  picture
+  picture[
+    class=(:magnificable if local_assigns[:is_magnificable])
+    data-href=(poster.image.url if local_assigns[:is_magnificable])
+  ]
     source[
       src=cdn_poster_url(db_entry: db_entry, poster: poster, derivative: :small)
       srcset='#{cdn_poster_url db_entry: db_entry, poster: poster, derivative: :medium} 2x'

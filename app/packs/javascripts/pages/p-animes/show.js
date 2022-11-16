@@ -3,6 +3,7 @@ import checkHeight from '@/utils/check_height';
 pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
   $('.b-notice').tipsy({ gravity: 's' });
   $('.c-screenshot').magnificRelGallery();
+  $('picture.magnificable').magnificRelGallery();
 
   checkHeight($('.text'), { maxHeight: 200 });
 
