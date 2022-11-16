@@ -3,7 +3,6 @@ import checkHeight from '@/utils/check_height';
 pageLoad('people_show', async () => {
   checkHeight($('.c-info-left .b-entry-info'), { maxHeight: 101, isNoShade: true });
   checkHeight($('.c-info-right .b-entry-info'), { maxHeight: 101, isNoShade: true });
-  $('picture.magnificable').magnificRelGallery();
 
   // комментировать
   $('.b-subposter-actions .new_comment').on('click', () => {

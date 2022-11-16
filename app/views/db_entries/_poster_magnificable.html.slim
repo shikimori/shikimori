@@ -1,0 +1,22 @@
+- if current_user&.staff? && resource.poster
+  - if resource.poster.magnificable?
+    .b-image.unprocessed data-href=resource.poster.image.url
+      = render 'db_entries/poster', db_entry: resource, poster: resource.poster
+      span.marker
+        span.marker-text
+          | #{resource.poster.image_data['metadata']['width']}x#{resource.poster.image_data['metadata']['height']}
+  - else
+    = render 'db_entries/poster', db_entry: resource, poster: resource.poster
+  / = render 'db_entries/poster',
+  /   db_entry: resource,
+  /   poster: resource.poster,
+  /   is_magnificable: resource.poster.magnificable?
+  div style='color: #acb1b4; font-size: 11px; line-height: 1; margin-top: 5px'
+    ' это новый вид постера, пока отображается только у модераторов
+    a href=resource.edit_field_url(:poster) изменить
+- else
+  img[
+    src=cdn_image_url(resource, :original)
+    title=resource.name
+    alt=resource.name
+  ]

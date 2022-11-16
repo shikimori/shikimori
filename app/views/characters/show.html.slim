@@ -4,11 +4,7 @@
       .c-image
         .cc
           .c-poster
-            img[
-              src=cdn_image_url(@resource, :original)
-              title=@resource.name
-              alt=@resource.name
-            ]
+            = render 'db_entries/poster_magnificable', resource: @resource
 
           .c-actions
             .b-subposter-actions

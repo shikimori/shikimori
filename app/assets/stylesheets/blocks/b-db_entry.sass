@@ -70,11 +70,20 @@
     img
       max-width: 100%
 
+    .b-image,
     .c-poster
+      align-items: center
       display: flex
       flex-direction: column
-      justify-content: center
 
+    .b-image
+      .marker
+        transition: opacity 0.25s
+
+      &:not(:hover) .marker
+        opacity: 0.75
+
+    .c-poster
       +gte_ipad
         margin-bottom: 8px
 

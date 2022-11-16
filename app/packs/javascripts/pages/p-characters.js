@@ -2,7 +2,6 @@ import checkHeight from '@/utils/check_height';
 
 pageLoad('characters_show', async () => {
   checkHeight($('.text'), { maxHeight: 200 });
-  $('picture.magnificable').magnificRelGallery();
 
   $('.b-subposter-actions .new_comment').on('click', () => {
     $('.shiki_editor-selector').view().focus();
