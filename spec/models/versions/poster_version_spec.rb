@@ -11,15 +11,17 @@ describe Versions::PosterVersion do
     let!(:active_poster) { nil }
     let(:anime) { create :anime }
 
+    let(:version) do
+      create :poster_version,
+        item: poster,
+        item_diff: { 'action' => action },
+        associated: anime
+    end
+
     subject! { version.apply_changes }
 
     context 'upload' do
-      let(:version) do
-        create :poster_version,
-          item: poster,
-          item_diff: { 'action' => 'upload' },
-          associated: anime
-      end
+      let(:action) { Versions::PosterVersion::Actions[:upload] }
 
       context 'no active poster' do
         it { expect(poster.reload).to be_is_approved }
@@ -56,7 +58,25 @@ describe Versions::PosterVersion do
   end
 
   describe '#sweep_deleted' do
+    let!(:poster) { create :poster, is_approved: false, anime: anime }
+    let(:anime) { create :anime }
+    let(:version) do
+      create :poster_version,
+        item: poster,
+        item_diff: { 'action' => action },
+        associated: anime
+    end
+
     subject! { version.sweep_deleted }
-    pending
+
+    context 'upload' do
+      let(:action) { Versions::PosterVersion::Actions[:upload] }
+      it { expect { poster.reload }.to raise_error ActiveRecord::RecordNotFound }
+    end
+
+    context 'delete' do
+      let(:action) { Versions::PosterVersion::Actions[:delete] }
+      it { expect(poster.reload).to be_persisted }
+    end
   end
 end

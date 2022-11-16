@@ -22,7 +22,7 @@ class Versions::PosterVersion < Version
   end
 
   def sweep_deleted **_args
-    raise NotImplementedError
+    item.destroy if action == Actions[:upload]
   end
 
 private
