@@ -46,7 +46,7 @@ label.b-dropzone.block(
   v-if='!currentSrc'
 )
   img(
-    src='/assets/globals/missing_main@2x.png'
+    src='/assets/globals/missing_original.jpg'
   )
 </template>
 
