@@ -10,7 +10,13 @@ class Poster < ApplicationRecord
 
   scope :active, -> { where is_approved: true, deleted_at: nil }
 
+  WIDTH = 225
+
   def target
     anime || manga || character || person
+  end
+
+  def magnificable?
+    (image_data&.dig('metadata', 'width') || 0) > WIDTH
   end
 end
