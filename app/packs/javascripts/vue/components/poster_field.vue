@@ -14,19 +14,19 @@ label.b-dropzone.block(
     v-if='sizes.naturalWidth'
   ) Картинка: {{ sizes.naturalWidth }}x{{ sizes.naturalHeight }}
   p(
-    v-if='sizes.naturalWidth !== sizes.width || sizes.naturalHeight !== sizes.height'
-  )
-    | Кроп: {{ sizes.width }}x{{ sizes.height }}
-    .b-button.disable-crop(
-      @click='disableCrop'
-    ) Отключить
-  p(
     v-if='isDisabled'
   )
     | Кроп: отключено
     .b-button.enable-crop(
       @click='enableCrop'
     ) Включить
+  p(
+    v-else-if='sizes.naturalWidth !== sizes.width || sizes.naturalHeight !== sizes.height'
+  )
+    | Кроп: {{ sizes.width }}x{{ sizes.height }}
+    .b-button.disable-crop(
+      @click='disableCrop'
+    ) Отключить
 
   .b-button.clear(
     @click='clear'
