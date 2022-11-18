@@ -4,6 +4,7 @@ class Versions::PosterVersion < Version
     .enum(:upload, :delete)
 
   PREV_POSTER_ID = 'prev_poster_id'
+  FIELD = 'poster'
 
   alias poster item
 
@@ -48,6 +49,9 @@ private
     end
 
     poster.update! is_approved: true
+
+    add_desynced FIELD, associated
+    associated.save!
   end
 
   def delete_poster

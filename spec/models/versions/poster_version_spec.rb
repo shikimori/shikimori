@@ -24,7 +24,10 @@ describe Versions::PosterVersion do
       let(:action) { Versions::PosterVersion::Actions[:upload] }
 
       context 'no active poster' do
-        it { expect(poster.reload).to be_is_approved }
+        it do
+          expect(poster.reload).to be_is_approved
+          expect(anime.reload.desynced).to eq [described_class::FIELD]
+        end
       end
 
       context 'has active poster' do
@@ -36,6 +39,7 @@ describe Versions::PosterVersion do
             'action' => 'upload',
             'prev_poster_id' => active_poster.id
           )
+          expect(anime.reload.desynced).to eq [described_class::FIELD]
         end
       end
     end

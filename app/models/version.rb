@@ -205,7 +205,7 @@ private
     changes[0] = current_value field
     item.send "#{field}=", truncate_value(field, changes.second)
 
-    add_desynced field
+    add_desynced field, item
 
     if item.save
       save
@@ -215,11 +215,11 @@ private
     end
   end
 
-  def add_desynced field
-    if item.respond_to?(:desynced) &&
-        item.class::DESYNCABLE.include?(field) &&
-        item.desynced.exclude?(field)
-      item.desynced << field
+  def add_desynced field, model
+    if model.respond_to?(:desynced) &&
+        model.class::DESYNCABLE.include?(field) &&
+        model.desynced.exclude?(field)
+      model.desynced << field
     end
   end
 
