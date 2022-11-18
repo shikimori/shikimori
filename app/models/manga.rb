@@ -13,7 +13,7 @@ class Manga < DbEntry
 
   DESYNCABLE = %w[
     name japanese synonyms kind volumes chapters aired_on released_on status
-    genre_ids description_en image external_links is_censored
+    genre_ids description_en image poster external_links is_censored
   ]
   CHAPTER_DURATION = 8
   VOLUME_DURATION = (24 * 60) / 20 # 20 volumes per day

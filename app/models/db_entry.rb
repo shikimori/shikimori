@@ -4,6 +4,7 @@ class DbEntry < ApplicationRecord
   RESTRICTED_FIELDS = %w[
     name
     image
+    poster
     genres
     censored
     desynced

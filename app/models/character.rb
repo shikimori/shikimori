@@ -8,7 +8,7 @@ class Character < DbEntry
   include TopicsConcern
   include VersionsConcern
 
-  DESYNCABLE = %w[name japanese description_en image]
+  DESYNCABLE = %w[name japanese description_en image poster]
 
   update_index('characters#character') do
     if saved_change_to_name? || saved_change_to_russian? ||
