@@ -8710,6 +8710,9 @@
         - 48702
         - 52193
         - 50549
+        - 35928
+        - 28105
+        - 37804
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
@@ -30167,9 +30170,9 @@
       :algo: duration
       :filters:
         franchise: majutsushi_orphen
-      :threshold: 100%
+      :threshold: 95%
       :generator:
-        threshold: 100%
+        threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :majutsushi_orphen
@@ -30200,7 +30203,7 @@
         franchise: majutsushi_orphen
       :threshold: 0.01
       :generator:
-        threshold: 100%
+        threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :majutsushi_orphen
