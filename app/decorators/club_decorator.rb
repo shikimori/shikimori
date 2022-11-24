@@ -1,15 +1,53 @@
 class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
   instance_cache :description, :animes, :mangas, :characters, :images,
     :comments, :banned, :menu_members, :forum_topics_views,
-    :all_animes, :all_mangas, :all_ranobe, :all_characters,
-    :all_clubs, :all_collections, :all_images
+    :all_images
 
   MENU_ENTRIES = 12
   MENU_OTHER = 4
   FORUM_TOPICS = 4
   LINKED_KINDS = %i[animes mangas ranobe characters clubs collections]
 
+  LINKED_PER_PAGE = 20
+  LINKED_ORDER = {
+    animes: :ranked,
+    mangas: :ranked,
+    ranobe: :ranked,
+    characters: ->(h) { h.localization_field },
+    collections: :name
+  }
+
   delegate :description, to: :object
+
+  LINKED_KINDS.each do |kind|
+    define_method kind do
+      scope = respond_to?(:"all_#{kind}") ? send(:"all_#{kind}") : object.send(kind)
+
+      scope = scope.order(
+        LINKED_ORDER[kind].respond_to?(:call) ?
+          LINKED_ORDER[kind].call(h) :
+          LINKED_ORDER[kind]
+      )
+
+      scope.decorate
+    end
+
+    define_method :"menu_#{kind}" do
+      entries = send(:"all_#{kind}").shuffle
+
+      entries
+        .take(entries.first.is_a?(DbEntry) ? MENU_ENTRIES : MENU_OTHER)
+        .sort_by do |entry|
+          if entry.respond_to? :ranked
+            entry.ranked
+          elsif entry.respond_to? :russian
+            h.localized_name entry
+          else
+            entry.name
+          end
+        end
+    end
+  end
 
   def url
     h.club_url object
@@ -27,9 +65,11 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
   end
 
   def description_html
-    html = Rails.cache.fetch CacheHelperInstance.cache_keys(:description_html, object, CACHE_VERSION) do
-      BbCodes::Text.call description
-    end
+    html =
+      Rails.cache
+        .fetch(CacheHelperInstance.cache_keys(:description_html, object, CACHE_VERSION)) do
+          BbCodes::Text.call description
+        end
 
     html.presence || "<p class='b-nothing_here'>#{i18n_t 'no_description'}</p>".html_safe
   end
@@ -50,28 +90,6 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
 
   def menu_members
     all_member_roles.where(role: :member).limit(12).map(&:user)
-  end
-
-  LINKED_KINDS.each do |kind|
-    define_method kind do
-      send :"all_#{kind}"
-    end
-
-    define_method :"menu_#{kind}" do
-      entries = send(:"all_#{kind}").shuffle
-
-      entries
-        .take(entries.first.is_a?(DbEntry) ? MENU_ENTRIES : MENU_OTHER)
-        .sort_by do |entry|
-          if entry.respond_to? :ranked
-            entry.ranked
-          elsif entry.respond_to? :russian
-            h.localized_name entry
-          else
-            entry.name
-          end
-        end
-    end
   end
 
   def menu_linked_cache_key
@@ -118,28 +136,7 @@ private
       .order(created_at: :desc)
   end
 
-  def all_animes
-    object.animes.order(:ranked).decorate
-  end
-
-  def all_mangas
-    object.mangas.order(:ranked).decorate
-  end
-
-  def all_ranobe
-    object.ranobe.order(:ranked).decorate
-  end
-
-  def all_characters
-    object.characters.order(h.localization_field).decorate
-  end
-
   def all_clubs
-    Clubs::Query.new(object.clubs)
-      .without_shadowbanned(h.current_user)
-  end
-
-  def all_collections
-    object.collections.order(:name)
+    Clubs::Query.new(object.clubs).without_shadowbanned(h.current_user)
   end
 end
