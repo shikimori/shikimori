@@ -5,6 +5,7 @@ class BaseDecorator < Draper::Decorator
 
   def self.inherited target
     target.send :prepend, ActiveCacher.instance
+    super target
   end
 
   # without this method active_model_serializes 0.10.4
