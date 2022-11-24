@@ -526,10 +526,11 @@ Rails.application.routes.draw do
   resources :clubs, except: %i[edit destroy] do
     member do
       get 'members(/page/:page)' => :members, as: :members
-      get :animes
-      get :mangas
-      get :ranobe
-      get :characters
+      get 'animes(/page/:page)' => :ranobe, as: :animes
+      get 'mangas(/page/:page)' => :ranobe, as: :mangas
+      get 'ranobe(/page/:page)' => :ranobe, as: :ranobe
+      get 'characters(/page/:page)' => :ranobe, as: :characters
+
       get :clubs
       get :collections
       get :images

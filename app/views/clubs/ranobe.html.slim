@@ -4,14 +4,23 @@
       name: 'club_ranobe',
       values: %w(posters list)
   h2.subheadline = og.headline
-  - if cookies['club_ranobe'] == 'list'
-    div
+  div[
+    class=('cc-5 to-process' unless @is_list)
+    data-dynamic=(@is_list ? false : 'cutted_covers')
+  ]
+    - if @is_list
       = render partial: 'animes/variants/list_item',
-        collection: @resource.ranobe,
+        collection: @collection,
         as: :entry
-  - else
-    .cc-5.to-process data-dynamic='cutted_covers'
+    - else
       = render partial: 'ranobe/ranobe',
-        collection: @resource.ranobe,
+        collection: @collection,
         locals: { cover_notice: :year_kind },
         cached: ->(entry) { cache_keys entry, :relation }
+
+    - if @collection.next_page?
+      = render 'blocks/postloader',
+        filter: 'b-catalog_entry',
+        next_url: current_url(page: @collection.next_page),
+        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?),
+        pages_limit: 10

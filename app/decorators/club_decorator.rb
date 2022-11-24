@@ -19,7 +19,7 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
 
   delegate :description, to: :object
 
-  LINKED_KINDS.each do |kind|
+  LINKED_KINDS.each do |kind| # rubocop:disable BlockLength
     define_method kind do
       scope = respond_to?(:"all_#{kind}") ? send(:"all_#{kind}") : object.send(kind)
 
@@ -29,7 +29,10 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
           LINKED_ORDER[kind]
       )
 
-      scope.decorate
+      QueryObjectBase
+        .new(scope)
+        .paginate(page, LINKED_PER_PAGE)
+        .lazy_map(&:decorate)
     end
 
     define_method :"menu_#{kind}" do

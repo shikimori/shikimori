@@ -126,38 +126,51 @@ class ClubsController < ShikimoriController
   end
 
   def animes
+    @collection = @resource.animes
+    redirect_to club_url(@resource) if @collection.none?
+
+    @is_list = cookies['club_animes'] == 'list'
+
     og noindex: true
-    redirect_to club_url(@resource) if @resource.animes.none?
     og page_title: i18n_t('club_anime')
   end
 
   def mangas
+    @collection = @resource.mangas
+    redirect_to club_url(@resource) if @collection.none?
+
     og noindex: true
-    redirect_to club_url(@resource) if @resource.mangas.none?
     og page_title: i18n_t('club_manga')
   end
 
   def ranobe
+    @collection = @resource.ranobe
+    redirect_to club_url(@resource) if @collection.none?
+
     og noindex: true
-    redirect_to club_url(@resource) if @resource.ranobe.none?
     og page_title: i18n_t('club_ranobe')
   end
 
   def characters
+    @collection = @resource.characters
+    redirect_to club_url(@resource) if @collection.none?
+
     og noindex: true
-    redirect_to club_url(@resource) if @resource.characters.none?
     og page_title: i18n_t('club_characters')
   end
 
   def clubs
+    @collection = @resource.clubs
+    redirect_to club_url(@resource) if @collection.none?
+
     og noindex: true
-    redirect_to club_url(@resource) if @resource.clubs.none?
     og page_title: i18n_t('club_clubs')
   end
 
   def collections
-    og noindex: true
     redirect_to club_url(@resource) if @resource.collections.none?
+
+    og noindex: true
     og page_title: i18n_t('club_collections')
 
     @collection = Collections::Query.fetch
