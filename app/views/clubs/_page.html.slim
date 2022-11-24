@@ -52,5 +52,6 @@ header.head
       = yield
 
     aside.l-menu
-      - if @club.persisted?
-        = render 'clubs/menu', club: @club, is_restricted_access: local_assigns[:is_restricted_access]
+      - unless Rails.env.development? && params.key?(:no_menu)
+        - if @club.persisted?
+          = render 'clubs/menu', club: @club, is_restricted_access: local_assigns[:is_restricted_access]
