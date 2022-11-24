@@ -10,9 +10,9 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
 
   LINKED_PER_PAGE = 20
   LINKED_ORDER = {
-    animes: :ranked,
-    mangas: :ranked,
-    ranobe: :ranked,
+    animes: Animes::Filters::OrderBy::ORDER_SQL[:ranked],
+    mangas: Animes::Filters::OrderBy::ORDER_SQL[:ranked],
+    ranobe: Animes::Filters::OrderBy::ORDER_SQL[:ranked],
     characters: ->(h) { h.localization_field },
     collections: :name
   }
