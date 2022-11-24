@@ -279,22 +279,22 @@ private
     provider: Types::Ad::Provider[:special],
     # AD START: IMBA - remove 2022-11-28 23:59
     images: [{
-      src: '/assets/globals/events/2022-11-14/inner_1.png',
+      src: '/assets/globals/events/2022-11-14/inner_1.png?v2',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=24_11&marker=2VtzqvrATZ3'
     }, {
-      src: '/assets/globals/events/2022-11-14/inner_2.png',
+      src: '/assets/globals/events/2022-11-14/inner_2.png?v2',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner2&utm_campaign=24_11&marker=2VtzquxHEAu'
     }, {
-      src: '/assets/globals/events/2022-11-14/inner_3.png',
+      src: '/assets/globals/events/2022-11-14/inner_3.png?v2',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=24_11&marker=2Vtzqua3kRf'
     }, {
-      src: '/assets/globals/events/2022-11-14/inner_4.png',
+      src: '/assets/globals/events/2022-11-14/inner_4.png?v2',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner4&utm_campaign=24_11&marker=2VtzqwBEsvH'
     }, {
-      src: '/assets/globals/events/2022-11-14/inner_5.png',
+      src: '/assets/globals/events/2022-11-14/inner_5.png?v2',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner5&utm_campaign=24_11&marker=2Vtzqux5osf'
     }, {
-      src: '/assets/globals/events/2022-11-14/inner_5.png',
+      src: '/assets/globals/events/2022-11-14/inner_6.png?v2',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner6&utm_campaign=24_11&marker=2VtzqxFWhEh'
     }],
     # AD END
