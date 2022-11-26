@@ -136,7 +136,7 @@ describe Api::V1::ClubsController, :show_in_doc do
   end
 
   describe '#collections' do
-    before { club.collections << create(:collection) }
+    before { club.collections << create(:collection, :with_topics) }
     subject! { get :collections, params: { id: club.id }, format: :json }
 
     it { expect(response).to have_http_status :success }

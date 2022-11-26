@@ -175,6 +175,10 @@ class ClubsController < ShikimoriController
     @collection = @resource.paginated_collections
     redirect_to club_url(@resource) if @collection.none?
 
+    @collection = @collection.lazy_map do |collection|
+      Topics::TopicViewFactory.new(true, true).build collection.maybe_topic
+    end
+
     og noindex: true
     og page_title: i18n_t('club_collections')
   end

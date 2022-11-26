@@ -87,10 +87,18 @@ class Api::V1::ClubsController < Api::V1Controller
     respond_with @club.paginated_characters
   end
 
+  api :GET, '/clubs/:id/collections'
+  param :page, :pagination, required: false
   def collections
-    respond_with @club.paginated_collections
+    @topic_views = @club.paginated_collections.map do |collection|
+      Topics::TopicViewFactory.new(false, false).build collection.maybe_topic
+    end
+
+    respond_with @topic_views, each_serializer: TopicSerializer
   end
 
+  api :GET, '/clubs/:id/clubs'
+  param :page, :pagination, required: false
   def clubs
     respond_with @club.paginated_clubs
   end

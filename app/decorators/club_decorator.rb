@@ -45,11 +45,7 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
       QueryObjectBase
         .new(scope)
         .paginate(page, LINKED_PER_PAGE[kind] || raise(ArgumentError))
-        .lazy_map do |db_entry|
-          db_entry.is_a?(Collection) ?
-            Topics::TopicViewFactory.new(true, true).build(db_entry.maybe_topic) :
-            db_entry.decorate
-        end
+        .lazy_map(&:decorate)
     end
 
     instance_cache :"menu_#{kind}"
