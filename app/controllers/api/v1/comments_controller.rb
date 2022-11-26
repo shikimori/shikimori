@@ -17,7 +17,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
 
   api :GET, '/comments', 'List comments'
   param :commentable_id, :number, required: true
-  param :commentable_type, String,
+  param :commentable_type, Types::Comment::CommentableType.values,
     required: true,
     desc: <<~DOC.strip
       Must be one of: `#{Types::Comment::CommentableType.values.join('`, `')}`
@@ -50,7 +50,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   param :comment, Hash do
     param :body, String, required: true
     param :commentable_id, :number, required: true
-    param :commentable_type, String,
+    param :commentable_type, Types::Comment::CommentableType.values,
       required: true,
       desc: <<~DOC.squish
         <p>
