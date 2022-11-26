@@ -10,10 +10,10 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
 
   LINKED_PER_PAGE = 20
   LINKED_ORDER = {
-    animes: Animes::Filters::OrderBy::ORDER_SQL[:ranked],
-    mangas: Animes::Filters::OrderBy::ORDER_SQL[:ranked],
-    ranobe: Animes::Filters::OrderBy::ORDER_SQL[:ranked],
-    characters: ->(h) { h.localization_field },
+    animes: ->(scope, _h) { Animes::Filters::OrderBy.arel_sql scope: scope, term: :ranked },
+    mangas: ->(scope, _h) { Animes::Filters::OrderBy.arel_sql scope: scope, term: :ranked },
+    ranobe: ->(scope, _h) { Animes::Filters::OrderBy.arel_sql scope: scope, term: :ranked },
+    characters: ->(_scope, h) { h.localization_field },
     collections: :name
   }
 
@@ -25,7 +25,7 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
 
       scope = scope.order(
         LINKED_ORDER[kind].respond_to?(:call) ?
-          LINKED_ORDER[kind].call(h) :
+          LINKED_ORDER[kind].call(scope, h) :
           LINKED_ORDER[kind]
       )
 

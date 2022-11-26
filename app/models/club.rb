@@ -40,17 +40,20 @@ class Club < ApplicationRecord
 
   has_many :links, class_name: 'ClubLink', dependent: :destroy
 
-  has_many :animes, -> { order Animes::Filters::OrderBy::ORDER_SQL[:ranked] },
+  has_many :animes,
+    -> { order Animes::Filters::OrderBy.arel_sql(scope: self, term: :ranked) },
     through: :links,
     source: :linked,
     source_type: 'Anime'
 
-  has_many :mangas, -> { order Animes::Filters::OrderBy::ORDER_SQL[:ranked] },
+  has_many :mangas,
+    -> { order Animes::Filters::OrderBy.arel_sql(scope: self, term: :ranked) },
     through: :links,
     source: :linked,
     source_type: 'Manga'
 
-  has_many :ranobe, -> { order Animes::Filters::OrderBy::ORDER_SQL[:ranked] },
+  has_many :ranobe,
+    -> { order Animes::Filters::OrderBy.arel_sql(scope: self, term: :ranked) },
     through: :links,
     source: :linked,
     source_type: 'Ranobe'
