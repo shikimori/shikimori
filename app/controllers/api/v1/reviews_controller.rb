@@ -10,6 +10,14 @@ class Api::V1::ReviewsController < Api::V1Controller
   CREATE_PARAMS = %i[body anime_id manga_id opinion]
   UPDATE_PARAMS = %i[body is_written_before_release opinion]
 
+  api :POST, '/reviews', 'Create a review'
+  param :frontend, :bool, 'Used by shikimori frontend code. Ignore it.'
+  param :review, Hash, required: true do
+    param :anime_id, :number, required: true
+    param :body, String, required: true
+    param :opinion, Types::Review::Opinion.values.map(&:to_s), required: true
+  end
+  error code: 422
   def create
     @resource = Review::Create.call create_params
 
@@ -20,6 +28,14 @@ class Api::V1::ReviewsController < Api::V1Controller
     end
   end
 
+  api :PATCH, '/reviews/:id', 'Update a review'
+  api :PUT, '/reviews/:id', 'Update a review'
+  param :frontend, :bool, 'Used by shikimori frontend code. Ignore it.'
+  param :review, Hash, required: true do
+    param :body, String, required: false
+    param :opinion, Types::Review::Opinion.values.map(&:to_s), required: false
+  end
+  error code: 422
   def update
     is_updated = Review::Update.call(
       review: @resource,
@@ -34,6 +50,8 @@ class Api::V1::ReviewsController < Api::V1Controller
     end
   end
 
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
+  api :DELETE, '/reviews/:id', 'Destroy a review'
   def destroy
     Review::Destroy.call @resource, faye
 

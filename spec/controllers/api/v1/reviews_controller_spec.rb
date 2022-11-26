@@ -80,7 +80,7 @@ describe Api::V1::ReviewsController do
     end
 
     context 'failure' do
-      let(:body) { '' }
+      let(:body) { 'b' * (Review::MIN_BODY_SIZE - 1) }
 
       context 'frontend' do
         let(:is_frontend) { true }
