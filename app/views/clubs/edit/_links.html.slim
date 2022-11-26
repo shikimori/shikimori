@@ -11,7 +11,7 @@
       ]
       .subheadline.m5 = i18n_i 'anime'
       .variants
-        - @resource.all_animes.uniq(&:id).each do |anime|
+        - @resource.animes.uniq(&:id).each do |anime|
           .variant
             = check_box_tag 'club[anime_ids][]', anime.id, checked: true
             a.bubbled href=anime_url(anime) = anime.name
@@ -25,7 +25,7 @@
       ]
       .subheadline.m5 = i18n_i 'character', :other
       .variants
-        - @resource.all_characters.uniq(&:id).each do |character|
+        - @resource.characters.uniq(&:id).each do |character|
           .variant
             = check_box_tag 'club[character_ids][]', character.id, checked: true
             a.bubbled href=character_url(character) = character.name
@@ -40,7 +40,7 @@
       ]
       .subheadline.m5 = i18n_i 'manga'
       .variants
-        - @resource.all_mangas.uniq(&:id).each do |manga|
+        - @resource.mangas.uniq(&:id).each do |manga|
           .variant
             = check_box_tag 'club[manga_ids][]', manga.id, checked: true
             a.bubbled href=manga_url(manga) = manga.name
@@ -54,7 +54,7 @@
       ]
       .subheadline.m5 = i18n_i 'ranobe'
       .variants
-        - @resource.all_ranobe.uniq(&:id).each do |ranobe|
+        - @resource.ranobe.uniq(&:id).each do |ranobe|
           .variant
             = check_box_tag 'club[ranobe_ids][]', ranobe.id, checked: true
             a.bubbled href=ranobe_url(ranobe) = ranobe.name
@@ -69,7 +69,7 @@
       ]
       .subheadline.m5 = i18n_i 'club', :other
       .variants
-        - @resource.all_clubs.uniq(&:id).each do |club|
+        - @resource.clubs.uniq(&:id).each do |club|
           .variant
             = check_box_tag 'club[club_ids][]', club.id, checked: true
             a href=club_url(club) = club.name
@@ -83,7 +83,7 @@
       ]
       .subheadline.m5 = i18n_i 'collection'
       .variants
-        - @resource.all_collections.uniq(&:id).each do |collection|
+        - @resource.collections.uniq(&:id).each do |collection|
           .variant
             = check_box_tag 'club[collection_ids][]', collection.id, checked: true
             a.bubbled href=collection_url(collection) = collection.name
