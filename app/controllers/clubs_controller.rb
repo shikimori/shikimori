@@ -139,6 +139,8 @@ class ClubsController < ShikimoriController
     @collection = @resource.paginated_mangas
     redirect_to club_url(@resource) if @collection.none?
 
+    @is_list = cookies['club_mangas'] == 'list'
+
     og noindex: true
     og page_title: i18n_t('club_manga')
   end
@@ -146,6 +148,8 @@ class ClubsController < ShikimoriController
   def ranobe
     @collection = @resource.paginated_ranobe
     redirect_to club_url(@resource) if @collection.none?
+
+    @is_list = cookies['club_ranobe'] == 'list'
 
     og noindex: true
     og page_title: i18n_t('club_ranobe')

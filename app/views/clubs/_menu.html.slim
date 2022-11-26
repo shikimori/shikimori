@@ -59,7 +59,7 @@
               collection: club.admins,
               locals: { content_by: :named_avatar }
 
-      - if club.clubs.any?
+      - if club.menu_clubs.any?
         .block
           .subheadline
             - if club.clubs.size != club.menu_clubs
