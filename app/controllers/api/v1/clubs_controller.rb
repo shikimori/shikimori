@@ -31,6 +31,16 @@ class Api::V1::ClubsController < Api::V1Controller
     respond_with @collection
   end
 
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
+  api :GET, '/clubs/:id', 'Show a club'
+  def show
+    if @collection
+      respond_with @collection, each_serializer: ClubProfileSerializer
+    else
+      respond_with @club, serializer: ClubProfileSerializer
+    end
+  end
+
   api :PATCH, '/clubs/:id', 'Update a club'
   api :PUT, '/clubs/:id', 'Update a club'
   description 'Requires `clubs` oauth scope'
@@ -53,34 +63,36 @@ class Api::V1::ClubsController < Api::V1Controller
     end
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
-  api :GET, '/clubs/:id', 'Show a club'
-  def show
-    if @collection
-      respond_with @collection, each_serializer: ClubProfileSerializer
-    else
-      respond_with @club, serializer: ClubProfileSerializer
-    end
-  end
-
   api :GET, '/clubs/:id/animes', "Show club's animes"
+  param :page, :pagination, required: false
   def animes
-    respond_with @club.all_animes
+    respond_with @club.paginated_animes
   end
 
   api :GET, '/clubs/:id/mangas', "Show club's mangas"
+  param :page, :pagination, required: false
   def mangas
-    respond_with @club.all_mangas
+    respond_with @club.paginated_mangas
   end
 
   api :GET, '/clubs/:id/ranobe', "Show club's ranobe"
+  param :page, :pagination, required: false
   def ranobe
-    respond_with @club.all_ranobe
+    respond_with @club.paginated_ranobe
   end
 
   api :GET, '/clubs/:id/characters', "Show club's characters"
+  param :page, :pagination, required: false
   def characters
-    respond_with @club.all_characters
+    respond_with @club.paginated_characters
+  end
+
+  def collections
+    respond_with @club.paginated_collections
+  end
+
+  def clubs
+    respond_with @club.paginated_clubs
   end
 
   api :GET, '/clubs/:id/members', "Show club's members"

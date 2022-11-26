@@ -326,6 +326,8 @@ Rails.application.routes.draw do
           get :mangas
           get :ranobe
           get :characters
+          get :collections
+          get :clubs
           get :images
 
           post :join

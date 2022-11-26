@@ -5,8 +5,7 @@ describe Api::V1::ClubsController, :show_in_doc do
     let!(:club_1) { create :club, :with_topics, id: 2 }
     let!(:club_2) { create :club, :with_topics, id: 3 }
     let!(:club_3) { create :club, :with_topics, id: 4 }
-
-    before do
+    subject! do
       get :index,
         params: {
           page: 1,
@@ -28,7 +27,7 @@ describe Api::V1::ClubsController, :show_in_doc do
     let(:club) { create :club, :with_topics, owner: user }
 
     context 'valid params' do
-      before do
+      subject! do
         patch :update,
           params: {
             id: club.id,
@@ -75,35 +74,84 @@ describe Api::V1::ClubsController, :show_in_doc do
     end
     let(:make_request) { get :show, params: { id: club.id }, format: :json }
 
-    before { make_request }
+    subject! { make_request }
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#animes' do
     before { club.animes << create(:anime) }
-    before { get :animes, params: { id: club.id }, format: :json }
+    subject! do
+      get :animes,
+        params: {
+          id: club.id,
+          page: 1
+        },
+        format: :json
+    end
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#mangas' do
     before { club.mangas << create(:manga) }
-    before { get :mangas, params: { id: club.id }, format: :json }
+    subject! do
+      get :mangas,
+        params: {
+          id: club.id,
+          page: 1
+        },
+        format: :json
+    end
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#ranobe' do
     before { club.mangas << create(:ranobe) }
-    before { get :ranobe, params: { id: club.id }, format: :json }
+    subject! do
+      get :ranobe,
+        params: {
+          id: club.id,
+          page: 1
+        },
+        format: :json
+    end
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#characters' do
     before { club.characters << create(:character) }
-    before { get :characters, params: { id: club.id }, format: :json }
+    subject! do
+      get :characters,
+        params: {
+          id: club.id,
+          page: 1
+        },
+        format: :json
+    end
+
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#collections' do
+    before { club.collections << create(:collection) }
+    subject! { get :collections, params: { id: club.id }, format: :json }
+
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#clubs' do
+    before { club.clubs << create(:club) }
+    subject! do
+      get :clubs,
+        params: {
+          id: club.id,
+          page: 1
+        },
+        format: :json
+    end
 
     it { expect(response).to have_http_status :success }
   end
