@@ -166,6 +166,11 @@ pg_dump -c shikimori_production > db/dump.sql
 guard
 ```
 
+### Record apipie docs
+```sh
+APIPIE_RECORD=all rspec spec/controllers/api/**
+```
+
 ### Add new video hosting
 ```ruby
 # app/services/video_extractor/player_url_extractor.rb
