@@ -22,7 +22,7 @@
             club: club,
             kind: kind
 
-      - if club.collections.any?
+      - if club.menu_collections.any?
         .block
           .subheadline.m5
             - if club.collections.size != club.menu_collections
@@ -35,10 +35,10 @@
             - else
               = i18n_i 'collection', :other
 
-          - club.menu_collections.each do |collection|
+          - club.menu_collections.each do |topic_view|
             .b-menu-line
-              a.b-link href=collection_url(collection)
-                = collection.name
+              a.b-link href=collection_url(topic_view.collection)
+                = topic_view.collection.name
 
       - if club.menu_members.any?
         .block

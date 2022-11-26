@@ -126,7 +126,7 @@ class ClubsController < ShikimoriController
   end
 
   def animes
-    @collection = @resource.animes
+    @collection = @resource.paginated_animes
     redirect_to club_url(@resource) if @collection.none?
 
     @is_list = cookies['club_animes'] == 'list'
@@ -136,7 +136,7 @@ class ClubsController < ShikimoriController
   end
 
   def mangas
-    @collection = @resource.mangas
+    @collection = @resource.paginated_mangas
     redirect_to club_url(@resource) if @collection.none?
 
     og noindex: true
@@ -144,7 +144,7 @@ class ClubsController < ShikimoriController
   end
 
   def ranobe
-    @collection = @resource.ranobe
+    @collection = @resource.paginated_ranobe
     redirect_to club_url(@resource) if @collection.none?
 
     og noindex: true
@@ -152,7 +152,7 @@ class ClubsController < ShikimoriController
   end
 
   def characters
-    @collection = @resource.characters
+    @collection = @resource.paginated_characters
     redirect_to club_url(@resource) if @collection.none?
 
     og noindex: true
@@ -160,7 +160,7 @@ class ClubsController < ShikimoriController
   end
 
   def clubs
-    @collection = @resource.clubs
+    @collection = @resource.paginated_clubs
     redirect_to club_url(@resource) if @collection.none?
 
     og noindex: true
@@ -168,19 +168,11 @@ class ClubsController < ShikimoriController
   end
 
   def collections
-    redirect_to club_url(@resource) if @resource.collections.none?
+    @collection = @resource.paginated_collections
+    redirect_to club_url(@resource) if @collection.none?
 
     og noindex: true
     og page_title: i18n_t('club_collections')
-
-    @collection = Collections::Query.fetch
-      .where(id: @resource.collections)
-      .paginate(@page, DbEntriesController::COLLETIONS_PER_PAGE)
-      .lazy_map do |collection|
-        Topics::TopicViewFactory
-          .new(true, true)
-          .build(collection.maybe_topic)
-      end
   end
 
   def images

@@ -1,6 +1,10 @@
 class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
-  instance_cache :description, :animes, :mangas, :characters, :images,
-    :comments, :banned, :menu_members, :forum_topics_views,
+  instance_cache :description,
+    :images,
+    :comments,
+    :banned,
+    :menu_members,
+    :forum_topics_views,
     :all_images
 
   MENU_ENTRIES = 12
@@ -8,35 +12,49 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
   FORUM_TOPICS = 4
   LINKED_KINDS = %i[animes mangas ranobe characters clubs collections]
 
-  LINKED_PER_PAGE = 20
+  LINKED_PER_PAGE = {
+    animes: 20,
+    mangas: 20,
+    ranobe: 20,
+    characters: 20,
+    collections: DbEntriesController::COLLETIONS_PER_PAGE,
+    clubs: 21
+  }
   LINKED_ORDER = {
     animes: ->(scope, _h) { Animes::Filters::OrderBy.arel_sql scope: scope, term: :ranked },
     mangas: ->(scope, _h) { Animes::Filters::OrderBy.arel_sql scope: scope, term: :ranked },
     ranobe: ->(scope, _h) { Animes::Filters::OrderBy.arel_sql scope: scope, term: :ranked },
-    characters: ->(_scope, h) { h.localization_field },
-    collections: :name
+    characters: ->(_scope, h) { h.localization_field }
   }
 
   delegate :description, to: :object
 
   LINKED_KINDS.each do |kind| # rubocop:disable BlockLength
-    define_method kind do
+    instance_cache :"paginated_#{kind}"
+    define_method :"paginated_#{kind}" do # rubocop:disable MethodLength
       scope = respond_to?(:"all_#{kind}") ? send(:"all_#{kind}") : object.send(kind)
 
-      scope = scope.order(
-        LINKED_ORDER[kind].respond_to?(:call) ?
-          LINKED_ORDER[kind].call(scope, h) :
-          LINKED_ORDER[kind]
-      )
+      if LINKED_ORDER[kind]
+        scope = scope.order(
+          LINKED_ORDER[kind].respond_to?(:call) ?
+            LINKED_ORDER[kind].call(scope, h) :
+            LINKED_ORDER[kind]
+        )
+      end
 
       QueryObjectBase
         .new(scope)
-        .paginate(page, LINKED_PER_PAGE)
-        .lazy_map(&:decorate)
+        .paginate(page, LINKED_PER_PAGE[kind] || raise(ArgumentError))
+        .lazy_map do |db_entry|
+          db_entry.is_a?(Collection) ?
+            Topics::TopicViewFactory.new(true, true).build(db_entry.maybe_topic) :
+            db_entry.decorate
+        end
     end
 
+    instance_cache :"menu_#{kind}"
     define_method :"menu_#{kind}" do
-      entries = send(:"all_#{kind}").shuffle
+      entries = send(:"paginated_#{kind}").shuffle
 
       entries
         .take(entries.first.is_a?(DbEntry) ? MENU_ENTRIES : MENU_OTHER)
@@ -45,8 +63,8 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
             entry.ranked
           elsif entry.respond_to? :russian
             h.localized_name entry
-          else
-            entry.name
+          elsif entry.is_a?(Topics::View)
+            (entry.is_a?(Topics::View) ? entry.topic.linked : entry).name
           end
         end
     end
@@ -95,6 +113,10 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
     all_member_roles.where(role: :member).limit(12).map(&:user)
   end
 
+  def menu_pages club_page = nil
+    (club_page&.child_pages || object.root_pages).select(&:layout_menu?)
+  end
+
   def menu_linked_cache_key
     [
       object,
@@ -112,10 +134,6 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
 
   def new_invite
     invites.new(src: h.current_user)
-  end
-
-  def menu_pages club_page = nil
-    (club_page&.child_pages || object.root_pages).select(&:layout_menu?)
   end
 
   def forum_topics_query
@@ -139,7 +157,13 @@ private
       .order(created_at: :desc)
   end
 
+  def all_collections
+    Collections::Query.fetch
+      .where(id: @resource.collections)
+  end
+
   def all_clubs
-    Clubs::Query.new(object.clubs).without_shadowbanned(h.current_user)
+    Clubs::Query.new(object.clubs)
+      .without_shadowbanned(h.current_user)
   end
 end

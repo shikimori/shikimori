@@ -1,9 +1,15 @@
 = render layout: 'page' do
-  .b-options-floated.count = @resource.all_clubs.size
+  .b-options-floated.count = @resource.clubs.size
   h2.subheadline = og.headline
 
   .b-clubs.index
     = render partial: 'clubs/club',
-      collection: @resource.all_clubs,
+      collection: @collection,
       locals: { content_by: :detailed },
       cached: ->(entry) { cache_keys entry, :detailed }
+
+    - if @collection.next_page?
+      = render 'blocks/postloader',
+        filter: 'b-club',
+        next_url: current_url(page: @collection.next_page),
+        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?)
