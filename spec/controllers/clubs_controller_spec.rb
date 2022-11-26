@@ -196,8 +196,11 @@ describe ClubsController do
     end
 
     context 'with_characters' do
-      let(:club) { create :club, :with_topics, :linked_collection }
+      let(:club) { create :club, :with_topics }
+      let(:collection) { create :collection, :with_topics }
+      before { club.collections << collection }
       subject! { get :collections, params: { id: club.to_param } }
+
       it { expect(response).to have_http_status :success }
     end
   end
