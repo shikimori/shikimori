@@ -50,7 +50,8 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   param :comment, Hash do
     param :body, String, required: true
     param :commentable_id, :number, required: true
-    param :commentable_type, Types::Comment::CommentableType.values,
+    param :commentable_type,
+      Types::Comment::CommentableType.values + %w[Anime Manga Character Person],
       required: true,
       desc: <<~DOC.squish
         <p>
