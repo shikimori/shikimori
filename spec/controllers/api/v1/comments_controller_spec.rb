@@ -98,14 +98,6 @@ describe Api::V1::CommentsController do
 
           it_behaves_like :successful_resource_change, :api
         end
-
-        context 'review' do
-          let(:review) { create :review, anime: create(:anime) }
-          let(:commentable_id) { review.id }
-          let(:commentable_type) { Review.name }
-
-          it_behaves_like :successful_resource_change, :api
-        end
       end
     end
 
