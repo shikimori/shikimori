@@ -5,17 +5,6 @@ describe Api::V1::CommentsController do
   let(:topic) { create :topic, user: user }
   let(:comment) { create :comment, commentable: topic, user: user }
 
-  describe '#show', :show_in_doc do
-    before { sign_out user }
-    subject! { get :show, params: { id: comment.id }, format: :json }
-
-    it do
-      expect(json).to have_key :user
-      expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json; charset=utf-8'
-    end
-  end
-
   describe '#index', :show_in_doc do
     before { sign_out user }
 
@@ -35,6 +24,17 @@ describe Api::V1::CommentsController do
     end
 
     it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
+    end
+  end
+
+  describe '#show', :show_in_doc do
+    before { sign_out user }
+    subject! { get :show, params: { id: comment.id }, format: :json }
+
+    it do
+      expect(json).to have_key :user
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json; charset=utf-8'
     end

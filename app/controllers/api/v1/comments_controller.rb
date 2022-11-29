@@ -9,12 +9,6 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
     doorkeeper_authorize! :comments if doorkeeper_token.present?
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
-  api :GET, '/comments/:id', 'Show a comment'
-  def show
-    respond_with @resource.decorate
-  end
-
   api :GET, '/comments', 'List comments'
   param :commentable_id, :number, required: true
   param :commentable_type, Types::Comment::CommentableType.values,
@@ -45,29 +39,40 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
     respond_with @collection
   end
 
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
+  api :GET, '/comments/:id', 'Show a comment'
+  def show
+    respond_with @resource.decorate
+  end
+
+  COMMENTABLE_TYPES = [
+    Anime,
+    Manga,
+    Character,
+    Person,
+    Article,
+    Club,
+    ClubPage,
+    Collection,
+    Critique,
+    Review
+  ].map(&:name)
   api :POST, '/comments', 'Create a comment'
   description 'Requires `comments` oauth scope'
   param :comment, Hash do
     param :body, String, required: true
     param :commentable_id, :number, required: true
-    param :commentable_type,
-      Types::Comment::CommentableType.values + %w[Anime Manga Character Person],
+    param :commentable_type, Types::Comment::CommentableType.values + COMMENTABLE_TYPES,
       required: true,
       desc: <<~DOC.squish
         <p>
           Must be one of:
           <code>#{Types::Comment::CommentableType.values.join('</code>, <code>')}</code>,
-          <code>#{Anime.name}</code>,
-          <code>#{Manga.name}</code>,
-          <code>#{Character.name}</code>,
-          <code>#{Person.name}</code>
+          #{COMMENTABLE_TYPES.map { |name| "<code>#{name}</code>" }.join(', ')}
         </p>
         <p>
           When set to
-          <code>#{Anime.name}</code>,
-          <code>#{Manga.name}</code>,
-          <code>#{Character.name}</code>,
-          <code>#{Person.name}</code>
+          #{COMMENTABLE_TYPES.map { |name| "<code>#{name}</code>" }.join(', ')}
           comment is attached to <code>commentable</code> main topic
         </p>
       DOC
