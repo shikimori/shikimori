@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Club::Create < ServiceObjectBase
-  pattr_initialize :params
+class Club::Create
+  method_object :params
 
   def call
     Club.transaction do

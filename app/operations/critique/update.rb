@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Critique::Update < ServiceObjectBase
-  pattr_initialize :model, :params, :actor
+class Critique::Update
+  method_object :model, :params, :actor
 
   def call
     is_updated = @model.update @params.merge(changed_at: Time.zone.now)

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Critique::Create < ServiceObjectBase
-  pattr_initialize :params
+class Critique::Create
+  method_object :params
 
   def call
     Critique.transaction do

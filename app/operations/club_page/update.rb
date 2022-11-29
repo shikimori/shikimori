@@ -1,5 +1,5 @@
-class ClubPage::Update < ServiceObjectBase
-  pattr_initialize :model, :params, :actor
+class ClubPage::Update
+  method_object :model, :params, :actor
 
   def call
     is_updated = @model.update @params

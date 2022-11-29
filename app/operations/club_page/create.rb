@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class ClubPage::Create < ServiceObjectBase
-  pattr_initialize :params
+class ClubPage::Create
+  method_object :params
 
   def call
     ClubPage.create @params

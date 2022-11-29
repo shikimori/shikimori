@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class UserContent::CreateBase < ServiceObjectBase
+class UserContent::CreateBase
   extend DslAttribute
   dsl_attribute :klass
 
-  pattr_initialize :params
+  method_object :params
 
   def call
     klass.transaction do

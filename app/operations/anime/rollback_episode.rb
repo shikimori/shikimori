@@ -9,7 +9,7 @@ class Anime::RollbackEpisode
       .where('episode >= ?', @episode)
       .destroy_all
 
-    if user
+    if @user
       create_version
     else
       update_anime
