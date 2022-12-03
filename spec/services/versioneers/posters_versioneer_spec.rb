@@ -16,10 +16,10 @@ describe Versioneers::PostersVersioneer do
   end
   let(:poster_crop_data) do
     {
-      left: 0,
-      top: 0,
-      width: 100,
-      height: 100
+      'left' => 0,
+      'top' => 0,
+      'width' => 100,
+      'height' => 100
     }
   end
 
@@ -47,6 +47,7 @@ describe Versioneers::PostersVersioneer do
           manga_id: nil,
           character_id: nil,
           person_id: nil,
+          crop_data: poster_crop_data,
           is_approved: false
         )
       end

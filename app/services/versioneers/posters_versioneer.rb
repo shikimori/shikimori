@@ -22,7 +22,7 @@ class Versioneers::PostersVersioneer < Versioneers::FieldsVersioneer
 private
 
   def upload_version data_uri:, crop_data:, author:, reason:
-    poster = create_poster data_uri
+    poster = create_poster data_uri, crop_data
 
     Versions::PosterVersion.create!(
       item: poster,
@@ -49,10 +49,11 @@ private
     Versions::PosterVersion.new
   end
 
-  def create_poster poster_data_uri
+  def create_poster data_uri, crop_data
     Poster.create(
-      image_data_uri: poster_data_uri,
       item_key => @item.id,
+      image_data_uri: data_uri,
+      crop_data: crop_data,
       is_approved: false
     )
   end
