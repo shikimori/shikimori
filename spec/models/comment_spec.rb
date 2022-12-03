@@ -105,13 +105,7 @@ describe Comment do
     end
 
     describe '#sync_comments' do
-      let(:topic_2) do
-        [
-          site_rules_topic,
-          review
-        ].sample
-      end
-      let(:review) { create :review, anime: create(:anime) }
+      let(:topic_2) { site_rules_topic }
       let!(:comment) do
         create :comment,
           :with_increment_comments,
