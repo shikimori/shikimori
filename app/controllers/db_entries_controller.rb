@@ -239,13 +239,7 @@ private
 
   def update_poster
     versioneer = Versioneers::PostersVersioneer.new(@resource.object)
-
-    version = versioneer.premoderate(
-      update_params[:poster_data_uri],
-      current_user,
-      params[:reason]
-    )
-
+    version = versioneer.premoderate update_params, current_user, params[:reason]
     version.auto_accept! if version.persisted? && can?(:auto_accept, version)
     version
   end

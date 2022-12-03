@@ -8,8 +8,23 @@ describe Versioneers::PostersVersioneer do
   let(:role) { :user }
   let(:reason) { 'change reason' }
 
+  let(:params) do
+    {
+      poster_data_uri: poster_data_uri,
+      poster_crop_data: poster_crop_data.to_json
+    }
+  end
+  let(:poster_crop_data) do
+    {
+      left: 0,
+      top: 0,
+      width: 100,
+      height: 100
+    }
+  end
+
   describe '#premoderate' do
-    subject(:version) { service.premoderate poster_data_uri, author, reason }
+    subject(:version) { service.premoderate params, author, reason }
 
     context 'upload' do
       it do

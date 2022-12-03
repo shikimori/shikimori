@@ -4,9 +4,14 @@ class Versioneers::PostersVersioneer < Versioneers::FieldsVersioneer
   UPLOAD = Versions::PosterVersion::Actions[:upload]
   DELETE = Versions::PosterVersion::Actions[:delete]
 
-  def premoderate poster_data_uri, author = nil, reason = nil
-    if poster_data_uri.present?
-      upload_version poster_data_uri, author, reason
+  def premoderate params, author = nil, reason = nil
+    if params[:poster_data_uri].present?
+      upload_version(
+        data_uri: params[:poster_data_uri],
+        crop_data: JSON.parse(params[:poster_crop_data], symbolize_names: true),
+        author: author,
+        reason: reason
+      )
     elsif @item.poster.present?
       delete_version author, reason
     else
@@ -16,12 +21,12 @@ class Versioneers::PostersVersioneer < Versioneers::FieldsVersioneer
 
 private
 
-  def upload_version poster_data_uri, user, reason
-    poster = create_poster poster_data_uri
+  def upload_version data_uri:, crop_data:, author:, reason:
+    poster = create_poster data_uri
 
     Versions::PosterVersion.create!(
       item: poster,
-      user: user,
+      user: author,
       reason: reason,
       state: 'pending',
       associated: @item,
