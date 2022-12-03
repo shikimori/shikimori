@@ -20,13 +20,13 @@ label.b-dropzone.block(
   //   .b-button.enable-crop(
   //     @click='enableCrop'
   //   ) Включить
-  // p(
-  //   v-else-if='sizes.naturalWidth !== sizes.width || sizes.naturalHeight !== sizes.height'
-  // )
-  //   | Кроп: {{ sizes.width }}x{{ sizes.height }}
-  //   .b-button.disable-crop(
-  //     @click='disableCrop'
-  //   ) Отключить
+  p(
+    v-if='sizes.naturalWidth !== sizes.width || sizes.naturalHeight !== sizes.height'
+  )
+    | Кроп превьюшки: {{ sizes.width }}x{{ sizes.height }}
+    // .b-button.disable-crop(
+    //   @click='disableCrop'
+    // ) Отключить
 
   .b-button.clear(
     @click='clear'
@@ -56,7 +56,8 @@ import VueCropper from '@ballcat/vue-cropper';
 import 'cropperjs/dist/cropper.css';
 
 const props = defineProps({
-  src: { type: String, required: false, default: '' }
+  src: { type: String, required: false, default: '' },
+  cropData: { type: Object, required: false, default: () => ({}) }
 });
 
 const DEFAULT_ASPECT_RATIO = 225/350;
@@ -73,6 +74,7 @@ const sizes = reactive({
   height: 0
 });
 
+let isInitialOnCrop = true;
 const onCrop = e => {
   const canvasData = vueCropperRef.value.getCanvasData();
 
@@ -80,6 +82,11 @@ const onCrop = e => {
   sizes.naturalHeight = Math.ceil(canvasData.naturalHeight);
   sizes.width = Math.ceil(e.detail.width);
   sizes.height = Math.ceil(e.detail.height);
+
+  if (props.cropData && isInitialOnCrop) {
+    isInitialOnCrop = false;
+    vueCropperRef.value.setCropBoxData(props.cropData);
+  }
 };
 
 defineExpose({

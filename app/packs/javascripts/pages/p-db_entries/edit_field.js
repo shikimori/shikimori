@@ -263,18 +263,19 @@ async function initEditPosterApp() {
   const { default: PosterField } = await import('@/vue/components/poster_field');
 
   const $app = $('#vue_app');
+  const $form = $app.closest('form');
+  const $cropData = $form.find('input[id$=_poster_crop_data]');
+
   const app = createApp(PosterField, {
-    src: $app.data('src')
+    src: $app.data('src'),
+    cropData: JSON.parse($cropData.val())
   });
   app.config.globalProperties.I18n = I18n;
   app.mount('#vue_app');
 
-  $app.closest('form').on('submit', ({ currentTarget }) => {
-    $(currentTarget)
-      .find('input[id$=_poster_crop_data]')
-      .val(JSON.stringify(app._instance.exposed.cropData()));
-    $(currentTarget)
-      .find('input[id$=_poster_data_uri]')
+  $form.on('submit', ({ currentTarget }) => {
+    $cropData.val(JSON.stringify(app._instance.exposed.cropData()));
+    $(currentTarget).find('input[id$=_poster_data_uri]')
       .val(app._instance.exposed.toDataURI());
   });
 }

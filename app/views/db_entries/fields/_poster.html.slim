@@ -1,8 +1,12 @@
 / = render 'application/note_from_club_page', club_page_id: 2285, is_version: true
 
 = simple_form_for resource.object do |f|
-  = f.input :poster_data_uri, as: :hidden, input_html: { value: '' }
-  = f.input :poster_crop_data, as: :hidden, input_html: { value: '' }
+  = f.input :poster_data_uri,
+    as: :hidden,
+    input_html: { value: '' }
+  = f.input :poster_crop_data,
+    as: :hidden,
+    input_html: { value: resource.poster&.crop_data&.to_json || '{}' }
 
   / img.m5[
   /   src=cdn_image_url(resource, :original)
