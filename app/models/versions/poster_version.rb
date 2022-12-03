@@ -55,7 +55,11 @@ private
   end
 
   def delete_poster
-    poster.update! deleted_at: Time.zone.now
+    if poster
+      poster.update! deleted_at: Time.zone.now
+    else
+      true
+    end
   end
 
   def restore_poster poster
