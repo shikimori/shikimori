@@ -83,8 +83,22 @@ const onCrop = e => {
 };
 
 defineExpose({
+  cropData() {
+    const data = vueCropperRef.value.getCropBoxData();
+
+    return {
+      height: Math.round(data.height),
+      left: Math.round(data.left),
+      top: Math.round(data.top),
+      width: Math.round(data.width)
+    };
+  },
   toDataURI() {
-    return vueCropperRef.value?.getCroppedCanvas()?.toDataURL() || '';
+    return vueCropperRef.value
+      .crop()
+      .clear()
+      .getCroppedCanvas()
+      .toDataURL();
   }
 });
 
@@ -98,7 +112,6 @@ onMounted(async () => {
     maxFileSize: 1024 * 1024 * 15
   })
     .on('upload:file:added', ({ target }, file) => onFileAdded(target, file));
-  window.z = vueCropperRef
 });
 
 function onFileAdded(uploader, uppyFile) {

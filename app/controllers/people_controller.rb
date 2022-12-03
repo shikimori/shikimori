@@ -10,6 +10,7 @@ class PeopleController < DbEntriesController # rubocop:disable ClassLength
   UPDATE_PARAMS = %i[
     russian
     poster_data_uri
+    poster_crop_data
   ] + [
     *Person::DESYNCABLE - %i[birth_on],
     desynced: [],

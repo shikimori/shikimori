@@ -17,6 +17,7 @@ class CharactersController < PeopleController
     description_ru
     description_en
     poster_data_uri
+    poster_crop_data
   ] + [
     *Character::DESYNCABLE,
     desynced: []

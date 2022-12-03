@@ -270,6 +270,11 @@ async function initEditPosterApp() {
   app.mount('#vue_app');
 
   $app.closest('form').on('submit', ({ currentTarget }) => {
-    $(currentTarget).find('input[id$=_poster_data_uri]').val(app._instance.exposed.toDataURI());
+    $(currentTarget)
+      .find('input[id$=_poster_crop_data]')
+      .val(JSON.stringify(app._instance.exposed.cropData()));
+    $(currentTarget)
+      .find('input[id$=_poster_data_uri]')
+      .val(app._instance.exposed.toDataURI());
   });
 }

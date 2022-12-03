@@ -2,6 +2,7 @@
 
 = simple_form_for resource.object do |f|
   = f.input :poster_data_uri, as: :hidden, input_html: { value: '' }
+  = f.input :poster_crop_data, as: :hidden, input_html: { value: '' }
 
   / img.m5[
   /   src=cdn_image_url(resource, :original)
