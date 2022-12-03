@@ -59,6 +59,10 @@ private
   end
 
   def restore_poster poster
-    poster&.update! deleted_at: nil
+    if poster
+      poster.update! deleted_at: nil
+    else
+      true
+    end
   end
 end
