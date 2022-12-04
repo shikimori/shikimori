@@ -15,17 +15,37 @@ class Uploaders::PosterUploader < Shrine
   plugin :data_uri
 
   Attacher.derivatives do |original|
-    magick = ImageProcessing::Vips.source(original)
+    magick = ImageProcessing::Vips.source original
 
     # large = magick.resize_to_limit(900, 1400)
-    main_2x = magick.resize_to_limit(450, 700)
-    main = magick.resize_to_limit(225, 350)
+    main_width = 225
+    main_height = 350
+
+    main_2x = magick.resize_to_limit main_width * 2, main_height * 2
+    main = magick.resize_to_limit main_width, main_height
+
+    magick_cropped = magick.crop(
+      record.crop_data['left'],
+      record.crop_data['top'],
+      record.crop_data['width'],
+      record.crop_data['height']
+    )
+    # preview ratio: 0,6812227074
+    preview_width = 156
+    preview_height = 229
+
+    preview_2x = magick_cropped.resize_to_limit preview_width * 2, preview_height * 2
+    preview = magick_cropped.resize_to_limit preview_width, preview_height
 
     {
-      main_2x: medium.convert!('webp'),
-      main_alt_2x: medium.call!,
-      main: small.convert!('webp'),
-      main_alt: small.call!
+      main_2x: main_2x.convert!('webp'),
+      main: main.convert!('webp'),
+      main_alt_2x: main_2x.call!,
+      main_alt: main.call!,
+      preview_2x: preview_2x.convert!('webp'),
+      preview: preview.convert!('webp'),
+      preview_alt_2x: preview_2x.call!,
+      preview_alt: preview.call!
     }
   end
 
