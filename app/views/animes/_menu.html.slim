@@ -10,7 +10,8 @@
         ]
           = render 'db_entries/poster',
             db_entry: resource,
-            poster: resource.poster
+            poster: resource.poster,
+            derivative: :main
         div style='color: #acb1b4; font-size: 11px; line-height: 1; margin-top: 5px'
           ' это новый вид постера, пока отображается только у модераторов
           a href=resource.edit_field_url(:poster) изменить
