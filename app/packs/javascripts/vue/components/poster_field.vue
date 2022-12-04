@@ -40,6 +40,10 @@ label.b-dropzone.block(
     :src='currentSrc'
     :aspect-ratio='DEFAULT_ASPECT_RATIO'
     :auto-crop-area='1.0'
+    :scalable='false'
+    :movable='false'
+    :rotatable='false'
+    :zoomable='false'
     @crop='onCrop'
   )
 .no-image(
