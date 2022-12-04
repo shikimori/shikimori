@@ -176,6 +176,11 @@ APIPIE_RECORD=all rspec spec/controllers/api/**
 # app/services/video_extractor/player_url_extractor.rb
 ```
 
+### Run locally in production mode
+```sh
+RAILS_ENV=production rails assets:precompile && RAILS_SERVE_STATIC_FILES=true RAILS_ENV=production rails server
+```
+
 ### Webpack debugger
 https://nodejs.org/en/docs/inspector/
 Install the Chrome Extension NIM (Node Inspector Manager): https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj
