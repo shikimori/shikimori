@@ -91,12 +91,6 @@ const onCrop = e => {
     isInitialOnCrop = false;
     const { height, left, top, width } = props.cropData;
 
-    console.log(props.cropData, {
-      height: scaleY(height),
-      left: scaleX(left),
-      top: scaleY(top),
-      width: scaleX(width)
-    });
     vueCropperRef.value.setCropBoxData({
       height: scaleY(height),
       left: scaleX(left),
@@ -179,12 +173,12 @@ function descaleY(value) {
 
 function ratioX() {
   const { naturalWidth, width } = vueCropperRef.value.getCanvasData();
-  return naturalWidth / width;
+  return width / naturalWidth;
 }
 
 function ratioY() {
   const { naturalHeight, height } = vueCropperRef.value.getCanvasData();
-  return naturalHeight / height;
+  return height / naturalHeight;
 }
 </script>
 
