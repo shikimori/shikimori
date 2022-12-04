@@ -89,7 +89,20 @@ const onCrop = e => {
 
   if (props.cropData && isInitialOnCrop) {
     isInitialOnCrop = false;
-    vueCropperRef.value.setCropBoxData(props.cropData);
+    const { height, left, top, width } = props.cropData;
+
+    console.log(props.cropData, {
+      height: scaleY(height),
+      left: scaleX(left),
+      top: scaleY(top),
+      width: scaleX(width)
+    });
+    vueCropperRef.value.setCropBoxData({
+      height: scaleY(height),
+      left: scaleX(left),
+      top: scaleY(top),
+      width: scaleX(width)
+    });
   }
 };
 
@@ -98,10 +111,10 @@ defineExpose({
     const data = vueCropperRef.value.getCropBoxData();
 
     return {
-      height: Math.round(data.height),
-      left: Math.round(data.left),
-      top: Math.round(data.top),
-      width: Math.round(data.width)
+      height: descaleY(data.height),
+      left: descaleX(data.left),
+      top: descaleY(data.top),
+      width: descaleX(data.width)
     };
   },
   toDataURI() {
@@ -133,6 +146,7 @@ function onFileAdded(uploader, uppyFile) {
 function clear() {
   currentSrc.value = '';
 }
+
 function disableCrop() {
   isDisabled.value = true;
 
@@ -145,6 +159,32 @@ function enableCrop() {
 
   vueCropperRef.value.enable();
   vueCropperRef.value.setAspectRatio(DEFAULT_ASPECT_RATIO);
+}
+
+function scaleX(value) {
+  return value * ratioX();
+}
+
+function descaleX(value) {
+  return Math.round(value / ratioX());
+}
+
+function scaleY(value) {
+  return value * ratioY();
+}
+
+function descaleY(value) {
+  return Math.round(value / ratioY());
+}
+
+function ratioX() {
+  const { naturalWidth, width } = vueCropperRef.value.getCanvasData();
+  return naturalWidth / width;
+}
+
+function ratioY() {
+  const { naturalHeight, height } = vueCropperRef.value.getCanvasData();
+  return naturalHeight / height;
 }
 </script>
 
