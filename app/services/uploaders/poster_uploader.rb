@@ -27,12 +27,14 @@ class Uploaders::PosterUploader < Shrine
     main_2x = magick.resize_to_limit MAIN_WIDTH * 2, MAIN_HEIGHT * 2
     main = magick.resize_to_limit MAIN_WIDTH, MAIN_HEIGHT
 
-    magick_cropped = magick.crop(
-      record.crop_data['left'],
-      record.crop_data['top'],
-      record.crop_data['width'],
-      record.crop_data['height']
-    )
+    magick_cropped = record.crop_data ?
+      magick.crop(
+        record.crop_data['left'],
+        record.crop_data['top'],
+        record.crop_data['width'],
+        record.crop_data['height']
+      ) :
+      magick
 
     preview_2x = magick_cropped.resize_to_limit PREVIEW_WIDTH * 2, PREVIEW_HEIGHT * 2
     preview = magick_cropped.resize_to_limit PREVIEW_WIDTH, PREVIEW_HEIGHT

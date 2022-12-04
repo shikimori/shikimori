@@ -18,8 +18,8 @@ describe Versioneers::PostersVersioneer do
     {
       'left' => 0,
       'top' => 0,
-      'width' => 100,
-      'height' => 100
+      'width' => 1,
+      'height' => 1
     }
   end
 
