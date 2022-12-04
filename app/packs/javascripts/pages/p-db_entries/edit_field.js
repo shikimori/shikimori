@@ -268,6 +268,7 @@ async function initEditPosterApp() {
 
   const app = createApp(PosterField, {
     src: $app.data('src'),
+    previewTemplateHTML: $('.template-html').html(),
     cropData: JSON.parse($cropData.val())
   });
   app.config.globalProperties.I18n = I18n;

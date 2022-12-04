@@ -23,7 +23,7 @@ label.b-dropzone.block(
   p(
     v-if='sizes.naturalWidth !== sizes.width || sizes.naturalHeight !== sizes.height'
   )
-    | Кроп превьюшки: {{ sizes.width }}x{{ sizes.height }}
+    | Кроп превью: {{ sizes.width }}x{{ sizes.height }}
     // .b-button.disable-crop(
     //   @click='disableCrop'
     // ) Отключить
@@ -32,43 +32,57 @@ label.b-dropzone.block(
     @click='clear'
   ) Очистить
 
-.cropper-container(
-  v-show='currentSrc'
-)
-  VueCropper(
-    ref='vueCropperRef'
-    :src='currentSrc'
-    :aspect-ratio='DEFAULT_ASPECT_RATIO'
-    :auto-crop-area='1.0'
-    :scalable='false'
-    :movable='false'
-    :rotatable='false'
-    :zoomable='false'
-    @crop='onCrop'
-  )
-.no-image(
-  v-if='!currentSrc'
-)
-  img(
-    src='/assets/globals/missing_original.jpg'
-  )
+.cc-2
+  .c-column
+    .cropper-container(
+      v-show='currentSrc'
+    )
+      VueCropper(
+        ref='vueCropperRef'
+        :src='currentSrc'
+        :aspect-ratio='DEFAULT_ASPECT_RATIO'
+        :auto-crop-area='1.0'
+        :scalable='false'
+        :movable='false'
+        :rotatable='false'
+        :zoomable='false'
+        @crop='onCrop'
+      )
+    .no-image(
+      v-if='!currentSrc'
+    )
+      img(
+        :src='missingSrc'
+      )
+  .c-column
+    .midheadline
+      | Превью
+    .preview(
+      ref='templateRef'
+      v-html='previewTemplateHTML'
+    )
 </template>
 
 <script setup>
 import { ref, reactive, watch, onMounted, nextTick } from 'vue';
+import { debounce } from 'throttle-debounce';
 import VueCropper from '@ballcat/vue-cropper';
+
 import 'cropperjs/dist/cropper.css';
 
 const props = defineProps({
   src: { type: String, required: false, default: '' },
-  cropData: { type: Object, required: false, default: () => ({}) }
+  cropData: { type: Object, required: false, default: () => ({}) },
+  previewTemplateHTML: { type: String, required: true }
 });
 
 const DEFAULT_ASPECT_RATIO = 225/350;
+const missingSrc = '/assets/globals/missing_original.jpg';
 
 const currentSrc = ref(props.src);
 const vueCropperRef = ref(null);
 const uploaderRef = ref(null);
+const templateRef = ref(null);
 const isDisabled = ref(false);
 
 const sizes = reactive({
@@ -98,6 +112,8 @@ const onCrop = e => {
       width: scaleX(width)
     });
   }
+
+  syncPreviewImage();
 };
 
 defineExpose({
@@ -139,7 +155,16 @@ function onFileAdded(uploader, uppyFile) {
 
 function clear() {
   currentSrc.value = '';
+  syncPreviewImage();
 }
+
+const syncPreviewImage = debounce(100, () => {
+  const img = templateRef.value.querySelector('img');
+  const exportedDataUri = vueCropperRef.value.getCroppedCanvas()?.toDataURL();
+
+  img.srcset = '';
+  img.src = exportedDataUri || missingSrc;
+});
 
 function disableCrop() {
   isDisabled.value = true;
@@ -206,4 +231,7 @@ function ratioY() {
 
   .cropper-point
     background-color: #8e00fa
+
+.preview
+  width: 160px
 </style>

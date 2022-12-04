@@ -15,6 +15,9 @@
   / ]
   / p = t '.image_size'
 
+  .template-html.hidden
+    = render resource
+
   .block
     #vue_app[
       data-src=resource.poster&.image&.url
