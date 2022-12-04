@@ -10,28 +10,6 @@ label.b-dropzone.block(
 .sizes.block(
   v-if='currentSrc'
 )
-  p(
-    v-if='sizes.naturalWidth'
-  ) Картинка: {{ sizes.naturalWidth }}x{{ sizes.naturalHeight }}
-  // p(
-  //   v-if='isDisabled'
-  // )
-  //   | Кроп: отключено
-  //   .b-button.enable-crop(
-  //     @click='enableCrop'
-  //   ) Включить
-  p(
-    v-if='sizes.naturalWidth !== sizes.width || sizes.naturalHeight !== sizes.height'
-  )
-    | Кроп превью: {{ sizes.width }}x{{ sizes.height }}
-    // .b-button.disable-crop(
-    //   @click='disableCrop'
-    // ) Отключить
-
-  .b-button.clear(
-    @click='clear'
-  ) Очистить
-
 .cc-2
   .c-column
     .cropper-container(
@@ -55,6 +33,30 @@ label.b-dropzone.block(
         :src='missingSrc'
       )
   .c-column
+    p.m5
+      | На странице аниме постер отображается целиком,
+      | в каталоге аниме картинка отображается обрезанная.
+    p(
+      v-if='sizes.naturalWidth'
+    ) Картинка: {{ sizes.naturalWidth }}x{{ sizes.naturalHeight }}
+    // p(
+    //   v-if='isDisabled'
+    // )
+    //   | Кроп: отключено
+    //   .b-button.enable-crop(
+    //     @click='enableCrop'
+    //   ) Включить
+    p(
+      v-if='sizes.naturalWidth !== sizes.width || sizes.naturalHeight !== sizes.height'
+    )
+      | Кроп превью: {{ sizes.width }}x{{ sizes.height }}
+      // .b-button.disable-crop(
+      //   @click='disableCrop'
+      // ) Отключить
+
+    .b-button.clear.m15(
+      @click='clear'
+    ) Очистить
     .midheadline
       | Превью
     .preview(
