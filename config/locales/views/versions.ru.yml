@@ -28,6 +28,7 @@ ru:
         <<: *text_diff
       poster:
         <<: *text_diff
+        deleted: Постер удалён
       screenshots_reposition:
         <<: *text_diff
       video:

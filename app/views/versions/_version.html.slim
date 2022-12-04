@@ -18,13 +18,13 @@
       = version.changed_fields.join ', '
 
     span.id data-text=(version.item.class.model_name.human if version.item)
-      - if version.item
+      - if version.item_type == Poster.name
+        = render 'versions/db_entry', version: version, field: :associated
+      - elsif version.item
         - if version.item_type == AnimeVideo.name
           = render 'versions/anime_video', version: version
         - elsif version.item_type == Video.name
           = render 'versions/video', version: version
-        - elsif version.item_type == Poster.name
-          = render 'versions/db_entry', version: version, field: :associated
         - elsif [Genre.name, Studio.name, Publisher.name].include?(version.item_type)
           = render 'versions/genre_studio_publisher', version: version
         - elsif version.is_a? Versions::RoleVersion

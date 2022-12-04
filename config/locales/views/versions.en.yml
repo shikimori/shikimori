@@ -28,6 +28,7 @@ en:
         <<: *text_diff
       poster:
         <<: *text_diff
+        deleted: Deleted psoter
       screenshots_reposition:
         <<: *text_diff
       video:
