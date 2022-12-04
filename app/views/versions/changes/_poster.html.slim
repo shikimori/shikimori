@@ -5,18 +5,30 @@
     - if prev_poster
       .change
         .label #{t '.before'}:
-        div
+        .d-flex
+          .mr-5
+            = render 'db_entries/poster',
+              db_entry: version.associated,
+              poster: prev_poster,
+              derivative: :main
           = render 'db_entries/poster',
             db_entry: version.associated,
-            poster: prev_poster
+            poster: prev_poster,
+            derivative: :preview
 
     .change
       - if prev_poster
         .label #{t '.after'}:
-      div
+      .d-flex
         - if version.item
+          .mr-5
+            = render 'db_entries/poster',
+              db_entry: version.associated,
+              poster: version.item,
+              derivative: :main
           = render 'db_entries/poster',
             db_entry: version.associated,
-            poster: version.item
+            poster: version.item,
+            derivative: :preview
         - else
           i = t '.deleted'
