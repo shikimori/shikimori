@@ -14,6 +14,9 @@
       - if prev_poster
         .label #{t '.after'}:
       div
-        = render 'db_entries/poster',
-          db_entry: version.associated,
-          poster: version.item
+        - if version.item
+          = render 'db_entries/poster',
+            db_entry: version.associated,
+            poster: version.item
+        - else
+          i = t("deleted.#{version.item_type.underscore}").downcase

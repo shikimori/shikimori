@@ -18,16 +18,14 @@ class Uploaders::PosterUploader < Shrine
     magick = ImageProcessing::Vips.source(original)
 
     # large = magick.resize_to_limit(900, 1400)
-    medium = magick.resize_to_limit(450, 700)
-    small = magick.resize_to_limit(225, 350)
+    main_2x = magick.resize_to_limit(450, 700)
+    main = magick.resize_to_limit(225, 350)
 
     {
-      # large: large.convert!('webp'),
-      # large_legacy: large.call!,
-      medium: medium.convert!('webp'),
-      medium_alt: medium.call!,
-      small: small.convert!('webp'),
-      small_alt: small.call!
+      main_2x: medium.convert!('webp'),
+      main_alt_2x: medium.call!,
+      main: small.convert!('webp'),
+      main_alt: small.call!
     }
   end
 

@@ -1,14 +1,14 @@
 - if poster
   picture
     source[
-      src=cdn_poster_url(db_entry: db_entry, poster: poster, derivative: :small)
-      srcset='#{cdn_poster_url db_entry: db_entry, poster: poster, derivative: :medium} 2x'
+      src=cdn_poster_url(db_entry: db_entry, poster: poster, derivative: :main)
+      srcset='#{cdn_poster_url db_entry: db_entry, poster: poster, derivative: :main_2x} 2x'
       type='image/webp'
     ]
     img[
       alt=db_entry.name
-      src=cdn_poster_url(db_entry: db_entry, poster: poster, derivative: :small_alt)
-      srcset='#{cdn_poster_url db_entry: db_entry, poster: poster, derivative: :medium_alt} 2x'
+      src=cdn_poster_url(db_entry: db_entry, poster: poster, derivative: :main_alt)
+      srcset='#{cdn_poster_url db_entry: db_entry, poster: poster, derivative: :main_alt_2x} 2x'
       loading='lazy'
     ]
 - else
