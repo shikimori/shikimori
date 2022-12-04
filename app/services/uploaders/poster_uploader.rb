@@ -27,17 +27,17 @@ class Uploaders::PosterUploader < Shrine
     main_2x = magick.resize_to_limit MAIN_WIDTH * 2, MAIN_HEIGHT * 2
     main = magick.resize_to_limit MAIN_WIDTH, MAIN_HEIGHT
 
-    magick_cropped = record.crop_data ?
+    magick_cropped = record.crop_data.blank? ?
+      magick :
       magick.crop(
         record.crop_data['left'],
         record.crop_data['top'],
         record.crop_data['width'],
         record.crop_data['height']
-      ) :
-      magick
+      )
 
-    preview_2x = magick_cropped.resize_to_limit PREVIEW_WIDTH * 2, PREVIEW_HEIGHT * 2
-    preview = magick_cropped.resize_to_limit PREVIEW_WIDTH, PREVIEW_HEIGHT
+    preview_2x = magick_cropped.resize_to_fill PREVIEW_WIDTH * 2, PREVIEW_HEIGHT * 2, crop: :centre
+    preview = magick_cropped.resize_to_fill PREVIEW_WIDTH, PREVIEW_HEIGHT, crop: :centre
 
     {
       main_2x: main_2x.convert!('webp'),
