@@ -269,7 +269,9 @@ async function initEditPosterApp() {
   const app = createApp(PosterField, {
     src: $app.data('src'),
     previewTemplateHTML: $('.template-html').html(),
-    cropData: JSON.parse($cropData.val())
+    cropData: JSON.parse($cropData.val()),
+    previewWidth: $app.data('preview-width'),
+    previewHeight: $app.data('preview-height')
   });
   app.config.globalProperties.I18n = I18n;
   app.mount('#vue_app');

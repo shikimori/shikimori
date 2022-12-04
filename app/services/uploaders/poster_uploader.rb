@@ -3,6 +3,13 @@ require 'image_processing/vips'
 class Uploaders::PosterUploader < Shrine
   include ImageProcessing::MiniMagick
 
+  MAIN_WIDTH = 225
+  MAIN_HEIGHT = 350
+
+  # preview ratio: 0.6812227074
+  PREVIEW_WIDTH = 156
+  PREVIEW_HEIGHT = 229
+
   # https://shrinerb.com/docs/plugins/activerecord
   plugin :pretty_location
   plugin :derivatives, create_on_promote: true
@@ -17,12 +24,8 @@ class Uploaders::PosterUploader < Shrine
   Attacher.derivatives do |original|
     magick = ImageProcessing::Vips.source original
 
-    # large = magick.resize_to_limit(900, 1400)
-    main_width = 225
-    main_height = 350
-
-    main_2x = magick.resize_to_limit main_width * 2, main_height * 2
-    main = magick.resize_to_limit main_width, main_height
+    main_2x = magick.resize_to_limit MAIN_WIDTH * 2, MAIN_HEIGHT * 2
+    main = magick.resize_to_limit MAIN_WIDTH, MAIN_HEIGHT
 
     magick_cropped = magick.crop(
       record.crop_data['left'],
@@ -30,12 +33,9 @@ class Uploaders::PosterUploader < Shrine
       record.crop_data['width'],
       record.crop_data['height']
     )
-    # preview ratio: 0,6812227074
-    preview_width = 156
-    preview_height = 229
 
-    preview_2x = magick_cropped.resize_to_limit preview_width * 2, preview_height * 2
-    preview = magick_cropped.resize_to_limit preview_width, preview_height
+    preview_2x = magick_cropped.resize_to_limit PREVIEW_WIDTH * 2, PREVIEW_HEIGHT * 2
+    preview = magick_cropped.resize_to_limit PREVIEW_WIDTH, PREVIEW_HEIGHT
 
     {
       main_2x: main_2x.convert!('webp'),

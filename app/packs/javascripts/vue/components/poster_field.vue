@@ -18,7 +18,7 @@ label.b-dropzone.block(
       VueCropper(
         ref='vueCropperRef'
         :src='currentSrc'
-        :aspect-ratio='DEFAULT_ASPECT_RATIO'
+        :aspect-ratio='aspectRatio'
         :auto-crop-area='1.0'
         :scalable='false'
         :movable='false'
@@ -75,10 +75,12 @@ import 'cropperjs/dist/cropper.css';
 const props = defineProps({
   src: { type: String, required: false, default: '' },
   cropData: { type: Object, required: false, default: () => ({}) },
-  previewTemplateHTML: { type: String, required: true }
+  previewTemplateHTML: { type: String, required: true },
+  previewWidth: { type: Number, required: true },
+  previewHeight: { type: Number, required: true }
 });
 
-const DEFAULT_ASPECT_RATIO = 225/350;
+const aspectRatio = props.previewWidth / props.previewHeight;
 const missingSrc = '/assets/globals/missing_original.jpg';
 
 const currentSrc = ref(props.src);
@@ -179,7 +181,7 @@ function enableCrop() {
   isDisabled.value = false;
 
   vueCropperRef.value.enable();
-  vueCropperRef.value.setAspectRatio(DEFAULT_ASPECT_RATIO);
+  vueCropperRef.value.setAspectRatio(aspectRatio);
 }
 
 function scaleX(value) {
@@ -235,5 +237,5 @@ function ratioY() {
     background-color: #8e00fa
 
 .preview
-  width: 160px
+  width: 156px
 </style>
