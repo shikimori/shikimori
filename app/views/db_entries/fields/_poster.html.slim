@@ -8,13 +8,6 @@
     as: :hidden,
     input_html: { value: resource.poster&.crop_data&.to_json || '{}' }
 
-  / img.m5[
-  /   src=cdn_image_url(resource, :original)
-  /   title=localized_name(resource)
-  /   alt=localized_name(resource)
-  / ]
-  / p = t '.image_size'
-
   .template-html.hidden
     = render resource
 

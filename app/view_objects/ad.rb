@@ -203,7 +203,7 @@ private
 
   SPECIAL_X300 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: HZ - remove 2022-11-14 23:59
+    # AD START: HZ - remove 2023-01-05 23:59
     url: 'https://bit.ly/3DK6zjl',
     # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=eevvx&pfb=lozyl&pr=[RANDOM]&pe=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
@@ -228,7 +228,7 @@ private
   }
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: HZ - remove 2022-11-14 23:59
+    # AD START: HZ - remove 2023-01-05 23:59
     url: 'https://bit.ly/3Wlvpy7',
     # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=eevvx&pfb=lozyl&pr=[RANDOM]&pe=b',
     # convert -resize 50% app/assets/images/globals/events/2022-07-16/wide_1@2x.jpg app/assets/images/globals/events/2022-07-16/wide_1.jpg
@@ -279,23 +279,17 @@ private
     provider: Types::Ad::Provider[:special],
     # AD START: IMBA - remove 2022-11-28 23:59
     images: [{
-      src: '/assets/globals/events/2022-11-14/inner_1.png?v2',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=24_11&marker=2VtzqvrATZ3'
+      src: '/assets/globals/events/2022-12-05/inner_1.png?v1',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=05_12&marker='
     }, {
-      src: '/assets/globals/events/2022-11-14/inner_2.png?v2',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner2&utm_campaign=24_11&marker=2VtzquxHEAu'
+      src: '/assets/globals/events/2022-12-05/inner_2.png?v1',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner2&utm_campaign=05_12&marker='
     }, {
-      src: '/assets/globals/events/2022-11-14/inner_3.png?v2',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=24_11&marker=2Vtzqua3kRf'
+      src: '/assets/globals/events/2022-12-05/inner_3.png?v1',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=05_12&marker='
     }, {
-      src: '/assets/globals/events/2022-11-14/inner_4.png?v2',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner4&utm_campaign=24_11&marker=2VtzqwBEsvH'
-    }, {
-      src: '/assets/globals/events/2022-11-14/inner_5.png?v2',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner5&utm_campaign=24_11&marker=2Vtzqux5osf'
-    }, {
-      src: '/assets/globals/events/2022-11-14/inner_6.png?v2',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner6&utm_campaign=24_11&marker=2VtzqxFWhEh'
+      src: '/assets/globals/events/2022-12-05/inner_4.png?v1',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner4&utm_campaign=05_12&marker='
     }],
     # AD END
     placement: Types::Ad::Placement[:content],
@@ -435,12 +429,12 @@ private
         Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # HZ - remove 2022-11-14 23:59
+        # Types::Ad::Type[:special_x300], # HZ - remove 2023-01-05 23:59
         Types::Ad::Type[:yd_240x600],
         Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # HZ - remove 2022-11-14 23:59
+        # Types::Ad::Type[:special_x300], # HZ - remove 2023-01-05 23:59
         Types::Ad::Type[:yd_300x600],
         Types::Ad::Type[:mt_300x600]
       ],
@@ -449,7 +443,7 @@ private
         Types::Ad::Type[:mt_970x250]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        # Types::Ad::Type[:special_x894], # IMBA - remove 2022-11-28 23:59
+        Types::Ad::Type[:special_x894], # IMBA - remove 2022-11-28 23:59
         Types::Ad::Type[:yd_970x90],
         Types::Ad::Type[:mt_728x90]
       ],
@@ -457,7 +451,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        Types::Ad::Type[:special_x1170], # HZ - remove 2022-11-14 23:59
+        Types::Ad::Type[:special_x1170], # HZ - remove 2023-01-05 23:59
         Types::Ad::Type[:yd_970x250],
         Types::Ad::Type[:mt_970x250]
       ]
@@ -469,13 +463,13 @@ private
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # HZ - remove 2022-11-14 23:59
+        # Types::Ad::Type[:special_x300], # HZ - remove 2023-01-05 23:59
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # HZ - remove 2022-11-14 23:59
+        # Types::Ad::Type[:special_x300], # HZ - remove 2023-01-05 23:59
         # Types::Ad::Type[:mt_300x600],
         # Types::Ad::Type[:yd_300x600],
         # Types::Ad::Type[:advrtr_240x400],
@@ -485,7 +479,7 @@ private
         Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        # Types::Ad::Type[:special_x894], # IMBA - remove 2022-11-28 23:59
+        Types::Ad::Type[:special_x894], # IMBA - remove 2022-11-28 23:59
         # Types::Ad::Type[:mt_728x90],
         Types::Ad::Type[:advrtr_x728]
       ],
@@ -493,7 +487,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        Types::Ad::Type[:special_x1170] # HZ - remove 2022-11-14 23:59
+        Types::Ad::Type[:special_x1170] # HZ - remove 2023-01-05 23:59
       ]
     }
   }
