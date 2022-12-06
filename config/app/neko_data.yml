@@ -8721,6 +8721,7 @@
         - 35928
         - 28105
         - 37804
+        - 46604
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
@@ -20039,6 +20040,7 @@
         - 45753
         - 49318
         - 51309
+        - 44269
       :threshold: 99%
       :generator:
         threshold: 99%
@@ -20077,6 +20079,7 @@
         - 45753
         - 49318
         - 51309
+        - 44269
       :threshold: 0.01
       :generator:
         threshold: 99%
@@ -21892,6 +21895,8 @@
       :algo: duration
       :filters:
         franchise: saiki_kusuo_no_nan
+        not_anime_ids:
+        - 53712
       :threshold: 100%
       :generator:
         threshold: 100%
@@ -21923,6 +21928,8 @@
       :algo: duration
       :filters:
         franchise: saiki_kusuo_no_nan
+        not_anime_ids:
+        - 53712
       :threshold: 0.01
       :generator:
         threshold: 100%
@@ -23850,6 +23857,7 @@
         - 52010
         - 52011
         - 52745
+        - 42753
       :threshold: 96%
       :generator:
         not_ignored_ids:
@@ -23922,6 +23930,7 @@
         - 52010
         - 52011
         - 52745
+        - 42753
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -37970,6 +37979,8 @@
         - 104
         - 40004
         - 38186
+        - 4537
+        - 258
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
   default_values: *2
   neko_id: :oniichan
