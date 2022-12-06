@@ -10753,186 +10753,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :type_moon
-    :level: 1
-    :image: "/assets/achievements/anime/author/type_moon.jpg"
-    :border_color: "#4285B4"
-    :title_ru: Type-Moon
-    :text_ru:
-    :title_en: Type-Moon
-    :text_en:
-    :topic_id: 276032
-    :rule: &108
-      :algo: count
-      :threshold: 72%
-      :filters:
-        anime_ids:
-        - 356
-        - 33049
-        - 38897
-        - 38959
-        - 40206
-        - 38084
-        - 2593
-        - 3782
-        - 3783
-        - 4280
-        - 4282
-        - 5204
-        - 5205
-        - 5356
-        - 6922
-        - 6954
-        - 10012
-        - 10087
-        - 11741
-        - 12187
-        - 12255
-        - 12565
-        - 13263
-        - 14807
-        - 14829
-        - 15927
-        - 18851
-        - 19109
-        - 20509
-        - 22297
-        - 25011
-        - 25537
-        - 26057
-        - 27525
-        - 27821
-        - 28701
-        - 31389
-        - 31706
-        - 33047
-        - 34321
-        - 34662
-        - 22763
-        - 31056
-        - 34100
-        - 33456
-        - 38958
-        - 38936
-        - 36914
-        - 36915
-        - 36833
-        - 37033
-        - 37651
-        - 169
-        - 33050
-        - 38085
-        - 49361
-        - 38086
-        - 41497
-        - 42030
-      :generator:
-        person_id: 2582
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :type_moon
-  level: 1
-  image: "/assets/achievements/anime/author/type_moon.jpg"
-  border_color: "#4285B4"
-  title_ru: Type-Moon
-  text_ru:
-  title_en: Type-Moon
-  text_en:
-  topic_id: 276032
-  rule: *108
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :type_moon
-    :level: 0
-    :image: "/assets/achievements/anime/author/type_moon.jpg"
-    :border_color: "#4285B4"
-    :title_ru: Type-Moon
-    :text_ru:
-    :title_en: Type-Moon
-    :text_en:
-    :topic_id: 276032
-    :rule: &109
-      :algo: count
-      :threshold: 0.01
-      :filters:
-        anime_ids:
-        - 356
-        - 33049
-        - 38897
-        - 38959
-        - 40206
-        - 38084
-        - 2593
-        - 3782
-        - 3783
-        - 4280
-        - 4282
-        - 5204
-        - 5205
-        - 5356
-        - 6922
-        - 6954
-        - 10012
-        - 10087
-        - 11741
-        - 12187
-        - 12255
-        - 12565
-        - 13263
-        - 14807
-        - 14829
-        - 15927
-        - 18851
-        - 19109
-        - 20509
-        - 22297
-        - 25011
-        - 25537
-        - 26057
-        - 27525
-        - 27821
-        - 28701
-        - 31389
-        - 31706
-        - 33047
-        - 34321
-        - 34662
-        - 22763
-        - 31056
-        - 34100
-        - 33456
-        - 38958
-        - 38936
-        - 36914
-        - 36915
-        - 36833
-        - 37033
-        - 37651
-        - 169
-        - 33050
-        - 38085
-        - 49361
-        - 38086
-        - 41497
-        - 42030
-      :generator:
-        person_id: 2582
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :type_moon
-  level: 0
-  image: "/assets/achievements/anime/author/type_moon.jpg"
-  border_color: "#4285B4"
-  title_ru: Type-Moon
-  text_ru:
-  title_en: Type-Moon
-  text_en:
-  topic_id: 276032
-  rule: *109
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :osamu_tezuka
     :level: 1
     :image: "/assets/achievements/anime/author/osamu_tezuka.png"
@@ -10942,7 +10762,7 @@
     :title_en: Osamu Tezuka
     :text_en:
     :topic_id: 276032
-    :rule: &110
+    :rule: &108
       :algo: count
       :threshold: 50%
       :filters:
@@ -11040,7 +10860,7 @@
   title_en: Osamu Tezuka
   text_en:
   topic_id: 276032
-  rule: *110
+  rule: *108
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -11053,7 +10873,7 @@
     :title_en: Osamu Tezuka
     :text_en:
     :topic_id: 276032
-    :rule: &111
+    :rule: &109
       :algo: count
       :threshold: 0.01
       :filters:
@@ -11149,6 +10969,186 @@
   title_ru: Осаму Тэдзука
   text_ru:
   title_en: Osamu Tezuka
+  text_en:
+  topic_id: 276032
+  rule: *109
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :type_moon
+    :level: 1
+    :image: "/assets/achievements/anime/author/type_moon.jpg"
+    :border_color: "#4285B4"
+    :title_ru: Type-Moon
+    :text_ru:
+    :title_en: Type-Moon
+    :text_en:
+    :topic_id: 276032
+    :rule: &110
+      :algo: count
+      :threshold: 72%
+      :filters:
+        anime_ids:
+        - 356
+        - 33049
+        - 38897
+        - 38959
+        - 40206
+        - 38084
+        - 2593
+        - 3782
+        - 3783
+        - 4280
+        - 4282
+        - 5204
+        - 5205
+        - 5356
+        - 6922
+        - 6954
+        - 10012
+        - 10087
+        - 11741
+        - 12187
+        - 12255
+        - 12565
+        - 13263
+        - 14807
+        - 14829
+        - 15927
+        - 18851
+        - 19109
+        - 20509
+        - 22297
+        - 25011
+        - 25537
+        - 26057
+        - 27525
+        - 27821
+        - 28701
+        - 31389
+        - 31706
+        - 33047
+        - 34321
+        - 34662
+        - 22763
+        - 31056
+        - 34100
+        - 33456
+        - 38958
+        - 38936
+        - 36914
+        - 36915
+        - 36833
+        - 37033
+        - 37651
+        - 169
+        - 33050
+        - 38085
+        - 49361
+        - 38086
+        - 41497
+        - 42030
+      :generator:
+        person_id: 2582
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :type_moon
+  level: 1
+  image: "/assets/achievements/anime/author/type_moon.jpg"
+  border_color: "#4285B4"
+  title_ru: Type-Moon
+  text_ru:
+  title_en: Type-Moon
+  text_en:
+  topic_id: 276032
+  rule: *110
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :type_moon
+    :level: 0
+    :image: "/assets/achievements/anime/author/type_moon.jpg"
+    :border_color: "#4285B4"
+    :title_ru: Type-Moon
+    :text_ru:
+    :title_en: Type-Moon
+    :text_en:
+    :topic_id: 276032
+    :rule: &111
+      :algo: count
+      :threshold: 0.01
+      :filters:
+        anime_ids:
+        - 356
+        - 33049
+        - 38897
+        - 38959
+        - 40206
+        - 38084
+        - 2593
+        - 3782
+        - 3783
+        - 4280
+        - 4282
+        - 5204
+        - 5205
+        - 5356
+        - 6922
+        - 6954
+        - 10012
+        - 10087
+        - 11741
+        - 12187
+        - 12255
+        - 12565
+        - 13263
+        - 14807
+        - 14829
+        - 15927
+        - 18851
+        - 19109
+        - 20509
+        - 22297
+        - 25011
+        - 25537
+        - 26057
+        - 27525
+        - 27821
+        - 28701
+        - 31389
+        - 31706
+        - 33047
+        - 34321
+        - 34662
+        - 22763
+        - 31056
+        - 34100
+        - 33456
+        - 38958
+        - 38936
+        - 36914
+        - 36915
+        - 36833
+        - 37033
+        - 37651
+        - 169
+        - 33050
+        - 38085
+        - 49361
+        - 38086
+        - 41497
+        - 42030
+      :generator:
+        person_id: 2582
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :type_moon
+  level: 0
+  image: "/assets/achievements/anime/author/type_moon.jpg"
+  border_color: "#4285B4"
+  title_ru: Type-Moon
+  text_ru:
+  title_en: Type-Moon
   text_en:
   topic_id: 276032
   rule: *111
@@ -11497,116 +11497,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :morio_asaka
-    :level: 1
-    :image: "/assets/achievements/anime/author/morio_asaka.jpg"
-    :border_color: "#AE050D"
-    :title_ru: Морио Асака
-    :text_ru:
-    :title_en: Morio Asaka
-    :text_en:
-    :topic_id: 276032
-    :rule: &118
-      :algo: count
-      :threshold: 66%
-      :filters:
-        anime_ids:
-        - 5678
-        - 1078
-        - 28297
-        - 37379
-        - 14397
-        - 10800
-        - 7193
-        - 7972
-        - 877
-        - 408
-        - 134
-        - 596
-        - 59
-        - 652
-        - 383
-        - 33354
-        - 35320
-        - 372
-        - 371
-        - 232
-        - 2009
-        - 2274
-        - 2017
-        - 2093
-      :generator:
-        person_id: 5921
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :morio_asaka
-  level: 1
-  image: "/assets/achievements/anime/author/morio_asaka.jpg"
-  border_color: "#AE050D"
-  title_ru: Морио Асака
-  text_ru:
-  title_en: Morio Asaka
-  text_en:
-  topic_id: 276032
-  rule: *118
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :morio_asaka
-    :level: 0
-    :image: "/assets/achievements/anime/author/morio_asaka.jpg"
-    :border_color: "#AE050D"
-    :title_ru: Морио Асака
-    :text_ru:
-    :title_en: Morio Asaka
-    :text_en:
-    :topic_id: 276032
-    :rule: &119
-      :algo: count
-      :threshold: 0.01
-      :filters:
-        anime_ids:
-        - 5678
-        - 1078
-        - 28297
-        - 37379
-        - 14397
-        - 10800
-        - 7193
-        - 7972
-        - 877
-        - 408
-        - 134
-        - 596
-        - 59
-        - 652
-        - 383
-        - 33354
-        - 35320
-        - 372
-        - 371
-        - 232
-        - 2009
-        - 2274
-        - 2017
-        - 2093
-      :generator:
-        person_id: 5921
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :morio_asaka
-  level: 0
-  image: "/assets/achievements/anime/author/morio_asaka.jpg"
-  border_color: "#AE050D"
-  title_ru: Морио Асака
-  text_ru:
-  title_en: Morio Asaka
-  text_en:
-  topic_id: 276032
-  rule: *119
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :masaaki_yuasa
     :level: 1
     :image: "/assets/achievements/anime/author/masaaki_yuasa.png"
@@ -11616,7 +11506,7 @@
     :title_en: Masaaki Yuasa
     :text_en:
     :topic_id: 276032
-    :rule: &120
+    :rule: &118
       :algo: count
       :threshold: 50%
       :filters:
@@ -11666,7 +11556,7 @@
   title_en: Masaaki Yuasa
   text_en:
   topic_id: 276032
-  rule: *120
+  rule: *118
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -11679,7 +11569,7 @@
     :title_en: Masaaki Yuasa
     :text_en:
     :topic_id: 276032
-    :rule: &121
+    :rule: &119
       :algo: count
       :threshold: 0.01
       :filters:
@@ -11727,6 +11617,116 @@
   title_ru: Масааки Юаса
   text_ru:
   title_en: Masaaki Yuasa
+  text_en:
+  topic_id: 276032
+  rule: *119
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :morio_asaka
+    :level: 1
+    :image: "/assets/achievements/anime/author/morio_asaka.jpg"
+    :border_color: "#AE050D"
+    :title_ru: Морио Асака
+    :text_ru:
+    :title_en: Morio Asaka
+    :text_en:
+    :topic_id: 276032
+    :rule: &120
+      :algo: count
+      :threshold: 66%
+      :filters:
+        anime_ids:
+        - 5678
+        - 1078
+        - 28297
+        - 37379
+        - 14397
+        - 10800
+        - 7193
+        - 7972
+        - 877
+        - 408
+        - 134
+        - 596
+        - 59
+        - 652
+        - 383
+        - 33354
+        - 35320
+        - 372
+        - 371
+        - 232
+        - 2009
+        - 2274
+        - 2017
+        - 2093
+      :generator:
+        person_id: 5921
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :morio_asaka
+  level: 1
+  image: "/assets/achievements/anime/author/morio_asaka.jpg"
+  border_color: "#AE050D"
+  title_ru: Морио Асака
+  text_ru:
+  title_en: Morio Asaka
+  text_en:
+  topic_id: 276032
+  rule: *120
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :morio_asaka
+    :level: 0
+    :image: "/assets/achievements/anime/author/morio_asaka.jpg"
+    :border_color: "#AE050D"
+    :title_ru: Морио Асака
+    :text_ru:
+    :title_en: Morio Asaka
+    :text_en:
+    :topic_id: 276032
+    :rule: &121
+      :algo: count
+      :threshold: 0.01
+      :filters:
+        anime_ids:
+        - 5678
+        - 1078
+        - 28297
+        - 37379
+        - 14397
+        - 10800
+        - 7193
+        - 7972
+        - 877
+        - 408
+        - 134
+        - 596
+        - 59
+        - 652
+        - 383
+        - 33354
+        - 35320
+        - 372
+        - 371
+        - 232
+        - 2009
+        - 2274
+        - 2017
+        - 2093
+      :generator:
+        person_id: 5921
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :morio_asaka
+  level: 0
+  image: "/assets/achievements/anime/author/morio_asaka.jpg"
+  border_color: "#AE050D"
+  title_ru: Морио Асака
+  text_ru:
+  title_en: Morio Asaka
   text_en:
   topic_id: 276032
   rule: *121
@@ -18385,7 +18385,6 @@
         - 23775
         - 23777
         - 35122
-        - 35267
         - 36702
         - 39477
         - 39478
@@ -18431,7 +18430,6 @@
         - 23775
         - 23777
         - 35122
-        - 35267
         - 36702
         - 39477
         - 39478
@@ -18896,8 +18894,6 @@
         not_anime_ids:
         - 35262
         - 43683
-        - 52930
-        - 52946
       :threshold: 95%
       :generator:
         ignore_latest_ids:
@@ -18934,8 +18930,6 @@
         not_anime_ids:
         - 35262
         - 43683
-        - 52930
-        - 52946
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -20037,10 +20031,10 @@
         franchise: tensei_shitara_slime_datta_ken
         not_anime_ids:
         - 39607
+        - 44269
         - 45753
         - 49318
         - 51309
-        - 44269
       :threshold: 99%
       :generator:
         threshold: 99%
@@ -20076,10 +20070,10 @@
         franchise: tensei_shitara_slime_datta_ken
         not_anime_ids:
         - 39607
+        - 44269
         - 45753
         - 49318
         - 51309
-        - 44269
       :threshold: 0.01
       :generator:
         threshold: 99%
@@ -20573,7 +20567,7 @@
       :algo: duration
       :filters:
         franchise: bleach
-      :threshold: 97.1%
+      :threshold: 97.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :bleach
@@ -21616,7 +21610,7 @@
         - 52893
         - 52921
         - 53235
-      :threshold: 95.3%
+      :threshold: 95.4%
       :generator:
         ignore_latest_ids:
         - 38234
@@ -23850,14 +23844,13 @@
         - 36473
         - 41182
         - 41188
-        - 41189
-        - 41204
+        - 42753
+        - 48828
         - 49882
         - 49988
         - 52010
         - 52011
         - 52745
-        - 42753
       :threshold: 96%
       :generator:
         not_ignored_ids:
@@ -23923,14 +23916,13 @@
         - 36473
         - 41182
         - 41188
-        - 41189
-        - 41204
+        - 42753
+        - 48828
         - 49882
         - 49988
         - 52010
         - 52011
         - 52745
-        - 42753
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -26333,8 +26325,9 @@
         - 50084
         - 50473
         - 51569
+        - 53286
         - 53603
-      :threshold: 87.3%
+      :threshold: 87.2%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -26429,6 +26422,7 @@
         - 50084
         - 50473
         - 51569
+        - 53286
         - 53603
       :threshold: 0.01
       :generator:
@@ -26939,7 +26933,7 @@
         - 6226
         - 6743
         - 33208
-      :threshold: 96.3%
+      :threshold: 96.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :utawarerumono
@@ -27085,7 +27079,7 @@
         - 42476
         - 47413
         - 51782
-      :threshold: 93.4%
+      :threshold: 93.3%
       :generator:
         ignore_latest_ids:
         - 38770
@@ -27271,7 +27265,7 @@
       :algo: duration
       :filters:
         franchise: ginga_eiyuu_densetsu
-      :threshold: 90%
+      :threshold: 89.3%
       :generator:
         ignore_latest_ids:
         - 36371
@@ -27346,7 +27340,7 @@
         not_anime_ids:
         - 1631
         - 15979
-      :threshold: 92.9%
+      :threshold: 95%
       :generator:
         ignore_latest_ids:
         - 35136
@@ -27823,8 +27817,6 @@
       :algo: duration
       :filters:
         franchise: kingdom
-        not_anime_ids:
-        - 48877
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -27854,8 +27846,6 @@
       :algo: duration
       :filters:
         franchise: kingdom
-        not_anime_ids:
-        - 48877
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -28807,7 +28797,7 @@
         franchise: slam_dunk
         not_anime_ids:
         - 52159
-      :threshold: 98.7%
+      :threshold: 95%
       :generator:
         ignore_latest_ids:
         - 45649
@@ -29967,7 +29957,7 @@
         franchise: aria
         not_anime_ids:
         - 5196
-      :threshold: 89.7%
+      :threshold: 93.8%
       :generator:
         ignore_latest_ids:
         - 41674
@@ -30253,7 +30243,7 @@
         - 37710
         - 49442
         - 53396
-      :threshold: 97.6%
+      :threshold: 97.7%
       :generator:
         not_ignored_ids:
         - 32446
@@ -30832,7 +30822,7 @@
         not_anime_ids:
         - 1481
         - 53402
-      :threshold: 94%
+      :threshold: 93.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :urusei_yatsura
@@ -32047,7 +32037,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.4%
+      :threshold: 91.5%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -32651,7 +32641,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 94.7%
+      :threshold: 96%
       :generator:
         ignore_latest_ids:
         - 52992
@@ -34831,7 +34821,7 @@
       :algo: duration
       :filters:
         franchise: di_gi_charat
-      :threshold: 92.7%
+      :threshold: 92.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :di_gi_charat
