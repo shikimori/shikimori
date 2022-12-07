@@ -7,6 +7,7 @@ class AdsPolicy
   ]
 
   def allowed?
+    return false if ENV['IS_LOCAL_RUN']
     return false if @is_disabled
     return false unless @is_ru_host
 

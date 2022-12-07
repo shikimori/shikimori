@@ -178,7 +178,7 @@ APIPIE_RECORD=all rspec spec/controllers/api/**
 
 ### Run locally in production mode
 ```sh
-RAILS_ENV=production rails assets:precompile && RAILS_SERVE_STATIC_FILES=true RAILS_ENV=production rails server
+RAILS_ENV=production rails assets:precompile && IS_LOCAL_RUN=true RAILS_ENV=production rails server
 ```
 
 ### Webpack debugger

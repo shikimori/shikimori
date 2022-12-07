@@ -43,10 +43,7 @@ module Shikimori
     development: 'http',
     test: 'http'
   }
-  PROTOCOL = PROTOCOLS[Rails.env.to_sym]
-
-  LOCAL_RUN = ENV['LOGNAME'] == 'morr' && ENV['USER'] == 'morr'
-  # ALLOWED_PROTOCOL = Rails.env.production? && !LOCAL_RUN ? 'https' : 'http'
+  PROTOCOL = ENV['IS_LOCAL_RUN'] ? 'http' : PROTOCOLS[Rails.env.to_sym]
 
   IGNORED_EXCEPTIONS = %w[
     AbstractController::ActionNotFound
@@ -130,7 +127,7 @@ module Shikimori
     # config.filter_parameters += [:password]
     Paperclip.logger.level = 2
 
-    if defined?(Redirecter) && !ENV['NO_REDIRECTER'] # not defined for clockwork
+    if defined?(Redirecter) && !ENV['IS_LOCAL_RUN'] # not defined for clockwork
       config.middleware.use Redirecter
     end
 
