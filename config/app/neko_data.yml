@@ -20037,7 +20037,6 @@
         - 51309
       :threshold: 99%
       :generator:
-        threshold: 99%
         ignore_latest_ids:
         - 49877
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -20076,7 +20075,6 @@
         - 51309
       :threshold: 0.01
       :generator:
-        threshold: 99%
         ignore_latest_ids:
         - 49877
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
