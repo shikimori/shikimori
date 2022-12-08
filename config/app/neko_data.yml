@@ -20035,7 +20035,7 @@
         - 45753
         - 49318
         - 51309
-      :threshold: 99%
+      :threshold: 93.2%
       :generator:
         ignore_latest_ids:
         - 49877
@@ -21644,9 +21644,6 @@
       :threshold: 95%
       :generator:
         threshold: 95%
-        ignore_latest_ids:
-        - 40416
-        - 42423
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :date_a_live
@@ -21678,9 +21675,6 @@
       :threshold: 0.01
       :generator:
         threshold: 95%
-        ignore_latest_ids:
-        - 40416
-        - 42423
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :date_a_live
@@ -22506,8 +22500,6 @@
       :threshold: 99%
       :generator:
         threshold: 99%
-        ignore_latest_ids:
-        - 42392
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :grisaia
@@ -22539,8 +22531,6 @@
       :threshold: 0.01
       :generator:
         threshold: 99%
-        ignore_latest_ids:
-        - 42392
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :grisaia
@@ -25294,8 +25284,6 @@
       :threshold: 85%
       :generator:
         threshold: 85%
-        ignore_latest_ids:
-        - 35678
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :hibike_euphonium
@@ -25331,8 +25319,6 @@
       :threshold: 0.01
       :generator:
         threshold: 85%
-        ignore_latest_ids:
-        - 35678
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :hibike_euphonium
@@ -32371,9 +32357,8 @@
         franchise: soukyuu_no_fafner
         not_anime_ids:
         - 9494
-      :threshold: 92.1%
+      :threshold: 94.9%
       :generator:
-        threshold: 92.1%
         ignore_latest_ids:
         - 41714
         - 50675
@@ -32409,7 +32394,6 @@
         - 9494
       :threshold: 0.01
       :generator:
-        threshold: 92.1%
         ignore_latest_ids:
         - 41714
         - 50675
