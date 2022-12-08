@@ -108,6 +108,10 @@ data
     if rule['filters']['not_anime_ids'].present?
       franchise = franchise.where.not(id: rule['filters']['not_anime_ids'])
     end
+    if rule.dig('generator', 'ignore_latest_ids').present? && rule.dig('generator', 'threshold').present?
+      raise "both rule[generator][ignore_latest_ids] and rule[generator][threshold] are set in #{rule['filters']['franchise']} franchise"
+    end
+
     franchise = franchise.reject(&:anons?)
 
     ova = franchise.select do |anime|
