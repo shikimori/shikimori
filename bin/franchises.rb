@@ -101,7 +101,7 @@ data
     File.open(franchise_yml, 'w') { |f| f.write data.to_yaml }
   end
 
-# puts 'generating thresholds...'
+puts 'generating thresholds...'
 data
   .each do |rule|
     franchise = Anime.where(franchise: rule['filters']['franchise'])
@@ -109,7 +109,7 @@ data
       franchise = franchise.where.not(id: rule['filters']['not_anime_ids'])
     end
     if rule.dig('generator', 'ignore_latest_ids').present? && rule.dig('generator', 'threshold').present?
-      raise "both rule[generator][ignore_latest_ids] and rule[generator][threshold] are set in #{rule['filters']['franchise']} franchise"
+      puts "both rule[generator][ignore_latest_ids] and rule[generator][threshold] are set in #{rule['filters']['franchise']} franchise"
     end
 
     franchise = franchise.reject(&:anons?)
