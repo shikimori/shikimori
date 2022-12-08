@@ -274,11 +274,11 @@ async function initEditPosterApp() {
     previewHeight: $app.data('preview-height')
   });
   app.config.globalProperties.I18n = I18n;
-  app.mount('#vue_app');
+  const posterFieldComponent = app.mount('#vue_app');
 
   $form.on('submit', ({ currentTarget }) => {
-    $cropData.val(JSON.stringify(app._instance.exposed.cropData()));
+    $cropData.val(JSON.stringify(posterFieldComponent.cropData()));
     $(currentTarget).find('input[id$=_poster_data_uri]')
-      .val(app._instance.exposed.toDataURI());
+      .val(posterFieldComponent.toDataURI());
   });
 }
