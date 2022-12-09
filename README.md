@@ -61,7 +61,7 @@ alter user shikimori_test with superuser;
 ```
 
 ### Create databases
-Make sure `en_US.UTF-8` database collation is set https://gist.github.com/ffmike/877447#gistcomment-2851598
+Make sure `en_US.UTF-8` database collation is set [https://gist.github.com/ffmike/877447#gistcomment-2851598](https://gist.github.com/morr/9507173acfd504837a7feb4485a5f669)
 
 Or you manually initialize new database with command
 ```sh
