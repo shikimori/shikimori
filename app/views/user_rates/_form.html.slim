@@ -20,19 +20,19 @@
     = f.input :episodes,
       input_html: {\
         min: 0,
-        max: f.object.target.episodes.zero? ? 999 : f.object.target.episodes,
+        max: f.object.target.episodes.zero? ? UserRate::MAXIMUM_EPISODES : f.object.target.episodes,
       }
 
   - else
     = f.input :chapters,
       input_html: {\
         min: 0,
-        max: f.object.target.chapters.zero? ? 999 : f.object.target.chapters,
+        max: f.object.target.chapters.zero? ? UserRate::MAXIMUM_EPISODES : f.object.target.chapters,
       }
     = f.input :volumes,
       input_html: {\
         min: 0,
-        max: f.object.target.volumes.zero? ? 999 : f.object.target.volumes,
+        max: f.object.target.volumes.zero? ? UserRate::MAXIMUM_EPISODES : f.object.target.volumes,
       }
 
   = f.input :status,

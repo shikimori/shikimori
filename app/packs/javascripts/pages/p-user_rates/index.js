@@ -303,7 +303,7 @@ function applyListHandlers($root) {
             .val(val)
             .data({
               counter: val,
-              max: $currentValue.data('max') || 999,
+              max: $currentValue.data('max') || 9999,
               min: $currentValue.data('min')
             })
             .data({
