@@ -24,7 +24,7 @@ private
     ad_provider == Types::Ad::Provider[:special]
   end
 
-  def contributor? user # rubocop:disable all
+  def contributor? user
     user.forum_moderator? || user.critique_moderator? ||
       user.version_moderator? || user.version_texts_moderator? ||
       user.version_fansub_moderator? ||

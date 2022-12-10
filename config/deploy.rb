@@ -25,6 +25,7 @@ set :linked_dirs, %w[
   tmp/sockets
   public/assets
   public/system
+  public/uploads
   public/packs
   public/.well-known/acme-challenge
 ]
