@@ -1,6 +1,6 @@
 class UserRate < ApplicationRecord
   # максимальное значение эпизодов/частей
-  MAXIMUM_EPISODES = 10_000
+  MAXIMUM_EPISODES = 9999
   MAXIMUM_SCORE = 10
 
   MAXIMUM_TEXT_SIZE = 4096
