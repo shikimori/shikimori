@@ -1,7 +1,7 @@
 - is_incomplete_date = field.in? Moderations::VersionsController::INCOMPLETE_DATE_FIELDS
 
-- computed_old_value = local_assigns[:computed_old_value] || version.old_value(field)
-- computed_new_value = local_assigns[:computed_new_value] || version.new_value(field)
+- computed_old_value = (local_assigns[:computed_new_value] || local_assigns[:computed_old_value]) ? local_assigns[:computed_old_value] : version.old_value(field)
+- computed_new_value = (local_assigns[:computed_new_value] || local_assigns[:computed_old_value]) ? local_assigns[:computed_new_value] : version.new_value(field)
 
 - old_value = is_incomplete_date ? IncompleteDate.new(computed_old_value).human(false) || '' : computed_old_value
 - new_value = is_incomplete_date ? IncompleteDate.new(computed_new_value).human(false) || '' : computed_new_value
