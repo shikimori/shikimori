@@ -21,6 +21,8 @@ class Moderations::ChangelogsController < ModerationsController
     log_name = Shellwords.shellescape(params[:id]).gsub(/[^\w_]/, '')
     log_file = Rails.root.join "log/changelog_#{log_name}.log"
 
+    raise ActiveRecord::RecordNotFound unless File.exists? log_file
+
     command =
       if params[:search].present?
         "grep \"#{safe_search}\" #{log_file} | #{TAIL_COMMAND}"
