@@ -78,7 +78,7 @@ header.head
             - if moderation_policy.articles_count.positive?
               span.size = moderation_policy.articles_count
 
-      - can? :access_changelog, ApplicationRecord
+      - if can? :access_changelog, ApplicationRecord
         ul.b-list.is-wide.block
           li
             a.b-link[
