@@ -1,12 +1,11 @@
 class PaginatedCollection < SimpleDelegator
-  WINDOW = 4
+  attr_reader :page, :limit, :collection_size
 
-  attr_reader :page, :limit
-
-  def initialize collection, page, limit
+  def initialize collection, page, limit, collection_size = nil
     super collection
     @page = page
     @limit = limit
+    @collection_size = collection_size
   end
 
   def next_page
@@ -14,7 +13,7 @@ class PaginatedCollection < SimpleDelegator
   end
 
   def next_page?
-    size == limit
+    (@collection_size || size) == limit
   end
 
   def prev_page
