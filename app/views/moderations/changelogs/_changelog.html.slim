@@ -18,7 +18,7 @@
     span.author
       = render 'users/user_16', user: @users[changelog[:user_id]]
 
-  - if changelog[:details][:changes]
+  - if changelog[:details][:changes] && !(changelog[:details][:changes][:links] && changelog[:details][:changes].one?)
     .spoiler.collapse: span.action.half-hidden.b-js-link.m5 style='display: none;' = t 'blocks.spoiler.expand'
     .collapsed.spoiler style='display: block': span = t '.changes'
     .spoiler.target style='display: none;'
