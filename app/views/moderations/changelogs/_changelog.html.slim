@@ -1,0 +1,47 @@
+.b-log_entry.mobile-multiline.to-process[
+  data-dynamic='log_entry'
+]
+  span
+    = @item_type
+    span.id-label #
+    = changelog[:details][:id]
+
+  span.state.inline[
+    class=(:taken if changelog[:details][:action] == 'update')
+    class=(:deleted if changelog[:details][:action] == 'destroy')
+  ] = changelog[:details][:action]
+
+  span.date
+    = l changelog[:date], format: :full
+
+  - if @users[changelog[:user_id]]
+    span.author
+      = render 'users/user_16', user: @users[changelog[:user_id]]
+
+  - if changelog[:details][:changes]
+    .spoiler.collapse: span.action.half-hidden.b-js-link.m5 style='display: none;' = t 'blocks.spoiler.expand'
+    .collapsed.spoiler style='display: block': span = t '.changes'
+    .spoiler.target style='display: none;'
+      .change-details
+        - changelog[:details][:changes].each do |field, (old_value, new_value)|
+          = render 'versions/changes/text_diff',
+            item_type: @item_type,
+            computed_old_value: old_value,
+            computed_new_value: new_value,
+            field: field,
+            only_one: changelog[:details][:changes].keys.one?
+
+  .spoiler.collapse: span.action.half-hidden.b-js-link.m5 style='display: none;' = t 'blocks.spoiler.expand'
+  .collapsed.spoiler style='display: block': span = t '.details'
+  .spoiler.target style='display: none;'
+    pre.b-code-v2.to-process[
+      data-dynamic='code_highlight'
+      data-language='json'
+    ]
+      code = JSON.pretty_generate changelog[:details]
+
+  .spoiler.collapse: span.action.half-hidden.b-js-link.m5 style='display: none;' = t 'blocks.spoiler.expand'
+  .collapsed.spoiler style='display: block': span = t '.log_line'
+  .spoiler.target style='display: none;'
+    pre.b-code-v2
+      code = changelog[:raw]

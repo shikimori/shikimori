@@ -1,6 +1,7 @@
 class Moderations::ChangelogsController < ModerationsController
-  LIMIT = 100
-  TAIL_COMMAND = "tail -n #{LIMIT}"
+  MAX_LOG_LINES = 1_000
+  TAIL_COMMAND = "tail -n #{MAX_LOG_LINES}"
+  PER_PAGE = 20
 
   before_action :check_access!
 
@@ -27,32 +28,39 @@ class Moderations::ChangelogsController < ModerationsController
         "#{TAIL_COMMAND} #{log_file}"
       end
 
-    @users = {}
-    @collection = `#{command}`.strip.each_line.map(&:strip).reverse.map do |log_entry|
-      split = log_entry.split(/(?<=\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}\]) /)
-      changes = split[1]
-        .gsub(/ ?:([a-z_]+)=>/, '"\1":')
-        .gsub(/"([a-z_]+)"=>/, '"\1":')
-        .gsub(/"action"::(update|destroy)/, '"action":"\1"')
-        .gsub(/(?<=":)#<\w+(?<model>[\s\S]+)>(?=}\Z)/) do
-          '{' +
-            $LAST_MATCH_INFO[:model]
-              .gsub(/ ([a-z_]+): /, '"\1":')
-              .gsub(':nil', ':null') +
-            '}'
-        end
-      details = JSON.parse(changes, symbolize_names: true)
-      if details[:model].is_a? String
-        details[:model] = JSON.parse(details[:model], symbolize_names: true)
-      end
+    log_lines = `#{command}`.strip.each_line.map(&:strip).reverse
 
-      {
-        date: Time.zone.parse(split[0].gsub(/[\[\]]/, '')),
-        user_id: details[:user_id],
-        details: details,
-        raw: log_entry
-      }
-    end
+    @collection = QueryObjectBase
+      .new(log_lines[PER_PAGE * (page - 1), PER_PAGE])
+      .paginated_slice(page, PER_PAGE)
+      .lazy_map do |log_entry|
+        split = log_entry.split(/(?<=\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}\]) /)
+
+        changes = split[1]
+          .gsub(/ ?:([a-z_]+)=>/, '"\1":')
+          .gsub(/"([a-z_]+)"=>/, '"\1":')
+          .gsub(/"action"::(update|destroy)/, '"action":"\1"')
+          .gsub(/(?<=":)#<\w+(?<model>[\s\S]+)>(?=}\Z)/) do
+            '{' +
+              $LAST_MATCH_INFO[:model]
+                .gsub(/ ([a-z_]+): /, '"\1":')
+                .gsub(':nil', ':null') +
+              '}'
+          end
+
+        details = JSON.parse(changes, symbolize_names: true)
+
+        if details[:model].is_a? String
+          details[:model] = JSON.parse(details[:model], symbolize_names: true)
+        end
+
+        {
+          date: Time.zone.parse(split[0].gsub(/[\[\]]/, '')),
+          user_id: details[:user_id],
+          details: details,
+          raw: log_entry
+        }
+      end
 
     @users = User
       .where(id: @collection.pluck(:user_id))

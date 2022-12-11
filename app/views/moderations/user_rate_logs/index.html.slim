@@ -9,5 +9,5 @@ h2.subheadline.m7 = i18n_io 'History', :one
 .block
   = render @collection
 
-  - if @collection.size == controller.class::LIMIT
+  - if @collection.next_page?
     = render 'blocks/postloader', next_url: current_url(page: @page + 1)

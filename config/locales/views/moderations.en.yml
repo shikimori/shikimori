@@ -318,6 +318,7 @@ en:
     changelogs:
       show:
         search: Log search
+      changelog:
         changes: changes
         details: details
         log_line: log line

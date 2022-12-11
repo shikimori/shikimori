@@ -46,8 +46,8 @@ class QueryObjectBase
     chain PaginatedCollection.new(new_scope, page, limit)
   end
 
-  def paginated_slice page, limit, collection_size
-    chain PaginatedCollection.new(@scope, page, limit, collection_size)
+  def paginated_slice page, limit
+    chain PaginatedCollection.new(@scope, page, limit)
   end
 
   QUERY_METHODS.each do |method_name|

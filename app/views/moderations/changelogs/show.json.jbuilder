@@ -1,5 +1,5 @@
 json.content render(
-  partial: 'moderations/user_rate_logs/user_rate_log',
+  partial: 'moderations/changelogs/changelog',
   collection: @collection,
   formats: :html
 )

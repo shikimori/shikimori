@@ -318,6 +318,7 @@ ru:
     changelogs:
       show:
         search: Поиск по логу
+      changelog:
         changes: изменения
         details: подробности
         log_line: строка лога
