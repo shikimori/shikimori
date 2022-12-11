@@ -1,5 +1,5 @@
 class Moderations::ChangelogsController < ModerationsController
-  LIMIT = 250
+  LIMIT = 100
   TAIL_COMMAND = "tail -n #{LIMIT}"
 
   before_action :check_access!
@@ -13,7 +13,8 @@ class Moderations::ChangelogsController < ModerationsController
   end
 
   def show # rubocop:disable all
-    og page_title: params[:id].classify
+    @item_type = params[:id].classify
+    og page_title: @item_type
     breadcrumb i18n_t('page_title'), moderations_changelogs_url
 
     log_name = Shellwords.shellescape(params[:id]).gsub(/[^\w_]/, '')
@@ -27,7 +28,7 @@ class Moderations::ChangelogsController < ModerationsController
       end
 
     @users = {}
-    @collection = `#{command}`.strip.each_line.map(&:strip).map do |log_entry|
+    @collection = `#{command}`.strip.each_line.map(&:strip).reverse.map do |log_entry|
       split = log_entry.split(/(?<=\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}\]) /)
       changes = split[1]
         .gsub(/ ?:([a-z_]+)=>/, '"\1":')
@@ -40,15 +41,15 @@ class Moderations::ChangelogsController < ModerationsController
               .gsub(':nil', ':null') +
             '}'
         end
-      json = JSON.parse(changes, symbolize_names: true)
-      if json[:model].is_a? String
-        json[:model] = JSON.parse(json[:model], symbolize_names: true)
+      details = JSON.parse(changes, symbolize_names: true)
+      if details[:model].is_a? String
+        details[:model] = JSON.parse(details[:model], symbolize_names: true)
       end
 
       {
         date: Time.zone.parse(split[0].gsub(/[\[\]]/, '')),
-        user_id: json[:user_id],
-        log: json,
+        user_id: details[:user_id],
+        details: details,
         raw: log_entry
       }
     end

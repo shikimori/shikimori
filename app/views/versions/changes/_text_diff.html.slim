@@ -1,10 +1,15 @@
 - is_incomplete_date = field.in? Moderations::VersionsController::INCOMPLETE_DATE_FIELDS
-- old_value = is_incomplete_date ? IncompleteDate.new(version.old_value(field)).human(false) || '' : version.old_value(field)
-- new_value = is_incomplete_date ? IncompleteDate.new(version.new_value(field)).human(false) || '' : version.new_value(field)
+
+- computed_old_value = local_assigns[:computed_old_value] || version.old_value(field)
+- computed_new_value = local_assigns[:computed_new_value] || version.new_value(field)
+
+- old_value = is_incomplete_date ? IncompleteDate.new(computed_old_value).human(false) || '' : computed_old_value
+- new_value = is_incomplete_date ? IncompleteDate.new(computed_new_value).human(false) || '' : computed_new_value
+
 .field-changes class=field
   - unless local_assigns[:only_one]
     .field-name
-      = version.item_type.constantize.human_attribute_name field
+      = (local_assigns[:item_type] || version.item_type).constantize.human_attribute_name field
 
   .changes
     .change
@@ -23,7 +28,7 @@
       - else
         == h(new_value).gsub("\n", "<br>")
 
-  - if version.old_value(field).present? && version.new_value(field).present?
+  - if computed_old_value.present? && computed_new_value.present?
     .diff
       .label Diff:
       .value[

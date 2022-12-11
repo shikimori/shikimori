@@ -1,4 +1,4 @@
-class Chanelog::LogUpdate
+class Changelog::LogUpdate
   method_object :model, :actor, %i[changes]
 
   def call
