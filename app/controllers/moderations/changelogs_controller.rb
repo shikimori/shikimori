@@ -40,6 +40,7 @@ class Moderations::ChangelogsController < ModerationsController
           .gsub(/ ?:([a-z_]+)=>/, '"\1":')
           .gsub(/"([a-z_]+)"=>/, '"\1":')
           .gsub(/"action"::(update|destroy)/, '"action":"\1"')
+          .gsub(/(\w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2}\.\d{9} \w{3} \+\d{2}:\d{2})/, '"\1"')
           .gsub(/(?<=":)#<\w+(?<model>[\s\S]+)>(?=}\Z)/) do
             '{' +
               $LAST_MATCH_INFO[:model]
