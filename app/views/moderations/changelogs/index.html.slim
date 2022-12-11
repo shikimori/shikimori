@@ -3,9 +3,9 @@ header.head
   = render 'application/breadcrumbs'
 
 ul.b-list.is-wide.block
-  - @collection.each do |log|
+  - @collection.each do |changelog|
     li
       a.b-link[
-        href=moderations_changelog_url(log)
+        href=moderations_changelog_url(changelog[:id])
         title='Changelog'
-      ] #{log}.log
+      ] = changelog[:name]

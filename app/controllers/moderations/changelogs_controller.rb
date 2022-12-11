@@ -10,12 +10,24 @@ class Moderations::ChangelogsController < ModerationsController
     @collection = `ls #{Rails.root.join 'log'} | grep changelog`
       .strip
       .split("\n")
-      .map { |v| v.gsub(/changelog_|\.log/, '') }
+      .map do |v|
+        id = v.gsub(/changelog_|\.log/, '')
+        {
+          id: id,
+          name: id.classify.constantize.model_name.human
+        }
+      rescue NameError
+      end
+      .compact
+      .sort_by { |changelog| changelog[:name] }
   end
 
   def show # rubocop:disable all
     @item_type = params[:id].classify
-    og page_title: @item_type
+    @item_type_name = @item_type.constantize.model_name.human
+
+    og page_title: @item_type_name
+
     breadcrumb i18n_t('page_title'), moderations_changelogs_url
 
     log_name = Shellwords.shellescape(params[:id]).gsub(/[^\w_]/, '')
@@ -70,6 +82,8 @@ class Moderations::ChangelogsController < ModerationsController
     @users = User
       .where(id: @collection.pluck(:user_id))
       .index_by(&:id)
+  rescue NameError
+    raise ActiveRecord::RecordNotFound
   end
 
 private
