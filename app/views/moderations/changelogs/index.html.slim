@@ -1,3 +1,11 @@
 header.head
   h1 = og.headline
   = render 'application/breadcrumbs'
+
+ul.b-list.is-wide.block
+  - @collection.each do |log|
+    li
+      a.b-link[
+        href=moderations_changelog_url(log)
+        title='Changelog'
+      ] #{log}.log

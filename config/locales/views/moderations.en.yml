@@ -314,3 +314,6 @@ en:
       edit:
         fansub_animes: Fansub animes
         fandub_animes: Fandub animes
+    changelogs:
+      show:
+        search: Поиск

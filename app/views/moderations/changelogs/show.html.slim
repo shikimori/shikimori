@@ -1,0 +1,24 @@
+header.head
+  h1 = og.headline
+  = render 'application/breadcrumbs'
+
+.b-collection_search
+  .field
+    input[
+      type='text'
+      placeholder=t('.search')
+      value=params[:phrase]
+    ]
+    .clear
+
+- @collection.each do |log|
+  pre.b-code-v2
+    code
+      = log
+
+  / pre.b-code-v2[
+  /   data-dynamic='code_highlight'
+  /   data-language='json'
+  / ]
+  /   code
+  /     = log

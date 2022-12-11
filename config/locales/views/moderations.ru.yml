@@ -35,7 +35,6 @@ ru:
       in_progress: Задачи выполняются
       queue: Задачи в очереди
       proxies_count: Проксей доступно
-      changelog: Changelog
 
     missing_screenshots:
       notices:
@@ -316,3 +315,6 @@ ru:
       edit:
         fansub_animes: Аниме с фансабом
         fandub_animes: Аниме с фандабом
+    changelogs:
+      show:
+        search: Поиск
