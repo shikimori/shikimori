@@ -14,36 +14,37 @@ form
       .clear
 
 - @collection.each do |log|
-  .b-log_entry
-    span
-      span.id-label id#
-      = log[:log][:id]
+  div
+    .b-log_entry
+      span
+        span.id-label id#
+        = log[:log][:id]
 
-    span.state.inline[
-      class=(:taken if log[:log][:action] == 'update')
-      class=(:deleted if log[:log][:action] == 'destroy')
-    ] = log[:log][:action]
+      span.state.inline[
+        class=(:taken if log[:log][:action] == 'update')
+        class=(:deleted if log[:log][:action] == 'destroy')
+      ] = log[:log][:action]
 
-    span.date
-      = log[:date].strftime('%d.%m.%Y')
+      span.date
+        = l log[:date], format: :full
 
-    - user = User.find_by(id: log[:log][:user_id])
-    - if user
-      span.author
-        = render 'users/user_16', user: user
+      - user = User.find_by(id: log[:log][:user_id])
+      - if user
+        span.author
+          = render 'users/user_16', user: user
 
+      .state
+      .spoiler.collapse: span.action.half-hidden.b-js-link.m5 style="display: none;" = t 'blocks.spoiler.expand'
+      .collapsed.spoiler style="display: block": span Details
+      .spoiler.target style='display: none;'
+        pre.b-code-v2.to-process[
+          data-dynamic='code_highlight'
+          data-language='json'
+        ]
+          code = JSON.pretty_generate log[:log]
 
-  pre.b-code-v2.to-process[
-    data-dynamic='code_highlight'
-    data-language='json'
-  ]
-    code
-      = JSON.pretty_generate log[:log]
-
-  = spoiler 'raw log line'
-    pre.b-code-v2[
-      data-dynamic='code_highlight'
-      data-language='json'
-    ]
-      code
-        = log[:raw]
+      .spoiler.collapse: span.action.half-hidden.b-js-link.m5 style="display: none;" = t 'blocks.spoiler.expand'
+      .collapsed.spoiler style="display: block": span Raw log line
+      .spoiler.target style='display: none;'
+        pre.b-code-v2
+          code = log[:raw]
