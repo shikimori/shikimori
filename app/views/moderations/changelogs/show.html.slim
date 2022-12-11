@@ -2,25 +2,47 @@ header.head
   h1 = og.headline
   = render 'application/breadcrumbs'
 
-.b-collection_search
-  .field
-    input[
-      type='text'
-      placeholder=t('.search')
-      value=params[:phrase]
-    ]
-    .clear
+form
+  .b-collection_search
+    .field
+      input[
+        type='text'
+        placeholder=t('.search')
+        value=params[:search]
+      ]
+      .clear
 
 - @collection.each do |log|
-  / .b-log_entry
+  .b-log_entry
+    span
+      span.id-label id#
+      = log[:log][:id]
 
-  pre.b-code-v2
+    span.state.inline[
+      class=(:taken if log[:log][:action] == 'update')
+      class=(:deleted if log[:log][:action] == 'destroy')
+    ] = log[:log][:action]
+
+    span.date
+      = log[:date].strftime('%d.%m.%Y')
+
+    - user = User.find_by(id: log[:log][:user_id])
+    - if user
+      span.author
+        = render 'users/user_16', user: user
+
+
+  pre.b-code-v2.to-process[
+    data-dynamic='code_highlight'
+    data-language='json'
+  ]
     code
-      = log
+      = JSON.pretty_generate log[:log]
 
-  / pre.b-code-v2[
-  /   data-dynamic='code_highlight'
-  /   data-language='json'
-  / ]
-  /   code
-  /     = log
+  = spoiler 'raw log line'
+    pre.b-code-v2[
+      data-dynamic='code_highlight'
+      data-language='json'
+    ]
+      code
+        = log[:raw]
