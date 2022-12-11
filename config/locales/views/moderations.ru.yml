@@ -35,6 +35,7 @@ ru:
       in_progress: Задачи выполняются
       queue: Задачи в очереди
       proxies_count: Проксей доступно
+      changelog: Changelog
 
     missing_screenshots:
       notices:

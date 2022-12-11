@@ -78,80 +78,86 @@ header.head
             - if moderation_policy.articles_count.positive?
               span.size = moderation_policy.articles_count
 
+      ul.b-list.is-wide.block
+        li
+          a.b-link[
+            href=moderations_changelogs_url
+            title='Changelog'
+          ] Changelog
+
+
     .f-column
       .subheadline = t '.content'
 
       - if ru_host?
-        .block
-          ul.b-list.is-wide
-            li
-              a.b-link[
-                href=translations_name_anime_url
-                title=t('.missing_anime_names')
-              ] = t '.missing_anime_names'
-            li
-              a.b-link[
-                href=translations_description_anime_url
-                title=t('.missing_anime_descriptions')
-              ] = t '.missing_anime_descriptions'
-            li
-              a.b-link[
-                href=translations_name_manga_url
-                title=t('.missing_manga_names')
-              ] = t '.missing_manga_names'
-            li
-              a.b-link[
-                href=translations_description_manga_url
-                title=t('.missing_manga_descriptions')
-              ] = t '.missing_manga_descriptions'
-            li
-              a.b-link[
-                href=missing_screenshots_moderations_url
-                title=t('.missing_screenshots')
-              ] = t '.missing_screenshots'
-            li
-              a.b-link[
-                href=moderations_authors_url
-                title=t('.fansub_authors')
-              ] = t '.fansub_authors'
+        ul.b-list.is-wide.block
+          li
+            a.b-link[
+              href=translations_name_anime_url
+              title=t('.missing_anime_names')
+            ] = t '.missing_anime_names'
+          li
+            a.b-link[
+              href=translations_description_anime_url
+              title=t('.missing_anime_descriptions')
+            ] = t '.missing_anime_descriptions'
+          li
+            a.b-link[
+              href=translations_name_manga_url
+              title=t('.missing_manga_names')
+            ] = t '.missing_manga_names'
+          li
+            a.b-link[
+              href=translations_description_manga_url
+              title=t('.missing_manga_descriptions')
+            ] = t '.missing_manga_descriptions'
+          li
+            a.b-link[
+              href=missing_screenshots_moderations_url
+              title=t('.missing_screenshots')
+            ] = t '.missing_screenshots'
+          li
+            a.b-link[
+              href=moderations_authors_url
+              title=t('.fansub_authors')
+            ] = t '.fansub_authors'
 
-        .block
-          ul.b-list.is-wide
+        ul.b-list.is-wide.block
+          li
+            - if can? :read, Genre
+              a.b-link[
+                href=moderations_genres_url
+                title=i18n_io('Genre', :few)
+              ] = i18n_io 'Genre', :few
+            - else
+              span = i18n_io 'Genre', :few
+
+          li
+            - if can? :read, Studio
+              a.b-link[
+                href=moderations_studios_url
+                title=i18n_io('Studio', :few)
+              ] = i18n_io 'Studio', :few
+            - else
+              span = i18n_io 'Studio', :few
+
+          li
+            - if can? :read, Publisher
+              a.b-link[
+                href=moderations_publishers_url
+                title=i18n_io('Publisher', :few)
+              ] = i18n_io 'Publisher', :few
+            - else
+              span = i18n_io 'Publisher', :few
+
             li
-              - if can? :read, Genre
+              - if can? :manage, Forum
                 a.b-link[
-                  href=moderations_genres_url
-                  title=i18n_io('Genre', :few)
-                ] = i18n_io 'Genre', :few
+                  href=moderations_forums_url
+                  title=t('.forums')
+                ] = t '.forums'
               - else
-                span = i18n_io 'Genre', :few
-
-            li
-              - if can? :read, Studio
-                a.b-link[
-                  href=moderations_studios_url
-                  title=i18n_io('Studio', :few)
-                ] = i18n_io 'Studio', :few
-              - else
-                span = i18n_io 'Studio', :few
-
-            li
-              - if can? :read, Publisher
-                a.b-link[
-                  href=moderations_publishers_url
-                  title=i18n_io('Publisher', :few)
-                ] = i18n_io 'Publisher', :few
-              - else
-                span = i18n_io 'Publisher', :few
-
-              li
-                - if can? :manage, Forum
-                  a.b-link[
-                    href=moderations_forums_url
-                    title=t('.forums')
-                  ] = t '.forums'
-                - else
-                  span = t '.forums'
+                span = t '.forums'
 
     .f-column
       .subheadline = i18n_io 'user', :few

@@ -198,6 +198,7 @@ Rails.application.routes.draw do
         post :reject
       end
     end
+    resources :changelogs, only: %i[index show]
 
     resource :authors, only: %i[show edit update]
 

@@ -295,6 +295,10 @@ en:
   moderations/publishers_controller:
     <<: *moderations_controller
 
+  moderations/changelogs_controller:
+    <<: *moderations_controller
+    page_title: Changelog
+
   animes_controller: &animes_controller
     version_pending: *version_pending
     version_accepted: *version_accepted
