@@ -11,13 +11,15 @@ form
         value=params[:search]
         name='search'
       ]
-      .clear
+      - if params[:search]
+        a.clear href=current_url(search: nil)
 
 - @collection.each do |log|
   div
     .b-log_entry
       span
-        span.id-label id#
+        = params[:id].classify
+        span.id-label #
         = log[:log][:id]
 
       span.state.inline[
@@ -28,14 +30,12 @@ form
       span.date
         = l log[:date], format: :full
 
-      - user = User.find_by(id: log[:log][:user_id])
-      - if user
+      - if @users[log[:user_id]]
         span.author
-          = render 'users/user_16', user: user
+          = render 'users/user_16', user: @users[log[:user_id]]
 
-      .state
-      .spoiler.collapse: span.action.half-hidden.b-js-link.m5 style="display: none;" = t 'blocks.spoiler.expand'
-      .collapsed.spoiler style="display: block": span Details
+      .spoiler.collapse: span.action.half-hidden.b-js-link.m5 style='display: none;' = t 'blocks.spoiler.expand'
+      .collapsed.spoiler style='display: block': span = t '.details'
       .spoiler.target style='display: none;'
         pre.b-code-v2.to-process[
           data-dynamic='code_highlight'
@@ -43,8 +43,8 @@ form
         ]
           code = JSON.pretty_generate log[:log]
 
-      .spoiler.collapse: span.action.half-hidden.b-js-link.m5 style="display: none;" = t 'blocks.spoiler.expand'
-      .collapsed.spoiler style="display: block": span Raw log line
+      .spoiler.collapse: span.action.half-hidden.b-js-link.m5 style='display: none;' = t 'blocks.spoiler.expand'
+      .collapsed.spoiler style='display: block': span = t '.log_line'
       .spoiler.target style='display: none;'
         pre.b-code-v2
           code = log[:raw]
