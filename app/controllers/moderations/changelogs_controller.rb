@@ -24,7 +24,12 @@ class Moderations::ChangelogsController < ModerationsController
 
   def show # rubocop:disable all
     @item_type = params[:id].classify
-    @item_type_name = @item_type.constantize.model_name.human
+    begin
+      @item_klass = @item_type.constantize
+    rescue NameError
+      raise ActiveRecord::RecordNotFound
+    end
+    @item_type_name = @item_klass.model_name.human
 
     og page_title: @item_type_name
 
@@ -44,7 +49,7 @@ class Moderations::ChangelogsController < ModerationsController
 
     log_lines = `#{command}`.strip.each_line.map(&:strip).reverse
 
-    @collection = QueryObjectBase
+    @collection = QueryObjectBase # rubocop:disable BlockLength
       .new(log_lines[PER_PAGE * (page - 1), PER_PAGE])
       .paginated_slice(page, PER_PAGE)
       .lazy_map do |log_entry|
@@ -74,16 +79,20 @@ class Moderations::ChangelogsController < ModerationsController
         {
           date: Time.zone.parse(split[0].gsub(/[\[\]]/, '')),
           user_id: details[:user_id],
+          model_id: details[:id],
+          user: nil,
           details: details,
           raw: log_entry
         }
       end
 
-    @users = User
-      .where(id: @collection.pluck(:user_id))
-      .index_by(&:id)
-  rescue NameError
-    raise ActiveRecord::RecordNotFound
+    @users = User.where(id: @collection.pluck(:user_id)).index_by(&:id)
+    @models = @item_klass.where(id: @collection.pluck(:model_id)).index_by(&:id)
+
+    @collection.each do |changelog|
+      changelog[:user] = @users[changelog[:user_id]]
+      changelog[:model] = @models[changelog[:model_id]]&.decorate
+    end
   end
 
 private

@@ -3,7 +3,7 @@
 ]
   span
     span.id-label #
-    = changelog[:details][:id]
+    = changelog[:model_id]
 
   span.state.inline[
     class=(:taken if changelog[:details][:action] == 'update')
@@ -13,9 +13,9 @@
   span.date
     = l changelog[:date], format: :full
 
-  - if @users[changelog[:user_id]]
+  - if changelog[:user]
     span.author
-      = render 'users/user_16', user: @users[changelog[:user_id]]
+      = render 'users/user_16', user: changelog[:user]
 
   - if changelog[:details][:changes] && !(changelog[:details][:changes][:links] && changelog[:details][:changes].one?)
     .spoiler.collapse: span.action.half-hidden.b-js-link.m5 style='display: none;' = t 'blocks.spoiler.expand'
