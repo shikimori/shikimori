@@ -21,7 +21,7 @@ class Moderations::ChangelogsController < ModerationsController
     log_name = Shellwords.shellescape(params[:id]).gsub(/[^\w_]/, '')
     log_file = Rails.root.join "log/changelog_#{log_name}.log"
 
-    raise ActiveRecord::RecordNotFound unless File.exists? log_file
+    raise ActiveRecord::RecordNotFound unless File.exist? log_file
 
     command =
       if params[:search].present?
@@ -43,6 +43,8 @@ class Moderations::ChangelogsController < ModerationsController
           .gsub(/"([a-z_]+)"=>/, '"\1":')
           .gsub(/"action"::(update|destroy)/, '"action":"\1"')
           .gsub(/(\w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2}\.\d{9} \w{3} \+\d{2}:\d{2})/, '"\1"')
+          .gsub(/\[nil, /, '[null, ')
+          .gsub(/, nil\]/, ', null]')
           .gsub(/(?<=":)#<\w+(?<model>[\s\S]+)>(?=}\Z)/) do
             '{' +
               $LAST_MATCH_INFO[:model]
