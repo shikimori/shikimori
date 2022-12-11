@@ -78,13 +78,13 @@ header.head
             - if moderation_policy.articles_count.positive?
               span.size = moderation_policy.articles_count
 
-      ul.b-list.is-wide.block
-        li
-          a.b-link[
-            href=moderations_changelogs_url
-            title='Changelog'
-          ] Changelog
-
+      - can? :access_changelog, ApplicationRecord
+        ul.b-list.is-wide.block
+          li
+            a.b-link[
+              href=moderations_changelogs_url
+              title='Changelog'
+            ] Changelog
 
     .f-column
       .subheadline = t '.content'
