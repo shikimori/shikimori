@@ -77,12 +77,15 @@ class Moderations::ChangelogsController < ModerationsController
         end
 
         {
+          details: details,
+          raw: log_entry,
           date: Time.zone.parse(split[0].gsub(/[\[\]]/, '')),
           user_id: details[:user_id],
           model_id: details[:id],
           user: nil,
-          details: details,
-          raw: log_entry
+          model: nil,
+          url: nil,
+          tooltip_url: nil
         }
       end
 
@@ -91,7 +94,9 @@ class Moderations::ChangelogsController < ModerationsController
 
     @collection.each do |changelog|
       changelog[:user] = @users[changelog[:user_id]]
-      changelog[:model] = @models[changelog[:model_id]]&.decorate
+      changelog[:model] = @models[changelog[:model_id]]
+      changelog[:url] = model_url changelog[:model] if changelog[:model]
+      changelog[:tooltip_url] = tooltip_url changelog[:model] if changelog[:model]
     end
   end
 
@@ -105,5 +110,21 @@ private
     Shellwords
       .shellescape(params[:search])
       .gsub(/\\(=|>)/, '\1')
+  end
+
+  def model_url model
+    # .includes(:topic)
+    if model.is_a? Comment
+      comment_url model
+    else
+    end
+  end
+
+  def tooltip_url model
+    # .includes(:topic)
+    if model.is_a? Comment
+      comment_url model
+    else
+    end
   end
 end

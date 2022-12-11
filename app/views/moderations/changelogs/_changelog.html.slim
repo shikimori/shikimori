@@ -3,7 +3,14 @@
 ]
   span
     span.id-label #
-    = changelog[:model_id]
+    - if changelog[:url]
+      a[
+        class=('bubbled b-link' if changelog[:tooltip_url])
+        href=changelog[:url]
+      ]
+        = changelog[:model_id]
+    - else
+      = changelog[:model_id]
 
   span.state.inline[
     class=(:taken if changelog[:details][:action] == 'update')
