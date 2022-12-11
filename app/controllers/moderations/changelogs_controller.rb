@@ -23,7 +23,7 @@ class Moderations::ChangelogsController < ModerationsController
 
     command =
       if params[:search].present?
-        "grep \"#{Shellwords.shellescape params[:search]}\" #{log_file} | #{TAIL_COMMAND}"
+        "grep \"#{safe_search}\" #{log_file} | #{TAIL_COMMAND}"
       else
         "#{TAIL_COMMAND} #{log_file}"
       end
@@ -71,5 +71,11 @@ private
 
   def check_access!
     authorize! :access_changelog, ApplicationRecord
+  end
+
+  def safe_search
+    Shellwords
+      .shellescape(params[:search])
+      .gsub(/\\(=|>)/, '\1')
   end
 end
