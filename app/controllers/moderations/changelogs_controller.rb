@@ -2,6 +2,8 @@ class Moderations::ChangelogsController < ModerationsController
   LIMIT = 250
   TAIL_COMMAND = "tail -n #{LIMIT}"
 
+  before_action :check_access!
+
   def index
     og page_title: i18n_t('page_title')
     @collection = `ls #{Rails.root.join 'log'} | grep changelog`
@@ -54,5 +56,11 @@ class Moderations::ChangelogsController < ModerationsController
     @users = User
       .where(id: @collection.pluck(:user_id))
       .index_by(&:id)
+  end
+
+private
+
+  def check_access!
+    authorize! :access_changelog, ApplicationRecord
   end
 end

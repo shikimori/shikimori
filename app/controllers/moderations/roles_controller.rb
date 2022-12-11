@@ -1,6 +1,6 @@
 class Moderations::RolesController < ModerationsController
   before_action :set_role, except: %i[index]
-  before_action :check_access, only: %i[update destroy]
+  before_action :check_access!, only: %i[update destroy]
   before_action :fetch_target_user, only: %i[update destroy]
 
   USERS_PER_PAGE = Moderations::UsersController::PER_PAGE
@@ -64,7 +64,7 @@ class Moderations::RolesController < ModerationsController
 
 private
 
-  def check_access
+  def check_access!
     authorize! :"manage_#{@role}_role", User
   end
 

@@ -1,7 +1,7 @@
 class UserRatesController < ProfilesController
   load_and_authorize_resource except: %i[index]
 
-  before_action :check_access, only: %i[index]
+  before_action :check_access!, only: %i[index]
   before_action :set_sort_order, only: %i[index], if: :user_signed_in?
   after_action :save_sort_order, only: %i[index], if: :user_signed_in?
 
@@ -32,7 +32,7 @@ class UserRatesController < ProfilesController
 
 private
 
-  def check_access
+  def check_access!
     authorize! :access_list, @resource
   end
 

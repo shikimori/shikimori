@@ -1,6 +1,6 @@
 class UserHistoryController < ProfilesController
   load_and_authorize_resource only: %i[destroy]
-  before_action :check_access, only: %i[index logs]
+  before_action :check_access!, only: %i[index logs]
 
   LOGS_LIMIT = 45
   TYPES = Types::Strict::String.enum('anime', 'manga')
@@ -67,7 +67,7 @@ private
     end
   end
 
-  def check_access
+  def check_access!
     authorize! :access_list, @resource
   end
 end

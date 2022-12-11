@@ -1,6 +1,6 @@
 class CosplayGalleriesController < ShikimoriController
   before_action :authenticate_user!
-  before_action :check_access
+  before_action :check_access!
 
   def publishing
     @collection = CosplayGallery.without_topics.to_a.shuffle.take(10)
@@ -17,7 +17,7 @@ class CosplayGalleriesController < ShikimoriController
 
 private
 
-  def check_access
+  def check_access!
     raise CanCan::AccessDenied unless current_user.admin?
   end
 end

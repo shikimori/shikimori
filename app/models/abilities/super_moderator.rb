@@ -15,6 +15,8 @@ class Abilities::SuperModerator
 
     can :refresh_stats, [Anime, Manga]
 
+    can :access_changelog, ApplicationRecord
+
     comment_abilities
     clubs_abilities
     genres_studios_publishers_abilities
