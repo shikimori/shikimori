@@ -1,5 +1,6 @@
 en:
   moderations:
+    cache: &cache The displayed list is cached by the site. Updated once an hour.
     defaults: &defaults
       accept: accept
       expand_all: expand all
@@ -39,7 +40,7 @@ en:
       notices:
         - This is the list of top %{limit} most popular animes
           with missing screenshots.
-        - The list is cached by the site and refreshed once per hour.
+        - *cache
 
     abuse_requests:
       index:
@@ -316,4 +317,4 @@ en:
         fandub_animes: Fandub animes
     changelogs:
       show:
-        search: Поиск
+        search: Log search
