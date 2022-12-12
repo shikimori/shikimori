@@ -139,7 +139,7 @@ private
       when Topic then UrlGenerator.instance.topic_url model
       else UrlGenerator.instance.topic_url model.topic
     end
-  rescue NoMethodError # fix for broken urls in some comes
+  rescue NoMethodError, ActionController::UrlGenerationError # fix for broken urls in some comes
   end
 
   def tooltip_url model
@@ -149,6 +149,6 @@ private
       when Topic then topic_tooltip_url model
       else topic_tooltip_url model.topic
     end
-  rescue NoMethodError # fix for broken urls in some comes
+  rescue NoMethodError, ActionController::UrlGenerationError # fix for broken urls in some comes
   end
 end
