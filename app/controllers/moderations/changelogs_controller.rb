@@ -85,7 +85,7 @@ class Moderations::ChangelogsController < ModerationsController
           user: nil,
           model: nil,
           url: nil,
-          tooltip_url: nil
+          is_tooltip_url: nil
         }
       end
 
@@ -96,7 +96,10 @@ class Moderations::ChangelogsController < ModerationsController
       changelog[:user] = @users[changelog[:user_id]]
       changelog[:model] = @models[changelog[:model_id]]
       changelog[:url] = model_url changelog[:model] if changelog[:model]
-      changelog[:tooltip_url] = tooltip_url changelog[:model] if changelog[:model]
+
+      if changelog[:model] && changelog[:url]
+        changelog[:tooltip_url] = tooltip_url changelog[:model], changelog[:url]
+      end
     end
   end
 
@@ -116,15 +119,24 @@ private
     # .includes(:topic)
     if model.is_a? Comment
       comment_url model
+    elsif model.is_a? Topic
+      UrlGenerator.instance.topic_url model
     else
+      UrlGenerator.instance.topic_url model.topic
     end
   end
 
-  def tooltip_url model
-    # .includes(:topic)
-    if model.is_a? Comment
-      comment_url model
+  def tooltip_url model, url
+    if model.is_a? Topic
+      topic_tooltip_url model
     else
+      url
     end
+
+    # .includes(:topic)
+    # if model.is_a? Comment
+    #   comment_url model
+    # else
+    # end
   end
 end

@@ -6,6 +6,7 @@
     - if changelog[:url]
       a[
         class=('bubbled b-link' if changelog[:tooltip_url])
+        data-tooltip_url=(changelog[:tooltip_url] if changelog[:tooltip_url])
         href=changelog[:url]
       ]
         = changelog[:model_id]
