@@ -1,7 +1,7 @@
 describe Review::Update do
   subject do
     described_class.call(
-      review: review,
+      model: review,
       params: params,
       faye: faye
     )

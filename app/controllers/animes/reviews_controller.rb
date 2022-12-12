@@ -129,7 +129,7 @@ class Animes::ReviewsController < AnimesController
 
   def update
     is_updated = Review::Update.call(
-      review: @review,
+      model: @review,
       params: update_params,
       faye: FayeService.new(current_user, faye_token)
     )

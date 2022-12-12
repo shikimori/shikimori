@@ -1,14 +1,16 @@
 class Review::Update
-  method_object %i[review! params! faye!]
+  method_object %i[model! params! faye!]
 
   def call
-    @faye.update @review, fixed_params
+    is_updated = @faye.update @model, fixed_params
+    Changelog::LogUpdate.call @model, @faye.actor if is_updated
+    is_updated
   end
 
 private
 
   def fixed_params
-    if @review.db_entry_released_before?
+    if @model.db_entry_released_before?
       params
     else
       params.except(:is_written_before_release)

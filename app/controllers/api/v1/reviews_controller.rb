@@ -38,7 +38,7 @@ class Api::V1::ReviewsController < Api::V1Controller
   error code: 422
   def update
     is_updated = Review::Update.call(
-      review: @resource,
+      model: @resource,
       params: update_params,
       faye: faye
     )
