@@ -10,7 +10,7 @@ describe FixName do
     end
 
     context 'forbidden symbols' do
-      let(:name) { "test#[]%&?+@\"'><" }
+      let(:name) { "test#[]%&?+@\"'><⁤⁧‮‍" }
       it { is_expected.to eq 'test' }
     end
 
