@@ -113,7 +113,10 @@ class Moderations::ChangelogsController < ModerationsController
       changelog[:user] = @users[changelog[:user_id]]
       changelog[:model] = @models[changelog[:model_id]]
       changelog[:url] = model_url changelog[:model] if changelog[:model]
-      changelog[:tooltip_url] = tooltip_url changelog[:model] if changelog[:model]
+      if changelog[:model] && changelog[:url]
+        changelog[:tooltip_url] =
+          tooltip_url changelog[:model]
+      end
     end
   end
 
@@ -130,26 +133,22 @@ private
   end
 
   def model_url model
-    if model.is_a? Comment
-      comment_url model
-    elsif model.is_a? ClubPage
-      club_club_page_path model.club, model
-    elsif model.is_a? Topic
-      UrlGenerator.instance.topic_url model
-    else
-      UrlGenerator.instance.topic_url model.topic
+    case
+      when Comment then comment_url model
+      when ClubPage then club_club_page_path model.club, model
+      when Topic then UrlGenerator.instance.topic_url model
+      else UrlGenerator.instance.topic_url model.topic
     end
+  rescue NoMethodError # fix for broken urls in some comes
   end
 
   def tooltip_url model
-    if model.is_a? Comment
-      comment_url model
-    elsif model.is_a? ClubPage
-      nil
-    elsif model.is_a? Topic
-      topic_tooltip_url model
-    else
-      topic_tooltip_url model.topic
+    case model
+      when Comment then comment_url model
+      when ClubPage then nil
+      when Topic then topic_tooltip_url model
+      else topic_tooltip_url model.topic
     end
+  rescue NoMethodError # fix for broken urls in some comes
   end
 end
