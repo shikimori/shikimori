@@ -1,7 +1,17 @@
 class Moderations::ChangelogsController < ModerationsController
   MAX_LOG_LINES = 1_000
-  TAIL_COMMAND = "tail -n #{MAX_LOG_LINES}"
   PER_PAGE = 20
+
+  TAIL_COMMAND = "tail -n #{MAX_LOG_LINES}"
+
+  DEFAULT_INCLUDES = { topic: :forum }
+  INCLUDES = {
+    Comment => nil,
+    Topic => %i[forum linked],
+    ClubPage => %i[club],
+    Critique => [:target, DEFAULT_INCLUDES],
+    Review => [:anime, :manga, DEFAULT_INCLUDES]
+  }
 
   before_action :check_access!
 
@@ -90,7 +100,14 @@ class Moderations::ChangelogsController < ModerationsController
       end
 
     @users = User.where(id: @collection.pluck(:user_id)).index_by(&:id)
-    @models = @item_klass.where(id: @collection.pluck(:model_id)).index_by(&:id)
+    @models = @item_klass
+      .includes(
+        INCLUDES.key?(@item_klass) ?
+          INCLUDES[@item_klass] :
+          DEFAULT_INCLUDES
+      )
+      .where(id: @collection.pluck(:model_id))
+      .index_by(&:id)
 
     @collection.each do |changelog|
       changelog[:user] = @users[changelog[:user_id]]
@@ -113,7 +130,6 @@ private
   end
 
   def model_url model
-    # .includes(:topic)
     if model.is_a? Comment
       comment_url model
     elsif model.is_a? ClubPage
@@ -135,11 +151,5 @@ private
     else
       topic_tooltip_url model.topic
     end
-
-    # .includes(:topic)
-    # if model.is_a? Comment
-    #   comment_url model
-    # else
-    # end
   end
 end
