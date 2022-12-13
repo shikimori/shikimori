@@ -133,7 +133,7 @@ private
   end
 
   def model_url model
-    case
+    case model
       when Comment then comment_url model
       when ClubPage then club_club_page_path model.club, model
       when Topic then UrlGenerator.instance.topic_url model
