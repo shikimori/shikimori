@@ -5,7 +5,7 @@ class CollectionLinkSerializer < ActiveModel::Serializer
     if object.linked # anime can be deleted but can still be present in collection
       scope.localized_name object.linked
     else
-      '[deleted from database]'
+      "[deleted from database id=#{object.linked_id}]"
     end
   end
 
