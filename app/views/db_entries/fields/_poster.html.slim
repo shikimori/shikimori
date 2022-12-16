@@ -4,6 +4,9 @@
   = f.input :poster_data_uri,
     as: :hidden,
     input_html: { value: '' }
+  = f.input :poster_id,
+    as: :hidden,
+    input_html: { value: resource.poster&.id }
   = f.input :poster_crop_data,
     as: :hidden,
     input_html: { value: resource.poster&.crop_data&.to_json || '{}' }

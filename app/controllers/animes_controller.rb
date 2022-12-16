@@ -22,9 +22,7 @@ class AnimesController < DbEntriesController
     digital_released_on
     russia_released_on
     russia_released_on_hint
-    poster_data_uri
-    poster_crop_data
-  ] + [
+  ] + DbEntriesController::POSTER_FIELDS + [
     *Anime::DESYNCABLE - %i[aired_on released_on digital_released_on russia_released_on],
     external_links: [EXTERNAL_LINK_PARAMS],
     aired_on: IncompleteDate.attributes,

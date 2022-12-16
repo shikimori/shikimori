@@ -75,6 +75,7 @@ import 'cropperjs/dist/cropper.css';
 const props = defineProps({
   src: { type: String, required: false, default: '' },
   cropData: { type: Object, required: false, default: () => ({}) },
+  posterId: { type: Number, required: false, default: null },
   previewTemplateHTML: { type: String, required: true },
   previewWidth: { type: Number, required: true },
   previewHeight: { type: Number, required: true }
@@ -88,6 +89,7 @@ const vueCropperRef = ref(null);
 const uploaderRef = ref(null);
 const templateRef = ref(null);
 const isDisabled = ref(false);
+const currentPosterId = ref(props.posterId);
 
 const sizes = reactive({
   naturalWidth: 0,
@@ -121,6 +123,9 @@ const onCrop = e => {
 };
 
 defineExpose({
+  posterId() {
+    return currentPosterId.value;
+  },
   cropData() {
     const data = vueCropperRef.value.getCropBoxData();
 
@@ -132,11 +137,13 @@ defineExpose({
     };
   },
   toDataURI() {
-    return vueCropperRef.value
-      .crop()
-      .clear()
-      .getCroppedCanvas()
-      .toDataURL();
+    return currentPosterId.value ?
+      null :
+      vueCropperRef.value
+        .crop()
+        .clear()
+        .getCroppedCanvas()
+        .toDataURL();
   }
 });
 
@@ -159,6 +166,7 @@ function onFileAdded(uploader, uppyFile) {
 
 function clear() {
   currentSrc.value = '';
+  currentPosterId.value = null;
   syncPreviewImage();
 }
 

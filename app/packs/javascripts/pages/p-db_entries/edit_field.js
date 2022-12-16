@@ -264,12 +264,16 @@ async function initEditPosterApp() {
 
   const $app = $('#vue_app');
   const $form = $app.closest('form');
+
   const $cropData = $form.find('input[id$=_poster_crop_data]');
+  const $posterDataUri = $form.find('input[id$=_poster_data_uri]');
+  const $posterId = $form.find('input[id$=_poster_id]');
 
   const app = createApp(PosterField, {
     src: $app.data('src'),
     previewTemplateHTML: $('.template-html').html(),
     cropData: JSON.parse($cropData.val()),
+    posterId: $posterId.val(),
     previewWidth: $app.data('preview-width'),
     previewHeight: $app.data('preview-height')
   });
@@ -277,8 +281,8 @@ async function initEditPosterApp() {
   const posterFieldComponent = app.mount('#vue_app');
 
   $form.on('submit', ({ currentTarget }) => {
+    $posterId.val(posterFieldComponent.posterId());
     $cropData.val(JSON.stringify(posterFieldComponent.cropData()));
-    $(currentTarget).find('input[id$=_poster_data_uri]')
-      .val(posterFieldComponent.toDataURI());
+    $posterDataUri.val(posterFieldComponent.toDataURI());
   });
 }
