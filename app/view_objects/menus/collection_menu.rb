@@ -52,9 +52,10 @@ class Menus::CollectionMenu < ViewObjectBase
       Titles::SeasonTitle.new(4.years.ago, :years_5, klass),
       Titles::SeasonTitle.new(
         9.years.ago,
-        :"years_#{Time.zone.today.year - 2000 - 8}",
+        :"years_#{Time.zone.today.year - 2010 - 8}",
         klass
       ),
+      Titles::SeasonTitle.new(Date.parse('2010-01-01'), :years_11, klass),
       Titles::SeasonTitle.new(Date.parse('1995-01-01'), :decade, klass),
       Titles::SeasonTitle.new(Date.parse('1985-01-01'), :decade, klass),
       Titles::SeasonTitle.new(nil, :ancient, klass)

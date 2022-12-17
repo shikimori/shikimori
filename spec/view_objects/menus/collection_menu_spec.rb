@@ -53,32 +53,23 @@ describe Menus::CollectionMenu do
     it { expect(view.seasons.first).to be_kind_of Titles::SeasonTitle }
 
     describe do
-      include_context :timecop, '2015-10-11'
+      include_context :timecop, '2022-10-11'
       it do
         expect(texts).to eq %w[
-          winter_2016 fall_2015 summer_2015 spring_2015
-          2015 2014 2012_2013 2007_2011 2000_2006 199x 198x
-          ancient
+          winter_2023 fall_2022 summer_2022 spring_2022
+          2022 2021 2019_2020 2014_2018 2010_2013
+          2000_2010 199x 198x ancient
         ]
       end
     end
 
     describe do
-      include_context :timecop, '2017-03-11'
+      include_context :timecop, '2027-03-11'
       it do
         expect(texts).to eq %w[
-          summer_2017 spring_2017 winter_2017 fall_2016
-          2017 2016 2014_2015 2009_2013 2000_2008 199x 198x ancient
-        ]
-      end
-    end
-
-    describe do
-      include_context :timecop, '2019-03-11'
-      it do
-        expect(texts).to eq %w[
-          summer_2019 spring_2019 winter_2019 fall_2018
-          2019 2018 2016_2017 2011_2015 2000_2010 199x 198x ancient
+          summer_2027 spring_2027 winter_2027 fall_2026
+          2027 2026 2024_2025 2019_2023 2010_2018
+          2000_2010 199x 198x ancient
         ]
       end
     end
