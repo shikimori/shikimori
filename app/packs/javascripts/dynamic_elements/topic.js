@@ -529,24 +529,37 @@ export default class Topic extends ShikiEditable {
     $vote
       .on('ajax:before', e => {
         this.$footerVote.addClass('b-ajax');
-        const isYes = $(e.target).hasClass('yes');
+        const $target = $(e.target);
+        const isYes = $target.hasClass('yes');
+        let vote = null;
 
-        if (isYes && !this.model.voted_yes) {
-          this.model.votes_for += 1;
-
+        if (isYes) {
+          if (this.model.voted_yes) {
+            vote = 'unvote';
+            this.model.votes_for -= 1;
+          } else {
+            vote = 'yes';
+            this.model.votes_for += 1;
+            if (this.model.voted_no) this.model.votes_against -= 1;
+          }
+        } else {
           if (this.model.voted_no) {
+            vote = 'unvote';
             this.model.votes_against -= 1;
           }
-        } else if (!isYes && !this.model.voted_no) {
-          this.model.votes_against += 1;
-
-          if (this.model.voted_yes) {
-            this.model.votes_for -= 1;
+          else {
+            vote = 'no';
+            this.model.votes_against += 1;
+            if (this.model.voted_yes) this.model.votes_for -= 1;
           }
         }
+        $target.data(
+          'action',
+          $target.data('action').replace(/vote=\w+/, `vote=${vote}`)
+        );
 
-        this.model.voted_no = !isYes;
-        this.model.voted_yes = isYes;
+        this.model.voted_yes = this.model.voted_yes ? false : isYes;
+        this.model.voted_no = this.model.voted_no ? false : !isYes;
 
         this._actualizeVoting();
       })

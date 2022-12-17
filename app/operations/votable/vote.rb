@@ -4,7 +4,8 @@ class Votable::Vote
   VOTE_FLAG = {
     'yes' => true,
     'no' => false,
-    'abstain' => 'abstain'
+    'abstain' => 'abstain',
+    'unvote' => 'unvote'
   }
 
   CLEANUP_VOTE_SQL = <<-SQL.squish
@@ -21,9 +22,13 @@ class Votable::Vote
     return unless can_vote? @votable, @voter
 
     ActsAsVotable::Vote.transaction do
-      cleanup_votes poll(@votable) if poll? @votable
-      @votable.vote_by voter: @voter, vote: vote_flag
-      update_user_key @voter, @votable if contest? @votable
+      if vote_flag == 'unvote'
+        @votable.unvote_by @voter
+      else
+        cleanup_votes poll(@votable) if poll? @votable
+        @votable.vote_by voter: @voter, vote: vote_flag
+        update_user_key @voter, @votable if contest? @votable
+      end
     end
   end
 
