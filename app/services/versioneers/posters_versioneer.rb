@@ -5,10 +5,11 @@ class Versioneers::PostersVersioneer < Versioneers::FieldsVersioneer
   DELETE = Versions::PosterVersion::Actions[:delete]
 
   def premoderate params, author = nil, reason = nil
-    if params[:poster_data_uri].present?
+    if params[:poster_data_uri].present? || params[:poster_id].present?
       upload_version(
         data_uri: params[:poster_data_uri],
         crop_data: JSON.parse(params[:poster_crop_data], symbolize_names: true),
+        poster_id: params[:poster_id],
         author: author,
         reason: reason
       )
@@ -21,8 +22,12 @@ class Versioneers::PostersVersioneer < Versioneers::FieldsVersioneer
 
 private
 
-  def upload_version data_uri:, crop_data:, author:, reason:
-    poster = create_poster data_uri, crop_data
+  def upload_version data_uri:, crop_data:, poster_id:, author:, reason:
+    poster = create_poster(
+      data_uri: data_uri,
+      crop_data: crop_data,
+      poster_id: poster_id
+    )
 
     Versions::PosterVersion.create!(
       item: poster,
@@ -49,12 +54,16 @@ private
     Versions::PosterVersion.new
   end
 
-  def create_poster data_uri, crop_data
+  def create_poster data_uri:, crop_data:, poster_id:
     Poster.create(
       item_key => @item.id,
-      image_data_uri: data_uri,
       crop_data: crop_data,
-      is_approved: false
+      is_approved: false,
+      **(
+        data_uri.present? ?
+          { image_data_uri: data_uri } :
+          { image: Poster.find(poster_id).image.download }
+      )
     )
   end
 

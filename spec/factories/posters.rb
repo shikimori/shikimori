@@ -14,7 +14,7 @@ FactoryBot.define do
     end
 
     trait :image_data_file do
-      image_data { File.new "#{Rails.root}/spec/files/poster.jpg" }
+      image { File.new "#{Rails.root}/spec/files/poster.jpg" }
     end
   end
 end
