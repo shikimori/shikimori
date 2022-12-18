@@ -40,21 +40,21 @@ jQuery($ => {
       const should_lock = is_form;
       const el = this;
 
-      const method = el.data('method') || el.attr('method') || 'GET';
-      const url = el.data('action') || el.attr('action') || el.attr('href');
-      const dataType = el.data('type') || 'script';
-
             // иногда бывает надо отключить функционал
-      if ($this.data('disabled') || url === undefined) {
-        return false;
-      }
+      if ($this.data('disabled')) { return false; }
       if (el.triggerAndReturn('ajax:before')) {
                 // шлём только один запрос
-        if (should_lock && $this.data('ajax:locked')) {
-          return;
-        }
+        if (should_lock && $this.data('ajax:locked')) { return; }
         $this.data('ajax:locked', true);
         const data = is_form ? el.serializeArray() : ($this.data('form') || []);
+
+        // next 5 lines were moved from before "if ($this.data('disabled')) {" line
+        const method = el.data('method') || el.attr('method') || 'GET';
+        const url = el.data('action') || el.attr('action') || el.attr('href');
+        const dataType = el.data('type') || 'script';
+
+        if (url === undefined) { return false; }
+
         $.ajax({
           url,
           data,
