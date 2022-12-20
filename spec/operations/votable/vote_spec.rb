@@ -89,6 +89,16 @@ describe Votable::Vote do
           expect(voter.abstained? votable).to eq true
         end
       end
+
+      context 'unvote' do
+        let(:vote) { 'unvote' }
+        let!(:user_vote) { create :vote, votable: votable, voter: voter }
+
+        it do
+          expect { subject }.to change(ActsAsVotable::Vote, :count).by(-1)
+          expect { user_vote.reload }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
     end
 
     context 'created/finished' do
