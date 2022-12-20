@@ -1,64 +1,28 @@
 $spacer:     0.5rem;
-$spacer-x:   $spacer;
-$spacer-y:   $spacer;
 $spacers: (
-  0: (
-    x:   0,
-    y:   0
-  ),
-  1: (
-    x:   ($spacer-x * 0.5),
-    y:   ($spacer-y * 0.5)
-  ),
-  2: (
-    x:   $spacer-x,
-    y:   $spacer-y
-  ),
-  3: (
-    x:   ($spacer-x * 1.5),
-    y:   ($spacer-y * 1.5)
-  ),
-  4: (
-    x:   ($spacer-x * 2),
-    y:   ($spacer-y * 2)
-  ),
-  5: (
-    x:   ($spacer-x * 3),
-    y:   ($spacer-y * 3)
-  ),
-  6: (
-    x:   ($spacer-x * 4),
-    y:   ($spacer-y * 4)
-  ),
-  7: (
-    x:   ($spacer-x * 6),
-    y:   ($spacer-y * 6)
-  ),
-  8: (
-    x:   ($spacer-x * 8),
-    y:   ($spacer-y * 8)
-  ),
-  9: (
-    x:   ($spacer-x * 12),
-    y:   ($spacer-y * 12)
-  ),
-  10: (
-    x:   ($spacer-x * 16),
-    y:   ($spacer-y * 16)
-  )
+  0: 0,
+  1: 0.5,
+  2: 1,
+  3: 1.5,
+  4: 2,
+  5: 3,
+  6: 4,
+  7: 6,
+  8: 8,
+  9: 12,
+  10: 16
 );
 
 @mixin spacing() {
   @each $prop, $abbrev in (margin: m, padding: p) {
-    @each $size, $lengths in $spacers {
-      $length-x:   map-get($lengths, x);
-      $length-y:   map-get($lengths, y);
-
-      .#{$abbrev}-#{$size} { #{$prop}:         $length-y $length-x !important; }
-      .#{$abbrev}t-#{$size} { #{$prop}-top:    $length-y !important; }
-      .#{$abbrev}r-#{$size} { #{$prop}-right:  $length-x !important; }
-      .#{$abbrev}b-#{$size} { #{$prop}-bottom: $length-y !important; }
-      .#{$abbrev}l-#{$size} { #{$prop}-left:   $length-x !important; }
+    @each $size, $length in $spacers {
+      .#{$abbrev}-#{$size} { #{$prop}:         $spacer * $length !important; }
+    }
+    @each $size, $length in $spacers {
+      .#{$abbrev}t-#{$size} { #{$prop}-top:    $spacer * $length !important; }
+      .#{$abbrev}r-#{$size} { #{$prop}-right:  $spacer * $length !important; }
+      .#{$abbrev}b-#{$size} { #{$prop}-bottom: $spacer * $length !important; }
+      .#{$abbrev}l-#{$size} { #{$prop}-left:   $spacer * $length !important; }
     }
   }
 }
