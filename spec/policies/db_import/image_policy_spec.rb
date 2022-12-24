@@ -7,7 +7,7 @@ describe DbImport::ImagePolicy do
     allow(target.image).to receive(:exists?).and_return is_exists
     allow(ImageChecker).to receive_message_chain(:new, :valid?).and_return is_valid
   end
-  let(:mtime) { DbImport::ImagePolicy::OLD_INTERVAL.ago - 1.day }
+  let(:mtime) { described_class::OLD_INTERVAL.ago - 1.day }
   let(:is_valid) { true }
   let(:is_exists) { true }
 
