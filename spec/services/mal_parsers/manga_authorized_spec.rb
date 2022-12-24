@@ -9,7 +9,7 @@ describe MalParsers::MangaAuthorized do
       is_expected.to eq(
         id: 1394,
         name: 'Shoujo Sect',
-        image: 'https://myanimelist.cdn-dena.com/images/manga/2/111587.jpg',
+        image: 'https://myanimelist.cdn-dena.com/images/manga/2/111587l.jpg',
         english: nil,
         japanese: '少女セクト',
         synonyms: [],

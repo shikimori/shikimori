@@ -9,7 +9,7 @@ describe MalParsers::AnimeAuthorized do
       is_expected.to eq(
         id: id,
         name: 'Sword Art Online',
-        image: 'https://myanimelist.cdn-dena.com/images/anime/11/39717.jpg',
+        image: 'https://myanimelist.cdn-dena.com/images/anime/11/39717l.jpg',
         english: 'Sword Art Online',
         synonyms: ['S.A.O', 'SAO'],
         japanese: 'ソードアート・オンライン',
