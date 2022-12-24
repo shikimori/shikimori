@@ -6,7 +6,9 @@ describe DbImport::MalImage do
     )
   end
   let(:entry) { build :anime }
-  let(:image_url) { 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/240px-PNG_transparency_demonstration_1.png' }
+  let(:image_url) do
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/240px-PNG_transparency_demonstration_1.png'
+  end
 
   before do
     allow(DbImport::ImagePolicy)
