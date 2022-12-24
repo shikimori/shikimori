@@ -51,9 +51,9 @@ class Manga < DbEntry
   attr_accessor :in_list
 
   # relations
-  has_one :poster, -> { active },
-    inverse_of: :manga,
-    dependent: :destroy
+  has_one :poster, -> { active }, inverse_of: :manga # rubocop:disable Rails/HasManyOrHasOneDependent
+  has_many :posters, dependent: :destroy
+
   has_many :person_roles, dependent: :destroy
   has_many :characters, through: :person_roles
   has_many :people, through: :person_roles

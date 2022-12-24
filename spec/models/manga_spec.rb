@@ -3,6 +3,8 @@
 describe Manga do
   describe 'relations' do
     it { is_expected.to have_one :poster }
+    it { is_expected.to have_many(:posters).dependent :destroy }
+
     it { is_expected.to have_many(:person_roles).dependent(:destroy) }
     it { is_expected.to have_many :characters }
     it { is_expected.to have_many :people }
