@@ -11,12 +11,21 @@ describe DbImport::PosterPolicy do
 
     it { is_expected.to eq true }
 
-    context 'has image_url' do
-      describe '#bad_image?' do
-        context 'no image_url' do
-          let(:image_url) { nil }
-          it { is_expected.to eq false }
-        end
+    describe '#invalid_target?' do
+      context 'new record' do
+        before { allow(target).to receive(:new_record?).and_return true }
+        it { is_expected.to eq false }
+      end
+
+      context 'new record' do
+        before { allow(target).to receive(:valid?).and_return false }
+        it { is_expected.to eq false }
+      end
+    end
+
+    describe '#bad_image?' do
+      describe 'has image url' do
+        it { is_expected.to eq true }
 
         context 'na_series.gif' do
           let(:image_url) { 'http://zxc.vbn/na_series.gif' }
@@ -29,61 +38,61 @@ describe DbImport::PosterPolicy do
         end
       end
 
-      describe '#poster_expired?' do
-        context 'no existing poster' do
-          let(:poster) { nil }
-          it { is_expected.to eq true }
-        end
-
-        context 'has existing poster' do
-          context 'ongoing' do
-            let(:target) { build_stubbed :anime, poster: poster, status: :ongoing }
-
-            context 'expired' do
-              let(:downloaded_at) { DbImport::ImagePolicy::ONGOING_INTERVAL.ago - 1.day }
-              it { is_expected.to eq true }
-            end
-
-            context 'not expired' do
-              let(:downloaded_at) { DbImport::ImagePolicy::ONGOING_INTERVAL.ago + 1.day }
-              it { is_expected.to eq false }
-            end
-          end
-
-          context 'latest' do
-            let(:target) do
-              build_stubbed :anime, poster: poster, status: :released, aired_on: 1.month.ago
-            end
-
-            context 'expired' do
-              let(:downloaded_at) { DbImport::ImagePolicy::LATEST_INTERVAL.ago - 1.day }
-              it { is_expected.to eq true }
-            end
-
-            context 'not expired' do
-              let(:downloaded_at) { DbImport::ImagePolicy::LATEST_INTERVAL.ago + 1.day }
-              it { is_expected.to eq false }
-            end
-          end
-
-          context 'old anime' do
-            context 'expired' do
-              let(:downloaded_at) { DbImport::ImagePolicy::OLD_INTERVAL.ago - 1.day }
-              it { is_expected.to eq true }
-            end
-
-            context 'not expired' do
-              let(:downloaded_at) { DbImport::ImagePolicy::OLD_INTERVAL.ago + 1.day }
-              it { is_expected.to eq false }
-            end
-          end
-        end
+      context 'no image_url' do
+        let(:image_url) { ['', nil].sample }
+        it { is_expected.to eq false }
       end
     end
 
-    context 'no image_url' do
-      let(:image_url) { ['', nil].sample }
-      it { is_expected.to eq false }
+    describe '#poster_expired?' do
+      context 'no existing poster' do
+        let(:poster) { nil }
+        it { is_expected.to eq true }
+      end
+
+      context 'has existing poster' do
+        context 'ongoing' do
+          let(:target) { build_stubbed :anime, poster: poster, status: :ongoing }
+
+          context 'expired' do
+            let(:downloaded_at) { DbImport::ImagePolicy::ONGOING_INTERVAL.ago - 1.day }
+            it { is_expected.to eq true }
+          end
+
+          context 'not expired' do
+            let(:downloaded_at) { DbImport::ImagePolicy::ONGOING_INTERVAL.ago + 1.day }
+            it { is_expected.to eq false }
+          end
+        end
+
+        context 'latest' do
+          let(:target) do
+            build_stubbed :anime, poster: poster, status: :released, aired_on: 1.month.ago
+          end
+
+          context 'expired' do
+            let(:downloaded_at) { DbImport::ImagePolicy::LATEST_INTERVAL.ago - 1.day }
+            it { is_expected.to eq true }
+          end
+
+          context 'not expired' do
+            let(:downloaded_at) { DbImport::ImagePolicy::LATEST_INTERVAL.ago + 1.day }
+            it { is_expected.to eq false }
+          end
+        end
+
+        context 'old anime' do
+          context 'expired' do
+            let(:downloaded_at) { DbImport::ImagePolicy::OLD_INTERVAL.ago - 1.day }
+            it { is_expected.to eq true }
+          end
+
+          context 'not expired' do
+            let(:downloaded_at) { DbImport::ImagePolicy::OLD_INTERVAL.ago + 1.day }
+            it { is_expected.to eq false }
+          end
+        end
+      end
     end
   end
 
