@@ -319,7 +319,7 @@ GEM
       eventmachine (>= 1.0.0.beta.4)
     enumerize (2.4.0)
       activesupport (>= 3.2)
-    erubi (1.11.0)
+    erubi (1.12.0)
     eventmachine (1.2.7)
     execjs (2.7.0)
     factory_bot (6.2.1)
@@ -680,10 +680,10 @@ GEM
       sprockets-rails
       tilt
     semantic_range (3.0.0)
-    sentry-rails (5.6.0)
+    sentry-rails (5.7.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.6.0)
-    sentry-ruby (5.6.0)
+      sentry-ruby (~> 5.7.0)
+    sentry-ruby (5.7.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
     sexp_processor (4.16.1)
     shellany (0.0.1)
