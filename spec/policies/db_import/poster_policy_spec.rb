@@ -6,7 +6,8 @@ describe DbImport::PosterPolicy do
   let(:downloaded_at) { described_class::OLD_INTERVAL.ago - 1.day }
 
   context 'anime' do
-    let(:target) { build_stubbed :anime, poster: poster }
+    let(:target) { build_stubbed :anime, poster: poster, desynced: desynced }
+    let(:desynced) { [] }
     let(:image_url) { 'http://zxc.vbn' }
 
     it { is_expected.to eq true }
@@ -40,6 +41,13 @@ describe DbImport::PosterPolicy do
 
       context 'no image_url' do
         let(:image_url) { ['', nil].sample }
+        it { is_expected.to eq false }
+      end
+    end
+
+    describe '#desynced_poster?' do
+      context 'desynced' do
+        let(:desynced) { ['poster'] }
         it { is_expected.to eq false }
       end
     end
