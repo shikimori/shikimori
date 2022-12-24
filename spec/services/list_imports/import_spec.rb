@@ -122,7 +122,7 @@ describe ListImports::Import do
         .to eq ListImport::ERROR_EXCEPTION
       expect(list_import.output['error']['class']).to eq 'JSON::ParserError'
       expect(list_import.output['error']['message'])
-        .to match(/\d+: unexpected token at ''/)
+        .to match(/unexpected token at ''/)
       expect(list_import.output['error']['backtrace'])
         .to have_at_least(80).items
 
