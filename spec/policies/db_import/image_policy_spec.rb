@@ -1,10 +1,10 @@
 describe DbImport::ImagePolicy do
-  let(:policy) { described_class.new target, image_url }
+  let(:policy) { described_class.new entry: entry, image_url: image_url }
   subject { policy.need_import? }
 
   before do
     allow(File).to receive(:mtime).and_return mtime
-    allow(target.image).to receive(:exists?).and_return is_exists
+    allow(entry.image).to receive(:exists?).and_return is_exists
     allow(ImageChecker).to receive_message_chain(:new, :valid?).and_return is_valid
   end
   let(:mtime) { described_class::OLD_INTERVAL.ago - 1.day }
@@ -12,7 +12,7 @@ describe DbImport::ImagePolicy do
   let(:is_exists) { true }
 
   context 'anime' do
-    let(:target) { build_stubbed :anime }
+    let(:entry) { build_stubbed :anime }
     let(:image_url) { 'http://zxc.vbn' }
 
     it { is_expected.to eq true }
@@ -41,7 +41,7 @@ describe DbImport::ImagePolicy do
       it { is_expected.to eq false }
 
       context 'new record' do
-        let(:target) { build :anime }
+        let(:entry) { build :anime }
         it { is_expected.to eq true }
       end
 
@@ -68,7 +68,7 @@ describe DbImport::ImagePolicy do
 
     describe '#file_expired?' do
       context 'ongoing' do
-        let(:target) { build_stubbed :anime, status: :ongoing }
+        let(:entry) { build_stubbed :anime, status: :ongoing }
 
         context 'expired' do
           let(:mtime) { DbImport::ImagePolicy::ONGOING_INTERVAL.ago - 1.day }
@@ -82,7 +82,7 @@ describe DbImport::ImagePolicy do
       end
 
       context 'latest' do
-        let(:target) { build_stubbed :anime, status: :released, aired_on: 1.month.ago }
+        let(:entry) { build_stubbed :anime, status: :released, aired_on: 1.month.ago }
 
         context 'expired' do
           let(:mtime) { DbImport::ImagePolicy::LATEST_INTERVAL.ago - 1.day }
@@ -110,10 +110,10 @@ describe DbImport::ImagePolicy do
   end
 
   context 'character' do
-    let(:target) { create :character }
+    let(:entry) { create :character }
     let(:image_url) { 'http://zxc.vbn' }
 
-    let!(:person_role) { create :person_role, anime: anime, character: target }
+    let!(:person_role) { create :person_role, anime: anime, character: entry }
     let!(:anime) { create :anime }
 
     it { is_expected.to eq true }

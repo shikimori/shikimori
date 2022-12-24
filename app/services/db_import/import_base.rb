@@ -10,6 +10,7 @@ class DbImport::ImportBase
 
     # was_new_record = entry.new_record?
     ApplicationRecord.transaction { import }
+    import_poster if import_poster?
 
     # if was_new_record && entry.persisted?
     #   schedule_fetch_authorized
@@ -72,7 +73,7 @@ private
 
     @data
       .except(*ignored_fields)
-      .delete_if { |_k, v| v.blank? }
+      .compact_blank
   end
 
   def desynced_fields
@@ -81,4 +82,12 @@ private
 
   # def schedule_fetch_authorized
   # end
+
+  def import_poster
+    # DbImport::MalPoster.call entry: entry, image_url: image_url
+  end
+
+  def import_poster?
+    DbImport::PosterPolicy.new(entry: entry, image_url: @data[:image]).need_import?
+  end
 end

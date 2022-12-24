@@ -19,7 +19,7 @@ class DbImport::MalImage
 private
 
   def image_policy
-    DbImport::ImagePolicy.new @entry, @image_url
+    DbImport::ImagePolicy.new entry: @entry, image_url: @image_url
   end
 
   def no_image?

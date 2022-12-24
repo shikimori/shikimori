@@ -1,5 +1,5 @@
 class DbImport::ImagePolicy
-  pattr_initialize :target, :image_url
+  pattr_initialize %i[entry! image_url!]
 
   ONGOING_INTERVAL = 2.weeks
   LATEST_INTERVAL = 3.months
@@ -8,7 +8,7 @@ class DbImport::ImagePolicy
   def need_import?
     return false if bad_image?
     return true if no_image?
-    return true unless ImageChecker.valid? @target.image.path
+    return true unless ImageChecker.valid? @entry.image.path
 
     file_expired?
   end
@@ -22,11 +22,11 @@ private
   end
 
   def no_image?
-    @target.new_record? || !@target.image.exists?
+    @entry.new_record? || !@entry.image.exists?
   end
 
   def file_expired?
-    File.mtime(@target.image.path) < expire_interval.ago
+    File.mtime(@entry.image.path) < expire_interval.ago
   end
 
   def expire_interval
@@ -37,14 +37,14 @@ private
   end
 
   def ongoing?
-    @target.respond_to?(:ongoing?) && @target.ongoing?
+    @entry.respond_to?(:ongoing?) && @entry.ongoing?
   end
 
   def belongs_to_ongoing?
-    @target.is_a?(Character) && @target.animes.where(status: :ongoing).any?
+    @entry.is_a?(Character) && @entry.animes.where(status: :ongoing).any?
   end
 
   def latest?
-    @target.respond_to?(:latest?) && @target.latest?
+    @entry.respond_to?(:latest?) && @entry.latest?
   end
 end

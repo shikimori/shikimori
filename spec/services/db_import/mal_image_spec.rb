@@ -13,7 +13,7 @@ describe DbImport::MalImage do
   before do
     allow(DbImport::ImagePolicy)
       .to receive(:new)
-      .with(entry, image_url)
+      .with(entry: entry, image_url: image_url)
       .and_return(image_policy)
 
     if is_nil_import

@@ -1,25 +1,25 @@
 describe DbImport::PosterPolicy do
-  let(:policy) { described_class.new target, image_url }
+  let(:policy) { described_class.new entry: entry, image_url: image_url }
   subject { policy.need_import? }
 
   let(:poster) { build_stubbed :poster, created_at: downloaded_at }
   let(:downloaded_at) { described_class::OLD_INTERVAL.ago - 1.day }
 
   context 'anime' do
-    let(:target) { build_stubbed :anime, poster: poster, desynced: desynced }
+    let(:entry) { build_stubbed :anime, poster: poster, desynced: desynced }
     let(:desynced) { [] }
     let(:image_url) { 'http://zxc.vbn' }
 
     it { is_expected.to eq true }
 
-    describe '#invalid_target?' do
+    describe '#invalid_entry?' do
       context 'new record' do
-        before { allow(target).to receive(:new_record?).and_return true }
+        before { allow(entry).to receive(:new_record?).and_return true }
         it { is_expected.to eq false }
       end
 
       context 'new record' do
-        before { allow(target).to receive(:valid?).and_return false }
+        before { allow(entry).to receive(:valid?).and_return false }
         it { is_expected.to eq false }
       end
     end
@@ -60,7 +60,7 @@ describe DbImport::PosterPolicy do
 
       context 'has existing poster' do
         context 'ongoing' do
-          let(:target) { build_stubbed :anime, poster: poster, status: :ongoing }
+          let(:entry) { build_stubbed :anime, poster: poster, status: :ongoing }
 
           context 'expired' do
             let(:downloaded_at) { DbImport::ImagePolicy::ONGOING_INTERVAL.ago - 1.day }
@@ -74,7 +74,7 @@ describe DbImport::PosterPolicy do
         end
 
         context 'latest' do
-          let(:target) do
+          let(:entry) do
             build_stubbed :anime, poster: poster, status: :released, aired_on: 1.month.ago
           end
 
@@ -105,11 +105,11 @@ describe DbImport::PosterPolicy do
   end
 
   context 'character' do
-    let(:target) { build_stubbed :character, poster: poster }
+    let(:entry) { build_stubbed :character, poster: poster }
     let(:image_url) { 'http://zxc.vbn' }
 
     before do
-      allow(target)
+      allow(entry)
         .to receive_message_chain(:animes, :where, :any?)
         .and_return is_ongoing
     end
