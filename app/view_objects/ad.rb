@@ -279,17 +279,35 @@ private
     provider: Types::Ad::Provider[:special],
     # AD START: IMBA - remove 2022-11-28 23:59
     images: [{
-      src: '/assets/globals/events/2022-12-05/inner_1.png?v1',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner1&utm_campaign=05_12&marker=2Vtzqv5ZWmP'
+      src: '/assets/globals/events/2022-12-23/inner_1.png?v2',
+      url: 'https://imba.shop/collection/skidki-2?utm_source=shikimori&utm_medium=banner1&utm_campaign=23_12&marker=2VtzquvjvHG'
     }, {
-      src: '/assets/globals/events/2022-12-05/inner_2.png?v1',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner2&utm_campaign=05_12&marker=2VtzqwEGxSu'
+      src: '/assets/globals/events/2022-12-23/inner_2.png?v2',
+      url: 'https://imba.shop/collection/skidki-2?utm_source=shikimori&utm_medium=banner2&utm_campaign=23_12&marker=2Vtzqwe5ReJ'
     }, {
-      src: '/assets/globals/events/2022-12-05/inner_3.png?v1',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner3&utm_campaign=05_12&marker=2VtzqxRxNh7'
+      src: '/assets/globals/events/2022-12-23/inner_3.png?v2',
+      url: 'https://imba.shop/collection/skidki-2?utm_source=shikimori&utm_medium=banner3&utm_campaign=23_12&marker=2VtzquxEaXU'
     }, {
-      src: '/assets/globals/events/2022-12-05/inner_4.png?v1',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner4&utm_campaign=05_12&marker=2VtzqvHRkW5'
+      src: '/assets/globals/events/2022-12-23/inner_4.png?v2',
+      url: 'https://imba.shop/collection/skidki-2?utm_source=shikimori&utm_medium=banner4&utm_campaign=23_12&marker=2VtzqwY9ozr'
+    }, {
+      src: '/assets/globals/events/2022-12-23/inner_5.png?v2',
+      url: 'https://imba.shop/collection/skidki-2?utm_source=shikimori&utm_medium=banner5&utm_campaign=23_12&marker=2VtzqvD4npr'
+    }, {
+      src: '/assets/globals/events/2022-12-23/inner_6.png?v2',
+      url: 'https://imba.shop/collection/skidki-2?utm_source=shikimori&utm_medium=banner8&utm_campaign=23_12&marker=2VtzqwyMwGe'
+    }, {
+      src: '/assets/globals/events/2022-12-23/inner_7.png?v2',
+      url: 'https://imba.shop/collection/skidki-2?utm_source=shikimori&utm_medium=banner10&utm_campaign=23_12&marker=2Vtzqv8dATk'
+    }, {
+      src: '/assets/globals/events/2022-12-23/inner_8.png?v2',
+      url: 'https://imba.shop/collection/skidki-2?utm_source=shikimori&utm_medium=banner9&utm_campaign=23_12&marker=2VtzqwTiX7g'
+    }, {
+      src: '/assets/globals/events/2022-12-23/inner_9.png?v2',
+      url: 'https://imba.shop/collection/skidki-2?utm_source=shikimori&utm_medium=banner6&utm_campaign=23_12&marker=2Vtzqv4BY6e'
+    }, {
+      src: '/assets/globals/events/2022-12-23/inner_10.png?v2',
+      url: 'https://imba.shop/collection/skidki-2?utm_source=shikimori&utm_medium=banner7&utm_campaign=23_12&marker=2VtzqwzrbWr'
     }],
     # AD END
     placement: Types::Ad::Placement[:content],
