@@ -59,6 +59,7 @@ gem 'chewy'
 gem 'rack-attack'
 gem 'rack-cors'
 gem 'rack-utf8_sanitizer'
+gem 'mail', '2.7.1' # mail 2.8 depends on net-protocol gem which conflicts with ruby 2.6
 
 # images processing
 gem 'mini_magick' # dependence: sudo apt-get install libmagickwand-dev
