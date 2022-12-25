@@ -9,8 +9,10 @@ class DbImport::ImportBase
     return if DbImport::BannedIds.instance.banned? @data[:id], klass.name.downcase
 
     # was_new_record = entry.new_record?
-    ApplicationRecord.transaction { import }
-    import_poster if import_poster?
+    ApplicationRecord.transaction do
+      import
+      import_poster
+    end
 
     # if was_new_record && entry.persisted?
     #   schedule_fetch_authorized
@@ -84,10 +86,9 @@ private
   # end
 
   def import_poster
-    # DbImport::MalPoster.call entry: entry, image_url: image_url
-  end
-
-  def import_poster?
-    DbImport::PosterPolicy.new(entry: entry, image_url: @data[:image]).need_import?
+    DbImport::MalPoster.call(
+      entry: entry,
+      image_url: @data[:image]
+    )
   end
 end

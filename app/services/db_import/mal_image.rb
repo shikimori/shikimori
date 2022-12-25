@@ -9,7 +9,7 @@ class DbImport::MalImage
   }
 
   def call
-    if @image_url.present? && image_policy.need_import?
+    if @image_url.present? && policy.need_import?
       io = download_image
       @entry.image = io if io
     end
@@ -18,7 +18,7 @@ class DbImport::MalImage
 
 private
 
-  def image_policy
+  def policy
     DbImport::ImagePolicy.new entry: @entry, image_url: @image_url
   end
 

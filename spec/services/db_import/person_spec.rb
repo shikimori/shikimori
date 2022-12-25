@@ -30,9 +30,15 @@ describe DbImport::Person do
     end
 
     describe 'method call' do
-      before { allow(DbImport::MalImage).to receive :call }
+      before do
+        allow(DbImport::MalImage).to receive :call
+        allow(DbImport::MalPoster).to receive :call
+      end
       it do
         expect(DbImport::MalImage)
+          .to have_received(:call)
+          .with entry: entry, image_url: image
+        expect(DbImport::MalPoster)
           .to have_received(:call)
           .with entry: entry, image_url: image
       end
