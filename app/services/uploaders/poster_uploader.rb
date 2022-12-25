@@ -4,7 +4,7 @@ class Uploaders::PosterUploader < Shrine
   include ImageProcessing::MiniMagick
 
   MAIN_WIDTH = 225
-  MAIN_HEIGHT = 350
+  # MAIN_HEIGHT = 350
 
   # preview ratio: 0.6812227074
   PREVIEW_WIDTH = 156
@@ -24,8 +24,8 @@ class Uploaders::PosterUploader < Shrine
   Attacher.derivatives do |original|
     magick = ImageProcessing::Vips.source original
 
-    main_2x = magick.resize_to_limit MAIN_WIDTH * 2, MAIN_HEIGHT * 2
-    main = magick.resize_to_limit MAIN_WIDTH, MAIN_HEIGHT
+    main_2x = magick.resize_to_fit MAIN_WIDTH * 2, nil # MAIN_HEIGHT * 2
+    main = magick.resize_to_fit MAIN_WIDTH, nil # MAIN_HEIGHT
 
     magick_cropped = record.crop_data.blank? ?
       magick :
