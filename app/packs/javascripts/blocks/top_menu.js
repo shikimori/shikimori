@@ -91,7 +91,6 @@ $(document).on('turbolinks:load', () => {
       $trigger: $buttons,
       show,
       hide: async () => {
-        console.log('hide');
         hide();
 
         // need to properly remove focus from menu button when
