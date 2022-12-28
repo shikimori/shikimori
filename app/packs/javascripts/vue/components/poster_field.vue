@@ -161,6 +161,7 @@ onMounted(async () => {
 
 function onFileAdded(uploader, uppyFile) {
   currentSrc.value = URL.createObjectURL(uppyFile.data);
+  currentPosterId.value = null;
   uploader.uppy.reset();
 }
 
