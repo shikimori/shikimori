@@ -21,6 +21,7 @@ private
   end
 
   def poster_expired?
-    @entry.poster.created_at < expire_interval.ago
+    @entry.poster.mal_url != @image_url
+    # @entry.poster.created_at < expire_interval.ago
   end
 end
