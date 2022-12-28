@@ -58,9 +58,14 @@ describe Versioneers::PostersVersioneer do
       end
 
       context 'update existing' do
-        let!(:poster) { create :poster, :image_data_file, anime: anime }
+        let!(:poster) do
+          create :poster, :image_data_file,
+            anime: anime,
+            mal_url: mal_url
+        end
         let(:poster_id) { poster.id }
         let(:poster_data_uri) { '' }
+        let(:mal_url) { 'https://test.com/image.jpg' }
 
         it do
           expect { subject }.to change(Poster, :count).by(1)
@@ -83,7 +88,8 @@ describe Versioneers::PostersVersioneer do
             character_id: nil,
             person_id: nil,
             crop_data: poster_crop_data,
-            is_approved: false
+            is_approved: false,
+            mal_url: mal_url
           )
         end
       end

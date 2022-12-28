@@ -55,6 +55,8 @@ private
   end
 
   def create_poster data_uri:, crop_data:, poster_id:
+    existing_poster = Poster.find poster_id if poster_id.present?
+
     Poster.create(
       item_key => @item.id,
       crop_data: crop_data,
@@ -62,7 +64,10 @@ private
       **(
         data_uri.present? ?
           { image_data_uri: data_uri } :
-          { image: Poster.find(poster_id).image.download }
+          {
+            image: existing_poster.image.download,
+            mal_url: existing_poster.mal_url
+          }
       )
     )
   end
