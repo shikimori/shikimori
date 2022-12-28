@@ -28,7 +28,7 @@ private
   end
 
   def create_new_poster io
-    @entry.posters.create! image: io
+    @entry.posters.create! image: io, mal_url: @image_url
   end
 
   def policy
