@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_03_145159) do
+ActiveRecord::Schema.define(version: 2022_12_28_182632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -876,6 +876,7 @@ ActiveRecord::Schema.define(version: 2022_12_03_145159) do
     t.boolean "is_approved", default: true, null: false
     t.datetime "deleted_at"
     t.jsonb "crop_data", default: {}, null: false
+    t.string "mal_url"
     t.index ["anime_id"], name: "index_posters_on_anime_id", unique: true, where: "((anime_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"
     t.index ["character_id"], name: "index_posters_on_character_id", unique: true, where: "((character_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"
     t.index ["manga_id"], name: "index_posters_on_manga_id", unique: true, where: "((manga_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"
