@@ -65,8 +65,14 @@ Make sure `en_US.UTF-8` database collation is set [https://gist.github.com/ffmik
 
 Or you manually initialize new database with command
 ```sh
-initdb --pgdata=/usr/local/var/postgres-13 -E 'UTF-8' --lc-collate='en_US.UTF-8' --lc-ctype='en_US.UTF-8'
+initdb --pgdata=/usr/local/var/postgres-14 -E 'UTF-8' --lc-collate='en_US.UTF-8' --lc-ctype='en_US.UTF-8'
 ```
+
+Or initdb for apple M1
+```sh
+initdb --pgdata=/opt/homebrew/var/postgresql@14 -E 'UTF-8' --lc-collate='en_US.UTF-8' --lc-ctype='en_US.UTF-8'
+```
+
 
 Create rails databases
 ```sh
