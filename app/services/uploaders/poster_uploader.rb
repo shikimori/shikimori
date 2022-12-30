@@ -6,9 +6,9 @@ class Uploaders::PosterUploader < Shrine
   MAIN_WIDTH = 225
   # MAIN_HEIGHT = 350
 
-  # preview ratio: 0.6812227074
   PREVIEW_WIDTH = 156
-  PREVIEW_HEIGHT = 229
+  PREVIEW_ANIME_HEIGHT = (PREVIEW_WIDTH / 0.6812227074).to_i
+  PREVIEW_CHARACTER_HEIGHT = (PREVIEW_WIDTH / (225.0/350.0)).to_i
 
   # https://shrinerb.com/docs/plugins/activerecord
   plugin :pretty_location
@@ -36,9 +36,13 @@ class Uploaders::PosterUploader < Shrine
         record.crop_data['height']
       )
 
-    preview_2x = magick_cropped.resize_to_fill PREVIEW_WIDTH * 2, PREVIEW_HEIGHT * 2,
+    preview_height = record.anime_id || record.manga_id ?
+      PREVIEW_ANIME_HEIGHT :
+      PREVIEW_CHARACTER_HEIGHT
+
+    preview_2x = magick_cropped.resize_to_fill PREVIEW_WIDTH * 2, preview_height * 2,
       crop: :centre
-    preview = magick_cropped.resize_to_fill PREVIEW_WIDTH, PREVIEW_HEIGHT,
+    preview = magick_cropped.resize_to_fill PREVIEW_WIDTH, preview_height,
       crop: :centre
 
     {
