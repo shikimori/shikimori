@@ -5,7 +5,7 @@ import GlobalSearch from '@/views/search/global';
 
 import showModal from '@/utils/show_modal';
 import globalHandler from '@/utils/global_handler';
-import { isMobile } from 'shiki-utils';
+import { isMobile, isTablet } from 'shiki-utils';
 
 $(document).on('turbolinks:load', () => {
   const $search = $('.l-top_menu-v2 .global-search');
@@ -111,12 +111,12 @@ $(document).on('turbolinks:load', () => {
 
     $outerNode.hover(
       () => {
-        if (isMobile()) { return; }
+        if (isMobile() || isTablet()) { return; }
         needToClose = false;
         show();
       },
       () => {
-        if (isMobile()) { return; }
+        if (isMobile() || isTablet()) { return; }
         needToClose = true;
         debouncedHide();
       }
