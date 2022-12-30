@@ -201,7 +201,7 @@ class UserHistory < ApplicationRecord
     entry
   end
 
-  %w[episodes volumes chapters].each do |counter| # rubocop:disable BlockLength
+  %w[episodes volumes chapters].each do |counter|
     define_method(counter) do
       return @parsed_episodes if @parsed_episodes
       if action != UserHistoryAction.const_get(counter.upcase)

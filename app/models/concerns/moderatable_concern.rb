@@ -1,7 +1,7 @@
 module ModeratableConcern
   extend ActiveSupport::Concern
 
-  included do # rubocop:disable BlockLength
+  included do
     include AASM
     belongs_to :approver,
       class_name: 'User',

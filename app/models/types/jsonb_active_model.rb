@@ -36,7 +36,7 @@ module Types::JsonbActiveModel
   end
 
   # https://github.com/rails/rails/blob/master/activerecord/lib/active_record/type/json.rb
-  class_methods do # rubocop:disable Metrics/BlockLength
+  class_methods do
     def type
       # self
       name.underscore.to_sym

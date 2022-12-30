@@ -40,7 +40,7 @@ class Collection < ApplicationRecord
     available.or(where(state: Types::Collection::State[:opened]))
   }
 
-  aasm column: 'state', create_scopes: false do # rubocop:disable BlockLength
+  aasm column: 'state', create_scopes: false do
     state Types::Collection::State[:unpublished], initial: true
     state Types::Collection::State[:published]
     state Types::Collection::State[:private]

@@ -59,7 +59,7 @@ class Moderations::ChangelogsController < ModerationsController
 
     log_lines = `#{command}`.strip.each_line.map(&:strip).reverse
 
-    @collection = QueryObjectBase # rubocop:disable BlockLength
+    @collection = QueryObjectBase
       .new(log_lines[PER_PAGE * (page - 1), PER_PAGE])
       .paginated_slice(page, PER_PAGE)
       .lazy_map do |log_entry|

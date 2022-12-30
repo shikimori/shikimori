@@ -5,7 +5,7 @@ module Behaviour::Viewable
 
   MAX_NOT_VIEWED_INTERVAL = 1.week
 
-  included do |klass| # rubocop:disable BlockLength
+  included do |klass|
     klass.const_set(
       'VIEWED_JOINS_SELECT',
       'COALESCE(v.viewed_id, 0) > 0 AS viewed'

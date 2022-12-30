@@ -60,7 +60,7 @@ class Contest < ApplicationRecord
   validates :matches_interval, :match_duration, :matches_per_round,
     numericality: { greater_than: 0 }, presence: true
 
-  aasm column: 'state', create_scopes: false do # rubocop:disable BlockLength
+  aasm column: 'state', create_scopes: false do
     state Types::Contest::State[:created], initial: true
     state Types::Contest::State[:proposing]
     state Types::Contest::State[:started]

@@ -29,9 +29,9 @@ class ClubDecorator < DbEntryDecorator # rubocop:disable ClassLength
 
   delegate :description, to: :object
 
-  LINKED_KINDS.each do |kind| # rubocop:disable BlockLength
+  LINKED_KINDS.each do |kind|
     instance_cache :"paginated_#{kind}"
-    define_method :"paginated_#{kind}" do # rubocop:disable MethodLength
+    define_method :"paginated_#{kind}" do
       scope = respond_to?(:"all_#{kind}") ? send(:"all_#{kind}") : object.send(kind)
 
       if LINKED_ORDER[kind]

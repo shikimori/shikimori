@@ -34,11 +34,6 @@ Layout/LineLength:
   AllowedPatterns: ['\A\ *#']
   Exclude:
     - spec/**/*
-Metrics/BlockLength:
-  Exclude:
-    - spec/**/*
-  AllowedMethods:
-    - state_machine
 Style/NestedParenthesizedCalls:
   Exclude:
     - spec/**/*
@@ -56,6 +51,8 @@ Metrics/AbcSize:
 Metrics/MethodLength:
   Max: 15
 
+Metrics/BlockLength:
+  Enabled: false
 Migration/DepartmentName:
   Enabled: false
 Style/MultilineBlockChain:

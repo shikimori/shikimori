@@ -31,7 +31,7 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
 
   scope :pending, -> { where state: :pending }
 
-  aasm column: 'state' do # rubocop:disable BlockLength
+  aasm column: 'state' do
     state Types::Version::State[:pending], initial: true
     state Types::Version::State[:accepted]
     state Types::Version::State[:auto_accepted]
