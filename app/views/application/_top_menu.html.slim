@@ -100,7 +100,7 @@ a.menu-icon.forum.desktop[
       data-unread_count=([99, current_user.unread.count].min if current_user.unread.count.positive?)
       tabindex='0'
     ]
-      a.submenu-triangle href=current_user.url
+      a.submenu-triangle
         img[
           src=current_user.avatar_url(48, true)
           srcset="#{current_user.avatar_url 80, true} 2x"
