@@ -48,7 +48,7 @@ describe DbImport::PosterPolicy do
 
     describe '#desynced_poster?' do
       context 'desynced' do
-        let(:desynced) { ['poster'] }
+        let(:desynced) { [%w[poster], %w[image]].sample }
         it { is_expected.to eq false }
       end
     end

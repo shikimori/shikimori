@@ -13,7 +13,8 @@ private
   end
 
   def desynced_poster?
-    @entry.desynced.include? 'poster'
+    @entry.desynced.include?('poster') ||
+      @entry.desynced.include?('image')
   end
 
   def no_existing_poster?

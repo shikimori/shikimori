@@ -8,7 +8,7 @@ class Uploaders::PosterUploader < Shrine
 
   PREVIEW_WIDTH = 156
   PREVIEW_ANIME_HEIGHT = (PREVIEW_WIDTH / 0.6812227074).to_i
-  PREVIEW_CHARACTER_HEIGHT = (PREVIEW_WIDTH / (225.0/350.0)).to_i
+  PREVIEW_CHARACTER_HEIGHT = (PREVIEW_WIDTH / (225.0 / 350.0)).to_i
 
   # https://shrinerb.com/docs/plugins/activerecord
   plugin :pretty_location
