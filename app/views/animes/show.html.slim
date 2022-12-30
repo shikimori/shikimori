@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  = cache [@resource, user_signed_in?, :v9, current_user&.staff?] do
+  = cache [@resource, user_signed_in?, current_user&.staff? && resource.poster, :v9] do
     meta itemprop='url' content="#{{@resource.url}}"
     meta itemprop='headline' content=@resource.name
 

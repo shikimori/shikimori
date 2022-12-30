@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  - cache [@resource, params[:action], :v7] do
+  - cache [@resource, params[:action], current_user&.staff? && resource.poster, :v7] do
     .b-db_entry
       .c-image
         .cc
