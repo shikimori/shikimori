@@ -8,7 +8,7 @@ class SmotretAnime::LinkWorker
     'https://hentai365.ru/api/series/?myAnimeListId=%<mal_id>i&fields=id,title,links'
   ANIME365_URL = 'https://smotret-anime.online/catalog/%<smotret_anime_id>i'
 
-  GIVE_UP_INTERVAL = 1.month
+  GIVE_UP_INTERVAL = 2.months
 
   def perform anime_id
     anime = Anime.find_by id: anime_id
@@ -57,7 +57,8 @@ private
 
   def give_up? anime
     (anime.ongoing? || anime.released?) &&
-      anime.aired_on.present? && anime.aired_on < GIVE_UP_INTERVAL.ago
+      anime.aired_on.present? &&
+      [anime.aired_on, anime.created_at].max < GIVE_UP_INTERVAL.ago
   end
 
   def give_up anime

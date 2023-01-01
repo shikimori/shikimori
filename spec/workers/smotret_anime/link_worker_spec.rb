@@ -21,7 +21,13 @@ describe SmotretAnime::LinkWorker, :vcr do
 
   subject! { described_class.new.perform anime.id }
 
-  let(:anime) { create :anime, mal_id: mal_id, aired_on: aired_on, status: status }
+  let(:anime) do
+    create :anime,
+      mal_id: mal_id,
+      aired_on: aired_on,
+      created_at: aired_on,
+      status: status
+  end
   let(:aired_on) { 1.week.from_now }
   let(:status) { :anons }
 
