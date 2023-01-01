@@ -2,31 +2,33 @@ class BbCodes::CleanupCssClass
   method_object :value
 
   FORBIDDEN_CSS_CLASSES = %w[
+    b-achievements_notifier
+    b-admin_panel
+    b-appear_marker
+    b-comments
+    b-comments-notifier
+    b-fancy_loader
+    b-feedback
+    b-height_shortener
+    b-modal
+    b-new_marker
+    b-to-top
+    ban
+    expand
+    l-footer
     l-menu
     l-page
-    l-footer
     l-top_menu-v2
-    b-comments-notifier
-    b-achievements_notifier
-    b-fancy_loader
-    b-comments
-    b-feedback
-    b-to-top
-    b-height_shortener
-    b-new_marker
-    b-appear_marker
-    shade
-    expand
-    menu-slide-outer
     menu-slide-inner
+    menu-slide-outer
     menu-toggler
-    turbolinks-progress-bar
-    b-admin_panel
-    ban
-    mfp-wrap
+    mfp-bg
     mfp-container
-    mfp-webm-holder
     mfp-coub
+    mfp-webm-holder
+    mfp-wrap
+    shade
+    turbolinks-progress-bar
   ]
 
   CLEANUP_REGEXP = /
