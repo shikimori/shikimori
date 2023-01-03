@@ -210,7 +210,7 @@ private
     images: (1..3).map do |i|
       {
         src: "/assets/globals/events/2023-01-05/menu_#{i}.png",
-        src_2x: "/assets/globals/events/2023-01-05/menu_#{i}@2x.jpg"
+        src_2x: "/assets/globals/events/2023-01-05/menu_#{i}@2x.png"
       }
     end,
     # images: [{
@@ -235,7 +235,7 @@ private
     images: (1..4).map do |i|
       {
         src: "/assets/globals/events/2023-01-05/wide_#{i}.png",
-        src_2x: "/assets/globals/events/2023-01-05/wide_#{i}@2x.jpg"
+        src_2x: "/assets/globals/events/2023-01-05/wide_#{i}@2x.png"
       }
     end,
     # images: [{
