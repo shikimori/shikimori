@@ -35,5 +35,5 @@
     = render 'db_entries/menu/news_topics',
       resource: resource
 
-    - unless @itemtype
-      = render 'spnsrs/ad', ad: Ad.new(:menu_240x400)
+  - unless @itemtype
+    = render 'spnsrs/ad', ad: Ad.new(:menu_240x400)
