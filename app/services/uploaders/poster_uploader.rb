@@ -48,12 +48,12 @@ class Uploaders::PosterUploader < Shrine
     {
       main_2x: main_2x.convert!('webp'),
       main: main.convert!('webp'),
-      main_alt_2x: main_2x.call!,
-      main_alt: main.call!,
+      main_alt_2x: main_2x.call!, # .convert!('png'), # .call!,
+      main_alt: main.call!, # .convert!('png'), # .call!,
       preview_2x: preview_2x.convert!('webp'),
       preview: preview.convert!('webp'),
-      preview_alt_2x: preview_2x.call!,
-      preview_alt: preview.call!
+      preview_alt_2x: preview_2x.call!, # .convert!('png'), # .call!,
+      preview_alt: preview.call! # .convert!('png') # .call!
     }
   end
 
