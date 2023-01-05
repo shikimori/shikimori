@@ -121,6 +121,7 @@ en:
         unpublished: Not published
         private: Private
         opened: Opened
+        coauthored: Coauthored
       nickname_changes: "User's nicknames"
 
     edit:
