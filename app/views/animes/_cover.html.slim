@@ -1,10 +1,9 @@
 span.image-decor
   span.image-cutter
-    img[
-      src=cdn_image_url(anime, :preview)
-      srcset="#{cdn_image_url anime, :original} 2x"
-      alt=anime.name
-    ]
+    = render 'db_entries/poster',
+      db_entry: anime,
+      poster: anime.poster,
+      derivative: :preview
 
 - if cover_title != :none
   - if cover_by == :link

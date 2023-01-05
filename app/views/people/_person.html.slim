@@ -26,11 +26,10 @@ article.c-column.b-catalog_entry.c-person[
   ]
     span.image-decor
       span.image-cutter
-        img[
-          src=cdn_image_url(person, :preview)
-          srcset="#{cdn_image_url person, :original} 2x"
-          alt=person.name
-        ]
+        = render 'db_entries/poster',
+          db_entry: person,
+          poster: person.poster,
+          derivative: :preview
 
     - if cover_title != :none
       - if cover_by == :link
