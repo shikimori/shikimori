@@ -1,52 +1,52 @@
 .b-catalog_entry-tooltip
-  - if defined?(with_image) && with_image
-    a href=person_url(person) title=localized_name(person)
-      img.image[
-        src=cdn_image_url(person, :preview)
-        srcset="#{cdn_image_url person, :original} 2x"
-        alt=person.name
-      ]
+  .entry-tooltip_container
+    - if defined?(with_image) && with_image
+      a href=person_url(person) title=localized_name(person)
+        = render 'db_entries/poster',
+          db_entry: person,
+          poster: person.poster,
+          derivative: :preview
 
-  .inner.p0 class=(:offset if defined?(with_image) && with_image)
-    .line itemprop='name'
-      .data.name
-        - if !defined?(cover_by) || cover_by != :link
-          a.data.name[
-            href=person_url(person)
-            title=person.name
-            itemprop='name'
-          ] = localization_span person
+    .inner
+      .line itemprop='name'
+        .data.name
+          - if !defined?(cover_by) || cover_by != :link
+            a.data.name[
+              href=person_url(person)
+              title=person.name
+              itemprop='name'
+            ] = localization_span person
 
-        - else
-          .linkeable.name[
-            data-href=person_url(person)
-            data-title=person.name
-          ] = localization_span person
+          - else
+            .linkeable.name[
+              data-href=person_url(person)
+              data-title=person.name
+            ] = localization_span person
 
-        .job-title
-          = person.job_title
+          .job-title
+            = person.job_title
 
-    .text itemprop='description'
-      - if @resource.japanese.present?
-        = info_line t('in_japanese'), @resource.japanese
-      - if @resource.birth_on
-        = info_line Person.human_attribute_name(:birth_on), @resource.birth_on.human(false)
-      - if @resource.deceased_on
-        = info_line Person.human_attribute_name(:deceased_on), @resource.deceased_on.human(false)
-      - if @resource.website.present?
-        = info_line Person.human_attribute_name(:website), @resource.website_html
+      .text itemprop='description'
+        - if @resource.japanese.present?
+          = info_line t('in_japanese'), @resource.japanese
+        - if @resource.birth_on
+          = info_line Person.human_attribute_name(:birth_on), @resource.birth_on.human(false)
+        - if @resource.deceased_on
+          = info_line Person.human_attribute_name(:deceased_on), @resource.deceased_on.human(false)
+        - if @resource.website.present?
+          = info_line Person.human_attribute_name(:website), @resource.website_html
 
-    - if person.main_role?(:seyu)
-      .line
-        .key #{t '.best_roles'}:&nbsp;
-      .cc-4a.best-works
-        /# Template Dependency: characters/character
-        = render person.best_roles.take(4), cover_by: :image_link
+      - if person.main_role?(:seyu)
+        .line
+          .key #{t '.best_roles'}:&nbsp;
+        .cc-4a.best-works
+          /# Template Dependency: characters/character
+          = render person.best_roles.take(4), cover_by: :image_link
 
-    - else
-      .line.works
-        .key #{t '.best_works'}:&nbsp;
-      .cc-4a.best-works
-        /# Template Dependency: animes/anime
-        /# Template Dependency: mangas/manga
-        = render person.best_works.take(4), cover_by: :image_link
+      - else
+        .line.works
+          .key #{t '.best_works'}:&nbsp;
+        .cc-4a.best-works
+          /# Template Dependency: animes/anime
+          /# Template Dependency: mangas/manga
+          = render person.best_works.take(4), cover_by: :image_link
