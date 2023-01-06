@@ -43,21 +43,6 @@
             - else
               .b-js-action = t 'moderators_only'
 
-        - if can?(:sync, resource) && resource.mal_id
-          li
-            .field = @resource.class.human_attribute_name(:image)
-            .value
-              - is_refreshing = Rails.cache.read([resource.object.class.base_class.name.downcase, :refresh_poster, resource.id])
-              - if is_refreshing && @resource.image.blank?
-                span
-                  b = t '.syncing'
-              - else
-                a.b-button.run-poster-updater[
-                  href=resource.refresh_poster_url
-                  data-method='post'
-                  data-confirm=t('actions.confirm_sync')
-                ] = t '.refresh'
-
     - if can? :restricted_update, Version
       .f-column
         ul.b-list.is-wide

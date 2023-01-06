@@ -106,23 +106,6 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
     )
   end
 
-  def refresh_poster
-    authorize! :sync, resource_klass
-
-    id = @resource ? @resource.mal_id : params[:db_entry][:mal_id]
-    type = resource_klass.base_class.name.downcase
-
-    reset_poster @resource
-
-    MalParsers::FetchEntry.perform_async id, type
-    Rails.cache.write [type, :refresh_poster, id], true, expires_in: 5.minutes
-
-    redirect_back(
-      fallback_location: @resource ? @resource.edit_url : moderations_url,
-      notice: i18n_t('sync_scheduled')
-    )
-  end
-
   def refresh_stats
     authorize! :refresh_stats, resource_klass
 
