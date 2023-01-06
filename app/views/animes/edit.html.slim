@@ -70,10 +70,9 @@
       .f-column
         ul.b-list.is-wide
           - is_screenshots = @resource.anime? && @resource.screenshots_allowed?
-          - %i[image poster description_ru description_en screenshots videos imageboard_tag coub_tags external_links fansubbers fandubbers].delete_if { |v| v == :screenshots && !is_screenshots }.each do |field|
+          - %i[poster description_ru description_en screenshots videos imageboard_tag coub_tags external_links fansubbers fandubbers].delete_if { |v| v == :screenshots && !is_screenshots }.each do |field|
             - next if field == :imageboard_tag && !Shikimori::IS_IMAGEBOARD_TAGS_ENABLED
-            - next if field == :image && @resource.rkn_abused?
-            - next if field == :poster && !current_user.staff?
+            - next if field == :poster && @resource.rkn_abused?
 
             = render 'db_entries/edit_field_li',
               resource: @resource,
@@ -81,7 +80,7 @@
               class: ('m15' if %i[description_en videos external_links].include? field),
               formatter: {\
                 image: ->(_value) {},
-                poster: ->(_value) { '<code class="b-code_inline">новый формат</code>'.html_safe },
+                poster: ->(_value) {},
                 description_ru: ->(_value) {},
                 description_en: ->(_value) {},
                 screenshots: ->(value) { "#{value.size} #{i18n_i 'screenshot', value.size}" },
