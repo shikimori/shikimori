@@ -7,10 +7,9 @@
         .label #{t '.before'}:
         .d-flex
           .mr-5
-            = render 'db_entries/poster',
-              db_entry: version.associated,
-              poster: prev_poster,
-              derivative: :main
+            = render 'db_entries/poster_magnificable',
+              resource: version.associated,
+              poster: prev_poster
           = render 'db_entries/poster',
             db_entry: version.associated,
             poster: prev_poster,
@@ -22,10 +21,9 @@
       .d-flex
         - if version.item
           .mr-5
-            = render 'db_entries/poster',
-              db_entry: version.associated,
-              poster: version.item,
-              derivative: :main
+            = render 'db_entries/poster_magnificable',
+              resource: version.associated,
+              poster: version.item
           = render 'db_entries/poster',
             db_entry: version.associated,
             poster: version.item,
