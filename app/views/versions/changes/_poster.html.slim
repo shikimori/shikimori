@@ -10,23 +10,33 @@
             = render 'db_entries/poster_magnificable',
               resource: version.associated,
               poster: prev_poster
-          = render 'db_entries/poster',
-            db_entry: version.associated,
-            poster: prev_poster,
-            derivative: :preview
+          div
+            - if prev_poster.crop_data.present? && (prev_poster.image_data['metadata']['width'] != prev_poster.crop_data['width'] || prev_poster.image_data['metadata']['height'] != prev_poster.crop_data['height'])
+              div
+                ' #{prev_poster.image_data['metadata']['width']}x#{prev_poster.image_data['metadata']['height']} ➞
+                | #{prev_poster.crop_data['width']}x#{prev_poster.crop_data['height']}
+            = render 'db_entries/poster',
+              db_entry: version.associated,
+              poster: prev_poster,
+              derivative: :preview
 
     .change
       - if prev_poster
-        .label #{t '.after'}:
+        .label.d-block.mt-3 #{t '.after'}:
       .d-flex
         - if version.item
           .mr-5
             = render 'db_entries/poster_magnificable',
               resource: version.associated,
               poster: version.item
-          = render 'db_entries/poster',
-            db_entry: version.associated,
-            poster: version.item,
-            derivative: :preview
+          div
+            - if version.item.crop_data.present? && (version.item.image_data['metadata']['width'] != version.item.crop_data['width'] || version.item.image_data['metadata']['height'] != version.item.crop_data['height'])
+              div
+                ' #{version.item.image_data['metadata']['width']}x#{version.item.image_data['metadata']['height']} ➞
+                | #{version.item.crop_data['width']}x#{version.item.crop_data['height']}
+            = render 'db_entries/poster',
+              db_entry: version.associated,
+              poster: version.item,
+              derivative: :preview
         - else
           i = t '.deleted'
