@@ -18,6 +18,6 @@ class CleanupTestPosters < ActiveRecord::Migration[6.1]
         end
     end
     Versions::PosterVersion.destroy_all
-    Poster.where.not(deleted_at: nil).destroy_all
+    Poster.destroy_all
   end
 end
