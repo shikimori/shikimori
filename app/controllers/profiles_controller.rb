@@ -130,7 +130,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def collections # rubocop:disable AbcSize
-    @state = params[:state] || 'published'
+    @state = (params[:state].presence || :published).to_sym
     is_full_access = can?(:access_collections, @resource)
 
     og noindex: true
@@ -146,20 +146,20 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       .joins('left join collections on collections.id = linked_id')
 
     coauthored_public_collections_scope =
-      coauthored_collections_scope.where(collections: { state: %w[opened published] })
+      coauthored_collections_scope.where(collections: { state: %i[opened published] })
 
     @counts = own_collections_scope.except(:order).group('collections.state').count
 
-    @counts['coauthored'] = is_full_access ?
+    @counts[:coauthored] = is_full_access ?
       coauthored_collections_scope.count :
       coauthored_public_collections_scope.count
 
     @available_states = is_full_access ?
-      %w[private opened unpublished coauthored] :
-      %w[opened coauthored]
+      %i[private opened unpublished coauthored] :
+      %i[opened coauthored]
 
     scope =
-      if @state == 'coauthored'
+      if @state == :coauthored
         is_full_access ? coauthored_collections_scope : coauthored_public_collections_scope
       elsif @state.in?(@available_states)
         own_collections_scope.where(collections: { state: @state })
