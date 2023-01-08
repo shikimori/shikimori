@@ -281,15 +281,15 @@ private
     images: [{
       src: '/assets/globals/events/2023-01-07/inner_1.png',
       src_2x: '/assets/globals/events/2023-01-07/inner_1@2x.png',
-      url: 'https://nikifilini.com/product-category/limited-edition/?orderby=popularity&utm_source=Partners&utm_medium=shikimori&utm_campaign=comments'
+      url: 'https://bit.ly/3GPMhHV'
     }, {
       src: '/assets/globals/events/2023-01-07/inner_2.png',
       src_2x: '/assets/globals/events/2023-01-07/inner_2@2x.png',
-      url: 'https://nikifilini.com/product-category/limited-edition/?orderby=popularity&utm_source=Partners&utm_medium=shikimori&utm_campaign=comments2'
+      url: 'https://bit.ly/3Cu3WCo'
     }, {
       src: '/assets/globals/events/2023-01-07/inner_3.png',
       src_2x: '/assets/globals/events/2023-01-07/inner_3@2x.png',
-      url: 'https://nikifilini.com/product-category/limited-edition/?orderby=popularity&utm_source=Partners&utm_medium=shikimori&utm_campaign=comments3'
+      url: 'https://bit.ly/3GO5PMu'
     }],
     # AD END
     placement: Types::Ad::Placement[:content],
