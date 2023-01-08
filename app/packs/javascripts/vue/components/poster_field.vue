@@ -82,7 +82,7 @@ const props = defineProps({
 });
 
 const aspectRatio = props.previewWidth / props.previewHeight;
-const missingSrc = '/assets/globals/missing_original.jpg';
+const missingSrc = '/assets/globals/missing/main@2x.png';
 
 const currentSrc = ref(props.src);
 const vueCropperRef = ref(null);
