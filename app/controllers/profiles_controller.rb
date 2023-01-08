@@ -161,10 +161,10 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     scope =
       if @state == :coauthored
         is_full_access ? coauthored_collections_scope : coauthored_public_collections_scope
-      elsif @state.in?(@available_states)
+      elsif @state.in?(@available_states + %i[published])
         own_collections_scope.where(collections: { state: @state })
       else
-        own_collections_scope.where(collections: { state: :published })
+        own_collections_scope.none
       end
 
     @collection = QueryObjectBase.new(scope)
