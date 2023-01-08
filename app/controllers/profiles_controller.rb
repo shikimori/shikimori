@@ -129,7 +129,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       end
   end
 
-  def collections # rubocop:disable AbcSize
+  def collections # rubocop:disable AbcSize, MethodLength
     @state = (params[:state].presence || :published).to_sym
     is_full_access = can?(:access_collections, @resource)
 
@@ -148,7 +148,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     coauthored_public_collections_scope =
       coauthored_collections_scope.where(collections: { state: %i[opened published] })
 
-    @counts = own_collections_scope.except(:order).group('collections.state').count
+    @counts = own_collections_scope.except(:order).group('collections.state').count.symbolize_keys
 
     @counts[:coauthored] = is_full_access ?
       coauthored_collections_scope.count :

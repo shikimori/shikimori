@@ -5,11 +5,11 @@
       class=(:selected unless params.key?(:state))
     ]
       = t '.collections.published'
-      span.brackets = @counts['published'] || 0
+      span.brackets = @counts[:published] || 0
     - @available_states.each do |state|
       a[
         href=current_url(state: state)
-        class=(:selected if params[:state] == state)
+        class=(:selected if @state == state)
       ]
         = t ".collections.#{state}"
         span.brackets = @counts[state] || 0
