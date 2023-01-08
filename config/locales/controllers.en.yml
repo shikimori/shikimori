@@ -38,6 +38,8 @@ en:
       opened:
         Hidden collections is not displayed in collections section and on the forum, is not moderated,
         visible in the author's profile.
+      coauthored:
+        Coauthored collections is visible in the coauthor's profile.
 
   dialogs_controller:
     <<: *profiles_controller

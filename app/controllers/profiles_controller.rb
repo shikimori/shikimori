@@ -129,32 +129,46 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       end
   end
 
-  def collections
-    @state = params[:state] || 'published'
+  def collections # rubocop:disable AbcSize, MethodLength
+    @state = (params[:state].presence || :published).to_sym
+    is_full_access = can?(:access_collections, @resource)
 
     og noindex: true
     og page_title: i18n_io('Collection', :few)
     og notice: i18n_t("collections.#{@state}")
 
-    scope = @resource.topics
+    own_collections_scope = @resource.topics
       .where(type: Topics::EntryTopics::CollectionTopic.name)
       .joins('left join collections on collections.id = linked_id')
-      .order(created_at: :desc)
 
-    @available_states = can?(:access_collections, @resource) ?
-      %w[private opened unpublished] :
-      %w[opened]
+    coauthored_collections_scope = Topics::EntryTopics::CollectionTopic
+      .where(linked_id: @resource.collection_roles.pluck(:collection_id))
+      .joins('left join collections on collections.id = linked_id')
 
-    @counts = scope.except(:order).group('collections.state').count
+    coauthored_public_collections_scope =
+      coauthored_collections_scope.where(collections: { state: %i[opened published] })
+
+    @counts = own_collections_scope.except(:order).group('collections.state').count.symbolize_keys
+
+    @counts[:coauthored] = is_full_access ?
+      coauthored_collections_scope.count :
+      coauthored_public_collections_scope.count
+
+    @available_states = is_full_access ?
+      %i[private opened unpublished coauthored] :
+      %i[opened coauthored]
 
     scope =
-      if @state.in?(@available_states)
-        scope.where(collections: { state: @state })
+      if @state == :coauthored
+        is_full_access ? coauthored_collections_scope : coauthored_public_collections_scope
+      elsif @state.in?(@available_states + %i[published])
+        own_collections_scope.where(collections: { state: @state })
       else
-        scope.where(collections: { state: :published })
+        own_collections_scope.none
       end
 
     @collection = QueryObjectBase.new(scope)
+      .order(created_at: :desc)
       .paginate(@page, TOPICS_LIMIT)
       .lazy_map { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
