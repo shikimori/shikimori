@@ -22,8 +22,8 @@ class Uploaders::PosterUploader < Shrine
   plugin :data_uri
 
   Attacher.derivatives do |original|
-    magick = ImageProcessing::Vips.source(original).saver(quality: 94)
-    # magick = ImageProcessing::MiniMagick.source(original).saver(quality: 94)
+    # magick = ImageProcessing::Vips.source(original).saver(quality: 94)
+    magick = ImageProcessing::MiniMagick.source(original).saver(quality: 94)
 
     main_2x = magick.resize_to_fit MAIN_WIDTH * 2, nil # MAIN_HEIGHT * 2
     main = magick.resize_to_fit MAIN_WIDTH, nil # MAIN_HEIGHT
@@ -41,13 +41,15 @@ class Uploaders::PosterUploader < Shrine
       PREVIEW_ANIME_HEIGHT :
       PREVIEW_CHARACTER_HEIGHT
 
-    # preview_2x = magick_cropped.resize_to_fill PREVIEW_WIDTH * 2, preview_height * 2
-    # preview = magick_cropped.resize_to_fill PREVIEW_WIDTH, preview_height
-
     preview_2x = magick_cropped.resize_to_fill PREVIEW_WIDTH * 2, preview_height * 2,
-      crop: :centre
+      gravity: :center
     preview = magick_cropped.resize_to_fill PREVIEW_WIDTH, preview_height,
-      crop: :centre
+      gravity: :center
+
+    # preview_2x = magick_cropped.resize_to_fill PREVIEW_WIDTH * 2, preview_height * 2,
+    #   crop: :centre
+    # preview = magick_cropped.resize_to_fill PREVIEW_WIDTH, preview_height,
+    #   crop: :centre
 
     {
       main_2x: main_2x.convert!('webp'),
