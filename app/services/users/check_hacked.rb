@@ -14,6 +14,7 @@ class Users::CheckHacked
     shikme.z86.ru
     shikme.naru.to
     shiki.morry.ru
+    dream69.xyz
   ]
   SPAM_LINKS = %w[
     discord.com/invite/hVybUWQQGS
