@@ -98,7 +98,7 @@ $(document).on('turbolinks:load', () => {
         await delay();
         $buttons.blur();
       },
-      isIgnored: () => !isMobile() && isProfile,
+      isIgnored: () => !isMobile(false) && isProfile,
       isHidden: () => !$outerNode.hasClass('active')
     });
 
@@ -111,12 +111,12 @@ $(document).on('turbolinks:load', () => {
 
     $outerNode.hover(
       () => {
-        if (isMobile()) { return; }
+        if (isMobile(false)) { return; }
         needToClose = false;
         show();
       },
       () => {
-        if (isMobile()) { return; }
+        if (isMobile(false)) { return; }
         needToClose = true;
         debouncedHide();
       }

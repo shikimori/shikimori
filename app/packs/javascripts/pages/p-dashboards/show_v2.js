@@ -34,7 +34,7 @@ pageUnload('dashboards_show', () => {
 async function reInitSwipers() {
   destroySwipers();
 
-  if (!isMobile() && !isPhone()) { return; }
+  if (!isMobile()) { return; }
 
   const { default: Swiper } =
     await import(/* webpackChunkName: "swiper" */ '@/vendor/async/swiper');

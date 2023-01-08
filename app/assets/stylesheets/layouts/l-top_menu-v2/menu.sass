@@ -98,10 +98,6 @@
         margin: 0 -15px
         padding: 0 15px
 
-        // to prevent link click on mobile
-        +lte_ipad
-          pointer-events: none
-
         +gte_laptop
           &:hover
             transition: background 0.2s ease
@@ -118,11 +114,7 @@
       +iphone
         & span,
         & a span
-            display: none
-
-      +lte_ipad
-        a
-          pointer-events: none
+          display: none
 
     +iphone
       & > span[data-unread_count]:after

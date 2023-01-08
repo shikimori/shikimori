@@ -1,4 +1,5 @@
 import delay from 'delay';
+import { isMobile } from 'shiki-utils';
 
 export default function showModal({
   $modal,
@@ -16,9 +17,13 @@ export default function showModal({
     return isHidden ? isHidden() : $modal.css('display') === 'none';
   }
 
-  function toggleModal({ type }) {
-    if (type !== 'focus' && isIgnored && isIgnored()) { return; }
-    const eventName = checkHidden() || type === 'focus' ?
+  function toggleModal(e) {
+    if (e.type !== 'focus' && isIgnored && isIgnored()) { return; }
+    if (e.type === 'click') {
+      if (isMobile(false)) { e.preventDefault(); }
+      return;
+    }
+    const eventName = checkHidden() || e.type === 'focus' ?
       'modal:show' :
       'modal:hide';
 
@@ -57,9 +62,9 @@ export default function showModal({
   }
 
   if ($trigger.constructor === String) {
-    $(document).on('mousedown focus', $trigger, toggleModal);
+    $(document).on('mousedown focus click', $trigger, toggleModal);
   } else {
-    $trigger.on('mousedown focus', toggleModal);
+    $trigger.on('mousedown focus click', toggleModal);
   }
 
   $modal

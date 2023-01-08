@@ -8554,9 +8554,9 @@ shiki-uploader@^1.1.1:
     is-visible "^2.2.0"
 
 shiki-utils@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-1.0.1.tgz#525ef9161ce2583187e27ae171e3df69e9488566"
-  integrity sha512-P3RyVl8oSn4ZxiH/j2WuvDLMNVbtELbmNWSI7MktTKj/MGTKg3DgyguV3fX7MOczVw1ips4ETSLETEvpI8xbNQ==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-1.1.0.tgz#e47d04f0bccdf1821ae20fbf354d0b0a6c81f22a"
+  integrity sha512-0S4n9EmT1n2Qcjm1hCrf0+Uiy4PtyLkZDjpHYrGfqhBYSjMe+09whEFFjlluZuQSher6RJaRVktRqotk3aXm9w==
   dependencies:
     ismobilejs "^1.1.1"
     toastify-js "^1.8.0"
