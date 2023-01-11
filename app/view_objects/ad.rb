@@ -279,10 +279,6 @@ private
     provider: Types::Ad::Provider[:special],
     # AD START: NIKIFILINI - remove 2023-01-21 23:59
     images: [{
-      src: '/assets/globals/events/2023-01-07/inner_1.png',
-      src_2x: '/assets/globals/events/2023-01-07/inner_1@2x.png',
-      url: 'https://bit.ly/3GPMhHV'
-    }, {
       src: '/assets/globals/events/2023-01-07/inner_2.png',
       src_2x: '/assets/globals/events/2023-01-07/inner_2@2x.png',
       url: 'https://bit.ly/3Cu3WCo'
