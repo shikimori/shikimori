@@ -71,6 +71,7 @@ class BbCodes::Text # rubocop:disable ClassLength
        (?:[^.]\.)?chatree.net |
        #{Users::CheckHacked::SPAM_DOMAINS.join '|'} |
        shikimori.cc |
+       fillboards.com |
        t.me/rezero_translation # copyright request
       )
   }mix
