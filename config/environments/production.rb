@@ -72,7 +72,7 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
   config.cache_store = :mem_cache_store, 'localhost', {
-    namespace: 'shiki',
+    namespace: 'shiki_v2',
     compress: true,
     value_max_bytes: 1024 * 1024 * 32
   }
