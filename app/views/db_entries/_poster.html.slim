@@ -8,7 +8,7 @@
       alt=localized_name(db_entry)
       src=cdn_poster_url(db_entry: db_entry, poster: poster, derivative: :"#{derivative}_alt")
       srcset='#{cdn_poster_url db_entry: db_entry, poster: poster, derivative: :"#{derivative}_alt_2x"} 2x'
-      loading='lazy'
+      loading=(:lazy unless derivative == :main)
     ]
 - else
   img[
