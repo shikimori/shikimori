@@ -33,7 +33,7 @@ function simpleBar($chart, options) {
   const field = options.field || 'value';
   let stats = $chart.data('stats');
 
-  if (options.map) {
+  if (stats && options.map) {
     stats = stats.map(entry => options.map(entry));
   }
   if (!stats || !stats.length) {

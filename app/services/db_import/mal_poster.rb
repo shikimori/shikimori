@@ -1,13 +1,4 @@
 class DbImport::MalPoster < DbImport::MalImage
-  method_object %i[entry! image_url! proxy]
-
-  PROXY_OPTIONS = {
-    timeout: 30,
-    validate_jpg: true,
-    return_file: true,
-    log: true
-  }
-
   def call
     return unless policy.need_import?
 

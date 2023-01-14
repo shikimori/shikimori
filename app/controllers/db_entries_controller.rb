@@ -106,23 +106,6 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
     )
   end
 
-  def refresh_poster
-    authorize! :sync, resource_klass
-
-    id = @resource ? @resource.mal_id : params[:db_entry][:mal_id]
-    type = resource_klass.base_class.name.downcase
-
-    reset_poster @resource
-
-    MalParsers::FetchEntry.perform_async id, type
-    Rails.cache.write [type, :refresh_poster, id], true, expires_in: 5.minutes
-
-    redirect_back(
-      fallback_location: @resource ? @resource.edit_url : moderations_url,
-      notice: i18n_t('sync_scheduled')
-    )
-  end
-
   def refresh_stats
     authorize! :refresh_stats, resource_klass
 
@@ -269,24 +252,5 @@ private
 
     version.auto_accept! if version.persisted? && can?(:auto_accept, version)
     version
-  end
-
-  def reset_poster resource
-    return if resource.image.blank? && resource.desynced.exclude?('image')
-
-    Versioneers::FieldsVersioneer
-      .new(resource.object)
-      .premoderate(
-        {
-          image: nil,
-          desynced: resource.desynced - %w[image]
-        },
-        current_user,
-        'refresh_poster'
-      )
-      .accept!(moderator: current_user)
-
-    # additional desynced update becase desynced bould be nil before
-    resource.update desynced: resource.desynced - %w[image]
   end
 end

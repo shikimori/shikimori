@@ -11,16 +11,15 @@
 
       .f-column
         ul.b-list.is-wide
-          - %i[image poster description_ru description_en imageboard_tag].each do |field|
+          - %i[poster description_ru description_en imageboard_tag].each do |field|
             - next if field == :imageboard_tag && (@resource.rkn_art_abused? || !Shikimori::IS_IMAGEBOARD_TAGS_ENABLED)
-            - next if field == :poster && !current_user.staff?
+            - next if field == :poster && @resource.rkn_abused?
 
             = render 'db_entries/edit_field_li',
               resource: @resource,
               field: field,
               formatter: {\
-                image: ->(_value) {},
-                poster: ->(_value) { '<code class="b-code_inline">новый формат</code>'.html_safe },
+                poster: ->(_value) {},
                 description_ru: ->(_value) {},
                 description_en: ->(_value) {}\
               }[field],
