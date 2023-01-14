@@ -102,10 +102,10 @@ let isInitialOnCrop = true;
 const onCrop = e => {
   const canvasData = vueCropperRef.value.getCanvasData();
 
-  sizes.naturalWidth = Math.ceil(canvasData.naturalWidth);
-  sizes.naturalHeight = Math.ceil(canvasData.naturalHeight);
-  sizes.width = Math.ceil(e.detail.width);
-  sizes.height = Math.ceil(e.detail.height);
+  sizes.naturalWidth = Math.round(canvasData.naturalWidth);
+  sizes.naturalHeight = Math.round(canvasData.naturalHeight);
+  sizes.width = Math.round(e.detail.width);
+  sizes.height = Math.round(e.detail.height);
 
   if (props.cropData && isInitialOnCrop) {
     isInitialOnCrop = false;
