@@ -29,9 +29,9 @@ module ErrorsConcern
     capture_raven error if defined? Raven
     capture_sentry error if defined? Sentry
 
-    NamedLogger
-      .send("#{Rails.env}_errors")
-      .error("#{error.message}\n#{error.backtrace.join("\n")}")
+    # NamedLogger
+    #   .send("#{Rails.env}_errors")
+    #   .error("#{error.message}\n#{error.backtrace.join("\n")}")
     Rails.logger.error("#{error.message}\n#{error.backtrace.join("\n")}")
 
     raise error if (request.ip == '127.0.0.1' || request.ip == '::1') && (
