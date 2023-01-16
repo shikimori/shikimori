@@ -243,6 +243,9 @@ function ratioY() {
   max-width: 100%
   width: 450px
 
+::v-deep(.cropper-hide)
+  display: none
+
 ::v-deep(.cropper-disabled)
   .cropper-view-box
     outline-color: rgba(#a630ff, 0.75)
