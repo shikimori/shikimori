@@ -90,6 +90,7 @@ const uploaderRef = ref(null);
 const templateRef = ref(null);
 const isDisabled = ref(false);
 const currentPosterId = ref(props.posterId);
+const originalImagedataUri = ref(null);
 
 const sizes = reactive({
   naturalWidth: 0,
@@ -139,11 +140,12 @@ defineExpose({
   toDataURI() {
     return currentPosterId.value ?
       null :
-      vueCropperRef.value
-        .crop()
-        .clear()
-        .getCroppedCanvas()
-        .toDataURL();
+      originalImagedataUri.value;
+      // vueCropperRef.value
+      //   .crop()
+      //   .clear()
+      //   .getCroppedCanvas()
+      //   .toDataURL();
   }
 });
 
@@ -159,10 +161,16 @@ onMounted(async () => {
     .on('upload:file:added', ({ target }, file) => onFileAdded(target, file));
 });
 
-function onFileAdded(uploader, uppyFile) {
+async function onFileAdded(uploader, uppyFile) {
   currentSrc.value = URL.createObjectURL(uppyFile.data);
   currentPosterId.value = null;
   uploader.uppy.reset();
+
+  originalImagedataUri.value = await new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.readAsDataURL(uppyFile.data);
+  });
 }
 
 function clear() {
