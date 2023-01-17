@@ -183,6 +183,8 @@ const syncPreviewImage = debounce(100, () => {
   const img = templateRef.value.querySelector('img');
   const exportedDataUri = vueCropperRef.value.getCroppedCanvas()?.toDataURL();
 
+  templateRef.value.querySelector('source')?.remove();
+
   img.srcset = '';
   img.src = exportedDataUri || missingSrc;
 });
@@ -242,9 +244,6 @@ function ratioY() {
 .cropper-container
   max-width: 100%
   width: 450px
-
-::v-deep(.cropper-hide)
-  display: none
 
 ::v-deep(.cropper-disabled)
   .cropper-view-box
