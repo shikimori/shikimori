@@ -25,6 +25,7 @@ describe Critique::Create do
       expect(critique.errors).to be_empty
 
       expect(critique.topic).to be_present
+      expect(critique.topic.forum_id).to eq Forum::CRITIQUES_ID
       expect(critique.topic.is_censored).to eq is_censored
     end
   end
