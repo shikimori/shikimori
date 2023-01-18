@@ -1,51 +1,51 @@
 .b-catalog_entry-tooltip
-  - if defined?(with_image) && with_image
-    a href=character_url(character) title=character.name
-      img.image[
-        src=cdn_image_url(character, :preview)
-        srcset="#{cdn_image_url character, :original} 2x"
-        alt=character.name
-      ]
+  .entry-tooltip_container
+    - if defined?(with_image) && with_image
+      a href=character_url(character) title=character.name
+        = render 'db_entries/poster',
+          db_entry: character,
+          poster: character.poster,
+          derivative: :preview
 
-  .inner.p0 class=(:offset if defined?(with_image) && with_image)
-    .line itemprop="name"
-      - if !defined?(cover_by) || cover_by != :link
-        a.data.name[
-          href=character_url(character)
-          title=character.name
-          itemprop="name"
-        ] = localization_span character
+    .inner
+      .line itemprop='name'
+        - if !defined?(cover_by) || cover_by != :link
+          a.data.name[
+            href=character_url(character)
+            title=character.name
+            itemprop='name'
+          ] = localization_span character
 
-      - else
-        .linkeable.name[
-          data-href=character_url(character)
-          data-title=character.name
-        ] = localization_span character
+        - else
+          .linkeable.name[
+            data-href=character_url(character)
+            data-title=character.name
+          ] = localization_span character
 
-    - if character.best_works.any?
-      .additional-images
-        .link
-          .title = character.best_works.first.object.class.model_name.human
-          a.bubbled[
-            href=url_for(character.best_works.first)
-            title=character.best_works.first.name
-          ]
-            img[
-              src=cdn_image_url(character.best_works.first, :x48)
-              srcset="#{cdn_image_url character.best_works.first, :x96} 2x"
-            ]
-
-        - if character.top_seyu.any?
+      - if character.best_works.any?
+        .additional-images
           .link
-            .title = t 'seyu'
+            .title = character.best_works.first.object.class.model_name.human
             a.bubbled[
-              href=person_url(character.top_seyu.first)
-              title=character.top_seyu.first.name
+              href=url_for(character.best_works.first)
+              title=character.best_works.first.name
             ]
               img[
-                src=cdn_image_url(character.top_seyu.first, :x48)
-                srcset="#{cdn_image_url character.top_seyu.first, :x96} 2x"
+                src=cdn_image_url(character.best_works.first, :x48)
+                srcset="#{cdn_image_url character.best_works.first, :x96} 2x"
               ]
 
-    .text itemprop="description"
-      = character.decorate.description_html_truncated 250
+          - if character.top_seyu.any?
+            .link
+              .title = t 'seyu'
+              a.bubbled[
+                href=person_url(character.top_seyu.first)
+                title=character.top_seyu.first.name
+              ]
+                img[
+                  src=cdn_image_url(character.top_seyu.first, :x48)
+                  srcset="#{cdn_image_url character.top_seyu.first, :x96} 2x"
+                ]
+
+      .text itemprop='description'
+        = character.decorate.description_html_truncated 250

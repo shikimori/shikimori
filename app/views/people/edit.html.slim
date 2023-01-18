@@ -14,15 +14,12 @@
 
       .f-column
         ul.b-list.is-wide
-          - %i[image poster].each do |field|
-            - next if field == :poster && !current_user.staff?
-
+          - %i[poster].each do |field|
             = render 'db_entries/edit_field_li',
               resource: @resource,
               field: field,
               formatter: {\
-                image: ->(_value) {},
-                poster: ->(_value) { '<code class="b-code_inline">новый формат</code>'.html_safe }\
+                poster: ->(_value) {}\
               }[field],
               is_force_value: field == :poster
 

@@ -19,7 +19,9 @@
       .c-image
         .cc.block
           .c-poster
-            = render 'db_entries/poster_magnificable', resource: @resource
+            = render 'db_entries/poster_magnificable',
+              resource: @resource,
+              poster: @resource.poster
 
           .c-actions
             .b-subposter-actions

@@ -4,8 +4,8 @@ class BbCodes::Tags::SpanTag
   TAG_START_REGEXP = /
     \[
       span
-      (?: =(?<css_class>(?:[\w_\ \-](?!data-\w))+) )?
-      (?<data_attributes>(?:\ data-[\w_\-]+(?:=[\w_\-]+)?)+)?
+      (?: =(?<css_class>(?:[\w_\ -](?!data-\w))+) )?
+      (?<data_attributes>(?:\ data-[\w_-]+(?:=[\w_-]+)?)+)?
     \]
   /mix
 

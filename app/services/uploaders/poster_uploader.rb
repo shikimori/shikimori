@@ -6,9 +6,9 @@ class Uploaders::PosterUploader < Shrine
   MAIN_WIDTH = 225
   # MAIN_HEIGHT = 350
 
-  PREVIEW_WIDTH = 156
-  PREVIEW_ANIME_HEIGHT = (PREVIEW_WIDTH / 0.6812227074).to_i
-  PREVIEW_CHARACTER_HEIGHT = (PREVIEW_WIDTH / (225.0 / 350.0)).to_i
+  PREVIEW_WIDTH = 160
+  PREVIEW_ANIME_HEIGHT = (PREVIEW_WIDTH / (425.0 / 600.0)).ceil
+  PREVIEW_CHARACTER_HEIGHT = (PREVIEW_WIDTH / (225.0 / 350.0)).ceil
 
   # https://shrinerb.com/docs/plugins/activerecord
   plugin :pretty_location
@@ -22,7 +22,8 @@ class Uploaders::PosterUploader < Shrine
   plugin :data_uri
 
   Attacher.derivatives do |original|
-    magick = ImageProcessing::Vips.source original
+    # magick = ImageProcessing::Vips.source(original).saver(quality: 94)
+    magick = ImageProcessing::MiniMagick.source(original).saver(quality: 94)
 
     main_2x = magick.resize_to_fit MAIN_WIDTH * 2, nil # MAIN_HEIGHT * 2
     main = magick.resize_to_fit MAIN_WIDTH, nil # MAIN_HEIGHT
@@ -41,19 +42,24 @@ class Uploaders::PosterUploader < Shrine
       PREVIEW_CHARACTER_HEIGHT
 
     preview_2x = magick_cropped.resize_to_fill PREVIEW_WIDTH * 2, preview_height * 2,
-      crop: :centre
+      gravity: :center
     preview = magick_cropped.resize_to_fill PREVIEW_WIDTH, preview_height,
-      crop: :centre
+      gravity: :center
+
+    # preview_2x = magick_cropped.resize_to_fill PREVIEW_WIDTH * 2, preview_height * 2,
+    #   crop: :centre
+    # preview = magick_cropped.resize_to_fill PREVIEW_WIDTH, preview_height,
+    #   crop: :centre
 
     {
       main_2x: main_2x.convert!('webp'),
       main: main.convert!('webp'),
-      main_alt_2x: main_2x.call!,
-      main_alt: main.call!,
+      main_alt_2x: main_2x.call!, # .convert!('png'), # .call!,
+      main_alt: main.call!, # .convert!('png'), # .call!,
       preview_2x: preview_2x.convert!('webp'),
       preview: preview.convert!('webp'),
-      preview_alt_2x: preview_2x.call!,
-      preview_alt: preview.call!
+      preview_alt_2x: preview_2x.call!, # .convert!('png'), # .call!,
+      preview_alt: preview.call! # .convert!('png') # .call!
     }
   end
 

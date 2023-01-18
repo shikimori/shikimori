@@ -5,22 +5,15 @@
 @import mixins/responsive
 
 .b-catalog_entry-tooltip
-  +clear_left
   line-height: $line_height
   position: relative
 
   .entry-tooltip_container
-    +clear_left
-
-  .image
-    width: 160px
-    float: left
+    display: flex
+    gap: 20px
 
   .inner
-    //padding-bottom: $block-offset // нужно т.к. .rating с абсолютным позиционированием. чтобы контент на рейтинг не налез
-
-    &.offset
-      margin-left: 180px
+    flex-grow: 1
 
     a.name
       +link

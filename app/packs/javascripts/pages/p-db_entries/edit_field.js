@@ -273,7 +273,7 @@ async function initEditPosterApp() {
     src: $app.data('src'),
     previewTemplateHTML: $('.template-html').html(),
     cropData: JSON.parse($cropData.val()),
-    posterId: $posterId.val(),
+    posterId: parseInt($posterId.val()),
     previewWidth: $app.data('preview-width'),
     previewHeight: $app.data('preview-height')
   });

@@ -82,7 +82,7 @@ const props = defineProps({
 });
 
 const aspectRatio = props.previewWidth / props.previewHeight;
-const missingSrc = '/assets/globals/missing_original.jpg';
+const missingSrc = '/assets/globals/missing/main@2x.png';
 
 const currentSrc = ref(props.src);
 const vueCropperRef = ref(null);
@@ -90,6 +90,7 @@ const uploaderRef = ref(null);
 const templateRef = ref(null);
 const isDisabled = ref(false);
 const currentPosterId = ref(props.posterId);
+const originalImagedataUri = ref(null);
 
 const sizes = reactive({
   naturalWidth: 0,
@@ -102,10 +103,10 @@ let isInitialOnCrop = true;
 const onCrop = e => {
   const canvasData = vueCropperRef.value.getCanvasData();
 
-  sizes.naturalWidth = Math.ceil(canvasData.naturalWidth);
-  sizes.naturalHeight = Math.ceil(canvasData.naturalHeight);
-  sizes.width = Math.ceil(e.detail.width);
-  sizes.height = Math.ceil(e.detail.height);
+  sizes.naturalWidth = Math.round(canvasData.naturalWidth);
+  sizes.naturalHeight = Math.round(canvasData.naturalHeight);
+  sizes.width = Math.round(e.detail.width);
+  sizes.height = Math.round(e.detail.height);
 
   if (props.cropData && isInitialOnCrop) {
     isInitialOnCrop = false;
@@ -139,11 +140,12 @@ defineExpose({
   toDataURI() {
     return currentPosterId.value ?
       null :
-      vueCropperRef.value
-        .crop()
-        .clear()
-        .getCroppedCanvas()
-        .toDataURL();
+      originalImagedataUri.value;
+      // vueCropperRef.value
+      //   .crop()
+      //   .clear()
+      //   .getCroppedCanvas()
+      //   .toDataURL();
   }
 });
 
@@ -159,10 +161,16 @@ onMounted(async () => {
     .on('upload:file:added', ({ target }, file) => onFileAdded(target, file));
 });
 
-function onFileAdded(uploader, uppyFile) {
+async function onFileAdded(uploader, uppyFile) {
   currentSrc.value = URL.createObjectURL(uppyFile.data);
   currentPosterId.value = null;
   uploader.uppy.reset();
+
+  originalImagedataUri.value = await new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.readAsDataURL(uppyFile.data);
+  });
 }
 
 function clear() {
@@ -174,6 +182,8 @@ function clear() {
 const syncPreviewImage = debounce(100, () => {
   const img = templateRef.value.querySelector('img');
   const exportedDataUri = vueCropperRef.value.getCroppedCanvas()?.toDataURL();
+
+  templateRef.value.querySelector('source')?.remove();
 
   img.srcset = '';
   img.src = exportedDataUri || missingSrc;
