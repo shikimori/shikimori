@@ -8963,6 +8963,98 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :makoto_shinkai
+    :level: 1
+    :image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
+    :border_color: "#ABCDEF"
+    :title_ru: Макото Синкай
+    :text_ru:
+    :title_en: Makoto Shinkai
+    :text_en:
+    :topic_id: 276032
+    :rule: &80
+      :algo: count
+      :threshold: 70%
+      :filters:
+        anime_ids:
+        - 25271
+        - 2832
+        - 1689
+        - 433
+        - 2953
+        - 1004
+        - 256
+        - 2210
+        - 32491
+        - 38826
+        - 32281
+        - 16782
+        - 17121
+        - 9760
+        - 22839
+      :generator:
+        person_id: 1117
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :makoto_shinkai
+  level: 1
+  image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
+  border_color: "#ABCDEF"
+  title_ru: Макото Синкай
+  text_ru:
+  title_en: Makoto Shinkai
+  text_en:
+  topic_id: 276032
+  rule: *80
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :makoto_shinkai
+    :level: 0
+    :image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
+    :border_color: "#ABCDEF"
+    :title_ru: Макото Синкай
+    :text_ru:
+    :title_en: Makoto Shinkai
+    :text_en:
+    :topic_id: 276032
+    :rule: &81
+      :algo: count
+      :threshold: 0.01
+      :filters:
+        anime_ids:
+        - 25271
+        - 2832
+        - 1689
+        - 433
+        - 2953
+        - 1004
+        - 256
+        - 2210
+        - 32491
+        - 38826
+        - 32281
+        - 16782
+        - 17121
+        - 9760
+        - 22839
+      :generator:
+        person_id: 1117
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :makoto_shinkai
+  level: 0
+  image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
+  border_color: "#ABCDEF"
+  title_ru: Макото Синкай
+  text_ru:
+  title_en: Makoto Shinkai
+  text_en:
+  topic_id: 276032
+  rule: *81
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :mari_okada
     :level: 1
     :image: "/assets/achievements/anime/author/mari_okada.jpg"
@@ -8972,7 +9064,7 @@
     :title_en: Mari Okada
     :text_en:
     :topic_id: 276032
-    :rule: &80
+    :rule: &82
       :algo: count
       :threshold: 50%
       :filters:
@@ -9036,7 +9128,7 @@
   title_en: Mari Okada
   text_en:
   topic_id: 276032
-  rule: *80
+  rule: *82
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9049,7 +9141,7 @@
     :title_en: Mari Okada
     :text_en:
     :topic_id: 276032
-    :rule: &81
+    :rule: &83
       :algo: count
       :threshold: 0.01
       :filters:
@@ -9111,98 +9203,6 @@
   title_ru: Мари Окада
   text_ru:
   title_en: Mari Okada
-  text_en:
-  topic_id: 276032
-  rule: *81
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :makoto_shinkai
-    :level: 1
-    :image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
-    :border_color: "#ABCDEF"
-    :title_ru: Макото Синкай
-    :text_ru:
-    :title_en: Makoto Shinkai
-    :text_en:
-    :topic_id: 276032
-    :rule: &82
-      :algo: count
-      :threshold: 70%
-      :filters:
-        anime_ids:
-        - 25271
-        - 2832
-        - 1689
-        - 433
-        - 2953
-        - 1004
-        - 256
-        - 2210
-        - 32491
-        - 38826
-        - 32281
-        - 16782
-        - 17121
-        - 9760
-        - 22839
-      :generator:
-        person_id: 1117
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :makoto_shinkai
-  level: 1
-  image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
-  border_color: "#ABCDEF"
-  title_ru: Макото Синкай
-  text_ru:
-  title_en: Makoto Shinkai
-  text_en:
-  topic_id: 276032
-  rule: *82
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :makoto_shinkai
-    :level: 0
-    :image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
-    :border_color: "#ABCDEF"
-    :title_ru: Макото Синкай
-    :text_ru:
-    :title_en: Makoto Shinkai
-    :text_en:
-    :topic_id: 276032
-    :rule: &83
-      :algo: count
-      :threshold: 0.01
-      :filters:
-        anime_ids:
-        - 25271
-        - 2832
-        - 1689
-        - 433
-        - 2953
-        - 1004
-        - 256
-        - 2210
-        - 32491
-        - 38826
-        - 32281
-        - 16782
-        - 17121
-        - 9760
-        - 22839
-      :generator:
-        person_id: 1117
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :makoto_shinkai
-  level: 0
-  image: "/assets/achievements/anime/author/makoto_shinkai.jpg"
-  border_color: "#ABCDEF"
-  title_ru: Макото Синкай
-  text_ru:
-  title_en: Makoto Shinkai
   text_en:
   topic_id: 276032
   rule: *83
