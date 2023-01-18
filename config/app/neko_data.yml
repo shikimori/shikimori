@@ -26391,9 +26391,9 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :hitori_no_shita
+    :neko_id: :yi_ren_zhi_xia
     :level: 1
-    :image: "/assets/achievements/anime/franchise/hitori_no_shita.jpg"
+    :image: "/assets/achievements/anime/franchise/yi_ren_zhi_xia.jpg"
     :border_color:
     :title_ru: 'Один из отвергнутых: Изгой'
     :text_ru:
@@ -26403,15 +26403,15 @@
     :rule: &399
       :algo: duration
       :filters:
-        franchise: hitori_no_shita
+        franchise: yi_ren_zhi_xia
         not_anime_ids:
         - 37090
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
-  neko_id: :hitori_no_shita
+  neko_id: :yi_ren_zhi_xia
   level: 1
-  image: "/assets/achievements/anime/franchise/hitori_no_shita.jpg"
+  image: "/assets/achievements/anime/franchise/yi_ren_zhi_xia.jpg"
   border_color:
   title_ru: 'Один из отвергнутых: Изгой'
   text_ru:
@@ -26422,9 +26422,9 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :hitori_no_shita
+    :neko_id: :yi_ren_zhi_xia
     :level: 0
-    :image: "/assets/achievements/anime/franchise/hitori_no_shita.jpg"
+    :image: "/assets/achievements/anime/franchise/yi_ren_zhi_xia.jpg"
     :border_color:
     :title_ru: 'Один из отвергнутых: Изгой'
     :text_ru:
@@ -26434,15 +26434,15 @@
     :rule: &400
       :algo: duration
       :filters:
-        franchise: hitori_no_shita
+        franchise: yi_ren_zhi_xia
         not_anime_ids:
         - 37090
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
-  neko_id: :hitori_no_shita
+  neko_id: :yi_ren_zhi_xia
   level: 0
-  image: "/assets/achievements/anime/franchise/hitori_no_shita.jpg"
+  image: "/assets/achievements/anime/franchise/yi_ren_zhi_xia.jpg"
   border_color:
   title_ru: 'Один из отвергнутых: Изгой'
   text_ru:
