@@ -12,7 +12,9 @@ class UserContent::CreateBase
       model = klass.create params
 
       if model.persisted?
-        model.generate_topic forum_id: Forum::HIDDEN_ID
+        klass.name == 'Critique' ?
+          model.generate_topic :
+          model.generate_topic(forum_id: Forum::HIDDEN_ID)
         model.accept approver: model.user if auto_acceptable? model
       end
 
