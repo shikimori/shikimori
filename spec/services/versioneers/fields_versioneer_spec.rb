@@ -20,6 +20,7 @@ describe Versioneers::FieldsVersioneer do
       expect(anime).to_not be_changed
 
       expect(version).to be_persisted
+      expect(version).to_not be_changed
       expect(version).to be_pending
       expect(version.associated).to eq associated
       expect(version.class).to eq Version
@@ -40,6 +41,7 @@ describe Versioneers::FieldsVersioneer do
 
       it do
         expect(version).to be_persisted
+        expect(version).to_not be_changed
         expect(version).to be_pending
         expect(version.class).to eq Versions::DescriptionVersion
       end
@@ -50,6 +52,7 @@ describe Versioneers::FieldsVersioneer do
 
       it do
         expect(version).to be_persisted
+        expect(version).to_not be_changed
         expect(version).to be_pending
         expect(version.item_diff).to eq 'name' => ['test', 'zzz']
       end

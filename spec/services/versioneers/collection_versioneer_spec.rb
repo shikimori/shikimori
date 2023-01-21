@@ -31,6 +31,7 @@ describe Versioneers::CollectionVersioneer do
       expect(external_link.reload).to be_persisted
 
       expect(version).to be_persisted
+      expect(version).to_not be_changed
       expect(version).to be_pending
       expect(version).to be_instance_of Versions::CollectionVersion
       expect(version).to have_attributes(
@@ -75,6 +76,7 @@ describe Versioneers::CollectionVersioneer do
         expect { external_link.reload }.to raise_error ActiveRecord::RecordNotFound
 
         expect(version).to be_persisted
+        expect(version).to_not be_changed
         expect(version).to be_auto_accepted
 
         expect(version).to be_instance_of Versions::CollectionVersion
@@ -103,6 +105,7 @@ describe Versioneers::CollectionVersioneer do
         expect(external_link.reload).to be_persisted
 
         expect(version).to be_persisted
+        expect(version).to_not be_changed
         expect(version).to be_pending
 
         expect(version).to be_instance_of Versions::CollectionVersion

@@ -4,12 +4,13 @@ describe Api::V1::TopicIgnoresController, :show_in_doc do
   let(:topic_ignore_params) { { topic_id: offtopic_topic.id, user_id: user.id } }
 
   describe '#create' do
-    let!(:topic_ignore) {}
+    let!(:topic_ignore) { nil }
     before { post :create, params: { topic_ignore: topic_ignore_params } }
 
     context 'not ignored' do
       it do
         expect(resource).to be_persisted
+        expect(resource).to_not be_changed
         expect(resource).to have_attributes user: user, topic: offtopic_topic
         expect(response).to have_http_status :success
         expect(json).to eq(

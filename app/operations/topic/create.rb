@@ -3,8 +3,6 @@
 class Topic::Create
   method_object %i[params! faye!]
 
-  # IS_NEWS_PREMODERATION = !Rails.env.production?
-
   def call
     topic = build_topic
 
@@ -41,7 +39,6 @@ private
   end
 
   def premoderation? topic
-    # IS_NEWS_PREMODERATION &&
-    !topic.user.trusted_newsmaker?
+    !Ability.new(topic.user).can? :accept, topic
   end
 end

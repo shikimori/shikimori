@@ -51,6 +51,7 @@ describe CollectionsController do
 
       it do
         expect(resource).to be_persisted
+        expect(resource).to_not be_changed
         expect(response).to redirect_to edit_collection_url(resource)
       end
     end

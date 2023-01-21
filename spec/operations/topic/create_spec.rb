@@ -58,6 +58,17 @@ describe Topic::Create do
     describe 'NewsTopic & premoderation' do
       let(:type) { Topics::NewsTopic.name }
 
+      context 'news_moderator' do
+        let(:user) { create :user, :news_moderator }
+
+        it do
+          is_expected.to be_persisted
+          is_expected.to have_attributes(
+            forum_id: Forum::NEWS_ID
+          )
+        end
+      end
+
       context 'trusted_newsmaker' do
         let(:user) { create :user, :trusted_newsmaker }
 
@@ -69,7 +80,7 @@ describe Topic::Create do
         end
       end
 
-      context 'not trusted_newsmaker' do
+      context 'not news_moderator & trusted_newsmaker' do
         it do
           is_expected.to be_persisted
           is_expected.to have_attributes(

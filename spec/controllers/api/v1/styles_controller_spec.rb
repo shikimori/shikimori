@@ -38,6 +38,7 @@ describe Api::V1::StylesController, :show_in_doc do
     it do
       expect(resource).to have_attributes create_params
       expect(resource).to be_persisted
+      expect(resource).to_not be_changed
       expect(response).to have_http_status :success
     end
   end

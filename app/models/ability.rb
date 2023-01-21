@@ -79,6 +79,10 @@ class Ability
         merge Abilities::TrustedEpisodesChanger.new(@user)
       end
 
+      if @user.trusted_newsmaker? || is_admin_or_super_moderators
+        merge Abilities::TrustedNewsmaker.new(@user)
+      end
+
       merge Abilities::Admin.new(@user) if @user.admin?
     end
 

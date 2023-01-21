@@ -16,6 +16,7 @@ describe Anime::IncrementEpisode do
   it do
     expect { subject }.to change(Version, :count).by 1
     expect(subject).to be_persisted
+    expect(subject).to_not be_changed
     expect(subject).to have_attributes(
       user: user,
       item: anime,

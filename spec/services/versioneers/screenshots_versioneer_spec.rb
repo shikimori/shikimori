@@ -5,8 +5,8 @@ describe Versioneers::ScreenshotsVersioneer do
   describe '#upload' do
     let(:image) { Rack::Test::UploadedFile.new 'spec/files/anime.jpg', 'image/jpg' }
 
-    let!(:present_version) {}
-    let!(:present_version_2) {}
+    let!(:present_version) { nil }
+    let!(:present_version_2) { nil }
 
     subject!(:result) { versioneer.upload image, user }
 
@@ -16,10 +16,12 @@ describe Versioneers::ScreenshotsVersioneer do
     context 'wo existing version' do
       it do
         expect(screenshot).to be_persisted
+        expect(screenshot).to_not be_changed
         expect(screenshot.status).to eq Screenshot::UPLOADED
         expect(anime.screenshots).to eq [screenshot]
 
         expect(version).to be_persisted
+        expect(version).to_not be_changed
         expect(version).to have_attributes(
           item: anime,
           item_diff: {
@@ -54,10 +56,12 @@ describe Versioneers::ScreenshotsVersioneer do
 
         it do
           expect(screenshot).to be_persisted
+          expect(screenshot).to_not be_changed
           expect(screenshot.status).to eq Screenshot::UPLOADED
           expect(anime.screenshots).to eq [screenshot]
 
           expect(version).to be_persisted
+          expect(version).to_not be_changed
           expect(version).to eq present_version
           expect(version).to have_attributes version_params.except(:item_diff)
           expect(version.item_diff).to eq(

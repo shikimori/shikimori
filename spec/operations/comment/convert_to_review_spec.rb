@@ -45,6 +45,7 @@ describe Comment::ConvertToReview do
 
   it do
     is_expected.to be_persisted
+    is_expected.to_not be_changed
     is_expected.to be_kind_of Review
     is_expected.to have_attributes(
       user: comment.user,
@@ -58,6 +59,7 @@ describe Comment::ConvertToReview do
     review_topic = subject.maybe_topic
     expect(review_topic).to be_present
     expect(review_topic).to be_persisted
+    expect(review_topic).to_not be_changed
     expect(review_topic).to be_kind_of Topics::EntryTopics::ReviewTopic
 
     expect { comment.reload }.to raise_error ActiveRecord::RecordNotFound

@@ -35,6 +35,7 @@ describe Versioneers::PostersVersioneer do
           expect { subject }.to change(Poster, :count).by(1)
 
           expect(version).to be_persisted
+          expect(version).to_not be_changed
           expect(version).to be_pending
           expect(version).to be_instance_of Versions::PosterVersion
           expect(version).to have_attributes(
@@ -46,6 +47,7 @@ describe Versioneers::PostersVersioneer do
           )
           expect(version.item).to be_kind_of Poster
           expect(version.item).to be_persisted
+          expect(version.item).to_not be_changed
           expect(version.item).to have_attributes(
             anime_id: anime.id,
             manga_id: nil,
@@ -71,6 +73,7 @@ describe Versioneers::PostersVersioneer do
           expect { subject }.to change(Poster, :count).by(1)
 
           expect(version).to be_persisted
+          expect(version).to_not be_changed
           expect(version).to be_pending
           expect(version).to be_instance_of Versions::PosterVersion
           expect(version).to have_attributes(
@@ -82,6 +85,7 @@ describe Versioneers::PostersVersioneer do
           )
           expect(version.item).to be_kind_of Poster
           expect(version.item).to be_persisted
+          expect(version.item).to_not be_changed
           expect(version.item).to have_attributes(
             anime_id: anime.id,
             manga_id: nil,
@@ -106,6 +110,7 @@ describe Versioneers::PostersVersioneer do
           expect { subject }.to_not change Poster, :count
 
           expect(version).to be_persisted
+          expect(version).to_not be_changed
           expect(version).to be_pending
           expect(version).to be_instance_of Versions::PosterVersion
           expect(version).to have_attributes(

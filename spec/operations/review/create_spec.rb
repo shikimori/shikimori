@@ -24,6 +24,7 @@ describe Review::Create do
 
   it do
     expect(subject).to be_persisted
+    expect(subject).to_not be_changed
     expect(subject).to have_attributes(
       anime_id: anime.id,
       body: body,

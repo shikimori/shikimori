@@ -77,8 +77,9 @@ describe Doorkeeper::OauthApplicationsController do
       end
 
       it do
-        expect(resource).to be_valid
         expect(resource).to be_persisted
+        expect(resource).to_not be_changed
+        expect(resource).to be_valid
         expect(resource).to have_attributes oauth_application_params.except(:image, :scopes)
         expect(resource.scopes).to eq %w[user_rates]
         expect(resource.image).to be_exists

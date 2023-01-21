@@ -112,6 +112,7 @@ describe Users::PollsController do
       let(:poll_state) { :pending }
       it do
         expect(resource).to be_persisted
+        expect(resource).to_not be_changed
         expect(resource).to be_valid
         expect(resource).to have_attributes(
           name: 'test',
@@ -134,6 +135,7 @@ describe Users::PollsController do
 
       it do
         expect(resource).to be_persisted
+        expect(resource).to_not be_changed
         expect(resource).to be_valid
         expect(resource).to have_attributes(
           name: 'test',

@@ -2,4 +2,6 @@
 
 class Article::Create < UserContent::CreateBase
   klass Article
+  is_auto_acceptable true
+  is_publishable true
 end

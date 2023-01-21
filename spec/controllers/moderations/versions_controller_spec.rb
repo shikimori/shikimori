@@ -61,6 +61,7 @@ describe Moderations::VersionsController do
 
         it do
           expect(resource).to be_persisted
+          expect(resource).to_not be_changed
           expect(resource).to have_attributes params
           expect(resource).to be_pending
           expect(response).to redirect_to back_url
@@ -80,6 +81,7 @@ describe Moderations::VersionsController do
 
       it do
         expect(resource).to be_persisted
+        expect(resource).to_not be_changed
         expect(resource).to have_attributes params
         expect(resource).to be_accepted
         expect(response).to redirect_to back_url

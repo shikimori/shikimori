@@ -16,6 +16,7 @@ describe CollectionRolesController do
 
     it do
       expect(resource).to be_persisted
+      expect(resource).to_not be_changed
       expect(resource).to have_attributes(
         collection_id: collection.id,
         user_id: user_2.id

@@ -27,7 +27,10 @@ describe FayeService do
       it { is_expected.to be true }
       describe 'trackable' do
         before { act }
-        it { expect(trackable).to be_persisted }
+        it do
+          expect(trackable).to be_persisted
+          expect(trackable).to_not be_changed
+        end
       end
     end
 
@@ -59,7 +62,10 @@ describe FayeService do
 
       describe 'trackable' do
         before { act }
-        it { expect(trackable).to be_persisted }
+        it do
+          expect(trackable).to be_persisted
+          expect(trackable).to_not be_changed
+        end
       end
     end
 

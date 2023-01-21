@@ -43,6 +43,7 @@ describe Api::V1::UserRatesController do
 
         it do
           expect(resource).to be_persisted
+          expect(resource).to_not be_changed
           expect(resource).to have_attributes create_params
 
           expect(UserRates::Log)
