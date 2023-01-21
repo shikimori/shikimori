@@ -1,5 +1,8 @@
 - if poster&.magnificable?
-  .b-db_entry-poster.b-image.unprocessed data-href=cdn_poster_url(db_entry: resource, poster: poster, derivative: nil)
+  .b-db_entry-poster.b-image.unprocessed[
+    data-href=cdn_poster_url(db_entry: resource, poster: poster, derivative: nil)
+    data-poster_id=poster.id
+  ]
     = render 'db_entries/poster',
       db_entry: resource,
       poster: poster,

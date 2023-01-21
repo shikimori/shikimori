@@ -10,6 +10,9 @@ class Uploaders::PosterUploader < Shrine
   PREVIEW_ANIME_HEIGHT = (PREVIEW_WIDTH / (425.0 / 600.0)).ceil
   PREVIEW_CHARACTER_HEIGHT = (PREVIEW_WIDTH / (225.0 / 350.0)).ceil
 
+  MINI_WIDTH = 48
+  MINI_HEIGHT = 75
+
   # https://shrinerb.com/docs/plugins/activerecord
   plugin :pretty_location
   plugin :derivatives, create_on_promote: true
@@ -51,6 +54,11 @@ class Uploaders::PosterUploader < Shrine
     # preview = magick_cropped.resize_to_fill PREVIEW_WIDTH, preview_height,
     #   crop: :centre
 
+    mini_2x = magick_cropped.resize_to_fill MINI_WIDTH * 2, MINI_HEIGHT * 2,
+      gravity: :center
+    mini = magick_cropped.resize_to_fill MINI_WIDTH, MINI_HEIGHT,
+      gravity: :center
+
     {
       main_2x: main_2x.convert!('webp'),
       main: main.convert!('webp'),
@@ -59,7 +67,11 @@ class Uploaders::PosterUploader < Shrine
       preview_2x: preview_2x.convert!('webp'),
       preview: preview.convert!('webp'),
       preview_alt_2x: preview_2x.call!, # .convert!('png'), # .call!,
-      preview_alt: preview.call! # .convert!('png') # .call!
+      preview_alt: preview.call!, # .convert!('png') # .call!
+      mini_2x: mini_2x.convert!('webp'),
+      mini: mini.convert!('webp'),
+      mini_alt_2x: mini_2x.call!, # .convert!('png'), # .call!,
+      mini_alt: mini.call! # .convert!('png') # .call!
     }
   end
 
