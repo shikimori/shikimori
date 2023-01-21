@@ -277,15 +277,31 @@ private
   }
   SPECIAL_X894 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: NIKIFILINI - remove 2023-01-21 23:59
+    # AD START: IMBA - remove 2023-02-04 22:00
     images: [{
-      src: '/assets/globals/events/2023-01-07/inner_2.png',
-      src_2x: '/assets/globals/events/2023-01-07/inner_2@2x.png',
-      url: 'https://bit.ly/3Cu3WCo'
+      src: '/assets/globals/events/2023-01-21/inner_1.png',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner2&utm_campaign=22_01&marker=2VtzqvVCDFH'
     }, {
-      src: '/assets/globals/events/2023-01-07/inner_3.png',
-      src_2x: '/assets/globals/events/2023-01-07/inner_3@2x.png',
-      url: 'https://bit.ly/3GO5PMu'
+      src: '/assets/globals/events/2023-01-21/inner_2.png',
+      url: 'https://imba.shop/product/energetik-imba-energy-neko?utm_source=shikimori&utm_medium=banner6&utm_campaign=22_01&marker=2Vtzqv5UkDh'
+    }, {
+      src: '/assets/globals/events/2023-01-21/inner_3.png',
+      url: 'https://imba.shop/product/energetik-imba-energy-vayfu?utm_source=shikimori&utm_medium=banner7&utm_campaign=22_01&marker=2VtzqwqmtfV'
+    }, {
+      src: '/assets/globals/events/2023-01-21/inner_4.png',
+      url: 'https://imba.shop/collection/novinki?lang=ru?utm_source=shikimori&utm_medium=banner12&utm_campaign=22_01&marker=2Vtzqv5V5hd'
+    }, {
+      src: '/assets/globals/events/2023-01-21/inner_5.png',
+      url: 'https://imba.shop/product/energetik-imba-energy-vinograd-by-molly-redwolf?utm_source=shikimori&utm_medium=banner13&utm_campaign=22_01&marker=2Vtzqvh4nTu'
+    }, {
+      src: '/assets/globals/events/2023-01-21/inner_6.png',
+      url: 'https://imba.shop/product/energetik-imba-energy-arbuz-by-sia-siberia?utm_source=shikimori&utm_medium=banner14&utm_campaign=22_01&marker=2VtzqxB44ou'
+    }, {
+      src: '/assets/globals/events/2023-01-21/inner_7.png',
+      url: 'https://imba.shop/product/energetik-imba-energy-ezhevika-laym-by-studio-band?utm_source=shikimori&utm_medium=banner15&utm_campaign=22_01&marker=2Vtzqv9wP2b'
+    }, {
+      src: '/assets/globals/events/2023-01-21/inner_8.png',
+      url: 'https://imba.shop/product/energetik-imba-energy-zemlyanika-by-sweetie-fox?utm_source=shikimori&utm_medium=banner16&utm_campaign=22_01&marker=2VtzqwWWixs'
     }],
     # AD END
     placement: Types::Ad::Placement[:content],
@@ -439,7 +455,7 @@ private
         Types::Ad::Type[:mt_970x250]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894], # NIKIFILINI - remove 2023-01-21 23:59
+        Types::Ad::Type[:special_x894], # IMBA - remove 2023-02-04 22:00
         Types::Ad::Type[:yd_970x90],
         Types::Ad::Type[:mt_728x90]
       ],
@@ -475,7 +491,7 @@ private
         Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894], # NIKIFILINI - remove 2023-01-21 23:59
+        Types::Ad::Type[:special_x894], # IMBA - remove 2023-02-04 22:00
         # Types::Ad::Type[:mt_728x90],
         Types::Ad::Type[:advrtr_x728]
       ],
