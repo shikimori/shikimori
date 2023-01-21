@@ -30,9 +30,11 @@ class ImageUrlGenerator
 
   def cdn_poster_url db_entry:, poster:, derivative:
     image_index = db_entry.id % Shikimori::STATIC_SUBDOMAINS.size
-    image_path = poster.image(derivative).url
+    image_path = derivative ?
+      poster.image(derivative).url :
+      poster.image.url
 
-    if Rails.env.test? || (!Rails.env.production? && (Rails.public_path + image_path))
+    if Rails.env.test? || (!Rails.env.production? && File.exist?(Rails.public_path + image_path))
       local_url image_path
     else
       production_url image_path, image_index
