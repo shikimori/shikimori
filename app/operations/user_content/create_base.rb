@@ -3,7 +3,8 @@
 class UserContent::CreateBase
   extend DslAttribute
   dsl_attribute :klass
-  dsl_attribute :is_auto_acceptable, false
+  dsl_attribute :is_auto_acceptable
+  dsl_attribute :is_publishable
 
   method_object :params
 
@@ -12,9 +13,10 @@ class UserContent::CreateBase
       model = klass.create params
 
       if model.persisted?
-        klass.name == 'Critique' ?
-          model.generate_topic :
-          model.generate_topic(forum_id: Forum::HIDDEN_ID)
+        is_publishable ?
+          model.generate_topic(forum_id: Forum::HIDDEN_ID) :
+          model.generate_topic
+
         model.accept approver: model.user if auto_acceptable? model
       end
 
