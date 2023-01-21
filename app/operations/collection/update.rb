@@ -2,6 +2,8 @@
 
 class Collection::Update < UserContent::UpdateBase
   klass Collection
+  is_publishable true
+
   MAX_LINKS = 500
 
   method_object :model, :params, :transition, :actor

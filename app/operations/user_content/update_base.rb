@@ -1,6 +1,7 @@
 class UserContent::UpdateBase
   extend DslAttribute
   dsl_attribute :klass
+  dsl_attribute :is_publishable
 
   method_object :model, :params, :actor
 
@@ -10,8 +11,10 @@ class UserContent::UpdateBase
     klass.transaction do
       is_updated = update
 
-      publish if @model.published? && hidden_topic?
-      unpublish unless @model.published? || hidden_topic?
+      if is_publishable
+        publish if @model.published? && hidden_topic?
+        unpublish unless @model.published? || hidden_topic?
+      end
     end
 
     is_updated
