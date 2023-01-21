@@ -47,6 +47,7 @@ describe UserContent::CreateBase do
 
       it do
         expect(model).to be_persisted
+        expect(model).to_not be_changed
         expect(model).to have_attributes(
           approver: user,
           moderation_state: 'accepted'
@@ -57,6 +58,7 @@ describe UserContent::CreateBase do
     context 'not model moderator' do
       it do
         expect(model).to be_persisted
+        expect(model).to_not be_changed
         expect(model).to have_attributes(
           approver: nil,
           moderation_state: 'pending'

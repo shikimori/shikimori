@@ -17,7 +17,7 @@ class UserContent::CreateBase
           model.generate_topic(forum_id: Forum::HIDDEN_ID) :
           model.generate_topic
 
-        model.accept approver: model.user if auto_acceptable? model
+        model.accept! approver: model.user if auto_acceptable? model
       end
 
       model
