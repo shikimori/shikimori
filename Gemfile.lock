@@ -370,7 +370,7 @@ GEM
     gcm (0.1.1)
       httparty
       json
-    globalid (1.0.0)
+    globalid (1.0.1)
       activesupport (>= 5.0)
     gon (6.4.0)
       actionpack (>= 3.0.20)
@@ -467,7 +467,7 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.1)
-    minitest (5.16.3)
+    minitest (5.17.0)
     mize (0.4.0)
       protocol (~> 2.0)
     msgpack (1.6.0)
