@@ -21,6 +21,7 @@ describe Critique::Create do
 
   it do
     expect(model).to be_persisted
+    expect(model).to_not be_changed
     expect(model.errors).to be_empty
 
     expect(model.topic).to be_present

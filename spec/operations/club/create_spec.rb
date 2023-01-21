@@ -9,6 +9,7 @@ describe Club::Create do
     let(:params) { { name: 'Test Club', owner_id: user.id } }
     it do
       expect(club).to be_persisted
+      expect(club).to_not be_changed
       expect(club.errors).to be_empty
 
       expect(club.topic).to be_present

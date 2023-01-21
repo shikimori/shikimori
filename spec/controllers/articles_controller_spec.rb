@@ -47,6 +47,7 @@ describe ArticlesController do
 
       it do
         expect(resource).to be_persisted
+        expect(resource).to_not be_changed
         expect(resource).to have_attributes params.merge(tags: %w[qwe rty])
         expect(response).to redirect_to edit_article_url(resource)
       end

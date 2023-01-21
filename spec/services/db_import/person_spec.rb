@@ -18,6 +18,7 @@ describe DbImport::Person do
 
   it do
     expect(entry).to be_persisted
+    expect(entry).to_not be_changed
     expect(entry).to be_kind_of Person
     expect(entry).to have_attributes data.except(:image)
   end

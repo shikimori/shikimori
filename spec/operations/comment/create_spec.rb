@@ -36,6 +36,7 @@ describe Comment::Create do
   shared_examples_for :comment do
     it do
       expect(comment).to be_persisted
+      expect(comment).to_not be_changed
       expect(comment).to have_attributes(
         commentable_type: Topic.name,
         body: 'xx',

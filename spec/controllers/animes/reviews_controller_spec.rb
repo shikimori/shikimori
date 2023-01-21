@@ -117,6 +117,7 @@ describe Animes::ReviewsController do
 
       it do
         expect(assigns(:review)).to be_persisted
+        expect(assigns(:review)).to_not be_changed
         expect(assigns(:review)).to have_attributes params
         expect(assigns(:review).user).to eq user
         expect(response).to redirect_to UrlGenerator.instance.review_url(assigns(:review))

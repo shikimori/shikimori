@@ -13,6 +13,7 @@ describe Article::Create do
 
   it do
     expect(model).to be_persisted
+    expect(model).to_not be_changed
     expect(model).to have_attributes params.merge(
       state: 'unpublished'
     )

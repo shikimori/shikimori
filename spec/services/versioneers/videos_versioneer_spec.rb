@@ -19,6 +19,7 @@ describe Versioneers::VideosVersioneer do
 
     it do
       expect(video).to be_persisted
+      expect(video).to_not be_changed
       expect(video).to be_uploaded
       expect(video).to have_attributes(
         url: params[:url],
@@ -29,6 +30,7 @@ describe Versioneers::VideosVersioneer do
       )
 
       expect(version).to be_persisted
+      expect(version).to_not be_changed
       expect(version).to have_attributes(
         item: anime,
         item_diff: {
@@ -50,6 +52,7 @@ describe Versioneers::VideosVersioneer do
 
     it do
       expect(version).to be_persisted
+      expect(version).to_not be_changed
       expect(version).to have_attributes(
         item: anime,
         item_diff: {

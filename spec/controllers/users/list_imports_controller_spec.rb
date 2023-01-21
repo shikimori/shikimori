@@ -35,6 +35,7 @@ describe Users::ListImportsController do
 
     it do
       expect(resource).to be_persisted
+      expect(resource).to_not be_changed
       expect(resource.user_id).to eq user.id
       expect(response).to redirect_to profile_list_import_url(user, resource)
     end

@@ -20,6 +20,7 @@ describe ClubPage::Create do
 
     it do
       expect(club_page).to be_persisted
+      expect(club_page).to_not be_changed
       expect(club_page).to have_attributes params
       expect(club_page.all_topics).to be_empty
     end

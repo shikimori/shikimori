@@ -18,6 +18,7 @@ describe ClubInvitesController do
 
     it do
       expect(resource).to be_persisted
+      expect(resource).to_not be_changed
       expect(response).to have_http_status :success
     end
 

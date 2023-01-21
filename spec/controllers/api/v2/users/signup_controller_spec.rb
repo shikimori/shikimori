@@ -30,6 +30,7 @@
 #     context 'valid params', :show_in_doc do
 #       it do
 #         expect(resource).to be_persisted
+#         expect(resource).to_not be_changed
 #         expect(resource).to have_attributes(
 #           nickname: nickname,
 #           email: email

@@ -28,6 +28,7 @@ describe DbImport::Manga do
 
   it do
     expect(entry).to be_persisted
+    expect(entry).to_not be_changed
     expect(entry).to be_kind_of Manga
     expect(entry).to have_attributes data.except(
       :synopsis, :image, :genres, :publishers, :related, :recommendations,

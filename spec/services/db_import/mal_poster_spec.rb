@@ -31,6 +31,7 @@ describe DbImport::MalPoster do
     it do
       expect(entry.reload.poster).to_not eq prev_poster
       expect(entry.poster).to be_persisted
+      expect(entry.poster).to_not be_changed
       expect(entry.poster.image).to be_exists
       expect(entry.poster.mal_url).to eq image_url
       expect(prev_poster.reload.deleted_at).to be_within(0.1).of Time.zone.now
