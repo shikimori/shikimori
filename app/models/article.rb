@@ -12,7 +12,7 @@ class Article < ApplicationRecord
 
   belongs_to :user,
     touch: Rails.env.test? ? false : :activity_at
-  validates :name, :user, :body, presence: true
+  validates :name, :body, presence: true
   validates :name, length: { maximum: 255 }
   validates :body, length: { maximum: 140_000 }
 
