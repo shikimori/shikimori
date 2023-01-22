@@ -20120,7 +20120,8 @@
         - 45753
         - 49318
         - 51309
-      :threshold: 93%
+        - 54050
+      :threshold: 93.2%
       :generator:
         ignore_latest_ids:
         - 49877
@@ -20157,6 +20158,7 @@
         - 45753
         - 49318
         - 51309
+        - 54050
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -22681,6 +22683,7 @@
         - 21899
         - 37864
         - 40323
+        - 48436
       :threshold: 90%
       :generator:
         ignore_latest_ids:
@@ -22719,6 +22722,7 @@
         - 21899
         - 37864
         - 40323
+        - 48436
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
