@@ -490,3 +490,35 @@ Review.
     end
 end
 ```
+
+### Sync local missing ids
+```sh
+ssh devops@shiki '\
+  source /home/devops/.zshrc &&\
+    cd /home/apps/shikimori/production/current &&\
+    RAILS_ENV=production bundle exec rails runner "\
+      File.open(\"/tmp/ids.json\", \"w\") do |f|\
+        f.write({\
+          Anime: Anime.pluck(:id),\
+          Manga: Manga.pluck(:id),\
+          Character: Character.pluck(:id),\
+          Person: Person.pluck(:id)\
+        }.to_json)\
+      end\
+    "\
+' &&\
+scp shiki:/tmp/ids.json /tmp/ &&\
+rails runner "\
+  Proxy.off!;\
+  ids=JSON.parse(File.read('/tmp/ids.json'));\
+  Chewy.strategy(:urgent) do\
+    [Anime, Manga, Character, Person].each do |klass|\
+      missing_ids = ids[klass.name] - klass.pluck(:id);\
+      missing_ids.each do |id|\
+        MalParsers::FetchEntry.new.perform id, klass.name.downcase rescue EmptyContentError;\
+        sleep 3;\
+      end\
+    end\
+  end\
+"
+```
