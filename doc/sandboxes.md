@@ -543,3 +543,28 @@ rails runner "\
   end\
 "
 ```
+
+### Proxies sandbox
+```sh
+rails runner "\
+  ProxyWorker.new.perform;\
+  File.open('/tmp/proxies.json', 'w') do |f|\
+    f.write Proxy.all.to_json;\
+  end
+" &&\
+scp shiki:/tmp/posters.json /tmp/ &&\
+ssh devops@shiki '\
+  source /home/devops/.zshrc &&\
+    cd /home/apps/shikimori/production/current &&\
+    RAILS_ENV=production bundle exec rails runner "\
+      Proxy.transaction do\
+        Proxy.delete_all;\
+        JSON.parse(open(\"/tmp/proxies.json\").read, symbolize_names: true).each do |v|\
+          Proxy.create! v\
+        end\
+      end;\
+      puts \"Proxies #{Proxy.count}\";
+    "\
+' &&
+cap production sidekiq:restart
+```
