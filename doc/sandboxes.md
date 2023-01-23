@@ -491,7 +491,7 @@ Review.
 end
 ```
 
-### Sync local missing ids
+### Fetch missing ids from shiki
 ```sh
 ssh devops@shiki '\
   source /home/devops/.zshrc &&\
@@ -519,6 +519,27 @@ rails runner "\
         sleep 3;\
       end\
     end\
+  end\
+"
+```
+
+### Fetch posters from shiki
+```sh
+ssh devops@shiki '\
+  source /home/devops/.zshrc &&\
+    cd /home/apps/shikimori/production/current &&\
+    RAILS_ENV=production bundle exec rails runner "\
+      File.open(\"/tmp/posters.json\", \"w\") { |f| f.write Poster.all.to_json }\
+    "\
+' &&\
+scp shiki:/tmp/posters.json /tmp/ &&\
+rails runner "\
+  Poster.delete_all;\
+  ActiveRecord::Base.logger = nil;\
+  json = JSON.parse(File.read('/tmp/posters.json'), symboline_names: true);\
+  json.each_slice(5000).each do |slice|\
+    Poster.import(slice.map { |poster| Poster.new poster });\
+    puts Poster.count;\
   end\
 "
 ```

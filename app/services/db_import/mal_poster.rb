@@ -1,5 +1,5 @@
 class DbImport::MalPoster < DbImport::MalImage
-  def call
+  def call attempt = 1
     return unless policy.need_import?
 
     io = download_image

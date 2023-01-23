@@ -1,7 +1,7 @@
 class DbImport::PosterPolicy < DbImport::ImagePolicy
   def need_import?
-    return false if invalid_entry? || bad_image? || desynced_poster?
-    return true if no_existing_poster?
+    return false if invalid_entry? || bad_image_url? || desynced_poster?
+    return true if no_existing_poster? || broken_existing_image?
 
     poster_expired?
   end
@@ -23,6 +23,9 @@ private
 
   def poster_expired?
     @entry.poster.mal_url != @image_url
-    # @entry.poster.created_at < expire_interval.ago
+  end
+
+  def image_path
+    @entry.poster.image.storage.path @entry.poster.image.id
   end
 end

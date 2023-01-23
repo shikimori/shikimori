@@ -6,16 +6,23 @@ class DbImport::ImagePolicy
   OLD_INTERVAL = ((30 * 4) - 2).days
 
   def need_import?
-    return false if bad_image?
-    return true if no_image?
-    return true unless ImageChecker.valid? @entry.image.path
+    return false if bad_image_url?
+    return true if no_image? || broken_existing_image?
 
     file_expired?
   end
 
 private
 
-  def bad_image?
+  def image_path
+    @entry.image.path
+  end
+
+  def broken_existing_image?
+    !ImageChecker.valid?(image_path)
+  end
+
+  def bad_image_url?
     @image_url.blank? ||
       @image_url.include?('na_series.gif') ||
       @image_url.include?('na.gif')
@@ -26,7 +33,7 @@ private
   end
 
   def file_expired?
-    File.mtime(@entry.image.path) < expire_interval.ago
+    File.mtime(image_path) < expire_interval.ago
   end
 
   def expire_interval
