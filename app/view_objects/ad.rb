@@ -302,6 +302,9 @@ private
     }, {
       src: '/assets/globals/events/2023-01-21/inner_8.png',
       url: 'https://imba.shop/product/energetik-imba-energy-zemlyanika-by-sweetie-fox?utm_source=shikimori&utm_medium=banner16&utm_campaign=22_01&marker=2VtzqwWWixs'
+    }, {
+      src: '/assets/globals/events/2023-01-21/inner_9.png',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner17&utm_campaign=23_01&marker=2Vtzqw6sJ6X'
     }],
     # AD END
     placement: Types::Ad::Placement[:content],
