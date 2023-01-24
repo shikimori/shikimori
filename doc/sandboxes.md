@@ -550,7 +550,7 @@ rails runner "\
   ProxyWorker.new.perform;\
   File.open('/tmp/proxies.json', 'w') do |f|\
     f.write Proxy.all.to_json;\
-  end
+  end\
 " &&\
 scp shiki:/tmp/posters.json /tmp/ &&\
 ssh devops@shiki '\
@@ -563,7 +563,7 @@ ssh devops@shiki '\
           Proxy.create! v\
         end\
       end;\
-      puts \"Proxies #{Proxy.count}\";
+      puts \"Proxies #{Proxy.count}\";\
     "\
 ' &&
 cap production sidekiq:restart
