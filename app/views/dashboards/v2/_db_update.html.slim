@@ -5,11 +5,10 @@ a.db-update.bubbled.unprocessed[
   data-tooltip_url=topic_view.decorated_linked.tooltip_url
 ]
   .poster
-    img[
-      src=cdn_image_url(topic_view.decorated_linked, :x48)
-      srcset="#{cdn_image_url topic_view.decorated_linked, :x96} 2x"
-      alt=topic_view.decorated_linked.name
-    ]
+    = render 'db_entries/poster',
+      db_entry: topic_view.decorated_linked,
+      poster: topic_view.decorated_linked.poster,
+      derivative: :mini
   .info
     .name
       = topic_view.topic_title_html
