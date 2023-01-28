@@ -16,7 +16,7 @@ class Profiles::HistoryView < ViewObjectBase
   ]
 
   LIMIT = 4
-  CACHE_VERSION = :v3
+  CACHE_VERSION = :v4
 
   def display?
     formatted.any?
@@ -29,7 +29,7 @@ class Profiles::HistoryView < ViewObjectBase
 private
 
   def formatted
-    @formatted ||= Rails.cache.fetch CacheHelperInstance.cache_keys(:history, @user, CACHE_VERSION) do
+    @formatted ||= Rails.cache.fetch cache_key do
       grouped_history.map { |_, entries| format entries }.compact
     end
   end
@@ -117,6 +117,7 @@ private
   def format_default entries
     entry = entries.first
     target = entry.target
+    poster = target.poster
 
     Users::FormattedHistory.new(
       user_id: entry.user_id,
@@ -125,13 +126,29 @@ private
       episodes: (target.episodes if target.respond_to?(:episodes)),
       volumes: (target.volumes if target.respond_to?(:volumes)),
       chapters: (target.chapters if target.respond_to?(:chapters)),
-      image: ImageUrlGenerator.instance.cdn_image_url(target, :x48),
-      image_2x: ImageUrlGenerator.instance.cdn_image_url(target, :x96),
+      image: poster_url(poster, target, :mini) || '/assets/globals/missing/mini.png',
+      image_2x: poster_url(poster, target, :mini_2x) || '/assets/globals/missing/mini@2x.png',
+      image_alt: poster_url(poster, target, :mini_alt),
+      image_alt_2x: poster_url(poster, target, :mini_alt_2x),
       name: target.name,
       russian: target.russian,
       action: entries.reverse.map(&:format).join(', ').html_safe,
       created_at: entry.created_at,
       url: h.url_for(target)
     )
+  end
+
+  def poster_url poster, db_entry, derivative
+    return unless poster
+
+    ImageUrlGenerator.instance.cdn_poster_url(
+      db_entry: db_entry,
+      poster: poster,
+      derivative: derivative
+    )
+  end
+
+  def cache_key
+    CacheHelperInstance.cache_keys :history, @user, CACHE_VERSION
   end
 end

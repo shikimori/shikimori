@@ -6,6 +6,8 @@ class Users::FormattedHistory
   attribute :russian, String
   attribute :image, String
   attribute :image_2x, String
+  attribute :image_alt, String
+  attribute :image_alt_2x, String
   attribute :action, String
   attribute :created_at, ActiveSupport::TimeWithZone
   attribute :url, String
