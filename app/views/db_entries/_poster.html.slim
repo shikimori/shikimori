@@ -1,5 +1,5 @@
 - if poster
-  - derivative = :main if derivative != :main && poster.image_data['derivatives'][derivative.to_s]['metadata']['height'] > poster.image_data['derivatives']['main']['metadata']['height'] * 1.2
+  - derivative = :main if derivative == :preview && poster.image_data['derivatives'][derivative.to_s]['metadata']['height'] > poster.image_data['derivatives']['main']['metadata']['height'] * 1.2
   source[
     srcset='#{cdn_poster_url db_entry: db_entry, poster: poster, derivative: derivative}, #{cdn_poster_url db_entry: db_entry, poster: poster, derivative: :"#{derivative}_2x"} 2x'
     type='image/webp'
