@@ -17,23 +17,7 @@
       href=history.url
       title=history.name
     ]
-      picture
-        - if history.image_alt.present?
-          source[
-            srcset='#{history.image}, #{history.image_2x} 2x'
-            type='image/webp'
-          ]
-          img[
-            alt=history.name
-            src=history.image_alt
-            srcset='#{history.image_alt_2x} 2x'
-          ]
-        - else
-          img[
-            alt=history.name
-            src=history.image
-            srcset=("#{history.image_2x} 2x" if history.image_2x)
-          ]
+      = render 'user_history/image', history: history
 
       .content
         .title

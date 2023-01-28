@@ -16,11 +16,7 @@
           title=entry.name
         ]
           .image-name
-            img[
-              src=entry.image
-              srcset=("#{entry.image_2x} 2x" if entry.image_2x)
-              alt=entry.name
-            ]
+            = render 'user_history/image', history: entry
             span.title
               = entry.localized_name
           span.misc title=entry.reversed_action
