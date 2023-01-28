@@ -7,17 +7,19 @@ describe DbImport::PosterPolicy do
   let(:downloaded_at) { described_class::OLD_INTERVAL.ago - 1.day }
 
   before do
-    allow(poster)
-      .to receive_message_chain(:image, :id)
-      .and_return 123
-    allow(poster)
-      .to receive_message_chain(:image, :storage, :path)
-      .with(123)
-      .and_return existing_poster_path
-    allow(ImageChecker)
-      .to receive_message_chain(:new, :valid?)
-      .with(existing_poster_path)
-      .and_return is_valid
+    if poster
+      allow(poster)
+        .to receive_message_chain(:image, :id)
+        .and_return 123
+      allow(poster)
+        .to receive_message_chain(:image, :storage, :path)
+        .with(123)
+        .and_return existing_poster_path
+      allow(ImageChecker)
+        .to receive(:valid?)
+        .with(existing_poster_path)
+        .and_return is_valid
+    end
   end
   let(:is_valid) { true }
   let(:existing_poster_path) { '/tmp/zxc' }
