@@ -54,7 +54,7 @@ class Person < DbEntry
   SEYU_ROLES = %w[
     English Italian Hungarian Japanese German Hebrew Brazilian French
     Spanish Korean Hebrew Mandarin
-  ]
+  ] + ['Portuguese (BR)']
   MANGAKA_ROLES = ['Original Creator', 'Story & Art', 'Story', 'Art']
 
   def mal_url
