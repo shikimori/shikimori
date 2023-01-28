@@ -11,12 +11,10 @@
     data-href=url
     title=text
   ]
-    img[
-      src=cdn_image_url(entry, :x48)
-      srcset="#{cdn_image_url entry, :x96} 2x"
-      alt=text
-    ]
-
+    = render 'db_entries/poster',
+      db_entry: entry,
+      poster: entry.poster,
+      derivative: :mini
   .info
     .name
       a.b-link.bubbled[
