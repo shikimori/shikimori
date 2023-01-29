@@ -87,7 +87,8 @@ private
       locals: {
         name.to_s.to_sym => entry.decorate,
         cover_title: cover_title,
-        cover_notice: cover_notice
+        cover_notice: cover_notice,
+        cover_derivative: :preview
       },
       formats: [:html],
       cached: ->(model) { CacheHelperInstance.cache_keys model, cover_title, cover_notice }

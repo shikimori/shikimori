@@ -48,6 +48,7 @@ private
       decorated_linked,
       cover_title: :none,
       cover_notice: :none,
+      cover_derivative: :preview,
       content_by: :block,
       content_title: :none,
       content_text: :none

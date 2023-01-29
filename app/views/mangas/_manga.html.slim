@@ -7,11 +7,11 @@
 = render partial: 'animes/anime',
   object: manga,
   locals: {\
-    cover_title: cover_title,
-    cover_derivative: cover_derivative,
     cover_by: cover_by,
-    content_by: content_by,
+    cover_title: cover_title,
     cover_notice: cover_notice,
+    cover_derivative: cover_derivative,
+    content_by: content_by,
     score_order_type: local_assigns[:score_order_type],
     anime_counter: defined?(manga_counter) ? manga_counter : nil,
   }
