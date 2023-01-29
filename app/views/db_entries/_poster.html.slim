@@ -1,15 +1,16 @@
 - if poster
   - derivative = :main if derivative == :preview && poster.image_data['derivatives'][derivative.to_s]['metadata']['height'] > poster.image_data['derivatives']['main']['metadata']['height'] * 1.2
-  source[
-    srcset='#{cdn_poster_url db_entry: db_entry, poster: poster, derivative: derivative}, #{cdn_poster_url db_entry: db_entry, poster: poster, derivative: :"#{derivative}_2x"} 2x'
-    type='image/webp'
-  ]
-  img[
-    alt=localized_name(db_entry)
-    src=cdn_poster_url(db_entry: db_entry, poster: poster, derivative: :"#{derivative}_alt")
-    srcset='#{cdn_poster_url db_entry: db_entry, poster: poster, derivative: :"#{derivative}_alt_2x"} 2x'
-  ]
-  / loading=(:lazy unless derivative == :main)
+  picture
+    source[
+      srcset='#{cdn_poster_url db_entry: db_entry, poster: poster, derivative: derivative}, #{cdn_poster_url db_entry: db_entry, poster: poster, derivative: :"#{derivative}_2x"} 2x'
+      type='image/webp'
+    ]
+    img[
+      alt=localized_name(db_entry)
+      src=cdn_poster_url(db_entry: db_entry, poster: poster, derivative: :"#{derivative}_alt")
+      srcset='#{cdn_poster_url db_entry: db_entry, poster: poster, derivative: :"#{derivative}_alt_2x"} 2x'
+    ]
+    / loading=(:lazy unless derivative == :main)
 - else
   img[
     alt=localized_name(db_entry)
