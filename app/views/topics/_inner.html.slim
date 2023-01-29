@@ -32,11 +32,17 @@
     header
       - if topic_view.poster_in_header?
         span.linkeable.poster data-href=topic_view.urls.poster_url
-          img[
-            src=topic_view.poster(false)
-            srcset="#{topic_view.poster true} 2x"
-            alt=topic_view.poster_title
-          ]
+          - if topic_view.db_entry_poster
+            = render 'db_entries/poster',
+              db_entry: topic_view.linked_for_poster,
+              poster: topic_view.db_entry_poster,
+              derivative: :mini
+          - else
+            img[
+              src=topic_view.poster_image_url(false)
+              srcset="#{topic_view.poster_image_url true} 2x"
+              alt=topic_view.poster_title
+            ]
 
       - if topic_view.minified?
         = render 'topics/header/mini', topic_view: topic_view

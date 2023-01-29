@@ -19,7 +19,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   instance_cache :html_body, :html_body_truncated, :html_footer,
     :comments_view, :urls, :action_tag, :topic_ignore,
-    :topic_type_policy
+    :topic_type_policy, :linked_for_poster
 
   BODY_TRUCATE_SIZE = 500
   TRUNCATE_OMNISSION = '…'
@@ -127,23 +127,30 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       html_body
   end
 
-  def poster is_2x
+  def db_entry_poster
+    return unless linked_in_poster? && linked_for_poster.respond_to?(:poster)
+
+    linked_for_poster.poster
+  end
+
+  def poster_image_url is_2x
     # last condition is for user topics about anime
     if linked_in_poster?
-      linked =
-        if topic_type_policy.critique_topic?
-          @topic.linked.target
-        elsif topic_type_policy.review_topic?
-          @topic.linked.db_entry
-        elsif topic_type_policy.club_page_topic?
-          @topic.linked.club
-        else
-          @topic.linked
-        end
-
-      ImageUrlGenerator.instance.cdn_image_url linked, is_2x ? :x96 : :x48
+      ImageUrlGenerator.instance.cdn_image_url linked_for_poster, is_2x ? :x96 : :x48
     else
       user.avatar_url is_2x ? 80 : 48
+    end
+  end
+
+  def linked_for_poster
+    if topic_type_policy.critique_topic?
+      @topic.linked.target
+    elsif topic_type_policy.review_topic?
+      @topic.linked.db_entry
+    elsif topic_type_policy.club_page_topic?
+      @topic.linked.club
+    else
+      @topic.linked
     end
   end
 
