@@ -41,12 +41,15 @@
           .key #{t '.best_roles'}:&nbsp;
         .cc-4a.best-works
           /# Template Dependency: characters/character
-          = render person.best_roles.take(4), cover_by: :image_link
-
+          = render person.best_roles.take(4),
+            cover_by: :image_link,
+            cover_derivative: :mini
       - else
         .line.works
           .key #{t '.best_works'}:&nbsp;
         .cc-4a.best-works
           /# Template Dependency: animes/anime
           /# Template Dependency: mangas/manga
-          = render person.best_works.take(4), cover_by: :image_link
+          = render person.best_works.take(4),
+            cover_by: :image_link,
+            cover_derivative: :mini

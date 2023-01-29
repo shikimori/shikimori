@@ -294,7 +294,7 @@
                 = t('profiles_controller.favorites')
             - else
               = t('profiles_controller.favorites')
-          .cc-favourites.user_rates-minified
+          .cc-favourites
             - if @resource.favorites.any?
               = render @resource.favorites,
                 cover_by: :image_link,
