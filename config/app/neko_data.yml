@@ -4529,6 +4529,9 @@
         - 53601
         - 52450
         - 53721
+        - 33115
+        - 43411
+        - 33343
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -31723,6 +31726,7 @@
         - 4712
         - 51780
         - 53265
+        - 54282
       :threshold: 93.4%
       :generator:
         ignore_latest_ids:
@@ -31759,6 +31763,7 @@
         - 4712
         - 51780
         - 53265
+        - 54282
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
