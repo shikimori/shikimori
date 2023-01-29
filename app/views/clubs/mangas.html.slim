@@ -5,8 +5,7 @@
       values: %w(posters list)
   h2.subheadline = og.headline
   div[
-    class=('cc-5 to-process' unless @is_list)
-    data-dynamic=(@is_list ? false : 'cutted_covers')
+    class=('cc-5' unless @is_list)
   ]
     - if @is_list
       = render partial: 'animes/variants/list_item',

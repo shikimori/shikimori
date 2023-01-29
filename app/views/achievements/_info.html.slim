@@ -89,7 +89,7 @@
       - cache view.animes_scope.cache_key do
         .hide-expanded = t '.hide'
         / .cc-8.user_rates-minified
-        .cc-8.to-process data-dynamic='cutted_covers'
+        .cc-8
           = render partial: 'animes/anime',
             collection: view.animes_scope.decorate,
             locals: { cover_notice: :year_kind },

@@ -1,7 +1,7 @@
 = render layout: 'page' do
   = cache [@resource, params[:action]] do
     h2.subheadline = og.headline
-    .to-process data-dynamic='cutted_covers' data-ratio_type='person'
+    div
       = render partial: 'people/variants/list_item',
         collection: @resource.roles.people,
         as: :entry

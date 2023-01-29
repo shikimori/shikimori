@@ -26,7 +26,6 @@ import UserRateButton from './user_rates/button';
 import UserRateExtended from './user_rates/extended';
 import WallOrSwiper from './wall_or_swiper';
 import { AuthorizedAction } from './authorized_action';
-import { CuttedCovers } from './cutted_covers';
 import WeekRegisteredAction from './week_registered_action';
 
 export default class DynamicParser {
@@ -73,10 +72,6 @@ export default class DynamicParser {
 
   comment(node) {
     new Comment(node);
-  }
-
-  cuttedCovers(node) {
-    new CuttedCovers(node);
   }
 
   dayRegistered(node) {

@@ -6,10 +6,7 @@
       - else
         h2.subheadline = t '.characters'
 
-      .cc-characters.to-process[
-        data-dynamic='cutted_covers'
-        data-ratio_type='person'
-      ]
+      .cc-characters
         = render @resource.roles.main_characters
 
     - if @resource.roles.supporting_characters.any?
@@ -18,8 +15,5 @@
       - else
         h2.subheadline = t '.characters'
 
-      .cc-characters.to-process[
-        data-dynamic='cutted_covers'
-        data-ratio_type='person'
-      ]
+      .cc-characters
         = render @resource.roles.supporting_characters

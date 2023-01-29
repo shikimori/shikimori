@@ -35,13 +35,12 @@ header.head.ajaxable
       .headline class="#{data[:color]}"
         = t "titles/collection_title.kind.#{@view.klass.name.downcase}.long.#{data[:kind]}"
 
-      .to-process data-dynamic='cutted_covers'
-        - if @view.klass == Anime
-          .m0 class="cc-#{data[:kind] == 'tv' || data[:kind] == 'movie' ? 'entries' : 8}"
-            = render @collection[data[:kind]], cover_notice: :studio, content_by: :tooltip
-        - else
-          .m0 class="cc-#{data[:kind] != 'one_shot' && data[:kind] != 'doujin' ? 'entries' : 8}"
-            = render @collection[data[:kind]], cover_notice: :studio, content_by: :tooltip
+      - if @view.klass == Anime
+        .m0 class="cc-#{data[:kind] == 'tv' || data[:kind] == 'movie' ? 'entries' : 8}"
+          = render @collection[data[:kind]], cover_notice: :studio, content_by: :tooltip
+      - else
+        .m0 class="cc-#{data[:kind] != 'one_shot' && data[:kind] != 'doujin' ? 'entries' : 8}"
+          = render @collection[data[:kind]], cover_notice: :studio, content_by: :tooltip
 
   - else
     p.b-nothing_here = t 'nothing_found'

@@ -72,7 +72,7 @@
                   | Сэйю <span>#{@resource.seyu.size}</span>
                 /- else
                   | Сэйю
-              .cc.m0.to-process data-dynamic='cutted_covers' data-ratio_type='person'
+              .cc.m0
                 = render @resource.top_seyu.take(3)
 
       .c-description
@@ -93,7 +93,7 @@
         .linkeable[
           data-href=animes_character_url(@resource)
         ] = i18n_i 'Anime', :other
-      .cc.to-process data-dynamic='cutted_covers'
+      .cc
         = render @resource.animes(7)
 
     - if @resource.mangas(7).any?
@@ -101,7 +101,7 @@
         .linkeable[
           data-href=mangas_character_url(@resource)
         ] = i18n_i 'Manga', :other
-      .cc.to-process data-dynamic='cutted_covers'
+      .cc
         = render @resource.mangas(7)
 
     - if @resource.ranobe(7).any?
@@ -109,5 +109,5 @@
         .linkeable[
           data-href=ranobe_character_url(@resource)
         ] = i18n_i 'Ranobe', :other
-      .cc.to-process data-dynamic='cutted_covers'
+      .cc
         = render @resource.ranobe(7)

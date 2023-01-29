@@ -1,7 +1,7 @@
 = render layout: 'page' do
   .b-options-floated.count = @resource.characters.size
   h2.subheadline = og.headline
-  .cc-5.to-process data-dynamic='cutted_covers' data-ratio_type='person'
+  .cc-5
     = render @collection
     - if @collection.next_page?
       = render 'blocks/postloader',

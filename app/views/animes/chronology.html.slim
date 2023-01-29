@@ -12,7 +12,7 @@
 
     - if cookies['related_view'] == 'posters'
       .subheadline = og.headline
-      .cc-6.to-process data-dynamic='cutted_covers'
+      .cc-6
         = render partial: 'animes/anime',
           collection: @resource.chronology,
           locals: { cover_notice: :year_kind },

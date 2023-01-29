@@ -14,7 +14,7 @@
     .subheadline = og.headline
 
     - if cookies['related_view'] == 'posters'
-      .cc-6.to-process data-dynamic='cutted_covers'
+      .cc-6
         = render partial: 'animes/anime',
           collection: @resource.related.related,
           locals: { cover_notice: :relation },

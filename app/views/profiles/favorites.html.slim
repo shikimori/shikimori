@@ -11,9 +11,8 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'animes')
         .subheadline = t '.favourite.anime'
-        .cc-favourites.to-process[
+        .cc-favourites[
           class=(:sortable if params[:edit])
-          data-dynamic='cutted_covers'
           data-favorite_ids=(@favorites_view.animes.map(&:favorite).map(&:id) if params[:edit])
           data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
         ]
@@ -28,9 +27,8 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'mangas')
         .subheadline = t '.favourite.manga'
-        .cc-favourites.to-process[
+        .cc-favourites[
           class=(:sortable if params[:edit])
-          data-dynamic='cutted_covers'
           data-favorite_ids=(@favorites_view.mangas.map(&:favorite).map(&:id) if params[:edit])
           data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
         ]
@@ -45,9 +43,8 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'ranobe')
         .subheadline = t '.favourite.ranobe'
-        .cc-favourites.to-process[
+        .cc-favourites[
           class=(:sortable if params[:edit])
-          data-dynamic='cutted_covers'
           data-favorite_ids=(@favorites_view.ranobe.map(&:favorite).map(&:id) if params[:edit])
           data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
         ]
@@ -62,10 +59,8 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'characters')
         .subheadline = t '.favourite.character'
-        .cc-favourites.to-process[
+        .cc-favourites[
           class=(:sortable if params[:edit])
-          data-dynamic='cutted_covers'
-          data-ratio_type='character'
           data-favorite_ids=(@favorites_view.characters.map(&:favorite).map(&:id) if params[:edit])
           data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
         ]
@@ -80,10 +75,8 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'seyu')
         .subheadline = t '.favourite.seyu'
-        .cc-favourites.to-process[
+        .cc-favourites[
           class=(:sortable if params[:edit])
-          data-dynamic='cutted_covers'
-          data-ratio_type='person'
           data-favorite_ids=(@favorites_view.seyu.map(&:favorite).map(&:id) if params[:edit])
           data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
         ]
@@ -98,10 +91,8 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'producers')
         .subheadline = t '.favourite.producer'
-        .cc-favourites.to-process[
+        .cc-favourites[
           class=(:sortable if params[:edit])
-          data-dynamic='cutted_covers'
-          data-ratio_type='person'
           data-favorite_ids=(@favorites_view.producers.map(&:favorite).map(&:id) if params[:edit])
           data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
         ]
@@ -116,10 +107,8 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'mangakas')
         .subheadline = t '.favourite.mangaka'
-        .cc-favourites.to-process[
+        .cc-favourites[
           class=(:sortable if params[:edit])
-          data-dynamic='cutted_covers'
-          data-ratio_type='person'
           data-favorite_ids=(@favorites_view.mangakas.map(&:favorite).map(&:id) if params[:edit])
           data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
         ]
@@ -134,10 +123,8 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'people')
         .subheadline = t '.favourite.person'
-        .cc-favourites.to-process[
+        .cc-favourites[
           class=(:sortable if params[:edit])
-          data-dynamic='cutted_covers'
-          data-ratio_type='person'
           data-favorite_ids=(@favorites_view.people.map(&:favorite).map(&:id) if params[:edit])
           data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
         ]

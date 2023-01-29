@@ -31,10 +31,7 @@
         .b-options-floated.count
           = resource.members.size
         .subheadline = t '.candidates'
-        .cc-4a.user_rates-minified.to-process[
-          data-dynamic='cutted_covers'
-          data-ratio_type=(:person if resource.character?)
-        ]
+        .cc-4a.user_rates-minified
           - if resource.anime?
             = render partial: 'animes/anime',
               collection: resource.members,

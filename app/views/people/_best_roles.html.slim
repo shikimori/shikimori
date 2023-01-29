@@ -8,8 +8,5 @@
           = t 'people_controller.roles_in_anime'
         - else
           = t '.best_roles'
-    .c-characters.to-process[
-      data-dynamic='cutted_covers'
-      data-ratio_type='person'
-    ]
+    .c-characters
       = render resource.best_roles

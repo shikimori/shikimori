@@ -17,7 +17,7 @@
               = t 'animes.page.franchise'
 
         .subheadline = t '.linked'
-        .cc.to-process data-dynamic='cutted_covers'
+        .cc
           = render partial: 'animes/variants/list_item',
             collection: @resource.related.related.take(related_size),
             as: :entry,
@@ -40,7 +40,7 @@
       .c-column.c-authors.block_m
         .subheadline
           span.linkeable data-href=@resource.staff_url = t '.staff'
-        .cc.to-process data-dynamic='cutted_covers' data-ratio_type='person'
+        .cc
           = render partial: 'people/variants/list_item',
             collection: @resource.roles.displayed_people,
             as: :entry
@@ -51,7 +51,7 @@
       .subheadline
         span.linkeable data-href=@resource.characters_url
           = t 'animes.page.main_characters'
-      .cc.m0.to-process data-dynamic='cutted_covers' data-ratio_type='person'
+      .cc.m0
         = render @resource.roles.main_characters
 
 - elsif !@resource.rkn_abused? && @resource.roles.supporting_characters.any?
@@ -60,7 +60,7 @@
       .subheadline
         span.linkeable data-href=@resource.characters_url
           = t 'animes.page.characters'
-      .cc.m0.to-process data-dynamic='cutted_covers' data-ratio_type='person'
+      .cc.m0
         = render @resource.roles.supporting_characters.take(7)
 
 - if @resource.screenshots(5).any? || @resource.videos(4).any?
@@ -90,5 +90,5 @@
   .block
     .subheadline
       span.linkeable data-href=@resource.similar_url = t '.similar'
-    .cc.cc-similar.to-process data-dynamic='cutted_covers'
+    .cc.cc-similar
       = render @resource.related.similar.take(AnimeDecorator::VISIBLE_RELATED)

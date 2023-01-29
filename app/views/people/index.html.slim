@@ -24,10 +24,7 @@ header.head
       - else
         a href=mangakas_people_url(search: params[:search]) = t ".notice.mangakas"
 
-.cc-8.b-search-results.to-process[
-  data-dynamic='cutted_covers'
-  data-ratio_type=(params[:controller] == 'characters' ? 'character' : 'person')
-]
+.cc-8.b-search-results
   = render @collection, is_search_russian: search_russian?
 
   - if @collection.next_page?

@@ -12,7 +12,7 @@
           / title="#{t '.all_animess'}"
         / ] = t '.mangas'
 
-      .cc-ongoings.to-process data-dynamic='cutted_covers'
+      .cc-ongoings
         = render partial: 'animes/anime',
           collection: @view.ongoings,
           locals: { cover_notice: :studio },

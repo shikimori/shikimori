@@ -3,10 +3,7 @@
 - url = send :"#{kind}_club_url", club
 - entries = club.send :"menu_#{kind}"
 
-.block.user_rates-minified.to-process[
-  data-dynamic='cutted_covers'
-  data-ratio_type=(kind == :characters ? :person : :entry)
-]
+.block.user_rates-minified
   .subheadline
     - if club.send(kind).size != entries.size
       a href=url title=name

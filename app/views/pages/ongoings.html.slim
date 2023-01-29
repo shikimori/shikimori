@@ -16,7 +16,7 @@ header.head.m15
         class=(color_by_num index == -1 ? -1 : (DateTime.now + index.days).day % 11)
       ] = index == -1 ? t('.currently_airing') : date_title_for_ongoing(index)
       .collapsed.tiny ...
-      .cc-entries.to-process data-dynamic='cutted_covers'
+      .cc-entries
         = render partial: 'animes/anime',
           collection: group,
           locals: { cover_notice: :next_episode }

@@ -66,12 +66,7 @@ class BbCodes::Tags::DbEntriesTag
           css_class
         ].compact.join(' ')
 
-        ratio_type = [Character, Person].include?(type_to_klass($LAST_MATCH_INFO[:type])) ?
-          " data-ratio_type='person'" :
-          ''
-
-        "<div class='#{css_class} m0 to-process' "\
-          "data-dynamic='cutted_covers'#{ratio_type}>#{entries_html.join}</div>"
+        "<div class='#{css_class} m0'>#{entries_html.join}</div>"
       end
     end
   end
