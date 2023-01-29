@@ -2,6 +2,7 @@
 - content_by ||= :tooltip
 - cover_notice ||= :none
 - cover_title ||= :present
+- cover_derivative ||= :preview
 - content_title ||= :present
 - content_text ||= :present
 
@@ -26,6 +27,7 @@ article.c-column.b-catalog_entry[
         as: :anime,
         locals: { \
           cover_title: cover_title,
+          cover_derivative: cover_derivative,
           cover_by: cover_by,
           cover_notice: cover_notice,
           score_order_type: local_assigns[:score_order_type],

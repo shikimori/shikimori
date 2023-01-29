@@ -1,5 +1,6 @@
 - cover_by ||= :link
 - cover_title ||= :present
+- cover_derivative ||= :preview
 - content_by ||= :tooltip
 
 article.c-column.b-catalog_entry.c-person[
@@ -29,7 +30,7 @@ article.c-column.b-catalog_entry.c-person[
         = render 'db_entries/poster',
           db_entry: person,
           poster: person.poster,
-          derivative: :preview
+          derivative: cover_derivative
 
     - if cover_title != :none
       - if cover_by == :link

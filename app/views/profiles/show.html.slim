@@ -299,7 +299,9 @@
             data-ratio_type='character'
           ]
             - if @resource.favorites.any?
-              = render @resource.favorites, cover_by: :image_link
+              = render @resource.favorites,
+                cover_by: :image_link,
+                cover_derivative: :mini
             - else
               .b-nothing_here = t('.no_favourite')
 

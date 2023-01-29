@@ -2,11 +2,13 @@
 - content_by ||= :tooltip
 - cover_notice ||= :none
 - cover_title ||= :present
+- cover_derivative ||= :preview
 
 = render partial: 'animes/anime',
   object: ranobe,
   locals: {\
     cover_title: cover_title,
+    cover_derivative: cover_derivative,
     cover_by: cover_by,
     content_by: content_by,
     cover_notice: cover_notice,
