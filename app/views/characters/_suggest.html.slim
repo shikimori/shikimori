@@ -1,8 +1,7 @@
 .character-suggest
-  img.avatar[
-    src=cdn_image_url(entry, :preview)
-    title=entry.name
-  ]
+  = render entry,
+    cover_by: :image_link,
+    cover_derivative: :mini
   .name
     - if defined?(render_link) && render_link
       a href=send(url_builder, entry) == entry_name
