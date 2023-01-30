@@ -1,9 +1,9 @@
 class DbImport::MalPoster < DbImport::MalImage
-  def call attempt = 1
+  def call
     return unless policy.need_import?
 
     io = download_image
-    return unless io
+    return unless io && !entry_became_desynced?
 
     Poster.transaction do
       mark_old_poster_deleted
@@ -28,5 +28,9 @@ private
 
   def no_image?
     @entry.poster.nil?
+  end
+
+  def entry_became_desynced?
+    @entry.reload.desynced.include? 'poster'
   end
 end
