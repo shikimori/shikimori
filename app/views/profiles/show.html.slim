@@ -294,7 +294,10 @@
                 = t('profiles_controller.favorites')
             - else
               = t('profiles_controller.favorites')
-          .cc-favourites
+          .cc-favourites.to-process[
+            data-dynamic='cutted_covers'
+            data-ratio_type='entry'
+          ]
             - if @resource.favorites.any?
               = render @resource.favorites,
                 cover_by: :image_link,
