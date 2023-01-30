@@ -16,7 +16,7 @@ article.c-column.b-catalog_entry[
   - if cover_by == :link || cover_by == :image_link
     a.cover[
       class=('anime-tooltip' if content_by == :tooltip)
-      class=('user_rates-minified' if cover_derivative == :mini)
+      class=('user_rates-minified' if cover_derivative == :mini || local_assigns[:is_user_rates_minified])
       href=anime.url
       title=anime.name
       data-delay='150'

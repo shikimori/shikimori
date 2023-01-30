@@ -298,7 +298,8 @@
             - if @resource.favorites.any?
               = render @resource.favorites,
                 cover_by: :image_link,
-                cover_derivative: :mini
+                cover_derivative: :preview,
+                is_user_rates_minified: true
             - else
               .b-nothing_here = t('.no_favourite')
 
