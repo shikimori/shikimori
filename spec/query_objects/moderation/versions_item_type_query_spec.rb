@@ -5,8 +5,12 @@ describe Moderation::VersionsItemTypeQuery do
   let(:manga) { create :manga }
   let(:video) { create :video }
 
-  let!(:version_1) { create :version, item: anime, item_diff: { russian: %w[a b] } }
-  let!(:version_2) { create :version, item: manga, item_diff: { description_ru: ['1', '2'] } }
+  let!(:version_1) do
+    create :version, item: anime, item_diff: { russian: %w[a b] }
+  end
+  let!(:version_2) do
+    create :version, item: manga, item_diff: { description_ru: ['1', '2'] }
+  end
   let!(:version_3) do
     create :version,
       item: anime,
@@ -16,13 +20,25 @@ describe Moderation::VersionsItemTypeQuery do
         image: [1, 2]
       }
   end
-  let!(:version_4) { create :version, item: manga, item_diff: { fansubbers: %w[a b] } }
+  let!(:version_4) do
+    create :version, item: manga, item_diff: { fansubbers: %w[a b] }
+  end
   let!(:version_5) { create :role_version, item: user }
-  let!(:version_6) { create :version, item: video, item_diff: { name: %w[a b] } }
+  let!(:version_6) do
+    create :version, item: video, item_diff: { name: %w[a b] }
+  end
 
   context 'all_content' do
     let(:type) { 'all_content' }
-    it { is_expected.to eq [version_1, version_2, version_3, version_4, version_6] }
+    it do
+      is_expected.to eq [
+        version_1,
+        version_2,
+        version_3,
+        version_4,
+        version_6
+      ]
+    end
   end
 
   context 'texts' do

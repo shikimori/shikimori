@@ -103,22 +103,27 @@ class VersionsView < ViewObjectBase
     h.params[:field]
   end
 
-  def filterable_fields
-    @filterable_fields ||= begin
-      Rails.cache.fetch([:filterable_fields, type_param], expires_in: 1.day) do
-        [Anime, Manga, Character, Person].each_with_object({}) do |klass, memo|
-          sorting_order = I18n.t("activerecord.attributes.#{klass.name.downcase}").keys.map(&:to_s)
+  def filterable_fields # rubocop:disable all
+    @filterable_fields ||= Rails.cache.fetch([:filterable_fields, type_param], expires_in: 1.day) do
+      [Anime, Manga, Character, Person].each_with_object({}) do |klass, memo|
+        sorting_order = I18n.t("activerecord.attributes.#{klass.name.downcase}").keys.map(&:to_s)
 
-          fields = Moderation::ProcessedVersionsQuery
-            .fetch(type_param, nil)
-            .except(:order)
-            .where(item_type: klass.name)
-            .distinct
-            .pluck(Arel.sql('jsonb_object_keys(item_diff)'))
-            .sort_by { |field| sorting_order.index(field) || 9999 }
+        scope = Moderation::ProcessedVersionsQuery
+          .fetch(type_param, nil)
+          .except(:order)
 
-          memo[klass] = fields - IGNORED_FIELDS
-        end
+        fields = scope
+          .where(item_type: klass.name)
+          .distinct
+          .pluck(Arel.sql('jsonb_object_keys(item_diff)'))
+
+        types = scope
+          .where(associated_type: klass.name)
+          .distinct
+          .pluck(:item_type)
+
+        memo[klass] = (fields + types).sort_by { |field| sorting_order.index(field) || 9999 } -
+          IGNORED_FIELDS
       end
     end
   end
