@@ -12,6 +12,7 @@
     ]
     / loading=(:lazy unless derivative == :main)
 - else
+  - derivative = :"preview_#{db_entry.anime? || db_entry.kinda_manga? ? :animanga : :charperson}" if derivative == :preview
   img[
     alt=localized_name(db_entry)
     src='/assets/globals/missing/#{derivative}.png'
