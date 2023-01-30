@@ -541,12 +541,14 @@ rails runner "\
     Poster.import(slice.map { |poster| Poster.new poster });\
     puts Poster.count;\
   end\
+  ActiveRecord::Base.connection.reset_pk_sequence! :posters;\
 "
 ```
 
 ### Proxies sandbox
 ```sh
 rails runner "\
+  ActiveRecord::Base.connection.reset_pk_sequence! :proxies;\
   ProxyWorker.new.perform;\
   File.open('/tmp/proxies.json', 'w') do |f|\
     f.write Proxy.all.to_json;\
