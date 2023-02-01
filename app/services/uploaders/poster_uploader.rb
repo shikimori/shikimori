@@ -21,6 +21,17 @@ class Uploaders::PosterUploader < Shrine
   # plugin :metadata_attributes
   plugin :store_dimensions, analyzer: :mini_magick
   plugin :data_uri
+  plugin :validation_helpers
+  plugin :remove_invalid
+
+  Attacher.validate do
+    validate_mime_type %w[image/jpeg image/png image/webp]
+    validate_max_size 15.megabytes
+
+    unless ImageChecker.valid? file.storage.path(file.id)
+      errors << 'corrupted'
+    end
+  end
 
   Attacher.derivatives do |original|
     # magick = ImageProcessing::Vips.source(original).saver(quality: 94)
@@ -71,17 +82,6 @@ class Uploaders::PosterUploader < Shrine
       mini_alt_2x: mini_2x.call!, # .convert!('png'), # .call!,
       mini_alt: mini.call! # .convert!('png') # .call!
     }
-  end
-
-  Attacher.validate do
-    validate_max_size(
-      15.megabytes,
-      message: 'is too large (max is 15 MB)'
-    )
-    validate_mime_type_inclusion(
-      %w[image/jpg image/jpeg image/png image/webp],
-      message: 'must be JPEG, PNG or WEBP'
-    )
   end
 
   def generate_location io, record: nil, **context # rubocop:disable PerceivedComplexity, CyclomaticComplexity, MethodLength

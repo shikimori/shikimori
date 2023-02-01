@@ -4,8 +4,6 @@ class ImageChecker
   GRAY_COLOR = 128
 
   def valid?
-    ensure_no_runs_in_rspec!
-
     if jpeg?
       jpeg_check
     else
@@ -40,10 +38,6 @@ private
 
   def second_jpg_check image_content
     !image_content.bytes[-(Uploaders::PosterUploader::MAIN_WIDTH * 4)..].all?(GRAY_COLOR)
-  end
-
-  def ensure_no_runs_in_rspec!
-    raise 'ImageChecker.valid? must be stubbed in rspec' if Rails.env.test?
   end
 
   # def second_check
