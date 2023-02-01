@@ -39,7 +39,8 @@ class VersionsView < ViewObjectBase
 
   def processed
     scope = processed_scope
-    scope = apply_filtering scope
+    scope = apply_filters scope
+
     scope
       .paginate(page, PER_PAGE)
       .lazy_map(&:decorate)
@@ -47,7 +48,8 @@ class VersionsView < ViewObjectBase
 
   def pending
     scope = pending_scope
-    scope = apply_filtering scope
+    scope = apply_filters scope
+
     scope
       .includes(:user, :moderator)
       .where(state: :pending)
@@ -117,12 +119,28 @@ class VersionsView < ViewObjectBase
 
 private
 
-  def apply_filtering scope
+  def apply_filters scope
     scope = scope.where user_id: filtered_user.id if filtered_user
     scope = scope.where moderator_id: filtered_moderator.id if filtered_moderator
-    scope = scope.where item_type: filtered_item_type if filtered_item_type
-    scope = scope.where '(item_diff->>:field) is not null', field: filtered_field if filtered_field
+
+    if filtered_item_type
+      scope = scope.where(
+        'item_type = :type or associated_type = :type',
+        type: filtered_item_type
+      )
+    end
+
+    scope = filter_by_field scope if filtered_field
+
     scope
+  end
+
+  def filter_by_field scope
+    if filtered_field[0].match?(/[[:upper:]]/)
+      scope.where item_type: filtered_field
+    else
+      scope.where '(item_diff->>:field) is not null', field: filtered_field
+    end
   end
 
   def filterable_fields
