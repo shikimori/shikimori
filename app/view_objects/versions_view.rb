@@ -3,6 +3,7 @@ class VersionsView < ViewObjectBase
 
   PER_PAGE = 25
   IGNORED_FIELDS = %w[source action]
+  FILTERABLE_TYPES = [Anime, Manga, Character, Person].map(&:name)
 
   def processed_scope
     Moderation::ProcessedVersionsQuery
@@ -103,29 +104,11 @@ class VersionsView < ViewObjectBase
     h.params[:field]
   end
 
-  def filterable_fields # rubocop:disable all
-    @filterable_fields ||= Rails.cache.fetch([:filterable_fields, type_param], expires_in: 1.day) do
-      [Anime, Manga, Character, Person].each_with_object({}) do |klass, memo|
-        sorting_order = I18n.t("activerecord.attributes.#{klass.name.downcase}").keys.map(&:to_s)
-
-        scope = Moderation::ProcessedVersionsQuery
-          .fetch(type_param, nil)
-          .except(:order)
-
-        fields = scope
-          .where(item_type: klass.name)
-          .distinct
-          .pluck(Arel.sql('jsonb_object_keys(item_diff)'))
-
-        types = scope
-          .where(associated_type: klass.name)
-          .distinct
-          .pluck(:item_type)
-
-        memo[klass] = (fields + types).sort_by { |field| sorting_order.index(field) || 9999 } -
-          IGNORED_FIELDS
+  def filterable_options
+    @filterable_options ||=
+      Rails.cache.fetch([:filterable_options, type_param], expires_in: 1.day) do
+        filterable_fields.deep_merge filterable_types
       end
-    end
   end
 
   def sort_order
@@ -140,5 +123,31 @@ private
     scope = scope.where item_type: filtered_item_type if filtered_item_type
     scope = scope.where '(item_diff->>:field) is not null', field: filtered_field if filtered_field
     scope
+  end
+
+  def filterable_fields
+    FILTERABLE_TYPES.index_with do |type|
+      (
+        Moderation::ProcessedVersionsQuery
+          .fetch(type_param, nil)
+          .except(:order)
+          .where(item_type: type)
+          .distinct
+          .pluck(Arel.sql('jsonb_object_keys(item_diff)')) - IGNORED_FIELDS
+      )
+        .index_with { |key| type.constantize.human_attribute_name key }
+    end
+  end
+
+  def filterable_types
+    FILTERABLE_TYPES.index_with do |type|
+      Moderation::ProcessedVersionsQuery
+        .fetch(type_param, nil)
+        .except(:order)
+        .where(associated_type: type)
+        .distinct
+        .pluck(:item_type)
+        .index_with { |item_type| item_type.constantize.model_name.human count: 1 }
+    end
   end
 end

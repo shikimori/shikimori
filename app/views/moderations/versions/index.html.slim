@@ -87,16 +87,16 @@ header.head
                 div = t '.field'
                 select#version_field name='field'
                   option value='' = t '.not_selected'
-                  - @view.filterable_fields.each do |klass, fields|
-                    optgroup label=klass.model_name.human
-                      - fields.each do |field|
+                  - @view.filterable_options.each do |type, fields|
+                    optgroup label=type.constantize.model_name.human
+                      - fields.sort_by(&:second).each do |field, label|
                         option[
                           value=field
-                          selected=(params[:field] === field && params[:item_type] == klass.name)
-                          data-item_type=klass.name
+                          selected=(params[:field] === field && params[:item_type] == type)
+                          data-item_type=type
                         ]
-                          = klass.human_attribute_name field
-                          - if klass.human_attribute_name(field) != field
+                          = label
+                          - if label != field
                             |  (#{field})
 
 - if @view.pending.any?
