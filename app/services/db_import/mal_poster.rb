@@ -1,18 +1,30 @@
 class DbImport::MalPoster < DbImport::MalImage
+  MAX_ATTEMPTS = 3
+
   def call
     return unless policy.need_import?
 
+    attempt = 0
+
+    begin
+      safe_download if (attempt += 1) <= MAX_ATTEMPTS
+    rescue *::Network::FaradayGet::NET_ERRORS, ActiveRecord::RecordInvalid
+      retry
+    end
+  end
+
+private
+
+  def safe_download
     io = download_image
     return unless io && !entry_became_desynced?
 
     Poster.transaction do
       mark_old_poster_deleted
-      create_new_poster io
+      poster = create_new_poster io
+      raise ActiveRecord::RecordInvalid unless valid_image? poster
     end
-  rescue *::Network::FaradayGet::NET_ERRORS
   end
-
-private
 
   def mark_old_poster_deleted
     @entry.poster&.update! deleted_at: Time.zone.now
@@ -32,5 +44,9 @@ private
 
   def entry_became_desynced?
     @entry.reload.desynced.include? 'poster'
+  end
+
+  def valid_image? poster
+    ImageChecker.valid? poster.image.storage.path(poster.image.id)
   end
 end
