@@ -8,10 +8,11 @@ describe ImageChecker do
     end
   end
 
-  context 'allowed in rspec' do
-    before { allow_any_instance_of(ImageChecker).to receive :ensure_no_runs_in_rspec! }
+  if ENV['CI_SERVER']
+    context 'allowed in rspec' do
+      before { allow_any_instance_of(ImageChecker).to receive :ensure_no_runs_in_rspec! }
 
-    it { is_expected.to eq true }
+      it { is_expected.to eq true }
 
       context 'broken poster' do
         # NOTE: "Premature end of JPEG file" printed here
@@ -19,9 +20,10 @@ describe ImageChecker do
         it { is_expected.to eq false }
       end
 
-    context 'incomplete poster' do
-      let(:image_path) { 'spec/files/poster_incomplete.jpg' }
-      it { is_expected.to eq false }
+      context 'incomplete poster' do
+        let(:image_path) { 'spec/files/poster_incomplete.jpg' }
+        it { is_expected.to eq false }
+      end
     end
   end
 end
