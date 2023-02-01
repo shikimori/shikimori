@@ -38,35 +38,37 @@ describe DbImport::MalPoster do
       expect(prev_poster.reload.deleted_at).to be_within(0.1).of Time.zone.now
     end
 
-    describe 'broken import does not delete prev poster' do
-      before do
-        allow_any_instance_of(DbImport::MalPoster)
-          .to receive(:download_image)
-          .and_return nil
-      end
-      it do
-        expect { subject }.to_not change Poster, :count
-        expect(entry.reload.poster).to eq prev_poster
-        expect(prev_poster.reload.deleted_at).to be_nil
-      end
-    end
-
-    describe 'failed first check attempt' do
-      let(:is_first_check_failed) { true }
-
-      it do
-        expect { subject }.to change(Poster, :count).by 1
-        expect(entry.reload.poster).to_not eq prev_poster
-        expect(entry.poster).to be_persisted
-      end
-
-      describe 'failed second attempt does not delete prev poster' do
-        let(:is_second_check_failed) { true }
-
+    if ENV['CI_SERVER']
+      describe 'broken import does not delete prev poster' do
+        before do
+          allow_any_instance_of(DbImport::MalPoster)
+            .to receive(:download_image)
+            .and_return nil
+        end
         it do
           expect { subject }.to_not change Poster, :count
           expect(entry.reload.poster).to eq prev_poster
           expect(prev_poster.reload.deleted_at).to be_nil
+        end
+      end
+
+      describe 'failed first check attempt' do
+        let(:is_first_check_failed) { true }
+
+        it do
+          expect { subject }.to change(Poster, :count).by 1
+          expect(entry.reload.poster).to_not eq prev_poster
+          expect(entry.poster).to be_persisted
+        end
+
+        describe 'failed second attempt does not delete prev poster' do
+          let(:is_second_check_failed) { true }
+
+          it do
+            expect { subject }.to_not change Poster, :count
+            expect(entry.reload.poster).to eq prev_poster
+            expect(prev_poster.reload.deleted_at).to be_nil
+          end
         end
       end
     end
