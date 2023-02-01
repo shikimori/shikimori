@@ -279,8 +279,8 @@ private
     provider: Types::Ad::Provider[:special],
     # AD START: IMBA - remove 2023-02-04 22:00
     images: [{
-      src: '/assets/globals/events/2023-01-21/inner_1.png?v3',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner19&utm_campaign=31_01&marker=2VtzqvVCDFH'
+      src: '/assets/globals/events/2023-01-21/inner_1.png?v4',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner2&utm_campaign=22_01&marker=2VtzqvVCDFH'
     }, {
       src: '/assets/globals/events/2023-01-21/inner_2.png?v3',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner20&utm_campaign=31_01&marker=2Vtzqv5UkDh'
