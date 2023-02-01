@@ -1,5 +1,3 @@
-require 'image_processing/vips'
-
 class Uploaders::PosterUploader < Shrine
   include ImageProcessing::MiniMagick
 

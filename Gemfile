@@ -65,7 +65,7 @@ gem 'mail', '2.7.1' # mail 2.8 depends on net-protocol gem which conflicts with 
 gem 'mini_magick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'mimemagic' # deploy broken w/o the dependency updated
 gem 'shrine'
-gem 'image_processing', require: false
+gem 'image_processing'
 
 gem 'actionpack-action_caching'
 gem 'attr_extras'

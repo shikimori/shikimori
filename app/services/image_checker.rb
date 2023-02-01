@@ -6,22 +6,39 @@ class ImageChecker
   def valid?
     ensure_no_runs_in_rspec!
 
-    # djpeg возвращает ошибку "Premature end of JPEG file"
-    # для части не до конца загруженных картинок и first_check достаточно,
-    # но для части картинок, обрезанных "удачно" эта проверка не работает,
-    # и djpeg на них не падает, поэтому делаем вторую проверку, проверяя содержимое на сломанные пиксели
-    Tempfile.create('jpg') do |file|
-      !!(first_check(file.path) && second_check(file.read))
+    if jpeg?
+      jpeg_check
+    else
+      image_magick_check
     end
   end
 
 private
 
-  def first_check file_path
+  def jpeg?
+    `identify #{@image_path}`.match? ' JPEG '
+  end
+
+  # djpeg возвращает ошибку "Premature end of JPEG file"
+  # для части не до конца загруженных картинок и first_check достаточно,
+  # но для части картинок, обрезанных "удачно" эта проверка не работает,
+  # и djpeg на них не падает, поэтому делаем вторую проверку, проверяя содержимое на сломанные пиксели
+  def jpeg_check
+    Tempfile.create('jpg') do |file|
+      !!(first_jpg_check(file.path) && second_jpg_check(file.read))
+    end
+  end
+
+  # к сожалению битые jpg не определяет
+  def image_magick_check
+    ImageProcessing::MiniMagick.valid_image? File.open(@image_path)
+  end
+
+  def first_jpg_check file_path
     system "djpeg -fast -grayscale -onepass #{@image_path} > #{file_path}"
   end
 
-  def second_check image_content
+  def second_jpg_check image_content
     !image_content.bytes[-(Uploaders::PosterUploader::MAIN_WIDTH * 4)..].all?(GRAY_COLOR)
   end
 
