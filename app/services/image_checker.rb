@@ -1,9 +1,11 @@
 class ImageChecker
-  def initialize path
-    @path = path
-  end
+  static_facade :valid?, :image_path
+
+  GRAY_COLOR = 128
 
   def valid?
+    ensure_no_runs_in_rspec!
+
     # djpeg возвращает ошибку "Premature end of JPEG file"
     # для части не до конца загруженных картинок и first_check достаточно,
     # но для части картинок, обрезанных "удачно" эта проверка не работает,
@@ -13,18 +15,18 @@ class ImageChecker
     end
   end
 
-  def self.valid? path
-    new(path).valid?
-  end
-
 private
 
   def first_check file_path
-    system "djpeg -fast -grayscale -onepass #{@path} > #{file_path}"
+    system "djpeg -fast -grayscale -onepass #{@image_path} > #{file_path}"
   end
 
   def second_check image_content
-    image_content.ends_with?("\x80" * (Uploaders::PosterUploader::MAIN_WIDTH * 4))
+    !image_content.bytes[-(Uploaders::PosterUploader::MAIN_WIDTH * 4)..].all?(GRAY_COLOR)
+  end
+
+  def ensure_no_runs_in_rspec!
+    raise 'ImageChecker.valid? must be stubbed in rspec' if Rails.env.test?
   end
 
   # def second_check
