@@ -8,7 +8,7 @@ describe ImageChecker do
       it { is_expected.to eq true }
     end
 
-    context 'broken image' do
+    context 'broken image', :ci_only do
       # NOTE: "Premature end of JPEG file" printed here
       let(:image_path) { 'spec/files/poster_broken.jpg' }
       it { is_expected.to eq false }

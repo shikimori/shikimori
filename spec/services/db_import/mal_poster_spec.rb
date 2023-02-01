@@ -34,7 +34,6 @@ describe DbImport::MalPoster do
       expect(prev_poster.reload.deleted_at).to be_within(0.1).of Time.zone.now
     end
 
-    # if ENV['CI_SERVER']
     describe 'broken import does not delete prev poster' do
       before do
         allow_any_instance_of(DbImport::MalPoster)
@@ -48,7 +47,7 @@ describe DbImport::MalPoster do
       end
     end
 
-    context 'corrupted image on first download attempt' do
+    context 'corrupted image on first download attempt', :ci_only do
       before do
         allow_any_instance_of(DbImport::MalPoster)
           .to receive(:download_image)
