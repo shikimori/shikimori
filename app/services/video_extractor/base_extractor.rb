@@ -102,7 +102,10 @@ private
   end
 
   def fetch_page url
-    OpenURI.open_uri(video_api_url(url), open_uri_options).read
+    OpenURI
+      .open_uri(video_api_url(url), open_uri_options)
+      .read
+      .fix_encoding # had to fix since in ruby 2.7 cp1251 pages are loaded with invalid encoding
   end
 
   def open_uri_options
