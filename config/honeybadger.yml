@@ -1,22 +1,40 @@
 ---
-api_key: d5d351ee
+# For more options, see https://docs.honeybadger.io/lib/ruby/gem-reference/configuration
+
+api_key: 'hbp_rdjIs0reOFCllgV24NmiEEYdHqnT3i39eqCs'
+
+# The environment your app is running in.
+env: "<%= Rails.env %>"
+
+# The absolute path to your project folder.
+root: "<%= Rails.root.to_s %>"
+
+# Honeybadger won't report errors in these environments.
 development_environments:
-  - development
-  - test
+- test
+- development
+- cucumber
+
 exceptions:
   ignore:
-    - CanCan::AccessDenied
+    - AbstractController::ActionNotFound
     - ActionController::InvalidAuthenticityToken
-    - ActionController::UnknownFormat
-    - ActionDispatch::RemoteIp::IpSpoofAttackError
-    - ActiveRecord::RecordNotFound
+    - ActionController::ParameterMissing
     - ActionController::RoutingError
+    - ActionController::UnknownFormat
+    - ActionController::UnknownHttpMethod
+    - ActionController::BadRequest
+    - ActionDispatch::RemoteIp::IpSpoofAttackError
     - ActiveRecord::PreparedStatementCacheExpired
+    - ActiveRecord::RecordNotFound
+    - CanCan::AccessDenied
     - I18n::InvalidLocale
     - Unicorn::ClientShutdown
     - Unauthorized
     - AgeRestricted
+    - RknBanned
     - MismatchedEntries
+    - InvalidEpisodesError
     - CopyrightedResource
     - Net::SMTPServerBusy
     - Net::SMTPFatalError
@@ -29,7 +47,13 @@ exceptions:
     - Errors::NotIdentifiedByImageMagickError
     - Sidekiq::Shutdown
     - Terrapin::ExitStatusError
-metrics:
-  enabled: false
-traces:
-  enabled: false
+
+# By default, Honeybadger won't report errors in the development_environments.
+# You can override this by explicitly setting report_data to true or false.
+# report_data: true
+
+# The current Git revision of your project. Defaults to the last commit hash.
+# revision: null
+
+# Enable verbose debug logging (useful for troubleshooting).
+debug: false
