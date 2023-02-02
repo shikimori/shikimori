@@ -69,7 +69,8 @@ gem 'image_processing'
 
 gem 'actionpack-action_caching'
 gem 'attr_extras'
-gem 'paperclip'
+
+gem 'kt-paperclip'
 gem 'paperclip-i18n'
 gem 'rs_russian', github: 'morr/rs_russian', branch: 'master'
 gem 'translit'
