@@ -503,8 +503,8 @@ ssh devops@shiki '\
           Manga: Manga.pluck(:id),\
           Character: Character.pluck(:id),\
           Person: Person.pluck(:id)\
-        }.to_json)\
-      end\
+        }.to_json);\
+      end;\
     "\
 ' &&\
 scp shiki:/tmp/ids.json /tmp/ &&\
@@ -517,9 +517,9 @@ rails runner "\
       missing_ids.each do |id|\
         MalParsers::FetchEntry.new.perform id, klass.name.downcase rescue EmptyContentError;\
         sleep 3;\
-      end\
-    end\
-  end\
+      end;\
+    end;\
+  end;\
 "
 ```
 
@@ -540,7 +540,7 @@ rails runner "\
   json.each_slice(5000).each do |slice|\
     Poster.import(slice.map { |poster| Poster.new poster });\
     puts Poster.count;\
-  end\
+  end;\
   ActiveRecord::Base.connection.reset_pk_sequence! :posters;\
 "
 ```
