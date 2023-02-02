@@ -1,4 +1,4 @@
-- if poster
+- if poster && poster.image_data['derivatives']
   - derivative = :main if derivative == :preview && poster.image_data['derivatives'][derivative.to_s]['metadata']['height'] > poster.image_data['derivatives']['main']['metadata']['height'] * 1.2
   picture
     source[
