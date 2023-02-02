@@ -37,7 +37,9 @@ private
   end
 
   def second_jpg_check image_content
-    !image_content.bytes[-(Uploaders::PosterUploader::MAIN_WIDTH * 4)..].all?(GRAY_COLOR)
+    !image_content
+      .bytes[-[image_content.bytes.size, (Uploaders::PosterUploader::MAIN_WIDTH * 4)].min..]
+      .all?(GRAY_COLOR)
   end
 
   # def second_check

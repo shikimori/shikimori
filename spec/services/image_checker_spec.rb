@@ -1,7 +1,6 @@
 describe ImageChecker do
   subject { described_class.valid? Rails.root.join(image_path) }
 
-  # if ENV['CI_SERVER']
   context 'jpg' do
     context 'valid' do
       let(:image_path) { 'spec/files/anime.jpg' }
