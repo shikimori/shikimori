@@ -229,6 +229,7 @@ GEM
       xpath (~> 3.2)
     case_transform (0.2)
       activesupport
+    cgi (0.3.6)
     chewy (6.0.0)
       activesupport (>= 5.2)
       elasticsearch (>= 6.3.0)
@@ -808,6 +809,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rbenv
   capybara
+  cgi (= 0.3.6)
   chewy
   clockwork
   colorize
