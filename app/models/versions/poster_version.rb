@@ -68,10 +68,13 @@ private
   end
 
   def restore_poster poster
-    if poster
-      poster.update! deleted_at: nil
-    else
-      true
+    poster&.update! deleted_at: nil
+
+    if item_diff[ITEM_DIFF_KEY_WAS_DESYNCED]
+      add_desynced FIELD, associated
+      associated.save!
     end
+
+    true
   end
 end

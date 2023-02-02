@@ -75,10 +75,12 @@ describe Versions::PosterVersion do
         item: poster,
         item_diff: {
           'action' => action,
-          described_class::ITEM_DIFF_KEY_PREV_POSTER_ID => prev_poster&.id
+          described_class::ITEM_DIFF_KEY_PREV_POSTER_ID => prev_poster&.id,
+          described_class::ITEM_DIFF_KEY_WAS_DESYNCED => was_desynced
         },
         associated: anime
     end
+    let(:was_desynced) { false }
 
     subject! { version.rollback_changes }
 
@@ -109,9 +111,13 @@ describe Versions::PosterVersion do
     context 'delete' do
       let(:action) { Versions::PosterVersion::Actions[:delete] }
       let(:poster_deleted_at) { 1.day.ago }
+      let(:was_desynced) { [true, false].sample }
 
       it do
         expect(poster.reload.deleted_at).to be_nil
+        expect(anime.reload.desynced).to eq(
+          was_desynced ? [Versions::PosterVersion::FIELD] : []
+        )
       end
     end
   end
