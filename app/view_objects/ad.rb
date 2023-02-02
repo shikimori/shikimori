@@ -302,6 +302,9 @@ private
     }, {
       src: '/assets/globals/events/2023-01-21/inner_8.png?v3',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner2&utm_campaign=22_01&marker=2VtzqwWWixs'
+    }, {
+      src: '/assets/globals/events/2023-01-21/inner_9.png?v3',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner26&utm_campaign=02_02&marker=2VtzqwWWixs'
     }],
     # AD END
     placement: Types::Ad::Placement[:content],
