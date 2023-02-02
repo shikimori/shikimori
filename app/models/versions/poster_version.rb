@@ -3,7 +3,8 @@ class Versions::PosterVersion < Version
     .constructor(&:to_sym)
     .enum(:upload, :delete)
 
-  PREV_POSTER_ID = 'prev_poster_id'
+  ITEM_DIFF_KEY_PREV_POSTER_ID = 'prev_poster_id'
+  ITEM_DIFF_KEY_WAS_DESYNCED = 'was_desynced'
   FIELD = 'poster'
 
   alias poster item
@@ -31,9 +32,9 @@ class Versions::PosterVersion < Version
   end
 
   def prev_poster
-    return unless item_diff[PREV_POSTER_ID]
+    return unless item_diff[ITEM_DIFF_KEY_PREV_POSTER_ID]
 
-    Poster.find_by id: item_diff[PREV_POSTER_ID]
+    Poster.find_by id: item_diff[ITEM_DIFF_KEY_PREV_POSTER_ID]
   end
 
 private
@@ -43,7 +44,7 @@ private
     prev_poster = associated.poster
 
     if prev_poster
-      item_diff[PREV_POSTER_ID] = prev_poster.id
+      item_diff[ITEM_DIFF_KEY_PREV_POSTER_ID] = prev_poster.id
       save!
       prev_poster.update! deleted_at: Time.zone.now
     end
@@ -55,11 +56,15 @@ private
   end
 
   def delete_poster
-    if poster
-      poster.update! deleted_at: Time.zone.now
-    else
-      true
+    poster&.update! deleted_at: Time.zone.now
+
+    if associated.respond_to?(:desynced) && associated.desynced.include?(FIELD)
+      item_diff[ITEM_DIFF_KEY_WAS_DESYNCED] = true
+      save!
     end
+
+    remove_desynced FIELD, associated
+    associated.save!
   end
 
   def restore_poster poster

@@ -9,7 +9,8 @@ describe Versions::PosterVersion do
 
     let(:poster) { create :poster, is_approved: false, anime: anime }
     let!(:active_poster) { nil }
-    let(:anime) { create :anime }
+    let(:anime) { create :anime, desynced: anime_desynced }
+    let(:anime_desynced) { [] }
 
     let(:version) do
       create :poster_version,
@@ -37,7 +38,7 @@ describe Versions::PosterVersion do
           expect(active_poster.reload.deleted_at).to be_within(0.1).of Time.zone.now
           expect(version.reload.item_diff).to eq(
             'action' => 'upload',
-            'prev_poster_id' => active_poster.id
+            described_class::ITEM_DIFF_KEY_PREV_POSTER_ID => active_poster.id
           )
           expect(anime.reload.desynced).to eq [described_class::FIELD]
         end
@@ -46,10 +47,13 @@ describe Versions::PosterVersion do
 
     context 'delete' do
       let(:action) { Versions::PosterVersion::Actions[:delete] }
+      let(:anime_desynced) { [described_class::FIELD] }
 
       it do
         expect(poster.reload).to_not be_is_approved
         expect(poster.deleted_at).to be_within(0.1).of Time.zone.now
+        expect(anime.reload.desynced).to eq []
+        expect(version.reload.item_diff[described_class::ITEM_DIFF_KEY_WAS_DESYNCED]).to eq true
       end
     end
   end
@@ -71,7 +75,7 @@ describe Versions::PosterVersion do
         item: poster,
         item_diff: {
           'action' => action,
-          'prev_poster_id' => prev_poster&.id
+          described_class::ITEM_DIFF_KEY_PREV_POSTER_ID => prev_poster&.id
         },
         associated: anime
     end
@@ -138,7 +142,7 @@ describe Versions::PosterVersion do
   describe '#prev_poster' do
     let(:version) do
       build :poster_version,
-        item_diff: { described_class::PREV_POSTER_ID => poster.id }
+        item_diff: { described_class::ITEM_DIFF_KEY_PREV_POSTER_ID => poster.id }
     end
     let(:poster) { create :poster, anime: anime }
     let(:anime) { create :anime }
