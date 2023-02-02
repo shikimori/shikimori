@@ -4,6 +4,8 @@ class ImageChecker
   GRAY_COLOR = 128
 
   def valid?
+    return false unless File.exist? @image_path
+
     if jpeg?
       jpeg_check
     else

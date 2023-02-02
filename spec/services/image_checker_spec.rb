@@ -1,6 +1,11 @@
 describe ImageChecker do
   subject { described_class.valid? Rails.root.join(image_path) }
 
+  context 'no image' do
+    let(:image_path) { 'spec/files/zxc' }
+    it { is_expected.to eq false }
+  end
+
   context 'jpg' do
     context 'valid' do
       let(:image_path) { 'spec/files/anime.jpg' }
