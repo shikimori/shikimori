@@ -55,7 +55,7 @@ class VideoExtractor::BaseExtractor
     fixed_url = begin
       url if URI.parse url
     rescue StandardError
-      URI.encode(url).gsub('%20', ' ')
+      Addressable::URI.encode(url).gsub('%20', ' ')
     end
 
     fixed_url.gsub('http://', 'https://')

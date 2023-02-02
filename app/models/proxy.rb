@@ -182,7 +182,7 @@ class Proxy < ApplicationRecord
     def no_proxy_get url, options
       NamedLogger.proxy.info "GET #{url}"
 
-      resp = get_open_uri URI.encode(url)
+      resp = get_open_uri Addressable::URI.encode(url)
       file =
         if resp.meta['content-encoding'] == 'gzip'
           Zlib::GzipReader.new(StringIO.new(resp.read))

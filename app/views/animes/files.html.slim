@@ -17,14 +17,14 @@
     .c-toshokan
       .subheadline.m5 = t '.search_on.toshokan'
       - @resource.files.toshokan_search.each do |phrase|
-        a.b-link href="http://www.tokyotosho.info/search.php?terms=#{URI.encode phrase}"
+        a.b-link href="http://www.tokyotosho.info/search.php?terms=#{Addressable::URI.encode_component phrase}"
           = phrase
 
     .c-rutracker
       .subheadline.m5 = t '.search_on.rutracker'
       .content
         - @resource.files.rutracker_search.compact.each do |phrase|
-          a.b-link href="https://rutracker.org/forum/tracker.php?nm=#{URI.encode phrase}&f=1105,1386,1387,1388,1389,1390,1391,1478,1642,2491,281,282,404,599,893"
+          a.b-link href="https://rutracker.org/forum/tracker.php?nm=#{Addressable::URI.encode_component phrase}&f=1105,1386,1387,1388,1389,1390,1391,1478,1642,2491,281,282,404,599,893"
             = phrase
 
   / - if @resource.files.subtitles.any?
