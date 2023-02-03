@@ -16,6 +16,7 @@
       .cover
         .image-decor
           a.image-cutter.see-more[
+            class=(:animanga unless collection.character? || collection.person?)
             href=topic_view.url
           ]
             .text
