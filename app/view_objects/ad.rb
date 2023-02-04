@@ -296,9 +296,9 @@ private
     }, {
       src: '/assets/globals/events/2023-01-21/inner_6.png?v3',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner24&utm_campaign=31_01&marker=2VtzqxB44ou'
-    }, {
-      src: '/assets/globals/events/2023-01-21/inner_7.png?v3',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner25&utm_campaign=31_01&marker=2Vtzqv9wP2b'
+    # }, {
+    #   src: '/assets/globals/events/2023-01-21/inner_7.png?v3',
+    #   url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner25&utm_campaign=31_01&marker=2Vtzqv9wP2b'
     # }, {
     #   src: '/assets/globals/events/2023-01-21/inner_8.png?v3',
     #   url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner2&utm_campaign=22_01&marker=2VtzqwWWixs'

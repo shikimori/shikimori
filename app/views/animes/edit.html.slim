@@ -159,7 +159,7 @@
             .subheadline.m5 = t '.search_on.toshokan'
             - @resource.files.toshokan_search.each do |phrase|
               div.m5
-                a.b-link href="http://www.tokyotosho.info/search.php?terms=#{URI.encode phrase}"
+                a.b-link href="http://www.tokyotosho.info/search.php?terms=#{Addressable::URI.encode_component phrase}"
                   = phrase
 
   = render 'db_entries/dangerous_actions/index', resource: @resource

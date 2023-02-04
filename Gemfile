@@ -69,7 +69,8 @@ gem 'image_processing'
 
 gem 'actionpack-action_caching'
 gem 'attr_extras'
-gem 'paperclip'
+
+gem 'kt-paperclip'
 gem 'paperclip-i18n'
 gem 'rs_russian', github: 'morr/rs_russian', branch: 'master'
 gem 'translit'
@@ -122,6 +123,7 @@ gem 'apipie-rails'
 gem 'gcm'
 gem 'maruku'
 gem 'open_uri_redirections' # for http->https redirects. for example for loading videos fom vimeo (http://vimeo.com/113998423)
+gem 'cgi', '0.3.6' # fixes capybara errors with .example.com domain in ruby >= 2.7. details in https://discuss.rubyonrails.org/t/invalid-domain-example-com-in-rspec-after-changing-session-store-to-domain-all/81922
 
 gem 'i18n', '< 1.9.0' # update only with chewy - otherwise get error of missing module
 gem 'i18n-inflector', github: 'morr/i18n-inflector', branch: :master # fork fixes regular expression for parsing @ inflections

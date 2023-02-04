@@ -52,11 +52,17 @@
     $border-color: $gray-1
     .see-more
       border: 1px solid $border-color
-      height: 180px
+      height: 186.12px
       position: relative
 
+      &.animanga
+        height: 168.92px
+
       .b-forum &
-        height: 135px
+        height: 132.62px + 2px
+
+        &.animanga
+          height: 120.37px + 2px
 
       +gte_laptop
         &:hover,

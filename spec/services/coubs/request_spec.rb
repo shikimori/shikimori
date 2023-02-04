@@ -10,12 +10,12 @@ describe Coubs::Request, :vcr do
       expect(subject.first).to be_kind_of Coub::Entry
       expect(subject.first.to_h).to eq(
         permalink: '51pzi',
-        image_template: 'https://coubsecure-s.akamaihd.net/get/b29/p/coub/simple/cw_image/728221c44fe/eb9d518721913a927b6ca/%{version}_1424137252_00021.jpg',
+        image_template: 'https://coubsecure-s.akamaihd.net/get/b29/p/coub/simple/cw_image/728221c44fe/eb9d518721913a927b6ca/%{version}_1424137252_00021.jpg', # rubocop:disable Style/FormatStringToken
         categories: %w[animals-pets],
         tags: ['edm', 'grime', 'dubstep', 'house', 'techno', 'bass', 'cat', 'rave', 'circly circles', '3d mapping', 'projection', 'rave cat', 'ravecat'],
         title: 'ravecat',
         author: {
-          avatar_template: 'https://coubsecure-s.akamaihd.net/get/b126/p/channel/cw_avatar/e97301ea36f/b8872d6565437a8ff7245/%{version}_1474683267_download__9_.jpeg',
+          avatar_template: 'https://coubsecure-s.akamaihd.net/get/b126/p/channel/cw_avatar/e97301ea36f/b8872d6565437a8ff7245/%{version}_1474683267_download__9_.jpeg', # rubocop:disable Style/FormatStringToken
           name: '○)⃝⃝)⃝⃝○○.⃝.⃝○⃝○⃝○○⃝⃝))⃝⃝',
           permalink: 'circlycircles'
         },
@@ -33,12 +33,12 @@ describe Coubs::Request, :vcr do
       expect(subject.first).to be_kind_of Coub::Entry
       expect(subject.first.to_h).to eq(
         permalink: 'dcxm6',
-        image_template: 'https://coubsecure-s.akamaihd.net/get/b57/p/coub/simple/cw_image/f7540dfe398/de96a2d8221af8702ebae/%{version}_1467728423_00038.jpg',
+        image_template: 'https://coubsecure-s.akamaihd.net/get/b57/p/coub/simple/cw_image/f7540dfe398/de96a2d8221af8702ebae/%{version}_1467728423_00038.jpg', # rubocop:disable Style/FormatStringToken
         categories: [],
         tags: ['animewebm', 'webm', 'girlfriend (kari)', 'anime', 'аниме'],
         title: '#Webm #AnimeWebm',
         author: {
-          avatar_template: 'https://coubsecure-s.akamaihd.net/get/b118/p/channel/cw_avatar/e9dca0111ae/834df4f8093c65308570f/%{version}_1474495387_cropped.jpeg',
+          avatar_template: 'https://coubsecure-s.akamaihd.net/get/b118/p/channel/cw_avatar/e9dca0111ae/834df4f8093c65308570f/%{version}_1474495387_cropped.jpeg', # rubocop:disable Style/FormatStringToken
           name: 'DimanVip',
           permalink: 'dimanvip'
         },

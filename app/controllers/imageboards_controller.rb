@@ -9,7 +9,7 @@ class ImageboardsController < ShikimoriController
   # TODO: extract into service object similar to Coubs::Request
   def index
     Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
-      url = Base64.decode64 URI.decode(params[:url])
+      url = Base64.decode64 Addressable::URI.unencode(params[:url])
       raise CanCan::AccessDenied, url unless url.match? VALID_URL
 
       json = PgCache.fetch pg_cache_key, expires_in: EXPIRES_IN do

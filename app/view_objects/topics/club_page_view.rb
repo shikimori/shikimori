@@ -3,7 +3,7 @@ class Topics::ClubPageView < Topics::View
     super 'b-club_page-topic'
   end
 
-  def poster is_2x
+  def poster_image_url is_2x
     @topic.user.avatar_url is_2x ? 80 : 48
   end
 

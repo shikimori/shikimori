@@ -99,7 +99,7 @@ private
 
   # альтернативное название с источника
   def alt_name name
-    content = open("https://en.sakuhindb.com/anime/search.asp?todo=&key=#{URI.encode name}&lang=e").read
+    content = open("https://en.sakuhindb.com/anime/search.asp?todo=&key=#{Addressable::URI.encode_component name}&lang=e").read
     File.open('/tmp/test.html', 'w') {|v| v.write content }
     doc = Nokogiri::HTML content
     link = doc.css('.va_top td a').first
