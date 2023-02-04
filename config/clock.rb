@@ -104,6 +104,7 @@ module Clockwork
     Users::MarkAsCompletedUnavailableAnimes.perform_async
 
     ListImports::Cleanup.perform_async
+    Achievements::NekoRestart.perform_async
 
     NamedLogger.clockwork.info 'daily.misc.2 finished'
   end
