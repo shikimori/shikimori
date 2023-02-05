@@ -27,18 +27,21 @@
     .c-person
       +column(3)
 
-  .c-anime, .c-manga
-    +gte_ipad
-      +column(7)
+  .cc-roles
+    +cc
 
-    +iphone-portrait
-      +column(3)
+    .c-column
+      +gte_ipad
+        +column(7)
 
-      &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7)
-        display: none
+      +iphone-portrait
+        +column(3)
 
-    +iphone-landscape
-      +column(5)
+        &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7)
+          display: none
 
-      &:nth-child(6), &:nth-child(7)
-        display: none
+      +iphone-landscape
+        +column(5)
+
+        &:nth-child(6), &:nth-child(7)
+          display: none

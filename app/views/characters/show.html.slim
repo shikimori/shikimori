@@ -93,7 +93,7 @@
         .linkeable[
           data-href=animes_character_url(@resource)
         ] = i18n_i 'Anime', :other
-      .cc
+      .cc-roles
         = render @resource.animes(7)
 
     - if @resource.mangas(7).any?
@@ -101,7 +101,7 @@
         .linkeable[
           data-href=mangas_character_url(@resource)
         ] = i18n_i 'Manga', :other
-      .cc
+      .cc-roles
         = render @resource.mangas(7)
 
     - if @resource.ranobe(7).any?
@@ -109,5 +109,5 @@
         .linkeable[
           data-href=ranobe_character_url(@resource)
         ] = i18n_i 'Ranobe', :other
-      .cc
+      .cc-roles
         = render @resource.ranobe(7)
