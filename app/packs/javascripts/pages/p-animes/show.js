@@ -1,4 +1,5 @@
 import checkHeight from '@/utils/check_height';
+import dayjs from '@/utils/dayjs';
 
 pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
   $('.b-notice').tipsy({ gravity: 's' });
@@ -27,6 +28,14 @@ pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
 
   $('.b-subposter-actions .new_comment').on('click', () => {
     $('.shiki_editor-selector').view().focus();
+  });
+
+  $('.local-time').each((_index, node) => {
+    const time = dayjs(node.getAttribute('data-datetime')).subtract(window.MOMENT_DIFF);
+    node.innerHTML = time.format({
+      ru: 'D MMM HH:mm',
+      en: 'MMM D HH:mm'
+    }[window.LOCALE]);
   });
 
   const [{ FavoriteStar }, { LangTrigger }] = await Promise.all([

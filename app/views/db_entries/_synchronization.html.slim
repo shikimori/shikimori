@@ -7,10 +7,9 @@
           .field = resource.class.human_attribute_name(:imported_at)
           .value
             - if resource.imported_at
-              span.time
-                time[
-                  datetime=resource.imported_at.iso8601
-                ] = l resource.imported_at, format: '%e %B %Y %H:%m'
+              span.time: time[
+                datetime=resource.imported_at.iso8601
+              ] = l resource.imported_at, format: '%e %B %Y %H:%m'
 
             - if can?(:sync, resource) && resource.mal_id
               - is_syncing = Rails.cache.read([resource.object.class.base_class.name.downcase, :sync, resource.id])
