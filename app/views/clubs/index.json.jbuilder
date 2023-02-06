@@ -24,7 +24,9 @@ else
       locals: {
         filter: 'b-club',
         next_url: current_url(page: @collection.next_page),
-        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?) # rubocop:disable LineLength
+        prev_url: (
+          current_url(page: @collection.prev_page) if @collection.prev_page?
+        )
       },
       formats: :html
     )
