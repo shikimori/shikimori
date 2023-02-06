@@ -56,6 +56,7 @@ ru:
           <a href="http://animecalendar.eu/">animecalendar.eu</a>,
           либо рассчитывается автоматически с учётом дат появления предыдущих эпизодов аниме.
       currently_airing: Уже должно было выйти
+      timezone_notice: все даты в часовом поясе Москвы (GMT+3)
 
     bb_codes:
       title: Бб-коды сайта
