@@ -279,12 +279,12 @@ private
     provider: Types::Ad::Provider[:special],
     # AD START: IMBA - remove 2023-02-04 22:00
     images: [{
-      src: '/assets/globals/events/2023-01-21/inner_1.png?v3',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner19&utm_campaign=31_01&marker=2VtzqvVCDFH'
-    }, {
-      src: '/assets/globals/events/2023-01-21/inner_2.png?v3',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner20&utm_campaign=31_01&marker=2Vtzqv5UkDh'
-    }, {
+    #   src: '/assets/globals/events/2023-01-21/inner_1.png?v3',
+    #   url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner19&utm_campaign=31_01&marker=2VtzqvVCDFH'
+    # }, {
+    #   src: '/assets/globals/events/2023-01-21/inner_2.png?v3',
+    #   url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner20&utm_campaign=31_01&marker=2Vtzqv5UkDh'
+    # }, {
       src: '/assets/globals/events/2023-01-21/inner_3.png?v3',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner21&utm_campaign=31_01&marker=2VtzqwqmtfV'
     }, {
@@ -296,15 +296,30 @@ private
     }, {
       src: '/assets/globals/events/2023-01-21/inner_6.png?v3',
       url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner24&utm_campaign=31_01&marker=2VtzqxB44ou'
-    # }, {
-    #   src: '/assets/globals/events/2023-01-21/inner_7.png?v3',
-    #   url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner25&utm_campaign=31_01&marker=2Vtzqv9wP2b'
+    }, {
+      src: '/assets/globals/events/2023-01-21/inner_7.png?v3',
+      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner25&utm_campaign=31_01&marker=2Vtzqv9wP2b'
     # }, {
     #   src: '/assets/globals/events/2023-01-21/inner_8.png?v3',
     #   url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner2&utm_campaign=22_01&marker=2VtzqwWWixs'
+    # }, {
+    #   src: '/assets/globals/events/2023-01-21/inner_9.png?v3',
+    #   url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner26&utm_campaign=02_02&marker=2VtzqwWWixs'
     }, {
-      src: '/assets/globals/events/2023-01-21/inner_9.png?v3',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner26&utm_campaign=02_02&marker=2VtzqwWWixs'
+      src: '/assets/globals/events/2023-01-21/inner_10.png?v3',
+      url: 'https://imba.shop/promo?utm_source=shikimori&utm_medium=banner1&utm_campaign=07_02&marker=2Vtzqv5UkDh'
+    }, {
+      src: '/assets/globals/events/2023-01-21/inner_11.png?v3',
+      url: 'https://imba.shop/promo?utm_source=shikimori&utm_medium=banner2&utm_campaign=07_02&marker=2VtzqwWWixs'
+    }, {
+      src: '/assets/globals/events/2023-01-21/inner_12.png?v3',
+      url: 'https://imba.shop/promo?utm_source=shikimori&utm_medium=banner3&utm_campaign=07_02&marker=2VtzqwWWixs'
+    }, {
+      src: '/assets/globals/events/2023-01-21/inner_13.png?v3',
+      url: 'https://imba.shop/promo?utm_source=shikimori&utm_medium=banner4&utm_campaign=07_02&marker=2VtzqvVCDFH'
+    }, {
+      src: '/assets/globals/events/2023-01-21/inner_14.png?v3',
+      url: 'https://imba.shop/promo?utm_source=shikimori&utm_medium=banner5&utm_campaign=07_02&marker=2Vtzqv5UkDh'
     }],
     # AD END
     placement: Types::Ad::Placement[:content],
