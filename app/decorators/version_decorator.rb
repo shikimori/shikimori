@@ -37,12 +37,15 @@ class VersionDecorator < BaseDecorator
   end
 
   def field_value field, value
-    if field.to_s == 'anime_video_author_id'
-      AnimeVideoAuthor.find_by(id: value).try :name
-    elsif field.to_s == 'genre_ids'
-      "[#{genres value}]"
-    else
-      value
+    case field.to_s
+      when 'anime_video_author_id'
+        AnimeVideoAuthor.find_by(id: value).try :name
+
+      when 'genre_ids'
+        "[#{genres value}]"
+
+      else
+        value
     end
   end
 
