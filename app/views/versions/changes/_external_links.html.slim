@@ -19,5 +19,7 @@
   - if version.old_value('external_links').present? && version.new_value('external_links').present?
     .diff
       .label Diff:
-      .value
-        = sanitize version.field_diff('external_links')
+      .value[
+        data-old_value=version.old_value('external_links').to_s
+        data-new_value=version.new_value('external_links').to_s
+      ]
