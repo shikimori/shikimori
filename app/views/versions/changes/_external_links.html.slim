@@ -17,9 +17,10 @@
           .url = link.url
 
   - if version.old_value('external_links').present? && version.new_value('external_links').present?
+    - skip_fields = %w[entry_id entry_type source imported_at checksum updated_at created_at]
     .diff
       .label Diff:
       .value[
-        data-old_value=version.old_value('external_links').to_s
-        data-new_value=version.new_value('external_links').to_s
+        data-old_value=(version.old_value('external_links').map { |v| v.except *skip_fields }.to_s)
+        data-new_value=(version.new_value('external_links').map { |v| v.except *skip_fields }.to_s)
       ]
