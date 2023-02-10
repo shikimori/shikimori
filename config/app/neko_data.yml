@@ -302,6 +302,7 @@
         - 51096
         - 48895
         - 272
+        - 52865
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: &2
     :neko_id: 
@@ -639,6 +640,7 @@
         - 51096
         - 48895
         - 272
+        - 52865
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -955,6 +957,7 @@
         - 51096
         - 48895
         - 272
+        - 52865
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *2
   neko_id: :yandere
@@ -6902,6 +6905,8 @@
         - 42940
         - 50953
         - 51366
+        - 34532
+        - 51347
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -7421,6 +7426,8 @@
         - 42940
         - 50953
         - 51366
+        - 34532
+        - 51347
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -7940,6 +7947,8 @@
         - 42940
         - 50953
         - 51366
+        - 34532
+        - 51347
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -12340,6 +12349,7 @@
         - 618
         - 372
         - 2998
+        - 54017
       :generator:
         person_id: 5812
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -12407,6 +12417,7 @@
         - 618
         - 372
         - 2998
+        - 54017
       :generator:
         person_id: 5812
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -31412,6 +31423,8 @@
       :algo: duration
       :filters:
         franchise: mobile_police_patlabor
+        not_anime_ids:
+        - 54399
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -31441,6 +31454,8 @@
       :algo: duration
       :filters:
         franchise: mobile_police_patlabor
+        not_anime_ids:
+        - 54399
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
