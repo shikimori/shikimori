@@ -59,6 +59,8 @@ class VideoExtractor::BaseExtractor
     end
 
     fixed_url.gsub('http://', 'https://')
+  rescue Addressable::URI::InvalidURIError
+    ''
   end
 
 private
