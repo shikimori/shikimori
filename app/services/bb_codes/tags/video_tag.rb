@@ -1,9 +1,11 @@
 class BbCodes::Tags::VideoTag
   include Singleton
+
+  URL_SYMBOL_CLASS = /[^"'<>\[\]]/.source
   REGEXP = %r{
     \[video=(?<id>\d+)\]
       |
-    \[video\] (?<url> .*? ) \[/video\]
+    \[video\] (?<url> #{URL_SYMBOL_CLASS}*? ) \[/video\]
   }x
 
   MAXIMUM_VIDEOS = 75

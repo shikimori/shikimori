@@ -147,7 +147,7 @@ describe BbCodes::Text do
       let(:text) { 'http://shikimori.local/animes/9876543-test' }
       it do
         is_expected.to include(
-          "<a href=\"#{anime.decorate.url}\" title=\"#{anime.name}\" "\
+          "<a href=\"#{anime.decorate.url}\" title=\"#{anime.name}\" " \
             'class="bubbled b-link"'
         )
       end
@@ -438,7 +438,7 @@ describe BbCodes::Text do
 
     describe 'cleanup new lines' do
       let(:text) do
-        "[quote]\n\n[quote]\n\ntest\n\n[/quote]\n\n[/quote]\n\n"\
+        "[quote]\n\n[quote]\n\ntest\n\n[/quote]\n\n[/quote]\n\n" \
           "[div]\n\ntest\n\n[/div]"
       end
       it do
@@ -483,7 +483,7 @@ describe BbCodes::Text do
               is_expected.to eq(
                 <<~HTML.squish
                   zxc <a class="b-link"
-                  href=\"#{ERB::Util.h described_class::EVENT_URL}" target="_blank">меха</a>
+                  href="#{ERB::Util.h described_class::EVENT_URL}" target="_blank">меха</a>
                   qwe
                 HTML
               )
@@ -516,7 +516,7 @@ describe BbCodes::Text do
               is_expected.to eq(
                 <<~HTML.squish
                   zxc <a class="b-link"
-                  href=\"#{ERB::Util.h described_class::EVENT_URL}" target="_blank">меха</a>
+                  href="#{ERB::Util.h described_class::EVENT_URL}" target="_blank">меха</a>
                   qwe
                 HTML
               )

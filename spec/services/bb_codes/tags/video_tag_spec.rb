@@ -41,4 +41,9 @@ describe BbCodes::Tags::VideoTag do
       end
     end
   end
+
+  context 'broken tag' do
+    let(:text) { '[video] [video]https://youtu.be/vEQeT2wxsqk[/video]' }
+    it { is_expected.to include '[video] <div class="c-video' }
+  end
 end
