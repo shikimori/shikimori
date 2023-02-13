@@ -9,6 +9,9 @@ class SmotretAnime::LinkWorker
   ANIME365_URL = 'https://smotret-anime.online/catalog/%<smotret_anime_id>i'
 
   GIVE_UP_INTERVAL = 2.months
+  BROKEN_URLS = %w[
+    http://fansubs.ru/base.php?id=16
+  ]
 
   def perform anime_id
     anime = Anime.find_by id: anime_id
@@ -69,7 +72,7 @@ private
   end
 
   def valuable_links links
-    links.map do |link|
+    links.filter_map do |link|
       {
         kind: Types::ExternalLink::Kind[
           link[:title].strip.downcase.underscore.tr(' ', '_').to_sym
@@ -78,9 +81,8 @@ private
       }
     rescue Dry::Types::ConstraintError
     end
-    .compact
     .reject { |link| link[:kind] == Types::ExternalLink::Kind[:myanimelist] }
-    .reject { |link| link[:url].match?(/\bakira/i) }
+    .reject { |link| link[:url].match?(/\bakira/i) || link[:url].in?(BROKEN_URLS) }
     # for some reason it returns "akira" links for some animes: https://smotret-anime.online/api/series/?myAnimeListId=41372&fields=id,title,links
   end
 
