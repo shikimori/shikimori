@@ -9858,7 +9858,6 @@
         - 1006
         - 1135
         - 1805
-        - 28675
         - 2098
         - 4382
         - 253
@@ -9915,7 +9914,6 @@
         - 1006
         - 1135
         - 1805
-        - 28675
         - 2098
         - 4382
         - 253
@@ -26855,6 +26853,7 @@
         - 16183
         - 31984
         - 49368
+        - 53109
         - 53183
       :threshold: 80%
       :generator:
@@ -26895,6 +26894,7 @@
         - 16183
         - 31984
         - 49368
+        - 53109
         - 53183
       :threshold: 0.01
       :generator:
@@ -28387,6 +28387,8 @@
       :algo: duration
       :filters:
         franchise: yozakura_quartet
+        not_anime_ids:
+        - 32861
       :threshold: 99.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -28416,6 +28418,8 @@
       :algo: duration
       :filters:
         franchise: yozakura_quartet
+        not_anime_ids:
+        - 32861
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
