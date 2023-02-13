@@ -90,28 +90,27 @@
       .diff
         word-break: break-word
 
-      .diff del,
-      .diff ins,
-        padding: 0 2px
-        text-decoration: none
+        ins,
+        del
+          padding: 0 2px
+          text-decoration: none
 
-      .change .ins,
-      .change .mod,
-      .change .del
-        padding: 0 5px
+        ins
+          background: #eaf2c2 !important
+
+        del
+          background: #fedddf !important
 
       .diff ins,
       .change .ins
-        background: #eaf2c2 !important
         color: #406619
 
       .diff del,
       .change .del
-        background: #fedddf !important
         color: #fc575e
 
       .change .mod
-        background: #ffe8d8 !important
+        // background: #ffe8d8 !important
         color: #ff8a3c
 
       .changes .change
