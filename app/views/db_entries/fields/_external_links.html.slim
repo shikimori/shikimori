@@ -26,14 +26,14 @@
             .hint == t '.to_disable'
 
           - (other_links + (resource.anime? && current_user.staff? ? [resource.smotret_anime_external_link] : [])).compact.each do |external_link|
-            .b-collection_item.read-only
-              .b-input.select
-                select[disabled]
-                  option = external_link.kind_text
-                span.from = t '.from'
+            .m15
+              .external_link-wrapper
+                .b-input.select.m0
+                  select[disabled]
+                    option = external_link.kind_text
 
                 b.b-external_link class=external_link.source
-                  span
+                  span.static
                     = external_link.source_text
 
               .b-input
