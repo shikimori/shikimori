@@ -1,4 +1,6 @@
 class Topics::HotTopicsQuery
+  method_object %i[limit]
+
   SELECT_SQL = <<-SQL.squish
     commentable_id,
     max(commentable_type) as commentable_type,
@@ -16,13 +18,16 @@ class Topics::HotTopicsQuery
 
   INTERVAL = Rails.env.development? ? 1.month : 1.day
 
-  method_object %i[limit]
-
   def call
     topic_comments
       .limit(@limit)
       .includes(:topic)
       .map(&:commentable)
+      .reject do |topic|
+        # for collection topics track only published collections
+        topic.is_a?(Topics::EntryTopics::CollectionTopic) &&
+          !topic.linked.published?
+      end
   end
 
 private
