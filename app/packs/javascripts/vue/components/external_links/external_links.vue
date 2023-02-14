@@ -89,7 +89,6 @@ async function focusLast() {
 defineExpose({
   cleanupLink({ kind, url }) {
     if (kind === 'wikipedia') {
-      console.log(url)
       add(kind, url.replace(/(wikipedia.org)\/.*/, '$1/NONE'));
     } else {
       add(kind, 'NONE');
