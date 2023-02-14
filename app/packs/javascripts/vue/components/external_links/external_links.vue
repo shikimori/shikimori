@@ -17,7 +17,6 @@
   )
     template(#item="{element}")
       ExternalLink(
-        :ref='addExternalLinkRef'
         :link='element'
         :kind-options='kindOptions'
         :resource-type='resourceType'
@@ -48,11 +47,6 @@ const props = defineProps({
   watchOnlineKinds: { type: Array, required: true }
 });
 
-const collecitonRefs = ref([]);
-function addExternalLinkRef(nodeRef) {
-  collecitonRefs.value.push(nodeRef);
-}
-
 const store = useStore();
 const rootRef = ref(null);
 
@@ -71,11 +65,10 @@ const collection = computed({
   }
 });
 
-async function createLink(
+function createLink(
   kind = props.kindOptions.first().last(),
   url = ''
 ) {
-  collecitonRefs.value = [];
   store.dispatch('add', {
     kind,
     url,
@@ -84,23 +77,18 @@ async function createLink(
     entry_id: props.entryId,
     entry_type: props.entryType
   });
-  await nextTick();
-  collecitonRefs.value[collecitonRefs.value.length - 1].focus();
+  focusLast();
 }
 
-async function removeLink({ key, isFocus }) {
-  collecitonRefs.value = [];
-
+function removeLink({ key, isFocus }) {
   store.dispatch('remove', key);
-
-  await nextTick();
-  if (collecitonRefs.value.length) {
-    collecitonRefs.value[collecitonRefs.value.length - 1].focus();
+  if (isFocus) {
+    focusLast();
   }
 }
 
 async function focusLast() {
-  await delay();
+  await Promise.all([delay(), nextTick()]);
   const inputs = rootRef.value.querySelectorAll('input');
   inputs[inputs.length - 1].focus();
 }
