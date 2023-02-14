@@ -95,11 +95,30 @@ async function focusLast() {
 }
 
 defineExpose({
-  cleanupLink({ kind, url }) {
-    if (kind === 'wikipedia') {
-      createLink(kind, url.replace(/(wikipedia.org)\/.*/, '$1/NONE'));
+  async cleanupLink({ kind, url }) {
+    const isWikipedia = kind === 'wikipedia';
+    const linkUrl = isWikipedia ?
+      url.replace(/(wikipedia.org)\/.*/, '$1/NONE') :
+      'NONE';
+
+    const matchedByKindInputs = Array
+      .from(rootRef.value.querySelectorAll(`input[data-kind="${kind}"]`));
+    const matchedByValueInput = matchedByKindInputs
+      .find(node => node.value === linkUrl);
+
+    if (isWikipedia && matchedByKindInputs.length && !matchedByValueInput) {
+      createLink(kind, linkUrl);
     } else {
-      createLink(kind, 'NONE');
+      if (matchedByKindInputs.length === 1 && !matchedByValueInput) {
+        const matchedLink = collection.value.find(v => v.kind === kind);
+        store.dispatch('update', { ...matchedLink, url: linkUrl });
+        await Promise.all([delay(), nextTick()]);
+        matchedByKindInputs[0].focus();
+      } else if (matchedByValueInput) {
+        matchedByValueInput.focus();
+      } else {
+        createLink(kind, linkUrl);
+      }
     }
   }
 });

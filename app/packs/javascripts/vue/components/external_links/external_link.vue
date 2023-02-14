@@ -65,6 +65,7 @@
       @keydown.enter='submit'
       @keydown.backspace='removeIfEmpty(link)'
       @keydown.esc='removeIfEmpty(link)'
+      :data-kind='link.kind'
     )
     span.hint.warn(
       v-if='isYoutubeKind'
