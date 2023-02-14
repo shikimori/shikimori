@@ -17,23 +17,23 @@
   )
     template(#item="{element}")
       ExternalLink(
-        ref='zxc'
+        :ref='addExternalLinkRef'
         :link='element'
         :kind-options='kindOptions'
         :resource-type='resourceType'
         :entry-type='entryType'
         :entry-id='entryId'
         :watch-online-kinds='watchOnlineKinds'
-        @add:next='() => add()'
-        @focus:last='focusLast'
+        @link:create='createLink()'
+        @link:remove='removeLink'
       )
   .b-button(
-    @click='() => add()'
+    @click='createLink()'
   ) {{ I18n.t('frontend.actions.add') }}
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, nextTick } from 'vue';
 import { useStore } from 'vuex';
 
 import ExternalLink from './external_link';
@@ -48,13 +48,18 @@ const props = defineProps({
   watchOnlineKinds: { type: Array, required: true }
 });
 
+const collecitonRefs = ref([]);
+function addExternalLinkRef(nodeRef) {
+  collecitonRefs.value.push(nodeRef);
+}
+
+const store = useStore();
+const rootRef = ref(null);
+
 const dragOptions = {
   group: 'external_links',
   handle: '.drag-handle'
 };
-
-const store = useStore();
-const rootRef = ref(null);
 
 const isEmpty = computed(() => store.getters.isEmpty);
 const collection = computed({
@@ -66,10 +71,11 @@ const collection = computed({
   }
 });
 
-function add(
+async function createLink(
   kind = props.kindOptions.first().last(),
   url = ''
 ) {
+  collecitonRefs.value = [];
   store.dispatch('add', {
     kind,
     url,
@@ -78,6 +84,19 @@ function add(
     entry_id: props.entryId,
     entry_type: props.entryType
   });
+  await nextTick();
+  collecitonRefs.value[collecitonRefs.value.length - 1].focus();
+}
+
+async function removeLink({ key, isFocus }) {
+  collecitonRefs.value = [];
+
+  store.dispatch('remove', key);
+
+  await nextTick();
+  if (collecitonRefs.value.length) {
+    collecitonRefs.value[collecitonRefs.value.length - 1].focus();
+  }
 }
 
 async function focusLast() {
@@ -89,9 +108,9 @@ async function focusLast() {
 defineExpose({
   cleanupLink({ kind, url }) {
     if (kind === 'wikipedia') {
-      add(kind, url.replace(/(wikipedia.org)\/.*/, '$1/NONE'));
+      createLink(kind, url.replace(/(wikipedia.org)\/.*/, '$1/NONE'));
     } else {
-      add(kind, 'NONE');
+      createLink(kind, 'NONE');
     }
   }
 });

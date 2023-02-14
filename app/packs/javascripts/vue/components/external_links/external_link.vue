@@ -1,7 +1,7 @@
 <template lang='pug'>
 .b-collection_item
   .delete(
-    @click='remove(link.key)'
+    @click='removeSelf(false)'
   )
   .drag-handle
   input(
@@ -63,8 +63,8 @@
       :placeholder="I18n.t('activerecord.attributes.external_link.url')"
       @input='updateField("url", $event.target.value)'
       @keydown.enter='submit'
-      @keydown.backspace='removeEmpty(link)'
-      @keydown.esc='removeEmpty(link)'
+      @keydown.backspace='removeIfEmpty(link)'
+      @keydown.esc='removeIfEmpty(link)'
     )
     span.hint.warn(
       v-if='isYoutubeKind'
@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 
 const props = defineProps({
@@ -94,12 +94,9 @@ const props = defineProps({
 });
 
 const store = useStore();
-const emit = defineEmits(['add:next', 'focus:last']);
+const emit = defineEmits(['link:create', 'link:remove']);
 
-// onMounted(async () => {
-//   await nextTick();
-//   $('input', this.$el).focus();
-//   });
+const inputRef = ref(null);
 
 const collection = computed(() => store.state.collection);
 const isYoutubeKind = computed(() => props.link.kind === 'youtube');
@@ -133,19 +130,23 @@ function updateField(field, value) {
 function submit(e) {
   if (!e.metaKey && !e.ctrlKey) {
     e.preventDefault();
-    emit('add:next');
+    emit('link:create');
   }
 }
 
-function removeEmpty(link) {
+function removeSelf(isFocus) {
+  emit('link:remove', props.link, isFocus);
+}
+
+function removeIfEmpty(link) {
   if (Object.isEmpty(link.url) && collection.value.length > 1) {
-    store.dispatch('remove', link.key);
-    emit('focus:last');
+    removeSelf(true);
   }
 }
 
 defineExpose({
   focus() {
+    inputRef.value.focus();
   }
 });
 </script>
