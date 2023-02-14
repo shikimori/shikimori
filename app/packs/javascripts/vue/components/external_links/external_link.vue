@@ -56,6 +56,7 @@
         ) {{ kindOption.first() }}
   .b-input
     input(
+      ref='inputRef'
       type='text'
       :value='link.url'
       :name="fieldName('url')"
@@ -79,71 +80,74 @@
       | {{ I18n.t('frontend.external_links.warn.watch_online') }}
 </template>
 
-<script>
-import { mapActions, mapState } from 'vuex';
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  name: 'ExternalLink',
-  props: {
-    link: { type: Object, required: true },
-    kindOptions: { type: Array, required: true },
-    resourceType: { type: String, required: true },
-    entryType: { type: String, required: true },
-    entryId: { type: Number, required: true },
-    watchOnlineKinds: { type: Array, required: true }
-  },
-  emits: ['add:next', 'focus:last'],
-  computed: {
-    ...mapState(['collection']),
-    isYoutubeKind() {
-      return this.link.kind === 'youtube';
-    },
-    isYoutubeChannelKind() {
-      return this.link.kind === 'youtube_channel';
-    },
-    isWatchOnlineKind() {
-      return this.watchOnlineKinds.includes(this.link.kind);
-    },
-    kindOptionsLinks() {
-      return this.kindOptions.filter(v => !this.watchOnlineKinds.includes(v[1]));
-    },
-    kindOptionsWatchOnline() {
-      return this.kindOptions.filter(v => this.watchOnlineKinds.includes(v[1]));
-    }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      $('input', this.$el).focus();
-    });
-  },
-  methods: {
-    ...mapActions(['remove', 'update']),
-    fieldName(name) {
-      if (!Object.isEmpty(this.link.url)) {
-        return `${this.resourceType.toLowerCase()}[external_links][][${name}]`;
-      }
-      return '';
-    },
-    updateField(field, value) {
-      this.update({
-        ...this.link,
-        [field]: value
-      });
-    },
-    submit(e) {
-      if (!e.metaKey && !e.ctrlKey) {
-        e.preventDefault();
-        this.$emit('add:next');
-      }
-    },
-    removeEmpty(link) {
-      if (Object.isEmpty(link.url) && this.collection.length > 1) {
-        this.remove(link.key);
-        this.$emit('focus:last');
-      }
-    }
+const props = defineProps({
+  link: { type: Object, required: true },
+  kindOptions: { type: Array, required: true },
+  resourceType: { type: String, required: true },
+  entryType: { type: String, required: true },
+  entryId: { type: Number, required: true },
+  watchOnlineKinds: { type: Array, required: true }
+});
+
+const store = useStore();
+const emit = defineEmits(['add:next', 'focus:last']);
+
+// onMounted(async () => {
+//   await nextTick();
+//   $('input', this.$el).focus();
+//   });
+
+const collection = computed(() => store.state.collection);
+const isYoutubeKind = computed(() => props.link.kind === 'youtube');
+const isYoutubeChannelKind = computed(() => (
+  props.link.kind === 'youtube_channel'
+));
+const isWatchOnlineKind = computed(() => (
+  props.watchOnlineKinds.includes(props.link.kind)
+));
+const kindOptionsLinks = computed(() => (
+  props.kindOptions.filter(v => !props.watchOnlineKinds.includes(v[1]))
+));
+const kindOptionsWatchOnline = computed(() => (
+  props.kindOptions.filter(v => props.watchOnlineKinds.includes(v[1]))
+));
+
+function fieldName(name) {
+  if (!Object.isEmpty(props.link.url)) {
+    return `${props.resourceType.toLowerCase()}[external_links][][${name}]`;
   }
-};
+  return '';
+}
+
+function updateField(field, value) {
+  store.dispatch('update', {
+    ...props.link,
+    [field]: value
+  });
+}
+
+function submit(e) {
+  if (!e.metaKey && !e.ctrlKey) {
+    e.preventDefault();
+    emit('add:next');
+  }
+}
+
+function removeEmpty(link) {
+  if (Object.isEmpty(link.url) && collection.value.length > 1) {
+    store.dispatch('remove', link.key);
+    emit('focus:last');
+  }
+}
+
+defineExpose({
+  focus() {
+  }
+});
 </script>
 
 <style scoped lang='sass'>
