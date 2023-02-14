@@ -97,31 +97,39 @@ async function focusLast() {
 defineExpose({
   async cleanupLink({ kind, url }) {
     const isWikipedia = kind === 'wikipedia';
-    const linkUrl = isWikipedia ?
-      url.replace(/(wikipedia.org)\/.*/, '$1/NONE') :
-      'NONE';
+    const wikipediaPrefix = url.replace(/(wikipedia.org\/).*/, '$1');
+    const nullifiedUrl = isWikipedia ? wikipediaPrefix + 'NONE' : 'NONE';
 
-    const matchedByKindInputs = Array
+    let matchedByKindInputs = Array
       .from(rootRef.value.querySelectorAll(`input[data-kind="${kind}"]`));
+    if (isWikipedia) {
+      matchedByKindInputs = matchedByKindInputs.filter(input => (
+        input.value.startsWith(wikipediaPrefix)
+      ));
+    }
     const matchedByValueInput = matchedByKindInputs
-      .find(node => node.value === linkUrl);
+      .find(node => node.value === nullifiedUrl);
 
-    if (isWikipedia && matchedByKindInputs.length && !matchedByValueInput) {
-      createLink(kind, linkUrl);
+    if (matchedByKindInputs.length === 1 && !matchedByValueInput) {
+      const matchedLink = collection.value.find(link => (
+        link.kind === kind && (!isWikipedia || link.url.startsWith(wikipediaPrefix))
+      ));
+      nullifyLink(matchedLink, nullifiedUrl, matchedByKindInputs[0]);
+
+    } else if (matchedByValueInput) {
+      matchedByValueInput.focus();
+
     } else {
-      if (matchedByKindInputs.length === 1 && !matchedByValueInput) {
-        const matchedLink = collection.value.find(v => v.kind === kind);
-        store.dispatch('update', { ...matchedLink, url: linkUrl });
-        await Promise.all([delay(), nextTick()]);
-        matchedByKindInputs[0].focus();
-      } else if (matchedByValueInput) {
-        matchedByValueInput.focus();
-      } else {
-        createLink(kind, linkUrl);
-      }
+      createLink(kind, nullifiedUrl);
     }
   }
 });
+
+async function nullifyLink(link, url, input) {
+  store.dispatch('update', { ...link, url });
+  await Promise.all([delay(), nextTick()]);
+  input.focus();
+}
 </script>
 
 <style scoped lang='sass'>
