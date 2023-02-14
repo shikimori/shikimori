@@ -1,5 +1,5 @@
 <template lang='pug'>
-.block_m
+.block_m(ref='rootRef')
   input(
     type='hidden'
     :name="`${resourceType.toLowerCase()}[external_links][]`"
@@ -17,6 +17,7 @@
   )
     template(#item="{element}")
       ExternalLink(
+        ref='zxc'
         :link='element'
         :kind-options='kindOptions'
         :resource-type='resourceType'
@@ -24,66 +25,63 @@
         :entry-id='entryId'
         :watch-online-kinds='watchOnlineKinds'
         @add:next='add'
-        @focusLast='focusLast'
+        @focus:last='focusLast'
       )
   .b-button(
     @click='add'
   ) {{ I18n.t('frontend.actions.add') }}
 </template>
 
-<script>
-import { mapGetters, mapState } from 'vuex';
+<script setup>
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
 
 import ExternalLink from './external_link';
 import draggable from 'vuedraggable';
 import delay from 'delay';
 
-export default {
-  name: 'ExternalLinks',
-  components: { ExternalLink, draggable },
-  props: {
-    kindOptions: { type: Array, required: true },
-    resourceType: { type: String, required: true },
-    entryType: { type: String, required: true },
-    entryId: { type: Number, required: true },
-    watchOnlineKinds: { type: Array, required: true }
-  },
-  data: () => ({
-    dragOptions: {
-      group: 'external_links',
-      handle: '.drag-handle'
-    }
-  }),
-  computed: {
-    ...mapState({ items: 'collection' }),
-    ...mapGetters(['isEmpty']),
-    collection: {
-      get() {
-        return this.items;
-      },
-      set(items) {
-        this.$store.dispatch('replace', items);
-      }
-    }
-  },
-  methods: {
-    add() {
-      this.$store.dispatch('add', {
-        kind: this.kindOptions.first().last(),
-        source: 'shikimori',
-        url: '',
-        id: '',
-        entry_id: this.entryId,
-        entry_type: this.entryType
-      });
-    },
-    async focusLast() {
-      // do not use this.$nextTick. it passes "backspace" event to focused input
-      await delay();
-      $('input', this.$el).last().focus();
-    }
-  }
+const props = defineProps({
+  kindOptions: { type: Array, required: true },
+  resourceType: { type: String, required: true },
+  entryType: { type: String, required: true },
+  entryId: { type: Number, required: true },
+  watchOnlineKinds: { type: Array, required: true }
+});
+
+const dragOptions = {
+  group: 'external_links',
+  handle: '.drag-handle'
 };
+
+const store = useStore();
+const rootRef = ref(null);
+
+const isEmpty = computed(() => store.getters.isEmpty);
+const collection = computed({
+  get() {
+    return store.state.collection;
+  },
+  set(value) {
+    store.dispatch('replace', value);
+  }
+});
+
+function add() {
+  store.dispatch('add', {
+    kind: props.kindOptions.first().last(),
+    source: 'shikimori',
+    url: '',
+    id: '',
+    entry_id: props.entryId,
+    entry_type: props.entryType
+  });
+}
+
+async function focusLast() {
+  await delay();
+  const inputs = rootRef.value.querySelectorAll('input');
+  inputs[inputs.length - 1].focus();
+}
 </script>
 
 <style scoped lang='sass'>
