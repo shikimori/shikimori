@@ -62,7 +62,7 @@
       :placeholder="I18n.t('activerecord.attributes.external_link.url')"
       @input='updateField("url", $event.target.value)'
       @keydown.enter='submit'
-      @keydown.8='removeEmpty(link)'
+      @keydown.backspace='removeEmpty(link)'
       @keydown.esc='removeEmpty(link)'
     )
     span.hint.warn(

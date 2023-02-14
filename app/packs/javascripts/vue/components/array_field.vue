@@ -29,7 +29,7 @@
             :placeholder="I18n.t('frontend.' + field + '.name')"
             @input='update({ key: element.key, value: $event.target.value })'
             @keydown.enter='submit'
-            @keydown.8='removeEmpty(element)'
+            @keydown.backspace='removeEmpty(element)'
             @keydown.esc='removeEmpty(element)'
             :data-autocomplete='autocompleteUrl'
             :data-item_key='element.key'
