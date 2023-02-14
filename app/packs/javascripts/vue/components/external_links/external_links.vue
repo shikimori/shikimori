@@ -82,6 +82,7 @@ function createLink(
 
 function removeLink({ key, isFocus }) {
   store.dispatch('remove', key);
+
   if (isFocus) {
     focusLast();
   }

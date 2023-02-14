@@ -135,7 +135,7 @@ function submit(e) {
 }
 
 function removeSelf(isFocus) {
-  emit('link:remove', props.link, isFocus);
+  emit('link:remove', { key: props.link, isFocus });
 }
 
 function removeIfEmpty(link) {
