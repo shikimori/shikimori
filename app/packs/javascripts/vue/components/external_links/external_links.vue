@@ -24,11 +24,11 @@
         :entry-type='entryType'
         :entry-id='entryId'
         :watch-online-kinds='watchOnlineKinds'
-        @add:next='add'
+        @add:next='() => add()'
         @focus:last='focusLast'
       )
   .b-button(
-    @click='add'
+    @click='() => add()'
   ) {{ I18n.t('frontend.actions.add') }}
 </template>
 
@@ -66,11 +66,14 @@ const collection = computed({
   }
 });
 
-function add() {
+function add(
+  kind = props.kindOptions.first().last(),
+  url = ''
+) {
   store.dispatch('add', {
-    kind: props.kindOptions.first().last(),
+    kind,
+    url,
     source: 'shikimori',
-    url: '',
     id: '',
     entry_id: props.entryId,
     entry_type: props.entryType
@@ -82,6 +85,17 @@ async function focusLast() {
   const inputs = rootRef.value.querySelectorAll('input');
   inputs[inputs.length - 1].focus();
 }
+
+defineExpose({
+  cleanupLink({ kind, url }) {
+    if (kind === 'wikipedia') {
+      console.log(url)
+      add(kind, url.replace(/(wikipedia.org)\/.*/, '$1/NONE'));
+    } else {
+      add(kind, 'NONE');
+    }
+  }
+});
 </script>
 
 <style scoped lang='sass'>

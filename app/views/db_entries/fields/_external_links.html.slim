@@ -21,27 +21,29 @@
         - if other_links.any?
           div
             b = t '.imported'
-          .m5
+          .m15
             .hint = t '.to_change'
             .hint == t '.to_disable'
 
           - (other_links + (resource.anime? && current_user.staff? ? [resource.smotret_anime_external_link] : [])).compact.each do |external_link|
-            .m15
-              .external_link-wrapper
+            .external_link-wrapper.m15
+              .external_link-line
                 .b-input.select.m0
                   select[disabled]
-                    option = external_link.kind_text
-
+                    option value=external_link.kind
+                      = external_link.kind_text
+                - if external_link.kind != ::Types::ExternalLink::Kind[:smotret_anime]
+                  .delete
                 b.b-external_link class=external_link.source
                   span.static
                     = external_link.source_text
 
               .b-input
                 input[
-                type='text'
-                value=external_link.url
-                disabled
-              ]
+                  type='text'
+                  value=external_link.url
+                  disabled
+                ]
 
     .cc-2
       .c-column

@@ -2,6 +2,7 @@
 @import mixins/clear_left
 @import mixins/clearfix
 @import mixins/float_column
+@import mixins/font_shikimori
 @import mixins/hide_mobile_menu
 @import mixins/link
 
@@ -70,11 +71,23 @@
     .from
       padding: 0 6px
 
-    .external_link-wrapper
+    .external_link-line
+      align-items: center
       max-width: 375px
       display: flex
+      margin-bottom: 5px
+
+      .delete
+        +link_color(#123)
+        cursor: pointer
+        margin-left: 8px
+
+        &:before
+          +font_shikimori('✕')
 
       .b-external_link
+        align-items: center
+        display: flex
         margin-left: auto
 
         .static
