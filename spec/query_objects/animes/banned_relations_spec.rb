@@ -1,5 +1,5 @@
 describe Animes::BannedRelations do
-  let(:query) { Animes::BannedRelations.instance }
+  let(:query) { described_class.instance }
 
   before { Animes::BannedRelations.instance.clear_cache! }
   after(:all) { Animes::BannedRelations.instance.clear_cache! }
@@ -9,7 +9,7 @@ describe Animes::BannedRelations do
       allow(query)
         .to receive(:cache)
         .and_return(
-          animes: [[1, 2], [2, 3]]
+          animes: [[1, 2], [2, 3], [4, '*']]
         )
     end
 
@@ -17,7 +17,8 @@ describe Animes::BannedRelations do
       expect(query.animes).to eq(
         1 => [2],
         2 => [1, 3],
-        3 => [2]
+        3 => [2],
+        4 => ['*']
       )
       expect(query.anime 2).to eq [1, 3]
       expect(query.anime :bad_key).to eq []

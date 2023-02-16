@@ -3,14 +3,13 @@
 class Animes::GenerateBannedRelations < ServiceObjectBase
   IGNORED_MAL_COUPLING = %w[A18429 A6115]
   MAL_BANNED_FRANCHISES_URL = 'https://raw.githubusercontent.com/anime-plus/graph/master/data/banned-franchise-coupling.json'
-  ANYTHING = '*'
+  ANYTHING = Animes::BannedRelations::ANYTHING
 
   pattr_initialize :additional_data
 
   def self.call additional_data = []
     new(additional_data).call
   end
-
 
   def call
     cache = { 'A' => Anime, 'M' => Manga }
