@@ -6,8 +6,19 @@ class ContestMatch::Finish
 
     ContestMatch.transaction do
       unvote_suspicious
+
       @contest_match.finish!
-      @contest_match.update_column :winner_id, obtain_winner_id
+      winner_id = obtain_winner_id
+      NamedLogger.contest.info(
+        "ContestMatch##{@contest_match.id} " \
+          "left_id:#{@contest_match.left_id}" \
+          "right_id:#{@contest_match.right_id}" \
+          "left_votes:#{@contest_match.left_votes}" \
+          "right_votes:#{@contest_match.right_votes}" \
+          "winner_id:#{winner_id}"
+      )
+
+      @contest_match.update_column :winner_id, winner_id
     end
   end
 
