@@ -10,7 +10,8 @@ describe Animes::Filters::OrderBy do
         ranked_shiki: 1,
         ranked_random: 45,
         name: 'AAA',
-        episodes: 10
+        episodes: 10,
+        aired_on: { year: 2001 }
     end
     let!(:anime_2) do
       create :anime,
@@ -18,7 +19,8 @@ describe Animes::Filters::OrderBy do
         ranked_shiki: 34,
         ranked_random: 6,
         name: 'CCC',
-        episodes: 20
+        episodes: 20,
+        aired_on: { year: 2010 }
     end
     let!(:anime_3) do
       create :anime,
@@ -63,6 +65,11 @@ describe Animes::Filters::OrderBy do
         ].join(',')
       end
       it { is_expected.to eq [anime_3, anime_2, anime_1] }
+    end
+
+    context 'aired_on' do
+      let(:terms) { Animes::Filters::OrderBy::Field[:aired_on] }
+      it { is_expected.to eq [anime_2, anime_1, anime_3] }
     end
 
     context 'custom surtings' do

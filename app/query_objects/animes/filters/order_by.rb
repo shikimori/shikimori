@@ -91,7 +91,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
         end) desc
       SQL
     ),
-    Field[:aired_on] => '%<table_name>s.aired_on_computed desc',
+    Field[:aired_on] => "coalesce(%<table_name>s.aired_on_computed, '1900-01-01') desc",
     Field[:id] => '%<table_name>s.id',
     Field[:id_desc] => '%<table_name>s.id desc',
     Field[:created_at] => '%<table_name>s.created_at',
