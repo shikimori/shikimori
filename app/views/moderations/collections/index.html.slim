@@ -14,6 +14,35 @@ header.head
     - t('.instructions').each do |instruction|
       li: p == instruction
 
+- if can? :filter, Collection
+  .block
+    .subheadline = t 'moderations.versions.index.filters'
+    form.b-form#versions_form[
+      action=current_url
+      method='get'
+    ]
+      input#version_user_id[
+        type='hidden'
+        name='user_id'
+        value=params[:user_id]
+      ]
+      .block
+        .fc-3
+          .f-column
+            .b-input
+              label
+                div = Collection.human_attribute_name :user_id
+                input.user_id-suggest[
+                  class=(:hidden if @view.filtered_user)
+                  autocompelte='off'
+                  data-autocomplete=autocomplete_user_moderations_collections_url
+                ]
+                .placeholder[
+                  class=(:hidden unless @view.filtered_user)
+                ]
+                  span.nickname = @view.filtered_user&.nickname
+                  .b-js-action.remove = t('actions.delete').downcase
+
 - if @pending.any?
   .subheadline.m5 = t '.queue'
   .block

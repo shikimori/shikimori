@@ -1,4 +1,4 @@
-class VersionsView < ViewObjectBase
+class Moderations::VersionsView < ViewObjectBase
   instance_cache :moderators, :pending, :processed
 
   PER_PAGE = 25

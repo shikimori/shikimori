@@ -105,7 +105,7 @@ private
   end
 
   def set_view
-    @view = VersionsView.new
+    @view = Moderations::VersionsView.new
   end
 
   def transition action, success_message
