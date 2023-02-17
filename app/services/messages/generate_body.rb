@@ -17,8 +17,12 @@ class Messages::GenerateBody < ServiceObjectBase # rubocop:disable ClassLength
 
 private
 
-  def gender
-    @gender ||= @message.from.female? ? :female : :male
+  def gender_from
+    @gender_from ||= @message.from.female? ? :female : :male
+  end
+
+  def gender_to
+    @gender_to ||= @message.to.female? ? :female : :male
   end
 
   def html_body
@@ -51,21 +55,21 @@ private
   def profile_commented
     profile_url = UrlGenerator.instance.profile_url @message.to
     i18n_t '.profile_comment',
-      gender: gender,
+      gender: gender_from,
       profile_url: profile_url
   end
 
   def friend_request
     unless @message.to.friended? @message.from
-      response = i18n_t('friend_request.add', gender: gender)
+      response = i18n_t('friend_request.add', gender: gender_from)
     end
 
-    "#{i18n_t('friend_request.added', gender: gender)} #{response}".strip
+    "#{i18n_t('friend_request.added', gender: gender_from)} #{response}".strip
   end
 
   def quoted_by_user
     i18n_t 'quoted_by_user',
-      gender: gender,
+      gender: gender_from,
       linked_name: linked_name,
       comment_url: UrlGenerator.instance.comment_url(linked)
   end
@@ -87,7 +91,7 @@ private
       end
 
     i18n_t "#{is_warn ? :warned : :banned}.#{key}",
-      gender: gender,
+      gender: gender_to,
       duration: linked&.duration&.humanize || '???',
       target_type_name: ban_target_type_name,
       linked_name: ban_linked_name,
