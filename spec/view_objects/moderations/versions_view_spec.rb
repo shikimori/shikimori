@@ -2,7 +2,7 @@ describe Moderations::VersionsView do
   include_context :timecop, '2016-03-18 15:00:00'
   include_context :view_context_stub
 
-  let(:view) { Moderations::VersionsView.new }
+  let(:view) { described_class.new }
 
   let!(:version_1) do
     create :version, :taken,

@@ -58,16 +58,6 @@ class Moderations::VersionsView < ViewObjectBase
       .lazy_map(&:decorate)
   end
 
-  def next_page_url is_pending
-    h.current_url(
-      page: page + 1,
-      type: h.params[:type],
-      order: sort_order,
-      created_on: h.params[:created_on],
-      is_pending: is_pending ? '1' : '0'
-    )
-  end
-
   def moderators
     type_suffix = h.params[:type] + '_' if h.params[:type] && h.params[:type] != 'content'
     role = "version_#{type_suffix}moderator"

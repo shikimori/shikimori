@@ -116,7 +116,7 @@ header.head
 
         - if @view.pending.next_page?
           = render 'blocks/postloader',
-            next_url: @view.next_page_url(true),
+            next_url: current_url(page: @page + 1, is_pending: 1),
             ignore_appear: true
 
       - else
@@ -134,4 +134,4 @@ header.head
     = render partial: 'versions/version', collection: @view.processed
     - if @view.processed.next_page?
       = render 'blocks/postloader',
-        next_url: @view.next_page_url(false)
+        next_url: current_url(page: @page + 1)
