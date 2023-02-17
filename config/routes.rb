@@ -175,7 +175,10 @@ Rails.application.routes.draw do
       end
     end
     resources :collections, only: [] do
-      get '(/page/:page)' => :index, as: '', on: :collection
+      collection do
+        get '(/page/:page)' => :index, as: ''
+        get '/autocomplete_user' => :autocomplete_user, as: :autocomplete_user
+      end
       member do
         post :accept
         post :reject

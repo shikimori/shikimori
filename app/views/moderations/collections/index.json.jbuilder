@@ -1,10 +1,12 @@
+collection = params[:is_pending] == '1' ? @view.pending : @view.processed
+
 json.content render(
   partial: 'moderations/collections/collection',
-  collection: @processed,
+  collection: collection,
   formats: :html
 )
 
-if @processed.size == controller.class::PROCESSED_PER_PAGE
+if collection.next_page?
   json.postloader render(
     partial: 'blocks/postloader',
     locals: {

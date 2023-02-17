@@ -287,6 +287,7 @@ ru:
         is_private: Приватный
         logo: Логотип
       collection:
+        user_id: Автор
         name: Название
         kind: Тип
         text: Описание

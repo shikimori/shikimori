@@ -43,25 +43,26 @@ header.head
                   span.nickname = @view.filtered_user&.nickname
                   .b-js-action.remove = t('actions.delete').downcase
 
-- if @pending.any?
+- if @view.pending.any?
   .subheadline.m5 = t '.queue'
   .block
-    - if @pending.any?
+    - if @view.pending.any?
       = render partial: 'moderations/collections/collection',
-        collection: @pending
-      - if @pending.size == Moderations::CollectionsController::PENDING_PER_PAGE
-        .m5
-        .b-nothing_here = t '.more_summaries_pending'
+        collection: @view.pending
+      - if @view.pending.next_page?
+        = render 'blocks/postloader',
+          next_url: current_url(page: @page + 1, is_pending: 1),
+          ignore_appear: true
     - else
       .b-nothing_here = t '.queue_empty'
 
-- if @processed.any?
+- if @view.processed.any?
   .subheadline.m5 = t '.history'
   .block
     = render partial: 'moderations/collections/collection',
-      collection: @processed
+      collection: @view.processed
 
-    - if @processed.size == controller.class::PROCESSED_PER_PAGE
+    - if @view.processed.next_page?
       = render 'blocks/postloader',
         filter: 'b-log_entry',
         next_url: current_url(page: @page + 1)

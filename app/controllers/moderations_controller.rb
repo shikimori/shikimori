@@ -1,5 +1,8 @@
 class ModerationsController < ShikimoriController # rubocop:disable ClassLength
   include SidekiqPaginatorConcern
+
+  AUTOCOMPLETE_LIMIT = 10
+
   before_action :authenticate_user!
   helper_method :moderation_policy
 

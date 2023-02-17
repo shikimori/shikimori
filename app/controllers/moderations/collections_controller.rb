@@ -1,19 +1,9 @@
 class Moderations::CollectionsController < ModerationsController
   load_and_authorize_resource
-
-  PENDING_PER_PAGE = 15
-  PROCESSED_PER_PAGE = 25
+  before_action :set_view, only: %i[index autocomplete_user]
 
   def index
     og page_title: i18n_t('page_title')
-
-    @moderators = User
-      .where("roles && '{#{Types::User::Roles[:collection_moderator]}}'")
-      .where.not(id: User::MORR_ID)
-      .sort_by { |v| v.nickname.downcase }
-
-    @processed = QueryObjectBase.new(processed_scope).paginate(@page, PROCESSED_PER_PAGE)
-    @pending = pending_scope
   end
 
   def accept
@@ -31,22 +21,19 @@ class Moderations::CollectionsController < ModerationsController
     redirect_back fallback_location: moderations_collections_url
   end
 
-private
+  def autocomplete_user
+    @collection = @view
+      .authors_scope(params[:search])
+      .order(:nickname)
+      .take(AUTOCOMPLETE_LIMIT)
+      .to_a
 
-  def processed_scope
-    Collection
-      .where(moderation_state: %i[accepted rejected])
-      .where(state: :published)
-      .includes(:user, :approver, :topic)
-      .order(created_at: :desc)
+    render 'moderations/autocomplete', formats: :json
   end
 
-  def pending_scope
-    Collection
-      .where(moderation_state: :pending)
-      .where(state: :published)
-      .includes(:user, :approver, :topic)
-      .order(created_at: :desc)
-      .limit(PENDING_PER_PAGE)
+private
+
+  def set_view
+    @view = Moderations::CollectionsView.new
   end
 end
