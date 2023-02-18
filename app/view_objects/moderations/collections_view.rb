@@ -55,11 +55,12 @@ private
       .order(created_at: :desc)
   end
 
-  def apply_filters scope
+  def apply_filters scope # rubocop:disable Metrics/AbcSize
     return scope unless h.can? :filter, Collection
 
     scope = scope.where user_id: filtered_user.id if filtered_user
-    scope = scope.where('name ilike ?', "%#{h.params[:name]}%")
+    scope = scope.where('name ilike ?', "%#{h.params[:name]}%") if h.params[:name].present?
+    scope = scope.where(id: h.params[:id]) if h.params[:id].present?
 
     scope
   end

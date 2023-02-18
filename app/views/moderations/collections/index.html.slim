@@ -18,19 +18,9 @@ header.head
   .block
     .subheadline = t 'moderations.versions.index.filters'
     form.b-form#versions_form[
-      action=current_url(name: nil, user_id: nil)
+      action=current_url(id: nil, name: nil, user_id: nil)
       method='get'
     ]
-      input#version_name[
-       type='hidden'
-        name='name'
-        value=params[:name]
-      ]
-      input#version_user_id[
-       type='hidden'
-        name='user_id'
-        value=params[:user_id]
-      ]
       .block
         .fc-3
           .f-column
@@ -43,12 +33,21 @@ header.head
                 ]
                 - if params[:name].present?
                   a.clear href=current_url(name: nil)
-
             input[
               data-disable-with=t('search.search')
               type='submit'
               value=t('search.search').gsub('...', '')
             ]
+          .f-column
+            .b-input.b-input--with-clear
+              label
+                div ID
+                input[
+                  name='id'
+                  value=params[:id]
+                ]
+                - if params[:id].present?
+                  a.clear href=current_url(id: nil)
           .f-column
             .b-input
               label
