@@ -31,7 +31,7 @@ class Moderations::CollectionsView < ViewObjectBase
   end
 
   def filtered_user
-    return unless h.can?(:filter, Collection) && h.params[:user_id].present?
+    return if h.params[:user_id].blank?
 
     @filtered_user ||= User.find_by id: h.params[:user_id]
   end
@@ -56,7 +56,11 @@ private
   end
 
   def apply_filters scope
+    return scope unless h.can? :filter, Collection
+
     scope = scope.where user_id: filtered_user.id if filtered_user
+    scope = scope.where('name ilike ?', "%#{h.params[:name]}%")
+
     scope
   end
 end

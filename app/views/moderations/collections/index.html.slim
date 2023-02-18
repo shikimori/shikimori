@@ -18,16 +18,35 @@ header.head
   .block
     .subheadline = t 'moderations.versions.index.filters'
     form.b-form#versions_form[
-      action=current_url
+      action=current_url(name: nil, user_id: nil)
       method='get'
     ]
+      input#version_name[
+       type='hidden'
+        name='name'
+        value=params[:name]
+      ]
       input#version_user_id[
-        type='hidden'
+       type='hidden'
         name='user_id'
         value=params[:user_id]
       ]
       .block
         .fc-3
+          .f-column
+            .b-input
+              label
+                div = Collection.human_attribute_name :name
+                input[
+                  name='name'
+                  value=params[:name]
+                ]
+
+            input[
+              data-disable-with=t('search.search')
+              type='submit'
+              value=t('search.search').gsub('...', '')
+            ]
           .f-column
             .b-input
               label
