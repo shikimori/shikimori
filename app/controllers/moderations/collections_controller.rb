@@ -1,5 +1,5 @@
 class Moderations::CollectionsController < ModerationsController
-  load_and_authorize_resource
+  load_and_authorize_resource except: %i[index autocomplete_user]
   before_action :set_view, only: %i[index autocomplete_user]
 
   def index

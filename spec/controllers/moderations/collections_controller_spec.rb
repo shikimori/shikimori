@@ -44,9 +44,12 @@ describe Moderations::CollectionsController do
   end
 
   describe '#autocomplete_user' do
-    let(:user) { create :user, nickname: 'user_1' }
-    let(:user_2) { create :user, nickname: 'user_2' }
-    let!(:collection) { create :collection, :accepted, user: user_2 }
+    include_context :authenticated, :collection_moderator
+    let(:user_3) { create :user, nickname: 'user_54321' }
+    let(:user_2) { create :user, nickname: 'user_12345' }
+    let!(:collection_1) do
+      create :collection, :accepted, :published, user: user_2, approver: user_3
+    end
 
     subject! do
       get :autocomplete_user,

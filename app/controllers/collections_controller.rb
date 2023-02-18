@@ -69,6 +69,12 @@ class CollectionsController < ShikimoriController
     render :form
   end
 
+  def edit
+    og page_title: @resource.name
+    @section = params[:section]
+    render :form
+  end
+
   def create
     @resource = Collection::Create.call create_params
 
@@ -78,12 +84,6 @@ class CollectionsController < ShikimoriController
     else
       new
     end
-  end
-
-  def edit
-    og page_title: @resource.name
-    @section = params[:section]
-    render :form
   end
 
   def update
