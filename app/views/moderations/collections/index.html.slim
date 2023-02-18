@@ -34,13 +34,15 @@ header.head
       .block
         .fc-3
           .f-column
-            .b-input
+            .b-input.b-input--with-clear
               label
                 div = Collection.human_attribute_name :name
                 input[
                   name='name'
                   value=params[:name]
                 ]
+                - if params[:name].present?
+                  a.clear href=current_url(name: nil)
 
             input[
               data-disable-with=t('search.search')
