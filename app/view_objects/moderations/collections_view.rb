@@ -22,7 +22,7 @@ class Moderations::CollectionsView < ViewObjectBase
   end
 
   def authors_scope nickname
-    return User.none if nickname.blank?
+    return User.none if cannot_filter? || nickname.blank?
 
     User
       .where(id: processed_scope.distinct.except(:order, :includes).select(:user_id))
@@ -31,7 +31,7 @@ class Moderations::CollectionsView < ViewObjectBase
   end
 
   def filtered_user
-    return if h.params[:user_id].blank?
+    return if h.params[:user_id].blank? || cannot_filter?
 
     @filtered_user ||= User.find_by id: h.params[:user_id]
   end
@@ -55,13 +55,27 @@ private
       .order(created_at: :desc)
   end
 
-  def apply_filters scope # rubocop:disable Metrics/AbcSize
-    return scope unless h.can? :filter, Collection
-
+  def apply_filters scope
     scope = scope.where user_id: filtered_user.id if filtered_user
-    scope = scope.where('name ilike ?', "%#{h.params[:name]}%") if h.params[:name].present?
-    scope = scope.where(id: h.params[:id]) if h.params[:id].present?
+    scope = scope.where('name ilike ?', "%#{filtered_name}%") if filtered_name
+    scope = scope.where(id: filtered_id) if filtered_id
 
     scope
+  end
+
+  def filtered_name
+    return if h.params[:name].blank? || cannot_filter?
+
+    h.params[:name]
+  end
+
+  def filtered_id
+    return if h.params[:id].blank? || cannot_filter?
+
+    h.params[:id]
+  end
+
+  def cannot_filter?
+    !h.can?(:filter, Collection)
   end
 end

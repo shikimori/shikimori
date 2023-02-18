@@ -1,5 +1,5 @@
 class Moderations::VersionsController < ModerationsController
-  load_and_authorize_resource except: [:index]
+  load_and_authorize_resource except: %i[index autocomplete_user autocomplete_moderator]
   before_action :set_view, only: %i[index autocomplete_user autocomplete_moderator]
 
   INCOMPLETE_DATE_FIELDS = [Anime, Manga, Character, Person]

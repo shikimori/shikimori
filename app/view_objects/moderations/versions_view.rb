@@ -73,25 +73,25 @@ class Moderations::VersionsView < ViewObjectBase
   end
 
   def filtered_user
-    return unless h.can?(:filter, Version) && h.params[:user_id].present?
+    return if h.params[:user_id].blank? || cannot_filter?
 
     @filtered_user ||= User.find_by id: h.params[:user_id]
   end
 
   def filtered_moderator
-    return unless h.can?(:filter, Version) && h.params[:moderator_id].present?
+    return if h.params[:moderator_id].blank? || cannot_filter?
 
     @filtered_moderator ||= User.find_by id: h.params[:moderator_id]
   end
 
   def filtered_item_type
-    return unless h.can?(:filter, Version) && h.params[:item_type].present?
+    return if h.params[:item_type].blank? || cannot_filter?
 
     h.params[:item_type]
   end
 
   def filtered_field
-    return unless h.can?(:filter, Version) && h.params[:field].present?
+    return if h.params[:field].blank? || cannot_filter?
 
     h.params[:field]
   end
@@ -157,5 +157,9 @@ private
         .pluck(:item_type)
         .index_with { |item_type| item_type.constantize.model_name.human count: 1 }
     end
+  end
+
+  def cannot_filter?
+    !h.can?(:filter, Version)
   end
 end
