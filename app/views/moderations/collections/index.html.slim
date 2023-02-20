@@ -21,6 +21,11 @@ header.head
       action=current_url(id: nil, name: nil, user_id: nil)
       method='get'
     ]
+      input#version_user_id[
+        type='hidden'
+        name='user_id'
+        value=params[:user_id]
+      ]
       .block
         .fc-3
           .f-column
