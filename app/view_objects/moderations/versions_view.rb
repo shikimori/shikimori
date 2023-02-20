@@ -32,8 +32,9 @@ class Moderations::VersionsView < ViewObjectBase
     return User.none if nickname.blank?
 
     User
-      .where(id: processed_scope.distinct.select(:user_id).except(:order))
-      .or(User.where(id: pending_scope.distinct.pluck(:user_id)))
+      .where(
+        id: processed_scope.scope.or(pending_scope.scope).distinct.select(:user_id).except(:order)
+      )
       .where('nickname ilike ?', "#{nickname}%")
   end
 

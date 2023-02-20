@@ -25,8 +25,9 @@ class Moderations::CollectionsView < ViewObjectBase
     return User.none if cannot_filter? || nickname.blank?
 
     User
-      .where(id: processed_scope.distinct.except(:order, :includes).select(:user_id))
-      .or(User.where(id: pending_scope.distinct.except(:order, :includes).select(:user_id)))
+      .where(
+        id: processed_scope.or(pending_scope).distinct.except(:order, :includes).select(:user_id)
+      )
       .where('nickname ilike ?', "#{nickname}%")
   end
 
