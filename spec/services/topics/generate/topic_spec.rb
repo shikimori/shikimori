@@ -33,7 +33,7 @@ describe Topics::Generate::Topic do
         if is_broadcast_required
           expect(Notifications::BroadcastTopic)
             .to have_received(:perform_in)
-            .with 1.minute, subject.id
+            .with 10.minutes, subject.id
         else
           expect(Notifications::BroadcastTopic).to_not have_received :perform_in
         end

@@ -56,7 +56,9 @@ private
   end
 
   def broadcast topic
-    Notifications::BroadcastTopic.perform_in 1.minute, topic.id
+    # need delay because anime is created in transaction
+    # which will is commited only when poster is downloaded
+    Notifications::BroadcastTopic.perform_in 10.minutes, topic.id
   end
 
   def forum_id
