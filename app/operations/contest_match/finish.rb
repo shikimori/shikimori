@@ -11,10 +11,10 @@ class ContestMatch::Finish
       winner_id = obtain_winner_id
       NamedLogger.contest.info(
         "ContestMatch##{@contest_match.id} " \
-          "left_id:#{@contest_match.left_id}" \
-          "right_id:#{@contest_match.right_id}" \
-          "left_votes:#{@contest_match.left_votes}" \
-          "right_votes:#{@contest_match.right_votes}" \
+          "left_id:#{@contest_match.left_id} " \
+          "right_id:#{@contest_match.right_id} " \
+          "left_votes:#{@contest_match.left_votes} " \
+          "right_votes:#{@contest_match.right_votes} " \
           "winner_id:#{winner_id}"
       )
 
