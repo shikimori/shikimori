@@ -195,7 +195,7 @@ private
       .flatten
   end
 
-  def show_description_ru?
+  def description_ru?
     true
   end
 end

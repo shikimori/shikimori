@@ -14,10 +14,6 @@ class AnimeProfileSerializer < AnimeSerializer
 
   has_one :user_rate, serializer: UserRateFullSerializer
 
-  def description
-    object.description.text
-  end
-
   def user_rate
     object.current_rate
   end

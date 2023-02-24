@@ -1,31 +1,34 @@
 - cache [resource, user_signed_in?, :description, :v3] do
   - if ru_host?
-    - if user_signed_in? && resource.description_en.text.present?
-      .b-lang_trigger: span eng
-      .english
+    - other_locale = @resource.description_ru? ? :en : :ru
+    - if user_signed_in? && resource.send(:"description_#{other_locale}").text.present?
+      .b-lang_trigger: span = other_locale
+      .description-other style='display: none'
         .text
-          - if resource.description_en.text.present?
-            = resource.description_html_en
+          - if resource.send(:"description_#{other_locale}").text.present?
+            = resource.send(:"description_html_#{other_locale}")
           - else
-            .b-nothing_here = t('no_synopsis', locale: :en)
+            .b-nothing_here = t('no_synopsis', locale: other_locale)
 
         / field 'description' is not used inside forms -
         / can be any name just to distinguish description
         = render 'blocks/source',
-          authors: resource.authors(:description_en),
-          source: resource.description_en.source,
+          authors: resource.authors(:"description_#{other_locale}"),
+          source: resource.send(:"description_#{other_locale}").source,
           field: 'description'
 
-    .russian
-      .text itemprop='description'
-        - if resource.description_ru.text.present?
-          = resource.description_html_ru
+    .description-current
+      .text(
+        itemprop=(:description if resource.description_ru?)
+      )
+        - if resource.description.text.present?
+          = resource.description_html
         - else
-          .b-nothing_here = t('no_synopsis', locale: :ru)
+          .b-nothing_here = t 'no_synopsis'
 
       = render 'blocks/source',
-        authors: resource.authors(:description_ru),
-        source: resource.description_ru.source,
+        authors: resource.authors(:"description_#{resource.description_ru? ? :ru : :en}"),
+        source: resource.description.source,
         field: 'description'
 
   - else

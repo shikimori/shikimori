@@ -12,13 +12,13 @@ export class LangTrigger extends View {
   }
 
   @memoize
-  get $english() {
-    return this.$description.find('.english');
+  get $other() {
+    return this.$description.find('.description-other');
   }
 
   @memoize
-  get $russian() {
-    return this.$description.find('.russian');
+  get $current() {
+    return this.$description.find('.description-current');
   }
 
   @memoize
@@ -28,23 +28,23 @@ export class LangTrigger extends View {
 
   @bind
   toggle() {
-    if (this.$english.is(':visible')) {
-      this.eng()
+    if (this.$other.is(':visible')) {
+      this.eng();
     } else {
       this.rus();
     }
   }
 
   eng() {
-    this.$english.hide();
-    this.$russian.show();
+    this.$other.hide();
+    this.$current.show();
     this.$changes.show();
     this.$node.children().html('eng');
   }
 
   rus() {
-    this.$english.show();
-    this.$russian.hide();
+    this.$other.show();
+    this.$current.hide();
     this.$changes.hide();
     this.$node.children().html('рус');
   }

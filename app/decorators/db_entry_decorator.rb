@@ -28,7 +28,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   # description object is used to get text (bbcode) or source
   # (e.g. used when editing description)
   def description
-    if show_description_ru?
+    if description_ru?
       description_ru
     else
       description_en
@@ -37,22 +37,14 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def description_ru
     DbEntries::Description.from_value object.description_ru
-
-    # DbEntries::Description.from_value(
-    #   object.description_ru.present? ?
-    #     object.description_ru :
-    #     object.description_en
-    # )
   end
 
   def description_en
     DbEntries::Description.from_value object.description_en
+  end
 
-    # DbEntries::Description.from_value(
-    #   object.description_en.present? ?
-    #     object.description_en :
-    #     object.description_ru
-    # )
+  def description_ru?
+    I18n.russian?
   end
 
   #----------------------------------------------------------------------------
@@ -60,7 +52,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   # description text (bbcode) formatted as html
   # (displayed on specific anime main page)
   def description_html
-    if show_description_ru?
+    if description_ru?
       description_html_ru
     else
       description_html_en
@@ -287,10 +279,6 @@ private
     end
 
     scope
-  end
-
-  def show_description_ru?
-    I18n.russian?
   end
 
   def headline_array
