@@ -29,5 +29,26 @@ describe Poster do
         end
       end
     end
+
+    describe '#cropped?' do
+      subject { build :poster, crop_data: crop_data }
+
+      context 'no crop_data' do
+        let(:crop_data) { [nil, {}].sample }
+        its(:cropped?) { is_expected.to eq false }
+      end
+
+      context 'has crop_data' do
+        let(:crop_data) do
+          {
+            top: 0,
+            left: 413,
+            width: 510,
+            height: 720
+          }
+        end
+        its(:cropped?) { is_expected.to eq true }
+      end
+    end
   end
 end

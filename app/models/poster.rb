@@ -19,4 +19,8 @@ class Poster < ApplicationRecord
   def magnificable?
     (image_data&.dig('metadata', 'width') || 0) > WIDTH
   end
+
+  def cropped?
+    crop_data.present?
+  end
 end
