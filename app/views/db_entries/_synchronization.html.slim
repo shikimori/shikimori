@@ -35,7 +35,15 @@
         li
           .field = resource.class.human_attribute_name(:desynced)
           .value
-            span = resource.desynced.join(', ')
+            span
+              - resource.desynced.each_with_index do |value, index|
+                - if current_user.staff?
+                  a href=resource.collection_url(desynced: value)
+                    = value
+                - else
+                  = value
+                - unless index == resource.desynced.size - 1
+                  ' ,
             - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { desynced: [] })
               a.b-js-action href=resource.edit_field_url(:desynced)
                 = t 'moderators_only'
