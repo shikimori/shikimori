@@ -24,6 +24,8 @@ label.b-dropzone.block(
         :movable='false'
         :rotatable='false'
         :zoomable='false'
+        :min-crop-box-width='minCropBoxWidth'
+        :min-crop-box-height='minCropBoxHeight'
         @crop='onCrop'
       )
     .no-image(
@@ -91,6 +93,8 @@ const templateRef = ref(null);
 const isDisabled = ref(false);
 const currentPosterId = ref(props.posterId);
 const originalImagedataUri = ref(null);
+const minCropBoxWidth = ref(0);
+const minCropBoxHeight = ref(0);
 
 const sizes = reactive({
   naturalWidth: 0,
@@ -119,6 +123,9 @@ const onCrop = e => {
       width: scaleX(width)
     });
   }
+
+  minCropBoxWidth.value = scaleX(props.previewWidth);
+  minCropBoxHeight.value = scaleY(props.previewHeight);
 
   syncPreviewImage();
 };
