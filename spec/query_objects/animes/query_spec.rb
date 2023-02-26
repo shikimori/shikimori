@@ -143,6 +143,19 @@ describe Animes::Query do
       it { is_expected.to eq [anime] }
     end
 
+    context '#by_desynced' do
+      let(:params) { { desynced: 'zzz' } }
+      let(:user) { seed :user }
+      before do
+        allow(Animes::Filters::ByDesynced)
+          .to receive(:call)
+          .with(any_args, 'zzz', user)
+          .and_return animes_scope
+      end
+
+      it { is_expected.to eq [anime] }
+    end
+
     context '#by_publisher' do
       let(:params) { { publisher: 'zzz' } }
       before do

@@ -30,6 +30,7 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
       .by_status(params[:status])
       .by_studio(params[:studio])
       .by_user_list(params[:mylist], user)
+      .by_desynced(params[:desynced], user)
 
     # "phrase" is used in collection-search (userlist comparer)
     search_term = params[:search] || params[:q] || params[:phrase]
@@ -139,6 +140,12 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
     return self if value.blank? || user.nil?
 
     chain Animes::Filters::ByUserList.call(@scope, value, user)
+  end
+
+  def by_desynced value, user
+    return self if value.blank? || !user&.staff?
+
+    chain Animes::Filters::ByDesynced.call(@scope, value)
   end
 
   def exclude_ai_genres sex
