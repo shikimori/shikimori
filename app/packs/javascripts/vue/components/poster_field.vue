@@ -24,8 +24,6 @@ label.b-dropzone.block(
         :movable='false'
         :rotatable='false'
         :zoomable='false'
-        :min-crop-box-width='minCropBoxWidth'
-        :min-crop-box-height='minCropBoxHeight'
         @crop='onCrop'
       )
     .no-image(
@@ -93,8 +91,6 @@ const templateRef = ref(null);
 const isDisabled = ref(false);
 const currentPosterId = ref(props.posterId);
 const originalImagedataUri = ref(null);
-const minCropBoxWidth = ref(0);
-const minCropBoxHeight = ref(0);
 
 const sizes = reactive({
   naturalWidth: 0,
@@ -114,8 +110,15 @@ const onCrop = e => {
 
   if (props.cropData && isInitialOnCrop) {
     isInitialOnCrop = false;
-    const { height, left, top, width } = props.cropData;
+    const cropper = vueCropperRef.value.crop();
 
+    // do not pass minCropBoxWidth & minCropBoxHeight into VueCropper props directly cause
+    // it causes cropper re-render and thus cropBoxData is reset asynchronously
+    cropper.options.minCropBoxWidth = scaleX(props.previewWidth);
+    cropper.options.minCropBoxHeight = scaleY(props.previewHeight);
+    cropper.limitCropBox(true, true);
+
+    const { height, left, top, width } = props.cropData;
     vueCropperRef.value.setCropBoxData({
       height: scaleY(height),
       left: scaleX(left),
@@ -123,9 +126,6 @@ const onCrop = e => {
       width: scaleX(width)
     });
   }
-
-  minCropBoxWidth.value = scaleX(props.previewWidth);
-  minCropBoxHeight.value = scaleY(props.previewHeight);
 
   syncPreviewImage();
 };
