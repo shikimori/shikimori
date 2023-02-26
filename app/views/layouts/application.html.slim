@@ -75,7 +75,7 @@ html[
           - unless Rails.env.development? && params.key?(:no_menu)
               = render 'application/footer'
 
-        = render 'spnsrs/ad', ad: Ad.new(:footer)
+        / = render 'spnsrs/ad', ad: Ad.new(:footer)
       .b-shade
       .b-to-top
         .slide
