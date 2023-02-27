@@ -288,6 +288,9 @@ private
     }, {
       src: '/assets/globals/events/2023-02-13/inner_3.png',
       url: 'https://imba.shop?utm_source=shikimori&utm_medium=banner3&utm_campaign=13_02&marker=2VtzqwWWixs'
+    }, {
+      src: '/assets/globals/events/2023-02-27/inner_1.png',
+      url: 'https://imba.shop?utm_source=shikimori&utm_medium=banner4&utm_campaign=27_02&marker=2Vtzqw6sJ6X'
     }],
     # AD END
     placement: Types::Ad::Placement[:content],
