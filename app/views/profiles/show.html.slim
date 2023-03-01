@@ -295,6 +295,7 @@
             - else
               = t('profiles_controller.favorites')
           .cc-favourites.to-process[
+            class=('is-size-default' if @resource.favorites.size <= UserPreferences::DEFAULT_FAVOURITES_TO_DISPLAY)
             data-dynamic='cutted_covers'
             data-ratio_type='entry'
           ]

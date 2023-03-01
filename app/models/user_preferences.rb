@@ -25,6 +25,8 @@ class UserPreferences < ApplicationRecord
     :show_age,
     :view_censored
 
+  DEFAULT_FAVOURITES_TO_DISPLAY = 8
+
   validates :default_sort,
     length: { maximum: 255 },
     allow_blank: true

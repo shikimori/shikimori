@@ -148,11 +148,13 @@
       +iphone_portrait
         +column(6, 1/6, 2%)
 
-        &:nth-child(7), &:nth-child(8)
-          display: none
-
       .title
         display: none
+
+    &.is-size-default .c-column
+      +iphone_portrait
+        &:nth-child(7), &:nth-child(8)
+          display: none
 
   .about
     .item-edit
