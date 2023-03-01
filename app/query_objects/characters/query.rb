@@ -14,4 +14,10 @@ class Characters::Query < QueryObjectBase
       ids_limit: SEARCH_LIMIT
     )
   end
+
+  def by_desynced value, user
+    return self if value.blank? || !user&.staff?
+
+    chain Animes::Filters::ByDesynced.call(@scope, value)
+  end
 end

@@ -206,7 +206,7 @@ describe Animes::Query do
       end
 
       context 'not staff user' do
-        let(:user) { seed :user }
+        let(:user) { [seed(:user), nil].sample }
         it do
           is_expected.to eq [anime]
           expect(Animes::Filters::ByDesynced).to_not have_received :call

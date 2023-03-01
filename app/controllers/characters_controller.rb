@@ -27,6 +27,7 @@ class CharactersController < PeopleController
     @collection = Characters::Query
       .fetch
       .search(params[:search])
+      .by_desynced(params[:desynced], current_user)
       .paginate(@page, PER_PAGE)
   end
 
