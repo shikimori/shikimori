@@ -119,11 +119,13 @@ const onCrop = e => {
     cropper.limitCropBox(true, true);
 
     const { height, left, top, width } = props.cropData;
+    // Math.floor is necessary because
+    // sometimes scaling returns height higher than actual image size is
     vueCropperRef.value.setCropBoxData({
-      height: scaleY(height),
+      height: Math.floor(scaleY(height)),
       left: scaleX(left),
       top: scaleY(top),
-      width: scaleX(width)
+      width: Math.floor(scaleX(width))
     });
   }
 
