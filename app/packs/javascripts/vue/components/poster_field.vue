@@ -122,10 +122,10 @@ const onCrop = e => {
     // Math.floor is necessary because
     // sometimes scaling returns height higher than actual image size is
     vueCropperRef.value.setCropBoxData({
-      height: Math.floor(scaleY(height)),
+      height: Math.round(scaleY(height)),
       left: scaleX(left),
       top: scaleY(top),
-      width: Math.floor(scaleX(width))
+      width: Math.round(scaleX(width))
     });
   }
 
