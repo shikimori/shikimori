@@ -14,7 +14,7 @@ class Moderations::GenresController < ModerationsController
   VERSIONS_PER_PAGE = 20
 
   def index
-    @versions = VersionsQuery.by_type(type.capitalize)
+    @versions = VersionsQuery.by_type(type.capitalize, nil)
       .paginate(@page, VERSIONS_PER_PAGE)
       .lazy_map(&:decorate)
 
@@ -28,7 +28,7 @@ class Moderations::GenresController < ModerationsController
   end
 
   def edit
-    @versions = VersionsQuery.by_item(@resource)
+    @versions = VersionsQuery.by_item(@resource, nil)
       .paginate(@page, VERSIONS_PER_PAGE)
       .lazy_map(&:decorate)
 

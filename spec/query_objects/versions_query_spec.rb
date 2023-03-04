@@ -1,5 +1,5 @@
 describe VersionsQuery do
-  let(:query) { described_class.by_item anime }
+  let(:query) { described_class.by_item anime, nil }
   let(:anime) { create :anime }
 
   describe '.by_item' do
@@ -35,7 +35,7 @@ describe VersionsQuery do
   end
 
   describe '.by_type' do
-    let(:query) { described_class.by_type Anime.name }
+    let(:query) { described_class.by_type Anime.name, nil }
 
     it { expect(query).to eq [] }
 
@@ -80,14 +80,14 @@ describe VersionsQuery do
       let!(:pending) { create :version, item: anime }
       let!(:deleted) { create :version, item: anime, state: 'deleted' }
 
-      it { expect(query.by_field :russian).to eq [pending] }
+      it { expect(query.by_field 'russian').to eq [pending] }
     end
 
     describe 'another entry' do
       let!(:version_1) { create :version, item: anime }
       let!(:version_2) { create :version, item: create(:anime) }
 
-      it { expect(query.by_field :russian).to eq [version_1] }
+      it { expect(query.by_field 'russian').to eq [version_1] }
     end
 
     describe 'another field' do
@@ -96,7 +96,7 @@ describe VersionsQuery do
         create :version, item: anime, item_diff: { 'name' => ['a', 'b'] }
       end
 
-      it { expect(query.by_field :russian).to eq [version_1] }
+      it { expect(query.by_field 'russian').to eq [version_1] }
     end
 
     describe 'videos + associated' do
@@ -104,14 +104,14 @@ describe VersionsQuery do
       let!(:version_2) { create :video_version, item: video, associated: anime }
       let(:video) { create :video, anime: anime }
 
-      it { expect(query.by_field :videos).to eq [version_2, version_1] }
+      it { expect(query.by_field 'videos').to eq [version_2, version_1] }
 
       context 'another entry' do
         let!(:version_3) { create :video_version, item: video_2, associated: anime_2 }
         let(:video_2) { create :video, anime: anime_2 }
         let(:anime_2) { create :anime }
 
-        it { expect(query.by_field :videos).to eq [version_2, version_1] }
+        it { expect(query.by_field 'videos').to eq [version_2, version_1] }
       end
     end
 
@@ -120,14 +120,14 @@ describe VersionsQuery do
       let!(:version_2) { create :poster_version, item: poster, associated: anime }
       let(:poster) { create :poster, anime: anime }
 
-      it { expect(query.by_field :poster).to eq [version_2] }
+      it { expect(query.by_field 'poster').to eq [version_2] }
     end
 
     describe 'ordering' do
       let!(:version_1) { create :version, item: anime, created_at: 2.days.ago }
       let!(:version_2) { create :version, item: anime, created_at: 1.day.ago }
 
-      it { expect(query.by_field :russian).to eq [version_2, version_1] }
+      it { expect(query.by_field 'russian').to eq [version_2, version_1] }
     end
   end
 
@@ -155,7 +155,7 @@ describe VersionsQuery do
           item: anime
       end
 
-      it { expect(query.authors :description_ru).to eq [author_1] }
+      it { expect(query.authors 'description_ru').to eq [author_1] }
     end
 
     describe 'another entry' do
@@ -172,7 +172,7 @@ describe VersionsQuery do
           item: create(:anime)
       end
 
-      it { expect(query.authors :description_ru).to eq [author_1] }
+      it { expect(query.authors 'description_ru').to eq [author_1] }
     end
 
     describe 'another field' do
@@ -189,7 +189,7 @@ describe VersionsQuery do
           item: anime
       end
 
-      it { expect(query.authors :description_ru).to eq [author_1] }
+      it { expect(query.authors 'description_ru').to eq [author_1] }
     end
 
     describe 'ordering' do
@@ -208,7 +208,7 @@ describe VersionsQuery do
           created_at: 1.day.ago
       end
 
-      it { expect(query.authors :description_ru).to eq [author_1, author_2] }
+      it { expect(query.authors 'description_ru').to eq [author_1, author_2] }
     end
 
     context 'screenshots' do
@@ -240,7 +240,7 @@ describe VersionsQuery do
           item: anime
       end
 
-      it { expect(query.authors :screenshots).to eq [author_1] }
+      it { expect(query.authors 'screenshots').to eq [author_1] }
     end
 
     context 'videos' do
@@ -263,7 +263,7 @@ describe VersionsQuery do
           item: anime
       end
 
-      it { expect(query.authors :videos).to eq [author_1] }
+      it { expect(query.authors 'videos').to eq [author_1] }
     end
   end
 end
