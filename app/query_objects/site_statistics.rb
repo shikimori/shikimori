@@ -110,7 +110,7 @@ class SiteStatistics
   end
 
   def discord_admins
-    User.where(id: 8014) # Happy Man
+    User.where(id: [210_569]) # vibrant
   end
 
   def translators

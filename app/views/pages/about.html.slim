@@ -60,9 +60,9 @@ header.head
             p == t '.vk', url: Shikimori::VK_CLUB_URL
             = render @statistics.vk_admins, content_by: :avatar
 
-          / .members-block.left
-          /   p == t '.discord', url: Shikimori::DISCORD_CHANNEL_URL
-          /   = render @statistics.discord_admins, content_by: :avatar
+          .members-block.left
+            p == t '.discord', url: Shikimori::DISCORD_CHANNEL_URL
+            = render @statistics.discord_admins, content_by: :avatar
 
         .members-block.left
           p = t '.retired_moderators'

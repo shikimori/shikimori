@@ -36,7 +36,7 @@ module Shikimori
   ALLOWED_DOMAINS = ShikimoriDomain::RU_HOSTS + ShikimoriDomain::EN_HOSTS
 
   VK_CLUB_URL = 'https://vk.com/shikimori'
-  DISCORD_CHANNEL_URL = 'https://discord.gg/fQrr2ms'
+  DISCORD_CHANNEL_URL = 'https://discord.gg/gYQNpUKPdH'
 
   PROTOCOLS = {
     production: 'https',
