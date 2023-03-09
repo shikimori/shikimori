@@ -2,6 +2,7 @@ class ImageChecker
   static_facade :valid?, :image_path
 
   GRAY_COLOR = 128
+  RATIO = 80
 
   def valid?
     return false unless File.exist? @image_path
@@ -40,7 +41,7 @@ private
 
   def second_jpg_check image_content
     !image_content
-      .bytes[-[image_content.bytes.size, (Uploaders::PosterUploader::MAIN_WIDTH * 4)].min..]
+      .bytes[-[image_content.bytes.size, (Uploaders::PosterUploader::MAIN_WIDTH * RATIO)].min..]
       .all?(GRAY_COLOR)
   end
 
