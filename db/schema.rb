@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_26_085233) do
+ActiveRecord::Schema.define(version: 2023_03_09_182813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -701,7 +701,7 @@ ActiveRecord::Schema.define(version: 2023_02_26_085233) do
     t.index ["russian"], name: "index_mangas_on_russian"
   end
 
-  create_table "messages", id: :serial, force: :cascade do |t|
+  create_table "messages", force: :cascade do |t|
     t.integer "from_id"
     t.integer "to_id"
     t.string "kind", limit: 255
