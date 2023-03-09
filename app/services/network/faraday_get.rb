@@ -11,6 +11,7 @@ class Network::FaradayGet
     SocketError,
     Errno::ECONNRESET, Errno::ETIMEDOUT, Errno::EMFILE, Errno::EADDRNOTAVAIL, Errno::EINVAL,
     Faraday::ConnectionFailed, Faraday::TimeoutError, FaradayMiddleware::RedirectLimitReached,
+    Faraday::SSLError,
     (Addressable::URI::InvalidURIError if defined? Addressable)
   ].compact
 
