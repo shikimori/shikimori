@@ -1,7 +1,9 @@
 class ImportAnimeCalendars
   include Sidekiq::Worker
 
-  CALENDAR_URL = 'http://animecalendar.eu/user/ical/8831/e599e8323643658c14eef67e85bdb534'
+  # visit https://anica.jp/season and run in broweser console to subscribe on everything
+  # $$('.button.text-secondary .fa-bookmark').forEach(node => node.click())
+  CALENDAR_URL = 'https://anica.jp/ical/e72f35f46bcb6db63afb7434a4a43378'
   FIXES = YAML.load_file(Rails.root.join('config/app/animecalendar.yml'))
 
   def perform
@@ -13,8 +15,8 @@ class ImportAnimeCalendars
 private
 
   def process_results calendars
-    names = calendars.map { |v| v[:title] }.uniq
-    imported = filter(calendars).map { |v| v[:title] }.uniq
+    names = calendars.pluck(:title).uniq
+    imported = filter(calendars).pluck(:title).uniq
 
     Rails.cache.write 'calendar_unrecognized', (names - imported - FIXES[:ignores])
 
@@ -77,7 +79,7 @@ private
   end
 
   def calendars_data
-    raw_data = Rails.cache.fetch(:ical_calendar, expires_in: 1.hours) do
+    raw_data = Rails.cache.fetch(:ical_calendar, expires_in: 1.hour) do
       OpenURI.open_uri(CALENDAR_URL).read
     end
 

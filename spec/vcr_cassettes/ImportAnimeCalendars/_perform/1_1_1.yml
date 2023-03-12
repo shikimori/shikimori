@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://animecalendar.eu/user/ical/8831/e599e8323643658c14eef67e85bdb534
+    uri: https://anica.jp/ical/e72f35f46bcb6db63afb7434a4a43378
     body:
       encoding: US-ASCII
       string: ''
