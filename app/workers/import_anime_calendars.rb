@@ -65,9 +65,8 @@ private
 
   def parse i_calendars
     i_calendars.first.events.map do |i_data|
-      data = Array(i_data.summary).last.split(' Ep: ')
-      episode = data.second.to_i
-      title = data.first.strip
+      episode = i_data.description.match(/episode: (\d+)/i)[1].to_i
+      title = i_data.summary
 
       {
         anime: nil,
