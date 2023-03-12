@@ -29,7 +29,11 @@ class UserHistoryController < ProfilesController
     @resource.destroy
     @user.touch :rate_at
 
-    redirect_to profile_list_history_url(@user)
+    if request.xhr?
+      head :ok
+    else
+      redirect_to profile_list_history_url(@user)
+    end
   end
 
   def reset # rubocop:disable MethodLength, AbcSize

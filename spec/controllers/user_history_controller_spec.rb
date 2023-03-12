@@ -32,11 +32,29 @@ describe UserHistoryController do
   describe '#destroy' do
     include_context :authenticated, :user, :week_registered
     let(:user_history) { create :user_history, user: user }
-    subject! { post :destroy, params: { profile_id: user.to_param, id: user_history.id } }
 
-    it do
-      expect { user_history.reload }.to raise_error ActiveRecord::RecordNotFound
-      expect(response).to redirect_to profile_list_history_url(user)
+    subject! do
+      post :destroy,
+        params: { profile_id: user.to_param, id: user_history.id },
+        xhr: is_xhr
+    end
+
+    context 'xhr' do
+      let(:is_xhr) { true }
+
+      it do
+        expect { user_history.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(response).to have_http_status :success
+      end
+    end
+
+    context 'xhr' do
+      let(:is_xhr) { false }
+
+      it do
+        expect { user_history.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(response).to redirect_to profile_list_history_url(user)
+      end
     end
   end
 
