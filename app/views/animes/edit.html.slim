@@ -59,19 +59,19 @@
                     data-confirm=t('.confirm_rollback')
                   ] = t 'actions.rollback'
 
-              - %i[digital_released_on russia_released_on].each do |field|
-                = render 'db_entries/edit_field_li',
-                    resource: @resource,
-                    field: field,
-                    class: ('m15' if %i[russia_released_on].include? field) do
-                  - if @resource.respond_to? :"#{field}_hint"
-                    .hint = @resource.send :"#{field}_hint"
+            - %i[digital_released_on russia_released_on].each do |field|
+              = render 'db_entries/edit_field_li',
+                  resource: @resource,
+                  field: field,
+                  class: ('m15' if %i[russia_released_on].include? field) do
+                - if @resource.respond_to? :"#{field}_hint"
+                  .hint = @resource.send :"#{field}_hint"
 
       .f-column
         - if @resource.rkn_abused? && current_user.staff?
           .b-warning
             .warning На страницу получен страйк от РКН!
-            p Постер долен или отсутствовать, или быть нейтральным.
+            p Постер должен отсутствовать или быть нейтральным.
 
         ul.b-list.is-wide
           - is_screenshots = @resource.anime? && @resource.screenshots_allowed?
