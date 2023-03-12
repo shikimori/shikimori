@@ -68,6 +68,11 @@
                     .hint = @resource.send :"#{field}_hint"
 
       .f-column
+        - if @resource.rkn_abused? && current_user.staff?
+          .b-warning
+            .warning На страницу получен страйк от РКН!
+            p Постер долен или отсутствовать, или быть нейтральным.
+
         ul.b-list.is-wide
           - is_screenshots = @resource.anime? && @resource.screenshots_allowed?
           - %i[poster description_ru description_en screenshots videos imageboard_tag coub_tags external_links fansubbers fandubbers].delete_if { |v| v == :screenshots && !is_screenshots }.each do |field|
