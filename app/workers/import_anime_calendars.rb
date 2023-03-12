@@ -1,7 +1,7 @@
 class ImportAnimeCalendars
   include Sidekiq::Worker
 
-  # visit https://anica.jp/season and run in broweser console to subscribe on everything
+  # visit https://anica.jp/season and run in the broweser console the following code to subscribe on everything
   # $$('.button.text-secondary .fa-bookmark').forEach(node => node.click())
   CALENDAR_URL = 'https://anica.jp/ical/e72f35f46bcb6db63afb7434a4a43378'
   FIXES = YAML.load_file(Rails.root.join('config/app/animecalendar.yml'))

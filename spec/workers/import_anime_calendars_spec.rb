@@ -7,8 +7,7 @@ describe ImportAnimeCalendars do
     let!(:ongoing) { create :anime, :ongoing, name: 'Hikari no Ou' }
     # let!(:anons) { create :anime, :anons, name: 'Prison School' }
     let!(:released) { create :anime, :released, name: 'Tensei Oujo to Tensai Reijou no Mahou Kakumei' }
-
-    # let!(:config_match) { create :anime, :anons, id: 30230, name: 'Diamond no Ace: Second Season' }
+    let!(:config_match) { create :anime, :anons, id: 49918, name: 'bla-bla' }
 
     before { NameMatches::Refresh.new.perform Anime.name }
     subject! { worker.perform }
@@ -21,7 +20,11 @@ describe ImportAnimeCalendars do
       )
       # expect(anons.anime_calendars).to have(8).items
       expect(released.anime_calendars).to be_empty
-      # expect(config_match.anime_calendars).to have(9).items
+      expect(config_match.anime_calendars).to have(5).items
+      expect(config_match.anime_calendars[3]).to have_attributes(
+        episode: 24,
+        start_at: Time.zone.parse('Sat, 18 Mar 2023 11:30:00.000000000 MSK +03:00')
+      )
     end
   end
 end
