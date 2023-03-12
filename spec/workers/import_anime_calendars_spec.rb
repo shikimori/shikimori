@@ -17,7 +17,7 @@ describe ImportAnimeCalendars do
       expect(ongoing.anime_calendars).to have(5).items
       expect(ongoing.anime_calendars[0]).to have_attributes(
         episode: 7,
-        start_at: Time.zone.parse('Sat, 25 Feb 2023 12:30:00.000000000 MSK +03:00')
+        start_at: Time.zone.parse('Sat, 25 Feb 2023 16:30:00.000000000 MSK +03:00')
       )
       # expect(anons.anime_calendars).to have(8).items
       expect(released.anime_calendars).to be_empty

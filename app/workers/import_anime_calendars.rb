@@ -71,7 +71,7 @@ private
       {
         anime: nil,
         title: title,
-        start_at: i_data.dtstart - 4.hours,
+        start_at: i_data.dtstart,
         episode: episode - (FIXES[:episodes_diff][title] || 0)
       }
     end
