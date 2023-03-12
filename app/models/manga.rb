@@ -210,6 +210,10 @@ class Manga < DbEntry
     Copyright::BANNED_BY_RKN_MANGA_IDS.include? id
   end
 
+  def poster
+    rkn_banned? ? nil : super
+  end
+
 private
 
   def set_type
