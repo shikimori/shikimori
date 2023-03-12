@@ -72,7 +72,7 @@
           - is_screenshots = @resource.anime? && @resource.screenshots_allowed?
           - %i[poster description_ru description_en screenshots videos imageboard_tag coub_tags external_links fansubbers fandubbers].delete_if { |v| v == :screenshots && !is_screenshots }.each do |field|
             - next if field == :imageboard_tag && !Shikimori::IS_IMAGEBOARD_TAGS_ENABLED
-            - next if field == :poster && @resource.rkn_abused?
+            / - next if field == :poster && @resource.rkn_abused?
 
             = render 'db_entries/edit_field_li',
               resource: @resource,
