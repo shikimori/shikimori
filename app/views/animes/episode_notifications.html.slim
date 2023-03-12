@@ -10,7 +10,7 @@
         th Anime365
         th Tokyo Toshokan
     tbody
-      - @resource.episode_notifications.each do |episode_notification|
+      - @resource.episode_notifications.sort_by(&:episode).reverse.each do |episode_notification|
         tr
           td = episode_notification.id
           td = episode_notification.episode
