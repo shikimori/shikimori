@@ -761,6 +761,9 @@ Rails.application.routes.draw do
 
         # инфо по торрентам эпизодов
         get :episode_torrents
+        if kind == 'animes'
+          get :episode_notifications
+        end
 
         get 'cosplay/:anything' => redirect { |params, request| "/#{kind}/#{params[:id]}/cosplay" }, anything: /.*/
 
