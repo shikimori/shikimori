@@ -193,6 +193,8 @@ data
 
     if franchise.size >= 7 || total_duration > 2_000
       formula_threshold = [95, formula_threshold].min
+    elsif franchise.any?(&:ongoing?)
+      formula_threshold = [98, formula_threshold].min
     end
 
     # animes_with_year = franchise.reject(&:kind_special?).select(&:year)

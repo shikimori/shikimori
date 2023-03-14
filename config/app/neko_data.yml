@@ -26531,7 +26531,7 @@
         franchise: yi_ren_zhi_xia
         not_anime_ids:
         - 37090
-      :threshold: 100%
+      :threshold: 98%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :yi_ren_zhi_xia
@@ -33713,7 +33713,7 @@
       :algo: duration
       :filters:
         franchise: xingchen_bian
-      :threshold: 100%
+      :threshold: 98%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :xingchen_bian
