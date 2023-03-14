@@ -1,2 +1,5 @@
-a.bubbled href=url_for(version.send(field))
-  = truncate version.send(field).name, length: 36
+- if version.send(field)
+  a.bubbled href=url_for(version.send(field))
+    = truncate version.send(field).name, length: 36
+- else
+  i = t "deleted.#{version.send("#{field}_type").downcase}"

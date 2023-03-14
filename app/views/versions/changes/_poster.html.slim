@@ -1,5 +1,5 @@
 .field-changes.poster
-  - prev_poster = version.prev_poster || (version.pending? && version.associated.poster)
+  - prev_poster = version.prev_poster || (version.pending? && version.associated&.poster)
 
   .changes
     - if prev_poster
