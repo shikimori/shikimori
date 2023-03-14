@@ -18480,7 +18480,7 @@
         - 51241
         - 51618
         - 54468
-      :threshold: 95%
+      :threshold: 93.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :shingeki_no_kyojin
@@ -19528,7 +19528,7 @@
         - 43745
         - 43751
         - 47307
-      :threshold: 94.2%
+      :threshold: 92.6%
       :generator:
         ignore_latest_ids:
         - 3786
@@ -26531,7 +26531,7 @@
         franchise: yi_ren_zhi_xia
         not_anime_ids:
         - 37090
-      :threshold: 98%
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :yi_ren_zhi_xia
@@ -30229,7 +30229,7 @@
         - 1481
         - 53402
         - 53433
-      :threshold: 93.8%
+      :threshold: 93.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :urusei_yatsura
@@ -30433,7 +30433,7 @@
         - 54045
         - 54046
         - 54047
-      :threshold: 97.9%
+      :threshold: 98%
       :generator:
         not_ignored_ids:
         - 32446
@@ -31938,7 +31938,7 @@
         - 51780
         - 53265
         - 54282
-      :threshold: 93.4%
+      :threshold: 93.5%
       :generator:
         ignore_latest_ids:
         - 38088
