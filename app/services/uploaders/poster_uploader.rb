@@ -8,8 +8,10 @@ class Uploaders::PosterUploader < Shrine
   PREVIEW_ANIME_HEIGHT = (PREVIEW_WIDTH / (425.0 / 600.0)).ceil
   PREVIEW_CHARACTER_HEIGHT = (PREVIEW_WIDTH / (225.0 / 350.0)).ceil
 
-  MINI_WIDTH = 48
-  MINI_HEIGHT = 75
+  # MINI_WIDTH = 48
+  # MINI_HEIGHT = 75
+  MINI_WIDTH = 60
+  MINI_HEIGHT = (60 / (48.0 / 75.0) ).ceil
 
   # https://shrinerb.com/docs/plugins/activerecord
   plugin :pretty_location
