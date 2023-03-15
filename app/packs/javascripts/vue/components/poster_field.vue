@@ -119,13 +119,20 @@ const onCrop = e => {
     cropper.limitCropBox(true, true);
 
     const { height, left, top, width } = props.cropData;
-    // Math.floor is necessary because
+    const { maxHeight, maxWidth } = vueCropperRef.value.crop().cropBoxData;
+
+    // Math.round is necessary because
     // sometimes scaling returns height higher than actual image size is
+    // have take MIN because calculated size can be ~0.1-0.9px larger than max allowed size
+    // https://shikimori.one/animes/51125-inamori-asuto-no-soccer-kyoushitsu/edit/poster
+    const cropWidth = Math.min(Math.round(scaleX(width)), maxWidth);
+    const cropHeight = Math.min(Math.round(scaleY(height)), maxHeight);
+
     vueCropperRef.value.setCropBoxData({
-      height: Math.round(scaleY(height)),
+      height: cropHeight,
       left: scaleX(left),
       top: scaleY(top),
-      width: Math.round(scaleX(width))
+      width: cropWidth
     });
   }
 
