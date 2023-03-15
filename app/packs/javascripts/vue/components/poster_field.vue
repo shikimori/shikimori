@@ -101,6 +101,7 @@ const sizes = reactive({
 
 let isInitialOnCrop = true;
 const onCrop = e => {
+  // console.log('onCrop');
   const canvasData = vueCropperRef.value.getCanvasData();
 
   sizes.naturalWidth = Math.round(canvasData.naturalWidth);
@@ -195,6 +196,7 @@ function clear() {
   syncPreviewImage();
 }
 
+let isInitialSync = true;
 const syncPreviewImage = debounce(100, () => {
   const exportedDataUri = vueCropperRef.value.getCroppedCanvas()?.toDataURL();
   templateRef.value.querySelector('source')?.remove();
@@ -203,6 +205,15 @@ const syncPreviewImage = debounce(100, () => {
     const isPreviewDerivative = index === 0;
     const isMisshapedImage = sizes.naturalWidth >= sizes.naturalHeight;
 
+    if (!isInitialSync && !isPreviewDerivative) {
+      const derivativeNode = templateRef.value.querySelector('.derivative-mini.is-need-rescale');
+
+      if (derivativeNode) {
+        derivativeNode.classList.add('is-rescaled');
+        derivativeNode.classList.remove('is-need-rescale');
+      }
+    }
+
     img.srcset = '';
     img.src = (
       isPreviewDerivative && isMisshapedImage ?
@@ -210,6 +221,7 @@ const syncPreviewImage = debounce(100, () => {
         exportedDataUri
     ) || missingSrc;
   });
+  isInitialSync = false;
 });
 
 function disableCrop() {
@@ -286,6 +298,17 @@ function ratioY() {
     .derivative-preview img
       width: 160px
 
-    .derivative-mini img
-      width: 48px
+    .derivative-mini
+      &.is-rescaled
+        .rescale-cutter
+          display: inline-block
+          overflow: hidden
+          width: 48px
+
+        img
+          width: 53px
+          margin-left: -2.5px
+
+      img
+        width: 48px
 </style>

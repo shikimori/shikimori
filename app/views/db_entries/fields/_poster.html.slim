@@ -18,12 +18,15 @@
         db_entry: resource,
         poster: resource.poster,
         derivative: :preview
-    .derivative-mini
+    .derivative-mini[
+      class=('is-need-rescale' if resource.anime? || resource.manga?)
+    ]
       p В избранном/клубах
-      = render 'db_entries/poster',
-        db_entry: resource,
-        poster: resource.poster,
-        derivative: :mini
+      .rescale-cutter
+        = render 'db_entries/poster',
+          db_entry: resource,
+          poster: resource.poster,
+          derivative: :mini
 
   .block
     #vue_app[
