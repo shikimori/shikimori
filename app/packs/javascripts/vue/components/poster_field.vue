@@ -189,13 +189,20 @@ function clear() {
 }
 
 const syncPreviewImage = debounce(100, () => {
-  const img = templateRef.value.querySelector('img');
   const exportedDataUri = vueCropperRef.value.getCroppedCanvas()?.toDataURL();
-
   templateRef.value.querySelector('source')?.remove();
 
-  img.srcset = '';
-  img.src = exportedDataUri || missingSrc;
+  templateRef.value.querySelectorAll('img').forEach((img, index) => {
+    const isPreviewDerivative = index === 0;
+    const isMisshapedImage = sizes.naturalWidth >= sizes.naturalHeight;
+
+    img.srcset = '';
+    img.src = (
+      isPreviewDerivative && isMisshapedImage ?
+        currentSrc.value :
+        exportedDataUri
+    ) || missingSrc;
+  });
 });
 
 function disableCrop() {
@@ -265,5 +272,13 @@ function ratioY() {
     background-color: #8e00fa
 
 .preview
-  width: 156px
+  display: flex
+  gap: 20px
+
+  ::v-deep()
+    .derivative-preview img
+      width: 160px
+
+    .derivative-mini img
+      width: 48px
 </style>
