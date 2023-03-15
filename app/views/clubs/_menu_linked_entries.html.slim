@@ -14,7 +14,5 @@
   .cc-4a
     = render partial: "#{kind}/#{kind_singular}",
       collection: entries,
-      locals: { \
-        cover_by: :image_link,
-        cover_derivative: :mini \
-      }
+      locals: { cover_by: :image_link, cover_derivative: :mini },
+      cached: ->(entry) { cache_keys entry, :image_link, :mini }

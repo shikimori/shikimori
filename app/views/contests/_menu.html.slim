@@ -35,13 +35,13 @@
           - if resource.anime?
             = render partial: 'animes/anime',
               collection: resource.members,
-              locals: { cover_by: :image_link },
-              cached: ->(entry) { cache_keys entry, :image_link }
+              locals: { cover_by: :image_link, cover_derivative: :mini },
+              cached: ->(entry) { cache_keys entry, :image_link, :mini }
           - else
             = render partial: 'characters/character',
               collection: resource.members,
-              locals: { cover_by: :image_link },
-              cached: ->(entry) { cache_keys entry, :image_link }
+              locals: { cover_by: :image_link, cover_derivative: :mini },
+              cached: ->(entry) { cache_keys entry, :image_link, :mini }
 
     - unless resource.proposing? || resource.swiss?
       .block.grid
