@@ -66,14 +66,6 @@ export default class DynamicParser {
     new Clickloaded(node);
   }
 
-  async cuttedCovers(node) {
-    const { CuttedCovers } = await import(
-      /* webpackChunkName: "cutted_covers" */ './cutted_covers'
-    );
-
-    new CuttedCovers(node);
-  }
-
   codeHighlight(node) {
     new CodeHighlight(node);
   }
