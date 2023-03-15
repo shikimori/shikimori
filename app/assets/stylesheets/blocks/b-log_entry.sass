@@ -161,6 +161,27 @@
         .diff .value
           font-size: 11px
 
+      &.poster
+        .derivatives
+          display: flex
+
+          +iphone
+            flex-direction: column
+            row-gap: 0.75rem
+
+          +gte_ipad
+            column-gap: 1.5rem
+
+        .derivative-preview
+          +iphone
+            margin-right: 1rem
+
+          +gte_ipad
+            margin-right: 1.5rem
+
+        .crop
+          font-size: 12px
+
   & > .reason
     color: $maroon
     font-size: 11px

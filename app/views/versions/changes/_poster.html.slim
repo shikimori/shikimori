@@ -5,50 +5,51 @@
     - if prev_poster
       .change
         .label #{t '.before'}:
-        .d-flex
-          .mr-5
+        .derivatives
+          .derivative-main
             = render 'db_entries/poster_magnificable',
               resource: version.associated,
               poster: prev_poster
           div
             - if prev_poster.crop_data.present? && (prev_poster.image_data['metadata']['width'] != prev_poster.crop_data['width'] || prev_poster.image_data['metadata']['height'] != prev_poster.crop_data['height'])
-              div
+              .crop
                 ' #{prev_poster.image_data['metadata']['width']}x#{prev_poster.image_data['metadata']['height']} ➞
                 | #{prev_poster.crop_data['width']}x#{prev_poster.crop_data['height']}
             .d-flex
-              .mr-5
+              .derivative-preview
                 = render 'db_entries/poster',
                   db_entry: version.associated,
                   poster: prev_poster,
                   derivative: :preview
-              = render 'db_entries/poster',
-                db_entry: version.associated,
-                poster: prev_poster,
-                derivative: :mini
-
+              .derivative-mini
+                = render 'db_entries/poster',
+                  db_entry: version.associated,
+                  poster: prev_poster,
+                  derivative: :mini
     .change
       - if prev_poster
         .label.d-block.mt-3 #{t '.after'}:
-      .d-flex
+      .derivatives
         - if version.item
-          .mr-5
+          .derivative-main
             = render 'db_entries/poster_magnificable',
               resource: version.associated,
               poster: version.item
           div
             - if version.item.crop_data.present? && (version.item.image_data['metadata']['width'] != version.item.crop_data['width'] || version.item.image_data['metadata']['height'] != version.item.crop_data['height'])
-              div
+              .crop
                 ' #{version.item.image_data['metadata']['width']}x#{version.item.image_data['metadata']['height']} ➞
                 | #{version.item.crop_data['width']}x#{version.item.crop_data['height']}
             .d-flex
-              .mr-5
+              .derivative-preview
                 = render 'db_entries/poster',
                   db_entry: version.associated,
                   poster: version.item,
                   derivative: :preview
-              = render 'db_entries/poster',
-                db_entry: version.associated,
-                poster: version.item,
-                derivative: :mini
+              .derivative-mini
+                = render 'db_entries/poster',
+                  db_entry: version.associated,
+                  poster: version.item,
+                  derivative: :mini
         - else
           i = t '.deleted'
