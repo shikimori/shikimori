@@ -141,6 +141,10 @@ ru:
         censored_restore: Включить
 
       profile:
+        is_enlarged_favourites_in_profile: >-
+          Поставь эту галочку, если картинки избранного в профиле увеличены
+          <a href='%{edit_styles_url}'>стилями</a>,
+          и из-за этого картинки отображаются размытыми.
         display_activity_graph_since: Отображать график активности начиная с даты
         about_me: О себе
 

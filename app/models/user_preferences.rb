@@ -23,7 +23,8 @@ class UserPreferences < ApplicationRecord
   boolean_attributes :comments_auto_collapsed,
     :comments_auto_loaded,
     :show_age,
-    :view_censored
+    :view_censored,
+    :enlarged_favourites
 
   DEFAULT_FAVOURITES_TO_DISPLAY = 8
 

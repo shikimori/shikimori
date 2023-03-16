@@ -230,6 +230,7 @@ ru:
         body_width: Максимальная ширина сайта
         dashboard_type: Вид главной страницы
         favorites_in_profile: Количество избранного в профиле
+        is_enlarged_favourites_in_profile: Улучшить качество картинок избранного в профиле
         comment_policy: Могут комментировать мой профиль
         comments_in_profile: Отображать комментарии в профиле
         achievements_in_profile: Отображать ачивки в профиле

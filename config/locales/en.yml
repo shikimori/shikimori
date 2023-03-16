@@ -230,6 +230,7 @@ en:
         body_width: Maximum Site Width
         dashboard_type: Home page view
         favorites_in_profile: Number of Favorites in Profile
+        is_enlarged_favourites_in_profile: Improve the quality of images of favourite in profile
         comment_policy: Can Comment My Profile
         comments_in_profile: Show Comments in Profile
         is_show_age: Show age in profile

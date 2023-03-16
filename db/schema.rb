@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_09_182813) do
+ActiveRecord::Schema.define(version: 2023_03_16_183737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1137,6 +1137,7 @@ ActiveRecord::Schema.define(version: 2023_03_09_182813) do
     t.boolean "is_shiki_editor", default: false, null: false
     t.boolean "is_show_age", default: true, null: false
     t.boolean "is_view_censored", default: false, null: false
+    t.boolean "is_enlarged_favourites_in_profile", default: false, null: false
     t.index ["user_id"], name: "index_profile_settings_on_user_id"
   end
 

@@ -141,6 +141,10 @@ en:
         censored_restore: Enable
 
       profile:
+        is_enlarged_favourites_in_profile: >-
+          Check this if pictures of profile favorites are enlarged by
+          <a href='%{edit_styles_url}'>your styles</a>
+          and because of this images are displayed blurry.
         display_activity_graph_since: Display activity graph since
         about_me: About me
 

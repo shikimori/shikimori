@@ -1,6 +1,6 @@
 class UserPreferencesController < ProfilesController
   UPDATE_PARAMS = %i[
-    anime_in_profile manga_in_profile favorites_in_profile
+    anime_in_profile manga_in_profile favorites_in_profile is_enlarged_favourites_in_profile
     comments_in_profile achievements_in_profile statistics_start_on
     about
     show_hentai_images show_social_buttons
