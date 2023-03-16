@@ -297,11 +297,14 @@
           .cc-favourites[
             class=('is-size-default' if @resource.favorites.size <= UserPreferences::DEFAULT_FAVOURITES_TO_DISPLAY)
             class=('is-own-profile' if @view.own_profile?)
+            class=('to-process' if @resource.preferences.enlarged_favourites_in_profile?)
+            data-dynamic=('cutted_covers' if @resource.preferences.enlarged_favourites_in_profile?)
+            data-ratio_type=('entry' if @resource.preferences.enlarged_favourites_in_profile?)
           ]
             - if @resource.favorites.any?
               = render @resource.favorites,
                 cover_by: :image_link,
-                cover_derivative: :mini
+                cover_derivative: @resource.preferences.enlarged_favourites_in_profile? ? :preview : :mini
             - else
               .b-nothing_here = t('.no_favourite')
 

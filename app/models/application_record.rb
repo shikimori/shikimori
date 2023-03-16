@@ -59,7 +59,7 @@ class ApplicationRecord < ActiveRecord::Base
 
     def _fix_ids ids
       if ids.is_a? Array
-        ids.map { |id| fix_id(id) }.compact
+        ids.filter_map { |id| fix_id id }
       else
         fix_id ids
       end

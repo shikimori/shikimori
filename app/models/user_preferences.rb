@@ -24,7 +24,7 @@ class UserPreferences < ApplicationRecord
     :comments_auto_loaded,
     :show_age,
     :view_censored,
-    :enlarged_favourites
+    :enlarged_favourites_in_profile
 
   DEFAULT_FAVOURITES_TO_DISPLAY = 8
 
