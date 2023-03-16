@@ -296,6 +296,7 @@
               = t('profiles_controller.favorites')
           .cc-favourites[
             class=('is-size-default' if @resource.favorites.size <= UserPreferences::DEFAULT_FAVOURITES_TO_DISPLAY)
+            class=('is-own-profile' if @view.own_profile?)
           ]
             - if @resource.favorites.any?
               = render @resource.favorites,

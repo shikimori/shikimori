@@ -5,9 +5,10 @@
 
 .p-profiles-favorites
   .is-own-profile
-    .b-catalog_entry .image-decor::before,
-    .b-catalog_entry .image-decor::after
-      display: none
+    .b-catalog_entry .image-decor
+      &::before,
+      &::after
+        display: none
 
   .item-edit
     +icon('\e842')
