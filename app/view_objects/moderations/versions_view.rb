@@ -7,7 +7,8 @@ class Moderations::VersionsView < ViewObjectBase # rubocop:disable ClassLength
   ALL_TYPES = :all
 
   MERGED_FIELDS = {
-    'Video' => %w[videos]
+    'Video' => %w[videos],
+    'Poster' => %w[image]
   }
   HIDDEN_FIELDS = MERGED_FIELDS.values.flatten
 
