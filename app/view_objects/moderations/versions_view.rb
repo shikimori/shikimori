@@ -1,4 +1,4 @@
-class Moderations::VersionsView < ViewObjectBase
+class Moderations::VersionsView < ViewObjectBase # rubocop:disable ClassLength
   instance_cache :moderators, :pending, :processed
 
   PER_PAGE = 25
@@ -101,7 +101,7 @@ class Moderations::VersionsView < ViewObjectBase
   def filterable_options
     @filterable_options ||=
       Rails.cache.fetch([:filterable_options, type_param], expires_in: 1.day) do
-        sort_groupings(append_all_grouping(filterable_fields.deep_merge filterable_types))
+        sort_groupings(append_all_grouping(filterable_fields.deep_merge(filterable_types)))
       end
   end
 
