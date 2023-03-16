@@ -6,6 +6,11 @@ class Moderations::VersionsView < ViewObjectBase # rubocop:disable ClassLength
   FILTERABLE_TYPES = [Anime, Manga, Character, Person].map(&:name)
   ALL_TYPES = :all
 
+  MERGED_FIELDS = {
+    'Video' => %w[videos]
+  }
+  HIDDEN_FIELDS = MERGED_FIELDS.values.flatten
+
   def processed_scope
     Moderation::ProcessedVersionsQuery
       .fetch(type_param, h.params[:created_on])
@@ -122,22 +127,32 @@ private
       )
     end
 
-    scope = filter_by_field scope if filtered_field
+    scope = filter_by_fields scope if filtered_field
 
     scope
   end
 
-  def filter_by_field scope
-    if filtered_field[0].match?(/[[:upper:]]/)
-      scope.where item_type: filtered_field
+  def filter_by_fields scope
+    new_scope = filter_by_field scope, filtered_field
+
+    (MERGED_FIELDS[filtered_field] || []).each do |field|
+      new_scope = new_scope.or(filter_by_field(scope.scope, field))
+    end
+
+    new_scope
+  end
+
+  def filter_by_field scope, field
+    if field[0].match?(/[[:upper:]]/)
+      scope.where item_type: field
     else
-      scope.where '(item_diff->>:field) is not null', field: filtered_field
+      scope.where '(item_diff->>:field) is not null', field: field
     end
   end
 
   def sort_groupings filters
     filters.transform_values do |fields|
-      fields.sort_by(&:second)
+      fields.reject { |field| field.in? HIDDEN_FIELDS }.sort_by(&:second)
     end
   end
 
