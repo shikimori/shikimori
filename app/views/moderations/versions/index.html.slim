@@ -88,12 +88,15 @@ header.head
                 select#version_field name='field'
                   option value='' = t '.not_selected'
                   - @view.filterable_options.each do |type, fields|
-                    optgroup label=type.constantize.model_name.human
-                      - fields.sort_by(&:second).each do |field, label|
+                    - is_all = type == Moderations::VersionsView::ALL_TYPES
+                    optgroup[
+                      label=(is_all ? t('.all_types') : type.constantize.model_name.human)
+                    ]
+                      - fields.each do |field, label|
                         option[
                           value=field
-                          selected=(params[:field] === field && params[:item_type] == type)
-                          data-item_type=type
+                          selected=(params[:field] === field && ((is_all && params[:item_type].blank?) || (!is_all && params[:item_type] == type)))
+                          data-item_type=(type unless is_all)
                         ]
                           = label
                           - if label != field

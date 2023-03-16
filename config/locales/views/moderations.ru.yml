@@ -11,6 +11,7 @@ ru:
       filters: Фильтры
       field: Поле
       not_selected: Не выбрано
+      all_types: Всё
 
     show:
       content: Контент

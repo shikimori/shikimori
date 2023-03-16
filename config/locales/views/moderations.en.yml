@@ -11,6 +11,7 @@ en:
       filters: Filters
       field: Field
       not_selected: Not selected
+      all_types: All
 
     show:
       content: Site content

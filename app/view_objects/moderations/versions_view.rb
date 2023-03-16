@@ -4,6 +4,7 @@ class Moderations::VersionsView < ViewObjectBase
   PER_PAGE = 25
   IGNORED_FIELDS = %w[source action]
   FILTERABLE_TYPES = [Anime, Manga, Character, Person].map(&:name)
+  ALL_TYPES = :all
 
   def processed_scope
     Moderation::ProcessedVersionsQuery
@@ -100,7 +101,7 @@ class Moderations::VersionsView < ViewObjectBase
   def filterable_options
     @filterable_options ||=
       Rails.cache.fetch([:filterable_options, type_param], expires_in: 1.day) do
-        filterable_fields.deep_merge filterable_types
+        sort_groupings(append_all_grouping(filterable_fields.deep_merge filterable_types))
       end
   end
 
@@ -132,6 +133,19 @@ private
     else
       scope.where '(item_diff->>:field) is not null', field: filtered_field
     end
+  end
+
+  def sort_groupings filters
+    filters.transform_values do |fields|
+      fields.sort_by(&:second)
+    end
+  end
+
+  def append_all_grouping filters
+    {
+      ALL_TYPES => filters.values.inject(&:merge),
+      **filters
+    }
   end
 
   def filterable_fields
