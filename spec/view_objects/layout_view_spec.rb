@@ -6,7 +6,7 @@ describe LayoutView do
   before do
     allow(view.h.controller)
       .to receive(:instance_variable_get)
-      .with('@blank_layout')
+      .with(:@blank_layout)
       .and_return is_blank_layout
   end
   let(:is_blank_layout) { false }
@@ -92,11 +92,11 @@ describe LayoutView do
     before do
       allow(view.h.controller)
         .to receive(:instance_variable_get)
-        .with('@user')
+        .with(:@user)
         .and_return user
       allow(view.h.controller)
         .to receive(:instance_variable_get)
-        .with('@club')
+        .with(:@club)
         .and_return nil
     end
 
