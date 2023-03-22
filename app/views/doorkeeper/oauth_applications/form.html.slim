@@ -83,17 +83,32 @@ header.head.misc
                 = scope
                 span.hint = t "doorkeeper.scopes.#{scope}"
 
-  .b-input.m5
-    label class="text optional control-label" for="oauth_application_description_ru"
-      b = OauthApplication.human_attribute_name :description_ru
+  / .cc-2
+  /   .c-column
+  .block
+    div
+      .b-input.m5
+        label class="text optional control-label" for="oauth_application_description_ru"
+          b = OauthApplication.human_attribute_name :description_ru
 
-  .b-shiki_editor.to-process.no-preview-avatar data-dynamic='shiki_editor'
-    = render 'comments/shiki_editor',
-      text: f.object.description_ru,
-      field_name: 'oauth_application[description_ru]'
+      .b-shiki_editor.to-process.no-preview-avatar data-dynamic='shiki_editor'
+        = render 'comments/shiki_editor',
+          text: f.object.description_ru,
+          field_name: 'oauth_application[description_ru]'
+
+    .c-column.hidden
+      .b-input.m5
+        label class="text optional control-label" for="oauth_application_description_en"
+          b = OauthApplication.human_attribute_name :description_en
+
+      .b-shiki_editor.to-process.no-preview-avatar data-dynamic='shiki_editor'
+        = render 'comments/shiki_editor',
+          text: f.object.description_en,
+          field_name: 'oauth_application[description_en]'
 
   .cc-2
     .c-column
+
       .buttons
         a.cancel href=oauth_applications_url = t 'actions.cancel'
         = f.button :magic_submit
