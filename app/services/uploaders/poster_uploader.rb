@@ -2,7 +2,7 @@ class Uploaders::PosterUploader < Shrine
   include ImageProcessing::MiniMagick
 
   MAIN_WIDTH = 225
-  # MAIN_HEIGHT = 350
+  MAIN_HEIGHT = 350
 
   PREVIEW_WIDTH = 160
   PREVIEW_ANIME_HEIGHT = (PREVIEW_WIDTH / (425.0 / 600.0)).ceil

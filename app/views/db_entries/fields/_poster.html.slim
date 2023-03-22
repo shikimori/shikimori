@@ -31,8 +31,8 @@
   .block
     #vue_app[
       data-src=resource.poster&.image&.url
-      data-preview-width=Uploaders::PosterUploader::PREVIEW_WIDTH
-      data-preview-height=(resource.anime? || resource.kinda_manga? ? Uploaders::PosterUploader::PREVIEW_ANIME_HEIGHT : Uploaders::PosterUploader::PREVIEW_CHARACTER_HEIGHT)
+      data-preview-width=(resource.anime? || resource.kinda_manga? ? Uploaders::PosterUploader::PREVIEW_WIDTH : Uploaders::PosterUploader::MAIN_WIDTH)
+      data-preview-height=(resource.anime? || resource.kinda_manga? ? Uploaders::PosterUploader::PREVIEW_ANIME_HEIGHT : Uploaders::PosterUploader::MAIN_HEIGHT)
     ]
       .block_m.b-nothing_here = t 'loading'
 
