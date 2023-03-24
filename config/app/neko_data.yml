@@ -2205,6 +2205,10 @@
         - 49285
         - 49285
         - 52612
+        - 50281
+        - 50963
+        - 54519
+        - 1193
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -2710,6 +2714,10 @@
         - 49285
         - 49285
         - 52612
+        - 50281
+        - 50963
+        - 54519
+        - 1193
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3214,6 +3222,10 @@
         - 49285
         - 49285
         - 52612
+        - 50281
+        - 50963
+        - 54519
+        - 1193
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3716,6 +3728,10 @@
         - 49285
         - 49285
         - 52612
+        - 50281
+        - 50963
+        - 54519
+        - 1193
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -4537,6 +4553,13 @@
         - 33343
         - 43543
         - 32623
+        - 35958
+        - 23051
+        - 38906
+        - 53584
+        - 28655
+        - 28653
+        - 30862
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -5356,6 +5379,11 @@
         - 40085
         - 51923
         - 38006
+        - 38009
+        - 47917
+        - 48542
+        - 48491
+        - 51678
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5871,6 +5899,11 @@
         - 40085
         - 51923
         - 38006
+        - 38009
+        - 47917
+        - 48542
+        - 48491
+        - 51678
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -6387,6 +6420,11 @@
         - 40085
         - 51923
         - 38006
+        - 38009
+        - 47917
+        - 48542
+        - 48491
+        - 51678
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -8787,6 +8825,7 @@
         - 35760
         - 38524
         - 50549
+        - 54005
       :generator:
         person_id: 5088
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -8834,6 +8873,7 @@
         - 35760
         - 38524
         - 50549
+        - 54005
       :generator:
         person_id: 5088
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -10362,6 +10402,7 @@
         - 37897
         - 40438
         - 50549
+        - 53213
       :generator:
         person_id: 10308
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -10410,6 +10451,7 @@
         - 37897
         - 40438
         - 50549
+        - 53213
       :generator:
         person_id: 10308
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -11326,6 +11368,7 @@
         - 47409
         - 3508
         - 38373
+        - 2832
       :generator:
         person_id: 2501
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -11392,6 +11435,7 @@
         - 47409
         - 3508
         - 38373
+        - 2832
       :generator:
         person_id: 2501
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -12954,6 +12998,7 @@
         - 1462
         - 420
         - 4540
+        - 2182
       :generator:
         person_id: 1872
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -13000,6 +13045,7 @@
         - 1462
         - 420
         - 4540
+        - 2182
       :generator:
         person_id: 1872
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -13619,6 +13665,7 @@
         - 41911
         - 5493
         - 48505
+        - 50710
       :generator:
         person_id: 1891
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -13690,6 +13737,7 @@
         - 41911
         - 5493
         - 48505
+        - 50710
       :generator:
         person_id: 1891
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -14050,6 +14098,8 @@
         - 2718
         - 49827
         - 49828
+        - 87
+        - 52168
       :generator:
         person_id: 2337
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -14140,6 +14190,8 @@
         - 2718
         - 49827
         - 49828
+        - 87
+        - 52168
       :generator:
         person_id: 2337
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -22762,6 +22814,7 @@
         - 37864
         - 40323
         - 48436
+        - 54761
       :threshold: 90%
       :generator:
         ignore_latest_ids:
@@ -22801,6 +22854,7 @@
         - 37864
         - 40323
         - 48436
+        - 54761
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -32276,6 +32330,38 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :starmyu
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/starmyu.jpg"
+    :border_color: 
+    :title_ru: Музыкальная школа звёзд
+    :text_ru: 
+    :title_en: Starmyu
+    :text_en: 
+    :topic_id: 247360
+    :rule: &566
+      :algo: duration
+      :filters:
+        franchise: starmyu
+        not_anime_ids:
+        - 35774
+        - 40431
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :starmyu
+  level: 0
+  image: "/assets/achievements/anime/franchise/starmyu.jpg"
+  border_color: 
+  title_ru: Музыкальная школа звёзд
+  text_ru: 
+  title_en: Starmyu
+  text_en: 
+  topic_id: 247360
+  rule: *566
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :maria_sama
     :level: 1
     :image: "/assets/achievements/anime/franchise/maria_sama.jpg"
@@ -32285,7 +32371,7 @@
     :title_en: Maria-sama ga Miteru
     :text_en: 
     :topic_id: 247360
-    :rule: &566
+    :rule: &567
       :algo: duration
       :filters:
         franchise: maria_sama
@@ -32304,38 +32390,6 @@
   title_ru: Дева Мария смотрит за вами
   text_ru: 
   title_en: Maria-sama ga Miteru
-  text_en: 
-  topic_id: 247360
-  rule: *566
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :starmyu
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/starmyu.jpg"
-    :border_color: 
-    :title_ru: Музыкальная школа звёзд
-    :text_ru: 
-    :title_en: Starmyu
-    :text_en: 
-    :topic_id: 247360
-    :rule: &567
-      :algo: duration
-      :filters:
-        franchise: starmyu
-        not_anime_ids:
-        - 35774
-        - 40431
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :starmyu
-  level: 0
-  image: "/assets/achievements/anime/franchise/starmyu.jpg"
-  border_color: 
-  title_ru: Музыкальная школа звёзд
-  text_ru: 
-  title_en: Starmyu
   text_en: 
   topic_id: 247360
   rule: *567
@@ -32469,6 +32523,7 @@
         - 40587
         - 49426
         - 50963
+        - 54650
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pretty_cure
@@ -32511,6 +32566,7 @@
         - 40587
         - 49426
         - 50963
+        - 54650
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pretty_cure
@@ -35308,7 +35364,9 @@
         - 4385
         - 4386
         - 18365
-      :threshold: 95%
+        - 51431
+        - 51432
+      :threshold: 92.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :mazinkaiser
@@ -35342,6 +35400,8 @@
         - 4385
         - 4386
         - 18365
+        - 51431
+        - 51432
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
