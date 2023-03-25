@@ -3,7 +3,7 @@
 ]
   .subheadline.m13
     - if can? :access_list, view.user
-      a href=index_profile_user_histories_url(view.user)
+      a href=profile_user_histories_url(view.user)
         = i18n_io 'History', :one
     - else
       = i18n_io 'History', :one
@@ -16,7 +16,7 @@
           title=entry.name
         ]
           .image-name
-            = render 'user_history/image', history: entry
+            = render 'user_histories/image', history: entry
             span.title
               = entry.localized_name
           span.misc title=entry.reversed_action
