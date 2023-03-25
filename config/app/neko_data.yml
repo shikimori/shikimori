@@ -11928,6 +11928,7 @@
         - 2151
         - 49351
         - 53754
+        - 43760
       :generator:
         person_id: 4097
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -11988,6 +11989,7 @@
         - 2151
         - 49351
         - 53754
+        - 43760
       :generator:
         person_id: 4097
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -15849,6 +15851,10 @@
         - 31440
         - 33811
         - 35370
+        - 40436
+        - 47919
+        - 50203
+        - 50348
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -17168,6 +17174,10 @@
         - 31440
         - 33811
         - 35370
+        - 40436
+        - 47919
+        - 50203
+        - 50348
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -18487,6 +18497,10 @@
         - 31440
         - 33811
         - 35370
+        - 40436
+        - 47919
+        - 50203
+        - 50348
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -40091,6 +40105,14 @@
         - 48542
         - 51403
         - 35252
+        - 1925
+        - 50710
+        - 50652
+        - 49220
+        - 47917
+        - 50348
+        - 50203
+        - 40436
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -41228,6 +41250,14 @@
         - 48542
         - 51403
         - 35252
+        - 1925
+        - 50710
+        - 50652
+        - 49220
+        - 47917
+        - 50348
+        - 50203
+        - 40436
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -42365,6 +42395,14 @@
         - 48542
         - 51403
         - 35252
+        - 1925
+        - 50710
+        - 50652
+        - 49220
+        - 47917
+        - 50348
+        - 50203
+        - 40436
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
