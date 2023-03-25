@@ -2,7 +2,11 @@
   - if ru_host?
     - other_locale = @resource.description_ru? ? :en : :ru
     - if user_signed_in? && resource.send(:"description_#{other_locale}").text.present?
-      .b-lang_trigger: span = other_locale
+      .b-lang_trigger[
+        data-eng='eng'
+        data-rus='рус'
+      ]
+        span = other_locale == :en ? 'eng' : 'рус'
       .description-other style='display: none'
         .text
           - if resource.send(:"description_#{other_locale}").text.present?

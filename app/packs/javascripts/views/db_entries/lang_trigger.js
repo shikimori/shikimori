@@ -39,13 +39,13 @@ export class LangTrigger extends View {
     this.$other.hide();
     this.$current.show();
     this.$changes.show();
-    this.$node.children().html('eng');
+    this.$node.children().html(this.$node.data('eng'));
   }
 
   rus() {
     this.$other.show();
     this.$current.hide();
     this.$changes.hide();
-    this.$node.children().html('рус');
+    this.$node.children().html(this.$node.data('rus'));
   }
 }
