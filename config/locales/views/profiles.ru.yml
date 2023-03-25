@@ -101,6 +101,7 @@ ru:
       your_message: Твоё сообщение
       rss_title: История пользователя %{nickname}
       logs: Логи
+      no_recent_logs: Нет недавних измеений истории
       no_content_changes: Нет правок контента
       favourite:
         anime: Аниме

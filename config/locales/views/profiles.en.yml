@@ -101,6 +101,7 @@ en:
       your_message: Your message
       rss_title: '%{nickname} history'
       logs: Logs
+      no_recent_logs: No recent history changes
       no_content_changes: No content changes
       favourite:
         anime: Animes

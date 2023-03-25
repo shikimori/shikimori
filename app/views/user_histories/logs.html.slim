@@ -7,9 +7,12 @@
 
   h2.subheadline.m7 = og.headline
   .block
-    = render partial: 'moderations/user_rate_logs/user_rate_log',
-      collection: @collection,
-      locals: { hide_user: true }
+    - if @collection.any?
+      = render partial: 'moderations/user_rate_logs/user_rate_log',
+        collection: @collection,
+        locals: { hide_user: true }
 
-    - if @collection.size == controller.class::LOGS_LIMIT
-      = render 'blocks/postloader', next_url: current_url(page: @page + 1)
+      - if @collection.size == controller.class::LOGS_LIMIT
+        = render 'blocks/postloader', next_url: current_url(page: @page + 1)
+    - else
+      p.b-nothing_here = t '.no_recent_logs'
