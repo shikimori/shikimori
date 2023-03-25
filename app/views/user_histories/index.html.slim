@@ -1,0 +1,17 @@
+= render layout: 'profiles/page' do
+  - content_for :head do
+    = auto_discovery_link_tag :rss,
+      profile_url(@user, format: :rss),
+      title: t('.rss_title', nickname: @user.nickname)
+
+  .b-options-floated
+    a href=logs_profile_user_histories_url(@user) = t '.logs'
+  h2.subheadline = og.headline
+  - cache [:history, @user.cache_key, @user.rate_at, @page, @profile_view.own_profile?, :v4] do
+    .block
+      = render 'interval_collections',
+        interval_collections: @view.collection,
+        user: @user
+
+    - if @view.add_postloader?
+      = render 'blocks/postloader', next_url: current_url(page: @view.page + 1)

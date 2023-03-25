@@ -67,7 +67,7 @@
           span.warn = t 'this_action_cant_be_undone'
           span = t '.confirm_to_remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)
         a.b-button.control[
-          href=reset_profile_user_history_index_url(@resource, :anime)
+          href=reset_profile_user_histories_url(@resource, :anime)
           data-method='delete'
           data-remote='true'
           data-type='json'
@@ -80,7 +80,7 @@
           span.warn = t 'this_action_cant_be_undone'
           span = t '.confirm_to_remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)
         a.b-button.control[
-          href=reset_profile_user_history_index_url(@resource, :manga)
+          href=reset_profile_user_histories_url(@resource, :manga)
           data-method='delete'
           data-remote='true'
           data-type='json'

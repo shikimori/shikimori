@@ -1026,10 +1026,10 @@ Rails.application.routes.draw do
     get 'manga' => redirect {|params, request| request.url.sub('/manga', '') } # редирект со старых урлов
     get 'list/history' => redirect {|params, request| request.url.sub('/list/history', '/history') } # редирект со старых урлов
 
-    resources :user_history, only: %i[destroy], path: '/history' do
+    resources :user_histories, only: %i[show index destroy], path: '/history' do
       collection do
         get 'logs(/:page)' => :logs, as: :logs
-        get '(:page)' => :index, as: :index
+        get 'page/:page' => :index, as: :index
         delete 'reset/:type' => :reset, as: :reset, type: /anime|manga/
       end
     end

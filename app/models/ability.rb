@@ -92,7 +92,8 @@ class Ability
   def define_abilities
     alias_action(
       :index, :show, :comments,
-      :animes, :mangas, :ranobe, :characters, :members, :clubs, :collections, :images,
+      :animes, :mangas, :ranobe, :characters,
+      :members, :clubs, :collections, :images,
       to: :see_club
     )
   end

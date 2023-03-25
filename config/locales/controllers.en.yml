@@ -52,7 +52,7 @@ en:
     site_notifications: Site notifications
     unsubscribe: Notification preferences
 
-  user_history_controller:
+  user_histories_controller:
     <<: *profiles_controller
     page_title:
       history: History

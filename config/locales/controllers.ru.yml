@@ -52,7 +52,7 @@ ru:
     site_notifications: Уведомления сайта
     unsubscribe: Настройка уведомлений
 
-  user_history_controller:
+  user_histories_controller:
     <<: *profiles_controller
     page_title:
       history: История

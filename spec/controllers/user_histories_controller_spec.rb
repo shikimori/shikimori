@@ -1,4 +1,4 @@
-describe UserHistoryController do
+describe UserHistoriesController do
   let!(:user) { create :user }
 
   describe '#index' do
@@ -20,6 +20,22 @@ describe UserHistoryController do
         end
         it { expect(response).to have_http_status :success }
       end
+    end
+
+    context 'has no access to list' do
+      let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
+      before { sign_out user }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
+    end
+  end
+
+  describe '#show' do
+    let!(:history) { create :user_history, user: user, anime: create(:anime) }
+    let(:make_request) { get :index, params: { profile_id: user.to_param } }
+
+    context 'has access to list' do
+      subject! { make_request }
+      it { expect(response).to have_http_status :success }
     end
 
     context 'has no access to list' do

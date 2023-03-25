@@ -3,7 +3,7 @@
 ]
   .subheadline.m13
     - if can? :access_list, view.user
-      a href=index_profile_user_history_index_url(view.user)
+      a href=index_profile_user_histories_url(view.user)
         = i18n_io 'History', :one
     - else
       = i18n_io 'History', :one

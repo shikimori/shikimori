@@ -1,6 +1,6 @@
-class UserHistoryController < ProfilesController
+class UserHistoriesController < ProfilesController
   load_and_authorize_resource only: %i[destroy]
-  before_action :check_access!, only: %i[index logs]
+  before_action :check_access!, only: %i[index show logs]
 
   LOGS_LIMIT = 45
   TYPES = Types::Strict::String.enum('anime', 'manga')
@@ -12,6 +12,14 @@ class UserHistoryController < ProfilesController
 
     @profile_view = @view
     @view = UserHistoryView.new @resource
+  end
+
+  def show
+    @resource = @user.history.find(params[:id]).decorate
+
+    og noindex: true
+    og page_title: "#{i18n_t 'page_title.history'} ##{@resource.id}"
+    breadcrumb i18n_t('page_title.history'), profile_list_history_url(@user)
   end
 
   def logs
