@@ -8806,7 +8806,7 @@
     :topic_id: 276032
     :rule: &76
       :algo: count
-      :threshold: 80%
+      :threshold: 43%
       :filters:
         anime_ids:
         - 7193
@@ -8902,7 +8902,7 @@
     :topic_id: 276032
     :rule: &78
       :algo: count
-      :threshold: 61%
+      :threshold: 21%
       :filters:
         anime_ids:
         - 936
@@ -9028,7 +9028,7 @@
     :topic_id: 276032
     :rule: &80
       :algo: count
-      :threshold: 70%
+      :threshold: 33%
       :filters:
         anime_ids:
         - 25271
@@ -9120,7 +9120,7 @@
     :topic_id: 276032
     :rule: &82
       :algo: count
-      :threshold: 50%
+      :threshold: 15%
       :filters:
         anime_ids:
         - 36884
@@ -9274,7 +9274,7 @@
     :topic_id: 276032
     :rule: &84
       :algo: count
-      :threshold: 55%
+      :threshold: 22%
       :filters:
         anime_ids:
         - 1044
@@ -9408,7 +9408,7 @@
     :topic_id: 276032
     :rule: &86
       :algo: count
-      :threshold: 55%
+      :threshold: 21%
       :filters:
         anime_ids:
         - 8337
@@ -9536,7 +9536,7 @@
     :topic_id: 276032
     :rule: &88
       :algo: count
-      :threshold: 62%
+      :threshold: 23%
       :filters:
         anime_ids:
         - 2053
@@ -9632,7 +9632,7 @@
     :topic_id: 276032
     :rule: &90
       :algo: count
-      :threshold: 42%
+      :threshold: 15%
       :filters:
         anime_ids:
         - 39806
@@ -9758,7 +9758,7 @@
     :topic_id: 276032
     :rule: &92
       :algo: count
-      :threshold: 75%
+      :threshold: 23%
       :filters:
         anime_ids:
         - 101
@@ -9880,7 +9880,7 @@
     :topic_id: 276032
     :rule: &94
       :algo: count
-      :threshold: 64%
+      :threshold: 24%
       :filters:
         anime_ids:
         - 22147
@@ -9992,7 +9992,7 @@
     :topic_id: 276032
     :rule: &96
       :algo: count
-      :threshold: 57%
+      :threshold: 18%
       :filters:
         anime_ids:
         - 1175
@@ -10228,7 +10228,7 @@
     :topic_id: 276032
     :rule: &98
       :algo: count
-      :threshold: 59%
+      :threshold: 23%
       :filters:
         anime_ids:
         - 1769
@@ -10382,7 +10382,7 @@
     :topic_id: 276032
     :rule: &100
       :algo: count
-      :threshold: 76%
+      :threshold: 29%
       :filters:
         anime_ids:
         - 438
@@ -10480,7 +10480,7 @@
     :topic_id: 276032
     :rule: &102
       :algo: count
-      :threshold: 58%
+      :threshold: 21%
       :filters:
         anime_ids:
         - 151
@@ -10608,7 +10608,7 @@
     :topic_id: 276032
     :rule: &104
       :algo: count
-      :threshold: 65%
+      :threshold: 25%
       :filters:
         anime_ids:
         - 934
@@ -10726,7 +10726,7 @@
     :topic_id: 276032
     :rule: &106
       :algo: count
-      :threshold: 42%
+      :threshold: 19%
       :filters:
         anime_ids:
         - 901
@@ -10830,7 +10830,7 @@
     :topic_id: 276032
     :rule: &108
       :algo: count
-      :threshold: 50%
+      :threshold: 10%
       :filters:
         anime_ids:
         - 4917
@@ -11052,7 +11052,7 @@
     :topic_id: 276032
     :rule: &110
       :algo: count
-      :threshold: 72%
+      :threshold: 31%
       :filters:
         anime_ids:
         - 356
@@ -11232,7 +11232,7 @@
     :topic_id: 276032
     :rule: &112
       :algo: count
-      :threshold: 72%
+      :threshold: 27%
       :filters:
         anime_ids:
         - 1044
@@ -11330,7 +11330,7 @@
     :topic_id: 276032
     :rule: &114
       :algo: count
-      :threshold: 60%
+      :threshold: 20%
       :filters:
         anime_ids:
         - 393
@@ -11464,7 +11464,7 @@
     :topic_id: 276032
     :rule: &116
       :algo: count
-      :threshold: 75%
+      :threshold: 18%
       :filters:
         anime_ids:
         - 512
@@ -11580,7 +11580,7 @@
     :topic_id: 276032
     :rule: &118
       :algo: count
-      :threshold: 50%
+      :threshold: 20%
       :filters:
         anime_ids:
         - 415
@@ -11708,7 +11708,7 @@
     :topic_id: 276032
     :rule: &120
       :algo: count
-      :threshold: 66%
+      :threshold: 20%
       :filters:
         anime_ids:
         - 5678
@@ -11818,7 +11818,7 @@
     :topic_id: 276032
     :rule: &122
       :algo: count
-      :threshold: 100%
+      :threshold: 37%
       :filters:
         anime_ids:
         - 2832
@@ -11896,7 +11896,7 @@
     :topic_id: 276032
     :rule: &124
       :algo: count
-      :threshold: 68%
+      :threshold: 17%
       :filters:
         anime_ids:
         - 5386
@@ -12018,7 +12018,7 @@
     :topic_id: 276032
     :rule: &126
       :algo: count
-      :threshold: 89%
+      :threshold: 22%
       :filters:
         anime_ids:
         - 43
@@ -12124,7 +12124,7 @@
     :topic_id: 276032
     :rule: &128
       :algo: count
-      :threshold: 68%
+      :threshold: 17%
       :filters:
         anime_ids:
         - 36517
@@ -12244,7 +12244,7 @@
     :topic_id: 276032
     :rule: &130
       :algo: count
-      :threshold: 56%
+      :threshold: 17%
       :filters:
         anime_ids:
         - 9629
@@ -12362,7 +12362,7 @@
     :topic_id: 276032
     :rule: &132
       :algo: count
-      :threshold: 62%
+      :threshold: 13%
       :filters:
         anime_ids:
         - 4094
@@ -12498,7 +12498,7 @@
     :topic_id: 276032
     :rule: &134
       :algo: count
-      :threshold: 51%
+      :threshold: 16%
       :filters:
         anime_ids:
         - 516
@@ -12658,7 +12658,7 @@
     :topic_id: 276032
     :rule: &136
       :algo: count
-      :threshold: 54%
+      :threshold: 16%
       :filters:
         anime_ids:
         - 52
@@ -12794,7 +12794,7 @@
     :topic_id: 276032
     :rule: &138
       :algo: count
-      :threshold: 36%
+      :threshold: 7%
       :filters:
         anime_ids:
         - 35120
@@ -12982,7 +12982,7 @@
     :topic_id: 276032
     :rule: &140
       :algo: count
-      :threshold: 76%
+      :threshold: 26%
       :filters:
         anime_ids:
         - 17677
@@ -13076,7 +13076,7 @@
     :topic_id: 276032
     :rule: &142
       :algo: count
-      :threshold: 87%
+      :threshold: 37%
       :filters:
         anime_ids:
         - 21039
@@ -13154,7 +13154,7 @@
     :topic_id: 276032
     :rule: &144
       :algo: count
-      :threshold: 58%
+      :threshold: 14%
       :filters:
         anime_ids:
         - 424
@@ -13286,7 +13286,7 @@
     :topic_id: 276032
     :rule: &146
       :algo: count
-      :threshold: 77%
+      :threshold: 33%
       :filters:
         anime_ids:
         - 37426
@@ -13366,7 +13366,7 @@
     :topic_id: 276032
     :rule: &148
       :algo: count
-      :threshold: 30%
+      :threshold: 13%
       :filters:
         anime_ids:
         - 6909
@@ -13474,7 +13474,7 @@
     :topic_id: 276032
     :rule: &150
       :algo: count
-      :threshold: 55%
+      :threshold: 13%
       :filters:
         anime_ids:
         - 19973
@@ -13624,7 +13624,7 @@
     :topic_id: 276032
     :rule: &152
       :algo: count
-      :threshold: 62%
+      :threshold: 15%
       :filters:
         anime_ids:
         - 210
@@ -13768,7 +13768,7 @@
     :topic_id: 276032
     :rule: &154
       :algo: count
-      :threshold: 68%
+      :threshold: 11%
       :filters:
         anime_ids:
         - 731
@@ -13916,7 +13916,7 @@
     :topic_id: 276032
     :rule: &156
       :algo: count
-      :threshold: 41%
+      :threshold: 10%
       :filters:
         anime_ids:
         - 3800
@@ -14038,7 +14038,7 @@
     :topic_id: 276032
     :rule: &158
       :algo: count
-      :threshold: 80%
+      :threshold: 20%
       :filters:
         anime_ids:
         - 2760
@@ -14222,7 +14222,7 @@
     :topic_id: 276032
     :rule: &160
       :algo: count
-      :threshold: 60%
+      :threshold: 13%
       :filters:
         anime_ids:
         - 8250
@@ -14342,7 +14342,7 @@
     :topic_id: 276032
     :rule: &162
       :algo: count
-      :threshold: 66%
+      :threshold: 23%
       :filters:
         anime_ids:
         - 2341
@@ -15855,6 +15855,9 @@
         - 47919
         - 50203
         - 50348
+        - 52173
+        - 41402
+        - 49784
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -17178,6 +17181,9 @@
         - 47919
         - 50203
         - 50348
+        - 52173
+        - 41402
+        - 49784
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -18501,6 +18507,9 @@
         - 47919
         - 50203
         - 50348
+        - 52173
+        - 41402
+        - 49784
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -37309,6 +37318,7 @@
         - 51096
         - 272
         - 47159
+        - 52173
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -37813,6 +37823,7 @@
         - 51096
         - 272
         - 47159
+        - 52173
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -38321,6 +38332,7 @@
         - 51096
         - 272
         - 47159
+        - 52173
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -40113,6 +40125,9 @@
         - 50348
         - 50203
         - 40436
+        - 39196
+        - 41402
+        - 49784
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -41258,6 +41273,9 @@
         - 50348
         - 50203
         - 40436
+        - 39196
+        - 41402
+        - 49784
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -42403,6 +42421,9 @@
         - 50348
         - 50203
         - 40436
+        - 39196
+        - 41402
+        - 49784
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
