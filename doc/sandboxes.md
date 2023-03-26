@@ -570,3 +570,27 @@ ssh devops@shiki '\
 ' &&
 cap production sidekiq:restart
 ```
+
+### Recalculate achievements
+```ruby
+def queue_size
+  Sidekiq::Queue.new('achievements').size + Sidekiq::ScheduledSet.new.size
+end
+
+def ensure_queue limit
+  while queue_size >= limit
+    puts "zzz... queue size: #{queue_size} required: <= #{limit}"
+    sleep 15
+  end
+end
+
+User.find_each do |v|
+  if (v.id % 5000).zero?
+    ensure_queue(25_000)
+  end
+  puts v.id
+  Achievements::Track.perform_async v.id, nil, 'reset'
+end
+ensure_queue(100)
+Achievements::UpdateStatistics.perform_async
+```
