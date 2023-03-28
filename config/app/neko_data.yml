@@ -4560,6 +4560,7 @@
         - 28655
         - 28653
         - 30862
+        - 48420
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -6947,6 +6948,15 @@
         - 51366
         - 34532
         - 51347
+        - 36480
+        - 38360
+        - 136
+        - 137
+        - 138
+        - 139
+        - 11061
+        - 13271
+        - 19951
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -7468,6 +7478,15 @@
         - 51366
         - 34532
         - 51347
+        - 36480
+        - 38360
+        - 136
+        - 137
+        - 138
+        - 139
+        - 11061
+        - 13271
+        - 19951
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -7989,6 +8008,15 @@
         - 51366
         - 34532
         - 51347
+        - 36480
+        - 38360
+        - 136
+        - 137
+        - 138
+        - 139
+        - 11061
+        - 13271
+        - 19951
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -10639,6 +10667,7 @@
         - 48707
         - 53148
         - 40429
+        - 51680
       :generator:
         person_id: 6831
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -10698,6 +10727,7 @@
         - 48707
         - 53148
         - 40429
+        - 51680
       :generator:
         person_id: 6831
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -22155,6 +22185,7 @@
         - 22013
         - 38600
         - 49402
+        - 54860
       :threshold: 92.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -22197,6 +22228,7 @@
         - 22013
         - 38600
         - 49402
+        - 54860
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -27895,6 +27927,7 @@
         not_anime_ids:
         - 16335
         - 53216
+        - 54749
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -27927,6 +27960,7 @@
         not_anime_ids:
         - 16335
         - 53216
+        - 54749
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -38487,6 +38521,8 @@
         - 38186
         - 4537
         - 258
+        - 39609
+        - 37984
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
   default_values: *2
   neko_id: :oniichan
