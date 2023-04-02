@@ -15,9 +15,8 @@ module Clockwork
     # MalParsers::FetchPage.perform_async 'anime', 'updated_at', 0, 3
     # MalParsers::FetchPage.perform_async 'manga', 'updated_at', 0, 5
 
-    # 1 april
-    # MalParsers::RefreshEntries.perform_async 'anime', 'anons', 12.hours
-    # MalParsers::RefreshEntries.perform_async 'anime', 'ongoing', 8.hours
+    MalParsers::RefreshEntries.perform_async 'anime', 'anons', 12.hours
+    MalParsers::RefreshEntries.perform_async 'anime', 'ongoing', 8.hours
     # MalParsers::ScheduleExpired.perform_async 'anime'
 
     NamedLogger.clockwork.info 'half-hourly.import finished'
@@ -62,11 +61,10 @@ module Clockwork
   end
 
   every 1.day, 'daily.imports', at: '22:30' do
-    # 1 april
-    # MalParsers::RefreshEntries.perform_async 'anime', nil, 4.months
-    # MalParsers::RefreshEntries.perform_async 'manga', nil, 4.months
-    # MalParsers::RefreshEntries.perform_async 'character', nil, 4.months
-    # MalParsers::RefreshEntries.perform_async 'person', nil, 8.months
+    MalParsers::RefreshEntries.perform_async 'anime', nil, 4.months
+    MalParsers::RefreshEntries.perform_async 'manga', nil, 4.months
+    MalParsers::RefreshEntries.perform_async 'character', nil, 4.months
+    MalParsers::RefreshEntries.perform_async 'person', nil, 8.months
 
     NamedLogger.clockwork.info 'daily.imports finished'
   end
@@ -76,9 +74,8 @@ module Clockwork
     # MalParsers::ScheduleExpired.perform_async 'character'
     # MalParsers::ScheduleExpired.perform_async 'person'
 
-    # 1 april
-    # MalParsers::ScheduleMissingPersonRoles.perform_async 'character'
-    # MalParsers::ScheduleMissingPersonRoles.perform_async 'person'
+    MalParsers::ScheduleMissingPersonRoles.perform_async 'character'
+    MalParsers::ScheduleMissingPersonRoles.perform_async 'person'
 
     NamedLogger.clockwork.info 'daily.imports.2 finished'
   end
@@ -99,8 +96,7 @@ module Clockwork
   every 1.day, 'daily.misc.2', at: '04:15' do
     ImportToshokanTorrents.perform_async false
 
-    # 1 april
-    # MalParsers::RefreshEntries.perform_async 'anime', 'latest', 1.week
+    MalParsers::RefreshEntries.perform_async 'anime', 'latest', 1.week
     DbEntries::CleanupMalBanned.perform_async
     Votable::CleanupCheatBotVotes.perform_async
     Users::CleanupDoorkeeperTokens.perform_async
