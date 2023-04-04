@@ -25,8 +25,14 @@ class Animes::FranchiseName
     'marvel future avengers' => 'marvel',
     're:zero kara hajimeru isekai seikatsu' => 're_zero',
     'dungeon ni deai wo motomeru no wa machigatteiru darou ka' => 'danmachi',
-    'tales of crestoria' => 'tales_of'
-  }
+    'Tales of Crestoria' => 'tales_of',
+    'Bakuman.' => 'bakuman',
+    'Detective Conan' => 'detective_conan',
+    'Saki' => 'saki',
+    'Nanatsu no Tanpen' => 'nanatsu_no_tanpen',
+    'Fairy Tail' => 'fairy_tail',
+    'Boku wa Tomodachi ga Sukunai' => 'boku_wa_tomodachi_ga_sukunai'
+  }.transform_keys(&:downcase)
 
   def call
     # ap entries.map(&:id)
