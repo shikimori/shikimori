@@ -21,6 +21,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def about
+    og noindex: true
     og page_title: t('about_site')
 
     @statistics = SiteStatistics.new
@@ -29,15 +30,18 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def for_right_holders
+    og noindex: true
     og page_title: t('application.footer.for_right_holders')
   end
 
   def development
+    og noindex: true
     og page_title: t('pages.about.development')
     @blank_layout = true
   end
 
   def how_to_edit_achievements
+    og noindex: true
     og page_title: i18n_t('.how_to_edit_achievements')
   end
 
@@ -46,6 +50,10 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
       .by_forum(Forum.news, current_user, censored_forbidden?)
       .limit(15)
       .as_views(true, false)
+  end
+
+  def facebook
+    og noindex: true
   end
 
   def terms
