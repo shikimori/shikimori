@@ -21,6 +21,7 @@ class FixMultipleMangaFranchises < ActiveRecord::Migration[6.1]
             82087
             77427
             112780
+            122473
           ]
         ).select(:franchise)
       )
@@ -39,5 +40,6 @@ class FixMultipleMangaFranchises < ActiveRecord::Migration[6.1]
     Manga.where(franchise: 'toki').update_all franchise: 'saki'
     Manga.where(franchise: 'mayoe').update_all franchise: 'nanatsu_no_tanpen'
     Manga.where(franchise: 'haganai').update_all franchise: 'boku_wa_tomodachi_ga_sukunai'
+    Manga.where(franchise: 'rave').update_all franchise: 'fairy_tail'
   end
 end
