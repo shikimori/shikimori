@@ -93,8 +93,6 @@
                 data-method='post'
                 data-direction='top'
               ]
-          - if @resource.unconnected_providers.include? :facebook
-            small == t 'facebook_html'
 
       - if @resource.access_grants.any?
         .block
