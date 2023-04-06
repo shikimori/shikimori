@@ -9,13 +9,13 @@ class FansubbersIndex < ApplicationIndex
         .where.not(fansubbers: [])
         .distinct
         .pluck(Arel.sql('unnest(fansubbers)'))
-        .map { |entry| { id: entry, kind: Types::Fansubber::Kind[:fansubber] } }
+        .map { |name| { id: name + '_fs', name: name, kind: Types::Fansubber::Kind[:fansubber] } }
 
       fandubbers = Anime
         .where.not(fandubbers: [])
         .distinct
         .pluck(Arel.sql('unnest(fandubbers)'))
-        .map { |entry| { id: entry, kind: Types::Fansubber::Kind[:fandubber] } }
+        .map { |name| { id: name + '_fd', name: name, kind: Types::Fansubber::Kind[:fandubber] } }
 
       fansubbers + fandubbers
     },
@@ -28,7 +28,7 @@ class FansubbersIndex < ApplicationIndex
     field :name,
       type: 'keyword',
       index: false,
-      value: ->(entry) { entry[:id] },
+      value: ->(entry) { entry[:name] },
       fields: {
         original: ORIGINAL_FIELD,
         edge_phrase: EDGE_PHRASE_FIELD,
@@ -40,6 +40,6 @@ class FansubbersIndex < ApplicationIndex
       type: 'half_float',
       index: false,
       # https://www.wolframalpha.com/input/?i=plot+%281.1+%2F+%281+%2B+%281.1+-+1%29+*+%28min%281%2C+max%28%28%28x+-+1.0%29+%2F+%2820.0+-+1.0%29%29%2C+0%29%29%29%29%29+from+x%3D0+to+30
-      value: -> (entry, _) { Relevance::LengthWeight.call entry[:id].length }
+      value: -> (entry, _) { Relevance::LengthWeight.call entry[:name].length }
   end
 end
