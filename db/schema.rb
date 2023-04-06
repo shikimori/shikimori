@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_04_151928) do
+ActiveRecord::Schema.define(version: 2023_04_06_171208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -19,16 +19,16 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   enable_extension "unaccent"
 
   create_table "abuse_requests", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "comment_id"
+    t.bigint "user_id", null: false
+    t.bigint "comment_id"
     t.string "kind", limit: 255
     t.boolean "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "state", limit: 255
-    t.integer "approver_id"
+    t.bigint "approver_id"
     t.string "reason", limit: 4096
-    t.integer "topic_id"
+    t.bigint "topic_id"
     t.index ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, where: "((comment_id IS NOT NULL) AND ((state)::text = 'pending'::text))"
     t.index ["comment_id"], name: "index_abuse_requests_on_comment_id"
     t.index ["topic_id", "kind", "value"], name: "index_abuse_requests_on_topic_id_and_kind_and_value", unique: true, where: "((topic_id IS NOT NULL) AND ((state)::text = 'pending'::text))"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
     t.string "neko_id", null: false
     t.integer "level", null: false
     t.integer "progress", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["neko_id", "level"], name: "index_achievements_on_neko_id_and_level"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "anime_calendars", force: :cascade do |t|
-    t.integer "anime_id"
+    t.bigint "anime_id"
     t.integer "episode"
     t.datetime "start_at"
     t.datetime "created_at"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "anime_links", force: :cascade do |t|
-    t.integer "anime_id"
+    t.bigint "anime_id"
     t.string "service", limit: 255, null: false
     t.string "identifier", limit: 255, null: false
     t.datetime "created_at", null: false
@@ -91,9 +91,9 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "anime_video_reports", force: :cascade do |t|
-    t.integer "anime_video_id"
-    t.integer "user_id"
-    t.integer "approver_id"
+    t.bigint "anime_video_id"
+    t.bigint "user_id"
+    t.bigint "approver_id"
     t.string "kind", limit: 255
     t.string "state", limit: 255
     t.string "user_agent", limit: 255
@@ -104,13 +104,13 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "anime_videos", force: :cascade do |t|
-    t.integer "anime_id"
+    t.bigint "anime_id"
     t.string "url", limit: 1000
     t.string "source", limit: 1000
     t.integer "episode"
     t.string "kind", limit: 255
     t.string "language", limit: 255
-    t.integer "anime_video_author_id"
+    t.bigint "anime_video_author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "state", limit: 255, default: "working", null: false
@@ -189,7 +189,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
     t.bigint "user_id", null: false
     t.string "body", limit: 140000, null: false
     t.string "moderation_state", limit: 255, default: "pending"
-    t.integer "approver_id"
+    t.bigint "approver_id"
     t.text "tags", default: [], null: false, array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -199,15 +199,15 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "bans", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "comment_id"
-    t.integer "abuse_request_id"
-    t.integer "moderator_id"
+    t.bigint "user_id", null: false
+    t.bigint "comment_id"
+    t.bigint "abuse_request_id"
+    t.bigint "moderator_id"
     t.integer "duration", null: false
     t.string "reason", limit: 4096
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "topic_id"
+    t.bigint "topic_id"
     t.index ["comment_id"], name: "index_bans_on_comment_id"
     t.index ["topic_id"], name: "index_bans_on_topic_id"
     t.index ["user_id"], name: "index_bans_on_user_id"
@@ -238,8 +238,8 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "club_bans", force: :cascade do |t|
-    t.integer "club_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "club_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["club_id", "user_id"], name: "index_club_bans_on_club_id_and_user_id", unique: true
@@ -247,8 +247,8 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "club_images", force: :cascade do |t|
-    t.integer "club_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "club_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "image_file_name", limit: 255
@@ -258,19 +258,19 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "club_invites", force: :cascade do |t|
-    t.integer "club_id"
-    t.integer "src_id"
-    t.integer "dst_id"
+    t.bigint "club_id"
+    t.bigint "src_id"
+    t.bigint "dst_id"
     t.string "status", limit: 255, default: "Pending"
-    t.integer "message_id"
+    t.bigint "message_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["club_id", "dst_id", "status"], name: "uniq_group_invites", unique: true
   end
 
   create_table "club_links", force: :cascade do |t|
-    t.integer "club_id"
-    t.integer "linked_id"
+    t.bigint "club_id"
+    t.bigint "linked_id"
     t.string "linked_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -278,8 +278,8 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "club_pages", force: :cascade do |t|
-    t.integer "club_id", null: false
-    t.integer "parent_page_id"
+    t.bigint "club_id", null: false
+    t.bigint "parent_page_id"
     t.string "name", limit: 255, null: false
     t.string "text", limit: 500000, null: false
     t.datetime "created_at", null: false
@@ -293,8 +293,8 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
 
   create_table "club_roles", force: :cascade do |t|
     t.string "role", limit: 255, default: "member"
-    t.integer "user_id"
-    t.integer "club_id"
+    t.bigint "user_id"
+    t.bigint "club_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["user_id", "club_id"], name: "uniq_user_in_group", unique: true
@@ -302,7 +302,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
 
   create_table "clubs", force: :cascade do |t|
     t.string "name", limit: 255
-    t.integer "owner_id"
+    t.bigint "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "description", limit: 600000
@@ -313,7 +313,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
     t.integer "club_roles_count", default: 0
     t.boolean "display_images", default: true
     t.boolean "is_censored", default: false, null: false
-    t.integer "style_id"
+    t.bigint "style_id"
     t.string "image_upload_policy", null: false
     t.string "join_policy", null: false
     t.string "comment_policy", null: false
@@ -325,9 +325,9 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "collection_links", force: :cascade do |t|
-    t.integer "collection_id", null: false
+    t.bigint "collection_id", null: false
     t.string "linked_type", null: false
-    t.integer "linked_id", null: false
+    t.bigint "linked_id", null: false
     t.string "group"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -347,7 +347,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
 
   create_table "collections", force: :cascade do |t|
     t.string "name", limit: 255, null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "kind", null: false
     t.string "text", limit: 400000, null: false
     t.datetime "created_at", null: false
@@ -367,17 +367,17 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "comment_viewings", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "viewed_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "viewed_id", null: false
     t.index ["user_id", "viewed_id"], name: "index_comment_viewings_on_user_id_and_viewed_id", unique: true
     t.index ["viewed_id"], name: "index_comment_viewings_on_viewed_id"
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "commentable_id"
+    t.bigint "commentable_id"
     t.string "commentable_type", limit: 15
     t.string "body", limit: 64000
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "is_offtopic", default: false, null: false
@@ -387,8 +387,8 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "contest_links", force: :cascade do |t|
-    t.integer "contest_id"
-    t.integer "linked_id"
+    t.bigint "contest_id"
+    t.bigint "linked_id"
     t.string "linked_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -396,12 +396,12 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "contest_matches", force: :cascade do |t|
-    t.integer "round_id"
+    t.bigint "round_id"
     t.string "state", limit: 255, default: "created"
     t.string "group", limit: 255
-    t.integer "left_id"
+    t.bigint "left_id"
     t.string "left_type", limit: 255
-    t.integer "right_id"
+    t.bigint "right_id"
     t.string "right_type", limit: 255
     t.date "started_on"
     t.date "finished_on"
@@ -415,7 +415,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "contest_rounds", force: :cascade do |t|
-    t.integer "contest_id"
+    t.bigint "contest_id"
     t.string "state", limit: 255, default: "created"
     t.integer "number"
     t.boolean "additional"
@@ -425,9 +425,9 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "contest_suggestions", force: :cascade do |t|
-    t.integer "contest_id"
-    t.integer "user_id"
-    t.integer "item_id"
+    t.bigint "contest_id"
+    t.bigint "user_id"
+    t.bigint "item_id"
     t.string "item_type", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -436,10 +436,10 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "contest_winners", force: :cascade do |t|
-    t.integer "contest_id", null: false
+    t.bigint "contest_id", null: false
     t.integer "position", null: false
     t.string "item_type", null: false
-    t.integer "item_id", null: false
+    t.bigint "item_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["contest_id"], name: "index_contest_winners_on_contest_id"
@@ -448,7 +448,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
 
   create_table "contests", force: :cascade do |t|
     t.string "title_ru", limit: 255
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "state", limit: 255, default: "created"
     t.date "started_on"
     t.integer "matches_per_round"
@@ -479,16 +479,16 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
     t.boolean "confirmed", default: false, null: false
     t.boolean "deleted", default: false, null: false
     t.string "source", limit: 255
-    t.integer "user_id"
+    t.bigint "user_id"
     t.integer "cached_votes_up", default: 0
     t.integer "cached_votes_down", default: 0
     t.index ["cos_rain_id"], name: "index_cosplay_galleries_on_cos_rain_id", unique: true
   end
 
   create_table "cosplay_gallery_links", force: :cascade do |t|
-    t.integer "linked_id"
+    t.bigint "linked_id"
     t.string "linked_type", limit: 255
-    t.integer "cosplay_gallery_id"
+    t.bigint "cosplay_gallery_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["cosplay_gallery_id", "linked_type"], name: "i_cosplay_gallery_id_linked_type"
@@ -496,7 +496,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "cosplay_images", force: :cascade do |t|
-    t.integer "cosplay_gallery_id"
+    t.bigint "cosplay_gallery_id"
     t.string "url", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -526,9 +526,9 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "critiques", force: :cascade do |t|
-    t.integer "target_id", null: false
+    t.bigint "target_id", null: false
     t.string "target_type", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.text "text", null: false
     t.integer "overall"
     t.integer "storyline"
@@ -537,10 +537,10 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
     t.integer "animation"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "comment_id"
+    t.bigint "comment_id"
     t.string "source"
     t.string "moderation_state", default: "pending", null: false
-    t.integer "approver_id"
+    t.bigint "approver_id"
     t.integer "cached_votes_up", default: 0
     t.integer "cached_votes_down", default: 0
     t.datetime "changed_at"
@@ -556,7 +556,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "episode_notifications", force: :cascade do |t|
-    t.integer "anime_id", null: false
+    t.bigint "anime_id", null: false
     t.integer "episode", null: false
     t.boolean "is_raw", default: false, null: false
     t.boolean "is_subtitles", default: false, null: false
@@ -568,7 +568,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "external_links", force: :cascade do |t|
-    t.integer "entry_id", null: false
+    t.bigint "entry_id", null: false
     t.string "entry_type", null: false
     t.string "kind", null: false
     t.string "url", null: false
@@ -582,9 +582,9 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "favourites", force: :cascade do |t|
-    t.integer "linked_id", null: false
+    t.bigint "linked_id", null: false
     t.string "linked_type", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "kind", default: "", null: false
@@ -605,8 +605,8 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "friend_links", force: :cascade do |t|
-    t.integer "src_id"
-    t.integer "dst_id"
+    t.bigint "src_id"
+    t.bigint "dst_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["src_id", "dst_id"], name: "index_friend_links_on_src_id_and_dst_id", unique: true
@@ -626,8 +626,8 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "ignores", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "target_id"
+    t.bigint "user_id"
+    t.bigint "target_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["user_id", "target_id"], name: "index_ignores_on_user_id_and_target_id", unique: true
@@ -702,15 +702,15 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.integer "from_id"
-    t.integer "to_id"
+    t.bigint "from_id"
+    t.bigint "to_id"
     t.string "kind", limit: 255
     t.string "body", limit: 900000
     t.boolean "read", default: false, null: false
     t.datetime "created_at"
     t.boolean "is_deleted_by_to", default: false
     t.boolean "emailed", default: false
-    t.integer "linked_id", default: 0, null: false
+    t.bigint "linked_id", default: 0, null: false
     t.string "linked_type", limit: 255
     t.index ["from_id", "id"], name: "index_messages_on_from_id_and_id"
     t.index ["from_id", "kind"], name: "private_and_notifications"
@@ -723,14 +723,14 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
     t.string "phrase", null: false
     t.integer "priority", null: false
     t.integer "group", null: false
-    t.integer "target_id", null: false
+    t.bigint "target_id", null: false
     t.string "target_type", null: false
     t.index ["phrase"], name: "index_name_matches_on_phrase"
     t.index ["target_type", "target_id"], name: "index_name_matches_on_target_type_and_target_id"
   end
 
   create_table "oauth_access_grants", force: :cascade do |t|
-    t.integer "resource_owner_id", null: false
+    t.bigint "resource_owner_id", null: false
     t.bigint "application_id", null: false
     t.string "token", null: false
     t.integer "expires_in", null: false
@@ -743,7 +743,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "oauth_access_tokens", force: :cascade do |t|
-    t.integer "resource_owner_id"
+    t.bigint "resource_owner_id"
     t.bigint "application_id"
     t.string "token", null: false
     t.string "refresh_token"
@@ -803,12 +803,12 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "person_roles", force: :cascade do |t|
-    t.integer "anime_id"
-    t.integer "character_id"
-    t.integer "person_id"
+    t.bigint "anime_id"
+    t.bigint "character_id"
+    t.bigint "person_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "manga_id"
+    t.bigint "manga_id"
     t.text "roles", default: [], null: false, array: true
     t.index ["anime_id"], name: "index_person_roles_on_anime_id"
     t.index ["character_id"], name: "index_person_roles_on_character_id"
@@ -898,15 +898,15 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "recommendation_ignores", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "target_id"
+    t.bigint "user_id"
+    t.bigint "target_id"
     t.string "target_type", limit: 255
     t.index ["user_id", "target_id", "target_type"], name: "index_recommendation_ignores_on_entry", unique: true
   end
 
   create_table "related_animes", force: :cascade do |t|
-    t.integer "source_id"
-    t.integer "anime_id"
+    t.bigint "source_id"
+    t.bigint "anime_id"
     t.string "relation", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -915,9 +915,9 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "related_mangas", force: :cascade do |t|
-    t.integer "source_id"
-    t.integer "anime_id"
-    t.integer "manga_id"
+    t.bigint "source_id"
+    t.bigint "anime_id"
+    t.bigint "manga_id"
     t.string "relation", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -949,7 +949,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
     t.datetime "image_updated_at"
-    t.integer "anime_id"
+    t.bigint "anime_id"
     t.string "url", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -961,16 +961,16 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "similar_animes", force: :cascade do |t|
-    t.integer "src_id"
-    t.integer "dst_id"
+    t.bigint "src_id"
+    t.bigint "dst_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["src_id"], name: "index_similar_animes_on_src_id"
   end
 
   create_table "similar_mangas", force: :cascade do |t|
-    t.integer "src_id"
-    t.integer "dst_id"
+    t.bigint "src_id"
+    t.bigint "dst_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["src_id"], name: "index_similar_mangas_on_src_id"
@@ -998,7 +998,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "styles", force: :cascade do |t|
-    t.integer "owner_id", null: false
+    t.bigint "owner_id", null: false
     t.string "owner_type", null: false
     t.string "name", default: "", null: false
     t.text "css", default: "", null: false
@@ -1006,13 +1006,6 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
     t.datetime "updated_at", null: false
     t.text "compiled_css"
     t.text "imports", array: true
-  end
-
-  create_table "summary_viewings", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.integer "viewed_id", null: false
-    t.index ["user_id", "viewed_id"], name: "index_summary_viewings_on_user_id_and_viewed_id", unique: true
-    t.index ["viewed_id"], name: "index_summary_viewings_on_viewed_id"
   end
 
   create_table "svds", force: :cascade do |t|
@@ -1027,8 +1020,8 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "topic_ignores", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "topic_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "topic_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["topic_id"], name: "index_topic_ignores_on_topic_id"
@@ -1036,16 +1029,16 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "topic_viewings", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "viewed_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "viewed_id", null: false
     t.index ["user_id", "viewed_id"], name: "index_topic_viewings_on_user_id_and_viewed_id", unique: true
     t.index ["viewed_id"], name: "index_topic_viewings_on_viewed_id"
   end
 
   create_table "topics", force: :cascade do |t|
     t.string "title", limit: 255
-    t.integer "user_id", null: false
-    t.integer "forum_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "forum_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "type", limit: 255, null: false
@@ -1074,7 +1067,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "user_histories", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "action", limit: 255
     t.string "value", limit: 255
     t.datetime "created_at"
@@ -1088,8 +1081,8 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "user_images", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "linked_id"
+    t.bigint "user_id", null: false
+    t.bigint "linked_id"
     t.string "linked_type", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -1102,7 +1095,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "user_nickname_changes", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "value", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1111,7 +1104,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "user_preferences", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.boolean "anime_in_profile", default: true
     t.boolean "manga_in_profile", default: true
     t.string "default_sort", limit: 255, default: "name", null: false
@@ -1156,8 +1149,8 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "user_rates", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "target_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "target_id", null: false
     t.integer "score", default: 0, null: false
     t.integer "status", default: 0, null: false
     t.integer "episodes", default: 0, null: false
@@ -1173,7 +1166,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   end
 
   create_table "user_tokens", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "provider", null: false
     t.string "uid", null: false
     t.string "token"
@@ -1229,16 +1222,16 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
 
   create_table "versions", force: :cascade do |t|
     t.string "item_type", null: false
-    t.integer "item_id", null: false
-    t.integer "user_id"
+    t.bigint "item_id", null: false
+    t.bigint "user_id"
     t.string "state", null: false
     t.datetime "created_at"
     t.jsonb "item_diff"
-    t.integer "moderator_id"
+    t.bigint "moderator_id"
     t.text "reason"
     t.string "type"
     t.datetime "updated_at"
-    t.integer "associated_id"
+    t.bigint "associated_id"
     t.string "associated_type"
     t.index ["associated_id", "associated_type"], name: "index_versions_on_associated_id_and_associated_type"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
@@ -1250,8 +1243,8 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   create_table "videos", force: :cascade do |t|
     t.string "name"
     t.string "url", null: false
-    t.integer "uploader_id"
-    t.integer "anime_id"
+    t.bigint "uploader_id"
+    t.bigint "anime_id"
     t.string "kind", null: false
     t.string "state", limit: 255, default: "uploaded", null: false
     t.datetime "created_at", null: false
@@ -1312,7 +1305,6 @@ ActiveRecord::Schema.define(version: 2023_04_04_151928) do
   add_foreign_key "reviews", "animes"
   add_foreign_key "reviews", "mangas"
   add_foreign_key "reviews", "users"
-  add_foreign_key "summary_viewings", "users"
   add_foreign_key "topic_viewings", "users"
   add_foreign_key "user_histories", "animes"
   add_foreign_key "user_histories", "mangas"
