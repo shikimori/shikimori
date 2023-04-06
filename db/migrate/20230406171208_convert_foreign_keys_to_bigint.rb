@@ -29,7 +29,7 @@ class ConvertForeignKeysToBigint < ActiveRecord::Migration[6.1]
     cosplay_galleries: %i[user_id],
     cosplay_gallery_links: %i[linked_id cosplay_gallery_id],
     cosplay_images: %i[cosplay_gallery_id],
-    critiques: %i[target_id user_id comment_id approver_id],
+    critiques: %i[target_id user_id approver_id],
     episode_notifications: %i[anime_id],
     external_links: %i[entry_id],
     favourites: %i[linked_id user_id],

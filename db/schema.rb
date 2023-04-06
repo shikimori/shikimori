@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_06_171208) do
+ActiveRecord::Schema.define(version: 2023_04_06_203720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -537,7 +537,6 @@ ActiveRecord::Schema.define(version: 2023_04_06_171208) do
     t.integer "animation"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.bigint "comment_id"
     t.string "source"
     t.string "moderation_state", default: "pending", null: false
     t.bigint "approver_id"
