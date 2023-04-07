@@ -19,7 +19,6 @@ class ConvertForeignKeysToBigint < ActiveRecord::Migration[6.1]
     collection_roles: %i[collection_id user_id],
     collections: %i[user_id],
     comment_viewings: %i[user_id viewed_id],
-    comments: %i[commentable_id user_id],
     contest_links: %i[contest_id linked_id],
     contest_matches: %i[round_id left_id right_id],
     contest_rounds: %i[contest_id],
@@ -46,17 +45,14 @@ class ConvertForeignKeysToBigint < ActiveRecord::Migration[6.1]
     screenshots: %i[anime_id],
     similar_animes: %i[src_id dst_id],
     similar_mangas: %i[src_id dst_id],
-    styles: %i[owner_id],
+    styles: %i[id owner_id],
     topic_ignores: %i[user_id topic_id],
     topic_viewings: %i[user_id viewed_id],
-    topics: %i[user_id forum_id],
-    user_histories: %i[user_id],
     user_images: %i[user_id linked_id],
     user_nickname_changes: %i[user_id],
-    user_preferences: %i[user_id],
-    user_rates: %i[user_id target_id],
     user_tokens: %i[user_id],
-    versions: %i[item_id user_id moderator_id associated_id],
+    versions: %i[id item_id user_id moderator_id associated_id],
+    votes: %i[id],
     videos: %i[uploader_id anime_id]
   }
 

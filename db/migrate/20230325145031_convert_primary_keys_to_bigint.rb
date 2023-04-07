@@ -22,7 +22,6 @@ class ConvertPrimaryKeysToBigint < ActiveRecord::Migration[6.1]
     collection_roles
     collections
     comment_viewings
-    comments
     contest_links
     contest_matches
     contest_rounds
@@ -64,22 +63,14 @@ class ConvertPrimaryKeysToBigint < ActiveRecord::Migration[6.1]
     similar_animes
     similar_mangas
     studios
-    styles
     svds
     topic_ignores
     topic_viewings
-    topics
-    user_histories
     user_images
     user_nickname_changes
-    user_preferences
     user_rate_logs
-    user_rates
     user_tokens
-    users
-    versions
     videos
-    votes
     webm_videos
   ]
 
