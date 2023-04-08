@@ -201,7 +201,8 @@ const syncPreviewImage = debounce(100, () => {
   const exportedDataUri = vueCropperRef.value.getCroppedCanvas()?.toDataURL();
   templateRef.value.querySelector('source')?.remove();
 
-  templateRef.value.querySelectorAll('img').forEach((img, index) => {
+  templateRef.value.querySelectorAll('source').forEach(sourceNode => sourceNode.remove());
+  templateRef.value.querySelectorAll('img').forEach((imgNode, index) => {
     const isPreviewDerivative = index === 0;
     const isMisshapedImage = sizes.naturalWidth >= sizes.naturalHeight;
 
@@ -214,8 +215,8 @@ const syncPreviewImage = debounce(100, () => {
       }
     }
 
-    img.srcset = '';
-    img.src = (
+    imgNode.srcset = '';
+    imgNode.src = (
       isPreviewDerivative && isMisshapedImage ?
         currentSrc.value :
         exportedDataUri
