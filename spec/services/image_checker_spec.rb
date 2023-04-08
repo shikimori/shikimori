@@ -12,10 +12,14 @@ describe ImageChecker do
       it { is_expected.to eq true }
     end
 
-    context 'broken image', :ci_only do
-      # NOTE: "Premature end of JPEG file" printed here
+    context 'broken image' do
       let(:image_path) { 'spec/files/poster_broken.jpg' }
       it { is_expected.to eq false }
+    end
+
+    context 'unprocessable by djpeg' do
+      let(:image_path) { 'spec/files/unsupported_color_schema_by_djpg.jpg' }
+      it { is_expected.to eq true }
     end
 
     context 'incomplete image' do

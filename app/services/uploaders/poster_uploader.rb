@@ -17,7 +17,6 @@ class Uploaders::PosterUploader < Shrine
   plugin :pretty_location
   plugin :derivatives, create_on_promote: true
   plugin :determine_mime_type
-  plugin :validation_helpers
   plugin :remove_invalid
   plugin :infer_extension, force: true
   # plugin :metadata_attributes

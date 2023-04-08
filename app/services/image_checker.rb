@@ -4,6 +4,8 @@ class ImageChecker
   GRAY_COLOR = 128
   RATIO = 80
 
+  UNPROCESSABLE_BY_DJPEG_MESSAGE = "Unsupported color conversion request\n"
+
   def valid?
     return false unless File.exist? @image_path
 
@@ -25,8 +27,14 @@ private
   # но для части картинок, обрезанных "удачно" эта проверка не работает,
   # и djpeg на них не падает, поэтому делаем вторую проверку, проверяя содержимое на сломанные пиксели
   def jpeg_check
-    Tempfile.create('jpg') do |file|
-      !!(first_jpg_check(file.path) && second_jpg_check(file.read))
+    stdout, stderr, status = Open3.capture3("djpeg -fast -grayscale -onepass #{@image_path}")
+
+    return image_magick_check if stderr == UNPROCESSABLE_BY_DJPEG_MESSAGE
+
+    if status.success?
+      jpg_content_check stdout
+    else
+      false
     end
   end
 
@@ -35,11 +43,7 @@ private
     ImageProcessing::MiniMagick.valid_image? File.open(@image_path)
   end
 
-  def first_jpg_check file_path
-    system "djpeg -fast -grayscale -onepass #{@image_path} > #{file_path}"
-  end
-
-  def second_jpg_check image_content
+  def jpg_content_check image_content
     !image_content
       .bytes[-[image_content.bytes.size, (Uploaders::PosterUploader::MAIN_WIDTH * RATIO)].min..]
       .all?(GRAY_COLOR)
