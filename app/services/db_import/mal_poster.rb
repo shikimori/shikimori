@@ -7,8 +7,15 @@ class DbImport::MalPoster < DbImport::MalImage
     attempt = 0
 
     begin
-      safe_download if (attempt += 1) <= MAX_ATTEMPTS
+      log "downloading attempt=#{attempt + 1}"
+      if (attempt += 1) <= MAX_ATTEMPTS
+        safe_download
+        log "downloaded attempt=#{attempt}"
+      else
+        log "failed downloaded attempt=#{attempt}"
+      end
     rescue *::Network::FaradayGet::NET_ERRORS, ActiveRecord::RecordInvalid
+      log 'retry'
       retry
     end
   end
@@ -21,7 +28,11 @@ private
 
   def safe_download
     io = download_image
-    return unless io && !entry_became_desynced?
+    unless io && !entry_became_desynced?
+      log 'io=nil' unless io
+      log 'became desynced' if entry_became_desynced?
+      return
+    end
 
     Poster.transaction do
       @entry.poster&.update! deleted_at: Time.zone.now
@@ -35,5 +46,9 @@ private
 
   def entry_became_desynced?
     @entry.reload.desynced.include? 'poster'
+  end
+
+  def log text
+    NamedLogger.mal_poster.info "#{@entry.class.name}##{@entry.id} #{text}"
   end
 end
