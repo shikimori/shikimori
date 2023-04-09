@@ -314,15 +314,20 @@
   resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.14.5.tgz#5ac822ce97eec46741ab70a517971e443a70c5a9"
   integrity sha512-/37qQCE3K0vvZKwoK4XU/irIJQdIfCJuhU5eKnNxpFDsOkgFaUAwbv+RYw6eYgsC0E4hS7r5KqGULUogqui0fQ==
 
-"@babel/helper-plugin-utils@^7.10.4", "@babel/helper-plugin-utils@^7.16.7", "@babel/helper-plugin-utils@^7.18.9":
-  version "7.19.0"
-  resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.19.0.tgz#4796bb14961521f0f8715990bee2fb6e51ce21bf"
-  integrity sha512-40Ryx7I8mT+0gaNxm8JGTZFUITNqdLAgdg0hXzeVZxVD6nFsdhQvip6v8dqkRHzsz1VFpFAaOCHNn0vKBL7Czw==
+"@babel/helper-plugin-utils@^7.10.4", "@babel/helper-plugin-utils@^7.20.2":
+  version "7.20.2"
+  resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.20.2.tgz#d1b9000752b18d0877cff85a5c376ce5c3121629"
+  integrity sha512-8RvlJG2mj4huQ4pZ+rU9lqKi9ZKiRmuvGuM2HlWmkmgOhbs6zEAw6IEiJ5cQqGbDzGZOhwuOQNtZMi/ENLjZoQ==
 
 "@babel/helper-plugin-utils@^7.14.5":
   version "7.16.7"
   resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.16.7.tgz#aa3a8ab4c3cceff8e65eb9e73d87dc4ff320b2f5"
   integrity sha512-Qg3Nk7ZxpgMrsox6HreY1ZNKdBq7K72tDSliA6dCl5f007jR4ne8iD5UzuNnCJH2xBf2BEEVGr+/OL6Gdp7RxA==
+
+"@babel/helper-plugin-utils@^7.16.7":
+  version "7.19.0"
+  resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.19.0.tgz#4796bb14961521f0f8715990bee2fb6e51ce21bf"
+  integrity sha512-40Ryx7I8mT+0gaNxm8JGTZFUITNqdLAgdg0hXzeVZxVD6nFsdhQvip6v8dqkRHzsz1VFpFAaOCHNn0vKBL7Czw==
 
 "@babel/helper-remap-async-to-generator@^7.16.8":
   version "7.16.8"
@@ -556,11 +561,11 @@
     "@babel/plugin-syntax-json-strings" "^7.8.3"
 
 "@babel/plugin-proposal-logical-assignment-operators@^7.10.4":
-  version "7.18.9"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-logical-assignment-operators/-/plugin-proposal-logical-assignment-operators-7.18.9.tgz#8148cbb350483bf6220af06fa6db3690e14b2e23"
-  integrity sha512-128YbMpjCrP35IOExw2Fq+x55LMP42DzhOhX2aNNIdI9avSWl2PI0yuBWarr3RYpZBSPtabfadkH2yeRiMD61Q==
+  version "7.20.7"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-logical-assignment-operators/-/plugin-proposal-logical-assignment-operators-7.20.7.tgz#dfbcaa8f7b4d37b51e8bfb46d94a5aea2bb89d83"
+  integrity sha512-y7C7cZgpMIjWlKE5T7eJwp+tnRYM89HmRvWM5EQuB5BoHEONjmQ8lSNmBUwOyy/GFRsohJED51YBF79hE1djug==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.18.9"
+    "@babel/helper-plugin-utils" "^7.20.2"
     "@babel/plugin-syntax-logical-assignment-operators" "^7.10.4"
 
 "@babel/plugin-proposal-logical-assignment-operators@^7.16.7":
@@ -1385,9 +1390,9 @@
   integrity sha512-88p7+M0QGxKpmnkfXjS4V26AnoC/eiqZutE8GLdaI5X12NY75bXSdTY9NkmYb2Xyk1O+MmkuO6Frmsj84V6I8Q==
 
 "@popperjs/core@^2.11.5":
-  version "2.11.6"
-  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.6.tgz#cee20bd55e68a1720bdab363ecf0c821ded4cd45"
-  integrity sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==
+  version "2.11.7"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.7.tgz#ccab5c8f7dc557a52ca3288c10075c9ccd37fff7"
+  integrity sha512-Cr4OjIkipTtcXKjAsm8agyleBuDHvxzeBoa1v543lbv1YaIwQjESsVcmjiWiPEbC1FIeHOG/Op9kdCmAmiS3Kw==
 
 "@rails/webpacker@5.4.3":
   version "5.4.3"
@@ -7559,19 +7564,19 @@ promise@^7.0.1:
   dependencies:
     asap "~2.0.3"
 
-prosemirror-commands@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/prosemirror-commands/-/prosemirror-commands-1.3.1.tgz#926c88801eebaa50363d4658850b41406d375a31"
-  integrity sha512-XTporPgoECkOQACVw0JTe3RZGi+fls3/byqt+tXwGTkD7qLuB4KdVrJamDMJf4kfKga3uB8hZ+kUUyZ5oWpnfg==
+prosemirror-commands@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/prosemirror-commands/-/prosemirror-commands-1.5.1.tgz#89ddfa14e144dcc7fb0938aa0e2568c7fdde306f"
+  integrity sha512-ga1ga/RkbzxfAvb6iEXYmrEpekn5NCwTb8w1dr/gmhSoaGcQ0VPuCzOn5qDEpC45ql2oDkKoKQbRxLJwKLpMTQ==
   dependencies:
     prosemirror-model "^1.0.0"
     prosemirror-state "^1.0.0"
     prosemirror-transform "^1.0.0"
 
-prosemirror-dropcursor@^1.6.0:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/prosemirror-dropcursor/-/prosemirror-dropcursor-1.6.1.tgz#31f696172105f232bd17543ccf305e0f33e59d1d"
-  integrity sha512-LtyqQpkIknaT7NnZl3vDr3TpkNcG4ABvGRXx37XJ8tJNUGtcrZBh40A0344rDwlRTfUEmynQS/grUsoSWz+HgA==
+prosemirror-dropcursor@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/prosemirror-dropcursor/-/prosemirror-dropcursor-1.8.0.tgz#7bfa11925e0da41d1db869954fe51e1aa55158e4"
+  integrity sha512-TZMitR8nlp9Xh42pDYGcWopCoFPmJduoyGJ7FjYM2/7gZKnfD41TIaZN5Q1cQjm6Fm/P5vk/DpVYFhS8kDdigw==
   dependencies:
     prosemirror-state "^1.0.0"
     prosemirror-transform "^1.1.0"
@@ -7604,18 +7609,18 @@ prosemirror-inputrules@^1.2.0:
     prosemirror-state "^1.0.0"
     prosemirror-transform "^1.0.0"
 
-prosemirror-keymap@^1.0.0, prosemirror-keymap@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/prosemirror-keymap/-/prosemirror-keymap-1.2.0.tgz#d5cc9da9b712020690a994b50b92a0e448a60bf5"
-  integrity sha512-TdSfu+YyLDd54ufN/ZeD1VtBRYpgZnTPnnbY+4R08DDgs84KrIPEPbJL8t1Lm2dkljFx6xeBE26YWH3aIzkPKg==
+prosemirror-keymap@^1.0.0, prosemirror-keymap@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/prosemirror-keymap/-/prosemirror-keymap-1.2.1.tgz#3839e7db66cecddae7451f4246e73bdd8489be1d"
+  integrity sha512-kVK6WGC+83LZwuSJnuCb9PsADQnFZllt94qPP3Rx/vLcOUV65+IbBeH2nS5cFggPyEVJhGkGrgYFRrG250WhHQ==
   dependencies:
     prosemirror-state "^1.0.0"
     w3c-keyname "^2.2.0"
 
-prosemirror-model@^1.0.0, prosemirror-model@^1.16.0, prosemirror-model@^1.18.1:
-  version "1.18.1"
-  resolved "https://registry.yarnpkg.com/prosemirror-model/-/prosemirror-model-1.18.1.tgz#1d5d6b6de7b983ee67a479dc607165fdef3935bd"
-  integrity sha512-IxSVBKAEMjD7s3n8cgtwMlxAXZrC7Mlag7zYsAKDndAqnDScvSmp/UdnRTV/B33lTCVU3CCm7dyAn/rVVD0mcw==
+prosemirror-model@^1.0.0, prosemirror-model@^1.16.0, prosemirror-model@^1.19.0:
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/prosemirror-model/-/prosemirror-model-1.19.0.tgz#d7ad9a65ada0bb12196f64fe0dd4fc392c841c29"
+  integrity sha512-/CvFGJnwc41EJSfDkQLly1cAJJJmBpZwwUJtwZPTjY2RqZJfM8HVbCreOY/jti8wTRbVyjagcylyGoeJH/g/3w==
   dependencies:
     orderedmap "^2.0.0"
 
@@ -7638,20 +7643,20 @@ prosemirror-state@^1.0.0, prosemirror-state@^1.2.2, prosemirror-state@^1.4.1:
     prosemirror-view "^1.27.0"
 
 prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/prosemirror-transform/-/prosemirror-transform-1.7.0.tgz#a8a0768f3ee6418d26ebef435beda9d43c65e472"
-  integrity sha512-O4T697Cqilw06Zvc3Wm+e237R6eZtJL/xGMliCi+Uo8VL6qHk6afz1qq0zNjT3eZMuYwnP8ZS0+YxX/tfcE9TQ==
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/prosemirror-transform/-/prosemirror-transform-1.7.1.tgz#b516e818c3add0bdf960f4ca8ccb9d057a3ba21b"
+  integrity sha512-VteoifAfpt46z0yEt6Fc73A5OID9t/y2QIeR5MgxEwTuitadEunD/V0c9jQW8ziT8pbFM54uTzRLJ/nLuQjMxg==
   dependencies:
     prosemirror-model "^1.0.0"
 
-prosemirror-utils@atlassian/prosemirror-utils#remove-prosemirror-tables:
+"prosemirror-utils@github:atlassian/prosemirror-utils#remove-prosemirror-tables":
   version "0.9.6"
   resolved "https://codeload.github.com/atlassian/prosemirror-utils/tar.gz/9e2db389d408f376e0fc1f8bdffd95063e8d00af"
 
-prosemirror-view@^1.0.0, prosemirror-view@^1.1.0, prosemirror-view@^1.27.0, prosemirror-view@^1.29.0:
-  version "1.29.0"
-  resolved "https://registry.yarnpkg.com/prosemirror-view/-/prosemirror-view-1.29.0.tgz#5a9baa32a3c520442ad443f4bbf5ec7400e55b4e"
-  integrity sha512-bifVd5aD9uCNtpLL1AyhquG/cVbNZSv+ALBxTEGYv51a6OHDhq+aOuzqq4MermNdeBdT+5uyURXCALgzk0EN5g==
+prosemirror-view@^1.0.0, prosemirror-view@^1.1.0, prosemirror-view@^1.27.0, prosemirror-view@^1.30.2:
+  version "1.30.2"
+  resolved "https://registry.yarnpkg.com/prosemirror-view/-/prosemirror-view-1.30.2.tgz#57a9d15c5baa454f0d0f4a3028ddbd9be1e8ed9b"
+  integrity sha512-nTNzZvalQf9kHeEyO407LiV6DoOs/pXsid88UqW9Vvybo4ozJW2PJhkfZUxCUF1hR/9vJLdhxX84wuw9P9HsXA==
   dependencies:
     prosemirror-model "^1.16.0"
     prosemirror-state "^1.0.0"
@@ -8519,25 +8524,25 @@ shiki-decorators@^1.0.1:
     memoize-decorator "^1.0.2"
 
 shiki-editor@^2.5.1:
-  version "2.6.5"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-2.6.5.tgz#894ead971319d7cd6c0f63a66e51adbfab32b40a"
-  integrity sha512-Ui/gl7RGTBp+6FAw3SVQB/netnxYCswDPGa90wRUgWXjlcdG/9+so2kxDZSNiB4XEL6yqKYjMiBgl9zR8gT5vw==
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-2.7.0.tgz#d754cea30663923acb890bc8e3eac99fe0abf8ae"
+  integrity sha512-MKIfYX1G4G5g2d0WcxNgGtVincG9fOLi8a1XxlJdrkZxNF1VFCxLg3J4rjtEdSpWXH+zM5FyAq0uehZG+AF0Rg==
   dependencies:
     "@babel/plugin-proposal-logical-assignment-operators" "^7.10.4"
     "@morr/withinviewport" "2.1.3-1"
     "@popperjs/core" "^2.11.5"
     lowlight "2.7.0"
-    prosemirror-commands "^1.3.1"
-    prosemirror-dropcursor "^1.6.0"
+    prosemirror-commands "^1.5.1"
+    prosemirror-dropcursor "^1.8.0"
     prosemirror-gapcursor "^1.3.1"
     prosemirror-history "^1.3.0"
     prosemirror-inputrules "^1.2.0"
-    prosemirror-keymap "^1.2.0"
-    prosemirror-model "^1.18.1"
+    prosemirror-keymap "^1.2.1"
+    prosemirror-model "^1.19.0"
     prosemirror-schema-list "^1.2.2"
     prosemirror-state "^1.4.1"
     prosemirror-utils atlassian/prosemirror-utils#remove-prosemirror-tables
-    prosemirror-view "^1.29.0"
+    prosemirror-view "^1.30.2"
     scroll-lock "^2.1.4"
     text-field-edit "^3.1.0"
     vue-dragscroll "^3.0.0"
@@ -9147,9 +9152,9 @@ terser@^5.3.4:
     source-map-support "~0.5.20"
 
 text-field-edit@^3.1.0:
-  version "3.1.9001"
-  resolved "https://registry.yarnpkg.com/text-field-edit/-/text-field-edit-3.1.9001.tgz#479bbc6ed4c5a1dd721118daf9b13fd785cda257"
-  integrity sha512-5xSqH9HMiW4r/YDoz/DMX895elwenTCV/xwjGSmhVol62YFTHivbZi3T0jKm0Oyzj63RA2C0XAnWMQSC0SO/JA==
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/text-field-edit/-/text-field-edit-3.2.0.tgz#677f5b3a7cd220d37f6f1b85c51850f60d9da871"
+  integrity sha512-HVgVoOMAIgsXFsGuzkghk0NQPO8DrfNeHtRSbKEUQAkLOeY+Mb2ofK/AGZByxObPNo3vqODyghl+9VXUjHypig==
 
 text-table@^0.2.0:
   version "0.2.0"
@@ -9588,7 +9593,7 @@ vue3-keypress@^4.0.1:
   resolved "https://registry.yarnpkg.com/vue3-keypress/-/vue3-keypress-4.0.1.tgz#161959779dda7a0bb86902fac594c75117a0dca4"
   integrity sha512-oKxLpVsQq1iosuwi38fbH+K2NL2HqbFT8U7yE1fzxcUB0Mup1vS7OcnNMqkgv+FHFJTNvlYAOwLctVK/ahz6Ng==
 
-vue3-perfect-scrollbar@morr/vue3-perfect-scrollbar#master:
+"vue3-perfect-scrollbar@github:morr/vue3-perfect-scrollbar#master":
   version "1.5.5"
   resolved "https://codeload.github.com/morr/vue3-perfect-scrollbar/tar.gz/04340756fd75f245e25042003b9c4a6ced343381"
 
