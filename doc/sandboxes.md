@@ -554,7 +554,7 @@ rails runner "\
     f.write Proxy.all.to_json;\
   end\
 " &&\
-scp shiki:/tmp/posters.json /tmp/ &&\
+scp /tmp/proxies.json shiki:/tmp/ &&\
 ssh devops@shiki '\
   source /home/devops/.zshrc &&\
     cd /home/apps/shikimori/production/current &&\
