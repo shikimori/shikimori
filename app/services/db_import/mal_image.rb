@@ -3,7 +3,7 @@ class DbImport::MalImage
 
   PROXY_OPTIONS = {
     timeout: 30,
-    validate_jpg: true,
+    validate_jpg: false,
     return_file: true,
     log: true
   }
@@ -41,7 +41,7 @@ private
   rescue RuntimeError => e
     raise unless /HTTP redirection loop/.match?(e.message)
 
-    Proxy.get @image_url, PROXY_OPTIONS
+    Proxy.get @image_url, proxy_options
   end
 
   def skip_proxy?
@@ -55,8 +55,8 @@ private
     @proxy ?
       {
         proxy: @proxy,
-        **PROXY_OPTIONS
+        **self.class::PROXY_OPTIONS
       } :
-      PROXY_OPTIONS
+      self.class::PROXY_OPTIONS
   end
 end

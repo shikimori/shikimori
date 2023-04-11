@@ -1,18 +1,23 @@
 class DbImport::MalPoster < DbImport::MalImage
   MAX_ATTEMPTS = 2
 
+  PROXY_OPTIONS = {
+    **DbImport::MalImage::PROXY_OPTIONS,
+    validate_jpg: false
+  }
+
   def call
     return unless policy.need_import?
 
     attempt = 0
 
     begin
-      log "downloading attempt=#{attempt + 1}"
       if (attempt += 1) <= MAX_ATTEMPTS
+        log "downloading attempt=#{attempt}"
         safe_download
         log "downloaded attempt=#{attempt}"
       else
-        log "failed downloaded attempt=#{attempt}"
+        log "failed download attempt=#{attempt - 1}"
       end
     rescue *::Network::FaradayGet::NET_ERRORS, ActiveRecord::RecordInvalid
       log 'retry'
