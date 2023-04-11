@@ -105,7 +105,7 @@ class Proxy < ApplicationRecord
           # do not check for .blank? since may download a binary data
           raise "#{proxy} banned or broken" if content&.size&.zero?
 
-          if options[:validate_jpg]
+          if options[:return_file]
             tmpfile = Tempfile.new 'jpg'
             File.open(tmpfile.path, 'wb') { |f| f.write content }
             tmpfile.instance_variable_set :@original_filename, url.split('/').last
@@ -113,7 +113,7 @@ class Proxy < ApplicationRecord
               @original_filename
             end
 
-            unless ImageChecker.valid? tmpfile.path
+            if options[:validate_jpg] && !ImageChecker.valid?(tmpfile.path)
               content = nil
               # тут можно бы обнулять tmpfile, но если мы 8 раз не смогли загрузить файл, то наверное его и правда нет, падать не будем
               log 'bad image', options
@@ -215,6 +215,7 @@ class Proxy < ApplicationRecord
         -x "#{proxy}"
         --connect-timeout 5
         --max-time #{timeout}
+        --location
         #{Shellwords.escape(url)}
       ].join(' ')
 

@@ -1,5 +1,5 @@
 class DbImport::MalPoster < DbImport::MalImage
-  MAX_ATTEMPTS = 2
+  MAX_ATTEMPTS = 3
 
   PROXY_OPTIONS = {
     **DbImport::MalImage::PROXY_OPTIONS,
@@ -33,10 +33,13 @@ private
 
   def safe_download
     io = download_image
-    unless io && !entry_became_desynced?
-      log 'io=nil' unless io
-      log 'became desynced' if entry_became_desynced?
+    if entry_became_desynced?
+      log 'became desynced'
       return
+    end
+    unless io
+      log 'io=nil'
+      raise ActiveRecord::RecordInvalid
     end
 
     Poster.transaction do
