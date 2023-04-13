@@ -23,7 +23,6 @@ module DomainsConcern
 
   def ensure_proper_domain
     return if request.host == ShikimoriDomain::PROPER_HOST
-    return unless current_user.nickname.in? %w[morr test2]
 
     redirect_to request.protocol + ShikimoriDomain::PROPER_HOST +
       users_magic_link_path(
