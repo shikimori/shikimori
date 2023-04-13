@@ -7,11 +7,12 @@ module ShikimoriDomain
   # )
   BANNED_HOST = 'shikimori.org'
   CLEAN_HOST = 'shikimori.one'
+  NEW_HOST = 'shikimori.me'
 
   HOSTS = RU_HOSTS + EN_HOSTS
 
   PROPER_HOST = Rails.env.production? ?
-    'shikimori.me' :
+    NEW_HOST :
     'shikimori.local'
 
   def self.matches? request

@@ -2,7 +2,7 @@ module DomainsConcern
   extend ActiveSupport::Concern
 
   included do
-    helper_method :shikimori?, :ru_host?, :clean_host?
+    helper_method :shikimori?, :ru_host?, :clean_host?, :new_host?
     before_action :ensure_proper_domain
     before_action :force_301_redirect
   end
@@ -19,9 +19,13 @@ module DomainsConcern
   end
 
   def clean_host?
-    Rails.env.development? ||
-      ENV['USER'] == 'morr' ||
-      request.host == ShikimoriDomain::CLEAN_HOST
+    request.host == ShikimoriDomain::CLEAN_HOST
+  end
+
+  def new_host?
+    request.host == ShikimoriDomain::NEW_HOST ||
+      Rails.env.development? ||
+      ENV['USER'] == 'morr'
   end
 
   def ensure_proper_domain # rubocop:disable AbcSize
