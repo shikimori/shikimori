@@ -2,11 +2,14 @@
 
 class Users::MagicLinksController < ShikimoriController
   def show
-    user = User.find Users::LoginToken.decode(params[:token])['data']['user_id']
-    sign_in user
+    unless user_signed_in?
+      user = User.find Users::LoginToken.decode(params[:token])['data']['user_id']
+      sign_in user
+    end
+
     redirect_to redirect_url
-  # rescue ActiveRecord::RecordNotFound, InvalidOrExpiredTokenError
-  #   redirect_to redirect_url
+  rescue ActiveRecord::RecordNotFound, InvalidOrExpiredTokenError
+    redirect_to redirect_url
   end
 
 private
