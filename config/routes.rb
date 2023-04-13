@@ -61,6 +61,11 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     passwords: 'users/passwords'
   }
+  devise_scope :user do
+    get '/users/auth/link',
+      to: 'devise/passwordless/magic_links#show',
+      as: 'users_magic_link'
+  end
 
   # do not move these autocompletable concerns into resources definition.
   # they will confict with resource#show routes
