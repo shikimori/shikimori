@@ -14,7 +14,7 @@ pageLoad('dashboards_show', () => {
 
   $('.fc-user-sections .f-user').on('postloaded:success', () => {
     const $devise = $('.fc-user-sections .f-user .devise');
-    if ($devise.length && !location.hostname.match(/^shikimori.(?:me|local)$/)) {
+    if ($devise.length && !location.hostname.match(/^shikimori.(?:one|me|local)$/)) {
       function part2() { return '__UNEXISTING' in window ? window.__UNEXISTING : 'mori'; };
 
       $devise.html(
