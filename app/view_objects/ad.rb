@@ -19,10 +19,10 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def allowed?
-    if h.controller.instance_variable_get controller_key(banner[:placement])
+    if h.controller.instance_variable_get controller_key(banner&.dig(:placement))
       false
     else
-      policy.allowed? && (!@rules || @rules.show?)
+      policy&.allowed? && (!@rules || @rules.show?)
     end
   end
 
@@ -481,7 +481,7 @@ private
         # Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894], # IMBA - remove 2023-02-04 22:00
+        Types::Ad::Type[:special_x894] # IMBA - remove 2023-02-04 22:00
         # Types::Ad::Type[:mt_728x90],
         # Types::Ad::Type[:advrtr_x728]
       ],
