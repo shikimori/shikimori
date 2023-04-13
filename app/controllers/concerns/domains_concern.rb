@@ -3,8 +3,8 @@ module DomainsConcern
 
   included do
     helper_method :shikimori?, :ru_host?, :clean_host?
-    before_action :ensure_proper_domain, if: :user_signed_in?
-    before_action :force_301_redirect, unless: :user_signed_in?
+    before_action :ensure_proper_domain
+    before_action :force_301_redirect
   end
 
   def shikimori?
@@ -24,8 +24,9 @@ module DomainsConcern
       request.host == ShikimoriDomain::CLEAN_HOST
   end
 
-  def ensure_proper_domain
-    return if request.host == ShikimoriDomain::PROPER_HOST
+  def ensure_proper_domain # rubocop:disable AbcSize
+    return unless domain_redirects_appliable?
+    return unless user_signed_in?
     return if !request.get? || request.xhr?
 
     redirect_to request.protocol + ShikimoriDomain::PROPER_HOST +
@@ -36,10 +37,17 @@ module DomainsConcern
   end
 
   def force_301_redirect
-    return if !request.get? || request.xhr?
+    return unless domain_redirects_appliable?
+    return if user_signed_in?
     return if request.host == ShikimoriDomain::BANNED_HOST
 
     redirect_to request.url.sub(request.host, ShikimoriDomain::PROPER_HOST),
       status: :moved_permanently
+  end
+
+  def domain_redirects_appliable?
+    request.host != ShikimoriDomain::PROPER_HOST &&
+      request.get? &&
+      !request.xhr?
   end
 end
