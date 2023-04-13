@@ -3,15 +3,16 @@
 class Users::LoginToken
   class InvalidOrExpiredTokenError < StandardError; end
 
-  def self.encode resource, redirect_url
+  def self.encode resource
     now = Time.current
     len = ActiveSupport::MessageEncryptor.key_len
     salt = SecureRandom.random_bytes(len)
     key = ActiveSupport::KeyGenerator.new(secret_key).generate_key(salt, len)
     crypt = ActiveSupport::MessageEncryptor.new(key, serializer: JSON)
     encrypted_data = crypt.encrypt_and_sign({
-      user_id: resource.id,
-      redirect_url: redirect_url,
+      data: {
+        user_id: resource.id,
+      },
       created_at: now.to_f
     })
     salt_base64 = Base64.strict_encode64(salt)
@@ -44,6 +45,6 @@ class Users::LoginToken
   end
 
   def self.secret_key
-    (Devise.passwordless_secret_key.presence || Devise.secret_key)
+    Devise.secret_key
   end
 end

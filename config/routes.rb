@@ -62,8 +62,8 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
   devise_scope :user do
-    get '/users/auth/link',
-      to: 'devise/passwordless/magic_links#show',
+    get '/users/sign_in/link',
+      to: 'users/magic_links#show',
       as: 'users_magic_link'
   end
 

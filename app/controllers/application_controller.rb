@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
   before_action :mailer_set_url_options
   before_action :force_vary_accept
   before_action :force_no_cache, unless: :user_signed_in?
+  before_action :ensure_proper_domain, if: :user_signed_in?
 
   helper_method :resource_class
   helper_method :json?
@@ -91,7 +92,7 @@ private
 
   # гугловский бот со странным format иногда ходит
   def fix_googlebot
-    request.format = :html if request.format.to_s =~ %r{\*/\*}
+    request.format = :html if %r{\*/\*}.match?(request.format.to_s)
   end
 
   # хром некорректно обрабатывает Back кнопку,
@@ -112,6 +113,17 @@ private
     if request.env['HTTP_USER_AGENT']&.match?(/PlayStation|Android|Mobile Safari/)
       response.headers['Cache-Control'] = 'no-store, no-cache'
     end
+  end
+
+  def ensure_proper_domain
+    return if request.host == ShikimoriDomain::PROPER_HOST
+    return unless current_user.nickname.in? %w[morr test2]
+
+    redirect_to request.protocol + ShikimoriDomain::PROPER_HOST +
+      users_magic_link_path(
+        token: Users::LoginToken.encode(current_user),
+        redirect_url: request.url.sub(/.*?#{request.host}/, '')
+      )
   end
 
   def touch_last_online
