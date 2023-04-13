@@ -32,8 +32,8 @@ class RobotsController < ShikimoriController
       Disallow: /api/*
       Disallow: /*.html
       Disallow: /clubs/3*
-      Host: https://shikimori.one
-      Sitemap: https://shikimori.one/sitemap.xml
+      Host: https://shikimori.me
+      Sitemap: https://shikimori.me/sitemap.xml
 
       User-agent: AhrefsBot
       User-agent: moget
@@ -74,8 +74,8 @@ class RobotsController < ShikimoriController
       Disallow: /api/*
       Disallow: /*.html
       Disallow: /clubs/3*
-      Host: https://shikimori.one
-      Sitemap: https://shikimori.one/sitemap.xml
+      Host: https://shikimori.me
+      Sitemap: https://shikimori.me/sitemap.xml
 
       User-agent: AhrefsBot
       User-agent: moget
