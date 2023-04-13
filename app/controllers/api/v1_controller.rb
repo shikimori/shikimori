@@ -5,6 +5,8 @@ class Api::V1Controller < ShikimoriController
   skip_before_action :touch_last_online
   skip_before_action :verify_authenticity_token,
     if: -> { doorkeeper_token.present? }
+  skip_before_action :ensure_proper_domain
+  skip_before_action :force_301_redirect
 
   serialization_scope :view_context
 
