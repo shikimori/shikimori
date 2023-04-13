@@ -18,7 +18,7 @@ end
 
 module Shikimori
   DOMAINS = {
-    production: 'shikimori.one',
+    production: 'shikimori.me',
     development: 'shikimori.local',
     test: 'shikimori.test'
   }

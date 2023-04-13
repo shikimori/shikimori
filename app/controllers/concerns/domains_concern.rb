@@ -3,6 +3,7 @@ module DomainsConcern
 
   included do
     helper_method :shikimori?, :ru_host?, :clean_host?
+    before_action :ensure_proper_domain, if: :user_signed_in?
   end
 
   def shikimori?
@@ -18,5 +19,16 @@ module DomainsConcern
 
   def clean_host?
     Rails.env.development? || ENV['USER'] == 'morr' || ShikimoriDomain::CLEAN_HOST == request.host
+  end
+
+  def ensure_proper_domain
+    return if request.host == ShikimoriDomain::PROPER_HOST
+    return unless current_user.nickname.in? %w[morr test2]
+
+    redirect_to request.protocol + ShikimoriDomain::PROPER_HOST +
+      users_magic_link_path(
+        token: Users::LoginToken.encode(current_user),
+        redirect_url: request.url.sub(/.*?#{request.host}/, '')
+      )
   end
 end
