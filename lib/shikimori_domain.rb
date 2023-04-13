@@ -10,7 +10,7 @@ module ShikimoriDomain
   HOSTS = RU_HOSTS + EN_HOSTS
 
   PROPER_HOST = Rails.env.production? ?
-    'shikimori.one' :
+    'shikimori.me' :
     'shikimori.local'
 
   def self.matches? request
