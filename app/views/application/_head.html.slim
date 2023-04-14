@@ -67,7 +67,7 @@ link rel='preconnect' href='https://fonts.gstatic.com'
     link rel='prev' href==current_url(page: @collection.prev_page == 1 ? nil : @collection.prev_page)
 
 - if og.canonical_url != request.url || !clean_host?
-  link rel='canonical' href==(og.canonical_url || request.url).gsub(request.host, ShikimoriDomain::CLEAN_HOST)
+  link rel='canonical' href==(og.canonical_url || request.url).gsub(request.host, Shikimori::DOMAINS[:production])
 
 - if og.type.present?
   meta property='og:type' content=og.type
@@ -142,7 +142,9 @@ script[
   = javascript_pack_tag 'vendors', data: { 'turbolinks-track' => 'reload' }
 
   - if Rails.env.production?
-    - if clean_host?
+    - if new_host?
+      = render partial: 'application/counters/shikimori_me'
+    - elsif clean_host?
       = render partial: 'application/counters/shikimori_one'
     - elsif ru_host?
       = render partial: 'application/counters/shikimori_org'
