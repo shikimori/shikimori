@@ -3,7 +3,9 @@ require Rails.root.join('config/middleware/proxy_test')
 class Proxies::Check
   method_object %i[proxy! ips is_caching]
 
-  TEST_URL = "https://shikimori.one#{ProxyTest::TEST_PAGE_PATH}"
+  TEST_URL = "#{Shikimori::PROTOCOLS[:production]}://" \
+    "#{Shikimori::DOMAINS[:production]}#{ProxyTest::TEST_PAGE_PATH}"
+
   TEST_TIMEOUT = 10
 
   IS_CACHING = true
