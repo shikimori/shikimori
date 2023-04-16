@@ -89,38 +89,37 @@ header.head
     .f-column
       .subheadline = t '.content'
 
-      - if ru_host?
-        ul.b-list.is-wide.block
-          li
-            a.b-link[
-              href=translations_name_anime_url
-              title=t('.missing_anime_names')
-            ] = t '.missing_anime_names'
-          li
-            a.b-link[
-              href=translations_description_anime_url
-              title=t('.missing_anime_descriptions')
-            ] = t '.missing_anime_descriptions'
-          li
-            a.b-link[
-              href=translations_name_manga_url
-              title=t('.missing_manga_names')
-            ] = t '.missing_manga_names'
-          li
-            a.b-link[
-              href=translations_description_manga_url
-              title=t('.missing_manga_descriptions')
-            ] = t '.missing_manga_descriptions'
-          li
-            a.b-link[
-              href=missing_screenshots_moderations_url
-              title=t('.missing_screenshots')
-            ] = t '.missing_screenshots'
-          li
-            a.b-link[
-              href=moderations_authors_url
-              title=t('.fansub_authors')
-            ] = t '.fansub_authors'
+      ul.b-list.is-wide.block
+        li
+          a.b-link[
+            href=translations_name_anime_url
+            title=t('.missing_anime_names')
+          ] = t '.missing_anime_names'
+        li
+          a.b-link[
+            href=translations_description_anime_url
+            title=t('.missing_anime_descriptions')
+          ] = t '.missing_anime_descriptions'
+        li
+          a.b-link[
+            href=translations_name_manga_url
+            title=t('.missing_manga_names')
+          ] = t '.missing_manga_names'
+        li
+          a.b-link[
+            href=translations_description_manga_url
+            title=t('.missing_manga_descriptions')
+          ] = t '.missing_manga_descriptions'
+        li
+          a.b-link[
+            href=missing_screenshots_moderations_url
+            title=t('.missing_screenshots')
+          ] = t '.missing_screenshots'
+        li
+          a.b-link[
+            href=moderations_authors_url
+            title=t('.fansub_authors')
+          ] = t '.fansub_authors'
 
         ul.b-list.is-wide.block
           li

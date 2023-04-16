@@ -3,25 +3,18 @@ describe AdsPolicy do
     AdsPolicy.new(
       ad_provider: ad_provider,
       user: user,
-      is_ru_host: is_ru_host,
       is_disabled: is_disabled
     )
   end
 
   let(:ad_provider) { Types::Ad::Provider.values.sample }
   let(:user) { nil }
-  let(:is_ru_host) { true }
   let(:is_disabled) { false }
 
   it { is_expected.to be_allowed }
 
   context 'is_disabled' do
     let(:is_disabled) { true }
-    it { is_expected.to_not be_allowed }
-  end
-
-  context 'not ru_host' do
-    let(:is_ru_host) { false }
     it { is_expected.to_not be_allowed }
   end
 

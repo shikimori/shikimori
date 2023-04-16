@@ -2,7 +2,7 @@ module DomainsConcern
   extend ActiveSupport::Concern
 
   included do
-    helper_method :shikimori?, :ru_host?, :clean_host?, :new_host?
+    helper_method :shikimori?, :clean_host?, :new_host?
     unless Rails.env.test?
       before_action :ensure_proper_domain
       before_action :force_301_redirect
@@ -11,13 +11,6 @@ module DomainsConcern
 
   def shikimori?
     ShikimoriDomain::HOSTS.include? request.host
-  end
-
-  def ru_host?
-    return true if Rails.env.test? || ENV['USER'] == 'morr'
-    return true if Rails.const_defined? :Console
-
-    ShikimoriDomain::RU_HOSTS.include? request.host
   end
 
   def clean_host?

@@ -13,7 +13,7 @@ class OpenGraphView < ViewObjectBase
   PAGE_TITLE_SEPARATOR = ' / '
 
   def site_name
-    h.ru_host? ? Shikimori::NAME_RU : Shikimori::NAME_EN
+    Shikimori::NAME_RU
   end
 
   def canonical_url

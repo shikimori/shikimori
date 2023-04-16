@@ -1,4 +1,4 @@
-cache [:sitemap, ru_host?], expires_in: 1.day do
+cache :sitemap, expires_in: 1.day do
   xml.instruct!
   xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9" do
     xml.url do

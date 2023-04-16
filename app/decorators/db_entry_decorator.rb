@@ -282,15 +282,10 @@ private
   end
 
   def headline_array
-    if h.ru_host?
-      if russian_names?
-        [russian, name].select(&:present?).compact
-      else
-        [name, russian].select(&:present?).compact
-      end
-
+    if russian_names?
+      [russian, name].select(&:present?).compact
     else
-      [name]
+      [name, russian].select(&:present?).compact
     end
   end
 

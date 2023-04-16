@@ -69,7 +69,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       name: :socials,
       placement: :main,
       group: :info,
-      if: ->(h) { h.ru_host? && !Rails.env.test? },
+      if: ->(h) { !Rails.env.test? },
       url: ->(h) { StickyTopicView.socials.object.url }
     }, {
       name: :moderation,
@@ -128,13 +128,13 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       placement: :profile,
       group: :site,
       if: ->(_h) { !Rails.env.test? },
-      url: ->(h) { StickyTopicView.site_rules.object.url }
+      url: ->(_h) { StickyTopicView.site_rules.object.url }
     }, {
       name: :faq,
       placement: :profile,
       group: :site,
-      if: ->(h) { h.ru_host? && !Rails.env.test? },
-      url: ->(h) { StickyClubView.faq.object.url }
+      if: ->(_h) { !Rails.env.test? },
+      url: ->(_h) { StickyClubView.faq.object.url }
     }
   ]
 

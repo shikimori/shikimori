@@ -131,7 +131,7 @@ private
 
   # def ignore_copyright?
   #   !clean_host?
-  #   # ru_host? && !clean_host? && (
+  #   # !clean_host? && (
   #   #   current_user&.day_registered? ||
   #   #   GeoipAccess.instance.anime_online_allowed?(request.remote_ip) ||
   #   #   Rails.env.development?

@@ -2,8 +2,6 @@ class CacheHelperInstance
   include Singleton
   include Draper::ViewHelpers
 
-  delegate :ru_host?, to: :h
-
   def self.cache_keys *args
     instance.cache_keys(*args)
   end

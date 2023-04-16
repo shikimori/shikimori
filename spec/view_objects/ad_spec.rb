@@ -10,7 +10,6 @@ describe Ad do
   let(:h) do
     double(
       params: params,
-      ru_host?: is_ru_host,
       clean_host?: is_clean_host,
       current_user: user,
       spnsr_url: 'zxc',
@@ -22,7 +21,6 @@ describe Ad do
     )
   end
   let(:params) { { controller: 'anime' } }
-  let(:is_ru_host) { true }
   let(:is_clean_host) { false }
   let(:width) { 240 }
   let(:height) { 400 }
@@ -59,10 +57,12 @@ describe Ad do
   end
 
   describe '#platform' do
-    it { expect(ad.platform).to eq Ad::BANNERS[is_clean_host][:advrtr_300x250][:platform] }
+    let(:is_clean_host) { true }
+    it { expect(ad.platform).to eq Ad::BANNERS[is_clean_host][:yd_300x600][:platform] }
   end
 
   describe '#provider' do
+    let(:is_clean_host) { true }
     it { expect(ad.provider).to eq Ad::BANNERS[is_clean_host][Ad::META_TYPES[is_clean_host][:menu_300x600].first][:provider] }
   end
 
@@ -74,7 +74,7 @@ describe Ad do
         .with(:"@is_#{banner[:placement]}_ad_shown")
         .and_return is_ad_shown
 
-      ad.instance_variable_set :'@rules', rules
+      ad.instance_variable_set :@rules, rules
     end
     let(:is_allowed) { true }
     let(:is_ad_shown) { false }
@@ -123,7 +123,7 @@ describe Ad do
     # end
 
     context 'my_target' do
-      before { ad.instance_variable_set '@banner_type', banner_type }
+      before { ad.instance_variable_set :@banner_type, banner_type }
       let(:is_clean_host) { true }
       let(:banner_type) { :mt_300x600 }
 
@@ -143,8 +143,8 @@ describe Ad do
 
   describe '#to_html' do
     before do
-      ad.instance_variable_set '@banner_type', banner_type
-      ad.instance_variable_set '@rules', nil
+      ad.instance_variable_set :@banner_type, banner_type
+      ad.instance_variable_set :@rules, nil
     end
 
     context 'advertur' do
