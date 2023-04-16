@@ -28,8 +28,8 @@ module Shikimori
   NAME_EN = 'Shikimori'
 
   STATIC_SUBDOMAINS = %w[nyaa kawai moe desu dere]
-  EMAIL = 'mail@shikimori.org'
-  EMAIL_DATA_DELETION = 'mail+data_deletion@shikimori.org'
+  EMAIL = 'admin@shikimori.me'
+  # EMAIL_DATA_DELETION = 'mail+data_deletion@shikimori.org'
 
   DOMAIN_LOCALES = %i[ru en]
 
