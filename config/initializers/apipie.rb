@@ -59,7 +59,7 @@ Apipie.configure do |config|
     <br><br>
 
     ### Feedback
-    [@morr](/morr), [email](mailto:admin@shikimori.org)
+    [@morr](/morr), [email](mailto:admin@shikimori.me)
     <br><br>
   MARKDOWN
 

@@ -13,7 +13,7 @@ class ShikiMailer < ActionMailer::Base
     NamedLogger.email.info "failed to send email to #{user.email}"
   end
 
-  def test_mail email = 'admin@shikimori.org'
+  def test_mail email = 'admin@shikimori.me'
     return if generated? email
 
     mail to: email, subject: 'Test', body: 'test body'
