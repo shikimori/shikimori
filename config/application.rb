@@ -33,7 +33,7 @@ module Shikimori
 
   DOMAIN_LOCALES = %i[ru en]
 
-  ALLOWED_DOMAINS = ShikimoriDomain::RU_HOSTS + ShikimoriDomain::EN_HOSTS
+  ALLOWED_DOMAINS = ShikimoriDomain::HOSTS
 
   VK_CLUB_URL = 'https://vk.com/shikimori'
   DISCORD_CHANNEL_URL = 'https://discord.gg/gYQNpUKPdH'
