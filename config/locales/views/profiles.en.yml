@@ -122,7 +122,7 @@ en:
         password_recovery: Password recovery via e-mail
         connected_accounts: Connected accounts
         not_connected_accounts: Not connected accounts
-        granted_oauth_apps: Apps that have access to your account
+        granted_oauth_apps: Apps that have access to account
         ignored_users: Ignored users
         nickname: Login (nickname)
         username: Username

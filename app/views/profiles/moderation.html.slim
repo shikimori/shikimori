@@ -43,13 +43,23 @@
 
         - if can? :reset_email, @resource
           .block_m
-            .subheadline.m5 Подключена авторизация через соц. сети.
-            div
-              - if @resource.user_tokens.none?
-                p.b-nothing_here Нет
-              - else
+            .subheadline.m5 = t 'profiles.edit.account.connected_accounts'
+            - if @resource.user_tokens.any?
+              div
                 - @resource.user_tokens.each do |token|
                   .b-oauth_token class=token.provider
+            - else
+              p.b-nothing_here = t 'no'
+
+          .block
+            .subheadline.m5 = t 'profiles.edit.account.granted_oauth_apps'
+            - if @resource.access_grants.any?
+              .cc-6
+                = render partial: 'doorkeeper/oauth_applications/oauth_application',
+                  collection: Users::GrantedApplications.call(@resource),
+                  locals: { content_by: 'mini' }
+            - else
+              p.b-nothing_here = t 'no'
 
   .block2
     .subheadline.m5 = t 'profiles.show.ban_history'
