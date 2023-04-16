@@ -8,7 +8,7 @@ class Users::MagicLinksController < ShikimoriController
     end
 
     redirect_to redirect_url
-  rescue ActiveRecord::RecordNotFound, InvalidOrExpiredTokenError
+  rescue ActiveRecord::RecordNotFound, Users::LoginToken::InvalidOrExpiredTokenError
     redirect_to redirect_url
   rescue StandardError => error
     notify_erorr error
