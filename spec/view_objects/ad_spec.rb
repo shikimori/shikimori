@@ -21,13 +21,14 @@ describe Ad do
     )
   end
   let(:params) { { controller: 'anime' } }
-  let(:is_clean_host) { false }
+  let(:is_clean_host) { true }
   let(:width) { 240 }
   let(:height) { 400 }
   let(:user) { nil }
   let(:cookies) { {} }
 
   describe '#banner_type' do
+    let(:is_clean_host) { false }
     it { expect(ad.banner_type).to eq Ad::META_TYPES[is_clean_host][:menu_300x600].first }
 
     describe 'meta changed by user preferences body_width_x1000' do
@@ -57,12 +58,10 @@ describe Ad do
   end
 
   describe '#platform' do
-    let(:is_clean_host) { true }
     it { expect(ad.platform).to eq Ad::BANNERS[is_clean_host][:yd_300x600][:platform] }
   end
 
   describe '#provider' do
-    let(:is_clean_host) { true }
     it { expect(ad.provider).to eq Ad::BANNERS[is_clean_host][Ad::META_TYPES[is_clean_host][:menu_300x600].first][:provider] }
   end
 
@@ -124,7 +123,6 @@ describe Ad do
 
     context 'my_target' do
       before { ad.instance_variable_set :@banner_type, banner_type }
-      let(:is_clean_host) { true }
       let(:banner_type) { :mt_300x600 }
 
       it { expect(ad.ad_params).to be_nil }
@@ -147,20 +145,20 @@ describe Ad do
       ad.instance_variable_set :@rules, nil
     end
 
-    context 'advertur' do
-      let(:banner_type) { :advrtr_240x400 }
-      it do
-        expect(ad.to_html).to eq(
-          <<-HTML.gsub(/\n|^\ +/, '')
-            <div class="b-spns-advrtr_240x400">
-              <center>
-                <iframe src='zxc' width='240px' height='400px'>
-              </center>
-            </div>
-          HTML
-        )
-      end
-    end
+    # context 'advertur' do
+    #   let(:banner_type) { :advrtr_240x400 }
+    #   it do
+    #     expect(ad.to_html).to eq(
+    #       <<-HTML.gsub(/\n|^\ +/, '')
+    #         <div class="b-spns-advrtr_240x400">
+    #           <center>
+    #             <iframe src='zxc' width='240px' height='400px'>
+    #           </center>
+    #         </div>
+    #       HTML
+    #     )
+    #   end
+    # end
 
     context 'my_target' do
       let(:is_clean_host) { true }

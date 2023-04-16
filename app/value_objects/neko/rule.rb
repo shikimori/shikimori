@@ -198,7 +198,7 @@ class Neko::Rule
     end
   end
 
-  def franchise_percent user # rubocop:disable AbcSize
+  def franchise_percent user # rubocop:disable AbcSize, Metrics/CyclomaticComplexity
     return 0 unless user
 
     animes = animes_scope.to_a
