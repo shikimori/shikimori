@@ -1,7 +1,7 @@
 class Achievement < ApplicationRecord
   belongs_to :user
 
-  validates :user, :neko_id, :level, :progress, presence: true
+  validates :neko_id, :level, :progress, presence: true
 
   delegate :cache_key, to: :neko
 
@@ -17,7 +17,7 @@ class Achievement < ApplicationRecord
     super(*args) || neko.send(:respond_to_missing?, *args)
   end
 
-  def method_missing method, *args, &block # rubocop:disable MethodMissingSuper
+  def method_missing method, *args, &block
     neko.send method, *args, &block
   end
 
