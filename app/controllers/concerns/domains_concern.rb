@@ -3,10 +3,8 @@ module DomainsConcern
 
   included do
     helper_method :shikimori?, :clean_host?, :new_host?
-    unless Rails.env.test?
-      before_action :ensure_proper_domain
-      before_action :force_301_redirect
-    end
+    before_action :ensure_proper_domain
+    before_action :force_301_redirect
   end
 
   def shikimori?
@@ -24,6 +22,7 @@ module DomainsConcern
   end
 
   def ensure_proper_domain # rubocop:disable AbcSize
+    return if Rails.env.test?
     return unless domain_redirects_appliable?
     return unless user_signed_in?
     return if !request.get? || request.xhr?
@@ -36,6 +35,7 @@ module DomainsConcern
   end
 
   def force_301_redirect
+    return if Rails.env.test?
     return unless domain_redirects_appliable?
     return if user_signed_in?
     return if request.host == ShikimoriDomain::BANNED_HOST
