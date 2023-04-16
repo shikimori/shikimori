@@ -27,6 +27,6 @@ class DashboardsController < ShikimoriController
     render :dynamic, formats: :html
   end
 
-  def data_deletion
-  end
+  # def data_deletion
+  # end
 end
