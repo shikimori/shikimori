@@ -21,11 +21,14 @@
         = render template: 'moderations/bans/new',
           locals: { ban_in_profile: true, ban: @ban }
 
-      .c-column.block_m
-        .subheadline.m5 = User.model_name.human
-        .b-entry-info
-          - %i[id email created_at current_sign_in_ip last_sign_in_ip sign_in_count current_sign_in_at last_sign_in_at].each do |field|
-            - unless %i[current_sign_in_ip last_sign_in_ip].include?(field) && @resource.admin?
+      .c-column
+        .block_m
+          .subheadline.m5 = User.model_name.human
+          .b-entry-info
+            - %i[id email created_at current_sign_in_ip last_sign_in_ip sign_in_count current_sign_in_at last_sign_in_at].each do |field|
+              - next if %i[current_sign_in_ip current_sign_in_at last_sign_in_ip last_sign_in_at].include?(field) && @resource.admin?
+              - next if field == :email && cannot?(:reset_email, @resource)
+
               = info_line field do
                 - if @resource.send(field).respond_to? :strftime
                   = l @resource.send(field), format: :full
@@ -37,6 +40,16 @@
                   ] = pluralize User.where(field => @resource.send(field)).count, 'person', 'users'
                 - else
                   = @resource.send(field)
+
+        - if can? :reset_email, @resource
+          .block_m
+            .subheadline.m5 Подключена авторизация через соц. сети.
+            div
+              - if @resource.user_tokens.none?
+                p.b-nothing_here Нет
+              - else
+                - @resource.user_tokens.each do |token|
+                  .b-oauth_token class=token.provider
 
   .block2
     .subheadline.m5 = t 'profiles.show.ban_history'
