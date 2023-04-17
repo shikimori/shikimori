@@ -11,7 +11,7 @@ cache :sitemap, expires_in: 1.day do
       xml.url do
         xml.loc url
         xml.tag! 'changefreq', 'daily'
-        xml.tag! 'priority', '0.80'
+        xml.tag! 'priority', '0.20'
       end
     end
     @anime_seasons.each do |_title, url|
