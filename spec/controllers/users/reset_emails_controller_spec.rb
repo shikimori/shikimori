@@ -5,7 +5,7 @@ describe Users::ResetEmailsController do
     subject! do
       get :new,
         params: {
-          profile_id: user.to_param
+          profile_id: user_2.to_param
         }
     end
     it { expect(response).to have_http_status :success }
