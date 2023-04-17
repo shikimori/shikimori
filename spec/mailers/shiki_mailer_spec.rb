@@ -141,11 +141,13 @@ describe ShikiMailer do
 
   describe '#custom_message' do
     subject(:mail) do
-      ShikiMailer.custom_message(
-        '123@qwe.zxc',
-        'email subject',
-        'email body'
-      ).deliver_now
+      ShikiMailer
+        .custom_message(
+          email: '123@qwe.zxc',
+          subject: 'email subject',
+          body: 'email body'
+        )
+        .deliver_now
     end
 
     it do

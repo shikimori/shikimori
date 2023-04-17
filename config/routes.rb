@@ -1089,7 +1089,9 @@ Rails.application.routes.draw do
         delete :reviews
       end
       resources :nickname_changes, only: %i[index]
-      resources :reset_emails, only: %i[new create]
+      resources :reset_emails, only: %i[create] do
+        get :new, path: '/', on: :collection
+      end
     end
   end
 

@@ -19,13 +19,19 @@
         p.b-nothing_here = t 'no'
 
   .subheadline.red.m5 = og.page_title.last
-  = simple_form_for @resource, url: '/' do |f|
-    = simple_fields_for :other do |ff|
+  = simple_form_for @resource, url: profile_reset_emails_url(@resource), method: :post do |f|
+    = simple_fields_for :reset_email do |ff|
       = ff.input :email,
         label: 'E-mail',
-        input_html: { value: @resource.email }
+        input_html: { value: params.dig(:reset_email, :email) || @resource.email }
       = ff.input :text,
         as: :text,
         label: 'Текст письма',
         hint: 'Оставь пустым, если письмо отправлять не нужно',
-        input_html: { value: @email_text }
+        input_html: { value: params.dig(:reset_email, :text) || controller.class::EMAIL_BODY }
+    = f.submit 'Отправить'
+
+  - if @error
+    .b-errors.mt-5
+      .subheadline.m5 = i18n_i 'error', :other
+      p = @error

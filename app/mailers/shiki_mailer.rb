@@ -73,7 +73,7 @@ class ShikiMailer < ActionMailer::Base
     )
   end
 
-  def custom_message email, subject, body
+  def custom_message email:, subject:, body:
     mail(
       to: email,
       subject: subject,
