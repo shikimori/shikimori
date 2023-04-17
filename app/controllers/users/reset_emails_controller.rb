@@ -17,19 +17,31 @@ class Users::ResetEmailsController < ProfilesController
       return render :new
     end
 
+    email_from = @resource.email
     if @resource.update email: create_params[:email]
       if create_params[:message].present?
+        @message_body = format create_params[:message],
+          user_url: @resource.url,
+          email: @resource.email,
+          password_recovery_url: new_user_password_url(user: { email: @resource.email })
+
         @mail = ShikiMailer
           .custom_message(
             email: @resource.email,
             subject: EMAIL_SUBJECT,
-            body: format(create_params[:message],
-              user_url: @resource.url,
-              email: @resource.email,
-              password_recovery_url: new_user_password_url(user: { email: @resource.email }))
+            body: @message_body
           )
           .deliver_now
       end
+      NamedLogger.reset_email.info(
+        moderator_id: current_user.id,
+        user_id: @resource.id,
+        email: {
+          from: email_from,
+          to: @resource.email
+        },
+        message: @message_body
+      )
 
       render :success
     else
