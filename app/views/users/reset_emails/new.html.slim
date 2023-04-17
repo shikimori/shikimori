@@ -24,11 +24,11 @@
       = ff.input :email,
         label: 'E-mail',
         input_html: { value: params.dig(:reset_email, :email) || @resource.email }
-      = ff.input :text,
+      = ff.input :message,
         as: :text,
         label: 'Текст письма',
         hint: 'Оставь пустым, если письмо отправлять не нужно',
-        input_html: { value: params.dig(:reset_email, :text) || controller.class::EMAIL_BODY }
+        input_html: { value: params.dig(:reset_email, :message) || controller.class::EMAIL_BODY }
     = f.submit 'Отправить'
 
   - if @error

@@ -4,8 +4,8 @@ class Users::ResetEmailsController < ProfilesController
   EMAIL_SUBJECT = 'Shikimori привязка почты к аккаунту'
   EMAIL_BODY = <<-TEXT.gsub(/^ +/, '')
     Привет!
-    К Шикимори аккаунту %<user_url>s теперь привязана твоя почта %<email>s.
-    Сбросить пароль можно перейдя по ссылке %<password_recovery_url>s.
+    К Шикимори аккаунту %<user_url>s привязана твоя почта %<email>s.
+    Теперь для восстановления доступа к аккаунту можно воспользоваться процедурой сброса пароля %<password_recovery_url>s.
   TEXT
 
   def new
@@ -19,7 +19,7 @@ class Users::ResetEmailsController < ProfilesController
 
     if @resource.update email: create_params[:email]
       if create_params[:message].present?
-        ShikiMailer
+        @mail = ShikiMailer
           .custom_message(
             email: @resource.email,
             subject: EMAIL_SUBJECT,
