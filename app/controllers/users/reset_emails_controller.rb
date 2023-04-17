@@ -46,6 +46,7 @@ class Users::ResetEmailsController < ProfilesController
       render :success
     else
       @error = @resource.errors.full_messages.join('<br>').html_safe
+      @resource.reload
       render :new
     end
   end
