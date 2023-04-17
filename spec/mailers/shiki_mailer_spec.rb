@@ -138,4 +138,20 @@ describe ShikiMailer do
       it { is_expected.to be_nil }
     end
   end
+
+  describe '#custom_message' do
+    subject(:mail) do
+      ShikiMailer.custom_message(
+        '123@qwe.zxc',
+        'email subject',
+        'email body'
+      ).deliver_now
+    end
+
+    it do
+      expect(mail.to).to eq ['123@qwe.zxc']
+      expect(mail.subject).to eq 'email subject'
+      expect(mail.body.raw_source).to eq 'email body'
+    end
+  end
 end

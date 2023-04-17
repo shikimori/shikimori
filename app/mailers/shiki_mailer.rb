@@ -73,6 +73,15 @@ class ShikiMailer < ActionMailer::Base
     )
   end
 
+  def custom_message email, subject, body
+    mail(
+      to: email,
+      subject: subject,
+      tag: 'custom',
+      body: body
+    )
+  end
+
   # def mail options, *args
   #   super
   # rescue Postmark::InvalidMessageError => e
