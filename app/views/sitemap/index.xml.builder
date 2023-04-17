@@ -2,7 +2,7 @@ cache :sitemap, expires_in: 1.day do
   xml.instruct!
   xml.urlset 'xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9' do
     xml.url do
-      xml.loc root_path(only_path: false)
+      xml.loc root_url(only_path: false)
       # xml.lastmod entry.updated_at.to_date
       xml.tag! 'changefreq', 'hourly'
       xml.tag! 'priority', '1'
