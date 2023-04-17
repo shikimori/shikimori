@@ -1,6 +1,6 @@
 - if can?(:merge, resource) || can?(:destroy, resource)
   .dangerous-actions
-    = spoiler t('.dangerous_actions') do
+    = spoiler t('.dangerous_actions') + ' (супер модератор)' do
       .to-process data-dynamic='tabs'
         .block
           div class=(resource.anime? || resource.kinda_manga? ? 'fc-actions' : 'fc-2')

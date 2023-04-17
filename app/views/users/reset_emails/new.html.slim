@@ -1,0 +1,31 @@
+= render layout: 'page' do
+  .cc-2
+    .c-column
+      .subheadline.m5 Профиль
+      .b-entry-info.m10
+        - %i[id nickname email last_online_at].each do |field|
+          = info_line field do
+            - if @resource.send(field).respond_to? :strftime
+              .b-anime_status_tag.misc-data = l @resource.send(field), format: :full
+            - else
+              .b-anime_status_tag.misc-data = @resource.send(field)
+    .c-column
+      .subheadline.m5 = t 'profiles.edit.account.connected_accounts'
+      - if @resource.user_tokens.any?
+        div
+          - @resource.user_tokens.each do |token|
+            .b-oauth_token class=token.provider
+      - else
+        p.b-nothing_here = t 'no'
+
+  .subheadline.red.m5 = og.page_title.last
+  = simple_form_for @resource, url: '/' do |f|
+    = simple_fields_for :other do |ff|
+      = ff.input :email,
+        label: 'E-mail',
+        input_html: { value: @resource.email }
+      = ff.input :text,
+        as: :text,
+        label: 'Текст письма',
+        hint: 'Оставь пустым, если письмо отправлять не нужно',
+        input_html: { value: @email_text }

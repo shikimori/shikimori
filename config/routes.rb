@@ -1027,6 +1027,7 @@ Rails.application.routes.draw do
       get 'topics(/page/:page)' => :topics, as: :topics
       get 'comments(/page/:page)' => :comments, as: :comments
       get 'versions(/page/:page)' => :versions, as: :versions
+
     end
 
     get 'manga' => redirect {|params, request| request.url.sub('/manga', '') } # редирект со старых урлов
@@ -1088,6 +1089,7 @@ Rails.application.routes.draw do
         delete :reviews
       end
       resources :nickname_changes, only: %i[index]
+      resources :reset_emails, only: %i[new create]
     end
   end
 
