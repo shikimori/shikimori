@@ -6,14 +6,14 @@
   <Url type="text/html"
     method="get"
     rel="results"
-    template="https://shikimori.one/animes?search={searchTerms}"/>
+    template="https://shikimori.me/animes?search={searchTerms}"/>
   <Url type="application/x-suggestions+json"
     rel="suggestions"
-    template="https://shikimori.one/animes.os?search={searchTerms}"/>
+    template="https://shikimori.me/animes.os?search={searchTerms}"/>
   <OutputEncoding>UTF-8</OutputEncoding>
   <InputEncoding>UTF-8</InputEncoding>
   <SyndicationRight>open</SyndicationRight>
   <AdultContent>false</AdultContent>
   <Language>*</Language>
-  <Contact>admin@shikimori.org</Contact>
+  <Contact>admin@shikimori.me</Contact>
 </OpenSearchDescription>
