@@ -1,7 +1,7 @@
 class MangaGenresRepository < AnimeGenresRepository
-private
+  private
 
   def scope
-    Genre.where(kind: :manga).order(:position)
+    Genre.where(entry_type: Types::Genre::EntryType['Manga']).order(:position)
   end
 end

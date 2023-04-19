@@ -30,7 +30,7 @@ private
   end
 
   def import_genre data
-    genre = genres_repository.find_by_mal_id data[:id] # rubocop:disable DynamicFindBy
+    genre = genres_repository.by_mal_id data[:id] # rubocop:disable DynamicFindBy
     raise ArgumentError, "mismatched genre: #{data.to_json}" unless genre.name == data[:name]
 
     genre

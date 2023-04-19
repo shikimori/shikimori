@@ -20,12 +20,12 @@ describe AnimeGenresRepository do
 
     context 'has entry' do
       let!(:entry) { create :genre, mal_id: mal_id }
-      it { expect(query.find_by_mal_id(mal_id)).to eq entry }
+      it { expect(query.by_mal_id(mal_id)).to eq entry }
     end
 
     context 'no entry' do
       it do
-        expect { query.find_by_mal_id mal_id }.to raise_error ActiveRecord::RecordNotFound
+        expect { query.by_mal_id mal_id }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
@@ -34,7 +34,7 @@ describe AnimeGenresRepository do
 
       it do
         create_entry
-        expect(query.find_by_mal_id(mal_id)).to eq create_entry
+        expect(query.by_mal_id(mal_id)).to eq create_entry
       end
     end
   end
