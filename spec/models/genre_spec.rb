@@ -10,6 +10,24 @@ describe Genre do
   end
 
   describe 'instance methods' do
+    describe '#anime?, #manga?' do
+      before { subject.entry_type = entry_type }
+
+      context 'Anime' do
+        let(:entry_type) { Types::Genre::EntryType['Anime'] }
+
+        its(:anime?) { is_expected.to eq true }
+        its(:manga?) { is_expected.to eq false }
+      end
+
+      context 'Manga' do
+        let(:entry_type) { Types::Genre::EntryType['Manga'] }
+
+        its(:anime?) { is_expected.to eq false }
+        its(:manga?) { is_expected.to eq true }
+      end
+    end
+
     describe '#title' do
       subject { genre.title ru_case: ru_case, user: user }
 

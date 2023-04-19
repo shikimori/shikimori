@@ -521,7 +521,7 @@ ru:
     ranobe:
       <<: *manga_enumerize
     genre:
-      kind:
+      entry_type:
         anime: Аниме
         manga: Манга
     external_link:

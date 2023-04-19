@@ -21,7 +21,7 @@ class Moderations::GenresController < ModerationsController
     if json?
       render 'db_entries/versions', locals: { collection: @versions }
     elsif resource_class == Genre
-      @collection = @collection.order(:kind, sorting_options)
+      @collection = @collection.order(:entry_type, sorting_options)
     else
       @collection = @collection.order(sorting_options)
     end
@@ -57,7 +57,7 @@ class Moderations::GenresController < ModerationsController
     else
       redirect_back(
         fallback_location: edit_url(@resource),
-        alert: versions.map { |v| v.errors[:base]&.dig(0) }.compact.first || i18n_t('no_changes')
+        alert: versions.filter_map { |v| v.errors[:base]&.dig(0) }.first || i18n_t('no_changes')
       )
     end
   end

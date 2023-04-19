@@ -13,12 +13,12 @@ describe Titles::CollectionTitle do
   end
   let(:klass) { Anime }
   let(:user) { nil }
-  let(:season) {}
-  let(:kind) {}
-  let(:status) {}
-  let(:genres) {}
-  let(:studios) {}
-  let(:publishers) {}
+  let(:season) { nil }
+  let(:kind) { nil }
+  let(:status) { nil }
+  let(:genres) { nil }
+  let(:studios) { nil }
+  let(:publishers) { nil }
 
   describe '#title' do
     subject(:title) { collection_title.title is_capitalized }
@@ -102,7 +102,7 @@ describe Titles::CollectionTitle do
     end
 
     describe 'genres' do
-      let(:genres) { build :genre, name: name, kind: klass.name.downcase }
+      let(:genres) { build :genre, name: name, entry_type: klass.base_class.name }
       let(:klass) { Anime }
 
       context 'magic' do

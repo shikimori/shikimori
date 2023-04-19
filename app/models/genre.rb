@@ -5,8 +5,7 @@ class Genre < ApplicationRecord
   validates :description, length: { maximum: 4096 }
 
   enumerize :entry_type,
-    in: Types::Genre::EntryType.values,
-    predicates: true
+    in: Types::Genre::EntryType.values
 
   DOUJINSHI_IDS = [61]
 
@@ -54,6 +53,14 @@ class Genre < ApplicationRecord
 
   def main?
     MAIN_GENRES.include?(english)
+  end
+
+  def anime?
+    entry_type == Types::Genre::EntryType['Anime']
+  end
+
+  def manga?
+    entry_type == Types::Genre::EntryType['Manga']
   end
 
   def title ru_case: :subjective, user: nil
