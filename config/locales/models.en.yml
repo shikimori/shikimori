@@ -7,41 +7,41 @@ en:
     ban_message: banned on %{duration}. %{reason}.
 
   genre:
-    default_title: '%{name} %{kind}'
+    default_title: '%{name} %{localized_entry_type}'
     title:
       common: &common
-        adventure: '%{kind} about adventures'
-        comedy: comedy %{kind}
-        demons: '%{kind} about demons'
-        drama: drama %{kind}
-        ecchi: ecchi %{kind}
-        fantasy: fantasy %{kind}
-        games: '%{kind} about games'
-        historical: historical %{kind}
-        horror: horror %{kind}
-        josei: josei %{kind}
-        kids: kids %{kind}
-        magic: '%{kind} about magic'
-        martial_arts: '%{kind} about martial arts'
-        mecha: mecha %{kind}
-        mystery: '%{kind} about mysteries'
-        police: '%{kind} about police'
-        romance: romance %{kind}
-        school: '%{kind} about school'
-        sci-fi: sci-fi %{kind}
-        seinen: seinen %{kind}
-        shoujo: shoujo %{kind}
-        shoujo_ai: shoujo-ai %{kind}
-        shounen: shounen %{kind}
-        shounen_ai: shounen-ai %{kind}
-        space: '%{kind} about space'
-        sports: '%{kind} about sport'
-        sumurai: '%{kind} about samurais'
-        supernatural: supernatural %{kind}
-        thriller: thriller %{kind}
-        vampire: '%{kind} about vampires'
-        yaoi: yaoi %{kind}
-        yuri: yuri %{kind}
+        adventure: '%{localized_entry_type} about adventures'
+        comedy: comedy %{localized_entry_type}
+        demons: '%{localized_entry_type} about demons'
+        drama: drama %{localized_entry_type}
+        ecchi: ecchi %{localized_entry_type}
+        fantasy: fantasy %{localized_entry_type}
+        games: '%{localized_entry_type} about games'
+        historical: historical %{localized_entry_type}
+        horror: horror %{localized_entry_type}
+        josei: josei %{localized_entry_type}
+        kids: kids %{localized_entry_type}
+        magic: '%{localized_entry_type} about magic'
+        martial_arts: '%{localized_entry_type} about martial arts'
+        mecha: mecha %{localized_entry_type}
+        mystery: '%{localized_entry_type} about mysteries'
+        police: '%{localized_entry_type} about police'
+        romance: romance %{localized_entry_type}
+        school: '%{localized_entry_type} about school'
+        sci-fi: sci-fi %{localized_entry_type}
+        seinen: seinen %{localized_entry_type}
+        shoujo: shoujo %{localized_entry_type}
+        shoujo_ai: shoujo-ai %{localized_entry_type}
+        shounen: shounen %{localized_entry_type}
+        shounen_ai: shounen-ai %{localized_entry_type}
+        space: '%{localized_entry_type} about space'
+        sports: '%{localized_entry_type} about sport'
+        sumurai: '%{localized_entry_type} about samurais'
+        supernatural: supernatural %{localized_entry_type}
+        thriller: thriller %{localized_entry_type}
+        vampire: '%{localized_entry_type} about vampires'
+        yaoi: yaoi %{localized_entry_type}
+        yuri: yuri %{localized_entry_type}
 
       subjective: &subjective
         anime:

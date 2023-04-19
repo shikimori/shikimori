@@ -4,7 +4,9 @@ class Genre < ApplicationRecord
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 4096 }
 
-  enumerize :kind, in: %i[anime manga], predicates: true
+  enumerize :entry_type,
+    in: Types::Genre::EntryType.values,
+    predicates: true
 
   DOUJINSHI_IDS = [61]
 
@@ -57,12 +59,12 @@ class Genre < ApplicationRecord
   def title ru_case: :subjective, user: nil
     key = english.parameterize.underscore
     name = UsersHelper.localized_name self, user
-    kind = self.kind.capitalize.constantize.model_name.human
+    localized_entry_type = entry_type.constantize.model_name.human
 
     i18n_t(
-      "title.#{ru_case}.#{self.kind}.#{key}",
-      kind: kind,
-      default: i18n_t('default_title', kind: kind, name: name)
+      "title.#{ru_case}.#{entry_type.downcase}.#{key}",
+      localized_entry_type: localized_entry_type,
+      default: i18n_t('default_title', localized_entry_type: localized_entry_type, name: name)
     ).capitalize
   end
 

@@ -6,7 +6,7 @@ describe Genre do
   end
 
   describe 'enumerize' do
-    it { is_expected.to enumerize(:kind).in :anime, :manga }
+    it { is_expected.to enumerize(:entry_type).in(*Types::Genre::EntryType.values) }
   end
 
   describe 'instance methods' do
@@ -16,12 +16,12 @@ describe Genre do
       let(:ru_case) { :subjective }
       let(:user) { nil }
 
-      let(:genre) { build :genre, name: name, kind: kind }
-      let(:kind) { 'anime' }
+      let(:genre) { build :genre, name: name, entry_type: entry_type }
+      let(:entry_type) { Types::Genre::EntryType['Anime'] }
       let(:name) { 'Romance' }
 
-      context 'anime' do
-        let(:kind) { 'anime' }
+      context 'Anime' do
+        let(:entry_type) { Types::Genre::EntryType['Anime'] }
 
         context 'Magic' do
           let(:name) { 'Magic' }
@@ -39,8 +39,8 @@ describe Genre do
         end
       end
 
-      context 'manga' do
-        let(:kind) { 'manga' }
+      context 'Manga' do
+        let(:entry_type) { Types::Genre::EntryType['Manga'] }
 
         context 'Magic' do
           let(:name) { 'Magic' }
@@ -64,7 +64,7 @@ describe Genre do
       end
 
       context 'default title' do
-        let(:genre) { build :genre, name: name, kind: kind, russian: 'Безумие' }
+        let(:genre) { build :genre, name: name, entry_type: entry_type, russian: 'Безумие' }
         let(:name) { 'Dementia' }
 
         it { is_expected.to eq 'Аниме жанра безумие' }

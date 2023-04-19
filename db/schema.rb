@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_07_152255) do
+ActiveRecord::Schema.define(version: 2023_04_19_181257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -619,9 +619,9 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.integer "position"
     t.integer "seo", default: 99
     t.string "description", limit: 4096
-    t.string "kind", null: false
+    t.string "entry_type", null: false
     t.integer "mal_id", null: false
-    t.index ["mal_id", "kind"], name: "index_genres_on_mal_id_and_kind", unique: true
+    t.index ["mal_id", "entry_type"], name: "index_genres_on_mal_id_and_entry_type", unique: true
   end
 
   create_table "ignores", id: :serial, force: :cascade do |t|
