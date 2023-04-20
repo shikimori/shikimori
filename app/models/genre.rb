@@ -7,6 +7,8 @@ class Genre < ApplicationRecord
   enumerize :entry_type,
     in: Types::Genre::EntryType.values
 
+  boolean_attribute :active
+
   DOUJINSHI_IDS = [61]
 
   EROTICA_IDS = [539, 540]
