@@ -6,6 +6,9 @@ class Genre < ApplicationRecord
 
   enumerize :entry_type,
     in: Types::Genre::EntryType.values
+  enumerize :kind,
+    in: Types::Genre::Kind.values,
+    predicates: true
 
   boolean_attribute :active
 

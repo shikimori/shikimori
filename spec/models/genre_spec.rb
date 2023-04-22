@@ -7,6 +7,7 @@ describe Genre do
 
   describe 'enumerize' do
     it { is_expected.to enumerize(:entry_type).in(*Types::Genre::EntryType.values) }
+    it { is_expected.to enumerize(:kind).in(*Types::Genre::Kind.values) }
   end
 
   describe 'instance methods' do
