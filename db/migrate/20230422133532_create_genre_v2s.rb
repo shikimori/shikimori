@@ -1,0 +1,18 @@
+class CreateGenreV2s < ActiveRecord::Migration[6.1]
+  def change
+    create_table :genre_v2s do |t|
+      t.string :name, null: false
+      t.string :russian, null: false, defualt: ''
+      t.string :entry_type, null: false
+      t.string :kind, null: false
+      t.bigint :mal_id, null: false
+      t.boolean :is_active, null: false, default: true
+      t.boolean :is_censored, null: false, default: false
+      t.integer :position
+      t.integer :seo, default: 99
+      t.string :description, null: false, defualt: ''
+
+      t.timestamps
+    end
+  end
+end

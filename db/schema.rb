@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_22_131649) do
+ActiveRecord::Schema.define(version: 2023_04_22_133532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -609,6 +609,21 @@ ActiveRecord::Schema.define(version: 2023_04_22_131649) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["src_id", "dst_id"], name: "index_friend_links_on_src_id_and_dst_id", unique: true
+  end
+
+  create_table "genre_v2s", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "russian", null: false
+    t.string "entry_type", null: false
+    t.string "kind", null: false
+    t.bigint "mal_id", null: false
+    t.boolean "is_active", default: true, null: false
+    t.boolean "is_censored", default: false, null: false
+    t.integer "position"
+    t.integer "seo", default: 99
+    t.string "description", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "genres", force: :cascade do |t|
