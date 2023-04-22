@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
-  <ShortName>shikimori.one</ShortName>
-  <Description>shikimori.one anime search</Description>
-  <Image height="16" width="16" type="image/x-icon">https://shikimori.one/favicon.ico</Image>
+  <ShortName>shikimori.me</ShortName>
+  <Description>shikimori.me anime search</Description>
+  <Image height="16" width="16" type="image/x-icon">https://shikimori.me/favicon.ico</Image>
   <Url type="text/html"
     method="get"
     rel="results"
