@@ -616,11 +616,11 @@ ActiveRecord::Schema.define(version: 2023_04_22_133532) do
     t.string "russian", null: false
     t.string "entry_type", null: false
     t.string "kind", null: false
-    t.bigint "mal_id", null: false
+    t.bigint "mal_id"
     t.boolean "is_active", default: true, null: false
     t.boolean "is_censored", default: false, null: false
-    t.integer "position"
-    t.integer "seo", default: 99
+    t.integer "position", default: 99, null: false
+    t.integer "seo", default: 99, null: false
     t.string "description", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
