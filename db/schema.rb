@@ -635,11 +635,9 @@ ActiveRecord::Schema.define(version: 2023_04_22_172218) do
     t.integer "position"
     t.integer "seo", default: 99
     t.string "description", limit: 4096
-    t.string "entry_type", null: false
-    t.integer "mal_id", null: false
-    t.boolean "is_active", null: false
     t.string "kind", null: false
-    t.index ["mal_id", "entry_type"], name: "index_genres_on_mal_id_and_entry_type", unique: true
+    t.integer "mal_id", null: false
+    t.index ["mal_id", "kind"], name: "index_genres_on_mal_id_and_kind", unique: true
   end
 
   create_table "ignores", force: :cascade do |t|
