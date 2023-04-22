@@ -1,5 +1,5 @@
 class GenreV2 < ApplicationRecord
-  validates :name, :russian,
+  validates :name, :russian, :mal_id,
     presence: true
 
   enumerize :entry_type,

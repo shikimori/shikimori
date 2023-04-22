@@ -5,7 +5,7 @@ class CreateGenreV2s < ActiveRecord::Migration[6.1]
       t.string :russian, null: false
       t.string :entry_type, null: false
       t.string :kind, null: false
-      t.bigint :mal_id
+      t.bigint :mal_id, null: false
       t.boolean :is_active, null: false, default: true
       t.boolean :is_censored, null: false, default: false
       t.integer :position, null: false, default: 99

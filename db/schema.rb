@@ -617,7 +617,7 @@ ActiveRecord::Schema.define(version: 2023_04_22_172218) do
     t.string "russian", null: false
     t.string "entry_type", null: false
     t.string "kind", null: false
-    t.bigint "mal_id"
+    t.bigint "mal_id", null: false
     t.boolean "is_active", default: true, null: false
     t.boolean "is_censored", default: false, null: false
     t.integer "position", default: 99, null: false

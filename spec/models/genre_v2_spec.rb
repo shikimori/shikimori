@@ -2,6 +2,7 @@ describe GenreV2 do
   describe 'validations' do
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_presence_of :russian }
+    it { is_expected.to validate_presence_of :mal_id }
   end
 
   describe 'enumerize' do
