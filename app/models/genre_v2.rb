@@ -8,7 +8,8 @@ class GenreV2 < ApplicationRecord
     in: Types::Genre::Kind.values,
     predicates: true
 
-  boolean_attribute :active, :censored
+  boolean_attribute :active
+  boolean_attribute :censored
 
   def to_param
     "#{id}-#{english.tr ' ', '-'}"
