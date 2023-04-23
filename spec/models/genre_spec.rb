@@ -6,41 +6,22 @@ describe Genre do
   end
 
   describe 'enumerize' do
-    it { is_expected.to enumerize(:entry_type).in(*Types::Genre::EntryType.values) }
-    it { is_expected.to enumerize(:kind).in(*Types::Genre::Kind.values) }
+    it { is_expected.to enumerize(:kind).in :anime, :manga }
   end
 
   describe 'instance methods' do
-    describe '#anime?, #manga?' do
-      before { subject.entry_type = entry_type }
-
-      context 'Anime' do
-        let(:entry_type) { Types::Genre::EntryType['Anime'] }
-
-        its(:anime?) { is_expected.to eq true }
-        its(:manga?) { is_expected.to eq false }
-      end
-
-      context 'Manga' do
-        let(:entry_type) { Types::Genre::EntryType['Manga'] }
-
-        its(:anime?) { is_expected.to eq false }
-        its(:manga?) { is_expected.to eq true }
-      end
-    end
-
     describe '#title' do
       subject { genre.title ru_case: ru_case, user: user }
 
       let(:ru_case) { :subjective }
       let(:user) { nil }
 
-      let(:genre) { build :genre, name: name, entry_type: entry_type }
-      let(:entry_type) { Types::Genre::EntryType['Anime'] }
+      let(:genre) { build :genre, name: name, kind: kind }
+      let(:kind) { 'anime' }
       let(:name) { 'Romance' }
 
-      context 'Anime' do
-        let(:entry_type) { Types::Genre::EntryType['Anime'] }
+      context 'anime' do
+        let(:kind) { 'anime' }
 
         context 'Magic' do
           let(:name) { 'Magic' }
@@ -58,8 +39,8 @@ describe Genre do
         end
       end
 
-      context 'Manga' do
-        let(:entry_type) { Types::Genre::EntryType['Manga'] }
+      context 'manga' do
+        let(:kind) { 'manga' }
 
         context 'Magic' do
           let(:name) { 'Magic' }
@@ -83,7 +64,7 @@ describe Genre do
       end
 
       context 'default title' do
-        let(:genre) { build :genre, name: name, entry_type: entry_type, russian: 'Безумие' }
+        let(:genre) { build :genre, name: name, kind: kind, russian: 'Безумие' }
         let(:name) { 'Dementia' }
 
         it { is_expected.to eq 'Аниме жанра безумие' }
