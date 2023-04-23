@@ -1,4 +1,4 @@
-describe MangaGenresV2Repository do
+describe MangaGenreV2Repository do
   let(:query) { described_class.instance }
 
   before { query.reset }

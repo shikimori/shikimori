@@ -1,4 +1,4 @@
-class AnimeGenresV2Repository < RepositoryBase
+class AnimeGenreV2Repository < RepositoryBase
   def by_mal_id mal_id
     collection.values.find { |genre| genre.mal_id == mal_id } ||
       (reset && collection.values.find { |genre| genre.mal_id == mal_id }) ||

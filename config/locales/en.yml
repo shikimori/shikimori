@@ -11,6 +11,7 @@ en:
       contest: Contest
       forum: Forum
       genre: Genre
+      genre_v2: Genre v2
       studio: Producer
       publisher: Publisher
       manga: Manga
@@ -47,7 +48,9 @@ en:
         episodes_aired: Episodes aired
         external_links: Links
         genres: Genres
+        genres_v2: Genres v2
         genre_ids: Genres # used for item_diff in versions
+        genre_v2_ids: Genres v2 # used for item_diff in versions
         image: &poster Poster
         kind: Type
         name: Name
@@ -131,7 +134,7 @@ en:
       ban:
         reason: Reason
         duration: Duration
-      genre:
+      genre: &genre
         id: ID
         position: Position
         name: Title
@@ -140,6 +143,8 @@ en:
         seo: SEO priority
         kind: type
         mal_id: MAL ID
+      genre_v2:
+        <<: *genre
       studio:
         id: ID
         name: Name

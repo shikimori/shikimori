@@ -1,4 +1,4 @@
-class MangaGenresV2Repository < AnimeGenresV2Repository
+class MangaGenreV2Repository < AnimeGenreV2Repository
   private
 
   def scope_entry_type
