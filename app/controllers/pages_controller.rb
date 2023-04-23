@@ -234,6 +234,8 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def timeout_120s
+    raise CanCan::AccessDenied unless user_signed_in? && current_user.admin?
+
     sleep 120
     render json: 'ok'
   end
@@ -246,6 +248,8 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def csrf_token
+    raise CanCan::AccessDenied unless user_signed_in? && current_user.admin?
+
     if current_user&.admin?
       render json: {
         _csrf_token: session[:_csrf_token],
