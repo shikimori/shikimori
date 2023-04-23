@@ -139,7 +139,7 @@ group :beta, :production do
   # gem 'sentry-raven'
   # gem 'honeybadger'
   # gem 'honeybadger', '~> 5.0'
-  # gem 'appsignal'
+  gem 'appsignal'
   # gem 'sentry-ruby'
   # gem 'sentry-rails'
   gem 'bugsnag'

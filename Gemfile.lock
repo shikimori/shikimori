@@ -183,6 +183,8 @@ GEM
     apipie-rails (0.8.2)
       actionpack (>= 5.0)
       activesupport (>= 5.0)
+    appsignal (3.3.10)
+      rack
     ast (2.4.2)
     attr_extras (7.1.0)
     autoprefixer-rails (10.4.7.0)
@@ -797,6 +799,7 @@ DEPENDENCIES
   amatch!
   amazing_print
   apipie-rails
+  appsignal
   attr_extras
   autoprefixer-rails
   better_errors
