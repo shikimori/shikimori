@@ -622,7 +622,7 @@ ActiveRecord::Schema.define(version: 2023_04_22_172218) do
     t.boolean "is_censored", default: false, null: false
     t.integer "position", default: 99, null: false
     t.integer "seo", default: 99, null: false
-    t.string "description", null: false
+    t.string "description", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

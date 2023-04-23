@@ -10,7 +10,7 @@ class CreateGenreV2s < ActiveRecord::Migration[6.1]
       t.boolean :is_censored, null: false, default: false
       t.integer :position, null: false, default: 99
       t.integer :seo, null: false, default: 99
-      t.string :description, null: false, defualt: ''
+      t.string :description, null: false, default: ''
 
       t.timestamps
     end
