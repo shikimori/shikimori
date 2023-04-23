@@ -11,6 +11,14 @@ describe GenreV2 do
   end
 
   describe 'instance methods' do
+    describe '#to_param' do
+      before do
+        subject.id = 123
+        subject.name = 'Yaoi hentai'
+      end
+      its(:to_param) { is_expected.to eq '123-Yaoi-hentai' }
+    end
+
     describe '#anime?, #manga?' do
       before { subject.entry_type = entry_type }
 

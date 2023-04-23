@@ -12,7 +12,7 @@ class GenreV2 < ApplicationRecord
   boolean_attribute :censored
 
   def to_param
-    "#{id}-#{english.tr ' ', '-'}"
+    "#{id}-#{name.tr ' ', '-'}"
   end
 
   def anime?
