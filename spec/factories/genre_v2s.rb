@@ -6,7 +6,8 @@ FactoryBot.define do
     kind { Types::Genre::Kind[:genre] }
     description { '' }
     mal_id { nil }
-    is_active { false }
+    is_censored { false }
+    is_active { true }
     position { 99 }
     seo { 99 }
 
