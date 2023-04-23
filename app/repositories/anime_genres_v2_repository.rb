@@ -12,6 +12,6 @@ private
   end
 
   def scope_entry_type
-    Types::Genre::EntryType['Anime']
+    Types::GenreV2::EntryType['Anime']
   end
 end

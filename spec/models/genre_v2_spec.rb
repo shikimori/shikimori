@@ -6,8 +6,8 @@ describe GenreV2 do
   end
 
   describe 'enumerize' do
-    it { is_expected.to enumerize(:entry_type).in(*Types::Genre::EntryType.values) }
-    it { is_expected.to enumerize(:kind).in(*Types::Genre::Kind.values) }
+    it { is_expected.to enumerize(:entry_type).in(*Types::GenreV2::EntryType.values) }
+    it { is_expected.to enumerize(:kind).in(*Types::GenreV2::Kind.values) }
   end
 
   describe 'instance methods' do
@@ -15,14 +15,14 @@ describe GenreV2 do
       before { subject.entry_type = entry_type }
 
       context 'Anime' do
-        let(:entry_type) { Types::Genre::EntryType['Anime'] }
+        let(:entry_type) { Types::GenreV2::EntryType['Anime'] }
 
         its(:anime?) { is_expected.to eq true }
         its(:manga?) { is_expected.to eq false }
       end
 
       context 'Manga' do
-        let(:entry_type) { Types::Genre::EntryType['Manga'] }
+        let(:entry_type) { Types::GenreV2::EntryType['Manga'] }
 
         its(:anime?) { is_expected.to eq false }
         its(:manga?) { is_expected.to eq true }
@@ -36,11 +36,11 @@ describe GenreV2 do
     #   let(:user) { nil }
     #
     #   let(:genre) { build :genre_v2, name: name, entry_type: entry_type }
-    #   let(:entry_type) { Types::Genre::EntryType['Anime'] }
+    #   let(:entry_type) { Types::GenreV2::EntryType['Anime'] }
     #   let(:name) { 'Romance' }
     #
     #   context 'Anime' do
-    #     let(:entry_type) { Types::Genre::EntryType['Anime'] }
+    #     let(:entry_type) { Types::GenreV2::EntryType['Anime'] }
     #
     #     context 'Magic' do
     #       let(:name) { 'Magic' }
@@ -59,7 +59,7 @@ describe GenreV2 do
     #   end
     #
     #   context 'Manga' do
-    #     let(:entry_type) { Types::Genre::EntryType['Manga'] }
+    #     let(:entry_type) { Types::GenreV2::EntryType['Manga'] }
     #
     #     context 'Magic' do
     #       let(:name) { 'Magic' }

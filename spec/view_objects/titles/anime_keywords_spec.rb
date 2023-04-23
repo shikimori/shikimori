@@ -20,7 +20,7 @@ describe Titles::AnimeKeywords do
       build :genre,
         name: 'Magic',
         russian: 'Магия',
-        entry_type: klass.base_class.name
+        kind: klass.base_class.name.downcase
     end
     let(:studios) { build :studio, name: 'Fofofo Studio' }
     let(:publishers) { build :publisher, name: 'Fofofo Publisher' }

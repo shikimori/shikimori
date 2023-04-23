@@ -102,7 +102,7 @@ describe Titles::CollectionTitle do
     end
 
     describe 'genres' do
-      let(:genres) { build :genre, name: name, entry_type: klass.base_class.name }
+      let(:genres) { build :genre, name: name, kind: klass.base_class.name.downcase }
       let(:klass) { Anime }
 
       context 'magic' do

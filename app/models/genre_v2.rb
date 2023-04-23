@@ -3,9 +3,9 @@ class GenreV2 < ApplicationRecord
     presence: true
 
   enumerize :entry_type,
-    in: Types::Genre::EntryType.values
+    in: Types::GenreV2::EntryType.values
   enumerize :kind,
-    in: Types::Genre::Kind.values,
+    in: Types::GenreV2::Kind.values,
     predicates: true
 
   boolean_attribute :active
@@ -16,10 +16,10 @@ class GenreV2 < ApplicationRecord
   end
 
   def anime?
-    entry_type == Types::Genre::EntryType['Anime']
+    entry_type == Types::GenreV2::EntryType['Anime']
   end
 
   def manga?
-    entry_type == Types::Genre::EntryType['Manga']
+    entry_type == Types::GenreV2::EntryType['Manga']
   end
 end

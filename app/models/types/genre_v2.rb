@@ -1,5 +1,5 @@
 module Types
-  module Genre
+  module GenreV2
     ENTRY_TYPES = %w[Anime Manga]
     EntryType = Types::String.enum(*ENTRY_TYPES)
 

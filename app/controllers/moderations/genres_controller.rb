@@ -21,7 +21,7 @@ class Moderations::GenresController < ModerationsController
     if json?
       render 'db_entries/versions', locals: { collection: @versions }
     elsif resource_class == Genre
-      @collection = @collection.order(:entry_type, sorting_options)
+      @collection = @collection.order(:kind, sorting_options)
     else
       @collection = @collection.order(sorting_options)
     end
