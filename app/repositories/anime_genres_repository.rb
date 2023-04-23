@@ -8,6 +8,6 @@ class AnimeGenresRepository < RepositoryBase
 private
 
   def scope
-    Genre.where(entry_type: Types::Genre::EntryType['Anime']).order(:position)
+    Genre.where(kind: 'anime').order(:position)
   end
 end
