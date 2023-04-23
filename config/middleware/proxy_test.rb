@@ -17,7 +17,11 @@ class ProxyTest
       [200,
        { 'Content-Type' => 'text/plain' },
        [
-         env['HTTP_X_FORWARDED_FOR'] || env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR']
+         (
+          env['HTTP_X_FORWARDED_FOR'].presence ||
+            env['HTTP_X_REAL_IP'].presence ||
+            env['REMOTE_ADDR'].presence
+          )&.split(',')&.first
        ]]
     else
       @app.call(env)
