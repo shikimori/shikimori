@@ -247,7 +247,7 @@ GEM
     concurrent-ruby (1.1.10)
     concurrent-ruby-edge (0.6.0)
       concurrent-ruby (~> 1.1.6)
-    connection_pool (2.3.0)
+    connection_pool (2.4.0)
     content_disposition (1.0.0)
     cookiejar (0.3.3)
     crack (0.4.5)
@@ -611,6 +611,8 @@ GEM
     redis (4.8.0)
     redis-classy (2.4.1)
       redis-namespace (~> 1.0)
+    redis-client (0.14.1)
+      connection_pool
     redis-mutex (4.0.2)
       redis-classy (~> 2.0)
     redis-namespace (1.9.0)
@@ -692,10 +694,11 @@ GEM
     shrine (3.4.0)
       content_disposition (~> 1.0)
       down (~> 5.1)
-    sidekiq (6.5.8)
-      connection_pool (>= 2.2.5, < 3)
-      rack (~> 2.0)
-      redis (>= 4.5.0, < 5)
+    sidekiq (7.0.8)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.11.0)
     sidekiq-delay_extensions (6.4.1)
       sidekiq (>= 6.4.1)
     sidekiq-limit_fetch (4.3.2)
@@ -911,7 +914,7 @@ DEPENDENCIES
   shallow_attributes!
   shoulda-matchers
   shrine
-  sidekiq (~> 6.5.5)
+  sidekiq (~> 7.0.8)
   sidekiq-delay_extensions
   sidekiq-limit_fetch
   sidekiq-unique-jobs
