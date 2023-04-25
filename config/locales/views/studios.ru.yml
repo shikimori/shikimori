@@ -1,5 +1,10 @@
 ru:
   studios:
+    breadcrumb: Студия
+    animes: Аниме студии
     index:
       anime_produced: Аниме создано
       over_the_period: За период
+    page: &page
+      actions:
+        comment: Комментировать

@@ -23,6 +23,7 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
     'Ranobe' => 1,
     'Character' => 1,
     'Person' => 1,
+    'Studio' => 1,
     'Club' => Forum::CLUBS_ID,
     'ClubPage' => Forum::CLUBS_ID,
     'Critique' => Forum::CRITIQUES_ID,
@@ -50,6 +51,7 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
     Ranobe
     Character
     Person
+    Studio
     Club
     ClubPage
     Critique

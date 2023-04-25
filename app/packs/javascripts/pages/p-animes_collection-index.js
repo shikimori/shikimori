@@ -20,6 +20,19 @@ pageLoad('animes_collection_index', 'recommendations_index', 'userlist_comparer_
     });
 });
 
+pageLoad('animes_collection_index', async () => {
+  $('.b-subposter-actions .new_comment').on('click', () => {
+    $('.shiki_editor-selector').view().focus();
+  });
+
+  const [{ FavoriteStar }, { LangTrigger }] = await Promise.all([
+    import(/* webpackChunkName: "db_entries_show" */ '@/views/db_entries/favorite_star'),
+    import(/* webpackChunkName: "db_entries_show" */ '@/views/db_entries/lang_trigger')
+  ]);
+
+  new LangTrigger('.b-lang_trigger');
+});
+
 function initCatalog() {
   let baseCatalogPath = $('.b-collection-filters').data('base_path');
 

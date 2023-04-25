@@ -1,0 +1,33 @@
+= render layout: 'studios/page' do
+  = cache [@resource, user_signed_in?, :v13] do
+    .b-db_entry
+      .c-image
+        .cc
+          .c-poster
+            img.logo[
+              src=cdn_image_url(studio, :original)
+              alt=studio.name
+              title=studio.name
+            ]
+
+          .c-actions
+            .b-subposter-actions
+              a.b-subposter-action.new_comment.b-tooltipped.unprocessed.to-process[
+                title=t('.actions.comment')
+                data-direction='top'
+                data-text=t('.actions.comment')
+                data-dynamic='authorized'
+              ]
+
+      .c-description
+        .subheadline = Character.human_attribute_name :description
+        .block
+          meta[
+            itemprop='image'
+            content="#{{meta_image_url @resource.image, :original, false}}"
+          ]
+          meta[
+            itemprop='thumbnailUrl'
+            content="#{{meta_image_url @resource.image, :x64, false}}"
+          ]
+          = render 'blocks/description', resource: @resource

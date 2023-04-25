@@ -1,6 +1,6 @@
 ru:
   animes_collection:
-    menu:
+    menu: &menu
       anime:
         status: &anime_statuses
           anons: Анонсировано
@@ -32,6 +32,8 @@ ru:
       ranobe:
         <<: *manga_menu
       show_list: Показать список
+    studio_menu:
+      <<: *menu
 
   animes: &animes
     page:

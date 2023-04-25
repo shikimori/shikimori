@@ -5,7 +5,8 @@ json.content JsExports::Supervisor.instance.sweep(
   render(
     partial: 'animes_collection/cached_collection',
     locals: {
-      view: @view
+      view: @view,
+      is_studio: params[:studio].present?
     },
     formats: :html
   )

@@ -1,0 +1,12 @@
+.b-animes-menu
+  - unless params[:studio]
+    .b-menu_logo
+      a[
+        href=resource.url
+        title=localized_name(resource)
+      ]
+        img.logo[
+          src=cdn_image_url(resource, :original)
+          alt=resource.name
+          title=resource.name
+        ]

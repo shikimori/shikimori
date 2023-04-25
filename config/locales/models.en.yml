@@ -47,53 +47,14 @@ en:
         anime:
           <<: *common
 
-
-
-
-
-
         manga:
           <<: *common
-
-
-
-
-
 
         ranobe:
           <<: *common
 
-
-
-
-
-
-
       genitive:
         <<: *subjective
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   topics/entry_topic:
     title:
@@ -101,6 +62,7 @@ en:
       manga: Manga thread
       ranobe: Light novel thread
       character: Character thread
+      studio: Studio thread
       person: Person thread
       critique: Critique thread
       contest: Contest thread
@@ -114,6 +76,7 @@ en:
       anime: '[anime=%{id}]Anime[/anime] discussion thread.'
       article: '[article=%{id}]Article[/article] discussion thread.'
       character: '[character=%{id}]Character[/character] discussion thread.'
+      studio: 'Studio discussion thread.'
       club: '[club=%{id}]Club[/club] discussion thread.'
       club_page: '[club=%{club_id}]Club[/club] [club_page=%{club_page_id}]page[/club_page] discussion thread.'
       collection: '[collection=%{id}]Collection[/collection] discussion thread.'
@@ -124,6 +87,7 @@ en:
       person: '[person=%{id}]Person[/person] discussion thread.'
       ranobe: '[ranobe=%{id}]Light novel[/ranobe] discussion thread.'
       review: '[review=%{id}]Review[/review] discussion thread.'
+      nil_class: Ffefefef
 
     full_title:
       anime: Anime [anime]%{id}[/anime] discussion

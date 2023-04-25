@@ -21,6 +21,10 @@ class Topic::TypePolicy
     news_topic? && !@object.generated?
   end
 
+  def studio_topic?
+    @object.instance_of? Topics::EntryTopics::StudioTopic
+  end
+
   def critique_topic?
     @object.instance_of? Topics::EntryTopics::CritiqueTopic
   end
