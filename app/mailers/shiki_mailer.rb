@@ -4,7 +4,7 @@ class ShikiMailer < ActionMailer::Base
   include Routing
   include Translation
 
-  default from: 'noreply@mail.shikimori.one'
+  default from: 'noreply@shikimori.me'
 
   rescue_from Net::SMTPSyntaxError do
     user = User.find_by email: message[:to].value
@@ -13,7 +13,7 @@ class ShikiMailer < ActionMailer::Base
     NamedLogger.email.info "failed to send email to #{user.email}"
   end
 
-  def test_mail email = 'admin@shikimori.org'
+  def test_mail email = Shikimori::EMAIL
     return if generated? email
 
     mail to: email, subject: 'Test', body: 'test body'
@@ -69,6 +69,15 @@ class ShikiMailer < ActionMailer::Base
       to: user.email,
       subject: subject,
       tag: 'password-reset',
+      body: body
+    )
+  end
+
+  def custom_message email:, subject:, body:
+    mail(
+      to: email,
+      subject: subject,
+      tag: 'custom',
       body: body
     )
   end

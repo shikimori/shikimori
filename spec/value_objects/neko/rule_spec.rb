@@ -51,38 +51,34 @@ describe Neko::Rule do
   end
 
   describe '#title' do
-    subject { rule.title user, is_ru_host }
+    subject { rule.title user }
     before { allow(I18n).to receive(:locale).and_return locale }
     let(:user) { nil }
 
-    context 'ru_host' do
-      let(:is_ru_host) { true }
+    context 'ru' do
       let(:locale) { :ru }
       it { is_expected.to eq rule.title_ru }
     end
 
-    context 'not ru_host' do
-      let(:is_ru_host) { false }
+    context 'end' do
       let(:locale) { :en }
-      it { is_expected.to eq Neko::Rule::NO_RULE.title(user, is_ru_host) }
+      it { is_expected.to eq Neko::Rule::NO_RULE.title(user) }
     end
   end
 
   describe '#text' do
-    subject { rule.text is_ru_host }
+    subject { rule.text }
     before { allow(I18n).to receive(:locale).and_return locale }
     let(:user) { nil }
 
-    context 'ru_host' do
-      let(:is_ru_host) { true }
+    context 'ru' do
       let(:locale) { :ru }
       it { is_expected.to eq rule.text_ru }
     end
 
-    context 'not ru_host' do
-      let(:is_ru_host) { false }
+    context 'en' do
       let(:locale) { :en }
-      it { is_expected.to eq Neko::Rule::NO_RULE.text(is_ru_host) }
+      it { is_expected.to eq Neko::Rule::NO_RULE.text }
     end
   end
 
@@ -97,12 +93,12 @@ describe Neko::Rule do
   describe '#hint' do
     context 'test' do
       let(:neko_id) { Types::Achievement::NekoId[:test] }
-      it { expect(rule.hint nil, true).to eq 'Неизвестная ачивка 1 уровня' }
+      it { expect(rule.hint nil).to eq 'Неизвестная ачивка 1 уровня' }
     end
 
     context 'animelist' do
       let(:neko_id) { Types::Achievement::NekoId[:animelist] }
-      it { expect(rule.hint nil, true).to eq '15 просмотренных аниме' }
+      it { expect(rule.hint nil).to eq '15 просмотренных аниме' }
     end
 
     %i[ru en].each do |locale|
@@ -113,8 +109,8 @@ describe Neko::Rule do
           context neko_id_spec do
             let(:neko_id) { neko_id_spec }
             it do
-              expect(rule.hint nil, true).to be_present
-              expect(rule.hint nil, true).to eq rule.hint(nil, true)
+              expect(rule.hint(nil)).to be_present
+              expect(rule.hint(nil)).to eq rule.hint(nil)
             end
           end
         end

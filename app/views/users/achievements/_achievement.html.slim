@@ -6,8 +6,8 @@
   .b-achievement[
     class=(:unavailable if local_assigns[:unavailable])
     data-progress=(achievement.progress unless local_assigns[:status])
-    data-title=achievement.title(current_user, ru_host?)
-    data-hint=achievement.hint(current_user, ru_host?)
+    data-title=achievement.title(current_user)
+    data-hint=achievement.hint(current_user)
     class=('is-badge' if is_badge)
     class=('is-image_index' if index > 0)
     class=('is-no_label' if achievement.franchise?)
@@ -18,15 +18,15 @@
       .c-about
         - if local_assigns[:images]
           .title
-            = achievement.title(current_user, ru_host?)
+            = achievement.title(current_user)
 
         - else
           a.title href=achievement_url(achievement.group, achievement.neko_id)
-            = achievement.title(current_user, ru_host?)
+            = achievement.title(current_user)
         .percent = format_percent achievement.progress
-        .hint = achievement.hint(current_user, ru_host?)
+        .hint = achievement.hint(current_user)
         .progress: .bar style="width: #{achievement.progress}%"
-        .text == achievement.text(ru_host?).gsub("\n", "<br>")
+        .text == achievement.text.gsub("\n", "<br>")
 
     .c-image
       .inner

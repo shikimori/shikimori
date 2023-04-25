@@ -7,6 +7,9 @@ class Abilities::SuperModerator
 
     can :manage, Ban
     can :access_list, User
+    can :reset_email, User do |user|
+      !user.staff?
+    end
 
     can %i[merge destroy], Anime
     can %i[merge destroy], Manga

@@ -234,6 +234,8 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def timeout_120s
+    raise CanCan::AccessDenied unless current_user&.admin?
+
     sleep 120
     render json: 'ok'
   end
@@ -241,24 +243,33 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   def vue
   end
 
+  def http_headers
+    raise CanCan::AccessDenied unless current_user&.admin?
+
+    render json: {
+      'request.remote_ip': request.remote_ip,
+      "request.env['HTTP_X_FORWARDED_FOR']": request.env['HTTP_X_FORWARDED_FOR'],
+      "request.env['HTTP_X_REAL_IP']": request.env['HTTP_X_REAL_IP'],
+      "request.env['REMOTE_ADDR']": request.env['REMOTE_ADDR']
+    }
+  end
+
   def my_target_ad
     raise 'allowed on production only' unless Rails.env.production?
   end
 
   def csrf_token
-    if current_user&.admin?
-      render json: {
-        _csrf_token: session[:_csrf_token],
-        x_csrf_token: request.x_csrf_token,
-        is_valid: request_authenticity_tokens.any? do |token|
-          valid_authenticity_token?(session, token)
-        end,
-        verified_request: verified_request?,
-        rack_url_scheme: request['rack.url_scheme']
-      }
-    else
-      raise CanCan::AccessDenied
-    end
+    raise CanCan::AccessDenied unless current_user&.admin?
+
+    render json: {
+      _csrf_token: session[:_csrf_token],
+      x_csrf_token: request.x_csrf_token,
+      is_valid: request_authenticity_tokens.any? do |token|
+        valid_authenticity_token?(session, token)
+      end,
+      verified_request: verified_request?,
+      rack_url_scheme: request['rack.url_scheme']
+    }
   end
 
   def hentai

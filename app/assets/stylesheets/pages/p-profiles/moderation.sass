@@ -1,4 +1,5 @@
 @import mixins/brackets_surrounded
+@import mixins/responsive
 
 .p-profiles-moderation
   .b-entry-info
@@ -6,3 +7,18 @@
       +brackets_surrounded
       display: inline-block
       margin-left: 8px
+
+  .dangerous-actions
+    .collapsed
+      background-color: lighten(#fedddf, 2%)
+      border-color: darken(#fedddf, 1%)
+      color: #fc575e
+
+      +gte_laptop
+        &:hover
+          background-color: #fedddf
+          border-color: darken(#fec2c5, 2%)
+
+      &:active
+        background-color: darken(#fedddf, 2%)
+        border-color: darken(#fec2c5, 3%)

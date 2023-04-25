@@ -82,7 +82,7 @@ GIT
 
 GIT
   remote: https://github.com/shikimori/mal_parser.git
-  revision: 23bcf071cb9fbb78a857c1736e76467fdd144a80
+  revision: 81c4305b12a9a9f162d7033df811511edf8fca7a
   specs:
     mal_parser (0.2.0)
       attr_extras
@@ -183,6 +183,8 @@ GEM
     apipie-rails (0.8.2)
       actionpack (>= 5.0)
       activesupport (>= 5.0)
+    appsignal (3.3.10)
+      rack
     ast (2.4.2)
     attr_extras (7.1.0)
     autoprefixer-rails (10.4.7.0)
@@ -201,6 +203,8 @@ GEM
     brpoplpush-redis_script (0.1.3)
       concurrent-ruby (~> 1.0, >= 1.0.5)
       redis (>= 1.0, < 6)
+    bugsnag (6.25.2)
+      concurrent-ruby (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
     capistrano (3.17.1)
@@ -412,7 +416,6 @@ GEM
       spring
     hashdiff (1.0.1)
     hashie (4.1.0)
-    honeybadger (5.1.0)
     htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -487,7 +490,7 @@ GEM
       net-ssh (>= 2.6.5, < 8.0.0)
     net-ssh (7.0.1)
     nio4r (2.5.8)
-    nokogiri (1.14.2)
+    nokogiri (1.14.3)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     non-stupid-digest-assets (1.0.9)
@@ -796,12 +799,14 @@ DEPENDENCIES
   amatch!
   amazing_print
   apipie-rails
+  appsignal
   attr_extras
   autoprefixer-rails
   better_errors
   binding_of_caller
   bootsnap
   browser
+  bugsnag
   cancancan!
   capistrano
   capistrano-bundler
@@ -842,7 +847,6 @@ DEPENDENCIES
   guard-rspec
   guard-rubocop
   guard-spring
-  honeybadger (~> 5.0)
   htmldiff-lcs!
   htmlentities
   i18n (< 1.9.0)

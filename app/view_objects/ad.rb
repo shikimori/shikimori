@@ -19,10 +19,10 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def allowed?
-    if h.controller.instance_variable_get controller_key(banner[:placement])
+    if h.controller.instance_variable_get controller_key(banner&.dig(:placement))
       false
     else
-      policy.allowed? && (!@rules || @rules.show?)
+      policy&.allowed? && (!@rules || @rules.show?)
     end
   end
 
@@ -76,7 +76,6 @@ private
     AdsPolicy.new(
       user: h.current_user,
       ad_provider: provider,
-      is_ru_host: h.ru_host?,
       is_disabled: h.cookies["#{css_class}_ad_disabled"].present?
     )
   end
@@ -428,65 +427,65 @@ private
   META_TYPES = {
     true => {
       Types::Ad::Meta[:menu_300x250] => [
-        Types::Ad::Type[:mt_300x250]
+        # Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
         # Types::Ad::Type[:special_x300], # ВЗАХЛЁБ
         Types::Ad::Type[:yd_240x600],
-        Types::Ad::Type[:mt_240x400]
+        # Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
         # Types::Ad::Type[:special_x300], # ВЗАХЛЁБ
         Types::Ad::Type[:yd_300x600],
-        Types::Ad::Type[:mt_300x600]
+        # Types::Ad::Type[:mt_300x600]
       ],
       Types::Ad::Meta[:horizontal_x250] => [
         Types::Ad::Type[:yd_970x250],
         Types::Ad::Type[:mt_970x250]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894], # IMBA - remove 2023-02-04 22:00
+        # Types::Ad::Type[:special_x894], # IMBA - remove 2023-02-04 22:00
         Types::Ad::Type[:yd_970x90],
-        Types::Ad::Type[:mt_728x90]
+        # Types::Ad::Type[:mt_728x90]
       ],
       Types::Ad::Meta[:footer] => [
-        Types::Ad::Type[:mt_footer_300x250]
+        # Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
         # Types::Ad::Type[:special_x1170], # SHIPS
         Types::Ad::Type[:yd_970x250],
-        Types::Ad::Type[:mt_970x250]
+        # Types::Ad::Type[:mt_970x250]
       ]
     },
     false => {
       Types::Ad::Meta[:menu_300x250] => [
         # Types::Ad::Type[:mt_300x250],
         # Types::Ad::Type[:yd_240x400],
-        Types::Ad::Type[:advrtr_240x400]
+        # Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
         # Types::Ad::Type[:special_x300], # ВЗАХЛЁБ
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
-        Types::Ad::Type[:advrtr_240x400]
+        # Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
         # Types::Ad::Type[:special_x300], # ВЗАХЛЁБ
         # Types::Ad::Type[:mt_300x600],
         # Types::Ad::Type[:yd_300x600],
         # Types::Ad::Type[:advrtr_240x400],
-        Types::Ad::Type[:advrtr_300x250]
+        # Types::Ad::Type[:advrtr_300x250]
       ],
       Types::Ad::Meta[:horizontal_x250] => [
-        Types::Ad::Type[:advrtr_x728]
+        # Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894], # IMBA - remove 2023-02-04 22:00
+        # Types::Ad::Type[:special_x894] # IMBA - remove 2023-02-04 22:00
         # Types::Ad::Type[:mt_728x90],
-        Types::Ad::Type[:advrtr_x728]
+        # Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:footer] => [
-        Types::Ad::Type[:mt_footer_300x250]
+        # Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
         # Types::Ad::Type[:special_x1170] # SHIPS

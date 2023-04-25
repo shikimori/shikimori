@@ -2,14 +2,12 @@ class AdsPolicy
   pattr_initialize %i[
     user!
     ad_provider!
-    is_ru_host!
     is_disabled!
   ]
 
   def allowed?
     return false if ENV['IS_LOCAL_RUN']
     return false if @is_disabled
-    return false unless @is_ru_host
 
     return true unless @user
     return true if user.admin?

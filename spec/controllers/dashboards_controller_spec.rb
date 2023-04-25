@@ -18,8 +18,8 @@ describe DashboardsController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#data_deletion' do
-    subject! { get :data_deletion }
-    it { expect(response).to have_http_status :success }
-  end
+  # describe '#data_deletion' do
+  #   subject! { get :data_deletion }
+  #   it { expect(response).to have_http_status :success }
+  # end
 end

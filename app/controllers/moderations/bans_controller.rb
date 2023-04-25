@@ -15,7 +15,7 @@ class Moderations::BansController < ModerationsController
     @collection = QueryObjectBase.new(scope).paginate(@page, PER_PAGE)
 
     @site_rules = StickyTopicView.site_rules
-    @club = Club.find_by(id: 917)&.decorate if ru_host?
+    @club = Club.find_by(id: 917)&.decorate
 
     if can? :manage, AbuseRequest
       @declined = declined_scope

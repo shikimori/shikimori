@@ -8,18 +8,8 @@ describe OpenGraphView do
   let(:view) { described_class.new }
 
   describe '#site_name' do
-    before { allow(view.h).to receive(:ru_host?).and_return is_ru_host }
     subject { view.site_name }
-
-    context 'ru_host' do
-      let(:is_ru_host) { true }
-      it { is_expected.to eq 'Шикимори' }
-    end
-
-    context 'not ru_host' do
-      let(:is_ru_host) { false }
-      it { is_expected.to eq 'Shikimori' }
-    end
+    it { is_expected.to eq 'Шикимори' }
   end
 
   describe '#canonical_url' do
@@ -62,18 +52,7 @@ describe OpenGraphView do
     end
 
     context 'no title' do
-      before { allow(view.h).to receive(:ru_host?).and_return is_ru_host }
-      let(:is_ru_host) { true }
-
-      context 'ru_host' do
-        it { expect(view.meta_title).to eq 'Шикимори' }
-      end
-
-      context 'not ru_host' do
-        let(:is_ru_host) { false }
-        it { expect(view.meta_title).to eq 'Shikimori' }
-      end
-
+      it { expect(view.meta_title).to eq 'Шикимори' }
       it { expect { view.headline }.to raise_error 'open_graph.page_title is not set' }
       it { expect { view.headline false }.to raise_error 'open_graph.page_title is not set' }
       it { expect(view.headline true).to eq view.site_name }

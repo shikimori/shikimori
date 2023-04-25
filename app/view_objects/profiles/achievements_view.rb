@@ -72,7 +72,7 @@ private
 
   def sort_criteria_by_type rule, type # rubocop:disable AbcSize
     if h.cookies[:"#{type}s_order"] == 'alphabet'
-      rule_name = rule.title(h.current_user, h.ru_host?).downcase.gsub(/[^[:alnum:]]+/, '')
+      rule_name = rule.title(h.current_user).downcase.gsub(/[^[:alnum:]]+/, '')
       [
         Localization::RussianNamesPolicy.call(h.current_user) ?
           Translit.convert(rule_name, :russian) :

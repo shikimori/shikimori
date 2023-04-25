@@ -1,9 +1,11 @@
 module Rack::Attack::Request::RealIpFix
   def real_ip
-    env['HTTP_X_FORWARDED_FOR']&.split(',')&.first ||
-      env['HTTP_X_REAL_IP'] ||
-      env['REMOTE_ADDR'] ||
-      ip
+    (
+      env['HTTP_X_FORWARDED_FOR'].presence ||
+        env['HTTP_X_REAL_IP'].presence ||
+        env['REMOTE_ADDR'].presence ||
+        ip
+    )&.split(',')&.first
   end
 end
 Rack::Attack::Request.send :include, Rack::Attack::Request::RealIpFix

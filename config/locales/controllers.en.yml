@@ -108,6 +108,8 @@ en:
     new: New poll
   users/nickname_changes_controller:
     <<: *profiles_controller
+  users/reset_emails_controller:
+    <<: *profiles_controller
 
   animes_collection_controller: &animes_collection_controller
     search: Search "%{search}"
