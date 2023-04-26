@@ -11,7 +11,7 @@ module LocaleConcern
   end
 
   def ensure_only_russian_locale_indexed
-    return if I18n.russian?
+    return if I18n.russian? || params[:locale].blank?
 
     og(
       noindex: true,
