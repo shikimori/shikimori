@@ -331,7 +331,7 @@ private
     if sort_by_date?
       sort_date anime
     else
-      anime.score && anime.score < 9.9 ? anime.score : -999
+      anime.score_2 && anime.score_2 < 9.9 ? anime.score_2 : -999
     end
   end
 

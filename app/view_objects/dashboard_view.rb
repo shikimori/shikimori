@@ -167,7 +167,7 @@ private
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
       .where("(#{CURRENT_SEASON_SQL.call}) OR (#{PRIOR_SEASON_SQL.call})")
-      .where('score > 7.3')
+      .where('score_2 > 7.3')
       .decorate
   end
 
@@ -176,7 +176,7 @@ private
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
       .where.not("(#{CURRENT_SEASON_SQL.call}) OR (#{PRIOR_SEASON_SQL.call})")
-      .where('score > 7.3')
+      .where('score_2 > 7.3')
       .decorate
   end
 

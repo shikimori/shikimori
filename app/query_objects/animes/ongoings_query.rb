@@ -6,7 +6,7 @@ class Animes::OngoingsQuery
       .where(status: :ongoing, kind: :tv)
       .where.not(rating: :g)
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
-      .where('score < 9.9')
+      .where('score_2 < 9.9')
       .where(adult_condition)
       .order(
         Animes::Filters::OrderBy.arel_sql(

@@ -140,6 +140,10 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     required: false,
     allow_blank: true,
     desc: 'Minimal anime score'
+  param :score_2, :number,
+    required: false,
+    allow_blank: true,
+    desc: 'Minimal Shiki anime score'
   param :duration, :undef,
     required: false,
     allow_blank: true,

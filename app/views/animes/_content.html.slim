@@ -102,11 +102,11 @@
         ]
           - if anime.cached_rates_count > 0
             meta itemprop='bestRating' content='10'
-            meta itemprop='ratingValue' content=anime.score
+            meta itemprop='ratingValue' content=anime.score_2
             meta itemprop='ratingCount' content=anime.cached_rates_count
 
-          span = '%.2f' % anime.score
-          span.text = Anime.human_attribute_name(:score).downcase
+          span = '%.2f' % anime.score_2
+          span.text = Anime.human_attribute_name(:score_2).downcase
       - else
         .data
 

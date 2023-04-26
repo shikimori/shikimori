@@ -32,15 +32,15 @@ private
 
   def partial_data
     entry_ids = svd.klass# .where("aired_on_computed > '2011-01-01' and kind = 'tv'") # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      .where('score >= 6 and duration > 5')
+      .where('score_2 >= 6 and duration > 5')
       .where.not(kind: [:special, :music])
       .where(is_censored: false)
       .where.not(status: 'Not yet aired')
       .where("
         (aired_on_computed > '1995-01-01') or
-        (score > 8.0) or
-        ((score > 7.5) and (aired_on_computed > '1990-01-01')) or
-        ((score > 7.7) and (kind = 'movie'))")
+        (score_2 > 8.0) or
+        ((score_2 > 7.5) and (aired_on_computed > '1990-01-01')) or
+        ((score_2 > 7.7) and (kind = 'movie'))")
       .pluck(:id)
 
     user_ids = UserRate# .where("user_id < 2000") # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

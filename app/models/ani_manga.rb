@@ -51,7 +51,7 @@ module AniManga
 
   # есть ли оценка?
   def with_score?
-    score > 1.0 && score < 9.9 && !anons?
+    score_2 > 1.0 && score_2 < 9.9 && !anons?
   end
 
   def generate_name_matches

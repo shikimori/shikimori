@@ -34,6 +34,7 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
     rating
     russian
     score
+    score_2
     source
     stuio_ids
 

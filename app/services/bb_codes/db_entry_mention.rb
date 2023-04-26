@@ -43,7 +43,7 @@ private
   end
 
   def find_by name, reversed_name, field
-    Anime.order(score: :desc).find_by(field => name) ||
+    Anime.order(score_2: :desc).find_by(field => name) ||
       Manga.order(score: :desc).find_by(field => name) ||
       Character.find_by(field => name) ||
       (Character.find_by(field => reversed_name) if reversed_name)

@@ -17,6 +17,7 @@ const DEFAULT_DATA = {
   duration: [],
   rating: [],
   score: [],
+  score_2: [],
   options: [],
   mylist: [],
   'order-by': [],

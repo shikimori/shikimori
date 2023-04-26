@@ -68,6 +68,10 @@ class Api::V1::RanobeController < Api::V1::MangasController
     required: false,
     allow_blank: true,
     desc: 'Minimal ranobe score'
+  param :score_2, :number,
+    required: false,
+    allow_blank: true,
+    desc: 'Minimal Shikimori ranobe score'
   param :genre, :undef,
     required: false,
     allow_blank: true,
