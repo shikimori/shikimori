@@ -1,0 +1,35 @@
+/ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+/ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+/ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+/ })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+/ 
+/ ga('create', 'UA-21173910-2', 'shikimori.one');
+/ ga('send', 'pageview');
+javascript:
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();
+  for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+  k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+  ym(93211525, 'init', {
+      clickmap:true,
+      trackLinks:true,
+      accurateTrackBounce:true
+  });
+
+  // для совместимости счётчиков с турболинками
+  $(document).on('turbolinks:before-visit', function() {
+  window.turbolinks_referer = location.href;
+  });
+
+  $(document).on('turbolinks:load', function() {
+    if (window.turbolinks_referer) {
+      if (window.ym) {
+        window.ym(93211525, 'hit', location.href, $('title').html(), window.turbolinks_referer);
+      }
+      if (window.ga) {
+        window.ga('send', 'pageview');
+      }
+    }
+  });

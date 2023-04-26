@@ -11,7 +11,7 @@
     .block
       .subheadline.m5 = t '.roles'
       - roles.each do |role|
-        div = role.titleize
+        .b-anime_status_tag.misc-data.mr-2 = role.titleize
 
   - if can? :manage, Ban
     .cc-2.block
@@ -21,22 +21,55 @@
         = render template: 'moderations/bans/new',
           locals: { ban_in_profile: true, ban: @ban }
 
-      .c-column.block_m
-        .subheadline.m5 = User.model_name.human
-        .b-entry-info
-          - %i[id email created_at current_sign_in_ip last_sign_in_ip sign_in_count current_sign_in_at last_sign_in_at].each do |field|
-            - unless %i[current_sign_in_ip last_sign_in_ip].include?(field) && @resource.admin?
+      .c-column
+        .block_m
+          .subheadline.m5 = User.model_name.human
+          .b-entry-info
+            - %i[id last_online_at created_at current_sign_in_ip last_sign_in_ip sign_in_count current_sign_in_at last_sign_in_at].each do |field|
+              - next if %i[last_online_at current_sign_in_ip current_sign_in_at last_sign_in_ip last_sign_in_at].include?(field) && @resource.admin?
+
               = info_line field do
                 - if @resource.send(field).respond_to? :strftime
-                  = l @resource.send(field), format: :full
+                  .b-anime_status_tag.misc-data = l @resource.send(field), format: :full
                 - elsif field.to_s.match? /_ip$/
-                  = @resource.send(field)
+                  .b-anime_status_tag.misc-data = @resource.send(field)
 
                   a.users-count[
                     href=moderations_users_url(field => @resource.send(field))
                   ] = pluralize User.where(field => @resource.send(field)).count, 'person', 'users'
                 - else
-                  = @resource.send(field)
+                  .b-anime_status_tag.misc-data = @resource.send(field)
+
+        - if can? :reset_email, @resource
+          .headline.red.m5 супер модерация
+          .block
+            .b-entry-info.m10
+              - %i[email].each do |field|
+                = info_line field do
+                  .b-anime_status_tag.misc-data = @resource.send(field)
+
+            a.b-link_button.light-red.inline[
+              href=profile_reset_emails_url(@resource)
+            ] Изменить почту
+
+          .block
+            .subheadline.m5 = t 'profiles.edit.account.connected_accounts'
+            - if @resource.user_tokens.any?
+              div
+                - @resource.user_tokens.each do |token|
+                  .b-oauth_token class=token.provider
+            - else
+              p.b-nothing_here = t 'no'
+
+          .block
+            .subheadline.m5 = t 'profiles.edit.account.granted_oauth_apps'
+            - if @resource.access_grants.any?
+              .cc-6
+                = render partial: 'doorkeeper/oauth_applications/oauth_application',
+                  collection: Users::GrantedApplications.call(@resource),
+                  locals: { content_by: 'mini' }
+            - else
+              p.b-nothing_here = t 'no'
 
   .block2
     .subheadline.m5 = t 'profiles.show.ban_history'

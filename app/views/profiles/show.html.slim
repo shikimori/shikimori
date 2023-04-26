@@ -201,13 +201,13 @@
               ' #{@resource.activity_stats.versions_count}
               = i18n_i 'content_change', @resource.activity_stats.versions_count
 
-        - if ru_host? && @resource.activity_stats.video_uploads_count.positive?
+        - if @resource.activity_stats.video_uploads_count.positive?
           div data-type='video_uploads'
             span
               ' #{@resource.activity_stats.video_uploads_count}
               = i18n_i 'video_upload', @resource.activity_stats.video_uploads_count
 
-        - if ru_host? && @resource.activity_stats.video_changes_count.positive?
+        - if @resource.activity_stats.video_changes_count.positive?
           div data-type='video_changes'
             span
               ' #{@resource.activity_stats.video_changes_count}

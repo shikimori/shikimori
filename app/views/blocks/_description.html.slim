@@ -1,48 +1,35 @@
 - cache [resource, user_signed_in?, :description, :v3] do
-  - if ru_host?
-    - other_locale = @resource.description_ru? ? :en : :ru
-    - if user_signed_in? && resource.send(:"description_#{other_locale}").text.present?
-      .b-lang_trigger[
-        data-eng='eng'
-        data-rus='рус'
-      ]
-        span = other_locale == :en ? 'eng' : 'рус'
-      .description-other style='display: none'
-        .text
-          - if resource.send(:"description_#{other_locale}").text.present?
-            = resource.send(:"description_html_#{other_locale}")
-          - else
-            .b-nothing_here = t('no_synopsis', locale: other_locale)
-
-        / field 'description' is not used inside forms -
-        / can be any name just to distinguish description
-        = render 'blocks/source',
-          authors: resource.authors(:"description_#{other_locale}"),
-          source: resource.send(:"description_#{other_locale}").source,
-          field: 'description'
-
-    .description-current
-      .text(
-        itemprop=(:description if resource.description_ru?)
-      )
-        - if resource.description.text.present?
-          = resource.description_html
+  - other_locale = @resource.description_ru? ? :en : :ru
+  - if user_signed_in? && resource.send(:"description_#{other_locale}").text.present?
+    .b-lang_trigger[
+      data-eng='eng'
+      data-rus='рус'
+    ]
+      span = other_locale == :en ? 'eng' : 'рус'
+    .description-other style='display: none'
+      .text
+        - if resource.send(:"description_#{other_locale}").text.present?
+          = resource.send(:"description_html_#{other_locale}")
         - else
-          .b-nothing_here = t 'no_synopsis'
+          .b-nothing_here = t('no_synopsis', locale: other_locale)
 
+      / field 'description' is not used inside forms -
+      / can be any name just to distinguish description
       = render 'blocks/source',
-        authors: resource.authors(:"description_#{resource.description_ru? ? :ru : :en}"),
-        source: resource.description.source,
+        authors: resource.authors(:"description_#{other_locale}"),
+        source: resource.send(:"description_#{other_locale}").source,
         field: 'description'
 
-  - else
-    .text itemprop='description'
-      - if resource.description_en.text.present?
-        = resource.description_html_en
+  .description-current
+    .text(
+      itemprop=(:description if resource.description_ru?)
+    )
+      - if resource.description.text.present?
+        = resource.description_html
       - else
-        .b-nothing_here = t('no_synopsis', locale: :en)
+        .b-nothing_here = t 'no_synopsis'
 
     = render 'blocks/source',
-      authors: resource.authors(:description_en),
-      source: resource.description_en.source,
+      authors: resource.authors(:"description_#{resource.description_ru? ? :ru : :en}"),
+      source: resource.description.source,
       field: 'description'

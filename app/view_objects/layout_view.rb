@@ -86,7 +86,7 @@ private
   end
 
   def ru_option? option_name
-    I18n.russian? && h.ru_host? &&
+    I18n.russian? &&
       (!h.user_signed_in? || h.current_user&.preferences&.send(option_name))
   end
 

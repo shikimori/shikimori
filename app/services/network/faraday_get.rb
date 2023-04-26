@@ -34,6 +34,7 @@ private
       builder.use FaradayMiddleware::FollowRedirects, limit: 10
       builder.use :cookie_jar
       builder.adapter Faraday.default_adapter
+      builder.proxy = proxy_options
     end
 
     response = connection.get(url) do |req|
@@ -69,5 +70,15 @@ private
       when %r{^(?!http)(?!/)\w} then "#{current_url.gsub(%r{/[^/]*$}, '/')}#{url}"
       else url
     end
+  end
+
+  def proxy_options
+    return unless Rails.application.secrets.proxy[:url]
+
+    {
+      uri: Rails.application.secrets.proxy[:url],
+      user: Rails.application.secrets.proxy[:login],
+      password: Rails.application.secrets.proxy[:password]
+    }
   end
 end

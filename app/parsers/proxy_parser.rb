@@ -201,8 +201,8 @@ private
   end
 
   def hidemyname
-    return []
-    url = 'https://hidemy.name/api/proxylist.txt?code=634357385849580&type=hs45&out=js'
+    # purchased at 23-04-2023
+    url = 'https://hidemy.name/api/proxylist.php?out=js&lang=en&utf&code=431317483913153'
 
     data =
       Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
@@ -256,12 +256,10 @@ private
   URL_SOURCES = {
     http: %w[
       https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt
-      http://proxysearcher.sourceforge.net/Proxy%20List.php?type=http&filtered=true
       https://free-proxy-list.net/
       https://rootjazz.com/proxies/proxies.txt
       http://www.megaproxylist.net/
       http://sslproxies24.blogspot.com/feeds/posts/default
-      http://proxylists.net/
       http://my-proxy.com/free-proxy-list-10.html
       http://my-proxy.com/free-proxy-list-2.html
       http://my-proxy.com/free-proxy-list-3.html
@@ -292,12 +290,13 @@ private
       http://atomintersoft.com/transparent_proxy_list
       https://proxylistdaily4you.blogspot.com/p/l1l2l3-proxy-server-list-1167.html
       https://www.newproxys.com/free-proxy-lists/
-      http://cyber-gateway.net/get-proxy/free-proxy
       http://proxyserverlist-24.blogspot.com/feeds/posts/default
       http://alexa.lr2b.com/proxylist.txt
       https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite&simplified=true&limit=300
       http://multiproxy.org/txt_all/proxy.txt
       http://www.cybersyndrome.net/pla6.html
+      https://cyber-gateway.net/get-proxy/free-proxy/24-free-http-proxy
+      https://spys.me/proxy.txt
     ],
     https: %w[
     ],
@@ -311,5 +310,8 @@ private
     https://www.my-proxy.com/free-socks-5-proxy.html
     https://list.proxylistplus.com/Socks-List-1
     https://list.proxylistplus.com/Socks-List-2
+    https://cyber-gateway.net/get-proxy/free-proxy/56-free-socks-proxy
+    https://cyber-gateway.net/get-proxy/free-proxy/57-free-proxy-google
+    https://spys.me/socks.txt
   ] + URL_SOURCES[:socks4]
 end

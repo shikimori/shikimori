@@ -97,7 +97,7 @@
       p Сайт уже больше года как обзавёлся новым доменом. Некоторый функционал на
         старом shikimori.org работает некорректно, а часть ссылок сломаны и ведут на новый домен.<br>
         В недалеком будущем со старого домена shikimori.org сайт будет автоматически редиректить на
-        новый домен shikimori.one.
+        новый домен shikimori.me.
 
   / - cache @view.cache_keys.values do
   .cc-news
@@ -187,16 +187,15 @@
                 collection: @view.critique_topic_views,
                 as: :topic_view
 
-      - if ru_host?
-        .subheadline.yellow = t '.our_projects'
-        / #vk_groups
-        center.block
-          a href=StickyTopicView.socials.object.url
-            img[
-              style="max-width: 100%"
-              src="/assets/globals/socials.png?v3"
-              srcset="/assets/globals/socials@2x.png?v3 2x"
-            ]
+      .subheadline.yellow = t '.our_projects'
+      / #vk_groups
+      center.block
+        a href=StickyTopicView.socials.object.url
+          img[
+            style="max-width: 100%"
+            src="/assets/globals/socials.png?v3"
+            srcset="/assets/globals/socials@2x.png?v3 2x"
+          ]
 
         / center.block
         /   a href='/forum/site/278111-shikikast'

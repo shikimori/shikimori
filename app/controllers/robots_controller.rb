@@ -2,10 +2,8 @@ class RobotsController < ShikimoriController
   def shikimori
     if clean_host?
       shikimori_clean
-    elsif ru_host?
-      shikimori_ru
     else
-      shikimori_en
+      shikimori_ru
     end
   end
 
@@ -32,8 +30,8 @@ class RobotsController < ShikimoriController
       Disallow: /api/*
       Disallow: /*.html
       Disallow: /clubs/3*
-      Host: https://shikimori.one
-      Sitemap: https://shikimori.one/sitemap.xml
+      Host: #{Shikimori::PROTOCOLS[:production]}://#{Shikimori::DOMAINS[:production]}
+      Sitemap: #{Shikimori::PROTOCOLS[:production]}://#{Shikimori::DOMAINS[:production]}/sitemap.xml
 
       User-agent: AhrefsBot
       User-agent: moget
@@ -74,8 +72,8 @@ class RobotsController < ShikimoriController
       Disallow: /api/*
       Disallow: /*.html
       Disallow: /clubs/3*
-      Host: https://shikimori.one
-      Sitemap: https://shikimori.one/sitemap.xml
+      Host: #{Shikimori::PROTOCOLS[:production]}://#{Shikimori::DOMAINS[:production]}
+      Sitemap: #{Shikimori::PROTOCOLS[:production]}://#{Shikimori::DOMAINS[:production]}/sitemap.xml
 
       User-agent: AhrefsBot
       User-agent: moget
@@ -89,13 +87,6 @@ class RobotsController < ShikimoriController
       User-agent: YoudaoBot
       User-agent: Yahoo Pipes 1.0
       User-agent: Yahoo Pipes 2.0
-      Disallow: /
-    ROBOTS
-  end
-
-  def shikimori_en
-    render plain: <<~ROBOTS
-      User-agent: *
       Disallow: /
     ROBOTS
   end

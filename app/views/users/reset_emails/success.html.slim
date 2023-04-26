@@ -1,0 +1,14 @@
+= render layout: 'page' do
+  .subheadline.green.m5 Емайл изменен
+  .b-entry-info
+    - %i[id nickname email last_online_at].each do |field|
+      = info_line field do
+        - if @resource.send(field).respond_to? :strftime
+          .b-anime_status_tag.misc-data = l @resource.send(field), format: :full
+        - else
+          .b-anime_status_tag.misc-data = @resource.send(field)
+
+  - if @mail
+    .subheadline.green.m5 Письмо отправлено
+    pre.b-code-v2
+      code = @mail.to_s

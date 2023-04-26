@@ -20,6 +20,8 @@ class Abilities::Admin
 
     can :manage, User
     can :access_list, User
+    cannot :reset_email, User, &:staff?
+
     can :manage, ListImport
 
     can :manage, Topic

@@ -63,24 +63,22 @@ class Neko::Rule
     I18n.t "achievements.group.#{group}"
   end
 
-  def title user, is_ru_host # rubocop:disable PerceivedComplexity, CyclomaticComplexity
+  def title user # rubocop:disable CyclomaticComplexity
     send("title_#{franchise? ? locale_key(user) : I18n.locale}") ||
       (neko_id.to_s.titleize if franchise? || author?) ||
-      (title_ru if is_ru_host) ||
-      (title_en unless is_ru_host) ||
-      NO_RULE.title(user, is_ru_host)
+      (I18n.russian? ? title_ru : title_en) ||
+      NO_RULE.title(user)
   end
 
-  def text is_ru_host
+  def text
     send("text_#{I18n.locale}") ||
-      (text_ru if is_ru_host) ||
-      (text_en unless is_ru_host) ||
-      NO_RULE.text(is_ru_host)
+      (I18n.russian? ? text_ru : text_en) ||
+      NO_RULE.text
   end
 
-  def hint user, is_ru_host
+  def hint user
     if franchise? || author?
-      title user, is_ru_host
+      title user
     else
       I18n.t "achievements.hint.#{neko_id}",
         threshold: rule[:threshold],
@@ -200,7 +198,7 @@ class Neko::Rule
     end
   end
 
-  def franchise_percent user # rubocop:disable AbcSize
+  def franchise_percent user # rubocop:disable AbcSize, Metrics/CyclomaticComplexity
     return 0 unless user
 
     animes = animes_scope.to_a

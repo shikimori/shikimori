@@ -61,6 +61,11 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     passwords: 'users/passwords'
   }
+  devise_scope :user do
+    get '/users/sign_in/link',
+      to: 'users/magic_links#show',
+      as: 'users_magic_link'
+  end
 
   # do not move these autocompletable concerns into resources definition.
   # they will confict with resource#show routes
@@ -82,6 +87,7 @@ Rails.application.routes.draw do
       get :page503
       get :raise_exception
       get :timeout_120s
+      get :http_headers
       get :my_target_ad
       get :how_to_edit_achievements
       get :csrf_token
@@ -442,7 +448,7 @@ Rails.application.routes.draw do
   get '/', to: 'dashboards#show', as: :new_session
   get '/page/:page', to: 'dashboards#show', as: :root_page
   get '/dashboards/dynamic', to: 'dashboards#dynamic', as: :dashboards_dynamic
-  get 'data-deletion', to: 'dashboards#data_deletion'
+  # get 'data-deletion', to: 'dashboards#data_deletion'
 
   # seo redirects
   get 'r' => redirect('/critiques')
@@ -1022,6 +1028,7 @@ Rails.application.routes.draw do
       get 'topics(/page/:page)' => :topics, as: :topics
       get 'comments(/page/:page)' => :comments, as: :comments
       get 'versions(/page/:page)' => :versions, as: :versions
+
     end
 
     get 'manga' => redirect {|params, request| request.url.sub('/manga', '') } # редирект со старых урлов
@@ -1083,6 +1090,9 @@ Rails.application.routes.draw do
         delete :reviews
       end
       resources :nickname_changes, only: %i[index]
+      resources :reset_emails, only: %i[create] do
+        get :new, path: '/', on: :collection
+      end
     end
   end
 

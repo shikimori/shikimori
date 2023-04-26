@@ -45,6 +45,7 @@ Rails.application.configure do
   # end
 
   config.hosts << 'shikimori.local'
+  config.hosts << 'shiki.local'
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
@@ -52,7 +53,7 @@ Rails.application.configure do
   config.middleware.use I18n::JS::Middleware
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :letter_opener
 
   config.action_mailer.perform_caching = false

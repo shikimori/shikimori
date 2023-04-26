@@ -49,6 +49,7 @@ describe DbImport::MalPoster do
 
     context 'corrupted image on first download attempt', :ci_only do
       before do
+        stub_const 'DbImport::MalPoster::MAX_ATTEMPTS', 2
         allow_any_instance_of(DbImport::MalPoster)
           .to receive(:download_image)
           .and_return first_io, second_io
@@ -66,7 +67,7 @@ describe DbImport::MalPoster do
         end
       end
 
-      context 'corrupted image on second download attempt' do
+      context 'corrupted image on second download attempt', :focus do
         let(:second_io) { Rails.root.join('spec/files/poster_incomplete.jpg').open('r') }
 
         it do
