@@ -78,6 +78,7 @@ describe DbImport::Anime do
         expect { subject }.to change(GenreV2, :count).by 1
         expect(entry.reload.genres_v2).to have(1).item
         expect(entry.genres_v2[0]).to have_attributes(
+          id: genres[0][:id],
           mal_id: genres[0][:id],
           name: genres[0][:name],
           russian: genres[0][:name],
@@ -93,7 +94,9 @@ describe DbImport::Anime do
           name: genres.first[:name],
           mal_id: genres.first[:id]
       end
-      let!(:anime) { create :anime, id: 987_654_321, description_en: 'old', genre_v2_ids: [genre.id] }
+      let!(:anime) do
+        create :anime, id: 987_654_321, description_en: 'old', genre_v2_ids: [genre.id]
+      end
 
       it do
         expect { subject }.to_not change GenreV2, :count
