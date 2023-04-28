@@ -145,6 +145,8 @@ ru:
         mal_id: MAL ID
       genre_v2:
         <<: *genre
+        entry_type: Модель
+        kind: Тип
       studio:
         id: ID
         name: Название
@@ -526,9 +528,17 @@ ru:
     ranobe:
       <<: *manga_enumerize
     genre:
-      entry_type:
+      kind:
         anime: Аниме
         manga: Манга
+    genre_v2:
+      entry_type:
+        Anime: Аниме
+        Manga: Манга
+      kind:
+        genre: Жанр
+        demographic: Возраст
+        theme: Тема
     external_link:
       kind:
         official_site: Официальный сайт

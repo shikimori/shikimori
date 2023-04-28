@@ -11,6 +11,8 @@ class Moderations::GenresController < ModerationsController
   SORTING_FIELD = :position
   SORTING_ORDER = :asc
 
+  FIELDS = %i[name russian position seo description]
+
   VERSIONS_PER_PAGE = 20
 
   def index
@@ -71,7 +73,7 @@ private
   def update_params
     params
       .require(:genre)
-      .permit(:name, :russian, :position, :seo, :description)
+      .permit(*self.class::FIELDS)
   end
 
   def type
