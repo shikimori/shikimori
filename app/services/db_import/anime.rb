@@ -28,13 +28,14 @@ private
     entry.ranked = 0 if entry.is_censored
   end
 
-  def import_genre data
+  def import_genre data # rubocop:disable Metrics/AbcSize
     genre = genres_repository.by_mal_id data[:id]
     raise ArgumentError, "mismatched genre: #{data.to_json}" unless genre.name == data[:name]
 
     genre
   rescue ActiveRecord::RecordNotFound
     GenreV2.create!(
+      **(Genre.find_by(mal_id: data[:id])&.attributes || {}).compact,
       id: data[:id],
       mal_id: data[:id],
       name: data[:name],
