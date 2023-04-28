@@ -179,7 +179,7 @@ class Manga < DbEntry
   end
 
   def genres_v2
-    @genres_v2 ||= MangaGenreV2Repository.find genre_v2_ids
+    @genres_v2 ||= MangaGenresV2Repository.find genre_v2_ids
   end
 
   def publishers

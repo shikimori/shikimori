@@ -29,6 +29,6 @@ private
   end
 
   def genres_repository
-    MangaGenreV2Repository.instance
+    MangaGenresV2Repository.instance
   end
 end

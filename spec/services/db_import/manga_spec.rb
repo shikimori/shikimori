@@ -46,7 +46,7 @@ describe DbImport::Manga do
   end
 
   describe '#assign_genres' do
-    before { MangaGenreV2Repository.instance.reset }
+    before { MangaGenresV2Repository.instance.reset }
     let(:genres) { [{ id: 987_654, name: 'test', kind: 'theme' }] }
 
     context 'new genre' do

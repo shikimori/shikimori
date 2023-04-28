@@ -129,7 +129,7 @@ private
   # end
 
   def genres_repository
-    AnimeGenreV2Repository.instance
+    AnimeGenresV2Repository.instance
   end
 
   # def replace_genre genre, name
