@@ -4561,6 +4561,9 @@
         - 28653
         - 30862
         - 48420
+        - 54547
+        - 54119
+        - 54545
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -9928,7 +9931,6 @@
         - 5118
         - 1006
         - 1135
-        - 1805
         - 2098
         - 4382
         - 253
@@ -9984,7 +9986,6 @@
         - 5118
         - 1006
         - 1135
-        - 1805
         - 2098
         - 4382
         - 253
@@ -15891,6 +15892,7 @@
         - 49784
         - 50709
         - 52736
+        - 4983
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -17219,6 +17221,7 @@
         - 49784
         - 50709
         - 52736
+        - 4983
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -18547,6 +18550,7 @@
         - 49784
         - 50709
         - 52736
+        - 4983
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -18957,9 +18961,9 @@
         franchise: demon_slayer
         not_anime_ids:
         - 54591
-      :threshold: 99%
+      :threshold: 96%
       :generator:
-        threshold: 99%
+        threshold: 96%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :demon_slayer
@@ -18992,7 +18996,7 @@
         - 54591
       :threshold: 0.01
       :generator:
-        threshold: 99%
+        threshold: 96%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :demon_slayer
@@ -27322,6 +27326,7 @@
         - 51782
         - 53517
         - 53976
+        - 55134
       :threshold: 92.5%
       :generator:
         ignore_latest_ids:
@@ -27384,6 +27389,7 @@
         - 51782
         - 53517
         - 53976
+        - 55134
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -31563,6 +31569,35 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :binan_koukou_chikyuu_boueibu_love
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/binan_koukou_chikyuu_boueibu_love.jpg"
+    :border_color: 
+    :title_ru: Красавцы из клуба защитников Земли
+    :text_ru: 
+    :title_en: Binan Koukou Chikyuu Boueibu
+    :text_en: 
+    :topic_id: 247360
+    :rule: &540
+      :algo: duration
+      :filters:
+        franchise: binan_koukou_chikyuu_boueibu_love
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :binan_koukou_chikyuu_boueibu_love
+  level: 0
+  image: "/assets/achievements/anime/franchise/binan_koukou_chikyuu_boueibu_love.jpg"
+  border_color: 
+  title_ru: Красавцы из клуба защитников Земли
+  text_ru: 
+  title_en: Binan Koukou Chikyuu Boueibu
+  text_en: 
+  topic_id: 247360
+  rule: *540
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :mobile_police_patlabor
     :level: 1
     :image: "/assets/achievements/anime/franchise/mobile_police_patlabor.jpg"
@@ -31572,7 +31607,7 @@
     :title_en: Kidou Keisatsu Patlabor
     :text_en: 
     :topic_id: 247360
-    :rule: &540
+    :rule: &541
       :algo: duration
       :filters:
         franchise: mobile_police_patlabor
@@ -31588,35 +31623,6 @@
   title_ru: Полиция будущего
   text_ru: 
   title_en: Kidou Keisatsu Patlabor
-  text_en: 
-  topic_id: 247360
-  rule: *540
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :binan_koukou_chikyuu_boueibu_love
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/binan_koukou_chikyuu_boueibu_love.jpg"
-    :border_color: 
-    :title_ru: Красавцы из клуба защитников Земли
-    :text_ru: 
-    :title_en: Binan Koukou Chikyuu Boueibu
-    :text_en: 
-    :topic_id: 247360
-    :rule: &541
-      :algo: duration
-      :filters:
-        franchise: binan_koukou_chikyuu_boueibu_love
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :binan_koukou_chikyuu_boueibu_love
-  level: 0
-  image: "/assets/achievements/anime/franchise/binan_koukou_chikyuu_boueibu_love.jpg"
-  border_color: 
-  title_ru: Красавцы из клуба защитников Земли
-  text_ru: 
-  title_en: Binan Koukou Chikyuu Boueibu
   text_en: 
   topic_id: 247360
   rule: *541
@@ -32459,6 +32465,39 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :city_hunter
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/city_hunter.jpg"
+    :border_color: 
+    :title_ru: Городской охотник
+    :text_ru: 
+    :title_en: City Hunter
+    :text_en: 
+    :topic_id: 247360
+    :rule: &568
+      :algo: duration
+      :filters:
+        franchise: city_hunter
+      :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 37516
+        - 51585
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :city_hunter
+  level: 0
+  image: "/assets/achievements/anime/franchise/city_hunter.jpg"
+  border_color: 
+  title_ru: Городской охотник
+  text_ru: 
+  title_en: City Hunter
+  text_en: 
+  topic_id: 247360
+  rule: *568
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :pretty_cure
     :level: 1
     :image: "/assets/achievements/anime/franchise/pretty_cure.jpg"
@@ -32468,7 +32507,7 @@
     :title_en: Futari wa Precure
     :text_en: 
     :topic_id: 247360
-    :rule: &568
+    :rule: &569
       :algo: duration
       :filters:
         franchise: pretty_cure
@@ -32496,39 +32535,6 @@
   title_ru: Хорошенькое лекарство
   text_ru: 
   title_en: Futari wa Precure
-  text_en: 
-  topic_id: 247360
-  rule: *568
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :city_hunter
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/city_hunter.jpg"
-    :border_color: 
-    :title_ru: Городской охотник
-    :text_ru: 
-    :title_en: City Hunter
-    :text_en: 
-    :topic_id: 247360
-    :rule: &569
-      :algo: duration
-      :filters:
-        franchise: city_hunter
-      :threshold: 0.01
-      :generator:
-        ignore_latest_ids:
-        - 37516
-        - 51585
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :city_hunter
-  level: 0
-  image: "/assets/achievements/anime/franchise/city_hunter.jpg"
-  border_color: 
-  title_ru: Городской охотник
-  text_ru: 
-  title_en: City Hunter
   text_en: 
   topic_id: 247360
   rule: *569
@@ -33133,40 +33139,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :glass_no_kamen
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/glass_no_kamen.jpg"
-    :border_color: 
-    :title_ru: Стеклянная маска
-    :text_ru: 
-    :title_en: Glass no Kamen
-    :text_en: 
-    :topic_id: 247360
-    :rule: &588
-      :algo: duration
-      :filters:
-        franchise: glass_no_kamen
-        not_anime_ids:
-        - 17707
-        - 27621
-        - 34336
-        - 35070
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :glass_no_kamen
-  level: 1
-  image: "/assets/achievements/anime/franchise/glass_no_kamen.jpg"
-  border_color: 
-  title_ru: Стеклянная маска
-  text_ru: 
-  title_en: Glass no Kamen
-  text_en: 
-  topic_id: 247360
-  rule: *588
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :aikatsu
     :level: 0
     :image: "/assets/achievements/anime/franchise/aikatsu.jpg"
@@ -33176,7 +33148,7 @@
     :title_en: Aikatsu!
     :text_en: 
     :topic_id: 247360
-    :rule: &589
+    :rule: &588
       :algo: duration
       :filters:
         franchise: aikatsu
@@ -33196,6 +33168,40 @@
   title_ru: Айкацу!
   text_ru: 
   title_en: Aikatsu!
+  text_en: 
+  topic_id: 247360
+  rule: *588
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :glass_no_kamen
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/glass_no_kamen.jpg"
+    :border_color: 
+    :title_ru: Стеклянная маска
+    :text_ru: 
+    :title_en: Glass no Kamen
+    :text_en: 
+    :topic_id: 247360
+    :rule: &589
+      :algo: duration
+      :filters:
+        franchise: glass_no_kamen
+        not_anime_ids:
+        - 17707
+        - 27621
+        - 34336
+        - 35070
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :glass_no_kamen
+  level: 1
+  image: "/assets/achievements/anime/franchise/glass_no_kamen.jpg"
+  border_color: 
+  title_ru: Стеклянная маска
+  text_ru: 
+  title_en: Glass no Kamen
   text_en: 
   topic_id: 247360
   rule: *589
@@ -35740,7 +35746,6 @@
           - 25011
           - 37517
           - 316
-          - 36475
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
   default_values: *2
   neko_id: :yuuri
@@ -35784,7 +35789,6 @@
           - 25011
           - 37517
           - 316
-          - 36475
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
   default_values: *2
   neko_id: :yuuri
@@ -35828,7 +35832,6 @@
           - 25011
           - 37517
           - 316
-          - 36475
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
   default_values: *2
   neko_id: :yuuri
@@ -35872,7 +35875,6 @@
           - 25011
           - 37517
           - 316
-          - 36475
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
   default_values: *2
   neko_id: :yuuri
