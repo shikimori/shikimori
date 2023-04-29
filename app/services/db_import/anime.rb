@@ -35,11 +35,13 @@ private
     genre
   rescue ActiveRecord::RecordNotFound
     GenreV2.create!(
+      **{ # rubocop:disable Style/RedundantDoubleSplatHashBraces
+        name: data[:name],
+        russian: data[:name]
+      },
       **(Genre.find_by(mal_id: data[:id])&.attributes || {}).compact,
       id: data[:id],
       mal_id: data[:id],
-      name: data[:name],
-      russian: data[:name],
       kind: data[:kind],
       entry_type: self.class.name.split('::').last
     )
