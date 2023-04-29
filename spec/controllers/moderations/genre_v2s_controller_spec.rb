@@ -17,11 +17,11 @@ describe Moderations::GenreV2sController do
 
   describe '#update' do
     let(:params) { { description: 'new description' } }
-    subject { patch :update, params: { id: genre.id, genre: params } }
+    subject { patch :update, params: { id: genre.id, genre_v2: params } }
 
     it do
       expect { subject }.to change(Version, :count).by 1
-      expect(response).to redirect_to moderations_genres_url
+      expect(response).to redirect_to moderations_genre_v2s_url
       expect(resource).to have_attributes params
     end
   end
