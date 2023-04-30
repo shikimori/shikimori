@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     (/franchise/:franchise)
     (/achievement/:achievement)
     (/genre/:genre)
+    (/genre_v2/:genre_v2)
     (/studio/:studio)
     (/publisher/:publisher)
     (/duration/:duration)
