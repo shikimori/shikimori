@@ -1,4 +1,4 @@
-describe AnimeGenresV2Repository do
+describe GenresV2Repository do
   let(:query) { described_class.instance }
 
   before { query.reset }
@@ -6,12 +6,11 @@ describe AnimeGenresV2Repository do
   it { expect(query).to be_kind_of RepositoryBase }
 
   describe '[]' do
-    let!(:anime_genre) { create :genre_v2, :anime }
-    let!(:manga_genre) { create :genre_v2, :manga }
+    let!(:genre_v2) { create :genre_v2 }
 
     it do
-      expect(query[anime_genre.id]).to eq anime_genre
-      expect(query[manga_genre.id]).to eq nil
+      expect(query[genre_v2.id]).to eq genre_v2
+      expect(query[2345678]).to eq nil
     end
   end
 

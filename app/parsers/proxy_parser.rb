@@ -299,7 +299,7 @@ private
       https://www.newproxys.com/free-proxy-lists/
       http://proxyserverlist-24.blogspot.com/feeds/posts/default
       http://alexa.lr2b.com/proxylist.txt
-      https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite&simplified=true&limit=300
+      https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite&simplified=true&limit=3000
       http://multiproxy.org/txt_all/proxy.txt
       http://www.cybersyndrome.net/pla6.html
       https://cyber-gateway.net/get-proxy/free-proxy/24-free-http-proxy

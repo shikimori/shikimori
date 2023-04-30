@@ -292,10 +292,6 @@ class Anime < DbEntry
     @genres ||= AnimeGenresRepository.find genre_ids
   end
 
-  def genres_v2
-    @genres_v2 ||= AnimeGenresV2Repository.find genre_v2_ids
-  end
-
   def studios
     @studios ||= StudiosRepository.find studio_ids
   end

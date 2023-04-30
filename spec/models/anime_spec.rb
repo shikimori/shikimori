@@ -201,7 +201,7 @@ describe Anime do
     end
 
     describe '#genres_v2' do
-      let(:genre) { create :genre_v2, :anime }
+      let(:genre) { create :genre_v2 }
       let(:anime) { build :anime, genre_v2_ids: [genre.id] }
 
       it { expect(anime.genres_v2).to eq [genre] }

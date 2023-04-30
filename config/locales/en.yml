@@ -145,7 +145,6 @@ en:
         mal_id: MAL ID
       genre_v2:
         <<: *genre
-        entry_type: Model
         kind: Type
       studio:
         id: ID
@@ -532,9 +531,6 @@ en:
         anime: Anime
         manga: Manga
     genre_v2:
-      entry_type:
-        Anime: Anime
-        Manga: Manga
       kind:
         genre: Genre
         demographic: Demographic

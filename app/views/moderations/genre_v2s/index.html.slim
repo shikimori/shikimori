@@ -9,7 +9,6 @@ table.b-table.b-editable_grid.block2
       = th field: :id
       = th field: :name
       = th field: :russian
-      = th field: :entry_type
       = th field: :kind
       th
       = th field: :position
@@ -29,14 +28,17 @@ table.b-table.b-editable_grid.block2
           a href=edit_moderations_genre_v2_url(genre)
             = genre.russian
         td
-          = genre.entry_type_text
-        td
           = genre.kind_text
         td.id
-          - if genre.anime?
-            a.catalog-link href=animes_collection_url(genre: genre.to_param)
-          - else
-            a.catalog-link href=mangas_collection_url(genre: genre.to_param)
+          a.catalog-link[
+            href=animes_collection_url(genre: genre.to_param)
+            title=Anime.model_name.human
+          ]
+          | &nbsp;&nbsp;&nbsp;
+          a.catalog-link[
+            href=mangas_collection_url(genre: genre.to_param)
+            title=Manga.model_name.human
+          ]
         td.id
           = genre.position
         - if can? :update, GenreV2

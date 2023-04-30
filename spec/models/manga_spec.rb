@@ -103,7 +103,7 @@ describe Manga do
     end
 
     describe '#genres_v2' do
-      let(:genre) { create :genre_v2, :manga }
+      let(:genre) { create :genre_v2 }
       let(:manga) { build :manga, genre_v2_ids: [genre.id] }
 
       it { expect(manga.genres_v2).to eq [genre] }

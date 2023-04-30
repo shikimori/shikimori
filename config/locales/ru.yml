@@ -145,7 +145,6 @@ ru:
         mal_id: MAL ID
       genre_v2:
         <<: *genre
-        entry_type: Модель
         kind: Тип
       studio:
         id: ID
@@ -532,9 +531,6 @@ ru:
         anime: Аниме
         manga: Манга
     genre_v2:
-      entry_type:
-        Anime: Аниме
-        Manga: Манга
       kind:
         genre: Жанр
         demographic: Возраст

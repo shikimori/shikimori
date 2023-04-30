@@ -70,7 +70,7 @@ describe DbImport::Anime do
   end
 
   describe '#assign_genres' do
-    before { AnimeGenresV2Repository.instance.reset }
+    before { GenresV2Repository.instance.reset }
     let(:genres) { [{ id: 987_654, name: 'test', kind: 'theme' }] }
 
     context 'new genre' do
@@ -82,15 +82,14 @@ describe DbImport::Anime do
           mal_id: genres[0][:id],
           name: genres[0][:name],
           russian: genres[0][:name],
-          kind: genres[0][:kind],
-          entry_type: 'Anime'
+          kind: genres[0][:kind]
         )
       end
     end
 
     context 'present genre' do
       let!(:genre) do
-        create :genre_v2, :anime, :theme,
+        create :genre_v2, :theme,
           name: genres.first[:name],
           mal_id: genres.first[:id]
       end
