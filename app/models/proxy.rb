@@ -212,6 +212,7 @@ class Proxy < ApplicationRecord
         --insecure
         --fail
         -H "User-Agent: #{user_agent(url)}"
+        -x "#{static_proxy_url}"
         -x "#{proxy}"
         --connect-timeout 5
         --max-time #{timeout}
@@ -263,6 +264,13 @@ class Proxy < ApplicationRecord
 
     def user_agent _url
       USER_AGENT
+    end
+
+    def static_proxy_url
+      proxy = Rails.application.secrets.proxy
+      parts = proxy[:url].split('//')
+
+      "#{parts[0]}//#{proxy[:login]}:#{proxy[:password]}@#{parts[1]}"
     end
   end
 

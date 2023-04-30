@@ -159,6 +159,7 @@ private
 
   def getfreeproxylists url = 'https://getfreeproxylists.blogspot.com/'
     return []
+
     html = Nokogiri::HTML(OpenURI.open_uri(url).read)
     links = html.css('ul.posts a').map { |v| v.attr :href }
 
