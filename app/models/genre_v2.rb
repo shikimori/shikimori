@@ -2,6 +2,8 @@ class GenreV2 < ApplicationRecord
   validates :name, :russian, :mal_id,
     presence: true
 
+  enumerize :entry_type,
+    in: Types::GenreV2::EntryType.values
   enumerize :kind,
     in: Types::GenreV2::Kind.values,
     predicates: true
@@ -11,5 +13,13 @@ class GenreV2 < ApplicationRecord
 
   def to_param
     "#{id}-#{name.tr ' ', '-'}"
+  end
+
+  def anime?
+    entry_type == Types::GenreV2::EntryType['Anime']
+  end
+
+  def manga?
+    entry_type == Types::GenreV2::EntryType['Manga']
   end
 end

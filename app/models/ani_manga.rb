@@ -18,10 +18,6 @@ module AniManga
     after_update :sync_topics_is_censored, if: :saved_change_to_is_censored?
   end
 
-  def genres_v2
-    @genres_v2 ||= GenresV2Repository.find genre_v2_ids
-  end
-
   def year
     aired_on&.year
   end

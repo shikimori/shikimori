@@ -27,4 +27,8 @@ private
   rescue ActiveRecord::RecordNotFound
     Publisher.create! id: data[:id], name: data[:name]
   end
+
+  def genres_repository
+    MangaGenresV2Repository.instance
+  end
 end

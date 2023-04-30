@@ -29,7 +29,7 @@ private
   end
 
   def import_genre data
-    genre = GenresV2Repository.instance.by_mal_id data[:id]
+    genre = genres_repository.by_mal_id data[:id]
     raise ArgumentError, "mismatched genre: #{data.to_json}" unless genre.name == data[:name]
 
     genre
@@ -39,7 +39,8 @@ private
       mal_id: data[:id],
       name: data[:name],
       russian: data[:name],
-      kind: data[:kind]
+      kind: data[:kind],
+      entry_type: self.class.name.split('::').last
     )
   end
 
@@ -126,6 +127,10 @@ private
   #         (to_exclude_hentai && genre[:name] == 'Hentai')
   #     end
   # end
+
+  def genres_repository
+    AnimeGenresV2Repository.instance
+  end
 
   # def replace_genre genre, name
   #   genre[:name] = name
