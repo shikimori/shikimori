@@ -5,12 +5,12 @@ class DbImport::Manga < DbImport::Anime
 
 private
 
-  def assign_is_censored
-    return if :is_censored.in? desynced_fields
-
-    # entry.is_censored = entry.kind_doujin? || entry.genres.any?(&:censored?)
-    entry.is_censored = entry.genres.any?(&:censored?)
-  end
+  # def assign_is_censored
+  #   return if :is_censored.in? desynced_fields
+  #
+  #   # entry.is_censored = entry.kind_doujin? || entry.genres.any?(&:censored?)
+  #   entry.is_censored = entry.genres.any?(&:censored?)
+  # end
 
   def assign_publishers publishers
     entry.publisher_ids = publishers.map { |v| find_or_create_publisher(v).id }
@@ -29,6 +29,6 @@ private
   end
 
   def genres_repository
-    MangaGenresRepository.instance
+    MangaGenresV2Repository.instance
   end
 end

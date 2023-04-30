@@ -132,6 +132,15 @@ header.head
               span = i18n_io 'Genre', :few
 
           li
+            - if can? :read, Genre
+              a.b-link[
+                href=moderations_genre_v2s_path
+                title=i18n_io('Genre', :few)
+              ] #{i18n_io 'Genre', :few} V2
+            - else
+              span #{i18n_io 'Genre', :few} V2
+
+          li
             - if can? :read, Studio
               a.b-link[
                 href=moderations_studios_url

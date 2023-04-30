@@ -62,6 +62,7 @@ class Abilities::SuperModerator
 
   def genres_studios_publishers_abilities
     can :update, Genre
+    can :update, GenreV2
     can :update, Studio
     can :update, Publisher
   end

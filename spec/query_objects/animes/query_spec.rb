@@ -108,6 +108,23 @@ describe Animes::Query do
       end
     end
 
+    context '#by_genre_v2' do
+      let(:params) { { genre_v2: 'zzz' } }
+      before do
+        allow(Animes::Filters::ByGenreV2)
+          .to receive(:call)
+          .with(any_args, 'zzz')
+          .and_return animes_scope
+      end
+
+      it do
+        is_expected.to eq [anime]
+        expect(Animes::Filters::ByGenreV2)
+          .to have_received(:call)
+          .with(any_args, 'zzz')
+      end
+    end
+
     context '#by_ids' do
       let!(:anime_1) { create :anime }
       let!(:anime_2) { create :anime }

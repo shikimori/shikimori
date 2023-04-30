@@ -11,6 +11,8 @@ FactoryBot.define do
     kind { :manga }
     status { :released }
     franchise { nil }
+    genre_ids { [] }
+    genre_v2_ids { [] }
     publisher_ids { [] }
     is_censored { false }
     type { Manga.name }

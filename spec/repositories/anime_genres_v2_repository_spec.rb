@@ -1,4 +1,4 @@
-describe AnimeGenresRepository do
+describe AnimeGenresV2Repository do
   let(:query) { described_class.instance }
 
   before { query.reset }
@@ -6,8 +6,8 @@ describe AnimeGenresRepository do
   it { expect(query).to be_kind_of RepositoryBase }
 
   describe '[]' do
-    let!(:anime_genre) { create :genre, :anime }
-    let!(:manga_genre) { create :genre, :manga }
+    let!(:anime_genre) { create :genre_v2, :anime }
+    let!(:manga_genre) { create :genre_v2, :manga }
 
     it do
       expect(query[anime_genre.id]).to eq anime_genre
@@ -19,7 +19,7 @@ describe AnimeGenresRepository do
     let(:mal_id) { 999_999_999 }
 
     context 'has entry' do
-      let!(:entry) { create :genre, mal_id: mal_id }
+      let!(:entry) { create :genre_v2, mal_id: mal_id }
       it { expect(query.by_mal_id(mal_id)).to eq entry }
     end
 
@@ -30,7 +30,7 @@ describe AnimeGenresRepository do
     end
 
     context 'new entry' do
-      let(:create_entry) { create :genre, mal_id: mal_id }
+      let(:create_entry) { create :genre_v2, mal_id: mal_id }
 
       it do
         create_entry

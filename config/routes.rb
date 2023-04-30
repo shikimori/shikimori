@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     (/franchise/:franchise)
     (/achievement/:achievement)
     (/genre/:genre)
+    (/genre_v2/:genre_v2)
     (/studio/:studio)
     (/publisher/:publisher)
     (/duration/:duration)
@@ -215,6 +216,10 @@ Rails.application.routes.draw do
       patch :update, on: :member, as: :update
     end
     resources :genres, only: %i[index edit update] do
+      get '(/page/:page)' => :index, as: '', on: :collection
+      get :tooltip, on: :member
+    end
+    resources :genre_v2s, only: %i[index edit update] do
       get '(/page/:page)' => :index, as: '', on: :collection
       get :tooltip, on: :member
     end

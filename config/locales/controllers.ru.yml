@@ -293,6 +293,9 @@ ru:
   moderations/genres_controller:
     <<: *moderations_controller
 
+  moderations/genre_v2s_controller:
+    <<: *moderations_controller
+
   moderations/studios_controller:
     <<: *moderations_controller
 

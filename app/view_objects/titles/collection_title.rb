@@ -2,7 +2,16 @@ class Titles::CollectionTitle
   include Translation
   prepend ActiveCacher.instance
 
-  def initialize klass:, user:, season:, kind:, status:, genres:, studios:, publishers:
+  def initialize( # rubocop:disable Metrics/ParameterLists
+    klass:,
+    user:,
+    season:,
+    kind:,
+    status:,
+    genres:,
+    studios:,
+    publishers:
+  )
     @klass = klass
     @user = user
 
@@ -30,8 +39,7 @@ class Titles::CollectionTitle
 
 private
 
-  attr_reader :klass, :user
-  attr_reader :seasons, :kinds, :statuses, :genres, :studios, :publishers
+  attr_reader :klass, :user, :seasons, :kinds, :statuses, :genres, :studios, :publishers
 
   def fancy_title
     if genres.present?

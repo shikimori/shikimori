@@ -102,6 +102,13 @@ describe Manga do
       it { expect(manga.genres).to eq [genre] }
     end
 
+    describe '#genres_v2' do
+      let(:genre) { create :genre_v2, :manga }
+      let(:manga) { build :manga, genre_v2_ids: [genre.id] }
+
+      it { expect(manga.genres_v2).to eq [genre] }
+    end
+
     describe '#publishers' do
       let(:publisher) { create :publisher }
       let(:manga) { build :manga, publisher_ids: [publisher.id] }

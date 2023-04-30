@@ -287,7 +287,7 @@ en:
         notice: Edit forum
       update:
         <<: *edit
-    genres:
+    genres: &genres
       index: &index
         notice: List of all anime&manga genres
       edit: &edit
@@ -295,6 +295,8 @@ en:
         notice: Edit genre
       update:
         <<: *edit
+    genre_v2s: 
+      <<: *genres
     studios:
       index: &index
         notice: List of all anime producers

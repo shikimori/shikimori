@@ -1,4 +1,4 @@
-class AnimeGenresRepository < RepositoryBase
+class AnimeGenresV2Repository < RepositoryBase
   def by_mal_id mal_id
     collection.values.find { |genre| genre.mal_id == mal_id } ||
       (reset && collection.values.find { |genre| genre.mal_id == mal_id }) ||
@@ -8,6 +8,10 @@ class AnimeGenresRepository < RepositoryBase
 private
 
   def scope
-    Genre.where(kind: 'anime').order(:position)
+    GenreV2.where(entry_type: scope_entry_type).order(:position)
+  end
+
+  def scope_entry_type
+    Types::GenreV2::EntryType['Anime']
   end
 end

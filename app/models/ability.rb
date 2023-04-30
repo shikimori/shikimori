@@ -114,6 +114,7 @@ class Ability
 
     can %i[read tooltip], Version
     can %i[read tooltip], Genre
+    can %i[read tooltip], GenreV2
     can :read, Comment do |comment|
       Comment::AccessPolicy.allowed? comment, @user
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_07_152255) do
+ActiveRecord::Schema.define(version: 2023_04_22_172218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
   enable_extension "plpgsql"
   enable_extension "unaccent"
 
-  create_table "abuse_requests", id: :serial, force: :cascade do |t|
+  create_table "abuse_requests", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "comment_id"
     t.string "kind", limit: 255
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["topic_id"], name: "index_abuse_requests_on_topic_id"
   end
 
-  create_table "achievements", id: :serial, force: :cascade do |t|
+  create_table "achievements", force: :cascade do |t|
     t.string "neko_id", null: false
     t.integer "level", null: false
     t.integer "progress", null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id", "neko_id", "level"], name: "index_achievements_on_user_id_and_neko_id_and_level", unique: true
   end
 
-  create_table "anime_calendars", id: :serial, force: :cascade do |t|
+  create_table "anime_calendars", force: :cascade do |t|
     t.bigint "anime_id"
     t.integer "episode"
     t.datetime "start_at"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["anime_id", "episode"], name: "index_anime_calendars_on_anime_id_and_episode", unique: true
   end
 
-  create_table "anime_links", id: :serial, force: :cascade do |t|
+  create_table "anime_links", force: :cascade do |t|
     t.bigint "anime_id"
     t.string "service", limit: 255, null: false
     t.string "identifier", limit: 255, null: false
@@ -83,14 +83,14 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["entry_type", "entry_id"], name: "index_anime_stats_on_entry_type_and_entry_id", unique: true
   end
 
-  create_table "anime_video_authors", id: :serial, force: :cascade do |t|
+  create_table "anime_video_authors", force: :cascade do |t|
     t.text "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_verified", default: false, null: false
   end
 
-  create_table "anime_video_reports", id: :serial, force: :cascade do |t|
+  create_table "anime_video_reports", force: :cascade do |t|
     t.bigint "anime_video_id"
     t.bigint "user_id"
     t.bigint "approver_id"
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id", "state"], name: "index_anime_video_reports_on_user_id_and_state"
   end
 
-  create_table "anime_videos", id: :serial, force: :cascade do |t|
+  create_table "anime_videos", force: :cascade do |t|
     t.bigint "anime_id"
     t.string "url", limit: 1000
     t.string "source", limit: 1000
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["anime_video_author_id"], name: "index_anime_videos_on_anime_video_author_id"
   end
 
-  create_table "animes", id: :serial, force: :cascade do |t|
+  create_table "animes", force: :cascade do |t|
     t.string "name", limit: 255
     t.string "description_ru", limit: 16384
     t.string "description_en", limit: 16384
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.jsonb "russia_released_on", default: {}, null: false
     t.date "aired_on_computed"
     t.date "released_on_computed"
+    t.integer "genre_v2_ids", default: [], null: false, array: true
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["rating"], name: "index_animes_on_rating"
@@ -198,7 +199,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
-  create_table "bans", id: :serial, force: :cascade do |t|
+  create_table "bans", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "comment_id"
     t.bigint "abuse_request_id"
@@ -213,7 +214,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id"], name: "index_bans_on_user_id"
   end
 
-  create_table "characters", id: :serial, force: :cascade do |t|
+  create_table "characters", force: :cascade do |t|
     t.string "name", limit: 255, default: "", null: false
     t.string "japanese", limit: 255, default: "", null: false
     t.string "fullname", limit: 255, default: "", null: false
@@ -237,7 +238,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["russian"], name: "index_characters_on_russian"
   end
 
-  create_table "club_bans", id: :serial, force: :cascade do |t|
+  create_table "club_bans", force: :cascade do |t|
     t.bigint "club_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at"
@@ -246,7 +247,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id"], name: "index_club_bans_on_user_id"
   end
 
-  create_table "club_images", id: :serial, force: :cascade do |t|
+  create_table "club_images", force: :cascade do |t|
     t.bigint "club_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at"
@@ -257,7 +258,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.datetime "image_updated_at"
   end
 
-  create_table "club_invites", id: :serial, force: :cascade do |t|
+  create_table "club_invites", force: :cascade do |t|
     t.bigint "club_id"
     t.bigint "src_id"
     t.bigint "dst_id"
@@ -268,7 +269,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["club_id", "dst_id", "status"], name: "uniq_group_invites", unique: true
   end
 
-  create_table "club_links", id: :serial, force: :cascade do |t|
+  create_table "club_links", force: :cascade do |t|
     t.bigint "club_id"
     t.bigint "linked_id"
     t.string "linked_type", limit: 255
@@ -277,7 +278,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["club_id", "linked_id", "linked_type"], name: "index_club_links_on_club_id_and_linked_id_and_linked_type", unique: true
   end
 
-  create_table "club_pages", id: :serial, force: :cascade do |t|
+  create_table "club_pages", force: :cascade do |t|
     t.bigint "club_id", null: false
     t.bigint "parent_page_id"
     t.string "name", limit: 255, null: false
@@ -291,7 +292,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id"], name: "index_club_pages_on_user_id"
   end
 
-  create_table "club_roles", id: :serial, force: :cascade do |t|
+  create_table "club_roles", force: :cascade do |t|
     t.string "role", limit: 255, default: "member"
     t.bigint "user_id"
     t.bigint "club_id"
@@ -300,7 +301,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id", "club_id"], name: "uniq_user_in_group", unique: true
   end
 
-  create_table "clubs", id: :serial, force: :cascade do |t|
+  create_table "clubs", force: :cascade do |t|
     t.string "name", limit: 255
     t.bigint "owner_id"
     t.datetime "created_at"
@@ -324,7 +325,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.boolean "is_private", default: false, null: false
   end
 
-  create_table "collection_links", id: :serial, force: :cascade do |t|
+  create_table "collection_links", force: :cascade do |t|
     t.bigint "collection_id", null: false
     t.string "linked_type", null: false
     t.bigint "linked_id", null: false
@@ -345,7 +346,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id", "collection_id"], name: "index_collection_roles_on_user_id_and_collection_id", unique: true
   end
 
-  create_table "collections", id: :serial, force: :cascade do |t|
+  create_table "collections", force: :cascade do |t|
     t.string "name", limit: 255, null: false
     t.bigint "user_id", null: false
     t.string "kind", null: false
@@ -366,7 +367,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
-  create_table "comment_viewings", id: :serial, force: :cascade do |t|
+  create_table "comment_viewings", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "viewed_id", null: false
     t.index ["user_id", "viewed_id"], name: "index_comment_viewings_on_user_id_and_viewed_id", unique: true
@@ -386,7 +387,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id", "id"], name: "index_comments_on_user_id_and_id"
   end
 
-  create_table "contest_links", id: :serial, force: :cascade do |t|
+  create_table "contest_links", force: :cascade do |t|
     t.bigint "contest_id"
     t.bigint "linked_id"
     t.string "linked_type", limit: 255
@@ -395,7 +396,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["linked_id", "linked_type", "contest_id"], name: "index_contest_links_on_linked_id_and_linked_type_and_contest_id"
   end
 
-  create_table "contest_matches", id: :serial, force: :cascade do |t|
+  create_table "contest_matches", force: :cascade do |t|
     t.bigint "round_id"
     t.string "state", limit: 255, default: "created"
     t.string "group", limit: 255
@@ -414,7 +415,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["round_id"], name: "index_contest_votes_on_contest_round_id"
   end
 
-  create_table "contest_rounds", id: :serial, force: :cascade do |t|
+  create_table "contest_rounds", force: :cascade do |t|
     t.bigint "contest_id"
     t.string "state", limit: 255, default: "created"
     t.integer "number"
@@ -424,7 +425,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["contest_id"], name: "index_contest_rounds_on_contest_id"
   end
 
-  create_table "contest_suggestions", id: :serial, force: :cascade do |t|
+  create_table "contest_suggestions", force: :cascade do |t|
     t.bigint "contest_id"
     t.bigint "user_id"
     t.bigint "item_id"
@@ -435,7 +436,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id"], name: "index_contest_suggestions_on_user_id"
   end
 
-  create_table "contest_winners", id: :serial, force: :cascade do |t|
+  create_table "contest_winners", force: :cascade do |t|
     t.bigint "contest_id", null: false
     t.integer "position", null: false
     t.string "item_type", null: false
@@ -446,7 +447,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["item_type", "item_id"], name: "index_contest_winners_on_item_type_and_item_id"
   end
 
-  create_table "contests", id: :serial, force: :cascade do |t|
+  create_table "contests", force: :cascade do |t|
     t.string "title_ru", limit: 255
     t.bigint "user_id"
     t.string "state", limit: 255, default: "created"
@@ -469,7 +470,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["state", "started_on", "finished_on"], name: "index_contests_on_state_and_started_on_and_finished_on"
   end
 
-  create_table "cosplay_galleries", id: :serial, force: :cascade do |t|
+  create_table "cosplay_galleries", force: :cascade do |t|
     t.string "cos_rain_id", limit: 255
     t.string "target", limit: 255
     t.string "description_cos_rain", limit: 16384
@@ -485,7 +486,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["cos_rain_id"], name: "index_cosplay_galleries_on_cos_rain_id", unique: true
   end
 
-  create_table "cosplay_gallery_links", id: :serial, force: :cascade do |t|
+  create_table "cosplay_gallery_links", force: :cascade do |t|
     t.bigint "linked_id"
     t.string "linked_type", limit: 255
     t.bigint "cosplay_gallery_id"
@@ -495,7 +496,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["linked_id", "linked_type", "cosplay_gallery_id"], name: "index_cosplay_gallery_links_on_l_id_and_l_type_and_cg_id", unique: true
   end
 
-  create_table "cosplay_images", id: :serial, force: :cascade do |t|
+  create_table "cosplay_images", force: :cascade do |t|
     t.bigint "cosplay_gallery_id"
     t.string "url", limit: 255
     t.datetime "created_at"
@@ -509,7 +510,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["cosplay_gallery_id", "deleted"], name: "i_cosplay_images_gallery_id_deleted"
   end
 
-  create_table "cosplayers", id: :serial, force: :cascade do |t|
+  create_table "cosplayers", force: :cascade do |t|
     t.string "name", limit: 255
     t.string "website", limit: 255
     t.string "image_url", limit: 255
@@ -525,7 +526,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["name"], name: "index_coub_tags_on_name", unique: true
   end
 
-  create_table "critiques", id: :serial, force: :cascade do |t|
+  create_table "critiques", force: :cascade do |t|
     t.bigint "target_id", null: false
     t.string "target_type", null: false
     t.bigint "user_id", null: false
@@ -546,7 +547,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["target_id", "target_type"], name: "index_critiques_on_target_id_and_target_type"
   end
 
-  create_table "danbooru_tags", id: :serial, force: :cascade do |t|
+  create_table "danbooru_tags", force: :cascade do |t|
     t.string "name", limit: 255
     t.integer "kind"
     t.datetime "created_at"
@@ -554,7 +555,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.boolean "ambiguous"
   end
 
-  create_table "episode_notifications", id: :serial, force: :cascade do |t|
+  create_table "episode_notifications", force: :cascade do |t|
     t.bigint "anime_id", null: false
     t.integer "episode", null: false
     t.boolean "is_raw", default: false, null: false
@@ -566,7 +567,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["anime_id", "episode"], name: "index_episode_notifications_on_anime_id_and_episode", unique: true
   end
 
-  create_table "external_links", id: :serial, force: :cascade do |t|
+  create_table "external_links", force: :cascade do |t|
     t.bigint "entry_id", null: false
     t.string "entry_type", null: false
     t.string "kind", null: false
@@ -580,7 +581,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["entry_type", "entry_id"], name: "index_external_links_on_entry_type_and_entry_id"
   end
 
-  create_table "favourites", id: :serial, force: :cascade do |t|
+  create_table "favourites", force: :cascade do |t|
     t.bigint "linked_id", null: false
     t.string "linked_type", null: false
     t.bigint "user_id", null: false
@@ -594,7 +595,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id"], name: "index_favourites_on_user_id"
   end
 
-  create_table "forums", id: :serial, force: :cascade do |t|
+  create_table "forums", force: :cascade do |t|
     t.integer "position", null: false
     t.string "name_ru", null: false
     t.string "permalink", null: false
@@ -603,7 +604,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.string "name_en", null: false
   end
 
-  create_table "friend_links", id: :serial, force: :cascade do |t|
+  create_table "friend_links", force: :cascade do |t|
     t.bigint "src_id"
     t.bigint "dst_id"
     t.datetime "created_at"
@@ -611,7 +612,22 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["src_id", "dst_id"], name: "index_friend_links_on_src_id_and_dst_id", unique: true
   end
 
-  create_table "genres", id: :serial, force: :cascade do |t|
+  create_table "genre_v2s", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "russian", null: false
+    t.string "entry_type", null: false
+    t.string "kind", null: false
+    t.bigint "mal_id", null: false
+    t.boolean "is_active", default: true, null: false
+    t.boolean "is_censored", default: false, null: false
+    t.integer "position", default: 99, null: false
+    t.integer "seo", default: 99, null: false
+    t.string "description", default: "", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "genres", force: :cascade do |t|
     t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -624,7 +640,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["mal_id", "kind"], name: "index_genres_on_mal_id_and_kind", unique: true
   end
 
-  create_table "ignores", id: :serial, force: :cascade do |t|
+  create_table "ignores", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "target_id"
     t.datetime "created_at"
@@ -648,7 +664,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id"], name: "index_list_imports_on_user_id"
   end
 
-  create_table "mangas", id: :serial, force: :cascade do |t|
+  create_table "mangas", force: :cascade do |t|
     t.string "name", limit: 255
     t.string "description_ru", limit: 16384
     t.string "description_en", limit: 16384
@@ -695,6 +711,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.jsonb "released_on", default: {}, null: false
     t.date "aired_on_computed"
     t.date "released_on_computed"
+    t.integer "genre_v2_ids", default: [], null: false, array: true
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"
@@ -718,7 +735,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["to_id", "linked_id"], name: "index_messages_on_to_id_and_linked_id"
   end
 
-  create_table "name_matches", id: :serial, force: :cascade do |t|
+  create_table "name_matches", force: :cascade do |t|
     t.string "phrase", null: false
     t.integer "priority", null: false
     t.integer "group", null: false
@@ -779,7 +796,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
-  create_table "people", id: :serial, force: :cascade do |t|
+  create_table "people", force: :cascade do |t|
     t.string "name", limit: 255, default: "", null: false
     t.string "japanese", limit: 255, default: "", null: false
     t.datetime "created_at"
@@ -801,7 +818,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["name"], name: "index_people_on_name"
   end
 
-  create_table "person_roles", id: :serial, force: :cascade do |t|
+  create_table "person_roles", force: :cascade do |t|
     t.bigint "anime_id"
     t.bigint "character_id"
     t.bigint "person_id"
@@ -889,21 +906,21 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.integer "dead", default: 0, null: false
   end
 
-  create_table "publishers", id: :serial, force: :cascade do |t|
+  create_table "publishers", force: :cascade do |t|
     t.string "name", limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "desynced", default: [], null: false, array: true
   end
 
-  create_table "recommendation_ignores", id: :serial, force: :cascade do |t|
+  create_table "recommendation_ignores", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "target_id"
     t.string "target_type", limit: 255
     t.index ["user_id", "target_id", "target_type"], name: "index_recommendation_ignores_on_entry", unique: true
   end
 
-  create_table "related_animes", id: :serial, force: :cascade do |t|
+  create_table "related_animes", force: :cascade do |t|
     t.bigint "source_id"
     t.bigint "anime_id"
     t.string "relation", limit: 255
@@ -913,7 +930,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["source_id"], name: "index_related_animes_on_source_id"
   end
 
-  create_table "related_mangas", id: :serial, force: :cascade do |t|
+  create_table "related_mangas", force: :cascade do |t|
     t.bigint "source_id"
     t.bigint "anime_id"
     t.bigint "manga_id"
@@ -943,7 +960,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
-  create_table "screenshots", id: :serial, force: :cascade do |t|
+  create_table "screenshots", force: :cascade do |t|
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
@@ -959,7 +976,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["anime_id", "url"], name: "index_screenshots_on_anime_id_and_url", unique: true
   end
 
-  create_table "similar_animes", id: :serial, force: :cascade do |t|
+  create_table "similar_animes", force: :cascade do |t|
     t.bigint "src_id"
     t.bigint "dst_id"
     t.datetime "created_at"
@@ -967,7 +984,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["src_id"], name: "index_similar_animes_on_src_id"
   end
 
-  create_table "similar_mangas", id: :serial, force: :cascade do |t|
+  create_table "similar_mangas", force: :cascade do |t|
     t.bigint "src_id"
     t.bigint "dst_id"
     t.datetime "created_at"
@@ -975,7 +992,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["src_id"], name: "index_similar_mangas_on_src_id"
   end
 
-  create_table "studios", id: :serial, force: :cascade do |t|
+  create_table "studios", force: :cascade do |t|
     t.string "name", limit: 255, null: false
     t.string "short_name", limit: 500000
     t.datetime "created_at"
@@ -1007,7 +1024,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.text "imports", array: true
   end
 
-  create_table "svds", id: :serial, force: :cascade do |t|
+  create_table "svds", force: :cascade do |t|
     t.binary "entry_ids"
     t.binary "lsa"
     t.datetime "created_at", null: false
@@ -1018,7 +1035,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.string "normalization"
   end
 
-  create_table "topic_ignores", id: :serial, force: :cascade do |t|
+  create_table "topic_ignores", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "topic_id", null: false
     t.datetime "created_at", null: false
@@ -1027,7 +1044,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id", "topic_id"], name: "index_topic_ignores_on_user_id_and_topic_id", unique: true
   end
 
-  create_table "topic_viewings", id: :serial, force: :cascade do |t|
+  create_table "topic_viewings", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "viewed_id", null: false
     t.index ["user_id", "viewed_id"], name: "index_topic_viewings_on_user_id_and_viewed_id", unique: true
@@ -1079,7 +1096,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id"], name: "index_user_histories_on_user_id"
   end
 
-  create_table "user_images", id: :serial, force: :cascade do |t|
+  create_table "user_images", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "linked_id"
     t.string "linked_type", limit: 255
@@ -1093,7 +1110,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.integer "height"
   end
 
-  create_table "user_nickname_changes", id: :serial, force: :cascade do |t|
+  create_table "user_nickname_changes", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "value", null: false
     t.datetime "created_at"
@@ -1164,7 +1181,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id", "target_id", "target_type"], name: "index_user_rates_on_user_id_and_target_id_and_target_type", unique: true
   end
 
-  create_table "user_tokens", id: :serial, force: :cascade do |t|
+  create_table "user_tokens", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "provider", null: false
     t.string "uid", null: false
@@ -1239,7 +1256,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["user_id", "state"], name: "index_versions_on_user_id_and_state"
   end
 
-  create_table "videos", id: :serial, force: :cascade do |t|
+  create_table "videos", force: :cascade do |t|
     t.string "name"
     t.string "url", null: false
     t.bigint "uploader_id"
@@ -1271,7 +1288,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_152255) do
     t.index ["voter_type", "voter_id"], name: "index_votes_on_voter_type_and_voter_id"
   end
 
-  create_table "webm_videos", id: :serial, force: :cascade do |t|
+  create_table "webm_videos", force: :cascade do |t|
     t.string "url", null: false
     t.string "state", null: false
     t.string "thumbnail_file_name"

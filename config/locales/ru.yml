@@ -11,6 +11,7 @@ ru:
       contest: Турнир
       forum: Раздел
       genre: Жанр
+      genre_v2: Жанр v2
       studio: Студия
       publisher: Издатель
       manga: Манга
@@ -47,7 +48,9 @@ ru:
         episodes_aired: Эпизодов вышло
         external_links: Ссылки
         genres: Жанры
+        genres_v2: Жанры v2
         genre_ids: Жанры # used for item_diff in versions
+        genre_v2_ids: Жанры v2 # used for item_diff in versions
         image: &poster Постер
         kind: Тип
         name: Английское название
@@ -131,7 +134,7 @@ ru:
       ban:
         reason: Причина
         duration: Срок
-      genre:
+      genre: &genre
         id: ID
         position: Позиция
         name: Название (англ.)
@@ -140,6 +143,10 @@ ru:
         seo: Приоритет для SEO
         kind: Тип
         mal_id: MAL ID
+      genre_v2:
+        <<: *genre
+        entry_type: Модель
+        kind: Тип
       studio:
         id: ID
         name: Название
@@ -524,6 +531,14 @@ ru:
       kind:
         anime: Аниме
         manga: Манга
+    genre_v2:
+      entry_type:
+        Anime: Аниме
+        Manga: Манга
+      kind:
+        genre: Жанр
+        demographic: Возраст
+        theme: Тема
     external_link:
       kind:
         official_site: Официальный сайт

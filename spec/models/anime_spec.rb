@@ -200,6 +200,13 @@ describe Anime do
       it { expect(anime.genres).to eq [genre] }
     end
 
+    describe '#genres_v2' do
+      let(:genre) { create :genre_v2, :anime }
+      let(:anime) { build :anime, genre_v2_ids: [genre.id] }
+
+      it { expect(anime.genres_v2).to eq [genre] }
+    end
+
     describe '#studios' do
       let(:studio) { create :studio }
       let(:anime) { build :anime, studio_ids: [studio.id] }
