@@ -80,7 +80,10 @@ private
   def parse url, protocol
     # задержка, чтобы не нас не банили
     sleep 1
-    content = OpenURI.open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
+    content = OpenURI
+      .open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
+      .read
+      .gsub(%r{<br ?/?>}, "\n")
     content = Nokogiri::HTML(content).text if content.starts_with?('<!')
 
     proxies = parse_text content, protocol
@@ -96,7 +99,8 @@ private
   end
 
   def parse_text text, protocol
-    text.gsub(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}[:\t\n\s]+\d+/)
+    text
+      .gsub(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}[:\t\n\s]+\d+/)
       .map do |v|
         data = v.split(/[:\t\n\s]+/)
         build_proxy ip: data[0], port: data[1], protocol: protocol
@@ -147,7 +151,8 @@ private
     Nokogiri::HTML(
       OpenURI.open_uri(
         'https://webanetlabs.net/publ/24',
-        ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
+        ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
+        **Proxy.prepaid_proxy
       ).read
     )
       .css('.uSpoilerText a.link')
@@ -160,7 +165,7 @@ private
   def getfreeproxylists url = 'https://getfreeproxylists.blogspot.com/'
     return []
 
-    html = Nokogiri::HTML(OpenURI.open_uri(url).read)
+    html = Nokogiri::HTML(OpenURI.open_uri(url, Proxy.prepaid_proxy).read)
     links = html.css('ul.posts a').map { |v| v.attr :href }
 
     [url] + links
@@ -208,7 +213,7 @@ private
 
     data =
       Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
-        OpenURI.open_uri(url).read
+        OpenURI.open_uri(url, Proxy.prepaid_proxy).read
       end
 
     JSON.parse(data, symbolize_names: true).map do |entry|
@@ -236,7 +241,7 @@ private
     url = 'https://proxylist.geonode.com/api/proxy-list?limit=5000&page=1&sort_by=lastChecked&sort_type=desc&protocols=http%2Chttps%2Csocks4%2Csocks5'
     data =
       Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
-        OpenURI.open_uri(url).read
+        OpenURI.open_uri(url, Proxy.prepaid_proxy).read
       rescue *Network::FaradayGet::NET_ERRORS
         '{"data":[]}'
       end
