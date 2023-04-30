@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_22_172218) do
+ActiveRecord::Schema.define(version: 2023_04_30_175010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -615,7 +615,6 @@ ActiveRecord::Schema.define(version: 2023_04_22_172218) do
   create_table "genre_v2s", force: :cascade do |t|
     t.string "name", null: false
     t.string "russian", null: false
-    t.string "entry_type", null: false
     t.string "kind", null: false
     t.bigint "mal_id", null: false
     t.boolean "is_active", default: true, null: false
@@ -625,6 +624,7 @@ ActiveRecord::Schema.define(version: 2023_04_22_172218) do
     t.string "description", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "entry_type", null: false
   end
 
   create_table "genres", force: :cascade do |t|
