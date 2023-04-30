@@ -35,7 +35,6 @@ private
     genre
   rescue ActiveRecord::RecordNotFound
     GenreV2.create!(
-      id: data[:id],
       mal_id: data[:id],
       name: data[:name],
       russian: data[:name],
