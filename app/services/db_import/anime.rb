@@ -34,12 +34,15 @@ private
 
     genre
   rescue ActiveRecord::RecordNotFound
+    entry_type = self.class.name.split('::').last
+
     GenreV2.create!(
+      id: Genre.find_by(kind: entry_type.downcase, name: data[:name])&.id,
       mal_id: data[:id],
       name: data[:name],
       russian: data[:name],
       kind: data[:kind],
-      entry_type: self.class.name.split('::').last
+      entry_type: entry_type
     )
   end
 
