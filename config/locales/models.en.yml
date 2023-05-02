@@ -87,7 +87,6 @@ en:
       person: '[person=%{id}]Person[/person] discussion thread.'
       ranobe: '[ranobe=%{id}]Light novel[/ranobe] discussion thread.'
       review: '[review=%{id}]Review[/review] discussion thread.'
-      nil_class: Ffefefef
 
     full_title:
       anime: Anime [anime]%{id}[/anime] discussion

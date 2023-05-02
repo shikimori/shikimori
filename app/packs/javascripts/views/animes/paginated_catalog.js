@@ -12,7 +12,7 @@ import inNewTab from '@/utils/in_new_tab';
 
 export default class PaginatedCatalog {
   constructor(basePath) {
-    this.$content = $('.l-content').last();
+    this.$content = $('.l-content');
     this.$pagination = $('.pagination');
 
     this.$linkCurrent = this.$pagination.find('.link-current');

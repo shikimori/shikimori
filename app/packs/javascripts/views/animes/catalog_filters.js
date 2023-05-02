@@ -113,6 +113,8 @@ export default function(basePath, currentUrl, changeCallback) {
   $('.anime-params-block .block-filter', $root).on('click', function() {
     const $paramsBlock = $(this).closest('.anime-params-block');
 
+    $paramsBlock.find('.b-spoiler').first().trigger('spoiler:open');
+
     const toExclude =
       $(this).hasClass('item-sign') ?
         $paramsBlock.find('li').length === $paramsBlock.find('.item-add:visible').length :
@@ -313,6 +315,32 @@ export default function(basePath, currentUrl, changeCallback) {
 
   if (filters.params.licensor.length) {
     $root.find('.licensors .b-spoiler').spoiler().trigger('spoiler:open');
+  }
+
+  if (filters.params.duration.length) {
+    $root.find('.durations').closest('.b-spoiler').spoiler().trigger('spoiler:open');
+  }
+
+  if (filters.params.rating.length) {
+    $root.find('.ratings').closest('.b-spoiler').spoiler().trigger('spoiler:open');
+  }
+
+  if (filters.params.score.length) {
+    $root.find('.scores').closest('.b-spoiler').spoiler().trigger('spoiler:open');
+  }
+
+  if (filters.params.season.length) {
+    $root.find('.seasons').closest('.b-spoiler').spoiler().trigger('spoiler:open');
+  }
+
+  if (filters.params.mylist.length) {
+    $root.find('.mylist-block .b-spoiler').spoiler().trigger('spoiler:open');
+  }
+
+  let orders = filters.params['order-by']
+
+  if (orders.length && !((orders.length == 1) && (orders[0] == DEFAULT_ORDER))) {
+    $root.find('.orders').closest('.b-spoiler').spoiler().trigger('spoiler:open');
   }
 
   return filters;

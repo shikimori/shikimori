@@ -30,6 +30,7 @@ class RepositoryBase
 
   def reset
     @collection = nil
+    topic = nil if respond_to? :topic
     true
   end
 

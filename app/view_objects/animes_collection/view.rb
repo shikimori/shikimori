@@ -21,6 +21,10 @@ class AnimesCollection::View < ViewObjectBase # rubocop:disable ClassLength
     end
   end
 
+  def studio_page?
+    h.params[:studio].present?
+  end
+
   def season_page?
     !recommendations? &&
       h.params[:season].present? &&

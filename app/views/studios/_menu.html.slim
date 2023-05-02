@@ -1,12 +1,17 @@
 .b-animes-menu
-  - unless params[:studio]
-    .b-menu_logo
-      a[
-        href=resource.url
-        title=localized_name(resource)
+  .b-menu_logo
+    a[
+      href=resource.url
+      title=localized_name(resource)
+    ]
+      img.logo[
+        src=cdn_image_url(resource, :original)
+        alt=resource.name
+        title=resource.name
       ]
-        img.logo[
-          src=cdn_image_url(resource, :original)
-          alt=resource.name
-          title=resource.name
-        ]
+
+  .c-actions
+    a.b-link_button.new_comment
+      = t('studios.page.actions.comment')
+
+br

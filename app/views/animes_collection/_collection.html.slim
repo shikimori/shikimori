@@ -55,9 +55,8 @@
 
   - if @view.next_page_url
     = render 'blocks/postloader',
-      ignore_appear: is_studio,
+      ignore_appear: @view.studio_page? && @view.page == 1,
       next_url: @view.next_page_url,
       prev_url: @view.prev_page_url,
       filter: nil,
       pages_limit: 15
-
