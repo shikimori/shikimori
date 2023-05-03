@@ -83,9 +83,9 @@
       .subheadline.m5 = i18n_i 'Sorting'
       - if view.studio_page?
         = text_spoiler t('.show_list') do
-          = render 'sorting', local_assigns: local_assigns
+          = render 'animes_collection/sorting', local_assigns: local_assigns
       - else
-        = render 'sorting', local_assigns: local_assigns
+        = render 'animes_collection/sorting', local_assigns: local_assigns
 
   - if user_signed_in? && !defined?(in_user_profile)
     .block.anime-params-block.mylist-block
@@ -187,9 +187,9 @@
       .subheadline.m5 = i18n_i 'Rating'
       - if view.studio_page?
         = text_spoiler t('.show_list') do
-          = render 'ratings'
+          = render 'animes_collection/ratings'
       - else
-        = render 'ratings'
+        = render 'animes_collection/ratings'
 
   .block.genres
     .subheadline.m5 = i18n_i 'Genre', :other

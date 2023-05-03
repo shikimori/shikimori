@@ -41,7 +41,7 @@ ul.b-block_list.orders.anime-params.subcontent
       data-field='order-by'
       data-value='rate_updated'
     ] = t 'by.date_updated'
-    - if menu.klass == Anime
+    - if local_assigns[:menu].klass == Anime
       li.hidden[
         data-field='order-by'
         data-value='episodes'
@@ -66,8 +66,8 @@ ul.b-block_list.orders.anime-params.subcontent
     ] = t 'by.id'
 
   / используется в userlist comparer
-  - if defined?(custom_sorts) && !custom_sorts.empty?
-    - custom_sorts.each do |name, title|
+  - if local_assigns[:custom_sorts].present? && !local_assigns[:custom_sorts].empty?
+    - local_assigns[:custom_sorts].each do |name, title|
       li[
         data-field='order-by'
         data-value=name
