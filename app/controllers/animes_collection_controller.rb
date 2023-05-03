@@ -45,8 +45,7 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
     verify_age_restricted! model[:genre]
 
     if model[:studio] && model[:studio].size == 1
-      StudiosRepository.instance.reset
-      @resource = model[:studio].first.decorate
+      @resource = Studio.find(model[:studio].first.id).decorate
     end
 
     if censored_forbidden? &&

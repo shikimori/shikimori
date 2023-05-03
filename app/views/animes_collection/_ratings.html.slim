@@ -1,0 +1,14 @@
+ul.b-block_list.ratings.anime-params
+  - Anime.rating.options.each do |title, rating|
+    - next if rating == 'none'
+    - next if rating == 'rx' && !user_signed_in?
+    li[
+      data-field='rating'
+      data-value=rating
+    ]
+      input type='checkbox' autocomplete='off'
+      = title
+      span.b-question.b-tooltipped.mobile.unprocessed[
+        title=t("enumerize.anime.rating.hint.#{rating}")
+        data-direction='top'
+      ]

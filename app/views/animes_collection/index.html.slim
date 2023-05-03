@@ -18,9 +18,7 @@ header.head
       - if user_signed_in? || turbolinks_request?
         - if @view.studio_page?
           = render 'studios/menu', resource: @resource
-          = render 'studio_menu', social: true, menu: @menu, is_studio: @view.studio_page?
-        - else
-          = render 'menu', social: true, menu: @menu
+        = render 'animes_collection/menu', social: true, menu: @menu, view: @view
       - else
         .to-process.b-ajax[
           data-dynamic='postloaded'
