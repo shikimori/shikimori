@@ -10,7 +10,7 @@ describe AnimesCollectionController do
 
           describe '#index' do
             describe 'html' do
-              before { get :index, params: { klass: kind } }
+              subject! { get :index, params: { klass: kind } }
 
               it do
                 expect(response.content_type).to eq 'text/html; charset=utf-8'
@@ -19,7 +19,7 @@ describe AnimesCollectionController do
             end
 
             describe 'json' do
-              before { get :index, params: { klass: kind }, format: 'json' }
+              subject! { get :index, params: { klass: kind }, format: 'json' }
 
               it do
                 expect(response.content_type).to eq 'application/json; charset=utf-8'
@@ -31,7 +31,7 @@ describe AnimesCollectionController do
           if kind == 'anime'
             describe '#season' do
               describe 'html' do
-                before { get :index, params: { klass: kind, season: 'summer_2012' } }
+                subject! { get :index, params: { klass: kind, season: 'summer_2012' } }
 
                 it do
                   expect(response.content_type).to eq 'text/html; charset=utf-8'
@@ -40,7 +40,7 @@ describe AnimesCollectionController do
               end
 
               describe 'json' do
-                before { get :index, params: { klass: kind, season: 'summer_2012' }, format: 'json' }
+                subject! { get :index, params: { klass: kind, season: 'summer_2012' }, format: 'json' }
 
                 it do
                   expect(response.content_type).to eq 'application/json; charset=utf-8'

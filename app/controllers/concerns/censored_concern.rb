@@ -14,9 +14,9 @@ module CensoredConcern
 
   def ensure_404_on_forbidden_urls
     is_forbidden =
-      FORBIDDEN_EVERYWHERE_PATHS.any? { |v| v.starts_with? request.path } || (
+      FORBIDDEN_EVERYWHERE_PATHS.any? { |path| request.path.starts_with? path } || (
         old_host? &&
-          FORBIDDEN_SHIKIMORI_ONE_PATHS.any? { |v| v.starts_with? request.path }
+          FORBIDDEN_SHIKIMORI_ONE_PATHS.any? { |path| request.path.starts_with? path }
       )
 
     raise ActiveRecord::RecordNotFound if is_forbidden
