@@ -122,7 +122,10 @@
       .c-description
         .subheadline.m5 = Anime.human_attribute_name :description
         .block
-          = render 'blocks/description', resource: @resource
+          - if @resource.rkn_abused?
+            .text-red Распространение данного произведения запрещено Роскомнадзором.
+          - else
+            = render 'blocks/description', resource: @resource
 
     - if user_signed_in?
       = render 'resources'
