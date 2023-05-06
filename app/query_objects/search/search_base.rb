@@ -3,12 +3,15 @@
 class Search::SearchBase
   method_object %i[scope! phrase! ids_limit!]
 
+  IGNORED_IDS = []
+
   def call
     search_ids = @phrase.blank? ? [] : elastic_results.keys
 
     if search_ids.any?
       @scope
         .where(id: search_ids)
+        .where.not(id: self.class::IGNORED_IDS)
         .except(:order)
         .order(order_sql(search_ids))
     else
