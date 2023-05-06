@@ -1,6 +1,6 @@
 class RobotsController < ShikimoriController
   def shikimori
-    if clean_host?
+    if old_host?
       shikimori_clean
     else
       shikimori_ru

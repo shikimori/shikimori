@@ -12,7 +12,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
     meta = Types::Ad::Meta[:menu_240x400] if switch_to_x240? meta
     meta = Types::Ad::Meta[:menu_300x600] if switch_to_x300? meta
 
-    META_TYPES[h.clean_host?][Types::Ad::Meta[meta]].each do |type|
+    META_TYPES[h.old_host?][Types::Ad::Meta[meta]].each do |type|
       switch_banner Types::Ad::Type[type]
       break if allowed?
     end
@@ -87,7 +87,7 @@ private
   end
 
   def banner
-    BANNERS[h.clean_host?][@banner_type]
+    BANNERS[h.old_host?][@banner_type]
   end
 
   def yandex_direct?

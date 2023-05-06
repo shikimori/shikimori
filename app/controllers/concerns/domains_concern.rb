@@ -2,7 +2,7 @@ module DomainsConcern
   extend ActiveSupport::Concern
 
   included do
-    helper_method :shikimori?, :clean_host?, :new_host?
+    helper_method :shikimori?, :old_host?, :new_host?
     before_action :ensure_proper_domain
     before_action :force_301_redirect
   end
@@ -11,8 +11,8 @@ module DomainsConcern
     ShikimoriDomain::HOSTS.include? request.host
   end
 
-  def clean_host?
-    request.host == ShikimoriDomain::CLEAN_HOST
+  def old_host?
+    request.host == ShikimoriDomain::OLD_HOST
   end
 
   def new_host?

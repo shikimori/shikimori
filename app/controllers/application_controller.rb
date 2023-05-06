@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include CensoredConcern # must be first
   include Translation
   include ErrorsConcern
   include UrlsConcern
@@ -130,8 +131,8 @@ private
   end
 
   # def ignore_copyright?
-  #   !clean_host?
-  #   # !clean_host? && (
+  #   !old_host?
+  #   # !old_host? && (
   #   #   current_user&.day_registered? ||
   #   #   GeoipAccess.instance.anime_online_allowed?(request.remote_ip) ||
   #   #   Rails.env.development?
