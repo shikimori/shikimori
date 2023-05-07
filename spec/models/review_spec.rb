@@ -192,18 +192,6 @@ describe Review do
         it { expect(Comments::ForbidTagChange).to_not have_received :call }
       end
     end
-
-    context '#forbid_abusive_content' do
-      let(:review) { build :review, anime: anime, body: 'хуй ' + ('a' * 9999) }
-      let(:anime) { create :anime }
-      before { review.save }
-
-      it do
-        expect(review.errors[:body]).to eq [
-          I18n.t('activerecord.errors.models.review.attributes.body.abusive_content')
-        ]
-      end
-    end
   end
 
   describe 'instance methods' do
@@ -438,4 +426,5 @@ describe Review do
 
   it_behaves_like :topics_concern, :review
   it_behaves_like :antispam_concern, :review
+  it_behaves_like :forbid_abusive_body_concern, :review
 end

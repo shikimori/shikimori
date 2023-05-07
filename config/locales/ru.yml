@@ -423,7 +423,11 @@ ru:
         review:
           attributes:
             body:
-              abusive_content: содержит мат или другие запрещенные на сайте слова
+              abusive_content: &abusive_content содержит мат или другие запрещенные на сайте слова
+        topic:
+          attributes:
+            body:
+              abusive_content: *abusive_content
 
   activemodel:
     errors:

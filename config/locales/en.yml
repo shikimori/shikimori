@@ -423,7 +423,11 @@ en:
         review:
           attributes:
             body:
-              abusive_content: contains words prohibited on the site
+              abusive_content: &abusive_content contains words prohibited on the site
+        topic:
+          attributes:
+            body:
+              abusive_content: *abusive_content
 
   activemodel:
     errors:
