@@ -49,6 +49,7 @@ class OpenGraphView < ViewObjectBase
       #{'[DEV] ' if Rails.env.development?}
       #{(@page_title || [site_name]).reverse.join PAGE_TITLE_SEPARATOR}
       #{(PAGE_TITLE_SEPARATOR + 'EN') unless I18n.russian?}
+      #{(PAGE_TITLE_SEPARATOR + h.current_user.id.to_s) if h.user_signed_in? && !I18n.russian?}
     TITLE
   end
 
