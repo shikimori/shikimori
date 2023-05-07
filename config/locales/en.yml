@@ -420,6 +420,10 @@ en:
           attributes:
             linked:
               censored: hentai/yaoi is forbidden
+        review:
+          attributes:
+            body:
+              abusive_content: contains words prohibited on the site
 
   activemodel:
     errors:

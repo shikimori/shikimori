@@ -99,8 +99,8 @@ private
     )
   end
 
-  def ban_reason comment
-    locale = comment.user.locale
+  def ban_reason _comment
+    # locale = comment.user.locale
     i18n_t('ban_reason', url: StickyTopicView.site_rules.object.url)
   end
 

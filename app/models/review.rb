@@ -42,6 +42,8 @@ class Review < ApplicationRecord
   # callbacks
   before_validation :forbid_tags_change,
     if: -> { will_save_change_to_body? && !@is_conversion }
+  before_validation :forbid_abusive_content,
+    if: -> { will_save_change_to_body? && !@is_conversion }
   before_create :fill_is_written_before_release,
     if: -> { is_written_before_release.nil? }
 
@@ -135,5 +137,12 @@ private
       tag_regexp: /(\[ban=\d+\])/,
       tag_error_label: '[ban]'
     )
+  end
+
+  def forbid_abusive_content
+    if Moderations::Banhammer.instance.abusive? body
+      errors.add :body, :abusive_content
+      false
+    end
   end
 end

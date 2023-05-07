@@ -420,6 +420,10 @@ ru:
           attributes:
             linked:
               censored: хентай/яой запрещён
+        review:
+          attributes:
+            body:
+              abusive_content: содержит мат или другие запрещенные на сайте слова
 
   activemodel:
     errors:
