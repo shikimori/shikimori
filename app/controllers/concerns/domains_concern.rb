@@ -3,8 +3,8 @@ module DomainsConcern
 
   included do
     helper_method :shikimori?, :old_host?, :new_host?
-    before_action :ensure_proper_domain
-    before_action :force_301_redirect
+    before_action :force_301_redirect_with_magic_link
+    before_action :force_301_redirect_for_guests
   end
 
   def shikimori?
@@ -21,7 +21,7 @@ module DomainsConcern
       ENV['USER'] == 'morr'
   end
 
-  def ensure_proper_domain # rubocop:disable AbcSize
+  def force_301_redirect_with_magic_link # rubocop:disable AbcSize
     return if Rails.env.test?
     return unless domain_redirects_appliable?
     return unless user_signed_in?
@@ -34,7 +34,8 @@ module DomainsConcern
       )
   end
 
-  def force_301_redirect
+  def force_301_redirect_for_guests
+    return if Time.zone.today < Date.parse('2023-05-20')
     return if Rails.env.test?
     return unless domain_redirects_appliable?
     return if user_signed_in?
