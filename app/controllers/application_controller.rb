@@ -1,13 +1,13 @@
 class ApplicationController < ActionController::Base
-  include CensoredConcern # must be first
+  include ErrorsConcern # must be the first
+  include CensoredConcern # must be the second
+  include LocaleConcern # must be the third
   include Translation
-  include ErrorsConcern
   include UrlsConcern
   include OpenGraphConcern
   include BreadcrumbsConcern
   include InvalidParameterErrorConcern
   include DomainsConcern
-  include LocaleConcern
   include PaginationConcern
   include StorableLocationConcern
   include AgeRestrictionsConcern
