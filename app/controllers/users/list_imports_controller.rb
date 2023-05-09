@@ -1,4 +1,5 @@
 class Users::ListImportsController < ProfilesController
+  include CaptchaConcern
   load_and_authorize_resource
 
   before_action do
@@ -18,7 +19,7 @@ class Users::ListImportsController < ProfilesController
   end
 
   def create
-    if verify_recaptcha && @resource.save
+    if valid_captcha?('list_import') && @resource.save
       redirect_to profile_list_import_url(@user, @resource)
     else
       new

@@ -61,3 +61,6 @@ en:
       privacy: Privacy
       for_right_holders: For rights holders
       sitemap: Sitemap
+
+    captcha:
+      captcha_error: CLOUDFLARE validation error

@@ -81,7 +81,7 @@ module Shikimori
   IS_SUMMARIES_ENABLED = !Rails.env.production?
   IS_IMAGEBOARD_TAGS_ENABLED = false
   IS_RECAPTCHA_V3 = false
-  IS_TURNSTILE = false
+  IS_TURNSTILE = true
 
   class Application < Rails::Application
     def redis
