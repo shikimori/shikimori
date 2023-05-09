@@ -7,7 +7,9 @@ module LocaleConcern
   end
 
   def set_locale
-    I18n.locale = params[:locale]&.to_sym || current_user&.locale&.to_sym
+    I18n.locale = user_signed_in? ?
+      (params[:locale].presence || current_user.locale).to_sym :
+      :ru
   end
 
   def ensure_only_russian_locale_indexed
