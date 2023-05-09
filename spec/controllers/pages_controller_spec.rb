@@ -33,6 +33,11 @@ describe PagesController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#twitter' do
+    subject! { get :twitter }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#terms' do
     subject! { get :terms }
     it { expect(response).to have_http_status :success }

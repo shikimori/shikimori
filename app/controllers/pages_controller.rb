@@ -56,6 +56,10 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
     og noindex: true
   end
 
+  def twitter
+    og noindex: true
+  end
+
   def terms
     og noindex: true
     og page_title: i18n_t('terms_of_service')
