@@ -32,12 +32,12 @@ jobs:
         ports:
           - '5432:5432'
         env:
-          POSTGRES_TEST_USER: postgres
-          POSTGRES_TEST_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
     env:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: github-actions
+      POSTGRES_TEST_USER: postgres
+      POSTGRES_TEST_PASSWORD: postgres
+      POSTGRES_TEST_DB: github-actions
       RAILS_ENV: test
       CI_SERVER: yes
     steps:
