@@ -7,6 +7,12 @@ class Users::ListImportsController < ProfilesController
     og page_title: t(:settings)
   end
 
+  def show
+    return redirect_to edit_profile_url(@user, section: :list) if @resource.is_archived?
+
+    @view = ListImportView.new @resource
+  end
+
   def new
     og page_title: i18n_t(:title)
   end
@@ -18,12 +24,6 @@ class Users::ListImportsController < ProfilesController
       new
       render :new
     end
-  end
-
-  def show
-    return redirect_to edit_profile_url(@user, section: :list) if @resource.is_archived?
-
-    @view = ListImportView.new @resource
   end
 
 private

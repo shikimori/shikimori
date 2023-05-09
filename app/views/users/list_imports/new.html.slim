@@ -15,7 +15,7 @@
       = f.input :duplicate_policy, include_blank: false
       = f.input :list
 
-      = recaptcha_tags
+      = render 'application/captcha'
 
     = f.button :magic_submit
     a.cancel href=@back_url = t 'actions.cancel'
