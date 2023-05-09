@@ -8,6 +8,7 @@
     function renderTurnstile() {
       turnstile.render('.b-cf-turnstile', {
         sitekey: '#{Rails.application.secrets.turnstile[:site_key]}',
+        language: 'ru',
         'error-callback': renderTurnstile
       });
     }
