@@ -1,10 +1,10 @@
 development: &defaults
   adapter: postgresql
   encoding: utf8
-  database: <%= ENV['POSTGRES_DB'] || 'shikimori_production' %>
-  username: <%= ENV['POSTGRES_USER'] || 'shikimori_production' %>
-  password: <%= ENV['POSTGRES_PASSWORD'] %>
-  host: <%= ENV['POSTGRES_HOST'] || 'localhost' %>
+  database: <%= ENV['POSTGRES_DEV_DB'].presence || 'shikimori_production' %>
+  username: <%= ENV['POSTGRES_DEV_USER'].presence || 'shikimori_production' %>
+  password: <%= ENV['POSTGRES_DEV_PASSWORD'].presence %>
+  host: <%= ENV['POSTGRES_DEV_HOST'].presence || 'localhost' %>
   pool: 100
   timeout: 5000
   encoding: utf8
@@ -17,7 +17,7 @@ production:
 
 test:
   <<: *defaults
-  database: <%= ENV['POSTGRES_DB'] || "shikimori_test#{ENV['TEST_ENV_NUMBER']}" %>
-  username: <%= ENV['POSTGRES_USER'] || 'shikimori_test' %>
-  password: <%= ENV['POSTGRES_PASSWORD'] %>
-  host: <%= ENV['POSTGRES_HOST'] || 'localhost' %>
+  database: <%= ENV['POSTGRES_TEST_DB'].presence || "shikimori_test#{ENV['TEST_ENV_NUMBER']}" %>
+  username: <%= ENV['POSTGRES_TEST_USER'].presence || 'shikimori_test' %>
+  password: <%= ENV['POSTGRES_TEST_PASSWORD'].presence %>
+  host: <%= ENV['POSTGRES_TEST_HOST'].presence || 'localhost' %>
