@@ -29,6 +29,8 @@ private
   end
 
   def verify_turnstile # rubocop:disable Metrics/AbcSize
+    return false if params[:'cf-turnstile-response'].blank?
+
     cf_response = Faraday.post do |req|
       req.url 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
       req.headers['Authorization'] = 'foo'
