@@ -212,6 +212,7 @@ private
     #     src_2x: "/assets/globals/events/2023-02-10/menu_#{i}@2x.jpg"
     #   }
     # end,
+    url: 'https://bit.ly/3O0IWd3',
     images: [{
       src: '/assets/globals/events/2023-05-06/menu_1.jpg',
       src_2x: '/assets/globals/events/2023-05-06/menu_1@2x.jpg'
@@ -231,6 +232,7 @@ private
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
+    url: 'https://bit.ly/3HVEGYo',
     images: (1..1).map do |i|
       {
         src: "/assets/globals/events/2023-05-06/wide_#{i}.jpg",
@@ -427,12 +429,12 @@ private
       ],
       Types::Ad::Meta[:menu_240x400] => [
         Types::Ad::Type[:special_x300], # STARRAIL
-        Types::Ad::Type[:yd_240x600],
+        Types::Ad::Type[:yd_240x600]
         # Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
         Types::Ad::Type[:special_x300], # STARRAIL
-        Types::Ad::Type[:yd_300x600],
+        Types::Ad::Type[:yd_300x600]
         # Types::Ad::Type[:mt_300x600]
       ],
       Types::Ad::Meta[:horizontal_x250] => [
@@ -441,7 +443,7 @@ private
       ],
       Types::Ad::Meta[:horizontal_x90] => [
         # Types::Ad::Type[:special_x894], # IMBA - remove 2023-02-04 22:00
-        Types::Ad::Type[:yd_970x90],
+        Types::Ad::Type[:yd_970x90]
         # Types::Ad::Type[:mt_728x90]
       ],
       Types::Ad::Meta[:footer] => [
@@ -449,7 +451,7 @@ private
       ],
       Types::Ad::Meta[:special_x1170] => [
         Types::Ad::Type[:special_x1170], # STARRAIL
-        Types::Ad::Type[:yd_970x250],
+        Types::Ad::Type[:yd_970x250]
         # Types::Ad::Type[:mt_970x250]
       ]
     },
@@ -460,13 +462,13 @@ private
         # Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        Types::Ad::Type[:special_x300], # STARRAIL
+        Types::Ad::Type[:special_x300] # STARRAIL
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
         # Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        Types::Ad::Type[:special_x300], # STARRAIL
+        Types::Ad::Type[:special_x300] # STARRAIL
         # Types::Ad::Type[:mt_300x600],
         # Types::Ad::Type[:yd_300x600],
         # Types::Ad::Type[:advrtr_240x400],
