@@ -10115,6 +10115,7 @@
         - 2982
         - 40752
         - 51068
+        - 3642
       :generator:
         person_id: 5089
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -10233,6 +10234,7 @@
         - 2982
         - 40752
         - 51068
+        - 3642
       :generator:
         person_id: 5089
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -20332,7 +20334,7 @@
       :algo: duration
       :filters:
         franchise: yahari_ore_no_seishun_love_comedy_wa_machigatteiru
-      :threshold: 100%
+      :threshold: 96.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :yahari_ore_no_seishun_love_comedy_wa_machigatteiru
@@ -24093,7 +24095,7 @@
         - 52011
         - 52571
         - 52745
-      :threshold: 95.7%
+      :threshold: 95.4%
       :generator:
         not_ignored_ids:
         - 14951
@@ -24848,7 +24850,7 @@
         - 51887
         - 51889
         - 52897
-      :threshold: 94%
+      :threshold: 94.1%
       :generator:
         ignore_latest_ids:
         - 37966
@@ -26379,7 +26381,7 @@
         - 52390
         - 53286
         - 53603
-      :threshold: 87.5%
+      :threshold: 87.2%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -27332,7 +27334,7 @@
         - 53517
         - 53976
         - 55134
-      :threshold: 92.5%
+      :threshold: 92.4%
       :generator:
         ignore_latest_ids:
         - 38770
@@ -29340,7 +29342,7 @@
         - 49735
         - 51509
         - 51842
-      :threshold: 85.5%
+      :threshold: 85.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :idolmaster
@@ -30153,12 +30155,12 @@
       :filters:
         franchise: urusei_yatsura
         not_anime_ids:
-        - 1481
         - 53402
         - 53433
+      :generator:
         not_ignored_ids:
         - 1481
-      :threshold: 93.9%
+      :threshold: 93.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :urusei_yatsura
@@ -30188,9 +30190,9 @@
       :filters:
         franchise: urusei_yatsura
         not_anime_ids:
-        - 1481
         - 53402
         - 53433
+      :generator:
         not_ignored_ids:
         - 1481
       :threshold: 0.01
@@ -31650,64 +31652,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :binan_koukou_chikyuu_boueibu_love
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/binan_koukou_chikyuu_boueibu_love.jpg"
-    :border_color: 
-    :title_ru: Красавцы из клуба защитников Земли
-    :text_ru: 
-    :title_en: Binan Koukou Chikyuu Boueibu
-    :text_en: 
-    :topic_id: 247360
-    :rule: &542
-      :algo: duration
-      :filters:
-        franchise: binan_koukou_chikyuu_boueibu_love
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :binan_koukou_chikyuu_boueibu_love
-  level: 1
-  image: "/assets/achievements/anime/franchise/binan_koukou_chikyuu_boueibu_love.jpg"
-  border_color: 
-  title_ru: Красавцы из клуба защитников Земли
-  text_ru: 
-  title_en: Binan Koukou Chikyuu Boueibu
-  text_en: 
-  topic_id: 247360
-  rule: *542
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :binan_koukou_chikyuu_boueibu_love
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/binan_koukou_chikyuu_boueibu_love.jpg"
-    :border_color: 
-    :title_ru: Красавцы из клуба защитников Земли
-    :text_ru: 
-    :title_en: Binan Koukou Chikyuu Boueibu
-    :text_en: 
-    :topic_id: 247360
-    :rule: &543
-      :algo: duration
-      :filters:
-        franchise: binan_koukou_chikyuu_boueibu_love
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :binan_koukou_chikyuu_boueibu_love
-  level: 0
-  image: "/assets/achievements/anime/franchise/binan_koukou_chikyuu_boueibu_love.jpg"
-  border_color: 
-  title_ru: Красавцы из клуба защитников Земли
-  text_ru: 
-  title_en: Binan Koukou Chikyuu Boueibu
-  text_en: 
-  topic_id: 247360
-  rule: *543
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :mobile_police_patlabor
     :level: 0
     :image: "/assets/achievements/anime/franchise/mobile_police_patlabor.jpg"
@@ -31717,7 +31661,7 @@
     :title_en: Kidou Keisatsu Patlabor
     :text_en: 
     :topic_id: 247360
-    :rule: &544
+    :rule: &542
       :algo: duration
       :filters:
         franchise: mobile_police_patlabor
@@ -31733,6 +31677,64 @@
   title_ru: Полиция будущего
   text_ru: 
   title_en: Kidou Keisatsu Patlabor
+  text_en: 
+  topic_id: 247360
+  rule: *542
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :binan_koukou_chikyuu_boueibu_love
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/binan_koukou_chikyuu_boueibu_love.jpg"
+    :border_color: 
+    :title_ru: Красавцы из клуба защитников Земли
+    :text_ru: 
+    :title_en: Binan Koukou Chikyuu Boueibu
+    :text_en: 
+    :topic_id: 247360
+    :rule: &543
+      :algo: duration
+      :filters:
+        franchise: binan_koukou_chikyuu_boueibu_love
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :binan_koukou_chikyuu_boueibu_love
+  level: 1
+  image: "/assets/achievements/anime/franchise/binan_koukou_chikyuu_boueibu_love.jpg"
+  border_color: 
+  title_ru: Красавцы из клуба защитников Земли
+  text_ru: 
+  title_en: Binan Koukou Chikyuu Boueibu
+  text_en: 
+  topic_id: 247360
+  rule: *543
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :binan_koukou_chikyuu_boueibu_love
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/binan_koukou_chikyuu_boueibu_love.jpg"
+    :border_color: 
+    :title_ru: Красавцы из клуба защитников Земли
+    :text_ru: 
+    :title_en: Binan Koukou Chikyuu Boueibu
+    :text_en: 
+    :topic_id: 247360
+    :rule: &544
+      :algo: duration
+      :filters:
+        franchise: binan_koukou_chikyuu_boueibu_love
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :binan_koukou_chikyuu_boueibu_love
+  level: 0
+  image: "/assets/achievements/anime/franchise/binan_koukou_chikyuu_boueibu_love.jpg"
+  border_color: 
+  title_ru: Красавцы из клуба защитников Земли
+  text_ru: 
+  title_en: Binan Koukou Chikyuu Boueibu
   text_en: 
   topic_id: 247360
   rule: *544
@@ -32530,7 +32532,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.6%
+      :threshold: 91.7%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -32554,72 +32556,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :city_hunter
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/city_hunter.jpg"
-    :border_color: 
-    :title_ru: Городской охотник
-    :text_ru: 
-    :title_en: City Hunter
-    :text_en: 
-    :topic_id: 247360
-    :rule: &570
-      :algo: duration
-      :filters:
-        franchise: city_hunter
-      :threshold: 90%
-      :generator:
-        ignore_latest_ids:
-        - 37516
-        - 51585
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :city_hunter
-  level: 1
-  image: "/assets/achievements/anime/franchise/city_hunter.jpg"
-  border_color: 
-  title_ru: Городской охотник
-  text_ru: 
-  title_en: City Hunter
-  text_en: 
-  topic_id: 247360
-  rule: *570
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :city_hunter
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/city_hunter.jpg"
-    :border_color: 
-    :title_ru: Городской охотник
-    :text_ru: 
-    :title_en: City Hunter
-    :text_en: 
-    :topic_id: 247360
-    :rule: &571
-      :algo: duration
-      :filters:
-        franchise: city_hunter
-      :threshold: 0.01
-      :generator:
-        ignore_latest_ids:
-        - 37516
-        - 51585
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :city_hunter
-  level: 0
-  image: "/assets/achievements/anime/franchise/city_hunter.jpg"
-  border_color: 
-  title_ru: Городской охотник
-  text_ru: 
-  title_en: City Hunter
-  text_en: 
-  topic_id: 247360
-  rule: *571
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :pretty_cure
     :level: 0
     :image: "/assets/achievements/anime/franchise/pretty_cure.jpg"
@@ -32629,7 +32565,7 @@
     :title_en: Futari wa Precure
     :text_en: 
     :topic_id: 247360
-    :rule: &572
+    :rule: &570
       :algo: duration
       :filters:
         franchise: pretty_cure
@@ -32657,6 +32593,72 @@
   title_ru: Хорошенькое лекарство
   text_ru: 
   title_en: Futari wa Precure
+  text_en: 
+  topic_id: 247360
+  rule: *570
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :city_hunter
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/city_hunter.jpg"
+    :border_color: 
+    :title_ru: Городской охотник
+    :text_ru: 
+    :title_en: City Hunter
+    :text_en: 
+    :topic_id: 247360
+    :rule: &571
+      :algo: duration
+      :filters:
+        franchise: city_hunter
+      :threshold: 90%
+      :generator:
+        ignore_latest_ids:
+        - 37516
+        - 51585
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :city_hunter
+  level: 1
+  image: "/assets/achievements/anime/franchise/city_hunter.jpg"
+  border_color: 
+  title_ru: Городской охотник
+  text_ru: 
+  title_en: City Hunter
+  text_en: 
+  topic_id: 247360
+  rule: *571
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :city_hunter
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/city_hunter.jpg"
+    :border_color: 
+    :title_ru: Городской охотник
+    :text_ru: 
+    :title_en: City Hunter
+    :text_en: 
+    :topic_id: 247360
+    :rule: &572
+      :algo: duration
+      :filters:
+        franchise: city_hunter
+      :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 37516
+        - 51585
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :city_hunter
+  level: 0
+  image: "/assets/achievements/anime/franchise/city_hunter.jpg"
+  border_color: 
+  title_ru: Городской охотник
+  text_ru: 
+  title_en: City Hunter
   text_en: 
   topic_id: 247360
   rule: *572
@@ -33217,6 +33219,40 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :glass_no_kamen
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/glass_no_kamen.jpg"
+    :border_color: 
+    :title_ru: Стеклянная маска
+    :text_ru: 
+    :title_en: Glass no Kamen
+    :text_en: 
+    :topic_id: 247360
+    :rule: &590
+      :algo: duration
+      :filters:
+        franchise: glass_no_kamen
+        not_anime_ids:
+        - 17707
+        - 27621
+        - 34336
+        - 35070
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :glass_no_kamen
+  level: 0
+  image: "/assets/achievements/anime/franchise/glass_no_kamen.jpg"
+  border_color: 
+  title_ru: Стеклянная маска
+  text_ru: 
+  title_en: Glass no Kamen
+  text_en: 
+  topic_id: 247360
+  rule: *590
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :aikatsu
     :level: 1
     :image: "/assets/achievements/anime/franchise/aikatsu.jpg"
@@ -33226,7 +33262,7 @@
     :title_en: Aikatsu!
     :text_en: 
     :topic_id: 247360
-    :rule: &590
+    :rule: &591
       :algo: duration
       :filters:
         franchise: aikatsu
@@ -33246,40 +33282,6 @@
   title_ru: Айкацу!
   text_ru: 
   title_en: Aikatsu!
-  text_en: 
-  topic_id: 247360
-  rule: *590
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :glass_no_kamen
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/glass_no_kamen.jpg"
-    :border_color: 
-    :title_ru: Стеклянная маска
-    :text_ru: 
-    :title_en: Glass no Kamen
-    :text_en: 
-    :topic_id: 247360
-    :rule: &591
-      :algo: duration
-      :filters:
-        franchise: glass_no_kamen
-        not_anime_ids:
-        - 17707
-        - 27621
-        - 34336
-        - 35070
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :glass_no_kamen
-  level: 0
-  image: "/assets/achievements/anime/franchise/glass_no_kamen.jpg"
-  border_color: 
-  title_ru: Стеклянная маска
-  text_ru: 
-  title_en: Glass no Kamen
   text_en: 
   topic_id: 247360
   rule: *591
@@ -34727,15 +34729,13 @@
       :filters:
         franchise: touch
         not_anime_ids:
-        - 2491
-        - 2492
-        - 2493
         - 39352
+      :generator:
         not_ignored_ids:
         - 2491
         - 2492
         - 2493
-      :threshold: 94.6%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :touch
@@ -34765,10 +34765,8 @@
       :filters:
         franchise: touch
         not_anime_ids:
-        - 2491
-        - 2492
-        - 2493
         - 39352
+      :generator:
         not_ignored_ids:
         - 2491
         - 2492
