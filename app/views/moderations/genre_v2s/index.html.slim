@@ -34,9 +34,9 @@ table.b-table.b-editable_grid.block2
           = genre.kind_text
         td.id
           - if genre.anime?
-            a.catalog-link href=animes_collection_url(genre: genre.to_param)
+            a.catalog-link href=animes_collection_url(genre_v2: genre.to_param)
           - else
-            a.catalog-link href=mangas_collection_url(genre: genre.to_param)
+            a.catalog-link href=mangas_collection_url(genre_v2: genre.to_param)
         td.id
           = genre.position
         - if can? :update, GenreV2
