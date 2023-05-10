@@ -615,3 +615,25 @@ Anime.all.each do |anime|
   anime.update! name: backup[:name]
 end;
 ```
+
+### Cleanup duplicates of genres
+```ruby
+[Anime, Manga].each do |klass|
+  "#{klass.name}GenresV2Repository".constantize.instance.
+    group_by(&:name).
+    select { |name, genres| genres.many? }.
+    map(&:second).
+    map { |genres| genres.sort_by(&:id) }.
+    each_with_object({}) { |genres, memo| memo[genres[0].id] = genres[1..-1].map(&:id) }.
+    each do |proper_genre_id, duplicate_genre_ids|
+      duplicate_genre_ids.each do |duplicate_genre_id|
+        klass.where("genre_v2_ids && '{#{duplicate_genre_id}}'").each do |db_entry|
+          db_entry.update! genre_v2_ids: (db_entry.genre_v2_ids.map do |genre_v2_id|
+            genre_v2_id == duplicate_genre_id ? proper_genre_id : genre_v2_id
+          end)
+        end
+        GenreV2.find(duplicate_genre_id).destroy!;
+      end
+    end;
+end;
+```
