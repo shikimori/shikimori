@@ -278,7 +278,7 @@ private
   }
   SPECIAL_X894 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: IMBA - remove 2023-02-04 22:00
+    # AD START: IMBA - remove 2023-05-17 22:00
     images: [{
       # src: "/assets/globals/events/2023-02-10/wide_1.jpg",
       src: '/assets/globals/events/2023-03-27/inner_1.png',
@@ -442,7 +442,7 @@ private
         Types::Ad::Type[:mt_970x250]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        # Types::Ad::Type[:special_x894], # IMBA - remove 2023-02-04 22:00
+        Types::Ad::Type[:special_x894], # IMBA - remove 2023-05-17 22:00
         Types::Ad::Type[:yd_970x90]
         # Types::Ad::Type[:mt_728x90]
       ],
@@ -478,7 +478,7 @@ private
         # Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        # Types::Ad::Type[:special_x894] # IMBA - remove 2023-02-04 22:00
+        Types::Ad::Type[:special_x894] # IMBA - remove 2023-05-17 22:00
         # Types::Ad::Type[:mt_728x90],
         # Types::Ad::Type[:advrtr_x728]
       ],
