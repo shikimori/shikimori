@@ -594,3 +594,24 @@ end
 ensure_queue(100)
 Achievements::UpdateStatistics.perform_async
 ```
+
+### Restore anime names on production
+```ruby
+File.open("/tmp/animes.json", 'w') do |f|
+  f.write Anime.all.map { |v| { id: v.id, name: v.name } }.to_json
+end
+```
+
+```sh
+scp /tmp/animes.json devops@shiki:/tmp/
+```
+
+```ruby
+json = JSON.parse(open('/tmp/animes.json').read, symbolize_names: true);
+Anime.all.each do |anime|
+  backup = json.find { |v| v[:id] == anime.id }
+  next unless backup
+
+  anime.update! name: backup[:name]
+end;
+```
