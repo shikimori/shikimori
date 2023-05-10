@@ -7,6 +7,8 @@ module ForbidAbusiveBodyConcern
   end
 
   def forbid_abusive_body
+    return if body.blank?
+
     if Moderations::Banhammer.instance.abusive? body
       errors.add :body, :abusive_content
       false

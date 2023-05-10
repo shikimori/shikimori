@@ -1,4 +1,4 @@
-describe Tags::ImportDanbooruTags, :vcr, :focus do
+describe Tags::ImportDanbooruTags, :vcr do
   let(:service) { described_class.new }
 
   before do

@@ -2,6 +2,8 @@ module CaptchaConcern
   extend ActiveSupport::Concern
 
   def valid_captcha? action
+    return true if Rails.env.test?
+
     is_success = Shikimori::IS_TURNSTILE ?
       verify_turnstile :
       verify_google_captcha(action)
