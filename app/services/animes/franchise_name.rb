@@ -31,7 +31,9 @@ class Animes::FranchiseName
     'Saki' => 'saki',
     'Nanatsu no Tanpen' => 'nanatsu_no_tanpen',
     'Fairy Tail' => 'fairy_tail',
-    'Boku wa Tomodachi ga Sukunai' => 'boku_wa_tomodachi_ga_sukunai'
+    'Boku wa Tomodachi ga Sukunai' => 'boku_wa_tomodachi_ga_sukunai',
+    'Higurashi no Naku Koro ni Kai' => 'when_they_cry',
+    'Binan Koukou Chikyuu Bouei-bu LOVE! LOVE! LOVE!' => 'binan_koukou_chikyuu_boueibu_love'
   }.transform_keys(&:downcase)
 
   def call
