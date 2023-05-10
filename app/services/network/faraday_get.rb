@@ -1,5 +1,5 @@
 class Network::FaradayGet
-  method_object :url
+  method_object :url, %i[timeout open_timeout]
 
   TOO_LARGE_FOR_META_REDIRECT_SIZE = 10_000
   MAX_DEEP = 5
@@ -38,8 +38,8 @@ private
     end
 
     response = connection.get(url) do |req|
-      req.options.timeout = 5
-      req.options.open_timeout = 2
+      req.options.timeout = @timeout || 5
+      req.options.open_timeout = @open_timeout || 2
     end
 
     check_meta_redirect response, deep
