@@ -35,7 +35,6 @@ module DomainsConcern
   end
 
   def force_301_redirect_for_guests
-    return if Time.zone.today < Date.parse('2023-05-20')
     return if Rails.env.test?
     return unless domain_redirects_appliable?
     return if user_signed_in?
