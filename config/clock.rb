@@ -35,7 +35,7 @@ module Clockwork
   end
 
   every 2.hours, '2.hours', at: '**:05' do
-    ProxyWorker.perform_async
+    # ProxyWorker.perform_async
     SmotretAnime::ScheduleEpisodeWorkers.perform_async 'a'
 
     NamedLogger.clockwork.info '2.hours finished'
