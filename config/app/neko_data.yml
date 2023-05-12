@@ -2209,6 +2209,8 @@
         - 50963
         - 54519
         - 1193
+        - 39154
+        - 39153
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -2718,6 +2720,8 @@
         - 50963
         - 54519
         - 1193
+        - 39154
+        - 39153
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3226,6 +3230,8 @@
         - 50963
         - 54519
         - 1193
+        - 39154
+        - 39153
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3732,6 +3738,8 @@
         - 50963
         - 54519
         - 1193
+        - 39154
+        - 39153
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -4567,6 +4575,8 @@
         - 40373
         - 39242
         - 7504
+        - 51986
+        - 55191
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -12193,6 +12203,7 @@
         - 38749
         - 39935
         - 41750
+        - 51653
       :generator:
         person_id: 7454
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -12253,6 +12264,7 @@
         - 38749
         - 39935
         - 41750
+        - 51653
       :generator:
         person_id: 7454
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -12312,6 +12324,7 @@
         - 38749
         - 39935
         - 41750
+        - 51653
       :generator:
         person_id: 5348
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -12371,6 +12384,7 @@
         - 38749
         - 39935
         - 41750
+        - 51653
       :generator:
         person_id: 5348
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -14170,6 +14184,7 @@
         - 1302
         - 1000
         - 6087
+        - 1301
       :generator:
         person_id: 7305
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -14231,6 +14246,7 @@
         - 1302
         - 1000
         - 6087
+        - 1301
       :generator:
         person_id: 7305
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -14293,6 +14309,7 @@
         - 5755
         - 12677
         - 38162
+        - 39893
       :generator:
         person_id: 5957
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -14355,6 +14372,7 @@
         - 5755
         - 12677
         - 38162
+        - 39893
       :generator:
         person_id: 5957
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -27947,6 +27965,7 @@
         not_anime_ids:
         - 16335
         - 53216
+        - 54748
         - 54749
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -27980,6 +27999,7 @@
         not_anime_ids:
         - 16335
         - 53216
+        - 54748
         - 54749
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -30638,6 +30658,7 @@
         - 54045
         - 54046
         - 54047
+        - 55006
       :threshold: 98%
       :generator:
         not_ignored_ids:
@@ -30703,6 +30724,7 @@
         - 54045
         - 54046
         - 54047
+        - 55006
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -33405,11 +33427,13 @@
       :filters:
         franchise: stitch
         not_anime_ids:
-        - 25889
-        - 25891
         - 28921
         - 31238
-      :threshold: 97.9%
+      :threshold: 95.2%
+      :generator:
+        not_ignored_ids:
+        - 25889
+        - 25891
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :stitch
@@ -33439,11 +33463,13 @@
       :filters:
         franchise: stitch
         not_anime_ids:
-        - 25889
-        - 25891
         - 28921
         - 31238
       :threshold: 0.01
+      :generator:
+        not_ignored_ids:
+        - 25889
+        - 25891
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :stitch
