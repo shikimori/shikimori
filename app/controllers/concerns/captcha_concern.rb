@@ -37,8 +37,8 @@ private
       req.url 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
       req.headers['Authorization'] = 'foo'
       req.headers['Content-Type'] = 'application/json'
-      req.options.timeout = 90
-      req.options.open_timeout = 90
+      req.options.timeout = 15
+      req.options.open_timeout = 15
       req.body = {
         secret: Rails.application.secrets.turnstile[:secret_key],
         response: params[:'cf-turnstile-response']
