@@ -35,7 +35,6 @@ private
 
     cf_response = Faraday.post do |req|
       req.url 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
-      req.headers['Authorization'] = 'foo'
       req.headers['Content-Type'] = 'application/json'
       req.options.timeout = 15
       req.options.open_timeout = 15
