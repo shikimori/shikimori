@@ -45,12 +45,6 @@ describe Manga do
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_length_of(:description_ru).is_at_most(16384) }
     it { is_expected.to validate_length_of(:description_en).is_at_most(16384) }
-    it { is_expected.to validate_length_of(:name).is_at_most(255) }
-    it { is_expected.to validate_length_of(:english).is_at_most(255) }
-    it { is_expected.to validate_length_of(:russian).is_at_most(255) }
-    it { is_expected.to validate_length_of(:japanese).is_at_most(255) }
-    it { is_expected.to validate_length_of(:license_name_ru).is_at_most(255) }
-    it { is_expected.to validate_length_of(:franchise).is_at_most(255) }
   end
 
   describe 'enumerize' do

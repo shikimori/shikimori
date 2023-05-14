@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_14_173952) do
+ActiveRecord::Schema.define(version: 2023_05_14_184828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -122,10 +122,10 @@ ActiveRecord::Schema.define(version: 2023_05_14_173952) do
   end
 
   create_table "animes", force: :cascade do |t|
-    t.string "name", limit: 350
+    t.string "name"
     t.string "description_ru", limit: 16384
     t.string "description_en", limit: 16384
-    t.string "kind", limit: 255
+    t.string "kind"
     t.integer "episodes", default: 0, null: false
     t.integer "duration"
     t.decimal "score", default: "0.0", null: false
@@ -137,29 +137,29 @@ ActiveRecord::Schema.define(version: 2023_05_14_173952) do
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
     t.datetime "image_updated_at"
-    t.string "status", limit: 255
-    t.string "rating", limit: 255
+    t.string "status"
+    t.string "rating"
     t.integer "episodes_aired", default: 0, null: false
-    t.string "russian", limit: 255, default: "", null: false
+    t.string "russian", default: "", null: false
     t.boolean "is_censored", default: false
     t.datetime "imported_at"
     t.datetime "next_episode_at"
-    t.string "imageboard_tag", limit: 255
-    t.string "torrents_name", limit: 255
+    t.string "imageboard_tag"
+    t.string "torrents_name"
     t.float "site_score", default: 0.0, null: false
     t.text "desynced", default: [], null: false, array: true
     t.string "origin"
     t.string "broadcast"
-    t.string "english", limit: 255
-    t.string "japanese", limit: 255
+    t.string "english"
+    t.string "japanese"
     t.integer "mal_id"
     t.datetime "authorized_imported_at"
     t.text "synonyms", default: [], null: false, array: true
     t.integer "cached_rates_count", default: 0, null: false
     t.integer "genre_ids", default: [], null: false, array: true
     t.integer "studio_ids", default: [], null: false, array: true
-    t.string "season", limit: 255
-    t.string "franchise", limit: 255
+    t.string "season"
+    t.string "franchise"
     t.string "license_name_ru"
     t.text "coub_tags", default: [], null: false, array: true
     t.text "fansubbers", default: [], null: false, array: true
@@ -665,20 +665,20 @@ ActiveRecord::Schema.define(version: 2023_05_14_173952) do
   end
 
   create_table "mangas", force: :cascade do |t|
-    t.string "name", limit: 350
+    t.string "name"
     t.string "description_ru", limit: 16384
     t.string "description_en", limit: 16384
-    t.string "kind", limit: 255
+    t.string "kind"
     t.integer "volumes", default: 0, null: false
     t.integer "volumes_aired", default: 0, null: false
     t.integer "chapters", default: 0, null: false
     t.integer "chapters_aired", default: 0, null: false
-    t.string "status", limit: 255
-    t.string "russian", limit: 255, default: "", null: false
+    t.string "status"
+    t.string "russian", default: "", null: false
     t.decimal "score", default: "0.0", null: false
     t.integer "ranked"
     t.integer "popularity"
-    t.string "rating", limit: 255
+    t.string "rating"
     t.datetime "imported_at"
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
@@ -687,12 +687,12 @@ ActiveRecord::Schema.define(version: 2023_05_14_173952) do
     t.boolean "is_censored", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "imageboard_tag", limit: 255
+    t.string "imageboard_tag"
     t.float "site_score", default: 0.0, null: false
     t.datetime "parsed_at"
     t.text "desynced", default: [], null: false, array: true
-    t.string "english", limit: 255
-    t.string "japanese", limit: 255
+    t.string "english"
+    t.string "japanese"
     t.integer "mal_id"
     t.string "type"
     t.datetime "authorized_imported_at"
@@ -700,7 +700,7 @@ ActiveRecord::Schema.define(version: 2023_05_14_173952) do
     t.integer "cached_rates_count", default: 0, null: false
     t.integer "genre_ids", default: [], null: false, array: true
     t.integer "publisher_ids", default: [], null: false, array: true
-    t.string "franchise", limit: 255
+    t.string "franchise"
     t.string "license_name_ru"
     t.string "licensors", default: [], null: false, array: true
     t.decimal "score_2", default: "0.0", null: false
