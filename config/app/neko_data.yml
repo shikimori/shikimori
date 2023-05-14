@@ -20488,7 +20488,7 @@
         franchise: psycho_pass
         not_anime_ids:
         - 17901
-      :threshold: 95%
+      :threshold: 92.8%
       :generator:
         ignore_latest_ids:
         - 52747
