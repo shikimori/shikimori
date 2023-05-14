@@ -4577,6 +4577,10 @@
         - 7504
         - 51986
         - 55191
+        - 55261
+        - 55215
+        - 44649
+        - 44650
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -21802,6 +21806,7 @@
         - 53880
         - 53890
         - 54196
+        - 55289
       :threshold: 95.4%
       :generator:
         ignore_latest_ids:
@@ -21873,6 +21878,7 @@
         - 53880
         - 53890
         - 54196
+        - 55289
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -27456,7 +27462,7 @@
       :algo: duration
       :filters:
         franchise: ginga_eiyuu_densetsu
-      :threshold: 89.3%
+      :threshold: 90%
       :generator:
         ignore_latest_ids:
         - 36371
