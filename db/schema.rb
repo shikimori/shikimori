@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_30_182521) do
+ActiveRecord::Schema.define(version: 2023_05_14_173952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 2023_04_30_182521) do
   end
 
   create_table "animes", force: :cascade do |t|
-    t.string "name", limit: 255
+    t.string "name", limit: 350
     t.string "description_ru", limit: 16384
     t.string "description_en", limit: 16384
     t.string "kind", limit: 255
@@ -665,7 +665,7 @@ ActiveRecord::Schema.define(version: 2023_04_30_182521) do
   end
 
   create_table "mangas", force: :cascade do |t|
-    t.string "name", limit: 255
+    t.string "name", limit: 350
     t.string "description_ru", limit: 16384
     t.string "description_en", limit: 16384
     t.string "kind", limit: 255
