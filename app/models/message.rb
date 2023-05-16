@@ -25,6 +25,7 @@ class Message < ApplicationRecord
       kind == MessageType::PRIVATE && !from.bot? && will_save_change_to_body?
     }
   after_create :send_email
+  after_create :mark_replies_as_read
 
   def new? params
     %w[
@@ -78,5 +79,18 @@ private
     return unless kind == MessageType::PRIVATE
 
     EmailNotifier.instance.private_message self
+  end
+
+  def mark_replies_as_read
+    return unless kind == MessageType::PRIVATE
+
+    matched_ids = []
+    body.scan(BbCodes::Tags::MessageTag.instance.bbcode_regexp) do
+      matched_ids.push $LAST_MATCH_INFO[:id].to_i
+    end
+
+    if matched_ids.any?
+      Message.where(id: matched_ids, to_id: from_id).update_all read: true
+    end
   end
 end

@@ -49,18 +49,41 @@ describe Message do
 
         context 'private message' do
           let(:kind) { MessageType::PRIVATE }
-          it do
-            expect(EmailNotifier.instance)
-            .to have_received(:private_message).with message
+          it { expect(EmailNotifier.instance).to have_received(:private_message).with message }
+        end
+
+        context 'common message' do
+          let(:kind) { MessageType::NOTIFICATION }
+          it { expect(EmailNotifier.instance).to_not have_received(:private_message) }
+        end
+      end
+
+      describe '#mark_replies_as_read' do
+        let!(:message) do
+          create :message, :with_mark_replies_as_read,
+            kind: kind,
+            from: user_3,
+            to: user_2,
+            body: [
+              "[message=#{reply_message.id};#{user_2.id}], test",
+              "[message=#{reply_message.id}], test"
+            ].sample
+        end
+        let(:reply_message) { create :message, to: user_3, from: user_2 }
+
+        context 'private message' do
+          let(:kind) { MessageType::PRIVATE }
+          it { expect(reply_message.reload.read).to eq true }
+
+          context 'replied messages belongs to another user' do
+            let(:reply_message) { create :message, to: user_1, from: user_2 }
+            it { expect(reply_message.reload.read).to_not eq true }
           end
         end
 
         context 'common message' do
           let(:kind) { MessageType::NOTIFICATION }
-          it do
-            expect(EmailNotifier.instance)
-            .to_not have_received(:private_message)
-          end
+          it { expect(reply_message.reload.read).to_not eq true }
         end
       end
     end
