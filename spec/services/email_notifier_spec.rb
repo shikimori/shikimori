@@ -38,16 +38,16 @@ describe EmailNotifier do
       end
 
       context 'messages limit' do
-        let!(:present_message) { create :message, :private, from: from_user }
+        let!(:present_message) { create :message, :with_send_email, :private, from: from_user }
         it { expect(mailer_double).to_not have_received :private_message_email }
 
         context 'another user messages' do
-          let!(:present_message) { create :message, :private, from: build_stubbed(:user) }
+          let!(:present_message) { create :message, :with_send_email, :private, from: build_stubbed(:user) }
           it { expect(mailer_double).to have_received :private_message_email }
         end
 
         context 'not private message' do
-          let!(:present_message) { create :message, :notification, from: from_user }
+          let!(:present_message) { create :message, :with_send_email, :notification, from: from_user }
           it { expect(mailer_double).to have_received :private_message_email }
         end
       end
