@@ -18,7 +18,7 @@ describe EmailNotifier do
       allow(ShikiMailer).to receive(:delay_for).and_return mailer_double
       stub_const 'EmailNotifier::DAILY_USER_EMAILS_LIMIT', 1
     end
-    let!(:present_message) {}
+    let!(:present_message) { nil }
 
     subject! { service.private_message message }
 

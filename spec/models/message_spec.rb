@@ -58,6 +58,7 @@ describe Message do
       end
 
       describe '#mark_replies_as_read' do
+        before { allow(Messages::MarkRepliesAsRead).to receive :call }
         let!(:message) do
           create :message, :with_mark_replies_as_read,
             kind: kind,
@@ -72,17 +73,18 @@ describe Message do
 
         context 'private message' do
           let(:kind) { MessageType::PRIVATE }
-          it { expect(reply_message.reload.read).to eq true }
-
-          context 'replied messages belongs to another user' do
-            let(:reply_message) { create :message, to: user_1, from: user_2 }
-            it { expect(reply_message.reload.read).to_not eq true }
+          it do
+            expect(Messages::MarkRepliesAsRead)
+              .to have_received(:call)
+              .with body: message.body, user_id: user_3.id
           end
         end
 
         context 'common message' do
           let(:kind) { MessageType::NOTIFICATION }
-          it { expect(reply_message.reload.read).to_not eq true }
+          it do
+            expect(Messages::MarkRepliesAsRead).to_not have_received :call
+          end
         end
       end
     end
