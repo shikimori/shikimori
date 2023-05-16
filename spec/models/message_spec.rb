@@ -42,10 +42,9 @@ describe Message do
 
     describe 'after_create' do
       describe '#send_email' do
-        let(:message) { build :message, kind: kind }
+        let(:message) { create :message, :with_send_email, kind: kind }
 
         before { allow(EmailNotifier.instance).to receive :private_message }
-        before { message.save! }
 
         context 'private message' do
           let(:kind) { MessageType::PRIVATE }
