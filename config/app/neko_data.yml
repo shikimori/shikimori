@@ -4581,6 +4581,7 @@
         - 55215
         - 44649
         - 44650
+        - 18561
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -31619,37 +31620,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :mobile_police_patlabor
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/mobile_police_patlabor.jpg"
-    :border_color: 
-    :title_ru: Полиция будущего
-    :text_ru: 
-    :title_en: Kidou Keisatsu Patlabor
-    :text_en: 
-    :topic_id: 247360
-    :rule: &540
-      :algo: duration
-      :filters:
-        franchise: mobile_police_patlabor
-        not_anime_ids:
-        - 54399
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :mobile_police_patlabor
-  level: 1
-  image: "/assets/achievements/anime/franchise/mobile_police_patlabor.jpg"
-  border_color: 
-  title_ru: Полиция будущего
-  text_ru: 
-  title_en: Kidou Keisatsu Patlabor
-  text_en: 
-  topic_id: 247360
-  rule: *540
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :senki_zesshou_symphogear
     :level: 0
     :image: "/assets/achievements/anime/franchise/senki_zesshou_symphogear.jpg"
@@ -31659,7 +31629,7 @@
     :title_en: Senki Zesshou Symphogear
     :text_en: 
     :topic_id: 247360
-    :rule: &541
+    :rule: &540
       :algo: duration
       :filters:
         franchise: senki_zesshou_symphogear
@@ -31678,6 +31648,37 @@
   title_ru: Песня боевых принцесс
   text_ru: 
   title_en: Senki Zesshou Symphogear
+  text_en: 
+  topic_id: 247360
+  rule: *540
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :mobile_police_patlabor
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/mobile_police_patlabor.jpg"
+    :border_color: 
+    :title_ru: Полиция будущего
+    :text_ru: 
+    :title_en: Kidou Keisatsu Patlabor
+    :text_en: 
+    :topic_id: 247360
+    :rule: &541
+      :algo: duration
+      :filters:
+        franchise: mobile_police_patlabor
+        not_anime_ids:
+        - 54399
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :mobile_police_patlabor
+  level: 1
+  image: "/assets/achievements/anime/franchise/mobile_police_patlabor.jpg"
+  border_color: 
+  title_ru: Полиция будущего
+  text_ru: 
+  title_en: Kidou Keisatsu Patlabor
   text_en: 
   topic_id: 247360
   rule: *541
@@ -32797,38 +32798,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :ad_police
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/ad_police.jpg"
-    :border_color: 
-    :title_ru: Кризис каждый день
-    :text_ru: 
-    :title_en: Bubblegum Crisis
-    :text_en: 
-    :topic_id: 247360
-    :rule: &576
-      :algo: duration
-      :filters:
-        franchise: ad_police
-        not_anime_ids:
-        - 5036
-        - 5043
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :ad_police
-  level: 1
-  image: "/assets/achievements/anime/franchise/ad_police.jpg"
-  border_color: 
-  title_ru: Кризис каждый день
-  text_ru: 
-  title_en: Bubblegum Crisis
-  text_en: 
-  topic_id: 247360
-  rule: *576
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :starmyu
     :level: 0
     :image: "/assets/achievements/anime/franchise/starmyu.jpg"
@@ -32838,7 +32807,7 @@
     :title_en: Starmyu
     :text_en: 
     :topic_id: 247360
-    :rule: &577
+    :rule: &576
       :algo: duration
       :filters:
         franchise: starmyu
@@ -32855,6 +32824,38 @@
   title_ru: Музыкальная школа звёзд
   text_ru: 
   title_en: Starmyu
+  text_en: 
+  topic_id: 247360
+  rule: *576
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :ad_police
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/ad_police.jpg"
+    :border_color: 
+    :title_ru: Кризис каждый день
+    :text_ru: 
+    :title_en: Bubblegum Crisis
+    :text_en: 
+    :topic_id: 247360
+    :rule: &577
+      :algo: duration
+      :filters:
+        franchise: ad_police
+        not_anime_ids:
+        - 5036
+        - 5043
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :ad_police
+  level: 1
+  image: "/assets/achievements/anime/franchise/ad_police.jpg"
+  border_color: 
+  title_ru: Кризис каждый день
+  text_ru: 
+  title_en: Bubblegum Crisis
   text_en: 
   topic_id: 247360
   rule: *577
