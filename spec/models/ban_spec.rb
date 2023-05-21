@@ -133,6 +133,25 @@ describe Ban do
       end
     end
 
+    describe '#cleanup_in_target' do
+      subject { comment.reload.body }
+
+      let!(:prior_ban) { nil }
+      let!(:ban) { create :ban, params }
+      let(:comment) { create :comment, user: user, body: 'test' }
+
+      before { ban.destroy }
+
+      context 'no other bans' do
+        it { is_expected.to eq 'test' }
+      end
+
+      context 'with other bans' do
+        let!(:prior_ban) { create :ban, params }
+        it { is_expected.to eq "test\n\n[ban=#{prior_ban.id}]" }
+      end
+    end
+
     describe '#notify_user' do
       let(:moderator) { create :user }
       subject(:ban) { create :ban, params }
