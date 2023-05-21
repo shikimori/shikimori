@@ -30671,7 +30671,7 @@
         - 54046
         - 54047
         - 55006
-      :threshold: 98%
+      :threshold: 95%
       :generator:
         not_ignored_ids:
         - 32446
