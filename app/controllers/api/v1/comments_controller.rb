@@ -5,6 +5,9 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
 
   LIMIT = 30
 
+  UPDATE_PARAMS = %i[body is_offtopic]
+  CREATE_PARAMS = UPDATE_PARAMS + %i[commentable_id commentable_type user_id]
+
   before_action only: %i[create update destroy] do
     doorkeeper_authorize! :comments if doorkeeper_token.present?
   end
@@ -110,7 +113,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   end
   param :frontend, :bool
   def update
-    is_updated = Comment::Update.call @resource, comment_params, faye
+    is_updated = Comment::Update.call @resource, update_params, faye
 
     if is_updated && frontent_request?
       render :comment
@@ -129,22 +132,16 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
 
 private
 
-  def comment_params
+  def create_params
     params
       .require(:comment)
-      .permit(
-        :body, :offtopic, :is_offtopic,
-        :commentable_id, :commentable_type, :user_id
-      )
-      .except(:offtopic)
-  end
-
-  def create_params
-    comment_params.merge(user: current_user)
+      .permit(*CREATE_PARAMS)
+      .except(:user_id)
+      .merge(user: current_user)
   end
 
   def update_params
-    params.require(:comment).permit(:body)
+    params.require(:comment).permit(*UPDATE_PARAMS)
   end
 
   def faye
