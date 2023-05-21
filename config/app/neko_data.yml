@@ -8859,7 +8859,7 @@
     :topic_id: 276032
     :rule: &76
       :algo: count
-      :threshold: 58.8%
+      :threshold: 58%
       :filters:
         anime_ids:
         - 7193
@@ -8955,7 +8955,7 @@
     :topic_id: 276032
     :rule: &78
       :algo: count
-      :threshold: 31.2%
+      :threshold: 31%
       :filters:
         anime_ids:
         - 936
@@ -9081,7 +9081,7 @@
     :topic_id: 276032
     :rule: &80
       :algo: count
-      :threshold: 46.6%
+      :threshold: 46%
       :filters:
         anime_ids:
         - 25271
@@ -9173,7 +9173,7 @@
     :topic_id: 276032
     :rule: &82
       :algo: count
-      :threshold: 21.7%
+      :threshold: 21%
       :filters:
         anime_ids:
         - 36884
@@ -9327,7 +9327,7 @@
     :topic_id: 276032
     :rule: &84
       :algo: count
-      :threshold: 30.5%
+      :threshold: 30%
       :filters:
         anime_ids:
         - 1044
@@ -9461,7 +9461,7 @@
     :topic_id: 276032
     :rule: &86
       :algo: count
-      :threshold: 30.3%
+      :threshold: 30%
       :filters:
         anime_ids:
         - 8337
@@ -9589,7 +9589,7 @@
     :topic_id: 276032
     :rule: &88
       :algo: count
-      :threshold: 29.4%
+      :threshold: 29%
       :filters:
         anime_ids:
         - 2053
@@ -9685,7 +9685,7 @@
     :topic_id: 276032
     :rule: &90
       :algo: count
-      :threshold: 18.7%
+      :threshold: 18%
       :filters:
         anime_ids:
         - 39806
@@ -9811,7 +9811,7 @@
     :topic_id: 276032
     :rule: &92
       :algo: count
-      :threshold: 26.6%
+      :threshold: 26%
       :filters:
         anime_ids:
         - 101
@@ -9933,7 +9933,7 @@
     :topic_id: 276032
     :rule: &94
       :algo: count
-      :threshold: 29.1%
+      :threshold: 29%
       :filters:
         anime_ids:
         - 22147
