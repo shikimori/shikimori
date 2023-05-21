@@ -37,6 +37,11 @@ describe Animes::FranchiseName do
     it { is_expected.to eq 'test_fo' }
   end
 
+  context 'prefer fixed name' do
+    let(:anime_3) { build_stubbed :anime, name: 'Higurashi no Naku Koro ni Kai' }
+    it { is_expected.to eq 'when_they_cry' }
+  end
+
   describe 'keep old franchise name' do
     context 'less than half of entries with set franchise' do
       let(:anime_1) { build_stubbed :anime, name: 'Test', franchise: 'test_fo' }
