@@ -5406,6 +5406,7 @@
         - 48542
         - 48491
         - 51678
+        - 44141
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5926,6 +5927,7 @@
         - 48542
         - 48491
         - 51678
+        - 44141
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -6447,6 +6449,7 @@
         - 48542
         - 48491
         - 51678
+        - 44141
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -8856,7 +8859,7 @@
     :topic_id: 276032
     :rule: &76
       :algo: count
-      :threshold: 43%
+      :threshold: 58.8%
       :filters:
         anime_ids:
         - 7193
@@ -8952,7 +8955,7 @@
     :topic_id: 276032
     :rule: &78
       :algo: count
-      :threshold: 21%
+      :threshold: 31.2%
       :filters:
         anime_ids:
         - 936
@@ -9078,7 +9081,7 @@
     :topic_id: 276032
     :rule: &80
       :algo: count
-      :threshold: 33%
+      :threshold: 46.6%
       :filters:
         anime_ids:
         - 25271
@@ -9170,7 +9173,7 @@
     :topic_id: 276032
     :rule: &82
       :algo: count
-      :threshold: 15%
+      :threshold: 21.7%
       :filters:
         anime_ids:
         - 36884
@@ -9324,7 +9327,7 @@
     :topic_id: 276032
     :rule: &84
       :algo: count
-      :threshold: 22%
+      :threshold: 30.5%
       :filters:
         anime_ids:
         - 1044
@@ -9458,7 +9461,7 @@
     :topic_id: 276032
     :rule: &86
       :algo: count
-      :threshold: 21%
+      :threshold: 30.3%
       :filters:
         anime_ids:
         - 8337
@@ -9586,7 +9589,7 @@
     :topic_id: 276032
     :rule: &88
       :algo: count
-      :threshold: 23%
+      :threshold: 29.4%
       :filters:
         anime_ids:
         - 2053
@@ -9682,7 +9685,7 @@
     :topic_id: 276032
     :rule: &90
       :algo: count
-      :threshold: 15%
+      :threshold: 18.7%
       :filters:
         anime_ids:
         - 39806
@@ -9808,7 +9811,7 @@
     :topic_id: 276032
     :rule: &92
       :algo: count
-      :threshold: 23%
+      :threshold: 26.6%
       :filters:
         anime_ids:
         - 101
@@ -9930,7 +9933,7 @@
     :topic_id: 276032
     :rule: &94
       :algo: count
-      :threshold: 24%
+      :threshold: 29.1%
       :filters:
         anime_ids:
         - 22147
@@ -11870,7 +11873,7 @@
     :topic_id: 276032
     :rule: &122
       :algo: count
-      :threshold: 37%
+      :threshold: 50%
       :filters:
         anime_ids:
         - 2832
