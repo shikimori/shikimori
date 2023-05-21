@@ -1,18 +1,6 @@
 # GENERATED: call `Animes::GenerateBannedRelations.call` to update this file
 ---
 -
-  - A39415
-  - A38899
--
-  - A39415
-  - A36339
--
-  - A36339
-  - A38899
--
-  - A36339
-  - A33089
--
   - A10012 # Carnival Phantasm
   - A2593 # Kara no Kyoukai Movie 1: Fukan Fuukei
 -
@@ -716,6 +704,9 @@
   - A3202 # Daisuki! Hello Kitty
   - A39674 # Gundam vs Hello Kitty
 -
+  - A3202 # Daisuki! Hello Kitty
+  - A51324 # Shinkalion Hello Kitty
+-
   - A32143 # Peeping Life x Kaijuu Sakaba Kaiji: Kaijuu-tachi ga Iru Tokor
   - A6525 # Peeping Life
 -
@@ -754,6 +745,9 @@
 -
   - A33027 # Infini-T Force
   - A4810 # Shinzou Ningen Casshern
+-
+  - A33089 # Kemono Friends
+  - A36339 # Nissin no Donbei x Kemono Friends
 -
   - A33190 # Planetarian: Hoshi no Hito
   - A48775 # Kaginado
@@ -861,6 +855,12 @@
   - A35859 # Black Jack: Futari no Kuroi Isha - Manner Movie
   - A971 # Astro Boy: Tetsuwan Atom
 -
+  - A36339 # Nissin no Donbei x Kemono Friends
+  - A38899 # Nissin Men-nashi Donbei x Himote House
+-
+  - A36339 # Nissin no Donbei x Kemono Friends
+  - A39415 # Donbei x Kemurikusa
+-
   - A36517 # Ninja Batman
   - A37622 # Ninja Batman x Poputepipikku Kindan no Collab CM
 -
@@ -898,6 +898,9 @@
 -
   - A38659 # Shinchou Yuusha: Kono Yuusha ga Ore Tueee Kuse ni Shinchou Su
   - A41567 # Isekai Quartet Movie: Another World
+-
+  - A38899 # Nissin Men-nashi Donbei x Himote House
+  - A39415 # Donbei x Kemurikusa
 -
   - A3915 # Time Bokan
   - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
