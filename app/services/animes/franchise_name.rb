@@ -35,7 +35,8 @@ class Animes::FranchiseName
     'Higurashi no Naku Koro ni Kai' => 'when_they_cry',
     'Binan Koukou Chikyuu Bouei-bu LOVE! LOVE! LOVE!' => 'binan_koukou_chikyuu_boueibu_love',
     'Monster Strike' => 'monster_strike',
-    'Mameshiba 2nd Season' => 'mameshiba'
+    'Mameshiba 2nd Season' => 'mameshiba',
+    'Daisuki! Hello Kitty' => 'hello_kitty'
   }.transform_keys(&:downcase)
 
   def call
