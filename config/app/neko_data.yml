@@ -4582,6 +4582,8 @@
         - 44649
         - 44650
         - 18561
+        - 42786
+        - 50138
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -23057,6 +23059,7 @@
         not_anime_ids:
         - 35952
         - 37590
+        - 55324
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -23089,6 +23092,7 @@
         not_anime_ids:
         - 35952
         - 37590
+        - 55324
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
