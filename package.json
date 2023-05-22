@@ -2,16 +2,16 @@
   "name": "shikimori",
   "private": true,
   "dependencies": {
-    "@babel/plugin-proposal-decorators": "^7.17.9",
-    "@babel/plugin-proposal-logical-assignment-operators": "^7.16.7",
-    "@babel/plugin-proposal-optional-chaining": "^7.16.7",
-    "@babel/plugin-proposal-partial-application": "^7.16.7",
-    "@babel/plugin-proposal-pipeline-operator": "^7.17.6",
+    "@babel/plugin-proposal-decorators": "^7.21.0",
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.20.7",
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@babel/plugin-proposal-partial-application": "^7.18.9",
+    "@babel/plugin-proposal-pipeline-operator": "^7.18.9",
     "@ballcat/vue-cropper": "^1.0.4",
     "@morr/user-idle": "^2.0.0",
     "@rails/webpacker": "5.4.3",
     "@savingsunited/vue3-tags-input": "^3.0.14",
-    "@vue/compiler-sfc": "^3.2.12",
+    "@vue/compiler-sfc": "^3.3.4",
     "autosize": "^5.0.1",
     "axios": "^0.21.4",
     "blueimp-md5": "2.18.0",
@@ -54,10 +54,10 @@
     "turbolinks": "^5.2.0",
     "uevent": "^2.0.1",
     "url-parse": "^1.5.9",
-    "vue": "^3.2.40",
+    "vue": "^3.3.4",
     "vue-loader": "^16.5.0",
     "vuedraggable": "^4.1.0",
-    "vuex": "^4.0.2",
+    "vuex": "^4.1.0",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
@@ -69,9 +69,9 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-vue": "^9.7.0",
     "fsevents": "^2.3.2",
-    "webpack-bundle-analyzer": "^4.4.1",
+    "webpack-bundle-analyzer": "^4.8.0",
     "webpack-dev-server": "^3.11.0",
-    "webpackbar": "^5.0.0-3"
+    "webpackbar": "^5.0.2"
   },
   "optionalDependencies": {
     "fsevents": "^2.3.2"
