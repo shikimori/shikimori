@@ -1,4 +1,5 @@
 - if poster && poster.image_data['derivatives']
+  - is_main_derivative = derivative == :main
   - derivative = :main if derivative == :preview && (db_entry.anime? || db_entry.kinda_manga?) && (poster.image_data['metadata']['width'] >= poster.image_data['metadata']['height'])
   picture
     source[
@@ -9,6 +10,8 @@
       alt=localized_name(db_entry)
       src=cdn_poster_url(db_entry: db_entry, poster: poster, derivative: :"#{derivative}_alt")
       srcset='#{cdn_poster_url db_entry: db_entry, poster: poster, derivative: :"#{derivative}_alt_2x"} 2x'
+      height=((poster.image.height / (poster.image.width.to_f / Uploaders::PosterUploader::MAIN_WIDTH)).ceil if is_main_derivative)
+      width=(Uploaders::PosterUploader::MAIN_WIDTH if is_main_derivative)
     ]
     / loading=(:lazy unless derivative == :main)
 - else
