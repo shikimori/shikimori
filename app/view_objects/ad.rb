@@ -143,9 +143,9 @@ private
 
       image_html =
         if image[:src_2x]
-          "<img src='#{image[:src]}' srcset='#{image[:src_2x]} 2x'>"
+          "<img src='#{image[:src]}' srcset='#{image[:src_2x]} 2x' loading='lazy'>"
         else
-          "<img src='#{image[:src]}'>"
+          "<img src='#{image[:src]}' loading='lazy'>"
         end
 
       pixel_html = "<img src='#{banner[:pixel]}' border='0' width='1' height='1'>" if banner[:pixel]
