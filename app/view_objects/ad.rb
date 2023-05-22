@@ -214,8 +214,8 @@ private
     # end,
     url: 'https://bit.ly/3O0IWd3',
     images: [{
-      src: '/assets/globals/events/2023-05-06/menu_1.jpg',
-      src_2x: '/assets/globals/events/2023-05-06/menu_1@2x.jpg'
+      src: '/assets/globals/events/2023-05-06/menu_1.webp',
+      src_2x: '/assets/globals/events/2023-05-06/menu_1@2x.webp'
       # url: 'https://redirect.appmetrica.yandex.com/serve/316406067464575159'
     }],
     # AND END
@@ -235,8 +235,8 @@ private
     url: 'https://bit.ly/3HVEGYo',
     images: (1..1).map do |i|
       {
-        src: "/assets/globals/events/2023-05-06/wide_#{i}.jpg",
-        src_2x: "/assets/globals/events/2023-05-06/wide_#{i}@2x.jpg"
+        src: "/assets/globals/events/2023-05-06/wide_#{i}.webp",
+        src_2x: "/assets/globals/events/2023-05-06/wide_#{i}@2x.webp"
       }
     end,
     # images: [{
@@ -281,13 +281,13 @@ private
     # AD START: IMBA - remove 2023-05-17 22:00
     images: [{
       # src: "/assets/globals/events/2023-02-10/wide_1.jpg",
-      src: '/assets/globals/events/2023-03-27/inner_1.png',
+      src: '/assets/globals/events/2023-03-27/inner_1.webp',
       url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner1&utm_campaign=27_03&marker=2Vtzqv5UkDh'
     }, {
-      src: '/assets/globals/events/2023-03-27/inner_2.png',
+      src: '/assets/globals/events/2023-03-27/inner_2.webp',
       url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner2&utm_campaign=27_03&marker=2VtzqwWWixs'
     }, {
-      src: '/assets/globals/events/2023-03-27/inner_3.png',
+      src: '/assets/globals/events/2023-03-27/inner_3.webp',
       url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner3&utm_campaign=27_03&marker=2VtzqwWWixs'
     }],
     # AD END
