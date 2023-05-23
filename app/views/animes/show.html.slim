@@ -21,7 +21,8 @@
           .c-poster
             = render 'db_entries/poster_magnificable',
               resource: @resource,
-              poster: @resource.poster
+              poster: @resource.poster,
+              is_fixed_size: true
 
           .c-actions
             .b-subposter-actions
