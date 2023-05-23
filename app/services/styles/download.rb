@@ -9,18 +9,28 @@ class Styles::Download
   ALLOWED_EXCEPTIONS = Network::FaradayGet::NET_ERRORS
 
   def call
+    content = download_with_cache
+
+    if content.blank?
+      NamedLogger.failed_styles_download.info @url
+    end
+
+    content
+  end
+
+private
+
+  def download_with_cache
     Rails.cache.fetch format(CACHE_KEY, url: @url), url: @url, expires_in: EXPIRES_IN do
       Retryable.retryable tries: 2, on: ALLOWED_EXCEPTIONS, sleep: 1 do
-        download
+        do_download
       end
     end
   rescue StandardError
     ''
   end
 
-private
-
-  def download
+  def do_download
     NamedLogger.download_style.info "#{@url} start"
     content = Network::FaradayGet.call(@url)&.body&.force_encoding('utf-8') || ''
     NamedLogger.download_style.info "#{@url} end"
