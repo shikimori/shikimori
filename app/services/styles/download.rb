@@ -32,8 +32,14 @@ private
 
   def do_download
     NamedLogger.download_style.info "#{@url} start"
-    content = Network::FaradayGet.call(@url)&.body&.force_encoding('utf-8') || ''
+    response = Network::FaradayGet.call(@url)
+    content = response&.body&.force_encoding('utf-8') || ''
     NamedLogger.download_style.info "#{@url} end"
-    content.valid_encoding? ? content : ''
+
+    if response.status == 200 && content.valid_encoding?
+      content
+    else
+      ''
+    end
   end
 end
