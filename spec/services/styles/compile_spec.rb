@@ -6,7 +6,7 @@ describe Styles::Compile do
     let(:css) { '/* test */ a { color: red }' }
     it do
       is_expected.to eq(
-        imports: [],
+        imports: {},
         compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} {\na { color: red }\n}"
       )
     end
@@ -44,12 +44,12 @@ describe Styles::Compile do
           describe "suffix `#{suffix_value}`" do
             it do
               is_expected.to eq(
-                imports: [],
+                imports: {},
                 compiled_css: user_note + "#{described_class::MEDIA_QUERY_CSS} {\n" \
-                  'body {' \
-                    " background: url(#{quote}#{camo_url}#{quote})#{suffix} " \
+                  'body { ' \
+                  "background: url(#{quote}#{camo_url}#{quote})#{suffix} " \
                   "}\n" \
-                '}'
+                  '}'
               )
             end
           end
@@ -62,7 +62,7 @@ describe Styles::Compile do
     let(:css) { 'a { color: red }; javascript:blablalba;;' }
     it do
       is_expected.to eq(
-        imports: [],
+        imports: {},
         compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} {\na { color: red }; :blablalba;\n}"
       )
     end
@@ -74,7 +74,7 @@ describe Styles::Compile do
         let(:css) { user_note + '@media only screen and (min-width: 100px) { a { color: red } }' }
         it do
           is_expected.to eq(
-            imports: [],
+            imports: {},
             compiled_css: css
           )
         end
@@ -84,7 +84,7 @@ describe Styles::Compile do
         let(:css) { 'a { color: red }' }
         it do
           is_expected.to eq(
-            imports: [],
+            imports: {},
             compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} {\na { color: red }\n}"
           )
         end
@@ -101,10 +101,10 @@ describe Styles::Compile do
 
           it do
             is_expected.to eq(
-              imports: [
-                'https://thiaya.github.io/1/shi.Modern.css',
-                'https://thiaya.github.io/2/shi.Modern.css'
-              ],
+              imports: {
+                'https://thiaya.github.io/1/shi.Modern.css' => 115,
+                'https://thiaya.github.io/2/shi.Modern.css' => 41
+              },
               compiled_css: "/* https://thiaya.github.io/1/shi.Modern.css */\n" \
                 "a { background: url('#{camo_url}'); }" \
                 "\n\n" \
@@ -122,7 +122,7 @@ describe Styles::Compile do
       let(:css) { '' }
       it do
         is_expected.to eq(
-          imports: [],
+          imports: {},
           compiled_css: ''
         )
       end

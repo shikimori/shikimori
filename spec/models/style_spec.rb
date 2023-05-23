@@ -9,7 +9,7 @@ describe Style do
 
   describe 'instance methods' do
     describe '#css=' do
-      let(:style) { build :style, css: 'z', compiled_css: 'x', imports: [] }
+      let(:style) { build :style, css: 'z', compiled_css: 'x', imports: {} }
       subject! { style.css = 'y' }
 
       it do

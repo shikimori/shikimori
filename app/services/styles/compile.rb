@@ -37,7 +37,7 @@ class Styles::Compile
 
     {
       compiled_css: compiled_css,
-      imports: imports
+      imports: styles_map.keys.index_with { |url| styles_map[url].size }
     }
   end
 
