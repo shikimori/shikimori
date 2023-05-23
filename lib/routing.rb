@@ -11,6 +11,7 @@ module Routing
       images\d.alphacoders.com |
       \w.radikal.ru |
       (\w\.)?imgur.com |
+      (\w\.)?.ibb.co
     )
     \Z
   /mix
