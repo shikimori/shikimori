@@ -1,6 +1,6 @@
 - if style.failed_imports.any?
   .b-errors
-    .subheadline Ошибки импорта стилей
+    .subheadline = t '.import_errors'
     - style.failed_imports.each do |url|
       p: a href=url = url
 
