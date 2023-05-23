@@ -1,0 +1,4 @@
+ru:
+  frontend:
+    styles:
+      import_errors: Не удалось импортировать следующие стили

@@ -1,0 +1,4 @@
+en:
+  frontend:
+    styles:
+      import_errors: Failed to import following styles
