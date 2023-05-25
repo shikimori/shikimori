@@ -12291,126 +12291,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :kenji_kamiyama
-    :level: 1
-    :image: "/assets/achievements/anime/author/kenji_kamiyama.jpg"
-    :border_color: "#795F42"
-    :title_ru: Кэндзи Камияма
-    :text_ru: 
-    :title_en: Kenji Kamiyama
-    :text_en: 
-    :topic_id: 276032
-    :rule: &130
-      :algo: count
-      :threshold: 17%
-      :filters:
-        anime_ids:
-        - 9629
-        - 6637
-        - 405
-        - 767
-        - 1822
-        - 2733
-        - 570
-        - 36871
-        - 33204
-        - 21587
-        - 10405
-        - 33687
-        - 33686
-        - 33685
-        - 11755
-        - 6372
-        - 5630
-        - 1827
-        - 1566
-        - 801
-        - 467
-        - 38799
-        - 34893
-        - 49357
-        - 49532
-        - 38749
-        - 39935
-        - 41750
-        - 51653
-      :generator:
-        person_id: 5348
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :kenji_kamiyama
-  level: 1
-  image: "/assets/achievements/anime/author/kenji_kamiyama.jpg"
-  border_color: "#795F42"
-  title_ru: Кэндзи Камияма
-  text_ru: 
-  title_en: Kenji Kamiyama
-  text_en: 
-  topic_id: 276032
-  rule: *130
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :kenji_kamiyama
-    :level: 0
-    :image: "/assets/achievements/anime/author/kenji_kamiyama.jpg"
-    :border_color: "#795F42"
-    :title_ru: Кэндзи Камияма
-    :text_ru: 
-    :title_en: Kenji Kamiyama
-    :text_en: 
-    :topic_id: 276032
-    :rule: &131
-      :algo: count
-      :threshold: 0.01
-      :filters:
-        anime_ids:
-        - 9629
-        - 6637
-        - 405
-        - 767
-        - 1822
-        - 2733
-        - 570
-        - 36871
-        - 33204
-        - 21587
-        - 10405
-        - 33687
-        - 33686
-        - 33685
-        - 11755
-        - 6372
-        - 5630
-        - 1827
-        - 1566
-        - 801
-        - 467
-        - 38799
-        - 34893
-        - 49357
-        - 49532
-        - 38749
-        - 39935
-        - 41750
-        - 51653
-      :generator:
-        person_id: 5348
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :kenji_kamiyama
-  level: 0
-  image: "/assets/achievements/anime/author/kenji_kamiyama.jpg"
-  border_color: "#795F42"
-  title_ru: Кэндзи Камияма
-  text_ru: 
-  title_en: Kenji Kamiyama
-  text_en: 
-  topic_id: 276032
-  rule: *131
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :yoshiaki_kawajiri
     :level: 1
     :image: "/assets/achievements/anime/author/yoshiaki_kawajiri.jpg"
@@ -12420,7 +12300,7 @@
     :title_en: Yoshiaki Kawajiri
     :text_en: 
     :topic_id: 276032
-    :rule: &132
+    :rule: &130
       :algo: count
       :threshold: 13%
       :filters:
@@ -12475,7 +12355,7 @@
   title_en: Yoshiaki Kawajiri
   text_en: 
   topic_id: 276032
-  rule: *132
+  rule: *130
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -12488,7 +12368,7 @@
     :title_en: Yoshiaki Kawajiri
     :text_en: 
     :topic_id: 276032
-    :rule: &133
+    :rule: &131
       :algo: count
       :threshold: 0.01
       :filters:
@@ -12541,6 +12421,126 @@
   title_ru: Ёсиаки Кавадзири
   text_ru: 
   title_en: Yoshiaki Kawajiri
+  text_en: 
+  topic_id: 276032
+  rule: *131
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :kenji_kamiyama
+    :level: 1
+    :image: "/assets/achievements/anime/author/kenji_kamiyama.jpg"
+    :border_color: "#795F42"
+    :title_ru: Кэндзи Камияма
+    :text_ru: 
+    :title_en: Kenji Kamiyama
+    :text_en: 
+    :topic_id: 276032
+    :rule: &132
+      :algo: count
+      :threshold: 17%
+      :filters:
+        anime_ids:
+        - 9629
+        - 6637
+        - 405
+        - 767
+        - 1822
+        - 2733
+        - 570
+        - 36871
+        - 33204
+        - 21587
+        - 10405
+        - 33687
+        - 33686
+        - 33685
+        - 11755
+        - 6372
+        - 5630
+        - 1827
+        - 1566
+        - 801
+        - 467
+        - 38799
+        - 34893
+        - 49357
+        - 49532
+        - 38749
+        - 39935
+        - 41750
+        - 51653
+      :generator:
+        person_id: 5348
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :kenji_kamiyama
+  level: 1
+  image: "/assets/achievements/anime/author/kenji_kamiyama.jpg"
+  border_color: "#795F42"
+  title_ru: Кэндзи Камияма
+  text_ru: 
+  title_en: Kenji Kamiyama
+  text_en: 
+  topic_id: 276032
+  rule: *132
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :kenji_kamiyama
+    :level: 0
+    :image: "/assets/achievements/anime/author/kenji_kamiyama.jpg"
+    :border_color: "#795F42"
+    :title_ru: Кэндзи Камияма
+    :text_ru: 
+    :title_en: Kenji Kamiyama
+    :text_en: 
+    :topic_id: 276032
+    :rule: &133
+      :algo: count
+      :threshold: 0.01
+      :filters:
+        anime_ids:
+        - 9629
+        - 6637
+        - 405
+        - 767
+        - 1822
+        - 2733
+        - 570
+        - 36871
+        - 33204
+        - 21587
+        - 10405
+        - 33687
+        - 33686
+        - 33685
+        - 11755
+        - 6372
+        - 5630
+        - 1827
+        - 1566
+        - 801
+        - 467
+        - 38799
+        - 34893
+        - 49357
+        - 49532
+        - 38749
+        - 39935
+        - 41750
+        - 51653
+      :generator:
+        person_id: 5348
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :kenji_kamiyama
+  level: 0
+  image: "/assets/achievements/anime/author/kenji_kamiyama.jpg"
+  border_color: "#795F42"
+  title_ru: Кэндзи Камияма
+  text_ru: 
+  title_en: Kenji Kamiyama
   text_en: 
   topic_id: 276032
   rule: *133
