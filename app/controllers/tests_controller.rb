@@ -180,7 +180,7 @@ class TestsController < ShikimoriController
       Rails.cache.delete cache_key if @was_exist
 
       @count = Style
-        .where('imports is not null and ? = ANY(imports)', params[:url])
+        .where('imports is not null and imports->? is not null', params[:url])
         .update_all compiled_css: nil
     end
   end
