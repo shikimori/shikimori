@@ -175,13 +175,15 @@ class TestsController < ShikimoriController
 
   def reset_styles_cache
     if request.post?
-      cache_key = format(Styles::Download::CACHE_KEY, url: params[:url])
-      @was_exist = Rails.cache.exist? cache_key
-      Rails.cache.delete cache_key if @was_exist
+      RedisMutex.with_lock('reset_styles_cache', block: 5, expire: 4) do
+        cache_key = format(Styles::Download::CACHE_KEY, url: params[:url])
+        @was_exist = Rails.cache.exist? cache_key
+        Rails.cache.delete cache_key if @was_exist
 
-      @count = Style
-        .where('imports is not null and imports->? is not null', params[:url])
-        .update_all compiled_css: nil
+        @count = Style
+          .where('imports is not null and imports->? is not null', params[:url])
+          .update_all compiled_css: nil
+      end
     end
   end
 
