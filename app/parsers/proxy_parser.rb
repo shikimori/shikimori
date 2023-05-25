@@ -10,7 +10,7 @@ class ProxyParser
 
   CACHE_VERSION = :v10
 
-  CUSTOM_SOURCES = %i[hidemyname proxylist_geonode_com]
+  CUSTOM_SOURCES = %i[proxylist_geonode_com] # hidemyname
 
   def import(
     is_db_sources: IS_DB_SOURCES,
