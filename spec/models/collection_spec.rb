@@ -144,8 +144,8 @@ describe Collection do
         it { is_expected.to be_able_to :to_private, collection }
       end
 
-      context 'not_trusted_collections_creator' do
-        let(:user) { build_stubbed :user, :not_trusted_collections_creator, :week_registered }
+      context 'not_trusted_collections_author' do
+        let(:user) { build_stubbed :user, :not_trusted_collections_author, :week_registered }
         it { is_expected.to be_able_to :read, collection }
         it { is_expected.to be_able_to :new, collection }
         it { is_expected.to be_able_to :create, collection }

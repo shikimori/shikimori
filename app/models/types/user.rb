@@ -30,7 +30,7 @@ module Types
 
       video_super_moderator
 
-      not_trusted_collections_creator
+      not_trusted_collections_author
 
       not_trusted_abuse_reporter
       censored_avatar

@@ -212,7 +212,7 @@ class Abilities::User
       collection_role.user_id == @user.id || can?(:create, collection_role)
     end
 
-    if @user.not_trusted_collections_creator?
+    if @user.not_trusted_collections_author?
       cannot :to_published, Collection
     end
   end
