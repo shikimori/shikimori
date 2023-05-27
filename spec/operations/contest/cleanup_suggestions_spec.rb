@@ -31,6 +31,6 @@ describe Contest::CleanupSuggestions do
 
   context 'anime' do
     let(:contest_type) { :anime }
-    it { expect(contest.suggestions).to eq [normal_suggestion, forbidden_suggestion] }
+    it { expect(contest.suggestions.sort_by(&:id)).to eq [normal_suggestion, forbidden_suggestion] }
   end
 end

@@ -6,7 +6,7 @@ class Contest::CleanupSuggestions
   delegate :suggestions, to: :@contest
 
   def call
-    Rails.logger.info "Contest::CleanupSuggestions #{@contest.id}"
+    # Rails.logger.info "Contest::CleanupSuggestions #{@contest.id}"
 
     suggestions
       .joins(:user)
