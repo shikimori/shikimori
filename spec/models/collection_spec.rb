@@ -146,6 +146,7 @@ describe Collection do
 
       context 'not_trusted_collections_author' do
         let(:user) { build_stubbed :user, :not_trusted_collections_author, :week_registered }
+
         it { is_expected.to be_able_to :read, collection }
         it { is_expected.to be_able_to :new, collection }
         it { is_expected.to be_able_to :create, collection }
