@@ -34084,6 +34084,35 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :ze_tian_ji
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/ze_tian_ji.jpg"
+    :border_color: 
+    :title_ru: Путь выбора
+    :text_ru: 
+    :title_en: Ze Tian Ji
+    :text_en: 
+    :topic_id: 247360
+    :rule: &613
+      :algo: duration
+      :filters:
+        franchise: ze_tian_ji
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :ze_tian_ji
+  level: 0
+  image: "/assets/achievements/anime/franchise/ze_tian_ji.jpg"
+  border_color: 
+  title_ru: Путь выбора
+  text_ru: 
+  title_en: Ze Tian Ji
+  text_en: 
+  topic_id: 247360
+  rule: *613
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :pripara
     :level: 0
     :image: "/assets/achievements/anime/franchise/pripara.jpg"
@@ -34093,7 +34122,7 @@
     :title_en: PriPara
     :text_en: 
     :topic_id: 247360
-    :rule: &613
+    :rule: &614
       :algo: duration
       :filters:
         franchise: pripara
@@ -34117,35 +34146,6 @@
   title_ru: При Пара
   text_ru: 
   title_en: PriPara
-  text_en: 
-  topic_id: 247360
-  rule: *613
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :ze_tian_ji
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/ze_tian_ji.jpg"
-    :border_color: 
-    :title_ru: Путь выбора
-    :text_ru: 
-    :title_en: Ze Tian Ji
-    :text_en: 
-    :topic_id: 247360
-    :rule: &614
-      :algo: duration
-      :filters:
-        franchise: ze_tian_ji
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :ze_tian_ji
-  level: 0
-  image: "/assets/achievements/anime/franchise/ze_tian_ji.jpg"
-  border_color: 
-  title_ru: Путь выбора
-  text_ru: 
-  title_en: Ze Tian Ji
   text_en: 
   topic_id: 247360
   rule: *614
@@ -35592,6 +35592,7 @@
         - 8753
         - 11695
         - 30122
+        - 39309
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -35626,6 +35627,7 @@
         - 8753
         - 11695
         - 30122
+        - 39309
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
