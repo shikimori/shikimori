@@ -187,8 +187,9 @@ $.Autocompleter = function(input, options) {
     select.unbind();
     $input.off();
     $(input.form).off('.autocomplete');
+  }).on('autocomplete:receiveData', function(_e, data) {
+    receiveData('', data);
   });
-
 
   function selectCurrent() {
     var selected = select.selected();
