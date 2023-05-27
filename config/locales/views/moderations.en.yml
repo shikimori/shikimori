@@ -256,6 +256,7 @@ en:
           version_fansub_moderator: Moderator of fansubbers & fandubbers edits in the database
           trusted_version_changer: Can change database content without moderation
           not_trusted_version_changer: Cannot change database content
+          not_trusted_collections_creator: Cannot publish collections. Creation of private and public collections is allowed.
           not_trusted_abuse_reporter: Restriction in filing complaints on the forum (maximum 3 complaints per day)
           censored_avatar: Have avatar with adult content
           censored_profile: Have profile with adult content
