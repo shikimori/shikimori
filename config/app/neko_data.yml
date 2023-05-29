@@ -4585,6 +4585,10 @@
         - 42786
         - 50138
         - 41646
+        - 37064
+        - 53666
+        - 50751
+        - 49127
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -29461,6 +29465,7 @@
         - 49735
         - 51509
         - 51842
+        - 55517
       :threshold: 86%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -29510,6 +29515,7 @@
         - 49735
         - 51509
         - 51842
+        - 55517
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -34045,6 +34051,35 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :ze_tian_ji
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/ze_tian_ji.jpg"
+    :border_color: 
+    :title_ru: Путь выбора
+    :text_ru: 
+    :title_en: Ze Tian Ji
+    :text_en: 
+    :topic_id: 247360
+    :rule: &612
+      :algo: duration
+      :filters:
+        franchise: ze_tian_ji
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :ze_tian_ji
+  level: 0
+  image: "/assets/achievements/anime/franchise/ze_tian_ji.jpg"
+  border_color: 
+  title_ru: Путь выбора
+  text_ru: 
+  title_en: Ze Tian Ji
+  text_en: 
+  topic_id: 247360
+  rule: *612
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :pripara
     :level: 1
     :image: "/assets/achievements/anime/franchise/pripara.jpg"
@@ -34054,7 +34089,7 @@
     :title_en: PriPara
     :text_en: 
     :topic_id: 247360
-    :rule: &612
+    :rule: &613
       :algo: duration
       :filters:
         franchise: pripara
@@ -34078,35 +34113,6 @@
   title_ru: При Пара
   text_ru: 
   title_en: PriPara
-  text_en: 
-  topic_id: 247360
-  rule: *612
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :ze_tian_ji
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/ze_tian_ji.jpg"
-    :border_color: 
-    :title_ru: Путь выбора
-    :text_ru: 
-    :title_en: Ze Tian Ji
-    :text_en: 
-    :topic_id: 247360
-    :rule: &613
-      :algo: duration
-      :filters:
-        franchise: ze_tian_ji
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :ze_tian_ji
-  level: 0
-  image: "/assets/achievements/anime/franchise/ze_tian_ji.jpg"
-  border_color: 
-  title_ru: Путь выбора
-  text_ru: 
-  title_en: Ze Tian Ji
   text_en: 
   topic_id: 247360
   rule: *613
