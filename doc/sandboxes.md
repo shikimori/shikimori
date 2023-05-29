@@ -637,3 +637,7 @@ end;
     end;
 end;
 ```
+
+### Find matched nickname 
+```ruby
+nickname = 'Foxy'; User.where("translate(lower(unaccent(nickname)), 'абвгдеёзийклмнопрстуфхцьіο0', 'abvgdeezijklmnoprstufxc`ioo') =  translate( lower(unaccent('#{nickname}')), 'абвгдеёзийклмнопрстуфхцьіο0', 'abvgdeezijklmnoprstufxc`ioo')").map(&:nickname)
