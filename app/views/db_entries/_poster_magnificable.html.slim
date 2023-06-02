@@ -7,7 +7,7 @@
       db_entry: resource,
       poster: poster,
       derivative: :main,
-      is_fixed_size: local_assigns[:is_fixed_size]
+      is_main_poster: local_assigns[:is_main_poster]
     span.marker
       span.marker-text
         | #{poster.image_data['metadata']['width']}x#{poster.image_data['metadata']['height']}
@@ -16,4 +16,4 @@
     db_entry: resource,
     poster: poster,
     derivative: :main,
-    is_fixed_size: local_assigns[:is_fixed_size]
+    is_main_poster: local_assigns[:is_main_poster]

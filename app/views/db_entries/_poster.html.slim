@@ -1,5 +1,10 @@
 - if poster && poster.image_data['derivatives']
   - derivative = :main if derivative == :preview && (db_entry.anime? || db_entry.kinda_manga?) && (poster.image_data['metadata']['width'] >= poster.image_data['metadata']['height'])
+  - if local_assigns[:is_main_poster]
+    meta[
+      itemprop='image'
+      content=cdn_poster_url(db_entry: db_entry, poster: poster, derivative: :main_2x)
+    ]
   picture
     source[
       srcset='#{cdn_poster_url db_entry: db_entry, poster: poster, derivative: derivative}, #{cdn_poster_url db_entry: db_entry, poster: poster, derivative: :"#{derivative}_2x"} 2x'
@@ -9,12 +14,16 @@
       alt=localized_name(db_entry)
       src=cdn_poster_url(db_entry: db_entry, poster: poster, derivative: :"#{derivative}_alt")
       srcset='#{cdn_poster_url db_entry: db_entry, poster: poster, derivative: :"#{derivative}_alt_2x"} 2x'
-      height=((poster.image.height / (poster.image.width.to_f / Uploaders::PosterUploader::MAIN_WIDTH)).ceil if local_assigns[:is_fixed_size])
-      width=(Uploaders::PosterUploader::MAIN_WIDTH if local_assigns[:is_fixed_size])
+      height=((poster.image.height / (poster.image.width.to_f / Uploaders::PosterUploader::MAIN_WIDTH)).ceil if local_assigns[:is_main_poster])
+      width=(Uploaders::PosterUploader::MAIN_WIDTH if local_assigns[:is_main_poster])
     ]
     / loading=(:lazy unless derivative == :main)
 - else
-  - derivative = :"preview_#{db_entry.anime? || db_entry.kinda_manga? ? :animanga : :charperson}" if derivative == :preview
+  - if local_assigns[:is_main_poster]
+    meta[
+      itemprop='image'
+      content='/assets/globals/missing/main@2x.png'
+    ]
   img[
     alt=localized_name(db_entry)
     src='/assets/globals/missing/#{derivative}.png'
