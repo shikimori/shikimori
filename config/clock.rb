@@ -82,7 +82,7 @@ module Clockwork
 
   every 1.day, 'daily.misc', at: '00:31' do
     ImportAnimeCalendars.perform_async
-    SakuhindbImporter.perform_async with_fail: false
+    # SakuhindbImporter.perform_async with_fail: false
     FinishExpiredAnimes.perform_async
     PgCaches::Cleanup.perform_async
 
@@ -138,7 +138,7 @@ module Clockwork
   every 1.week, 'weekly.stuff.2', at: 'Monday 02:45' do
     Messages::CleanupOutdated.perform_async
     UserImagesCleaner.perform_async
-    SakuhindbImporter.perform_async with_fail: true
+    # SakuhindbImporter.perform_async with_fail: true
     # BadVideosCleaner.perform_async
     Screenshots::Cleanup.perform_async
 
