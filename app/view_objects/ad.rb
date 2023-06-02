@@ -278,17 +278,16 @@ private
   }
   SPECIAL_X894 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: IMBA - remove 2023-05-17 22:00
+    # AD START: IMBA - remove 2023-06-30 22:00
     images: [{
-      # src: "/assets/globals/events/2023-02-10/wide_1.jpg",
-      src: '/assets/globals/events/2023-03-27/inner_1.webp',
-      url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner1&utm_campaign=27_03&marker=2Vtzqv5UkDh'
+      src: '/assets/globals/events/2023-06-02/inner_1.webp',
+      url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner1&utm_campaign=02_06&erid=2Vtzqv5UkDh'
     }, {
-      src: '/assets/globals/events/2023-03-27/inner_2.webp',
-      url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner2&utm_campaign=27_03&marker=2VtzqwWWixs'
+      src: '/assets/globals/events/2023-06-02/inner_2.webp',
+      url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner2&utm_campaign=02_06&erid=2VtzqwWWixs'
     }, {
-      src: '/assets/globals/events/2023-03-27/inner_3.webp',
-      url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner3&utm_campaign=27_03&marker=2VtzqwWWixs'
+      src: '/assets/globals/events/2023-06-02/inner_3.webp',
+      url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner3&utm_campaign=02_06&erid=2Vtzqw6sJ6X'
     }],
     # AD END
     placement: Types::Ad::Placement[:content],
