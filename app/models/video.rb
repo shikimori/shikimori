@@ -15,10 +15,10 @@ class Video < ApplicationRecord
 
   validates :url, :kind, # :image_url, :player_url, :hosting,
     presence: true
-  validates :url, uniqueness: { # rubocop:disable UniqueValidationWithoutIndex
+  validates :url, uniqueness: {
     case_sensitive: true,
     scope: [:anime_id],
-    conditions: -> { where.not state: :deleted }
+    conditions: -> { where.not state: %i[deleted auto_rejected] }
   }
 
   validate :check_url, if: :will_save_change_to_url?

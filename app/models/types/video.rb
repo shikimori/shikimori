@@ -27,6 +27,6 @@ module Types
 
     State = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(:uploaded, :confirmed, :deleted)
+      .enum(:uploaded, :confirmed, :deleted, :auto_rejected)
   end
 end
