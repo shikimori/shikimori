@@ -53,23 +53,11 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
   end
 
   def names
-    chain @scope
-      .where(
-        (Abilities::VersionNamesModerator::MANAGED_FIELDS - CONTENT_ONLY_FIELDS)
-          .map { |v| "(item_diff->>'#{v}') is not null" }
-          .join(' or ')
-      )
-      .where(item_type: Abilities::VersionNamesModerator::MANAGED_MODELS)
+    chain moderator_fields_scope(scope, Abilities::VersionNamesModerator)
   end
 
   def texts
-    chain @scope
-      .where(
-        (Abilities::VersionTextsModerator::MANAGED_FIELDS - CONTENT_ONLY_FIELDS)
-          .map { |v| "(item_diff->>'#{v}') is not null" }
-          .join(' or ')
-      )
-      .where(item_type: Abilities::VersionTextsModerator::MANAGED_MODELS)
+    chain moderator_fields_scope(scope, Abilities::VersionTextsModerator)
   end
 
   def content
@@ -80,22 +68,30 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
   end
 
   def fansub
-    chain @scope.where(
-      (Abilities::VersionFansubModerator::MANAGED_FIELDS - CONTENT_ONLY_FIELDS)
-        .map { |v| "(item_diff->>'#{v}') is not null" }
-        .join(' or ')
-    )
+    chain moderator_fields_scope(scope, Abilities::VersionFansubModerator)
   end
 
   def videos
-    chain @scope
+    chain moderator_fields_scope(scope, Abilities::VersionVideosModerator)
   end
 
   def images
-    chain @scope
+    chain moderator_fields_scope(scope, Abilities::VersionImagesModerator)
   end
 
   def links
-    chain @scope
+    chain moderator_fields_scope(scope, Abilities::VersionLinksModerator)
+  end
+
+private
+
+  def moderator_fields_scope scope, moderator_ability_klass
+    scope
+      .where(
+        (moderator_ability_klass::MANAGED_FIELDS - CONTENT_ONLY_FIELDS)
+          .map { |v| "(item_diff->>'#{v}') is not null" }
+          .join(' or ')
+      )
+      .where(item_type: moderator_ability_klass::MANAGED_MODELS)
   end
 end
