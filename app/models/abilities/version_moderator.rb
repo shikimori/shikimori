@@ -4,6 +4,7 @@ class Abilities::VersionModerator
 
   MANAGED_FIELDS = %w[
     image
+    poster
     desynced
   ]
 

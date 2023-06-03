@@ -2,7 +2,11 @@ class Abilities::VersionImagesModerator
   include CanCan::Ability
   prepend Draper::CanCanCan
 
-  MANAGED_FIELDS = %w[image poster]
+  MANAGED_FIELDS = %w[
+    image
+    poster
+    desynced
+  ]
   MANAGED_MODELS = [Anime.name]
 
   def initialize user

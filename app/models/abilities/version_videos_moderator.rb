@@ -2,7 +2,9 @@ class Abilities::VersionVideosModerator
   include CanCan::Ability
   prepend Draper::CanCanCan
 
-  MANAGED_FIELDS = %w[video]
+  MANAGED_FIELDS = %w[
+    video
+  ]
   MANAGED_MODELS = [Anime.name]
 
   def initialize user

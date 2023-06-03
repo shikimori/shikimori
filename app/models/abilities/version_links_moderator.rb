@@ -2,7 +2,10 @@ class Abilities::VersionLinksModerator
   include CanCan::Ability
   prepend Draper::CanCanCan
 
-  MANAGED_FIELDS = %w[external_links]
+  MANAGED_FIELDS = %w[
+    external_links
+    desynced
+  ]
   MANAGED_MODELS = [Anime.name]
 
   def initialize user
