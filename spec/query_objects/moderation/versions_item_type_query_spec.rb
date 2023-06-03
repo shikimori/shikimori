@@ -28,6 +28,16 @@ describe Moderation::VersionsItemTypeQuery do
     create :version, item: video, item_diff: { name: %w[a b] }
   end
 
+  let!(:version_7) do
+    create :version, item: anime, item_diff: { russian: %w[a b] }
+  end
+  let!(:version_8) do
+    create :version, item: anime, item_diff: { russian: %w[a b] }
+  end
+  let!(:version_9) do
+    create :version, item: anime, item_diff: { russian: %w[a b] }
+  end
+
   context 'all_content' do
     let(:type) { 'all_content' }
     it do
@@ -36,7 +46,10 @@ describe Moderation::VersionsItemTypeQuery do
         version_2,
         version_3,
         version_4,
-        version_6
+        version_6,
+        version_7,
+        version_8,
+        version_9
       ]
     end
   end
@@ -53,12 +66,35 @@ describe Moderation::VersionsItemTypeQuery do
 
   context 'content' do
     let(:type) { 'content' }
-    it { is_expected.to eq [version_3, version_6] }
+    it do
+      is_expected.to eq [
+        version_3,
+        version_6,
+        version_7,
+        version_8,
+        version_9
+      ]
+    end
   end
 
   context 'fansub' do
     let(:type) { 'fansub' }
     it { is_expected.to eq [version_4] }
+  end
+
+  context 'videos' do
+    let(:type) { 'videos' }
+    it { is_expected.to eq [version_7] }
+  end
+
+  context 'images' do
+    let(:type) { 'images' }
+    it { is_expected.to eq [version_8] }
+  end
+
+  context 'links', :focus do
+    let(:type) { 'links' }
+    it { is_expected.to eq [version_9] }
   end
 
   context 'role' do

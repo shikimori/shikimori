@@ -1,7 +1,7 @@
 class Moderation::VersionsItemTypeQuery < QueryObjectBase
   Types = Types::Strict::Symbol
     .constructor(&:to_sym)
-    .enum(:all_content, :names, :texts, :content, :fansub, :role)
+    .enum(:all_content, :names, :texts, :content, :fansub, :role, :videos, :images, :links)
 
   VERSION_NOT_MANAGED_FIELDS_SQL = Abilities::VersionModerator::NOT_MANAGED_FIELDS
     .map { |v| "(item_diff->>'#{v}') is null" }
@@ -27,8 +27,20 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
       when Types[:fansub]
         scope.non_roles.fansub
 
+      when Types[:videos]
+        scope.non_roles.videos
+
+      when Types[:images]
+        scope.non_roles.images
+
+      when Types[:links]
+        scope.non_roles.links
+
       when Types[:role]
         scope.roles
+
+      else
+        scope
     end
   end
 
@@ -73,5 +85,17 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
         .map { |v| "(item_diff->>'#{v}') is not null" }
         .join(' or ')
     )
+  end
+
+  def videos
+    chain @scope
+  end
+
+  def images
+    chain @scope
+  end
+
+  def links
+    chain @scope
   end
 end

@@ -147,7 +147,7 @@ Rails.application.routes.draw do
 
     resources :versions, only: %i[show create destroy] do
       collection do
-        constraints type: /names|texts|content|fansub/ do
+        constraints type: /names|texts|content|fansub|videos|images|links/ do
           get '(/:type)(/page/:page)' => :index, as: ''
           get '(/:type)/autocomplete_user' => :autocomplete_user, as: :autocomplete_user
           get '(/:type)/autocomplete_moderator' => :autocomplete_moderator, as: :autocomplete_moderator

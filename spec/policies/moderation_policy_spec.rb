@@ -272,4 +272,70 @@ describe ModerationPolicy do
       it { expect(policy.fansub_versions_count).to eq 0 }
     end
   end
+
+  describe '#videos_versions_count' do
+    before do
+      allow(Moderation::VersionsItemTypeQuery)
+        .to receive_message_chain(:fetch, :pending, :size)
+        .and_return(videos_versions_count)
+    end
+    let(:videos_versions_count) { 1 }
+    let(:user) { build :user, :version_videos_moderator }
+
+    it { expect(policy.videos_versions_count).to eq 1 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.videos_versions_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.videos_versions_count).to eq 0 }
+    end
+  end
+
+  describe '#images_versions_count' do
+    before do
+      allow(Moderation::VersionsItemTypeQuery)
+        .to receive_message_chain(:fetch, :pending, :size)
+        .and_return(images_versions_count)
+    end
+    let(:images_versions_count) { 1 }
+    let(:user) { build :user, :version_images_moderator }
+
+    it { expect(policy.images_versions_count).to eq 1 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.images_versions_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.images_versions_count).to eq 0 }
+    end
+  end
+
+  describe '#links_versions_count' do
+    before do
+      allow(Moderation::VersionsItemTypeQuery)
+        .to receive_message_chain(:fetch, :pending, :size)
+        .and_return(links_versions_count)
+    end
+    let(:links_versions_count) { 1 }
+    let(:user) { build :user, :version_links_moderator }
+
+    it { expect(policy.links_versions_count).to eq 1 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.links_versions_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.links_versions_count).to eq 0 }
+    end
+  end
 end
