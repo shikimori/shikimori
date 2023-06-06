@@ -31,7 +31,8 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
   def index
     @collection = OauthApplication
       .with_access_grants
-      .order(:id) # ('users_count desc, oauth_applications.id')
+      .order('users_count desc, oauth_applications.name')
+      # .order(:id) # ('users_count desc, oauth_applications.id')
 
     if params[:user_id]
       @user = User.find params[:user_id]
