@@ -24,8 +24,11 @@ describe Moderation::VersionsItemTypeQuery do
     create :version, item: manga, item_diff: { fansubbers: %w[a b] }
   end
   let!(:version_role) { create :role_version, item: user }
-  let!(:version_video) do
+  let!(:version_video_field) do
     create :version, item: video, item_diff: { name: %w[a b] }
+  end
+  let!(:version_video_upload) do
+    create :video_version, item: anime, item_diff: { videos: %w[a b] }
   end
 
   let!(:version_image) do
@@ -43,7 +46,8 @@ describe Moderation::VersionsItemTypeQuery do
         version_description,
         version_content,
         version_fansub,
-        version_video,
+        version_video_field,
+        version_video_upload,
         version_image,
         version_external_links
       ]
@@ -65,7 +69,8 @@ describe Moderation::VersionsItemTypeQuery do
     it do
       is_expected.to eq [
         version_content,
-        version_video,
+        version_video_field,
+        version_video_upload,
         version_image,
         version_external_links
       ]
@@ -77,9 +82,9 @@ describe Moderation::VersionsItemTypeQuery do
     it { is_expected.to eq [version_fansub] }
   end
 
-  context 'videos' do
+  context 'videos', :focus do
     let(:type) { 'videos' }
-    it { is_expected.to eq [version_video] }
+    it { is_expected.to eq [version_video_field, version_video_upload] }
   end
 
   context 'images' do
@@ -87,7 +92,7 @@ describe Moderation::VersionsItemTypeQuery do
     it { is_expected.to eq [version_image] }
   end
 
-  context 'links', :focus do
+  context 'links' do
     let(:type) { 'links' }
     it { is_expected.to eq [version_external_links] }
   end

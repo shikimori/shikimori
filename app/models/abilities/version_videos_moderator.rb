@@ -3,7 +3,7 @@ class Abilities::VersionVideosModerator
   prepend Draper::CanCanCan
 
   MANAGED_FIELDS = %w[
-    video
+    videos
   ]
   MANAGED_MODELS = [Anime.name]
 
