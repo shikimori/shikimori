@@ -63,7 +63,7 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
   def content
     chain @scope.where(
       "(#{VERSION_NOT_MANAGED_FIELDS_SQL}) or item_type not in (?)",
-      Abilities::VersionTextsModerator::MANAGED_MODELS
+      Abilities::VersionTextsModerator::MANAGED_FIELDS_MODELS
     )
   end
 
@@ -92,6 +92,6 @@ private
           .map { |v| "(item_diff->>'#{v}') is not null" }
           .join(' or ')
       )
-      .where(item_type: moderator_ability_klass::MANAGED_MODELS)
+      .where(item_type: moderator_ability_klass::MANAGED_FIELDS_MODELS)
   end
 end

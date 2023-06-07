@@ -3,7 +3,7 @@ class Abilities::VersionFansubModerator
   prepend Draper::CanCanCan
 
   MANAGED_FIELDS = %w[fandubbers fansubbers]
-  MANAGED_MODELS = [Anime.name]
+  MANAGED_FIELDS_MODELS = [Anime.name]
 
   def initialize user
     can :sync, [Anime, Manga, Person, Character] do |entry|
@@ -14,7 +14,7 @@ class Abilities::VersionFansubModerator
       !version.is_a?(Versions::RoleVersion) &&
         version.item_diff &&
         (version.item_diff.keys & MANAGED_FIELDS).any? &&
-        MANAGED_MODELS.include?(version.item_type)
+        MANAGED_FIELDS_MODELS.include?(version.item_type)
     end
     cannot :destroy, Version do |version|
       version.user_id != user.id

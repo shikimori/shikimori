@@ -5,7 +5,7 @@ class Abilities::VersionVideosModerator
   MANAGED_FIELDS = %w[
     videos
   ]
-  MANAGED_MODELS = [Anime.name]
+  MANAGED_FIELDS_MODELS = [Anime.name]
 
   def initialize user
     can :manage, Version do |version|
