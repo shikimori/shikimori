@@ -6,9 +6,9 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
   VERSION_NOT_MANAGED_FIELDS_SQL = Abilities::VersionModerator::NOT_MANAGED_FIELDS
     .map { |v| "(item_diff->>'#{v}') is null" }
     .join(' and ')
-  CONTENT_ONLY_FIELDS = %w[desynced image]
+  DESYNCED_FIELDS = %w[desynced]
 
-  def self.fetch type
+  def self.fetch type # rubocop:disable all
     scope = new Version.all
 
     case Types[type]
@@ -86,12 +86,18 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
 private
 
   def moderator_fields_scope scope, moderator_ability_klass
-    scope
+    new_scope = scope
       .where(
-        (moderator_ability_klass::MANAGED_FIELDS - CONTENT_ONLY_FIELDS)
+        (moderator_ability_klass::MANAGED_FIELDS - DESYNCED_FIELDS)
           .map { |v| "(item_diff->>'#{v}') is not null" }
           .join(' or ')
       )
       .where(item_type: moderator_ability_klass::MANAGED_FIELDS_MODELS)
+
+    if defined? moderator_ability_klass::MANAGED_MODELS
+      new_scope.or(scope.where(item_type: moderator_ability_klass::MANAGED_MODELS))
+    else
+      new_scope
+    end
   end
 end

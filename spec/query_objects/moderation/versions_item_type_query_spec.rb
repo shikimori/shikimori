@@ -16,8 +16,7 @@ describe Moderation::VersionsItemTypeQuery do
       item: anime,
       item_diff: {
         episodes: [1, 2],
-        desynced: [1, 2],
-        image: [1, 2]
+        desynced: [1, 2]
       }
   end
   let!(:version_fansub) do
@@ -31,7 +30,7 @@ describe Moderation::VersionsItemTypeQuery do
     create :video_version, item: anime, item_diff: { videos: %w[a b] }
   end
 
-  let!(:version_image) do
+  let!(:version_poster) do
     create :poster_version, item: poster, item_diff: { action: 'upload' }
   end
   let(:poster) { create :poster, anime: anime }
@@ -49,7 +48,7 @@ describe Moderation::VersionsItemTypeQuery do
         version_fansub,
         version_video_field,
         version_video_upload,
-        version_image,
+        version_poster,
         version_external_links
       ]
     end
@@ -72,7 +71,7 @@ describe Moderation::VersionsItemTypeQuery do
         version_content,
         version_video_field,
         version_video_upload,
-        version_image,
+        version_poster,
         version_external_links
       ]
     end
@@ -88,9 +87,25 @@ describe Moderation::VersionsItemTypeQuery do
     it { is_expected.to eq [version_video_field, version_video_upload] }
   end
 
-  context 'images', :focus do
+  context 'images' do
     let(:type) { 'images' }
-    it { is_expected.to eq [version_image] }
+
+    let!(:version_image) do
+      create :poster_old_version,
+        item: anime,
+        item_diff: {
+          image: [nil, 'test.png']
+        }
+    end
+    let!(:version_screenshots) do
+      create :screenshots_version,
+        item: anime,
+        item_diff: {
+          screenshots: [1, 2, 3]
+        }
+    end
+
+    it { is_expected.to eq [version_poster, version_image, version_screenshots] }
   end
 
   context 'links' do
