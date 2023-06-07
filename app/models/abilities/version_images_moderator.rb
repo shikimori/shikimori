@@ -5,7 +5,7 @@ class Abilities::VersionImagesModerator < Abilities::VersionFieldsModeratorBase
     screenshots
     desynced
   ]
-  MANAGED_FIELDS_MODELS = [Anime.name]
+  MANAGED_FIELDS_MODELS = Abilities::VersionTextsModerator::MANAGED_FIELDS_MODELS
   MANAGED_MODELS = [Poster.name]
 
   def initialize _user

@@ -1,19 +1,21 @@
 module Types
   module User
+    VERSION_ROLES = %i[
+      version_moderator
+      version_names_moderator
+      version_texts_moderator
+      version_fansub_moderator
+      version_videos_moderator
+      version_images_moderator
+      version_links_moderator
+    ]
+
     ROLES = %i[
       super_moderator
       news_super_moderator
       forum_moderator
       retired_moderator
-
-      version_names_moderator
-      version_texts_moderator
-      version_moderator
-      version_fansub_moderator
-      version_videos_moderator
-      version_images_moderator
-      version_links_moderator
-
+    ] + VERSION_ROLES + %i[
       trusted_version_changer
       trusted_episodes_changer
       trusted_newsmaker
