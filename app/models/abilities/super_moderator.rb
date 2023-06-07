@@ -28,10 +28,15 @@ class Abilities::SuperModerator
   def roles_abilities # rubocop:disable MethodLength
     can %i[
       manage_forum_moderator_role
+
       manage_version_names_moderator_role
       manage_version_texts_moderator_role
       manage_version_moderator_role
       manage_version_fansub_moderator_role
+      manage_version_videos_moderator_role
+      manage_version_images_moderator_role
+      manage_version_links_moderator_role
+
       manage_trusted_version_changer_role
       manage_trusted_episodes_changer_role
       manage_trusted_newsmaker_role

@@ -4,6 +4,7 @@ class Abilities::VersionModerator
 
   MANAGED_FIELDS = %w[
     image
+    poster
     desynced
   ]
 
@@ -11,7 +12,7 @@ class Abilities::VersionModerator
     Abilities::VersionNamesModerator::MANAGED_FIELDS +
     Abilities::VersionFansubModerator::MANAGED_FIELDS - MANAGED_FIELDS
 
-  MANAGED_MODELS = Abilities::VersionTextsModerator::MANAGED_MODELS
+  MANAGED_FIELDS_MODELS = Abilities::VersionTextsModerator::MANAGED_FIELDS_MODELS
 
   def initialize user # rubocop:disable MethodLength, AbcSize
     can :increment_episode, Anime
@@ -24,10 +25,10 @@ class Abilities::VersionModerator
       !version.is_a?(Versions::RoleVersion) &&
         version.item_diff && ((
           (version.item_diff.keys & NOT_MANAGED_FIELDS).none? ||
-          MANAGED_MODELS.exclude?(version.item_type)
+          MANAGED_FIELDS_MODELS.exclude?(version.item_type)
         ) || (
           (version.item_diff.keys & MANAGED_FIELDS).any? &&
-          MANAGED_MODELS.include?(version.item_type)
+          MANAGED_FIELDS_MODELS.include?(version.item_type)
         ))
     end
     cannot :destroy, Version do |version|

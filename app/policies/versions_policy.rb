@@ -94,7 +94,7 @@ private
   def name_changing?
     (
       change_fields & Abilities::VersionNamesModerator::MANAGED_FIELDS
-    ).any? && Abilities::VersionNamesModerator::MANAGED_MODELS.include?(
+    ).any? && Abilities::VersionNamesModerator::MANAGED_FIELDS_MODELS.include?(
       item_type
     )
   end
@@ -102,7 +102,7 @@ private
   def text_changing?
     (
       change_fields & Abilities::VersionTextsModerator::MANAGED_FIELDS
-    ).any? && Abilities::VersionTextsModerator::MANAGED_MODELS.include?(
+    ).any? && Abilities::VersionTextsModerator::MANAGED_FIELDS_MODELS.include?(
       item_type
     )
   end
@@ -110,7 +110,7 @@ private
   def fansub_changing?
     (
       change_fields & Abilities::VersionFansubModerator::MANAGED_FIELDS
-    ).any? && Abilities::VersionFansubModerator::MANAGED_MODELS.include?(
+    ).any? && Abilities::VersionFansubModerator::MANAGED_FIELDS_MODELS.include?(
       item_type
     )
   end

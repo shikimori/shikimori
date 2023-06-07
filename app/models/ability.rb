@@ -55,6 +55,18 @@ class Ability
         merge Abilities::VersionFansubModerator.new(@user)
       end
 
+      if @user.version_videos_moderator? || @user.admin?
+        merge Abilities::VersionVideosModerator.new(@user)
+      end
+
+      if @user.version_images_moderator? || @user.admin?
+        merge Abilities::VersionImagesModerator.new(@user)
+      end
+
+      if @user.version_links_moderator? || @user.admin?
+        merge Abilities::VersionLinksModerator.new(@user)
+      end
+
       if @user.super_moderator? || @user.admin?
         merge Abilities::SuperModerator.new(@user)
       end
