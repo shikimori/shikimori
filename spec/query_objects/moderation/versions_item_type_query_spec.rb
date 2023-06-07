@@ -32,8 +32,9 @@ describe Moderation::VersionsItemTypeQuery do
   end
 
   let!(:version_image) do
-    create :version, item: anime, item_diff: { russian: %w[a b] }
+    create :poster_version, item: poster, item_diff: { action: 'upload' }
   end
+  let(:poster) { create :poster, anime: anime }
   let!(:version_external_links) do
     create :collection_version, item: anime, item_diff: { external_links: [] }
   end
@@ -82,12 +83,12 @@ describe Moderation::VersionsItemTypeQuery do
     it { is_expected.to eq [version_fansub] }
   end
 
-  context 'videos', :focus do
+  context 'videos' do
     let(:type) { 'videos' }
     it { is_expected.to eq [version_video_field, version_video_upload] }
   end
 
-  context 'images' do
+  context 'images', :focus do
     let(:type) { 'images' }
     it { is_expected.to eq [version_image] }
   end

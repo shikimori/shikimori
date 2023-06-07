@@ -17,7 +17,8 @@ class Abilities::VersionImagesModerator
     can :manage, Version do |version|
       !version.is_a?(Versions::RoleVersion) &&
         version.item_diff &&
-        (version.item_diff.keys - MANAGED_FIELDS).none?
+        (version.item_diff.keys & MANAGED_FIELDS).any? &&
+        MANAGED_MODELS.include?(version.item_type)
     end
 
     cannot :destroy, Version do |version|
