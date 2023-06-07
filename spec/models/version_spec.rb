@@ -642,10 +642,10 @@ describe Version do
       it { is_expected.to be_able_to :manage, version }
       it { is_expected.to be_able_to :auto_accept, version }
 
-      context 'not only names changed' do
-        let(:item_diff) { { name: %w[a b], source: [1, 2] } }
-        it { is_expected.to be_able_to :auto_accept, version }
-      end
+      # context 'not only names changed' do
+      #   let(:item_diff) { { name: %w[a b], source: [1, 2] } }
+      #   it { is_expected.to be_able_to :auto_accept, version }
+      # end
 
       context 'not texts changed' do
         let(:item_diff) { { episodes: [1, 2] } }

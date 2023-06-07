@@ -94,7 +94,8 @@ private
       )
       .where(item_type: moderator_ability_klass::MANAGED_FIELDS_MODELS)
 
-    if defined? moderator_ability_klass::MANAGED_MODELS
+    if defined?(moderator_ability_klass::MANAGED_MODELS) &&
+        moderator_ability_klass::MANAGED_MODELS.any?
       new_scope.or(scope.where(item_type: moderator_ability_klass::MANAGED_MODELS))
     else
       new_scope
