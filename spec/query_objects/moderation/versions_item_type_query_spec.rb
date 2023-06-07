@@ -20,7 +20,7 @@ describe Moderation::VersionsItemTypeQuery do
       }
   end
   let!(:version_fansub) do
-    create :version, item: manga, item_diff: { fansubbers: %w[a b] }
+    create :version, item: anime, item_diff: { fansubbers: %w[a b] }
   end
   let!(:version_role) { create :role_version, item: user }
   let!(:version_video_field) do
