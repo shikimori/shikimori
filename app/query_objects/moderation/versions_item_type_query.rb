@@ -1,7 +1,7 @@
 class Moderation::VersionsItemTypeQuery < QueryObjectBase
   Types = Types::Strict::Symbol
     .constructor(&:to_sym)
-    .enum(:all_content, :names, :texts, :content, :fansub, :role, :videos, :images, :links)
+    .enum(:all_content, :names, :texts, :fansub, :role, :videos, :images, :links, :content)
 
   VERSION_NOT_MANAGED_FIELDS_SQL = Abilities::VersionModerator::NOT_MANAGED_FIELDS
     .map { |v| "(item_diff->>'#{v}') is null" }
@@ -21,9 +21,6 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
       when Types[:names]
         scope.non_roles.names
 
-      when Types[:content]
-        scope.non_roles.content
-
       when Types[:fansub]
         scope.non_roles.fansub
 
@@ -38,6 +35,9 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
 
       when Types[:role]
         scope.roles
+
+      when Types[:content]
+        scope.non_roles.content
 
       else
         scope
@@ -60,13 +60,6 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
     chain moderator_fields_scope(scope, Abilities::VersionTextsModerator)
   end
 
-  def content
-    chain @scope.where(
-      "(#{VERSION_NOT_MANAGED_FIELDS_SQL}) or item_type not in (?)",
-      Abilities::VersionTextsModerator::MANAGED_FIELDS_MODELS
-    )
-  end
-
   def fansub
     chain moderator_fields_scope(scope, Abilities::VersionFansubModerator)
   end
@@ -81,6 +74,33 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
 
   def links
     chain moderator_fields_scope(scope, Abilities::VersionLinksModerator)
+  end
+
+  def content # rubocop:disable all
+    chain(
+      %i[names texts fansub videos images links].inject(@scope) do |scope, type|
+        moderator_ability_klass = "Abilities::Version#{type.to_s.capitalize}Moderator".constantize
+        new_scope = scope
+          .where.not(
+            '(' +
+            (moderator_ability_klass::MANAGED_FIELDS - DESYNCED_FIELDS)
+              .map { |v| "(item_diff->>'#{v}') is not null" }
+              .join(' or ') +
+            ') and item_type in (' +
+            moderator_ability_klass::MANAGED_FIELDS_MODELS
+              .map { |v| ApplicationRecord.sanitize v }
+              .join(', ') +
+            ')'
+          )
+
+        if defined?(moderator_ability_klass::MANAGED_MODELS) &&
+            moderator_ability_klass::MANAGED_MODELS.any?
+          new_scope.where.not(item_type: moderator_ability_klass::MANAGED_MODELS)
+        else
+          new_scope
+        end
+      end
+    )
   end
 
 private

@@ -66,15 +66,7 @@ describe Moderation::VersionsItemTypeQuery do
 
   context 'content' do
     let(:type) { 'content' }
-    it do
-      is_expected.to eq [
-        version_content,
-        version_video_field,
-        version_video_upload,
-        version_poster,
-        version_external_links
-      ]
-    end
+    it { is_expected.to eq [version_content] }
   end
 
   context 'fansub' do
