@@ -19,7 +19,7 @@ header.head
         - %i[names texts content fansub videos images links].each do |type|
           li.offset
             a.b-link[
-              href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[type])
+              href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Type[type])
               title=t("moderations/versions_controller.content_changes.#{type}")
             ]
               = t "moderations/versions_controller.content_changes.#{type}"

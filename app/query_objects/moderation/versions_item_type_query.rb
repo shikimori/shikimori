@@ -1,7 +1,10 @@
 class Moderation::VersionsItemTypeQuery < QueryObjectBase
-  Types = Types::Strict::Symbol
+  Type = Types::Strict::Symbol
     .constructor(&:to_sym)
     .enum(:all_content, :names, :texts, :fansub, :role, :videos, :images, :links, :content)
+
+  OTHER_VERSION_TYPES = (Types::User::VERSION_ROLES - %i[version_moderator])
+    .map { |v| Type[v.to_s.gsub(/^version_|_moderator$/, '')] }
 
   VERSION_NOT_MANAGED_FIELDS_SQL = Abilities::VersionModerator::NOT_MANAGED_FIELDS
     .map { |v| "(item_diff->>'#{v}') is null" }
@@ -11,32 +14,32 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
   def self.fetch type # rubocop:disable all
     scope = new Version.all
 
-    case Types[type]
-      when Types[:all_content]
+    case Type[type]
+      when Type[:all_content]
         scope.non_roles
 
-      when Types[:texts]
+      when Type[:texts]
         scope.non_roles.texts
 
-      when Types[:names]
+      when Type[:names]
         scope.non_roles.names
 
-      when Types[:fansub]
+      when Type[:fansub]
         scope.non_roles.fansub
 
-      when Types[:videos]
+      when Type[:videos]
         scope.non_roles.videos
 
-      when Types[:images]
+      when Type[:images]
         scope.non_roles.images
 
-      when Types[:links]
+      when Type[:links]
         scope.non_roles.links
 
-      when Types[:role]
+      when Type[:role]
         scope.roles
 
-      when Types[:content]
+      when Type[:content]
         scope.non_roles.content
 
       else
@@ -78,7 +81,7 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
 
   def content # rubocop:disable all
     chain(
-      %i[names texts fansub videos images links].inject(@scope) do |scope, type|
+      OTHER_VERSION_TYPES.inject(@scope) do |scope, type|
         moderator_ability_klass = "Abilities::Version#{type.to_s.capitalize}Moderator".constantize
         new_scope = scope
           .where.not(
