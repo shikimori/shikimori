@@ -21,11 +21,13 @@ class Abilities::VersionFieldsModeratorBase
         ) || self.class::MANAGED_MODELS.include?(version.item_type)
       )
     end
-
     cannot :destroy, Version do |version|
       version.user_id != user.id
     end
-
     can %i[filter autocomplete_user autocomplete_moderator], Version
+
+    can :sync, [Anime, Manga, Person, Character] do |entry|
+      entry.mal_id.present?
+    end
   end
 end

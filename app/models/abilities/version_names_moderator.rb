@@ -13,9 +13,6 @@ class Abilities::VersionNamesModerator < Abilities::VersionFieldsModeratorBase
   def initialize _user
     super
 
-    can :sync, [Anime, Manga, Person, Character] do |entry|
-      entry.mal_id.present?
-    end
     can %i[manage_not_trusted_names_changer_role], User
   end
 end
