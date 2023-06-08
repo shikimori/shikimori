@@ -3,7 +3,6 @@ class Abilities::VersionTextsModerator < Abilities::VersionFieldsModeratorBase
     description_ru
     description_en
     desynced
-    source
   ]
   MANAGED_FIELDS_MODELS = [
     Anime.name,
@@ -12,6 +11,7 @@ class Abilities::VersionTextsModerator < Abilities::VersionFieldsModeratorBase
     Character.name,
     Person.name
   ]
+  IGNORED_FIELDS = %w[source]
 
   def initialize _user
     super
