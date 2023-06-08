@@ -200,7 +200,7 @@ header.head
                   title=club_view.object.name
                 ] = club_view.object.name
 
-- if can? :sync, Anime
+- if can?(:arbitrary_sync, Anime) && can?(:sync, Anime)
   .block
     .fc-3
       .f-column

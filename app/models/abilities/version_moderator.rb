@@ -13,12 +13,19 @@ class Abilities::VersionModerator
   MANAGED_FIELDS_MODELS = Abilities::VersionTextsModerator::MANAGED_FIELDS_MODELS
 
   def initialize user
-    can :increment_episode, Anime
-    can :rollback_episode, Anime
-    can :upload_episode, Anime
+    can %i[
+      upload_episode
+      increment_episode
+      rollback_episode
+    ], Anime
+    can %i[sync arbitrary_sync], [Anime, Manga, Person, Character]
 
-    can :sync, [Anime, Manga, Person, Character]
+    version_abilities user
+  end
 
+private
+
+  def version_abilities user
     can :manage, Version do |version|
       !version.is_a?(Versions::RoleVersion) &&
         version.item_diff && (
