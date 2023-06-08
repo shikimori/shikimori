@@ -66,12 +66,19 @@ class Moderations::VersionsView < ViewObjectBase # rubocop:disable ClassLength
       .lazy_map(&:decorate)
   end
 
-  def moderators
+  def moderators # rubocop:disable Metrics/AbcSize
     type_suffix = h.params[:type] + '_' if h.params[:type] && h.params[:type] != 'content'
-    role = "version_#{type_suffix}moderator"
+    current_role = Types::User::Roles[:"version_#{type_suffix}moderator"]
+
+    query_roles =
+      if h.params[:type].blank?
+        Types::User::VERSION_ROLES
+      else
+        [current_role]
+      end
 
     User
-      .where("roles && '{#{role}}'")
+      .where("roles && '{#{query_roles.join(',')}}'")
       .where.not(id: User::MORR_ID)
       .sort_by { |v| v.nickname.downcase }
   end
