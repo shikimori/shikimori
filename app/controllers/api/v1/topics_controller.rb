@@ -148,6 +148,7 @@ class Api::V1::TopicsController < Api::V1Controller
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/topics/:id', 'Destroy a topic'
+  description 'Requires `topics` oauth scope'
   def destroy
     Topic::Destroy.call @resource, faye
 
