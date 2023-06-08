@@ -288,9 +288,9 @@ private
     }, {
       src: '/assets/globals/events/2023-06-02/inner_3.webp',
       url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner3&utm_campaign=02_06&erid=2Vtzqw6sJ6X'
-    }, {
-      src: '/assets/globals/events/2023-06-02/inner_4.webp',
-      url: 'https://imba.shop/catalog/new-sostav?utm_source=shikimori&utm_medium=banner4&utm_campaign=06_06&erid=2VtzqvHRkW5'
+    # }, {
+    #   src: '/assets/globals/events/2023-06-02/inner_4.webp',
+    #   url: 'https://imba.shop/catalog/new-sostav?utm_source=shikimori&utm_medium=banner4&utm_campaign=06_06&erid=2VtzqvHRkW5'
     }],
     # AD END
     placement: Types::Ad::Placement[:content],
