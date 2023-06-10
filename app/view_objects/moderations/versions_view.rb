@@ -57,7 +57,12 @@ class Moderations::VersionsView < ViewObjectBase # rubocop:disable ClassLength
 
     User
       .where(
-        id: processed_scope.scope.or(pending_scope.scope).distinct.select(:user_id).except(:order)
+        id: processed_scope
+          .scope
+          .or(pending_scope.scope)
+          .distinct
+          .select(:user_id)
+          .except(:order)
       )
       .where('nickname ilike ?', "#{nickname}%")
   end

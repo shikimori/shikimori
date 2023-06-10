@@ -1,5 +1,5 @@
 class LayoutView < ViewObjectBase
-  instance_cache :styles, :hot_topics, :moderation_policy
+  instance_cache :styles, :hot_topics, :moderation_policy, :moderation_hot_stat
 
   CUSTOM_CSS_ID = 'custom_css'
 
@@ -68,8 +68,41 @@ class LayoutView < ViewObjectBase
       .map { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
 
-  def moderation_policy
-    ModerationPolicy.new h.current_user, true
+  def moderation_hot_stat # rubocop:disable all
+    ([
+      {
+        count: moderation_policy.critiques_count,
+        threshold: 3,
+        url: h.moderations_critiques_url,
+        label: i18n_i('Critique', :other)
+      }, {
+        count: moderation_policy.collections_count,
+        threshold: 3,
+        url: h.moderations_collections_url,
+        label: i18n_i('Collection', :other)
+      }, {
+        count: moderation_policy.news_count,
+        threshold: 5,
+        url: h.moderations_news_index_url,
+        label: i18n_i('News', :other)
+      }, {
+        count: moderation_policy.articles_count,
+        threshold: 1,
+        url: h.moderations_articles_url,
+        label: i18n_i('Article', :other)
+      }
+    ] + Moderation::VersionsItemTypeQuery::VERSION_TYPES
+      .map do |type|
+        {
+          count: moderation_policy.send(:"#{type}_versions_count"),
+          threshold: 10,
+          url: h.moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Type[type]),
+          label: i18n_t(".versions.#{type}")
+        }
+      end
+    )
+      .select { |v| v[:count] > v[:threshold] }
+      .take(3)
   end
 
 private
@@ -122,5 +155,9 @@ private
 
   def try_style target
     target.style if target&.style&.css&.strip.present?
+  end
+
+  def moderation_policy
+    ModerationPolicy.new h.current_user, true
   end
 end

@@ -5,6 +5,7 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
 
   OTHER_VERSION_TYPES = (Types::User::VERSION_ROLES - %i[version_moderator])
     .map { |v| Type[v.to_s.gsub(/^version_|_moderator$/, '')] }
+  VERSION_TYPES = %i[content] + OTHER_VERSION_TYPES
 
   VERSION_NOT_MANAGED_FIELDS_SQL = Abilities::VersionModerator::NOT_MANAGED_FIELDS
     .map { |v| "(item_diff->>'#{v}') is null" }
@@ -18,11 +19,14 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
       when Type[:all_content]
         scope.non_roles
 
+      when Type[:names]
+        scope.non_roles.names
+
       when Type[:texts]
         scope.non_roles.texts
 
-      when Type[:names]
-        scope.non_roles.names
+      when Type[:content]
+        scope.non_roles.content
 
       when Type[:fansub]
         scope.non_roles.fansub
@@ -38,9 +42,6 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
 
       when Type[:role]
         scope.roles
-
-      when Type[:content]
-        scope.non_roles.content
 
       else
         scope
