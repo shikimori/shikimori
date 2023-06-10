@@ -12,6 +12,19 @@ class Moderations::VersionsView < ViewObjectBase # rubocop:disable ClassLength
   }
   HIDDEN_FIELDS = MERGED_FIELDS.values.flatten
 
+  Type = Moderation::VersionsItemTypeQuery::Type
+
+  RULES_CLUB_PAGE_IDS = {
+    Type[:all_content] => 4212,
+    Type[:texts] => 4214,
+    Type[:names] => 4213,
+    Type[:fansub] => 4215,
+    Type[:videos] => 4216,
+    Type[:images] => 4217,
+    Type[:links] => 4218,
+    Type[:content] => 4219
+  }
+
   def processed_scope
     Moderation::ProcessedVersionsQuery
       .fetch(type_param, h.params[:created_on])
@@ -84,7 +97,7 @@ class Moderations::VersionsView < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def type_param
-    h.params[:type] || :all_content
+    h.params[:type]&.to_sym || :all_content
   end
 
   def filtered_user
@@ -120,6 +133,10 @@ class Moderations::VersionsView < ViewObjectBase # rubocop:disable ClassLength
 
   def sort_order
     h.params[:order] == 'asc' ? :asc : :desc
+  end
+
+  def rules_club_page_id
+    RULES_CLUB_PAGE_IDS[type_param]
   end
 
 private
