@@ -2,7 +2,11 @@ class Moderations::VersionsView < ViewObjectBase # rubocop:disable ClassLength
   instance_cache :moderators, :pending, :processed
 
   PER_PAGE = 25
-  IGNORED_FIELDS = Abilities::VersionFieldsModeratorBase::IGNORED_FIELDS
+  IGNORED_FIELDS = Abilities::VersionFieldsModeratorBase
+    .descendants
+    .flat_map { |v| v::IGNORED_FIELDS }
+    .uniq
+
   FILTERABLE_TYPES = [Anime, Manga, Character, Person].map(&:name)
   ALL_TYPES = :all
 
