@@ -69,45 +69,47 @@ class LayoutView < ViewObjectBase
   end
 
   def moderation_hot_stat # rubocop:disable all
-    ([
-      {
-        count: moderation_policy.abuse_requests_total_count,
-        threshold: 3,
-        url: h.moderations_bans_url,
-        label: i18n_i('Forum')
-      }, {
-        count: moderation_policy.critiques_count,
-        threshold: 3,
-        url: h.moderations_critiques_url,
-        label: i18n_i('Critique', :other)
-      }, {
-        count: moderation_policy.collections_count,
-        threshold: 3,
-        url: h.moderations_collections_url,
-        label: i18n_i('Collection', :other)
-      }, {
-        count: moderation_policy.news_count,
-        threshold: 5,
-        url: h.moderations_news_index_url,
-        label: i18n_i('News', :other)
-      }, {
-        count: moderation_policy.articles_count,
-        threshold: 1,
-        url: h.moderations_articles_url,
-        label: i18n_i('Article', :other)
-      }
-    ] + Moderation::VersionsItemTypeQuery::VERSION_TYPES
-      .map do |type|
+    stats = (
+      [
         {
-          count: moderation_policy.send(:"#{type}_versions_count"),
-          threshold: 10,
-          url: h.moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Type[type]),
-          label: i18n_t(".versions.#{type}")
+          count: moderation_policy.abuse_requests_total_count,
+          threshold: 3,
+          url: h.moderations_bans_url,
+          label: i18n_i('Forum')
+        }, {
+          count: moderation_policy.critiques_count,
+          threshold: 3,
+          url: h.moderations_critiques_url,
+          label: i18n_i('Critique', :other)
+        }, {
+          count: moderation_policy.collections_count,
+          threshold: 3,
+          url: h.moderations_collections_url,
+          label: i18n_i('Collection', :other)
+        }, {
+          count: moderation_policy.news_count,
+          threshold: 5,
+          url: h.moderations_news_index_url,
+          label: i18n_i('News', :other)
+        }, {
+          count: moderation_policy.articles_count,
+          threshold: 1,
+          url: h.moderations_articles_url,
+          label: i18n_i('Article', :other)
         }
-      end
+      ] + Moderation::VersionsItemTypeQuery::VERSION_TYPES
+        .map do |type|
+          {
+            count: moderation_policy.send(:"#{type}_versions_count"),
+            threshold: 10,
+            url: h.moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Type[type]),
+            label: i18n_t(".versions.#{type}")
+          }
+        end
     )
       .select { |v| v[:count] > v[:threshold] }
-      .take(3)
+
+    stats.shuffle.take(3).sort_by { |v| stats.index v }
   end
 
 private
