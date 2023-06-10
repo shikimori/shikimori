@@ -2,8 +2,7 @@
   .subject = t '.hot_topics'
 
   - layout.moderation_hot_stat.each do |stat|
-    a.b-link.moderation href=stat[:url]
-      /   class=(:misc if current_user.super_moderator?)
+    a.b-link.moderation.misc href=stat[:url]
       = "#{stat[:label]}: #{stat[:count]}"
 
   - cache :hot_topics, expires_in: 10.minutes do
