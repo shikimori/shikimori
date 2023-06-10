@@ -71,6 +71,11 @@ class LayoutView < ViewObjectBase
   def moderation_hot_stat # rubocop:disable all
     ([
       {
+        count: moderation_policy.abuse_requests_total_count,
+        threshold: 3,
+        url: h.moderations_bans_url,
+        label: i18n_i('Forum')
+      }, {
         count: moderation_policy.critiques_count,
         threshold: 3,
         url: h.moderations_critiques_url,
