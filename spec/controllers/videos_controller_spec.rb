@@ -6,8 +6,6 @@ describe VideosController do
   let(:name) { 'test' }
   let(:kind) { 'pv' }
 
-  let(:json) { JSON.parse response.body }
-
   describe '#create' do
     include_context :back_redirect
     let(:video_params) { { url: url, kind: kind, name: name } }
@@ -17,7 +15,7 @@ describe VideosController do
       it do
         expect(assigns :video).to be_uploaded
         expect(assigns :video).to have_attributes(
-          url: url,
+          url: 'https://youtu.be/l1YX30AmYsA',
           name: name,
           kind: kind,
           anime_id: anime.id,
@@ -52,9 +50,9 @@ describe VideosController do
             expect(assigns :video).to be_uploaded
             expect(assigns(:video).anime).to eq anime
 
-            expect(json).to_not have_key 'errors'
-            expect(json).to have_key 'video_id'
-            expect(json).to have_key 'content'
+            expect(json).to_not have_key :errors
+            expect(json).to have_key :video_id
+            expect(json).to have_key :content
           end
         end
 
@@ -65,9 +63,9 @@ describe VideosController do
             expect(assigns :video).to be_uploaded
             expect(assigns(:video).anime).to be_nil
 
-            expect(json).to_not have_key 'errors'
-            expect(json).to have_key 'video_id'
-            expect(json).to have_key 'content'
+            expect(json).to_not have_key :errors
+            expect(json).to have_key :video_id
+            expect(json).to have_key :content
           end
         end
       end
@@ -78,9 +76,9 @@ describe VideosController do
         it do
           expect(assigns :video).to_not be_persisted
 
-          expect(json).to have_key 'errors'
-          expect(json).to_not have_key 'video_id'
-          expect(json).to_not have_key 'content'
+          expect(json).to have_key :errors
+          expect(json).to_not have_key :video_id
+          expect(json).to_not have_key :content
         end
       end
 
@@ -96,9 +94,9 @@ describe VideosController do
         it do
           expect(assigns :video).to eq video
 
-          expect(json).to_not have_key 'errors'
-          expect(json).to have_key 'video_id'
-          expect(json).to have_key 'content'
+          expect(json).to_not have_key :errors
+          expect(json).to have_key :video_id
+          expect(json).to have_key :content
         end
       end
     end

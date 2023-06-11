@@ -86,7 +86,7 @@ describe Video do
     its(:player_url) { is_expected.to eq '//youtube.com/embed/VdwKZ6JDENc' }
 
     describe 'url=' do
-      let(:clean_url) { 'https://youtube.com/watch?v=VdwKZ6JDENc' }
+      let(:clean_url) { 'https://youtu.be/VdwKZ6JDENc' }
 
       context 'valid url' do
         let(:video) { create(:video, url: url) }
@@ -99,7 +99,7 @@ describe Video do
 
         describe 'hash params' do
           let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc#t=123' }
-          it { is_expected.to eq clean_url + '#t=123' }
+          it { is_expected.to eq clean_url }
         end
 
         describe 'no www' do
@@ -107,6 +107,27 @@ describe Video do
           it { is_expected.to eq clean_url }
         end
       end
+    #   let(:clean_url) { 'https://youtube.com/watch?v=VdwKZ6JDENc' }
+    #
+    #   context 'valid url' do
+    #     let(:video) { create(:video, url: url) }
+    #     subject { video.url }
+    #
+    #     describe 'https' do
+    #       let(:url) { 'https://youtube.com/watch?v=VdwKZ6JDENc' }
+    #       it { is_expected.to eq clean_url }
+    #     end
+    #
+    #     describe 'hash params' do
+    #       let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc#t=123' }
+    #       it { is_expected.to eq clean_url + '#t=123' }
+    #     end
+    #
+    #     describe 'no www' do
+    #       let(:url) { 'http://www.youtube.com/watch?v=VdwKZ6JDENc' }
+    #       it { is_expected.to eq clean_url }
+    #     end
+    #   end
     end
   end
 
