@@ -45,4 +45,8 @@ private
   # rescue *Network::FaradayGet::NET_ERRORS
   #   false
   # end
+
+  def normalize_matched_url _url, match
+    "https://youtu.be/#{match[:key]}"
+  end
 end

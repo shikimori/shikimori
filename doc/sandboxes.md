@@ -649,7 +649,9 @@ ssh devops@shiki '\
   source /home/devops/.zshrc &&\
     cd /home/apps/shikimori/production/current &&\
     RAILS_ENV=production bundle exec rails runner "\
-Chewy.strategy(:atomic) { amount = rand(80..120); Video.where(state: \"uploaded\").where(uploader_id: BotsService.posters).where.not(anime_id: nil).shuffle.take(amount).each {|video| Versions::VideoVersion.create! item: video.anime, state: \"pending\", created_at: video.created_at, item_diff: { action: \"upload\", videos: [video.id] }, user: video.uploader }; } \
+Chewy.strategy(:atomic) { \
+  amount = rand(80..120); Video.where(state: \"uploaded\").where(uploader_id: BotsService.posters).where.not(anime_id: nil).shuffle.take(amount).each {|video| Versions::VideoVersion.create! item: video.anime, state: \"pending\", created_at: video.created_at, item_diff: { action: \"upload\", videos: [video.id] }, user: video.uploader }; \
+} \
     "\
 '
 ```
