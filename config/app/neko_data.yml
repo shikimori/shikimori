@@ -4600,6 +4600,24 @@
         - 50137
         - 52267
         - 53038
+        - 25641
+        - 49099
+        - 53092
+        - 53125
+        - 53121
+        - 54298
+        - 12919
+        - 25533
+        - 53291
+        - 38504
+        - 28085
+        - 54518
+        - 34908
+        - 32758
+        - 32856
+        - 53843
+        - 36621
+        - 45781
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -6548,7 +6566,6 @@
         - 13331
         - 1336
         - 1341
-        - 1342
         - 1343
         - 1356
         - 1357
@@ -6659,17 +6676,11 @@
         - 23201
         - 23249
         - 23327
-        - 2341
-        - 2342
-        - 2343
-        - 2344
-        - 2345
         - 2346
         - 2354
         - 2355
         - 2356
         - 2359
-        - 2360
         - 23605
         - 23723
         - 23753
@@ -6824,7 +6835,6 @@
         - 4650
         - 47
         - 4705
-        - 4714
         - 4808
         - 4901
         - 496
@@ -7078,7 +7088,6 @@
         - 13331
         - 1336
         - 1341
-        - 1342
         - 1343
         - 1356
         - 1357
@@ -7189,17 +7198,11 @@
         - 23201
         - 23249
         - 23327
-        - 2341
-        - 2342
-        - 2343
-        - 2344
-        - 2345
         - 2346
         - 2354
         - 2355
         - 2356
         - 2359
-        - 2360
         - 23605
         - 23723
         - 23753
@@ -7354,7 +7357,6 @@
         - 4650
         - 47
         - 4705
-        - 4714
         - 4808
         - 4901
         - 496
@@ -7608,7 +7610,6 @@
         - 13331
         - 1336
         - 1341
-        - 1342
         - 1343
         - 1356
         - 1357
@@ -7719,17 +7720,11 @@
         - 23201
         - 23249
         - 23327
-        - 2341
-        - 2342
-        - 2343
-        - 2344
-        - 2345
         - 2346
         - 2354
         - 2355
         - 2356
         - 2359
-        - 2360
         - 23605
         - 23723
         - 23753
@@ -7884,7 +7879,6 @@
         - 4650
         - 47
         - 4705
-        - 4714
         - 4808
         - 4901
         - 496
@@ -10984,6 +10978,7 @@
         - 14247
         - 11537
         - 14231
+        - 23659
       :generator:
         person_id: 1938
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -11095,6 +11090,7 @@
         - 14247
         - 11537
         - 14231
+        - 23659
       :generator:
         person_id: 1938
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -19379,6 +19375,7 @@
         - 41059
         - 42490
         - 45567
+        - 54778
       :threshold: 95%
       :generator:
         ignore_latest_ids:
@@ -19416,6 +19413,7 @@
         - 41059
         - 42490
         - 45567
+        - 54778
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -25014,7 +25012,7 @@
       :algo: duration
       :filters:
         franchise: karakai_jouzu_no_takagi_san
-      :threshold: 92.2%
+      :threshold: 100%
       :generator:
         ignore_latest_ids:
         - 49722
@@ -26310,7 +26308,7 @@
         - 38653
         - 48617
         - 52282
-      :threshold: 94.4%
+      :threshold: 94.9%
       :generator:
         ignore_latest_ids:
         - 48903
@@ -26450,7 +26448,7 @@
         - 53603
         - 55283
         - 55404
-      :threshold: 86.4%
+      :threshold: 86.7%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -27188,7 +27186,7 @@
       :algo: duration
       :filters:
         franchise: nodame_cantabile
-      :threshold: 94.1%
+      :threshold: 94.2%
       :generator:
         not_ignored_ids:
         - 5656
@@ -29481,7 +29479,7 @@
         - 51509
         - 51842
         - 55517
-      :threshold: 86%
+      :threshold: 86.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :idolmaster
