@@ -73,27 +73,27 @@ class LayoutView < ViewObjectBase
       [
         {
           count: moderation_policy.abuse_requests_total_count,
-          threshold: 3,
+          threshold: 0, # 3,
           url: h.moderations_bans_url,
           label: i18n_i('Forum')
         }, {
           count: moderation_policy.critiques_count,
-          threshold: 3,
+          threshold: 0, # 3,
           url: h.moderations_critiques_url,
           label: i18n_i('Critique', :other)
         }, {
           count: moderation_policy.collections_count,
-          threshold: 3,
+          threshold: 0, # 3,
           url: h.moderations_collections_url,
           label: i18n_i('Collection', :other)
         }, {
           count: moderation_policy.news_count,
-          threshold: 5,
+          threshold: 0, # 5,
           url: h.moderations_news_index_url,
           label: i18n_i('News', :other)
         }, {
           count: moderation_policy.articles_count,
-          threshold: 1,
+          threshold: 0, # 1,
           url: h.moderations_articles_url,
           label: i18n_i('Article', :other)
         }
@@ -101,7 +101,7 @@ class LayoutView < ViewObjectBase
         .map do |type|
           {
             count: moderation_policy.send(:"#{type}_versions_count"),
-            threshold: 10,
+            threshold: 0, # 10,
             url: h.moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Type[type]),
             label: i18n_t(".versions.#{type}")
           }
