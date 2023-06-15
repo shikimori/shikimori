@@ -202,7 +202,7 @@ private
 
   SPECIAL_X300 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: STARRAIL
+    # AD START: SUMMER
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
@@ -212,10 +212,10 @@ private
     #     src_2x: "/assets/globals/events/2023-02-10/menu_#{i}@2x.jpg"
     #   }
     # end,
-    url: 'https://bit.ly/3O0IWd3',
+    url: 'https://лето.будьвдвижении.рф/?utm_source=site&utm_medium=banner&utm_campaign=anime&utm_content=right&erid=',
     images: [{
-      src: '/assets/globals/events/2023-05-06/menu_1.webp',
-      src_2x: '/assets/globals/events/2023-05-06/menu_1@2x.webp'
+      src: '/assets/globals/events/2023-06-16/menu_1.webp',
+      src_2x: '/assets/globals/events/2023-06-16/menu_1@2x.webp'
       # url: 'https://redirect.appmetrica.yandex.com/serve/316406067464575159'
     }],
     # AND END
@@ -228,15 +228,15 @@ private
   }
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: STARRAIL
+    # AD START: SUMMER
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
-    url: 'https://bit.ly/3HVEGYo',
+    url: 'https://лето.будьвдвижении.рф/?utm_source=site&utm_medium=banner&utm_campaign=anime&utm_content=main&erid=',
     images: (1..1).map do |i|
       {
-        src: "/assets/globals/events/2023-05-06/wide_#{i}.webp",
-        src_2x: "/assets/globals/events/2023-05-06/wide_#{i}@2x.webp"
+        src: "/assets/globals/events/2023-06-16/wide_#{i}.webp",
+        src_2x: "/assets/globals/events/2023-06-16/wide_#{i}@2x.webp"
       }
     end,
     # images: [{
@@ -430,12 +430,12 @@ private
         # Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # STARRAIL
+        Types::Ad::Type[:special_x300], # SUMMER
         Types::Ad::Type[:yd_240x600]
         # Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # STARRAIL
+        Types::Ad::Type[:special_x300], # SUMMER
         Types::Ad::Type[:yd_300x600]
         # Types::Ad::Type[:mt_300x600]
       ],
@@ -452,7 +452,7 @@ private
         # Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170], # STARRAIL
+        Types::Ad::Type[:special_x1170], # SUMMER
         Types::Ad::Type[:yd_970x250]
         # Types::Ad::Type[:mt_970x250]
       ]
@@ -464,13 +464,13 @@ private
         # Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300] # STARRAIL
+        Types::Ad::Type[:special_x300] # SUMMER
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
         # Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300] # STARRAIL
+        Types::Ad::Type[:special_x300] # SUMMER
         # Types::Ad::Type[:mt_300x600],
         # Types::Ad::Type[:yd_300x600],
         # Types::Ad::Type[:advrtr_240x400],
@@ -488,7 +488,7 @@ private
         # Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170] # STARRAIL
+        Types::Ad::Type[:special_x1170] # SUMMER
       ]
     }
   }
