@@ -7,6 +7,7 @@ class UsersController < ShikimoriController
 
   def index
     og page_title: i18n_i('User', :other)
+    og noindex: true
 
     scope = Users::Query.fetch
 
