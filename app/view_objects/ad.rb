@@ -212,7 +212,7 @@ private
     #     src_2x: "/assets/globals/events/2023-02-10/menu_#{i}@2x.jpg"
     #   }
     # end,
-    url: 'https://лето.будьвдвижении.рф/?utm_source=site&utm_medium=banner&utm_campaign=anime&utm_content=right&erid=2Vtzqv5UkD8',
+    url: 'https://лето.будьвдвижении.рф/?utm_source=site&utm_medium=banner&utm_campaign=anime&utm_content=right&erid=2VtzqxddbLv',
     images: [{
       src: '/assets/globals/events/2023-06-16/menu_1.webp',
       src_2x: '/assets/globals/events/2023-06-16/menu_1@2x.webp'
@@ -232,7 +232,7 @@ private
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
-    url: 'https://лето.будьвдвижении.рф/?utm_source=site&utm_medium=banner&utm_campaign=anime&utm_content=main&erid=2Vtzqw9sJ6X',
+    url: 'https://лето.будьвдвижении.рф/?utm_source=site&utm_medium=banner&utm_campaign=anime&utm_content=main&erid=2Vtzqwtexci',
     images: (1..1).map do |i|
       {
         src: "/assets/globals/events/2023-06-16/wide_#{i}.webp",
