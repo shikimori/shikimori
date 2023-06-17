@@ -44,14 +44,16 @@ export default class Swiper extends View {
     this.root.classList.add('is-loading');
     const hasFailed = await this._loadImages();
     this.root.classList.remove('is-loading');
-    if (window.SHIKI_USER.id == 1) { console.log('Swiper.initialize after loadImages'); }
+    if (window.SHIKI_USER.id == 1) { console.log('Swiper.initialize after loadImages, hasFailed=', hasFailed); }
 
     if ((hasFailed && this.$images.length === 1) || !this.$images.length) {
       this.isPlaceholder = true;
     }
 
+    if (window.SHIKI_USER.id == 1) { console.log('Swiper.initialize initializeContent'); }
     this._initializeContent();
 
+    if (window.SHIKI_USER.id == 1) { console.log('Swiper.initialize update'); }
     this.update();
 
     // await delay(500); // don't why I added it
@@ -187,13 +189,17 @@ export default class Swiper extends View {
       this.swiper = null;
     }
 
+    if (window.SHIKI_USER.id == 1) { console.log('Swiper.initializeWallOrSwiper'); }
     this.wall = this._buildWall();
 
     if (!this.wall.images.length) {
+    if (window.SHIKI_USER.id == 1) { console.log('Swiper.initializeWallOrSwiper setPlaceholder'); }
       this._setPlaceholder();
     } else if (this.width < this.areaWidth && this.isAlignCover) {
+    if (window.SHIKI_USER.id == 1) { console.log('Swiper.initializeWallOrSwiper scaleWall'); }
       this._scaleWall(this.wall, this.areaWidth);
     } else if (this.wall.images.length > 1) {
+    if (window.SHIKI_USER.id == 1) { console.log('Swiper.initializeWallOrSwiper buildSwiper'); }
       this._buildSwiper();
     }
   }
@@ -251,8 +257,10 @@ export default class Swiper extends View {
       .removeAttr('style')
       .wrapAll('<div class="swiper-wrapper" />');
 
+    if (window.SHIKI_USER.id == 1) { console.log('Swiper.buildSwiper before import'); }
     const { default: _Swiper } =
       await import(/* webpackChunkName: "swiper" */ '@/vendor/async/swiper');
+    if (window.SHIKI_USER.id == 1) { console.log('Swiper.buildSwiper after import'); }
 
     this.swiper = new _Swiper(this.root, {
       slidesPerView: 'auto',
@@ -311,7 +319,11 @@ export default class Swiper extends View {
   async _loadImages() {
     let hasFailed = false;
 
-    await loadImages(this.root).catch(() => hasFailed = true);
+    // await loadImages(this.root).catch(() => hasFailed = true);
+    await loadImages(this.root).catch((a,b,c) => {
+      if (window.SHIKI_USER.id == 1) { console.log('Swiper.loadImages error', a, b, c); }
+      hasFailed = true;
+    });
 
     if (this.$('.dynamically-replaced').length) {
       // when thumbnail of video is broken, then it is replaced to shikimori custom thumbnail image
