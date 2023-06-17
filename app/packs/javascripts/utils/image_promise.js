@@ -4,7 +4,9 @@ function isArrayLike(input) {
 
 function loadSingleImage(image) {
   const promise = new Promise((resolve, reject) => {
-    if (window.SHIKI_USER.id == 1 && window.IS_LOAD_IMAGE_DEBUGGER) { debugger; }
+    if (window.SHIKI_USER.id == 1) {
+      console.log(image, 'loadSingleImage promise image.naturalWidth=', image.naturalWidth, 'image.complete', image.complete);
+    }
     if (image.naturalWidth) {
       // If the browser can determine the naturalWidth the image is already loaded successfully
       resolve(image);
@@ -17,7 +19,9 @@ function loadSingleImage(image) {
     }
 
     function fulfill() {
-      if (window.SHIKI_USER.id == 1 && window.IS_LOAD_IMAGE_DEBUGGER) { debugger; }
+      if (window.SHIKI_USER.id == 1) {
+      console.log(image, 'loadSingleImage fulfill image.naturalWidth=', image.naturalWidth, 'image.complete', image.complete);
+      }
       if (image.naturalWidth) {
         resolve(image);
       } else {
