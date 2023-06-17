@@ -29,13 +29,16 @@ export default class WallOrSwiper extends View {
   }
 
   get isPhone() {
+      if (window.SHIKI_USER.id == 1) { console.log(`WallOrSwiper.isPhone=${isPhone()}`); }
     return isPhone();
   }
 
   update() {
     if (this.isPhone && !this.$node.data('wall_always')) {
+      if (window.SHIKI_USER.id == 1) { console.log('WallOrSwiper.update -> updatePhone'); }
       this._updatePhone();
     } else {
+      if (window.SHIKI_USER.id == 1) { console.log('WallOrSwiper.update -> updateDesktop'); }
       this._updateDesktop();
     }
   }
@@ -47,8 +50,10 @@ export default class WallOrSwiper extends View {
     }
 
     if (this.swiper) {
+      if (window.SHIKI_USER.id == 1) { console.log('WallOrSwiper.updatePhone -> swiper.update'); }
       this.swiper.update(true);
     } else {
+      if (window.SHIKI_USER.id == 1) { console.log('WallOrSwiper.updatePhone -> buildSwiper'); }
       this._buildSwiper();
     }
   }
@@ -71,6 +76,7 @@ export default class WallOrSwiper extends View {
     this.node.classList.add('b-shiki_swiper');
 
     this.swiper = new Swiper(this.node, false);
+    if (window.SHIKI_USER.id == 1) { console.log('WallOrSwiper.buildSwiper', this.swiper); }
   }
 
   _buildWall() {

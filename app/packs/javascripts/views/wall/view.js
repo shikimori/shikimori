@@ -24,17 +24,11 @@ export default class Wall extends View {
     this.maxWidth = options.maxWidth;
     this.maxHeight = options.maxHeight;
 
-    if (window.SHIKI_USER.id == 1) {
-      console.log('Wall.initialzie: before loadImagesFinally');
-    }
-
+    if (window.SHIKI_USER.id == 1) { console.log('Wall.initialzie: before loadImagesFinally'); }
     if (options.awaitImagesLoaded === undefined || options.awaitImagesLoaded) {
       await loadImagesFinally(this.node);
     }
-
-    if (window.SHIKI_USER.id == 1) {
-      console.log('Wall.initialzie: after loadImagesFinally');
-    }
+    if (window.SHIKI_USER.id == 1) { console.log('Wall.initialzie: after loadImagesFinally'); }
 
     this._prepare();
     this._buildClusters();
