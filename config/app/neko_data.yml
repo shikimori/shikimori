@@ -204,7 +204,6 @@
         - 15689
         - 19727
         - 11597
-        - 3467
         - 6512
         - 7769
         - 9922
@@ -542,7 +541,6 @@
         - 15689
         - 19727
         - 11597
-        - 3467
         - 6512
         - 7769
         - 9922
@@ -859,7 +857,6 @@
         - 15689
         - 19727
         - 11597
-        - 3467
         - 6512
         - 7769
         - 9922
@@ -4618,6 +4615,8 @@
         - 53843
         - 36621
         - 45781
+        - 54548
+        - 53187
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -8845,6 +8844,7 @@
         - 46604
         - 51417
         - 50330
+        - 27831
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
@@ -24735,6 +24735,7 @@
         - 13931
         - 25375
         - 50239
+        - 55637
       :threshold: 90%
       :generator:
         ignore_latest_ids:
@@ -24776,6 +24777,7 @@
         - 13931
         - 25375
         - 50239
+        - 55637
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
