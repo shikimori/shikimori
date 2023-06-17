@@ -40,9 +40,11 @@ export default class Swiper extends View {
 
     this._computeSizes();
 
+    if (window.SHIKI_USER.id == 1) { console.log('Swiper.initialize before loadImages'); }
     this.root.classList.add('is-loading');
     const hasFailed = await this._loadImages();
     this.root.classList.remove('is-loading');
+    if (window.SHIKI_USER.id == 1) { console.log('Swiper.initialize after loadImages'); }
 
     if ((hasFailed && this.$images.length === 1) || !this.$images.length) {
       this.isPlaceholder = true;
