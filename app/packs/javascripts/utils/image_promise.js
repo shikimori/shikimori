@@ -18,9 +18,9 @@ function loadSingleImage(image) {
       image.addEventListener('error', fulfill);
     }
 
-    function fulfill() {
+    function fulfill(e) {
       if (window.SHIKI_USER.id == 1) {
-      console.log(image, 'loadSingleImage fulfill image.naturalWidth=', image.naturalWidth, 'image.complete', image.complete);
+        console.log(image, 'loadSingleImage fulfill image.naturalWidth=', image.naturalWidth, 'image.complete', image.complete, e);
       }
       if (image.naturalWidth) {
         resolve(image);
