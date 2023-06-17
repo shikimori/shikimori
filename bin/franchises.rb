@@ -218,6 +218,8 @@ data
 
     threshold = [important_threshold, formula_threshold].max
 
+    # binding.pry if rule['filters']['franchise'] == 'black_clover'
+
     current_threshold = rule['threshold'].to_s.gsub('%', '').to_f
     new_threshold = threshold.floor(1)
 
