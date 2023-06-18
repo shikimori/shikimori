@@ -1,5 +1,5 @@
 import delay from 'delay';
-import imagePromise from 'image-promise';
+import imagePromise from '@morr/image-promise';
 
 import View from '@/views/application/view';
 
