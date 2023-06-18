@@ -4617,6 +4617,35 @@
         - 45781
         - 54548
         - 53187
+        - 35701
+        - 35703
+        - 26145
+        - 41118
+        - 41117
+        - 8205
+        - 29708
+        - 29399
+        - 9447
+        - 7715
+        - 49029
+        - 49195
+        - 49196
+        - 49197
+        - 49198
+        - 34417
+        - 53139
+        - 43510
+        - 43239
+        - 43795
+        - 43412
+        - 43407
+        - 43463
+        - 43654
+        - 43622
+        - 43516
+        - 31264
+        - 31265
+        - 31269
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -21837,6 +21866,7 @@
         - 53890
         - 54196
         - 55289
+        - 55647
       :threshold: 95.4%
       :generator:
         ignore_latest_ids:
@@ -21909,6 +21939,7 @@
         - 53890
         - 54196
         - 55289
+        - 55647
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -29479,6 +29510,7 @@
         - 51509
         - 51842
         - 55517
+        - 55393
       :threshold: 86.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -29529,6 +29561,7 @@
         - 51509
         - 51842
         - 55517
+        - 55393
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
