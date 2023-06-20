@@ -89,7 +89,7 @@
         span ···
 
   - unless entry.rkn_abused?
-    - if entry.preview_topic_view.comments_count.positive? || entry.critiques_count > 0 || entry.reviews_count > 0
+    - if entry.preview_topic_view.comments_count.positive? || entry.critiques_count.positive? || entry.reviews_count.positive? || (entry.anime? && entry.coub_tags.any?)
       .additional-links
         .line-container
           .key #{t ".#{entry.object.class.name.downcase}_additionals"}:
@@ -104,6 +104,9 @@
           - if entry.preview_topic_view.comments_count.positive?
             span.linkeable data-href="#{entry.preview_topic_view.url}"
               = "#{entry.preview_topic_view.comments_count} #{i18n_i 'comment', entry.preview_topic_view.comments_count}"
+
+          - if entry.anime? && entry.coub_tags.any?
+            span.linkeable data-href=entry.coub_url Coub
 
     / - if entry.files? || entry.art? || (entry.anime? && entry.coub_tags.any?) || entry.cosplay?
       - if entry.art? || (entry.anime? && entry.coub_tags.any?) || entry.cosplay?
