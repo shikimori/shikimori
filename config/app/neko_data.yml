@@ -4646,6 +4646,7 @@
         - 31264
         - 31265
         - 31269
+        - 52510
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *2
   neko_id: :stop_motion
@@ -5471,6 +5472,10 @@
         - 48491
         - 51678
         - 44141
+        - 750
+        - 7770
+        - 10258
+        - 5304
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5992,6 +5997,10 @@
         - 48491
         - 51678
         - 44141
+        - 750
+        - 7770
+        - 10258
+        - 5304
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -6514,6 +6523,10 @@
         - 48491
         - 51678
         - 44141
+        - 750
+        - 7770
+        - 10258
+        - 5304
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -24181,14 +24194,9 @@
         - 41182
         - 41188
         - 42753
-        - 48828
-        - 49882
-        - 49988
         - 52010
         - 52011
-        - 52571
-        - 52745
-      :threshold: 95.4%
+      :threshold: 95%
       :generator:
         not_ignored_ids:
         - 14951
@@ -24214,6 +24222,11 @@
         - 50059
         - 49189
         - 50066
+        - 48828
+        - 49882
+        - 49988
+        - 52571
+        - 52745
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :love_live
@@ -24254,13 +24267,8 @@
         - 41182
         - 41188
         - 42753
-        - 48828
-        - 49882
-        - 49988
         - 52010
         - 52011
-        - 52571
-        - 52745
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -24287,6 +24295,11 @@
         - 50059
         - 49189
         - 50066
+        - 48828
+        - 49882
+        - 49988
+        - 52571
+        - 52745
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :love_live
@@ -29509,8 +29522,8 @@
         - 49735
         - 51509
         - 51842
-        - 55517
         - 55393
+        - 55517
       :threshold: 86.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -29560,8 +29573,8 @@
         - 49735
         - 51509
         - 51842
-        - 55517
         - 55393
+        - 55517
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
