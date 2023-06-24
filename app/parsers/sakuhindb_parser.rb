@@ -1,8 +1,10 @@
 class SakuhindbParser
   attr_accessor :fail_on_unmatched
 
+  CONFIG_PATH = Rails.root.join 'config/app/sakuhindb_parser.yml'
+
   def initialize
-    config = YAML.load_file Rails.root.join 'config/app/sakuhindb_parser.yml'
+    config = YAML.load_file CONFIG_PATH
 
     @ignores = Set.new config[:ignores]
     @matches = config[:matches]
@@ -21,15 +23,23 @@ class SakuhindbParser
 private
 
   def merge data
-    data.map do |entry|
-      Video.create(
-        name: entry[:title],
-        anime_id: entry[:anime_id],
-        kind: entry[:kind],
-        url: "http://www.youtube.com/watch?v=#{entry[:youtube]}",
-        uploader_id: BotsService.posters.sample
-      )
-    end
+    data
+      .select { |v| v[:anime_id].present? }
+      .map do |entry|
+        uploader = User.find BotsService.posters.sample
+
+        Versioneers::VideosVersioneer
+          .new(Anime.find(entry[:anime_id]))
+          .upload(
+            {
+              name: entry[:title],
+              kind: entry[:kind],
+              url: "http://www.youtube.com/watch?v=#{entry[:youtube]}",
+              uploader_id: uploader.id
+            },
+            uploader
+          )
+      end
   end
 
   def extract
