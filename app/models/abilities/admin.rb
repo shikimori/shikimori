@@ -3,10 +3,12 @@ class Abilities::Admin
   prepend Draper::CanCanCan
 
   def initialize _user # rubocop:disable all
-    can :upload_episode, Anime
-    can :increment_episode, Anime
-    can :rollback_episode, Anime
-    can :sync, [Anime, Manga, Person, Character] do |entry|
+    can %i[
+      upload_episode
+      increment_episode
+      rollback_episode
+    ], Anime
+    can %i[sync arbitrary_sync], [Anime, Manga, Person, Character] do |entry|
       entry.mal_id.present?
     end
     can :refresh_stats, [Anime, Manga]
@@ -20,6 +22,8 @@ class Abilities::Admin
 
     can :manage, User
     can :access_list, User
+    cannot :reset_email, User, &:staff?
+
     can :manage, ListImport
 
     can :manage, Topic

@@ -111,7 +111,7 @@ describe BbCodes::Tags::UrlTag do
     end
 
     context 'some shiki url' do
-      let(:text) { "https://shikimori.one#{path}" }
+      let(:text) { "https://shikimori.me#{path}" }
       let(:path) { '/tests/border?image_url=http://i.imgur.com/Arxun3R.gif&image_border=@ff0000' }
       it do
         is_expected.to eq(

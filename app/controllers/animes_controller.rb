@@ -228,6 +228,11 @@ class AnimesController < DbEntriesController
     render formats: :html
   end
 
+  def episode_notifications
+    og noindex: true
+    og page_title: I18n.t('animes.page.episode_notifications')
+  end
+
 private
 
   def og_meta
@@ -305,7 +310,8 @@ private
         )
       end
 
-      if params[:action] == 'edit_field' && params[:field].present?
+      if params[:action] == 'edit_field' && params[:field].present? ||
+          params[:action] == 'episode_notifications'
         @back_url = @resource.edit_url
         breadcrumb i18n_t('edit'), @resource.edit_url
       end

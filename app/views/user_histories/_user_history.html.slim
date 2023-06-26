@@ -1,0 +1,22 @@
+- unless user_history.target_type && user_history.target.nil?
+  .b-user_history-line data-id=user_history.id
+    a.id href=profile_user_history_url(user.to_param, user_history) #
+
+    span
+      - if user_history.target
+        a.bubbled.db-entry href=url_for(user_history.target)
+          = localization_span user_history.target
+        | &nbsp;
+        == user_history.format.downcase
+      - else
+        == user_history.format
+
+    time.date datetime=user_history.created_at.iso8601
+      = l user_history.created_at, format: '%e %B %Y'
+    - if can? :destroy, user_history
+      a.destroy[
+        data-method='delete'
+        data-confirm=t('actions.confirm')
+        href=profile_user_history_url(user.to_param, user_history)
+      ]
+

@@ -12,17 +12,17 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
     meta = Types::Ad::Meta[:menu_240x400] if switch_to_x240? meta
     meta = Types::Ad::Meta[:menu_300x600] if switch_to_x300? meta
 
-    META_TYPES[h.clean_host?][Types::Ad::Meta[meta]].each do |type|
+    META_TYPES[h.old_host?][Types::Ad::Meta[meta]].each do |type|
       switch_banner Types::Ad::Type[type]
       break if allowed?
     end
   end
 
   def allowed?
-    if h.controller.instance_variable_get controller_key(banner[:placement])
+    if h.controller.instance_variable_get controller_key(banner&.dig(:placement))
       false
     else
-      policy.allowed? && (!@rules || @rules.show?)
+      policy&.allowed? && (!@rules || @rules.show?)
     end
   end
 
@@ -76,7 +76,6 @@ private
     AdsPolicy.new(
       user: h.current_user,
       ad_provider: provider,
-      is_ru_host: h.ru_host?,
       is_disabled: h.cookies["#{css_class}_ad_disabled"].present?
     )
   end
@@ -88,7 +87,7 @@ private
   end
 
   def banner
-    BANNERS[h.clean_host?][@banner_type]
+    BANNERS[h.old_host?][@banner_type]
   end
 
   def yandex_direct?
@@ -144,9 +143,9 @@ private
 
       image_html =
         if image[:src_2x]
-          "<img src='#{image[:src]}' srcset='#{image[:src_2x]} 2x'>"
+          "<img src='#{image[:src]}' srcset='#{image[:src_2x]} 2x' loading='lazy'>"
         else
-          "<img src='#{image[:src]}'>"
+          "<img src='#{image[:src]}' loading='lazy'>"
         end
 
       pixel_html = "<img src='#{banner[:pixel]}' border='0' width='1' height='1'>" if banner[:pixel]
@@ -203,21 +202,22 @@ private
 
   SPECIAL_X300 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: RULATE - remove 2023-01-17 16:00
-    url: 'https://bit.ly/3Cj6fYE',
-    # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=eevvx&pfb=lozyl&pr=[RANDOM]&pe=b',
+    # AD START: SUMMER
+    # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
+    # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
-    images: (1..3).map do |i|
-      {
-        src: "/assets/globals/events/2023-01-05/menu_#{i}.png",
-        src_2x: "/assets/globals/events/2023-01-05/menu_#{i}@2x.png"
-      }
-    end,
-    # images: [{
-    #   src: '/assets/globals/events/2022-10-05/menu_1.jpg',
-    #   src_2x: '/assets/globals/events/2022-10-05/menu_1@2x.jpg',
-    #   url: 'https://bit.ly/36u087n'
-    # }],
+    # images: (1..1).map do |i|
+    #   {
+    #     src: "/assets/globals/events/2023-02-10/menu_#{i}.jpg",
+    #     src_2x: "/assets/globals/events/2023-02-10/menu_#{i}@2x.jpg"
+    #   }
+    # end,
+    url: 'https://лето.будьвдвижении.рф/?utm_source=site&utm_medium=banner&utm_campaign=anime&utm_content=right&erid=2VtzqxddbLv',
+    images: [{
+      src: '/assets/globals/events/2023-06-16/menu_1.webp',
+      src_2x: '/assets/globals/events/2023-06-16/menu_1@2x.webp'
+      # url: 'https://redirect.appmetrica.yandex.com/serve/316406067464575159'
+    }],
     # AND END
     rules: {
       cookie: 'i5',
@@ -228,14 +228,15 @@ private
   }
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: RULATE - remove 2023-01-17 16:00
-    url: 'https://bit.ly/3Cj6fYE',
-    # pixel: 'https://ads.adfox.ru/211055/getCode?p1=coadb&p2=frfe&pfc=eevvx&pfb=lozyl&pr=[RANDOM]&pe=b',
-    # convert -resize 50% app/assets/images/globals/events/2022-07-16/wide_1@2x.jpg app/assets/images/globals/events/2022-07-16/wide_1.jpg
-    images: (1..4).map do |i|
+    # AD START: SUMMER
+    # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
+    # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
+    # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
+    url: 'https://лето.будьвдвижении.рф/?utm_source=site&utm_medium=banner&utm_campaign=anime&utm_content=main&erid=2Vtzqwtexci',
+    images: (1..1).map do |i|
       {
-        src: "/assets/globals/events/2023-01-05/wide_#{i}.png",
-        src_2x: "/assets/globals/events/2023-01-05/wide_#{i}@2x.png"
+        src: "/assets/globals/events/2023-06-16/wide_#{i}.webp",
+        src_2x: "/assets/globals/events/2023-06-16/wide_#{i}@2x.webp"
       }
     end,
     # images: [{
@@ -277,31 +278,19 @@ private
   }
   SPECIAL_X894 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: IMBA - remove 2023-02-04 22:00
+    # AD START: IMBA - remove 2023-06-30 22:00
     images: [{
-      src: '/assets/globals/events/2023-01-21/inner_1.png',
-      url: 'https://imba.shop/collection/anime?utm_source=shikimori&utm_medium=banner2&utm_campaign=22_01&marker=2VtzqvVCDFH'
+      src: '/assets/globals/events/2023-06-02/inner_1.webp',
+      url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner1&utm_campaign=02_06&erid=2Vtzqv5UkDh'
     }, {
-      src: '/assets/globals/events/2023-01-21/inner_2.png',
-      url: 'https://imba.shop/product/energetik-imba-energy-neko?utm_source=shikimori&utm_medium=banner6&utm_campaign=22_01&marker=2Vtzqv5UkDh'
+      src: '/assets/globals/events/2023-06-02/inner_2.webp',
+      url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner2&utm_campaign=02_06&erid=2VtzqwWWixs'
     }, {
-      src: '/assets/globals/events/2023-01-21/inner_3.png',
-      url: 'https://imba.shop/product/energetik-imba-energy-vayfu?utm_source=shikimori&utm_medium=banner7&utm_campaign=22_01&marker=2VtzqwqmtfV'
-    }, {
-      src: '/assets/globals/events/2023-01-21/inner_4.png',
-      url: 'https://imba.shop/collection/novinki?lang=ru?utm_source=shikimori&utm_medium=banner12&utm_campaign=22_01&marker=2Vtzqv5V5hd'
-    }, {
-      src: '/assets/globals/events/2023-01-21/inner_5.png',
-      url: 'https://imba.shop/product/energetik-imba-energy-vinograd-by-molly-redwolf?utm_source=shikimori&utm_medium=banner13&utm_campaign=22_01&marker=2Vtzqvh4nTu'
-    }, {
-      src: '/assets/globals/events/2023-01-21/inner_6.png',
-      url: 'https://imba.shop/product/energetik-imba-energy-arbuz-by-sia-siberia?utm_source=shikimori&utm_medium=banner14&utm_campaign=22_01&marker=2VtzqxB44ou'
-    }, {
-      src: '/assets/globals/events/2023-01-21/inner_7.png',
-      url: 'https://imba.shop/product/energetik-imba-energy-ezhevika-laym-by-studio-band?utm_source=shikimori&utm_medium=banner15&utm_campaign=22_01&marker=2Vtzqv9wP2b'
-    }, {
-      src: '/assets/globals/events/2023-01-21/inner_8.png',
-      url: 'https://imba.shop/product/energetik-imba-energy-zemlyanika-by-sweetie-fox?utm_source=shikimori&utm_medium=banner16&utm_campaign=22_01&marker=2VtzqwWWixs'
+      src: '/assets/globals/events/2023-06-02/inner_3.webp',
+      url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner3&utm_campaign=02_06&erid=2Vtzqw6sJ6X'
+    # }, {
+    #   src: '/assets/globals/events/2023-06-02/inner_4.webp',
+    #   url: 'https://imba.shop/catalog/new-sostav?utm_source=shikimori&utm_medium=banner4&utm_campaign=06_06&erid=2VtzqvHRkW5'
     }],
     # AD END
     placement: Types::Ad::Placement[:content],
@@ -438,68 +427,68 @@ private
   META_TYPES = {
     true => {
       Types::Ad::Meta[:menu_300x250] => [
-        Types::Ad::Type[:mt_300x250]
+        # Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # RULATE - remove 2023-01-17 16:00
-        Types::Ad::Type[:yd_240x600],
-        Types::Ad::Type[:mt_240x400]
+        Types::Ad::Type[:special_x300], # SUMMER
+        Types::Ad::Type[:yd_240x600]
+        # Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # RULATE - remove 2023-01-17 16:00
-        Types::Ad::Type[:yd_300x600],
-        Types::Ad::Type[:mt_300x600]
+        Types::Ad::Type[:special_x300], # SUMMER
+        Types::Ad::Type[:yd_300x600]
+        # Types::Ad::Type[:mt_300x600]
       ],
       Types::Ad::Meta[:horizontal_x250] => [
         Types::Ad::Type[:yd_970x250],
         Types::Ad::Type[:mt_970x250]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894], # IMBA - remove 2023-02-04 22:00
-        Types::Ad::Type[:yd_970x90],
-        Types::Ad::Type[:mt_728x90]
+        Types::Ad::Type[:special_x894], # IMBA - remove 2023-05-17 22:00
+        Types::Ad::Type[:yd_970x90]
+        # Types::Ad::Type[:mt_728x90]
       ],
       Types::Ad::Meta[:footer] => [
-        Types::Ad::Type[:mt_footer_300x250]
+        # Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170], # RULATE - remove 2023-01-17 16:00
-        Types::Ad::Type[:yd_970x250],
-        Types::Ad::Type[:mt_970x250]
+        Types::Ad::Type[:special_x1170], # SUMMER
+        Types::Ad::Type[:yd_970x250]
+        # Types::Ad::Type[:mt_970x250]
       ]
     },
     false => {
       Types::Ad::Meta[:menu_300x250] => [
         # Types::Ad::Type[:mt_300x250],
         # Types::Ad::Type[:yd_240x400],
-        Types::Ad::Type[:advrtr_240x400]
+        # Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # RULATE - remove 2023-01-17 16:00
+        Types::Ad::Type[:special_x300] # SUMMER
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
-        Types::Ad::Type[:advrtr_240x400]
+        # Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # RULATE - remove 2023-01-17 16:00
+        Types::Ad::Type[:special_x300] # SUMMER
         # Types::Ad::Type[:mt_300x600],
         # Types::Ad::Type[:yd_300x600],
         # Types::Ad::Type[:advrtr_240x400],
-        Types::Ad::Type[:advrtr_300x250]
+        # Types::Ad::Type[:advrtr_300x250]
       ],
       Types::Ad::Meta[:horizontal_x250] => [
-        Types::Ad::Type[:advrtr_x728]
+        # Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894], # IMBA - remove 2023-02-04 22:00
+        Types::Ad::Type[:special_x894] # IMBA - remove 2023-05-17 22:00
         # Types::Ad::Type[:mt_728x90],
-        Types::Ad::Type[:advrtr_x728]
+        # Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:footer] => [
-        Types::Ad::Type[:mt_footer_300x250]
+        # Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170] # RULATE - remove 2023-01-17 16:00
+        Types::Ad::Type[:special_x1170] # SUMMER
       ]
     }
   }

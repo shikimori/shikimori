@@ -56,6 +56,7 @@ en:
 
 
       currently_airing: Currently airing
+      timezone_notice: all dates are in the Moscow time zone (GMT+3)
 
     bb_codes:
       title: Site BBCodes

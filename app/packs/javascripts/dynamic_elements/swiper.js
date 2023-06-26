@@ -309,7 +309,10 @@ export default class Swiper extends View {
   async _loadImages() {
     let hasFailed = false;
 
-    await loadImages(this.root).catch(() => hasFailed = true);
+    // await loadImages(this.root).catch(() => hasFailed = true);
+    await loadImages(this.root).catch((a,b,c) => {
+      hasFailed = true;
+    });
 
     if (this.$('.dynamically-replaced').length) {
       // when thumbnail of video is broken, then it is replaced to shikimori custom thumbnail image

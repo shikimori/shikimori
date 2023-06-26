@@ -1,0 +1,18 @@
+= content_for :head_notice do
+  .notice = t 'moderations.user_rate_logs.index.notice'
+
+= render layout: 'profiles/page' do
+  .b-options-floated
+    a href=profile_list_history_url(@resource) = i18n_io 'History', :one
+
+  h2.subheadline.m7 = og.headline
+  .block
+    - if @collection.any?
+      = render partial: 'moderations/user_rate_logs/user_rate_log',
+        collection: @collection,
+        locals: { hide_user: true }
+
+      - if @collection.size == controller.class::LOGS_LIMIT
+        = render 'blocks/postloader', next_url: current_url(page: @page + 1)
+    - else
+      p.b-nothing_here = t '.no_recent_logs'

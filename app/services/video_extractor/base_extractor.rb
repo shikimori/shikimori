@@ -43,7 +43,8 @@ class VideoExtractor::BaseExtractor
     Videos::ExtractedEntry.new(
       extract_hosting(url),
       extract_image_url(match),
-      extract_player_url(match)
+      extract_player_url(match),
+      normalize_matched_url(url, match)
     )
   end
 
@@ -55,10 +56,12 @@ class VideoExtractor::BaseExtractor
     fixed_url = begin
       url if URI.parse url
     rescue StandardError
-      URI.encode(url).gsub('%20', ' ')
+      Addressable::URI.encode(url).gsub('%20', ' ')
     end
 
     fixed_url.gsub('http://', 'https://')
+  rescue Addressable::URI::InvalidURIError
+    ''
   end
 
 private
@@ -78,7 +81,8 @@ private
       entry = Videos::ExtractedEntry.new(
         extract_hosting(url),
         extract_image_url(data),
-        extract_player_url(data)
+        extract_player_url(data),
+        url
       )
     end
 
@@ -101,8 +105,15 @@ private
       .to_sym
   end
 
+  def normalize_matched_url url, _match
+    url
+  end
+
   def fetch_page url
-    OpenURI.open_uri(video_api_url(url), open_uri_options).read
+    OpenURI
+      .open_uri(video_api_url(url), open_uri_options)
+      .read
+      .fix_encoding # had to fix since in ruby 2.7 cp1251 pages are loaded with invalid encoding
   end
 
   def open_uri_options

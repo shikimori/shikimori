@@ -6,6 +6,7 @@ class RolesPolicy
     not_trusted_names_changer
     not_trusted_texts_changer
     not_trusted_fansub_changer
+    not_trusted_collections_author
     not_trusted_abuse_reporter
     censored_avatar
     censored_profile

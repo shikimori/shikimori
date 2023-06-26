@@ -8,7 +8,7 @@ describe BbCodes::Tags::VideoTag do
 
     it do
       is_expected.to include(
-        "data-href=\"//youtube.com/embed/#{hash}\" href=\"https://youtube.com/watch?v=#{hash}\""
+        "data-href=\"//youtube.com/embed/#{hash}\" href=\"https://youtu.be/#{hash}\""
       )
     end
   end
@@ -22,7 +22,7 @@ describe BbCodes::Tags::VideoTag do
 
       it do
         is_expected.to include(
-          "data-href=\"//youtube.com/embed/#{hash}\" href=\"https://youtube.com/watch?v=#{hash}\""
+          "data-href=\"//youtube.com/embed/#{hash}\" href=\"https://youtu.be/#{hash}\""
         )
       end
     end
@@ -40,5 +40,10 @@ describe BbCodes::Tags::VideoTag do
         )
       end
     end
+  end
+
+  context 'broken tag' do
+    let(:text) { '[video] [video]https://youtu.be/vEQeT2wxsqk[/video]' }
+    it { is_expected.to include '[video] <div class="c-video' }
   end
 end

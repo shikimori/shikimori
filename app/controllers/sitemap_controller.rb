@@ -16,22 +16,30 @@ class SitemapController < ShikimoriController
     og page_title: 'Карта сайта'
     @last_animepage_change = DateTime.parse('2011-06-05 15:12:43')
 
-    @anime_forums = [
-      #['Последние аниме', animes_collection_url(season: 'latest')],
+    latest_seasons = [3, 0, -3, -6, -9, -12, -15, -18]
+      .map { |interval| Titles::SeasonTitle.new(interval.months.from_now, :season_year, Anime) }
+      .map do |season|
+        [
+          'Аниме ' + season.catalog_title
+            .gsub('Зима', 'зимы')
+            .gsub('Весна', 'весны')
+            .gsub('Лето', 'лета')
+            .gsub('Осень', 'осени'),
+          animes_collection_url(season.url_params)
+        ]
+      end
+
+    @anime_seasons = [
+      # ['Последние аниме', animes_collection_url(season: 'latest')],
       ['Каталог аниме', animes_collection_url],
       ['Аниме сериалы', animes_collection_url(type: :tv)],
       ['Полнометражные аниме', animes_collection_url(type: :movie)],
-      ['Аниме лета 2014 года', animes_collection_url(season: 'summer_2011')],
-      ['Аниме весны 2014 года', animes_collection_url(season: 'spring_2011')],
-      ['Аниме зимы 2014 года', animes_collection_url(season: 'winter_2011')],
-      ['Аниме 2014 года', animes_collection_url(season: 2014)],
-      ['Аниме 2013 года', animes_collection_url(season: 2013)],
-      ['Аниме 2012 года', animes_collection_url(season: 2012)],
-      ['Аниме 2011 года', animes_collection_url(season: 2011)],
-      ['Аниме 2010 года', animes_collection_url(season: 2010)],
-      ['Аниме 2009 года', animes_collection_url(season: 2009)],
-      ['Аниме 2008 года', animes_collection_url(season: 2008)]
-    ]
+    ] +
+      latest_seasons +
+      (2000..Time.zone.now.year).to_a.reverse.map do |year|
+        ["Аниме #{year} года", animes_collection_url(season: year)]
+      end
+
     @anime_genres = [
       ['Аниме боевые искусства', animes_collection_url(genre: '17-Martial-Arts')],
       ['Аниме драма', animes_collection_url(genre: '8-Drama')],
@@ -64,7 +72,7 @@ class SitemapController < ShikimoriController
     ]
     @anime_misc_genres = [
       ['Аниме безумие', animes_collection_url(genre: '5-Dementia')],
-     #['Аниме гендерная интрига', animes_collection_url(genre: '44-Gender-Bender')],
+     # ['Аниме гендерная интрига', animes_collection_url(genre: '44-Gender-Bender')],
       ['Аниме комедия романтика', animes_collection_url(genre: '4-Comedy,22-Romance')],
       ['Аниме комедия школа', animes_collection_url(genre: '4-Comedy,23-School')],
       ['Аниме повседневность', animes_collection_url(genre: '36-Slice-of-Life')],
@@ -84,7 +92,7 @@ class SitemapController < ShikimoriController
       ['Сёдзё-Ай аниме', animes_collection_url(genre: '26-Shoujo-Ai')],
       ['Триллер аниме', animes_collection_url(genre: '41-Thriller')]
     ]
-    @manga_forums = [
+    @manga_seasons = [
       ['Каталог манги', mangas_collection_url]
     ]
     @ranobe_forums = [
@@ -94,6 +102,9 @@ class SitemapController < ShikimoriController
       ['Аниме студии', studios_url],
       ['График онгоингов', ongoings_pages_url],
       ['Турниры и голосования', contests_url],
-    ] + Forums::List.new.to_a.map { |v| [v.name, v.url] }
+    ] +
+      Forums::List.new.to_a
+      .reject { |v| v.url.include? 'my_clubs' }
+      .map { |v| [v.name, v.url] }
   end
 end

@@ -10,13 +10,13 @@ header.head
         title=t('application.top_menu.items.site_rules')
       ] = t 'application.top_menu.items.site_rules'
 
-      - if ru_host? && !Rails.env.test?
+      - if !Rails.env.test?
         li: a.entry[
           href=StickyClubView.faq.object.url
           title=t('application.top_menu.items.faq')
         ] = t 'application.top_menu.items.faq'
 
-      - if ru_host? && !Rails.env.test?
+      - if !Rails.env.test?
         li: a.entry[
           href=StickyTopicView.socials.object.url
           title=t('application.top_menu.items.socials')
@@ -55,14 +55,13 @@ header.head
             p = t ".moderation_#{kind}"
             = render @statistics.send(:"#{kind}_moderators"), content_by: :avatar
 
-        - if ru_host?
-          .members-block.left
-            p == t '.vk', url: Shikimori::VK_CLUB_URL
-            = render @statistics.vk_admins, content_by: :avatar
+        .members-block.left
+          p == t '.vk', url: Shikimori::VK_CLUB_URL
+          = render @statistics.vk_admins, content_by: :avatar
 
-          / .members-block.left
-          /   p == t '.discord', url: Shikimori::DISCORD_CHANNEL_URL
-          /   = render @statistics.discord_admins, content_by: :avatar
+        .members-block.left
+          p == t '.discord', url: Shikimori::DISCORD_CHANNEL_URL
+          = render @statistics.discord_admins, content_by: :avatar
 
         .members-block.left
           p = t '.retired_moderators'

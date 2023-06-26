@@ -15,7 +15,7 @@ function datePicker() {
   if (!$('.date-filter').exists()) { return; }
 
   new DatePicker('.date-filter')
-    .on('date:picked', function () {
+    .on('date:picked', function() {
       const newUrl = new TinyUri(window.location.href)
         .query.set('created_on', this.value || null)
         .toString();
@@ -58,7 +58,7 @@ pageLoad('versions_show', 'user_rate_logs_show', async () => {
 pageLoad('.moderations-index', () => {
   checkHeight($('.b-brief'), { maxHeight: 150 });
 
-  $('.expand-all').on('click', function () {
+  $('.expand-all').on('click', function() {
     $(this).parent().next().next()
       .find('.collapsed.spoiler:visible')
       .click();

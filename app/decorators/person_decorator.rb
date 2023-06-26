@@ -34,6 +34,13 @@ class PersonDecorator < DbEntryDecorator
     h.person_url object
   end
 
+  def collection_url params = {}
+    h.send(
+      "#{klass_lower.pluralize}_url",
+      params
+    )
+  end
+
   def website_html
     return if website_host.blank?
 

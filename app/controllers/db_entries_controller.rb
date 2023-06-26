@@ -182,7 +182,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
 
 private
 
-  def og_db_entry_meta # rubocop:disable MethodLength
+  def og_db_entry_meta # rubocop:disable all
     if @resource.object.respond_to?(:description_ru)
       og description: @resource.description_meta
     end
@@ -197,8 +197,12 @@ private
         image_type: 'image/jpeg',
         twitter_card: 'summary_large_image'
       )
-    else
-      og image: ImageUrlGenerator.instance.cdn_image_url(@resource, :original)
+    elsif @resource.poster && @resource.poster.image_data['derivatives']
+      og image: ImageUrlGenerator.instance.cdn_poster_url(
+        db_entry: @resource,
+        poster: @resource.poster,
+        derivative: :main_2x
+      )
     end
   end
 

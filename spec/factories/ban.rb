@@ -15,6 +15,7 @@ FactoryBot.define do
         o.stub :ban_user
         o.stub :notify_user
         o.stub :mention_in_target
+        o.stub :cleanup_in_targer
         o.stub :accept_abuse_request
         o.stub :set_user
       end

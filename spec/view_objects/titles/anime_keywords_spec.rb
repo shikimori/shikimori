@@ -16,7 +16,12 @@ describe Titles::AnimeKeywords do
     let(:klass) { Anime }
     let(:season) { 'winter_2004' }
     let(:kind) { 'tv' }
-    let(:genres) { build :genre, name: 'Magic', russian: 'Магия', kind: klass }
+    let(:genres) do
+      build :genre,
+        name: 'Magic',
+        russian: 'Магия',
+        kind: klass.base_class.name.downcase
+    end
     let(:studios) { build :studio, name: 'Fofofo Studio' }
     let(:publishers) { build :publisher, name: 'Fofofo Publisher' }
 
@@ -26,7 +31,7 @@ describe Titles::AnimeKeywords do
           зимы 2004 аниме сериалы жанр Magic Магия
           студия Fofofo Studio издатель Fofofo Publisher
           список каталог база
-        '.gsub("\n", '').squeeze(' ').strip
+        '.delete("\n").squeeze(' ').strip
       end
     end
 
@@ -37,7 +42,7 @@ describe Titles::AnimeKeywords do
           зимы 2004 аниме сериалы
           студия Fofofo Studio издатель Fofofo Publisher
           список каталог база
-        '.gsub("\n", '').squeeze(' ').strip
+        '.delete("\n").squeeze(' ').strip
       end
     end
   end

@@ -52,7 +52,7 @@ en:
     site_notifications: Site notifications
     unsubscribe: Notification preferences
 
-  user_history_controller:
+  user_histories_controller:
     <<: *profiles_controller
     page_title:
       history: History
@@ -107,6 +107,8 @@ en:
     <<: *profiles_controller
     new: New poll
   users/nickname_changes_controller:
+    <<: *profiles_controller
+  users/reset_emails_controller:
     <<: *profiles_controller
 
   animes_collection_controller: &animes_collection_controller
@@ -272,6 +274,9 @@ en:
       texts: Texts changes journal
       content: Content changes journal
       fansub: Fansub changes journal
+      videos: Videos changes journal
+      images: Images changes journal
+      links: Links changes journal
     changes_accepted: Changes accepted
     changes_rejected: Changes rejected
     changes_deleted: Changes deleted
@@ -289,6 +294,9 @@ en:
     <<: *moderations_controller
 
   moderations/genres_controller:
+    <<: *moderations_controller
+
+  moderations/genre_v2s_controller:
     <<: *moderations_controller
 
   moderations/studios_controller:

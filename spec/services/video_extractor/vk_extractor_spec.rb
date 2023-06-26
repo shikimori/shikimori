@@ -36,6 +36,11 @@ describe VideoExtractor::VkExtractor, :vcr do
       it { is_expected.to be_nil }
     end
 
+    context 'invalid_url' do
+      let(:url) { '[vidoe] https://vk.com/video-61933528_167061553' }
+      it { is_expected.to be_nil }
+    end
+
     context 'private_url' do
       let(:url) { 'http://vk.com/video17174270_167070090' }
       it { is_expected.to be_nil }

@@ -9,7 +9,7 @@ describe Style do
 
   describe 'instance methods' do
     describe '#css=' do
-      let(:style) { build :style, css: 'z', compiled_css: 'x', imports: [] }
+      let(:style) { build :style, css: 'z', compiled_css: 'x', imports: {} }
       subject! { style.css = 'y' }
 
       it do
@@ -59,6 +59,21 @@ describe Style do
         let(:compiled_css) { nil }
 
         it { is_expected.to be_compiled }
+      end
+    end
+
+    describe '#failed_imports' do
+      let(:style) { build :style, imports: imports }
+      subject { style.failed_imports }
+
+      context 'no failed imports' do
+        let(:imports) { [{ 'http://test.ru' => 1 }, {}, nil].sample }
+        it { is_expected.to eq [] }
+      end
+
+      context 'has failed imports' do
+        let(:imports) { { 'http://test.qwe' => 0, 'http://test.zxc' => 1, 'http://test.vbn' => 0 } }
+        it { is_expected.to eq %w[http://test.qwe http://test.vbn] }
       end
     end
   end

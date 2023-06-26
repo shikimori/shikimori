@@ -37,7 +37,7 @@ class Styles::Compile
 
     {
       compiled_css: compiled_css,
-      imports: imports
+      imports: styles_map.keys.index_with { |url| styles_map[url].size }
     }
   end
 
@@ -52,8 +52,8 @@ private
   end
 
   def download_imports imports
-    imports.each_with_object({}) do |url, memo|
-      memo[url] = Styles::Download.call(url)
+    imports.index_with do |url|
+      Styles::Download.call(url)
     end
   end
 

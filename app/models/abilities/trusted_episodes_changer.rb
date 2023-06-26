@@ -5,7 +5,7 @@ class Abilities::TrustedEpisodesChanger
   MANAGED_FIELDS = %w[
     episodes_aired
   ]
-  MANAGED_MODELS = %w[Anime]
+  MANAGED_FIELDS_MODELS = %w[Anime]
 
   def initialize _user
     can :increment_episode, Anime
@@ -21,7 +21,7 @@ class Abilities::TrustedEpisodesChanger
       !version.is_a?(Versions::RoleVersion) &&
         version.item_diff &&
         (version.item_diff.keys & MANAGED_FIELDS).any? &&
-        MANAGED_MODELS.include?(version.item_type)
+        MANAGED_FIELDS_MODELS.include?(version.item_type)
     end
   end
 end

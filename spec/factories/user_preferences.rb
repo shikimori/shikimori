@@ -15,5 +15,6 @@ FactoryBot.define do
     end
     is_show_age { true }
     is_view_censored { false }
+    is_enlarged_favourites_in_profile { false }
   end
 end

@@ -14,7 +14,9 @@ if @collection.next_page?
     locals: {
       filter: 'b-collection-topic',
       next_url: collections_person_url(@resource, page: @collection.next_page),
-      prev_url: (collections_person_url(@resource, page: @collection.prev_page) if @collection.prev_page?)
+      prev_url: (
+        collections_person_url(@resource, page: @collection.prev_page) if @collection.prev_page?
+      )
     },
     formats: :html
   )

@@ -37,7 +37,8 @@ class ApplicationRecord < ActiveRecord::Base
       return id if id.is_a?(String) && !id.match?(/\A\d+/)
 
       int_id = id.is_a?(String) ? Integer(id) : id
-      (0..2_147_483_647).cover?(int_id) ? int_id : nil
+      # addded multiplication to 10_000 so it will cover postgres bigint (not the whole range but shiki won't have so much ids)
+      (0..(2_147_483_647 * 10_000)).cover?(int_id) ? int_id : nil
     end
 
     # fixes .where(id: 11111111111111111111111111) - bigint
@@ -59,7 +60,7 @@ class ApplicationRecord < ActiveRecord::Base
 
     def _fix_ids ids
       if ids.is_a? Array
-        ids.map { |id| fix_id(id) }.compact
+        ids.filter_map { |id| fix_id id }
       else
         fix_id ids
       end

@@ -5,7 +5,7 @@ class Coubs::Request
   COUB_TEMPLATE = 'https://coub.com/api/v2/timeline/tag/%<tag>s?page=%<page>i' \
     "&per_page=#{PER_PAGE}&order_by=likes_count"
 
-  EXPIRES_IN = 3.month
+  EXPIRES_IN = 3.months
   EXCEPTIONS = Network::FaradayGet::NET_ERRORS
 
   NO_DATA_RESPONSE = {
@@ -50,8 +50,8 @@ private
     Coub::Entry.new(
       permalink: entry[:permalink],
       image_template: entry[:image_versions][:template],
-      categories: entry[:categories].map { |v| v[:permalink] },
-      tags: entry[:tags].map { |v| URI.unescape v[:value] },
+      categories: entry[:categories].pluck(:permalink),
+      tags: entry[:tags].map { |v| Addressable::URI.unencode v[:value] },
       title: entry[:title],
       author: build_author(entry[:channel]),
       recoubed_permalink: entry.dig(:media_blocks, :remixed_from_coubs, 0, :coub_permalink),

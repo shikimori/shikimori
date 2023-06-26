@@ -42,4 +42,10 @@ class Style < ApplicationRecord
   def compiled?
     css.blank? || (css.present? && compiled_css.present?)
   end
+
+  def failed_imports
+    return [] unless imports
+
+    imports.select { |_url, size| size.zero? }.map(&:first)
+  end
 end

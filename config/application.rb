@@ -18,7 +18,7 @@ end
 
 module Shikimori
   DOMAINS = {
-    production: 'shikimori.one',
+    production: 'shikimori.me',
     development: 'shikimori.local',
     test: 'shikimori.test'
   }
@@ -28,15 +28,15 @@ module Shikimori
   NAME_EN = 'Shikimori'
 
   STATIC_SUBDOMAINS = %w[nyaa kawai moe desu dere]
-  EMAIL = 'mail@shikimori.org'
-  EMAIL_DATA_DELETION = 'mail+data_deletion@shikimori.org'
+  EMAIL = 'admin@shikimori.me'
+  # EMAIL_DATA_DELETION = 'mail+data_deletion@shikimori.org'
 
   DOMAIN_LOCALES = %i[ru en]
 
-  ALLOWED_DOMAINS = ShikimoriDomain::RU_HOSTS + ShikimoriDomain::EN_HOSTS
+  ALLOWED_DOMAINS = ShikimoriDomain::HOSTS
 
   VK_CLUB_URL = 'https://vk.com/shikimori'
-  DISCORD_CHANNEL_URL = 'https://discord.gg/fQrr2ms'
+  DISCORD_CHANNEL_URL = 'https://discord.gg/gYQNpUKPdH'
 
   PROTOCOLS = {
     production: 'https',
@@ -81,6 +81,7 @@ module Shikimori
   IS_SUMMARIES_ENABLED = !Rails.env.production?
   IS_IMAGEBOARD_TAGS_ENABLED = false
   IS_RECAPTCHA_V3 = false
+  IS_TURNSTILE = true
 
   class Application < Rails::Application
     def redis
@@ -196,7 +197,7 @@ module Shikimori
     end
 
     config.action_mailer.default_url_options = {
-      host: Shikimori::DOMAIN
+      host: Shikimori::DOMAINS[:production]
     }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
@@ -204,18 +205,8 @@ module Shikimori
       port: 587,
       user_name: Rails.application.secrets.mailgun[:login],
       password: Rails.application.secrets.mailgun[:password],
-      domain: Shikimori::DOMAIN
+      domain: Shikimori::DOMAINS[:production]
     }
-
-    #config.action_mailer.smtp_settings = {
-      #address: "smtp.gmail.com",
-      #port: 587,
-      #domain: Shikimori::DOMAIN,
-      #user_name: Rails.application.secrets.smtp[:login],
-      #password: Rails.application.secrets.smtp[:password],
-      #authentication: 'plain',
-      #enable_starttls_auto: true
-    #}
 
     config.generators do |generator|
       generator.fixture_replacement :factory_bot, dir: 'spec/factories/'

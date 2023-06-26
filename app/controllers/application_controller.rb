@@ -1,12 +1,13 @@
 class ApplicationController < ActionController::Base
+  include ErrorsConcern # must be the first
+  include CensoredConcern # must be the second
+  include LocaleConcern # must be the third
   include Translation
-  include ErrorsConcern
   include UrlsConcern
   include OpenGraphConcern
   include BreadcrumbsConcern
   include InvalidParameterErrorConcern
   include DomainsConcern
-  include LocaleConcern
   include PaginationConcern
   include StorableLocationConcern
   include AgeRestrictionsConcern
@@ -91,7 +92,7 @@ private
 
   # гугловский бот со странным format иногда ходит
   def fix_googlebot
-    request.format = :html if request.format.to_s =~ %r{\*/\*}
+    request.format = :html if %r{\*/\*}.match?(request.format.to_s)
   end
 
   # хром некорректно обрабатывает Back кнопку,
@@ -130,8 +131,8 @@ private
   end
 
   # def ignore_copyright?
-  #   !clean_host?
-  #   # ru_host? && !clean_host? && (
+  #   !old_host?
+  #   # !old_host? && (
   #   #   current_user&.day_registered? ||
   #   #   GeoipAccess.instance.anime_online_allowed?(request.remote_ip) ||
   #   #   Rails.env.development?
@@ -140,5 +141,11 @@ private
 
   def faye_token
     request.headers['X-Faye-Token'] || params[:faye]
+  end
+
+  protected
+
+  def extract_ip_from request
+    request.remote_ip&.split(',')&.first
   end
 end

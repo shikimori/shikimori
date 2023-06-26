@@ -3,6 +3,7 @@ import { bind } from 'shiki-decorators';
 
 import ShikiView from '@/views/application/shiki_view';
 import BanForm from '@/views/application/ban_form';
+import virousMkLinksHighlight from '@/vendor/virous_mk_links_highlight';
 
 export default class LogEntry extends ShikiView {
   initialize() {
@@ -118,5 +119,14 @@ export default class LogEntry extends ShikiView {
         dmp.diff_prettyHtml(diff).replace(/&para;/g, '')
       );
     });
+
+    const $externalLinks = this.$('.field-changes.external_links');
+    if (!$externalLinks.length) { return; }
+
+    this._processExternalLinks($externalLinks);
+  }
+
+  _processExternalLinks($externalLinks) {
+    $externalLinks.each((_index, node) => virousMkLinksHighlight(node));
   }
 }

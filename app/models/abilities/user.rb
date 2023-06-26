@@ -211,6 +211,10 @@ class Abilities::User
     can :destroy, CollectionRole do |collection_role|
       collection_role.user_id == @user.id || can?(:create, collection_role)
     end
+
+    if @user.not_trusted_collections_author?
+      cannot :to_published, Collection
+    end
   end
 
   def club_abilities

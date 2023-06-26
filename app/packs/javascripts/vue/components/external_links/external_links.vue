@@ -1,5 +1,5 @@
 <template lang='pug'>
-.block_m
+.block_m(ref='rootRef')
   input(
     type='hidden'
     :name="`${resourceType.toLowerCase()}[external_links][]`"
@@ -23,67 +23,113 @@
         :entry-type='entryType'
         :entry-id='entryId'
         :watch-online-kinds='watchOnlineKinds'
-        @add:next='add'
-        @focusLast='focusLast'
+        @link:create='createLink()'
+        @link:remove='removeLink'
       )
   .b-button(
-    @click='add'
+    @click='createLink()'
   ) {{ I18n.t('frontend.actions.add') }}
 </template>
 
-<script>
-import { mapGetters, mapState } from 'vuex';
+<script setup>
+import { ref, computed, nextTick } from 'vue';
+import { useStore } from 'vuex';
 
 import ExternalLink from './external_link';
 import draggable from 'vuedraggable';
 import delay from 'delay';
 
-export default {
-  name: 'ExternalLinks',
-  components: { ExternalLink, draggable },
-  props: {
-    kindOptions: { type: Array, required: true },
-    resourceType: { type: String, required: true },
-    entryType: { type: String, required: true },
-    entryId: { type: Number, required: true },
-    watchOnlineKinds: { type: Array, required: true }
+const props = defineProps({
+  kindOptions: { type: Array, required: true },
+  resourceType: { type: String, required: true },
+  entryType: { type: String, required: true },
+  entryId: { type: Number, required: true },
+  watchOnlineKinds: { type: Array, required: true }
+});
+
+const store = useStore();
+const rootRef = ref(null);
+
+const dragOptions = {
+  group: 'external_links',
+  handle: '.drag-handle'
+};
+
+const isEmpty = computed(() => store.getters.isEmpty);
+const collection = computed({
+  get() {
+    return store.state.collection;
   },
-  data: () => ({
-    dragOptions: {
-      group: 'external_links',
-      handle: '.drag-handle'
+  set(value) {
+    store.dispatch('replace', value);
+  }
+});
+
+function createLink(
+  kind = props.kindOptions.first().last(),
+  url = ''
+) {
+  store.dispatch('add', {
+    kind,
+    url,
+    source: 'shikimori',
+    id: '',
+    entry_id: props.entryId,
+    entry_type: props.entryType
+  });
+  focusLast();
+}
+
+function removeLink({ key, isFocus }) {
+  store.dispatch('remove', key);
+
+  if (isFocus) {
+    focusLast();
+  }
+}
+
+async function focusLast() {
+  await Promise.all([delay(), nextTick()]);
+  const inputs = rootRef.value.querySelectorAll('input');
+  inputs[inputs.length - 1].focus();
+}
+
+defineExpose({
+  async cleanupLink({ kind, url }) {
+    const isWikipedia = kind === 'wikipedia';
+    const wikipediaPrefix = url.replace(/(wikipedia.org\/).*/, '$1');
+    const nullifiedUrl = isWikipedia ? wikipediaPrefix + 'NONE' : 'NONE';
+
+    let matchedByKindInputs = Array
+      .from(rootRef.value.querySelectorAll(`input[data-kind="${kind}"]`));
+    if (isWikipedia) {
+      matchedByKindInputs = matchedByKindInputs.filter(input => (
+        input.value.startsWith(wikipediaPrefix)
+      ));
     }
-  }),
-  computed: {
-    ...mapState({ items: 'collection' }),
-    ...mapGetters(['isEmpty']),
-    collection: {
-      get() {
-        return this.items;
-      },
-      set(items) {
-        this.$store.dispatch('replace', items);
-      }
-    }
-  },
-  methods: {
-    add() {
-      this.$store.dispatch('add', {
-        kind: this.kindOptions.first().last(),
-        source: 'shikimori',
-        url: '',
-        id: '',
-        entry_id: this.entryId,
-        entry_type: this.entryType
-      });
-    },
-    async focusLast() {
-      // do not use this.$nextTick. it passes "backspace" event to focused input
-      await delay();
-      $('input', this.$el).last().focus();
+    const matchedByValueInput = matchedByKindInputs
+      .find(node => node.value === nullifiedUrl);
+
+    if (matchedByKindInputs.length === 1 && !matchedByValueInput) {
+      const matchedLink = collection.value.find(link => (
+        link.kind === kind && (!isWikipedia || link.url.startsWith(wikipediaPrefix))
+      ));
+      nullifyLink(matchedLink, nullifiedUrl, matchedByKindInputs[0]);
+
+    } else if (matchedByValueInput) {
+      matchedByValueInput.focus();
+
+    } else {
+      createLink(kind, nullifiedUrl);
     }
   }
-};
+});
+
+async function nullifyLink(link, url, input) {
+  store.dispatch('update', { ...link, url });
+  await Promise.all([delay(), nextTick()]);
+  input.focus();
+}
 </script>
 
 <style scoped lang='sass'>

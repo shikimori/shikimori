@@ -193,6 +193,8 @@ data
 
     if franchise.size >= 7 || total_duration > 2_000
       formula_threshold = [95, formula_threshold].min
+    elsif franchise.any?(&:ongoing?)
+      formula_threshold = [98, formula_threshold].min
     end
 
     # animes_with_year = franchise.reject(&:kind_special?).select(&:year)
@@ -215,6 +217,8 @@ data
     important_threshold = important_duration * 100.0 / total_duration
 
     threshold = [important_threshold, formula_threshold].max
+
+    # binding.pry if rule['filters']['franchise'] == 'black_clover'
 
     current_threshold = rule['threshold'].to_s.gsub('%', '').to_f
     new_threshold = threshold.floor(1)

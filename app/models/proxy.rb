@@ -105,7 +105,7 @@ class Proxy < ApplicationRecord
           # do not check for .blank? since may download a binary data
           raise "#{proxy} banned or broken" if content&.size&.zero?
 
-          if options[:validate_jpg]
+          if options[:return_file]
             tmpfile = Tempfile.new 'jpg'
             File.open(tmpfile.path, 'wb') { |f| f.write content }
             tmpfile.instance_variable_set :@original_filename, url.split('/').last
@@ -113,7 +113,7 @@ class Proxy < ApplicationRecord
               @original_filename
             end
 
-            unless ImageChecker.valid? tmpfile.path
+            if options[:validate_jpg] && !ImageChecker.valid?(tmpfile.path)
               content = nil
               # тут можно бы обнулять tmpfile, но если мы 8 раз не смогли загрузить файл, то наверное его и правда нет, падать не будем
               log 'bad image', options
@@ -182,7 +182,7 @@ class Proxy < ApplicationRecord
     def no_proxy_get url, options
       NamedLogger.proxy.info "GET #{url}"
 
-      resp = get_open_uri URI.encode(url)
+      resp = get_open_uri Addressable::URI.encode(url)
       file =
         if resp.meta['content-encoding'] == 'gzip'
           Zlib::GzipReader.new(StringIO.new(resp.read))
@@ -212,9 +212,11 @@ class Proxy < ApplicationRecord
         --insecure
         --fail
         -H "User-Agent: #{user_agent(url)}"
+        -x "#{static_proxy_url}"
         -x "#{proxy}"
         --connect-timeout 5
         --max-time #{timeout}
+        --location
         #{Shellwords.escape(url)}
       ].join(' ')
 
@@ -262,6 +264,13 @@ class Proxy < ApplicationRecord
 
     def user_agent _url
       USER_AGENT
+    end
+
+    def static_proxy_url
+      proxy = Rails.application.secrets.proxy
+      parts = proxy[:url].split('//')
+
+      "#{parts[0]}//#{proxy[:login]}:#{proxy[:password]}@#{parts[1]}"
     end
   end
 

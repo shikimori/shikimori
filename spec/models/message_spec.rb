@@ -42,24 +42,48 @@ describe Message do
 
     describe 'after_create' do
       describe '#send_email' do
-        let(:message) { build :message, kind: kind }
+        let(:message) { create :message, :with_send_email, kind: kind }
 
         before { allow(EmailNotifier.instance).to receive :private_message }
-        before { message.save! }
+
+        context 'private message' do
+          let(:kind) { MessageType::PRIVATE }
+          it { expect(EmailNotifier.instance).to have_received(:private_message).with message }
+        end
+
+        context 'common message' do
+          let(:kind) { MessageType::NOTIFICATION }
+          it { expect(EmailNotifier.instance).to_not have_received(:private_message) }
+        end
+      end
+
+      describe '#mark_replies_as_read' do
+        before { allow(Messages::MarkRepliesAsRead).to receive :call }
+        let!(:message) do
+          create :message, :with_mark_replies_as_read,
+            kind: kind,
+            from: user_3,
+            to: user_2,
+            body: [
+              "[message=#{reply_message.id};#{user_2.id}], test",
+              "[message=#{reply_message.id}], test"
+            ].sample
+        end
+        let(:reply_message) { create :message, to: user_3, from: user_2 }
 
         context 'private message' do
           let(:kind) { MessageType::PRIVATE }
           it do
-            expect(EmailNotifier.instance)
-            .to have_received(:private_message).with message
+            expect(Messages::MarkRepliesAsRead)
+              .to have_received(:call)
+              .with body: message.body, user_id: user_3.id
           end
         end
 
         context 'common message' do
           let(:kind) { MessageType::NOTIFICATION }
           it do
-            expect(EmailNotifier.instance)
-            .to_not have_received(:private_message)
+            expect(Messages::MarkRepliesAsRead).to_not have_received :call
           end
         end
       end

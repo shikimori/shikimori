@@ -6,7 +6,8 @@
     = render 'db_entries/poster',
       db_entry: resource,
       poster: poster,
-      derivative: :main
+      derivative: :main,
+      is_main_poster: local_assigns[:is_main_poster]
     span.marker
       span.marker-text
         | #{poster.image_data['metadata']['width']}x#{poster.image_data['metadata']['height']}
@@ -14,4 +15,5 @@
   = render 'db_entries/poster',
     db_entry: resource,
     poster: poster,
-    derivative: :main
+    derivative: :main,
+    is_main_poster: local_assigns[:is_main_poster]

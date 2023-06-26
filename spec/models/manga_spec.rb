@@ -45,12 +45,6 @@ describe Manga do
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_length_of(:description_ru).is_at_most(16384) }
     it { is_expected.to validate_length_of(:description_en).is_at_most(16384) }
-    it { is_expected.to validate_length_of(:name).is_at_most(255) }
-    it { is_expected.to validate_length_of(:english).is_at_most(255) }
-    it { is_expected.to validate_length_of(:russian).is_at_most(255) }
-    it { is_expected.to validate_length_of(:japanese).is_at_most(255) }
-    it { is_expected.to validate_length_of(:license_name_ru).is_at_most(255) }
-    it { is_expected.to validate_length_of(:franchise).is_at_most(255) }
   end
 
   describe 'enumerize' do
@@ -100,6 +94,13 @@ describe Manga do
       let(:manga) { build :manga, genre_ids: [genre.id] }
 
       it { expect(manga.genres).to eq [genre] }
+    end
+
+    describe '#genres_v2' do
+      let(:genre) { create :genre_v2, :manga }
+      let(:manga) { build :manga, genre_v2_ids: [genre.id] }
+
+      it { expect(manga.genres_v2).to eq [genre] }
     end
 
     describe '#publishers' do

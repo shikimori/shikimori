@@ -38,7 +38,7 @@ describe Notifications::BroadcastTopic do
     let(:messages_per_job) { 2 }
     let(:message_attributes) do
       {
-        'created_at' => topic.created_at.change(usec: 0), # `usec` is used to fix unstable specs in CI_SERVER
+        'created_at' => topic.created_at.change(usec: 0).to_s, # `usec` is used to fix unstable specs in CI_SERVER
         'from_id' => topic.user_id,
         'kind' => MessageType::SITE_NEWS,
         'linked_id' => topic.id,

@@ -1,0 +1,49 @@
+@import mixins/responsive
+@import mixins/link
+@import mixins/date
+@import mixins/hover_underlined
+@import mixins/icons
+
+.b-user_history-line
+  align-items: center
+  display: flex
+  line-height: 20px
+  margin-bottom: 5px
+
+  +lte_ipad
+    margin-bottom: 9px
+
+  .id
+    +link_color(#777)
+    margin-right: 6px
+    text-decoration: none
+
+  a.db-entry
+    +link_color
+    +hover_underlined
+
+  .date
+    +date
+    align-self: flex-start
+    flex-shrink: 0
+    font-size: 12px
+    margin-left: auto
+    padding-left: 15px
+    white-space: nowrap
+
+  .destroy
+    +link_color
+    align-self: flex-start
+    color: $gray-4
+    flex-shrink: 0
+    font-size: 13px
+    margin-left: 5px
+    text-align: center
+    text-decoration: none
+    width: 20px
+
+    +lte_ipad
+      font-size: 16px
+
+    &:before
+      +font_shikimori('\e815')

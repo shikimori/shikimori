@@ -219,7 +219,15 @@ private
     if model.respond_to?(:desynced) &&
         model.class::DESYNCABLE.include?(field) &&
         model.desynced.exclude?(field)
-      model.desynced << field
+      model.desynced += [field]
+    end
+  end
+
+  def remove_desynced field, model
+    if model.respond_to?(:desynced) &&
+        model.class::DESYNCABLE.include?(field) &&
+        model.desynced.include?(field)
+      model.desynced -= [field]
     end
   end
 

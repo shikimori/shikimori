@@ -11,6 +11,7 @@ en:
       contest: Contest
       forum: Forum
       genre: Genre
+      genre_v2: Genre v2
       studio: Producer
       publisher: Publisher
       manga: Manga
@@ -47,7 +48,9 @@ en:
         episodes_aired: Episodes aired
         external_links: Links
         genres: Genres
+        genres_v2: Genres v2
         genre_ids: Genres # used for item_diff in versions
+        genre_v2_ids: Genres v2 # used for item_diff in versions
         image: &poster Poster
         kind: Type
         name: Name
@@ -131,15 +134,19 @@ en:
       ban:
         reason: Reason
         duration: Duration
-      genre:
+      genre: &genre
         id: ID
         position: Position
         name: Title
         russian: Title (in Russian)
         description: Description
         seo: SEO priority
-        kind: type
+        kind: Type
         mal_id: MAL ID
+      genre_v2:
+        <<: *genre
+        entry_type: Model
+        kind: Type
       studio:
         id: ID
         name: Name
@@ -230,6 +237,7 @@ en:
         body_width: Maximum Site Width
         dashboard_type: Home page view
         favorites_in_profile: Number of Favorites in Profile
+        is_enlarged_favourites_in_profile: Improve the quality of images of favourite in profile
         comment_policy: Can Comment My Profile
         comments_in_profile: Show Comments in Profile
         is_show_age: Show age in profile
@@ -287,6 +295,7 @@ en:
         is_private: Приватный
         logo: Logo
       collection:
+        user_id: Author
         name: Name
         kind: Type
         text: Description
@@ -411,6 +420,14 @@ en:
           attributes:
             linked:
               censored: hentai/yaoi is forbidden
+        review:
+          attributes:
+            body:
+              abusive_content: &abusive_content contains words prohibited on the site
+        topic:
+          attributes:
+            body:
+              abusive_content: *abusive_content
 
   activemodel:
     errors:
@@ -522,6 +539,14 @@ en:
       kind:
         anime: Anime
         manga: Manga
+    genre_v2:
+      entry_type:
+        Anime: Anime
+        Manga: Manga
+      kind:
+        genre: Genre
+        demographic: Demographic
+        theme: Theme
     external_link:
       kind:
         official_site: Official Site

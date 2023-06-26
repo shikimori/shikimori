@@ -1,8 +1,8 @@
 describe Animes::ChronologyQuery do
+  let(:query) { described_class }
+
   before { Animes::BannedRelations.instance.clear_cache! }
   after(:all) { Animes::BannedRelations.instance.clear_cache! }
-
-  let(:query) { described_class }
 
   let(:anime_1) { create :anime, id: 1, aired_on: 1.year.ago }
   let(:anime_2) { create :anime, id: 2, aired_on: 2.years.ago }
@@ -65,6 +65,19 @@ describe Animes::ChronologyQuery do
         expect(query.new(anime_1).fetch).to eq [anime_1, anime_2, anime_3]
         expect(query.new(anime_2).fetch).to eq [anime_1, anime_2, anime_3]
         expect(query.new(anime_3).fetch).to eq [anime_1, anime_2, anime_3]
+      end
+    end
+
+    describe '* ban' do
+      before do
+        allow(Animes::BannedRelations.instance).to receive(:cache)
+          .and_return animes: [[anime_1.id, '*']]
+      end
+
+      it do
+        expect(query.new(anime_1).fetch).to eq [anime_1]
+        expect(query.new(anime_2).fetch).to eq [anime_2, anime_3]
+        expect(query.new(anime_3).fetch).to eq [anime_2, anime_3]
       end
     end
   end

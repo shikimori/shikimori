@@ -47,8 +47,7 @@
   /     ] = localization_span topic_view.topic.linked.target
 
   - unless topic_view.status_line?
-    span.time
-      time[
-        itemprop='commentTime'
-        datetime=topic_view.created_at.iso8601
-      ] = l topic_view.created_at, format: '%e %B %Y'
+    span.time: time[
+      itemprop='commentTime'
+      datetime=topic_view.created_at.iso8601
+    ] = l topic_view.created_at, format: '%e %B %Y'

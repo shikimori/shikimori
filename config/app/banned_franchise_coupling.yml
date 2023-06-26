@@ -88,7 +88,7 @@
   - A13161 # Hagure Yuusha no Aesthetica
   - A14663 # Queens Blade Rebellion vs. Hagure Yuusha no Aesthetica
 -
-  - A1241 # Kidou Senshi Gundam SEED Destiny Final Plus: The Chosen Futur
+  - A1241 # Kidou Senshi Gundam SEED Destiny Final Plus: Erabareta Mirai
   - A46089 # Tales of Crestoria Off Shot Movie
 -
   - A1276 # Ys
@@ -161,9 +161,6 @@
   - A1412 # Lupin III
   - A19479 # Monkey Punch: Manga Katsudou Daishashin - Crime Mate Special
 -
-  - A1412 # Lupin III
-  - A6115 # Lupin III vs. Detective Conan
--
   - A143 # Kannazuki no Miko
   - A1810 # Kyoushirou to Towa no Sora
 -
@@ -178,6 +175,9 @@
 -
   - A144 # Kanon
   - A50685 # Kaginado Season 2
+-
+  - A1445 # Mach GoGoGo
+  - A39249 # Pandora to Akubi
 -
   - A1445 # Mach GoGoGo
   - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
@@ -293,10 +293,10 @@
   - A9875 # Anime Tenchou x Touhou Project
 -
   - A19067 # Future Card Buddyfight
-  - A35745 # 40 Shuunen da yo!! CoroCoro All-Star Shougakkou
+  - A35745 # 40-shuunen da yo!! CoroCoro All-Star Shougakkou
 -
   - A19157 # Youkai Watch
-  - A35745 # 40 Shuunen da yo!! CoroCoro All-Star Shougakkou
+  - A35745 # 40-shuunen da yo!! CoroCoro All-Star Shougakkou
 -
   - A19169 # Go! Go! Kadendanshi
   - A19535 # Taka no Tsume GO: Utsukushiki Elleair Shoushuu Plus
@@ -356,6 +356,9 @@
   - A2671 # Doraemon Movie 03: Nobita no Daimakyou
 -
   - A21539 # Oraa Guzura Dado
+  - A39249 # Pandora to Akubi
+-
+  - A21539 # Oraa Guzura Dado
   - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
 -
   - A2165 # Gegege no Kitarou (2007)
@@ -370,7 +373,7 @@
   - A21743 # Donten ni Warau
   - A37285 # Ippun de Wakaru Eiga "Donten ni Warau" Kaisetsu Yokoku
 -
-  - A21755 # Shin Tennis no Ouji-sama OVA vs. Genius 10
+  - A21755 # Shin Tennis no Ouji-sama vs. Genius 10
   - A32831 # Hungry to Win
 -
   - A2222 # Dr. Slump: Arale-chan
@@ -431,6 +434,12 @@
   - A23269 # Hello!! Kiniro Mosaic
   - A36805 # Kirara Fantasia
 -
+  - A235 # Detective Conan
+  - A6115 # Lupin III vs. Detective Conan
+-
+  - A23539 # Gudetama
+  - A39659 # Chikin Ramen x Gudetama
+-
   - A2354 # Devilman: Tanjou-hen
   - A31050 # Cyborg 009 VS Devilman
   - A3898 # Mazinger Z tai Devilman
@@ -476,7 +485,7 @@
   - A6567 # Urusei Yatsura: The Shougaibutsu Suieitaikai
 -
   - A24909 # Kaitou Joker
-  - A35745 # 40 Shuunen da yo!! CoroCoro All-Star Shougakkou
+  - A35745 # 40-shuunen da yo!! CoroCoro All-Star Shougakkou
 -
   - A2547 # Princess Sara
   - A37423 # Shiawase Pasta Story
@@ -625,6 +634,9 @@
   - A3024 # Ribbon no Kishi
   - A4941 # Tezuka Osamu ga Kieta?! 20 Seiki Saigo no Kaijiken
 -
+  - A30442 # Kana Kana Kazoku x Himitsukessha Taka no Tsume Collaboration 
+  - A4737 # Himitsukessha Taka no Tsume
+-
   - A30514 # Nisekoimonogatari
   - A5081 # Bakemonogatari
 -
@@ -663,7 +675,7 @@
   - A8123 # Cooking Papa
 -
   - A31049 # Beyblade Burst
-  - A35745 # 40 Shuunen da yo!! CoroCoro All-Star Shougakkou
+  - A35745 # 40-shuunen da yo!! CoroCoro All-Star Shougakkou
 -
   - A31165 # Meiji x Kokosake & anohana Receipt Oubo Campaign
   - A9989 # Ano Hi Mita Hana no Namae wo Bokutachi wa Mada Shiranai.
@@ -683,6 +695,9 @@
   - A3154 # Gatchaman
   - A39249 # Pandora to Akubi
 -
+  - A31599 # Kaette Kite yoo Toyama kara
+  - A33922 # Taka no Tsume-dan, Toyama
+-
   - A31647 # Ponkotsuland Saga
   - A37521 # Vinland Saga
 -
@@ -701,6 +716,9 @@
   - A3202 # Daisuki! Hello Kitty
   - A39674 # Gundam vs Hello Kitty
 -
+  - A3202 # Daisuki! Hello Kitty
+  - A51324 # Shinkalion Hello Kitty
+-
   - A32143 # Peeping Life x Kaijuu Sakaba Kaiji: Kaijuu-tachi ga Iru Tokor
   - A6525 # Peeping Life
 -
@@ -708,7 +726,7 @@
   - A36805 # Kirara Fantasia
 -
   - A32582 # Duel Masters VSRF
-  - A35745 # 40 Shuunen da yo!! CoroCoro All-Star Shougakkou
+  - A35745 # 40-shuunen da yo!! CoroCoro All-Star Shougakkou
 -
   - A32615 # Youjo Senki
   - A38472 # Isekai Quartet
@@ -739,6 +757,9 @@
 -
   - A33027 # Infini-T Force
   - A4810 # Shinzou Ningen Casshern
+-
+  - A33089 # Kemono Friends
+  - A36339 # Nissin no Donbei x Kemono Friends
 -
   - A33190 # Planetarian: Hoshi no Hito
   - A48775 # Kaginado
@@ -795,15 +816,21 @@
   - A34566 # Boruto: Naruto Next Generations
   - A36564 # Kamiusagi Rope x Boruto: Naruto Next Generations
 -
+  - A34661 # Monster Strike: Zoku Saishuu-banashi - Pandora no Hako
+  - A39249 # Pandora to Akubi
+-
   - A3481 # Grendizer: Getter Robo G - Great Mazinger Kessen! Daikaijuu
   - A4486 # Getter Robo G
   - A5658 # Great Mazinger
 -
   - A34905 # Duel Masters (2017)
-  - A35745 # 40 Shuunen da yo!! CoroCoro All-Star Shougakkou
+  - A35745 # 40-shuunen da yo!! CoroCoro All-Star Shougakkou
 -
   - A34914 # New Game!!
   - A36805 # Kirara Fantasia
+-
+  - A35219 # DC Super Heroes vs Taka no Tsume-dan
+  - A37285 # Ippun de Wakaru Eiga "Donten ni Warau" Kaisetsu Yokoku
 -
   - A35219 # DC Super Heroes vs Taka no Tsume-dan
   - A4094 # Batman: Gotham Knight
@@ -846,8 +873,17 @@
   - A35859 # Black Jack: Futari no Kuroi Isha - Manner Movie
   - A971 # Astro Boy: Tetsuwan Atom
 -
+  - A36339 # Nissin no Donbei x Kemono Friends
+  - A38899 # Nissin Men-nashi Donbei x Himote House
+-
+  - A36339 # Nissin no Donbei x Kemono Friends
+  - A39415 # Donbei x Kemurikusa
+-
   - A36517 # Ninja Batman
   - A37622 # Ninja Batman x Poputepipikku Kindan no Collab CM
+-
+  - A36624 # 4 Shuunen Monst? Shiru ka yo!
+  - A7261 # Mameshiba
 -
   - A36805 # Kirara Fantasia
 -
@@ -884,6 +920,9 @@
   - A38659 # Shinchou Yuusha: Kono Yuusha ga Ore Tueee Kuse ni Shinchou Su
   - A41567 # Isekai Quartet Movie: Another World
 -
+  - A38899 # Nissin Men-nashi Donbei x Himote House
+  - A39415 # Donbei x Kemurikusa
+-
   - A3915 # Time Bokan
   - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
 -
@@ -895,6 +934,9 @@
 -
   - A41059 # Mameshiba x Nanatsu no Taizai Collab CM
   - A7261 # Mameshiba
+-
+  - A42797 # Rebirth: Virtual to no Souguu
+  - A44271 # Say! Fanfare!
 -
   - A42940 # Hanma Baki: Son of Ogre
   - A54022 # Saikyou Donbei x Hanma Baki: Saikyou no Dongitsune Genrutsuts
@@ -917,10 +959,13 @@
   - A48436 # Gintama: The Final x Mameshiba
   - A7261 # Mameshiba
 -
+  - A48842 # Mahoutsukai Reimeiki
+  - A51349 # Mahoutsukai Reimeiki Mini Anime
+-
   - A4896 # Umineko no Naku Koro ni
   - A934 # Higurashi no Naku Koro ni
 -
-  - A4918 # xxxHOLiC: Shunmuki
+  - A4918 # xxxHOLiC Shunmuki
   - A4938 # Tsubasa: Shunraiki
 -
   - A4941 # Tezuka Osamu ga Kieta?! 20 Seiki Saigo no Kaijiken
@@ -938,8 +983,14 @@
   - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
   - A7551 # Gowapper 5 Gordam
 -
+  - A52214 # Genjitsu no Yohane: Sunshine in the Mirror
+  - A55720 # Genjitsu no Rimuru: Sunshine in the Slime
+-
   - A54209 # Minna to Manner wo Manabou
   - A9756 # Mahou Shoujo Madoka★Magica
+-
+  - A55214 # Yume ja Nai (2020)
+  - A55216 # Koe Dake ga
 -
   - A6511 # Chou Seimeitai Transformers Beast Wars Neo
 -
@@ -964,6 +1015,21 @@
   - M1414 # SKET Dance
   - M44 # Gintama
 -
+  - M1045 # Saint Seiya
+  - M14230 # Fuuma no Kojirou
+  - M14231 # Ring ni Kakero
+  - M65169 # Kurumada Suikoden: Hero of Heroes
+-
+  - M1061 # Detective Conan
+  - M109217 # Lupin III vs. Meitantei Conan
+-
+  - M107458 # UraHos!!
+  - M30 # Ouran Koukou Host Club
+  - M79891 # Urakata!!
+-
+  - M108461 # Fairy Tail S
+  - M14 # Rave
+-
   - M11 # Naruto
   - M11926 # Jump Super Stars
   - M13 # One Piece
@@ -983,6 +1049,27 @@
   - M45 # Ichigo 100%
   - M796 # Dr. Slump
 -
+  - M112780 # Fukumoto All Stars
+  - M1218 # Akagi: Yami ni Oritatta Tensai
+  - M3569 # Gin to Kin
+  - M3572 # Tobaku Mokushiroku Kaiji
+  - M3575 # Saikyou Densetsu Kurosawa
+  - M3576 # Tobaku Haouden Zero
+  - M613 # Buraiden Gai
+-
+  - M11329 # Mudazumonaki Kaikaku
+  - M23556 # Ritz
+-
+  - M114548 # Edens Zero
+  - M122473 # Mashima Heros
+  - M14 # Rave
+-
+  - M117840 # Ase to Sekken
+  - M143427 # Zengun Funtou!: Yamada Kintetsu Tanpenshuu
+-
+  - M118865 # Tensei shitara Shima Kousaku Datta Ken
+  - M17204 # Kachou Shima Kousaku
+-
   - M120 # Maburaho
   - M16124 # Maburaho VS Slayers!? - Dragon All Stars Gekitouhen
   - M8876 # Slayers
@@ -1001,17 +1088,30 @@
   - M1298 # Golgo 13
   - M94865 # Chou Kochikame
 -
+  - M12985 # Princess Lucia
+  - M82087 # Kimi no Iru Machi x Princess Lucia Special Collaboration Comi
+-
   - M13 # One Piece
-  - M25146 # One Piece x Toriko
+  - M25146 # Jisshoku! Akuma no Mi!!
   - M7887 # Toriko
 -
   - M13 # One Piece
-  - M25146 # One Piece x Toriko
+  - M25146 # Jisshoku! Akuma no Mi!!
   - M881 # Cross Epoch
 -
   - M13 # One Piece
   - M42 # Dragon Ball
   - M881 # Cross Epoch
+-
+  - M133596 # Manga Day to Day
+  - M17204 # Kachou Shima Kousaku
+-
+  - M13891 # Kakioroshi Manga Bangai-hen: Valentine Special
+  - M1414 # SKET Dance
+  - M43 # Eyeshield 21
+  - M47 # Katekyo Hitman Reborn!
+  - M671 # To LOVE-Ru
+  - M9711 # Bakuman.
 -
   - M14155 # Continue
   - M24 # D.Gray-man
@@ -1044,6 +1144,9 @@
   - M1505 # Bobobo-bo Bo-bobo
   - M94865 # Chou Kochikame
 -
+  - M15222 # Seitokai no Ichizon
+  - M40015 # Boku wa Tomodachi ga Sukunai x Seitokai no Ichizon Crossover 
+-
   - M1551 # Getter Robo
   - M26751 # Devilman vs Getter Robo
 -
@@ -1056,9 +1159,19 @@
   - M37701 # Super Robot Retsuden
   - M8773 # Mazinger Z
 -
+  - M15921 # Mashima-en
+  - M598 # Fairy Tail
+-
   - M16124 # Maburaho VS Slayers!? - Dragon All Stars Gekitouhen
   - M20870 # Slayers VS Orphen
   - M8876 # Slayers
+-
+  - M1639 # Cyborg 009
+  - M25096 # Gin no Saji
+  - M3822 # GS Mikami: Gokuraku Daisakusen!!
+  - M56725 # 3.11 wo Wasurenai Tame ni Heroes Comeback
+  - M676 # InuYasha
+  - M7747 # Ushio to Tora
 -
   - M1639 # Cyborg 009
   - M95091 # Cyborg 009 VS Devilman: Breakdown
@@ -1073,6 +1186,10 @@
   - M39745 # Majutsushi Orphen Hagure Tabi
   - M8876 # Slayers
 -
+  - M2105 # Ultra Red
+  - M4101 # Blizzard Axel
+  - M81575 # Nanatsu no Tanpen
+-
   - M24294 # Ao Haru Ride
   - M36933 # Ore Monogatari!!
   - M52389 # Ore Ride!!
@@ -1080,14 +1197,20 @@
   - M24294 # Ao Haru Ride
   - M52389 # Ore Ride!!
 -
-  - M25146 # One Piece x Toriko
+  - M25146 # Jisshoku! Akuma no Mi!!
   - M7887 # Toriko
 -
   - M26123 # Taizou Mote King Saga
   - M94865 # Chou Kochikame
 -
+  - M27231 # Hirunaka no Ryuusei
+  - M77427 # Hibi Chouchou x Hirunaka no Ryuusei
+-
   - M2845 # Kinnikuman
   - M94865 # Chou Kochikame
+-
+  - M28825 # Ookami Shoujo to Kuro Ouji
+  - M59851 # Nijikuro Gakuen no Nijichou: Seikatsu Shidou-hen
 -
   - M29937 # Bara Manga Daioh
   - M371 # Ichigo Mashimaro
@@ -1130,6 +1253,9 @@
   - M8300 # Baby Steps
   - M88032 # Magazine Ohanami!!
 -
+  - M36 # Kamikaze Kaitou Jeanne
+  - M87623 # Pray for Japan
+-
   - M36933 # Ore Monogatari!!
   - M52389 # Ore Ride!!
   - M58193 # Ore Koi!!
@@ -1137,8 +1263,15 @@
   - M37701 # Super Robot Retsuden
   - M8773 # Mazinger Z
 -
+  - M37755 # Saiki Kusuo no Ψ-nan
+  - M39883 # Ansatsu Kyoushitsu
+-
   - M38105 # Kase-san Series
   - M55003 # Hirari, Bessatsu: Bukatsu Joshi Anthology - Houkago!
+-
+  - M40175 # Mahou Shoujo of the End
+  - M56063 # Vs Earth
+  - M96060 # Hakaijuu VS Mahou Shoujo of the End VS Vs Earth
 -
   - M42 # Dragon Ball
   - M881 # Cross Epoch
@@ -1153,11 +1286,17 @@
   - M86414 # Magazine Boys Valentine!
   - M8795 # Area no Kishi
 -
+  - M598 # Fairy Tail
+  - M64565 # Fairy Tail x Nanatsu no Taizai Christmas Special
+-
   - M733 # Kochira Katsushikaku Kameari Kouenmae Hashutsujo
   - M94865 # Chou Kochikame
 -
   - M75723 # Cutie Honey Tai Devilman Lady
   - M7658 # Cutie Honey
+-
+  - M7700 # Dororon Enma-kun
+  - M92836 # Dororo to Enma-kun
 -
   - M94865 # Chou Kochikame
   - M95746 # Maison de Penguin

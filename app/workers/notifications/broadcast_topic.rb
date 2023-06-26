@@ -75,6 +75,9 @@ private
       )
       .attributes
       .slice(*MESSAGE_ATTRIBUTES)
+      .tap do |attrs|
+        attrs['created_at'] = attrs['created_at'].to_s
+      end
   end
 
   def message_type topic

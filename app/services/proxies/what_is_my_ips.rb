@@ -3,7 +3,8 @@ require Rails.root.join('config/middleware/proxy_test')
 class Proxies::WhatIsMyIps
   method_object
 
-  WHAT_IS_MY_IP_URL = "https://#{Shikimori::DOMAINS[:production]}#{ProxyTest::WHAT_IS_MY_IP_PATH}"
+  WHAT_IS_MY_IP_URL = "#{Shikimori::PROTOCOLS[:production]}://" \
+    "#{Shikimori::DOMAINS[:production]}#{ProxyTest::WHAT_IS_MY_IP_PATH}"
 
   def call
     @@ips ||= begin # rubocop:disable ClassVars MissingCop

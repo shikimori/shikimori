@@ -51,7 +51,7 @@ describe Topic::Create do
         is_expected.to be_persisted
         expect(Notifications::BroadcastTopic)
           .to have_received(:perform_in)
-          .with 10.seconds, topic.id
+          .with 1.minute, topic.id
       end
     end
 

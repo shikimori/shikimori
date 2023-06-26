@@ -37,7 +37,7 @@ class AchievementsController < ShikimoriController
     show
     og page_title: i18n_t('level', level: @resource.level)
     breadcrumb(
-      @resource.title(current_user, ru_host?),
+      @resource.title(current_user),
       achievement_url(@resource.group, @resource.neko_id)
     )
 
@@ -88,7 +88,6 @@ private
   end
 
   def build_topic_resource topic_id
-    return unless ru_host?
     return unless topic_id
 
     topic = Topic.find_by id: topic_id

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://shikimori.one/what_is_my_ip
+    uri: https://shikimori.me/what_is_my_ip
     body:
       encoding: US-ASCII
       string: ''

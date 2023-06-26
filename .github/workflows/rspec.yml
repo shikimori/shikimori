@@ -25,7 +25,7 @@ jobs:
     #   matrix:
     #     node-version: [14.x]
     #     redis-version: [6]
-    runs-on: 'ubuntu-20.04'
+    runs-on: 'ubuntu-22.04'
     services:
       postgres:
         image: postgres:10.5-alpine
@@ -35,14 +35,14 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
     env:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: github-actions
+      POSTGRES_TEST_USER: postgres
+      POSTGRES_TEST_PASSWORD: postgres
+      POSTGRES_TEST_DB: github-actions
       RAILS_ENV: test
       CI_SERVER: yes
     steps:
-      - name: Install libvips
-        run: sudo apt-get install -y libvips
+      - name: Install dependencies
+        run: sudo apt-get install -y libvips imagemagick libjpeg-progs
       - name: Start Redis
         uses: supercharge/redis-github-action@1.4.0
         with:

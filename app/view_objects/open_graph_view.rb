@@ -2,18 +2,18 @@ class OpenGraphView < ViewObjectBase
   attr_reader :page_title
   attr_writer :description, :canonical_url
   attr_accessor :type, :image, :image_type,
-                :image_width,
-                :image_height,
-                :twitter_card,
-                :video_duration, :video_release_date, :video_tags,
-                :book_release_date, :book_tags,
-                :notice,
-                :keywords, :noindex, :nofollow
+    :image_width,
+    :image_height,
+    :twitter_card,
+    :video_duration, :video_release_date, :video_tags,
+    :book_release_date, :book_tags,
+    :notice,
+    :keywords, :noindex, :nofollow
 
   PAGE_TITLE_SEPARATOR = ' / '
 
   def site_name
-    h.ru_host? ? Shikimori::NAME_RU : Shikimori::NAME_EN
+    Shikimori::NAME_RU
   end
 
   def canonical_url
@@ -48,6 +48,8 @@ class OpenGraphView < ViewObjectBase
     <<~TITLE.strip.delete("\n")
       #{'[DEV] ' if Rails.env.development?}
       #{(@page_title || [site_name]).reverse.join PAGE_TITLE_SEPARATOR}
+      #{(PAGE_TITLE_SEPARATOR + 'EN') unless I18n.russian?}
+      #{(PAGE_TITLE_SEPARATOR + h.current_user.id.to_s) if h.user_signed_in? && !I18n.russian?}
     TITLE
   end
 

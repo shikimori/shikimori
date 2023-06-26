@@ -12,7 +12,7 @@ module VersionedConcern
 private
 
   def versions_scope
-    scope = VersionsQuery.by_item(object)
+    scope = VersionsQuery.by_item(object, h.params[:field])
     scope = scope.by_field(h.params[:field]) if h.params[:field]
     scope
   end

@@ -1,4 +1,6 @@
 class Elasticsearch::RebuildIndexes
+  include Sidekiq::Worker
+
   def perform
     ClubsIndex.reset!
     CollectionsIndex.reset!

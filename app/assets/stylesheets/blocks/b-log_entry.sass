@@ -90,18 +90,27 @@
       .diff
         word-break: break-word
 
-        del,
-        ins
+        ins,
+        del
           padding: 0 2px
           text-decoration: none
+
+        ins
+          background: #eaf2c2 !important
+          color: #406619
 
         del
           background: #fedddf !important
           color: #fc575e
 
-        ins
-          background: #eaf2c2 !important
-          color: #406619
+      .change .ins
+        color: $green
+
+      .change .del
+        color: $red
+
+      .change .mod
+        color: $orange
 
       .changes .change
         margin-bottom: 3px
@@ -151,6 +160,27 @@
 
         .diff .value
           font-size: 11px
+
+      &.poster
+        .derivatives
+          display: flex
+
+          +iphone
+            flex-direction: column
+            row-gap: 0.75rem
+
+          +gte_ipad
+            column-gap: 1.5rem
+
+        .derivative-preview
+          +iphone
+            margin-right: 1rem
+
+          +gte_ipad
+            margin-right: 1.5rem
+
+        .crop
+          font-size: 12px
 
   & > .reason
     color: $maroon

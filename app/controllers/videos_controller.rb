@@ -50,6 +50,7 @@ class VideosController < ShikimoriController
 
   def destroy
     @version = versioneer.delete params[:id], current_user
+    @version.auto_accept! if @version&.persisted? && can?(:auto_accept, @version)
 
     if @version.persisted?
       render json: { notice: i18n_t('pending_version') }

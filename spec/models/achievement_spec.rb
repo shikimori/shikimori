@@ -4,7 +4,6 @@ describe Achievement do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_presence_of :neko_id }
     it { is_expected.to validate_presence_of :level }
     it { is_expected.to validate_presence_of :progress }
@@ -27,9 +26,9 @@ describe Achievement do
 
       it { expect(achievement.image).to eq neko.image }
       it { expect(achievement.border_color).to eq neko.border_color }
-      it { expect(achievement.title nil, true).to eq neko.title_ru }
-      it { expect(achievement.hint nil, true).to eq neko.hint(nil, true) }
-      it { expect(achievement.text true).to eq neko.text_ru }
+      it { expect(achievement.title nil).to eq neko.title_ru }
+      it { expect(achievement.hint nil).to eq neko.hint(nil) }
+      it { expect(achievement.text).to eq neko.text_ru }
     end
   end
 end

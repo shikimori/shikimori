@@ -58,21 +58,29 @@
                     data-method='post'
                     data-confirm=t('.confirm_rollback')
                   ] = t 'actions.rollback'
+                - if @resource.episode_notifications.any?
+                  a.b-js-action href=episode_notifications_anime_url(@resource)
+                    = t '.episode_notifications'
 
-              - %i[digital_released_on russia_released_on].each do |field|
-                = render 'db_entries/edit_field_li',
-                    resource: @resource,
-                    field: field,
-                    class: ('m15' if %i[russia_released_on].include? field) do
-                  - if @resource.respond_to? :"#{field}_hint"
-                    .hint = @resource.send :"#{field}_hint"
+            - %i[digital_released_on russia_released_on].each do |field|
+              = render 'db_entries/edit_field_li',
+                  resource: @resource,
+                  field: field,
+                  class: ('m15' if %i[russia_released_on].include? field) do
+                - if @resource.respond_to? :"#{field}_hint"
+                  .hint = @resource.send :"#{field}_hint"
 
       .f-column
+        - if @resource.rkn_abused? && current_user.staff?
+          .b-warning
+            .warning На страницу получен страйк от РКН!
+            p Постер должен быть нейтральным или отсутствовать.
+
         ul.b-list.is-wide
           - is_screenshots = @resource.anime? && @resource.screenshots_allowed?
           - %i[poster description_ru description_en screenshots videos imageboard_tag coub_tags external_links fansubbers fandubbers].delete_if { |v| v == :screenshots && !is_screenshots }.each do |field|
             - next if field == :imageboard_tag && !Shikimori::IS_IMAGEBOARD_TAGS_ENABLED
-            - next if field == :poster && @resource.rkn_abused?
+            / - next if field == :poster && @resource.rkn_abused?
 
             = render 'db_entries/edit_field_li',
               resource: @resource,
@@ -159,7 +167,7 @@
             .subheadline.m5 = t '.search_on.toshokan'
             - @resource.files.toshokan_search.each do |phrase|
               div.m5
-                a.b-link href="http://www.tokyotosho.info/search.php?terms=#{URI.encode phrase}"
+                a.b-link href="http://www.tokyotosho.info/search.php?terms=#{Addressable::URI.encode_component phrase}"
                   = phrase
 
   = render 'db_entries/dangerous_actions/index', resource: @resource

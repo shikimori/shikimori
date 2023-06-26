@@ -1,4 +1,13 @@
 en:
+  layout_view:
+    versions:
+      names: Names
+      texts: Texts
+      content: Content
+      fansub: Fansub
+      videos: Videos
+      images: Images
+      links: Links
   profiles/view:
     male: male
     female: female

@@ -3,7 +3,14 @@ class Titles::AnimeKeywords
 
   attr_reader :klass, :season, :kind, :genres, :studios, :publishers
 
-  def initialize klass:, season:, kind:, genres:, studios:, publishers:
+  def initialize( # rubocop:disable Metrics/ParameterLists
+    klass:,
+    season:,
+    kind:,
+    genres:,
+    studios:,
+    publishers:
+  )
     @klass = klass
     @season = season
     @kind = kind
@@ -29,6 +36,7 @@ private
 
   def season_keywords
     return if season.blank?
+
     Titles::LocalizedSeasonText.new(self, season).title
   end
 
@@ -42,16 +50,19 @@ private
 
   def genre_keywords
     return if genres.blank?
+
     [i18n_i('genre'), genres.map { |v| "#{v.english} #{v.russian}" }.join(' ')]
   end
 
   def studio_keywords
     return if studios.blank?
+
     [i18n_i('studio'), studios.map(&:name).join(' ')]
   end
 
   def publisher_keywords
     return if publishers.blank?
+
     [i18n_i('publisher'), publishers.map(&:name).join(' ')]
   end
 

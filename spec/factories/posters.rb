@@ -15,7 +15,7 @@ FactoryBot.define do
     end
 
     trait :image_data_file do
-      image { File.new "#{Rails.root}/spec/files/poster.jpg" }
+      image { Rails.root.join('spec/files/poster.jpg').open('r') }
     end
   end
 end

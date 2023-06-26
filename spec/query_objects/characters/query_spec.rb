@@ -42,5 +42,33 @@ describe Characters::Query do
         end
       end
     end
+
+    context '#by_desynced' do
+      subject { query.by_desynced 'zzz', user }
+      before do
+        allow(Animes::Filters::ByDesynced)
+          .to receive(:call)
+          .and_return characters_scope
+      end
+      let(:characters_scope) { Character.where id: character_1.id }
+
+      context 'staff user' do
+        let(:user) { seed :user_admin }
+        it do
+          is_expected.to eq [character_1]
+          expect(Animes::Filters::ByDesynced)
+            .to have_received(:call)
+            .with(any_args, 'zzz')
+        end
+      end
+
+      context 'not staff user' do
+        let(:user) { [seed(:user), nil].sample }
+        it do
+          is_expected.to eq [character_1, character_2, character_3]
+          expect(Animes::Filters::ByDesynced).to_not have_received :call
+        end
+      end
+    end
   end
 end

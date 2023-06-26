@@ -22,7 +22,7 @@ describe Versioneers::VideosVersioneer do
       expect(video).to_not be_changed
       expect(video).to be_uploaded
       expect(video).to have_attributes(
-        url: params[:url],
+        url: 'https://youtu.be/l1YX30AmYsA',
         name: params[:name],
         kind: params[:kind],
         uploader: user,

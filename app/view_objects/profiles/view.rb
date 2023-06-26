@@ -73,7 +73,7 @@ class Profiles::View < ViewObjectBase
       end
 
       # info << @user.location
-      info << @user.website
+      info << @user.website unless censored_profile?
 
       info.select!(&:present?)
       info << i18n_t('no_personal_data') if info.empty?

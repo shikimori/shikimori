@@ -24,13 +24,19 @@ describe Animes::UserRatesStatisticsQuery do
     create :user_rate, :rewatching, user: cheat_bot, target: entry, score: 9
   end
 
-  let(:query) { described_class.new(entry, user) }
+  let(:query) { described_class.new entry, user }
 
   describe '#friend_rates' do
     let!(:friend_link_1) { create :friend_link, src: user, dst: user_2 }
     let!(:friend_link_2) { create :friend_link, src: user, dst: user_3 }
+    let!(:friend_link_3) { create :friend_link, src: user, dst: user_4 }
+    before do
+      user_3.preferences.update! list_privacy: :friends
+      user_4.preferences.update! list_privacy: :friends
+      user_3.friends << user
+    end
     subject { query.friend_rates }
 
-    it { is_expected.to have(2).items }
+    it { is_expected.to eq [user_rate_2, user_rate_1] }
   end
 end

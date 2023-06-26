@@ -60,7 +60,6 @@
 import { mapGetters, mapActions } from 'vuex';
 import autosize from 'autosize';
 
-
 function highlight(selector) {
   const $node = $(selector);
 

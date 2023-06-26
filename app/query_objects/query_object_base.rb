@@ -8,6 +8,7 @@ class QueryObjectBase
     select
     where
     not
+    or
     order
     limit
     offset

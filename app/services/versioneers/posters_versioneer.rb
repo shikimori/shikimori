@@ -29,7 +29,7 @@ private
       poster_id: poster_id
     )
 
-    Versions::PosterVersion.create!(
+    create_version Versions::PosterVersion.new(
       item: poster,
       user: author,
       reason: reason,
@@ -48,6 +48,16 @@ private
       associated: @item,
       item_diff: { 'action' => DELETE }
     )
+  end
+
+  def create_version version
+    if version.item.persisted?
+      version.save
+    else
+      version.errors.add :base, version.item.errors.full_messages.join(', ')
+    end
+
+    version
   end
 
   def dummy_version

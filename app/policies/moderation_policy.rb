@@ -8,7 +8,13 @@ class ModerationPolicy
     :abuse_requests_bannable_count,
     :abuse_requests_not_bannable_count,
     :all_content_versions_count,
-    :names_versions_count, :texts_versions_count, :content_versions_count, :fansub_versions_count
+    :names_versions_count,
+    :texts_versions_count,
+    :content_versions_count,
+    :fansub_versions_count,
+    :videos_versions_count,
+    :images_versions_count,
+    :links_versions_count
 
   def critiques_count
     return 0 unless !@moderation_filter || @user&.critique_moderator?
@@ -53,30 +59,54 @@ class ModerationPolicy
   def all_content_versions_count
     return 0 unless !@moderation_filter || @user&.version_moderator?
 
-    Moderation::VersionsItemTypeQuery.fetch(:all_content).pending.size
+    pending_versions_size :all_content
   end
 
   def names_versions_count
     return 0 unless !@moderation_filter || @user&.version_names_moderator?
 
-    Moderation::VersionsItemTypeQuery.fetch(:names).pending.size
+    pending_versions_size :names
   end
 
   def texts_versions_count
     return 0 unless !@moderation_filter || @user&.version_texts_moderator?
 
-    Moderation::VersionsItemTypeQuery.fetch(:texts).pending.size
+    pending_versions_size :texts
   end
 
   def content_versions_count
     return 0 unless !@moderation_filter || @user&.version_moderator?
 
-    Moderation::VersionsItemTypeQuery.fetch(:content).pending.size
+    pending_versions_size :content
   end
 
   def fansub_versions_count
     return 0 unless !@moderation_filter || @user&.version_fansub_moderator?
 
-    Moderation::VersionsItemTypeQuery.fetch(:fansub).pending.size
+    pending_versions_size :fansub
+  end
+
+  def videos_versions_count
+    return 0 unless !@moderation_filter || @user&.version_videos_moderator?
+
+    pending_versions_size :videos
+  end
+
+  def images_versions_count
+    return 0 unless !@moderation_filter || @user&.version_images_moderator?
+
+    pending_versions_size :images
+  end
+
+  def links_versions_count
+    return 0 unless !@moderation_filter || @user&.version_links_moderator?
+
+    pending_versions_size :links
+  end
+
+private
+
+  def pending_versions_size type
+    Moderation::VersionsItemTypeQuery.fetch(type).pending.size
   end
 end

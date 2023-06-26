@@ -187,7 +187,16 @@ async function initExternalLinksApp() {
   });
   app.use(store);
   app.config.globalProperties.I18n = I18n;
-  app.mount('#vue_external_links');
+  const externalLinksApp = app.mount('#vue_external_links');
+
+  $('.external_link-wrapper .delete').on('click', ({ currentTarget }) => {
+    const $root = $(currentTarget).closest('.external_link-wrapper');
+
+    externalLinksApp.cleanupLink({
+      kind: $root.find('select').val(),
+      url: $root.find('input').val()
+    });
+  });
 }
 
 export async function initArrayFieldApp() {
@@ -278,11 +287,11 @@ async function initEditPosterApp() {
     previewHeight: $app.data('preview-height')
   });
   app.config.globalProperties.I18n = I18n;
-  const posterFieldComponent = app.mount('#vue_app');
+  const posterFieldApp = app.mount('#vue_app');
 
   $form.on('submit', ({ currentTarget }) => {
-    $posterId.val(posterFieldComponent.posterId());
-    $cropData.val(JSON.stringify(posterFieldComponent.cropData()));
-    $posterDataUri.val(posterFieldComponent.toDataURI());
+    $posterId.val(posterFieldApp.posterId());
+    $cropData.val(JSON.stringify(posterFieldApp.cropData()));
+    $posterDataUri.val(posterFieldApp.toDataURI());
   });
 }

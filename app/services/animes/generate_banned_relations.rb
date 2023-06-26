@@ -2,8 +2,8 @@
 # to combine shikimori & mal_graph banned couplings
 class Animes::GenerateBannedRelations < ServiceObjectBase
   IGNORED_MAL_COUPLING = %w[A18429 A6115]
-
   MAL_BANNED_FRANCHISES_URL = 'https://raw.githubusercontent.com/anime-plus/graph/master/data/banned-franchise-coupling.json'
+  ANYTHING = Animes::BannedRelations::ANYTHING
 
   pattr_initialize :additional_data
 
@@ -27,13 +27,14 @@ private
 
   def combine merged_data, cache
     merged_data.map do |ids|
-      ids
-        .map do |id|
+      ids.filter_map do |id|
+        if id == ANYTHING
+          id
+        else
           "#{id[0]}#{id[/\d+/]}###" + cache[id[0]].find(id[/\d+/]).name[0..60]
-        rescue ActiveRecord::RecordNotFound
-          nil
         end
-        .compact
+      rescue ActiveRecord::RecordNotFound
+      end
     end
   end
 
@@ -67,7 +68,14 @@ private
       raise "invalid additional_data: #{additional_data.to_json}"
     end
 
-    (shiki_data + mal_data + additional_data).map(&:sort).sort.uniq
+    (shiki_data + mal_data + additional_data)
+      .map do |ids|
+        ids.sort_by do |id|
+          id == ANYTHING ? 'Z' : id
+        end
+      end
+      .sort
+      .uniq
   end
 
   def fetch_shiki

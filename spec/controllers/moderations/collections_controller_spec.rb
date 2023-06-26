@@ -42,4 +42,28 @@ describe Moderations::CollectionsController do
       expect(response).to redirect_to moderations_collections_url
     end
   end
+
+  describe '#autocomplete_user' do
+    include_context :authenticated, :collection_moderator
+    let(:user_3) { create :user, nickname: 'user_54321' }
+    let(:user_2) { create :user, nickname: 'user_12345' }
+    let!(:collection_1) do
+      create :collection, :accepted, :published, user: user_2, approver: user_3
+    end
+
+    subject! do
+      get :autocomplete_user,
+        params: {
+          search: 'user_'
+        },
+        xhr: true,
+        format: :json
+    end
+
+    it do
+      expect(collection).to eq [user_2]
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
+    end
+  end
 end

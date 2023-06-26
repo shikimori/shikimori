@@ -2,12 +2,11 @@
 class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLength
   before_action :fetch_resource, except: %i[index search neko]
 
-  caches_action :neko, expires_in: 1.week, cache_path: -> {
+  caches_action :neko, expires_in: 23.hours, cache_path: -> {
     NekoRepository.instance.cache_key(
       params[:controller],
       params[:action],
-      Anime.count,
-      :v1
+      Anime.count
     ).to_json
   }
 

@@ -56,7 +56,7 @@ class Animes::ReviewsController < AnimesController
   end
 
   def missing exception
-    raise exception if params[:action] != 'show'
+    raise exception if params[:action] != 'show' || @resource.nil? # @resource - anime or manga
 
     add_breadcrumbs
     breadcrumb "#{i18n_i('Review', :one)} ##{params[:id].to_i}", nil

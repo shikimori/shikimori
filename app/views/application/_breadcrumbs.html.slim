@@ -1,12 +1,28 @@
 - if page_breadcrumbs.any?
-  .b-breadcrumbs
-    - page_breadcrumbs.each do |name, url|
+  .b-breadcrumbs[
+    itemscope
+    itemtype='https://schema.org/BreadcrumbList'
+  ]
+    - page_breadcrumbs.each_with_index do |(name, url), index|
       span[
+        itemprop='itemListElement'
         itemscope
-        itemtype='http://data-vocabulary.org/Breadcrumb'
+        itemtype='https://schema.org/ListItem'
       ]
         - if url
-          a.b-link href=url title=name itemprop='url'
-            span itemprop='title' = name
+          a.b-link[
+            itemprop='item'
+            href=url
+            title=name
+          ]
+            span[
+              itemprop='name'
+            ] = name
         - else
-          span.no-url itemprop='title' = name
+          span.no-url[
+            itemprop='name'
+          ] = name
+        meta[
+          itemprop='position'
+          content=index
+        ]

@@ -28,13 +28,14 @@ class ImageUrlGenerator
     end
   end
 
-  def cdn_poster_url db_entry:, poster:, derivative:
+  def cdn_poster_url db_entry:, poster:, derivative: # rubocop:disable Metrics/AbcSize
     image_index = db_entry.id % Shikimori::STATIC_SUBDOMAINS.size
     image_path = derivative ?
       poster.image(derivative).url :
       poster.image.url
 
-    if Rails.env.test? || (!Rails.env.production? && File.exist?(Rails.public_path + image_path))
+    if Rails.env.test? ||
+        (!Rails.env.production? && File.exist?(poster.image.storage.path(poster.image.id)))
       local_url image_path
     else
       production_url image_path, image_index
@@ -54,10 +55,13 @@ private
     end
   end
 
-  def production_url image_url_path, image_index
+  def production_url image_url_path, _image_index
     "#{Shikimori::PROTOCOLS[:production]}://" \
-      "#{Shikimori::STATIC_SUBDOMAINS[image_index]}." \
       "#{shiki_domain}#{image_url_path}"
+
+    # "#{Shikimori::PROTOCOLS[:production]}://" \
+    #   "#{Shikimori::STATIC_SUBDOMAINS[image_index]}." \
+    #   "#{shiki_domain}#{image_url_path}"
   end
 
   def local_url image_url_path

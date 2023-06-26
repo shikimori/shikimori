@@ -411,4 +411,5 @@ describe Topic do
   end
 
   it_behaves_like :antispam_concern, :topic
+  it_behaves_like :forbid_abusive_body_concern, :review
 end

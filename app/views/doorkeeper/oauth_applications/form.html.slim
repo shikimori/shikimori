@@ -45,6 +45,7 @@ header.head.misc
           p = @resource.secret
 
   = f.input :redirect_uri,
+    as: :string,
     hint: "Set <span class='b-js-link sample'>#{Doorkeeper.configuration.native_redirect_uri}</span> for mobile and standalone apps".html_safe
 
   .cc-2
@@ -82,8 +83,10 @@ header.head.misc
                 = scope
                 span.hint = t "doorkeeper.scopes.#{scope}"
 
-  .cc-2
-    .c-column
+  / .cc-2
+  /   .c-column
+  .block
+    div
       .b-input.m5
         label class="text optional control-label" for="oauth_application_description_ru"
           b = OauthApplication.human_attribute_name :description_ru
@@ -93,7 +96,7 @@ header.head.misc
           text: f.object.description_ru,
           field_name: 'oauth_application[description_ru]'
 
-    .c-column
+    .c-column.hidden
       .b-input.m5
         label class="text optional control-label" for="oauth_application_description_en"
           b = OauthApplication.human_attribute_name :description_en

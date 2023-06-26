@@ -55,6 +55,18 @@ class Ability
         merge Abilities::VersionFansubModerator.new(@user)
       end
 
+      if @user.version_videos_moderator? || @user.admin?
+        merge Abilities::VersionVideosModerator.new(@user)
+      end
+
+      if @user.version_images_moderator? || @user.admin?
+        merge Abilities::VersionImagesModerator.new(@user)
+      end
+
+      if @user.version_links_moderator? || @user.admin?
+        merge Abilities::VersionLinksModerator.new(@user)
+      end
+
       if @user.super_moderator? || @user.admin?
         merge Abilities::SuperModerator.new(@user)
       end
@@ -92,7 +104,8 @@ class Ability
   def define_abilities
     alias_action(
       :index, :show, :comments,
-      :animes, :mangas, :ranobe, :characters, :members, :clubs, :collections, :images,
+      :animes, :mangas, :ranobe, :characters,
+      :members, :clubs, :collections, :images,
       to: :see_club
     )
   end
@@ -113,6 +126,7 @@ class Ability
 
     can %i[read tooltip], Version
     can %i[read tooltip], Genre
+    can %i[read tooltip], GenreV2
     can :read, Comment do |comment|
       Comment::AccessPolicy.allowed? comment, @user
     end

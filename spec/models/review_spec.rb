@@ -426,4 +426,5 @@ describe Review do
 
   it_behaves_like :topics_concern, :review
   it_behaves_like :antispam_concern, :review
+  it_behaves_like :forbid_abusive_body_concern, :review
 end

@@ -8,7 +8,7 @@ describe ImageboardsController do
     subject do
       get :index,
         params: {
-          url: URI.encode(Base64.encode64(url).strip)
+          url: Addressable::URI.encode(Base64.encode64(url).strip)
         }
     end
 

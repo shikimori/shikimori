@@ -25,8 +25,19 @@ class Animes::FranchiseName
     'marvel future avengers' => 'marvel',
     're:zero kara hajimeru isekai seikatsu' => 're_zero',
     'dungeon ni deai wo motomeru no wa machigatteiru darou ka' => 'danmachi',
-    'tales of crestoria' => 'tales_of'
-  }
+    'Tales of Crestoria' => 'tales_of',
+    'Bakuman.' => 'bakuman',
+    'Detective Conan' => 'detective_conan',
+    'Saki' => 'saki',
+    'Nanatsu no Tanpen' => 'nanatsu_no_tanpen',
+    'Fairy Tail' => 'fairy_tail',
+    'Boku wa Tomodachi ga Sukunai' => 'boku_wa_tomodachi_ga_sukunai',
+    'Higurashi no Naku Koro ni Kai' => 'when_they_cry',
+    'Binan Koukou Chikyuu Bouei-bu LOVE! LOVE! LOVE!' => 'binan_koukou_chikyuu_boueibu_love',
+    'Monster Strike' => 'monster_strike',
+    'Mameshiba 2nd Season' => 'mameshiba',
+    'Daisuki! Hello Kitty' => 'hello_kitty'
+  }.transform_keys(&:downcase)
 
   def call
     # ap entries.map(&:id)
@@ -66,10 +77,12 @@ private
   end
 
   def new_franchise do_filter
-    extract_names(do_filter ? filter(@entries) : @entries)
+    names = extract_names(do_filter ? filter(@entries) : @entries)
       .reject { |name| @taken_names.include? name }
       .reject { |name| Animes::BannedFranchiseNames.instance.include? name }
-      .min_by(&:length)
+
+    names.find { |name| FIXED_NAMES.value? name } ||
+      names.min_by(&:length)
   end
 
   def cleanup name, special_regexp

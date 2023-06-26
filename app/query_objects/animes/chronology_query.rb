@@ -6,6 +6,7 @@ class Animes::ChronologyQuery
     manga: [81_927]
   }
   FUTURE_DATE = 50.years.from_now # rubocop:disable Rails/relativeDataConstant
+  ANYTHING = Animes::BannedRelations::ANYTHING
 
   def fetch
     @entry.class
@@ -36,7 +37,7 @@ private
     fetched_ids = grouped_relation(ids_to_fetch)
       .flat_map do |source_id, group|
         relations[source_id] = group.reject { |relation| banned? source_id, relation }
-        relations[source_id].map { |v| v[related_field] }
+        relations[source_id].pluck(related_field)
       end
       .uniq
 
@@ -86,18 +87,21 @@ private
       return true
     end
 
-    item_relations =
-      if anime?
-        banned_relations.anime(source_id)
-      else
-        banned_relations.manga(source_id)
-      end
+    item_relations = banned_relations source_id
+    relation_relations = banned_relations anime? ? relation.anime_id : relation.manga_id
 
-    # binding.pry if item_relations.include?(anime? ? relation.anime_id : relation.manga_id)
+    return true if item_relations.include?(ANYTHING) || relation_relations.include?(ANYTHING)
+
     item_relations.include?(anime? ? relation.anime_id : relation.manga_id)
   end
 
-  def banned_relations
-    Animes::BannedRelations.instance
+  def banned_relations id
+    instance = Animes::BannedRelations.instance
+
+    if anime?
+      instance.anime id
+    else
+      instance.manga id
+    end
   end
 end

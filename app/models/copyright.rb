@@ -72,7 +72,8 @@ module Copyright
     17371, # Natsuyasumi.
     37405, # Dokidoki Little Ooyasan
     6546, # Pico: My Little Summer Story
-    1639 # Boku no Pico
+    1639, # Boku no Pico
+    1535 # Death Note
   ]
 
   ABUSED_BY_RKN_MANGA_IDS = [

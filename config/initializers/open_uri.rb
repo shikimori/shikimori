@@ -1,7 +1,7 @@
 module OpenURI::OpenImage
   def open_image url, options = {}
     io = OpenURI.open_uri(
-      URI.encode(url),
+      Addressable::URI.encode(url),
       (options[:proxy] ?
         options :
         { **Proxy.prepaid_proxy }.merge(options)

@@ -84,15 +84,6 @@ en:
           All complaints about unfair bans are ignored.
         </li>
 
-
-
-
-
-
-
-
-
-
       admin_message_postscriptum: >-
         Don't expect me to reply to your question quickly -
         it might take a long time.
@@ -101,6 +92,7 @@ en:
       your_message: Your message
       rss_title: '%{nickname} history'
       logs: Logs
+      no_recent_logs: No recent history changes
       no_content_changes: No content changes
       favourite:
         anime: Animes
@@ -130,7 +122,7 @@ en:
         password_recovery: Password recovery via e-mail
         connected_accounts: Connected accounts
         not_connected_accounts: Not connected accounts
-        granted_oauth_apps: Apps that have access to your account
+        granted_oauth_apps: Apps that have access to account
         ignored_users: Ignored users
         nickname: Login (nickname)
         username: Username
@@ -141,6 +133,10 @@ en:
         censored_restore: Enable
 
       profile:
+        is_enlarged_favourites_in_profile: >-
+          Check this if pictures of profile favorites are enlarged by
+          <a href='%{edit_styles_url}'>your styles</a>
+          and because of this images are displayed blurry.
         display_activity_graph_since: Display activity graph since
         about_me: About me
 

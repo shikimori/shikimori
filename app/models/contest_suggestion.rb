@@ -3,10 +3,6 @@ class ContestSuggestion < ApplicationRecord
   belongs_to :user
   belongs_to :item, polymorphic: true
 
-  validates :contest, presence: true
-  validates :user, presence: true
-  validates :item, presence: true
-
   scope :by_user, ->(user) { where(user_id: user.id).order(:id) }
   scope :by_votes, -> {
     select('max(id) as id, item_id, item_type, count(*) as votes')

@@ -1,6 +1,6 @@
 describe RobotsController do
   describe 'shikimori' do
-    before { allow(controller).to receive(:clean_host?).and_return is_clean }
+    before { allow(controller).to receive(:old_host?).and_return is_clean }
     subject! { get :shikimori }
 
     context 'clean' do

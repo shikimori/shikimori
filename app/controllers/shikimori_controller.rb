@@ -90,6 +90,6 @@ class ShikimoriController < ApplicationController
   end
 
   def domain_migration_note
-    user_signed_in? && request.host != Shikimori::DOMAINS[:production] && Rails.env.production?
+    user_signed_in? && request.host == 'shikimori.org' && Rails.env.production?
   end
 end

@@ -178,6 +178,10 @@ class Manga < DbEntry
     @genres ||= MangaGenresRepository.find genre_ids
   end
 
+  def genres_v2
+    @genres_v2 ||= MangaGenresV2Repository.find genre_v2_ids
+  end
+
   def publishers
     @publishers ||= PublishersRepository.find publisher_ids
   end
@@ -208,6 +212,10 @@ class Manga < DbEntry
 
   def rkn_banned?
     Copyright::BANNED_BY_RKN_MANGA_IDS.include? id
+  end
+
+  def poster
+    rkn_banned? ? nil : super
   end
 
 private

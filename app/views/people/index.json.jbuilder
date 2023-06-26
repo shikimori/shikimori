@@ -11,8 +11,10 @@ if @collection.next_page?
   json.postloader render(
     partial: 'blocks/postloader',
     locals: {
-      next_url: search_url(page: @collection.next_page, search: params[:search]),
-      prev_url: (search_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?), # rubocop:disable LineLength
+      next_url: current_url(page: @collection.next_page),
+      prev_url: (
+        current_url(page: @collection.prev_page) if @collection.prev_page?
+      ),
       pages_limit: 15
     },
     formats: :html

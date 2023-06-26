@@ -1,8 +1,7 @@
-class Moderations::VersionsController < ModerationsController
-  load_and_authorize_resource except: [:index]
+class Moderations::VersionsController < ModerationsController # rubocop:disable ClassLength
+  load_and_authorize_resource except: %i[index autocomplete_user autocomplete_moderator]
   before_action :set_view, only: %i[index autocomplete_user autocomplete_moderator]
 
-  AUTOCOMPLETE_LIMIT = 10
   INCOMPLETE_DATE_FIELDS = [Anime, Manga, Character, Person]
     .flat_map { |klass| klass.attribute_types.filter { |_k, v| v == IncompleteDate }.keys }
     .uniq
@@ -24,7 +23,7 @@ class Moderations::VersionsController < ModerationsController
       og page_title: i18n_t('content_changes.all_content')
       breadcrumb(
         i18n_t('content_changes.all_content'),
-        moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[:content])
+        moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Type[:content])
       )
     end
     og page_title: i18n_t('content_change', version_id: @resource.id)
@@ -81,7 +80,7 @@ class Moderations::VersionsController < ModerationsController
       .take(AUTOCOMPLETE_LIMIT)
       .to_a
 
-    render 'autocomplete', formats: :json
+    render 'moderations/autocomplete', formats: :json
   end
 
   def autocomplete_moderator
@@ -91,7 +90,7 @@ class Moderations::VersionsController < ModerationsController
       .take(AUTOCOMPLETE_LIMIT)
       .to_a
 
-    render 'autocomplete', formats: :json
+    render 'moderations/autocomplete', formats: :json
   end
 
 private
@@ -105,7 +104,7 @@ private
   end
 
   def set_view
-    @view = VersionsView.new
+    @view = Moderations::VersionsView.new
   end
 
   def transition action, success_message

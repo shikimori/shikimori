@@ -13,14 +13,14 @@ header.head
 
     h2.subheadline.m5 Аниме
     ul.block.b-list.is-wide
-      - @anime_forums.each do |title, url|
+      - @anime_seasons.each do |title, url|
         li
           a.b-link href=url title=title = title
 
 
     h2.subheadline.m5 Манга
     ul.block.b-list.is-wide
-      - @manga_forums.each do |title, url|
+      - @manga_seasons.each do |title, url|
         li
           a.b-link href=url title=title = title
 

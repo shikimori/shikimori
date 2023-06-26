@@ -6,10 +6,14 @@ module Routing
     \A
     (?:
       (?: (?:#{Shikimori::STATIC_SUBDOMAINS.join '|'})\. )?
-      shikimori \. (?: org|one|dev|local|test ) |
+      shikimori \. (?: org|one|dev|local|test|me ) |
       static\d?.wallpapers-anime.com |
       images\d.alphacoders.com |
-      \w.radikal.ru
+      \w+\.radikal.ru |
+      (\w\.)?imgur.com |
+      (\w\.)?.ibb.co |
+      animesher.com |
+      \d+\.media.tumblr.com
     )
     \Z
   /mix

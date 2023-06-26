@@ -1,5 +1,5 @@
 class AnimeGenresRepository < RepositoryBase
-  def find_by_mal_id mal_id
+  def by_mal_id mal_id
     collection.values.find { |genre| genre.mal_id == mal_id } ||
       (reset && collection.values.find { |genre| genre.mal_id == mal_id }) ||
       raise(ActiveRecord::RecordNotFound)
@@ -8,6 +8,6 @@ class AnimeGenresRepository < RepositoryBase
 private
 
   def scope
-    Genre.where(kind: :anime).order(:position)
+    Genre.where(kind: 'anime').order(:position)
   end
 end

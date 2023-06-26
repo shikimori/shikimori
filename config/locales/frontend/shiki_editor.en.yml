@@ -7,7 +7,7 @@ en:
       bold: Bold
       italic: Italic
       underline: Underlined
-      strike: Deleted
+      strike: Strikethrough
       color: Color
       undo: Undo last change
       redo: Redo last change

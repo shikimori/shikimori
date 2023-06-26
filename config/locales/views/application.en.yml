@@ -51,13 +51,12 @@ en:
 
     hot_topics:
       hot_topics: Hot topics
-      names: Names
-      texts: Texts
-      content: Content
-      fansub: Fansub
 
     footer:
       terms: Terms
       privacy: Privacy
       for_right_holders: For rights holders
       sitemap: Sitemap
+
+    captcha:
+      captcha_error: CLOUDFLARE validation error

@@ -11,7 +11,8 @@ if collection.next_page?
     partial: 'blocks/postloader',
     locals: {
       filter: 'b-log_entry',
-      next_url: @view.next_page_url(params[:is_pending] == '1')
+      next_url: current_url(page: @page + 1),
+      prev_url: @page > 1 ? current_url(page: @page - 1) : nil
     },
     formats: :html
   )

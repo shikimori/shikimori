@@ -17,7 +17,7 @@
                 cached: ->(entry) { cache_keys entry, :studio }
 
       / = render 'spnsrs/ad', ad: Ad.new(:special_x1170), cache_variant: @view.cache_variant
-      / = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
+      = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
 
       .block2
         .fc-user-sections
@@ -113,7 +113,7 @@
           p Сайт уже больше два года как обзавёлся новым доменом. Некоторый функционал на
             старом shikimori.org работает некорректно, а часть ссылок сломаны и ведут на новый домен.<br>
             В недалеком будущем со старого домена shikimori.org сайт будет автоматически редиректить на
-            новый домен shikimori.one.
+            новый домен shikimori.me.
 
       .block2
         .subheadline-buttons

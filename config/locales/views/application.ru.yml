@@ -51,13 +51,12 @@ ru:
 
     hot_topics:
       hot_topics: Темы дня
-      names: Названия
-      texts: Тексты
-      content: Контент
-      fansub: Фансаб
 
     footer:
       terms: Соглашение
       privacy: Конфиденциальность
       for_right_holders: Для правообладателей
       sitemap: Карта сайта
+
+    captcha:
+      captcha_error: Ошибка проверки CLOUDFLARE

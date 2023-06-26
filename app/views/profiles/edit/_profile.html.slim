@@ -6,7 +6,10 @@
     = f.input :comment_policy, include_blank: false
     = f.input :anime_in_profile
     = f.input :manga_in_profile
-    = f.input :favorites_in_profile
+    .d-flex.b-input
+      = f.input :favorites_in_profile
+      = f.input :is_enlarged_favourites_in_profile,
+        hint: t('.is_enlarged_favourites_in_profile', edit_styles_url: @resource.edit_url(section: :styles)).html_safe
     = f.input :comments_in_profile
     = f.input :achievements_in_profile
     = f.input :statistics_start_on,

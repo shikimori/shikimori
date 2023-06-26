@@ -1,0 +1,23 @@
+- if Shikimori::IS_TURNSTILE
+  - if @is_captcha_error
+    .text-red.m5 = t '.captcha_error'
+  .b-cf-turnstile.is-loading
+    .placeholder-text Загружается проверялка...
+  script src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback'
+  javascript:
+    function renderTurnstile() {
+      turnstile.render('.b-cf-turnstile', {
+        sitekey: '#{Rails.application.secrets.turnstile[:site_key]}',
+        language: 'ru',
+        'error-callback': renderTurnstile
+      });
+    }
+    function onloadTurnstileCallback() {
+      document.querySelector('.b-cf-turnstile').classList.remove('is-loading');
+      renderTurnstile();
+    }
+- else
+  - if @is_captcha_error || !Shikimori::IS_RECAPTCHA_V3
+    = recaptcha_tags
+  - else
+    = recaptcha_v3 action: 'sign_in', site_key: Rails.application.secrets.recaptcha[:v3][:site_key]

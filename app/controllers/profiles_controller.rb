@@ -34,8 +34,6 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   }]
 
   def show
-    og noindex: true if @resource.created_at > 1.year.ago
-
     if user_signed_in? && @view.own_profile? && @view.show_comments?
       MessagesService
         .new(@resource.object)
@@ -48,19 +46,16 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def friends
-    og noindex: true
     og page_title: i18n_t('friends')
     redirect_to @resource.url if @resource.friends.none?
   end
 
   def clubs
-    og noindex: true
     og page_title: i18n_i('Club', :other)
     redirect_to @resource.url if @resource.clubs.none?
   end
 
   def favorites
-    og noindex: true
     og page_title: i18n_t('favorites')
 
     breadcrumb i18n_t('favorites'), favorites_profile_url(@resource)
@@ -71,7 +66,6 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def feed
-    og noindex: true
     og page_title: i18n_t('feed')
 
     if !@view.show_comments? ||
@@ -85,7 +79,6 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   # end
 
   def topics
-    og noindex: true
     og page_title: i18n_io('Topic', :few)
 
     scope = @resource.topics.user_topics.order(created_at: :desc)
@@ -96,7 +89,6 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def critiques
-    og noindex: true
     og page_title: i18n_io('Critique', :few)
 
     scope = @resource.topics
@@ -113,7 +105,6 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def reviews
-    og noindex: true
     og page_title: i18n_io('Review', :few)
 
     scope = @resource.reviews
@@ -133,7 +124,6 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     @state = (params[:state].presence || :published).to_sym
     is_full_access = can?(:access_collections, @resource)
 
-    og noindex: true
     og page_title: i18n_io('Collection', :few)
     og notice: i18n_t("collections.#{@state}")
 
@@ -174,7 +164,6 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def articles
-    og noindex: true
     og page_title: i18n_io('Article', :few)
 
     scope = @resource.topics
@@ -187,7 +176,6 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def comments
-    og noindex: true
     og page_title: i18n_io('Comment', :few)
 
     @collection = Comments::UserQuery.fetch(@resource)
@@ -199,7 +187,6 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def versions
-    og noindex: true
     og page_title: i18n_io('Content_change', :few)
 
     scope = @resource.versions
@@ -212,7 +199,6 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def moderation
-    og noindex: true
     if can? :manage, Ban
       og page_title: t('profiles.show.moderation')
     else
@@ -240,7 +226,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     @resource.email = '' if @resource.generated_email? && params[:action] == 'edit'
   end
 
-  def update # rubocop:disable AbcSize
+  def update # rubocop:disable all
     authorize! :update, @resource
 
     params[:user][:avatar] = nil if params[:user][:avatar] == 'blank'
@@ -249,10 +235,14 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       bypass_sign_in @resource if params[:user][:password].present?
 
       params[:section] = 'account' if params[:section] == 'password' || params[:section].blank?
-      redirect_back(
-        fallback_location: @resource.edit_url(section: params[:section]),
-        notice: t('changes_saved')
-      )
+      if @resource.saved_change_to_nickname?
+        redirect_to @resource.edit_url(section: params[:section])
+      else
+        redirect_back(
+          fallback_location: @resource.edit_url(section: params[:section]),
+          notice: t('changes_saved')
+        )
+      end
     else
       flash[:alert] = t('changes_not_saved')
       edit
@@ -293,6 +283,7 @@ private
 
     og page_title: i18n_t('profile')
     og page_title: @resource.nickname
+    og noindex: true
   end
 
   def update_params

@@ -31,7 +31,12 @@ describe Animes::Query do
           .and_return animes_scope
       end
 
-      it { is_expected.to eq [anime] }
+      it do
+        is_expected.to eq [anime]
+        expect(Animes::Filters::ByAchievement)
+          .to have_received(:call)
+          .with(any_args, 'zzz')
+      end
     end
 
     context '#by_duration' do
@@ -43,7 +48,12 @@ describe Animes::Query do
           .and_return animes_scope
       end
 
-      it { is_expected.to eq [anime] }
+      it do
+        is_expected.to eq [anime]
+        expect(Animes::Filters::ByDuration)
+          .to have_received(:call)
+          .with(any_args, 'zzz')
+      end
     end
 
     context '#by_exclude_ids' do
@@ -73,7 +83,12 @@ describe Animes::Query do
           .and_return animes_scope
       end
 
-      it { is_expected.to eq [anime] }
+      it do
+        is_expected.to eq [anime]
+        expect(Animes::Filters::ByFranchise)
+          .to have_received(:call)
+          .with(any_args, 'zzz')
+      end
     end
 
     context '#by_genre' do
@@ -85,7 +100,29 @@ describe Animes::Query do
           .and_return animes_scope
       end
 
-      it { is_expected.to eq [anime] }
+      it do
+        is_expected.to eq [anime]
+        expect(Animes::Filters::ByGenre)
+          .to have_received(:call)
+          .with(any_args, 'zzz')
+      end
+    end
+
+    context '#by_genre_v2' do
+      let(:params) { { genre_v2: 'zzz' } }
+      before do
+        allow(Animes::Filters::ByGenreV2)
+          .to receive(:call)
+          .with(any_args, 'zzz')
+          .and_return animes_scope
+      end
+
+      it do
+        is_expected.to eq [anime]
+        expect(Animes::Filters::ByGenreV2)
+          .to have_received(:call)
+          .with(any_args, 'zzz')
+      end
     end
 
     context '#by_ids' do
@@ -115,7 +152,12 @@ describe Animes::Query do
           .and_return animes_scope
       end
 
-      it { is_expected.to eq [anime] }
+      it do
+        is_expected.to eq [anime]
+        expect(Animes::Filters::ByKind)
+          .to have_received(:call)
+          .with(any_args, 'zzz')
+      end
     end
 
     context '#by_licensor' do
@@ -127,20 +169,66 @@ describe Animes::Query do
           .and_return animes_scope
       end
 
-      it { is_expected.to eq [anime] }
+      it do
+        is_expected.to eq [anime]
+        expect(Animes::Filters::ByLicensor)
+          .to have_received(:call)
+          .with(any_args, 'zzz')
+      end
     end
 
     context '#by_user_list' do
       let(:params) { { mylist: 'zzz' } }
-      let(:user) { seed :user }
       before do
         allow(Animes::Filters::ByUserList)
           .to receive(:call)
-          .with(any_args, 'zzz', user)
           .and_return animes_scope
       end
 
-      it { is_expected.to eq [anime] }
+      context 'has user' do
+        let(:user) { seed :user }
+        it do
+          is_expected.to eq [anime]
+          expect(Animes::Filters::ByUserList)
+            .to have_received(:call)
+            .with(any_args, 'zzz', user)
+        end
+      end
+
+      context 'no user' do
+        let(:user) { nil }
+        it do
+          is_expected.to eq [anime]
+          expect(Animes::Filters::ByUserList).to_not have_received :call
+        end
+      end
+    end
+
+    context '#by_desynced' do
+      let(:params) { { desynced: 'zzz' } }
+      before do
+        allow(Animes::Filters::ByDesynced)
+          .to receive(:call)
+          .and_return animes_scope
+      end
+
+      context 'staff user' do
+        let(:user) { seed :user_admin }
+        it do
+          is_expected.to eq [anime]
+          expect(Animes::Filters::ByDesynced)
+            .to have_received(:call)
+            .with(any_args, 'zzz')
+        end
+      end
+
+      context 'not staff user' do
+        let(:user) { [seed(:user), nil].sample }
+        it do
+          is_expected.to eq [anime]
+          expect(Animes::Filters::ByDesynced).to_not have_received :call
+        end
+      end
     end
 
     context '#by_publisher' do
@@ -292,7 +380,12 @@ describe Animes::Query do
           .and_return animes_scope
       end
 
-      it { is_expected.to eq [anime] }
+      it do
+        is_expected.to eq [anime]
+        expect(Animes::Filters::OrderBy)
+          .to have_received(:call)
+          .with(any_args, 'zzz')
+      end
     end
 
     context '#by_search' do

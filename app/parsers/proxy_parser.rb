@@ -10,7 +10,7 @@ class ProxyParser
 
   CACHE_VERSION = :v10
 
-  CUSTOM_SOURCES = %i[hidemyname proxylist_geonode_com]
+  CUSTOM_SOURCES = %i[proxylist_geonode_com] # hidemyname
 
   def import(
     is_db_sources: IS_DB_SOURCES,
@@ -80,7 +80,10 @@ private
   def parse url, protocol
     # задержка, чтобы не нас не банили
     sleep 1
-    content = OpenURI.open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
+    content = OpenURI
+      .open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
+      .read
+      .gsub(%r{<br ?/?>}, "\n")
     content = Nokogiri::HTML(content).text if content.starts_with?('<!')
 
     proxies = parse_text content, protocol
@@ -96,7 +99,8 @@ private
   end
 
   def parse_text text, protocol
-    text.gsub(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}[:\t\n\s]+\d+/)
+    text
+      .gsub(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}[:\t\n\s]+\d+/)
       .map do |v|
         data = v.split(/[:\t\n\s]+/)
         build_proxy ip: data[0], port: data[1], protocol: protocol
@@ -147,7 +151,8 @@ private
     Nokogiri::HTML(
       OpenURI.open_uri(
         'https://webanetlabs.net/publ/24',
-        ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
+        ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
+        **Proxy.prepaid_proxy
       ).read
     )
       .css('.uSpoilerText a.link')
@@ -158,7 +163,9 @@ private
   end
 
   def getfreeproxylists url = 'https://getfreeproxylists.blogspot.com/'
-    html = Nokogiri::HTML(OpenURI.open_uri(url).read)
+    return []
+
+    html = Nokogiri::HTML(OpenURI.open_uri(url, Proxy.prepaid_proxy).read)
     links = html.css('ul.posts a').map { |v| v.attr :href }
 
     [url] + links
@@ -201,12 +208,12 @@ private
   end
 
   def hidemyname
-    return []
-    url = 'https://hidemy.name/api/proxylist.txt?code=634357385849580&type=hs45&out=js'
+    # purchased at 23-04-2023
+    url = 'https://hidemy.name/api/proxylist.php?out=js&lang=en&utf&code=431317483913153'
 
     data =
       Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
-        OpenURI.open_uri(url).read
+        OpenURI.open_uri(url, Proxy.prepaid_proxy).read
       end
 
     JSON.parse(data, symbolize_names: true).map do |entry|
@@ -234,7 +241,7 @@ private
     url = 'https://proxylist.geonode.com/api/proxy-list?limit=5000&page=1&sort_by=lastChecked&sort_type=desc&protocols=http%2Chttps%2Csocks4%2Csocks5'
     data =
       Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
-        OpenURI.open_uri(url).read
+        OpenURI.open_uri(url, Proxy.prepaid_proxy).read
       rescue *Network::FaradayGet::NET_ERRORS
         '{"data":[]}'
       end
@@ -256,12 +263,10 @@ private
   URL_SOURCES = {
     http: %w[
       https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt
-      http://proxysearcher.sourceforge.net/Proxy%20List.php?type=http&filtered=true
       https://free-proxy-list.net/
       https://rootjazz.com/proxies/proxies.txt
       http://www.megaproxylist.net/
       http://sslproxies24.blogspot.com/feeds/posts/default
-      http://proxylists.net/
       http://my-proxy.com/free-proxy-list-10.html
       http://my-proxy.com/free-proxy-list-2.html
       http://my-proxy.com/free-proxy-list-3.html
@@ -292,12 +297,13 @@ private
       http://atomintersoft.com/transparent_proxy_list
       https://proxylistdaily4you.blogspot.com/p/l1l2l3-proxy-server-list-1167.html
       https://www.newproxys.com/free-proxy-lists/
-      http://cyber-gateway.net/get-proxy/free-proxy
       http://proxyserverlist-24.blogspot.com/feeds/posts/default
       http://alexa.lr2b.com/proxylist.txt
       https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite&simplified=true&limit=300
       http://multiproxy.org/txt_all/proxy.txt
       http://www.cybersyndrome.net/pla6.html
+      https://cyber-gateway.net/get-proxy/free-proxy/24-free-http-proxy
+      https://spys.me/proxy.txt
     ],
     https: %w[
     ],
@@ -311,5 +317,8 @@ private
     https://www.my-proxy.com/free-socks-5-proxy.html
     https://list.proxylistplus.com/Socks-List-1
     https://list.proxylistplus.com/Socks-List-2
+    https://cyber-gateway.net/get-proxy/free-proxy/56-free-socks-proxy
+    https://cyber-gateway.net/get-proxy/free-proxy/57-free-proxy-google
+    https://spys.me/socks.txt
   ] + URL_SOURCES[:socks4]
 end

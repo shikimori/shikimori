@@ -7,6 +7,9 @@ class Abilities::NewsSuperModerator
 
     can :manage, Ban
     can :access_list, User
+    can :reset_email, User do |user|
+      !user.staff?
+    end
 
     can :manage, Club
     can :manage, ClubPage

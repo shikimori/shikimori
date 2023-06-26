@@ -20,3 +20,5 @@ if @collection&.next_page?
     formats: :html
   )
 end
+
+json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)

@@ -12,13 +12,27 @@
     input_html: { value: resource.poster&.crop_data&.to_json || '{}' }
 
   .template-html.hidden
-    = render resource
+    .derivative-preview
+      p В каталоге аниме
+      = render 'db_entries/poster',
+        db_entry: resource,
+        poster: resource.poster,
+        derivative: :preview
+    .derivative-mini[
+      class=('is-need-rescale' if resource.anime? || resource.manga?)
+    ]
+      p В избранном/клубах
+      .rescale-cutter
+        = render 'db_entries/poster',
+          db_entry: resource,
+          poster: resource.poster,
+          derivative: :mini
 
   .block
     #vue_app[
       data-src=resource.poster&.image&.url
-      data-preview-width=Uploaders::PosterUploader::PREVIEW_WIDTH
-      data-preview-height=(resource.anime? || resource.kinda_manga? ? Uploaders::PosterUploader::PREVIEW_ANIME_HEIGHT : Uploaders::PosterUploader::PREVIEW_CHARACTER_HEIGHT)
+      data-preview-width=(resource.anime? || resource.kinda_manga? ? Uploaders::PosterUploader::PREVIEW_WIDTH : Uploaders::PosterUploader::MAIN_WIDTH)
+      data-preview-height=(resource.anime? || resource.kinda_manga? ? Uploaders::PosterUploader::PREVIEW_ANIME_HEIGHT : Uploaders::PosterUploader::MAIN_HEIGHT)
     ]
       .block_m.b-nothing_here = t 'loading'
 

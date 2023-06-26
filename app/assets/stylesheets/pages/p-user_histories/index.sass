@@ -1,0 +1,25 @@
+@import mixins/clearfix
+
+.p-user_histories-index
+  .history-page
+    &:first-child
+      .mischeadline
+        display: block !important
+
+    .mischeadline
+      margin-bottom: 7px
+
+      &:first-child
+        display: none
+
+      &:first-letter
+        text-transform: uppercase
+
+    .history-interval
+      margin-bottom: 25px
+
+      &:last-child
+        margin-bottom: 0
+
+    .b-postloader
+      margin-top: -20px

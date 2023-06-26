@@ -7,11 +7,10 @@
     data-place-to-left='true'
     data-href=topic_view[:url]
   ]
-    span.time
-      time[
-        datetime=topic_view[:time].iso8601
-        data-format='1_day_absolute'
-      ] = l topic_view[:time], format: :human_short
+    span.time: time[
+      datetime=topic_view[:time].iso8601
+      data-format='1_day_absolute'
+    ] = l topic_view[:time], format: :human_short
     span.name
       = topic_view[:name]
   - if topic_view[:tooltip]
@@ -25,10 +24,9 @@
     href=topic_view[:url]
     itemprop='discussionUrl'
   ]
-    span.time
-      time[
-        datetime=topic_view[:time].iso8601
-        data-format='1_day_absolute'
-      ] = l topic_view[:time], format: :human_short
+    span.time: time[
+      datetime=topic_view[:time].iso8601
+      data-format='1_day_absolute'
+    ] = l topic_view[:time], format: :human_short
     span.name
       = topic_view[:name]

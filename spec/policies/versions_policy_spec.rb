@@ -167,7 +167,7 @@ describe VersionsPolicy do
         context 'image' do
           let(:field) { :image }
 
-          it { expect(version_allowed).to eq true }
+          it { expect(version_allowed).to eq false }
           it { expect(change_allowed).to eq true }
         end
       end

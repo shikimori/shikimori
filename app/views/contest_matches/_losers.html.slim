@@ -5,8 +5,10 @@
       - if losers.first.is_a? Anime
         = render partial: 'animes/anime',
           collection: losers,
-          locals: { cover_by: :image_link }
+          locals: { cover_by: :image_link, cover_derivative: :mini },
+          cached: ->(entry) { cache_keys entry, :image_link, :mini }
       - else
         = render partial: 'characters/character',
           collection: losers,
-          locals: { cover_by: :image_link }
+          locals: { cover_by: :image_link, cover_derivative: :mini },
+          cached: ->(entry) { cache_keys entry, :image_link, :mini }

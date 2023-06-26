@@ -1,5 +1,5 @@
 class Network::FaradayGet
-  method_object :url
+  method_object :url, %i[timeout open_timeout]
 
   TOO_LARGE_FOR_META_REDIRECT_SIZE = 10_000
   MAX_DEEP = 5
@@ -11,6 +11,7 @@ class Network::FaradayGet
     SocketError,
     Errno::ECONNRESET, Errno::ETIMEDOUT, Errno::EMFILE, Errno::EADDRNOTAVAIL, Errno::EINVAL,
     Faraday::ConnectionFailed, Faraday::TimeoutError, FaradayMiddleware::RedirectLimitReached,
+    Faraday::SSLError,
     (Addressable::URI::InvalidURIError if defined? Addressable)
   ].compact
 
@@ -33,11 +34,12 @@ private
       builder.use FaradayMiddleware::FollowRedirects, limit: 10
       builder.use :cookie_jar
       builder.adapter Faraday.default_adapter
+      builder.proxy = proxy_options
     end
 
     response = connection.get(url) do |req|
-      req.options.timeout = 5
-      req.options.open_timeout = 2
+      req.options.timeout = @timeout || 5
+      req.options.open_timeout = @open_timeout || 2
     end
 
     check_meta_redirect response, deep
@@ -68,5 +70,15 @@ private
       when %r{^(?!http)(?!/)\w} then "#{current_url.gsub(%r{/[^/]*$}, '/')}#{url}"
       else url
     end
+  end
+
+  def proxy_options
+    return unless Rails.application.secrets.proxy[:url]
+
+    {
+      uri: Rails.application.secrets.proxy[:url],
+      user: Rails.application.secrets.proxy[:login],
+      password: Rails.application.secrets.proxy[:password]
+    }
   end
 end

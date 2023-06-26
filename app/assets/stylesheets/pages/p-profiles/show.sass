@@ -148,10 +148,17 @@
       +iphone_portrait
         +column(6, 1/6, 2%)
 
+      .title
+        display: none
+
+    &.is-size-default .c-column
+      +iphone_portrait
         &:nth-child(7), &:nth-child(8)
           display: none
 
-      .title
+    &.is-own-profile .image-decor
+      &::before,
+      &::after
         display: none
 
   .about

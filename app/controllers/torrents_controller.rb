@@ -21,7 +21,7 @@ class TorrentsController < ShikimoriController
         else
           return redirect_back fallback_location: anime.decorate.edit_url, alert: 'Неизвестный трекер'
       end
-      added = parser.grab_page URI.decode(params[:torrent]['url']), anime.id
+      added = parser.grab_page Addressable::URI.unencode(params[:torrent]['url']), anime.id
 
     else
       unless params[:torrent]['link'] =~ URI::regexp

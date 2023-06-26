@@ -4,14 +4,13 @@ describe Ad do
   subject(:ad) { Ad.new meta }
 
   let(:meta) { :menu_300x600 }
-  let(:banner) { Ad::BANNERS[is_clean_host][ad.banner_type] }
+  let(:banner) { Ad::BANNERS[is_old_host][ad.banner_type] }
 
   before { allow_any_instance_of(Ad).to receive(:h).and_return h }
   let(:h) do
     double(
       params: params,
-      ru_host?: is_ru_host,
-      clean_host?: is_clean_host,
+      old_host?: is_old_host,
       current_user: user,
       spnsr_url: 'zxc',
       controller: double(
@@ -22,15 +21,15 @@ describe Ad do
     )
   end
   let(:params) { { controller: 'anime' } }
-  let(:is_ru_host) { true }
-  let(:is_clean_host) { false }
+  let(:is_old_host) { true }
   let(:width) { 240 }
   let(:height) { 400 }
   let(:user) { nil }
   let(:cookies) { {} }
 
   describe '#banner_type' do
-    it { expect(ad.banner_type).to eq Ad::META_TYPES[is_clean_host][:menu_300x600].first }
+    let(:is_old_host) { false }
+    it { expect(ad.banner_type).to eq Ad::META_TYPES[is_old_host][:menu_300x600].first }
 
     describe 'meta changed by user preferences body_width_x1000' do
       let(:user) { build_stubbed :user, preferences: preferences }
@@ -40,12 +39,12 @@ describe Ad do
         let(:meta) { %i[menu_300x600 menu_300x250].sample }
         let(:body_width) { :x1000 }
 
-        it { expect(ad.banner_type).to eq Ad::META_TYPES[is_clean_host][:menu_240x400].first }
+        it { expect(ad.banner_type).to eq Ad::META_TYPES[is_old_host][:menu_240x400].first }
       end
 
       context 'x1200 site width' do
         let(:body_width) { :x1200 }
-        it { expect(ad.banner_type).to eq Ad::META_TYPES[is_clean_host][:menu_300x600].first }
+        it { expect(ad.banner_type).to eq Ad::META_TYPES[is_old_host][:menu_300x600].first }
       end
     end
 
@@ -53,17 +52,17 @@ describe Ad do
       context 'topics' do
         let(:meta) { :menu_240x400 }
         let(:params) { { controller: 'topics' } }
-        it { expect(ad.banner_type).to eq Ad::META_TYPES[is_clean_host][:menu_300x600].first }
+        it { expect(ad.banner_type).to eq Ad::META_TYPES[is_old_host][:menu_300x600].first }
       end
     end
   end
 
   describe '#platform' do
-    it { expect(ad.platform).to eq Ad::BANNERS[is_clean_host][:advrtr_300x250][:platform] }
+    it { expect(ad.platform).to eq Ad::BANNERS[is_old_host][:yd_300x600][:platform] }
   end
 
   describe '#provider' do
-    it { expect(ad.provider).to eq Ad::BANNERS[is_clean_host][Ad::META_TYPES[is_clean_host][:menu_300x600].first][:provider] }
+    it { expect(ad.provider).to eq Ad::BANNERS[is_old_host][Ad::META_TYPES[is_old_host][:menu_300x600].first][:provider] }
   end
 
   describe '#allowed?' do
@@ -74,7 +73,7 @@ describe Ad do
         .with(:"@is_#{banner[:placement]}_ad_shown")
         .and_return is_ad_shown
 
-      ad.instance_variable_set :'@rules', rules
+      ad.instance_variable_set :@rules, rules
     end
     let(:is_allowed) { true }
     let(:is_ad_shown) { false }
@@ -110,12 +109,12 @@ describe Ad do
   describe '#ad_params' do
     # context 'yandex_direct' do
     #   before { ad.instance_variable_set '@banner_type', banner_type }
-    #   let(:is_clean_host) { true }
+    #   let(:is_old_host) { true }
     #   let(:banner_type) { :yd_240x500 }
     #
     #   it do
     #     expect(ad.ad_params).to eq(
-    #       blockId: Ad::BANNERS[is_clean_host][banner_type][:yandex_id],
+    #       blockId: Ad::BANNERS[is_old_host][banner_type][:yandex_id],
     #       renderTo: banner_type,
     #       async: true
     #     )
@@ -123,8 +122,7 @@ describe Ad do
     # end
 
     context 'my_target' do
-      before { ad.instance_variable_set '@banner_type', banner_type }
-      let(:is_clean_host) { true }
+      before { ad.instance_variable_set :@banner_type, banner_type }
       let(:banner_type) { :mt_300x600 }
 
       it { expect(ad.ad_params).to be_nil }
@@ -143,27 +141,27 @@ describe Ad do
 
   describe '#to_html' do
     before do
-      ad.instance_variable_set '@banner_type', banner_type
-      ad.instance_variable_set '@rules', nil
+      ad.instance_variable_set :@banner_type, banner_type
+      ad.instance_variable_set :@rules, nil
     end
 
-    context 'advertur' do
-      let(:banner_type) { :advrtr_240x400 }
-      it do
-        expect(ad.to_html).to eq(
-          <<-HTML.gsub(/\n|^\ +/, '')
-            <div class="b-spns-advrtr_240x400">
-              <center>
-                <iframe src='zxc' width='240px' height='400px'>
-              </center>
-            </div>
-          HTML
-        )
-      end
-    end
+    # context 'advertur' do
+    #   let(:banner_type) { :advrtr_240x400 }
+    #   it do
+    #     expect(ad.to_html).to eq(
+    #       <<-HTML.gsub(/\n|^\ +/, '')
+    #         <div class="b-spns-advrtr_240x400">
+    #           <center>
+    #             <iframe src='zxc' width='240px' height='400px'>
+    #           </center>
+    #         </div>
+    #       HTML
+    #     )
+    #   end
+    # end
 
     context 'my_target' do
-      let(:is_clean_host) { true }
+      let(:is_old_host) { true }
       let(:banner_type) { :mt_300x600 }
       it do
         expect(ad.to_html).to eq(

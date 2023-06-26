@@ -18,6 +18,7 @@ if @view.news_topic_views.next_page
         news_tests_url(page: @view.news_topic_views.prev_page) : nil
     },
     formats: :html
+  )
 end
 
 json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)

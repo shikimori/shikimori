@@ -60,20 +60,20 @@ class Anime < DbEntry
 
     if saved_change_to_fansubbers?
       added = fansubbers
-        .map { |v| { id: v, kind: Types::Fansubber::Kind[:fansubber] } }
+        .map { |v| { id: v + '_fs', name: v, kind: Types::Fansubber::Kind[:fansubber] } }
       deleted = (previous_changes['fansubbers'][0] - previous_changes['fansubbers'][1])
         .select { |v| Anime.where("fansubbers && '{#{Anime.sanitize v, true}}'").none? }
-        .map { |v| { id: v, kind: Types::Fansubber::Kind[:fansubber], _destroyed: true } }
+        .map { |v| { id: v + '_fs', name: v, kind: Types::Fansubber::Kind[:fansubber], _destroyed: true } }
 
       items += added + deleted
     end
 
     if saved_change_to_fandubbers?
       added = fandubbers
-        .map { |v| { id: v, kind: Types::Fansubber::Kind[:fandubber] } }
+        .map { |v| { id: v + '_fd', name: v, kind: Types::Fansubber::Kind[:fandubber] } }
       deleted = (previous_changes['fandubbers'][0] - previous_changes['fandubbers'][1])
         .select { |v| Anime.where("fandubbers && '{#{Anime.sanitize v, true}}'").none? }
-        .map { |v| { id: v, kind: Types::Fansubber::Kind[:fandubber], _destroyed: true } }
+        .map { |v| { id: v + '_fd', name: v, kind: Types::Fansubber::Kind[:fandubber], _destroyed: true } }
 
       items += added + deleted
     end
@@ -290,6 +290,10 @@ class Anime < DbEntry
 
   def genres
     @genres ||= AnimeGenresRepository.find genre_ids
+  end
+
+  def genres_v2
+    @genres_v2 ||= AnimeGenresV2Repository.find genre_v2_ids
   end
 
   def studios

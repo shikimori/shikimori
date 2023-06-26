@@ -1,0 +1,5 @@
+.history-page
+  - interval_collections.each do |interval, collection|
+    .mischeadline = t "datetime.intervals.#{interval}"
+    .history-interval
+      = render collection, user: user

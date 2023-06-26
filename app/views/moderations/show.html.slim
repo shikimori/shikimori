@@ -16,10 +16,11 @@ header.head
             = t 'moderations/versions_controller.content_changes.all_content'
             - if moderation_policy.all_content_versions_count.positive?
               span.size = moderation_policy.all_content_versions_count
-        - %i[names texts content fansub].each do |type|
+
+        - Moderation::VersionsItemTypeQuery::VERSION_TYPES.each do |type|
           li.offset
             a.b-link[
-              href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[type])
+              href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Type[type])
               title=t("moderations/versions_controller.content_changes.#{type}")
             ]
               = t "moderations/versions_controller.content_changes.#{type}"
@@ -89,38 +90,37 @@ header.head
     .f-column
       .subheadline = t '.content'
 
-      - if ru_host?
-        ul.b-list.is-wide.block
-          li
-            a.b-link[
-              href=translations_name_anime_url
-              title=t('.missing_anime_names')
-            ] = t '.missing_anime_names'
-          li
-            a.b-link[
-              href=translations_description_anime_url
-              title=t('.missing_anime_descriptions')
-            ] = t '.missing_anime_descriptions'
-          li
-            a.b-link[
-              href=translations_name_manga_url
-              title=t('.missing_manga_names')
-            ] = t '.missing_manga_names'
-          li
-            a.b-link[
-              href=translations_description_manga_url
-              title=t('.missing_manga_descriptions')
-            ] = t '.missing_manga_descriptions'
-          li
-            a.b-link[
-              href=missing_screenshots_moderations_url
-              title=t('.missing_screenshots')
-            ] = t '.missing_screenshots'
-          li
-            a.b-link[
-              href=moderations_authors_url
-              title=t('.fansub_authors')
-            ] = t '.fansub_authors'
+      ul.b-list.is-wide.block
+        li
+          a.b-link[
+            href=translations_name_anime_url
+            title=t('.missing_anime_names')
+          ] = t '.missing_anime_names'
+        li
+          a.b-link[
+            href=translations_description_anime_url
+            title=t('.missing_anime_descriptions')
+          ] = t '.missing_anime_descriptions'
+        li
+          a.b-link[
+            href=translations_name_manga_url
+            title=t('.missing_manga_names')
+          ] = t '.missing_manga_names'
+        li
+          a.b-link[
+            href=translations_description_manga_url
+            title=t('.missing_manga_descriptions')
+          ] = t '.missing_manga_descriptions'
+        li
+          a.b-link[
+            href=missing_screenshots_moderations_url
+            title=t('.missing_screenshots')
+          ] = t '.missing_screenshots'
+        li
+          a.b-link[
+            href=moderations_authors_url
+            title=t('.fansub_authors')
+          ] = t '.fansub_authors'
 
         ul.b-list.is-wide.block
           li
@@ -131,6 +131,15 @@ header.head
               ] = i18n_io 'Genre', :few
             - else
               span = i18n_io 'Genre', :few
+
+          li
+            - if can? :read, Genre
+              a.b-link[
+                href=moderations_genre_v2s_path
+                title=i18n_io('Genre', :few)
+              ] #{i18n_io 'Genre', :few} V2
+            - else
+              span #{i18n_io 'Genre', :few} V2
 
           li
             - if can? :read, Studio
@@ -192,7 +201,7 @@ header.head
                   title=club_view.object.name
                 ] = club_view.object.name
 
-- if can? :sync, Anime
+- if can?(:arbitrary_sync, Anime) && can?(:sync, Anime)
   .block
     .fc-3
       .f-column

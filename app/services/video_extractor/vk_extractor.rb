@@ -21,7 +21,7 @@ private
         data[:image]&.find { |v| v[:width] == 800 } ||
         data[:image]&.max_by { |v| v[:width] }
       )&.dig(:url)
-    return unless url
+    return if url.blank?
 
     Url
       .new(url)
@@ -31,7 +31,7 @@ private
 
   def extract_player_url data
     url = data[:player]
-    return unless url
+    return if url.blank?
 
     Url
       .new(url)

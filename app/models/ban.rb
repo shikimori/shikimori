@@ -21,6 +21,7 @@ class Ban < ApplicationRecord
   after_create :accept_abuse_request
 
   after_destroy :unban_user
+  after_destroy :cleanup_in_targer
 
   attr_accessor :hide_to_spoiler
 
@@ -93,6 +94,14 @@ class Ban < ApplicationRecord
 
     target.body = (target.body.strip + "\n\n[ban=#{id}]")
       .gsub(/(\[ban=\d+\])\s+(\[ban=\d+\])/, '\1\2')
+
+    target.save validate: false
+  end
+
+  def cleanup_in_targer
+    return if target.nil? || target.body.nil?
+
+    target.body = target.body.gsub(/\n?\n?\[ban=#{id}\]/, '')
 
     target.save validate: false
   end

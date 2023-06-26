@@ -6,7 +6,7 @@ describe LayoutView do
   before do
     allow(view.h.controller)
       .to receive(:instance_variable_get)
-      .with('@blank_layout')
+      .with(:@blank_layout)
       .and_return is_blank_layout
   end
   let(:is_blank_layout) { false }
@@ -28,7 +28,6 @@ describe LayoutView do
   describe '#localized_names & #localized_genres' do
     before do
       allow(I18n).to receive(:russian?).and_return is_i18n_russian
-      allow(view.h).to receive(:ru_host?).and_return is_ru_host
       allow(view.h).to receive(:user_signed_in?).and_return is_user_signed_in
       allow(view.h.current_user).to receive(:preferences).and_return double(
         russian_names: is_russian_names,
@@ -37,7 +36,6 @@ describe LayoutView do
     end
 
     let(:is_i18n_russian) { true }
-    let(:is_ru_host) { true }
     let(:is_user_signed_in) { true }
     let(:is_russian_names) { true }
     let(:is_russian_genres) { true }
@@ -47,12 +45,6 @@ describe LayoutView do
 
     context 'not russian locale' do
       let(:is_i18n_russian) { false }
-      it { expect(view.localized_names).to eq :en }
-      it { expect(view.localized_genres).to eq :en }
-    end
-
-    context 'not russian domain' do
-      let(:is_ru_host) { false }
       it { expect(view.localized_names).to eq :en }
       it { expect(view.localized_genres).to eq :en }
     end
@@ -92,11 +84,11 @@ describe LayoutView do
     before do
       allow(view.h.controller)
         .to receive(:instance_variable_get)
-        .with('@user')
+        .with(:@user)
         .and_return user
       allow(view.h.controller)
         .to receive(:instance_variable_get)
-        .with('@club')
+        .with(:@club)
         .and_return nil
     end
 

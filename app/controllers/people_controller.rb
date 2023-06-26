@@ -27,6 +27,7 @@ class PeopleController < DbEntriesController # rubocop:disable ClassLength
         is_producer: producer?,
         is_seyu: seyu?
       )
+      .by_desynced(params[:desynced], current_user)
       .paginate(@page, PER_PAGE)
   end
 

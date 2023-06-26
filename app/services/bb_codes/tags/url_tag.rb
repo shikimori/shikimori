@@ -85,7 +85,7 @@ private
   end
 
   def decode_uri text
-    URI.decode text
+    Addressable::URI.unencode text
   rescue Encoding::CompatibilityError
     text
   end

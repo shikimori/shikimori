@@ -23,7 +23,10 @@ class UserPreferences < ApplicationRecord
   boolean_attributes :comments_auto_collapsed,
     :comments_auto_loaded,
     :show_age,
-    :view_censored
+    :view_censored,
+    :enlarged_favourites_in_profile
+
+  DEFAULT_FAVOURITES_TO_DISPLAY = 8
 
   validates :default_sort,
     length: { maximum: 255 },

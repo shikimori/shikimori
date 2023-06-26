@@ -37,17 +37,16 @@ class VersionDecorator < BaseDecorator
   end
 
   def field_value field, value
-    if field.to_s == 'anime_video_author_id'
-      AnimeVideoAuthor.find_by(id: value).try :name
-    elsif field.to_s == 'genre_ids'
-      "[#{genres value}]"
-    else
-      value
-    end
-  end
+    case field.to_s
+      when 'anime_video_author_id'
+        AnimeVideoAuthor.find_by(id: value).try :name
 
-  def field_diff field
-    HTMLDiff.diff old_value(field).to_s, new_value(field).to_s
+      when 'genre_ids'
+        "[#{genres value}]"
+
+      else
+        value
+    end
   end
 
   def cache_key

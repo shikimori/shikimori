@@ -31,7 +31,10 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
     object
       .related
       .includes(:anime, :manga)
-      .select { |v| (v.anime_id && v.anime && v.anime.name) || (v.manga_id && v.manga && v.manga.name) }
+      .select do |v|
+        (v.anime_id && v.anime && v.anime.name) ||
+          (v.manga_id && v.manga && v.manga.name)
+      end
       .sort_by do |v|
         (v.anime.aired_on.presence if v.anime_id) ||
           (v.manga.aired_on.presence if v.manga_id) ||

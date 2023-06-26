@@ -14,25 +14,80 @@ header.head
     - t('.instructions').each do |instruction|
       li: p == instruction
 
-- if @pending.any?
+- if can? :filter, Collection
+  .block
+    .subheadline = t 'moderations.versions.index.filters'
+    form.b-form#versions_form[
+      action=current_url(id: nil, name: nil, user_id: nil)
+      method='get'
+    ]
+      input#version_user_id[
+        type='hidden'
+        name='user_id'
+        value=params[:user_id]
+      ]
+      .block
+        .fc-3
+          .f-column
+            .b-input.b-input--with-clear
+              label
+                div = Collection.human_attribute_name :name
+                input[
+                  name='name'
+                  value=params[:name]
+                ]
+                - if params[:name].present?
+                  a.clear href=current_url(name: nil)
+            input[
+              data-disable-with=t('search.search')
+              type='submit'
+              value=t('search.search').gsub('...', '')
+            ]
+          .f-column
+            .b-input.b-input--with-clear
+              label
+                div ID
+                input[
+                  name='id'
+                  value=params[:id]
+                ]
+                - if params[:id].present?
+                  a.clear href=current_url(id: nil)
+          .f-column
+            .b-input
+              label
+                div = Collection.human_attribute_name :user_id
+                input.user_id-suggest[
+                  class=(:hidden if @view.filtered_user)
+                  autocompelte='off'
+                  data-autocomplete=autocomplete_user_moderations_collections_url
+                ]
+                .placeholder[
+                  class=(:hidden unless @view.filtered_user)
+                ]
+                  span.nickname = @view.filtered_user&.nickname
+                  .b-js-action.remove = t('actions.delete').downcase
+
+- if @view.pending.any?
   .subheadline.m5 = t '.queue'
   .block
-    - if @pending.any?
+    - if @view.pending.any?
       = render partial: 'moderations/collections/collection',
-        collection: @pending
-      - if @pending.size == Moderations::CollectionsController::PENDING_PER_PAGE
-        .m5
-        .b-nothing_here = t '.more_summaries_pending'
+        collection: @view.pending
+      - if @view.pending.next_page?
+        = render 'blocks/postloader',
+          next_url: current_url(page: @page + 1, is_pending: 1),
+          ignore_appear: true
     - else
       .b-nothing_here = t '.queue_empty'
 
-- if @processed.any?
+- if @view.processed.any?
   .subheadline.m5 = t '.history'
   .block
     = render partial: 'moderations/collections/collection',
-      collection: @processed
+      collection: @view.processed
 
-    - if @processed.size == controller.class::PROCESSED_PER_PAGE
+    - if @view.processed.next_page?
       = render 'blocks/postloader',
         filter: 'b-log_entry',
         next_url: current_url(page: @page + 1)

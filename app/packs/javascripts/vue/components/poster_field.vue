@@ -101,6 +101,7 @@ const sizes = reactive({
 
 let isInitialOnCrop = true;
 const onCrop = e => {
+  // console.log('onCrop');
   const canvasData = vueCropperRef.value.getCanvasData();
 
   sizes.naturalWidth = Math.round(canvasData.naturalWidth);
@@ -110,13 +111,29 @@ const onCrop = e => {
 
   if (props.cropData && isInitialOnCrop) {
     isInitialOnCrop = false;
+    const cropper = vueCropperRef.value.crop();
+
+    // do not pass minCropBoxWidth & minCropBoxHeight into VueCropper props directly cause
+    // it causes cropper re-render and thus cropBoxData is reset asynchronously
+    cropper.options.minCropBoxWidth = scaleX(props.previewWidth);
+    cropper.options.minCropBoxHeight = scaleY(props.previewHeight);
+    cropper.limitCropBox(true, true);
+
     const { height, left, top, width } = props.cropData;
+    const { maxHeight, maxWidth } = vueCropperRef.value.crop().cropBoxData;
+
+    // Math.round is necessary because
+    // sometimes scaling returns height higher than actual image size is
+    // have take MIN because calculated size can be ~0.1-0.9px larger than max allowed size
+    // https://shikimori.one/animes/51125-inamori-asuto-no-soccer-kyoushitsu/edit/poster
+    const cropWidth = Math.min(Math.round(scaleX(width)), maxWidth);
+    const cropHeight = Math.min(Math.round(scaleY(height)), maxHeight);
 
     vueCropperRef.value.setCropBoxData({
-      height: scaleY(height),
+      height: cropHeight,
       left: scaleX(left),
       top: scaleY(top),
-      width: scaleX(width)
+      width: cropWidth
     });
   }
 
@@ -179,14 +196,33 @@ function clear() {
   syncPreviewImage();
 }
 
+let isInitialSync = true;
 const syncPreviewImage = debounce(100, () => {
-  const img = templateRef.value.querySelector('img');
   const exportedDataUri = vueCropperRef.value.getCroppedCanvas()?.toDataURL();
-
   templateRef.value.querySelector('source')?.remove();
 
-  img.srcset = '';
-  img.src = exportedDataUri || missingSrc;
+  templateRef.value.querySelectorAll('source').forEach(sourceNode => sourceNode.remove());
+  templateRef.value.querySelectorAll('img').forEach((imgNode, index) => {
+    const isPreviewDerivative = index === 0;
+    const isMisshapedImage = sizes.naturalWidth >= sizes.naturalHeight;
+
+    if (!isInitialSync && !isPreviewDerivative) {
+      const derivativeNode = templateRef.value.querySelector('.derivative-mini.is-need-rescale');
+
+      if (derivativeNode) {
+        derivativeNode.classList.add('is-rescaled');
+        derivativeNode.classList.remove('is-need-rescale');
+      }
+    }
+
+    imgNode.srcset = '';
+    imgNode.src = (
+      isPreviewDerivative && isMisshapedImage ?
+        currentSrc.value :
+        exportedDataUri
+    ) || missingSrc;
+  });
+  isInitialSync = false;
 });
 
 function disableCrop() {
@@ -256,5 +292,24 @@ function ratioY() {
     background-color: #8e00fa
 
 .preview
-  width: 156px
+  display: flex
+  gap: 20px
+
+  ::v-deep()
+    .derivative-preview img
+      width: 160px
+
+    .derivative-mini
+      &.is-rescaled
+        .rescale-cutter
+          display: inline-block
+          overflow: hidden
+          width: 48px
+
+        img
+          width: 53px
+          margin-left: -2.5px
+
+      img
+        width: 48px
 </style>

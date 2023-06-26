@@ -1,0 +1,22 @@
+= render layout: 'page' do
+  h2.subheadline = og.headline
+
+  table.b-table.b-editable_grid
+    thead
+      tr
+        th ID
+        th Episode
+        th Date
+        th Anime365
+        th Tokyo Toshokan
+    tbody
+      - @resource.episode_notifications.sort_by(&:episode).reverse.each do |episode_notification|
+        tr
+          td = episode_notification.id
+          td = episode_notification.episode
+          td = l episode_notification.created_at, format: :full
+          td
+            div class=(episode_notification.is_anime365 ? :yes : :no)
+          td
+            div class=(episode_notification.is_raw ? :yes : :no)
+
