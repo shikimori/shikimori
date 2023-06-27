@@ -1,12 +1,10 @@
 = simple_form_for resource, as: 'user', url: session_path('user') do |f|
-  - if f.object.errors.any? || flash[:recaptcha_error].present?
+  - if f.object.errors.any?
     .b-errors
       .subheadline.m5 = t 'form_errors'
       .block
         - if f.object.errors.any?
           p == f.object.errors.full_messages.join('<br>')
-        - if flash[:recaptcha_error].present?
-          p = flash[:recaptcha_error]
 
   .block
     = f.input :nickname,

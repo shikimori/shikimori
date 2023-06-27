@@ -59,4 +59,4 @@ en:
       sitemap: Sitemap
 
     captcha:
-      captcha_error: CLOUDFLARE validation error
+      captcha_error: Captcha validation error
