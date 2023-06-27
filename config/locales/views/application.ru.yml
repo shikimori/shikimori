@@ -59,4 +59,4 @@ ru:
       sitemap: Карта сайта
 
     captcha:
-      captcha_error: Ошибка проверки CLOUDFLARE
+      captcha_error: Ошибка проверки капчи

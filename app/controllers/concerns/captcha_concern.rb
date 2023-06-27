@@ -4,9 +4,7 @@ module CaptchaConcern
   def valid_captcha? action
     return true if Rails.env.test?
 
-    is_success = Shikimori::IS_TURNSTILE ?
-      verify_turnstile :
-      verify_google_captcha(action)
+    is_success = verify_turnstile || verify_google_captcha(action)
 
     @is_captcha_error = !is_success
     is_success
