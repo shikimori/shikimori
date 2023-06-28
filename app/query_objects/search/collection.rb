@@ -9,6 +9,7 @@ class Search::Collection < Search::SearchBase
     @scope
       .where('tags @> array[?]', phrase_tags)
       .limit(@ids_limit)
+      .order(Arel.sql('(cached_votes_up - cached_votes_down) desc, name'))
   end
 
   def elastic_results

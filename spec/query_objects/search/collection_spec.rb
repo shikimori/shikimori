@@ -28,8 +28,18 @@ describe Search::Collection do
     end
 
     context 'tags' do
-      let!(:collection_1) { create :collection, tags: %w[anime test] }
-      let!(:collection_2) { create :collection, tags: %w[test] }
+      let!(:collection_1) do
+        create :collection,
+          tags: %w[anime test],
+          cached_votes_up: 99,
+          cached_votes_down: 90
+      end
+      let!(:collection_2) do
+        create :collection,
+          tags: %w[test],
+          cached_votes_up: 10,
+          cached_votes_down: 0
+      end
 
       context 'single tag' do
         context do
