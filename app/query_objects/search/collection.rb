@@ -2,6 +2,14 @@ class Search::Collection < Search::SearchBase
   method_object %i[scope! phrase! ids_limit!]
 
   TAGS_PARSE_REGEXP = /,?\s*(?=#)/
+  TAG_MAPPINGS = {
+    'anime' => 'аниме',
+    'анимэ' => 'аниме',
+    'анімэ' => 'аниме',
+    'manga' => 'манга',
+    'ranobe' => 'ранобэ',
+    'ранобе' => 'ранобэ'
+  }
 
   def call
     return super unless tags_search?
@@ -20,9 +28,10 @@ class Search::Collection < Search::SearchBase
   end
 
   def phrase_tags
-    @phrase
-      .split(TAGS_PARSE_REGEXP)
-      .pluck(1..)
+    @phrase.split(TAGS_PARSE_REGEXP).map do |token|
+      tag = token[1..].downcase
+      TAG_MAPPINGS[tag] || tag
+    end
   end
 
   def tags_search?

@@ -30,7 +30,7 @@ describe Search::Collection do
     context 'tags' do
       let!(:collection_1) do
         create :collection,
-          tags: %w[anime test],
+          tags: %w[аниме test],
           cached_votes_up: 99,
           cached_votes_down: 90
       end
@@ -43,7 +43,7 @@ describe Search::Collection do
 
       context 'single tag' do
         context do
-          let(:phrase) { '#anime' }
+          let(:phrase) { ['#anime', '#аниме', '#Аниме'].sample }
           it { is_expected.to eq [collection_1] }
         end
 
