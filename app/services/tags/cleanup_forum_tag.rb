@@ -11,8 +11,7 @@ class Tags::CleanupForumTag
   }
 
   def call
-    tag = @token[1..].downcase
-
+    tag = (@token[0] == '#' ? @token[1..] : @token).downcase
     TAG_MAPPINGS[tag] || tag
   end
 end
