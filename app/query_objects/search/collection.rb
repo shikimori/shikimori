@@ -3,24 +3,11 @@ class Search::Collection < Search::SearchBase
 
   TAGS_PARSE_REGEXP = /,?\s*(?=#)/
 
-  ANIME_TAG = 'аниме'
-  MANGA_TAG = 'манга'
-  RANOBE_TAG = 'ранобэ'
-  CHARACTER_TAG = 'персонаж'
-  PERSON_TAG = 'человек'
-
-  TAG_MAPPINGS = {
-    'anime' => ANIME_TAG,
-    'анимэ' => ANIME_TAG,
-    'анімэ' => ANIME_TAG,
-    'manga' => MANGA_TAG,
-    'ranobe' => RANOBE_TAG,
-    'ранобе' => RANOBE_TAG,
-    'персонажи' => CHARACTER_TAG,
-    'character' => CHARACTER_TAG,
-    'characters' => CHARACTER_TAG,
-    'person' => PERSON_TAG
-  }
+  ANIME_TAG = Tags::CleanupForumTag::ANIME_TAG
+  MANGA_TAG = Tags::CleanupForumTag::MANGA_TAG
+  RANOBE_TAG = Tags::CleanupForumTag::RANOBE_TAG
+  CHARACTER_TAG = Tags::CleanupForumTag::CHARACTER_TAG
+  PERSON_TAG = Tags::CleanupForumTag::PERSON_TAG
 
   KIND_TAGS = {
     ANIME_TAG => Types::Collection::Kind[:anime],
