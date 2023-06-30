@@ -28,22 +28,29 @@ describe Search::Collection do
 
   context 'tags search' do
     let!(:collection_1) do
-      create :collection,
+      create :collection, collection_1_kind,
         tags: %w[аниме test],
         cached_votes_up: 99,
         cached_votes_down: 90
     end
     let!(:collection_2) do
-      create :collection,
+      create :collection, collection_2_kind,
         tags: %w[test],
         cached_votes_up: 10,
         cached_votes_down: 0
     end
+    let(:collection_1_kind) { Types::Collection::Kind[:manga] }
+    let(:collection_2_kind) { Types::Collection::Kind[:manga] }
 
     context 'single tag' do
       context do
         let(:phrase) { ['#anime', '#аниме', '#Аниме'].sample }
         it { is_expected.to eq [collection_1] }
+
+        context 'kind tag' do
+          let(:collection_2_kind) { Types::Collection::Kind[:anime] }
+          it { is_expected.to eq [collection_2, collection_1] }
+        end
       end
 
       context do
