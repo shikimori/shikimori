@@ -1,8 +1,7 @@
 class Tags::CleanupTag
   include Singleton
 
-  SPECIAL_WORDS = %w[
-  ]
+  SPECIAL_WORDS = %w[]
 
   CLEANUP_REGEXP = /
     \b

@@ -28,10 +28,9 @@ class Search::Collection < Search::SearchBase
   end
 
   def phrase_tags
-    @phrase.split(TAGS_PARSE_REGEXP).map do |token|
-      tag = token[1..].downcase
-      TAG_MAPPINGS[tag] || tag
-    end
+    @phrase
+      .split(TAGS_PARSE_REGEXP)
+      .map { |token| Tags::CleanupForumTag.call token }
   end
 
   def tags_search?
