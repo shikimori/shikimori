@@ -14,7 +14,7 @@ module Types
         :menu_300x250,
         :menu_240x400,
         :menu_300x600,
-        :horizontal_x250,
+        :horizontal_x200,
         :horizontal_x90,
         :footer,
         :special_x1170
