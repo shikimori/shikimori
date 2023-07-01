@@ -340,7 +340,7 @@ private
       },
       Types::Ad::Type[:yd_300x600] => {
         provider: Types::Ad::Provider[:yandex_direct],
-        yandex_id: 'R-A-438288-1',
+        yandex_id: 'R-A-2374107-2',
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
       },
@@ -352,7 +352,7 @@ private
       },
       Types::Ad::Type[:yd_970x250] => {
         provider: Types::Ad::Provider[:yandex_direct],
-        yandex_id: 'R-A-438288-3',
+        yandex_id: 'R-A-2374107-3',
         placement: Types::Ad::Placement[:content],
         platform: Types::Ad::Platform[:desktop]
       },
