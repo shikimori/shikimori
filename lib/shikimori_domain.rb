@@ -8,7 +8,7 @@ module ShikimoriDomain
 
   PROPER_HOST = Rails.env.production? ?
     NEW_HOST :
-    'shikimori.local'
+    'shikimori.me'
 
   def self.matches? request
     HOSTS.include? request.host
