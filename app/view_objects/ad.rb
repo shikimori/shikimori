@@ -8,9 +8,10 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
 
   attr_reader :banner_type, :policy
 
-  def initialize meta
-    meta = Types::Ad::Meta[:menu_240x400] if switch_to_x240? meta
-    meta = Types::Ad::Meta[:menu_300x600] if switch_to_x300? meta
+  def initialize meta, is_forced: false # rubocop:disable all
+    @is_forced = is_forced
+    meta = Types::Ad::Meta[:menu_240x400] if switch_to_x240?(meta) && !@is_forced
+    meta = Types::Ad::Meta[:menu_300x600] if switch_to_x300?(meta) && !@is_forced
 
     META_TYPES[h.old_host?][Types::Ad::Meta[meta]].each do |type|
       switch_banner Types::Ad::Type[type]
@@ -19,6 +20,8 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def allowed?
+    return true if @is_forced
+
     if h.controller.instance_variable_get controller_key(banner&.dig(:placement))
       false
     else
