@@ -372,7 +372,7 @@ private
       },
       Types::Ad::Type[:yd_970x90] => {
         provider: Types::Ad::Provider[:yandex_direct],
-        yandex_id: 'R-A-438288-4',
+        yandex_id: 'R-A-2374107-4',
         placement: Types::Ad::Placement[:content],
         platform: Types::Ad::Platform[:desktop]
       }
