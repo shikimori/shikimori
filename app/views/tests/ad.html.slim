@@ -1,0 +1,30 @@
+header.head
+  h1 Ad test
+
+javascript:
+  window.yaContextCb=window.yaContextCb||[]
+script[
+  src="https://yandex.ru/ads/system/context.js"
+  async
+]
+
+.headline menu_300x600
+= render 'spnsrs/ad', ad: Ad.new(:menu_300x600)
+
+/ #yandex_rtb_R-A-2374107-3
+/ javascript:
+/   window.yaContextCb.push(()=>{
+/     Ya.Context.AdvManager.render({
+/       "blockId": "R-A-2374107-3",
+/       "renderTo": "yandex_rtb_R-A-2374107-3"
+/     })
+/   })
+/ 
+/ #yandex_rtb_R-A-2374107-6
+/ javascript:
+/   window.yaContextCb.push(()=>{
+/     Ya.Context.AdvManager.renderFeed({
+/       "blockId": "R-A-2374107-6",
+/       "renderTo": "yandex_rtb_R-A-2374107-6"
+/     })
+/   })

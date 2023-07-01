@@ -241,6 +241,9 @@ class TestsController < ShikimoriController
     # @links = query.links
   # end
 
+  def ad
+  end
+
 private
 
   def franchise_info animes
