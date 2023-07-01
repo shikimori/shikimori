@@ -346,7 +346,7 @@ private
       },
       Types::Ad::Type[:yd_240x600] => {
         provider: Types::Ad::Provider[:yandex_direct],
-        yandex_id: 'R-A-438288-2',
+        yandex_id: 'R-A-2374107-1',
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
       },
@@ -430,21 +430,21 @@ private
         # Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        Types::Ad::Type[:special_x300], # SUMMER
+        # Types::Ad::Type[:special_x300], # SUMMER
         Types::Ad::Type[:yd_240x600]
         # Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        Types::Ad::Type[:special_x300], # SUMMER
+        # Types::Ad::Type[:special_x300], # SUMMER
         Types::Ad::Type[:yd_300x600]
         # Types::Ad::Type[:mt_300x600]
       ],
       Types::Ad::Meta[:horizontal_x250] => [
-        Types::Ad::Type[:yd_970x250],
-        Types::Ad::Type[:mt_970x250]
+        Types::Ad::Type[:yd_970x250]
+        # Types::Ad::Type[:mt_970x250]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894], # IMBA - remove 2023-05-17 22:00
+        # Types::Ad::Type[:special_x894], # IMBA - remove 2023-05-17 22:00
         Types::Ad::Type[:yd_970x90]
         # Types::Ad::Type[:mt_728x90]
       ],
@@ -452,7 +452,7 @@ private
         # Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        Types::Ad::Type[:special_x1170], # SUMMER
+        # Types::Ad::Type[:special_x1170], # SUMMER
         Types::Ad::Type[:yd_970x250]
         # Types::Ad::Type[:mt_970x250]
       ]
@@ -464,13 +464,13 @@ private
         # Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        Types::Ad::Type[:special_x300] # SUMMER
+        # Types::Ad::Type[:special_x300] # SUMMER
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
         # Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        Types::Ad::Type[:special_x300] # SUMMER
+        # Types::Ad::Type[:special_x300] # SUMMER
         # Types::Ad::Type[:mt_300x600],
         # Types::Ad::Type[:yd_300x600],
         # Types::Ad::Type[:advrtr_240x400],
@@ -480,7 +480,7 @@ private
         # Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894] # IMBA - remove 2023-05-17 22:00
+        # Types::Ad::Type[:special_x894] # IMBA - remove 2023-05-17 22:00
         # Types::Ad::Type[:mt_728x90],
         # Types::Ad::Type[:advrtr_x728]
       ],
@@ -488,7 +488,7 @@ private
         # Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        Types::Ad::Type[:special_x1170] # SUMMER
+        # Types::Ad::Type[:special_x1170] # SUMMER
       ]
     }
   }
