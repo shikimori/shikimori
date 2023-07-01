@@ -242,6 +242,7 @@ class TestsController < ShikimoriController
   # end
 
   def ad
+    raise CanCan::AccessDenied unless current_user&.admin?
   end
 
 private
