@@ -486,20 +486,21 @@ private
         # Types::Ad::Type[:advrtr_300x250]
       ],
       Types::Ad::Meta[:horizontal_x250] => [
+        # Types::Ad::Type[:yd_1170x200]
         # Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
         # Types::Ad::Type[:special_x894] # IMBA - remove 2023-05-17 22:00
         # Types::Ad::Type[:mt_728x90],
         # Types::Ad::Type[:advrtr_x728]
-        Types::Ad::Type[:yd_970x90]
+        # Types::Ad::Type[:yd_970x90]
       ],
       Types::Ad::Meta[:footer] => [
         # Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
         # Types::Ad::Type[:special_x1170] # SUMMER
-        Types::Ad::Type[:yd_1170x200]
+        # Types::Ad::Type[:yd_1170x200]
       ]
     }
   }
