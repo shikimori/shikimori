@@ -10,12 +10,15 @@ class YandexMetrika
   def call
     # it is split on many requests because yandex rounds(3) all metrics on
     # requests with longer intervals
-    from_month.downto(0).sum do |i|
-      traffic(
-        (((i + 1) * 3).months.ago - 1.day).to_date.to_s,
-        ((i * 3).months.ago - 1.day).to_date.to_s
-      )
-    end
+    from_month
+      .downto(0)
+      .sum do |i|
+        traffic(
+          (((i + 1) * 3).months.ago - 1.day).to_date.to_s,
+          ((i * 3).months.ago - 1.day).to_date.to_s
+        )
+      end
+      .uniq(&:date)
   end
 
 private
