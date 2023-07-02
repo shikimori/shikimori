@@ -81,10 +81,12 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   def action_tag additional = []
     tags = []
 
-    tags << OpenStruct.new(
-      type: 'censored',
-      text: I18n.t('topics.header.mini.censored').downcase
-    ) if @topic.censored?
+    if @topic.censored?
+      tags << Topics::Tag.new(
+        type: 'censored',
+        text: I18n.t('topics.header.mini.censored').downcase
+      )
+    end
 
     (Array(additional) + tags).compact
   end

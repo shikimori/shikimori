@@ -28,20 +28,20 @@ class Topics::CollectionView < Topics::UserContentView
   def action_tag
     tags = []
 
-    tags << OpenStruct.new(
+    tags << Topics::Tag.new(
       type: 'collection',
       text: Collection.model_name.human.downcase
     )
 
     unless collection.published?
-      tags << OpenStruct.new(
+      tags << Topics::Tag.new(
         type: "#{collection.state}-collection",
         text: collection.aasm.human_state.downcase
       )
     end
 
     if collection.spoilers?
-      tags << OpenStruct.new(
+      tags << Topics::Tag.new(
         type: 'spoilers',
         text: I18n.t('topics.header.mini.spoilers').downcase
       )
