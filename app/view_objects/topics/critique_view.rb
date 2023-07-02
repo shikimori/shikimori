@@ -8,7 +8,7 @@ class Topics::CritiqueView < Topics::UserContentView
   end
 
   def action_tag
-    super OpenStruct.new(
+    super Topics::Tag.new(
       type: 'critique',
       text: i18n_i('critique', :one)
     )

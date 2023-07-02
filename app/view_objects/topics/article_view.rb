@@ -10,7 +10,7 @@ class Topics::ArticleView < Topics::UserContentView
   end
 
   def action_tag
-    super OpenStruct.new(
+    super Topics::Tag.new(
       type: 'article',
       text: i18n_i('article', :one)
     )

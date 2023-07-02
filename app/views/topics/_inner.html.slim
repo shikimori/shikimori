@@ -58,10 +58,16 @@
           .additionals
             .tags
               - topic_view.tags.each do |tag|
-                .b-anime_status_tag.other[
-                  data-text=tag
-                  class=(:promo if tag == Topics::TagsQuery::PROMO_TAG)
-                ]
+                - if tag.is_a? Topics::Tag
+                  - if tag.url
+                    a.b-anime_status_tag data-text=tag.text class=tag.type href=tag.url
+                  - else
+                    .b-anime_status_tag data-text=tag.text class=tag.type
+                - else
+                  .b-anime_status_tag.other[
+                    data-text=tag
+                    class=(:promo if tag == Topics::TagsQuery::PROMO_TAG)
+                  ]
 
         = topic_view.html_footer
 

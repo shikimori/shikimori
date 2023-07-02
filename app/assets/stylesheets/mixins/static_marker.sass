@@ -1,9 +1,9 @@
 @import globals
 @import mixins/responsive
 
-=static_marker($color, $background, $hover_color: darken($background, 4%), $active_color: darken($background, 2%))
+=static_marker($color, $background, $hover_color: darken($background, 4%), $active_color: darken($background, 2%), $border_color: darken($background, 1.5%), $border_hover_color: darken($hover_color, 1.5%), $border_active_color: darken($active_color, 1.5%))
   background-color: $background
-  border: 1px solid darken($background, 1.5%)
+  border: 1px solid $border_color
   color: $color
   cursor: default
   display: inline-block
@@ -27,8 +27,8 @@
     +gte_laptop
       &:hover
         background-color: $hover_color
-        border-color: darken($hover_color, 1.5%)
+        border-color: $border_hover_color
 
       &:active
         background-color: $active_color
-        border-color: darken($active_color, 1.5%)
+        border-color: $border_active_color

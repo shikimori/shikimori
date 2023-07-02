@@ -18,10 +18,12 @@ class Topics::NewsView < Topics::View
   end
 
   def action_tag additional = []
-    super(
-      [OpenStruct.new(type: 'news', text: i18n_i('news', :one))] +
-        Array(additional)
-    )
+    super [
+      Topics::Tag.new(
+        type: 'news',
+        text: i18n_i('news', :one)
+      )
+    ] + Array(additional)
   end
 
   def offtopic_tag
