@@ -151,6 +151,8 @@ class TestsController < ShikimoriController
   end
 
   def ip
+    raise CanCan::AccessDenied unless current_user&.admin?
+
     render json: {
       ip: request.ip,
       remote_ip: request.remote_ip,
