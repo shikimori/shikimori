@@ -244,6 +244,7 @@ private
     return if @entry.poster.nil? || @other.poster.present?
 
     @entry.poster.update! @entry.poster.target_key => @other.id
+    Versions::PosterVersion.where(item: @entry.poster).update_all associated_id: @other.id
   end
 
   def user_history_key
