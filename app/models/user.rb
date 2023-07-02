@@ -483,12 +483,11 @@ private
   rescue StandardError => _e
   end
 
-private
-
   def sync_is_view_censored
     Users::SyncIsViewCensored.call self
   end
-  protected
+
+protected
 
   def extract_ip_from request
     (
