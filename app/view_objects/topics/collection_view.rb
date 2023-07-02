@@ -70,7 +70,7 @@ class Topics::CollectionView < Topics::UserContentView
     super.map do |tag|
       Topics::Tag.new(
         type: 'collection-tag',
-        text: "##{tag}",
+        text: tag,
         url: h.collections_url(search: "##{tag}")
       )
     end
