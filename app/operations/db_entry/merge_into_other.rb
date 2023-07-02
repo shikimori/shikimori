@@ -16,6 +16,7 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
     anime_links
     favourites
     external_links
+    posters
   ]
 
   ASSIGN_FIELDS = %i[
@@ -239,7 +240,17 @@ private
     @entry.external_links.each { |v| v.update entry: @other }
   end
 
+  def merge_posters
+    return if @entry.poster.nil? || @other.poster.present?
+
+    @entry.poster.update! @entry.poster.target_key => @other.id
+  end
+
   def user_history_key
+    @entry.anime? ? :anime_id : :manga_id
+  end
+
+  def poster_key
     @entry.anime? ? :anime_id : :manga_id
   end
 end
