@@ -13,7 +13,6 @@ class CollectionLink < ApplicationRecord
       optional: true
   end
 
-  validates :collection, :linked, presence: true
   validates :linked_id, uniqueness: { scope: %i[collection_id group] }
 
   enumerize :linked_type,
@@ -25,7 +24,7 @@ class CollectionLink < ApplicationRecord
 private
 
   def not_censored
-    if linked.respond_to?(:censored?) && linked.censored?
+    if linked.respond_to?(:censored?) && linked.censored? && (collection && !collection.censored?)
       errors.add :linked, :censored
     end
   end
