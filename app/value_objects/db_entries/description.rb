@@ -31,7 +31,7 @@ class DbEntries::Description
 
     def parse_text value
       return if value.blank?
-      return value unless value.include?(/\[source\]/)
+      return value unless value.include? '[source]'
 
       value[/(.+)(?=\[source\])/m, 1]
     end
