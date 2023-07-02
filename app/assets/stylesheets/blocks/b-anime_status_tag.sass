@@ -1,5 +1,6 @@
 @import globals
 @import mixins/static_marker
+@import mixins/marker
 
 .b-anime_status_tag
   &.released
@@ -51,6 +52,9 @@
 
   &.collection
     +static_marker(#fff, #48cb53)
+
+  &.collection-tag
+    +static_marker(#fff, var(--link-color), $hover_color: var(--link-hover-color), $active_color: var(--link-active-color), $border_color: var(--link-border-hover-color), $border_hover_color: var(--link-border-hover-color), $border_active_color: var(--link-border-active-color))
 
   &.spoilers
     +static_marker(#fff, #d5655e)
