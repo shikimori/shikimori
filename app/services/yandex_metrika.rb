@@ -7,7 +7,7 @@ class YandexMetrika
 
   method_object :months
 
-  def call
+  def call # rubocop:disable Metrics/AbcSize
     # it is split on many requests because yandex rounds(3) all metrics on
     # requests with longer intervals
     from_month
