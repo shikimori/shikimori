@@ -37,5 +37,10 @@ en:
       note_about_page_reload: >-
         The change Will cause page reload, make sure the collection is saved before changing.
       no_coauthors: No coauthors
+    collection:
+      coauthor:
+        one: Co-author
+        other: Co-authors
+
     preview:
       more: +%{count} more

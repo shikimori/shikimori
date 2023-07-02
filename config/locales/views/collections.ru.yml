@@ -37,5 +37,10 @@ ru:
       note_about_page_reload: >-
         Изменение повлечёт перезагрузку страницы, убедись, коллекция сохранена перед изменением.       
       no_coauthors: Нет соавторов
+    collection:
+      coauthor:
+        one: Соавтор
+        few: Соавторы
+        many: Соавторы
     preview:
       more: ещё +%{count}
