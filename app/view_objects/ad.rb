@@ -500,7 +500,7 @@ private
       ],
       Types::Ad::Meta[:special_x1170] => [
         # Types::Ad::Type[:special_x1170] # SUMMER
-        Types::Ad::Type[:yd_1170x200]
+        # Types::Ad::Type[:yd_1170x200]
       ]
     }
   }
