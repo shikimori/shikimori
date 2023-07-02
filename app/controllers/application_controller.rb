@@ -142,15 +142,4 @@ private
   def faye_token
     request.headers['X-Faye-Token'] || params[:faye]
   end
-
-  protected
-
-  def extract_ip_from request
-    (
-      request.env['HTTP_X_FORWARDED_FOR'].presence ||
-        request.env['HTTP_X_REAL_IP'].presence ||
-        request.env['REMOTE_ADDR'].presence ||
-        request.remote_ip
-    )&.split(',')&.first
-  end
 end
