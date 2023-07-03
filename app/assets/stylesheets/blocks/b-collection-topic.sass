@@ -31,6 +31,13 @@
             filter: blur(2.5px)
             transition: filter 0.5s
 
+          &:hover
+            .title
+              filter: none
+
+      &.is-spoilers,
+      &.is-censored
+        .cover
           .image-cutter
             border: 1px solid #acb1b4
             transition: border-color 0.5s
@@ -40,9 +47,6 @@
               transition: filter 0.5s
 
           &:hover
-            .title
-              filter: none
-
             .image-cutter
               border-color: transparent
 
