@@ -12,7 +12,7 @@
     :topic_id: 227431
     :rule: &1
       :algo: count
-      :threshold: 20%
+      :threshold: 60
       :filters:
         anime_ids:
         - 35849
@@ -349,7 +349,7 @@
     :topic_id: 0
     :rule: &3
       :algo: count
-      :threshold: 30%
+      :threshold: 85
       :filters:
         anime_ids:
         - 35849
@@ -665,7 +665,7 @@
     :topic_id: 0
     :rule: &5
       :algo: count
-      :threshold: 40%
+      :threshold: 115
       :filters:
         anime_ids:
         - 35849
@@ -1726,7 +1726,7 @@
     :topic_id: 222067
     :rule: &30
       :algo: count
-      :threshold: 6%
+      :threshold: 30
       :filters:
         anime_ids:
         - 100
@@ -2208,6 +2208,10 @@
         - 1193
         - 39154
         - 39153
+        - 55637
+        - 48981
+        - 53097
+        - 50963
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -2237,7 +2241,7 @@
     :topic_id: 0
     :rule: &31
       :algo: count
-      :threshold: 9%
+      :threshold: 45
       :filters:
         anime_ids:
         - 100
@@ -2719,6 +2723,10 @@
         - 1193
         - 39154
         - 39153
+        - 55637
+        - 48981
+        - 53097
+        - 50963
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -2747,7 +2755,7 @@
     :topic_id: 0
     :rule: &32
       :algo: count
-      :threshold: 15%
+      :threshold: 70
       :filters:
         anime_ids:
         - 100
@@ -3229,6 +3237,10 @@
         - 1193
         - 39154
         - 39153
+        - 55637
+        - 48981
+        - 53097
+        - 50963
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3255,7 +3267,7 @@
     :topic_id: 0
     :rule: &33
       :algo: count
-      :threshold: 30%
+      :threshold: 145
       :filters:
         anime_ids:
         - 100
@@ -3737,6 +3749,10 @@
         - 1193
         - 39154
         - 39153
+        - 55637
+        - 48981
+        - 53097
+        - 50963
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -5073,7 +5089,7 @@
     :topic_id: 227423
     :rule: &57
       :algo: count
-      :threshold: 10%
+      :threshold: 50
       :filters:
         anime_ids:
         - 10012
@@ -5572,6 +5588,9 @@
         - 7770
         - 10258
         - 5304
+        - 53671
+        - 53077
+        - 34208
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5598,7 +5617,7 @@
     :topic_id: 0
     :rule: &58
       :algo: count
-      :threshold: 15%
+      :threshold: 75
       :filters:
         anime_ids:
         - 10012
@@ -6097,6 +6116,9 @@
         - 7770
         - 10258
         - 5304
+        - 53671
+        - 53077
+        - 34208
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -6124,7 +6146,7 @@
     :topic_id: 0
     :rule: &59
       :algo: count
-      :threshold: 25%
+      :threshold: 125
       :filters:
         anime_ids:
         - 10012
@@ -6623,6 +6645,9 @@
         - 7770
         - 10258
         - 5304
+        - 53671
+        - 53077
+        - 34208
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -6650,7 +6675,7 @@
     :topic_id: 227419
     :rule: &60
       :algo: count
-      :threshold: 10%
+      :threshold: 50
       :filters:
         anime_ids:
         - 1
@@ -6876,7 +6901,6 @@
         - 30694
         - 30740
         - 30915
-        - 31035
         - 31050
         - 31251
         - 31339
@@ -7146,6 +7170,11 @@
         - 11061
         - 13271
         - 19951
+        - 51367
+        - 53273
+        - 50528
+        - 50612
+        - 48549
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -7172,7 +7201,7 @@
     :topic_id: 0
     :rule: &61
       :algo: count
-      :threshold: 15%
+      :threshold: 75
       :filters:
         anime_ids:
         - 1
@@ -7398,7 +7427,6 @@
         - 30694
         - 30740
         - 30915
-        - 31035
         - 31050
         - 31251
         - 31339
@@ -7668,6 +7696,11 @@
         - 11061
         - 13271
         - 19951
+        - 51367
+        - 53273
+        - 50528
+        - 50612
+        - 48549
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -7694,7 +7727,7 @@
     :topic_id: 0
     :rule: &62
       :algo: count
-      :threshold: 25%
+      :threshold: 125
       :filters:
         anime_ids:
         - 1
@@ -7920,7 +7953,6 @@
         - 30694
         - 30740
         - 30915
-        - 31035
         - 31050
         - 31251
         - 31339
@@ -8190,6 +8222,11 @@
         - 11061
         - 13271
         - 19951
+        - 51367
+        - 53273
+        - 50528
+        - 50612
+        - 48549
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -9249,6 +9286,7 @@
         - 17121
         - 9760
         - 22839
+        - 50594
       :generator:
         person_id: 1117
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -9295,6 +9333,7 @@
         - 17121
         - 9760
         - 22839
+        - 50594
       :generator:
         person_id: 1117
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -11319,6 +11358,7 @@
         - 38086
         - 41497
         - 42030
+        - 53127
       :generator:
         person_id: 2582
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -11409,6 +11449,7 @@
         - 38086
         - 41497
         - 42030
+        - 53127
       :generator:
         person_id: 2582
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -11940,6 +11981,7 @@
         - 2274
         - 2017
         - 2093
+        - 53126
       :generator:
         person_id: 5921
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -11995,6 +12037,7 @@
         - 2274
         - 2017
         - 2093
+        - 53126
       :generator:
         person_id: 5921
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -14789,7 +14832,7 @@
     :topic_id: 271370
     :rule: &168
       :algo: count
-      :threshold: 10%
+      :threshold: 85
       :filters:
         anime_ids:
         - 2928
@@ -16118,7 +16161,7 @@
     :topic_id: 0
     :rule: &169
       :algo: count
-      :threshold: 15%
+      :threshold: 140
       :filters:
         anime_ids:
         - 2928
@@ -17447,7 +17490,7 @@
     :topic_id: 0
     :rule: &170
       :algo: count
-      :threshold: 25%
+      :threshold: 250
       :filters:
         anime_ids:
         - 2928
@@ -20961,6 +21004,7 @@
         - 38784
         - 40469
         - 40761
+        - 40982
         - 49633
       :threshold: 90%
       :generator:
@@ -21020,6 +21064,7 @@
         - 38784
         - 40469
         - 40761
+        - 40982
         - 49633
       :threshold: 0.01
       :generator:
@@ -24325,6 +24370,8 @@
         - 49988
         - 52571
         - 52745
+        ignore_latest_ids:
+        - 55748
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :love_live
@@ -24398,6 +24445,8 @@
         - 49988
         - 52571
         - 52745
+        ignore_latest_ids:
+        - 55748
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :love_live
@@ -25032,6 +25081,7 @@
         - 31373
         - 31750
         - 33898
+        - 35551
         - 35552
         - 36835
         - 37865
@@ -25055,8 +25105,9 @@
         - 51870
         - 51887
         - 51889
+        - 52497
         - 52897
-      :threshold: 94%
+      :threshold: 93.8%
       :generator:
         ignore_latest_ids:
         - 37966
@@ -25098,6 +25149,7 @@
         - 31373
         - 31750
         - 33898
+        - 35551
         - 35552
         - 36835
         - 37865
@@ -25121,6 +25173,7 @@
         - 51870
         - 51887
         - 51889
+        - 52497
         - 52897
       :threshold: 0.01
       :generator:
@@ -29618,11 +29671,12 @@
         - 40753
         - 42882
         - 49735
+        - 51234
         - 51509
         - 51842
         - 55393
         - 55517
-      :threshold: 86.2%
+      :threshold: 87.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :idolmaster
@@ -29669,6 +29723,7 @@
         - 40753
         - 42882
         - 49735
+        - 51234
         - 51509
         - 51842
         - 55393
@@ -30434,6 +30489,7 @@
         franchise: inazuma_eleven
         not_anime_ids:
         - 12585
+        - 15785
         - 16964
         - 24347
         - 36913
@@ -30471,6 +30527,7 @@
         franchise: inazuma_eleven
         not_anime_ids:
         - 12585
+        - 15785
         - 16964
         - 24347
         - 36913
@@ -35752,11 +35809,13 @@
         franchise: ultraman
         not_anime_ids:
         - 6731
-        - 8753
         - 11695
         - 30122
         - 39309
       :threshold: 95%
+      :generator:
+        not_ignored_ids:
+        - 8753
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ultraman
@@ -35787,11 +35846,13 @@
         franchise: ultraman
         not_anime_ids:
         - 6731
-        - 8753
         - 11695
         - 30122
         - 39309
       :threshold: 0.01
+      :generator:
+        not_ignored_ids:
+        - 8753
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ultraman
@@ -36242,7 +36303,7 @@
     :topic_id: 227432
     :rule: &675
       :algo: count
-      :threshold: 20%
+      :threshold: 15
       :filters:
         genre_ids:
         - 26
@@ -36285,7 +36346,7 @@
     :topic_id: 0
     :rule: &676
       :algo: count
-      :threshold: 35%
+      :threshold: 30
       :filters:
         genre_ids:
         - 26
@@ -36328,7 +36389,7 @@
     :topic_id: 0
     :rule: &677
       :algo: count
-      :threshold: 50%
+      :threshold: 45
       :filters:
         genre_ids:
         - 26
@@ -36371,7 +36432,7 @@
     :topic_id: 0
     :rule: &678
       :algo: count
-      :threshold: 70%
+      :threshold: 60
       :filters:
         genre_ids:
         - 26
@@ -37398,7 +37459,7 @@
     :topic_id: 227421
     :rule: &709
       :algo: count
-      :threshold: 15%
+      :threshold: 70
       :filters:
         anime_ids:
         - 7088
@@ -37905,7 +37966,7 @@
     :topic_id: 0
     :rule: &710
       :algo: count
-      :threshold: 20%
+      :threshold: 95
       :filters:
         anime_ids:
         - 7088
@@ -38416,7 +38477,7 @@
     :topic_id: 0
     :rule: &711
       :algo: count
-      :threshold: 28%
+      :threshold: 135
       :filters:
         anime_ids:
         - 7088
@@ -39367,7 +39428,7 @@
     :topic_id: 227418
     :rule: &721
       :algo: count
-      :threshold: 20%
+      :threshold: 30
       :filters:
         genre_ids:
         - 28
@@ -39400,7 +39461,7 @@
     :topic_id: 0
     :rule: &722
       :algo: count
-      :threshold: 30%
+      :threshold: 45
       :filters:
         genre_ids:
         - 28
@@ -39433,7 +39494,7 @@
     :topic_id: 0
     :rule: &723
       :algo: count
-      :threshold: 45%
+      :threshold: 70
       :filters:
         genre_ids:
         - 28
@@ -39464,7 +39525,7 @@
     :topic_id: 0
     :rule: &724
       :algo: count
-      :threshold: 60%
+      :threshold: 95
       :filters:
         genre_ids:
         - 28
@@ -39623,7 +39684,7 @@
     :topic_id: 227430
     :rule: &729
       :algo: count
-      :threshold: 10%
+      :threshold: 85
       :filters:
         anime_ids:
         - 10165
@@ -40779,7 +40840,7 @@
     :topic_id: 0
     :rule: &730
       :algo: count
-      :threshold: 15%
+      :threshold: 140
       :filters:
         anime_ids:
         - 10165
@@ -41935,7 +41996,7 @@
     :topic_id: 0
     :rule: &731
       :algo: count
-      :threshold: 25%
+      :threshold: 250
       :filters:
         anime_ids:
         - 10165
