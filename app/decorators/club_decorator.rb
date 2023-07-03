@@ -154,7 +154,8 @@ private
   end
 
   def all_collections
-    Collections::Query.fetch
+    Collections::Query
+      .fetch(h.censored_forbidden?)
       .where(id: @resource.collections)
   end
 
