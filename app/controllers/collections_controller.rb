@@ -13,7 +13,7 @@ class CollectionsController < ShikimoriController
   def index # rubocop:disable AbcSize
     @limit = [[params[:limit].to_i, 4].max, 8].min
 
-    @collection = Collections::Query.fetch
+    @collection = Collections::Query.fetch(censored_forbidden?)
       .search(params[:search])
       .paginate(@page, @limit)
       .lazy_map do |collection|
@@ -113,7 +113,7 @@ class CollectionsController < ShikimoriController
   end
 
   def autocomplete
-    @collection = Collections::Query.fetch
+    @collection = Collections::Query.fetch(censored_forbidden?)
       .search(params[:search])
       .paginate(1, CompleteQuery::AUTOCOMPLETE_LIMIT)
       .reverse

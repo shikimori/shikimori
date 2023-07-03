@@ -10,7 +10,7 @@ FactoryBot.define do
     published_at { nil }
     changed_at { nil }
     links_count { 0 }
-    is_censored { true }
+    is_censored { false }
 
     Collection.aasm.states.map(&:name).each do |value|
       trait(value.to_sym) { state { value } }
