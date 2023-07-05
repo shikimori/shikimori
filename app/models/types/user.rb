@@ -32,7 +32,7 @@ module Types
       cosplay_moderator
       contest_moderator
       statistics_moderator
-      genres_moderator
+      genre_moderator
 
       video_super_moderator
 

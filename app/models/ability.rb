@@ -83,7 +83,7 @@ class Ability
         merge Abilities::StatisticsModerator.new(@user)
       end
 
-      if @user.genres_moderator? || @user.admin?
+      if @user.genre_moderator? || @user.admin?
         merge Abilities::GenresModerator.new(@user)
       end
 

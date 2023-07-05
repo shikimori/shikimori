@@ -98,4 +98,44 @@ describe GenreV2 do
     #   end
     # end
   end
+
+  describe 'permissions' do
+    let(:genre) { build_stubbed :genre_v2 }
+    let(:user) { build_stubbed :user, :user }
+    subject { Ability.new user }
+
+    context 'genre_moderator' do
+      let(:user) { build_stubbed :user, :genre_moderator }
+
+      it { is_expected.to be_able_to :read, genre }
+      it { is_expected.to be_able_to :tooltip, genre }
+      it { is_expected.to be_able_to :edit, genre }
+      it { is_expected.to be_able_to :update, genre }
+    end
+
+    context 'forum_moderator' do
+      let(:user) { build_stubbed :user, :forum_moderator }
+
+      it { is_expected.to be_able_to :read, genre }
+      it { is_expected.to be_able_to :tooltip, genre }
+      it { is_expected.to_not be_able_to :edit, genre }
+      it { is_expected.to_not be_able_to :update, genre }
+    end
+
+    context 'user' do
+      it { is_expected.to be_able_to :read, genre }
+      it { is_expected.to be_able_to :tooltip, genre }
+      it { is_expected.to_not be_able_to :edit, genre }
+      it { is_expected.to_not be_able_to :update, genre }
+    end
+
+    context 'guest' do
+      let(:user) { nil }
+
+      it { is_expected.to be_able_to :read, genre }
+      it { is_expected.to be_able_to :tooltip, genre }
+      it { is_expected.to_not be_able_to :edit, genre }
+      it { is_expected.to_not be_able_to :update, genre }
+    end
+  end
 end

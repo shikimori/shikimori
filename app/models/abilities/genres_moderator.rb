@@ -3,7 +3,9 @@ class Abilities::GenresModerator
   prepend Draper::CanCanCan
 
   def initialize _user
-    can :manage, Genre
-    can :manage, GenreV2
+    can :update, Genre
+    can :update, GenreV2
+    can :update, Studio
+    can :update, Publisher
   end
 end
