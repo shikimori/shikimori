@@ -46,6 +46,7 @@ class Abilities::SuperModerator
       manage_not_trusted_fansub_changer_role
       manage_trusted_fansub_changer_role
       manage_retired_moderator_role
+      manage_genres_moderator_role
 
       manage_not_trusted_collections_author_role
 
