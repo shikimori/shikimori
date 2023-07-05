@@ -100,6 +100,7 @@ describe Versions::RoleVersion do
         it { is_expected.to be_able_to :manage_not_trusted_collections_author_role, user }
         it { is_expected.to be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to be_able_to :manage_retired_moderator_role, user }
+        it { is_expected.to be_able_to :manage_genres_moderator_role, user }
       end
 
       describe 'news_super_moderator roles' do
@@ -155,6 +156,7 @@ describe Versions::RoleVersion do
         it { is_expected.to be_able_to :manage_not_trusted_collections_author_role, user }
         it { is_expected.to be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to be_able_to :manage_retired_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_genres_moderator_role, user }
       end
 
       describe 'news_super_moderator roles' do
@@ -210,6 +212,7 @@ describe Versions::RoleVersion do
         it { is_expected.to be_able_to :manage_not_trusted_collections_author_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_genres_moderator_role, user }
       end
 
       describe 'news_super_moderator roles' do
@@ -265,6 +268,7 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_not_trusted_collections_author_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_genres_moderator_role, user }
       end
 
       describe 'news_super_moderator roles' do
@@ -308,6 +312,7 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_not_trusted_collections_author_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_genres_moderator_role, user }
       end
 
       describe 'news_super_moderator roles' do
@@ -346,6 +351,7 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_not_trusted_collections_author_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_genres_moderator_role, user }
       end
 
       describe 'news_super_moderator roles' do
@@ -381,6 +387,7 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_not_trusted_collections_author_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_genres_moderator_role, user }
       end
 
       describe 'news_super_moderator roles' do
@@ -480,6 +487,7 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_cheat_bot_role, user }
         it { is_expected.to_not be_able_to :manage_completed_announced_animes_role, user }
+        it { is_expected.to_not be_able_to :manage_genres_moderator_role, user }
       end
 
       describe 'news_super_moderator roles' do
