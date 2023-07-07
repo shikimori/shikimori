@@ -55,13 +55,13 @@ private
     end
   end
 
-  def production_url image_url_path, _image_index
-    "#{Shikimori::PROTOCOLS[:production]}://" \
-      "#{shiki_domain}#{image_url_path}"
-
+  def production_url image_url_path, image_index
     # "#{Shikimori::PROTOCOLS[:production]}://" \
-    #   "#{Shikimori::STATIC_SUBDOMAINS[image_index]}." \
     #   "#{shiki_domain}#{image_url_path}"
+
+    "#{Shikimori::PROTOCOLS[:production]}://" \
+      "#{Shikimori::STATIC_SUBDOMAINS[image_index]}." \
+      "#{shiki_domain}#{image_url_path}"
   end
 
   def local_url image_url_path
