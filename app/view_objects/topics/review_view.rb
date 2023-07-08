@@ -24,11 +24,11 @@ class Topics::ReviewView < Topics::UserContentView
 
   def action_tag
     super [
-      OpenStruct.new(
+      Topics::Tag.new(
         type: 'review',
         text: i18n_i('review', :one)
       ),
-      OpenStruct.new(
+      Topics::Tag.new(
         type: "review-#{review.opinion}",
         text: review.opinion_text.downcase
       )

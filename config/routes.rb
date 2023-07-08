@@ -669,6 +669,7 @@ Rails.application.routes.draw do
       vue
       wall
       webm
+      ad
     ].each do |page|
       get page
     end

@@ -142,10 +142,4 @@ private
   def faye_token
     request.headers['X-Faye-Token'] || params[:faye]
   end
-
-  protected
-
-  def extract_ip_from request
-    request.remote_ip&.split(',')&.first
-  end
 end

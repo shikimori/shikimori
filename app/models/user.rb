@@ -483,9 +483,18 @@ private
   rescue StandardError => _e
   end
 
-private
-
   def sync_is_view_censored
     Users::SyncIsViewCensored.call self
+  end
+
+protected
+
+  def extract_ip_from request
+    (
+      request.env['HTTP_X_FORWARDED_FOR'].presence ||
+        request.env['HTTP_X_REAL_IP'].presence ||
+        request.env['REMOTE_ADDR'].presence ||
+        request.remote_ip
+    )&.split(',')&.first
   end
 end

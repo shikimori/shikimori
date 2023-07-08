@@ -121,7 +121,9 @@ module Clockwork
 
   every 1.day, 'daily.cleanups', at: '05:00' do
     UserRates::LogsCleaner.perform_async
+    UserRates::LogsCleaner.perform_async
     ViewingsCleaner.perform_async
+    Clubs::CleanupOutdatedInvites.perform_async
 
     NamedLogger.clockwork.info 'daily.cleanups finished'
   end

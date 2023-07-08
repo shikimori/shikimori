@@ -83,6 +83,10 @@ class Ability
         merge Abilities::StatisticsModerator.new(@user)
       end
 
+      if @user.genre_moderator? || @user.admin?
+        merge Abilities::GenresModerator.new(@user)
+      end
+
       if @user.trusted_version_changer? || @user.admin?
         merge Abilities::TrustedVersionChanger.new(@user)
       end

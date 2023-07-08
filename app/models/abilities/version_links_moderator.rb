@@ -4,4 +4,10 @@ class Abilities::VersionLinksModerator < Abilities::VersionFieldsModeratorBase
     desynced
   ]
   MANAGED_FIELDS_MODELS = [Anime.name, Manga.name]
+
+  def initialize _user
+    super
+
+    can %i[manage_not_trusted_links_changer_role], User
+  end
 end

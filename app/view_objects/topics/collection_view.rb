@@ -1,5 +1,5 @@
 class Topics::CollectionView < Topics::UserContentView
-  instance_cache :collection
+  instance_cache :collection, :tags
 
   def container_classes
     super "b-collection-topic#{' is-spoilers' if collection.is_spoilers?}".strip
@@ -28,20 +28,20 @@ class Topics::CollectionView < Topics::UserContentView
   def action_tag
     tags = []
 
-    tags << OpenStruct.new(
+    tags << Topics::Tag.new(
       type: 'collection',
       text: Collection.model_name.human.downcase
     )
 
     unless collection.published?
-      tags << OpenStruct.new(
+      tags << Topics::Tag.new(
         type: "#{collection.state}-collection",
         text: collection.aasm.human_state.downcase
       )
     end
 
     if collection.spoilers?
-      tags << OpenStruct.new(
+      tags << Topics::Tag.new(
         type: 'spoilers',
         text: I18n.t('topics.header.mini.spoilers').downcase
       )
@@ -64,6 +64,16 @@ class Topics::CollectionView < Topics::UserContentView
 
   def linked_in_poster?
     false
+  end
+
+  def tags
+    super.map do |tag|
+      Topics::Tag.new(
+        type: 'collection-tag',
+        text: tag,
+        url: h.collections_url(search: "##{tag}")
+      )
+    end
   end
 
 private

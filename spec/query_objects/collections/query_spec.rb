@@ -1,5 +1,5 @@
 describe Collections::Query do
-  let(:query) { Collections::Query.fetch }
+  let(:query) { Collections::Query.fetch is_censored_forbidden }
 
   include_context :timecop
 
@@ -7,10 +7,18 @@ describe Collections::Query do
   let!(:collection_2) { create :collection, :published, id: 2 }
   let!(:collection_3) { create :collection, :published, id: 3 }
   let!(:collection_4) { create :collection, :unpublished, id: 4 }
+  let!(:collection_5) { create :collection, :published, id: 5, is_censored: true }
 
   describe '.fetch' do
     subject { query }
+    let(:is_censored_forbidden) { true }
+
     it { is_expected.to eq [collection_3, collection_2, collection_1] }
+
+    context 'censored not forbidden' do
+      let(:is_censored_forbidden) { false }
+      it { is_expected.to eq [collection_5, collection_3, collection_2, collection_1] }
+    end
 
     describe '#search' do
       subject { query.search phrase }

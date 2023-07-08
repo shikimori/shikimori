@@ -13,9 +13,8 @@ class SmotretAnime::ScheduleEpisodeWorkers
   }
 
   def perform group
-    Anime
+    scope
       .joins(:smotret_anime_external_link)
-      .where(status: :ongoing)
       .where(
         "not(options @> ARRAY['#{Types::Anime::Options[:disabled_anime365_sync]}']::varchar[])"
       )
@@ -28,5 +27,19 @@ class SmotretAnime::ScheduleEpisodeWorkers
           SmotretAnime::EpisodeWorker.perform_async anime.id, smotret_anime_id
         end
       end
+  end
+
+  private
+
+  def scope
+    Anime
+      .where(status: :ongoing)
+      .or(
+        Anime.where(
+          'status = :status and aired_on_computed is not null and aired_on_computed < :date',
+          status: :anons,
+          date: 1.week.from_now
+        )
+      )
   end
 end

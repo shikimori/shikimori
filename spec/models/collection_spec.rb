@@ -317,4 +317,5 @@ describe Collection do
   it_behaves_like :clubs_concern, :collection
   it_behaves_like :moderatable_concern, :collection
   it_behaves_like :topics_concern, :collection
+  it_behaves_like :tags_concern
 end

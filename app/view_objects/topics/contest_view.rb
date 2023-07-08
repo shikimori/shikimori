@@ -8,7 +8,7 @@ class Topics::ContestView < Topics::View
   end
 
   def action_tag
-    super OpenStruct.new(
+    super Topics::Tag.new(
       type: 'contest',
       text: i18n_i('contest', :one)
     )

@@ -25,7 +25,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
 
     og noindex: true, page_title: t('in_collections')
 
-    @collection = Collections::Query.fetch
+    @collection = Collections::Query.fetch(censored_forbidden?)
       .where(id: @resource.collections_scope)
       .paginate(@page, COLLETIONS_PER_PAGE)
       .lazy_map do |collection|

@@ -4,7 +4,7 @@ describe Ad do
   subject(:ad) { Ad.new meta }
 
   let(:meta) { :menu_300x600 }
-  let(:banner) { Ad::BANNERS[is_old_host][ad.banner_type] }
+  let(:banner) { Ad::BANNERS[ad.banner_type] }
 
   before { allow_any_instance_of(Ad).to receive(:h).and_return h }
   let(:h) do
@@ -21,30 +21,30 @@ describe Ad do
     )
   end
   let(:params) { { controller: 'anime' } }
-  let(:is_old_host) { true }
+  let(:is_old_host) { false }
   let(:width) { 240 }
   let(:height) { 400 }
   let(:user) { nil }
   let(:cookies) { {} }
 
   describe '#banner_type' do
-    let(:is_old_host) { false }
-    it { expect(ad.banner_type).to eq Ad::META_TYPES[is_old_host][:menu_300x600].first }
+    it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_300x600].first }
 
     describe 'meta changed by user preferences body_width_x1000' do
       let(:user) { build_stubbed :user, preferences: preferences }
       let(:preferences) { build_stubbed :user_preferences, body_width: body_width }
 
       context 'x1000 site width' do
-        let(:meta) { %i[menu_300x600 menu_300x250].sample }
+        # let(:meta) { %i[menu_300x600 menu_300x250].sample }
+        let(:meta) { :menu_300x600 }
         let(:body_width) { :x1000 }
 
-        it { expect(ad.banner_type).to eq Ad::META_TYPES[is_old_host][:menu_240x400].first }
+        it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_240x400].first }
       end
 
       context 'x1200 site width' do
         let(:body_width) { :x1200 }
-        it { expect(ad.banner_type).to eq Ad::META_TYPES[is_old_host][:menu_300x600].first }
+        it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_300x600].first }
       end
     end
 
@@ -52,17 +52,17 @@ describe Ad do
       context 'topics' do
         let(:meta) { :menu_240x400 }
         let(:params) { { controller: 'topics' } }
-        it { expect(ad.banner_type).to eq Ad::META_TYPES[is_old_host][:menu_300x600].first }
+        it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_300x600].first }
       end
     end
   end
 
   describe '#platform' do
-    it { expect(ad.platform).to eq Ad::BANNERS[is_old_host][:yd_300x600][:platform] }
+    it { expect(ad.platform).to eq Ad::BANNERS[:yd_300x600][:platform] }
   end
 
   describe '#provider' do
-    it { expect(ad.provider).to eq Ad::BANNERS[is_old_host][Ad::META_TYPES[is_old_host][:menu_300x600].first][:provider] }
+    it { expect(ad.provider).to eq Ad::BANNERS[Ad::META_TYPES[:menu_300x600].first][:provider] }
   end
 
   describe '#allowed?' do
@@ -91,6 +91,11 @@ describe Ad do
       it { expect(ad).to_not be_allowed }
     end
 
+    context 'old host' do
+      let(:is_old_host) { true }
+      it { expect(ad).to_not be_allowed }
+    end
+
     context 'rules' do
       let(:rules) { double show?: is_show }
 
@@ -107,26 +112,25 @@ describe Ad do
   end
 
   describe '#ad_params' do
-    # context 'yandex_direct' do
-    #   before { ad.instance_variable_set '@banner_type', banner_type }
-    #   let(:is_old_host) { true }
-    #   let(:banner_type) { :yd_240x500 }
-    #
-    #   it do
-    #     expect(ad.ad_params).to eq(
-    #       blockId: Ad::BANNERS[is_old_host][banner_type][:yandex_id],
-    #       renderTo: banner_type,
-    #       async: true
-    #     )
-    #   end
-    # end
-
-    context 'my_target' do
+    context 'yandex_direct' do
       before { ad.instance_variable_set :@banner_type, banner_type }
-      let(:banner_type) { :mt_300x600 }
+      let(:banner_type) { :yd_240x400 }
 
-      it { expect(ad.ad_params).to be_nil }
+      it do
+        expect(ad.ad_params).to eq(
+          blockId: Ad::BANNERS[banner_type][:yandex_id],
+          renderTo: banner_type,
+          async: true
+        )
+      end
     end
+
+    # context 'my_target' do
+    #   before { ad.instance_variable_set :@banner_type, banner_type }
+    #   let(:banner_type) { :mt_300x600 }
+    #
+    #   it { expect(ad.ad_params).to be_nil }
+    # end
 
     # context 'other' do
     #   before { ad.instance_variable_set '@banner_type', banner_type }
@@ -160,20 +164,19 @@ describe Ad do
     #   end
     # end
 
-    context 'my_target' do
-      let(:is_old_host) { true }
-      let(:banner_type) { :mt_300x600 }
-      it do
-        expect(ad.to_html).to eq(
-          <<-HTML.squish
-            <div class="b-spns-mt_300x600"><center><ins
-              class="mrg-tag" style="display:inline-block;text-decoration: none;"
-              data-ad-client="ad-#{banner[:mytarget_id]}"
-              data-ad-slot="#{banner[:mytarget_id]}"></ins></center></div>
-          HTML
-        )
-      end
-    end
+    # context 'my_target' do
+    #   let(:banner_type) { :mt_300x600 }
+    #   it do
+    #     expect(ad.to_html).to eq(
+    #       <<-HTML.squish
+    #         <div class="b-spns-mt_300x600"><center><ins
+    #           class="mrg-tag" style="display:inline-block;text-decoration: none;"
+    #           data-ad-client="ad-#{banner[:mytarget_id]}"
+    #           data-ad-slot="#{banner[:mytarget_id]}"></ins></center></div>
+    #       HTML
+    #     )
+    #   end
+    # end
 
     # context 'yandex_direct' do
     #   let(:banner_type) { :yd_240x400 }

@@ -24,6 +24,9 @@ module Types
       not_trusted_names_changer
       not_trusted_texts_changer
       not_trusted_fansub_changer
+      not_trusted_videos_changer
+      not_trusted_images_changer
+      not_trusted_links_changer
 
       critique_moderator
       collection_moderator
@@ -32,6 +35,7 @@ module Types
       cosplay_moderator
       contest_moderator
       statistics_moderator
+      genre_moderator
 
       video_super_moderator
 

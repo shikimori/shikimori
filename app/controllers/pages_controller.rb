@@ -294,4 +294,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
     @limit = 5
     @collection = QueryObjectBase.new(scope).paginate(@page, @limit)
   end
+
+  def ad
+  end
 end

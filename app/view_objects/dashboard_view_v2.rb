@@ -206,7 +206,7 @@ private
 
   def collections_scope
     Collections::Query
-      .fetch
+      .fetch(h.censored_forbidden?)
       .limit(16)
       .lazy_map do |collection|
         Topics::NewsLineView.new collection.maybe_topic, true, true
@@ -223,7 +223,8 @@ private
   end
 
   def critiques_scope
-    Topics::Query.fetch(h.censored_forbidden?)
+    Topics::Query
+      .fetch(h.censored_forbidden?)
       .by_forum(critiques_forum, h.current_user, h.censored_forbidden?)
       .limit(6)
       .lazy_map do |topic|

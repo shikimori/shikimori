@@ -151,6 +151,8 @@ class TestsController < ShikimoriController
   end
 
   def ip
+    raise CanCan::AccessDenied unless current_user&.admin?
+
     render json: {
       ip: request.ip,
       remote_ip: request.remote_ip,
@@ -240,6 +242,10 @@ class TestsController < ShikimoriController
     # @entries = query.fetch
     # @links = query.links
   # end
+
+  def ad
+    raise CanCan::AccessDenied if Rails.env.production? && current_user&.admin?
+  end
 
 private
 

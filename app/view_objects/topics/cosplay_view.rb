@@ -30,7 +30,7 @@ class Topics::CosplayView < Topics::UserContentView
   def action_tag
     return super unless minified?
 
-    super OpenStruct.new(
+    super Topics::Tag.new(
       type: 'cosplay',
       text: h.t('cosplay').downcase
     )

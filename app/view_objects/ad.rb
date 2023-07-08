@@ -8,17 +8,21 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
 
   attr_reader :banner_type, :policy
 
-  def initialize meta
-    meta = Types::Ad::Meta[:menu_240x400] if switch_to_x240? meta
-    meta = Types::Ad::Meta[:menu_300x600] if switch_to_x300? meta
+  def initialize meta, is_forced: false # rubocop:disable all
+    @is_forced = is_forced
+    meta = Types::Ad::Meta[:menu_240x400] if switch_to_x240?(meta) && !@is_forced
+    meta = Types::Ad::Meta[:menu_300x600] if switch_to_x300?(meta) && !@is_forced
 
-    META_TYPES[h.old_host?][Types::Ad::Meta[meta]].each do |type|
+    META_TYPES[Types::Ad::Meta[meta]].each do |type|
       switch_banner Types::Ad::Type[type]
       break if allowed?
     end
   end
 
-  def allowed?
+  def allowed? # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+    return true if @is_forced
+    return false if h.old_host?
+
     if h.controller.instance_variable_get controller_key(banner&.dig(:placement))
       false
     else
@@ -31,6 +35,8 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def placeholder?
+    return false if ShikimoriDomain::PROPER_HOST == ShikimoriDomain::NEW_HOST
+
     Rails.env.development? && !special?
   end
 
@@ -68,8 +74,8 @@ private
 
   def switch_banner banner_type
     @banner_type = banner_type
-    @policy = build_policy
-    @rules = build_rules
+    @policy = build_policy if banner
+    @rules = build_rules if banner
   end
 
   def build_policy
@@ -87,7 +93,7 @@ private
   end
 
   def banner
-    BANNERS[h.old_host?][@banner_type]
+    BANNERS[@banner_type]
   end
 
   def yandex_direct?
@@ -174,8 +180,8 @@ private
 
   def switch_to_x240? meta
     [
-      Types::Ad::Meta[:menu_300x600],
-      Types::Ad::Meta[:menu_300x250]
+      Types::Ad::Meta[:menu_300x600]
+      # Types::Ad::Meta[:menu_300x250]
     ].include?(meta) && h.current_user&.preferences&.body_width_x1000?
   end
 
@@ -298,198 +304,128 @@ private
   }
 
   BANNERS = {
-    true => {
-      Types::Ad::Type[:special_x300] => SPECIAL_X300,
-      Types::Ad::Type[:special_x1170] => SPECIAL_X1170,
-      Types::Ad::Type[:special_x894] => SPECIAL_X894,
-      Types::Ad::Type[:mt_300x250] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '491744',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_240x400] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '491736',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_300x600] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '491732',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_970x250] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '491748',
-        placement: Types::Ad::Placement[:content],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_728x90] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '491746',
-        placement: Types::Ad::Placement[:content],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_footer_300x250] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '457333',
-        placement: Types::Ad::Placement[:footer],
-        platform: Types::Ad::Platform[:mobile]
-      },
-      Types::Ad::Type[:yd_300x600] => {
-        provider: Types::Ad::Provider[:yandex_direct],
-        yandex_id: 'R-A-438288-1',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:yd_240x600] => {
-        provider: Types::Ad::Provider[:yandex_direct],
-        yandex_id: 'R-A-438288-2',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:yd_970x250] => {
-        provider: Types::Ad::Provider[:yandex_direct],
-        yandex_id: 'R-A-438288-3',
-        placement: Types::Ad::Placement[:content],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:yd_970x90] => {
-        provider: Types::Ad::Provider[:yandex_direct],
-        yandex_id: 'R-A-438288-4',
-        placement: Types::Ad::Placement[:content],
-        platform: Types::Ad::Platform[:desktop]
-      }
+    Types::Ad::Type[:special_x300] => SPECIAL_X300,
+    Types::Ad::Type[:special_x1170] => SPECIAL_X1170,
+    Types::Ad::Type[:special_x894] => SPECIAL_X894,
+    Types::Ad::Type[:yd_300x600] => {
+      provider: Types::Ad::Provider[:yandex_direct],
+      yandex_id: 'R-A-2374107-2',
+      # yandex_id: 'R-A-438288-1',
+      placement: Types::Ad::Placement[:menu],
+      platform: Types::Ad::Platform[:desktop]
     },
-    false => {
-      Types::Ad::Type[:special_x300] => SPECIAL_X300,
-      Types::Ad::Type[:special_x1170] => SPECIAL_X1170,
-      Types::Ad::Type[:special_x894] => SPECIAL_X894,
-      Types::Ad::Type[:advrtr_x728] => {
-        provider: Types::Ad::Provider[:advertur],
-        advertur_id: 92_445,
-        width: 728,
-        height: 90,
-        placement: Types::Ad::Placement[:content],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:advrtr_240x400] => {
-        provider: Types::Ad::Provider[:advertur],
-        advertur_id: 92_129,
-        width: 240,
-        height: 400,
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:advrtr_300x250] => {
-        provider: Types::Ad::Provider[:advertur],
-        advertur_id: 92_485,
-        width: 300,
-        height: 250,
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_300x250] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '239817',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_240x400] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '239815',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_300x600] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '239819',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_728x90] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '239978',
-        placement: Types::Ad::Placement[:content],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_footer_300x250] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '99457',
-        placement: Types::Ad::Placement[:footer],
-        platform: Types::Ad::Platform[:mobile]
-      }
+    Types::Ad::Type[:yd_240x400] => {
+      provider: Types::Ad::Provider[:yandex_direct],
+      yandex_id: 'R-A-2374107-5',
+      # yandex_id: 'R-A-438288-2',
+      placement: Types::Ad::Placement[:menu],
+      platform: Types::Ad::Platform[:desktop]
+    },
+    Types::Ad::Type[:yd_1170x200] => {
+      provider: Types::Ad::Provider[:yandex_direct],
+      yandex_id: 'R-A-2374107-3',
+      # yandex_id: 'R-A-438288-3',
+      placement: Types::Ad::Placement[:content],
+      platform: Types::Ad::Platform[:desktop]
+    },
+    Types::Ad::Type[:yd_970x90] => {
+      provider: Types::Ad::Provider[:yandex_direct],
+      yandex_id: 'R-A-2374107-4',
+      # yandex_id: 'R-A-438288-4',
+      placement: Types::Ad::Placement[:content],
+      platform: Types::Ad::Platform[:desktop]
     }
+    # Types::Ad::Type[:advrtr_x728] => {
+    #   provider: Types::Ad::Provider[:advertur],
+    #   advertur_id: 92_445,
+    #   width: 728,
+    #   height: 90,
+    #   placement: Types::Ad::Placement[:content],
+    #   platform: Types::Ad::Platform[:desktop]
+    # },
+    # Types::Ad::Type[:advrtr_240x400] => {
+    #   provider: Types::Ad::Provider[:advertur],
+    #   advertur_id: 92_129,
+    #   width: 240,
+    #   height: 400,
+    #   placement: Types::Ad::Placement[:menu],
+    #   platform: Types::Ad::Platform[:desktop]
+    # },
+    # Types::Ad::Type[:advrtr_300x250] => {
+    #   provider: Types::Ad::Provider[:advertur],
+    #   advertur_id: 92_485,
+    #   width: 300,
+    #   height: 250,
+    #   placement: Types::Ad::Placement[:menu],
+    #   platform: Types::Ad::Platform[:desktop]
+    # },
+    # Types::Ad::Type[:mt_300x250] => {
+    #   provider: Types::Ad::Provider[:mytarget],
+    #   mytarget_id: '239817',
+    #   placement: Types::Ad::Placement[:menu],
+    #   platform: Types::Ad::Platform[:desktop]
+    # },
+    # Types::Ad::Type[:mt_240x400] => {
+    #   provider: Types::Ad::Provider[:mytarget],
+    #   mytarget_id: '239815',
+    #   placement: Types::Ad::Placement[:menu],
+    #   platform: Types::Ad::Platform[:desktop]
+    # },
+    # Types::Ad::Type[:mt_300x600] => {
+    #   provider: Types::Ad::Provider[:mytarget],
+    #   mytarget_id: '239819',
+    #   placement: Types::Ad::Placement[:menu],
+    #   platform: Types::Ad::Platform[:desktop]
+    # },
+    # Types::Ad::Type[:mt_728x90] => {
+    #   provider: Types::Ad::Provider[:mytarget],
+    #   mytarget_id: '239978',
+    #   placement: Types::Ad::Placement[:content],
+    #   platform: Types::Ad::Platform[:desktop]
+    # },
+    # Types::Ad::Type[:mt_footer_300x250] => {
+    #   provider: Types::Ad::Provider[:mytarget],
+    #   mytarget_id: '99457',
+    #   placement: Types::Ad::Placement[:footer],
+    #   platform: Types::Ad::Platform[:mobile]
+    # }
   }
 
   META_TYPES = {
-    true => {
-      Types::Ad::Meta[:menu_300x250] => [
-        # Types::Ad::Type[:mt_300x250]
-      ],
-      Types::Ad::Meta[:menu_240x400] => [
-        Types::Ad::Type[:special_x300], # SUMMER
-        Types::Ad::Type[:yd_240x600]
-        # Types::Ad::Type[:mt_240x400]
-      ],
-      Types::Ad::Meta[:menu_300x600] => [
-        Types::Ad::Type[:special_x300], # SUMMER
-        Types::Ad::Type[:yd_300x600]
-        # Types::Ad::Type[:mt_300x600]
-      ],
-      Types::Ad::Meta[:horizontal_x250] => [
-        Types::Ad::Type[:yd_970x250],
-        Types::Ad::Type[:mt_970x250]
-      ],
-      Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894], # IMBA - remove 2023-05-17 22:00
-        Types::Ad::Type[:yd_970x90]
-        # Types::Ad::Type[:mt_728x90]
-      ],
-      Types::Ad::Meta[:footer] => [
-        # Types::Ad::Type[:mt_footer_300x250]
-      ],
-      Types::Ad::Meta[:special_x1170] => [
-        Types::Ad::Type[:special_x1170], # SUMMER
-        Types::Ad::Type[:yd_970x250]
-        # Types::Ad::Type[:mt_970x250]
-      ]
-    },
-    false => {
-      Types::Ad::Meta[:menu_300x250] => [
-        # Types::Ad::Type[:mt_300x250],
-        # Types::Ad::Type[:yd_240x400],
-        # Types::Ad::Type[:advrtr_240x400]
-      ],
-      Types::Ad::Meta[:menu_240x400] => [
-        Types::Ad::Type[:special_x300] # SUMMER
-        # Types::Ad::Type[:mt_240x400],
-        # Types::Ad::Type[:yd_240x500],
-        # Types::Ad::Type[:advrtr_240x400]
-      ],
-      Types::Ad::Meta[:menu_300x600] => [
-        Types::Ad::Type[:special_x300] # SUMMER
-        # Types::Ad::Type[:mt_300x600],
-        # Types::Ad::Type[:yd_300x600],
-        # Types::Ad::Type[:advrtr_240x400],
-        # Types::Ad::Type[:advrtr_300x250]
-      ],
-      Types::Ad::Meta[:horizontal_x250] => [
-        # Types::Ad::Type[:advrtr_x728]
-      ],
-      Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:special_x894] # IMBA - remove 2023-05-17 22:00
-        # Types::Ad::Type[:mt_728x90],
-        # Types::Ad::Type[:advrtr_x728]
-      ],
-      Types::Ad::Meta[:footer] => [
-        # Types::Ad::Type[:mt_footer_300x250]
-      ],
-      Types::Ad::Meta[:special_x1170] => [
-        Types::Ad::Type[:special_x1170] # SUMMER
-      ]
-    }
+    # Types::Ad::Meta[:menu_300x250] => [
+    #   # Types::Ad::Type[:mt_300x250],
+    #   # Types::Ad::Type[:yd_240x400]
+    #   # Types::Ad::Type[:advrtr_240x400]
+    # ],
+    Types::Ad::Meta[:menu_240x400] => [
+      # Types::Ad::Type[:special_x300] # SUMMER
+      # Types::Ad::Type[:mt_240x400],
+      Types::Ad::Type[:yd_240x400]
+      # Types::Ad::Type[:advrtr_240x400]
+    ],
+    Types::Ad::Meta[:menu_300x600] => [
+      # Types::Ad::Type[:special_x300] # SUMMER
+      # Types::Ad::Type[:mt_300x600],
+      Types::Ad::Type[:yd_300x600]
+      # Types::Ad::Type[:advrtr_240x400],
+      # Types::Ad::Type[:advrtr_300x250]
+    ],
+    Types::Ad::Meta[:horizontal_x200] => [
+      Types::Ad::Type[:yd_1170x200]
+      # Types::Ad::Type[:advrtr_x728]
+    ],
+    Types::Ad::Meta[:horizontal_x90] => [
+      # Types::Ad::Type[:special_x894] # IMBA - remove 2023-05-17 22:00
+      # Types::Ad::Type[:mt_728x90],
+      # Types::Ad::Type[:advrtr_x728]
+      Types::Ad::Type[:yd_970x90]
+    ],
+    Types::Ad::Meta[:footer] => [
+      # Types::Ad::Type[:mt_footer_300x250]
+    ],
+    Types::Ad::Meta[:special_x1170] => [
+      # Types::Ad::Type[:special_x1170] # SUMMER
+      # Types::Ad::Type[:yd_1170x200]
+    ]
   }
 end
