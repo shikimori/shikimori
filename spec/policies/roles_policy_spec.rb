@@ -13,13 +13,13 @@ describe RolesPolicy do
         .to receive(:h)
         .and_return view_contex
     end
-    let(:view_contex) { double "can?": can_manage, "current_user": (double staff?: is_staff) }
+    let(:view_contex) { double can?: can_manage, current_user: (double staff?: is_staff) }
     let(:can_manage) { [true, false].sample }
     let(:is_staff) { false }
 
     it do
       is_expected.to eq can_manage
-      expect(view_contex).to have_received(:"can?").with(:"manage_#{role}_role", User)
+      expect(view_contex).to have_received(:can?).with(:"manage_#{role}_role", User)
     end
 
     context 'staff has access' do
