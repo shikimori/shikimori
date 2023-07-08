@@ -43,6 +43,10 @@ class Abilities::SuperModerator
       manage_not_trusted_names_changer_role
       manage_not_trusted_texts_changer_role
       manage_not_trusted_fansub_changer_role
+      manage_not_trusted_videos_changer_role
+      manage_not_trusted_images_changer_role
+      manage_not_trusted_links_changer_role
+
       manage_trusted_fansub_changer_role
       manage_retired_moderator_role
       manage_genre_moderator_role
