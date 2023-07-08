@@ -29,11 +29,13 @@ class User < ApplicationRecord
     6942 # Аясэ-тян
   ]
 
-  STAFF_ROLES = %w[
+  MODERATION_STAFF_ROLES = %w[
     admin
-    news_super_moderator
     super_moderator
+    news_super_moderator
     forum_moderator
+  ]
+  STAFF_ROLES = MODERATION_STAFF_ROLES + %w[
     version_names_moderator
     version_texts_moderator
     version_moderator
@@ -48,12 +50,6 @@ class User < ApplicationRecord
     cosplay_moderator
     contest_moderator
     statistics_moderator
-  ]
-  MODERATION_STAFF_ROLES = %w[
-    admin
-    super_moderator
-    news_super_moderator
-    forum_moderator
   ]
 
   devise(

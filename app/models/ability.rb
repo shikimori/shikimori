@@ -135,7 +135,7 @@ class Ability
       Comment::AccessPolicy.allowed? comment, @user
     end
     can :read, Topic do |topic|
-      can?(:moderate, topic) || Topic::AccessPolicy.allowed?(topic, @user)
+      Topic::AccessPolicy.allowed? topic, @user
     end
     can :see_club, Club do |club|
       Club::AccessPolicy.allowed? club, @user
