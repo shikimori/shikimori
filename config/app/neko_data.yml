@@ -2211,7 +2211,20 @@
         - 55637
         - 48981
         - 53097
-        - 50963
+        - 54722
+        - 29643
+        - 15407
+        - 35300
+        - 53716
+        - 48820
+        - 49125
+        - 46808
+        - 49703
+        - 51404
+        - 54650
+        - 54717
+        - 54716
+        - 54916
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -2726,7 +2739,20 @@
         - 55637
         - 48981
         - 53097
-        - 50963
+        - 54722
+        - 29643
+        - 15407
+        - 35300
+        - 53716
+        - 48820
+        - 49125
+        - 46808
+        - 49703
+        - 51404
+        - 54650
+        - 54717
+        - 54716
+        - 54916
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3240,7 +3266,20 @@
         - 55637
         - 48981
         - 53097
-        - 50963
+        - 54722
+        - 29643
+        - 15407
+        - 35300
+        - 53716
+        - 48820
+        - 49125
+        - 46808
+        - 49703
+        - 51404
+        - 54650
+        - 54717
+        - 54716
+        - 54916
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -3752,7 +3791,20 @@
         - 55637
         - 48981
         - 53097
-        - 50963
+        - 54722
+        - 29643
+        - 15407
+        - 35300
+        - 53716
+        - 48820
+        - 49125
+        - 46808
+        - 49703
+        - 51404
+        - 54650
+        - 54717
+        - 54716
+        - 54916
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *2
   neko_id: :mahou_shoujo
@@ -23922,6 +23974,7 @@
         - 36501
         - 37031
         - 40134
+        - 51097
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -23956,6 +24009,7 @@
         - 36501
         - 37031
         - 40134
+        - 51097
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -24861,7 +24915,10 @@
       :algo: duration
       :filters:
         franchise: quanzhi_fashi
-      :threshold: 95%
+        not_anime_ids:
+        - 44627
+        - 44628
+      :threshold: 98%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :quanzhi_fashi
@@ -24890,6 +24947,9 @@
       :algo: duration
       :filters:
         franchise: quanzhi_fashi
+        not_anime_ids:
+        - 44627
+        - 44628
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
