@@ -13,14 +13,27 @@ class Topic::AccessPolicy
 
   def allowed?
     club = self.class.linked_club @topic
-    return true if !club || moderator?
 
-    Club::AccessPolicy.allowed? club, @current_user
+    if club
+      Club::AccessPolicy.allowed? club, @current_user
+    elsif premoderation_forum?
+      author? || moderator?
+    else
+      true
+    end
   end
 
 private
 
+  def author?
+    @topic.user_id == @current_user&.id
+  end
+
   def moderator?
-    @current_user&.moderation_staff?
+    !!(@current_user&.moderation_staff? || @current_user&.news_moderator?)
+  end
+
+  def premoderation_forum?
+    @topic.forum_id == Forum::PREMODERATION_ID
   end
 end
