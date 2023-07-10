@@ -7,7 +7,9 @@ en:
       no_abuse_requests: No abuse requests
     missing:
       user_topic: 'Topic #%{id}'
-      no_topic: Topic is either deleted or never existed on Shikimori
+      no_topic: >-
+        Topic is either deleted or never existed on Shikimori,
+        or you don't have enough access rights to read it
     header:
       mini: &header_mini
         topic_ignored: &ignored ignored

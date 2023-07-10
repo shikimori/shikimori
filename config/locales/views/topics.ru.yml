@@ -7,7 +7,9 @@ ru:
       no_abuse_requests: Нет жалоб
     missing:
       user_topic: 'Топик #%{id}'
-      no_topic: Топик или был удалён, или никогда не существовал на сайте
+      no_topic: >-
+        Топик был или удалён, или никогда не существовал на сайте,
+        или у тебя нет прав для его просмотра
     header:
       mini: &header_mini
         topic_ignored: &ignored в игноре
