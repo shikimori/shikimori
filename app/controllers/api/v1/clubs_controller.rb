@@ -11,7 +11,7 @@ class Api::V1::ClubsController < Api::V1Controller
 
   caches_action :animes, :mangas, :characters, :members, :images,
     cache_path: proc {
-      "#{@club.cache_key_with_version}|#{params[:action]}"
+      "#{@club.cache_key_with_version}|#{params[:action]}|#{params[:page]}"
     }
 
   api :GET, '/clubs', 'List clubs'
