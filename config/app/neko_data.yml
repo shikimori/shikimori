@@ -22729,11 +22729,12 @@
         - 19193
         - 19195
         - 22013
+        - 29255
         - 38600
         - 49402
         - 54860
         - 55316
-      :threshold: 92.5%
+      :threshold: 92.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ghost_in_the_shell
@@ -22774,6 +22775,7 @@
         - 19193
         - 19195
         - 22013
+        - 29255
         - 38600
         - 49402
         - 54860
@@ -36022,6 +36024,7 @@
         - 11695
         - 30122
         - 39309
+        - 55949
       :threshold: 95%
       :generator:
         not_ignored_ids:
@@ -36059,6 +36062,7 @@
         - 11695
         - 30122
         - 39309
+        - 55949
       :threshold: 0.01
       :generator:
         not_ignored_ids:
