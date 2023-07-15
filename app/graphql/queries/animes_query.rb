@@ -102,10 +102,10 @@ class Queries::AnimesQuery < Queries::BaseQuery
   argument :score, Integer,
     required: false,
     description: 'Minimal anime score'
-  argument :duration, [Types::Enums::Animes::DurationEnum],
+  argument :duration, Types::Scalars::DurationString,
     required: false,
     description: 'Duration of episode'
-  argument :rating, [Types::Enums::Animes::RatingEnum],
+  argument :rating, Types::Scalars::RatingString,
     required: false,
     description: 'Age rating'
   argument :genre, String,
