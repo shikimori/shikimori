@@ -34,7 +34,9 @@ gem 'slim-rails'
 # engines
 gem 'pg_query' # for suggested indexes in pghero
 gem 'pghero'
+
 gem 'graphql'
+gem 'graphiql-rails', group: :development
 
 # background jobs
 gem 'sidekiq', '~> 6.5.5' # sidekiq 7 and redis 5 do not work properly https://stackoverflow.com/questions/74314906/heartbeat-unsupported-command-argument-type-falseclass-redis

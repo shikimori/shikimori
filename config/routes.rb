@@ -1,8 +1,11 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  post '/graphql', to: 'graphql#execute'
-  get '/graphiql', to: 'pages#graphiql'
+  post '/api/graphql', to: 'graphql#execute'
+  get '/api/docs/graphql', to: 'pages#graphiql'
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/api/graphql'
+  end
 
   # do not remove atomic grouping
   # w/o it shikimori has huge performance issue with suck nicknames "…...........☭............."
