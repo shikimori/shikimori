@@ -9,5 +9,5 @@ shared_context :graphql do
       variables: variables
     )
   end
-  let(:data) { result['data'] }
+  subject { result['data'] }
 end

@@ -1,7 +1,11 @@
-module Types
-  class BaseObject < GraphQL::Schema::Object
-    # edge_type_class Types::BaseEdge
-    # connection_type_class Types::BaseConnection
-    # field_class Types::BaseField
-  end
+# frozen_string_literal: true
+
+class Types::BaseObject < GraphQL::Schema::Object
+  # def current_user
+  #   context[:current_user]
+  # end
+  # 
+  # def request
+  #   context[:request]
+  # end
 end
