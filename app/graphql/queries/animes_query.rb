@@ -60,45 +60,15 @@ class Queries::AnimesQuery < Queries::BaseQuery
   #     </ul>
   #   </p>
   # DOC
-  # argument :page, :pagination, required: false
-  # argument :limit, :number, required: false, description: "#{LIMIT} maximum"
   # argument :order, ORDERS,
   #   required: false,
   #   description: ORDERS_DESC
-  # argument :type, :undef,
-  #   required: false,
-  #   description: 'Deprecated'
-  # argument :kind, :undef,
-  #   required: false,
-  #   description: <<~DOC
-  #     <p><strong>Validations:</strong></p>
-  #     <ul>
-  #       <li>
-  #         Must be one of:
-  #         <code>#{(Anime.kind.values + %i[tv_13 tv_24 tv_48]).join('</code>, <code>')}</code>
-  #       </li>
-  #     </ul>
-  #   DOC
-  # argument :status, :undef,
-  #   required: false,
-  #   description: <<~DOC
-  #     <p><strong>Validations:</strong></p>
-  #     <ul>
-  #       <li>
-  #         Must be one of:
-  #         <code>#{Anime.status.values.join('</code>, <code>')}</code>
-  #       </li>
-  #     </ul>
-  #   DOC
-  # argument :season, :undef,
-  #   required: false,
-  #   description: <<~DOC
-  #     <p><strong>Examples:</strong></p>
-  #     <p><code>summer_2017</code></p>
-  #     <p><code>2016</code></p>
-  #     <p><code>2014_2016</code></p>
-  #     <p><code>199x</code></p>
-  #   DOC
+  argument :kind, Types::Scalars::KindString,
+    required: false
+  argument :status, Types::Scalars::StatusString,
+    required: false
+  argument :season, Types::Scalars::SeasonString,
+    required: false
   argument :score, Integer,
     required: false,
     description: 'Minimal anime score'
@@ -110,17 +80,17 @@ class Queries::AnimesQuery < Queries::BaseQuery
     description: 'Age rating'
   argument :genre, String,
     required: false,
-    description: 'List of genre ids separated by comma'
+    description: 'List of comma separated genre ids'
   argument :studio, String,
     required: false,
-    description: 'List of studio ids separated by comma'
+    description: 'List of comma separated studio ids'
   argument :franchise, String,
     required: false,
-    description: 'List of franchises separated by comma'
+    description: 'List of comma separated franchises'
   argument :censored, Boolean,
     required: false,
     description: 'Set to `false` to allow hentai, yaoi and yuri'
-  # argument :mylist, :undef,
+  # argument :mylist, String,
   #   required: false,
   #   description: <<~DOC
   #     <p>Status of manga in current user list</p>
@@ -132,10 +102,10 @@ class Queries::AnimesQuery < Queries::BaseQuery
   #       </li>
   #     </ul>
   #   DOC
-  # argument :ids, :undef,
+  # argument :ids, String,
   #   required: false,
   #   description: 'List of anime ids separated by comma'
-  # argument :exclude_ids, :undef,
+  # argument :exclude_ids, String,
   #   required: false,
   #   description: 'List of anime ids separated by comma'
   argument :search, String, required: false
@@ -145,6 +115,9 @@ class Queries::AnimesQuery < Queries::BaseQuery
   def resolve( # rubocop:disable Metrics/ParameterLists, Metrics/MethodLength
     page:,
     limit:,
+    kind: nil,
+    status: nil,
+    season: nil,
     score: nil,
     duration: nil,
     rating: nil,
@@ -159,6 +132,9 @@ class Queries::AnimesQuery < Queries::BaseQuery
         klass: Anime,
         filters: {
           score: score,
+          kind: kind,
+          status: status,
+          season: season,
           duration: duration,
           rating: rating,
           genre: genre,
