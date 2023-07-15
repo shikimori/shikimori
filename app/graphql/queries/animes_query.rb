@@ -60,24 +60,15 @@ class Queries::AnimesQuery < Queries::BaseQuery
   #     </ul>
   #   </p>
   # DOC
-  # argument :order, ORDERS,
-  #   required: false,
-  #   description: ORDERS_DESC
-  argument :kind, Types::Scalars::KindString,
-    required: false
-  argument :status, Types::Scalars::StatusString,
-    required: false
-  argument :season, Types::Scalars::SeasonString,
-    required: false
+  argument :order, Types::Enums::OrderEnum, required: false
+  argument :kind, Types::Scalars::KindString, required: false
+  argument :status, Types::Scalars::StatusString, required: false
+  argument :season, Types::Scalars::SeasonString, required: false
   argument :score, Integer,
     required: false,
     description: 'Minimal anime score'
-  argument :duration, Types::Scalars::DurationString,
-    required: false,
-    description: 'Duration of episode'
-  argument :rating, Types::Scalars::RatingString,
-    required: false,
-    description: 'Age rating'
+  argument :duration, Types::Scalars::DurationString, required: false
+  argument :rating, Types::Scalars::RatingString, required: false
   argument :genre, String,
     required: false,
     description: 'List of comma separated genre ids'
@@ -115,6 +106,7 @@ class Queries::AnimesQuery < Queries::BaseQuery
   def resolve( # rubocop:disable Metrics/ParameterLists, Metrics/MethodLength
     page:,
     limit:,
+    order:,
     kind: nil,
     status: nil,
     season: nil,
@@ -131,6 +123,8 @@ class Queries::AnimesQuery < Queries::BaseQuery
       .call(
         klass: Anime,
         filters: {
+          page: page,
+          order: order,
           score: score,
           kind: kind,
           status: status,
@@ -141,8 +135,7 @@ class Queries::AnimesQuery < Queries::BaseQuery
           studio: studio,
           franchise: franchise,
           censored: censored,
-          search: search,
-          page: page
+          search: search
         },
         user: current_user,
         limit: limit.to_i.clamp(1, LIMIT)
