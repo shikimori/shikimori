@@ -383,9 +383,6 @@ GEM
       multi_json
       request_store (>= 1.0)
     google-protobuf (3.21.9)
-    graphiql-rails (1.8.0)
-      railties
-      sprockets-rails
     graphql (2.0.24)
     guard (2.18.0)
       formatador (>= 0.2.4)
@@ -846,7 +843,6 @@ DEPENDENCIES
   fuubar
   gcm
   gon
-  graphiql-rails
   graphql
   guard
   guard-brakeman
