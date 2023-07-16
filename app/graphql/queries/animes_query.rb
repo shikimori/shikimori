@@ -50,6 +50,8 @@ class Queries::AnimesQuery < Queries::BaseQuery
     franchise: nil,
     censored: nil,
     mylist: nil,
+    ids: nil,
+    exclude_ids: nil,
     search: nil
   )
     AnimesCollection::PageQuery
@@ -69,6 +71,8 @@ class Queries::AnimesQuery < Queries::BaseQuery
           franchise: franchise,
           censored: censored,
           mylist: mylist,
+          ids: ids,
+          exclude_ids: exclude_ids,
           search: search
         },
         user: current_user,
