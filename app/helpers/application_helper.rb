@@ -32,9 +32,8 @@ module ApplicationHelper
     ImageUrlGenerator.instance.cdn_image_url entry, image_size
   end
 
-  def cdn_poster_url db_entry:, poster:, derivative:
+  def cdn_poster_url poster:, derivative:
     ImageUrlGenerator.instance.cdn_poster_url(
-      db_entry: db_entry,
       poster: poster,
       derivative: derivative
     )

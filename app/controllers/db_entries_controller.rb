@@ -199,7 +199,6 @@ private
       )
     elsif @resource.poster && @resource.poster.image_data['derivatives']
       og image: ImageUrlGenerator.instance.cdn_poster_url(
-        db_entry: @resource,
         poster: @resource.poster,
         derivative: :main_2x
       )
