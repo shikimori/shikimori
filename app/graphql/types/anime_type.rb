@@ -14,16 +14,12 @@ class Types::AnimeType < Types::BaseObject
   field :episodes_aired, Integer
   field :duration, Integer, description: 'Duration in minutes'
 
-  field :description, String
-  def description
-    decorated_object.description.text
+  field :url, String
+  def url
+    UrlGenerator.instance.anime_url object
   end
-  field :description_html, String
-  delegate :description_html, to: :decorated_object
-  field :description_source, String
-  def description_source
-    decorated_object.description.source
-  end
+
+  field :season, String
 
   field :aired_on, GraphQL::Types::ISO8601Date
   def aired_on
@@ -35,9 +31,28 @@ class Types::AnimeType < Types::BaseObject
     object.released_on.date
   end
 
-  field :url, String
-  def url
-    UrlGenerator.instance.anime_url object
+  field :created_at, GraphQL::Types::ISO8601DateTime
+  field :updated_at, GraphQL::Types::ISO8601DateTime
+  field :next_episode_at, GraphQL::Types::ISO8601DateTime
+
+  field :fansubbers, [String]
+  field :fandubbers, [String]
+  field :licensors, [String]
+
+  field :is_censored, Boolean
+  def is_censored # rubocop:disable Naming/PredicateName
+    object.censored?
+  end
+
+  field :description, String
+  def description
+    decorated_object.description.text
+  end
+  field :description_html, String
+  delegate :description_html, to: :decorated_object
+  field :description_source, String
+  def description_source
+    decorated_object.description.source
   end
 
   field :poster, Types::PosterType
