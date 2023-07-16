@@ -25,4 +25,5 @@ class Types::AnimeType < Types::BaseObject
 
   field :poster, Types::PosterType
   field :genres, [Types::GenreType]
+  field :studios, [Types::StudioType]
 end
