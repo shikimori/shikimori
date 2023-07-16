@@ -1,7 +1,8 @@
 class GraphqlController < ShikimoriController
   skip_before_action :touch_last_online
-  skip_before_action :verify_authenticity_token,
-    if: -> { doorkeeper_token.present? }
+  skip_before_action :verify_authenticity_token
+  # skip_before_action :verify_authenticity_token,
+  #   if: -> { doorkeeper_token.present? }
 
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,

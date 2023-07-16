@@ -298,7 +298,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   def ad
   end
 
-  def graphiql
-    render :graphiql, layout: false
+  def graphql
+    render :graphql, layout: false
   end
 end
