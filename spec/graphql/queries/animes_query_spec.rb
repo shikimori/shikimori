@@ -11,17 +11,17 @@ describe Queries::AnimesQuery do
       }
     GQL
   end
-  let!(:anime) { create :anime }
-  let!(:anime_2) { create :anime }
+  let!(:anime) { create :anime, ranked: 2 }
+  let!(:anime_2) { create :anime, ranked: 1 }
 
   it do
     is_expected.to eq(
       'animes' => [{
-        'id' => anime.id,
-        'name' => anime.name
-      }, {
         'id' => anime_2.id,
         'name' => anime_2.name
+      }, {
+        'id' => anime.id,
+        'name' => anime.name
       }]
     )
   end
