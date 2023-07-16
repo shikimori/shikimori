@@ -60,7 +60,7 @@ class Queries::AnimesQuery < Queries::BaseQuery
   #     </ul>
   #   </p>
   # DOC
-  argument :order, Types::Enums::OrderEnum, required: false
+  argument :order, Types::Enums::OrderEnum, required: false, default_value: 'ranked'
   argument :kind, Types::Scalars::KindString, required: false
   argument :status, Types::Scalars::StatusString, required: false
   argument :season, Types::Scalars::SeasonString, required: false
