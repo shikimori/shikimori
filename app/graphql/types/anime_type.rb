@@ -2,9 +2,9 @@ class Types::AnimeType < Types::BaseObject
   field :id, ID
   field :name, String
   field :russian, String
-  field :kind, Types::Enums::Animes::KindEnum
+  field :kind, Types::Enums::Anime::KindEnum
   field :score, Float
-  field :status, Types::Enums::Animes::StatusEnum
+  field :status, Types::Enums::Anime::StatusEnum
   field :episodes, Integer
   field :episodes_aired, Integer
 

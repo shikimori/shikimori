@@ -1,4 +1,4 @@
-class Types::Enums::Genres::EntryTypeEnum < GraphQL::Schema::Enum
+class Types::Enums::Genre::EntryTypeEnum < GraphQL::Schema::Enum
   graphql_name 'GenreEntryTypeEnum'
 
   Types::GenreV2::EntryType.values.each do |key| # rubocop:disable Style/HashEachMethods

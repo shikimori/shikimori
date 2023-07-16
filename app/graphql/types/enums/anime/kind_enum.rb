@@ -1,4 +1,4 @@
-class Types::Enums::Animes::KindEnum < GraphQL::Schema::Enum
+class Types::Enums::Anime::KindEnum < GraphQL::Schema::Enum
   graphql_name 'AnimeKindEnum'
 
   Types::Anime::Kind.values.each do |key| # rubocop:disable Style/HashEachMethods
