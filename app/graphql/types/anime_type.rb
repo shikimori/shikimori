@@ -1,5 +1,6 @@
 class Types::AnimeType < Types::BaseObject
   field :id, ID
+  field :mal_id, ID
   field :name, String
   field :russian, String
   field :license_name_ru, String
