@@ -42,7 +42,8 @@ private
       name: data[:name],
       russian: data[:name],
       kind: data[:kind],
-      entry_type: entry_type
+      entry_type: entry_type,
+      description: ''
     )
   end
 
