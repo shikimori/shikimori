@@ -1,12 +1,9 @@
 class Types::AnimeType < Types::BaseObject
-  field :id, ID
-  field :mal_id, ID
-  field :name, String
-  field :russian, String
+  include Types::Concerns::DbEntryFields
+  include Types::Concerns::DescriptionFields
+
   field :license_name_ru, String
   field :english, String
-  field :japanese, String
-  field :synonyms, [String]
   field :franchise, String, description: 'Franchise name'
   field :kind, Types::Enums::Anime::KindEnum
   field :score, Float
@@ -14,11 +11,6 @@ class Types::AnimeType < Types::BaseObject
   field :episodes, Integer
   field :episodes_aired, Integer
   field :duration, Integer, description: 'Duration in minutes'
-
-  field :url, String
-  def url
-    UrlGenerator.instance.anime_url object
-  end
 
   field :season, String
 
@@ -32,8 +24,6 @@ class Types::AnimeType < Types::BaseObject
     object.released_on.date
   end
 
-  field :created_at, GraphQL::Types::ISO8601DateTime
-  field :updated_at, GraphQL::Types::ISO8601DateTime
   field :next_episode_at, GraphQL::Types::ISO8601DateTime
 
   field :fansubbers, [String]
@@ -45,26 +35,6 @@ class Types::AnimeType < Types::BaseObject
     object.censored?
   end
 
-  field :description, String
-  def description
-    decorated_object.description.text
-  end
-  field :description_html, String
-  def description_html
-    decorated_object.description_html.gsub(%r{(?<!:)//(?=\w)}, 'http://')
-  end
-  field :description_source, String
-  def description_source
-    decorated_object.description.source
-  end
-
-  field :poster, Types::PosterType
   field :genres, [Types::GenreType]
   field :studios, [Types::StudioType]
-
-private
-
-  def decorated_object
-    @decorated_object ||= object.decorate
-  end
 end
