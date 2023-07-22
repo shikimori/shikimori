@@ -29,4 +29,10 @@ class People::Query < QueryObjectBase
 
     chain Animes::Filters::ByDesynced.call(@scope, value)
   end
+
+  def by_id id
+    return self if id.blank?
+
+    chain @scope.where(id: id)
+  end
 end
