@@ -17,10 +17,10 @@ describe Queries::AnimesQuery do
   it do
     is_expected.to eq(
       'animes' => [{
-        'id' => anime_2.id,
+        'id' => anime_2.id.to_s,
         'name' => anime_2.name
       }, {
-        'id' => anime.id,
+        'id' => anime.id.to_s,
         'name' => anime.name
       }]
     )

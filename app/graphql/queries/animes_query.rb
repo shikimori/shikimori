@@ -27,10 +27,10 @@ class Queries::AnimesQuery < Queries::BaseQuery
   argument :mylist, Types::Scalars::MylistString, required: false
   argument :ids, String,
     required: false,
-    description: 'List of comma separated anime ids'
+    description: 'List of comma separated ids'
   argument :exclude_ids, String,
     required: false,
-    description: 'List of comma separated anime ids'
+    description: 'List of comma separated ids'
   argument :search, String, required: false
 
   LIMIT = 50
