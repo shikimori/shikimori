@@ -20,4 +20,10 @@ class Characters::Query < QueryObjectBase
 
     chain Animes::Filters::ByDesynced.call(@scope, value)
   end
+
+  def by_id ids
+    return self if ids.blank?
+
+    chain @scope.where(id: ids)
+  end
 end
