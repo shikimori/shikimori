@@ -220,8 +220,8 @@ private
     # end,
     url: 'https://auth.hr.alabuga.ru/auth/realms/Alabuga/protocol/openid-connect/registrations?client_id=alb-player&redirect_uri=https://hr.alabuga.ru&response_type=code&utm_source=vk&utm_medium=kaifuy&utm_campaign=site&utm_content=long_1&erid=2VtzqxQfA7n',
     images: [{
-      src: '/assets/globals/events/2023-07-16/menu_1.webp',
-      src_2x: '/assets/globals/events/2023-07-16/menu_1@2x.webp'
+      src: '/assets/globals/events/2023-07-22/menu_1.webp',
+      src_2x: '/assets/globals/events/2023-07-22/menu_1@2x.webp'
       # url: 'https://redirect.appmetrica.yandex.com/serve/316406067464575159'
     }],
     # AND END
@@ -241,8 +241,8 @@ private
     url: 'https://auth.hr.alabuga.ru/auth/realms/Alabuga/protocol/openid-connect/registrations?client_id=alb-player&redirect_uri=https://hr.alabuga.ru&response_type=code&utm_source=vk&utm_medium=kaifuy&utm_campaign=site&utm_content=short_3&erid=2VtzqveNM9v',
     images: (1..1).map do |i|
       {
-        src: "/assets/globals/events/2023-07-16/wide_#{i}.webp",
-        src_2x: "/assets/globals/events/2023-07-16/wide_#{i}@2x.webp"
+        src: "/assets/globals/events/2023-07-22/wide_#{i}.webp",
+        src_2x: "/assets/globals/events/2023-07-22/wide_#{i}@2x.webp"
       }
     end,
     # images: [{
