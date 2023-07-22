@@ -16,7 +16,7 @@ html
     #loading-wrapper
       / = render "layouts/graphql/playground/logo"
       .text
-        | Loading 
+        | Loading
         span.dGfHfc
           | GraphQL Playground
     #root
@@ -509,7 +509,80 @@ html
           const root = document.getElementById('root');
           root.classList.add('playgroundIn');
 
+          const endpoint = '/api/graphql';
           GraphQLPlayground.init(root, {
-            endpoint: '/api/graphql'
+            endpoint,
+            tracing: { tracingSupported: false },
+            tabs: [{
+              endpoint,
+              name: 'anime',
+              query: `{
+          animes(search: "bakemono", limit: 1, kind: "!special") {
+            id
+            malId
+            name
+            russian
+            licenseNameRu
+            english
+            japanese
+            synonyms
+            kind
+            score
+            status
+            episodes
+            episodesAired
+            duration
+            airedOn
+            releasedOn
+            url
+            season
+            poster {
+              id
+              originalUrl
+              mainUrl
+            }
+            fansubbers
+            fandubbers
+            licensors
+            createdAt,
+            updatedAt,
+            nextEpisodeAt,
+            isCensored
+            genres { id name russian kind }
+            studios { id name imageUrl }
+
+            description
+            descriptionHtml
+            descriptionSource
+          }
+        }`
+            }, {
+              endpoint,
+              name: 'chracter',
+              query: `{
+          characters(page: 1, limit: 1) {
+            id
+            malId
+            name
+            russian
+            japanese
+            synonyms
+            url
+            createdAt
+            updatedAt
+            isAnime
+            isManga
+            isRanobe
+            poster {
+              id
+              originalUrl
+              mainUrl
+            }
+            description
+            descriptionHtml
+            descriptionSource
+          }
+        }`
+            }]
           })
         });
