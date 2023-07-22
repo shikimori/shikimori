@@ -51,7 +51,7 @@ class Types::AnimeType < Types::BaseObject
   end
   field :description_html, String
   def description_html
-    object.description_html.gsub(%r{(?<!:)//(?=\w)}, 'http://')
+    decorated_object.description_html.gsub(%r{(?<!:)//(?=\w)}, 'http://')
   end
   field :description_source, String
   def description_source
