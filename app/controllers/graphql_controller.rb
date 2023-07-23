@@ -16,10 +16,18 @@ class GraphqlController < ShikimoriController
     context = {
       current_user: current_user
     }
-    result = ShikimoriSchema.execute query,
-      variables: variables,
-      context: context,
-      operation_name: operation_name
+
+    result =
+      if query.include? 'IntrospectionQuery'
+        ShikimoriSchema.execute GraphQL::Introspection::INTROSPECTION_QUERY,
+          max_depth: 13,
+          max_complexity: 181
+      else
+        ShikimoriSchema.execute query,
+          variables: variables,
+          context: context,
+          operation_name: operation_name
+      end
 
     render json: result
   rescue StandardError => e
