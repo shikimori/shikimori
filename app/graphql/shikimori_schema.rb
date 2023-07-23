@@ -7,6 +7,9 @@ class ShikimoriSchema < GraphQL::Schema
   query_analyzer LogQueryDepth
   query_analyzer LogQueryComplexityAnalyzer
 
+  max_depth 5
+  max_complexity 100
+
   # # For batch-loading (see https://graphql-ruby.org/dataloader/overview.html)
   # use GraphQL::Dataloader
   #
