@@ -613,6 +613,16 @@ html
             }
           }
         }`
+            }, {
+              endpoint,
+              name: 'query with variables',
+              query: `query($ids: [ID!]) {
+          characters(ids: $ids) {
+            id
+            name
+          }
+        }`,
+              variables: '{"ids": 1}'
             }]
           })
         });
