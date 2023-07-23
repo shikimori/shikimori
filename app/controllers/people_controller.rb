@@ -159,14 +159,14 @@ private
   end
 
   def mangaka?
-    params[:kind] == 'mangaka'
+    params[:kind] == 'mangaka' || nil
   end
 
   def producer?
-    params[:kind] == 'producer'
+    params[:kind] == 'producer' || nil
   end
 
   def seyu?
-    params[:kind] == 'seyu'
+    params[:kind] == 'seyu' || nil
   end
 end
