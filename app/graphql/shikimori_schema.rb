@@ -4,6 +4,9 @@ class ShikimoriSchema < GraphQL::Schema
   trace_with GraphQL::Tracing::ActiveSupportNotificationsTrace
   use GraphQL::Tracing::AppsignalTracing if defined? Appsignal
 
+  query_analyzer LogQueryDepth
+  query_analyzer LogQueryComplexityAnalyzer
+
   # # For batch-loading (see https://graphql-ruby.org/dataloader/overview.html)
   # use GraphQL::Dataloader
   #
