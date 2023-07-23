@@ -14,15 +14,8 @@ class Types::AnimeType < Types::BaseObject
 
   field :season, String
 
-  field :aired_on, GraphQL::Types::ISO8601Date
-  def aired_on
-    object.aired_on.date
-  end
-
-  field :released_on, GraphQL::Types::ISO8601Date
-  def released_on
-    object.released_on.date
-  end
+  field :aired_on, Types::Scalars::IncompleteDate
+  field :released_on, Types::Scalars::IncompleteDate
 
   field :next_episode_at, GraphQL::Types::ISO8601DateTime
 
