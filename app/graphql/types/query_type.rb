@@ -5,5 +5,6 @@ module Types
     # include GraphQL::Types::Relay::HasNodesField
     field :animes, resolver: Queries::AnimesQuery
     field :characters, resolver: Queries::CharactersQuery
+    field :people, resolver: Queries::PeopleQuery
   end
 end

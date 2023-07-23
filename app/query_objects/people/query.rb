@@ -11,7 +11,7 @@ class People::Query < QueryObjectBase
     new scope
   end
 
-  def search phrase, is_producer:, is_mangaka:, is_seyu:
+  def search phrase, is_producer: nil, is_mangaka: nil, is_seyu: nil
     return self if phrase.blank?
 
     chain Search::Person.call(
