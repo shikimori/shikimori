@@ -387,6 +387,11 @@ GEM
       railties
       sprockets-rails
     graphql (2.0.24)
+    graphql-rails_logger (1.2.4)
+      actionpack (> 5.0)
+      activesupport (> 5.0)
+      railties (> 5.0)
+      rouge (~> 3.0)
     guard (2.18.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -629,6 +634,7 @@ GEM
       railties (>= 5.0)
     retryable (3.0.5)
     rexml (3.2.5)
+    rouge (3.30.0)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
       rspec-expectations (~> 3.12.0)
@@ -848,6 +854,7 @@ DEPENDENCIES
   gon
   graphiql-rails
   graphql
+  graphql-rails_logger
   guard
   guard-brakeman
   guard-bundler
