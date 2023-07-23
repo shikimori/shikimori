@@ -515,8 +515,9 @@ html
             tracing: { tracingSupported: false },
             tabs: [{
               endpoint,
-              name: 'anime',
+              name: 'animes',
               query: `{
+          # look for more query params in the documentation
           animes(search: "bakemono", limit: 1, kind: "!special") {
             id
             malId
@@ -558,8 +559,9 @@ html
         }`
             }, {
               endpoint,
-              name: 'chracter',
+              name: 'chracters',
               query: `{
+          # look for more query params in the documentation
           characters(page: 1, limit: 1) {
             id
             malId
@@ -581,6 +583,34 @@ html
             description
             descriptionHtml
             descriptionSource
+          }
+        }`
+            }, {
+              endpoint,
+              name: 'people',
+              query: `{
+          # look for more query params in the documentation
+          people(limit: 1) {
+            id
+            malId
+            name
+            russian
+            japanese
+            synonyms
+            url
+            isSeyu
+            isMangaka
+            isProducer
+            website
+            createdAt
+            updatedAt
+            birthOn { year month day date }
+            deceasedOn { year month day date }
+            poster {
+              id
+              originalUrl
+              mainUrl
+            }
           }
         }`
             }]
