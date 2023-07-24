@@ -13,6 +13,7 @@ class Forums::Menu < ViewObjectBase
   def club_topics
     Topic
       .includes(:linked)
+      .where.not(linked_id: 1702, linked_type: 'Club')
       .where(
         type: [
           Topics::EntryTopics::ClubTopic.name,
