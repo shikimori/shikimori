@@ -218,7 +218,7 @@ private
     #     src_2x: "/assets/globals/events/2023-02-10/menu_#{i}@2x.jpg"
     #   }
     # end,
-    url: 'https://auth.hr.alabuga.ru/auth/realms/Alabuga/protocol/openid-connect/registrations?client_id=alb-player&redirect_uri=https://hr.alabuga.ru&response_type=code&utm_source=vk&utm_medium=kaifuy&utm_campaign=site&utm_content=long_1&erid=2VtzqxQfA7n',
+    url: 'https://alabuga-polytech.ru/?utm_source=vk&utm_medium=kaifui&utm_campaign=site&utm_content=short_1&erid=2VtzqxQfA7n',
     images: [{
       src: '/assets/globals/events/2023-07-22/menu_1.webp',
       src_2x: '/assets/globals/events/2023-07-22/menu_1@2x.webp'
@@ -238,7 +238,7 @@ private
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
-    url: 'https://auth.hr.alabuga.ru/auth/realms/Alabuga/protocol/openid-connect/registrations?client_id=alb-player&redirect_uri=https://hr.alabuga.ru&response_type=code&utm_source=vk&utm_medium=kaifuy&utm_campaign=site&utm_content=short_3&erid=2VtzqveNM9v',
+    url: 'https://alabuga-polytech.ru/?utm_source=vk&utm_medium=kaifui&utm_campaign=site&utm_content=long_2&erid=2VtzqveNM9v',
     images: (1..1).map do |i|
       {
         src: "/assets/globals/events/2023-07-22/wide_#{i}.webp",
