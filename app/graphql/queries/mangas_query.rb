@@ -4,7 +4,7 @@ class Queries::MangasQuery < Queries::BaseQuery
   argument :page, Integer, required: false, default_value: 1
   argument :limit, Integer, required: false, default_value: 2
   argument :order, Types::Enums::OrderEnum, required: false, default_value: 'ranked'
-  argument :kind, Types::Scalars::KindString, required: false
+  argument :kind, Types::Scalars::Manga::KindString, required: false
   argument :status, Types::Scalars::StatusString, required: false
   argument :score, Integer,
     required: false,
