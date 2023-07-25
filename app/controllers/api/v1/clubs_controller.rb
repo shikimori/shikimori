@@ -105,12 +105,32 @@ class Api::V1::ClubsController < Api::V1Controller
 
   api :GET, '/clubs/:id/members', "Show club's members"
   def members
-    respond_with @club.all_member_roles.map(&:user)
+    page = [params[:page].to_i, 1].max
+    limit = [[(params[:limit] || 100).to_i, 1].max, 100].min
+
+    scope = QueryObjectBase
+      .new(
+        @club.object.member_roles.includes(:user).order(created_at: :desc)
+      )
+      .paginate_n1(page, limit)
+      .map(&:user)
+
+    respond_with scope
   end
 
   api :GET, '/clubs/:id/images', "Show club's images"
   def images
-    respond_with @club.all_images
+    page = [params[:page].to_i, 1].max
+    limit = [[(params[:limit] || 100).to_i, 1].max, 100].min
+
+    scope = QueryObjectBase
+      .new(
+        @club.object.images
+      )
+      .order(created_at: :desc)
+      .paginate_n1(page, limit)
+
+    respond_with scope
   end
 
   api :POST, '/clubs/:id/join', 'Join a club'
