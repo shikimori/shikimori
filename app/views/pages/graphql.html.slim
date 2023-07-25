@@ -528,6 +528,7 @@ html
             japanese
             synonyms
             kind
+            rating
             score
             status
             episodes
@@ -551,6 +552,45 @@ html
             isCensored
             genres { id name russian kind }
             studios { id name imageUrl }
+
+            description
+            descriptionHtml
+            descriptionSource
+          }
+        }`
+            }, {
+              endpoint,
+              name: 'mangas',
+              query: `{
+          # look for more query params in the documentation
+          mangas(limit: 1) {
+            id
+            malId
+            name
+            russian
+            licenseNameRu
+            english
+            japanese
+            synonyms
+            kind
+            score
+            status
+            volumes
+            chapters
+            airedOn { year month day date }
+            releasedOn { year month day date }
+            url
+            poster {
+              id
+              originalUrl
+              mainUrl
+            }
+            licensors
+            createdAt,
+            updatedAt,
+            isCensored
+            genres { id name russian kind }
+            publishers { id name }
 
             description
             descriptionHtml

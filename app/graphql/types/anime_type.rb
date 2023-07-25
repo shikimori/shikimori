@@ -8,7 +8,7 @@ class Types::AnimeType < Types::BaseObject
   field :kind, Types::Enums::Anime::KindEnum
   field :rating, Types::Enums::Anime::RatingEnum
   field :score, Float
-  field :status, Types::Enums::Anime::StatusEnum
+  field :status, Types::Enums::StatusEnum
   field :episodes, Integer
   field :episodes_aired, Integer
   field :duration, Integer, description: 'Duration in minutes'

@@ -5,9 +5,9 @@ class Types::MangaType < Types::BaseObject
   field :license_name_ru, String
   field :english, String
   field :franchise, String, description: 'Franchise name'
-  field :kind, Types::Enums::Anime::KindEnum
+  field :kind, Types::Enums::Manga::KindEnum
   field :score, Float
-  field :status, Types::Enums::Anime::StatusEnum
+  field :status, Types::Enums::StatusEnum
   field :volumes, Integer
   field :chapters, Integer
 
