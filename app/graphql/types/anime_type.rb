@@ -6,6 +6,7 @@ class Types::AnimeType < Types::BaseObject
   field :english, String
   field :franchise, String, description: 'Franchise name'
   field :kind, Types::Enums::Anime::KindEnum
+  field :rating, Types::Enums::Anime::RatingEnum
   field :score, Float
   field :status, Types::Enums::Anime::StatusEnum
   field :episodes, Integer
