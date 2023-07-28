@@ -56,7 +56,7 @@ class Queries::AnimesQuery < Queries::BaseQuery
   )
     Animes::Query
       .fetch(
-        scope: Anime.lazy_preload(:poster),
+        scope: Anime.lazy_preload(:poster, :videos),
         params: {
           page: page,
           order: order,

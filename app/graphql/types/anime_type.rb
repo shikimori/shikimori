@@ -31,4 +31,6 @@ class Types::AnimeType < Types::BaseObject
 
   field :genres, [Types::GenreType]
   field :studios, [Types::StudioType]
+
+  field :videos, [Types::VideoType]
 end

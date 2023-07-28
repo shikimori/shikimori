@@ -538,11 +538,9 @@ html
             releasedOn { year month day date }
             url
             season
-            poster {
-              id
-              originalUrl
-              mainUrl
-            }
+
+            poster { id originalUrl mainUrl }
+
             fansubbers
             fandubbers
             licensors
@@ -550,8 +548,11 @@ html
             updatedAt,
             nextEpisodeAt,
             isCensored
+
             genres { id name russian kind }
             studios { id name imageUrl }
+
+            videos { id url name kind }
 
             description
             descriptionHtml
@@ -580,15 +581,14 @@ html
             airedOn { year month day date }
             releasedOn { year month day date }
             url
-            poster {
-              id
-              originalUrl
-              mainUrl
-            }
+
+            poster { id originalUrl mainUrl }
+
             licensors
             createdAt,
             updatedAt,
             isCensored
+
             genres { id name russian kind }
             publishers { id name }
 
@@ -615,11 +615,9 @@ html
             isAnime
             isManga
             isRanobe
-            poster {
-              id
-              originalUrl
-              mainUrl
-            }
+
+            poster { id originalUrl mainUrl }
+
             description
             descriptionHtml
             descriptionSource
@@ -646,11 +644,8 @@ html
             updatedAt
             birthOn { year month day date }
             deceasedOn { year month day date }
-            poster {
-              id
-              originalUrl
-              mainUrl
-            }
+
+            poster { id originalUrl mainUrl }
           }
         }`
             }, {
