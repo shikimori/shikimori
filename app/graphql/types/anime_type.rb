@@ -32,6 +32,6 @@ class Types::AnimeType < Types::BaseObject
   field :genres, [Types::GenreType]
   field :studios, [Types::StudioType]
 
-  field :videos, [Types::VideoType]
-  field :screenshots, [Types::ScreenshotType]
+  field :videos, [Types::VideoType], complexity: 30
+  field :screenshots, [Types::ScreenshotType], complexity: 30
 end
