@@ -5,6 +5,9 @@ class QueryObjectBase
   QUERY_METHODS = %i[
     joins
     includes
+    preload
+    eager_load
+    references
     select
     where
     not
