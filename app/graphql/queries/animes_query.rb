@@ -54,10 +54,10 @@ class Queries::AnimesQuery < Queries::BaseQuery
     exclude_ids: nil,
     search: nil
   )
-    AnimesCollection::PageQuery
-      .call(
-        klass: Anime,
-        filters: {
+    Animes::Query
+      .fetch(
+        scope: Anime,
+        params: {
           page: page,
           order: order,
           score: score,
@@ -75,9 +75,8 @@ class Queries::AnimesQuery < Queries::BaseQuery
           exclude_ids: exclude_ids,
           search: search
         },
-        user: current_user,
-        limit: limit.to_i.clamp(1, LIMIT)
+        user: current_user
       )
-      .collection
+      .paginate(page, limit.to_i.clamp(1, LIMIT))
   end
 end
