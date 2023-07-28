@@ -50,7 +50,7 @@ class Queries::MangasQuery < Queries::BaseQuery
   )
     Animes::Query
       .fetch(
-        scope: Manga,
+        scope: Manga.lazy_preload(:poster),
         params: {
           page: page,
           order: order,

@@ -16,6 +16,7 @@ class Queries::CharactersQuery < Queries::BaseQuery
   )
     Characters::Query
       .fetch
+      .lazy_preload(:poster)
       .search(search)
       .by_id(ids)
       .paginate(page, limit.to_i.clamp(1, LIMIT))
