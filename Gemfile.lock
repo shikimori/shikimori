@@ -185,6 +185,7 @@ GEM
       activesupport (>= 5.0)
     appsignal (3.3.10)
       rack
+    ar_lazy_preload (2.0.0)
     ast (2.4.2)
     attr_extras (7.1.0)
     autoprefixer-rails (10.4.7.0)
@@ -813,6 +814,7 @@ DEPENDENCIES
   amazing_print
   apipie-rails
   appsignal
+  ar_lazy_preload
   attr_extras
   autoprefixer-rails
   better_errors

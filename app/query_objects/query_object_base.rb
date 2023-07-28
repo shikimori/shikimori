@@ -17,7 +17,7 @@ class QueryObjectBase
     offset
     none
     except
-  ]
+  ] + (defined?(ArLazyPreload) ? %i[lazy_preload] : [])
   DELEGATE_METHODS = %i[== === eql? equal?]
 
   vattr_initialize :scope

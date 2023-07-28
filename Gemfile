@@ -38,6 +38,7 @@ gem 'pghero'
 gem 'graphql'
 gem 'graphiql-rails', group: :development
 gem 'graphql-rails_logger', group: :development
+gem 'ar_lazy_preload'
 
 # background jobs
 gem 'sidekiq', '~> 6.5.5' # sidekiq 7 and redis 5 do not work properly https://stackoverflow.com/questions/74314906/heartbeat-unsupported-command-argument-type-falseclass-redis
