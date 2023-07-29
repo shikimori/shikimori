@@ -104,6 +104,7 @@ class Api::V1::ClubsController < Api::V1Controller
   end
 
   api :GET, '/clubs/:id/members', "Show club's members"
+  param :page, :pagination, required: false
   def members
     page = [params[:page].to_i, 1].max
     limit = [[(params[:limit] || 100).to_i, 1].max, 100].min
@@ -119,6 +120,7 @@ class Api::V1::ClubsController < Api::V1Controller
   end
 
   api :GET, '/clubs/:id/images', "Show club's images"
+  param :page, :pagination, required: false
   def images
     page = [params[:page].to_i, 1].max
     limit = [[(params[:limit] || 100).to_i, 1].max, 100].min
