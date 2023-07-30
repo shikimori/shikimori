@@ -21191,7 +21191,7 @@
         franchise: bleach
         not_anime_ids:
         - 54171
-      :threshold: 97%
+      :threshold: 96.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :bleach
@@ -22452,6 +22452,7 @@
         - 55289
         - 55647
         - 55871
+        - 56015
       :threshold: 95.5%
       :generator:
         ignore_latest_ids:
@@ -22526,6 +22527,7 @@
         - 55289
         - 55647
         - 55871
+        - 56015
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -30217,35 +30219,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :aggressive_retsuko
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/aggressive_retsuko.jpg"
-    :border_color: 
-    :title_ru: Агрессивная Рэцуко
-    :text_ru: 
-    :title_en: Aggressive Retsuko
-    :text_en: 
-    :topic_id: 247360
-    :rule: &488
-      :algo: duration
-      :filters:
-        franchise: aggressive_retsuko
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :aggressive_retsuko
-  level: 1
-  image: "/assets/achievements/anime/franchise/aggressive_retsuko.jpg"
-  border_color: 
-  title_ru: Агрессивная Рэцуко
-  text_ru: 
-  title_en: Aggressive Retsuko
-  text_en: 
-  topic_id: 247360
-  rule: *488
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :sengoku_basara
     :level: 0
     :image: "/assets/achievements/anime/franchise/sengoku_basara.jpg"
@@ -30255,7 +30228,7 @@
     :title_en: Sengoku Basara
     :text_en: 
     :topic_id: 247360
-    :rule: &489
+    :rule: &488
       :algo: duration
       :filters:
         franchise: sengoku_basara
@@ -30273,6 +30246,35 @@
   title_ru: Эпоха смут
   text_ru: 
   title_en: Sengoku Basara
+  text_en: 
+  topic_id: 247360
+  rule: *488
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :aggressive_retsuko
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/aggressive_retsuko.jpg"
+    :border_color: 
+    :title_ru: Агрессивная Рэцуко
+    :text_ru: 
+    :title_en: Aggressive Retsuko
+    :text_en: 
+    :topic_id: 247360
+    :rule: &489
+      :algo: duration
+      :filters:
+        franchise: aggressive_retsuko
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :aggressive_retsuko
+  level: 1
+  image: "/assets/achievements/anime/franchise/aggressive_retsuko.jpg"
+  border_color: 
+  title_ru: Агрессивная Рэцуко
+  text_ru: 
+  title_en: Aggressive Retsuko
   text_en: 
   topic_id: 247360
   rule: *489
@@ -31415,7 +31417,7 @@
         - 54047
         - 55006
         - 55617
-      :threshold: 95%
+      :threshold: 90.9%
       :generator:
         not_ignored_ids:
         - 32446
@@ -31556,7 +31558,7 @@
         - 54274
         - 55297
         - 55883
-      :threshold: 91.6%
+      :threshold: 91.9%
       :generator:
         not_ignored_ids:
         - 38986
@@ -33385,7 +33387,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.7%
+      :threshold: 91.8%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -33409,40 +33411,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :beyblade
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/beyblade.jpg"
-    :border_color: 
-    :title_ru: Бейблэйд
-    :text_ru: 
-    :title_en: Beyblade
-    :text_en: 
-    :topic_id: 247360
-    :rule: &580
-      :algo: duration
-      :filters:
-        franchise: beyblade
-        not_anime_ids:
-        - 8410
-        - 10370
-        - 13231
-        - 21479
-      :threshold: 80%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :beyblade
-  level: 1
-  image: "/assets/achievements/anime/franchise/beyblade.jpg"
-  border_color: 
-  title_ru: Бейблэйд
-  text_ru: 
-  title_en: Beyblade
-  text_en: 
-  topic_id: 247360
-  rule: *580
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :pretty_cure
     :level: 0
     :image: "/assets/achievements/anime/franchise/pretty_cure.jpg"
@@ -33452,7 +33420,7 @@
     :title_en: Futari wa Precure
     :text_en: 
     :topic_id: 247360
-    :rule: &581
+    :rule: &580
       :algo: duration
       :filters:
         franchise: pretty_cure
@@ -33480,6 +33448,40 @@
   title_ru: Хорошенькое лекарство
   text_ru: 
   title_en: Futari wa Precure
+  text_en: 
+  topic_id: 247360
+  rule: *580
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :beyblade
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/beyblade.jpg"
+    :border_color: 
+    :title_ru: Бейблэйд
+    :text_ru: 
+    :title_en: Beyblade
+    :text_en: 
+    :topic_id: 247360
+    :rule: &581
+      :algo: duration
+      :filters:
+        franchise: beyblade
+        not_anime_ids:
+        - 8410
+        - 10370
+        - 13231
+        - 21479
+      :threshold: 80%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :beyblade
+  level: 1
+  image: "/assets/achievements/anime/franchise/beyblade.jpg"
+  border_color: 
+  title_ru: Бейблэйд
+  text_ru: 
+  title_en: Beyblade
   text_en: 
   topic_id: 247360
   rule: *581
@@ -33919,7 +33921,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 94.8%
+      :threshold: 95%
       :generator:
         ignore_latest_ids:
         - 52992
