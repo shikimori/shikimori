@@ -61,6 +61,8 @@ module Clockwork
   end
 
   every 1.day, 'daily.imports', at: '22:30' do
+    MalParsers::FetchPage.perform_async 'anime', 'updated_at', 0, 25
+
     MalParsers::RefreshEntries.perform_async 'anime', nil, 4.months
     MalParsers::RefreshEntries.perform_async 'manga', nil, 4.months
     MalParsers::RefreshEntries.perform_async 'character', nil, 4.months
