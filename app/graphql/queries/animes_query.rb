@@ -34,6 +34,12 @@ class Queries::AnimesQuery < Queries::BaseQuery
   argument :search, String, required: false
 
   LIMIT = 50
+  PRELOADS = [
+    :poster,
+    :videos,
+    :screenshots,
+    person_roles: %i[character person]
+  ]
 
   def resolve( # rubocop:disable Metrics/ParameterLists, Metrics/MethodLength
     page:,
@@ -56,7 +62,7 @@ class Queries::AnimesQuery < Queries::BaseQuery
   )
     Animes::Query
       .fetch(
-        scope: Anime.lazy_preload(:poster, :videos, :screenshots),
+        scope: Anime.lazy_preload(*PRELOADS),
         params: {
           page: page,
           order: order,
