@@ -60,3 +60,17 @@
           - if resource.respond_to?(:smotret_anime_external_link) && resource.smotret_anime_external_link
             li
               = render resource.smotret_anime_external_link
+
+        - if resource.anime? && can?(:sync, resource)
+          .block
+            - is_syncing = Rails.cache.read([resource.object.class.base_class.name.downcase, :anime365_sync, resource.id])
+
+            - if is_syncing
+              span
+                b = t '.syncing'
+            - else
+              a.b-button[
+                href=resource.sync_url(is_anime365: '1')
+                data-method='post'
+                data-confirm=t('actions.confirm_sync')
+              ] #{t '.sync'} Anime365

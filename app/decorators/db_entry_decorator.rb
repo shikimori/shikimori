@@ -249,8 +249,8 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     h.send "versions_#{klass_lower}_url", object, page: page
   end
 
-  def sync_url
-    h.send "sync_#{klass_lower}_url"
+  def sync_url **additionals
+    h.send "sync_#{klass_lower}_url", **additionals
   end
 
   def refresh_poster_url

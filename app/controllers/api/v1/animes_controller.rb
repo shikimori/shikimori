@@ -168,7 +168,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     required: false,
     allow_blank: true,
     desc: <<~DOC
-      <p>Status of manga in current user list</p>
+      <p>Status of anime in current user list</p>
       <p><strong>Validations:</strong></p>
       <ul>
         <li>

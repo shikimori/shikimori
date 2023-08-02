@@ -185,6 +185,7 @@ GEM
       activesupport (>= 5.0)
     appsignal (3.3.10)
       rack
+    ar_lazy_preload (2.0.0)
     ast (2.4.2)
     attr_extras (7.1.0)
     autoprefixer-rails (10.4.7.0)
@@ -383,10 +384,15 @@ GEM
       multi_json
       request_store (>= 1.0)
     google-protobuf (3.21.9)
-    graphiql-rails (1.8.0)
+    graphiql-rails (1.9.0)
       railties
       sprockets-rails
     graphql (2.0.24)
+    graphql-rails_logger (1.2.4)
+      actionpack (> 5.0)
+      activesupport (> 5.0)
+      railties (> 5.0)
+      rouge (~> 3.0)
     guard (2.18.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -629,6 +635,7 @@ GEM
       railties (>= 5.0)
     retryable (3.0.5)
     rexml (3.2.5)
+    rouge (3.30.0)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
       rspec-expectations (~> 3.12.0)
@@ -807,6 +814,7 @@ DEPENDENCIES
   amazing_print
   apipie-rails
   appsignal
+  ar_lazy_preload
   attr_extras
   autoprefixer-rails
   better_errors
@@ -848,6 +856,7 @@ DEPENDENCIES
   gon
   graphiql-rails
   graphql
+  graphql-rails_logger
   guard
   guard-brakeman
   guard-bundler

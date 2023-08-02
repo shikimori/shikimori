@@ -655,3 +655,34 @@ Chewy.strategy(:atomic) { \
     "\
 '
 ```
+
+### Run graphql query
+```gql
+reload!;
+result = ShikimoriSchema.execute('
+{
+  animes(search: "bakemono", limit: 1, kind: "!special") {
+    id
+    name
+  }
+}
+  ',
+  context: {},
+  variables: {}
+)['data']
+```
+
+```gql
+reload!;
+result = ShikimoriSchema.execute('
+query($ids: [ID!]) {
+  characters(ids: $ids) {
+    id
+    name
+  }
+}
+  ',
+  context: {},
+  variables: { id: 1 }
+)['data']
+```

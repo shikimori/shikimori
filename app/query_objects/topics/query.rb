@@ -2,6 +2,7 @@ class Topics::Query < QueryObjectBase
   def self.fetch is_censored_forbidden
     scope = Topic
       .includes(:forum, :user, :linked)
+      .where.not(linked_id: 1702, linked_type: 'Club')
       .order(updated_at: :desc)
 
     new(

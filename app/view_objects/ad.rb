@@ -208,7 +208,7 @@ private
 
   SPECIAL_X300 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: ALABUGA
+    # AD START: PUBG - rmeove 2023-08-16 17:00
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
@@ -218,10 +218,10 @@ private
     #     src_2x: "/assets/globals/events/2023-02-10/menu_#{i}@2x.jpg"
     #   }
     # end,
-    url: 'https://auth.hr.alabuga.ru/auth/realms/Alabuga/protocol/openid-connect/registrations?client_id=alb-player&redirect_uri=https://hr.alabuga.ru&response_type=code&utm_source=vk&utm_medium=kaifuy&utm_campaign=site&utm_content=long_1&erid=2VtzqxQfA7n',
+    url: 'https://app.adjust.com/d3171d2_ko3lqk1?fallback=https://www.pubgmobile.com&campaign=DragonBall',
     images: [{
-      src: '/assets/globals/events/2023-07-16/menu_1.webp',
-      src_2x: '/assets/globals/events/2023-07-16/menu_1@2x.webp'
+      src: '/assets/globals/events/2023-08-02/menu_1.webp',
+      src_2x: '/assets/globals/events/2023-08-02/menu_1@2x.webp'
       # url: 'https://redirect.appmetrica.yandex.com/serve/316406067464575159'
     }],
     # AND END
@@ -234,15 +234,15 @@ private
   }
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: ALABUGA
+    # AD START: PUBG - rmeove 2023-08-16 17:00
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
-    url: 'https://auth.hr.alabuga.ru/auth/realms/Alabuga/protocol/openid-connect/registrations?client_id=alb-player&redirect_uri=https://hr.alabuga.ru&response_type=code&utm_source=vk&utm_medium=kaifuy&utm_campaign=site&utm_content=short_3&erid=2VtzqveNM9v',
+    url: 'https://app.adjust.com/d3171d2_ko3lqk1?fallback=https://www.pubgmobile.com&campaign=DragonBall',
     images: (1..1).map do |i|
       {
-        src: "/assets/globals/events/2023-07-16/wide_#{i}.webp",
-        src_2x: "/assets/globals/events/2023-07-16/wide_#{i}@2x.webp"
+        src: "/assets/globals/events/2023-08-02/wide_#{i}.webp",
+        src_2x: "/assets/globals/events/2023-08-02/wide_#{i}@2x.webp"
       }
     end,
     # images: [{
@@ -398,13 +398,13 @@ private
     #   # Types::Ad::Type[:advrtr_240x400]
     # ],
     Types::Ad::Meta[:menu_240x400] => [
-      Types::Ad::Type[:special_x300], # ALABUGA
+      Types::Ad::Type[:special_x300], # PUBG - rmeove 2023-08-16 17:00
       # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x400]
       # Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      Types::Ad::Type[:special_x300], # ALABUGA
+      Types::Ad::Type[:special_x300], # PUBG - rmeove 2023-08-16 17:00
       # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600]
       # Types::Ad::Type[:advrtr_240x400],
@@ -424,7 +424,7 @@ private
       # Types::Ad::Type[:mt_footer_300x250]
     ],
     Types::Ad::Meta[:special_x1170] => [
-      Types::Ad::Type[:special_x1170] # ALABUGA
+      Types::Ad::Type[:special_x1170] # PUBG - rmeove 2023-08-16 17:00
       # Types::Ad::Type[:yd_1170x200]
     ]
   }

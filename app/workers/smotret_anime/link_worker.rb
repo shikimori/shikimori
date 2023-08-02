@@ -29,6 +29,8 @@ class SmotretAnime::LinkWorker
     elsif give_up? anime
       give_up anime
     end
+
+    cleanup_sync_cache anime_id
   end
 
 private
@@ -106,5 +108,9 @@ private
       OpenURI.open_uri(url, 'User-Agent' => 'shikimori').read,
       symbolize_names: true
     ).dig(:data, 0)
+  end
+
+  def cleanup_sync_cache anime_id
+    Rails.cache.delete ['anime', :anime365_sync, anime_id]
   end
 end

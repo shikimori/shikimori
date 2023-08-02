@@ -1,17 +1,11 @@
 module Types
-  class QueryType < Types::BaseObject
+  class QueryType < GraphQL::Schema::Object
     # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
-    include GraphQL::Types::Relay::HasNodeField
-    include GraphQL::Types::Relay::HasNodesField
-
-    # Add root-level fields here.
-    # They will be entry points for queries on your schema.
-
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
-    end
+    # include GraphQL::Types::Relay::HasNodeField
+    # include GraphQL::Types::Relay::HasNodesField
+    field :animes, resolver: Queries::AnimesQuery
+    field :mangas, resolver: Queries::MangasQuery
+    field :characters, resolver: Queries::CharactersQuery
+    field :people, resolver: Queries::PeopleQuery
   end
 end

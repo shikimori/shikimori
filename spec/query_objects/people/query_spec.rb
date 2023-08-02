@@ -105,5 +105,11 @@ describe People::Query do
         end
       end
     end
+
+    context '#by_id' do
+      subject { query.by_id [person_1.id, person_3.id] }
+      let(:people_scope) { Person.all }
+      it { is_expected.to eq [person_1, person_3] }
+    end
   end
 end
