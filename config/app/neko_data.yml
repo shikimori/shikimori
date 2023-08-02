@@ -12875,6 +12875,7 @@
         - 40078
         - 42228
         - 4772
+        - 4651
       :generator:
         person_id: 4002
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -12963,6 +12964,7 @@
         - 40078
         - 42228
         - 4772
+        - 4651
       :generator:
         person_id: 4002
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -33060,6 +33062,7 @@
         not_anime_ids:
         - 8234
         - 8235
+        - 39374
         - 53963
         - 53964
         - 53965
@@ -33095,6 +33098,7 @@
         not_anime_ids:
         - 8234
         - 8235
+        - 39374
         - 53963
         - 53964
         - 53965
@@ -36913,6 +36917,7 @@
         - 1572
         - 2565
         - 20381
+        - 42399
       :threshold: 94.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -36946,6 +36951,7 @@
         - 1572
         - 2565
         - 20381
+        - 42399
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
