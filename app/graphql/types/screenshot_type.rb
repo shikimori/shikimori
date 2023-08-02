@@ -1,5 +1,5 @@
 class Types::ScreenshotType < Types::BaseObject
-  field :id, ID
+  field :id, GraphQL::Types::BigInt
 
   %i[
     original

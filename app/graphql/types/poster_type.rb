@@ -1,5 +1,5 @@
 class Types::PosterType < Types::BaseObject
-  field :id, ID
+  field :id, GraphQL::Types::BigInt
 
   field :original_url, String
   def original_url
