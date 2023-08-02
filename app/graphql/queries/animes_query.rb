@@ -38,7 +38,10 @@ class Queries::AnimesQuery < Queries::BaseQuery
     :poster,
     :videos,
     :screenshots,
-    person_roles: %i[character person]
+    person_roles: {
+      character: :poster,
+      person: :poster
+    }
   ]
 
   def resolve( # rubocop:disable Metrics/ParameterLists, Metrics/MethodLength

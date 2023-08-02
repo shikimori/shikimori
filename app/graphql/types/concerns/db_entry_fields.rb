@@ -12,7 +12,7 @@ module Types::Concerns::DbEntryFields
     field :created_at, GraphQL::Types::ISO8601DateTime
     field :updated_at, GraphQL::Types::ISO8601DateTime
 
-    field :poster, Types::PosterType
+    field :poster, Types::PosterType, complexity: 5
 
     field :url, String
     delegate :url, to: :decorated_object

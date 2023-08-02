@@ -552,6 +552,17 @@ html
             genres { id name russian kind }
             studios { id name imageUrl }
 
+            personRoles {
+              id
+              roles
+              person { id name poster { id } }
+            }
+            characterRoles {
+              id
+              roles
+              character { id name poster { id } }
+            }
+
             videos { id url name kind }
             screenshots { id originalUrl x166Url x332Url }
 
@@ -592,6 +603,17 @@ html
 
             genres { id name russian kind }
             publishers { id name }
+
+            personRoles {
+              id
+              roles
+              person { id name poster { id } }
+            }
+            characterRoles {
+              id
+              roles
+              character { id name poster { id } }
+            }
 
             description
             descriptionHtml

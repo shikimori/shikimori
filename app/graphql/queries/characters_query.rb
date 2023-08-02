@@ -7,6 +7,9 @@ class Queries::CharactersQuery < Queries::BaseQuery
   argument :search, String, required: false
 
   LIMIT = 50
+  PRELOADS = [
+    :poster
+  ]
 
   def resolve(
     page:,
@@ -16,7 +19,7 @@ class Queries::CharactersQuery < Queries::BaseQuery
   )
     Characters::Query
       .fetch
-      .lazy_preload(:poster)
+      .lazy_preload(*PRELOADS)
       .search(search)
       .by_id(ids)
       .paginate(page, limit.to_i.clamp(1, LIMIT))

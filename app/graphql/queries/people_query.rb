@@ -10,6 +10,9 @@ class Queries::PeopleQuery < Queries::BaseQuery
   argument :is_mangaka, Boolean, required: false
 
   LIMIT = 50
+  PRELOADS = [
+    :poster
+  ]
 
   def resolve( # rubocop:disable Metrics/ParameterLists
     page:,
@@ -22,7 +25,7 @@ class Queries::PeopleQuery < Queries::BaseQuery
   )
     People::Query
       .fetch(is_producer: is_producer, is_mangaka: is_mangaka, is_seyu: is_seyu)
-      .lazy_preload(:poster)
+      .lazy_preload(*PRELOADS)
       .search(search, is_producer: is_producer, is_mangaka: is_mangaka, is_seyu: is_seyu)
       .by_id(ids)
       .paginate(page, limit.to_i.clamp(1, LIMIT))

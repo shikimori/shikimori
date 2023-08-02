@@ -32,6 +32,16 @@ class Types::AnimeType < Types::BaseObject
   field :genres, [Types::GenreType]
   field :studios, [Types::StudioType]
 
-  field :videos, [Types::VideoType], complexity: 30
-  field :screenshots, [Types::ScreenshotType], complexity: 30
+  field :videos, [Types::VideoType], complexity: 10
+  field :screenshots, [Types::ScreenshotType], complexity: 10
+
+  field :character_roles, [Types::CharacterRoleType], complexity: 10
+  def character_roles
+    object.person_roles.select(&:character_id)
+  end
+
+  field :person_roles, [Types::PersonRoleType], complexity: 10
+  def person_roles
+    object.person_roles.select(&:person_id)
+  end
 end

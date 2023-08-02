@@ -33,7 +33,10 @@ class Queries::MangasQuery < Queries::BaseQuery
   LIMIT = 50
   PRELOADS = [
     :poster,
-    person_roles: %i[character person]
+    person_roles: {
+      character: :poster,
+      person: :poster
+    }
   ]
 
   def resolve( # rubocop:disable Metrics/ParameterLists, Metrics/MethodLength
