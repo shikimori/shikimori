@@ -6,9 +6,9 @@ describe People::Query do
       is_seyu: is_seyu
     )
   end
-  let(:is_producer) { false }
-  let(:is_mangaka) { false }
-  let(:is_seyu) { false }
+  let(:is_producer) { nil }
+  let(:is_mangaka) { nil }
+  let(:is_seyu) { nil }
 
   include_context :timecop
 
