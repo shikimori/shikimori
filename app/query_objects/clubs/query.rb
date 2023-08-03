@@ -4,7 +4,6 @@ class Clubs::Query < QueryObjectBase
 
   def self.fetch user, is_skip_restrictions, initial_scope = Club
     scope = new initial_scope
-      .where.not(id: 1702)
       .joins(:topic) # association must be preloaded because it is used in clubs/club
       .preload(:owner, :topic)
       .order(Arel.sql('coalesce(topics.updated_at, clubs.created_at) desc, clubs.id'))
