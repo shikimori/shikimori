@@ -7,5 +7,9 @@ module Types
     field :mangas, resolver: Queries::MangasQuery
     field :characters, resolver: Queries::CharactersQuery
     field :people, resolver: Queries::PeopleQuery
+    field :current_user, Types::UserType
+    def current_user
+      context[:current_user]
+    end
   end
 end
