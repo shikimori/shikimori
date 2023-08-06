@@ -2,6 +2,7 @@ class Queries::UserRatesQuery < Queries::BaseQuery
   type [Types::UserRateType], null: false
 
   LIMIT = 50
+  PRELOADS = %i[anime manga]
 
   argument :page, Integer, required: false, default_value: 1
   argument :limit, Integer,
@@ -24,6 +25,7 @@ class Queries::UserRatesQuery < Queries::BaseQuery
     return [] if user_id.blank?
 
     scope = QueryObjectBase.new(UserRate)
+      .lazy_preload(*PRELOADS)
       .where(user_id: user_id)
       .where(target_type: target_type)
       .order(:id)

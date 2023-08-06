@@ -15,4 +15,7 @@ class Types::UserType < Types::BaseObject
   def last_online_at
     object[:last_online_at]
   end
+
+  field :anime, Types::AnimeType
+  field :manga, Types::MangaType
 end
