@@ -11,5 +11,7 @@ module Types
     def current_user
       context[:current_user]
     end
+
+    field :user_rates, resolver: Queries::UserRatesQuery
   end
 end
