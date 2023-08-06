@@ -1,18 +1,21 @@
 class Queries::PeopleQuery < Queries::BaseQuery
   type [Types::PersonType], null: false
 
+  LIMIT = 50
+  PRELOADS = [
+    :poster
+  ]
+
   argument :page, Integer, required: false, default_value: 1
-  argument :limit, Integer, required: false, default_value: 2
+  argument :limit, Integer,
+    required: false,
+    default_value: 2,
+    description: "Maximum #{LIMIT}"
   argument :ids, [ID], required: false
   argument :search, String, required: false
   argument :is_seyu, Boolean, required: false
   argument :is_producer, Boolean, required: false
   argument :is_mangaka, Boolean, required: false
-
-  LIMIT = 50
-  PRELOADS = [
-    :poster
-  ]
 
   def resolve( # rubocop:disable Metrics/ParameterLists
     page:,

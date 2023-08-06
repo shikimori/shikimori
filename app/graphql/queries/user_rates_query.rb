@@ -1,13 +1,18 @@
 class Queries::UserRatesQuery < Queries::BaseQuery
   type [Types::UserRateType], null: false
 
+  LIMIT = 50
+
   argument :page, Integer, required: false, default_value: 1
-  argument :limit, Integer, required: false, default_value: 2
-  argument :user_id, GraphQL::Types::BigInt, required: false
+  argument :limit, Integer,
+    required: false,
+    default_value: 2,
+    description: "Maximum #{LIMIT}"
+  argument :user_id, GraphQL::Types::BigInt,
+    required: false,
+    description: 'ID of current user is used by default'
   argument :target_type, Types::Enums::UserRate::TargetTypeEnum, required: true
   argument :status, Types::Enums::UserRate::StatusEnum, required: false
-
-  LIMIT = 50
 
   def resolve(
     page:,
@@ -16,7 +21,7 @@ class Queries::UserRatesQuery < Queries::BaseQuery
     user_id: current_user&.id,
     status: nil
   )
-    return [] unless current_user
+    return [] if user_id.blank?
 
     scope = QueryObjectBase.new(UserRate)
       .where(user_id: user_id)

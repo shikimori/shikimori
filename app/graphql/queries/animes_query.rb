@@ -1,9 +1,23 @@
-class Queries::AnimesQuery < Queries::BaseQuery
+class Queries::AnimesQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassLength
   type [Types::AnimeType], null: false
   extras [:lookahead]
 
+  LIMIT = 50
+  PRELOADS = [
+    :poster,
+    :videos,
+    :screenshots,
+    person_roles: {
+      character: :poster,
+      person: :poster
+    }
+  ]
+
   argument :page, Integer, required: false, default_value: 1
-  argument :limit, Integer, required: false, default_value: 2
+  argument :limit, Integer,
+    required: false,
+    default_value: 2,
+    description: "Maximum #{LIMIT}"
   argument :order, Types::Enums::OrderEnum, required: false, default_value: 'ranked'
   argument :kind, Types::Scalars::Anime::KindString, required: false
   argument :status, Types::Scalars::StatusString, required: false
@@ -33,17 +47,6 @@ class Queries::AnimesQuery < Queries::BaseQuery
     required: false,
     description: 'List of comma separated ids'
   argument :search, String, required: false
-
-  LIMIT = 50
-  PRELOADS = [
-    :poster,
-    :videos,
-    :screenshots,
-    person_roles: {
-      character: :poster,
-      person: :poster
-    }
-  ]
 
   def resolve( # rubocop:disable Metrics/ParameterLists, Metrics/MethodLength
     page:,
