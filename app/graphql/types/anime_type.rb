@@ -44,4 +44,9 @@ class Types::AnimeType < Types::BaseObject
   def person_roles
     object.person_roles.select(&:person_id)
   end
+
+  field :user_rate, Types::UserRateType, complexity: 50
+  def user_rate
+    decorated_object.current_rate
+  end
 end

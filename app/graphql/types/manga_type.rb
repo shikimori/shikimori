@@ -23,4 +23,9 @@ class Types::MangaType < Types::BaseObject
 
   field :genres, [Types::GenreType]
   field :publishers, [Types::PublisherType]
+
+  field :user_rate, Types::UserRateType, complexity: 50
+  def user_rate
+    decorated_object.current_rate
+  end
 end
