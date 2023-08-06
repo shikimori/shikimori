@@ -24,6 +24,16 @@ class Types::MangaType < Types::BaseObject
   field :genres, [Types::GenreType]
   field :publishers, [Types::PublisherType]
 
+  field :character_roles, [Types::CharacterRoleType], complexity: 10
+  def character_roles
+    object.person_roles.select(&:character_id)
+  end
+
+  field :person_roles, [Types::PersonRoleType], complexity: 10
+  def person_roles
+    object.person_roles.select(&:person_id)
+  end
+
   field :user_rate, Types::UserRateType, complexity: 50
   def user_rate
     context[:manga_user_rates] ?
