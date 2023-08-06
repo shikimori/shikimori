@@ -5,6 +5,7 @@ class Queries::MangasQuery < Queries::BaseQuery
   LIMIT = 50
   PRELOADS = [
     :poster,
+    :external_links,
     person_roles: {
       character: :poster,
       person: :poster

@@ -24,6 +24,11 @@ class Types::MangaType < Types::BaseObject
   field :genres, [Types::GenreType]
   field :publishers, [Types::PublisherType]
 
+  field :external_links, [Types::ExternalLinkType], complexity: 10
+  def external_links
+    decorated_object.menu_external_links
+  end
+
   field :character_roles, [Types::CharacterRoleType], complexity: 10
   def character_roles
     object.person_roles.select(&:character_id)

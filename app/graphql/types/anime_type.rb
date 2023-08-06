@@ -35,6 +35,11 @@ class Types::AnimeType < Types::BaseObject
   field :videos, [Types::VideoType], complexity: 10
   field :screenshots, [Types::ScreenshotType], complexity: 10
 
+  field :external_links, [Types::ExternalLinkType], complexity: 10
+  def external_links
+    decorated_object.menu_external_links
+  end
+
   field :character_roles, [Types::CharacterRoleType], complexity: 10
   def character_roles
     object.person_roles.select(&:character_id)
