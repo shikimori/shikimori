@@ -1,5 +1,6 @@
 class Queries::MangasQuery < Queries::BaseQuery
   type [Types::MangaType], null: false
+  extras [:lookahead]
 
   argument :page, Integer, required: false, default_value: 1
   argument :limit, Integer, required: false, default_value: 2
@@ -43,6 +44,7 @@ class Queries::MangasQuery < Queries::BaseQuery
     page:,
     limit:,
     order:,
+    lookahead:,
     kind: nil,
     status: nil,
     score: nil,
@@ -55,7 +57,7 @@ class Queries::MangasQuery < Queries::BaseQuery
     exclude_ids: nil,
     search: nil
   )
-    Animes::Query
+    collection = Animes::Query
       .fetch(
         scope: Manga.lazy_preload(*PRELOADS),
         params: {
@@ -76,5 +78,20 @@ class Queries::MangasQuery < Queries::BaseQuery
         user: current_user
       )
       .paginate(page, limit.to_i.clamp(1, LIMIT))
+      .to_a
+
+    fetch_user_rates collection if lookahead.selects?(:user_rate) && current_user
+
+    collection
+  end
+
+private
+
+  def fetch_user_rates collection
+    context[:manga_user_rates] = UserRate
+      .where(user: current_user)
+      .where(target_type: Manga.name)
+      .where(target_id: collection.map(&:id))
+      .index_by(&:target_id)
   end
 end

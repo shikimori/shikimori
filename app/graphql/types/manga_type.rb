@@ -26,6 +26,8 @@ class Types::MangaType < Types::BaseObject
 
   field :user_rate, Types::UserRateType, complexity: 50
   def user_rate
-    decorated_object.current_rate
+    context[:manga_user_rates] ?
+      context[:manga_user_rates][object.id] :
+      decorated_object.current_rate
   end
 end
