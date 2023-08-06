@@ -19,8 +19,12 @@ Apipie.configure do |config|
   pagination_placeholder = '%%PAGINATION_PLACEHOLDER%%'
 
   app_info = <<~MARKDOWN
+    ## GraphQL API docs and playground avaialble at [/api/doc/graphql](/api/doc/graphql).
+    GraphQL API contains new anime and manga posters as well as other new fields which are not present in v1/v2 apis. The GraphQL API is experimental and may change slightly in the future.
+
     ## Welcome to Shikimori API #{version_placeholder}
-    This API has two versions:
+    This API has three versions:
+      [**graphql** (experimental)](/api/doc/graphql) and
       [**v2**](/api/doc/2.0.html) and
       [**v1**](/api/doc/1.0.html).
       `v2` consists of newly updated methods.
