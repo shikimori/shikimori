@@ -85,7 +85,12 @@ class Animes::ReviewsController < AnimesController
   end
 
   def new
-    og page_title: i18n_t('new_review')
+    og(
+      page_title: i18n_t('new_review'),
+      noindex: true,
+      nofollow: true
+    )
+
     breadcrumb i18n_t('new_review'), nil
 
     @review ||= Review.new do |review|
