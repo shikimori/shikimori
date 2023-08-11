@@ -69,7 +69,11 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
       Manga.where.not(kind: Ranobe::KINDS) :
       @view.klass.all
 
-    scope.where! is_censored: false if params[:censored] == 'false' || censored_rejected?
+    # check for "censored_forbidden? " instead of "censored_rejected?" because we can't
+    # ask for age in autocomplete popup
+    if params[:censored] == 'false' || censored_forbidden?
+      scope = scope.where! is_censored: false
+    end
 
     @collection = "Autocomplete::#{@view.klass.name}".constantize
       .call(
