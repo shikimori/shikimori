@@ -71,7 +71,7 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
 
     # check for "censored_forbidden? " instead of "censored_rejected?" because we can't
     # ask for age in autocomplete popup
-    if params[:censored] == 'false' || censored_forbidden?
+    if params[:censored] == 'false' || (json? ? censored_forbidden? : censored_rejected?)
       scope = scope.where! is_censored: false
     end
 
@@ -81,6 +81,8 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
         phrase: search_phrase
       )
       .map(&:decorate)
+
+    verify_age_restricted! @collection unless json?
   end
 
   def autocomplete_v2
