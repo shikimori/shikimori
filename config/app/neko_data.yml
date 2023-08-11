@@ -3830,7 +3830,7 @@
     :topic_id: 222056
     :rule: &34
       :algo: count
-      :threshold: 55
+      :threshold: 40
       :filters:
         genre_ids:
         - 36
@@ -3860,7 +3860,7 @@
     :topic_id: 0
     :rule: &35
       :algo: count
-      :threshold: 95
+      :threshold: 75
       :filters:
         genre_ids:
         - 36
@@ -3892,7 +3892,7 @@
     :topic_id: 0
     :rule: &36
       :algo: count
-      :threshold: 155
+      :threshold: 135
       :filters:
         genre_ids:
         - 36
@@ -3926,7 +3926,7 @@
     :topic_id: 0
     :rule: &37
       :algo: count
-      :threshold: 220
+      :threshold: 190
       :filters:
         genre_ids:
         - 36
@@ -9338,6 +9338,7 @@
         - 9760
         - 22839
         - 50594
+        - 53731
       :generator:
         person_id: 1117
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -9385,6 +9386,7 @@
         - 9760
         - 22839
         - 50594
+        - 53731
       :generator:
         person_id: 1117
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -16263,6 +16265,9 @@
         - 48548
         - 54915
         - 53126
+        - 17147
+        - 29511
+        - 37481
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -17645,6 +17650,9 @@
         - 48548
         - 54915
         - 53126
+        - 17147
+        - 29511
+        - 37481
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -19027,6 +19035,9 @@
         - 48548
         - 54915
         - 53126
+        - 17147
+        - 29511
+        - 37481
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
