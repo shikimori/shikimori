@@ -16268,6 +16268,8 @@
         - 17147
         - 29511
         - 37481
+        - 15813
+        - 52093
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -17653,6 +17655,8 @@
         - 17147
         - 29511
         - 37481
+        - 15813
+        - 52093
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -19038,6 +19042,8 @@
         - 17147
         - 29511
         - 37481
+        - 15813
+        - 52093
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -38871,6 +38877,7 @@
         - 38897
         - 42030
         - 53126
+        - 10165
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -39386,6 +39393,7 @@
         - 38897
         - 42030
         - 53126
+        - 10165
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -39905,6 +39913,7 @@
         - 38897
         - 42030
         - 53126
+        - 10165
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
