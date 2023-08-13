@@ -7,7 +7,8 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     :favoured, :favoured?, :all_favoured, :favoured_size,
     :main_topic_view, :preview_topic_view,
     :parameterized_versions,
-    :news_topic_views
+    :news_topic_views,
+    :clubs_scope # cache it in order to prevent re-fetching of cache key
 
   MAX_CLUBS = 4
   MAX_COLLECTIONS = 3
@@ -135,13 +136,6 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     scope = Clubs::Query.fetch(h.current_user, false, object.clubs)
     scope = scope.where is_censored: false if !object.try(:censored?) && h.censored_forbidden?
     scope
-  end
-
-  def clubs_scope_cache_key
-    clubs_scope
-      .except(:order)
-      .pick(Arel.sql('count(*), max(clubs.updated_at)'))
-      &.join('/')
   end
 
   def menu_collections
