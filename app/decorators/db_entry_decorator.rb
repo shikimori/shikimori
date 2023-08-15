@@ -131,7 +131,11 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def clubs_scope
-    return Club.none if respond_to?(:rkn_abused?) && rkn_abused?
+    if respond_to?(:rkn_abused?) && rkn_abused?
+      scope = []
+      def scope.cache_key; 'none'; end # rubocop:disable Style/SingleLineMethods
+      return scope
+    end
 
     scope = Clubs::Query.fetch(h.current_user, false, object.clubs)
     scope = scope.where is_censored: false if !object.try(:censored?) && h.censored_forbidden?
