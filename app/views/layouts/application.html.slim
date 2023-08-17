@@ -90,8 +90,7 @@ html[
           data-type='html'
         ]
           .marker-text data-text=t('application.aside.report_bug')
-    - if user_signed_in?
-      javascript [id='js_export']:
-        window.JS_EXPORTS = #{{JsExports::Supervisor.instance.export(current_user).to_json}};
+    javascript[id='js_export']:
+      window.JS_EXPORTS = #{{JsExports::Supervisor.instance.export(current_user).to_json}};
     = yield :tail
     = Gon::Base.render_data
