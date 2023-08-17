@@ -84,7 +84,7 @@ class Queries::AnimesQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassL
           genre: genre,
           studio: studio,
           franchise: franchise,
-          censored: censored,
+          censored: to_filter_boolean(censored),
           mylist: mylist,
           ids: ids,
           exclude_ids: exclude_ids,
@@ -108,5 +108,13 @@ private
       .where(target_type: Anime.name)
       .where(target_id: collection.map(&:id))
       .index_by(&:target_id)
+  end
+
+  def to_filter_boolean value
+    if value == true
+      Animes::Filters::Policy::TRUE_STRICT
+    elsif value == false
+      Animes::Filters::Policy::FALSE_STRICT
+    end
   end
 end

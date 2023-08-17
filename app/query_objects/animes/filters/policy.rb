@@ -1,8 +1,11 @@
 class Animes::Filters::Policy
   TRUE_STRICT = 'true'
   TRUE_CONDITIONAL = :auto_true
-  FALSY = ['false', 0, '0']
   TRUTHY = [TRUE_STRICT, 1, '1', TRUE_CONDITIONAL]
+
+  FALSE_STRICT = 'false'
+  FALSY = [FALSE_STRICT, 0, '0']
+
   ALLOWED_CENSORED_VALUES = TRUTHY + FALSY
 
   ADULT_RATING_REGEXP =
