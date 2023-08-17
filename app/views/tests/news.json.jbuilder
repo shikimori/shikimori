@@ -1,4 +1,5 @@
 json.content JsExports::Supervisor.instance.sweep(
+  current_user,
   render(
     partial: 'tests/cached_news',
     locals: {

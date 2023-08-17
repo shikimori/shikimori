@@ -75,7 +75,7 @@ class Api::V1::ShikiEditorsController < Api::V1Controller # rubocop:disable Clas
       end
 
     render json: {
-      html: JsExports::Supervisor.instance.sweep(html),
+      html: JsExports::Supervisor.instance.sweep(current_user, html),
       JS_EXPORTS: JsExports::Supervisor.instance.export(current_user)
     }
   end
