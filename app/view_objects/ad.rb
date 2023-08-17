@@ -208,7 +208,6 @@ private
 
   SPECIAL_X300 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: PUBG - rmeove 2023-08-16 17:00
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
@@ -224,7 +223,6 @@ private
       src_2x: '/assets/globals/events/2023-08-17/menu_1@2x.jpg'
       # url: 'https://redirect.appmetrica.yandex.com/serve/316406067464575159'
     }],
-    # AND END
     rules: {
       cookie: 'i7',
       shows_per_week: 480 # 380 # 420 # 540
@@ -234,7 +232,6 @@ private
   }
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: PUBG - rmeove 2023-08-16 17:00
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
@@ -255,7 +252,6 @@ private
     #     src_2x: "/assets/globals/events/2022-11-01/wide_#{i}@2x.jpg"
     #   }
     # end,
-    # AD END
     # html: (
     #   <<~HTML
     #     <style>
@@ -284,21 +280,21 @@ private
   }
   SPECIAL_X894 = {
     provider: Types::Ad::Provider[:special],
-    # AD START: IMBA - remove 2023-06-30 22:00
-    images: [{
-      src: '/assets/globals/events/2023-06-02/inner_1.webp',
-      url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner1&utm_campaign=02_06&erid=2Vtzqv5UkDh'
-    }, {
-      src: '/assets/globals/events/2023-06-02/inner_2.webp',
-      url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner2&utm_campaign=02_06&erid=2VtzqwWWixs'
-    }, {
-      src: '/assets/globals/events/2023-06-02/inner_3.webp',
-      url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner3&utm_campaign=02_06&erid=2Vtzqw6sJ6X'
-    # }, {
-    #   src: '/assets/globals/events/2023-06-02/inner_4.webp',
-    #   url: 'https://imba.shop/catalog/new-sostav?utm_source=shikimori&utm_medium=banner4&utm_campaign=06_06&erid=2VtzqvHRkW5'
-    }],
-    # AD END
+    url: 'https://isekaifest.ru/',
+    images: (1..2).map do |i|
+      {
+        src: "/assets/globals/events/2023-08-18/wide_#{i}.jpg"
+        # src_2x: "/assets/globals/events/2023-08-18/wide_#{i}@2x.webp"
+      }
+    end,
+    # images: [{
+    #   src: '/assets/globals/events/2023-06-02/inner_1.webp',
+    #   url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner1&utm_campaign=02_06&erid=2Vtzqv5UkDh'
+    # }],
+    rules: {
+      cookie: 'i8',
+      shows_per_week: 480 # 380 # 420 # 540
+    },
     placement: Types::Ad::Placement[:content],
     platform: Types::Ad::Platform[:desktop]
   }
@@ -415,7 +411,7 @@ private
       # Types::Ad::Type[:advrtr_x728]
     ],
     Types::Ad::Meta[:horizontal_x90] => [
-      # Types::Ad::Type[:special_x894] # IMBA - remove 2023-05-17 22:00
+      Types::Ad::Type[:special_x894], # ISEKAIFEST - remove 2023-08-18 23:59
       # Types::Ad::Type[:mt_728x90],
       # Types::Ad::Type[:advrtr_x728]
       Types::Ad::Type[:yd_970x90]
