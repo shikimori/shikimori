@@ -6,6 +6,7 @@ class Queries::MangasQuery < Queries::BaseQuery
   PRELOADS = [
     :poster,
     :external_links,
+    :stats,
     person_roles: {
       character: :poster,
       person: :poster

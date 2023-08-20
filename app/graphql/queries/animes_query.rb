@@ -8,6 +8,7 @@ class Queries::AnimesQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassL
     :videos,
     :screenshots,
     :external_links,
+    :stats,
     person_roles: {
       character: :poster,
       person: :poster

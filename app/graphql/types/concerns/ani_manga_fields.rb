@@ -33,5 +33,25 @@ module Types::Concerns::AniMangaFields
     def person_roles
       object.person_roles.select(&:person_id)
     end
+
+    field :scores_stats, [Types::ScoreStatType]
+    def scores_stats
+      (object.stats&.scores_stats || []).map do |entry|
+        {
+          score: entry[0],
+          count: entry[1]
+        }
+      end
+    end
+
+    field :statuses_stats, [Types::StatusStatType]
+    def statuses_stats
+      (object.stats&.list_stats || []).map do |entry|
+        {
+          status: entry[0],
+          count: entry[1]
+        }
+      end
+    end
   end
 end
