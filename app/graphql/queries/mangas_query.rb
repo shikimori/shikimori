@@ -5,7 +5,7 @@ class Queries::MangasQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassL
   LIMIT = 50
   BASIC_PRELOADS = [
     :poster,
-    :external_links,
+    :all_external_links,
     :stats,
     person_roles: {
       character: :poster,
