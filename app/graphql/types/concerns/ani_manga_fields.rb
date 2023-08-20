@@ -34,6 +34,8 @@ module Types::Concerns::AniMangaFields
       object.person_roles.select(&:person_id)
     end
 
+    field :related, [Types::RelatedType], complexity: 10
+
     field :scores_stats, [Types::ScoreStatType]
     def scores_stats
       (object.stats&.scores_stats || []).map do |entry|

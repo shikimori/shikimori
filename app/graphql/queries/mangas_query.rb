@@ -1,9 +1,9 @@
-class Queries::MangasQuery < Queries::BaseQuery
+class Queries::MangasQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassLength
   type [Types::MangaType], null: false
   extras [:lookahead]
 
   LIMIT = 50
-  PRELOADS = [
+  BASIC_PRELOADS = [
     :poster,
     :external_links,
     :stats,
@@ -12,6 +12,12 @@ class Queries::MangasQuery < Queries::BaseQuery
       person: :poster
     }
   ]
+  PRELOADS = BASIC_PRELOADS + [{
+    related: {
+      anime: Queries::AnimesQuery::BASIC_PRELOADS + %i[related],
+      manga: BASIC_PRELOADS + %i[related]
+    }
+  }]
 
   argument :page, Integer, required: false, default_value: 1
   argument :limit, Integer,
