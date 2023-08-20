@@ -5642,6 +5642,7 @@
         - 53671
         - 53077
         - 34208
+        - 38999
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -6170,6 +6171,7 @@
         - 53671
         - 53077
         - 34208
+        - 38999
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -6699,6 +6701,7 @@
         - 53671
         - 53077
         - 34208
+        - 38999
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -16270,6 +16273,10 @@
         - 37481
         - 15813
         - 52093
+        - 38999
+        - 569
+        - 1168
+        - 35730
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -17657,6 +17664,10 @@
         - 37481
         - 15813
         - 52093
+        - 38999
+        - 569
+        - 1168
+        - 35730
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -19044,6 +19055,10 @@
         - 37481
         - 15813
         - 52093
+        - 38999
+        - 569
+        - 1168
+        - 35730
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -26925,6 +26940,7 @@
         - 30840
         - 32158
         - 32898
+        - 32927
         - 33221
         - 33225
         - 33226
@@ -26935,6 +26951,7 @@
         - 35975
         - 36436
         - 38714
+        - 38739
         - 39592
         - 39674
         - 40464
@@ -27026,6 +27043,7 @@
         - 30840
         - 32158
         - 32898
+        - 32927
         - 33221
         - 33225
         - 33226
@@ -27036,6 +27054,7 @@
         - 35975
         - 36436
         - 38714
+        - 38739
         - 39592
         - 39674
         - 40464
@@ -29762,37 +29781,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :cardcaptor_sakura
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/cardcaptor_sakura.jpg"
-    :border_color: 
-    :title_ru: Сакура — собирательница карт
-    :text_ru: 
-    :title_en: Cardcaptor Sakura
-    :text_en: 
-    :topic_id: 247360
-    :rule: &474
-      :algo: duration
-      :filters:
-        franchise: cardcaptor_sakura
-        not_anime_ids:
-        - 37595
-      :threshold: 97.9%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :cardcaptor_sakura
-  level: 1
-  image: "/assets/achievements/anime/franchise/cardcaptor_sakura.jpg"
-  border_color: 
-  title_ru: Сакура — собирательница карт
-  text_ru: 
-  title_en: Cardcaptor Sakura
-  text_en: 
-  topic_id: 247360
-  rule: *474
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :genshiken
     :level: 0
     :image: "/assets/achievements/anime/franchise/genshiken.jpg"
@@ -29802,7 +29790,7 @@
     :title_en: Genshiken
     :text_en: 
     :topic_id: 247360
-    :rule: &475
+    :rule: &474
       :algo: duration
       :filters:
         franchise: genshiken
@@ -29818,6 +29806,37 @@
   title_ru: Гэнсикэн
   text_ru: 
   title_en: Genshiken
+  text_en: 
+  topic_id: 247360
+  rule: *474
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :cardcaptor_sakura
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/cardcaptor_sakura.jpg"
+    :border_color: 
+    :title_ru: Сакура — собирательница карт
+    :text_ru: 
+    :title_en: Cardcaptor Sakura
+    :text_en: 
+    :topic_id: 247360
+    :rule: &475
+      :algo: duration
+      :filters:
+        franchise: cardcaptor_sakura
+        not_anime_ids:
+        - 37595
+      :threshold: 97.9%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :cardcaptor_sakura
+  level: 1
+  image: "/assets/achievements/anime/franchise/cardcaptor_sakura.jpg"
+  border_color: 
+  title_ru: Сакура — собирательница карт
+  text_ru: 
+  title_en: Cardcaptor Sakura
   text_en: 
   topic_id: 247360
   rule: *475
@@ -34605,7 +34624,6 @@
         - 4088
         - 10342
         - 17959
-        - 17961
         - 17963
         - 17965
         - 18637
@@ -34618,7 +34636,10 @@
         - 39363
         - 40377
         - 54081
-      :threshold: 99.2%
+      :threshold: 98.7%
+      :generator:
+        not_ignored_ids:
+        - 17961
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :atom
@@ -34652,7 +34673,6 @@
         - 4088
         - 10342
         - 17959
-        - 17961
         - 17963
         - 17965
         - 18637
@@ -34666,6 +34686,9 @@
         - 40377
         - 54081
       :threshold: 0.01
+      :generator:
+        not_ignored_ids:
+        - 17961
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :atom
