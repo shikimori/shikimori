@@ -24869,7 +24869,7 @@
         - 9716
         - 10334
         - 37537
-      :threshold: 95%
+      :threshold: 93.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :rurouni_kenshin
@@ -25588,7 +25588,7 @@
         - 52497
         - 52897
         - 56064
-      :threshold: 93.9%
+      :threshold: 94%
       :generator:
         ignore_latest_ids:
         - 37966
@@ -25947,7 +25947,7 @@
         - 30953
         - 31128
         - 36498
-      :threshold: 97.7%
+      :threshold: 97.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :arslan_senki
@@ -31602,7 +31602,7 @@
         - 54274
         - 55297
         - 55883
-      :threshold: 91.9%
+      :threshold: 92.1%
       :generator:
         not_ignored_ids:
         - 38986
@@ -34561,7 +34561,7 @@
       :algo: duration
       :filters:
         franchise: xingchen_bian
-      :threshold: 98%
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :xingchen_bian
