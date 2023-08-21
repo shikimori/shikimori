@@ -16277,6 +16277,7 @@
         - 569
         - 1168
         - 35730
+        - 268
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -17668,6 +17669,7 @@
         - 569
         - 1168
         - 35730
+        - 268
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -19059,6 +19061,7 @@
         - 569
         - 1168
         - 35730
+        - 268
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
