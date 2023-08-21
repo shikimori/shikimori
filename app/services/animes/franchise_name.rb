@@ -36,7 +36,8 @@ class Animes::FranchiseName
     'Binan Koukou Chikyuu Bouei-bu LOVE! LOVE! LOVE!' => 'binan_koukou_chikyuu_boueibu_love',
     'Monster Strike' => 'monster_strike',
     'Mameshiba 2nd Season' => 'mameshiba',
-    'Daisuki! Hello Kitty' => 'hello_kitty'
+    'Daisuki! Hello Kitty' => 'hello_kitty',
+    'Tennis no Oujisama' => 'tennis_no_ouji_sama'
   }.transform_keys(&:downcase)
 
   def call
