@@ -1,9 +1,6 @@
 # GENERATED: call `Animes::GenerateBannedRelations.call` to update this file
 ---
 -
-  - A44042
-  - A56015
--
   - A10012 # Carnival Phantasm
   - A2593 # Kara no Kyoukai Movie 1: Fukan Fuukei
 -
@@ -125,11 +122,11 @@
   - A13333 # Tari Tari
   - A21103 # Utopia
 -
-  - A1341 # Violence Jack: Harlem Bomber-hen
+  - A1341 # Violence Jack: Harem Bomber-hen
   - A2253 # Mazinger Z
   - A2692 # CB Chara Go Nagai World
 -
-  - A1341 # Violence Jack: Harlem Bomber-hen
+  - A1341 # Violence Jack: Harem Bomber-hen
   - A2692 # CB Chara Go Nagai World
 -
   - A1348 # Bubblegum Crash
@@ -151,7 +148,7 @@
   - A2335 # Kenyuu Densetsu Yaiba
 -
   - A1371 # Hi no Tori
-  - A4941 # Tezuka Osamu ga Kieta?! 20 Seiki Saigo no Kaijiken
+  - A4941 # Tezuka Osamu ga Kieta?! 20-seiki Saigo no Kaijiken
 -
   - A13863 # Arve Rezzle: Kikaijikake no Yousei-tachi
   - A14347 # Ryo
@@ -376,7 +373,7 @@
   - A21743 # Donten ni Warau
   - A37285 # Ippun de Wakaru Eiga "Donten ni Warau" Kaisetsu Yokoku
 -
-  - A21755 # Shin Tennis no Ouji-sama vs. Genius 10
+  - A21755 # Shin Tennis no Oujisama vs. Genius 10
   - A32831 # Hungry to Win
 -
   - A2222 # Dr. Slump: Arale-chan
@@ -530,9 +527,9 @@
   - A48850 # Kyojin no Hoshi tai Tetsuwan Atom
 -
   - A2747 # Tetsuwan Atom
-  - A4941 # Tezuka Osamu ga Kieta?! 20 Seiki Saigo no Kaijiken
+  - A4941 # Tezuka Osamu ga Kieta?! 20-seiki Saigo no Kaijiken
 -
-  - A27509 # Toaru Majutsu no Index 10th Anniversary PV
+  - A27509 # Toaru Majutsu no Index 10-shuunen Kinen PV
   - A27829 # Heavy Object
 -
   - A27829 # Heavy Object
@@ -643,7 +640,7 @@
   - A36240 # Scratch x One Piece Film: Gold
 -
   - A3024 # Ribbon no Kishi
-  - A4941 # Tezuka Osamu ga Kieta?! 20 Seiki Saigo no Kaijiken
+  - A4941 # Tezuka Osamu ga Kieta?! 20-seiki Saigo no Kaijiken
 -
   - A30442 # Kana Kana Kazoku x Himitsukessha Taka no Tsume Collaboration 
   - A4737 # Himitsukessha Taka no Tsume
@@ -707,7 +704,7 @@
   - A39249 # Pandora to Akubi
 -
   - A31599 # Kaette Kite yoo Toyama kara
-  - A33922 # Taka no Tsume-dan, Toyama
+  - A33922 # Taka no Tsumedan, Toyama
 -
   - A31647 # Ponkotsuland Saga
   - A37521 # Vinland Saga
@@ -811,7 +808,7 @@
   - A33705 # Mameshiba the DVD Green Pea-shiba no Kutsujoku
   - A7261 # Mameshiba
 -
-  - A33922 # Taka no Tsume-dan, Toyama
+  - A33922 # Taka no Tsumedan, Toyama
   - A4737 # Himitsukessha Taka no Tsume
 -
   - A34034 # Pokemon Sun & Moon
@@ -840,10 +837,10 @@
   - A34914 # New Game!!
   - A36805 # Kirara Fantasia
 -
-  - A35219 # DC Super Heroes vs Taka no Tsume-dan
+  - A35219 # DC Super Heroes vs Taka no Tsumedan
   - A37285 # Ippun de Wakaru Eiga "Donten ni Warau" Kaisetsu Yokoku
 -
-  - A35219 # DC Super Heroes vs Taka no Tsume-dan
+  - A35219 # DC Super Heroes vs Taka no Tsumedan
   - A4094 # Batman: Gotham Knight
 -
   - A3545 # Kochira Katsushikaku Kameari Kouenmae Hashutsujo
@@ -893,7 +890,7 @@
   - A36517 # Ninja Batman
   - A37622 # Ninja Batman x Poputepipikku Kindan no Collab CM
 -
-  - A36624 # 4 Shuunen Monst? Shiru ka yo!
+  - A36624 # 4-shuunen Monst? Shiru ka yo!
   - A7261 # Mameshiba
 -
   - A36805 # Kirara Fantasia
@@ -943,6 +940,9 @@
   - A4013 # Paul no Miracle Daisakusen
   - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
 -
+  - A40839 # Kanojo, Okarishimasu
+  - A56172 # Temple x Kanojo, Okarishimasu
+-
   - A41059 # Mameshiba x Nanatsu no Taizai Collab CM
   - A7261 # Mameshiba
 -
@@ -954,6 +954,9 @@
 -
   - A4386 # Great Mazinger tai Getter Robo G: Kuuchuu Daigekitotsu
   - A4486 # Getter Robo G
+-
+  - A44042 # Holo no Graffiti
+  - A56015 # Miraijima
 -
   - A4561 # Zoku Gosenzo Sane
   - A6690 # Anata dake Konbanwa
@@ -979,7 +982,7 @@
   - A4918 # xxxHOLiC Shunmuki
   - A4938 # Tsubasa: Shunraiki
 -
-  - A4941 # Tezuka Osamu ga Kieta?! 20 Seiki Saigo no Kaijiken
+  - A4941 # Tezuka Osamu ga Kieta?! 20-seiki Saigo no Kaijiken
   - A5249 # Mitsume ga Tooru
 -
   - A50685 # Kaginado Season 2
