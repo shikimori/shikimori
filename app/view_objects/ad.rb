@@ -280,10 +280,10 @@ private
   }
   SPECIAL_X894 = {
     provider: Types::Ad::Provider[:special],
-    url: 'https://isekaifest.ru/',
-    images: (1..2).map do |i|
+    url: 'https://startgame.rsv.ru/auth?utm_source=site&utm_medium=app&utm_campaign=rk75&utm_content=shikimori&utm_term=test',
+    images: (1..1).map do |i|
       {
-        src: "/assets/globals/events/2023-08-18/wide_#{i}.jpg"
+        src: "/assets/globals/events/2023-08-22/wide_#{i}.jpg"
         # src_2x: "/assets/globals/events/2023-08-18/wide_#{i}@2x.webp"
       }
     end,
@@ -292,7 +292,7 @@ private
     #   url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner1&utm_campaign=02_06&erid=2Vtzqv5UkDh'
     # }],
     rules: {
-      cookie: 'i8',
+      cookie: 'i9',
       shows_per_week: 480 # 380 # 420 # 540
     },
     placement: Types::Ad::Placement[:content],
@@ -411,7 +411,7 @@ private
       # Types::Ad::Type[:advrtr_x728]
     ],
     Types::Ad::Meta[:horizontal_x90] => [
-      Types::Ad::Type[:special_x894], # ISEKAIFEST - remove 2023-08-18 23:59
+      Types::Ad::Type[:special_x894], # startgame.rsv.ru - remove 2023-08-23 23:59
       # Types::Ad::Type[:mt_728x90],
       # Types::Ad::Type[:advrtr_x728]
       Types::Ad::Type[:yd_970x90]
