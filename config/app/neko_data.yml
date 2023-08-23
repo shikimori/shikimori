@@ -19406,6 +19406,7 @@
         franchise: naruto
         not_anime_ids:
         - 10075
+        - 12935
         - 40971
         - 53236
       :threshold: 96.7%
@@ -19439,6 +19440,7 @@
         franchise: naruto
         not_anime_ids:
         - 10075
+        - 12935
         - 40971
         - 53236
       :threshold: 0.01
@@ -20620,6 +20622,8 @@
       :algo: duration
       :filters:
         franchise: hunter_x_hunter
+        not_anime_ids:
+        - 22049
       :threshold: 93.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -20649,6 +20653,8 @@
       :algo: duration
       :filters:
         franchise: hunter_x_hunter
+        not_anime_ids:
+        - 22049
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -26132,6 +26138,8 @@
       :algo: duration
       :filters:
         franchise: uta_no_prince_sama
+        not_anime_ids:
+        - 39644
       :threshold: 91%
       :generator:
         ignore_latest_ids:
@@ -26168,6 +26176,8 @@
       :algo: duration
       :filters:
         franchise: uta_no_prince_sama
+        not_anime_ids:
+        - 39644
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -26942,7 +26952,6 @@
         - 27907
         - 30840
         - 32158
-        - 32898
         - 32927
         - 33221
         - 33225
@@ -26976,7 +26985,7 @@
         - 53603
         - 55283
         - 55404
-      :threshold: 86.7%
+      :threshold: 86.6%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -26989,6 +26998,7 @@
         - 14007
         - 20667
         - 24371
+        - 32898
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :gundam
@@ -27045,7 +27055,6 @@
         - 27907
         - 30840
         - 32158
-        - 32898
         - 32927
         - 33221
         - 33225
@@ -27092,6 +27101,7 @@
         - 14007
         - 20667
         - 24371
+        - 32898
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :gundam
@@ -33448,38 +33458,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :ad_police
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/ad_police.jpg"
-    :border_color: 
-    :title_ru: Кризис каждый день
-    :text_ru: 
-    :title_en: Bubblegum Crisis
-    :text_en: 
-    :topic_id: 247360
-    :rule: &580
-      :algo: duration
-      :filters:
-        franchise: ad_police
-        not_anime_ids:
-        - 5036
-        - 5043
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :ad_police
-  level: 1
-  image: "/assets/achievements/anime/franchise/ad_police.jpg"
-  border_color: 
-  title_ru: Кризис каждый день
-  text_ru: 
-  title_en: Bubblegum Crisis
-  text_en: 
-  topic_id: 247360
-  rule: *580
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :city_hunter
     :level: 0
     :image: "/assets/achievements/anime/franchise/city_hunter.jpg"
@@ -33489,7 +33467,7 @@
     :title_en: City Hunter
     :text_en: 
     :topic_id: 247360
-    :rule: &581
+    :rule: &580
       :algo: duration
       :filters:
         franchise: city_hunter
@@ -33507,6 +33485,38 @@
   title_ru: Городской охотник
   text_ru: 
   title_en: City Hunter
+  text_en: 
+  topic_id: 247360
+  rule: *580
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :ad_police
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/ad_police.jpg"
+    :border_color: 
+    :title_ru: Кризис каждый день
+    :text_ru: 
+    :title_en: Bubblegum Crisis
+    :text_en: 
+    :topic_id: 247360
+    :rule: &581
+      :algo: duration
+      :filters:
+        franchise: ad_police
+        not_anime_ids:
+        - 5036
+        - 5043
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :ad_police
+  level: 1
+  image: "/assets/achievements/anime/franchise/ad_police.jpg"
+  border_color: 
+  title_ru: Кризис каждый день
+  text_ru: 
+  title_en: Bubblegum Crisis
   text_en: 
   topic_id: 247360
   rule: *581
@@ -34966,35 +34976,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :ze_tian_ji
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/ze_tian_ji.jpg"
-    :border_color: 
-    :title_ru: Путь выбора
-    :text_ru: 
-    :title_en: Ze Tian Ji
-    :text_en: 
-    :topic_id: 247360
-    :rule: &624
-      :algo: duration
-      :filters:
-        franchise: ze_tian_ji
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :ze_tian_ji
-  level: 1
-  image: "/assets/achievements/anime/franchise/ze_tian_ji.jpg"
-  border_color: 
-  title_ru: Путь выбора
-  text_ru: 
-  title_en: Ze Tian Ji
-  text_en: 
-  topic_id: 247360
-  rule: *624
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :pripara
     :level: 0
     :image: "/assets/achievements/anime/franchise/pripara.jpg"
@@ -35004,7 +34985,7 @@
     :title_en: PriPara
     :text_en: 
     :topic_id: 247360
-    :rule: &625
+    :rule: &624
       :algo: duration
       :filters:
         franchise: pripara
@@ -35028,6 +35009,35 @@
   title_ru: При Пара
   text_ru: 
   title_en: PriPara
+  text_en: 
+  topic_id: 247360
+  rule: *624
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :ze_tian_ji
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/ze_tian_ji.jpg"
+    :border_color: 
+    :title_ru: Путь выбора
+    :text_ru: 
+    :title_en: Ze Tian Ji
+    :text_en: 
+    :topic_id: 247360
+    :rule: &625
+      :algo: duration
+      :filters:
+        franchise: ze_tian_ji
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :ze_tian_ji
+  level: 1
+  image: "/assets/achievements/anime/franchise/ze_tian_ji.jpg"
+  border_color: 
+  title_ru: Путь выбора
+  text_ru: 
+  title_en: Ze Tian Ji
   text_en: 
   topic_id: 247360
   rule: *625
