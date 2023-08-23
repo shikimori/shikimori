@@ -21,7 +21,7 @@ pageLoad('animes_collection_index', 'recommendations_index', 'userlist_comparer_
 });
 
 pageLoad('animes_collection_index', async () => {
-  $('.new_comment').on('click', () => {
+  $('.new-comment').on('click', () => {
     $('.shiki_editor-selector').view().focus();
   });
 });

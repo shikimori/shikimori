@@ -7,7 +7,7 @@ pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
 
   checkHeight($('.text'), { maxHeight: 200 });
 
-  const $newCritique = $('.new_critique');
+  const $newCritique = $('.new-critique');
   if (window.SHIKI_USER.isSignedIn) {
     const newCritiqueUrl = $newCritique
       .attr('href')
@@ -26,7 +26,7 @@ pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
     $(currentTarget).closest('.line').replaceWith(data);
   });
 
-  $('.b-subposter-actions .new_comment').on('click', () => {
+  $('.b-subposter-actions .new-comment').on('click', () => {
     $('.shiki_editor-selector').view().focus();
   });
 

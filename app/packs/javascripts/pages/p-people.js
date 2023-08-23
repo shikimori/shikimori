@@ -5,7 +5,7 @@ pageLoad('people_show', async () => {
   checkHeight($('.c-info-right .b-entry-info'), { maxHeight: 101, isNoShade: true });
 
   // комментировать
-  $('.b-subposter-actions .new_comment').on('click', () => {
+  $('.b-subposter-actions .new-comment').on('click', () => {
     $('.shiki_editor-selector').view().focus();
   });
 
