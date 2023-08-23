@@ -2,7 +2,11 @@ class Moderations::VersionsView < ViewObjectBase # rubocop:disable ClassLength
   instance_cache :moderators, :pending, :processed
 
   PER_PAGE = 25
-  IGNORED_FIELDS = %w[source action]
+  IGNORED_FIELDS = Abilities::VersionFieldsModeratorBase
+    .descendants
+    .flat_map { |v| v::IGNORED_FIELDS }
+    .uniq
+
   FILTERABLE_TYPES = [Anime, Manga, Character, Person].map(&:name)
   ALL_TYPES = :all
 
@@ -11,6 +15,19 @@ class Moderations::VersionsView < ViewObjectBase # rubocop:disable ClassLength
     'Poster' => %w[image]
   }
   HIDDEN_FIELDS = MERGED_FIELDS.values.flatten
+
+  Type = Moderation::VersionsItemTypeQuery::Type
+
+  RULES_CLUB_PAGE_IDS = {
+    Type[:all_content] => 4212,
+    Type[:texts] => 4214,
+    Type[:names] => 4213,
+    Type[:fansub] => 4215,
+    Type[:videos] => 4216,
+    Type[:images] => 4217,
+    Type[:links] => 4218,
+    Type[:content] => 4219
+  }
 
   def processed_scope
     Moderation::ProcessedVersionsQuery
@@ -40,7 +57,12 @@ class Moderations::VersionsView < ViewObjectBase # rubocop:disable ClassLength
 
     User
       .where(
-        id: processed_scope.scope.or(pending_scope.scope).distinct.select(:user_id).except(:order)
+        id: processed_scope
+          .scope
+          .or(pending_scope.scope)
+          .distinct
+          .select(:user_id)
+          .except(:order)
       )
       .where('nickname ilike ?', "#{nickname}%")
   end
@@ -66,18 +88,25 @@ class Moderations::VersionsView < ViewObjectBase # rubocop:disable ClassLength
       .lazy_map(&:decorate)
   end
 
-  def moderators
+  def moderators # rubocop:disable Metrics/AbcSize
     type_suffix = h.params[:type] + '_' if h.params[:type] && h.params[:type] != 'content'
-    role = "version_#{type_suffix}moderator"
+    current_role = Types::User::Roles[:"version_#{type_suffix}moderator"]
+
+    query_roles =
+      if h.params[:type].blank?
+        Types::User::VERSION_ROLES
+      else
+        [current_role]
+      end
 
     User
-      .where("roles && '{#{role}}'")
+      .where("roles && '{#{query_roles.join(',')}}'")
       .where.not(id: User::MORR_ID)
       .sort_by { |v| v.nickname.downcase }
   end
 
   def type_param
-    h.params[:type] || :all_content
+    h.params[:type]&.to_sym || :all_content
   end
 
   def filtered_user
@@ -113,6 +142,10 @@ class Moderations::VersionsView < ViewObjectBase # rubocop:disable ClassLength
 
   def sort_order
     h.params[:order] == 'asc' ? :asc : :desc
+  end
+
+  def rules_club_page_id
+    RULES_CLUB_PAGE_IDS[type_param]
   end
 
 private

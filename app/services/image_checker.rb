@@ -4,7 +4,10 @@ class ImageChecker
   GRAY_COLOR = 128
   RATIO = 80
 
-  UNPROCESSABLE_BY_DJPEG_MESSAGE = "Unsupported color conversion request\n"
+  UNPROCESSABLE_BY_DJPEG_MESSAGE = /
+    Corrupt\ JPEG\ data:\ \d+\ extraneous\ bytes\ before\ marker |
+    Unsupported\ color\ conversion\ request
+  /mix
 
   def valid?
     return false unless File.exist? @image_path
@@ -29,7 +32,7 @@ private
   def jpeg_check
     stdout, stderr, status = Open3.capture3("djpeg -fast -grayscale -onepass #{@image_path}")
 
-    return image_magick_check if stderr == UNPROCESSABLE_BY_DJPEG_MESSAGE
+    return image_magick_check if stderr.match?(UNPROCESSABLE_BY_DJPEG_MESSAGE)
 
     if status.success?
       jpg_content_check stdout

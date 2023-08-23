@@ -28,7 +28,7 @@ class Topics::NewsLineView < Topics::View
 
   def action_tag
     view.action_tag.presence || super(
-      OpenStruct.new(
+      Topics::Tag.new(
         type: 'other',
         text: db_entry_topic? ? @topic.title.downcase : i18n_i('topic', :one)
       )

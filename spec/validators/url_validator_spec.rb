@@ -2,6 +2,7 @@ class UrlValidatable
   include ActiveModel::Validations
 
   attr_accessor :url
+
   validates :url, url: true
 
   def initialize url
@@ -23,7 +24,6 @@ describe UrlValidator, type: :validator do
     it { is_expected.to_not allow_value('abcd://rookee.ru').for :url }
     it { is_expected.to_not allow_value('dfsdsfsadfas').for :url }
     it { is_expected.to_not allow_value('коньки-roller.рф').for :url }
-
 
     describe 'message' do
       before { subject.valid? }

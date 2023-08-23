@@ -16,6 +16,18 @@ class Poster < ApplicationRecord
     anime || manga || character || person
   end
 
+  def target_key
+    if anime_id
+      :anime_id
+    elsif manga_id
+      :manga_id
+    elsif character_id
+      :character_id
+    elsif person_id
+      :person_id
+    end
+  end
+
   def magnificable?
     (image_data&.dig('metadata', 'width') || 0) > WIDTH
   end

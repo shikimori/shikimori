@@ -2,7 +2,6 @@ describe Topics::Query do
   subject(:query) { described_class.fetch is_censored_forbidden }
 
   let(:is_censored_forbidden) { false }
-
   let(:all_sticky_topics) do
     [
       offtopic_topic,
@@ -16,9 +15,7 @@ describe Topics::Query do
   end
 
   describe '#result' do
-    context 'domain matches topic locale' do
-      it { is_expected.to eq all_sticky_topics }
-    end
+    it { is_expected.to eq all_sticky_topics }
   end
 
   context '#filter_by_policy' do

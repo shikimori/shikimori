@@ -25,7 +25,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
 
     og noindex: true, page_title: t('in_collections')
 
-    @collection = Collections::Query.fetch
+    @collection = Collections::Query.fetch(censored_forbidden?)
       .where(id: @resource.collections_scope)
       .paginate(@page, COLLETIONS_PER_PAGE)
       .lazy_map do |collection|
@@ -89,16 +89,25 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
     end
   end
 
-  def sync # rubocop:disable AbcSize
+  def sync # rubocop:disable Metrics/AbcSize, Merics/MethodLength
     authorize! :sync, resource_klass
 
+    is_anime365 = params[:is_anime365] == '1'
     id = @resource ? @resource.mal_id : params[:db_entry][:mal_id]
     type = resource_klass.base_class.name.downcase
 
-    NamedLogger.sync.info "#{type}##{id} User##{current_user.id}"
+    NamedLogger.sync.info "#{type}##{id} #{'Anime365 ' if is_anime365}User##{current_user.id}"
 
-    MalParsers::FetchEntry.perform_async id, type
-    Rails.cache.write [type, :sync, id], true, expires_in: SYNC_EXPIRATION
+    Rails.cache.write(
+      [type, :"#{:anime365_ if is_anime365}sync", id],
+      true,
+      expires_in: SYNC_EXPIRATION
+    )
+    if is_anime365
+      SmotretAnime::LinkWorker.perform_async id
+    else
+      MalParsers::FetchEntry.perform_async id, type
+    end
 
     redirect_back(
       fallback_location: @resource ? @resource.edit_url : moderations_url,
@@ -106,7 +115,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
     )
   end
 
-  def refresh_stats
+  def refresh_stats # rubocop:disable Metrics/AbcSize
     authorize! :refresh_stats, resource_klass
 
     # TODO: extract into sidekiq task?
@@ -182,7 +191,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
 
 private
 
-  def og_db_entry_meta # rubocop:disable MethodLength
+  def og_db_entry_meta # rubocop:disable all
     if @resource.object.respond_to?(:description_ru)
       og description: @resource.description_meta
     end
@@ -197,8 +206,11 @@ private
         image_type: 'image/jpeg',
         twitter_card: 'summary_large_image'
       )
-    else
-      og image: ImageUrlGenerator.instance.cdn_image_url(@resource, :original)
+    elsif @resource.poster && @resource.poster.image_data['derivatives']
+      og image: ImageUrlGenerator.instance.cdn_poster_url(
+        poster: @resource.poster,
+        derivative: :main_2x
+      )
     end
   end
 

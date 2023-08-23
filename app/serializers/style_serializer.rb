@@ -6,5 +6,6 @@ class StyleSerializer < ActiveModel::Serializer
     :css,
     :compiled_css,
     :created_at,
-    :updated_at
+    :updated_at,
+    :failed_imports
 end

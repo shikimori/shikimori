@@ -1,8 +1,10 @@
 class SakuhindbParser
   attr_accessor :fail_on_unmatched
 
+  CONFIG_PATH = Rails.root.join 'config/app/sakuhindb_parser.yml'
+
   def initialize
-    config = YAML::load_file Rails.root.join 'config/app/sakuhindb_parser.yml'
+    config = YAML.load_file CONFIG_PATH
 
     @ignores = Set.new config[:ignores]
     @matches = config[:matches]
@@ -20,20 +22,26 @@ class SakuhindbParser
 
 private
 
-  # мерж в базу данных
   def merge data
-    data.map do |entry|
-      Video.create(
-        name: entry[:title],
-        anime_id: entry[:anime_id],
-        kind: entry[:kind],
-        url: "http://www.youtube.com/watch?v=#{entry[:youtube]}",
-        uploader_id: BotsService.posters.sample
-      )
-    end
+    data
+      .select { |v| v[:anime_id].present? }
+      .map do |entry|
+        uploader = User.find BotsService.posters.sample
+
+        Versioneers::VideosVersioneer
+          .new(Anime.find(entry[:anime_id]))
+          .upload(
+            {
+              name: entry[:title],
+              kind: entry[:kind],
+              url: "http://www.youtube.com/watch?v=#{entry[:youtube]}",
+              uploader_id: uploader.id
+            },
+            uploader
+          )
+      end
   end
 
-  # подготовка данных к обработке
   def extract
     fetch_raw_lines.map do |line|
       lines = line.split("\t")
@@ -45,28 +53,26 @@ private
       {
         anime: anime,
         kind: normalize_kind(lines[2]),
-        title: title != lines[4] ? title : nil,
+        title: title == lines[4] ? nil : title,
         youtube: lines[4]
       }
     end
   end
 
-  # фильтрация записей от ненужных нам
   def filter data
     data.select do |v|
       v[:kind] != 'ost' &&
-        !@ignores.include?(v[:anime]) &&
-        !present_videos.include?(v[:youtube]) &&
-        !@deleted.include?(v[:youtube])
+        @ignores.exclude?(v[:anime]) &&
+        present_videos.exclude?(v[:youtube]) &&
+        @deleted.exclude?(v[:youtube])
     end
   end
 
-  # заполнение id для аниме
   def fill_ids data
     data.each do |entry|
       fixed_name = @matches.include?(entry[:anime]) ? @matches[entry[:anime]] : entry[:anime]
 
-      if @matches[entry[:anime]] && @matches[entry[:anime]].kind_of?(Integer)
+      if @matches[entry[:anime]] && @matches[entry[:anime]].is_a?(Integer)
         entry[:anime_id] = @matches[entry[:anime]]
       else
         names = [fixed_name, entry[:anime2]].compact
@@ -76,7 +82,6 @@ private
     end
   end
 
-  # финальная проверка с падением при наличии незаматченных данных
   def assert_unmatched data
     unmatched = data.select { |v| v[:anime_id].nil? }.map { |v| v[:anime] }.uniq
     if @fail_on_unmatched && unmatched.any?
@@ -84,30 +89,28 @@ private
     end
   end
 
-  # исходные данные с источника
   def fetch_raw_lines
-    content1 = open("https://en.music.sakuhindb.com/e/created_time/anime.html").read
+    content1 = open('https://en.music.sakuhindb.com/e/created_time/anime.html').read
     doc1 = Nokogiri::HTML content1
 
-    content2 = open("https://en.music.sakuhindb.com/e/created_time/anime_movie.html").read
+    content2 = open('https://en.music.sakuhindb.com/e/created_time/anime_movie.html').read
     doc2 = Nokogiri::HTML content2
 
-    doc1.css('select[name=vid] option').map {|v| v.attr 'value' } +
-      doc2.css('select[name=vid] option').map {|v| v.attr 'value' }
+    doc1.css('select[name=vid] option').map { |v| v.attr 'value' } +
+      doc2.css('select[name=vid] option').map { |v| v.attr 'value' }
   end
 
-
-  # альтернативное название с источника
   def alt_name name
     content = open("https://en.sakuhindb.com/anime/search.asp?todo=&key=#{Addressable::URI.encode_component name}&lang=e").read
-    File.open('/tmp/test.html', 'w') {|v| v.write content }
+    File.write('/tmp/test.html', content)
     doc = Nokogiri::HTML content
     link = doc.css('.va_top td a').first
     link ? link.text : nil
   end
 
   def utf_hack str
-    str.unpack('C*').pack('U*').encode('utf-8', 'utf-8', undef: :replace, invalid: :replace, replace: '')
+    str.unpack('C*').pack('U*').encode('utf-8', 'utf-8', undef: :replace, invalid: :replace,
+      replace: '')
   end
 
   def present_videos
@@ -117,16 +120,14 @@ private
   end
 
   def decode str, with_ignore
-    if str =~ /^\d_/
+    if /^\d_/.match?(str)
       if str =~ /^7_/ && (!with_ignore || (with_ignore && str !~ /(_\w{2}){3}/))
-        str = utf_hack str.sub(/^7_/, '').gsub('_', '%')
+        str = utf_hack str.sub(/^7_/, '').tr('_', '%')
         if str.starts_with? '%A5'
           nil
         else
-          HTMLEntities.new.decode utf_hack(URI::decode(str))
+          HTMLEntities.new.decode utf_hack(URI.decode(str))
         end
-      else
-        nil
       end
     else
       str

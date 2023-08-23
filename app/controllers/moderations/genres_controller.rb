@@ -11,6 +11,8 @@ class Moderations::GenresController < ModerationsController
   SORTING_FIELD = :position
   SORTING_ORDER = :asc
 
+  FIELDS = %i[name russian position seo description]
+
   VERSIONS_PER_PAGE = 20
 
   def index
@@ -57,7 +59,7 @@ class Moderations::GenresController < ModerationsController
     else
       redirect_back(
         fallback_location: edit_url(@resource),
-        alert: versions.map { |v| v.errors[:base]&.dig(0) }.compact.first || i18n_t('no_changes')
+        alert: versions.filter_map { |v| v.errors[:base]&.dig(0) }.first || i18n_t('no_changes')
       )
     end
   end
@@ -71,7 +73,7 @@ private
   def update_params
     params
       .require(:genre)
-      .permit(:name, :russian, :position, :seo, :description)
+      .permit(*self.class::FIELDS)
   end
 
   def type

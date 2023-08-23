@@ -22,7 +22,9 @@ describe ImageUrlGenerator do
           let(:image_size) { :original }
           it do
             is_expected.to eq(
-              "#{protocol}://kawai.#{domain}/system/animes/original/1.jpg?#{timestamp}"
+              # "#{protocol}://kawai.#{domain}/system/animes/original/1.jpg?#{timestamp}"
+              # "#{protocol}://#{domain}/system/animes/original/1.jpg?#{timestamp}"
+              "#{protocol}://desu.#{domain}/system/animes/original/1.jpg?#{timestamp}"
             )
           end
         end
@@ -31,7 +33,9 @@ describe ImageUrlGenerator do
           let(:image_size) { :x48 }
           it do
             is_expected.to eq(
-              "#{protocol}://kawai.#{domain}/system/animes/x48/1.jpg?#{timestamp}"
+              # "#{protocol}://kawai.#{domain}/system/animes/x48/1.jpg?#{timestamp}"
+              # "#{protocol}://#{domain}/system/animes/x48/1.jpg?#{timestamp}"
+              "#{protocol}://desu.#{domain}/system/animes/x48/1.jpg?#{timestamp}"
             )
           end
         end
@@ -42,7 +46,9 @@ describe ImageUrlGenerator do
         let(:image_size) { :x96 }
         it do
           is_expected.to eq(
-            "#{protocol}://moe.#{domain}/system/clubs/x96/2.jpg?#{timestamp}"
+            # "#{protocol}://moe.#{domain}/system/clubs/x96/2.jpg?#{timestamp}"
+            # "#{protocol}://#{domain}/system/clubs/x96/2.jpg?#{timestamp}"
+            "#{protocol}://desu.#{domain}/system/clubs/x96/2.jpg?#{timestamp}"
           )
         end
       end
@@ -52,7 +58,9 @@ describe ImageUrlGenerator do
         let(:image_size) { :x160 }
         it do
           is_expected.to eq(
-            "#{protocol}://moe.#{domain}/system/users/x160/2.png?#{timestamp}"
+            # "#{protocol}://moe.#{domain}/system/users/x160/2.png?#{timestamp}"
+            # "#{protocol}://#{domain}/system/users/x160/2.png?#{timestamp}"
+            "#{protocol}://desu.#{domain}/system/users/x160/2.png?#{timestamp}"
           )
         end
       end
@@ -62,6 +70,8 @@ describe ImageUrlGenerator do
         let(:image_size) { :x48 }
         it do
           is_expected.to eq(
+            # "#{protocol}://desu.#{domain}/system/users/x48/3.png?#{timestamp}"
+            # "#{protocol}://#{domain}/system/users/x48/3.png?#{timestamp}"
             "#{protocol}://desu.#{domain}/system/users/x48/3.png?#{timestamp}"
           )
         end

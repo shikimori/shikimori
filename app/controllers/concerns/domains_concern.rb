@@ -2,17 +2,17 @@ module DomainsConcern
   extend ActiveSupport::Concern
 
   included do
-    helper_method :shikimori?, :clean_host?, :new_host?
-    before_action :ensure_proper_domain
-    before_action :force_301_redirect
+    helper_method :shikimori?, :old_host?, :new_host?
+    before_action :force_301_redirect_with_magic_link
+    before_action :force_301_redirect_for_guests
   end
 
   def shikimori?
     ShikimoriDomain::HOSTS.include? request.host
   end
 
-  def clean_host?
-    request.host == ShikimoriDomain::CLEAN_HOST
+  def old_host?
+    request.host == ShikimoriDomain::OLD_HOST
   end
 
   def new_host?
@@ -21,7 +21,7 @@ module DomainsConcern
       ENV['USER'] == 'morr'
   end
 
-  def ensure_proper_domain # rubocop:disable AbcSize
+  def force_301_redirect_with_magic_link # rubocop:disable AbcSize
     return if Rails.env.test?
     return unless domain_redirects_appliable?
     return unless user_signed_in?
@@ -34,7 +34,7 @@ module DomainsConcern
       )
   end
 
-  def force_301_redirect
+  def force_301_redirect_for_guests
     return if Rails.env.test?
     return unless domain_redirects_appliable?
     return if user_signed_in?

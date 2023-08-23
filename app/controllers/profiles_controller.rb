@@ -226,7 +226,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     @resource.email = '' if @resource.generated_email? && params[:action] == 'edit'
   end
 
-  def update # rubocop:disable AbcSize
+  def update # rubocop:disable all
     authorize! :update, @resource
 
     params[:user][:avatar] = nil if params[:user][:avatar] == 'blank'
@@ -235,10 +235,14 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       bypass_sign_in @resource if params[:user][:password].present?
 
       params[:section] = 'account' if params[:section] == 'password' || params[:section].blank?
-      redirect_back(
-        fallback_location: @resource.edit_url(section: params[:section]),
-        notice: t('changes_saved')
-      )
+      if @resource.saved_change_to_nickname?
+        redirect_to @resource.edit_url(section: params[:section])
+      else
+        redirect_back(
+          fallback_location: @resource.edit_url(section: params[:section]),
+          notice: t('changes_saved')
+        )
+      end
     else
       flash[:alert] = t('changes_not_saved')
       edit

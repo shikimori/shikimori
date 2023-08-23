@@ -227,9 +227,11 @@ Doorkeeper.configure do
   # redirects to localhost for example).
   #
   # force_ssl_in_redirect_uri !Rails.env.development?
-  #
-  # force_ssl_in_redirect_uri { |uri| uri.host != 'localhost' }
 
+  force_ssl_in_redirect_uri { |uri| !uri.host.in?(%w[localhost 127.0.0.1]) }
+
+  # force_ssl_in_redirect_uri !Rails.env.development?
+  #
   # Specify what redirect URI's you want to block during Application creation.
   # Any redirect URI is whitelisted by default.
   #

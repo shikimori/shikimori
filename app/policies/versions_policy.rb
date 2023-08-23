@@ -43,17 +43,33 @@ class VersionsPolicy
 
 private
 
-  def allowed? # rubocop:disable CyclomaticComplexity, PerceivedComplexity
-    return false unless @user
-    return false if @user.banned?
-    return false if @user.not_trusted_version_changer?
-    return false if @user.not_trusted_names_changer? && name_changing?
-    return false if @user.not_trusted_texts_changer? && text_changing?
-    return false if @user.not_trusted_fansub_changer? && fansub_changing?
-    return false if @version && not_matched_author?
-
-    true
+  # rubocop:disable all
+  def allowed?
+    if !@user
+      false
+    elsif @user.banned?
+      false
+    elsif @user.not_trusted_version_changer?
+      false
+    elsif @user.not_trusted_names_changer? && field_changing?(Abilities::VersionNamesModerator)
+      false
+    elsif @user.not_trusted_texts_changer? && field_changing?(Abilities::VersionTextsModerator)
+      false
+    elsif @user.not_trusted_fansub_changer? && field_changing?(Abilities::VersionFansubModerator)
+      false
+    elsif @user.not_trusted_videos_changer? && field_changing?(Abilities::VersionVideosModerator)
+      false
+    elsif @user.not_trusted_images_changer? && field_changing?(Abilities::VersionImagesModerator)
+      false
+    elsif @user.not_trusted_links_changer? && field_changing?(Abilities::VersionLinksModerator)
+      false
+    elsif @version && not_matched_author?
+      false
+    else
+      true
+    end
   end
+  # rubocop:enable all
 
   def not_matched_author?
     @version.user_id != @user.id
@@ -91,28 +107,14 @@ private
     end
   end
 
-  def name_changing?
+  def field_changing? ability_klass
     (
-      change_fields & Abilities::VersionNamesModerator::MANAGED_FIELDS
-    ).any? && Abilities::VersionNamesModerator::MANAGED_MODELS.include?(
-      item_type
-    )
-  end
-
-  def text_changing?
-    (
-      change_fields & Abilities::VersionTextsModerator::MANAGED_FIELDS
-    ).any? && Abilities::VersionTextsModerator::MANAGED_MODELS.include?(
-      item_type
-    )
-  end
-
-  def fansub_changing?
-    (
-      change_fields & Abilities::VersionFansubModerator::MANAGED_FIELDS
-    ).any? && Abilities::VersionFansubModerator::MANAGED_MODELS.include?(
-      item_type
-    )
+      (
+        change_fields & ability_klass::MANAGED_FIELDS
+      ).any? && ability_klass::MANAGED_FIELDS_MODELS.include?(
+        item_type
+      )
+    ) || ability_klass::MANAGED_MODELS.include?(item_type)
   end
 
   def version_or_double

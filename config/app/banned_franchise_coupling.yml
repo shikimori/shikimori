@@ -88,7 +88,7 @@
   - A13161 # Hagure Yuusha no Aesthetica
   - A14663 # Queens Blade Rebellion vs. Hagure Yuusha no Aesthetica
 -
-  - A1241 # Kidou Senshi Gundam SEED Destiny Final Plus: The Chosen Futur
+  - A1241 # Kidou Senshi Gundam SEED Destiny Final Plus: Erabareta Mirai
   - A46089 # Tales of Crestoria Off Shot Movie
 -
   - A1276 # Ys
@@ -122,11 +122,11 @@
   - A13333 # Tari Tari
   - A21103 # Utopia
 -
-  - A1341 # Violence Jack: Harlem Bomber-hen
+  - A1341 # Violence Jack: Harem Bomber-hen
   - A2253 # Mazinger Z
   - A2692 # CB Chara Go Nagai World
 -
-  - A1341 # Violence Jack: Harlem Bomber-hen
+  - A1341 # Violence Jack: Harem Bomber-hen
   - A2692 # CB Chara Go Nagai World
 -
   - A1348 # Bubblegum Crash
@@ -148,7 +148,7 @@
   - A2335 # Kenyuu Densetsu Yaiba
 -
   - A1371 # Hi no Tori
-  - A4941 # Tezuka Osamu ga Kieta?! 20 Seiki Saigo no Kaijiken
+  - A4941 # Tezuka Osamu ga Kieta?! 20-seiki Saigo no Kaijiken
 -
   - A13863 # Arve Rezzle: Kikaijikake no Yousei-tachi
   - A14347 # Ryo
@@ -175,6 +175,9 @@
 -
   - A144 # Kanon
   - A50685 # Kaginado Season 2
+-
+  - A1445 # Mach GoGoGo
+  - A39249 # Pandora to Akubi
 -
   - A1445 # Mach GoGoGo
   - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
@@ -290,10 +293,10 @@
   - A9875 # Anime Tenchou x Touhou Project
 -
   - A19067 # Future Card Buddyfight
-  - A35745 # 40 Shuunen da yo!! CoroCoro All-Star Shougakkou
+  - A35745 # 40-shuunen da yo!! CoroCoro All-Star Shougakkou
 -
   - A19157 # Youkai Watch
-  - A35745 # 40 Shuunen da yo!! CoroCoro All-Star Shougakkou
+  - A35745 # 40-shuunen da yo!! CoroCoro All-Star Shougakkou
 -
   - A19169 # Go! Go! Kadendanshi
   - A19535 # Taka no Tsume GO: Utsukushiki Elleair Shoushuu Plus
@@ -353,6 +356,9 @@
   - A2671 # Doraemon Movie 03: Nobita no Daimakyou
 -
   - A21539 # Oraa Guzura Dado
+  - A39249 # Pandora to Akubi
+-
+  - A21539 # Oraa Guzura Dado
   - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
 -
   - A2165 # Gegege no Kitarou (2007)
@@ -367,7 +373,7 @@
   - A21743 # Donten ni Warau
   - A37285 # Ippun de Wakaru Eiga "Donten ni Warau" Kaisetsu Yokoku
 -
-  - A21755 # Shin Tennis no Ouji-sama vs. Genius 10
+  - A21755 # Shin Tennis no Oujisama vs. Genius 10
   - A32831 # Hungry to Win
 -
   - A2222 # Dr. Slump: Arale-chan
@@ -431,6 +437,9 @@
   - A235 # Detective Conan
   - A6115 # Lupin III vs. Detective Conan
 -
+  - A23539 # Gudetama
+  - A39659 # Chikin Ramen x Gudetama
+-
   - A2354 # Devilman: Tanjou-hen
   - A31050 # Cyborg 009 VS Devilman
   - A3898 # Mazinger Z tai Devilman
@@ -476,7 +485,7 @@
   - A6567 # Urusei Yatsura: The Shougaibutsu Suieitaikai
 -
   - A24909 # Kaitou Joker
-  - A35745 # 40 Shuunen da yo!! CoroCoro All-Star Shougakkou
+  - A35745 # 40-shuunen da yo!! CoroCoro All-Star Shougakkou
 -
   - A2547 # Princess Sara
   - A37423 # Shiawase Pasta Story
@@ -518,9 +527,9 @@
   - A48850 # Kyojin no Hoshi tai Tetsuwan Atom
 -
   - A2747 # Tetsuwan Atom
-  - A4941 # Tezuka Osamu ga Kieta?! 20 Seiki Saigo no Kaijiken
+  - A4941 # Tezuka Osamu ga Kieta?! 20-seiki Saigo no Kaijiken
 -
-  - A27509 # Toaru Majutsu no Index 10th Anniversary PV
+  - A27509 # Toaru Majutsu no Index 10-shuunen Kinen PV
   - A27829 # Heavy Object
 -
   - A27829 # Heavy Object
@@ -573,6 +582,14 @@
   - A2852 # Accelerando: Datenshi-tachi no Sasayaki
   - A6194 # Stretta The Animation
 -
+  - A28673 # Duan Nao
+  - A29876 # Chu Feng: B.E.E
+  - A33193 # Shi Wan Ge Leng Xiaohua
+  - A33350 # Zhen Hun Jie
+  - A35215 # Man Tou Riji
+  - A36226 # Kai Feng Qitan: Zhege Baogong Bu Taixing
+  - A44101 # You Yao Qi Xia Ri Guanggao Pian
+-
   - A289 # Comic Party
   - A472 # To Heart
 -
@@ -623,7 +640,10 @@
   - A36240 # Scratch x One Piece Film: Gold
 -
   - A3024 # Ribbon no Kishi
-  - A4941 # Tezuka Osamu ga Kieta?! 20 Seiki Saigo no Kaijiken
+  - A4941 # Tezuka Osamu ga Kieta?! 20-seiki Saigo no Kaijiken
+-
+  - A30442 # Kana Kana Kazoku x Himitsukessha Taka no Tsume Collaboration 
+  - A4737 # Himitsukessha Taka no Tsume
 -
   - A30514 # Nisekoimonogatari
   - A5081 # Bakemonogatari
@@ -663,7 +683,7 @@
   - A8123 # Cooking Papa
 -
   - A31049 # Beyblade Burst
-  - A35745 # 40 Shuunen da yo!! CoroCoro All-Star Shougakkou
+  - A35745 # 40-shuunen da yo!! CoroCoro All-Star Shougakkou
 -
   - A31165 # Meiji x Kokosake & anohana Receipt Oubo Campaign
   - A9989 # Ano Hi Mita Hana no Namae wo Bokutachi wa Mada Shiranai.
@@ -683,6 +703,9 @@
   - A3154 # Gatchaman
   - A39249 # Pandora to Akubi
 -
+  - A31599 # Kaette Kite yoo Toyama kara
+  - A33922 # Taka no Tsumedan, Toyama
+-
   - A31647 # Ponkotsuland Saga
   - A37521 # Vinland Saga
 -
@@ -701,6 +724,9 @@
   - A3202 # Daisuki! Hello Kitty
   - A39674 # Gundam vs Hello Kitty
 -
+  - A3202 # Daisuki! Hello Kitty
+  - A51324 # Shinkalion Hello Kitty
+-
   - A32143 # Peeping Life x Kaijuu Sakaba Kaiji: Kaijuu-tachi ga Iru Tokor
   - A6525 # Peeping Life
 -
@@ -708,7 +734,7 @@
   - A36805 # Kirara Fantasia
 -
   - A32582 # Duel Masters VSRF
-  - A35745 # 40 Shuunen da yo!! CoroCoro All-Star Shougakkou
+  - A35745 # 40-shuunen da yo!! CoroCoro All-Star Shougakkou
 -
   - A32615 # Youjo Senki
   - A38472 # Isekai Quartet
@@ -739,6 +765,9 @@
 -
   - A33027 # Infini-T Force
   - A4810 # Shinzou Ningen Casshern
+-
+  - A33089 # Kemono Friends
+  - A36339 # Nissin no Donbei x Kemono Friends
 -
   - A33190 # Planetarian: Hoshi no Hito
   - A48775 # Kaginado
@@ -779,7 +808,7 @@
   - A33705 # Mameshiba the DVD Green Pea-shiba no Kutsujoku
   - A7261 # Mameshiba
 -
-  - A33922 # Taka no Tsume-dan, Toyama
+  - A33922 # Taka no Tsumedan, Toyama
   - A4737 # Himitsukessha Taka no Tsume
 -
   - A34034 # Pokemon Sun & Moon
@@ -795,17 +824,23 @@
   - A34566 # Boruto: Naruto Next Generations
   - A36564 # Kamiusagi Rope x Boruto: Naruto Next Generations
 -
+  - A34661 # Monster Strike: Zoku Saishuu-banashi - Pandora no Hako
+  - A39249 # Pandora to Akubi
+-
   - A3481 # Grendizer: Getter Robo G - Great Mazinger Kessen! Daikaijuu
   - A4486 # Getter Robo G
   - A5658 # Great Mazinger
 -
   - A34905 # Duel Masters (2017)
-  - A35745 # 40 Shuunen da yo!! CoroCoro All-Star Shougakkou
+  - A35745 # 40-shuunen da yo!! CoroCoro All-Star Shougakkou
 -
   - A34914 # New Game!!
   - A36805 # Kirara Fantasia
 -
-  - A35219 # DC Super Heroes vs Taka no Tsume-dan
+  - A35219 # DC Super Heroes vs Taka no Tsumedan
+  - A37285 # Ippun de Wakaru Eiga "Donten ni Warau" Kaisetsu Yokoku
+-
+  - A35219 # DC Super Heroes vs Taka no Tsumedan
   - A4094 # Batman: Gotham Knight
 -
   - A3545 # Kochira Katsushikaku Kameari Kouenmae Hashutsujo
@@ -846,8 +881,17 @@
   - A35859 # Black Jack: Futari no Kuroi Isha - Manner Movie
   - A971 # Astro Boy: Tetsuwan Atom
 -
+  - A36339 # Nissin no Donbei x Kemono Friends
+  - A38899 # Nissin Men-nashi Donbei x Himote House
+-
+  - A36339 # Nissin no Donbei x Kemono Friends
+  - A39415 # Donbei x Kemurikusa
+-
   - A36517 # Ninja Batman
   - A37622 # Ninja Batman x Poputepipikku Kindan no Collab CM
+-
+  - A36624 # 4-shuunen Monst? Shiru ka yo!
+  - A7261 # Mameshiba
 -
   - A36805 # Kirara Fantasia
 -
@@ -884,6 +928,9 @@
   - A38659 # Shinchou Yuusha: Kono Yuusha ga Ore Tueee Kuse ni Shinchou Su
   - A41567 # Isekai Quartet Movie: Another World
 -
+  - A38899 # Nissin Men-nashi Donbei x Himote House
+  - A39415 # Donbei x Kemurikusa
+-
   - A3915 # Time Bokan
   - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
 -
@@ -892,6 +939,9 @@
 -
   - A4013 # Paul no Miracle Daisakusen
   - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
+-
+  - A40839 # Kanojo, Okarishimasu
+  - A56172 # Temple x Kanojo, Okarishimasu
 -
   - A41059 # Mameshiba x Nanatsu no Taizai Collab CM
   - A7261 # Mameshiba
@@ -904,6 +954,9 @@
 -
   - A4386 # Great Mazinger tai Getter Robo G: Kuuchuu Daigekitotsu
   - A4486 # Getter Robo G
+-
+  - A44042 # Holo no Graffiti
+  - A56015 # Miraijima
 -
   - A4561 # Zoku Gosenzo Sane
   - A6690 # Anata dake Konbanwa
@@ -920,13 +973,16 @@
   - A48436 # Gintama: The Final x Mameshiba
   - A7261 # Mameshiba
 -
+  - A48842 # Mahoutsukai Reimeiki
+  - A51349 # Mahoutsukai Reimeiki Mini Anime
+-
   - A4896 # Umineko no Naku Koro ni
   - A934 # Higurashi no Naku Koro ni
 -
-  - A4918 # xxxHOLiC: Shunmuki
+  - A4918 # xxxHOLiC Shunmuki
   - A4938 # Tsubasa: Shunraiki
 -
-  - A4941 # Tezuka Osamu ga Kieta?! 20 Seiki Saigo no Kaijiken
+  - A4941 # Tezuka Osamu ga Kieta?! 20-seiki Saigo no Kaijiken
   - A5249 # Mitsume ga Tooru
 -
   - A50685 # Kaginado Season 2
@@ -941,8 +997,14 @@
   - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
   - A7551 # Gowapper 5 Gordam
 -
+  - A52214 # Genjitsu no Yohane: Sunshine in the Mirror
+  - A55720 # Genjitsu no Rimuru: Sunshine in the Slime
+-
   - A54209 # Minna to Manner wo Manabou
   - A9756 # Mahou Shoujo Madoka★Magica
+-
+  - A55214 # Yume ja Nai (2020)
+  - A55216 # Koe Dake ga
 -
   - A6511 # Chou Seimeitai Transformers Beast Wars Neo
 -
@@ -979,6 +1041,9 @@
   - M30 # Ouran Koukou Host Club
   - M79891 # Urakata!!
 -
+  - M108461 # Fairy Tail S
+  - M14 # Rave
+-
   - M11 # Naruto
   - M11926 # Jump Super Stars
   - M13 # One Piece
@@ -1006,15 +1071,15 @@
   - M3576 # Tobaku Haouden Zero
   - M613 # Buraiden Gai
 -
-  - M108461
-  - M14
--
   - M11329 # Mudazumonaki Kaikaku
   - M23556 # Ritz
 -
   - M114548 # Edens Zero
   - M122473 # Mashima Heros
   - M14 # Rave
+-
+  - M117840 # Ase to Sekken
+  - M143427 # Zengun Funtou!: Yamada Kintetsu Tanpenshuu
 -
   - M118865 # Tensei shitara Shima Kousaku Datta Ken
   - M17204 # Kachou Shima Kousaku
@@ -1041,16 +1106,19 @@
   - M82087 # Kimi no Iru Machi x Princess Lucia Special Collaboration Comi
 -
   - M13 # One Piece
-  - M25146 # One Piece x Toriko
+  - M25146 # Jisshoku! Akuma no Mi!!
   - M7887 # Toriko
 -
   - M13 # One Piece
-  - M25146 # One Piece x Toriko
+  - M25146 # Jisshoku! Akuma no Mi!!
   - M881 # Cross Epoch
 -
   - M13 # One Piece
   - M42 # Dragon Ball
   - M881 # Cross Epoch
+-
+  - M133596 # Manga Day to Day
+  - M17204 # Kachou Shima Kousaku
 -
   - M13891 # Kakioroshi Manga Bangai-hen: Valentine Special
   - M1414 # SKET Dance
@@ -1143,7 +1211,7 @@
   - M24294 # Ao Haru Ride
   - M52389 # Ore Ride!!
 -
-  - M25146 # One Piece x Toriko
+  - M25146 # Jisshoku! Akuma no Mi!!
   - M7887 # Toriko
 -
   - M26123 # Taizou Mote King Saga

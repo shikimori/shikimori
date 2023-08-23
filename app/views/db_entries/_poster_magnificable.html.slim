@@ -1,12 +1,13 @@
 - if poster&.magnificable?
   .b-db_entry-poster.b-image.unprocessed[
-    data-href=cdn_poster_url(db_entry: resource, poster: poster, derivative: nil)
+    data-href=cdn_poster_url(poster: poster, derivative: nil)
     data-poster_id=poster.id
   ]
     = render 'db_entries/poster',
       db_entry: resource,
       poster: poster,
-      derivative: :main
+      derivative: :main,
+      is_main_poster: local_assigns[:is_main_poster]
     span.marker
       span.marker-text
         | #{poster.image_data['metadata']['width']}x#{poster.image_data['metadata']['height']}
@@ -14,4 +15,5 @@
   = render 'db_entries/poster',
     db_entry: resource,
     poster: poster,
-    derivative: :main
+    derivative: :main,
+    is_main_poster: local_assigns[:is_main_poster]

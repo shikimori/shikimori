@@ -14,8 +14,8 @@ class SmotretAnime::ScheduleEpisodeWorkers
 
   def perform group
     Anime
-      .joins(:smotret_anime_external_link)
       .where(status: :ongoing)
+      .joins(:smotret_anime_external_link)
       .where(
         "not(options @> ARRAY['#{Types::Anime::Options[:disabled_anime365_sync]}']::varchar[])"
       )

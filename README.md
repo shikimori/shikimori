@@ -52,11 +52,11 @@ bundle install
 psql -d postgres
 ```
 ```sql
-create user shikimori_production;
+create user shikimori_development;
 create user shikimori_test;
-alter user shikimori_production createdb;
+alter user shikimori_development createdb;
 alter user shikimori_test createdb;
-alter user shikimori_production with superuser;
+alter user shikimori_development with superuser;
 alter user shikimori_test with superuser;
 ```
 
@@ -90,7 +90,7 @@ CREATE EXTENSION pg_stat_statements;
 ```
 
 ```sh
-psql -d shikimori_production
+psql -d shikimori_development
 ```
 ```sql
 CREATE EXTENSION unaccent;
@@ -107,7 +107,7 @@ Shikimori uses [Overmind](https://github.com/DarthSim/overmind) to execute `Proc
 ```sh
 rails db:drop && rails db:create
 unzip -d db/ db/dump.sql.zip
-psql -U shikimori_production -d shikimori_production -f db/dump.sql
+psql -U shikimori_development -d shikimori_development -f db/dump.sql
 rm db/dump.sql
 RAILS_ENV=test rails db:schema:load
 # migrate dump to latest schema
@@ -164,7 +164,7 @@ rails neko:update
 ## Other
 ### Make a backup
 ```sh
-pg_dump -c shikimori_production > db/dump.sql
+pg_dump -c shikimori_development > db/dump.sql
 ```
 
 ### Autorun rspec & rubocop

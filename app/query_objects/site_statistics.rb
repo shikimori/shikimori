@@ -85,10 +85,7 @@ class SiteStatistics
 
   def versions_moderators
     User
-      .where("roles && '{#{Types::User::Roles[:version_names_moderator]}}'")
-      .or(User.where("roles && '{#{Types::User::Roles[:version_texts_moderator]}}'"))
-      .or(User.where("roles && '{#{Types::User::Roles[:version_moderator]}}'"))
-      .or(User.where("roles && '{#{Types::User::Roles[:version_fansub_moderator]}}'"))
+      .where("roles && '{#{Types::User::VERSION_ROLES.join(',')}}'")
       .where.not(id: User::MORR_ID)
       .sort_by { |v| v.nickname.downcase }
   end

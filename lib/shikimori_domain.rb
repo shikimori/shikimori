@@ -3,7 +3,7 @@ module ShikimoriDomain
     Rails.env.development? ? %w[shikimori.local shiki.local localhost] : []
   )
   BANNED_HOST = 'shikimori.org'
-  CLEAN_HOST = 'shikimori.one'
+  OLD_HOST = 'shikimori.one'
   NEW_HOST = 'shikimori.me'
 
   PROPER_HOST = Rails.env.production? ?

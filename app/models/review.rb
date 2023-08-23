@@ -3,6 +3,7 @@ class Review < ApplicationRecord
   include Behaviour::Commentable
   include Behaviour::Moderatable
   include TopicsConcern
+  include ForbidAbusiveBodyConcern
 
   antispam(
     per_day: 15,

@@ -3,14 +3,12 @@ header.head.m15
   p.notice = t '.notice'
 
 = simple_form_for(resource, as: :user, url: registration_path(:user), html: { multipart: true }) do |f|
-  - if f.object.errors.any? || flash[:recaptcha_error].present?
+  - if f.object.errors.any?
     .b-errors
       .subheadline.m5 = t 'form_errors'
       .block
         - if f.object.errors.any?
           p == f.object.errors.full_messages.join('<br>')
-        - if flash[:recaptcha_error].present?
-          p = flash[:recaptcha_error]
 
   .block
     = f.input :nickname,
@@ -29,10 +27,7 @@ header.head.m15
     = f.input :password
 
   .block
-    - if @show_checkbox_recaptcha || !Shikimori::IS_RECAPTCHA_V3
-      = recaptcha_tags
-    - else
-      = recaptcha_v3 action: 'sign_up', site_key: Rails.application.secrets.recaptcha[:v3][:site_key]
+    = render 'application/captcha'
 
   .block
     = f.button :magic_submit

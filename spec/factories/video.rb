@@ -5,6 +5,7 @@ FactoryBot.define do
     url { 'http://youtube.com/watch?v=VdwKZ6JDENc' }
     kind { :op }
     uploader { seed :user }
+    name { nil }
 
     Video.aasm.states.map(&:name).each do |value|
       trait(value.to_sym) { state { value } }

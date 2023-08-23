@@ -1,4 +1,5 @@
 json.content JsExports::Supervisor.instance.sweep(
+  current_user,
   @is_list ?
     render(
       partial: 'animes/variants/list_item',

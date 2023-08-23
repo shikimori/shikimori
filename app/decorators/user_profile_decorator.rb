@@ -73,7 +73,7 @@ class UserProfileDecorator < UserDecorator
 
   def unconnected_providers
     User.omniauth_providers.reject { |platform| platform.in?(%i[google_apps yandex]) } -
-      user_tokens.map { |v| v.provider.to_sym } - %i[facebook]
+      user_tokens.map { |v| v.provider.to_sym } - %i[facebook twitter]
   end
 
   def ignored_topics

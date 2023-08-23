@@ -6,9 +6,9 @@ describe People::Query do
       is_seyu: is_seyu
     )
   end
-  let(:is_producer) { false }
-  let(:is_mangaka) { false }
-  let(:is_seyu) { false }
+  let(:is_producer) { nil }
+  let(:is_mangaka) { nil }
+  let(:is_seyu) { nil }
 
   include_context :timecop
 
@@ -104,6 +104,12 @@ describe People::Query do
           expect(Animes::Filters::ByDesynced).to_not have_received :call
         end
       end
+    end
+
+    context '#by_id' do
+      subject { query.by_id [person_1.id, person_3.id] }
+      let(:people_scope) { Person.all }
+      it { is_expected.to eq [person_1, person_3] }
     end
   end
 end

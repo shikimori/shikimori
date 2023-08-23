@@ -18,7 +18,7 @@ class AnimeDecorator < AniMangaDecorator
   end
 
   def videos limit = nil # rubocop:disable PerceivedComplexity, CyclomaticComplexity, AbcSize
-    return [] if Copyright::ANIME_VIDEOS.include?(id) && !rkn_abused?
+    return [] if Copyright::ANIME_VIDEOS.include?(id) || rkn_abused?
     return [] unless object.respond_to? :videos
 
     # return [] unless h.ignore_copyright?

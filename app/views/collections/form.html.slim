@@ -17,7 +17,7 @@ header.head.misc
 
 #collection_form[
   data-collection=CollectionSerializer.new(@resource, scope: self).to_json
-  data-autocomplete_url=((@resource.ranobe? ? autocomplete_ranobe_index_url : send(:"autocomplete_#{@resource.kind.pluralize}_url", censored: false)) if @resource.persisted?)
+  data-autocomplete_url=((@resource.ranobe? ? autocomplete_ranobe_index_url(censored: @resource.censored?) : send(:"autocomplete_#{@resource.kind.pluralize}_url", censored: @resource.censored?)) if @resource.persisted?)
   data-max_links=Collection::Update::MAX_LINKS
 ]
   = simple_form_for @resource do |f|
@@ -31,8 +31,7 @@ header.head.misc
             include_blank: false,
             disabled: @resource.persisted?
           = f.input :is_spoilers
-          .hidden
-            = f.input :is_censored
+          = f.input :is_censored
 
           = f.input :tags,
             input_html: { value: f.object.tags&.join(','), class: 'w-100' },
@@ -79,7 +78,7 @@ header.head.misc
 
       - if @resource.persisted? && can?(:create, @resource)
         .cc-3
-          - if @resource.may_to_published?
+          - if @resource.may_to_published? && can?(:to_published, @resource)
             .c-column.b-input
               a.b-button.m3[
                 href=to_published_collection_url(@resource)
@@ -102,7 +101,7 @@ header.head.misc
               .collection-state-hint
                 == t '.hint.published'
 
-          - if @resource.may_to_opened?
+          - if @resource.may_to_opened? && can?(:to_opened, @resource)
             .c-column.b-input
               a.b-button.m3[
                 href=to_opened_collection_url(@resource)
@@ -125,7 +124,7 @@ header.head.misc
               .collection-state-hint
                 = t '.hint.opened'
 
-          - if @resource.may_to_private?
+          - if @resource.may_to_private? && can?(:to_private, @resource)
             .c-column.b-input
               a.b-button.m3[
                 href=to_private_collection_url(@resource)

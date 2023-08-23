@@ -82,12 +82,12 @@ ru:
           many: 'В вашем списке обновлено %{count} манг:'
       not_imported:
         anime:
-          add_manually: 'Пожалуйста, добавьте их в свой список самостоятельно:'
+          add_manually: 'Пожалуйста, добавь их в свой список самостоятельно:'
           one: 'Не удалось импортировать (распознать) одно аниме.'
           few: 'Не удалось импортировать (распознать) %{count} аниме.'
           many: 'Не удалось импортировать (распознать) %{count} аниме.'
         manga:
-          add_manually: 'Пожалуйста, добавьте их в свой список самостоятельно:'
+          add_manually: 'Пожалуйста, добавь их в свой список самостоятельно:'
           one: 'Не удалось импортировать (распознать) одну мангу.'
           few: 'Не удалось импортировать (распознать) %{count} манги.'
           many: 'Не удалось импортировать (распознать) %{count} манг.'
@@ -274,6 +274,9 @@ ru:
       texts: Журнал изменений текстов
       content: Журнал изменений контента
       fansub: Журнал изменений фансаба
+      videos: Журнал изменений видео
+      images: Журнал изменений изображений
+      links: Журнал изменений ссылок
     changes_accepted: Изменения приняты
     changes_rejected: Изменения отклонены
     changes_deleted: Изменения удалены
@@ -291,6 +294,9 @@ ru:
     <<: *moderations_controller
 
   moderations/genres_controller:
+    <<: *moderations_controller
+
+  moderations/genre_v2s_controller:
     <<: *moderations_controller
 
   moderations/studios_controller:

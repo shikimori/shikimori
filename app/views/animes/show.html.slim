@@ -21,7 +21,8 @@
           .c-poster
             = render 'db_entries/poster_magnificable',
               resource: @resource,
-              poster: @resource.poster
+              poster: @resource.poster,
+              is_main_poster: true
 
           .c-actions
             .b-subposter-actions
@@ -122,7 +123,10 @@
       .c-description
         .subheadline.m5 = Anime.human_attribute_name :description
         .block
-          = render 'blocks/description', resource: @resource
+          - if @resource.rkn_abused?
+            .text-red Распространение данного произведения запрещено Роскомнадзором.
+          - else
+            = render 'blocks/description', resource: @resource
 
     - if user_signed_in?
       = render 'resources'

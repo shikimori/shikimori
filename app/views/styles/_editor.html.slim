@@ -1,3 +1,9 @@
+- if style.failed_imports.any?
+  .b-errors
+    .subheadline = t '.import_errors'
+    - style.failed_imports.each do |url|
+      p: a href=url = url
+
 .cc-2.block.b-edit_styles[
   data-custom_css_id=LayoutView::CUSTOM_CSS_ID
   class=(:expanded if cookies['expanded-styles'] == '1')

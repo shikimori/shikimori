@@ -4,6 +4,7 @@ class NameValidator < ActiveModel::EachValidator
     shikimori
     shikimori.one
     shikimori.org
+    shikimori.me
   ]
   PREDEFINED_PATHS = %i[
     about

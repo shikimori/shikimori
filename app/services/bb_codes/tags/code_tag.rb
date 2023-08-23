@@ -164,7 +164,7 @@ private
 
   def markdown_nesting_matched? markdown_opening, markdown_nesting
     (!markdown_opening && !markdown_nesting) ||
-      markdown_opening.gsub('&gt;', '>')&.size ==
-        markdown_nesting.gsub('&gt;', '>')&.size
+      markdown_opening&.gsub('&gt;', '>')&.size ==
+        markdown_nesting&.gsub('&gt;', '>')&.size
   end
 end

@@ -217,7 +217,7 @@ describe Api::V1::ShikiEditorsController do
       expect(response).to have_http_status :success
       expect(json).to eq(
         html: '<strong>test</strong>',
-        JS_EXPORTS: nil
+        JS_EXPORTS: { 'polls' => [] }
       )
     end
   end

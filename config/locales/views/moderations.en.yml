@@ -184,53 +184,18 @@ en:
       index:
         <<: *defaults
         notice: This is the history of content changes authored by members.
-        instructions:
-          - 'Anime descriptions must be original that is not "copypasted"
-            from other sites. It can be easily checked: just search for
-            description in question on
-            <a href="https://www.google.ru/search?q=The+End+of+Evangelion+serves+as+an+alternate+ending+to+the+polarizing+final+episodes+of+Neon+Genesis+Evangelion&oq=The+End+of+Evangelion+serves+as+an+alternate+ending+to+the+polarizing+final+episodes+of+Neon+Genesis+Evangelion&aqs=chrome..69i57.662j0j1&sourceid=chrome&es_sm=91&ie=UTF-8">Google</a>.
-            If there''s a full text match on any site besides Shikimori
-            this is plagiarism and such content change must be rejected.
-            Manga and character descriptions can be quoted from other sites
-            provided the source is specified.'
-          - Content changes should not have any spelling or grammar mistakes.
-            You can spot them with MS Word or any online spell checker
-            (e.g. <a href="https://www.jspell.com/public-spell-checker.html">this one</a>).
-          - Character names must be <b>highlighted</b> by specifying
-            Japanese variant in parentheses right after the name.
-          - Descriptions must be authored in literary English.
-            Translations verbatim from other languages are forbidden.
-          - The author will receive notification after you accept or reject
-            his content change. In the latter case try to explain
-            what should be fixed for his content change to be accepted.
-          - It's not prohibited to replace someone else's description
-            completely. All descriptions can be changed by other members
-            if moderator considers a new text to be better.
-          - 'High quality screenshots are strongly recommended:
-            e.g. acceptable resolution for ongoings is 720p (1280x720),
-            for older animes - at least 480p (720x480). It''s allowed
-            to use poor quality screenshots from animes of the 90s.'
-          - Screenshots shouldn't contain any logos or watermarks of
-            other sites as well as subtitles.
-
-
-
-
-
-
-
-
-        instructions_notice: >-
-          In case of minor drawbacks it's recommended to accept (rather than
-          reject) content change and correct it by yourself if necessary:
-          when editing anime/manga/character description you can use
-          "Apply" button (it's located to the left of "Save" button)
-          to apply changes without adding yourself to the list of authors.
-
-        more_content_changes_pending: >-
-          That's not all yet. Other content changes will be available for
-          moderation after processing the ones above.
+        # instructions_notice: >-
+        #   In case of minor drawbacks it's recommended to accept (rather than
+        #   reject) content change and correct it by yourself if necessary:
+        #   when editing anime/manga/character description you can use
+        #   "Apply" button (it's located to the left of "Save" button)
+        #   to apply changes without adding yourself to the list of authors.
+        # 
+        # more_content_changes_pending: >-
+        #   That's not all yet. Other content changes will be available for
+        #   moderation after processing the ones above.
         history: History of content changes
+        moderators: Moderators
 
     users:
       index:
@@ -256,6 +221,7 @@ en:
           version_fansub_moderator: Moderator of fansubbers & fandubbers edits in the database
           trusted_version_changer: Can change database content without moderation
           not_trusted_version_changer: Cannot change database content
+          not_trusted_collections_author: Cannot publish collections. Creation of private and public collections is allowed.
           not_trusted_abuse_reporter: Restriction in filing complaints on the forum (maximum 3 complaints per day)
           censored_avatar: Have avatar with adult content
           censored_profile: Have profile with adult content
@@ -287,7 +253,7 @@ en:
         notice: Edit forum
       update:
         <<: *edit
-    genres:
+    genres: &genres
       index: &index
         notice: List of all anime&manga genres
       edit: &edit
@@ -295,6 +261,8 @@ en:
         notice: Edit genre
       update:
         <<: *edit
+    genre_v2s: 
+      <<: *genres
     studios:
       index: &index
         notice: List of all anime producers

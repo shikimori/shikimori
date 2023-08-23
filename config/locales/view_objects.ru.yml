@@ -1,4 +1,13 @@
 ru:
+  layout_view:
+    versions:
+      names: Названия
+      texts: Тексты
+      content: Контент
+      fansub: Фансаб
+      videos: Видео
+      images: Картинки
+      links: Ссылки
   profiles/view:
     male: муж
     female: жен

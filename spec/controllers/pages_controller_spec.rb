@@ -8,9 +8,9 @@ describe PagesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#about', :vcr do
+  describe '#about' do
     let!(:topic) { create :topic, id: PagesController::ABOUT_TOPIC_ID }
-    include_context :timecop, '2020-07-07'
+    before { allow(YandexMetrika).to receive(:call).with(18).and_return [] }
 
     subject! { get :about }
 
@@ -30,6 +30,11 @@ describe PagesController do
 
   describe '#facebook' do
     subject! { get :facebook }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#twitter' do
+    subject! { get :twitter }
     it { expect(response).to have_http_status :success }
   end
 

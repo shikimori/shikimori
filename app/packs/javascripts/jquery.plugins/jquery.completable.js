@@ -1,3 +1,5 @@
+import delay from 'delay';
+
 const DB_ENTRY_URL_REGEXP =
   /\/(animes|mangas|characters|people|ranobe|clubs|collections)\/[A-z]*(\d+)([\w-]*)/;
 
@@ -8,7 +10,7 @@ const DB_ENTRY_KIND_REPLACEMENTS = {
   people: { en: 'Person', ru: 'Человек' },
   ranobe: { en: 'Ranobe', ru: 'Ранобэ' },
   clubs: { en: 'Club', ru: 'Клуб' },
-  collections: { en: 'Collection', ru: 'Коллекция' },
+  collections: { en: 'Collection', ru: 'Коллекция' }
 };
 
 function paramToName([_, kind, id, name]) {
@@ -37,7 +39,7 @@ const defaultOptions = {
 
 $.fn.extend({
   completable(options = { }) {
-    return this.each(function () {
+    return this.each(function() {
       const $node = $(this);
 
       return $node
@@ -52,7 +54,7 @@ $.fn.extend({
           },
           ...options
         })
-        .on('result', function (e, entry) {
+        .on('result', function(e, entry) {
           if (entry) {
             entry.id = entry.data;
 
@@ -73,15 +75,33 @@ $.fn.extend({
             }
             $node.trigger('autocomplete:text', [this.value]);
           }
+        })
+        .on('paste', async ({ originalEvent }) => {
+          const url = originalEvent.clipboardData.getData('Text');
+          const matches = url.match(DB_ENTRY_URL_REGEXP);
+
+          await delay(100);
+
+          if (matches) {
+            const id = matches[2];
+            const value = paramToName(matches);
+
+            $node.trigger('autocomplete:receiveData', [[{
+              data: id,
+              label: `<div class='name'>${value}</div>`,
+              value,
+              url
+            }]]);
+          }
         });
     });
   },
 
   completableVariant() {
-    return this.each(function () {
+    return this.each(function() {
       return $(this)
         .completable()
-        .on('autocomplete:success', function (e, entry) {
+        .on('autocomplete:success', function(e, entry) {
           const $variants = $(this).parent().find('.variants');
           const variantName = $(this).data('variant_name');
           if ($variants.find(`[value="${entry.id}"]`).exists()) { return; }
@@ -100,7 +120,7 @@ $.fn.extend({
   },
 
   completablePlain() {
-    return this.each(function () {
+    return this.each(function() {
       const $node = $(this);
 
       return $node
@@ -108,7 +128,7 @@ $.fn.extend({
           ...defaultOptions,
           minChars: 1,
           parse(data) { return data.map(value => ({ value })); },
-          formatItem(entry) { return entry.value; },
+          formatItem(entry) { return entry.value; }
         })
         .on('result', (_e, entry) => {
           if (entry) {

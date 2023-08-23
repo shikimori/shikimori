@@ -70,5 +70,11 @@ describe Characters::Query do
         end
       end
     end
+
+    context '#by_id' do
+      subject { query.by_id [character_1.id, character_3.id] }
+      let(:characters_scope) { Character.all }
+      it { is_expected.to eq [character_1, character_3] }
+    end
   end
 end

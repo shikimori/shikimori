@@ -431,7 +431,7 @@ ru:
           few: издателей
           many: издателей
           other: издатели
-      genre:
+      genre: &genre_cardinal
         subjective:
           one: жанр
           few: жанра
@@ -442,6 +442,8 @@ ru:
           few: жанров
           many: жанров
           other: жанры
+      genrev2:
+        <<: *genre_cardinal
       page:
         subjective:
           one: страница
@@ -633,9 +635,11 @@ ru:
       article:
         one: статья
         few: статьи
-      genre:
+      genre: &genre_ordinal
         one: жанр
         few: жанры
+      genrev2:
+        <<: *genre_ordinal
       user:
         one: пользователь
         few: пользователи

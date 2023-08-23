@@ -40,6 +40,11 @@ describe BbCodes::Tags::CodeTag do
           it { is_expected.to eq "#{placeholder_1}q" }
         end
 
+        context 'sample with nil markdown_opening' do
+          let(:text) { "```\n```\n> ```" }
+          it { is_expected.to eq text }
+        end
+
         context 'nested' do
           context 'the only content' do
             context 'in quote' do

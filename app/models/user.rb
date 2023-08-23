@@ -29,15 +29,20 @@ class User < ApplicationRecord
     6942 # Аясэ-тян
   ]
 
-  STAFF_ROLES = %w[
+  MODERATION_STAFF_ROLES = %w[
     admin
-    news_super_moderator
     super_moderator
+    news_super_moderator
     forum_moderator
+  ]
+  STAFF_ROLES = MODERATION_STAFF_ROLES + %w[
     version_names_moderator
     version_texts_moderator
     version_moderator
     version_fansub_moderator
+    version_videos_moderator
+    version_images_moderator
+    version_links_moderator
     critique_moderator
     collection_moderator
     news_moderator
@@ -45,12 +50,6 @@ class User < ApplicationRecord
     cosplay_moderator
     contest_moderator
     statistics_moderator
-  ]
-  MODERATION_STAFF_ROLES = %w[
-    admin
-    super_moderator
-    news_super_moderator
-    forum_moderator
   ]
 
   devise(
@@ -480,9 +479,18 @@ private
   rescue StandardError => _e
   end
 
-private
-
   def sync_is_view_censored
     Users::SyncIsViewCensored.call self
+  end
+
+protected
+
+  def extract_ip_from request
+    (
+      request.env['HTTP_X_FORWARDED_FOR'].presence ||
+        request.env['HTTP_X_REAL_IP'].presence ||
+        request.env['REMOTE_ADDR'].presence ||
+        request.remote_ip
+    )&.split(',')&.first
   end
 end

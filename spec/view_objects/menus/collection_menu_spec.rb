@@ -5,9 +5,9 @@ describe Menus::CollectionMenu do
   let(:view) { Menus::CollectionMenu.new klass }
 
   describe '#sorted_genres' do
-    let!(:genre_1) { create :genre, position: 1, kind: :anime }
-    let!(:genre_2) { create :genre, position: 2, kind: :anime }
-    let!(:genre_3) { create :genre, position: 3, kind: :manga }
+    let!(:genre_1) { create :genre, :anime, position: 1 }
+    let!(:genre_2) { create :genre, :anime, position: 2 }
+    let!(:genre_3) { create :genre, :manga, position: 3 }
 
     it { expect(view.sorted_genres).to eq [genre_1, genre_2] }
   end

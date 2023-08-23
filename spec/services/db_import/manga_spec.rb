@@ -45,47 +45,38 @@ describe DbImport::Manga do
     it { expect(entry.description_en).to eq synopsis_with_source }
   end
 
-  # describe '#assign_genres' do
-  #   let(:genres) { [{ id: 1, name: 'test' }] }
-  #
-  #   context 'new genre' do
-  #     it do
-  #       expect { subject }.to raise_error(
-  #         ArgumentError,
-  #         'unknown genre: {"id":1,"name":"test"}'
-  #       )
-  #     end
-  #   end
-  #
-  #   context 'present genre' do
-  #     let!(:genre) { create :genre, :manga, name: genres.first[:name], mal_id: genres.first[:id] }
-  #
-  #     describe 'imported' do
-  #       let!(:manga) { create :manga, id: 987_654_321, description_en: 'old' }
-  #       before { manga.genres << genre }
-  #
-  #       it do
-  #         expect(entry.genres).to have(1).item
-  #         expect(entry.genres.first).to have_attributes(
-  #           id: genre.id,
-  #           mal_id: genre.mal_id,
-  #           name: genre.name
-  #         )
-  #       end
-  #     end
-  #
-  #     context 'not imported' do
-  #       it do
-  #         expect(entry.genres).to have(1).item
-  #         expect(entry.genres.first).to have_attributes(
-  #           id: genre.id,
-  #           mal_id: genre.mal_id,
-  #           name: genre.name
-  #         )
-  #       end
-  #     end
-  #   end
-  # end
+  describe '#assign_genres' do
+    before { MangaGenresV2Repository.instance.reset }
+    let(:genres) { [{ id: 987_654, name: 'test', kind: 'theme' }] }
+
+    context 'new genre' do
+      it do
+        expect { subject }.to change(GenreV2, :count).by 1
+        expect(entry.reload.genres_v2).to have(1).item
+        expect(entry.genres_v2[0]).to have_attributes(
+          mal_id: genres[0][:id],
+          name: genres[0][:name],
+          russian: genres[0][:name],
+          kind: genres[0][:kind],
+          entry_type: 'Manga'
+        )
+      end
+    end
+
+    context 'present genre' do
+      let!(:genre) do
+        create :genre_v2, :manga, :theme,
+          name: genres.first[:name],
+          mal_id: genres.first[:id]
+      end
+      let!(:manga) { create :manga, id: 987_654_321, description_en: 'old', genre_v2_ids: [genre.id] }
+
+      it do
+        expect { subject }.to_not change GenreV2, :count
+        expect(entry.reload.genres_v2).to have(1).item
+      end
+    end
+  end
 
   describe '#assign_publishers' do
     let(:publishers) { [{ id: 1, name: 'test' }] }

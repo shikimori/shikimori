@@ -1,4 +1,5 @@
 class Users::SessionsController < Devise::SessionsController
+  include CaptchaConcern
   skip_before_action :verify_authenticity_token
   prepend_before_action :check_captcha, only: %i[create] # rubocop:disable LexicallyScopedActionFilter
 
@@ -9,15 +10,7 @@ class Users::SessionsController < Devise::SessionsController
 private
 
   def check_captcha
-    if Shikimori::IS_RECAPTCHA_V3
-      auto_success = verify_recaptcha action: 'sign_in',
-        minimum_score: 0.4,
-        secret_key: Rails.application.secrets.recaptcha[:v3][:secret_key]
-    end
-    checkbox_success = verify_recaptcha unless auto_success
-
-    unless auto_success || checkbox_success
-      @show_checkbox_recaptcha = true
+    unless valid_captcha?('sign_in')
       self.resource = resource_class.new sign_in_params
       # resource.validate # Look for any other validation errors besides Recaptcha
       respond_with_navigational(resource) { render :new }

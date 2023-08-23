@@ -8,4 +8,9 @@ describe Styles::Download, :vcr do
     let(:url) { 'https://i.imgur.com/ywBxdCN.png' }
     it { is_expected.to eq '' }
   end
+
+  context '404' do
+    let(:url) { 'https://shiki-theme.web.app/import/main.css1' }
+    it { is_expected.to eq '' }
+  end
 end

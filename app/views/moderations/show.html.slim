@@ -16,10 +16,11 @@ header.head
             = t 'moderations/versions_controller.content_changes.all_content'
             - if moderation_policy.all_content_versions_count.positive?
               span.size = moderation_policy.all_content_versions_count
-        - %i[names texts content fansub].each do |type|
+
+        - Moderation::VersionsItemTypeQuery::VERSION_TYPES.each do |type|
           li.offset
             a.b-link[
-              href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[type])
+              href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Type[type])
               title=t("moderations/versions_controller.content_changes.#{type}")
             ]
               = t "moderations/versions_controller.content_changes.#{type}"
@@ -132,6 +133,15 @@ header.head
               span = i18n_io 'Genre', :few
 
           li
+            - if can? :read, Genre
+              a.b-link[
+                href=moderations_genre_v2s_path
+                title=i18n_io('Genre', :few)
+              ] #{i18n_io 'Genre', :few} V2
+            - else
+              span #{i18n_io 'Genre', :few} V2
+
+          li
             - if can? :read, Studio
               a.b-link[
                 href=moderations_studios_url
@@ -191,7 +201,7 @@ header.head
                   title=club_view.object.name
                 ] = club_view.object.name
 
-- if can? :sync, Anime
+- if can?(:arbitrary_sync, Anime) && can?(:sync, Anime)
   .block
     .fc-3
       .f-column

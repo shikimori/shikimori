@@ -151,6 +151,8 @@ class TestsController < ShikimoriController
   end
 
   def ip
+    raise CanCan::AccessDenied unless current_user&.admin?
+
     render json: {
       ip: request.ip,
       remote_ip: request.remote_ip,
@@ -175,13 +177,15 @@ class TestsController < ShikimoriController
 
   def reset_styles_cache
     if request.post?
-      cache_key = format(Styles::Download::CACHE_KEY, url: params[:url])
-      @was_exist = Rails.cache.exist? cache_key
-      Rails.cache.delete cache_key if @was_exist
+      RedisMutex.with_lock('reset_styles_cache', block: 5, expire: 4) do
+        cache_key = format(Styles::Download::CACHE_KEY, url: params[:url])
+        @was_exist = Rails.cache.exist? cache_key
+        Rails.cache.delete cache_key if @was_exist
 
-      @count = Style
-        .where('imports is not null and ? = ANY(imports)', params[:url])
-        .update_all compiled_css: nil
+        @count = Style
+          .where('imports is not null and imports->? is not null', params[:url])
+          .update_all compiled_css: nil
+      end
     end
   end
 
@@ -238,6 +242,10 @@ class TestsController < ShikimoriController
     # @entries = query.fetch
     # @links = query.links
   # end
+
+  def ad
+    raise CanCan::AccessDenied if Rails.env.production? && current_user&.admin?
+  end
 
 private
 

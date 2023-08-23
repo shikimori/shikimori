@@ -1,5 +1,6 @@
 import { debounce } from 'throttle-debounce';
 import cookies from 'js-cookie';
+import { flash } from 'shiki-utils';
 
 import axios from '@/utils/axios';
 
@@ -152,6 +153,14 @@ export class EditStyles extends View {
     if (data) {
       this.cssCache[hash] = data.compiled_css;
       this._replaceCustomCss(data.compiled_css);
+
+      if (data.failed_imports.length) {
+        flash.error(
+          '<b>' +
+          I18n.t('frontend.styles.import_errors') +
+          '</b><br><br>' + data.failed_imports.join('<br>')
+        );
+      }
     }
   }
 

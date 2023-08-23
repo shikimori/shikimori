@@ -27,7 +27,8 @@ module Shikimori
   NAME_RU = 'Шикимори'
   NAME_EN = 'Shikimori'
 
-  STATIC_SUBDOMAINS = %w[nyaa kawai moe desu dere]
+  STATIC_SUBDOMAINS = %w[desu]
+  # STATIC_SUBDOMAINS = %w[nyaa kawai moe desu dere]
   EMAIL = 'admin@shikimori.me'
   # EMAIL_DATA_DELETION = 'mail+data_deletion@shikimori.org'
 
@@ -81,6 +82,7 @@ module Shikimori
   IS_SUMMARIES_ENABLED = !Rails.env.production?
   IS_IMAGEBOARD_TAGS_ENABLED = false
   IS_RECAPTCHA_V3 = false
+  IS_TURNSTILE = true
 
   class Application < Rails::Application
     def redis

@@ -18,20 +18,20 @@ import { isMobile } from 'shiki-utils';
 import $with from '@/utils/with';
 
 $.fn.extend({
-  process(JS_EXPORTS) {
-    processCurrentDom(this, JS_EXPORTS);
+  process(jsExports) {
+    processCurrentDom(this, jsExports);
     return this;
   }
 });
 
-async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EXPORTS) {
+async function processCurrentDom(root = document.body, jsExports = window.JS_EXPORTS) {
   const $root = $(root);
 
-  UserRatesTracker.track(JS_EXPORTS, $root);
-  TopicsTracker.track(JS_EXPORTS, $root);
-  ReviewsTracker.track(JS_EXPORTS, $root);
-  CommentsTracker.track(JS_EXPORTS, $root);
-  PollsTracker.track(JS_EXPORTS, $root);
+  UserRatesTracker.track(jsExports, $root);
+  TopicsTracker.track(jsExports, $root);
+  ReviewsTracker.track(jsExports, $root);
+  CommentsTracker.track(jsExports, $root);
+  PollsTracker.track(jsExports, $root);
 
   // video must be processed before dynamic Wall, otherwise "shrinked" class sometimes
   // is assigned too late for video inside wall (after WallVideo is initialized)

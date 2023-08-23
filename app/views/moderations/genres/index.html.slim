@@ -7,12 +7,13 @@ table.b-table.b-editable_grid.block2
   thead
     tr
       = th field: :id
+      = th field: :name
+      = th field: :russian
+      = th field: :kind
       th
       = th field: :position
       - if can? :update, Genre
         = th field: :mal_id
-      = th field: :name
-      = th field: :russian
       th.text = Genre.human_attribute_name :description
 
   tbody
@@ -20,22 +21,23 @@ table.b-table.b-editable_grid.block2
       tr
         td.id
           a href=edit_moderations_genre_url(genre) ##{genre.id}
-        td.id
-          - if genre.anime?
-            a.catalog-link href=animes_collection_url(genre: genre.to_param)
-          - else
-            a.catalog-link href=mangas_collection_url(genre: genre.to_param)
-
-        td.id
-          = genre.position
-        - if can? :update, Genre
-          td ##{genre.mal_id}
         td
           a href=edit_moderations_genre_url(genre)
             = genre.name
         td
           a href=edit_moderations_genre_url(genre)
             = genre.russian
+        td
+          = genre.kind_text
+        td.id
+          - if genre.anime?
+            a.catalog-link href=animes_collection_url(genre: genre.to_param)
+          - else
+            a.catalog-link href=mangas_collection_url(genre: genre.to_param)
+        td.id
+          = genre.position
+        - if can? :update, Genre
+          td ##{genre.mal_id}
         td.text == truncate_html(BbCodes::Text.call(genre.description),
           length: 50,
           separator: ' ',

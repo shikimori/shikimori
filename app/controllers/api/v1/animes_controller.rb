@@ -168,7 +168,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     required: false,
     allow_blank: true,
     desc: <<~DOC
-      <p>Status of manga in current user list</p>
+      <p>Status of anime in current user list</p>
       <p><strong>Validations:</strong></p>
       <ul>
         <li>
@@ -321,7 +321,7 @@ private
     XXhash.xxh32([
       request.path,
       params.to_json,
-      params[:mylist].present? ? current_user.try(:cache_key) : nil,
+      params[:mylist].present? ? current_user.try(:rate_at) : nil,
       ((rand * 1000).to_i if params[:order] == 'random'),
       (Time.zone.today if params[:order] == 'ranked_random')
     ].join('|'))

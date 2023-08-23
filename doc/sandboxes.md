@@ -594,3 +594,95 @@ end
 ensure_queue(100)
 Achievements::UpdateStatistics.perform_async
 ```
+
+### Restore anime names on production
+```ruby
+File.open("/tmp/animes.json", 'w') do |f|
+  f.write Anime.all.map { |v| { id: v.id, name: v.name } }.to_json
+end
+```
+
+```sh
+scp /tmp/animes.json devops@shiki:/tmp/
+```
+
+```ruby
+json = JSON.parse(open('/tmp/animes.json').read, symbolize_names: true);
+Anime.all.each do |anime|
+  backup = json.find { |v| v[:id] == anime.id }
+  next unless backup
+
+  anime.update! name: backup[:name]
+end;
+```
+
+### Cleanup duplicates of genres
+```ruby
+[Anime, Manga].each do |klass|
+  "#{klass.name}GenresV2Repository".constantize.instance.
+    group_by(&:name).
+    select { |name, genres| genres.many? }.
+    map(&:second).
+    map { |genres| genres.sort_by(&:id) }.
+    each_with_object({}) { |genres, memo| memo[genres[0].id] = genres[1..-1].map(&:id) }.
+    each do |proper_genre_id, duplicate_genre_ids|
+      duplicate_genre_ids.each do |duplicate_genre_id|
+        klass.where("genre_v2_ids && '{#{duplicate_genre_id}}'").each do |db_entry|
+          db_entry.update! genre_v2_ids: (db_entry.genre_v2_ids.map do |genre_v2_id|
+            genre_v2_id == duplicate_genre_id ? proper_genre_id : genre_v2_id
+          end)
+        end
+        GenreV2.find(duplicate_genre_id).destroy!;
+      end
+    end;
+end;
+```
+
+### Find matched nickname 
+```ruby
+nickname = 'Foxy'; User.where("translate(lower(unaccent(nickname)), 'абвгдеёзийклмнопрстуфхцьіο0', 'abvgdeezijklmnoprstufxc`ioo') =  translate( lower(unaccent('#{nickname}')), 'абвгдеёзийклмнопрстуфхцьіο0', 'abvgdeezijklmnoprstufxc`ioo')").map(&:nickname)
+```
+
+### Send pending videos to modartion
+```ruby
+ssh devops@shiki '\
+  source /home/devops/.zshrc &&\
+    cd /home/apps/shikimori/production/current &&\
+    RAILS_ENV=production bundle exec rails runner "\
+Chewy.strategy(:atomic) { \
+  amount = rand(80..120); Video.where(state: \"uploaded\").where(uploader_id: BotsService.posters).where.not(anime_id: nil).shuffle.take(amount).each {|video| Versions::VideoVersion.create! item: video.anime, state: \"pending\", created_at: video.created_at, item_diff: { action: \"upload\", videos: [video.id] }, user: video.uploader }; \
+} \
+    "\
+'
+```
+
+### Run graphql query
+```gql
+reload!;
+result = ShikimoriSchema.execute('
+{
+  animes(search: "bakemono", limit: 1, kind: "!special") {
+    id
+    name
+  }
+}
+  ',
+  context: {},
+  variables: {}
+)['data']
+```
+
+```gql
+reload!;
+result = ShikimoriSchema.execute('
+query($ids: [ID!]) {
+  characters(ids: $ids) {
+    id
+    name
+  }
+}
+  ',
+  context: {},
+  variables: { id: 1 }
+)['data']
+```

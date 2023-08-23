@@ -138,6 +138,26 @@ describe Collection do
         it { is_expected.to be_able_to :update, collection }
         it { is_expected.to be_able_to :destroy, collection }
         it { is_expected.to_not be_able_to :manage, collection }
+
+        it { is_expected.to be_able_to :to_published, collection }
+        it { is_expected.to be_able_to :to_opened, collection }
+        it { is_expected.to be_able_to :to_private, collection }
+      end
+
+      context 'not_trusted_collections_author' do
+        let(:user) { build_stubbed :user, :not_trusted_collections_author, :week_registered }
+
+        it { is_expected.to be_able_to :read, collection }
+        it { is_expected.to be_able_to :new, collection }
+        it { is_expected.to be_able_to :create, collection }
+        it { is_expected.to be_able_to :edit, collection }
+        it { is_expected.to be_able_to :update, collection }
+        it { is_expected.to be_able_to :destroy, collection }
+        it { is_expected.to_not be_able_to :manage, collection }
+
+        it { is_expected.to_not be_able_to :to_published, collection }
+        it { is_expected.to be_able_to :to_opened, collection }
+        it { is_expected.to be_able_to :to_private, collection }
       end
 
       context 'newly registered' do
@@ -150,6 +170,10 @@ describe Collection do
         it { is_expected.to_not be_able_to :update, collection }
         it { is_expected.to_not be_able_to :destroy, collection }
         it { is_expected.to_not be_able_to :manage, collection }
+
+        it { is_expected.to_not be_able_to :to_published, collection }
+        it { is_expected.to_not be_able_to :to_opened, collection }
+        it { is_expected.to_not be_able_to :to_private, collection }
       end
 
       context 'day registered' do
@@ -162,6 +186,10 @@ describe Collection do
         it { is_expected.to_not be_able_to :update, collection }
         it { is_expected.to_not be_able_to :destroy, collection }
         it { is_expected.to_not be_able_to :manage, collection }
+
+        it { is_expected.to_not be_able_to :to_published, collection }
+        it { is_expected.to_not be_able_to :to_opened, collection }
+        it { is_expected.to_not be_able_to :to_private, collection }
       end
 
       context 'banned' do
@@ -174,6 +202,10 @@ describe Collection do
         it { is_expected.to_not be_able_to :update, collection }
         it { is_expected.to_not be_able_to :destroy, collection }
         it { is_expected.to_not be_able_to :manage, collection }
+
+        it { is_expected.to_not be_able_to :to_published, collection }
+        it { is_expected.to_not be_able_to :to_opened, collection }
+        it { is_expected.to_not be_able_to :to_private, collection }
       end
     end
 
@@ -193,6 +225,10 @@ describe Collection do
       it { is_expected.to be_able_to :edit, collection }
       it { is_expected.to be_able_to :update, collection }
       it { is_expected.to_not be_able_to :destroy, collection }
+
+      it { is_expected.to_not be_able_to :to_published, collection }
+      it { is_expected.to_not be_able_to :to_opened, collection }
+      it { is_expected.to_not be_able_to :to_private, collection }
     end
 
     context 'user' do
@@ -202,6 +238,10 @@ describe Collection do
       it { is_expected.to_not be_able_to :edit, collection }
       it { is_expected.to_not be_able_to :update, collection }
       it { is_expected.to_not be_able_to :destroy, collection }
+
+      it { is_expected.to_not be_able_to :to_published, collection }
+      it { is_expected.to_not be_able_to :to_opened, collection }
+      it { is_expected.to_not be_able_to :to_private, collection }
     end
 
     context 'guest' do
@@ -211,6 +251,10 @@ describe Collection do
       it { is_expected.to_not be_able_to :new, collection }
       it { is_expected.to_not be_able_to :edit, collection }
       it { is_expected.to_not be_able_to :destroy, collection }
+
+      it { is_expected.to_not be_able_to :to_published, collection }
+      it { is_expected.to_not be_able_to :to_opened, collection }
+      it { is_expected.to_not be_able_to :to_private, collection }
     end
   end
 
@@ -273,4 +317,5 @@ describe Collection do
   it_behaves_like :clubs_concern, :collection
   it_behaves_like :moderatable_concern, :collection
   it_behaves_like :topics_concern, :collection
+  it_behaves_like :tags_concern
 end

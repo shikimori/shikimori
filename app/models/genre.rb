@@ -61,8 +61,8 @@ class Genre < ApplicationRecord
 
     i18n_t(
       "title.#{ru_case}.#{self.kind}.#{key}",
-      kind: kind,
-      default: i18n_t('default_title', kind: kind, name: name)
+      localized_entry_type: kind,
+      default: i18n_t('default_title', localized_entry_type: kind, name: name)
     ).capitalize
   end
 

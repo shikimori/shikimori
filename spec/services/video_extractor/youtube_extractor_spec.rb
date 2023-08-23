@@ -12,7 +12,8 @@ describe VideoExtractor::YoutubeExtractor do
           is_expected.to have_attributes(
             hosting: :youtube,
             image_url: '//img.youtube.com/vi/VdwKZ6JDENc/hqdefault.jpg',
-            player_url: '//youtube.com/embed/VdwKZ6JDENc'
+            player_url: '//youtube.com/embed/VdwKZ6JDENc',
+            normalized_url: 'https://youtu.be/VdwKZ6JDENc'
           )
         end
       end
@@ -24,7 +25,8 @@ describe VideoExtractor::YoutubeExtractor do
           is_expected.to have_attributes(
             hosting: :youtube,
             image_url: '//img.youtube.com/vi/n5qqfOXRRaA/hqdefault.jpg',
-            player_url: '//youtube.com/embed/n5qqfOXRRaA?start=3m3s'
+            player_url: '//youtube.com/embed/n5qqfOXRRaA?start=3m3s',
+            normalized_url: 'https://youtu.be/n5qqfOXRRaA'
           )
         end
       end
@@ -36,7 +38,8 @@ describe VideoExtractor::YoutubeExtractor do
           is_expected.to have_attributes(
             hosting: :youtube,
             image_url: '//img.youtube.com/vi/paezRkeNr5Q/hqdefault.jpg',
-            player_url: '//youtube.com/embed/paezRkeNr5Q?start=3m3s'
+            player_url: '//youtube.com/embed/paezRkeNr5Q?start=3m3s',
+            normalized_url: 'https://youtu.be/paezRkeNr5Q'
           )
         end
       end
@@ -48,7 +51,8 @@ describe VideoExtractor::YoutubeExtractor do
           is_expected.to have_attributes(
             hosting: :youtube,
             image_url: '//img.youtube.com/vi/paezRkeNr5Q/hqdefault.jpg',
-            player_url: '//youtube.com/embed/paezRkeNr5Q?start=5s'
+            player_url: '//youtube.com/embed/paezRkeNr5Q?start=5s',
+            normalized_url: 'https://youtu.be/paezRkeNr5Q'
           )
         end
       end
@@ -65,7 +69,8 @@ describe VideoExtractor::YoutubeExtractor do
           is_expected.to have_attributes(
             hosting: :youtube,
             image_url: '//img.youtube.com/vi/VdwKZ6JDENc/hqdefault.jpg',
-            player_url: '//youtube.com/embed/VdwKZ6JDENc?start=123'
+            player_url: '//youtube.com/embed/VdwKZ6JDENc?start=123',
+            normalized_url: 'https://youtu.be/VdwKZ6JDENc'
           )
         end
       end

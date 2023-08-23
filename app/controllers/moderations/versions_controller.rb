@@ -23,7 +23,7 @@ class Moderations::VersionsController < ModerationsController # rubocop:disable 
       og page_title: i18n_t('content_changes.all_content')
       breadcrumb(
         i18n_t('content_changes.all_content'),
-        moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[:content])
+        moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Type[:content])
       )
     end
     og page_title: i18n_t('content_change', version_id: @resource.id)

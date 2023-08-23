@@ -1,5 +1,6 @@
 if @favourites&.any?
   json.content JsExports::Supervisor.instance.sweep(
+    current_user,
     render(
       partial: 'clubs/collection',
       formats: :html
@@ -7,6 +8,7 @@ if @favourites&.any?
   )
 else
   json.content JsExports::Supervisor.instance.sweep(
+    current_user,
     render(
       partial: 'clubs/club',
       collection: @collection,

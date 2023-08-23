@@ -18,7 +18,7 @@ describe EmailNotifier do
       allow(ShikiMailer).to receive(:delay_for).and_return mailer_double
       stub_const 'EmailNotifier::DAILY_USER_EMAILS_LIMIT', 1
     end
-    let!(:present_message) {}
+    let!(:present_message) { nil }
 
     subject! { service.private_message message }
 
@@ -38,16 +38,16 @@ describe EmailNotifier do
       end
 
       context 'messages limit' do
-        let!(:present_message) { create :message, :private, from: from_user }
+        let!(:present_message) { create :message, :with_send_email, :private, from: from_user }
         it { expect(mailer_double).to_not have_received :private_message_email }
 
         context 'another user messages' do
-          let!(:present_message) { create :message, :private, from: build_stubbed(:user) }
+          let!(:present_message) { create :message, :with_send_email, :private, from: build_stubbed(:user) }
           it { expect(mailer_double).to have_received :private_message_email }
         end
 
         context 'not private message' do
-          let!(:present_message) { create :message, :notification, from: from_user }
+          let!(:present_message) { create :message, :with_send_email, :notification, from: from_user }
           it { expect(mailer_double).to have_received :private_message_email }
         end
       end

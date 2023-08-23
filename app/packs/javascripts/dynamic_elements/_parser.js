@@ -45,7 +45,7 @@ export default class DynamicParser {
         if (this[processor]) {
           this[processor](node);
         } else {
-          console.error(`unexpected processor: ${processor}`, node);
+          console.error(`unexpected processor: ${processor}`, node); // eslint-disable-line no-console
         }
       });
     });

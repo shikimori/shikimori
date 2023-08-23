@@ -30,14 +30,14 @@ class DbEntries::Description
     private
 
     def parse_text value
-      return unless value.present?
-      return value unless value.match?(/\[source\]/)
+      return if value.blank?
+      return value unless value.include? '[source]'
 
       value[/(.+)(?=\[source\])/m, 1]
     end
 
     def parse_source value
-      return unless value.present?
+      return if value.blank?
 
       value[%r{\[source\](.+)\[/source\]}, 1]
     end

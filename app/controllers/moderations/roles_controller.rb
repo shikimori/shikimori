@@ -96,7 +96,7 @@ private
 
   def versions_scope
     Moderation::ProcessedVersionsQuery
-      .fetch(Moderation::VersionsItemTypeQuery::Types[:role], nil)
+      .fetch(Moderation::VersionsItemTypeQuery::Type[:role], nil)
       .where("item_diff->>'role' = ?", @role)
       .paginate(params[:action] == 'versions' ? page : 1, VERSIONS_PER_PAGE)
       .lazy_map(&:decorate)

@@ -7,6 +7,7 @@ json.notice I18n.t "messages.user_#{@resource.warning? ? 'warned' : 'banned'}"
 
 if @resource.comment
   json.content JsExports::Supervisor.instance.sweep(
+    current_user,
     render(
       partial: 'comments/comment',
       layout: false,
@@ -16,6 +17,7 @@ if @resource.comment
   )
 elsif @resource.topic
   json.content JsExports::Supervisor.instance.sweep(
+    current_user,
     render(
       partial: 'topics/topic',
       locals: {

@@ -142,7 +142,6 @@ private
     return unless poster
 
     ImageUrlGenerator.instance.cdn_poster_url(
-      db_entry: db_entry,
       poster: poster,
       derivative: derivative
     )

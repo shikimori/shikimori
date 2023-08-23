@@ -56,6 +56,10 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
     og noindex: true
   end
 
+  def twitter
+    og noindex: true
+  end
+
   def terms
     og noindex: true
     og page_title: i18n_t('terms_of_service')
@@ -289,5 +293,12 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
     @limit = 5
     @collection = QueryObjectBase.new(scope).paginate(@page, @limit)
+  end
+
+  def ad
+  end
+
+  def graphql
+    render :graphql, layout: false
   end
 end

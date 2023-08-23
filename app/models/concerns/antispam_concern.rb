@@ -9,8 +9,8 @@ module AntispamConcern
 
     def self.inherited subclass
       super
-      subclass.instance_variable_set '@antispam_enabled', @antispam_enabled
-      subclass.instance_variable_set '@antispam_options', @antispam_options.dup
+      subclass.instance_variable_set :@antispam_enabled, @antispam_enabled
+      subclass.instance_variable_set :@antispam_options, @antispam_options.dup
     end
   end
 
@@ -60,9 +60,9 @@ module AntispamConcern
   end
 
   def antispam_check(
+    user_id_key:,
     interval: nil,
     per_day: nil,
-    user_id_key:,
     disable_if: nil,
     enable_if: nil,
     scope: nil
@@ -121,7 +121,7 @@ module AntispamConcern
     self.class.antispam_enabled? && !@instance_antispam_disabled
   end
 
-  def need_antispam_check? disable_if, enable_if # rubocop:disable CyclomaticComplexity
+  def need_antispam_check? disable_if, enable_if
     antispam_enabled? &&
       errors.none? &&
       new_record? &&

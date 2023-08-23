@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import imagePromise from 'image-promise';
+import imagePromise from '@morr/image-promise';
 import pDefer from 'p-defer';
 
 export function loadImage(node, selector = 'img') {

@@ -1,4 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  include CaptchaConcern
   include ApplicationHelper
   prepend_before_action :check_captcha, only: %i[create] # rubocop:disable LexicallyScopedActionFilter
 
@@ -23,15 +24,7 @@ private
   end
 
   def check_captcha
-    if Shikimori::IS_RECAPTCHA_V3
-      auto_success = verify_recaptcha action: 'sign_up',
-        minimum_score: 0.4,
-        secret_key: Rails.application.secrets.recaptcha[:v3][:secret_key]
-    end
-    checkbox_success = verify_recaptcha unless auto_success
-
-    unless auto_success || checkbox_success
-      @show_checkbox_recaptcha = true
+    unless valid_captcha?('sign_up')
       self.resource = resource_class.new sign_up_params
       # disabled because of expensive email validation
       # resource.validate # Look for any other validation errors besides Recaptcha

@@ -1,6 +1,12 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  post '/api/graphql', to: 'graphql#execute'
+  get '/api/doc/graphql', to: 'pages#graphql'
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/api/graphql'
+  end
+
   # do not remove atomic grouping
   # w/o it shikimori has huge performance issue with suck nicknames "…...........☭............."
   user_id = /(?> [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x
@@ -19,6 +25,7 @@ Rails.application.routes.draw do
     (/franchise/:franchise)
     (/achievement/:achievement)
     (/genre/:genre)
+    (/genre_v2/:genre_v2)
     (/studio/:studio)
     (/publisher/:publisher)
     (/duration/:duration)
@@ -97,6 +104,7 @@ Rails.application.routes.draw do
       get :bb_codes
       get :feedback
       get :facebook
+      get :twitter
       get :oauth
       get :oauth_request
       get 'apanel' => :admin_panel
@@ -145,7 +153,7 @@ Rails.application.routes.draw do
 
     resources :versions, only: %i[show create destroy] do
       collection do
-        constraints type: /names|texts|content|fansub/ do
+        constraints type: /names|texts|content|fansub|videos|images|links/ do
           get '(/:type)(/page/:page)' => :index, as: ''
           get '(/:type)/autocomplete_user' => :autocomplete_user, as: :autocomplete_user
           get '(/:type)/autocomplete_moderator' => :autocomplete_moderator, as: :autocomplete_moderator
@@ -215,6 +223,10 @@ Rails.application.routes.draw do
       patch :update, on: :member, as: :update
     end
     resources :genres, only: %i[index edit update] do
+      get '(/page/:page)' => :index, as: '', on: :collection
+      get :tooltip, on: :member
+    end
+    resources :genre_v2s, only: %i[index edit update] do
       get '(/page/:page)' => :index, as: '', on: :collection
       get :tooltip, on: :member
     end
@@ -663,6 +675,7 @@ Rails.application.routes.draw do
       vue
       wall
       webm
+      ad
     ].each do |page|
       get page
     end

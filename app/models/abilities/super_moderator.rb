@@ -22,16 +22,20 @@ class Abilities::SuperModerator
 
     comment_abilities
     clubs_abilities
-    genres_studios_publishers_abilities
   end
 
   def roles_abilities # rubocop:disable MethodLength
     can %i[
       manage_forum_moderator_role
+
       manage_version_names_moderator_role
       manage_version_texts_moderator_role
       manage_version_moderator_role
       manage_version_fansub_moderator_role
+      manage_version_videos_moderator_role
+      manage_version_images_moderator_role
+      manage_version_links_moderator_role
+
       manage_trusted_version_changer_role
       manage_trusted_episodes_changer_role
       manage_trusted_newsmaker_role
@@ -39,8 +43,15 @@ class Abilities::SuperModerator
       manage_not_trusted_names_changer_role
       manage_not_trusted_texts_changer_role
       manage_not_trusted_fansub_changer_role
+      manage_not_trusted_videos_changer_role
+      manage_not_trusted_images_changer_role
+      manage_not_trusted_links_changer_role
+
       manage_trusted_fansub_changer_role
       manage_retired_moderator_role
+      manage_genre_moderator_role
+
+      manage_not_trusted_collections_author_role
 
       manage_censored_avatar_role
       manage_censored_profile_role
@@ -58,11 +69,5 @@ class Abilities::SuperModerator
     can :manage, Club
     can :manage, ClubPage
     can :manage, ClubImage
-  end
-
-  def genres_studios_publishers_abilities
-    can :update, Genre
-    can :update, Studio
-    can :update, Publisher
   end
 end

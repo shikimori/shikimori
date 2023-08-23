@@ -43,7 +43,8 @@ class VideoExtractor::BaseExtractor
     Videos::ExtractedEntry.new(
       extract_hosting(url),
       extract_image_url(match),
-      extract_player_url(match)
+      extract_player_url(match),
+      normalize_matched_url(url, match)
     )
   end
 
@@ -80,7 +81,8 @@ private
       entry = Videos::ExtractedEntry.new(
         extract_hosting(url),
         extract_image_url(data),
-        extract_player_url(data)
+        extract_player_url(data),
+        url
       )
     end
 
@@ -101,6 +103,10 @@ private
       .sub(/.*::_?/, '')
       .sub(/_extractor/, '')
       .to_sym
+  end
+
+  def normalize_matched_url url, _match
+    url
   end
 
   def fetch_page url

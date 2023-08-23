@@ -10,3 +10,4 @@ en:
       examples: Prepared backgrounds
       expand: expand →
       collapse: collapse ←
+      import_errors: Failed to import following styles

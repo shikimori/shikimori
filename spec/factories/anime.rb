@@ -15,6 +15,7 @@ FactoryBot.define do
     franchise { nil }
     rating { :pg_13 }
     genre_ids { [] }
+    genre_v2_ids { [] }
     studio_ids { [] }
     is_censored { false }
     next_episode_at { nil }

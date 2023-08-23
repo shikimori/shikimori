@@ -2,6 +2,7 @@ json.title og.headline
 json.notice og.notice
 
 json.content JsExports::Supervisor.instance.sweep(
+  current_user,
   render(
     partial: 'animes_collection/cached_collection',
     locals: {

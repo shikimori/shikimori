@@ -1,4 +1,5 @@
 class Users::ListImportsController < ProfilesController
+  include CaptchaConcern
   load_and_authorize_resource
 
   before_action do
@@ -7,23 +8,23 @@ class Users::ListImportsController < ProfilesController
     og page_title: t(:settings)
   end
 
+  def show
+    return redirect_to edit_profile_url(@user, section: :list) if @resource.is_archived?
+
+    @view = ListImportView.new @resource
+  end
+
   def new
     og page_title: i18n_t(:title)
   end
 
   def create
-    if verify_recaptcha && @resource.save
+    if valid_captcha?('list_import') && @resource.save
       redirect_to profile_list_import_url(@user, @resource)
     else
       new
       render :new
     end
-  end
-
-  def show
-    return redirect_to edit_profile_url(@user, section: :list) if @resource.is_archived?
-
-    @view = ListImportView.new @resource
   end
 
 private

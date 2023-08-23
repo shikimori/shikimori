@@ -36,7 +36,7 @@ html[
     data-faye_url=FayePublisher.faye_url
     data-camo_url=UrlGenerator.instance.camo_root_url(false)
     data-faye=(current_user.faye_channels.to_json if user_signed_in?)
-    data-js_export_supervisor_keys=JsExports::Supervisor::KEYS.to_json
+    data-js_export_supervisor_keys=JsExports::Supervisor.user_keys(current_user).to_json
   ]
     = @layout.custom_styles
     #outdated
@@ -58,7 +58,7 @@ html[
           = render 'application/top_menu'
 
       section.l-page *itemprop
-        / - unless clean_host? || cookies[:red_alert]
+        / - unless old_host? || cookies[:red_alert]
           .b-hot_topics-v2.red-alert
             a href='/forum/site/284035-novyy-domen-shikimori-one'
               | shikimori.org забанен мосгорсудом
@@ -90,8 +90,7 @@ html[
           data-type='html'
         ]
           .marker-text data-text=t('application.aside.report_bug')
-    - if user_signed_in?
-      javascript [id='js_export']:
-        window.JS_EXPORTS = #{{JsExports::Supervisor.instance.export(current_user).to_json}};
+    javascript[id='js_export']:
+      window.JS_EXPORTS = #{{JsExports::Supervisor.instance.export(current_user).to_json}};
     = yield :tail
     = Gon::Base.render_data

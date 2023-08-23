@@ -7,7 +7,8 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     :favoured, :favoured?, :all_favoured, :favoured_size,
     :main_topic_view, :preview_topic_view,
     :parameterized_versions,
-    :news_topic_views
+    :news_topic_views,
+    :clubs_scope # cache it in order to prevent re-fetching of cache key
 
   MAX_CLUBS = 4
   MAX_COLLECTIONS = 3
@@ -130,18 +131,15 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def clubs_scope
-    return Club.none if respond_to?(:rkn_abused?) && rkn_abused?
+    if respond_to?(:rkn_abused?) && rkn_abused?
+      scope = []
+      def scope.cache_key; 'none'; end # rubocop:disable Style/SingleLineMethods
+      return scope
+    end
 
     scope = Clubs::Query.fetch(h.current_user, false, object.clubs)
     scope = scope.where is_censored: false if !object.try(:censored?) && h.censored_forbidden?
     scope
-  end
-
-  def clubs_scope_cache_key
-    clubs_scope
-      .except(:order)
-      .pick(Arel.sql('count(*), max(clubs.updated_at)'))
-      &.join('/')
   end
 
   def menu_collections
@@ -249,8 +247,8 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     h.send "versions_#{klass_lower}_url", object, page: page
   end
 
-  def sync_url
-    h.send "sync_#{klass_lower}_url"
+  def sync_url **additionals
+    h.send "sync_#{klass_lower}_url", **additionals
   end
 
   def refresh_poster_url

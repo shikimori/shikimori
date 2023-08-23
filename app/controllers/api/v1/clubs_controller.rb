@@ -11,7 +11,7 @@ class Api::V1::ClubsController < Api::V1Controller
 
   caches_action :animes, :mangas, :characters, :members, :images,
     cache_path: proc {
-      "#{@club.cache_key_with_version}|#{params[:action]}"
+      "#{@club.cache_key_with_version}|#{params[:action]}|#{params[:page]}|#{params[:limit]}"
     }
 
   api :GET, '/clubs', 'List clubs'
@@ -65,11 +65,17 @@ class Api::V1::ClubsController < Api::V1Controller
 
   api :GET, '/clubs/:id/animes', "Show club's animes"
   param :page, :pagination, required: false
+  param :limit, :number,
+    required: false,
+    desc: "#{ClubDecorator::LINKED_PER_PAGE[:animes]} maximum"
   def animes
     respond_with @club.paginated_animes
   end
 
   api :GET, '/clubs/:id/mangas', "Show club's mangas"
+  param :limit, :number,
+    required: false,
+    desc: "#{ClubDecorator::LINKED_PER_PAGE[:mangas]} maximum"
   param :page, :pagination, required: false
   def mangas
     respond_with @club.paginated_mangas
@@ -77,18 +83,27 @@ class Api::V1::ClubsController < Api::V1Controller
 
   api :GET, '/clubs/:id/ranobe', "Show club's ranobe"
   param :page, :pagination, required: false
+  param :limit, :number,
+    required: false,
+    desc: "#{ClubDecorator::LINKED_PER_PAGE[:ranobe]} maximum"
   def ranobe
     respond_with @club.paginated_ranobe
   end
 
   api :GET, '/clubs/:id/characters', "Show club's characters"
   param :page, :pagination, required: false
+  param :limit, :number,
+    required: false,
+    desc: "#{ClubDecorator::LINKED_PER_PAGE[:characters]} maximum"
   def characters
     respond_with @club.paginated_characters
   end
 
   api :GET, '/clubs/:id/collections'
   param :page, :pagination, required: false
+  param :limit, :number,
+    required: false,
+    desc: "#{ClubDecorator::LINKED_PER_PAGE[:collections]} maximum"
   def collections
     @topic_views = @club.paginated_collections.map do |collection|
       Topics::TopicViewFactory.new(false, false).build collection.maybe_topic
@@ -99,18 +114,45 @@ class Api::V1::ClubsController < Api::V1Controller
 
   api :GET, '/clubs/:id/clubs'
   param :page, :pagination, required: false
+  param :limit, :number, required: false, desc: "#{LIMIT} maximum"
   def clubs
     respond_with @club.paginated_clubs
   end
 
   api :GET, '/clubs/:id/members', "Show club's members"
+  param :page, :pagination, required: false
+  param :limit, :number, required: false, desc: '100 maximum'
   def members
-    respond_with @club.all_member_roles.map(&:user)
+    params[:limit] ||= 100
+    page = [params[:page].to_i, 1].max
+    limit = [[params[:limit].to_i, 1].max, 100].min
+
+    scope = QueryObjectBase
+      .new(
+        @club.object.member_roles.includes(:user).order(created_at: :desc)
+      )
+      .paginate_n1(page, limit)
+      .map(&:user)
+
+    respond_with scope
   end
 
   api :GET, '/clubs/:id/images', "Show club's images"
+  param :page, :pagination, required: false
+  param :limit, :number, required: false, desc: '100 maximum'
   def images
-    respond_with @club.all_images
+    params[:limit] ||= 100
+    page = [params[:page].to_i, 1].max
+    limit = [[params[:limit].to_i, 1].max, 100].min
+
+    scope = QueryObjectBase
+      .new(
+        @club.object.images
+      )
+      .order(created_at: :desc)
+      .paginate_n1(page, limit)
+
+    respond_with scope
   end
 
   api :POST, '/clubs/:id/join', 'Join a club'
