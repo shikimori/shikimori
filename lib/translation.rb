@@ -2,14 +2,14 @@
 
 module Translation
   # translate phrases from decorators, services, etc.
-  def i18n_t key, options = {}
+  def i18n_t key, **options
     yield options if block_given?
 
     klass = instance_of?(Class) ? self : self.class
     I18n.t "#{klass.name.underscore}.#{key}", **options, raise: true
   rescue I18n::MissingTranslationData => e
     begin
-      I18n.t key, options
+      I18n.t key, **options
     rescue I18n::NoTranslation
       raise e
     end
@@ -27,7 +27,7 @@ module Translation
         )
       else
         default = key.to_s.tr('_', ' ').pluralize(count_key == :one ? 1 : 2)
-        I18n.t "inflections.#{key.downcase}.#{count_key}", default: default
+        I18n.t("inflections.#{key.downcase}.#{count_key}", default:)
       end
 
     key == key.downcase ? translation : translation.capitalize
@@ -42,7 +42,7 @@ module Translation
         I18n.t "inflections.ordinal.#{key.downcase}.#{count_key}"
       else
         default = key.to_s.tr('_', ' ').pluralize(count_key == :one ? 1 : 2)
-        I18n.t "inflections.#{key.downcase}.#{count_key}", default: default
+        I18n.t("inflections.#{key.downcase}.#{count_key}", default:)
       end
 
     key == key.downcase ? translation : translation.capitalize
