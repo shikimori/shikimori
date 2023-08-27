@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '6.1.7.2'
+gem 'rails'
 gem 'bootsnap', require: false
 
 # database & cache
@@ -25,7 +25,8 @@ gem 'gon'
 gem 'turbolinks'
 gem 'uglifier'
 gem 'webpacker'
-gem 'execjs', '2.7' # do no upgrade until upgrade to ruby 2.7 https://github.com/rails/execjs/issues/99
+# gem 'execjs', '2.7' # do no upgrade until upgrade to ruby 2.7 https://github.com/rails/execjs/issues/99
+gem 'sprockets-rails'
 
 # templates
 gem 'jbuilder' # для рендеринга json
