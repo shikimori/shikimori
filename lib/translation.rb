@@ -6,7 +6,7 @@ module Translation
     yield options if block_given?
 
     klass = instance_of?(Class) ? self : self.class
-    I18n.t! "#{klass.name.underscore}.#{key}", options
+    I18n.t "#{klass.name.underscore}.#{key}", **options, raise: true
   rescue I18n::MissingTranslationData => e
     begin
       I18n.t key, options
