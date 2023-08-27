@@ -14,6 +14,16 @@ GIT
     cancancan (3.4.0)
 
 GIT
+  remote: https://github.com/morr/chewy.git
+  revision: fab02c527eef0301f6012dc2d61ba3725eec16ec
+  branch: v6.0.0-i18n-fix
+  specs:
+    chewy (6.0.0)
+      activesupport (>= 5.2)
+      elasticsearch (>= 6.3.0)
+      elasticsearch-dsl
+
+GIT
   remote: https://github.com/morr/devise-doorkeeper.git
   revision: fc0245fe4448508cac268b1102f8beabd7d85374
   branch: master
@@ -241,10 +251,6 @@ GEM
     case_transform (0.2)
       activesupport
     cgi (0.3.6)
-    chewy (6.0.0)
-      activesupport (>= 5.2)
-      elasticsearch (>= 6.3.0)
-      elasticsearch-dsl
     climate_control (0.2.0)
     clockwork (2.0.4)
       activesupport
@@ -340,16 +346,17 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faraday (1.8.0)
+    faraday (1.10.3)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
-      faraday-httpclient (~> 1.0.1)
+      faraday-httpclient (~> 1.0)
+      faraday-multipart (~> 1.0)
       faraday-net_http (~> 1.0)
-      faraday-net_http_persistent (~> 1.1)
+      faraday-net_http_persistent (~> 1.0)
       faraday-patron (~> 1.0)
       faraday-rack (~> 1.0)
-      multipart-post (>= 1.2, < 3)
+      faraday-retry (~> 1.0)
       ruby2_keywords (>= 0.0.4)
     faraday-cookie_jar (0.0.7)
       faraday (>= 0.8.0)
@@ -358,10 +365,13 @@ GEM
     faraday-em_synchrony (1.0.0)
     faraday-excon (1.1.0)
     faraday-httpclient (1.0.1)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
+    faraday-retry (1.0.3)
     faraday_middleware (1.2.0)
       faraday (~> 1.0)
     faye (1.4.0)
@@ -440,9 +450,9 @@ GEM
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
-    i18n (1.8.11)
+    i18n (1.14.1)
       concurrent-ruby (~> 1.0)
-    i18n-js (3.9.0)
+    i18n-js (3.9.2)
       i18n (>= 0.6.6)
     icalendar (2.7.1)
       ice_cube (~> 0.16)
@@ -502,7 +512,7 @@ GEM
     msgpack (1.6.0)
     multi_json (1.15.0)
     multi_xml (0.6.0)
-    multipart-post (2.1.1)
+    multipart-post (2.3.0)
     nenv (0.3.0)
     net-imap (0.3.7)
       date
@@ -849,7 +859,7 @@ DEPENDENCIES
   capistrano-rbenv
   capybara
   cgi (= 0.3.6)
-  chewy
+  chewy!
   clockwork
   colorize
   concurrent-ruby-edge
@@ -885,7 +895,7 @@ DEPENDENCIES
   guard-spring
   htmldiff-lcs!
   htmlentities
-  i18n (< 1.9.0)
+  i18n
   i18n-inflector!
   i18n-js
   icalendar
