@@ -55,7 +55,7 @@ describe Version do
         end
 
         it { is_expected.to allow_transition_to :rejected }
-        it do
+        it '', :focus do
           is_expected.to transition_from(state)
             .to(:rejected)
             .on_event(:reject, moderator: user, reason: 'reason')

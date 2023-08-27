@@ -173,17 +173,17 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
 
 private
 
-  def apply_version **_args
+  def apply_version *_args, **__args
     ApplicationRecord.transaction { apply_changes } ||
       raise(StateMachineRollbackError.new(self, :apply))
   end
 
-  def reject_version **_args
+  def reject_version *_args, **__args
     ApplicationRecord.transaction { reject_changes } ||
       raise(StateMachineRollbackError.new(self, :reject))
   end
 
-  def rollback_version **_args
+  def rollback_version *_args, **__args
     ApplicationRecord.transaction { rollback_changes } ||
       raise(StateMachineRollbackError.new(self, :rollback))
   end
@@ -192,12 +192,12 @@ private
     self.moderator = moderator
   end
 
-  def reevaluate_state **_args
+  def reevaluate_state *_args, **__args
     # implemented in inherited classes
   end
 
   # sweep resources of deleted version
-  def sweep_deleted **_args
+  def sweep_deleted *_args, **__args
     # implemented in inherited classes
   end
 
