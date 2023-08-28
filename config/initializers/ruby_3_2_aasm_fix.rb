@@ -3,6 +3,8 @@ module AASM
     def exec_subject
       raise(*record_error) unless record.respond_to?(subject, true)
 
+      # record.method(subject).source_location.first.include?('rspec-mocks')
+
       parameters = record.method(subject).parameters
       has_keyword_args = parameters.any? { |(type, _)| type.to_s.starts_with? "key" }
 
@@ -11,7 +13,7 @@ module AASM
         fixed_args = args[0..-2]
       else
         kwargs = {}
-        fixed_args = args
+        fixed_args = parameters.any? ? args : []
       end
 
       return record.send(subject) if args.none? && kwargs.none?

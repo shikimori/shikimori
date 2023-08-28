@@ -136,7 +136,7 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
   rescue NoMethodError
   end
 
-  def notify_acceptance **_kwargs
+  def notify_acceptance
     unless user_id == moderator_id
       Message.create_wo_antispam!(
         from_id: moderator_id,
@@ -159,31 +159,31 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
     )
   end
 
-  def takeable? *_args, **_kwargs
+  def takeable?
     false
   end
 
-  def optionally_takeable? *_args, **_kwargs
+  def optionally_takeable?
     false
   end
 
-  def deleteable? *_args, **_kwargs
+  def deleteable?
     true
   end
 
 private
 
-  def apply_version *_args, **_kwargs
+  def apply_version
     ApplicationRecord.transaction { apply_changes } ||
       raise(StateMachineRollbackError.new(self, :apply))
   end
 
-  def reject_version *_args, **_kwargs
+  def reject_version
     ApplicationRecord.transaction { reject_changes } ||
       raise(StateMachineRollbackError.new(self, :reject))
   end
 
-  def rollback_version *_args, **_kwargs
+  def rollback_version
     ApplicationRecord.transaction { rollback_changes } ||
       raise(StateMachineRollbackError.new(self, :rollback))
   end
@@ -192,12 +192,12 @@ private
     self.moderator = moderator
   end
 
-  def reevaluate_state *_args, **_kwargs
+  def reevaluate_state
     # implemented in inherited classes
   end
 
   # sweep resources of deleted version
-  def sweep_deleted *_args, **_kwargs
+  def sweep_deleted
     # implemented in inherited classes
   end
 
