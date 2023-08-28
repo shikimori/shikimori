@@ -54,7 +54,7 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
       transitions(
         from: Types::Version::State[:pending],
         to: Types::Version::State[:auto_accepted],
-        unless: :takeable?
+        unless: -> { takeable? }
       ) do
         after :apply_version
         after :assign_moderator
@@ -136,7 +136,7 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
   rescue NoMethodError
   end
 
-  def notify_acceptance **_args
+  def notify_acceptance **_kwargs
     unless user_id == moderator_id
       Message.create_wo_antispam!(
         from_id: moderator_id,
@@ -147,7 +147,7 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
     end
   end
 
-  def notify_rejection reason:, **_args
+  def notify_rejection reason:, **_kwargs
     return if user_id == moderator_id
 
     Message.create_wo_antispam!(
@@ -159,7 +159,7 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
     )
   end
 
-  def takeable? **_args
+  def takeable?
     false
   end
 
@@ -173,31 +173,31 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
 
 private
 
-  def apply_version # *_args, **__args
+  def apply_version **_kwargs
     ApplicationRecord.transaction { apply_changes } ||
       raise(StateMachineRollbackError.new(self, :apply))
   end
 
-  def reject_version # *_args, **__args
+  def reject_version **_kwargs
     ApplicationRecord.transaction { reject_changes } ||
       raise(StateMachineRollbackError.new(self, :reject))
   end
 
-  def rollback_version # *_args, **__args
+  def rollback_version **_kwargs
     ApplicationRecord.transaction { rollback_changes } ||
       raise(StateMachineRollbackError.new(self, :rollback))
   end
 
-  def assign_moderator moderator: , **_args
-    self.moderator = moderator || user
+  def assign_moderator moderator: user, **_kwargs
+    self.moderator = moderator
   end
 
-  def reevaluate_state # *_args, **__args
+  def reevaluate_state **_kwargs
     # implemented in inherited classes
   end
 
   # sweep resources of deleted version
-  def sweep_deleted # *_args, **__args
+  def sweep_deleted **_kwargs
     # implemented in inherited classes
   end
 
