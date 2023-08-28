@@ -1,21 +1,22 @@
 module AASM
   module Ruby3LiteralCompat
     def exec_subject
-      ap subject
-      return super
-
       raise(*record_error) unless record.respond_to?(subject, true)
 
       parameters = record.method(subject).parameters
-      kwargs = {}
       has_keyword_args = parameters.any? { |(type, _)| type.to_s.starts_with? "key" }
-      if has_keyword_args
-        kwargs = args.extract_options!
+
+      if has_keyword_args && args.any? && args.last.extractable_options?
+        kwargs = args.last
+        fixed_args = args[0..-2]
+      else
+        kwargs = {}
+        fixed_args = args
       end
 
       return record.send(subject) if args.none? && kwargs.none?
 
-      record.send(subject, *args, **kwargs)
+      record.send(subject, *fixed_args, **kwargs)
     end
   end
 

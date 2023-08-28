@@ -138,7 +138,7 @@ describe Version do
         it { is_expected.to_not allow_transition_to :auto_accepted }
         it { is_expected.to_not allow_transition_to :taken }
         it { is_expected.to allow_transition_to :rejected }
-        it '', :focus do
+        it do
           is_expected.to transition_from(state)
             .to(:rejected)
             .on_event :reject, moderator: user, reason: 'reason'
@@ -253,7 +253,7 @@ describe Version do
       end
 
       describe '#auto_accept' do
-        before { version.auto_accept! moderator: }
+        before { version.auto_accept! }
 
         describe 'from pending' do
           let(:state) { :pending }

@@ -54,7 +54,7 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
       transitions(
         from: Types::Version::State[:pending],
         to: Types::Version::State[:auto_accepted],
-        unless: -> { takeable? }
+        unless: :takeable?
       ) do
         after :apply_version
         after :assign_moderator
@@ -159,31 +159,31 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
     )
   end
 
-  def takeable?
+  def takeable? *_args, **_kwargs
     false
   end
 
-  def optionally_takeable?
+  def optionally_takeable? *_args, **_kwargs
     false
   end
 
-  def deleteable?
+  def deleteable? *_args, **_kwargs
     true
   end
 
 private
 
-  def apply_version **_kwargs
+  def apply_version *_args, **_kwargs
     ApplicationRecord.transaction { apply_changes } ||
       raise(StateMachineRollbackError.new(self, :apply))
   end
 
-  def reject_version **_kwargs
+  def reject_version *_args, **_kwargs
     ApplicationRecord.transaction { reject_changes } ||
       raise(StateMachineRollbackError.new(self, :reject))
   end
 
-  def rollback_version **_kwargs
+  def rollback_version *_args, **_kwargs
     ApplicationRecord.transaction { rollback_changes } ||
       raise(StateMachineRollbackError.new(self, :rollback))
   end
@@ -192,12 +192,12 @@ private
     self.moderator = moderator
   end
 
-  def reevaluate_state **_kwargs
+  def reevaluate_state *_args, **_kwargs
     # implemented in inherited classes
   end
 
   # sweep resources of deleted version
-  def sweep_deleted **_kwargs
+  def sweep_deleted *_args, **_kwargs
     # implemented in inherited classes
   end
 
