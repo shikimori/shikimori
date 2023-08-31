@@ -236,7 +236,7 @@ describe Version do
       describe '#accept' do
         before { version.accept! moderator: }
 
-        describe 'from pending', :focus do
+        describe 'from pending' do
           let(:state) { Types::Version::State[:pending] }
 
           it do
