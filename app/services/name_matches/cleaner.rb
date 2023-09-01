@@ -50,7 +50,7 @@ class NameMatches::Cleaner
   }
 
   def initialize
-    @config ||= NameMatches::Config.instance
+    @config = NameMatches::Config.instance
   end
 
   def finalize arg

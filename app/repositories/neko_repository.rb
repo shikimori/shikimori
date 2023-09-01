@@ -2,7 +2,7 @@ class NekoRepository
   include Singleton
   include Enumerable
 
-  CONFIG_FILE = "#{Rails.root}/config/app/neko_data.yml"
+  CONFIG_FILE = Rails.root.join('config/app/neko_data.yml')
 
   def each
     collection.each { |rule| yield rule }
@@ -25,7 +25,7 @@ class NekoRepository
 
   def cache_key *args
     [
-      Digest::MD5.hexdigest(raw_config.to_json),
+      Digest::MD5.hexdigest(config.to_json),
       Time.zone.today,
       :v4
     ] + args
@@ -41,12 +41,12 @@ class NekoRepository
 private
 
   def collection
-    @collection ||= YAML.load(raw_config) # rubocop:disable Security/YAMLLoad
+    @collection ||= config
       .map { |raw_rule| Neko::Rule.new raw_rule.to_h }
       .sort_by(&:sort_criteria)
   end
 
-  def raw_config
-    @raw_config ||= File.open(CONFIG_FILE).read
+  def config
+    @config ||= YAML.load_file CONFIG_FILE, aliases: true
   end
 end

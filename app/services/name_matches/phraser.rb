@@ -2,8 +2,8 @@ class NameMatches::Phraser
   include Singleton
 
   def initialize
-    @cleaner ||= NameMatches::Cleaner.instance
-    @config ||= NameMatches::Config.instance
+    @cleaner = NameMatches::Cleaner.instance
+    @config = NameMatches::Config.instance
   end
 
   # все возможные варианты написания имён
