@@ -11,18 +11,20 @@ describe NameMatches::Phraser do
 
     context 'without splits' do
       let(:options) { { do_splits: false } }
-      it { expect(service.variate 'zz [ТВ]', options).to eq ['zztv'] }
-      it { expect(service.variate 'zz (2000)', options).to eq ['zz2000'] }
-      it { expect(service.variate 'zz!', options).to eq ['zz!'] }
-      it { expect(service.variate 'zz, with comma', options).to eq ['zzwithcomma'] }
+
+      it { expect(service.variate 'zz [ТВ]', **options).to eq ['zztv'] }
+      it { expect(service.variate 'zz (2000)', **options).to eq ['zz2000'] }
+      it { expect(service.variate 'zz!', **options).to eq ['zz!'] }
+      it { expect(service.variate 'zz, with comma', **options).to eq ['zzwithcomma'] }
     end
 
     context 'with splits' do
       let(:options) { { do_splits: true } }
-      it { expect(service.variate 'zz [ТВ]', options).to eq ['zztv', 'zz'] }
-      it { expect(service.variate 'zz (2000)', options).to eq ['zz2000', 'zz'] }
-      it { expect(service.variate 'zz!', options).to eq ['zz!', 'zz'] }
-      it { expect(service.variate 'zz, with comma', options).to eq ['zzwithcomma', 'withcomma'] }
+
+      it { expect(service.variate 'zz [ТВ]', **options).to eq ['zztv', 'zz'] }
+      it { expect(service.variate 'zz (2000)', **options).to eq ['zz2000', 'zz'] }
+      it { expect(service.variate 'zz!', **options).to eq ['zz!', 'zz'] }
+      it { expect(service.variate 'zz, with comma', **options).to eq ['zzwithcomma', 'withcomma'] }
     end
 
     describe 'user bracket_alternatives' do

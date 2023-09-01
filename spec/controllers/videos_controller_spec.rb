@@ -8,7 +8,7 @@ describe VideosController do
 
   describe '#create' do
     include_context :back_redirect
-    let(:video_params) { { url: url, kind: kind, name: name } }
+    let(:video_params) { { url:, kind:, name: } }
 
     describe 'post request' do
       subject! { post :create, params: { anime_id: anime.id, video: video_params } }
@@ -16,8 +16,8 @@ describe VideosController do
         expect(assigns :video).to be_uploaded
         expect(assigns :video).to have_attributes(
           url: 'https://youtu.be/l1YX30AmYsA',
-          name: name,
-          kind: kind,
+          name:,
+          kind:,
           anime_id: anime.id,
           uploader_id: user.id
         )
@@ -38,7 +38,7 @@ describe VideosController do
 
       subject! do
         post :create,
-          params: { anime_id: anime_id, video: video_params },
+          params: { anime_id:, video: video_params },
           xhr: true,
           format: :json
       end
@@ -71,7 +71,7 @@ describe VideosController do
       end
 
       context 'invalid video' do
-        let(:video_params) { { kind: kind, name: name } }
+        let(:video_params) { { kind:, name: } }
 
         it do
           expect(assigns :video).to_not be_persisted
@@ -83,7 +83,7 @@ describe VideosController do
       end
 
       context 'already uploaded video' do
-        let!(:video) { create :video, video_params.merge(anime: anime) }
+        let!(:video) { create :video, video_params.merge(anime:) }
         subject! do
           post :create,
             params: { anime_id: anime.id, video: video_params },
@@ -103,7 +103,7 @@ describe VideosController do
   end
 
   describe '#update' do
-    let(:video) { create :video, :confirmed, anime: anime }
+    let(:video) { create :video, :confirmed, anime: }
     subject! do
       patch :update,
         params: {
