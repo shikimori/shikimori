@@ -25,18 +25,19 @@ Rails.application.routes.draw do
     (/franchise/:franchise)
     (/achievement/:achievement)
     (/genre/:genre)
-    (/genre_v2/:genre_v2)
     (/studio/:studio)
     (/publisher/:publisher)
-    (/duration/:duration)
-    (/rating/:rating)
-    (/score/:score)
-    (/options/:options)
-    (/mylist/:mylist)
-    (/order-by/:order)
     (/page/:page)
     (.:format)
   FORMAT
+  # moved these parameters into GET QUERY params because of performance issue of rails 7 router
+  # (/duration/:duration)
+  # (/rating/:rating)
+  # (/score/:score)
+  # (/options/:options)
+  # (/mylist/:mylist)
+  # (/order-by/:order)
+  # (/genre_v2/:genre_v2)
 
   concern :db_entry do |options|
     member do
@@ -951,7 +952,8 @@ Rails.application.routes.draw do
       defaults: { users: 10, threshold: 0 }
   end
 
-  get "recommendations/:klass(/:metric(/:threshold))(/user/:user)/#{ani_manga_format}" => 'recommendations#index',
+  # get "recommendations/:klass(/:metric(/:threshold))(/user/:user)/#{ani_manga_format}" => 'recommendations#index',
+  get "recommendations/:klass/#{ani_manga_format}" => 'recommendations#index',
     as: :recommendations,
     klass: /anime|manga|ranobe/,
     metric: /euclid|euclid_z|pearson|pearson_mean|pearson_z|svd|svd_z|svd_mean/,

@@ -23,7 +23,7 @@ const DEFAULT_DATA = {
   licensor: []
 };
 
-const GET_FILTERS = ['licensor'];
+const GET_FILTERS = ['duration', 'rating', 'score', 'options', 'mylist', 'order-by', 'licensor'];
 
 export default function(basePath, currentUrl, changeCallback) {
   const $root = $('.b-collection-filters');
