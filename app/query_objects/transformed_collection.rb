@@ -28,9 +28,9 @@ class TransformedCollection
       @collection.respond_to?(method, *args)
   end
 
-  def method_missing method, *args, &block
+  def method_missing(method, *args, &)
     target = transformed.respond_to?(method) ? transformed : @collection
-    target.send method, *args, &block
+    target.send(method, *args, &)
   end
 
 private

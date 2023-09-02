@@ -68,7 +68,7 @@ describe Review do
       context 'anime' do
         let(:anime) { create :anime, status, released_on: }
         let(:status) { :released }
-        let(:released_on) { nil }
+        let(:released_on) { {} }
 
         context 'is set' do
           context 'true' do
@@ -76,7 +76,7 @@ describe Review do
             it { is_expected.to eq true }
           end
 
-          context 'false', :focus do
+          context 'false' do
             let(:is_written_before_release) { false }
             it { is_expected.to eq false }
           end
@@ -87,7 +87,7 @@ describe Review do
             let(:status) { :released }
 
             context 'released_on is not set' do
-              let(:released_on) { nil }
+              let(:released_on) { {} }
               it { is_expected.to eq false }
             end
 
@@ -126,13 +126,13 @@ describe Review do
       context 'manga' do
         let(:manga) { create :manga, status, released_on: }
         let(:status) { :released }
-        let(:released_on) { nil }
+        let(:released_on) { {} }
 
         context 'released' do
           let(:status) { :released }
 
           context 'released_on is not set' do
-            let(:released_on) { nil }
+            let(:released_on) { {} }
             it { is_expected.to eq false }
           end
 

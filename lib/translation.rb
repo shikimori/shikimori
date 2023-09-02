@@ -51,7 +51,7 @@ module Translation
   # only for verbs
   def i18n_v key, count = 1, options = {}
     options = options.merge(default: key.tr('_', ' ')) unless I18n.russian?
-    translation = I18n.t "verbs.#{key.downcase}.#{count_key(count)}", options
+    translation = I18n.t "verbs.#{key.downcase}.#{count_key(count)}", **options
 
     key == key.downcase ? translation : translation.capitalize
   end

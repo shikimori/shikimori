@@ -22,9 +22,7 @@ describe EpisodeNotification do
       let(:track_episode_worker) { double perform_async: nil }
 
       let!(:episode_notification) do
-        create :episode_notification, :with_track_episode,
-          anime: anime,
-          episode: episode
+        create :episode_notification, :with_track_episode, anime:, episode:
       end
       let(:anime) { create :anime, episodes_aired: 2, episodes: 4 }
       let(:episode) { anime.episodes_aired + 1 }
@@ -60,24 +58,20 @@ describe EpisodeNotification do
   describe 'instance methods' do
     describe '#rollback' do
       let(:episode_notification) do
-        create :episode_notification,
-          episode: episode,
-          anime: anime,
-          is_raw: is_raw,
-          is_subtitles: is_subtitles
+        create :episode_notification, episode:, anime:, is_raw:, is_subtitles:
       end
       let(:anime) do
         create :anime, :with_track_changes,
-          episodes_aired: episodes_aired,
+          episodes_aired:,
           status: :released,
           episodes: episodes_aired,
-          aired_on: aired_on,
-          released_on: released_on
+          aired_on:,
+          released_on:
       end
       let(:episode) { 10 }
       let(:episodes_aired) { 10 }
-      let(:aired_on) { nil }
-      let(:released_on) { nil }
+      let(:aired_on) { {} }
+      let(:released_on) { {} }
 
       before { allow(Anime::RollbackEpisode).to receive(:call).and_call_original }
       subject! { episode_notification.rollback :raw }
@@ -96,8 +90,8 @@ describe EpisodeNotification do
             end
 
             context 'old anime' do
-              let(:aired_on) { [11.years.ago, nil].sample }
-              let(:released_on) { aired_on.nil? ? 8.days.ago : [8.days.ago, nil].sample }
+              let(:aired_on) { [11.years.ago, {}].sample }
+              let(:released_on) { aired_on.nil? ? 8.days.ago : [8.days.ago, {}].sample }
 
               it do
                 expect(Anime::RollbackEpisode).to_not have_received :call

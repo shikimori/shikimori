@@ -58,7 +58,7 @@ class ListImport < ApplicationRecord
   after_create :schedule_worker
 
   def name
-    i18n_t 'name', id: id, filename: list_file_name
+    i18n_t 'name', id:, filename: list_file_name
   end
 
 private
