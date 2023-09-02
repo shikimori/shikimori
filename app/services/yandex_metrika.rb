@@ -12,7 +12,7 @@ class YandexMetrika
     # requests with longer intervals
     from_month
       .downto(0)
-      .sum do |i|
+      .flat_map do |i|
         traffic(
           (((i + 1) * 3).months.ago - 1.day).to_date.to_s,
           ((i * 3).months.ago - 1.day).to_date.to_s
