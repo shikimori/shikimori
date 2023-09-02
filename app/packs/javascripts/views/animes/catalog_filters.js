@@ -1,5 +1,4 @@
 // TODO: refactor to normal classes
-// cleanup decaffeinate artefacts
 import inNewTab from '@/utils/in_new_tab';
 import urlParse from 'url-parse';
 import TinyUri from 'tiny-uri';
@@ -44,9 +43,9 @@ export default function(basePath, currentUrl, changeCallback) {
   const removeBang = value => value.replace(/^!/, '').replace(/\?.*/, '');
 
   // добавляет нужный параметр в меню с навигацией
-  const addOption = function(field, value) {
+  const addOption = function(field, rawValue) {
     // добавляем всегда без !
-    value = removeBang(value);
+    let value = removeBang(rawValue);
     let text = value.replace(/^\d+-/, '');
     let targetYear = null;
 
@@ -164,7 +163,7 @@ export default function(basePath, currentUrl, changeCallback) {
     // установка значения параметра
     set(field, value) {
       const self = this;
-      this.params[field].forEach(value => self.remove(field, value));
+      this.params[field].forEach(value2 => self.remove(field, value2));
 
       return this.add(field, value);
     },
@@ -209,9 +208,9 @@ export default function(basePath, currentUrl, changeCallback) {
     },
 
     // отмена выбора элемента
-    remove(field, value) {
+    remove(field, rawValue) {
       // т.к. сюда значение приходит как с !, так и без, то удалять надо оба варианта
-      value = removeBang(value);
+      const value = removeBang(rawValue);
       this.params[field] = this.params[field].subtract([value, `!${value}`]);
 
       try { // because there can bad order, and it will break jQuery selector
@@ -223,7 +222,7 @@ export default function(basePath, currentUrl, changeCallback) {
 
         // скрытие плюсика/минусика
         return $li.children('.filter').hide();
-      } catch (error) {}
+      } catch (error) {} // eslint-disable-line no-empty
     },
 
     // формирование строки урла по выбранным элементам
@@ -272,14 +271,7 @@ export default function(basePath, currentUrl, changeCallback) {
         .replace(`:${location.port}`, '')
         .replace(basePath, '')
         .replace(/\?.*/, '')
-        .match(/[\w-]+\/[^\/]+/g);
-
-      const locationParts = urlParse(window.location.href, true).query;
-      // console.log(parts);
-      // console.log(locationParts);
-
-      // Object.forEach(this.params, function(values, field) {
-      //   if (GET_FILTERS.includes(field)) {
+        .match(/[\w-]+\/[^/]+/g);
 
       const uriQuery = urlParse(window.location.href, true).query;
       Object.forEach(uriQuery, function(values, field) {
