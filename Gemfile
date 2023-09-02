@@ -170,10 +170,6 @@ group :development do
   # gem 'web-console'
   # gem 'listen'
 
-  # gem 'rack-mini-profiler', require: false
-  # gem 'flamegraph', require: false # for flame graph in rack-mini-profiler
-  gem 'stackprof', require: false # for flamegraph
-
   gem 'airbrussh', require: false
   gem 'capistrano'
   gem 'capistrano-bundler', require: false
@@ -200,6 +196,10 @@ group :development, :test do
 
   gem 'rspec'
   gem 'spring-commands-rspec'
+
+  # gem 'rack-mini-profiler', require: false
+  # gem 'flamegraph', require: false # for flame graph in rack-mini-profiler
+  gem 'stackprof', require: false # for flamegraph
 
   gem 'guard', require: false
   gem 'guard-bundler', require: false
