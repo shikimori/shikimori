@@ -153,6 +153,7 @@ export default function(basePath, currentUrl, changeCallback) {
     );
     filters.params[liInfo.field][valueKey] =
       (toExclude ? `!${liInfo.value}` : liInfo.value);
+
     changeCallback(filters.compile());
     return false;
   });
@@ -231,20 +232,19 @@ export default function(basePath, currentUrl, changeCallback) {
       const locationFilters = urlParse(window.location.href, true).query;
 
       Object.forEach(this.params, function(values, field) {
+        delete locationFilters[field];
+
+        if ((field === 'order-by') && (values[0] === DEFAULT_ORDER) &&
+            !location.href.match(/\/list\/(anime|manga)/)) {
+          return;
+        }
+
         if (GET_FILTERS.includes(field)) {
           if ((values != null ? values.length : undefined)) {
-            return locationFilters[field] = values.join(',');
-          } else {
-            return delete locationFilters[field];
+            locationFilters[field] = values.join(',');
           }
-
         } else if (values != null ? values.length : undefined) {
-          if ((field === 'order-by') && (values[0] === DEFAULT_ORDER) &&
-              !location.href.match(/\/list\/(anime|manga)/)) {
-            return;
-          }
-
-          return pathFilters += `/${field}/${values.join(',')}`;
+          pathFilters += `/${field}/${values.join(',')}`;
         }
       });
 
@@ -252,12 +252,12 @@ export default function(basePath, currentUrl, changeCallback) {
         pathFilters += `/page/${page}`;
       }
 
-      return this.last_compiled = new TinyUri(basePath + pathFilters)
+      return this.lastCompiled = new TinyUri(basePath + pathFilters)
         .query.set(locationFilters)
         .toString();
     },
 
-    last_compiled: null,
+    lastCompiled: null,
 
     // парсинг строки урла и выбор
     parse(url) {
