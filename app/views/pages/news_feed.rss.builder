@@ -8,7 +8,7 @@ xml.rss version: '2.0' do
     @collection.each do |view|
       xml.item do
         xml.title view.topic_title
-        xml.pubDate Time.at(view.created_at.to_i).to_s(:rfc822)
+        xml.pubDate Time.zone.at(view.created_at.to_i).to_fs(:rfc822)
         xml.description format_rss_urls(view.html_body)
         xml.link view.urls.topic_url(protocol: Shikimori::PROTOCOL)
         xml.guid "entry-#{view.topic.id}"

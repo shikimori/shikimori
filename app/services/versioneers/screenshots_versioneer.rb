@@ -37,7 +37,7 @@ class Versioneers::ScreenshotsVersioneer
   def reposition ordered_ids, author
     version = build_version author, REPOSITION
     version.item_diff[field_key] = [
-      item.screenshots.pluck(:id),
+      @item.screenshots.pluck(:id),
       ordered_ids.map(&:to_i)
     ]
     version.save
@@ -50,8 +50,8 @@ class Versioneers::ScreenshotsVersioneer
 private
 
   def build_art image
-    item.screenshots.build(
-      image: image,
+    @item.all_screenshots.build(
+      image:,
       position: DEFAULT_POSITION,
       url: rand,
       status: Screenshot::UPLOADED
@@ -60,7 +60,7 @@ private
 
   def find_version author, action
     version = Version
-      .where(user: author, item: item, state: %i[pending auto_accepted])
+      .where(user: author, item: @item, state: %i[pending auto_accepted])
       .where('(item_diff->>:field) is not null', field: :action)
       .where('item_diff ? :field', field: field_key)
       .where('created_at > ?', APPEND_TIMEOUT.ago)
@@ -72,9 +72,9 @@ private
 
   def build_version author, action
     Versions::ScreenshotsVersion.new(
-      item: item,
+      item: @item,
       item_diff: {
-        action: action,
+        action:,
         field_key => []
       },
       user: author,

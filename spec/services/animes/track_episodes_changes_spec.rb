@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 describe Animes::TrackEpisodesChanges do
-  let!(:news_topics) {}
-  let!(:episode_notifications) {}
+  let!(:news_topics) { nil }
+  let!(:episode_notifications) { nil }
 
   before { anime.assign_attributes episodes_aired: new_episodes_aired }
 
@@ -34,7 +34,7 @@ describe Animes::TrackEpisodesChanges do
     let(:anime) do
       create :anime,
         status: :ongoing,
-        episodes: episodes,
+        episodes:,
         episodes_aired: old_episodes_aired
     end
 
@@ -124,9 +124,9 @@ describe Animes::TrackEpisodesChanges do
           value: 7
       end
 
-      let(:episode_notification_5) { create :episode_notification, anime: anime, episode: 5 }
-      let(:episode_notification_6) { create :episode_notification, anime: anime, episode: 6 }
-      let(:episode_notification_7) { create :episode_notification, anime: anime, episode: 7 }
+      let(:episode_notification_5) { create :episode_notification, anime:, episode: 5 }
+      let(:episode_notification_6) { create :episode_notification, anime:, episode: 6 }
+      let(:episode_notification_7) { create :episode_notification, anime:, episode: 7 }
 
       let!(:news_topics) { [news_topic_5, news_topic_6, news_topic_7] }
       let!(:episode_notifications) do
@@ -157,7 +157,7 @@ describe Animes::TrackEpisodesChanges do
 
       it 'changes anime status to ongoing' do
         expect(anime).to be_ongoing
-        expect(anime.released_on).to be_nil
+        expect(anime.released_on).to be_blank
         expect { news_topic.reload }.to raise_error ActiveRecord::RecordNotFound
       end
     end

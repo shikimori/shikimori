@@ -2,25 +2,25 @@ describe Review::Update do
   subject do
     described_class.call(
       model: review,
-      params: params,
-      faye: faye
+      params:,
+      faye:
     )
   end
 
   let(:faye) { FayeService.new user, nil }
   let(:review) do
     create :review,
-      user: user,
-      anime: anime,
+      user:,
+      anime:,
       is_written_before_release: true
   end
-  let(:anime) { create :anime, :released, released_on: released_on }
-  let(:released_on) { nil }
+  let(:anime) { create :anime, :released, released_on: }
+  let(:released_on) { IncompleteDate.new }
 
   let(:params) do
     {
-      body: body,
-      is_written_before_release: is_written_before_release
+      body:,
+      is_written_before_release:
     }
   end
   let(:is_written_before_release) { false }
@@ -34,8 +34,8 @@ describe Review::Update do
       it do
         is_expected.to eq true
         expect(review).to have_attributes(
-          body: body,
-          is_written_before_release: is_written_before_release
+          body:,
+          is_written_before_release:
         )
       end
     end
@@ -46,7 +46,7 @@ describe Review::Update do
       it do
         is_expected.to eq true
         expect(review).to have_attributes(
-          body: body,
+          body:,
           is_written_before_release: true
         )
       end

@@ -109,8 +109,8 @@ class MessagesController < ProfilesController
           '//shikimori.one' + linked.image.url(:preview, false) :
           nil,
         link: linked ? url_for(linked) : messages_url(type: :notifications),
-        linked_name: linked ? linked.name : nil,
-        pubDate: Time.zone.at(message.created_at.to_i).to_s(:rfc822),
+        linked_name: linked&.name,
+        pubDate: Time.zone.at(message.created_at.to_i).to_fs(:rfc822),
         title: linked ? linked.name : i18n_i('Site')
       }
     end

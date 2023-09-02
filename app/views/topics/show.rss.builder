@@ -13,7 +13,7 @@ xml.rss version: '2.0' do
       xml.item do
         xml.title comment.user.nickname
         xml.description format_rss_urls(comment.html_body)
-        xml.pubDate Time.at(comment.created_at.to_i).to_s(:rfc822)
+        xml.pubDate Time.zone.at(comment.created_at.to_i).to_fs(:rfc822)
         xml.link "#{@topic_view.urls.topic_url}#comment-#{comment.id}"
         xml.guid "comment-#{comment.id}"
       end

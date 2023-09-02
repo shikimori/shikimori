@@ -19,7 +19,7 @@ describe CoubsController do
               name: 'm',
               avatar_template: 'a'
             },
-            created_at: Time.zone.now.to_s
+            created_at: Time.zone.now
           )
         ],
         iterator: 'zxc'
@@ -30,8 +30,8 @@ describe CoubsController do
       get :index,
         params: {
           id: anime.id,
-          iterator: iterator,
-          checksum: checksum
+          iterator:,
+          checksum:
         }
     end
     let(:anime) { create :anime, coub_tags: %w[z x c] }
@@ -42,7 +42,7 @@ describe CoubsController do
       it do
         expect(Coubs::Fetch)
           .to have_received(:call)
-          .with(tags: anime.coub_tags, iterator: iterator)
+          .with(tags: anime.coub_tags, iterator:)
         expect(assigns(:results)).to eq results
         expect(response).to have_http_status :success
       end
