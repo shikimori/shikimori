@@ -28,7 +28,6 @@ Rails.application.routes.draw do
     (/studio/:studio)
     (/publisher/:publisher)
     (/page/:page)
-    (.:format)
   FORMAT
   # moved these parameters into GET QUERY params because of performance issue of rails 7 router
   # (/duration/:duration)
@@ -38,6 +37,7 @@ Rails.application.routes.draw do
   # (/mylist/:mylist)
   # (/order-by/:order)
   # (/genre_v2/:genre_v2)
+  # (.:format)
 
   concern :db_entry do |options|
     member do
