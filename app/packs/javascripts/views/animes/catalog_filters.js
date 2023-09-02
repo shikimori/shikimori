@@ -132,7 +132,7 @@ export default function(basePath, currentUrl, changeCallback) {
             toExclude ? `!${liInfo.value}` : liInfo.value
           );
         }
-    });
+      });
 
     changeCallback(filters.compile());
     filters.parse(filters.compile());
@@ -183,13 +183,13 @@ export default function(basePath, currentUrl, changeCallback) {
       if (!$li.length) { $li = add_option(field, value); }
 
       // если элемент есть, но скрыт, то показываем его
-      if ($li.css('display') === 'none') { $li.css({display: 'block'}); }
+      if ($li.css('display') === 'none') { $li.css({ display: 'block' }); }
       $li.addClass('selected');
 
       // если элемент с чекбоксом, то ставим галочку на чекбокс
       const $input = $li.children('input');
       if ($input.length) {
-        $input.prop({checked: true});
+        $input.prop({ checked: true });
 
         // добавляем или показываем плюсик
         const $filter = $li.children('.filter');
@@ -219,7 +219,7 @@ export default function(basePath, currentUrl, changeCallback) {
         $li.removeClass('selected');
 
         // снятие галочки с чекбокса
-        $li.children('input').prop({checked: false});
+        $li.children('input').prop({ checked: false });
 
         // скрытие плюсика/минусика
         return $li.children('.filter').hide();
@@ -228,15 +228,15 @@ export default function(basePath, currentUrl, changeCallback) {
 
     // формирование строки урла по выбранным элементам
     compile(page) {
-      let path_filters = '';
-      const location_filters = urlParse(window.location.href, true).query;
+      let pathFilters = '';
+      const locationFilters = urlParse(window.location.href, true).query;
 
       Object.forEach(this.params, function(values, field) {
         if (GET_FILTERS.includes(field)) {
           if ((values != null ? values.length : undefined)) {
-            return location_filters[field] = values.join(',');
+            return locationFilters[field] = values.join(',');
           } else {
-            return delete location_filters[field];
+            return delete locationFilters[field];
           }
 
         } else if (values != null ? values.length : undefined) {
@@ -245,16 +245,16 @@ export default function(basePath, currentUrl, changeCallback) {
             return;
           }
 
-          return path_filters += `/${field}/${values.join(',')}`;
+          return pathFilters += `/${field}/${values.join(',')}`;
         }
       });
 
       if (page && (page !== 1)) {
-        path_filters += `/page/${page}`;
+        pathFilters += `/page/${page}`;
       }
 
-      return this.last_compiled = new TinyUri(basePath + path_filters)
-        .query.set(location_filters)
+      return this.last_compiled = new TinyUri(basePath + pathFilters)
+        .query.set(locationFilters)
         .toString();
     },
 
@@ -263,7 +263,7 @@ export default function(basePath, currentUrl, changeCallback) {
     // парсинг строки урла и выбор
     parse(url) {
       $('.anime-params .selected', $root).toggleClass('selected');
-      $('.anime-params input[type=checkbox]:checked', $root).prop({checked: false});
+      $('.anime-params input[type=checkbox]:checked', $root).prop({ checked: false });
       $('.anime-params .filter', $root).hide();
 
       this.params = JSON.parse(JSON.stringify(DEFAULT_DATA));
@@ -272,7 +272,7 @@ export default function(basePath, currentUrl, changeCallback) {
         .replace(`:${location.port}`, '')
         .replace(basePath, '')
         .replace(/\?.*/, '')
-        .match(/[\w\-]+\/[^\/]+/g);
+        .match(/[\w-]+\/[^\/]+/g);
 
       const uriQuery = urlParse(window.location.href, true).query;
 
@@ -295,7 +295,7 @@ export default function(basePath, currentUrl, changeCallback) {
                 return this.add('order-by', DEFAULT_ORDER);
               }
             }
-        });
+          });
       });
 
       if (Object.isEmpty(this.params['order-by'])) {
