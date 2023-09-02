@@ -725,16 +725,16 @@ Rails.application.routes.draw do
     controller: :achievements
 
   # seo redirects
-  constraints kind: /animes|mangas/, other: /.*/, other2: /.*/ do
-    get ':kind/status/planned:other' => redirect { |params, request| "/#{params[:kind]}/status/anons#{params[:other]}" }
-    get ':kind/:other/status/planned:other2' => redirect { |params, request| "/#{params[:kind]}/#{params[:other]}/status/anons#{params[:other2]}" }
-    get ':kind/season/planned:other' => redirect { |params, request| "/#{params[:kind]}/status/anons#{params[:other]}" }
-    get ':kind/season/ongoing:other' => redirect { |params, request| "/#{params[:kind]}/status/ongoing#{params[:other]}" }
-    get ':kind/season/latest:other' => redirect { |params, request| "/#{params[:kind]}/status/latest#{params[:other]}" }
-    constraints type: /Anime|translation_planned/ do
-      get ':kind/type/:type:other' => redirect { |params, request| "/#{params[:kind]}#{params[:other]}" }
-    end
-  end
+  # constraints kind: /animes|mangas/, other: /.*/, other2: /.*/ do
+  #   get ':kind/status/planned:other' => redirect { |params, request| "/#{params[:kind]}/status/anons#{params[:other]}" }
+  #   get ':kind/:other/status/planned:other2' => redirect { |params, request| "/#{params[:kind]}/#{params[:other]}/status/anons#{params[:other2]}" }
+  #   get ':kind/season/planned:other' => redirect { |params, request| "/#{params[:kind]}/status/anons#{params[:other]}" }
+  #   get ':kind/season/ongoing:other' => redirect { |params, request| "/#{params[:kind]}/status/ongoing#{params[:other]}" }
+  #   get ':kind/season/latest:other' => redirect { |params, request| "/#{params[:kind]}/status/latest#{params[:other]}" }
+  #   constraints type: /Anime|translation_planned/ do
+  #     get ':kind/type/:type:other' => redirect { |params, request| "/#{params[:kind]}#{params[:other]}" }
+  #   end
+  # end
   # /seo redirects
 
   # аниме и манга
