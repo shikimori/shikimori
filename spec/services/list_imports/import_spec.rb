@@ -1,5 +1,5 @@
 describe ListImports::Import do
-  let(:service) { ListImports::Import.new list_import }
+  let(:service) { described_class.new list_import }
   let!(:anime) { nil }
 
   before { allow(Achievements::Track).to receive :perform_async }
@@ -8,7 +8,7 @@ describe ListImports::Import do
 
   context 'valid list' do
     let(:list_type) { %i[mal_xml mal_xml_gz shiki_json shiki_json_gz].sample }
-    let(:list_import) { create :list_import, list_type, :anime, :pending, user: user }
+    let(:list_import) { create :list_import, list_type, :anime, :pending, user: }
     let!(:anime) { create :anime, id: 999_999, name: 'Test name' }
 
     it do
@@ -51,7 +51,7 @@ describe ListImports::Import do
 
   context 'empty list' do
     let(:list_import) do
-      create :list_import, :shiki_json_empty, :manga, :pending, user: user
+      create :list_import, :shiki_json_empty, :manga, :pending, user:
     end
 
     it do
@@ -71,7 +71,7 @@ describe ListImports::Import do
 
   context 'wrong list type' do
     let(:list_import) do
-      create :list_import, :shiki_json, :manga, :pending, user: user
+      create :list_import, :shiki_json, :manga, :pending, user:
     end
 
     it do
@@ -91,7 +91,7 @@ describe ListImports::Import do
 
   context 'broken file' do
     let(:list_import) do
-      create :list_import, :broken_file, :anime, :pending, user: user
+      create :list_import, :broken_file, :anime, :pending, user:
     end
 
     it do
@@ -111,7 +111,7 @@ describe ListImports::Import do
 
   context 'broken list' do
     let(:list_import) do
-      create :list_import, :shiki_json_broken, :anime, :pending, user: user
+      create :list_import, :shiki_json_broken, :anime, :pending, user:
     end
 
     it do
@@ -137,7 +137,7 @@ describe ListImports::Import do
 
   context 'missing field' do
     let(:list_import) do
-      create :list_import, :shiki_json_broken_2, :anime, :pending, user: user
+      create :list_import, :shiki_json_broken_2, :anime, :pending, user:
     end
 
     it do
