@@ -161,7 +161,7 @@ header.head.misc
                 = ff.object.id
               p.m3
                 span Размеры:&nbsp;
-                - if File.exists? ff.object.image.path || ''
+                - if File.exist? ff.object.image.path || ''
                   = Paperclip::Geometry.from_file(ff.object.image.path)
                 - else
                   span.red файл не найден
@@ -185,7 +185,7 @@ header.head.misc
                   = ff.object.id
                 p.m3
                   span Размеры:&nbsp;
-                  - if File.exists? ff.object.image.path || ''
+                  - if File.exist? ff.object.image.path || ''
                     = Paperclip::Geometry.from_file(ff.object.image.path)
                   - else
                     span.red файл не найден

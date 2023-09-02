@@ -30,10 +30,10 @@ FactoryBot.define do
     season { nil }
     aired_on { {} }
     aired_on_computed { nil }
-    released_on { {} }
+    released_on { IncompleteDate.new }
     released_on_computed { nil }
-    digital_released_on { {} }
-    russia_released_on { {} }
+    digital_released_on { IncompleteDate.new }
+    russia_released_on { IncompleteDate.new }
     russia_released_on_hint { '' }
 
     after :build do |model|

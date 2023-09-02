@@ -46,7 +46,7 @@ private
     return unless @anime.episodes_aired < @anime.episodes
 
     @anime.status = :ongoing
-    @anime.released_on = nil
+    @anime.released_on = IncompleteDate.new
 
     Topics::NewsTopic
       .where(linked: @anime)

@@ -4,23 +4,13 @@ describe Achievements::UpdateStatistics do
   let(:neko_id) { Types::Achievement::NekoId[:test] }
   let(:level) { 1 }
 
-  let!(:achievement_1) do
-    create :achievement,
-      neko_id: neko_id,
-      level: level,
-      user: user_1
-  end
-  let!(:achievement_2) do
-    create :achievement,
-      neko_id: neko_id,
-      level: level,
-      user: user_2
-  end
+  let!(:achievement_1) { create :achievement, neko_id:, level:, user: user_1 }
+  let!(:achievement_2) { create :achievement, neko_id:, level:, user: user_2 }
   let(:user_1) { seed :user }
   let(:user_2) { create :user }
 
-  let!(:user_rate_1) { create :user_rate, :completed, anime: anime, user: user_1 }
-  let!(:user_rate_2) { create :user_rate, :completed, anime: anime, user: user_2 }
+  let!(:user_rate_1) { create :user_rate, :completed, anime:, user: user_1 }
+  let!(:user_rate_2) { create :user_rate, :completed, anime:, user: user_2 }
   let(:anime) { create :anime }
 
   let(:statistics) do

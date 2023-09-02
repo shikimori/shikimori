@@ -51,7 +51,7 @@ ap data.keys
 data.each do |anime_dir, files|
   anime_name = anime_dir.split('/').last.gsub ' ', '_'
   target_path = "#{screenshots_path}/#{anime_name}"
-  Dir.mkdir(target_path) unless Dir.exists? target_path
+  Dir.mkdir(target_path) unless Dir.exist? target_path
 
   ap anime_name
   ap anime_dir
@@ -79,9 +79,9 @@ data.each do |anime_dir, files|
 
 
       %x{/usr/local/bin/ffmpeg -ss #{time} -i #{Shellwords.escape file_path} -y #{Shellwords.escape target_file}}
-      images << target_file if File.exists?(target_file)
+      images << target_file if File.exist?(target_file)
       i += 1
-    end while File.exists?(target_file)
+    end while File.exist?(target_file)
 
     images.reverse.take(7).each {|v| File.delete v }
   end

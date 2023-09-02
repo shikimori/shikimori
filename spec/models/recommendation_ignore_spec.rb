@@ -5,7 +5,10 @@ describe RecommendationIgnore do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:target_id, :target_type) }
+    it do
+      subject.target = create :anime
+      is_expected.to validate_uniqueness_of(:user_id).scoped_to(:target_id, :target_type)
+    end
   end
 
   context 'class_methods' do

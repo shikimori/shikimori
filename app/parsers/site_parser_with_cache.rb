@@ -26,9 +26,9 @@ class SiteParserWithCache
   # загрузка кеша из определённого файла
   def self.load_cache(cache_name, cache_path)
     cache = nil
-    begin
-      %x(cp #{cache_path} /tmp/.#{cache_name}.#{DateTime.now.to_s}) if File.exists?(cache_path)
-      File.open(cache_path, "rb") { |f| cache = YAML.load(f.read) } if File.exists?(cache_path)
+    # begin
+      %x(cp #{cache_path} /tmp/.#{cache_name}.#{DateTime.now.to_s}) if File.exist?(cache_path)
+      File.open(cache_path, "rb") { |f| cache = YAML.unsafe_load(f.read) } if File.exist?(cache_path)
     rescue StandardError => e
       print "%s\n%s\n" % [e.message, e.backtrace.join("\n")]
     ensure

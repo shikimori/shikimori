@@ -18,7 +18,7 @@ MessagePack.send :extend, MesagePackDumpFix
 
 module YAMLDumpFix
   def pg_load value
-    YAML.load value
+    YAML.load value, aliases: true
   end
 end
 
