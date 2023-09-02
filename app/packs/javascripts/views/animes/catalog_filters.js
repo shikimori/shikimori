@@ -41,12 +41,12 @@ export default function(basePath, currentUrl, changeCallback) {
   };
 
   // удаление ! из начала и мусора из конца параметра
-  const remove_bang = value => value.replace(/^!/, '').replace(/\?.*/, '');
+  const removeBang = value => value.replace(/^!/, '').replace(/\?.*/, '');
 
   // добавляет нужный параметр в меню с навигацией
-  const add_option = function(field, value) {
+  const addOption = function(field, value) {
     // добавляем всегда без !
-    value = remove_bang(value);
+    value = removeBang(value);
     let text = value.replace(/^\d+-/, '');
     let targetYear = null;
 
@@ -177,10 +177,10 @@ export default function(basePath, currentUrl, changeCallback) {
         this.params[field].push(value);
       }
 
-      let $li = $(`li[data-field='${field}'][data-value='${remove_bang(value)}']`, $root);
+      let $li = $(`li[data-field='${field}'][data-value='${removeBang(value)}']`, $root);
 
       // если такого элемента нет, то создаем его
-      if (!$li.length) { $li = add_option(field, value); }
+      if (!$li.length) { $li = addOption(field, value); }
 
       // если элемент есть, но скрыт, то показываем его
       if ($li.css('display') === 'none') { $li.css({ display: 'block' }); }
@@ -211,7 +211,7 @@ export default function(basePath, currentUrl, changeCallback) {
     // отмена выбора элемента
     remove(field, value) {
       // т.к. сюда значение приходит как с !, так и без, то удалять надо оба варианта
-      value = remove_bang(value);
+      value = removeBang(value);
       this.params[field] = this.params[field].subtract([value, `!${value}`]);
 
       try { // because there can bad order, and it will break jQuery selector
@@ -274,11 +274,18 @@ export default function(basePath, currentUrl, changeCallback) {
         .replace(/\?.*/, '')
         .match(/[\w-]+\/[^\/]+/g);
 
-      const uriQuery = urlParse(window.location.href, true).query;
+      const locationParts = urlParse(window.location.href, true).query;
+      // console.log(parts);
+      // console.log(locationParts);
 
-      if (uriQuery.licensor) {
-        parts = (parts || []).concat([`licensor/${uriQuery.licensor}`]);
-      }
+      // Object.forEach(this.params, function(values, field) {
+      //   if (GET_FILTERS.includes(field)) {
+
+      const uriQuery = urlParse(window.location.href, true).query;
+      Object.forEach(uriQuery, function(values, field) {
+        if (!GET_FILTERS.includes(field)) { return; }
+        parts = (parts || []).concat([`${field}/${values}`]);
+      });
 
       (parts || []).forEach(match => {
         const field = match.split('/')[0];
