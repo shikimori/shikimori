@@ -24,6 +24,14 @@ describe DbImport::Manga do
   let(:synopsis) { '' }
   let(:image) { nil }
 
+  before do
+    allow(MalParser::Entry::MoreInfo)
+      .to receive(:call)
+      .with(id, :manga)
+      .and_return imported_additional_info
+  end
+  let(:imported_additional_info) { 'qwe' }
+
   subject(:entry) { service.call }
 
   it do
@@ -34,6 +42,7 @@ describe DbImport::Manga do
       :synopsis, :image, :genres, :publishers, :related, :recommendations,
       :characters
     )
+    expect(entry.additional_info).to eq imported_additional_info
   end
 
   describe '#assign_synopsis' do

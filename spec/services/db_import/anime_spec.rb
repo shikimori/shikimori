@@ -29,6 +29,14 @@ describe DbImport::Anime do
   let(:external_links) { [] }
   let(:image) { nil }
 
+  before do
+    allow(MalParser::Entry::MoreInfo)
+      .to receive(:call)
+      .with(id, :anime)
+      .and_return imported_additional_info
+  end
+  let(:imported_additional_info) { 'qwe' }
+
   subject(:entry) { service.call }
 
   it do
@@ -38,6 +46,7 @@ describe DbImport::Anime do
       :synopsis, :image, :genres, :studios, :related, :recommendations,
       :characters, :external_links
     )
+    expect(entry.additional_info).to eq imported_additional_info
   end
 
   describe '#assign_synopsis' do
@@ -387,4 +396,17 @@ describe DbImport::Anime do
   #     end
   #   end
   # end
+
+  context 'additional_info is already set' do
+    let!(:anime) { create :anime, id: id, additional_info: 'zxc' }
+
+    it do
+      expect(entry).to eq anime
+      expect(entry).to have_attributes data.except(
+        :synopsis, :image, :genres, :studios, :related, :recommendations,
+        :characters, :external_links
+      )
+      expect(entry.additional_info).to_not eq imported_additional_info
+    end
+  end
 end

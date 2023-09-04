@@ -13,6 +13,7 @@ class DbImport::ImportBase
       import
       import_poster
     end
+    import_additional_info
 
     # if was_new_record && entry.persisted?
     #   schedule_fetch_authorized
@@ -90,5 +91,10 @@ private
       entry: entry,
       image_url: @data[:image]
     )
+  end
+
+  # overrided in anime and manga imports
+  def import_additional_info
+    nil
   end
 end

@@ -28,7 +28,7 @@ private
     entry.ranked = 0 if entry.is_censored
   end
 
-  def import_genre data
+  def import_genre data # rubocop:disable Metrics/AbcSize
     genre = genres_repository.by_mal_id data[:id]
     raise ArgumentError, "mismatched genre: #{data.to_json}" unless genre.name == data[:name]
 
@@ -75,14 +75,14 @@ private
     DbImport::Similarities.call entry, similarities
   end
 
-  def assign_external_links external_links
-    DbImport::ExternalLinks.call entry, external_links
-  end
-
   def assign_characters data
     if data[:characters].any? || data[:staff].any?
       DbImport::PersonRoles.call entry, data[:characters], data[:staff]
     end
+  end
+
+  def assign_external_links external_links
+    DbImport::ExternalLinks.call entry, external_links
   end
 
   def anidb_synopsis?
@@ -146,4 +146,11 @@ private
   #     entry.class.name
   #   )
   # end
+
+  def import_additional_info
+    return unless entry.additional_info.nil?
+
+    additional_info = MalParser::Entry::MoreInfo.call entry.id, entry.anime? ? :anime : :manga
+    entry.update additional_info: additional_info
+  end
 end
