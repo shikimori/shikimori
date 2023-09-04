@@ -25,6 +25,7 @@ FactoryBot.define do
     aired_on_computed { nil }
     released_on { {} }
     released_on_computed { nil }
+    additional_info { nil }
 
     factory :ranobe, class: 'Ranobe' do
       sequence(:name) { |n| "ranobe_#{n}" }

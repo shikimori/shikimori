@@ -35,6 +35,7 @@ FactoryBot.define do
     digital_released_on { {} }
     russia_released_on { {} }
     russia_released_on_hint { '' }
+    additional_info { nil }
 
     after :build do |model|
       # for some reasons "aired_on=" from IncompleteDate::ComputedField is
