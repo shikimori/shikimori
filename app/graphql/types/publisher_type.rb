@@ -1,4 +1,4 @@
 class Types::PublisherType < Types::BaseObject
-  field :id, ID
-  field :name, String
+  field :id, ID, null: false
+  field :name, String, null: false
 end

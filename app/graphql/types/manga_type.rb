@@ -5,10 +5,10 @@ class Types::MangaType < Types::BaseObject
 
   field :kind, Types::Enums::Manga::KindEnum
 
-  field :volumes, Integer
-  field :chapters, Integer
+  field :volumes, Integer, null: false
+  field :chapters, Integer, null: false
 
-  field :publishers, [Types::PublisherType]
+  field :publishers, [Types::PublisherType], null: false
 
   field :user_rate, Types::UserRateType, complexity: 50
   def user_rate

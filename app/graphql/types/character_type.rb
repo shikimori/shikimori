@@ -6,7 +6,7 @@ class Types::CharacterType < Types::BaseObject
     [object.altname]
   end
 
-  field :is_anime, Boolean
-  field :is_manga, Boolean
-  field :is_ranobe, Boolean
+  field :is_anime, Boolean, null: false
+  field :is_manga, Boolean, null: false
+  field :is_ranobe, Boolean, null: false
 end

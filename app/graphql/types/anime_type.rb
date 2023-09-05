@@ -5,8 +5,8 @@ class Types::AnimeType < Types::BaseObject
 
   field :kind, Types::Enums::Anime::KindEnum
   field :rating, Types::Enums::Anime::RatingEnum
-  field :episodes, Integer
-  field :episodes_aired, Integer
+  field :episodes, Integer, null: false
+  field :episodes_aired, Integer, null: false
   field :duration, Integer, description: 'Duration in minutes'
 
   field :season, String
@@ -16,13 +16,13 @@ class Types::AnimeType < Types::BaseObject
     object.next_episode_at || decorated_object.next_broadcast_at
   end
 
-  field :fansubbers, [String]
-  field :fandubbers, [String]
+  field :fansubbers, [String], null: false
+  field :fandubbers, [String], null: false
 
-  field :studios, [Types::StudioType]
+  field :studios, [Types::StudioType], null: false
 
-  field :videos, [Types::VideoType], complexity: 10
-  field :screenshots, [Types::ScreenshotType], complexity: 10
+  field :videos, [Types::VideoType], null: false, complexity: 10
+  field :screenshots, [Types::ScreenshotType], null: false, complexity: 10
 
   field :user_rate, Types::UserRateType, complexity: 50
   def user_rate
