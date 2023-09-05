@@ -2,7 +2,7 @@ module Types::Concerns::DbEntryFields
   extend ActiveSupport::Concern
 
   included do |_klass|
-    field :id, GraphQL::Types::BigInt
+    field :id, GraphQL::Types::ID
     field :mal_id, GraphQL::Types::BigInt
     field :name, String
     field :russian, String
