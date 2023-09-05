@@ -2,7 +2,7 @@ describe DbEntries::CleanupMalMoreInfo do
   let!(:anime_1) { create :anime, more_info: 'zxc' }
   let!(:anime_2) { create :anime, more_info: 'zxc [MAL]' }
   let!(:manga_1) { create :manga, more_info: 'zxc' }
-  let!(:manga_2) { create :manga, more_info: 'zxc [MAL]' }
+  let!(:manga_2) { create :manga, more_info: '[MAL]' }
 
   subject! { described_class.new.perform }
 

@@ -4,7 +4,7 @@ class DbEntries::CleanupMalMoreInfo
   def perform
     [Anime, Manga].each do |klass|
       klass
-        .where("more_info ilike '% [MAL]'")
+        .where("more_info ilike '% [MAL]' or more_info = '[MAL]'")
         .update_all more_info: nil
     end
   end
