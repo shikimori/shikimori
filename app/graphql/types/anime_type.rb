@@ -12,6 +12,9 @@ class Types::AnimeType < Types::BaseObject
   field :season, String
 
   field :next_episode_at, GraphQL::Types::ISO8601DateTime
+  def next_episode_at
+    object.next_episode_at || decorated_object.next_broadcast_at
+  end
 
   field :fansubbers, [String]
   field :fandubbers, [String]
