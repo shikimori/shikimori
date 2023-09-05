@@ -6,7 +6,7 @@ describe Queries::UserRatesQuery do
       query(
         $page: Int,
         $limit: Int,
-        $userId: BigInt,
+        $userId: ID,
         $targetType: UserRateTargetTypeEnum!
         $status: UserRateStatusEnum
       ) {
