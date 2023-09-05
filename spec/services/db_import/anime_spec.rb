@@ -13,7 +13,8 @@ describe DbImport::Anime do
       characters: characters_data,
       synopsis: synopsis,
       external_links: external_links,
-      image: image
+      image: image,
+      is_more_info: is_more_info
     }
   end
   let(:id) { 987_654_321 }
@@ -28,14 +29,15 @@ describe DbImport::Anime do
   let(:synopsis) { '' }
   let(:external_links) { [] }
   let(:image) { nil }
+  let(:is_more_info) { false }
 
   before do
     allow(MalParser::Entry::MoreInfo)
       .to receive(:call)
       .with(id, :anime)
-      .and_return imported_additional_info
+      .and_return imported_more_info
   end
-  let(:imported_additional_info) { 'qwe' }
+  let(:imported_more_info) { 'qwe' }
 
   subject(:entry) { service.call }
 
@@ -44,9 +46,9 @@ describe DbImport::Anime do
     expect(entry).to be_kind_of Anime
     expect(entry).to have_attributes data.except(
       :synopsis, :image, :genres, :studios, :related, :recommendations,
-      :characters, :external_links
+      :characters, :external_links, :is_more_info
     )
-    expect(entry.additional_info).to eq imported_additional_info
+    expect(MalParser::Entry::MoreInfo).to_not have_received :call
   end
 
   describe '#assign_synopsis' do
@@ -397,16 +399,23 @@ describe DbImport::Anime do
   #   end
   # end
 
-  context 'additional_info is already set' do
-    let!(:anime) { create :anime, id: id, additional_info: 'zxc' }
+  context 'is_more_info' do
+    let(:is_more_info) { true }
 
     it do
-      expect(entry).to eq anime
-      expect(entry).to have_attributes data.except(
-        :synopsis, :image, :genres, :studios, :related, :recommendations,
-        :characters, :external_links
-      )
-      expect(entry.additional_info).to_not eq imported_additional_info
+      expect(entry).to be_persisted
+      expect(entry.more_info).to eq imported_more_info
+      expect(MalParser::Entry::MoreInfo).to have_received :call
+    end
+
+    context 'more_info is already set' do
+      let!(:anime) { create :anime, id: id, more_info: 'zxc' }
+
+      it do
+        expect(entry).to eq anime
+        expect(entry.more_info).to_not eq imported_more_info
+        expect(MalParser::Entry::MoreInfo).to_not have_received :call
+      end
     end
   end
 end

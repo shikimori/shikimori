@@ -2,7 +2,7 @@ class DbImport::ImportBase
   method_object :data
 
   SPECIAL_FIELDS = %i[]
-  IGNORED_FIELDS = %i[]
+  IGNORED_FIELDS = %i[is_more_info]
   ALLOW_BLANK_FIELDS = %i[image]
 
   def call
@@ -13,7 +13,7 @@ class DbImport::ImportBase
       import
       import_poster
     end
-    import_additional_info
+    import_more_info if @data[:is_more_info]
 
     # if was_new_record && entry.persisted?
     #   schedule_fetch_authorized
@@ -94,7 +94,7 @@ private
   end
 
   # overrided in anime and manga imports
-  def import_additional_info
+  def import_more_info
     nil
   end
 end

@@ -4,7 +4,7 @@ class DbImport::Anime < DbImport::ImportBase
     genres studios related recommendations characters
     external_links
   ]
-  IGNORED_FIELDS = %i[members favorites]
+  IGNORED_FIELDS = DbImport::ImportBase::IGNORED_FIELDS + %i[members favorites]
 
 private
 
@@ -147,10 +147,10 @@ private
   #   )
   # end
 
-  def import_additional_info
-    return unless entry.additional_info.nil?
+  def import_more_info
+    return unless entry.more_info.nil?
 
-    additional_info = MalParser::Entry::MoreInfo.call entry.id, entry.anime? ? :anime : :manga
-    entry.update additional_info: additional_info
+    more_info = MalParser::Entry::MoreInfo.call entry.id, entry.anime? ? :anime : :manga
+    entry.update more_info: more_info
   end
 end
