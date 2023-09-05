@@ -1,5 +1,5 @@
 class Types::UserRateType < Types::BaseObject
-  field :id, GraphQL::Types::BigInt
+  field :id, ID
   field :score, Integer
   field :status, Types::Enums::UserRate::StatusEnum
   field :rewatches, Integer

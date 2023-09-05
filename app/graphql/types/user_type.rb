@@ -1,5 +1,5 @@
 class Types::UserType < Types::BaseObject
-  field :id, GraphQL::Types::BigInt
+  field :id, ID
   field :nickname, String
   field :url, String
   def url

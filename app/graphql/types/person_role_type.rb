@@ -1,5 +1,5 @@
 class Types::PersonRoleType < Types::BaseObject
-  field :id, GraphQL::Types::BigInt
+  field :id, ID
   field :person, Types::PersonType
 
   field :roles_ru, [String]

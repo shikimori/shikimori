@@ -1,4 +1,4 @@
 class Types::PublisherType < Types::BaseObject
-  field :id, GraphQL::Types::BigInt
+  field :id, ID
   field :name, String
 end

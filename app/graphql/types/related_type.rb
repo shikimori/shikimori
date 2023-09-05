@@ -1,5 +1,5 @@
 class Types::RelatedType < Types::BaseObject
-  field :id, GraphQL::Types::BigInt
+  field :id, ID
   field :anime, Types::AnimeType
   field :manga, Types::MangaType
 

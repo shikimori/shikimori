@@ -1,5 +1,5 @@
 class Types::GenreType < Types::BaseObject
-  field :id, GraphQL::Types::BigInt
+  field :id, ID
   field :name, String
   field :russian, String
   field :kind, Types::Enums::Genre::KindEnum

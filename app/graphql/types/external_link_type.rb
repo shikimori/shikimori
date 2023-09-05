@@ -1,5 +1,5 @@
 class Types::ExternalLinkType < Types::BaseObject
-  field :id, GraphQL::Types::BigInt
+  field :id, ID
 
   field :kind, Types::Enums::ExternalLink::KindEnum
   field :url, String
