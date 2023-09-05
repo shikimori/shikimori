@@ -1,4 +1,4 @@
-describe Queries::MangasQuery do
+describe Queries::UserRatesQuery do
   include_context :graphql
 
   let(:query_string) do
