@@ -218,7 +218,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '3.36.0' # request specs failing with 3.39.2 version
   gem 'database_cleaner'
   gem 'factory_girl-seeds',
     require: false,
