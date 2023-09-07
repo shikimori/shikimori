@@ -17,8 +17,14 @@ end
 MessagePack.send :extend, MesagePackDumpFix
 
 module YAMLDumpFix
+  PERMITTED_CLASSES = [
+    Symbol,
+    Time,
+    DateTime
+  ]
+
   def pg_load value
-    YAML.load value, aliases: true, permitted_classes: [Time, Symbol]
+    YAML.load value, aliases: true, permitted_classes: PERMITTED_CLASSES
   end
 end
 

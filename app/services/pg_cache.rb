@@ -11,7 +11,7 @@ class PgCache
 
       ActiveRecord::Base.logger.silence do
         pg_cache_data = PgCacheData.new(
-          key: key,
+          key:,
           expires_at: expires_in&.from_now,
           FIELD[serializer] => serializer.dump(value)
         )
@@ -32,7 +32,7 @@ class PgCache
       PgCacheData.fetch_raw_data(
         PgCacheData.where(expires_at: nil)
           .or(PgCacheData.where('expires_at > ?', Time.zone.now))
-          .where(key: key)
+          .where(key:)
           .select(FIELD[serializer])
           .to_sql,
         1
@@ -41,12 +41,12 @@ class PgCache
 
     def fetch key, expires_in: nil, serializer: YAML
       key = stringify_key key
-      data = read key, serializer: serializer
+      data = read(key, serializer:)
 
       if data.nil?
         Rails.logger.info "PgCache generate: #{key} serializer: #{serializer}"
         data = yield
-        write key, data, expires_in: expires_in, serializer: serializer
+        write key, data, expires_in:, serializer:
       end
 
       data
@@ -55,7 +55,7 @@ class PgCache
     def delete key
       key = stringify_key key
 
-      PgCacheData.where(key: key).delete_all
+      PgCacheData.where(key:).delete_all
     end
 
     def stringify_key key
