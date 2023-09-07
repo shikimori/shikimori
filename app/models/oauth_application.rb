@@ -9,7 +9,7 @@ class OauthApplication < Doorkeeper::Application
 
   attribute :allowed_scopes, :string,
     array: true,
-    default: %w[user_rates comments topics]
+    default: -> { %w[user_rates comments topics] }
 
   has_attached_file :image,
     styles: {

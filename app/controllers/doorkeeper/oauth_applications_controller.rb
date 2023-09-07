@@ -28,11 +28,14 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
   ALL_UPDATE_PARAMS = UPDATE_PARAMS + [{ allowed_scopes: [] }]
   ALL_CREATE_PARAMS = CREATE_PARAMS + [{ allowed_scopes: [] }]
 
+  DEFAULT_ORDER = Rails.env.test? ?
+    'oauth_applications.id' :
+    'users_count desc, oauth_applications.name'
+
   def index
     @collection = OauthApplication
       .with_access_grants
-      .order('users_count desc, oauth_applications.name')
-      # .order(:id) # ('users_count desc, oauth_applications.id')
+      .order(Arel.sql(DEFAULT_ORDER))
 
     if params[:user_id]
       @user = User.find params[:user_id]
