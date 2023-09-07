@@ -112,6 +112,14 @@ GIT
   specs:
     ruby-esvidi (0.5.3)
 
+GIT
+  remote: https://github.com/sobrinho/sidekiq-delay_extensions.git
+  revision: 6cb1be414f4113727609f8846c1f528903c5a695
+  branch: patch-2
+  specs:
+    sidekiq-delay_extensions (6.4.1)
+      sidekiq (>= 6.4.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -268,7 +276,7 @@ GEM
     concurrent-ruby (1.1.10)
     concurrent-ruby-edge (0.6.0)
       concurrent-ruby (~> 1.1.6)
-    connection_pool (2.3.0)
+    connection_pool (2.4.1)
     content_disposition (1.0.0)
     cookiejar (0.3.3)
     crack (0.4.5)
@@ -654,9 +662,12 @@ GEM
       ffi (~> 1.0)
     recaptcha (5.8.1)
       json
-    redis (4.8.0)
+    redis (5.0.7)
+      redis-client (>= 0.9.0)
     redis-classy (2.4.1)
       redis-namespace (~> 1.0)
+    redis-client (0.17.0)
+      connection_pool
     redis-mutex (4.0.2)
       redis-classy (~> 2.0)
     redis-namespace (1.9.0)
@@ -740,12 +751,10 @@ GEM
     shrine (3.4.0)
       content_disposition (~> 1.0)
       down (~> 5.1)
-    sidekiq (6.5.8)
-      connection_pool (>= 2.2.5, < 3)
+    sidekiq (6.5.5)
+      connection_pool (>= 2.2.2)
       rack (~> 2.0)
-      redis (>= 4.5.0, < 5)
-    sidekiq-delay_extensions (6.4.1)
-      sidekiq (>= 6.4.1)
+      redis (>= 4.5.0)
     sidekiq-limit_fetch (4.3.2)
       redis (>= 4.6.0)
       sidekiq (>= 4)
@@ -966,7 +975,7 @@ DEPENDENCIES
   shoulda-matchers
   shrine
   sidekiq (~> 6.5.5)
-  sidekiq-delay_extensions
+  sidekiq-delay_extensions!
   sidekiq-limit_fetch
   sidekiq-unique-jobs
   simple_form
