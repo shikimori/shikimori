@@ -942,6 +942,7 @@ DEPENDENCIES
   redis-mutex
   responders
   retryable
+  rexml (~> 3.2)
   rs_russian!
   rspec
   rspec-collection_matchers
