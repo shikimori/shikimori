@@ -9,7 +9,7 @@ class Queries::UserRatesQuery < Queries::BaseQuery
     required: false,
     default_value: 2,
     description: "Maximum #{LIMIT}"
-  argument :user_id, GraphQL::Types::BigInt,
+  argument :user_id, ID,
     required: false,
     description: 'ID of current user is used by default'
   argument :target_type, Types::Enums::UserRate::TargetTypeEnum, required: true

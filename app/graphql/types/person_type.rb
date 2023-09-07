@@ -5,9 +5,9 @@ class Types::PersonType < Types::BaseObject
     []
   end
 
-  field :is_seyu, Boolean
-  field :is_mangaka, Boolean
-  field :is_producer, Boolean
+  field :is_seyu, Boolean, null: false
+  field :is_mangaka, Boolean, null: false
+  field :is_producer, Boolean, null: false
 
   field :website, String
 

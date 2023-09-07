@@ -1,4 +1,4 @@
-describe Queries::MangasQuery do
+describe Queries::UserRatesQuery do
   include_context :graphql
 
   let(:query_string) do
@@ -6,7 +6,7 @@ describe Queries::MangasQuery do
       query(
         $page: Int,
         $limit: Int,
-        $userId: BigInt,
+        $userId: ID,
         $targetType: UserRateTargetTypeEnum!
         $status: UserRateStatusEnum
       ) {

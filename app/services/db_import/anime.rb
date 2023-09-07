@@ -4,7 +4,7 @@ class DbImport::Anime < DbImport::ImportBase
     genres studios related recommendations characters
     external_links
   ]
-  IGNORED_FIELDS = %i[members favorites]
+  IGNORED_FIELDS = DbImport::ImportBase::IGNORED_FIELDS + %i[members favorites]
 
 private
 
@@ -28,7 +28,7 @@ private
     entry.ranked = 0 if entry.is_censored
   end
 
-  def import_genre data
+  def import_genre data # rubocop:disable Metrics/AbcSize
     genre = genres_repository.by_mal_id data[:id]
     raise ArgumentError, "mismatched genre: #{data.to_json}" unless genre.name == data[:name]
 
@@ -75,14 +75,14 @@ private
     DbImport::Similarities.call entry, similarities
   end
 
-  def assign_external_links external_links
-    DbImport::ExternalLinks.call entry, external_links
-  end
-
   def assign_characters data
     if data[:characters].any? || data[:staff].any?
       DbImport::PersonRoles.call entry, data[:characters], data[:staff]
     end
+  end
+
+  def assign_external_links external_links
+    DbImport::ExternalLinks.call entry, external_links
   end
 
   def anidb_synopsis?
@@ -146,4 +146,11 @@ private
   #     entry.class.name
   #   )
   # end
+
+  def import_more_info
+    return unless entry.more_info.nil?
+
+    more_info = MalParser::Entry::MoreInfo.call entry.id, entry.anime? ? :anime : :manga
+    entry.update more_info: more_info
+  end
 end

@@ -10,7 +10,8 @@ describe DbImport::Manga do
       recommendations: similarities,
       characters: characters_data,
       synopsis: synopsis,
-      image: image
+      image: image,
+      is_more_info: true
     }
   end
   let(:id) { 987_654_321 }
@@ -24,6 +25,14 @@ describe DbImport::Manga do
   let(:synopsis) { '' }
   let(:image) { nil }
 
+  before do
+    allow(MalParser::Entry::MoreInfo)
+      .to receive(:call)
+      .with(id, :manga)
+      .and_return imported_more_info
+  end
+  let(:imported_more_info) { 'qwe' }
+
   subject(:entry) { service.call }
 
   it do
@@ -32,8 +41,9 @@ describe DbImport::Manga do
     expect(entry).to be_kind_of Manga
     expect(entry).to have_attributes data.except(
       :synopsis, :image, :genres, :publishers, :related, :recommendations,
-      :characters
+      :characters, :is_more_info
     )
+    expect(entry.more_info).to eq imported_more_info
   end
 
   describe '#assign_synopsis' do

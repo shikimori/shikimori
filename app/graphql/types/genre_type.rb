@@ -1,9 +1,9 @@
 class Types::GenreType < Types::BaseObject
-  field :id, GraphQL::Types::BigInt
-  field :name, String
-  field :russian, String
-  field :kind, Types::Enums::Genre::KindEnum
-  field :entry_type, Types::Enums::Genre::EntryTypeEnum
+  field :id, ID, null: false
+  field :name, String, null: false
+  field :russian, String, null: false
+  field :kind, Types::Enums::Genre::KindEnum, null: false
+  field :entry_type, Types::Enums::Genre::EntryTypeEnum, null: false
 
   def kind
     Types::GenreV2::Kind[:genre].to_s

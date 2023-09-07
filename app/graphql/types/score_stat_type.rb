@@ -1,4 +1,4 @@
 class Types::ScoreStatType < Types::BaseObject
-  field :score, Integer
-  field :count, Integer
+  field :score, Integer, null: false
+  field :count, Integer, null: false
 end

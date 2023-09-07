@@ -247,4 +247,12 @@ module Clockwork
 
     NamedLogger.clockwork.info 'daily.ranked_recalculation finished'
   end
+
+  every 1.day, 'yearly.cleanups',
+    at: '22:00',
+    if: lambda { |t| t.day == 1 && t.month == 1 } do
+      DbEntries::RecalculateRanked.perform_async Manga.name, :random
+
+      NamedLogger.clockwork.info 'yearly.cleanups'
+    end
 end

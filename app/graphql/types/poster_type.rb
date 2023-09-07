@@ -1,7 +1,7 @@
 class Types::PosterType < Types::BaseObject
-  field :id, GraphQL::Types::BigInt
+  field :id, ID, null: false
 
-  field :original_url, String
+  field :original_url, String, null: false
   def original_url
     ImageUrlGenerator.instance.cdn_poster_url(
       poster: object,
@@ -23,7 +23,7 @@ class Types::PosterType < Types::BaseObject
     mini_alt_2x
     mini_alt
   ].each do |derivative|
-    field :"#{derivative}_url", String
+    field :"#{derivative}_url", String, null: false
     define_method :"#{derivative}_url" do
       ImageUrlGenerator.instance.cdn_poster_url(
         poster: object,

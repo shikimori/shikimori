@@ -33,6 +33,10 @@ class RepositoryBase
     true
   end
 
+  def loaded?
+    !@collection.nil?
+  end
+
   def self.find *args
     instance.find(*args)
   end

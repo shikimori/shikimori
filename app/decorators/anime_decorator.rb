@@ -102,14 +102,14 @@ class AnimeDecorator < AniMangaDecorator
     Copyright::CENSORED_IN_RUSSIA_ANIME_IDS.include? object.id
   end
 
-private
-
   def next_broadcast_at
     return if anons? || aired_on.uncertain?
     return unless broadcast_at && broadcast_at > 1.week.ago
 
     broadcast_at < 1.hour.ago ? broadcast_at + 1.week : broadcast_at
   end
+
+private
 
   def fix_group_name name
     name.gsub(/\.(?:tv|ru|com|net|online|su)/i, '')

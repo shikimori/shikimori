@@ -1,6 +1,6 @@
 class Types::StudioType < Types::BaseObject
-  field :id, GraphQL::Types::BigInt
-  field :name, String
+  field :id, ID, null: false
+  field :name, String, null: false
 
   field :image_url, String
   def image_url

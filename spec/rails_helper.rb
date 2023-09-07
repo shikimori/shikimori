@@ -114,10 +114,14 @@ RSpec.configure do |config|
   end
 
   config.after :each do
-    AnimeGenresRepository.instance.reset
-    MangaGenresRepository.instance.reset
-    StudiosRepository.instance.reset
-    PublishersRepository.instance.reset
+    [
+      AnimeGenresRepository,
+      MangaGenresRepository,
+      StudiosRepository,
+      PublishersRepository
+    ].each do |klass|
+      klass.instance.reset if klass.instance.loaded?
+    end
 
     if respond_to?(:controller) && controller
       # в каких-то случаях params почему-то не очищается

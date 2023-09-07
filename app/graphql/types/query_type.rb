@@ -13,5 +13,6 @@ module Types
     end
 
     field :user_rates, resolver: Queries::UserRatesQuery
+    field :genres, resolver: Queries::GenresQuery
   end
 end

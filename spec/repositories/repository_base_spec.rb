@@ -68,4 +68,14 @@ describe RepositoryBase do
     let!(:entry) { create :genre }
     it { expect(query.to_a).to eq [entry] }
   end
+
+  describe '#loaded' do
+    it do
+      expect(query).to_not be_loaded
+      query.to_a
+      expect(query).to be_loaded
+      query.reset
+      expect(query).to_not be_loaded
+    end
+  end
 end
