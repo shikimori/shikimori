@@ -1,6 +1,8 @@
 - is_licensor = params[:licensor].present? && params[:licensor].match?(Animes::Filters::ByLicensor::ANYTHING)
 - score_order_type = params[:order] if ['score', 'score_2'].include? params[:order]
 
+  = render 'pagination', view: @view
+
 - if view.season_page?
   / специальная вёрстка отображения отдельного сезона:
   / каталог разбит на куски по kind, каждый кусок отображается с заголовков
@@ -53,6 +55,7 @@
 
   - if @view.next_page_url
     = render 'blocks/postloader',
+      ignore_appear: @view.studio_page? && @view.page == 1,
       next_url: @view.next_page_url,
       prev_url: @view.prev_page_url,
       filter: nil,

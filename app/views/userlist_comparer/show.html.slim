@@ -29,6 +29,7 @@ header.head
       aside.l-menu
         = render 'animes_collection/menu',
           menu: @menu,
+          view: ViewObjectBase.new,
           custom_sorts: [\
             [:user_1, t('.by_user_score', user: @user_1.nickname(true))],
             [:user_2, t('.by_user_score', user: @user_2.nickname(true))]\

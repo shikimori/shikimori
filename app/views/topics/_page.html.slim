@@ -49,6 +49,9 @@ header.head
           - elsif linked.kind_of? Person
             = render 'people/menu', resource: linked.decorate
 
+          - elsif linked.kind_of? Studio
+            = render 'studios/menu', resource: linked.decorate
+
           - elsif linked.kind_of? Club
             = render 'clubs/menu', club: linked.decorate
 

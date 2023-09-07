@@ -1,0 +1,74 @@
+ul.b-block_list.orders.anime-params.subcontent
+  li[
+    data-field='order-by'
+    data-value='ranked'
+  ] = t 'by.ranked'
+  li.hidden[
+    data-field='order-by'
+    data-value='kind'
+  ] = t 'by.kind'
+  li[
+    data-field='order-by'
+    data-value='popularity'
+  ] = t 'by.popularity'
+  li[
+    data-field='order-by'
+    data-value='name'
+  ] = t 'by.name'
+  li[
+    data-field='order-by'
+    data-value='aired_on'
+  ] = t 'by.aired_on'
+  li[
+    data-field='order-by'
+    data-value='ranked_random'
+  ] = t 'by.ranked_random'
+  /li[
+    data-field='order-by'
+    data-value='ranked_shiki'
+  /] = t 'by.ranked_shiki'
+
+  - if local_assigns[:in_user_profile]
+    li[
+      data-field='order-by'
+      data-value='rate_score'
+    ] = t 'by.score'
+    li[
+      data-field='order-by'
+      data-value='rate_id'
+    ] = t 'by.date_added'
+    li[
+      data-field='order-by'
+      data-value='rate_updated'
+    ] = t 'by.date_updated'
+    - if local_assigns[:menu].klass == Anime
+      li.hidden[
+        data-field='order-by'
+        data-value='episodes'
+      ] = t 'by.episodes'
+    - else
+      li.hidden[
+        data-field='order-by'
+        data-value='chapters'
+      ] = t 'by.chapters'
+      li.hidden[
+        data-field='order-by'
+        data-value='volumes'
+      ] = t 'by.volumes'
+    li.hidden[
+      data-field='order-by'
+      data-value='status'
+    ] = t 'by.status'
+  - else
+    li[
+      data-field='order-by'
+      data-value='id_desc'
+    ] = t 'by.id'
+
+  / используется в userlist comparer
+  - if local_assigns[:custom_sorts].present? && !local_assigns[:custom_sorts].empty?
+    - local_assigns[:custom_sorts].each do |name, title|
+      li[
+        data-field='order-by'
+        data-value=name
+      ] = title

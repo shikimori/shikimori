@@ -20,6 +20,12 @@ pageLoad('animes_collection_index', 'recommendations_index', 'userlist_comparer_
     });
 });
 
+pageLoad('animes_collection_index', async () => {
+  $('.new-comment').on('click', () => {
+    $('.shiki_editor-selector').view().focus();
+  });
+});
+
 function initCatalog() {
   let baseCatalogPath = $('.b-collection-filters').data('base_path');
 

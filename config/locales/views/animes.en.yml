@@ -1,6 +1,6 @@
 en:
   animes_collection:
-    menu:
+    menu: &menu
       anime:
         status: &anime_statuses
           anons: Announced
@@ -32,6 +32,8 @@ en:
       ranobe:
         <<: *manga_menu
       show_list: Show list
+    studio_menu:
+      <<: *menu
 
   animes: &animes
     page:

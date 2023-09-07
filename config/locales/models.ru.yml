@@ -102,6 +102,7 @@ ru:
       ranobe: Обсуждение ранобэ
       character: Обсуждение персонажа
       person: Обсуждение человека
+      studio: Обсуждение студии
       critique: Обсуждение рецензии
       contest: Обсуждение турнира
       club: Обсуждение клуба
@@ -114,6 +115,7 @@ ru:
       anime: Топик обсуждения [anime=%{id}]аниме[/anime].
       article: Топик обсуждения [article=%{id}]статьи[/article].
       character: Топик обсуждения [character=%{id}]персонажа[/character].
+      studio: Топик обсуждения студии
       club: Топик обсуждения [club=%{id}]клуба[/club].
       club_page: Топик обсуждения [club_page=%{club_page_id}]страницы[/club_page] [club=%{club_id}]клуба[/club].
       collection: Топик обсуждения [collection=%{id}]коллекции[/collection].

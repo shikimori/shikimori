@@ -1,0 +1,15 @@
+.b-animes-menu.block
+  .b-menu_logo
+    a[
+      href=resource.url
+      title=localized_name(resource)
+    ]
+      img.logo[
+        src=cdn_image_url(resource, :original)
+        alt=resource.name
+        title=resource.name
+      ]
+
+  .c-actions
+    a.b-link_button.dark.new-comment
+      = t('studios.page.actions.comment')

@@ -58,7 +58,8 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
     ClubPage,
     Collection,
     Critique,
-    Review
+    Review,
+    Studio
   ].map(&:name)
   api :POST, '/comments', 'Create a comment'
   description 'Requires `comments` oauth scope'

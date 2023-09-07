@@ -43,12 +43,18 @@ class Topics::TopicViewFactory
     elsif topic_type_policy.article_topic?
       article_topic topic
 
+    elsif topic_type_policy.studio_topic?
+      studio_topic topic
     else
       common_topic topic
     end
   end
 
 private
+
+  def studio_topic topic
+    Topics::StudioView.new topic, is_preview, is_mini
+  end
 
   def critique_topic topic
     Topics::CritiqueView.new topic, is_preview, is_mini

@@ -1,4 +1,6 @@
 class Studio < ApplicationRecord
+  include TopicsConcern
+  
   validates :name, presence: true, length: { maximum: 255 }
   validates :short_name, :japanese, :ani_db_name, length: { maximum: 255 }
   validates :description_ru, :description_en, length: { maximum: 16_384 }
@@ -57,5 +59,9 @@ class Studio < ApplicationRecord
       id: id,
       name: name.gsub(/[^\w]+/, '-').gsub(/^-|-$/, '')
     )
+  end
+
+  def topic_user
+    BotsService.get_poster
   end
 end

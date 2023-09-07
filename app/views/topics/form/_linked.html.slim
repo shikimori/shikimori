@@ -27,13 +27,14 @@
       - unless local_assigns[:critique_types] == true
         option value=Character.name = Character.model_name.human
         option value=Person.name = Person.model_name.human
+        option value=Studio.name = Studio.model_name.human
 
   .topic-link[
     style=('display: none;' unless topic.linked.present?)
   ]
     - if topic.linked.present?
       a.bubbled.b-link[
-        href=url_for(topic.linked)
+        href=(Topic::TypePolicy.new(topic).studio_topic? ? animes_collection_url(studio: topic.linked) : animes_collection_url(studio: topic.linked))
         title=topic.linked.name
       ]
         = topic.linked.name
