@@ -405,7 +405,7 @@ GEM
       i18n (>= 0.7)
       multi_json
       request_store (>= 1.0)
-    google-protobuf (3.21.9)
+    google-protobuf (3.24.3)
     graphiql-rails (1.9.0)
       railties
       sprockets-rails
@@ -570,15 +570,15 @@ GEM
     orm_adapter (0.5.0)
     paperclip-i18n (4.3.0)
     parallel (1.23.0)
-    parallel_tests (4.2.0)
+    parallel_tests (4.2.2)
       parallel
     parser (3.2.2.3)
       ast (~> 2.4.1)
       racc
-    pg (1.4.5)
-    pg_query (2.2.0)
-      google-protobuf (>= 3.19.2)
-    pghero (3.1.0)
+    pg (1.5.4)
+    pg_query (4.2.3)
+      google-protobuf (>= 3.22.3)
+    pghero (3.3.4)
       activerecord (>= 6)
     protocol (2.0.0)
       ruby_parser (~> 3.0)
