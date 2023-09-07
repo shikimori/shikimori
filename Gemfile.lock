@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/afdev82/non-stupid-digest-assets.git
+  revision: 38a626bf1e93c345c3f241bdec404b9df3478b61
+  branch: patch-1
+  specs:
+    non-stupid-digest-assets (1.0.9)
+      sprockets (>= 2.0)
+
+GIT
   remote: https://github.com/flori/amatch.git
   revision: 351285f667573340ed14e976e2b0984daca4b0e4
   specs:
@@ -530,8 +538,6 @@ GEM
     nokogiri (1.15.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    non-stupid-digest-assets (1.0.9)
-      sprockets (>= 2.0)
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
@@ -765,7 +771,7 @@ GEM
     spring-watcher-listen (2.1.0)
       listen (>= 2.7, < 4.0)
       spring (>= 4)
-    sprockets (4.2.0)
+    sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
     sprockets-rails (3.4.2)
@@ -913,7 +919,7 @@ DEPENDENCIES
   mini_magick
   msgpack
   nokogiri
-  non-stupid-digest-assets
+  non-stupid-digest-assets!
   omniauth
   omniauth-facebook
   omniauth-rails_csrf_protection

@@ -19,7 +19,7 @@ gem 'msgpack'
 group :beta, :production do
   gem 'autoprefixer-rails'
 end
-gem 'non-stupid-digest-assets'
+gem 'non-stupid-digest-assets', github: 'afdev82/non-stupid-digest-assets', branch: 'patch-1' # ruby 3.2 fix https://github.com/alexspeller/non-stupid-digest-assets/pull/51
 gem 'sassc-rails'
 gem 'gon'
 gem 'turbolinks'
