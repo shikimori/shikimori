@@ -80,71 +80,72 @@
 
   - if menu.show_sorting?
     .block
+      - order_field = 'order' # 'order-by'
       .subheadline.m5 = i18n_i 'Sorting'
       ul.b-block_list.orders.anime-params.subcontent
         li[
-          data-field='order-by'
+          data-field=order_field
           data-value='ranked'
         ] = t 'by.ranked'
         li.hidden[
-          data-field='order-by'
+          data-field=order_field
           data-value='kind'
         ] = t 'by.kind'
         li[
-          data-field='order-by'
+          data-field=order_field
           data-value='popularity'
         ] = t 'by.popularity'
         li[
-          data-field='order-by'
+          data-field=order_field
           data-value='name'
         ] = t 'by.name'
         li[
-          data-field='order-by'
+          data-field=order_field
           data-value='aired_on'
         ] = t 'by.aired_on'
         li[
-          data-field='order-by'
+          data-field=order_field
           data-value='ranked_random'
         ] = t 'by.ranked_random'
         /li[
-          data-field='order-by'
+          data-field=order_field
           data-value='ranked_shiki'
         /] = t 'by.ranked_shiki'
 
         - if local_assigns[:in_user_profile]
           li[
-            data-field='order-by'
+            data-field=order_field
             data-value='rate_score'
           ] = t 'by.score'
           li[
-            data-field='order-by'
+            data-field=order_field
             data-value='rate_id'
           ] = t 'by.date_added'
           li[
-            data-field='order-by'
+            data-field=order_field
             data-value='rate_updated'
           ] = t 'by.date_updated'
           - if menu.klass == Anime
             li.hidden[
-              data-field='order-by'
+              data-field=order_field
               data-value='episodes'
             ] = t 'by.episodes'
           - else
             li.hidden[
-              data-field='order-by'
+              data-field=order_field
               data-value='chapters'
             ] = t 'by.chapters'
             li.hidden[
-              data-field='order-by'
+              data-field=order_field
               data-value='volumes'
             ] = t 'by.volumes'
           li.hidden[
-            data-field='order-by'
+            data-field=order_field
             data-value='status'
           ] = t 'by.status'
         - else
           li[
-            data-field='order-by'
+            data-field=order_field
             data-value='id_desc'
           ] = t 'by.id'
 
@@ -152,7 +153,7 @@
         - if defined?(custom_sorts) && !custom_sorts.empty?
           - custom_sorts.each do |name, title|
             li[
-              data-field='order-by'
+              data-field=order_field
               data-value=name
             ] = title
 

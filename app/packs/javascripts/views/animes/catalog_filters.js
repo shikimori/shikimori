@@ -3,6 +3,7 @@ import inNewTab from '@/utils/in_new_tab';
 import urlParse from 'url-parse';
 import TinyUri from 'tiny-uri';
 
+const ORDER_FIELD = 'order'; // 'order-by'
 const DEFAULT_ORDER = 'ranked';
 const DEFAULT_DATA = {
   kind: [],
@@ -18,11 +19,11 @@ const DEFAULT_DATA = {
   score: [],
   options: [],
   mylist: [],
-  'order-by': [],
+  [ORDER_FIELD]: [],
   licensor: []
 };
 
-const GET_FILTERS = ['duration', 'rating', 'score', 'options', 'mylist', 'order-by', 'licensor'];
+const GET_FILTERS = ['duration', 'rating', 'score', 'options', 'mylist', ORDER_FIELD, 'licensor'];
 
 export default function(basePath, currentUrl, changeCallback) {
   const $root = $('.b-collection-filters');
@@ -234,7 +235,7 @@ export default function(basePath, currentUrl, changeCallback) {
       Object.forEach(this.params, function(values, field) {
         delete locationFilters[field];
 
-        if ((field === 'order-by') && (values[0] === DEFAULT_ORDER) &&
+        if (field === ORDER_FIELD && (values[0] === DEFAULT_ORDER) &&
             !location.href.match(/\/list\/(anime|manga)/)) {
           return;
         }
@@ -290,15 +291,15 @@ export default function(basePath, currentUrl, changeCallback) {
             try {
               return this.add(field, value);
             } catch (error) { // becase there can bad order, and it will break jQuery selector
-              if (field === 'order-by') {
-                return this.add('order-by', DEFAULT_ORDER);
+              if (field === ORDER_FIELD) { // || field === 'order-by') {
+                return this.add(field, DEFAULT_ORDER);
               }
             }
           });
       });
 
-      if (Object.isEmpty(this.params['order-by'])) {
-        return this.add('order-by', DEFAULT_ORDER);
+      if (Object.isEmpty(this.params[ORDER_FIELD])) {
+        return this.add(ORDER_FIELD, DEFAULT_ORDER);
       }
     }
   };
