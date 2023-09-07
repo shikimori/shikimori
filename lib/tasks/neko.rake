@@ -6,7 +6,7 @@ namespace :neko do
   desc "generate achievements.yml"
   task update: :environment do
     rules = Dir[NEKO_RULES_FILE].flat_map do |rule_file|
-      YAML.load_file(rule_file).map do |rule|
+      YAML.load_file(rule_file, aliases: true).map do |rule|
         rule.merge 'source' =>
           GITHUB_URL + rule_file.sub(%r{^.*\.\./neko-achievements/}, '')
       end
