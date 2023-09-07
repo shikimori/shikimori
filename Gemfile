@@ -115,6 +115,8 @@ gem 'activerecord-import' # для быстрого импорта тегов
 gem 'amatch', github: 'flori/amatch' # для поиска русских имён из википедии
 gem 'icalendar' # for anime calendar
 gem 'ruby-esvidi', github: 'shikimori/ruby-esvidi'
+gem 'matrix' # ruby 3.2 dependency of ruby-esvidi
+
 gem 'unicode' # to downcase russian words
 gem 'xxhash' # очень быстрый несекьюрный алгоритм хеширования (для comments_helper)
 

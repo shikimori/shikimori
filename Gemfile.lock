@@ -908,6 +908,7 @@ DEPENDENCIES
   mail (= 2.7.1)
   mal_parser!
   maruku
+  matrix
   mimemagic
   mini_magick
   msgpack
