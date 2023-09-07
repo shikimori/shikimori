@@ -6,7 +6,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 franchise_yml = "#{ENV['HOME']}/develop/neko-achievements/priv/rules/_franchises.yml"
 
 puts 'loading franchises...'
-raw_data = YAML.load_file(franchise_yml)
+raw_data = YAML.load_file(franchise_yml, aliases: true)
 
 # https://shikimori.org/comments/4307156
 # https://monosnap.com/file/JewdpGZ9bf63WFU2hnf6C85ah1HdIZ
