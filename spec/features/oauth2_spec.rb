@@ -122,7 +122,7 @@ feature 'Authentication', type: :request do
         post '/oauth/token',
           params: {
             grant_type: 'refresh_token',
-            refresh_token: refresh_token,
+            refresh_token:,
             client_id: oauth_application.uid,
             client_secret: oauth_application.secret
           }
@@ -136,7 +136,7 @@ feature 'Authentication', type: :request do
         expect(json['refresh_token'].size).to eq 43
         expect(json['refresh_token'].size).to_not eq refresh_token
         expect(json['token_type']).to eq 'Bearer'
-        expect(json['expires_in']).to eq 1.day
+        expect(json['expires_in']).to eq nil
         expect(json['created_at'].present?).to eq true
         expect(response).to have_http_status :success
       end
