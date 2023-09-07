@@ -16,7 +16,7 @@ class Topics::EntryTopic < Topic
       .call(
         I18n.t(
           "topics/entry_topic.full_title.#{linked.class.name.underscore}",
-          i18n_params
+          **i18n_params
         )
       )
       .gsub(%r{<span class="name-ru">.*?</span>}, '')
@@ -26,7 +26,7 @@ class Topics::EntryTopic < Topic
   def body
     I18n.t(
       "topics/entry_topic.body.#{linked.class.name.underscore}",
-      i18n_params
+      **i18n_params
     )
   end
 

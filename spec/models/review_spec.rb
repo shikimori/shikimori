@@ -32,9 +32,9 @@ describe Review do
 
   describe 'scopes' do
     let(:anime) { create :anime }
-    let!(:positive) { create :review, :positive, anime: anime }
-    let!(:neutral) { create :review, :neutral, anime: anime, user: user_admin }
-    let!(:negative) { create :review, :negative, anime: anime, user: user_day_registered }
+    let!(:positive) { create :review, :positive, anime: }
+    let!(:neutral) { create :review, :neutral, anime:, user: user_admin }
+    let!(:negative) { create :review, :negative, anime:, user: user_day_registered }
 
     describe 'positive' do
       it { expect(Review.positive).to eq [positive] }
@@ -49,12 +49,12 @@ describe Review do
 
       let(:review) do
         model = Review.new(
-          anime: anime,
-          manga: manga,
+          anime:,
+          manga:,
           body: 'a' * described_class::MIN_BODY_SIZE,
-          user: user,
+          user:,
           opinion: 'positive',
-          is_written_before_release: is_written_before_release
+          is_written_before_release:
         )
         model.instance_variable_set :@custom_created_at, custom_created_at
         model.save
@@ -66,9 +66,9 @@ describe Review do
       let(:custom_created_at) { nil }
 
       context 'anime' do
-        let(:anime) { create :anime, status, released_on: released_on }
+        let(:anime) { create :anime, status, released_on: }
         let(:status) { :released }
-        let(:released_on) { nil }
+        let(:released_on) { {} }
 
         context 'is set' do
           context 'true' do
@@ -87,7 +87,7 @@ describe Review do
             let(:status) { :released }
 
             context 'released_on is not set' do
-              let(:released_on) { nil }
+              let(:released_on) { {} }
               it { is_expected.to eq false }
             end
 
@@ -124,15 +124,15 @@ describe Review do
       end
 
       context 'manga' do
-        let(:manga) { create :manga, status, released_on: released_on }
+        let(:manga) { create :manga, status, released_on: }
         let(:status) { :released }
-        let(:released_on) { nil }
+        let(:released_on) { {} }
 
         context 'released' do
           let(:status) { :released }
 
           context 'released_on is not set' do
-            let(:released_on) { nil }
+            let(:released_on) { {} }
             it { is_expected.to eq false }
           end
 
@@ -162,7 +162,7 @@ describe Review do
     end
 
     describe '#forbid_tags_change' do
-      let!(:review) { create :review, anime: anime, body: 'a' * 9999 }
+      let!(:review) { create :review, anime:, body: 'a' * 9999 }
       let(:anime) { create :anime }
       before { allow(Comments::ForbidTagChange).to receive :call }
       subject! do
@@ -196,7 +196,7 @@ describe Review do
 
   describe 'instance methods' do
     describe '#anime? & #manga?, #db_entry, #db_entry_id, #db_entry_type, #censored?' do
-      subject { build :review, anime: anime, manga: manga }
+      subject { build :review, anime:, manga: }
       let(:anime) { nil }
       let(:manga) { nil }
       let(:is_censored) { [true, false].sample }
@@ -209,7 +209,7 @@ describe Review do
       its(:censored?) { is_expected.to be_nil }
 
       context 'anime' do
-        let(:anime) { build_stubbed :anime, is_censored: is_censored }
+        let(:anime) { build_stubbed :anime, is_censored: }
 
         its(:anime?) { is_expected.to eq true }
         its(:manga?) { is_expected.to eq false }
@@ -220,7 +220,7 @@ describe Review do
       end
 
       context 'manga' do
-        let(:manga) { build_stubbed :manga, is_censored: is_censored }
+        let(:manga) { build_stubbed :manga, is_censored: }
 
         its(:anime?) { is_expected.to eq false }
         its(:manga?) { is_expected.to eq true }
@@ -232,14 +232,14 @@ describe Review do
     end
 
     describe '#html_body' do
-      subject { build :review, body: body }
+      subject { build :review, body: }
       let(:body) { '[b]zxc[/b]' }
       its(:html_body) { is_expected.to eq '<strong>zxc</strong>' }
     end
 
     describe '#db_entry_released_before?' do
-      let(:anime) { build_stubbed :anime, status, released_on: released_on }
-      subject { build :review, anime: anime }
+      let(:anime) { build_stubbed :anime, status, released_on: }
+      subject { build :review, anime: }
 
       context 'released' do
         let(:status) { :released }
@@ -267,7 +267,7 @@ describe Review do
     describe '#cache_key_with_version' do
       include_context :timecop, '2021-08-01 15:44:03 +0300'
 
-      let(:review) { build_stubbed :review, id: 1, user: user }
+      let(:review) { build_stubbed :review, id: 1, user: }
       let(:user) { build_stubbed :user, id: 2, rate_at: Time.zone.now }
 
       it do
@@ -280,15 +280,15 @@ describe Review do
     describe '#written_before_release?' do
       let(:review) do
         build_stubbed :review,
-          manga: manga,
-          is_written_before_release: is_written_before_release
+          manga:,
+          is_written_before_release:
       end
       let(:is_written_before_release) { true }
       let(:manga) do
         build_stubbed :manga,
-          status: status,
-          aired_on: aired_on,
-          released_on: released_on
+          status:,
+          aired_on:,
+          released_on:
       end
       let(:aired_on) { nil }
       let(:released_on) { nil }
@@ -322,7 +322,7 @@ describe Review do
     end
 
     describe '#user_rate' do
-      let(:review) { build_stubbed :review, anime: anime, manga: manga }
+      let(:review) { build_stubbed :review, anime:, manga: }
       let(:anime) { nil }
       let(:manga) { nil }
 
@@ -334,21 +334,21 @@ describe Review do
 
       context 'anime rate' do
         let(:anime) { create :anime }
-        let!(:user_rate) { create :user_rate, target: anime, user: user }
+        let!(:user_rate) { create :user_rate, target: anime, user: }
 
         it { is_expected.to eq user_rate }
       end
 
       context 'manga rate' do
         let(:manga) { create :manga }
-        let!(:user_rate) { create :user_rate, target: manga, user: user }
+        let!(:user_rate) { create :user_rate, target: manga, user: }
 
         it { is_expected.to eq user_rate }
       end
     end
 
     describe '#forbid_tags_change' do
-      let(:review) { create :review, body: old_body, anime: anime }
+      let(:review) { create :review, body: old_body, anime: }
       let(:anime) { create :anime }
       subject! { review.update body: new_body }
 
@@ -394,7 +394,7 @@ describe Review do
 
     context 'review owner' do
       let(:user) { build_stubbed :user, :user, :day_registered }
-      let(:review) { build_stubbed :review, user: user }
+      let(:review) { build_stubbed :review, user: }
 
       it { is_expected.to be_able_to :new, review }
       it { is_expected.to be_able_to :create, review }

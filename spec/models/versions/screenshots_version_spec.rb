@@ -57,7 +57,7 @@ describe Versions::ScreenshotsVersion do
   end
 
   describe '#apply_changes' do
-    let(:version) { build :screenshots_version, state: :pending, item_diff: item_diff }
+    let(:version) { build :screenshots_version, state: :pending, item_diff: }
 
     context 'upload' do
       let(:screenshot) { create :screenshot, :uploaded }
@@ -74,8 +74,8 @@ describe Versions::ScreenshotsVersion do
 
     context 'reposition' do
       let(:anime) { create :anime }
-      let!(:screenshot_1) { create :screenshot, anime: anime, position: 9999 }
-      let!(:screenshot_2) { create :screenshot, anime: anime, position: 9999 }
+      let!(:screenshot_1) { create :screenshot, anime:, position: 9999 }
+      let!(:screenshot_2) { create :screenshot, anime:, position: 9999 }
       let(:item_diff) do
         {
           action: Versions::ScreenshotsVersion::Actions[:reposition],
@@ -109,7 +109,7 @@ describe Versions::ScreenshotsVersion do
   end
 
   describe '#rollback_changes' do
-    let(:version) { build :screenshots_version, state: :accepted, item_diff: item_diff }
+    let(:version) { build :screenshots_version, state: :accepted, item_diff: }
 
     context 'upload' do
       let(:screenshot) { create :screenshot, :accepted }
@@ -126,8 +126,8 @@ describe Versions::ScreenshotsVersion do
 
     context 'reposition' do
       let(:anime) { create :anime }
-      let!(:screenshot_1) { create :screenshot, anime: anime, position: 1 }
-      let!(:screenshot_2) { create :screenshot, anime: anime, position: 0 }
+      let!(:screenshot_1) { create :screenshot, anime:, position: 1 }
+      let!(:screenshot_2) { create :screenshot, anime:, position: 0 }
       let(:item_diff) do
         {
           action: Versions::ScreenshotsVersion::Actions[:reposition],
@@ -165,8 +165,8 @@ describe Versions::ScreenshotsVersion do
     let(:version) do
       build :screenshots_version,
         item_diff: {
-          action: action,
-          screenshots: screenshots
+          action:,
+          screenshots:
         }
     end
 

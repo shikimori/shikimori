@@ -2,21 +2,21 @@ describe Anime::RollbackEpisode do
   let(:anime) do
     create :anime, status,
       :with_track_changes,
-      episodes_aired: episodes_aired,
+      episodes_aired:,
       episodes: 100
   end
   let!(:notification_9) do
-    create :episode_notification, anime: anime, episode: 9
+    create :episode_notification, anime:, episode: 9
   end
   let!(:notification_10) do
-    create :episode_notification, anime: anime, episode: 10
+    create :episode_notification, anime:, episode: 10
   end
   let!(:notification_11) do
-    create :episode_notification, anime: anime, episode: 11
+    create :episode_notification, anime:, episode: 11
   end
   let(:episodes_aired) { 10 }
 
-  subject { described_class.call anime: anime, episode: episode, user: user }
+  subject { described_class.call anime:, episode:, user: }
 
   context 'no user' do
     let(:user) { nil }
@@ -56,6 +56,7 @@ describe Anime::RollbackEpisode do
 
       context 'released' do
         let(:status) { :released }
+
         it do
           expect { subject }.to_not change Version, :count
 
@@ -110,6 +111,7 @@ describe Anime::RollbackEpisode do
 
       context 'ongoing' do
         let(:status) { :ongoing }
+
         it do
           expect { subject }.to change(Version, :count).by 1
           expect(subject).to be_persisted

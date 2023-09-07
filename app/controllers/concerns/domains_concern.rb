@@ -31,7 +31,7 @@ module DomainsConcern
       users_magic_link_path(
         token: Users::LoginToken.encode(current_user),
         redirect_url: request.url.sub(/.*?#{request.host}/, '')
-      )
+      ), allow_other_host: true
   end
 
   def force_301_redirect_for_guests
@@ -41,7 +41,8 @@ module DomainsConcern
     return if request.host == ShikimoriDomain::BANNED_HOST
 
     redirect_to request.url.sub(request.host, ShikimoriDomain::PROPER_HOST),
-      status: :moved_permanently
+      status: :moved_permanently,
+      allow_other_host: true
   end
 
   def domain_redirects_appliable?

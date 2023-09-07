@@ -130,18 +130,19 @@ private
     return if seasons.none?
 
     seasons
-      .map { |season| "#{Titles::LocalizedSeasonText.new(klass, season).title}" }
+      .map { |season| Titles::LocalizedSeasonText.new(klass, season).title }
       .to_sentence
   end
 
   def kind_text kind
     form = kinds.many? ? 'short' : 'long'
 
-    text = if kind.present?
-      i18n_t "kind.#{klass.name.downcase}.#{form}.#{kind}"
-    else
-      klass.model_name.human
-    end
+    text =
+      if kind.present?
+        i18n_t "kind.#{klass.name.downcase}.#{form}.#{kind}"
+      else
+        klass.model_name.human
+      end
 
     text
       .downcase

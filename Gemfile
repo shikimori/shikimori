@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '6.1.7.2'
+gem 'rails'
 gem 'bootsnap', require: false
 
 # database & cache
@@ -19,13 +19,14 @@ gem 'msgpack'
 group :beta, :production do
   gem 'autoprefixer-rails'
 end
-gem 'non-stupid-digest-assets'
+gem 'non-stupid-digest-assets', github: 'afdev82/non-stupid-digest-assets', branch: 'patch-1' # ruby 3.2 fix https://github.com/alexspeller/non-stupid-digest-assets/pull/51
 gem 'sassc-rails'
 gem 'gon'
 gem 'turbolinks'
 gem 'uglifier'
 gem 'webpacker'
-gem 'execjs', '2.7' # do no upgrade until upgrade to ruby 2.7 https://github.com/rails/execjs/issues/99
+# gem 'execjs', '2.7' # do no upgrade until upgrade to ruby 2.7 https://github.com/rails/execjs/issues/99
+gem 'sprockets-rails'
 
 # templates
 gem 'jbuilder' # для рендеринга json
@@ -45,7 +46,7 @@ gem 'sidekiq', '~> 6.5.5' # sidekiq 7 and redis 5 do not work properly https://s
 gem 'sidekiq-limit_fetch'
 # gem 'sidekiq-limit_fetch', github: 'brainopia/sidekiq-limit_fetch', branch: 'master' # <- for sidekiq 6
 gem 'sidekiq-unique-jobs'
-gem 'sidekiq-delay_extensions'
+gem 'sidekiq-delay_extensions', github: 'sobrinho/sidekiq-delay_extensions', branch: 'patch-2' # fixes rails 3 Yaml.safe_load https://github.com/gemhome/sidekiq-delay_extensions/pull/11
 
 # auth
 gem 'devise'
@@ -60,7 +61,7 @@ gem 'recaptcha'
 
 # application
 gem 'mal_parser', github: 'shikimori/mal_parser'
-gem 'chewy'
+gem 'chewy', github: 'morr/chewy', branch: 'v6.0.0-i18n-fix'
 gem 'rack-attack'
 gem 'rack-cors'
 gem 'rack-utf8_sanitizer'
@@ -114,6 +115,8 @@ gem 'activerecord-import' # для быстрого импорта тегов
 gem 'amatch', github: 'flori/amatch' # для поиска русских имён из википедии
 gem 'icalendar' # for anime calendar
 gem 'ruby-esvidi', github: 'shikimori/ruby-esvidi'
+gem 'matrix' # ruby 3.2 dependency of ruby-esvidi
+
 gem 'unicode' # to downcase russian words
 gem 'xxhash' # очень быстрый несекьюрный алгоритм хеширования (для comments_helper)
 
@@ -130,7 +133,7 @@ gem 'maruku'
 gem 'open_uri_redirections' # for http->https redirects. for example for loading videos fom vimeo (http://vimeo.com/113998423)
 gem 'cgi', '0.3.6' # fixes capybara errors with .example.com domain in ruby >= 2.7. details in https://discuss.rubyonrails.org/t/invalid-domain-example-com-in-rspec-after-changing-session-store-to-domain-all/81922
 
-gem 'i18n', '< 1.9.0' # update only with chewy - otherwise get error of missing module
+gem 'i18n' # update only with chewy - otherwise get error of missing module
 gem 'i18n-inflector', github: 'morr/i18n-inflector', branch: :master # fork fixes regular expression for parsing @ inflections
 gem 'i18n-js'
 gem 'rails-i18n'
@@ -169,10 +172,6 @@ group :development do
   # gem 'web-console'
   # gem 'listen'
 
-  # gem 'rack-mini-profiler', require: false
-  # gem 'flamegraph', require: false # for flame graph in rack-mini-profiler
-  gem 'stackprof', require: false # for flamegraph
-
   gem 'airbrussh', require: false
   gem 'capistrano'
   gem 'capistrano-bundler', require: false
@@ -199,6 +198,10 @@ group :development, :test do
 
   gem 'rspec'
   gem 'spring-commands-rspec'
+
+  # gem 'rack-mini-profiler', require: false
+  # gem 'flamegraph', require: false # for flame graph in rack-mini-profiler
+  gem 'stackprof', require: false # for flamegraph
 
   gem 'guard', require: false
   gem 'guard-bundler', require: false
@@ -242,3 +245,5 @@ gem 'clockwork', require: false
 
 gem 'faye'
 gem 'thin'
+
+gem 'rexml', '~> 3.2' # added to fix ruby 3 on production

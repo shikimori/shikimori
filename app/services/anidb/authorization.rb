@@ -18,10 +18,10 @@ class Anidb::Authorization
   PASSWORD = 'Wy6F27yNuDFB'
 
   HEADERS = {
-    'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) '\
-      'AppleWebKit/537.36 (KHTML, like Gecko) '\
+    'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) ' \
+      'AppleWebKit/537.36 (KHTML, like Gecko) ' \
       'Chrome/55.0.2883.95 Safari/537.36',
-    'Accept' => 'text/html,application/xhtml+xml,application/xml;'\
+    'Accept' => 'text/html,application/xhtml+xml,application/xml;' \
       'q=0.9,image/webp,*/*;q=0.8',
     'Accept-Encoding' => 'gzip, deflate',
     'Accept-Language' => 'en-US,en;q=0.8,ru;q=0.6,ja;q=0.4',

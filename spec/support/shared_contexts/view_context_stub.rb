@@ -47,11 +47,11 @@ shared_context :view_context_stub do
       view.h.request.env['warden'] = nil
     end
 
-    view.h.instance_variable_set '@current_user', nil
+    view.h.instance_variable_set :@current_user, nil
 
     if view.h.respond_to? :controller
-      view.h.controller.instance_variable_set '@current_user', nil
-      view.h.controller.instance_variable_set '@decorated_current_user', nil
+      view.h.controller.instance_variable_set :@current_user, nil
+      view.h.controller.instance_variable_set :@decorated_current_user, nil
     end
     # в каких-то случаях params почему-то не очищается
     # словил падение view object спеки от того, что в params лежали данные от

@@ -4,9 +4,8 @@ development: &development
   host: 'localhost:9200'
   prefix: 'shikimori_development'
 test:
-  <<: *development
+  host: 'localhost:9200'
   prefix: 'shikimori_test'
 production:
-  <<: *development
   host: 'localhost:9200'
   prefix: <%=ENV['USER'] != 'morr' ? 'shikimori_production' : 'shikimori_development' %>

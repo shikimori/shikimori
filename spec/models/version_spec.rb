@@ -73,7 +73,11 @@ describe Version do
           context 'deleteable' do
             let(:is_deleteable) { true }
             it { is_expected.to allow_transition_to :deleted }
-            it { is_expected.to transition_from(state).to(:deleted).on_event :to_deleted }
+            it do
+              is_expected.to transition_from(state)
+                .to(:deleted)
+                .on_event :to_deleted, moderator: user
+            end
           end
 
           context 'not deleteable' do
@@ -137,7 +141,7 @@ describe Version do
         it do
           is_expected.to transition_from(state)
             .to(:rejected)
-            .on_event(:reject, moderator: user, reason: 'reason')
+            .on_event :reject, moderator: user, reason: 'reason'
         end
         it { is_expected.to_not allow_transition_to :deleted }
       end
@@ -211,11 +215,11 @@ describe Version do
 
     describe 'transitions' do
       let(:anime) { build_stubbed :anime }
-      let(:video) { create :anime_video, anime: anime, episode: 2 }
+      let(:video) { create :anime_video, anime:, episode: 2 }
       let(:moderator) { build_stubbed :user }
       subject(:version) do
         create :version_anime_video,
-          state: state,
+          state:,
           item_id: video.id,
           item_diff: { episode: [1, 2] }
       end
@@ -230,7 +234,7 @@ describe Version do
       end
 
       describe '#accept' do
-        before { version.accept! moderator: moderator }
+        before { version.accept! moderator: }
 
         describe 'from pending' do
           let(:state) { Types::Version::State[:pending] }
@@ -268,7 +272,7 @@ describe Version do
       end
 
       describe '#take' do
-        before { version.take! moderator: moderator }
+        before { version.take! moderator: }
 
         describe 'from pending' do
           let(:state) { :pending }
@@ -287,7 +291,7 @@ describe Version do
       end
 
       describe '#reject' do
-        before { version.reject! moderator: moderator, reason: reason }
+        before { version.reject! moderator:, reason: }
         let(:reason) { 'rejection reason' }
 
         describe 'from auto_accepted' do
@@ -301,7 +305,7 @@ describe Version do
             expect(version).to have_received :rollback_changes
             expect(version).to_not have_received :notify_acceptance
             expect(version).to have_received(:notify_rejection)
-              .with(moderator: moderator, reason: reason)
+              .with(moderator:, reason:)
             expect(version).to_not have_received :sweep_deleted
           end
         end
@@ -317,14 +321,14 @@ describe Version do
             expect(version).to_not have_received :rollback_changes
             expect(version).to_not have_received :notify_acceptance
             expect(version).to have_received(:notify_rejection)
-              .with(moderator: moderator, reason: reason)
+              .with(moderator:, reason:)
             expect(version).to_not have_received :sweep_deleted
           end
         end
       end
 
       describe '#to_deleted' do
-        before { version.to_deleted! moderator: moderator }
+        before { version.to_deleted! moderator: }
 
         describe 'from pending' do
           let(:state) { Types::Version::State[:pending] }
@@ -384,7 +388,7 @@ describe Version do
 
   describe 'instance methods' do
     let(:anime) { create :anime, episodes: 10 }
-    let(:version) { create :version, item: anime, item_diff: item_diff }
+    let(:version) { create :version, item: anime, item_diff: }
     let(:item_diff) { { episodes: [1, 2] } }
 
     describe '#apply_changes' do
@@ -428,8 +432,8 @@ describe Version do
         create :version,
           item: anime,
           item_diff: { episodes: [1, 2] },
-          user: user,
-          moderator: moderator
+          user:,
+          moderator:
       end
 
       context 'user == moderator' do
@@ -448,8 +452,8 @@ describe Version do
         create :version,
           item: anime,
           item_diff: { episodes: [1, 2] },
-          user: user,
-          moderator: moderator
+          user:,
+          moderator:
       end
       subject { version.notify_rejection reason: 'z' }
 
@@ -479,7 +483,7 @@ describe Version do
 
     context 'version_moderator' do
       let(:user) { build_stubbed :user, :version_moderator }
-      let(:version) { build_stubbed :version, item_diff: item_diff }
+      let(:version) { build_stubbed :version, item_diff: }
       let(:item_diff) { { episodes: [1, 2] } }
 
       it { is_expected.to be_able_to :manage, version }
@@ -494,7 +498,7 @@ describe Version do
       end
 
       context 'role version' do
-        let(:version) { build_stubbed :role_version, user: user }
+        let(:version) { build_stubbed :role_version, user: }
         it { is_expected.to_not be_able_to :manage, version }
       end
     end
@@ -531,7 +535,7 @@ describe Version do
       let(:user) { build_stubbed :user, :week_registered }
 
       describe 'own version' do
-        let(:version) { build_stubbed :version, user: user, item_diff: item_diff }
+        let(:version) { build_stubbed :version, user:, item_diff: }
         let(:item_diff) { { russian: ['a', 'b'] } }
 
         describe 'common change' do
@@ -585,7 +589,7 @@ describe Version do
         it { is_expected.to_not be_able_to :manage, version }
 
         context 'role version' do
-          let(:version) { build_stubbed :role_version, user: user }
+          let(:version) { build_stubbed :role_version, user: }
 
           it { is_expected.to_not be_able_to :create, version }
           it { is_expected.to be_able_to :show, version }
@@ -610,8 +614,8 @@ describe Version do
       describe 'own version' do
         let(:version) do
           build_stubbed :version,
-            user: user,
-            item_diff: item_diff
+            user:,
+            item_diff:
         end
         let(:item_diff) { { russian: ['a', 'b'] } }
         it { is_expected.to be_able_to :auto_accept, version }
@@ -626,9 +630,9 @@ describe Version do
       let(:user) { build_stubbed :user, :version_names_moderator }
       let(:version) do
         build_stubbed :version,
-          item: item,
+          item:,
           user: version_user,
-          item_diff: item_diff
+          item_diff:
       end
       let(:item) { build_stubbed :anime }
       let(:item_diff) do
@@ -657,9 +661,9 @@ describe Version do
       let(:user) { build_stubbed :user, :version_texts_moderator }
       let(:version) do
         build_stubbed :version,
-          item: item,
+          item:,
           user: version_user,
-          item_diff: item_diff
+          item_diff:
       end
       let(:item) { build_stubbed :anime }
       let(:item_diff) do
@@ -688,9 +692,9 @@ describe Version do
       let(:user) { build_stubbed :user, :version_fansub_moderator }
       let(:version) do
         build_stubbed :version,
-          item: item,
+          item:,
           user: version_user,
-          item_diff: item_diff
+          item_diff:
       end
       let(:item) { build_stubbed :anime }
       let(:item_diff) { [{ fandubbers: ['a', 'b'] }, { fansubbers: ['a', 'b'] }].sample }

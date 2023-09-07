@@ -4,8 +4,10 @@ class NameMatches::Config
 
   instance_cache :synonyms, :letter_synonyms, :word_synonyms, :regexp_replaces
 
+  CONFIG_FILE = Rails.root.join('config/app/names_matches.yml')
+
   def config
-    @config ||= YAML.load_file Rails.root.join 'config/app/names_matches.yml'
+    @config ||= YAML.load_file CONFIG_FILE, aliases: true
   end
 
   def bad_names

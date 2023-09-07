@@ -168,7 +168,7 @@ class CosplayController < ShikimoriController
 #
 #       image_file_name = image.id.to_s + File.extname(url)
 #       dir = Rails.root.to_s + '/public/images/' + image.class.name.downcase + '/original/'
-#       if File.exists?(dir+image_file_name)
+#       if File.exist?(dir+image_file_name)
 #         File.delete(dir+image_file_name)
 #         print "deleted image %s\n" % [dir+image_file_name]
 #       end

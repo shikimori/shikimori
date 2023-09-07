@@ -1,5 +1,4 @@
 // TODO: refactor to normal classes
-// cleanup decaffeinate artefacts
 import inNewTab from '@/utils/in_new_tab';
 import urlParse from 'url-parse';
 import TinyUri from 'tiny-uri';
@@ -23,7 +22,7 @@ const DEFAULT_DATA = {
   licensor: []
 };
 
-const GET_FILTERS = ['licensor'];
+const GET_FILTERS = ['duration', 'rating', 'score', 'options', 'mylist', 'order-by', 'licensor'];
 
 export default function(basePath, currentUrl, changeCallback) {
   const $root = $('.b-collection-filters');
@@ -41,12 +40,12 @@ export default function(basePath, currentUrl, changeCallback) {
   };
 
   // удаление ! из начала и мусора из конца параметра
-  const remove_bang = value => value.replace(/^!/, '').replace(/\?.*/, '');
+  const removeBang = value => value.replace(/^!/, '').replace(/\?.*/, '');
 
   // добавляет нужный параметр в меню с навигацией
-  const add_option = function(field, value) {
+  const addOption = function(field, rawValue) {
     // добавляем всегда без !
-    value = remove_bang(value);
+    let value = removeBang(rawValue);
     let text = value.replace(/^\d+-/, '');
     let targetYear = null;
 
@@ -132,7 +131,7 @@ export default function(basePath, currentUrl, changeCallback) {
             toExclude ? `!${liInfo.value}` : liInfo.value
           );
         }
-    });
+      });
 
     changeCallback(filters.compile());
     filters.parse(filters.compile());
@@ -154,6 +153,7 @@ export default function(basePath, currentUrl, changeCallback) {
     );
     filters.params[liInfo.field][valueKey] =
       (toExclude ? `!${liInfo.value}` : liInfo.value);
+
     changeCallback(filters.compile());
     return false;
   });
@@ -164,7 +164,7 @@ export default function(basePath, currentUrl, changeCallback) {
     // установка значения параметра
     set(field, value) {
       const self = this;
-      this.params[field].forEach(value => self.remove(field, value));
+      this.params[field].forEach(value2 => self.remove(field, value2));
 
       return this.add(field, value);
     },
@@ -177,19 +177,19 @@ export default function(basePath, currentUrl, changeCallback) {
         this.params[field].push(value);
       }
 
-      let $li = $(`li[data-field='${field}'][data-value='${remove_bang(value)}']`, $root);
+      let $li = $(`li[data-field='${field}'][data-value='${removeBang(value)}']`, $root);
 
       // если такого элемента нет, то создаем его
-      if (!$li.length) { $li = add_option(field, value); }
+      if (!$li.length) { $li = addOption(field, value); }
 
       // если элемент есть, но скрыт, то показываем его
-      if ($li.css('display') === 'none') { $li.css({display: 'block'}); }
+      if ($li.css('display') === 'none') { $li.css({ display: 'block' }); }
       $li.addClass('selected');
 
       // если элемент с чекбоксом, то ставим галочку на чекбокс
       const $input = $li.children('input');
       if ($input.length) {
-        $input.prop({checked: true});
+        $input.prop({ checked: true });
 
         // добавляем или показываем плюсик
         const $filter = $li.children('.filter');
@@ -209,9 +209,9 @@ export default function(basePath, currentUrl, changeCallback) {
     },
 
     // отмена выбора элемента
-    remove(field, value) {
+    remove(field, rawValue) {
       // т.к. сюда значение приходит как с !, так и без, то удалять надо оба варианта
-      value = remove_bang(value);
+      const value = removeBang(rawValue);
       this.params[field] = this.params[field].subtract([value, `!${value}`]);
 
       try { // because there can bad order, and it will break jQuery selector
@@ -219,51 +219,50 @@ export default function(basePath, currentUrl, changeCallback) {
         $li.removeClass('selected');
 
         // снятие галочки с чекбокса
-        $li.children('input').prop({checked: false});
+        $li.children('input').prop({ checked: false });
 
         // скрытие плюсика/минусика
         return $li.children('.filter').hide();
-      } catch (error) {}
+      } catch (error) {} // eslint-disable-line no-empty
     },
 
     // формирование строки урла по выбранным элементам
     compile(page) {
-      let path_filters = '';
-      const location_filters = urlParse(window.location.href, true).query;
+      let pathFilters = '';
+      const locationFilters = urlParse(window.location.href, true).query;
 
       Object.forEach(this.params, function(values, field) {
+        delete locationFilters[field];
+
+        if ((field === 'order-by') && (values[0] === DEFAULT_ORDER) &&
+            !location.href.match(/\/list\/(anime|manga)/)) {
+          return;
+        }
+
         if (GET_FILTERS.includes(field)) {
           if ((values != null ? values.length : undefined)) {
-            return location_filters[field] = values.join(',');
-          } else {
-            return delete location_filters[field];
+            locationFilters[field] = values.join(',');
           }
-
         } else if (values != null ? values.length : undefined) {
-          if ((field === 'order-by') && (values[0] === DEFAULT_ORDER) &&
-              !location.href.match(/\/list\/(anime|manga)/)) {
-            return;
-          }
-
-          return path_filters += `/${field}/${values.join(',')}`;
+          pathFilters += `/${field}/${values.join(',')}`;
         }
       });
 
       if (page && (page !== 1)) {
-        path_filters += `/page/${page}`;
+        pathFilters += `/page/${page}`;
       }
 
-      return this.last_compiled = new TinyUri(basePath + path_filters)
-        .query.set(location_filters)
+      return this.lastCompiled = new TinyUri(basePath + pathFilters)
+        .query.set(locationFilters)
         .toString();
     },
 
-    last_compiled: null,
+    lastCompiled: null,
 
     // парсинг строки урла и выбор
     parse(url) {
       $('.anime-params .selected', $root).toggleClass('selected');
-      $('.anime-params input[type=checkbox]:checked', $root).prop({checked: false});
+      $('.anime-params input[type=checkbox]:checked', $root).prop({ checked: false });
       $('.anime-params .filter', $root).hide();
 
       this.params = JSON.parse(JSON.stringify(DEFAULT_DATA));
@@ -272,13 +271,13 @@ export default function(basePath, currentUrl, changeCallback) {
         .replace(`:${location.port}`, '')
         .replace(basePath, '')
         .replace(/\?.*/, '')
-        .match(/[\w\-]+\/[^\/]+/g);
+        .match(/[\w-]+\/[^/]+/g);
 
       const uriQuery = urlParse(window.location.href, true).query;
-
-      if (uriQuery.licensor) {
-        parts = (parts || []).concat([`licensor/${uriQuery.licensor}`]);
-      }
+      Object.forEach(uriQuery, function(values, field) {
+        if (!GET_FILTERS.includes(field)) { return; }
+        parts = (parts || []).concat([`${field}/${values}`]);
+      });
 
       (parts || []).forEach(match => {
         const field = match.split('/')[0];
@@ -295,7 +294,7 @@ export default function(basePath, currentUrl, changeCallback) {
                 return this.add('order-by', DEFAULT_ORDER);
               }
             }
-        });
+          });
       });
 
       if (Object.isEmpty(this.params['order-by'])) {

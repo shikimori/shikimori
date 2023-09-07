@@ -55,11 +55,11 @@ module AntispamConcern
 
   def antispam_checks
     self.class.antispam_options.each do |options|
-      antispam_check options
+      antispam_check(**options)
     end
   end
 
-  def antispam_check(
+  def antispam_check( # rubocop:disable Metrics/ParameterLists
     user_id_key:,
     interval: nil,
     per_day: nil,

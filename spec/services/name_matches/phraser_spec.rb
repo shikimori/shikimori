@@ -1,5 +1,5 @@
 describe NameMatches::Phraser do
-  let(:service) { NameMatches::Phraser.instance }
+  let(:service) { described_class.instance }
 
   describe '#variate' do
     it { expect(service.variate 'madouka magica').to eq ['madokamagika'] }
@@ -10,19 +10,21 @@ describe NameMatches::Phraser do
     it { expect(service.variate 'Naruto Shippuden').to eq ['narutosippuden'] }
 
     context 'without splits' do
-      let(:options) {{ do_splits: false }}
-      it { expect(service.variate 'zz [ТВ]', options).to eq ['zztv'] }
-      it { expect(service.variate 'zz (2000)', options).to eq ['zz2000'] }
-      it { expect(service.variate 'zz!', options).to eq ['zz!'] }
-      it { expect(service.variate 'zz, with comma', options).to eq ['zzwithcomma'] }
+      let(:options) { { do_splits: false } }
+
+      it { expect(service.variate 'zz [ТВ]', **options).to eq ['zztv'] }
+      it { expect(service.variate 'zz (2000)', **options).to eq ['zz2000'] }
+      it { expect(service.variate 'zz!', **options).to eq ['zz!'] }
+      it { expect(service.variate 'zz, with comma', **options).to eq ['zzwithcomma'] }
     end
 
     context 'with splits' do
-      let(:options) {{ do_splits: true }}
-      it { expect(service.variate 'zz [ТВ]', options).to eq ['zztv', 'zz'] }
-      it { expect(service.variate 'zz (2000)', options).to eq ['zz2000', 'zz'] }
-      it { expect(service.variate 'zz!', options).to eq ['zz!', 'zz'] }
-      it { expect(service.variate 'zz, with comma', options).to eq ['zzwithcomma', 'withcomma'] }
+      let(:options) { { do_splits: true } }
+
+      it { expect(service.variate 'zz [ТВ]', **options).to eq ['zztv', 'zz'] }
+      it { expect(service.variate 'zz (2000)', **options).to eq ['zz2000', 'zz'] }
+      it { expect(service.variate 'zz!', **options).to eq ['zz!', 'zz'] }
+      it { expect(service.variate 'zz, with comma', **options).to eq ['zzwithcomma', 'withcomma'] }
     end
 
     describe 'user bracket_alternatives' do
@@ -41,8 +43,10 @@ describe NameMatches::Phraser do
   # end
 
   describe '#bracket_alternatives' do
-    it { expect(service.bracket_alternatives ['Kigeki [Sweat Punch Series 3]'])
-      .to eq ['kigeki', 'sweat punch series 3'] }
+    it do
+      expect(service.bracket_alternatives ['Kigeki [Sweat Punch Series 3]'])
+      .to eq ['kigeki', 'sweat punch series 3']
+    end
   end
 
   describe '#words_combinations' do
@@ -57,9 +61,13 @@ describe NameMatches::Phraser do
   end
 
   describe '#multiply' do
-    it { expect(service.multiply ['zzz 2nd season'], /2nd season/, 's2')
-      .to eq ['zzz 2nd season', 'zzz s2'] }
-    it { expect(service.multiply ['mahou shoujo madoka magica'], 'magica', 'magika')
-      .to eq ['mahou shoujo madoka magica', 'mahou shoujo madoka magika'] }
+    it do
+      expect(service.multiply ['zzz 2nd season'], /2nd season/, 's2')
+      .to eq ['zzz 2nd season', 'zzz s2']
+    end
+    it do
+      expect(service.multiply ['mahou shoujo madoka magica'], 'magica', 'magika')
+      .to eq ['mahou shoujo madoka magica', 'mahou shoujo madoka magika']
+    end
   end
 end

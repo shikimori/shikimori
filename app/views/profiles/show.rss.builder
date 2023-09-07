@@ -1,13 +1,13 @@
-history_groups, _ = UserHistoryQuery.new(@resource).postload(1, 30)
+history_groups, = UserHistoryQuery.new(@resource).postload(1, 30)
 
-xml.instruct! :xml, version: "1.0"
-xml.rss version: "2.0" do
+xml.instruct! :xml, version: '1.0'
+xml.rss version: '2.0' do
   xml.channel do
     xml.title "#{@resource.nickname} / Шикимори"
     xml.description "Изменения списка #{@resource.nickname}"
     xml.link profile_url(@resource)
 
-    history_groups.each do |date, history_group|
+    history_groups.each do |_date, history_group|
       history_group.each do |history|
         xml.item do
           xml.title history.target ? history.target.name : history.action.capitalize
@@ -21,7 +21,7 @@ xml.rss version: "2.0" do
             xml.description history.format
           end
 
-          xml.pubDate Time.at(history.created_at.to_i).to_s(:rfc822)
+          xml.pubDate Time.zone.at(history.created_at.to_i).to_fs(:rfc822)
         end
       end
     end

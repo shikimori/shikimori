@@ -10,11 +10,11 @@ describe Anidb::Authorization do
 
     it do
       is_expected.to eq(
-        'adbuin=1619024303-Arfb; '\
-        'adbsess=nCOVLMqnGUAfKtji; '\
-        'adbsessuser=naruto1452; '\
-        'adbss=911926-nCOVLMqn; '\
-        'anidbsettings=%7B%22USEAJAX%22%3A1%7D;'
+        'adbuin=1619024303-Arfb; ' \
+          'adbsess=nCOVLMqnGUAfKtji; ' \
+          'adbsessuser=naruto1452; ' \
+          'adbss=911926-nCOVLMqn; ' \
+          'anidbsettings=%7B%22USEAJAX%22%3A1%7D;'
       )
     end
 
@@ -29,7 +29,7 @@ describe Anidb::Authorization do
       it do
         expect(Rails.cache)
           .to have_received(:write)
-          .with Anidb::Authorization::CACHE_KEY, cookies, {}
+          .with Anidb::Authorization::CACHE_KEY, cookies, anything
       end
     end
   end

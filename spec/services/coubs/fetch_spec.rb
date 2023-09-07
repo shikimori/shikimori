@@ -47,7 +47,7 @@ describe Coubs::Fetch do
       title: 'b',
       recoubed_permalink: nil,
       author: { permalink: 'n', name: 'm', avatar_template: 'a' },
-      created_at: Time.zone.now.to_s
+      created_at: Time.zone.now
     )
   end
 

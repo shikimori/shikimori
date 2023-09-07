@@ -30,7 +30,7 @@ private
     return if released_in_past_or_today? || all_episodes_aired?
 
     @anime.status = :ongoing
-    @anime.released_on = nil if released_in_past_or_today?
+    @anime.released_on = IncompleteDate.new if released_in_past_or_today?
   end
 
   def aired_not_in_future?

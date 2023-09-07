@@ -18,7 +18,8 @@ describe Versioneers::ScreenshotsVersioneer do
         expect(screenshot).to be_persisted
         expect(screenshot).to_not be_changed
         expect(screenshot.status).to eq Screenshot::UPLOADED
-        expect(anime.screenshots).to eq [screenshot]
+
+        expect(anime.all_screenshots).to eq [screenshot]
 
         expect(version).to be_persisted
         expect(version).to_not be_changed
@@ -28,7 +29,7 @@ describe Versioneers::ScreenshotsVersioneer do
             'action' => described_class::UPLOAD.to_s,
             described_class::KEY => [screenshot.id]
           },
-          user: user
+          user:
         )
       end
     end
@@ -37,7 +38,7 @@ describe Versioneers::ScreenshotsVersioneer do
       let!(:present_version) do
         create :screenshots_version, {
           **version_params,
-          created_at: created_at
+          created_at:
         }
       end
       let(:created_at) { described_class::APPEND_TIMEOUT.ago + 1.minute }
@@ -50,7 +51,7 @@ describe Versioneers::ScreenshotsVersioneer do
               'action' => described_class::UPLOAD.to_s,
               described_class::KEY => [123456]
             },
-            user: user
+            user:
           }
         end
 
@@ -58,7 +59,8 @@ describe Versioneers::ScreenshotsVersioneer do
           expect(screenshot).to be_persisted
           expect(screenshot).to_not be_changed
           expect(screenshot.status).to eq Screenshot::UPLOADED
-          expect(anime.screenshots).to eq [screenshot]
+
+          expect(anime.all_screenshots).to eq [screenshot]
 
           expect(version).to be_persisted
           expect(version).to_not be_changed
@@ -117,7 +119,7 @@ describe Versioneers::ScreenshotsVersioneer do
               'action' => described_class::UPLOAD.to_s,
               described_class::KEY => [123456]
             },
-            user: user
+            user:
           }
         end
 
@@ -133,7 +135,7 @@ describe Versioneers::ScreenshotsVersioneer do
               'action' => described_class::UPLOAD.to_s,
               Versioneers::VideosVersioneer::KEY => [123456]
             },
-            user: user
+            user:
           }
         end
 
@@ -148,7 +150,7 @@ describe Versioneers::ScreenshotsVersioneer do
               'action' => described_class::REPOSITION,
               described_class::KEY => [screenshot.id]
             },
-            user: user
+            user:
           }
         end
 
@@ -163,7 +165,7 @@ describe Versioneers::ScreenshotsVersioneer do
               'action' => described_class::UPLOAD.to_s,
               described_class::KEY => [123456]
             },
-            user: user,
+            user:,
             state: 'accepted'
           }
         end
@@ -174,7 +176,7 @@ describe Versioneers::ScreenshotsVersioneer do
   end
 
   describe '#delete' do
-    let!(:present_version) {}
+    let!(:present_version) { nil }
     let(:screenshot) { build_stubbed :screenshot }
 
     subject!(:version) { versioneer.delete screenshot.id, user }
@@ -188,7 +190,7 @@ describe Versioneers::ScreenshotsVersioneer do
             'action' => described_class::DELETE.to_s,
             described_class::KEY => [screenshot.id]
           },
-          user: user
+          user:
         )
       end
     end
@@ -204,7 +206,7 @@ describe Versioneers::ScreenshotsVersioneer do
               'action' => described_class::DELETE.to_s,
               described_class::KEY => [123456]
             },
-            user: user
+            user:
           }
         end
 
@@ -242,7 +244,7 @@ describe Versioneers::ScreenshotsVersioneer do
               'action' => described_class::DELETE.to_s,
               described_class::KEY => [123456]
             },
-            user: user
+            user:
           }
         end
 
@@ -258,7 +260,7 @@ describe Versioneers::ScreenshotsVersioneer do
               'action' => described_class::DELETE.to_s,
               Versioneers::VideosVersioneer::KEY => [123456]
             },
-            user: user
+            user:
           }
         end
 
@@ -273,7 +275,7 @@ describe Versioneers::ScreenshotsVersioneer do
               'action' => described_class::REPOSITION.to_s,
               described_class::KEY => [screenshot.id]
             },
-            user: user
+            user:
           }
         end
 
@@ -288,7 +290,7 @@ describe Versioneers::ScreenshotsVersioneer do
               'action' => described_class::UPLOAD.to_s,
               described_class::KEY => [123456]
             },
-            user: user,
+            user:,
             state: 'accepted'
           }
         end
@@ -299,8 +301,8 @@ describe Versioneers::ScreenshotsVersioneer do
   end
 
   describe '#reposition' do
-    let(:screenshot_1) { create :screenshot, anime: anime, position: 0, url: rand }
-    let(:screenshot_2) { create :screenshot, anime: anime, position: 1, url: rand }
+    let(:screenshot_1) { create :screenshot, anime:, position: 0, url: rand }
+    let(:screenshot_2) { create :screenshot, anime:, position: 1, url: rand }
 
     subject!(:version) { versioneer.reposition [screenshot_2.id.to_s, screenshot_1.id.to_s], user }
 
@@ -315,7 +317,7 @@ describe Versioneers::ScreenshotsVersioneer do
             [screenshot_2.id, screenshot_1.id]
           ]
         },
-        user: user
+        user:
       )
     end
   end

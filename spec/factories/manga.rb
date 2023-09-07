@@ -23,7 +23,7 @@ FactoryBot.define do
     options { [] }
     aired_on { {} }
     aired_on_computed { nil }
-    released_on { {} }
+    released_on { IncompleteDate.new }
     released_on_computed { nil }
     more_info { nil }
 

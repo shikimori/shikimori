@@ -90,7 +90,9 @@ module Shikimori
     end
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.0
+    config.active_support.cache_format_version = 7.0
+
     # This option is not backwards compatible with earlier Rails versions.
     # It's best enabled when your entire app is migrated and stable on 6.0.
     # NOTE: enabling it logouts all users from their accounts

@@ -3,19 +3,13 @@ describe EpisodeNotification::TrackEpisode do
   subject(:call) { described_class.call episode_notification }
 
   let!(:episode_notification) do
-    create :episode_notification,
-      anime: anime,
-      episode: episode
+    create :episode_notification, anime:, episode:
   end
   let(:anime) do
-    create :anime,
-      episodes_aired: 2,
-      episodes: 4,
-      status: status,
-      released_on: released_on
+    create :anime, episodes_aired: 2, episodes: 4, status:, released_on:
   end
   let(:status) { :ongoing }
-  let(:released_on) { nil }
+  let(:released_on) { IncompleteDate.new }
 
   context 'episode > anime.episodes' do
     let(:episode) { anime.episodes + 1 }
