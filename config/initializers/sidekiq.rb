@@ -2,9 +2,6 @@
 require 'sidekiq/middleware/i18n'
 require 'sidekiq/web'
 
-# Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
-# Sidekiq::Web.set :sessions, Rails.application.config.session_options
-
 # The Delayed Extensions delay, delay_in and delay_until APIs are no longer
 # available by default. The extensions allow you to marshal job
 # arguments as YAML, leading to cases where job payloads could be many 100s
@@ -13,6 +10,40 @@ require 'sidekiq/web'
 # Sidekiq is designed for jobs with small, simple arguments.
 # Add this line to your initializer to re-enable them and get the old behavior:
 Sidekiq::DelayExtensions.enable_delay!
+
+module Sidekiq::DelayExtensions::Ruby3UnsafeYamlFix
+  module DelayedClass
+    def perform(yml)
+      (target, method_name, args) = YAML.unsafe_load(yml)
+      target.__send__(method_name, *args)
+    end
+  end
+
+  module DelayedModel
+    def perform(yml)
+      (target, method_name, args) = YAML.unsafe_load(yml)
+      target.__send__(method_name, *args)
+    end
+  end
+
+  module DelayedMailer
+    def perform(yml)
+      (target, method_name, args) = YAML.unsafe_load(yml)
+      msg = target.public_send(method_name, *args)
+      # The email method can return nil, which causes ActionMailer to return
+      # an undeliverable empty message.
+      if msg
+        msg.deliver_now
+      else
+        raise "#{target.name}##{method_name} returned an undeliverable mail object"
+      end
+    end
+  end
+end
+
+Sidekiq::DelayExtensions::DelayedClass.send :prepend, Sidekiq::DelayExtensions::Ruby3UnsafeYamlFix::DelayedClass
+Sidekiq::DelayExtensions::DelayedModel.send :prepend, Sidekiq::DelayExtensions::Ruby3UnsafeYamlFix::DelayedModel
+Sidekiq::DelayExtensions::DelayedMailer.send :prepend, Sidekiq::DelayExtensions::Ruby3UnsafeYamlFix::DelayedMailer
 
 Sidekiq::Extensions::DelayedClass = Sidekiq::DelayExtensions::DelayedClass
 Sidekiq::Extensions::DelayedModel = Sidekiq::DelayExtensions::DelayedModel

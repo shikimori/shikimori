@@ -171,15 +171,8 @@ module Shikimori
       end
     end
 
-    # Enable the asset pipeline
-    # RAILS 6.0 UPGRADE
-    # config.assets.enabled = true
-
-    # RAILS 6.0 UPGRADE
-    # ActiveRecord::Base.include_root_in_json = false
-
-    # RAILS 6.0 UPGRADE
-    # config.active_record.cache_versioning = true
+    # fixes numerous errors on production
+    config.active_record.yaml_column_permitted_classes = [Time]
 
     config.redis_host = 'localhost'
     config.redis_db = 2

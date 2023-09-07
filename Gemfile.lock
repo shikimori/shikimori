@@ -112,14 +112,6 @@ GIT
   specs:
     ruby-esvidi (0.5.3)
 
-GIT
-  remote: https://github.com/sobrinho/sidekiq-delay_extensions.git
-  revision: 6cb1be414f4113727609f8846c1f528903c5a695
-  branch: patch-2
-  specs:
-    sidekiq-delay_extensions (6.4.1)
-      sidekiq (>= 6.4.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -755,6 +747,8 @@ GEM
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.5.0)
+    sidekiq-delay_extensions (6.4.1)
+      sidekiq (>= 6.4.1)
     sidekiq-limit_fetch (4.3.2)
       redis (>= 4.6.0)
       sidekiq (>= 4)
@@ -975,7 +969,7 @@ DEPENDENCIES
   shoulda-matchers
   shrine
   sidekiq (~> 6.5.5)
-  sidekiq-delay_extensions!
+  sidekiq-delay_extensions
   sidekiq-limit_fetch
   sidekiq-unique-jobs
   simple_form

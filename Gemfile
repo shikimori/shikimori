@@ -46,7 +46,7 @@ gem 'sidekiq', '~> 6.5.5' # sidekiq 7 and redis 5 do not work properly https://s
 gem 'sidekiq-limit_fetch'
 # gem 'sidekiq-limit_fetch', github: 'brainopia/sidekiq-limit_fetch', branch: 'master' # <- for sidekiq 6
 gem 'sidekiq-unique-jobs'
-gem 'sidekiq-delay_extensions', github: 'sobrinho/sidekiq-delay_extensions', branch: 'patch-2' # fixes rails 3 Yaml.safe_load https://github.com/gemhome/sidekiq-delay_extensions/pull/11
+gem 'sidekiq-delay_extensions'
 
 # auth
 gem 'devise'
