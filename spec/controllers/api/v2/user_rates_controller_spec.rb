@@ -9,16 +9,16 @@ describe Api::V2::UserRatesController, :show_in_doc do
   end
 
   describe '#show' do
-    let(:user_rate) { create :user_rate, user: user }
+    let(:user_rate) { create :user_rate, user: }
     before { get :show, params: { id: user_rate.id }, format: :json }
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#index' do
-    let!(:user_rate_1) { create :user_rate, :completed, user: user }
-    let!(:user_rate_2) { create :user_rate, :planned, user: user }
-    let!(:user_rate_3) { create :user_rate, :watching, user: user }
+    let!(:user_rate_1) { create :user_rate, :completed, user: }
+    let!(:user_rate_2) { create :user_rate, :planned, user: }
+    let!(:user_rate_3) { create :user_rate, :watching, user: }
     before do
       get :index,
         params: {
@@ -78,7 +78,7 @@ describe Api::V2::UserRatesController, :show_in_doc do
     end
 
     context 'present user_rate' do
-      let!(:user_rate) { create :user_rate, user: user, target: target }
+      let!(:user_rate) { create :user_rate, user:, target: }
       before { make_request }
 
       it do
@@ -104,7 +104,7 @@ describe Api::V2::UserRatesController, :show_in_doc do
   end
 
   describe '#update' do
-    let(:user_rate) { create :user_rate, user: user }
+    let(:user_rate) { create :user_rate, user: }
     let(:update_params) do
       {
         score: 10,
@@ -139,7 +139,7 @@ describe Api::V2::UserRatesController, :show_in_doc do
   end
 
   describe '#increment' do
-    let(:user_rate) { create :user_rate, user: user, episodes: 1 }
+    let(:user_rate) { create :user_rate, user:, episodes: 1 }
     before { post :increment, params: { id: user_rate.id }, format: :json }
 
     it do
@@ -163,7 +163,7 @@ describe Api::V2::UserRatesController, :show_in_doc do
   end
 
   describe '#destroy' do
-    let(:user_rate) { create :user_rate, %i[planned completed].sample, user: user }
+    let(:user_rate) { create :user_rate, %i[planned completed].sample, user: }
     before { delete :destroy, params: { id: user_rate.id }, format: :json }
 
     it do
