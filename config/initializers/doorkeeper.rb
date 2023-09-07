@@ -69,6 +69,9 @@ Doorkeeper.configure do
   #
   access_token_expires_in 1.day
 
+  # [IMPORTANT] you need to create a new OAuth client (Doorkeeper::Application) if you didn't have it before and use client credentials in HTTP Basic auth if you previously used this grant flow without client authentication. For migration purposes you could enable skip_client_authentication_for_password_grant configuration option to true, but such behavior (as well as configuration option) would be completely removed in a future version of Doorkeeper. All the users of your provider application now need to include client credentials when they use this grant flow.
+  skip_client_authentication_for_password_grant true
+
   # Assign custom TTL for access tokens. Will be used instead of access_token_expires_in
   # option if defined. In case the block returns `nil` value Doorkeeper fallbacks to
   # +access_token_expires_in+ configuration option value. If you really need to issue a
