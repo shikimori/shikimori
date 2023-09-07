@@ -58,7 +58,7 @@ describe AnimesController do
   end
 
   describe '#screenshots' do
-    let!(:screenshot) { create :screenshot, anime: anime }
+    let!(:screenshot) { create :screenshot, anime: }
 
     context 'authenticated' do
       include_context :authenticated, :user
@@ -73,7 +73,7 @@ describe AnimesController do
   end
 
   describe '#videos' do
-    let!(:video) { create :video, :confirmed, anime: anime }
+    let!(:video) { create :video, :confirmed, anime: }
 
     context 'authenticated' do
       include_context :authenticated, :user
@@ -133,7 +133,7 @@ describe AnimesController do
 
   describe '#cosplay' do
     let(:cosplay_gallery) { create :cosplay_gallery }
-    let!(:cosplay_link) { create :cosplay_gallery_link, cosplay_gallery: cosplay_gallery, linked: anime }
+    let!(:cosplay_link) { create :cosplay_gallery_link, cosplay_gallery:, linked: anime }
     subject! { get :cosplay, params: { id: anime.to_param } }
     it { expect(response).to have_http_status :success }
   end
@@ -146,7 +146,7 @@ describe AnimesController do
 
   describe '#clubs' do
     let(:club) { create :club, :with_topics, :with_member }
-    let!(:club_link) { create :club_link, linked: anime, club: club }
+    let!(:club_link) { create :club_link, linked: anime, club: }
     subject! { get :clubs, params: { id: anime.to_param } }
     it { expect(response).to have_http_status :success }
   end
@@ -154,7 +154,7 @@ describe AnimesController do
   describe '#collections' do
     let!(:collection) { create :collection, :published, :with_topics, :anime }
     let!(:collection_link) do
-      create :collection_link, collection: collection, linked: anime
+      create :collection_link, collection:, linked: anime
     end
     subject! { get :collections, params: { id: anime.to_param } }
     it { expect(response).to have_http_status :success }

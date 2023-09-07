@@ -37,13 +37,13 @@ private
 
   def topic_attributes
     {
-      forum_id: forum_id,
+      forum_id:,
       generated: true,
       user: @user,
       type: topic_klass.name,
       is_censored: censored?,
-      created_at: created_at,
-      updated_at: updated_at
+      created_at:,
+      updated_at:
     }
   end
 
