@@ -66,6 +66,14 @@ namespace :deploy do
     end
   end
 
+  namespace :yarn do
+    task :install do
+      on roles(:web) do
+        bundle_exec 'yarn install', release_path
+      end
+    end
+  end
+
   namespace :i18n_js do
     task :export do
       on roles(:web) do
@@ -230,6 +238,7 @@ after 'deploy:reverted', 'sidekiq:stop'
 after 'deploy:published', 'sidekiq:start'
 
 # before 'deploy:assets:precompile', 'deploy:yarn:install'
+before 'deploy:assets:precompile', 'deploy:yarn:install'
 before 'deploy:assets:precompile', 'deploy:i18n_js:export'
 
 if fetch(:stage) == :production
