@@ -11,7 +11,7 @@ gem 'bootsnap', require: false
 # database & cache
 gem 'dalli'
 gem 'pg'
-gem 'redis'
+gem 'redis', '4.8.1'
 gem 'redis-mutex'
 gem 'msgpack'
 
