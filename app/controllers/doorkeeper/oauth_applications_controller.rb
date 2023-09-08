@@ -61,17 +61,17 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
     render :form
   end
 
+  def edit
+    og page_title: @resource.name
+    render :form
+  end
+
   def create
     if @resource.save
       redirect_to edit_oauth_application_url(@resource)
     else
       render :form
     end
-  end
-
-  def edit
-    og page_title: @resource.name
-    render :form
   end
 
   def update

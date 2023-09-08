@@ -121,9 +121,9 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
     h.params[:no_admin].blank? && h.current_user&.admin?
   end
 
-  def cache_keys # rubocop:disable AbcSize
+  def cache_keys
     {
-      admin: [admin_area?, CACHE_VERSION],
+      # admin: [admin_area?, CACHE_VERSION],
       ongoings: [:ongoings, cache_variant, CACHE_VERSION],
       collections: [collections_scope.cache_key, CACHE_VERSION],
       articles: [articles_scope.cache_key, CACHE_VERSION],
@@ -131,8 +131,8 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
       contests: [contests_scope.cache_key, CACHE_VERSION],
       news: [news_scope.cache_key, page, CACHE_VERSION],
       db_updates: [db_updates_scope.cache_key, page, CACHE_VERSION],
-      version: [Time.zone.today, cache_variant, CACHE_VERSION],
-      migration: h.domain_migration_note
+      version: [Time.zone.today, cache_variant, CACHE_VERSION]
+      # migration: h.domain_migration_note
     }
   end
 
@@ -199,9 +199,6 @@ private
       .sort_by { |view| -view.topic.id }
 
     n_views + other_views
-  end
-
-  def build_view collection
   end
 
   def collections_scope

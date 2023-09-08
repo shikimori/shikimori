@@ -141,7 +141,7 @@ private
 
   # def ignored_users?
   #   return false unless h.user_signed_in?
-  # 
+  #
   #   # moderators must see posts of ignored users
   #   !h.current_user.admin? &&
   #     !h.current_user.super_moderator? &&
