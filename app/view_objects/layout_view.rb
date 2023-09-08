@@ -48,7 +48,8 @@ class LayoutView < ViewObjectBase
       url: user&.url,
       is_moderator: !!(user&.forum_moderator? || user&.admin?),
       ignored_topics: user&.topic_ignores&.pluck(:topic_id) || [],
-      ignored_users: ignored_users? ? user.ignores.pluck(:target_id) : [],
+      ignored_users: user&.ignores&.pluck(:target_id) || [],
+      # ignored_users: ignored_users? ? user.ignores.pluck(:target_id) : [],
       is_day_registered: !!user&.day_registered?,
       is_week_registered: !!user&.week_registered?,
       is_comments_auto_collapsed: !h.user_signed_in? ||
@@ -138,14 +139,14 @@ private
     h.controller.is_a? DbEntriesController
   end
 
-  def ignored_users?
-    return false unless h.user_signed_in?
-
-    # moderators must see posts of ignored users
-    !h.current_user.admin? &&
-      !h.current_user.super_moderator? &&
-      !h.current_user.forum_moderator?
-  end
+  # def ignored_users?
+  #   return false unless h.user_signed_in?
+  # 
+  #   # moderators must see posts of ignored users
+  #   !h.current_user.admin? &&
+  #     !h.current_user.super_moderator? &&
+  #     !h.current_user.forum_moderator?
+  # end
 
   def custom_style # rubocop:disable AbcSize
     user = h.controller.instance_variable_get(:@user)
