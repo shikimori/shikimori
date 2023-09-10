@@ -3,7 +3,7 @@ import inNewTab from '@/utils/in_new_tab';
 import urlParse from 'url-parse';
 import TinyUri from 'tiny-uri';
 
-const ORDER_FIELD = 'order'; // 'order-by'
+export const ORDER_FIELD = 'order'; // 'order-by'
 const DEFAULT_ORDER = 'ranked';
 const DEFAULT_DATA = {
   kind: [],

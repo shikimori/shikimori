@@ -1,14 +1,13 @@
 import delay from 'delay';
 import Turbolinks from 'turbolinks';
-import { flash } from 'shiki-utils';
+import { flash, isMobile } from 'shiki-utils';
 
 import { COMMON_TOOLTIP_OPTIONS } from '@/utils/tooltip_options';
-import { isMobile } from 'shiki-utils';
 import axios from '@/utils/axios';
 import { animatedCollapse, animatedExpand } from '@/utils/animated';
 
 import ShikiModal from '@/views/application/shiki_modal';
-import CatalogFilters from '@/views/animes/catalog_filters';
+import CatalogFilters, { ORDER_FIELD } from '@/views/animes/catalog_filters';
 
 // TODO: этот гигантский файл нуждается в рефакторинге
 let listCache = [];
@@ -63,7 +62,8 @@ pageLoad('user_rates_index', () => {
       $('.order-by-ranked').trigger('click');
     } else {
       const type = $node.data('order');
-      $(`.orders.anime-params li[data-field='order-by'][data-value='${type}']`).trigger('click');
+      $(`.orders.anime-params li[data-field='${ORDER_FIELD}'][data-value='${type}']`)
+        .trigger('click');
     }
   });
 
