@@ -2051,7 +2051,6 @@
       :filters: &92
         anime_ids:
         - 39792
-        - 27653
         - 601
         - 1978
         - 38594
@@ -2469,7 +2468,7 @@
     :topic_id: 276032
     :rule: &111
       :algo: count
-      :threshold: 13%
+      :threshold: 17%
       :filters: &112
         anime_ids:
         - 4094
