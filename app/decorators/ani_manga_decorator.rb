@@ -184,6 +184,10 @@ class AniMangaDecorator < DbEntryDecorator
       .sort_by { |link| Types::ExternalLink::Kind.values.index link.kind.to_sym }
   end
 
+  def more_info?
+    object.more_info.present? && !object.more_info.ends_with?('[MAL]')
+  end
+
 private
 
   def format_menu_topic topic_view, order
