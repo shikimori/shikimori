@@ -216,6 +216,9 @@ Rails.application.routes.draw do
         post :reject
       end
     end
+    resources :mal_more_info, only: [] do
+      get '(/page/:page)' => :index, as: '', on: :collection
+    end
     resources :changelogs, only: %i[index show]
 
     resource :authors, only: %i[show edit update]

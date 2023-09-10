@@ -11,7 +11,6 @@ header.head
         li
           a.b-link[
             href=moderations_versions_url
-            title=t('moderations/versions_controller.content_changes.all_content')
           ]
             = t 'moderations/versions_controller.content_changes.all_content'
             - if moderation_policy.all_content_versions_count.positive?
@@ -21,7 +20,6 @@ header.head
           li.offset
             a.b-link[
               href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Type[type])
-              title=t("moderations/versions_controller.content_changes.#{type}")
             ]
               = t "moderations/versions_controller.content_changes.#{type}"
               - if moderation_policy.send(:"#{type}_versions_count").positive?
@@ -29,7 +27,6 @@ header.head
         li
           a.b-link[
             href=moderations_bans_url
-            title=t('moderations/bans_controller.page_title.index')
           ]
             = t 'moderations/bans_controller.page_title.index'
             - if moderation_policy.abuse_requests_bannable_count.positive?
@@ -37,7 +34,6 @@ header.head
         li
           a.b-link[
             href=moderations_abuse_requests_url
-            title=t('moderations/abuse_requests_controller.page_title.index')
           ]
             = t 'moderations/abuse_requests_controller.page_title.index'
             - if moderation_policy.abuse_requests_not_bannable_count.positive?
@@ -46,7 +42,6 @@ header.head
         li
           a.b-link[
             href=moderations_critiques_url
-            title=t('.critiques_journal')
           ]
             = t '.critiques_journal'
             - if moderation_policy.critiques_count.positive?
@@ -55,7 +50,6 @@ header.head
         li
           a.b-link[
             href=moderations_collections_url
-            title=t('.collections_journal')
           ]
             = t '.collections_journal'
             - if moderation_policy.collections_count.positive?
@@ -64,7 +58,6 @@ header.head
         li
           a.b-link[
             href=moderations_news_index_url
-            title=t('.news_journal')
           ]
             = t '.news_journal'
             - if moderation_policy.news_count.positive?
@@ -73,18 +66,24 @@ header.head
         li
           a.b-link[
             href=moderations_articles_url
-            title=t('.articles_journal')
           ]
             = t '.articles_journal'
             - if moderation_policy.articles_count.positive?
               span.size = moderation_policy.articles_count
+
+        li
+          a.b-link[
+            href=moderations_mal_more_info_index_url
+          ]
+            | #{Anime.human_attribute_name :more_info} MAL
+            - if moderation_policy.more_info_mal_count.positive?
+              span.size = moderation_policy.more_info_mal_count
 
       - if can? :access_changelog, ApplicationRecord
         ul.b-list.is-wide.block
           li
             a.b-link[
               href=moderations_changelogs_url
-              title='Changelog'
             ] Changelog
 
     .f-column
@@ -94,32 +93,26 @@ header.head
         li
           a.b-link[
             href=translations_name_anime_url
-            title=t('.missing_anime_names')
           ] = t '.missing_anime_names'
         li
           a.b-link[
             href=translations_description_anime_url
-            title=t('.missing_anime_descriptions')
           ] = t '.missing_anime_descriptions'
         li
           a.b-link[
             href=translations_name_manga_url
-            title=t('.missing_manga_names')
           ] = t '.missing_manga_names'
         li
           a.b-link[
             href=translations_description_manga_url
-            title=t('.missing_manga_descriptions')
           ] = t '.missing_manga_descriptions'
         li
           a.b-link[
             href=missing_screenshots_moderations_url
-            title=t('.missing_screenshots')
           ] = t '.missing_screenshots'
         li
           a.b-link[
             href=moderations_authors_url
-            title=t('.fansub_authors')
           ] = t '.fansub_authors'
 
         ul.b-list.is-wide.block
@@ -127,7 +120,6 @@ header.head
             - if can? :read, Genre
               a.b-link[
                 href=moderations_genres_url
-                title=i18n_io('Genre', :few)
               ] = i18n_io 'Genre', :few
             - else
               span = i18n_io 'Genre', :few
@@ -136,7 +128,6 @@ header.head
             - if can? :read, Genre
               a.b-link[
                 href=moderations_genre_v2s_path
-                title=i18n_io('Genre', :few)
               ] #{i18n_io 'Genre', :few} V2
             - else
               span #{i18n_io 'Genre', :few} V2
@@ -145,7 +136,6 @@ header.head
             - if can? :read, Studio
               a.b-link[
                 href=moderations_studios_url
-                title=i18n_io('Studio', :few)
               ] = i18n_io 'Studio', :few
             - else
               span = i18n_io 'Studio', :few
@@ -154,7 +144,6 @@ header.head
             - if can? :read, Publisher
               a.b-link[
                 href=moderations_publishers_url
-                title=i18n_io('Publisher', :few)
               ] = i18n_io 'Publisher', :few
             - else
               span = i18n_io 'Publisher', :few
@@ -163,7 +152,6 @@ header.head
               - if can? :manage, Forum
                 a.b-link[
                   href=moderations_forums_url
-                  title=t('.forums')
                 ] = t '.forums'
               - else
                 span = t '.forums'
@@ -175,19 +163,16 @@ header.head
           li
             a.b-link[
               href=moderations_users_url
-              title=t('moderations/users_controller.page_title')
             ] = t 'moderations/users_controller.page_title'
 
           li
             a.b-link[
               href=moderations_roles_url
-              title=t('moderations/roles_controller.page_title')
             ] = t 'moderations/roles_controller.page_title'
 
           li
             a.b-link[
               href=moderations_user_rate_logs_url
-              title=t('moderations/user_rate_logs_controller.page_title.index')
             ] = t 'moderations/user_rate_logs_controller.page_title.index'
 
       - if @clubs.any?
