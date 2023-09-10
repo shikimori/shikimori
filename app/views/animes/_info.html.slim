@@ -126,4 +126,8 @@
         - if entry.more_info?
           .line-container
             .key #{entry.class.human_attribute_name :more_info}:&nbsp;
-            = @resource.more_info
+            span.more-info.to-process[
+              data-dynamic='clickloaded'
+              data-clickloaded-url=entry.more_info_url
+            ]
+              span ···

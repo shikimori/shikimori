@@ -23,7 +23,11 @@ pageLoad('animes_show', 'mangas_show', 'ranobe_show', async () => {
   ));
 
   $('.other-names').on('clickloaded:success', ({ currentTarget }, data) => {
-    $(currentTarget).closest('.line').replaceWith(data);
+    $(currentTarget).closest('.line, .line-container').replaceWith(data);
+  });
+
+  $('.more-info').on('clickloaded:success', ({ currentTarget }, data) => {
+    $(currentTarget).replaceWith(data);
   });
 
   $('.b-subposter-actions .new_comment').on('click', () => {

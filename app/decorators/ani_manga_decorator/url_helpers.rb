@@ -150,6 +150,10 @@ module AniMangaDecorator::UrlHelpers
     h.send "other_names_#{klass_lower}_url", object
   end
 
+  def more_info_url
+    h.send "more_info_#{klass_lower}_url", object
+  end
+
   def summaries_url
     h.send "summaries_#{klass_lower}_url", object
   end

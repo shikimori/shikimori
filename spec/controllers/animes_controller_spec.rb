@@ -175,6 +175,11 @@ describe AnimesController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#more_info' do
+    subject! { get :more_info, params: { id: anime.to_param } }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#episode_torrents' do
     let(:make_request) { get :episode_torrents, params: { id: anime.to_param } }
 

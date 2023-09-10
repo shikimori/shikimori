@@ -774,7 +774,8 @@ Rails.application.routes.draw do
 
         get 'summaries' => redirect { |_, request| request.path.gsub('summaries', 'reviews') }
 
-        get :other_names # другие названия
+        get :other_names # загрузка блока "другие названия"
+        get :more_info # загрузка блока "доп. информация"
         get :resources # подгружаемый центральный блок с персонажами, скриншотами, видео
 
         get :stats

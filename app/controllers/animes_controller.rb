@@ -195,6 +195,11 @@ class AnimesController < DbEntriesController
     render formats: :html
   end
 
+  def more_info
+    og noindex: true
+    render formats: :html
+  end
+
   def episode_torrents
     raise ActiveRecord::RecordNotFound unless @resource.episode_torrents?
 
