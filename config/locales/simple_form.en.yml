@@ -70,6 +70,9 @@ en:
         description_ru_source: *optional
         description_en_source: *optional
         episodes: It must be "0" for ongoings with an unknown total number of episodes
+        more_info: >-
+          Text imported from MAL is not displayed until the marker
+          <code class="b-code_inline">[MAL]</code> is removed from the text
       manga:
         <<: *anime_hints
         volumes: It must be "0" for ongoings with an unknown total number of volumes

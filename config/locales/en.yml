@@ -79,6 +79,7 @@ en:
         digital_released_on: Date of digital release
         russia_released_on: Date of release in Russia
         russia_released_on_hint: Date of release in Russia - on hover hint
+        more_info: More info
       manga: &manga_attributes
         <<: *anime_attributes
 

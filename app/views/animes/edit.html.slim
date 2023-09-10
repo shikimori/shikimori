@@ -98,6 +98,8 @@
               }[field],
               is_force_value: field == :poster
 
+          = render 'db_entries/edit_field_li', resource: @resource, field: :more_info
+
     ul.b-list.is-wide
       li
         .field = @resource.class.human_attribute_name(:is_censored)
