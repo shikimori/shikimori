@@ -24,6 +24,15 @@ header.head
               = t "moderations/versions_controller.content_changes.#{type}"
               - if moderation_policy.send(:"#{type}_versions_count").positive?
                 span.size = moderation_policy.send(:"#{type}_versions_count")
+
+        li
+          a.b-link[
+            href=moderations_mal_more_infos_url
+          ]
+            | MAL More Info
+            - if moderation_policy.mal_more_info_count.positive?
+              span.size = moderation_policy.mal_more_info_count
+
         li
           a.b-link[
             href=moderations_bans_url
@@ -70,14 +79,6 @@ header.head
             = t '.articles_journal'
             - if moderation_policy.articles_count.positive?
               span.size = moderation_policy.articles_count
-
-        li
-          a.b-link[
-            href=moderations_mal_more_info_index_url
-          ]
-            | #{Anime.human_attribute_name :more_info} MAL
-            - if moderation_policy.more_info_mal_count.positive?
-              span.size = moderation_policy.more_info_mal_count
 
       - if can? :access_changelog, ApplicationRecord
         ul.b-list.is-wide.block

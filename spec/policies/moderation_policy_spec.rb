@@ -339,21 +339,21 @@ describe ModerationPolicy do
     end
   end
 
-  describe '#more_info_mal_count' do
+  describe '#mal_more_info_count' do
     let!(:anime) { create :anime, more_info: '[MAL]' }
     let!(:manga) { create :manga, more_info: '[MAL]' }
     let(:user) { build :user, :version_moderator }
 
-    it { expect(policy.more_info_mal_count).to eq 2 }
+    it { expect(policy.mal_more_info_count).to eq 2 }
 
     context 'not moderator' do
       let(:user) { build :user, :user }
-      it { expect(policy.more_info_mal_count).to eq 0 }
+      it { expect(policy.mal_more_info_count).to eq 0 }
     end
 
     context 'no user' do
       let(:user) { nil }
-      it { expect(policy.more_info_mal_count).to eq 0 }
+      it { expect(policy.mal_more_info_count).to eq 0 }
     end
   end
 end

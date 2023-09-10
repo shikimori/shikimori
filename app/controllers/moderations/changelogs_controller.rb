@@ -20,15 +20,14 @@ class Moderations::ChangelogsController < ModerationsController
     @collection = `ls #{Rails.root.join 'log'} | grep changelog`
       .strip
       .split("\n")
-      .map do |v|
+      .filter_map do |v|
         id = v.gsub(/changelog_|\.log/, '')
         {
-          id: id,
+          id:,
           name: id.classify.constantize.model_name.human
         }
       rescue NameError
       end
-      .compact
       .sort_by { |changelog| changelog[:name] }
   end
 
@@ -70,8 +69,8 @@ class Moderations::ChangelogsController < ModerationsController
           .gsub(/"([a-z_]+)"=>/, '"\1":')
           .gsub(/"action"::(update|destroy)/, '"action":"\1"')
           .gsub(/(\w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2}\.\d{9} \w{3} \+\d{2}:\d{2})/, '"\1"')
-          .gsub(/\[nil, /, '[null, ')
-          .gsub(/, nil\]/, ', null]')
+          .gsub('[nil, ', '[null, ')
+          .gsub(', nil]', ', null]')
           .gsub(/(?<=":)#<\w+(?<model>[\s\S]+)>(?=}\Z)/) do
             '{' +
               $LAST_MATCH_INFO[:model]
@@ -87,7 +86,7 @@ class Moderations::ChangelogsController < ModerationsController
         end
 
         {
-          details: details,
+          details:,
           raw: log_entry,
           date: Time.zone.parse(split[0].gsub(/[\[\]]/, '')),
           user_id: details[:user_id],

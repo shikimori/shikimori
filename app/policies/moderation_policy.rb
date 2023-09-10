@@ -104,7 +104,7 @@ class ModerationPolicy
     pending_versions_size :links
   end
 
-  def more_info_mal_count
+  def mal_more_info_count
     return 0 unless !@moderation_filter || @user&.version_moderator?
 
     Anime.where("more_info like '%[MAL]'").count + Manga.where("more_info like '%[MAL]'").count

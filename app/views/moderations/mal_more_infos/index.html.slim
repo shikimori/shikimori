@@ -1,0 +1,12 @@
+header.head
+  h1 = og.headline
+  = render 'application/breadcrumbs'
+
+.block
+  - @collection.each do |entry|
+    .b-log_entry
+      span
+        span.id-label #
+        = entry.id
+      a.bubbled href=entry.url
+        = truncate entry.name, length: 36

@@ -309,6 +309,10 @@ ru:
     <<: *moderations_controller
     page_title: Changelog
 
+  moderations/mal_more_infos_controller:
+    <<: *moderations_controller
+    page_title: MAL More Info
+
   animes_controller: &animes_controller
     version_pending: *version_pending
     version_accepted: *version_accepted
