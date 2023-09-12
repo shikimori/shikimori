@@ -118,7 +118,7 @@ class Users::ListStatsQuery # rubocop:disable ClassLength
   def studios
     {
       anime: stats.by_categories(
-        'studio', StudiosRepository.instance.select(&:is_visible),
+        'studio', StudiosRepository.instance.to_a, # select(&:is_visible),
         stats.anime_valuable_rates, nil, 17
       )
     }

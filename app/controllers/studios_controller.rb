@@ -13,6 +13,7 @@ class StudiosController < ShikimoriController
       .joins('left join animes on studios.id = any(animes.studio_ids)')
       .where.not(animes: { kind: :special })
       .group('studios.id')
+      .having('count(animes.id) > 0')
       .select(SELECT_SQL)
       .order('animes_count desc')
   end

@@ -42,7 +42,7 @@ module AniManga
       return [] if send(kind).empty?
       return send(kind).map(&:real) if send(kind).size == 1
 
-      @real_st_pub_cache ||= send(kind).map(&:real).select(&:is_visible?)
+      @real_st_pub_cache ||= send(kind).map(&:real) # .select(&:is_visible?)
       @real_st_pub_cache.empty? ? send(kind).map(&:real) : @real_st_pub_cache
     end
   end

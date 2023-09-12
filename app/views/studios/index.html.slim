@@ -6,7 +6,8 @@ header.head
 
 .block
   = cache Studio.all.cache_key, expires_in: 1.day do
-    - @collection.select(&:is_visible).each do |studio|
+    / - @collection.select(&:is_visible).each do |studio|
+    - @collection.each do |studio|
       .studio
         - if studio.image_file_name
           - if user_signed_in?
