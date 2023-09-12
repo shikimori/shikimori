@@ -13,9 +13,12 @@ class Moderations::MalMoreInfosController < ModerationsController
 private
 
   def fetch klass
-    QueryObjectBase
-      .new(klass.all)
+    scope = klass
       .where("more_info like '%[MAL]'")
+      .order(Animes::Filters::OrderBy.arel_sql(scope: klass, term: :ranked))
+
+    QueryObjectBase
+      .new(scope)
       .paginate(page, PER_PAGE)
       .lazy_map(&:decorate)
   end
