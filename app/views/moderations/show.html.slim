@@ -27,14 +27,6 @@ header.head
 
         li
           a.b-link[
-            href=moderations_mal_more_infos_url
-          ]
-            | MAL More Info
-            - if moderation_policy.mal_more_info_count.positive?
-              span.size = moderation_policy.mal_more_info_count
-
-        li
-          a.b-link[
             href=moderations_bans_url
           ]
             = t 'moderations/bans_controller.page_title.index'
@@ -156,6 +148,14 @@ header.head
                 ] = t '.forums'
               - else
                 span = t '.forums'
+
+        li
+          a.b-link[
+            href=moderations_mal_more_infos_url
+          ]
+            | MAL More Info
+            - if moderation_policy.mal_more_info_count.positive?
+              span.size = moderation_policy.mal_more_info_count
 
     .f-column
       .subheadline = i18n_io 'user', :few
