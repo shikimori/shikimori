@@ -56,7 +56,7 @@ module Types
         twitter
         smotret_anime
       ] + WATCH_ONLINE_KINDS,
-      manga: COMMON_KINDS + MANGA_READ_ONLINE_KINDS,
+      manga: COMMON_KINDS + %i[twitter] + MANGA_READ_ONLINE_KINDS,
       ranobe: COMMON_KINDS + %i[twitter] + RANOBE_READ_ONLINE_KINDS
     }
 
