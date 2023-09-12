@@ -1,4 +1,7 @@
 .m5
-  a.bubbled href=entry.url
+  a.bubbled[
+    href=entry.edit_field_url(:more_info)
+    data-tooltip_url=entry.url
+  ]
     = entry.name
   p = entry.more_info
