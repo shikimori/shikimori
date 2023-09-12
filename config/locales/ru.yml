@@ -546,7 +546,7 @@ ru:
         Manga: Манга
       kind:
         genre: Жанр
-        demographic: Возраст
+        demographic: Аудитория
         theme: Тема
     external_link:
       kind:
