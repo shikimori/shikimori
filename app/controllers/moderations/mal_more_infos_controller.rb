@@ -4,10 +4,10 @@ class Moderations::MalMoreInfosController < ModerationsController
   def index
     og page_title: i18n_t('page_title')
 
-    @anime_collection = fetch Anime
-    @manga_collection = fetch Manga
+    @animes_collection = fetch Anime
+    @mangas_collection = fetch Manga
 
-    @collection = @anime_collection + @manga_collection
+    @collection = @animes_collection + @mangas_collection
   end
 
 private

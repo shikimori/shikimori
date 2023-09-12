@@ -3,10 +3,10 @@ header.head
   = render 'application/breadcrumbs'
 
 .block
-  - @collection.each do |entry|
-    .b-log_entry
-      span
-        span.id-label #
-        = entry.id
-      a.bubbled href=entry.url
-        = truncate entry.name, length: 36
+  = render partial: 'moderations/mal_more_infos/more_info_line',
+    collection: @collection,
+    as: :entry
+
+  - if @animes_collection.next_page? || @mangas_collection.next_page?
+    = render 'blocks/postloader',
+      next_url: current_url(page: page + 1)
