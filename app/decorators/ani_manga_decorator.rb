@@ -188,6 +188,10 @@ class AniMangaDecorator < DbEntryDecorator
     object.more_info.present? && !object.more_info.ends_with?('[MAL]')
   end
 
+  def more_info_html
+    h.h(object.more_info).gsub("\n", '<br>').html_safe
+  end
+
 private
 
   def format_menu_topic topic_view, order

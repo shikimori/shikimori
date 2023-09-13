@@ -98,7 +98,10 @@
               }[field],
               is_force_value: field == :poster
 
-          = render 'db_entries/edit_field_li', resource: @resource, field: :more_info
+          = render 'db_entries/edit_field_li',
+            resource: @resource,
+            field: :more_info,
+            formatter: ->(value) { @resource.more_info_html }
 
     ul.b-list.is-wide
       li
