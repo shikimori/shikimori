@@ -1525,6 +1525,7 @@
         - 2282
         - 7786
         - 23661
+        - 53720
       :generator: &69
         person_id: 1938
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -21664,7 +21665,7 @@
     :topic_id: 0
     :rule: &1103
       :algo: count
-      :threshold: 150
+      :threshold: 200
       :filters: *1101
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
   default_values: *4
@@ -21692,7 +21693,7 @@
     :topic_id: 0
     :rule: &1104
       :algo: count
-      :threshold: 250
+      :threshold: 300
       :filters: *1101
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
   default_values: *4
@@ -24904,7 +24905,7 @@
     :topic_id: 222067
     :rule: &1141
       :algo: count
-      :threshold: 30
+      :threshold: 25
       :filters: &1142
         anime_ids:
         - 100
@@ -25431,7 +25432,7 @@
     :topic_id: 0
     :rule: &1143
       :algo: count
-      :threshold: 45
+      :threshold: 40
       :filters: *1142
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *4
@@ -25461,7 +25462,7 @@
     :topic_id: 0
     :rule: &1144
       :algo: count
-      :threshold: 70
+      :threshold: 60
       :filters: *1142
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *4
@@ -25489,7 +25490,7 @@
     :topic_id: 0
     :rule: &1145
       :algo: count
-      :threshold: 145
+      :threshold: 100
       :filters: *1142
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *4
@@ -28881,6 +28882,7 @@
         - 56586
         - 56590
         - 56592
+        - 54496
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *4
   neko_id: :stop_motion
