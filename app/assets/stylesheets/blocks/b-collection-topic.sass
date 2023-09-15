@@ -61,17 +61,11 @@
     $border-color: $gray-1
     .see-more
       border: 1px solid $border-color
-      height: 186.12px
+      padding-bottom: 155.625% // Uploaders::PosterUploader::PREVIEW_CHARACTER_HEIGHT.fdiv Uploaders::PosterUploader::PREVIEW_WIDTH
       position: relative
 
       &.animanga
-        height: 168.92px
-
-      .b-forum &
-        height: 132.62px + 2px
-
-        &.animanga
-          height: 120.37px + 2px
+        padding-bottom: 141.25% // Uploaders::PosterUploader::PREVIEW_ANIME_HEIGHT.fdiv Uploaders::PosterUploader::PREVIEW_WIDTH
 
       +gte_laptop
         &:hover,
@@ -85,10 +79,13 @@
       .text
         display: table
         font-size: 12px
-        line-height: $line-height
-        text-align: center
-        width: 100%
         height: 100%
+        left: 0
+        line-height: $line-height
+        position: absolute
+        text-align: center
+        top: 0
+        width: 100%
 
         .inner
           display: table-cell
