@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_09_15_172357) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_stat_statements"
@@ -23,8 +22,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "comment_id"
     t.string "kind", limit: 255
     t.boolean "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "state", limit: 255
     t.bigint "approver_id"
     t.string "reason", limit: 4096
@@ -40,8 +39,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.integer "level", null: false
     t.integer "progress", null: false
     t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["neko_id", "level"], name: "index_achievements_on_neko_id_and_level"
     t.index ["user_id", "neko_id", "level"], name: "index_achievements_on_user_id_and_neko_id_and_level", unique: true
   end
@@ -49,9 +48,9 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
   create_table "anime_calendars", force: :cascade do |t|
     t.bigint "anime_id"
     t.integer "episode"
-    t.datetime "start_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "start_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["anime_id", "episode"], name: "index_anime_calendars_on_anime_id_and_episode", unique: true
   end
 
@@ -59,8 +58,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "anime_id"
     t.string "service", limit: 255, null: false
     t.string "identifier", limit: 255, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["anime_id", "service", "identifier"], name: "index_anime_links_on_anime_id_and_service_and_identifier", unique: true
   end
 
@@ -78,15 +77,15 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.jsonb "list_stats", default: [], null: false
     t.string "entry_type", null: false
     t.bigint "entry_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["entry_type", "entry_id"], name: "index_anime_stats_on_entry_type_and_entry_id", unique: true
   end
 
   create_table "anime_video_authors", force: :cascade do |t|
     t.text "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "is_verified", default: false, null: false
   end
 
@@ -97,8 +96,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "kind", limit: 255
     t.string "state", limit: 255
     t.string "user_agent", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "message", limit: 1000
     t.index ["user_id", "state"], name: "index_anime_video_reports_on_user_id_and_state"
   end
@@ -111,8 +110,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "kind", limit: 255
     t.string "language", limit: 255
     t.bigint "anime_video_author_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "state", limit: 255, default: "working", null: false
     t.integer "watch_view_count"
     t.string "quality"
@@ -131,19 +130,19 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.decimal "score", default: "0.0", null: false
     t.integer "ranked"
     t.integer "popularity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "image_updated_at", precision: nil
     t.string "status"
     t.string "rating"
     t.integer "episodes_aired", default: 0, null: false
     t.string "russian", default: "", null: false
     t.boolean "is_censored", default: false
-    t.datetime "imported_at"
-    t.datetime "next_episode_at"
+    t.datetime "imported_at", precision: nil
+    t.datetime "next_episode_at", precision: nil
     t.string "imageboard_tag"
     t.string "torrents_name"
     t.float "site_score", default: 0.0, null: false
@@ -153,7 +152,7 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "english"
     t.string "japanese"
     t.integer "mal_id"
-    t.datetime "authorized_imported_at"
+    t.datetime "authorized_imported_at", precision: nil
     t.text "synonyms", default: [], null: false, array: true
     t.integer "cached_rates_count", default: 0, null: false
     t.integer "genre_ids", default: [], null: false, array: true
@@ -193,10 +192,10 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "moderation_state", limit: 255, default: "pending"
     t.bigint "approver_id"
     t.text "tags", default: [], null: false, array: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "state", null: false
-    t.datetime "changed_at"
+    t.datetime "changed_at", precision: nil
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
@@ -207,8 +206,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "moderator_id"
     t.integer "duration", null: false
     t.string "reason", limit: 4096
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "topic_id"
     t.index ["comment_id"], name: "index_bans_on_comment_id"
     t.index ["topic_id"], name: "index_bans_on_topic_id"
@@ -221,13 +220,13 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "fullname", limit: 255, default: "", null: false
     t.string "description_ru", limit: 32768, default: "", null: false
     t.string "description_en", limit: 32768, default: "", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
-    t.datetime "imported_at"
+    t.datetime "image_updated_at", precision: nil
+    t.datetime "imported_at", precision: nil
     t.string "imageboard_tag", limit: 255, default: "", null: false
     t.string "russian", default: "", null: false
     t.text "desynced", default: [], null: false, array: true
@@ -242,8 +241,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
   create_table "club_bans", force: :cascade do |t|
     t.bigint "club_id", null: false
     t.bigint "user_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["club_id", "user_id"], name: "index_club_bans_on_club_id_and_user_id", unique: true
     t.index ["user_id"], name: "index_club_bans_on_user_id"
   end
@@ -251,12 +250,12 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
   create_table "club_images", force: :cascade do |t|
     t.bigint "club_id", null: false
     t.bigint "user_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "image_updated_at", precision: nil
   end
 
   create_table "club_invites", force: :cascade do |t|
@@ -265,8 +264,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "dst_id"
     t.string "status", limit: 255, default: "Pending"
     t.bigint "message_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["club_id", "dst_id", "status"], name: "uniq_group_invites", unique: true
   end
 
@@ -274,8 +273,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "club_id"
     t.bigint "linked_id"
     t.string "linked_type", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["club_id", "linked_id", "linked_type"], name: "index_club_links_on_club_id_and_linked_id_and_linked_type", unique: true
   end
 
@@ -284,8 +283,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "parent_page_id"
     t.string "name", limit: 255, null: false
     t.string "text", limit: 500000, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "position", null: false
     t.string "layout", default: "---\n:default: :content\n", null: false
     t.bigint "user_id", null: false
@@ -297,21 +296,21 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "role", limit: 255, default: "member"
     t.bigint "user_id"
     t.bigint "club_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["user_id", "club_id"], name: "uniq_user_in_group", unique: true
   end
 
   create_table "clubs", force: :cascade do |t|
     t.string "name", limit: 255
     t.bigint "owner_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "description", limit: 600000
     t.string "logo_file_name", limit: 255
     t.string "logo_content_type", limit: 255
     t.integer "logo_file_size"
-    t.datetime "logo_updated_at"
+    t.datetime "logo_updated_at", precision: nil
     t.integer "club_roles_count", default: 0
     t.boolean "display_images", default: true
     t.boolean "is_censored", default: false, null: false
@@ -331,8 +330,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "linked_type", null: false
     t.bigint "linked_id", null: false
     t.string "group"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "text", limit: 2048
     t.index ["collection_id", "linked_id", "group"], name: "uniq_collections_linked_links", unique: true
     t.index ["linked_type", "linked_id"], name: "index_collection_links_on_linked_type_and_linked_id"
@@ -341,8 +340,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
   create_table "collection_roles", force: :cascade do |t|
     t.bigint "collection_id", null: false
     t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["collection_id"], name: "index_collection_roles_on_collection_id"
     t.index ["user_id", "collection_id"], name: "index_collection_roles_on_user_id_and_collection_id", unique: true
   end
@@ -352,15 +351,15 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "user_id", null: false
     t.string "kind", null: false
     t.string "text", limit: 400000, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "state", null: false
     t.string "moderation_state", limit: 255, default: "pending"
     t.integer "approver_id"
     t.integer "cached_votes_up", default: 0
     t.integer "cached_votes_down", default: 0
-    t.datetime "published_at"
-    t.datetime "changed_at"
+    t.datetime "published_at", precision: nil
+    t.datetime "changed_at", precision: nil
     t.text "tags", default: [], null: false, array: true
     t.integer "links_count", default: 0, null: false
     t.boolean "is_spoilers", default: false, null: false
@@ -380,8 +379,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "commentable_type", limit: 15
     t.string "body", limit: 64000
     t.bigint "user_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "is_offtopic", default: false, null: false
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
     t.index ["created_at"], name: "index_comments_on_created_at"
@@ -392,8 +391,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "contest_id"
     t.bigint "linked_id"
     t.string "linked_type", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["linked_id", "linked_type", "contest_id"], name: "index_contest_links_on_linked_id_and_linked_type_and_contest_id"
   end
 
@@ -407,8 +406,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "right_type", limit: 255
     t.date "started_on"
     t.date "finished_on"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "winner_id"
     t.integer "cached_votes_up", default: 0
     t.integer "cached_votes_down", default: 0
@@ -421,8 +420,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "state", limit: 255, default: "created"
     t.integer "number"
     t.boolean "additional"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["contest_id"], name: "index_contest_rounds_on_contest_id"
   end
 
@@ -431,8 +430,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "user_id"
     t.bigint "item_id"
     t.string "item_type", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["contest_id"], name: "index_contest_suggestions_on_contest_id"
     t.index ["user_id"], name: "index_contest_suggestions_on_user_id"
   end
@@ -442,8 +441,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.integer "position", null: false
     t.string "item_type", null: false
     t.bigint "item_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["contest_id"], name: "index_contest_winners_on_contest_id"
     t.index ["item_type", "item_id"], name: "index_contest_winners_on_item_type_and_item_id"
   end
@@ -457,8 +456,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.integer "match_duration"
     t.integer "matches_interval"
     t.integer "wave_days"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.date "finished_on"
     t.string "user_vote_key", limit: 255
     t.string "strategy_type", limit: 255, default: "Contest::DoubleEliminationStrategy", null: false
@@ -476,8 +475,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "target", limit: 255
     t.string "description_cos_rain", limit: 16384
     t.string "description", limit: 16384
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "confirmed", default: false, null: false
     t.boolean "deleted", default: false, null: false
     t.string "source", limit: 255
@@ -491,8 +490,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "linked_id"
     t.string "linked_type", limit: 255
     t.bigint "cosplay_gallery_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["cosplay_gallery_id", "linked_type"], name: "i_cosplay_gallery_id_linked_type"
     t.index ["linked_id", "linked_type", "cosplay_gallery_id"], name: "index_cosplay_gallery_links_on_l_id_and_l_type_and_cg_id", unique: true
   end
@@ -500,12 +499,12 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
   create_table "cosplay_images", force: :cascade do |t|
     t.bigint "cosplay_gallery_id"
     t.string "url", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "image_updated_at", precision: nil
     t.boolean "deleted", default: false, null: false
     t.integer "position"
     t.index ["cosplay_gallery_id", "deleted"], name: "i_cosplay_images_gallery_id_deleted"
@@ -515,15 +514,15 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "name", limit: 255
     t.string "website", limit: 255
     t.string "image_url", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["name"], name: "index_cosplayers_on_name", unique: true
   end
 
   create_table "coub_tags", force: :cascade do |t|
     t.string "name", limit: 255, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["name"], name: "index_coub_tags_on_name", unique: true
   end
 
@@ -537,22 +536,22 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.integer "music"
     t.integer "characters"
     t.integer "animation"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "source"
     t.string "moderation_state", default: "pending", null: false
     t.bigint "approver_id"
     t.integer "cached_votes_up", default: 0
     t.integer "cached_votes_down", default: 0
-    t.datetime "changed_at"
+    t.datetime "changed_at", precision: nil
     t.index ["target_id", "target_type"], name: "index_critiques_on_target_id_and_target_type"
   end
 
   create_table "danbooru_tags", force: :cascade do |t|
     t.string "name", limit: 255
     t.integer "kind"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "ambiguous"
   end
 
@@ -562,8 +561,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.boolean "is_raw", default: false, null: false
     t.boolean "is_subtitles", default: false, null: false
     t.boolean "is_fandub", default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "is_anime365", default: false, null: false
     t.index ["anime_id", "episode"], name: "index_episode_notifications_on_anime_id_and_episode", unique: true
   end
@@ -573,9 +572,9 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "entry_type", null: false
     t.string "kind", null: false
     t.string "url", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "imported_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "imported_at", precision: nil
     t.string "source", null: false
     t.string "checksum", null: false
     t.index ["checksum"], name: "index_external_links_on_checksum", unique: true, where: "((url)::text <> 'NONE'::text)"
@@ -586,8 +585,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "linked_id", null: false
     t.string "linked_type", null: false
     t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "kind", default: "", null: false
     t.integer "position", null: false
     t.index ["linked_id", "linked_type", "kind", "user_id"], name: "favorites_linked_id_linked_type_kind_user_id", unique: true, where: "(kind IS NOT NULL)"
@@ -600,16 +599,16 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.integer "position", null: false
     t.string "name_ru", null: false
     t.string "permalink", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "name_en", null: false
   end
 
   create_table "friend_links", force: :cascade do |t|
     t.bigint "src_id"
     t.bigint "dst_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["src_id", "dst_id"], name: "index_friend_links_on_src_id_and_dst_id", unique: true
   end
 
@@ -623,15 +622,15 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.integer "position", default: 99, null: false
     t.integer "seo", default: 99, null: false
     t.string "description", default: "", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "entry_type", null: false
   end
 
   create_table "genres", force: :cascade do |t|
     t.string "name", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "russian", limit: 255
     t.integer "position"
     t.integer "seo", default: 99
@@ -644,8 +643,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
   create_table "ignores", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "target_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["user_id", "target_id"], name: "index_ignores_on_user_id_and_target_id", unique: true
   end
 
@@ -654,9 +653,9 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "list_file_name", null: false
     t.string "list_content_type"
     t.integer "list_file_size"
-    t.datetime "list_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "list_updated_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "state", null: false
     t.string "duplicate_policy", null: false
     t.string "list_type", null: false
@@ -680,23 +679,23 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.integer "ranked"
     t.integer "popularity"
     t.string "rating"
-    t.datetime "imported_at"
+    t.datetime "imported_at", precision: nil
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "image_updated_at", precision: nil
     t.boolean "is_censored", default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "imageboard_tag"
     t.float "site_score", default: 0.0, null: false
-    t.datetime "parsed_at"
+    t.datetime "parsed_at", precision: nil
     t.text "desynced", default: [], null: false, array: true
     t.string "english"
     t.string "japanese"
     t.integer "mal_id"
     t.string "type"
-    t.datetime "authorized_imported_at"
+    t.datetime "authorized_imported_at", precision: nil
     t.text "synonyms", default: [], null: false, array: true
     t.integer "cached_rates_count", default: 0, null: false
     t.integer "genre_ids", default: [], null: false, array: true
@@ -725,7 +724,7 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "kind", limit: 255
     t.string "body", limit: 900000
     t.boolean "read", default: false, null: false
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.boolean "is_deleted_by_to", default: false
     t.boolean "emailed", default: false
     t.bigint "linked_id", default: 0, null: false
@@ -753,8 +752,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "token", null: false
     t.integer "expires_in", null: false
     t.text "redirect_uri", null: false
-    t.datetime "created_at", null: false
-    t.datetime "revoked_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "revoked_at", precision: nil
     t.string "scopes"
     t.index ["application_id"], name: "index_oauth_access_grants_on_application_id"
     t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true
@@ -766,8 +765,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "token", null: false
     t.string "refresh_token"
     t.integer "expires_in"
-    t.datetime "revoked_at"
-    t.datetime "created_at", null: false
+    t.datetime "revoked_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
     t.string "scopes"
     t.string "previous_refresh_token", default: "", null: false
     t.index ["application_id"], name: "index_oauth_access_tokens_on_application_id"
@@ -782,14 +781,14 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "secret", null: false
     t.text "redirect_uri", null: false
     t.string "scopes", default: "", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "owner_id"
     t.string "owner_type"
     t.string "image_file_name"
     t.string "image_content_type"
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "image_updated_at", precision: nil
     t.string "description_ru", limit: 16384, null: false
     t.string "description_en", limit: 16384, null: false
     t.boolean "confidential", default: true, null: false
@@ -801,14 +800,14 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
   create_table "people", force: :cascade do |t|
     t.string "name", limit: 255, default: "", null: false
     t.string "japanese", limit: 255, default: "", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "image_updated_at", precision: nil
     t.string "website", limit: 255, default: "", null: false
-    t.datetime "imported_at"
+    t.datetime "imported_at", precision: nil
     t.boolean "is_producer", default: false, null: false
     t.boolean "is_mangaka", default: false, null: false
     t.boolean "is_seyu", default: false, null: false
@@ -824,8 +823,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "anime_id"
     t.bigint "character_id"
     t.bigint "person_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.bigint "manga_id"
     t.text "roles", default: [], null: false, array: true
     t.index ["anime_id"], name: "index_person_roles_on_anime_id"
@@ -838,9 +837,9 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
   create_table "pg_cache_data", force: :cascade do |t|
     t.string "key", null: false
     t.text "value"
-    t.datetime "expires_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "expires_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.binary "blob"
     t.index ["key"], name: "index_pg_cache_data_on_key", unique: true
   end
@@ -852,7 +851,7 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "query_hash"
     t.float "total_time"
     t.bigint "calls"
-    t.datetime "captured_at"
+    t.datetime "captured_at", precision: nil
     t.index ["database", "captured_at"], name: "index_pghero_query_stats_on_database_and_captured_at"
   end
 
@@ -861,7 +860,7 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.text "schema"
     t.text "relation"
     t.bigint "size"
-    t.datetime "captured_at"
+    t.datetime "captured_at", precision: nil
     t.index ["database", "captured_at"], name: "index_pghero_space_stats_on_database_and_captured_at"
   end
 
@@ -875,8 +874,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
   create_table "polls", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "state", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "name", limit: 255
     t.string "text", limit: 25000, null: false
     t.string "width", default: "limited", null: false
@@ -889,10 +888,10 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "character_id"
     t.bigint "person_id"
     t.jsonb "image_data", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "is_approved", default: true, null: false
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.jsonb "crop_data", default: {}, null: false
     t.string "mal_url"
     t.index ["anime_id"], name: "index_posters_on_anime_id", unique: true, where: "((anime_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"
@@ -910,8 +909,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
 
   create_table "publishers", force: :cascade do |t|
     t.string "name", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "desynced", default: [], null: false, array: true
   end
 
@@ -926,8 +925,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "source_id"
     t.bigint "anime_id"
     t.string "relation", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "manga_id"
     t.index ["source_id"], name: "index_related_animes_on_source_id"
   end
@@ -937,8 +936,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "anime_id"
     t.bigint "manga_id"
     t.string "relation", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["source_id", "manga_id"], name: "index_related_mangas_on_source_id_and_manga_id"
   end
 
@@ -949,12 +948,12 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.text "body", null: false
     t.string "opinion", null: false
     t.boolean "is_written_before_release", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "comments_count", default: 0, null: false
     t.integer "cached_votes_up", default: 0, null: false
     t.integer "cached_votes_down", default: 0, null: false
-    t.datetime "changed_at"
+    t.datetime "changed_at", precision: nil
     t.index ["anime_id"], name: "index_reviews_on_anime_id"
     t.index ["manga_id"], name: "index_reviews_on_manga_id"
     t.index ["user_id", "anime_id"], name: "index_reviews_on_user_id_and_anime_id", unique: true, where: "(anime_id IS NOT NULL)"
@@ -966,11 +965,11 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "image_updated_at", precision: nil
     t.bigint "anime_id"
     t.string "url", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "position", null: false
     t.string "status", limit: 255
     t.integer "width"
@@ -981,29 +980,29 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
   create_table "similar_animes", force: :cascade do |t|
     t.bigint "src_id"
     t.bigint "dst_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["src_id"], name: "index_similar_animes_on_src_id"
   end
 
   create_table "similar_mangas", force: :cascade do |t|
     t.bigint "src_id"
     t.bigint "dst_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["src_id"], name: "index_similar_mangas_on_src_id"
   end
 
   create_table "studios", force: :cascade do |t|
     t.string "name", limit: 255, null: false
     t.string "short_name", limit: 500000
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "japanese", limit: 500000
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "image_updated_at", precision: nil
     t.integer "ani_db_id"
     t.string "ani_db_name", limit: 500000
     t.string "description_ru", limit: 16384
@@ -1020,8 +1019,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "owner_type", null: false
     t.string "name", default: "", null: false
     t.text "css", default: "", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "compiled_css"
     t.jsonb "imports"
   end
@@ -1029,8 +1028,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
   create_table "svds", force: :cascade do |t|
     t.binary "entry_ids"
     t.binary "lsa"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "scale", limit: 255, default: "full"
     t.string "kind", limit: 255
     t.binary "user_ids"
@@ -1040,8 +1039,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
   create_table "topic_ignores", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "topic_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["topic_id"], name: "index_topic_ignores_on_topic_id"
     t.index ["user_id", "topic_id"], name: "index_topic_ignores_on_user_id_and_topic_id", unique: true
   end
@@ -1057,8 +1056,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "title", limit: 255
     t.bigint "user_id", null: false
     t.bigint "forum_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "type", limit: 255, null: false
     t.text "body"
     t.boolean "generated", default: false
@@ -1069,7 +1068,7 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "value", limit: 255
     t.integer "comments_count", default: 0
     t.boolean "broadcast", default: false
-    t.datetime "commented_at"
+    t.datetime "commented_at", precision: nil
     t.text "tags", default: [], null: false, array: true
     t.boolean "is_closed", default: false, null: false
     t.boolean "is_pinned", default: false, null: false
@@ -1088,8 +1087,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "user_id", null: false
     t.string "action", limit: 255
     t.string "value", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "prior_value", limit: 255
     t.bigint "anime_id"
     t.bigint "manga_id"
@@ -1102,12 +1101,12 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "user_id", null: false
     t.bigint "linked_id"
     t.string "linked_type", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "image_file_name", limit: 255
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "image_updated_at", precision: nil
     t.integer "width"
     t.integer "height"
   end
@@ -1115,8 +1114,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
   create_table "user_nickname_changes", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "value", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "is_deleted", default: false, null: false
     t.index ["user_id", "value"], name: "index_user_nickname_changes_on_user_id_and_value", unique: true
   end
@@ -1160,7 +1159,7 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "oauth_application_id"
     t.string "user_agent"
     t.inet "ip"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["oauth_application_id"], name: "index_user_rate_logs_on_oauth_application_id"
     t.index ["target_type", "target_id"], name: "index_user_rate_logs_on_target_type_and_target_id"
     t.index ["user_id", "id"], name: "index_user_rate_logs_on_user_id_and_id"
@@ -1172,8 +1171,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.integer "score", default: 0, null: false
     t.integer "status", default: 0, null: false
     t.integer "episodes", default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "target_type", null: false
     t.integer "volumes", default: 0, null: false
     t.integer "chapters", default: 0, null: false
@@ -1189,8 +1188,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "uid", null: false
     t.string "token"
     t.string "secret"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "nickname", limit: 255
     t.index ["uid"], name: "index_user_tokens_on_uid"
     t.index ["user_id"], name: "index_user_tokens_on_user_id"
@@ -1200,38 +1199,38 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "email", null: false
     t.string "encrypted_password", limit: 128
     t.string "reset_password_token", limit: 255
-    t.datetime "remember_created_at"
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip", limit: 255
     t.string "last_sign_in_ip", limit: 255
     t.string "name", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "nickname", limit: 255
     t.string "location", limit: 255
-    t.datetime "last_online_at"
+    t.datetime "last_online_at", precision: nil
     t.text "about", default: "", null: false
     t.string "sex", limit: 255
     t.string "website"
     t.string "avatar_file_name", limit: 255
     t.string "avatar_content_type", limit: 255
     t.integer "avatar_file_size"
-    t.datetime "avatar_updated_at"
+    t.datetime "avatar_updated_at", precision: nil
     t.date "birth_on"
-    t.datetime "read_only_at"
+    t.datetime "read_only_at", precision: nil
     t.boolean "can_vote_1", default: false, null: false
     t.boolean "can_vote_2", default: false, null: false
     t.boolean "can_vote_3", default: false, null: false
-    t.datetime "reset_password_sent_at"
+    t.datetime "reset_password_sent_at", precision: nil
     t.string "remember_token", limit: 255
     t.string "locale", default: "ru", null: false
     t.integer "style_id"
     t.string "roles", limit: 4096, default: [], null: false, array: true
     t.text "notification_settings", default: [], null: false, array: true
-    t.datetime "activity_at"
-    t.datetime "rate_at"
+    t.datetime "activity_at", precision: nil
+    t.datetime "rate_at", precision: nil
     t.index ["email"], name: "index_users_on_email"
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -1243,12 +1242,12 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "item_id", null: false
     t.bigint "user_id"
     t.string "state", null: false
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.jsonb "item_diff"
     t.bigint "moderator_id"
     t.text "reason"
     t.string "type"
-    t.datetime "updated_at"
+    t.datetime "updated_at", precision: nil
     t.bigint "associated_id"
     t.string "associated_type"
     t.index ["associated_id", "associated_type"], name: "index_versions_on_associated_id_and_associated_type"
@@ -1265,8 +1264,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.bigint "anime_id"
     t.string "kind", null: false
     t.string "state", limit: 255, default: "uploaded", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "image_url", null: false
     t.string "player_url", null: false
     t.string "hosting", null: false
@@ -1281,8 +1280,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.boolean "vote_flag"
     t.string "vote_scope"
     t.integer "vote_weight"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
     t.index ["votable_type", "votable_id"], name: "index_votes_on_votable_type_and_votable_id"
     t.index ["voter_id", "votable_id"], name: "index_votes_on_voter_id_and_votable_id"
@@ -1296,9 +1295,9 @@ ActiveRecord::Schema[6.1].define(version: 2023_09_05_173556) do
     t.string "thumbnail_file_name"
     t.string "thumbnail_content_type"
     t.integer "thumbnail_file_size"
-    t.datetime "thumbnail_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "thumbnail_updated_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["url"], name: "index_webm_videos_on_url", unique: true
   end
 
