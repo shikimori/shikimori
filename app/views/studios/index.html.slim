@@ -28,6 +28,7 @@ header.head
         .animes
           | #{t '.anime_produced'}:&nbsp;
           span.num = studio.animes_count
-        .years
-          | #{t '.over_the_period'}:&nbsp;
-          span.num #{studio.min_year.year}-#{[Time.zone.today.year, studio.max_year.year].min}
+        - if studio.min_year
+          .years
+            | #{t '.over_the_period'}:&nbsp;
+            span.num #{studio.min_year.year}-#{[Time.zone.today.year, studio.max_year.year].min}
