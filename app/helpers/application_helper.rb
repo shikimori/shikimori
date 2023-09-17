@@ -5,8 +5,8 @@ module ApplicationHelper
     super cache_keys(*Array(name)), *args
   end
 
-  def cache_keys *args
-    CacheHelperInstance.cache_keys(*args)
+  def cache_keys(*)
+    CacheHelperInstance.cache_keys(*)
   end
 
   def itemprop
@@ -20,8 +20,8 @@ module ApplicationHelper
     end
   end
 
-  def block &block
-    capture(&block)
+  def block(&)
+    capture(&)
   end
 
   def show_social?
@@ -34,8 +34,8 @@ module ApplicationHelper
 
   def cdn_poster_url poster:, derivative:
     ImageUrlGenerator.instance.cdn_poster_url(
-      poster: poster,
-      derivative: derivative
+      poster:,
+      derivative:
     )
   end
 
@@ -43,8 +43,8 @@ module ApplicationHelper
     "#{request.protocol}#{request.host_with_port}#{file.url style, with_timestamp}"
   end
 
-  def info_line title = nil, value = nil, &block
-    value = capture(&block) if value.nil? && block_given?
+  def info_line(title = nil, value = nil, &)
+    value = capture(&) if value.nil? && block
 
     if value.present?
       <<~HTML.squish.html_safe

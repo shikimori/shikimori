@@ -3,14 +3,15 @@ class ApplicationController < ActionController::Base
   include CensoredConcern # must be the second
   include LocaleConcern # must be the third
   include Translation
-  include UrlsConcern
-  include OpenGraphConcern
+  include AgeRestrictionsConcern
   include BreadcrumbsConcern
-  include InvalidParameterErrorConcern
   include DomainsConcern
+  include InvalidParameterErrorConcern
+  include OpenGraphConcern
+  include OptionableContentConcern
   include PaginationConcern
   include StorableLocationConcern
-  include AgeRestrictionsConcern
+  include UrlsConcern
 
   protect_from_forgery with: :exception, prepend: true # https://stackoverflow.com/questions/43356105/actioncontrollerinvalidauthenticitytoken-rails-5-devise-audited-papertra
 
