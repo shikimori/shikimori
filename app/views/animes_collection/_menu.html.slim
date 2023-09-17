@@ -224,7 +224,7 @@
     - %i[demographic genre theme].each do |kind|
       .block.genresv2
         .subheadline.m5 = i18n_i kind.to_s.capitalize, :other
-        = text_spoiler t('.show_list') do
+        = text_spoiler t('.show_list'), is_expanded: kind == :demographic do
           ul.b-block_list.genres.anime-params.m10
             - menu.send(:"sorted_#{kind}s_v2").each do |genre|
               - next if genre.censored? && !user_signed_in?
