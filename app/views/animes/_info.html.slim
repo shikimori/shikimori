@@ -44,9 +44,14 @@
       - else
         = entry.release_date_text
 
-  - if entry.genres.any?
-    = info_line i18n_io('Genre', entry.genres.one? ? :one : :few) do
-      = render 'animes/genres_info', entry: entry
+  - if genres_v2?
+    - if entry.genres_v2.any?
+      = info_line i18n_io('Genre', entry.genres_v2.one? ? :one : :few) do
+        = render 'animes/genres_v2_info', entry: entry
+  - else
+    - if entry.genres.any?
+      = info_line i18n_io('Genre', entry.genres.one? ? :one : :few) do
+        = render 'animes/genres_info', entry: entry
 
   - if (entry.rating.present? && !entry.rating_none?) || entry.censored_in_russia?
     = info_line Anime.human_attribute_name(:rating) do

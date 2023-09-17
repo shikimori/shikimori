@@ -109,6 +109,10 @@ class AnimeDecorator < AniMangaDecorator
     broadcast_at < 1.hour.ago ? broadcast_at + 1.week : broadcast_at
   end
 
+  def genres_v2_sorted
+    object.genres_v2.sort_by(&:position)
+  end
+
 private
 
   def fix_group_name name

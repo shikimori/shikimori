@@ -46,7 +46,7 @@ class CacheHelperInstance
         # I18N_HASH[I18n.locale],
         request_domain
         # request_subdomain
-      ] + h.optionable_content_keys
+      ]
   end
 
   # def cache_settings
