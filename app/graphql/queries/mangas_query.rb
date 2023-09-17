@@ -27,6 +27,7 @@ class Queries::MangasQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassL
   argument :order, Types::Enums::OrderEnum, required: false, default_value: 'ranked'
   argument :kind, Types::Scalars::Manga::KindString, required: false
   argument :status, Types::Scalars::StatusString, required: false
+  argument :season, Types::Scalars::SeasonString, required: false
   argument :score, Integer,
     required: false,
     description: 'Minimal manga score'
@@ -58,6 +59,7 @@ class Queries::MangasQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassL
     lookahead:,
     kind: nil,
     status: nil,
+    season: nil,
     score: nil,
     genre: nil,
     publisher: nil,
@@ -72,19 +74,20 @@ class Queries::MangasQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassL
       .fetch(
         scope: Manga.lazy_preload(*PRELOADS),
         params: {
-          page: page,
-          order: order,
-          score: score,
-          kind: kind,
-          status: status,
-          genre: genre,
-          publisher: publisher,
-          franchise: franchise,
+          page:,
+          order:,
+          score:,
+          kind:,
+          status:,
+          season:,
+          genre:,
+          publisher:,
+          franchise:,
           censored: to_filter_boolean(censored),
-          mylist: mylist,
-          ids: ids,
-          exclude_ids: exclude_ids,
-          search: search
+          mylist:,
+          ids:,
+          exclude_ids:,
+          search:
         },
         user: current_user
       )

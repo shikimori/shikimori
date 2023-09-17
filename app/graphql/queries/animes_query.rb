@@ -80,22 +80,22 @@ class Queries::AnimesQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassL
       .fetch(
         scope: Anime.lazy_preload(*PRELOADS),
         params: {
-          page: page,
-          order: order,
-          score: score,
-          kind: kind,
-          status: status,
-          season: season,
-          duration: duration,
-          rating: rating,
-          genre: genre,
-          studio: studio,
-          franchise: franchise,
+          page:,
+          order:,
+          score:,
+          kind:,
+          status:,
+          season:,
+          duration:,
+          rating:,
+          genre:,
+          studio:,
+          franchise:,
           censored: to_filter_boolean(censored),
-          mylist: mylist,
-          ids: ids,
-          exclude_ids: exclude_ids,
-          search: search
+          mylist:,
+          ids:,
+          exclude_ids:,
+          search:
         },
         user: current_user
       )
