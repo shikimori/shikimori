@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  = cache with_optionable_genres_cache_key(@resource, user_signed_in?, genres_sort_key, :v1) do
+  = cache [@resource, user_signed_in?, genres_v2?, :v1] do
     meta itemprop='url' content="#{{@resource.url}}"
     meta itemprop='headline' content=@resource.name
 

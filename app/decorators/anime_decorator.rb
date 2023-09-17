@@ -110,7 +110,7 @@ class AnimeDecorator < AniMangaDecorator
   end
 
   def genres_v2_sorted
-    object.genres_v2.sort_by(&:position)
+    object.genres_v2.sort_by { |v| [v.position, v.russian] }
   end
 
 private

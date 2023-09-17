@@ -2,8 +2,7 @@ module OptionableContentConcern
   extend ActiveSupport::Concern
 
   included do
-    helper_method :genres_v2?, :genres_sort_key,
-      :with_optionable_genres_cache_key
+    helper_method :genres_v2?, :genres_sort_key
   end
 
   def genres_sort_key
@@ -16,9 +15,5 @@ module OptionableContentConcern
 
   def genres_v2?
     !!current_user&.admin?
-  end
-
-  def with_optionable_genres_cache_key *keys
-    keys + [genres_v2?, genres_sort_key]
   end
 end
