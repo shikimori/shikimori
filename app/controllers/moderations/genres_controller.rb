@@ -94,4 +94,12 @@ private
 
     breadcrumb i18n_io(type.capitalize, :few), index_url if @resource
   end
+
+  def sorting_options type = resource_type_sym
+    [
+      build_sort(sorting_field(type), sorting_order(type)),
+      build_sort(genres_sort_key, :asc),
+      build_sort(:entry_type, :asc)
+    ]
+  end
 end

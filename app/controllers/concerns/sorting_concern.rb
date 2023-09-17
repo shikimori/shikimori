@@ -101,11 +101,11 @@ module SortingConcern
       locals: {
         label: label || resource_class.human_attribute_name(field),
         field: field&.to_sym,
-        default_order: default_order,
-        colspan: colspan,
-        css_class: css_class,
-        width: width,
-        sort_2: sort_2
+        default_order:,
+        colspan:,
+        css_class:,
+        width:,
+        sort_2:
       }
     )
   end
