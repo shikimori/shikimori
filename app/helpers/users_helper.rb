@@ -1,7 +1,7 @@
 module UsersHelper
   class << self
     def localized_name entry, user
-      russian_option = entry.is_a?(Genre) ? :russian_genres? : :russian_names
+      russian_option = entry.is_a?(Genre) || entry.is_a?(GenreV2) ? :russian_genres? : :russian_names
       allowed_russian = entry.respond_to?(:russian) && entry.russian.present?
 
       if allowed_russian && russian_names?(russian_option, user)

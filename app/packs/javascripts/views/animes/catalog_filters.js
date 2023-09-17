@@ -12,6 +12,7 @@ const DEFAULT_DATA = {
   franchise: [],
   achievement: [],
   genre: [],
+  genre_v2: [],
   studio: [],
   publisher: [],
   duration: [],
@@ -23,7 +24,16 @@ const DEFAULT_DATA = {
   licensor: []
 };
 
-const GET_FILTERS = ['duration', 'rating', 'score', 'options', 'mylist', ORDER_FIELD, 'licensor'];
+const GET_FILTERS = [
+  'genre_v2',
+  'duration',
+  'rating',
+  'score',
+  'options',
+  'mylist',
+  ORDER_FIELD,
+  'licensor'
+];
 
 export default function(basePath, currentUrl, changeCallback) {
   const $root = $('.b-collection-filters');

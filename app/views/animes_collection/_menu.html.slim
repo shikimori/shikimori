@@ -220,25 +220,47 @@
               data-direction='top'
             ]
 
-  .block.genres
-    .subheadline.m5 = i18n_i 'Genre', :other
-    = text_spoiler t('.show_list') do
-      ul.b-block_list.genres.anime-params.m10
-        - menu.sorted_genres.each do |genre|
-          - next if genre.censored? && !user_signed_in?
-          li[
-            class=(:m10 if genre.position && genre.position % 10 == 0)
-            data-field='genre'
-            data-value=genre.to_param
-          ]
-            input type='checkbox' autocomplete='off'
-            = localization_span genre
-            - if genre.description.present?
-              span.b-question.mobile.bubbled[
-                title=genre.description
-                data-predelay='150'
-                data-href=tooltip_moderations_genre_url(genre)
+  - if genres_v2?
+    - %i[demographic genre theme].each do |kind|
+      .block.genresv2
+        .subheadline.m5 = i18n_i kind.to_s.capitalize, :other
+        = text_spoiler t('.show_list') do
+          ul.b-block_list.genres.anime-params.m10
+            - menu.send(:"sorted_#{kind}s_v2").each do |genre|
+              - next if genre.censored? && !user_signed_in?
+                / class=(:m10 if genre.position && genre.position % 10 == 0)
+              li[
+                data-field='genre_v2'
+                data-value=genre.to_param
               ]
+                input type='checkbox' autocomplete='off'
+                = localization_span genre
+                - if genre.description.present?
+                  span.b-question.mobile.bubbled[
+                    title=genre.description
+                    data-predelay='150'
+                    data-href=tooltip_moderations_genre_v2_url(genre)
+                  ]
+  - else
+    .block.genres
+      .subheadline.m5 = i18n_i 'Genre', :other
+      = text_spoiler t('.show_list') do
+        ul.b-block_list.genres.anime-params.m10
+          - menu.sorted_genres.each do |genre|
+            - next if genre.censored? && !user_signed_in?
+            li[
+              class=(:m10 if genre.position && genre.position % 10 == 0)
+              data-field='genre'
+              data-value=genre.to_param
+            ]
+              input type='checkbox' autocomplete='off'
+              = localization_span genre
+              - if genre.description.present?
+                span.b-question.mobile.bubbled[
+                  title=genre.description
+                  data-predelay='150'
+                  data-href=tooltip_moderations_genre_url(genre)
+                ]
 
   .block.anime-params-block.licensors
     .subheadline.m5 = Anime.human_attribute_name :licensors

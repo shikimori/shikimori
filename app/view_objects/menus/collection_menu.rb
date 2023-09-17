@@ -6,11 +6,27 @@ class Menus::CollectionMenu < ViewObjectBase
   end
 
   def sorted_genres
-    genres.sort_by { |v| [v.position || v.id, h.localized_name(v)] }
+    sort_genres genres
+  end
+
+  def sorted_demographics_v2
+    sort_genres genres_v2.select(&:demographic?)
+  end
+
+  def sorted_genres_v2
+    sort_genres genres_v2.select(&:genre?)
+  end
+
+  def sorted_themes_v2
+    sort_genres genres_v2.select(&:theme?)
   end
 
   def genres
     "#{klass.base_class.name}GenresRepository".constantize.instance.to_a
+  end
+
+  def genres_v2
+    "#{klass.base_class.name}GenresV2Repository".constantize.instance.to_a
   end
 
   def studios
@@ -84,6 +100,15 @@ private
       Ranobe::KINDS
     else
       klass.kind.values - Ranobe::KINDS
+    end
+  end
+
+  def sort_genres genres
+    genres.sort_by do |genre|
+      [
+        genre.position || genre.id,
+        h.localized_name(genre)
+      ]
     end
   end
 end
