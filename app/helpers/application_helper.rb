@@ -20,8 +20,8 @@ module ApplicationHelper
     end
   end
 
-  def block(&)
-    capture(&)
+  def block(&block)
+    capture(&block)
   end
 
   def show_social?
@@ -43,8 +43,8 @@ module ApplicationHelper
     "#{request.protocol}#{request.host_with_port}#{file.url style, with_timestamp}"
   end
 
-  def info_line(title = nil, value = nil, &)
-    value = capture(&) if value.nil? && block
+  def info_line(title = nil, value = nil, &block)
+    value = capture(&block) if value.nil? && block
 
     if value.present?
       <<~HTML.squish.html_safe
