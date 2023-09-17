@@ -180,7 +180,7 @@
           = season.catalog_title
 
   - unless %w[user_rates userlist_comparer].include? params[:controller]
-    .block.scores
+    .block
       .subheadline.m5 = i18n_i 'Score'
       ul.b-block_list.scores.anime-params
         - [8, 7, 6].each do |score|
@@ -192,7 +192,7 @@
             | #{score}+
 
   - if menu.klass == Anime
-    .block.durations
+    .block
       .subheadline.m5 = i18n_i 'Episode'
       ul.b-block_list.durations.anime-params
         - Animes::Filters::ByDuration::DRY_TYPE.values.each do |value|
@@ -203,7 +203,7 @@
             input type='checkbox' autocomplete='off'
             = t ".anime.duration.#{value}"
 
-    .block.ratings
+    .block
       .subheadline.m5 = i18n_i 'Rating'
       ul.b-block_list.ratings.anime-params
         - Anime.rating.options.each do |title, rating|
@@ -222,10 +222,10 @@
 
   - if genres_v2?
     - %i[demographic genre theme].each do |kind|
-      .block.genresv2
+      .block
         .subheadline.m5 = i18n_i kind.to_s.capitalize, :other
         = text_spoiler t('.show_list'), is_expanded: kind == :demographic do
-          ul.b-block_list.genres.anime-params.m10
+          ul.b-block_list.genres_v2.anime-params.m10
             - menu.send(:"sorted_#{kind}s_v2").each do |genre|
               - next if genre.censored? && !user_signed_in?
                 / class=(:m10 if genre.position && genre.position % 10 == 0)
@@ -242,7 +242,7 @@
                     data-href=tooltip_moderations_genre_v2_url(genre)
                   ]
   - else
-    .block.genres
+    .block
       .subheadline.m5 = i18n_i 'Genre', :other
       = text_spoiler t('.show_list') do
         ul.b-block_list.genres.anime-params.m10
@@ -262,7 +262,7 @@
                   data-href=tooltip_moderations_genre_url(genre)
                 ]
 
-  .block.anime-params-block.licensors
+  .block
     .subheadline.m5 = Anime.human_attribute_name :licensors
     ul.b-block_list.licensors.anime-params.m10
       li.m10[

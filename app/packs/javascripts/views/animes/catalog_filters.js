@@ -317,13 +317,10 @@ export default function(basePath, currentUrl, changeCallback) {
   filters.parse(currentUrl);
 
   // раскрываем фильтры, если какой-то из них выбран
-  if (filters.params.genre.length) {
-    $root.find('.genres .b-spoiler').spoiler().trigger('spoiler:open');
-  }
-
-  if (filters.params.licensor.length) {
-    $root.find('.licensors .b-spoiler').spoiler().trigger('spoiler:open');
-  }
+  $root
+    .find('input[type=checkbox]:checked')
+    .closest('.b-spoiler')
+    .spoiler().trigger('spoiler:open');
 
   return filters;
 }
