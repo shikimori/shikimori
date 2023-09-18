@@ -1,3 +1,4 @@
 .comment-block
   .body.b-text_with_paragraphs
+    div = @resource.kind_text
     == BbCodes::Text.call @resource.description
