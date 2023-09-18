@@ -217,11 +217,26 @@ private
     #     src_2x: "/assets/globals/events/2023-02-10/menu_#{i}@2x.jpg"
     #   }
     # end,
-    url: 'https://alabuga-polytech.ru/?utm_source=kaifooi_sites&utm_medium=banner&utm_campaign=shikimori&utm_content=600x1000',
     images: [{
-      src: '/assets/globals/events/2023-08-17/menu_1.webp',
-      src_2x: '/assets/globals/events/2023-08-17/menu_1@2x.jpg'
-      # url: 'https://redirect.appmetrica.yandex.com/serve/316406067464575159'
+      src: '/assets/globals/events/2023-09-18/menu_1.png',
+      src_2x: '/assets/globals/events/2023-09-18/menu_1@2x.png',
+      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner1&utm_campaign=18_09&erid=2VtzqvZoG65'
+    }, {
+      src: '/assets/globals/events/2023-09-18/menu_2.png',
+      src_2x: '/assets/globals/events/2023-09-18/menu_2@2x.png',
+      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner2&utm_campaign=18_09&erid=2Vtzqua26U9'
+    }, {
+      src: '/assets/globals/events/2023-09-18/menu_3.png',
+      src_2x: '/assets/globals/events/2023-09-18/menu_3@2x.png',
+      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner3&utm_campaign=18_09&erid=2VtzqwERJg9'
+    }, {
+      src: '/assets/globals/events/2023-09-18/menu_1.png',
+      src_2x: '/assets/globals/events/2023-09-18/menu_1@2x.png',
+      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner4&utm_campaign=18_09&erid=2VtzqwFvJQH'
+    }, {
+      src: '/assets/globals/events/2023-09-18/menu_1.png',
+      src_2x: '/assets/globals/events/2023-09-18/menu_1@2x.png',
+      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner5&utm_campaign=18_09&erid=2Vtzqx6sEdP'
     }],
     rules: {
       cookie: 'i7',
@@ -394,13 +409,13 @@ private
     #   # Types::Ad::Type[:advrtr_240x400]
     # ],
     Types::Ad::Meta[:menu_240x400] => [
-      # Types::Ad::Type[:special_x300], # ALABUGA - rmeove 2023-08-30 18:00
+      Types::Ad::Type[:special_x300], # IMBA - remove 2023-10-18 15:00
       # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x400]
       # Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      # Types::Ad::Type[:special_x300], # ALABUGA - rmeove 2023-08-30 18:00
+      Types::Ad::Type[:special_x300], # IMBA - remove 2023-10-18 15:00
       # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600]
       # Types::Ad::Type[:advrtr_240x400],
@@ -420,7 +435,7 @@ private
       # Types::Ad::Type[:mt_footer_300x250]
     ],
     Types::Ad::Meta[:special_x1170] => [
-      # Types::Ad::Type[:special_x1170] # PUBG - rmeove 2023-08-16 17:00
+      # Types::Ad::Type[:special_x1170] # PUBG - remove 2023-08-16 17:00
       # Types::Ad::Type[:yd_1170x200]
     ]
   }
