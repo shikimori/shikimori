@@ -1,7 +1,7 @@
 - entry.genres_v2_sorted.each do |genre|
   a.b-tag[
-    class=(:bubbled if genre.description)
+    class=(:bubbled if genre.description.present?)
     href=entry.collection_url(genre_v2: genre)
-    data-href=tooltip_moderations_genre_v2_url(genre)
-    data-predelay='350'
+    data-href=(tooltip_moderations_genre_v2_url(genre) if genre.description.present?)
+    data-predelay=(350 if genre.description.present?)
   ] = localization_span genre
