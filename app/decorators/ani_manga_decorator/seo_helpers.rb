@@ -18,10 +18,10 @@ module AniMangaDecorator::SeoHelpers
 
   # главный сео жанр
   def main_genre
-    genre = object.genres.sort_by(&:seo).first
+    genre = object.genres.min(&:seo)
     genres = object.genres.select { |v| v.seo == genre.seo }
 
-    genres[object.id % genres.size - 1]
+    genres[(object.id % genres.size) - 1]
   end
 
 private

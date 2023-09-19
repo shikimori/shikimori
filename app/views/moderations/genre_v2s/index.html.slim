@@ -14,6 +14,7 @@ table.b-table.b-editable_grid.block2
       th
       = th field: :position
       - if can? :update, GenreV2
+        = th field: :seo, label: 'SEO'
         = th field: :mal_id
       th.text = GenreV2.human_attribute_name :description
 
@@ -40,6 +41,7 @@ table.b-table.b-editable_grid.block2
         td.id
           = genre.position
         - if can? :update, GenreV2
+          td = genre.seo
           td ##{genre.mal_id}
         td.text == truncate_html(BbCodes::Text.call(genre.description),
           length: 50,
