@@ -1,5 +1,5 @@
 class CopyGenresV1DataToGenresV2 < ActiveRecord::Migration[7.0]
-  def change
+  def up
     GenreV2.where(description: '').each do |genre_v2|
       genre = Genre.find_by(kind: genre_v2.entry_type.downcase, name: genre_v2.name)
       next unless genre

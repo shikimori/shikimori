@@ -42,7 +42,7 @@ private
       name: data[:name],
       russian: data[:name],
       kind: data[:kind],
-      entry_type: entry_type,
+      entry_type:,
       description: ''
     )
   end
@@ -91,7 +91,7 @@ private
     end
   end
 
-  # def preprocess_genres genres # rubocop:disable all
+  # def preprocess_genres genres
   #   has_erotica = genres.any? { |genre| genre[:name] == 'Erotica' }
   #   has_hentai = genres.any? { |genre| genre[:name] == 'Hentai' }
   #
@@ -151,6 +151,6 @@ private
     return unless entry.more_info.nil?
 
     more_info = MalParser::Entry::MoreInfo.call entry.id, entry.anime? ? :anime : :manga
-    entry.update more_info: more_info
+    entry.update more_info:
   end
 end

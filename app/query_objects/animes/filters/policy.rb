@@ -16,7 +16,7 @@ class Animes::Filters::Policy
   HENTAI_GENRES_IDS = Genre::CENSORED_IDS + Genre::DOUJINSHI_IDS
   HENTAI_GENRES_REGEXP = /(?:\A|,)(?:#{HENTAI_GENRES_IDS.join '|'})\b/
 
-  HENTAI_GENRES_V2_IDS = GenreV2::CENSORED_IDS + Genre::DOUJINSHI_IDS
+  HENTAI_GENRES_V2_IDS = GenreV2::CENSORED_IDS # + Genre::DOUJINSHI_IDS
   HENTAI_GENRES_V2_REGEXP = /(?:\A|,)(?:#{HENTAI_GENRES_V2_IDS.join '|'})\b/
 
   class << self
