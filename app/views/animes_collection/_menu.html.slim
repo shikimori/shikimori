@@ -228,7 +228,9 @@
           ul.b-block_list.genres_v2.anime-params.m10
             - menu.send(:"sorted_#{kind}s_v2").each do |genre|
               - next if genre.censored? && !user_signed_in?
-                / class=(:m10 if genre.position && genre.position % 10 == 0)
+
+              - if genre.position && genre.position % 900 == 0
+                .m10
               li[
                 data-field='genre_v2'
                 data-value=genre.to_param
