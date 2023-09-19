@@ -64,6 +64,10 @@ class AniMangaDecorator < DbEntryDecorator
     rates.where(user_id: h.current_user.id).first
   end
 
+  def genres_v2_sorted
+    object.genres_v2.sort_by { |v| [v.position, v.russian] }
+  end
+
   def roles
     RolesQuery.new object
   end
