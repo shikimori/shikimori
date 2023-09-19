@@ -95,7 +95,7 @@
       .block.menu-topics-block
         .subheadline.m5 = i18n_i 'Forum'
         /a.link href="{subforum_url resource.topic}" Форум
-        ul.b-block_list
+        div
           = render partial: 'animes/menu_topic',
             collection: resource.topic_views,
             as: :topic_view
