@@ -24,7 +24,7 @@
       itemprop='image'
       content='/assets/globals/missing/main@2x.png'
     ]
-  - preview_suffix = db_entry.anime? || db_entry.manga? ? '_animanga' : '_charperson' if derivative == :preview
+  - preview_suffix = db_entry.anime? || db_entry.kinda_manga? ? '_animanga' : '_charperson' if derivative == :preview
   img[
     alt=localized_name(db_entry)
     src='/assets/globals/missing/#{derivative}#{preview_suffix}.png'
