@@ -28,7 +28,7 @@
               data-title=anime.name
             ] = localization_span anime
 
-      - if content_text != :none
+      - if content_text != :none && !anime.banned?
         .text itemprop='description'
           = anime.decorate.description_html_truncated
 
