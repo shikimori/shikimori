@@ -13,6 +13,10 @@ class AniMangaDecorator < DbEntryDecorator
     :watch_online_external_links, :menu_external_links,
     :topic_views
 
+  def poster
+    super unless banned?
+  end
+
   def topic_views
     object
       .topics
