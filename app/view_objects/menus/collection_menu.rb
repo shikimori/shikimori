@@ -10,7 +10,11 @@ class Menus::CollectionMenu < ViewObjectBase
   end
 
   def genres
-    "#{klass.base_class.name}GenresRepository".constantize.instance.to_a
+    "#{klass.base_class.name}GenresRepository"
+      .constantize
+      .instance
+      .to_a
+      .reject { |genre| genre.banned? || genre.probably_banned? }
   end
 
   def studios
