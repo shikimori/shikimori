@@ -43,7 +43,7 @@ class AnimesController < DbEntriesController
   before_action :resource_redirect, if: :resource_id
   before_action :js_export, only: %i[show]
   before_action :og_meta, if: :resource_id
-  before_action :forbid_access_to_banned, if: :resource_id
+  before_action :forbid_access_to_banned, if: :resource_id, except: %i[tooltip]
 
   helper_method :main_resource_controller?
 
