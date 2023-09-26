@@ -24,9 +24,10 @@
       itemprop='image'
       content='/assets/globals/missing/main@2x.png'
     ]
+  - preview_suffix = db_entry.anime? || db_entry.manga? ? '_animanga' : '_charperson' if derivative == :preview
   img[
     alt=localized_name(db_entry)
-    src='/assets/globals/missing/#{derivative}.png'
-    srcset='/assets/globals/missing/#{derivative}@2x.png 2x'
+    src='/assets/globals/missing/#{derivative}#{preview_suffix}.png'
+    srcset='/assets/globals/missing/#{derivative}#{preview_suffix}@2x.png 2x'
   ]
     / loading=(:lazy unless derivative == :main)
