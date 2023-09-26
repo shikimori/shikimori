@@ -81,6 +81,7 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
         phrase: search_phrase
       )
       .map(&:decorate)
+      .reject(&:banned?)
 
     verify_age_restricted! @collection unless json?
   end

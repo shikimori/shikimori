@@ -13,11 +13,13 @@ class AnimesCollection::View < ViewObjectBase # rubocop:disable ClassLength
 
   def collection
     if season_page?
-      results.collection
+      results
+        .collection
         .map(&:decorate)
+        .reject(&:banned?)
         .group_by { |v| anime_ova_ona?(v) ? OVA_KEY : v.kind.to_s }
     else
-      results.collection&.map(&:decorate)
+      results.collection&.map(&:decorate)&.reject(&:banned?)
     end
   end
 
