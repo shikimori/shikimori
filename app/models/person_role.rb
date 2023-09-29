@@ -29,7 +29,7 @@ class PersonRole < ApplicationRecord
   }
   scope :directors, -> {
     people.where(
-      <<-SQL
+      <<-SQL.squish
         roles && '{#{DIRECTOR_ROLES.join ','}}'::text[]
       SQL
     )
