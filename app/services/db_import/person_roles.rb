@@ -41,11 +41,11 @@ private
     PersonRole.import person_roles
 
     Character
-      .where(id: person_roles.map(&:character_id).compact)
+      .where(id: person_roles.filter_map(&:character_id))
       .update_all updated_at: Time.zone.now
 
     Person
-      .where(id: person_roles.map(&:person_id).compact)
+      .where(id: person_roles.filter_map(&:person_id))
       .update_all updated_at: Time.zone.now
   end
 

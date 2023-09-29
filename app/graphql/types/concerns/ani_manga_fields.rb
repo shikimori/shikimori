@@ -26,12 +26,12 @@ module Types::Concerns::AniMangaFields
 
     field :character_roles, [Types::CharacterRoleType], complexity: 10
     def character_roles
-      object.person_roles.select(&:character_id)
+      object.person_roles.select(&:character_id).select { |v| v.character.present? }
     end
 
     field :person_roles, [Types::PersonRoleType], complexity: 10
     def person_roles
-      object.person_roles.select(&:person_id)
+      object.person_roles.select(&:person_id).select { |v| v.person.present? }
     end
 
     field :related, [Types::RelatedType], complexity: 10
