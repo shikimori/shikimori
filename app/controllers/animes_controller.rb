@@ -262,6 +262,8 @@ private
   end
 
   def forbid_access_to_banned
+    return if current_user&.staff?
+
     raise ActiveRecord::RecordNotFound if @resource.banned?
   end
 
