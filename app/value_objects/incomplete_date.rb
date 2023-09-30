@@ -44,7 +44,7 @@ class IncompleteDate
   end
 
   def human is_short_month
-    return if blank?
+    return if blank? || !date
 
     I18n.l(date, format: date_format(is_short_month))
       .strip
@@ -65,6 +65,7 @@ class IncompleteDate
     else
       @date ||= Date.new year || 1901, month || 1, day || 1
     end
+  rescue Date::Error
   end
 
   # make it comparable to other dates
