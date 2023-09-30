@@ -14,7 +14,7 @@ class AniMangaDecorator < DbEntryDecorator
     :topic_views
 
   def poster
-    super unless banned?
+    super if !banned? || h.current_user&.staff?
   end
 
   def topic_views
