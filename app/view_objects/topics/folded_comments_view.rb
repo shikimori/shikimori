@@ -1,4 +1,6 @@
 class Topics::FoldedCommentsView < ViewObjectBase
+  instance_cache :comments
+
   attr_implement :comments_scope,
     :comments_count,
     :fetch_url
@@ -14,7 +16,7 @@ class Topics::FoldedCommentsView < ViewObjectBase
 
   # есть ли свёрнутые комментарии?
   def folded?
-    folded_comments.positive?
+    folded_comments.positive? && comments.any?
   end
 
   # число свёрнутых комментариев
