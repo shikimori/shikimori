@@ -4,7 +4,7 @@ module DomainsConcern
   included do
     helper_method :shikimori?, :old_host?, :new_host?
     before_action :force_301_redirect_with_magic_link
-    before_action :force_301_redirect_for_guests
+    # before_action :force_301_redirect_for_guests
   end
 
   def shikimori?
@@ -34,16 +34,16 @@ module DomainsConcern
       ), allow_other_host: true
   end
 
-  def force_301_redirect_for_guests
-    return if Rails.env.test?
-    return unless domain_redirects_appliable?
-    return if user_signed_in?
-    return if request.host == ShikimoriDomain::BANNED_HOST
-
-    redirect_to request.url.sub(request.host, ShikimoriDomain::PROPER_HOST),
-      status: :moved_permanently,
-      allow_other_host: true
-  end
+  # def force_301_redirect_for_guests
+  #   return if Rails.env.test?
+  #   return unless domain_redirects_appliable?
+  #   return if user_signed_in?
+  #   return if request.host.in? ShikimoriDomain::BANNED_HOSTS
+  #
+  #   redirect_to request.url.sub(request.host, ShikimoriDomain::PROPER_HOST),
+  #     status: :moved_permanently,
+  #     allow_other_host: true
+  # end
 
   def domain_redirects_appliable?
     request.host != ShikimoriDomain::PROPER_HOST &&
