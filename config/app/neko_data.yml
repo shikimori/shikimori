@@ -2998,6 +2998,7 @@
         - 420
         - 4540
         - 2182
+        - 4890
       :generator: &133
         person_id: 1872
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -4587,6 +4588,7 @@
         - 39565
         - 44200
         - 56196
+        - 56685
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :boku_no_hero_academia
@@ -7051,7 +7053,7 @@
         - 37031
         - 40134
         - 51097
-      :threshold: 100%
+      :threshold: 98%
       :generator: &344
         not_ignored_ids:
         - 35062
@@ -8087,6 +8089,7 @@
         - 40323
         - 48436
         - 54761
+        - 56544
       :threshold: 90%
       :generator: &401
         ignore_latest_ids:
@@ -9323,7 +9326,8 @@
         - 9716
         - 10334
         - 37537
-      :threshold: 93.2%
+        - 56621
+      :threshold: 93.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :rurouni_kenshin
@@ -9394,7 +9398,7 @@
         - 42753
         - 52010
         - 52011
-      :threshold: 95%
+      :threshold: 95.2%
       :generator: &475
         not_ignored_ids:
         - 14951
@@ -9955,7 +9959,7 @@
         - 52497
         - 52897
         - 56064
-      :threshold: 94%
+      :threshold: 94.2%
       :generator: &503
         ignore_latest_ids:
         - 37966
@@ -11226,7 +11230,7 @@
         - 53603
         - 55283
         - 55404
-      :threshold: 86.5%
+      :threshold: 87%
       :generator: &569
         ignore_latest_ids:
         - 38714
@@ -12199,6 +12203,7 @@
         - 49320
         - 53540
         - 53780
+        - 56785
         not_ignored_ids:
         - 1365
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -13941,7 +13946,7 @@
         franchise: uma_musume
         not_anime_ids:
         - 34453
-      :threshold: 84.9%
+      :threshold: 82.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :uma_musume
@@ -15262,6 +15267,8 @@
         - 54047
         - 55006
         - 55617
+        - 56493
+        - 56682
       :threshold: 90.9%
       :generator: &785
         not_ignored_ids:
@@ -15364,8 +15371,9 @@
         - 54262
         - 54274
         - 55297
+        - 55378
         - 55883
-      :threshold: 92.1%
+      :threshold: 92.3%
       :generator: &789
         not_ignored_ids:
         - 38986
@@ -17030,10 +17038,10 @@
     :topic_id: 247360
     :rule: &876
       :algo: duration
-      :filters: &878
+      :filters: &877
         franchise: city_hunter
       :threshold: 90%
-      :generator: &879
+      :generator: &878
         ignore_latest_ids:
         - 37516
         - 51585
@@ -17052,6 +17060,35 @@
   mandatory_attributes: *6
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :city_hunter
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/city_hunter.jpg"
+    :border_color:
+    :title_ru: Городской охотник
+    :text_ru:
+    :title_en: City Hunter
+    :text_en:
+    :topic_id: 247360
+    :rule: &879
+      :algo: duration
+      :filters: *877
+      :threshold: 0.01
+      :generator: *878
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *4
+  neko_id: :city_hunter
+  level: 0
+  image: "/assets/achievements/anime/franchise/city_hunter.jpg"
+  border_color:
+  title_ru: Городской охотник
+  text_ru:
+  title_en: City Hunter
+  text_en:
+  topic_id: 247360
+  rule: *879
+  mandatory_attributes: *6
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :ad_police
     :level: 1
     :image: "/assets/achievements/anime/franchise/ad_police.jpg"
@@ -17061,7 +17098,7 @@
     :title_en: Bubblegum Crisis
     :text_en:
     :topic_id: 247360
-    :rule: &877
+    :rule: &880
       :algo: duration
       :filters: &881
         franchise: ad_police
@@ -17078,35 +17115,6 @@
   title_ru: Кризис каждый день
   text_ru:
   title_en: Bubblegum Crisis
-  text_en:
-  topic_id: 247360
-  rule: *877
-  mandatory_attributes: *6
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :city_hunter
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/city_hunter.jpg"
-    :border_color:
-    :title_ru: Городской охотник
-    :text_ru:
-    :title_en: City Hunter
-    :text_en:
-    :topic_id: 247360
-    :rule: &880
-      :algo: duration
-      :filters: *878
-      :threshold: 0.01
-      :generator: *879
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *4
-  neko_id: :city_hunter
-  level: 0
-  image: "/assets/achievements/anime/franchise/city_hunter.jpg"
-  border_color:
-  title_ru: Городской охотник
-  text_ru:
-  title_en: City Hunter
   text_en:
   topic_id: 247360
   rule: *880
@@ -17282,7 +17290,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.8%
+      :threshold: 91.4%
       :generator: &891
         ignore_latest_ids:
         - 38850
@@ -18409,7 +18417,7 @@
     :topic_id: 247360
     :rule: &949
       :algo: duration
-      :filters: &951
+      :filters: &950
         franchise: pripara
         not_anime_ids:
         - 21707
@@ -18421,7 +18429,7 @@
         - 38647
         - 38648
         - 40543
-      :threshold: 90.4%
+      :threshold: 89.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :pripara
@@ -18437,6 +18445,34 @@
   mandatory_attributes: *6
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :pripara
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/pripara.jpg"
+    :border_color:
+    :title_ru: При Пара
+    :text_ru:
+    :title_en: PriPara
+    :text_en:
+    :topic_id: 247360
+    :rule: &951
+      :algo: duration
+      :filters: *950
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *4
+  neko_id: :pripara
+  level: 0
+  image: "/assets/achievements/anime/franchise/pripara.jpg"
+  border_color:
+  title_ru: При Пара
+  text_ru:
+  title_en: PriPara
+  text_en:
+  topic_id: 247360
+  rule: *951
+  mandatory_attributes: *6
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :ze_tian_ji
     :level: 1
     :image: "/assets/achievements/anime/franchise/ze_tian_ji.jpg"
@@ -18446,7 +18482,7 @@
     :title_en: Ze Tian Ji
     :text_en:
     :topic_id: 247360
-    :rule: &950
+    :rule: &952
       :algo: duration
       :filters: &953
         franchise: ze_tian_ji
@@ -18460,34 +18496,6 @@
   title_ru: Путь выбора
   text_ru:
   title_en: Ze Tian Ji
-  text_en:
-  topic_id: 247360
-  rule: *950
-  mandatory_attributes: *6
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :pripara
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/pripara.jpg"
-    :border_color:
-    :title_ru: При Пара
-    :text_ru:
-    :title_en: PriPara
-    :text_en:
-    :topic_id: 247360
-    :rule: &952
-      :algo: duration
-      :filters: *951
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *4
-  neko_id: :pripara
-  level: 0
-  image: "/assets/achievements/anime/franchise/pripara.jpg"
-  border_color:
-  title_ru: При Пара
-  text_ru:
-  title_en: PriPara
   text_en:
   topic_id: 247360
   rule: *952
@@ -19434,6 +19442,7 @@
       :filters: &1004
         franchise: captain_tsubasa
         not_anime_ids:
+        - 1674
         - 39226
         - 39227
       :threshold: 96.6%
@@ -20295,8 +20304,9 @@
       :filters: &1048
         franchise: dragon_quest
         not_anime_ids:
+        - 36112
         - 49228
-      :threshold: 97.4%
+      :threshold: 96.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :dragon_quest
@@ -26257,6 +26267,9 @@
         - 53077
         - 34208
         - 38999
+        - 1758
+        - 1752
+        - 49179
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *4
   neko_id: :moe
@@ -26883,6 +26896,8 @@
         - 576
         - 190
         - 22745
+        - 196
+        - 48643
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
   default_values: *4
   neko_id: :oniichan
@@ -28023,6 +28038,9 @@
         - 50330
         - 27831
         - 8561
+        - 9166
+        - 48845
+        - 21639
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *4
   neko_id: :sovietanime
@@ -30710,6 +30728,7 @@
           - 25011
           - 37517
           - 316
+          - 9014
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
   default_values: *4
   neko_id: :yuuri
