@@ -6,7 +6,7 @@ class DbEntry::CensoredPolicy
 
   def censored?
     @entry.rating == ADULT_RATING ||
-      @entry.genres.any?(&:censored?)
+      @entry.genres.any? { |genre| genre.censored? || genre.banned? || genre.probably_banned? }
   end
 
   def self.zzz? entry
