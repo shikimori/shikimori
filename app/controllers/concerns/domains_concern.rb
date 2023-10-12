@@ -4,7 +4,7 @@ module DomainsConcern
   included do
     helper_method :shikimori?, :old_host?, :new_host?
     before_action :force_301_redirect_with_magic_link
-    # before_action :force_301_redirect_for_guests, if: :old_host?
+    before_action :force_301_redirect_for_guests, if: :old_host?
     before_action :force_seo_redirect, if: :old_host?
   end
 
